@@ -19,6 +19,10 @@
 
 -(NSString *) text;
 
+-(id) initWithTableSize:(int) size 
+             GenRoutine:(int) gen 
+          AndParameters:(NSString *) params;
+
 -(id) initWithNumber:(int) i 
             LoadTime:(float) t 
            TableSize:(int) size 

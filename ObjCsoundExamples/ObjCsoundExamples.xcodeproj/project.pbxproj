@@ -23,8 +23,6 @@
 		C45A28D615391AA800F80998 /* UIKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28D215391AA800F80998 /* UIKnob.m */; };
 		C45A28E215391AAC00F80998 /* CSDFunctionStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28D915391AAC00F80998 /* CSDFunctionStatement.m */; };
 		C45A28E315391AAC00F80998 /* CSDInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28DB15391AAC00F80998 /* CSDInstrument.m */; };
-		C45A28E415391AAC00F80998 /* CSDOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28DD15391AAC00F80998 /* CSDOpcode.m */; };
-		C45A28E515391AAC00F80998 /* CSDOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28DF15391AAC00F80998 /* CSDOscillator.m */; };
 		C45A28E615391AAC00F80998 /* CSDSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28E115391AAC00F80998 /* CSDSynthesizer.m */; };
 		C45A291B15391AB700F80998 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28EA15391AB700F80998 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C45A291C15391AB700F80998 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A28ED15391AB700F80998 /* CsoundMIDI.m */; };
@@ -45,6 +43,8 @@
 		C45A292E15391C2C00F80998 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45A292D15391C2C00F80998 /* CoreMotion.framework */; };
 		C45A293015391C4500F80998 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45A292F15391C4500F80998 /* AudioToolbox.framework */; };
 		C45A293215391D3A00F80998 /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C45A293115391D3A00F80998 /* template.csd */; };
+		C45A293815394AC400F80998 /* CSDOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A293515394AC400F80998 /* CSDOpcode.m */; };
+		C45A293915394AC400F80998 /* CSDOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45A293715394AC400F80998 /* CSDOscillator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,10 +76,6 @@
 		C45A28D915391AAC00F80998 /* CSDFunctionStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDFunctionStatement.m; sourceTree = "<group>"; };
 		C45A28DA15391AAC00F80998 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDInstrument.h; sourceTree = "<group>"; };
 		C45A28DB15391AAC00F80998 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDInstrument.m; sourceTree = "<group>"; };
-		C45A28DC15391AAC00F80998 /* CSDOpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOpcode.h; sourceTree = "<group>"; };
-		C45A28DD15391AAC00F80998 /* CSDOpcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOpcode.m; sourceTree = "<group>"; };
-		C45A28DE15391AAC00F80998 /* CSDOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOscillator.h; sourceTree = "<group>"; };
-		C45A28DF15391AAC00F80998 /* CSDOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOscillator.m; sourceTree = "<group>"; };
 		C45A28E015391AAC00F80998 /* CSDSynthesizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDSynthesizer.h; sourceTree = "<group>"; };
 		C45A28E115391AAC00F80998 /* CSDSynthesizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDSynthesizer.m; sourceTree = "<group>"; };
 		C45A28E915391AB700F80998 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
@@ -133,6 +129,10 @@
 		C45A292D15391C2C00F80998 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C45A292F15391C4500F80998 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C45A293115391D3A00F80998 /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
+		C45A293415394AC400F80998 /* CSDOpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOpcode.h; sourceTree = "<group>"; };
+		C45A293515394AC400F80998 /* CSDOpcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOpcode.m; sourceTree = "<group>"; };
+		C45A293615394AC400F80998 /* CSDOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOscillator.h; sourceTree = "<group>"; };
+		C45A293715394AC400F80998 /* CSDOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOscillator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,13 +239,10 @@
 				C45A28D915391AAC00F80998 /* CSDFunctionStatement.m */,
 				C45A28DA15391AAC00F80998 /* CSDInstrument.h */,
 				C45A28DB15391AAC00F80998 /* CSDInstrument.m */,
-				C45A28DC15391AAC00F80998 /* CSDOpcode.h */,
-				C45A28DD15391AAC00F80998 /* CSDOpcode.m */,
-				C45A28DE15391AAC00F80998 /* CSDOscillator.h */,
-				C45A28DF15391AAC00F80998 /* CSDOscillator.m */,
 				C45A28E015391AAC00F80998 /* CSDSynthesizer.h */,
 				C45A28E115391AAC00F80998 /* CSDSynthesizer.m */,
 				C45A293115391D3A00F80998 /* template.csd */,
+				C45A293315394AC400F80998 /* Opcodes */,
 			);
 			name = "Objective-Csound";
 			path = "../Objective-Csound";
@@ -345,6 +342,17 @@
 			path = libs;
 			sourceTree = "<group>";
 		};
+		C45A293315394AC400F80998 /* Opcodes */ = {
+			isa = PBXGroup;
+			children = (
+				C45A293415394AC400F80998 /* CSDOpcode.h */,
+				C45A293515394AC400F80998 /* CSDOpcode.m */,
+				C45A293615394AC400F80998 /* CSDOscillator.h */,
+				C45A293715394AC400F80998 /* CSDOscillator.m */,
+			);
+			path = Opcodes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -421,8 +429,6 @@
 				C45A28D615391AA800F80998 /* UIKnob.m in Sources */,
 				C45A28E215391AAC00F80998 /* CSDFunctionStatement.m in Sources */,
 				C45A28E315391AAC00F80998 /* CSDInstrument.m in Sources */,
-				C45A28E415391AAC00F80998 /* CSDOpcode.m in Sources */,
-				C45A28E515391AAC00F80998 /* CSDOscillator.m in Sources */,
 				C45A28E615391AAC00F80998 /* CSDSynthesizer.m in Sources */,
 				C45A291B15391AB700F80998 /* CsoundObj.m in Sources */,
 				C45A291C15391AB700F80998 /* CsoundMIDI.m in Sources */,
@@ -435,6 +441,8 @@
 				C45A292315391AB700F80998 /* CachedGyroscope.m in Sources */,
 				C45A292415391AB700F80998 /* CachedSlider.m in Sources */,
 				C45A292515391AB700F80998 /* CachedSwitch.m in Sources */,
+				C45A293815394AC400F80998 /* CSDOpcode.m in Sources */,
+				C45A293915394AC400F80998 /* CSDOscillator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

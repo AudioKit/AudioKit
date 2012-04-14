@@ -51,11 +51,7 @@
     [self configureView];
     
     synth = [[CSDSynthesizer alloc] init];
-    CSDFunctionStatement * f1 =  [[CSDFunctionStatement alloc] initWithNumber:1 
-                                                                     LoadTime:0 
-                                                                    TableSize:4096 
-                                                                   GenRoutine:10 
-                                                                AndParameters:@"1"];
+    CSDFunctionStatement * f1 =  [[CSDFunctionStatement alloc] initWithTableSize:4096 GenRoutine:10 AndParameters:@"1"];
     [synth addFunctionStatement:f1];
     
     myInstrument =  [[CSDInstrument alloc] initWithOutput:@"aout1"];

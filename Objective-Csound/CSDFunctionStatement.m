@@ -15,6 +15,13 @@
 @synthesize generatingRoutine;
 @synthesize parameters;
 
+
+-(id) initWithTableSize:(int) size 
+             GenRoutine:(int) gen 
+          AndParameters:(NSString *) params {
+    return [self initWithNumber:1 LoadTime:0 TableSize:size GenRoutine:gen AndParameters:params];
+}
+
 -(id) initWithNumber:(int) i 
             LoadTime:(float) t 
            TableSize:(int) size 
