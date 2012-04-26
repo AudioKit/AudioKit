@@ -11,27 +11,11 @@
 @implementation CSDOpcode
 
 @synthesize output;
+@synthesize opcode;
+@synthesize parameters;
 
 -(NSString *) textWithPValue:(int) p {
-    return @"";
+    return [NSString stringWithFormat:@"%@ %@ %@", output, opcode, parameters];
 }
-
-//-(id) initWithOscillatorType:(NSString *) opcode
-//                      AtRate:(NSString *) rate 
-//                OutputtingTo:(NSString *) output
-//               WithAmplitude:(float) amp
-//                AndFrequency:(float) freq 
-//            WithFuncionTable:(int)ifn 
-//           AndOptionalPhases:(NSArray *) iphs {
-//    self = [super init];
-//    if (self) {
-//        textRepresentation = [NSString stringWithFormat:
-//                 @"%@%@ %@ %0.2f, %0.2f, %i\n",
-//                 rate, output, opcode, amp, freq, ifn];
-//    }
-//    return self; 
-//    
-//}
-
 
 @end

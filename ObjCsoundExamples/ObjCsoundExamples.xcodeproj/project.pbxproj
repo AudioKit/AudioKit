@@ -572,6 +572,7 @@
 				C45A28C915391A9D00F80998 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

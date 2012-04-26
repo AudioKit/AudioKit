@@ -8,18 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSDOpcode : NSObject {
-//    NSString * textRepresentation;
-}
+@interface CSDOpcode : NSObject 
+
 @property (nonatomic, strong) NSString * output;
+@property (nonatomic, strong) NSString * opcode;
+@property (nonatomic, strong) NSString * parameters; 
 
 -(NSString *) textWithPValue:(int)p;
 
-//-(id) initWithOscillatorType:(NSString *) opcode
-//                      AtRate:(NSString *) rate 
-//                OutputtingTo:(NSString *) output
-//               WithAmplitude:(float) amp
-//                AndFrequency:(float) freq 
-//            WithFuncionTable:(int)ifn 
-//           AndOptionalPhases:(NSArray *) iphs;
 @end

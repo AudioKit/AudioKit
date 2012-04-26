@@ -61,9 +61,7 @@
 -(void) run {
     
     NSString * instrumentText = @"";
-//    for (CSDInstrument * i in instruments) {
-//        instrumentText = [instrumentText stringByAppendingString:[i csdEntry]];
-//    }
+
     for (int i = 0; i< [instruments count ]; i++) {
         CSDInstrument *currentInst = [instruments objectAtIndex:i];
         instrumentText = [instrumentText stringByAppendingFormat:@"instr %i\n", i+1];

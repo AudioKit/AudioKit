@@ -11,8 +11,8 @@
 
 @interface CSDInstrument : NSObject
 @property (nonatomic, strong) NSString *output;
-@property NSMutableArray *opcodes;
-@property NSMutableArray *parameters;
+@property (nonatomic, strong) NSMutableArray *opcodes;
+@property (nonatomic, strong) NSMutableArray *parameters;
 
 -(id) initWithOutput:(NSString *) outputString;
 -(void) addOpcode:(CSDOpcode *) opcode;

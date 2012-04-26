@@ -11,7 +11,6 @@
 #import "CSDSynthesizer.h"
 #import "CSDInstrument.h"
 #import "CSDFunctionStatement.h"
-#import "CSDOpcode.h"
 #import "CSDOscillator.h"
 
 @interface DetailViewController : UIViewController <UISplitViewControllerDelegate>{

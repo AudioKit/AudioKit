@@ -55,13 +55,21 @@
     [synth addFunctionStatement:f1];
     
     myInstrument =  [[CSDInstrument alloc] initWithOutput:@"aout1"];
-    CSDOscillator * oscil1 =  [[CSDOscillator alloc] initWithOutput:@"aout1" 
+    CSDOscillator * oscil1 =  [[CSDOscillator alloc] initWithOutput:@"a2" 
                                                           Amplitude:@"p" 
                                                           Frequency:@"p" 
                                                       FunctionTable:f1 
                                                   AndOptionalPhases:nil];
     [myInstrument addOpcode:oscil1];
     [synth addInstrument:myInstrument];
+    
+    CSDOscillator * oscil2 =  [[CSDOscillator alloc] initWithOutput:@"aout1" 
+                                                          Amplitude:@"a2" 
+                                                          Frequency:@"p" 
+                                                      FunctionTable:f1 
+                                                  AndOptionalPhases:nil];
+    [myInstrument addOpcode:oscil2];
+
     [synth run];
 }
 
@@ -70,7 +78,7 @@
 }
 
 - (IBAction)hit2:(id)sender {
-    [synth playNote:[myInstrument createNoteWithParameters:@"1.0 660"] WithDuration:1];
+    [synth playNote:[myInstrument createNoteWithParameters:[NSString stringWithFormat:@"1.0 %i", (arc4random()%200+400)]] WithDuration:1];
 }
 
 

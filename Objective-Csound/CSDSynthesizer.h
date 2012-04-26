@@ -11,6 +11,10 @@
 #import "CSDInstrument.h"
 #import "CSDFunctionStatement.h"
 
+@protocol CSDOpcode
+-(NSString *) textWithPValue:(int)p;
+@end
+
 @interface CSDSynthesizer : NSObject {
 @private     
     CsoundObj * csound;
