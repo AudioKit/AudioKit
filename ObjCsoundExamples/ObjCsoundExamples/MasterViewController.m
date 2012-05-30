@@ -144,7 +144,7 @@
 {
     switch ([indexPath row]) {
         case 0:
-            [self presentedViewController
+            [self presentedViewController];
             break;
         case 1:
             break;
