@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @class DetailViewController;
+@class CSDFosciliController;
 
 @interface MasterViewController : UITableViewController
-
+{
+    NSArray *objectiveCsoundExperiments;
+    NSArray *objectiveCsoundExperimentDetails;
+}
 @property (strong, nonatomic) DetailViewController *detailViewController;
+@property (strong, nonatomic) CSDFosciliController *csdFosciliController;
+
+@property (strong, nonatomic) NSArray *objectiveCsoundExperiments;
+@property (strong, nonatomic) NSArray *objectiveCsoundExperimentDetails;
 
 @end

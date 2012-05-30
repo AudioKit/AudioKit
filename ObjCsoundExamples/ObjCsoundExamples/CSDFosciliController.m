@@ -1,19 +1,19 @@
 //
-//  DetailViewController.m
+//  CSDFosciliController.m
 //  ObjCsoundExamples
 //
-//  Created by Aurelius Prochazka on 4/13/12.
+//  Created by Adam Boulanger on 5/30/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "CSDFosciliController.h"
 
-@interface DetailViewController ()
+@interface CSDFosciliController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
-@implementation DetailViewController
+@implementation CSDFosciliController
 
 @synthesize detailItem = _detailItem;
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
@@ -29,7 +29,7 @@
         // Update the view.
         [self configureView];
     }
-
+    
     if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
     }        
@@ -38,7 +38,7 @@
 - (void)configureView
 {
     // Update the user interface for the detail item.
-
+    
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [self.detailItem description];
     }
@@ -51,43 +51,47 @@
     [self configureView];
     
     synth = [[CSDSynthesizer alloc] init];
-    CSDFunctionStatement * f1 =  [[CSDFunctionStatement alloc] initWithTableSize:4096 GenRoutine:10 AndParameters:@"1"];
+    CSDFunctionStatement *f1 = [[CSDFunctionStatement alloc] 
+                                initWithTableSize:4096 GenRoutine:10 AndParameters:@"1"];
     [synth addFunctionStatement:f1];
     
-    myInstrument =  [[CSDInstrument alloc] initWithOutput:@"aout1"];
-    CSDOscillator * oscil1 =  [[CSDOscillator alloc] initWithOutput:@"a2" 
-                                                          Amplitude:@"p" 
-                                                          Frequency:@"p" 
-                                                      FunctionTable:f1 
-                                                  AndOptionalPhases:nil];
-    [myInstrument addOpcode:oscil1];
+    myInstrument = [[CSDInstrument alloc] initWithOutput:@"aout1"];
+    CSDOscillator *modIndexOscil = [[CSDOscillator alloc] 
+                                    initWithOutput:@"k2" 
+                                    Amplitude:@"p" 
+                                    Frequency:@"p" 
+                                    FunctionTable:f1 
+                                    AndOptionalPhases:nil];
+    
+    [myInstrument addOpcode:modIndexOscil];
     [synth addInstrument:myInstrument];
     
-    CSDOscillator * oscil2 =  [[CSDOscillator alloc] initWithOutput:@"aout1" 
-                                                          Amplitude:@"a2" 
-                                                          Frequency:@"p" 
-                                                      FunctionTable:f1 
-                                                  AndOptionalPhases:nil];
-    [myInstrument addOpcode:oscil2];
-
+    CSDFoscili *foscili1 = [[CSDFoscili alloc] 
+                            initWithOutput:@"aout1" 
+                            Amplitude:@"p" 
+                            Pitch:@"p" 
+                            Carrier:@"1" 
+                            Modulation:@"p" 
+                            ModIndex:@"k2" 
+                            FunctionTable:f1 
+                            AndOptionalPhase:nil];
+    [myInstrument addOpcode:foscili1];
+    
     [synth run];
 }
 
 - (IBAction)hit1:(id)sender {
-    [synth playNote:[myInstrument createNoteWithParameters:@"0.5 440"] WithDuration:1];
+    [synth playNote:[myInstrument createNoteWithParameters:@"0.5 440 1.414"] WithDuration:3];
 }
 
 - (IBAction)hit2:(id)sender {
-    [synth playNote:[myInstrument createNoteWithParameters:[NSString stringWithFormat:@"1.0 %i", (arc4random()%200+400)]] WithDuration:1];
+    [synth playNote:[myInstrument createNoteWithParameters:@"0.5 440 .01"] WithDuration:3];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    //ARB - still need to figure out if this is necessary, especially in an arc environment
-    [synth stopCsound];
-    synth = nil;
     self.detailDescriptionLabel = nil;
 }
 
@@ -100,11 +104,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Detail", @"Detail");
+        self.title = NSLocalizedString(@"Foscili", @"Foscili");
     }
     return self;
 }
-							
+
 #pragma mark - Split view
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController

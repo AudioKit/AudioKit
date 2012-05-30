@@ -9,6 +9,7 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
+#import "CSDFosciliController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -23,21 +24,37 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Master", @"Master");
-        self.clearsSelectionOnViewWillAppear = NO;
+        self.title = NSLocalizedString(@"Objective-Csound Examples", @"Objective-Csound Examples");
+        self.clearsSelectionOnViewWillAppear = YES;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     return self;
+}
+
+-(void)initTableOfExperimentsAndDetails
+{
+    objectiveCsoundExperiments = [[NSArray alloc] initWithObjects:@"CSDOscil",
+                                                                @"CSDFoscili", 
+                                                                nil];
+    objectiveCsoundExperimentDetails = [[NSArray alloc] initWithObjects:@"Working",
+                                                                        @"notWorking",
+                                                                        nil];
+    for ( NSString *s in objectiveCsoundExperiments) {
+        [self insertNewObject:s];
+    } 
 }
 							
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self initTableOfExperimentsAndDetails];
+    
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    /*UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    self.navigationItem.rightBarButtonItem = addButton;*/
 }
 
 - (void)viewDidUnload
@@ -56,7 +73,7 @@
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-    [_objects insertObject:[NSDate date] atIndex:0];
+    [_objects insertObject:sender atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -86,6 +103,8 @@
 
     NSDate *object = [_objects objectAtIndex:indexPath.row];
     cell.textLabel.text = [object description];
+    //ARB - TODO: detail not working
+    cell.detailTextLabel.text = [objectiveCsoundExperimentDetails objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -123,8 +142,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
-    self.detailViewController.detailItem = object;
+    switch ([indexPath row]) {
+        case 0:
+            [self presentedViewController
+            break;
+        case 1:
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
