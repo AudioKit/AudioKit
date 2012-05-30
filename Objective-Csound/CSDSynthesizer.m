@@ -12,15 +12,16 @@
 
 @synthesize options;
 @synthesize sampleRate;
-@synthesize controlRate;
+//@synthesize controlRate;
+@synthesize samplesPerControlPeriod;
 @synthesize numberOfChannels;
 @synthesize zeroDBFullScaleValue;
 @synthesize instruments;
 @synthesize functionStatements;
-
+/*
 -(int) numberOfSamples {
     return sampleRate/controlRate;
-}
+}*/
 
 -(void) writeString:(NSString *) content toFile:(NSString *) fileName{
     //get the documents directory:
@@ -56,6 +57,10 @@
     int instr_no = [instruments indexOfObject:[note valueForKey:@"instrument"]] + 1;
     NSString *params = [note valueForKey:@"parameters"];
     [csound sendScore:[NSString stringWithFormat:@"i%i 0 %0.2f %@", instr_no, d, params]];
+}
+
+-(void) stopCsound{
+    [csound stopCsound];
 }
 
 -(void) run {
@@ -98,6 +103,15 @@
     [csound startCsound:fileName];
 }
 
+//ARB - consider manager level reset for objective-csound
+-(void)resetSynth 
+{
+    instruments = nil;
+    functionStatements = nil;
+    csound = nil;
+
+    [self init];
+}
 
 
 - (id)init
@@ -106,10 +120,12 @@
     if (self) {
         options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
         sampleRate = 44100;
-        controlRate = 4410;
+        //controlRate = 4410;
+        samplesPerControlPeriod = 256;
         numberOfChannels = 1; //MONO
         zeroDBFullScaleValue = 1.0f;
-        header = [NSString stringWithFormat:@"0dbfs = %f", zeroDBFullScaleValue];
+        header = [NSString stringWithFormat:@"sr = %d\n0dbfs = %f\nksmps = %d", 
+                  sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
         functionStatements = [[NSMutableArray alloc] init]; //@";RUN CSOUND FOR 27 HOURS\nf0 1000000";
         instruments = [[NSMutableArray alloc] init];
         csound = [[CsoundObj alloc] init];
