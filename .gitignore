@@ -5,8 +5,9 @@ build/
 *.pbxuser 
 *.perspective 
 *.perspectivev3 
-*.xcworkspace/ 
-xcuserdata/ 
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
 
 
 # old skool
