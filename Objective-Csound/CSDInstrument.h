@@ -1,3 +1,4 @@
+
 //
 //  CSDInstrument.h
 //  CsdReinvention
@@ -7,16 +8,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CSDOpcode.h"
-
+//#import "CSDOpcode.h"
+//
 @interface CSDInstrument : NSObject
-@property (nonatomic, strong) NSString *output;
-@property (nonatomic, strong) NSMutableArray *opcodes;
-@property (nonatomic, strong) NSMutableArray *parameters;
-
--(id) initWithOutput:(NSString *) outputString;
--(void) addOpcode:(CSDOpcode *) opcode;
--(void) addParameter:(id) p;
--(NSDictionary *) createNoteWithParameters:(NSString *)parameters;
--(NSString *) csdEntry;
+//@property (nonatomic, strong) NSString *output;
+//@property (nonatomic, strong) NSMutableArray *opcodes;
+//@property (nonatomic, strong) NSMutableArray *parameters;
+//
+//-(id) initWithOutput:(NSString *) outputString;
+//-(void) addOpcode:(CSDOpcode *) opcode;
+//-(void) addParameter:(id) p;
+//-(NSDictionary *) createNoteWithParameters:(NSString *)parameters;
+//-(NSString *) csdEntry;
 @end
