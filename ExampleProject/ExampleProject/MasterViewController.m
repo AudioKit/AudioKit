@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 
 #import "Example1Controller.h"
+#import "OscillatorViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -28,7 +29,7 @@
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
-    exampleNames = [NSMutableArray arrayWithObjects:@"Example 1", nil];
+    exampleNames = [NSMutableArray arrayWithObjects:@"Example 1", @"Simple Oscillator", nil];
     return self;
 }
 							
@@ -128,10 +129,29 @@
         case 0:
             controller = [[Example1Controller alloc] initWithNibName:@"Example1Controller" bundle:nil];
             break;
+        case 1:
+            controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
+            break;
         default:
             break;
     }
 
+    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    UISplitViewController* splitViewController = appDelegate.splitViewController;
+    
+    UIViewController* currentDetail = (UIViewController*)splitViewController.delegate;
+    
+    if(currentDetail.navigationItem.leftBarButtonItem != nil) {
+        controller.navigationItem.leftBarButtonItem = currentDetail.navigationItem.leftBarButtonItem;
+    }
+    
+    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    NSArray *viewControllers = [[NSArray alloc] initWithObjects:[splitViewController.viewControllers objectAtIndex:0], detailNavigationController, nil];
+    splitViewController.viewControllers = viewControllers;
+    //splitViewController.delegate = controller;
+
+    
     
 }
 

@@ -12,7 +12,6 @@ static CSDManager* _sharedCSDManager = nil;
 
 +(CSDManager *)sharedCSDManager
 {
-    NSLog(@"Called sharedCSDManager");
     @synchronized([CSDManager class]) 
     {
         if(!_sharedCSDManager) 

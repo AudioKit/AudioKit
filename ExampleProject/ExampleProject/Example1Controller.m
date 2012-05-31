@@ -45,12 +45,16 @@
     [[CSDManager sharedCSDManager] runCSDFile:@"example"];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [[CSDManager sharedCSDManager] stop];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     self.detailDescriptionLabel = nil;
-    [[CSDManager sharedCSDManager] stop];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
