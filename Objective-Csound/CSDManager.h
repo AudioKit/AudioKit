@@ -1,13 +1,23 @@
-//
 //  CSDManager.h
-//  ExampleProject
-//
-//  Created by Aurelius Prochazka on 5/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
-@interface CSDManager : NSObject
+#import "CsoundObj.h"
+#import "CSDOrchestra.h"
 
+@interface CSDManager : NSObject {
+    BOOL isRunning;
+    CsoundObj * csound;
+}
+@property (nonatomic, strong) NSString * options;
+@property (readonly) BOOL isRunning;
+
++(CSDManager *) sharedCSDManager;
+-(void)runCSDFile:(NSString *)filename;
+-(void)runOrchestra:(CSDOrchestra *)orch;
+-(void)stop;
+
+//Other Potential problems
+//-(void)mute;
+//-(void)pause;
 @end

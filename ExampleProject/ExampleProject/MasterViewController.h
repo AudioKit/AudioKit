@@ -10,7 +10,9 @@
 
 @class Example1Controller;
 
-@interface MasterViewController : UITableViewController
+@interface MasterViewController : UITableViewController {
+    NSMutableArray * exampleNames;
+}
 
 @property (strong, nonatomic) Example1Controller *example1Controller;
 

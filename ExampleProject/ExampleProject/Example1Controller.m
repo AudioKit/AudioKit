@@ -1,11 +1,3 @@
-//
-//  DetailViewController.m
-//  ExampleProject
-//
-//  Created by Aurelius Prochazka on 5/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
-//
-
 #import "Example1Controller.h"
 
 @interface Example1Controller ()
@@ -49,6 +41,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    NSLog(@"Starting the CsoundManager business");
+    [[CSDManager sharedCSDManager] runCSDFile:@"example"];
 }
 
 - (void)viewDidUnload
@@ -56,6 +50,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     self.detailDescriptionLabel = nil;
+    [[CSDManager sharedCSDManager] stop];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -86,6 +81,17 @@
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
+}
+
+- (IBAction)touchButton:(id)sender {
+    UIButton * button = sender;
+    if ([[CSDManager sharedCSDManager] isRunning]) {
+        [[CSDManager sharedCSDManager] stop];
+        [button setTitle: @"Run" forState: UIControlStateNormal];
+    } else {
+        [[CSDManager sharedCSDManager] runCSDFile:@"example"];
+        [button setTitle: @"Stop" forState: UIControlStateNormal];
+    }
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MasterViewController.h"
+#import "AppDelegate.h"
 
 #import "Example1Controller.h"
 
@@ -23,21 +24,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Master", @"Master");
+        self.title = @"Objective-Csound";
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
+    exampleNames = [NSMutableArray arrayWithObjects:@"Example 1", nil];
     return self;
 }
 							
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+	[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 - (void)viewDidUnload
@@ -70,7 +68,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return exampleNames.count;
 }
 
 // Customize the appearance of table view cells.
@@ -81,18 +79,20 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
-
-
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
-    cell.textLabel.text = [object description];
+    
+    // Configure the cell.
+    cell.textLabel.text = [exampleNames objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,8 +123,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
-    self.example1Controller.detailItem = object;
+    UIViewController* controller;
+    switch (indexPath.row) {
+        case 0:
+            controller = [[Example1Controller alloc] initWithNibName:@"Example1Controller" bundle:nil];
+            break;
+        default:
+            break;
+    }
+
+    
 }
 
 @end

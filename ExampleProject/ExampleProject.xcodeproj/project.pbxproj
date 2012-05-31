@@ -47,7 +47,9 @@
 		C4C5521C1577028C005F7EE4 /* CSDOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552131577028C005F7EE4 /* CSDOpcode.m */; };
 		C4C5521D1577028C005F7EE4 /* CSDOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552151577028C005F7EE4 /* CSDOscillator.m */; };
 		C4C5521E1577028C005F7EE4 /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4C552161577028C005F7EE4 /* template.csd */; };
-		C4C55225157704EB005F7EE4 /* CSDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C55224157704EB005F7EE4 /* CSDManager.m */; };
+		C4C55240157714DC005F7EE4 /* CSDOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */; };
+		C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523D1577143B005F7EE4 /* CSDManager.m */; };
+		C4C5524B15771DB7005F7EE4 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4C5524A15771DB7005F7EE4 /* example.csd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,8 +142,11 @@
 		C4C552141577028C005F7EE4 /* CSDOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOscillator.h; sourceTree = "<group>"; };
 		C4C552151577028C005F7EE4 /* CSDOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOscillator.m; sourceTree = "<group>"; };
 		C4C552161577028C005F7EE4 /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
-		C4C55223157704EB005F7EE4 /* CSDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDManager.h; sourceTree = "<group>"; };
-		C4C55224157704EB005F7EE4 /* CSDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDManager.m; sourceTree = "<group>"; };
+		C4C5523C1577143B005F7EE4 /* CSDManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDManager.h; sourceTree = "<group>"; };
+		C4C5523D1577143B005F7EE4 /* CSDManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDManager.m; sourceTree = "<group>"; };
+		C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOrchestra.h; sourceTree = "<group>"; };
+		C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOrchestra.m; sourceTree = "<group>"; };
+		C4C5524A15771DB7005F7EE4 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,8 +343,10 @@
 		C4C552061577028C005F7EE4 /* Objective-Csound */ = {
 			isa = PBXGroup;
 			children = (
-				C4C55223157704EB005F7EE4 /* CSDManager.h */,
-				C4C55224157704EB005F7EE4 /* CSDManager.m */,
+				C4C5523C1577143B005F7EE4 /* CSDManager.h */,
+				C4C5523D1577143B005F7EE4 /* CSDManager.m */,
+				C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */,
+				C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */,
 				C4C552071577028C005F7EE4 /* CSDFunctionStatement.h */,
 				C4C552081577028C005F7EE4 /* CSDFunctionStatement.m */,
 				C4C552091577028C005F7EE4 /* CSDInstrument.h */,
@@ -348,6 +355,7 @@
 				C4C5520C1577028C005F7EE4 /* CSDSynthesizer.m */,
 				C4C5520D1577028C005F7EE4 /* Opcodes */,
 				C4C552161577028C005F7EE4 /* template.csd */,
+				C4C5524A15771DB7005F7EE4 /* example.csd */,
 			);
 			name = "Objective-Csound";
 			path = "../Objective-Csound";
@@ -424,6 +432,7 @@
 				C4C551351576EB08005F7EE4 /* Example1Controller.xib in Resources */,
 				C4C551801577011E005F7EE4 /* LICENSE.TXT in Resources */,
 				C4C5521E1577028C005F7EE4 /* template.csd in Resources */,
+				C4C5524B15771DB7005F7EE4 /* example.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +469,8 @@
 				C4C5521B1577028C005F7EE4 /* CSDFoscili.m in Sources */,
 				C4C5521C1577028C005F7EE4 /* CSDOpcode.m in Sources */,
 				C4C5521D1577028C005F7EE4 /* CSDOscillator.m in Sources */,
-				C4C55225157704EB005F7EE4 /* CSDManager.m in Sources */,
+				C4C55240157714DC005F7EE4 /* CSDOrchestra.m in Sources */,
+				C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
