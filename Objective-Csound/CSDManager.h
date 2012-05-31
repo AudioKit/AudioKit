@@ -16,6 +16,7 @@
 -(void)runCSDFile:(NSString *)filename;
 -(void)runOrchestra:(CSDOrchestra *)orch;
 -(void)stop;
+-(void)playNote:(NSString *)note;
 
 //Other Potential problems
 //-(void)mute;

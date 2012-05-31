@@ -7,10 +7,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-//#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 //#import "CSDOpcode.h"
 //
-//@interface CSDInstrument : NSObject
+@interface CSDInstrument : NSObject
 //@property (nonatomic, strong) NSString *output;
 //@property (nonatomic, strong) NSMutableArray *opcodes;
 //@property (nonatomic, strong) NSMutableArray *parameters;
@@ -20,4 +20,4 @@
 //-(void) addParameter:(id) p;
 //-(NSDictionary *) createNoteWithParameters:(NSString *)parameters;
 //-(NSString *) csdEntry;
-//@end
+@end

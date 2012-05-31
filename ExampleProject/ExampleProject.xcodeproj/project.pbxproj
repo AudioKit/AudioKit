@@ -52,6 +52,7 @@
 		C4C5524B15771DB7005F7EE4 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4C5524A15771DB7005F7EE4 /* example.csd */; };
 		C4C5525C15773570005F7EE4 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5525A15773570005F7EE4 /* OscillatorViewController.m */; };
 		C4C5525D15773570005F7EE4 /* OscillatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C5525B15773570005F7EE4 /* OscillatorViewController.xib */; };
+		C4C5526015773AC3005F7EE4 /* Oscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5525F15773AC3005F7EE4 /* Oscillator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +153,8 @@
 		C4C5525915773570005F7EE4 /* OscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorViewController.h; sourceTree = "<group>"; };
 		C4C5525A15773570005F7EE4 /* OscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorViewController.m; sourceTree = "<group>"; };
 		C4C5525B15773570005F7EE4 /* OscillatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OscillatorViewController.xib; sourceTree = "<group>"; };
+		C4C5525E15773AC3005F7EE4 /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
+		C4C5525F15773AC3005F7EE4 /* Oscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Oscillator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +399,8 @@
 				C4C5525915773570005F7EE4 /* OscillatorViewController.h */,
 				C4C5525A15773570005F7EE4 /* OscillatorViewController.m */,
 				C4C5525B15773570005F7EE4 /* OscillatorViewController.xib */,
+				C4C5525E15773AC3005F7EE4 /* Oscillator.h */,
+				C4C5525F15773AC3005F7EE4 /* Oscillator.m */,
 			);
 			name = "Simple Oscillator";
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				C4C55240157714DC005F7EE4 /* CSDOrchestra.m in Sources */,
 				C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */,
 				C4C5525C15773570005F7EE4 /* OscillatorViewController.m in Sources */,
+				C4C5526015773AC3005F7EE4 /* Oscillator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

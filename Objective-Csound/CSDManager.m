@@ -51,7 +51,8 @@ static CSDManager* _sharedCSDManager = nil;
 }
 
 -(void)runOrchestra:(CSDOrchestra *)orch {
-    NSLog(@"Running");
+    NSLog(@"Running With An Orchestra");
+    
     isRunning = YES;
 }
 
@@ -60,6 +61,10 @@ static CSDManager* _sharedCSDManager = nil;
     [csound stopCsound];
     isRunning  = NO;
     
+}
+
+-(void)playNote:(NSString *)note{
+    //[csound sendScore:<#(NSString *)#>
 }
 
 @end

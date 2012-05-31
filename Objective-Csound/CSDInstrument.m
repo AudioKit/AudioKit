@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-//#import "CSDInstrument.h"
+#import "CSDInstrument.h"
 //
-//@implementation CSDInstrument
+@implementation CSDInstrument
 //@synthesize output;
 //@synthesize opcodes;
 //@synthesize parameters;
@@ -50,4 +50,4 @@
 //}
 //
 //
-//@end
+@end

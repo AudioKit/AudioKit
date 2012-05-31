@@ -8,6 +8,7 @@
 
 #import "OscillatorViewController.h"
 
+
 @interface OscillatorViewController ()
 
 @end
@@ -27,7 +28,25 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    CSDOrchestra * orch = [[CSDOrchestra alloc] init];
+    CSDFunctionStatement * f1 =  [[CSDFunctionStatement alloc] initWithTableSize:4096 GenRoutine:10 AndParameters:@"1"];
+    [orch addFunctionStatement:f1];
+    
+    
+    myInstrument =  [[Oscillator alloc] initWithFunctionStatement:f1];
+    [orch addInstrument:myInstrument];
+    [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
+
+- (IBAction)hit1:(id)sender {
+    [myInstrument playNoteForDuration:1 withFrequency:440];
+}
+
+- (IBAction)hit2:(id)sender {
+    [myInstrument playNoteForDuration:1 withFrequency:(arc4random()%200+400)];
+}
+
 
 - (void)viewDidUnload
 {
