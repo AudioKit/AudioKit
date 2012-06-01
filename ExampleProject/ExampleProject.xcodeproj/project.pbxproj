@@ -57,6 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
 		765F2E911577F6FA000B2C0D /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		765F2E921577F6FA000B2C0D /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		765F2E941577F6FA000B2C0D /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		765F2EC21577F6FA000B2C0D /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* CSDPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPluck.m; sourceTree = "<group>"; };
-		76B32226157902A100FF54BB /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C551181576EB08005F7EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C5511A1576EB08005F7EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -354,7 +354,7 @@
 		C4C552061577028C005F7EE4 /* Objective-Csound */ = {
 			isa = PBXGroup;
 			children = (
-				76B32226157902A100FF54BB /* CSDConstants.h */,
+				7643F8AB15794297002E060B /* CSDConstants.h */,
 				C4C5523C1577143B005F7EE4 /* CSDManager.h */,
 				C4C5523D1577143B005F7EE4 /* CSDManager.m */,
 				C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */,

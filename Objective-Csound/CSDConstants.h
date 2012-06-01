@@ -9,8 +9,15 @@
 #ifndef ExampleProject_CSDConstants_h
 #define ExampleProject_CSDConstants_h
 
-typdef enum
+typedef enum
 {
-}
+    kDecayTypeSimpleAveraging=1,
+    kDecayTypeStretchedAveraging=2,
+    kDecayTypeSimpleDrum=3,
+    kDecayTypeStretchedDrum=4,
+    kDecayTypeWeightedAveraging=5,
+    kDecayTypeRecursiveFirstOrder=6
+}PluckDecayTypes;
+
 
 #endif

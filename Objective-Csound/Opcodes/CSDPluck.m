@@ -13,6 +13,7 @@
 @synthesize opcode;
 @synthesize amplitude;
 @synthesize pitch;
+@synthesize pitchDecayBuffer;
 @synthesize functionTable;
 
 @synthesize decayMethod;
@@ -21,16 +22,59 @@
 @synthesize currentSampleWeight;
 @synthesize previousSampleWeight;
 
-
 -(NSString *) textWithPValue:(int)p
 {
-    //ARB - TODO: go back and look at optional parameter declaration suitable for return as string
-    //  from single conditional block in this method
+
+    if ( @"p" == amplitude ) { 
+        amplitude = [NSString stringWithFormat:@"p%i", p++];
+    }
+    if ( @"p" == pitch ) { 
+        pitch = [NSString stringWithFormat:@"p%i", p++]; 
+    }
+    if ( @"p" == pitchDecayBuffer ) { 
+        pitchDecayBuffer = [NSString stringWithFormat:@"p%i", p++];
+    }
+    
+    NSString *decayParameters;
+    switch ( [decayMethod intValue]) {
+        case kDecayTypeSimpleAveraging:
+            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
+                 kDecayTypeSimpleAveraging, 0, 0];
+            break;
+        case kDecayTypeStretchedAveraging:
+            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
+                 kDecayTypeStretchedAveraging, stretchFactor, 0];
+            break;
+        case kDecayTypeSimpleDrum:
+            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
+                 kDecayTypeSimpleDrum, roughness, 0];
+            break;
+        case kDecayTypeStretchedDrum:
+            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
+                 kDecayTypeStretchedDrum, roughness, stretchFactor];            
+            break;
+        case kDecayTypeWeightedAveraging:
+            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
+                 kDecayTypeWeightedAveraging, currentSampleWeight, previousSampleWeight];            
+            break;
+        case kDecayTypeRecursiveFirstOrder:
+            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
+                 kDecayTypeRecursiveFirstOrder, 0, 0];
+            break;
+        default:
+            NSLog(@"Invalid decayType [:textWithPValue]");
+            break;
+    }
+    
+    //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
+    return [NSString stringWithFormat:@"%@ %@ %@,  %@,  %i, %@\n",
+            output, opcode, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
 }
 
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
+DecayedPitchBuffer:(NSString *) hz
 FunctionTable:(CSDFunctionStatement *) f
 AndRecursiveDecay:(BOOL) orSimpleDecay
 {
@@ -40,6 +84,7 @@ if( self ) {
     output = out;
     amplitude = amp;
     pitch = pch;
+    pitchDecayBuffer = hz;
     functionTable = f;
     
     //Recursive or Simple decay
@@ -57,6 +102,7 @@ return self;
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
+DecayedPitchBuffer:(NSString *) hz
 FunctionTable:(CSDFunctionStatement *) f
 AndStretchedAveragingDecay:( NSString *) stretchScaler
 {
@@ -66,9 +112,11 @@ AndStretchedAveragingDecay:( NSString *) stretchScaler
         output = out;
         amplitude = amp;
         pitch = pch;
+        pitchDecayBuffer = hz;
         functionTable = f;
         
         decayMethod = @"2";
+        
         stretchFactor = stretchScaler;
         
         roughness = nil;
@@ -81,6 +129,7 @@ AndStretchedAveragingDecay:( NSString *) stretchScaler
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
+DecayedPitchBuffer:(NSString *) hz
 FunctionTable:(CSDFunctionStatement *) f
 AndSimpleDrumDecay:( NSString *) roughWeight
 {
@@ -90,6 +139,7 @@ AndSimpleDrumDecay:( NSString *) roughWeight
         output = out;
         amplitude = amp;
         pitch = pch;
+        pitchDecayBuffer = hz;
         functionTable = f;
     
         decayMethod = @"3";
@@ -105,6 +155,7 @@ AndSimpleDrumDecay:( NSString *) roughWeight
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
+DecayedPitchBuffer:(NSString *) hz
 FunctionTable:(CSDFunctionStatement *) f
 AndStretchedDrumDecay:( NSString *) roughWeight
 StretchFactor:( NSString *)stretchScaler
@@ -115,6 +166,7 @@ StretchFactor:( NSString *)stretchScaler
         output = out;
         amplitude = amp;
         pitch = pch;
+        pitchDecayBuffer = hz;
         functionTable = f;
     
         decayMethod = @"4";
@@ -130,6 +182,7 @@ StretchFactor:( NSString *)stretchScaler
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
+DecayedPitchBuffer:(NSString *) hz
 FunctionTable:(CSDFunctionStatement *) f
 AndWeightedAverageDecay:( NSString *) currSampleWeight
 StretchFactor:( NSString *)prevSampleWeight
@@ -140,6 +193,7 @@ StretchFactor:( NSString *)prevSampleWeight
         output = out;
         amplitude = amp;
         pitch = pch;
+        pitchDecayBuffer = hz;
         functionTable = f;
     
         decayMethod = @"5";
