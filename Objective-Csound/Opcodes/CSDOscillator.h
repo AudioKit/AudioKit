@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString * amplitude;
 @property (nonatomic, strong) NSString * frequency;
 @property (nonatomic, strong) CSDFunctionStatement * functionTable;
-@property (nonatomic, strong) NSString * phases;
+@property (nonatomic, strong) NSString * phase;
 
 -(NSString *) textWithPValue:(int)p;
 

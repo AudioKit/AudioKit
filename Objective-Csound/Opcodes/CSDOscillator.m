@@ -15,7 +15,7 @@
 @synthesize amplitude;
 @synthesize frequency;
 @synthesize functionTable;
-@synthesize phases;
+@synthesize phase;
 
 
 -(id) initWithOutput:(NSString *) out
@@ -31,7 +31,7 @@
         amplitude = amp;
         frequency = freq;
         functionTable = f;
-        phases = phs;
+        phase = phs;
     }
     return self; 
 }
