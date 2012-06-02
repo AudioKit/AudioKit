@@ -9,6 +9,22 @@
 #import "CSDInstrument.h"
 //
 @implementation CSDInstrument
+@synthesize orchestra;
+
+-(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
+    orchestra = newOrchestra;
+}
+
+-(id) initWithOrchestra:(CSDOrchestra *) newOrchestra {
+    self = [super init];
+    if (self) {
+        [self joinOrchestra:newOrchestra];
+    }
+    return self; 
+}
+
+
+
 //@synthesize output;
 //@synthesize opcodes;
 //@synthesize parameters;

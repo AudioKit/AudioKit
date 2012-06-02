@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		765F2EC31577F6FA000B2C0D /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2E921577F6FA000B2C0D /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2EC41577F6FA000B2C0D /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2E951577F6FA000B2C0D /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2EC51577F6FA000B2C0D /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2E971577F6FA000B2C0D /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2EC61577F6FA000B2C0D /* SliderMidiWidgetWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2E9A1577F6FA000B2C0D /* SliderMidiWidgetWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2EC71577F6FA000B2C0D /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2E9D1577F6FA000B2C0D /* BaseValueCacheable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2EC81577F6FA000B2C0D /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2E9F1577F6FA000B2C0D /* CachedAccelerometer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2EC91577F6FA000B2C0D /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EA11577F6FA000B2C0D /* CachedAttitude.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2ECA1577F6FA000B2C0D /* CachedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EA31577F6FA000B2C0D /* CachedButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2ECB1577F6FA000B2C0D /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EA51577F6FA000B2C0D /* CachedGyroscope.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2ECC1577F6FA000B2C0D /* CachedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EA71577F6FA000B2C0D /* CachedSlider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2ECD1577F6FA000B2C0D /* CachedSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 765F2EA91577F6FA000B2C0D /* CachedSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		765F2ECE1577F6FA000B2C0D /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 765F2EC01577F6FA000B2C0D /* libcsound.a */; };
-		765F2ECF1577F6FB000B2C0D /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 765F2EC11577F6FA000B2C0D /* libsndfile.a */; };
-		765F2ED01577F6FB000B2C0D /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = 765F2EC21577F6FA000B2C0D /* LICENSE.TXT */; };
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
+		C4842CB71579BB2900E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C861579BB2900E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CB81579BB2900E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C891579BB2900E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CB91579BB2900E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C8B1579BB2900E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CBA1579BB2900E69770 /* SliderMidiWidgetWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C8E1579BB2900E69770 /* SliderMidiWidgetWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CBB1579BB2900E69770 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C911579BB2900E69770 /* BaseValueCacheable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CBC1579BB2900E69770 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C931579BB2900E69770 /* CachedAccelerometer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CBD1579BB2900E69770 /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C951579BB2900E69770 /* CachedAttitude.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CBE1579BB2900E69770 /* CachedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C971579BB2900E69770 /* CachedButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CBF1579BB2900E69770 /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C991579BB2900E69770 /* CachedGyroscope.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CC01579BB2900E69770 /* CachedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C9B1579BB2900E69770 /* CachedSlider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CC11579BB2900E69770 /* CachedSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842C9D1579BB2900E69770 /* CachedSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4842CC21579BB2900E69770 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4842CB41579BB2900E69770 /* libcsound.a */; };
+		C4842CC31579BB2900E69770 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4842CB51579BB2900E69770 /* libsndfile.a */; };
+		C4842CC41579BB2900E69770 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4842CB61579BB2900E69770 /* LICENSE.TXT */; };
 		C4C551191576EB08005F7EE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C551181576EB08005F7EE4 /* UIKit.framework */; };
 		C4C5511B1576EB08005F7EE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5511A1576EB08005F7EE4 /* Foundation.framework */; };
 		C4C5511D1576EB08005F7EE4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5511C1576EB08005F7EE4 /* CoreGraphics.framework */; };
@@ -58,54 +58,54 @@
 
 /* Begin PBXFileReference section */
 		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
-		765F2E911577F6FA000B2C0D /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
-		765F2E921577F6FA000B2C0D /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		765F2E941577F6FA000B2C0D /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
-		765F2E951577F6FA000B2C0D /* CsoundMIDI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundMIDI.m; sourceTree = "<group>"; };
-		765F2E961577F6FA000B2C0D /* MidiWidgetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiWidgetsManager.h; sourceTree = "<group>"; };
-		765F2E971577F6FA000B2C0D /* MidiWidgetsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiWidgetsManager.m; sourceTree = "<group>"; };
-		765F2E981577F6FA000B2C0D /* MidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiWidgetWrapper.h; sourceTree = "<group>"; };
-		765F2E991577F6FA000B2C0D /* SliderMidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderMidiWidgetWrapper.h; sourceTree = "<group>"; };
-		765F2E9A1577F6FA000B2C0D /* SliderMidiWidgetWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderMidiWidgetWrapper.m; sourceTree = "<group>"; };
-		765F2E9C1577F6FA000B2C0D /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
-		765F2E9D1577F6FA000B2C0D /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
-		765F2E9E1577F6FA000B2C0D /* CachedAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAccelerometer.h; sourceTree = "<group>"; };
-		765F2E9F1577F6FA000B2C0D /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
-		765F2EA01577F6FA000B2C0D /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
-		765F2EA11577F6FA000B2C0D /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
-		765F2EA21577F6FA000B2C0D /* CachedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedButton.h; sourceTree = "<group>"; };
-		765F2EA31577F6FA000B2C0D /* CachedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedButton.m; sourceTree = "<group>"; };
-		765F2EA41577F6FA000B2C0D /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
-		765F2EA51577F6FA000B2C0D /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
-		765F2EA61577F6FA000B2C0D /* CachedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSlider.h; sourceTree = "<group>"; };
-		765F2EA71577F6FA000B2C0D /* CachedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSlider.m; sourceTree = "<group>"; };
-		765F2EA81577F6FA000B2C0D /* CachedSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSwitch.h; sourceTree = "<group>"; };
-		765F2EA91577F6FA000B2C0D /* CachedSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSwitch.m; sourceTree = "<group>"; };
-		765F2EAA1577F6FA000B2C0D /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
-		765F2EAC1577F6FA000B2C0D /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
-		765F2EAD1577F6FA000B2C0D /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
-		765F2EAE1577F6FA000B2C0D /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cscore.h; sourceTree = "<group>"; };
-		765F2EAF1577F6FA000B2C0D /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdl.h; sourceTree = "<group>"; };
-		765F2EB01577F6FA000B2C0D /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound.h; sourceTree = "<group>"; };
-		765F2EB11577F6FA000B2C0D /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound.hpp; sourceTree = "<group>"; };
-		765F2EB21577F6FA000B2C0D /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csoundCore.h; sourceTree = "<group>"; };
-		765F2EB31577F6FA000B2C0D /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CsoundFile.hpp; sourceTree = "<group>"; };
-		765F2EB41577F6FA000B2C0D /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwindow.h; sourceTree = "<group>"; };
-		765F2EB51577F6FA000B2C0D /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filebuilding.h; sourceTree = "<group>"; };
-		765F2EB61577F6FA000B2C0D /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "float-version.h"; sourceTree = "<group>"; };
-		765F2EB71577F6FA000B2C0D /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_attr.h; sourceTree = "<group>"; };
-		765F2EB81577F6FA000B2C0D /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpcodeBase.hpp; sourceTree = "<group>"; };
-		765F2EB91577F6FA000B2C0D /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstream.h; sourceTree = "<group>"; };
-		765F2EBA1577F6FA000B2C0D /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pvfileio.h; sourceTree = "<group>"; };
-		765F2EBB1577F6FA000B2C0D /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundio.h; sourceTree = "<group>"; };
-		765F2EBC1577F6FA000B2C0D /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
-		765F2EBD1577F6FA000B2C0D /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
-		765F2EBE1577F6FA000B2C0D /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		765F2EC01577F6FA000B2C0D /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
-		765F2EC11577F6FA000B2C0D /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
-		765F2EC21577F6FA000B2C0D /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* CSDPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPluck.m; sourceTree = "<group>"; };
+		C4842C851579BB2900E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
+		C4842C861579BB2900E69770 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
+		C4842C881579BB2900E69770 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
+		C4842C891579BB2900E69770 /* CsoundMIDI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundMIDI.m; sourceTree = "<group>"; };
+		C4842C8A1579BB2900E69770 /* MidiWidgetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiWidgetsManager.h; sourceTree = "<group>"; };
+		C4842C8B1579BB2900E69770 /* MidiWidgetsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiWidgetsManager.m; sourceTree = "<group>"; };
+		C4842C8C1579BB2900E69770 /* MidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiWidgetWrapper.h; sourceTree = "<group>"; };
+		C4842C8D1579BB2900E69770 /* SliderMidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderMidiWidgetWrapper.h; sourceTree = "<group>"; };
+		C4842C8E1579BB2900E69770 /* SliderMidiWidgetWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderMidiWidgetWrapper.m; sourceTree = "<group>"; };
+		C4842C901579BB2900E69770 /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
+		C4842C911579BB2900E69770 /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
+		C4842C921579BB2900E69770 /* CachedAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAccelerometer.h; sourceTree = "<group>"; };
+		C4842C931579BB2900E69770 /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
+		C4842C941579BB2900E69770 /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
+		C4842C951579BB2900E69770 /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
+		C4842C961579BB2900E69770 /* CachedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedButton.h; sourceTree = "<group>"; };
+		C4842C971579BB2900E69770 /* CachedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedButton.m; sourceTree = "<group>"; };
+		C4842C981579BB2900E69770 /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
+		C4842C991579BB2900E69770 /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
+		C4842C9A1579BB2900E69770 /* CachedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSlider.h; sourceTree = "<group>"; };
+		C4842C9B1579BB2900E69770 /* CachedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSlider.m; sourceTree = "<group>"; };
+		C4842C9C1579BB2900E69770 /* CachedSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSwitch.h; sourceTree = "<group>"; };
+		C4842C9D1579BB2900E69770 /* CachedSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSwitch.m; sourceTree = "<group>"; };
+		C4842C9E1579BB2900E69770 /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
+		C4842CA01579BB2900E69770 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
+		C4842CA11579BB2900E69770 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
+		C4842CA21579BB2900E69770 /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cscore.h; sourceTree = "<group>"; };
+		C4842CA31579BB2900E69770 /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdl.h; sourceTree = "<group>"; };
+		C4842CA41579BB2900E69770 /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound.h; sourceTree = "<group>"; };
+		C4842CA51579BB2900E69770 /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound.hpp; sourceTree = "<group>"; };
+		C4842CA61579BB2900E69770 /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csoundCore.h; sourceTree = "<group>"; };
+		C4842CA71579BB2900E69770 /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CsoundFile.hpp; sourceTree = "<group>"; };
+		C4842CA81579BB2900E69770 /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwindow.h; sourceTree = "<group>"; };
+		C4842CA91579BB2900E69770 /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filebuilding.h; sourceTree = "<group>"; };
+		C4842CAA1579BB2900E69770 /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "float-version.h"; sourceTree = "<group>"; };
+		C4842CAB1579BB2900E69770 /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_attr.h; sourceTree = "<group>"; };
+		C4842CAC1579BB2900E69770 /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpcodeBase.hpp; sourceTree = "<group>"; };
+		C4842CAD1579BB2900E69770 /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstream.h; sourceTree = "<group>"; };
+		C4842CAE1579BB2900E69770 /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pvfileio.h; sourceTree = "<group>"; };
+		C4842CAF1579BB2900E69770 /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundio.h; sourceTree = "<group>"; };
+		C4842CB01579BB2900E69770 /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
+		C4842CB11579BB2900E69770 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
+		C4842CB21579BB2900E69770 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		C4842CB41579BB2900E69770 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
+		C4842CB51579BB2900E69770 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
+		C4842CB61579BB2900E69770 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C551181576EB08005F7EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C5511A1576EB08005F7EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -173,104 +173,103 @@
 				C4C551191576EB08005F7EE4 /* UIKit.framework in Frameworks */,
 				C4C5511B1576EB08005F7EE4 /* Foundation.framework in Frameworks */,
 				C4C5511D1576EB08005F7EE4 /* CoreGraphics.framework in Frameworks */,
-				765F2ECE1577F6FA000B2C0D /* libcsound.a in Frameworks */,
-				765F2ECF1577F6FB000B2C0D /* libsndfile.a in Frameworks */,
+				C4842CC21579BB2900E69770 /* libcsound.a in Frameworks */,
+				C4842CC31579BB2900E69770 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		765F2E8F1577F6FA000B2C0D /* csound-iOS */ = {
+		C4842C831579BB2900E69770 /* csound-iOS-5.17.11 */ = {
 			isa = PBXGroup;
 			children = (
-				765F2E901577F6FA000B2C0D /* classes */,
-				765F2EAB1577F6FA000B2C0D /* headers */,
-				765F2EBF1577F6FA000B2C0D /* libs */,
-				765F2EC21577F6FA000B2C0D /* LICENSE.TXT */,
+				C4842C841579BB2900E69770 /* classes */,
+				C4842C9F1579BB2900E69770 /* headers */,
+				C4842CB31579BB2900E69770 /* libs */,
+				C4842CB61579BB2900E69770 /* LICENSE.TXT */,
 			);
-			name = "csound-iOS";
-			path = "../../csound-iOS/csound-iOS-5.17.11/Csound iOS Examples/csound-iOS";
+			path = "csound-iOS-5.17.11";
 			sourceTree = "<group>";
 		};
-		765F2E901577F6FA000B2C0D /* classes */ = {
+		C4842C841579BB2900E69770 /* classes */ = {
 			isa = PBXGroup;
 			children = (
-				765F2E911577F6FA000B2C0D /* CsoundObj.h */,
-				765F2E921577F6FA000B2C0D /* CsoundObj.m */,
-				765F2E931577F6FA000B2C0D /* midi */,
-				765F2E9B1577F6FA000B2C0D /* valueCacheable */,
+				C4842C851579BB2900E69770 /* CsoundObj.h */,
+				C4842C861579BB2900E69770 /* CsoundObj.m */,
+				C4842C871579BB2900E69770 /* midi */,
+				C4842C8F1579BB2900E69770 /* valueCacheable */,
 			);
 			path = classes;
 			sourceTree = "<group>";
 		};
-		765F2E931577F6FA000B2C0D /* midi */ = {
+		C4842C871579BB2900E69770 /* midi */ = {
 			isa = PBXGroup;
 			children = (
-				765F2E941577F6FA000B2C0D /* CsoundMIDI.h */,
-				765F2E951577F6FA000B2C0D /* CsoundMIDI.m */,
-				765F2E961577F6FA000B2C0D /* MidiWidgetsManager.h */,
-				765F2E971577F6FA000B2C0D /* MidiWidgetsManager.m */,
-				765F2E981577F6FA000B2C0D /* MidiWidgetWrapper.h */,
-				765F2E991577F6FA000B2C0D /* SliderMidiWidgetWrapper.h */,
-				765F2E9A1577F6FA000B2C0D /* SliderMidiWidgetWrapper.m */,
+				C4842C881579BB2900E69770 /* CsoundMIDI.h */,
+				C4842C891579BB2900E69770 /* CsoundMIDI.m */,
+				C4842C8A1579BB2900E69770 /* MidiWidgetsManager.h */,
+				C4842C8B1579BB2900E69770 /* MidiWidgetsManager.m */,
+				C4842C8C1579BB2900E69770 /* MidiWidgetWrapper.h */,
+				C4842C8D1579BB2900E69770 /* SliderMidiWidgetWrapper.h */,
+				C4842C8E1579BB2900E69770 /* SliderMidiWidgetWrapper.m */,
 			);
 			path = midi;
 			sourceTree = "<group>";
 		};
-		765F2E9B1577F6FA000B2C0D /* valueCacheable */ = {
+		C4842C8F1579BB2900E69770 /* valueCacheable */ = {
 			isa = PBXGroup;
 			children = (
-				765F2E9C1577F6FA000B2C0D /* BaseValueCacheable.h */,
-				765F2E9D1577F6FA000B2C0D /* BaseValueCacheable.m */,
-				765F2E9E1577F6FA000B2C0D /* CachedAccelerometer.h */,
-				765F2E9F1577F6FA000B2C0D /* CachedAccelerometer.m */,
-				765F2EA01577F6FA000B2C0D /* CachedAttitude.h */,
-				765F2EA11577F6FA000B2C0D /* CachedAttitude.m */,
-				765F2EA21577F6FA000B2C0D /* CachedButton.h */,
-				765F2EA31577F6FA000B2C0D /* CachedButton.m */,
-				765F2EA41577F6FA000B2C0D /* CachedGyroscope.h */,
-				765F2EA51577F6FA000B2C0D /* CachedGyroscope.m */,
-				765F2EA61577F6FA000B2C0D /* CachedSlider.h */,
-				765F2EA71577F6FA000B2C0D /* CachedSlider.m */,
-				765F2EA81577F6FA000B2C0D /* CachedSwitch.h */,
-				765F2EA91577F6FA000B2C0D /* CachedSwitch.m */,
-				765F2EAA1577F6FA000B2C0D /* CsoundValueCacheable.h */,
+				C4842C901579BB2900E69770 /* BaseValueCacheable.h */,
+				C4842C911579BB2900E69770 /* BaseValueCacheable.m */,
+				C4842C921579BB2900E69770 /* CachedAccelerometer.h */,
+				C4842C931579BB2900E69770 /* CachedAccelerometer.m */,
+				C4842C941579BB2900E69770 /* CachedAttitude.h */,
+				C4842C951579BB2900E69770 /* CachedAttitude.m */,
+				C4842C961579BB2900E69770 /* CachedButton.h */,
+				C4842C971579BB2900E69770 /* CachedButton.m */,
+				C4842C981579BB2900E69770 /* CachedGyroscope.h */,
+				C4842C991579BB2900E69770 /* CachedGyroscope.m */,
+				C4842C9A1579BB2900E69770 /* CachedSlider.h */,
+				C4842C9B1579BB2900E69770 /* CachedSlider.m */,
+				C4842C9C1579BB2900E69770 /* CachedSwitch.h */,
+				C4842C9D1579BB2900E69770 /* CachedSwitch.m */,
+				C4842C9E1579BB2900E69770 /* CsoundValueCacheable.h */,
 			);
 			path = valueCacheable;
 			sourceTree = "<group>";
 		};
-		765F2EAB1577F6FA000B2C0D /* headers */ = {
+		C4842C9F1579BB2900E69770 /* headers */ = {
 			isa = PBXGroup;
 			children = (
-				765F2EAC1577F6FA000B2C0D /* cfgvar.h */,
-				765F2EAD1577F6FA000B2C0D /* CppSound.hpp */,
-				765F2EAE1577F6FA000B2C0D /* cscore.h */,
-				765F2EAF1577F6FA000B2C0D /* csdl.h */,
-				765F2EB01577F6FA000B2C0D /* csound.h */,
-				765F2EB11577F6FA000B2C0D /* csound.hpp */,
-				765F2EB21577F6FA000B2C0D /* csoundCore.h */,
-				765F2EB31577F6FA000B2C0D /* CsoundFile.hpp */,
-				765F2EB41577F6FA000B2C0D /* cwindow.h */,
-				765F2EB51577F6FA000B2C0D /* filebuilding.h */,
-				765F2EB61577F6FA000B2C0D /* float-version.h */,
-				765F2EB71577F6FA000B2C0D /* msg_attr.h */,
-				765F2EB81577F6FA000B2C0D /* OpcodeBase.hpp */,
-				765F2EB91577F6FA000B2C0D /* pstream.h */,
-				765F2EBA1577F6FA000B2C0D /* pvfileio.h */,
-				765F2EBB1577F6FA000B2C0D /* soundio.h */,
-				765F2EBC1577F6FA000B2C0D /* sysdep.h */,
-				765F2EBD1577F6FA000B2C0D /* text.h */,
-				765F2EBE1577F6FA000B2C0D /* version.h */,
+				C4842CA01579BB2900E69770 /* cfgvar.h */,
+				C4842CA11579BB2900E69770 /* CppSound.hpp */,
+				C4842CA21579BB2900E69770 /* cscore.h */,
+				C4842CA31579BB2900E69770 /* csdl.h */,
+				C4842CA41579BB2900E69770 /* csound.h */,
+				C4842CA51579BB2900E69770 /* csound.hpp */,
+				C4842CA61579BB2900E69770 /* csoundCore.h */,
+				C4842CA71579BB2900E69770 /* CsoundFile.hpp */,
+				C4842CA81579BB2900E69770 /* cwindow.h */,
+				C4842CA91579BB2900E69770 /* filebuilding.h */,
+				C4842CAA1579BB2900E69770 /* float-version.h */,
+				C4842CAB1579BB2900E69770 /* msg_attr.h */,
+				C4842CAC1579BB2900E69770 /* OpcodeBase.hpp */,
+				C4842CAD1579BB2900E69770 /* pstream.h */,
+				C4842CAE1579BB2900E69770 /* pvfileio.h */,
+				C4842CAF1579BB2900E69770 /* soundio.h */,
+				C4842CB01579BB2900E69770 /* sysdep.h */,
+				C4842CB11579BB2900E69770 /* text.h */,
+				C4842CB21579BB2900E69770 /* version.h */,
 			);
 			path = headers;
 			sourceTree = "<group>";
 		};
-		765F2EBF1577F6FA000B2C0D /* libs */ = {
+		C4842CB31579BB2900E69770 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				765F2EC01577F6FA000B2C0D /* libcsound.a */,
-				765F2EC11577F6FA000B2C0D /* libsndfile.a */,
+				C4842CB41579BB2900E69770 /* libcsound.a */,
+				C4842CB51579BB2900E69770 /* libsndfile.a */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -278,11 +277,11 @@
 		C4C551091576EB08005F7EE4 = {
 			isa = PBXGroup;
 			children = (
-				765F2E8F1577F6FA000B2C0D /* csound-iOS */,
 				C4C5519915770208005F7EE4 /* AVFoundation.framework */,
 				C4C55197157701F7005F7EE4 /* CoreMIDI.framework */,
 				C4C55195157701F1005F7EE4 /* CoreMotion.framework */,
 				C4C55193157701EA005F7EE4 /* AudioToolbox.framework */,
+				C4842C831579BB2900E69770 /* csound-iOS-5.17.11 */,
 				C4C552061577028C005F7EE4 /* Objective-Csound */,
 				C4C55186157701AF005F7EE4 /* UI Widgets */,
 				C4C5511E1576EB08005F7EE4 /* ExampleProject */,
@@ -469,7 +468,7 @@
 				C4C5521E1577028C005F7EE4 /* template.csd in Resources */,
 				C4C5524B15771DB7005F7EE4 /* example.csd in Resources */,
 				C4C5525D15773570005F7EE4 /* OscillatorViewController.xib in Resources */,
-				765F2ED01577F6FB000B2C0D /* LICENSE.TXT in Resources */,
+				C4842CC41579BB2900E69770 /* LICENSE.TXT in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,18 +498,18 @@
 				C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */,
 				C4C5525C15773570005F7EE4 /* OscillatorViewController.m in Sources */,
 				C4C5526015773AC3005F7EE4 /* Oscillator.m in Sources */,
-				765F2EC31577F6FA000B2C0D /* CsoundObj.m in Sources */,
-				765F2EC41577F6FA000B2C0D /* CsoundMIDI.m in Sources */,
-				765F2EC51577F6FA000B2C0D /* MidiWidgetsManager.m in Sources */,
-				765F2EC61577F6FA000B2C0D /* SliderMidiWidgetWrapper.m in Sources */,
-				765F2EC71577F6FA000B2C0D /* BaseValueCacheable.m in Sources */,
-				765F2EC81577F6FA000B2C0D /* CachedAccelerometer.m in Sources */,
-				765F2EC91577F6FA000B2C0D /* CachedAttitude.m in Sources */,
-				765F2ECA1577F6FA000B2C0D /* CachedButton.m in Sources */,
-				765F2ECB1577F6FA000B2C0D /* CachedGyroscope.m in Sources */,
-				765F2ECC1577F6FA000B2C0D /* CachedSlider.m in Sources */,
-				765F2ECD1577F6FA000B2C0D /* CachedSwitch.m in Sources */,
 				76B322251579012500FF54BB /* CSDPluck.m in Sources */,
+				C4842CB71579BB2900E69770 /* CsoundObj.m in Sources */,
+				C4842CB81579BB2900E69770 /* CsoundMIDI.m in Sources */,
+				C4842CB91579BB2900E69770 /* MidiWidgetsManager.m in Sources */,
+				C4842CBA1579BB2900E69770 /* SliderMidiWidgetWrapper.m in Sources */,
+				C4842CBB1579BB2900E69770 /* BaseValueCacheable.m in Sources */,
+				C4842CBC1579BB2900E69770 /* CachedAccelerometer.m in Sources */,
+				C4842CBD1579BB2900E69770 /* CachedAttitude.m in Sources */,
+				C4842CBE1579BB2900E69770 /* CachedButton.m in Sources */,
+				C4842CBF1579BB2900E69770 /* CachedGyroscope.m in Sources */,
+				C4842CC01579BB2900E69770 /* CachedSlider.m in Sources */,
+				C4842CC11579BB2900E69770 /* CachedSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +600,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../csound-iOS/libs\"",
 					"\"$(SRCROOT)/../../csound-iOS/csound-iOS-5.17.11/Csound iOS Examples/csound-iOS/libs\"",
+					"\"$(SRCROOT)/csound-iOS/libs\"",
+					"\"$(SRCROOT)/csound-iOS-5.17.11/libs\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -617,6 +618,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../csound-iOS/libs\"",
 					"\"$(SRCROOT)/../../csound-iOS/csound-iOS-5.17.11/Csound iOS Examples/csound-iOS/libs\"",
+					"\"$(SRCROOT)/csound-iOS/libs\"",
+					"\"$(SRCROOT)/csound-iOS-5.17.11/libs\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

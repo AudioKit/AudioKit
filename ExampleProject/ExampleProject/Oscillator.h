@@ -15,7 +15,10 @@
     CSDFunctionStatement * functionStatement;
 }
 
--(id) initWithFunctionStatement:(CSDFunctionStatement *)f;
+@property (nonatomic, strong) CSDFunctionStatement * functionStatement;
+@property (nonatomic, strong) CSDOrchestra * orchestra;
+
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(NSString *) textForOrchestra;
 -(void) playNoteForDuration:(float)dur withFrequency:(float)freq;
 
