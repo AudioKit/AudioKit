@@ -9,11 +9,15 @@
 #import "Oscillator.h"
 
 @implementation Oscillator
+@synthesize functionStatement;
+@synthesize orchestra;
 
--(id) initWithFunctionStatement:(CSDFunctionStatement *)f {
-    self = [super init];
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
+    self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        functionStatement = f;
+        CSDFunctionStatement * f1 =  [[CSDFunctionStatement alloc] initWithTableSize:4096 GenRoutine:10 AndParameters:@"1"];
+        [orchestra addFunctionStatement:f1];
+        functionStatement = f1;
     }
     return self;
 }

@@ -7,7 +7,7 @@
 @synthesize options;
 @synthesize isRunning;
 
-static CSDManager* _sharedCSDManager = nil;
+static CSDManager * _sharedCSDManager = nil;
 
 
 +(CSDManager *)sharedCSDManager

@@ -10,4 +10,11 @@
 
 @implementation CSDOrchestra
 
+
+@synthesize functionStatements;
+@synthesize instruments;
+
+-(void) addInstrument:(CSDInstrument *) instrument;
+-(void) addFunctionStatement:(CSDFunctionStatement *) f;
+
 @end

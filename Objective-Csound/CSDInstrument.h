@@ -8,9 +8,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CSDOrchestra.h"
+
 //#import "CSDOpcode.h"
 //
 @interface CSDInstrument : NSObject
+
+@property (nonatomic, strong) CSDOrchestra * orchestra;
+
 //@property (nonatomic, strong) NSString *output;
 //@property (nonatomic, strong) NSMutableArray *opcodes;
 //@property (nonatomic, strong) NSMutableArray *parameters;
@@ -20,4 +25,8 @@
 //-(void) addParameter:(id) p;
 //-(NSDictionary *) createNoteWithParameters:(NSString *)parameters;
 //-(NSString *) csdEntry;
+
+-(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
+-(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
+
 @end

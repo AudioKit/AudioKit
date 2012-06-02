@@ -12,7 +12,7 @@
 #import "Oscillator.h"
 
 @interface OscillatorViewController : UIViewController {
-    Oscillator * myInstrument;
+    Oscillator * myOscillator;
 }
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
