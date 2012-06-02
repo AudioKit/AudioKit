@@ -9,28 +9,27 @@
 #import "Oscillator.h"
 
 @implementation Oscillator
-@synthesize functionStatement;
 @synthesize orchestra;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
-    self = [super initWithOrchestra:newOrchestra];
+    self = [super init];
     if (self) {
-        CSDFunctionStatement * f1 =  [[CSDFunctionStatement alloc] initWithTableSize:4096 GenRoutine:10 AndParameters:@"1"];
-        [orchestra addFunctionStatement:f1];
-        functionStatement = f1;
+        orchestra = newOrchestra;
+        instrumentNumberInOrchestra = [orchestra addInstrument:self];
     }
     return self;
 }
 
 -(NSString *) textForOrchestra {
-    return [NSString stringWithFormat:@"\
-    aOut1 oscil 1, p4, %i\
-    out aOut1", [functionStatement integerIdentifier]  ];
+    NSString * text=  @"iSine ftgen 0, 0, 8192, 10, 1\n"\
+                       "aOut1 oscil 0.4, p4, iSine\n"\
+                       "out aOut1";
+    return text;
 }
 
 -(void) playNoteForDuration:(float)dur withFrequency:(float)freq {
-    NSString * note = [NSString stringWithFormat:@"%0.2f 0.2f", dur, freq];
-    [[CSDManager sharedCSDManager] playNote:note];
+    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, freq];
+    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumberInOrchestra];
 }
 
 @end

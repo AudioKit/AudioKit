@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CSDManager.h"
 #import "CSDInstrument.h"
-#import "CSDFunctionStatement.h"
+#import "CSDOrchestra.h"
 
 @interface Oscillator : CSDInstrument {
-    CSDFunctionStatement * functionStatement;
+    int instrumentNumberInOrchestra;
 }
 
-@property (nonatomic, strong) CSDFunctionStatement * functionStatement;
 @property (nonatomic, strong) CSDOrchestra * orchestra;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;

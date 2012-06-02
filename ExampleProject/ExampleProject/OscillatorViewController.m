@@ -32,6 +32,7 @@
     CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
     
     myOscillator =  [[Oscillator alloc] initWithOrchestra:orch];
+
     [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
 

@@ -16,10 +16,10 @@
 @protocol CSDInstrument
 -(NSString *) orchestraText;
 @end
-
-@protocol CSDFunctionStatement
--(NSString *) orchestraText;
-@end
+//
+//@protocol CSDFunctionStatement
+//-(NSString *) orchestraText;
+//@end
 
 
 @interface CSDOrchestra : NSObject 
@@ -27,9 +27,9 @@
 
 
 @property (nonatomic, strong) NSMutableArray * instruments;
-@property (nonatomic, strong) NSMutableArray * functionStatements;
+//@property (nonatomic, strong) NSMutableArray * functionStatements;
 
--(void) addInstrument:(CSDInstrument *) instrument;
--(void) addFunctionStatement:(CSDFunctionStatement *) f;
+-(int) addInstrument:(CSDInstrument *) instrument;
+//-(void) addFunctionStatement:(CSDFunctionStatement *) f;
 
 @end

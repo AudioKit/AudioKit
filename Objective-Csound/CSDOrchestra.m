@@ -11,14 +11,25 @@
 @implementation CSDOrchestra
 
 
-@synthesize functionStatements;
+//@synthesize functionStatements;
 @synthesize instruments;
 
--(void) addInstrument:(CSDInstrument *) instrument {
+-(id) init {
+    self = [super init];
+    if (self) {
+        instruments = [[NSMutableArray alloc] init];
+    }
+    return self; 
+}
+
+-(int) addInstrument:(CSDInstrument *) instrument {
+    NSLog(@"Adding Instrument");
     [instruments addObject:instrument];
+    return [instruments indexOfObject:instrument]+ 1;
 }
--(void) addFunctionStatement:(CSDFunctionStatement *) f {
-    [functionStatements addObject:f];
-}
+
+//-(void) addFunctionStatement:(CSDFunctionStatement *) f {
+//    [functionStatements addObject:f];
+//}
 
 @end
