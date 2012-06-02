@@ -15,7 +15,7 @@ static CSDManager * _sharedCSDManager = nil;
     @synchronized([CSDManager class]) 
     {
         if(!_sharedCSDManager) 
-            [[self alloc] init];
+            _sharedCSDManager = [[self alloc] init];
         return _sharedCSDManager;
     }
     return nil;
@@ -52,6 +52,8 @@ static CSDManager * _sharedCSDManager = nil;
 
 -(void)runOrchestra:(CSDOrchestra *)orch {
     NSLog(@"Running With An Orchestra");
+    NSLog(@"Orchestra has %i instruments", [[orch instruments] count]);
+    NSLog(@"Orchestra has %i function statements", [[orch functionStatements] count]);
     
     isRunning = YES;
 }
