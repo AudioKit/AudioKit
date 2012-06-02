@@ -14,7 +14,11 @@
 @synthesize functionStatements;
 @synthesize instruments;
 
--(void) addInstrument:(CSDInstrument *) instrument;
--(void) addFunctionStatement:(CSDFunctionStatement *) f;
+-(void) addInstrument:(CSDInstrument *) instrument {
+    [instruments addObject:instrument];
+}
+-(void) addFunctionStatement:(CSDFunctionStatement *) f {
+    [functionStatements addObject:f];
+}
 
 @end
