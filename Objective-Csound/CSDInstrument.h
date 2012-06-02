@@ -28,5 +28,6 @@
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
+-(NSString *) textForOrchestra;
 
 @end

@@ -23,6 +23,10 @@
     return self; 
 }
 
+-(NSString *) textForOrchestra {
+    return @"Undefined";
+}
+
 
 
 //@synthesize output;
