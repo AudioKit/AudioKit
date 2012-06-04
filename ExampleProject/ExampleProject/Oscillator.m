@@ -25,7 +25,7 @@
     }
     return self;
 }
-
+/*
 -(id) initUsingOpcodes:(CSDOrchestra *)newOrchestra {
     self = [super init];
     if (self) {
@@ -48,7 +48,7 @@
     }
     return self;
 }
-
+*/
 -(NSString *) textForOrchestra2 {
     
 

@@ -1,19 +1,18 @@
 //
-//  OscillatorViewController.m
+//  FMOscillatorViewController.m
 //  ExampleProject
 //
-//  Created by Aurelius Prochazka on 5/30/12.
+//  Created by Adam Boulanger on 6/4/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OscillatorViewController.h"
+#import "FMOscillatorViewController.h"
 
-
-@interface OscillatorViewController ()
+@interface FMOscillatorViewController ()
 
 @end
 
-@implementation OscillatorViewController
+@implementation FMOscillatorViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,22 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
-    
-    myOscillator =  [[Oscillator alloc] initWithOrchestra:orch];
-
-    [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
-
-- (IBAction)hit1:(id)sender {
-    [myOscillator playNoteForDuration:30 withFrequency:440];
-}
-
-- (IBAction)hit2:(id)sender {
-    [myOscillator playNoteForDuration:1 withFrequency:(arc4random()%200+400)];
-}
-
 
 - (void)viewDidUnload
 {
@@ -55,6 +39,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
+}
+
+- (IBAction)hit1:(id)sender
+{
+    
+}
+- (IBAction)hit2:(id)sender
+{
 }
 
 @end
