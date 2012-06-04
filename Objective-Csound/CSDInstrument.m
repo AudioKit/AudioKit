@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         [self joinOrchestra:newOrchestra];
+        csdRepresentation = [NSMutableString stringWithString:@""];   
     }
     return self; 
 }
@@ -27,34 +28,11 @@
     return @"Undefined";
 }
 
+-(void) addOpcode:(CSDOpcode *)newOpcode {
+    [csdRepresentation appendString:[newOpcode description]];
+    [csdRepresentation appendString:@"\n"];
+}
 
-
-//@synthesize output;
-//@synthesize opcodes;
-//@synthesize parameters;
-//
-//-(id) initWithOutput:(NSString *) outputString {
-//    self = [super init];
-//    if (self) {
-//        output = outputString; 
-//        opcodes    = [[NSMutableArray alloc] init];
-//        parameters = [[NSMutableArray alloc] init];
-//    }
-//    return self; 
-//}
-//
-//-(void) addOpcode:(CSDOpcode *) opcode {
-//    [opcodes addObject:opcode];
-//}
-//
-//-(void) addParameter:(id) p {
-//    [parameters addObject:p];
-//}
-//
-//-(NSDictionary *) createNoteWithParameters:(NSString *)params {
-//    return [[NSDictionary alloc] initWithObjectsAndKeys:self, @"instrument", params, @"parameters", nil];
-//}
-//
 //-(NSString *) csdEntry {
 //    NSString *text  = @"";
 //    int pIndex = 4;    

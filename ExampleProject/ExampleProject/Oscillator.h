@@ -13,6 +13,12 @@
 
 @interface Oscillator : CSDInstrument {
     int instrumentNumberInOrchestra;
+
+    // Paramaters
+    NSString * iFrequency;
+    //Constants
+    float iAmplitude;
+    int iFTableSize;
 }
 
 @property (nonatomic, strong) CSDOrchestra * orchestra;
