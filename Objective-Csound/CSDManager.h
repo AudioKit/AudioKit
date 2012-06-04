@@ -6,7 +6,7 @@
 #import "CSDInstrument.h"
 #import "CSDOrchestra.h"
 
-@interface CSDManager : NSObject {
+@interface CSDManager : NSObject <CsoundObjCompletionListener> {
     BOOL isRunning;
     CsoundObj * csound;
 }

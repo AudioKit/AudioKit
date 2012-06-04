@@ -37,6 +37,7 @@ static CSDManager * _sharedCSDManager = nil;
     if (self != nil) {
         NSLog(@"Initializing");
         csound = [[CsoundObj alloc] init];
+        [csound addCompletionListener:self];
         isRunning = NO;
 
     }
@@ -44,6 +45,11 @@ static CSDManager * _sharedCSDManager = nil;
 }   
 
 -(void)runCSDFile:(NSString *)filename {
+    if(isRunning) {
+        NSLog(@"csound already running...killing previous...attempting additional runCSDFile");
+        [self stop];
+    }
+    
     NSLog(@"Running with %@.csd", filename);
     NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
     [csound startCsound:file];
@@ -68,6 +74,10 @@ static CSDManager * _sharedCSDManager = nil;
 }
 
 -(void)runOrchestra:(CSDOrchestra *)orch {
+    if(isRunning) {
+        NSLog(@"csound already running...killing previous...attempting additional runOrch");
+        [self stop];
+    }
     
     NSLog(@"Running With An Orchestra");
     NSLog(@"Orchestra has %i instruments", [[orch instruments] count]);
@@ -119,6 +129,14 @@ static CSDManager * _sharedCSDManager = nil;
 -(void)playNote:(NSString *)note OnInstrument:(int)instrument{
     NSLog(@"i%i 0 %@", instrument, note);
     [csound sendScore:[NSString stringWithFormat:@"i%i 0 %@", instrument, note]];
+}
+
+#pragma mark CsoundObjCompletionListener
+
+-(void)csoundObjDidStart:(CsoundObj *)csoundObj {
+}
+
+-(void)csoundObjComplete:(CsoundObj *)csoundObj {
 }
 
 @end

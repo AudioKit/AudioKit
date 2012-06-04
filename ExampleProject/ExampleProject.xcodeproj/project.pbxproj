@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
+		76E93494157D3A47003C71DA /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E93493157D3A47003C71DA /* FMOscillator.m */; };
+		76E93498157D3A68003C71DA /* FMOscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E93496157D3A68003C71DA /* FMOscillatorViewController.m */; };
+		76E93499157D3A68003C71DA /* FMOscillatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76E93497157D3A68003C71DA /* FMOscillatorViewController.xib */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -60,6 +63,11 @@
 		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* CSDPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPluck.m; sourceTree = "<group>"; };
+		76E93492157D3A47003C71DA /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillator.h; sourceTree = "<group>"; };
+		76E93493157D3A47003C71DA /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
+		76E93495157D3A68003C71DA /* FMOscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillatorViewController.h; sourceTree = "<group>"; };
+		76E93496157D3A68003C71DA /* FMOscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorViewController.m; sourceTree = "<group>"; };
+		76E93497157D3A68003C71DA /* FMOscillatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FMOscillatorViewController.xib; sourceTree = "<group>"; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4842D1B1579C2F800E69770 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4842D1D1579C2F800E69770 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
@@ -181,6 +189,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		76E93490157D39F4003C71DA /* Simple Foscili */ = {
+			isa = PBXGroup;
+			children = (
+				76E93492157D3A47003C71DA /* FMOscillator.h */,
+				76E93493157D3A47003C71DA /* FMOscillator.m */,
+				76E93495157D3A68003C71DA /* FMOscillatorViewController.h */,
+				76E93496157D3A68003C71DA /* FMOscillatorViewController.m */,
+				76E93497157D3A68003C71DA /* FMOscillatorViewController.xib */,
+			);
+			name = "Simple Foscili";
+			sourceTree = "<group>";
+		};
 		C4842D181579C2F800E69770 /* csound-iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +339,7 @@
 				C4C551301576EB08005F7EE4 /* MasterViewController.xib */,
 				C4C5525515773428005F7EE4 /* Example 1 - Playing a CSD File */,
 				C4C5525615773453005F7EE4 /* Simple Oscillator */,
+				76E93490157D39F4003C71DA /* Simple Foscili */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -470,6 +491,7 @@
 				C4C5524B15771DB7005F7EE4 /* example.csd in Resources */,
 				C4C5525D15773570005F7EE4 /* OscillatorViewController.xib in Resources */,
 				C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */,
+				76E93499157D3A68003C71DA /* FMOscillatorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +533,8 @@
 				C4842D541579C2F800E69770 /* CachedGyroscope.m in Sources */,
 				C4842D551579C2F800E69770 /* CachedSlider.m in Sources */,
 				C4842D561579C2F800E69770 /* CachedSwitch.m in Sources */,
+				76E93494157D3A47003C71DA /* FMOscillator.m in Sources */,
+				76E93498157D3A68003C71DA /* FMOscillatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
