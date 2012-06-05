@@ -31,17 +31,17 @@
     
     CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
     
-    myOscillator =  [[Oscillator alloc] initWithOrchestra:orch];
+    mySoundGenerator =  [[SoundGenerator alloc] initWithOrchestra:orch];
 
     [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender {
-    [myOscillator playNoteForDuration:30 withFrequency:440];
+    [mySoundGenerator playNoteForDuration:30 withFrequency:440];
 }
 
 - (IBAction)hit2:(id)sender {
-    [myOscillator playNoteForDuration:1 withFrequency:(arc4random()%200+400)];
+    [mySoundGenerator playNoteForDuration:1 withFrequency:(arc4random()%200+400)];
 }
 
 
