@@ -18,14 +18,15 @@
         instrumentNumberInOrchestra = [orchestra addInstrument:self];
 
         //Define P-columns beyond p1-p3
-        iFrequency = @"p4";
+        //iFrequency = @"p4";
+        iFrequency = [CSDParam paramForColumn:4];
         //Define Constants
         iAmplitude = 0.4;
         iFTableSize = 4096;
     }
     return self;
 }
-/*
+
 -(id) initUsingOpcodes:(CSDOrchestra *)newOrchestra {
     self = [super init];
     if (self) {
@@ -36,19 +37,23 @@
                                                                 UsingSize:iFTableSize];
         [self addOpcode:iSine];
         
+        CSDOscillator * aOut = [CSDOscillator oscillatorWithAmplitude:[CSDParam paramFromFloat:iAmplitude] 
+                                                            Frequency:iFrequency
+                                                        FunctionTable:[CSDParam paramFromOpcode:iSine]];
+         
         CSDOscillator * aOut = [[CSDOscillator alloc] initWithAmplitude:iAmplitude 
                                                               Frequency:iFrequency
                                                           FunctionTable:iSine];
         [self addOpcode:aOut];
         
-        CSDOut * out = [[CSDOut alloc] initWithOut:aOut];
+        /CSDOut * out = [[CSDOut alloc] initWithOut:aOut];
         [self addOpcode:out];
-        
+
         
     }
     return self;
 }
-*/
+
 -(NSString *) textForOrchestra2 {
     
 
