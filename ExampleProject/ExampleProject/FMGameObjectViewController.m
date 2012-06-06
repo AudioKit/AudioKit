@@ -49,9 +49,11 @@
 
 - (IBAction)hit1:(id)sender
 {
+    [myFMGameObject playNoteForDuration:1.0 Pitch:440 Modulation:1.0];
 }
 - (IBAction)hit2:(id)sender
 {
+    [myFMGameObject playNoteForDuration:1.0 Pitch:660 Modulation:1.2];
 }
 
 @end

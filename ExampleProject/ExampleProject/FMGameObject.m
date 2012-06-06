@@ -10,15 +10,13 @@
 #import "FMGameObjectConstants.h"
 
 @implementation FMGameObject
-@synthesize orchestra;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
-    self = [super init];
+    self = [super initWithOrchestra:newOrchestra];
     if (self) {
         //add to orchestra
         //now orchestra has access to run this instrument as text
-        orchestra = newOrchestra;
-        instrumentTagInOrchestra = [orchestra addInstrument:self];
+        instrumentTagInOrchestra = [newOrchestra addInstrument:self];
         
         //define opcodes with properties connected to gameBehavior
     
@@ -54,9 +52,10 @@
     return text;
 }
 
--(void) playNoteForDuration:(float)iDuration withFrequency:(float)iFreq {
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", iDuration, iFreq];
+-(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation {
+    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f %0.2f", dur, pitch, modulation];
     [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentTagInOrchestra];
 }
+
                     
 @end
