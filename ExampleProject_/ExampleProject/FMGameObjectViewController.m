@@ -1,19 +1,19 @@
 //
-//  OscillatorViewController.m
+//  FMOscillatorViewController.m
 //  ExampleProject
 //
-//  Created by Aurelius Prochazka on 5/30/12.
+//  Created by Adam Boulanger on 6/4/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OscillatorViewController.h"
+#import "FMGameObjectViewController.h"
 
-
-@interface OscillatorViewController ()
+@interface FMGameObjectViewController ()
 
 @end
 
-@implementation OscillatorViewController
+@implementation FMGameObjectViewController
+//ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,22 +28,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
     
-    mySoundGenerator =  [[SoundGenerator alloc] initWithOrchestra:orch];
-
-    [[CSDManager sharedCSDManager] runOrchestra:orch];
+    myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
+    
+    //[[CSDManager sharedCSDManager] runOrchestra:orch];
 }
-
-- (IBAction)hit1:(id)sender {
-    [mySoundGenerator playNoteForDuration:30 withFrequency:440];
-}
-
-- (IBAction)hit2:(id)sender {
-    [mySoundGenerator playNoteForDuration:1 withFrequency:(arc4random()%200+400)];
-}
-
 
 - (void)viewDidUnload
 {
@@ -55,6 +45,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
+}
+
+- (IBAction)hit1:(id)sender
+{
+}
+- (IBAction)hit2:(id)sender
+{
 }
 
 @end
