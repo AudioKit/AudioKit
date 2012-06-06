@@ -31,6 +31,5 @@
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation;
--(NSString *)textForOrchestra;
 
 @end

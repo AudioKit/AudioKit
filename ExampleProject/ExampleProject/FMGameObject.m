@@ -40,16 +40,10 @@
                           AndOptionalPhase:nil];
         [myFoscilOpcode setOutput:FINAL_OUTPUT];
         
+        
         [self addOpcode:myFoscilOpcode];
     }
     return self;
-}
-
--(NSString *) textForOrchestra {
-    NSString * text=  @"iSine ftgentmp 0, 0, 4096, 10, 1\n"
-    "aOut1 oscil 0.4, p4, iSine\n"
-    "out aOut1";
-    return text;
 }
 
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation {
