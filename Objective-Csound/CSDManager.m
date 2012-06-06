@@ -98,7 +98,7 @@ static CSDManager * _sharedCSDManager = nil;
 
     for ( CSDInstrument* instrument in [orch instruments]) {
         [instrumentsText appendFormat:@"instr %i\n", [[orch instruments] indexOfObject:instrument]+1];
-        [instrumentsText appendString:[instrument textForOrchestra]];
+        [instrumentsText appendString:[NSString stringWithFormat:@"%@",[instrument csdRepresentation]]];
         [instrumentsText appendString:@"\nendin\n"];
     }
     

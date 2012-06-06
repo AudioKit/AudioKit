@@ -12,13 +12,11 @@
 #import "CSDOpcode.h"
 #import "CSDFunctionStatement.h"
 
-@interface CSDInstrument : NSObject {
-    NSMutableString * csdRepresentation;
-}
+@interface CSDInstrument : NSObject 
 
 @property (nonatomic, strong) CSDOrchestra * orchestra;
 @property (assign) int finalOutput;
-
+@property (nonatomic, strong) NSMutableString * csdRepresentation;
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;

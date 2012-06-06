@@ -11,6 +11,7 @@
 @implementation CSDInstrument
 @synthesize orchestra;
 @synthesize finalOutput;
+@synthesize csdRepresentation;
 
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
     orchestra = newOrchestra;
@@ -20,7 +21,7 @@
     self = [super init];
     if (self) {
         [self joinOrchestra:newOrchestra];
-        csdRepresentation = [NSMutableString stringWithString:@""];   
+        csdRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
 }
@@ -36,11 +37,13 @@
     [csdRepresentation appendString:@"\n"];
      */
     [csdRepresentation appendString:[newOpcode convertToCsd]];
+    NSLog(@"CSD Representation is now:\n%@", csdRepresentation);
 }
 
 -(void)addFunctionStatement:(CSDFunctionStatement *)newFunctionStatement
 {
     [csdRepresentation appendString:[newFunctionStatement text]];
+    NSLog(@"CSD Representation is now:\n%@", csdRepresentation );
 }
 
 //-(NSString *) csdEntry {
