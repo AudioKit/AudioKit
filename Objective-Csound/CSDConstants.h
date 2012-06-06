@@ -9,6 +9,8 @@
 #ifndef ExampleProject_CSDConstants_h
 #define ExampleProject_CSDConstants_h
 
+extern NSString *const FINAL_OUTPUT;
+
 typedef enum
 {
     kDecayTypeSimpleAveraging=1,
@@ -88,6 +90,5 @@ typedef enum
     kRandomDistributionWeibull=10,
     kRandomDistributionPoisson=11
 }RandomDistributionTypes;
-
 
 #endif

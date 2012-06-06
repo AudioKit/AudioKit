@@ -9,11 +9,13 @@
 #import "CSDFunctionStatement.h"
 
 @implementation CSDFunctionStatement
+@synthesize output;
 @synthesize integerIdentifier;
 @synthesize loadTime;
 @synthesize tableSize;
 @synthesize generatingRoutine;
 @synthesize parameters;
+@synthesize text;
 
 
 -(id) initWithTableSize:(int) size 
@@ -38,8 +40,35 @@
     return self;
 }
 
+-(id)initWithOutput:(NSString *)aOutput TableSize:(int)size GenRouting:(int)gen AndParameters:(NSString *)params
+{
+    self = [super init];
+    if (self) {
+        output = aOutput;
+        //loadTime = t;
+        tableSize = size;
+        generatingRoutine = gen;
+        parameters = params;
+        
+        //iSine ftgentmp 0, 0, 4096, 10, 1
+        //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
+        if (parameters == nil) {
+            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i",
+                    output, tableSize, generatingRoutine];
+        } else {
+            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@",
+                    output, tableSize, generatingRoutine, parameters];
+        }
+        
+    }
+    NSLog(@"FunctionStatement text: %@", text);
+    return self;
+    
+}
+/*
 -(NSString *) text {
     return [NSString stringWithFormat:@"f%i %0.2f %i %i %@", 
             integerIdentifier, loadTime, tableSize, generatingRoutine, parameters]; 
 }
+ */
 @end

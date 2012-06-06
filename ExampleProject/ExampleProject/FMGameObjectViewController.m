@@ -6,13 +6,14 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "FMOscillatorViewController.h"
+#import "FMGameObjectViewController.h"
 
-@interface FMOscillatorViewController ()
+@interface FMGameObjectViewController ()
 
 @end
 
-@implementation FMOscillatorViewController
+@implementation FMGameObjectViewController
+//ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +28,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
+    
+    myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
+    
+    //[[CSDManager sharedCSDManager] runOrchestra:orch];
 }
 
 - (void)viewDidUnload
@@ -43,7 +49,6 @@
 
 - (IBAction)hit1:(id)sender
 {
-    
 }
 - (IBAction)hit2:(id)sender
 {

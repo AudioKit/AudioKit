@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76812499157E8281004BAA44 /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 76812498157E8281004BAA44 /* CSDParam.m */; };
+		768124A2157FC923004BAA44 /* CSDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 768124A1157FC922004BAA44 /* CSDConstants.m */; };
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
-		76E93494157D3A47003C71DA /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E93493157D3A47003C71DA /* FMOscillator.m */; };
-		76E93498157D3A68003C71DA /* FMOscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E93496157D3A68003C71DA /* FMOscillatorViewController.m */; };
-		76E93499157D3A68003C71DA /* FMOscillatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76E93497157D3A68003C71DA /* FMOscillatorViewController.xib */; };
+		76E93494157D3A47003C71DA /* FMGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E93493157D3A47003C71DA /* FMGameObject.m */; };
+		76E93498157D3A68003C71DA /* FMGameObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E93496157D3A68003C71DA /* FMGameObjectViewController.m */; };
+		76E93499157D3A68003C71DA /* FMGameObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76E93497157D3A68003C71DA /* FMGameObjectViewController.xib */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -61,13 +63,17 @@
 
 /* Begin PBXFileReference section */
 		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
+		76812497157E8281004BAA44 /* CSDParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
+		76812498157E8281004BAA44 /* CSDParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
+		7681249F157F9BF4004BAA44 /* FMGameObjectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMGameObjectConstants.h; sourceTree = "<group>"; };
+		768124A1157FC922004BAA44 /* CSDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDConstants.m; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* CSDPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPluck.m; sourceTree = "<group>"; };
-		76E93492157D3A47003C71DA /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillator.h; sourceTree = "<group>"; };
-		76E93493157D3A47003C71DA /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
-		76E93495157D3A68003C71DA /* FMOscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillatorViewController.h; sourceTree = "<group>"; };
-		76E93496157D3A68003C71DA /* FMOscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorViewController.m; sourceTree = "<group>"; };
-		76E93497157D3A68003C71DA /* FMOscillatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FMOscillatorViewController.xib; sourceTree = "<group>"; };
+		76E93492157D3A47003C71DA /* FMGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMGameObject.h; sourceTree = "<group>"; };
+		76E93493157D3A47003C71DA /* FMGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMGameObject.m; sourceTree = "<group>"; };
+		76E93495157D3A68003C71DA /* FMGameObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMGameObjectViewController.h; sourceTree = "<group>"; };
+		76E93496157D3A68003C71DA /* FMGameObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMGameObjectViewController.m; sourceTree = "<group>"; };
+		76E93497157D3A68003C71DA /* FMGameObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FMGameObjectViewController.xib; sourceTree = "<group>"; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4842D1B1579C2F800E69770 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4842D1D1579C2F800E69770 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
@@ -192,11 +198,12 @@
 		76E93490157D39F4003C71DA /* Simple Foscili */ = {
 			isa = PBXGroup;
 			children = (
-				76E93492157D3A47003C71DA /* FMOscillator.h */,
-				76E93493157D3A47003C71DA /* FMOscillator.m */,
-				76E93495157D3A68003C71DA /* FMOscillatorViewController.h */,
-				76E93496157D3A68003C71DA /* FMOscillatorViewController.m */,
-				76E93497157D3A68003C71DA /* FMOscillatorViewController.xib */,
+				7681249F157F9BF4004BAA44 /* FMGameObjectConstants.h */,
+				76E93492157D3A47003C71DA /* FMGameObject.h */,
+				76E93493157D3A47003C71DA /* FMGameObject.m */,
+				76E93495157D3A68003C71DA /* FMGameObjectViewController.h */,
+				76E93496157D3A68003C71DA /* FMGameObjectViewController.m */,
+				76E93497157D3A68003C71DA /* FMGameObjectViewController.xib */,
 			);
 			name = "Simple Foscili";
 			sourceTree = "<group>";
@@ -376,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				7643F8AB15794297002E060B /* CSDConstants.h */,
+				768124A1157FC922004BAA44 /* CSDConstants.m */,
 				C4C5523C1577143B005F7EE4 /* CSDManager.h */,
 				C4C5523D1577143B005F7EE4 /* CSDManager.m */,
 				C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */,
@@ -407,6 +415,8 @@
 				C4C552111577028C005F7EE4 /* CSDFoscili.m */,
 				76B322231579012400FF54BB /* CSDPluck.h */,
 				76B322241579012500FF54BB /* CSDPluck.m */,
+				76812497157E8281004BAA44 /* CSDParam.h */,
+				76812498157E8281004BAA44 /* CSDParam.m */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";
@@ -491,7 +501,7 @@
 				C4C5524B15771DB7005F7EE4 /* example.csd in Resources */,
 				C4C5525D15773570005F7EE4 /* OscillatorViewController.xib in Resources */,
 				C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */,
-				76E93499157D3A68003C71DA /* FMOscillatorViewController.xib in Resources */,
+				76E93499157D3A68003C71DA /* FMGameObjectViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,8 +543,10 @@
 				C4842D541579C2F800E69770 /* CachedGyroscope.m in Sources */,
 				C4842D551579C2F800E69770 /* CachedSlider.m in Sources */,
 				C4842D561579C2F800E69770 /* CachedSwitch.m in Sources */,
-				76E93494157D3A47003C71DA /* FMOscillator.m in Sources */,
-				76E93498157D3A68003C71DA /* FMOscillatorViewController.m in Sources */,
+				76E93494157D3A47003C71DA /* FMGameObject.m in Sources */,
+				76E93498157D3A68003C71DA /* FMGameObjectViewController.m in Sources */,
+				76812499157E8281004BAA44 /* CSDParam.m in Sources */,
+				768124A2157FC923004BAA44 /* CSDConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

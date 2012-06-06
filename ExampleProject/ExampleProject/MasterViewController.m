@@ -11,6 +11,7 @@
 
 #import "Example1Controller.h"
 #import "OscillatorViewController.h"
+#import "FMGameObjectViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -29,7 +30,10 @@
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
-    exampleNames = [NSMutableArray arrayWithObjects:@"Example 1", @"Simple Oscillator", nil];
+    exampleNames = [NSMutableArray arrayWithObjects:@"Example 1", 
+                    @"Simple Oscillator", 
+                    @"Simple FM",
+                    nil];
     return self;
 }
 							
@@ -131,6 +135,10 @@
             break;
         case 1:
             controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
+            break;
+        case 2:
+            controller = [[FMGameObjectViewController alloc] initWithNibName:@"FMGameObjectViewController"
+                                                                  bundle:nil];
             break;
         default:
             break;

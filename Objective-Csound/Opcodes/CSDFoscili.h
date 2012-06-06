@@ -7,6 +7,7 @@
 //
 
 #import "CSDOpcode.h"
+#import "CSDParam.h"
 #import "CSDFunctionStatement.h"
 #import "CSDSynthesizer.h"
 
@@ -14,16 +15,18 @@
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 @property (nonatomic, strong) NSString *output;
 @property (nonatomic, strong) NSString *opcode;
-@property (nonatomic, strong) NSString *amplitude;
-@property (nonatomic, strong) NSString *pitch;
-@property (nonatomic, strong) NSString *carrier;
-@property (nonatomic, strong) NSString *modulation;
-@property (nonatomic, strong) NSString *modIndex;
+@property (nonatomic, strong) CSDParam *xAmplitude;
+@property (nonatomic, strong) CSDParam *kPitch;
+@property (nonatomic, strong) CSDParam *xCarrier;
+@property (nonatomic, strong) CSDParam *xModulation;
+@property (nonatomic, strong) CSDParam *kModIndex;
 @property (nonatomic, strong) CSDFunctionStatement *functionTable;
-@property (nonatomic, strong) NSString *phase;
+@property (nonatomic, strong) CSDParam *iPhase;
 
--(NSString *) textWithPValue:(int)p;
+//-(NSString *) textWithPValue:(int)p;
 
+//H4Y - ARB: deprecated
+/*
 -(id) initWithOutput:(NSString *) out
 Amplitude:(NSString *) amp 
 Pitch:(NSString *) cps
@@ -32,4 +35,16 @@ Modulation:(NSString *)mod
 ModIndex:(NSString *)modIndx
 FunctionTable:(CSDFunctionStatement *) f
 AndOptionalPhase:(NSString *) phs;
+ */
+
+-(id)initFMOscillatorWithAmplitude:(CSDParam *)amp
+kPitch:(CSDParam *)cps
+kCarrier:(CSDParam *)car
+xModulation:(CSDParam *)mod
+kModIndex:(CSDParam *)modIndex
+FunctionTable:(CSDFunctionStatement *)f
+AndOptionalPhase:(CSDParam *)phs;
+
+-(NSString *)convertToCsd;
+
 @end

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDFoscili.h"
+#import "FMGameObject.h"
 
-@interface FMOscillatorViewController : UIViewController
+#import "CSDOrchestra.h"
+
+@interface FMGameObjectViewController : UIViewController
 {
-    CSDFoscili *myCSDFoscili;
+    //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
+    FMGameObject *myFMGameObject;
 }
-
 
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
