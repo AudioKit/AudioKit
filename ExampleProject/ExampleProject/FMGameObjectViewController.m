@@ -32,7 +32,7 @@
     
     myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
     
-    //[[CSDManager sharedCSDManager] runOrchestra:orch];
+    [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
 
 - (void)viewDidUnload
