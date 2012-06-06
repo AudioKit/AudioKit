@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSDOpcode : NSObject 
+@interface CSDOpcode : NSObject
 
 @property (nonatomic, strong) NSString * output;
 @property (nonatomic, strong) NSString * opcode;
 @property (nonatomic, strong) NSString * parameters; 
 
 -(NSString *) textWithPValue:(int)p;
+-(NSString *) convertToCsd;
 
 @end

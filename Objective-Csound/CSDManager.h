@@ -3,10 +3,12 @@
 #import <Foundation/Foundation.h>
 
 #import "CsoundObj.h"
+#import "CSDConstants.h"
 #import "CSDInstrument.h"
 #import "CSDOrchestra.h"
 
 @interface CSDManager : NSObject <CsoundObjCompletionListener> {
+    //TODO: odbfs, sr stuff
     BOOL isRunning;
     CsoundObj * csound;
 }

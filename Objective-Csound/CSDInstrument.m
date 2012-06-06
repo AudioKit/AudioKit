@@ -10,6 +10,7 @@
 //
 @implementation CSDInstrument
 @synthesize orchestra;
+@synthesize finalOutput;
 
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
     orchestra = newOrchestra;
@@ -29,8 +30,17 @@
 }
 
 -(void) addOpcode:(CSDOpcode *)newOpcode {
+    /*
     [csdRepresentation appendString:[newOpcode description]];
+    NSLog(@"[newOpcode description]: %@", [newOpcode description]);
     [csdRepresentation appendString:@"\n"];
+     */
+    [csdRepresentation appendString:[newOpcode convertToCsd]];
+}
+
+-(void)addFunctionStatement:(CSDFunctionStatement *)newFunctionStatement
+{
+    [csdRepresentation appendString:[newFunctionStatement text]];
 }
 
 //-(NSString *) csdEntry {

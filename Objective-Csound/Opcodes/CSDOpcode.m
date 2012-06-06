@@ -18,4 +18,10 @@
     return [NSString stringWithFormat:@"%@ %@ %@", output, opcode, parameters];
 }
 
+-(NSString *) convertToCsd
+{
+    //Override in subclass
+    return @"Undefined";
+}
+
 @end
