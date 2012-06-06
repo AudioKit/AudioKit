@@ -29,10 +29,8 @@
     CSDFoscili * myFoscilOpcode;
 }
 
-@property (nonatomic, strong) CSDOrchestra *orchestra;
-
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
--(void) playNoteForDuration:(float)dur withFrequency:(float)freq;
+-(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation;
 -(NSString *)textForOrchestra;
 
 @end

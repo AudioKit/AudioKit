@@ -22,6 +22,7 @@
     if (self) {
         [self joinOrchestra:newOrchestra];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
+        NSLog(@"CSD being initialized:\n%@", csdRepresentation );
     }
     return self; 
 }
