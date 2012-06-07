@@ -91,14 +91,7 @@ static CSDManager * _sharedCSDManager = nil;
     NSString * header = [NSString stringWithFormat:@"sr = %d\n0dbfs = %f\nksmps = %d", 
               sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
 
-    NSMutableString * instrumentsText = [NSMutableString stringWithString:@""];
-
-    for ( CSDInstrument* instrument in [orch instruments]) {
-        [instrumentsText appendFormat:@"instr %i\n", [[orch instruments] indexOfObject:instrument]+1];
-        [instrumentsText appendString:[NSString stringWithFormat:@"%@",[instrument csdRepresentation]]];
-        [instrumentsText appendString:[NSString stringWithFormat:@"out %@", FINAL_OUTPUT]],
-        [instrumentsText appendString:@"\nendin\n"];
-    }
+    NSString * instrumentsText = [orch instrumentsForCsd];
     
     NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
     NSString * template = [[NSString alloc] initWithContentsOfFile:templateFile  encoding:NSUTF8StringEncoding error:nil];
