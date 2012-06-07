@@ -17,15 +17,15 @@
         //define opcodes with properties connected to gameBehavior
     
         //H4Y - ARB: uses argument to set output
-        CSDFunctionStatement *f = [[CSDFunctionStatement alloc] 
+        CSDFunctionTable *f = [[CSDFunctionTable alloc] 
                                    initWithOutput:@"iSine" 
                                    TableSize:4096 
                                    GenRouting:kGenRoutineSines
                                    AndParameters:@"1"];
         [self addFunctionStatement:f];
         
-        //H4Y - ARB: This assumes that CSDFunctionStatement is ftgentmp
-        //  and will look for [CSDFunctionStatement output] during csd conversion
+        //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
+        //  and will look for [CSDFunctionTable output] during csd conversion
         myFoscilOpcode = [[CSDFoscili alloc] 
                           initFMOscillatorWithAmplitude:[CSDParam initWithFloat:0.4]
                           kPitch:[CSDParam initWithPValue:kPValuePitchTag]

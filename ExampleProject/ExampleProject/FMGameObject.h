@@ -16,7 +16,7 @@
 #import "CSDManager.h"
 #import "CSDInstrument.h"
 #import "CSDParam.h"
-#import "CSDFunctionStatement.h"
+#import "CSDFunctionTable.h"
 
 #import "CSDFoscili.h"
 

@@ -39,7 +39,7 @@
     NSLog(@"CSD Representation is now:\n%@", csdRepresentation);
 }
 
--(void)addFunctionStatement:(CSDFunctionStatement *)newFunctionStatement
+-(void)addFunctionStatement:(CSDFunctionTable *)newFunctionStatement
 {
     [csdRepresentation appendString:[newFunctionStatement text]];
     NSLog(@"CSD Representation is now:\n%@", csdRepresentation );

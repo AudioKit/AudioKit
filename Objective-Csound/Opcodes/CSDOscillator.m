@@ -20,7 +20,7 @@
 -(id) initWithOutput:(NSString *) out
            Amplitude:(CSDParam *) amp 
             kPitch:(CSDParam *) freq
-       FunctionTable:(CSDFunctionStatement *) f 
+       FunctionTable:(CSDFunctionTable *) f 
 {
 
     self = [super init];
