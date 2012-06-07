@@ -32,11 +32,6 @@
 }
 
 -(void) addOpcode:(CSDOpcode *)newOpcode {
-    /*
-    [csdRepresentation appendString:[newOpcode description]];
-    NSLog(@"[newOpcode description]: %@", [newOpcode description]);
-    [csdRepresentation appendString:@"\n"];
-     */
     [csdRepresentation appendString:[newOpcode convertToCsd]];
     NSLog(@"CSD Representation is now:\n%@", csdRepresentation);
 }
