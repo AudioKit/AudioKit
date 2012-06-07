@@ -19,7 +19,7 @@ TODO:
 BUGS:
 
 * Cannot switch between two different orchestras.  Can always switch between running CSD with a file though, so it could
-be something where if "new.csd" is already created, we're not overwriting it.
+be something where if "new.csd" is already created, we're not overwriting it, or something worse.
 
 Notes:
 
