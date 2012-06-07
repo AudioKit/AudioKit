@@ -8,7 +8,7 @@
 
 #import "CSDOpcode.h"
 #import "CSDParam.h"
-#import "CSDFunctionStatement.h"
+#import "CSDFunctionTable.h"
 
 @interface CSDFoscili : CSDOpcode
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
@@ -19,7 +19,7 @@
 @property (nonatomic, strong) CSDParam *xCarrier;
 @property (nonatomic, strong) CSDParam *xModulation;
 @property (nonatomic, strong) CSDParam *kModIndex;
-@property (nonatomic, strong) CSDFunctionStatement *functionTable;
+@property (nonatomic, strong) CSDFunctionTable *functionTable;
 @property (nonatomic, strong) CSDParam *iPhase;
 
 //-(NSString *) textWithPValue:(int)p;
@@ -29,7 +29,7 @@
                           kCarrier:(CSDParam *)car
                        xModulation:(CSDParam *)mod
                          kModIndex:(CSDParam *)modIndex
-                     FunctionTable:(CSDFunctionStatement *)f
+                     FunctionTable:(CSDFunctionTable *)f
                   AndOptionalPhase:(CSDParam *)phs;
 
 -(NSString *)convertToCsd;

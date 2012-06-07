@@ -7,7 +7,7 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDFunctionStatement.h"
+#import "CSDFunctionTable.h"
 
 #import "CSDConstants.h"
 
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSString *amplitude;
 @property (nonatomic, strong) NSString *pitch;
 @property (nonatomic, strong) NSString *pitchDecayBuffer;
-@property (nonatomic, strong) CSDFunctionStatement *functionTable;
+@property (nonatomic, strong) CSDFunctionTable *functionTable;
 
 @property (nonatomic, strong) NSString *decayMethod;
 @property (nonatomic, strong) NSString *roughness;
@@ -37,28 +37,28 @@
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndRecursiveDecay:(BOOL) orSimpleDecay;
 
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndStretchedAveragingDecay:( NSString *) stretchScaler;
 
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndSimpleDrumDecay:( NSString *)roughWeight;
 
 -(id)initWithOutput:(NSString *)out
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndStretchedDrumDecay:( NSString *) roughWeight
 StretchFactor:( NSString *)stretchScaler;
 
@@ -66,7 +66,7 @@ StretchFactor:( NSString *)stretchScaler;
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndWeightedAverageDecay:( NSString *) currSampleWeight
 StretchFactor:( NSString *)prevSampleWeight;
 

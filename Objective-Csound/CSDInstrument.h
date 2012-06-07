@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CSDOpcode.h"
-#import "CSDFunctionStatement.h"
+#import "CSDFunctionTable.h"
 
 @class CSDOrchestra;
 
@@ -25,6 +25,6 @@
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) addOpcode:(CSDOpcode *) newOpcode;
--(void)addFunctionStatement:(CSDFunctionStatement *)newFunctionStatement;
+-(void)addFunctionStatement:(CSDFunctionTable *)newFunctionStatement;
 
 @end

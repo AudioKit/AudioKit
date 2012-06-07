@@ -17,7 +17,7 @@
 		C43553E3158073CD0074764A /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E1158073CD0074764A /* example.csd */; };
 		C43553E4158073CD0074764A /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E2158073CD0074764A /* template.csd */; };
 		C43553E5158074550074764A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DD1580732E0074764A /* CSDParam.m */; };
-		C43553E6158074640074764A /* CSDFunctionStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionStatement.m */; };
+		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -75,8 +75,8 @@
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DC1580732E0074764A /* CSDParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
 		C43553DD1580732E0074764A /* CSDParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
-		C43553DE158073730074764A /* CSDFunctionStatement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionStatement.h; path = FunctionTables/CSDFunctionStatement.h; sourceTree = "<group>"; };
-		C43553DF158073730074764A /* CSDFunctionStatement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionStatement.m; path = FunctionTables/CSDFunctionStatement.m; sourceTree = "<group>"; };
+		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
+		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
 		C43553E1158073CD0074764A /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C43553E2158073CD0074764A /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
@@ -210,8 +210,8 @@
 		C43553CE15804D310074764A /* FunctionTables */ = {
 			isa = PBXGroup;
 			children = (
-				C43553DE158073730074764A /* CSDFunctionStatement.h */,
-				C43553DF158073730074764A /* CSDFunctionStatement.m */,
+				C43553DE158073730074764A /* CSDFunctionTable.h */,
+				C43553DF158073730074764A /* CSDFunctionTable.m */,
 			);
 			name = FunctionTables;
 			sourceTree = "<group>";
@@ -527,7 +527,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C43553E6158074640074764A /* CSDFunctionStatement.m in Sources */,
+				C43553E6158074640074764A /* CSDFunctionTable.m in Sources */,
 				C43553E5158074550074764A /* CSDParam.m in Sources */,
 				C43553D215805FED0074764A /* SoundGenerator.m in Sources */,
 				C4C551251576EB08005F7EE4 /* main.m in Sources */,

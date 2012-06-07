@@ -1,14 +1,14 @@
 //
-//  CSDFunctionStatement.m
+//  CSDFunctionTable.m
 //  CsdReinvention
 //
 //  Created by Aurelius Prochazka on 4/12/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDFunctionStatement.h"
+#import "CSDFunctionTable.h"
 
-@implementation CSDFunctionStatement
+@implementation CSDFunctionTable
 @synthesize output;
 @synthesize integerIdentifier;
 @synthesize loadTime;

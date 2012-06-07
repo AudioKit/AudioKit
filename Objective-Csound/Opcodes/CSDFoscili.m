@@ -26,7 +26,7 @@
                           kCarrier:(CSDParam *)car
                        xModulation:(CSDParam *)mod
                          kModIndex:(CSDParam *)modIndex
-                     FunctionTable:(CSDFunctionStatement *)f
+                     FunctionTable:(CSDFunctionTable *)f
                   AndOptionalPhase:(CSDParam *)phs
 {
     self = [super init];
