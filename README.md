@@ -18,8 +18,8 @@ TODO:
 
 BUGS:
 
-* Cannot switch between two different orchestras.  Can always switch between running CSD with a file though, so it could
-be something where if "new.csd" is already created, we're not overwriting it, or something worse.
+* There is still some weirdness from stopping and starting different orchestras. 
+Occassionally there is just no sound while other times it crashes.
 
 Notes:
 
