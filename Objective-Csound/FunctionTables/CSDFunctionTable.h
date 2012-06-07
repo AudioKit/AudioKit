@@ -1,5 +1,5 @@
 //
-//  CSDFunctionStatement.h
+//  CSDFunctionTable.h
 //  CsdReinvention
 //
 //  Created by Aurelius Prochazka on 4/12/12.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSDFunctionStatement : NSObject
+@interface CSDFunctionTable : NSObject
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
 {
     NSString *text;

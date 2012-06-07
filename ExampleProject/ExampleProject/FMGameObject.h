@@ -16,15 +16,13 @@
 #import "CSDManager.h"
 #import "CSDInstrument.h"
 #import "CSDParam.h"
-#import "CSDFunctionStatement.h"
+#import "CSDSineTable.h"
 
 #import "CSDFoscili.h"
 
 @interface FMGameObject : CSDInstrument
 {
     //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-    int instrumentTagInOrchestra;
-    
     //Opcodes
     CSDFoscili * myFoscilOpcode;
 }

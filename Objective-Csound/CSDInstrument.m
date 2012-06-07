@@ -7,6 +7,7 @@
 //
 
 #import "CSDInstrument.h"
+#import "CSDOrchestra.h"
 //
 @implementation CSDInstrument
 @synthesize orchestra;
@@ -15,6 +16,7 @@
 
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
     orchestra = newOrchestra;
+    [newOrchestra addInstrument:self];
 }
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra {
@@ -22,39 +24,17 @@
     if (self) {
         [self joinOrchestra:newOrchestra];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
-        NSLog(@"CSD being initialized:\n%@", csdRepresentation );
     }
     return self; 
 }
 
--(NSString *) textForOrchestra {
-    return @"Undefined";
-}
-
 -(void) addOpcode:(CSDOpcode *)newOpcode {
     [csdRepresentation appendString:[newOpcode convertToCsd]];
-    NSLog(@"CSD Representation is now:\n%@", csdRepresentation);
 }
 
--(void)addFunctionStatement:(CSDFunctionStatement *)newFunctionStatement
+-(void)addFunctionStatement:(CSDFunctionTable *)newFunctionStatement
 {
     [csdRepresentation appendString:[newFunctionStatement text]];
-    NSLog(@"CSD Representation is now:\n%@", csdRepresentation );
 }
 
-//-(NSString *) csdEntry {
-//    NSString *text  = @"";
-//    int pIndex = 4;    
-//    for (CSDOpcode *o in  opcodes) {
-//        text = [text stringByAppendingString:[o textWithPValue:pIndex]];
-//    }
-//    text = [text stringByAppendingFormat:@"out %@\n", output];
-//    return text;
-//    
-////    return[NSString stringWithFormat:
-////                     @"%@%@ %@ %0.2f, %0.2f, %i\n",
-////                     o.output, o.opcode, o.amplitude, freq, ifn];
-//}
-//
-//
 @end

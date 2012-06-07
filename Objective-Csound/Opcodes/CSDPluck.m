@@ -75,7 +75,7 @@
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndRecursiveDecay:(BOOL) orSimpleDecay
 {
 self = [super init];
@@ -103,7 +103,7 @@ return self;
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndStretchedAveragingDecay:( NSString *) stretchScaler
 {
     self = [super init];
@@ -130,7 +130,7 @@ AndStretchedAveragingDecay:( NSString *) stretchScaler
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndSimpleDrumDecay:( NSString *) roughWeight
 {
     self = [super init];
@@ -156,7 +156,7 @@ AndSimpleDrumDecay:( NSString *) roughWeight
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndStretchedDrumDecay:( NSString *) roughWeight
 StretchFactor:( NSString *)stretchScaler
 {
@@ -183,7 +183,7 @@ StretchFactor:( NSString *)stretchScaler
 Amplitude:(NSString *)amp
 Pitch:(NSString *) pch
 DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionStatement *) f
+FunctionTable:(CSDFunctionTable *) f
 AndWeightedAverageDecay:( NSString *) currSampleWeight
 StretchFactor:( NSString *)prevSampleWeight
 {

@@ -42,7 +42,6 @@
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     NSLog(@"Starting the CsoundManager business");
-    [[CSDManager sharedCSDManager] runCSDFile:@"example"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

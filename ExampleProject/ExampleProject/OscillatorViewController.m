@@ -29,22 +29,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
-    
-    //mySoundGenerator =  [[SoundGenerator alloc] initWithOrchestra:orch];
-
-    [[CSDManager sharedCSDManager] runOrchestra:orch];
+    myOrchestra = [[CSDOrchestra alloc] init];    
+    mySoundGenerator =  [[SoundGenerator alloc] initWithOrchestra:myOrchestra];
+    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
 }
 
 - (IBAction)hit1:(id)sender {
-    //[mySoundGenerator playNoteForDuration:30 withFrequency:440];
+    [mySoundGenerator playNoteForDuration:1 Pitch:440];
 }
 
 - (IBAction)hit2:(id)sender {
-    //[mySoundGenerator playNoteForDuration:1 withFrequency:(arc4random()%200+400)];
+    [mySoundGenerator playNoteForDuration:1 Pitch:(arc4random()%200+400)];
 }
 
-
+-(void) viewWillUnload {
+    [[CSDManager sharedCSDManager] stop];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -56,5 +56,7 @@
 {
 	return YES;
 }
+
+
 
 @end

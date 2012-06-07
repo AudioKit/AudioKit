@@ -35,6 +35,10 @@
     [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
 
+-(void) viewWillUnload {
+    [[CSDManager sharedCSDManager] stop];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

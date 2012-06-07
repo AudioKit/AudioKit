@@ -12,41 +12,40 @@
 
 @synthesize opcode;
 @synthesize output;
-@synthesize amplitude;
-@synthesize frequency;
+@synthesize xAmplitude;
+@synthesize kPitch;
 @synthesize functionTable;
-@synthesize phase;
 
 
 -(id) initWithOutput:(NSString *) out
-           Amplitude:(NSString *) amp 
-           Frequency:(NSString *) freq
-       FunctionTable:(CSDFunctionStatement *) f
-   AndOptionalPhases:(NSString *) phs {
+           Amplitude:(CSDParam *) amp 
+            kPitch:(CSDParam *) freq
+       FunctionTable:(CSDFunctionTable *) f 
+{
 
     self = [super init];
     if (self) {
         opcode = @"oscil";
         output = out; 
-        amplitude = amp;
-        frequency = freq;
+        xAmplitude = amp;
+        kPitch = freq;
         functionTable = f;
-        phase = phs;
     }
     return self; 
 }
 
--(NSString *) textWithPValue:(int) p; {
-    if ( @"p" == amplitude ) { 
-        amplitude = [NSString stringWithFormat:@"p%i", p++];
-    }
-    if ( @"p" == frequency ) { 
-        frequency = [NSString stringWithFormat:@"p%i", p++]; 
-    }
-    return [NSString stringWithFormat:@"%@ %@ %@,  %@,  %i\n",
-            output, opcode, amplitude, frequency, [functionTable integerIdentifier]];
-    
+
+-(NSString *)convertToCsd
+{
+    return [NSString stringWithFormat:
+            @"%@ %@ %@, %@, %@\n",
+            output, 
+            opcode, 
+            [xAmplitude parameterString],  
+            [kPitch parameterString], 
+            [functionTable output]];
 }
+
 
 
 @end
