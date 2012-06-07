@@ -21,10 +21,10 @@
 -(id)initWithInt:(int)aInt;
 -(id)initWithOpcode:(CSDOpcode *)aOpcode;
 -(id)initWithPValue:(int)aPValue;
-+(id)initWithString:(NSString *)aString;
-+(id)initWithFloat:(float)aFloat;
-+(id)initWithInt:(int)aInt;
-+(id)initWithOpcode:(CSDOpcode *)aOpcode;
-+(id)initWithPValue:(int)aPValue;
++(id)paramWithString:(NSString *)aString;
++(id)paramWithFloat:(float)aFloat;
++(id)paramWithInt:(int)aInt;
++(id)paramWithOpcode:(CSDOpcode *)aOpcode;
++(id)paramWithPValue:(int)aPValue;
 
 @end
