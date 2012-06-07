@@ -96,12 +96,10 @@ static CSDManager * _sharedCSDManager = nil;
     NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
     NSString * template = [[NSString alloc] initWithContentsOfFile:templateFile  encoding:NSUTF8StringEncoding error:nil];
     template = [NSString stringWithFormat:template, options, header, instrumentsText, @""  ];
-    
     [self writeString:template toFile:@"new.csd"];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //make a file name to write the data to using the documents directory:
     NSString * fileName = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
     NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil]);
     
