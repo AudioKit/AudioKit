@@ -8,7 +8,8 @@
 
 #import "CSDFunctionTable.h"
 #import "CSDConstants.h" // For the GEN routine constants
-
+#import "CSDParamArray.h"
 @interface CSDSineTable : CSDFunctionTable
--(id) initWithOutput:(NSString *)output TableSize:(int) tableSize PartialStrengths:(NSString *)parameters;
+-(id) initWithOutput:(NSString *)output TableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials;
+-(id) initDefaultsWithOutput:(NSString *)output;
 @end

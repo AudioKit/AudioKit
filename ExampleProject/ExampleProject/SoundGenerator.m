@@ -14,7 +14,10 @@ typedef enum
     if (self) {
         // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
         
-        CSDSineTable * iSine = [[CSDSineTable alloc] initWithOutput:@"iSine" TableSize:4096 PartialStrengths:@"1"];
+        float partialStrengths[] = {1.0f, 0.5f, 1.0f};
+        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramFromFloats:partialStrengths count:3];
+
+        CSDSineTable * iSine = [[CSDSineTable alloc] initWithOutput:@"iSine" TableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionStatement:iSine];
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp

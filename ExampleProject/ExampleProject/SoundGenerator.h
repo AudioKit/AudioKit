@@ -5,6 +5,7 @@
 #import "CSDInstrument.h"
 #import "CSDSineTable.h"
 #import "CSDParam.h"
+#import "CSDParamArray.h"
 
 #import "CSDOscillator.h"
 
