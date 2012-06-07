@@ -10,6 +10,7 @@ TODO:
 * Set up Function Tables as subclasses a la CSDOpcodes
 * Create more opcodes
 * Develop examples
+* Clean up the CSDManager's handling of new.csd, could be made quite a bit simpler
 
 Notes:
 
