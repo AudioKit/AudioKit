@@ -39,6 +39,12 @@ static CSDManager * _sharedCSDManager = nil;
         csound = [[CsoundObj alloc] init];
         [csound addCompletionListener:self];
         isRunning = NO;
+        
+        options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
+        sampleRate = 44100;
+        samplesPerControlPeriod = 256;
+        //int numberOfChannels = 1; //MONO
+        zeroDBFullScaleValue = 1.0f;
 
     }
     return self;
@@ -81,18 +87,9 @@ static CSDManager * _sharedCSDManager = nil;
     
     NSLog(@"Running With An Orchestra");
     NSLog(@"Orchestra has %i instruments", [[orch instruments] count]);
-    
-    NSString * options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
-    int sampleRate = 44100;
-    //controlRate = 4410;
-    int samplesPerControlPeriod = 256;
-    //int numberOfChannels = 1; //MONO
-    float zeroDBFullScaleValue = 1.0f;
+
     NSString * header = [NSString stringWithFormat:@"sr = %d\n0dbfs = %f\nksmps = %d", 
               sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
-
-    
-    
 
     NSMutableString * instrumentsText = [NSMutableString stringWithString:@""];
 

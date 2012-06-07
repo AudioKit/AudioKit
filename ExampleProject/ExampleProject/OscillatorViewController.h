@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CSDManager.h"
 #import "CSDOrchestra.h"
-//#import "SoundGenerator.h"
+#import "SoundGenerator.h"
 
 @interface OscillatorViewController : UIViewController {
-    //SoundGenerator * mySoundGenerator;
+    SoundGenerator * mySoundGenerator;
 }
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;

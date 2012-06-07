@@ -2,6 +2,11 @@
 
 #import "SoundGenerator.h"
 
+typedef enum
+{
+    kCSDParamNumberFrequency=4,
+}kPValueTag;
+
 @implementation SoundGenerator
 @synthesize orchestra;
 
