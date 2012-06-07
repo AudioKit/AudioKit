@@ -24,7 +24,6 @@
     if (self) {
         [self joinOrchestra:newOrchestra];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
-        NSLog(@"CSD being initialized:\n%@", csdRepresentation );
     }
     return self; 
 }
@@ -36,13 +35,11 @@
     [csdRepresentation appendString:@"\n"];
      */
     [csdRepresentation appendString:[newOpcode convertToCsd]];
-    NSLog(@"CSD Representation is now:\n%@", csdRepresentation);
 }
 
 -(void)addFunctionStatement:(CSDFunctionTable *)newFunctionStatement
 {
     [csdRepresentation appendString:[newFunctionStatement text]];
-    NSLog(@"CSD Representation is now:\n%@", csdRepresentation );
 }
 
 @end

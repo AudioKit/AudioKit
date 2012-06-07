@@ -15,6 +15,12 @@ TODO:
 * Clean up the CSDManager's handling of new.csd, could be made quite a bit simpler
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
 
+
+BUGS:
+
+* Cannot switch between two different orchestras.  Can always switch between running CSD with a file though, so it could
+be something where if "new.csd" is already created, we're not overwriting it.
+
 Notes:
 
 * Although it's uncommon to have an fStatement as a p-Value, I believe it is 

@@ -24,8 +24,8 @@ typedef enum
         //  and will look for [CSDFunctionTable output] during csd conversion
         myOscillator = [[CSDOscillator alloc] 
                         initWithOutput:FINAL_OUTPUT
-                            Amplitude:[CSDParam initWithFloat:0.4]
-                            kPitch:[CSDParam initWithPValue:kPValuePitchTag]
+                            Amplitude:[CSDParam paramWithFloat:0.4]
+                            kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
                             FunctionTable:f];
         [myOscillator setOutput:FINAL_OUTPUT];
         
