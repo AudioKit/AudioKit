@@ -63,8 +63,8 @@
 
 /* Begin PBXFileReference section */
 		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
-		76812497157E8281004BAA44 /* CSDParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
-		76812498157E8281004BAA44 /* CSDParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
+		76812497157E8281004BAA44 /* CSDParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDParam.h; path = Opcodes/CSDParam.h; sourceTree = "<group>"; };
+		76812498157E8281004BAA44 /* CSDParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDParam.m; path = Opcodes/CSDParam.m; sourceTree = "<group>"; };
 		7681249F157F9BF4004BAA44 /* FMGameObjectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMGameObjectConstants.h; sourceTree = "<group>"; };
 		768124A1157FC922004BAA44 /* CSDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDConstants.m; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
@@ -399,6 +399,8 @@
 				C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */,
 				C4C552091577028C005F7EE4 /* CSDInstrument.h */,
 				C4C5520A1577028C005F7EE4 /* CSDInstrument.m */,
+				76812497157E8281004BAA44 /* CSDParam.h */,
+				76812498157E8281004BAA44 /* CSDParam.m */,
 				C43553CE15804D310074764A /* FunctionTables */,
 				C4C5520D1577028C005F7EE4 /* Opcodes */,
 				C4C552161577028C005F7EE4 /* template.csd */,
@@ -421,8 +423,6 @@
 				C4C552111577028C005F7EE4 /* CSDFoscili.m */,
 				76B322231579012400FF54BB /* CSDPluck.h */,
 				76B322241579012500FF54BB /* CSDPluck.m */,
-				76812497157E8281004BAA44 /* CSDParam.h */,
-				76812498157E8281004BAA44 /* CSDParam.m */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";

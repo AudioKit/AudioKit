@@ -20,9 +20,20 @@
     return self; 
 }
 
--(int) addInstrument:(CSDInstrument *) instrument {
+-(void) addInstrument:(CSDInstrument *) instrument {
     [instruments addObject:instrument];
-    return [instruments indexOfObject:instrument]+ 1;
 }
-
+-(NSString *) instrumentsForCsd {
+    
+    NSMutableString * instrumentsText = [NSMutableString stringWithString:@""];
+    
+    for ( CSDInstrument* instrument in instruments) {
+        [instrumentsText appendFormat:@"instr %i\n", [instruments indexOfObject:instrument]+1];
+        [instrumentsText appendString:[NSString stringWithFormat:@"%@",[instrument csdRepresentation]]];
+        [instrumentsText appendString:[NSString stringWithFormat:@"out %@", FINAL_OUTPUT]],
+        [instrumentsText appendString:@"\nendin\n"];
+    }
+    
+    return instrumentsText;
+}
 @end

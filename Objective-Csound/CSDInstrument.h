@@ -8,9 +8,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CSDOrchestra.h"
 #import "CSDOpcode.h"
 #import "CSDFunctionStatement.h"
+
+@class CSDOrchestra;
 
 @interface CSDInstrument : NSObject {
     CSDOrchestra * orchestra;
