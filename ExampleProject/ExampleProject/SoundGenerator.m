@@ -13,18 +13,16 @@ typedef enum
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
         // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
-        CSDFunctionTable *f = [[CSDFunctionTable alloc] initWithOutput:@"iSine" 
-                                                             TableSize:4096 
-                                                            GenRouting:kGenRoutineSines 
-                                                         AndParameters:@"1"];
-        [self addFunctionStatement:f];
+        
+        CSDSineTable * iSine = [[CSDSineTable alloc] initWithOutput:@"iSine" TableSize:4096 PartialStrengths:@"1"];
+        [self addFunctionStatement:iSine];
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
         //  and will look for [CSDFunctionTable output] during csd conversion
         myOscillator = [[CSDOscillator alloc] initWithOutput:FINAL_OUTPUT
                                                    Amplitude:[CSDParam paramWithFloat:0.4]
                                                       kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
-                                               FunctionTable:f];
+                                               FunctionTable:iSine];
         [self addOpcode:myOscillator];
     }
     return self;
