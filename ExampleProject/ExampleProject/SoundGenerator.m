@@ -30,36 +30,6 @@ typedef enum
     }
     return self;
 }
-/*
--(id) initUsingOpcodes:(CSDOrchestra *)newOrchestra {
-    self = [super init];
-    if (self) {
-        
-        CSDOscillator * aOut = [CSDOscillator oscillatorWithAmplitude:[CSDParam paramFromFloat:iAmplitude] 
-                                                            Frequency:iFrequency
-                                                        FunctionTable:[CSDParam paramFromOpcode:iSine]];
-         
-        CSDOscillator * aOut = [[CSDOscillator alloc] initWithAmplitude:iAmplitude 
-                                                              Frequency:iFrequency
-                                                          FunctionTable:iSine];
-        [self addOpcode:aOut];
-        
-        /CSDOut * out = [[CSDOut alloc] initWithOut:aOut];
-        [self addOpcode:out];
-
-        
-    }
-    return self;
-}
-*/
-
-
--(NSString *) textForOrchestra {
-    NSString * text=  @"iSine ftgentmp 0, 0, 4096, 10, 1\n"
-                       "aOut1 oscil 0.4, p4, iSine\n"
-                       "out aOut1";
-    return text;
-}
 
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
     int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
