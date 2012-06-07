@@ -7,10 +7,13 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
 
+* Develop a way to write CSDExpression, ie. math in the Csound realm
+* Enhance CSDOrchestra to enable global outputs and instruments
 * Set up Function Tables as subclasses a la CSDOpcodes
 * Create more opcodes
 * Develop examples
 * Clean up the CSDManager's handling of new.csd, could be made quite a bit simpler
+* Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
 
 Notes:
 
