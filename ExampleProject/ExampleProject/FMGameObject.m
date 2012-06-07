@@ -14,18 +14,14 @@
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        //add to orchestra
-        //now orchestra has access to run this instrument as text
-        instrumentTagInOrchestra = [newOrchestra addInstrument:self];
-        
         //define opcodes with properties connected to gameBehavior
     
         //H4Y - ARB: uses argument to set output
         CSDFunctionStatement *f = [[CSDFunctionStatement alloc] 
                                    initWithOutput:@"iSine" 
                                    TableSize:4096 
-                                   GenRouting:10 
-                                   AndParameters:nil];
+                                   GenRouting:kGenRoutineSines
+                                   AndParameters:@"1"];
         [self addFunctionStatement:f];
         
         //H4Y - ARB: This assumes that CSDFunctionStatement is ftgentmp
@@ -47,8 +43,9 @@
 }
 
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation {
+    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
     NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f %0.2f", dur, pitch, modulation];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentTagInOrchestra];
+    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
 }
 
                     

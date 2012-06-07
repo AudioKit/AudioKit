@@ -12,7 +12,10 @@
 #import "CSDOpcode.h"
 #import "CSDFunctionStatement.h"
 
-@interface CSDInstrument : NSObject 
+@interface CSDInstrument : NSObject {
+    CSDOrchestra * orchestra;
+    NSMutableString * csdRepresentation;
+}
 
 @property (nonatomic, strong) CSDOrchestra * orchestra;
 @property (assign) int finalOutput;
@@ -22,6 +25,5 @@
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionStatement:(CSDFunctionStatement *)newFunctionStatement;
--(NSString *) textForOrchestra;
 
 @end

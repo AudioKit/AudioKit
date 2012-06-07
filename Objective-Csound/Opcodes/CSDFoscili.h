@@ -9,7 +9,6 @@
 #import "CSDOpcode.h"
 #import "CSDParam.h"
 #import "CSDFunctionStatement.h"
-#import "CSDSynthesizer.h"
 
 @interface CSDFoscili : CSDOpcode
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
@@ -25,25 +24,13 @@
 
 //-(NSString *) textWithPValue:(int)p;
 
-//H4Y - ARB: deprecated
-/*
--(id) initWithOutput:(NSString *) out
-Amplitude:(NSString *) amp 
-Pitch:(NSString *) cps
-Carrier:(NSString *)car
-Modulation:(NSString *)mod
-ModIndex:(NSString *)modIndx
-FunctionTable:(CSDFunctionStatement *) f
-AndOptionalPhase:(NSString *) phs;
- */
-
 -(id)initFMOscillatorWithAmplitude:(CSDParam *)amp
-kPitch:(CSDParam *)cps
-kCarrier:(CSDParam *)car
-xModulation:(CSDParam *)mod
-kModIndex:(CSDParam *)modIndex
-FunctionTable:(CSDFunctionStatement *)f
-AndOptionalPhase:(CSDParam *)phs;
+                            kPitch:(CSDParam *)cps
+                          kCarrier:(CSDParam *)car
+                       xModulation:(CSDParam *)mod
+                         kModIndex:(CSDParam *)modIndex
+                     FunctionTable:(CSDFunctionStatement *)f
+                  AndOptionalPhase:(CSDParam *)phs;
 
 -(NSString *)convertToCsd;
 
