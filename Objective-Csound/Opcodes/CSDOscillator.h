@@ -19,7 +19,7 @@
 @property (nonatomic, strong) CSDFunctionStatement * functionTable;
 @property (nonatomic, strong) NSString * phase;
 
--(NSString *) textWithPValue:(int)p;
+-(NSString *) convertToCsd;
 
 -(id) initWithOutput:(NSString *) out
            Amplitude:(NSString *) amp 

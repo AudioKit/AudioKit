@@ -47,7 +47,6 @@
 		C4C5519A15770208005F7EE4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5519915770208005F7EE4 /* AVFoundation.framework */; };
 		C4C552171577028C005F7EE4 /* CSDFunctionStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552081577028C005F7EE4 /* CSDFunctionStatement.m */; };
 		C4C552181577028C005F7EE4 /* CSDInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520A1577028C005F7EE4 /* CSDInstrument.m */; };
-		C4C552191577028C005F7EE4 /* CSDSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520C1577028C005F7EE4 /* CSDSynthesizer.m */; };
 		C4C5521A1577028C005F7EE4 /* CSDEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */; };
 		C4C5521B1577028C005F7EE4 /* CSDFoscili.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552111577028C005F7EE4 /* CSDFoscili.m */; };
 		C4C5521C1577028C005F7EE4 /* CSDOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552131577028C005F7EE4 /* CSDOpcode.m */; };
@@ -119,6 +118,8 @@
 		C4842D491579C2F800E69770 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
 		C4842D4A1579C2F800E69770 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		C4842D4B1579C2F800E69770 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
+		C4842D9A1580480500E69770 /* SoundGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundGenerator.h; sourceTree = "<group>"; };
+		C4842D9B1580480500E69770 /* SoundGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundGenerator.m; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C551181576EB08005F7EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C5511A1576EB08005F7EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -151,8 +152,6 @@
 		C4C552081577028C005F7EE4 /* CSDFunctionStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDFunctionStatement.m; sourceTree = "<group>"; };
 		C4C552091577028C005F7EE4 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDInstrument.h; sourceTree = "<group>"; };
 		C4C5520A1577028C005F7EE4 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDInstrument.m; sourceTree = "<group>"; };
-		C4C5520B1577028C005F7EE4 /* CSDSynthesizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDSynthesizer.h; sourceTree = "<group>"; };
-		C4C5520C1577028C005F7EE4 /* CSDSynthesizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDSynthesizer.m; sourceTree = "<group>"; };
 		C4C5520E1577028C005F7EE4 /* CSDEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDEnvelope.h; sourceTree = "<group>"; };
 		C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDEnvelope.m; sourceTree = "<group>"; };
 		C4C552101577028C005F7EE4 /* CSDFoscili.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDFoscili.h; sourceTree = "<group>"; };
@@ -170,8 +169,6 @@
 		C4C5525915773570005F7EE4 /* OscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorViewController.h; sourceTree = "<group>"; };
 		C4C5525A15773570005F7EE4 /* OscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorViewController.m; sourceTree = "<group>"; };
 		C4C5525B15773570005F7EE4 /* OscillatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OscillatorViewController.xib; sourceTree = "<group>"; };
-		C4C5525E15773AC3005F7EE4 /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
-		C4C5525F15773AC3005F7EE4 /* Oscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Oscillator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +202,15 @@
 				76E93497157D3A68003C71DA /* FMGameObjectViewController.xib */,
 			);
 			name = "Simple Foscili";
+			sourceTree = "<group>";
+		};
+		C43553CE15804D310074764A /* FunctionTables */ = {
+			isa = PBXGroup;
+			children = (
+				C4C552071577028C005F7EE4 /* CSDFunctionStatement.h */,
+				C4C552081577028C005F7EE4 /* CSDFunctionStatement.m */,
+			);
+			name = FunctionTables;
 			sourceTree = "<group>";
 		};
 		C4842D181579C2F800E69770 /* csound-iOS */ = {
@@ -387,12 +393,9 @@
 				C4C5523D1577143B005F7EE4 /* CSDManager.m */,
 				C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */,
 				C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */,
-				C4C552071577028C005F7EE4 /* CSDFunctionStatement.h */,
-				C4C552081577028C005F7EE4 /* CSDFunctionStatement.m */,
 				C4C552091577028C005F7EE4 /* CSDInstrument.h */,
 				C4C5520A1577028C005F7EE4 /* CSDInstrument.m */,
-				C4C5520B1577028C005F7EE4 /* CSDSynthesizer.h */,
-				C4C5520C1577028C005F7EE4 /* CSDSynthesizer.m */,
+				C43553CE15804D310074764A /* FunctionTables */,
 				C4C5520D1577028C005F7EE4 /* Opcodes */,
 				C4C552161577028C005F7EE4 /* template.csd */,
 				C4C5524A15771DB7005F7EE4 /* example.csd */,
@@ -436,8 +439,8 @@
 				C4C5525915773570005F7EE4 /* OscillatorViewController.h */,
 				C4C5525A15773570005F7EE4 /* OscillatorViewController.m */,
 				C4C5525B15773570005F7EE4 /* OscillatorViewController.xib */,
-				C4C5525E15773AC3005F7EE4 /* Oscillator.h */,
-				C4C5525F15773AC3005F7EE4 /* Oscillator.m */,
+				C4842D9A1580480500E69770 /* SoundGenerator.h */,
+				C4842D9B1580480500E69770 /* SoundGenerator.m */,
 			);
 			name = "Simple Oscillator";
 			sourceTree = "<group>";
@@ -521,7 +524,6 @@
 				C4C55192157701AF005F7EE4 /* UIKnob.m in Sources */,
 				C4C552171577028C005F7EE4 /* CSDFunctionStatement.m in Sources */,
 				C4C552181577028C005F7EE4 /* CSDInstrument.m in Sources */,
-				C4C552191577028C005F7EE4 /* CSDSynthesizer.m in Sources */,
 				C4C5521A1577028C005F7EE4 /* CSDEnvelope.m in Sources */,
 				C4C5521B1577028C005F7EE4 /* CSDFoscili.m in Sources */,
 				C4C5521C1577028C005F7EE4 /* CSDOpcode.m in Sources */,

@@ -48,5 +48,37 @@
     
 }
 
+-(NSString *)convertToCsd
+{
+    //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
+    NSString *s;
+    if ( iPhase == nil) {
+        s = [NSString stringWithFormat:
+             @"%@ foscili %@, %@, %@, %@, %@, %@\n",
+             output,
+             [xAmplitude parameterString], 
+             [kPitch parameterString], 
+             [xCarrier parameterString], 
+             [xModulation parameterString], 
+             [kModIndex parameterString], 
+             [functionTable output], 
+             [iPhase parameterString]];
+    } else{
+        s = [NSString stringWithFormat:
+             @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
+             output,
+             [xAmplitude parameterString], 
+             [kPitch parameterString], 
+             [xCarrier parameterString], 
+             [xModulation parameterString], 
+             [kModIndex parameterString], 
+             [functionTable output], 
+             [iPhase parameterString]];
+        
+    }
+    NSLog(@"Foscil csdRepresentation created:%@", s);
+    return s;
+}
+
 
 @end
