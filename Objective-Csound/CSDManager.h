@@ -10,6 +10,11 @@
 @interface CSDManager : NSObject <CsoundObjCompletionListener> {
     //TODO: odbfs, sr stuff
     BOOL isRunning;
+    NSString * options;
+    int sampleRate;
+    int samplesPerControlPeriod;
+    float zeroDBFullScaleValue;
+    
     CsoundObj * csound;
 }
 //@property (nonatomic, strong) NSString * options;

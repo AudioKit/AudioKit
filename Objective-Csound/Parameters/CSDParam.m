@@ -60,24 +60,24 @@
     }
     return self;
 }
-+(id)initWithString:(NSString *)aString
++(id)paramWithString:(NSString *)aString
 {
     return [[self alloc] initWithString:aString];
 }
 
-+(id)initWithFloat:(float)aFloat
++(id)paramWithFloat:(float)aFloat
 {
     return [[self alloc] initWithFloat:aFloat];
 }
-+(id)initWithInt:(int)aInt
++(id)paramWithInt:(int)aInt
 {
     return [[self alloc] initWithInt:aInt];
 }
-+(id)initWithOpcode:(CSDOpcode *)aOpcode
++(id)paramWithOpcode:(CSDOpcode *)aOpcode
 {
     return [[self alloc] initWithOpcode:aOpcode];
 }
-+(id)initWithPValue:(int)aPValue
++(id)paramWithPValue:(int)aPValue
 {
     return [[self alloc] initWithPValue:aPValue];
 }

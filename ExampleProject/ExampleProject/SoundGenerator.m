@@ -2,75 +2,39 @@
 
 #import "SoundGenerator.h"
 
+typedef enum
+{
+    kPValuePitchTag=4,
+}kPValueTag;
+
 @implementation SoundGenerator
-@synthesize orchestra;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
-    self = [super init];
+    self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        orchestra = newOrchestra;
-        instrumentNumberInOrchestra = [orchestra addInstrument:self];
+        // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
+        
+        float partialStrengths[] = {1.0f, 0.5f, 1.0f};
+        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramFromFloats:partialStrengths count:3];
 
-        //Define P-columns beyond p1-p3
-        iFrequency = @"p4";
-        //iFrequency = [CSDParam paramForColumn:4];
-        //Define Constants
-        iAmplitude = 0.4;
-        iFTableSize = 4096;
+        CSDSineTable * iSine = [[CSDSineTable alloc] initWithOutput:@"iSine" TableSize:4096 PartialStrengths:partialStrengthParamArray];
+        [self addFunctionStatement:iSine];
+        
+        //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
+        //  and will look for [CSDFunctionTable output] during csd conversion
+        myOscillator = [[CSDOscillator alloc] initWithOutput:FINAL_OUTPUT
+                                                   Amplitude:[CSDParam paramWithFloat:0.4]
+                                                      kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
+                                               FunctionTable:iSine];
+        [self addOpcode:myOscillator];
     }
     return self;
 }
-/*
--(id) initUsingOpcodes:(CSDOrchestra *)newOrchestra {
-    self = [super init];
-    if (self) {
-        orchestra = newOrchestra;
-        instrumentNumberInOrchestra = [orchestra addInstrument:self];
-        
-        CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine 
-                                                                UsingSize:iFTableSize];
-        [self addOpcode:iSine];
-        
-        CSDOscillator * aOut = [CSDOscillator oscillatorWithAmplitude:[CSDParam paramFromFloat:iAmplitude] 
-                                                            Frequency:iFrequency
-                                                        FunctionTable:[CSDParam paramFromOpcode:iSine]];
-         
-        CSDOscillator * aOut = [[CSDOscillator alloc] initWithAmplitude:iAmplitude 
-                                                              Frequency:iFrequency
-                                                          FunctionTable:iSine];
-        [self addOpcode:aOut];
-        
-        /CSDOut * out = [[CSDOut alloc] initWithOut:aOut];
-        [self addOpcode:out];
 
-        
-    }
-    return self;
-}
-*/
-
--(NSString *) textForOrchestra2 {
-    
-
-    
-    
-    
-    NSString * text=  @"iSine ftgentmp 0, 0, 4096, 10, 1\n"
-                       "aOut1 oscil 0.4, p4, iSine\n"
-                       "out aOut1";
-    return text;
-}
-
--(NSString *) textForOrchestra {
-    NSString * text=  @"iSine ftgentmp 0, 0, 4096, 10, 1\n"
-                       "aOut1 oscil 0.4, p4, iSine\n"
-                       "out aOut1";
-    return text;
-}
-
--(void) playNoteForDuration:(float)iDuration withFrequency:(float)iFreq {
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", iDuration, iFreq];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumberInOrchestra];
+-(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
+    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
+    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
+    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
 }
 
 @end

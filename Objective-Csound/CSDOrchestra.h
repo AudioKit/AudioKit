@@ -1,35 +1,16 @@
+// CSDOrchestra.h
 //
-//  CSDOrchestra.h
-//  ExampleProject
+// CSDOrchestra is a collection of instruments.  
 //
-//  Created by Aurelius Prochazka on 5/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
-//
+// TODO: 
+// * Differentiate between regular instruments and global instruments
 
 #import <Foundation/Foundation.h>
-
-@class CSDInstrument;
-@class CSDFunctionStatement;
-
-// H4Y - AOP still not sure whether instruments and F-Statements
-// need to be classes or just implement protocols
-@protocol CSDInstrument
--(NSString *) orchestraText;
-@end
-//
-//@protocol CSDFunctionStatement
-//-(NSString *) orchestraText;
-//@end
-
+#import "CSDConstants.h"
+#import "CSDInstrument.h"
 
 @interface CSDOrchestra : NSObject 
-
-
-
 @property (nonatomic, strong) NSMutableArray * instruments;
-//@property (nonatomic, strong) NSMutableArray * functionStatements;
-
--(int) addInstrument:(CSDInstrument *) instrument;
-//-(void) addFunctionStatement:(CSDFunctionStatement *) f;
-
+-(void) addInstrument:(CSDInstrument *) instrument;
+-(NSString *) instrumentsForCsd;
 @end

@@ -7,24 +7,22 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDFunctionStatement.h"
-#import "CSDSynthesizer.h"
+#import "CSDFunctionTable.h"
+#import "CSDParam.h"
 
 @interface CSDOscillator : CSDOpcode 
 
-@property (nonatomic, strong) NSString * output;
-@property (nonatomic, strong) NSString * opcode;
-@property (nonatomic, strong) NSString * amplitude;
-@property (nonatomic, strong) NSString * frequency;
-@property (nonatomic, strong) CSDFunctionStatement * functionTable;
-@property (nonatomic, strong) NSString * phase;
+@property (nonatomic, strong) NSString *output;
+@property (nonatomic, strong) NSString *opcode;
+@property (nonatomic, strong) CSDParam *xAmplitude;
+@property (nonatomic, strong) CSDParam *kPitch;
+@property (nonatomic, strong) CSDFunctionTable *functionTable;
 
--(NSString *) textWithPValue:(int)p;
+-(NSString *) convertToCsd;
 
 -(id) initWithOutput:(NSString *) out
-           Amplitude:(NSString *) amp 
-           Frequency:(NSString *) freq
-       FunctionTable:(CSDFunctionStatement *) f
-   AndOptionalPhases:(NSString *) phs;
+           Amplitude:(CSDParam *) amp 
+              kPitch:(CSDParam *) freq
+       FunctionTable:(CSDFunctionTable *) f;
 
 @end
