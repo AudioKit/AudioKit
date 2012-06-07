@@ -4,24 +4,33 @@
 
 typedef enum
 {
-    kCSDParamNumberFrequency=4,
+    kPValuePitchTag=4,
 }kPValueTag;
 
 @implementation SoundGenerator
-@synthesize orchestra;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
-    self = [super init];
+    self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        orchestra = newOrchestra;
-        instrumentNumberInOrchestra = [orchestra addInstrument:self];
-
-        //Define P-columns beyond p1-p3
-        iFrequency = @"p4";
-        //iFrequency = [CSDParam paramForColumn:4];
-        //Define Constants
-        iAmplitude = 0.4;
-        iFTableSize = 4096;
+        // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
+        CSDFunctionStatement *f = [[CSDFunctionStatement alloc] 
+                                   initWithOutput:@"iSine" 
+                                   TableSize:4096 
+                                   GenRouting:kGenRoutineSines 
+                                   AndParameters:@"1"];
+        [self addFunctionStatement:f];
+        
+        //H4Y - ARB: This assumes that CSDFunctionStatement is ftgentmp
+        //  and will look for [CSDFunctionStatement output] during csd conversion
+        myOscillator = [[CSDOscillator alloc] 
+                        initWithOutput:FINAL_OUTPUT
+                            Amplitude:[CSDParam initWithFloat:0.4]
+                            kPitch:[CSDParam initWithPValue:kPValuePitchTag]
+                            FunctionTable:f];
+        [myOscillator setOutput:FINAL_OUTPUT];
+        
+        
+        [self addOpcode:myOscillator];
     }
     return self;
 }
@@ -29,12 +38,6 @@ typedef enum
 -(id) initUsingOpcodes:(CSDOrchestra *)newOrchestra {
     self = [super init];
     if (self) {
-        orchestra = newOrchestra;
-        instrumentNumberInOrchestra = [orchestra addInstrument:self];
-        
-        CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine 
-                                                                UsingSize:iFTableSize];
-        [self addOpcode:iSine];
         
         CSDOscillator * aOut = [CSDOscillator oscillatorWithAmplitude:[CSDParam paramFromFloat:iAmplitude] 
                                                             Frequency:iFrequency
@@ -54,17 +57,6 @@ typedef enum
 }
 */
 
--(NSString *) textForOrchestra2 {
-    
-
-    
-    
-    
-    NSString * text=  @"iSine ftgentmp 0, 0, 4096, 10, 1\n"
-                       "aOut1 oscil 0.4, p4, iSine\n"
-                       "out aOut1";
-    return text;
-}
 
 -(NSString *) textForOrchestra {
     NSString * text=  @"iSine ftgentmp 0, 0, 4096, 10, 1\n"
@@ -73,9 +65,10 @@ typedef enum
     return text;
 }
 
--(void) playNoteForDuration:(float)iDuration withFrequency:(float)iFreq {
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", iDuration, iFreq];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumberInOrchestra];
+-(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
+    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
+    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
+    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
 }
 
 @end

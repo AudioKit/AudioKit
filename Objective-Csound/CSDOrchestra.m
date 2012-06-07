@@ -10,8 +10,6 @@
 
 @implementation CSDOrchestra
 
-
-//@synthesize functionStatements;
 @synthesize instruments;
 
 -(id) init {
@@ -23,13 +21,8 @@
 }
 
 -(int) addInstrument:(CSDInstrument *) instrument {
-    NSLog(@"Adding Instrument");
     [instruments addObject:instrument];
     return [instruments indexOfObject:instrument]+ 1;
 }
-
-//-(void) addFunctionStatement:(CSDFunctionStatement *) f {
-//    [functionStatements addObject:f];
-//}
 
 @end

@@ -15,6 +15,7 @@
 
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
     orchestra = newOrchestra;
+    [newOrchestra addInstrument:self];
 }
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra {
@@ -25,10 +26,6 @@
         NSLog(@"CSD being initialized:\n%@", csdRepresentation );
     }
     return self; 
-}
-
--(NSString *) textForOrchestra {
-    return @"Undefined";
 }
 
 -(void) addOpcode:(CSDOpcode *)newOpcode {
@@ -47,19 +44,4 @@
     NSLog(@"CSD Representation is now:\n%@", csdRepresentation );
 }
 
-//-(NSString *) csdEntry {
-//    NSString *text  = @"";
-//    int pIndex = 4;    
-//    for (CSDOpcode *o in  opcodes) {
-//        text = [text stringByAppendingString:[o textWithPValue:pIndex]];
-//    }
-//    text = [text stringByAppendingFormat:@"out %@\n", output];
-//    return text;
-//    
-////    return[NSString stringWithFormat:
-////                     @"%@%@ %@ %0.2f, %0.2f, %i\n",
-////                     o.output, o.opcode, o.amplitude, freq, ifn];
-//}
-//
-//
 @end

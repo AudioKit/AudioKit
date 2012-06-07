@@ -53,10 +53,10 @@
         //iSine ftgentmp 0, 0, 4096, 10, 1
         //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
         if (parameters == nil) {
-            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, 1\n",
+            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
                     output, tableSize, generatingRoutine];
         } else {
-            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, 1, %@\n",
+            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
                     output, tableSize, generatingRoutine, parameters];
         }
         

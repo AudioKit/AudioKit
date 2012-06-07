@@ -23,8 +23,6 @@
 @interface FMGameObject : CSDInstrument
 {
     //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-    int instrumentTagInOrchestra;
-    
     //Opcodes
     CSDFoscili * myFoscilOpcode;
 }
