@@ -3,6 +3,7 @@
 #import <UIKit/UIKit.h>
 #import "CSDManager.h"
 #import "CSDInstrument.h"
+#import "CSDSineTable.h"
 #import "CSDParam.h"
 
 #import "CSDOscillator.h"
