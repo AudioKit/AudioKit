@@ -13,6 +13,7 @@
 
 @interface OscillatorViewController : UIViewController {
     SoundGenerator * mySoundGenerator;
+    CSDOrchestra   * myOrchestra;
 }
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
