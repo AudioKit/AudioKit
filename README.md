@@ -15,12 +15,8 @@ TODO:
 * Develop examples
 * Clean up the CSDManager's handling of new.csd, could be made quite a bit simpler
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
-<<<<<<< HEAD
-* output of type CSDParam
-=======
 * Subclass CSDParam... but how exactly?  CSDFloatPraam?  CSD(k/a/i)Param? CSDkCpsParam?
 * Make outputs CSDParams (of some type) including outputs of the function tables
->>>>>>> c3cbcb7316b369ff09b3f4ecb2c1351edee76971
 
 BUGS:
 
