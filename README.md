@@ -15,7 +15,12 @@ TODO:
 * Develop examples
 * Clean up the CSDManager's handling of new.csd, could be made quite a bit simpler
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
+<<<<<<< HEAD
 * output of type CSDParam
+=======
+* Subclass CSDParam... but how exactly?  CSDFloatPraam?  CSD(k/a/i)Param? CSDkCpsParam?
+* Make outputs CSDParams (of some type) including outputs of the function tables
+>>>>>>> c3cbcb7316b369ff09b3f4ecb2c1351edee76971
 
 BUGS:
 
@@ -23,12 +28,6 @@ BUGS:
 Occassionally there is just no sound while other times it crashes.
 
 NOTES:
-
-* Although it's uncommon to have an fStatement as a p-Value, I believe it is 
-legal, so should we be treating FunctionStatements as CSDParams also?
-
-* Should there be subclasses of CSDParam as well?  That would allow us to have more 
-informative signatures.
 
 * Should think about standardizing the headers of the files.  I don't care much who 
 wrote the file initially or when it was created.  To me that's all handled much 
