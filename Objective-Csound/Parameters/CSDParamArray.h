@@ -15,6 +15,7 @@
     float      numbers[0];
 }
 @property (nonatomic, strong) NSString *parameterString;
+@property (readonly) NSUInteger count;
 
 + (id)paramFromFloats:(float *)numbers count:(NSUInteger)count;
 @end

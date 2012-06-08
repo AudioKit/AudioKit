@@ -10,6 +10,7 @@
 
 @implementation CSDParamArray
 @synthesize parameterString;
+@synthesize count;
 
 + (id)paramFromFloats:(float *)numbers count:(NSUInteger)count {
     CSDParamArray *result = [NSAllocateObject([self class], count * sizeof(float), NULL) init];

@@ -1,19 +1,18 @@
 //
-//  FMOscillatorViewController.m
+//  UnitGeneratorsViewController.m
 //  ExampleProject
 //
-//  Created by Adam Boulanger on 6/4/12.
+//  Created by Adam Boulanger on 6/7/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "FMGameObjectViewController.h"
+#import "UnitGeneratorsViewController.h"
 
-@interface FMGameObjectViewController ()
+@interface UnitGeneratorsViewController ()
 
 @end
 
-@implementation FMGameObjectViewController
-//ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
+@implementation UnitGeneratorsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,15 +27,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
+    myOrchestra = [[CSDOrchestra alloc] init];
+    myUnitGenSoundGenerator = [[UnitGenSoundGenerator alloc] initWithOrchestra:myOrchestra];
+    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
     
-    myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
-    
-    [[CSDManager sharedCSDManager] runOrchestra:orch];
-}
-
--(void) viewWillUnload {
-    [[CSDManager sharedCSDManager] stop];
 }
 
 - (void)viewDidUnload
@@ -51,13 +45,12 @@
 	return YES;
 }
 
-- (IBAction)hit1:(id)sender
+-(IBAction)hit1:(id)sender
 {
-    [myFMGameObject playNoteForDuration:1.0 Pitch:220 Modulation:1.0];
 }
-- (IBAction)hit2:(id)sender
+
+-(IBAction)hit2:(id)sender
 {
-    [myFMGameObject playNoteForDuration:1.0 Pitch:320 Modulation:1.2];
 }
 
 @end

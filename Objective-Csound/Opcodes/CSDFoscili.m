@@ -11,7 +11,6 @@
 @implementation CSDFoscili
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 @synthesize output;
-@synthesize opcode;
 @synthesize xAmplitude;
 @synthesize kPitch;
 @synthesize xCarrier;
