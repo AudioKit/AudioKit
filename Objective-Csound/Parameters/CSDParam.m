@@ -48,7 +48,7 @@
     //
     self = [super init];
     if (self) {
-        //TODO: handle output assignment both here and maybe on opcode as well
+        parameterString = [aOpcode output];
     }
     return self;
 }

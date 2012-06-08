@@ -8,6 +8,7 @@ representing every part of the Csound orchestra instruments as objects.
 TODO:
 
 * Develop a way to write CSDExpression, ie. math in the Csound realm
+* figure out how to get variables (think iDur(p3)) into paramArray
 * Enhance CSDOrchestra to enable global outputs and instruments
 * Set up Function Tables as subclasses a la CSDOpcodes
 * Create more opcodes
@@ -38,3 +39,7 @@ some point, then all is lost.
 
 * Adding unit generators: is there an elegant way to generate a%, k%, and i% prefixes for output assignments (and their subsequent re-use in paramteres of other opcodes)? Ideally, an objective-csound user would set something like an (BOOL)audioRate flag and everything would be set for them when converting to csd, but this causes a problem when user wants to re-enter the output in the init argument of a newly created opcdode.
 
+* making a,k,i assignments behind the scenes as part of scripting opcode id's and output generation is essential.  As I was making unitgen example, my output was a string set to "aSomething" and I was trying to plug the opcode into parameters that only took k.  The result was silence.  This should all be under the hood and automated after specifying the rate for an opcdoe and knowing what kind of affordances a parameter has by seeing its fastest subclass of CSDParam on autocomplete.  This also means that if something can take, a,k, OR i rate and the autocomplete says CSDParamA, then the it may also need to handle a CSDParamK object passed as argument. 
+
+RECENT UPDATE NOTES:
+* if wanting to set CSDParam to pValue corresponding to a note's duration, the pfield will always be 3.  Should be a final constant variable to hide the p-field number from the objective-c user.  However, by making a CSDConstant typedef of type PValueReservedTag, we reinforce how users should stylistically create typedefs with this naming convention for their variable p-fields kPValueTagSomething
