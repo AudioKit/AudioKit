@@ -13,7 +13,6 @@
 @interface CSDFoscili : CSDOpcode
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 @property (nonatomic, strong) NSString *output;
-@property (nonatomic, strong) NSString *opcode;
 @property (nonatomic, strong) CSDParam *xAmplitude;
 @property (nonatomic, strong) CSDParam *kPitch;
 @property (nonatomic, strong) CSDParam *xCarrier;

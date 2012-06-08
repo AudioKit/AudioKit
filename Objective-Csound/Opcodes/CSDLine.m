@@ -1,0 +1,38 @@
+//
+//  CSDLine.m
+//  ExampleProject
+//
+//  Created by Adam Boulanger on 6/7/12.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+
+#import "CSDLine.h"
+
+@implementation CSDLine
+@synthesize output;
+@synthesize startingValue;
+@synthesize duration;
+@synthesize targetValue;
+
+-(id)initWithOutput:(NSString *) aOutput
+     iStartingValue:(CSDParam *) aStart
+          iDuration:(CSDParam *) aDuration
+       iTargetValue:(CSDParam *) aTarget 
+{
+    self = [super init];
+    if (self) {
+        output          = aOutput; 
+        startingValue   = aStart;
+        duration        = aDuration;
+        targetValue     = aTarget;
+    }
+    return self; 
+}
+
+-(NSString *)convertToCsd 
+{
+    return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", 
+            output, startingValue, duration, targetValue];
+}
+
+@end
