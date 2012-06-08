@@ -29,6 +29,7 @@
                                                                  kModIndex:[CSDParam paramWithInt:15]
                                                              FunctionTable:iSine
                                                           AndOptionalPhase:nil];
+
         [myFoscilOpcode setOutput:FINAL_OUTPUT];
         
         

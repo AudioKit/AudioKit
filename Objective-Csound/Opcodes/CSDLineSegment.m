@@ -45,8 +45,11 @@
 -(NSString *)convertToCsd
 {
     if (segmentArray == nil) {
-        return [NSString stringWithFormat:@"%@ line %@, %@, %@", 
-                output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue];
+        return [NSString stringWithFormat:@"%@ linseg %@, %@, %@\n", 
+                output, 
+                [firstSegmentStartValue parameterString], 
+                [firstSegmentDuration parameterString], 
+                [firstSegmentTargetValue parameterString]];
     } else {
        /* NSMutableString *s = [NSString stringWithFormat:@", "];
         for (int i = 0; i < [segmentArray count]; i++) {
@@ -54,8 +57,12 @@
         }
         return [NSString stringWithFormat:@"%@ line %@, %@, %@", 
                 output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue];*/
-        return [NSString stringWithFormat:@"%@ line %@, %@, %@, %@", 
-            output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue, [segmentArray parameterString]];
+        return [NSString stringWithFormat:@"%@ linseg %@, %@, %@, %@\n", 
+            output, 
+                [firstSegmentStartValue parameterString], 
+                [firstSegmentDuration parameterString], 
+                [firstSegmentTargetValue parameterString], 
+                [segmentArray parameterString]];
     }
 }
 

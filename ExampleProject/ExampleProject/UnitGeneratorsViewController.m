@@ -47,10 +47,12 @@
 
 -(IBAction)hit1:(id)sender
 {
+    [myUnitGenSoundGenerator playNoteForDuration:9.0];
 }
 
 -(IBAction)hit2:(id)sender
 {
+    [myUnitGenSoundGenerator playNoteForDuration:3.0];
 }
 
 @end

@@ -13,6 +13,11 @@ extern NSString *const FINAL_OUTPUT;
 
 typedef enum
 {
+    kPValueTagDuration = 3
+}PValueReservedTag;
+
+typedef enum
+{
     kDecayTypeSimpleAveraging=1,
     kDecayTypeStretchedAveraging=2,
     kDecayTypeSimpleDrum=3,

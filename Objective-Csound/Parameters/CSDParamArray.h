@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CSDParam.h"
 
 @interface CSDParamArray : NSObject
 {
@@ -18,4 +19,5 @@
 @property (readonly) NSUInteger count;
 
 + (id)paramFromFloats:(float *)numbers count:(NSUInteger)count;
++ (id)paramFromParams:(CSDParam *)params count:(NSUInteger)count;
 @end
