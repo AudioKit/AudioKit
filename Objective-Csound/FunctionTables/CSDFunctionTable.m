@@ -18,34 +18,33 @@
 @synthesize text;
 
 
--(id) initWithTableSize:(int) size 
-             GenRoutine:(int) gen 
-          AndParameters:(NSString *) params {
-    return [self initWithNumber:1 LoadTime:0 TableSize:size GenRoutine:gen AndParameters:params];
-}
+//-(id) initWithTableSize:(int) size 
+//             GenRoutine:(int) gen 
+//          AndParameters:(NSString *) params {
+//    return [self initWithNumber:1 LoadTime:0 TableSize:size GenRoutine:gen AndParameters:params];
+//}
 
--(id) initWithNumber:(int) i 
-            LoadTime:(float) t 
-           TableSize:(int) size 
-          GenRoutine:(int) gen 
-       AndParameters:(NSString *) params {
-    self = [super init];
-    if (self) {
-        integerIdentifier = i;
-        loadTime = t;
-        tableSize = size;
-        generatingRoutine = gen;
-        parameters = params;
-    }
-    return self;
-}
+//-(id) initWithNumber:(int) i 
+//            LoadTime:(float) t 
+//           TableSize:(int) size 
+//          GenRoutine:(int) gen 
+//       AndParameters:(NSString *) params {
+//    self = [super init];
+//    if (self) {
+//        integerIdentifier = i;
+//        loadTime = t;
+//        tableSize = size;
+//        generatingRoutine = gen;
+//        parameters = params;
+//    }
+//    return self;
+//}
 
--(id)initWithOutput:(NSString *)aOutput TableSize:(int)size GenRoutine:(int)gen AndParameters:(NSString *)params
+-(id)initWithTableSize:(int)size GenRoutine:(int)gen Parameters:(NSString *)params
 {
     self = [super init];
     if (self) {
-        output = aOutput;
-        //loadTime = t;
+        output = [NSString stringWithFormat:@"i%@%p", [self class], self];
         tableSize = size;
         generatingRoutine = gen;
         parameters = params;
@@ -61,14 +60,9 @@
         }
         
     }
-    NSLog(@"FunctionStatement text: %@", text);
+    NSLog(@"Function Table: %@", text);
     return self;
     
 }
-/*
--(NSString *) text {
-    return [NSString stringWithFormat:@"f%i %0.2f %i %i %@", 
-            integerIdentifier, loadTime, tableSize, generatingRoutine, parameters]; 
-}
- */
+
 @end

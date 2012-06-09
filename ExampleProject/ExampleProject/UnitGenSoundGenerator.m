@@ -27,8 +27,8 @@ typedef enum
         float partialStrengths[] = {1.0f, 0.5f, 1.0f};
         CSDParamArray * partialStrengthParamArray = [CSDParamArray paramFromFloats:partialStrengths count:3];
         
-        CSDSineTable * iSine = [[CSDSineTable alloc] initWithOutput:@"iSine" TableSize:4096 PartialStrengths:partialStrengthParamArray];
-        [self addFunctionStatement:iSine];
+        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
+        [self addFunctionTable:sineTable];
         
         //TODO: writing output in csound as string "aLine" is BAD
         //NOTE:  duration of unitgenerator set from p3 with NOTE_DURATION_PVALUE
@@ -62,7 +62,7 @@ typedef enum
                                      kCarrier:[CSDParam paramWithInt:1]
                                   xModulation:[myLine output]
                                     kModIndex:[myLineSegment_b output]
-                                FunctionTable:iSine 
+                                FunctionTable:sineTable 
                              AndOptionalPhase:nil];
         [myFMOscillator setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
         
