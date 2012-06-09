@@ -34,12 +34,13 @@
 		C495F74E1583452100951461 /* FMGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F7491583452100951461 /* FMGameObject.m */; };
 		C495F74F1583452100951461 /* FMGameObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F74C1583452100951461 /* FMGameObjectViewController.m */; };
 		C495F7501583452100951461 /* FMGameObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C495F74D1583452100951461 /* FMGameObjectViewController.xib */; };
-		C495F7561583455000951461 /* UnitGeneratorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F7521583455000951461 /* UnitGeneratorsViewController.m */; };
-		C495F7571583455000951461 /* UnitGeneratorsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C495F7531583455000951461 /* UnitGeneratorsViewController.xib */; };
-		C495F7581583455000951461 /* UnitGenSoundGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F7551583455000951461 /* UnitGenSoundGenerator.m */; };
 		C495F7591583457700951461 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F744158344CD00951461 /* OscillatorViewController.m */; };
 		C495F75A1583458400951461 /* SoundGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F747158344CD00951461 /* SoundGenerator.m */; };
 		C495F75B1583459300951461 /* Example1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F7411583447F00951461 /* Example1Controller.m */; };
+		C495F76A158348BB00951461 /* UnitGeneratorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F766158348BB00951461 /* UnitGeneratorsViewController.m */; };
+		C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C495F767158348BB00951461 /* UnitGeneratorsViewController.xib */; };
+		C495F76C158348BB00951461 /* UnitGenSoundGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F769158348BB00951461 /* UnitGenSoundGenerator.m */; };
+		C49F81A81583498B00D72D03 /* CSDParamConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F81A71583498A00D72D03 /* CSDParamConstant.m */; };
 		C4C551191576EB08005F7EE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C551181576EB08005F7EE4 /* UIKit.framework */; };
 		C4C5511B1576EB08005F7EE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5511A1576EB08005F7EE4 /* Foundation.framework */; };
 		C4C5511D1576EB08005F7EE4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5511C1576EB08005F7EE4 /* CoreGraphics.framework */; };
@@ -64,6 +65,7 @@
 		C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523D1577143B005F7EE4 /* CSDManager.m */; };
 		C4C987541582E00A00F1DB9A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987501582DFFA00F1DB9A /* CSDParam.m */; };
 		C4C987551582E00A00F1DB9A /* CSDParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987521582DFFA00F1DB9A /* CSDParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4FE85881583535100902E07 /* CSDParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* CSDParamControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,11 +145,13 @@
 		C495F74B1583452100951461 /* FMGameObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObjectViewController.h; path = "Simple Foscili/FMGameObjectViewController.h"; sourceTree = "<group>"; };
 		C495F74C1583452100951461 /* FMGameObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMGameObjectViewController.m; path = "Simple Foscili/FMGameObjectViewController.m"; sourceTree = "<group>"; };
 		C495F74D1583452100951461 /* FMGameObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FMGameObjectViewController.xib; path = "Simple Foscili/FMGameObjectViewController.xib"; sourceTree = "<group>"; };
-		C495F7511583455000951461 /* UnitGeneratorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitGeneratorsViewController.h; path = "Unit Generators/UnitGeneratorsViewController.h"; sourceTree = "<group>"; };
-		C495F7521583455000951461 /* UnitGeneratorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitGeneratorsViewController.m; path = "Unit Generators/UnitGeneratorsViewController.m"; sourceTree = "<group>"; };
-		C495F7531583455000951461 /* UnitGeneratorsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UnitGeneratorsViewController.xib; path = "Unit Generators/UnitGeneratorsViewController.xib"; sourceTree = "<group>"; };
-		C495F7541583455000951461 /* UnitGenSoundGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitGenSoundGenerator.h; path = "Unit Generators/UnitGenSoundGenerator.h"; sourceTree = "<group>"; };
-		C495F7551583455000951461 /* UnitGenSoundGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitGenSoundGenerator.m; path = "Unit Generators/UnitGenSoundGenerator.m"; sourceTree = "<group>"; };
+		C495F765158348BB00951461 /* UnitGeneratorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitGeneratorsViewController.h; path = "Unit Generators/UnitGeneratorsViewController.h"; sourceTree = "<group>"; };
+		C495F766158348BB00951461 /* UnitGeneratorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitGeneratorsViewController.m; path = "Unit Generators/UnitGeneratorsViewController.m"; sourceTree = "<group>"; };
+		C495F767158348BB00951461 /* UnitGeneratorsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UnitGeneratorsViewController.xib; path = "Unit Generators/UnitGeneratorsViewController.xib"; sourceTree = "<group>"; };
+		C495F768158348BB00951461 /* UnitGenSoundGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitGenSoundGenerator.h; path = "Unit Generators/UnitGenSoundGenerator.h"; sourceTree = "<group>"; };
+		C495F769158348BB00951461 /* UnitGenSoundGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitGenSoundGenerator.m; path = "Unit Generators/UnitGenSoundGenerator.m"; sourceTree = "<group>"; };
+		C49F81A61583498A00D72D03 /* CSDParamConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParamConstant.h; sourceTree = "<group>"; };
+		C49F81A71583498A00D72D03 /* CSDParamConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParamConstant.m; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C551181576EB08005F7EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C5511A1576EB08005F7EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -190,6 +194,8 @@
 		C4C987501582DFFA00F1DB9A /* CSDParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
 		C4C987511582DFFA00F1DB9A /* CSDParamArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDParamArray.h; sourceTree = "<group>"; };
 		C4C987521582DFFA00F1DB9A /* CSDParamArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDParamArray.m; sourceTree = "<group>"; };
+		C4FE85861583535100902E07 /* CSDParamControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParamControl.h; sourceTree = "<group>"; };
+		C4FE85871583535100902E07 /* CSDParamControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParamControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,11 +232,11 @@
 		76B9564E158145F7005AFAE9 /* Unit Generators */ = {
 			isa = PBXGroup;
 			children = (
-				C495F7511583455000951461 /* UnitGeneratorsViewController.h */,
-				C495F7521583455000951461 /* UnitGeneratorsViewController.m */,
-				C495F7531583455000951461 /* UnitGeneratorsViewController.xib */,
-				C495F7541583455000951461 /* UnitGenSoundGenerator.h */,
-				C495F7551583455000951461 /* UnitGenSoundGenerator.m */,
+				C495F765158348BB00951461 /* UnitGeneratorsViewController.h */,
+				C495F766158348BB00951461 /* UnitGeneratorsViewController.m */,
+				C495F767158348BB00951461 /* UnitGeneratorsViewController.xib */,
+				C495F768158348BB00951461 /* UnitGenSoundGenerator.h */,
+				C495F769158348BB00951461 /* UnitGenSoundGenerator.m */,
 			);
 			name = "Unit Generators";
 			sourceTree = "<group>";
@@ -273,6 +279,10 @@
 			children = (
 				C4C9874F1582DFFA00F1DB9A /* CSDParam.h */,
 				C4C987501582DFFA00F1DB9A /* CSDParam.m */,
+				C4FE85861583535100902E07 /* CSDParamControl.h */,
+				C4FE85871583535100902E07 /* CSDParamControl.m */,
+				C49F81A61583498A00D72D03 /* CSDParamConstant.h */,
+				C49F81A71583498A00D72D03 /* CSDParamConstant.m */,
 				C4C987511582DFFA00F1DB9A /* CSDParamArray.h */,
 				C4C987521582DFFA00F1DB9A /* CSDParamArray.m */,
 			);
@@ -570,7 +580,7 @@
 				C43553E4158073CD0074764A /* template.csd in Resources */,
 				C495F73F1583444700951461 /* MasterViewController.xib in Resources */,
 				C495F7501583452100951461 /* FMGameObjectViewController.xib in Resources */,
-				C495F7571583455000951461 /* UnitGeneratorsViewController.xib in Resources */,
+				C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,9 +628,11 @@
 				76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */,
 				C495F74E1583452100951461 /* FMGameObject.m in Sources */,
 				C495F74F1583452100951461 /* FMGameObjectViewController.m in Sources */,
-				C495F7561583455000951461 /* UnitGeneratorsViewController.m in Sources */,
 				C43553ED15807BB80074764A /* CSDSineTable.m in Sources */,
-				C495F7581583455000951461 /* UnitGenSoundGenerator.m in Sources */,
+				C495F76A158348BB00951461 /* UnitGeneratorsViewController.m in Sources */,
+				C495F76C158348BB00951461 /* UnitGenSoundGenerator.m in Sources */,
+				C49F81A81583498B00D72D03 /* CSDParamConstant.m in Sources */,
+				C4FE85881583535100902E07 /* CSDParamControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

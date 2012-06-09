@@ -17,33 +17,11 @@
 @synthesize parameters;
 @synthesize text;
 
-
-//-(id) initWithTableSize:(int) size 
-//             GenRoutine:(int) gen 
-//          AndParameters:(NSString *) params {
-//    return [self initWithNumber:1 LoadTime:0 TableSize:size GenRoutine:gen AndParameters:params];
-//}
-
-//-(id) initWithNumber:(int) i 
-//            LoadTime:(float) t 
-//           TableSize:(int) size 
-//          GenRoutine:(int) gen 
-//       AndParameters:(NSString *) params {
-//    self = [super init];
-//    if (self) {
-//        integerIdentifier = i;
-//        loadTime = t;
-//        tableSize = size;
-//        generatingRoutine = gen;
-//        parameters = params;
-//    }
-//    return self;
-//}
-
 -(id)initWithTableSize:(int)size GenRoutine:(int)gen Parameters:(NSString *)params
 {
     self = [super init];
     if (self) {
+        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"i%@%p", [self class], self]];
         output = [NSString stringWithFormat:@"i%@%p", [self class], self];
         tableSize = size;
         generatingRoutine = gen;

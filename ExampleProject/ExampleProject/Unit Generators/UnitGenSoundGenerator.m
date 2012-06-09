@@ -32,34 +32,34 @@ typedef enum
         [self addFunctionTable:sineTable];
         
         //NOTE:  duration of unitgenerator set from p3 with NOTE_DURATION_PVALUE
-        myLine = [[CSDLine alloc] initWithIStartingValue:[CSDParam paramWithFloat:0.5] 
-                                               iDuration:[CSDParam paramWithPValue:kPValueTagDuration]   
-                                            iTargetValue:[CSDParam paramWithInt:1.5]];
+        myLine = [[CSDLine alloc] initWithIStartingValue:[CSDParamConstant paramWithFloat:0.5] 
+                                               iDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration]   
+                                            iTargetValue:[CSDParamConstant paramWithInt:1.5]];
         [self addOpcode:myLine];
         
         //Init LineSegment_a, without CSDParamArray Functions like line
-        myLineSegment_a = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParam paramWithInt:110]
-                                                                iFirstSegmentDuration:[CSDParam paramWithPValue:kPValueTagDuration] 
-                                       iFirstSegementTargetValue:[CSDParam paramWithInt:330]];
+        myLineSegment_a = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithInt:110]
+                                                            iFirstSegmentDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration] 
+                                                        iFirstSegementTargetValue:[CSDParamConstant paramWithInt:330]];
         
         //Init LineSegment_b, includes CSDParamArray and behaves like breakpoint generator
         //NOTE: paramAray shouldn't just be initFromFloats, but should incorporate CSDParam 
         //NOTE: need to do math on duration(p3) especially to calculate breakpoint durations
         float breakpoints[] = {3.0f, 1.5f, 3.0f, 0.5};
         CSDParamArray * breakpointParamArray = [CSDParamArray paramArrayFromFloats:breakpoints count:4];
-        myLineSegment_b = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParam paramWithFloat:0.5]
-                           //iFirstSegmentDuration:[CSDParam paramWithPValue:(kPValueTagDuration / 3)
-                                           iFirstSegmentDuration:[CSDParam paramWithInt:3]
-                                       iFirstSegementTargetValue:[CSDParam paramWithFloat:0.2] 
-                                                    SegmentArray:breakpointParamArray];
+        myLineSegment_b = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithFloat:0.5]
+                                                          //iFirstSegmentDuration:[CSDParamConstant paramWithPValue:(kPValueTagDuration / 3)
+                                                            iFirstSegmentDuration:[CSDParamConstant paramWithInt:3]
+                                                        iFirstSegementTargetValue:[CSDParamConstant paramWithFloat:0.2] 
+                                                                     SegmentArray:breakpointParamArray];
         [self addOpcode:myLineSegment_a];
         [self addOpcode:myLineSegment_b];
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
         myFMOscillator = [[CSDFoscili alloc] 
-                initFMOscillatorWithAmplitude:[CSDParam paramWithFloat:0.4] 
+                initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4] 
                                        kPitch:[myLineSegment_a output]
-                                     kCarrier:[CSDParam paramWithInt:1]
+                                     kCarrier:[CSDParamConstant paramWithInt:1]
                                   xModulation:[myLine output]
                                     kModIndex:[myLineSegment_b output]
                                 FunctionTable:sineTable 
