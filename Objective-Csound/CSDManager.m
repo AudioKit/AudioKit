@@ -45,6 +45,13 @@ static CSDManager * _sharedCSDManager = nil;
         samplesPerControlPeriod = 256;
         //int numberOfChannels = 1; //MONO
         zeroDBFullScaleValue = 1.0f;
+        
+        //Setup File System access
+        NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
+        templateCSDFileContents = [[NSString alloc] initWithContentsOfFile:templateFile  encoding:NSUTF8StringEncoding error:nil];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        myCSDFile = [NSString stringWithFormat:@"%@/%new.csd", documentsDirectory];
 
     }
     return self;
@@ -62,48 +69,27 @@ static CSDManager * _sharedCSDManager = nil;
     isRunning = YES;
 }
 
--(void) writeString:(NSString *) content toFile:(NSString *) fileName{
-    //get the documents directory:
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+-(void) writeCSDFileForOrchestra:(CSDOrchestra *) orch {
     
-    //make a file name to write the data to using the documents directory:
-    fileName = [NSString stringWithFormat:@"%@/%@", documentsDirectory, fileName];
+    NSString * header = [NSString stringWithFormat:@"sr = %d\n0dbfs = %f\nksmps = %d", 
+                         sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
+    NSString * instrumentsText = [orch instrumentsForCsd];
+
+    NSString * newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
     
-    //save content to the documents directory
-    [content writeToFile:fileName 
-              atomically:NO 
-                encoding:NSStringEncodingConversionAllowLossy 
-                   error:nil];
-    
+    [newCSD writeToFile:myCSDFile atomically:YES  encoding:NSStringEncodingConversionAllowLossy error:nil];
+    NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
 }
+
 
 -(void)runOrchestra:(CSDOrchestra *)orch {
     if(isRunning) {
         NSLog(@"csound already running...killing previous...attempting additional runOrch");
         [self stop];
     }
-    
-    NSLog(@"Running With An Orchestra");
-    NSLog(@"Orchestra has %i instruments", [[orch instruments] count]);
-
-    NSString * header = [NSString stringWithFormat:@"sr = %d\n0dbfs = %f\nksmps = %d", 
-              sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
-
-    NSString * instrumentsText = [orch instrumentsForCsd];
-    
-    NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
-    NSString * template = [[NSString alloc] initWithContentsOfFile:templateFile  encoding:NSUTF8StringEncoding error:nil];
-    template = [NSString stringWithFormat:template, options, header, instrumentsText, @""  ];
-    [self writeString:template toFile:@"new.csd"];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString * fileName = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
-    NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil]);
-    
-    [csound startCsound:fileName];
+    NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
+    [self writeCSDFileForOrchestra:orch];
+    [csound startCsound:myCSDFile];
     
     isRunning = YES;
 }

@@ -30,7 +30,6 @@ typedef enum
         CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
-        //TODO: writing output in csound as string "aLine" is BAD
         //NOTE:  duration of unitgenerator set from p3 with NOTE_DURATION_PVALUE
         myLine = [[CSDLine alloc] initWithIStartingValue:[CSDParam paramWithFloat:0.5] 
                                                iDuration:[CSDParam paramWithPValue:kPValueTagDuration]   
