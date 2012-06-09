@@ -78,6 +78,13 @@ static CSDManager * _sharedCSDManager = nil;
     NSString * newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
     
     [newCSD writeToFile:myCSDFile atomically:YES  encoding:NSStringEncodingConversionAllowLossy error:nil];
+
+//    NSString * newCSD2 =  @"";
+//    while (![newCSD2 isEqualToString:newCSD]) {
+//        NSLog(@"retrying");
+//        newCSD2 = [NSString stringWithContentsOfFile:myCSDFile encoding:NSStringEncodingConversionAllowLossy error:nil];
+//    }
+
     NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
 }
 
@@ -90,7 +97,6 @@ static CSDManager * _sharedCSDManager = nil;
     NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
     [self writeCSDFileForOrchestra:orch];
     [csound startCsound:myCSDFile];
-    
     isRunning = YES;
 }
 

@@ -25,7 +25,8 @@ typedef enum
     if (self) {
         //H4Y - ARB: create sign function with variable partial strengths
         float partialStrengths[] = {1.0f, 0.5f, 1.0f};
-        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramFromFloats:partialStrengths count:3];
+
+        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromFloats:partialStrengths count:3];
         
         CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
@@ -45,7 +46,7 @@ typedef enum
         //NOTE: paramAray shouldn't just be initFromFloats, but should incorporate CSDParam 
         //NOTE: need to do math on duration(p3) especially to calculate breakpoint durations
         float breakpoints[] = {3.0f, 1.5f, 3.0f, 0.5};
-        CSDParamArray * breakpointParamArray = [CSDParamArray paramFromFloats:breakpoints count:4];
+        CSDParamArray * breakpointParamArray = [CSDParamArray paramArrayFromFloats:breakpoints count:4];
         myLineSegment_b = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParam paramWithFloat:0.5]
                            //iFirstSegmentDuration:[CSDParam paramWithPValue:(kPValueTagDuration / 3)
                                            iFirstSegmentDuration:[CSDParam paramWithInt:3]

@@ -22,7 +22,6 @@
 
     self = [super initWithType:@"a"];
     if (self) {
-        opcode = @"oscil";
         xAmplitude = amp;
         kPitch = freq;
         functionTable = f;
@@ -34,9 +33,8 @@
 -(NSString *)convertToCsd
 {
     return [NSString stringWithFormat:
-            @"%@ %@ %@, %@, %@\n",
+            @"%@ oscil %@, %@, %@\n",
             [output parameterString],
-            opcode,
             [xAmplitude parameterString],  
             [kPitch parameterString], 
             [functionTable output]];

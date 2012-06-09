@@ -7,15 +7,13 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO TODAY:
 
-* Make CSDParamArray return an array of CSDParams either with floats or with actual CSDParams
-* Make CSDParam rate-aware, a/k/i, perhaps unit-aware or float-integer aware?
 * Make opcode output variables CSDParams with rate
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
-* Fix the bug preventing switching between orchestras
 
+TODO:
 
-BIGGER TODO:
-
+* CSDParamType: Consider how types and CSDParams should work together, should 
+  CSDParam be rate-aware, a/k/i, perhaps unit-aware or float-integer aware?
 * CSDExpression: Develop a way to write math in the Csound realm
 * Globals: Enhance CSDOrchestra to enable global outputs and instruments
 
@@ -25,6 +23,11 @@ REMINDERS:
 * Create More Function Table subclasses
 * Develop examples
 
+BUGS:
+
+* Currently you have to double click when you use the menu to go to another
+view, for some reason this will properly clear out the CSD file so that the 
+sound appears properly.
 
 NOTES:
 
