@@ -11,5 +11,5 @@
 #import "CSDParamArray.h"
 @interface CSDSineTable : CSDFunctionTable
 -(id) initWithTableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials;
--(id) initDefaultsWithOutput:(NSString *)output;
+-(id) init;
 @end
