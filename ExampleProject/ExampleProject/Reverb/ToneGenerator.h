@@ -7,7 +7,13 @@
 //
 
 #import "CSDInstrument.h"
+#import "CSDOscillator.h"
+#import "CSDSineTable.h"
+#import "CSDOutputStereo.h"
 
 @interface ToneGenerator : CSDInstrument
+
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(void) playNoteForDuration:(float)dur Pitch:(float)pitch;
 
 @end
