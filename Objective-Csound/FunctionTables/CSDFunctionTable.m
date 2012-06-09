@@ -40,7 +40,7 @@
     return self;
 }
 
--(id)initWithOutput:(NSString *)aOutput TableSize:(int)size GenRouting:(int)gen AndParameters:(NSString *)params
+-(id)initWithOutput:(NSString *)aOutput TableSize:(int)size GenRoutine:(int)gen AndParameters:(NSString *)params
 {
     self = [super init];
     if (self) {

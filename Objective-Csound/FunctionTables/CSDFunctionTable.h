@@ -36,7 +36,7 @@
 
 -(id)initWithOutput:(NSString *)aOutput
           TableSize:(int)size
-         GenRouting:(int)gen
+         GenRoutine:(int)gen
       AndParameters:(NSString *)params;
 
 @end
