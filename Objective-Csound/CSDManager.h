@@ -14,6 +14,8 @@
     int sampleRate;
     int samplesPerControlPeriod;
     float zeroDBFullScaleValue;
+    NSString * myCSDFile;
+    NSString * templateCSDFileContents;
     
     CsoundObj * csound;
 }

@@ -11,8 +11,6 @@ TODO TODAY:
 * Make CSDParam rate-aware, a/k/i, perhaps unit-aware or float-integer aware?
 * Make opcode output variables CSDParams with rate
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
-* Make function table output a CSDParam
-* Clean up the CSDManager's handling of new.csd, could be made quite a bit simpler
 * Fix the bug preventing switching between orchestras
 
 
