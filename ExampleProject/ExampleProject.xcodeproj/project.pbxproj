@@ -72,6 +72,8 @@
 		C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */; };
 		C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BC1583FF7800902E07 /* ToneGenerator.m */; };
 		C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */; };
+		C4FE85C91584011B00902E07 /* ReverbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85C71584011B00902E07 /* ReverbViewController.m */; };
+		C4FE85CA1584011B00902E07 /* ReverbViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4FE85C81584011B00902E07 /* ReverbViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -213,6 +215,9 @@
 		C4FE85BC1583FF7800902E07 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
 		C4FE85BE1583FF9D00902E07 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
 		C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
+		C4FE85C61584011B00902E07 /* ReverbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReverbViewController.h; sourceTree = "<group>"; };
+		C4FE85C71584011B00902E07 /* ReverbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbViewController.m; sourceTree = "<group>"; };
+		C4FE85C81584011B00902E07 /* ReverbViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReverbViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -554,6 +559,9 @@
 				C4FE85BC1583FF7800902E07 /* ToneGenerator.m */,
 				C4FE85BE1583FF9D00902E07 /* EffectsProcessor.h */,
 				C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */,
+				C4FE85C61584011B00902E07 /* ReverbViewController.h */,
+				C4FE85C71584011B00902E07 /* ReverbViewController.m */,
+				C4FE85C81584011B00902E07 /* ReverbViewController.xib */,
 			);
 			path = Reverb;
 			sourceTree = "<group>";
@@ -618,6 +626,7 @@
 				C495F7501583452100951461 /* FMGameObjectViewController.xib in Resources */,
 				C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */,
 				C4FE85A41583ED9B00902E07 /* test.csd in Resources */,
+				C4FE85CA1584011B00902E07 /* ReverbViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +684,7 @@
 				C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */,
 				C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */,
 				C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */,
+				C4FE85C91584011B00902E07 /* ReverbViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
