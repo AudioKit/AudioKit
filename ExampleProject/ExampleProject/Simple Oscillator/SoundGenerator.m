@@ -30,8 +30,9 @@ typedef enum
         myOscillator = [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
                                                           Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
                                                   FunctionTable:sineTable];
-        [myOscillator setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
         [self addOpcode:myOscillator];
+        CSDOutputMono * monoOutput = [[CSDOutputMono alloc] initWithInput:[myOscillator output]]; 
+        [self addOpcode:monoOutput];
     }
     return self;
 }

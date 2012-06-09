@@ -8,7 +8,6 @@ representing every part of the Csound orchestra instruments as objects.
 TODO:
     
 * Make opcode output variables CSDParams with appropriate rate
-* Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
 * CSDParamTypes: Flush out how to use them, should they perhaps unit-aware or 
   float-integer aware?
 * CSDExpression: Develop a way to write math in the Csound realm
