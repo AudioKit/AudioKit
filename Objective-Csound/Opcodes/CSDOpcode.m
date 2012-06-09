@@ -10,20 +10,10 @@
 
 @implementation CSDOpcode
 
-@synthesize output;
 @synthesize opcode;
 
--(id) initWithType:(NSString *)t {
-    
-    self = [super init];
-    if (self) {
-        //Default output is unique, can override if you want pretty CSD output
-        type = t;
-        output = [CSDParam 
-                  paramWithString:[NSString stringWithFormat:@"%@%@%p", 
-                                   type, [self class], self]];
-    }
-    return self; 
+-(NSString *) uniqueName {
+    return [NSString stringWithFormat:@"%@%p", [self class], self];
 }
 
 -(NSString *) convertToCsd

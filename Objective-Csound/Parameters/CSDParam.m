@@ -21,7 +21,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"%@", aString];
+        parameterString = [NSString stringWithFormat:@"a%@", aString];
     }
     return self;
 }
