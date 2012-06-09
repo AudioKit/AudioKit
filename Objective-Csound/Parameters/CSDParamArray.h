@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CSDManager.h"
+#import "CSDParamConstant.h"
 
 @interface CSDParamArray : NSObject
 {

@@ -7,7 +7,7 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDParam.h"
+#import "CSDParamControl.h"
 #import "CSDFunctionTable.h"
 
 @interface CSDFoscili : CSDOpcode
