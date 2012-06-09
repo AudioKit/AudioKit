@@ -5,13 +5,10 @@ Potentially a very important part of the H4Y technology stack, Objective-Csound
 aims to eliminate the need for csd files and Csound-for-iOS hooks into code by 
 representing every part of the Csound orchestra instruments as objects.  
 
-TODO TODAY:
-
+TODO:
+    
 * Make opcode output variables CSDParams with rate
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
-
-TODO:
-
 * CSDParamType: Consider how types and CSDParams should work together, should 
   CSDParam be rate-aware, a/k/i, perhaps unit-aware or float-integer aware?
 * CSDExpression: Develop a way to write math in the Csound realm
@@ -25,7 +22,7 @@ REMINDERS:
 
 BUGS:
 
-* Currently you have to double click when you use the menu to go to another
+* Currently lkyou have to double click when you use the menu to go to another
 view, for some reason this will properly clear out the CSD file so that the 
 sound appears properly.
 
