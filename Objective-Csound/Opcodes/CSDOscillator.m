@@ -26,7 +26,8 @@
     self = [super init];
     if (self) {
         opcode = @"oscil";
-        output = out; 
+        //output = out; 
+        output = [NSString stringWithFormat:@"a%@%@", [self class], @"1"];
         xAmplitude = amp;
         kPitch = freq;
         functionTable = f;

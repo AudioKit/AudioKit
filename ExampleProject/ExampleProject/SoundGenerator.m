@@ -28,7 +28,8 @@ typedef enum
                                                FunctionTable:iSine];
         [self addOpcode:myOscillator];
     }
-    return self;
+    
+    NSUInteger count;
 }
 
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
