@@ -18,12 +18,16 @@
 //  kres line ia, idur, ib
 
 #import "CSDOpcode.h"
-#import "CSDParam.h"
+#import "CSDParamControl.h"
 
-@interface CSDLine : CSDOpcode
-@property (nonatomic, strong) CSDParam *startingValue;
-@property (nonatomic, strong) CSDParam *duration;
-@property (nonatomic, strong) CSDParam *targetValue;
+@interface CSDLine : CSDOpcode {
+    CSDParamControl * output;
+}
+
+@property (nonatomic, strong) CSDParamControl * output;
+@property (nonatomic, strong) CSDParam * startingValue;
+@property (nonatomic, strong) CSDParam * duration;
+@property (nonatomic, strong) CSDParam * targetValue;
 
 -(NSString *)convertToCsd;
 

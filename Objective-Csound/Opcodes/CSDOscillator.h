@@ -8,8 +8,11 @@
 
 #import "CSDManager.h"
 
-@interface CSDOscillator : CSDOpcode 
+@interface CSDOscillator : CSDOpcode {
+    CSDParam * output;
+}
 
+@property (nonatomic, strong) CSDParam * output;
 @property (nonatomic, strong) CSDParam * amplitude;
 @property (nonatomic, strong) CSDParam * pitch;
 @property (nonatomic, strong) CSDFunctionTable *functionTable;

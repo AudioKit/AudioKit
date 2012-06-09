@@ -7,11 +7,9 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
     
-* Make opcode output variables CSDParams with appropriate rate
-* CSDParamTypes: Flush out how to use them, should they perhaps unit-aware or 
-  float-integer aware?
-* CSDExpression: Develop a way to write math in the Csound realm
+* Tackle a multiple output (usually stereo) opcode like outs, reverb, panning
 * Globals: Enhance CSDOrchestra to enable global outputs and instruments
+* CSDAssignment & Expression: Develop a way to write math in the Csound realm
 
 
 REMINDERS:
@@ -27,6 +25,11 @@ sound appears properly.
 
 NOTES:
 
+* Discuss with eachother what it means to have an output at audio rate or control rate
+  ie. Does each type of output just get its own instance variable, or are the input
+  and output signatures differing enough to justify different opcode classes
+  e.g. Oscillator and OscillatingController?
+  
 * Should think about standardizing the headers of the files.  I don't care much who 
 wrote the file initially or when it was created.  To me that's all handled much 
 better by the code repository, although I suppose if we create a new fresh repo at 

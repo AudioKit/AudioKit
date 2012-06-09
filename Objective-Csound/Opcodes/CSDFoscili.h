@@ -10,13 +10,17 @@
 #import "CSDParamControl.h"
 #import "CSDFunctionTable.h"
 
-@interface CSDFoscili : CSDOpcode
+@interface CSDFoscili : CSDOpcode {
+    CSDParam * output;
+}
+
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-@property (nonatomic, strong) CSDParam *xAmplitude;
-@property (nonatomic, strong) CSDParam *kPitch;
-@property (nonatomic, strong) CSDParam *xCarrier;
-@property (nonatomic, strong) CSDParam *xModulation;
-@property (nonatomic, strong) CSDParam *kModIndex;
+@property (nonatomic, strong) CSDParam * output;
+@property (nonatomic, strong) CSDParam * xAmplitude;
+@property (nonatomic, strong) CSDParam * kPitch;
+@property (nonatomic, strong) CSDParam * xCarrier;
+@property (nonatomic, strong) CSDParam * xModulation;
+@property (nonatomic, strong) CSDParam * kModIndex;
 @property (nonatomic, strong) CSDFunctionTable *functionTable;
 @property (nonatomic, strong) CSDParam *iPhase;
 

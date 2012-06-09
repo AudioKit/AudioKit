@@ -17,4 +17,13 @@
     return self;
 }
 
+-(id)initWithString:(NSString *)aString
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"k%@", aString];
+    }
+    return self;
+}
+
 @end
