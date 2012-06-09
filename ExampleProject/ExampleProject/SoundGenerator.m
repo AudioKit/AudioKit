@@ -22,14 +22,13 @@ typedef enum
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
         //  and will look for [CSDFunctionTable output] during csd conversion
-        myOscillator = [[CSDOscillator alloc] initWithOutput:FINAL_OUTPUT
-                                                   Amplitude:[CSDParam paramWithFloat:0.4]
-                                                      kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
-                                               FunctionTable:iSine];
+        myOscillator = [[CSDOscillator alloc] initWithAmplitude:[CSDParam paramWithFloat:0.4]
+                                                         kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
+                                                  FunctionTable:iSine];
+        [myOscillator setOutput:FINAL_OUTPUT];
         [self addOpcode:myOscillator];
     }
-    
-    NSUInteger count;
+    return self;
 }
 
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
