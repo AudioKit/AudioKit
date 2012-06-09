@@ -22,9 +22,9 @@
 		C43553E3158073CD0074764A /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E1158073CD0074764A /* example.csd */; };
 		C43553E4158073CD0074764A /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E2158073CD0074764A /* template.csd */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
-		C43553EA15807A380074764A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553E915807A380074764A /* CSDParam.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
-		C43553F41580826E0074764A /* CSDParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553F31580826E0074764A /* CSDParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C43554261582DE5F0074764A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C43554231582DE5F0074764A /* CSDParam.m */; };
+		C43554271582DE5F0074764A /* CSDParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C43554251582DE5F0074764A /* CSDParamArray.m */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -93,12 +93,12 @@
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
 		C43553E1158073CD0074764A /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C43553E2158073CD0074764A /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
-		C43553E815807A380074764A /* CSDParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
-		C43553E915807A380074764A /* CSDParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
 		C43553EB15807BB80074764A /* CSDSineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDSineTable.h; path = FunctionTables/CSDSineTable.h; sourceTree = "<group>"; };
 		C43553EC15807BB80074764A /* CSDSineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDSineTable.m; path = FunctionTables/CSDSineTable.m; sourceTree = "<group>"; };
-		C43553F21580826E0074764A /* CSDParamArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParamArray.h; sourceTree = "<group>"; };
-		C43553F31580826E0074764A /* CSDParamArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParamArray.m; sourceTree = "<group>"; };
+		C43554221582DE5F0074764A /* CSDParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
+		C43554231582DE5F0074764A /* CSDParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
+		C43554241582DE5F0074764A /* CSDParamArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParamArray.h; sourceTree = "<group>"; };
+		C43554251582DE5F0074764A /* CSDParamArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParamArray.m; sourceTree = "<group>"; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4842D1B1579C2F800E69770 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4842D1D1579C2F800E69770 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
@@ -270,13 +270,13 @@
 			path = CSDFiles;
 			sourceTree = "<group>";
 		};
-		C43553E715807A380074764A /* Parameters */ = {
+		C43554151582DDED0074764A /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
-				C43553E815807A380074764A /* CSDParam.h */,
-				C43553E915807A380074764A /* CSDParam.m */,
-				C43553F21580826E0074764A /* CSDParamArray.h */,
-				C43553F31580826E0074764A /* CSDParamArray.m */,
+				C43554221582DE5F0074764A /* CSDParam.h */,
+				C43554231582DE5F0074764A /* CSDParam.m */,
+				C43554241582DE5F0074764A /* CSDParamArray.h */,
+				C43554251582DE5F0074764A /* CSDParamArray.m */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -467,7 +467,7 @@
 				C4C5520A1577028C005F7EE4 /* CSDInstrument.m */,
 				C43553CE15804D310074764A /* FunctionTables */,
 				C4C5520D1577028C005F7EE4 /* Opcodes */,
-				C43553E715807A380074764A /* Parameters */,
+				C43554151582DDED0074764A /* Parameters */,
 				C43553E0158073CD0074764A /* CSDFiles */,
 			);
 			name = "Objective-Csound";
@@ -618,13 +618,13 @@
 				76E93494157D3A47003C71DA /* FMGameObject.m in Sources */,
 				76E93498157D3A68003C71DA /* FMGameObjectViewController.m in Sources */,
 				768124A2157FC923004BAA44 /* CSDConstants.m in Sources */,
-				C43553EA15807A380074764A /* CSDParam.m in Sources */,
 				C43553ED15807BB80074764A /* CSDSineTable.m in Sources */,
-				C43553F41580826E0074764A /* CSDParamArray.m in Sources */,
 				76B956471581302D005AFAE9 /* CSDLine.m in Sources */,
 				76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */,
 				76B9565215814660005AFAE9 /* UnitGeneratorsViewController.m in Sources */,
 				76B956561581471D005AFAE9 /* UnitGenSoundGenerator.m in Sources */,
+				C43554261582DE5F0074764A /* CSDParam.m in Sources */,
+				C43554271582DE5F0074764A /* CSDParamArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
