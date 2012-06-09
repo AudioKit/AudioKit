@@ -11,14 +11,14 @@
 @implementation CSDSineTable
 
 //TODO: Should make the partial sizes an array of floats
--(id) initWithOutput:(NSString *)output TableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials
+-(id) initWithTableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials
 {
-    return [self initWithOutput:output TableSize:tableSize GenRoutine:kGenRoutineSines AndParameters:[partials parameterString]];
+    return [self initWithTableSize:tableSize GenRoutine:kGenRoutineSines Parameters:[partials parameterString]];
 }
 
 -(id) initDefaultsWithOutput:(NSString *)output
 {
-    return [self initWithOutput:output TableSize:4096 GenRoutine:kGenRoutineSines AndParameters:@"1"];
+    return [self initWithTableSize:4096 GenRoutine:kGenRoutineSines Parameters:@"1"];
 }
 
 

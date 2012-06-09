@@ -17,14 +17,14 @@ typedef enum
         float partialStrengths[] = {1.0f, 0.5f, 1.0f};
         CSDParamArray * partialStrengthParamArray = [CSDParamArray paramFromFloats:partialStrengths count:3];
 
-        CSDSineTable * iSine = [[CSDSineTable alloc] initWithOutput:@"iSine" TableSize:4096 PartialStrengths:partialStrengthParamArray];
-        [self addFunctionStatement:iSine];
+        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
+        [self addFunctionTable:sineTable];
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
         //  and will look for [CSDFunctionTable output] during csd conversion
         myOscillator = [[CSDOscillator alloc] initWithAmplitude:[CSDParam paramWithFloat:0.4]
                                                          kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
-                                                  FunctionTable:iSine];
+                                                  FunctionTable:sineTable];
         [myOscillator setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
         [self addOpcode:myOscillator];
     }

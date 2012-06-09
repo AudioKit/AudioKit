@@ -477,9 +477,9 @@
 		C4C5520D1577028C005F7EE4 /* Opcodes */ = {
 			isa = PBXGroup;
 			children = (
-				76B9564D1581380D005AFAE9 /* Linear/Exponential Generators */,
 				C4C552121577028C005F7EE4 /* CSDOpcode.h */,
 				C4C552131577028C005F7EE4 /* CSDOpcode.m */,
+				76B9564D1581380D005AFAE9 /* Linear/Exponential Generators */,
 				C4C5520E1577028C005F7EE4 /* CSDEnvelope.h */,
 				C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */,
 				C4C552141577028C005F7EE4 /* CSDOscillator.h */,

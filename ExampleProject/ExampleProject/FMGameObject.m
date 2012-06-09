@@ -17,8 +17,8 @@
         //define opcodes with properties connected to gameBehavior
     
         //H4Y - ARB: uses argument to set output
-        CSDSineTable *iSine = [[CSDSineTable alloc] initDefaultsWithOutput:@"iSine"];
-        [self addFunctionStatement:iSine];
+        CSDSineTable *sineTable = [[CSDSineTable alloc] initDefaultsWithOutput:@"iSine"];
+        [self addFunctionTable:sineTable];
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
         //  and will look for [CSDFunctionTable output] during csd conversion
@@ -27,7 +27,7 @@
                                                                   kCarrier:[CSDParam paramWithInt:1]
                                                                xModulation:[CSDParam paramWithPValue:kPValueModulationTag]
                                                                  kModIndex:[CSDParam paramWithInt:15]
-                                                             FunctionTable:iSine
+                                                             FunctionTable:sineTable
                                                           AndOptionalPhase:nil];
 
         

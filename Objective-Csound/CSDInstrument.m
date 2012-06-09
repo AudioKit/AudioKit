@@ -32,9 +32,9 @@
     [csdRepresentation appendString:[newOpcode convertToCsd]];
 }
 
--(void)addFunctionStatement:(CSDFunctionTable *)newFunctionStatement
+-(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable
 {
-    [csdRepresentation appendString:[newFunctionStatement text]];
+    [csdRepresentation appendString:[newFunctionTable text]];
 }
 
 @end

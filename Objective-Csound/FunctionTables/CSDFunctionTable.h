@@ -26,17 +26,17 @@
 
 -(id) initWithTableSize:(int) size 
              GenRoutine:(int) gen 
-          AndParameters:(NSString *) params;
+             Parameters:(NSString *) params;
 
--(id) initWithNumber:(int) i 
-            LoadTime:(float) t 
-           TableSize:(int) size 
-          GenRoutine:(int) gen 
-       AndParameters:(NSString *) params;
-
--(id)initWithOutput:(NSString *)aOutput
-          TableSize:(int)size
-         GenRoutine:(int)gen
-      AndParameters:(NSString *)params;
+//-(id) initWithNumber:(int) i 
+//            LoadTime:(float) t 
+//           TableSize:(int) size 
+//          GenRoutine:(int) gen 
+//       AndParameters:(NSString *) params;
+//
+//-(id)initWithOutput:(NSString *)aOutput
+//          TableSize:(int)size
+//         GenRoutine:(int)gen
+//      AndParameters:(NSString *)params;
 
 @end

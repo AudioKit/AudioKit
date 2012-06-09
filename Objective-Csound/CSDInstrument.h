@@ -25,6 +25,6 @@
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) addOpcode:(CSDOpcode *) newOpcode;
--(void)addFunctionStatement:(CSDFunctionTable *)newFunctionStatement;
+-(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
 
 @end
