@@ -1,6 +1,5 @@
 //
 //  CSDLineSegment.h
-//  ExampleProject
 //
 //  Description:
 //  Trace a series of line segments between specified points.
