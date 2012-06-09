@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "CSDParamConstant.h"
+
 #ifndef ExampleProject_CSDConstants_h
 #define ExampleProject_CSDConstants_h
 

@@ -20,6 +20,7 @@
 @property int   generatingRoutine;
 @property (nonatomic, strong) NSString * parameters;
 @property (nonatomic, strong) NSString * output;
+//@property (nonatomic, strong) CSDParamConstant * output;
 @property (readonly) NSString *text;
 
 //-(NSString *) text;
@@ -28,15 +29,5 @@
              GenRoutine:(int) gen 
              Parameters:(NSString *) params;
 
-//-(id) initWithNumber:(int) i 
-//            LoadTime:(float) t 
-//           TableSize:(int) size 
-//          GenRoutine:(int) gen 
-//       AndParameters:(NSString *) params;
-//
-//-(id)initWithOutput:(NSString *)aOutput
-//          TableSize:(int)size
-//         GenRoutine:(int)gen
-//      AndParameters:(NSString *)params;
 
 @end

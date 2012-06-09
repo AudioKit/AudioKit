@@ -43,15 +43,15 @@
     }
 }
 
-+(id)paramArrayFromParams:(CSDParam *)firstParam,... {
++(id)paramArrayFromParams:(CSDParamConstant *)firstParam,... {
     CSDParamArray * result = [[CSDParamArray alloc] init];
-    CSDParam * eachParam;
+    CSDParamConstant * eachParam;
     va_list argumentList;
     if (firstParam) // The first argument isn't part of the varargs list,
     {                                   // so we'll handle it separately.
         [result addParam:firstParam];
         va_start(argumentList, firstParam); // Start scanning for arguments after firstObject.
-        while ((eachParam = va_arg(argumentList, CSDParam *))) // As many times as we can get an argument of type "id"
+        while ((eachParam = va_arg(argumentList, CSDParamConstant *))) // As many times as we can get an argument of type "id"
             [result addParam: eachParam]; // that isn't nil, add it to self's contents.
         va_end(argumentList);
     }

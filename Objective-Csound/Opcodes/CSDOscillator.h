@@ -6,20 +6,18 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDOpcode.h"
-#import "CSDFunctionTable.h"
-#import "CSDParam.h"
+#import "CSDManager.h"
 
 @interface CSDOscillator : CSDOpcode 
 
-@property (nonatomic, strong) CSDParam * xAmplitude;
-@property (nonatomic, strong) CSDParam * kPitch;
+@property (nonatomic, strong) CSDParam * amplitude;
+@property (nonatomic, strong) CSDParam * pitch;
 @property (nonatomic, strong) CSDFunctionTable *functionTable;
 
 -(NSString *) convertToCsd;
 
 -(id) initWithAmplitude:(CSDParam *) amp 
-                 kPitch:(CSDParam *) freq
+                  Pitch:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f;
 
 @end

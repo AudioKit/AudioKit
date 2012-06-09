@@ -7,6 +7,7 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
     
+* Make all files only import CSDManager.h which imports everything else
 * Make opcode output variables CSDParams with rate
 * Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
 * CSDParamType: Consider how types and CSDParams should work together, should 

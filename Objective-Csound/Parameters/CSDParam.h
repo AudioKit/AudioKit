@@ -5,28 +5,22 @@
 //  Created by Adam Boulanger on 6/5/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
+//  These params are at a-rate.
 
 #import <Foundation/Foundation.h>
 
 @interface CSDParam : NSObject
 {
-    // This could be called "CSDType" at some point, it is 
-    // rate aki or other types like string and optionals
     NSString * type; 
     NSString * parameterString;
 }
 @property (nonatomic, strong) NSString *parameterString;
 
--(id)init;
 -(id)initWithString:(NSString *)aString;
--(id)initWithFloat:(float)aFloat;
--(id)initWithInt:(int)aInt;
-//-(id)initWithOpcode:(CSDOpcode *)aOpcode;
--(id)initWithPValue:(int)aPValue;
 +(id)paramWithString:(NSString *)aString;
-+(id)paramWithFloat:(float)aFloat;
-+(id)paramWithInt:(int)aInt;
-//+(id)paramWithOpcode:(CSDOpcode *)aOpcode;
-+(id)paramWithPValue:(int)aPValue;
 
+
+
+//-(id)initWithOpcode:(CSDOpcode *)aOpcode;
+//+(id)paramWithOpcode:(CSDOpcode *)aOpcode;
 @end

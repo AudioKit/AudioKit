@@ -8,22 +8,22 @@
 
 #import "CSDOscillator.h"
 
-@implementation CSDOscillator
+@implementation CSDOscillator 
 
-@synthesize xAmplitude;
-@synthesize kPitch;
+@synthesize amplitude;
+@synthesize pitch;
 @synthesize functionTable;
 
 
 -(id) initWithAmplitude:(CSDParam *) amp 
-                 kPitch:(CSDParam *) freq
+                  Pitch:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f 
 {
 
     self = [super initWithType:@"a"];
     if (self) {
-        xAmplitude = amp;
-        kPitch = freq;
+        amplitude = amp;
+        pitch = freq;
         functionTable = f;
     }
     return self; 
@@ -35,8 +35,8 @@
     return [NSString stringWithFormat:
             @"%@ oscil %@, %@, %@\n",
             [output parameterString],
-            [xAmplitude parameterString],  
-            [kPitch parameterString], 
+            [amplitude parameterString],  
+            [pitch parameterString], 
             [functionTable output]];
 }
 

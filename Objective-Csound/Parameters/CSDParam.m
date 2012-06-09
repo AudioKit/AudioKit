@@ -14,7 +14,7 @@
 -(id)init
 {
     self = [super init];
-
+    type = @"a";
     return self;
 }
 -(id)initWithString:(NSString *)aString
@@ -26,23 +26,13 @@
     return self;
 }
 
--(id)initWithFloat:(float)aFloat
++(id)paramWithString:(NSString *)aString
 {
-    self = [super init];
-    if (self) {
-        parameterString = [NSString stringWithFormat:@"%f", aFloat];
-    }
-    return self;
+    return [[self alloc] initWithString:aString];
 }
--(id)initWithInt:(int)someInt
-{
-    self = [super init];
-    if (self) {
-        type = @"i";
-        parameterString = [NSString stringWithFormat:@"%d", someInt];
-    }
-    return self;
-}
+
+
+
 
 // Deprecated
 //-(id)initWithOpcode:(CSDOpcode *)aOpcode
@@ -54,36 +44,11 @@
 //    }
 //    return self;
 //}
--(id)initWithPValue:(int)somePValue
-{
-    self = [super init];
-    if (self) {
-        type = @"i";
-        parameterString = [NSString stringWithFormat:@"p%i", somePValue];
-    }
-    return self;
-}
-+(id)paramWithString:(NSString *)aString
-{
-    return [[self alloc] initWithString:aString];
-}
-
-+(id)paramWithFloat:(float)aFloat
-{
-    return [[self alloc] initWithFloat:aFloat];
-}
-+(id)paramWithInt:(int)someInt
-{
-    return [[self alloc] initWithInt:someInt];
-}
 //Deprecated
 //+(id)paramWithOpcode:(CSDOpcode *)someOpcode
 //{
 //    return [[self alloc] initWithOpcode:[someOpcode output]];
 //}
-+(id)paramWithPValue:(int)somePValue
-{
-    return [[self alloc] initWithPValue:somePValue];
-}
+
 
 @end
