@@ -25,7 +25,7 @@ typedef enum
         myOscillator = [[CSDOscillator alloc] initWithAmplitude:[CSDParam paramWithFloat:0.4]
                                                          kPitch:[CSDParam paramWithPValue:kPValuePitchTag]
                                                   FunctionTable:iSine];
-        [myOscillator setOutput:FINAL_OUTPUT];
+        [myOscillator setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
         [self addOpcode:myOscillator];
     }
     return self;

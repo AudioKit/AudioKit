@@ -10,8 +10,6 @@
 
 @implementation CSDOscillator
 
-@synthesize opcode;
-@synthesize output;
 @synthesize xAmplitude;
 @synthesize kPitch;
 @synthesize functionTable;
@@ -22,14 +20,12 @@
           FunctionTable:(CSDFunctionTable *) f 
 {
 
-    self = [super init];
+    self = [super initWithType:@"a"];
     if (self) {
         opcode = @"oscil";
         xAmplitude = amp;
         kPitch = freq;
         functionTable = f;
-        //Default output is unique, can override if you want pretty CSD output
-        output = [NSString stringWithFormat:@"a%@%p", [self class], self];
     }
     return self; 
 }
@@ -39,8 +35,8 @@
 {
     return [NSString stringWithFormat:
             @"%@ %@ %@, %@, %@\n",
-            output, 
-            opcode, 
+            [output parameterString],
+            opcode,
             [xAmplitude parameterString],  
             [kPitch parameterString], 
             [functionTable output]];

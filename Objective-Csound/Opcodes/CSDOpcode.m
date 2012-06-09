@@ -12,10 +12,18 @@
 
 @synthesize output;
 @synthesize opcode;
-@synthesize parameters;
 
--(NSString *) textWithPValue:(int) p {
-    return [NSString stringWithFormat:@"%@ %@ %@", output, opcode, parameters];
+-(id) initWithType:(NSString *)t {
+    
+    self = [super init];
+    if (self) {
+        //Default output is unique, can override if you want pretty CSD output
+        type = t;
+        output = [CSDParam 
+                  paramWithString:[NSString stringWithFormat:@"%@%@%p", 
+                                   type, [self class], self]];
+    }
+    return self; 
 }
 
 -(NSString *) convertToCsd

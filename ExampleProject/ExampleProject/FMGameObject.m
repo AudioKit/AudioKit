@@ -30,8 +30,8 @@
                                                              FunctionTable:iSine
                                                           AndOptionalPhase:nil];
 
-        [myFoscilOpcode setOutput:FINAL_OUTPUT];
         
+        [myFoscilOpcode setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
         
         [self addOpcode:myFoscilOpcode];
     }
