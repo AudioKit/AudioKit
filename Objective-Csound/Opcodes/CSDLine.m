@@ -9,6 +9,8 @@
 #import "CSDLine.h"
 
 @implementation CSDLine
+
+@synthesize output;
 @synthesize startingValue;
 @synthesize duration;
 @synthesize targetValue;
@@ -17,9 +19,10 @@
                   iDuration:(CSDParam *) aDuration
                iTargetValue:(CSDParam *) aTarget 
 {
-    self = [super initWithType:@"k"];
+    self = [super init];
 
     if (self) {
+        output = [CSDParamControl paramWithString:[self uniqueName]];
         startingValue   = aStart;
         duration        = aDuration;
         targetValue     = aTarget;

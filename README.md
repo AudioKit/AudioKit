@@ -7,13 +7,12 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
     
-* Make all files only import CSDManager.h which imports everything else
-* Make opcode output variables CSDParams with rate
-* Figure out how we really want to handle FINAL_OUTPUT, FINAL_OUTPUT_STEREO, etc.
-* CSDParamType: Consider how types and CSDParams should work together, should 
-  CSDParam be rate-aware, a/k/i, perhaps unit-aware or float-integer aware?
-* CSDExpression: Develop a way to write math in the Csound realm
+* Make opcode output variables CSDParams with appropriate rate
+* CSDParamTypes: Flush out how to use them, should they perhaps unit-aware or 
+  float-integer aware?
+* Tackle a multiple output (usually stereo) opcode like outs, reverb, panning
 * Globals: Enhance CSDOrchestra to enable global outputs and instruments
+* CSDAssignment & Expression: Develop a way to write math in the Csound realm
 
 
 REMINDERS:
