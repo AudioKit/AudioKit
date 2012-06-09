@@ -19,7 +19,7 @@
 
 -(id) initWithOutput:(NSString *) out
            Amplitude:(CSDParam *) amp 
-            kPitch:(CSDParam *) freq
+              kPitch:(CSDParam *) freq
        FunctionTable:(CSDFunctionTable *) f 
 {
 
