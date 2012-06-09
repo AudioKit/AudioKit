@@ -10,7 +10,6 @@
 
 @implementation CSDFoscili
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-@synthesize output;
 @synthesize xAmplitude;
 @synthesize kPitch;
 @synthesize xCarrier;
@@ -28,7 +27,7 @@
                      FunctionTable:(CSDFunctionTable *)f
                   AndOptionalPhase:(CSDParam *)phs
 {
-    self = [super init];
+    self = [super initWithType:@"a"];
     if ( self ) {
         /*create text for instrument assignment 
            (text retrieved by CSDManager from array of added instruments
@@ -40,8 +39,6 @@
         kModIndex       = modIndex;
         functionTable   = f;
         iPhase          = phs;
-        //Default output is unique, can override if you want pretty CSD output
-        output = [NSString stringWithFormat:@"a%@%p", [self class], self];
     }
     return self;
 }
@@ -53,7 +50,7 @@
     if ( iPhase == nil) {
         s = [NSString stringWithFormat:
                        @"%@ foscili %@, %@, %@, %@, %@, %@\n",
-                       output,
+                       [output parameterString],
                        [xAmplitude parameterString], 
                        [kPitch parameterString], 
                        [xCarrier parameterString], 
@@ -64,7 +61,7 @@
     } else{
         s = [NSString stringWithFormat:
                        @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
-                       output,
+                       [output parameterString],
                        [xAmplitude parameterString], 
                        [kPitch parameterString], 
                        [xCarrier parameterString], 

@@ -9,19 +9,17 @@
 #import "CSDLine.h"
 
 @implementation CSDLine
-@synthesize output;
 @synthesize startingValue;
 @synthesize duration;
 @synthesize targetValue;
 
--(id)initWithOutput:(NSString *) aOutput
-     iStartingValue:(CSDParam *) aStart
-          iDuration:(CSDParam *) aDuration
-       iTargetValue:(CSDParam *) aTarget 
+-(id)initWithIStartingValue:(CSDParam *) aStart
+                  iDuration:(CSDParam *) aDuration
+               iTargetValue:(CSDParam *) aTarget 
 {
-    self = [super init];
+    self = [super initWithType:@"k"];
+
     if (self) {
-        output          = aOutput; 
         startingValue   = aStart;
         duration        = aDuration;
         targetValue     = aTarget;
@@ -32,7 +30,7 @@
 -(NSString *)convertToCsd 
 {
     return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", 
-            output, [startingValue parameterString], [duration parameterString], [targetValue parameterString]];
+            [output parameterString], [startingValue parameterString], [duration parameterString], [targetValue parameterString]];
 }
 
 @end

@@ -9,8 +9,6 @@
 #import "CSDPluck.h"
 
 @implementation CSDPluck
-@synthesize output;
-@synthesize opcode;
 @synthesize amplitude;
 @synthesize pitch;
 @synthesize pitchDecayBuffer;
@@ -71,17 +69,15 @@
             output, opcode, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
 }
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndRecursiveDecay:(BOOL) orSimpleDecay
+-(id)initWithAmplitude:(NSString *) amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+        RecursiveDecay:(BOOL) orSimpleDecay
 {
 self = [super init];
 if( self ) {
     opcode = @"pluck";
-    output = out;
     amplitude = amp;
     pitch = pch;
     pitchDecayBuffer = hz;
@@ -99,17 +95,15 @@ return self;
 }
 
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndStretchedAveragingDecay:( NSString *) stretchScaler
+-(id)initWithAmplitude:(NSString *)amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+StretchedAveragingDecay:( NSString *) stretchScaler
 {
     self = [super init];
     if( self ) {
         opcode = @"pluck";
-        output = out;
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;
@@ -126,17 +120,15 @@ AndStretchedAveragingDecay:( NSString *) stretchScaler
     return self;
 }
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndSimpleDrumDecay:( NSString *) roughWeight
+-(id)initWithAmplitude:(NSString *)amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+       SimpleDrumDecay:( NSString *) roughWeight
 {
     self = [super init];
     if( self ) {
         opcode = @"pluck";
-        output = out;
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;
@@ -152,18 +144,16 @@ AndSimpleDrumDecay:( NSString *) roughWeight
     return self;
 }
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndStretchedDrumDecay:( NSString *) roughWeight
-StretchFactor:( NSString *)stretchScaler
+-(id)initWithAmplitude:(NSString *)amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+    StretchedDrumDecay:( NSString *) roughWeight
+         StretchFactor:( NSString *)stretchScaler
 {
     self = [super init];
     if( self ) {
         opcode = @"pluck";
-        output = out;
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;
@@ -179,18 +169,16 @@ StretchFactor:( NSString *)stretchScaler
     return self;
 }
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndWeightedAverageDecay:( NSString *) currSampleWeight
-StretchFactor:( NSString *)prevSampleWeight
+-(id)initWithAmplitude:(NSString *)amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+  WeightedAverageDecay:( NSString *) currSampleWeight
+         StretchFactor:( NSString *)prevSampleWeight
 {
     self = [super init];
     if( self ) {
         opcode = @"pluck";
-        output = out;
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;

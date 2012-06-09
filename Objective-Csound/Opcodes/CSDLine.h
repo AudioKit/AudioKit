@@ -21,17 +21,15 @@
 #import "CSDParam.h"
 
 @interface CSDLine : CSDOpcode
-@property (nonatomic, strong) NSString *output;
 @property (nonatomic, strong) CSDParam *startingValue;
 @property (nonatomic, strong) CSDParam *duration;
 @property (nonatomic, strong) CSDParam *targetValue;
 
 -(NSString *)convertToCsd;
 
--(id)initWithOutput:(NSString *) aOutput
-iStartingValue:(CSDParam *) aStart
-iDuration:(CSDParam *) aDuration
-iTargetValue:(CSDParam *) aTarget;
-
+-(id)initWithIStartingValue:(CSDParam *) aStart
+                  iDuration:(CSDParam *) aDuration
+               iTargetValue:(CSDParam *) aTarget;
+    
 
 @end

@@ -8,4 +8,4 @@
 
 #import "CSDConstants.h"
 
-NSString *const FINAL_OUTPUT = @"aOut1";
+NSString *const FINAL_OUTPUT = @"aFinalOutput";

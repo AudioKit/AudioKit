@@ -7,14 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CSDParam.h"
 
-@interface CSDOpcode : NSObject
+@interface CSDOpcode : NSObject {
+    NSString * type;
+    CSDParam * output;
+    NSString * opcode;
+}
 
-@property (nonatomic, strong) NSString * output;
+@property (nonatomic, strong) CSDParam * output;
 @property (nonatomic, strong) NSString * opcode;
-@property (nonatomic, strong) NSString * parameters; 
 
--(NSString *) textWithPValue:(int)p;
+-(id) initWithType:(NSString *)t;
 -(NSString *) convertToCsd;
 
 @end

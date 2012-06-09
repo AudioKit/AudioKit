@@ -34,29 +34,32 @@
     }
     return self;
 }
--(id)initWithInt:(int)aInt
+-(id)initWithInt:(int)someInt
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"%d", aInt];
+        type = @"i";
+        parameterString = [NSString stringWithFormat:@"%d", someInt];
     }
     return self;
 }
 
--(id)initWithOpcode:(CSDOpcode *)aOpcode
+// Deprecated
+//-(id)initWithOpcode:(CSDOpcode *)aOpcode
+//{
+//    //
+//    self = [super init];
+//    if (self) {
+//        self = [aOpcode output];
+//    }
+//    return self;
+//}
+-(id)initWithPValue:(int)somePValue
 {
-    //
     self = [super init];
     if (self) {
-        parameterString = [aOpcode output];
-    }
-    return self;
-}
--(id)initWithPValue:(int)aPValue
-{
-    self = [super init];
-    if (self) {
-        parameterString = [NSString stringWithFormat:@"p%i", aPValue];
+        type = @"i";
+        parameterString = [NSString stringWithFormat:@"p%i", somePValue];
     }
     return self;
 }
@@ -69,17 +72,18 @@
 {
     return [[self alloc] initWithFloat:aFloat];
 }
-+(id)paramWithInt:(int)aInt
++(id)paramWithInt:(int)someInt
 {
-    return [[self alloc] initWithInt:aInt];
+    return [[self alloc] initWithInt:someInt];
 }
-+(id)paramWithOpcode:(CSDOpcode *)aOpcode
+//Deprecated
+//+(id)paramWithOpcode:(CSDOpcode *)someOpcode
+//{
+//    return [[self alloc] initWithOpcode:[someOpcode output]];
+//}
++(id)paramWithPValue:(int)somePValue
 {
-    return [[self alloc] initWithOpcode:aOpcode];
-}
-+(id)paramWithPValue:(int)aPValue
-{
-    return [[self alloc] initWithPValue:aPValue];
+    return [[self alloc] initWithPValue:somePValue];
 }
 
 @end

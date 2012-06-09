@@ -18,8 +18,6 @@
 
 @interface CSDPluck : CSDOpcode
 //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
-@property (nonatomic, strong) NSString *output;
-@property (nonatomic, strong) NSString *opcode;
 @property (nonatomic, strong) NSString *amplitude;
 @property (nonatomic, strong) NSString *pitch;
 @property (nonatomic, strong) NSString *pitchDecayBuffer;
@@ -33,41 +31,36 @@
 
 -(NSString *) textWithPValue:(int)p;
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndRecursiveDecay:(BOOL) orSimpleDecay;
+-(id)initWithAmplitude:(NSString *) amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+        RecursiveDecay:(BOOL) orSimpleDecay;
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndStretchedAveragingDecay:( NSString *) stretchScaler;
+-(id)initWithAmplitude:(NSString *) amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f  
+StretchedAveragingDecay:(NSString *) stretchScaler;
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndSimpleDrumDecay:( NSString *)roughWeight;
+-(id)initWithAmplitude:(NSString *) amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+       SimpleDrumDecay:(NSString *)roughWeight;
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndStretchedDrumDecay:( NSString *) roughWeight
-StretchFactor:( NSString *)stretchScaler;
+-(id)initWithAmplitude:(NSString *) amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+    StretchedDrumDecay:(NSString *) roughWeight
+         StretchFactor:(NSString *)stretchScaler;
 
--(id)initWithOutput:(NSString *)out
-Amplitude:(NSString *)amp
-Pitch:(NSString *) pch
-DecayedPitchBuffer:(NSString *) hz
-FunctionTable:(CSDFunctionTable *) f
-AndWeightedAverageDecay:( NSString *) currSampleWeight
-StretchFactor:( NSString *)prevSampleWeight;
+-(id)initWithAmplitude:(NSString *) amp
+                 Pitch:(NSString *) pch
+    DecayedPitchBuffer:(NSString *) hz
+         FunctionTable:(CSDFunctionTable *) f
+  WeightedAverageDecay:(NSString *) currSampleWeight
+         StretchFactor:(NSString *)prevSampleWeight;
 
 @end

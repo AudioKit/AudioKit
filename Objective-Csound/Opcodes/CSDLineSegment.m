@@ -9,17 +9,16 @@
 #import "CSDLineSegment.h"
 
 @implementation CSDLineSegment
-@synthesize output;
 @synthesize firstSegmentStartValue;
 @synthesize firstSegmentDuration;
 @synthesize firstSegmentTargetValue;
 @synthesize segmentArray;
 
--(id)initWithOutput:(NSString *)aOutput iFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget SegmentArray:(CSDParamArray *)aSegmentArray
+-(id)initWithIFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget SegmentArray:(CSDParamArray *)aSegmentArray
 {
-    self = [super init];
+    self = [super initWithType:@"k"];
+
     if (self) {
-        output                  = aOutput;
         firstSegmentStartValue  = aStart;
         firstSegmentDuration    = aDuration;
         firstSegmentTargetValue = aTarget;
@@ -29,11 +28,11 @@
     return self;
 }
 
--(id)initWithOutput:(NSString *)aOutput iFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget
+-(id)initWithIFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget
 {
-    self = [super init];
+    self = [super initWithType:@"k"];
+
     if (self) {
-        output                  = aOutput;
         firstSegmentStartValue  = aStart;
         firstSegmentDuration    = aDuration;
         firstSegmentTargetValue = aTarget;
@@ -46,7 +45,7 @@
 {
     if (segmentArray == nil) {
         return [NSString stringWithFormat:@"%@ linseg %@, %@, %@\n", 
-                output, 
+                [output parameterString], 
                 [firstSegmentStartValue parameterString], 
                 [firstSegmentDuration parameterString], 
                 [firstSegmentTargetValue parameterString]];
@@ -58,7 +57,7 @@
         return [NSString stringWithFormat:@"%@ line %@, %@, %@", 
                 output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue];*/
         return [NSString stringWithFormat:@"%@ linseg %@, %@, %@, %@\n", 
-            output, 
+                [output parameterString], 
                 [firstSegmentStartValue parameterString], 
                 [firstSegmentDuration parameterString], 
                 [firstSegmentTargetValue parameterString], 
