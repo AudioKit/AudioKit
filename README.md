@@ -7,10 +7,9 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
     
-* Tackle a multiple output (usually stereo) opcode like outs, reverb, panning
 * Globals: Enhance CSDOrchestra to enable global outputs and instruments
 * CSDAssignment & Expression: Develop a way to write math in the Csound realm
-
+* Fix memory leak or whatever is breaking paramArrayFromParams
 
 REMINDERS:
 * Create more opcodes

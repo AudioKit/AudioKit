@@ -20,11 +20,11 @@
 {
     self = [super init];
     if (self) {
-        outputLeft  = [CSDParam paramWithString:[NSString stringWithFormat:@"%@%@",[self uniqueName], @"L"]];
-        outputRight = [CSDParam paramWithString:[NSString stringWithFormat:@"%@%@",[self uniqueName], @"R"]];
-        inputLeft  = inLeft;
-        inputRight = inRight;
-        feedbackLevel = feedback;
+        outputLeft      = [CSDParam paramWithString:[NSString stringWithFormat:@"%@%@",[self uniqueName], @"L"]];
+        outputRight     = [CSDParam paramWithString:[NSString stringWithFormat:@"%@%@",[self uniqueName], @"R"]];
+        inputLeft       = inLeft;
+        inputRight      = inRight;
+        feedbackLevel   = feedback;
         cutoffFrequency = cutoff;
     }
     return self; 
@@ -36,6 +36,8 @@
             @"%@, %@ reverbsc %@, %@, %@, %@\n",
             [outputLeft      parameterString],
             [outputRight     parameterString],
+            [inputLeft       parameterString],
+            [inputRight      parameterString],
             [feedbackLevel   parameterString],  
             [cutoffFrequency parameterString]];
 }

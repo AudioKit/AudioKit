@@ -9,7 +9,6 @@
 #import "CSDOutputMono.h"
 
 @implementation CSDOutputMono
-@synthesize input;
 
 -(NSString *) convertToCsd {
     return [NSString stringWithFormat:

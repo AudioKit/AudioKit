@@ -68,6 +68,8 @@
 		C4FE85881583535100902E07 /* CSDParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* CSDParamControl.m */; };
 		C4FE85961583CE0700902E07 /* CSDOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85951583CE0700902E07 /* CSDOutputMono.m */; };
 		C4FE85A11583E3E400902E07 /* CSDReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A01583E3E400902E07 /* CSDReverb.m */; };
+		C4FE85A41583ED9B00902E07 /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4FE85A31583ED9B00902E07 /* test.csd */; };
+		C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,6 +204,9 @@
 		C4FE85951583CE0700902E07 /* CSDOutputMono.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputMono.m; sourceTree = "<group>"; };
 		C4FE859F1583E3E400902E07 /* CSDReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDReverb.h; sourceTree = "<group>"; };
 		C4FE85A01583E3E400902E07 /* CSDReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDReverb.m; sourceTree = "<group>"; };
+		C4FE85A31583ED9B00902E07 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
+		C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOutputStereo.h; sourceTree = "<group>"; };
+		C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputStereo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +281,7 @@
 			children = (
 				C43553E1158073CD0074764A /* example.csd */,
 				C43553E2158073CD0074764A /* template.csd */,
+				C4FE85A31583ED9B00902E07 /* test.csd */,
 			);
 			path = CSDFiles;
 			sourceTree = "<group>";
@@ -506,6 +512,8 @@
 				76B322241579012500FF54BB /* CSDPluck.m */,
 				C4FE85941583CE0700902E07 /* CSDOutputMono.h */,
 				C4FE85951583CE0700902E07 /* CSDOutputMono.m */,
+				C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */,
+				C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";
@@ -591,6 +599,7 @@
 				C495F73F1583444700951461 /* MasterViewController.xib in Resources */,
 				C495F7501583452100951461 /* FMGameObjectViewController.xib in Resources */,
 				C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */,
+				C4FE85A41583ED9B00902E07 /* test.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +654,7 @@
 				C4FE85881583535100902E07 /* CSDParamControl.m in Sources */,
 				C4FE85961583CE0700902E07 /* CSDOutputMono.m in Sources */,
 				C4FE85A11583E3E400902E07 /* CSDReverb.m in Sources */,
+				C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
