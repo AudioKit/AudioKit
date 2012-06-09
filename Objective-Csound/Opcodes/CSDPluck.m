@@ -9,6 +9,8 @@
 #import "CSDPluck.h"
 
 @implementation CSDPluck
+
+@synthesize output;
 @synthesize amplitude;
 @synthesize pitch;
 @synthesize pitchDecayBuffer;

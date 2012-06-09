@@ -10,6 +10,7 @@
 
 @implementation CSDOscillator 
 
+@synthesize output;
 @synthesize amplitude;
 @synthesize pitch;
 @synthesize functionTable;
@@ -20,8 +21,9 @@
           FunctionTable:(CSDFunctionTable *) f 
 {
 
-    self = [super initWithType:@"a"];
+    self = [super init];
     if (self) {
+        output = [CSDParam paramWithString:[self uniqueName]];
         amplitude = amp;
         pitch = freq;
         functionTable = f;

@@ -22,7 +22,10 @@
 #import "CSDParam.h"
 #import "CSDParamArray.h"
 
-@interface CSDLineSegment : CSDOpcode
+@interface CSDLineSegment : CSDOpcode {
+    CSDParamControl * output;
+}
+@property (nonatomic, strong) CSDParamControl * output;
 @property (nonatomic, strong) CSDParam *firstSegmentStartValue;
 @property (nonatomic, strong) CSDParam *firstSegmentDuration;
 @property (nonatomic, strong) CSDParam *firstSegmentTargetValue;

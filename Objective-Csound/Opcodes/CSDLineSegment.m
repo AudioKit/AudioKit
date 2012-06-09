@@ -9,6 +9,8 @@
 #import "CSDLineSegment.h"
 
 @implementation CSDLineSegment
+
+@synthesize output;
 @synthesize firstSegmentStartValue;
 @synthesize firstSegmentDuration;
 @synthesize firstSegmentTargetValue;
@@ -16,9 +18,10 @@
 
 -(id)initWithIFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget SegmentArray:(CSDParamArray *)aSegmentArray
 {
-    self = [super initWithType:@"k"];
+    self = [super init];
 
     if (self) {
+        output = [CSDParamControl paramWithString:[self uniqueName]];
         firstSegmentStartValue  = aStart;
         firstSegmentDuration    = aDuration;
         firstSegmentTargetValue = aTarget;
@@ -30,9 +33,8 @@
 
 -(id)initWithIFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget
 {
-    self = [super initWithType:@"k"];
-
     if (self) {
+        output = [CSDParamControl paramWithString:[self uniqueName]];
         firstSegmentStartValue  = aStart;
         firstSegmentDuration    = aDuration;
         firstSegmentTargetValue = aTarget;

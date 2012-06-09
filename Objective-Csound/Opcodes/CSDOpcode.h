@@ -10,15 +10,12 @@
 #import "CSDParam.h"
 
 @interface CSDOpcode : NSObject {
-    NSString * type;
-    CSDParam * output;
     NSString * opcode;
 }
 
-@property (nonatomic, strong) CSDParam * output;
 @property (nonatomic, strong) NSString * opcode;
 
--(id) initWithType:(NSString *)t;
+-(NSString *) uniqueName;
 -(NSString *) convertToCsd;
 
 @end

@@ -17,6 +17,15 @@
     return self;
 }
 
+-(id)initWithString:(NSString *)aString
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"p%@", aString];
+    }
+    return self;
+}
+
 -(id)initWithFloat:(float)aFloat
 {
     self = [super init];

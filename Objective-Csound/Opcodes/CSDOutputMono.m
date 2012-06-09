@@ -18,7 +18,7 @@
 }
 
 -(id) initWithInput:(CSDParam *) i {
-    self = [super initWithType:@"a"];
+    self = [super init];
     if (self) {
         input = i;
     }

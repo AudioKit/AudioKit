@@ -10,6 +10,7 @@
 
 @implementation CSDFoscili
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
+@synthesize output;
 @synthesize xAmplitude;
 @synthesize kPitch;
 @synthesize xCarrier;
@@ -27,11 +28,12 @@
                      FunctionTable:(CSDFunctionTable *)f
                   AndOptionalPhase:(CSDParam *)phs
 {
-    self = [super initWithType:@"a"];
+    self = [super init];
     if ( self ) {
         /*create text for instrument assignment 
            (text retrieved by CSDManager from array of added instruments
          */
+        output = [CSDParam paramWithString:[self uniqueName]];
         xAmplitude      = amp;
         kPitch          = cps;
         xCarrier        = car;

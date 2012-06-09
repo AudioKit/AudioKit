@@ -10,13 +10,18 @@
 #import "CSDFunctionTable.h"
 
 #import "CSDConstants.h"
+#import "CSDParam.h"
 
 //ARB - NOTE: started using weight in signatures for things that tend to be 0-1 and scaler/factor for >1
 //ARB - NOTE: trying to deal with(hide) strange paramter that switches between different decay initializations which then 
 //   recycles optional parameters for different init functions
 //ARB - TODO: ival parameters don't need to be strings
 
-@interface CSDPluck : CSDOpcode
+@interface CSDPluck : CSDOpcode {
+    CSDParam * output;
+}
+
+@property (nonatomic, strong) CSDParam * output;
 //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
 @property (nonatomic, strong) NSString *amplitude;
 @property (nonatomic, strong) NSString *pitch;
