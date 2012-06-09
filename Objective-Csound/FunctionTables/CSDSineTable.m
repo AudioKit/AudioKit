@@ -13,12 +13,12 @@
 //TODO: Should make the partial sizes an array of floats
 -(id) initWithOutput:(NSString *)output TableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials
 {
-    return [self initWithOutput:output TableSize:tableSize GenRouting:kGenRoutineSines AndParameters:[partials parameterString]];
+    return [self initWithOutput:output TableSize:tableSize GenRoutine:kGenRoutineSines AndParameters:[partials parameterString]];
 }
 
 -(id) initDefaultsWithOutput:(NSString *)output
 {
-    return [self initWithOutput:output TableSize:4096 GenRouting:kGenRoutineSines AndParameters:@"1"];
+    return [self initWithOutput:output TableSize:4096 GenRoutine:kGenRoutineSines AndParameters:@"1"];
 }
 
 
