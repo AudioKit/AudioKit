@@ -17,20 +17,19 @@
 @synthesize functionTable;
 
 
--(id) initWithOutput:(NSString *) out
-           Amplitude:(CSDParam *) amp 
-              kPitch:(CSDParam *) freq
-       FunctionTable:(CSDFunctionTable *) f 
+-(id) initWithAmplitude:(CSDParam *) amp 
+                 kPitch:(CSDParam *) freq
+          FunctionTable:(CSDFunctionTable *) f 
 {
 
     self = [super init];
     if (self) {
         opcode = @"oscil";
-        //output = out; 
-        output = [NSString stringWithFormat:@"a%@%@", [self class], @"1"];
         xAmplitude = amp;
         kPitch = freq;
         functionTable = f;
+        //Default output is unique, can override if you want pretty CSD output
+        output = [NSString stringWithFormat:@"a%@%p", [self class], self];
     }
     return self; 
 }

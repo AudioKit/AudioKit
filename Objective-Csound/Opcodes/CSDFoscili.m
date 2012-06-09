@@ -40,6 +40,8 @@
         kModIndex       = modIndex;
         functionTable   = f;
         iPhase          = phs;
+        //Default output is unique, can override if you want pretty CSD output
+        output = [NSString stringWithFormat:@"a%@%p", [self class], self];
     }
     return self;
 }

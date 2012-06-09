@@ -28,7 +28,7 @@
 //WORKING HERE
 + (id)paramFromParams:(CSDParam *)params count:(NSUInteger)count
 { 
-    CSDParamArray *result;
+    //CSDParamArray *result;
     /*
     CSDParamArray *result = [NSAllocateObject([self class], count * sizeof(CSDParam), NULL) init];
     if (result) {
@@ -39,7 +39,7 @@
     for (int i=1; i<count; i++) {
         [result setParameterString:[NSString stringWithFormat:@"%@, %0.6f", [result parameterString], numbers[i]]];
     }*/
-    return result;
+    return self;
 }
 
 

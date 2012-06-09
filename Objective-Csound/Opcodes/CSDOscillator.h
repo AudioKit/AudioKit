@@ -20,9 +20,8 @@
 
 -(NSString *) convertToCsd;
 
--(id) initWithOutput:(NSString *) out
-           Amplitude:(CSDParam *) amp 
-              kPitch:(CSDParam *) freq
-       FunctionTable:(CSDFunctionTable *) f;
+-(id) initWithAmplitude:(CSDParam *) amp 
+                 kPitch:(CSDParam *) freq
+          FunctionTable:(CSDFunctionTable *) f;
 
 @end
