@@ -20,7 +20,6 @@
                   Pitch:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f 
 {
-
     self = [super init];
     if (self) {
         output = [CSDParam paramWithString:[self uniqueName]];
