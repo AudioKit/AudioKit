@@ -29,11 +29,9 @@
                                                                  kModIndex:[CSDParamConstant paramWithInt:15]
                                                              FunctionTable:sineTable
                                                           AndOptionalPhase:nil];
-
-        
-        [myFoscilOpcode setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
-        
         [self addOpcode:myFoscilOpcode];
+        CSDOutputMono * monoOutput = [[CSDOutputMono alloc] initWithInput:[myFoscilOpcode output]]; 
+        [self addOpcode:monoOutput];
     }
     return self;
 }

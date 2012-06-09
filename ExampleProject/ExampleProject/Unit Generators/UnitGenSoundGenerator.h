@@ -16,6 +16,8 @@
 #import "CSDLine.h"
 #import "CSDLineSegment.h"
 
+#import "CSDOutputMono.h"
+
 @interface UnitGenSoundGenerator : CSDInstrument
 {
     CSDFoscili *myFMOscillator;

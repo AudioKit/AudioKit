@@ -66,6 +66,7 @@
 		C4C987541582E00A00F1DB9A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987501582DFFA00F1DB9A /* CSDParam.m */; };
 		C4C987551582E00A00F1DB9A /* CSDParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987521582DFFA00F1DB9A /* CSDParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4FE85881583535100902E07 /* CSDParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* CSDParamControl.m */; };
+		C4FE85961583CE0700902E07 /* CSDOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85951583CE0700902E07 /* CSDOutputMono.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +197,8 @@
 		C4C987521582DFFA00F1DB9A /* CSDParamArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDParamArray.m; sourceTree = "<group>"; };
 		C4FE85861583535100902E07 /* CSDParamControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParamControl.h; sourceTree = "<group>"; };
 		C4FE85871583535100902E07 /* CSDParamControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParamControl.m; sourceTree = "<group>"; };
+		C4FE85941583CE0700902E07 /* CSDOutputMono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOutputMono.h; sourceTree = "<group>"; };
+		C4FE85951583CE0700902E07 /* CSDOutputMono.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputMono.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,6 +499,8 @@
 				C4C552111577028C005F7EE4 /* CSDFoscili.m */,
 				76B322231579012400FF54BB /* CSDPluck.h */,
 				76B322241579012500FF54BB /* CSDPluck.m */,
+				C4FE85941583CE0700902E07 /* CSDOutputMono.h */,
+				C4FE85951583CE0700902E07 /* CSDOutputMono.m */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";
@@ -633,6 +638,7 @@
 				C495F76C158348BB00951461 /* UnitGenSoundGenerator.m in Sources */,
 				C49F81A81583498B00D72D03 /* CSDParamConstant.m in Sources */,
 				C4FE85881583535100902E07 /* CSDParamControl.m in Sources */,
+				C4FE85961583CE0700902E07 /* CSDOutputMono.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

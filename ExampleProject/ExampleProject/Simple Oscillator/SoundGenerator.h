@@ -6,6 +6,7 @@
 #import "CSDSineTable.h"
 #import "CSDParam.h"
 #import "CSDParamArray.h"
+#import "CSDOutputMono.h"
 
 #import "CSDOscillator.h"
 

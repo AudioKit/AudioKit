@@ -64,9 +64,10 @@ typedef enum
                                     kModIndex:[myLineSegment_b output]
                                 FunctionTable:sineTable 
                              AndOptionalPhase:nil];
-        [myFMOscillator setOutput:[CSDParam paramWithString:FINAL_OUTPUT]];
         
         [self addOpcode:myFMOscillator];
+        CSDOutputMono * monoOutput = [[CSDOutputMono alloc] initWithInput:[myFMOscillator output]]; 
+        [self addOpcode:monoOutput];
     }
     return self;
 }
