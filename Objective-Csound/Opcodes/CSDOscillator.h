@@ -1,6 +1,5 @@
 //
-//  Oscillator.h
-//  CsdReinvention
+//  CSDOscillator.h
 //
 //  Created by Aurelius Prochazka on 4/13/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.

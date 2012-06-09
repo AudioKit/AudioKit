@@ -70,6 +70,8 @@
 		C4FE85A11583E3E400902E07 /* CSDReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A01583E3E400902E07 /* CSDReverb.m */; };
 		C4FE85A41583ED9B00902E07 /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4FE85A31583ED9B00902E07 /* test.csd */; };
 		C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */; };
+		C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BC1583FF7800902E07 /* ToneGenerator.m */; };
+		C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -207,6 +209,10 @@
 		C4FE85A31583ED9B00902E07 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
 		C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOutputStereo.h; sourceTree = "<group>"; };
 		C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputStereo.m; sourceTree = "<group>"; };
+		C4FE85BB1583FF7800902E07 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
+		C4FE85BC1583FF7800902E07 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
+		C4FE85BE1583FF9D00902E07 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
+		C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,6 +447,7 @@
 				C4C5525615773453005F7EE4 /* Simple Oscillator */,
 				76E93490157D39F4003C71DA /* Simple Foscili */,
 				76B9564E158145F7005AFAE9 /* Unit Generators */,
+				C4FE85B01583FF1F00902E07 /* Reverb */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -538,6 +545,17 @@
 				C495F747158344CD00951461 /* SoundGenerator.m */,
 			);
 			name = "Simple Oscillator";
+			sourceTree = "<group>";
+		};
+		C4FE85B01583FF1F00902E07 /* Reverb */ = {
+			isa = PBXGroup;
+			children = (
+				C4FE85BB1583FF7800902E07 /* ToneGenerator.h */,
+				C4FE85BC1583FF7800902E07 /* ToneGenerator.m */,
+				C4FE85BE1583FF9D00902E07 /* EffectsProcessor.h */,
+				C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */,
+			);
+			path = Reverb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -655,6 +673,8 @@
 				C4FE85961583CE0700902E07 /* CSDOutputMono.m in Sources */,
 				C4FE85A11583E3E400902E07 /* CSDReverb.m in Sources */,
 				C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */,
+				C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */,
+				C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
