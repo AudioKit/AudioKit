@@ -16,7 +16,7 @@
     return [self initWithTableSize:tableSize GenRoutine:kGenRoutineSines Parameters:[partials parameterString]];
 }
 
--(id) initDefaultsWithOutput:(NSString *)output
+-(id) init;
 {
     return [self initWithTableSize:4096 GenRoutine:kGenRoutineSines Parameters:@"1"];
 }

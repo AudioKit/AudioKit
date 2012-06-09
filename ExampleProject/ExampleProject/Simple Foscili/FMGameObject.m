@@ -17,7 +17,7 @@
         //define opcodes with properties connected to gameBehavior
     
         //H4Y - ARB: uses argument to set output
-        CSDSineTable *sineTable = [[CSDSineTable alloc] initDefaultsWithOutput:@"iSine"];
+        CSDSineTable *sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
