@@ -6,15 +6,13 @@
 #import "CSDSineTable.h"
 #import "CSDParam.h"
 #import "CSDParamArray.h"
-#import "CSDOutputMono.h"
+#import "CSDOutputStereo.h"
+#import "CSDReverb.h"
 
 #import "CSDOscillator.h"
 
-@interface SoundGenerator : CSDInstrument {
-    CSDOscillator * myOscillator;
-}
-
-
+@interface SoundGenerator : CSDInstrument 
+    
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch;
 

@@ -67,6 +67,8 @@ static CSDManager * _sharedCSDManager = nil;
     NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
     [csound startCsound:file];
     isRunning = YES;
+    NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
+
 }
 
 -(void) writeCSDFileForOrchestra:(CSDOrchestra *) orch {

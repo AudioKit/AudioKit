@@ -92,7 +92,7 @@
         [[CSDManager sharedCSDManager] stop];
         [button setTitle: @"Run" forState: UIControlStateNormal];
     } else {
-        [[CSDManager sharedCSDManager] runCSDFile:@"example"];
+        [[CSDManager sharedCSDManager] runCSDFile:@"test"];
         [button setTitle: @"Stop" forState: UIControlStateNormal];
     }
 }

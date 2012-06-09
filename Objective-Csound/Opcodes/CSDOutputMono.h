@@ -13,8 +13,6 @@
     CSDParam * input;
 }
 
-@property (nonatomic, strong) CSDParam * input;
-
 -(NSString *) convertToCsd;
 
 -(id) initWithInput:(CSDParam *) i;
