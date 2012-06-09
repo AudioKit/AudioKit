@@ -19,6 +19,7 @@
     if (self) {
         //Default output is unique, can override if you want pretty CSD output
         type = t;
+
         output = [CSDParam 
                   paramWithString:[NSString stringWithFormat:@"%@%@%p", 
                                    type, [self class], self]];
