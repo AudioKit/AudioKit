@@ -29,6 +29,11 @@ NOTES:
   ie. Does each type of output just get its own instance variable, or are the input
   and output signatures differing enough to justify different opcode classes
   e.g. Oscillator and OscillatingController?
+  -ARB - one of the nice things about csound is that it elegantly does not make this distinction.
+  An oscillator after all is a pointer moving through a table at a given rate, or many other 
+  more mathematical interpretations that aren't really about audio at all.  As 
+  one begins to use oscillators for their "sine wave" audio properties (sounds like), or as control functions
+  (behaves like), or just for the math (functions like), this begets some kind of "real" understanding of what an oscillator is.
   
 * Should think about standardizing the headers of the files.  I don't care much who 
 wrote the file initially or when it was created.  To me that's all handled much 
