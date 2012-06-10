@@ -6,10 +6,12 @@ aims to eliminate the need for csd files and Csound-for-iOS hooks into code by
 representing every part of the Csound orchestra instruments as objects.  
 
 TODO:
-    
-* Globals: Enhance CSDOrchestra to enable global outputs and instruments
-* CSDAssignment & Expression: Develop a way to write math in the Csound realm
- Use these opcodes!: http://www.csounds.com/manual/html/MathOpeqfunc.html
+
+* Warm-up (if helpful) by updating CSDPluck to current best practices    
+* Utilize mathematical opcodes from http://www.csounds.com/manual/html/MathOpeqfunc.html
+  to make the Unit Generators Example work like you wanted (and commented out).
+  These have been started in Opcodes/Mathematical Expression/CSDSum* and CSDProduct*.
+* Globals!  Global object, global instruments, whatever feels right.
 
 REMINDERS:
 * Create more opcodes
