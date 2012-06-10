@@ -1,21 +1,22 @@
 //
-//  ToneGenerator.m
+//  ExpressionToneGenerator.m
 //  ExampleProject
 //
-//  Created by Aurelius Prochazka on 6/9/12.
+//  Created by Adam Boulanger on 6/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "ToneGenerator.h"
+#import "ExpressionToneGenerator.h"
 
 typedef enum
 {
-    kPValuePitchTag=4,
+    kPValueTagPitch=4,
 }kPValueTag;
 
-@implementation ToneGenerator
+@implementation ExpressionToneGenerator
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra
+{
     self = [super initWithOrchestra:newOrchestra];
     if (self) {                                                   
         CSDSineTable * sineTable = [[CSDSineTable alloc] init];
@@ -23,10 +24,10 @@ typedef enum
         
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
                                         initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
-                                        Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
+                                        Pitch:[CSDParamConstant paramWithPValue:kPValueTagPitch]
                                         FunctionTable:sineTable];
         [self addOpcode:myOscillator];
-
+        
         CSDOutputStereo * stereoOutput = 
         [[CSDOutputStereo alloc] initWithInputLeft:[myOscillator output] 
                                         InputRight:[myOscillator output]]; 
@@ -34,8 +35,8 @@ typedef enum
     }
     return self;
 }
-
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
+-(void) playNoteForDuration:(float)dur Pitch:(float)pitch
+{
     int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
     NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
     [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
