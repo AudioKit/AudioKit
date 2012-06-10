@@ -58,12 +58,12 @@ typedef enum
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
         myFMOscillator = [[CSDFoscili alloc] 
                 initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4] 
-                                       kPitch:[myLineSegment_a output]
-                                     kCarrier:[CSDParamConstant paramWithInt:1]
-                                  xModulation:[myLine output]
-                                    kModIndex:[myLineSegment_b output]
-                                FunctionTable:sineTable 
-                             AndOptionalPhase:nil];
+                                       Pitch:[myLineSegment_a output]
+                                     Carrier:[CSDParamConstant paramWithInt:1]
+                                  Modulation:[myLine output]
+                                    ModIndex:[myLineSegment_b output]
+                               FunctionTable:sineTable 
+                            AndOptionalPhase:nil];
         
         [self addOpcode:myFMOscillator];
         CSDOutputMono * monoOutput = [[CSDOutputMono alloc] initWithInput:[myFMOscillator output]]; 

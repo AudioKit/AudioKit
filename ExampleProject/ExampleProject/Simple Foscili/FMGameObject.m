@@ -22,13 +22,14 @@
         
         //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
         //  and will look for [CSDFunctionTable output] during csd conversion
-        myFoscilOpcode = [[CSDFoscili alloc] initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
-                                                                    kPitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
-                                                                  kCarrier:[CSDParamConstant paramWithInt:1]
-                                                               xModulation:[CSDParamConstant paramWithPValue:kPValueModulationTag]
-                                                                 kModIndex:[CSDParamConstant paramWithInt:15]
-                                                             FunctionTable:sineTable
-                                                          AndOptionalPhase:nil];
+        myFoscilOpcode = [[CSDFoscili alloc] 
+                          initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
+                                                  Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
+                                                Carrier:[CSDParamConstant paramWithInt:1]
+                                             Modulation:[CSDParamConstant paramWithPValue:kPValueModulationTag]
+                                               ModIndex:[CSDParamConstant paramWithInt:15]
+                                          FunctionTable:sineTable
+                                        AndOptionalPhase:nil];
         [self addOpcode:myFoscilOpcode];
         CSDOutputMono * monoOutput = [[CSDOutputMono alloc] initWithInput:[myFoscilOpcode output]]; 
         [self addOpcode:monoOutput];
