@@ -13,8 +13,6 @@
     CSDParam * inputRight;
 }
 
--(NSString *) convertToCsd;
-
 -(id) initWithInputLeft:(CSDParam *) inLeft
              InputRight:(CSDParam *) inRight;
 

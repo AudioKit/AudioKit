@@ -35,10 +35,7 @@
 {
     NSString * inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
-    return [NSString stringWithFormat:
-            @"%@ sum %@\n",
-            [output parameterString],
-            inputsCombined];
+    return [NSString stringWithFormat:@"%@ sum %@\n", output, inputsCombined];
 }
 
 @end

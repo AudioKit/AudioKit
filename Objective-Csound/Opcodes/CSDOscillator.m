@@ -34,9 +34,7 @@
 {
     return [NSString stringWithFormat:
             @"%@ oscil %@, %@, %@\n",
-            [output parameterString],
-            [amplitude parameterString],  
-            [pitch parameterString], 
+            output, amplitude, pitch, 
             [functionTable output]];
 }
 
