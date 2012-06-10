@@ -11,6 +11,7 @@
 #import "CSDSineTable.h"
 #import "CSDParam.h"
 #import "CSDParamArray.h"
+#import "CSDSum.h"
 
 typedef enum
 {
@@ -31,11 +32,15 @@ typedef enum
         CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
+        
         //NOTE:  duration of unitgenerator set from p3 with NOTE_DURATION_PVALUE
         myLine = [[CSDLine alloc] initWithIStartingValue:[CSDParamConstant paramWithFloat:0.5] 
                                                iDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration]   
                                             iTargetValue:[CSDParamConstant paramWithInt:1.5]];
         [self addOpcode:myLine];
+        
+//        CSDSum * myTestSum = [[CSDSum alloc] initWithInputs:[myLine output], [myLine output], nil];
+//        [self addOpcode:myTestSum];
         
         //Init LineSegment_a, without CSDParamArray Functions like line
         myLineSegment_a = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithInt:110]

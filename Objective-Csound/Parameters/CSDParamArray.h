@@ -20,5 +20,5 @@
 
 + (id)paramArrayFromFloats:(float *)numbers count:(NSUInteger)count;
 + (id)paramArrayFromParams:(CSDParamConstant *) firstParam, ...;
-- (void)addParam:(CSDParam *) p;
+//- (void)addParam:(CSDParam *) p;
 @end
