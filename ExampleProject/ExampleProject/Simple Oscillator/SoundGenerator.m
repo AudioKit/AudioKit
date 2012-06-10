@@ -14,13 +14,13 @@ typedef enum
     if (self) {
         // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
         
-        float partialStrengths[] = {1.0f, 0.5f, 1.0f};
-        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromFloats:partialStrengths count:3];
+        //float partialStrengths[] = {1.0f, 0.5f, 1.0f};
+        //CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromFloats:partialStrengths count:3];
 
-//        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromParams:
-//                                                     [CSDParamConstant paramWithFloat:1.0f],
-//                                                     [CSDParamConstant paramWithFloat:0.5f],
-//                                                     [CSDParamConstant paramWithFloat:1.0f], nil];
+        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromParams:
+                                                     [CSDParamConstant paramWithFloat:1.0f],
+                                                     [CSDParamConstant paramWithFloat:0.5f],
+                                                     [CSDParamConstant paramWithFloat:1.0f], nil];
         
         CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];

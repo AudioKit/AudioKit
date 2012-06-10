@@ -8,10 +8,15 @@ representing every part of the Csound orchestra instruments as objects.
 TODO:
 
 * Warm-up (if helpful) by updating CSDPluck to current best practices    
-* Utilize mathematical opcodes from http://www.csounds.com/manual/html/MathOpeqfunc.html
-  to make the Unit Generators Example work like you wanted (and commented out).
-  These have been started in Opcodes/Mathematical Expression/CSDSum* and CSDProduct*.
-* Globals!  Global object, global instruments, whatever feels right.
+* Figure out how we can do expressions... tonight I thought these would work
+  http://www.csounds.com/manual/html/MathOpeqfunc.html
+  so I gave it a shot and created CSDSum and CSDProduct, but dangit, they only work on 
+  audio rate.  So we could enhance these by making them work at all rates 
+  and instead of using opcode notation, just use "=" and "+" or "*"
+  But these are still very good for globals where you are adding audio rate stuff
+* Globals!  Global object, global instruments, whatever feels right.  Much 
+easier to clean up something that is working than architect it beautifully from
+scratch.
 
 REMINDERS:
 * Create more opcodes
@@ -19,8 +24,6 @@ REMINDERS:
 * Develop examples
 
 BUGS:
-
-* Memory leak or something is breaking paramArrayFromParams
 
 * Currently we have to double click when you use the menu to go to another
 view, for some reason this will properly clear out the CSD file so that the 
@@ -41,6 +44,7 @@ NOTES:
   
   -AOP - that's a good point.  I'll have to digest what it means to Objective-Csound and us.
   Clearly, we want to be even more about the understanding than csound alone is.
+  But I don't think we lose that necessarily by having a very similar named class.
   
 * Should think about standardizing the headers of the files.  I don't care much who 
 wrote the file initially or when it was created.  To me that's all handled much 
@@ -48,30 +52,6 @@ better by the code repository, although I suppose if we create a new fresh repo 
 some point, then all is lost.
 
 * Consider including expected units in method signatures if not CSDParam
-
-* CSDOscillator keeps a reference to NSString *output and sets it during init. 
-convertToCSD looks for *output as an argument sent to the formatter.  
-CSDFoscili just doesn't have an ivar output and just uses "foscili" directly 
-in the formatter of convertToCsd.  Do we want to keep a reference to output for 
-comparison?  Maybe an enum at CSDConstants of all the available opcode types 
-would be simpler for comparison and whatnot.
-
-* Adding unit generators: is there an elegant way to generate a%, k%, and i% 
-prefixes for output assignments (and their subsequent re-use in paramteres of 
-other opcodes)? Ideally, an objective-csound user would set something like 
-an (BOOL)audioRate flag and everything would be set for them when converting 
-to csd, but this causes a problem when user wants to re-enter the output in 
-the init argument of a newly created opcdode.
-
-* making a,k,i assignments behind the scenes as part of scripting opcode id's 
-and output generation is essential.  As I was making unitgen example, my output 
-was a string set to "aSomething" and I was trying to plug the opcode into 
-parameters that only took k.  The result was silence.  This should all be under 
-the hood and automated after specifying the rate for an opcdoe and knowing what 
-kind of affordances a parameter has by seeing its fastest subclass of CSDParam 
-on autocomplete.  This also means that if something can take, a,k, OR i rate 
-and the autocomplete says CSDParamA, then the it may also need to handle a 
-CSDParamK object passed as argument. 
 
 RECENT UPDATE NOTES:
 * if wanting to set CSDParam to pValue corresponding to a note's duration, 
