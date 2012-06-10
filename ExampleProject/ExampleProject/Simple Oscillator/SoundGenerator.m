@@ -25,10 +25,8 @@ typedef enum
         CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
-        //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
-        //  and will look for [CSDFunctionTable output] during csd conversion
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
-                                        initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
+                                        initWithAmplitude:[CSDParamConstant paramWithFloat:0.12]
                                                     Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
                                             FunctionTable:sineTable];
         [self addOpcode:myOscillator];
