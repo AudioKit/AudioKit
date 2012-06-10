@@ -11,6 +11,9 @@
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
+		76F2CE23158561A60059CC5E /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F2CE21158561A60059CC5E /* ExpressionsViewController.m */; };
+		76F2CE24158561A60059CC5E /* ExpressionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F2CE22158561A60059CC5E /* ExpressionsViewController.xib */; };
+		76F2CE27158563A50059CC5E /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F2CE26158563A50059CC5E /* ExpressionToneGenerator.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E3158073CD0074764A /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E1158073CD0074764A /* example.csd */; };
 		C43553E4158073CD0074764A /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E2158073CD0074764A /* template.csd */; };
@@ -87,6 +90,11 @@
 		76B956461581302D005AFAE9 /* CSDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLine.m; sourceTree = "<group>"; };
 		76B9564A15813808005AFAE9 /* CSDLineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDLineSegment.h; sourceTree = "<group>"; };
 		76B9564B15813808005AFAE9 /* CSDLineSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLineSegment.m; sourceTree = "<group>"; };
+		76F2CE20158561A60059CC5E /* ExpressionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionsViewController.h; sourceTree = "<group>"; };
+		76F2CE21158561A60059CC5E /* ExpressionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionsViewController.m; sourceTree = "<group>"; };
+		76F2CE22158561A60059CC5E /* ExpressionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpressionsViewController.xib; sourceTree = "<group>"; };
+		76F2CE25158563A50059CC5E /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionToneGenerator.h; sourceTree = "<group>"; };
+		76F2CE26158563A50059CC5E /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionToneGenerator.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
@@ -282,6 +290,19 @@
 			name = "Simple Foscili";
 			sourceTree = "<group>";
 		};
+		76F2CE1D158561320059CC5E /* Expressions */ = {
+			isa = PBXGroup;
+			children = (
+				76F2CE25158563A50059CC5E /* ExpressionToneGenerator.h */,
+				76F2CE26158563A50059CC5E /* ExpressionToneGenerator.m */,
+				76F2CE20158561A60059CC5E /* ExpressionsViewController.h */,
+				76F2CE21158561A60059CC5E /* ExpressionsViewController.m */,
+				76F2CE22158561A60059CC5E /* ExpressionsViewController.xib */,
+			);
+			name = Expressions;
+			path = Reverb;
+			sourceTree = "<group>";
+		};
 		C43553CE15804D310074764A /* FunctionTables */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +490,7 @@
 				C4C5525615773453005F7EE4 /* Simple Oscillator */,
 				76E93490157D39F4003C71DA /* Simple Foscili */,
 				76B9564E158145F7005AFAE9 /* Unit Generators */,
+				76F2CE1D158561320059CC5E /* Expressions */,
 				C4FE85B01583FF1F00902E07 /* Reverb */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
@@ -645,6 +667,7 @@
 				C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */,
 				C4FE85A41583ED9B00902E07 /* test.csd in Resources */,
 				C4FE85CA1584011B00902E07 /* ReverbViewController.xib in Resources */,
+				76F2CE24158561A60059CC5E /* ExpressionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +728,8 @@
 				C4FE85C91584011B00902E07 /* ReverbViewController.m in Sources */,
 				C44D06651584679E00307AC9 /* CSDSum.m in Sources */,
 				C44D06691584689D00307AC9 /* CSDProduct.m in Sources */,
+				76F2CE23158561A60059CC5E /* ExpressionsViewController.m in Sources */,
+				76F2CE27158563A50059CC5E /* ExpressionToneGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 #import "OscillatorViewController.h"
 #import "FMGameObjectViewController.h"
 #import "UnitGeneratorsViewController.h"
+#import "ExpressionsViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -35,6 +36,7 @@
                     @"Simple Oscillator", 
                     @"Simple FM",
                     @"Unit Generators",
+                    @"Expressions",
                     nil];
     return self;
 }
@@ -145,6 +147,8 @@
         case 3:
             controller = [[UnitGeneratorsViewController alloc] initWithNibName:@"UnitGeneratorsViewController" bundle:nil];
             break;
+        case 4:
+            controller = [[ExpressionsViewController alloc] initWithNibName:@"ExpressionsViewController" bundle:nil];
         default:
             break;
     }
