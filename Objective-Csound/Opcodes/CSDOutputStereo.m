@@ -10,10 +10,7 @@
 @implementation CSDOutputStereo
 
 -(NSString *) convertToCsd {
-    return [NSString stringWithFormat:
-            @"outs %@, %@\n",
-            [inputLeft  parameterString],
-            [inputRight parameterString]];
+    return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
 }
 
 -(id) initWithInputLeft:(CSDParam *) inLeft

@@ -67,7 +67,7 @@
     
     //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
     return [NSString stringWithFormat:@"%@ %@ %@,  %@,  %i, %@\n",
-            [output parameterString], opcode, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
+            output, opcode, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
 }
 
 -(id)initWithAmplitude:(NSString *) amp

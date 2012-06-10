@@ -10,9 +10,7 @@
 @implementation CSDOutputMono
 
 -(NSString *) convertToCsd {
-    return [NSString stringWithFormat:
-            @"out %@\n",
-            [input parameterString]];
+    return [NSString stringWithFormat:@"out %@\n", input];
 }
 
 -(id) initWithInput:(CSDParam *) i {

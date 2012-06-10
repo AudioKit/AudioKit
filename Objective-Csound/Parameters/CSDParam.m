@@ -30,26 +30,8 @@
     return [[self alloc] initWithString:aString];
 }
 
-
-
-
-
-
-// Deprecated
-//-(id)initWithOpcode:(CSDOpcode *)aOpcode
-//{
-//    //
-//    self = [super init];
-//    if (self) {
-//        self = [aOpcode output];
-//    }
-//    return self;
-//}
-//Deprecated
-//+(id)paramWithOpcode:(CSDOpcode *)someOpcode
-//{
-//    return [[self alloc] initWithOpcode:[someOpcode output]];
-//}
-
+-(NSString *) description {
+    return parameterString;
+}
 
 @end

@@ -33,12 +33,12 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@\n",
-            [outputLeft      parameterString],
-            [outputRight     parameterString],
-            [inputLeft       parameterString],
-            [inputRight      parameterString],
-            [feedbackLevel   parameterString],  
-            [cutoffFrequency parameterString]];
+            outputLeft,
+            outputRight,
+            inputLeft,
+            inputRight,
+            feedbackLevel,  
+            cutoffFrequency];
 }
 
 

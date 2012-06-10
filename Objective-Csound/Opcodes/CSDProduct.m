@@ -35,9 +35,6 @@
 {
     NSString * inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
-    return [NSString stringWithFormat:
-            @"%@ product %@\n",
-            [output parameterString],
-            inputsCombined];
+    return [NSString stringWithFormat:@"%@ product %@\n",output, inputsCombined];
 }
 @end

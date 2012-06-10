@@ -51,25 +51,24 @@
     if ( phase == nil) {
         s = [NSString stringWithFormat:
                        @"%@ foscili %@, %@, %@, %@, %@, %@\n",
-                       [output     parameterString],
-                       [amplitude  parameterString], 
-                       [pitch      parameterString], 
-                       [carrier    parameterString], 
-                       [modulation parameterString], 
-                       [modIndex   parameterString], 
-                       [functionTable output], 
-                       [phase      parameterString]];
+                       output,
+                       amplitude, 
+                       pitch, 
+                       carrier, 
+                       modulation, 
+                       modIndex, 
+                       [functionTable output]];
     } else{
         s = [NSString stringWithFormat:
                        @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
-                       [output     parameterString],
-                       [amplitude  parameterString], 
-                       [pitch      parameterString], 
-                       [carrier    parameterString], 
-                       [modulation parameterString], 
-                       [modIndex   parameterString], 
+                       output,
+                       amplitude, 
+                       pitch, 
+                       carrier, 
+                       modulation, 
+                       modIndex, 
                        [functionTable output], 
-                       [phase     parameterString]];
+                       phase];
 
     }
     NSLog(@"Foscil csdRepresentation created:%@", s);

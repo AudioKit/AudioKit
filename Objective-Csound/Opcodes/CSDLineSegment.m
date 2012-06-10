@@ -46,10 +46,10 @@
 {
     if (segmentArray == nil) {
         return [NSString stringWithFormat:@"%@ linseg %@, %@, %@\n", 
-                [output parameterString], 
-                [firstSegmentStartValue parameterString], 
-                [firstSegmentDuration parameterString], 
-                [firstSegmentTargetValue parameterString]];
+                output, 
+                firstSegmentStartValue, 
+                firstSegmentDuration, 
+                firstSegmentTargetValue];
     } else {
        /* NSMutableString *s = [NSString stringWithFormat:@", "];
         for (int i = 0; i < [segmentArray count]; i++) {
@@ -58,10 +58,10 @@
         return [NSString stringWithFormat:@"%@ line %@, %@, %@", 
                 output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue];*/
         return [NSString stringWithFormat:@"%@ linseg %@, %@, %@, %@\n", 
-                [output parameterString], 
-                [firstSegmentStartValue parameterString], 
-                [firstSegmentDuration parameterString], 
-                [firstSegmentTargetValue parameterString], 
+                output, 
+                firstSegmentStartValue, 
+                firstSegmentDuration, 
+                firstSegmentTargetValue, 
                 [segmentArray parameterString]];
     }
 }

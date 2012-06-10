@@ -30,8 +30,6 @@
 @property (nonatomic, strong) CSDParam *firstSegmentTargetValue;
 @property (nonatomic, strong) CSDParamArray *segmentArray;
 
--(NSString *)convertToCsd;
-
 -(id)initWithIFirstSegmentStartValue:(CSDParam *) aStart
                iFirstSegmentDuration:(CSDParam *) aDuration
            iFirstSegementTargetValue:(CSDParam *) aTarget

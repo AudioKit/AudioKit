@@ -12,8 +12,6 @@
     CSDParam * input;
 }
 
--(NSString *) convertToCsd;
-
 -(id) initWithInput:(CSDParam *) i;
 
 @end

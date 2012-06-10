@@ -28,8 +28,6 @@
 @property (nonatomic, strong) CSDParam * duration;
 @property (nonatomic, strong) CSDParam * targetValue;
 
--(NSString *)convertToCsd;
-
 -(id)initWithIStartingValue:(CSDParam *) aStart
                   iDuration:(CSDParam *) aDuration
                iTargetValue:(CSDParam *) aTarget;
