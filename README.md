@@ -7,10 +7,9 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
     
-* De-Hungarian Foscili Opcode, instead use CSDParams of appropriate types
 * Globals: Enhance CSDOrchestra to enable global outputs and instruments
 * CSDAssignment & Expression: Develop a way to write math in the Csound realm
-* Fix memory leak or whatever is breaking paramArrayFromParams
+ Use these opcodes!: http://www.csounds.com/manual/html/MathOpeqfunc.html
 
 REMINDERS:
 * Create more opcodes
@@ -19,7 +18,9 @@ REMINDERS:
 
 BUGS:
 
-* Currently lkyou have to double click when you use the menu to go to another
+* Memory leak or something is breaking paramArrayFromParams
+
+* Currently we have to double click when you use the menu to go to another
 view, for some reason this will properly clear out the CSD file so that the 
 sound appears properly.
 
@@ -29,11 +30,15 @@ NOTES:
   ie. Does each type of output just get its own instance variable, or are the input
   and output signatures differing enough to justify different opcode classes
   e.g. Oscillator and OscillatingController?
+  
   -ARB - one of the nice things about csound is that it elegantly does not make this distinction.
   An oscillator after all is a pointer moving through a table at a given rate, or many other 
   more mathematical interpretations that aren't really about audio at all.  As 
   one begins to use oscillators for their "sine wave" audio properties (sounds like), or as control functions
   (behaves like), or just for the math (functions like), this begets some kind of "real" understanding of what an oscillator is.
+  
+  -AOP - that's a good point.  I'll have to digest what it means to Objective-Csound and us.
+  Clearly, we want to be even more about the understanding than csound alone is.
   
 * Should think about standardizing the headers of the files.  I don't care much who 
 wrote the file initially or when it was created.  To me that's all handled much 
