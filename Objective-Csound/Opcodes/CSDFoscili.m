@@ -20,10 +20,10 @@
 
 //H4Y - ARB: probably need to set output in the init
 -(id)initFMOscillatorWithAmplitude:(CSDParam *)amp
-                            Pitch:(CSDParamControl *)cps
-                          Carrier:(CSDParam *)car
-                       Modulation:(CSDParam *)mod
-                         ModIndex:(CSDParamControl *)aModIndex
+                             Pitch:(CSDParamControl *)cps
+                           Carrier:(CSDParam *)car
+                        Modulation:(CSDParam *)mod
+                          ModIndex:(CSDParamControl *)aModIndex
                      FunctionTable:(CSDFunctionTable *)f
                   AndOptionalPhase:(CSDParamConstant *)phs
 {
@@ -32,13 +32,13 @@
         /*create text for instrument assignment 
            (text retrieved by CSDManager from array of added instruments
          */
-        output = [CSDParam paramWithString:[self uniqueName]];
+        output         = [CSDParam paramWithString:[self uniqueName]];
         amplitude      = amp;
         pitch          = cps;
         carrier        = car;
         modulation     = mod;
         modIndex       = aModIndex;
-        functionTable   = f;
+        functionTable  = f;
         phase          = phs;
     }
     return self;
@@ -51,25 +51,25 @@
     if ( phase == nil) {
         s = [NSString stringWithFormat:
                        @"%@ foscili %@, %@, %@, %@, %@, %@\n",
-                       [output parameterString],
-                       [amplitude parameterString], 
-                       [pitch parameterString], 
-                       [carrier parameterString], 
+                       [output     parameterString],
+                       [amplitude  parameterString], 
+                       [pitch      parameterString], 
+                       [carrier    parameterString], 
                        [modulation parameterString], 
-                       [modIndex parameterString], 
+                       [modIndex   parameterString], 
                        [functionTable output], 
-                       [phase parameterString]];
+                       [phase      parameterString]];
     } else{
         s = [NSString stringWithFormat:
                        @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
-                       [output parameterString],
-                       [amplitude parameterString], 
-                       [pitch parameterString], 
-                       [carrier parameterString], 
+                       [output     parameterString],
+                       [amplitude  parameterString], 
+                       [pitch      parameterString], 
+                       [carrier    parameterString], 
                        [modulation parameterString], 
-                       [modIndex parameterString], 
+                       [modIndex   parameterString], 
                        [functionTable output], 
-                       [phase parameterString]];
+                       [phase     parameterString]];
 
     }
     NSLog(@"Foscil csdRepresentation created:%@", s);
