@@ -23,8 +23,6 @@
 @property (nonatomic, strong) CSDParam * outputLeft;
 @property (nonatomic, strong) CSDParam * outputRight;
 
--(NSString *) convertToCsd;
-
 -(id) initWithInputLeft:(CSDParam *) inLeft
              InputRight:(CSDParam *) inRight
           FeedbackLevel:(CSDParamControl *) feedback

@@ -25,16 +25,12 @@
 @property (nonatomic, strong) CSDFunctionTable * functionTable;
 @property (nonatomic, strong) CSDParamConstant * phase;
 
-//-(NSString *) textWithPValue:(int)p;
-
--(id)initFMOscillatorWithAmplitude:(CSDParam *)amp
-                            Pitch:(CSDParam *)cps
-                          Carrier:(CSDParamControl *)car
-                       Modulation:(CSDParam *)mod
-                         ModIndex:(CSDParamControl *)aModIndex
-                     FunctionTable:(CSDFunctionTable *)f
-                  AndOptionalPhase:(CSDParamConstant *)phs;
-
--(NSString *)convertToCsd;
+-(id)initFMOscillatorWithAmplitude:(CSDParam *) amp
+                             Pitch:(CSDParam *) cps
+                           Carrier:(CSDParamControl *) car
+                        Modulation:(CSDParam *) mod
+                          ModIndex:(CSDParamControl *) aModIndex
+                     FunctionTable:(CSDFunctionTable *) f
+                  AndOptionalPhase:(CSDParamConstant *) phs;
 
 @end

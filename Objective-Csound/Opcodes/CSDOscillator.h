@@ -16,8 +16,6 @@
 @property (nonatomic, strong) CSDParam * pitch;
 @property (nonatomic, strong) CSDFunctionTable *functionTable;
 
--(NSString *) convertToCsd;
-
 -(id) initWithAmplitude:(CSDParam *) amp 
                   Pitch:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f;

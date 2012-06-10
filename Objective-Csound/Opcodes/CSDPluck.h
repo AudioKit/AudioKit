@@ -33,8 +33,6 @@
 @property (nonatomic, strong) NSString *currentSampleWeight;
 @property (nonatomic, strong) NSString *previousSampleWeight;
 
--(NSString *) textWithPValue:(int)p;
-
 -(id)initWithAmplitude:(NSString *) amp
                  Pitch:(NSString *) pch
     DecayedPitchBuffer:(NSString *) hz
