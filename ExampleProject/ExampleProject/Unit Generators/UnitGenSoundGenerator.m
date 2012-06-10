@@ -47,11 +47,12 @@ typedef enum
                                                             iFirstSegmentDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration] 
                                                         iFirstSegementTargetValue:[CSDParamConstant paramWithInt:330]];
         
-        //Init LineSegment_b, includes CSDParamArray and behaves like breakpoint generator
-        //NOTE: paramAray shouldn't just be initFromFloats, but should incorporate CSDParam 
-        //NOTE: need to do math on duration(p3) especially to calculate breakpoint durations
-        float breakpoints[] = {3.0f, 1.5f, 3.0f, 0.5};
-        CSDParamArray * breakpointParamArray = [CSDParamArray paramArrayFromFloats:breakpoints count:4];
+        CSDParamArray * breakpointParamArray = [CSDParamArray paramArrayFromParams:
+                                                     [CSDParamConstant paramWithFloat:3.0f],
+                                                     [CSDParamConstant paramWithFloat:1.5f],
+                                                     [CSDParamConstant paramWithFloat:3.0f], 
+                                                     [CSDParamConstant paramWithFloat:0.5f],nil];
+
         myLineSegment_b = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithFloat:0.5]
                                                           //iFirstSegmentDuration:[CSDParamConstant paramWithPValue:(kPValueTagDuration / 3)
                                                             iFirstSegmentDuration:[CSDParamConstant paramWithInt:3]
