@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"p%@", aString];
+        parameterString = [NSString stringWithFormat:@"i%@", aString];
     }
     return self;
 }
