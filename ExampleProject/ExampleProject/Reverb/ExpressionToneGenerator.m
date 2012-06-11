@@ -30,7 +30,8 @@ typedef enum
         CSDOscillator * myVibratoOscillator = [[CSDOscillator alloc] 
                                                initWithAmplitude:[CSDParamConstant paramWithInt:40]
                                                            Pitch:[CSDParamConstant paramWithInt:6] 
-                                                   FunctionTable:vibratoSine];
+                                                   FunctionTable:vibratoSine
+                                                        isControl:YES];
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;

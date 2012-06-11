@@ -15,6 +15,12 @@
 @property (nonatomic, strong) CSDParam * amplitude;
 @property (nonatomic, strong) CSDParam * pitch;
 @property (nonatomic, strong) CSDFunctionTable *functionTable;
+@property (readonly) BOOL isControl;
+
+-(id) initWithAmplitude:(CSDParam *) amp 
+                  Pitch:(CSDParam *) freq
+          FunctionTable:(CSDFunctionTable *) f
+              isControl:(BOOL)control;
 
 -(id) initWithAmplitude:(CSDParam *) amp 
                   Pitch:(CSDParam *) freq
