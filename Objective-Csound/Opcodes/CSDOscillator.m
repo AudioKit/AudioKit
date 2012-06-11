@@ -6,6 +6,7 @@
 //
 
 #import "CSDOscillator.h"
+#import "CSDParamControl.h"
 
 @implementation CSDOscillator 
 
@@ -13,11 +14,33 @@
 @synthesize amplitude;
 @synthesize pitch;
 @synthesize functionTable;
+@synthesize isControl;
 
 
 -(id) initWithAmplitude:(CSDParam *) amp 
                   Pitch:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f 
+            isControl:(BOOL)control
+{
+    self = [super init];
+    if (self) {
+        isControl = control;
+        if (isControl) {
+            output = [CSDParamControl paramWithString:[self uniqueName]];
+        } else {
+            output = [CSDParam paramWithString:[self uniqueName]];
+        }
+
+        amplitude = amp;
+        pitch = freq;
+        functionTable = f;
+    }
+    return self; 
+}
+
+-(id) initWithAmplitude:(CSDParam *)amp 
+                  Pitch:(CSDParam *)freq 
+          FunctionTable:(CSDFunctionTable *)f
 {
     self = [super init];
     if (self) {
