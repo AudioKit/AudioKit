@@ -40,11 +40,12 @@ typedef enum
                                        stringWithFormat:@"%d + (%f * %@)", vibratoOffset, vibratoScale, [myVibratoOscillator output]];
 
         
-        CSDParamConstant * amplitudeOffset = [CSDParamConstant paramWithFloat:0.3];
+        CSDParamConstant * amplitudeOffset = [CSDParamConstant paramWithFloat:0.1];
         CSDLine * amplitudeRamp = [[CSDLine alloc] 
                                    initWithIStartingValue:[CSDParamConstant paramWithFloat:0.0f] 
                                                 iDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration]
-                                             iTargetValue:[CSDParamConstant paramWithFloat:0.4]];
+                                             iTargetValue:[CSDParamConstant paramWithFloat:0.2]];
+        [self addOpcode:amplitudeRamp];
         
                                       
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
