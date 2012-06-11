@@ -50,11 +50,11 @@
 
 -(IBAction)hit1:(id)sender
 {
-    [myToneGenerator playNoteForDuration:3 Pitch:360];
+    [myToneGenerator playNoteForDuration:9 Pitch:360];
 }
 -(IBAction)hit2:(id)sender
 {
-    [myToneGenerator playNoteForDuration:3 Pitch:410];
+    [myToneGenerator playNoteForDuration:9 Pitch:410];
 }
 
 @end
