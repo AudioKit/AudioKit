@@ -9,6 +9,7 @@
 #import "CSDInstrument.h"
 #import "CSDOscillator.h"
 #import "CSDSineTable.h"
+#import "CSDLine.h"
 #import "CSDOutputStereo.h"
 
 @interface ExpressionToneGenerator : CSDInstrument
