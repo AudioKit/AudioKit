@@ -25,9 +25,23 @@
     return self;
 }
 
+-(id)initWithExpression:(NSString *)aExpression
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithString:aExpression];
+    }
+    return self;
+}
+
 +(id)paramWithString:(NSString *)aString
 {
     return [[self alloc] initWithString:aString];
+}
+
++(id)paramWithExpression:(NSString *)aString
+{
+    return [[self alloc] initWithExpression:aString];
 }
 
 -(NSString *) description {

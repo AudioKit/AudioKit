@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ExpressionToneGenerator.h"
 
 @interface ExpressionsViewController : UIViewController
+{
+    ExpressionToneGenerator *myToneGenerator;
+    CSDOrchestra *myOrchestra;
+}
 
 -(IBAction)hit1:(id)sender;
 -(IBAction)hit2:(id)sender;

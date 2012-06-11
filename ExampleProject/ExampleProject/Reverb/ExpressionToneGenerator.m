@@ -22,10 +22,35 @@ typedef enum
         CSDSineTable * sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
+        CSDSineTable * vibratoSine = [[CSDSineTable alloc] init];
+        [self addFunctionTable:vibratoSine];
+        
+
+                                      
+        CSDOscillator * myVibratoOscillator = [[CSDOscillator alloc] 
+                                               initWithAmplitude:[CSDParamConstant paramWithInt:40]
+                                                           Pitch:[CSDParamConstant paramWithInt:6] 
+                                                   FunctionTable:vibratoSine];
+        [self addOpcode:myVibratoOscillator];
+        
+        float vibratoScale = 2.0f;
+        int vibratoOffset = 320;
+        NSString *vibratoExpression = [NSString 
+                                       stringWithFormat:@"%d + (%f * %@)", vibratoOffset, vibratoScale, [myVibratoOscillator output]];
+
+        
+        CSDParamConstant * amplitudeOffset = [CSDParamConstant paramWithFloat:0.3];
+        CSDLine * amplitudeRamp = [[CSDLine alloc] 
+                                   initWithIStartingValue:[CSDParamConstant paramWithFloat:0.0f] 
+                                                iDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration]
+                                             iTargetValue:[CSDParamConstant paramWithFloat:0.4]];
+        
+                                      
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
-                                        initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
-                                        Pitch:[CSDParamConstant paramWithPValue:kPValueTagPitch]
-                                        FunctionTable:sineTable];
+                    initWithAmplitude:[CSDParam paramWithExpression:[NSString stringWithFormat:@"%@ + %@", [amplitudeRamp output], [amplitudeOffset parameterString]]]
+                                Pitch:[CSDParam paramWithExpression:vibratoExpression]
+                        FunctionTable:sineTable];
+                                        
         [self addOpcode:myOscillator];
         
         CSDOutputStereo * stereoOutput = 

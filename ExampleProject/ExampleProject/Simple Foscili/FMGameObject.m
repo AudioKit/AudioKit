@@ -16,12 +16,9 @@
     if (self) {
         //define opcodes with properties connected to gameBehavior
     
-        //H4Y - ARB: uses argument to set output
         CSDSineTable *sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        //H4Y - ARB: This assumes that CSDFunctionTable is ftgentmp
-        //  and will look for [CSDFunctionTable output] during csd conversion
         myFoscilOpcode = [[CSDFoscili alloc] 
                           initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
                                                   Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]

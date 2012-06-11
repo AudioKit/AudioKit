@@ -27,6 +27,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    myOrchestra = [[CSDOrchestra alloc] init];
+    myToneGenerator = [[ExpressionToneGenerator alloc] initWithOrchestra:myOrchestra];
+    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
 }
 
 - (void)viewDidUnload
@@ -35,6 +38,10 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+-(void)viewWillUnload
+{
+    [[CSDManager sharedCSDManager] stop];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -42,8 +49,12 @@
 }
 
 -(IBAction)hit1:(id)sender
-{}
+{
+    [myToneGenerator playNoteForDuration:3 Pitch:360];
+}
 -(IBAction)hit2:(id)sender
-{}
+{
+    [myToneGenerator playNoteForDuration:3 Pitch:410];
+}
 
 @end
