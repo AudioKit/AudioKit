@@ -7,19 +7,10 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
 
-* Warm-up (if helpful) by updating CSDPluck to current best practices    
-* Figure out how we can do expressions... tonight I thought these would work
-  http://www.csounds.com/manual/html/MathOpeqfunc.html
-  so I gave it a shot and created CSDSum and CSDProduct, but dangit, they only work on 
-  audio rate.  So we could enhance these by making them work at all rates 
-  and instead of using opcode notation, just use "=" and "+" or "*"
-  But these are still very good for globals where you are adding audio rate stuff
 * Globals!  Global object, global instruments, whatever feels right.  Much 
 easier to clean up something that is working than architect it beautifully from
 scratch.
-
-REMINDERS:
-* Create more opcodes
+* Create more opcodes (fix up CSDPluck)
 * Create More Function Table subclasses
 * Develop examples
 
