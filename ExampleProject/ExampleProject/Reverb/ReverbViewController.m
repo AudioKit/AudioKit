@@ -54,5 +54,8 @@
     [toneGenerator playNoteForDuration:1 Pitch:(arc4random()%200+400)];
 }
 
+- (IBAction)startFX:(id)sender {
+    [fx start];
+}
 
 @end
