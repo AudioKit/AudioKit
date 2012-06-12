@@ -14,6 +14,7 @@
 #import "FMGameObjectViewController.h"
 #import "UnitGeneratorsViewController.h"
 #import "ExpressionsViewController.h"
+#import "ReverbViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -37,6 +38,7 @@
                     @"Simple FM",
                     @"Unit Generators",
                     @"Expressions",
+                    @"Reverb",
                     nil];
     return self;
 }
@@ -149,6 +151,10 @@
             break;
         case 4:
             controller = [[ExpressionsViewController alloc] initWithNibName:@"ExpressionsViewController" bundle:nil];
+            break;
+        case 5:
+            controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
+            break;
         default:
             break;
     }
