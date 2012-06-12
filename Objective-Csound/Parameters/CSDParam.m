@@ -39,10 +39,14 @@
     return [[self alloc] initWithString:aString];
 }
 
-+(id)paramWithExpression:(NSString *)aString
-{
-    return [[self alloc] initWithExpression:aString];
++(id)paramWithFormat:(NSString *)format, ... {
+    va_list argumentList;
+    va_start(argumentList, format);
+    return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
+    va_end(argumentList);
 }
+
+
 
 -(NSString *) description {
     return parameterString;

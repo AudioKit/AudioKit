@@ -66,4 +66,8 @@
     }
 }
 
+-(NSString *) description {
+    return [output parameterString];
+}
+
 @end

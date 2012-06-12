@@ -35,4 +35,8 @@
             output, startingValue, duration, targetValue];
 }
 
+-(NSString *) description {
+    return [output parameterString];
+}
+
 @end

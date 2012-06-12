@@ -19,7 +19,5 @@
 +(id)paramWithString:(NSString *)aString;
 
 -(id)initWithExpression:(NSString *)aExpression;
-+(id)paramWithExpression:(NSString *)aExpression;
-//-(id)initWithOpcode:(CSDOpcode *)aOpcode;
-//+(id)paramWithOpcode:(CSDOpcode *)aOpcode;
++(id)paramWithFormat:(NSString *)format, ...;
 @end

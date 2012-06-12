@@ -12,13 +12,13 @@
 
 @synthesize output;
 @synthesize amplitude;
-@synthesize pitch;
+@synthesize frequency;
 @synthesize functionTable;
 @synthesize isControl;
 
 
 -(id) initWithAmplitude:(CSDParam *) amp 
-                  Pitch:(CSDParam *) freq
+              Frequency:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f 
             isControl:(BOOL)control
 {
@@ -32,21 +32,21 @@
         }
 
         amplitude = amp;
-        pitch = freq;
+        frequency = freq;
         functionTable = f;
     }
     return self; 
 }
 
 -(id) initWithAmplitude:(CSDParam *)amp 
-                  Pitch:(CSDParam *)freq 
+              Frequency:(CSDParam *)freq 
           FunctionTable:(CSDFunctionTable *)f
 {
     self = [super init];
     if (self) {
         output = [CSDParam paramWithString:[self uniqueName]];
         amplitude = amp;
-        pitch = freq;
+        frequency = freq;
         functionTable = f;
     }
     return self; 
@@ -57,8 +57,11 @@
 {
     return [NSString stringWithFormat:
             @"%@ oscil %@, %@, %@\n",
-            output, amplitude, pitch, 
-            [functionTable output]];
+            output, amplitude, frequency, [functionTable output]];
+}
+
+-(NSString *) description {
+    return [output parameterString];
 }
 
 

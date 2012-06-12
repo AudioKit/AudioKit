@@ -23,8 +23,8 @@ typedef enum
         
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
                                         initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
-                                        Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
-                                        FunctionTable:sineTable];
+                                                Frequency:[CSDParamConstant paramWithPValue:kPValuePitchTag]
+                                            FunctionTable:sineTable];
         [self addOpcode:myOscillator];
 
         CSDOutputStereo * stereoOutput = 
