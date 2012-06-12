@@ -11,9 +11,6 @@
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
-		76F2CE23158561A60059CC5E /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F2CE21158561A60059CC5E /* ExpressionsViewController.m */; };
-		76F2CE24158561A60059CC5E /* ExpressionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F2CE22158561A60059CC5E /* ExpressionsViewController.xib */; };
-		76F2CE27158563A50059CC5E /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F2CE26158563A50059CC5E /* ExpressionToneGenerator.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E3158073CD0074764A /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E1158073CD0074764A /* example.csd */; };
 		C43553E4158073CD0074764A /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E2158073CD0074764A /* template.csd */; };
@@ -21,6 +18,8 @@
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
 		C44D06651584679E00307AC9 /* CSDSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06641584679E00307AC9 /* CSDSum.m */; };
 		C44D06691584689D00307AC9 /* CSDProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06681584689D00307AC9 /* CSDProduct.m */; };
+		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
+		C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -90,11 +89,6 @@
 		76B956461581302D005AFAE9 /* CSDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLine.m; sourceTree = "<group>"; };
 		76B9564A15813808005AFAE9 /* CSDLineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDLineSegment.h; sourceTree = "<group>"; };
 		76B9564B15813808005AFAE9 /* CSDLineSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLineSegment.m; sourceTree = "<group>"; };
-		76F2CE20158561A60059CC5E /* ExpressionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionsViewController.h; sourceTree = "<group>"; };
-		76F2CE21158561A60059CC5E /* ExpressionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionsViewController.m; sourceTree = "<group>"; };
-		76F2CE22158561A60059CC5E /* ExpressionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpressionsViewController.xib; sourceTree = "<group>"; };
-		76F2CE25158563A50059CC5E /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionToneGenerator.h; sourceTree = "<group>"; };
-		76F2CE26158563A50059CC5E /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionToneGenerator.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
@@ -106,6 +100,11 @@
 		C44D06641584679E00307AC9 /* CSDSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDSum.m; sourceTree = "<group>"; };
 		C44D06671584689D00307AC9 /* CSDProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDProduct.h; sourceTree = "<group>"; };
 		C44D06681584689D00307AC9 /* CSDProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDProduct.m; sourceTree = "<group>"; };
+		C44D067C15871EBE00307AC9 /* ExpressionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExpressionsViewController.h; path = ExampleProject/Expressions/ExpressionsViewController.h; sourceTree = SOURCE_ROOT; };
+		C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionsViewController.m; path = ExampleProject/Expressions/ExpressionsViewController.m; sourceTree = SOURCE_ROOT; };
+		C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ExpressionsViewController.xib; path = ExampleProject/Expressions/ExpressionsViewController.xib; sourceTree = SOURCE_ROOT; };
+		C44D067F15871EBE00307AC9 /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExpressionToneGenerator.h; path = ExampleProject/Expressions/ExpressionToneGenerator.h; sourceTree = SOURCE_ROOT; };
+		C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionToneGenerator.m; path = ExampleProject/Expressions/ExpressionToneGenerator.m; sourceTree = SOURCE_ROOT; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4842D1B1579C2F800E69770 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4842D1D1579C2F800E69770 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
@@ -293,11 +292,11 @@
 		76F2CE1D158561320059CC5E /* Expressions */ = {
 			isa = PBXGroup;
 			children = (
-				76F2CE25158563A50059CC5E /* ExpressionToneGenerator.h */,
-				76F2CE26158563A50059CC5E /* ExpressionToneGenerator.m */,
-				76F2CE20158561A60059CC5E /* ExpressionsViewController.h */,
-				76F2CE21158561A60059CC5E /* ExpressionsViewController.m */,
-				76F2CE22158561A60059CC5E /* ExpressionsViewController.xib */,
+				C44D067C15871EBE00307AC9 /* ExpressionsViewController.h */,
+				C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */,
+				C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */,
+				C44D067F15871EBE00307AC9 /* ExpressionToneGenerator.h */,
+				C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */,
 			);
 			name = Expressions;
 			path = Reverb;
@@ -667,7 +666,6 @@
 				C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */,
 				C4FE85A41583ED9B00902E07 /* test.csd in Resources */,
 				C4FE85CA1584011B00902E07 /* ReverbViewController.xib in Resources */,
-				76F2CE24158561A60059CC5E /* ExpressionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +676,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */,
+				C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */,
 				C495F75B1583459300951461 /* Example1Controller.m in Sources */,
 				C495F75A1583458400951461 /* SoundGenerator.m in Sources */,
 				C495F7591583457700951461 /* OscillatorViewController.m in Sources */,
@@ -728,8 +728,6 @@
 				C4FE85C91584011B00902E07 /* ReverbViewController.m in Sources */,
 				C44D06651584679E00307AC9 /* CSDSum.m in Sources */,
 				C44D06691584689D00307AC9 /* CSDProduct.m in Sources */,
-				76F2CE23158561A60059CC5E /* ExpressionsViewController.m in Sources */,
-				76F2CE27158563A50059CC5E /* ExpressionToneGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
