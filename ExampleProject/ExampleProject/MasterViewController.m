@@ -38,7 +38,7 @@
                     @"Simple FM",
                     @"Unit Generators",
                     @"Expressions",
-                    @"Reverb",
+                    @"Global Reverb",
                     nil];
     return self;
 }
