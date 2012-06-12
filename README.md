@@ -7,9 +7,7 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
 
-* Globals!  Global object, global instruments, whatever feels right.  Much 
-easier to clean up something that is working than architect it beautifully from
-scratch.
+* Globals - think about initialization statements and run statements that start globals up immediately
 * Create more opcodes (fix up CSDPluck)
 * Create More Function Table subclasses
 * Develop examples
