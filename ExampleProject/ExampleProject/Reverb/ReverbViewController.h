@@ -12,6 +12,7 @@
 #import "EffectsProcessor.h"
 
 @interface ReverbViewController : UIViewController {
+    EffectsProcessor * fx;
     ToneGenerator * toneGenerator;
     CSDOrchestra * myOrchestra;
 }

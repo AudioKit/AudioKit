@@ -15,9 +15,12 @@ typedef enum
 
 @implementation ToneGenerator
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra 
+       EffectsProcessor:(EffectsProcessor *)effects 
+{
     self = [super initWithOrchestra:newOrchestra];
-    if (self) {                                                   
+    if (self) {                      
+        fx = effects;
         CSDSineTable * sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
@@ -31,6 +34,11 @@ typedef enum
         [[CSDOutputStereo alloc] initWithInputLeft:[myOscillator output] 
                                         InputRight:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
+        
+        CSDParam * cumulativeReverb = [CSDParam paramWithFormat:@"%@ + %@", [fx input], [myOscillator output]];
+        CSDAssignment * reverbSend = [[CSDAssignment alloc] initWithInput:cumulativeReverb];
+        [reverbSend setOutput:[fx input]];
+        [self addOpcode:reverbSend];
     }
     return self;
 }

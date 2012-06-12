@@ -8,6 +8,10 @@
 
 #import "CSDInstrument.h"
 
-@interface EffectsProcessor : CSDInstrument
+@interface EffectsProcessor : CSDInstrument {
+    CSDParam * input;
+}
+@property (nonatomic, strong) CSDParam * input;
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 
 @end

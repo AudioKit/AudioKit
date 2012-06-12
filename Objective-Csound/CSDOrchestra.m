@@ -20,7 +20,8 @@
 }
 
 -(void) addInstrument:(CSDInstrument *) instrument {
-    [instruments addObject:instrument];
+    [instruments insertObject:instrument atIndex:0];
+    //[instruments addObject:instrument];
 }
 -(NSString *) instrumentsForCsd {
     
