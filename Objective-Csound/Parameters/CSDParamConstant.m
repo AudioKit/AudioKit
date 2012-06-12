@@ -12,7 +12,7 @@
 -(id)init
 {
     self = [super init];
-    type = @"i";
+    type = @"gi";
     return self;
 }
 
@@ -20,7 +20,8 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"i%@", aString];
+        type = @"gi";
+        parameterString = [NSString stringWithFormat:@"%@%@", type, aString];
     }
     return self;
 }
@@ -29,7 +30,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"i";
+        type = @"gi";
         parameterString = [NSString stringWithFormat:@"%f", aFloat];
     }
     return self;
@@ -38,7 +39,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"i";
+        type = @"gi";
         parameterString = [NSString stringWithFormat:@"%d", someInt];
     }
     return self;
@@ -49,7 +50,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"i";
+        type = @"gi";
         parameterString = [NSString stringWithFormat:@"p%i", somePValue];
     }
     return self;

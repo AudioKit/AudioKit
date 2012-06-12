@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"a%@", aString];
+        parameterString = [NSString stringWithFormat:@"ga%@", aString];
     }
     return self;
 }

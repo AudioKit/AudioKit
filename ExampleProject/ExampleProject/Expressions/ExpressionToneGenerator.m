@@ -50,7 +50,6 @@ typedef enum
                                         initWithAmplitude:totalAmplitude
                                                 Frequency:vibrato
                                             FunctionTable:sineTable];
-                                        
         [self addOpcode:myOscillator];
         
         CSDOutputStereo * stereoOutput = 

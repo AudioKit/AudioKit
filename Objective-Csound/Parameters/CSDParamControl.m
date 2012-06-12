@@ -12,7 +12,7 @@
 -(id)init
 {
     self = [super init];
-    type = @"k";
+    type = @"gk";
     return self;
 }
 
@@ -20,7 +20,8 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"k%@", aString];
+        type = @"gk";
+        parameterString = [NSString stringWithFormat:@"%@%@", type, aString];
     }
     return self;
 }

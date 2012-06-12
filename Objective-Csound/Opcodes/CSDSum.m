@@ -1,6 +1,5 @@
 //
 //  CSDSum.m
-//  ExampleProject
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -36,6 +35,10 @@
     NSString * inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
     return [NSString stringWithFormat:@"%@ sum %@\n", output, inputsCombined];
+}
+
+-(NSString *) description {
+    return [output parameterString];
 }
 
 @end
