@@ -27,6 +27,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    myOrchestra = [[CSDOrchestra alloc] init];
+    toneGenerator = [[ToneGenerator alloc] initWithOrchestra:myOrchestra];
+    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
 }
 
 - (void)viewDidUnload
