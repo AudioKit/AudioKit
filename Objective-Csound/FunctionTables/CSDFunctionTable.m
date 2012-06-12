@@ -20,8 +20,8 @@
 {
     self = [super init];
     if (self) {
-        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"i%@%p", [self class], self]];
-        output = [NSString stringWithFormat:@"i%@%p", [self class], self];
+        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"gi%@%p", [self class], self]];
+        output = [NSString stringWithFormat:@"gi%@%p", [self class], self];
         tableSize = size;
         generatingRoutine = gen;
         parameters = params;
