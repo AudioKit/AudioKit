@@ -26,4 +26,21 @@
     return self;
 }
 
+-(id)initWithContinuous:(CSDContinuous *)continuous
+{
+    self = [super init];
+    if (self) {
+        type = @"gk";
+        parameterString = [NSString stringWithFormat:@"%@%@", type, [continuous uniqueIdentifier]];
+    }
+    return self;
+}
+
++(id)paramWithContinuous:(CSDContinuous *)continuous
+{
+    return  [[self alloc] initWithContinuous:continuous];
+}
+
+
+
 @end

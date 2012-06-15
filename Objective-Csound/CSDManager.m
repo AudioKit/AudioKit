@@ -1,11 +1,13 @@
 // CSDManager.m
 
 #import "CSDManager.h"
+#import "CSDContinuousManager.h"
 
 @implementation CSDManager
 
 //@synthesize options;
 @synthesize isRunning;
+@synthesize myContinuousManager;
 
 static CSDManager * _sharedCSDManager = nil;
 
@@ -39,6 +41,8 @@ static CSDManager * _sharedCSDManager = nil;
         csound = [[CsoundObj alloc] init];
         [csound addCompletionListener:self];
         isRunning = NO;
+        
+        myContinuousManager = [[CSDContinuousManager alloc] init];
         
         options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
         sampleRate = 44100;

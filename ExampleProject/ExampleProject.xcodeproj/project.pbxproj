@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7660DAE4158BC48300EB1956 /* CSDContinuous.m in Sources */ = {isa = PBXBuildFile; fileRef = 7660DAE3158BC48200EB1956 /* CSDContinuous.m */; };
+		7660DAEC158BD98200EB1956 /* CSDContinuousManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7660DAEB158BD98100EB1956 /* CSDContinuousManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		768124A2157FC923004BAA44 /* CSDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 768124A1157FC922004BAA44 /* CSDConstants.m */; };
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
@@ -83,6 +85,10 @@
 
 /* Begin PBXFileReference section */
 		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
+		7660DAE2158BC48200EB1956 /* CSDContinuous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuous.h; sourceTree = "<group>"; };
+		7660DAE3158BC48200EB1956 /* CSDContinuous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuous.m; sourceTree = "<group>"; };
+		7660DAEA158BD98100EB1956 /* CSDContinuousManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuousManager.h; sourceTree = "<group>"; };
+		7660DAEB158BD98100EB1956 /* CSDContinuousManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuousManager.m; sourceTree = "<group>"; };
 		768124A1157FC922004BAA44 /* CSDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDConstants.m; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* CSDPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPluck.m; sourceTree = "<group>"; };
@@ -329,6 +335,8 @@
 		C43554151582DDED0074764A /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				7660DAEA158BD98100EB1956 /* CSDContinuousManager.h */,
+				7660DAEB158BD98100EB1956 /* CSDContinuousManager.m */,
 				C4C9874F1582DFFA00F1DB9A /* CSDParam.h */,
 				C4C987501582DFFA00F1DB9A /* CSDParam.m */,
 				C4FE85861583535100902E07 /* CSDParamControl.h */,
@@ -337,6 +345,8 @@
 				C49F81A71583498A00D72D03 /* CSDParamConstant.m */,
 				C4C987511582DFFA00F1DB9A /* CSDParamArray.h */,
 				C4C987521582DFFA00F1DB9A /* CSDParamArray.m */,
+				7660DAE2158BC48200EB1956 /* CSDContinuous.h */,
+				7660DAE3158BC48200EB1956 /* CSDContinuous.m */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -734,6 +744,8 @@
 				C44D06651584679E00307AC9 /* CSDSum.m in Sources */,
 				C44D06691584689D00307AC9 /* CSDProduct.m in Sources */,
 				C44D06851587E2E100307AC9 /* CSDAssignment.m in Sources */,
+				7660DAE4158BC48300EB1956 /* CSDContinuous.m in Sources */,
+				7660DAEC158BD98200EB1956 /* CSDContinuousManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
