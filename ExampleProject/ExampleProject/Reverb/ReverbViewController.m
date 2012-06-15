@@ -28,9 +28,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     myOrchestra = [[CSDOrchestra alloc] init];
-    fx = [[EffectsProcessor alloc] initWithOrchestra:myOrchestra];
-    toneGenerator = [[ToneGenerator alloc] initWithOrchestra:myOrchestra
-                                            EffectsProcessor:fx];
+
+    toneGenerator = [[ToneGenerator alloc] initWithOrchestra:myOrchestra];
+    fx = [[EffectsProcessor alloc] initWithOrchestra:myOrchestra 
+                                       ToneGenerator:toneGenerator];
     [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
 }
 

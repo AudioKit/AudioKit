@@ -14,13 +14,14 @@ typedef enum
 }kPValueTag;
 
 @implementation ToneGenerator
+@synthesize auxilliaryOutput;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra 
-       EffectsProcessor:(EffectsProcessor *)effects 
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra
 {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {                      
-        fx = effects;
+
+        auxilliaryOutput = [CSDParam paramWithString:@"OscillatorOutput"];
         CSDSineTable * sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
@@ -28,6 +29,7 @@ typedef enum
                                         initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
                                                 Frequency:[CSDParamConstant paramWithPValue:kPValuePitchTag]
                                             FunctionTable:sineTable];
+        [myOscillator setOutput:auxilliaryOutput];
         [self addOpcode:myOscillator];
 
         CSDOutputStereo * stereoOutput = 
@@ -35,10 +37,11 @@ typedef enum
                                         InputRight:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
         
-        CSDParam * cumulativeReverb = [CSDParam paramWithFormat:@"%@ + %@", [fx input], [myOscillator output]];
-        CSDAssignment * reverbSend = [[CSDAssignment alloc] initWithInput:cumulativeReverb];
-        [reverbSend setOutput:[fx input]];
-        [self addOpcode:reverbSend];
+//        auxilliaryOutput =
+//        CSDParam * cumulativeReverb = [CSDParam paramWithFormat:@"%@ + %@", [fx input], [myOscillator output]];
+//        CSDAssignment * reverbSend = [[CSDAssignment alloc] initWithInput:cumulativeReverb];
+//        [reverbSend setOutput:[fx input]];
+//        [self addOpcode:reverbSend];
     }
     return self;
 }

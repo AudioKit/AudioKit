@@ -10,16 +10,15 @@
 #import "CSDOscillator.h"
 #import "CSDSineTable.h"
 #import "CSDOutputStereo.h"
-#import "EffectsProcessor.h"
 #import "CSDParam.h"
 #import "CSDAssignment.h"
 
 @interface ToneGenerator : CSDInstrument {
-    EffectsProcessor * fx;
+    CSDParam * auxilliaryOutput;
 }
+@property (readonly) CSDParam * auxilliaryOutput;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra 
-       EffectsProcessor:(EffectsProcessor *) effects;
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch;
 
 @end
