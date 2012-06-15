@@ -36,6 +36,9 @@
     [csdRepresentation appendString:[newFunctionTable text]];
 }
 
-
+-(void)addContinuous:(CSDContinuous *)continuous 
+{
+    [csdRepresentation appendString:[continuous convertToCsd]];
+}
 
 @end

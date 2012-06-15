@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "CSDOpcode.h"
 #import "CSDFunctionTable.h"
+#import "CSDContinuous.h"
 
 @class CSDOrchestra;
 
@@ -24,5 +25,6 @@
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
+-(void)addContinuous:(CSDContinuous *)continuous;
 
 @end
