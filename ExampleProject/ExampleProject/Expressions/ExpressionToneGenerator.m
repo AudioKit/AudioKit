@@ -31,7 +31,7 @@ typedef enum
                                                initWithAmplitude:[CSDParamConstant paramWithInt:40]
                                                        Frequency:[CSDParamConstant paramWithInt:6] 
                                                    FunctionTable:vibratoSine
-                                                        isControl:YES];
+                                                        isControlRate:YES];
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;
