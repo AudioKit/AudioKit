@@ -12,12 +12,12 @@
 #import "CSDParamConstant.h"
 #import "CSDOutputStereo.h"
 #import "CSDAssignment.h"
+#import "ToneGenerator.h"
 
-@interface EffectsProcessor : CSDInstrument {
-    CSDParam * input;
-}
+@interface EffectsProcessor : CSDInstrument 
+
 @property (nonatomic, strong) CSDParam * input;
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *) tg;
 -(void) start;
 
 @end

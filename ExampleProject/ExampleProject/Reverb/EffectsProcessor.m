@@ -11,11 +11,11 @@
 @implementation EffectsProcessor
 @synthesize input;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *)tg
 {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {                                                   
-        input = [CSDParam paramWithString:@"ReverbInput"];
+        input = [tg auxilliaryOutput];
         
         CSDReverb * reverb = [[CSDReverb alloc] initWithInputLeft:input
                                                        InputRight:input 
@@ -30,7 +30,6 @@
         CSDAssignment * reverbZero = [[CSDAssignment alloc] initWithInput:[CSDParamConstant paramWithInt:0]];
         [reverbZero setOutput:input];
         [self addOpcode:reverbZero];
-        
         
     }
     return self;

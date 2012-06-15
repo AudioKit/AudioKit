@@ -20,8 +20,7 @@
 }
 
 -(void) addInstrument:(CSDInstrument *) instrument {
-    // Inserting instrument at the beginning to allow for instruments that feed into others to be done last
-    [instruments insertObject:instrument atIndex:0];
+    [instruments addObject:instrument];
 }
 -(NSString *) instrumentsForCsd {
     
