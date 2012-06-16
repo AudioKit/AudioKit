@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "CSDOpcode.h"
 #import "CSDFunctionTable.h"
+#import "CSDManager.h"
 
 @class CSDOrchestra;
 
@@ -24,5 +25,5 @@
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
-
+-(void)playNote:(NSDictionary *)noteEvent;
 @end

@@ -270,11 +270,11 @@
 		76B9564E158145F7005AFAE9 /* Unit Generators */ = {
 			isa = PBXGroup;
 			children = (
+				C495F768158348BB00951461 /* UnitGenSoundGenerator.h */,
+				C495F769158348BB00951461 /* UnitGenSoundGenerator.m */,
 				C495F765158348BB00951461 /* UnitGeneratorsViewController.h */,
 				C495F766158348BB00951461 /* UnitGeneratorsViewController.m */,
 				C495F767158348BB00951461 /* UnitGeneratorsViewController.xib */,
-				C495F768158348BB00951461 /* UnitGenSoundGenerator.h */,
-				C495F769158348BB00951461 /* UnitGenSoundGenerator.m */,
 			);
 			name = "Unit Generators";
 			sourceTree = "<group>";
@@ -295,11 +295,11 @@
 		76F2CE1D158561320059CC5E /* Expressions */ = {
 			isa = PBXGroup;
 			children = (
+				C44D067F15871EBE00307AC9 /* ExpressionToneGenerator.h */,
+				C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */,
 				C44D067C15871EBE00307AC9 /* ExpressionsViewController.h */,
 				C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */,
 				C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */,
-				C44D067F15871EBE00307AC9 /* ExpressionToneGenerator.h */,
-				C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */,
 			);
 			name = Expressions;
 			path = Reverb;
@@ -587,11 +587,11 @@
 		C4C5525615773453005F7EE4 /* Simple Oscillator */ = {
 			isa = PBXGroup;
 			children = (
+				C495F746158344CD00951461 /* SoundGenerator.h */,
+				C495F747158344CD00951461 /* SoundGenerator.m */,
 				C495F743158344CD00951461 /* OscillatorViewController.h */,
 				C495F744158344CD00951461 /* OscillatorViewController.m */,
 				C495F745158344CD00951461 /* OscillatorViewController.xib */,
-				C495F746158344CD00951461 /* SoundGenerator.h */,
-				C495F747158344CD00951461 /* SoundGenerator.m */,
 			);
 			name = "Simple Oscillator";
 			sourceTree = "<group>";

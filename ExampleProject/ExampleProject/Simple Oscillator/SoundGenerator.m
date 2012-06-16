@@ -2,10 +2,12 @@
 
 #import "SoundGenerator.h"
 
-typedef enum
+typedef enum SoundGeneratorArguments
 {
-    kPValuePitchTag=4,
-}kPValueTag;
+    kDurationArg,
+    kFrequencyArg
+} 
+SoundGeneratorArguments;
 
 @implementation SoundGenerator
 
@@ -27,7 +29,7 @@ typedef enum
         
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
                                         initWithAmplitude:[CSDParamConstant paramWithFloat:0.12]
-                                                Frequency:[CSDParamConstant paramWithPValue:kPValuePitchTag]
+                                                Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg]
                                             FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         
@@ -44,10 +46,14 @@ typedef enum
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq {
+    // clean up as one dictionary construction
+    NSArray * objects = [NSArray arrayWithObjects:[NSNumber numberWithFloat:dur],
+                                                  [NSNumber numberWithFloat:freq], nil];
+    NSArray * keys = [NSArray arrayWithObjects:[NSNumber numberWithInt:kDurationArg], 
+                                               [NSNumber numberWithInt:kFrequencyArg], nil];
+    NSDictionary * noteEvent = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    [self playNote:noteEvent];
 }
 
 @end

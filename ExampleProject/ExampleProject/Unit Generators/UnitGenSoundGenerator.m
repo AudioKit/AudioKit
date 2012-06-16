@@ -15,8 +15,8 @@
 
 typedef enum
 {
-    kPValuePitchTag = 4
-}kPValueTag;
+    kDurationArg
+} UnitGenSoundGeneratorArguments;
 
 @implementation UnitGenSoundGenerator
 
@@ -35,7 +35,7 @@ typedef enum
         
         //NOTE:  duration of unitgenerator set from p3 with NOTE_DURATION_PVALUE
         myLine = [[CSDLine alloc] initWithIStartingValue:[CSDParamConstant paramWithFloat:0.5] 
-                                               iDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration]   
+                                               iDuration:[CSDParamConstant paramWithPValue:kDurationArg]   
                                             iTargetValue:[CSDParamConstant paramWithInt:1.5]];
         [self addOpcode:myLine];
         
@@ -44,7 +44,7 @@ typedef enum
         
         //Init LineSegment_a, without CSDParamArray Functions like line
         myLineSegment_a = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithInt:110]
-                                                            iFirstSegmentDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration] 
+                                                            iFirstSegmentDuration:[CSDParamConstant paramWithPValue:kDurationArg] 
                                                         iFirstSegementTargetValue:[CSDParamConstant paramWithInt:330]];
         
         CSDParamArray * breakpointParamArray = [CSDParamArray paramArrayFromParams:
@@ -54,7 +54,7 @@ typedef enum
                                                      [CSDParamConstant paramWithFloat:0.5f],nil];
 
         myLineSegment_b = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithFloat:0.5]
-                                                          //iFirstSegmentDuration:[CSDParamConstant paramWithPValue:(kPValueTagDuration / 3)
+                                                          //iFirstSegmentDuration:[CSDParamConstant paramWithPValue:(kDurationArg / 3)
                                                             iFirstSegmentDuration:[CSDParamConstant paramWithInt:3]
                                                         iFirstSegementTargetValue:[CSDParamConstant paramWithFloat:0.2] 
                                                                      SegmentArray:breakpointParamArray];

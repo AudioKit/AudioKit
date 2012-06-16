@@ -10,8 +10,9 @@
 
 typedef enum
 {
-    kPValueTagPitch=4,
-}kPValueTag;
+    kDurationArg,
+    kFrequencyArg
+} ExpressionToneGeneratorArguments;
 
 @implementation ExpressionToneGenerator
 
@@ -41,7 +42,7 @@ typedef enum
         CSDParamConstant * amplitudeOffset = [CSDParamConstant paramWithFloat:0.1];
         CSDLine * amplitudeRamp = [[CSDLine alloc] 
                                    initWithIStartingValue:[CSDParamConstant paramWithFloat:0.0f] 
-                                                iDuration:[CSDParamConstant paramWithPValue:kPValueTagDuration]
+                                                iDuration:[CSDParamConstant paramWithPValue:kDurationArg]
                                              iTargetValue:[CSDParamConstant paramWithFloat:0.2]];
         [self addOpcode:amplitudeRamp];
         

@@ -6,7 +6,7 @@
 //
 
 #import "CSDOrchestra.h"
-
+#import "CSDInstrument.h"
 @implementation CSDOrchestra
 
 @synthesize instruments;
