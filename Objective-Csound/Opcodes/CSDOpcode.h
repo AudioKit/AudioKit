@@ -10,6 +10,7 @@
 
 @interface CSDOpcode : NSObject {
     NSString * opcode;
+    int _myID;
 }
 
 @property (nonatomic, strong) NSString * opcode;

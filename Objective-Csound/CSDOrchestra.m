@@ -27,11 +27,9 @@
     NSMutableString * instrumentsText = [NSMutableString stringWithString:@""];
     
     for ( CSDInstrument* instrument in instruments) {
-        [instrumentsText appendFormat:@"instr %i\n", [instruments indexOfObject:instrument]+1];
+        [instrumentsText appendFormat:@"instr %@\n", [instrument uniqueName]];
         [instrumentsText appendString:[NSString stringWithFormat:@"%@",[instrument csdRepresentation]]];
-        //Deprecating using output in this way to allow for stereo output, globals, etc.
-        //[instrumentsText appendString:[NSString stringWithFormat:@"out %@", FINAL_OUTPUT]],
-        [instrumentsText appendString:@"\nendin\n"];
+        [instrumentsText appendString:@"endin\n\n"];
     }
     
     return instrumentsText;

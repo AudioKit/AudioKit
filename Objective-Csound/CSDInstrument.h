@@ -15,6 +15,7 @@
 @interface CSDInstrument : NSObject {
     CSDOrchestra * orchestra;
     NSMutableString * csdRepresentation;
+   int  _myID;
 }
 
 @property (nonatomic, strong) CSDOrchestra * orchestra;
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) NSMutableString * csdRepresentation;
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
+-(NSString *) uniqueName;
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;

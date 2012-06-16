@@ -8,11 +8,7 @@
 
 #import "ExpressionToneGenerator.h"
 
-typedef enum
-{
-    kDurationArg,
-    kFrequencyArg
-} ExpressionToneGeneratorArguments;
+typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
 
 @implementation ExpressionToneGenerator
 
@@ -60,11 +56,11 @@ typedef enum
     }
     return self;
 }
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq
 {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
+                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg],nil]];
 }
 
 @end

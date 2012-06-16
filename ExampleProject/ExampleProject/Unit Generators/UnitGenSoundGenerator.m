@@ -13,10 +13,7 @@
 #import "CSDParamArray.h"
 #import "CSDSum.h"
 
-typedef enum
-{
-    kDurationArg
-} UnitGenSoundGeneratorArguments;
+typedef enum { kDurationArg } UnitGenSoundGeneratorArguments;
 
 @implementation UnitGenSoundGenerator
 
@@ -32,15 +29,12 @@ typedef enum
         CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
-        
         //NOTE:  duration of unitgenerator set from p3 with NOTE_DURATION_PVALUE
         myLine = [[CSDLine alloc] initWithIStartingValue:[CSDParamConstant paramWithFloat:0.5] 
                                                iDuration:[CSDParamConstant paramWithPValue:kDurationArg]   
                                             iTargetValue:[CSDParamConstant paramWithInt:1.5]];
         [self addOpcode:myLine];
         
-//        CSDSum * myTestSum = [[CSDSum alloc] initWithInputs:[myLine output], [myLine output], nil];
-//        [self addOpcode:myTestSum];
         
         //Init LineSegment_a, without CSDParamArray Functions like line
         myLineSegment_a = [[CSDLineSegment alloc] initWithIFirstSegmentStartValue:[CSDParamConstant paramWithInt:110]
@@ -64,11 +58,11 @@ typedef enum
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
         myFMOscillator = [[CSDFoscili alloc] 
                 initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4] 
-                                       Pitch:[myLineSegment_a output]
-                                     Carrier:[CSDParamConstant paramWithInt:1]
-                                  Modulation:[myLine output]
-                                    ModIndex:[myLineSegment_b output]
-                               FunctionTable:sineTable 
+                                    Frequency:[myLineSegment_a output]
+                                      Carrier:[CSDParamConstant paramWithInt:1]
+                                   Modulation:[myLine output]
+                                     ModIndex:[myLineSegment_b output]
+                                FunctionTable:sineTable 
                             AndOptionalPhase:nil];
         
         [self addOpcode:myFMOscillator];
@@ -80,10 +74,8 @@ typedef enum
 
 -(void)playNoteForDuration:(float)dur 
 {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-    NSString * note = [NSString stringWithFormat:@"%0.2f", dur];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
-
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],nil]];
 }
 
 @end

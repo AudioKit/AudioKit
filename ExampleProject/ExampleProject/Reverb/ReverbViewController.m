@@ -48,11 +48,11 @@
 }
 
 - (IBAction)hit1:(id)sender {
-    [toneGenerator playNoteForDuration:1 Pitch:440];
+    [toneGenerator playNoteForDuration:1 Frequency:440];
 }
 
 - (IBAction)hit2:(id)sender {
-    [toneGenerator playNoteForDuration:1 Pitch:(arc4random()%200+400)];
+    [toneGenerator playNoteForDuration:1 Frequency:(arc4random()%200+400)];
 }
 
 - (IBAction)startFX:(id)sender {

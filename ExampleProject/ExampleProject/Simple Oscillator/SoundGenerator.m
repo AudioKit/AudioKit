@@ -2,12 +2,7 @@
 
 #import "SoundGenerator.h"
 
-typedef enum SoundGeneratorArguments
-{
-    kDurationArg,
-    kFrequencyArg
-} 
-SoundGeneratorArguments;
+typedef enum { kDurationArg, kFrequencyArg } SoundGeneratorArguments;
 
 @implementation SoundGenerator
 
@@ -47,13 +42,10 @@ SoundGeneratorArguments;
 }
 
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq {
-    // clean up as one dictionary construction
-    NSArray * objects = [NSArray arrayWithObjects:[NSNumber numberWithFloat:dur],
-                                                  [NSNumber numberWithFloat:freq], nil];
-    NSArray * keys = [NSArray arrayWithObjects:[NSNumber numberWithInt:kDurationArg], 
-                                               [NSNumber numberWithInt:kFrequencyArg], nil];
-    NSDictionary * noteEvent = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-    [self playNote:noteEvent];
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
+                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg], nil]];
+
 }
 
 @end

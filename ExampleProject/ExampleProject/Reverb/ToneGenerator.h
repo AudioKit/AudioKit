@@ -19,6 +19,6 @@
 @property (readonly) CSDParam * auxilliaryOutput;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch;
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

@@ -11,7 +11,7 @@
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 @synthesize output;
 @synthesize amplitude;
-@synthesize pitch;
+@synthesize frequency;
 @synthesize carrier;
 @synthesize modulation;
 @synthesize modIndex;
@@ -20,7 +20,7 @@
 
 //H4Y - ARB: probably need to set output in the init
 -(id)initFMOscillatorWithAmplitude:(CSDParam *)amp
-                             Pitch:(CSDParamControl *)cps
+                         Frequency:(CSDParamControl *)cps
                            Carrier:(CSDParam *)car
                         Modulation:(CSDParam *)mod
                           ModIndex:(CSDParamControl *)aModIndex
@@ -34,7 +34,7 @@
          */
         output         = [CSDParam paramWithString:[self uniqueName]];
         amplitude      = amp;
-        pitch          = cps;
+        frequency      = cps;
         carrier        = car;
         modulation     = mod;
         modIndex       = aModIndex;
@@ -53,7 +53,7 @@
                        @"%@ foscili %@, %@, %@, %@, %@, %@\n",
                        output,
                        amplitude, 
-                       pitch, 
+                       frequency, 
                        carrier, 
                        modulation, 
                        modIndex, 
@@ -63,7 +63,7 @@
                        @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
                        output,
                        amplitude, 
-                       pitch, 
+                       frequency, 
                        carrier, 
                        modulation, 
                        modIndex, 

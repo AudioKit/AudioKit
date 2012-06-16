@@ -1,5 +1,5 @@
 //
-//  FMOscillator.h
+//  FMGameObject.h
 //  ExampleProject
 //
 //  Created by Adam Boulanger on 6/4/12.
@@ -29,6 +29,6 @@
 }
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation;
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod;
 
 @end

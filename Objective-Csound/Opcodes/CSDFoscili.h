@@ -18,7 +18,7 @@
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 @property (nonatomic, strong) CSDParam * output;
 @property (nonatomic, strong) CSDParam * amplitude;
-@property (nonatomic, strong) CSDParamControl * pitch;
+@property (nonatomic, strong) CSDParamControl * frequency;
 @property (nonatomic, strong) CSDParam * carrier;
 @property (nonatomic, strong) CSDParam * modulation;
 @property (nonatomic, strong) CSDParamControl * modIndex;
@@ -26,7 +26,7 @@
 @property (nonatomic, strong) CSDParamConstant * phase;
 
 -(id)initFMOscillatorWithAmplitude:(CSDParam *) amp
-                             Pitch:(CSDParam *) cps
+                         Frequency:(CSDParam *) cps
                            Carrier:(CSDParamControl *) car
                         Modulation:(CSDParam *) mod
                           ModIndex:(CSDParamControl *) aModIndex

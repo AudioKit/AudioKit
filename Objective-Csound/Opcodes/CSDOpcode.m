@@ -11,8 +11,19 @@
 
 @synthesize opcode;
 
+static int currentID = 1;
+
+-(id) init {
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+    }
+    return self; 
+}
+
+
 -(NSString *) uniqueName {
-    return [NSString stringWithFormat:@"%@%p", [self class], self];
+    return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
 
 -(NSString *) convertToCsd

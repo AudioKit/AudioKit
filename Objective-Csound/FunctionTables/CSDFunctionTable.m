@@ -16,12 +16,15 @@
 @synthesize parameters;
 @synthesize text;
 
+static int currentID = 1;
+
 -(id)initWithTableSize:(int)size GenRoutine:(int)gen Parameters:(NSString *)params
 {
     self = [super init];
     if (self) {
-        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"gi%@%p", [self class], self]];
-        output = [NSString stringWithFormat:@"gi%@%p", [self class], self];
+        _myID = currentID++;
+        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"gi%@%i", [self class], _myID]];
+        output = [NSString stringWithFormat:@"gi%@%i", [self class], _myID];
         tableSize = size;
         generatingRoutine = gen;
         parameters = params;
@@ -35,11 +38,8 @@
             text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
                     output, tableSize, generatingRoutine, parameters];
         }
-        
     }
-    NSLog(@"Function Table: %@", text);
     return self;
-    
 }
 
 @end

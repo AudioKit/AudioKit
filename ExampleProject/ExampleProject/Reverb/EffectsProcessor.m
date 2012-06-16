@@ -8,6 +8,8 @@
 
 #import "EffectsProcessor.h"
 
+typedef enum { kDurationArg } EffectsProcessorArguments;
+
 @implementation EffectsProcessor
 @synthesize input;
 
@@ -19,8 +21,8 @@
         
         CSDReverb * reverb = [[CSDReverb alloc] initWithInputLeft:input
                                                        InputRight:input 
-                                                    FeedbackLevel:[CSDParamConstant paramWithFloat:0.85f] 
-                                                  CutoffFrequency:[CSDParamConstant paramWithInt:12000]];
+                                                    FeedbackLevel:[CSDParamConstant paramWithFloat:0.9f] 
+                                                  CutoffFrequency:[CSDParamConstant paramWithInt:1200]];
         
         [self addOpcode:reverb];
         CSDOutputStereo * stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
@@ -36,9 +38,8 @@
 }
 
 -(void) start {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-    NSString * note = [NSString stringWithFormat:@"%0.2f", 10000.0f];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithInt:10000],  [NSNumber numberWithInt:kDurationArg],nil]];
 }
 
 @end
