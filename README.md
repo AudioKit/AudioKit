@@ -7,10 +7,11 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
 
-* Globals - think about initialization statements and run statements that start globals up immediately
+* Create GEN1 examples (play a file, load into a grain opcode) to test ftgentmp
+* Make a MIDI module that makes more sense than Csound's current midi implementation / Disconnect UIWidgets
 * Create more opcodes (fix up CSDPluck)
 * Create More Function Table subclasses
-* Develop examples
+* Develop better examples
 
 BUGS:
 
@@ -43,11 +44,3 @@ some point, then all is lost.
 * Consider including expected units in method signatures if not CSDParam.  For instance, when
 making the vibrato oscillator example I needed to know whether amplitude was a or k-rate.  The 
 class had CSDParam as the argument type which I assumed was a-rate, but it turns out oscil only accepts k and slower.
-
-RECENT UPDATE NOTES:
-* if wanting to set CSDParam to pValue corresponding to a note's duration, 
-the pfield will always be 3.  Should be a final constant variable to hide 
-the p-field number from the objective-c user.  However, by making a 
-CSDConstant typedef of type PValueReservedTag, we reinforce how users should 
-stylistically create typedefs with this naming convention for their variable 
-p-fields kPValueTagSomething
