@@ -7,11 +7,13 @@
 
 #import "CSDInstrument.h"
 #import "CSDOrchestra.h"
-//
+
 @implementation CSDInstrument
 @synthesize orchestra;
 @synthesize finalOutput;
 @synthesize csdRepresentation;
+
+static int currentID = 1;
 
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
     orchestra = newOrchestra;
@@ -21,10 +23,14 @@
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra {
     self = [super init];
     if (self) {
+        _myID = currentID++;
         [self joinOrchestra:newOrchestra];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
+}
+-(NSString *) uniqueName {
+    return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
 
 -(void) addOpcode:(CSDOpcode *)newOpcode {
@@ -35,16 +41,11 @@
     [csdRepresentation appendString:[newFunctionTable text]];
 }
 -(void)playNote:(NSDictionary *)noteEvent {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
     NSString * noteEventString = @"";
-
     for (int i=0; i<noteEvent.count; i++) {
-       
         noteEventString = [noteEventString stringByAppendingFormat:@" %@", [noteEvent objectForKey:[NSNumber numberWithInt:i]]];
     }
-    NSLog(@"fdsa%@fdsa", noteEventString);
-    [[CSDManager sharedCSDManager] playNote:noteEventString OnInstrument:instrumentNumber];
-    
+    [[CSDManager sharedCSDManager] playNote:noteEventString OnInstrument:self];
 }
 
 

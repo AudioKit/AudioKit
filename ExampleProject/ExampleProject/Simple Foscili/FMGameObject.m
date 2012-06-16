@@ -1,5 +1,5 @@
 //
-//  FMOscillator.m
+//  FMGameObject.m
 //  ExampleProject
 //
 //  Created by Adam Boulanger on 6/4/12.
@@ -7,7 +7,8 @@
 //
 
 #import "FMGameObject.h"
-#import "FMGameObjectConstants.h"
+
+typedef enum { kDurationArg, kFrequencyArg, kModulationArg } FMGameObjectArguments;
 
 @implementation FMGameObject
 
@@ -21,9 +22,9 @@
         
         myFoscilOpcode = [[CSDFoscili alloc] 
                           initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
-                                                  Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag]
+                                              Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg]
                                                 Carrier:[CSDParamConstant paramWithInt:1]
-                                             Modulation:[CSDParamConstant paramWithPValue:kPValueModulationTag]
+                                             Modulation:[CSDParamConstant paramWithPValue:kModulationArg]
                                                ModIndex:[CSDParamConstant paramWithInt:15]
                                           FunctionTable:sineTable
                                         AndOptionalPhase:nil];
@@ -34,10 +35,11 @@
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch Modulation:(float)modulation {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f %0.2f", dur, pitch, modulation];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod {
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
+                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg],
+                    [NSNumber numberWithFloat:mod],  [NSNumber numberWithInt:kModulationArg],nil]];
 }
 
                     

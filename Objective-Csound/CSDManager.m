@@ -73,7 +73,7 @@ static CSDManager * _sharedCSDManager = nil;
 
 -(void) writeCSDFileForOrchestra:(CSDOrchestra *) orch {
     
-    NSString * header = [NSString stringWithFormat:@"sr = %d\n0dbfs = %f\nksmps = %d", 
+    NSString * header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %f\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
     NSString * instrumentsText = [orch instrumentsForCsd];
 
@@ -109,9 +109,10 @@ static CSDManager * _sharedCSDManager = nil;
     
 }
 
--(void)playNote:(NSString *)note OnInstrument:(int)instrument{
-    NSLog(@"i%i 0 %@", instrument, note);
-    [csound sendScore:[NSString stringWithFormat:@"i%i 0 %@", instrument, note]];
+-(void)playNote:(NSString *)note OnInstrument:(CSDInstrument *)instrument{
+    NSString * scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
+    NSLog(@"%@", scoreline);
+    [csound sendScore:scoreline];
 }
 
 #pragma mark CsoundObjCompletionListener

@@ -8,10 +8,7 @@
 
 #import "ToneGenerator.h"
 
-typedef enum
-{
-    kPValuePitchTag=4,
-}kPValueTag;
+typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
 
 @implementation ToneGenerator
 @synthesize auxilliaryOutput;
@@ -26,8 +23,8 @@ typedef enum
         [self addFunctionTable:sineTable];
         
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
-                                        initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
-                                                Frequency:[CSDParamConstant paramWithPValue:kPValuePitchTag]
+                                        initWithAmplitude:[CSDParamConstant paramWithFloat:0.1]
+                                                Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg]
                                             FunctionTable:sineTable];
         [myOscillator setOutput:auxilliaryOutput];
         [self addOpcode:myOscillator];
@@ -36,20 +33,15 @@ typedef enum
         [[CSDOutputStereo alloc] initWithInputLeft:[myOscillator output] 
                                         InputRight:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
-        
-//        auxilliaryOutput =
-//        CSDParam * cumulativeReverb = [CSDParam paramWithFormat:@"%@ + %@", [fx input], [myOscillator output]];
-//        CSDAssignment * reverbSend = [[CSDAssignment alloc] initWithInput:cumulativeReverb];
-//        [reverbSend setOutput:[fx input]];
-//        [self addOpcode:reverbSend];
+
     }
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Pitch:(float)pitch {
-    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
-    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq {
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
+                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg],nil]];
 }
 
 @end

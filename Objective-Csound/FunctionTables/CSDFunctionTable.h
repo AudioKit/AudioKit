@@ -11,6 +11,7 @@
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
 {
     NSString *text;
+    int _myID;
 }
 
 @property int   integerIdentifier;
