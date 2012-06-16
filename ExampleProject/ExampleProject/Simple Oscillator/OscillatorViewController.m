@@ -34,11 +34,11 @@
 }
 
 - (IBAction)hit1:(id)sender {
-    [mySoundGenerator playNoteForDuration:1 Pitch:440];
+    [mySoundGenerator playNoteForDuration:1 Frequency:440];
 }
 
 - (IBAction)hit2:(id)sender {
-    [mySoundGenerator playNoteForDuration:1 Pitch:(arc4random()%200+400)];
+    [mySoundGenerator playNoteForDuration:1 Frequency:(arc4random()%200+400)];
 }
 
 -(void) viewWillUnload {

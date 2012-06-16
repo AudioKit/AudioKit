@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CSDConstants.h"
-#import "CSDInstrument.h"
+@class CSDInstrument;
 
 @interface CSDOrchestra : NSObject 
 @property (nonatomic, strong) NSMutableArray * instruments;
