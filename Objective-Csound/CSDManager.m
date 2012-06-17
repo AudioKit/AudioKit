@@ -115,6 +115,10 @@ static CSDManager * _sharedCSDManager = nil;
 }
 
 -(void)playNote:(NSString *)note OnInstrument:(CSDInstrument *)instrument{
+    if ([csound getNumChannels] < 0) {
+        NSLog(@"%@", @"Csound is not really running");
+        return;
+    }
     NSString * scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
     NSLog(@"%@", scoreline);
     [csound sendScore:scoreline];
