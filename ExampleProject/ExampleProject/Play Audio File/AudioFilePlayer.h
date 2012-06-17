@@ -7,9 +7,12 @@
 //
 
 #import "CSDInstrument.h"
+#import "CSDLoopingOscillator.h"
+#import "CSDReverb.h"
+#import "CSDOutputStereo.h"
 
 @interface AudioFilePlayer : CSDInstrument
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
-
+-(void) play;
 @end

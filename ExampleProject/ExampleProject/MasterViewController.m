@@ -15,6 +15,7 @@
 #import "UnitGeneratorsViewController.h"
 #import "ExpressionsViewController.h"
 #import "ReverbViewController.h"
+#import "PlayAudioFileViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -35,6 +36,7 @@
     }
     exampleNames = [NSMutableArray arrayWithObjects:
                     @"Play a CSD File", 
+                    @"Play an Audio File",
                     @"Simple Oscillator", 
                     @"Simple Frequency Modulation",
                     @"Unit Generators",
@@ -141,19 +143,22 @@
             controller = [[PlayCSDFileController alloc] initWithNibName:@"PlayCSDFileController" bundle:nil];
             break;
         case 1:
-            controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
+            controller = [[PlayAudioFileViewController alloc] initWithNibName:@"PlayAudioFileViewController" bundle:nil];
             break;
         case 2:
+            controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
+            break;
+        case 3:
             controller = [[FMGameObjectViewController alloc] initWithNibName:@"FMGameObjectViewController"
                                                                   bundle:nil];
             break;
-        case 3:
+        case 4:
             controller = [[UnitGeneratorsViewController alloc] initWithNibName:@"UnitGeneratorsViewController" bundle:nil];
             break;
-        case 4:
+        case 5:
             controller = [[ExpressionsViewController alloc] initWithNibName:@"ExpressionsViewController" bundle:nil];
             break;
-        case 5:
+        case 6:
             controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
             break;
         default:

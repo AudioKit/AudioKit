@@ -26,6 +26,8 @@
 		C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761639158D943800C96DE1 /* PlayAudioFileViewController.m */; };
 		C476163C158D943800C96DE1 /* PlayAudioFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C476163A158D943800C96DE1 /* PlayAudioFileViewController.xib */; };
 		C4761643158D94F000C96DE1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761642158D94F000C96DE1 /* AudioFilePlayer.m */; };
+		C4761646158D99B800C96DE1 /* CSDLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761645158D99B800C96DE1 /* CSDLoopingOscillator.m */; };
+		C4761647158DA94700C96DE1 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C4761640158D94A400C96DE1 /* hellorcb.aif */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -122,6 +124,8 @@
 		C4761640158D94A400C96DE1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = hellorcb.aif; path = "ExampleProject/Play Audio File/hellorcb.aif"; sourceTree = "<group>"; };
 		C4761641158D94F000C96DE1 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFilePlayer.h; path = "ExampleProject/Play Audio File/AudioFilePlayer.h"; sourceTree = "<group>"; };
 		C4761642158D94F000C96DE1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFilePlayer.m; path = "ExampleProject/Play Audio File/AudioFilePlayer.m"; sourceTree = "<group>"; };
+		C4761644158D99B800C96DE1 /* CSDLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDLoopingOscillator.h; sourceTree = "<group>"; };
+		C4761645158D99B800C96DE1 /* CSDLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLoopingOscillator.m; sourceTree = "<group>"; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4842D1B1579C2F800E69770 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4842D1D1579C2F800E69770 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
@@ -584,22 +588,24 @@
 			children = (
 				C4C552121577028C005F7EE4 /* CSDOpcode.h */,
 				C4C552131577028C005F7EE4 /* CSDOpcode.m */,
-				76B9564D1581380D005AFAE9 /* Linear/Exponential Generators */,
-				C44D066A158468AA00307AC9 /* Mathematical Expressions */,
 				C4C5520E1577028C005F7EE4 /* CSDEnvelope.h */,
 				C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */,
-				C4C552141577028C005F7EE4 /* CSDOscillator.h */,
-				C4C552151577028C005F7EE4 /* CSDOscillator.m */,
-				C4FE859F1583E3E400902E07 /* CSDReverb.h */,
-				C4FE85A01583E3E400902E07 /* CSDReverb.m */,
 				C4C552101577028C005F7EE4 /* CSDFoscili.h */,
 				C4C552111577028C005F7EE4 /* CSDFoscili.m */,
+				C4761644158D99B800C96DE1 /* CSDLoopingOscillator.h */,
+				C4761645158D99B800C96DE1 /* CSDLoopingOscillator.m */,
+				C4C552141577028C005F7EE4 /* CSDOscillator.h */,
+				C4C552151577028C005F7EE4 /* CSDOscillator.m */,
 				76B322231579012400FF54BB /* CSDPluck.h */,
 				76B322241579012500FF54BB /* CSDPluck.m */,
+				C4FE859F1583E3E400902E07 /* CSDReverb.h */,
+				C4FE85A01583E3E400902E07 /* CSDReverb.m */,
 				C4FE85941583CE0700902E07 /* CSDOutputMono.h */,
 				C4FE85951583CE0700902E07 /* CSDOutputMono.m */,
 				C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */,
 				C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */,
+				76B9564D1581380D005AFAE9 /* Linear/Exponential Generators */,
+				C44D066A158468AA00307AC9 /* Mathematical Expressions */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";
@@ -703,6 +709,7 @@
 				C4FE85CA1584011B00902E07 /* ReverbViewController.xib in Resources */,
 				C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */,
 				C476163C158D943800C96DE1 /* PlayAudioFileViewController.xib in Resources */,
+				C4761647158DA94700C96DE1 /* hellorcb.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +776,7 @@
 				C4C67D16158D63A100F3CB8E /* CSDSoundFileTable.m in Sources */,
 				C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */,
 				C4761643158D94F000C96DE1 /* AudioFilePlayer.m in Sources */,
+				C4761646158D99B800C96DE1 /* CSDLoopingOscillator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

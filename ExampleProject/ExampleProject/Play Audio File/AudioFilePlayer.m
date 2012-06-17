@@ -8,50 +8,38 @@
 
 #import "AudioFilePlayer.h"
 
+typedef enum { kDurationArg } AudioFilePlayerArguments;
+
+
 @implementation AudioFilePlayer
 
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
+        NSString * file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
+        CSDSoundFileTable * fileTable = [[CSDSoundFileTable alloc] initWithFilename:file];
+        [self addFunctionTable:fileTable];
         
+        CSDLoopingOscillator * trigger = [[CSDLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        [self addOpcode:trigger];
         
-        // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
+        CSDReverb * reverb = [[CSDReverb alloc] initWithInputLeft:[trigger output1] 
+                                                       InputRight:[trigger output1] 
+                                                    FeedbackLevel:[CSDParamConstant paramWithFloat:0.85f] 
+                                                  CutoffFrequency:[CSDParamConstant paramWithInt:12000]];
         
-        //float partialStrengths[] = {1.0f, 0.5f, 1.0f};
-        //CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromFloats:partialStrengths count:3];
-//        
-//        CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromParams:
-//                                                     [CSDParamConstant paramWithFloat:1.0f],
-//                                                     [CSDParamConstant paramWithFloat:0.5f],
-//                                                     [CSDParamConstant paramWithFloat:1.0f], nil];
-//        
-//        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
-//        [self addFunctionTable:sineTable];
-//        
-//        CSDOscillator * myOscillator = [[CSDOscillator alloc] 
-//                                        initWithAmplitude:[CSDParamConstant paramWithFloat:0.12]
-//                                        Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg]
-//                                        FunctionTable:sineTable];
-//        [self addOpcode:myOscillator];
-//        
-//        CSDReverb * reverb = [[CSDReverb alloc] initWithInputLeft:[myOscillator output] 
-//                                                       InputRight:[myOscillator output] 
-//                                                    FeedbackLevel:[CSDParamConstant paramWithFloat:0.85f] 
-//                                                  CutoffFrequency:[CSDParamConstant paramWithInt:12000]];
-//        
-//        [self addOpcode:reverb];
-//        CSDOutputStereo * stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-//                                                                         InputRight:[reverb outputRight]]; 
-//        [self addOpcode:stereoOutput];
+        [self addOpcode:reverb];
+        CSDOutputStereo * stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
+                                                                         InputRight:[reverb outputRight]]; 
+        [self addOpcode:stereoOutput];
     }
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq {
-//    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
-//                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
-//                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg], nil]];
+-(void) play {
+    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithFloat:3.0],  [NSNumber numberWithInt:kDurationArg], nil]];
     
 }
 
