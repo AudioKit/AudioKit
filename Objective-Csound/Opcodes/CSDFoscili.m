@@ -58,7 +58,6 @@
                        output, amplitude, frequency, carrier, modulation, modIndex, functionTable, phase];
 
     }
-    NSLog(@"Foscil csdRepresentation created:%@", s);
     return s;
 }
 

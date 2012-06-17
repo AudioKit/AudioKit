@@ -68,6 +68,7 @@
 		C4C5521D1577028C005F7EE4 /* CSDOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552151577028C005F7EE4 /* CSDOscillator.m */; };
 		C4C55240157714DC005F7EE4 /* CSDOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */; };
 		C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523D1577143B005F7EE4 /* CSDManager.m */; };
+		C4C67D16158D63A100F3CB8E /* CSDSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C67D15158D63A100F3CB8E /* CSDSoundFileTable.m */; };
 		C4C987541582E00A00F1DB9A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987501582DFFA00F1DB9A /* CSDParam.m */; };
 		C4C987551582E00A00F1DB9A /* CSDParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987521582DFFA00F1DB9A /* CSDParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4FE85881583535100902E07 /* CSDParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* CSDParamControl.m */; };
@@ -214,6 +215,8 @@
 		C4C5523D1577143B005F7EE4 /* CSDManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDManager.m; sourceTree = "<group>"; };
 		C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOrchestra.h; sourceTree = "<group>"; };
 		C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOrchestra.m; sourceTree = "<group>"; };
+		C4C67D14158D63A100F3CB8E /* CSDSoundFileTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDSoundFileTable.h; path = FunctionTables/CSDSoundFileTable.h; sourceTree = "<group>"; };
+		C4C67D15158D63A100F3CB8E /* CSDSoundFileTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDSoundFileTable.m; path = FunctionTables/CSDSoundFileTable.m; sourceTree = "<group>"; };
 		C4C9874F1582DFFA00F1DB9A /* CSDParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
 		C4C987501582DFFA00F1DB9A /* CSDParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDParam.m; sourceTree = "<group>"; };
 		C4C987511582DFFA00F1DB9A /* CSDParamArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDParamArray.h; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 			children = (
 				C43553DE158073730074764A /* CSDFunctionTable.h */,
 				C43553DF158073730074764A /* CSDFunctionTable.m */,
+				C4C67D14158D63A100F3CB8E /* CSDSoundFileTable.h */,
+				C4C67D15158D63A100F3CB8E /* CSDSoundFileTable.m */,
 				C43553EB15807BB80074764A /* CSDSineTable.h */,
 				C43553EC15807BB80074764A /* CSDSineTable.m */,
 			);
@@ -734,6 +739,7 @@
 				C44D06651584679E00307AC9 /* CSDSum.m in Sources */,
 				C44D06691584689D00307AC9 /* CSDProduct.m in Sources */,
 				C44D06851587E2E100307AC9 /* CSDAssignment.m in Sources */,
+				C4C67D16158D63A100F3CB8E /* CSDSoundFileTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

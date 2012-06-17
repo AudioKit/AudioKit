@@ -6,7 +6,6 @@
 //
 
 #import "CSDFunctionTable.h"
-#import "CSDConstants.h" // For the GEN routine constants
 #import "CSDParamArray.h"
 @interface CSDSineTable : CSDFunctionTable
 -(id) initWithTableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials;
