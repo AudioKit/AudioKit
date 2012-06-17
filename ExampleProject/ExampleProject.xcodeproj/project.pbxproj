@@ -28,6 +28,7 @@
 		C4761643158D94F000C96DE1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761642158D94F000C96DE1 /* AudioFilePlayer.m */; };
 		C4761646158D99B800C96DE1 /* CSDLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761645158D99B800C96DE1 /* CSDLoopingOscillator.m */; };
 		C4761647158DA94700C96DE1 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C4761640158D94A400C96DE1 /* hellorcb.aif */; };
+		C4761650158DB59D00C96DE1 /* ExpressionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */; };
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -710,6 +711,7 @@
 				C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */,
 				C476163C158D943800C96DE1 /* PlayAudioFileViewController.xib in Resources */,
 				C4761647158DA94700C96DE1 /* hellorcb.aif in Resources */,
+				C4761650158DB59D00C96DE1 /* ExpressionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
