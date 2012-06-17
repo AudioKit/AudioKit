@@ -57,7 +57,7 @@
 {
     return [NSString stringWithFormat:
             @"%@ oscil %@, %@, %@\n",
-            output, amplitude, frequency, [functionTable output]];
+            output, amplitude, frequency, functionTable];
 }
 
 -(NSString *) description {

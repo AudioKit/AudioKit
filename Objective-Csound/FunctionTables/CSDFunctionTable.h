@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CSDParamConstant.h"
 
 @interface CSDFunctionTable : NSObject
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
@@ -19,8 +20,7 @@
 @property int   tableSize;
 @property int   generatingRoutine;
 @property (nonatomic, strong) NSString * parameters;
-@property (nonatomic, strong) NSString * output;
-//@property (nonatomic, strong) CSDParamConstant * output;
+@property (nonatomic, strong) CSDParamConstant * output;
 @property (readonly) NSString *text;
 
 //-(NSString *) text;

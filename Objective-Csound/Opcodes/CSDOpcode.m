@@ -21,7 +21,6 @@ static int currentID = 1;
     return self; 
 }
 
-
 -(NSString *) uniqueName {
     return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
@@ -31,7 +30,5 @@ static int currentID = 1;
     //Override in subclass
     return @"Undefined";
 }
-
-
 
 @end

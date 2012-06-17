@@ -41,6 +41,4 @@
             cutoffFrequency];
 }
 
-
-
 @end
