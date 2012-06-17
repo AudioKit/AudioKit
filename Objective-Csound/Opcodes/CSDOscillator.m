@@ -53,8 +53,7 @@
 }
 
 
--(NSString *)convertToCsd
-{
+-(NSString *)convertToCsd {
     return [NSString stringWithFormat:
             @"%@ oscil %@, %@, %@\n",
             output, amplitude, frequency, functionTable];

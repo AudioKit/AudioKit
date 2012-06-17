@@ -24,11 +24,11 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
         
 
                                       
-        CSDOscillator * myVibratoOscillator = [[CSDOscillator alloc] 
-                                               initWithAmplitude:[CSDParamConstant paramWithInt:40]
-                                                       Frequency:[CSDParamConstant paramWithInt:6] 
-                                                   FunctionTable:vibratoSine
-                                                        isControl:YES];
+        CSDOscillator * myVibratoOscillator = 
+        [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithInt:40]
+                                       Frequency:[CSDParamConstant paramWithInt:6] 
+                                   FunctionTable:vibratoSine
+                                       isControl:YES];
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;
@@ -36,10 +36,11 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
         CSDParamControl * vibrato = [CSDParamControl paramWithFormat:@"%d + (%f * %@)", vibratoOffset, vibratoScale, myVibratoOscillator];
         
         CSDParamConstant * amplitudeOffset = [CSDParamConstant paramWithFloat:0.1];
-        CSDLine * amplitudeRamp = [[CSDLine alloc] 
-                                   initWithIStartingValue:[CSDParamConstant paramWithFloat:0.0f] 
-                                                iDuration:[CSDParamConstant paramWithPValue:kDurationArg]
-                                             iTargetValue:[CSDParamConstant paramWithFloat:0.2]];
+        
+        CSDLine * amplitudeRamp = 
+        [[CSDLine alloc] initWithIStartingValue:[CSDParamConstant paramWithFloat:0.0f] 
+                                      iDuration:[CSDParamConstant paramWithPValue:kDurationArg]
+                                   iTargetValue:[CSDParamConstant paramWithFloat:0.2]];
         [self addOpcode:amplitudeRamp];
         
         CSDParamControl * totalAmplitude = [CSDParamControl paramWithFormat:@"%@ + %@", amplitudeRamp, amplitudeOffset];                    
