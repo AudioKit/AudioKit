@@ -12,10 +12,7 @@ TODO:
 * Create more opcodes (fix up CSDPluck)
 * Create More Function Table subclasses
 * Develop better examples
-
-BUGS:
-
-* Every other time we try to start csound from an orchestra, it doesn't load.
+* Minimize #import statements - I think we have too many unneeded ones in some files
 
 NOTES:
 
