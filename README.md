@@ -7,7 +7,7 @@ representing every part of the Csound orchestra instruments as objects.
 
 TODO:
 
-* Create GEN1 examples (play a file, load into a grain opcode) to test ftgentmp
+* Create a grain instrument to further test gen01 and ftgentmp
 * Make a MIDI module that makes more sense than Csound's current midi implementation / Disconnect UIWidgets
 * Create more opcodes (fix up CSDPluck)
 * Create More Function Table subclasses
@@ -15,9 +15,7 @@ TODO:
 
 BUGS:
 
-* Currently we have to double click when you use the menu to go to another
-view, for some reason this will properly clear out the CSD file so that the 
-sound appears properly.
+* Every other time we try to start csound from an orchestra, it doesn't load.
 
 NOTES:
 
