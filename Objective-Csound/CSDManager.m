@@ -100,6 +100,11 @@ static CSDManager * _sharedCSDManager = nil;
     [self writeCSDFileForOrchestra:orch];
     [csound startCsound:myCSDFile];
     isRunning = YES;
+    
+    //Clean up the IDs for next time
+    [CSDOpcode resetID];
+    [CSDFunctionTable resetID];
+    [CSDInstrument resetID];
 }
 
 -(void)stop {

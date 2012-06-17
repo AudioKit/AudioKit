@@ -12,7 +12,7 @@
 
 #import "MasterViewController.h"
 
-#import "Example1Controller.h"
+#import "PlayCSDFileController.h"
 
 @implementation AppDelegate
 
@@ -26,13 +26,13 @@
     MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
     UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
 
-    Example1Controller *example1Controller = [[Example1Controller alloc] initWithNibName:@"Example1Controller" bundle:nil];
-    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:example1Controller];
+    PlayCSDFileController * playCSDFileController = [[PlayCSDFileController alloc] initWithNibName:@"PlayCSDFileController" bundle:nil];
+    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:playCSDFileController];
 
-    masterViewController.example1Controller = example1Controller;
+    masterViewController.playCSDFileController = playCSDFileController;
 
     self.splitViewController = [[UISplitViewController alloc] init];
-    self.splitViewController.delegate = example1Controller;
+    self.splitViewController.delegate = playCSDFileController;
     self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
     self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];

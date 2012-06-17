@@ -66,7 +66,7 @@ typedef enum
 @property (readonly) NSString *text;
 
 //-(NSString *) text;
-
++(void) resetID;
 -(id) initWithTableSize:(int) size 
              GenRoutine:(int) gen 
              Parameters:(NSString *) params;

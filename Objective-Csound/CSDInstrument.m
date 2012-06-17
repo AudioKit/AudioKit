@@ -48,6 +48,9 @@ static int currentID = 1;
     [[CSDManager sharedCSDManager] playNote:noteEventString OnInstrument:self];
 }
 
++(void) resetID {
+    currentID = 1;
+}
 
 
 @end

@@ -40,7 +40,7 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{141, 168}, {201, 169}}</string>
+						<string key="NSFrame">{{152, 188}, {201, 169}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="378809129"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -75,8 +75,9 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{417, 168}, {201, 169}}</string>
+						<string key="NSFrame">{{428, 188}, {201, 169}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -95,7 +96,7 @@
 					<object class="IBUILabel" id="123602770">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">298</int>
-						<string key="NSFrame">{{15, 0}, {728, 85}}</string>
+						<string key="NSFrame">{{26, 20}, {728, 85}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="31615905"/>
 						<reference key="IBUIBackgroundColor" ref="1059051189"/>
@@ -124,7 +125,7 @@
 					<object class="IBUILabel" id="31615905">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{86, 93}, {634, 21}}</string>
+						<string key="NSFrame">{{97, 113}, {634, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="288395307"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>

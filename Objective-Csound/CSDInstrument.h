@@ -28,4 +28,5 @@
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
 -(void)playNote:(NSDictionary *)noteEvent;
++(void) resetID;
 @end
