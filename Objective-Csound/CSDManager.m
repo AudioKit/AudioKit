@@ -59,7 +59,7 @@ static CSDManager * _sharedCSDManager = nil;
 
 -(void)runCSDFile:(NSString *)filename {
     if(isRunning) {
-        NSLog(@"csound already running...killing previous...attempting additional runCSDFile");
+        NSLog(@"Csound instance already active.");
         [self stop];
     }
     
@@ -67,7 +67,7 @@ static CSDManager * _sharedCSDManager = nil;
     NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
     [csound startCsound:file];
     isRunning = YES;
-    NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
+    NSLog(@"Starting \n%@",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
 
 }
 
@@ -80,26 +80,20 @@ static CSDManager * _sharedCSDManager = nil;
     NSString * newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
     
     [newCSD writeToFile:myCSDFile atomically:YES  encoding:NSStringEncodingConversionAllowLossy error:nil];
-
-//    NSString * newCSD2 =  @"";
-//    while (![newCSD2 isEqualToString:newCSD]) {
-//        NSLog(@"retrying");
-//        newCSD2 = [NSString stringWithContentsOfFile:myCSDFile encoding:NSStringEncodingConversionAllowLossy error:nil];
-//    }
-
-    NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
 }
 
 
 -(void)runOrchestra:(CSDOrchestra *)orch {
     if(isRunning) {
-        NSLog(@"csound already running...killing previous...attempting additional runOrch");
+        NSLog(@"Csound instance already active.");
         [self stop];
     }
     NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
     [self writeCSDFileForOrchestra:orch];
     [csound startCsound:myCSDFile];
     isRunning = YES;
+    
+    NSLog(@"Starting \n%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
     
     //Clean up the IDs for next time
     [CSDOpcode resetID];
@@ -108,10 +102,11 @@ static CSDManager * _sharedCSDManager = nil;
 }
 
 -(void)stop {
-    NSLog(@"Stopping");
+    NSLog(@"Stopping Csound");
     [csound stopCsound];
     isRunning  = NO;
-    
+    // Hackfor giving csound time to fully stop before trying to restart
+    [NSThread sleepForTimeInterval:0.1];
 }
 
 -(void)playNote:(NSString *)note OnInstrument:(CSDInstrument *)instrument{
