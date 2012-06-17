@@ -9,7 +9,7 @@
 #import "MasterViewController.h"
 #import "AppDelegate.h"
 
-#import "Example1Controller.h"
+#import "PlayCSDFileController.h"
 #import "OscillatorViewController.h"
 #import "FMGameObjectViewController.h"
 #import "UnitGeneratorsViewController.h"
@@ -23,7 +23,7 @@
 
 @implementation MasterViewController
 
-@synthesize example1Controller = _example1Controller;
+@synthesize playCSDFileController = _playCSDFileController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,9 +33,10 @@
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
-    exampleNames = [NSMutableArray arrayWithObjects:@"Example 1", 
+    exampleNames = [NSMutableArray arrayWithObjects:
+                    @"Play a CSD File", 
                     @"Simple Oscillator", 
-                    @"Simple FM",
+                    @"Simple Frequency Modulation",
                     @"Unit Generators",
                     @"Expressions",
                     @"Global Reverb",
@@ -137,7 +138,7 @@
     UIViewController* controller;
     switch (indexPath.row) {
         case 0:
-            controller = [[Example1Controller alloc] initWithNibName:@"Example1Controller" bundle:nil];
+            controller = [[PlayCSDFileController alloc] initWithNibName:@"PlayCSDFileController" bundle:nil];
             break;
         case 1:
             controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];

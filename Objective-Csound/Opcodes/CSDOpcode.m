@@ -21,8 +21,14 @@ static int currentID = 1;
     return self; 
 }
 
++(void) resetID {
+    currentID = 1;
+}
+
 -(NSString *) uniqueName {
-    return [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    NSString * basename = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    basename = [basename stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
+    return basename;
 }
 
 -(NSString *) convertToCsd

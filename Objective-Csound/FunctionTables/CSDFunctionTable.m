@@ -23,7 +23,11 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"%@%i", [self class], _myID]];
+        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"%@%i", [self class], _myID]];
+        NSString * outputString = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+        outputString = [outputString stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
+        output = [CSDParamConstant paramWithString:outputString];
+        
         tableSize = size;
         generatingRoutine = gen;
         parameters = params;
@@ -45,6 +49,10 @@ static int currentID = 1;
 
 -(NSString *) description {
     return [output parameterString];
+}
+
++(void) resetID {
+    currentID = 1;
 }
 
 

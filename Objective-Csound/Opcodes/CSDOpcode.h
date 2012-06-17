@@ -17,5 +17,5 @@
 
 -(NSString *) uniqueName;
 -(NSString *) convertToCsd;
-
++(void) resetID;
 @end

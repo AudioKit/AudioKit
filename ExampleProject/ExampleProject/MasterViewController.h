@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class Example1Controller;
+@class PlayCSDFileController;
 
 @interface MasterViewController : UITableViewController {
     NSMutableArray * exampleNames;
 }
 
-@property (strong, nonatomic) Example1Controller *example1Controller;
+@property (strong, nonatomic) PlayCSDFileController *playCSDFileController;
 
 @end

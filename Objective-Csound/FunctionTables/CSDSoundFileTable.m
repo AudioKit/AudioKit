@@ -10,6 +10,7 @@
 @implementation CSDSoundFileTable
 
 -(id) initWithFilename:(NSString *) file {
-    return [super initWithTableSize:0 GenRoutine:kGenRoutineSoundFile Parameters:file];
+    NSString * parameters = [NSString stringWithFormat:@"%@ 0 0 0", file];
+    return [super initWithTableSize:0 GenRoutine:kGenRoutineSoundFile Parameters:parameters];
 }
 @end
