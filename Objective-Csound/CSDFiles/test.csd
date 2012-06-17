@@ -1,4 +1,4 @@
- <CsoundSynthesizer>
+<CsoundSynthesizer>
 
 <CsOptions>
 -odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0
@@ -6,18 +6,19 @@
 
 <CsInstruments>
 ;HEADER
+nchnls = 2
 sr = 44100
 0dbfs = 1.000000
 ksmps = 256
 
 ;INSTRUMENTS
-instr 1
-iCSDSineTable0x85489a0 ftgentmp 0, 0, 4096, 10, 1.000000, 0.500000, 1.000000
-aCSDOscillator0x815f190 oscil 0.400000, p4, iCSDSineTable0x85489a0
-aCSDReverb0x81619a0L, aCSDReverb0x81619a0R reverbsc aCSDOscillator0x815f190, aCSDOscillator0x815f190, 0.850000, 12000
-out aCSDReverb0x81619a0L
-
+instr AudioFilePlayer1
+giSoundFileTable1 ftgentmp 0, 0, 0, 1, "hellorcb.aif", 0, 0, 0
+gaLoopingOscillator11L loscil3 1, 1, giSoundFileTable1, 1
+gaReverb2L, gaReverb2R reverbsc gaLoopingOscillator11L, gaLoopingOscillator11L, 0.850000, 12000
+outs gaReverb2L, gaReverb2R
 endin
+
 
 
 </CsInstruments>
@@ -25,8 +26,6 @@ endin
 
 ;F-STATEMENTS
 f0 100000
-
-i1 0 1.00 660.00 
 
 
 

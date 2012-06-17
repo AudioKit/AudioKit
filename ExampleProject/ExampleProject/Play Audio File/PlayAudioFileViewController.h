@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CSDManager.h"
+#import "AudioFilePlayer.h"
 
-@interface PlayAudioFileViewController : UIViewController
+
+@interface PlayAudioFileViewController : UIViewController {
+    AudioFilePlayer * audioFilePlayer;
+    CSDOrchestra   * myOrchestra;
+}
+
+- (IBAction)touchButton:(id)sender;
 
 @end
