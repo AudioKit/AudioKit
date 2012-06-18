@@ -18,6 +18,7 @@
 {
     CSDContinuousManager *myContinuousManager;
 }
+@property (nonatomic, strong) CSDContinuousManager * myContinuousManager;
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch;

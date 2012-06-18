@@ -11,13 +11,13 @@
 void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
 
 @implementation CSDContinuousManager
-@synthesize myContinuousParamList;
+@synthesize continuousParamList;
 
 -(id)init {
     if(self = [super init]) {
-        myContinuousParamList = [[NSMutableArray alloc] init];
+        continuousParamList = [[NSMutableArray alloc] init];
         for (int i = 0; i<128; i++) {
-            [myContinuousParamList addObject:[NSNull null]];
+            [continuousParamList addObject:[NSNull null]];
         }
     }
     return self;
@@ -30,7 +30,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
         return;
     }
     
-    [myContinuousParamList replaceObjectAtIndex:controllerNumber withObject:continuous];
+    [continuousParamList replaceObjectAtIndex:controllerNumber withObject:continuous];
 }
 
 /* coremidi callback, called when MIDI data is available */
@@ -48,7 +48,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
                 unsigned int controllerNumber = (unsigned int)(*curpack++);
                 unsigned int controllerValue = (unsigned int)(*curpack++);
                 
-                id param = [manager.myContinuousParamList objectAtIndex:controllerNumber];
+                id param = [manager.continuousParamList objectAtIndex:controllerNumber];
                 
                 //NSLog(@"Controller Number: %d Value: %d", controllerNumber, controllerValue);
                 
@@ -104,7 +104,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
 }
 
 -(void)dealloc {
-    [myContinuousParamList release];
+    [continuousParamList release];
     [super dealloc];
 }
 

@@ -21,6 +21,7 @@ typedef enum
 }kPValueTag;
 
 @implementation ContinuousControlledInstrument
+@synthesize myContinuousManager;
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra
 {
