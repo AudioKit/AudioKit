@@ -11,8 +11,9 @@
 
 @class CSDParam;
 //#import "CSDManager.h"
+#import "BaseValueCacheable.h"
 
-@interface CSDContinuous : NSObject
+@interface CSDContinuous : BaseValueCacheable
 {
     Float32 maximumValue;
     Float32 minimumValue;
@@ -23,6 +24,8 @@
     
     CSDParam * output;
     BOOL isControl;
+    
+    float* channelPtr;
 }
 
 @property (nonatomic, readwrite) Float32 value;

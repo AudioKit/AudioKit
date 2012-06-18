@@ -16,9 +16,17 @@
 
 @interface ContinuousControlledInstrument : CSDInstrument
 {
-    CSDContinuousManager *myContinuousManager;
+    //CSDContinuousManager *myContinuousManager;
+    
+    //maintain reference to continuous params so they can be referenced from controlling game logic 
+    CSDContinuous *amplitudeContinuous;
+    CSDContinuous *modulationContinuous;
+    CSDContinuous *modIndexContinuous;
 }
-@property (nonatomic, strong) CSDContinuousManager * myContinuousManager;
+//@property (nonatomic, strong) CSDContinuousManager * myContinuousManager;
+@property (nonatomic, strong) CSDContinuous * amplitudeContinuous;
+@property (nonatomic, strong) CSDContinuous * modulationContinuous;
+@property (nonatomic, strong) CSDContinuous * modIndexContinuous;
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch;

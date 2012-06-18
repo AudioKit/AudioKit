@@ -7,7 +7,7 @@
 #import "CSDInstrument.h"
 #import "CSDOrchestra.h"
 
-@class CSDContinuousManager;
+//@class CSDContinuousManager;
 
 @interface CSDManager : NSObject <CsoundObjCompletionListener> {
     //TODO: odbfs, sr stuff
@@ -19,14 +19,14 @@
     NSString * myCSDFile;
     NSString * templateCSDFileContents;
 
-    CSDContinuousManager * myContinuousManager;
+    //CSDContinuousManager * myContinuousManager;
     
     CsoundObj * csound;
 
 }
 //@property (nonatomic, strong) NSString * options;
 @property (readonly) BOOL isRunning;
-@property (nonatomic, strong) CSDContinuousManager * myContinuousManager;
+//@property (nonatomic, strong) CSDContinuousManager * myContinuousManager;
 
 +(CSDManager *) sharedCSDManager;
 -(void)runCSDFile:(NSString *)filename;

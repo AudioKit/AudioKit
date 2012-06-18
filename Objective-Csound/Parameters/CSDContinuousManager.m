@@ -19,11 +19,13 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
         for (int i = 0; i<128; i++) {
             [continuousParamList addObject:[NSNull null]];
         }
+        
+    [self openMidiIn];
     }
     return self;
 }
 
--(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber
+-(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
 {
     if (controllerNumber < 0 || controllerNumber > 127) {
         NSLog(@"Error: Attempted to add a widget with controller number outside of range 0-127: %d", controllerNumber);
