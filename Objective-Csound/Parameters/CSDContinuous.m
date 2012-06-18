@@ -29,7 +29,7 @@
         
         uniqueIdentifier = [NSString stringWithFormat:@"cont_%d", aTag];
         
-        //[[[CSDManager sharedCSDManager] myContinuousManager] addContinuousParam:
+        output = [CSDParam paramWithString:[self uniqueName]];
     }
     return self;
 }
@@ -42,6 +42,8 @@
     minimumValue = minValue;
     initValue = aInitValue;
     value = aInitValue;
+    
+    uniqueIdentifier = [NSString stringWithFormat:@"cont_%d", aTag];
     
     if (self) {
         if(isControl)
@@ -56,7 +58,7 @@
 
 -(NSString *)convertToCsd
 {
-    return [NSString stringWithFormat:@"%@ chnget %@", output, uniqueIdentifier];
+    return [NSString stringWithFormat:@"%@ chnget %@\n", output, uniqueIdentifier];
 }
                       
 -(NSString *) uniqueName

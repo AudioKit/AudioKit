@@ -51,3 +51,6 @@ the p-field number from the objective-c user.  However, by making a
 CSDConstant typedef of type PValueReservedTag, we reinforce how users should 
 stylistically create typedefs with this naming convention for their variable 
 p-fields kPValueTagSomething
+
+* CSDContinuousManager also contains MidiIn methods which aren't used and probably won't stay in 
+CSDContinuous when we do use them.

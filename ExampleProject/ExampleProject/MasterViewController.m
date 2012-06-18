@@ -15,6 +15,7 @@
 #import "UnitGeneratorsViewController.h"
 #import "ExpressionsViewController.h"
 #import "ReverbViewController.h"
+#import "ContinuousControlViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -39,6 +40,7 @@
                     @"Unit Generators",
                     @"Expressions",
                     @"Global Reverb",
+                    @"Continuous Control",
                     nil];
     return self;
 }
@@ -155,6 +157,8 @@
         case 5:
             controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
             break;
+        case 6:
+            controller = [[ContinuousControlViewController alloc] initWithNibName:@"ContinuousControlViewController" bundle:nil];
         default:
             break;
     }
