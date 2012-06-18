@@ -66,5 +66,13 @@
     return [NSString stringWithFormat:@"%@%p", [self class], self];
 }
 
+-(void)setup:(CsoundObj*)csoundObj {
+    channelPtr = [csoundObj getInputChannelPtr:[self uniqueIdentifier]];
+    *channelPtr = [self value];
+}
+
+-(void)updateValuesToCsound {
+    *channelPtr = [self value];  
+}
 
 @end

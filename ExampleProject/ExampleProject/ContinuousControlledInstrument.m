@@ -21,7 +21,10 @@ typedef enum
 }kPValueTag;
 
 @implementation ContinuousControlledInstrument
-@synthesize myContinuousManager;
+//@synthesize myContinuousManager;
+@synthesize amplitudeContinuous;
+@synthesize modulationContinuous;
+@synthesize modIndexContinuous;
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra
 {
@@ -30,26 +33,29 @@ typedef enum
         CSDSineTable *sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        myContinuousManager = [[CSDContinuousManager alloc] init];
-        CSDContinuous *amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
+       // myContinuousManager = [[CSDContinuousManager alloc] init];
+        amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
                                                                      Max:1.0f 
                                                                      Min:0.0f 
                                                                      Tag:kContinuousTagAmplitude];
         [self addContinuous:amplitudeContinuous];
+        //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
         
-        CSDContinuous *modulationContinuous = [[CSDContinuous alloc] init:0.5f
+        modulationContinuous = [[CSDContinuous alloc] init:0.5f
                                                                       Max:2.2f 
                                                                       Min:0.25f 
                                                                       Tag:kContinuousTagModulation 
                                                             isControlRate:YES];
         [self addContinuous:modulationContinuous];
+        //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
         
-        CSDContinuous *modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
+        modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
                                                                     Max:25.0f
                                                                     Min:0.0f 
                                                                     Tag:kContinuousTagModulationIndex
                                                           isControlRate:YES];
         [self addContinuous:modIndexContinuous];
+        //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
         
         CSDFoscili *myFoscili = [[CSDFoscili alloc] 
                                  initFMOscillatorWithAmplitude: [CSDParam paramWithContinuous:amplitudeContinuous]

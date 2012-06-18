@@ -43,6 +43,8 @@
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
     repeatingSliderTimer = nil;
+    
+    //[[myContinuousControllerInstrument myContinuousManager] closeMidiIn];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -79,7 +81,10 @@
 -(void)sliderTimerFireMethod
 {
     //WORKING HERE: adding slider to control via manager
-    //[[myContinuousControllerInstrument myContinuousManager] continuousParamList
+    //[[myContinuousControllerInstrument myContinuousManager] continuousParamList] obj
+    int minValue = [[myContinuousControllerInstrument modIndexContinuous] minimumValue];
+    int maxValue = [[myContinuousControllerInstrument modIndexContinuous] maximumValue];
+    [[myContinuousControllerInstrument modIndexContinuous] setValue:(arc4random()%minValue+maxValue)];
 }
 
 @end

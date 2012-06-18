@@ -7,7 +7,7 @@
 
 //@synthesize options;
 @synthesize isRunning;
-@synthesize myContinuousManager;
+//@synthesize myContinuousManager;
 
 static CSDManager * _sharedCSDManager = nil;
 
@@ -42,7 +42,7 @@ static CSDManager * _sharedCSDManager = nil;
         [csound addCompletionListener:self];
         isRunning = NO;
         
-        myContinuousManager = [[CSDContinuousManager alloc] init];
+        //myContinuousManager = [[CSDContinuousManager alloc] init];
         
         options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
         sampleRate = 44100;
@@ -117,6 +117,12 @@ static CSDManager * _sharedCSDManager = nil;
     NSLog(@"i%i 0 %@", instrument, note);
     [csound sendScore:[NSString stringWithFormat:@"i%i 0 %@", instrument, note]];
 }
+
+/*-(void)addContinuousParam:(CSDContinuous *)continuous channelName:(NSString *)uniqueIdentifier
+{
+    UISlider *s = [[UISlider alloc] init];
+    [csound addSlider:s forChannelName:<#(NSString *)#>
+}*/
 
 #pragma mark CsoundObjCompletionListener
 

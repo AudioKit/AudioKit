@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreMIDI/CoreMIDI.h>
 
+#import "CSDManager.h"
 #import "CSDContinuous.h"
 
 @interface CSDContinuousManager : NSObject
@@ -26,6 +27,6 @@
 -(void)openMidiIn;
 -(void)closeMidiIn;
 
--(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber;
+-(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier;
 
 @end
