@@ -78,7 +78,8 @@
 
 -(void)sliderTimerFireMethod
 {
-    
+    //WORKING HERE: adding slider to control via manager
+    //[[myContinuousControllerInstrument myContinuousManager] continuousParamList
 }
 
 @end

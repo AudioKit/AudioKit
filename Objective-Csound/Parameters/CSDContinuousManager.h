@@ -17,11 +17,11 @@
 
 @interface CSDContinuousManager : NSObject
 {
-    NSMutableArray * myContinuousParamList;
+    NSMutableArray * continuousParamList;
     MIDIClientRef myClient;
 }
 
-@property (readonly) NSMutableArray* myContinuousParamList;
+@property (readonly) NSMutableArray* continuousParamList;
 
 -(void)openMidiIn;
 -(void)closeMidiIn;
