@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreMIDI/CoreMIDI.h>
 
-#import "CSDParam.h"
-@class CSDManager;
+@class CSDParam;
+//#import "CSDManager.h"
 
 @interface CSDContinuous : NSObject
 {

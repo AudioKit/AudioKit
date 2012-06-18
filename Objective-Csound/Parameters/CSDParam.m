@@ -34,6 +34,16 @@
     return self;
 }
 
+-(id)initWithContinuous:(CSDContinuous *)continuous
+{
+    self = [super init];
+    if (self) {
+        type = @"ga";
+        parameterString = [NSString stringWithFormat:@"%@%@", type, [continuous uniqueIdentifier]];
+    }
+    return self;
+}
+
 +(id)paramWithString:(NSString *)aString
 {
     return [[self alloc] initWithString:aString];
@@ -45,6 +55,12 @@
     return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
     va_end(argumentList);
 }
+
++(id)paramWithContinuous:(CSDContinuous *)continuous
+{
+    return  [[self alloc] initWithContinuous:continuous];
+}
+
 
 
 

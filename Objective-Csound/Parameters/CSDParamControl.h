@@ -7,7 +7,6 @@
 // These are parameters that can change at k-Rate, or control rate
 
 #import "CSDParam.h"
-#import "CSDContinuous.h"
 
 @interface CSDParamControl : CSDParam
 -(id)initWithContinuous:(CSDContinuous *)continuous;

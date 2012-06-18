@@ -34,7 +34,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
 }
 
 /* coremidi callback, called when MIDI data is available */
-void CSDContinuousReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
+void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
     CSDContinuousManager* manager = (__bridge CSDContinuousManager *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
 	Byte *curpack;

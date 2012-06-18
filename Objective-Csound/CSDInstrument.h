@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "CSDOpcode.h"
 #import "CSDFunctionTable.h"
+
+#import "CSDContinuousManager.h"
 #import "CSDContinuous.h"
 
 @class CSDOrchestra;
