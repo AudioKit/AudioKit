@@ -34,27 +34,24 @@ typedef enum
         CSDSineTable *sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-         //myContinuousManager = [[CSDContinuousManager alloc] init];
-         amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
-         Max:1.0f 
-         Min:0.0f 
-         Tag:kContinuousTagAmplitude];
-         [self addContinuous:amplitudeContinuous];
-         //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
-         
-         modulationContinuous = [[CSDContinuous alloc] init:0.5f
-         Max:2.2f 
-         Min:0.25f 
-         Tag:kContinuousTagModulation 
-         isControlRate:YES];
-         [self addContinuous:modulationContinuous];
-         //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
-         
-         modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
-         Max:25.0f
-         Min:0.0f 
-         Tag:kContinuousTagModulationIndex
-         isControlRate:YES];
+        //myContinuousManager = [[CSDContinuousManager alloc] init];
+        amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
+                                                      Max:1.0f 
+                                                      Min:0.0f ];
+        [self addContinuous:amplitudeContinuous];
+        //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
+        
+        modulationContinuous = [[CSDContinuous alloc] init:0.5f
+                                                       Max:2.2f 
+                                                       Min:0.25f 
+                                            isControlRate:YES];
+        [self addContinuous:modulationContinuous];
+        //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
+        
+        modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
+                                                     Max:25.0f
+                                                     Min:0.0f 
+                                           isControlRate:YES];
          [self addContinuous:modIndexContinuous];
          //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
          
@@ -79,7 +76,6 @@ typedef enum
          FunctionTable:sineTable 
          AndOptionalPhase:nil];
          [self addOpcode:myFoscili];
-         
         
         CSDOutputMono *monoOutput = [[CSDOutputMono alloc] initWithInput:[myFoscili output]];
         [self addOpcode:monoOutput];
@@ -90,6 +86,7 @@ typedef enum
 -(void) playNoteForDuration:(float)dur Pitch:(float)pitch
 {
     int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
+    
     NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
     [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
 }

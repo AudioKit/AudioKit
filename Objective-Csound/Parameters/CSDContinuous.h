@@ -10,7 +10,6 @@
 #import <CoreMIDI/CoreMIDI.h>
 
 @class CSDParam;
-//#import "CSDManager.h"
 #import "BaseValueCacheable.h"
 
 @interface CSDContinuous : BaseValueCacheable
@@ -36,8 +35,8 @@
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
 
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue Tag:(int)aTag;
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue Tag:(int)aTag isControlRate:(BOOL)control;
+-(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue;
+-(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue isControlRate:(BOOL)control;
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
 

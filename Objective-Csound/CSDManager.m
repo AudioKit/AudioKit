@@ -100,6 +100,7 @@ static CSDManager * _sharedCSDManager = nil;
         [self stop];
     }
     NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
+    
     [self writeCSDFileForOrchestra:orch];
     [self updateValueCacheWithContinuousParams:orch];
     [csound startCsound:myCSDFile];
