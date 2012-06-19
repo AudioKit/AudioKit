@@ -55,8 +55,8 @@
 
 -(IBAction)runInstrument:(id)sender
 {
-    [myContinuousControllerInstrument playNoteForDuration:3.0 Pitch:(arc4random()%200-499)];
-    /*
+    [myContinuousControllerInstrument playNoteForDuration:3.0 Pitch:(arc4random()%200+499)];
+    
     if (repeatingNoteTimer) {
         return;
     } else {
@@ -71,23 +71,34 @@
                                                             selector:@selector(sliderTimerFireMethod:)
                                                             userInfo:nil
                                                              repeats:YES];
+        NSRunLoop *rl = [NSRunLoop currentRunLoop];
+        [rl addTimer:noteTimer forMode:NSDefaultRunLoopMode];
+        [rl addTimer:sliderTimer forMode:NSDefaultRunLoopMode];
+        
         repeatingSliderTimer = sliderTimer;
         repeatingNoteTimer = noteTimer;
     }
-     */
 }
 
--(void)noteTimerFireMethod
+-(IBAction)stopInstrument:(id)sender
+{
+    repeatingNoteTimer = nil;
+    repeatingSliderTimer = nil;
+    [[CSDManager sharedCSDManager] stop];
+}
+
+-(void)noteTimerFireMethod:(NSTimer *)timer
 {
     [myContinuousControllerInstrument playNoteForDuration:3.0 Pitch:(arc4random()%200+400)];
 }
 
--(void)sliderTimerFireMethod
+-(void)sliderTimerFireMethod:(NSTimer *)timer
 {
     //[[myContinuousControllerInstrument myContinuousManager] continuousParamList] obj
+    
     int minValue = [[myContinuousControllerInstrument modIndexContinuous] minimumValue];
     int maxValue = [[myContinuousControllerInstrument modIndexContinuous] maximumValue];
-    [[myContinuousControllerInstrument modIndexContinuous] setValue:(arc4random()%minValue+maxValue)];
+    [[myContinuousControllerInstrument modIndexContinuous] setValue:(arc4random()%(minValue+maxValue))];
 }
 
 @end

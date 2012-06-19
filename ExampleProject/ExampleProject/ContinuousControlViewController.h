@@ -21,5 +21,6 @@
 }
 
 -(IBAction)runInstrument:(id)sender;
+-(IBAction)stopInstrument:(id)sender;
 
 @end
