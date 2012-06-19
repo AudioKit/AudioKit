@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7660DAE4158BC48300EB1956 /* CSDContinuous.m in Sources */ = {isa = PBXBuildFile; fileRef = 7660DAE3158BC48200EB1956 /* CSDContinuous.m */; };
+		7660DAE4158BC48300EB1956 /* CSDContinous.m in Sources */ = {isa = PBXBuildFile; fileRef = 7660DAE3158BC48200EB1956 /* CSDContinous.m */; };
 		7660DAEC158BD98200EB1956 /* CSDContinuousManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7660DAEB158BD98100EB1956 /* CSDContinuousManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7671E41E158F9CD700D4B5B5 /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7671E41C158F9CD700D4B5B5 /* ContinuousControlViewController.m */; };
 		7671E41F158F9CD700D4B5B5 /* ContinuousControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7671E41D158F9CD700D4B5B5 /* ContinuousControlViewController.xib */; };
@@ -89,7 +89,7 @@
 /* Begin PBXFileReference section */
 		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
 		7660DAE2158BC48200EB1956 /* CSDContinuous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuous.h; sourceTree = "<group>"; };
-		7660DAE3158BC48200EB1956 /* CSDContinuous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuous.m; sourceTree = "<group>"; };
+		7660DAE3158BC48200EB1956 /* CSDContinous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinous.m; sourceTree = "<group>"; };
 		7660DAEA158BD98100EB1956 /* CSDContinuousManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuousManager.h; sourceTree = "<group>"; };
 		7660DAEB158BD98100EB1956 /* CSDContinuousManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuousManager.m; sourceTree = "<group>"; };
 		7671E41B158F9CD700D4B5B5 /* ContinuousControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlViewController.h; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 				C4C987511582DFFA00F1DB9A /* CSDParamArray.h */,
 				C4C987521582DFFA00F1DB9A /* CSDParamArray.m */,
 				7660DAE2158BC48200EB1956 /* CSDContinuous.h */,
-				7660DAE3158BC48200EB1956 /* CSDContinuous.m */,
+				7660DAE3158BC48200EB1956 /* CSDContinous.m */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -766,7 +766,7 @@
 				C44D06651584679E00307AC9 /* CSDSum.m in Sources */,
 				C44D06691584689D00307AC9 /* CSDProduct.m in Sources */,
 				C44D06851587E2E100307AC9 /* CSDAssignment.m in Sources */,
-				7660DAE4158BC48300EB1956 /* CSDContinuous.m in Sources */,
+				7660DAE4158BC48300EB1956 /* CSDContinous.m in Sources */,
 				7660DAEC158BD98200EB1956 /* CSDContinuousManager.m in Sources */,
 				7671E41E158F9CD700D4B5B5 /* ContinuousControlViewController.m in Sources */,
 				7671E422158F9E1700D4B5B5 /* ContinuousControlledInstrument.m in Sources */,

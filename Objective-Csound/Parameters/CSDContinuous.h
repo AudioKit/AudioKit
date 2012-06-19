@@ -41,4 +41,7 @@
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
 
+-(void)setup:(CsoundObj*)csoundObj;
+-(void)updateValuesToCsound;
+
 @end

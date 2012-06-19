@@ -38,7 +38,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"ga";
+        type = @"a";
         parameterString = [NSString stringWithFormat:@"%@%@", type, [continuous uniqueIdentifier]];
     }
     return self;
@@ -60,9 +60,6 @@
 {
     return  [[self alloc] initWithContinuous:continuous];
 }
-
-
-
 
 -(NSString *) description {
     return parameterString;
