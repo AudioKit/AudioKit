@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CSDManager.h"
 #import "CSDOrchestra.h"
-
 #import "ContinuousControlledInstrument.h"
 
 @interface ContinuousControlViewController : UIViewController

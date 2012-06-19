@@ -94,7 +94,6 @@ static CSDManager * _sharedCSDManager = nil;
     NSLog(@"%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
 }
 
-
 -(void)runOrchestra:(CSDOrchestra *)orch {
     if(isRunning) {
         NSLog(@"csound already running...killing previous...attempting additional runOrch");
@@ -102,6 +101,7 @@ static CSDManager * _sharedCSDManager = nil;
     }
     NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
     [self writeCSDFileForOrchestra:orch];
+    [self updateValueCacheWithContinuousParams:orch];
     [csound startCsound:myCSDFile];
     isRunning = YES;
 }
@@ -118,11 +118,15 @@ static CSDManager * _sharedCSDManager = nil;
     [csound sendScore:[NSString stringWithFormat:@"i%i 0 %@", instrument, note]];
 }
 
-/*-(void)addContinuousParam:(CSDContinuous *)continuous channelName:(NSString *)uniqueIdentifier
+-(void)updateValueCacheWithContinuousParams:(CSDOrchestra *)orch
 {
-    UISlider *s = [[UISlider alloc] init];
-    [csound addSlider:s forChannelName:<#(NSString *)#>
-}*/
+    NSArray *arr = [NSArray arrayWithArray:[orch instruments]];
+    for (CSDInstrument *i in arr ) {
+        for (CSDContinuous *c in [i continuousParamList]) {
+            [csound addValueCacheable:c];
+        }
+    }
+}
 
 #pragma mark CsoundObjCompletionListener
 

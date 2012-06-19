@@ -7,7 +7,7 @@
 #import "CSDInstrument.h"
 #import "CSDOrchestra.h"
 
-//@class CSDContinuousManager;
+//#import "CSDContinuousManager.h"
 
 @interface CSDManager : NSObject <CsoundObjCompletionListener> {
     //TODO: odbfs, sr stuff
