@@ -54,7 +54,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
             
 			if ((*curpack++ | 0xB0) > 0) {
                 unsigned int controllerNumber = (unsigned int)(*curpack++);
-                unsigned int controllerValue = (unsigned int)(*curpack++);
+                //unsigned int controllerValue = (unsigned int)(*curpack++);
                 
                 id param = [manager.continuousParamList objectAtIndex:controllerNumber];
                 
