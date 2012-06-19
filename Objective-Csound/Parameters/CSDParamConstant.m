@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"gi";
+        type = @"i";
         parameterString = [NSString stringWithFormat:@"%@%@", type, aString];
     }
     return self;
@@ -56,6 +56,14 @@
     return self;
 }
 
+-(id)initWithContinuous:(CSDContinuous *)continuous
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"%@", [continuous output]];
+    }
+    return self;
+}
 
 +(id)paramWithFloat:(float)aFloat
 {
@@ -69,6 +77,10 @@
 {
     // AOP Will need to do this better
     return [[self alloc] initWithPValue:(somePValue+3)];
+}
++(id)paramWithContinuous:(CSDContinuous *)continuous
+{
+    return [[self alloc] initWithContinuous:continuous];
 }
 
 

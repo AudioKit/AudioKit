@@ -9,5 +9,7 @@
 #import "CSDParam.h"
 
 @interface CSDParamControl : CSDParam
+-(id)initWithContinuous:(CSDContinuous *)continuous;
++(id)paramWithContinuous:(CSDContinuous *)continuous;
 
 @end

@@ -1,11 +1,13 @@
 // CSDManager.m
 
 #import "CSDManager.h"
+#import "CSDContinuousManager.h"
 
 @implementation CSDManager
 
 //@synthesize options;
 @synthesize isRunning;
+//@synthesize myContinuousManager;
 
 static CSDManager * _sharedCSDManager = nil;
 
@@ -39,6 +41,8 @@ static CSDManager * _sharedCSDManager = nil;
         csound = [[CsoundObj alloc] init];
         [csound addCompletionListener:self];
         isRunning = NO;
+        
+        //myContinuousManager = [[CSDContinuousManager alloc] init];
         
         options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
         sampleRate = 44100;
@@ -82,14 +86,15 @@ static CSDManager * _sharedCSDManager = nil;
     [newCSD writeToFile:myCSDFile atomically:YES  encoding:NSStringEncodingConversionAllowLossy error:nil];
 }
 
-
 -(void)runOrchestra:(CSDOrchestra *)orch {
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
     }
     NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
+    
     [self writeCSDFileForOrchestra:orch];
+    [self updateValueCacheWithContinuousParams:orch];
     [csound startCsound:myCSDFile];
     isRunning = YES;
     
@@ -118,6 +123,17 @@ static CSDManager * _sharedCSDManager = nil;
     NSString * scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
     NSLog(@"%@", scoreline);
     [csound sendScore:scoreline];
+}
+
+-(void)updateValueCacheWithContinuousParams:(CSDOrchestra *)orch
+{
+    NSArray *arr = [NSArray arrayWithArray:[orch instruments]];
+    for (CSDInstrument *i in arr ) {
+        for (CSDContinuous *c in [i continuousParamList]) {
+            [csound addValueCacheable:c];
+            NSLog(@"got here");
+        }
+    }
 }
 
 #pragma mark CsoundObjCompletionListener
