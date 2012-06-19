@@ -30,36 +30,37 @@ typedef enum
         //myContinuousManager = [[CSDContinuousManager alloc] init];
         amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
                                                       Max:1.0f 
-                                                      Min:0.0f ];
-        //[self addContinuous:amplitudeContinuous];
+                                                      Min:0.0f 
+                                            isControlRate:YES];
+        [self addContinuous:amplitudeContinuous];
         //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
         
         modulationContinuous = [[CSDContinuous alloc] init:0.5f
                                                        Max:2.2f 
-                                                       Min:0.25f 
-                                            isControlRate:YES];
-        //[self addContinuous:modulationContinuous];
+                                                       Min:0.25f
+                                             isControlRate:YES];
+        [self addContinuous:modulationContinuous];
         //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
         
         modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
                                                      Max:25.0f
                                                      Min:0.0f 
                                            isControlRate:YES];
-         //[self addContinuous:modIndexContinuous];
+         [self addContinuous:modIndexContinuous];
          //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
          
-        
+         /*
          CSDFoscili *myFoscili = [[CSDFoscili alloc] 
          initFMOscillatorWithAmplitude: [CSDParamConstant paramWithFloat:0.2]
-         Pitch:[CSDParamConstant paramWithInt:440] 
+         Pitch:[CSDParamConstant paramWithInt:440]
          Carrier:[CSDParamConstant paramWithInt:1] 
-         Modulation:[CSDParamConstant paramWithFloat:0.5]
+          Modulation:[CSDParamConstant paramWithFloat:0.5]
          ModIndex:[CSDParamConstant paramWithFloat:15.0]
          FunctionTable:sineTable 
          AndOptionalPhase:nil];
          [self addOpcode:myFoscili];
+         */
         
-        /*
          CSDFoscili *myFoscili = [[CSDFoscili alloc] 
          initFMOscillatorWithAmplitude: [CSDParam paramWithContinuous:amplitudeContinuous]
          Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag] 
@@ -69,7 +70,7 @@ typedef enum
          FunctionTable:sineTable 
          AndOptionalPhase:nil];
          [self addOpcode:myFoscili];
-        */
+        
         CSDOutputMono *monoOutput = [[CSDOutputMono alloc] initWithInput:[myFoscili output]];
         [self addOpcode:monoOutput];
     }
