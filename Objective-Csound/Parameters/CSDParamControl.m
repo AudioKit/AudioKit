@@ -26,4 +26,20 @@
     return self;
 }
 
+-(id)initWithContinuous:(CSDContinuous *)continuous
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"%@", [continuous output]];
+    }
+    return self;
+}
+
++(id)paramWithContinuous:(CSDContinuous *)continuous
+{
+    return  [[self alloc] initWithContinuous:continuous];
+}
+
+
+
 @end

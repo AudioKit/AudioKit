@@ -22,13 +22,12 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
         CSDSineTable * vibratoSine = [[CSDSineTable alloc] init];
         [self addFunctionTable:vibratoSine];
         
-
-                                      
         CSDOscillator * myVibratoOscillator = 
         [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithInt:40]
                                        Frequency:[CSDParamConstant paramWithInt:6] 
                                    FunctionTable:vibratoSine
                                        isControl:YES];
+
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;

@@ -12,6 +12,7 @@
 @synthesize orchestra;
 @synthesize finalOutput;
 @synthesize csdRepresentation;
+@synthesize continuousParamList;
 
 static int currentID = 1;
 
@@ -25,6 +26,8 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         [self joinOrchestra:newOrchestra];
+        
+        continuousParamList = [[NSMutableArray alloc] init ];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -52,5 +55,12 @@ static int currentID = 1;
     currentID = 1;
 }
 
+-(void)addContinuous:(CSDContinuous *)continuous 
+{
+    [csdRepresentation appendString:[continuous convertToCsd]];
+    //where I want to update csound's valuesCache array
+    //[[CSDManager sharedCSDManager] addContinuous:continuous];
+    [continuousParamList addObject:continuous];
+}
 
 @end

@@ -39,3 +39,8 @@ some point, then all is lost.
 * Consider including expected units in method signatures if not CSDParam.  For instance, when
 making the vibrato oscillator example I needed to know whether amplitude was a or k-rate.  The 
 class had CSDParam as the argument type which I assumed was a-rate, but it turns out oscil only accepts k and slower.
+
+RECENT UPDATE NOTES:
+
+* CSDContinuousManager also contains MidiIn methods which aren't used and probably won't stay in 
+CSDContinuous when we do use them.

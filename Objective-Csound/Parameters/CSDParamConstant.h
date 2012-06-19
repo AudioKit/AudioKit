@@ -14,8 +14,10 @@
 -(id)initWithFloat:(float)aFloat;
 -(id)initWithInt:(int)aInt;
 -(id)initWithPValue:(int)aPValue;
+-(id)initWithContinuous:(CSDContinuous *)continuous;
 +(id)paramWithFloat:(float)aFloat;
 +(id)paramWithInt:(int)aInt;
 +(id)paramWithPValue:(int)aPValue;
++(id)paramWithContinuous:(CSDContinuous *)continuous;
 
 @end
