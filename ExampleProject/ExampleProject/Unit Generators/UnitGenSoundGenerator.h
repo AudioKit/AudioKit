@@ -16,7 +16,7 @@
 #import "CSDLine.h"
 #import "CSDLineSegment.h"
 
-#import "CSDOutputMono.h"
+#import "CSDOutputStereo.h"
 
 @interface UnitGenSoundGenerator : CSDInstrument
 {

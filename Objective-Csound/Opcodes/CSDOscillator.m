@@ -20,7 +20,7 @@
 -(id) initWithAmplitude:(CSDParam *) amp 
               Frequency:(CSDParam *) freq
           FunctionTable:(CSDFunctionTable *) f 
-            isControlRate:(BOOL)control
+              isControl:(BOOL)control
 {
     self = [super init];
     if (self) {

@@ -16,7 +16,7 @@
 #import "CSDManager.h"
 #import "CSDInstrument.h"
 #import "CSDParam.h"
-#import "CSDOutputMono.h"
+#import "CSDOutputStereo.h"
 #import "CSDSineTable.h"
 
 #import "CSDFoscili.h"

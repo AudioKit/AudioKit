@@ -66,7 +66,7 @@ typedef enum { kDurationArg } UnitGenSoundGeneratorArguments;
                             AndOptionalPhase:nil];
         
         [self addOpcode:myFMOscillator];
-        CSDOutputMono * monoOutput = [[CSDOutputMono alloc] initWithInput:[myFMOscillator output]]; 
+        CSDOutputStereo * monoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[myFMOscillator output] InputRight:[myFMOscillator output]];
         [self addOpcode:monoOutput];
     }
     return self;
