@@ -29,7 +29,7 @@
         
         uniqueIdentifier = [NSString stringWithFormat:@"cont%@", [self class]];
 
-        output = [CSDParamControl paramWithString:[self uniqueName]];
+        output = [CSDParam paramWithFormat:@"a%@", [self uniqueName]];
         
     }
     return self;
@@ -53,10 +53,10 @@
         {
             //breaks from pattern output = [CSDParamConstant paramWithString:[self uniqueName]]
             //to avoid global distinction from CSDParam init
-            output = [NSString stringWithFormat:@"k%@", [self uniqueName]];
+            output = [CSDParam paramWithFormat:@"k%@", [self uniqueName]];
         } else {
             //output = [CSDParam paramWithString:[self uniqueName]];
-            output = [NSString stringWithFormat:@"a%@", [self uniqueName]];
+            output = [CSDParam paramWithFormat:@"a%@", [self uniqueName]];
             
         }
     }
