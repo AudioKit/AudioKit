@@ -12,6 +12,7 @@
 @synthesize orchestra;
 @synthesize finalOutput;
 @synthesize csdRepresentation;
+@synthesize continuousParamList;
 
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra {
     orchestra = newOrchestra;
@@ -39,6 +40,9 @@
 -(void)addContinuous:(CSDContinuous *)continuous 
 {
     [csdRepresentation appendString:[continuous convertToCsd]];
+    //WORKING HERE: where I want to update csound's valuesCache array
+    //[[CSDManager sharedCSDManager] addContinuous:continuous];
+    [continuousParamList addObject:continuous];
 }
 
 @end

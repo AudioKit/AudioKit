@@ -27,6 +27,7 @@
 -(void)openMidiIn;
 -(void)closeMidiIn;
 
--(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier;
+//-(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier;
 
+-(void)addContinuousParam:(CSDContinuous *)continuous;
 @end

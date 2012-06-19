@@ -20,11 +20,12 @@
     Float32 initValue;
     Float32 value;
     
-    NSString * uniqueIdentifier;
-    
     CSDParam * output;
+    
     BOOL isControl;
     
+    //channelName
+    NSString * uniqueIdentifier;
     float* channelPtr;
 }
 
@@ -34,7 +35,6 @@
 @property (nonatomic, assign) Float32 maximumValue;
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
-
 
 -(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue Tag:(int)aTag;
 -(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue Tag:(int)aTag isControlRate:(BOOL)control;

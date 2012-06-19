@@ -28,8 +28,10 @@
         value = aInitValue;
         
         uniqueIdentifier = [NSString stringWithFormat:@"cont_%d", aTag];
-        
+
         output = [CSDParam paramWithString:[self uniqueName]];
+        
+        
     }
     return self;
 }
@@ -66,6 +68,7 @@
     return [NSString stringWithFormat:@"%@%p", [self class], self];
 }
 
+#pragma mark BaseValueCacheable
 -(void)setup:(CsoundObj*)csoundObj {
     channelPtr = [csoundObj getInputChannelPtr:[self uniqueIdentifier]];
     *channelPtr = [self value];

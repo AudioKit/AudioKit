@@ -12,16 +12,19 @@
 //#import "CSDContinuousManager.h"
 #import "CSDContinuous.h"
 
+@class CSDManager;
 @class CSDOrchestra;
 
 @interface CSDInstrument : NSObject {
     CSDOrchestra * orchestra;
     NSMutableString * csdRepresentation;
+    NSMutableArray * continuousParamList;
 }
 
 @property (nonatomic, strong) CSDOrchestra * orchestra;
 @property (assign) int finalOutput;
 @property (nonatomic, strong) NSMutableString * csdRepresentation;
+@property (nonatomic, strong) NSMutableArray * continuousParamList;
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
 -(void) joinOrchestra:(CSDOrchestra *) newOrchestra;

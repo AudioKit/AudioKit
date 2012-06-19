@@ -25,7 +25,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
     return self;
 }
 
--(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
+/*-(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
 {
     if (controllerNumber < 0 || controllerNumber > 127) {
         NSLog(@"Error: Attempted to add a widget with controller number outside of range 0-127: %d", controllerNumber);
@@ -33,6 +33,12 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
     }
     
     [continuousParamList replaceObjectAtIndex:controllerNumber withObject:continuous];
+}*/
+
+-(void)addContinuousParam:(CSDContinuous *)continuous
+{
+    [continuousParamList addObject:continuous];
+    [[CSDManager sharedCSDManager] addContinuousParam:continuous];
 }
 
 /* coremidi callback, called when MIDI data is available */
