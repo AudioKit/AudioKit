@@ -27,7 +27,7 @@
         initValue = aInitValue;
         value = aInitValue;
         
-        uniqueIdentifier = [NSString stringWithFormat:@"cont%@", [self class]];
+        uniqueIdentifier = [NSString stringWithFormat:@"cont%@%p", [self class], self];
 
         output = [CSDParam paramWithFormat:@"a%@", [self uniqueName]];
         
@@ -45,17 +45,14 @@
     value = aInitValue;
     isControl = control;
     
-    uniqueIdentifier = [NSString stringWithFormat:@"cont%@", [self class]];
+    uniqueIdentifier = [NSString stringWithFormat:@"cont%@%p", [self class], self];
     
     //Csound manual gives chnget output as a,k,i-rate but csound-iOS doc refers to k-rate only
     if (self) {
         if(isControl)
         {
-            //breaks from pattern output = [CSDParamConstant paramWithString:[self uniqueName]]
-            //to avoid global distinction from CSDParam init
             output = [CSDParam paramWithFormat:@"k%@", [self uniqueName]];
         } else {
-            //output = [CSDParam paramWithString:[self uniqueName]];
             output = [CSDParam paramWithFormat:@"a%@", [self uniqueName]];
             
         }

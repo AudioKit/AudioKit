@@ -31,7 +31,7 @@
     myOrchestra = [[CSDOrchestra alloc] init];
     myContinuousControllerInstrument = [[ContinuousControlledInstrument alloc]
                                             initWithOrchestra:myOrchestra];
-    //[[CSDManager sharedCSDManager] updateValueCacheWithContinuousParams:myOrchestra];
+    [[CSDManager sharedCSDManager] updateValueCacheWithContinuousParams:myOrchestra];
     [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
 }
 
