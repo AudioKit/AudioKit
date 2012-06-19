@@ -33,49 +33,13 @@ typedef enum
     if (self) {
         CSDSineTable *sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
-        /*
-       // myContinuousManager = [[CSDContinuousManager alloc] init];
-        amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
-                                                                     Max:1.0f 
-                                                                     Min:0.0f 
-                                                                     Tag:kContinuousTagAmplitude];
-        [self addContinuous:amplitudeContinuous];
-        //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
         
-        modulationContinuous = [[CSDContinuous alloc] init:0.5f
-                                                                      Max:2.2f 
-                                                                      Min:0.25f 
-                                                                      Tag:kContinuousTagModulation 
-                                                            isControlRate:YES];
-        [self addContinuous:modulationContinuous];
-        //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
-        
-        modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
-                                                                    Max:25.0f
-                                                                    Min:0.0f 
-                                                                    Tag:kContinuousTagModulationIndex
-                                                          isControlRate:YES];
-        [self addContinuous:modIndexContinuous];
-        //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
-        
-        CSDFoscili *myFoscili = [[CSDFoscili alloc] 
-                                 initFMOscillatorWithAmplitude: [CSDParam paramWithContinuous:amplitudeContinuous]
-                                 Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag] 
-                                 Carrier:[CSDParamConstant paramWithInt:1] 
-                                 Modulation:[CSDParamControl paramWithContinuous:modulationContinuous]
-                                 ModIndex:[CSDParamControl paramWithContinuous:modIndexContinuous]
-                                 FunctionTable:sineTable 
-                                 AndOptionalPhase:nil];
-        [self addOpcode:myFoscili];
-         */
-        
-        
-         // myContinuousManager = [[CSDContinuousManager alloc] init];
+         //myContinuousManager = [[CSDContinuousManager alloc] init];
          amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
          Max:1.0f 
          Min:0.0f 
          Tag:kContinuousTagAmplitude];
-         //[self addContinuous:amplitudeContinuous];
+         [self addContinuous:amplitudeContinuous];
          //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
          
          modulationContinuous = [[CSDContinuous alloc] init:0.5f
@@ -83,7 +47,7 @@ typedef enum
          Min:0.25f 
          Tag:kContinuousTagModulation 
          isControlRate:YES];
-         //[self addContinuous:modulationContinuous];
+         [self addContinuous:modulationContinuous];
          //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
          
          modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
@@ -103,7 +67,18 @@ typedef enum
          FunctionTable:sineTable 
          AndOptionalPhase:nil];
          [self addOpcode:myFoscili];
-         
+        
+        /*
+         CSDFoscili *myFoscili = [[CSDFoscili alloc] 
+         initFMOscillatorWithAmplitude: [CSDParam paramWithContinuous:amplitudeContinuous]
+         Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag] 
+         Carrier:[CSDParamConstant paramWithInt:1] 
+         Modulation:[CSDParamControl paramWithContinuous:modulationContinuous]
+         ModIndex:[CSDParamControl paramWithContinuous:modIndexContinuous]
+         FunctionTable:sineTable 
+         AndOptionalPhase:nil];
+         [self addOpcode:myFoscili];
+         */
         
         CSDOutputMono *monoOutput = [[CSDOutputMono alloc] initWithInput:[myFoscili output]];
         [self addOpcode:monoOutput];

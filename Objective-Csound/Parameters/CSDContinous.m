@@ -66,7 +66,7 @@
 
 -(NSString *)convertToCsd
 {
-    return [NSString stringWithFormat:@"%@ chnget %@\n", output, uniqueIdentifier];
+    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, uniqueIdentifier];
 }
                       
 -(NSString *) uniqueName
