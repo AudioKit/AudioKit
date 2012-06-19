@@ -82,8 +82,11 @@
 
 -(IBAction)stopInstrument:(id)sender
 {
+    [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
+    [repeatingSliderTimer invalidate];
     repeatingSliderTimer = nil;
+    
     [[CSDManager sharedCSDManager] stop];
 }
 

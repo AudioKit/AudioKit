@@ -38,8 +38,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"a";
-        parameterString = [NSString stringWithFormat:@"%@%@", type, [continuous uniqueIdentifier]];
+        parameterString = [NSString stringWithFormat:@"%@", [continuous output]];
     }
     return self;
 }

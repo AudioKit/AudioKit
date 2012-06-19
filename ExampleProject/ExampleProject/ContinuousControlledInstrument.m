@@ -58,6 +58,7 @@ typedef enum
          [self addContinuous:modIndexContinuous];
          //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
          
+        /*
          CSDFoscili *myFoscili = [[CSDFoscili alloc] 
          initFMOscillatorWithAmplitude: [CSDParamConstant paramWithFloat:0.2]
          Pitch:[CSDParamConstant paramWithInt:440] 
@@ -67,8 +68,8 @@ typedef enum
          FunctionTable:sineTable 
          AndOptionalPhase:nil];
          [self addOpcode:myFoscili];
+        */
         
-        /*
          CSDFoscili *myFoscili = [[CSDFoscili alloc] 
          initFMOscillatorWithAmplitude: [CSDParam paramWithContinuous:amplitudeContinuous]
          Pitch:[CSDParamConstant paramWithPValue:kPValuePitchTag] 
@@ -78,7 +79,7 @@ typedef enum
          FunctionTable:sineTable 
          AndOptionalPhase:nil];
          [self addOpcode:myFoscili];
-         */
+         
         
         CSDOutputMono *monoOutput = [[CSDOutputMono alloc] initWithInput:[myFoscili output]];
         [self addOpcode:monoOutput];
