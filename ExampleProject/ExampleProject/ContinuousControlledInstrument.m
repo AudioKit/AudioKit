@@ -11,13 +11,6 @@
 
 typedef enum
 {
-    kContinuousTagAmplitude,
-    kContinuousTagModulation,
-    kContinuousTagModulationIndex
-}ContinuousTag;
-
-typedef enum
-{
     kPValuePitchTag=4,
 }kPValueTag;
 

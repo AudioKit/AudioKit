@@ -125,6 +125,7 @@ static CSDManager * _sharedCSDManager = nil;
     for (CSDInstrument *i in arr ) {
         for (CSDContinuous *c in [i continuousParamList]) {
             [csound addValueCacheable:c];
+            NSLog(@"got here");
         }
     }
 }
