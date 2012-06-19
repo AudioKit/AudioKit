@@ -23,6 +23,8 @@
     self = [super init];
     if (self) {
         [self joinOrchestra:newOrchestra];
+        
+        continuousParamList = [[NSMutableArray alloc] init ];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -40,7 +42,7 @@
 -(void)addContinuous:(CSDContinuous *)continuous 
 {
     [csdRepresentation appendString:[continuous convertToCsd]];
-    //WORKING HERE: where I want to update csound's valuesCache array
+    //where I want to update csound's valuesCache array
     //[[CSDManager sharedCSDManager] addContinuous:continuous];
     [continuousParamList addObject:continuous];
 }

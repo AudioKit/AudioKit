@@ -27,10 +27,9 @@
         initValue = aInitValue;
         value = aInitValue;
         
-        uniqueIdentifier = [NSString stringWithFormat:@"cont_%d", aTag];
+        uniqueIdentifier = [NSString stringWithFormat:@"cont%d", aTag];
 
-        output = [CSDParam paramWithString:[self uniqueName]];
-        
+        output = [CSDParamControl paramWithString:[self uniqueName]];
         
     }
     return self;
@@ -44,17 +43,24 @@
     minimumValue = minValue;
     initValue = aInitValue;
     value = aInitValue;
+    isControl = control;
     
-    uniqueIdentifier = [NSString stringWithFormat:@"cont_%d", aTag];
+    uniqueIdentifier = [NSString stringWithFormat:@"cont%d", aTag];
     
+    //Csound manual gives chnget output as a,k,i-rate but csound-iOS doc refers to k-rate only
     if (self) {
         if(isControl)
         {
-            output = [CSDParamControl paramWithString:[self uniqueName]];
+            //breaks from pattern output = [CSDParamConstant paramWithString:[self uniqueName]]
+            //to avoid global distinction from CSDParam init
+            output = [NSString stringWithFormat:@"k%@", [self uniqueName]];
         } else {
-            output = [CSDParam paramWithString:[self uniqueName]];
+            //output = [CSDParam paramWithString:[self uniqueName]];
+            output = [NSString stringWithFormat:@"a%@", [self uniqueName]];
+            
         }
     }
+
     return self;
 }
 

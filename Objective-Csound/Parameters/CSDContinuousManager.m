@@ -38,7 +38,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
 -(void)addContinuousParam:(CSDContinuous *)continuous
 {
     [continuousParamList addObject:continuous];
-    [[CSDManager sharedCSDManager] addContinuousParam:continuous];
+    //[[CSDManager sharedCSDManager] addContinuousParam:continuous];
 }
 
 /* coremidi callback, called when MIDI data is available */

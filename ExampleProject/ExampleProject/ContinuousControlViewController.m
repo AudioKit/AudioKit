@@ -31,6 +31,7 @@
     myOrchestra = [[CSDOrchestra alloc] init];
     myContinuousControllerInstrument = [[ContinuousControlledInstrument alloc]
                                             initWithOrchestra:myOrchestra];
+    [[CSDManager sharedCSDManager] updateValueCacheWithContinuousParams:myOrchestra];
     [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
 }
 
@@ -54,6 +55,8 @@
 
 -(IBAction)runInstrument:(id)sender
 {
+    [myContinuousControllerInstrument playNoteForDuration:3.0 Pitch:(arc4random()%200-499)];
+    /*
     if (repeatingNoteTimer) {
         return;
     } else {
@@ -71,6 +74,7 @@
         repeatingSliderTimer = sliderTimer;
         repeatingNoteTimer = noteTimer;
     }
+     */
 }
 
 -(void)noteTimerFireMethod
@@ -80,7 +84,6 @@
 
 -(void)sliderTimerFireMethod
 {
-    //WORKING HERE: adding slider to control via manager
     //[[myContinuousControllerInstrument myContinuousManager] continuousParamList] obj
     int minValue = [[myContinuousControllerInstrument modIndexContinuous] minimumValue];
     int maxValue = [[myContinuousControllerInstrument modIndexContinuous] maximumValue];

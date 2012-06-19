@@ -33,6 +33,7 @@
 -(void)runOrchestra:(CSDOrchestra *)orch;
 -(void)stop;
 -(void)playNote:(NSString *)note OnInstrument:(int)instrument;
+-(void)updateValueCacheWithContinuousParams:(CSDOrchestra *)orch;
 
 //Other Potential problems
 //-(void)mute;

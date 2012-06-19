@@ -26,9 +26,9 @@
 @property (nonatomic, strong) NSMutableString * csdRepresentation;
 @property (nonatomic, strong) NSMutableArray * continuousParamList;
 
--(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
--(void) joinOrchestra:(CSDOrchestra *) newOrchestra;
--(void) addOpcode:(CSDOpcode *) newOpcode;
+-(id)initWithOrchestra:(CSDOrchestra *) newOrchestra;
+-(void)joinOrchestra:(CSDOrchestra *) newOrchestra;
+-(void)addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
 -(void)addContinuous:(CSDContinuous *)continuous;
 
