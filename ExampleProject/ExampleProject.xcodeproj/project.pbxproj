@@ -21,6 +21,11 @@
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
 		C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */; };
 		C44D06851587E2E100307AC9 /* CSDAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06841587E2E100307AC9 /* CSDAssignment.m */; };
+		C46EB3BE15914148005807A2 /* CSDContinuous.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BB15914148005807A2 /* CSDContinuous.m */; };
+		C46EB3BF15914148005807A2 /* CSDContinuousManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BD15914148005807A2 /* CSDContinuousManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C46EB3C715914235005807A2 /* ContinuousControlledInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* ContinuousControlledInstrument.m */; };
+		C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C515914235005807A2 /* ContinuousControlViewController.m */; };
+		C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */; };
 		C4761636158D934800C96DE1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761634158D932700C96DE1 /* PlayCSDFileController.m */; };
 		C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4761635158D932700C96DE1 /* PlayCSDFileController.xib */; };
 		C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761639158D943800C96DE1 /* PlayAudioFileViewController.m */; };
@@ -116,6 +121,15 @@
 		C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionToneGenerator.m; path = ExampleProject/Expressions/ExpressionToneGenerator.m; sourceTree = SOURCE_ROOT; };
 		C44D06831587E2E100307AC9 /* CSDAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDAssignment.h; sourceTree = "<group>"; };
 		C44D06841587E2E100307AC9 /* CSDAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDAssignment.m; sourceTree = "<group>"; };
+		C46EB3BA15914148005807A2 /* CSDContinuous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuous.h; sourceTree = "<group>"; };
+		C46EB3BB15914148005807A2 /* CSDContinuous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuous.m; sourceTree = "<group>"; };
+		C46EB3BC15914148005807A2 /* CSDContinuousManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuousManager.h; sourceTree = "<group>"; };
+		C46EB3BD15914148005807A2 /* CSDContinuousManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuousManager.m; sourceTree = "<group>"; };
+		C46EB3C215914235005807A2 /* ContinuousControlledInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlledInstrument.h; sourceTree = "<group>"; };
+		C46EB3C315914235005807A2 /* ContinuousControlledInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinuousControlledInstrument.m; sourceTree = "<group>"; };
+		C46EB3C415914235005807A2 /* ContinuousControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlViewController.h; sourceTree = "<group>"; };
+		C46EB3C515914235005807A2 /* ContinuousControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinuousControlViewController.m; sourceTree = "<group>"; };
+		C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinuousControlViewController.xib; sourceTree = "<group>"; };
 		C4761633158D932700C96DE1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C4761634158D932700C96DE1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
 		C4761635158D932700C96DE1 /* PlayCSDFileController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayCSDFileController.xib; path = "Play CSD File/PlayCSDFileController.xib"; sourceTree = "<group>"; };
@@ -349,6 +363,10 @@
 		C43554151582DDED0074764A /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				C46EB3BA15914148005807A2 /* CSDContinuous.h */,
+				C46EB3BB15914148005807A2 /* CSDContinuous.m */,
+				C46EB3BC15914148005807A2 /* CSDContinuousManager.h */,
+				C46EB3BD15914148005807A2 /* CSDContinuousManager.m */,
 				C4C9874F1582DFFA00F1DB9A /* CSDParam.h */,
 				C4C987501582DFFA00F1DB9A /* CSDParam.m */,
 				C4FE85861583535100902E07 /* CSDParamControl.h */,
@@ -372,6 +390,18 @@
 				C44D06681584689D00307AC9 /* CSDProduct.m */,
 			);
 			name = "Mathematical Expressions";
+			sourceTree = "<group>";
+		};
+		C46EB3C115914235005807A2 /* Continuous Control */ = {
+			isa = PBXGroup;
+			children = (
+				C46EB3C215914235005807A2 /* ContinuousControlledInstrument.h */,
+				C46EB3C315914235005807A2 /* ContinuousControlledInstrument.m */,
+				C46EB3C415914235005807A2 /* ContinuousControlViewController.h */,
+				C46EB3C515914235005807A2 /* ContinuousControlViewController.m */,
+				C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */,
+			);
+			path = "Continuous Control";
 			sourceTree = "<group>";
 		};
 		C476163D158D943E00C96DE1 /* Play Audio File */ = {
@@ -531,6 +561,7 @@
 				76B9564E158145F7005AFAE9 /* Unit Generators */,
 				76F2CE1D158561320059CC5E /* Expressions */,
 				C4FE85B01583FF1F00902E07 /* Reverb */,
+				C46EB3C115914235005807A2 /* Continuous Control */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -712,6 +743,7 @@
 				C476163C158D943800C96DE1 /* PlayAudioFileViewController.xib in Resources */,
 				C4761647158DA94700C96DE1 /* hellorcb.aif in Resources */,
 				C4761650158DB59D00C96DE1 /* ExpressionsViewController.xib in Resources */,
+				C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +811,10 @@
 				C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */,
 				C4761643158D94F000C96DE1 /* AudioFilePlayer.m in Sources */,
 				C4761646158D99B800C96DE1 /* CSDLoopingOscillator.m in Sources */,
+				C46EB3BE15914148005807A2 /* CSDContinuous.m in Sources */,
+				C46EB3BF15914148005807A2 /* CSDContinuousManager.m in Sources */,
+				C46EB3C715914235005807A2 /* ContinuousControlledInstrument.m in Sources */,
+				C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

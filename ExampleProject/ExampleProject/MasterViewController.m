@@ -163,7 +163,7 @@
         case 6:
             controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
             break;
-        case 6:
+        case 7:
             controller = [[ContinuousControlViewController alloc] initWithNibName:@"ContinuousControlViewController" bundle:nil];
         default:
             break;
