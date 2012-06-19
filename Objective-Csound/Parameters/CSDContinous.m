@@ -18,7 +18,7 @@
 @synthesize uniqueIdentifier;
 @synthesize output;
 
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue Tag:(int)aTag
+-(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue
 {
     self = [super init];
     if (self) {
@@ -27,7 +27,7 @@
         initValue = aInitValue;
         value = aInitValue;
         
-        uniqueIdentifier = [NSString stringWithFormat:@"cont%d", aTag];
+        uniqueIdentifier = [NSString stringWithFormat:@"cont%@", [self class]];
 
         output = [CSDParamControl paramWithString:[self uniqueName]];
         
@@ -35,7 +35,7 @@
     return self;
 }
 
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue Tag:(int)aTag isControlRate:(BOOL)control 
+-(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue isControlRate:(BOOL)control 
 {
     self = [super init];
     
@@ -45,7 +45,7 @@
     value = aInitValue;
     isControl = control;
     
-    uniqueIdentifier = [NSString stringWithFormat:@"cont%d", aTag];
+    uniqueIdentifier = [NSString stringWithFormat:@"cont%@", [self class]];
     
     //Csound manual gives chnget output as a,k,i-rate but csound-iOS doc refers to k-rate only
     if (self) {
