@@ -34,8 +34,8 @@
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
 
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue;
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue isControlRate:(BOOL)control;
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue;
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isControlRate:(BOOL)control;
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
 +(void) resetID;

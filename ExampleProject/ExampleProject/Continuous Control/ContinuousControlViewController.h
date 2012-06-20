@@ -18,9 +18,15 @@
     
     NSTimer *repeatingNoteTimer;
     NSTimer *repeatingSliderTimer;
+    
+    IBOutlet UISlider * amplitudeSlider;
+    IBOutlet UISlider * modulationSlider;
+    IBOutlet UISlider * modIndexSlider;
 }
 
 -(IBAction)runInstrument:(id)sender;
 -(IBAction)stopInstrument:(id)sender;
+-(IBAction)scaleAmplitude:(id)sender;
+-(IBAction)scaleModulation:(id)sender;
 
 @end

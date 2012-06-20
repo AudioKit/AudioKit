@@ -44,6 +44,7 @@
 						<string key="NSFrame">{{158, 235}, {212, 136}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="671055800"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -112,14 +113,14 @@
 						<string key="NSFrame">{{173, 467}, {422, 23}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="598738450"/>
+						<reference key="NSNextKeyView" ref="488952940"/>
 						<string key="NSReuseIdentifierKey">_NS:623</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<float key="IBUIValue">0.05000000074505806</float>
-						<float key="IBUIMaxValue">2</float>
+						<float key="IBUIValue">100</float>
+						<float key="IBUIMaxValue">100</float>
 					</object>
 					<object class="IBUISlider" id="598738450">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -127,14 +128,14 @@
 						<string key="NSFrame">{{173, 578}, {422, 23}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="485963738"/>
 						<string key="NSReuseIdentifierKey">_NS:623</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<float key="IBUIValue">0.05000000074505806</float>
-						<float key="IBUIMinValue">0.05000000074505806</float>
-						<float key="IBUIMaxValue">2</float>
+						<float key="IBUIValue">100</float>
+						<float key="IBUIMaxValue">100</float>
 					</object>
 					<object class="IBUILabel" id="488952940">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -142,6 +143,7 @@
 						<string key="NSFrame">{{175, 497}, {634, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="598738450"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -169,6 +171,7 @@
 						<string key="NSFrame">{{175, 608}, {634, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="579740629"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -189,14 +192,14 @@
 						<string key="NSFrame">{{173, 677}, {422, 23}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="745327913"/>
 						<string key="NSReuseIdentifierKey">_NS:623</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<float key="IBUIValue">0.05000000074505806</float>
-						<float key="IBUIMinValue">0.05000000074505806</float>
-						<float key="IBUIMaxValue">2</float>
+						<float key="IBUIMaxValue">100</float>
 					</object>
 					<object class="IBUILabel" id="745327913">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -204,6 +207,7 @@
 						<string key="NSFrame">{{175, 707}, {634, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -225,6 +229,7 @@
 						<string key="NSFrame">{{398, 235}, {212, 136}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="516315069"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -270,6 +275,30 @@
 					<int key="connectionID">3</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">amplitudeSlider</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="516315069"/>
+					</object>
+					<int key="connectionID">19</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">modulationSlider</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="598738450"/>
+					</object>
+					<int key="connectionID">20</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">modIndexSlider</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="579740629"/>
+					</object>
+					<int key="connectionID">21</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">runInstrument:</string>
 						<reference key="source" ref="14973012"/>
@@ -277,6 +306,24 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">7</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">scaleAmplitude:</string>
+						<reference key="source" ref="516315069"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">17</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">scaleModulation:</string>
+						<reference key="source" ref="598738450"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">18</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -403,7 +450,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">16</int>
+			<int key="maxID">21</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -412,6 +459,8 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="runInstrument:">id</string>
+						<string key="scaleAmplitude:">id</string>
+						<string key="scaleModulation:">id</string>
 						<string key="stopInstrument:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -419,9 +468,36 @@
 							<string key="name">runInstrument:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="scaleAmplitude:">
+							<string key="name">scaleAmplitude:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scaleModulation:">
+							<string key="name">scaleModulation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="stopInstrument:">
 							<string key="name">stopInstrument:</string>
 							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="amplitudeSlider">UISlider</string>
+						<string key="modIndexSlider">UISlider</string>
+						<string key="modulationSlider">UISlider</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="amplitudeSlider">
+							<string key="name">amplitudeSlider</string>
+							<string key="candidateClassName">UISlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="modIndexSlider">
+							<string key="name">modIndexSlider</string>
+							<string key="candidateClassName">UISlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="modulationSlider">
+							<string key="name">modulationSlider</string>
+							<string key="candidateClassName">UISlider</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

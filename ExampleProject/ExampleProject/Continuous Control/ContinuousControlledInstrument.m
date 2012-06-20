@@ -13,9 +13,9 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
 
 @implementation ContinuousControlledInstrument
 //@synthesize myContinuousManager;
-@synthesize amplitudeContinuous;
-@synthesize modulationContinuous;
-@synthesize modIndexContinuous;
+@synthesize amplitude;
+@synthesize modulation;
+@synthesize modIndex;
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra
 {
@@ -25,25 +25,16 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
         [self addFunctionTable:sineTable];
         
         //myContinuousManager = [[CSDContinuousManager alloc] init];
-        amplitudeContinuous = [[CSDContinuous alloc] init:0.1f 
-                                                      Max:1.0f 
-                                                      Min:0.0f 
-                                            isControlRate:YES];
-        [self addContinuous:amplitudeContinuous];
-        //[myContinuousManager addContinuousParam:amplitudeContinuous forControllerNumber:12];
+        amplitude = [[CSDContinuous alloc] initWithValue:0.1f Min:0.0f Max:1.0f isControlRate:YES];
+        [self addContinuous:amplitude];
+        //[myContinuousManager addContinuousParam:amplitude forControllerNumber:12];
         
-        modulationContinuous = [[CSDContinuous alloc] init:0.5f
-                                                       Max:2.2f 
-                                                       Min:0.25f
-                                             isControlRate:YES];
-        [self addContinuous:modulationContinuous];
+        modulation = [[CSDContinuous alloc] initWithValue:0.5f Min:0.25f Max:2.2f isControlRate:YES];
+        [self addContinuous:modulation];
         //[myContinuousManager addContinuousParam:modulationContinuous forControllerNumber:13];
         
-        modIndexContinuous = [[CSDContinuous alloc] init:1.0f 
-                                                     Max:25.0f
-                                                     Min:0.0f 
-                                           isControlRate:YES];
-        [self addContinuous:modIndexContinuous];
+        modIndex = [[CSDContinuous alloc] initWithValue:1.0f Min:0.0f Max:25.0f isControlRate:YES];
+        [self addContinuous:modIndex];
         //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
         
         /*
@@ -59,11 +50,11 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
          */
         
         CSDFoscili *myFoscili = 
-        [[CSDFoscili alloc] initFMOscillatorWithAmplitude:[CSDParam paramWithContinuous:amplitudeContinuous]
+        [[CSDFoscili alloc] initFMOscillatorWithAmplitude:[CSDParam paramWithContinuous:amplitude]
                                                 Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg] 
                                                   Carrier:[CSDParamConstant paramWithInt:1] 
-                                               Modulation:[CSDParamControl paramWithContinuous:modulationContinuous]
-                                                 ModIndex:[CSDParamControl paramWithContinuous:modIndexContinuous]
+                                               Modulation:[CSDParamControl paramWithContinuous:modulation]
+                                                 ModIndex:[CSDParamControl paramWithContinuous:modIndex]
                                             FunctionTable:sineTable 
                                          AndOptionalPhase:nil];
         [self addOpcode:myFoscili];
