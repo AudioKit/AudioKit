@@ -8,8 +8,6 @@
 
 #import "EffectsProcessor.h"
 
-typedef enum { kDurationArg } EffectsProcessorArguments;
-
 @implementation EffectsProcessor
 @synthesize input;
 
@@ -19,27 +17,24 @@ typedef enum { kDurationArg } EffectsProcessorArguments;
     if (self) {                                                   
         input = [tg auxilliaryOutput];
         
-        CSDReverb * reverb = [[CSDReverb alloc] initWithInputLeft:input
-                                                       InputRight:input 
-                                                    FeedbackLevel:[CSDParamConstant paramWithFloat:0.9f] 
-                                                  CutoffFrequency:[CSDParamConstant paramWithInt:1200]];
-        
+        CSDReverb * reverb = 
+        [[CSDReverb alloc] initWithMonoInput:input
+                               FeedbackLevel:[CSDParamConstant paramWithFloat:0.9f] 
+                             CutoffFrequency:[CSDParamConstant paramWithInt:1200]];
         [self addOpcode:reverb];
-        CSDOutputStereo * stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-                                                                         InputRight:[reverb outputRight]]; 
+        
+        CSDOutputStereo * stereoOutput = 
+        [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
+                                        InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
         
-        CSDAssignment * reverbZero = [[CSDAssignment alloc] initWithInput:[CSDParamConstant paramWithInt:0]];
-        [reverbZero setOutput:input];
-        [self addOpcode:reverbZero];
-        
+        [self resetParam:input];
     }
     return self;
 }
 
 -(void) start {
-    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithInt:10000],  [NSNumber numberWithInt:kDurationArg],nil]];
+    [self playNoteWithDuration:10000.0f];
 }
 
 @end

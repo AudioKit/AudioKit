@@ -21,7 +21,7 @@
     
     CSDParamControl * output;
     
-    BOOL isControl;
+    BOOL isAudioRate;
     
     //channelName
     float* channelPtr;
@@ -34,8 +34,10 @@
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
 
+-(id)init;
+-(id)initWithValue:(float)aInitValue;
 -(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue;
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isControlRate:(BOOL)control;
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isAudioRate:(BOOL)control;
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
 +(void) resetID;

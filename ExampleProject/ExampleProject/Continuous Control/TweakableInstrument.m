@@ -20,10 +20,16 @@
 {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        amplitude  = [[CSDProperty alloc] initWithValue:0.1f Min:0.0f  Max:1.0f isControlRate:YES];
-        frequency  = [[CSDProperty alloc] initWithValue:440  Min:0     Max:22000 isControlRate:YES];
-        modulation = [[CSDProperty alloc] initWithValue:0.5f Min:0.25f Max:2.2f isControlRate:YES];
-        modIndex   = [[CSDProperty alloc] initWithValue:1.0f Min:0.0f  Max:25.0f isControlRate:YES];
+        amplitude  = [[CSDProperty alloc] initWithValue:0.1f    Min:0.0f  Max:1.0f];
+        frequency  = [[CSDProperty alloc] init];
+        modulation = [[CSDProperty alloc] initWithValue:0.5f    Min:0.25f Max:2.2f];
+        modIndex   = [[CSDProperty alloc] initWithValue:1.0f    Min:0.0f  Max:25.0f];
+        
+        //Optional output string assignment, can make for a nicer to read CSD File
+        [amplitude  setOutput:[CSDParamControl paramWithString:@"Amplitude"]]; 
+        [frequency  setOutput:[CSDParamControl paramWithString:@"Frequency"]]; 
+        [modulation setOutput:[CSDParamControl paramWithString:@"Modulation"]]; 
+        [modIndex   setOutput:[CSDParamControl paramWithString:@"ModIndex"]]; 
         
         //[self addProperties:amplitude, frequency, modulation, modIndex, nil];
         [self addProperty:amplitude];

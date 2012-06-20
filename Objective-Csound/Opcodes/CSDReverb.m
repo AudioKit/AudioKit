@@ -12,10 +12,17 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
--(id) initWithInputLeft:(CSDParam *) inLeft
-             InputRight:(CSDParam *) inRight
-          FeedbackLevel:(CSDParamControl *) feedback
-        CutoffFrequency:(CSDParamControl *) cutoff 
+-(id)initWithMonoInput:(CSDParam *)in 
+         FeedbackLevel:(CSDParamControl *) feedback
+       CutoffFrequency:(CSDParamControl *) cutoff 
+{
+    return [self initWithInputLeft:in InputRight:in FeedbackLevel:feedback CutoffFrequency:cutoff];
+}
+
+-(id)initWithInputLeft:(CSDParam *) inLeft
+            InputRight:(CSDParam *) inRight
+         FeedbackLevel:(CSDParamControl *) feedback
+       CutoffFrequency:(CSDParamControl *) cutoff 
 {
     self = [super init];
     if (self) {
@@ -33,12 +40,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@\n",
-            outputLeft,
-            outputRight,
-            inputLeft,
-            inputRight,
-            feedbackLevel,  
-            cutoffFrequency];
+            outputLeft, outputRight, inputLeft, inputRight, feedbackLevel, cutoffFrequency];
 }
 
 @end

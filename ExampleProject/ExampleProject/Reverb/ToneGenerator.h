@@ -14,6 +14,7 @@
 @interface ToneGenerator : CSDInstrument {
     CSDParam * auxilliaryOutput;
 }
+@property (nonatomic, strong) CSDProperty * frequency;
 @property (readonly) CSDParam * auxilliaryOutput;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;

@@ -68,4 +68,15 @@ static int currentID = 1;
     [propertyList addObject:prop];
 }
 
+-(void) resetParam:(CSDParam *) p {
+    [csdRepresentation appendString:[NSString stringWithFormat:@"%@ =  0\n", p]];
+}
+-(void)assignOutput:(CSDParam *)out To:(CSDParam *) in {
+    CSDAssignment * auxOutputAssign = [[CSDAssignment alloc] initWithInput:in];
+    [auxOutputAssign setOutput:out];
+    [self addOpcode:auxOutputAssign];
+}
+
+
+
 @end

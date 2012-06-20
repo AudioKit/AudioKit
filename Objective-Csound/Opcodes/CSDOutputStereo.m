@@ -15,12 +15,7 @@
 
 -(id) initWithMonoInput:(CSDParam *) in
 {
-    self = [super init];
-    if (self) {
-        inputLeft  = in;
-        inputRight = in;
-    }
-    return self; 
+    return [self initWithInputLeft:in InputRight:in];
 }
 
 -(id) initWithInputLeft:(CSDParam *) inLeft
