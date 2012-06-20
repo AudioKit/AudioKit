@@ -8,47 +8,16 @@
 
 #import "FMGameObjectViewController.h"
 
-@interface FMGameObjectViewController ()
-
-@end
-
 @implementation FMGameObjectViewController
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
-    
     myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
-    
     [[CSDManager sharedCSDManager] runOrchestra:orch];
-}
-
--(void) viewWillUnload {
-    [[CSDManager sharedCSDManager] stop];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
 }
 
 - (IBAction)hit1:(id)sender
