@@ -26,20 +26,4 @@
     return self;
 }
 
--(id)initWithProperty:(CSDProperty *)prop
-{
-    self = [super init];
-    if (self) {
-        parameterString = [NSString stringWithFormat:@"%@", [prop output]];
-    }
-    return self;
-}
-
-+(id)paramWithProperty:(CSDProperty *)prop
-{
-    return  [[self alloc] initWithProperty:prop];
-}
-
-
-
 @end

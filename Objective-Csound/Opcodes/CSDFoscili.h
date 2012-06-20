@@ -22,8 +22,8 @@
 @property (nonatomic, strong) CSDParamConstant * phase;
 
 -(id)initFMOscillatorWithAmplitude:(CSDParam *) amp
-                         Frequency:(CSDParam *) cps
-                           Carrier:(CSDParamControl *) car
+                         Frequency:(CSDParamControl *) cps
+                           Carrier:(CSDParam *) car
                         Modulation:(CSDParam *) mod
                           ModIndex:(CSDParamControl *) aModIndex
                      FunctionTable:(CSDFunctionTable *) f

@@ -23,6 +23,4 @@
 -(id)initWithExpression:(NSString *)aExpression;
 +(id)paramWithFormat:(NSString *)format, ...;
 
--(id)initWithProperty:(CSDProperty *)prop;
-+(id)paramWithProperty:(CSDProperty *)prop;
 @end

@@ -34,15 +34,6 @@
     return self;
 }
 
--(id)initWithProperty:(CSDProperty *)prop
-{
-    self = [super init];
-    if (self) {
-        parameterString = [NSString stringWithFormat:@"%@", [prop output]];
-    }
-    return self;
-}
-
 +(id)paramWithString:(NSString *)aString
 {
     return [[self alloc] initWithString:aString];
@@ -53,11 +44,6 @@
     va_start(argumentList, format);
     return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
     va_end(argumentList);
-}
-
-+(id)paramWithProperty:(CSDProperty *)prop
-{
-    return  [[self alloc] initWithProperty:prop];
 }
 
 -(NSString *) description {

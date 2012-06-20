@@ -14,10 +14,8 @@
 -(id)initWithFloat:(float)aFloat;
 -(id)initWithInt:(int)aInt;
 -(id)initWithPValue:(int)aPValue;
--(id)initWithProperty:(CSDProperty *)prop;
 +(id)paramWithFloat:(float)aFloat;
 +(id)paramWithInt:(int)aInt;
 +(id)paramWithPValue:(int)aPValue;
-+(id)paramWithProperty:(CSDProperty *) prop;
 
 @end

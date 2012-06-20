@@ -56,15 +56,6 @@
     return self;
 }
 
--(id)initWithProperty:(CSDProperty *)prop
-{
-    self = [super init];
-    if (self) {
-        parameterString = [NSString stringWithFormat:@"%@", [prop output]];
-    }
-    return self;
-}
-
 +(id)paramWithFloat:(float)aFloat
 {
     return [[self alloc] initWithFloat:aFloat];
@@ -77,10 +68,6 @@
 {
     // AOP Will need to do this better
     return [[self alloc] initWithPValue:(somePValue+3)];
-}
-+(id)paramWithProperty:(CSDProperty *)prop
-{
-    return [[self alloc] initWithProperty:prop];
 }
 
 
