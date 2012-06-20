@@ -54,7 +54,6 @@ typedef enum
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
 {
     NSString *text;
-    int _myID;
 }
 
 @property int   integerIdentifier;
@@ -66,7 +65,6 @@ typedef enum
 @property (readonly) NSString *text;
 
 //-(NSString *) text;
-+(void) resetID;
 -(id) initWithTableSize:(int) size 
              GenRoutine:(int) gen 
              Parameters:(NSString *) params;

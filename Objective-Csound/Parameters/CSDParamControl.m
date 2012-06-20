@@ -21,7 +21,7 @@
     self = [super init];
     if (self) {
         type = @"gk";
-        parameterString = [NSString stringWithFormat:@"%@%@", type, aString];
+        parameterString = [NSString stringWithFormat:@"%@%@%i", type, aString, _myID];
     }
     return self;
 }

@@ -9,13 +9,9 @@
 #import "CSDParamArray.h"
 #import "CSDFunctionTable.h"
 
-@interface CSDOpcode : NSObject {
-    int _myID;
-}
-
+@interface CSDOpcode : NSObject 
 @property (nonatomic, strong) NSString * opcode;
 
 -(NSString *) uniqueName;
 -(NSString *) convertToCsd;
-+(void) resetID;
 @end

@@ -16,13 +16,10 @@
 @synthesize parameters;
 @synthesize text;
 
-static int currentID = 1;
-
 -(id)initWithTableSize:(int)size GenRoutine:(int)gen Parameters:(NSString *)params
 {
     self = [super init];
     if (self) {
-        _myID = currentID++;
         output = [CSDParamConstant paramWithString:[self uniqueName]];
         
         tableSize = size;
@@ -43,7 +40,7 @@ static int currentID = 1;
 }
 
 -(NSString *) uniqueName {
-    NSString * basename = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    NSString * basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
     return basename;
 }
@@ -52,10 +49,6 @@ static int currentID = 1;
 
 -(NSString *) description {
     return [output parameterString];
-}
-
-+(void) resetID {
-    currentID = 1;
 }
 
 

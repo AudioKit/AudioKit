@@ -10,9 +10,16 @@
 @implementation CSDParam
 @synthesize parameterString;
 
+static int currentID = 1;
+
++(void) resetID {
+    currentID = 1;
+}
+
 -(id)init
 {
     self = [super init];
+    _myID = currentID++;
     type = @"a";
     return self;
 }
@@ -20,7 +27,8 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"ga%@", aString];
+        _myID = currentID++;
+        parameterString = [NSString stringWithFormat:@"ga%@%i", aString, _myID];
     }
     return self;
 }

@@ -24,7 +24,6 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        //auxilliaryOutput = [CSDParam paramWithString:@"OscillatorOutput"];
         CSDSineTable * sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
@@ -32,7 +31,6 @@
         [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithFloat:0.1]
                                        Frequency:[frequency output]
                                    FunctionTable:sineTable];
-        //[myOscillator setOutput:auxilliaryOutput];
         [self addOpcode:myOscillator];
 
         CSDOutputStereo * stereoOutput = 
@@ -41,9 +39,7 @@
         
         
         // OUTPUTS =============================================================
-        
-        //After your instrument is set up, define outputs available to others
-        //Perhaps this is another place where CSDProperty could be used with chnset
+        // After your instrument is set up, define outputs available to others
         auxilliaryOutput = [CSDParam paramWithString:@"ToneGeneratorOutput"];
         [self assignOutput:auxilliaryOutput To:[myOscillator output]];
     }
