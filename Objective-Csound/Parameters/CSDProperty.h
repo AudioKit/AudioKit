@@ -1,5 +1,5 @@
 //
-//  CSDContinuous.h
+//  CSDProperty.h
 //
 //  Created by Adam Boulanger on 6/15/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -11,7 +11,7 @@
 @class CSDParam;
 #import "BaseValueCacheable.h"
 
-@interface CSDContinuous : BaseValueCacheable
+@interface CSDProperty : BaseValueCacheable
 {
     int _myID;
     Float32 maximumValue;

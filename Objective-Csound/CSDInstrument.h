@@ -10,8 +10,8 @@
 #import "CSDFunctionTable.h"
 #import "CSDManager.h"
 
-//#import "CSDContinuousManager.h"
-#import "CSDContinuous.h"
+//#import "CSDPropertyManager.h"
+#import "CSDProperty.h"
 #import "CSDOrchestra.h"
 
 @interface CSDInstrument : NSObject {
@@ -19,13 +19,13 @@
     NSMutableString * csdRepresentation;
 
    int  _myID;
-    NSMutableArray * continuousParamList;
+    NSMutableArray * propertyList;
 }
 
 @property (nonatomic, strong) CSDOrchestra * orchestra;
 @property (assign) int finalOutput;
 @property (nonatomic, strong) NSMutableString * csdRepresentation;
-@property (nonatomic, strong) NSMutableArray * continuousParamList;
+@property (nonatomic, strong) NSMutableArray * propertyList;
 
 -(id) initWithOrchestra:(CSDOrchestra *) newOrchestra;
 -(NSString *) uniqueName;
@@ -33,6 +33,8 @@
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
 -(void)playNote:(NSDictionary *)noteEvent;
+-(void)playNoteWithDuration:(float)duration;
 +(void) resetID;
--(void)addContinuous:(CSDContinuous *)continuous;
+-(void)addProperty:(CSDProperty *)prop;
+//-(void)addProperties:(NSArray *)propertyList;
 @end

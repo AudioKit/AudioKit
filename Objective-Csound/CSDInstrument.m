@@ -12,7 +12,7 @@
 @synthesize orchestra;
 @synthesize finalOutput;
 @synthesize csdRepresentation;
-@synthesize continuousParamList;
+@synthesize propertyList;
 
 static int currentID = 1;
 
@@ -27,7 +27,7 @@ static int currentID = 1;
         _myID = currentID++;
         [self joinOrchestra:newOrchestra];
         
-        continuousParamList = [[NSMutableArray alloc] init ];
+        propertyList = [[NSMutableArray alloc] init ];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -43,6 +43,11 @@ static int currentID = 1;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable {
     [csdRepresentation appendString:[newFunctionTable text]];
 }
+-(void)playNoteWithDuration:(float)duration {
+    NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", duration];
+    [[CSDManager sharedCSDManager] playNote:noteEventString OnInstrument:self];
+}
+
 -(void)playNote:(NSDictionary *)noteEvent {
     NSString * noteEventString = @"";
     for (int i=0; i<noteEvent.count; i++) {
@@ -55,12 +60,12 @@ static int currentID = 1;
     currentID = 1;
 }
 
--(void)addContinuous:(CSDContinuous *)continuous 
+-(void)addProperty:(CSDProperty *)prop 
 {
-    [csdRepresentation appendString:[continuous convertToCsd]];
+    [csdRepresentation appendString:[prop convertToCsd]];
     //where I want to update csound's valuesCache array
-    //[[CSDManager sharedCSDManager] addContinuous:continuous];
-    [continuousParamList addObject:continuous];
+    //[[CSDManager sharedCSDManager] addProperty:prop];
+    [propertyList addObject:prop];
 }
 
 @end

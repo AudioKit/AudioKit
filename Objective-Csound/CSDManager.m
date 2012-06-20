@@ -1,13 +1,13 @@
 // CSDManager.m
 
 #import "CSDManager.h"
-#import "CSDContinuousManager.h"
+#import "CSDPropertyManager.h"
 
 @implementation CSDManager
 
 //@synthesize options;
 @synthesize isRunning;
-//@synthesize myContinuousManager;
+//@synthesize myPropertyManager;
 
 static CSDManager * _sharedCSDManager = nil;
 
@@ -42,7 +42,7 @@ static CSDManager * _sharedCSDManager = nil;
         [csound addCompletionListener:self];
         isRunning = NO;
         
-        //myContinuousManager = [[CSDContinuousManager alloc] init];
+        //myPropertyManager = [[CSDPropertyManager alloc] init];
         
         options = @"-odac -dm0 -+rtmidi=null -+rtaudio=null -+msg_color=0";
         sampleRate = 44100;
@@ -94,7 +94,7 @@ static CSDManager * _sharedCSDManager = nil;
     NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
     
     [self writeCSDFileForOrchestra:orch];
-    [self updateValueCacheWithContinuousParams:orch];
+    [self updateValueCacheWithProperties:orch];
     [csound startCsound:myCSDFile];
     isRunning = YES;
     
@@ -104,7 +104,7 @@ static CSDManager * _sharedCSDManager = nil;
     [CSDOpcode resetID];
     [CSDFunctionTable resetID];
     [CSDInstrument resetID];
-    [CSDContinuous resetID];
+    [CSDProperty resetID];
 }
 
 -(void)stop {
@@ -126,11 +126,11 @@ static CSDManager * _sharedCSDManager = nil;
     [csound sendScore:scoreline];
 }
 
--(void)updateValueCacheWithContinuousParams:(CSDOrchestra *)orch
+-(void)updateValueCacheWithProperties:(CSDOrchestra *)orch
 {
     NSArray *arr = [NSArray arrayWithArray:[orch instruments]];
     for (CSDInstrument *i in arr ) {
-        for (CSDContinuous *c in [i continuousParamList]) {
+        for (CSDProperty *c in [i propertyList]) {
             [csound addValueCacheable:c];
         }
     }

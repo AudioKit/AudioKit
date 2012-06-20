@@ -1,22 +1,22 @@
 //
-//  CSDContinuousManager.m
+//  CSDPropertyManager.m
 //
 //  Created by Adam Boulanger on 6/15/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDContinuousManager.h"
+#import "CSDPropertyManager.h"
 
-void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
+void CSDPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
 
-@implementation CSDContinuousManager
-@synthesize continuousParamList;
+@implementation CSDPropertyManager
+@synthesize propertyList;
 
 -(id)init {
     if(self = [super init]) {
-        continuousParamList = [[NSMutableArray alloc] init];
+        propertyList = [[NSMutableArray alloc] init];
         for (int i = 0; i<128; i++) {
-            [continuousParamList addObject:[NSNull null]];
+            [propertyList addObject:[NSNull null]];
         }
         
     [self openMidiIn];
@@ -24,25 +24,25 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
     return self;
 }
 
-/*-(void)addContinuousParam:(CSDContinuous *)continuous forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
+/*-(void)addProperty:(CSDProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
 {
     if (controllerNumber < 0 || controllerNumber > 127) {
         NSLog(@"Error: Attempted to add a widget with controller number outside of range 0-127: %d", controllerNumber);
         return;
     }
     
-    [continuousParamList replaceObjectAtIndex:controllerNumber withObject:continuous];
+    [propertyList replaceObjectAtIndex:controllerNumber withObject:prop];
 }*/
 
--(void)addContinuousParam:(CSDContinuous *)continuous
+-(void)addProperty:(CSDProperty *)prop
 {
-    [continuousParamList addObject:continuous];
-    //[[CSDManager sharedCSDManager] addContinuousParam:continuous];
+    [propertyList addObject:prop];
+    //[[CSDManager sharedCSDManager] addPropertyParam:prop];
 }
 
 /* coremidi callback, called when MIDI data is available */
-void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
-    CSDContinuousManager* manager = (__bridge CSDContinuousManager *)refcon;  
+void CSDPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
+    CSDPropertyManager* manager = (__bridge CSDPropertyManager *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
 	Byte *curpack;
     int i, j;
@@ -55,7 +55,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
                 unsigned int controllerNumber = (unsigned int)(*curpack++);
                 //unsigned int controllerValue = (unsigned int)(*curpack++);
                 
-                id param = [manager.continuousParamList objectAtIndex:controllerNumber];
+                id param = [manager.propertyList objectAtIndex:controllerNumber];
                 
                 //NSLog(@"Controller Number: %d Value: %d", controllerNumber, controllerValue);
                 
@@ -87,7 +87,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
     if(!ret){
         /* MIDI output port */
         pname = CFStringCreateWithCString(NULL, "outport", defaultEncoding);
-        ret = MIDIInputPortCreate(myClient, pname, CSDContinuousManagerReadProc, self, &mport);
+        ret = MIDIInputPortCreate(myClient, pname, CSDPropertyManagerReadProc, self, &mport);
         if(!ret){
             /* sources, we connect to all available input sources */
             endpoints = MIDIGetNumberOfSources();
@@ -111,7 +111,7 @@ void CSDContinuousManagerReadProc(const MIDIPacketList *pktlist, void *refcon, v
 }
 
 -(void)dealloc {
-    [continuousParamList release];
+    [propertyList release];
     [super dealloc];
 }
 

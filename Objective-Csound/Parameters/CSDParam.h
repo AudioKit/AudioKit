@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CSDContinuous.h"
+#import "CSDProperty.h"
 
 @interface CSDParam : NSObject
 {
@@ -23,6 +23,6 @@
 -(id)initWithExpression:(NSString *)aExpression;
 +(id)paramWithFormat:(NSString *)format, ...;
 
--(id)initWithContinuous:(CSDContinuous *)continuous;
-+(id)paramWithContinuous:(CSDContinuous *)continuous;
+-(id)initWithProperty:(CSDProperty *)prop;
++(id)paramWithProperty:(CSDProperty *)prop;
 @end

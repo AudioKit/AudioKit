@@ -34,11 +34,11 @@
     return self;
 }
 
--(id)initWithContinuous:(CSDContinuous *)continuous
+-(id)initWithProperty:(CSDProperty *)prop
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"%@", [continuous output]];
+        parameterString = [NSString stringWithFormat:@"%@", [prop output]];
     }
     return self;
 }
@@ -55,9 +55,9 @@
     va_end(argumentList);
 }
 
-+(id)paramWithContinuous:(CSDContinuous *)continuous
++(id)paramWithProperty:(CSDProperty *)prop
 {
-    return  [[self alloc] initWithContinuous:continuous];
+    return  [[self alloc] initWithProperty:prop];
 }
 
 -(NSString *) description {
