@@ -11,22 +11,8 @@
 
 @synthesize opcode;
 
-static int currentID = 1;
-
--(id) init {
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-    }
-    return self; 
-}
-
-+(void) resetID {
-    currentID = 1;
-}
-
 -(NSString *) uniqueName {
-    NSString * basename = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    NSString * basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
     return basename;
 }

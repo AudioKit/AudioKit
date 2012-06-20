@@ -101,10 +101,8 @@ static CSDManager * _sharedCSDManager = nil;
     NSLog(@"Starting \n%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
     
     //Clean up the IDs for next time
-    [CSDOpcode resetID];
-    [CSDFunctionTable resetID];
+    [CSDParam resetID];
     [CSDInstrument resetID];
-    [CSDProperty resetID];
 }
 
 -(void)stop {

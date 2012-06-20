@@ -17,13 +17,11 @@
 @synthesize uniqueIdentifier;
 @synthesize output;
 
-static int currentID = 1;
 
 -(id)init;
 {
     self = [super init];
     if (self) {
-        _myID = currentID++;
         isAudioRate = NO;
         output = [CSDParam paramWithFormat:@"gk%@", [self uniqueName]];
         
@@ -68,13 +66,9 @@ static int currentID = 1;
 {
     return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, output];
 }
-                      
-+(void) resetID {
-    currentID = 1;
-}
 
 -(NSString *) uniqueName {
-    NSString * basename = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    NSString * basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
     return basename;
 }

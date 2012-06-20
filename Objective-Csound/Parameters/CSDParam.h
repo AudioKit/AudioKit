@@ -14,6 +14,7 @@
 {
     NSString * type; 
     NSString * parameterString;
+    int _myID;
 }
 @property (nonatomic, strong) NSString *parameterString;
 
@@ -22,5 +23,5 @@
 
 -(id)initWithExpression:(NSString *)aExpression;
 +(id)paramWithFormat:(NSString *)format, ...;
-
++(void) resetID;
 @end

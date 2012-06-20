@@ -13,7 +13,6 @@
 
 @interface CSDProperty : BaseValueCacheable
 {
-    int _myID;
     Float32 maximumValue;
     Float32 minimumValue;
     Float32 initValue;
@@ -40,7 +39,6 @@
 -(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isAudioRate:(BOOL)control;
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
-+(void) resetID;
 
 -(void)setup:(CsoundObj*)csoundObj;
 -(void)updateValuesToCsound;
