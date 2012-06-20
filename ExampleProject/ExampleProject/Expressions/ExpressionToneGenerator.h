@@ -7,8 +7,8 @@
 //
 
 #import "CSDInstrument.h"
-#import "CSDOscillator.h"
 #import "CSDSineTable.h"
+#import "CSDOscillator.h"
 #import "CSDLine.h"
 #import "CSDOutputStereo.h"
 

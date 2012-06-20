@@ -6,10 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CSDParam.h"
+#import "CSDParamArray.h"
+#import "CSDFunctionTable.h"
 
 @interface CSDOpcode : NSObject {
-    NSString * opcode;
     int _myID;
 }
 

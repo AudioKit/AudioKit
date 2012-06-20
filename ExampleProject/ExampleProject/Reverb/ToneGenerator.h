@@ -7,11 +7,9 @@
 //
 
 #import "CSDInstrument.h"
-#import "CSDOscillator.h"
 #import "CSDSineTable.h"
+#import "CSDOscillator.h"
 #import "CSDOutputStereo.h"
-#import "CSDParam.h"
-#import "CSDAssignment.h"
 
 @interface ToneGenerator : CSDInstrument {
     CSDParam * auxilliaryOutput;

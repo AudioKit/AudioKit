@@ -10,15 +10,6 @@
 
 extern NSString *const FINAL_OUTPUT;
 
-typedef enum
-{
-    kDecayTypeSimpleAveraging=1,
-    kDecayTypeStretchedAveraging=2,
-    kDecayTypeSimpleDrum=3,
-    kDecayTypeStretchedDrum=4,
-    kDecayTypeWeightedAveraging=5,
-    kDecayTypeRecursiveFirstOrder=6
-}PluckDecayTypes;
 
 typedef enum
 {

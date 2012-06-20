@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDManager.h"
+#import "CSDOpcode.h"
 
 @interface CSDOscillator : CSDOpcode {
     CSDParam * output;

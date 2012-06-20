@@ -7,11 +7,8 @@
 //
 
 #import "CSDManager.h"
-#import "CSDInstrument.h"
-
 #import "CSDSineTable.h"
 #import "CSDFoscili.h"
-
 #import "CSDOutputStereo.h"
 
 @interface ContinuousControlledInstrument : CSDInstrument

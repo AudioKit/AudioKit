@@ -70,7 +70,6 @@
     if (repeatingNoteTimer) {
         return;
     } else {
-        [myContinuousControllerInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200-499)];
         repeatingNoteTimer   = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self 
                                                               selector:@selector(noteTimerFireMethod:)   userInfo:nil repeats:YES];
         repeatingSliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self 

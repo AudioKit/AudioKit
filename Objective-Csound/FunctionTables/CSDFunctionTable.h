@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CSDParamConstant.h"
+#import "CSDParamArray.h"
 
 typedef enum
 {

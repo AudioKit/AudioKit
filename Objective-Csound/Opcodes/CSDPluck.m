@@ -7,6 +7,17 @@
 
 #import "CSDPluck.h"
 
+
+typedef enum
+{
+    kDecayTypeSimpleAveraging=1,
+    kDecayTypeStretchedAveraging=2,
+    kDecayTypeSimpleDrum=3,
+    kDecayTypeStretchedDrum=4,
+    kDecayTypeWeightedAveraging=5,
+    kDecayTypeRecursiveFirstOrder=6
+}PluckDecayTypes;
+
 @implementation CSDPluck
 
 @synthesize output;
@@ -66,8 +77,8 @@
     }
     
     //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
-    return [NSString stringWithFormat:@"%@ %@ %@,  %@,  %i, %@\n",
-            output, opcode, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
+    return [NSString stringWithFormat:@"%@ pluck %@,  %@,  %i, %@\n",
+            output, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
 }
 
 -(id)initWithAmplitude:(NSString *) amp
@@ -78,7 +89,6 @@
 {
 self = [super init];
 if( self ) {
-    opcode = @"pluck";
     amplitude = amp;
     pitch = pch;
     pitchDecayBuffer = hz;
@@ -104,7 +114,6 @@ StretchedAveragingDecay:( NSString *) stretchScaler
 {
     self = [super init];
     if( self ) {
-        opcode = @"pluck";
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;
@@ -129,7 +138,6 @@ StretchedAveragingDecay:( NSString *) stretchScaler
 {
     self = [super init];
     if( self ) {
-        opcode = @"pluck";
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;
@@ -154,7 +162,6 @@ StretchedAveragingDecay:( NSString *) stretchScaler
 {
     self = [super init];
     if( self ) {
-        opcode = @"pluck";
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;
@@ -179,7 +186,6 @@ StretchedAveragingDecay:( NSString *) stretchScaler
 {
     self = [super init];
     if( self ) {
-        opcode = @"pluck";
         amplitude = amp;
         pitch = pch;
         pitchDecayBuffer = hz;

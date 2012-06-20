@@ -6,7 +6,6 @@
 //
 
 #import "CSDOscillator.h"
-#import "CSDParamControl.h"
 
 @implementation CSDOscillator 
 

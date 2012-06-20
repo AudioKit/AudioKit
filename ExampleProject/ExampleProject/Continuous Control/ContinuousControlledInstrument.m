@@ -37,18 +37,6 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
         [self addContinuous:modIndex];
         //[myContinuousManager addContinuousParam:modIndexContinuous forControllerNumber:14];
         
-        /*
-         CSDFoscili *myFoscili = [[CSDFoscili alloc] 
-         initFMOscillatorWithAmplitude: [CSDParamConstant paramWithFloat:0.2]
-         Pitch:[CSDParamConstant paramWithInt:440]
-         Carrier:[CSDParamConstant paramWithInt:1] 
-         Modulation:[CSDParamConstant paramWithFloat:0.5]
-         ModIndex:[CSDParamConstant paramWithFloat:15.0]
-         FunctionTable:sineTable 
-         AndOptionalPhase:nil];
-         [self addOpcode:myFoscili];
-         */
-        
         CSDFoscili *myFoscili = 
         [[CSDFoscili alloc] initFMOscillatorWithAmplitude:[CSDParam paramWithContinuous:amplitude]
                                                 Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg] 
@@ -64,14 +52,7 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
     }
     return self;
 }
-//
-//-(void) playNoteForDuration:(float)dur Pitch:(float)pitch
-//{
-//    int instrumentNumber = [[orchestra instruments] indexOfObject:self] + 1;
-//    
-//    NSString * note = [NSString stringWithFormat:@"%0.2f %0.2f", dur, pitch];
-//    [[CSDManager sharedCSDManager] playNote:note OnInstrument:instrumentNumber];
-//}
+
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq {
     [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
