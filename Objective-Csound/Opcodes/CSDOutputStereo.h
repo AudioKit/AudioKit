@@ -13,6 +13,7 @@
     CSDParam * inputRight;
 }
 
+-(id) initWithMonoInput:(CSDParam *) in;
 -(id) initWithInputLeft:(CSDParam *) inLeft
              InputRight:(CSDParam *) inRight;
 

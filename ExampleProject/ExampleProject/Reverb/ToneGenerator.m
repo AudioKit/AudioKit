@@ -30,8 +30,7 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
         [self addOpcode:myOscillator];
 
         CSDOutputStereo * stereoOutput = 
-        [[CSDOutputStereo alloc] initWithInputLeft:[myOscillator output] 
-                                        InputRight:[myOscillator output]]; 
+        [[CSDOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
 
     }

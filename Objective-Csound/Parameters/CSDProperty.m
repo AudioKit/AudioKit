@@ -85,4 +85,8 @@ static int currentID = 1;
     *channelPtr = [self value];  
 }
 
+-(NSString *)description {
+    return [output parameterString];
+}
+
 @end
