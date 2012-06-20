@@ -44,10 +44,6 @@
     NSLog(@"Starting the CsoundManager business");
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [[CSDManager sharedCSDManager] stop];
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];

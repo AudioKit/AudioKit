@@ -8,10 +8,6 @@
 
 #import "ContinuousControlViewController.h"
 
-@interface ContinuousControlViewController ()
-
-@end
-
 @implementation ContinuousControlViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,7 +43,6 @@
 
 -(void) viewDidDisappear:(BOOL)animated
 {
-    [[CSDManager sharedCSDManager] stop];
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];

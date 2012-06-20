@@ -8,20 +8,7 @@
 
 #import "ExpressionsViewController.h"
 
-@interface ExpressionsViewController ()
-
-@end
-
 @implementation ExpressionsViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -30,22 +17,6 @@
     myOrchestra = [[CSDOrchestra alloc] init];
     myToneGenerator = [[ExpressionToneGenerator alloc] initWithOrchestra:myOrchestra];
     [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
--(void)viewWillUnload
-{
-    [[CSDManager sharedCSDManager] stop];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
 }
 
 -(IBAction)hit1:(id)sender

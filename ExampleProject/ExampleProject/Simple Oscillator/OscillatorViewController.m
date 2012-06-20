@@ -8,21 +8,7 @@
 
 #import "OscillatorViewController.h"
 
-
-@interface OscillatorViewController ()
-
-@end
-
 @implementation OscillatorViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -40,22 +26,5 @@
 - (IBAction)hit2:(id)sender {
     [mySoundGenerator playNoteForDuration:1 Frequency:(arc4random()%200+400)];
 }
-
--(void) viewWillUnload {
-    [[CSDManager sharedCSDManager] stop];
-}
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
-}
-
-
 
 @end
