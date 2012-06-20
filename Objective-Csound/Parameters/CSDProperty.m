@@ -51,9 +51,9 @@ static int currentID = 1;
 
         if(isControl)
         {
-            output = [CSDParam paramWithFormat:@"gk%@", [self uniqueName]];
+            output = [CSDParamControl paramWithFormat:@"k%@", [self uniqueName]];
         } else {
-            output = [CSDParam paramWithFormat:@"ga%@", [self uniqueName]];
+            output = [CSDParam paramWithFormat:@"a%@", [self uniqueName]];
             
         }
     }

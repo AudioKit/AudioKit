@@ -20,9 +20,9 @@
 {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        amplitude  = [[CSDProperty alloc] initWithValue:0.1f Min:0.0f  Max:1.0f  isControlRate:YES];
+        amplitude  = [[CSDProperty alloc] initWithValue:0.1f Min:0.0f  Max:1.0f isControlRate:YES];
         frequency  = [[CSDProperty alloc] initWithValue:440  Min:0     Max:22000 isControlRate:YES];
-        modulation = [[CSDProperty alloc] initWithValue:0.5f Min:0.25f Max:2.2f  isControlRate:YES];
+        modulation = [[CSDProperty alloc] initWithValue:0.5f Min:0.25f Max:2.2f isControlRate:YES];
         modIndex   = [[CSDProperty alloc] initWithValue:1.0f Min:0.0f  Max:25.0f isControlRate:YES];
         
         //[self addProperties:amplitude, frequency, modulation, modIndex, nil];
@@ -40,11 +40,11 @@
         //[myPropertyManager addProperty:modIndexContinuous   forControllerNumber:14];
         
         CSDFoscili *myFoscili = 
-        [[CSDFoscili alloc] initFMOscillatorWithAmplitude:[CSDParam paramWithProperty:amplitude]
-                                                Frequency:[CSDParam paramWithProperty:frequency] 
+        [[CSDFoscili alloc] initFMOscillatorWithAmplitude:[amplitude output]
+                                                Frequency:[frequency output]
                                                   Carrier:[CSDParamConstant paramWithInt:1] 
-                                               Modulation:[CSDParamControl paramWithProperty:modulation]
-                                                 ModIndex:[CSDParamControl paramWithProperty:modIndex]
+                                               Modulation:[modulation output]
+                                                 ModIndex:[modIndex output]
                                             FunctionTable:sineTable 
                                          AndOptionalPhase:nil];
         [self addOpcode:myFoscili];

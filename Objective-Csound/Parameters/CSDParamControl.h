@@ -9,7 +9,5 @@
 #import "CSDParam.h"
 
 @interface CSDParamControl : CSDParam
--(id)initWithProperty:(CSDProperty *)prop;
-+(id)paramWithProperty:(CSDProperty *)prop;
 
 @end

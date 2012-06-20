@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreMIDI/CoreMIDI.h>
 
-@class CSDParam;
+@class CSDParamControl;
 #import "BaseValueCacheable.h"
 
 @interface CSDProperty : BaseValueCacheable
@@ -19,7 +19,7 @@
     Float32 initValue;
     Float32 value;
     
-    CSDParam * output;
+    CSDParamControl * output;
     
     BOOL isControl;
     
@@ -29,7 +29,7 @@
 
 @property (nonatomic, readwrite) Float32 value;
 @property (nonatomic, readonly) NSString * uniqueIdentifier;
-@property (nonatomic, strong) CSDParam * output;
+@property (nonatomic, strong) CSDParamControl * output;
 @property (nonatomic, assign) Float32 maximumValue;
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
