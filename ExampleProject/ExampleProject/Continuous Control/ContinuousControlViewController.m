@@ -41,7 +41,7 @@
     [modulationSlider setValue:sliderValue];
 }
 
--(void) viewDidDisappear:(BOOL)animated
+-(void) viewDidDisappear:(BOOL)animated 
 {
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
@@ -102,8 +102,8 @@
     
     float minValue = [[myContinuousControllerInstrument modIndex] minimumValue];
     float maxValue = [[myContinuousControllerInstrument modIndex] maximumValue];
-    float newValue = minValue + (arc4random()%((int) (maxValue)));
-    [[myContinuousControllerInstrument modIndex] setValue:newValue];
+    float newValue = minValue + (arc4random()%((int) (maxValue)));    
+    myContinuousControllerInstrument.modIndex.value = newValue;
     [modIndexSlider setValue:(newValue-minValue)/(maxValue - minValue) * 100.0];
 }
 
@@ -112,15 +112,15 @@
     float minValue = [[myContinuousControllerInstrument amplitude] minimumValue];
     float maxValue = [[myContinuousControllerInstrument amplitude] maximumValue];
     float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));
-    [[myContinuousControllerInstrument amplitude] setValue:newValue];
+    myContinuousControllerInstrument.amplitude.value = newValue;
 }
 
 -(IBAction)scaleModulation:(id)sender {
     UISlider * mySlider = (UISlider *) sender;
     float minValue = [[myContinuousControllerInstrument modulation] minimumValue];
     float maxValue = [[myContinuousControllerInstrument modulation] maximumValue];
-    float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));
-    [[myContinuousControllerInstrument modulation] setValue:newValue];
+    float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));    
+    myContinuousControllerInstrument.modulation.value = newValue;
 }
 
 @end
