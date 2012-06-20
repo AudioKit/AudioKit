@@ -45,17 +45,22 @@
     [modulationSlider setValue:sliderValue];
 }
 
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [[CSDManager sharedCSDManager] stop];
+    [repeatingNoteTimer invalidate];
+    repeatingNoteTimer = nil;
+    [repeatingSliderTimer invalidate];
+    repeatingSliderTimer = nil;
+    //[[myContinuousControllerInstrument myContinuousManager] closeMidiIn];
+}
+
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    [repeatingNoteTimer invalidate];
-    repeatingNoteTimer = nil;
-    [repeatingSliderTimer invalidate];
-    repeatingSliderTimer = nil;
-    
-    //[[myContinuousControllerInstrument myContinuousManager] closeMidiIn];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -71,16 +76,16 @@
         return;
     } else {
         [myContinuousControllerInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200-499)];
-        NSTimer *noteTimer   = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self 
+        repeatingNoteTimer   = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self 
                                                               selector:@selector(noteTimerFireMethod:)   userInfo:nil repeats:YES];
-        NSTimer *sliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self 
+        repeatingSliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self 
                                                               selector:@selector(sliderTimerFireMethod:) userInfo:nil repeats:YES];
-        NSRunLoop *rl = [NSRunLoop currentRunLoop];
-        [rl addTimer:noteTimer forMode:NSDefaultRunLoopMode];
-        [rl addTimer:sliderTimer forMode:NSDefaultRunLoopMode];
-        
-        repeatingSliderTimer = sliderTimer;
-        repeatingNoteTimer = noteTimer;
+//        NSRunLoop *rl = [NSRunLoop currentRunLoop];
+//        [rl addTimer:noteTimer forMode:NSDefaultRunLoopMode];
+//        [rl addTimer:sliderTimer forMode:NSDefaultRunLoopMode];
+//        
+//        repeatingSliderTimer = sliderTimer;
+//        repeatingNoteTimer = noteTimer;
     }
 }
 
@@ -90,8 +95,6 @@
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
     repeatingSliderTimer = nil;
-    
-    [[CSDManager sharedCSDManager] stop];
 }
 
 -(void)noteTimerFireMethod:(NSTimer *)timer
@@ -108,7 +111,6 @@
     float newValue = minValue + (arc4random()%((int) (maxValue)));
     [[myContinuousControllerInstrument modIndex] setValue:newValue];
     [modIndexSlider setValue:(newValue-minValue)/(maxValue - minValue) * 100.0];
-    //NSLog(@"%0.2f", newValue);
 }
 
 -(IBAction)scaleAmplitude:(id)sender {
@@ -117,7 +119,6 @@
     float maxValue = [[myContinuousControllerInstrument amplitude] maximumValue];
     float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));
     [[myContinuousControllerInstrument amplitude] setValue:newValue];
-    //NSLog(@"%0.2f", newValue);
 }
 
 -(IBAction)scaleModulation:(id)sender {
@@ -126,7 +127,6 @@
     float maxValue = [[myContinuousControllerInstrument modulation] maximumValue];
     float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));
     [[myContinuousControllerInstrument modulation] setValue:newValue];
-    //NSLog(@"%0.2f", newValue);
 }
 
 @end
