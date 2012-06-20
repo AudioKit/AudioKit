@@ -1,6 +1,5 @@
 //
 //  CSDContinuous.m
-//  ExampleProject
 //
 //  Created by Adam Boulanger on 6/15/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -18,18 +17,19 @@
 @synthesize uniqueIdentifier;
 @synthesize output;
 
+static int currentID = 1;
+
 -(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue
 {
     self = [super init];
     if (self) {
+        _myID = currentID++;
         maximumValue = maxValue;
         minimumValue = minValue;
         initValue = aInitValue;
         value = aInitValue;
         isControl = NO;
         
-        uniqueIdentifier = [NSString stringWithFormat:@"cont%@%p", [self class], self];
-
         output = [CSDParam paramWithFormat:@"ga%@", [self uniqueName]];
         
     }
@@ -42,13 +42,13 @@
     
     //Csound manual gives chnget output as a,k,i-rate but csound-iOS doc refers to k-rate only
     if (self) {
+        _myID = currentID++;
         maximumValue = maxValue;
         minimumValue = minValue;
         initValue = aInitValue;
         value = aInitValue;
         isControl = control;
-        
-        uniqueIdentifier = [NSString stringWithFormat:@"cont%@%p", [self class], self];
+
         if(isControl)
         {
             output = [CSDParam paramWithFormat:@"gk%@", [self uniqueName]];
@@ -63,17 +63,21 @@
 
 -(NSString *)convertToCsd
 {
-    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, uniqueIdentifier];
+    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, [self uniqueName]];
 }
                       
--(NSString *) uniqueName
-{
-    return [NSString stringWithFormat:@"%@%p", [self class], self];
++(void) resetID {
+    currentID = 1;
 }
 
+-(NSString *) uniqueName {
+    NSString * basename = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    basename = [basename stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
+    return basename;
+}
 #pragma mark BaseValueCacheable
 -(void)setup:(CsoundObj*)csoundObj {
-    channelPtr = [csoundObj getInputChannelPtr:[self uniqueIdentifier]];
+    channelPtr = [csoundObj getInputChannelPtr:[self uniqueName]];
     *channelPtr = [self value];
 }
 
