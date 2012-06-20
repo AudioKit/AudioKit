@@ -33,6 +33,7 @@
 
     self.splitViewController = [[UISplitViewController alloc] init];
     self.splitViewController.delegate = playCSDFileController;
+    [self.splitViewController setPresentsWithGesture:NO];
     self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
     self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];

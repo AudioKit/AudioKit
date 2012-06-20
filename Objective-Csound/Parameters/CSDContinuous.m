@@ -19,7 +19,7 @@
 
 static int currentID = 1;
 
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue
 {
     self = [super init];
     if (self) {
@@ -36,7 +36,7 @@ static int currentID = 1;
     return self;
 }
 
--(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue isControlRate:(BOOL)control 
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isControlRate:(BOOL)control 
 {
     self = [super init];
     
