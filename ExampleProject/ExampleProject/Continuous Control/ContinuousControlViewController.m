@@ -25,18 +25,18 @@
     // Do any additional setup after loading the view from its nib.
     
     myOrchestra = [[CSDOrchestra alloc] init];
-    myContinuousControllerInstrument = [[ContinuousControlledInstrument alloc] initWithOrchestra:myOrchestra];
+    myTweakableInstrument = [[TweakableInstrument alloc] initWithOrchestra:myOrchestra];
     [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
     
-    float minValue    = [[myContinuousControllerInstrument amplitude] minimumValue];
-    float maxValue    = [[myContinuousControllerInstrument amplitude] maximumValue];
-    float actualValue = [[myContinuousControllerInstrument amplitude] value];
+    float minValue    = [[myTweakableInstrument amplitude] minimumValue];
+    float maxValue    = [[myTweakableInstrument amplitude] maximumValue];
+    float actualValue = [[myTweakableInstrument amplitude] value];
     float sliderValue = (actualValue-minValue)/(maxValue-minValue)* 100.0;
     [amplitudeSlider setValue:sliderValue];
 
-    minValue    = [[myContinuousControllerInstrument modulation] minimumValue];
-    maxValue    = [[myContinuousControllerInstrument modulation] maximumValue];
-    actualValue = [[myContinuousControllerInstrument modulation] value];
+    minValue    = [[myTweakableInstrument modulation] minimumValue];
+    maxValue    = [[myTweakableInstrument modulation] maximumValue];
+    actualValue = [[myTweakableInstrument modulation] value];
     sliderValue = (actualValue-minValue)/(maxValue-minValue)* 100.0;
     [modulationSlider setValue:sliderValue];
 }
@@ -47,7 +47,7 @@
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
     repeatingSliderTimer = nil;
-    //[[myContinuousControllerInstrument myContinuousManager] closeMidiIn];
+    //[[myTweakableInstrument myPropertyManager] closeMidiIn];
 }
 
 
@@ -65,7 +65,7 @@
 
 -(IBAction)runInstrument:(id)sender
 {
-    [myContinuousControllerInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+499)];
+    [myTweakableInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+499)];
     
     if (repeatingNoteTimer) {
         return;
@@ -93,34 +93,34 @@
 
 -(void)noteTimerFireMethod:(NSTimer *)timer
 {
-    [myContinuousControllerInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+400)];
+    [myTweakableInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+400)];
 }
 
 -(void)sliderTimerFireMethod:(NSTimer *)timer
 {
-    //[[myContinuousControllerInstrument myContinuousManager] continuousParamList] obj
+    //[[myTweakableInstrument myPropertyManager] propertyList] obj
     
-    float minValue = [[myContinuousControllerInstrument modIndex] minimumValue];
-    float maxValue = [[myContinuousControllerInstrument modIndex] maximumValue];
+    float minValue = [[myTweakableInstrument modIndex] minimumValue];
+    float maxValue = [[myTweakableInstrument modIndex] maximumValue];
     float newValue = minValue + (arc4random()%((int) (maxValue)));    
-    myContinuousControllerInstrument.modIndex.value = newValue;
+    myTweakableInstrument.modIndex.value = newValue;
     [modIndexSlider setValue:(newValue-minValue)/(maxValue - minValue) * 100.0];
 }
 
 -(IBAction)scaleAmplitude:(id)sender {
     UISlider * mySlider = (UISlider *) sender;
-    float minValue = [[myContinuousControllerInstrument amplitude] minimumValue];
-    float maxValue = [[myContinuousControllerInstrument amplitude] maximumValue];
+    float minValue = [[myTweakableInstrument amplitude] minimumValue];
+    float maxValue = [[myTweakableInstrument amplitude] maximumValue];
     float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));
-    myContinuousControllerInstrument.amplitude.value = newValue;
+    myTweakableInstrument.amplitude.value = newValue;
 }
 
 -(IBAction)scaleModulation:(id)sender {
     UISlider * mySlider = (UISlider *) sender;
-    float minValue = [[myContinuousControllerInstrument modulation] minimumValue];
-    float maxValue = [[myContinuousControllerInstrument modulation] maximumValue];
+    float minValue = [[myTweakableInstrument modulation] minimumValue];
+    float maxValue = [[myTweakableInstrument modulation] maximumValue];
     float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));    
-    myContinuousControllerInstrument.modulation.value = newValue;
+    myTweakableInstrument.modulation.value = newValue;
 }
 
 @end

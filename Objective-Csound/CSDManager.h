@@ -7,7 +7,7 @@
 #import "CSDInstrument.h"
 #import "CSDOrchestra.h"
 
-//#import "CSDContinuousManager.h"
+//#import "CSDPropertyManager.h"
 
 @interface CSDManager : NSObject <CsoundObjCompletionListener> {
     //TODO: odbfs, sr stuff
@@ -19,14 +19,14 @@
     NSString * myCSDFile;
     NSString * templateCSDFileContents;
 
-    //CSDContinuousManager * myContinuousManager;
+    //CSDPropertyManager * myPropertyManager;
     
     CsoundObj * csound;
 
 }
 //@property (nonatomic, strong) NSString * options;
 @property (readonly) BOOL isRunning;
-//@property (nonatomic, strong) CSDContinuousManager * myContinuousManager;
+//@property (nonatomic, strong) CSDPropertyManager * myPropertyManager;
 
 +(CSDManager *) sharedCSDManager;
 -(void)runCSDFile:(NSString *)filename;
@@ -34,7 +34,7 @@
 -(void)stop;
 -(void)playNote:(NSString *)note OnInstrument:(CSDInstrument *)instrument;
 
--(void)updateValueCacheWithContinuousParams:(CSDOrchestra *)orch;
+-(void)updateValueCacheWithProperties:(CSDOrchestra *)orch;
 
 //Other Potential problems
 //-(void)mute;

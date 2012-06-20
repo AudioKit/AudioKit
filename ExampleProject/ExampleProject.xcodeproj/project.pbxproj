@@ -21,9 +21,9 @@
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
 		C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */; };
 		C44D06851587E2E100307AC9 /* CSDAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06841587E2E100307AC9 /* CSDAssignment.m */; };
-		C46EB3BE15914148005807A2 /* CSDContinuous.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BB15914148005807A2 /* CSDContinuous.m */; };
-		C46EB3BF15914148005807A2 /* CSDContinuousManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BD15914148005807A2 /* CSDContinuousManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C46EB3C715914235005807A2 /* ContinuousControlledInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* ContinuousControlledInstrument.m */; };
+		C46EB3BE15914148005807A2 /* CSDProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BB15914148005807A2 /* CSDProperty.m */; };
+		C46EB3BF15914148005807A2 /* CSDPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BD15914148005807A2 /* CSDPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* TweakableInstrument.m */; };
 		C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C515914235005807A2 /* ContinuousControlViewController.m */; };
 		C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */; };
 		C4761636158D934800C96DE1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761634158D932700C96DE1 /* PlayCSDFileController.m */; };
@@ -121,14 +121,14 @@
 		C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionToneGenerator.m; path = ExampleProject/Expressions/ExpressionToneGenerator.m; sourceTree = SOURCE_ROOT; };
 		C44D06831587E2E100307AC9 /* CSDAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDAssignment.h; sourceTree = "<group>"; };
 		C44D06841587E2E100307AC9 /* CSDAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDAssignment.m; sourceTree = "<group>"; };
-		C46EB3BA15914148005807A2 /* CSDContinuous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuous.h; sourceTree = "<group>"; };
-		C46EB3BB15914148005807A2 /* CSDContinuous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuous.m; sourceTree = "<group>"; };
-		C46EB3BC15914148005807A2 /* CSDContinuousManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDContinuousManager.h; sourceTree = "<group>"; };
-		C46EB3BD15914148005807A2 /* CSDContinuousManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDContinuousManager.m; sourceTree = "<group>"; };
-		C46EB3C215914235005807A2 /* ContinuousControlledInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlledInstrument.h; sourceTree = "<group>"; };
-		C46EB3C315914235005807A2 /* ContinuousControlledInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinuousControlledInstrument.m; sourceTree = "<group>"; };
+		C46EB3BA15914148005807A2 /* CSDProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDProperty.h; sourceTree = "<group>"; };
+		C46EB3BB15914148005807A2 /* CSDProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDProperty.m; sourceTree = "<group>"; };
+		C46EB3BC15914148005807A2 /* CSDPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CSDPropertyManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C46EB3BD15914148005807A2 /* CSDPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CSDPropertyManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C46EB3C215914235005807A2 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TweakableInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C46EB3C315914235005807A2 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TweakableInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3C415914235005807A2 /* ContinuousControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlViewController.h; sourceTree = "<group>"; };
-		C46EB3C515914235005807A2 /* ContinuousControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinuousControlViewController.m; sourceTree = "<group>"; };
+		C46EB3C515914235005807A2 /* ContinuousControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ContinuousControlViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinuousControlViewController.xib; sourceTree = "<group>"; };
 		C4761633158D932700C96DE1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C4761634158D932700C96DE1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 		C4C551271576EB08005F7EE4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4C551281576EB08005F7EE4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4C5512A1576EB08005F7EE4 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		C4C5512B1576EB08005F7EE4 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		C4C5512B1576EB08005F7EE4 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C55187157701AF005F7EE4 /* CsoundVirtualKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundVirtualKeyboard.h; sourceTree = "<group>"; };
 		C4C55188157701AF005F7EE4 /* CsoundVirtualKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundVirtualKeyboard.m; sourceTree = "<group>"; };
 		C4C55189157701AF005F7EE4 /* LevelMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeterView.h; sourceTree = "<group>"; };
@@ -230,8 +230,8 @@
 		C4C55195157701F1005F7EE4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C4C55197157701F7005F7EE4 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C4C5519915770208005F7EE4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C4C552091577028C005F7EE4 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDInstrument.h; sourceTree = "<group>"; };
-		C4C5520A1577028C005F7EE4 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDInstrument.m; sourceTree = "<group>"; };
+		C4C552091577028C005F7EE4 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CSDInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C4C5520A1577028C005F7EE4 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CSDInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C5520E1577028C005F7EE4 /* CSDEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDEnvelope.h; sourceTree = "<group>"; };
 		C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDEnvelope.m; sourceTree = "<group>"; };
 		C4C552101577028C005F7EE4 /* CSDFoscili.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDFoscili.h; sourceTree = "<group>"; };
@@ -363,10 +363,10 @@
 		C43554151582DDED0074764A /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
-				C46EB3BA15914148005807A2 /* CSDContinuous.h */,
-				C46EB3BB15914148005807A2 /* CSDContinuous.m */,
-				C46EB3BC15914148005807A2 /* CSDContinuousManager.h */,
-				C46EB3BD15914148005807A2 /* CSDContinuousManager.m */,
+				C46EB3BA15914148005807A2 /* CSDProperty.h */,
+				C46EB3BB15914148005807A2 /* CSDProperty.m */,
+				C46EB3BC15914148005807A2 /* CSDPropertyManager.h */,
+				C46EB3BD15914148005807A2 /* CSDPropertyManager.m */,
 				C4C9874F1582DFFA00F1DB9A /* CSDParam.h */,
 				C4C987501582DFFA00F1DB9A /* CSDParam.m */,
 				C4FE85861583535100902E07 /* CSDParamControl.h */,
@@ -395,8 +395,8 @@
 		C46EB3C115914235005807A2 /* Continuous Control */ = {
 			isa = PBXGroup;
 			children = (
-				C46EB3C215914235005807A2 /* ContinuousControlledInstrument.h */,
-				C46EB3C315914235005807A2 /* ContinuousControlledInstrument.m */,
+				C46EB3C215914235005807A2 /* TweakableInstrument.h */,
+				C46EB3C315914235005807A2 /* TweakableInstrument.m */,
 				C46EB3C415914235005807A2 /* ContinuousControlViewController.h */,
 				C46EB3C515914235005807A2 /* ContinuousControlViewController.m */,
 				C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */,
@@ -811,9 +811,9 @@
 				C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */,
 				C4761643158D94F000C96DE1 /* AudioFilePlayer.m in Sources */,
 				C4761646158D99B800C96DE1 /* CSDLoopingOscillator.m in Sources */,
-				C46EB3BE15914148005807A2 /* CSDContinuous.m in Sources */,
-				C46EB3BF15914148005807A2 /* CSDContinuousManager.m in Sources */,
-				C46EB3C715914235005807A2 /* ContinuousControlledInstrument.m in Sources */,
+				C46EB3BE15914148005807A2 /* CSDProperty.m in Sources */,
+				C46EB3BF15914148005807A2 /* CSDPropertyManager.m in Sources */,
+				C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */,
 				C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

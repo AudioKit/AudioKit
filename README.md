@@ -42,5 +42,5 @@ class had CSDParam as the argument type which I assumed was a-rate, but it turns
 
 RECENT UPDATE NOTES:
 
-* CSDContinuousManager also contains MidiIn methods which aren't used and probably won't stay in 
-CSDContinuous when we do use them.
+* CSDPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
+CSDProperty when we do use them.
