@@ -6,16 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDManager.h"
-#import "CSDConstants.h"
 #import "CSDInstrument.h"
-
-#import "CSDOscillator.h"
 #import "CSDFoscili.h"
-
 #import "CSDLine.h"
 #import "CSDLineSegment.h"
-
 #import "CSDOutputStereo.h"
 
 @interface UnitGenSoundGenerator : CSDInstrument

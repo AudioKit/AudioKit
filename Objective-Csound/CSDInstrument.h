@@ -12,9 +12,7 @@
 
 //#import "CSDContinuousManager.h"
 #import "CSDContinuous.h"
-
-@class CSDManager;
-@class CSDOrchestra;
+#import "CSDOrchestra.h"
 
 @interface CSDInstrument : NSObject {
     CSDOrchestra * orchestra;

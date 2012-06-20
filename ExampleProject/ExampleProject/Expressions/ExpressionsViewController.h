@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "ExpressionToneGenerator.h"
+#import "CSDOrchestra.h"
 
 @interface ExpressionsViewController : UIViewController
 {

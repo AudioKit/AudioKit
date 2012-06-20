@@ -6,10 +6,6 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDParam.h"
-#import "CSDParamControl.h"
-#import "CSDParamConstant.h"
-#import "CSDFunctionTable.h"
 
 @interface CSDFoscili : CSDOpcode {
     CSDParam * output;

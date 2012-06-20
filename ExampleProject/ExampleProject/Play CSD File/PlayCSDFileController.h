@@ -9,7 +9,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
-
 - (IBAction)touchButton:(id)sender;
 
 @end

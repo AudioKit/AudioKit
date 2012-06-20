@@ -6,10 +6,6 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDFunctionTable.h"
-
-#import "CSDConstants.h"
-#import "CSDParam.h"
 
 //ARB - NOTE: started using weight in signatures for things that tend to be 0-1 and scaler/factor for >1
 //ARB - NOTE: trying to deal with(hide) strange paramter that switches between different decay initializations which then 

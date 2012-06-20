@@ -6,7 +6,6 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDParamControl.h"
 
 //aoutL, aoutR reverbsc ainL, ainR, kfblvl, kfco[, israte[, ipitchm[, iskip]]] 
 //aL, aR  reverbsc a1, a2, 0.85, 12000, sr, 0.5, 1

@@ -1,15 +1,12 @@
 //  SoundGenerator.h
 
 #import <UIKit/UIKit.h>
-#import "CSDManager.h"
 #import "CSDInstrument.h"
 #import "CSDSineTable.h"
-#import "CSDParam.h"
-#import "CSDParamArray.h"
-#import "CSDOutputStereo.h"
-#import "CSDReverb.h"
-
 #import "CSDOscillator.h"
+#import "CSDParamArray.h"
+#import "CSDReverb.h"
+#import "CSDOutputStereo.h"
 
 @interface SoundGenerator : CSDInstrument 
     

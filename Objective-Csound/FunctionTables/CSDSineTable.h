@@ -6,7 +6,7 @@
 //
 
 #import "CSDFunctionTable.h"
-#import "CSDParamArray.h"
+
 @interface CSDSineTable : CSDFunctionTable
 -(id) initWithTableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials;
 -(id) init;

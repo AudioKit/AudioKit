@@ -20,7 +20,7 @@ typedef enum { kDurationArg, kFrequencyArg, kModulationArg } FMGameObjectArgumen
         CSDSineTable *sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        myFoscilOpcode = [[CSDFoscili alloc] 
+        CSDFoscili * myFoscilOpcode = [[CSDFoscili alloc] 
                           initFMOscillatorWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
                                               Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg]
                                                 Carrier:[CSDParamConstant paramWithInt:1]
