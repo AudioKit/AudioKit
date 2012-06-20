@@ -9,6 +9,7 @@
 #import "CSDOpcode.h"
 #import "CSDFunctionTable.h"
 #import "CSDManager.h"
+#import "CSDAssignment.h"
 
 //#import "CSDPropertyManager.h"
 #import "CSDProperty.h"
@@ -37,4 +38,6 @@
 +(void) resetID;
 -(void)addProperty:(CSDProperty *)prop;
 //-(void)addProperties:(NSArray *)propertyList;
+-(void)resetParam:(CSDParam *) p;
+-(void)assignOutput:(CSDParam *)out To:(CSDParam *) in; 
 @end

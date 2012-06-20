@@ -22,6 +22,10 @@
 @property (nonatomic, strong) CSDParam * outputLeft;
 @property (nonatomic, strong) CSDParam * outputRight;
 
+-(id) initWithMonoInput:(CSDParam *) in
+          FeedbackLevel:(CSDParamControl *) feedback
+        CutoffFrequency:(CSDParamControl *) cutoff;
+
 -(id) initWithInputLeft:(CSDParam *) inLeft
              InputRight:(CSDParam *) inRight
           FeedbackLevel:(CSDParamControl *) feedback

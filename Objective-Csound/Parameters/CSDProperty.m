@@ -19,51 +19,54 @@
 
 static int currentID = 1;
 
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue
+-(id)init;
 {
     self = [super init];
     if (self) {
         _myID = currentID++;
-        maximumValue = maxValue;
-        minimumValue = minValue;
-        initValue = aInitValue;
-        value = aInitValue;
-        isControl = NO;
-        
-        output = [CSDParam paramWithFormat:@"ga%@", [self uniqueName]];
+        isAudioRate = NO;
+        output = [CSDParam paramWithFormat:@"gk%@", [self uniqueName]];
         
     }
     return self;
 }
 
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isControlRate:(BOOL)control 
+-(id)initWithValue:(float)aInitValue
 {
-    self = [super init];
-    
-    //Csound manual gives chnget output as a,k,i-rate but csound-iOS doc refers to k-rate only
-    if (self) {
-        _myID = currentID++;
-        maximumValue = maxValue;
-        minimumValue = minValue;
-        initValue = aInitValue;
-        value = aInitValue;
-        isControl = control;
+    self = [self init];
+    initValue = aInitValue;
+    value = aInitValue;
 
-        if(isControl)
-        {
-            output = [CSDParamControl paramWithFormat:@"k%@", [self uniqueName]];
-        } else {
-            output = [CSDParam paramWithFormat:@"a%@", [self uniqueName]];
-            
-        }
-    }
+    return self;
+}
 
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue
+{
+    self = [self init];
+    initValue = aInitValue;
+    value = aInitValue;
+    minimumValue = minValue;
+    maximumValue = maxValue;
+    return self;
+}
+
+-(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isAudioRate:(BOOL)control 
+{
+    self = [self init];
+    initValue = aInitValue;
+    value = aInitValue;
+    minimumValue = minValue;
+    maximumValue = maxValue;
+    isAudioRate = control;
+    if(isAudioRate) {
+        output = [CSDParam paramWithFormat:@"ga%@", [self uniqueName]];
+    } 
     return self;
 }
 
 -(NSString *)convertToCsd
 {
-    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, [self uniqueName]];
+    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, output];
 }
                       
 +(void) resetID {
@@ -77,7 +80,7 @@ static int currentID = 1;
 }
 #pragma mark BaseValueCacheable
 -(void)setup:(CsoundObj*)csoundObj {
-    channelPtr = [csoundObj getInputChannelPtr:[self uniqueName]];
+    channelPtr = [csoundObj getInputChannelPtr:[output parameterString]];
     *channelPtr = [self value];
 }
 

@@ -23,10 +23,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        //output = [CSDParamConstant paramWithString:[NSString stringWithFormat:@"%@%i", [self class], _myID]];
-        NSString * outputString = [NSString stringWithFormat:@"%@%i", [self class], _myID];
-        outputString = [outputString stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
-        output = [CSDParamConstant paramWithString:outputString];
+        output = [CSDParamConstant paramWithString:[self uniqueName]];
         
         tableSize = size;
         generatingRoutine = gen;
@@ -43,6 +40,12 @@ static int currentID = 1;
         }
     }
     return self;
+}
+
+-(NSString *) uniqueName {
+    NSString * basename = [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    basename = [basename stringByReplacingOccurrencesOfString:@"CSD" withString:@""];
+    return basename;
 }
 
 
