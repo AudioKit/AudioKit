@@ -13,6 +13,16 @@
     return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
 }
 
+-(id) initWithMonoInput:(CSDParam *) in
+{
+    self = [super init];
+    if (self) {
+        inputLeft  = in;
+        inputRight = in;
+    }
+    return self; 
+}
+
 -(id) initWithInputLeft:(CSDParam *) inLeft
              InputRight:(CSDParam *) inRight
 {

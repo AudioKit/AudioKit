@@ -49,7 +49,7 @@
                                          AndOptionalPhase:nil];
         [self addOpcode:myFoscili];
         
-        CSDOutputStereo *stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[myFoscili output] InputRight:[myFoscili output]];
+        CSDOutputStereo *stereoOutput = [[CSDOutputStereo alloc] initWithMonoInput:[myFoscili output]];
         [self addOpcode:stereoOutput];
     }
     return self;

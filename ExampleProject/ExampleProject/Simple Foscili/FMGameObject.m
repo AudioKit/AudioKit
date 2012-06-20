@@ -29,7 +29,7 @@ typedef enum { kDurationArg, kFrequencyArg, kModulationArg } FMGameObjectArgumen
                                           FunctionTable:sineTable
                                         AndOptionalPhase:nil];
         [self addOpcode:myFoscilOpcode];
-        CSDOutputStereo * monoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[myFoscilOpcode output] InputRight:[myFoscilOpcode output]];
+        CSDOutputStereo * monoOutput = [[CSDOutputStereo alloc] initWithMonoInput:[myFoscilOpcode output]];
         [self addOpcode:monoOutput];
     }
     return self;

@@ -35,7 +35,7 @@ typedef enum { kDurationArg, kFrequencyArg } SoundGeneratorArguments;
         
         [self addOpcode:reverb];
         CSDOutputStereo * stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-                                                                       InputRight:[reverb outputRight]]; 
+                                                                         InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;
