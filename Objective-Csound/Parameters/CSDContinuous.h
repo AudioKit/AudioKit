@@ -1,6 +1,5 @@
 //
 //  CSDContinuous.h
-//  ExampleProject
 //
 //  Created by Adam Boulanger on 6/15/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -14,6 +13,7 @@
 
 @interface CSDContinuous : BaseValueCacheable
 {
+    int _myID;
     Float32 maximumValue;
     Float32 minimumValue;
     Float32 initValue;
@@ -24,7 +24,6 @@
     BOOL isControl;
     
     //channelName
-    NSString * uniqueIdentifier;
     float* channelPtr;
 }
 
@@ -39,6 +38,7 @@
 -(id)init:(float)aInitValue Max:(float)maxValue Min:(float)minValue isControlRate:(BOOL)control;
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
++(void) resetID;
 
 -(void)setup:(CsoundObj*)csoundObj;
 -(void)updateValuesToCsound;
