@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		768124A2157FC923004BAA44 /* CSDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 768124A1157FC922004BAA44 /* CSDConstants.m */; };
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
-		C43553E4158073CD0074764A /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E2158073CD0074764A /* template.csd */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
 		C44D06651584679E00307AC9 /* CSDSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06641584679E00307AC9 /* CSDSum.m */; };
@@ -20,14 +18,20 @@
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
 		C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */; };
 		C44D06851587E2E100307AC9 /* CSDAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06841587E2E100307AC9 /* CSDAssignment.m */; };
-		C46EB3BE15914148005807A2 /* CSDProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BB15914148005807A2 /* CSDProperty.m */; };
-		C46EB3BF15914148005807A2 /* CSDPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3BD15914148005807A2 /* CSDPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* TweakableInstrument.m */; };
 		C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C515914235005807A2 /* ContinuousControlViewController.m */; };
 		C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */; };
 		C46EB3DB1592A8DE005807A2 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3DA1592A8DE005807A2 /* example.csd */; };
 		C46EB3DF1592AA55005807A2 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3DD1592AA52005807A2 /* InitialViewController.m */; };
 		C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3DE1592AA54005807A2 /* InitialViewController.xib */; };
+		C46EB3EE1592D677005807A2 /* CSDProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3EB1592D677005807A2 /* CSDProperty.m */; };
+		C46EB3EF1592D677005807A2 /* CSDPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3ED1592D677005807A2 /* CSDPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C46EB3FC1592D6C0005807A2 /* CSDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3F21592D6C0005807A2 /* CSDConstants.m */; };
+		C46EB3FF1592D6C0005807A2 /* CSDInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3F71592D6C0005807A2 /* CSDInstrument.m */; };
+		C46EB4001592D6C0005807A2 /* CSDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3F91592D6C0005807A2 /* CSDManager.m */; };
+		C46EB4011592D6C0005807A2 /* CSDOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3FB1592D6C0005807A2 /* CSDOrchestra.m */; };
+		C46EB4051592D771005807A2 /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C46EB4031592D771005807A2 /* test.csd */; };
+		C46EB40B1592D7D7005807A2 /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C46EB4021592D771005807A2 /* template.csd */; };
 		C4761636158D934800C96DE1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761634158D932700C96DE1 /* PlayCSDFileController.m */; };
 		C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4761635158D932700C96DE1 /* PlayCSDFileController.xib */; };
 		C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761639158D943800C96DE1 /* PlayAudioFileViewController.m */; };
@@ -75,20 +79,16 @@
 		C4C55196157701F1005F7EE4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55195157701F1005F7EE4 /* CoreMotion.framework */; };
 		C4C55198157701F7005F7EE4 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55197157701F7005F7EE4 /* CoreMIDI.framework */; };
 		C4C5519A15770208005F7EE4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5519915770208005F7EE4 /* AVFoundation.framework */; };
-		C4C552181577028C005F7EE4 /* CSDInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520A1577028C005F7EE4 /* CSDInstrument.m */; };
 		C4C5521A1577028C005F7EE4 /* CSDEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */; };
 		C4C5521B1577028C005F7EE4 /* CSDFoscili.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552111577028C005F7EE4 /* CSDFoscili.m */; };
 		C4C5521C1577028C005F7EE4 /* CSDOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552131577028C005F7EE4 /* CSDOpcode.m */; };
 		C4C5521D1577028C005F7EE4 /* CSDOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552151577028C005F7EE4 /* CSDOscillator.m */; };
-		C4C55240157714DC005F7EE4 /* CSDOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */; };
-		C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5523D1577143B005F7EE4 /* CSDManager.m */; };
 		C4C67D16158D63A100F3CB8E /* CSDSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C67D15158D63A100F3CB8E /* CSDSoundFileTable.m */; };
 		C4C987541582E00A00F1DB9A /* CSDParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987501582DFFA00F1DB9A /* CSDParam.m */; };
 		C4C987551582E00A00F1DB9A /* CSDParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987521582DFFA00F1DB9A /* CSDParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4FE85881583535100902E07 /* CSDParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* CSDParamControl.m */; };
 		C4FE85961583CE0700902E07 /* CSDOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85951583CE0700902E07 /* CSDOutputMono.m */; };
 		C4FE85A11583E3E400902E07 /* CSDReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A01583E3E400902E07 /* CSDReverb.m */; };
-		C4FE85A41583ED9B00902E07 /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4FE85A31583ED9B00902E07 /* test.csd */; };
 		C4FE85A71583F63D00902E07 /* CSDOutputStereo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */; };
 		C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BC1583FF7800902E07 /* ToneGenerator.m */; };
 		C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */; };
@@ -97,8 +97,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7643F8AB15794297002E060B /* CSDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
-		768124A1157FC922004BAA44 /* CSDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDConstants.m; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* CSDPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* CSDPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPluck.m; sourceTree = "<group>"; };
 		76B956451581302D005AFAE9 /* CSDLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDLine.h; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
-		C43553E2158073CD0074764A /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
 		C43553EB15807BB80074764A /* CSDSineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDSineTable.h; path = FunctionTables/CSDSineTable.h; sourceTree = "<group>"; };
 		C43553EC15807BB80074764A /* CSDSineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDSineTable.m; path = FunctionTables/CSDSineTable.m; sourceTree = "<group>"; };
 		C44D06631584679D00307AC9 /* CSDSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDSum.h; sourceTree = "<group>"; };
@@ -122,10 +119,6 @@
 		C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionToneGenerator.m; path = ExampleProject/Expressions/ExpressionToneGenerator.m; sourceTree = SOURCE_ROOT; };
 		C44D06831587E2E100307AC9 /* CSDAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDAssignment.h; sourceTree = "<group>"; };
 		C44D06841587E2E100307AC9 /* CSDAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDAssignment.m; sourceTree = "<group>"; };
-		C46EB3BA15914148005807A2 /* CSDProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDProperty.h; sourceTree = "<group>"; };
-		C46EB3BB15914148005807A2 /* CSDProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDProperty.m; sourceTree = "<group>"; };
-		C46EB3BC15914148005807A2 /* CSDPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CSDPropertyManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C46EB3BD15914148005807A2 /* CSDPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CSDPropertyManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3C215914235005807A2 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TweakableInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C46EB3C315914235005807A2 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TweakableInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3C415914235005807A2 /* ContinuousControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlViewController.h; sourceTree = "<group>"; };
@@ -135,6 +128,22 @@
 		C46EB3DC1592AA51005807A2 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		C46EB3DD1592AA52005807A2 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
 		C46EB3DE1592AA54005807A2 /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
+		C46EB3EA1592D677005807A2 /* CSDProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDProperty.h; sourceTree = "<group>"; };
+		C46EB3EB1592D677005807A2 /* CSDProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDProperty.m; sourceTree = "<group>"; };
+		C46EB3EC1592D677005807A2 /* CSDPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDPropertyManager.h; sourceTree = "<group>"; };
+		C46EB3ED1592D677005807A2 /* CSDPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPropertyManager.m; sourceTree = "<group>"; };
+		C46EB3F11592D6C0005807A2 /* CSDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
+		C46EB3F21592D6C0005807A2 /* CSDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDConstants.m; sourceTree = "<group>"; };
+		C46EB3F41592D6C0005807A2 /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
+		C46EB3F51592D6C0005807A2 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
+		C46EB3F61592D6C0005807A2 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDInstrument.h; sourceTree = "<group>"; };
+		C46EB3F71592D6C0005807A2 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDInstrument.m; sourceTree = "<group>"; };
+		C46EB3F81592D6C0005807A2 /* CSDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDManager.h; sourceTree = "<group>"; };
+		C46EB3F91592D6C0005807A2 /* CSDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDManager.m; sourceTree = "<group>"; };
+		C46EB3FA1592D6C0005807A2 /* CSDOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOrchestra.h; sourceTree = "<group>"; };
+		C46EB3FB1592D6C0005807A2 /* CSDOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOrchestra.m; sourceTree = "<group>"; };
+		C46EB4021592D771005807A2 /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
+		C46EB4031592D771005807A2 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
 		C4761633158D932700C96DE1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C4761634158D932700C96DE1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
 		C4761635158D932700C96DE1 /* PlayCSDFileController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayCSDFileController.xib; path = "Play CSD File/PlayCSDFileController.xib"; sourceTree = "<group>"; };
@@ -235,8 +244,6 @@
 		C4C55195157701F1005F7EE4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C4C55197157701F7005F7EE4 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C4C5519915770208005F7EE4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C4C552091577028C005F7EE4 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CSDInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C4C5520A1577028C005F7EE4 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CSDInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C5520E1577028C005F7EE4 /* CSDEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDEnvelope.h; sourceTree = "<group>"; };
 		C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDEnvelope.m; sourceTree = "<group>"; };
 		C4C552101577028C005F7EE4 /* CSDFoscili.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDFoscili.h; sourceTree = "<group>"; };
@@ -245,10 +252,6 @@
 		C4C552131577028C005F7EE4 /* CSDOpcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOpcode.m; sourceTree = "<group>"; };
 		C4C552141577028C005F7EE4 /* CSDOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOscillator.h; sourceTree = "<group>"; };
 		C4C552151577028C005F7EE4 /* CSDOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOscillator.m; sourceTree = "<group>"; };
-		C4C5523C1577143B005F7EE4 /* CSDManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDManager.h; sourceTree = "<group>"; };
-		C4C5523D1577143B005F7EE4 /* CSDManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSDManager.m; sourceTree = "<group>"; };
-		C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOrchestra.h; sourceTree = "<group>"; };
-		C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOrchestra.m; sourceTree = "<group>"; };
 		C4C67D14158D63A100F3CB8E /* CSDSoundFileTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDSoundFileTable.h; path = FunctionTables/CSDSoundFileTable.h; sourceTree = "<group>"; };
 		C4C67D15158D63A100F3CB8E /* CSDSoundFileTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDSoundFileTable.m; path = FunctionTables/CSDSoundFileTable.m; sourceTree = "<group>"; };
 		C4C9874F1582DFFA00F1DB9A /* CSDParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSDParam.h; sourceTree = "<group>"; };
@@ -261,7 +264,6 @@
 		C4FE85951583CE0700902E07 /* CSDOutputMono.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputMono.m; sourceTree = "<group>"; };
 		C4FE859F1583E3E400902E07 /* CSDReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDReverb.h; sourceTree = "<group>"; };
 		C4FE85A01583E3E400902E07 /* CSDReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDReverb.m; sourceTree = "<group>"; };
-		C4FE85A31583ED9B00902E07 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
 		C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOutputStereo.h; sourceTree = "<group>"; };
 		C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputStereo.m; sourceTree = "<group>"; };
 		C4FE85BB1583FF7800902E07 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
@@ -358,8 +360,8 @@
 		C43553E0158073CD0074764A /* CSDFiles */ = {
 			isa = PBXGroup;
 			children = (
-				C43553E2158073CD0074764A /* template.csd */,
-				C4FE85A31583ED9B00902E07 /* test.csd */,
+				C46EB4021592D771005807A2 /* template.csd */,
+				C46EB4031592D771005807A2 /* test.csd */,
 			);
 			path = CSDFiles;
 			sourceTree = "<group>";
@@ -367,10 +369,6 @@
 		C43554151582DDED0074764A /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
-				C46EB3BA15914148005807A2 /* CSDProperty.h */,
-				C46EB3BB15914148005807A2 /* CSDProperty.m */,
-				C46EB3BC15914148005807A2 /* CSDPropertyManager.h */,
-				C46EB3BD15914148005807A2 /* CSDPropertyManager.m */,
 				C4C9874F1582DFFA00F1DB9A /* CSDParam.h */,
 				C4C987501582DFFA00F1DB9A /* CSDParam.m */,
 				C4FE85861583535100902E07 /* CSDParamControl.h */,
@@ -406,6 +404,42 @@
 				C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */,
 			);
 			path = "Continuous Control";
+			sourceTree = "<group>";
+		};
+		C46EB3E91592D674005807A2 /* Properties */ = {
+			isa = PBXGroup;
+			children = (
+				C46EB3EA1592D677005807A2 /* CSDProperty.h */,
+				C46EB3EB1592D677005807A2 /* CSDProperty.m */,
+				C46EB3EC1592D677005807A2 /* CSDPropertyManager.h */,
+				C46EB3ED1592D677005807A2 /* CSDPropertyManager.m */,
+			);
+			path = Properties;
+			sourceTree = "<group>";
+		};
+		C46EB3F01592D6BE005807A2 /* Core Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C46EB3F11592D6C0005807A2 /* CSDConstants.h */,
+				C46EB3F21592D6C0005807A2 /* CSDConstants.m */,
+				C46EB3F31592D6C0005807A2 /* CSDFiles */,
+				C46EB3F61592D6C0005807A2 /* CSDInstrument.h */,
+				C46EB3F71592D6C0005807A2 /* CSDInstrument.m */,
+				C46EB3F81592D6C0005807A2 /* CSDManager.h */,
+				C46EB3F91592D6C0005807A2 /* CSDManager.m */,
+				C46EB3FA1592D6C0005807A2 /* CSDOrchestra.h */,
+				C46EB3FB1592D6C0005807A2 /* CSDOrchestra.m */,
+			);
+			path = "Core Classes";
+			sourceTree = "<group>";
+		};
+		C46EB3F31592D6C0005807A2 /* CSDFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C46EB3F41592D6C0005807A2 /* template.csd */,
+				C46EB3F51592D6C0005807A2 /* test.csd */,
+			);
+			path = CSDFiles;
 			sourceTree = "<group>";
 		};
 		C476163D158D943E00C96DE1 /* Play Audio File */ = {
@@ -605,17 +639,11 @@
 			isa = PBXGroup;
 			children = (
 				C43553D015805CA60074764A /* README.md */,
-				7643F8AB15794297002E060B /* CSDConstants.h */,
-				768124A1157FC922004BAA44 /* CSDConstants.m */,
-				C4C5523C1577143B005F7EE4 /* CSDManager.h */,
-				C4C5523D1577143B005F7EE4 /* CSDManager.m */,
-				C4C5523E157714DC005F7EE4 /* CSDOrchestra.h */,
-				C4C5523F157714DC005F7EE4 /* CSDOrchestra.m */,
-				C4C552091577028C005F7EE4 /* CSDInstrument.h */,
-				C4C5520A1577028C005F7EE4 /* CSDInstrument.m */,
+				C46EB3F01592D6BE005807A2 /* Core Classes */,
 				C43553CE15804D310074764A /* FunctionTables */,
 				C4C5520D1577028C005F7EE4 /* Opcodes */,
 				C43554151582DDED0074764A /* Parameters */,
+				C46EB3E91592D674005807A2 /* Properties */,
 				C43553E0158073CD0074764A /* CSDFiles */,
 			);
 			name = "Objective-Csound";
@@ -740,11 +768,9 @@
 				C4C551231576EB08005F7EE4 /* InfoPlist.strings in Resources */,
 				C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */,
 				C43553D115805CA60074764A /* README.md in Resources */,
-				C43553E4158073CD0074764A /* template.csd in Resources */,
 				C495F73F1583444700951461 /* MasterViewController.xib in Resources */,
 				C495F7501583452100951461 /* FMGameObjectViewController.xib in Resources */,
 				C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */,
-				C4FE85A41583ED9B00902E07 /* test.csd in Resources */,
 				C4FE85CA1584011B00902E07 /* ReverbViewController.xib in Resources */,
 				C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */,
 				C476163C158D943800C96DE1 /* PlayAudioFileViewController.xib in Resources */,
@@ -753,6 +779,8 @@
 				C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */,
 				C46EB3DB1592A8DE005807A2 /* example.csd in Resources */,
 				C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */,
+				C46EB4051592D771005807A2 /* test.csd in Resources */,
+				C46EB40B1592D7D7005807A2 /* template.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,13 +806,10 @@
 				C4C55190157701AF005F7EE4 /* LevelMeterView.m in Sources */,
 				C4C55191157701AF005F7EE4 /* UIControlXY.m in Sources */,
 				C4C55192157701AF005F7EE4 /* UIKnob.m in Sources */,
-				C4C552181577028C005F7EE4 /* CSDInstrument.m in Sources */,
 				C4C5521A1577028C005F7EE4 /* CSDEnvelope.m in Sources */,
 				C4C5521B1577028C005F7EE4 /* CSDFoscili.m in Sources */,
 				C4C5521C1577028C005F7EE4 /* CSDOpcode.m in Sources */,
 				C4C5521D1577028C005F7EE4 /* CSDOscillator.m in Sources */,
-				C4C55240157714DC005F7EE4 /* CSDOrchestra.m in Sources */,
-				C4C5524515771BED005F7EE4 /* CSDManager.m in Sources */,
 				76B322251579012500FF54BB /* CSDPluck.m in Sources */,
 				C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */,
 				C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */,
@@ -797,7 +822,6 @@
 				C4842D541579C2F800E69770 /* CachedGyroscope.m in Sources */,
 				C4842D551579C2F800E69770 /* CachedSlider.m in Sources */,
 				C4842D561579C2F800E69770 /* CachedSwitch.m in Sources */,
-				768124A2157FC923004BAA44 /* CSDConstants.m in Sources */,
 				76B956471581302D005AFAE9 /* CSDLine.m in Sources */,
 				76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */,
 				C495F74E1583452100951461 /* FMGameObject.m in Sources */,
@@ -820,11 +844,15 @@
 				C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */,
 				C4761643158D94F000C96DE1 /* AudioFilePlayer.m in Sources */,
 				C4761646158D99B800C96DE1 /* CSDLoopingOscillator.m in Sources */,
-				C46EB3BE15914148005807A2 /* CSDProperty.m in Sources */,
-				C46EB3BF15914148005807A2 /* CSDPropertyManager.m in Sources */,
 				C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */,
 				C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */,
 				C46EB3DF1592AA55005807A2 /* InitialViewController.m in Sources */,
+				C46EB3EE1592D677005807A2 /* CSDProperty.m in Sources */,
+				C46EB3EF1592D677005807A2 /* CSDPropertyManager.m in Sources */,
+				C46EB3FC1592D6C0005807A2 /* CSDConstants.m in Sources */,
+				C46EB3FF1592D6C0005807A2 /* CSDInstrument.m in Sources */,
+				C46EB4001592D6C0005807A2 /* CSDManager.m in Sources */,
+				C46EB4011592D6C0005807A2 /* CSDOrchestra.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
