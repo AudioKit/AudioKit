@@ -76,14 +76,13 @@
 						<string key="NSFrame">{{273, 159}, {222, 110}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Run</string>
+						<string key="IBUINormalTitle">Stop</string>
 						<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -131,7 +130,7 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
-					<object class="IBUITextView" id="266777514">
+					<object class="IBUITextView" id="313924468">
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{74, 285}, {645, 687}}</string>
@@ -255,7 +254,7 @@ cj4</bytes>
 						<array class="NSMutableArray" key="children">
 							<reference ref="483876647"/>
 							<reference ref="130047032"/>
-							<reference ref="266777514"/>
+							<reference ref="313924468"/>
 							<reference ref="560528130"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -277,7 +276,7 @@ cj4</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
-						<reference key="object" ref="266777514"/>
+						<reference key="object" ref="313924468"/>
 						<reference key="parent" ref="647120888"/>
 					</object>
 				</array>
