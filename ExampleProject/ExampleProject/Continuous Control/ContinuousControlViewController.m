@@ -98,8 +98,6 @@
 
 -(void)sliderTimerFireMethod:(NSTimer *)timer
 {
-    //[[myTweakableInstrument myPropertyManager] propertyList] obj
-    
     float minValue = [[myTweakableInstrument modIndex] minimumValue];
     float maxValue = [[myTweakableInstrument modIndex] maximumValue];
     float newValue = minValue + (arc4random()%((int) (maxValue)));    
