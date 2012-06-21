@@ -10,6 +10,7 @@
 		76B322251579012500FF54BB /* CSDPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* CSDPluck.m */; };
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
+		76F3201915935369008338E2 /* CSDGrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201815935369008338E2 /* CSDGrain.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
@@ -103,6 +104,8 @@
 		76B956461581302D005AFAE9 /* CSDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLine.m; sourceTree = "<group>"; };
 		76B9564A15813808005AFAE9 /* CSDLineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDLineSegment.h; sourceTree = "<group>"; };
 		76B9564B15813808005AFAE9 /* CSDLineSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLineSegment.m; sourceTree = "<group>"; };
+		76F3201715935369008338E2 /* CSDGrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDGrain.h; sourceTree = "<group>"; };
+		76F3201815935369008338E2 /* CSDGrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDGrain.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
@@ -659,6 +662,8 @@
 				C4C5520F1577028C005F7EE4 /* CSDEnvelope.m */,
 				C4C552101577028C005F7EE4 /* CSDFoscili.h */,
 				C4C552111577028C005F7EE4 /* CSDFoscili.m */,
+				76F3201715935369008338E2 /* CSDGrain.h */,
+				76F3201815935369008338E2 /* CSDGrain.m */,
 				C4761644158D99B800C96DE1 /* CSDLoopingOscillator.h */,
 				C4761645158D99B800C96DE1 /* CSDLoopingOscillator.m */,
 				C4C552141577028C005F7EE4 /* CSDOscillator.h */,
@@ -853,6 +858,7 @@
 				C46EB3FF1592D6C0005807A2 /* CSDInstrument.m in Sources */,
 				C46EB4001592D6C0005807A2 /* CSDManager.m in Sources */,
 				C46EB4011592D6C0005807A2 /* CSDOrchestra.m in Sources */,
+				76F3201915935369008338E2 /* CSDGrain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
