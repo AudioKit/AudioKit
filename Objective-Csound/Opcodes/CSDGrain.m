@@ -9,6 +9,7 @@
 #import "CSDGrain.h"
 
 @implementation CSDGrain
+@synthesize output;
 @synthesize amplitude;
 @synthesize pitch;
 @synthesize grainDensity;
