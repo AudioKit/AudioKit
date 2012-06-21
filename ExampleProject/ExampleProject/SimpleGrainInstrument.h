@@ -7,7 +7,8 @@
 //
 
 #import "CSDInstrument.h"
-#import "CSDSineTable.h"
+#import "CSDSoundFileTable.h"
+#import "CSDWindowsTable.h"
 #import "CSDProperty.h"
 #import "CSDGrain.h"
 

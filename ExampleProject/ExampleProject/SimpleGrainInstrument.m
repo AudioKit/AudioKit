@@ -18,12 +18,19 @@
         // INPUTS AND CONTROLS =================================================
         
         // INSTRUMENT DEFINITION ===============================================
-        CSDFunctionTable *sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:nil];
-        [self addFunctionTable:sineTable];
+        NSString * file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
+        CSDSoundFileTable *fileTable = [[CSDSoundFileTable alloc] initWithFilename:file];
+        [self addFunctionTable:fileTable];
         
-        CSDGrain *grain = [[CSDGrain alloc] initWithAmplitude:[CSDParamConstant paramWith pitch:<#(CSDParam *)#> grainDensity:<#(CSDParam *)#> amplitudeOffset:<#(CSDParamControl *)#> pitchOffset:<#(CSDParamControl *)#> grainDuration:<#(CSDParamControl *)#> maxGrainDuration:<#(CSDParamConstant *)#> grainFunction:sineTable windowFunction:<#(CSDFunctionTable *)#> isRandomGrainFunctionIndex:NO]
+        
+        CSDFunctionTable *hamming = [[CSDWindowsTable alloc] initWithTableSize:512 
+                                                                   WindowType:kWindowHanning];
+        [self addFunctionTable:hamming];
+        
+        CSDGrain *grain = [[CSDGrain alloc] initWithAmplitude:[CSDParamConstant paramWith pitch:<#(CSDParam *)#> grainDensity:<#(CSDParam *)#> amplitudeOffset:<#(CSDParamControl *)#> pitchOffset:<#(CSDParamControl *)#> grainDuration:<#(CSDParamControl *)#> maxGrainDuration:<#(CSDParamConstant *)#> grainFunction:sineTable windowFunction:hamming isRandomGrainFunctionIndex:NO]
         // AUDIO OUTPUT ========================================================
     }
 }
+
 
 @end
