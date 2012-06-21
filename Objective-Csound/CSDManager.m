@@ -70,8 +70,11 @@ static CSDManager * _sharedCSDManager = nil;
     NSLog(@"Running with %@.csd", filename);
     NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
     [csound startCsound:file];
-    isRunning = YES;
-    NSLog(@"Starting \n%@",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
+    while(!isRunning) {
+        NSLog(@"Waiting for Csound to startup completely.");
+    }
+
+    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
 
 }
 
@@ -96,9 +99,11 @@ static CSDManager * _sharedCSDManager = nil;
     [self writeCSDFileForOrchestra:orch];
     [self updateValueCacheWithProperties:orch];
     [csound startCsound:myCSDFile];
-    isRunning = YES;
-    
-    NSLog(@"Starting \n%@",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
+    while(!isRunning) {
+        NSLog(@"Waiting for Csound to startup completely.");
+    }
+
+    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
     
     //Clean up the IDs for next time
     [CSDParam resetID];
@@ -108,9 +113,12 @@ static CSDManager * _sharedCSDManager = nil;
 -(void)stop {
     NSLog(@"Stopping Csound");
     [csound stopCsound];
-    isRunning  = NO;
+    while(isRunning) {
+        NSLog(@"Waiting for Csound to stop completely.");
+    }
+    
     // Hackfor giving csound time to fully stop before trying to restart
-    [NSThread sleepForTimeInterval:0.1];
+    //[NSThread sleepForTimeInterval:0.1];
 }
 
 -(void)playNote:(NSString *)note OnInstrument:(CSDInstrument *)instrument{
@@ -137,9 +145,13 @@ static CSDManager * _sharedCSDManager = nil;
 #pragma mark CsoundObjCompletionListener
 
 -(void)csoundObjDidStart:(CsoundObj *)csoundObj {
+    NSLog(@"Csound Started.");
+    isRunning = YES;
 }
 
 -(void)csoundObjComplete:(CsoundObj *)csoundObj {
+    NSLog(@"Csound Completed.");
+    isRunning  = NO;
 }
 
 @end
