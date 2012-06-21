@@ -11,6 +11,10 @@
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
 		76F3201915935369008338E2 /* CSDGrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201815935369008338E2 /* CSDGrain.m */; };
+		76F3202015939E70008338E2 /* GrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201E15939E70008338E2 /* GrainViewController.m */; };
+		76F3202115939E70008338E2 /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F3201F15939E70008338E2 /* GrainViewController.xib */; };
+		76F3202615939ECD008338E2 /* MoreGrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3202415939ECD008338E2 /* MoreGrainViewController.m */; };
+		76F3202715939ECD008338E2 /* MoreGrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F3202515939ECD008338E2 /* MoreGrainViewController.xib */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
@@ -106,6 +110,12 @@
 		76B9564B15813808005AFAE9 /* CSDLineSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLineSegment.m; sourceTree = "<group>"; };
 		76F3201715935369008338E2 /* CSDGrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDGrain.h; sourceTree = "<group>"; };
 		76F3201815935369008338E2 /* CSDGrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDGrain.m; sourceTree = "<group>"; };
+		76F3201D15939E70008338E2 /* GrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainViewController.h; sourceTree = "<group>"; };
+		76F3201E15939E70008338E2 /* GrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainViewController.m; sourceTree = "<group>"; };
+		76F3201F15939E70008338E2 /* GrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GrainViewController.xib; sourceTree = "<group>"; };
+		76F3202315939ECD008338E2 /* MoreGrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGrainViewController.h; sourceTree = "<group>"; };
+		76F3202415939ECD008338E2 /* MoreGrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreGrainViewController.m; sourceTree = "<group>"; };
+		76F3202515939ECD008338E2 /* MoreGrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreGrainViewController.xib; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
@@ -345,6 +355,26 @@
 			);
 			name = Expressions;
 			path = Reverb;
+			sourceTree = "<group>";
+		};
+		76F3201C15939E36008338E2 /* Grain */ = {
+			isa = PBXGroup;
+			children = (
+				76F3201D15939E70008338E2 /* GrainViewController.h */,
+				76F3201E15939E70008338E2 /* GrainViewController.m */,
+				76F3201F15939E70008338E2 /* GrainViewController.xib */,
+			);
+			name = Grain;
+			sourceTree = "<group>";
+		};
+		76F3202215939EB2008338E2 /* MoreGrain */ = {
+			isa = PBXGroup;
+			children = (
+				76F3202315939ECD008338E2 /* MoreGrainViewController.h */,
+				76F3202415939ECD008338E2 /* MoreGrainViewController.m */,
+				76F3202515939ECD008338E2 /* MoreGrainViewController.xib */,
+			);
+			name = MoreGrain;
 			sourceTree = "<group>";
 		};
 		C43553CE15804D310074764A /* FunctionTables */ = {
@@ -600,6 +630,8 @@
 				76F2CE1D158561320059CC5E /* Expressions */,
 				C4FE85B01583FF1F00902E07 /* Reverb */,
 				C46EB3C115914235005807A2 /* Continuous Control */,
+				76F3201C15939E36008338E2 /* Grain */,
+				76F3202215939EB2008338E2 /* MoreGrain */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -786,6 +818,8 @@
 				C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */,
 				C46EB4051592D771005807A2 /* test.csd in Resources */,
 				C46EB40B1592D7D7005807A2 /* template.csd in Resources */,
+				76F3202115939E70008338E2 /* GrainViewController.xib in Resources */,
+				76F3202715939ECD008338E2 /* MoreGrainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,6 +893,8 @@
 				C46EB4001592D6C0005807A2 /* CSDManager.m in Sources */,
 				C46EB4011592D6C0005807A2 /* CSDOrchestra.m in Sources */,
 				76F3201915935369008338E2 /* CSDGrain.m in Sources */,
+				76F3202015939E70008338E2 /* GrainViewController.m in Sources */,
+				76F3202615939ECD008338E2 /* MoreGrainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

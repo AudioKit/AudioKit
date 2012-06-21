@@ -7,7 +7,6 @@
 
 #import "CSDPluck.h"
 
-
 typedef enum
 {
     kDecayTypeSimpleAveraging=1,
@@ -22,105 +21,56 @@ typedef enum
 
 @synthesize output;
 @synthesize amplitude;
-@synthesize pitch;
-@synthesize pitchDecayBuffer;
-@synthesize functionTable;
-
+@synthesize resamplingFrequency;
+@synthesize pitchDecayFrequency;
+@synthesize cyclicDecayFunction;
 @synthesize decayMethod;
 @synthesize roughness;
 @synthesize stretchFactor;
 @synthesize currentSampleWeight;
 @synthesize previousSampleWeight;
 
--(NSString *) textWithPValue:(int)p
-{
-
-    if ( @"p" == amplitude ) { 
-        amplitude = [NSString stringWithFormat:@"p%i", p++];
-    }
-    if ( @"p" == pitch ) { 
-        pitch = [NSString stringWithFormat:@"p%i", p++]; 
-    }
-    if ( @"p" == pitchDecayBuffer ) { 
-        pitchDecayBuffer = [NSString stringWithFormat:@"p%i", p++];
-    }
-    
-    NSString *decayParameters;
-    switch ( [decayMethod intValue]) {
-        case kDecayTypeSimpleAveraging:
-            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
-                 kDecayTypeSimpleAveraging, 0, 0];
-            break;
-        case kDecayTypeStretchedAveraging:
-            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
-                 kDecayTypeStretchedAveraging, stretchFactor, 0];
-            break;
-        case kDecayTypeSimpleDrum:
-            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
-                 kDecayTypeSimpleDrum, roughness, 0];
-            break;
-        case kDecayTypeStretchedDrum:
-            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
-                 kDecayTypeStretchedDrum, roughness, stretchFactor];            
-            break;
-        case kDecayTypeWeightedAveraging:
-            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
-                 kDecayTypeWeightedAveraging, currentSampleWeight, previousSampleWeight];            
-            break;
-        case kDecayTypeRecursiveFirstOrder:
-            decayParameters = [NSString stringWithFormat:@"%@, %@, %@", 
-                 kDecayTypeRecursiveFirstOrder, 0, 0];
-            break;
-        default:
-            NSLog(@"Invalid decayType [:textWithPValue]");
-            break;
-    }
-    
-    //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
-    return [NSString stringWithFormat:@"%@ pluck %@,  %@,  %i, %@\n",
-            output, amplitude, pitch, pitchDecayBuffer, [functionTable integerIdentifier], decayParameters ];
-}
-
--(id)initWithAmplitude:(NSString *) amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-        RecursiveDecay:(BOOL) orSimpleDecay
-{
-self = [super init];
-if( self ) {
-    amplitude = amp;
-    pitch = pch;
-    pitchDecayBuffer = hz;
-    functionTable = f;
-    
-    //Recursive or Simple decay
-    decayMethod = orSimpleDecay ? @"1" : @"6";
-    
-    roughness = nil;
-    stretchFactor = nil;
-    currentSampleWeight = nil;
-    stretchFactor = nil;
-}
-return self;
-}
-
-
--(id)initWithAmplitude:(NSString *)amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-StretchedAveragingDecay:( NSString *) stretchScaler
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+        RecursiveDecay:(BOOL)orSimpleDecay
 {
     self = [super init];
     if( self ) {
+        output = [CSDParam paramWithString:[self uniqueName]];
         amplitude = amp;
-        pitch = pch;
-        pitchDecayBuffer = hz;
-        functionTable = f;
+        resamplingFrequency = freq;
+        pitchDecayFrequency = pchDecayFreq;
+        cyclicDecayFunction = f;
+    
+        //Recursive or Simple decay
+        decayMethod = [CSDParamConstant paramWithInt:orSimpleDecay ? kDecayTypeRecursiveFirstOrder : kDecayTypeSimpleAveraging];
+                   
+        roughness = nil;
+        stretchFactor = nil;
+        currentSampleWeight = nil;
+        stretchFactor = nil;
+    }
+    return self;
+}
+
+
+-(id)initWithAmplitude:(CSDParamControl *)amp
+       ResamplingFrequency:(CSDParamControl *)freq
+       PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+  CyclicDecayFunctionTable:(CSDFunctionTable *)f  
+   StretchedAveragingDecay:(CSDParamConstant *)stretchScaler
+{
+    self = [super init];
+    if( self ) {
+        output = [CSDParam paramWithString:[self uniqueName]];
+        amplitude = amp;
+        resamplingFrequency = freq;
+        pitchDecayFrequency = pchDecayFreq;
+        cyclicDecayFunction = f;
         
-        decayMethod = @"2";
-        
+        decayMethod = [CSDParamConstant paramWithInt:kDecayTypeStretchedAveraging];
         stretchFactor = stretchScaler;
         
         roughness = nil;
@@ -130,20 +80,21 @@ StretchedAveragingDecay:( NSString *) stretchScaler
     return self;
 }
 
--(id)initWithAmplitude:(NSString *)amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-       SimpleDrumDecay:( NSString *) roughWeight
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+       SimpleDrumDecay:(CSDParamConstant *)roughWeight;
 {
     self = [super init];
     if( self ) {
+        output = [CSDParam paramWithString:[self uniqueName]];
         amplitude = amp;
-        pitch = pch;
-        pitchDecayBuffer = hz;
-        functionTable = f;
-    
-        decayMethod = @"3";
+        resamplingFrequency = freq;
+        pitchDecayFrequency = pchDecayFreq;
+        cyclicDecayFunction = f;
+        
+        decayMethod = [CSDParamConstant paramWithInt:kDecayTypeSimpleDrum];
         roughness = roughWeight;
         
         stretchFactor = nil;
@@ -153,21 +104,22 @@ StretchedAveragingDecay:( NSString *) stretchScaler
     return self;
 }
 
--(id)initWithAmplitude:(NSString *)amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-    StretchedDrumDecay:( NSString *) roughWeight
-         StretchFactor:( NSString *)stretchScaler
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+    StretchedDrumDecay:(CSDParamConstant *)roughWeight
+         StretchFactor:(CSDParamConstant *)stretchScaler
 {
     self = [super init];
     if( self ) {
+        output = [CSDParam paramWithString:[self uniqueName]];
         amplitude = amp;
-        pitch = pch;
-        pitchDecayBuffer = hz;
-        functionTable = f;
-    
-        decayMethod = @"4";
+        resamplingFrequency = freq;
+        pitchDecayFrequency = pchDecayFreq;
+        cyclicDecayFunction = f;
+        
+        decayMethod = [CSDParamConstant paramWithInt:kDecayTypeStretchedDrum];
         roughness = roughWeight;
         stretchFactor = stretchScaler;
         
@@ -177,25 +129,30 @@ StretchedAveragingDecay:( NSString *) stretchScaler
     return self;
 }
 
--(id)initWithAmplitude:(NSString *)amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-  WeightedAverageDecay:( NSString *) currSampleWeight
-         StretchFactor:( NSString *)prevSampleWeight
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+  WeightedAverageDecay:(CSDParamConstant *)currSampleWeight
+         StretchFactor:(CSDParamConstant *)prevSampleWeight
 {
     self = [super init];
     if( self ) {
+        output = [CSDParam paramWithString:[self uniqueName]];
         amplitude = amp;
-        pitch = pch;
-        pitchDecayBuffer = hz;
-        functionTable = f;
-    
-        decayMethod = @"5";
+        resamplingFrequency = freq;
+        pitchDecayFrequency = pchDecayFreq;
+        cyclicDecayFunction = f;
+        
+        decayMethod = [CSDParamConstant paramWithInt:kDecayTypeWeightedAveraging];
         currentSampleWeight = currSampleWeight;
         stretchFactor = prevSampleWeight;
     }
     return self;
+}
+
+-(NSString *) description {
+    return [output parameterString];
 }
 
 @end

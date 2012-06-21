@@ -18,47 +18,47 @@
 
 @property (nonatomic, strong) CSDParam * output;
 //ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
-@property (nonatomic, strong) NSString *amplitude;
-@property (nonatomic, strong) NSString *pitch;
-@property (nonatomic, strong) NSString *pitchDecayBuffer;
-@property (nonatomic, strong) CSDFunctionTable *functionTable;
+@property (nonatomic, strong) CSDParamControl * amplitude;
+@property (nonatomic, strong) CSDParamControl * resamplingFrequency;
+@property (nonatomic, strong) CSDParamConstant * pitchDecayFrequency;
+@property (nonatomic, strong) CSDFunctionTable * cyclicDecayFunction;
 
-@property (nonatomic, strong) NSString *decayMethod;
-@property (nonatomic, strong) NSString *roughness;
-@property (nonatomic, strong) NSString *stretchFactor;
-@property (nonatomic, strong) NSString *currentSampleWeight;
-@property (nonatomic, strong) NSString *previousSampleWeight;
+@property (nonatomic, strong) CSDParamConstant * decayMethod;
+@property (nonatomic, strong) CSDParamConstant * roughness;
+@property (nonatomic, strong) CSDParamConstant * stretchFactor;
+@property (nonatomic, strong) CSDParamConstant * currentSampleWeight;
+@property (nonatomic, strong) CSDParamConstant * previousSampleWeight;
 
--(id)initWithAmplitude:(NSString *) amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-        RecursiveDecay:(BOOL) orSimpleDecay;
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+        RecursiveDecay:(BOOL)orSimpleDecay;
 
--(id)initWithAmplitude:(NSString *) amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f  
-StretchedAveragingDecay:(NSString *) stretchScaler;
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f  
+StretchedAveragingDecay:(CSDParamConstant *)stretchScaler;
 
--(id)initWithAmplitude:(NSString *) amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-       SimpleDrumDecay:(NSString *)roughWeight;
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+       SimpleDrumDecay:(CSDParamConstant *)roughWeight;
 
--(id)initWithAmplitude:(NSString *) amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-    StretchedDrumDecay:(NSString *) roughWeight
-         StretchFactor:(NSString *)stretchScaler;
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+    StretchedDrumDecay:(CSDParamConstant *)roughWeight
+         StretchFactor:(CSDParamConstant *)stretchScaler;
 
--(id)initWithAmplitude:(NSString *) amp
-                 Pitch:(NSString *) pch
-    DecayedPitchBuffer:(NSString *) hz
-         FunctionTable:(CSDFunctionTable *) f
-  WeightedAverageDecay:(NSString *) currSampleWeight
-         StretchFactor:(NSString *)prevSampleWeight;
+-(id)initWithAmplitude:(CSDParamControl *)amp
+   ResamplingFrequency:(CSDParamControl *)freq
+   PitchDecayFrequency:(CSDParamConstant *)pchDecayFreq
+CyclicDecayFunctionTable:(CSDFunctionTable *)f
+  WeightedAverageDecay:(CSDParamConstant *)currSampleWeight
+         StretchFactor:(CSDParamConstant *)prevSampleWeight;
 
 @end

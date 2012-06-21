@@ -21,3 +21,7 @@ RECENT UPDATE NOTES:
 
 * CSDPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
 CSDProperty when we do use them.
+
+INDIGESTION:
+
+* Develop convention for conditional initialization
