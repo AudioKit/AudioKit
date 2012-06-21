@@ -10,6 +10,7 @@
 @interface CSDSoundFileTable : CSDFunctionTable
 
 -(id) initWithFilename:(NSString *) file;
+-(id) initWithFilename:(NSString *) file TableSize:(int)tableSize;
 
 @end
 

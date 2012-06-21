@@ -19,7 +19,8 @@
         
         // INSTRUMENT DEFINITION ===============================================
         NSString * file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
-        CSDSoundFileTable *fileTable = [[CSDSoundFileTable alloc] initWithFilename:file];
+        CSDSoundFileTable *fileTable = [[CSDSoundFileTable alloc] initWithFilename:file 
+                                                                         TableSize:16384];
         [self addFunctionTable:fileTable];
         
         
@@ -46,7 +47,7 @@
 
         CSDLine * pitchLine = [[CSDLine alloc] initWithStartingValue:baseFreq 
                                                             Duration:duration 
-                                                         TargetValue:[CSDParamConstant paramWithFormat:@"0.8 * %@", baseFreq]];
+                                                         TargetValue:[CSDParamConstant paramWithFormat:@"0.8 * (%@)", baseFreq]];
         [self addOpcode:pitchLine];
         
         CSDLine * grainDensityLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithInt:600] 
@@ -59,10 +60,10 @@
                                                              TargetValue:[CSDParamConstant paramWithFloat:0.1]];
         [self addOpcode:ampOffsetLine];
         
-        CSDLine * pitchOffsetLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithInt:0] Duration:duration TargetValue:[CSDParamConstant paramWithFormat:@"0.5 * %@", baseFreq]];
+        CSDLine * pitchOffsetLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithInt:0] Duration:duration TargetValue:[CSDParamConstant paramWithFormat:@"0.5 * (%@)", baseFreq]];
         [self addOpcode:pitchOffsetLine];   
         
-        CSDLine * grainDurationLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithFloat:0.1] Duration:duration TargetValue:[CSDParamConstant paramWithFloat:0.1]];
+        CSDLine * grainDurationLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithFloat:0.1] Duration:duration TargetValue:[CSDParamConstant paramWithFloat:0.1f]];
         [self addOpcode:grainDurationLine];
         
         CSDGrain * grainL = [[CSDGrain alloc] initWithAmplitude:[amplitudeExp output] 
@@ -70,7 +71,7 @@
                                                   grainDensity:[grainDensityLine output]
                                                amplitudeOffset:[ampOffsetLine output]
                                                    pitchOffset:[pitchOffsetLine output] 
-                                                 grainDuration:[grainDurationLine output]  maxGrainDuration:[CSDParamConstant paramWithFloat:0.5] 
+                                                 grainDuration:[grainDurationLine output]  maxGrainDuration:[CSDParamConstant paramWithInt:5] 
                                                  grainFunction:fileTable 
                                                 windowFunction:hamming 
                                     isRandomGrainFunctionIndex:NO];
@@ -81,7 +82,7 @@
                                                   grainDensity:[grainDensityLine output]
                                                amplitudeOffset:[ampOffsetLine output]
                                                    pitchOffset:[pitchOffsetLine output] 
-                                                 grainDuration:[grainDurationLine output]  maxGrainDuration:[CSDParamConstant paramWithFloat:0.5] 
+                                                 grainDuration:[grainDurationLine output]  maxGrainDuration:[CSDParamConstant paramWithInt:5] 
                                                  grainFunction:fileTable 
                                                 windowFunction:hamming 
                                     isRandomGrainFunctionIndex:NO];

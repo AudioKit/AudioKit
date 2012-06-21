@@ -13,4 +13,9 @@
     NSString * parameters = [NSString stringWithFormat:@"\"%@\", 0, 0, 0", file];
     return [super initWithTableSize:0 GenRoutine:kGenRoutineSoundFile Parameters:parameters];
 }
+
+-(id) initWithFilename:(NSString *) file TableSize:(int)tableSize {
+    NSString * parameters = [NSString stringWithFormat:@"\"%@\", 0, 0, 0", file];
+    return [super initWithTableSize:tableSize GenRoutine:kGenRoutineSoundFile Parameters:parameters];
+}
 @end
