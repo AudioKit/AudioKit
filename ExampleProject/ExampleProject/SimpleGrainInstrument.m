@@ -27,7 +27,7 @@
                                                                    WindowType:kWindowHanning];
         [self addFunctionTable:hamming];
         
-        CSDGrain *grain = [[CSDGrain alloc] initWithAmplitude:[CSDParamConstant paramWith pitch:<#(CSDParam *)#> grainDensity:<#(CSDParam *)#> amplitudeOffset:<#(CSDParamControl *)#> pitchOffset:<#(CSDParamControl *)#> grainDuration:<#(CSDParamControl *)#> maxGrainDuration:<#(CSDParamConstant *)#> grainFunction:sineTable windowFunction:hamming isRandomGrainFunctionIndex:NO]
+        CSDGrain *grain = [[CSDGrain alloc] initWithAmplitude:[CSDParamConstant  paramWith pitch:<#(CSDParam *)#> grainDensity:<#(CSDParam *)#> amplitudeOffset:<#(CSDParamControl *)#> pitchOffset:<#(CSDParamControl *)#> grainDuration:<#(CSDParamControl *)#> maxGrainDuration:[CSDParamConstant paramWithFloat:0.5] grainFunction:fileTable windowFunction:hamming isRandomGrainFunctionIndex:NO]
         // AUDIO OUTPUT ========================================================
     }
 }
