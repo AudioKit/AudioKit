@@ -12,6 +12,7 @@ TODO:
 * Create more opcodes (fix up CSDPluck)
 * Create More Function Table subclasses
 * Develop better examples
+* optional argument for CSDWindowsTable (used by Gaussian and Kaiser ?sigma)
 
 NOTES:
 
