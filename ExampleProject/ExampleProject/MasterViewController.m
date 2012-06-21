@@ -19,6 +19,8 @@
 #import "ReverbViewController.h"
 #import "PlayAudioFileViewController.h"
 #import "ContinuousControlViewController.h"
+#import "GrainViewController.h"
+#import "MoreGrainViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -46,6 +48,8 @@
                     @"Expressions",
                     @"Global Reverb",
                     @"Continuous Control",
+                    @"Grain",
+                    @"MoreGrain",
                     nil];
     return self;
 }
@@ -167,6 +171,15 @@
             break;
         case 7:
             controller = [[ContinuousControlViewController alloc] initWithNibName:@"ContinuousControlViewController" bundle:nil];
+            break;
+        case 8:
+            controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" 
+                                                               bundle:nil];
+            break;
+        case 9:
+            controller = [[MoreGrainViewController alloc] initWithNibName:@"MoreGrainViewController" 
+                                                               bundle:nil];
+            break;
         default:
             break;
     }
