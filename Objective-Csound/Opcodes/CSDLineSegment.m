@@ -15,28 +15,33 @@
 @synthesize firstSegmentTargetValue;
 @synthesize segmentArray;
 
--(id)initWithIFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget SegmentArray:(CSDParamArray *)aSegmentArray
+-(id)initWithFirstSegmentStartValue:(CSDParamConstant *) start
+               FirstSegmentDuration:(CSDParamConstant *) dur
+           FirstSegementTargetValue:(CSDParamConstant *) targ
+                       SegmentArray:(CSDParamArray *)aSegmentArray
 {
     self = [super init];
 
     if (self) {
         output = [CSDParamControl paramWithString:[self uniqueName]];
-        firstSegmentStartValue  = aStart;
-        firstSegmentDuration    = aDuration;
-        firstSegmentTargetValue = aTarget;
+        firstSegmentStartValue  = start;
+        firstSegmentDuration    = dur;
+        firstSegmentTargetValue = targ;
         segmentArray            = aSegmentArray;
     }
     
     return self;
 }
 
--(id)initWithIFirstSegmentStartValue:(CSDParam *)aStart iFirstSegmentDuration:(CSDParam *)aDuration iFirstSegementTargetValue:(CSDParam *)aTarget
+-(id)initWithFirstSegmentStartValue:(CSDParamConstant *) start
+               FirstSegmentDuration:(CSDParamConstant *) dur
+           FirstSegementTargetValue:(CSDParamConstant *) targ
 {
     if (self) {
         output = [CSDParamControl paramWithString:[self uniqueName]];
-        firstSegmentStartValue  = aStart;
-        firstSegmentDuration    = aDuration;
-        firstSegmentTargetValue = aTarget;
+        firstSegmentStartValue  = start;
+        firstSegmentDuration    = dur;
+        firstSegmentTargetValue = targ;
     }
     
     return self;

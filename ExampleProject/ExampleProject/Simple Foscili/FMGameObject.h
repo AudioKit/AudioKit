@@ -18,7 +18,12 @@
 
 #import "CSDFoscili.h"
 
-@interface FMGameObject : CSDInstrument
+@interface FMGameObject : CSDInstrument {
+    CSDProperty *amplitude;
+    CSDProperty *frequency;
+}
+@property (nonatomic, strong) CSDProperty * frequency;
+@property (nonatomic, strong) CSDProperty * modulation;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod;

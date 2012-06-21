@@ -26,6 +26,7 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         [self joinOrchestra:newOrchestra];
+        duration = [[CSDParamConstant alloc] initWithPValue:3];
         
         propertyList = [[NSMutableArray alloc] init ];
         csdRepresentation = [NSMutableString stringWithString:@""]; 
@@ -43,8 +44,8 @@ static int currentID = 1;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable {
     [csdRepresentation appendString:[newFunctionTable text]];
 }
--(void)playNoteWithDuration:(float)duration {
-    NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", duration];
+-(void)playNoteWithDuration:(float)dur {
+    NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", dur];
     [[CSDManager sharedCSDManager] playNote:noteEventString OnInstrument:self];
 }
 

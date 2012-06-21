@@ -8,14 +8,20 @@
 
 #import "ExpressionToneGenerator.h"
 
-typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
-
 @implementation ExpressionToneGenerator
+@synthesize frequency;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra
 {
     self = [super initWithOrchestra:newOrchestra];
-    if (self) {                                                   
+    if (self) {                  
+        // INPUTS AND CONTROLS =================================================
+        
+        frequency  = [[CSDProperty alloc] init];
+        [frequency  setOutput:[CSDParamControl paramWithString:@"Frequency"]]; 
+        
+        // INSTRUMENT DEFINITION ===============================================
+        
         CSDSineTable * sineTable = [[CSDSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
@@ -27,27 +33,29 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
                                        Frequency:[CSDParamConstant paramWithInt:6] 
                                    FunctionTable:vibratoSine
                                        isControl:YES];
-
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
-        CSDParamControl * vibrato = [CSDParamControl paramWithFormat:@"%d + (%f * %@)", vibratoOffset, vibratoScale, myVibratoOscillator];
+        CSDParamControl * vibrato = 
+        [CSDParamControl paramWithFormat:@"%d + (%f * %@)", vibratoOffset, vibratoScale, myVibratoOscillator];
         
         CSDParamConstant * amplitudeOffset = [CSDParamConstant paramWithFloat:0.1];
         
         CSDLine * amplitudeRamp = 
-        [[CSDLine alloc] initWithIStartingValue:[CSDParamConstant paramWithFloat:0.0f] 
-                                      iDuration:[CSDParamConstant paramWithPValue:kDurationArg]
-                                   iTargetValue:[CSDParamConstant paramWithFloat:0.2]];
+        [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithFloat:0.0f] Duration:duration
+                                   TargetValue:[CSDParamConstant paramWithFloat:0.2]];
         [self addOpcode:amplitudeRamp];
         
-        CSDParamControl * totalAmplitude = [CSDParamControl paramWithFormat:@"%@ + %@", amplitudeRamp, amplitudeOffset];                    
+        CSDParamControl * totalAmplitude = 
+        [CSDParamControl paramWithFormat:@"%@ + %@", amplitudeRamp, amplitudeOffset];                    
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
                                         initWithAmplitude:totalAmplitude
                                                 Frequency:vibrato
                                             FunctionTable:sineTable];
         [self addOpcode:myOscillator];
+        
+        // AUDIO OUTPUT ========================================================
         
         CSDOutputStereo * stereoOutput = 
         [[CSDOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
@@ -55,11 +63,9 @@ typedef enum { kDurationArg, kFrequencyArg } ExpressionToneGeneratorArguments;
     }
     return self;
 }
--(void) playNoteForDuration:(float)dur Frequency:(float)freq
-{
-    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
-                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg],nil]];
+-(void) playNoteForDuration:(float)dur Frequency:(float)freq {
+    frequency.value = freq;
+    [self playNoteWithDuration:dur];
 }
 
 @end

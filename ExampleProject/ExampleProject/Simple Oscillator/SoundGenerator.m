@@ -1,30 +1,45 @@
-//  mySoundGenerator.m
+//
+//  SoundGenerator.m
+//  ExampleProject
+//
+//  Created by Aurelius Prochazka on 6/1/12.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  NOTE: Alternate sineTable definition:
+//  float partialStrengths[] = {1.0f, 0.5f, 1.0f};
+//  CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromFloats:partialStrengths count:3];
+
 
 #import "SoundGenerator.h"
 
-typedef enum { kDurationArg, kFrequencyArg } SoundGeneratorArguments;
-
 @implementation SoundGenerator
+
+@synthesize frequency;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
-        // CSDFunctionTable * iSine = [[CSDFunctionTable alloc] initWithType:kGenSine UsingSize:iFTableSize];
         
-        //float partialStrengths[] = {1.0f, 0.5f, 1.0f};
-        //CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromFloats:partialStrengths count:3];
-
+        // INPUTS AND CONTROLS =================================================
+        
+        frequency  = [[CSDProperty alloc] init];
+        [frequency  setOutput:[CSDParamControl paramWithString:@"Frequency"]]; 
+        [self addProperty:frequency];
+        
+        // INSTRUMENT DEFINITION ===============================================
+        
         CSDParamArray * partialStrengthParamArray = [CSDParamArray paramArrayFromParams:
                                                      [CSDParamConstant paramWithFloat:1.0f],
                                                      [CSDParamConstant paramWithFloat:0.5f],
                                                      [CSDParamConstant paramWithFloat:1.0f], nil];
         
-        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 PartialStrengths:partialStrengthParamArray];
+        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 
+                                                          PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
                                         initWithAmplitude:[CSDParamConstant paramWithFloat:0.12]
-                                                Frequency:[CSDParamConstant paramWithPValue:kFrequencyArg]
+                                                Frequency:[frequency output]
                                             FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         
@@ -34,18 +49,20 @@ typedef enum { kDurationArg, kFrequencyArg } SoundGeneratorArguments;
                                                   CutoffFrequency:[CSDParamConstant paramWithInt:12000]];
         
         [self addOpcode:reverb];
-        CSDOutputStereo * stereoOutput = [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-                                                                         InputRight:[reverb outputRight]]; 
+        
+        // AUDIO OUTPUT ========================================================
+        
+        CSDOutputStereo * stereoOutput = 
+        [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
+                                        InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;
 }
 
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq {
-    [self playNote:[NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithFloat:dur],  [NSNumber numberWithInt:kDurationArg],
-                    [NSNumber numberWithFloat:freq], [NSNumber numberWithInt:kFrequencyArg], nil]];
-
+    frequency.value = freq;
+    [self playNoteWithDuration:dur];
 }
 
 @end

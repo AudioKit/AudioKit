@@ -17,20 +17,20 @@
 //  kres line ia, idur, ib
 
 #import "CSDOpcode.h"
-#import "CSDParamControl.h"
+#import "CSDParamConstant.h"
 
 @interface CSDLine : CSDOpcode {
     CSDParamControl * output;
 }
 
-@property (nonatomic, strong) CSDParamControl * output;
-@property (nonatomic, strong) CSDParam * startingValue;
-@property (nonatomic, strong) CSDParam * duration;
-@property (nonatomic, strong) CSDParam * targetValue;
+@property (nonatomic, strong) CSDParamControl  * output;
+@property (nonatomic, strong) CSDParamConstant * startingValue;
+@property (nonatomic, strong) CSDParamConstant * duration;
+@property (nonatomic, strong) CSDParamConstant * targetValue;
 
--(id)initWithIStartingValue:(CSDParam *) aStart
-                  iDuration:(CSDParam *) aDuration
-               iTargetValue:(CSDParam *) aTarget;
+-(id)initWithStartingValue:(CSDParamConstant *) start
+                  Duration:(CSDParamConstant *) dur
+               TargetValue:(CSDParamConstant *) targ;
     
 
 @end
