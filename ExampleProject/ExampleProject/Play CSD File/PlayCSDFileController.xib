@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
+		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
@@ -11,6 +11,7 @@
 			<string key="NS.object.0">1179</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
+			<string>IBUITextView</string>
 			<string>IBUIButton</string>
 			<string>IBUIView</string>
 			<string>IBUILabel</string>
@@ -50,7 +51,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Welcome to Objective-Csound</string>
+						<string key="IBUIText">Play a CSD File Directly</string>
 						<object class="NSColor" key="IBUITextColor" id="892248567">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -72,9 +73,10 @@
 					<object class="IBUIButton" id="560528130">
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{273, 167}, {222, 197}}</string>
+						<string key="NSFrame">{{273, 159}, {222, 110}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -104,7 +106,7 @@
 					<object class="IBUILabel" id="130047032">
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{206, 113}, {356, 21}}</string>
+						<string key="NSFrame">{{238, 113}, {293, 21}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="560528130"/>
@@ -114,7 +116,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Example 1 is simple playing a CSD file directly.</string>
+						<string key="IBUIText">Not that much fun, but hey it's a start.</string>
 						<reference key="IBUITextColor" ref="892248567"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
@@ -126,6 +128,72 @@
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">17</double>
+							<int key="NSfFlags">16</int>
+						</object>
+					</object>
+					<object class="IBUITextView" id="266777514">
+						<reference key="NSNextResponder" ref="647120888"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{74, 285}, {645, 687}}</string>
+						<reference key="NSSuperview" ref="647120888"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MSAxIDEAA</bytes>
+						</object>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+						<object class="NSMutableString" key="IBUIText">
+							<bytes key="NS.bytes">Q3NvdW5kIEhhaWt1IC0gSVYKSWFpbiBNY0N1cmR5LCAyMDExLgoKPENzb3VuZFN5bnRoZXNpemVyPgoK
+PENzT3B0aW9ucz4KLW9kYWMgLWRtMCAtK3J0bWlkaT1udWxsIC0rcnRhdWRpbz1udWxsIC0rbXNnX2Nv
+bG9yPTAKPC9Dc09wdGlvbnM+Cgo8Q3NJbnN0cnVtZW50cz4Kc3IgCQk9IAkJNDQxMDAKa3NtcHMgCQk9
+IAkJMzIKbmNobmxzIAkJPSAJCTIKMGRiZnMgCQk9IAkJMQoKZ2lzaW5lCQlmdGdlbgkJMCwgMCwgNDA5
+NiwgMTAsIDEKZ2lvY3RmbgkJZnRnZW4JCTAsIDAsIDQwOTYsIC0xOSwgMSwgMC41LCAyNzAsIDAuNQpn
+YXNlbmRMCQlpbml0CQkwCmdhc2VuZFIJCWluaXQJCTAKZ2lub3RlcwkJZnRnZW4JCTAsIDAsIC0xMDAs
+IC0xNywgMCwgOC4wMCwgMTAsIDguMDMsIDE1LCA4LjA0LCAyNSwgOC4wNSwgNTAsIDguMDcsIDYwLCA4
+LjA4LCA3MywgOC4wOSwgODIsIDguMTEKCQlzZWVkCQkwCjsJCWFsd2F5c29uCSJ0cmlnZ2VyX25vdGVz
+Igo7CQlhbHdheXNvbgkicmV2ZXJiIgoKCQlpbnN0cgkJdHJpZ2dlcl9ub3RlcwprcmF0ZQkJcnNwbGlu
+ZQkJMC4wNCwgMC4xNSwgMC4wNSwgMC4xCmt0cmlnCQltZXRybwkJa3JhdGUKZ2t0cmFucwkJaW5pdAkJ
+MApna3RyYW5zCQl0cmFuZG9tCQlrdHJpZywtMSwgMQpna3RyYW5zCQk9CQlzZW1pdG9uZShna3RyYW5z
+KQppZHVyCQk9CQkxNQoJCXNjaGVka3doZW4Ja3RyaWcsIDAsIDAsICJoYm9zY2lsX25vdGUiLCBybmQo
+MiksIGlkdXIKCQlzY2hlZGt3aGVuCWt0cmlnLCAwLCAwLCAiaGJvc2NpbF9ub3RlIiwgcm5kKDIpLCBp
+ZHVyCgkJc2NoZWRrd2hlbglrdHJpZywgMCwgMCwgImhib3NjaWxfbm90ZSIsIHJuZCgyKSwgaWR1cgoJ
+CXNjaGVka3doZW4Ja3RyaWcsIDAsIDAsICJoYm9zY2lsX25vdGUiLCBybmQoMiksIGlkdXIKCQllbmRp
+bgoKCQlpbnN0cgkJaGJvc2NpbF9ub3RlCmlwY2gJCXRhYmxlCQlpbnQocm5kKDEwMCkpLGdpbm90ZXMK
+aWNwcwkJPQkJY3BzcGNoKGlwY2gpKmkoZ2t0cmFucykqc2VtaXRvbmUocm5kKDAuNSktMC4yNSkKa2Ft
+cAkJZXhwc2VnCQkwLjAwMSwwLjAyLDAuMixwMy0wLjAxLDAuMDAxCmt0b25lbW9kZGVwCWpzcGxpbmUJ
+CTAuMDEsMC4wNSwwLjIKa3RvbmVtb2RydGUJanNwbGluZQkJNiwwLjEsMC4yCmt0b25lCQlvc2NpbAkJ
+a3RvbmVtb2RkZXAsa3RvbmVtb2RydGUsZ2lzaW5lCmticml0ZQkJcnNwbGluZQkJLTIsMywwLjAwMDIs
+MwppYmFzZnJlcQlpbml0CQlpY3BzCmlvY3RjbnQJCWluaXQJCTIKaXBocwkJaW5pdAkJMAphMSAJCWhz
+Ym9zY2lsIAlrYW1wLCBrdG9uZSwga2JyaXRlLCBpYmFzZnJlcSwgZ2lzaW5lLCBnaW9jdGZuLCBpb2N0
+Y250LCBpcGhzCQphbW9kCQlvc2NpbAkJMSwgaWJhc2ZyZXEqMy40NywgZ2lzaW5lCmFybQkJPQkJYTEq
+YW1vZAprbWl4CQlleHBzZWcJCTAuMDAxLCAwLjAxLCBybmQoMSksIHJuZCgzKSswLjMsIDAuMDAxCmEx
+CQludHJwb2wJCWExLCBhcm0sIGttaXgKYTEgCQlwYXJlcSAJCWExLzEwLCA0MDAsIDE1LCAuNzA3CmEx
+CQl0b25lCQlhMSwgNTAwCmtwYW5ydGUJCWpzcGxpbmUJCTUsIDAuMDUsIDAuMQprcGFuZGVwCQlqc3Bs
+aW5lCQkwLjksIDAuMiwgMC40CmtwYW4JCW9zY2lsCQlrcGFuZGVwLCBrcGFucnRlLCBnaXNpbmUKYTEs
+YTIJCXBhbjIJCWExLCBrcGFuCmExCQlkZWxheQkJYTEsIHJuZCgwLjEpCmEyCQlkZWxheQkJYTIsIHJu
+ZCgwLjEpCmtlbnYJCWxpbnNlZ3IJCTEsIDEsIDAKYTEJCT0JCWExKmtlbnYKYTIJCT0JCWEyKmtlbnYK
+CQlvdXRzCQlhMSwgYTIKZ2FzZW5kTAkJPQkJZ2FzZW5kTCthMS81Cmdhc2VuZFIJCT0JCWdhc2VuZFIr
+YTIvNQoJCWVuZGluCgoJCWluc3RyCQlyZXZlcmIKYUwsIGFSCQlyZXZlcmJzYwlnYXNlbmRMLCBnYXNl
+bmRSLCAwLjksIDEwMDAwCgkJb3V0cwkJYUwsIGFSCgkJY2xlYXIJCWdhc2VuZEwsIGdhc2VuZFIKCQll
+bmRpbgoKPC9Dc0luc3RydW1lbnRzPgoKPENzU2NvcmU+CmYgMCAzNjAwCmkgInRyaWdnZXJfbm90ZXMi
+IDAgMzYwMAppICJyZXZlcmIiIDAgMzYwMAoKCmUKPC9Dc1Njb3JlPgoKPC9Dc291bmRTeW50aGVzaXpl
+cj4</bytes>
+						</object>
+						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+							<int key="IBUIAutocapitalizationType">2</int>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">1</int>
+							<double key="pointSize">14</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica</string>
+							<double key="NSSize">14</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -187,6 +255,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="483876647"/>
 							<reference ref="130047032"/>
+							<reference ref="266777514"/>
 							<reference ref="560528130"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -206,6 +275,11 @@
 						<reference key="object" ref="130047032"/>
 						<reference key="parent" ref="647120888"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">71</int>
+						<reference key="object" ref="266777514"/>
+						<reference key="parent" ref="647120888"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -216,13 +290,14 @@
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">70</int>
+			<int key="maxID">71</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -240,17 +315,6 @@
 							<string key="candidateClassName">id</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">detailDescriptionLabel</string>
-						<string key="NS.object.0">UILabel</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">detailDescriptionLabel</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">detailDescriptionLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/PlayCSDFileController.h</string>
@@ -260,6 +324,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">1179</string>

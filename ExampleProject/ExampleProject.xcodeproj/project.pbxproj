@@ -12,7 +12,6 @@
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
-		C43553E3158073CD0074764A /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E1158073CD0074764A /* example.csd */; };
 		C43553E4158073CD0074764A /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C43553E2158073CD0074764A /* template.csd */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
@@ -26,6 +25,9 @@
 		C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* TweakableInstrument.m */; };
 		C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C515914235005807A2 /* ContinuousControlViewController.m */; };
 		C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */; };
+		C46EB3DB1592A8DE005807A2 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3DA1592A8DE005807A2 /* example.csd */; };
+		C46EB3DF1592AA55005807A2 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3DD1592AA52005807A2 /* InitialViewController.m */; };
+		C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3DE1592AA54005807A2 /* InitialViewController.xib */; };
 		C4761636158D934800C96DE1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761634158D932700C96DE1 /* PlayCSDFileController.m */; };
 		C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4761635158D932700C96DE1 /* PlayCSDFileController.xib */; };
 		C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761639158D943800C96DE1 /* PlayAudioFileViewController.m */; };
@@ -106,7 +108,6 @@
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
-		C43553E1158073CD0074764A /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C43553E2158073CD0074764A /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
 		C43553EB15807BB80074764A /* CSDSineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDSineTable.h; path = FunctionTables/CSDSineTable.h; sourceTree = "<group>"; };
 		C43553EC15807BB80074764A /* CSDSineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDSineTable.m; path = FunctionTables/CSDSineTable.m; sourceTree = "<group>"; };
@@ -130,6 +131,10 @@
 		C46EB3C415914235005807A2 /* ContinuousControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinuousControlViewController.h; sourceTree = "<group>"; };
 		C46EB3C515914235005807A2 /* ContinuousControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ContinuousControlViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3C615914235005807A2 /* ContinuousControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinuousControlViewController.xib; sourceTree = "<group>"; };
+		C46EB3DA1592A8DE005807A2 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example.csd; path = "Play CSD File/example.csd"; sourceTree = "<group>"; };
+		C46EB3DC1592AA51005807A2 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
+		C46EB3DD1592AA52005807A2 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
+		C46EB3DE1592AA54005807A2 /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C4761633158D932700C96DE1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C4761634158D932700C96DE1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
 		C4761635158D932700C96DE1 /* PlayCSDFileController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayCSDFileController.xib; path = "Play CSD File/PlayCSDFileController.xib"; sourceTree = "<group>"; };
@@ -353,7 +358,6 @@
 		C43553E0158073CD0074764A /* CSDFiles */ = {
 			isa = PBXGroup;
 			children = (
-				C43553E1158073CD0074764A /* example.csd */,
 				C43553E2158073CD0074764A /* template.csd */,
 				C4FE85A31583ED9B00902E07 /* test.csd */,
 			);
@@ -549,11 +553,8 @@
 		C4C5511E1576EB08005F7EE4 /* ExampleProject */ = {
 			isa = PBXGroup;
 			children = (
-				C4C551271576EB08005F7EE4 /* AppDelegate.h */,
-				C4C551281576EB08005F7EE4 /* AppDelegate.m */,
-				C4C5512A1576EB08005F7EE4 /* MasterViewController.h */,
 				C4C5512B1576EB08005F7EE4 /* MasterViewController.m */,
-				C495F73E1583444700951461 /* MasterViewController.xib */,
+				C46EB3DE1592AA54005807A2 /* InitialViewController.xib */,
 				C4C5525515773428005F7EE4 /* Play CSD File */,
 				C476163D158D943E00C96DE1 /* Play Audio File */,
 				C4C5525615773453005F7EE4 /* Simple Oscillator */,
@@ -570,6 +571,12 @@
 		C4C5511F1576EB08005F7EE4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C4C551271576EB08005F7EE4 /* AppDelegate.h */,
+				C4C551281576EB08005F7EE4 /* AppDelegate.m */,
+				C4C5512A1576EB08005F7EE4 /* MasterViewController.h */,
+				C495F73E1583444700951461 /* MasterViewController.xib */,
+				C46EB3DC1592AA51005807A2 /* InitialViewController.h */,
+				C46EB3DD1592AA52005807A2 /* InitialViewController.m */,
 				C4C551201576EB08005F7EE4 /* ExampleProject-Info.plist */,
 				C4C551211576EB08005F7EE4 /* InfoPlist.strings */,
 				C4C551241576EB08005F7EE4 /* main.m */,
@@ -645,6 +652,7 @@
 		C4C5525515773428005F7EE4 /* Play CSD File */ = {
 			isa = PBXGroup;
 			children = (
+				C46EB3DA1592A8DE005807A2 /* example.csd */,
 				C4761633158D932700C96DE1 /* PlayCSDFileController.h */,
 				C4761634158D932700C96DE1 /* PlayCSDFileController.m */,
 				C4761635158D932700C96DE1 /* PlayCSDFileController.xib */,
@@ -732,7 +740,6 @@
 				C4C551231576EB08005F7EE4 /* InfoPlist.strings in Resources */,
 				C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */,
 				C43553D115805CA60074764A /* README.md in Resources */,
-				C43553E3158073CD0074764A /* example.csd in Resources */,
 				C43553E4158073CD0074764A /* template.csd in Resources */,
 				C495F73F1583444700951461 /* MasterViewController.xib in Resources */,
 				C495F7501583452100951461 /* FMGameObjectViewController.xib in Resources */,
@@ -744,6 +751,8 @@
 				C4761647158DA94700C96DE1 /* hellorcb.aif in Resources */,
 				C4761650158DB59D00C96DE1 /* ExpressionsViewController.xib in Resources */,
 				C46EB3C915914235005807A2 /* ContinuousControlViewController.xib in Resources */,
+				C46EB3DB1592A8DE005807A2 /* example.csd in Resources */,
+				C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,6 +824,7 @@
 				C46EB3BF15914148005807A2 /* CSDPropertyManager.m in Sources */,
 				C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */,
 				C46EB3C815914235005807A2 /* ContinuousControlViewController.m in Sources */,
+				C46EB3DF1592AA55005807A2 /* InitialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

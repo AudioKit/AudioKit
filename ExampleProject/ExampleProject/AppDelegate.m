@@ -8,11 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "CSDManager.h"
-
 #import "MasterViewController.h"
 
-#import "PlayCSDFileController.h"
+#import "InitialViewController.h"
 
 @implementation AppDelegate
 
@@ -26,13 +24,13 @@
     MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
     UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
 
-    PlayCSDFileController * playCSDFileController = [[PlayCSDFileController alloc] initWithNibName:@"PlayCSDFileController" bundle:nil];
-    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:playCSDFileController];
+    InitialViewController * initialViewController = [[InitialViewController alloc] initWithNibName:@"InitialViewController" bundle:nil];
+    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:initialViewController];
 
-    masterViewController.playCSDFileController = playCSDFileController;
+    masterViewController.initialViewController = initialViewController;
 
     self.splitViewController = [[UISplitViewController alloc] init];
-    self.splitViewController.delegate = playCSDFileController;
+    self.splitViewController.delegate = initialViewController;
     [self.splitViewController setPresentsWithGesture:NO];
     self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
     self.window.rootViewController = self.splitViewController;
