@@ -28,17 +28,19 @@
         [self addFunctionTable:sineTable];
         
         CSDOscillator * myOscillator = 
-        [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithFloat:0.1]
+        [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
                                        Frequency:[frequency output]
                                    FunctionTable:sineTable];
         [self addOpcode:myOscillator];
-
+        
+        // AUDIO OUTPUT ========================================================
+        
         CSDOutputStereo * stereoOutput = 
         [[CSDOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
         
         
-        // OUTPUTS =============================================================
+        // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
         auxilliaryOutput = [CSDParam paramWithString:@"ToneGeneratorOutput"];
         [self assignOutput:auxilliaryOutput To:[myOscillator output]];

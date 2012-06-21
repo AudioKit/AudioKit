@@ -18,7 +18,7 @@
 @interface CSDInstrument : NSObject {
     CSDOrchestra * orchestra;
     NSMutableString * csdRepresentation;
-
+    CSDParamConstant * duration;
    int  _myID;
     NSMutableArray * propertyList;
 }

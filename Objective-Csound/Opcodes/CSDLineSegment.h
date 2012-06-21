@@ -18,25 +18,25 @@
 //
 
 #import "CSDOpcode.h"
-#import "CSDParam.h"
+#import "CSDParamConstant.h"
 #import "CSDParamArray.h"
 
 @interface CSDLineSegment : CSDOpcode {
     CSDParamControl * output;
 }
 @property (nonatomic, strong) CSDParamControl * output;
-@property (nonatomic, strong) CSDParam *firstSegmentStartValue;
-@property (nonatomic, strong) CSDParam *firstSegmentDuration;
-@property (nonatomic, strong) CSDParam *firstSegmentTargetValue;
+@property (nonatomic, strong) CSDParamConstant *firstSegmentStartValue;
+@property (nonatomic, strong) CSDParamConstant *firstSegmentDuration;
+@property (nonatomic, strong) CSDParamConstant *firstSegmentTargetValue;
 @property (nonatomic, strong) CSDParamArray *segmentArray;
 
--(id)initWithIFirstSegmentStartValue:(CSDParam *) aStart
-               iFirstSegmentDuration:(CSDParam *) aDuration
-           iFirstSegementTargetValue:(CSDParam *) aTarget
-                        SegmentArray:(CSDParamArray *)aSegmentArray;
+-(id)initWithFirstSegmentStartValue:(CSDParamConstant *) start
+               FirstSegmentDuration:(CSDParamConstant *) dur
+           FirstSegementTargetValue:(CSDParamConstant *) targ
+                       SegmentArray:(CSDParamArray *)aSegmentArray;
 
--(id)initWithIFirstSegmentStartValue:(CSDParam *) aStart
-               iFirstSegmentDuration:(CSDParam *) aDuration
-           iFirstSegementTargetValue:(CSDParam *) aTarget;
+-(id)initWithFirstSegmentStartValue:(CSDParamConstant *) start
+               FirstSegmentDuration:(CSDParamConstant *) dur
+           FirstSegementTargetValue:(CSDParamConstant *) targ;
 
 @end

@@ -19,13 +19,13 @@
 @synthesize phase;
 
 //H4Y - ARB: probably need to set output in the init
--(id)initFMOscillatorWithAmplitude:(CSDParam *)amp
-                         Frequency:(CSDParamControl *)cps
-                           Carrier:(CSDParam *)car
-                        Modulation:(CSDParam *)mod
-                          ModIndex:(CSDParamControl *)aModIndex
-                     FunctionTable:(CSDFunctionTable *)f
-                  AndOptionalPhase:(CSDParamConstant *)phs
+-(id)initWithAmplitude:(CSDParam *) amp
+             Frequency:(CSDParamControl *) cps
+               Carrier:(CSDParam *) car
+            Modulation:(CSDParam *) mod
+              ModIndex:(CSDParamControl *) aModIndex
+         FunctionTable:(CSDFunctionTable *) f
+      AndOptionalPhase:(CSDParamConstant *) phs
 {
     self = [super init];
     if ( self ) {

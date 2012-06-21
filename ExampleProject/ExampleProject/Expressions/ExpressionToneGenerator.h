@@ -12,7 +12,11 @@
 #import "CSDLine.h"
 #import "CSDOutputStereo.h"
 
-@interface ExpressionToneGenerator : CSDInstrument
+@interface ExpressionToneGenerator : CSDInstrument {
+    CSDProperty *frequency;
+}
+
+@property (nonatomic, strong) CSDProperty * frequency;
 
 -(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;

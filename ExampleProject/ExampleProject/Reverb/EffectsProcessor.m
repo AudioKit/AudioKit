@@ -11,11 +11,16 @@
 @implementation EffectsProcessor
 @synthesize input;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *)tg
+-(id) initWithOrchestra:(CSDOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *)toneGenerator
 {
     self = [super initWithOrchestra:newOrchestra];
-    if (self) {                                                   
-        input = [tg auxilliaryOutput];
+    if (self) {                  
+        
+        // INPUTS ==============================================================
+        
+        input = [toneGenerator auxilliaryOutput];
+        
+        // INSTRUMENT DEFINITION ===============================================
         
         CSDReverb * reverb = 
         [[CSDReverb alloc] initWithMonoInput:input
@@ -23,11 +28,14 @@
                              CutoffFrequency:[CSDParamConstant paramWithInt:1200]];
         [self addOpcode:reverb];
         
+        // AUDIO OUTPUT ========================================================
+            
         CSDOutputStereo * stereoOutput = 
         [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
                                         InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
         
+        // RESET INPUTS ========================================================
         [self resetParam:input];
     }
     return self;

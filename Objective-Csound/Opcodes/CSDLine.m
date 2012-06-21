@@ -14,17 +14,17 @@
 @synthesize duration;
 @synthesize targetValue;
 
--(id)initWithIStartingValue:(CSDParam *) aStart
-                  iDuration:(CSDParam *) aDuration
-               iTargetValue:(CSDParam *) aTarget 
+-(id)initWithStartingValue:(CSDParamConstant *) start
+                  Duration:(CSDParamConstant *) dur
+               TargetValue:(CSDParamConstant *) targ
 {
     self = [super init];
 
     if (self) {
         output = [CSDParamControl paramWithString:[self uniqueName]];
-        startingValue   = aStart;
-        duration        = aDuration;
-        targetValue     = aTarget;
+        startingValue   = start;
+        duration        = dur;
+        targetValue     = targ;
     }
     return self; 
 }

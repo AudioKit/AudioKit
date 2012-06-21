@@ -21,12 +21,12 @@
 @property (nonatomic, strong) CSDFunctionTable * functionTable;
 @property (nonatomic, strong) CSDParamConstant * phase;
 
--(id)initFMOscillatorWithAmplitude:(CSDParam *) amp
-                         Frequency:(CSDParamControl *) cps
-                           Carrier:(CSDParam *) car
-                        Modulation:(CSDParam *) mod
-                          ModIndex:(CSDParamControl *) aModIndex
-                     FunctionTable:(CSDFunctionTable *) f
-                  AndOptionalPhase:(CSDParamConstant *) phs;
+-(id)initWithAmplitude:(CSDParam *) amp
+             Frequency:(CSDParamControl *) cps
+               Carrier:(CSDParam *) car
+            Modulation:(CSDParam *) mod
+              ModIndex:(CSDParamControl *) aModIndex
+         FunctionTable:(CSDFunctionTable *) f
+      AndOptionalPhase:(CSDParamConstant *) phs;
 
 @end
