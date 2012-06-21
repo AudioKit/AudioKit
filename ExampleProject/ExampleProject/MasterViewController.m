@@ -198,9 +198,6 @@
     NSArray *viewControllers = [[NSArray alloc] initWithObjects:[splitViewController.viewControllers objectAtIndex:0], detailNavigationController, nil];
     splitViewController.viewControllers = viewControllers;
     //splitViewController.delegate = controller;
-
-    
-    
 }
 
 @end

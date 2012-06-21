@@ -14,31 +14,19 @@
 
 @implementation GrainViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    CSDOrchestra *orch = [[CSDOrchestra alloc] init];
+    myGrainInstrument = [[SimpleGrainInstrument alloc] initWithOrchestra:orch];
+    [[CSDManager sharedCSDManager] runOrchestra:orch];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
+-(IBAction)hit1:(id)sender
+{}
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
-}
+-(IBAction)hit2:(id)sender
+{}
 
 @end

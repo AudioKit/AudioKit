@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CSDManager.h"
+#import "CSDOrchestra.h"
+#import "SimpleGrainInstrument.h"
 
 @interface GrainViewController : UIViewController
+{
+    SimpleGrainInstrument *myGrainInstrument;
+}
+
+-(IBAction)hit1:(id)sender;
+-(IBAction)hit2:(id)sender;
 
 @end
