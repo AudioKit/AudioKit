@@ -56,12 +56,6 @@
                 firstSegmentDuration, 
                 firstSegmentTargetValue];
     } else {
-        /* NSMutableString *s = [NSString stringWithFormat:@", "];
-         for (int i = 0; i < [segmentArray count]; i++) {
-         [s appendFormat:@"%@,", [segmentArray ob
-         }
-         return [NSString stringWithFormat:@"%@ line %@, %@, %@", 
-         output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue];*/
         return [NSString stringWithFormat:@"%@ expseg %@, %@, %@, %@\n", 
                 output, 
                 firstSegmentStartValue, 

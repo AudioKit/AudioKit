@@ -21,6 +21,7 @@
 		76F320361593AF81008338E2 /* CSDWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F320351593AF80008338E2 /* CSDWindowsTable.m */; };
 		76F320381593B401008338E2 /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = 76F320371593B401008338E2 /* beats.wav */; };
 		76F3203B1593B705008338E2 /* CSDExpSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203A1593B705008338E2 /* CSDExpSegment.m */; };
+		76F3203E1593BC19008338E2 /* CSDFileLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203D1593BC17008338E2 /* CSDFileLength.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
@@ -133,6 +134,8 @@
 		76F320371593B401008338E2 /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		76F320391593B705008338E2 /* CSDExpSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDExpSegment.h; sourceTree = "<group>"; };
 		76F3203A1593B705008338E2 /* CSDExpSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDExpSegment.m; sourceTree = "<group>"; };
+		76F3203C1593BC16008338E2 /* CSDFileLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDFileLength.h; sourceTree = "<group>"; };
+		76F3203D1593BC17008338E2 /* CSDFileLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDFileLength.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
@@ -736,6 +739,8 @@
 				C4FE85951583CE0700902E07 /* CSDOutputMono.m */,
 				C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */,
 				C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */,
+				76F3203C1593BC16008338E2 /* CSDFileLength.h */,
+				76F3203D1593BC17008338E2 /* CSDFileLength.m */,
 				76B9564D1581380D005AFAE9 /* Linear/Exponential Generators */,
 				C44D066A158468AA00307AC9 /* Mathematical Expressions */,
 			);
@@ -929,6 +934,7 @@
 				76F320331593AC7E008338E2 /* CSDExponentialCurvesTable.m in Sources */,
 				76F320361593AF81008338E2 /* CSDWindowsTable.m in Sources */,
 				76F3203B1593B705008338E2 /* CSDExpSegment.m in Sources */,
+				76F3203E1593BC19008338E2 /* CSDFileLength.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

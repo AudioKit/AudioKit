@@ -15,6 +15,7 @@
 }
 
 //ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
+@property (nonatomic, retain) CSDParam * output;
 @property (nonatomic, retain) CSDParam * amplitude;
 @property (nonatomic, retain) CSDParam * pitch;
 @property (nonatomic, retain) CSDParam * grainDensity;

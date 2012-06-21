@@ -9,14 +9,18 @@
 #import "CSDInstrument.h"
 #import "CSDSoundFileTable.h"
 #import "CSDWindowsTable.h"
+#import "CSDExpSegment.h"
+#import "CSDLine.h"
+#import "CSDFileLength.h"
 #import "CSDProperty.h"
 #import "CSDGrain.h"
+#import "CSDOutputStereo.h"
 
 @interface SimpleGrainInstrument : CSDInstrument
 {
 }
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
--(void)playNoteWithDuration:(float)duration;
+-(void)playNoteForDuration:(float)duration;
 
 @end
