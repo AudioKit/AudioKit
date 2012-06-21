@@ -16,7 +16,7 @@
     self = [super init];
     
     if (self) {
-        output = [CSDParam paramWithString:[self uniqueName]];
+        output = [CSDParamConstant paramWithString:[self uniqueName]];
         input = in;
     }
     return self; 

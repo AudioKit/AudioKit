@@ -26,7 +26,7 @@
         CSDFunctionTable *hamming = [[CSDWindowsTable alloc] initWithTableSize:512 
                                                                    WindowType:kWindowHanning];
         [self addFunctionTable:hamming];
-        
+    
         CSDFileLength * fileLength = [[CSDFileLength alloc] initWithInput:fileTable];
         [self addOpcode:fileLength];
         
@@ -34,13 +34,13 @@
             [CSDParamConstant paramWithFormat:@"44100 / %@", fileLength];
         
         CSDParamArray * amplitudeSegmentArray = [CSDParamArray paramArrayFromParams:
-                                    [CSDParamConstant paramWithFormat:@"%d / 2", duration],
+                                    [CSDParamConstant paramWithFormat:@"%@ / 2", duration],
                                      [CSDParamConstant paramWithFloat:0.01], nil];
         
         CSDExpSegment *amplitudeExp = [[CSDExpSegment alloc] 
-                    initWithFirstSegmentStartValue:[CSDParamConstant paramWithFloat:0.001] 
-                    FirstSegmentDuration:[CSDParamConstant paramWithFormat:@"%d / 2", duration]
-                FirstSegementTargetValue:[CSDParamConstant paramWithFloat:0.1]
+                    initWithFirstSegmentStartValue:[CSDParamConstant paramWithFloat:0.001f] 
+                    FirstSegmentDuration:[CSDParamConstant paramWithFormat:@"%@ / 2", duration]
+                FirstSegementTargetValue:[CSDParamConstant paramWithFloat:0.1f]
                                        SegmentArray:amplitudeSegmentArray];
         [self addOpcode:amplitudeExp];
 
@@ -48,6 +48,7 @@
                                                             Duration:duration 
                                                          TargetValue:[CSDParamConstant paramWithFormat:@"0.8 * %@", baseFreq]];
         [self addOpcode:pitchLine];
+        
         CSDLine * grainDensityLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithInt:600] 
                                                                    Duration:duration 
                                                                 TargetValue:[CSDParamConstant paramWithInt:300]];
@@ -64,7 +65,7 @@
         CSDLine * grainDurationLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithFloat:0.1] Duration:duration TargetValue:[CSDParamConstant paramWithFloat:0.1]];
         [self addOpcode:grainDurationLine];
         
-        CSDGrain *grainL = [[CSDGrain alloc] initWithAmplitude:[amplitudeExp output] 
+        CSDGrain * grainL = [[CSDGrain alloc] initWithAmplitude:[amplitudeExp output] 
                                                         pitch:[pitchLine output]
                                                   grainDensity:[grainDensityLine output]
                                                amplitudeOffset:[ampOffsetLine output]
@@ -73,8 +74,9 @@
                                                  grainFunction:fileTable 
                                                 windowFunction:hamming 
                                     isRandomGrainFunctionIndex:NO];
+        [self addOpcode:grainL];
         
-        CSDGrain *grainR = [[CSDGrain alloc] initWithAmplitude:[amplitudeExp output] 
+        CSDGrain * grainR = [[CSDGrain alloc] initWithAmplitude:[amplitudeExp output] 
                                                          pitch:[pitchLine output]
                                                   grainDensity:[grainDensityLine output]
                                                amplitudeOffset:[ampOffsetLine output]
@@ -83,6 +85,7 @@
                                                  grainFunction:fileTable 
                                                 windowFunction:hamming 
                                     isRandomGrainFunctionIndex:NO];
+         [self addOpcode:grainR];
         // AUDIO OUTPUT ========================================================
         CSDOutputStereo *stereoOutput = [[CSDOutputStereo alloc] 
                 initWithInputLeft:[grainL output] 
