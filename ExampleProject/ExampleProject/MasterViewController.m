@@ -8,7 +8,9 @@
 
 #import "MasterViewController.h"
 #import "AppDelegate.h"
+#import "InitialViewController.h"
 
+// Example Controllers
 #import "PlayCSDFileController.h"
 #import "OscillatorViewController.h"
 #import "FMGameObjectViewController.h"
@@ -25,7 +27,7 @@
 
 @implementation MasterViewController
 
-@synthesize playCSDFileController = _playCSDFileController;
+@synthesize initialViewController = _initialViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

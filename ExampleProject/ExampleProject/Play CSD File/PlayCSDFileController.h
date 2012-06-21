@@ -3,11 +3,7 @@
 #import <UIKit/UIKit.h>
 #import "CSDManager.h"
 
-@interface PlayCSDFileController : UIViewController <UISplitViewControllerDelegate>
-
-@property (strong, nonatomic) id detailItem;
-
-@property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@interface PlayCSDFileController : UIViewController 
 
 - (IBAction)touchButton:(id)sender;
 
