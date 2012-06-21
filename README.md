@@ -17,6 +17,7 @@ TODO:
 NOTES:
 
 * Consider units and rates in opcodes and properties
+* consider making duration some kind of reserved static final keyword that always translated to @"p3"
 
 RECENT UPDATE NOTES:
 

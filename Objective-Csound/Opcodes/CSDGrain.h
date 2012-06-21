@@ -9,7 +9,7 @@
 #import "CSDInstrument.h"
 #import "CSDParam.h"
 
-@interface CSDGrain : CSDInstrument
+@interface CSDGrain : CSDOpcode
 {
     CSDParam * output;
 }

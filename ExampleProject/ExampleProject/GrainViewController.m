@@ -24,7 +24,9 @@
 }
 
 -(IBAction)hit1:(id)sender
-{}
+{
+    [myGrainInstrument playNoteForDuration:15];
+}
 
 -(IBAction)hit2:(id)sender
 {}
