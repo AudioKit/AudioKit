@@ -15,6 +15,8 @@
 		76F3202115939E70008338E2 /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F3201F15939E70008338E2 /* GrainViewController.xib */; };
 		76F3202615939ECD008338E2 /* MoreGrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3202415939ECD008338E2 /* MoreGrainViewController.m */; };
 		76F3202715939ECD008338E2 /* MoreGrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F3202515939ECD008338E2 /* MoreGrainViewController.xib */; };
+		76F3202A1593A201008338E2 /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F320291593A201008338E2 /* SimpleGrainInstrument.m */; };
+		76F3202D1593A40D008338E2 /* GrainBirds.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3202C1593A40D008338E2 /* GrainBirds.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E6158074640074764A /* CSDFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* CSDFunctionTable.m */; };
 		C43553ED15807BB80074764A /* CSDSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* CSDSineTable.m */; };
@@ -116,6 +118,10 @@
 		76F3202315939ECD008338E2 /* MoreGrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGrainViewController.h; sourceTree = "<group>"; };
 		76F3202415939ECD008338E2 /* MoreGrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreGrainViewController.m; sourceTree = "<group>"; };
 		76F3202515939ECD008338E2 /* MoreGrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreGrainViewController.xib; sourceTree = "<group>"; };
+		76F320281593A201008338E2 /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleGrainInstrument.h; sourceTree = "<group>"; };
+		76F320291593A201008338E2 /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGrainInstrument.m; sourceTree = "<group>"; };
+		76F3202B1593A40D008338E2 /* GrainBirds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainBirds.h; sourceTree = "<group>"; };
+		76F3202C1593A40D008338E2 /* GrainBirds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainBirds.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* CSDFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSDFunctionTable.h; path = FunctionTables/CSDFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* CSDFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSDFunctionTable.m; path = FunctionTables/CSDFunctionTable.m; sourceTree = "<group>"; };
@@ -360,6 +366,8 @@
 		76F3201C15939E36008338E2 /* Grain */ = {
 			isa = PBXGroup;
 			children = (
+				76F320281593A201008338E2 /* SimpleGrainInstrument.h */,
+				76F320291593A201008338E2 /* SimpleGrainInstrument.m */,
 				76F3201D15939E70008338E2 /* GrainViewController.h */,
 				76F3201E15939E70008338E2 /* GrainViewController.m */,
 				76F3201F15939E70008338E2 /* GrainViewController.xib */,
@@ -370,6 +378,8 @@
 		76F3202215939EB2008338E2 /* MoreGrain */ = {
 			isa = PBXGroup;
 			children = (
+				76F3202B1593A40D008338E2 /* GrainBirds.h */,
+				76F3202C1593A40D008338E2 /* GrainBirds.m */,
 				76F3202315939ECD008338E2 /* MoreGrainViewController.h */,
 				76F3202415939ECD008338E2 /* MoreGrainViewController.m */,
 				76F3202515939ECD008338E2 /* MoreGrainViewController.xib */,
@@ -895,6 +905,8 @@
 				76F3201915935369008338E2 /* CSDGrain.m in Sources */,
 				76F3202015939E70008338E2 /* GrainViewController.m in Sources */,
 				76F3202615939ECD008338E2 /* MoreGrainViewController.m in Sources */,
+				76F3202A1593A201008338E2 /* SimpleGrainInstrument.m in Sources */,
+				76F3202D1593A40D008338E2 /* GrainBirds.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
