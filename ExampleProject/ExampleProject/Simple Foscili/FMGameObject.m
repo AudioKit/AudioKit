@@ -33,11 +33,11 @@
         [self addFunctionTable:sineTable];
         
         OCSFoscili * myFMOscillator = 
-        [[OCSFoscili alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.4]
+        [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
                                     Frequency:[frequency output]
-                                      Carrier:[OCSParamConstant paramWithInt:1]
+                                      Carrier:ocsp(1)
                                    Modulation:[modulation output]
-                                     ModIndex:[OCSParamConstant paramWithInt:15]
+                                     ModIndex:ocsp(15)
                                 FunctionTable:sineTable
                              AndOptionalPhase:nil];
         [self addOpcode:myFMOscillator];

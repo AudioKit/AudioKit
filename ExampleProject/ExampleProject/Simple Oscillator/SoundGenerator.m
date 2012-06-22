@@ -29,9 +29,7 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSParamArray * partialStrengthParamArray = [OCSParamArray paramArrayFromParams:
-                                                     [OCSParamConstant paramWithFloat:1.0f],
-                                                     [OCSParamConstant paramWithFloat:0.5f],
-                                                     [OCSParamConstant paramWithFloat:1.0f], nil];
+                                                     ocsp(1),ocsp(0.5), ocsp(1), nil];
         
         OCSSineTable * sineTable = 
         [[OCSSineTable alloc] initWithSize:4096 
@@ -39,7 +37,7 @@
         [self addFunctionTable:sineTable];
         
         OCSOscillator * myOscillator = 
-        [[OCSOscillator alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.12]
+        [[OCSOscillator alloc] initWithAmplitude:ocsp(0.12)
                                        Frequency:[frequency output]
                                    FunctionTable:sineTable];
         [self addOpcode:myOscillator];
@@ -47,8 +45,8 @@
         OCSReverb * reverb = 
         [[OCSReverb alloc] initWithInputLeft:[myOscillator output] 
                                   InputRight:[myOscillator output] 
-                               FeedbackLevel:[OCSParamConstant paramWithFloat:0.85f] 
-                             CutoffFrequency:[OCSParamConstant paramWithInt:12000]];
+                               FeedbackLevel:ocsp(0.85)
+                             CutoffFrequency:ocsp(12000)];
         
         [self addOpcode:reverb];
         

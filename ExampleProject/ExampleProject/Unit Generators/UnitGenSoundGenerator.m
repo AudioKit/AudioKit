@@ -29,36 +29,33 @@
                                                      PartialStrengths:partialStrengths];
         [self addFunctionTable:sineTable];
         
-        myLine = [[OCSLine alloc] initWithStartingValue:[OCSParamConstant paramWithFloat:0.5] 
+        myLine = [[OCSLine alloc] initWithStartingValue:ocsp(0.5) 
                                                Duration:duration 
-                                            TargetValue:[OCSParamConstant paramWithInt:1.5]];
+                                            TargetValue:ocsp(1.5)];
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line
         myLineSegment_a = 
-        [[OCSLineSegment alloc] initWithFirstSegmentStartValue:[OCSParamConstant paramWithInt:110]
+        [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)
                                           FirstSegmentDuration:duration 
-                                      FirstSegementTargetValue:[OCSParamConstant paramWithInt:330]];
+                                      FirstSegementTargetValue:ocsp(330)];
         
-        OCSParamArray * breakpoints = [OCSParamArray paramArrayFromParams:
-                                       [OCSParamConstant paramWithFloat:3.0f],
-                                       [OCSParamConstant paramWithFloat:1.5f],
-                                       [OCSParamConstant paramWithFloat:3.0f], 
-                                       [OCSParamConstant paramWithFloat:0.5f],nil];
+        OCSParamArray * breakpoints = 
+        [OCSParamArray paramArrayFromParams: ocsp(3), ocsp(1.5), ocsp(3.0), ocsp(0.5), nil];
 
         myLineSegment_b = 
-        [[OCSLineSegment alloc] initWithFirstSegmentStartValue:[OCSParamConstant paramWithFloat:0.5]
-                                          FirstSegmentDuration:[OCSParamConstant paramWithInt:3]
-                                      FirstSegementTargetValue:[OCSParamConstant paramWithFloat:0.2] 
+        [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0.5)
+                                          FirstSegmentDuration:ocsp(3)
+                                      FirstSegementTargetValue:ocsp(0.2)
                                                   SegmentArray:breakpoints];
         [self addOpcode:myLineSegment_a];
         [self addOpcode:myLineSegment_b];
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
         myFMOscillator = 
-        [[OCSFoscili alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.4] 
+        [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
                                     Frequency:[myLineSegment_a output]
-                                      Carrier:[OCSParamConstant paramWithInt:1]
+                                      Carrier:ocsp(1)
                                    Modulation:[myLine output]
                                      ModIndex:[myLineSegment_b output]
                                 FunctionTable:sineTable 

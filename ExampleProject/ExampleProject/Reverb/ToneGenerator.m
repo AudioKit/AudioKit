@@ -29,7 +29,7 @@
         [self addFunctionTable:sineTable];
         
         OCSOscillator * myOscillator = 
-        [[OCSOscillator alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.4]
+        [[OCSOscillator alloc] initWithAmplitude:ocsp(0.4)
                                        Frequency:[frequency output]
                                    FunctionTable:sineTable];
         [self addOpcode:myOscillator];
