@@ -19,7 +19,7 @@
     OCSOrchestra * orchestra;
     NSMutableString * csdRepresentation;
     OCSParamConstant * duration;
-   int  _myID;
+    int  _myID;
     NSMutableArray * propertyList;
 }
 
