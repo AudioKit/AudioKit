@@ -7,8 +7,6 @@
 //
 
 #import "FMGameObject.h"
-//
-//typedef enum { kDurationArg, kFrequencyArg, kModulationArg } FMGameObjectArguments;
 
 @implementation FMGameObject
 @synthesize frequency;

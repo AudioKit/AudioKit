@@ -13,19 +13,6 @@ extern NSString *const FINAL_OUTPUT;
 
 typedef enum
 {
-    kWindowHamming=1,
-    kWindowHanning=2,
-    kWindowBartlettTriangle=3,
-    kWindowBlackmanThreeTerm=4,
-    kWindowBlackmanHarrisFourTerm=5,
-    kWindowGaussian=6,
-    kWindowKaiser=7,
-    KWindowRectangle=8,
-    kWindowSync=9
-}WindowTypes;
-
-typedef enum
-{
     kRandomDistributionUniform=1,
     kRandomDistributionLinear=2,
     kRandomDistributionTriangular=3,
@@ -37,6 +24,6 @@ typedef enum
     kRandomDistributionBeta=9,
     kRandomDistributionWeibull=10,
     kRandomDistributionPoisson=11
-}RandomDistributionTypes;
+}RandomDistributionType;
 
 #endif

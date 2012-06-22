@@ -48,7 +48,7 @@ typedef enum
     kGenRoutineMP3File=49,
     kGenRoutineMicrotuningScale=51,
     kGenRoutineMultichannel=52
-}GenRoutineTypes;
+} GenRoutineType;
 
 @interface OCSFunctionTable : NSObject
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
@@ -66,7 +66,7 @@ typedef enum
 @property (readonly) NSString *text;
 
 -(id) initWithSize:(int) size 
-        GenRoutine:(int) gen 
+        GenRoutine:(GenRoutineType) gen 
         Parameters:(NSString *) params;
 
 

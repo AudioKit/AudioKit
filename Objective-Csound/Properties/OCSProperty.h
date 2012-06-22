@@ -35,8 +35,8 @@
 
 -(id)init;
 -(id)initWithValue:(float)aInitValue;
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue;
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isAudioRate:(BOOL)control;
+-(id)initWithValue:(float)val Min:(float)min Max:(float)max;
+-(id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control;
 -(NSString *)convertToCsd;
 -(NSString *)uniqueName;
 

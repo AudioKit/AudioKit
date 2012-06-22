@@ -17,7 +17,7 @@
 @synthesize text;
 
 -(id)initWithSize:(int)size 
-       GenRoutine:(int)gen 
+       GenRoutine:(GenRoutineType)gen 
        Parameters:(NSString *)params
 {
     self = [super init];
