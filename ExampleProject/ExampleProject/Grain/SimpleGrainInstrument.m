@@ -34,12 +34,12 @@
         
         OCSParamArray * amplitudeSegmentArray = 
             [OCSParamArray paramArrayFromParams:[OCSParamConstant paramWithFormat:@"%@ / 2", duration],
-                                                [OCSParamConstant paramWithFloat:0.01], nil];
+                                                ocsp(0.01), nil];
         
         OCSExpSegment *amplitudeExp = 
-        [[OCSExpSegment alloc] initWithFirstSegmentStartValue:[OCSParamConstant paramWithFloat:0.001f] 
+        [[OCSExpSegment alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
                                          FirstSegmentDuration:[OCSParamConstant paramWithFormat:@"%@ / 2", duration]
-                                     FirstSegementTargetValue:[OCSParamConstant paramWithFloat:0.1f]
+                                     FirstSegementTargetValue:ocsp(0.1)
                                                  SegmentArray:amplitudeSegmentArray];
         [self addOpcode:amplitudeExp];
 
@@ -50,27 +50,27 @@
         [self addOpcode:pitchLine];
         
         OCSLine * grainDensityLine = 
-        [[OCSLine alloc] initWithStartingValue:ocsp(600.0)
+        [[OCSLine alloc] initWithStartingValue:ocsp(600)
                                       Duration:duration 
-                                   TargetValue:[OCSParamConstant paramWithInt:300]];
+                                   TargetValue:ocsp(300)];
         [self addOpcode:grainDensityLine];
         
         OCSLine * ampOffsetLine = 
-        [[OCSLine alloc] initWithStartingValue:[OCSParamConstant paramWithInt:0] 
+        [[OCSLine alloc] initWithStartingValue:ocsp(0)
                                       Duration:duration 
-                                   TargetValue:[OCSParamConstant paramWithFloat:0.1]];
+                                   TargetValue:ocsp(0.1)];
         [self addOpcode:ampOffsetLine];
         
         OCSLine * pitchOffsetLine = 
-        [[OCSLine alloc] initWithStartingValue:[OCSParamConstant paramWithInt:0] 
+        [[OCSLine alloc] initWithStartingValue:ocsp(0)
                                       Duration:duration 
                                    TargetValue:[OCSParamConstant paramWithFormat:@"0.5 * (%@)", baseFreq]];
         [self addOpcode:pitchOffsetLine];   
         
         OCSLine * grainDurationLine = 
-        [[OCSLine alloc] initWithStartingValue:[OCSParamConstant paramWithFloat:0.1] 
+        [[OCSLine alloc] initWithStartingValue:ocsp(0.1)
                                       Duration:duration 
-                                   TargetValue:[OCSParamConstant paramWithFloat:0.1f]];
+                                   TargetValue:ocsp(0.1)];
         [self addOpcode:grainDurationLine];
         
         OCSGrain * grainL = 
@@ -80,7 +80,7 @@
                             amplitudeOffset:[ampOffsetLine output]
                                 pitchOffset:[pitchOffsetLine output] 
                               grainDuration:[grainDurationLine output]  
-                           maxGrainDuration:[OCSParamConstant paramWithInt:5] 
+                           maxGrainDuration:ocsp(5)
                               grainFunction:fileTable 
                              windowFunction:hamming 
                  isRandomGrainFunctionIndex:NO];
@@ -93,7 +93,7 @@
                             amplitudeOffset:[ampOffsetLine output]
                                 pitchOffset:[pitchOffsetLine output] 
                               grainDuration:[grainDurationLine output]  
-                           maxGrainDuration:[OCSParamConstant paramWithInt:5] 
+                           maxGrainDuration:ocsp(5) 
                               grainFunction:fileTable 
                              windowFunction:hamming 
                  isRandomGrainFunctionIndex:NO];

@@ -29,22 +29,24 @@
         [self addFunctionTable:vibratoSine];
         
         OCSOscillator * myVibratoOscillator = 
-        [[OCSOscillator alloc] initWithAmplitude:[OCSParamConstant paramWithInt:40]
-                                       Frequency:[OCSParamConstant paramWithInt:6] 
+        [[OCSOscillator alloc] initWithAmplitude:ocsp(40)
+                                       Frequency:ocsp(6)
                                    FunctionTable:vibratoSine
                                        isControl:YES];
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
-        OCSParamControl * vibrato = 
-        [OCSParamControl paramWithFormat:@"%d + (%f * %@)", vibratoOffset, vibratoScale, myVibratoOscillator];
+        OCSParamControl * vibrato = [OCSParamControl paramWithFormat:
+                                     @"%d + (%f * %@)", 
+                                     vibratoOffset, vibratoScale, myVibratoOscillator];
         
-        OCSParamConstant * amplitudeOffset = [OCSParamConstant paramWithFloat:0.1];
+        OCSParamConstant * amplitudeOffset = ocsp(0.1);
         
         OCSLine * amplitudeRamp = 
-        [[OCSLine alloc] initWithStartingValue:[OCSParamConstant paramWithFloat:0.0f] Duration:duration
-                                   TargetValue:[OCSParamConstant paramWithFloat:0.2]];
+        [[OCSLine alloc] initWithStartingValue:ocsp(0) 
+                                      Duration:duration
+                                   TargetValue:ocsp(0.2)];
         [self addOpcode:amplitudeRamp];
         
         OCSParamControl * totalAmplitude = 

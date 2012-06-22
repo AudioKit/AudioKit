@@ -53,7 +53,7 @@
         OCSFoscili *myFMOscillator = 
         [[OCSFoscili alloc] initWithAmplitude:[amplitude output]
                                     Frequency:[frequency output]
-                                      Carrier:[OCSParamConstant paramWithInt:1] 
+                                      Carrier:ocsp(1)
                                    Modulation:[modulation output]
                                      ModIndex:[modIndex output]
                                 FunctionTable:sineTable 

@@ -27,8 +27,8 @@
         
         OCSReverb * reverb = 
         [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
-                               FeedbackLevel:[OCSParamConstant paramWithFloat:0.85f] 
-                             CutoffFrequency:[OCSParamConstant paramWithInt:12000]];
+                               FeedbackLevel:ocsp(0.85)
+                             CutoffFrequency:ocsp(12000)];
         
         [self addOpcode:reverb];
         
