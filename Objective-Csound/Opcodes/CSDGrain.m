@@ -9,17 +9,8 @@
 #import "CSDGrain.h"
 
 @implementation CSDGrain
+
 @synthesize output;
-@synthesize amplitude;
-@synthesize pitch;
-@synthesize grainDensity;
-@synthesize amplitudeOffset;
-@synthesize pitchOffset;
-@synthesize grainDuration;
-@synthesize maxGrainDuration;
-@synthesize grainFunction;
-@synthesize windowFunction;
-@synthesize isRandomGrainFunctionIndex;
 
 -(id)initWithAmplitude:(CSDParam *)amp
                  pitch:(CSDParam *)pch
@@ -50,14 +41,14 @@
 }
 
 -(id)initWithAmplitude:(CSDParam *)amp
-pitch:(CSDParam *)pch
-grainDensity:(CSDParam *)dens
-amplitudeOffset:(CSDParamControl *)ampOffset
-pitchOffset:(CSDParamControl *)pchOffset
-grainDuration:(CSDParamControl *)gdur
-maxGrainDuration:(CSDParamConstant *)maxgdur
-grainFunction:(CSDFunctionTable *)gFunction
-windowFunction:(CSDFunctionTable *)wFunction
+                 pitch:(CSDParam *)pch
+          grainDensity:(CSDParam *)dens
+       amplitudeOffset:(CSDParamControl *)ampOffset
+           pitchOffset:(CSDParamControl *)pchOffset
+         grainDuration:(CSDParamControl *)gdur
+      maxGrainDuration:(CSDParamConstant *)maxgdur
+         grainFunction:(CSDFunctionTable *)gFunction
+        windowFunction:(CSDFunctionTable *)wFunction
 isRandomGrainFunctionIndex:(BOOL)isRandGrainIndex
 {
     self = [super init];
@@ -79,6 +70,7 @@ isRandomGrainFunctionIndex:(BOOL)isRandGrainIndex
 
 -(NSString *)convertToCsd
 {
+    //ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
     int imgdur = isRandomGrainFunctionIndex ? 1 : 0;
     return [NSString stringWithFormat:
             @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d\n",

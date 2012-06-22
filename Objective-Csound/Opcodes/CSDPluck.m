@@ -17,18 +17,11 @@ typedef enum
     kDecayTypeRecursiveFirstOrder=6
 }PluckDecayTypes;
 
+//ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
+
 @implementation CSDPluck
 
 @synthesize output;
-@synthesize amplitude;
-@synthesize resamplingFrequency;
-@synthesize pitchDecayFrequency;
-@synthesize cyclicDecayFunction;
-@synthesize decayMethod;
-@synthesize roughness;
-@synthesize stretchFactor;
-@synthesize currentSampleWeight;
-@synthesize previousSampleWeight;
 
 -(id)initWithAmplitude:(CSDParamControl *)amp
    ResamplingFrequency:(CSDParamControl *)freq

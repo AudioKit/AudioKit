@@ -60,14 +60,14 @@ typedef enum
 @property float loadTime;
 @property int   tableSize;
 @property int   generatingRoutine;
-@property (nonatomic, strong) NSString * parameters;
-@property (nonatomic, strong) CSDParamConstant * output;
+
+@property (nonatomic, strong) NSString *parameters;
+@property (nonatomic, strong) CSDParamConstant *output;
 @property (readonly) NSString *text;
 
-//-(NSString *) text;
--(id) initWithTableSize:(int) size 
-             GenRoutine:(int) gen 
-             Parameters:(NSString *) params;
+-(id) initWithSize:(int) size 
+        GenRoutine:(int) gen 
+        Parameters:(NSString *) params;
 
 
 @end

@@ -8,18 +8,16 @@
 #import "CSDOpcode.h"
 
 @interface CSDFoscili : CSDOpcode {
+    CSDParam * amplitude;
+    CSDParamControl * frequency;
+    CSDParam * carrier;
+    CSDParam * modulation;
+    CSDParamControl * modIndex;
+    CSDFunctionTable * functionTable;
+    CSDParamConstant * phase;
     CSDParam * output;
 }
-
-//ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 @property (nonatomic, strong) CSDParam * output;
-@property (nonatomic, strong) CSDParam * amplitude;
-@property (nonatomic, strong) CSDParamControl * frequency;
-@property (nonatomic, strong) CSDParam * carrier;
-@property (nonatomic, strong) CSDParam * modulation;
-@property (nonatomic, strong) CSDParamControl * modIndex;
-@property (nonatomic, strong) CSDFunctionTable * functionTable;
-@property (nonatomic, strong) CSDParamConstant * phase;
 
 -(id)initWithAmplitude:(CSDParam *) amp
              Frequency:(CSDParamControl *) cps

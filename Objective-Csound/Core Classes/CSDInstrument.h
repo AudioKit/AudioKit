@@ -34,7 +34,7 @@
 -(void) addOpcode:(CSDOpcode *) newOpcode;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable;
 -(void)playNote:(NSDictionary *)noteEvent;
--(void)playNoteWithDuration:(float)duration;
+-(void)playNoteForDuration:(float)duration;
 +(void) resetID;
 -(void)addProperty:(CSDProperty *)prop;
 //-(void)addProperties:(NSArray *)propertyList;

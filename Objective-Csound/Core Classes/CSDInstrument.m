@@ -44,7 +44,7 @@ static int currentID = 1;
 -(void)addFunctionTable:(CSDFunctionTable *)newFunctionTable {
     [csdRepresentation appendString:[newFunctionTable text]];
 }
--(void)playNoteWithDuration:(float)dur {
+-(void)playNoteForDuration:(float)dur {
     NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", dur];
     [[CSDManager sharedCSDManager] playNote:noteEventString OnInstrument:self];
 }
@@ -69,10 +69,10 @@ static int currentID = 1;
     [propertyList addObject:prop];
 }
 
--(void) resetParam:(CSDParam *) p {
+-(void) resetParam:(CSDParam *)p {
     [csdRepresentation appendString:[NSString stringWithFormat:@"%@ =  0\n", p]];
 }
--(void)assignOutput:(CSDParam *)out To:(CSDParam *) in {
+-(void)assignOutput:(CSDParam *)out To:(CSDParam *)in {
     CSDAssignment * auxOutputAssign = [[CSDAssignment alloc] initWithInput:in];
     [auxOutputAssign setOutput:out];
     [self addOpcode:auxOutputAssign];

@@ -8,14 +8,14 @@
 #import "CSDOpcode.h"
 
 @interface CSDOscillator : CSDOpcode {
+    CSDParam * amplitude;
+    CSDParam * frequency;
+    CSDFunctionTable *functionTable;
+    BOOL isControl;
     CSDParam * output;
 }
-
 @property (nonatomic, strong) CSDParam * output;
-@property (nonatomic, strong) CSDParam * amplitude;
-@property (nonatomic, strong) CSDParam * frequency;
-@property (nonatomic, strong) CSDFunctionTable *functionTable;
-@property (readonly) BOOL isControl;
+
 
 -(id) initWithAmplitude:(CSDParam *) amp 
               Frequency:(CSDParam *) freq

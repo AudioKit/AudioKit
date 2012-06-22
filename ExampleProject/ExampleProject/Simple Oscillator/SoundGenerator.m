@@ -33,8 +33,8 @@
                                                      [CSDParamConstant paramWithFloat:0.5f],
                                                      [CSDParamConstant paramWithFloat:1.0f], nil];
         
-        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 
-                                                          PartialStrengths:partialStrengthParamArray];
+        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithSize:4096 
+                                                     PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
         CSDOscillator * myOscillator = [[CSDOscillator alloc] 
@@ -62,7 +62,7 @@
 
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
-    [self playNoteWithDuration:dur];
+    [self playNoteForDuration:dur];
 }
 
 @end

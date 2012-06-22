@@ -10,10 +10,6 @@
 
 @implementation CSDExpSegment
 @synthesize output;
-@synthesize firstSegmentStartValue;
-@synthesize firstSegmentDuration;
-@synthesize firstSegmentTargetValue;
-@synthesize segmentArray;
 
 -(id)initWithFirstSegmentStartValue:(CSDParamConstant *) start
                FirstSegmentDuration:(CSDParamConstant *) dur

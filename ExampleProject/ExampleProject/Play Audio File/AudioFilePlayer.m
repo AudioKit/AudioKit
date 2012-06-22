@@ -43,7 +43,7 @@
 }
 
 -(void) play {
-    [self playNoteWithDuration:3.0f];
+    [self playNoteForDuration:3.0f];
 }
 
 @end

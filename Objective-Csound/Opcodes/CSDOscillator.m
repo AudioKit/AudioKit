@@ -10,11 +10,6 @@
 @implementation CSDOscillator 
 
 @synthesize output;
-@synthesize amplitude;
-@synthesize frequency;
-@synthesize functionTable;
-@synthesize isControl;
-
 
 -(id) initWithAmplitude:(CSDParam *) amp 
               Frequency:(CSDParam *) freq

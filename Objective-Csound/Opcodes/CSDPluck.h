@@ -13,21 +13,19 @@
 //ARB - TODO: ival parameters don't need to be strings
 
 @interface CSDPluck : CSDOpcode {
+    CSDParamControl * amplitude;
+    CSDParamControl * resamplingFrequency;
+    CSDParamConstant * pitchDecayFrequency;
+    CSDFunctionTable * cyclicDecayFunction;
+    CSDParamConstant * decayMethod;
+    CSDParamConstant * roughness;
+    CSDParamConstant * stretchFactor;
+    CSDParamConstant * currentSampleWeight;
+    CSDParamConstant * previousSampleWeight;
+    
     CSDParam * output;
 }
-
 @property (nonatomic, strong) CSDParam * output;
-//ares pluck kamp, kcps, icps, ifn, imeth [, iparm1] [, iparm2]
-@property (nonatomic, strong) CSDParamControl * amplitude;
-@property (nonatomic, strong) CSDParamControl * resamplingFrequency;
-@property (nonatomic, strong) CSDParamConstant * pitchDecayFrequency;
-@property (nonatomic, strong) CSDFunctionTable * cyclicDecayFunction;
-
-@property (nonatomic, strong) CSDParamConstant * decayMethod;
-@property (nonatomic, strong) CSDParamConstant * roughness;
-@property (nonatomic, strong) CSDParamConstant * stretchFactor;
-@property (nonatomic, strong) CSDParamConstant * currentSampleWeight;
-@property (nonatomic, strong) CSDParamConstant * previousSampleWeight;
 
 -(id)initWithAmplitude:(CSDParamControl *)amp
    ResamplingFrequency:(CSDParamControl *)freq

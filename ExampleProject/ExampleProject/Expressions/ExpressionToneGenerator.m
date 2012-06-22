@@ -65,7 +65,7 @@
 }
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
-    [self playNoteWithDuration:dur];
+    [self playNoteForDuration:dur];
 }
 
 @end
