@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface InitialViewController : UIViewController <UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;

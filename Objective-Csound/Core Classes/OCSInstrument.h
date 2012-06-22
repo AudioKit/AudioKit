@@ -15,6 +15,8 @@
 #import "OCSProperty.h"
 #import "OCSOrchestra.h"
 
+#define ocsp(__f__) [OCSParamConstant paramWithFloat:__f__]
+
 @interface OCSInstrument : NSObject {
     OCSOrchestra * orchestra;
     NSMutableString * csdRepresentation;

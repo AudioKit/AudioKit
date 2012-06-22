@@ -50,7 +50,7 @@
         [self addOpcode:pitchLine];
         
         OCSLine * grainDensityLine = 
-        [[OCSLine alloc] initWithStartingValue:[OCSParamConstant paramWithInt:600] 
+        [[OCSLine alloc] initWithStartingValue:ocsp(600.0)
                                       Duration:duration 
                                    TargetValue:[OCSParamConstant paramWithInt:300]];
         [self addOpcode:grainDensityLine];
