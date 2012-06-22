@@ -14,7 +14,9 @@
 @interface EffectsProcessor : OCSInstrument 
 
 @property (nonatomic, strong) OCSParam * input;
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *) tg;
+
+-(id) initWithOrchestra:(OCSOrchestra *)orch 
+          ToneGenerator:(ToneGenerator *) toneGenerator;
 -(void) start;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "PlayCSDFileController.h"
+#import "OCSManager.h"
 
 @implementation PlayCSDFileController
 

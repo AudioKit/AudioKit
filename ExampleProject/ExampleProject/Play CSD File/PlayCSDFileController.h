@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OCSManager.h"
 
 @interface PlayCSDFileController : UIViewController 
 

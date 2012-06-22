@@ -14,7 +14,6 @@
 @interface UnitGeneratorsViewController : UIViewController
 {
     UnitGenSoundGenerator *myUnitGenSoundGenerator;
-    OCSOrchestra *myOrchestra;
 }
 
 -(IBAction)hit1:(id)sender;

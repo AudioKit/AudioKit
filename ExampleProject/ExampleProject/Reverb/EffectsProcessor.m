@@ -11,9 +11,10 @@
 @implementation EffectsProcessor
 @synthesize input;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *)toneGenerator
+-(id) initWithOrchestra:(OCSOrchestra *)orch 
+          ToneGenerator:(ToneGenerator *)toneGenerator
 {
-    self = [super initWithOrchestra:newOrchestra];
+    self = [super initWithOrchestra:orch];
     if (self) {                  
         
         // INPUTS ==============================================================

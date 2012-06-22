@@ -24,9 +24,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    myOrchestra = [[OCSOrchestra alloc] init];
-    myTweakableInstrument = [[TweakableInstrument alloc] initWithOrchestra:myOrchestra];
-    [[OCSManager sharedOCSManager] runOrchestra:myOrchestra];
+    OCSOrchestra * orch = [[OCSOrchestra alloc] init];
+    myTweakableInstrument = [[TweakableInstrument alloc] initWithOrchestra:orch];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
     
     float minValue    = [[myTweakableInstrument amplitude] minimumValue];
     float maxValue    = [[myTweakableInstrument amplitude] maximumValue];
@@ -58,7 +58,7 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orient
 {
 	return YES;
 }
@@ -70,16 +70,18 @@
     if (repeatingNoteTimer) {
         return;
     } else {
-        repeatingNoteTimer   = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self 
-                                                              selector:@selector(noteTimerFireMethod:)   userInfo:nil repeats:YES];
-        repeatingSliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self 
-                                                              selector:@selector(sliderTimerFireMethod:) userInfo:nil repeats:YES];
-//        NSRunLoop *rl = [NSRunLoop currentRunLoop];
-//        [rl addTimer:noteTimer forMode:NSDefaultRunLoopMode];
-//        [rl addTimer:sliderTimer forMode:NSDefaultRunLoopMode];
-//        
-//        repeatingSliderTimer = sliderTimer;
-//        repeatingNoteTimer = noteTimer;
+        repeatingNoteTimer = 
+        [NSTimer scheduledTimerWithTimeInterval:3.0 
+                                         target:self      
+                                       selector:@selector(noteTimerFireMethod:)   
+                                       userInfo:nil 
+                                        repeats:YES];
+        repeatingSliderTimer = 
+        [NSTimer scheduledTimerWithTimeInterval:0.2 
+                                         target:self 
+                                       selector:@selector(sliderTimerFireMethod:) 
+                                       userInfo:nil 
+                                        repeats:YES];
     }
 }
 

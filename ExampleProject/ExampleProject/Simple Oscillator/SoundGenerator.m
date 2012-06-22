@@ -16,8 +16,8 @@
 
 @synthesize frequency;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra {
-    self = [super initWithOrchestra:newOrchestra];
+-(id) initWithOrchestra:(OCSOrchestra *)orch {
+    self = [super initWithOrchestra:orch];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
@@ -33,20 +33,22 @@
                                                      [OCSParamConstant paramWithFloat:0.5f],
                                                      [OCSParamConstant paramWithFloat:1.0f], nil];
         
-        OCSSineTable * sineTable = [[OCSSineTable alloc] initWithSize:4096 
-                                                     PartialStrengths:partialStrengthParamArray];
+        OCSSineTable * sineTable = 
+        [[OCSSineTable alloc] initWithSize:4096 
+                          PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
-        OCSOscillator * myOscillator = [[OCSOscillator alloc] 
-                                        initWithAmplitude:[OCSParamConstant paramWithFloat:0.12]
-                                                Frequency:[frequency output]
-                                            FunctionTable:sineTable];
+        OCSOscillator * myOscillator = 
+        [[OCSOscillator alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.12]
+                                       Frequency:[frequency output]
+                                   FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         
-        OCSReverb * reverb = [[OCSReverb alloc] initWithInputLeft:[myOscillator output] 
-                                                       InputRight:[myOscillator output] 
-                                                    FeedbackLevel:[OCSParamConstant paramWithFloat:0.85f] 
-                                                  CutoffFrequency:[OCSParamConstant paramWithInt:12000]];
+        OCSReverb * reverb = 
+        [[OCSReverb alloc] initWithInputLeft:[myOscillator output] 
+                                  InputRight:[myOscillator output] 
+                               FeedbackLevel:[OCSParamConstant paramWithFloat:0.85f] 
+                             CutoffFrequency:[OCSParamConstant paramWithInt:12000]];
         
         [self addOpcode:reverb];
         

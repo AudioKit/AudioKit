@@ -25,7 +25,9 @@
 @property (nonatomic, strong) OCSProperty * frequency;
 @property (nonatomic, strong) OCSProperty * modulation;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
--(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod;
+-(id) initWithOrchestra:(OCSOrchestra *)orch;
+-(void) playNoteForDuration:(float)dur 
+                  Frequency:(float)freq 
+                 Modulation:(float)mod;
 
 @end

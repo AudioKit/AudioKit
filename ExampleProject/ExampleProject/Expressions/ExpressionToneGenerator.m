@@ -11,9 +11,9 @@
 @implementation ExpressionToneGenerator
 @synthesize frequency;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra
+-(id) initWithOrchestra:(OCSOrchestra *)orch
 {
-    self = [super initWithOrchestra:newOrchestra];
+    self = [super initWithOrchestra:orch];
     if (self) {                  
         // INPUTS AND CONTROLS =================================================
         

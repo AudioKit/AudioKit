@@ -12,9 +12,10 @@
 @synthesize frequency;
 @synthesize auxilliaryOutput;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra
+-(id) initWithOrchestra:(OCSOrchestra *)orch
 {
-    self = [super initWithOrchestra:newOrchestra];
+    self = [super initWithOrchestra:orch];
+    
     if (self) {       
         // INPUTS ==============================================================
         

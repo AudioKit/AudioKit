@@ -13,7 +13,6 @@
 
 @interface ContinuousControlViewController : UIViewController
 {
-    OCSOrchestra *myOrchestra;
     TweakableInstrument *myTweakableInstrument;
     
     NSTimer *repeatingNoteTimer;
