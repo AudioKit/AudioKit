@@ -38,23 +38,23 @@
     return self;
 }
 
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue
+-(id)initWithValue:(float)val Min:(float)min Max:(float)max
 {
     self = [self init];
-    initValue = aInitValue;
-    value = aInitValue;
-    minimumValue = minValue;
-    maximumValue = maxValue;
+    initValue = val;
+    value = val;
+    minimumValue = min;
+    maximumValue = max;
     return self;
 }
 
--(id)initWithValue:(float)aInitValue Min:(float)minValue Max:(float)maxValue isAudioRate:(BOOL)control 
+-(id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control 
 {
     self = [self init];
-    initValue = aInitValue;
-    value = aInitValue;
-    minimumValue = minValue;
-    maximumValue = maxValue;
+    initValue = val;
+    value = val;
+    minimumValue = min;
+    maximumValue = max;
     isAudioRate = control;
     if(isAudioRate) {
         output = [OCSParam paramWithFormat:@"ga%@", [self uniqueName]];
@@ -64,7 +64,9 @@
 
 -(NSString *)convertToCsd
 {
-    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n", output, output];
+    NSString * getLine = [NSString stringWithFormat:@"%@ chnget \"%@\"\n",  output, output];
+    NSString * setLine = [NSString stringWithFormat:@"chnset %@, \"%@\"\n", output, output];
+    return [NSString stringWithFormat:@"%@%@", getLine, setLine];
 }
 
 -(NSString *) uniqueName {
@@ -80,6 +82,10 @@
 
 -(void)updateValuesToCsound {
     *channelPtr = [self value];  
+}
+-(void)updateValuesFromCsound {
+    //AOP Test to get values back from Csound
+    [self setValue:*channelPtr];
 }
 
 -(NSString *)description {
