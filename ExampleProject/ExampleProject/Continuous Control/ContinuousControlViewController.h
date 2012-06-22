@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDManager.h"
-#import "CSDOrchestra.h"
+#import "OCSManager.h"
+#import "OCSOrchestra.h"
 #import "TweakableInstrument.h"
 
 @interface ContinuousControlViewController : UIViewController
 {
-    CSDOrchestra *myOrchestra;
+    OCSOrchestra *myOrchestra;
     TweakableInstrument *myTweakableInstrument;
     
     NSTimer *repeatingNoteTimer;

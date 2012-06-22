@@ -12,37 +12,37 @@
 @synthesize frequency;
 @synthesize auxilliaryOutput;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra
 {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {       
         // INPUTS ==============================================================
         
-        frequency  = [[CSDProperty alloc] init];
-        [frequency setOutput:[CSDParamControl paramWithString:@"InputFrequency"]]; //Optional
+        frequency  = [[OCSProperty alloc] init];
+        [frequency setOutput:[OCSParamControl paramWithString:@"InputFrequency"]]; //Optional
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
         
-        CSDSineTable * sineTable = [[CSDSineTable alloc] init];
+        OCSSineTable * sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        CSDOscillator * myOscillator = 
-        [[CSDOscillator alloc] initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
+        OCSOscillator * myOscillator = 
+        [[OCSOscillator alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.4]
                                        Frequency:[frequency output]
                                    FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         
         // AUDIO OUTPUT ========================================================
         
-        CSDOutputStereo * stereoOutput = 
-        [[CSDOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
+        OCSOutputStereo * stereoOutput = 
+        [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
         
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [CSDParam paramWithString:@"ToneGeneratorOutput"];
+        auxilliaryOutput = [OCSParam paramWithString:@"ToneGeneratorOutput"];
         [self assignOutput:auxilliaryOutput To:[myOscillator output]];
     }
     return self;

@@ -9,10 +9,10 @@ TODO:
 
 * Create a grain instrument to further test gen01 and ftgentmp
 * Make a MIDI module that makes more sense than Csound's current midi implementation / Disconnect UIWidgets
-* Create more opcodes (fix up CSDPluck)
+* Create more opcodes (fix up OCSPluck)
 * Create More Function Table subclasses
 * Develop better examples
-* optional argument for CSDWindowsTable (used by Gaussian and Kaiser ?sigma)
+* optional argument for OCSWindowsTable (used by Gaussian and Kaiser ?sigma)
 
 NOTES:
 
@@ -21,8 +21,8 @@ NOTES:
 
 RECENT UPDATE NOTES:
 
-* CSDPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
-CSDProperty when we do use them.
+* OCSPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
+OCSProperty when we do use them.
 
 INDIGESTION:
 

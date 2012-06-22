@@ -14,11 +14,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    myOrchestra = [[CSDOrchestra alloc] init];
+    myOrchestra = [[OCSOrchestra alloc] init];
     toneGenerator = [[ToneGenerator alloc] initWithOrchestra:myOrchestra];
     fx = [[EffectsProcessor alloc] initWithOrchestra:myOrchestra 
                                        ToneGenerator:toneGenerator];
-    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
+    [[OCSManager sharedOCSManager] runOrchestra:myOrchestra];
 }
 
 - (IBAction)hit1:(id)sender {

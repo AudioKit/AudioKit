@@ -7,20 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDInstrument.h"
-#import "CSDSineTable.h"
-#import "CSDOscillator.h"
-#import "CSDParamArray.h"
-#import "CSDReverb.h"
-#import "CSDOutputStereo.h"
+#import "OCSInstrument.h"
+#import "OCSSineTable.h"
+#import "OCSOscillator.h"
+#import "OCSParamArray.h"
+#import "OCSReverb.h"
+#import "OCSOutputStereo.h"
 
-@interface SoundGenerator : CSDInstrument {
-    CSDProperty *frequency;
+@interface SoundGenerator : OCSInstrument {
+    OCSProperty *frequency;
 }
 
-@property (nonatomic, strong) CSDProperty * frequency;
+@property (nonatomic, strong) OCSProperty * frequency;
     
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

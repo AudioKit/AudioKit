@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDManager.h"
-#import "CSDOrchestra.h"
+#import "OCSManager.h"
+#import "OCSOrchestra.h"
 #import "SimpleGrainInstrument.h"
 
 @interface GrainViewController : UIViewController

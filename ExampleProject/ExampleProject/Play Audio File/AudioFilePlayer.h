@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDInstrument.h"
-#import "CSDLoopingOscillator.h"
-#import "CSDReverb.h"
-#import "CSDOutputStereo.h"
+#import "OCSInstrument.h"
+#import "OCSLoopingOscillator.h"
+#import "OCSReverb.h"
+#import "OCSOutputStereo.h"
 
-@interface AudioFilePlayer : CSDInstrument
+@interface AudioFilePlayer : OCSInstrument
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
 -(void) play;
 @end

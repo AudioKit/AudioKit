@@ -10,22 +10,22 @@
 //     orchestra needs visible method to grab text interpretation of this instrument
 //
 
-#import "CSDInstrument.h"
-#import "CSDFoscili.h"
-#import "CSDParam.h"
-#import "CSDOutputStereo.h"
-#import "CSDSineTable.h"
+#import "OCSInstrument.h"
+#import "OCSFoscili.h"
+#import "OCSParam.h"
+#import "OCSOutputStereo.h"
+#import "OCSSineTable.h"
 
-#import "CSDFoscili.h"
+#import "OCSFoscili.h"
 
-@interface FMGameObject : CSDInstrument {
-    CSDProperty *amplitude;
-    CSDProperty *frequency;
+@interface FMGameObject : OCSInstrument {
+    OCSProperty *amplitude;
+    OCSProperty *frequency;
 }
-@property (nonatomic, strong) CSDProperty * frequency;
-@property (nonatomic, strong) CSDProperty * modulation;
+@property (nonatomic, strong) OCSProperty * frequency;
+@property (nonatomic, strong) OCSProperty * modulation;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod;
 
 @end

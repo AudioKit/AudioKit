@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDManager.h"
-#import "CSDOrchestra.h"
+#import "OCSManager.h"
+#import "OCSOrchestra.h"
 #import "SoundGenerator.h"
 
 @interface OscillatorViewController : UIViewController {

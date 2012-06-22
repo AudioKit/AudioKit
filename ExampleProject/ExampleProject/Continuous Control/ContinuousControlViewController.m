@@ -24,9 +24,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    myOrchestra = [[CSDOrchestra alloc] init];
+    myOrchestra = [[OCSOrchestra alloc] init];
     myTweakableInstrument = [[TweakableInstrument alloc] initWithOrchestra:myOrchestra];
-    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
+    [[OCSManager sharedOCSManager] runOrchestra:myOrchestra];
     
     float minValue    = [[myTweakableInstrument amplitude] minimumValue];
     float maxValue    = [[myTweakableInstrument amplitude] maximumValue];

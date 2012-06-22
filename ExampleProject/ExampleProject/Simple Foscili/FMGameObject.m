@@ -14,40 +14,40 @@
 @synthesize frequency;
 @synthesize modulation;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
-        frequency  = [[CSDProperty alloc] init];
-        modulation = [[CSDProperty alloc] init];
+        frequency  = [[OCSProperty alloc] init];
+        modulation = [[OCSProperty alloc] init];
         
         //Optional output string assignment, can make for a nicer to read CSD File
-        [frequency  setOutput:[CSDParamControl paramWithString:@"Frequency"]]; 
-        [modulation setOutput:[CSDParamControl paramWithString:@"Modulation"]]; 
+        [frequency  setOutput:[OCSParamControl paramWithString:@"Frequency"]]; 
+        [modulation setOutput:[OCSParamControl paramWithString:@"Modulation"]]; 
         
         [self addProperty:frequency];
         [self addProperty:modulation];
         
         // INSTRUMENT DEFINITION ===============================================
             
-        CSDSineTable *sineTable = [[CSDSineTable alloc] init];
+        OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        CSDFoscili * myFMOscillator = 
-        [[CSDFoscili alloc] initWithAmplitude:[CSDParamConstant paramWithFloat:0.4]
+        OCSFoscili * myFMOscillator = 
+        [[OCSFoscili alloc] initWithAmplitude:[OCSParamConstant paramWithFloat:0.4]
                                     Frequency:[frequency output]
-                                      Carrier:[CSDParamConstant paramWithInt:1]
+                                      Carrier:[OCSParamConstant paramWithInt:1]
                                    Modulation:[modulation output]
-                                     ModIndex:[CSDParamConstant paramWithInt:15]
+                                     ModIndex:[OCSParamConstant paramWithInt:15]
                                 FunctionTable:sineTable
                              AndOptionalPhase:nil];
         [self addOpcode:myFMOscillator];
         
         // AUDIO OUTPUT ========================================================
         
-        CSDOutputStereo * monoOutput = 
-        [[CSDOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
+        OCSOutputStereo * monoOutput = 
+        [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
         [self addOpcode:monoOutput];
     }
     return self;

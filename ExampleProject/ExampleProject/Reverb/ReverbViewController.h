@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDManager.h"
+#import "OCSManager.h"
 #import "ToneGenerator.h"
 #import "EffectsProcessor.h"
 
 @interface ReverbViewController : UIViewController {
     EffectsProcessor * fx;
     ToneGenerator * toneGenerator;
-    CSDOrchestra * myOrchestra;
+    OCSOrchestra * myOrchestra;
 }
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
