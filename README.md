@@ -20,6 +20,7 @@ NOTES:
 * Consider units and rates in opcodes and properties
 * OCSPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
 OCSProperty when we do use them.
+* Some tables may not be interesting in csound any more, like gen02, better as arrays, converted to table during (addOpcode:)
 
 INDIGESTION:
 

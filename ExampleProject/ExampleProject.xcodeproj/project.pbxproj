@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7696FEF1159515150041A05F /* OCSReverbSixParallelComb.m in Sources */ = {isa = PBXBuildFile; fileRef = 7696FEF0159515150041A05F /* OCSReverbSixParallelComb.m */; };
 		76B322251579012500FF54BB /* OCSPluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B322241579012500FF54BB /* OCSPluck.m */; };
 		76B956471581302D005AFAE9 /* OCSLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* OCSLine.m */; };
 		76B9564C15813809005AFAE9 /* OCSLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* OCSLineSegment.m */; };
@@ -111,6 +112,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7696FEEF159515150041A05F /* OCSReverbSixParallelComb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSReverbSixParallelComb.h; sourceTree = "<group>"; };
+		7696FEF0159515150041A05F /* OCSReverbSixParallelComb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSReverbSixParallelComb.m; sourceTree = "<group>"; };
 		76B322231579012400FF54BB /* OCSPluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluck.h; sourceTree = "<group>"; };
 		76B322241579012500FF54BB /* OCSPluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluck.m; sourceTree = "<group>"; };
 		76B956451581302D005AFAE9 /* OCSLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLine.h; sourceTree = "<group>"; };
@@ -729,6 +732,8 @@
 				76B322241579012500FF54BB /* OCSPluck.m */,
 				C4FE859F1583E3E400902E07 /* OCSReverb.h */,
 				C4FE85A01583E3E400902E07 /* OCSReverb.m */,
+				7696FEEF159515150041A05F /* OCSReverbSixParallelComb.h */,
+				7696FEF0159515150041A05F /* OCSReverbSixParallelComb.m */,
 				C4FE85941583CE0700902E07 /* OCSOutputMono.h */,
 				C4FE85951583CE0700902E07 /* OCSOutputMono.m */,
 				C4FE85A51583F63C00902E07 /* OCSOutputStereo.h */,
@@ -931,6 +936,7 @@
 				C46EB41D15942377005807A2 /* MoreGrainViewController.m in Sources */,
 				C46EB425159423DA005807A2 /* GrainViewController.m in Sources */,
 				C46EB427159423DA005807A2 /* SimpleGrainInstrument.m in Sources */,
+				7696FEF1159515150041A05F /* OCSReverbSixParallelComb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
