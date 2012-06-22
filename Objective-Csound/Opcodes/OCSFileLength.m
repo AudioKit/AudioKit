@@ -26,9 +26,9 @@
 {
     return [NSString stringWithFormat:@"%@ = ftlen(%@)\n", output, input];
 }
-
+/*
 -(NSString *) description {
     return [output parameterString];
-}
+}*/
 
 @end
