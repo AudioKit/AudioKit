@@ -11,8 +11,8 @@
 @implementation AudioFilePlayer
 
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra {
-    self = [super initWithOrchestra:newOrchestra];
+-(id) initWithOrchestra:(OCSOrchestra *)orch {
+    self = [super initWithOrchestra:orch];
     if (self) {
         
         // INSTRUMENT DEFINITION ===============================================

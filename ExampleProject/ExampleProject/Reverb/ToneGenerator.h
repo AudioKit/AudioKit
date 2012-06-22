@@ -17,7 +17,7 @@
 @property (nonatomic, strong) OCSProperty * frequency;
 @property (readonly) OCSParam * auxilliaryOutput;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(OCSOrchestra *)orch;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

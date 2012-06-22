@@ -14,7 +14,6 @@
 @interface ExpressionsViewController : UIViewController
 {
     ExpressionToneGenerator *myToneGenerator;
-    OCSOrchestra *myOrchestra;
 }
 
 -(IBAction)hit1:(id)sender;

@@ -13,6 +13,6 @@
 
 @interface AudioFilePlayer : OCSInstrument
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
--(void) play;
+- (id)initWithOrchestra:(OCSOrchestra *)orch;
+- (void)play;
 @end

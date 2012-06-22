@@ -14,7 +14,6 @@
 @interface ReverbViewController : UIViewController {
     EffectsProcessor * fx;
     ToneGenerator * toneGenerator;
-    OCSOrchestra * myOrchestra;
 }
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;

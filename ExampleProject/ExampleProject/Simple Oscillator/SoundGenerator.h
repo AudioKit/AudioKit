@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) OCSProperty * frequency;
     
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(OCSOrchestra *)orch;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

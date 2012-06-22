@@ -12,8 +12,8 @@
 @synthesize frequency;
 @synthesize modulation;
 
--(id) initWithOrchestra:(OCSOrchestra *)newOrchestra {
-    self = [super initWithOrchestra:newOrchestra];
+-(id) initWithOrchestra:(OCSOrchestra *)orch {
+    self = [super initWithOrchestra:orch];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
@@ -51,7 +51,9 @@
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod {
+-(void) playNoteForDuration:(float)dur 
+                  Frequency:(float)freq 
+                 Modulation:(float)mod {
     frequency.value = freq;
     modulation.value = mod;
     [self playNoteForDuration:dur];

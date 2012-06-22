@@ -23,10 +23,10 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        amplitude  = [[OCSProperty alloc] initWithValue:0.1f    Min:0.0f  Max:1.0f];
+        amplitude  = [[OCSProperty alloc] initWithValue:0.1f Min:0.0f  Max:1.0f];
         frequency  = [[OCSProperty alloc] init];
-        modulation = [[OCSProperty alloc] initWithValue:0.5f    Min:0.25f Max:2.2f];
-        modIndex   = [[OCSProperty alloc] initWithValue:1.0f    Min:0.0f  Max:25.0f];
+        modulation = [[OCSProperty alloc] initWithValue:0.5f Min:0.25f Max:2.2f];
+        modIndex   = [[OCSProperty alloc] initWithValue:1.0f Min:0.0f  Max:25.0f];
         
         //Optional output string assignment, can make for a nicer to read CSD File
         [amplitude  setOutput:[OCSParamControl paramWithString:@"Amplitude"]]; 
@@ -41,9 +41,9 @@
         [self addProperty:modIndex];
         
         //[myPropertyManager = [[OCSPropertyManager alloc] init];
-        //[myPropertyManager addProperty:amplitude            forControllerNumber:12];
-        //[myPropertyManager addProperty:modulationContinuous forControllerNumber:13];
-        //[myPropertyManager addProperty:modIndexContinuous   forControllerNumber:14];
+        //[myPropertyManager addProperty:amplitude  forControllerNumber:12];
+        //[myPropertyManager addProperty:modulation forControllerNumber:13];
+        //[myPropertyManager addProperty:modIndex   forControllerNumber:14];
         
         // INSTRUMENT DEFINITION ===============================================
         
