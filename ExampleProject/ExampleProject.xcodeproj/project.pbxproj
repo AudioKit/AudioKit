@@ -99,6 +99,7 @@
 		C4C987551582E00A00F1DB9A /* OCSParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987521582DFFA00F1DB9A /* OCSParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4E9055C1594525C0055B609 /* ox-icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E9055B1594525C0055B609 /* ox-icon-72.png */; };
 		C4E9055E159452640055B609 /* ox-icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E9055D159452640055B609 /* ox-icon-144.png */; };
+		C4E90560159454870055B609 /* ox.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E9055F159454870055B609 /* ox.png */; };
 		C4FE85881583535100902E07 /* OCSParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* OCSParamControl.m */; };
 		C4FE85961583CE0700902E07 /* OCSOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85951583CE0700902E07 /* OCSOutputMono.m */; };
 		C4FE85A11583E3E400902E07 /* OCSReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A01583E3E400902E07 /* OCSReverb.m */; };
@@ -292,6 +293,7 @@
 		C4C987521582DFFA00F1DB9A /* OCSParamArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSParamArray.m; sourceTree = "<group>"; };
 		C4E9055B1594525C0055B609 /* ox-icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-72.png"; path = "../ox-icon-72.png"; sourceTree = "<group>"; };
 		C4E9055D159452640055B609 /* ox-icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-144.png"; path = "../ox-icon-144.png"; sourceTree = "<group>"; };
+		C4E9055F159454870055B609 /* ox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ox.png; sourceTree = "<group>"; };
 		C4FE85861583535100902E07 /* OCSParamControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSParamControl.h; sourceTree = "<group>"; };
 		C4FE85871583535100902E07 /* OCSParamControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParamControl.m; sourceTree = "<group>"; };
 		C4FE85941583CE0700902E07 /* OCSOutputMono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSOutputMono.h; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				C4C551211576EB08005F7EE4 /* InfoPlist.strings */,
 				C4C551241576EB08005F7EE4 /* main.m */,
 				C4C551261576EB08005F7EE4 /* ExampleProject-Prefix.pch */,
+				C4E9055F159454870055B609 /* ox.png */,
 				C4E9055D159452640055B609 /* ox-icon-144.png */,
 				C4E9055B1594525C0055B609 /* ox-icon-72.png */,
 			);
@@ -848,6 +851,7 @@
 				C46EB426159423DA005807A2 /* GrainViewController.xib in Resources */,
 				C4E9055C1594525C0055B609 /* ox-icon-72.png in Resources */,
 				C4E9055E159452640055B609 /* ox-icon-144.png in Resources */,
+				C4E90560159454870055B609 /* ox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
