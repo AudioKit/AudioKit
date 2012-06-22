@@ -15,9 +15,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    CSDOrchestra * orch = [[CSDOrchestra alloc] init];    
+    OCSOrchestra * orch = [[OCSOrchestra alloc] init];    
     myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
-    [[CSDManager sharedCSDManager] runOrchestra:orch];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender

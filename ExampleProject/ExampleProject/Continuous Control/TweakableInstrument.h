@@ -6,28 +6,28 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDInstrument.h"
-#import "CSDSineTable.h"
-#import "CSDFoscili.h"
-#import "CSDOutputStereo.h"
+#import "OCSInstrument.h"
+#import "OCSSineTable.h"
+#import "OCSFoscili.h"
+#import "OCSOutputStereo.h"
 
-@interface TweakableInstrument : CSDInstrument
+@interface TweakableInstrument : OCSInstrument
 {
-    //CSDPropertyManager *myPropertyManager;
+    //OCSPropertyManager *myPropertyManager;
     
     //maintain reference to properties so they can be referenced from controlling game logic 
-    CSDProperty *amplitude;
-    CSDProperty *frequency;
-    CSDProperty *modulation;
-    CSDProperty *modIndex;
+    OCSProperty *amplitude;
+    OCSProperty *frequency;
+    OCSProperty *modulation;
+    OCSProperty *modIndex;
 }
-//@property (nonatomic, strong) CSDPropertyManager * myPropertyManager;
-@property (nonatomic, strong) CSDProperty * amplitude;
-@property (nonatomic, strong) CSDProperty * frequency;
-@property (nonatomic, strong) CSDProperty * modulation;
-@property (nonatomic, strong) CSDProperty * modIndex;
+//@property (nonatomic, strong) OCSPropertyManager * myPropertyManager;
+@property (nonatomic, strong) OCSProperty * amplitude;
+@property (nonatomic, strong) OCSProperty * frequency;
+@property (nonatomic, strong) OCSProperty * modulation;
+@property (nonatomic, strong) OCSProperty * modIndex;
 
--(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id)initWithOrchestra:(OCSOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

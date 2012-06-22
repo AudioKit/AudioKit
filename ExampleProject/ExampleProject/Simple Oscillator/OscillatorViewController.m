@@ -14,9 +14,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    CSDOrchestra * myOrchestra = [[CSDOrchestra alloc] init];    
+    OCSOrchestra * myOrchestra = [[OCSOrchestra alloc] init];    
     mySoundGenerator =  [[SoundGenerator alloc] initWithOrchestra:myOrchestra];
-    [[CSDManager sharedCSDManager] runOrchestra:myOrchestra];
+    [[OCSManager sharedOCSManager] runOrchestra:myOrchestra];
 }
 
 - (IBAction)hit1:(id)sender {

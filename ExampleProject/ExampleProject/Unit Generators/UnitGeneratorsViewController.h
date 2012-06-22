@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSDManager.h"
-#import "CSDOrchestra.h"
+#import "OCSManager.h"
+#import "OCSOrchestra.h"
 #import "UnitGenSoundGenerator.h"
 
 @interface UnitGeneratorsViewController : UIViewController
 {
     UnitGenSoundGenerator *myUnitGenSoundGenerator;
-    CSDOrchestra *myOrchestra;
+    OCSOrchestra *myOrchestra;
 }
 
 -(IBAction)hit1:(id)sender;

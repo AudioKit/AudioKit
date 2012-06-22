@@ -18,9 +18,9 @@
 {
     [super viewDidLoad];
     
-    CSDOrchestra *orch = [[CSDOrchestra alloc] init];
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
     myGrainInstrument = [[SimpleGrainInstrument alloc] initWithOrchestra:orch];
-    [[CSDManager sharedCSDManager] runOrchestra:orch];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 -(IBAction)hit1:(id)sender

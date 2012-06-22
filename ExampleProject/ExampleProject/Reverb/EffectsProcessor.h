@@ -5,16 +5,16 @@
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-#import "CSDInstrument.h"
+#import "OCSInstrument.h"
 #import "ToneGenerator.h"
-#import "CSDReverb.h"
-#import "CSDOutputStereo.h"
-#import "CSDAssignment.h"
+#import "OCSReverb.h"
+#import "OCSOutputStereo.h"
+#import "OCSAssignment.h"
 
-@interface EffectsProcessor : CSDInstrument 
+@interface EffectsProcessor : OCSInstrument 
 
-@property (nonatomic, strong) CSDParam * input;
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *) tg;
+@property (nonatomic, strong) OCSParam * input;
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra ToneGenerator:(ToneGenerator *) tg;
 -(void) start;
 
 @end

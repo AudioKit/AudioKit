@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDInstrument.h"
+#import "OCSInstrument.h"
 
-@interface GrainBirds : CSDInstrument
+@interface GrainBirds : OCSInstrument
 
 @end

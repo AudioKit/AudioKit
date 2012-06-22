@@ -11,31 +11,31 @@
 @implementation AudioFilePlayer
 
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra {
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra {
     self = [super initWithOrchestra:newOrchestra];
     if (self) {
         
         // INSTRUMENT DEFINITION ===============================================
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
-        CSDSoundFileTable * fileTable = [[CSDSoundFileTable alloc] initWithFilename:file];
+        OCSSoundFileTable * fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fileTable];
         
-        CSDLoopingOscillator * trigger = 
-        [[CSDLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        OCSLoopingOscillator * trigger = 
+        [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
         [self addOpcode:trigger];
         
-        CSDReverb * reverb = 
-        [[CSDReverb alloc] initWithMonoInput:[trigger output1] 
-                               FeedbackLevel:[CSDParamConstant paramWithFloat:0.85f] 
-                             CutoffFrequency:[CSDParamConstant paramWithInt:12000]];
+        OCSReverb * reverb = 
+        [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
+                               FeedbackLevel:[OCSParamConstant paramWithFloat:0.85f] 
+                             CutoffFrequency:[OCSParamConstant paramWithInt:12000]];
         
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
 
-        CSDOutputStereo * stereoOutput = 
-        [[CSDOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
+        OCSOutputStereo * stereoOutput = 
+        [[OCSOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
                                         InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
     }

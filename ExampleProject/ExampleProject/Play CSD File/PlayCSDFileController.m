@@ -14,17 +14,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[CSDManager sharedCSDManager] runCSDFile:@"example"];
+    [[OCSManager sharedOCSManager] runCSDFile:@"example"];
     
 }
 
 - (IBAction)touchButton:(id)sender {
     UIButton * button = sender;
-    if ([[CSDManager sharedCSDManager] isRunning]) {
-        [[CSDManager sharedCSDManager] stop];
+    if ([[OCSManager sharedOCSManager] isRunning]) {
+        [[OCSManager sharedOCSManager] stop];
         [button setTitle: @"Run" forState:UIControlStateNormal];
     } else {
-        [[CSDManager sharedCSDManager] runCSDFile:@"example"];
+        [[OCSManager sharedOCSManager] runCSDFile:@"example"];
         [button setTitle: @"Stop" forState:UIControlStateNormal];
     }
 }

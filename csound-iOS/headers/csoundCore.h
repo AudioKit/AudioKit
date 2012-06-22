@@ -200,7 +200,7 @@ typedef struct {
                               from files */
     int     numThreads;
     int     syntaxCheckOnly;
-    int     useCsdLineCounts;
+    int     useOCSLineCounts;
 #ifdef ENABLE_NEW_PARSER
     int     newParser; /* SYY - July 30, 2006: for --new-parser */
     int     calculateWeights;

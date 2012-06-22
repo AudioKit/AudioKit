@@ -6,18 +6,18 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDInstrument.h"
-#import "CSDSineTable.h"
-#import "CSDOscillator.h"
-#import "CSDOutputStereo.h"
+#import "OCSInstrument.h"
+#import "OCSSineTable.h"
+#import "OCSOscillator.h"
+#import "OCSOutputStereo.h"
 
-@interface ToneGenerator : CSDInstrument {
-    CSDParam * auxilliaryOutput;
+@interface ToneGenerator : OCSInstrument {
+    OCSParam * auxilliaryOutput;
 }
-@property (nonatomic, strong) CSDProperty * frequency;
-@property (readonly) CSDParam * auxilliaryOutput;
+@property (nonatomic, strong) OCSProperty * frequency;
+@property (readonly) OCSParam * auxilliaryOutput;
 
--(id) initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id) initWithOrchestra:(OCSOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

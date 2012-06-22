@@ -6,20 +6,20 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDInstrument.h"
-#import "CSDFoscili.h"
-#import "CSDLine.h"
-#import "CSDLineSegment.h"
-#import "CSDOutputStereo.h"
+#import "OCSInstrument.h"
+#import "OCSFoscili.h"
+#import "OCSLine.h"
+#import "OCSLineSegment.h"
+#import "OCSOutputStereo.h"
 
-@interface UnitGenSoundGenerator : CSDInstrument
+@interface UnitGenSoundGenerator : OCSInstrument
 {
-    CSDFoscili *myFMOscillator;
-    CSDLine *myLine;
-    CSDLineSegment *myLineSegment_a;
-    CSDLineSegment *myLineSegment_b;
+    OCSFoscili *myFMOscillator;
+    OCSLine *myLine;
+    OCSLineSegment *myLineSegment_a;
+    OCSLineSegment *myLineSegment_b;
 }
 
--(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id)initWithOrchestra:(OCSOrchestra *)newOrchestra;
 
 @end

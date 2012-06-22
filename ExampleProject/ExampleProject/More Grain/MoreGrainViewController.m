@@ -18,9 +18,9 @@
 {
     [super viewDidLoad];
 
-    CSDOrchestra *o = [[CSDOrchestra alloc] init];
+    OCSOrchestra *o = [[OCSOrchestra alloc] init];
     myGrainBirds = [[GrainBirds alloc] initWithOrchestra:o];
-    [[CSDManager sharedCSDManager] runOrchestra:o];
+    [[OCSManager sharedOCSManager] runOrchestra:o];
 }
 
 @end

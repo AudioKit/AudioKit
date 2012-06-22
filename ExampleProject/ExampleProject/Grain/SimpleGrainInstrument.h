@@ -6,20 +6,20 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CSDInstrument.h"
-#import "CSDSoundFileTable.h"
-#import "CSDWindowsTable.h"
-#import "CSDExpSegment.h"
-#import "CSDLine.h"
-#import "CSDFileLength.h"
-#import "CSDProperty.h"
-#import "CSDGrain.h"
-#import "CSDOutputStereo.h"
+#import "OCSInstrument.h"
+#import "OCSSoundFileTable.h"
+#import "OCSWindowsTable.h"
+#import "OCSExpSegment.h"
+#import "OCSLine.h"
+#import "OCSFileLength.h"
+#import "OCSProperty.h"
+#import "OCSGrain.h"
+#import "OCSOutputStereo.h"
 
-@interface SimpleGrainInstrument : CSDInstrument
+@interface SimpleGrainInstrument : OCSInstrument
 {
 }
 
--(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
+-(id)initWithOrchestra:(OCSOrchestra *)newOrchestra;
 
 @end

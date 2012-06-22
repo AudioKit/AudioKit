@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 
 #import "ExpressionToneGenerator.h"
-#import "CSDOrchestra.h"
+#import "OCSOrchestra.h"
 
 @interface ExpressionsViewController : UIViewController
 {
     ExpressionToneGenerator *myToneGenerator;
-    CSDOrchestra *myOrchestra;
+    OCSOrchestra *myOrchestra;
 }
 
 -(IBAction)hit1:(id)sender;
