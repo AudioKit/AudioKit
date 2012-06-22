@@ -10,14 +10,18 @@
 @implementation CSDSineTable
 
 //TODO: Should make the partial sizes an array of floats
--(id) initWithTableSize:(int) tableSize PartialStrengths:(CSDParamArray *)partials
+-(id) initWithSize:(int)tableSize PartialStrengths:(CSDParamArray *)partials
 {
-    return [self initWithTableSize:tableSize GenRoutine:kGenRoutineSines Parameters:[partials parameterString]];
+    return [self initWithSize:tableSize 
+                   GenRoutine:kGenRoutineSines 
+                   Parameters:[partials parameterString]];
 }
 
 -(id) init;
 {
-    return [self initWithTableSize:4096 GenRoutine:kGenRoutineSines Parameters:@"1"];
+    return [self initWithSize:4096 
+                   GenRoutine:kGenRoutineSines 
+                   Parameters:@"1"];
 }
 
 

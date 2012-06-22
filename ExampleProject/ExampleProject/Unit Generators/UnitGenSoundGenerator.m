@@ -25,8 +25,8 @@
         //H4Y - ARB: create sign function with variable partial strengths
         float partialStrengthFloats[] = {1.0f, 0.5f, 1.0f};
         CSDParamArray * partialStrengths= [CSDParamArray paramArrayFromFloats:partialStrengthFloats count:3];
-        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithTableSize:4096 
-                                                          PartialStrengths:partialStrengths];
+        CSDSineTable * sineTable = [[CSDSineTable alloc] initWithSize:4096 
+                                                     PartialStrengths:partialStrengths];
         [self addFunctionTable:sineTable];
         
         myLine = [[CSDLine alloc] initWithStartingValue:[CSDParamConstant paramWithFloat:0.5] 
@@ -73,11 +73,6 @@
         [self addOpcode:monoOutput];
     }
     return self;
-}
-
--(void)playNoteForDuration:(float)dur 
-{
-    [self playNoteWithDuration:dur];
 }
 
 @end

@@ -56,7 +56,7 @@
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq Modulation:(float)mod {
     frequency.value = freq;
     modulation.value = mod;
-    [self playNoteWithDuration:dur];
+    [self playNoteForDuration:dur];
 }
 
                     

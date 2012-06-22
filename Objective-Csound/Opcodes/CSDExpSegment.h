@@ -10,14 +10,16 @@
 
 @interface CSDExpSegment : CSDOpcode
 {
+    CSDParamConstant *firstSegmentStartValue;
+    CSDParamConstant *firstSegmentDuration;
+    CSDParamConstant *firstSegmentTargetValue;
+    CSDParamArray *segmentArray;
+    
     CSDParamControl * output;
 }
 
 @property (nonatomic, strong) CSDParamControl * output;
-@property (nonatomic, strong) CSDParamConstant *firstSegmentStartValue;
-@property (nonatomic, strong) CSDParamConstant *firstSegmentDuration;
-@property (nonatomic, strong) CSDParamConstant *firstSegmentTargetValue;
-@property (nonatomic, strong) CSDParamArray *segmentArray;
+
 
 -(id)initWithFirstSegmentStartValue:(CSDParamConstant *) start
                FirstSegmentDuration:(CSDParamConstant *) dur

@@ -8,7 +8,6 @@
 #import "CSDLoopingOscillator.h"
 
 @implementation CSDLoopingOscillator
-//ar1 [,ar2] loscil3 xamp, kcps, ifn [, ibas] [, imod1] [, ibeg1] [, iend1] [, imod2] [, ibeg2] [, iend2]
 
 @synthesize output1, output2;
 
@@ -44,6 +43,7 @@
 
 
 -(NSString *)convertToCsd {
+    //ar1 [,ar2] loscil3 xamp, kcps, ifn [, ibas] [, imod1] [, ibeg1] [, iend1] [, imod2] [, ibeg2] [, iend2]
     return [NSString stringWithFormat:
             @"%@ loscil3 %@, %@, %@, %@\n",
             output1, amplitude, frequency, soundFileTable, baseFrequency];

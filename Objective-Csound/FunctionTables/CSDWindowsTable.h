@@ -10,7 +10,10 @@
 #import "CSDConstants.h"
 
 @interface CSDWindowsTable : CSDFunctionTable
--(id) initWithTableSize:(int)tableSize WindowType:(WindowTypes)window MaxValue:(int)max;
--(id) initWithTableSize:(int)size WindowType:(WindowTypes)window;
+-(id) initWithSize:(int)tableSize 
+        WindowType:(WindowTypes)window 
+          MaxValue:(int)max;
+-(id) initWithSize:(int)size 
+        WindowType:(WindowTypes)window;
 
 @end

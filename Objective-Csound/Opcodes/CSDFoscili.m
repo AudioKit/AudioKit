@@ -8,17 +8,9 @@
 #import "CSDFoscili.h"
 
 @implementation CSDFoscili
-//ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-@synthesize output;
-@synthesize amplitude;
-@synthesize frequency;
-@synthesize carrier;
-@synthesize modulation;
-@synthesize modIndex;
-@synthesize functionTable;
-@synthesize phase;
 
-//H4Y - ARB: probably need to set output in the init
+@synthesize output;
+
 -(id)initWithAmplitude:(CSDParam *) amp
              Frequency:(CSDParamControl *) cps
                Carrier:(CSDParam *) car
@@ -29,9 +21,6 @@
 {
     self = [super init];
     if ( self ) {
-        /*create text for instrument assignment 
-           (text retrieved by CSDManager from array of added instruments
-         */
         output         = [CSDParam paramWithString:[self uniqueName]];
         amplitude      = amp;
         frequency      = cps;
@@ -50,18 +39,18 @@
     NSString *s;
     if ( phase == nil) {
         s = [NSString stringWithFormat:
-                       @"%@ foscili %@, %@, %@, %@, %@, %@\n",
-                       output, amplitude, frequency, carrier, modulation, modIndex, functionTable];
+             @"%@ foscili %@, %@, %@, %@, %@, %@\n",
+             output, amplitude, frequency, carrier, modulation, modIndex, functionTable];
     } else{
         s = [NSString stringWithFormat:
-                       @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
-                       output, amplitude, frequency, carrier, modulation, modIndex, functionTable, phase];
-
+             @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
+             output, amplitude, frequency, carrier, modulation, modIndex, functionTable, phase];
+        
     }
     return s;
 }
 
--(NSString *) description {
+-(NSString *)description {
     return [output parameterString];
 }
 

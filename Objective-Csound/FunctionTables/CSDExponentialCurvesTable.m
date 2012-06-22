@@ -10,9 +10,12 @@
 
 @implementation CSDExponentialCurvesTable
 
--(id) initWithTableSize:(int) tableSize ValueLengthPairs:(CSDParamArray *)valuesAndLengths
+-(id) initWithSize:(int)tableSize 
+  ValueLengthPairs:(CSDParamArray *)valuesAndLengths
 {
-    return [self initWithTableSize:tableSize GenRoutine:kGenRoutineExponentialCurves Parameters:[valuesAndLengths parameterString]];
+    return [self initWithSize:tableSize 
+                   GenRoutine:kGenRoutineExponentialCurves 
+                   Parameters:[valuesAndLengths parameterString]];
 }
 
 @end

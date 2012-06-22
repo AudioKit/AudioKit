@@ -9,6 +9,8 @@
 #import "CSDFunctionTable.h"
 
 @interface CSDExponentialCurvesTable : CSDFunctionTable
--(id) initWithTableSize:(int)tableSize ValueLengthPairs:(CSDParamArray *)partials;
+
+-(id) initWithSize:(int)tableSize 
+  ValueLengthPairs:(CSDParamArray *)partials;
 
 @end

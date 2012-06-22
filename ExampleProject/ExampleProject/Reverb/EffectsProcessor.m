@@ -42,7 +42,7 @@
 }
 
 -(void) start {
-    [self playNoteWithDuration:10000.0f];
+    [self playNoteForDuration:10000.0f];
 }
 
 @end

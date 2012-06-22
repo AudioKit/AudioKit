@@ -21,6 +21,5 @@
 }
 
 -(id)initWithOrchestra:(CSDOrchestra *)newOrchestra;
--(void)playNoteForDuration:(float)dur;
 
 @end

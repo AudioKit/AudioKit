@@ -16,7 +16,9 @@
 @synthesize parameters;
 @synthesize text;
 
--(id)initWithTableSize:(int)size GenRoutine:(int)gen Parameters:(NSString *)params
+-(id)initWithSize:(int)size 
+       GenRoutine:(int)gen 
+       Parameters:(NSString *)params
 {
     self = [super init];
     if (self) {
@@ -26,7 +28,6 @@
         generatingRoutine = gen;
         parameters = params;
         
-        //iSine ftgentmp 0, 0, 4096, 10, 1
         //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
         if (parameters == nil) {
             text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",

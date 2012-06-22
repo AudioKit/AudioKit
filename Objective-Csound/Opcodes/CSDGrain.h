@@ -11,21 +11,19 @@
 
 @interface CSDGrain : CSDOpcode
 {
+    CSDParam * amplitude;
+    CSDParam * pitch;
+    CSDParam * grainDensity;
+    CSDParamControl * amplitudeOffset;
+    CSDParamControl * pitchOffset;
+    CSDParamControl * grainDuration;
+    CSDParamConstant * maxGrainDuration;
+    CSDFunctionTable * grainFunction;
+    CSDFunctionTable * windowFunction;
+    BOOL isRandomGrainFunctionIndex;
     CSDParam * output;
 }
-
-//ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
 @property (nonatomic, retain) CSDParam * output;
-@property (nonatomic, retain) CSDParam * amplitude;
-@property (nonatomic, retain) CSDParam * pitch;
-@property (nonatomic, retain) CSDParam * grainDensity;
-@property (nonatomic, retain) CSDParamControl * amplitudeOffset;
-@property (nonatomic, retain) CSDParamControl * pitchOffset;
-@property (nonatomic, retain) CSDParamControl * grainDuration;
-@property (nonatomic, retain) CSDParamConstant * maxGrainDuration;
-@property (nonatomic, retain) CSDFunctionTable * grainFunction;
-@property (nonatomic, retain) CSDFunctionTable * windowFunction;
-@property (readwrite) BOOL isRandomGrainFunctionIndex;
 
 -(id)initWithAmplitude:(CSDParam *)amp
                  pitch:(CSDParam *)pch

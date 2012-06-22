@@ -11,15 +11,6 @@
 		76B956471581302D005AFAE9 /* CSDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* CSDLine.m */; };
 		76B9564C15813809005AFAE9 /* CSDLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* CSDLineSegment.m */; };
 		76F3201915935369008338E2 /* CSDGrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201815935369008338E2 /* CSDGrain.m */; };
-		76F3202015939E70008338E2 /* GrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201E15939E70008338E2 /* GrainViewController.m */; };
-		76F3202115939E70008338E2 /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F3201F15939E70008338E2 /* GrainViewController.xib */; };
-		76F3202615939ECD008338E2 /* MoreGrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3202415939ECD008338E2 /* MoreGrainViewController.m */; };
-		76F3202715939ECD008338E2 /* MoreGrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76F3202515939ECD008338E2 /* MoreGrainViewController.xib */; };
-		76F3202A1593A201008338E2 /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F320291593A201008338E2 /* SimpleGrainInstrument.m */; };
-		76F3202D1593A40D008338E2 /* GrainBirds.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3202C1593A40D008338E2 /* GrainBirds.m */; };
-		76F320331593AC7E008338E2 /* CSDExponentialCurvesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F320321593AC7E008338E2 /* CSDExponentialCurvesTable.m */; };
-		76F320361593AF81008338E2 /* CSDWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F320351593AF80008338E2 /* CSDWindowsTable.m */; };
-		76F320381593B401008338E2 /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = 76F320371593B401008338E2 /* beats.wav */; };
 		76F3203B1593B705008338E2 /* CSDExpSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203A1593B705008338E2 /* CSDExpSegment.m */; };
 		76F3203E1593BC19008338E2 /* CSDFileLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203D1593BC17008338E2 /* CSDFileLength.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
@@ -44,6 +35,14 @@
 		C46EB4011592D6C0005807A2 /* CSDOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3FB1592D6C0005807A2 /* CSDOrchestra.m */; };
 		C46EB4051592D771005807A2 /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C46EB4031592D771005807A2 /* test.csd */; };
 		C46EB40B1592D7D7005807A2 /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C46EB4021592D771005807A2 /* template.csd */; };
+		C46EB41515942252005807A2 /* CSDExponentialCurvesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB41215942252005807A2 /* CSDExponentialCurvesTable.m */; };
+		C46EB41615942252005807A2 /* CSDWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB41415942252005807A2 /* CSDWindowsTable.m */; };
+		C46EB41C15942374005807A2 /* GrainBirds.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB41815942369005807A2 /* GrainBirds.m */; };
+		C46EB41D15942377005807A2 /* MoreGrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB41A15942369005807A2 /* MoreGrainViewController.m */; };
+		C46EB424159423DA005807A2 /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C46EB41E159423DA005807A2 /* beats.wav */; };
+		C46EB425159423DA005807A2 /* GrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB420159423DA005807A2 /* GrainViewController.m */; };
+		C46EB426159423DA005807A2 /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB421159423DA005807A2 /* GrainViewController.xib */; };
+		C46EB427159423DA005807A2 /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB423159423DA005807A2 /* SimpleGrainInstrument.m */; };
 		C4761636158D934800C96DE1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761634158D932700C96DE1 /* PlayCSDFileController.m */; };
 		C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4761635158D932700C96DE1 /* PlayCSDFileController.xib */; };
 		C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761639158D943800C96DE1 /* PlayAudioFileViewController.m */; };
@@ -117,21 +116,6 @@
 		76B9564B15813808005AFAE9 /* CSDLineSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLineSegment.m; sourceTree = "<group>"; };
 		76F3201715935369008338E2 /* CSDGrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDGrain.h; sourceTree = "<group>"; };
 		76F3201815935369008338E2 /* CSDGrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDGrain.m; sourceTree = "<group>"; };
-		76F3201D15939E70008338E2 /* GrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainViewController.h; sourceTree = "<group>"; };
-		76F3201E15939E70008338E2 /* GrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainViewController.m; sourceTree = "<group>"; };
-		76F3201F15939E70008338E2 /* GrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GrainViewController.xib; sourceTree = "<group>"; };
-		76F3202315939ECD008338E2 /* MoreGrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGrainViewController.h; sourceTree = "<group>"; };
-		76F3202415939ECD008338E2 /* MoreGrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreGrainViewController.m; sourceTree = "<group>"; };
-		76F3202515939ECD008338E2 /* MoreGrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreGrainViewController.xib; sourceTree = "<group>"; };
-		76F320281593A201008338E2 /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleGrainInstrument.h; sourceTree = "<group>"; };
-		76F320291593A201008338E2 /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGrainInstrument.m; sourceTree = "<group>"; };
-		76F3202B1593A40D008338E2 /* GrainBirds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainBirds.h; sourceTree = "<group>"; };
-		76F3202C1593A40D008338E2 /* GrainBirds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainBirds.m; sourceTree = "<group>"; };
-		76F320311593AC7E008338E2 /* CSDExponentialCurvesTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDExponentialCurvesTable.h; sourceTree = "<group>"; };
-		76F320321593AC7E008338E2 /* CSDExponentialCurvesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDExponentialCurvesTable.m; sourceTree = "<group>"; };
-		76F320341593AF80008338E2 /* CSDWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDWindowsTable.h; sourceTree = "<group>"; };
-		76F320351593AF80008338E2 /* CSDWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDWindowsTable.m; sourceTree = "<group>"; };
-		76F320371593B401008338E2 /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		76F320391593B705008338E2 /* CSDExpSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDExpSegment.h; sourceTree = "<group>"; };
 		76F3203A1593B705008338E2 /* CSDExpSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDExpSegment.m; sourceTree = "<group>"; };
 		76F3203C1593BC16008338E2 /* CSDFileLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDFileLength.h; sourceTree = "<group>"; };
@@ -149,7 +133,7 @@
 		C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionsViewController.m; path = ExampleProject/Expressions/ExpressionsViewController.m; sourceTree = SOURCE_ROOT; };
 		C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ExpressionsViewController.xib; path = ExampleProject/Expressions/ExpressionsViewController.xib; sourceTree = SOURCE_ROOT; };
 		C44D067F15871EBE00307AC9 /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExpressionToneGenerator.h; path = ExampleProject/Expressions/ExpressionToneGenerator.h; sourceTree = SOURCE_ROOT; };
-		C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionToneGenerator.m; path = ExampleProject/Expressions/ExpressionToneGenerator.m; sourceTree = SOURCE_ROOT; };
+		C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExpressionToneGenerator.m; path = ExampleProject/Expressions/ExpressionToneGenerator.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C44D06831587E2E100307AC9 /* CSDAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDAssignment.h; sourceTree = "<group>"; };
 		C44D06841587E2E100307AC9 /* CSDAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDAssignment.m; sourceTree = "<group>"; };
 		C46EB3C215914235005807A2 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TweakableInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -167,16 +151,29 @@
 		C46EB3ED1592D677005807A2 /* CSDPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDPropertyManager.m; sourceTree = "<group>"; };
 		C46EB3F11592D6C0005807A2 /* CSDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDConstants.h; sourceTree = "<group>"; };
 		C46EB3F21592D6C0005807A2 /* CSDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDConstants.m; sourceTree = "<group>"; };
-		C46EB3F41592D6C0005807A2 /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
-		C46EB3F51592D6C0005807A2 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
-		C46EB3F61592D6C0005807A2 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDInstrument.h; sourceTree = "<group>"; };
-		C46EB3F71592D6C0005807A2 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDInstrument.m; sourceTree = "<group>"; };
+		C46EB3F61592D6C0005807A2 /* CSDInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CSDInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C46EB3F71592D6C0005807A2 /* CSDInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CSDInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3F81592D6C0005807A2 /* CSDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDManager.h; sourceTree = "<group>"; };
 		C46EB3F91592D6C0005807A2 /* CSDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDManager.m; sourceTree = "<group>"; };
 		C46EB3FA1592D6C0005807A2 /* CSDOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOrchestra.h; sourceTree = "<group>"; };
 		C46EB3FB1592D6C0005807A2 /* CSDOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOrchestra.m; sourceTree = "<group>"; };
 		C46EB4021592D771005807A2 /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
 		C46EB4031592D771005807A2 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
+		C46EB41115942252005807A2 /* CSDExponentialCurvesTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDExponentialCurvesTable.h; path = FunctionTables/CSDExponentialCurvesTable.h; sourceTree = "<group>"; };
+		C46EB41215942252005807A2 /* CSDExponentialCurvesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDExponentialCurvesTable.m; path = FunctionTables/CSDExponentialCurvesTable.m; sourceTree = "<group>"; };
+		C46EB41315942252005807A2 /* CSDWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSDWindowsTable.h; path = FunctionTables/CSDWindowsTable.h; sourceTree = "<group>"; };
+		C46EB41415942252005807A2 /* CSDWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSDWindowsTable.m; path = FunctionTables/CSDWindowsTable.m; sourceTree = "<group>"; };
+		C46EB41715942369005807A2 /* GrainBirds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GrainBirds.h; path = "More Grain/GrainBirds.h"; sourceTree = "<group>"; };
+		C46EB41815942369005807A2 /* GrainBirds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GrainBirds.m; path = "More Grain/GrainBirds.m"; sourceTree = "<group>"; };
+		C46EB41915942369005807A2 /* MoreGrainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoreGrainViewController.h; path = "More Grain/MoreGrainViewController.h"; sourceTree = "<group>"; };
+		C46EB41A15942369005807A2 /* MoreGrainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MoreGrainViewController.m; path = "More Grain/MoreGrainViewController.m"; sourceTree = "<group>"; };
+		C46EB41B15942369005807A2 /* MoreGrainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MoreGrainViewController.xib; path = "More Grain/MoreGrainViewController.xib"; sourceTree = "<group>"; };
+		C46EB41E159423DA005807A2 /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beats.wav; path = Grain/beats.wav; sourceTree = "<group>"; };
+		C46EB41F159423DA005807A2 /* GrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrainViewController.h; path = Grain/GrainViewController.h; sourceTree = "<group>"; };
+		C46EB420159423DA005807A2 /* GrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GrainViewController.m; path = Grain/GrainViewController.m; sourceTree = "<group>"; };
+		C46EB421159423DA005807A2 /* GrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GrainViewController.xib; path = Grain/GrainViewController.xib; sourceTree = "<group>"; };
+		C46EB422159423DA005807A2 /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleGrainInstrument.h; path = Grain/SimpleGrainInstrument.h; sourceTree = "<group>"; };
+		C46EB423159423DA005807A2 /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SimpleGrainInstrument.m; path = Grain/SimpleGrainInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4761633158D932700C96DE1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C4761634158D932700C96DE1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
 		C4761635158D932700C96DE1 /* PlayCSDFileController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayCSDFileController.xib; path = "Play CSD File/PlayCSDFileController.xib"; sourceTree = "<group>"; };
@@ -185,7 +182,7 @@
 		C476163A158D943800C96DE1 /* PlayAudioFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayAudioFileViewController.xib; path = "ExampleProject/Play Audio File/PlayAudioFileViewController.xib"; sourceTree = "<group>"; };
 		C4761640158D94A400C96DE1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = hellorcb.aif; path = "ExampleProject/Play Audio File/hellorcb.aif"; sourceTree = "<group>"; };
 		C4761641158D94F000C96DE1 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFilePlayer.h; path = "ExampleProject/Play Audio File/AudioFilePlayer.h"; sourceTree = "<group>"; };
-		C4761642158D94F000C96DE1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFilePlayer.m; path = "ExampleProject/Play Audio File/AudioFilePlayer.m"; sourceTree = "<group>"; };
+		C4761642158D94F000C96DE1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AudioFilePlayer.m; path = "ExampleProject/Play Audio File/AudioFilePlayer.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4761644158D99B800C96DE1 /* CSDLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDLoopingOscillator.h; sourceTree = "<group>"; };
 		C4761645158D99B800C96DE1 /* CSDLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDLoopingOscillator.m; sourceTree = "<group>"; };
 		C4842D1A1579C2F800E69770 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
@@ -239,9 +236,9 @@
 		C495F744158344CD00951461 /* OscillatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OscillatorViewController.m; path = "Simple Oscillator/OscillatorViewController.m"; sourceTree = "<group>"; };
 		C495F745158344CD00951461 /* OscillatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OscillatorViewController.xib; path = "Simple Oscillator/OscillatorViewController.xib"; sourceTree = "<group>"; };
 		C495F746158344CD00951461 /* SoundGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SoundGenerator.h; path = "Simple Oscillator/SoundGenerator.h"; sourceTree = "<group>"; };
-		C495F747158344CD00951461 /* SoundGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SoundGenerator.m; path = "Simple Oscillator/SoundGenerator.m"; sourceTree = "<group>"; };
+		C495F747158344CD00951461 /* SoundGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SoundGenerator.m; path = "Simple Oscillator/SoundGenerator.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C495F7481583452100951461 /* FMGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObject.h; path = "Simple Foscili/FMGameObject.h"; sourceTree = "<group>"; };
-		C495F7491583452100951461 /* FMGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMGameObject.m; path = "Simple Foscili/FMGameObject.m"; sourceTree = "<group>"; };
+		C495F7491583452100951461 /* FMGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FMGameObject.m; path = "Simple Foscili/FMGameObject.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C495F74A1583452100951461 /* FMGameObjectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObjectConstants.h; path = "Simple Foscili/FMGameObjectConstants.h"; sourceTree = "<group>"; };
 		C495F74B1583452100951461 /* FMGameObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObjectViewController.h; path = "Simple Foscili/FMGameObjectViewController.h"; sourceTree = "<group>"; };
 		C495F74C1583452100951461 /* FMGameObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMGameObjectViewController.m; path = "Simple Foscili/FMGameObjectViewController.m"; sourceTree = "<group>"; };
@@ -250,7 +247,7 @@
 		C495F766158348BB00951461 /* UnitGeneratorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitGeneratorsViewController.m; path = "Unit Generators/UnitGeneratorsViewController.m"; sourceTree = "<group>"; };
 		C495F767158348BB00951461 /* UnitGeneratorsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UnitGeneratorsViewController.xib; path = "Unit Generators/UnitGeneratorsViewController.xib"; sourceTree = "<group>"; };
 		C495F768158348BB00951461 /* UnitGenSoundGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitGenSoundGenerator.h; path = "Unit Generators/UnitGenSoundGenerator.h"; sourceTree = "<group>"; };
-		C495F769158348BB00951461 /* UnitGenSoundGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitGenSoundGenerator.m; path = "Unit Generators/UnitGenSoundGenerator.m"; sourceTree = "<group>"; };
+		C495F769158348BB00951461 /* UnitGenSoundGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UnitGenSoundGenerator.m; path = "Unit Generators/UnitGenSoundGenerator.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C49F81A61583498A00D72D03 /* CSDParamConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDParamConstant.h; sourceTree = "<group>"; };
 		C49F81A71583498A00D72D03 /* CSDParamConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDParamConstant.m; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -300,9 +297,9 @@
 		C4FE85A51583F63C00902E07 /* CSDOutputStereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDOutputStereo.h; sourceTree = "<group>"; };
 		C4FE85A61583F63D00902E07 /* CSDOutputStereo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDOutputStereo.m; sourceTree = "<group>"; };
 		C4FE85BB1583FF7800902E07 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
-		C4FE85BC1583FF7800902E07 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
+		C4FE85BC1583FF7800902E07 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ToneGenerator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4FE85BE1583FF9D00902E07 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
-		C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
+		C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EffectsProcessor.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4FE85C61584011B00902E07 /* ReverbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReverbViewController.h; sourceTree = "<group>"; };
 		C4FE85C71584011B00902E07 /* ReverbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbViewController.m; sourceTree = "<group>"; };
 		C4FE85C81584011B00902E07 /* ReverbViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReverbViewController.xib; sourceTree = "<group>"; };
@@ -382,12 +379,12 @@
 		76F3201C15939E36008338E2 /* Grain */ = {
 			isa = PBXGroup;
 			children = (
-				76F320371593B401008338E2 /* beats.wav */,
-				76F320281593A201008338E2 /* SimpleGrainInstrument.h */,
-				76F320291593A201008338E2 /* SimpleGrainInstrument.m */,
-				76F3201D15939E70008338E2 /* GrainViewController.h */,
-				76F3201E15939E70008338E2 /* GrainViewController.m */,
-				76F3201F15939E70008338E2 /* GrainViewController.xib */,
+				C46EB41E159423DA005807A2 /* beats.wav */,
+				C46EB422159423DA005807A2 /* SimpleGrainInstrument.h */,
+				C46EB423159423DA005807A2 /* SimpleGrainInstrument.m */,
+				C46EB41F159423DA005807A2 /* GrainViewController.h */,
+				C46EB420159423DA005807A2 /* GrainViewController.m */,
+				C46EB421159423DA005807A2 /* GrainViewController.xib */,
 			);
 			name = Grain;
 			sourceTree = "<group>";
@@ -395,11 +392,11 @@
 		76F3202215939EB2008338E2 /* MoreGrain */ = {
 			isa = PBXGroup;
 			children = (
-				76F3202B1593A40D008338E2 /* GrainBirds.h */,
-				76F3202C1593A40D008338E2 /* GrainBirds.m */,
-				76F3202315939ECD008338E2 /* MoreGrainViewController.h */,
-				76F3202415939ECD008338E2 /* MoreGrainViewController.m */,
-				76F3202515939ECD008338E2 /* MoreGrainViewController.xib */,
+				C46EB41715942369005807A2 /* GrainBirds.h */,
+				C46EB41815942369005807A2 /* GrainBirds.m */,
+				C46EB41915942369005807A2 /* MoreGrainViewController.h */,
+				C46EB41A15942369005807A2 /* MoreGrainViewController.m */,
+				C46EB41B15942369005807A2 /* MoreGrainViewController.xib */,
 			);
 			name = MoreGrain;
 			sourceTree = "<group>";
@@ -413,10 +410,10 @@
 				C4C67D15158D63A100F3CB8E /* CSDSoundFileTable.m */,
 				C43553EB15807BB80074764A /* CSDSineTable.h */,
 				C43553EC15807BB80074764A /* CSDSineTable.m */,
-				76F320311593AC7E008338E2 /* CSDExponentialCurvesTable.h */,
-				76F320321593AC7E008338E2 /* CSDExponentialCurvesTable.m */,
-				76F320341593AF80008338E2 /* CSDWindowsTable.h */,
-				76F320351593AF80008338E2 /* CSDWindowsTable.m */,
+				C46EB41115942252005807A2 /* CSDExponentialCurvesTable.h */,
+				C46EB41215942252005807A2 /* CSDExponentialCurvesTable.m */,
+				C46EB41315942252005807A2 /* CSDWindowsTable.h */,
+				C46EB41415942252005807A2 /* CSDWindowsTable.m */,
 			);
 			name = FunctionTables;
 			sourceTree = "<group>";
@@ -486,7 +483,6 @@
 			children = (
 				C46EB3F11592D6C0005807A2 /* CSDConstants.h */,
 				C46EB3F21592D6C0005807A2 /* CSDConstants.m */,
-				C46EB3F31592D6C0005807A2 /* CSDFiles */,
 				C46EB3F61592D6C0005807A2 /* CSDInstrument.h */,
 				C46EB3F71592D6C0005807A2 /* CSDInstrument.m */,
 				C46EB3F81592D6C0005807A2 /* CSDManager.h */,
@@ -495,15 +491,6 @@
 				C46EB3FB1592D6C0005807A2 /* CSDOrchestra.m */,
 			);
 			path = "Core Classes";
-			sourceTree = "<group>";
-		};
-		C46EB3F31592D6C0005807A2 /* CSDFiles */ = {
-			isa = PBXGroup;
-			children = (
-				C46EB3F41592D6C0005807A2 /* template.csd */,
-				C46EB3F51592D6C0005807A2 /* test.csd */,
-			);
-			path = CSDFiles;
 			sourceTree = "<group>";
 		};
 		C476163D158D943E00C96DE1 /* Play Audio File */ = {
@@ -851,9 +838,8 @@
 				C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */,
 				C46EB4051592D771005807A2 /* test.csd in Resources */,
 				C46EB40B1592D7D7005807A2 /* template.csd in Resources */,
-				76F3202115939E70008338E2 /* GrainViewController.xib in Resources */,
-				76F3202715939ECD008338E2 /* MoreGrainViewController.xib in Resources */,
-				76F320381593B401008338E2 /* beats.wav in Resources */,
+				C46EB424159423DA005807A2 /* beats.wav in Resources */,
+				C46EB426159423DA005807A2 /* GrainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,14 +913,14 @@
 				C46EB4001592D6C0005807A2 /* CSDManager.m in Sources */,
 				C46EB4011592D6C0005807A2 /* CSDOrchestra.m in Sources */,
 				76F3201915935369008338E2 /* CSDGrain.m in Sources */,
-				76F3202015939E70008338E2 /* GrainViewController.m in Sources */,
-				76F3202615939ECD008338E2 /* MoreGrainViewController.m in Sources */,
-				76F3202A1593A201008338E2 /* SimpleGrainInstrument.m in Sources */,
-				76F3202D1593A40D008338E2 /* GrainBirds.m in Sources */,
-				76F320331593AC7E008338E2 /* CSDExponentialCurvesTable.m in Sources */,
-				76F320361593AF81008338E2 /* CSDWindowsTable.m in Sources */,
 				76F3203B1593B705008338E2 /* CSDExpSegment.m in Sources */,
 				76F3203E1593BC19008338E2 /* CSDFileLength.m in Sources */,
+				C46EB41515942252005807A2 /* CSDExponentialCurvesTable.m in Sources */,
+				C46EB41615942252005807A2 /* CSDWindowsTable.m in Sources */,
+				C46EB41C15942374005807A2 /* GrainBirds.m in Sources */,
+				C46EB41D15942377005807A2 /* MoreGrainViewController.m in Sources */,
+				C46EB425159423DA005807A2 /* GrainViewController.m in Sources */,
+				C46EB427159423DA005807A2 /* SimpleGrainInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
