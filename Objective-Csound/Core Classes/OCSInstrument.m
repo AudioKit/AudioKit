@@ -8,6 +8,12 @@
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
 
+typedef enum {
+    kInstrument=1,
+    kStartTime=2,
+    kDuration=3
+} kRequiredPValues;
+
 @implementation OCSInstrument
 @synthesize orchestra;
 @synthesize finalOutput;
@@ -26,7 +32,7 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         [self joinOrchestra:newOrchestra];
-        duration = [[OCSParamConstant alloc] initWithPValue:3];
+        duration = [OCSParamConstant paramWithPValue:kDuration];
         
         propertyList = [[NSMutableArray alloc] init ];
         csdRepresentation = [NSMutableString stringWithString:@""]; 

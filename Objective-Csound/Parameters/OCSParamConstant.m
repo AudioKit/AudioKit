@@ -67,7 +67,7 @@
 +(id)paramWithPValue:(int)somePValue
 {
     // AOP Will need to do this better
-    return [[self alloc] initWithPValue:(somePValue+3)];
+    return [[self alloc] initWithPValue:somePValue];
 }
 
 

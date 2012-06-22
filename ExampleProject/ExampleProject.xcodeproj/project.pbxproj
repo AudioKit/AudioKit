@@ -242,7 +242,6 @@
 		C495F747158344CD00951461 /* SoundGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SoundGenerator.m; path = "Simple Oscillator/SoundGenerator.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C495F7481583452100951461 /* FMGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObject.h; path = "Simple Foscili/FMGameObject.h"; sourceTree = "<group>"; };
 		C495F7491583452100951461 /* FMGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FMGameObject.m; path = "Simple Foscili/FMGameObject.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C495F74A1583452100951461 /* FMGameObjectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObjectConstants.h; path = "Simple Foscili/FMGameObjectConstants.h"; sourceTree = "<group>"; };
 		C495F74B1583452100951461 /* FMGameObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMGameObjectViewController.h; path = "Simple Foscili/FMGameObjectViewController.h"; sourceTree = "<group>"; };
 		C495F74C1583452100951461 /* FMGameObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMGameObjectViewController.m; path = "Simple Foscili/FMGameObjectViewController.m"; sourceTree = "<group>"; };
 		C495F74D1583452100951461 /* FMGameObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FMGameObjectViewController.xib; path = "Simple Foscili/FMGameObjectViewController.xib"; sourceTree = "<group>"; };
@@ -361,7 +360,6 @@
 			children = (
 				C495F7481583452100951461 /* FMGameObject.h */,
 				C495F7491583452100951461 /* FMGameObject.m */,
-				C495F74A1583452100951461 /* FMGameObjectConstants.h */,
 				C495F74B1583452100951461 /* FMGameObjectViewController.h */,
 				C495F74C1583452100951461 /* FMGameObjectViewController.m */,
 				C495F74D1583452100951461 /* FMGameObjectViewController.xib */,
