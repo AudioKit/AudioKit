@@ -1,4 +1,9 @@
-// OCSManager.m
+//
+//  OCSManager.m
+//
+//  Created by Aurelius Prochazka on 5/30/12.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
 
 #import "OCSManager.h"
 #import "OCSPropertyManager.h"
@@ -24,7 +29,6 @@ static OCSManager * _sharedOCSManager = nil;
 }
 
 +(id) alloc {
-    NSLog(@"Allocating");
     @synchronized([OCSManager class]) {
         NSAssert(_sharedOCSManager == nil,
                  @"Attempted to allocate a second CSD Manager");
@@ -37,7 +41,6 @@ static OCSManager * _sharedOCSManager = nil;
 -(id) init {
     self = [super init];
     if (self != nil) {
-        NSLog(@"Initializing");
         csound = [[CsoundObj alloc] init];
         [csound addCompletionListener:self];
         isRunning = NO;
@@ -85,7 +88,10 @@ static OCSManager * _sharedOCSManager = nil;
 
     NSString * newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
     
-    [newCSD writeToFile:myCSDFile atomically:YES  encoding:NSStringEncodingConversionAllowLossy error:nil];
+    [newCSD writeToFile:myCSDFile 
+             atomically:YES  
+               encoding:NSStringEncodingConversionAllowLossy 
+                  error:nil];
 }
 
 -(void)runOrchestra:(OCSOrchestra *)orch {
@@ -98,7 +104,9 @@ static OCSManager * _sharedOCSManager = nil;
     [self writeCSDFileForOrchestra:orch];
     [self updateValueCacheWithProperties:orch];
     [csound startCsound:myCSDFile];
-    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
+    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile 
+                                                           usedEncoding:nil 
+                                                                  error:nil]);
 
     //Clean up the IDs for next time
     [OCSParam resetID];

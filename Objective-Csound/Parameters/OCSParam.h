@@ -6,10 +6,6 @@
 //
 //  These params are at a-rate.
 
-#import <Foundation/Foundation.h>
-
-#import "OCSProperty.h"
-
 @interface OCSParam : NSObject
 {
     NSString * type; 

@@ -7,9 +7,6 @@
 //  
 //
 
-#import <Foundation/Foundation.h>
-
-#import <Foundation/Foundation.h>
 #import <CoreMIDI/CoreMIDI.h>
 
 #import "OCSManager.h"
