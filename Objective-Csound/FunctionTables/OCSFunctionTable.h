@@ -67,9 +67,9 @@ typedef enum
 //@property (readonly) NSString *text;
 @property (nonatomic, strong) OCSParamConstant *output;
 
--(id) initWithSize:(int) size 
-        GenRoutine:(GenRoutineType) gen 
-        Parameters:(NSString *) params;
--(NSString *) convertToCsd;
+- (id)initWithSize:(int)size 
+        GenRoutine:(GenRoutineType)gen 
+        Parameters:(NSString *)params;
+- (NSString *)convertToCsd;
 
 @end

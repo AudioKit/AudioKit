@@ -44,7 +44,7 @@
 
 @protocol CsoundVirtualKeyboardDelegate <NSObject> 
 
--(void)keyUp:(CsoundVirtualKeyboard*)keybd keyNum:(int)keyNum;
--(void)keyDown:(CsoundVirtualKeyboard*)keybd keyNum:(int)keyNum;
+- (void)keyUp:(CsoundVirtualKeyboard*)keybd keyNum:(int)keyNum;
+- (void)keyDown:(CsoundVirtualKeyboard*)keybd keyNum:(int)keyNum;
 
 @end

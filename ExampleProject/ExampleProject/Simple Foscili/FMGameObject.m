@@ -16,7 +16,7 @@
 @synthesize frequency;
 @synthesize modulation;
 
--(id) init {
+- (id)init {
     self = [super init];
     if (self) {
         
@@ -36,20 +36,18 @@
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        OCSFoscili * myFMOscillator = 
-        [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                    Frequency:[frequency output]
-                                      Carrier:ocsp(1)
-                                   Modulation:[modulation output]
-                                     ModIndex:ocsp(15)
-                                FunctionTable:sineTable
-                             AndOptionalPhase:nil];
+        OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
+                                                                  Frequency:[frequency output]
+                                                                    Carrier:ocsp(1)
+                                                                 Modulation:[modulation output]
+                                                                   ModIndex:ocsp(15)
+                                                              FunctionTable:sineTable
+                                                           AndOptionalPhase:nil];
         [self addOpcode:myFMOscillator];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo * monoOutput = 
-        [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
+        OCSOutputStereo *monoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
         [self addOpcode:monoOutput];
     }
     return self;

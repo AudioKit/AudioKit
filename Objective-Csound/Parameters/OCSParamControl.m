@@ -9,14 +9,14 @@
 
 @implementation OCSParamControl
 
--(id)init
+- (id)init
 {
     self = [super init];
     type = @"gk";
     return self;
 }
 
--(id)initWithString:(NSString *)aString
+- (id)initWithString:(NSString *)aString
 {
     self = [super init];
     if (self) {

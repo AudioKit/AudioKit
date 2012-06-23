@@ -140,7 +140,7 @@
 
 #pragma mark - ValueCachable
 
--(void)setup:(CsoundObj*)csoundObj
+- (void)setup:(CsoundObj*)csoundObj
 {
 	channelPtr = [csoundObj getOutputChannelPtr:self.channelName];
 	CSOUND *cs = [csoundObj getCsound];
@@ -148,12 +148,12 @@
 	ksmps = csoundGetKsmps(cs);
 }
 
--(void)updateValuesToCsound
+- (void)updateValuesToCsound
 {
 	//...
 }
 
--(void)updateValuesFromCsound
+- (void)updateValuesFromCsound
 {
 	cachedValue = fabs(*channelPtr);
 	

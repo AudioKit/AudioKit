@@ -9,11 +9,11 @@
 
 @implementation OCSOutputMono
 
--(NSString *) convertToCsd {
+- (NSString *)convertToCsd {
     return [NSString stringWithFormat:@"out %@\n", input];
 }
 
--(id) initWithInput:(OCSParam *) i {
+- (id)initWithInput:(OCSParam *) i {
     self = [super init];
     if (self) {
         input = i;

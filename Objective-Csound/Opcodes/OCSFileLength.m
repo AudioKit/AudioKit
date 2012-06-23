@@ -12,22 +12,22 @@
 
 @synthesize output;  
 
--(id) initWithInput:(OCSFunctionTable *)in {
+- (id)initWithInput:(OCSFunctionTable *)in {
     self = [super init];
     
     if (self) {
-        output = [OCSParamConstant paramWithString:[self uniqueName]];
+        output = [OCSParamConstant paramWithString:[self opcodeName]];
         input = in;
     }
     return self; 
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
     return [NSString stringWithFormat:@"%@ = ftlen(%@)\n", output, input];
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

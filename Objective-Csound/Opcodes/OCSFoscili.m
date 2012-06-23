@@ -11,7 +11,7 @@
 
 @synthesize output;
 
--(id)initWithAmplitude:(OCSParam *) amp
+- (id)initWithAmplitude:(OCSParam *) amp
              Frequency:(OCSParamControl *) cps
                Carrier:(OCSParam *) car
             Modulation:(OCSParam *) mod
@@ -21,7 +21,7 @@
 {
     self = [super init];
     if ( self ) {
-        output         = [OCSParam paramWithString:[self uniqueName]];
+        output         = [OCSParam paramWithString:[self opcodeName]];
         amplitude      = amp;
         frequency      = cps;
         carrier        = car;
@@ -33,7 +33,7 @@
     return self;
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
     //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
     NSString *s;
@@ -50,7 +50,7 @@
     return s;
 }
 
--(NSString *)description {
+- (NSString *)description {
     return [output parameterString];
 }
 

@@ -8,18 +8,18 @@
 #import "OCSOpcode.h"
 
 @interface OCSFoscili : OCSOpcode {
-    OCSParam * amplitude;
-    OCSParamControl * frequency;
-    OCSParam * carrier;
-    OCSParam * modulation;
-    OCSParamControl * modIndex;
-    OCSFunctionTable * functionTable;
-    OCSParamConstant * phase;
-    OCSParam * output;
+    OCSParam *amplitude;
+    OCSParamControl *frequency;
+    OCSParam *carrier;
+    OCSParam *modulation;
+    OCSParamControl *modIndex;
+    OCSFunctionTable *functionTable;
+    OCSParamConstant *phase;
+    OCSParam *output;
 }
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
--(id)initWithAmplitude:(OCSParam *) amp
+- (id)initWithAmplitude:(OCSParam *) amp
              Frequency:(OCSParamControl *) cps
                Carrier:(OCSParam *) car
             Modulation:(OCSParam *) mod

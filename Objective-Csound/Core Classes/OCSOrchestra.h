@@ -9,11 +9,11 @@
 @class OCSInstrument;
 
 @interface OCSOrchestra : NSObject {
-    NSMutableArray * instruments;
+    NSMutableArray *instruments;
 }
-@property (nonatomic, strong) NSMutableArray * instruments;
+@property (nonatomic, strong) NSMutableArray *instruments;
 
--(void) addInstrument:(OCSInstrument *) instrument;
--(NSString *) instrumentsForCsd;
+- (void)addInstrument:(OCSInstrument *) instrument;
+- (NSString *)instrumentsForCsd;
 
 @end

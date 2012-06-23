@@ -12,7 +12,7 @@
 
 @implementation EffectsProcessor
 
--(id) initWithToneGenerator:(ToneGenerator *)toneGenerator
+- (id)initWithToneGenerator:(ToneGenerator *)toneGenerator
 {
     self = [super init];
     if (self) {                  
@@ -23,17 +23,15 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSReverb * reverb = 
-        [[OCSReverb alloc] initWithMonoInput:input
-                               FeedbackLevel:ocsp(0.9)
-                             CutoffFrequency:ocsp(12000)];
+        OCSReverb * reverb = [[OCSReverb alloc] initWithMonoInput:input
+                                                    FeedbackLevel:ocsp(0.9)
+                                                  CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
             
-        OCSOutputStereo * stereoOutput = 
-        [[OCSOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-                                        InputRight:[reverb outputRight]]; 
+        OCSOutputStereo * stereoOutput = [[OCSOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
+                                                                         InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
         
         // RESET INPUTS ========================================================
@@ -42,7 +40,7 @@
     return self;
 }
 
--(void) start {
+- (void)start {
     [self playNoteForDuration:10000.0f];
 }
 

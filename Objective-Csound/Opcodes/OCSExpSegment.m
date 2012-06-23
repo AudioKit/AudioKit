@@ -11,7 +11,7 @@
 @implementation OCSExpSegment
 @synthesize output;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
                FirstSegmentDuration:(OCSParamConstant *) dur
            FirstSegementTargetValue:(OCSParamConstant *) targ
                        SegmentArray:(OCSParamArray *)aSegmentArray
@@ -19,7 +19,7 @@
     self = [super init];
     
     if (self) {
-        output = [OCSParamControl paramWithString:[self uniqueName]];
+        output = [OCSParamControl paramWithString:[self opcodeName]];
         firstSegmentStartValue  = start;
         firstSegmentDuration    = dur;
         firstSegmentTargetValue = targ;
@@ -29,12 +29,12 @@
     return self;
 }
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
                FirstSegmentDuration:(OCSParamConstant *) dur
            FirstSegementTargetValue:(OCSParamConstant *) targ
 {
     if (self) {
-        output = [OCSParamControl paramWithString:[self uniqueName]];
+        output = [OCSParamControl paramWithString:[self opcodeName]];
         firstSegmentStartValue  = start;
         firstSegmentDuration    = dur;
         firstSegmentTargetValue = targ;
@@ -43,7 +43,7 @@
     return self;
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
     if (segmentArray == nil) {
         return [NSString stringWithFormat:@"%@ expseg %@, %@, %@\n", 
@@ -61,7 +61,7 @@
     }
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

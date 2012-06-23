@@ -35,38 +35,33 @@
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line
-        OCSLineSegment *myLineSegment_a = 
-        [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)
-                                          FirstSegmentDuration:duration 
-                                      FirstSegementTargetValue:ocsp(330)];
+        OCSLineSegment *myLineSegment_a = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)
+                                                                            FirstSegmentDuration:duration 
+                                                                        FirstSegementTargetValue:ocsp(330)];
         
-        OCSParamArray * breakpoints = 
-        [OCSParamArray paramArrayFromParams: ocsp(3), ocsp(1.5), ocsp(3.0), ocsp(0.5), nil];
+        OCSParamArray *breakpoints = [OCSParamArray paramArrayFromParams: 
+                                       ocsp(3), ocsp(1.5), ocsp(3.0), ocsp(0.5), nil];
 
-        OCSLineSegment *myLineSegment_b = 
-        [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0.5)
-                                          FirstSegmentDuration:ocsp(3)
-                                      FirstSegementTargetValue:ocsp(0.2)
-                                                  SegmentArray:breakpoints];
+        OCSLineSegment *myLineSegment_b = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0.5)
+                                                                            FirstSegmentDuration:ocsp(3)
+                                                                        FirstSegementTargetValue:ocsp(0.2)
+                                                                                    SegmentArray:breakpoints];
         [self addOpcode:myLineSegment_a];
         [self addOpcode:myLineSegment_b];
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
-        OCSFoscili *myFMOscillator = 
-        [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                    Frequency:[myLineSegment_a output]
-                                      Carrier:ocsp(1)
-                                   Modulation:[myLine output]
-                                     ModIndex:[myLineSegment_b output]
-                                FunctionTable:sineTable 
-                             AndOptionalPhase:nil];
-        
+        OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
+                                                                 Frequency:[myLineSegment_a output]
+                                                                   Carrier:ocsp(1)
+                                                                Modulation:[myLine output]
+                                                                  ModIndex:[myLineSegment_b output]
+                                                             FunctionTable:sineTable 
+                                                          AndOptionalPhase:nil];
         [self addOpcode:myFMOscillator];
 
         // AUDIO OUTPUT ========================================================
 
-        OCSOutputStereo * monoOutput = 
-        [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
+        OCSOutputStereo *monoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
         [self addOpcode:monoOutput];
     }
     return self;

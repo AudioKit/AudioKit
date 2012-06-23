@@ -10,14 +10,14 @@
 @implementation OCSSineTable
 
 //TODO: Should make the partial sizes an array of floats
--(id) initWithSize:(int)size PartialStrengths:(OCSParamArray *)partials
+- (id)initWithSize:(int)size PartialStrengths:(OCSParamArray *)partials
 {
     return [self initWithSize:size 
                    GenRoutine:kGenSines 
                    Parameters:[partials parameterString]];
 }
 
--(id) init;
+- (id)init;
 {
     return [self initWithSize:4096 GenRoutine:kGenSines Parameters:@"1"];
 }

@@ -16,7 +16,7 @@
     Float32 initValue;
     Float32 value;
     
-    OCSParamControl * output;
+    OCSParamControl *output;
     
     BOOL isAudioRate;
     
@@ -25,8 +25,8 @@
 }
 
 @property (nonatomic, readwrite) Float32 value;
-@property (nonatomic, readonly) NSString * uniqueIdentifier;
-@property (nonatomic, strong) OCSParamControl * output;
+@property (nonatomic, readonly) NSString *uniqueIdentifier;
+@property (nonatomic, strong) OCSParamControl *output;
 @property (nonatomic, assign) Float32 maximumValue;
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;

@@ -8,16 +8,16 @@
 
 @interface OCSParam : NSObject
 {
-    NSString * type; 
-    NSString * parameterString;
+    NSString *type; 
+    NSString *parameterString;
     int _myID;
 }
 @property (nonatomic, strong) NSString *parameterString;
 
--(id)initWithString:(NSString *)aString;
+- (id)initWithString:(NSString *)aString;
 +(id)paramWithString:(NSString *)aString;
 
--(id)initWithExpression:(NSString *)aExpression;
+- (id)initWithExpression:(NSString *)aExpression;
 +(id)paramWithFormat:(NSString *)format, ...;
 +(void) resetID;
 @end

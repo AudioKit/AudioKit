@@ -8,13 +8,13 @@
 #import "OCSOpcode.h"
 
 @interface OCSAssignment : OCSOpcode {
-    OCSParam * input;
-    OCSParam * output;
+    OCSParam *input;
+    OCSParam *output;
 }
 
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
--(id) initWithInput:(OCSParam *)in;
+- (id)initWithInput:(OCSParam *)in;
 
 @end
 

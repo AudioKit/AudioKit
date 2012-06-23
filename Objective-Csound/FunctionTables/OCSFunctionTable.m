@@ -16,13 +16,13 @@
 //@synthesize parameters;
 //@synthesize text;
 
--(id)initWithSize:(int)size 
+- (id)initWithSize:(int)size 
        GenRoutine:(GenRoutineType)gen 
        Parameters:(NSString *)params
 {
     self = [super init];
     if (self) {
-        output = [OCSParamConstant paramWithString:[self uniqueName]];
+        output = [OCSParamConstant paramWithString:[self functionName]];
         tableSize = size;
         generatingRoutine = gen;
         parameters = params;
@@ -30,15 +30,15 @@
     return self;
 }
 
--(NSString *) uniqueName {
-    NSString * basename = [NSString stringWithFormat:@"%@", [self class]];
-    basename = [basename stringByReplacingOccurrencesOfString:@"OCS" withString:@""];
-    return basename;
+- (NSString *)functionName {
+    NSString *functionName = [NSString stringWithFormat:@"%@", [self class]];
+    functionName = [functionName stringByReplacingOccurrencesOfString:@"OCS" withString:@""];
+    return functionName;
 }
 
 
 //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
--(NSString *) convertToCsd {
+- (NSString *)convertToCsd {
     NSString *text;
     if (parameters == nil) {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
@@ -51,7 +51,7 @@
 }
 
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

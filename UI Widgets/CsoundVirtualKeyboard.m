@@ -83,7 +83,7 @@ static const int kTotalNumKeys = 25;
 	return NO;
 }
 
--(void)updateKeyRects {
+- (void)updateKeyRects {
 	
 	if (lastWidth == self.bounds.size.width) {
 		return;
@@ -116,7 +116,7 @@ static const int kTotalNumKeys = 25;
 	
 }
 
--(int)getKeyboardKey:(CGPoint)point {
+- (int)getKeyboardKey:(CGPoint)point {
 	
 	int keyNum = -1;
 	

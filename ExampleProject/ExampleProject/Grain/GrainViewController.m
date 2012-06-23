@@ -21,12 +21,12 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
--(IBAction)hit1:(id)sender
+- (IBAction)hit1:(id)sender
 {
     [myGrainInstrument playNoteForDuration:15];
 }
 
--(IBAction)hit2:(id)sender
+- (IBAction)hit2:(id)sender
 {}
 
 @end

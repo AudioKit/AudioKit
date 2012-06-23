@@ -13,13 +13,13 @@
 #define ocsp(__f__) [OCSParamConstant paramWithFloat:__f__]
 
 @interface OCSInstrument : NSObject {
-    OCSOrchestra * orchestra;
-    OCSParamConstant * duration;
-    NSMutableString * innerCSDRepresentation;
+    OCSOrchestra *orchestra;
+    OCSParamConstant *duration;
+    NSMutableString *innerCSDRepresentation;
     int  _myID;
-    NSMutableArray * properties;
+    NSMutableArray *properties;
 }
-@property (nonatomic, strong) NSMutableArray * properties;
+@property (nonatomic, strong) NSMutableArray *properties;
 
 - (NSString *)uniqueName;
 - (void)addProperty:(OCSProperty *)prop;

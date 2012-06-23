@@ -12,7 +12,7 @@
 
 @synthesize instruments;
 
--(id) init {
+- (id)init {
     self = [super init];
     if (self) {
         instruments = [[NSMutableArray alloc] init];
@@ -20,14 +20,14 @@
     return self; 
 }
 
--(void) addInstrument:(OCSInstrument *) instrument {
+- (void)addInstrument:(OCSInstrument *) instrument {
     [instruments addObject:instrument];
     [instrument joinOrchestra:self];
 }
 
--(NSString *) instrumentsForCsd {
+- (NSString *)instrumentsForCsd {
     
-    NSMutableString * instrumentsText = [NSMutableString stringWithString:@""];
+    NSMutableString *instrumentsText = [NSMutableString stringWithString:@""];
     
     for ( OCSInstrument* instrument in instruments) {
         [instrumentsText appendFormat:@"instr %@\n", [instrument uniqueName]];

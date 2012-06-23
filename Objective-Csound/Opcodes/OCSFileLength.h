@@ -10,12 +10,12 @@
 
 @interface OCSFileLength : OCSOpcode
 {
-    OCSFunctionTable * input;
-    OCSParam * output;
+    OCSFunctionTable *input;
+    OCSParam *output;
 }
 
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
--(id) initWithInput:(OCSFunctionTable *)in;
+- (id)initWithInput:(OCSFunctionTable *)in;
 
 @end

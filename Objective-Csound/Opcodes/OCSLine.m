@@ -14,14 +14,14 @@
 @synthesize duration;
 @synthesize targetValue;
 
--(id)initWithStartingValue:(OCSParamConstant *) start
+- (id)initWithStartingValue:(OCSParamConstant *) start
                   Duration:(OCSParamConstant *) dur
                TargetValue:(OCSParamConstant *) targ
 {
     self = [super init];
 
     if (self) {
-        output = [OCSParamControl paramWithString:[self uniqueName]];
+        output = [OCSParamControl paramWithString:[self opcodeName]];
         startingValue   = start;
         duration        = dur;
         targetValue     = targ;
@@ -29,13 +29,13 @@
     return self; 
 }
 
--(NSString *)convertToCsd 
+- (NSString *)convertToCsd 
 {
     return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", 
             output, startingValue, duration, targetValue];
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

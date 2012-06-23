@@ -43,7 +43,7 @@
     [modulationSlider setValue:sliderValue];
 }
 
--(void) viewDidDisappear:(BOOL)animated 
+- (void)viewDidDisappear:(BOOL)animated 
 {
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
@@ -65,7 +65,7 @@
 	return YES;
 }
 
--(IBAction)runInstrument:(id)sender
+- (IBAction)runInstrument:(id)sender
 {
     [myTweakableInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+499)];
     
@@ -87,7 +87,7 @@
     }
 }
 
--(IBAction)stopInstrument:(id)sender
+- (IBAction)stopInstrument:(id)sender
 {
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
@@ -95,12 +95,12 @@
     repeatingSliderTimer = nil;
 }
 
--(void)noteTimerFireMethod:(NSTimer *)timer
+- (void)noteTimerFireMethod:(NSTimer *)timer
 {
     [myTweakableInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+400)];
 }
 
--(void)sliderTimerFireMethod:(NSTimer *)timer
+- (void)sliderTimerFireMethod:(NSTimer *)timer
 {
     float minValue = [[myTweakableInstrument modIndex] minimumValue];
     float maxValue = [[myTweakableInstrument modIndex] maximumValue];
@@ -118,7 +118,7 @@
      */
 }
 
--(IBAction)scaleAmplitude:(id)sender {
+- (IBAction)scaleAmplitude:(id)sender {
     UISlider * mySlider = (UISlider *) sender;
     float minValue = [[myTweakableInstrument amplitude] minimumValue];
     float maxValue = [[myTweakableInstrument amplitude] maximumValue];
@@ -126,7 +126,7 @@
     myTweakableInstrument.amplitude.value = newValue;
 }
 
--(IBAction)scaleModulation:(id)sender {
+- (IBAction)scaleModulation:(id)sender {
     UISlider * mySlider = (UISlider *) sender;
     float minValue = [[myTweakableInstrument modulation] minimumValue];
     float maxValue = [[myTweakableInstrument modulation] maximumValue];

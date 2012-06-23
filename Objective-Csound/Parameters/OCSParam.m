@@ -16,14 +16,14 @@ static int currentID = 1;
     currentID = 1;
 }
 
--(id)init
+- (id)init
 {
     self = [super init];
     _myID = currentID++;
     type = @"a";
     return self;
 }
--(id)initWithString:(NSString *)aString
+- (id)initWithString:(NSString *)aString
 {
     self = [super init];
     if (self) {
@@ -33,7 +33,7 @@ static int currentID = 1;
     return self;
 }
 
--(id)initWithExpression:(NSString *)aExpression
+- (id)initWithExpression:(NSString *)aExpression
 {
     self = [super init];
     if (self) {
@@ -54,7 +54,7 @@ static int currentID = 1;
     va_end(argumentList);
 }
 
--(NSString *) description {
+- (NSString *)description {
     return parameterString;
 }
 

@@ -14,10 +14,10 @@
 @synthesize isRunning;
 //@synthesize myPropertyManager;
 
-static OCSManager * _sharedOCSManager = nil;
+static OCSManager *_sharedOCSManager = nil;
 
 
-+(OCSManager *)sharedOCSManager
++ (OCSManager *)sharedOCSManager
 {
     @synchronized([OCSManager class]) 
     {
@@ -28,7 +28,7 @@ static OCSManager * _sharedOCSManager = nil;
     return nil;
 }
 
-+(id) alloc {
++ (id)alloc {
     @synchronized([OCSManager class]) {
         NSAssert(_sharedOCSManager == nil,
                  @"Attempted to allocate a second CSD Manager");
@@ -38,7 +38,7 @@ static OCSManager * _sharedOCSManager = nil;
     return nil;
 }
 
--(id) init {
+- (id)init {
     self = [super init];
     if (self != nil) {
         csound = [[CsoundObj alloc] init];
@@ -54,7 +54,7 @@ static OCSManager * _sharedOCSManager = nil;
         zeroDBFullScaleValue = 1.0f;
         
         //Setup File System access
-        NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" 
+        NSString *templateFile = [[NSBundle mainBundle] pathForResource: @"template" 
                                                                   ofType: @"csd"];
         templateCSDFileContents = [[NSString alloc] initWithContentsOfFile:templateFile  
                                                                   encoding:NSUTF8StringEncoding 
@@ -67,7 +67,7 @@ static OCSManager * _sharedOCSManager = nil;
     return self;
 }   
 
--(void)runCSDFile:(NSString *)filename {
+- (void)runCSDFile:(NSString *)filename {
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
@@ -85,13 +85,13 @@ static OCSManager * _sharedOCSManager = nil;
     }
 }
 
--(void) writeCSDFileForOrchestra:(OCSOrchestra *) orch {
+- (void)writeCSDFileForOrchestra:(OCSOrchestra *) orch {
     
-    NSString * header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %f\nksmps = %d", 
+    NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %f\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
-    NSString * instrumentsText = [orch instrumentsForCsd];
+    NSString *instrumentsText = [orch instrumentsForCsd];
 
-    NSString * newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
+    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
     
     [newCSD writeToFile:myCSDFile 
              atomically:YES  
@@ -99,7 +99,7 @@ static OCSManager * _sharedOCSManager = nil;
                   error:nil];
 }
 
--(void)runOrchestra:(OCSOrchestra *)orch {
+- (void)runOrchestra:(OCSOrchestra *)orch {
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
@@ -119,19 +119,19 @@ static OCSManager * _sharedOCSManager = nil;
     while(!isRunning) {} // Do nothing
 }
 
--(void)stop {
+- (void)stop {
     NSLog(@"Stopping Csound");
     [csound stopCsound];
     while(isRunning) {} // Do nothing
 }
 
--(void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument{
-    NSString * scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
+- (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument{
+    NSString *scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
     NSLog(@"%@", scoreline);
     [csound sendScore:scoreline];
 }
 
--(void)updateValueCacheWithProperties:(OCSOrchestra *)orch
+- (void)updateValueCacheWithProperties:(OCSOrchestra *)orch
 {
     NSArray *arr = [NSArray arrayWithArray:[orch instruments]];
     for (OCSInstrument *instrument in arr ) {
@@ -143,12 +143,12 @@ static OCSManager * _sharedOCSManager = nil;
 
 #pragma mark CsoundObjCompletionListener
 
--(void)csoundObjDidStart:(CsoundObj *)csoundObj {
+- (void)csoundObjDidStart:(CsoundObj *)csoundObj {
     NSLog(@"Csound Started.");
     isRunning = YES;
 }
 
--(void)csoundObjComplete:(CsoundObj *)csoundObj {
+- (void)csoundObjComplete:(CsoundObj *)csoundObj {
     NSLog(@"Csound Completed.");
     isRunning  = NO;
 }

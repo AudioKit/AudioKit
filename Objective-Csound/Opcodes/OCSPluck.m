@@ -23,7 +23,7 @@ typedef enum
 
 @synthesize output;
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
@@ -31,7 +31,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
 {
     self = [super init];
     if( self ) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amplitude = amp;
         resamplingFrequency = freq;
         pitchDecayFrequency = pchDecayFreq;
@@ -49,7 +49,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
 }
 
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
        ResamplingFrequency:(OCSParamControl *)freq
        PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
   CyclicDecayFunctionTable:(OCSFunctionTable *)f  
@@ -57,7 +57,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
 {
     self = [super init];
     if( self ) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amplitude = amp;
         resamplingFrequency = freq;
         pitchDecayFrequency = pchDecayFreq;
@@ -73,7 +73,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
     return self;
 }
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
@@ -81,7 +81,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
 {
     self = [super init];
     if( self ) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amplitude = amp;
         resamplingFrequency = freq;
         pitchDecayFrequency = pchDecayFreq;
@@ -97,7 +97,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
     return self;
 }
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
@@ -106,7 +106,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
 {
     self = [super init];
     if( self ) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amplitude = amp;
         resamplingFrequency = freq;
         pitchDecayFrequency = pchDecayFreq;
@@ -122,7 +122,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
     return self;
 }
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
@@ -131,7 +131,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
 {
     self = [super init];
     if( self ) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amplitude = amp;
         resamplingFrequency = freq;
         pitchDecayFrequency = pchDecayFreq;
@@ -144,7 +144,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
     return self;
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

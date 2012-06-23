@@ -16,8 +16,8 @@
     OCSProperty *amplitude;
     OCSProperty *frequency;
 }
-@property (nonatomic, strong) OCSProperty * frequency;
-@property (nonatomic, strong) OCSProperty * modulation;
+@property (nonatomic, strong) OCSProperty *frequency;
+@property (nonatomic, strong) OCSProperty *modulation;
 
 - (void)playNoteForDuration:(float)dur 
                   Frequency:(float)freq 

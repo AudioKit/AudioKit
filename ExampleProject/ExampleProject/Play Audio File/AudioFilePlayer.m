@@ -13,7 +13,7 @@
 
 @implementation AudioFilePlayer
 
--(id) init {
+- (id)init {
     self = [super init];
     if (self) {
         
@@ -23,28 +23,24 @@
         OCSSoundFileTable * fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fileTable];
         
-        OCSLoopingOscillator * trigger = 
-        [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        OCSLoopingOscillator * trigger = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
         [self addOpcode:trigger];
         
-        OCSReverb * reverb = 
-        [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
-                               FeedbackLevel:ocsp(0.85)
-                             CutoffFrequency:ocsp(12000)];
-        
+        OCSReverb * reverb = [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
+                                                    FeedbackLevel:ocsp(0.85)
+                                                  CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
 
-        OCSOutputStereo * stereoOutput = 
-        [[OCSOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-                                        InputRight:[reverb outputRight]]; 
+        OCSOutputStereo * stereoOutput = [[OCSOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
+                                                                         InputRight:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;
 }
 
--(void) play {
+- (void)play {
     [self playNoteForDuration:3.0f];
 }
 

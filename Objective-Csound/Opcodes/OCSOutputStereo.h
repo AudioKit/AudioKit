@@ -9,12 +9,12 @@
 
 
 @interface OCSOutputStereo : OCSOpcode {
-    OCSParam * inputLeft;
-    OCSParam * inputRight;
+    OCSParam *inputLeft;
+    OCSParam *inputRight;
 }
 
--(id) initWithMonoInput:(OCSParam *) in;
--(id) initWithInputLeft:(OCSParam *) inLeft
+- (id)initWithMonoInput:(OCSParam *) in;
+- (id)initWithInputLeft:(OCSParam *) inLeft
              InputRight:(OCSParam *) inRight;
 
 @end

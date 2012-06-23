@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) OCSProperty * frequency;
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq;
+- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

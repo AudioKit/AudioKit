@@ -15,18 +15,18 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    OCSOrchestra * orch = [[OCSOrchestra alloc] init];
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
     myUnitGenSoundGenerator = [[UnitGenSoundGenerator alloc] init];
     [orch addInstrument:myUnitGenSoundGenerator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
--(IBAction)hit1:(id)sender
+- (IBAction)hit1:(id)sender
 {
     [myUnitGenSoundGenerator playNoteForDuration:9.0];
 }
 
--(IBAction)hit2:(id)sender
+- (IBAction)hit2:(id)sender
 {
     [myUnitGenSoundGenerator playNoteForDuration:3.0];
 }

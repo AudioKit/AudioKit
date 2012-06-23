@@ -9,7 +9,7 @@
 #import "SoundGenerator.h"
 
 @interface OscillatorViewController : UIViewController {
-    SoundGenerator * mySoundGenerator;
+    SoundGenerator *mySoundGenerator;
 }
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;

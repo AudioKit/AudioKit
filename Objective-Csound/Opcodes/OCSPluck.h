@@ -13,46 +13,46 @@
 //ARB - TODO: ival parameters don't need to be strings
 
 @interface OCSPluck : OCSOpcode {
-    OCSParamControl * amplitude;
-    OCSParamControl * resamplingFrequency;
-    OCSParamConstant * pitchDecayFrequency;
-    OCSFunctionTable * cyclicDecayFunction;
-    OCSParamConstant * decayMethod;
-    OCSParamConstant * roughness;
-    OCSParamConstant * stretchFactor;
-    OCSParamConstant * currentSampleWeight;
-    OCSParamConstant * previousSampleWeight;
+    OCSParamControl *amplitude;
+    OCSParamControl *resamplingFrequency;
+    OCSParamConstant *pitchDecayFrequency;
+    OCSFunctionTable *cyclicDecayFunction;
+    OCSParamConstant *decayMethod;
+    OCSParamConstant *roughness;
+    OCSParamConstant *stretchFactor;
+    OCSParamConstant *currentSampleWeight;
+    OCSParamConstant *previousSampleWeight;
     
-    OCSParam * output;
+    OCSParam *output;
 }
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
         RecursiveDecay:(BOOL)orSimpleDecay;
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f  
 StretchedAveragingDecay:(OCSParamConstant *)stretchScaler;
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
        SimpleDrumDecay:(OCSParamConstant *)roughWeight;
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
     StretchedDrumDecay:(OCSParamConstant *)roughWeight
          StretchFactor:(OCSParamConstant *)stretchScaler;
 
--(id)initWithAmplitude:(OCSParamControl *)amp
+- (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f

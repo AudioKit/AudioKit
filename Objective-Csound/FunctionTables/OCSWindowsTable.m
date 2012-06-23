@@ -14,7 +14,7 @@
 - (id)initWithSize:(int)size WindowType:(WindowType)window MaxValue:(int)max
 {
     return [self initWithSize:size 
-                   GenRoutine:(kGenWindows * -1) 
+                   GenRoutine:(kGenWindows *-1) 
                    Parameters:[NSString stringWithFormat:@"%d %d", window, max]];
 }
 

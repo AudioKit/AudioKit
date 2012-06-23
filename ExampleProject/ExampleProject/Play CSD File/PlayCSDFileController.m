@@ -20,7 +20,7 @@
 }
 
 - (IBAction)touchButton:(id)sender {
-    UIButton * button = sender;
+    UIButton *button = sender;
     if ([[OCSManager sharedOCSManager] isRunning]) {
         [[OCSManager sharedOCSManager] stop];
         [button setTitle: @"Run" forState:UIControlStateNormal];

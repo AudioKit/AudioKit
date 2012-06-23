@@ -9,7 +9,7 @@
 #import "AudioFilePlayer.h"
 
 @interface PlayAudioFileViewController : UIViewController {
-    AudioFilePlayer * audioFilePlayer;
+    AudioFilePlayer *audioFilePlayer;
 }
 
 - (IBAction)touchButton:(id)sender;
