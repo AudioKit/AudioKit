@@ -70,12 +70,11 @@ static OCSManager * _sharedOCSManager = nil;
     NSLog(@"Running with %@.csd", filename);
     NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
     [csound startCsound:file];
+    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
+    
     while(!isRunning) {
         NSLog(@"Waiting for Csound to startup completely.");
     }
-
-    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
-
 }
 
 -(void) writeCSDFileForOrchestra:(OCSOrchestra *) orch {
@@ -99,22 +98,22 @@ static OCSManager * _sharedOCSManager = nil;
     [self writeCSDFileForOrchestra:orch];
     [self updateValueCacheWithProperties:orch];
     [csound startCsound:myCSDFile];
-    while(!isRunning) {
-        NSLog(@"Waiting for Csound to startup completely.");
-    }
-
     NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
-    
+
     //Clean up the IDs for next time
     [OCSParam resetID];
     [OCSInstrument resetID];
+    
+    while(!isRunning) {
+        //NSLog(@"Waiting for Csound to startup completely.");
+    }
 }
 
 -(void)stop {
     NSLog(@"Stopping Csound");
     [csound stopCsound];
     while(isRunning) {
-        NSLog(@"Waiting for Csound to stop completely.");
+        //NSLog(@"Waiting for Csound to stop completely.");
     }
     
     // Hackfor giving csound time to fully stop before trying to restart

@@ -105,6 +105,15 @@
     float newValue = minValue + (arc4random()%((int) (maxValue)));    
     myTweakableInstrument.modIndex.value = newValue;
     [modIndexSlider setValue:(newValue-minValue)/(maxValue - minValue) * 100.0];
+    
+    /*
+    // Test to show amplitude slider moving also
+    minValue    = [[myTweakableInstrument amplitude] minimumValue];
+    maxValue    = [[myTweakableInstrument amplitude] maximumValue];
+    float actualValue = [[myTweakableInstrument amplitude] value];
+    float sliderValue = (actualValue-minValue)/(maxValue-minValue)* 100.0;
+    [amplitudeSlider setValue:sliderValue];
+     */
 }
 
 -(IBAction)scaleAmplitude:(id)sender {

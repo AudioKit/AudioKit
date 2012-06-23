@@ -37,7 +37,8 @@
 -(id)initWithValue:(float)aInitValue;
 -(id)initWithValue:(float)val Min:(float)min Max:(float)max;
 -(id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control;
--(NSString *)convertToCsd;
+-(NSString *)getChannelText;
+-(NSString *)setChannelText;
 -(NSString *)uniqueName;
 
 -(void)setup:(CsoundObj*)csoundObj;

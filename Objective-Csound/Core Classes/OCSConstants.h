@@ -8,9 +8,6 @@
 #ifndef ExampleProject_OCSConstants_h
 #define ExampleProject_OCSConstants_h
 
-extern NSString *const FINAL_OUTPUT;
-
-
 typedef enum
 {
     kRandomDistributionUniform=1,

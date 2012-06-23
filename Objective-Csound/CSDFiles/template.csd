@@ -5,16 +5,17 @@
 </CsOptions>
 
 <CsInstruments>
-;HEADER
+;=== HEADER ===
 %@
 
-;INSTRUMENTS
+;=== INSTRUMENTS ===
+
 %@
 
 </CsInstruments>
 <CsScore>
 
-;F-STATEMENTS
+;=== F-STATEMENTS ===
 f0 100000
 %@
 
