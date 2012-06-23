@@ -1,9 +1,11 @@
+//
 //  OCSManager.h
-
-#import <Foundation/Foundation.h>
+//
+//  Created by Aurelius Prochazka on 5/30/12.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
 
 #import "CsoundObj.h"
-#import "OCSConstants.h"
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
 

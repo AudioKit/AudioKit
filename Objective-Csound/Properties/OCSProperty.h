@@ -5,10 +5,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreMIDI/CoreMIDI.h>
-
 @class OCSParamControl;
+
 #import "BaseValueCacheable.h"
 
 @interface OCSProperty : BaseValueCacheable
@@ -33,14 +31,14 @@
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
 
--(id)initWithValue:(float)aInitValue;
--(id)initWithValue:(float)val Min:(float)min Max:(float)max;
--(id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control;
--(NSString *)getChannelText;
--(NSString *)setChannelText;
--(NSString *)uniqueName;
+- (id)initWithValue:(float)aInitValue;
+- (id)initWithValue:(float)val Min:(float)min Max:(float)max;
+- (id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control;
+- (NSString *)getChannelText;
+- (NSString *)setChannelText;
+- (NSString *)uniqueName;
 
--(void)setup:(CsoundObj*)csoundObj;
--(void)updateValuesToCsound;
+- (void)setup:(CsoundObj*)csoundObj;
+- (void)updateValuesToCsound;
 
 @end

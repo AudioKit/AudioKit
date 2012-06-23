@@ -29,17 +29,16 @@
 @property (assign) int finalOutput;
 @property (nonatomic, strong) NSMutableArray * propertyList;
 
--(NSString *) uniqueName;
--(void) joinOrchestra:(OCSOrchestra *) newOrchestra;
--(void) addOpcode:(OCSOpcode *) newOpcode;
--(void) addString:(NSString *) str;
--(void)addFunctionTable:(OCSFunctionTable *)newFunctionTable;
--(void)playNote:(NSDictionary *)noteEvent;
--(void)playNoteForDuration:(float)duration;
-+(void) resetID;
--(void)addProperty:(OCSProperty *)prop;
+- (NSString *)uniqueName;
+- (void)joinOrchestra:(OCSOrchestra *) orch;
+- (void)addOpcode:(OCSOpcode *)opcode;
+- (void)addString:(NSString *) str;
+- (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable;
+- (void)playNoteForDuration:(float)duration;
++ (void)resetID;
+- (void)addProperty:(OCSProperty *)prop;
 //-(void)addProperties:(NSArray *)propertyList;
--(void)resetParam:(OCSParam *) p;
--(void)assignOutput:(OCSParam *)out To:(OCSParam *) in; 
--(NSString *) csdRepresentation;
+- (void)resetParam:(OCSParam *) p;
+- (void)assignOutput:(OCSParam *)out To:(OCSParam *) in; 
+- (NSString *)csdRepresentation;
 @end

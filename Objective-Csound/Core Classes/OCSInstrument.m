@@ -21,11 +21,11 @@ typedef enum {
 
 static int currentID = 1;
 
--(void) joinOrchestra:(OCSOrchestra *) newOrchestra {
-    orchestra = newOrchestra;
+- (void)joinOrchestra:(OCSOrchestra *) orch {
+    orchestra = orch;
 }
 
--(id) init {
+- (id)init {
     self = [super init];
     if (self) {
         _myID = currentID++;
@@ -36,7 +36,7 @@ static int currentID = 1;
     return self; 
 }
 
--(NSString *) csdRepresentation {
+- (NSString *)csdRepresentation {
     NSMutableString * text = [NSMutableString stringWithString:@""];
     
     if ([propertyList count] > 0) {
@@ -58,46 +58,36 @@ static int currentID = 1;
     return (NSString *)text;
 }
 
--(NSString *) uniqueName {
+- (NSString *)uniqueName {
     return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
 
--(void) addOpcode:(OCSOpcode *)newOpcode {
-    [innerCSDRepresentation appendString:[newOpcode convertToCsd]];
+- (void)addOpcode:(OCSOpcode *)opcode {
+    [innerCSDRepresentation appendString:[opcode convertToCsd]];
 }
--(void) addString:(NSString *) str {
+- (void)addString:(NSString *) str {
     [innerCSDRepresentation appendString:str];
 }
 
-
--(void)addFunctionTable:(OCSFunctionTable *)newFunctionTable {
+- (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable {
     [innerCSDRepresentation appendString:[newFunctionTable convertToCsd]];
 }
--(void)playNoteForDuration:(float)dur {
+- (void)playNoteForDuration:(float)dur {
     NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", dur];
     [[OCSManager sharedOCSManager] playNote:noteEventString OnInstrument:self];
 }
-
--(void)playNote:(NSDictionary *)noteEvent {
-    NSString * noteEventString = @"";
-    for (int i=0; i<noteEvent.count; i++) {
-        noteEventString = [noteEventString stringByAppendingFormat:@" %@", [noteEvent objectForKey:[NSNumber numberWithInt:i]]];
-    }
-    [[OCSManager sharedOCSManager] playNote:noteEventString OnInstrument:self];
-}
-
-+(void) resetID {
++ (void) resetID {
     currentID = 1;
 }
 
--(void)addProperty:(OCSProperty *)prop 
+- (void)addProperty:(OCSProperty *)prop 
 {
+    [propertyList addObject:prop];
     //where I want to update csound's valuesCache array
     //[[OCSManager sharedOCSManager] addProperty:prop];
-    [propertyList addObject:prop];
 }
 
--(void) resetParam:(OCSParam *)p {
+- (void)resetParam:(OCSParam *)p {
     [innerCSDRepresentation appendString:[NSString stringWithFormat:@"%@ =  0\n", p]];
 }
 -(void)assignOutput:(OCSParam *)out To:(OCSParam *)in {
