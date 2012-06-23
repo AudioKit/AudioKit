@@ -6,14 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OCSOpcode.h"
-#import "OCSFunctionTable.h"
-#import "OCSManager.h"
-#import "OCSAssignment.h"
-
-//#import "OCSPropertyManager.h"
-#import "OCSProperty.h"
 #import "OCSOrchestra.h"
+#import "OCSOpcode.h"
+#import "OCSProperty.h"
 
 #define ocsp(__f__) [OCSParamConstant paramWithFloat:__f__]
 
@@ -22,23 +17,20 @@
     OCSParamConstant * duration;
     NSMutableString * innerCSDRepresentation;
     int  _myID;
-    NSMutableArray * propertyList;
+    NSMutableArray * properties;
 }
-
-@property (nonatomic, strong) OCSOrchestra * orchestra;
-@property (assign) int finalOutput;
-@property (nonatomic, strong) NSMutableArray * propertyList;
+@property (nonatomic, strong) NSMutableArray * properties;
 
 - (NSString *)uniqueName;
-- (void)joinOrchestra:(OCSOrchestra *) orch;
+- (void)addProperty:(OCSProperty *)prop;
+- (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable;
 - (void)addOpcode:(OCSOpcode *)opcode;
 - (void)addString:(NSString *) str;
-- (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable;
+- (void)assignOutput:(OCSParam *)out To:(OCSParam *) in; 
+- (void)resetParam:(OCSParam *) p;
+- (void)joinOrchestra:(OCSOrchestra *) orch;
+- (NSString *)csdRepresentation;
 - (void)playNoteForDuration:(float)duration;
 + (void)resetID;
-- (void)addProperty:(OCSProperty *)prop;
-//-(void)addProperties:(NSArray *)propertyList;
-- (void)resetParam:(OCSParam *) p;
-- (void)assignOutput:(OCSParam *)out To:(OCSParam *) in; 
-- (NSString *)csdRepresentation;
+
 @end

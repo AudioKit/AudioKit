@@ -54,8 +54,11 @@ static OCSManager * _sharedOCSManager = nil;
         zeroDBFullScaleValue = 1.0f;
         
         //Setup File System access
-        NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
-        templateCSDFileContents = [[NSString alloc] initWithContentsOfFile:templateFile  encoding:NSUTF8StringEncoding error:nil];
+        NSString * templateFile = [[NSBundle mainBundle] pathForResource: @"template" 
+                                                                  ofType: @"csd"];
+        templateCSDFileContents = [[NSString alloc] initWithContentsOfFile:templateFile  
+                                                                  encoding:NSUTF8StringEncoding 
+                                                                     error:nil];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         myCSDFile = [NSString stringWithFormat:@"%@/%new.csd", documentsDirectory];
@@ -73,8 +76,9 @@ static OCSManager * _sharedOCSManager = nil;
     NSLog(@"Running with %@.csd", filename);
     NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
     [csound startCsound:file];
-    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file usedEncoding:nil error:nil]);
-    
+    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file 
+                                                           usedEncoding:nil 
+                                                                  error:nil]);
     while(!isRunning) {
         NSLog(@"Waiting for Csound to startup completely.");
     }
@@ -129,11 +133,6 @@ static OCSManager * _sharedOCSManager = nil;
 }
 
 -(void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument{
-    if ([csound getNumChannels] < 0) {
-        NSLog(@"%@", @"Csound is not really running");
-        [self runOrchestra:[instrument orchestra]];
-        return;
-    }
     NSString * scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
     NSLog(@"%@", scoreline);
     [csound sendScore:scoreline];
@@ -142,8 +141,8 @@ static OCSManager * _sharedOCSManager = nil;
 -(void)updateValueCacheWithProperties:(OCSOrchestra *)orch
 {
     NSArray *arr = [NSArray arrayWithArray:[orch instruments]];
-    for (OCSInstrument *i in arr ) {
-        for (OCSProperty *c in [i propertyList]) {
+    for (OCSInstrument *instrument in arr ) {
+        for (OCSProperty *c in [instrument properties]) {
             [csound addValueCacheable:c];
         }
     }
