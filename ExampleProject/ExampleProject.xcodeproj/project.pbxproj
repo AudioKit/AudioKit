@@ -16,6 +16,7 @@
 		76F3203E1593BC19008338E2 /* OCSFileLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203D1593BC17008338E2 /* OCSFileLength.m */; };
 		C40B719815959C37000FCB1B /* UDOCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B719715959C37000FCB1B /* UDOCompressor.m */; };
 		C40B719B15959D4A000FCB1B /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B719A15959D4A000FCB1B /* OCSUserDefinedOpcode.m */; };
+		C40B71A21595AC28000FCB1B /* UDOPitchShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B71A11595AC28000FCB1B /* UDOPitchShifter.m */; };
 		C43553D115805CA60074764A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C43553D015805CA60074764A /* README.md */; };
 		C43553E6158074640074764A /* OCSFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* OCSFunctionTable.m */; };
 		C43553ED15807BB80074764A /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* OCSSineTable.m */; };
@@ -132,6 +133,8 @@
 		C40B719715959C37000FCB1B /* UDOCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOCompressor.m; path = UDOs/UDOCompressor.m; sourceTree = "<group>"; };
 		C40B719915959D4A000FCB1B /* OCSUserDefinedOpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSUserDefinedOpcode.h; path = UDOs/OCSUserDefinedOpcode.h; sourceTree = "<group>"; };
 		C40B719A15959D4A000FCB1B /* OCSUserDefinedOpcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSUserDefinedOpcode.m; path = UDOs/OCSUserDefinedOpcode.m; sourceTree = "<group>"; };
+		C40B71A01595AC28000FCB1B /* UDOPitchShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOPitchShifter.h; path = UDOs/UDOPitchShifter.h; sourceTree = "<group>"; };
+		C40B71A11595AC28000FCB1B /* UDOPitchShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOPitchShifter.m; path = UDOs/UDOPitchShifter.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* OCSFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCSFunctionTable.h; path = FunctionTables/OCSFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* OCSFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OCSFunctionTable.m; path = FunctionTables/OCSFunctionTable.m; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 				C40B719A15959D4A000FCB1B /* OCSUserDefinedOpcode.m */,
 				C40B719615959C37000FCB1B /* UDOCompressor.h */,
 				C40B719715959C37000FCB1B /* UDOCompressor.m */,
+				C40B71A01595AC28000FCB1B /* UDOPitchShifter.h */,
+				C40B71A11595AC28000FCB1B /* UDOPitchShifter.m */,
 			);
 			name = UDOs;
 			sourceTree = "<group>";
@@ -957,6 +962,7 @@
 				7696FEF1159515150041A05F /* OCSReverbSixParallelComb.m in Sources */,
 				C40B719815959C37000FCB1B /* UDOCompressor.m in Sources */,
 				C40B719B15959D4A000FCB1B /* OCSUserDefinedOpcode.m in Sources */,
+				C40B71A21595AC28000FCB1B /* UDOPitchShifter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
