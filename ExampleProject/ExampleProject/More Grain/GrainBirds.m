@@ -68,27 +68,33 @@
         [self addOpcode:cpspch];
         
         OCSParamArray * pitchOffsetBreakpoints = [OCSParamArray paramArrayFromParams:
-                                                  [OCSParamConstant paramWith , pitchOffsetStartValue],
-                                                  pitchOffsetFirstTarget, 
+                                    [OCSParamConstant paramWithFormat:@"%@ * 0.45", duration], 
+                                    [OCSParamConstant paramWithInt:40], nil];
+                                                  
         OCSLineSegmentWithRelease * pitchOffset = [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue output] 
                       FirstSegmentDuration:[OCSParamConstant paramWithFormat:@"0.5 * %@", duration] 
                   FirstSegementTargetValue:[pitchOffsetFirstTarget output] 
-                            SegmentArray:<#(OCSParamArray *)#> 
+                              SegmentArray:pitchOffsetBreakpoints 
                            ReleaseDuration:[OCSParamConstant paramWithFormat:@"%@ * 0.1", duration] 
                                 FinalValue:[OCSParamConstant paramWithInt:0] 
                                  isControl:YES];
         [self addOpcode:pitchOffset];
-                                                  
         
         OCSGrain * grain = [[OCSGrain alloc] initWithAmplitude:[amplitude output] 
                             pitch:[cpspch output] 
                      grainDensity:[grainDensity output] 
                   amplitudeOffset:[OCSParamConstant paramWithInt:1000]
-                      pitchOffset:[pitchOffset output] grainDuration:<#(OCSParamControl *)#> maxGrainDuration:<#(OCSParamConstant *)#> grainFunction:<#(OCSFunctionTable *)#> windowFunction:<#(OCSFunctionTable *)#> isRandomGrainFunctionIndex:
+                      pitchOffset:[pitchOffset output] 
+                    grainDuration:[grainDuration output] 
+                 maxGrainDuration:[OCSParamConstant paramWithFloat:0.1f] 
+                    grainFunction:fiftyHzSine 
+                   windowFunction:hanning   
+       isRandomGrainFunctionIndex:NO];
+        [self addOpcode:grain];
         
-        OCSPitchClassToFreq * pitch = [[OCSPitchClassToFreq alloc] initWithInput:variablePitch];
-        
-        OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] Cutoff:[CSDParamConstant paramWithInt:500]];
+        OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] 
+                                                 initWithInput:[grain output] 
+                                                        Cutoff:[OCSParamConstant paramWithInt:500]];
         [self addOpcode:butterlp];
         
         // AUDIO OUTPUT ========================================================
