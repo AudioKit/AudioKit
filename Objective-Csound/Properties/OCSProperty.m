@@ -18,7 +18,7 @@
 @synthesize output;
 
 
--(id)init
+- (id)init
 {
     self = [super init];
     if (self) {
@@ -29,7 +29,7 @@
     return self;
 }
 
--(id)initWithValue:(float)aInitValue
+- (id)initWithValue:(float)aInitValue
 {
     self = [self init];
     initValue = aInitValue;
@@ -38,7 +38,7 @@
     return self;
 }
 
--(id)initWithValue:(float)val Min:(float)min Max:(float)max
+- (id)initWithValue:(float)val Min:(float)min Max:(float)max
 {
     self = [self init];
     initValue = val;
@@ -48,7 +48,7 @@
     return self;
 }
 
--(id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control 
+- (id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control 
 {
     self = [self init];
     initValue = val;
@@ -62,34 +62,34 @@
     return self;
 }
 
--(NSString *)getChannelText {
+- (NSString *)getChannelText {
     return [NSString stringWithFormat:@"%@ chnget \"%@\"\n",  output, output];
 }
 
--(NSString *)setChannelText {
+- (NSString *)setChannelText {
     return [NSString stringWithFormat:@"chnset %@, \"%@\"\n", output, output];
 }
 
--(NSString *) uniqueName {
-    NSString * basename = [NSString stringWithFormat:@"%@", [self class]];
+- (NSString *)uniqueName {
+    NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"OCS" withString:@""];
     return basename;
 }
 #pragma mark BaseValueCacheable
--(void)setup:(CsoundObj*)csoundObj {
+- (void)setup:(CsoundObj*)csoundObj {
     channelPtr = [csoundObj getInputChannelPtr:[output parameterString]];
     *channelPtr = [self value];
 }
 
--(void)updateValuesToCsound {
+- (void)updateValuesToCsound {
     *channelPtr = [self value];  
 }
--(void)updateValuesFromCsound {
+- (void)updateValuesFromCsound {
     //AOP Test to get values back from Csound
     [self setValue:*channelPtr];
 }
 
--(NSString *)description {
+- (NSString *)description {
     return [output parameterString];
 }
 

@@ -9,14 +9,14 @@
 
 @implementation OCSParamConstant
 
--(id)init
+- (id)init
 {
     self = [super init];
     type = @"gi";
     return self;
 }
 
--(id)initWithString:(NSString *)aString
+- (id)initWithString:(NSString *)aString
 {
     self = [super init];
     if (self) {
@@ -26,7 +26,7 @@
     return self;
 }
 
--(id)initWithFloat:(float)aFloat
+- (id)initWithFloat:(float)aFloat
 {
     self = [super init];
     if (self) {
@@ -35,7 +35,7 @@
     }
     return self;
 }
--(id)initWithInt:(int)someInt
+- (id)initWithInt:(int)someInt
 {
     self = [super init];
     if (self) {
@@ -46,7 +46,7 @@
 }
 
 
--(id)initWithPValue:(int)somePValue
+- (id)initWithPValue:(int)somePValue
 {
     self = [super init];
     if (self) {

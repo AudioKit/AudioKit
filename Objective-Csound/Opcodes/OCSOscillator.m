@@ -11,7 +11,7 @@
 
 @synthesize output;
 
--(id) initWithAmplitude:(OCSParam *) amp 
+- (id)initWithAmplitude:(OCSParam *) amp 
               Frequency:(OCSParam *) freq
           FunctionTable:(OCSFunctionTable *) f 
               isControl:(BOOL)control
@@ -20,9 +20,9 @@
     if (self) {
         isControl = control;
         if (isControl) {
-            output = [OCSParamControl paramWithString:[self uniqueName]];
+            output = [OCSParamControl paramWithString:[self opcodeName]];
         } else {
-            output = [OCSParam paramWithString:[self uniqueName]];
+            output = [OCSParam paramWithString:[self opcodeName]];
         }
 
         amplitude = amp;
@@ -32,13 +32,13 @@
     return self; 
 }
 
--(id) initWithAmplitude:(OCSParam *)amp 
+- (id)initWithAmplitude:(OCSParam *)amp 
               Frequency:(OCSParam *)freq 
           FunctionTable:(OCSFunctionTable *)f
 {
     self = [super init];
     if (self) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amplitude = amp;
         frequency = freq;
         functionTable = f;
@@ -47,13 +47,13 @@
 }
 
 
--(NSString *)convertToCsd {
+- (NSString *)convertToCsd {
     return [NSString stringWithFormat:
             @"%@ oscil %@, %@, %@\n",
             output, amplitude, frequency, functionTable];
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

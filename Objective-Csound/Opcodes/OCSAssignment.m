@@ -10,22 +10,22 @@
 @implementation OCSAssignment
 @synthesize output;  
 
--(id) initWithInput:(OCSParam *)in {
+- (id)initWithInput:(OCSParam *)in {
     self = [super init];
     
     if (self) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         input = in;
     }
     return self; 
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
     return [NSString stringWithFormat:@"%@ = %@\n", output, input];
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

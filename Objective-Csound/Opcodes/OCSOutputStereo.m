@@ -9,16 +9,16 @@
 
 @implementation OCSOutputStereo
 
--(NSString *) convertToCsd {
+- (NSString *)convertToCsd {
     return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
 }
 
--(id) initWithMonoInput:(OCSParam *) in
+- (id)initWithMonoInput:(OCSParam *) in
 {
     return [self initWithInputLeft:in InputRight:in];
 }
 
--(id) initWithInputLeft:(OCSParam *) inLeft
+- (id)initWithInputLeft:(OCSParam *) inLeft
              InputRight:(OCSParam *) inRight
 {
     self = [super init];

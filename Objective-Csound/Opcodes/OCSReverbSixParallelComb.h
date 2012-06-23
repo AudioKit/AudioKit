@@ -12,27 +12,27 @@
 [, inumAlpas] [, ifnAlpas]
 @interface OCSReverbSixParallelComb : OCSOpcode
 {
-    OCSParam * output;
-    OCSParam * input;
-    OCSParamControl * reverbDuration;
-    OCSParamControl * highFreqeuncyDiffusionAmount;
+    OCSParam *output;
+    OCSParam *input;
+    OCSParamControl *reverbDuration;
+    OCSParamControl *highFreqeuncyDiffusionAmount;
     
     BOOL isInitSkipped;
     
-    NSArray * combFilterTimeValues;
-    NSArray * combFilterGainValues;
+    NSArray *combFilterTimeValues;
+    NSArray *combFilterGainValues;
     
-    NSArray * allPassFilterTimeValues;
-    NSArray * allPassFilterGainValues;
+    NSArray *allPassFilterTimeValues;
+    NSArray *allPassFilterGainValues;
 }
 
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
--(id) initWithInput:(OCSParam *) in
+- (id)initWithInput:(OCSParam *) in
 ReverbDuration:(OCSParamControl *) dur
 HighFrequencyDiffustionAmount:(OCSParamControl *) freqDiff;
 
--(id) initWithInput:(OCSParam *) in
+- (id)initWithInput:(OCSParam *) in
 ReverbDuration:(OCSParamControl *) dur
 HighFrequencyDiffustionAmount:(OCSParamControl *) freqDiff
 CombFilterTimeValues:(NSArray *)combTime

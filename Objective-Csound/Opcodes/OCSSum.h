@@ -8,12 +8,12 @@
 #import "OCSOpcode.h"
 
 @interface OCSSum : OCSOpcode {
-    NSMutableArray * inputs;
-    OCSParam * output;
+    NSMutableArray *inputs;
+    OCSParam *output;
 }
 
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
--(id) initWithInputs:(OCSParam *)firstInput,...;
+- (id)initWithInputs:(OCSParam *)firstInput,...;
 
 @end

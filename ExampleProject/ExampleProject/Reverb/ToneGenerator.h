@@ -9,11 +9,11 @@
 #import "OCSInstrument.h"
 
 @interface ToneGenerator : OCSInstrument {
-    OCSParam * auxilliaryOutput;
+    OCSParam *auxilliaryOutput;
 }
-@property (nonatomic, strong) OCSProperty * frequency;
-@property (readonly) OCSParam * auxilliaryOutput;
+@property (nonatomic, strong) OCSProperty *frequency;
+@property (readonly) OCSParam *auxilliaryOutput;
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq;
+- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

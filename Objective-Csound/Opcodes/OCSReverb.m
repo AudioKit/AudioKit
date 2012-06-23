@@ -12,22 +12,22 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
--(id)initWithMonoInput:(OCSParam *)in 
+- (id)initWithMonoInput:(OCSParam *)in 
          FeedbackLevel:(OCSParamControl *) feedback
        CutoffFrequency:(OCSParamControl *) cutoff 
 {
     return [self initWithInputLeft:in InputRight:in FeedbackLevel:feedback CutoffFrequency:cutoff];
 }
 
--(id)initWithInputLeft:(OCSParam *) inLeft
+- (id)initWithInputLeft:(OCSParam *) inLeft
             InputRight:(OCSParam *) inRight
          FeedbackLevel:(OCSParamControl *) feedback
        CutoffFrequency:(OCSParamControl *) cutoff 
 {
     self = [super init];
     if (self) {
-        outputLeft      = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self uniqueName], @"L"]];
-        outputRight     = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self uniqueName], @"R"]];
+        outputLeft      = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        outputRight     = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inputLeft       = inLeft;
         inputRight      = inRight;
         feedbackLevel   = feedback;
@@ -36,7 +36,7 @@
     return self; 
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@\n",

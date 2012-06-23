@@ -11,7 +11,7 @@
 @synthesize parameterString;
 @synthesize count;
 
--(id)init 
+- (id)init 
 {
     self = [super init];
     if (self) {
@@ -22,10 +22,10 @@
 }
 
 + (id)paramArrayFromFloats:(float *)numbers count:(NSUInteger)count {
-    OCSParamArray *result = [NSAllocateObject([self class], count * sizeof(float), NULL) init];
+    OCSParamArray *result = [NSAllocateObject([self class], count *sizeof(float), NULL) init];
     if (result) {
         result->count = count;
-        memcpy(result->numbers, numbers, count * sizeof(float));
+        memcpy(result->numbers, numbers, count *sizeof(float));
     }
     [result setParameterString:[NSString stringWithFormat:@"%0.6f", numbers[0]]];
     for (int i=1; i<count; i++) {
@@ -35,10 +35,10 @@
 }
 
 +(id)paramArrayFromParams:(OCSParamConstant *)firstParam,... {
-    OCSParamArray * result = [[OCSParamArray alloc] init];
+    OCSParamArray *result = [[OCSParamArray alloc] init];
 
-    OCSParam * eachParam;
-    NSMutableArray * initParameters = [[NSMutableArray alloc] init];
+    OCSParam *eachParam;
+    NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;
     if (firstParam) { // The first argument isn't part of the varargs list, so we'll handle it separately.
         [initParameters addObject: firstParam];

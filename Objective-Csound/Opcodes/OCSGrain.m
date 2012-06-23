@@ -12,7 +12,7 @@
 
 @synthesize output;
 
--(id)initWithAmplitude:(OCSParam *)amp
+- (id)initWithAmplitude:(OCSParam *)amp
                  Pitch:(OCSParam *)pch
           GrainDensity:(OCSParam *)dens
        AmplitudeOffset:(OCSParamControl *)ampOffset
@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        output              = [OCSParam paramWithString:[self uniqueName]];
+        output              = [OCSParam paramWithString:[self opcodeName]];
         amplitude           = amp;
         pitch               = pch;
         grainDensity        = dens;
@@ -40,7 +40,7 @@
     return self;
 }
 
--(id)initWithAmplitude:(OCSParam *)amp
+- (id)initWithAmplitude:(OCSParam *)amp
                  Pitch:(OCSParam *)pch
           GrainDensity:(OCSParam *)dens
        AmplitudeOffset:(OCSParamControl *)ampOffset
@@ -53,7 +53,7 @@ IsRandomGrainFunctionIndex:(BOOL)isRandGrainIndex;
 {
     self = [super init];
     if (self) {
-        output              = [OCSParam paramWithString:[self uniqueName]];
+        output              = [OCSParam paramWithString:[self opcodeName]];
         amplitude           = amp;
         pitch               = pch;
         grainDensity        = dens;
@@ -68,7 +68,7 @@ IsRandomGrainFunctionIndex:(BOOL)isRandGrainIndex;
     return self;
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
     //ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
     int imgdur = isRandomGrainFunctionIndex ? 1 : 0;
@@ -78,7 +78,7 @@ IsRandomGrainFunctionIndex:(BOOL)isRandGrainIndex;
             grainFunction, windowFunction, maxGrainDuration, imgdur];
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

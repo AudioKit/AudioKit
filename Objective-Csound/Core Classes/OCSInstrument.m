@@ -54,8 +54,8 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:str];
 }
 
--(void)assignOutput:(OCSParam *)out To:(OCSParam *)in {
-    OCSAssignment * auxOutputAssign = [[OCSAssignment alloc] initWithInput:in];
+- (void)assignOutput:(OCSParam *)out To:(OCSParam *)in {
+    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:in];
     [auxOutputAssign setOutput:out];
     [self addOpcode:auxOutputAssign];
 }
@@ -69,11 +69,11 @@ static int currentID = 1;
 }
 
 - (NSString *)csdRepresentation {
-    NSMutableString * text = [NSMutableString stringWithString:@""];
+    NSMutableString *text = [NSMutableString stringWithString:@""];
     
     if ([properties count] > 0) {
         [text appendString:@";--- INPUTS ---\n"];
-        for (OCSProperty * prop in properties) {
+        for (OCSProperty *prop in properties) {
             [text appendString:[prop getChannelText]];
         }
         [text appendString:@"\n;--- INSTRUMENT DEFINITION ---\n"];  
@@ -83,7 +83,7 @@ static int currentID = 1;
     
     if ([properties count] > 0) {
         [text appendString:@"\n;--- OUTPUTS ---\n"];
-        for (OCSProperty * prop in properties) {
+        for (OCSProperty *prop in properties) {
             [text appendString:[prop setChannelText]];
         }
     }
@@ -91,7 +91,7 @@ static int currentID = 1;
 }
 
 - (void)playNoteForDuration:(float)dur {
-    NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", dur];
+    NSString *noteEventString = [NSString stringWithFormat:@"%0.2f", dur];
     [[OCSManager sharedOCSManager] playNote:noteEventString OnInstrument:self];
 }
 + (void)resetID {

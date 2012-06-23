@@ -15,18 +15,18 @@
     OCSParamConstant *firstSegmentTargetValue;
     OCSParamArray *segmentArray;
     
-    OCSParamControl * output;
+    OCSParamControl *output;
 }
 
-@property (nonatomic, strong) OCSParamControl * output;
+@property (nonatomic, strong) OCSParamControl *output;
 
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
                FirstSegmentDuration:(OCSParamConstant *) dur
            FirstSegementTargetValue:(OCSParamConstant *) targ
                        SegmentArray:(OCSParamArray *)aSegmentArray;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
                FirstSegmentDuration:(OCSParamConstant *) dur
            FirstSegementTargetValue:(OCSParamConstant *) targ;
 

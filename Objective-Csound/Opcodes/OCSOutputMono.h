@@ -9,9 +9,9 @@
 
 
 @interface OCSOutputMono : OCSOpcode {
-    OCSParam * input;
+    OCSParam *input;
 }
 
--(id) initWithInput:(OCSParam *) i;
+- (id)initWithInput:(OCSParam *) i;
 
 @end

@@ -15,7 +15,7 @@
 @implementation ExpressionToneGenerator
 @synthesize frequency;
 
--(id) init
+- (id)init
 {
     self = [super init];
     if (self) {                  
@@ -32,11 +32,10 @@
         OCSSineTable * vibratoSine = [[OCSSineTable alloc] init];
         [self addFunctionTable:vibratoSine];
         
-        OCSOscillator * myVibratoOscillator = 
-        [[OCSOscillator alloc] initWithAmplitude:ocsp(40)
-                                       Frequency:ocsp(6)
-                                   FunctionTable:vibratoSine
-                                       isControl:YES];
+        OCSOscillator * myVibratoOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(40)
+                                                                             Frequency:ocsp(6)
+                                                                         FunctionTable:vibratoSine
+                                                                             isControl:YES];
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;
@@ -47,14 +46,13 @@
         
         OCSParamConstant * amplitudeOffset = ocsp(0.1);
         
-        OCSLine * amplitudeRamp = 
-        [[OCSLine alloc] initWithStartingValue:ocsp(0) 
-                                      Duration:duration
-                                   TargetValue:ocsp(0.2)];
+        OCSLine * amplitudeRamp = [[OCSLine alloc] initWithStartingValue:ocsp(0) 
+                                                                Duration:duration
+                                                             TargetValue:ocsp(0.2)];
         [self addOpcode:amplitudeRamp];
         
-        OCSParamControl * totalAmplitude = 
-        [OCSParamControl paramWithFormat:@"%@ + %@", amplitudeRamp, amplitudeOffset];                    
+        OCSParamControl * totalAmplitude = [OCSParamControl paramWithFormat:
+                                            @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
         OCSOscillator * myOscillator = [[OCSOscillator alloc] 
                                         initWithAmplitude:totalAmplitude
                                                 Frequency:vibrato
@@ -63,13 +61,12 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo * stereoOutput = 
-        [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
+        OCSOutputStereo * stereoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
     }
     return self;
 }
--(void) playNoteForDuration:(float)dur Frequency:(float)freq {
+- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
     [self playNoteForDuration:dur];
 }

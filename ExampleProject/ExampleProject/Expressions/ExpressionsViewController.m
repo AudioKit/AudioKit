@@ -21,11 +21,11 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
--(IBAction)hit1:(id)sender
+- (IBAction)hit1:(id)sender
 {
     [myToneGenerator playNoteForDuration:9 Frequency:360];
 }
--(IBAction)hit2:(id)sender
+- (IBAction)hit2:(id)sender
 {
     [myToneGenerator playNoteForDuration:9 Frequency:410];
 }

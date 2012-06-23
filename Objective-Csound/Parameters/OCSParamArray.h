@@ -9,8 +9,8 @@
 
 @interface OCSParamArray : NSObject
 {
-    NSMutableArray * params;
-    NSString * parameterString;
+    NSMutableArray *params;
+    NSString *parameterString;
     NSUInteger count;
     float      numbers[0];
 }

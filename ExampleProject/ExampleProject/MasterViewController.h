@@ -11,7 +11,7 @@
 @class InitialViewController;
 
 @interface MasterViewController : UITableViewController {
-    NSMutableArray * exampleNames;
+    NSMutableArray *exampleNames;
 }
 
 @property (strong, nonatomic) InitialViewController *initialViewController;

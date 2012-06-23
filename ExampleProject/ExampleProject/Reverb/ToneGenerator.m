@@ -16,7 +16,7 @@
 @synthesize frequency;
 @synthesize auxilliaryOutput;
 
--(id) init
+- (id)init
 {
     self = [super init];
     
@@ -29,19 +29,17 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSSineTable * sineTable = [[OCSSineTable alloc] init];
+        OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        OCSOscillator * myOscillator = 
-        [[OCSOscillator alloc] initWithAmplitude:ocsp(0.4)
-                                       Frequency:[frequency output]
-                                   FunctionTable:sineTable];
+        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(0.4)
+                                                                      Frequency:[frequency output]
+                                                                  FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo * stereoOutput = 
-        [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
+        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
         [self addOpcode:stereoOutput];
         
         
@@ -53,7 +51,7 @@
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq {
+- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
     [self playNoteForDuration:dur];
 }

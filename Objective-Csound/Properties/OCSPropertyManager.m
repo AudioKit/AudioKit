@@ -12,7 +12,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
 @implementation OCSPropertyManager
 @synthesize propertyList;
 
--(id)init {
+- (id)init {
     if(self = [super init]) {
         propertyList = [[NSMutableArray alloc] init];
         for (int i = 0; i<128; i++) {
@@ -24,7 +24,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     return self;
 }
 
-/*-(void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
+/*- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
 {
     if (controllerNumber < 0 || controllerNumber > 127) {
         NSLog(@"Error: Attempted to add a widget with controller number outside of range 0-127: %d", controllerNumber);
@@ -34,7 +34,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     [propertyList replaceObjectAtIndex:controllerNumber withObject:prop];
 }*/
 
--(void)addProperty:(OCSProperty *)prop
+- (void)addProperty:(OCSProperty *)prop
 {
     [propertyList addObject:prop];
     //[[OCSManager sharedOCSManager] addPropertyParam:prop];
@@ -72,7 +72,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
 }
 
 #pragma mark CoreMidi Code
--(void)openMidiIn {
+- (void)openMidiIn {
     int k, endpoints;
     
     CFStringRef name = NULL, cname = NULL, pname = NULL;
@@ -106,11 +106,11 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     
 }
 
--(void)closeMidiIn {
+- (void)closeMidiIn {
     MIDIClientDispose(myClient);
 }
 
--(void)dealloc {
+- (void)dealloc {
     [propertyList release];
     [super dealloc];
 }

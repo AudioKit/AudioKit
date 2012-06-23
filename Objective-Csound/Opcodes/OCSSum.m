@@ -10,13 +10,13 @@
 @implementation OCSSum
 @synthesize output;
 
--(id) initWithInputs:(OCSParam *)firstInput,... {
+- (id)initWithInputs:(OCSParam *)firstInput,... {
     self = [super init];
     
     if (self) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         inputs = [[NSMutableArray alloc] init];
-        OCSParam * eachInput;
+        OCSParam *eachInput;
         va_list argumentList;
         if (firstInput) // The first argument isn't part of the varargs list,
         {                                   // so we'll handle it separately.
@@ -30,14 +30,14 @@
     return self; 
 }
 
--(NSString *)convertToCsd
+- (NSString *)convertToCsd
 {
-    NSString * inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
+    NSString *inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
     return [NSString stringWithFormat:@"%@ sum %@\n", output, inputsCombined];
 }
 
--(NSString *) description {
+- (NSString *)description {
     return [output parameterString];
 }
 

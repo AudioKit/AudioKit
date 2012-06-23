@@ -18,7 +18,7 @@
 @synthesize modulation;
 @synthesize modIndex;
 //@synthesize myPropertyManager;
--(id)init
+- (id)init
 {
     self = [super init];
     if (self) {
@@ -75,7 +75,7 @@
     return self;
 }
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq {
+- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
     [self playNoteForDuration:dur];
 }

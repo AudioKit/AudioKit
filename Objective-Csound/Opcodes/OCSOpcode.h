@@ -9,8 +9,8 @@
 #import "OCSFunctionTable.h"
 
 @interface OCSOpcode : NSObject 
-@property (nonatomic, strong) NSString * opcode;
+@property (nonatomic, strong) NSString *opcode;
 
--(NSString *) uniqueName;
--(NSString *) convertToCsd;
+- (NSString *)opcodeName;
+- (NSString *)convertToCsd;
 @end

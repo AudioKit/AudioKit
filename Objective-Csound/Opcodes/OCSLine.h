@@ -20,15 +20,15 @@
 #import "OCSParamConstant.h"
 
 @interface OCSLine : OCSOpcode {
-    OCSParamControl * output;
+    OCSParamControl *output;
 }
 
-@property (nonatomic, strong) OCSParamControl  * output;
-@property (nonatomic, strong) OCSParamConstant * startingValue;
-@property (nonatomic, strong) OCSParamConstant * duration;
-@property (nonatomic, strong) OCSParamConstant * targetValue;
+@property (nonatomic, strong) OCSParamControl  *output;
+@property (nonatomic, strong) OCSParamConstant *startingValue;
+@property (nonatomic, strong) OCSParamConstant *duration;
+@property (nonatomic, strong) OCSParamConstant *targetValue;
 
--(id)initWithStartingValue:(OCSParamConstant *) start
+- (id)initWithStartingValue:(OCSParamConstant *) start
                   Duration:(OCSParamConstant *) dur
                TargetValue:(OCSParamConstant *) targ;
     

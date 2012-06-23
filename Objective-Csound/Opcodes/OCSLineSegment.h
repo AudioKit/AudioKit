@@ -22,20 +22,20 @@
 #import "OCSParamArray.h"
 
 @interface OCSLineSegment : OCSOpcode {
-    OCSParamControl * output;
+    OCSParamControl *output;
 }
-@property (nonatomic, strong) OCSParamControl * output;
+@property (nonatomic, strong) OCSParamControl *output;
 @property (nonatomic, strong) OCSParamConstant *firstSegmentStartValue;
 @property (nonatomic, strong) OCSParamConstant *firstSegmentDuration;
 @property (nonatomic, strong) OCSParamConstant *firstSegmentTargetValue;
 @property (nonatomic, strong) OCSParamArray *segmentArray;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
                FirstSegmentDuration:(OCSParamConstant *) dur
            FirstSegementTargetValue:(OCSParamConstant *) targ
                        SegmentArray:(OCSParamArray *)aSegmentArray;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
                FirstSegmentDuration:(OCSParamConstant *) dur
            FirstSegementTargetValue:(OCSParamConstant *) targ;
 

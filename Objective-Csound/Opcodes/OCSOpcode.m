@@ -11,13 +11,13 @@
 
 @synthesize opcode;
 
--(NSString *) uniqueName {
-    NSString * basename = [NSString stringWithFormat:@"%@", [self class]];
+- (NSString *)opcodeName {
+    NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"OCS" withString:@""];
     return basename;
 }
 
--(NSString *) convertToCsd
+- (NSString *)convertToCsd
 {
     //Override in subclass
     return @"Undefined";

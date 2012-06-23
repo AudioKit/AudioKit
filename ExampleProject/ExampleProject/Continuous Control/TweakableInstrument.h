@@ -19,12 +19,12 @@
     OCSProperty *modulation;
     OCSProperty *modIndex;
 }
-@property (nonatomic, strong) OCSProperty * amplitude;
-@property (nonatomic, strong) OCSProperty * frequency;
-@property (nonatomic, strong) OCSProperty * modulation;
-@property (nonatomic, strong) OCSProperty * modIndex;
-//@property (nonatomic, strong) OCSPropertyManager * myPropertyManager;
+@property (nonatomic, strong) OCSProperty *amplitude;
+@property (nonatomic, strong) OCSProperty *frequency;
+@property (nonatomic, strong) OCSProperty *modulation;
+@property (nonatomic, strong) OCSProperty *modIndex;
+//@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
--(void) playNoteForDuration:(float)dur Frequency:(float)freq;
+- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

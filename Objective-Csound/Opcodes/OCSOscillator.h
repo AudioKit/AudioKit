@@ -8,21 +8,21 @@
 #import "OCSOpcode.h"
 
 @interface OCSOscillator : OCSOpcode {
-    OCSParam * amplitude;
-    OCSParam * frequency;
+    OCSParam *amplitude;
+    OCSParam *frequency;
     OCSFunctionTable *functionTable;
     BOOL isControl;
-    OCSParam * output;
+    OCSParam *output;
 }
-@property (nonatomic, strong) OCSParam * output;
+@property (nonatomic, strong) OCSParam *output;
 
 
--(id) initWithAmplitude:(OCSParam *) amp 
+- (id)initWithAmplitude:(OCSParam *) amp 
               Frequency:(OCSParam *) freq
           FunctionTable:(OCSFunctionTable *) f
               isControl:(BOOL)control;
 
--(id) initWithAmplitude:(OCSParam *) amp 
+- (id)initWithAmplitude:(OCSParam *) amp 
               Frequency:(OCSParam *) freq
           FunctionTable:(OCSFunctionTable *) f;
 
