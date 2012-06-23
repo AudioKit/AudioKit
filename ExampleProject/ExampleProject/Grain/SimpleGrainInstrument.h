@@ -17,9 +17,7 @@
 #import "OCSOutputStereo.h"
 
 @interface SimpleGrainInstrument : OCSInstrument
-{
-}
 
--(id)initWithOrchestra:(OCSOrchestra *)newOrchestra;
+- (id)initWithOrchestra:(OCSOrchestra *)orch;
 
 @end
