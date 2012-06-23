@@ -19,21 +19,21 @@
 
 @interface OCSInstrument : NSObject {
     OCSOrchestra * orchestra;
-    NSMutableString * csdRepresentation;
     OCSParamConstant * duration;
+    NSMutableString * innerCSDRepresentation;
     int  _myID;
     NSMutableArray * propertyList;
 }
 
 @property (nonatomic, strong) OCSOrchestra * orchestra;
 @property (assign) int finalOutput;
-@property (nonatomic, strong) NSMutableString * csdRepresentation;
 @property (nonatomic, strong) NSMutableArray * propertyList;
 
 -(id) initWithOrchestra:(OCSOrchestra *) newOrchestra;
 -(NSString *) uniqueName;
 -(void) joinOrchestra:(OCSOrchestra *) newOrchestra;
 -(void) addOpcode:(OCSOpcode *) newOpcode;
+-(void) addString:(NSString *) str;
 -(void)addFunctionTable:(OCSFunctionTable *)newFunctionTable;
 -(void)playNote:(NSDictionary *)noteEvent;
 -(void)playNoteForDuration:(float)duration;
@@ -42,4 +42,5 @@
 //-(void)addProperties:(NSArray *)propertyList;
 -(void)resetParam:(OCSParam *) p;
 -(void)assignOutput:(OCSParam *)out To:(OCSParam *) in; 
+-(NSString *) csdRepresentation;
 @end

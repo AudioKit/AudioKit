@@ -6,5 +6,3 @@
 //
 
 #import "OCSConstants.h"
-
-NSString *const FINAL_OUTPUT = @"aFinalOutput";

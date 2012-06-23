@@ -65,6 +65,11 @@
         OCSOutputStereo *stereoOutput = 
         [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
         [self addOpcode:stereoOutput];
+        
+        /*
+        // Test to show amplitude slider moving also
+        [self addString:[NSString stringWithFormat:@"%@ = %@ + 0.001\n", amplitude, amplitude]];
+         */
     }
     return self;
 }

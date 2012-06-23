@@ -62,11 +62,12 @@
     return self;
 }
 
--(NSString *)convertToCsd
-{
-    NSString * getLine = [NSString stringWithFormat:@"%@ chnget \"%@\"\n",  output, output];
-    NSString * setLine = [NSString stringWithFormat:@"chnset %@, \"%@\"\n", output, output];
-    return [NSString stringWithFormat:@"%@%@", getLine, setLine];
+-(NSString *)getChannelText {
+    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n",  output, output];
+}
+
+-(NSString *)setChannelText {
+    return [NSString stringWithFormat:@"chnset %@, \"%@\"\n", output, output];
 }
 
 -(NSString *) uniqueName {
