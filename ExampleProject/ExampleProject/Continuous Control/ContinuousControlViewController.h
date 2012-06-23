@@ -6,9 +6,6 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "OCSManager.h"
-#import "OCSOrchestra.h"
 #import "TweakableInstrument.h"
 
 @interface ContinuousControlViewController : UIViewController

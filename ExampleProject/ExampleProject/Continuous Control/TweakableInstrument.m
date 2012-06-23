@@ -7,15 +7,17 @@
 //
 
 #import "TweakableInstrument.h"
+#import "OCSSineTable.h"
+#import "OCSFoscili.h"
+#import "OCSOutputStereo.h"
 #import "OCSAssignment.h"
 
 @implementation TweakableInstrument
-//@synthesize myPropertyManager;
 @synthesize amplitude;
 @synthesize frequency;
 @synthesize modulation;
 @synthesize modIndex;
-
+//@synthesize myPropertyManager;
 -(id)init
 {
     self = [super init];

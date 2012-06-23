@@ -7,11 +7,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSOscillator.h"
-#import "OCSParamArray.h"
-#import "OCSReverb.h"
-#import "OCSOutputStereo.h"
 
 @interface SoundGenerator : OCSInstrument {
     OCSProperty *frequency;

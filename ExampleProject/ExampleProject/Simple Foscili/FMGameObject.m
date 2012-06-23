@@ -7,8 +7,12 @@
 //
 
 #import "FMGameObject.h"
+#import "OCSSineTable.h"
+#import "OCSFoscili.h"
+#import "OCSOutputStereo.h"
 
 @implementation FMGameObject
+
 @synthesize frequency;
 @synthesize modulation;
 
@@ -51,7 +55,7 @@
     return self;
 }
 
--(void) playNoteForDuration:(float)dur 
+- (void)playNoteForDuration:(float)dur 
                   Frequency:(float)freq 
                  Modulation:(float)mod {
     frequency.value = freq;

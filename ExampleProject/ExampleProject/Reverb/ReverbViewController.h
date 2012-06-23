@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSManager.h"
 #import "ToneGenerator.h"
 #import "EffectsProcessor.h"
 

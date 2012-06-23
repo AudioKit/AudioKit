@@ -7,15 +7,15 @@
 //
 
 #import "UnitGenSoundGenerator.h"
-
 #import "OCSSineTable.h"
-#import "OCSParam.h"
-#import "OCSParamArray.h"
-#import "OCSSum.h"
+#import "OCSLine.h"
+#import "OCSLineSegment.h"
+#import "OCSFoscili.h"
+#import "OCSOutputStereo.h"
 
 @implementation UnitGenSoundGenerator
 
--(id)init
+- (id)init
 {
     self = [super init];
     if (self) {
@@ -24,18 +24,18 @@
         
         //H4Y - ARB: create sign function with variable partial strengths
         float partialStrengthFloats[] = {1.0f, 0.5f, 1.0f};
-        OCSParamArray * partialStrengths= [OCSParamArray paramArrayFromFloats:partialStrengthFloats count:3];
-        OCSSineTable * sineTable = [[OCSSineTable alloc] initWithSize:4096 
+        OCSParamArray *partialStrengths= [OCSParamArray paramArrayFromFloats:partialStrengthFloats count:3];
+        OCSSineTable *sineTable = [[OCSSineTable alloc] initWithSize:4096 
                                                      PartialStrengths:partialStrengths];
         [self addFunctionTable:sineTable];
         
-        myLine = [[OCSLine alloc] initWithStartingValue:ocsp(0.5) 
-                                               Duration:duration 
-                                            TargetValue:ocsp(1.5)];
+        OCSLine *myLine = [[OCSLine alloc] initWithStartingValue:ocsp(0.5) 
+                                                        Duration:duration 
+                                                     TargetValue:ocsp(1.5)];
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line
-        myLineSegment_a = 
+        OCSLineSegment *myLineSegment_a = 
         [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)
                                           FirstSegmentDuration:duration 
                                       FirstSegementTargetValue:ocsp(330)];
@@ -43,7 +43,7 @@
         OCSParamArray * breakpoints = 
         [OCSParamArray paramArrayFromParams: ocsp(3), ocsp(1.5), ocsp(3.0), ocsp(0.5), nil];
 
-        myLineSegment_b = 
+        OCSLineSegment *myLineSegment_b = 
         [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0.5)
                                           FirstSegmentDuration:ocsp(3)
                                       FirstSegementTargetValue:ocsp(0.2)
@@ -52,7 +52,7 @@
         [self addOpcode:myLineSegment_b];
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
-        myFMOscillator = 
+        OCSFoscili *myFMOscillator = 
         [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
                                     Frequency:[myLineSegment_a output]
                                       Carrier:ocsp(1)

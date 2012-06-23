@@ -12,14 +12,14 @@
 -(id) initWithFilename:(NSString *)file {
     parameters = [NSString stringWithFormat:@"\"%@\", 0, 0, 0", file];
     return [super initWithSize:0 
-                    GenRoutine:kGenRoutineSoundFile 
+                    GenRoutine:kGenSoundFile 
                     Parameters:parameters];
 }
 
 -(id) initWithFilename:(NSString *)file TableSize:(int)size {
     parameters = [NSString stringWithFormat:@"\"%@\", 0, 0, 0", file];
     return [super initWithSize:size 
-                    GenRoutine:kGenRoutineSoundFile 
+                    GenRoutine:kGenSoundFile 
                     Parameters:parameters];
 }
 @end

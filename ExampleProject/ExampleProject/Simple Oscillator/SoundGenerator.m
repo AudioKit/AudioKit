@@ -9,8 +9,11 @@
 //  float partialStrengths[] = {1.0f, 0.5f, 1.0f};
 //  OCSParamArray * partialStrengthParamArray = [OCSParamArray paramArrayFromFloats:partialStrengths count:3];
 
-
 #import "SoundGenerator.h"
+#import "OCSSineTable.h"
+#import "OCSOscillator.h"
+#import "OCSReverb.h"
+#import "OCSOutputStereo.h"
 
 @implementation SoundGenerator
 
@@ -28,8 +31,8 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSParamArray * partialStrengthParamArray = [OCSParamArray paramArrayFromParams:
-                                                     ocsp(1),ocsp(0.5), ocsp(1), nil];
+        OCSParamArray * partialStrengthParamArray = 
+        [OCSParamArray paramArrayFromParams: ocsp(1),ocsp(0.5), ocsp(1), nil];
         
         OCSSineTable * sineTable = 
         [[OCSSineTable alloc] initWithSize:4096 

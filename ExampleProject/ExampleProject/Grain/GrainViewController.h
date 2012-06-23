@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSManager.h"
-#import "OCSOrchestra.h"
 #import "SimpleGrainInstrument.h"
 
 @interface GrainViewController : UIViewController

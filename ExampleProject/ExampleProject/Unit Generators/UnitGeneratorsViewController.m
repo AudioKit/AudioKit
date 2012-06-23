@@ -7,6 +7,7 @@
 //
 
 #import "UnitGeneratorsViewController.h"
+#import "OCSManager.h"
 
 @implementation UnitGeneratorsViewController
 

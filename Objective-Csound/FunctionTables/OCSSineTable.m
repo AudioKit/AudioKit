@@ -13,13 +13,13 @@
 -(id) initWithSize:(int)size PartialStrengths:(OCSParamArray *)partials
 {
     return [self initWithSize:size 
-                   GenRoutine:kGenRoutineSines 
+                   GenRoutine:kGenSines 
                    Parameters:[partials parameterString]];
 }
 
 -(id) init;
 {
-    return [self initWithSize:4096 GenRoutine:kGenRoutineSines Parameters:@"1"];
+    return [self initWithSize:4096 GenRoutine:kGenSines Parameters:@"1"];
 }
 
 

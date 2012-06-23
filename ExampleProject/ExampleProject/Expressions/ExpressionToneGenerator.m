@@ -7,6 +7,10 @@
 //
 
 #import "ExpressionToneGenerator.h"
+#import "OCSSineTable.h"
+#import "OCSOscillator.h"
+#import "OCSLine.h"
+#import "OCSOutputStereo.h"
 
 @implementation ExpressionToneGenerator
 @synthesize frequency;

@@ -11,12 +11,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSFoscili.h"
-#import "OCSParam.h"
-#import "OCSOutputStereo.h"
-#import "OCSSineTable.h"
-
-#import "OCSFoscili.h"
 
 @interface FMGameObject : OCSInstrument {
     OCSProperty *amplitude;
@@ -25,7 +19,7 @@
 @property (nonatomic, strong) OCSProperty * frequency;
 @property (nonatomic, strong) OCSProperty * modulation;
 
--(void) playNoteForDuration:(float)dur 
+- (void)playNoteForDuration:(float)dur 
                   Frequency:(float)freq 
                  Modulation:(float)mod;
 

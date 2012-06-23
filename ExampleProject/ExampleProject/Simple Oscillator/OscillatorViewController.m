@@ -7,6 +7,7 @@
 //
 
 #import "OscillatorViewController.h"
+#import "OCSManager.h"
 
 @implementation OscillatorViewController
 
