@@ -7,9 +7,9 @@
 //
 // This is the compressor from Boulanger Labs' csGrain
 
-#import "OCSOpcode.h"
+#import "OCSUserDefinedOpcode.h"
 
-@interface UDOCompressor : OCSOpcode {
+@interface UDOCompressor : OCSUserDefinedOpcode {
     OCSParam *outputLeft;
     OCSParam *outputRight;
     OCSParam *inputLeft;
@@ -23,10 +23,10 @@
 @property (nonatomic, strong) OCSParam *outputLeft;
 @property (nonatomic, strong) OCSParam *outputRight;
 
-- (id)initWithInputLeft:(OCSParam *) inLeft
-             InputRight:(OCSParam *) inRight
-              Threshold:(OCSParamControl *) thr
-                  Ratio:(OCSParamControl *) rat 
+- (id)initWithInputLeft:(OCSParam *)inL
+             InputRight:(OCSParam *)inR
+              Threshold:(OCSParamControl *)thr
+                  Ratio:(OCSParamControl *)rat 
                  Attack:(OCSParamControl *)atk
                 Release:(OCSParamControl *)rel;
 @end
