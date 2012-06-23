@@ -29,7 +29,6 @@
 @property (assign) int finalOutput;
 @property (nonatomic, strong) NSMutableArray * propertyList;
 
--(id) initWithOrchestra:(OCSOrchestra *) newOrchestra;
 -(NSString *) uniqueName;
 -(void) joinOrchestra:(OCSOrchestra *) newOrchestra;
 -(void) addOpcode:(OCSOpcode *) newOpcode;

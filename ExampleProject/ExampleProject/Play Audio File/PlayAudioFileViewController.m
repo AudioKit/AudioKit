@@ -15,7 +15,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     myOrchestra = [[OCSOrchestra alloc] init];    
-    audioFilePlayer =  [[AudioFilePlayer alloc] initWithOrchestra:myOrchestra];
+    audioFilePlayer =  [[AudioFilePlayer alloc] init];
+    [myOrchestra addInstrument:audioFilePlayer];
     [[OCSManager sharedOCSManager] runOrchestra:myOrchestra];
 
 }

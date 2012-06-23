@@ -24,9 +24,4 @@ OCSProperty when we do use them.
 
 INDIGESTION:
 
-* Opcodes don't get initialized "With Instrument" but instruments get initialized
-"With Orchestra". I don't like the lack of parallelism here.  We do this so that
-instrument play commands don't have to include reference to orchestra, but there
-has to be a better way.
-
 * Develop convention for conditional initialization

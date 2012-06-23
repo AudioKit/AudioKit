@@ -19,7 +19,8 @@
     [super viewDidLoad];
     
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];
-    myGrainInstrument = [[SimpleGrainInstrument alloc] initWithOrchestra:orch];
+    myGrainInstrument = [[SimpleGrainInstrument alloc] init];
+    [orch addInstrument:myGrainInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 

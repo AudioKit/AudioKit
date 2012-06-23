@@ -10,9 +10,9 @@
 
 @implementation SimpleGrainInstrument
 
-- (id)initWithOrchestra:(OCSOrchestra *)orch
+- (id)init 
 {
-    self = [super initWithOrchestra:orch];
+    self = [super init];
     if (self) { 
         // INSTRUMENT DEFINITION ===============================================
         NSString * file = [[NSBundle mainBundle] pathForResource:@"beats" 

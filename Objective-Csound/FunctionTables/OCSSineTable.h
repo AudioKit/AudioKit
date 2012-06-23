@@ -10,6 +10,5 @@
 @interface OCSSineTable : OCSFunctionTable
 
 -(id) initWithSize:(int)tableSize PartialStrengths:(OCSParamArray *)partials;
--(id) init;
 
 @end

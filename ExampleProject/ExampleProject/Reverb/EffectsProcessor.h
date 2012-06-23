@@ -15,8 +15,7 @@
 
 @property (nonatomic, strong) OCSParam * input;
 
--(id) initWithOrchestra:(OCSOrchestra *)orch 
-          ToneGenerator:(ToneGenerator *) toneGenerator;
+-(id) initWithToneGenerator:(ToneGenerator *) toneGenerator;
 -(void) start;
 
 @end

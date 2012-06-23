@@ -33,7 +33,6 @@
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
 
--(id)init;
 -(id)initWithValue:(float)aInitValue;
 -(id)initWithValue:(float)val Min:(float)min Max:(float)max;
 -(id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control;

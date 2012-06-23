@@ -18,9 +18,10 @@
 {
     [super viewDidLoad];
 
-    OCSOrchestra *o = [[OCSOrchestra alloc] init];
-    myGrainBirds = [[GrainBirds alloc] initWithOrchestra:o];
-    [[OCSManager sharedOCSManager] runOrchestra:o];
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    myGrainBirds = [[GrainBirds alloc] init];
+    [orch addInstrument:myGrainBirds];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 @end

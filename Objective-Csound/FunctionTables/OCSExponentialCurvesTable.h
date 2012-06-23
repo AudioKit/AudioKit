@@ -10,7 +10,6 @@
 
 @interface OCSExponentialCurvesTable : OCSFunctionTable
 
--(id) initWithSize:(int)tableSize 
-  ValueLengthPairs:(OCSParamArray *)partials;
+- (id)initWithSize:(int)size ValueLengthPairs:(OCSParamArray *)partials;
 
 @end

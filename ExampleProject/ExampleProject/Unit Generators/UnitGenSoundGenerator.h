@@ -20,6 +20,4 @@
     OCSLineSegment *myLineSegment_b;
 }
 
--(id)initWithOrchestra:(OCSOrchestra *)orch;
-
 @end

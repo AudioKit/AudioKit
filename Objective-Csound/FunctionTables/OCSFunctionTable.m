@@ -9,12 +9,12 @@
 
 @implementation OCSFunctionTable
 @synthesize output;
-@synthesize integerIdentifier;
-@synthesize loadTime;
-@synthesize tableSize;
-@synthesize generatingRoutine;
-@synthesize parameters;
-@synthesize text;
+//@synthesize integerIdentifier;
+//@synthesize loadTime;
+//@synthesize tableSize;
+//@synthesize generatingRoutine;
+//@synthesize parameters;
+//@synthesize text;
 
 -(id)initWithSize:(int)size 
        GenRoutine:(GenRoutineType)gen 
@@ -23,19 +23,9 @@
     self = [super init];
     if (self) {
         output = [OCSParamConstant paramWithString:[self uniqueName]];
-        
         tableSize = size;
         generatingRoutine = gen;
         parameters = params;
-        
-        //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
-        if (parameters == nil) {
-            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
-                    output, tableSize, generatingRoutine];
-        } else {
-            text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
-                    output, tableSize, generatingRoutine, parameters];
-        }
     }
     return self;
 }
@@ -46,6 +36,19 @@
     return basename;
 }
 
+
+//ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
+-(NSString *) convertToCsd {
+    NSString *text;
+    if (parameters == nil) {
+        text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
+                output, tableSize, generatingRoutine];
+    } else {
+        text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
+                output, tableSize, generatingRoutine, parameters];
+    }
+    return text;
+}
 
 
 -(NSString *) description {

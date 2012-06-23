@@ -15,9 +15,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra * orch = [[OCSOrchestra alloc] init];
-    toneGenerator = [[ToneGenerator alloc] initWithOrchestra:orch];
-    fx = [[EffectsProcessor alloc] initWithOrchestra:orch 
-                                       ToneGenerator:toneGenerator];
+
+    toneGenerator = [[ToneGenerator alloc] init];
+    fx = [[EffectsProcessor alloc] initWithToneGenerator:toneGenerator];
+    
+    [orch addInstrument:toneGenerator];
+    [orch addInstrument:fx];
+
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
