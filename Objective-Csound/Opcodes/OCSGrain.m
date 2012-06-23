@@ -13,14 +13,14 @@
 @synthesize output;
 
 -(id)initWithAmplitude:(OCSParam *)amp
-                 pitch:(OCSParam *)pch
-          grainDensity:(OCSParam *)dens
-       amplitudeOffset:(OCSParamControl *)ampOffset
-           pitchOffset:(OCSParamControl *)pchOffset
-         grainDuration:(OCSParamControl *)gdur
-      maxGrainDuration:(OCSParamConstant *)maxgdur
-         grainFunction:(OCSFunctionTable *)gFunction
-        windowFunction:(OCSFunctionTable *)wFunction
+                 Pitch:(OCSParam *)pch
+          GrainDensity:(OCSParam *)dens
+       AmplitudeOffset:(OCSParamControl *)ampOffset
+           PitchOffset:(OCSParamControl *)pchOffset
+         GrainDuration:(OCSParamControl *)gdur
+      MaxGrainDuration:(OCSParamConstant *)maxgdur
+         GrainFunction:(OCSFunctionTable *)gFunction
+        WindowFunction:(OCSFunctionTable *)wFunction;
 {
     self = [super init];
     if (self) {
@@ -41,15 +41,15 @@
 }
 
 -(id)initWithAmplitude:(OCSParam *)amp
-                 pitch:(OCSParam *)pch
-          grainDensity:(OCSParam *)dens
-       amplitudeOffset:(OCSParamControl *)ampOffset
-           pitchOffset:(OCSParamControl *)pchOffset
-         grainDuration:(OCSParamControl *)gdur
-      maxGrainDuration:(OCSParamConstant *)maxgdur
-         grainFunction:(OCSFunctionTable *)gFunction
-        windowFunction:(OCSFunctionTable *)wFunction
-isRandomGrainFunctionIndex:(BOOL)isRandGrainIndex
+                 Pitch:(OCSParam *)pch
+          GrainDensity:(OCSParam *)dens
+       AmplitudeOffset:(OCSParamControl *)ampOffset
+           PitchOffset:(OCSParamControl *)pchOffset
+         GrainDuration:(OCSParamControl *)gdur
+      MaxGrainDuration:(OCSParamConstant *)maxgdur
+         GrainFunction:(OCSFunctionTable *)gFunction
+        WindowFunction:(OCSFunctionTable *)wFunction
+IsRandomGrainFunctionIndex:(BOOL)isRandGrainIndex;
 {
     self = [super init];
     if (self) {
