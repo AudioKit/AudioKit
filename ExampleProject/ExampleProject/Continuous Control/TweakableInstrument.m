@@ -36,7 +36,6 @@
         [modulation setOutput:[OCSParamControl paramWithString:@"Modulation"]]; 
         [modIndex   setOutput:[OCSParamControl paramWithString:@"ModIndex"]]; 
         
-        //[self addProperties:amplitude, frequency, modulation, modIndex, nil];
         [self addProperty:amplitude];
         [self addProperty:frequency];
         [self addProperty:modulation];
