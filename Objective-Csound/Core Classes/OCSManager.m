@@ -74,7 +74,8 @@ static OCSManager * _sharedOCSManager = nil;
     }
     
     NSLog(@"Running with %@.csd", filename);
-    NSString *file = [[NSBundle mainBundle] pathForResource:filename ofType:@"csd"];  
+    NSString *file = [[NSBundle mainBundle] pathForResource:filename 
+                                                     ofType:@"csd"];  
     [csound startCsound:file];
     NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file 
                                                            usedEncoding:nil 
@@ -115,21 +116,13 @@ static OCSManager * _sharedOCSManager = nil;
     //Clean up the IDs for next time
     [OCSParam resetID];
     [OCSInstrument resetID];
-    
-    while(!isRunning) {
-        //NSLog(@"Waiting for Csound to startup completely.");
-    }
+    while(!isRunning) {} // Do nothing
 }
 
 -(void)stop {
     NSLog(@"Stopping Csound");
     [csound stopCsound];
-    while(isRunning) {
-        //NSLog(@"Waiting for Csound to stop completely.");
-    }
-    
-    // Hackfor giving csound time to fully stop before trying to restart
-    //[NSThread sleepForTimeInterval:0.1];
+    while(isRunning) {} // Do nothing
 }
 
 -(void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument{
