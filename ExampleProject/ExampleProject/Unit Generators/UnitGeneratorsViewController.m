@@ -15,7 +15,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra * orch = [[OCSOrchestra alloc] init];
-    myUnitGenSoundGenerator = [[UnitGenSoundGenerator alloc] initWithOrchestra:orch];
+    myUnitGenSoundGenerator = [[UnitGenSoundGenerator alloc] init];
+    [orch addInstrument:myUnitGenSoundGenerator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 

@@ -16,9 +16,9 @@
 @synthesize modulation;
 @synthesize modIndex;
 
--(id)initWithOrchestra:(OCSOrchestra *)newOrchestra
+-(id)init
 {
-    self = [super initWithOrchestra:newOrchestra];
+    self = [super init];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================

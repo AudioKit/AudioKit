@@ -12,8 +12,8 @@
 @synthesize frequency;
 @synthesize modulation;
 
--(id) initWithOrchestra:(OCSOrchestra *)orch {
-    self = [super initWithOrchestra:orch];
+-(id) init {
+    self = [super init];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================

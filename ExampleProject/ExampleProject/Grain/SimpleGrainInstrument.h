@@ -18,6 +18,4 @@
 
 @interface SimpleGrainInstrument : OCSInstrument
 
-- (id)initWithOrchestra:(OCSOrchestra *)orch;
-
 @end

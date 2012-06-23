@@ -10,7 +10,7 @@
 @interface OCSSoundFileTable : OCSFunctionTable
 
 -(id) initWithFilename:(NSString *)file;
--(id) initWithFilename:(NSString *)file TableSize:(int)tableSize;
+-(id) initWithFilename:(NSString *)file TableSize:(int)size;
 
 @end
 

@@ -21,7 +21,9 @@
 
 -(void) addInstrument:(OCSInstrument *) instrument {
     [instruments addObject:instrument];
+    [instrument joinOrchestra:self];
 }
+
 -(NSString *) instrumentsForCsd {
     
     NSMutableString * instrumentsText = [NSMutableString stringWithString:@""];

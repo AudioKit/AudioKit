@@ -25,7 +25,8 @@
     // Do any additional setup after loading the view from its nib.
     
     OCSOrchestra * orch = [[OCSOrchestra alloc] init];
-    myTweakableInstrument = [[TweakableInstrument alloc] initWithOrchestra:orch];
+    myTweakableInstrument = [[TweakableInstrument alloc] init];
+    [orch addInstrument:myTweakableInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     
     float minValue    = [[myTweakableInstrument amplitude] minimumValue];

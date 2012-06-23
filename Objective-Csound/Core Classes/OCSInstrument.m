@@ -23,16 +23,13 @@ static int currentID = 1;
 
 -(void) joinOrchestra:(OCSOrchestra *) newOrchestra {
     orchestra = newOrchestra;
-    [newOrchestra addInstrument:self];
 }
 
--(id) initWithOrchestra:(OCSOrchestra *) newOrchestra {
+-(id) init {
     self = [super init];
     if (self) {
         _myID = currentID++;
-        [self joinOrchestra:newOrchestra];
         duration = [OCSParamConstant paramWithPValue:kDuration];
-        
         propertyList = [[NSMutableArray alloc] init ];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
@@ -74,7 +71,7 @@ static int currentID = 1;
 
 
 -(void)addFunctionTable:(OCSFunctionTable *)newFunctionTable {
-    [innerCSDRepresentation appendString:[newFunctionTable text]];
+    [innerCSDRepresentation appendString:[newFunctionTable convertToCsd]];
 }
 -(void)playNoteForDuration:(float)dur {
     NSString * noteEventString = [NSString stringWithFormat:@"%0.2f", dur];

@@ -16,7 +16,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra * orch = [[OCSOrchestra alloc] init];    
-    myFMGameObject =  [[FMGameObject alloc] initWithOrchestra:orch];
+    myFMGameObject =  [[FMGameObject alloc] init];
+    [orch addInstrument:myFMGameObject];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 

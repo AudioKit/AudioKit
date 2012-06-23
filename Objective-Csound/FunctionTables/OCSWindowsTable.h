@@ -22,10 +22,7 @@ typedef enum
 } WindowType;
 
 @interface OCSWindowsTable : OCSFunctionTable
--(id) initWithSize:(int)tableSize 
-        WindowType:(WindowType)window 
-          MaxValue:(int)max;
--(id) initWithSize:(int)size 
-        WindowType:(WindowType)window;
+- (id)initWithSize:(int)size WindowType:(WindowType)window MaxValue:(int)max;
+- (id)initWithSize:(int)size WindowType:(WindowType)window;
 
 @end

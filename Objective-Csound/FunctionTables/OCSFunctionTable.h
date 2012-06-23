@@ -53,21 +53,24 @@ typedef enum
 @interface OCSFunctionTable : NSObject
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
 {
-    NSString *text;
+    int tableSize;
+    int generatingRoutine;
+    NSString *parameters;
+
 }
 
-@property int   integerIdentifier;
-@property float loadTime;
-@property int   tableSize;
-@property int   generatingRoutine;
-
-@property (nonatomic, strong) NSString *parameters;
+//@property int   integerIdentifier;
+//@property float loadTime;
+//@property int   tableSize;
+//@property int   generatingRoutine;
+//
+//@property (nonatomic, strong) NSString *parameters;
+//@property (readonly) NSString *text;
 @property (nonatomic, strong) OCSParamConstant *output;
-@property (readonly) NSString *text;
 
 -(id) initWithSize:(int) size 
         GenRoutine:(GenRoutineType) gen 
         Parameters:(NSString *) params;
-
+-(NSString *) convertToCsd;
 
 @end

@@ -14,9 +14,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    OCSOrchestra * myOrchestra = [[OCSOrchestra alloc] init];    
-    mySoundGenerator =  [[SoundGenerator alloc] initWithOrchestra:myOrchestra];
-    [[OCSManager sharedOCSManager] runOrchestra:myOrchestra];
+    OCSOrchestra * orch = [[OCSOrchestra alloc] init];    
+    mySoundGenerator =  [[SoundGenerator alloc] init];
+    [orch addInstrument:mySoundGenerator];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender {

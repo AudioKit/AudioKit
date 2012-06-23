@@ -27,7 +27,6 @@
 @property (nonatomic, strong) OCSProperty * modulation;
 @property (nonatomic, strong) OCSProperty * modIndex;
 
--(id)initWithOrchestra:(OCSOrchestra *)newOrchestra;
 -(void) playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end
