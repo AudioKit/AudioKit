@@ -7,8 +7,12 @@
 //
 
 #import "ToneGenerator.h"
+#import "OCSSineTable.h"
+#import "OCSOscillator.h"
+#import "OCSOutputStereo.h"
 
 @implementation ToneGenerator
+
 @synthesize frequency;
 @synthesize auxilliaryOutput;
 

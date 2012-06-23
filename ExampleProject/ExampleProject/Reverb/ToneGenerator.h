@@ -7,9 +7,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSOscillator.h"
-#import "OCSOutputStereo.h"
 
 @interface ToneGenerator : OCSInstrument {
     OCSParam * auxilliaryOutput;

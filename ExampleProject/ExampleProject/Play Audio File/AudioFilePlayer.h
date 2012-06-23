@@ -7,9 +7,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSLoopingOscillator.h"
-#import "OCSReverb.h"
-#import "OCSOutputStereo.h"
 
 @interface AudioFilePlayer : OCSInstrument
 

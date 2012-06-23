@@ -13,7 +13,7 @@
 - (id)initWithSize:(int)size ValueLengthPairs:(OCSParamArray *)valuesAndLengths
 {
     return [self initWithSize:size 
-                   GenRoutine:kGenRoutineExponentialCurves 
+                   GenRoutine:kGenExponentialCurves 
                    Parameters:[valuesAndLengths parameterString]];
 }
 

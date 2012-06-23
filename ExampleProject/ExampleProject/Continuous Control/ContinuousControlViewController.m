@@ -7,6 +7,7 @@
 //
 
 #import "ContinuousControlViewController.h"
+#import "OCSManager.h"
 
 @implementation ContinuousControlViewController
 

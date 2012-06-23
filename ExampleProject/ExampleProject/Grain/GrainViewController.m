@@ -7,10 +7,7 @@
 //
 
 #import "GrainViewController.h"
-
-@interface GrainViewController ()
-
-@end
+#import "OCSManager.h"
 
 @implementation GrainViewController
 

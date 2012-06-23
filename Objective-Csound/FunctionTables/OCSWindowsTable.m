@@ -14,14 +14,14 @@
 - (id)initWithSize:(int)size WindowType:(WindowType)window MaxValue:(int)max
 {
     return [self initWithSize:size 
-                   GenRoutine:(kGenRoutineWindows * -1) 
+                   GenRoutine:(kGenWindows * -1) 
                    Parameters:[NSString stringWithFormat:@"%d %d", window, max]];
 }
 
 - (id)initWithSize:(int)size WindowType:(WindowType)window
 {
     return [self initWithSize:size 
-                   GenRoutine:kGenRoutineWindows
+                   GenRoutine:kGenWindows
                    Parameters:[NSString stringWithFormat:@"%d", window]];
 }
 

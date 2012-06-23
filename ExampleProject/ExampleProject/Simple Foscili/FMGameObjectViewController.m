@@ -7,6 +7,7 @@
 //
 
 #import "FMGameObjectViewController.h"
+#import "OCSManager.h"
 
 @implementation FMGameObjectViewController
 //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]

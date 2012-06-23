@@ -7,17 +7,7 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSFoscili.h"
-#import "OCSLine.h"
-#import "OCSLineSegment.h"
-#import "OCSOutputStereo.h"
 
 @interface UnitGenSoundGenerator : OCSInstrument
-{
-    OCSFoscili *myFMOscillator;
-    OCSLine *myLine;
-    OCSLineSegment *myLineSegment_a;
-    OCSLineSegment *myLineSegment_b;
-}
 
 @end

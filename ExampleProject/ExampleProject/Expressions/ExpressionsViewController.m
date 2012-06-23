@@ -7,6 +7,7 @@
 //
 
 #import "ExpressionsViewController.h"
+#import "OCSManager.h"
 
 @implementation ExpressionsViewController
 

@@ -7,9 +7,10 @@
 //
 
 #import "EffectsProcessor.h"
+#import "OCSReverb.h"
+#import "OCSOutputStereo.h"
 
 @implementation EffectsProcessor
-@synthesize input;
 
 -(id) initWithToneGenerator:(ToneGenerator *)toneGenerator
 {
@@ -18,7 +19,7 @@
         
         // INPUTS ==============================================================
         
-        input = [toneGenerator auxilliaryOutput];
+        OCSParam * input = [toneGenerator auxilliaryOutput];
         
         // INSTRUMENT DEFINITION ===============================================
         

@@ -7,10 +7,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSOscillator.h"
-#import "OCSLine.h"
-#import "OCSOutputStereo.h"
 
 @interface ExpressionToneGenerator : OCSInstrument {
     OCSProperty *frequency;

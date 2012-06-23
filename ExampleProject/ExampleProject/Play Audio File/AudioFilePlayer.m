@@ -7,9 +7,11 @@
 //
 
 #import "AudioFilePlayer.h"
+#import "OCSLoopingOscillator.h"
+#import "OCSReverb.h"
+#import "OCSOutputStereo.h"
 
 @implementation AudioFilePlayer
-
 
 -(id) init {
     self = [super init];
