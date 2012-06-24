@@ -8,8 +8,11 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSUserDefinedOpcode : OCSOpcode
+@interface OCSUserDefinedOpcode : OCSOpcode {
+    //NSString *myUDOFile;
+}
 
-- (NSString *)csdDefinition;
+@property (readonly) NSString *myUDOFile;
 
+- (NSString *)file;
 @end

@@ -53,18 +53,11 @@ typedef enum
 //f number  load-time  table-size  GEN  Routine  parameter1  parameter...  ; COMMENT
 {
     int tableSize;
-    int generatingRoutine;
+    GenRoutineType generatingRoutine;
     NSString *parameters;
 
 }
 
-//@property int   integerIdentifier;
-//@property float loadTime;
-//@property int   tableSize;
-//@property int   generatingRoutine;
-//
-//@property (nonatomic, strong) NSString *parameters;
-//@property (readonly) NSString *text;
 @property (nonatomic, strong) OCSParamConstant *output;
 
 - (id)initWithSize:(int)size 

@@ -18,6 +18,7 @@ typedef enum {
 @implementation OCSInstrument
 
 @synthesize properties;
+@synthesize myUDOs;
 
 static int currentID = 1;
 
@@ -26,7 +27,8 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         duration = [OCSParamConstant paramWithPValue:kDuration];
-        properties = [[NSMutableArray alloc] init ];
+        properties = [[NSMutableArray alloc] init];
+        myUDOs = [[NSMutableArray alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -50,6 +52,13 @@ static int currentID = 1;
 - (void)addOpcode:(OCSOpcode *)opcode {
     [innerCSDRepresentation appendString:[opcode stringForCSD]];
 }
+
+- (void)addUDO:(OCSUserDefinedOpcode *)udo {
+    [myUDOs addObject:udo];
+    [innerCSDRepresentation appendString:[udo stringForCSD]];
+}
+
+
 - (void)addString:(NSString *) str {
     [innerCSDRepresentation appendString:str];
 }

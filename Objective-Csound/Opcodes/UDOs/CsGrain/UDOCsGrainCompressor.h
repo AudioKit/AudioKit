@@ -9,7 +9,7 @@
 
 #import "OCSUserDefinedOpcode.h"
 
-@interface UDOCompressor : OCSUserDefinedOpcode {
+@interface UDOCsGrainCompressor : OCSUserDefinedOpcode {
     OCSParam *outputLeft;
     OCSParam *outputRight;
     OCSParam *inputLeft;
