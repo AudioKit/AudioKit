@@ -21,6 +21,8 @@
 #import "ContinuousControlViewController.h"
 #import "GrainViewController.h"
 #import "MoreGrainViewController.h"
+#import "UDOViewController.h"
+
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -50,6 +52,7 @@
                     @"Continuous Control",
                     @"Grain",
                     @"MoreGrain",
+                    @"User Defined Opcodes",
                     nil];
     return self;
 }
@@ -179,6 +182,10 @@
         case 9:
             controller = [[MoreGrainViewController alloc] initWithNibName:@"MoreGrainViewController" 
                                                                bundle:nil];
+            break;
+        case 10:
+            controller = [[MoreGrainViewController alloc] initWithNibName:@"UDOViewController" 
+                                                                   bundle:nil];
             break;
         default:
             break;

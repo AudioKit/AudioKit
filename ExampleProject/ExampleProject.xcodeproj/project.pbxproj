@@ -24,6 +24,9 @@
 		C43908AB1596B194001FC007 /* OCSLineSegmentWithRelease.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908AA1596B194001FC007 /* OCSLineSegmentWithRelease.m */; };
 		C43908AE1596B1AB001FC007 /* OCSFilterLowPassButterworth.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908AD1596B1AB001FC007 /* OCSFilterLowPassButterworth.m */; };
 		C43908B01596EFEF001FC007 /* a50.aif in Resources */ = {isa = PBXBuildFile; fileRef = C43908AF1596EFEF001FC007 /* a50.aif */; };
+		C43908BC1596F086001FC007 /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908BA1596F086001FC007 /* UDOViewController.m */; };
+		C43908BD1596F086001FC007 /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43908BB1596F086001FC007 /* UDOViewController.xib */; };
+		C43908C21596F11B001FC007 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908C11596F11B001FC007 /* UDOInstrument.m */; };
 		C44D06651584679E00307AC9 /* OCSSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06641584679E00307AC9 /* OCSSum.m */; };
 		C44D06691584689D00307AC9 /* OCSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06681584689D00307AC9 /* OCSProduct.m */; };
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
@@ -151,6 +154,11 @@
 		C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFilterLowPassButterworth.h; sourceTree = "<group>"; };
 		C43908AD1596B1AB001FC007 /* OCSFilterLowPassButterworth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFilterLowPassButterworth.m; sourceTree = "<group>"; };
 		C43908AF1596EFEF001FC007 /* a50.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = a50.aif; path = "More Grain/a50.aif"; sourceTree = "<group>"; };
+		C43908B91596F086001FC007 /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOViewController.h; path = UDOs/UDOViewController.h; sourceTree = "<group>"; };
+		C43908BA1596F086001FC007 /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOViewController.m; path = UDOs/UDOViewController.m; sourceTree = "<group>"; };
+		C43908BB1596F086001FC007 /* UDOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UDOViewController.xib; path = UDOs/UDOViewController.xib; sourceTree = "<group>"; };
+		C43908C01596F11B001FC007 /* UDOInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOInstrument.h; path = UDOs/UDOInstrument.h; sourceTree = "<group>"; };
+		C43908C11596F11B001FC007 /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOInstrument.m; path = UDOs/UDOInstrument.m; sourceTree = "<group>"; };
 		C44D06631584679D00307AC9 /* OCSSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSum.h; sourceTree = "<group>"; };
 		C44D06641584679E00307AC9 /* OCSSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSum.m; sourceTree = "<group>"; };
 		C44D06671584689D00307AC9 /* OCSProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSProduct.h; sourceTree = "<group>"; };
@@ -483,6 +491,18 @@
 			path = Parameters;
 			sourceTree = "<group>";
 		};
+		C43908BF1596F08D001FC007 /* UDOs */ = {
+			isa = PBXGroup;
+			children = (
+				C43908C01596F11B001FC007 /* UDOInstrument.h */,
+				C43908C11596F11B001FC007 /* UDOInstrument.m */,
+				C43908B91596F086001FC007 /* UDOViewController.h */,
+				C43908BA1596F086001FC007 /* UDOViewController.m */,
+				C43908BB1596F086001FC007 /* UDOViewController.xib */,
+			);
+			name = UDOs;
+			sourceTree = "<group>";
+		};
 		C44D066A158468AA00307AC9 /* Mathematical Expressions */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,6 +711,7 @@
 				C46EB3C115914235005807A2 /* Continuous Control */,
 				76F3201C15939E36008338E2 /* Grain */,
 				76F3202215939EB2008338E2 /* MoreGrain */,
+				C43908BF1596F08D001FC007 /* UDOs */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -897,6 +918,7 @@
 				C4E9055E159452640055B609 /* ox-icon-144.png in Resources */,
 				C4E90560159454870055B609 /* ox.png in Resources */,
 				C43908B01596EFEF001FC007 /* a50.aif in Resources */,
+				C43908BD1596F086001FC007 /* UDOViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,6 +1007,8 @@
 				C43908A71596B184001FC007 /* OCSPitchClassToFreq.m in Sources */,
 				C43908AB1596B194001FC007 /* OCSLineSegmentWithRelease.m in Sources */,
 				C43908AE1596B1AB001FC007 /* OCSFilterLowPassButterworth.m in Sources */,
+				C43908BC1596F086001FC007 /* UDOViewController.m in Sources */,
+				C43908C21596F11B001FC007 /* UDOInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
