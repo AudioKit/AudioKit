@@ -17,7 +17,7 @@
 @synthesize pitchOffsetFirstTarget;
 @synthesize reverbSend;
 
--(id)init
+- (id)init
 {
     self = [super init];
     if (self) {

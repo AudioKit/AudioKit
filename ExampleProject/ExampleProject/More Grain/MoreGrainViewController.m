@@ -7,10 +7,9 @@
 //
 
 #import "MoreGrainViewController.h"
+#import "OCSManager.h"
+#import "OCSOrchestra.h"
 
-@interface MoreGrainViewController ()
-
-@end
 
 @implementation MoreGrainViewController
 

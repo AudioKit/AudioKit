@@ -18,18 +18,18 @@
 
 @interface GrainBirds : OCSInstrument
 {
-    OCSProperty * grainDensity;
-    OCSProperty * grainDuration;
-    OCSProperty * pitchClass;
-    OCSProperty * pitchOffsetStartValue;
-    OCSProperty * pitchOffsetFirstTarget;
-    OCSProperty * reverbSend;
+    OCSProperty *grainDensity;
+    OCSProperty *grainDuration;
+    OCSProperty *pitchClass;
+    OCSProperty *pitchOffsetStartValue;
+    OCSProperty *pitchOffsetFirstTarget;
+    OCSProperty *reverbSend;
 }
-@property (nonatomic, retain) OCSProperty * grainDensity;
-@property (nonatomic, retain) OCSProperty * grainDuration;
-@property (nonatomic, retain) OCSProperty * pitchClass;
-@property (nonatomic, retain) OCSProperty * pitchOffsetStartValue;
-@property (nonatomic, retain) OCSProperty * pitchOffsetFirstTarget;
-@property (nonatomic, retain) OCSProperty * reverbSend;
+@property (nonatomic, retain) OCSProperty *grainDensity;
+@property (nonatomic, retain) OCSProperty *grainDuration;
+@property (nonatomic, retain) OCSProperty *pitchClass;
+@property (nonatomic, retain) OCSProperty *pitchOffsetStartValue;
+@property (nonatomic, retain) OCSProperty *pitchOffsetFirstTarget;
+@property (nonatomic, retain) OCSProperty *reverbSend;
 
 @end
