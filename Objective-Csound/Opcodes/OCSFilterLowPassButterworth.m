@@ -15,7 +15,7 @@
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         input = in;
         cutoff = freq;
         
@@ -28,7 +28,7 @@
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithString:[self uniqueName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         input = in;
         cutoff = freq;
     

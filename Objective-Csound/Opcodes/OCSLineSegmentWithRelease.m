@@ -22,9 +22,9 @@
     self = [super init];
     if (self) {
         if (control) {
-            output = [OCSParamControl paramWithString:[self uniqueName]];
+            output = [OCSParamControl paramWithString:[self opcodeName]];
         } else {
-            output = [OCSParam paramWithString:[self uniqueName]];
+            output = [OCSParam paramWithString:[self opcodeName]];
         }
 
         firstSegmentStartValue  = start;
@@ -48,9 +48,9 @@
 {
     if (self) {
         if (control) {
-            output = [OCSParamControl paramWithString:[self uniqueName]];
+            output = [OCSParamControl paramWithString:[self opcodeName]];
         } else {
-            output = [OCSParam paramWithString:[self uniqueName]];
+            output = [OCSParam paramWithString:[self opcodeName]];
         }
         
         firstSegmentStartValue  = start;

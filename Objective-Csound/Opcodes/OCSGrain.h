@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSInstrument.h"
-#import "OCSParam.h"
+#import "OCSOpcode.h"
 
 @interface OCSGrain : OCSOpcode
 {
@@ -26,14 +25,14 @@
 @property (nonatomic, retain) OCSParam *output;
 
 - (id)initWithAmplitude:(OCSParam *)amp
-                 Pitch:(OCSParam *)pch
-          GrainDensity:(OCSParam *)dens
-       AmplitudeOffset:(OCSParamControl *)ampOffset
-           PitchOffset:(OCSParamControl *)pchOffset
-         GrainDuration:(OCSParamControl *)gdur
-      MaxGrainDuration:(OCSParamConstant *)maxgdur
-         GrainFunction:(OCSFunctionTable *)gFunction
-        WindowFunction:(OCSFunctionTable *)wFunction;
+                  Pitch:(OCSParam *)pch
+           GrainDensity:(OCSParam *)dens
+        AmplitudeOffset:(OCSParamControl *)ampOffset
+            PitchOffset:(OCSParamControl *)pchOffset
+          GrainDuration:(OCSParamControl *)gdur
+       MaxGrainDuration:(OCSParamConstant *)maxgdur
+          GrainFunction:(OCSFunctionTable *)gFunction
+         WindowFunction:(OCSFunctionTable *)wFunction;
 
 - (id)initWithAmplitude:(OCSParam *)amp
                  Pitch:(OCSParam *)pch
