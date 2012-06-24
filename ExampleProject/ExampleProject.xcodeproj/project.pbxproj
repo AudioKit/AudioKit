@@ -23,6 +23,7 @@
 		C43908A71596B184001FC007 /* OCSPitchClassToFreq.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908A61596B184001FC007 /* OCSPitchClassToFreq.m */; };
 		C43908AB1596B194001FC007 /* OCSLineSegmentWithRelease.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908AA1596B194001FC007 /* OCSLineSegmentWithRelease.m */; };
 		C43908AE1596B1AB001FC007 /* OCSFilterLowPassButterworth.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908AD1596B1AB001FC007 /* OCSFilterLowPassButterworth.m */; };
+		C43908B01596EFEF001FC007 /* a50.aif in Resources */ = {isa = PBXBuildFile; fileRef = C43908AF1596EFEF001FC007 /* a50.aif */; };
 		C44D06651584679E00307AC9 /* OCSSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06641584679E00307AC9 /* OCSSum.m */; };
 		C44D06691584689D00307AC9 /* OCSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D06681584689D00307AC9 /* OCSProduct.m */; };
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
@@ -149,6 +150,7 @@
 		C43908AA1596B194001FC007 /* OCSLineSegmentWithRelease.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLineSegmentWithRelease.m; sourceTree = "<group>"; };
 		C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFilterLowPassButterworth.h; sourceTree = "<group>"; };
 		C43908AD1596B1AB001FC007 /* OCSFilterLowPassButterworth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFilterLowPassButterworth.m; sourceTree = "<group>"; };
+		C43908AF1596EFEF001FC007 /* a50.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = a50.aif; path = "More Grain/a50.aif"; sourceTree = "<group>"; };
 		C44D06631584679D00307AC9 /* OCSSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSum.h; sourceTree = "<group>"; };
 		C44D06641584679E00307AC9 /* OCSSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSum.m; sourceTree = "<group>"; };
 		C44D06671584689D00307AC9 /* OCSProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSProduct.h; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		76F3202215939EB2008338E2 /* MoreGrain */ = {
 			isa = PBXGroup;
 			children = (
+				C43908AF1596EFEF001FC007 /* a50.aif */,
 				C46EB41715942369005807A2 /* GrainBirds.h */,
 				C46EB41815942369005807A2 /* GrainBirds.m */,
 				C46EB41915942369005807A2 /* MoreGrainViewController.h */,
@@ -893,6 +896,7 @@
 				C4E9055C1594525C0055B609 /* ox-icon-72.png in Resources */,
 				C4E9055E159452640055B609 /* ox-icon-144.png in Resources */,
 				C4E90560159454870055B609 /* ox.png in Resources */,
+				C43908B01596EFEF001FC007 /* a50.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
