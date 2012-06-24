@@ -7,15 +7,14 @@
 //
 
 #import "OCSProperty.h"
-#import "OCSParamControl.h"
-#import "OCSParamConstant.h"
 
 @implementation OCSProperty
 @synthesize maximumValue;
 @synthesize minimumValue;
 @synthesize initValue;
 @synthesize value;
-@synthesize uniqueIdentifier;
+@synthesize control;
+@synthesize constant;
 @synthesize output;
 
 
@@ -23,9 +22,10 @@
 {
     self = [super init];
     if (self) {
-        isAudioRate = NO;
-        //ARB shouldn't this be OCSParamControl
-        output = [OCSParamControl paramWithFormat:@"gk%@", [self uniqueName]];
+        // ARB / AOP - need to investigate why this can't be a-rate
+        control  = [OCSParamControl paramWithFormat:@"gk%@",  [self uniqueName]];
+        constant = [OCSParamConstant paramWithFormat:@"gi%@", [self uniqueName]];
+        output = control;
         
     }
     return self;
@@ -50,18 +50,13 @@
     return self;
 }
 
-- (id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control 
-{
-    self = [self init];
-    initValue = val;
-    value = val;
-    minimumValue = min;
-    maximumValue = max;
-    isAudioRate = control;
-    if(isAudioRate) {
-        output = [OCSParam paramWithFormat:@"ga%@", [self uniqueName]];
-    } 
-    return self;
+- (void)setControl:(OCSParamControl *)p {
+    control = p;
+    output = control;
+}
+- (void)setConstant:(OCSParamConstant *)p {
+    constant = p;
+    output = constant;
 }
 
 - (NSString *)getChannelText {
