@@ -38,7 +38,7 @@
 
 
 //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
-- (NSString *)convertToCsd {
+- (NSString *)stringForCSD {
     NSString *text;
     if (parameters == nil) {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",

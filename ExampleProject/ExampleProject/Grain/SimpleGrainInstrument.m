@@ -23,6 +23,7 @@
     self = [super init];
     if (self) { 
         // INSTRUMENT DEFINITION ===============================================
+        
         NSString * file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
         OCSSoundFileTable *fileTable = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:16384];
         [self addFunctionTable:fileTable];
@@ -34,11 +35,9 @@
         OCSFileLength *fileLength = [[OCSFileLength alloc] initWithInput:fileTable];
         [self addOpcode:fileLength];
         
-        OCSParamArray *amplitudeSegmentArray = 
-        [OCSParamArray paramArrayFromParams:[OCSParamConstant paramWithFormat:@"%@ / 2", duration], ocsp(0.01), nil];
-        
         OCSParamConstant *halfDuration = [OCSParamConstant paramWithFormat:@"%@ / 2", duration];
         
+        OCSParamArray *amplitudeSegmentArray = [OCSParamArray paramArrayFromParams:halfDuration, ocsp(0.01), nil];
         OCSExpSegment *amplitudeExp = [[OCSExpSegment alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
                                                                        FirstSegmentDuration:halfDuration
                                                                    FirstSegementTargetValue:ocsp(0.1)
@@ -75,16 +74,16 @@
                                                                 TargetValue:ocsp(0.1)];
         [self addOpcode:grainDurationLine];
         
-        OCSGrain * grainL = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 
-                                                          Pitch:[pitchLine output]
-                                                   GrainDensity:[grainDensityLine output]
-                                                AmplitudeOffset:[ampOffsetLine output]
-                                                    PitchOffset:[pitchOffsetLine output] 
-                                                  GrainDuration:[grainDurationLine output]  
-                                               MaxGrainDuration:ocsp(5)
-                                                  GrainFunction:fileTable 
-                                                 WindowFunction:hamming 
-                                     IsRandomGrainFunctionIndex:NO];
+        OCSGrain *grainL = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 
+                                                         Pitch:[pitchLine output]
+                                                  GrainDensity:[grainDensityLine output]
+                                               AmplitudeOffset:[ampOffsetLine output]
+                                                   PitchOffset:[pitchOffsetLine output] 
+                                                 GrainDuration:[grainDurationLine output]  
+                                              MaxGrainDuration:ocsp(5)
+                                                 GrainFunction:fileTable 
+                                                WindowFunction:hamming 
+                                    IsRandomGrainFunctionIndex:NO];
         [self addOpcode:grainL];
         
         OCSGrain *grainR = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 

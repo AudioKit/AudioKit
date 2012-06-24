@@ -42,7 +42,7 @@
 }
 
 
-- (NSString *)convertToCsd {
+- (NSString *)stringForCSD {
     //ar1 [,ar2] loscil3 xamp, kcps, ifn [, ibas] [, imod1] [, ibeg1] [, iend1] [, imod2] [, ibeg2] [, iend2]
     return [NSString stringWithFormat:
             @"%@ loscil3 %@, %@, %@, %@\n",

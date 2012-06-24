@@ -47,7 +47,7 @@
     return self;
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     if (segmentArray == nil) {
         return [NSString stringWithFormat:@"%@ linseg %@, %@, %@\n", 

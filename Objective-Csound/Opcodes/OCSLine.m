@@ -29,7 +29,7 @@
     return self; 
 }
 
-- (NSString *)convertToCsd 
+- (NSString *)stringForCSD 
 {
     return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", 
             output, startingValue, duration, targetValue];

@@ -70,6 +70,6 @@ typedef enum
 - (id)initWithSize:(int)size 
         GenRoutine:(GenRoutineType)gen 
         Parameters:(NSString *)params;
-- (NSString *)convertToCsd;
+- (NSString *)stringForCSD;
 
 @end

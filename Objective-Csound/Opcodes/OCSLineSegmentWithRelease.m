@@ -11,22 +11,16 @@
 @implementation OCSLineSegmentWithRelease
 @synthesize output;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
-               FirstSegmentDuration:(OCSParamConstant *) dur
-           FirstSegementTargetValue:(OCSParamConstant *) targ
+-(id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
+               FirstSegmentDuration:(OCSParamConstant *)dur
+           FirstSegementTargetValue:(OCSParamConstant *)targ
                        SegmentArray:(OCSParamArray *)aSegmentArray
                     ReleaseDuration:(OCSParamConstant *)releaseDur
                          FinalValue:(OCSParamConstant *)finalVal
-                          isControl:(BOOL)control
 {
     self = [super init];
     if (self) {
-        if (control) {
-            output = [OCSParamControl paramWithString:[self opcodeName]];
-        } else {
-            output = [OCSParam paramWithString:[self opcodeName]];
-        }
-
+        output = [OCSParamControl paramWithString:[self opcodeName]];
         firstSegmentStartValue  = start;
         firstSegmentDuration    = dur;
         firstSegmentTargetValue = targ;
@@ -39,20 +33,14 @@
 
 }
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
-               FirstSegmentDuration:(OCSParamConstant *) dur
-           FirstSegementTargetValue:(OCSParamConstant *) targ
-                    ReleaseDuration:(OCSParamConstant *)releaseDur
-                         FinalValue:(OCSParamConstant *)finalVal 
-                          isControl:(BOOL)control
+-(id)initWithSegmentStartValue:(OCSParamConstant *)start
+               SegmentDuration:(OCSParamConstant *)dur
+           SegementTargetValue:(OCSParamConstant *)targ
+               ReleaseDuration:(OCSParamConstant *)releaseDur
+                    FinalValue:(OCSParamConstant *)finalVal;
 {
     if (self) {
-        if (control) {
-            output = [OCSParamControl paramWithString:[self opcodeName]];
-        } else {
-            output = [OCSParam paramWithString:[self opcodeName]];
-        }
-        
+        output = [OCSParamControl paramWithString:[self opcodeName]];
         firstSegmentStartValue  = start;
         firstSegmentDuration    = dur;
         firstSegmentTargetValue = targ;
@@ -63,7 +51,7 @@
     return self;
 }
 
--(NSString *)convertToCsd
+-(NSString *)stringForCSD
 {
     if (segmentArray == nil) {
         return [NSString stringWithFormat:@"%@ linsegsg %@, %@, %@, %@, %@\n", 

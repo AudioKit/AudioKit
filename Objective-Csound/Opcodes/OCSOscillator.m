@@ -9,28 +9,9 @@
 
 @implementation OCSOscillator 
 
+@synthesize audio;
+@synthesize control;
 @synthesize output;
-
-- (id)initWithAmplitude:(OCSParam *) amp 
-              Frequency:(OCSParam *) freq
-          FunctionTable:(OCSFunctionTable *) f 
-              isControl:(BOOL)control
-{
-    self = [super init];
-    if (self) {
-        isControl = control;
-        if (isControl) {
-            output = [OCSParamControl paramWithString:[self opcodeName]];
-        } else {
-            output = [OCSParam paramWithString:[self opcodeName]];
-        }
-
-        amplitude = amp;
-        frequency = freq;
-        functionTable = f;
-    }
-    return self; 
-}
 
 - (id)initWithAmplitude:(OCSParam *)amp 
               Frequency:(OCSParam *)freq 
@@ -38,7 +19,9 @@
 {
     self = [super init];
     if (self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        audio   = [OCSParam paramWithString:[self opcodeName]];
+        control = [OCSParamControl paramWithString:[self opcodeName]];
+        output  =  audio;
         amplitude = amp;
         frequency = freq;
         functionTable = f;
@@ -47,7 +30,7 @@
 }
 
 
-- (NSString *)convertToCsd {
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ oscili %@, %@, %@\n",
             output, amplitude, frequency, functionTable];

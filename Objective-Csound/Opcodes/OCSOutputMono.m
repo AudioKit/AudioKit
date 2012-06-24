@@ -9,7 +9,7 @@
 
 @implementation OCSOutputMono
 
-- (NSString *)convertToCsd {
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:@"out %@\n", input];
 }
 

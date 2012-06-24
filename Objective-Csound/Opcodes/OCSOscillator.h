@@ -11,16 +11,13 @@
     OCSParam *amplitude;
     OCSParam *frequency;
     OCSFunctionTable *functionTable;
-    BOOL isControl;
+    OCSParam *audio;
+    OCSParamControl *control;
     OCSParam *output;
 }
+@property (nonatomic, strong) OCSParam *audio;
+@property (nonatomic, strong) OCSParamControl *control;
 @property (nonatomic, strong) OCSParam *output;
-
-
-- (id)initWithAmplitude:(OCSParam *) amp 
-              Frequency:(OCSParam *) freq
-          FunctionTable:(OCSFunctionTable *) f
-              isControl:(BOOL)control;
 
 - (id)initWithAmplitude:(OCSParam *) amp 
               Frequency:(OCSParam *) freq

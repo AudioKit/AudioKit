@@ -1,6 +1,5 @@
 //
 //  OCSReverbSixParallelComb.m
-//  ExampleProject
 //
 //  Created by Adam Boulanger on 6/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -11,69 +10,68 @@
 @implementation OCSReverbSixParallelComb
 @synthesize output;
 
-- (id)initWithInput:(OCSParam *) in
-ReverbDuration:(OCSParamControl *) dur
-HighFrequencyDiffustionAmount:(OCSParamControl *) freqDiff
+- (id)initWithInput:(OCSParam *)i
+     ReverbDuration:(OCSParamControl *)dur 
+HighFreqDiffusivity:(OCSParamControl *)hfdif;
 {
-self = [super init];
-if(self) {
-    output = [OCSParam paramWithFormat:[self opcodeName]];
-    input = in;
-    reverbDuration = dur;
-    highFreqeuncyDiffusionAmount = freqDiff;
-}
-return self;
+    self = [super init];
+    if(self) {
+        output = [OCSParam paramWithFormat:[self opcodeName]];
+        input = i;
+        reverbDuration = dur;
+        highFrequencyDiffusivity = hfdif;
+    }
+    return self;
 }
 
-- (id)initWithInput:(OCSParam *) in
-ReverbDuration:(OCSParamControl *) dur
-HighFrequencyDiffustionAmount:(OCSParamControl *) freqDiff
-CombFilterTimeValues:(NSArray *)combTime
-CombFilterGainValues:(NSArray *)combGain
-AllPassFilterTimeValues:(NSArray *)allPassTime
-AllPassFilterGainValues:(NSArray *)allPassGain
-SkipInit:(BOOL)isSkipped
+- (id)initWithInput:(OCSParam *)i
+     ReverbDuration:(OCSParamControl *)dur
+HighFreqDiffusivity:(OCSParamControl *)hfdif
+    CombFilterTimes:(NSArray *)combTime
+    CombFilterGains:(NSArray *)combGain
+ AllPassFilterTimes:(NSArray *)allPassTime
+ AllPassFilterGains:(NSArray *)allPassGain
+           SkipInit:(BOOL)isSkipped;
 {
-self = [super init];
-if(self) {
-    output = [OCSParam paramWithFormat:[self opcodeName]];
-    input = in;
-    reverbDuration = dur;
-    highFreqeuncyDiffusionAmount = freqDiff;
-    
-    combFilterTimeValues = combTime;
-    combFilterGainValues = combGain;
-    allPassFilterTimeValues = allPassTime;
-    allPassFilterGainValues = allPassGain;
-    isInitSkipped = isSkipped;
-}
-return self;
+    self = [super init];
+    if(self) {
+        output = [OCSParam paramWithFormat:[self opcodeName]];
+        input = i;
+        reverbDuration = dur;
+        highFrequencyDiffusivity = hfdif;
+        
+        combFilterTimes = combTime;
+        combFilterGains = combGain;
+        allPassFilterTimes = allPassTime;
+        allPassFilterGains = allPassGain;
+        isInitSkipped = isSkipped;
+    }
+    return self;
 }
 
-- (NSString *)convertToOCS
+- (NSString *)stringForCSD
 {
     //iSine ftgentmp 0, 0, 4096, 10, 1
     
-    //Check if optional parameters have been set before constructing OCS
-    if (combFilterGainValues) {
-        
+    //Check if optional parameters have been set before constructing CSD
+    if (combFilterGains) {
         return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@, %@",
-                [self functionTableOCSFromFilterParams],
-                output, reverbDuration, highFreqeuncyDiffusionAmount, 
-                isInitSkipped, combFilterTimeValues, combFilterGainValues, allPassFilterTimeValues,
-                allPassFilterGainValues];
+                [self functionTableCSDFromFilterParams],
+                output, reverbDuration, highFrequencyDiffusivity, 
+                isInitSkipped, combFilterTimes, combFilterGains, allPassFilterTimes,
+                allPassFilterGains];
     } else {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@", 
-                output, reverbDuration, highFreqeuncyDiffusionAmount];
+                output, reverbDuration, highFrequencyDiffusivity];
     }
 }
 
-- (NSString *)functionTableOCSFromFilterParams
+- (NSString *)functionTableCSDFromFilterParams
 {
     NSString *combTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@\n",
-                            [self opcodeName], [combFilterGainValues count], -2, combFilterTimeValues, combFilterGainValues]; 
+                           [self opcodeName], [combFilterGains count], -2, combFilterTimes, combFilterGains]; 
     NSString *allPassTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@\n",
-                               [self opcodeName], [allPassFilterGainValues count], -2, allPassFilterTimeValues, allPassFilterGainValues]; 
+                              [self opcodeName], [allPassFilterGains count], -2, allPassFilterTimes, allPassFilterGains]; 
     NSString *s = [NSString stringWithFormat:@"%@ %@", combTable, allPassTable];
     return s;
 }

@@ -9,15 +9,15 @@
 #import "OCSOpcode.h"
 
 @interface OCSFilterLowPassButterworth : OCSOpcode {
-    OCSParam * output;
-    OCSParam * input;
-    OCSParamControl * cutoff;
+    OCSParam *output;
+    OCSParam *input;
+    OCSParamControl *cutoff;
     
     BOOL isInitSkipped;
 }
-@property (nonatomic, retain) OCSParam * output;
+@property (nonatomic, retain) OCSParam *output;
 
--(id)initWithInput:(OCSParam *)in Cutoff:(OCSParamControl *)freq;
--(id)initWithInput:(OCSParam *)in Cutoff:(OCSParamControl *)freq SkipInit:(BOOL)isSkipped;
+-(id)initWithInput:(OCSParam *)i Cutoff:(OCSParamControl *)freq;
+-(id)initWithInput:(OCSParam *)i Cutoff:(OCSParamControl *)freq SkipInit:(BOOL)isSkipped;
 
 @end

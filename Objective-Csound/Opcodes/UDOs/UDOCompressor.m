@@ -47,7 +47,7 @@
     return self; 
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@, %@, %@\n",
