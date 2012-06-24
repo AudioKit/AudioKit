@@ -69,8 +69,7 @@
                                                  FirstSegementTargetValue:ocsp(3000)
                                                              SegmentArray:amplitudeBreakpoints 
                                                           ReleaseDuration:tenthOfDuration
-                                                               FinalValue:ocsp(0)
-                                                                isControl:YES];
+                                                               FinalValue:ocsp(0)];
         [self addOpcode:amplitude];
         
         OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithInput:[pitchClass output]];
@@ -86,8 +85,7 @@
                                                  FirstSegementTargetValue:[pitchOffsetFirstTarget output] 
                                                              SegmentArray:pitchOffsetBreakpoints 
                                                           ReleaseDuration:tenthOfDuration
-                                                               FinalValue:ocsp(0)
-                                                                isControl:YES];
+                                                               FinalValue:ocsp(0)];
         [self addOpcode:pitchOffset];                         
         
         OCSGrain *grain = [[OCSGrain alloc] initWithAmplitude:[amplitude output] 

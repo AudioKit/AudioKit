@@ -11,11 +11,11 @@
 @implementation OCSPitchClassToFreq
 @synthesize output;
 
--(id)initWithInput:(OCSParam *)in
+-(id)initWithInput:(OCSParam *)i
 {
     self = [super init];
     if(self) {
-        input = in;
+        input = i;
         if( [input isKindOfClass:[OCSParamConstant class]]) {
             output = [OCSParamConstant paramWithString:[self opcodeName]];
         } else if( [input isKindOfClass:[OCSParamControl class]]) {
@@ -27,7 +27,7 @@
     return self;
 }
 
--(NSString *)convertToCsd
+-(NSString *)stringForCSD
 {
     return [NSString stringWithFormat:@"%@ = cpspch(%@)\n", output, input];
 }

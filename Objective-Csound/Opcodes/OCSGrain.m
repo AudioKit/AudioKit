@@ -68,7 +68,7 @@ IsRandomGrainFunctionIndex:(BOOL)isRandGrainIndex;
     return self;
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     //ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
     int imgdur = isRandomGrainFunctionIndex ? 1 : 0;

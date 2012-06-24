@@ -20,7 +20,7 @@
     return self; 
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:@"%@ = %@\n", output, input];
 }

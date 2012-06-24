@@ -34,8 +34,8 @@
         
         OCSOscillator * myVibratoOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(40)
                                                                              Frequency:ocsp(6)
-                                                                         FunctionTable:vibratoSine
-                                                                             isControl:YES];
+                                                                         FunctionTable:vibratoSine];
+        [myVibratoOscillator setOutput:[myVibratoOscillator control]];
         [self addOpcode:myVibratoOscillator];
         
         float vibratoScale = 2.0f;

@@ -9,7 +9,7 @@
 
 @implementation OCSOutputStereo
 
-- (NSString *)convertToCsd {
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
 }
 

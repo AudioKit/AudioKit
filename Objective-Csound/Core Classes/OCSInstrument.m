@@ -44,11 +44,11 @@ static int currentID = 1;
 }
 
 - (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable {
-    [innerCSDRepresentation appendString:[newFunctionTable convertToCsd]];
+    [innerCSDRepresentation appendString:[newFunctionTable stringForCSD]];
 }
 
 - (void)addOpcode:(OCSOpcode *)opcode {
-    [innerCSDRepresentation appendString:[opcode convertToCsd]];
+    [innerCSDRepresentation appendString:[opcode stringForCSD]];
 }
 - (void)addString:(NSString *) str {
     [innerCSDRepresentation appendString:str];

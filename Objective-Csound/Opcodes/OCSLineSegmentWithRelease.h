@@ -9,31 +9,29 @@
 #import "OCSOpcode.h"
 
 @interface OCSLineSegmentWithRelease : OCSOpcode {
-    OCSParamControl * output;
-    OCSParamConstant * firstSegmentStartValue;
-    OCSParamConstant * firstSegmentDuration;
-    OCSParamConstant * firstSegmentTargetValue;
+    OCSParamControl *output;
+    OCSParamConstant *firstSegmentStartValue;
+    OCSParamConstant *firstSegmentDuration;
+    OCSParamConstant *firstSegmentTargetValue;
     OCSParamArray *segmentArray;
     
-    OCSParamConstant * releaseDuration;
-    OCSParamConstant * finalValue;
+    OCSParamConstant *releaseDuration;
+    OCSParamConstant *finalValue;
 }
-@property (nonatomic, strong) OCSParamControl * output;
+@property (nonatomic, strong) OCSParamControl *output;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
-               FirstSegmentDuration:(OCSParamConstant *) dur
-           FirstSegementTargetValue:(OCSParamConstant *) targ
+-(id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
+               FirstSegmentDuration:(OCSParamConstant *)dur
+           FirstSegementTargetValue:(OCSParamConstant *)targ
                        SegmentArray:(OCSParamArray *)aSegmentArray
                     ReleaseDuration:(OCSParamConstant *)releaseDur
-                         FinalValue:(OCSParamConstant *)finalVal
-                          isControl:(BOOL)control;
+                         FinalValue:(OCSParamConstant *)finalVal;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
-               FirstSegmentDuration:(OCSParamConstant *) dur
-           FirstSegementTargetValue:(OCSParamConstant *) targ
-                    ReleaseDuration:(OCSParamConstant *)releaseDur
-                         FinalValue:(OCSParamConstant *)finalVal
-                          isControl:(BOOL)control;
+-(id)initWithSegmentStartValue:(OCSParamConstant *)start
+               SegmentDuration:(OCSParamConstant *)dur
+           SegementTargetValue:(OCSParamConstant *)targ
+               ReleaseDuration:(OCSParamConstant *)releaseDur
+                    FinalValue:(OCSParamConstant *)finalVal;
 
 
 @end

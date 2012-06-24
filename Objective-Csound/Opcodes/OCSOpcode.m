@@ -17,7 +17,7 @@
     return basename;
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     //Override in subclass
     return @"Undefined";

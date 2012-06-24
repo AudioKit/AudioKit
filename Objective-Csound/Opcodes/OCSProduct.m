@@ -30,7 +30,7 @@
     return self; 
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     NSString *inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     

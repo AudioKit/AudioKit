@@ -33,7 +33,7 @@
     return self;
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
     NSString *s;

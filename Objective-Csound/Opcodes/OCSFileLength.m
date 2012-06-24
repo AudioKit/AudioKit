@@ -22,7 +22,7 @@
     return self; 
 }
 
-- (NSString *)convertToCsd
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:@"%@ = ftlen(%@)\n", output, input];
 }

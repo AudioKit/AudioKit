@@ -12,5 +12,5 @@
 @property (nonatomic, strong) NSString *opcode;
 
 - (NSString *)opcodeName;
-- (NSString *)convertToCsd;
+- (NSString *)stringForCSD;
 @end
