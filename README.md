@@ -24,6 +24,9 @@ NOTES:
 * OCSPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
 OCSProperty when we do use them.
 * Some tables may not be interesting in csound any more, like gen02, better as arrays, converted to table during (addOpcode:)
+* some csound helper functions should be handled exclusively in ocs, like cpspch
+* output as either k or a rate is a problem for opcodes already containing multiple inits. (see oscillator and linsegr)
+* need OCSProperty to deal with all 3 output types, need a way to do this better than BOOL and conditionals
 
 INDIGESTION:
 

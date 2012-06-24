@@ -8,6 +8,7 @@
 
 #import "OCSProperty.h"
 #import "OCSParamControl.h"
+#import "OCSParamConstant.h"
 
 @implementation OCSProperty
 @synthesize maximumValue;
@@ -23,7 +24,8 @@
     self = [super init];
     if (self) {
         isAudioRate = NO;
-        output = [OCSParam paramWithFormat:@"gk%@", [self uniqueName]];
+        //ARB shouldn't this be OCSParamControl
+        output = [OCSParamControl paramWithFormat:@"gk%@", [self uniqueName]];
         
     }
     return self;
