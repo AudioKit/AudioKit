@@ -79,13 +79,13 @@
                                                  [OCSParamConstant paramWithFormat:@"%@ * 0.45", duration], 
                                                  ocsp(40), nil];
                                                   
-        OCSLineSegmentWithRelease *pitchOffset = 
-        [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
-                                                     FirstSegmentDuration:halfOfDuration
-                                                 FirstSegementTargetValue:[pitchOffsetFirstTarget constant] 
-                                                             SegmentArray:pitchOffsetBreakpoints 
-                                                          ReleaseDuration:tenthOfDuration
-                                                               FinalValue:ocsp(0)];
+        OCSLineSegmentWithRelease *pitchOffset;
+        pitchOffset = [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
+                                                                   FirstSegmentDuration:halfOfDuration
+                                                               FirstSegementTargetValue:[pitchOffsetFirstTarget constant] 
+                                                                           SegmentArray:pitchOffsetBreakpoints 
+                                                                        ReleaseDuration:tenthOfDuration
+                                                                             FinalValue:ocsp(0)];
         [self addOpcode:pitchOffset];                         
         
         OCSGrain *grain = [[OCSGrain alloc] initWithAmplitude:[amplitude output] 

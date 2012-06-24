@@ -7,13 +7,16 @@
 // OCSOrchestra is a collection of instruments.  
 
 @class OCSInstrument;
+@class OCSUserDefinedOpcode;
 
 @interface OCSOrchestra : NSObject {
     NSMutableArray *instruments;
+    NSMutableArray *myUDOs;
 }
 @property (nonatomic, strong) NSMutableArray *instruments;
 
-- (void)addInstrument:(OCSInstrument *) instrument;
-- (NSString *)instrumentsForCsd;
+- (void)addInstrument:(OCSInstrument *)instrument;
+- (void)addUDO:(OCSUserDefinedOpcode *)udo;
+- (NSString *)stringForCSD;
 
 @end

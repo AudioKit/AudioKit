@@ -16,6 +16,7 @@
     self = [super init];
     if (self) {
         instruments = [[NSMutableArray alloc] init];
+        myUDOs = [[NSMutableArray alloc] init];
     }
     return self; 
 }
@@ -25,17 +26,36 @@
     [instrument joinOrchestra:self];
 }
 
-- (NSString *)instrumentsForCsd {
+- (void)addUDO:(OCSUserDefinedOpcode *) udo {
+    [myUDOs addObject:udo];
+}
+
+
+- (NSString *) stringForCSD {
+
+    NSMutableString *s = [NSMutableString stringWithString:@""];
+
     
-    NSMutableString *instrumentsText = [NSMutableString stringWithString:@""];
-    
-    for ( OCSInstrument* instrument in instruments) {
-        [instrumentsText appendFormat:@"instr %@\n", [instrument uniqueName]];
-        [instrumentsText appendString:[NSString stringWithFormat:@"%@",[instrument csdRepresentation]]];
-        [instrumentsText appendString:@"endin\n\n"];
+    for ( OCSInstrument *i in instruments) {
+        
+        [s appendString:@";UDOs\n"];
+        for (OCSUserDefinedOpcode *u in [i myUDOs]) {
+            //[s appendFormat:@"#include \"%@\"", [u myUDOFile]];  //Would be nice but it crashes Csound
+            [s appendString:@"\n\n\n"];     
+            [s appendString:[[NSString alloc] initWithContentsOfFile:[u file]  
+                                                            encoding:NSUTF8StringEncoding 
+                                                               error:nil]];
+            [s appendString:@"\n\n\n"];
+        }
+        [s appendString:@"\n;Done\n"];
+
+        
+        [s appendFormat:@"instr %@\n", [i uniqueName]];
+        [s appendString:[NSString stringWithFormat:@"%@",[i csdRepresentation]]];
+        [s appendString:@"endin\n\n"];
     }
     
-    return instrumentsText;
+    return s;
 }
 
 @end

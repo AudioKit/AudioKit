@@ -6,25 +6,12 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "UDOCompressor.h"
+#import "UDOCsGrainCompressor.h"
 
-@implementation UDOCompressor
+@implementation UDOCsGrainCompressor
 
 @synthesize outputLeft;
 @synthesize outputRight;
-
-- (NSString *)csdDefinition 
-{
-    return @""
-    "opcode Compressor, aa, aakkkk"
-    "aL, aR, kthresh, kratio, kattack, krel xin"
-    "klowknee    init 48"
-    "khighknee   init 60"
-    "ilook       init 0.050"
-    "aOutL       compress aL, aL, kthresh, klowknee, khighknee, kratio, kattack, krel, ilook"
-    "aOutR       compress aR, aR, kthresh, klowknee, khighknee, kratio, kattack, krel, ilook"
-    "xout aOutL, aOutR";
-}
 
 - (id)initWithInputLeft:(OCSParam *)inL
              InputRight:(OCSParam *)inR
@@ -47,10 +34,14 @@
     return self; 
 }
 
+- (NSString *) file {
+    return [[NSBundle mainBundle] pathForResource: @"CSGrainCompressor" ofType: @"udo"];
+}
+
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ reverbsc %@, %@, %@, %@, %@, %@\n",
+            @"%@, %@ Compressor %@, %@, %@, %@, %@, %@\n",
             outputLeft, outputRight, inputLeft, inputRight, threshold, ratio, attack, release];
 }
 

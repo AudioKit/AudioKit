@@ -89,9 +89,7 @@ static OCSManager *_sharedOCSManager = nil;
     
     NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %f\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
-    NSString *instrumentsText = [orch instrumentsForCsd];
-
-    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, instrumentsText, @""  ];
+    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orch stringForCSD], @""  ];
     
     [newCSD writeToFile:myCSDFile 
              atomically:YES  

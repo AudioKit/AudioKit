@@ -9,7 +9,7 @@
 
 #import "OCSUserDefinedOpcode.h"
 
-@interface UDOPitchShifter : OCSUserDefinedOpcode {
+@interface UDOCsGrainPitchShifter : OCSUserDefinedOpcode {
     OCSParam *outputLeft;
     OCSParam *outputRight;
     OCSParam *inputLeft;
