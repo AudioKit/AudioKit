@@ -23,10 +23,9 @@
         // INPUTS AND CONTROLS =================================================
         frequency  = [[OCSProperty alloc] init];
         modulation = [[OCSProperty alloc] init];
-        
-        //Optional output string assignment, can make for a nicer to read CSD File
-        [frequency  setOutput:[OCSParamControl paramWithString:@"Frequency"]]; 
-        [modulation setOutput:[OCSParamControl paramWithString:@"Modulation"]]; 
+
+        [frequency  setControl:[OCSParamControl paramWithString:@"Frequency"]]; 
+        [modulation setControl:[OCSParamControl paramWithString:@"Modulation"]]; 
         
         [self addProperty:frequency];
         [self addProperty:modulation];
@@ -37,12 +36,12 @@
         [self addFunctionTable:sineTable];
         
         OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                                  Frequency:[frequency output]
-                                                                    Carrier:ocsp(1)
-                                                                 Modulation:[modulation output]
-                                                                   ModIndex:ocsp(15)
-                                                              FunctionTable:sineTable
-                                                           AndOptionalPhase:nil];
+                                                                 Frequency:[frequency control]
+                                                                   Carrier:ocsp(1)
+                                                                Modulation:[modulation control]
+                                                                  ModIndex:ocsp(15)
+                                                             FunctionTable:sineTable
+                                                          AndOptionalPhase:nil];
         [self addOpcode:myFMOscillator];
         
         // AUDIO OUTPUT ========================================================

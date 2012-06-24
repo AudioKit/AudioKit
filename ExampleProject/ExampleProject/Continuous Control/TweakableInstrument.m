@@ -30,11 +30,10 @@
         modulation = [[OCSProperty alloc] initWithValue:0.5f Min:0.25f Max:2.2f];
         modIndex   = [[OCSProperty alloc] initWithValue:1.0f Min:0.0f  Max:25.0f];
         
-        //Optional output string assignment, can make for a nicer to read CSD File
-        [amplitude  setOutput:[OCSParamControl paramWithString:@"Amplitude"]]; 
-        [frequency  setOutput:[OCSParamControl paramWithString:@"Frequency"]]; 
-        [modulation setOutput:[OCSParamControl paramWithString:@"Modulation"]]; 
-        [modIndex   setOutput:[OCSParamControl paramWithString:@"ModIndex"]]; 
+        [amplitude  setControl:[OCSParamControl paramWithString:@"Amplitude"]]; 
+        [frequency  setControl:[OCSParamControl paramWithString:@"Frequency"]]; 
+        [modulation setControl:[OCSParamControl paramWithString:@"Modulation"]]; 
+        [modIndex   setControl:[OCSParamControl paramWithString:@"ModIndex"]]; 
         
         [self addProperty:amplitude];
         [self addProperty:frequency];
@@ -52,11 +51,11 @@
         [self addFunctionTable:sineTable];
         
         OCSFoscili *myFMOscillator = 
-        [[OCSFoscili alloc] initWithAmplitude:[amplitude output]
-                                    Frequency:[frequency output]
+        [[OCSFoscili alloc] initWithAmplitude:[amplitude control]
+                                    Frequency:[frequency control]
                                       Carrier:ocsp(1)
-                                   Modulation:[modulation output]
-                                     ModIndex:[modIndex output]
+                                   Modulation:[modulation control]
+                                     ModIndex:[modIndex   control]
                                 FunctionTable:sineTable 
                              AndOptionalPhase:nil];
         [self addOpcode:myFMOscillator];

@@ -26,7 +26,7 @@
         // INPUTS AND CONTROLS =================================================
         
         frequency = [[OCSProperty alloc] init];
-        [frequency setOutput:[OCSParamControl paramWithString:@"Frequency"]]; 
+        [frequency setConstant:[OCSParamConstant paramWithString:@"Frequency"]]; 
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -39,7 +39,7 @@
         [self addFunctionTable:sineTable];
         
         OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(0.12)
-                                                                      Frequency:[frequency output]
+                                                                      Frequency:[frequency constant]
                                                                   FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         

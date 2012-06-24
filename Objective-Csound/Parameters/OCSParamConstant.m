@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        type = @"i";
+        type = @"gi";
         parameterString = [NSString stringWithFormat:@"%@%@%i", type, aString, _myID];
     }
     return self;

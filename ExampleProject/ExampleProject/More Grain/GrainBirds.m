@@ -30,12 +30,12 @@
         pitchOffsetFirstTarget  = [[OCSProperty alloc] init];
         reverbSend              = [[OCSProperty alloc] init];
         
-        [grainDensity           setOutput:[OCSParamControl  paramWithString:@"GrainDensity"]]; 
-        [grainDuration          setOutput:[OCSParamControl  paramWithString:@"GrainDuration"]];
-        [pitchClass             setOutput:[OCSParamControl  paramWithString:@"PitchClass"]]; 
-        [pitchOffsetStartValue  setOutput:[OCSParamConstant paramWithString:@"PitchOffsetStartValue"]]; 
-        [pitchOffsetFirstTarget setOutput:[OCSParamConstant paramWithString:@"PitchOffsetFirstTarget"]]; 
-        [reverbSend             setOutput:[OCSParamConstant paramWithString:@"ReverbSend"]];
+        [grainDensity           setControl: [OCSParamControl  paramWithString:@"GrainDensity"]]; 
+        [grainDuration          setControl: [OCSParamControl  paramWithString:@"GrainDuration"]];
+        [pitchClass             setControl: [OCSParamControl  paramWithString:@"PitchClass"]]; 
+        [pitchOffsetStartValue  setConstant:[OCSParamConstant paramWithString:@"PitchOffsetStartValue"]]; 
+        [pitchOffsetFirstTarget setConstant:[OCSParamConstant paramWithString:@"PitchOffsetFirstTarget"]]; 
+        [reverbSend             setConstant:[OCSParamConstant paramWithString:@"ReverbSend"]];
         
         [self addProperty:grainDensity];
         [self addProperty:grainDuration];
@@ -46,7 +46,7 @@
         
         // FUNCTIONS ===========================================================
 
-        NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
+        NSString * file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
         OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fiftyHzSine];
         
@@ -80,9 +80,9 @@
                                                  ocsp(40), nil];
                                                   
         OCSLineSegmentWithRelease *pitchOffset = 
-        [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue output] 
+        [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
                                                      FirstSegmentDuration:halfOfDuration
-                                                 FirstSegementTargetValue:[pitchOffsetFirstTarget output] 
+                                                 FirstSegementTargetValue:[pitchOffsetFirstTarget constant] 
                                                              SegmentArray:pitchOffsetBreakpoints 
                                                           ReleaseDuration:tenthOfDuration
                                                                FinalValue:ocsp(0)];
@@ -90,10 +90,10 @@
         
         OCSGrain *grain = [[OCSGrain alloc] initWithAmplitude:[amplitude output] 
                                                         Pitch:[cpspch output] 
-                                                 GrainDensity:[grainDensity output] 
+                                                 GrainDensity:[grainDensity control] 
                                               AmplitudeOffset:ocsp(1000)
                                                   PitchOffset:[pitchOffset output] 
-                                                GrainDuration:[grainDuration output] 
+                                                GrainDuration:[grainDuration control] 
                                              MaxGrainDuration:ocsp(0.1)
                                                 GrainFunction:fiftyHzSine 
                                                WindowFunction:hanning   

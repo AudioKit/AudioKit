@@ -11,13 +11,13 @@
 
 @synthesize output;
 
-- (id)initWithAmplitude:(OCSParam *) amp
-             Frequency:(OCSParamControl *) cps
-               Carrier:(OCSParam *) car
-            Modulation:(OCSParam *) mod
-              ModIndex:(OCSParamControl *) aModIndex
-         FunctionTable:(OCSFunctionTable *) f
-      AndOptionalPhase:(OCSParamConstant *) phs
+- (id)initWithAmplitude:(OCSParam *)amp
+             Frequency:(OCSParamControl *)cps
+               Carrier:(OCSParam *)car
+            Modulation:(OCSParam *)mod
+              ModIndex:(OCSParamControl *)aModIndex
+         FunctionTable:(OCSFunctionTable *)f
+      AndOptionalPhase:(OCSParamConstant *)phs
 {
     self = [super init];
     if ( self ) {

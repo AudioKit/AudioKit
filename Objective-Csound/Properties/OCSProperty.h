@@ -5,8 +5,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-@class OCSParamControl;
-
+#import "OCSParamConstant.h"
 #import "BaseValueCacheable.h"
 
 @interface OCSProperty : BaseValueCacheable
@@ -16,24 +15,24 @@
     Float32 initValue;
     Float32 value;
     
+    OCSParamControl *control;
+    OCSParamConstant *constant;
     OCSParamControl *output;
-    
-    BOOL isAudioRate;
-    
+
     //channelName
     float* channelPtr;
 }
 
 @property (nonatomic, readwrite) Float32 value;
-@property (nonatomic, readonly) NSString *uniqueIdentifier;
-@property (nonatomic, strong) OCSParamControl *output;
 @property (nonatomic, assign) Float32 maximumValue;
 @property (nonatomic, assign) Float32 minimumValue;
 @property (nonatomic, assign) Float32 initValue;
+@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSParamConstant *constant;
+@property (nonatomic, strong) OCSParam *output;
 
 - (id)initWithValue:(float)aInitValue;
 - (id)initWithValue:(float)val Min:(float)min Max:(float)max;
-- (id)initWithValue:(float)val Min:(float)min Max:(float)max isAudioRate:(BOOL)control;
 - (NSString *)getChannelText;
 - (NSString *)setChannelText;
 - (NSString *)uniqueName;

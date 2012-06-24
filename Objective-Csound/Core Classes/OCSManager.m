@@ -116,7 +116,15 @@ static OCSManager *_sharedOCSManager = nil;
     //Clean up the IDs for next time
     [OCSParam resetID];
     [OCSInstrument resetID];
-    while(!isRunning) {} // Do nothing
+    int cycles = 0;
+    while(!isRunning) {
+        cycles++;
+        if (cycles > 10) {
+            NSLog(@"There might be a bug in the generated CSD File, Csound has not started" );
+            break;
+        }
+        [NSThread sleepForTimeInterval:0.1];
+    } // Do nothing
 }
 
 - (void)stop {
