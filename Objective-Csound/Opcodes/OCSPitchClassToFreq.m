@@ -17,9 +17,9 @@
     if(self) {
         input = in;
         if( [input isKindOfClass:[OCSParamConstant class]]) {
-            output = [OCSParamConstant paramWithString:[self uniqueName]];
+            output = [OCSParamConstant paramWithString:[self opcodeName]];
         } else if( [input isKindOfClass:[OCSParamControl class]]) {
-            output = [OCSParamControl paramWithString:[self uniqueName]];
+            output = [OCSParamControl paramWithString:[self opcodeName]];
         } else {
             //TODO throw error, control and i-rate only
         }

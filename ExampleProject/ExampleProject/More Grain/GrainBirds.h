@@ -32,7 +32,4 @@
 @property (nonatomic, retain) OCSProperty * pitchOffsetFirstTarget;
 @property (nonatomic, retain) OCSProperty * reverbSend;
 
--(id)initWithOrchestra:(OCSOrchestra *)newOrchestra;
--(void)playNoteForDuration:(float)duration;
-
 @end
