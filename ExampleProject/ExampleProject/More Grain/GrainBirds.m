@@ -55,17 +55,21 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSParamArray * amplitudeBreakpoints = [OCSParamArray paramArrayFromParams:
-                                                [OCSParamConstant paramWithFormat:[OCSParamConstant paramWithFormat:@"%@ * 0.6", duration]], 
-                                                [OCSParamConstant paramWithInt:6000], nil];
+        // Useful times
+        OCSParamConstant * tenthOfDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.1", duration];
+        OCSParamConstant * halfOfDuration  = [OCSParamConstant paramWithFormat:@"%@ * 0.5", duration];
+        OCSParamConstant * sixthOfDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.6", duration];
+        
+        
+        OCSParamArray * amplitudeBreakpoints = [OCSParamArray paramArrayFromParams:sixthOfDuration, ocsp(6000), nil];
 
         OCSLineSegmentWithRelease * amplitude = 
-        [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[OCSParamConstant paramWithFloat:0.00001f]
-                                                     FirstSegmentDuration:[OCSParamConstant paramWithFormat:@"%@ * 0.1", duration]
-                                                 FirstSegementTargetValue:[OCSParamConstant paramWithInt:3000] 
+        [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
+                                                     FirstSegmentDuration:tenthOfDuration
+                                                 FirstSegementTargetValue:ocsp(3000)
                                                              SegmentArray:amplitudeBreakpoints 
-                                                          ReleaseDuration:[OCSParamConstant paramWithFormat:@"%@ 0.1", duration] 
-                                                               FinalValue:[OCSParamConstant paramWithInt:0] 
+                                                          ReleaseDuration:tenthOfDuration
+                                                               FinalValue:ocsp(0)
                                                                 isControl:YES];
         [self addOpcode:amplitude];
         
@@ -74,32 +78,32 @@
         
         OCSParamArray *pitchOffsetBreakpoints = [OCSParamArray paramArrayFromParams:
                                                  [OCSParamConstant paramWithFormat:@"%@ * 0.45", duration], 
-                                                 [OCSParamConstant paramWithInt:40], nil];
+                                                 ocsp(40), nil];
                                                   
         OCSLineSegmentWithRelease *pitchOffset = 
         [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue output] 
-                                                     FirstSegmentDuration:[OCSParamConstant paramWithFormat:@"0.5 * %@", duration] 
+                                                     FirstSegmentDuration:halfOfDuration
                                                  FirstSegementTargetValue:[pitchOffsetFirstTarget output] 
                                                              SegmentArray:pitchOffsetBreakpoints 
-                                                          ReleaseDuration:[OCSParamConstant paramWithFormat:@"%@ * 0.1", duration] 
-                                                               FinalValue:[OCSParamConstant paramWithInt:0] 
+                                                          ReleaseDuration:tenthOfDuration
+                                                               FinalValue:ocsp(0)
                                                                 isControl:YES];
         [self addOpcode:pitchOffset];                         
         
         OCSGrain *grain = [[OCSGrain alloc] initWithAmplitude:[amplitude output] 
                                                         Pitch:[cpspch output] 
                                                  GrainDensity:[grainDensity output] 
-                                              AmplitudeOffset:[OCSParamConstant paramWithInt:1000]
+                                              AmplitudeOffset:ocsp(1000)
                                                   PitchOffset:[pitchOffset output] 
                                                 GrainDuration:[grainDuration output] 
-                                             MaxGrainDuration:[OCSParamConstant paramWithFloat:0.1f] 
+                                             MaxGrainDuration:ocsp(0.1)
                                                 GrainFunction:fiftyHzSine 
                                                WindowFunction:hanning   
                                    IsRandomGrainFunctionIndex:NO];
         [self addOpcode:grain];
         
         OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
-                                                                                            Cutoff:[OCSParamConstant paramWithInt:500]];
+                                                                                            Cutoff:ocsp(500)];
         [self addOpcode:butterlp];
         
         // AUDIO OUTPUT ========================================================
