@@ -46,7 +46,7 @@
         
         // FUNCTIONS ===========================================================
 
-        NSString * file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
+        NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
         OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fiftyHzSine];
         
