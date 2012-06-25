@@ -8,6 +8,15 @@
 
 #import "OCSFilterLowPassButterworth.h"
 
+@interface OCSFilterLowPassButterworth () {
+    OCSParam *output;
+    OCSParam *input;
+    OCSParamControl *cutoff;
+    
+    BOOL isInitSkipped;
+}
+@end
+
 @implementation OCSFilterLowPassButterworth
 @synthesize output;
 

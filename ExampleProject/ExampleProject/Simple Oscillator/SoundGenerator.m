@@ -51,8 +51,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithInputLeft:[reverb outputLeft] 
-                                                                         InputRight:[reverb outputRight]]; 
+        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithLeftInput:[reverb outputLeft] 
+                                                                        RightInput:[reverb outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;

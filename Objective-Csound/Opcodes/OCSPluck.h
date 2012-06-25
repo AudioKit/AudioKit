@@ -7,10 +7,10 @@
 
 #import "OCSOpcode.h"
 
-//ARB - NOTE: started using weight in signatures for things that tend to be 0-1 and scaler/factor for >1
-//ARB - NOTE: trying to deal with(hide) strange paramter that switches between different decay initializations which then 
-//   recycles optional parameters for different init functions
-//ARB - TODO: ival parameters don't need to be strings
+///ARB - NOTE: started using weight in signatures for things that tend to be 0-1 and scaler/factor for >1
+///ARB - NOTE: trying to deal with(hide) strange paramter that switches between different decay initializations which then 
+///   recycles optional parameters for different init functions
+///ARB - TODO: ival parameters don't need to be strings
 
 @interface OCSPluck : OCSOpcode {
     OCSParamControl *amplitude;
@@ -27,24 +27,28 @@
 }
 @property (nonatomic, strong) OCSParam *output;
 
+///Initialization Statement
 - (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
         RecursiveDecay:(BOOL)orSimpleDecay;
 
+///Initialization Statement
 - (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f  
 StretchedAveragingDecay:(OCSParamConstant *)stretchScaler;
 
+///Initialization Statement
 - (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
 CyclicDecayFunctionTable:(OCSFunctionTable *)f
        SimpleDrumDecay:(OCSParamConstant *)roughWeight;
 
+///Initialization Statement
 - (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq
@@ -52,6 +56,7 @@ CyclicDecayFunctionTable:(OCSFunctionTable *)f
     StretchedDrumDecay:(OCSParamConstant *)roughWeight
          StretchFactor:(OCSParamConstant *)stretchScaler;
 
+///Initialization Statement
 - (id)initWithAmplitude:(OCSParamControl *)amp
    ResamplingFrequency:(OCSParamControl *)freq
    PitchDecayFrequency:(OCSParamConstant *)pchDecayFreq

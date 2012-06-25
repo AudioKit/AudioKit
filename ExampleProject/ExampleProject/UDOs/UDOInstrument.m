@@ -54,8 +54,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithInputLeft:[ps outputLeft] 
-                                                                        InputRight:[ps outputRight]]; 
+        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithLeftInput:[ps outputLeft] 
+                                                                        RightInput:[ps outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;

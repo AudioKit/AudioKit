@@ -7,6 +7,18 @@
 
 #import "OCSFoscili.h"
 
+@interface OCSFoscili () {
+    OCSParam *amplitude;
+    OCSParamControl *frequency;
+    OCSParam *carrier;
+    OCSParam *modulation;
+    OCSParamControl *modIndex;
+    OCSFunctionTable *functionTable;
+    OCSParamConstant *phase;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSFoscili
 
 @synthesize output;

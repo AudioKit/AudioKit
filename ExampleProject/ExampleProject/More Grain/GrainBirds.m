@@ -72,7 +72,7 @@
                                                                FinalValue:ocsp(0)];
         [self addOpcode:amplitude];
         
-        OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithInput:[pitchClass output]];
+        OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass output]];
         [self addOpcode:cpspch];
         
         OCSParamArray *pitchOffsetBreakpoints = [OCSParamArray paramArrayFromParams:

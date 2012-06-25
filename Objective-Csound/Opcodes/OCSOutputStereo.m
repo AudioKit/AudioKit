@@ -13,18 +13,18 @@
     return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
 }
 
-- (id)initWithMonoInput:(OCSParam *) in
+- (id)initWithMonoInput:(OCSParam *) monoSignal
 {
-    return [self initWithInputLeft:in InputRight:in];
+    return [self initWithLeftInput:monoSignal RightInput:monoSignal];
 }
 
-- (id)initWithInputLeft:(OCSParam *) inLeft
-             InputRight:(OCSParam *) inRight
+- (id)initWithLeftInput:(OCSParam *) leftInput
+             RightInput:(OCSParam *) rightInput
 {
     self = [super init];
     if (self) {
-        inputLeft  = inLeft;
-        inputRight = inRight;
+        inputLeft  = leftInput;
+        inputRight = rightInput;
     }
     return self; 
 }

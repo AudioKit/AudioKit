@@ -15,6 +15,6 @@
 /// Create a new signal as a sume of given signals.
 /// @param firstInput At least one input is required
 /// @param ...        End the list with a nil.
-- (id)initWithInputs:(OCSParam *)firstInput,...;
+- (id)initWithOperands:(OCSParam *)firstOperand,...;
 
 @end

@@ -8,16 +8,22 @@
 
 #import "OCSFileLength.h"
 
+@interface OCSFileLength () {
+    OCSFunctionTable *input;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSFileLength
 
 @synthesize output;  
 
-- (id)initWithInput:(OCSFunctionTable *)in {
+- (id)initWithFunctionTable:(OCSFunctionTable *)functionTable {
     self = [super init];
     
     if (self) {
         output = [OCSParamConstant paramWithString:[self opcodeName]];
-        input = in;
+        input = functionTable;
     }
     return self; 
 }

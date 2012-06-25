@@ -8,15 +8,12 @@
 
 #import "OCSOpcode.h"
 
+/// Wrapper for converting pitch class to frequency.  Has to be a better way.
 @interface OCSPitchClassToFreq : OCSOpcode
-{
-    OCSParam *output;
-    OCSParam *input;
-}
-
 @property (nonatomic, strong) OCSParam *output;
 
--(id) initWithInput:(OCSParam *)i;
+/// Initialization Statement
+-(id) initWithPitch:(OCSParam *)pitch;
 
 
 @end

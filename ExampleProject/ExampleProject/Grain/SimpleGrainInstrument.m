@@ -32,7 +32,7 @@
         OCSFunctionTable *hamming = [[OCSWindowsTable alloc] initWithSize:512 WindowType:kWindowHanning];
         [self addFunctionTable:hamming];
         
-        OCSFileLength *fileLength = [[OCSFileLength alloc] initWithInput:fileTable];
+        OCSFileLength *fileLength = [[OCSFileLength alloc] initWithFunctionTable:fileTable];
         [self addOpcode:fileLength];
         
         OCSParamConstant *halfDuration = [OCSParamConstant paramWithFormat:@"%@ / 2", duration];
@@ -100,8 +100,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithInputLeft:[grainL output] 
-                                                                        InputRight:[grainR output]]; 
+        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithLeftInput:[grainL output] 
+                                                                        RightInput:[grainR output]]; 
         [self addOpcode:stereoOutput];
     }
     return self;

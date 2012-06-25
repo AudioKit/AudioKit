@@ -8,14 +8,20 @@
 
 #import "OCSPitchClassToFreq.h"
 
+@interface OCSPitchClassToFreq () {
+    OCSParam *output;
+    OCSParam *input;
+}
+@end
+
 @implementation OCSPitchClassToFreq
 @synthesize output;
 
--(id)initWithInput:(OCSParam *)i
+-(id)initWithPitch:(OCSParam *)pitch
 {
     self = [super init];
     if(self) {
-        input = i;
+        input = pitch;
         if( [input isKindOfClass:[OCSParamConstant class]]) {
             output = [OCSParamConstant paramWithString:[self opcodeName]];
         } else if( [input isKindOfClass:[OCSParamControl class]]) {

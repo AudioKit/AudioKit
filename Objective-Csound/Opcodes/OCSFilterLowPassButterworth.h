@@ -8,13 +8,13 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSFilterLowPassButterworth : OCSOpcode {
-    OCSParam *output;
-    OCSParam *input;
-    OCSParamControl *cutoff;
-    
-    BOOL isInitSkipped;
-}
+/** A low-pass Butterworth filter.
+ 
+ These filters are Butterworth second-order IIR filters. They are slightly slower than the original filters in Csound, but they offer an almost flat passband and very good precision and stopband attenuation.
+ 
+ */
+ 
+@interface OCSFilterLowPassButterworth : OCSOpcode
 @property (nonatomic, retain) OCSParam *output;
 
 /// Initialization Statement

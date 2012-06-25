@@ -8,6 +8,18 @@
 
 #import "OCSLineSegmentWithRelease.h"
 
+@interface OCSLineSegmentWithRelease () {
+    OCSParamControl *output;
+    OCSParamConstant *firstSegmentStartValue;
+    OCSParamConstant *firstSegmentDuration;
+    OCSParamConstant *firstSegmentTargetValue;
+    OCSParamArray *segmentArray;
+    
+    OCSParamConstant *releaseDuration;
+    OCSParamConstant *finalValue;
+}
+@end
+
 @implementation OCSLineSegmentWithRelease
 @synthesize output;
 
