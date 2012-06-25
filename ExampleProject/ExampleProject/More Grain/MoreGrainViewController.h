@@ -7,10 +7,12 @@
 //
 
 #import "GrainBirds.h"
+#import "GrainBirdsReverb.h"
 
 @interface MoreGrainViewController : UIViewController
 {
     GrainBirds *myGrainBirds;
+    GrainBirdsReverb *fx;
 }
 
 @end

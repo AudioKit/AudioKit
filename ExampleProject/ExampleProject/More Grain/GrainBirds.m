@@ -8,6 +8,7 @@
 
 #import "GrainBirds.h"
 #import "OCSGrain.h"
+#import "OCSOutputStereo.h"
 
 @implementation GrainBirds
 @synthesize grainDensity;
@@ -16,6 +17,7 @@
 @synthesize pitchOffsetStartValue;
 @synthesize pitchOffsetFirstTarget;
 @synthesize reverbSend;
+@synthesize auxilliaryOutput;
 
 - (id)init
 {
@@ -72,7 +74,7 @@
                                                                FinalValue:ocsp(0)];
         [self addOpcode:amplitude];
         
-        OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass output]];
+        OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass control]];
         [self addOpcode:cpspch];
         
         OCSParamArray *pitchOffsetBreakpoints = [OCSParamArray paramArrayFromParams:
@@ -106,6 +108,13 @@
         
         // AUDIO OUTPUT ========================================================
         
+        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[butterlp output]];
+        [self addOpcode:stereoOutput];
+        
+        // EXTERNAL OUTPUTS ====================================================        
+        // After your instrument is set up, define outputs available to others
+        auxilliaryOutput = [OCSParam paramWithString:@"ButterLpOutput"];
+        [self assignOutput:auxilliaryOutput To:[butterlp output]];
         
     }
     return self;

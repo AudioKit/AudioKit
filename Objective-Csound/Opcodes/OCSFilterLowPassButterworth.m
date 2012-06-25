@@ -50,7 +50,7 @@
 -(NSString *)stringForCSD
 {
     int skip = isInitSkipped ? 1 : 0;
-    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d", output, input, cutoff, skip];
+    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d\n", output, input, cutoff, skip];
 }
 
 -(NSString *) description {
