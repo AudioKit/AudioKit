@@ -30,7 +30,7 @@
         [self addFunctionTable:fileTable];
         
         OCSLoopingOscillator * trigger = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
-                                                                                    Amplitude:ocsp(1.0)
+                                                                                    Amplitude:ocsp(0.5)
                                                                           FrequencyMultiplier:[frequencyMultiplier constant]];
         [self addOpcode:trigger];
         
