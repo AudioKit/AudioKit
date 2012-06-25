@@ -7,6 +7,23 @@
 
 #import "OCSReverbSixParallelComb.h"
 
+@interface OCSReverbSixParallelComb () {
+    OCSParam *output;
+    OCSParam *input;
+    OCSParamControl *reverbDuration;
+    OCSParamControl *highFrequencyDiffusivity;
+    
+    BOOL isInitSkipped;
+    
+    NSArray *combFilterTimes;
+    NSArray *combFilterGains;
+    
+    NSArray *allPassFilterTimes;
+    NSArray *allPassFilterGains;
+}
+@end
+
+
 @implementation OCSReverbSixParallelComb
 @synthesize output;
 

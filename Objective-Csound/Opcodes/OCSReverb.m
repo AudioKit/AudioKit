@@ -7,6 +7,16 @@
 
 #import "OCSReverb.h"
 
+@interface OCSReverb () {
+    OCSParam *outputLeft;
+    OCSParam *outputRight;
+    OCSParam *inputLeft;
+    OCSParam *inputRight;
+    OCSParamControl *feedbackLevel;
+    OCSParamControl *cutoffFrequency;
+}
+@end
+
 @implementation OCSReverb
 
 @synthesize outputLeft;

@@ -7,22 +7,12 @@
 
 #import "OCSOpcode.h"
 
+/** This is a reverberator consisting of 6 parallel comb-lowpass filters 
+ being fed into a series of 5 allpass filters. 
+ */
+
 //ares nreverb asig, ktime, khdif [, iskip] [,inumCombs] [, ifnCombs] [, inumAlpas] [, ifnAlpas]
 @interface OCSReverbSixParallelComb : OCSOpcode
-{
-    OCSParam *output;
-    OCSParam *input;
-    OCSParamControl *reverbDuration;
-    OCSParamControl *highFrequencyDiffusivity;
-    
-    BOOL isInitSkipped;
-    
-    NSArray *combFilterTimes;
-    NSArray *combFilterGains;
-    
-    NSArray *allPassFilterTimes;
-    NSArray *allPassFilterGains;
-}
 
 @property (nonatomic, strong) OCSParam *output;
 

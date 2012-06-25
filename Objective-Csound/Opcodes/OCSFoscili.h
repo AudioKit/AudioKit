@@ -7,16 +7,11 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSFoscili : OCSOpcode {
-    OCSParam *amplitude;
-    OCSParamControl *frequency;
-    OCSParam *carrier;
-    OCSParam *modulation;
-    OCSParamControl *modIndex;
-    OCSFunctionTable *functionTable;
-    OCSParamConstant *phase;
-    OCSParam *output;
-}
+/** Basic frequency modulated oscillator with linear interpolation.
+ */
+ 
+@interface OCSFoscili : OCSOpcode 
+
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initialization Statement

@@ -8,6 +8,21 @@
 
 #import "OCSGrain.h"
 
+@interface OCSGrain () {
+    OCSParam *amplitude;
+    OCSParam *pitch;
+    OCSParam *grainDensity;
+    OCSParamControl *amplitudeOffset;
+    OCSParamControl *pitchOffset;
+    OCSParamControl *grainDuration;
+    OCSParamConstant *maxGrainDuration;
+    OCSFunctionTable *grainFunction;
+    OCSFunctionTable *windowFunction;
+    BOOL isRandomGrainFunctionIndex;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSGrain
 
 @synthesize output;

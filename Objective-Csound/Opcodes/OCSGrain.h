@@ -8,20 +8,10 @@
 
 #import "OCSOpcode.h"
 
+/**  Generates granular synthesis textures.
+*/
+
 @interface OCSGrain : OCSOpcode
-{
-    OCSParam *amplitude;
-    OCSParam *pitch;
-    OCSParam *grainDensity;
-    OCSParamControl *amplitudeOffset;
-    OCSParamControl *pitchOffset;
-    OCSParamControl *grainDuration;
-    OCSParamConstant *maxGrainDuration;
-    OCSFunctionTable *grainFunction;
-    OCSFunctionTable *windowFunction;
-    BOOL isRandomGrainFunctionIndex;
-    OCSParam *output;
-}
 @property (nonatomic, retain) OCSParam *output;
 
 /// Initialization Statement

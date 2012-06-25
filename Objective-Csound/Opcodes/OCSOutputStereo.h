@@ -7,17 +7,25 @@
 
 #import "OCSOpcode.h"
 
-
+/** Writes stereo audio data to an external device or stream.
+ 
+ Sends stereo audio samples to an accumulating output buffer 
+ (created at the beginning of performance) which serves to 
+ collect the output of all active instruments before the 
+ sound is written to disk. There can be any number of these 
+ output units in an instrument.
+ 
+ */
 @interface OCSOutputStereo : OCSOpcode {
     OCSParam *inputLeft;
     OCSParam *inputRight;
 }
 
-/// Initialization Statement
-- (id)initWithMonoInput:(OCSParam *) in;
+/// Helper function to send both channels the same monoSignal
+- (id)initWithMonoInput:(OCSParam *) monoSignal;
 
 /// Initialization Statement
-- (id)initWithInputLeft:(OCSParam *) inLeft
-             InputRight:(OCSParam *) inRight;
+- (id)initWithLeftInput:(OCSParam *) leftInput
+             RightInput:(OCSParam *) rightInput;
 
 @end
