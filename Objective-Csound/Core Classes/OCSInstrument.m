@@ -20,14 +20,14 @@ typedef enum {
     NSMutableString *innerCSDRepresentation;
     int  _myID;
     NSMutableArray *properties;
-    NSMutableArray *myUDOs;
+    NSMutableSet *myUDOs;
 }
 @end
 
 @implementation OCSInstrument
 
 @synthesize properties;
-@synthesize myUDOs;
+@synthesize userDefinedOpcodes;
 
 static int currentID = 1;
 
@@ -37,7 +37,7 @@ static int currentID = 1;
         _myID = currentID++;
         duration = [OCSParamConstant paramWithPValue:kDuration];
         properties = [[NSMutableArray alloc] init];
-        myUDOs = [[NSMutableArray alloc] init];
+        userDefinedOpcodes = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -47,9 +47,9 @@ static int currentID = 1;
     return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
 
-- (void)addProperty:(OCSProperty *)prop 
+- (void)addProperty:(OCSProperty *)newProperty 
 {
-    [properties addObject:prop];
+    [properties addObject:newProperty];
     //where I want to update csound's valuesCache array
     //[[OCSManager sharedOCSManager] addProperty:prop];
 }
@@ -58,41 +58,40 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:[newFunctionTable stringForCSD]];
 }
 
-- (void)addOpcode:(OCSOpcode *)opcode {
-    [innerCSDRepresentation appendString:[opcode stringForCSD]];
+- (void)addOpcode:(OCSOpcode *)newOpcode {
+    [innerCSDRepresentation appendString:[newOpcode stringForCSD]];
 }
 
-- (void)addUDO:(OCSUserDefinedOpcode *)udo {
-    [myUDOs addObject:udo];
-    [innerCSDRepresentation appendString:[udo stringForCSD]];
+- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
+    [userDefinedOpcodes addObject:newUserDefinedOpcode];
+    [innerCSDRepresentation appendString:[newUserDefinedOpcode stringForCSD]];
 }
 
-
-- (void)addString:(NSString *) str {
-    [innerCSDRepresentation appendString:str];
+- (void)addString:(NSString *)newString {
+    [innerCSDRepresentation appendString:newString];
 }
 
-- (void)assignOutput:(OCSParam *)out To:(OCSParam *)in {
-    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:in];
-    [auxOutputAssign setOutput:out];
+- (void)assignOutput:(OCSParam *)output To:(OCSParam *)input {
+    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:input];
+    [auxOutputAssign setOutput:output];
     [self addOpcode:auxOutputAssign];
 }
-- (void)resetParam:(OCSParam *)p {
-    [innerCSDRepresentation appendString:[NSString stringWithFormat:@"%@ =  0\n", p]];
+
+- (void)resetParam:(OCSParam *)parameterToReset {
+    [innerCSDRepresentation appendString:[NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
 }
 
-
-- (void)joinOrchestra:(OCSOrchestra *) orch {
-    orchestra = orch;
+- (void)joinOrchestra:(OCSOrchestra *)orchestraToJoin {
+    orchestra = orchestraToJoin;
 }
 
-- (NSString *)csdRepresentation {
+- (NSString *)stringForCSD {
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
     if ([properties count] > 0) {
         [text appendString:@";--- INPUTS ---\n"];
         for (OCSProperty *prop in properties) {
-            [text appendString:[prop getChannelText]];
+            [text appendString:[prop stringForCSDGetValue]];
         }
         [text appendString:@"\n;--- INSTRUMENT DEFINITION ---\n"];  
     }
@@ -102,14 +101,14 @@ static int currentID = 1;
     if ([properties count] > 0) {
         [text appendString:@"\n;--- OUTPUTS ---\n"];
         for (OCSProperty *prop in properties) {
-            [text appendString:[prop setChannelText]];
+            [text appendString:[prop stringForCSDSetValue]];
         }
     }
     return (NSString *)text;
 }
 
-- (void)playNoteForDuration:(float)dur {
-    NSString *noteEventString = [NSString stringWithFormat:@"%0.2f", dur];
+- (void)playNoteForDuration:(float)playDuration {
+    NSString *noteEventString = [NSString stringWithFormat:@"%0.2f", playDuration];
     [[OCSManager sharedOCSManager] playNote:noteEventString OnInstrument:self];
 }
 + (void)resetID {

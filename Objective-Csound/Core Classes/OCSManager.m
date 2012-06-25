@@ -8,6 +8,23 @@
 #import "OCSManager.h"
 #import "OCSPropertyManager.h"
 
+
+@interface OCSManager () {
+    //TODO: odbfs, sr stuff
+    BOOL isRunning;
+    NSString *options;
+    int sampleRate;
+    int samplesPerControlPeriod;
+    float zeroDBFullScaleValue;
+    NSString *myCSDFile;
+    NSString *templateCSDFileContents;
+    
+    //OCSPropertyManager *myPropertyManager;
+    
+    CsoundObj *csound;
+}
+@end
+
 @implementation OCSManager
 
 //@synthesize options;
@@ -85,11 +102,11 @@ static OCSManager *_sharedOCSManager = nil;
     }
 }
 
-- (void)writeCSDFileForOrchestra:(OCSOrchestra *) orch {
+- (void)writeCSDFileForOrchestra:(OCSOrchestra *) orchestra {
     
     NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %f\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
-    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orch stringForCSD], @""  ];
+    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
     
     [newCSD writeToFile:myCSDFile 
              atomically:YES  
@@ -137,9 +154,9 @@ static OCSManager *_sharedOCSManager = nil;
     [csound sendScore:scoreline];
 }
 
-- (void)updateValueCacheWithProperties:(OCSOrchestra *)orch
+- (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra
 {
-    NSArray *arr = [NSArray arrayWithArray:[orch instruments]];
+    NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
     for (OCSInstrument *instrument in arr ) {
         for (OCSProperty *c in [instrument properties]) {
             [csound addValueCacheable:c];

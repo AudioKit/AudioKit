@@ -44,7 +44,6 @@
 		C46EB3E01592AA55005807A2 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB3DE1592AA54005807A2 /* InitialViewController.xib */; };
 		C46EB3EE1592D677005807A2 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3EB1592D677005807A2 /* OCSProperty.m */; };
 		C46EB3EF1592D677005807A2 /* OCSPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3ED1592D677005807A2 /* OCSPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C46EB3FC1592D6C0005807A2 /* OCSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3F21592D6C0005807A2 /* OCSConstants.m */; };
 		C46EB3FF1592D6C0005807A2 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3F71592D6C0005807A2 /* OCSInstrument.m */; };
 		C46EB4001592D6C0005807A2 /* OCSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3F91592D6C0005807A2 /* OCSManager.m */; };
 		C46EB4011592D6C0005807A2 /* OCSOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3FB1592D6C0005807A2 /* OCSOrchestra.m */; };
@@ -90,6 +89,7 @@
 		C495F76B158348BB00951461 /* UnitGeneratorsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C495F767158348BB00951461 /* UnitGeneratorsViewController.xib */; };
 		C495F76C158348BB00951461 /* UnitGenSoundGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F769158348BB00951461 /* UnitGenSoundGenerator.m */; };
 		C49F81A81583498B00D72D03 /* OCSParamConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F81A71583498A00D72D03 /* OCSParamConstant.m */; };
+		C4A760DB1598195000A99E86 /* OCSRandomDistributionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A760DA1598195000A99E86 /* OCSRandomDistributionTable.m */; };
 		C4C551191576EB08005F7EE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C551181576EB08005F7EE4 /* UIKit.framework */; };
 		C4C5511B1576EB08005F7EE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5511A1576EB08005F7EE4 /* Foundation.framework */; };
 		C4C5511D1576EB08005F7EE4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5511C1576EB08005F7EE4 /* CoreGraphics.framework */; };
@@ -192,8 +192,6 @@
 		C46EB3EB1592D677005807A2 /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
 		C46EB3EC1592D677005807A2 /* OCSPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPropertyManager.h; sourceTree = "<group>"; };
 		C46EB3ED1592D677005807A2 /* OCSPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPropertyManager.m; sourceTree = "<group>"; };
-		C46EB3F11592D6C0005807A2 /* OCSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConstants.h; sourceTree = "<group>"; };
-		C46EB3F21592D6C0005807A2 /* OCSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConstants.m; sourceTree = "<group>"; };
 		C46EB3F61592D6C0005807A2 /* OCSInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OCSInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C46EB3F71592D6C0005807A2 /* OCSInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OCSInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C46EB3F81592D6C0005807A2 /* OCSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSManager.h; sourceTree = "<group>"; };
@@ -292,6 +290,8 @@
 		C495F769158348BB00951461 /* UnitGenSoundGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UnitGenSoundGenerator.m; path = "Unit Generators/UnitGenSoundGenerator.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C49F81A61583498A00D72D03 /* OCSParamConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSParamConstant.h; sourceTree = "<group>"; };
 		C49F81A71583498A00D72D03 /* OCSParamConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParamConstant.m; sourceTree = "<group>"; };
+		C4A760D91598195000A99E86 /* OCSRandomDistributionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSRandomDistributionTable.h; path = FunctionTables/OCSRandomDistributionTable.h; sourceTree = "<group>"; };
+		C4A760DA1598195000A99E86 /* OCSRandomDistributionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSRandomDistributionTable.m; path = FunctionTables/OCSRandomDistributionTable.m; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C551181576EB08005F7EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C5511A1576EB08005F7EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -464,6 +464,8 @@
 				C43553DF158073730074764A /* OCSFunctionTable.m */,
 				C4C67D14158D63A100F3CB8E /* OCSSoundFileTable.h */,
 				C4C67D15158D63A100F3CB8E /* OCSSoundFileTable.m */,
+				C4A760D91598195000A99E86 /* OCSRandomDistributionTable.h */,
+				C4A760DA1598195000A99E86 /* OCSRandomDistributionTable.m */,
 				C43553EB15807BB80074764A /* OCSSineTable.h */,
 				C43553EC15807BB80074764A /* OCSSineTable.m */,
 				C46EB41115942252005807A2 /* OCSExponentialCurvesTable.h */,
@@ -574,14 +576,12 @@
 		C46EB3F01592D6BE005807A2 /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C46EB3F11592D6C0005807A2 /* OCSConstants.h */,
-				C46EB3F21592D6C0005807A2 /* OCSConstants.m */,
-				C46EB3F61592D6C0005807A2 /* OCSInstrument.h */,
-				C46EB3F71592D6C0005807A2 /* OCSInstrument.m */,
 				C46EB3F81592D6C0005807A2 /* OCSManager.h */,
 				C46EB3F91592D6C0005807A2 /* OCSManager.m */,
 				C46EB3FA1592D6C0005807A2 /* OCSOrchestra.h */,
 				C46EB3FB1592D6C0005807A2 /* OCSOrchestra.m */,
+				C46EB3F61592D6C0005807A2 /* OCSInstrument.h */,
+				C46EB3F71592D6C0005807A2 /* OCSInstrument.m */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -1022,7 +1022,6 @@
 				C46EB3DF1592AA55005807A2 /* InitialViewController.m in Sources */,
 				C46EB3EE1592D677005807A2 /* OCSProperty.m in Sources */,
 				C46EB3EF1592D677005807A2 /* OCSPropertyManager.m in Sources */,
-				C46EB3FC1592D6C0005807A2 /* OCSConstants.m in Sources */,
 				C46EB3FF1592D6C0005807A2 /* OCSInstrument.m in Sources */,
 				C46EB4001592D6C0005807A2 /* OCSManager.m in Sources */,
 				C46EB4011592D6C0005807A2 /* OCSOrchestra.m in Sources */,
@@ -1045,6 +1044,7 @@
 				C43908D81597082A001FC007 /* UDOMSROscillator.m in Sources */,
 				C43908E0159708C4001FC007 /* UDOCsGrainCompressor.m in Sources */,
 				C43908E1159708C4001FC007 /* UDOCsGrainPitchShifter.m in Sources */,
+				C4A760DB1598195000A99E86 /* OCSRandomDistributionTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,32 +11,40 @@
 
 //#import "OCSPropertyManager.h"
 
-@interface OCSManager : NSObject <CsoundObjCompletionListener> {
-    //TODO: odbfs, sr stuff
-    BOOL isRunning;
-    NSString *options;
-    int sampleRate;
-    int samplesPerControlPeriod;
-    float zeroDBFullScaleValue;
-    NSString *myCSDFile;
-    NSString *templateCSDFileContents;
+/** The OCSManager is a singleton class available to all controller that need
+ to interact with Csound through its simplified protocol.
+ 
+ TODO: Consider whether or not currentOrchestra should be a property of OCSManager.
+ */
+@interface OCSManager : NSObject <CsoundObjCompletionListener> 
 
-    //OCSPropertyManager *myPropertyManager;
-    
-    CsoundObj *csound;
-
-}
-//@property (nonatomic, strong) NSString *options;
+/// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
+//@property (nonatomic, strong) NSString *options;
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
-+ (OCSManager *) sharedOCSManager;
+/// @returns the shared instance of OCSManager
++ (OCSManager *)sharedOCSManager;
+
+/// Run Csound from a given filename
+/// @param filename CSD file use when running Csound.
 - (void)runCSDFile:(NSString *)filename;
-- (void)runOrchestra:(OCSOrchestra *)orch;
+
+/// Run Csound using an OCSOrechestra 
+/// @param orchestra The OCSOrchestra that will be used to create the CSD File.
+- (void)runOrchestra:(OCSOrchestra *)orchestra;
+
+/// Stop Csound
 - (void)stop;
+
+/// Writes a scoreline to start playing an instrument.
+/// @param note       Space deliminated list of parameters starting with the duration in seconds and usually contains only the duration.
+/// @param instrument The instrument which needs to play.
 - (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument;
 
-- (void)updateValueCacheWithProperties:(OCSOrchestra *)orch;
+/// Manages OCSProperty updates for each instrument in the orchestra
+/// @param orchestra Orchestra with all the current instruments.
+- (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra;
 
 //Other Potential problems
 //- (void)mute;

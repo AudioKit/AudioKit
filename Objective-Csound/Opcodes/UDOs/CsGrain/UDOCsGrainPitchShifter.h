@@ -14,10 +14,10 @@
  */
 @interface UDOCsGrainPitchShifter : OCSUserDefinedOpcode 
 
-/** Left channel output. */
+/// Left channel output.
 @property (nonatomic, strong) OCSParam *outputLeft;
 
-/** Right channel output. */
+//// Right channel output.
 @property (nonatomic, strong) OCSParam *outputRight;
 
 /** Instantiates the pitch shifter.

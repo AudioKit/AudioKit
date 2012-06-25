@@ -8,6 +8,23 @@
 
 #import "OCSProperty.h"
 
+@interface OCSProperty () {
+    Float32 maximumValue;
+    Float32 minimumValue;
+    Float32 initValue;
+    Float32 value;
+    
+    OCSParamControl *control;
+    OCSParamConstant *constant;
+    OCSParamControl *output;
+    
+    //channelName
+    float* channelPtr;
+}
+@end
+
+
+
 @implementation OCSProperty
 @synthesize maximumValue;
 @synthesize minimumValue;
@@ -23,28 +40,28 @@
     self = [super init];
     if (self) {
         // ARB / AOP - need to investigate why this can't be a-rate
-        control  = [OCSParamControl paramWithFormat:@"gk%@",  [self uniqueName]];
-        constant = [OCSParamConstant paramWithFormat:@"gi%@", [self uniqueName]];
+        control  = [OCSParamControl paramWithString:@"gkProperty"];
+        constant = [OCSParamConstant paramWithString:@"giProperty"];
         output = control;
         
     }
     return self;
 }
 
-- (id)initWithValue:(float)aInitValue
+- (id)initWithValue:(float)initialValue
 {
     self = [self init];
-    initValue = aInitValue;
-    value = aInitValue;
+    initValue = initialValue;
+    value = initialValue;
 
     return self;
 }
 
-- (id)initWithValue:(float)val Min:(float)min Max:(float)max
+- (id)initWithValue:(float)initialValue Min:(float)min Max:(float)max
 {
     self = [self init];
-    initValue = val;
-    value = val;
+    initValue = initialValue;
+    value = initialValue;
     minimumValue = min;
     maximumValue = max;
     return self;
@@ -59,20 +76,16 @@
     output = constant;
 }
 
-- (NSString *)getChannelText {
+- (NSString *)stringForCSDGetValue {
     return [NSString stringWithFormat:@"%@ chnget \"%@\"\n",  output, output];
 }
 
-- (NSString *)setChannelText {
+- (NSString *)stringForCSDSetValue {
     return [NSString stringWithFormat:@"chnset %@, \"%@\"\n", output, output];
 }
 
-- (NSString *)uniqueName {
-    NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
-    basename = [basename stringByReplacingOccurrencesOfString:@"OCS" withString:@""];
-    return basename;
-}
 #pragma mark BaseValueCacheable
+
 - (void)setup:(CsoundObj*)csoundObj {
     channelPtr = [csoundObj getInputChannelPtr:[output parameterString]];
     *channelPtr = [self value];
@@ -82,7 +95,6 @@
     *channelPtr = [self value];  
 }
 - (void)updateValuesFromCsound {
-    //AOP Test to get values back from Csound
     [self setValue:*channelPtr];
 }
 

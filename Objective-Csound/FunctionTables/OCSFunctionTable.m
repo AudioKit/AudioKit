@@ -7,25 +7,26 @@
 
 #import "OCSFunctionTable.h"
 
+@interface OCSFunctionTable () {
+    int size;
+    GenRoutineType gen;
+    NSString *parameters;    
+}
+@end
+
 @implementation OCSFunctionTable
 @synthesize output;
-//@synthesize integerIdentifier;
-//@synthesize loadTime;
-//@synthesize tableSize;
-//@synthesize generatingRoutine;
-//@synthesize parameters;
-//@synthesize text;
 
-- (id)initWithSize:(int)size 
-       GenRoutine:(GenRoutineType)gen 
-       Parameters:(NSString *)params
+- (id)initWithSize:(int)tableSizeOrZero 
+       GenRoutine:(GenRoutineType)generatingRoutineType 
+       Parameters:(NSString *)parametersAsString
 {
     self = [super init];
     if (self) {
         output = [OCSParamConstant paramWithString:[self functionName]];
-        tableSize = size;
-        generatingRoutine = gen;
-        parameters = params;
+        size = tableSizeOrZero;
+        gen = generatingRoutineType;
+        parameters = parametersAsString;
     }
     return self;
 }
@@ -42,10 +43,10 @@
     NSString *text;
     if (parameters == nil) {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
-                output, tableSize, generatingRoutine];
+                output, size, gen];
     } else {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
-                output, tableSize, generatingRoutine, parameters];
+                output, size, gen, parameters];
     }
     return text;
 }

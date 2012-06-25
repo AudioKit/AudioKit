@@ -1,12 +1,14 @@
 //
-//  OCSConstants.h
+//  OCSRandomDistributionTable.h
+//  ExampleProject
 //
-//  Created by Adam Boulanger on 6/1/12.
+//  Created by Aurelius Prochazka on 6/24/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#ifndef ExampleProject_OCSConstants_h
-#define ExampleProject_OCSConstants_h
+#import "OCSFunctionTable.h"
+
+@interface OCSRandomDistributionTable : OCSFunctionTable
 
 typedef enum
 {
@@ -23,4 +25,5 @@ typedef enum
     kRandomDistributionPoisson=11
 }RandomDistributionType;
 
-#endif
+
+@end
