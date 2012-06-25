@@ -150,7 +150,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument{
     NSString *scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
-    NSLog(@"%@", scoreline);
+    //NSLog(@"%@", scoreline);
     [csound sendScore:scoreline];
 }
 

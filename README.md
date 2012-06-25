@@ -7,18 +7,24 @@ in-Xcode syntax highlighter for Csound Opcodes, Function Tables, and more.
 
 TODO:
 
-* Make an i event also output the instrument's properties in addition to the now pretty useless i Name 0 duration
-* Add UDO section to the orchestra / CSD, create UDO example 
-* Add a bunch of UDOs because they should sound good almost out of the box
+* Consider signal as a term to use for audio rate stuff? 
+* Make play events NSLog from within the instrument.
 * Write an audio processor that outputs something to Objective-C
 * Make a MIDI module that makes more sense than Csound's current midi implementation / Disconnect UIWidgets
 * optional argument for OCSWindowsTable (used by Gaussian and Kaiser ?sigma)
 * Consider whether an OCSProperty need bounds or if they should be optional or handled elsewhere.
+* Consider whether adjectives go first or last in ClassNames.
+  OCSSineTable and OCSParamConstant are inconsistent as are LoopingOscillator and OutputMono.
+  Benefit to adjectives last is alphabetical grouping and benefit to adjectives first
+  is readability.
+
 
 ALWAYS MORE:
 
+* More complete implementations of opcodes
 * More Opcodes (fix up OCSPluck)
 * More OCSFunctionTable subclasses
+* More UDOs
 * More Examples
 
 NOTES:
