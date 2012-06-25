@@ -12,6 +12,7 @@
 		76B956471581302D005AFAE9 /* OCSLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* OCSLine.m */; };
 		76B9564C15813809005AFAE9 /* OCSLineSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* OCSLineSegment.m */; };
 		76DE1A4C1598AE1D00A71EAF /* GrainBirdsReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DE1A4B1598AE1D00A71EAF /* GrainBirdsReverb.m */; };
+		76DE1A4E1598E48D00A71EAF /* MoreGrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB41B15942369005807A2 /* MoreGrainViewController.xib */; };
 		76F3201915935369008338E2 /* OCSGrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201815935369008338E2 /* OCSGrain.m */; };
 		76F3203B1593B705008338E2 /* OCSExpSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203A1593B705008338E2 /* OCSExpSegment.m */; };
 		76F3203E1593BC19008338E2 /* OCSFileLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203D1593BC17008338E2 /* OCSFileLength.m */; };
@@ -933,6 +934,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76DE1A4E1598E48D00A71EAF /* MoreGrainViewController.xib in Resources */,
 				C4C551231576EB08005F7EE4 /* InfoPlist.strings in Resources */,
 				C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */,
 				C43553D115805CA60074764A /* README.md in Resources */,
