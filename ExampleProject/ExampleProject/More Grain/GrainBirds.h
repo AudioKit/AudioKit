@@ -24,6 +24,8 @@
     OCSProperty *pitchOffsetStartValue;
     OCSProperty *pitchOffsetFirstTarget;
     OCSProperty *reverbSend;
+    
+    OCSParam *auxilliaryOutput;
 }
 @property (nonatomic, retain) OCSProperty *grainDensity;
 @property (nonatomic, retain) OCSProperty *grainDuration;
@@ -31,5 +33,7 @@
 @property (nonatomic, retain) OCSProperty *pitchOffsetStartValue;
 @property (nonatomic, retain) OCSProperty *pitchOffsetFirstTarget;
 @property (nonatomic, retain) OCSProperty *reverbSend;
+
+@property (readonly) OCSParam *auxilliaryOutput;
 
 @end

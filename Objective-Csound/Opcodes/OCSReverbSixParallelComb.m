@@ -33,7 +33,7 @@ HighFreqDiffusivity:(OCSParamControl *)hfdif;
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithFormat:[self opcodeName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         input = i;
         reverbDuration = dur;
         highFrequencyDiffusivity = hfdif;
@@ -52,7 +52,7 @@ HighFreqDiffusivity:(OCSParamControl *)hfdif
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithFormat:[self opcodeName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         input = i;
         reverbDuration = dur;
         highFrequencyDiffusivity = hfdif;
@@ -71,15 +71,16 @@ HighFreqDiffusivity:(OCSParamControl *)hfdif
     //iSine ftgentmp 0, 0, 4096, 10, 1
     
     //Check if optional parameters have been set before constructing CSD
+
     if (combFilterGains) {
-        return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@, %@",
+        return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@, %@\n",
                 [self functionTableCSDFromFilterParams],
                 output, reverbDuration, highFrequencyDiffusivity, 
                 isInitSkipped, combFilterTimes, combFilterGains, allPassFilterTimes,
                 allPassFilterGains];
     } else {
-        return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@", 
-                output, reverbDuration, highFrequencyDiffusivity];
+        return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@\n", 
+                output, input, reverbDuration, highFrequencyDiffusivity];
     }
 }
 
