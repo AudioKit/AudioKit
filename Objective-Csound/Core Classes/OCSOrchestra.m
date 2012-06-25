@@ -42,7 +42,7 @@
         for (OCSUserDefinedOpcode *u in [i myUDOs]) {
             //[s appendFormat:@"#include \"%@\"", [u myUDOFile]];  //Would be nice but it crashes Csound
             [s appendString:@"\n\n\n"];     
-            [s appendString:[[NSString alloc] initWithContentsOfFile:[u file]  
+            [s appendString:[[NSString alloc] initWithContentsOfFile:[u udoFile]  
                                                             encoding:NSUTF8StringEncoding 
                                                                error:nil]];
             [s appendString:@"\n\n\n"];

@@ -34,7 +34,7 @@
     return self; 
 }
 
-- (NSString *) file {
+- (NSString *) udoFile {
     return [[NSBundle mainBundle] pathForResource: @"msrOsc" ofType: @"udo"];
 }
 
