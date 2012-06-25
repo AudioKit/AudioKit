@@ -8,6 +8,25 @@
 
 #import "OCSUserDefinedOpcode.h"
 
+/** Generates indicated wave with amplitude declick ramps of .02 sec on each end.  
+ The frequency can be given either as pitch or in Hz, and the type can be
+ a sine, triangle, saw, square, tube distortion, half triangle, half square, half-saw, or 
+ white noise.
+ 
+ Available Types:
+ 
+ - Sine
+ - Triangle
+ - Saw
+ - Square
+ - Tube Distortion
+ - Half Triangle
+ - Half Square
+ - Half Saw
+ - White Noise (in this case, frequency has no meaning)
+ 
+*/
+
 typedef enum {
     kMSROscillatorTypeSine,
     kMSROscillatorTypeTriangle,
@@ -20,17 +39,24 @@ typedef enum {
     kMSROscillatorTypeWhiteNoise
 } OscillatorType;
 
-@interface UDOMSROscillator : OCSUserDefinedOpcode {
-    OCSParam *output;
-    OCSParamConstant *amplitude;
-    OCSParamConstant *frequency;
-    OscillatorType type;
-}
+@interface UDOMSROscillator : OCSUserDefinedOpcode 
 
+/** The output is the audio signal. */
 @property (nonatomic, strong) OCSParam *output;
 
-- (id)initWithAmplitude:(OCSParamConstant *)amp 
-              Frequency:(OCSParamConstant *)cps 
-                   Type:(OscillatorType)t;
+/** Instantiates the user-defined opcode for Michael Rempel's Oscillator.
+ 
+ @param maxAmplitude Maximum output of the signal in relation to the 0dB full scale amplitude. 
+ Must be greater than zero.
+ 
+ @param pitchOrFrequency Pitch is assume if the value is less than 20, otherwise the units are Hz.
+ 
+ @param oscillatorType Type of waveform to be used from the available OscillatorTypes.
+ 
+ @return An instance of UDOMSROscillator.
+ */
+- (id)initWithAmplitude:(OCSParamConstant *)maxAmplitude
+              Frequency:(OCSParamConstant *)pitchOrFrequency
+                   Type:(OscillatorType)oscillatorType;
 
 @end

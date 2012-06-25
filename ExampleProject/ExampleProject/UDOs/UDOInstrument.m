@@ -34,7 +34,7 @@
                                                                     Frequency:[frequency constant]
                                                                          Type:kMSROscillatorTypeTubeDistortion];
         [self addUDO:osc];
-   
+        
         UDOCsGrainPitchShifter * ps;
         ps = [[UDOCsGrainPitchShifter alloc] initWithInputLeft:[osc output] 
                                                     InputRight:[osc output] 
@@ -46,10 +46,10 @@
         UDOCsGrainCompressor * comp;
         comp = [[UDOCsGrainCompressor alloc] initWithInputLeft:[ps outputLeft] 
                                                     InputRight:[ps outputRight] 
-                                                     Threshold:ocsp(0.0) 
+                                                   ThresholdDB:ocsp(0.0) 
                                                          Ratio:ocsp(0.5) 
-                                                        Attack:ocsp(0.5) 
-                                                       Release:ocsp(0.5)];
+                                                    AttackTime:ocsp(0.5) 
+                                                   ReleaseTime:ocsp(0.5)];
         [self addUDO:comp];
         
 

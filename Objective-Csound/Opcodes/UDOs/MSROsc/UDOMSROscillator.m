@@ -8,25 +8,28 @@
 
 #import "UDOMSROscillator.h"
 
+@interface UDOMSROscillator () {
+    OCSParam *output;
+    OCSParamConstant *amplitude;
+    OCSParamConstant *frequency;
+    OscillatorType type;
+}
+@end
+
 @implementation UDOMSROscillator
 
 @synthesize output;
 
-- (id)initWithAmplitude:(OCSParamConstant *)amp 
-              Frequency:(OCSParamConstant *)cps 
-                   Type:(OscillatorType)t 
+- (id)initWithAmplitude:(OCSParamConstant *)maxAmplitude 
+              Frequency:(OCSParamConstant *)pitchOrFrequency
+                   Type:(OscillatorType)oscillatorType
 {
     self = [super init];
     if (self) {
         output = [OCSParam paramWithString:[self opcodeName]];
-        amplitude = amp;
-        frequency = cps;
-        type = t;
-        
-//        [[self file] writeToFile:myUDOFile 
-//                 atomically:YES  
-//                   encoding:NSStringEncodingConversionAllowLossy 
-//                      error:nil];
+        amplitude = maxAmplitude;
+        frequency = pitchOrFrequency;
+        type = oscillatorType;
     }
     return self; 
 }
