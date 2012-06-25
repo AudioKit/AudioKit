@@ -9,8 +9,6 @@
 
 @implementation OCSOpcode
 
-@synthesize opcode;
-
 - (NSString *)opcodeName {
     NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"OCS" withString:@""];

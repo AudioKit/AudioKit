@@ -12,12 +12,12 @@
 @interface UDOCsGrainCompressor () {
     OCSParam *outputLeft;
     OCSParam *outputRight;
-    OCSParam *inputLeft;
-    OCSParam *inputRight;
+    OCSParam *inL;
+    OCSParam *inR;
     OCSParamControl *threshold;
     OCSParamControl *ratio;
-    OCSParamControl *attackTime;
-    OCSParamControl *releaseTime;
+    OCSParamControl *attack;
+    OCSParamControl *release;
 }
 @end
 
@@ -28,26 +28,26 @@
 
 - (id)initWithInputLeft:(OCSParam *)leftInput
              InputRight:(OCSParam *)rightInput
-            ThresholdDB:(OCSParamControl *)dBThreshold
-                  Ratio:(OCSParamControl *)compressionRatio
-             AttackTime:(OCSParamControl *)attackTimeInSeconds
-            ReleaseTime:(OCSParamControl *)releaseTimeInSeconds;
+              Threshold:(OCSParamControl *)dBThreshold
+       CompressionRatio:(OCSParamControl *)compressionRatio
+             AttackTime:(OCSParamControl *)attackTime
+            ReleaseTime:(OCSParamControl *)releaseTime;
 {
     self = [super init];
     if (self) {
         outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
         outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        inputLeft   = leftInput;
-        inputRight  = rightInput;
-        threshold   = dBThreshold;
-        ratio       = compressionRatio;
-        attackTime  = attackTimeInSeconds;
-        releaseTime = releaseTimeInSeconds;
+        inL       = leftInput;
+        inR       = rightInput;
+        threshold = dBThreshold;
+        ratio     = compressionRatio;
+        attack    = attackTime;
+        release   = releaseTime;
     }
     return self; 
 }
 
-- (NSString *) file {
+- (NSString *) udoFile {
     return [[NSBundle mainBundle] pathForResource: @"CSGrainCompressor" ofType: @"udo"];
 }
 
@@ -55,7 +55,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ Compressor %@, %@, %@, %@, %@, %@\n",
-            outputLeft, outputRight, inputLeft, inputRight, threshold, ratio, attackTime, releaseTime];
+            outputLeft, outputRight, inL, inR, threshold, ratio, attack, release];
 }
 
 

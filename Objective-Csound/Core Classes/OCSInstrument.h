@@ -13,14 +13,12 @@
 
 #define ocsp(__f__) [OCSParamConstant paramWithFloat:__f__]
 
+/** Manages functions most OCS instruments will need to function */
+
 @interface OCSInstrument : NSObject {
-    OCSOrchestra *orchestra;
     OCSParamConstant *duration;
-    NSMutableString *innerCSDRepresentation;
-    int  _myID;
-    NSMutableArray *properties;
-    NSMutableArray *myUDOs;
 }
+
 @property (nonatomic, strong) NSMutableArray *properties;
 @property (nonatomic, strong) NSMutableArray *myUDOs;
 

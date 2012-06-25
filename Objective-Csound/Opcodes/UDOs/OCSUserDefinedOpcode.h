@@ -8,11 +8,11 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSUserDefinedOpcode : OCSOpcode {
-    //NSString *myUDOFile;
-}
+/** User-defined opcodes found on csounds.com and elsewhere.  Differs from
+ OCS opcodes because the definition is made in .udo files.  
+ */
 
-@property (readonly) NSString *myUDOFile;
-
-- (NSString *)file;
+@interface OCSUserDefinedOpcode : OCSOpcode 
+/** @returns The location of the udo file */
+- (NSString *) udoFile;
 @end

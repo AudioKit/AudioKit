@@ -46,14 +46,10 @@ typedef enum {
 
 /** Instantiates the user-defined opcode for Michael Rempel's Oscillator.
  
- @param maxAmplitude Maximum output of the signal in relation to the 0dB full scale amplitude. 
- Must be greater than zero.
- 
+ @param maxAmplitude     Maximum output of the signal in relation to the 0dB full scale amplitude. Must be greater than zero.
  @param pitchOrFrequency Pitch is assume if the value is less than 20, otherwise the units are Hz.
- 
- @param oscillatorType Type of waveform to be used from the available OscillatorTypes.
- 
- @return An instance of UDOMSROscillator.
+ @param oscillatorType   Type of waveform to be used from the available OscillatorTypes.
+ @return                 An instance of UDOMSROscillator.
  */
 - (id)initWithAmplitude:(OCSParamConstant *)maxAmplitude
               Frequency:(OCSParamConstant *)pitchOrFrequency

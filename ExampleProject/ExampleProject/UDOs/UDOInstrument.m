@@ -38,22 +38,19 @@
         UDOCsGrainPitchShifter * ps;
         ps = [[UDOCsGrainPitchShifter alloc] initWithInputLeft:[osc output] 
                                                     InputRight:[osc output] 
-                                                         Pitch:ocsp(0.1) 
-                                                          Fine:ocsp(0.1) 
-                                                      Feedback:ocsp(1.2)];
+                                                         Pitch:ocsp(0.7) 
+                                               OffsetFrequency:ocsp(0) 
+                                                      Feedback:ocsp(0.5)];
         [self addUDO:ps];
         
         UDOCsGrainCompressor * comp;
         comp = [[UDOCsGrainCompressor alloc] initWithInputLeft:[ps outputLeft] 
                                                     InputRight:[ps outputRight] 
-                                                   ThresholdDB:ocsp(0.0) 
-                                                         Ratio:ocsp(0.5) 
-                                                    AttackTime:ocsp(0.5) 
-                                                   ReleaseTime:ocsp(0.5)];
+                                                     Threshold:ocsp(-1.0) 
+                                              CompressionRatio:ocsp(2.5) 
+                                                    AttackTime:ocsp(0.01) 
+                                                   ReleaseTime:ocsp(0.1)];
         [self addUDO:comp];
-        
-
-
         
         // AUDIO OUTPUT ========================================================
         

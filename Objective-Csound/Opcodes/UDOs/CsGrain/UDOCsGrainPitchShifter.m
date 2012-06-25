@@ -8,31 +8,42 @@
 
 #import "UDOCsGrainPitchShifter.h"
 
+@interface UDOCsGrainPitchShifter () {
+    OCSParam *outputLeft;
+    OCSParam *outputRight;
+    OCSParam *inL;
+    OCSParam *inR;
+    OCSParamControl *pitch;
+    OCSParamControl *offset;
+    OCSParamControl *feedback;
+}
+@end
+
 @implementation UDOCsGrainPitchShifter
 
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithInputLeft:(OCSParam *)inL
-             InputRight:(OCSParam *)inR
-                  Pitch:(OCSParamControl *)pch
-                   Fine:(OCSParamControl *)fin 
-               Feedback:(OCSParamControl *)fbk
+- (id)initWithInputLeft:(OCSParam *)leftInput
+             InputRight:(OCSParam *)rightInput
+                  Pitch:(OCSParamControl *)basePitch
+        OffsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
+               Feedback:(OCSParamControl *)feedbackLevel;
 {
     self = [super init];
     if (self) {
         outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
         outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        inputLeft   = inL;
-        inputRight  = inR;
-        pitch       = pch;
-        fine        = fin;
-        feedback    = fbk;
+        inL      = leftInput;
+        inR      = rightInput;
+        pitch    = basePitch;
+        offset   = fineTuningOffsetFrequency;
+        feedback = feedbackLevel;
     }
     return self; 
 }
 
-- (NSString *) file {
+- (NSString *) udoFile {
     return [[NSBundle mainBundle] pathForResource: @"CsGrainPitchShifter" ofType: @"udo"];
 }
 
@@ -40,7 +51,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ PitchShifter %@, %@, %@, %@, %@\n",
-            outputLeft, outputRight, inputLeft, inputRight, pitch, fine, feedback];
+            outputLeft, outputRight, inL, inR, pitch, offset, feedback];
 }
 
 @end

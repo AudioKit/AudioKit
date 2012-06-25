@@ -8,9 +8,13 @@
 #import "OCSParamArray.h"
 #import "OCSFunctionTable.h"
 
-@interface OCSOpcode : NSObject 
-@property (nonatomic, strong) NSString *opcode;
+/** Generic function all OCS Opcodes need access to. */
 
+@interface OCSOpcode : NSObject 
+
+/** @returns The name of the class with the OCS prefix. */
 - (NSString *)opcodeName;
-- (NSString *)stringForCSD;
+
+/** @returns The opcode line for inclusion in instruments. */
+- (NSString *) stringForCSD;
 @end

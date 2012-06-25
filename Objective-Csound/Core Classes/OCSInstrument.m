@@ -15,6 +15,15 @@ typedef enum {
     kDuration=3
 } kRequiredPValues;
 
+@interface OCSInstrument () {
+    OCSOrchestra *orchestra;
+    NSMutableString *innerCSDRepresentation;
+    int  _myID;
+    NSMutableArray *properties;
+    NSMutableArray *myUDOs;
+}
+@end
+
 @implementation OCSInstrument
 
 @synthesize properties;
