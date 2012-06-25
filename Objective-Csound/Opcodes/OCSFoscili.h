@@ -19,6 +19,7 @@
 }
 @property (nonatomic, strong) OCSParam *output;
 
+/// Initialization Statement
 - (id)initWithAmplitude:(OCSParam *)amp
               Frequency:(OCSParamControl *)cps
                 Carrier:(OCSParam *)car

@@ -7,6 +7,11 @@
 
 #import "OCSLineSegment.h"
 
+@interface OCSLineSegment () {
+    OCSParamControl *output;
+}
+@end
+
 @implementation OCSLineSegment
 
 @synthesize output;

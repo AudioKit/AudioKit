@@ -7,6 +7,12 @@
 
 #import "OCSAssignment.h"
 
+@interface OCSAssignment () {
+    OCSParam *input;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSAssignment
 @synthesize output;  
 

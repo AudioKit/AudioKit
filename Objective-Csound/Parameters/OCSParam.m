@@ -23,28 +23,28 @@ static int currentID = 1;
     type = @"a";
     return self;
 }
-- (id)initWithString:(NSString *)aString
+- (id)initWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
         _myID = currentID++;
-        parameterString = [NSString stringWithFormat:@"ga%@%i", aString, _myID];
+        parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
     }
     return self;
 }
 
-- (id)initWithExpression:(NSString *)aExpression
+- (id)initWithExpression:(NSString *)expression
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithString:aExpression];
+        parameterString = [NSString stringWithString:expression];
     }
     return self;
 }
 
-+(id)paramWithString:(NSString *)aString
++(id)paramWithString:(NSString *)name
 {
-    return [[self alloc] initWithString:aString];
+    return [[self alloc] initWithString:name];
 }
 
 +(id)paramWithFormat:(NSString *)format, ... {

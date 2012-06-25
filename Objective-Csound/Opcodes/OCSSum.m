@@ -7,6 +7,12 @@
 
 #import "OCSSum.h"
 
+@interface OCSSum () {
+    NSMutableArray *inputs;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSSum
 @synthesize output;
 

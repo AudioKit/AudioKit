@@ -7,6 +7,16 @@
 
 #import "OCSOscillator.h"
 
+@interface OCSOscillator () {
+    OCSParam *amplitude;
+    OCSParam *frequency;
+    OCSFunctionTable *functionTable;
+    OCSParam *audio;
+    OCSParamControl *control;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSOscillator 
 
 @synthesize audio;

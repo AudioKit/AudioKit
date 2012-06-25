@@ -24,6 +24,7 @@
 }
 @property (nonatomic, retain) OCSParam *output;
 
+/// Initialization Statement
 - (id)initWithAmplitude:(OCSParam *)amp
                   Pitch:(OCSParam *)pch
            GrainDensity:(OCSParam *)dens
@@ -34,6 +35,7 @@
           GrainFunction:(OCSFunctionTable *)gFunction
          WindowFunction:(OCSFunctionTable *)wFunction;
 
+/// Initialization Statement
 - (id)initWithAmplitude:(OCSParam *)amp
                  Pitch:(OCSParam *)pch
           GrainDensity:(OCSParam *)dens

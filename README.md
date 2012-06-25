@@ -13,12 +13,12 @@ TODO:
 * Write an audio processor that outputs something to Objective-C
 * Make a MIDI module that makes more sense than Csound's current midi implementation / Disconnect UIWidgets
 * optional argument for OCSWindowsTable (used by Gaussian and Kaiser ?sigma)
-* consider whether OCSProperties need bound or if they should be optional or handled elsewhere.
+* Consider whether an OCSProperty need bounds or if they should be optional or handled elsewhere.
 
 ALWAYS MORE:
 
-* More Opcodes (fix up Pluck)
-* More Function Table subclasses
+* More Opcodes (fix up OCSPluck)
+* More OCSFunctionTable subclasses
 * More Examples
 
 NOTES:
@@ -30,7 +30,3 @@ OCSProperty when we do use them.
 * some csound helper functions should be handled exclusively in ocs, like cpspch
 * output as either k or a rate is a problem for opcodes already containing multiple inits. (see oscillator and linsegr)
 * need OCSProperty to deal with all 3 output types, need a way to do this better than BOOL and conditionals
-
-INDIGESTION:
-
-* Develop convention for conditional initialization

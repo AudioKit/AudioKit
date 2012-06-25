@@ -810,6 +810,8 @@
 				C4C552131577028C005F7EE4 /* OCSOpcode.m */,
 				C4C5520E1577028C005F7EE4 /* OCSEnvelope.h */,
 				C4C5520F1577028C005F7EE4 /* OCSEnvelope.m */,
+				76F3203C1593BC16008338E2 /* OCSFileLength.h */,
+				76F3203D1593BC17008338E2 /* OCSFileLength.m */,
 				C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */,
 				C43908AD1596B1AB001FC007 /* OCSFilterLowPassButterworth.m */,
 				C4C552101577028C005F7EE4 /* OCSFoscili.h */,
@@ -834,8 +836,6 @@
 				C4FE85951583CE0700902E07 /* OCSOutputMono.m */,
 				C4FE85A51583F63C00902E07 /* OCSOutputStereo.h */,
 				C4FE85A61583F63D00902E07 /* OCSOutputStereo.m */,
-				76F3203C1593BC16008338E2 /* OCSFileLength.h */,
-				76F3203D1593BC17008338E2 /* OCSFileLength.m */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";

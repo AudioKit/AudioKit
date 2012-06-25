@@ -7,14 +7,12 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSOscillator : OCSOpcode {
-    OCSParam *amplitude;
-    OCSParam *frequency;
-    OCSFunctionTable *functionTable;
-    OCSParam *audio;
-    OCSParamControl *control;
-    OCSParam *output;
-}
+/** A simple oscillator with linear interpolation.
+
+@warning *Not a complete reproduction of all of Csound's oscili opcode*
+ */
+@interface OCSOscillator : OCSOpcode 
+
 @property (nonatomic, strong) OCSParam *audio;
 @property (nonatomic, strong) OCSParamControl *control;
 @property (nonatomic, strong) OCSParam *output;

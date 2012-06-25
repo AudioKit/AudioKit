@@ -7,13 +7,12 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSAssignment : OCSOpcode {
-    OCSParam *input;
-    OCSParam *output;
-}
+/// Simply a wrapper for the equal sign
+@interface OCSAssignment : OCSOpcode 
 
 @property (nonatomic, strong) OCSParam *output;
 
+/// Initialization Statement
 - (id)initWithInput:(OCSParam *)in;
 
 @end

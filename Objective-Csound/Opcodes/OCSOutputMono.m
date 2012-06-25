@@ -7,16 +7,21 @@
 
 #import "OCSOutputMono.h"
 
+@interface OCSOutputMono (){
+    OCSParam *input;
+}
+@end
+
 @implementation OCSOutputMono
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:@"out %@\n", input];
 }
 
-- (id)initWithInput:(OCSParam *) i {
+- (id)initWithInput:(OCSParam *) monoSignal {
     self = [super init];
     if (self) {
-        input = i;
+        input = monoSignal;
     }
     return self; 
 }
