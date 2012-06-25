@@ -4,19 +4,27 @@
 //  Created by Aurelius Prochazka on 5/30/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-// OCSOrchestra is a collection of instruments.  
 
 @class OCSInstrument;
 @class OCSUserDefinedOpcode;
 
-@interface OCSOrchestra : NSObject {
-    NSMutableArray *instruments;
-    NSMutableArray *myUDOs;
-}
+/**OCSOrchestra is a collection of instruments and  handles all of the 
+ CSD file creation tasks for the CSDManager.
+ */
+@interface OCSOrchestra : NSObject 
+
+/// All the instruments in the orchestra, in order they need to be created.
 @property (nonatomic, strong) NSMutableArray *instruments;
 
-- (void)addInstrument:(OCSInstrument *)instrument;
-- (void)addUDO:(OCSUserDefinedOpcode *)udo;
+/// Adds an instrument to orchestra and informs the instrument which orchestra it now belongs to.
+/// @param newInstrument Instrument that will be added to the orchestra.
+- (void)addInstrument:(OCSInstrument *)newInstrument;
+
+/// Adds the UDO to a set of required UDOs for the entire orchestra.
+/// @param newUserDefinedOpcode UDO to add to the orchestra.
+- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode;
+
+/// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;
 
 @end

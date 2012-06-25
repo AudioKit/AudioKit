@@ -10,11 +10,11 @@
 
 @implementation OCSExponentialCurvesTable
 
-- (id)initWithSize:(int)size ValueLengthPairs:(OCSParamArray *)valuesAndLengths
+- (id)initWithSize:(int)tableSize ValueLengthPairs:(OCSParamArray *)valueLengthPairs
 {
-    return [self initWithSize:size 
+    return [self initWithSize:tableSize 
                    GenRoutine:kGenExponentialCurves 
-                   Parameters:[valuesAndLengths parameterString]];
+                   Parameters:[valueLengthPairs parameterString]];
 }
 
 @end

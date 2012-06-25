@@ -8,6 +8,12 @@
 #import "OCSOrchestra.h"
 #import "OCSInstrument.h"
 
+@interface OCSOrchestra () {
+    NSMutableArray *instruments;
+    NSMutableArray *myUDOs;
+}
+@end
+
 @implementation OCSOrchestra
 
 @synthesize instruments;
@@ -21,13 +27,13 @@
     return self; 
 }
 
-- (void)addInstrument:(OCSInstrument *) instrument {
-    [instruments addObject:instrument];
-    [instrument joinOrchestra:self];
+- (void)addInstrument:(OCSInstrument *)newInstrument {
+    [instruments addObject:newInstrument];
+    [newInstrument joinOrchestra:self];
 }
 
-- (void)addUDO:(OCSUserDefinedOpcode *) udo {
-    [myUDOs addObject:udo];
+- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
+    [myUDOs addObject:newUserDefinedOpcode];
 }
 
 
@@ -39,7 +45,7 @@
     for ( OCSInstrument *i in instruments) {
         
         [s appendString:@";UDOs\n"];
-        for (OCSUserDefinedOpcode *u in [i myUDOs]) {
+        for (OCSUserDefinedOpcode *u in [i userDefinedOpcodes]) {
             //[s appendFormat:@"#include \"%@\"", [u myUDOFile]];  //Would be nice but it crashes Csound
             [s appendString:@"\n\n\n"];     
             [s appendString:[[NSString alloc] initWithContentsOfFile:[u udoFile]  
@@ -51,7 +57,7 @@
 
         
         [s appendFormat:@"instr %@\n", [i uniqueName]];
-        [s appendString:[NSString stringWithFormat:@"%@",[i csdRepresentation]]];
+        [s appendString:[NSString stringWithFormat:@"%@",[i stringForCSD]]];
         [s appendString:@"endin\n\n"];
     }
     

@@ -41,7 +41,7 @@ typedef enum {
 
 @interface UDOMSROscillator : OCSUserDefinedOpcode 
 
-/** The output is the audio signal. */
+/// The output is the audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
 /** Instantiates the user-defined opcode for Michael Rempel's Oscillator.

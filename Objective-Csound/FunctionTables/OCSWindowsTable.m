@@ -11,18 +11,20 @@
 @implementation OCSWindowsTable
 //normalized to one version
 
-- (id)initWithSize:(int)size WindowType:(WindowType)window MaxValue:(int)max
+- (id)initWithSize:(int)tableSize 
+        WindowType:(WindowType)windowType 
+          MaxValue:(int)maximumValue
 {
-    return [self initWithSize:size 
+    return [self initWithSize:tableSize 
                    GenRoutine:(kGenWindows *-1) 
-                   Parameters:[NSString stringWithFormat:@"%d %d", window, max]];
+                   Parameters:[NSString stringWithFormat:@"%d %d", windowType, maximumValue]];
 }
 
-- (id)initWithSize:(int)size WindowType:(WindowType)window
+- (id)initWithSize:(int)tableSize WindowType:(WindowType)windowType
 {
-    return [self initWithSize:size 
+    return [self initWithSize:tableSize 
                    GenRoutine:kGenWindows
-                   Parameters:[NSString stringWithFormat:@"%d", window]];
+                   Parameters:[NSString stringWithFormat:@"%d", windowType]];
 }
 
 @end

@@ -9,17 +9,15 @@
 
 @implementation OCSSoundFileTable
 
-- (id)initWithFilename:(NSString *)file {
-    parameters = [NSString stringWithFormat:@"\"%@\", 0, 0, 0", file];
+- (id)initWithFilename:(NSString *)filename {
     return [super initWithSize:0 
                     GenRoutine:kGenSoundFile 
-                    Parameters:parameters];
+                    Parameters:[NSString stringWithFormat:@"\"%@\", 0, 0, 0", filename]];
 }
 
-- (id)initWithFilename:(NSString *)file TableSize:(int)size {
-    parameters = [NSString stringWithFormat:@"\"%@\", 0, 0, 0", file];
-    return [super initWithSize:size 
+- (id)initWithFilename:(NSString *)filename TableSize:(int)tableSize {
+    return [super initWithSize:tableSize 
                     GenRoutine:kGenSoundFile 
-                    Parameters:parameters];
+                    Parameters:[NSString stringWithFormat:@"\"%@\", 0, 0, 0", filename]];
 }
 @end
