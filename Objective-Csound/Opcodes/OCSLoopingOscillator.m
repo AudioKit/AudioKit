@@ -7,6 +7,16 @@
 
 #import "OCSLoopingOscillator.h"
 
+@interface OCSLoopingOscillator () {
+    OCSParam *output1;
+    OCSParam *output2;
+    OCSParam *amp;
+    OCSParam *freqMultiplier;
+    OCSParamConstant *baseFrequency;
+    OCSSoundFileTable *soundFileTable;
+}
+@end
+
 @implementation OCSLoopingOscillator
 
 @synthesize output1, output2;
@@ -14,28 +24,28 @@
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable 
                               Amplitude:[OCSParamConstant paramWithInt:1]
-                              Frequency:[OCSParamConstant paramWithInt:1]];
+                    FrequencyMultiplier:[OCSParamConstant paramWithInt:1]];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
-                   Amplitude:(OCSParam *)amp 
+                   Amplitude:(OCSParam *)amplitude
 {
     return [self initWithSoundFileTable:fileTable 
-                              Amplitude:amp
-                              Frequency:[OCSParamConstant paramWithInt:1]];
+                              Amplitude:amplitude
+                    FrequencyMultiplier:[OCSParamConstant paramWithInt:1]];
 }
 
-- (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
-                   Amplitude:(OCSParam *)amp
-                   Frequency:(OCSParamControl *)freq
+- (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
+                   Amplitude:(OCSParam *)amplitude
+         FrequencyMultiplier:(OCSParamControl *)frequencyMultiplier
 {
     self = [super init];
     if (self) {
         output1 = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"1L"]];
         output2 = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"2R"]];
         soundFileTable = fileTable;
-        amplitude = amp;
-        frequency = freq;
+        amp = amplitude;
+        freqMultiplier = frequencyMultiplier;
         baseFrequency = [OCSParamConstant paramWithInt:1];
     }
     return self;
@@ -46,7 +56,7 @@
     //ar1 [,ar2] loscil3 xamp, kcps, ifn [, ibas] [, imod1] [, ibeg1] [, iend1] [, imod2] [, ibeg2] [, iend2]
     return [NSString stringWithFormat:
             @"%@ loscil3 %@, %@, %@, %@\n",
-            output1, amplitude, frequency, soundFileTable, baseFrequency];
+            output1, amp, freqMultiplier, soundFileTable, baseFrequency];
 }
 
 @end

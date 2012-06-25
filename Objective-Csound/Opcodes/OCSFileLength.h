@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) OCSParam *output;
 
+/// Initialization Statement
 - (id)initWithInput:(OCSFunctionTable *)in;
 
 @end

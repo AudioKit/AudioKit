@@ -16,58 +16,58 @@
     return self;
 }
 
-- (id)initWithString:(NSString *)aString
+- (id)initWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
         type = @"gi";
-        parameterString = [NSString stringWithFormat:@"%@%@%i", type, aString, _myID];
+        parameterString = [NSString stringWithFormat:@"%@%@%i", type, name, _myID];
     }
     return self;
 }
 
-- (id)initWithFloat:(float)aFloat
+- (id)initWithFloat:(float)value
 {
     self = [super init];
     if (self) {
         type = @"gi";
-        parameterString = [NSString stringWithFormat:@"%f", aFloat];
+        parameterString = [NSString stringWithFormat:@"%f", value];
     }
     return self;
 }
-- (id)initWithInt:(int)someInt
+- (id)initWithInt:(int)value
 {
     self = [super init];
     if (self) {
         type = @"gi";
-        parameterString = [NSString stringWithFormat:@"%d", someInt];
+        parameterString = [NSString stringWithFormat:@"%d", value];
     }
     return self;
 }
 
 
-- (id)initWithPValue:(int)somePValue
+- (id)initWithPValue:(int)p
 {
     self = [super init];
     if (self) {
         type = @"gi";
-        parameterString = [NSString stringWithFormat:@"p%i", somePValue];
+        parameterString = [NSString stringWithFormat:@"p%i", p];
     }
     return self;
 }
 
-+(id)paramWithFloat:(float)aFloat
++(id)paramWithFloat:(float)value
 {
-    return [[self alloc] initWithFloat:aFloat];
+    return [[self alloc] initWithFloat:value];
 }
-+(id)paramWithInt:(int)someInt
++(id)paramWithInt:(int)value
 {
-    return [[self alloc] initWithInt:someInt];
+    return [[self alloc] initWithInt:value];
 }
-+(id)paramWithPValue:(int)somePValue
++(id)paramWithPValue:(int)p
 {
     // AOP Will need to do this better
-    return [[self alloc] initWithPValue:somePValue];
+    return [[self alloc] initWithPValue:p];
 }
 
 

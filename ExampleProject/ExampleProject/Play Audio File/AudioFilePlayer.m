@@ -17,13 +17,21 @@
     self = [super init];
     if (self) {
         
+        // INPUTS AND CONTROLS =================================================
+        
+        frequencyMultiplier = [[OCSProperty alloc] init];
+        [frequencyMultiplier setConstant:[OCSParamConstant paramWithString:@"FrequencyMultiplier"]]; 
+        [self addProperty:frequencyMultiplier];
+        
         // INSTRUMENT DEFINITION ===============================================
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
         OCSSoundFileTable * fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fileTable];
         
-        OCSLoopingOscillator * trigger = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        OCSLoopingOscillator * trigger = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
+                                                                                    Amplitude:ocsp(1.0)
+                                                                          FrequencyMultiplier:[frequencyMultiplier constant]];
         [self addOpcode:trigger];
         
         OCSReverb * reverb = [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
@@ -43,5 +51,11 @@
 - (void)play {
     [self playNoteForDuration:3.0f];
 }
+
+- (void)playWithFrequencyMultiplier:(float)freqMutiplier {
+    frequencyMultiplier.value = freqMutiplier;
+    [self playNoteForDuration:3.0f];
+}
+
 
 @end

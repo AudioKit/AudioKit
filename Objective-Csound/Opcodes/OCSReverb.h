@@ -22,10 +22,12 @@
 @property (nonatomic, strong) OCSParam *outputLeft;
 @property (nonatomic, strong) OCSParam *outputRight;
 
+/// Initialization Statement
 - (id)initWithMonoInput:(OCSParam *) in
           FeedbackLevel:(OCSParamControl *) feedback
         CutoffFrequency:(OCSParamControl *) cutoff;
 
+/// Initialization Statement
 - (id)initWithInputLeft:(OCSParam *) inLeft
              InputRight:(OCSParam *) inRight
           FeedbackLevel:(OCSParamControl *) feedback

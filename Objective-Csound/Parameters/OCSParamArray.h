@@ -7,17 +7,21 @@
 
 #import "OCSParamConstant.h"
 
+/// Am array of OCSParam variables
 @interface OCSParamArray : NSObject
-{
-    NSMutableArray *params;
-    NSString *parameterString;
-    NSUInteger count;
-    float      numbers[0];
-}
-@property (nonatomic, strong) NSString *parameterString;
-@property (readonly) NSUInteger count;
 
+/// CSD Textual representation of the parameter's name.
+@property (nonatomic, strong) NSString *parameterString;
+
+
+/// Using an array of floats to automatically create an array of OCSParams
+/// @param numbers The array floats to be converted.
+/// @param count   The size of the floating point numbers array.
 + (id)paramArrayFromFloats:(float *)numbers count:(NSUInteger)count;
+
+/// Explicitly using a nil-terminated list of OCSParams to create the array
+/// @param firstParam At least one OCSParamConstant is required
+/// @param ...        Terminate list with a nil.
 + (id)paramArrayFromParams:(OCSParamConstant *) firstParam, ...;
-//- (void)addParam:(OCSParam *) p;
+
 @end

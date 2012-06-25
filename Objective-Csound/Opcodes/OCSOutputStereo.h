@@ -13,7 +13,10 @@
     OCSParam *inputRight;
 }
 
+/// Initialization Statement
 - (id)initWithMonoInput:(OCSParam *) in;
+
+/// Initialization Statement
 - (id)initWithInputLeft:(OCSParam *) inLeft
              InputRight:(OCSParam *) inRight;
 

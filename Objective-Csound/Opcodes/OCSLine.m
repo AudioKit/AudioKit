@@ -7,6 +7,11 @@
 
 #import "OCSLine.h"
 
+@interface OCSLine () {
+    OCSParamControl *output;
+}
+@end
+
 @implementation OCSLine
 
 @synthesize output;

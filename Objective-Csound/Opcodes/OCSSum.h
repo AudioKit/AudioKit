@@ -7,13 +7,14 @@
 
 #import "OCSOpcode.h"
 
-@interface OCSSum : OCSOpcode {
-    NSMutableArray *inputs;
-    OCSParam *output;
-}
+/// Sums any number of a-rate signals.
+@interface OCSSum : OCSOpcode 
 
 @property (nonatomic, strong) OCSParam *output;
 
+/// Create a new signal as a sume of given signals.
+/// @param firstInput At least one input is required
+/// @param ...        End the list with a nil.
 - (id)initWithInputs:(OCSParam *)firstInput,...;
 
 @end

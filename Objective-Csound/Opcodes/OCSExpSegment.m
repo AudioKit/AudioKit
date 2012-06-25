@@ -1,12 +1,21 @@
 //
 //  OCSExpSegment.m
-//  ExampleProject
 //
 //  Created by Adam Boulanger on 6/21/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "OCSExpSegment.h"
+
+@interface OCSExpSegment () {
+    OCSParamConstant *firstSegmentStartValue;
+    OCSParamConstant *firstSegmentDuration;
+    OCSParamConstant *firstSegmentTargetValue;
+    OCSParamArray *segmentArray;
+    
+    OCSParamControl *output;
+}
+@end
 
 @implementation OCSExpSegment
 @synthesize output;

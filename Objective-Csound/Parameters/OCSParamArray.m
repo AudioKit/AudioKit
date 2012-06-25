@@ -7,9 +7,16 @@
 
 #import "OCSParamArray.h"
 
+@interface OCSParamArray () {
+    NSMutableArray *params;
+    NSString *parameterString;
+    NSUInteger count;
+    float      numbers[0];
+}
+@end
+
 @implementation OCSParamArray
 @synthesize parameterString;
-@synthesize count;
 
 - (id)init 
 {
