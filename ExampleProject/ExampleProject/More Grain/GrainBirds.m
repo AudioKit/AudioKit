@@ -113,8 +113,9 @@
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [OCSParam paramWithString:@"ButterLpOutput"];
-        [self assignOutput:auxilliaryOutput To:[butterlp output]];
+        auxilliaryOutput = [OCSParam paramWithString:@"ToReverb"];
+        [self assignOutput:auxilliaryOutput To:[OCSParam paramWithFormat:@"%@ + (%@ * %@)",
+         auxilliaryOutput, [butterlp output], [reverbSend constant]]];
         
     }
     return self;
