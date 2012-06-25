@@ -8,28 +8,41 @@
 
 #import "UDOCsGrainCompressor.h"
 
+
+@interface UDOCsGrainCompressor () {
+    OCSParam *outputLeft;
+    OCSParam *outputRight;
+    OCSParam *inputLeft;
+    OCSParam *inputRight;
+    OCSParamControl *threshold;
+    OCSParamControl *ratio;
+    OCSParamControl *attackTime;
+    OCSParamControl *releaseTime;
+}
+@end
+
 @implementation UDOCsGrainCompressor
 
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithInputLeft:(OCSParam *)inL
-             InputRight:(OCSParam *)inR
-              Threshold:(OCSParamControl *)thr
-                  Ratio:(OCSParamControl *)rat 
-                 Attack:(OCSParamControl *)atk
-                Release:(OCSParamControl *)rel
+- (id)initWithInputLeft:(OCSParam *)leftInput
+             InputRight:(OCSParam *)rightInput
+            ThresholdDB:(OCSParamControl *)dBThreshold
+                  Ratio:(OCSParamControl *)compressionRatio
+             AttackTime:(OCSParamControl *)attackTimeInSeconds
+            ReleaseTime:(OCSParamControl *)releaseTimeInSeconds;
 {
     self = [super init];
     if (self) {
         outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
         outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        inputLeft   = inL;
-        inputRight  = inR;
-        threshold   = thr;
-        ratio       = rat;
-        attack      = atk;
-        release     = rel;
+        inputLeft   = leftInput;
+        inputRight  = rightInput;
+        threshold   = dBThreshold;
+        ratio       = compressionRatio;
+        attackTime  = attackTimeInSeconds;
+        releaseTime = releaseTimeInSeconds;
     }
     return self; 
 }
@@ -42,7 +55,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ Compressor %@, %@, %@, %@, %@, %@\n",
-            outputLeft, outputRight, inputLeft, inputRight, threshold, ratio, attack, release];
+            outputLeft, outputRight, inputLeft, inputRight, threshold, ratio, attackTime, releaseTime];
 }
 
 
