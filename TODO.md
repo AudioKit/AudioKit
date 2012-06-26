@@ -1,4 +1,5 @@
-TODO:
+TO DO
+=====
 
 * Consider signal as a term to use for audio rate stuff? 
 * Make play events NSLog from within the instrument.
@@ -12,7 +13,8 @@ TODO:
   is readability.
 
 
-ALWAYS MORE:
+ALWAYS MORE
+===========
 
 * More complete implementations of opcodes
 * More Opcodes (fix up OCSPluck)
@@ -20,7 +22,8 @@ ALWAYS MORE:
 * More UDOs
 * More Examples
 
-NOTES:
+NOTES
+=====
 
 * Consider units and rates in opcodes and properties
 * OCSPropertyManager also contains MidiIn methods which aren't used and probably won't stay in 
