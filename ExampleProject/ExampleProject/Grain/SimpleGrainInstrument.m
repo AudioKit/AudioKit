@@ -47,39 +47,42 @@
         
         OCSParamConstant *baseFrequency  = [OCSParamConstant paramWithFormat:@"44100 / %@", fileLength];
         OCSParamConstant *finalFrequency = [OCSParamConstant paramWithFormat:@"0.8 * (%@)", baseFrequency];
-        OCSLine * pitchLine = [[OCSLine alloc] initWithStartingValue:baseFrequency
-                                                            Duration:duration 
-                                                         TargetValue:finalFrequency];
+        OCSLine * pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
+                                                     ToValue:finalFrequency
+                                                    Duration:duration];
         [self addOpcode:pitchLine];
         
-        OCSLine *grainDensityLine = [[OCSLine alloc] initWithStartingValue:ocsp(600)
-                                                                  Duration:duration 
-                                                               TargetValue:ocsp(300)];
+        OCSLine *grainDensityLine = [[OCSLine alloc] initFromValue:ocsp(600)
+                                                           ToValue:ocsp(300)
+                                                          Duration:duration];
         [self addOpcode:grainDensityLine];
         
-        OCSLine *ampOffsetLine = [[OCSLine alloc] initWithStartingValue:ocsp(0)
-                                                               Duration:duration 
-                                                            TargetValue:ocsp(0.1)];
+        OCSLine *ampOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
+                                                        ToValue:ocsp(0.1)
+                                                       Duration:duration];
+        [ampOffsetLine setOutput:[ampOffsetLine control]];
         [self addOpcode:ampOffsetLine];
         
         
         OCSParamConstant *finalPitchOffset = [OCSParamConstant paramWithFormat:@"0.5 * (%@)", baseFrequency];
-        OCSLine *pitchOffsetLine = [[OCSLine alloc] initWithStartingValue:ocsp(0)
-                                                                 Duration:duration 
-                                                              TargetValue:finalPitchOffset];
+        OCSLine *pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
+                                                          ToValue:finalPitchOffset
+                                                         Duration:duration ];
+        [pitchOffsetLine setOutput:[pitchOffsetLine control]];
         [self addOpcode:pitchOffsetLine];   
         
-        OCSLine *grainDurationLine = [[OCSLine alloc] initWithStartingValue:ocsp(0.1)
-                                                                   Duration:duration 
-                                                                TargetValue:ocsp(0.1)];
+        OCSLine *grainDurationLine = [[OCSLine alloc] initFromValue:ocsp(0.1)
+                                                            ToValue:ocsp(0.1)
+                                                           Duration:duration];
+        [grainDurationLine setOutput:[grainDurationLine control]];
         [self addOpcode:grainDurationLine];
         
         OCSGrain *grainL = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 
                                                          Pitch:[pitchLine output]
                                                   GrainDensity:[grainDensityLine output]
-                                               AmplitudeOffset:[ampOffsetLine output]
-                                                   PitchOffset:[pitchOffsetLine output] 
-                                                 GrainDuration:[grainDurationLine output]  
+                                               AmplitudeOffset:[ampOffsetLine control]
+                                                   PitchOffset:[pitchOffsetLine control] 
+                                                 GrainDuration:[grainDurationLine control]  
                                               MaxGrainDuration:ocsp(5)
                                                  GrainFunction:fileTable 
                                                 WindowFunction:hamming 
@@ -89,10 +92,10 @@
         OCSGrain *grainR = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 
                                                          Pitch:[pitchLine output]
                                                   GrainDensity:[grainDensityLine output]
-                                               AmplitudeOffset:[ampOffsetLine output]
-                                                   PitchOffset:[pitchOffsetLine output] 
-                                                 GrainDuration:[grainDurationLine output]  
-                                              MaxGrainDuration:ocsp(5) 
+                                               AmplitudeOffset:[ampOffsetLine control]
+                                                   PitchOffset:[pitchOffsetLine control] 
+                                                 GrainDuration:[grainDurationLine control]  
+                                              MaxGrainDuration:ocsp(6) 
                                                  GrainFunction:fileTable 
                                                 WindowFunction:hamming 
                                     IsRandomGrainFunctionIndex:NO];

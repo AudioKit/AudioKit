@@ -11,6 +11,11 @@
 #import "OCSReverb.h"
 #import "OCSOutputStereo.h"
 
+@interface AudioFilePlayer () {
+    OCSProperty *frequencyMultiplier;
+}
+@end
+
 @implementation AudioFilePlayer
 
 - (id)init {

@@ -8,12 +8,8 @@
 
 #import "OCSInstrument.h"
 
-@interface AudioFilePlayer : OCSInstrument {
-    OCSProperty *frequencyMultiplier;
-}
+@interface AudioFilePlayer : OCSInstrument
 
-
-- (id)init;
 - (void)play;
 - (void)playWithFrequencyMultiplier:(float)freqMutiplier;
 

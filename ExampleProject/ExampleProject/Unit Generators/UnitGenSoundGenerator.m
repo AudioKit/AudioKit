@@ -29,9 +29,9 @@
                                                      PartialStrengths:partialStrengths];
         [self addFunctionTable:sineTable];
         
-        OCSLine *myLine = [[OCSLine alloc] initWithStartingValue:ocsp(0.5) 
-                                                        Duration:duration 
-                                                     TargetValue:ocsp(1.5)];
+        OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
+                                                 ToValue:ocsp(1.5)
+                                                Duration:duration];
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line

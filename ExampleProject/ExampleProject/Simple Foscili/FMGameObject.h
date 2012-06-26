@@ -12,12 +12,7 @@
 
 #import "OCSInstrument.h"
 
-@interface FMGameObject : OCSInstrument {
-    OCSProperty *amplitude;
-    OCSProperty *frequency;
-}
-@property (nonatomic, strong) OCSProperty *frequency;
-@property (nonatomic, strong) OCSProperty *modulation;
+@interface FMGameObject : OCSInstrument 
 
 - (void)playNoteForDuration:(float)dur 
                   Frequency:(float)freq 

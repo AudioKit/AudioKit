@@ -6,15 +6,11 @@
 //
 
 #import "OCSOpcode.h"
-#import "OCSParamConstant.h"
 
 /**
- Trace a straight line between specified points
- 
- Unlike several other linear and exponential generators OCSLine 
- does not hold the final value of "ib" if "idur" is shorter than the 
- not duration.  Rather, it will continue ramping at the previously calculated
- rate until the note ends.
+ Creates a line that extends from a starting to a second point over the given 
+ time duration.  After that duration, the line continues at the same slope until
+ the note event ends.  Can be an audio signal or control rate parameter.
  
  CSD Representation:
  
@@ -24,15 +20,23 @@
 
 @interface OCSLine : OCSOpcode
 
-@property (nonatomic, strong) OCSParamControl  *output;
-@property (nonatomic, strong) OCSParamConstant *startingValue;
-@property (nonatomic, strong) OCSParamConstant *duration;
-@property (nonatomic, strong) OCSParamConstant *targetValue;
+/// This is the audio signal.
+@property (nonatomic, strong) OCSParam *audio;
 
-/// Initialization Statement
-- (id)initWithStartingValue:(OCSParamConstant *) start
-                  Duration:(OCSParamConstant *) dur
-               TargetValue:(OCSParamConstant *) targ;
+/// This is the control parameter.
+@property (nonatomic, strong) OCSParamControl *control;
+
+/// The output is the audio signal or the control.
+@property (nonatomic, strong) OCSParam *output;
+
+/// Initialize a linear transition from one value to another over specified time.
+/// @param startingValue Value to start the line from.
+/// @param endingValue   Value to end the line at.
+/// @param duration      Duration of linear transition in seconds.
+/// @return An opcode to perform a linear transition over a given duration.
+- (id)initFromValue:(OCSParamConstant *)startingValue
+            ToValue:(OCSParamConstant *)endingValue
+           Duration:(OCSParamConstant *)duration;
     
 
 @end

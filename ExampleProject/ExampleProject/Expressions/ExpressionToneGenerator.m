@@ -12,8 +12,12 @@
 #import "OCSLine.h"
 #import "OCSOutputStereo.h"
 
+@interface ExpressionToneGenerator () {
+    OCSProperty *frequency;
+}
+@end
+
 @implementation ExpressionToneGenerator
-@synthesize frequency;
 
 - (id)init
 {
@@ -46,17 +50,16 @@
         
         OCSParamConstant * amplitudeOffset = ocsp(0.1);
         
-        OCSLine * amplitudeRamp = [[OCSLine alloc] initWithStartingValue:ocsp(0) 
-                                                                Duration:duration
-                                                             TargetValue:ocsp(0.2)];
+        OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
+                                                         ToValue:ocsp(0.2)
+                                                        Duration:duration];
         [self addOpcode:amplitudeRamp];
         
         OCSParamControl * totalAmplitude = [OCSParamControl paramWithFormat:
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
-        OCSOscillator * myOscillator = [[OCSOscillator alloc] 
-                                        initWithAmplitude:totalAmplitude
-                                                Frequency:vibrato
-                                            FunctionTable:sineTable];
+        OCSOscillator * myOscillator = [[OCSOscillator alloc]  initWithAmplitude:totalAmplitude
+                                                                       Frequency:vibrato
+                                                                   FunctionTable:sineTable];
         [self addOpcode:myOscillator];
         
         // AUDIO OUTPUT ========================================================

@@ -17,8 +17,8 @@
 @property (nonatomic, strong) OCSParamControl *control;
 @property (nonatomic, strong) OCSParam *output;
 
-- (id)initWithAmplitude:(OCSParam *) amp 
-              Frequency:(OCSParam *) freq
-          FunctionTable:(OCSFunctionTable *) f;
+- (id)initWithAmplitude:(OCSParam *)amp 
+              Frequency:(OCSParam *)freq
+          FunctionTable:(OCSFunctionTable *)f;
 
 @end

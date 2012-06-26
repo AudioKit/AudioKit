@@ -8,11 +8,7 @@
 
 #import "OCSInstrument.h"
 
-@interface SoundGenerator : OCSInstrument {
-    OCSProperty *frequency;
-}
-
-@property (nonatomic, strong) OCSProperty *frequency;
+@interface SoundGenerator : OCSInstrument
 
 - (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 

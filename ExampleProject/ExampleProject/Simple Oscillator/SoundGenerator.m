@@ -15,9 +15,12 @@
 #import "OCSReverb.h"
 #import "OCSOutputStereo.h"
 
-@implementation SoundGenerator
+@interface SoundGenerator () {
+    OCSProperty *frequency;
+}
+@end
 
-@synthesize frequency;
+@implementation SoundGenerator
 
 - (id)init {
     self = [super init];
