@@ -11,10 +11,14 @@
 #import "OCSFoscili.h"
 #import "OCSOutputStereo.h"
 
-@implementation FMGameObject
+@interface FMGameObject () {
+    OCSProperty *amplitude;
+    OCSProperty *frequency;
+    OCSProperty *modulation;
+}
+@end
 
-@synthesize frequency;
-@synthesize modulation;
+@implementation FMGameObject
 
 - (id)init {
     self = [super init];

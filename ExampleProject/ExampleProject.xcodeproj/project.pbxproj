@@ -114,6 +114,8 @@
 		C4C67D16158D63A100F3CB8E /* OCSSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C67D15158D63A100F3CB8E /* OCSSoundFileTable.m */; };
 		C4C987541582E00A00F1DB9A /* OCSParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987501582DFFA00F1DB9A /* OCSParam.m */; };
 		C4C987551582E00A00F1DB9A /* OCSParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C987521582DFFA00F1DB9A /* OCSParamArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4CB79D115994AC300E0C71F /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = C4CB79D015994AC300E0C71F /* TODO.md */; };
+		C4CB79D415994BBD00E0C71F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C4CB79D315994BBD00E0C71F /* README.md */; };
 		C4E9055C1594525C0055B609 /* ox-icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E9055B1594525C0055B609 /* ox-icon-72.png */; };
 		C4E9055E159452640055B609 /* ox-icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E9055D159452640055B609 /* ox-icon-144.png */; };
 		C4E90560159454870055B609 /* ox.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E9055F159454870055B609 /* ox.png */; };
@@ -334,6 +336,8 @@
 		C4C987501582DFFA00F1DB9A /* OCSParam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSParam.m; sourceTree = "<group>"; };
 		C4C987511582DFFA00F1DB9A /* OCSParamArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCSParamArray.h; sourceTree = "<group>"; };
 		C4C987521582DFFA00F1DB9A /* OCSParamArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSParamArray.m; sourceTree = "<group>"; };
+		C4CB79D015994AC300E0C71F /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
+		C4CB79D315994BBD00E0C71F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		C4E9055B1594525C0055B609 /* ox-icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-72.png"; path = "../ox-icon-72.png"; sourceTree = "<group>"; };
 		C4E9055D159452640055B609 /* ox-icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-144.png"; path = "../ox-icon-144.png"; sourceTree = "<group>"; };
 		C4E9055F159454870055B609 /* ox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ox.png; sourceTree = "<group>"; };
@@ -795,6 +799,8 @@
 			isa = PBXGroup;
 			children = (
 				C43553D015805CA60074764A /* README.md */,
+				C4CB79D015994AC300E0C71F /* TODO.md */,
+				C4CB79D215994BBD00E0C71F /* Documentation */,
 				C46EB3F01592D6BE005807A2 /* Core Classes */,
 				C43553CE15804D310074764A /* FunctionTables */,
 				C4C5520D1577028C005F7EE4 /* Opcodes */,
@@ -867,6 +873,15 @@
 				C495F745158344CD00951461 /* OscillatorViewController.xib */,
 			);
 			name = "Simple Oscillator";
+			sourceTree = "<group>";
+		};
+		C4CB79D215994BBD00E0C71F /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB79D315994BBD00E0C71F /* README.md */,
+			);
+			name = Documentation;
+			path = ../doc;
 			sourceTree = "<group>";
 		};
 		C4FE85B01583FF1F00902E07 /* Reverb */ = {
@@ -961,6 +976,8 @@
 				C43908D71597082A001FC007 /* msrOsc.udo in Resources */,
 				C43908DF159708C4001FC007 /* CsGrainCompressor.udo in Resources */,
 				C43908E31597091F001FC007 /* CsGrainPitchShifter.udo in Resources */,
+				C4CB79D115994AC300E0C71F /* TODO.md in Resources */,
+				C4CB79D415994BBD00E0C71F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

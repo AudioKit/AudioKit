@@ -8,36 +8,43 @@
 #import "OCSLine.h"
 
 @interface OCSLine () {
-    OCSParamControl *output;
+    OCSParam *audio;
+    OCSParamControl *control;
+    OCSParam *output;
+    
+    OCSParamConstant *start;
+    OCSParamConstant *end;
+    OCSParamConstant *dur;
 }
 @end
 
 @implementation OCSLine
 
+@synthesize audio;
+@synthesize control;
 @synthesize output;
-@synthesize startingValue;
-@synthesize duration;
-@synthesize targetValue;
 
-- (id)initWithStartingValue:(OCSParamConstant *) start
-                  Duration:(OCSParamConstant *) dur
-               TargetValue:(OCSParamConstant *) targ
+- (id)initFromValue:(OCSParamConstant *)startingValue
+            ToValue:(OCSParamConstant *)endingValue
+           Duration:(OCSParamConstant *)duration
 {
     self = [super init];
 
     if (self) {
-        output = [OCSParamControl paramWithString:[self opcodeName]];
-        startingValue   = start;
-        duration        = dur;
-        targetValue     = targ;
+        audio   = [OCSParam paramWithString:[self opcodeName]];
+        control = [OCSParamControl paramWithString:[self opcodeName]];
+        output  =  audio;
+        
+        start = startingValue;
+        end = endingValue;
+        dur = duration;
     }
     return self; 
 }
 
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", 
-            output, startingValue, duration, targetValue];
+    return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", output, start, dur, end];
 }
 
 - (NSString *)description {
