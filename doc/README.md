@@ -24,14 +24,19 @@ Since appledoc uses file comments to generate the documentation, engaging in goo
 
 #### Default top-of-file comments
 The default Apple comments are fine, except that the project name should be replaced with "Objective-Csound".
+
 #### Import lines
 Only import what is necessary for the .h file to run, not everything that the implementation file may need.
+
 ##### Description Comment
 The paragraph of this first comment block defines the *Abstract* in Apple Quick Help.  This paragraph plus the rest defines the *Overview* section of the class reference document.
+
 #### Instance variables
 Avoid declaring instance variables in the header file unless necessary for subclasses.
+
 #### Properties
 Properties should be commented with the appledoc standard.  Property names should be descriptive.  
+
 #### Methods
 Methods should also be fully commented to the appledoc standard which includes @param lines for every parameter sent to the method.  These parameters should be named very similarly to the method signature text that precedes them so that the display from Quick Help is clear.  
 
