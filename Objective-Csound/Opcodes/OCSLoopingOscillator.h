@@ -38,6 +38,7 @@
 
 @interface OCSLoopingOscillator : OCSOpcode
 
+///
 @property (nonatomic, strong) OCSParam *output1;
 @property (nonatomic, strong) OCSParam *output2;
 
