@@ -106,10 +106,17 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)writeCSDFileForOrchestra:(OCSOrchestra *) orchestra {
     
+    
     NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %@\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
     NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
+     /*
+    NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = 44100\n0dbfs = 1\nksmps = 256", 
+                        sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
+
     
+    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
+    */
     [newCSD writeToFile:myCSDFile 
              atomically:YES  
                encoding:NSStringEncodingConversionAllowLossy 
