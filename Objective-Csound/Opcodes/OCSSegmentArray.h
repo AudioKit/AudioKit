@@ -42,9 +42,14 @@
 - (void)addNextSegmentTargetValue:(OCSParamConstant *)nextSegmentTargetValue 
                     AfterDuration:(OCSParamConstant *)nextSegmentDuration;
 
+
+/// Adds a release segment.
+/// @param finalValue      Last value to reach, typically zero.
+/// @param releaseDuration Length of time in seconds to get to finalValue.
 - (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
                  AfterDuration:(OCSParamConstant *)releaseDuration;
 
+/// Switches to an exponential segment generating opcode.
 - (void)useExponentialSegments;
 
 
