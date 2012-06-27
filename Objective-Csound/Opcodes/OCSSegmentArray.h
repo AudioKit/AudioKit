@@ -1,5 +1,5 @@
 //
-//  OCSLinearSegmentArray.h
+//  OCSSegmentArray.h
 //
 //  Created by Adam Boulanger on 6/7/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -17,7 +17,7 @@
  http://www.csounds.com/manual/html/linseg.html
  */
 
-@interface OCSLinearSegmentArray : OCSOpcode 
+@interface OCSSegmentArray : OCSOpcode 
 
 /// This is the audio signal.
 @property (nonatomic, strong) OCSParam *audio;
@@ -28,16 +28,6 @@
 /// The output is the audio signal or the control.
 @property (nonatomic, strong) OCSParam *output;
 
-///// Creates a series of linear segments between specicified points.
-///// @param firstSegmentStartValue  Starting value. 
-///// @param firstSegmentTargetValue Value after duration seconds.  
-///// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
-///// @param durationValuePairs      Array in the form "duration, value, duration, value" etc.
-//- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
-//             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
-//                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
-//                  DurationValuePairs:(OCSParamArray *)durationValuePairs;
-
 /// Creates a single linear segment.
 /// @param firstSegmentStartValue  Starting value. 
 /// @param firstSegmentTargetValue Value after firstSegmentDuration seconds. 
@@ -46,7 +36,7 @@
              FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
                 FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration;
 
-/// Adds another linear segment.
+/// Adds another segment.
 /// @param nextSegmentTargetValue Value after nextSegmentDuration seconds. 
 /// @param nextSegmentDuration    Duration in seconds.
 - (void)addNextSegmentTargetValue:(OCSParamConstant *)nextSegmentTargetValue 
@@ -54,5 +44,8 @@
 
 - (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
                  AfterDuration:(OCSParamConstant *)releaseDuration;
+
+- (void)useExponentialSegments;
+
 
 @end
