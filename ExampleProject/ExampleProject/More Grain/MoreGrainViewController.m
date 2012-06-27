@@ -44,6 +44,8 @@
     [[myGrainBirds reverbSend] setValue:0.1];
     
     [[myGrainBirds pitchClass] setValue:10.6f];
+    
+    [self updateSliders];    
     [myGrainBirds playNoteForDuration:0.1];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(playNote1Again:) userInfo:nil repeats:NO];
@@ -61,6 +63,8 @@
     [[myGrainBirds reverbSend] setValue:0.2f];
     
     [[myGrainBirds pitchClass] setValue:11];
+    
+    [self updateSliders];
     [myGrainBirds playNoteForDuration:8];
     
     [timer invalidate];
@@ -80,11 +84,7 @@
     
     [[myGrainBirds pitchClass] setValue:10.6f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:0.1];
     
@@ -97,11 +97,7 @@
     
     [[myGrainBirds pitchClass] setValue:10.6f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:0.1];
     
@@ -123,11 +119,7 @@
     
     [[myGrainBirds pitchClass] setValue:11.2f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:0.1];
     
@@ -150,11 +142,7 @@
     
     [[myGrainBirds pitchClass] setValue:9.46f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:5];
     
@@ -172,11 +160,7 @@
     
     [[myGrainBirds pitchClass] setValue:11.03f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:t];
     [timer invalidate];
@@ -197,6 +181,8 @@
     [[myGrainBirds reverbSend] setValue:0.1];
     
     [[myGrainBirds pitchClass] setValue:10.6f];
+    
+    [self updateSliders];
     [myGrainBirds playNoteForDuration:0.1];
     
     timer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(playNote4Again:) userInfo:nil repeats:NO];
@@ -222,11 +208,7 @@
     
     [[myGrainBirds pitchClass] setValue:11.03f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:5];
     
@@ -246,11 +228,7 @@
     
     [[myGrainBirds pitchClass] setValue:11.06f];
     
-    //Update Sliders
-    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
-    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
-    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
-    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
+    [self updateSliders];
     
     [myGrainBirds playNoteForDuration:5];
     [timer invalidate];
@@ -307,6 +285,14 @@
     
     NSLog(@"sliderVal: %f, pchOffStart: %f",[mySlider value], [[myGrainBirds pitchClass] value]);
 
+}
+
+-(void)updateSliders
+{
+    [grainDurationSlider setValue:[[myGrainBirds grainDuration] value]];
+    [pitchClassSlider setValue:[[myGrainBirds pitchClass] value]];
+    [pitchOffsetStartSlider setValue:[[myGrainBirds pitchOffsetStartValue] value]];
+    [pitchOffsetTargetSlider setValue:[[myGrainBirds pitchOffsetFirstTarget] value]];
 }
 
 @end

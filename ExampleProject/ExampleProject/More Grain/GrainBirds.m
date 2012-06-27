@@ -64,7 +64,7 @@
         [grainDuration setMinimumValue:.0004];
         [grainDuration setMaximumValue:.1];
         
-        [pitchClass setMinimumValue:9.05];
+        [pitchClass setMinimumValue:7.05];
         [pitchClass setMaximumValue:12.05];
         
         [pitchOffsetFirstTarget setMinimumValue:0];
