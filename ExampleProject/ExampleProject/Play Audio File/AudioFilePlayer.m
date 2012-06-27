@@ -59,6 +59,7 @@
 
 - (void)playWithFrequencyMultiplier:(float)freqMutiplier {
     frequencyMultiplier.value = freqMutiplier;
+    NSLog(@"Playing file at %0.2fx original speed", freqMutiplier);
     [self playNoteForDuration:3.0f];
 }
 

@@ -30,26 +30,26 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        UDOMSROscillator * osc  = [[UDOMSROscillator alloc] initWithAmplitude:ocsp(0.2)
+        UDOMSROscillator * osc  = [[UDOMSROscillator alloc] initWithAmplitude:ocsp(0.5)
                                                                     Frequency:[frequency constant]
-                                                                         Type:kMSROscillatorTypeTubeDistortion];
+                                                                         Type:kMSROscillatorTypeTriangle];
         [self addUDO:osc];
         
         UDOCsGrainPitchShifter * ps;
         ps = [[UDOCsGrainPitchShifter alloc] initWithInputLeft:[osc output] 
                                                     InputRight:[osc output] 
-                                                         Pitch:ocsp(0.7) 
+                                                         Pitch:ocsp(2.7) 
                                                OffsetFrequency:ocsp(0) 
-                                                      Feedback:ocsp(0.5)];
+                                                      Feedback:ocsp(0.9)];
         [self addUDO:ps];
         
         UDOCsGrainCompressor * comp;
         comp = [[UDOCsGrainCompressor alloc] initWithInputLeft:[ps outputLeft] 
                                                     InputRight:[ps outputRight] 
-                                                     Threshold:ocsp(-1.0) 
-                                              CompressionRatio:ocsp(2.5) 
-                                                    AttackTime:ocsp(0.01) 
-                                                   ReleaseTime:ocsp(0.1)];
+                                                     Threshold:ocsp(-2.0) 
+                                              CompressionRatio:ocsp(0.5) 
+                                                    AttackTime:ocsp(0.1) 
+                                                   ReleaseTime:ocsp(0.2)];
         [self addUDO:comp];
         
         // AUDIO OUTPUT ========================================================

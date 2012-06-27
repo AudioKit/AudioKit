@@ -22,11 +22,11 @@
 }
 
 - (IBAction)hit1:(id)sender {
-    [udoInstrument playNoteForDuration:3 Frequency:440];
+    [udoInstrument playNoteForDuration:0.5 Frequency:440];
 }
 
 - (IBAction)hit2:(id)sender {
-    [udoInstrument playNoteForDuration:3 Frequency:(arc4random()%200+400)];
+    [udoInstrument playNoteForDuration:0.5 Frequency:(arc4random()%200+400)];
 }
 
 @end
