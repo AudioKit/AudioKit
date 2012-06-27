@@ -24,11 +24,17 @@
     [orch addInstrument:myGrainBirds];
     [orch addInstrument:fx];
     
+    [[OCSManager sharedOCSManager] setZeroDBFullScaleValue:[NSNumber numberWithFloat:1000.0f]];
+    
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    
+    //reset this back to the default
+    [[OCSManager sharedOCSManager] setZeroDBFullScaleValue:[NSNumber numberWithFloat:1.0f]];
 }
 
 -(IBAction)hit1:(id)sender
 {
+    NSLog(@"hit1");
     [[myGrainBirds grainDensity] setValue:12];
     [[myGrainBirds grainDuration] setValue:0.01f];
 
@@ -45,6 +51,7 @@
 
 -(void)playNote1Again:(NSTimer *)aTimer
 {
+    NSLog(@"Playing note 1 again");
     [[myGrainBirds grainDuration] setValue:0.096];
     
     [[myGrainBirds pitchOffsetStartValue] setValue:100];

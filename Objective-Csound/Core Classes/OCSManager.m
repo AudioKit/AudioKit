@@ -15,7 +15,7 @@
     NSString *options;
     int sampleRate;
     int samplesPerControlPeriod;
-    float zeroDBFullScaleValue;
+    NSNumber *zeroDBFullScaleValue;
     NSString *myCSDFile;
     NSString *templateCSDFileContents;
     
@@ -29,6 +29,7 @@
 
 //@synthesize options;
 @synthesize isRunning;
+@synthesize zeroDBFullScaleValue;
 //@synthesize myPropertyManager;
 
 static OCSManager *_sharedOCSManager = nil;
@@ -68,7 +69,7 @@ static OCSManager *_sharedOCSManager = nil;
         sampleRate = 44100;
         samplesPerControlPeriod = 256;
         //int numberOfChannels = 1; //MONO
-        zeroDBFullScaleValue = 1.0f;
+        zeroDBFullScaleValue = [NSNumber numberWithFloat:1.0f];
         
         //Setup File System access
         NSString *templateFile = [[NSBundle mainBundle] pathForResource: @"template" 
@@ -104,7 +105,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)writeCSDFileForOrchestra:(OCSOrchestra *) orchestra {
     
-    NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %f\nksmps = %d", 
+    NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %@\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
     NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
     

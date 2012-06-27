@@ -1,7 +1,6 @@
 TO DO
 =====
 
-* Debug Grain Birds
 * Add the fof opcode
 * Create an example that uses PluckDrum and PluckString
 * Write an audio processor that outputs something to Objective-C

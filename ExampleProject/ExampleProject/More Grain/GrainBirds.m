@@ -10,6 +10,18 @@
 #import "OCSGrain.h"
 #import "OCSAudio.h"
 
+@interface GrainBirds () {
+    OCSProperty *grainDensity;
+    OCSProperty *grainDuration;
+    OCSProperty *pitchClass;
+    OCSProperty *pitchOffsetStartValue;
+    OCSProperty *pitchOffsetFirstTarget;
+    OCSProperty *reverbSend;
+    
+    OCSParam *auxilliaryOutput;
+}
+@end
+
 @implementation GrainBirds
 @synthesize grainDensity;
 @synthesize grainDuration;
@@ -49,7 +61,7 @@
         // FUNCTIONS ===========================================================
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
-        OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file];
+        OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:4096];
         [self addFunctionTable:fiftyHzSine];
         
         OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithSize:4097 WindowType:kWindowHanning];
@@ -100,8 +112,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithMonoInput:[butterlp output]];
-        [self addOpcode:stereoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[butterlp output]];
+        [self addOpcode:audio];
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
