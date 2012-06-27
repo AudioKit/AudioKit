@@ -5,9 +5,6 @@
 //  Created by Aurelius Prochazka on 6/1/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  NOTE: Alternate sineTable definition:
-//  float partialStrengths[] = {1.0f, 0.5f, 1.0f};
-//  OCSParamArray *partialStrengthParamArray = [OCSParamArray paramArrayFromFloats:partialStrengths count:3];
 
 #import "SoundGenerator.h"
 #import "OCSSineTable.h"

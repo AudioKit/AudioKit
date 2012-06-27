@@ -13,12 +13,6 @@
 /// CSD Textual representation of the parameter's name.
 @property (nonatomic, strong) NSString *parameterString;
 
-
-/// Using an array of floats to automatically create an array of OCSParams
-/// @param numbers The array floats to be converted.
-/// @param count   The size of the floating point numbers array.
-+ (id)paramArrayFromFloats:(float *)numbers count:(NSUInteger)count;
-
 /// Explicitly using a nil-terminated list of OCSParams to create the array
 /// @param firstParam At least one OCSParamConstant is required
 /// @param ...        Terminate list with a nil.

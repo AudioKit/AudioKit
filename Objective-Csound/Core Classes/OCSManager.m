@@ -27,7 +27,6 @@
 
 @implementation OCSManager
 
-//@synthesize options;
 @synthesize isRunning;
 @synthesize zeroDBFullScaleValue;
 //@synthesize myPropertyManager;
@@ -39,8 +38,7 @@ static OCSManager *_sharedOCSManager = nil;
 {
     @synchronized([OCSManager class]) 
     {
-        if(!_sharedOCSManager) 
-            _sharedOCSManager = [[self alloc] init];
+        if(!_sharedOCSManager) _sharedOCSManager = [[self alloc] init];
         return _sharedOCSManager;
     }
     return nil;
@@ -48,8 +46,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 + (id)alloc {
     @synchronized([OCSManager class]) {
-        NSAssert(_sharedOCSManager == nil,
-                 @"Attempted to allocate a second CSD Manager");
+        NSAssert(_sharedOCSManager == nil, @"Attempted to allocate a 2nd OCSManager");
         _sharedOCSManager = [super alloc];
         return _sharedOCSManager;
     }
@@ -88,7 +85,8 @@ static OCSManager *_sharedOCSManager = nil;
     return self;
 }   
 
-- (void)runCSDFile:(NSString *)filename {
+- (void)runCSDFile:(NSString *)filename 
+{
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
@@ -106,26 +104,20 @@ static OCSManager *_sharedOCSManager = nil;
     }
 }
 
-- (void)writeCSDFileForOrchestra:(OCSOrchestra *) orchestra {
-    
-    
+- (void)writeCSDFileForOrchestra:(OCSOrchestra *) orchestra 
+{
     NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %@\nksmps = %d", 
                          sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
     NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
-     /*
-    NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = 44100\n0dbfs = 1\nksmps = 256", 
-                        sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
 
-    
-    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
-    */
     [newCSD writeToFile:myCSDFile 
              atomically:YES  
                encoding:NSStringEncodingConversionAllowLossy 
                   error:nil];
 }
 
-- (void)runOrchestra:(OCSOrchestra *)orch {
+- (void)runOrchestra:(OCSOrchestra *)orch 
+{
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
@@ -135,35 +127,39 @@ static OCSManager *_sharedOCSManager = nil;
     [self writeCSDFileForOrchestra:orch];
     [self updateValueCacheWithProperties:orch];
     [csound startCsound:myCSDFile];
-    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile 
-                                                           usedEncoding:nil 
-                                                                  error:nil]);
+    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
 
-    //Clean up the IDs for next time
+    // Clean up the IDs for next time
     [OCSParam resetID];
     [OCSInstrument resetID];
+    
+    // Pause to give Csound time to start, warn if nothing happens after one second
     int cycles = 0;
     while(!isRunning) {
         cycles++;
-        if (cycles > 10) {
+        if (cycles > 100) {
             NSLog(@"There might be a bug in the generated CSD File, Csound has not started" );
             break;
         }
-        [NSThread sleepForTimeInterval:0.1];
-    } // Do nothing
+        [NSThread sleepForTimeInterval:0.01];
+    } 
 }
 
-- (void)stop {
+- (void)stop 
+{
     NSLog(@"Stopping Csound");
     [csound stopCsound];
     while(isRunning) {} // Do nothing
 }
 
-- (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument{
+- (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument
+{
     NSString *scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
-    //NSLog(@"%@", scoreline);
+    NSLog(@"%@", scoreline);
     [csound sendScore:scoreline];
 }
+
+#pragma mark CsoundCallbacks
 
 - (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra
 {
@@ -174,14 +170,13 @@ static OCSManager *_sharedOCSManager = nil;
         }
     }
 }
-
 - (void)messageCallback:(NSValue *)infoObj
 {
 	Message info;
 	[infoObj getValue:&info];
 	char message[1024];
 	vsnprintf(message, 1024, info.format, info.valist);
-	NSLog(@"Message: %s", message);
+	NSLog(@"%s", message);
 }
 
 #pragma mark CsoundObjCompletionListener

@@ -12,6 +12,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
 @implementation OCSPropertyManager
 @synthesize propertyList;
 
+/*
 /// Initializes to default values
 - (id)init {
     if(self = [super init]) {
@@ -25,7 +26,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     return self;
 }
 
-/*- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
+- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
 {
     if (controllerNumber < 0 || controllerNumber > 127) {
         NSLog(@"Error: Attempted to add a widget with controller number outside of range 0-127: %d", controllerNumber);
@@ -33,7 +34,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     }
     
     [propertyList replaceObjectAtIndex:controllerNumber withObject:prop];
-}*/
+}
 
 - (void)addProperty:(OCSProperty *)prop
 {
@@ -41,7 +42,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     //[[OCSManager sharedOCSManager] addPropertyParam:prop];
 }
 
-/* coremidi callback, called when MIDI data is available */
+// coremidi callback, called when MIDI data is available 
 void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
     OCSPropertyManager* manager = (__bridge OCSPropertyManager *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
@@ -82,15 +83,15 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     MIDIEndpointRef endpoint;
     OSStatus ret;
 	
-    /* MIDI client */
+    // MIDI client
     cname = CFStringCreateWithCString(NULL, "my client", defaultEncoding);
     ret = MIDIClientCreate(cname, NULL, NULL, &myClient);
     if(!ret){
-        /* MIDI output port */
+        // MIDI output port 
         pname = CFStringCreateWithCString(NULL, "outport", defaultEncoding);
         ret = MIDIInputPortCreate(myClient, pname, OCSPropertyManagerReadProc, self, &mport);
         if(!ret){
-            /* sources, we connect to all available input sources */
+            // sources, we connect to all available input sources 
             endpoints = MIDIGetNumberOfSources();
 			//NSLog(@"midi srcs %d\n", endpoints); 
             for(k=0; k < endpoints; k++){
@@ -111,9 +112,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     MIDIClientDispose(myClient);
 }
 
-- (void)dealloc {
-    [propertyList release];
-    [super dealloc];
-}
+*/
+
 
 @end

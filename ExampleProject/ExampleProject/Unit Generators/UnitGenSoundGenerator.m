@@ -21,10 +21,9 @@
     if (self) {
         
         // INSTRUMENT DEFINITION ===============================================
-        
-        //H4Y - ARB: create sign function with variable partial strengths
-        float partialStrengthFloats[] = {1.0f, 0.5f, 1.0f};
-        OCSParamArray *partialStrengths= [OCSParamArray paramArrayFromFloats:partialStrengthFloats count:3];
+        // create sign function with variable partial strengths
+
+        OCSParamArray *partialStrengths = [OCSParamArray paramArrayFromParams:ocsp(1.0f), ocsp(0.5f), ocsp(1.0f)];
         OCSSineTable *sineTable = [[OCSSineTable alloc] initWithSize:4096 
                                                      PartialStrengths:partialStrengths];
         [self addFunctionTable:sineTable];
