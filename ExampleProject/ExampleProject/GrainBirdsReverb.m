@@ -8,7 +8,7 @@
 
 #import "GrainBirdsReverb.h"
 #import "OCSReverbSixParallelComb.h"
-#import "OCSLinearSegmentArray.h"
+#import "OCSSegmentArray.h"
 #import "OCSAudio.h"
 
 @implementation GrainBirdsReverb
@@ -30,7 +30,7 @@
         OCSParamConstant * threeQuarterDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.75", duration];
         OCSParamConstant * fourFifthsDuration   = [OCSParamConstant paramWithFormat:@"%@ * 0.8",  duration];
 
-        OCSLinearSegmentArray *reverbDuration = [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0)
+        OCSSegmentArray *reverbDuration = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0)
                                                                         FirstSegmentTargetValue:ocsp(10) 
                                                                              FirstSegmentDuration:quarterDuration];
         [reverbDuration addNextSegmentTargetValue:ocsp(10) AfterDuration:threeQuarterDuration];

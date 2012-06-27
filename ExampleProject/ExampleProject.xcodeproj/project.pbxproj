@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		7696FEF1159515150041A05F /* OCSReverbSixParallelComb.m in Sources */ = {isa = PBXBuildFile; fileRef = 7696FEF0159515150041A05F /* OCSReverbSixParallelComb.m */; };
 		76B956471581302D005AFAE9 /* OCSLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B956461581302D005AFAE9 /* OCSLine.m */; };
-		76B9564C15813809005AFAE9 /* OCSLinearSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* OCSLinearSegmentArray.m */; };
+		76B9564C15813809005AFAE9 /* OCSSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9564B15813808005AFAE9 /* OCSSegmentArray.m */; };
 		76DE1A4C1598AE1D00A71EAF /* GrainBirdsReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = 76DE1A4B1598AE1D00A71EAF /* GrainBirdsReverb.m */; };
 		76DE1A4E1598E48D00A71EAF /* MoreGrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB41B15942369005807A2 /* MoreGrainViewController.xib */; };
 		76F3201915935369008338E2 /* OCSGrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3201815935369008338E2 /* OCSGrain.m */; };
-		76F3203B1593B705008338E2 /* OCSExpSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203A1593B705008338E2 /* OCSExpSegment.m */; };
 		76F3203E1593BC19008338E2 /* OCSFileLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F3203D1593BC17008338E2 /* OCSFileLength.m */; };
 		C40B719B15959D4A000FCB1B /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B719A15959D4A000FCB1B /* OCSUserDefinedOpcode.m */; };
 		C41D259D1599763500836C96 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D259C1599763500836C96 /* OCSPluckDrum.m */; };
@@ -131,14 +130,12 @@
 		7696FEF0159515150041A05F /* OCSReverbSixParallelComb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSReverbSixParallelComb.m; sourceTree = "<group>"; };
 		76B956451581302D005AFAE9 /* OCSLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLine.h; sourceTree = "<group>"; };
 		76B956461581302D005AFAE9 /* OCSLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLine.m; sourceTree = "<group>"; };
-		76B9564A15813808005AFAE9 /* OCSLinearSegmentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLinearSegmentArray.h; sourceTree = "<group>"; };
-		76B9564B15813808005AFAE9 /* OCSLinearSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLinearSegmentArray.m; sourceTree = "<group>"; };
+		76B9564A15813808005AFAE9 /* OCSSegmentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSegmentArray.h; sourceTree = "<group>"; };
+		76B9564B15813808005AFAE9 /* OCSSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSegmentArray.m; sourceTree = "<group>"; };
 		76DE1A4A1598AE1D00A71EAF /* GrainBirdsReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainBirdsReverb.h; sourceTree = "<group>"; };
 		76DE1A4B1598AE1D00A71EAF /* GrainBirdsReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainBirdsReverb.m; sourceTree = "<group>"; };
 		76F3201715935369008338E2 /* OCSGrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSGrain.h; sourceTree = "<group>"; };
 		76F3201815935369008338E2 /* OCSGrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSGrain.m; sourceTree = "<group>"; };
-		76F320391593B705008338E2 /* OCSExpSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSExpSegment.h; sourceTree = "<group>"; };
-		76F3203A1593B705008338E2 /* OCSExpSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSExpSegment.m; sourceTree = "<group>"; };
 		76F3203C1593BC16008338E2 /* OCSFileLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFileLength.h; sourceTree = "<group>"; };
 		76F3203D1593BC17008338E2 /* OCSFileLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFileLength.m; sourceTree = "<group>"; };
 		C40B719915959D4A000FCB1B /* OCSUserDefinedOpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSUserDefinedOpcode.h; path = UDOs/OCSUserDefinedOpcode.h; sourceTree = "<group>"; };
@@ -380,10 +377,8 @@
 			children = (
 				76B956451581302D005AFAE9 /* OCSLine.h */,
 				76B956461581302D005AFAE9 /* OCSLine.m */,
-				76B9564A15813808005AFAE9 /* OCSLinearSegmentArray.h */,
-				76B9564B15813808005AFAE9 /* OCSLinearSegmentArray.m */,
-				76F320391593B705008338E2 /* OCSExpSegment.h */,
-				76F3203A1593B705008338E2 /* OCSExpSegment.m */,
+				76B9564A15813808005AFAE9 /* OCSSegmentArray.h */,
+				76B9564B15813808005AFAE9 /* OCSSegmentArray.m */,
 			);
 			name = "Linear/Exponential Generators";
 			sourceTree = "<group>";
@@ -1013,7 +1008,7 @@
 				C4842D551579C2F800E69770 /* CachedSlider.m in Sources */,
 				C4842D561579C2F800E69770 /* CachedSwitch.m in Sources */,
 				76B956471581302D005AFAE9 /* OCSLine.m in Sources */,
-				76B9564C15813809005AFAE9 /* OCSLinearSegmentArray.m in Sources */,
+				76B9564C15813809005AFAE9 /* OCSSegmentArray.m in Sources */,
 				C495F74E1583452100951461 /* FMGameObject.m in Sources */,
 				C495F74F1583452100951461 /* FMGameObjectViewController.m in Sources */,
 				C43553ED15807BB80074764A /* OCSSineTable.m in Sources */,
@@ -1043,7 +1038,6 @@
 				C46EB4001592D6C0005807A2 /* OCSManager.m in Sources */,
 				C46EB4011592D6C0005807A2 /* OCSOrchestra.m in Sources */,
 				76F3201915935369008338E2 /* OCSGrain.m in Sources */,
-				76F3203B1593B705008338E2 /* OCSExpSegment.m in Sources */,
 				76F3203E1593BC19008338E2 /* OCSFileLength.m in Sources */,
 				C46EB41515942252005807A2 /* OCSExponentialCurvesTable.m in Sources */,
 				C46EB41615942252005807A2 /* OCSWindowsTable.m in Sources */,

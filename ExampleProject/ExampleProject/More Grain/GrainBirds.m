@@ -63,8 +63,8 @@
         OCSParamConstant * halfOfDuration            = [OCSParamConstant paramWithFormat:@"%@ * 0.5", duration];
         OCSParamConstant * sixthOfDuration           = [OCSParamConstant paramWithFormat:@"%@ * 0.6", duration];
         
-        OCSLinearSegmentArray * amplitude = 
-        [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
+        OCSSegmentArray * amplitude = 
+        [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
                                               FirstSegmentTargetValue:ocsp(3000)
                                                  FirstSegmentDuration:tenthOfDuration];
         [amplitude addNextSegmentTargetValue:ocsp(6000) AfterDuration:sixthOfDuration];
@@ -74,8 +74,8 @@
         OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass control]];
         [self addOpcode:cpspch];
         
-        OCSLinearSegmentArray *pitchOffset;
-        pitchOffset = [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
+        OCSSegmentArray *pitchOffset;
+        pitchOffset = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
                                                             FirstSegmentTargetValue:[pitchOffsetFirstTarget constant]
                                                                FirstSegmentDuration:halfOfDuration];
         [pitchOffset addNextSegmentTargetValue:ocsp(40) AfterDuration:fortyFivePercentDuration];

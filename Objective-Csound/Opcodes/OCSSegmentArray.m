@@ -1,13 +1,13 @@
 //
-//  OCSLinearSegmentArray.m
+//  OCSSegmentArray.m
 //
 //  Created by Adam Boulanger on 6/7/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSLinearSegmentArray.h"
+#import "OCSSegmentArray.h"
 
-@interface OCSLinearSegmentArray () {
+@interface OCSSegmentArray () {
     NSString *opcode;
     OCSParamConstant *start;
     OCSParamConstant *dur;
@@ -23,7 +23,7 @@
 }
 @end
 
-@implementation OCSLinearSegmentArray
+@implementation OCSSegmentArray
 
 @synthesize audio;
 @synthesize control;
@@ -40,6 +40,7 @@
         control = [OCSParamControl paramWithString:[self opcodeName]];
         output  =  audio;
         
+        opcode   = @"linsegr";
         start    = firstSegmentStartValue;
         dur      = firstSegmentDuration;
         target   = firstSegmentTargetValue;
@@ -65,40 +66,16 @@
     final   = finalValue;
 }
 
-//- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
-//             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
-//                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
-//                  DurationValuePairs:(OCSParamArray *)durationValuePairs;
-//{
-//    self = [super init];
-//    
-//    if (self) {
-//        output   = [OCSParamControl paramWithString:[self opcodeName]];
-//        start    = firstSegmentStartValue;
-//        dur      = firstSegmentDuration;
-//        target   = firstSegmentTargetValue;
-//        segments = durationValuePairs;
-//    }
-//    
-//    return self;
-//}
-//
-//- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
-//             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
-//                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration;
-//{
-//    return [self initWithFirstSegmentStartValue:firstSegmentStartValue
-//                        FirstSegmentTargetValue:firstSegmentTargetValue 
-//                           FirstSegmentDuration:firstSegmentDuration 
-//                             DurationValuePairs:nil];
-//}
+- (void)useExponentialSegments {
+    opcode = @"expsegr";
+}
 
 - (NSString *)stringForCSD
 {    
     if ([segments count] == 0) {
         return [NSString stringWithFormat:
-                @"%@ linsegr %@, %@, %@, %@, %@\n", 
-                output, start, dur, target, release, final];
+                @"%@ %@ %@, %@, %@, %@, %@\n", 
+                output, opcode, start, dur, target, release, final];
     } else {
         NSMutableArray *s = [[NSMutableArray alloc] init];
         for (OCSParamConstant *value in segments) {
@@ -107,8 +84,8 @@
         NSString *segs = [s componentsJoinedByString:@" , "];
        
         return [NSString stringWithFormat:
-                @"%@ linsegr %@, %@, %@, %@, %@, %@\n", 
-                output, start, dur, target, segs, release, final];
+                @"%@ %@ %@, %@, %@, %@, %@, %@\n", 
+                output, opcode, start, dur, target, segs, release, final];
     }
 }
 

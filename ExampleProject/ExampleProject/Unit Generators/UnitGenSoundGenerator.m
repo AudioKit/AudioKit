@@ -9,7 +9,7 @@
 #import "UnitGenSoundGenerator.h"
 #import "OCSSineTable.h"
 #import "OCSLine.h"
-#import "OCSLinearSegmentArray.h"
+#import "OCSSegmentArray.h"
 #import "OCSFoscili.h"
 #import "OCSAudio.h"
 
@@ -41,7 +41,7 @@
         [baseFrequencyLine setOutput:[baseFrequencyLine control]];
         [self addOpcode:baseFrequencyLine];
 
-        OCSLinearSegmentArray *modIndexLine = [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
+        OCSSegmentArray *modIndexLine = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
                                                                                     FirstSegmentTargetValue:ocsp(0.2)
                                                                                        FirstSegmentDuration:ocsp(3)];
         [modIndexLine addNextSegmentTargetValue:ocsp(1.5) AfterDuration:ocsp(3)];

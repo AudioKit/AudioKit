@@ -9,8 +9,8 @@
 #import "SimpleGrainInstrument.h"
 #import "OCSSoundFileTable.h"
 #import "OCSWindowsTable.h"
-#import "OCSExpSegment.h"
 #import "OCSLine.h"
+#import "OCSSegmentArray.h"
 #import "OCSFileLength.h"
 #import "OCSProperty.h"
 #import "OCSGrain.h"
@@ -37,11 +37,11 @@
         
         OCSParamConstant *halfDuration = [OCSParamConstant paramWithFormat:@"%@ / 2", duration];
         
-        OCSParamArray *amplitudeSegmentArray = [OCSParamArray paramArrayFromParams:halfDuration, ocsp(0.01), nil];
-        OCSExpSegment *amplitudeExp = [[OCSExpSegment alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
-                                                                    FirstSegmentTargetValue:ocsp(0.1)
-                                                                       FirstSegmentDuration:halfDuration
-                                                                         DurationValuePairs:amplitudeSegmentArray];
+        OCSSegmentArray *amplitudeExp = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
+                                                                        FirstSegmentTargetValue:ocsp(0.1)
+                                                                           FirstSegmentDuration:halfDuration];
+        [amplitudeExp addNextSegmentTargetValue:ocsp(0.01) AfterDuration:halfDuration];
+        [amplitudeExp useExponentialSegments];
         [self addOpcode:amplitudeExp];
         
         
