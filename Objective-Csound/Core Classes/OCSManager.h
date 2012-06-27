@@ -20,6 +20,7 @@
 
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
+@property (nonatomic, strong) NSNumber *zeroDBFullScaleValue;
 //@property (nonatomic, strong) NSString *options;
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
