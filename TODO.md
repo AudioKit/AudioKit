@@ -2,9 +2,6 @@ TO DO
 =====
 
 * Debug Grain Birds
-* Combine similar opcodes like the two OCSSegmentArray
-* For things that accept multiple inputs, use an add function rather than sending an OCSParamArray 
-
 * Add the fof opcode
 * Create an example that uses PluckDrum and PluckString
 * Write an audio processor that outputs something to Objective-C
@@ -19,6 +16,7 @@ GENERAL IMPROVEMENTS TO MAKE
 * Reorder parameters in opcode signatures so that the initialization parameters come first and the performance parameters come second, like in the Csound documentation.
 * Make sure the opcode functionalities are complete, or else make a todo note in the docs.
 * Improve examples without making them hard to understand.  Better .xibs.
+* For things that require lists (like some functionTables for instance), use an add function rather than sending an OCSParamArray 
 
 ALWAYS MORE
 ===========
