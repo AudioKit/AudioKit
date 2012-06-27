@@ -23,7 +23,6 @@
 
 /// Determines the value from which to scale all other amplitudes in Csound
 @property (nonatomic, strong) NSNumber *zeroDBFullScaleValue;
-//@property (nonatomic, strong) NSString *options;
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
 /// @returns the shared instance of OCSManager
@@ -45,15 +44,4 @@
 /// @param instrument The instrument which needs to play.
 - (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument;
 
-/// Manages OCSProperty updates for each instrument in the orchestra
-/// @param orchestra Orchestra with all the current instruments.
-- (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra;
-
-/// Prints Csound messages to NSLog
-/// @param infoObj The information Csound is loggin.
-- (void)messageCallback:(NSValue *)infoObj;
-
-//Other Potential problems
-//- (void)mute;
-//- (void)pause;
 @end

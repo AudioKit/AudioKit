@@ -28,19 +28,6 @@
     
 }
 
-+ (id)paramArrayFromFloats:(float *)numbers count:(NSUInteger)count {
-    OCSParamArray *result = [NSAllocateObject([self class], count *sizeof(float), NULL) init];
-    if (result) {
-        result->count = count;
-        memcpy(result->numbers, numbers, count *sizeof(float));
-    }
-    [result setParameterString:[NSString stringWithFormat:@"%0.6f", numbers[0]]];
-    for (int i=1; i<count; i++) {
-        [result setParameterString:[NSString stringWithFormat:@"%@, %0.6f", [result parameterString], numbers[i]]];
-    }
-    return result;
-}
-
 +(id)paramArrayFromParams:(OCSParamConstant *)firstParam,... {
     OCSParamArray *result = [[OCSParamArray alloc] init];
 

@@ -20,10 +20,10 @@
 
 @property (readonly) NSMutableArray* propertyList;
 
-- (void)openMidiIn;
-- (void)closeMidiIn;
+//- (void)openMidiIn;
+//- (void)closeMidiIn;
 
-//- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier;
+////- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier;
 
-- (void)addProperty:(OCSProperty *)prop;
+//- (void)addProperty:(OCSProperty *)prop;
 @end
