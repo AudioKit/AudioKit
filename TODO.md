@@ -2,6 +2,7 @@ TO DO
 =====
 
 * Add the fof opcode
+* Sequences ala CCSequence to manage timed note events
 * Create an example that uses PluckDrum and PluckString
 * Write an audio processor that outputs something to Objective-C
 * Make a MIDI handling class
@@ -38,3 +39,5 @@ OCSProperty when we do use them.
 * some csound helper functions should be handled exclusively in ocs, like cpspch
 * output as either k or a rate is a problem for opcodes already containing multiple inits. (see oscillator and linsegr)
 * need OCSProperty to deal with all 3 output types, need a way to do this better than BOOL and conditionals
+* LOVING assignable maximum and minimum values for instant remapping of slider ranges
+* ui elements changing multiple parameters!!!!

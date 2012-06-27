@@ -15,6 +15,11 @@
     GrainBirdsReverb *fx;
     
     NSTimer *timer;
+    
+    IBOutlet UISlider *grainDurationSlider;
+    IBOutlet UISlider *pitchOffsetStartSlider;
+    IBOutlet UISlider *pitchOffsetTargetSlider;
+    IBOutlet UISlider * pitchClassSlider;
 }
 
 -(IBAction)hit1:(id)sender;
@@ -22,7 +27,11 @@
 -(IBAction)hit3:(id)sender;
 -(IBAction)hit4:(id)sender;
 -(IBAction)hit5:(id)sender;
--(IBAction)hit6:(id)sender;
 -(IBAction)startFx:(id)sender;
+
+-(IBAction)scaleGrainDensity:(id)sender;
+-(IBAction)pitchOffsetStartMod:(id)sender;
+-(IBAction)pitchOffsetTargetMod:(id)sender;
+-(IBAction)pitchClassMod:(id)sender;
 
 @end

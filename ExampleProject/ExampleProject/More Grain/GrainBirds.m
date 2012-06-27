@@ -58,6 +58,23 @@
         [self addProperty:pitchOffsetFirstTarget];
         [self addProperty:reverbSend];
         
+        [grainDensity setMinimumValue:.03];
+        [grainDensity setMaximumValue:10000];
+        
+        [grainDuration setMinimumValue:.0004];
+        [grainDuration setMaximumValue:.1];
+        
+        [pitchClass setMinimumValue:9.05];
+        [pitchClass setMaximumValue:12.05];
+        
+        [pitchOffsetFirstTarget setMinimumValue:0];
+        [pitchOffsetFirstTarget setMaximumValue:2000];
+        [pitchOffsetStartValue setMinimumValue:0];
+        [pitchOffsetStartValue setMaximumValue:2000];
+        
+        [reverbSend setMinimumValue:0.0];
+        [reverbSend setMaximumValue:0.5];
+        
         // FUNCTIONS ===========================================================
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
@@ -77,9 +94,9 @@
         
         OCSSegmentArray * amplitude = 
         [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
-                                              FirstSegmentTargetValue:ocsp(3000)
+                                              FirstSegmentTargetValue:ocsp(500)
                                                  FirstSegmentDuration:tenthOfDuration];
-        [amplitude addNextSegmentTargetValue:ocsp(6000) AfterDuration:sixthOfDuration];
+        [amplitude addNextSegmentTargetValue:ocsp(1000) AfterDuration:sixthOfDuration];
         [amplitude addReleaseToFinalValue:ocsp(0) AfterDuration:tenthOfDuration];
         [self addOpcode:amplitude];
         
