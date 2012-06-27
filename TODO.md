@@ -7,11 +7,12 @@ TO DO
 * Make a MIDI handling class
 * Consider whether an OCSProperty need bounds or if they should be optional or handled elsewhere.
 * Rewrite OCSWindowsTable with separate methods for each type since Gause and Kaiser take another parameter.
-
+* Clean up Reverb6 opcode
 
 GENERAL IMPROVEMENTS TO MAKE
 ============================
 * Rewrite Github readme as if we were already open-sourced.
+* Reconsider what the PitchClassToFreq class is supposed to do and how to handle things like that better.
 * Reorder parameters in opcode signatures so that the initialization parameters come first and the performance parameters come second, like in the Csound documentation.
 * Make sure the opcode functionalities are complete, or else make a todo note in the docs.
 * Improve examples without making them hard to understand.  More information and control in the .xibs.

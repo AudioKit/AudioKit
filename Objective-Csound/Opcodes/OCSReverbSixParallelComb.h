@@ -14,6 +14,7 @@
 //ares nreverb asig, ktime, khdif [, iskip] [,inumCombs] [, ifnCombs] [, inumAlpas] [, ifnAlpas]
 @interface OCSReverbSixParallelComb : OCSOpcode
 
+/// The output is a mono audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
 - (id)initWithInput:(OCSParam *)i

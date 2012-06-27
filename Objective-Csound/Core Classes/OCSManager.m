@@ -56,6 +56,7 @@ static OCSManager *_sharedOCSManager = nil;
     return nil;
 }
 
+/// Initializes to default values
 - (id)init {
     self = [super init];
     if (self != nil) {

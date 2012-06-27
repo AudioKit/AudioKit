@@ -38,8 +38,9 @@
 
 @interface OCSLoopingOscillator : OCSOpcode
 
-///
+/// This is the sole output for the mono looping oscillator, or the left for the stereo.
 @property (nonatomic, strong) OCSParam *output1;
+/// This is the output to the right channel if stereo.
 @property (nonatomic, strong) OCSParam *output2;
 
 /// Simplest initialization with a given file.

@@ -12,6 +12,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
 @implementation OCSPropertyManager
 @synthesize propertyList;
 
+/// Initializes to default values
 - (id)init {
     if(self = [super init]) {
         propertyList = [[NSMutableArray alloc] init];

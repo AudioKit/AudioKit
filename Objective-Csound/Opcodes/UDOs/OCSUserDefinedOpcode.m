@@ -10,19 +10,6 @@
 
 @implementation OCSUserDefinedOpcode
 
-- (id)init
-{
-    self = [super init];
-    if ( self ) {
-        /*
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        myUDOFile = [NSString stringWithFormat:@"%@/%@.udo", documentsDirectory, [self class]];
-         */
-    }
-    return self;
-}
-
 - (NSString *)udoFile {
     return @"Undefined";
 }

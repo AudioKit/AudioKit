@@ -25,10 +25,6 @@ the same direction, going negative.
 /// The output can either an audio signal or a control.
 @property (nonatomic, strong) OCSParam *output;
 
-@end
-
-@interface OCSOscillator : OCSOpcode 
-
 /// Creates a straight line rise and decay patter to an input signal.
 /// @param riseTime      Rise time in seconds. A zero or negative value signifies no rise modification.
 /// @param totalDuration Overall duration in seconds. A zero or negative value will cause initialization to be skipped.
