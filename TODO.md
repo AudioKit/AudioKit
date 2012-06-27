@@ -18,6 +18,7 @@ GENERAL IMPROVEMENTS TO MAKE
 * Reorder parameters in opcode signatures so that the initialization parameters come first and the performance parameters come second, like in the Csound documentation.
 * Make sure the opcode functionalities are complete, or else make a todo note in the docs.
 * Improve examples without making them hard to understand.  More information and control in the .xibs.
+* Make printing from Csound show in the log
 * Make code more flexible:
     * For things that require lists (like some functionTables for instance), use an add function rather than sending an OCSParamArray 
     * Follow the Foscili model for property-izing everything.  Get Adam's opinion on the two methods inside Simple FM example.

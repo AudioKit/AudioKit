@@ -62,6 +62,8 @@ static OCSManager *_sharedOCSManager = nil;
     if (self != nil) {
         csound = [[CsoundObj alloc] init];
         [csound addCompletionListener:self];
+        [csound setMessageCallback:@selector(messageCallback:) withListener:self];
+        
         isRunning = NO;
         
         //myPropertyManager = [[OCSPropertyManager alloc] init];
@@ -179,12 +181,8 @@ static OCSManager *_sharedOCSManager = nil;
 	[infoObj getValue:&info];
 	char message[1024];
 	vsnprintf(message, 1024, info.format, info.valist);
-	NSString *messageStr = [NSString stringWithFormat:@"%s", message];
-	NSLog(@"%@", messageStr);
+	NSLog(@"Message: %s", message);
 }
-
-/// Manages OCSProperty updates for each instrument in the orchestra
-/// @param orchestra Orchestra with all the current instruments.
 
 #pragma mark CsoundObjCompletionListener
 
