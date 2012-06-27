@@ -18,9 +18,9 @@
 
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];
     myGrainBirds = [[GrainBirds alloc] init];
-    NSLog(@"get here.");
+
     fx = [[GrainBirdsReverb alloc] initWithGrainBirds:myGrainBirds];
-    NSLog(@"get here a.");    
+   
     [orch addInstrument:myGrainBirds];
     [orch addInstrument:fx];
     
