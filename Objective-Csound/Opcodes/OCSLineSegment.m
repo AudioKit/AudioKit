@@ -8,6 +8,11 @@
 #import "OCSLineSegment.h"
 
 @interface OCSLineSegment () {
+    OCSParamConstant *start;
+    OCSParamConstant *dur;
+    OCSParamConstant *target;
+    OCSParamArray *segments;
+    
     OCSParamControl *output;
 }
 @end
@@ -15,64 +20,45 @@
 @implementation OCSLineSegment
 
 @synthesize output;
-@synthesize firstSegmentStartValue;
-@synthesize firstSegmentDuration;
-@synthesize firstSegmentTargetValue;
-@synthesize segmentArray;
 
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
-               FirstSegmentDuration:(OCSParamConstant *) dur
-           FirstSegementTargetValue:(OCSParamConstant *) targ
-                       SegmentArray:(OCSParamArray *)aSegmentArray
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
+                  DurationValuePairs:(OCSParamArray *)durationValuePairs;
 {
     self = [super init];
-
+    
     if (self) {
-        output = [OCSParamControl paramWithString:[self opcodeName]];
-        firstSegmentStartValue  = start;
-        firstSegmentDuration    = dur;
-        firstSegmentTargetValue = targ;
-        segmentArray            = aSegmentArray;
+        output   = [OCSParamControl paramWithString:[self opcodeName]];
+        start    = firstSegmentStartValue;
+        dur      = firstSegmentDuration;
+        target   = firstSegmentTargetValue;
+        segments = durationValuePairs;
     }
     
     return self;
 }
 
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *) start
-               FirstSegmentDuration:(OCSParamConstant *) dur
-           FirstSegementTargetValue:(OCSParamConstant *) targ
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration;
 {
-    if (self) {
-        output = [OCSParamControl paramWithString:[self opcodeName]];
-        firstSegmentStartValue  = start;
-        firstSegmentDuration    = dur;
-        firstSegmentTargetValue = targ;
-    }
-    
-    return self;
+    return [self initWithFirstSegmentStartValue:firstSegmentStartValue
+                        FirstSegmentTargetValue:firstSegmentTargetValue 
+                           FirstSegmentDuration:firstSegmentDuration 
+                             DurationValuePairs:nil];
 }
 
 - (NSString *)stringForCSD
-{
-    if (segmentArray == nil) {
-        return [NSString stringWithFormat:@"%@ linseg %@, %@, %@\n", 
-                output, 
-                firstSegmentStartValue, 
-                firstSegmentDuration, 
-                firstSegmentTargetValue];
+{    
+    if (segments == nil) {
+        return [NSString stringWithFormat:
+                @"%@ linseg %@, %@, %@\n", 
+                output, start, dur, target];
     } else {
-       /* NSMutableString *s = [NSString stringWithFormat:@", "];
-        for (int i = 0; i < [segmentArray count]; i++) {
-            [s appendFormat:@"%@,", [segmentArray ob
-        }
-        return [NSString stringWithFormat:@"%@ line %@, %@, %@", 
-                output, firstSegmentStartValue, firstSegmentDuration, firstSegmentTargetValue];*/
-        return [NSString stringWithFormat:@"%@ linseg %@, %@, %@, %@\n", 
-                output, 
-                firstSegmentStartValue, 
-                firstSegmentDuration, 
-                firstSegmentTargetValue, 
-                [segmentArray parameterString]];
+        return [NSString stringWithFormat:
+                @"%@ linseg %@, %@, %@, %@\n", 
+                output, start, dur, target, [segments parameterString]];
     }
 }
 

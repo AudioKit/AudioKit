@@ -14,29 +14,30 @@
  holds the final value if the sum of segment durations is less than the 
  note duration.
  
- CSD Representation:
- 
-    ares linseg ia, idur1, ib...
-    kres linseg ia, idur1, ib...
+ http://www.csounds.com/manual/html/linseg.html
  */
 
 @interface OCSLineSegment : OCSOpcode 
 
+/// The output is either a control or an audio signal.
 @property (nonatomic, strong) OCSParamControl *output;
-@property (nonatomic, strong) OCSParamConstant *firstSegmentStartValue;
-@property (nonatomic, strong) OCSParamConstant *firstSegmentDuration;
-@property (nonatomic, strong) OCSParamConstant *firstSegmentTargetValue;
-@property (nonatomic, strong) OCSParamArray *segmentArray;
 
-/// Initialization Statement
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
-               FirstSegmentDuration:(OCSParamConstant *)dur
-           FirstSegementTargetValue:(OCSParamConstant *)targ
-                       SegmentArray:(OCSParamArray *)aSegmentArray;
+/// Creates a series of linear segments between specicified points.
+/// @param firstSegmentStartValue  Starting value. 
+/// @param firstSegmentTargetValue Value after duration seconds.  
+/// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+/// @param durationValuePairs      Array in the form "duration, value, duration, value" etc.
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
+                  DurationValuePairs:(OCSParamArray *)durationValuePairs;
 
-/// Initialization Statement
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
-               FirstSegmentDuration:(OCSParamConstant *)dur
-           FirstSegementTargetValue:(OCSParamConstant *)targ;
+/// Creates a single linear segment.
+/// @param firstSegmentStartValue  Starting value. 
+/// @param firstSegmentTargetValue Value after duration seconds. 
+/// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration;
 
 @end

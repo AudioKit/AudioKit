@@ -32,9 +32,9 @@
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(0.4)
-                                                                      Frequency:[frequency output]
-                                                                  FunctionTable:sineTable];
+        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithFunctionTable:sineTable
+                                                                         Amplitude:ocsp(0.4)
+                                                                         Frequency:[frequency output]];
         [self addOpcode:myOscillator];
         
         // AUDIO OUTPUT ========================================================
@@ -53,6 +53,7 @@
 
 - (void)playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
+    NSLog(@"Playing note at frequency = %0.2f", freq);
     [self playNoteForDuration:dur];
 }
 

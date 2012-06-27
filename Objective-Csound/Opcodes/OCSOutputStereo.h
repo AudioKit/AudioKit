@@ -16,16 +16,16 @@
  output units in an instrument.
  
  */
-@interface OCSOutputStereo : OCSOpcode {
-    OCSParam *inputLeft;
-    OCSParam *inputRight;
-}
+@interface OCSOutputStereo : OCSOpcode
 
 /// Helper function to send both channels the same monoSignal
-- (id)initWithMonoInput:(OCSParam *) monoSignal;
+/// @param monoSignal The audio signal to be played on both channels.
+- (id)initWithMonoInput:(OCSParam *)monoSignal;
 
 /// Initialization Statement
-- (id)initWithLeftInput:(OCSParam *) leftInput
-             RightInput:(OCSParam *) rightInput;
+/// @param leftInput  The audio signal to be played on the left channel.
+/// @param rightInput The audio signal to be played on the right channel.
+- (id)initWithLeftInput:(OCSParam *)leftInput
+             RightInput:(OCSParam *)rightInput;
 
 @end

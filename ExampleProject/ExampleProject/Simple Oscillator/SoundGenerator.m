@@ -41,15 +41,15 @@
                                                      PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
-        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(0.12)
-                                                                      Frequency:[frequency constant]
-                                                                  FunctionTable:sineTable];
+        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithFunctionTable:sineTable
+                                                                         Amplitude:ocsp(0.12)
+                                                                         Frequency:[frequency constant]];                                
         [self addOpcode:myOscillator];
         
-        OCSReverb *reverb = [[OCSReverb alloc] initWithInputLeft:[myOscillator output] 
-                                                       InputRight:[myOscillator output] 
-                                                    FeedbackLevel:ocsp(0.85)
-                                                  CutoffFrequency:ocsp(12000)];
+        OCSReverb *reverb = [[OCSReverb alloc] initWithLeftInput:[myOscillator output] 
+                                                      RightInput:[myOscillator output] 
+                                                   FeedbackLevel:ocsp(0.85)
+                                                 CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
@@ -63,6 +63,7 @@
 
 - (void)playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
+    NSLog(@"Playing note at frequency = %0.2f", freq);
     [self playNoteForDuration:dur];
 }
 

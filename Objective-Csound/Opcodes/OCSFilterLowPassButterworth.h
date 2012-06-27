@@ -10,17 +10,21 @@
 
 /** A low-pass Butterworth filter.
  
- These filters are Butterworth second-order IIR filters. They are slightly slower than the original filters in Csound, but they offer an almost flat passband and very good precision and stopband attenuation.
+ These filters are Butterworth second-order IIR filters. They are slightly 
+ slower than the original filters in Csound, but they offer an almost flat 
+ passband and very good precision and stopband attenuation.
  
  */
  
 @interface OCSFilterLowPassButterworth : OCSOpcode
+
+/// The output is a mono audio signal.
 @property (nonatomic, retain) OCSParam *output;
 
-/// Initialization Statement
--(id)initWithInput:(OCSParam *)i Cutoff:(OCSParamControl *)freq;
-
-/// Initialization Statement
--(id)initWithInput:(OCSParam *)i Cutoff:(OCSParamControl *)freq SkipInit:(BOOL)isSkipped;
+/// Creates a low-pass Butterworth filter.
+/// @param inputSignal     The input to be filtered.
+/// @param cutoffFrequency Cutoff or center frequency for each of the filters.
+-(id)initWithInput:(OCSParam *)inputSignal 
+   CutoffFrequency:(OCSParamControl *)cutoffFrequency;
 
 @end

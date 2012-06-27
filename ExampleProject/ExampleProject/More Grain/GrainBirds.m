@@ -88,22 +88,21 @@
                                                                            SegmentArray:pitchOffsetBreakpoints 
                                                                         ReleaseDuration:tenthOfDuration
                                                                              FinalValue:ocsp(0)];
-        [self addOpcode:pitchOffset];                         
+        [self addOpcode:pitchOffset];         
         
-        OCSGrain *grain = [[OCSGrain alloc] initWithAmplitude:[amplitude output] 
-                                                        Pitch:[cpspch output] 
-                                                 GrainDensity:[grainDensity control] 
-                                              AmplitudeOffset:ocsp(1000)
-                                                  PitchOffset:[pitchOffset output] 
-                                                GrainDuration:[grainDuration control] 
-                                             MaxGrainDuration:ocsp(0.1)
-                                                GrainFunction:fiftyHzSine 
-                                               WindowFunction:hanning   
-                                   IsRandomGrainFunctionIndex:NO];
+        OCSGrain *grain = [[OCSGrain alloc] initWithGrainFunction:fiftyHzSine  
+                                                   WindowFunction:hanning 
+                                                 MaxGrainDuration:ocsp(0.1)
+                                                        Amplitude:[amplitude output] 
+                                                       GrainPitch:[cpspch output] 
+                                                     GrainDensity:[grainDensity control] 
+                                                    GrainDuration:[grainDuration control] 
+                                            MaxAmplitudeDeviation:ocsp(1000)
+                                                MaxPitchDeviation:[pitchOffset output]];
         [self addOpcode:grain];
         
         OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
-                                                                                            Cutoff:ocsp(500)];
+                                                                                   CutoffFrequency:ocsp(500)];
         [self addOpcode:butterlp];
         
         // AUDIO OUTPUT ========================================================
