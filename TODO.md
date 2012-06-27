@@ -2,7 +2,7 @@ TO DO
 =====
 
 * Add the fof opcode
-* Sequences ala CCSequence to manage timed note events
+* Sequences ala OCSSequence to manage timed note events
 * Create an example that uses PluckDrum and PluckString
 * Write an audio processor that outputs something to Objective-C
 * Make a MIDI handling class
@@ -12,6 +12,8 @@ TO DO
 
 GENERAL IMPROVEMENTS TO MAKE
 ============================
+
+* Change method signatures to not start with capital letters
 * Rewrite Github readme as if we were already open-sourced.
 * Reconsider what the PitchClassToFreq class is supposed to do and how to handle things like that better.
 * Reorder parameters in opcode signatures so that the initialization parameters come first and the performance parameters come second, like in the Csound documentation.

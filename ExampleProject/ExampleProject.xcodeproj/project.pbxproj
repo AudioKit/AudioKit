@@ -17,6 +17,7 @@
 		C40B719B15959D4A000FCB1B /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B719A15959D4A000FCB1B /* OCSUserDefinedOpcode.m */; };
 		C41D259D1599763500836C96 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D259C1599763500836C96 /* OCSPluckDrum.m */; };
 		C41D25A1159980E000836C96 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D25A0159980E000836C96 /* OCSPluckString.m */; };
+		C4307E1C159B9E2B0091AE59 /* OCSConvolve.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307E1B159B9E2A0091AE59 /* OCSConvolve.m */; };
 		C43553E6158074640074764A /* OCSFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* OCSFunctionTable.m */; };
 		C43553ED15807BB80074764A /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* OCSSineTable.m */; };
 		C43908A71596B184001FC007 /* OCSPitchClassToFreq.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908A61596B184001FC007 /* OCSPitchClassToFreq.m */; };
@@ -144,6 +145,8 @@
 		C41D259C1599763500836C96 /* OCSPluckDrum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckDrum.m; sourceTree = "<group>"; };
 		C41D259F159980E000836C96 /* OCSPluckString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckString.h; sourceTree = "<group>"; };
 		C41D25A0159980E000836C96 /* OCSPluckString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckString.m; sourceTree = "<group>"; };
+		C4307E1A159B9E290091AE59 /* OCSConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConvolve.h; sourceTree = "<group>"; };
+		C4307E1B159B9E2A0091AE59 /* OCSConvolve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConvolve.m; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* OCSFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCSFunctionTable.h; path = FunctionTables/OCSFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* OCSFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OCSFunctionTable.m; path = FunctionTables/OCSFunctionTable.m; sourceTree = "<group>"; };
@@ -814,6 +817,8 @@
 				C4C552131577028C005F7EE4 /* OCSOpcode.m */,
 				C4FE85A51583F63C00902E07 /* OCSAudio.h */,
 				C4FE85A61583F63D00902E07 /* OCSAudio.m */,
+				C4307E1A159B9E290091AE59 /* OCSConvolve.h */,
+				C4307E1B159B9E2A0091AE59 /* OCSConvolve.m */,
 				76F3203C1593BC16008338E2 /* OCSFileLength.h */,
 				76F3203D1593BC17008338E2 /* OCSFileLength.m */,
 				C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */,
@@ -1058,6 +1063,7 @@
 				76DE1A4C1598AE1D00A71EAF /* GrainBirdsReverb.m in Sources */,
 				C41D259D1599763500836C96 /* OCSPluckDrum.m in Sources */,
 				C41D25A1159980E000836C96 /* OCSPluckString.m in Sources */,
+				C4307E1C159B9E2B0091AE59 /* OCSConvolve.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
