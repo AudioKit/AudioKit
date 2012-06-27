@@ -9,7 +9,7 @@
 #import "FMGameObject.h"
 #import "OCSSineTable.h"
 #import "OCSFoscili.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @interface FMGameObject () {
     OCSProperty *amplitude;
@@ -48,8 +48,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *monoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
-        [self addOpcode:monoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myFMOscillator output]];
+        [self addOpcode:audio];
     }
     return self;
 }

@@ -10,7 +10,7 @@
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
 #import "OCSLine.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @interface ExpressionToneGenerator () {
     OCSProperty *frequency;
@@ -64,8 +64,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo * stereoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
-        [self addOpcode:stereoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myOscillator output]]; 
+        [self addOpcode:audio];
     }
     return self;
 }

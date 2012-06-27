@@ -14,7 +14,7 @@
 #import "OCSFileLength.h"
 #import "OCSProperty.h"
 #import "OCSGrain.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @implementation SimpleGrainInstrument
 
@@ -101,9 +101,9 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithLeftInput:[grainL output] 
-                                                                        RightInput:[grainR output]]; 
-        [self addOpcode:stereoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[grainL output] 
+                                                   RightInput:[grainR output]]; 
+        [self addOpcode:audio];
     }
     return self;
 }

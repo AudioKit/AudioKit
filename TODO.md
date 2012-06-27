@@ -1,8 +1,11 @@
 TO DO
 =====
 
-* Combine similar opcodes like the two OCSLineSegments and the two OCSOutputs
+* Debug Grain Birds
+* Combine similar opcodes like the two OCSLineSegments
 * For things that accept multiple inputs, use an add function rather than sending an OCSParamArray 
+
+* Add the fof opcode
 * Create an example that uses PluckDrum and PluckString
 * Write an audio processor that outputs something to Objective-C
 * Make a MIDI handling class

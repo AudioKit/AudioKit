@@ -9,7 +9,7 @@
 #import "ToneGenerator.h"
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @implementation ToneGenerator
 
@@ -39,8 +39,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myOscillator output]]; 
-        [self addOpcode:stereoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myOscillator output]]; 
+        [self addOpcode:audio];
         
         
         // EXTERNAL OUTPUTS ====================================================        

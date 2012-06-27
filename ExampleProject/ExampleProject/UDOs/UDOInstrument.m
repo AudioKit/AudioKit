@@ -12,7 +12,7 @@
 #import "UDOCsGrainCompressor.h"
 #import "UDOCsGrainPitchShifter.h"
 
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @implementation UDOInstrument
 
@@ -54,8 +54,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithLeftInput:[ps outputLeft] 
-                                                                        RightInput:[ps outputRight]]; 
+        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:[ps outputLeft] 
+                                                          RightInput:[ps outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;

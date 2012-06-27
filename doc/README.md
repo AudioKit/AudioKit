@@ -63,7 +63,7 @@ One of the primary ways Objective-Csound differs from Csound philosophically is 
 We need to decide on whether we adopt a style of adjective-before-the-noun or adjective-after-the-noun style.  The benefit of placing the adjective first is that you have greater readability.  The benefit of placing the adjective second is that you gain alphabet-proximity, so that documentation is automatically sorted correctly and code completion works from most general to most specific as you type.  
 
 Example inconsistency:
-	OCSOutputStereo
+	OCSAudio
 vs. 
 	OCSLoopingOscillator
  

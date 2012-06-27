@@ -9,7 +9,7 @@
 #import "TweakableInstrument.h"
 #import "OCSSineTable.h"
 #import "OCSFoscili.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 #import "OCSAssignment.h"
 
 @implementation TweakableInstrument
@@ -60,9 +60,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = 
-        [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
-        [self addOpcode:stereoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myFMOscillator output]];
+        [self addOpcode:audio];
         
         /*
         // Test to show amplitude slider moving also
