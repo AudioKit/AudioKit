@@ -112,8 +112,8 @@
         [pitchOffset setOutput:[pitchOffset control]];
         [self addOpcode:pitchOffset];         
         
-        OCSGrain *grain = [[OCSGrain alloc] initWithGrainFunction:fiftyHzSine  
-                                                   WindowFunction:hanning 
+        OCSGrain *grain = [[OCSGrain alloc] initWithGrainFunction:hanning  
+                                                   WindowFunction:fiftyHzSine 
                                                  MaxGrainDuration:ocsp(0.1)
                                                         Amplitude:[amplitude output] 
                                                        GrainPitch:[cpspch output] 
