@@ -19,7 +19,7 @@
 
 @interface OCSPluckDrum : OCSOpcode
 
-// Audio output of the drum.
+/// Audio output of the drum.
 @property (nonatomic, strong) OCSParam *output;
 
 

@@ -8,9 +8,10 @@
 
 #import "OCSOpcode.h"
 
-/// Wrapper for converting pitch class to frequency.  Has to be a better way.
+/// Wrapper for converting pitch class to frequency.  Has to be a better way. AOP
 @interface OCSPitchClassToFreq : OCSOpcode
 
+/// The output is either control or constant.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initialization Statement

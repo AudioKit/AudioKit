@@ -18,7 +18,7 @@
 
 @interface OCSPluckString : OCSOpcode
 
-// Audio output of the string.
+/// Audio output of the string.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initializes the string with simple averaging smoothing process.

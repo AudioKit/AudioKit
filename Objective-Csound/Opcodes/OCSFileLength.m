@@ -33,6 +33,7 @@
     return [NSString stringWithFormat:@"%@ = ftlen(%@)\n", output, input];
 }
 
+/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

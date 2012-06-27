@@ -9,6 +9,7 @@
 
 @implementation OCSParamConstant
 
+/// Initializes to default values
 - (id)init
 {
     self = [super init];
