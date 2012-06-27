@@ -1,19 +1,19 @@
 //
-//  OCSOutputStereo.m
+//  OCSAudio.m
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
-@interface OCSOutputStereo () {
+@interface OCSAudio () {
     OCSParam *inputLeft;
     OCSParam *inputRight;
 }
 @end
 
-@implementation OCSOutputStereo
+@implementation OCSAudio
 
 - (id)initWithMonoInput:(OCSParam *)monoSignal
 {

@@ -8,7 +8,7 @@
 
 #import "GrainBirds.h"
 #import "OCSGrain.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @implementation GrainBirds
 @synthesize grainDensity;
@@ -67,9 +67,9 @@
 
         OCSLineSegmentWithRelease * amplitude = 
         [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
+                                                  FirstSegmentTargetValue:ocsp(3000)
                                                      FirstSegmentDuration:tenthOfDuration
-                                                 FirstSegementTargetValue:ocsp(3000)
-                                                             SegmentArray:amplitudeBreakpoints 
+                                                       DurationValuePairs:amplitudeBreakpoints 
                                                           ReleaseDuration:tenthOfDuration
                                                                FinalValue:ocsp(0)];
         [self addOpcode:amplitude];
@@ -83,9 +83,9 @@
                                                   
         OCSLineSegmentWithRelease *pitchOffset;
         pitchOffset = [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
+                                                                FirstSegmentTargetValue:[pitchOffsetFirstTarget constant] 
                                                                    FirstSegmentDuration:halfOfDuration
-                                                               FirstSegementTargetValue:[pitchOffsetFirstTarget constant] 
-                                                                           SegmentArray:pitchOffsetBreakpoints 
+                                                                     DurationValuePairs:pitchOffsetBreakpoints 
                                                                         ReleaseDuration:tenthOfDuration
                                                                              FinalValue:ocsp(0)];
         [self addOpcode:pitchOffset];         
@@ -107,7 +107,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[butterlp output]];
+        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithMonoInput:[butterlp output]];
         [self addOpcode:stereoOutput];
         
         // EXTERNAL OUTPUTS ====================================================        

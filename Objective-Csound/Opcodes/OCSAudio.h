@@ -1,5 +1,5 @@
 //
-//  OCSOutputStereo.h
+//  OCSAudio.h
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -16,7 +16,7 @@
  output units in an instrument.
  
  */
-@interface OCSOutputStereo : OCSOpcode
+@interface OCSAudio : OCSOpcode
 
 /// Helper function to send both channels the same monoSignal
 /// @param monoSignal The audio signal to be played on both channels.

@@ -13,7 +13,7 @@
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
 #import "OCSReverb.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @interface SoundGenerator () {
     OCSProperty *frequency;
@@ -54,9 +54,9 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSOutputStereo *stereoOutput = [[OCSOutputStereo alloc] initWithLeftInput:[reverb outputLeft] 
-                                                                        RightInput:[reverb outputRight]]; 
-        [self addOpcode:stereoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[reverb outputLeft] 
+                                                   RightInput:[reverb outputRight]]; 
+        [self addOpcode:audio];
     }
     return self;
 }

@@ -11,7 +11,7 @@
 #import "OCSLine.h"
 #import "OCSLineSegment.h"
 #import "OCSFoscili.h"
-#import "OCSOutputStereo.h"
+#import "OCSAudio.h"
 
 @implementation UnitGenSoundGenerator
 
@@ -35,18 +35,18 @@
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line
-        OCSLineSegment *myLineSegment_a = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)
-                                                                            FirstSegmentDuration:duration 
-                                                                        FirstSegementTargetValue:ocsp(330)];
-        
+        OCSLineSegment *myLineSegment_a = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)  
+                                                                         FirstSegmentTargetValue:ocsp(330)  
+                                                                            FirstSegmentDuration:duration];
+        [self addOpcode:myLineSegment_a];
+
         OCSParamArray *breakpoints = [OCSParamArray paramArrayFromParams: 
                                        ocsp(3), ocsp(1.5), ocsp(3.0), ocsp(0.5), nil];
 
         OCSLineSegment *myLineSegment_b = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0.5)
+                                                                         FirstSegmentTargetValue:ocsp(0.2)
                                                                             FirstSegmentDuration:ocsp(3)
-                                                                        FirstSegementTargetValue:ocsp(0.2)
-                                                                                    SegmentArray:breakpoints];
-        [self addOpcode:myLineSegment_a];
+                                                                                    DurationValuePairs:breakpoints];
         [self addOpcode:myLineSegment_b];
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
@@ -60,8 +60,8 @@
 
         // AUDIO OUTPUT ========================================================
 
-        OCSOutputStereo *monoOutput = [[OCSOutputStereo alloc] initWithMonoInput:[myFMOscillator output]];
-        [self addOpcode:monoOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myFMOscillator output]];
+        [self addOpcode:audio];
     }
     return self;
 }

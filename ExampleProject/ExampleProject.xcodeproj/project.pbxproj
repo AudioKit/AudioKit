@@ -120,7 +120,7 @@
 		C4FE85881583535100902E07 /* OCSParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85871583535100902E07 /* OCSParamControl.m */; };
 		C4FE85961583CE0700902E07 /* OCSOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85951583CE0700902E07 /* OCSOutputMono.m */; };
 		C4FE85A11583E3E400902E07 /* OCSReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A01583E3E400902E07 /* OCSReverb.m */; };
-		C4FE85A71583F63D00902E07 /* OCSOutputStereo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A61583F63D00902E07 /* OCSOutputStereo.m */; };
+		C4FE85A71583F63D00902E07 /* OCSAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85A61583F63D00902E07 /* OCSAudio.m */; };
 		C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BC1583FF7800902E07 /* ToneGenerator.m */; };
 		C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85BF1583FF9D00902E07 /* EffectsProcessor.m */; };
 		C4FE85C91584011B00902E07 /* ReverbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE85C71584011B00902E07 /* ReverbViewController.m */; };
@@ -347,8 +347,8 @@
 		C4FE85951583CE0700902E07 /* OCSOutputMono.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSOutputMono.m; sourceTree = "<group>"; };
 		C4FE859F1583E3E400902E07 /* OCSReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSReverb.h; sourceTree = "<group>"; };
 		C4FE85A01583E3E400902E07 /* OCSReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSReverb.m; sourceTree = "<group>"; };
-		C4FE85A51583F63C00902E07 /* OCSOutputStereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSOutputStereo.h; sourceTree = "<group>"; };
-		C4FE85A61583F63D00902E07 /* OCSOutputStereo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSOutputStereo.m; sourceTree = "<group>"; };
+		C4FE85A51583F63C00902E07 /* OCSAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudio.h; sourceTree = "<group>"; };
+		C4FE85A61583F63D00902E07 /* OCSAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudio.m; sourceTree = "<group>"; };
 		C4FE85BB1583FF7800902E07 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
 		C4FE85BC1583FF7800902E07 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ToneGenerator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4FE85BE1583FF9D00902E07 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
@@ -822,6 +822,8 @@
 				C44D066A158468AA00307AC9 /* Mathematical Expressions */,
 				C4C552121577028C005F7EE4 /* OCSOpcode.h */,
 				C4C552131577028C005F7EE4 /* OCSOpcode.m */,
+				C4FE85A51583F63C00902E07 /* OCSAudio.h */,
+				C4FE85A61583F63D00902E07 /* OCSAudio.m */,
 				76F3203C1593BC16008338E2 /* OCSFileLength.h */,
 				76F3203D1593BC17008338E2 /* OCSFileLength.m */,
 				C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */,
@@ -848,8 +850,6 @@
 				7696FEF0159515150041A05F /* OCSReverbSixParallelComb.m */,
 				C4FE85941583CE0700902E07 /* OCSOutputMono.h */,
 				C4FE85951583CE0700902E07 /* OCSOutputMono.m */,
-				C4FE85A51583F63C00902E07 /* OCSOutputStereo.h */,
-				C4FE85A61583F63D00902E07 /* OCSOutputStereo.m */,
 			);
 			path = Opcodes;
 			sourceTree = "<group>";
@@ -1028,7 +1028,7 @@
 				C4FE85881583535100902E07 /* OCSParamControl.m in Sources */,
 				C4FE85961583CE0700902E07 /* OCSOutputMono.m in Sources */,
 				C4FE85A11583E3E400902E07 /* OCSReverb.m in Sources */,
-				C4FE85A71583F63D00902E07 /* OCSOutputStereo.m in Sources */,
+				C4FE85A71583F63D00902E07 /* OCSAudio.m in Sources */,
 				C4FE85BD1583FF7800902E07 /* ToneGenerator.m in Sources */,
 				C4FE85C01583FF9D00902E07 /* EffectsProcessor.m in Sources */,
 				C4FE85C91584011B00902E07 /* ReverbViewController.m in Sources */,
