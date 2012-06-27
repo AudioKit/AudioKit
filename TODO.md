@@ -2,7 +2,7 @@ TO DO
 =====
 
 * Debug Grain Birds
-* Combine similar opcodes like the two OCSLineSegments
+* Combine similar opcodes like the two OCSLinearSegmentArray
 * For things that accept multiple inputs, use an add function rather than sending an OCSParamArray 
 
 * Add the fof opcode

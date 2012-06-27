@@ -8,7 +8,7 @@
 
 #import "GrainBirdsReverb.h"
 #import "OCSReverbSixParallelComb.h"
-#import "OCSLineSegment.h"
+#import "OCSLinearSegmentArray.h"
 #import "OCSAudio.h"
 
 @implementation GrainBirdsReverb
@@ -30,19 +30,17 @@
         OCSParamConstant * threeQuarterDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.75", duration];
         OCSParamConstant * fourFifthsDuration   = [OCSParamConstant paramWithFormat:@"%@ * 0.8",  duration];
 
-        OCSParamArray *arr = [OCSParamArray paramArrayFromParams:
-                              threeQuarterDuration, ocsp(10), fourFifthsDuration, ocsp(0), nil]; 
-        
-        OCSLineSegment *reverbDuration = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0)
+        OCSLinearSegmentArray *reverbDuration = [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0)
                                                                         FirstSegmentTargetValue:ocsp(10) 
-                                                                           FirstSegmentDuration:quarterDuration
-                                                                             DurationValuePairs:arr];
+                                                                             FirstSegmentDuration:quarterDuration];
+        [reverbDuration addNextSegmentTargetValue:ocsp(10) AfterDuration:threeQuarterDuration];
+        [reverbDuration addNextSegmentTargetValue:ocsp(0)  AfterDuration:fourFifthsDuration];
+        [reverbDuration setOutput:[reverbDuration control]];
         [self addOpcode:reverbDuration];
         
-        OCSReverbSixParallelComb * reverb = [[OCSReverbSixParallelComb alloc] 
-                                             initWithInput:input 
-                                            ReverbDuration:[reverbDuration output] 
-                                       HighFreqDiffusivity:ocsp(0)];
+        OCSReverbSixParallelComb * reverb = [[OCSReverbSixParallelComb alloc]  initWithInput:input 
+                                                                              ReverbDuration:[reverbDuration control] 
+                                                                         HighFreqDiffusivity:ocsp(0)];
 
         [self addOpcode:reverb];
         
