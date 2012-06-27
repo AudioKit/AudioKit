@@ -5,10 +5,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSConvolve.h"
+#import "OCSConvolution.h"
 
 @interface OCSConvolution () {
-    OCSParam *output
+    OCSParam *output;
     OCSParam *ain;
     OCSParamConstant *ifilcod;
 }
