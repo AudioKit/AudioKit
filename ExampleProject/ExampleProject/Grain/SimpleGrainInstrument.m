@@ -77,28 +77,26 @@
         [grainDurationLine setOutput:[grainDurationLine control]];
         [self addOpcode:grainDurationLine];
         
-        OCSGrain *grainL = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 
-                                                         Pitch:[pitchLine output]
-                                                  GrainDensity:[grainDensityLine output]
-                                               AmplitudeOffset:[ampOffsetLine control]
-                                                   PitchOffset:[pitchOffsetLine control] 
-                                                 GrainDuration:[grainDurationLine control]  
-                                              MaxGrainDuration:ocsp(5)
-                                                 GrainFunction:fileTable 
-                                                WindowFunction:hamming 
-                                    IsRandomGrainFunctionIndex:NO];
+        OCSGrain *grainL = [[OCSGrain alloc] initWithGrainFunction:fileTable  
+                                                    WindowFunction:hamming 
+                                                  MaxGrainDuration:ocsp(5) 
+                                                         Amplitude:[amplitudeExp output] 
+                                                        GrainPitch:[pitchLine output] 
+                                                      GrainDensity:[grainDensityLine output] 
+                                                     GrainDuration:[grainDurationLine control] 
+                                             MaxAmplitudeDeviation:[ampOffsetLine control] 
+                                                 MaxPitchDeviation:[pitchOffsetLine control] ];
         [self addOpcode:grainL];
         
-        OCSGrain *grainR = [[OCSGrain alloc] initWithAmplitude:[amplitudeExp output] 
-                                                         Pitch:[pitchLine output]
-                                                  GrainDensity:[grainDensityLine output]
-                                               AmplitudeOffset:[ampOffsetLine control]
-                                                   PitchOffset:[pitchOffsetLine control] 
-                                                 GrainDuration:[grainDurationLine control]  
-                                              MaxGrainDuration:ocsp(6) 
-                                                 GrainFunction:fileTable 
-                                                WindowFunction:hamming 
-                                    IsRandomGrainFunctionIndex:NO];
+        OCSGrain *grainR = [[OCSGrain alloc] initWithGrainFunction:fileTable  
+                                                    WindowFunction:hamming 
+                                                  MaxGrainDuration:ocsp(6) 
+                                                         Amplitude:[amplitudeExp output] 
+                                                        GrainPitch:[pitchLine output] 
+                                                      GrainDensity:[grainDensityLine output] 
+                                                     GrainDuration:[grainDurationLine control] 
+                                             MaxAmplitudeDeviation:[ampOffsetLine control] 
+                                                 MaxPitchDeviation:[pitchOffsetLine control] ];
         [self addOpcode:grainR];
         
         // AUDIO OUTPUT ========================================================

@@ -7,19 +7,21 @@
 
 #import "OCSOutputStereo.h"
 
+@interface OCSOutputStereo () {
+    OCSParam *inputLeft;
+    OCSParam *inputRight;
+}
+@end
+
 @implementation OCSOutputStereo
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
-}
-
-- (id)initWithMonoInput:(OCSParam *) monoSignal
+- (id)initWithMonoInput:(OCSParam *)monoSignal
 {
     return [self initWithLeftInput:monoSignal RightInput:monoSignal];
 }
 
-- (id)initWithLeftInput:(OCSParam *) leftInput
-             RightInput:(OCSParam *) rightInput
+- (id)initWithLeftInput:(OCSParam *)leftInput
+             RightInput:(OCSParam *)rightInput
 {
     self = [super init];
     if (self) {
@@ -27,6 +29,10 @@
         inputRight = rightInput;
     }
     return self; 
+}
+
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
 }
 
 @end

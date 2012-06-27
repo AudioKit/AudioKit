@@ -12,15 +12,13 @@
  Based on http://www.csounds.com/manual/html/product.html
  */
 
-@interface OCSProduct : OCSOpcode {
-    NSMutableArray *inputs;
-    OCSParam *output;
-}
-
+@interface OCSProduct : OCSOpcode 
+/// The output is an audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initialization Statement
+/// @param firstOperand At least one input is required
+/// @param ...          End the list with a nil.
 - (id)initWithOperands:(OCSParam *)firstOperand,...;
-
 
 @end
