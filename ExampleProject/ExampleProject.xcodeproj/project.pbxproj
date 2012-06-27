@@ -107,7 +107,7 @@
 		C4C55196157701F1005F7EE4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55195157701F1005F7EE4 /* CoreMotion.framework */; };
 		C4C55198157701F7005F7EE4 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55197157701F7005F7EE4 /* CoreMIDI.framework */; };
 		C4C5519A15770208005F7EE4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5519915770208005F7EE4 /* AVFoundation.framework */; };
-		C4C5521A1577028C005F7EE4 /* OCSEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520F1577028C005F7EE4 /* OCSEnvelope.m */; };
+		C4C5521A1577028C005F7EE4 /* OCSLinearEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5520F1577028C005F7EE4 /* OCSLinearEnvelope.m */; };
 		C4C5521B1577028C005F7EE4 /* OCSFoscili.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552111577028C005F7EE4 /* OCSFoscili.m */; };
 		C4C5521C1577028C005F7EE4 /* OCSOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552131577028C005F7EE4 /* OCSOpcode.m */; };
 		C4C5521D1577028C005F7EE4 /* OCSOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C552151577028C005F7EE4 /* OCSOscillator.m */; };
@@ -322,8 +322,8 @@
 		C4C55195157701F1005F7EE4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C4C55197157701F7005F7EE4 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C4C5519915770208005F7EE4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C4C5520E1577028C005F7EE4 /* OCSEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEnvelope.h; sourceTree = "<group>"; };
-		C4C5520F1577028C005F7EE4 /* OCSEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEnvelope.m; sourceTree = "<group>"; };
+		C4C5520E1577028C005F7EE4 /* OCSLinearEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLinearEnvelope.h; sourceTree = "<group>"; };
+		C4C5520F1577028C005F7EE4 /* OCSLinearEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLinearEnvelope.m; sourceTree = "<group>"; };
 		C4C552101577028C005F7EE4 /* OCSFoscili.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFoscili.h; sourceTree = "<group>"; };
 		C4C552111577028C005F7EE4 /* OCSFoscili.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFoscili.m; sourceTree = "<group>"; };
 		C4C552121577028C005F7EE4 /* OCSOpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSOpcode.h; sourceTree = "<group>"; };
@@ -820,8 +820,8 @@
 				C44D066A158468AA00307AC9 /* Mathematical Expressions */,
 				C4C552121577028C005F7EE4 /* OCSOpcode.h */,
 				C4C552131577028C005F7EE4 /* OCSOpcode.m */,
-				C4C5520E1577028C005F7EE4 /* OCSEnvelope.h */,
-				C4C5520F1577028C005F7EE4 /* OCSEnvelope.m */,
+				C4C5520E1577028C005F7EE4 /* OCSLinearEnvelope.h */,
+				C4C5520F1577028C005F7EE4 /* OCSLinearEnvelope.m */,
 				76F3203C1593BC16008338E2 /* OCSFileLength.h */,
 				76F3203D1593BC17008338E2 /* OCSFileLength.m */,
 				C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */,
@@ -1002,7 +1002,7 @@
 				C4C55190157701AF005F7EE4 /* LevelMeterView.m in Sources */,
 				C4C55191157701AF005F7EE4 /* UIControlXY.m in Sources */,
 				C4C55192157701AF005F7EE4 /* UIKnob.m in Sources */,
-				C4C5521A1577028C005F7EE4 /* OCSEnvelope.m in Sources */,
+				C4C5521A1577028C005F7EE4 /* OCSLinearEnvelope.m in Sources */,
 				C4C5521B1577028C005F7EE4 /* OCSFoscili.m in Sources */,
 				C4C5521C1577028C005F7EE4 /* OCSOpcode.m in Sources */,
 				C4C5521D1577028C005F7EE4 /* OCSOscillator.m in Sources */,

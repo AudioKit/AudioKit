@@ -10,10 +10,12 @@
 /// Simply a wrapper for the equal sign
 @interface OCSAssignment : OCSOpcode 
 
+/// The output can be audio, control or a constant.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initialization Statement
-- (id)initWithInput:(OCSParam *)in;
+/// @param input The right side of the equal sign.
+- (id)initWithInput:(OCSParam *)input;
 
 @end
 

@@ -103,7 +103,7 @@
         [self addOpcode:grain];
         
         OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
-                                                                                            Cutoff:ocsp(500)];
+                                                                                   CutoffFrequency:ocsp(500)];
         [self addOpcode:butterlp];
         
         // AUDIO OUTPUT ========================================================

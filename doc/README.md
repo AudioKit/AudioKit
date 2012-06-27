@@ -44,7 +44,10 @@ For example:
 	initWithFrequency:(OCSParam *)frequency
 not 
 	initWithFrequency:(OCSParam *)f
+
 Long signatures should be broken over lines.  Some variable names such as `in` should be avoided because they break Xcode's indenting.
+
+Although it may be tempting to create the methods in an order identical to Csound's parameters, consider also the order of importance of the parameters.  Note that the Csound documentation usually starts witht the initialization parameters and then the performance parameters.  This makes good sense especially since our instantiation methods start with "init".  
 
 ### Implementation (.m) files
 Since implementation files are not used in creating documentation, there are fewer rules and conventions to follow. As in header files, the default Apple comments are fine, except that the project name should be replaced with "Objective-Csound" and you import lines should always be minimized.
