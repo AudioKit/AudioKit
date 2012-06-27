@@ -20,37 +20,21 @@
 @implementation OCSFilterLowPassButterworth
 @synthesize output;
 
--(id)initWithInput:(OCSParam *)i Cutoff:(OCSParamControl *)freq
+-(id)initWithInput:(OCSParam *)inputSignal 
+   CutoffFrequency:(OCSParamControl *)cutoffFrequency;
 {
     self = [super init];
     if(self) {
         output = [OCSParam paramWithString:[self opcodeName]];
-        input = i;
-        cutoff = freq;
-        
-        isInitSkipped = NO;
+        input = inputSignal;
+        cutoff = cutoffFrequency;
     }
     return self;
 }
-
--(id)initWithInput:(OCSParam *)i Cutoff:(OCSParamControl *)freq SkipInit:(BOOL)isSkipped
-{
-    self = [super init];
-    if(self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
-        input = i;
-        cutoff = freq;
-    
-        isInitSkipped = isSkipped;
-    }
-    return self;
-}
-
 
 -(NSString *)stringForCSD
 {
-    int skip = isInitSkipped ? 1 : 0;
-    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d\n", output, input, cutoff, skip];
+    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d\n", output, input, cutoff, 0];
 }
 
 -(NSString *) description {

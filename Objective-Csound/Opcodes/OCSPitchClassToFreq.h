@@ -10,9 +10,11 @@
 
 /// Wrapper for converting pitch class to frequency.  Has to be a better way.
 @interface OCSPitchClassToFreq : OCSOpcode
+
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initialization Statement
+/// @param pitch Pitch to be converted.
 -(id) initWithPitch:(OCSParam *)pitch;
 
 

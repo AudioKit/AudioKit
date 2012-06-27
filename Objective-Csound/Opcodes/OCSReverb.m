@@ -12,8 +12,8 @@
     OCSParam *outputRight;
     OCSParam *inputLeft;
     OCSParam *inputRight;
-    OCSParamControl *feedbackLevel;
-    OCSParamControl *cutoffFrequency;
+    OCSParamControl *feedback;
+    OCSParamControl *cutoff;
 }
 @end
 
@@ -22,35 +22,38 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithMonoInput:(OCSParam *)in 
-         FeedbackLevel:(OCSParamControl *) feedback
-       CutoffFrequency:(OCSParamControl *) cutoff 
-{
-    return [self initWithInputLeft:in InputRight:in FeedbackLevel:feedback CutoffFrequency:cutoff];
-}
-
-- (id)initWithInputLeft:(OCSParam *) inLeft
-            InputRight:(OCSParam *) inRight
-         FeedbackLevel:(OCSParamControl *) feedback
-       CutoffFrequency:(OCSParamControl *) cutoff 
+- (id)initWithLeftInput:(OCSParam *)leftInput
+             RightInput:(OCSParam *)rightInput
+          FeedbackLevel:(OCSParamControl *)feedbackLevel
+        CutoffFrequency:(OCSParamControl *)cutoffFrequency;
 {
     self = [super init];
     if (self) {
-        outputLeft      = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight     = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        inputLeft       = inLeft;
-        inputRight      = inRight;
-        feedbackLevel   = feedback;
-        cutoffFrequency = cutoff;
+        outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        inputLeft   = leftInput;
+        inputRight  = rightInput;
+        feedback    = feedbackLevel;
+        cutoff      = cutoffFrequency;
     }
     return self; 
+}
+
+- (id)initWithMonoInput:(OCSParam *)monoInput
+          FeedbackLevel:(OCSParamControl *)feedbackLevel
+        CutoffFrequency:(OCSParamControl *)cutoffFrequency;
+{
+    return [self initWithLeftInput:monoInput 
+                        RightInput:monoInput
+                     FeedbackLevel:feedbackLevel
+                   CutoffFrequency:cutoffFrequency];
 }
 
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@\n",
-            outputLeft, outputRight, inputLeft, inputRight, feedbackLevel, cutoffFrequency];
+            outputLeft, outputRight, inputLeft, inputRight, feedback, cutoff];
 }
 
 @end

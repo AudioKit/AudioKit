@@ -9,15 +9,15 @@
 #import "OCSGrain.h"
 
 @interface OCSGrain () {
-    OCSParam *amplitude;
+    OCSParam *amp;
     OCSParam *pitch;
-    OCSParam *grainDensity;
-    OCSParamControl *amplitudeOffset;
-    OCSParamControl *pitchOffset;
-    OCSParamControl *grainDuration;
-    OCSParamConstant *maxGrainDuration;
-    OCSFunctionTable *grainFunction;
-    OCSFunctionTable *windowFunction;
+    OCSParam *density;
+    OCSParamControl *ampOffset;
+    OCSParamControl *pchOffset;
+    OCSParamControl *duration;
+    OCSParamConstant *maxDuration;
+    OCSFunctionTable *gFunction;
+    OCSFunctionTable *wFunction;
     BOOL isRandomGrainFunctionIndex;
     OCSParam *output;
 }
@@ -27,70 +27,47 @@
 
 @synthesize output;
 
-- (id)initWithAmplitude:(OCSParam *)amp
-                 Pitch:(OCSParam *)pch
-          GrainDensity:(OCSParam *)dens
-       AmplitudeOffset:(OCSParamControl *)ampOffset
-           PitchOffset:(OCSParamControl *)pchOffset
-         GrainDuration:(OCSParamControl *)gdur
-      MaxGrainDuration:(OCSParamConstant *)maxgdur
-         GrainFunction:(OCSFunctionTable *)gFunction
-        WindowFunction:(OCSFunctionTable *)wFunction;
+- (id)initWithGrainFunction:(OCSFunctionTable *)grainFunction
+             WindowFunction:(OCSFunctionTable *)windowFunction
+           MaxGrainDuration:(OCSParamConstant *)maxGrainDuration
+                  Amplitude:(OCSParam *)amplitude
+                 GrainPitch:(OCSParam *)grainPitch
+               GrainDensity:(OCSParam *)grainDensity  
+              GrainDuration:(OCSParamControl *)grainDuration
+      MaxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation
+          MaxPitchDeviation:(OCSParamControl *)maxPitchDeviation;
 {
     self = [super init];
     if (self) {
-        output              = [OCSParam paramWithString:[self opcodeName]];
-        amplitude           = amp;
-        pitch               = pch;
-        grainDensity        = dens;
-        amplitudeOffset     = ampOffset;
-        pitchOffset         = pchOffset;
-        grainDuration       = gdur;
-        maxGrainDuration    = maxgdur;
-        grainFunction       = gFunction;
-        windowFunction      = wFunction;
+        output      = [OCSParam paramWithString:[self opcodeName]];
+        amp         = amplitude;
+        pitch       = grainPitch;
+        density     = grainDensity;
+        ampOffset   = maxAmplitudeDeviation;
+        pchOffset   = maxPitchDeviation;
+        duration    = grainDuration;
+        maxDuration = maxGrainDuration;
+        gFunction   = grainFunction;
+        wFunction   = windowFunction;
         
-        isRandomGrainFunctionIndex = NO;
+        isRandomGrainFunctionIndex = YES;
     }
     return self;
 }
 
-- (id)initWithAmplitude:(OCSParam *)amp
-                 Pitch:(OCSParam *)pch
-          GrainDensity:(OCSParam *)dens
-       AmplitudeOffset:(OCSParamControl *)ampOffset
-           PitchOffset:(OCSParamControl *)pchOffset
-         GrainDuration:(OCSParamControl *)gdur
-      MaxGrainDuration:(OCSParamConstant *)maxgdur
-         GrainFunction:(OCSFunctionTable *)gFunction
-        WindowFunction:(OCSFunctionTable *)wFunction
-IsRandomGrainFunctionIndex:(BOOL)isRandGrainIndex;
-{
-    self = [super init];
-    if (self) {
-        output              = [OCSParam paramWithString:[self opcodeName]];
-        amplitude           = amp;
-        pitch               = pch;
-        grainDensity        = dens;
-        amplitudeOffset     = ampOffset;
-        pitchOffset         = pchOffset;
-        grainDuration       = gdur;
-        maxGrainDuration    = maxgdur;
-        grainFunction       = gFunction;
-        windowFunction      = wFunction;
-        isRandomGrainFunctionIndex    = isRandGrainIndex;
-    }
-    return self;
+- (void) turnOffGrainOffsetRandomnes {
+    isRandomGrainFunctionIndex = NO;
 }
+
 
 - (NSString *)stringForCSD
 {
     //ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
-    int imgdur = isRandomGrainFunctionIndex ? 1 : 0;
+    int randomnessFlag = isRandomGrainFunctionIndex ? 0 : 1;
     return [NSString stringWithFormat:
             @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d\n",
-            output, amplitude, pitch, grainDensity, amplitudeOffset, pitchOffset, grainDuration,
-            grainFunction, windowFunction, maxGrainDuration, imgdur];
+            output, amp, pitch, density, ampOffset, pchOffset, duration,
+            gFunction, wFunction, maxDuration, randomnessFlag];
 }
 
 - (NSString *)description {

@@ -7,6 +7,12 @@
 
 #import "OCSProduct.h"
 
+@interface OCSProduct () {
+    NSMutableArray *inputs;
+    OCSParam *output;
+}
+@end
+
 @implementation OCSProduct
 @synthesize output;
 

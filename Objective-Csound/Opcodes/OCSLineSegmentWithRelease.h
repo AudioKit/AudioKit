@@ -15,27 +15,36 @@
  linsegr is amongst the Csound “r” units that contain a note-off sensor and release time extender. When each senses an event termination or MIDI noteoff, it immediately extends the performance time of the current instrument by irel seconds, and sets out to reach the value iz by the end of that period (no matter which segment the unit is in). “r” units can also be modified by MIDI noteoff velocities. For two or more extenders in an instrument, extension is by the greatest period.
  
  You can use other pre-made envelopes which start a release segment upon recieving a note off message, like linenr and expsegr, or you can construct more complex envelopes using xtratim and release. Note that you don't need to use xtratim if you are using linsegr, since the time is extended automatically.
+ 
+ http://www.csounds.com/manual/html/linsegr.html
  */
 
 @interface OCSLineSegmentWithRelease : OCSOpcode
 
+/// The output is either a control or an audio signal.
 @property (nonatomic, strong) OCSParamControl *output;
 
+/// Creates a series of exponential segments between specicified points.
+/// @param firstSegmentStartValue  Starting value. Zero is illegal for exponentials.
+/// @param firstSegmentTargetValue Value after duration seconds.  For exponentials, must be non-zero and must agree in sign with starting value.
+/// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+/// @param durationValuePairs      Array in the form "duration, value, duration, value" etc.
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
+                  DurationValuePairs:(OCSParamArray *)durationValuePairs              
+                     ReleaseDuration:(OCSParamConstant *)releaseDuration
+                          FinalValue:(OCSParamConstant *)finalValue;
 
-/// Initialization Statement
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
-               FirstSegmentDuration:(OCSParamConstant *)dur
-           FirstSegementTargetValue:(OCSParamConstant *)targ
-                       SegmentArray:(OCSParamArray *)aSegmentArray
-                    ReleaseDuration:(OCSParamConstant *)releaseDur
-                         FinalValue:(OCSParamConstant *)finalVal;
-
-/// Initialization Statement
--(id)initWithSegmentStartValue:(OCSParamConstant *)start
-               SegmentDuration:(OCSParamConstant *)dur
-           SegementTargetValue:(OCSParamConstant *)targ
-               ReleaseDuration:(OCSParamConstant *)releaseDur
-                    FinalValue:(OCSParamConstant *)finalVal;
+/// Creates a single exponential segment.
+/// @param firstSegmentStartValue  Starting value. Zero is illegal for exponentials.
+/// @param firstSegmentTargetValue Value after duration seconds.  For exponentials, must be non-zero and must agree in sign with starting value.
+/// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration               
+                     ReleaseDuration:(OCSParamConstant *)releaseDuration
+                          FinalValue:(OCSParamConstant *)finalValue;
 
 
 @end

@@ -10,7 +10,7 @@
 
 @interface OCSFileLength () {
     OCSFunctionTable *input;
-    OCSParam *output;
+    OCSParamConstant *output;
 }
 @end
 

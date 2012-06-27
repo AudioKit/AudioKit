@@ -10,11 +10,12 @@
 /// Sums any number of a-rate signals.
 @interface OCSSum : OCSOpcode 
 
+/// The output is an audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
-/// Create a new signal as a sume of given signals.
-/// @param firstInput At least one input is required
-/// @param ...        End the list with a nil.
+/// Create a new signal as a sum of given signals.
+/// @param firstOperand At least one input is required
+/// @param ...          End the list with a nil.
 - (id)initWithOperands:(OCSParam *)firstOperand,...;
 
 @end

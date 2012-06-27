@@ -17,7 +17,8 @@
 
 @interface OCSFileLength : OCSOpcode
 
-@property (nonatomic, strong) OCSParam *output;
+/// The output is a constant containing the file's length.
+@property (nonatomic, strong) OCSParamConstant *output;
 
 /// Calculates the size of a function table.
 /// @param functionTable Function statement to return the size of
