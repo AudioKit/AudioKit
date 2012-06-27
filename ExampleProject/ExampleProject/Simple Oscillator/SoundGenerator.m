@@ -41,9 +41,9 @@
                                                      PartialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sineTable];
         
-        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithAmplitude:ocsp(0.12)
-                                                                      Frequency:[frequency constant]
-                                                                  FunctionTable:sineTable];
+        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithFunctionTable:sineTable
+                                                                         Amplitude:ocsp(0.12)
+                                                                         Frequency:[frequency constant]];                                
         [self addOpcode:myOscillator];
         
         OCSReverb *reverb = [[OCSReverb alloc] initWithInputLeft:[myOscillator output] 
