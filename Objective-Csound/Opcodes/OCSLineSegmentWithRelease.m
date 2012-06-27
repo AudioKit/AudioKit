@@ -10,78 +10,65 @@
 
 @interface OCSLineSegmentWithRelease () {
     OCSParamControl *output;
-    OCSParamConstant *firstSegmentStartValue;
-    OCSParamConstant *firstSegmentDuration;
-    OCSParamConstant *firstSegmentTargetValue;
-    OCSParamArray *segmentArray;
+
+    OCSParamConstant *start;
+    OCSParamConstant *dur;
+    OCSParamConstant *target;
+    OCSParamArray *segments;
     
-    OCSParamConstant *releaseDuration;
-    OCSParamConstant *finalValue;
+    OCSParamConstant *release;
+    OCSParamConstant *final;
 }
 @end
 
 @implementation OCSLineSegmentWithRelease
+
 @synthesize output;
 
--(id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
-               FirstSegmentDuration:(OCSParamConstant *)dur
-           FirstSegementTargetValue:(OCSParamConstant *)targ
-                       SegmentArray:(OCSParamArray *)aSegmentArray
-                    ReleaseDuration:(OCSParamConstant *)releaseDur
-                         FinalValue:(OCSParamConstant *)finalVal
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
+                  DurationValuePairs:(OCSParamArray *)durationValuePairs              
+                     ReleaseDuration:(OCSParamConstant *)releaseDuration
+                          FinalValue:(OCSParamConstant *)finalValue;
 {
     self = [super init];
     if (self) {
-        output = [OCSParamControl paramWithString:[self opcodeName]];
-        firstSegmentStartValue  = start;
-        firstSegmentDuration    = dur;
-        firstSegmentTargetValue = targ;
-        segmentArray            = aSegmentArray;
-        releaseDuration         = releaseDur;
-        finalValue              = finalVal;
+        output   = [OCSParamControl paramWithString:[self opcodeName]];
+        start    = firstSegmentStartValue;
+        dur      = firstSegmentDuration;
+        target   = firstSegmentTargetValue;
+        segments = durationValuePairs;
+        release  = releaseDuration;
+        final    = finalValue;
     }
     
     return self;
 
 }
 
--(id)initWithSegmentStartValue:(OCSParamConstant *)start
-               SegmentDuration:(OCSParamConstant *)dur
-           SegementTargetValue:(OCSParamConstant *)targ
-               ReleaseDuration:(OCSParamConstant *)releaseDur
-                    FinalValue:(OCSParamConstant *)finalVal;
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration               
+                     ReleaseDuration:(OCSParamConstant *)releaseDuration
+                          FinalValue:(OCSParamConstant *)finalValue;
 {
-    if (self) {
-        output = [OCSParamControl paramWithString:[self opcodeName]];
-        firstSegmentStartValue  = start;
-        firstSegmentDuration    = dur;
-        firstSegmentTargetValue = targ;
-        releaseDuration         = releaseDur;
-        finalValue              = finalVal;
-    }
-    
-    return self;
+    return [self initWithFirstSegmentStartValue:firstSegmentStartValue 
+                        FirstSegmentTargetValue:firstSegmentTargetValue 
+                           FirstSegmentDuration:firstSegmentDuration 
+                             DurationValuePairs:nil 
+                                ReleaseDuration:releaseDuration 
+                                     FinalValue:finalValue];
 }
 
 -(NSString *)stringForCSD
 {
-    if (segmentArray == nil) {
-        return [NSString stringWithFormat:@"%@ linsegsg %@, %@, %@, %@, %@\n", 
-                output, 
-                firstSegmentStartValue, 
-                firstSegmentDuration, 
-                firstSegmentTargetValue,
-                releaseDuration,
-                finalValue];
+    if (segments == nil) {
+        return [NSString stringWithFormat:@"%@ linsegr %@, %@, %@, %@, %@\n", 
+                output, start, dur, target, release, final];
     } else {
         return [NSString stringWithFormat:@"%@ linsegr %@, %@, %@, %@, %@, %@\n", 
-                output, 
-                firstSegmentStartValue, 
-                firstSegmentDuration, 
-                firstSegmentTargetValue, 
-                [segmentArray parameterString],
-                releaseDuration,
-                finalValue];
+                output, start, dur, target, [segments parameterString], release, final];
     }
 }
 
