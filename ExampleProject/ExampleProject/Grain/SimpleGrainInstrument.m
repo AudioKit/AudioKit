@@ -39,9 +39,9 @@
         
         OCSParamArray *amplitudeSegmentArray = [OCSParamArray paramArrayFromParams:halfDuration, ocsp(0.01), nil];
         OCSExpSegment *amplitudeExp = [[OCSExpSegment alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
+                                                                    FirstSegmentTargetValue:ocsp(0.1)
                                                                        FirstSegmentDuration:halfDuration
-                                                                   FirstSegementTargetValue:ocsp(0.1)
-                                                                               SegmentArray:amplitudeSegmentArray];
+                                                                         DurationValuePairs:amplitudeSegmentArray];
         [self addOpcode:amplitudeExp];
         
         

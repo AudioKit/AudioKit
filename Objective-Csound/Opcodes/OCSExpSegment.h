@@ -10,25 +10,30 @@
 /**
  Trace a series of exponential segments between specified points.
  
- CSD Representation:
- 
- ares expseg ia, idur1, ib...
- kres expseg ia, idur1, ib...
+ http://www.csounds.com/manual/html/expseg.html
  */
 
 @interface OCSExpSegment : OCSOpcode
 
+/// The output is either a control or an audio signal.
 @property (nonatomic, strong) OCSParamControl *output;
 
-/// Initialization Statement
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
-                FirstSegmentDuration:(OCSParamConstant *)dur
-            FirstSegementTargetValue:(OCSParamConstant *)targ
-                        SegmentArray:(OCSParamArray *)aSegmentArray;
+/// Creates a series of exponential segments between specicified points.
+/// @param firstSegmentStartValue  Starting value. Zero is illegal for exponentials.
+/// @param firstSegmentTargetValue Value after duration seconds.  For exponentials, must be non-zero and must agree in sign with starting value.
+/// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+/// @param durationValuePairs      Array in the form "duration, value, duration, value" etc.
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
+                  DurationValuePairs:(OCSParamArray *)durationValuePairs;
 
-/// Initialization Statement
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)start
-                FirstSegmentDuration:(OCSParamConstant *)dur
-            FirstSegementTargetValue:(OCSParamConstant *)targ;
+/// Creates a single exponential segment.
+/// @param firstSegmentStartValue  Starting value. Zero is illegal for exponentials.
+/// @param firstSegmentTargetValue Value after duration seconds.  For exponentials, must be non-zero and must agree in sign with starting value.
+/// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
+             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
+                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration;
 
 @end
