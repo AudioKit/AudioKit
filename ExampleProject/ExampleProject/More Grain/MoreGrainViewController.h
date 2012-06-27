@@ -20,6 +20,11 @@
     IBOutlet UISlider *pitchOffsetStartSlider;
     IBOutlet UISlider *pitchOffsetTargetSlider;
     IBOutlet UISlider * pitchClassSlider;
+    
+    IBOutlet UILabel *grainDurationLabel;
+    IBOutlet UILabel *pitchOffsetStartLabel;
+    IBOutlet UILabel *pitchOffsetTargetLabel;
+    IBOutlet UILabel *pitchClassLabel;
 }
 
 -(IBAction)hit1:(id)sender;

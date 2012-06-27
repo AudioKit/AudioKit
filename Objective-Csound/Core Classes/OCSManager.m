@@ -173,6 +173,19 @@ static OCSManager *_sharedOCSManager = nil;
     }
 }
 
+- (void)messageCallback:(NSValue *)infoObj
+{
+	Message info;
+	[infoObj getValue:&info];
+	char message[1024];
+	vsnprintf(message, 1024, info.format, info.valist);
+	NSString *messageStr = [NSString stringWithFormat:@"%s", message];
+	NSLog(@"%@", messageStr);
+}
+
+/// Manages OCSProperty updates for each instrument in the orchestra
+/// @param orchestra Orchestra with all the current instruments.
+
 #pragma mark CsoundObjCompletionListener
 
 - (void)csoundObjDidStart:(CsoundObj *)csoundObj {
