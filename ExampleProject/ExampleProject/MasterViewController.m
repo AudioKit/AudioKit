@@ -26,6 +26,7 @@
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
+    NSMutableArray *exampleNames;
 }
 @end
 

@@ -1,9 +1,8 @@
 TO DO
 =====
 
-* Add the fof opcode
-* Sequences ala OCSSequence to manage timed note events
-* Create an example that uses PluckDrum and PluckString
+* Add the convolve
+* Sequences ala CCSequence to manage timed note events
 * Write an audio processor that outputs something to Objective-C
 * Make a MIDI handling class
 * Consider whether an OCSProperty need bounds or if they should be optional or handled elsewhere.
@@ -26,11 +25,12 @@ GENERAL IMPROVEMENTS TO MAKE
 ALWAYS MORE
 ===========
 
+* More opcode documentation - utilize Iain McCurdy's insights on various opcodes as well
 * More documentation, both as comments and in the documentation folder
-* More Opcodes
+* More Opcodes - Fof
 * More Function Tables
 * More UDOs
-* More Examples
+* More Examples - PluckDrum & PluckString
 
 NOTES
 =====
