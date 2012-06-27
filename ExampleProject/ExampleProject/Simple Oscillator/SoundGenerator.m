@@ -46,10 +46,10 @@
                                                                          Frequency:[frequency constant]];                                
         [self addOpcode:myOscillator];
         
-        OCSReverb *reverb = [[OCSReverb alloc] initWithInputLeft:[myOscillator output] 
-                                                       InputRight:[myOscillator output] 
-                                                    FeedbackLevel:ocsp(0.85)
-                                                  CutoffFrequency:ocsp(12000)];
+        OCSReverb *reverb = [[OCSReverb alloc] initWithLeftInput:[myOscillator output] 
+                                                      RightInput:[myOscillator output] 
+                                                   FeedbackLevel:ocsp(0.85)
+                                                 CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
