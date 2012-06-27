@@ -16,8 +16,11 @@
 		C40B719B15959D4A000FCB1B /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B719A15959D4A000FCB1B /* OCSUserDefinedOpcode.m */; };
 		C41D259D1599763500836C96 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D259C1599763500836C96 /* OCSPluckDrum.m */; };
 		C41D25A1159980E000836C96 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D25A0159980E000836C96 /* OCSPluckString.m */; };
-		C4307E1C159B9E2B0091AE59 /* OCSConvolve.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307E1B159B9E2A0091AE59 /* OCSConvolve.m */; };
+		C4307E1C159B9E2B0091AE59 /* OCSConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307E1B159B9E2A0091AE59 /* OCSConvolution.m */; };
 		C4307F6F159BA68C0091AE59 /* GrainBirdsReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F6E159BA68C0091AE59 /* GrainBirdsReverb.m */; };
+		C4307F88159BB2360091AE59 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */; };
+		C4307F90159BB28B0091AE59 /* ConvolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F8E159BB28B0091AE59 /* ConvolutionViewController.m */; };
+		C4307F91159BB28B0091AE59 /* ConvolutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4307F8F159BB28B0091AE59 /* ConvolutionViewController.xib */; };
 		C43553E6158074640074764A /* OCSFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553DF158073730074764A /* OCSFunctionTable.m */; };
 		C43553ED15807BB80074764A /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C43553EC15807BB80074764A /* OCSSineTable.m */; };
 		C43908A71596B184001FC007 /* OCSPitchClassToFreq.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908A61596B184001FC007 /* OCSPitchClassToFreq.m */; };
@@ -143,10 +146,15 @@
 		C41D259C1599763500836C96 /* OCSPluckDrum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckDrum.m; sourceTree = "<group>"; };
 		C41D259F159980E000836C96 /* OCSPluckString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckString.h; sourceTree = "<group>"; };
 		C41D25A0159980E000836C96 /* OCSPluckString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckString.m; sourceTree = "<group>"; };
-		C4307E1A159B9E290091AE59 /* OCSConvolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConvolve.h; sourceTree = "<group>"; };
-		C4307E1B159B9E2A0091AE59 /* OCSConvolve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConvolve.m; sourceTree = "<group>"; };
+		C4307E1A159B9E290091AE59 /* OCSConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConvolution.h; sourceTree = "<group>"; };
+		C4307E1B159B9E2A0091AE59 /* OCSConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConvolution.m; sourceTree = "<group>"; };
 		C4307F6D159BA68C0091AE59 /* GrainBirdsReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrainBirdsReverb.h; path = "More Grain/GrainBirdsReverb.h"; sourceTree = "<group>"; };
 		C4307F6E159BA68C0091AE59 /* GrainBirdsReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GrainBirdsReverb.m; path = "More Grain/GrainBirdsReverb.m"; sourceTree = "<group>"; };
+		C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = Convolution/ConvolutionInstrument.h; sourceTree = "<group>"; };
+		C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = Convolution/ConvolutionInstrument.m; sourceTree = "<group>"; };
+		C4307F8D159BB28B0091AE59 /* ConvolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionViewController.h; path = Convolution/ConvolutionViewController.h; sourceTree = "<group>"; };
+		C4307F8E159BB28B0091AE59 /* ConvolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionViewController.m; path = Convolution/ConvolutionViewController.m; sourceTree = "<group>"; };
+		C4307F8F159BB28B0091AE59 /* ConvolutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConvolutionViewController.xib; path = Convolution/ConvolutionViewController.xib; sourceTree = "<group>"; };
 		C43553D015805CA60074764A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43553DE158073730074764A /* OCSFunctionTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCSFunctionTable.h; path = FunctionTables/OCSFunctionTable.h; sourceTree = "<group>"; };
 		C43553DF158073730074764A /* OCSFunctionTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OCSFunctionTable.m; path = FunctionTables/OCSFunctionTable.m; sourceTree = "<group>"; };
@@ -462,6 +470,18 @@
 			name = UDOs;
 			sourceTree = "<group>";
 		};
+		C4307F89159BB23D0091AE59 /* Convolution */ = {
+			isa = PBXGroup;
+			children = (
+				C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */,
+				C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */,
+				C4307F8D159BB28B0091AE59 /* ConvolutionViewController.h */,
+				C4307F8E159BB28B0091AE59 /* ConvolutionViewController.m */,
+				C4307F8F159BB28B0091AE59 /* ConvolutionViewController.xib */,
+			);
+			name = Convolution;
+			sourceTree = "<group>";
+		};
 		C43553CE15804D310074764A /* FunctionTables */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +769,7 @@
 				76F3201C15939E36008338E2 /* Grain */,
 				76F3202215939EB2008338E2 /* MoreGrain */,
 				C43908BF1596F08D001FC007 /* UDOs */,
+				C4307F89159BB23D0091AE59 /* Convolution */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -817,8 +838,8 @@
 				C4C552131577028C005F7EE4 /* OCSOpcode.m */,
 				C4FE85A51583F63C00902E07 /* OCSAudio.h */,
 				C4FE85A61583F63D00902E07 /* OCSAudio.m */,
-				C4307E1A159B9E290091AE59 /* OCSConvolve.h */,
-				C4307E1B159B9E2A0091AE59 /* OCSConvolve.m */,
+				C4307E1A159B9E290091AE59 /* OCSConvolution.h */,
+				C4307E1B159B9E2A0091AE59 /* OCSConvolution.m */,
 				76F3203C1593BC16008338E2 /* OCSFileLength.h */,
 				76F3203D1593BC17008338E2 /* OCSFileLength.m */,
 				C43908AC1596B1AB001FC007 /* OCSFilterLowPassButterworth.h */,
@@ -972,6 +993,7 @@
 				C43908D71597082A001FC007 /* msrOsc.udo in Resources */,
 				C43908DF159708C4001FC007 /* CsGrainCompressor.udo in Resources */,
 				C43908E31597091F001FC007 /* CsGrainPitchShifter.udo in Resources */,
+				C4307F91159BB28B0091AE59 /* ConvolutionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,8 +1084,10 @@
 				C4A760DB1598195000A99E86 /* OCSRandomDistributionTable.m in Sources */,
 				C41D259D1599763500836C96 /* OCSPluckDrum.m in Sources */,
 				C41D25A1159980E000836C96 /* OCSPluckString.m in Sources */,
-				C4307E1C159B9E2B0091AE59 /* OCSConvolve.m in Sources */,
+				C4307E1C159B9E2B0091AE59 /* OCSConvolution.m in Sources */,
 				C4307F6F159BA68C0091AE59 /* GrainBirdsReverb.m in Sources */,
+				C4307F88159BB2360091AE59 /* ConvolutionInstrument.m in Sources */,
+				C4307F90159BB28B0091AE59 /* ConvolutionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
