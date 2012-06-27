@@ -11,8 +11,7 @@
 #import "OCSSoundFileTable.h"
 #import "OCSReverbSixParallelComb.h"
 #import "OCSPitchClassToFreq.h"
-#import "OCSLineSegment.h"
-#import "OCSLineSegmentWithRelease.h"
+#import "OCSLinearSegmentArray.h"
 #import "OCSFilterLowPassButterworth.h"
 #import "OCSGrain.h"
 

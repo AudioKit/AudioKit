@@ -9,7 +9,7 @@
 #import "UnitGenSoundGenerator.h"
 #import "OCSSineTable.h"
 #import "OCSLine.h"
-#import "OCSLineSegment.h"
+#import "OCSLinearSegmentArray.h"
 #import "OCSFoscili.h"
 #import "OCSAudio.h"
 
@@ -35,26 +35,26 @@
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line
-        OCSLineSegment *myLineSegment_a = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(110)  
-                                                                         FirstSegmentTargetValue:ocsp(330)  
-                                                                            FirstSegmentDuration:duration];
-        [self addOpcode:myLineSegment_a];
+        OCSLine *baseFrequencyLine = [[OCSLine alloc] initFromValue:ocsp(110) 
+                                                            ToValue:ocsp(330)
+                                                           Duration:duration];
+        [baseFrequencyLine setOutput:[baseFrequencyLine control]];
+        [self addOpcode:baseFrequencyLine];
 
-        OCSParamArray *breakpoints = [OCSParamArray paramArrayFromParams: 
-                                       ocsp(3), ocsp(1.5), ocsp(3.0), ocsp(0.5), nil];
-
-        OCSLineSegment *myLineSegment_b = [[OCSLineSegment alloc] initWithFirstSegmentStartValue:ocsp(0.5)
-                                                                         FirstSegmentTargetValue:ocsp(0.2)
-                                                                            FirstSegmentDuration:ocsp(3)
-                                                                                    DurationValuePairs:breakpoints];
-        [self addOpcode:myLineSegment_b];
+        OCSLinearSegmentArray *modIndexLine = [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
+                                                                                    FirstSegmentTargetValue:ocsp(0.2)
+                                                                                       FirstSegmentDuration:ocsp(3)];
+        [modIndexLine addNextSegmentTargetValue:ocsp(1.5) AfterDuration:ocsp(3)];
+        [modIndexLine addNextSegmentTargetValue:ocsp(0.5) AfterDuration:ocsp(3)];
+        [modIndexLine setOutput:[modIndexLine control]];
+        [self addOpcode:modIndexLine];
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
         OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                             BaseFrequency:[myLineSegment_a output]
+                                                             BaseFrequency:[baseFrequencyLine control]
                                                          CarrierMultiplier:ocsp(1) 
                                                       ModulatingMultiplier:[myLine output]
-                                                           ModulationIndex:[myLineSegment_b output]
+                                                           ModulationIndex:[modIndexLine control]
                                                              FunctionTable:sineTable];
         [self addOpcode:myFMOscillator];
 

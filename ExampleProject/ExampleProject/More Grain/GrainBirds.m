@@ -47,7 +47,7 @@
         [self addProperty:reverbSend];
         
         // FUNCTIONS ===========================================================
-
+        
         NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
         OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fiftyHzSine];
@@ -58,36 +58,29 @@
         // INSTRUMENT DEFINITION ===============================================
         
         // Useful times
-        OCSParamConstant * tenthOfDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.1", duration];
-        OCSParamConstant * halfOfDuration  = [OCSParamConstant paramWithFormat:@"%@ * 0.5", duration];
-        OCSParamConstant * sixthOfDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.6", duration];
+        OCSParamConstant * tenthOfDuration           = [OCSParamConstant paramWithFormat:@"%@ * 0.1", duration];
+        OCSParamConstant * fortyFivePercentDuration  = [OCSParamConstant paramWithFormat:@"%@ * 0.45", duration];
+        OCSParamConstant * halfOfDuration            = [OCSParamConstant paramWithFormat:@"%@ * 0.5", duration];
+        OCSParamConstant * sixthOfDuration           = [OCSParamConstant paramWithFormat:@"%@ * 0.6", duration];
         
-        
-        OCSParamArray * amplitudeBreakpoints = [OCSParamArray paramArrayFromParams:sixthOfDuration, ocsp(6000), nil];
-
-        OCSLineSegmentWithRelease * amplitude = 
-        [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
-                                                  FirstSegmentTargetValue:ocsp(3000)
-                                                     FirstSegmentDuration:tenthOfDuration
-                                                       DurationValuePairs:amplitudeBreakpoints 
-                                                          ReleaseDuration:tenthOfDuration
-                                                               FinalValue:ocsp(0)];
+        OCSLinearSegmentArray * amplitude = 
+        [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
+                                              FirstSegmentTargetValue:ocsp(3000)
+                                                 FirstSegmentDuration:tenthOfDuration];
+        [amplitude addNextSegmentTargetValue:ocsp(6000) AfterDuration:sixthOfDuration];
+        [amplitude addReleaseToFinalValue:ocsp(0) AfterDuration:tenthOfDuration];
         [self addOpcode:amplitude];
         
         OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass control]];
         [self addOpcode:cpspch];
         
-        OCSParamArray *pitchOffsetBreakpoints = [OCSParamArray paramArrayFromParams:
-                                                 [OCSParamConstant paramWithFormat:@"%@ * 0.45", duration], 
-                                                 ocsp(40), nil];
-                                                  
-        OCSLineSegmentWithRelease *pitchOffset;
-        pitchOffset = [[OCSLineSegmentWithRelease alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
-                                                                FirstSegmentTargetValue:[pitchOffsetFirstTarget constant] 
-                                                                   FirstSegmentDuration:halfOfDuration
-                                                                     DurationValuePairs:pitchOffsetBreakpoints 
-                                                                        ReleaseDuration:tenthOfDuration
-                                                                             FinalValue:ocsp(0)];
+        OCSLinearSegmentArray *pitchOffset;
+        pitchOffset = [[OCSLinearSegmentArray alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
+                                                            FirstSegmentTargetValue:[pitchOffsetFirstTarget constant]
+                                                               FirstSegmentDuration:halfOfDuration];
+        [pitchOffset addNextSegmentTargetValue:ocsp(40) AfterDuration:fortyFivePercentDuration];
+        [pitchOffset addReleaseToFinalValue:ocsp(0) AfterDuration:tenthOfDuration];
+        [pitchOffset setOutput:[pitchOffset control]];
         [self addOpcode:pitchOffset];         
         
         OCSGrain *grain = [[OCSGrain alloc] initWithGrainFunction:fiftyHzSine  
@@ -98,7 +91,7 @@
                                                      GrainDensity:[grainDensity control] 
                                                     GrainDuration:[grainDuration control] 
                                             MaxAmplitudeDeviation:ocsp(1000)
-                                                MaxPitchDeviation:[pitchOffset output]];
+                                                MaxPitchDeviation:[pitchOffset control]];
         [self addOpcode:grain];
         
         OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
@@ -114,7 +107,7 @@
         // After your instrument is set up, define outputs available to others
         auxilliaryOutput = [OCSParam paramWithString:@"ToReverb"];
         [self assignOutput:auxilliaryOutput To:[OCSParam paramWithFormat:@"%@ + (%@ * %@)",
-         auxilliaryOutput, [butterlp output], [reverbSend constant]]];
+                                                auxilliaryOutput, [butterlp output], [reverbSend constant]]];
         
     }
     return self;

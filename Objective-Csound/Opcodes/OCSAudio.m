@@ -20,8 +20,7 @@
     return [self initWithLeftInput:monoSignal RightInput:monoSignal];
 }
 
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             RightInput:(OCSParam *)rightInput
+- (id)initWithLeftInput:(OCSParam *)leftInput RightInput:(OCSParam *)rightInput
 {
     self = [super init];
     if (self) {
