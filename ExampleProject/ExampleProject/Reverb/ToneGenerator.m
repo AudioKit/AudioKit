@@ -53,6 +53,7 @@
 
 - (void)playNoteForDuration:(float)dur Frequency:(float)freq {
     frequency.value = freq;
+    NSLog(@"Playing note at frequency = %0.2f", freq);
     [self playNoteForDuration:dur];
 }
 

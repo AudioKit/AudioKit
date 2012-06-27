@@ -51,12 +51,11 @@
         
         //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
         OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                                 Frequency:[myLineSegment_a output]
-                                                                   Carrier:ocsp(1)
-                                                                Modulation:[myLine output]
-                                                                  ModIndex:[myLineSegment_b output]
-                                                             FunctionTable:sineTable 
-                                                          AndOptionalPhase:nil];
+                                                             BaseFrequency:[myLineSegment_a output]
+                                                         CarrierMultiplier:ocsp(1) 
+                                                      ModulatingMultiplier:[myLine output]
+                                                           ModulationIndex:[myLineSegment_b output]
+                                                             FunctionTable:sineTable];
         [self addOpcode:myFMOscillator];
 
         // AUDIO OUTPUT ========================================================

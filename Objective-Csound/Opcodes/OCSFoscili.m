@@ -8,13 +8,13 @@
 #import "OCSFoscili.h"
 
 @interface OCSFoscili () {
-    OCSParam *amplitude;
-    OCSParamControl *frequency;
-    OCSParam *carrier;
-    OCSParam *modulation;
+    OCSParam *amp;
+    OCSParamControl *freq;
+    OCSParam *car;
+    OCSParam *mod;
     OCSParamControl *modIndex;
-    OCSFunctionTable *functionTable;
-    OCSParamConstant *phase;
+    OCSFunctionTable *f;
+    OCSParamConstant *phs;
     OCSParam *output;
 }
 @end
@@ -23,43 +23,50 @@
 
 @synthesize output;
 
-- (id)initWithAmplitude:(OCSParam *)amp
-             Frequency:(OCSParamControl *)cps
-               Carrier:(OCSParam *)car
-            Modulation:(OCSParam *)mod
-              ModIndex:(OCSParamControl *)aModIndex
-         FunctionTable:(OCSFunctionTable *)f
-      AndOptionalPhase:(OCSParamConstant *)phs
+- (id)initWithAmplitude:(OCSParam *)amplitude
+          BaseFrequency:(OCSParamControl *)baseFrequency
+      CarrierMultiplier:(OCSParam *)carrierMutliplier
+   ModulatingMultiplier:(OCSParam *)modulatingMultiplier
+        ModulationIndex:(OCSParamControl *)modulationIndex
+          FunctionTable:(OCSFunctionTable *)functionTable
+                  Phase:(OCSParamConstant *)phase;
 {
     self = [super init];
     if ( self ) {
         output         = [OCSParam paramWithString:[self opcodeName]];
-        amplitude      = amp;
-        frequency      = cps;
-        carrier        = car;
-        modulation     = mod;
-        modIndex       = aModIndex;
-        functionTable  = f;
-        phase          = phs;
+        amp  = amplitude;
+        freq = baseFrequency;
+        car  = carrierMutliplier;
+        mod  = modulatingMultiplier;
+        modIndex = modulationIndex;
+        f = functionTable;
+        phs = phase;
     }
     return self;
+}
+
+- (id)initWithAmplitude:(OCSParam *)amplitude
+          BaseFrequency:(OCSParamControl *)baseFrequency
+      CarrierMultiplier:(OCSParam *)carrierMutliplier
+   ModulatingMultiplier:(OCSParam *)modulatingMultiplier
+        ModulationIndex:(OCSParamControl *)modulationIndex
+          FunctionTable:(OCSFunctionTable *)functionTable;
+{
+    return [self initWithAmplitude:amplitude
+                     BaseFrequency:baseFrequency
+                 CarrierMultiplier:carrierMutliplier
+              ModulatingMultiplier:modulatingMultiplier
+                   ModulationIndex:modulationIndex
+                     FunctionTable:functionTable
+                             Phase:[OCSParamConstant paramWithInt:0]];
 }
 
 - (NSString *)stringForCSD
 {
     //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-    NSString *s;
-    if ( phase == nil) {
-        s = [NSString stringWithFormat:
-             @"%@ foscili %@, %@, %@, %@, %@, %@\n",
-             output, amplitude, frequency, carrier, modulation, modIndex, functionTable];
-    } else{
-        s = [NSString stringWithFormat:
+    return[NSString stringWithFormat:
              @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
-             output, amplitude, frequency, carrier, modulation, modIndex, functionTable, phase];
-        
-    }
-    return s;
+             output, amp, freq, car, mod, modIndex, f, phs];
 }
 
 - (NSString *)description {

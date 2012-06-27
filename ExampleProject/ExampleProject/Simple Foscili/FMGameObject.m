@@ -38,14 +38,12 @@
             
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
-        
         OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                                 Frequency:[frequency control]
-                                                                   Carrier:ocsp(1)
-                                                                Modulation:[modulation control]
-                                                                  ModIndex:ocsp(15)
-                                                             FunctionTable:sineTable
-                                                          AndOptionalPhase:nil];
+                                                             BaseFrequency:[frequency control]
+                                                         CarrierMultiplier:ocsp(1) 
+                                                      ModulatingMultiplier:[modulation control]
+                                                           ModulationIndex:ocsp(15)
+                                                             FunctionTable:sineTable];
         [self addOpcode:myFMOscillator];
         
         // AUDIO OUTPUT ========================================================
@@ -61,6 +59,7 @@
                  Modulation:(float)mod {
     frequency.value = freq;
     modulation.value = mod;
+    NSLog(@"Playing note at frequency = %0.2f and modulation = %0.2f", freq, mod);
     [self playNoteForDuration:dur];
 }
 
