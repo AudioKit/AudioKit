@@ -13,10 +13,13 @@ Interpolating generators will produce a noticeably cleaner output signal, but
 they may take as much as twice as long to run. Adequate accuracy can also be
 gained without the time cost of interpolation by using large stored function
 tables of 2K, 4K or 8K points if the space is available.  
+
+http://www.csounds.com/manual/html/foscili.html
 */
 
 @interface OCSFoscili : OCSOpcode 
 
+/// The output is mono audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initializes a frequency modulated oscillator with linear interpolation.

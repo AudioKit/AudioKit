@@ -15,15 +15,15 @@
 @property (nonatomic, retain) OCSParam *output;
 
 /// Initialization Statement
-- (id)initWithAmplitude:(OCSParam *)amp
-                  Pitch:(OCSParam *)pch
-           GrainDensity:(OCSParam *)dens
-        AmplitudeOffset:(OCSParamControl *)ampOffset
-            PitchOffset:(OCSParamControl *)pchOffset
-          GrainDuration:(OCSParamControl *)gdur
-       MaxGrainDuration:(OCSParamConstant *)maxgdur
-          GrainFunction:(OCSFunctionTable *)gFunction
-         WindowFunction:(OCSFunctionTable *)wFunction;
+- (id)initWithAmplitude:(OCSParam *)amplitude
+                  Pitch:(OCSParam *)pitch
+           GrainDensity:(OCSParam *)grainDensity    
+        AmplitudeOffset:(OCSParamControl *)amplitudeOffset
+            PitchOffset:(OCSParamControl *)pitchOffset
+          GrainDuration:(OCSParamControl *)grainDuration
+       MaxGrainDuration:(OCSParamConstant *)maxGrainDuration
+          GrainFunction:(OCSFunctionTable *)grainFunction
+         WindowFunction:(OCSFunctionTable *)windowFunction;
 
 /// Initialization Statement
 - (id)initWithAmplitude:(OCSParam *)amp
