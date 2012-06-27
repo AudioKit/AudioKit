@@ -22,6 +22,28 @@ http://www.csounds.com/manual/html/foscili.html
 /// The output is mono audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
+/// The amplitude of the output signal.
+@property (nonatomic, strong) OCSParam *amplitude;
+
+/// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+@property (nonatomic, strong) OCSParamControl *baseFrequency;
+
+/// This multiplied by the baseFrequency gives the carrier frequency.
+@property (nonatomic, strong) OCSParam *carrierMultiplier;
+
+/// This multiplied by the baseFrequency gives the modulating frequency.
+@property (nonatomic, strong) OCSParam *modulatingMultiplier;
+
+/// This multiplied by the modulating frequency gives the modulation amplitude.
+@property (nonatomic, strong) OCSParamControl *modulationIndex;
+
+/// Function table to use.  Requires a wrap-around guard point.
+@property (nonatomic, strong) OCSFunctionTable *functionTable;
+
+/// Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). 
+/// A negative value will cause phase initialization to be skipped.
+@property (nonatomic, strong) OCSParamControl *phase;
+
 /// Initializes a frequency modulated oscillator with linear interpolation.
 /// @param amplitude            The amplitude of the output signal.
 /// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.

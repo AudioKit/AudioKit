@@ -21,6 +21,13 @@
 
 @implementation OCSFoscili
 
+@synthesize amplitude = amp;
+@synthesize baseFrequency = freq;
+@synthesize carrierMultiplier = car;
+@synthesize modulatingMultiplier = mod;
+@synthesize modulationIndex = modIndex;
+@synthesize functionTable = f;
+@synthesize phase = phs;
 @synthesize output;
 
 - (id)initWithAmplitude:(OCSParam *)amplitude
@@ -33,7 +40,7 @@
 {
     self = [super init];
     if ( self ) {
-        output         = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParam paramWithString:[self opcodeName]];
         amp  = amplitude;
         freq = baseFrequency;
         car  = carrierMutliplier;
@@ -63,6 +70,10 @@
 
 - (NSString *)stringForCSD
 {
+    // Clean up for uninitialized parameters
+    if (phs == nil)    phs    = [OCSParamConstant paramWithInt:0];
+    if (output == nil) output = [OCSParam paramWithString:[self opcodeName]];
+    
     //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
     return[NSString stringWithFormat:
              @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",

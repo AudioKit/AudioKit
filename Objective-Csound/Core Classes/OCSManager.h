@@ -20,6 +20,8 @@
 
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
+
+/// Determines the value from which to scale all other amplitudes in Csound
 @property (nonatomic, strong) NSNumber *zeroDBFullScaleValue;
 //@property (nonatomic, strong) NSString *options;
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;

@@ -49,6 +49,12 @@ Long signatures should be broken over lines.  Some variable names such as `in` s
 
 Although it may be tempting to create the methods in an order identical to Csound's parameters, consider also the order of importance of the parameters.  Note that the Csound documentation usually starts witht the initialization parameters and then the performance parameters.  This makes good sense especially since our instantiation methods start with "init".  
 
+We support two ways of using opcodes.
+
+a) Any init function should specify everything that is required for an opcode to run.  Using the initWithXXX method should try to ensure that the developer will see everything she needs to populate in order to create a working opcode.
+
+b) The problem with the first method is that it can look unwieldy.  So, if the developer prefers, she should be able to alloc-init the class without any parameters and define parameters after the fact as properties. The developer is on her own to debug the CSD file, especially looking for (null)s when underspecifying the opcode. 
+
 ### Implementation (.m) files
 Since implementation files are not used in creating documentation, there are fewer rules and conventions to follow. As in header files, the default Apple comments are fine, except that the project name should be replaced with "Objective-Csound" and you import lines should always be minimized.
 
