@@ -9,11 +9,10 @@
 
 /**  Convolution based on a uniformly partitioned overlap-save algorithm.
  
- TODO: Implement multi-channel support
  */
 @interface OCSConvolution : OCSOpcode
 
-/// The output is the audio, mono only for now
+/// The output is an audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Create a convolution

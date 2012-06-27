@@ -50,7 +50,7 @@
 - (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra;
 
 /// Prints Csound messages to NSLog
-/// @param orchestra Orchestra with all the current instruments.
+/// @param infoObj The information Csound is loggin.
 - (void)messageCallback:(NSValue *)infoObj;
 
 //Other Potential problems
