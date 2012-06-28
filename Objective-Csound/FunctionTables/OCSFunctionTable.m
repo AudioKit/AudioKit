@@ -6,6 +6,7 @@
 //
 
 #import "OCSFunctionTable.h"
+#import "OCSParamConstant.h"
 
 @interface OCSFunctionTable () {
     int size;
@@ -54,6 +55,13 @@
 /// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
+}
+
+- (id) length;
+{
+    OCSParamConstant * new = [[OCSParamConstant alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"ftlen(%@)", output]];
+    return new;
 }
 
 

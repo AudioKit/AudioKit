@@ -12,22 +12,12 @@
 #import "OCSLine.h"
 #import "OCSAudio.h"
 
-@interface ExpressionToneGenerator () {
-    OCSProperty *frequency;
-}
-@end
-
 @implementation ExpressionToneGenerator
 
 - (id)init
 {
     self = [super init];
     if (self) {                  
-        // INPUTS AND CONTROLS =================================================
-        
-        frequency  = [[OCSProperty alloc] init];
-        [frequency  setOutput:[OCSParamControl paramWithString:@"Frequency"]]; 
-        
         // INSTRUMENT DEFINITION ===============================================
         
         OCSSineTable * sineTable = [[OCSSineTable alloc] init];
@@ -37,16 +27,17 @@
         [self addFunctionTable:vibratoSine];
         
         OCSOscillator * vibratoOscillator; 
+
         vibratoOscillator = [[OCSOscillator alloc] initWithFunctionTable:vibratoSine
-                                                               Amplitude:ocsp(40)
-                                                               Frequency:ocsp(6)];
+                                                               frequency:ocsp(6)
+                                                               amplitude:ocsp(40)];
         [vibratoOscillator setOutput:[vibratoOscillator control]];
         [self addOpcode:vibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
         OCSParamControl * vibrato = [OCSParamControl paramWithFormat:
-                                     @"%d + (%f * %@)", 
+                                     @"%d + (%g * %@)", 
                                      vibratoOffset, vibratoScale, vibratoOscillator];
         
         OCSParamConstant * amplitudeOffset = ocsp(0.1);
@@ -60,8 +51,8 @@
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
         OCSOscillator * oscillator;
         oscillator = [[OCSOscillator alloc]  initWithFunctionTable:sineTable
-                                                         Amplitude:totalAmplitude
-                                                         Frequency:vibrato];
+                                                         frequency:vibrato
+                                                         amplitude:totalAmplitude];
         [self addOpcode:oscillator ];
         
         // AUDIO OUTPUT ========================================================
@@ -70,10 +61,6 @@
         [self addOpcode:audio];
     }
     return self;
-}
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
-    frequency.value = freq;
-    [self playNoteForDuration:dur];
 }
 
 @end

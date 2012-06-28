@@ -63,7 +63,7 @@ static int currentID = 1;
 - (id)scaledBy:(float)scalingFactor
 {
     OCSParam * new = [[OCSParam alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) * %f)", parameterString, scalingFactor]];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) * %g)", parameterString, scalingFactor]];
     return new;
 }
 

@@ -27,9 +27,9 @@
 @synthesize output;
 
 - (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                      Phase:(OCSParamConstant *)initialPhase
-                  Amplitude:(OCSParam *)amplitude 
-                  Frequency:(OCSParam *)frequency;
+                  frequency:(OCSParam *)frequency
+                  amplitude:(OCSParam *)amplitude 
+                      phase:(OCSParamConstant *)initialPhase;
 {
     self = [super init];
     if (self) {
@@ -45,15 +45,19 @@
 }
 
 - (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                  Amplitude:(OCSParam *)amplitude 
-                  Frequency:(OCSParam *)frequency 
+                  frequency:(OCSParam *)frequency
+                  amplitude:(OCSParam *)amplitude;
 {
     return [self initWithFunctionTable:functionTable
-                                 Phase:[OCSParamConstant paramWithInt:0]
-                             Amplitude:amplitude 
-                             Frequency:frequency];
+                             frequency:frequency
+                             amplitude:amplitude 
+                                 phase:[OCSParamConstant paramWithInt:0]];
 }
 
+- (void)setControl:(OCSParamControl *)p {
+    control = p;
+    output = control;
+}
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat: 

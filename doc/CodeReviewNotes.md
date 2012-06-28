@@ -16,9 +16,13 @@ File Specific Notes
 ### OCSFunctionTable
 * Use an NSArray instead of a string for the parameters.
 * Some tables may not be interesting in csound any more, like gen02, better as arrays, converted to table during (addOpcode:)
+* Could we pull off calling these "functions" and losing the table?  It just seems a bit pedantic to explicitly state how the function is being stored.  I realize there are size and opcode issues, so it's something to discuss.
 
 ### OCSGrain
 * Is GrainPitch really a frequency?  If so, _that_ is confusing.
+
+### OCSOscillator.h
+* Good place to address the problem of multirate outputs from the "Overall Notes" above. 
 
 ### OCSParamArray
 * Does this type even need to exist?  Seems like at most it should be a category of NSArray.
@@ -28,7 +32,24 @@ File Specific Notes
 
 ### OCSReverbSixParallelComb
 * Doesn't follow any of the current OCS guidelines.
-* This is a good case on study on how descriptive a class name should be.  Do we gain much from it named like this? NReverb seems better in a way.  It at least benefits from history.
+* This raises the question of how descriptive a class name should be.  Do we gain much from it named like this? NReverb seems better in a way.  It at least benefits from history.
 
 ### OCSWindowsTable
 * Create separate methods for each type since Gauss and Kaiser take another parameter.
+
+
+Current naming inconsistencies
+==============================
+
+##### Class naming - adjective before or after?
+We need to decide on whether we adopt a style of adjective-before-the-noun or adjective-after-the-noun style.  The benefit of placing the adjective first is that you have greater readability.  The benefit of placing the adjective second is that you gain alphabet-proximity, so that documentation is automatically sorted correctly and code completion works from most general to most specific as you type.  
+
+Example inconsistency:
+	OCSFilterLowPassButterworth
+vs. 
+	OCSLowPassButterworthFilter
+
+In the first example Filter is before its descriptors, but Low is in front of Pass. I don't think we can pull off adjective last consistently enough, so my inclination is that we group similar things in folders and Xcode and name them descriptively, meaning more English-y.  
+
+##### Opcodes
+Opcodes are one of the things that experienced Csound-ers know very well, so while we might like to ease their learning experience by keeping the names similar.  Often this will just mean to expand out the Csound opcode to remove abbreviation. `Foscili` could be `FMOscillator` for instance.  Where one opcode is clearly an improvement over an older one, the modifier text is unnecessary.  For instance the trailing i in `Oscili` did not encourage us to call the class `OscillatorWithInterpolation`

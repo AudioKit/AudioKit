@@ -32,7 +32,7 @@
     self = [super init];
     if (self) {
         type = @"gi";
-        parameterString = [NSString stringWithFormat:@"%f", value];
+        parameterString = [NSString stringWithFormat:@"%g", value];
     }
     return self;
 }

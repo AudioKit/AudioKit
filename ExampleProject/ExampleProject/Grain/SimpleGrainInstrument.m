@@ -11,7 +11,6 @@
 #import "OCSWindowsTable.h"
 #import "OCSLine.h"
 #import "OCSSegmentArray.h"
-#import "OCSFileLength.h"
 #import "OCSProperty.h"
 #import "OCSGrain.h"
 #import "OCSAudio.h"
@@ -36,10 +35,6 @@
         hamming = [[OCSWindowsTable alloc] initWithSize:512 
                                              windowType:kWindowHanning];
         [self addFunctionTable:hamming];
-        
-        OCSFileLength *fileLength;
-        fileLength = [[OCSFileLength alloc] initWithFunctionTable:fileTable];
-        [self addOpcode:fileLength];
                 
         OCSSegmentArray *amplitudeExp;
         amplitudeExp = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.001)  
@@ -51,7 +46,7 @@
         
         
         OCSParamConstant *baseFrequency;
-        baseFrequency = [OCSParamConstant paramWithFormat:@"44100 / %@", fileLength];
+        baseFrequency = [OCSParamConstant paramWithFormat:@"44100 / %@", [fileTable length]];
         OCSLine *pitchLine;
         pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
                                            ToValue:[baseFrequency scaledBy:0.8]

@@ -24,7 +24,7 @@
         // INPUTS ==============================================================
         
         frequency  = [[OCSProperty alloc] init];
-        [frequency setOutput:[OCSParamControl paramWithString:@"InputFrequency"]]; 
+        [frequency setControl:[OCSParamControl paramWithString:@"InputFrequency"]]; 
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -34,8 +34,8 @@
         
         OCSOscillator *oscillator;
         oscillator = [[OCSOscillator alloc] initWithFunctionTable:sine
-                                                        Amplitude:ocsp(0.4)
-                                                        Frequency:[frequency output]];
+                                                        frequency:[frequency control]
+                                                        amplitude:ocsp(0.4)];
         [self addOpcode:oscillator];
         
         // AUDIO OUTPUT ========================================================

@@ -63,19 +63,6 @@ Variables names and method signatures should be very descriptive without going o
 
 One of the primary ways Objective-Csound differs from Csound philosophically is that OCS embraces verbosity while Csound embraces brevity.  But because we're a part of the Csound community and ecosystem of tools, and Csound has such a rich history, we try to keep as much of the terminology consistent. 
 
-#### Current naming inconsistencies
 
-##### Class naming - adjective before or after?
-We need to decide on whether we adopt a style of adjective-before-the-noun or adjective-after-the-noun style.  The benefit of placing the adjective first is that you have greater readability.  The benefit of placing the adjective second is that you gain alphabet-proximity, so that documentation is automatically sorted correctly and code completion works from most general to most specific as you type.  
-
-Example inconsistency:
-	OCSAudio
-vs. 
-	OCSLoopingOscillator
- 
-My inclination is that we group similar things in folders and Xcode and name them descriptively, meaning more English-y.  So looping oscillator stay and stero ouput needs renaming.
-
-##### Opcodes
-Opcodes are one of the things that experienced Csound-ers know very well, so while we might like to ease their learning experience by keeping the names similar.  Often this will just mean to expand out the Csound opcode to remove abbreviation. `Foscili` could be `FMOscillator` for instance.  Where one opcode is clearly an improvement over an older one, the modifier text is unnecessary.  For instance the trailing i in `Oscili` did not encourage us to call the class `OscillatorWithInterpolation`
 
 

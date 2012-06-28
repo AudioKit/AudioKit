@@ -29,11 +29,11 @@
 
 - (IBAction)hit1:(id)sender
 {
-    [myToneGenerator playNoteForDuration:9 Frequency:360];
+    [myToneGenerator playNoteForDuration:3];
 }
 - (IBAction)hit2:(id)sender
 {
-    [myToneGenerator playNoteForDuration:9 Frequency:410];
+    [myToneGenerator playNoteForDuration:9];
 }
 
 @end
