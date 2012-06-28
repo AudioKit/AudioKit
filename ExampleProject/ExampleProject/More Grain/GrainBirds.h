@@ -7,13 +7,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSWindowsTable.h"
-#import "OCSSoundFileTable.h"
-#import "OCSReverbSixParallelComb.h"
-#import "OCSPitchClassToFreq.h"
-#import "OCSSegmentArray.h"
-#import "OCSFilterLowPassButterworth.h"
-#import "OCSGrain.h"
 
 @interface GrainBirds : OCSInstrument
 
