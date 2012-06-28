@@ -22,6 +22,7 @@
 #import "GrainViewController.h"
 #import "MoreGrainViewController.h"
 #import "UDOViewController.h"
+#import "ConvolutionViewController.h"
 
 
 @interface MasterViewController () {
@@ -54,6 +55,7 @@
                     @"Grain",
                     @"MoreGrain",
                     @"User Defined Opcodes",
+                    @"Convolution",
                     nil];
     return self;
 }
@@ -187,6 +189,10 @@
         case 10:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" 
                                                                    bundle:nil];
+            break;
+        case 11:
+            controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" 
+                                                             bundle:nil];
             break;
         default:
             break;

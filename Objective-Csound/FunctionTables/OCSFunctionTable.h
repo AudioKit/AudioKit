@@ -22,22 +22,21 @@
 // The unsupported types appear in an enumeration at the bottom of this file.  Add as necessary.
 typedef enum
 {
-    kGenSoundFile = 1,
-    kGenExponentialCurves=5,
-    kGenSines=10,
-    kGenWindows=20,
-} GenRoutineType;
+    kFTSoundFile = 1,
+    kFTExponentialCurves=5,
+    kFTSines=10,
+    kFTWindows=20,
+} FunctionTableType;
 
 
 /// The output is a globally accessibly constant parameter
 @property (nonatomic, strong) OCSParamConstant *output;
-
-/// @param tableSizeOrZero       Size of the table, or 0 if deferred calculation is desired.
-/// @param generatingRoutineType One of the supported GeneratingRoutines.
-/// @param parametersAsString    A string containing the parameters separated by spaces. 
-- (id)initWithSize:(int)tableSizeOrZero 
-        GenRoutine:(GenRoutineType)generatingRoutineType 
-        Parameters:(NSString *)parametersAsString;
+/// @param functionTableType  One of the supported GeneratingRoutines.
+/// @param tableSizeOrZero    Size of the table, or 0 if deferred calculation is desired.
+/// @param parametersAsString A string containing the parameters separated by spaces. 
+- (id)initWithType:(FunctionTableType)functionTableType
+              size:(int)tableSizeOrZero 
+        parameters:(NSString *)parametersAsString;
 
 /// @returns The textual representation of the function table for Csound
 - (NSString *)stringForCSD;
@@ -47,38 +46,38 @@ typedef enum
 // Unsupported Generating Routines
 typedef enum
 {
-    kGenPFields=2,
-    kGenPolynomial=3,
-    kGenNormalizingFunction=4,
-    kGenCubicPolynomials=6,
-    kGenStraightLines=7,
-    kGenCubicSpline=8,
-    kGenSinesWithThreeParameters=9,
-    kGenCosines=11,
-    kGenBessels=12,
-    kGenChebyshevs1st=13,
-    kGenChebysehvs2nt=14,
-    kGenTwoPolynomials=15,
-    kGenStartToEndCurves=16,
-    kGenStepFunctions=17,
-    kGenCompositeWaveforms=18,
-    kGenCompositeWaveformsFromSines=19,
-    kGenRandomDistributions=21,
-    kGenTextFile=23,
-    kGenScaledFunctionTable=24,
-    kGenExponentialCurvesFromBreakpoints=25,
-    kGenStraightLinesFromBreakpoints=27,
-    kGenTimeTaggedTrajectory=28,
-    kGenHarmonicPartials=30,
-    kGenTableMixer=31,
-    kGenTableMixerWithInterpolation=32,
-    kGenSineMixerUsingFFT=33,
-    kGenSineMixerUsingOscil=34,
-    kGenRandomFromHistogram=40,
-    kGenRandomPairs=41,
-    kGenRandomDistributionOfRanges=42,
-    kGenPVOCEX=43,
-    kGenMP3File=49,
-    kGenMicrotuningScale=51,
-    kGenMultichannel=52
-} CurrentlyUnsupportedGenRoutineType;
+    kFTPFields=2,
+    kFTPolynomial=3,
+    kFTNormalizingFunction=4,
+    kFTCubicPolynomials=6,
+    kFTStraightLines=7,
+    kFTCubicSpline=8,
+    kFTSinesWithThreeParameters=9,
+    kFTCosines=11,
+    kFTBessels=12,
+    kFTChebyshevs1st=13,
+    kFTChebysehvs2nt=14,
+    kFTTwoPolynomials=15,
+    kFTStartToEndCurves=16,
+    kFTStepFunctions=17,
+    kFTCompositeWaveforms=18,
+    kFTCompositeWaveformsFromSines=19,
+    kFTRandomDistributions=21,
+    kFTTextFile=23,
+    kFTScaledFunctionTable=24,
+    kFTExponentialCurvesFromBreakpoints=25,
+    kFTStraightLinesFromBreakpoints=27,
+    kFTTimeTaggedTrajectory=28,
+    kFTHarmonicPartials=30,
+    kFTTableMixer=31,
+    kFTTableMixerWithInterpolation=32,
+    kFTSineMixerUsingFFT=33,
+    kFTSineMixerUsingOscil=34,
+    kFTRandomFromHistogram=40,
+    kFTRandomPairs=41,
+    kFTRandomDistributionOfRanges=42,
+    kFTPVOCEX=43,
+    kFTMP3File=49,
+    kFTMicrotuningScale=51,
+    kFTMultichannel=52
+} CurrentlyUnsupported;

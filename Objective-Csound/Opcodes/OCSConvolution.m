@@ -10,7 +10,7 @@
 @interface OCSConvolution () {
     OCSParam *output;
     OCSParam *ain;
-    OCSParamConstant *ifilcod;
+    NSString *ifilcod;
 }
 @end
 
@@ -19,13 +19,13 @@
 @synthesize output;
 
 - (id)initWithInputAudio:(OCSParam *)inputAudio 
-     impulseResponseFile:(OCSParamConstant *)impulseResponseFile 
+     impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {
         output  =  [OCSParam paramWithString:[self opcodeName]];
         ain     = inputAudio;
-        ifilcod = impulseResponseFile;
+        ifilcod = impulseResponseFilename;
     }
     return self; 
 }
@@ -33,7 +33,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ pconvolve %@, %@ \n",
+            @"%@ pconvolve %@, \"%@\" \n",
             output, ain, ifilcod];
 }
 

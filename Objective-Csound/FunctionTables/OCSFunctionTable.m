@@ -9,7 +9,7 @@
 
 @interface OCSFunctionTable () {
     int size;
-    GenRoutineType gen;
+    FunctionTableType gen;
     NSString *parameters;    
 }
 @end
@@ -17,15 +17,15 @@
 @implementation OCSFunctionTable
 @synthesize output;
 
-- (id)initWithSize:(int)tableSizeOrZero 
-       GenRoutine:(GenRoutineType)generatingRoutineType 
-       Parameters:(NSString *)parametersAsString
+- (id)initWithType:(FunctionTableType)functionTableType
+              size:(int)tableSizeOrZero 
+        parameters:(NSString *)parametersAsString
 {
     self = [super init];
     if (self) {
         output = [OCSParamConstant paramWithString:[self functionName]];
         size = tableSizeOrZero;
-        gen = generatingRoutineType;
+        gen = functionTableType;
         parameters = parametersAsString;
     }
     return self;

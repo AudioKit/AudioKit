@@ -12,9 +12,9 @@
 
 - (id)initWithSize:(int)tableSize ValueLengthPairs:(OCSParamArray *)valueLengthPairs
 {
-    return [self initWithSize:tableSize 
-                   GenRoutine:kGenExponentialCurves 
-                   Parameters:[valueLengthPairs parameterString]];
+    return [self initWithType:kFTExponentialCurves 
+                         size:tableSize 
+                   parameters:[valueLengthPairs parameterString]];
 }
 
 @end
