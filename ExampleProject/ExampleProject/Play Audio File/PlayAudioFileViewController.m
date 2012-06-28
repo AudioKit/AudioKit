@@ -8,6 +8,12 @@
 
 #import "PlayAudioFileViewController.h"
 #import "OCSManager.h"
+#import "AudioFilePlayer.h"
+
+@interface PlayAudioFileViewController () {
+    AudioFilePlayer *audioFilePlayer;
+}
+@end
 
 @implementation PlayAudioFileViewController
 

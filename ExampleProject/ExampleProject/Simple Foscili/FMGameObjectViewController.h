@@ -9,10 +9,6 @@
 #import "FMGameObject.h"
 
 @interface FMGameObjectViewController : UIViewController
-{
-    //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
-    FMGameObject *myFMGameObject;
-}
 
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;

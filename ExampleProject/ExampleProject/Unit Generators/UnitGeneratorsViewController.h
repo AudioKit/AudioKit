@@ -6,12 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "UnitGenSoundGenerator.h"
-
 @interface UnitGeneratorsViewController : UIViewController
-{
-    UnitGenSoundGenerator *myUnitGenSoundGenerator;
-}
 
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;

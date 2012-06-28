@@ -24,7 +24,7 @@
     if (self) { 
         // INSTRUMENT DEFINITION ===============================================
         
-        NSString * file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
         OCSSoundFileTable *fileTable = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:16384];
         [self addFunctionTable:fileTable];
         

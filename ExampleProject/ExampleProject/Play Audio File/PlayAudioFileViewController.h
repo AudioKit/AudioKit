@@ -6,11 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "AudioFilePlayer.h"
-
-@interface PlayAudioFileViewController : UIViewController {
-    AudioFilePlayer *audioFilePlayer;
-}
+@interface PlayAudioFileViewController : UIViewController 
 
 - (IBAction)touchButton:(id)sender;
 

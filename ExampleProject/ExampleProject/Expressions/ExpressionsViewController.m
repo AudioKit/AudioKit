@@ -8,6 +8,12 @@
 
 #import "ExpressionsViewController.h"
 #import "OCSManager.h"
+#import "ExpressionToneGenerator.h"
+
+@interface ExpressionsViewController () {
+    ExpressionToneGenerator *myToneGenerator;
+}
+@end
 
 @implementation ExpressionsViewController
 

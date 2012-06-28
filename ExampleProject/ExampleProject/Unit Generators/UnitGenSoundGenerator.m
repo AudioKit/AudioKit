@@ -23,7 +23,7 @@
         // INSTRUMENT DEFINITION ===============================================
         // create sign function with variable partial strengths
 
-        OCSParamArray *partialStrengths = [OCSParamArray paramArrayFromParams:ocsp(1.0f), ocsp(0.5f), ocsp(1.0f)];
+        OCSParamArray *partialStrengths = [OCSParamArray paramArrayFromParams:ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
         OCSSineTable *sineTable = [[OCSSineTable alloc] initWithSize:4096 
                                                      PartialStrengths:partialStrengths];
         [self addFunctionTable:sineTable];
@@ -39,27 +39,27 @@
                                                            Duration:duration];
         [baseFrequencyLine setOutput:[baseFrequencyLine control]];
         [self addOpcode:baseFrequencyLine];
-
+        
         OCSSegmentArray *modIndexLine = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
-                                                                                    FirstSegmentTargetValue:ocsp(0.2)
-                                                                                       FirstSegmentDuration:ocsp(3)];
+                                                                        FirstSegmentTargetValue:ocsp(0.2)
+                                                                           FirstSegmentDuration:ocsp(3)];
         [modIndexLine addNextSegmentTargetValue:ocsp(1.5) AfterDuration:ocsp(3)];
         [modIndexLine addNextSegmentTargetValue:ocsp(0.5) AfterDuration:ocsp(3)];
         [modIndexLine setOutput:[modIndexLine control]];
         [self addOpcode:modIndexLine];
         
-        //H4Y - ARB: create fmOscillator with sine, lines for pitch, modulation, and modindex
-        OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                             BaseFrequency:[baseFrequencyLine control]
-                                                         CarrierMultiplier:ocsp(1) 
-                                                      ModulatingMultiplier:[myLine output]
-                                                           ModulationIndex:[modIndexLine control]
-                                                             FunctionTable:sineTable];
-        [self addOpcode:myFMOscillator];
+        // create fmOscillator with sine, lines for pitch, modulation, and modindex
+        OCSFoscili *fmOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
+                                                           BaseFrequency:[baseFrequencyLine control]
+                                                       CarrierMultiplier:ocsp(1) 
+                                                    ModulatingMultiplier:[myLine output]
+                                                         ModulationIndex:[modIndexLine control]
+                                                           FunctionTable:sineTable];
+        [self addOpcode:fmOscillator];
 
         // AUDIO OUTPUT ========================================================
 
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myFMOscillator output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscillator output]];
         [self addOpcode:audio];
     }
     return self;

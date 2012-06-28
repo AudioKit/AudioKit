@@ -9,6 +9,15 @@
 #import "ContinuousControlViewController.h"
 #import "OCSManager.h"
 
+@interface ContinuousControlViewController ()
+{
+    TweakableInstrument *myTweakableInstrument;
+    
+    NSTimer *repeatingNoteTimer;
+    NSTimer *repeatingSliderTimer;
+}
+@end
+
 @implementation ContinuousControlViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
