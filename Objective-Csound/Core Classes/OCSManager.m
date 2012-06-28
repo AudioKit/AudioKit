@@ -65,7 +65,7 @@ static OCSManager *_sharedOCSManager = nil;
         
         //myPropertyManager = [[OCSPropertyManager alloc] init];
         
-        options = @"-odac -+rtmidi=null -+rtaudio=null";
+        options = @"-odac -+rtmidi=null -+rtaudio=null -dm0";
         sampleRate = 44100;
         samplesPerControlPeriod = 256;
         //int numberOfChannels = 1; //MONO

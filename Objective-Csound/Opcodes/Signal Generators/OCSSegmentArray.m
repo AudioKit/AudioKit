@@ -71,11 +71,19 @@
 }
 
 - (NSString *)stringForCSD
-{    
+{
     if ([segments count] == 0) {
-        return [NSString stringWithFormat:
-                @"%@ %@ %@, %@, %@, %@, %@\n", 
-                output, opcode, start, dur, target, release, final];
+        if ([[release parameterString] intValue] == 0) {
+            opcode = @"linseg";
+            return [NSString stringWithFormat:
+                    @"%@ %@ %@, %@, %@\n", 
+                    output, opcode, start, dur, target];
+
+        } else {
+            return [NSString stringWithFormat:
+                    @"%@ %@ %@, %@, %@, %@, %@\n", 
+                    output, opcode, start, dur, target, release, final];
+        }
     } else {
         NSMutableArray *s = [[NSMutableArray alloc] init];
         for (OCSParamConstant *value in segments) {
@@ -83,9 +91,17 @@
         }
         NSString *segs = [s componentsJoinedByString:@" , "];
        
-        return [NSString stringWithFormat:
-                @"%@ %@ %@, %@, %@, %@, %@, %@\n", 
-                output, opcode, start, dur, target, segs, release, final];
+        if ([[release parameterString] intValue] == 0) {
+            opcode = @"linseg";
+            return [NSString stringWithFormat:
+                    @"%@ %@ %@, %@, %@, %@\n", 
+                    output, opcode, start, dur, target, segs];
+            
+        } else {
+            return [NSString stringWithFormat:
+                    @"%@ %@ %@, %@, %@, %@, %@, %@\n", 
+                    output, opcode, start, dur, target, segs, release, final];
+        }
     }
 }
 
