@@ -27,15 +27,20 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender
+- (IBAction)start:(id)sender
 {
-    [conv playNoteForDuration:15];
+    [conv playNoteForDuration:150000];
 }
 
-- (IBAction)hit2:(id)sender
+-(IBAction)changeDryWet:(id)sender 
 {
-    [conv playNoteForDuration:5];
+    UISlider * mySlider = (UISlider *) sender;
+    conv.dryWetBalance.value = mySlider.value;
 }
-
+-(IBAction)changeDishWell:(id)sender;
+{
+    UISlider * mySlider = (UISlider *) sender;
+    conv.dishWellBalance.value = mySlider.value;
+}
 
 @end

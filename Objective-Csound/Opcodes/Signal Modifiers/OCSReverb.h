@@ -15,6 +15,7 @@
  */
 
 @interface OCSReverb : OCSOpcode 
+
 /// The output to the left channel.
 @property (nonatomic, strong) OCSParam *outputLeft;
 /// The output to the right channel.

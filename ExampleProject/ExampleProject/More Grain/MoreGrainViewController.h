@@ -6,15 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "GrainBirds.h"
-#import "GrainBirdsReverb.h"
-
-@interface MoreGrainViewController : UIViewController
-{
-    GrainBirds *myGrainBirds;
-    GrainBirdsReverb *fx;
-    
-    NSTimer *timer;
+@interface MoreGrainViewController : UIViewController {
     
     IBOutlet UISlider *grainDurationSlider;
     IBOutlet UISlider *pitchOffsetStartSlider;
