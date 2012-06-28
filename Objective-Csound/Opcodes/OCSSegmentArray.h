@@ -8,13 +8,13 @@
 #import "OCSOpcode.h"
 
 /**
- Trace a series of line segments between specified points.
+ Trace a series of line segments between specified points. The transition
+ between these points can either be linear, by default, or exponential,
+ by sending invoking the useExponentialSegments method.
  
- Unlike several other linear and exponential generators OCSLineSegment 
- holds the final value if the sum of segment durations is less than the 
- note duration.
+ http://www.csounds.com/manual/html/linsegr.html
  
- http://www.csounds.com/manual/html/linseg.html
+ http://www.csounds.com/manual/html/expsegr.html
  */
 
 @interface OCSSegmentArray : OCSOpcode 
@@ -28,10 +28,13 @@
 /// The output is the audio signal or the control.
 @property (nonatomic, strong) OCSParam *output;
 
-/// Creates a single linear segment.
+/// Creates the OCSSegmentArray and populates it with the minimum information.
+/// Use addValue:afterDuration to add more segments to the array.
+/// An optional release segment can be added with addReleaseToFinalValue:afterDuration.
 /// @param firstSegmentStartValue  Starting value. 
 /// @param firstSegmentTargetValue Value after firstSegmentDuration seconds. 
 /// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
+/// @return An OCSSegment with the first segment specified.
 - (id)initWithStartValue:(OCSParamConstant *)firstSegmentStartValue
              toNextValue:(OCSParamConstant *)firstSegmentTargetValue
            afterDuration:(OCSParamConstant *)firstSegmentDuration;

@@ -27,4 +27,12 @@
     return self;
 }
 
+- (id)toCPS;
+{
+    OCSParamControl * new = [[OCSParamControl alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"cpspch(%@)", parameterString]];
+    return new;
+}
+
+
 @end

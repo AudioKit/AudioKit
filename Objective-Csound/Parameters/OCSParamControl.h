@@ -10,4 +10,6 @@
 /// These are parameters that can change at k-Rate, or control rate
 @interface OCSParamControl : OCSParam
 
+/// Converts pitch to frequency
+- (id)toCPS;
 @end

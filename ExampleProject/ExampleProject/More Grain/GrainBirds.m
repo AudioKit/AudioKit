@@ -9,6 +9,12 @@
 #import "GrainBirds.h"
 #import "OCSGrain.h"
 #import "OCSAudio.h"
+#import "OCSWindowsTable.h"
+#import "OCSSoundFileTable.h"
+#import "OCSReverbSixParallelComb.h"
+#import "OCSSegmentArray.h"
+#import "OCSFilterLowPassButterworth.h"
+#import "OCSGrain.h"
 
 @interface GrainBirds () {
     OCSProperty *grainDensity;
@@ -93,10 +99,7 @@
         [amplitude addValue:ocsp(1000) afterDuration:[duration scaledBy:0.6]];
         [amplitude addReleaseToFinalValue:ocsp(0) afterDuration:[duration scaledBy:0.1]];
         [self addOpcode:amplitude];
-        
-        OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass control]];
-        [self addOpcode:cpspch];
-        
+
         OCSSegmentArray *pitchOffset;
         pitchOffset = [[OCSSegmentArray alloc] initWithStartValue:[pitchOffsetStartValue constant] 
                                                       toNextValue:[pitchOffsetFirstTarget constant]
@@ -110,7 +113,7 @@
                                                    WindowFunction:fiftyHzSine 
                                                  MaxGrainDuration:ocsp(0.1)
                                                         Amplitude:[amplitude output] 
-                                                       GrainPitch:[cpspch output] 
+                                                       GrainPitch:[[pitchClass control] toCPS]
                                                      GrainDensity:[grainDensity control] 
                                                     GrainDuration:[grainDuration control] 
                                             MaxAmplitudeDeviation:ocsp(1000)

@@ -36,7 +36,6 @@
 		C4308006159BCE660091AE59 /* OCSOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FC0159BCE650091AE59 /* OCSOpcode.m */; };
 		C4308007159BCE660091AE59 /* OCSOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FC2159BCE650091AE59 /* OCSOscillator.m */; };
 		C4308008159BCE660091AE59 /* OCSOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FC4159BCE650091AE59 /* OCSOutputMono.m */; };
-		C4308009159BCE660091AE59 /* OCSPitchClassToFreq.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FC6159BCE650091AE59 /* OCSPitchClassToFreq.m */; };
 		C430800A159BCE660091AE59 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FC8159BCE650091AE59 /* OCSPluckDrum.m */; };
 		C430800B159BCE660091AE59 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FCA159BCE650091AE59 /* OCSPluckString.m */; };
 		C430800C159BCE660091AE59 /* OCSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FCC159BCE650091AE59 /* OCSProduct.m */; };
@@ -188,8 +187,6 @@
 		C4307FC2159BCE650091AE59 /* OCSOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSOscillator.m; sourceTree = "<group>"; };
 		C4307FC3159BCE650091AE59 /* OCSOutputMono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSOutputMono.h; sourceTree = "<group>"; };
 		C4307FC4159BCE650091AE59 /* OCSOutputMono.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSOutputMono.m; sourceTree = "<group>"; };
-		C4307FC5159BCE650091AE59 /* OCSPitchClassToFreq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPitchClassToFreq.h; sourceTree = "<group>"; };
-		C4307FC6159BCE650091AE59 /* OCSPitchClassToFreq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPitchClassToFreq.m; sourceTree = "<group>"; };
 		C4307FC7159BCE650091AE59 /* OCSPluckDrum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckDrum.h; sourceTree = "<group>"; };
 		C4307FC8159BCE650091AE59 /* OCSPluckDrum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckDrum.m; sourceTree = "<group>"; };
 		C4307FC9159BCE650091AE59 /* OCSPluckString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckString.h; sourceTree = "<group>"; };
@@ -563,8 +560,6 @@
 				C4307FC2159BCE650091AE59 /* OCSOscillator.m */,
 				C4307FC3159BCE650091AE59 /* OCSOutputMono.h */,
 				C4307FC4159BCE650091AE59 /* OCSOutputMono.m */,
-				C4307FC5159BCE650091AE59 /* OCSPitchClassToFreq.h */,
-				C4307FC6159BCE650091AE59 /* OCSPitchClassToFreq.m */,
 				C4307FC7159BCE650091AE59 /* OCSPluckDrum.h */,
 				C4307FC8159BCE650091AE59 /* OCSPluckDrum.m */,
 				C4307FC9159BCE650091AE59 /* OCSPluckString.h */,
@@ -1074,7 +1069,6 @@
 				C4308006159BCE660091AE59 /* OCSOpcode.m in Sources */,
 				C4308007159BCE660091AE59 /* OCSOscillator.m in Sources */,
 				C4308008159BCE660091AE59 /* OCSOutputMono.m in Sources */,
-				C4308009159BCE660091AE59 /* OCSPitchClassToFreq.m in Sources */,
 				C430800A159BCE660091AE59 /* OCSPluckDrum.m in Sources */,
 				C430800B159BCE660091AE59 /* OCSPluckString.m in Sources */,
 				C430800C159BCE660091AE59 /* OCSProduct.m in Sources */,
