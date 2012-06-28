@@ -34,5 +34,5 @@ File Specific Notes
 * Doesn't follow any of the current OCS guidelines.
 * This is a good case on study on how descriptive a class name should be.  Do we gain much from it named like this? NReverb seems better in a way.  It at least benefits from history.
 
-### OCSSegmentArray
-* The whole firstSegment stuff seems a bit bulky.  Could just use startValue, nextValue, duration.
+### OCSWindowsTable
+* Create separate methods for each type since Gause and Kaiser take another parameter.

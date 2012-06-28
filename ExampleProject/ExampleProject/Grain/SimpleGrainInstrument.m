@@ -24,37 +24,38 @@
     if (self) { 
         // INSTRUMENT DEFINITION ===============================================
         
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"beats" 
+                                                         ofType:@"wav"];
         OCSSoundFileTable *fileTable;
-        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:16384];
+        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file 
+                                                      tableSize:16384];
         [self addFunctionTable:fileTable];
         
         
-        OCSFunctionTable *hamming = [[OCSWindowsTable alloc] initWithSize:512 
-                                                               WindowType:kWindowHanning];
+        OCSFunctionTable *hamming;
+        hamming = [[OCSWindowsTable alloc] initWithSize:512 
+                                             windowType:kWindowHanning];
         [self addFunctionTable:hamming];
         
-        OCSFileLength *fileLength = [[OCSFileLength alloc] initWithFunctionTable:fileTable];
+        OCSFileLength *fileLength;
+        fileLength = [[OCSFileLength alloc] initWithFunctionTable:fileTable];
         [self addOpcode:fileLength];
-        
-        OCSParamConstant *halfDuration = [OCSParamConstant paramWithFormat:@"%@ / 2", duration];
-        
+                
         OCSSegmentArray *amplitudeExp;
-        amplitudeExp = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
-                                                       FirstSegmentTargetValue:ocsp(0.1)
-                                                          FirstSegmentDuration:halfDuration];
-        [amplitudeExp addNextSegmentTargetValue:ocsp(0.01) AfterDuration:halfDuration];
+        amplitudeExp = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.001)  
+                                                       toNextValue:ocsp(0.1)  
+                                                     afterDuration:[duration scaledBy:0.5]];
+        [amplitudeExp addValue:ocsp(0.01) afterDuration:[duration scaledBy:0.5]];
         [amplitudeExp useExponentialSegments];
         [self addOpcode:amplitudeExp];
         
         
         OCSParamConstant *baseFrequency;
         baseFrequency = [OCSParamConstant paramWithFormat:@"44100 / %@", fileLength];
-        OCSParamConstant *finalFrequency;
-        finalFrequency = [OCSParamConstant paramWithFormat:@"0.8 * (%@)", baseFrequency];
-        OCSLine * pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
-                                                     ToValue:finalFrequency
-                                                    Duration:duration];
+        OCSLine *pitchLine;
+        pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
+                                           ToValue:[baseFrequency scaledBy:0.8]
+                                          Duration:duration];
         [self addOpcode:pitchLine];
         
         OCSLine *grainDensityLine = [[OCSLine alloc] initFromValue:ocsp(600)
@@ -68,14 +69,13 @@
         [ampOffsetLine setOutput:[ampOffsetLine control]];
         [self addOpcode:ampOffsetLine];
         
-        
-        OCSParamConstant *finalPitchOffset;
-        finalPitchOffset = [OCSParamConstant paramWithFormat:@"0.5 * (%@)", baseFrequency];
-        OCSLine *pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
-                                                          ToValue:finalPitchOffset
-                                                         Duration:duration ];
+        OCSLine *pitchOffsetLine;
+        pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
+                                                 ToValue:[baseFrequency scaledBy:0.5]
+                                                Duration:duration ];
         [pitchOffsetLine setOutput:[pitchOffsetLine control]];
         [self addOpcode:pitchOffsetLine];   
+        
         
         OCSLine *grainDurationLine = [[OCSLine alloc] initFromValue:ocsp(0.1)
                                                             ToValue:ocsp(0.1)

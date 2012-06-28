@@ -34,6 +34,6 @@
 /// @param tableSize         Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param valueLengthPairs  Values must be nonzero and must be alike in sign.
 /// Lengths must be non-nagative and the sum should equal `tableSize`.
-- (id)initWithSize:(int)tableSize ValueLengthPairs:(OCSParamArray *)valueLengthPairs;
+- (id)initWithSize:(int)tableSize valueLengthPairs:(OCSParamArray *)valueLengthPairs;
 
 @end

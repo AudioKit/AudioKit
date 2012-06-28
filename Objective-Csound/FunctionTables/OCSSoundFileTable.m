@@ -16,7 +16,7 @@
 
 }
 
-- (id)initWithFilename:(NSString *)filename TableSize:(int)tableSize {
+- (id)initWithFilename:(NSString *)filename tableSize:(int)tableSize {
     return [super initWithType:kFTSoundFile 
                           size:tableSize 
                     parameters:[NSString stringWithFormat:@"\"%@\", 0, 0, 0", filename]];

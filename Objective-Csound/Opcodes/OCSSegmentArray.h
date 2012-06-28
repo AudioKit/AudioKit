@@ -32,22 +32,22 @@
 /// @param firstSegmentStartValue  Starting value. 
 /// @param firstSegmentTargetValue Value after firstSegmentDuration seconds. 
 /// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
-             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
-                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration;
+- (id)initWithStartValue:(OCSParamConstant *)firstSegmentStartValue
+             toNextValue:(OCSParamConstant *)firstSegmentTargetValue
+           afterDuration:(OCSParamConstant *)firstSegmentDuration;
 
 /// Adds another segment.
 /// @param nextSegmentTargetValue Value after nextSegmentDuration seconds. 
 /// @param nextSegmentDuration    Duration in seconds.
-- (void)addNextSegmentTargetValue:(OCSParamConstant *)nextSegmentTargetValue 
-                    AfterDuration:(OCSParamConstant *)nextSegmentDuration;
+- (void)addValue:(OCSParamConstant *)nextSegmentTargetValue 
+   afterDuration:(OCSParamConstant *)nextSegmentDuration;
 
 
 /// Adds a release segment.
 /// @param finalValue      Last value to reach, typically zero.
 /// @param releaseDuration Length of time in seconds to get to finalValue.
 - (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
-                 AfterDuration:(OCSParamConstant *)releaseDuration;
+                 afterDuration:(OCSParamConstant *)releaseDuration;
 
 /// Switches to an exponential segment generating opcode.
 - (void)useExponentialSegments;

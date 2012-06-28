@@ -26,22 +26,19 @@
         
         //ARB - Bug here in duration expressions not adding up to 1
 
-        OCSParamConstant * quarterDuration      = [OCSParamConstant paramWithFormat:@"%@ * 0.25", duration];
-        OCSParamConstant * threeQuarterDuration = [OCSParamConstant paramWithFormat:@"%@ * 0.75", duration];
-        OCSParamConstant * fourFifthsDuration   = [OCSParamConstant paramWithFormat:@"%@ * 0.8",  duration];
-
-        OCSSegmentArray *reverbDuration = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0)
-                                                                        FirstSegmentTargetValue:ocsp(10) 
-                                                                             FirstSegmentDuration:quarterDuration];
-        [reverbDuration addNextSegmentTargetValue:ocsp(10) AfterDuration:threeQuarterDuration];
-        [reverbDuration addNextSegmentTargetValue:ocsp(0)  AfterDuration:fourFifthsDuration];
+        OCSSegmentArray *reverbDuration;
+        reverbDuration = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0)
+                                                         toNextValue:ocsp(10) 
+                                                       afterDuration:[duration scaledBy:0.25]];
+        [reverbDuration addValue:ocsp(10) afterDuration:[duration scaledBy:0.75]];
+        [reverbDuration addValue:ocsp(0)  afterDuration:[duration scaledBy:0.8]];
         [reverbDuration setOutput:[reverbDuration control]];
         [self addOpcode:reverbDuration];
         
-        OCSReverbSixParallelComb * reverb = [[OCSReverbSixParallelComb alloc]  initWithInput:input 
-                                                                              ReverbDuration:[reverbDuration control] 
-                                                                         HighFreqDiffusivity:ocsp(0)];
-
+        OCSReverbSixParallelComb * reverb;
+        reverb = [[OCSReverbSixParallelComb alloc]  initWithInput:input 
+                                                   ReverbDuration:[reverbDuration control] 
+                                              HighFreqDiffusivity:ocsp(0)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
