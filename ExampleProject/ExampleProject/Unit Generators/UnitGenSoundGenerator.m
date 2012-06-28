@@ -28,7 +28,7 @@
                             ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 
-                                 PartialStrengths:partialStrengths];
+                                 partialStrengths:partialStrengths];
         [self addFunctionTable:sine];
         
         OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
@@ -44,11 +44,11 @@
         [self addOpcode:baseFrequencyLine];
         
         OCSSegmentArray *modIndexLine;
-        modIndexLine = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
-                                                       FirstSegmentTargetValue:ocsp(0.2)
-                                                          FirstSegmentDuration:ocsp(3)];
-        [modIndexLine addNextSegmentTargetValue:ocsp(1.5) AfterDuration:ocsp(3)];
-        [modIndexLine addNextSegmentTargetValue:ocsp(0.5) AfterDuration:ocsp(3)];
+        modIndexLine = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.5)
+                                                       toNextValue:ocsp(0.2)
+                                                          afterDuration:ocsp(3)];
+        [modIndexLine addValue:ocsp(1.5) afterDuration:ocsp(3)];
+        [modIndexLine addValue:ocsp(0.5) afterDuration:ocsp(3)];
         [modIndexLine setOutput:[modIndexLine control]];
         [self addOpcode:modIndexLine];
         
@@ -59,7 +59,7 @@
                                            CarrierMultiplier:ocsp(1) 
                                         ModulatingMultiplier:[myLine output]
                                              ModulationIndex:[modIndexLine control]
-                                               FunctionTable:sineTable];
+                                               FunctionTable:sine];
         [self addOpcode:fmOscillator];
 
         // AUDIO OUTPUT ========================================================

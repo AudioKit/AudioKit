@@ -40,4 +40,8 @@
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void) resetID;
+
+/// Helper function to create a new OCSParam with the CSD output scaled
+/// @param scalingFactor The floating point number by which to scale.
+- (id)scaledBy:(float)scalingFactor;
 @end

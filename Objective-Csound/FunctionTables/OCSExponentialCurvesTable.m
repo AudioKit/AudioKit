@@ -10,7 +10,7 @@
 
 @implementation OCSExponentialCurvesTable
 
-- (id)initWithSize:(int)tableSize ValueLengthPairs:(OCSParamArray *)valueLengthPairs
+- (id)initWithSize:(int)tableSize valueLengthPairs:(OCSParamArray *)valueLengthPairs
 {
     return [self initWithType:kFTExponentialCurves 
                          size:tableSize 

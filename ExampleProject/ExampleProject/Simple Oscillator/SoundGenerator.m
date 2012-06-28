@@ -36,7 +36,7 @@
         
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 
-                                 PartialStrengths:partialStrengthParamArray];
+                                 partialStrengths:partialStrengthParamArray];
         [self addFunctionTable:sine];
         
         OCSOscillator *myOscil;

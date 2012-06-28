@@ -47,7 +47,7 @@
 /// Store file with a filename using a specifically sized function table
 /// @param filename  Audio file to load.  Most types are supported.
 /// @param tableSize Size of the table to use.  Necessary for some opcodes.
-- (id)initWithFilename:(NSString *)filename TableSize:(int)tableSize;
+- (id)initWithFilename:(NSString *)filename tableSize:(int)tableSize;
 
 @end
 

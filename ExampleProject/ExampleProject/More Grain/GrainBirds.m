@@ -78,37 +78,31 @@
         // FUNCTIONS ===========================================================
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
-        OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:4096];
+        OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file tableSize:4096];
         [self addFunctionTable:fiftyHzSine];
         
-        OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithSize:4097 WindowType:kWindowHanning];
+        OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithSize:4097 windowType:kWindowHanning];
         [self addFunctionTable:hanning];
         
         // INSTRUMENT DEFINITION ===============================================
         
-        // Useful times
-        OCSParamConstant * tenthOfDuration           = [OCSParamConstant paramWithFormat:@"%@ * 0.1", duration];
-        OCSParamConstant * fortyFivePercentDuration  = [OCSParamConstant paramWithFormat:@"%@ * 0.45", duration];
-        OCSParamConstant * halfOfDuration            = [OCSParamConstant paramWithFormat:@"%@ * 0.5", duration];
-        OCSParamConstant * sixthOfDuration           = [OCSParamConstant paramWithFormat:@"%@ * 0.6", duration];
-        
-        OCSSegmentArray * amplitude = 
-        [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.00001f)
-                                              FirstSegmentTargetValue:ocsp(500)
-                                                 FirstSegmentDuration:tenthOfDuration];
-        [amplitude addNextSegmentTargetValue:ocsp(1000) AfterDuration:sixthOfDuration];
-        [amplitude addReleaseToFinalValue:ocsp(0) AfterDuration:tenthOfDuration];
+        OCSSegmentArray * amplitude;
+        amplitude = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.00001f)
+                                                    toNextValue:ocsp(500)
+                                                  afterDuration:[duration scaledBy:0.1]];
+        [amplitude addValue:ocsp(1000) afterDuration:[duration scaledBy:0.6]];
+        [amplitude addReleaseToFinalValue:ocsp(0) afterDuration:[duration scaledBy:0.1]];
         [self addOpcode:amplitude];
         
         OCSPitchClassToFreq * cpspch = [[OCSPitchClassToFreq alloc] initWithPitch:[pitchClass control]];
         [self addOpcode:cpspch];
         
         OCSSegmentArray *pitchOffset;
-        pitchOffset = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:[pitchOffsetStartValue constant] 
-                                                            FirstSegmentTargetValue:[pitchOffsetFirstTarget constant]
-                                                               FirstSegmentDuration:halfOfDuration];
-        [pitchOffset addNextSegmentTargetValue:ocsp(40) AfterDuration:fortyFivePercentDuration];
-        [pitchOffset addReleaseToFinalValue:ocsp(0) AfterDuration:tenthOfDuration];
+        pitchOffset = [[OCSSegmentArray alloc] initWithStartValue:[pitchOffsetStartValue constant] 
+                                                      toNextValue:[pitchOffsetFirstTarget constant]
+                                                    afterDuration:[duration scaledBy:0.5]];
+        [pitchOffset addValue:ocsp(40) afterDuration:[duration scaledBy:0.45]];
+        [pitchOffset addReleaseToFinalValue:ocsp(0) afterDuration:[duration scaledBy:0.1]];
         [pitchOffset setOutput:[pitchOffset control]];
         [self addOpcode:pitchOffset];         
         
@@ -123,8 +117,9 @@
                                                 MaxPitchDeviation:[pitchOffset control]];
         [self addOpcode:grain];
         
-        OCSFilterLowPassButterworth *butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
-                                                                                   CutoffFrequency:ocsp(500)];
+        OCSFilterLowPassButterworth *butterlp;
+        butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
+                                                      CutoffFrequency:ocsp(500)];
         [self addOpcode:butterlp];
         
         // AUDIO OUTPUT ========================================================
@@ -135,8 +130,9 @@
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
         auxilliaryOutput = [OCSParam paramWithString:@"ToReverb"];
-        [self assignOutput:auxilliaryOutput To:[OCSParam paramWithFormat:@"%@ + (%@ * %@)",
-                                                auxilliaryOutput, [butterlp output], [reverbSend constant]]];
+        [self assignOutput:auxilliaryOutput 
+                        To:[OCSParam paramWithFormat:@"%@ + (%@ * %@)",
+                            auxilliaryOutput, [butterlp output], [reverbSend constant]]];
         
     }
     return self;

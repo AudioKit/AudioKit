@@ -29,9 +29,9 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initWithFirstSegmentStartValue:(OCSParamConstant *)firstSegmentStartValue
-             FirstSegmentTargetValue:(OCSParamConstant *)firstSegmentTargetValue
-                FirstSegmentDuration:(OCSParamConstant *)firstSegmentDuration
+- (id)initWithStartValue:(OCSParamConstant *)firstSegmentStartValue
+             toNextValue:(OCSParamConstant *)firstSegmentTargetValue
+           afterDuration:(OCSParamConstant *)firstSegmentDuration
 {
     self = [super init];
     
@@ -52,15 +52,15 @@
     return self;
 }
 
-- (void)addNextSegmentTargetValue:(OCSParamConstant *)nextSegmentTargetValue 
-                    AfterDuration:(OCSParamConstant *)nextSegmentDuration 
+- (void)addValue:(OCSParamConstant *)nextSegmentTargetValue 
+   afterDuration:(OCSParamConstant *)nextSegmentDuration;
 {
     [segments addObject:nextSegmentDuration];
     [segments addObject:nextSegmentTargetValue];
 }
 
 - (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
-                 AfterDuration:(OCSParamConstant *)releaseDuration
+                 afterDuration:(OCSParamConstant *)releaseDuration
 {
     release = releaseDuration;
     final   = finalValue;

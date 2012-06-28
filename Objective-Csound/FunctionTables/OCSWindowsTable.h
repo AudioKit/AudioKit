@@ -56,12 +56,12 @@ typedef enum
 /// @param windowType   Type of window to generate.
 /// @param maximumValue Absolute value at window peak point. 
 - (id)initWithSize:(int)tableSize 
-        WindowType:(WindowType)windowType 
-          MaxValue:(int)maximumValue;
+        windowType:(WindowType)windowType 
+          maxValue:(int)maximumValue;
 
 /// Instantiates the window function table.
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param windowType   Type of window to generate.
-- (id)initWithSize:(int)tableSize WindowType:(WindowType)windowType;
+- (id)initWithSize:(int)tableSize windowType:(WindowType)windowType;
 
 @end

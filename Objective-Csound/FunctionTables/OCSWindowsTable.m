@@ -12,15 +12,15 @@
 //normalized to one version
 
 - (id)initWithSize:(int)tableSize 
-        WindowType:(WindowType)windowType 
-          MaxValue:(int)maximumValue
+        windowType:(WindowType)windowType 
+          maxValue:(int)maximumValue
 {
     return [self initWithType:(-kFTWindows)
                          size:tableSize 
                    parameters:[NSString stringWithFormat:@"%d %d", windowType, maximumValue]];
 }
 
-- (id)initWithSize:(int)tableSize WindowType:(WindowType)windowType
+- (id)initWithSize:(int)tableSize windowType:(WindowType)windowType
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 

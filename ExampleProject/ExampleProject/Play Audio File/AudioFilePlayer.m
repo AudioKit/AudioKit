@@ -43,7 +43,7 @@
         [self addOpcode:oscil];
         
         OCSReverb * reverb;
-        reverb = [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
+        reverb = [[OCSReverb alloc] initWithMonoInput:[oscil output1] 
                                         FeedbackLevel:ocsp(0.85)
                                       CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
