@@ -42,31 +42,30 @@
         
         // Method 1 for defining an opcode
         
-        OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                             BaseFrequency:[frequency control]
-                                                         CarrierMultiplier:ocsp(2) 
-                                                      ModulatingMultiplier:[modulation control]
-                                                           ModulationIndex:ocsp(15)
-                                                             FunctionTable:sineTable];
-        [self addOpcode:myFMOscillator];
+        OCSFoscili *fmOscillator;
+        fmOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
+                                               BaseFrequency:[frequency control]
+                                           CarrierMultiplier:ocsp(2) 
+                                        ModulatingMultiplier:[modulation control]
+                                             ModulationIndex:ocsp(15)
+                                               FunctionTable:sineTable];
+        [self addOpcode:fmOscillator];
         
         // Method 2 for defining an opcode - What do you think ARB? - AOP
          
-        OCSFoscili *myFMOscillator2 = [[OCSFoscili alloc] init];
-        [myFMOscillator2 setAmplitude:ocsp(0.4)];
-        [myFMOscillator2 setBaseFrequency:[frequency control]];
-        [myFMOscillator2 setCarrierMultiplier:ocsp(3)];
-        [myFMOscillator2 setModulatingMultiplier:[modulation control]]; 
-        [myFMOscillator2 setModulationIndex:ocsp(10)];
-        [myFMOscillator2 setFunctionTable:sineTable];
-        [self addOpcode:myFMOscillator2];
-         
+        OCSFoscili *fmOscillator2 = [[OCSFoscili alloc] init];
+        [fmOscillator2 setAmplitude:ocsp(0.4)];
+        [fmOscillator2 setBaseFrequency:[frequency control]];
+        [fmOscillator2 setCarrierMultiplier:ocsp(3)];
+        [fmOscillator2 setModulatingMultiplier:[modulation control]]; 
+        [fmOscillator2 setModulationIndex:ocsp(10)];
+        [fmOscillator2 setFunctionTable:sineTable];
+        [self addOpcode:fmOscillator2];
 
-         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[myFMOscillator output]
-                                                   RightInput:[myFMOscillator2 output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[fmOscillator output]
+                                                   RightInput:[fmOscillator2 output]];
         [self addOpcode:audio];
     }
     return self;

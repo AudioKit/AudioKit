@@ -235,6 +235,7 @@
 		C43080B4159C14C90091AE59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43080B6159C14DA0091AE59 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
 		C43080B8159C14E20091AE59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		C43080B9159C2BAF0091AE59 /* CodeReviewNotes.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = CodeReviewNotes.md; sourceTree = "<group>"; };
 		C43908AF1596EFEF001FC007 /* a50.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = a50.aif; path = "More Grain/a50.aif"; sourceTree = "<group>"; };
 		C43908B91596F086001FC007 /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOViewController.h; path = UDOs/UDOViewController.h; sourceTree = "<group>"; };
 		C43908BA1596F086001FC007 /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOViewController.m; path = UDOs/UDOViewController.m; sourceTree = "<group>"; };
@@ -647,6 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				C43080B8159C14E20091AE59 /* README.md */,
+				C43080B9159C2BAF0091AE59 /* CodeReviewNotes.md */,
 			);
 			name = doc;
 			path = ../doc;

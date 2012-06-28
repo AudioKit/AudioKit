@@ -25,11 +25,13 @@
         // INSTRUMENT DEFINITION ===============================================
         
         NSString *file = [[NSBundle mainBundle] pathForResource:@"beats" ofType:@"wav"];
-        OCSSoundFileTable *fileTable = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:16384];
+        OCSSoundFileTable *fileTable;
+        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file TableSize:16384];
         [self addFunctionTable:fileTable];
         
         
-        OCSFunctionTable *hamming = [[OCSWindowsTable alloc] initWithSize:512 WindowType:kWindowHanning];
+        OCSFunctionTable *hamming = [[OCSWindowsTable alloc] initWithSize:512 
+                                                               WindowType:kWindowHanning];
         [self addFunctionTable:hamming];
         
         OCSFileLength *fileLength = [[OCSFileLength alloc] initWithFunctionTable:fileTable];
@@ -37,16 +39,19 @@
         
         OCSParamConstant *halfDuration = [OCSParamConstant paramWithFormat:@"%@ / 2", duration];
         
-        OCSSegmentArray *amplitudeExp = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
-                                                                        FirstSegmentTargetValue:ocsp(0.1)
-                                                                           FirstSegmentDuration:halfDuration];
+        OCSSegmentArray *amplitudeExp;
+        amplitudeExp = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.001) 
+                                                       FirstSegmentTargetValue:ocsp(0.1)
+                                                          FirstSegmentDuration:halfDuration];
         [amplitudeExp addNextSegmentTargetValue:ocsp(0.01) AfterDuration:halfDuration];
         [amplitudeExp useExponentialSegments];
         [self addOpcode:amplitudeExp];
         
         
-        OCSParamConstant *baseFrequency  = [OCSParamConstant paramWithFormat:@"44100 / %@", fileLength];
-        OCSParamConstant *finalFrequency = [OCSParamConstant paramWithFormat:@"0.8 * (%@)", baseFrequency];
+        OCSParamConstant *baseFrequency;
+        baseFrequency = [OCSParamConstant paramWithFormat:@"44100 / %@", fileLength];
+        OCSParamConstant *finalFrequency;
+        finalFrequency = [OCSParamConstant paramWithFormat:@"0.8 * (%@)", baseFrequency];
         OCSLine * pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
                                                      ToValue:finalFrequency
                                                     Duration:duration];
@@ -64,7 +69,8 @@
         [self addOpcode:ampOffsetLine];
         
         
-        OCSParamConstant *finalPitchOffset = [OCSParamConstant paramWithFormat:@"0.5 * (%@)", baseFrequency];
+        OCSParamConstant *finalPitchOffset;
+        finalPitchOffset = [OCSParamConstant paramWithFormat:@"0.5 * (%@)", baseFrequency];
         OCSLine *pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
                                                           ToValue:finalPitchOffset
                                                          Duration:duration ];
@@ -77,26 +83,28 @@
         [grainDurationLine setOutput:[grainDurationLine control]];
         [self addOpcode:grainDurationLine];
         
-        OCSGrain *grainL = [[OCSGrain alloc] initWithGrainFunction:fileTable  
-                                                    WindowFunction:hamming 
-                                                  MaxGrainDuration:ocsp(5) 
-                                                         Amplitude:[amplitudeExp output] 
-                                                        GrainPitch:[pitchLine output] 
-                                                      GrainDensity:[grainDensityLine output] 
-                                                     GrainDuration:[grainDurationLine control] 
-                                             MaxAmplitudeDeviation:[ampOffsetLine control] 
-                                                 MaxPitchDeviation:[pitchOffsetLine control] ];
+        OCSGrain *grainL;
+        grainL = [[OCSGrain alloc] initWithGrainFunction:fileTable  
+                                          WindowFunction:hamming 
+                                        MaxGrainDuration:ocsp(5) 
+                                               Amplitude:[amplitudeExp output] 
+                                              GrainPitch:[pitchLine output] 
+                                            GrainDensity:[grainDensityLine output] 
+                                           GrainDuration:[grainDurationLine control] 
+                                   MaxAmplitudeDeviation:[ampOffsetLine control] 
+                                       MaxPitchDeviation:[pitchOffsetLine control] ];
         [self addOpcode:grainL];
         
-        OCSGrain *grainR = [[OCSGrain alloc] initWithGrainFunction:fileTable  
-                                                    WindowFunction:hamming 
-                                                  MaxGrainDuration:ocsp(6) 
-                                                         Amplitude:[amplitudeExp output] 
-                                                        GrainPitch:[pitchLine output] 
-                                                      GrainDensity:[grainDensityLine output] 
-                                                     GrainDuration:[grainDurationLine control] 
-                                             MaxAmplitudeDeviation:[ampOffsetLine control] 
-                                                 MaxPitchDeviation:[pitchOffsetLine control] ];
+        OCSGrain *grainR;
+        grainR = [[OCSGrain alloc] initWithGrainFunction:fileTable  
+                                          WindowFunction:hamming 
+                                        MaxGrainDuration:ocsp(6) 
+                                               Amplitude:[amplitudeExp output] 
+                                              GrainPitch:[pitchLine output] 
+                                            GrainDensity:[grainDensityLine output] 
+                                           GrainDuration:[grainDurationLine control] 
+                                   MaxAmplitudeDeviation:[ampOffsetLine control] 
+                                       MaxPitchDeviation:[pitchOffsetLine control] ];
         [self addOpcode:grainR];
         
         // AUDIO OUTPUT ========================================================

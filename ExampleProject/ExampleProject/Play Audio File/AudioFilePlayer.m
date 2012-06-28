@@ -30,24 +30,29 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        NSString * file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
-        OCSSoundFileTable * fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
+        NSString *file;
+        file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
+        OCSSoundFileTable *fileTable;
+        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fileTable];
         
-        OCSLoopingOscillator * trigger = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
-                                                                                    Amplitude:ocsp(0.5)
-                                                                          FrequencyMultiplier:[frequencyMultiplier constant]];
-        [self addOpcode:trigger];
+        OCSLoopingOscillator *oscil;
+        oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
+                                                           Amplitude:ocsp(0.5)
+                                                 FrequencyMultiplier:[frequencyMultiplier constant]];
+        [self addOpcode:oscil];
         
-        OCSReverb * reverb = [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
-                                                    FeedbackLevel:ocsp(0.85)
-                                                  CutoffFrequency:ocsp(12000)];
+        OCSReverb * reverb;
+        reverb = [[OCSReverb alloc] initWithMonoInput:[trigger output1] 
+                                        FeedbackLevel:ocsp(0.85)
+                                      CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
 
-        OCSAudio * audio = [[OCSAudio alloc] initWithLeftInput:[reverb outputLeft] 
-                                                    RightInput:[reverb outputRight]]; 
+        OCSAudio * audio;
+        audio = [[OCSAudio alloc] initWithLeftInput:[reverb outputLeft] 
+                                         RightInput:[reverb outputRight]]; 
         [self addOpcode:audio];
     }
     return self;

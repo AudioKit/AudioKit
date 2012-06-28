@@ -23,10 +23,13 @@
         // INSTRUMENT DEFINITION ===============================================
         // create sign function with variable partial strengths
 
-        OCSParamArray *partialStrengths = [OCSParamArray paramArrayFromParams:ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
-        OCSSineTable *sineTable = [[OCSSineTable alloc] initWithSize:4096 
-                                                     PartialStrengths:partialStrengths];
-        [self addFunctionTable:sineTable];
+        OCSParamArray *partialStrengths;
+        partialStrengths = [OCSParamArray paramArrayFromParams:
+                            ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
+        OCSSineTable *sine;
+        sine = [[OCSSineTable alloc] initWithSize:4096 
+                                 PartialStrengths:partialStrengths];
+        [self addFunctionTable:sine];
         
         OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
                                                  ToValue:ocsp(1.5)
@@ -40,21 +43,23 @@
         [baseFrequencyLine setOutput:[baseFrequencyLine control]];
         [self addOpcode:baseFrequencyLine];
         
-        OCSSegmentArray *modIndexLine = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
-                                                                        FirstSegmentTargetValue:ocsp(0.2)
-                                                                           FirstSegmentDuration:ocsp(3)];
+        OCSSegmentArray *modIndexLine;
+        modIndexLine = [[OCSSegmentArray alloc] initWithFirstSegmentStartValue:ocsp(0.5)
+                                                       FirstSegmentTargetValue:ocsp(0.2)
+                                                          FirstSegmentDuration:ocsp(3)];
         [modIndexLine addNextSegmentTargetValue:ocsp(1.5) AfterDuration:ocsp(3)];
         [modIndexLine addNextSegmentTargetValue:ocsp(0.5) AfterDuration:ocsp(3)];
         [modIndexLine setOutput:[modIndexLine control]];
         [self addOpcode:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
-        OCSFoscili *fmOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                                           BaseFrequency:[baseFrequencyLine control]
-                                                       CarrierMultiplier:ocsp(1) 
-                                                    ModulatingMultiplier:[myLine output]
-                                                         ModulationIndex:[modIndexLine control]
-                                                           FunctionTable:sineTable];
+        OCSFoscili *fmOscillator;
+        fmOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
+                                               BaseFrequency:[baseFrequencyLine control]
+                                           CarrierMultiplier:ocsp(1) 
+                                        ModulatingMultiplier:[myLine output]
+                                             ModulationIndex:[modIndexLine control]
+                                               FunctionTable:sineTable];
         [self addOpcode:fmOscillator];
 
         // AUDIO OUTPUT ========================================================

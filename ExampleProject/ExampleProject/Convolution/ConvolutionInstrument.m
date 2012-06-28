@@ -20,22 +20,27 @@
     if (self) { 
         // INSTRUMENT DEFINITION ===============================================
         
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav"];
-        OCSSoundFileTable * fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
+        NSString *file;
+        file = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav"];
+        OCSSoundFileTable * fileTable;
+        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
         [self addFunctionTable:fileTable];
         
-        OCSLoopingOscillator * loop = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        OCSLoopingOscillator *loop;
+        loop = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
         [self addOpcode:loop];
         
-        NSString *dishL = [[NSBundle mainBundle] pathForResource:@"dishL" ofType:@"wav"];
+        NSString *dishL;
+        dishL = [[NSBundle mainBundle] pathForResource:@"dishL" ofType:@"wav"];
         /*
         NSString *dishR = [[NSBundle mainBundle] pathForResource:@"dishR" ofType:@"wav"];
         NSString *wellL = [[NSBundle mainBundle] pathForResource:@"StairwellL" ofType:@"wav"];
         NSString *wellR = [[NSBundle mainBundle] pathForResource:@"StairwellR" ofType:@"wav"];
          */
         
-        OCSConvolution *conv = [[OCSConvolution alloc] initWithInputAudio:[loop output1] 
-                                                      impulseResponseFile:dishL];
+        OCSConvolution *conv;
+        conv  = [[OCSConvolution alloc] initWithInputAudio:[loop output1] 
+                                       impulseResponseFile:dishL];
         [self addOpcode:conv];
         
         // AUDIO OUTPUT ========================================================

@@ -36,7 +36,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        duration = [OCSParamConstant paramWithPValue:kDuration];
+        duration = [[OCSParamConstant alloc] initWithPValue:kDuration];
         properties = [[NSMutableArray alloc] init];
         userDefinedOpcodes = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 

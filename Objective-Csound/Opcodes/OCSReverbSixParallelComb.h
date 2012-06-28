@@ -17,10 +17,12 @@
 /// The output is a mono audio signal.
 @property (nonatomic, strong) OCSParam *output;
 
+/// Initialization Statement
 - (id)initWithInput:(OCSParam *)i
      ReverbDuration:(OCSParamControl *)dur 
 HighFreqDiffusivity:(OCSParamControl *)hfdif;
 
+/// Initialization Statement
 - (id)initWithInput:(OCSParam *)i
      ReverbDuration:(OCSParamControl *)dur
 HighFreqDiffusivity:(OCSParamControl *)hfdif
