@@ -6,8 +6,9 @@ Notes
 To Do
 -----
 * Make Convolution work
-* Write an audio processor that outputs something to Objective-C
-* Make sure the opcode functionalities are complete, or else make a todo note in the docs.
+* Make PluckDrum & PluckString Examples
+* Write an audio processor that outputs something back for instance fft
+* Create the fof opcode and example
 
 Major Upgrades
 --------------
@@ -17,12 +18,12 @@ Major Upgrades
 
 Always More
 -----------
-* Look in doc/CodeReviewNotes.md for a list of issues we can tackle.
-* More opcode documentation - utilize Iain McCurdy's insights on various opcodes as well
-* More documentation, both as comments and in the documentation folder
-* More Opcodes - Fof
-* More Function Tables
+* More fixes: Look in doc/CodeReviewNotes.md for a list of issues we can tackle.
+* More code review 
+	* Check opcodes for completeness
+	* Make better documentation-generating comments - check McCurdy's site for insights on various opcodes
+* More documentation, not only in the comment but also in the documentation folder
+* More Opcodes
+* More Functions (Function Tables)
 * More UDOs
-* More Examples - PluckDrum & PluckString
-
-
+* More Examples

@@ -102,7 +102,6 @@
 		C497CCF9159C58B700AB9E57 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCDB159C58B700AB9E57 /* OCSPluckString.m */; };
 		C497CCFA159C58B700AB9E57 /* OCSSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCDD159C58B700AB9E57 /* OCSSegmentArray.m */; };
 		C497CCFB159C58B700AB9E57 /* OCSAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCE0159C58B700AB9E57 /* OCSAudio.m */; };
-		C497CCFC159C58B700AB9E57 /* OCSFileLength.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCE2159C58B700AB9E57 /* OCSFileLength.m */; };
 		C497CCFD159C58B700AB9E57 /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCE4159C58B700AB9E57 /* OCSLoopingOscillator.m */; };
 		C497CCFE159C58B700AB9E57 /* OCSOutputMono.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCE6159C58B700AB9E57 /* OCSOutputMono.m */; };
 		C497CCFF159C58B700AB9E57 /* OCSConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C497CCE9159C58B700AB9E57 /* OCSConvolution.m */; };
@@ -321,8 +320,6 @@
 		C497CCDD159C58B700AB9E57 /* OCSSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSegmentArray.m; sourceTree = "<group>"; };
 		C497CCDF159C58B700AB9E57 /* OCSAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudio.h; sourceTree = "<group>"; };
 		C497CCE0159C58B700AB9E57 /* OCSAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudio.m; sourceTree = "<group>"; };
-		C497CCE1159C58B700AB9E57 /* OCSFileLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFileLength.h; sourceTree = "<group>"; };
-		C497CCE2159C58B700AB9E57 /* OCSFileLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFileLength.m; sourceTree = "<group>"; };
 		C497CCE3159C58B700AB9E57 /* OCSLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLoopingOscillator.h; sourceTree = "<group>"; };
 		C497CCE4159C58B700AB9E57 /* OCSLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingOscillator.m; sourceTree = "<group>"; };
 		C497CCE5159C58B700AB9E57 /* OCSOutputMono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSOutputMono.h; sourceTree = "<group>"; };
@@ -788,8 +785,6 @@
 			children = (
 				C497CCDF159C58B700AB9E57 /* OCSAudio.h */,
 				C497CCE0159C58B700AB9E57 /* OCSAudio.m */,
-				C497CCE1159C58B700AB9E57 /* OCSFileLength.h */,
-				C497CCE2159C58B700AB9E57 /* OCSFileLength.m */,
 				C497CCE3159C58B700AB9E57 /* OCSLoopingOscillator.h */,
 				C497CCE4159C58B700AB9E57 /* OCSLoopingOscillator.m */,
 				C497CCE5159C58B700AB9E57 /* OCSOutputMono.h */,
@@ -1111,7 +1106,6 @@
 				C497CCF9159C58B700AB9E57 /* OCSPluckString.m in Sources */,
 				C497CCFA159C58B700AB9E57 /* OCSSegmentArray.m in Sources */,
 				C497CCFB159C58B700AB9E57 /* OCSAudio.m in Sources */,
-				C497CCFC159C58B700AB9E57 /* OCSFileLength.m in Sources */,
 				C497CCFD159C58B700AB9E57 /* OCSLoopingOscillator.m in Sources */,
 				C497CCFE159C58B700AB9E57 /* OCSOutputMono.m in Sources */,
 				C497CCFF159C58B700AB9E57 /* OCSConvolution.m in Sources */,

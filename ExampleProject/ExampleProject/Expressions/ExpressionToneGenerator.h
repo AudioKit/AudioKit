@@ -10,6 +10,4 @@
 
 @interface ExpressionToneGenerator : OCSInstrument
 
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
-
 @end

@@ -41,6 +41,9 @@ typedef enum
 /// @returns The textual representation of the function table for Csound
 - (NSString *)stringForCSD;
 
+/// Returns an ftlen() wrapped around the output of this function table.
+- (id) length;
+
 @end
 
 // Unsupported Generating Routines

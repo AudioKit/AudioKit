@@ -27,17 +27,17 @@
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
 - (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                      Phase:(OCSParamConstant *)initialPhase
-                  Amplitude:(OCSParam *)amplitude 
-                  Frequency:(OCSParam *)frequency;
+                  frequency:(OCSParam *)frequency
+                  amplitude:(OCSParam *)amplitude 
+                      phase:(OCSParamConstant *)initialPhase;
 
 /// Instantiates the oscillator.
 /// @param functionTable Requires a wrap-around guard point.
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
 - (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                  Amplitude:(OCSParam *)amplitude 
-                  Frequency:(OCSParam *)frequency;
+                  frequency:(OCSParam *)frequency
+                  amplitude:(OCSParam *)amplitude;
 
 
 

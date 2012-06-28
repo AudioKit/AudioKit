@@ -41,8 +41,8 @@
         
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFunctionTable:sine
-                                                     Amplitude:ocsp(0.12)
-                                                     Frequency:[frequency constant]];                                
+                                                     frequency:[frequency constant]
+                                                     amplitude:ocsp(0.12)];                                
         [self addOpcode:myOscil];
         
         OCSReverb *reverb;
