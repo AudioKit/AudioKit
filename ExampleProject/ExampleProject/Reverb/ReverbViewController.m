@@ -7,8 +7,15 @@
 //
 
 #import "ReverbViewController.h"
-
 #import "OCSManager.h"
+#import "ToneGenerator.h"
+#import "EffectsProcessor.h"
+
+@interface ReverbViewController () {
+    EffectsProcessor *fx;
+    ToneGenerator *toneGenerator;
+}
+@end
 
 @implementation ReverbViewController
 

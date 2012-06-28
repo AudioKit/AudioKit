@@ -10,11 +10,6 @@
 
 @interface ContinuousControlViewController : UIViewController
 {
-    TweakableInstrument *myTweakableInstrument;
-    
-    NSTimer *repeatingNoteTimer;
-    NSTimer *repeatingSliderTimer;
-    
     IBOutlet UISlider * amplitudeSlider;
     IBOutlet UISlider * modulationSlider;
     IBOutlet UISlider * modIndexSlider;

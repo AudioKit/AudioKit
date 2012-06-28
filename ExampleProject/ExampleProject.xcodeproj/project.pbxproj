@@ -57,6 +57,11 @@
 		C430801B159BCE660091AE59 /* OCSParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEB159BCE650091AE59 /* OCSParamControl.m */; };
 		C430801C159BCE660091AE59 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEE159BCE650091AE59 /* OCSProperty.m */; };
 		C430801D159BCE660091AE59 /* OCSPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C43080AF159BD5DB0091AE59 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AA159BD5DB0091AE59 /* 808loop.wav */; };
+		C43080B0159BD5DB0091AE59 /* dishL.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AB159BD5DB0091AE59 /* dishL.wav */; };
+		C43080B1159BD5DB0091AE59 /* dishR.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AC159BD5DB0091AE59 /* dishR.wav */; };
+		C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AD159BD5DB0091AE59 /* StairwellL.wav */; };
+		C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AE159BD5DB0091AE59 /* StairwellR.wav */; };
 		C43908B01596EFEF001FC007 /* a50.aif in Resources */ = {isa = PBXBuildFile; fileRef = C43908AF1596EFEF001FC007 /* a50.aif */; };
 		C43908BC1596F086001FC007 /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908BA1596F086001FC007 /* UDOViewController.m */; };
 		C43908BD1596F086001FC007 /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43908BB1596F086001FC007 /* UDOViewController.xib */; };
@@ -222,6 +227,11 @@
 		C4307FEE159BCE650091AE59 /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
 		C4307FEF159BCE650091AE59 /* OCSPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPropertyManager.h; sourceTree = "<group>"; };
 		C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPropertyManager.m; sourceTree = "<group>"; };
+		C43080AA159BD5DB0091AE59 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 808loop.wav; path = Convolution/808loop.wav; sourceTree = "<group>"; };
+		C43080AB159BD5DB0091AE59 /* dishL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishL.wav; path = Convolution/dishL.wav; sourceTree = "<group>"; };
+		C43080AC159BD5DB0091AE59 /* dishR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishR.wav; path = Convolution/dishR.wav; sourceTree = "<group>"; };
+		C43080AD159BD5DB0091AE59 /* StairwellL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellL.wav; path = Convolution/StairwellL.wav; sourceTree = "<group>"; };
+		C43080AE159BD5DB0091AE59 /* StairwellR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellR.wav; path = Convolution/StairwellR.wav; sourceTree = "<group>"; };
 		C43908AF1596EFEF001FC007 /* a50.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = a50.aif; path = "More Grain/a50.aif"; sourceTree = "<group>"; };
 		C43908B91596F086001FC007 /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOViewController.h; path = UDOs/UDOViewController.h; sourceTree = "<group>"; };
 		C43908BA1596F086001FC007 /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOViewController.m; path = UDOs/UDOViewController.m; sourceTree = "<group>"; };
@@ -448,6 +458,11 @@
 		C4307F89159BB23D0091AE59 /* Convolution */ = {
 			isa = PBXGroup;
 			children = (
+				C43080AA159BD5DB0091AE59 /* 808loop.wav */,
+				C43080AB159BD5DB0091AE59 /* dishL.wav */,
+				C43080AC159BD5DB0091AE59 /* dishR.wav */,
+				C43080AD159BD5DB0091AE59 /* StairwellL.wav */,
+				C43080AE159BD5DB0091AE59 /* StairwellR.wav */,
 				C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */,
 				C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */,
 				C4307F8D159BB28B0091AE59 /* ConvolutionViewController.h */,
@@ -961,6 +976,11 @@
 				C4308011159BCE660091AE59 /* CsGrainCompressor.udo in Resources */,
 				C4308012159BCE660091AE59 /* CsGrainPitchShifter.udo in Resources */,
 				C4308015159BCE660091AE59 /* msrOsc.udo in Resources */,
+				C43080AF159BD5DB0091AE59 /* 808loop.wav in Resources */,
+				C43080B0159BD5DB0091AE59 /* dishL.wav in Resources */,
+				C43080B1159BD5DB0091AE59 /* dishR.wav in Resources */,
+				C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */,
+				C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

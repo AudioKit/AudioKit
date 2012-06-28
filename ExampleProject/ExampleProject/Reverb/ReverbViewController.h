@@ -6,16 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "ToneGenerator.h"
-#import "EffectsProcessor.h"
+@interface ReverbViewController : UIViewController 
 
-@interface ReverbViewController : UIViewController {
-    EffectsProcessor *fx;
-    ToneGenerator *toneGenerator;
-}
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
 - (IBAction)startFX:(id)sender;
-
 
 @end

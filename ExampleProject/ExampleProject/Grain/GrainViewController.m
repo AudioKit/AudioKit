@@ -8,6 +8,12 @@
 
 #import "GrainViewController.h"
 #import "OCSManager.h"
+#import "SimpleGrainInstrument.h"
+
+@interface GrainViewController () {
+    SimpleGrainInstrument *myGrainInstrument;
+}
+@end
 
 @implementation GrainViewController
 

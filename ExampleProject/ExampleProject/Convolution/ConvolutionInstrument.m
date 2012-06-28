@@ -7,7 +7,41 @@
 //
 
 #import "ConvolutionInstrument.h"
+#import "OCSSoundFileTable.h"
+#import "OCSLoopingOscillator.h"
+#import "OCSConvolution.h"
+#import "OCSAudio.h"
 
 @implementation ConvolutionInstrument
+
+- (id)init 
+{
+    self = [super init];
+    if (self) { 
+        // INSTRUMENT DEFINITION ===============================================
+        
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav"];
+        OCSSoundFileTable * fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
+        [self addFunctionTable:fileTable];
+        
+        OCSLoopingOscillator * loop = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        [self addOpcode:loop];
+        
+        NSString *dishL = [[NSBundle mainBundle] pathForResource:@"dishL" ofType:@"wav"];
+        NSString *dishR = [[NSBundle mainBundle] pathForResource:@"dishR" ofType:@"wav"];
+        NSString *wellL = [[NSBundle mainBundle] pathForResource:@"StairwellL" ofType:@"wav"];
+        NSString *wellR = [[NSBundle mainBundle] pathForResource:@"StairwellR" ofType:@"wav"];
+    
+        OCSConvolution *conv = [[OCSConvolution alloc] initWithInputAudio:[loop output1] 
+                                                      impulseResponseFile:[OCSParamConstant paramWithString:dishL]];
+        
+        // AUDIO OUTPUT ========================================================
+        
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[conv output]];
+        [self addOpcode:audio];
+    }
+    return self;
+}
+
 
 @end

@@ -8,7 +8,12 @@
 
 #import "OscillatorViewController.h"
 #import "OCSManager.h"
+#import "SoundGenerator.h"
 
+@interface OscillatorViewController () {
+    SoundGenerator *mySoundGenerator;
+}
+@end
 @implementation OscillatorViewController
 
 - (void)viewDidLoad

@@ -9,8 +9,12 @@
 #import "FMGameObjectViewController.h"
 #import "OCSManager.h"
 
+@interface FMGameObjectViewController () {
+    FMGameObject *myFMGameObject;
+}
+@end
+
 @implementation FMGameObjectViewController
-//ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 
 - (void)viewDidLoad
 {

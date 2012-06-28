@@ -8,6 +8,12 @@
 
 #import "UnitGeneratorsViewController.h"
 #import "OCSManager.h"
+#import "UnitGenSoundGenerator.h"
+
+@interface UnitGeneratorsViewController () {
+    UnitGenSoundGenerator *myUnitGenSoundGenerator;
+}
+@end
 
 @implementation UnitGeneratorsViewController
 
