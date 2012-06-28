@@ -8,4 +8,7 @@
 
 @interface ConvolutionViewController : UIViewController
 
+- (IBAction)hit1:(id)sender;
+- (IBAction)hit2:(id)sender;
+
 @end

@@ -11,14 +11,14 @@
 
 - (id)init;
 {
-    return [self initWithSize:4096 GenRoutine:kGenSines Parameters:@"1"];
+    return [self initWithType:kFTSines size:4096 parameters:@"1"];
 }
 
 - (id)initWithSize:(int)size PartialStrengths:(OCSParamArray *)partialStrengthsArray
 {
-    return [self initWithSize:size 
-                   GenRoutine:kGenSines 
-                   Parameters:[partialStrengthsArray parameterString]];
+    return [self initWithType:kFTSines 
+                         size:size 
+                   parameters:[partialStrengthsArray parameterString]];
 }
 
 @end

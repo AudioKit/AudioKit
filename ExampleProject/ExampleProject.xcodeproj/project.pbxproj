@@ -232,6 +232,9 @@
 		C43080AC159BD5DB0091AE59 /* dishR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishR.wav; path = Convolution/dishR.wav; sourceTree = "<group>"; };
 		C43080AD159BD5DB0091AE59 /* StairwellL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellL.wav; path = Convolution/StairwellL.wav; sourceTree = "<group>"; };
 		C43080AE159BD5DB0091AE59 /* StairwellR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellR.wav; path = Convolution/StairwellR.wav; sourceTree = "<group>"; };
+		C43080B4159C14C90091AE59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C43080B6159C14DA0091AE59 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
+		C43080B8159C14E20091AE59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		C43908AF1596EFEF001FC007 /* a50.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = a50.aif; path = "More Grain/a50.aif"; sourceTree = "<group>"; };
 		C43908B91596F086001FC007 /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOViewController.h; path = UDOs/UDOViewController.h; sourceTree = "<group>"; };
 		C43908BA1596F086001FC007 /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOViewController.m; path = UDOs/UDOViewController.m; sourceTree = "<group>"; };
@@ -475,6 +478,9 @@
 		C4307F92159BCE650091AE59 /* Objective-Csound */ = {
 			isa = PBXGroup;
 			children = (
+				C43080B4159C14C90091AE59 /* README.md */,
+				C43080B6159C14DA0091AE59 /* TODO.md */,
+				C43080B7159C14E10091AE59 /* doc */,
 				C4307F93159BCE650091AE59 /* Core Classes */,
 				C4307F9A159BCE650091AE59 /* CSDFiles */,
 				C4307F9D159BCE650091AE59 /* FunctionTables */,
@@ -511,10 +517,10 @@
 		C4307F9D159BCE650091AE59 /* FunctionTables */ = {
 			isa = PBXGroup;
 			children = (
-				C4307F9E159BCE650091AE59 /* OCSExponentialCurvesTable.h */,
-				C4307F9F159BCE650091AE59 /* OCSExponentialCurvesTable.m */,
 				C4307FA0159BCE650091AE59 /* OCSFunctionTable.h */,
 				C4307FA1159BCE650091AE59 /* OCSFunctionTable.m */,
+				C4307F9E159BCE650091AE59 /* OCSExponentialCurvesTable.h */,
+				C4307F9F159BCE650091AE59 /* OCSExponentialCurvesTable.m */,
 				C4307FA2159BCE650091AE59 /* OCSRandomDistributionTable.h */,
 				C4307FA3159BCE650091AE59 /* OCSRandomDistributionTable.m */,
 				C4307FA4159BCE650091AE59 /* OCSSineTable.h */,
@@ -530,6 +536,8 @@
 		C4307FAA159BCE650091AE59 /* Opcodes */ = {
 			isa = PBXGroup;
 			children = (
+				C4307FBF159BCE650091AE59 /* OCSOpcode.h */,
+				C4307FC0159BCE650091AE59 /* OCSOpcode.m */,
 				C4307FAB159BCE650091AE59 /* OCSAssignment.h */,
 				C4307FAC159BCE650091AE59 /* OCSAssignment.m */,
 				C4307FAD159BCE650091AE59 /* OCSAudio.h */,
@@ -550,8 +558,6 @@
 				C4307FBC159BCE650091AE59 /* OCSLinearEnvelope.m */,
 				C4307FBD159BCE650091AE59 /* OCSLoopingOscillator.h */,
 				C4307FBE159BCE650091AE59 /* OCSLoopingOscillator.m */,
-				C4307FBF159BCE650091AE59 /* OCSOpcode.h */,
-				C4307FC0159BCE650091AE59 /* OCSOpcode.m */,
 				C4307FC1159BCE650091AE59 /* OCSOscillator.h */,
 				C4307FC2159BCE650091AE59 /* OCSOscillator.m */,
 				C4307FC3159BCE650091AE59 /* OCSOutputMono.h */,
@@ -635,6 +641,15 @@
 				C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */,
 			);
 			path = Properties;
+			sourceTree = "<group>";
+		};
+		C43080B7159C14E10091AE59 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				C43080B8159C14E20091AE59 /* README.md */,
+			);
+			name = doc;
+			path = ../doc;
 			sourceTree = "<group>";
 		};
 		C43908BF1596F08D001FC007 /* UDOs */ = {

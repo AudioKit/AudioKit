@@ -28,12 +28,15 @@
         [self addOpcode:loop];
         
         NSString *dishL = [[NSBundle mainBundle] pathForResource:@"dishL" ofType:@"wav"];
+        /*
         NSString *dishR = [[NSBundle mainBundle] pathForResource:@"dishR" ofType:@"wav"];
         NSString *wellL = [[NSBundle mainBundle] pathForResource:@"StairwellL" ofType:@"wav"];
         NSString *wellR = [[NSBundle mainBundle] pathForResource:@"StairwellR" ofType:@"wav"];
-    
+         */
+        
         OCSConvolution *conv = [[OCSConvolution alloc] initWithInputAudio:[loop output1] 
-                                                      impulseResponseFile:[OCSParamConstant paramWithString:dishL]];
+                                                      impulseResponseFile:dishL];
+        [self addOpcode:conv];
         
         // AUDIO OUTPUT ========================================================
         

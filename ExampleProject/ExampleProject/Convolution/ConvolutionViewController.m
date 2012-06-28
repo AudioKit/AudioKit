@@ -7,38 +7,35 @@
 //
 
 #import "ConvolutionViewController.h"
+#import "OCSManager.h"
+#import "ConvolutionInstrument.h"
 
-@interface ConvolutionViewController ()
-
+@interface ConvolutionViewController () {
+    ConvolutionInstrument *conv;
+}
 @end
 
 @implementation ConvolutionViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    conv = [[ConvolutionInstrument alloc] init];
+    [orch addInstrument:conv];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (void)viewDidUnload
+- (IBAction)hit1:(id)sender
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [conv playNoteForDuration:15];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (IBAction)hit2:(id)sender
 {
-	return YES;
+    [conv playNoteForDuration:5];
 }
+
 
 @end
