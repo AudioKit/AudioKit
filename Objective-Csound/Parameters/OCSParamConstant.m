@@ -46,7 +46,6 @@
     return self;
 }
 
-
 - (id)initWithPValue:(int)p
 {
     self = [super init];
@@ -65,11 +64,5 @@
 {
     return [[self alloc] initWithInt:value];
 }
-+(id)paramWithPValue:(int)p
-{
-    // AOP Will need to do this better
-    return [[self alloc] initWithPValue:p];
-}
-
 
 @end

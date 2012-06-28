@@ -36,17 +36,18 @@
         OCSSineTable * vibratoSine = [[OCSSineTable alloc] init];
         [self addFunctionTable:vibratoSine];
         
-        OCSOscillator * myVibratoOscillator = [[OCSOscillator alloc] initWithFunctionTable:vibratoSine
-                                                                                 Amplitude:ocsp(40)
-                                                                                 Frequency:ocsp(6)];
-        [myVibratoOscillator setOutput:[myVibratoOscillator control]];
-        [self addOpcode:myVibratoOscillator];
+        OCSOscillator * vibratoOscillator; 
+        vibratoOscillator = [[OCSOscillator alloc] initWithFunctionTable:vibratoSine
+                                                               Amplitude:ocsp(40)
+                                                               Frequency:ocsp(6)];
+        [vibratoOscillator setOutput:[vibratoOscillator control]];
+        [self addOpcode:vibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
         OCSParamControl * vibrato = [OCSParamControl paramWithFormat:
                                      @"%d + (%f * %@)", 
-                                     vibratoOffset, vibratoScale, myVibratoOscillator];
+                                     vibratoOffset, vibratoScale, vibratoOscillator];
         
         OCSParamConstant * amplitudeOffset = ocsp(0.1);
         
@@ -57,14 +58,15 @@
         
         OCSParamControl * totalAmplitude = [OCSParamControl paramWithFormat:
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
-        OCSOscillator * myOscillator = [[OCSOscillator alloc]  initWithFunctionTable:sineTable
-                                                                           Amplitude:totalAmplitude
-                                                                           Frequency:vibrato];
-        [self addOpcode:myOscillator];
+        OCSOscillator * oscillator;
+        oscillator = [[OCSOscillator alloc]  initWithFunctionTable:sineTable
+                                                         Amplitude:totalAmplitude
+                                                         Frequency:vibrato];
+        [self addOpcode:oscillator ];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myOscillator output]]; 
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[oscillator output]]; 
         [self addOpcode:audio];
     }
     return self;

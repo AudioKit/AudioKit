@@ -24,29 +24,30 @@
         // INPUTS ==============================================================
         
         frequency  = [[OCSProperty alloc] init];
-        [frequency setOutput:[OCSParamControl paramWithString:@"InputFrequency"]]; //Optional
+        [frequency setOutput:[OCSParamControl paramWithString:@"InputFrequency"]]; 
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSSineTable *sineTable = [[OCSSineTable alloc] init];
-        [self addFunctionTable:sineTable];
+        OCSSineTable *sine = [[OCSSineTable alloc] init];
+        [self addFunctionTable:sine];
         
-        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithFunctionTable:sineTable
-                                                                         Amplitude:ocsp(0.4)
-                                                                         Frequency:[frequency output]];
-        [self addOpcode:myOscillator];
+        OCSOscillator *oscillator;
+        oscillator = [[OCSOscillator alloc] initWithFunctionTable:sine
+                                                        Amplitude:ocsp(0.4)
+                                                        Frequency:[frequency output]];
+        [self addOpcode:oscillator];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myOscillator output]]; 
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[oscillator output]]; 
         [self addOpcode:audio];
         
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
         auxilliaryOutput = [OCSParam paramWithString:@"ToneGeneratorOutput"];
-        [self assignOutput:auxilliaryOutput To:[myOscillator output]];
+        [self assignOutput:auxilliaryOutput To:[oscillator output]];
     }
     return self;
 }

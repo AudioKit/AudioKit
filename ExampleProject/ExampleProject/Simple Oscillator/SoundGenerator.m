@@ -34,25 +34,29 @@
         OCSParamArray *partialStrengthParamArray = 
         [OCSParamArray paramArrayFromParams: ocsp(1),ocsp(0.5), ocsp(1), nil];
         
-        OCSSineTable *sineTable = [[OCSSineTable alloc] initWithSize:4096 
-                                                     PartialStrengths:partialStrengthParamArray];
-        [self addFunctionTable:sineTable];
+        OCSSineTable *sine;
+        sine = [[OCSSineTable alloc] initWithSize:4096 
+                                 PartialStrengths:partialStrengthParamArray];
+        [self addFunctionTable:sine];
         
-        OCSOscillator *myOscillator = [[OCSOscillator alloc] initWithFunctionTable:sineTable
-                                                                         Amplitude:ocsp(0.12)
-                                                                         Frequency:[frequency constant]];                                
-        [self addOpcode:myOscillator];
+        OCSOscillator *myOscil;
+        myOscil = [[OCSOscillator alloc] initWithFunctionTable:sine
+                                                     Amplitude:ocsp(0.12)
+                                                     Frequency:[frequency constant]];                                
+        [self addOpcode:myOscil];
         
-        OCSReverb *reverb = [[OCSReverb alloc] initWithLeftInput:[myOscillator output] 
-                                                      RightInput:[myOscillator output] 
-                                                   FeedbackLevel:ocsp(0.85)
-                                                 CutoffFrequency:ocsp(12000)];
+        OCSReverb *reverb;
+        reverb = [[OCSReverb alloc] initWithLeftInput:[myOscil output] 
+                                           RightInput:[myOscil output] 
+                                        FeedbackLevel:ocsp(0.85)
+                                      CutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[reverb outputLeft] 
-                                                   RightInput:[reverb outputRight]]; 
+        OCSAudio *audio;
+        audio = [[OCSAudio alloc] initWithLeftInput:[reverb outputLeft] 
+                                         RightInput:[reverb outputRight]]; 
         [self addOpcode:audio];
     }
     return self;

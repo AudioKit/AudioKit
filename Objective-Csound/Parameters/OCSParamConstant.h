@@ -31,8 +31,4 @@
 /// @param value Value to set the parameter to.
 +(id)paramWithInt:(int)value;
 
-/// Helper function to avoid alloc and init each time
-/// @param p P-Value, or column number.   Nearly deprecated.
-+(id)paramWithPValue:(int)p;
-
 @end

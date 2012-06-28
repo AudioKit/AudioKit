@@ -50,22 +50,24 @@
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        OCSFoscili *myFMOscillator = [[OCSFoscili alloc] initWithAmplitude:[amplitude control] 
-                                                             BaseFrequency:[frequency control] 
-                                                         CarrierMultiplier:ocsp(1) 
-                                                      ModulatingMultiplier:[modulation control] 
-                                                           ModulationIndex:[modIndex control] 
-                                                             FunctionTable:sineTable];
-        [self addOpcode:myFMOscillator];
+        OCSFoscili *fmOscillator;
+        fmOscillator = [[OCSFoscili alloc] initWithAmplitude:[amplitude control] 
+                                               BaseFrequency:[frequency control] 
+                                           CarrierMultiplier:ocsp(1) 
+                                        ModulatingMultiplier:[modulation control] 
+                                             ModulationIndex:[modIndex control] 
+                                               FunctionTable:sineTable];
+        [self addOpcode:fmOscillator];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[myFMOscillator output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscillator output]];
         [self addOpcode:audio];
         
         /*
         // Test to show amplitude slider moving also
-        [self addString:[NSString stringWithFormat:@"%@ = %@ + 0.001\n", amplitude, amplitude]];
+        [self addString:[NSString stringWithFormat:
+         @"%@ = %@ + 0.001\n", amplitude, amplitude]];
          */
     }
     return self;

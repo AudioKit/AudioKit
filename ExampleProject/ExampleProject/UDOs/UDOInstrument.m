@@ -30,9 +30,10 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        UDOMSROscillator * osc  = [[UDOMSROscillator alloc] initWithAmplitude:ocsp(0.5)
-                                                                    Frequency:[frequency constant]
-                                                                         Type:kMSROscillatorTypeTriangle];
+        UDOMSROscillator *osc;
+        osc = [[UDOMSROscillator alloc] initWithAmplitude:ocsp(0.5)
+                                                Frequency:[frequency constant]
+                                                     Type:kMSROscillatorTypeTriangle];
         [self addUDO:osc];
         
         UDOCsGrainPitchShifter * ps;
