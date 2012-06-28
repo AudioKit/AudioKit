@@ -10,4 +10,7 @@
 
 @interface ConvolutionInstrument : OCSInstrument
 
+@property (nonatomic, strong) OCSProperty *dishWellBalance;
+@property (nonatomic, strong) OCSProperty *dryWetBalance;
+
 @end

@@ -10,15 +10,7 @@
 
 
 @interface TweakableInstrument : OCSInstrument
-{
-    //OCSPropertyManager *myPropertyManager;
-    
-    //maintain reference to properties so they can be referenced from controlling game logic 
-    OCSProperty *amplitude;
-    OCSProperty *frequency;
-    OCSProperty *modulation;
-    OCSProperty *modIndex;
-}
+
 @property (nonatomic, strong) OCSProperty *amplitude;
 @property (nonatomic, strong) OCSProperty *frequency;
 @property (nonatomic, strong) OCSProperty *modulation;

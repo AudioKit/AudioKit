@@ -12,6 +12,19 @@
 #import "OCSAudio.h"
 #import "OCSAssignment.h"
 
+@interface TweakableInstrument ()
+{
+    //OCSPropertyManager *myPropertyManager;
+    
+    //maintain reference to properties so they can be referenced from controlling game logic 
+    OCSProperty *amplitude;
+    OCSProperty *frequency;
+    OCSProperty *modulation;
+    OCSProperty *modIndex;
+}
+@end
+
+
 @implementation TweakableInstrument
 @synthesize amplitude;
 @synthesize frequency;

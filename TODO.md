@@ -5,10 +5,9 @@ Notes
 
 To Do
 -----
-* Make Convolution work
 * Make PluckDrum & PluckString Examples
-* Write an audio processor that outputs something back for instance fft
 * Create the fof opcode and example
+* Write an audio processor that outputs something back for instance fft
 
 Major Upgrades
 --------------

@@ -9,6 +9,17 @@
 #import "MoreGrainViewController.h"
 #import "OCSManager.h"
 #import "OCSOrchestra.h"
+#import "GrainBirds.h"
+#import "GrainBirdsReverb.h"
+
+@interface MoreGrainViewController ()
+{
+    GrainBirds *myGrainBirds;
+    GrainBirdsReverb *fx;
+    
+    NSTimer *timer;
+}
+@end
 
 @implementation MoreGrainViewController
 

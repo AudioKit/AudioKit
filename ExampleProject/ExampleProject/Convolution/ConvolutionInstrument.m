@@ -8,44 +8,101 @@
 
 #import "ConvolutionInstrument.h"
 #import "OCSSoundFileTable.h"
-#import "OCSLoopingOscillator.h"
+#import "OCSFileInput.h"
 #import "OCSConvolution.h"
+#import "OCSWeightedMean.h"
 #import "OCSAudio.h"
 
+@interface ConvolutionInstrument () {
+    OCSProperty *dishWellBalance;
+    OCSProperty *dryWetBalance;
+}
+@end
+
 @implementation ConvolutionInstrument
+
+@synthesize dishWellBalance;
+@synthesize dryWetBalance;
 
 - (id)init 
 {
     self = [super init];
     if (self) { 
+        
+        // INPUTS AND CONTROLS =================================================
+        dishWellBalance = [[OCSProperty alloc] init];
+        dryWetBalance   = [[OCSProperty alloc] init];
+        
+        [self addProperty:dishWellBalance];
+        [self addProperty:dryWetBalance];
+        
+        [dishWellBalance setMinimumValue:0.0f];
+        [dishWellBalance setMaximumValue:1.0f];
+        [dryWetBalance   setMinimumValue:0.0f];
+        [dryWetBalance   setMaximumValue:1.0f];           
+        
         // INSTRUMENT DEFINITION ===============================================
         
         NSString *file;
         file = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav"];
-        OCSSoundFileTable * fileTable;
-        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
-        [self addFunctionTable:fileTable];
-        
-        OCSLoopingOscillator *loop;
-        loop = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable];
+        OCSFileInput *loop = [[OCSFileInput alloc] initWithFilename:file];
         [self addOpcode:loop];
         
-        NSString *dishL;
-        dishL = [[NSBundle mainBundle] pathForResource:@"dishL" ofType:@"wav"];
-        /*
+        NSString *dishL = [[NSBundle mainBundle] pathForResource:@"dishL" ofType:@"wav"];
         NSString *dishR = [[NSBundle mainBundle] pathForResource:@"dishR" ofType:@"wav"];
         NSString *wellL = [[NSBundle mainBundle] pathForResource:@"StairwellL" ofType:@"wav"];
         NSString *wellR = [[NSBundle mainBundle] pathForResource:@"StairwellR" ofType:@"wav"];
-         */
         
-        OCSConvolution *conv;
-        conv  = [[OCSConvolution alloc] initWithInputAudio:[loop output1] 
-                                       impulseResponseFile:dishL];
-        [self addOpcode:conv];
+        OCSConvolution *dishConvL;
+        dishConvL  = [[OCSConvolution alloc] initWithInputAudio:[loop outputLeft] 
+                                            impulseResponseFile:dishL];
+        [self addOpcode:dishConvL];
+
+        OCSConvolution *dishConvR;
+        dishConvR  = [[OCSConvolution alloc] initWithInputAudio:[loop outputLeft] 
+                                            impulseResponseFile:dishR];
+        [self addOpcode:dishConvR];
         
+        OCSConvolution *wellConvL;
+        wellConvL  = [[OCSConvolution alloc] initWithInputAudio:[loop outputLeft] 
+                                            impulseResponseFile:wellL];
+        [self addOpcode:wellConvL];
+        
+        OCSConvolution *wellConvR;
+        wellConvR  = [[OCSConvolution alloc] initWithInputAudio:[loop outputLeft] 
+                                            impulseResponseFile:wellR];
+        [self addOpcode:wellConvR];
+        
+        OCSWeightedMean *dishWellBalanceL;
+        dishWellBalanceL = [[OCSWeightedMean alloc] initWithSignal1:[dishConvL output]
+                                                            signal2:[wellConvL output]
+                                                            balance:[dishWellBalance output]];
+        [self addOpcode:dishWellBalanceL];
+
+        OCSWeightedMean *dishWellBalanceR;
+        dishWellBalanceR = [[OCSWeightedMean alloc] initWithSignal1:[dishConvR output]
+                                                            signal2:[wellConvR output]
+                                                            balance:[dishWellBalance output]];
+        [self addOpcode:dishWellBalanceR];
+
+        
+        OCSWeightedMean *dryWetBalanceL;
+        dryWetBalanceL = [[OCSWeightedMean alloc] initWithSignal1:[loop outputLeft]
+                                                          signal2:[[dishWellBalanceL output] scaledBy:0.1]
+                                                          balance:[dryWetBalance output]];
+        [self addOpcode:dryWetBalanceL];
+        
+        OCSWeightedMean *dryWetBalanceR;
+        dryWetBalanceR = [[OCSWeightedMean alloc] initWithSignal1:[loop outputRight]
+                                                          signal2:[[dishWellBalanceR output] scaledBy:0.1]
+                                                          balance:[dryWetBalance output]];
+        [self addOpcode:dryWetBalanceR];
+        
+
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[conv output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[dryWetBalanceL output] 
+                                                   RightInput:[dryWetBalanceR output]];
         [self addOpcode:audio];
     }
     return self;
