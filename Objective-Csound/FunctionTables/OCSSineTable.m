@@ -11,14 +11,15 @@
 
 - (id)init;
 {
-    return [self initWithType:kFTSines size:4096 parameters:@"1"];
+    OCSParamArray * params = [OCSParamArray paramArrayFromParams: ocspi(1), nil]; 
+    return [self initWithType:kFTSines size:4096 parameters:params];
 }
 
 - (id)initWithSize:(int)size partialStrengths:(OCSParamArray *)partialStrengthsArray
 {
     return [self initWithType:kFTSines 
                          size:size 
-                   parameters:[partialStrengthsArray parameterString]];
+                   parameters:partialStrengthsArray];
 }
 
 @end

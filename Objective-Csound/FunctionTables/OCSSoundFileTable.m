@@ -6,19 +6,20 @@
 //
 
 #import "OCSSoundFileTable.h"
+#import "OCSParamArray.h"
 
 @implementation OCSSoundFileTable
 
 - (id)initWithFilename:(NSString *)filename {
-    return [super initWithType:kFTSoundFile 
-                          size:0 
-                    parameters:[NSString stringWithFormat:@"\"%@\", 0, 0, 0", filename]];
+    return [self initWithFilename:filename tableSize:0];
 
 }
 
 - (id)initWithFilename:(NSString *)filename tableSize:(int)tableSize {
+    OCSParamArray *parameters = [OCSParamArray paramArrayFromParams:
+                                 ocspfn(filename), ocsp(0), ocsp(0), ocsp(0), nil];
     return [super initWithType:kFTSoundFile 
-                          size:tableSize 
-                    parameters:[NSString stringWithFormat:@"\"%@\", 0, 0, 0", filename]];
+                         size:tableSize 
+                   parameters:parameters];
 }
 @end

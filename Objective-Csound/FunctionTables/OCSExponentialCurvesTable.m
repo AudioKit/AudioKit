@@ -14,7 +14,7 @@
 {
     return [self initWithType:kFTExponentialCurves 
                          size:tableSize 
-                   parameters:[valueLengthPairs parameterString]];
+                   parameters:valueLengthPairs];
 }
 
 @end

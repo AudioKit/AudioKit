@@ -114,7 +114,7 @@
                                                    WindowFunction:fiftyHzSine 
                                                  MaxGrainDuration:ocsp(0.1)
                                                         Amplitude:[amplitude output] 
-                                                       GrainPitch:[[pitchClass control] toCPS]
+                                                   GrainFrequency:[[pitchClass control] toCPS]
                                                      GrainDensity:[grainDensity control] 
                                                     GrainDuration:[grainDuration control] 
                                             MaxAmplitudeDeviation:ocsp(1000)

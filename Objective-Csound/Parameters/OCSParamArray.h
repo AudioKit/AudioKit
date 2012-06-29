@@ -11,7 +11,8 @@
 @interface OCSParamArray : NSObject
 
 /// CSD Textual representation of the parameter's name.
-@property (nonatomic, strong) NSString *parameterString;
+- (NSString *)parameterString;
+@property (nonatomic, strong) NSArray *params;
 
 /// Explicitly using a nil-terminated list of OCSParams to create the array
 /// @param firstParam At least one OCSParamConstant is required

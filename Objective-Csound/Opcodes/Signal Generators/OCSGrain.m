@@ -10,7 +10,7 @@
 
 @interface OCSGrain () {
     OCSParam *amp;
-    OCSParam *pitch;
+    OCSParam *frequency;
     OCSParam *density;
     OCSParamControl *ampOffset;
     OCSParamControl *pchOffset;
@@ -31,7 +31,7 @@
              WindowFunction:(OCSFunctionTable *)windowFunction
            MaxGrainDuration:(OCSParamConstant *)maxGrainDuration
                   Amplitude:(OCSParam *)amplitude
-                 GrainPitch:(OCSParam *)grainPitch
+             GrainFrequency:(OCSParam *)grainFrequency
                GrainDensity:(OCSParam *)grainDensity  
               GrainDuration:(OCSParamControl *)grainDuration
       MaxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation
@@ -41,7 +41,7 @@
     if (self) {
         output      = [OCSParam paramWithString:[self opcodeName]];
         amp         = amplitude;
-        pitch       = grainPitch;
+        frequency   = grainFrequency;
         density     = grainDensity;
         ampOffset   = maxAmplitudeDeviation;
         pchOffset   = maxPitchDeviation;
@@ -66,7 +66,7 @@
     int randomnessFlag = isRandomGrainFunctionIndex ? 0 : 1;
     return [NSString stringWithFormat:
             @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d\n",
-            output, amp, pitch, density, ampOffset, pchOffset, duration,
+            output, amp, frequency, density, ampOffset, pchOffset, duration,
             gFunction, wFunction, maxDuration, randomnessFlag];
 }
 

@@ -9,14 +9,15 @@
 
 @interface OCSParamArray () {
     NSMutableArray *params;
-    NSString *parameterString;
+    //NSString *parameterString;
     NSUInteger count;
     float      numbers[0];
 }
 @end
 
 @implementation OCSParamArray
-@synthesize parameterString;
+@synthesize params;
+//@synthesize parameterString;
 
 - (id)init 
 {
@@ -28,7 +29,16 @@
     
 }
 
-+(id)paramArrayFromParams:(OCSParamConstant *)firstParam,... {
+- (id) parameterString {
+    NSMutableArray *s = [[NSMutableArray alloc] init];
+    for (OCSParamConstant *value in params) {
+        [s addObject:[value parameterString]];
+    }
+    return [s componentsJoinedByString:@", "]; 
+}
+
+
++ (id)paramArrayFromParams:(OCSParamConstant *)firstParam,... {
     OCSParamArray *result = [[OCSParamArray alloc] init];
 
     OCSParam *eachParam;
@@ -41,7 +51,9 @@
             [initParameters addObject: eachParam]; // that isn't nil, add it to self's contents.
         va_end(argumentList);
     }
-    [result setParameterString:[[initParameters valueForKey:@"parameterString"] componentsJoinedByString:@", "]];
+    
+    [result setParams:initParameters];
+    //[result setParameterString:[[initParameters valueForKey:@"parameterString"] componentsJoinedByString:@", "]];
     
     return result;
 }

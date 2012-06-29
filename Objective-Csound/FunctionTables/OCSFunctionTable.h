@@ -31,12 +31,20 @@ typedef enum
 
 /// The output is a globally accessibly constant parameter
 @property (nonatomic, strong) OCSParamConstant *output;
+
+/// Creates a function table at the most basic level.
 /// @param functionTableType  One of the supported GeneratingRoutines.
-/// @param tableSizeOrZero    Size of the table, or 0 if deferred calculation is desired.
+/// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
 /// @param parametersAsString A string containing the parameters separated by spaces. 
 - (id)initWithType:(FunctionTableType)functionTableType
-              size:(int)tableSizeOrZero 
-        parameters:(NSString *)parametersAsString;
+              size:(int)tableSize
+        parameters:(OCSParamArray *)parameters;
+
+/// Creates a function table without specifying a size, deferring that calculation.
+/// @param functionTableType  One of the supported GeneratingRoutines.
+/// @param parametersAsString A string containing the parameters separated by spaces. 
+- (id)initWithType:(FunctionTableType)functionTableType
+        parameters:(OCSParamArray *)parameters;
 
 /// @returns The textual representation of the function table for Csound
 - (NSString *)stringForCSD;

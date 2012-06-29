@@ -53,15 +53,7 @@ typedef enum
 /// @param maximumValue Absolute value at window peak point. 
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 - (id)initWithType:(WindowType)windowType
-          maxValue:(int)maximumValue    
-              size:(int)tableSize; 
-
-/// Instantiates the window function table.
-/// @param windowType   Type of window to generate.
-/// @param maximumValue Absolute value at window peak point. 
-/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-- (id)initWithType:(WindowType)windowType
-          maxValue:(int)maximumValue    
+          maxValue:(float)maximumValue    
               size:(int)tableSize; 
 
 /// Instantiates the window function table with a maximum value of 1.
@@ -75,7 +67,7 @@ typedef enum
 /// @param maximumValue Absolute value at window peak point. 
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 - (id)initGaussianTypeWithBroadness:(float)windowBroadness
-                           maxValue:(int)maximumValue  
+                           maxValue:(float)maximumValue  
                                size:(int)tableSize;
 
 /// Creates a Kaiser Windown Function Table
@@ -83,7 +75,7 @@ typedef enum
 /// @param maximumValue Absolute value at window peak point. 
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 - (id)initGaussianTypeWithBroadness:(float)windowBroadness
-                           maxValue:(int)maximumValue  
+                           maxValue:(float)maximumValue  
                                size:(int)tableSize;
 
 @end
