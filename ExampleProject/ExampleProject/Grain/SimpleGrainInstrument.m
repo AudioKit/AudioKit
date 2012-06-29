@@ -32,8 +32,8 @@
         
         
         OCSFunctionTable *hamming;
-        hamming = [[OCSWindowsTable alloc] initWithSize:512 
-                                             windowType:kWindowHanning];
+        hamming = [[OCSWindowsTable alloc] initWithType:kWindowHanning
+                                                   size:512 ];
         [self addFunctionTable:hamming];
                 
         OCSSegmentArray *amplitudeExp;

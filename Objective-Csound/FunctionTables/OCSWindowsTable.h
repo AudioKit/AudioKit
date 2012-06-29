@@ -31,10 +31,7 @@
  `maximumValue` -- For negative p4 this will be the absolute value at window peak point. 
  If p4 is positive or p4 is negative and p6 is missing the table will be 
  post-rescaled to a maximum value of 1.
- 
- @warning *Unsupported Functions* 
- 
- `opt` -- Optional argument required by the Gaussian window and the Kaiser window.
+
  */
 @interface OCSWindowsTable : OCSFunctionTable
 
@@ -52,16 +49,41 @@ typedef enum
 } WindowType;
 
 /// Instantiates the window function table.
-/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param windowType   Type of window to generate.
 /// @param maximumValue Absolute value at window peak point. 
-- (id)initWithSize:(int)tableSize 
-        windowType:(WindowType)windowType 
-          maxValue:(int)maximumValue;
+/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+- (id)initWithType:(WindowType)windowType
+          maxValue:(int)maximumValue    
+              size:(int)tableSize; 
 
 /// Instantiates the window function table.
-/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param windowType   Type of window to generate.
-- (id)initWithSize:(int)tableSize windowType:(WindowType)windowType;
+/// @param maximumValue Absolute value at window peak point. 
+/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+- (id)initWithType:(WindowType)windowType
+          maxValue:(int)maximumValue    
+              size:(int)tableSize; 
+
+/// Instantiates the window function table with a maximum value of 1.
+/// @param windowType   Type of window to generate.
+/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+- (id)initWithType:(WindowType)windowType 
+              size:(int)tableSize; 
+
+/// Creates a Gaussian Windown Function Table
+/// @param broadness    Specifies how broad the window is, as the standard deviation of the curve; in this example the s.d. is 2. The default value is 1.
+/// @param maximumValue Absolute value at window peak point. 
+/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+- (id)initGaussianTypeWithBroadness:(float)windowBroadness
+                           maxValue:(int)maximumValue  
+                               size:(int)tableSize;
+
+/// Creates a Kaiser Windown Function Table
+/// @param opennness    Specifies how "open" the window is, for example a value of 0 results in a rectangular window and a value of 10 in a Hamming like window.
+/// @param maximumValue Absolute value at window peak point. 
+/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+- (id)initGaussianTypeWithBroadness:(float)windowBroadness
+                           maxValue:(int)maximumValue  
+                               size:(int)tableSize;
 
 @end
