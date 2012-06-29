@@ -3,6 +3,7 @@ Overall Notes
 
 * Opcodes that have either control or audio rates work with setOutput:[opcodeInst control] pattern, but perhaps there's a better way like simple [opcode outputControl] and [opcode outputAudio].  Or to do it upon initialization, initAsControllerYaddaYaddaYadda.  At least, establish a parity between the way OCSProperty does it, which is pretty nice.
 * For things that require lists (like some functionTables for instance), use an add function rather than sending an OCSParamArray 
+* Some tables may not be interesting in csound any more, like gen02, better as arrays, converted to table during (addOpcode:)
 
 ### Syntactical niceties
 * Change method signatures to not start with capital letters
@@ -14,15 +15,7 @@ File Specific Notes
 ===================
 
 ### OCSFunctionTable
-* Use an NSArray instead of a string for the parameters.
-* Some tables may not be interesting in csound any more, like gen02, better as arrays, converted to table during (addOpcode:)
 * Could we pull off calling these "functions" and losing the table?  It just seems a bit pedantic to explicitly state how the function is being stored.  I realize there are size and opcode issues, so it's something to discuss.
-
-### OCSGrain
-* Question for Adam: Is GrainPitch really a frequency?  If so, _that_ is confusing.
-
-### OCSOscillator
-* Good place to address the problem of multirate outputs from the "Overall Notes" above. 
 
 ### OCSParamArray
 * Does this type even need to exist?  Seems like at most it should be a category of NSArray.
@@ -33,6 +26,9 @@ File Specific Notes
 ### OCSReverbSixParallelComb
 * Doesn't follow any of the current OCS guidelines.
 * This raises the question of how descriptive a class name should be.  Do we gain much from it named like this? NReverb seems better in a way.  It at least benefits from history.
+
+### OCSFilterLowPassButterworth
+* Doesn't follow any of the current OCS guidelines.
 
 ### OCSSegmentArray
 * Question for Adam: Isn't linseg a subset of linsegr with both parameters as zero?  Would clean up the code a little.

@@ -30,7 +30,6 @@
                                                       tableSize:16384];
         [self addFunctionTable:fileTable];
         
-        
         OCSFunctionTable *hamming;
         hamming = [[OCSWindowsTable alloc] initWithType:kWindowHanning
                                                    size:512 ];
@@ -43,8 +42,7 @@
         [amplitudeExp addValue:ocsp(0.01) afterDuration:[duration scaledBy:0.5]];
         [amplitudeExp useExponentialSegments];
         [self addOpcode:amplitudeExp];
-        
-        
+
         OCSParamConstant *baseFrequency;
         baseFrequency = [OCSParamConstant paramWithFormat:@"44100 / %@", [fileTable length]];
         OCSLine *pitchLine;
@@ -83,7 +81,7 @@
                                           WindowFunction:hamming 
                                         MaxGrainDuration:ocsp(5) 
                                                Amplitude:[amplitudeExp output] 
-                                              GrainPitch:[pitchLine output] 
+                                          GrainFrequency:[pitchLine output] 
                                             GrainDensity:[grainDensityLine output] 
                                            GrainDuration:[grainDurationLine control] 
                                    MaxAmplitudeDeviation:[ampOffsetLine control] 
@@ -95,7 +93,7 @@
                                           WindowFunction:hamming 
                                         MaxGrainDuration:ocsp(6) 
                                                Amplitude:[amplitudeExp output] 
-                                              GrainPitch:[pitchLine output] 
+                                          GrainFrequency:[pitchLine output] 
                                             GrainDensity:[grainDensityLine output] 
                                            GrainDuration:[grainDurationLine control] 
                                    MaxAmplitudeDeviation:[ampOffsetLine control] 

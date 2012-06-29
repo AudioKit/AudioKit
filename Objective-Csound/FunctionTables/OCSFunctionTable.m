@@ -11,7 +11,7 @@
 @interface OCSFunctionTable () {
     int size;
     FunctionTableType gen;
-    NSString *parameters;    
+    OCSParamArray *params;    
 }
 @end
 
@@ -19,17 +19,23 @@
 @synthesize output;
 
 - (id)initWithType:(FunctionTableType)functionTableType
-              size:(int)tableSizeOrZero 
-        parameters:(NSString *)parametersAsString
+              size:(int)tableSize
+        parameters:(OCSParamArray *)parameters;
 {
     self = [super init];
     if (self) {
         output = [OCSParamConstant paramWithString:[self functionName]];
-        size = tableSizeOrZero;
+        size = tableSize;
         gen = functionTableType;
-        parameters = parametersAsString;
+        params = parameters;
     }
     return self;
+}
+
+- (id)initWithType:(FunctionTableType)functionTableType
+        parameters:(OCSParamArray *)parameters;
+{
+    return [self initWithType:functionTableType size:0 parameters:parameters];
 }
 
 - (NSString *)functionName {
@@ -42,12 +48,12 @@
 //ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD {
     NSString *text;
-    if (parameters == nil) {
+    if (params == nil) {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
                 output, size, gen];
     } else {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
-                output, size, gen, parameters];
+                output, size, gen, [params parameterString]];
     }
     return text;
 }

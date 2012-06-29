@@ -11,6 +11,11 @@
  slower rate variables. 
  */
 
+#define ocsp(__f__)  [OCSParamConstant paramWithFloat:__f__]
+#define ocspi(__i__) [OCSParamConstant paramWithFloat:__i__]
+#define ocsps(__s__) [OCSParamConstant paramWithString:__s__]
+#define ocspfn(__fn__) [OCSParamConstant paramWithFilename:__fn__]
+
 @interface OCSParam : NSObject
 {
     NSString *type; 

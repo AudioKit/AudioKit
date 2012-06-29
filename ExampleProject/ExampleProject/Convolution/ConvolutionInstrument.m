@@ -7,7 +7,6 @@
 //
 
 #import "ConvolutionInstrument.h"
-#import "OCSSoundFileTable.h"
 #import "OCSFileInput.h"
 #import "OCSConvolution.h"
 #import "OCSWeightedMean.h"

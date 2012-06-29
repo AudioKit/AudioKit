@@ -30,7 +30,7 @@
              WindowFunction:(OCSFunctionTable *)windowFunction
            MaxGrainDuration:(OCSParamConstant *)maxGrainDuration
                   Amplitude:(OCSParam *)amplitude
-                 GrainPitch:(OCSParam *)grainPitch
+             GrainFrequency:(OCSParam *)grainFrequency
                GrainDensity:(OCSParam *)grainDensity  
               GrainDuration:(OCSParamControl *)grainDuration
       MaxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation

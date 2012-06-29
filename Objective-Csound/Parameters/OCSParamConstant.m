@@ -56,13 +56,28 @@
     return self;
 }
 
-+(id)paramWithFloat:(float)value
+- (id)initWithFilename:(NSString *)filename
+{
+    self = [super init];
+    if (self) {
+        type = @"gi";
+        parameterString = [NSString stringWithFormat:@"\"%@\"", filename];
+    }
+    return self;
+}
+
++ (id)paramWithFloat:(float)value
 {
     return [[self alloc] initWithFloat:value];
 }
-+(id)paramWithInt:(int)value
++ (id)paramWithInt:(int)value
 {
     return [[self alloc] initWithInt:value];
 }
++ (id)paramWithFilename:(NSString *)filename
+{
+    return [[self alloc] initWithFilename:filename];
+}
+
 
 @end

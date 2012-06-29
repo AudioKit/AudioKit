@@ -12,12 +12,13 @@
 //normalized to one version
 
 - (id)initWithType:(WindowType)windowType
-          maxValue:(int)maximumValue    
+          maxValue:(float)maximumValue    
               size:(int)tableSize; 
 {
     return [self initWithType:(-kFTWindows)
                          size:tableSize 
-                   parameters:[NSString stringWithFormat:@"%d %g", windowType, maximumValue]];
+                   parameters:[OCSParamArray paramArrayFromParams:
+                               ocspi(windowType),ocsp(maximumValue), nil]];
 }
 
 
@@ -25,26 +26,32 @@
               size:(int)tableSize; 
 {
     return [self initWithType:windowType
-                     maxValue:1
+                     maxValue:1.0f
                          size:tableSize];
 }
 
 - (id)initGaussianTypeWithBroadness:(float)windowBroadness
-                           maxValue:(int)maximumValue  
+                           maxValue:(float)maximumValue  
                                size:(int)tableSize;
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 
-                   parameters:[NSString stringWithFormat:@"%d %g", kWindowGaussian, maximumValue, windowBroadness]];
+                   parameters:[OCSParamArray paramArrayFromParams:
+                               ocspi(kWindowGaussian),
+                               ocsp(maximumValue),
+                               ocsp(windowBroadness), nil] ];
 }
 
 - (id)intKaiserTypeWithOpenness:(float)windowOpenness
-                       maxValue:(int)maximumValue  
+                       maxValue:(float)maximumValue  
                            size:(int)tableSize
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 
-                   parameters:[NSString stringWithFormat:@"%d %g", kWindowKaiser, maximumValue, windowOpenness]];
+                   parameters:[OCSParamArray paramArrayFromParams:
+                               ocspi(kWindowKaiser),
+                               ocsp(maximumValue),
+                               ocsp(windowOpenness), nil] ];
     
 }
 @end

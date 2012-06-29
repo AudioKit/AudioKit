@@ -11,8 +11,6 @@
 #import "OCSUserDefinedOpcode.h"
 #import "OCSProperty.h"
 
-#define ocsp(__f__) [OCSParamConstant paramWithFloat:__f__]
-
 /** Manages functions that most OCS instruments need to have.*/
 
 @interface OCSInstrument : NSObject {
