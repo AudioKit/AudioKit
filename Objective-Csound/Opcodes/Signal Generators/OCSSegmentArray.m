@@ -40,7 +40,7 @@
         control = [OCSParamControl paramWithString:[self opcodeName]];
         output  =  audio;
         
-        opcode   = @"linsegr";
+        opcode   = @"linseg";
         start    = firstSegmentStartValue;
         dur      = firstSegmentDuration;
         target   = firstSegmentTargetValue;
@@ -62,23 +62,25 @@
 - (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
                  afterDuration:(OCSParamConstant *)releaseDuration
 {
+    // adds an r to the opcode
+    if ([opcode isEqualToString:@"linseg"]) opcode = @"linsegr";
+    if ([opcode isEqualToString:@"expseg"]) opcode = @"expsegr";
     release = releaseDuration;
     final   = finalValue;
 }
 
 - (void)useExponentialSegments {
-    opcode = @"expsegr";
+    // Change the opcode name keeping the "r" intact.
+    opcode = [opcode stringByReplacingOccurrencesOfString:@"linseg" withString:@"expseg"];
 }
 
 - (NSString *)stringForCSD
 {
     if ([segments count] == 0) {
-        if ([[release parameterString] intValue] == 0) {
-            opcode = @"linseg";
+        if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@\n", 
                     output, opcode, start, dur, target];
-
         } else {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@, %@, %@\n", 
@@ -91,8 +93,7 @@
         }
         NSString *segs = [s componentsJoinedByString:@" , "];
        
-        if ([[release parameterString] intValue] == 0) {
-            opcode = @"linseg";
+        if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@, %@\n", 
                     output, opcode, start, dur, target, segs];

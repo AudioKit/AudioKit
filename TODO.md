@@ -8,6 +8,8 @@ To Do
 * Make PluckDrum & PluckString Examples
 * Create the fof opcode and example
 * Write an audio processor that outputs something back for instance fft
+* Get Adam set up with appledoc
+* Move command line optations into an optional configuration file
 
 Major Upgrades
 --------------

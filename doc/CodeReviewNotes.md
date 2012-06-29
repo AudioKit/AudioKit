@@ -19,9 +19,9 @@ File Specific Notes
 * Could we pull off calling these "functions" and losing the table?  It just seems a bit pedantic to explicitly state how the function is being stored.  I realize there are size and opcode issues, so it's something to discuss.
 
 ### OCSGrain
-* Is GrainPitch really a frequency?  If so, _that_ is confusing.
+* Question for Adam: Is GrainPitch really a frequency?  If so, _that_ is confusing.
 
-### OCSOscillator.h
+### OCSOscillator
 * Good place to address the problem of multirate outputs from the "Overall Notes" above. 
 
 ### OCSParamArray
@@ -34,8 +34,11 @@ File Specific Notes
 * Doesn't follow any of the current OCS guidelines.
 * This raises the question of how descriptive a class name should be.  Do we gain much from it named like this? NReverb seems better in a way.  It at least benefits from history.
 
+### OCSSegmentArray
+* Question for Adam: Isn't linseg a subset of linsegr with both parameters as zero?  Would clean up the code a little.
+
 ### OCSWindowsTable
-* Create separate methods for each type since Gauss and Kaiser take another parameter.
+* Need to review with both of us what is happening with negative types and maximum value.
 
 
 Current naming inconsistencies

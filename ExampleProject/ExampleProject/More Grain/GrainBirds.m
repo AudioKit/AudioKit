@@ -87,7 +87,8 @@
         OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file tableSize:4096];
         [self addFunctionTable:fiftyHzSine];
         
-        OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithSize:4097 windowType:kWindowHanning];
+        OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithType:kWindowHanning
+                                                                    size:4097];
         [self addFunctionTable:hanning];
         
         // INSTRUMENT DEFINITION ===============================================

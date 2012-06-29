@@ -11,20 +11,40 @@
 @implementation OCSWindowsTable
 //normalized to one version
 
-- (id)initWithSize:(int)tableSize 
-        windowType:(WindowType)windowType 
-          maxValue:(int)maximumValue
+- (id)initWithType:(WindowType)windowType
+          maxValue:(int)maximumValue    
+              size:(int)tableSize; 
 {
     return [self initWithType:(-kFTWindows)
                          size:tableSize 
-                   parameters:[NSString stringWithFormat:@"%d %d", windowType, maximumValue]];
+                   parameters:[NSString stringWithFormat:@"%d %g", windowType, maximumValue]];
 }
 
-- (id)initWithSize:(int)tableSize windowType:(WindowType)windowType
+
+- (id)initWithType:(WindowType)windowType
+              size:(int)tableSize; 
+{
+    return [self initWithType:windowType
+                     maxValue:1
+                         size:tableSize];
+}
+
+- (id)initGaussianTypeWithBroadness:(float)windowBroadness
+                           maxValue:(int)maximumValue  
+                               size:(int)tableSize;
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 
-                   parameters:[NSString stringWithFormat:@"%d", windowType]];
+                   parameters:[NSString stringWithFormat:@"%d %g", kWindowGaussian, maximumValue, windowBroadness]];
 }
 
+- (id)intKaiserTypeWithOpenness:(float)windowOpenness
+                       maxValue:(int)maximumValue  
+                           size:(int)tableSize
+{
+    return [self initWithType:kFTWindows 
+                         size:tableSize 
+                   parameters:[NSString stringWithFormat:@"%d %g", kWindowKaiser, maximumValue, windowOpenness]];
+    
+}
 @end
