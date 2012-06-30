@@ -10,16 +10,16 @@
 @interface OCSNReverb () {
     OCSParam *output;
     OCSParam *input;
-    OCSParamControl *reverbDuration;
-    OCSParamControl *highFrequencyDiffusivity;
+    OCSParamControl *dur;
+    OCSParamControl *hfdif;
     
     BOOL isInitSkipped;
     
-    NSArray *combFilterTimes;
-    NSArray *combFilterGains;
+    NSArray *combTimes;
+    NSArray *combGains;
     
-    NSArray *allPassFilterTimes;
-    NSArray *allPassFilterGains;
+    NSArray *allPassTimes;
+    NSArray *allPassGains;
 }
 @end
 
@@ -27,39 +27,39 @@
 @implementation OCSNReverb
 @synthesize output;
 
-- (id)initWithInput:(OCSParam *)i
-     reverbDuration:(OCSParamControl *)dur 
-highFreqDiffusivity:(OCSParamControl *)hfdif;
+- (id)initWithInput:(OCSParam *)inputSignal
+     reverbDuration:(OCSParamControl *)reverbDuration 
+highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity;
 {
     self = [super init];
     if(self) {
         output = [OCSParam paramWithString:[self opcodeName]];
-        input = i;
-        reverbDuration = dur;
-        highFrequencyDiffusivity = hfdif;
+        input = inputSignal;
+        dur = reverbDuration;
+        hfdif = highFreqDiffusivity;
     }
     return self;
 }
 
-- (id)initWithInput:(OCSParam *)i
-     reverbDuration:(OCSParamControl *)dur
-highFreqDiffusivity:(OCSParamControl *)hfdif
-    combFilterTimes:(NSArray *)combTime
-    combFilterGains:(NSArray *)combGain
- allPassFilterTimes:(NSArray *)allPassTime
- allPassFilterGains:(NSArray *)allPassGain;
+- (id)initWithInput:(OCSParam *)inputSignal
+     reverbDuration:(OCSParamControl *)reverbDuration
+highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity
+    combFilterTimes:(NSArray *)combFilterTimes
+    combFilterGains:(NSArray *)combFilterGains
+ allPassFilterTimes:(NSArray *)allPassFilterTimes
+ allPassFilterGains:(NSArray *)allPassFilterGains;
 {
     self = [super init];
     if(self) {
         output = [OCSParam paramWithString:[self opcodeName]];
-        input = i;
-        reverbDuration = dur;
-        highFrequencyDiffusivity = hfdif;
+        input = inputSignal;
+        dur = reverbDuration;
+        hfdif = highFreqDiffusivity;
         
-        combFilterTimes = combTime;
-        combFilterGains = combGain;
-        allPassFilterTimes = allPassTime;
-        allPassFilterGains = allPassGain;
+        combTimes = combFilterTimes;
+        combGains = combFilterGains;
+        allPassTimes = allPassFilterTimes;
+        allPassGains = allPassFilterGains;
     }
     return self;
 }
@@ -70,24 +70,22 @@ highFreqDiffusivity:(OCSParamControl *)hfdif
     
     //Check if optional parameters have been set before constructing CSD
 
-    if (combFilterGains) {
+    if (combGains) {
         return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@\n",
                 [self functionTableCSDFromFilterParams],
-                output, reverbDuration, highFrequencyDiffusivity, 
-                combFilterTimes, combFilterGains, allPassFilterTimes,
-                allPassFilterGains];
+                output, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
     } else {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@\n", 
-                output, input, reverbDuration, highFrequencyDiffusivity];
+                output, input, dur, hfdif];
     }
 }
 
 - (NSString *)functionTableCSDFromFilterParams
 {
     NSString *combTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@\n",
-                           [self opcodeName], [combFilterGains count], -2, combFilterTimes, combFilterGains]; 
+                           [self opcodeName], [combGains count], -2, combTimes, combGains]; 
     NSString *allPassTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@\n",
-                              [self opcodeName], [allPassFilterGains count], -2, allPassFilterTimes, allPassFilterGains]; 
+                              [self opcodeName], [allPassGains count], -2, allPassTimes, allPassGains]; 
     NSString *s = [NSString stringWithFormat:@"%@ %@", combTable, allPassTable];
     return s;
 }

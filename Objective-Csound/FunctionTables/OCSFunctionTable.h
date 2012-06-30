@@ -35,14 +35,14 @@ typedef enum
 /// Creates a function table at the most basic level.
 /// @param functionTableType  One of the supported GeneratingRoutines.
 /// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
-/// @param parametersAsString A string containing the parameters separated by spaces. 
+/// @param parameters         An array of parameters that define the function table. 
 - (id)initWithType:(FunctionTableType)functionTableType
               size:(int)tableSize
         parameters:(OCSParamArray *)parameters;
 
 /// Creates a function table without specifying a size, deferring that calculation.
 /// @param functionTableType  One of the supported GeneratingRoutines.
-/// @param parametersAsString A string containing the parameters separated by spaces. 
+/// @param parameters         An array of parameters that define the function table. 
 - (id)initWithType:(FunctionTableType)functionTableType
         parameters:(OCSParamArray *)parameters;
 

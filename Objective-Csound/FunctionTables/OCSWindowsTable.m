@@ -42,9 +42,9 @@
                                ocsp(windowBroadness), nil] ];
 }
 
-- (id)intKaiserTypeWithOpenness:(float)windowOpenness
-                       maxValue:(float)maximumValue  
-                           size:(int)tableSize
+- (id)initKaiserTypeWithOpenness:(float)windowOpenness
+                        maxValue:(float)maximumValue  
+                            size:(int)tableSize
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 
