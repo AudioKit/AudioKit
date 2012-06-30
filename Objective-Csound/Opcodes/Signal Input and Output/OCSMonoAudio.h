@@ -1,5 +1,5 @@
 //
-//  OCSOutputMono.h
+//  OCSMonoAudio.h
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -15,7 +15,7 @@
  There can be any number of these output units in an instrument.
  */
 
-@interface OCSOutputMono : OCSOpcode 
+@interface OCSMonoAudio : OCSOpcode 
 
 /// Create the mono audio output.
 /// @param monoSignal The audio that should be played.

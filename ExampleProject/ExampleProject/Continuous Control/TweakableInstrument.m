@@ -8,7 +8,7 @@
 
 #import "TweakableInstrument.h"
 #import "OCSSineTable.h"
-#import "OCSFoscili.h"
+#import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 #import "OCSAssignment.h"
 
@@ -63,13 +63,13 @@
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFunctionTable:sineTable];
         
-        OCSFoscili *fmOscillator;
-        fmOscillator = [[OCSFoscili alloc] initWithAmplitude:[amplitude control] 
-                                               BaseFrequency:[frequency control] 
-                                           CarrierMultiplier:ocsp(1) 
-                                        ModulatingMultiplier:[modulation control] 
-                                             ModulationIndex:[modIndex control] 
-                                               FunctionTable:sineTable];
+        OCSFMOscillator *fmOscillator;
+        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:[amplitude control] 
+                                                    BaseFrequency:[frequency control] 
+                                                CarrierMultiplier:ocsp(1) 
+                                             ModulatingMultiplier:[modulation control] 
+                                                  ModulationIndex:[modIndex control] 
+                                                    FunctionTable:sineTable];
         [self addOpcode:fmOscillator];
         
         // AUDIO OUTPUT ========================================================

@@ -1,14 +1,14 @@
 //
-//  OCSFilterLowPassButter.m
+//  OCSLowPassButterworthFilter.m
 //  ExampleProject
 //
 //  Created by Adam Boulanger on 6/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFilterLowPassButterworth.h"
+#import "OCSLowPassButterworthFilter.h"
 
-@interface OCSFilterLowPassButterworth () {
+@interface OCSLowPassButterworthFilter () {
     OCSParam *output;
     OCSParam *input;
     OCSParamControl *cutoff;
@@ -17,11 +17,11 @@
 }
 @end
 
-@implementation OCSFilterLowPassButterworth
+@implementation OCSLowPassButterworthFilter
 @synthesize output;
 
 -(id)initWithInput:(OCSParam *)inputSignal 
-   CutoffFrequency:(OCSParamControl *)cutoffFrequency;
+   cutoffFrequency:(OCSParamControl *)cutoffFrequency;
 {
     self = [super init];
     if(self) {

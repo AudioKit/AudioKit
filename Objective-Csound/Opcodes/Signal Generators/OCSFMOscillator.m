@@ -1,13 +1,13 @@
 //
-//  OCSFoscili.m
+//  OCSFMOscillator.m
 //
 //  Created by Adam Boulanger on 5/29/12.
 //  Copyright (c) 2012 MIT Media Lab. All rights reserved.
 //
 
-#import "OCSFoscili.h"
+#import "OCSFMOscillator.h"
 
-@interface OCSFoscili () {
+@interface OCSFMOscillator () {
     OCSParam *amp;
     OCSParamControl *freq;
     OCSParam *car;
@@ -19,7 +19,7 @@
 }
 @end
 
-@implementation OCSFoscili
+@implementation OCSFMOscillator
 
 @synthesize amplitude = amp;
 @synthesize baseFrequency = freq;

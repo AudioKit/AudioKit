@@ -7,7 +7,7 @@
 //
 
 #import "GrainBirdsReverb.h"
-#import "OCSReverbSixParallelComb.h"
+#import "OCSNReverb.h"
 #import "OCSSegmentArray.h"
 #import "OCSAudio.h"
 
@@ -35,10 +35,10 @@
         [reverbDuration setOutput:[reverbDuration control]];
         [self addOpcode:reverbDuration];
         
-        OCSReverbSixParallelComb * reverb;
-        reverb = [[OCSReverbSixParallelComb alloc]  initWithInput:input 
-                                                   ReverbDuration:[reverbDuration control] 
-                                              HighFreqDiffusivity:ocsp(0)];
+        OCSNReverb * reverb;
+        reverb = [[OCSNReverb alloc]  initWithInput:input 
+                                     reverbDuration:[reverbDuration control] 
+                                highFreqDiffusivity:ocsp(0)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================

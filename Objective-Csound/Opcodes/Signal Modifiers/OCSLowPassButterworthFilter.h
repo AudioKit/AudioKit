@@ -1,5 +1,5 @@
 //
-//  OCSFilterLowPassButter.h
+//  OCSLowPassButterworthFilter.h
 //  ExampleProject
 //
 //  Created by Adam Boulanger on 6/22/12.
@@ -8,15 +8,12 @@
 
 #import "OCSOpcode.h"
 
-/** A low-pass Butterworth filter.
- 
- These filters are Butterworth second-order IIR filters. They are slightly 
- slower than the original filters in Csound, but they offer an almost flat 
+/** A second-order low-pass Butterworth filter. These filters are Butterworth second-order IIR filters. 
+ They are slightly slower than the original filters in Csound, but they offer an almost flat 
  passband and very good precision and stopband attenuation.
- 
  */
  
-@interface OCSFilterLowPassButterworth : OCSOpcode
+@interface OCSLowPassButterworthFilter : OCSOpcode
 
 /// The output is a mono audio signal.
 @property (nonatomic, retain) OCSParam *output;
@@ -25,6 +22,6 @@
 /// @param inputSignal     The input to be filtered.
 /// @param cutoffFrequency Cutoff or center frequency for each of the filters.
 -(id)initWithInput:(OCSParam *)inputSignal 
-   CutoffFrequency:(OCSParamControl *)cutoffFrequency;
+   cutoffFrequency:(OCSParamControl *)cutoffFrequency;
 
 @end

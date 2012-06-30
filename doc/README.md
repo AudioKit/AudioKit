@@ -59,9 +59,11 @@ b) The problem with the first method is that it can look unwieldy.  So, if the d
 Since implementation files are not used in creating documentation, there are fewer rules and conventions to follow. As in header files, the default Apple comments are fine, except that the project name should be replaced with "Objective-Csound" and you import lines should always be minimized.
 
 ### Naming Conventions
-Variables names and method signatures should be very descriptive without going overboard.    
+Variables names and method signatures should be very descriptive without going overboard.  Everything in Objective-Csound should aim to be adjective-first naming.  For example this means we would write "OCSLinearEnvelope" not "OCSEnvelopeLinear." The reason for this is because we want to make everything as clear as possible in English.  The argument that you want to group similar things alphabetically is valid, but in practice it is very hard to achieve unilaterally.  
 
-One of the primary ways Objective-Csound differs from Csound philosophically is that OCS embraces verbosity while Csound embraces brevity.  But because we're a part of the Csound community and ecosystem of tools, and Csound has such a rich history, we try to keep as much of the terminology consistent. 
+One of the primary ways Objective-Csound differs from Csound philosophically is that OCS embraces verbosity while Csound embraces brevity.  But because we're a part of the Csound community and ecosystem of tools, and Csound has such a rich history, we try to keep as much of the terminology consistent as we can.
+
+Opcodes are one of the things that experienced Csound-ers know very well, so we ease their learning experience by keeping the names similar.  Often this will just mean to expand out the Csound opcode to remove abbreviation. `Foscili` becomes `FMOscillator` for instance.  Where one opcode is clearly an improvement over an older one, the modifier text is unnecessary.  For instance the trailing i in `Fpscili` did not encourage us to call the class `FMOscillatorWithInterpolation`
 
 
 
