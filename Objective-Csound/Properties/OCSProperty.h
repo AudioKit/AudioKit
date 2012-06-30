@@ -24,13 +24,16 @@
 /// Initial value assigned.
 @property (nonatomic, assign) Float32 initValue;
 
+/// Audio (a-rate) output, theoretically.
+@property (nonatomic, strong) OCSParam *audio;
+
 /// Control-rate (k-rate) output.
 @property (nonatomic, strong) OCSParamControl *control;
 
 /// Event-rate (i-rate) output.
 @property (nonatomic, strong) OCSParamConstant *constant;
 
-/// Audio (a-rate) output, theoretically.
+/// Catch-all output, necessary for parameterization.
 @property (nonatomic, strong) OCSParam *output;
 
 /// Initialize the property with an initial value

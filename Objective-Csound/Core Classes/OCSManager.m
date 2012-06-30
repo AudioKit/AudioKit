@@ -79,7 +79,7 @@ static OCSManager *_sharedOCSManager = nil;
                                                                      error:nil];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
-        myCSDFile = [NSString stringWithFormat:@"%@/%new.csd", documentsDirectory];
+        myCSDFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
 
     }
     return self;

@@ -43,8 +43,7 @@
 
     
     for ( OCSInstrument *i in instruments) {
-        
-        [s appendString:@";UDOs\n"];
+
         for (OCSUserDefinedOpcode *u in [i userDefinedOpcodes]) {
             //[s appendFormat:@"#include \"%@\"", [u myUDOFile]];  //Would be nice but it crashes Csound
             [s appendString:@"\n\n\n"];     
@@ -53,7 +52,6 @@
                                                                error:nil]];
             [s appendString:@"\n\n\n"];
         }
-        [s appendString:@"\n;Done\n"];
 
         
         [s appendFormat:@"instr %@\n", [i uniqueName]];
