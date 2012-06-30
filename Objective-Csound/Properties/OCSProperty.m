@@ -14,9 +14,10 @@
     Float32 initValue;
     Float32 value;
     
+    OCSParam *audio;
     OCSParamControl *control;
     OCSParamConstant *constant;
-    OCSParamControl *output;
+    OCSParam *output;
     
     //channelName
     float* channelPtr;
@@ -28,6 +29,7 @@
 @synthesize minimumValue;
 @synthesize initValue;
 @synthesize value;
+@synthesize audio;
 @synthesize control;
 @synthesize constant;
 @synthesize output;
@@ -38,8 +40,9 @@
     self = [super init];
     if (self) {
         // ARB / AOP - need to investigate why this can't be a-rate
-        control  = [OCSParamControl paramWithString:@"gkProperty"];
-        constant = [OCSParamConstant paramWithString:@"giProperty"];
+        audio    = [OCSParam paramWithString:@"Property"];
+        control  = [OCSParamControl paramWithString:@"Property"];
+        constant = [OCSParamConstant paramWithString:@"Property"];
         output = control;
         
     }
@@ -66,6 +69,11 @@
     return self;
 }
 
+- (void)setAudio:(OCSParam *)p {
+    audio = p;
+    output = audio;
+}
+
 - (void)setControl:(OCSParamControl *)p {
     control = p;
     output = control;
@@ -76,17 +84,17 @@
 }
 
 - (NSString *)stringForCSDGetValue {
-    return [NSString stringWithFormat:@"%@ chnget \"%@\"\n",  output, output];
+    return [NSString stringWithFormat:@"%@ chnget \"PropertyFor%@\"\n",  output, output];
 }
 
 - (NSString *)stringForCSDSetValue {
-    return [NSString stringWithFormat:@"chnset %@, \"%@\"\n", output, output];
+    return [NSString stringWithFormat:@"chnset %@, \"PropertyFor%@\"\n", output, output];
 }
 
 #pragma mark BaseValueCacheable
 
 - (void)setup:(CsoundObj*)csoundObj {
-    channelPtr = [csoundObj getInputChannelPtr:[output parameterString]];
+    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"PropertyFor%@",[output parameterString]]];
     *channelPtr = [self value];
 }
 

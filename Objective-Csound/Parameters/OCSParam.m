@@ -29,6 +29,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
+        type = @"ga";
         parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
     }
     return self;
@@ -62,7 +63,7 @@ static int currentID = 1;
 
 - (id)scaledBy:(float)scalingFactor
 {
-    OCSParam * new = [[OCSParam alloc] init];
+    OCSParam *new = [[OCSParam alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"((%@) * %g)", parameterString, scalingFactor]];
     return new;
 }
