@@ -63,19 +63,19 @@ typedef enum
               size:(int)tableSize; 
 
 /// Creates a Gaussian Windown Function Table
-/// @param broadness    Specifies how broad the window is, as the standard deviation of the curve; in this example the s.d. is 2. The default value is 1.
-/// @param maximumValue Absolute value at window peak point. 
-/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+/// @param windowBroadness Specifies how broad the window is, as the standard deviation of the curve; in this example the s.d. is 2. The default value is 1.
+/// @param maximumValue    Absolute value at window peak point. 
+/// @param tableSize       Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 - (id)initGaussianTypeWithBroadness:(float)windowBroadness
                            maxValue:(float)maximumValue  
                                size:(int)tableSize;
 
 /// Creates a Kaiser Windown Function Table
-/// @param opennness    Specifies how "open" the window is, for example a value of 0 results in a rectangular window and a value of 10 in a Hamming like window.
-/// @param maximumValue Absolute value at window peak point. 
-/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-- (id)initGaussianTypeWithBroadness:(float)windowBroadness
-                           maxValue:(float)maximumValue  
-                               size:(int)tableSize;
+/// @param windowOpenness Specifies how "open" the window is, for example a value of 0 results in a rectangular window and a value of 10 in a Hamming like window.
+/// @param maximumValue   Absolute value at window peak point. 
+/// @param tableSize      Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+- (id)initKaiserTypeWithOpenness:(float)windowOpenness
+                        maxValue:(float)maximumValue  
+                            size:(int)tableSize;
 
 @end

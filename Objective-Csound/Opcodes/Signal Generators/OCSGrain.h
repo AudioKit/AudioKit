@@ -18,7 +18,7 @@
 
 /// Instantiates the grain synthesis with the given parameters.
 /// @param amplitude              Amplitude of each grain.
-/// @param grainPitch             To use the original frequency of the input sound, divide the original sample rate of the grain waveform by the length of the grain function table.
+/// @param grainFrequency         To use the original frequency of the input sound, divide the original sample rate of the grain waveform by the length of the grain function table.
 /// @param grainDensity           Density of grains measured in grains per second. If this is constant then the output is synchronous granular synthesis. If grainDensity has a random element (like added noise), then the result is more like asynchronous granular synthesis.
 /// @param maxAmplitudeDeviation  Maximum amplitude deviation from `amplitude`. If it is set to zero then there is no random amplitude for each grain.
 /// @param maxPitchDeviation      Maximum pitch deviation from grainPitch in Hz.
