@@ -51,13 +51,13 @@
 /// @param fileTable Function table of type OCSSoundFileTable.
 /// @param amplitude Output of the signal in relation to the 0dB full scale amplitude.
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-                   Amplitude:(OCSParam *)amplitude;
+                   amplitude:(OCSParam *)amplitude;
 
 /// Initialization with a given file and amplitude and scale the frequency.
 /// @param fileTable           Function table of type OCSSoundFileTable.
 /// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
 /// @param frequencyMultiplier Relative to a base frequency of 1.
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-                   Amplitude:(OCSParam *)amplitude
-         FrequencyMultiplier:(OCSParamControl *)frequencyMultiplier;
+         frequencyMultiplier:(OCSParamControl *)frequencyMultiplier
+                   amplitude:(OCSParam *)amplitude;
 @end

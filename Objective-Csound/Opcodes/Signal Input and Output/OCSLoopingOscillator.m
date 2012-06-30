@@ -23,21 +23,21 @@
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable 
-                              Amplitude:[OCSParamConstant paramWithInt:1]
-                    FrequencyMultiplier:[OCSParamConstant paramWithInt:1]];
+                    frequencyMultiplier:[OCSParamConstant paramWithInt:1]
+                              amplitude:[OCSParamConstant paramWithInt:1]];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
-                   Amplitude:(OCSParam *)amplitude
+                   amplitude:(OCSParam *)amplitude
 {
     return [self initWithSoundFileTable:fileTable 
-                              Amplitude:amplitude
-                    FrequencyMultiplier:[OCSParamConstant paramWithInt:1]];
+                    frequencyMultiplier:[OCSParamConstant paramWithInt:1]
+                              amplitude:amplitude];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-                   Amplitude:(OCSParam *)amplitude
-         FrequencyMultiplier:(OCSParamControl *)frequencyMultiplier
+         frequencyMultiplier:(OCSParamControl *)frequencyMultiplier
+                   amplitude:(OCSParam *)amplitude;
 {
     self = [super init];
     if (self) {

@@ -29,11 +29,11 @@ typedef enum
 
 @synthesize output;
 - (id)initWithAmplitude:(OCSParamControl *)amplitude
-    ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-    PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-            AudioBuffer:(OCSParamConstant *)audioBuffer
-        RoughnessFactor:(OCSParamConstant *)roughnessFactor
-          StretchFactor:(OCSParamConstant *)stretchFactor
+    resamplingFrequency:(OCSParamControl *)resamplingFrequency
+    pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+            audioBuffer:(OCSParamConstant *)audioBuffer
+        roughnessFactor:(OCSParamConstant *)roughnessFactor
+          stretchFactor:(OCSParamConstant *)stretchFactor;
 {
     self = [super init];
     if( self ) {

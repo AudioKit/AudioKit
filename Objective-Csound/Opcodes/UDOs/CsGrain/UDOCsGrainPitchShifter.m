@@ -24,11 +24,11 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithInputLeft:(OCSParam *)leftInput
-             InputRight:(OCSParam *)rightInput
-                  Pitch:(OCSParamControl *)basePitch
-        OffsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
-               Feedback:(OCSParamControl *)feedbackLevel;
+- (id)initWithLeftInput:(OCSParam *)leftInput
+             rightInput:(OCSParam *)rightInput
+              basePitch:(OCSParamControl *)basePitch
+        offsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
+          feedbackLevel:(OCSParamControl *)feedbackLevel;
 {
     self = [super init];
     if (self) {

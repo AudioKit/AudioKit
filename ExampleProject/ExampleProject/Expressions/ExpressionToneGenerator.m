@@ -43,8 +43,8 @@
         OCSParamConstant * amplitudeOffset = ocsp(0.1);
         
         OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
-                                                         ToValue:ocsp(0.2)
-                                                        Duration:duration];
+                                                         toValue:ocsp(0.2)
+                                                        duration:duration];
         [self addOpcode:amplitudeRamp];
         
         OCSParamControl * totalAmplitude = [OCSParamControl paramWithFormat:

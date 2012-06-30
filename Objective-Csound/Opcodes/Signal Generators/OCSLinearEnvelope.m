@@ -24,9 +24,9 @@
 @synthesize output;
 
 - (id)initWithRiseTime:(OCSParamConstant *)riseTime
-         TotalDuration:(OCSParamConstant *)totalDuration
-             DecayTime:(OCSParamConstant *)decayTime
-             Amplitude:(OCSParam *)amplitude
+         totalDuration:(OCSParamConstant *)totalDuration
+             decayTime:(OCSParamConstant *)decayTime
+             amplitude:(OCSParam *)amplitude
 {
     self = [super init];
     if (self) {

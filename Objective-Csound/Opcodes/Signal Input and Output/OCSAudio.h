@@ -25,6 +25,6 @@
 /// Initialization Statement
 /// @param leftInput  The audio signal to be played on the left channel.
 /// @param rightInput The audio signal to be played on the right channel.
-- (id)initWithLeftInput:(OCSParam *)leftInput RightInput:(OCSParam *)rightInput;
+- (id)initWithLeftInput:(OCSParam *)leftInput rightInput:(OCSParam *)rightInput;
 
 @end

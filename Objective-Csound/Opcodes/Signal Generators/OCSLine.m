@@ -25,8 +25,8 @@
 @synthesize output;
 
 - (id)initFromValue:(OCSParamConstant *)startingValue
-            ToValue:(OCSParamConstant *)endingValue
-           Duration:(OCSParamConstant *)duration
+            toValue:(OCSParamConstant *)endingValue
+           duration:(OCSParamConstant *)duration
 {
     self = [super init];
 

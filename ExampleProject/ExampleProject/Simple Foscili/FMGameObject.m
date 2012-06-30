@@ -44,11 +44,11 @@
         
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
-                                                    BaseFrequency:[frequency control]
-                                                CarrierMultiplier:ocsp(2) 
-                                             ModulatingMultiplier:[modulation control]
-                                                  ModulationIndex:ocsp(15)
-                                                    FunctionTable:sineTable];
+                                                    baseFrequency:[frequency control]
+                                                carrierMultiplier:ocsp(2) 
+                                             modulatingMultiplier:[modulation control]
+                                                  modulationIndex:ocsp(15)
+                                                    functionTable:sineTable];
         [self addOpcode:fmOscillator];
         
         // Method 2 for defining an opcode - What do you think ARB? - AOP
@@ -65,7 +65,7 @@
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[fmOscillator output]
-                                                   RightInput:[fmOscillator2 output]];
+                                                   rightInput:[fmOscillator2 output]];
         [self addOpcode:audio];
     }
     return self;

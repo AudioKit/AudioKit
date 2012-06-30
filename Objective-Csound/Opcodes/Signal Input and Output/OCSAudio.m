@@ -17,10 +17,10 @@
 
 - (id)initWithMonoInput:(OCSParam *)monoSignal
 {
-    return [self initWithLeftInput:monoSignal RightInput:monoSignal];
+    return [self initWithLeftInput:monoSignal rightInput:monoSignal];
 }
 
-- (id)initWithLeftInput:(OCSParam *)leftInput RightInput:(OCSParam *)rightInput
+- (id)initWithLeftInput:(OCSParam *)leftInput rightInput:(OCSParam *)rightInput
 {
     self = [super init];
     if (self) {

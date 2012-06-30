@@ -31,8 +31,8 @@ the same direction, going negative.
 /// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
 /// @param amplitude     Amplitude to rise to and decay from.
 - (id)initWithRiseTime:(OCSParamConstant *)riseTime
-         TotalDuration:(OCSParamConstant *)totalDuration
-             DecayTime:(OCSParamConstant *)decayTime
-             Amplitude:(OCSParam *)amplitude;
+         totalDuration:(OCSParamConstant *)totalDuration
+             decayTime:(OCSParamConstant *)decayTime
+             amplitude:(OCSParam *)amplitude;
 
 @end

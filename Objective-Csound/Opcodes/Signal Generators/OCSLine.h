@@ -35,8 +35,8 @@
 /// @param duration      Duration of linear transition in seconds.
 /// @return An opcode to perform a linear transition over a given duration.
 - (id)initFromValue:(OCSParamConstant *)startingValue
-            ToValue:(OCSParamConstant *)endingValue
-           Duration:(OCSParamConstant *)duration;
+            toValue:(OCSParamConstant *)endingValue
+           duration:(OCSParamConstant *)duration;
     
 
 @end
