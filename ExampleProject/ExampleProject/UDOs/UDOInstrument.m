@@ -31,32 +31,32 @@
         // INSTRUMENT DEFINITION ===============================================
         
         UDOMSROscillator *osc;
-        osc = [[UDOMSROscillator alloc] initWithAmplitude:ocsp(0.5)
-                                                Frequency:[frequency constant]
-                                                     Type:kMSROscillatorTypeTriangle];
+        osc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
+                                           frequency:[frequency constant]
+                                           amplitude:ocsp(0.5)];
         [self addUDO:osc];
         
         UDOCsGrainPitchShifter * ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithInputLeft:[osc output] 
-                                                    InputRight:[osc output] 
-                                                         Pitch:ocsp(2.7) 
-                                               OffsetFrequency:ocsp(0) 
-                                                      Feedback:ocsp(0.9)];
+        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:[osc output] 
+                                                    rightInput:[osc output] 
+                                                     basePitch:ocsp(2.7) 
+                                               offsetFrequency:ocsp(0) 
+                                                 feedbackLevel:ocsp(0.9)];
         [self addUDO:ps];
         
         UDOCsGrainCompressor * comp;
-        comp = [[UDOCsGrainCompressor alloc] initWithInputLeft:[ps outputLeft] 
-                                                    InputRight:[ps outputRight] 
-                                                     Threshold:ocsp(-2.0) 
-                                              CompressionRatio:ocsp(0.5) 
-                                                    AttackTime:ocsp(0.1) 
-                                                   ReleaseTime:ocsp(0.2)];
+        comp = [[UDOCsGrainCompressor alloc] initWithLeftInput:[ps outputLeft] 
+                                                    rightInput:[ps outputRight] 
+                                                     threshold:ocsp(-2.0) 
+                                              compressionRatio:ocsp(0.5) 
+                                                    attackTime:ocsp(0.1) 
+                                                   releaseTime:ocsp(0.2)];
         [self addUDO:comp];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:[ps outputLeft] 
-                                                          RightInput:[ps outputRight]]; 
+                                                          rightInput:[ps outputRight]]; 
         [self addOpcode:stereoOutput];
     }
     return self;

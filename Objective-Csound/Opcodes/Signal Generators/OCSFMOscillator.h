@@ -47,33 +47,33 @@ http://www.csounds.com/manual/html/foscili.html
 /// Initializes a frequency modulated oscillator with linear interpolation.
 /// @param amplitude            The amplitude of the output signal.
 /// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-/// @param carrierMutliplier    This multiplied by the baseFrequency gives the carrier frequency.
+/// @param carrierMultiplier    This multiplied by the baseFrequency gives the carrier frequency.
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
 /// @param modulationIndex      This multiplied by the modulating frequency gives the modulation amplitude.
 /// @param functionTable        Function table to use.  Requires a wrap-around guard point.
 /// @param phase                Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). 
 /// A negative value will cause phase initialization to be skipped.
 - (id)initWithAmplitude:(OCSParam *)amplitude
-          BaseFrequency:(OCSParamControl *)baseFrequency
-      CarrierMultiplier:(OCSParam *)carrierMutliplier
-   ModulatingMultiplier:(OCSParam *)modulatingMultiplier
-        ModulationIndex:(OCSParamControl *)modulationIndex
-          FunctionTable:(OCSFunctionTable *)functionTable
-                  Phase:(OCSParamConstant *)phase;
+          baseFrequency:(OCSParamControl *)baseFrequency
+      carrierMultiplier:(OCSParam *)carrierMultiplier
+   modulatingMultiplier:(OCSParam *)modulatingMultiplier
+        modulationIndex:(OCSParamControl *)modulationIndex
+          functionTable:(OCSFunctionTable *)functionTable
+                  phase:(OCSParamConstant *)phase;
 
 /// Initializes a frequency modulated oscillator with linear interpolation with no phasing.
 /// @param amplitude            The amplitude of the output signal.
 /// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-/// @param carrierMutliplier    This multiplied by the baseFrequency gives the carrier frequency.
+/// @param carrierMultiplier    This multiplied by the baseFrequency gives the carrier frequency.
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
 /// @param modulationIndex      This multiplied by the modulating frequency gives the modulation amplitude.
 /// @param functionTable        Function table to use.  Requires a wrap-around guard point.
 - (id)initWithAmplitude:(OCSParam *)amplitude
-          BaseFrequency:(OCSParamControl *)baseFrequency
-      CarrierMultiplier:(OCSParam *)carrierMutliplier
-   ModulatingMultiplier:(OCSParam *)modulatingMultiplier
-        ModulationIndex:(OCSParamControl *)modulationIndex
-          FunctionTable:(OCSFunctionTable *)functionTable;
+          baseFrequency:(OCSParamControl *)baseFrequency
+      carrierMultiplier:(OCSParam *)carrierMultiplier
+   modulatingMultiplier:(OCSParam *)modulatingMultiplier
+        modulationIndex:(OCSParamControl *)modulationIndex
+          functionTable:(OCSFunctionTable *)functionTable;
 
 
 

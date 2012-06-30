@@ -111,14 +111,14 @@
         [self addOpcode:pitchOffset];         
         
         OCSGrain *grain = [[OCSGrain alloc] initWithGrainFunction:hanning  
-                                                   WindowFunction:fiftyHzSine 
-                                                 MaxGrainDuration:ocsp(0.1)
-                                                        Amplitude:[amplitude output] 
-                                                   GrainFrequency:[[pitchClass control] toCPS]
-                                                     GrainDensity:[grainDensity control] 
-                                                    GrainDuration:[grainDuration control] 
-                                            MaxAmplitudeDeviation:ocsp(1000)
-                                                MaxPitchDeviation:[pitchOffset control]];
+                                                   windowFunction:fiftyHzSine 
+                                                 maxGrainDuration:ocsp(0.1)
+                                                        amplitude:[amplitude output] 
+                                                   grainFrequency:[[pitchClass control] toCPS]
+                                                     grainDensity:[grainDensity control] 
+                                                    grainDuration:[grainDuration control] 
+                                            maxAmplitudeDeviation:ocsp(1000)
+                                                maxPitchDeviation:[pitchOffset control]];
         [self addOpcode:grain];
         
         OCSLowPassButterworthFilter *butterlp;

@@ -39,9 +39,11 @@
 
 /// Initialize the property with an initial value and bounds.
 /// @param initialValue Initial value.
-/// @param min Minimum value.
-/// @param max Maximum value.
-- (id)initWithValue:(float)initialValue Min:(float)min Max:(float)max;
+/// @param minValue Minimum value.
+/// @param maxValue Maximum value.
+- (id)initWithValue:(float)initialValue 
+           minValue:(float)minValue 
+           maxValue:(float)maxValue;
 
 /// String with the appropriate chnget statement for the CSD File
 - (NSString *)stringForCSDGetValue;

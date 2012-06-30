@@ -47,16 +47,16 @@
         
         OCSReverb *reverb;
         reverb = [[OCSReverb alloc] initWithLeftInput:[myOscil output] 
-                                           RightInput:[myOscil output] 
-                                        FeedbackLevel:ocsp(0.85)
-                                      CutoffFrequency:ocsp(12000)];
+                                           rightInput:[myOscil output] 
+                                        feedbackLevel:ocsp(0.85)
+                                      cutoffFrequency:ocsp(12000)];
         [self addOpcode:reverb];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio;
         audio = [[OCSAudio alloc] initWithLeftInput:[reverb outputLeft] 
-                                         RightInput:[reverb outputRight]]; 
+                                         rightInput:[reverb outputRight]]; 
         [self addOpcode:audio];
     }
     return self;

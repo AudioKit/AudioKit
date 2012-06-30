@@ -39,10 +39,10 @@
  @param releaseTime       The release time in seconds. A typical value is 0.1 seconds.
  @return                  And instance of the compressor.
 */
-- (id)initWithInputLeft:(OCSParam *)leftInput
-             InputRight:(OCSParam *)rightInput
-              Threshold:(OCSParamControl *)dBThreshold
-       CompressionRatio:(OCSParamControl *)compressionRatio
-             AttackTime:(OCSParamControl *)attackTime
-            ReleaseTime:(OCSParamControl *)releaseTime;
+- (id)initWithLeftInput:(OCSParam *)leftInput
+             rightInput:(OCSParam *)rightInput
+              threshold:(OCSParamControl *)dBThreshold
+       compressionRatio:(OCSParamControl *)compressionRatio
+             attackTime:(OCSParamControl *)attackTime
+            releaseTime:(OCSParamControl *)releaseTime;
 @end

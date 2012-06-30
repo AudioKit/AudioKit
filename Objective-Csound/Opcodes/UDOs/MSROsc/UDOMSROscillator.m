@@ -20,9 +20,10 @@
 
 @synthesize output;
 
-- (id)initWithAmplitude:(OCSParamConstant *)maxAmplitude 
-              Frequency:(OCSParamConstant *)pitchOrFrequency
-                   Type:(OscillatorType)oscillatorType
+- (id)initWithType:(OscillatorType)oscillatorType
+         frequency:(OCSParamConstant *)pitchOrFrequency
+         amplitude:(OCSParamConstant *)maxAmplitude;
+
 {
     self = [super init];
     if (self) {

@@ -55,13 +55,14 @@
     return self;
 }
 
-- (id)initWithValue:(float)initialValue Min:(float)min Max:(float)max
-{
+- (id)initWithValue:(float)initialValue 
+           minValue:(float)minValue 
+           maxValue:(float)maxValue;{
     self = [self init];
     initValue = initialValue;
     value = initialValue;
-    minimumValue = min;
-    maximumValue = max;
+    minimumValue = minValue;
+    maximumValue = maxValue;
     return self;
 }
 

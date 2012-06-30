@@ -28,14 +28,14 @@
 @synthesize output;
 
 - (id)initWithGrainFunction:(OCSFunctionTable *)grainFunction
-             WindowFunction:(OCSFunctionTable *)windowFunction
-           MaxGrainDuration:(OCSParamConstant *)maxGrainDuration
-                  Amplitude:(OCSParam *)amplitude
-             GrainFrequency:(OCSParam *)grainFrequency
-               GrainDensity:(OCSParam *)grainDensity  
-              GrainDuration:(OCSParamControl *)grainDuration
-      MaxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation
-          MaxPitchDeviation:(OCSParamControl *)maxPitchDeviation;
+             windowFunction:(OCSFunctionTable *)windowFunction
+           maxGrainDuration:(OCSParamConstant *)maxGrainDuration
+                  amplitude:(OCSParam *)amplitude
+             grainFrequency:(OCSParam *)grainFrequency
+               grainDensity:(OCSParam *)grainDensity  
+              grainDuration:(OCSParamControl *)grainDuration
+      maxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation
+          maxPitchDeviation:(OCSParamControl *)maxPitchDeviation;
 {
     self = [super init];
     if (self) {

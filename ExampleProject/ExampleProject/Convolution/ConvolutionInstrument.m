@@ -101,7 +101,7 @@
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[dryWetBalanceL output] 
-                                                   RightInput:[dryWetBalanceR output]];
+                                                   rightInput:[dryWetBalanceR output]];
         [self addOpcode:audio];
     }
     return self;

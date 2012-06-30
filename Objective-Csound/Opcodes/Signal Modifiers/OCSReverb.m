@@ -23,9 +23,9 @@
 @synthesize outputRight;
 
 - (id)initWithLeftInput:(OCSParam *)leftInput
-             RightInput:(OCSParam *)rightInput
-          FeedbackLevel:(OCSParamControl *)feedbackLevel
-        CutoffFrequency:(OCSParamControl *)cutoffFrequency;
+             rightInput:(OCSParam *)rightInput
+          feedbackLevel:(OCSParamControl *)feedbackLevel
+        cutoffFrequency:(OCSParamControl *)cutoffFrequency;
 {
     self = [super init];
     if (self) {
@@ -40,13 +40,13 @@
 }
 
 - (id)initWithMonoInput:(OCSParam *)monoInput
-          FeedbackLevel:(OCSParamControl *)feedbackLevel
-        CutoffFrequency:(OCSParamControl *)cutoffFrequency;
+          feedbackLevel:(OCSParamControl *)feedbackLevel
+        cutoffFrequency:(OCSParamControl *)cutoffFrequency;
 {
     return [self initWithLeftInput:monoInput 
-                        RightInput:monoInput
-                     FeedbackLevel:feedbackLevel
-                   CutoffFrequency:cutoffFrequency];
+                        rightInput:monoInput
+                     feedbackLevel:feedbackLevel
+                   cutoffFrequency:cutoffFrequency];
 }
 
 - (NSString *)stringForCSD

@@ -29,10 +29,10 @@
  @param feedbackLevel              Typically a value from 0.0 (no feedback to 1.0 (100% feedback).
  @return                           An instance of the pitch shifter.
  */
-- (id)initWithInputLeft:(OCSParam *)leftInput
-             InputRight:(OCSParam *)rightInput
-                  Pitch:(OCSParamControl *)basePitch
-        OffsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
-               Feedback:(OCSParamControl *)feedbackLevel;
+- (id)initWithLeftInput:(OCSParam *)leftInput
+             rightInput:(OCSParam *)rightInput
+              basePitch:(OCSParamControl *)basePitch
+        offsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
+          feedbackLevel:(OCSParamControl *)feedbackLevel;
 
 @end

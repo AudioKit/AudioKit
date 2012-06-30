@@ -33,12 +33,12 @@ typedef enum
 @synthesize output;
 
 - (id) initWithAmplitude:(OCSParamControl *)amplitude
-     ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-     PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-             AudioBuffer:(OCSParamConstant *)audioBuffer
-               DecayType:(PluckStringDecayType) decayType
-                  Param1:(OCSParamConstant *)parameter1
-                  Param2:(OCSParamConstant *)parameter2 
+     resamplingFrequency:(OCSParamControl *)resamplingFrequency
+     pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+             audioBuffer:(OCSParamConstant *)audioBuffer
+               decayType:(PluckStringDecayType) decayType
+                  param1:(OCSParamConstant *)parameter1
+                  param2:(OCSParamConstant *)parameter2 
 {
     self = [super init];
     if( self ) {
@@ -56,63 +56,63 @@ typedef enum
 }
 
 - (id) initWithSimpleAveragingDecayAndAmplitude:(OCSParamControl *)amplitude
-                            ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-                            PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-                                    AudioBuffer:(OCSParamConstant *)audioBuffer 
+                            resamplingFrequency:(OCSParamControl *)resamplingFrequency
+                            pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+                                    audioBuffer:(OCSParamConstant *)audioBuffer 
 {
     return [self initWithAmplitude:amplitude 
-               ResamplingFrequency:resamplingFrequency 
-               PitchDecayFrequency:pitchDecayFrequency 
-                       AudioBuffer:audioBuffer 
-                         DecayType:kDecayTypeSimpleAveraging 
-                            Param1:[OCSParamConstant paramWithInt:0] 
-                            Param2:[OCSParamConstant paramWithInt:0]];
+               resamplingFrequency:resamplingFrequency 
+               pitchDecayFrequency:pitchDecayFrequency 
+                       audioBuffer:audioBuffer 
+                         decayType:kDecayTypeSimpleAveraging 
+                            param1:[OCSParamConstant paramWithInt:0] 
+                            param2:[OCSParamConstant paramWithInt:0]];
 }
 
 - (id) initWithStretchedAveragingDecayAndAmplitude:(OCSParamControl *)amplitude
-                               ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-                               PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-                                       AudioBuffer:(OCSParamConstant *)audioBuffer
-                                     StretchFactor:(OCSParamConstant *)stretchFactor 
+                               resamplingFrequency:(OCSParamControl *)resamplingFrequency
+                               pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+                                       audioBuffer:(OCSParamConstant *)audioBuffer
+                                     stretchFactor:(OCSParamConstant *)stretchFactor 
 {
     return [self initWithAmplitude:amplitude 
-               ResamplingFrequency:resamplingFrequency 
-               PitchDecayFrequency:pitchDecayFrequency 
-                       AudioBuffer:audioBuffer 
-                         DecayType:kDecayTypeStretchedAveraging 
-                            Param1:stretchFactor
-                            Param2:[OCSParamConstant paramWithInt:0]];
+               resamplingFrequency:resamplingFrequency 
+               pitchDecayFrequency:pitchDecayFrequency 
+                       audioBuffer:audioBuffer 
+                         decayType:kDecayTypeStretchedAveraging 
+                            param1:stretchFactor
+                            param2:[OCSParamConstant paramWithInt:0]];
 }
 
 
 - (id) initWithWeightedAveragingDecayAndAmplitude:(OCSParamControl *)amplitude
-                              ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-                              PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-                                      AudioBuffer:(OCSParamConstant *)audioBuffer
-                                    CurrentWeight:(OCSParamConstant *)currentWeight
-                                   PreviousWeight:(OCSParamConstant *)previousWeight
+                              resamplingFrequency:(OCSParamControl *)resamplingFrequency
+                              pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+                                      audioBuffer:(OCSParamConstant *)audioBuffer
+                                    currentWeight:(OCSParamConstant *)currentWeight
+                                   previousWeight:(OCSParamConstant *)previousWeight
 {
     return [self initWithAmplitude:amplitude 
-               ResamplingFrequency:resamplingFrequency 
-               PitchDecayFrequency:pitchDecayFrequency 
-                       AudioBuffer:audioBuffer 
-                         DecayType:kDecayTypeWeightedAveraging 
-                            Param1:currentWeight 
-                            Param2:previousWeight];
+               resamplingFrequency:resamplingFrequency 
+               pitchDecayFrequency:pitchDecayFrequency 
+                       audioBuffer:audioBuffer 
+                         decayType:kDecayTypeWeightedAveraging 
+                            param1:currentWeight 
+                            param2:previousWeight];
 }
 
 - (id) initWithRecursiveFilterDecayAndAmplitude:(OCSParamControl *)amplitude
-                            ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-                            PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-                                    AudioBuffer:(OCSParamConstant *)audioBuffer
+                            resamplingFrequency:(OCSParamControl *)resamplingFrequency
+                            pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+                                    audioBuffer:(OCSParamConstant *)audioBuffer
 {
     return [self initWithAmplitude:amplitude 
-               ResamplingFrequency:resamplingFrequency 
-               PitchDecayFrequency:pitchDecayFrequency 
-                       AudioBuffer:audioBuffer 
-                         DecayType:kDecayTypeRecursiveFirstOrder 
-                            Param1:[OCSParamConstant paramWithInt:0] 
-                            Param2:[OCSParamConstant paramWithInt:0]];
+               resamplingFrequency:resamplingFrequency 
+               pitchDecayFrequency:pitchDecayFrequency 
+                       audioBuffer:audioBuffer 
+                         decayType:kDecayTypeRecursiveFirstOrder 
+                            param1:[OCSParamConstant paramWithInt:0] 
+                            param2:[OCSParamConstant paramWithInt:0]];
 }
 
 

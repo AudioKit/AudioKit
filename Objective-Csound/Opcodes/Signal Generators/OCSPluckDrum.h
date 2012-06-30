@@ -31,11 +31,11 @@
 /// @param roughnessFactor     Zero gives the plucked string effect, while 1 reverses the polarity of every sample (octave down, odd harmonics). The setting .5 gives an optimum snare drum.
 /// @param stretchFactor       Must be greater than or equal to 1.
 - (id)initWithAmplitude:(OCSParamControl *)amplitude
-    ResamplingFrequency:(OCSParamControl *)resamplingFrequency
-    PitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-            AudioBuffer:(OCSParamConstant *)audioBuffer
-        RoughnessFactor:(OCSParamConstant *)roughnessFactor
-          StretchFactor:(OCSParamConstant *)stretchFactor;
+    resamplingFrequency:(OCSParamControl *)resamplingFrequency
+    pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
+            audioBuffer:(OCSParamConstant *)audioBuffer
+        roughnessFactor:(OCSParamConstant *)roughnessFactor
+          stretchFactor:(OCSParamConstant *)stretchFactor;
 
 
 @end

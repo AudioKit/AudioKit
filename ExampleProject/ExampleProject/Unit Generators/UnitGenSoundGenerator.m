@@ -32,14 +32,14 @@
         [self addFunctionTable:sine];
         
         OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
-                                                 ToValue:ocsp(1.5)
-                                                Duration:duration];
+                                                 toValue:ocsp(1.5)
+                                                duration:duration];
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParamArray Functions like line
         OCSLine *baseFrequencyLine = [[OCSLine alloc] initFromValue:ocsp(110) 
-                                                            ToValue:ocsp(330)
-                                                           Duration:duration];
+                                                            toValue:ocsp(330)
+                                                           duration:duration];
         [baseFrequencyLine setOutput:[baseFrequencyLine control]];
         [self addOpcode:baseFrequencyLine];
         
@@ -55,11 +55,11 @@
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
-                                                    BaseFrequency:[baseFrequencyLine control]
-                                                CarrierMultiplier:ocsp(1) 
-                                             ModulatingMultiplier:[myLine output]
-                                                  ModulationIndex:[modIndexLine control]
-                                                    FunctionTable:sine];
+                                                    baseFrequency:[baseFrequencyLine control]
+                                                carrierMultiplier:ocsp(1) 
+                                             modulatingMultiplier:[myLine output]
+                                                  modulationIndex:[modIndexLine control]
+                                                    functionTable:sine];
         [self addOpcode:fmOscillator];
 
         // AUDIO OUTPUT ========================================================

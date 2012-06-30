@@ -31,19 +31,19 @@
 @synthesize output;
 
 - (id)initWithAmplitude:(OCSParam *)amplitude
-          BaseFrequency:(OCSParamControl *)baseFrequency
-      CarrierMultiplier:(OCSParam *)carrierMutliplier
-   ModulatingMultiplier:(OCSParam *)modulatingMultiplier
-        ModulationIndex:(OCSParamControl *)modulationIndex
-          FunctionTable:(OCSFunctionTable *)functionTable
-                  Phase:(OCSParamConstant *)phase;
+          baseFrequency:(OCSParamControl *)baseFrequency
+      carrierMultiplier:(OCSParam *)carrierMultiplier
+   modulatingMultiplier:(OCSParam *)modulatingMultiplier
+        modulationIndex:(OCSParamControl *)modulationIndex
+          functionTable:(OCSFunctionTable *)functionTable
+                  phase:(OCSParamConstant *)phase;
 {
     self = [super init];
     if ( self ) {
         output = [OCSParam paramWithString:[self opcodeName]];
         amp  = amplitude;
         freq = baseFrequency;
-        car  = carrierMutliplier;
+        car  = carrierMultiplier;
         mod  = modulatingMultiplier;
         modIndex = modulationIndex;
         f = functionTable;
@@ -53,19 +53,19 @@
 }
 
 - (id)initWithAmplitude:(OCSParam *)amplitude
-          BaseFrequency:(OCSParamControl *)baseFrequency
-      CarrierMultiplier:(OCSParam *)carrierMutliplier
-   ModulatingMultiplier:(OCSParam *)modulatingMultiplier
-        ModulationIndex:(OCSParamControl *)modulationIndex
-          FunctionTable:(OCSFunctionTable *)functionTable;
+          baseFrequency:(OCSParamControl *)baseFrequency
+      carrierMultiplier:(OCSParam *)carrierMultiplier
+   modulatingMultiplier:(OCSParam *)modulatingMultiplier
+        modulationIndex:(OCSParamControl *)modulationIndex
+          functionTable:(OCSFunctionTable *)functionTable;
 {
     return [self initWithAmplitude:amplitude
-                     BaseFrequency:baseFrequency
-                 CarrierMultiplier:carrierMutliplier
-              ModulatingMultiplier:modulatingMultiplier
-                   ModulationIndex:modulationIndex
-                     FunctionTable:functionTable
-                             Phase:[OCSParamConstant paramWithInt:0]];
+                     baseFrequency:baseFrequency
+                 carrierMultiplier:carrierMultiplier
+              modulatingMultiplier:modulatingMultiplier
+                   modulationIndex:modulationIndex
+                     functionTable:functionTable
+                             phase:[OCSParamConstant paramWithInt:0]];
 }
 
 - (NSString *)stringForCSD

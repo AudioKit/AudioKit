@@ -38,10 +38,10 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        amplitude  = [[OCSProperty alloc] initWithValue:0.1f Min:0.0f  Max:1.0f];
+        amplitude  = [[OCSProperty alloc] initWithValue:0.1f minValue:0.0f  maxValue:1.0f];
         frequency  = [[OCSProperty alloc] init];
-        modulation = [[OCSProperty alloc] initWithValue:0.5f Min:0.25f Max:2.2f];
-        modIndex   = [[OCSProperty alloc] initWithValue:1.0f Min:0.0f  Max:25.0f];
+        modulation = [[OCSProperty alloc] initWithValue:0.5f minValue:0.25f maxValue:2.2f];
+        modIndex   = [[OCSProperty alloc] initWithValue:1.0f minValue:0.0f  maxValue:25.0f];
         
         [amplitude  setControl:[OCSParamControl paramWithString:@"Amplitude"]]; 
         [frequency  setControl:[OCSParamControl paramWithString:@"Frequency"]]; 
@@ -65,11 +65,11 @@
         
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:[amplitude control] 
-                                                    BaseFrequency:[frequency control] 
-                                                CarrierMultiplier:ocsp(1) 
-                                             ModulatingMultiplier:[modulation control] 
-                                                  ModulationIndex:[modIndex control] 
-                                                    FunctionTable:sineTable];
+                                                    baseFrequency:[frequency control] 
+                                                carrierMultiplier:ocsp(1) 
+                                             modulatingMultiplier:[modulation control] 
+                                                  modulationIndex:[modIndex control] 
+                                                    functionTable:sineTable];
         [self addOpcode:fmOscillator];
         
         // AUDIO OUTPUT ========================================================
