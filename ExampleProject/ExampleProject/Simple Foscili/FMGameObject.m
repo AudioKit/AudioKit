@@ -8,7 +8,7 @@
 
 #import "FMGameObject.h"
 #import "OCSSineTable.h"
-#import "OCSFoscili.h"
+#import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 
 @interface FMGameObject () {
@@ -42,18 +42,18 @@
         
         // Method 1 for defining an opcode
         
-        OCSFoscili *fmOscillator;
-        fmOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                               BaseFrequency:[frequency control]
-                                           CarrierMultiplier:ocsp(2) 
-                                        ModulatingMultiplier:[modulation control]
-                                             ModulationIndex:ocsp(15)
-                                               FunctionTable:sineTable];
+        OCSFMOscillator *fmOscillator;
+        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
+                                                    BaseFrequency:[frequency control]
+                                                CarrierMultiplier:ocsp(2) 
+                                             ModulatingMultiplier:[modulation control]
+                                                  ModulationIndex:ocsp(15)
+                                                    FunctionTable:sineTable];
         [self addOpcode:fmOscillator];
         
         // Method 2 for defining an opcode - What do you think ARB? - AOP
          
-        OCSFoscili *fmOscillator2 = [[OCSFoscili alloc] init];
+        OCSFMOscillator *fmOscillator2 = [[OCSFMOscillator alloc] init];
         [fmOscillator2 setAmplitude:ocsp(0.4)];
         [fmOscillator2 setBaseFrequency:[frequency control]];
         [fmOscillator2 setCarrierMultiplier:ocsp(3)];

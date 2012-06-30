@@ -1,18 +1,18 @@
 //
-//  OCSOutputMono.m
+//  OCSMonoAudio.m
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOutputMono.h"
+#import "OCSMonoAudio.h"
 
-@interface OCSOutputMono (){
+@interface OCSMonoAudio (){
     OCSParam *input;
 }
 @end
 
-@implementation OCSOutputMono
+@implementation OCSMonoAudio
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:@"out %@\n", input];

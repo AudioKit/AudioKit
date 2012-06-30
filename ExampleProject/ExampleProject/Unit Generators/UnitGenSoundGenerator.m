@@ -10,7 +10,7 @@
 #import "OCSSineTable.h"
 #import "OCSLine.h"
 #import "OCSSegmentArray.h"
-#import "OCSFoscili.h"
+#import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 
 @implementation UnitGenSoundGenerator
@@ -53,13 +53,13 @@
         [self addOpcode:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
-        OCSFoscili *fmOscillator;
-        fmOscillator = [[OCSFoscili alloc] initWithAmplitude:ocsp(0.4)
-                                               BaseFrequency:[baseFrequencyLine control]
-                                           CarrierMultiplier:ocsp(1) 
-                                        ModulatingMultiplier:[myLine output]
-                                             ModulationIndex:[modIndexLine control]
-                                               FunctionTable:sine];
+        OCSFMOscillator *fmOscillator;
+        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
+                                                    BaseFrequency:[baseFrequencyLine control]
+                                                CarrierMultiplier:ocsp(1) 
+                                             ModulatingMultiplier:[myLine output]
+                                                  ModulationIndex:[modIndexLine control]
+                                                    FunctionTable:sine];
         [self addOpcode:fmOscillator];
 
         // AUDIO OUTPUT ========================================================

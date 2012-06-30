@@ -1,13 +1,13 @@
 //
-//  OCSReverbSixParallelComb.m
+//  OCSNReverb.m
 //
 //  Created by Adam Boulanger on 6/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSReverbSixParallelComb.h"
+#import "OCSNReverb.h"
 
-@interface OCSReverbSixParallelComb () {
+@interface OCSNReverb () {
     OCSParam *output;
     OCSParam *input;
     OCSParamControl *reverbDuration;
@@ -24,12 +24,12 @@
 @end
 
 
-@implementation OCSReverbSixParallelComb
+@implementation OCSNReverb
 @synthesize output;
 
 - (id)initWithInput:(OCSParam *)i
-     ReverbDuration:(OCSParamControl *)dur 
-HighFreqDiffusivity:(OCSParamControl *)hfdif;
+     reverbDuration:(OCSParamControl *)dur 
+highFreqDiffusivity:(OCSParamControl *)hfdif;
 {
     self = [super init];
     if(self) {
@@ -42,13 +42,12 @@ HighFreqDiffusivity:(OCSParamControl *)hfdif;
 }
 
 - (id)initWithInput:(OCSParam *)i
-     ReverbDuration:(OCSParamControl *)dur
-HighFreqDiffusivity:(OCSParamControl *)hfdif
-    CombFilterTimes:(NSArray *)combTime
-    CombFilterGains:(NSArray *)combGain
- AllPassFilterTimes:(NSArray *)allPassTime
- AllPassFilterGains:(NSArray *)allPassGain
-           SkipInit:(BOOL)isSkipped;
+     reverbDuration:(OCSParamControl *)dur
+highFreqDiffusivity:(OCSParamControl *)hfdif
+    combFilterTimes:(NSArray *)combTime
+    combFilterGains:(NSArray *)combGain
+ allPassFilterTimes:(NSArray *)allPassTime
+ allPassFilterGains:(NSArray *)allPassGain;
 {
     self = [super init];
     if(self) {
@@ -61,7 +60,6 @@ HighFreqDiffusivity:(OCSParamControl *)hfdif
         combFilterGains = combGain;
         allPassFilterTimes = allPassTime;
         allPassFilterGains = allPassGain;
-        isInitSkipped = isSkipped;
     }
     return self;
 }
@@ -73,10 +71,10 @@ HighFreqDiffusivity:(OCSParamControl *)hfdif
     //Check if optional parameters have been set before constructing CSD
 
     if (combFilterGains) {
-        return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@, %@\n",
+        return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@\n",
                 [self functionTableCSDFromFilterParams],
                 output, reverbDuration, highFrequencyDiffusivity, 
-                isInitSkipped, combFilterTimes, combFilterGains, allPassFilterTimes,
+                combFilterTimes, combFilterGains, allPassFilterTimes,
                 allPassFilterGains];
     } else {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@\n", 

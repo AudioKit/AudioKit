@@ -1,5 +1,5 @@
 //
-//  OCSFoscili.h
+//  OCSFMOscillator.h
 //
 //  Created by Adam Boulanger on 5/29/12.
 //  Copyright (c) 2012 MIT Media Lab. All rights reserved.
@@ -17,7 +17,7 @@ tables of 2K, 4K or 8K points if the space is available.
 http://www.csounds.com/manual/html/foscili.html
 */
 
-@interface OCSFoscili : OCSOpcode 
+@interface OCSFMOscillator : OCSOpcode 
 
 /// The output is mono audio signal.
 @property (nonatomic, strong) OCSParam *output;

@@ -11,9 +11,9 @@
 #import "OCSAudio.h"
 #import "OCSWindowsTable.h"
 #import "OCSSoundFileTable.h"
-#import "OCSReverbSixParallelComb.h"
+#import "OCSNReverb.h"
 #import "OCSSegmentArray.h"
-#import "OCSFilterLowPassButterworth.h"
+#import "OCSLowPassButterworthFilter.h"
 #import "OCSGrain.h"
 
 @interface GrainBirds () {
@@ -121,9 +121,9 @@
                                                 MaxPitchDeviation:[pitchOffset control]];
         [self addOpcode:grain];
         
-        OCSFilterLowPassButterworth *butterlp;
-        butterlp = [[OCSFilterLowPassButterworth alloc] initWithInput:[grain output] 
-                                                      CutoffFrequency:ocsp(500)];
+        OCSLowPassButterworthFilter *butterlp;
+        butterlp = [[OCSLowPassButterworthFilter alloc] initWithInput:[grain output] 
+                                                      cutoffFrequency:ocsp(500)];
         [self addOpcode:butterlp];
         
         // AUDIO OUTPUT ========================================================
