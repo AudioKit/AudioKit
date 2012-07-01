@@ -35,7 +35,7 @@ The paragraph of this first comment block defines the *Abstract* in Apple Quick 
 Avoid declaring instance variables in the header file unless necessary for subclasses.
 
 #### Properties
-Properties should be commented with the appledoc standard.  Property names should be descriptive.  
+Properties should be commented with the appledoc standard.  Property names should be descriptive.  Every input parameter should be a property as well as part
 
 #### Methods
 Methods should also be fully commented to the appledoc standard which includes @param lines for every parameter sent to the method.  These parameters should be named very similarly to the method signature text that precedes them so that the display from Quick Help is clear.  
