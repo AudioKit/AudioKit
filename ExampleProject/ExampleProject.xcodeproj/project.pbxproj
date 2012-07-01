@@ -46,6 +46,9 @@
 		C43908BC1596F086001FC007 /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908BA1596F086001FC007 /* UDOViewController.m */; };
 		C43908BD1596F086001FC007 /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43908BB1596F086001FC007 /* UDOViewController.xib */; };
 		C43908C21596F11B001FC007 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908C11596F11B001FC007 /* UDOInstrument.m */; };
+		C448F30215A0DFC400AB5DF2 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30115A0DFC400AB5DF2 /* OCSEvent.m */; };
+		C448F30515A0E07600AB5DF2 /* OCSScore.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30415A0E07600AB5DF2 /* OCSScore.m */; };
+		C448F30815A0E7BB00AB5DF2 /* OCSScale.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30715A0E7BB00AB5DF2 /* OCSScale.m */; };
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
 		C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */; };
 		C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* TweakableInstrument.m */; };
@@ -202,6 +205,12 @@
 		C43908BB1596F086001FC007 /* UDOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UDOViewController.xib; path = UDOs/UDOViewController.xib; sourceTree = "<group>"; };
 		C43908C01596F11B001FC007 /* UDOInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOInstrument.h; path = UDOs/UDOInstrument.h; sourceTree = "<group>"; };
 		C43908C11596F11B001FC007 /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOInstrument.m; path = UDOs/UDOInstrument.m; sourceTree = "<group>"; };
+		C448F30015A0DFC400AB5DF2 /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEvent.h; sourceTree = "<group>"; };
+		C448F30115A0DFC400AB5DF2 /* OCSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEvent.m; sourceTree = "<group>"; };
+		C448F30315A0E07600AB5DF2 /* OCSScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSScore.h; sourceTree = "<group>"; };
+		C448F30415A0E07600AB5DF2 /* OCSScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSScore.m; sourceTree = "<group>"; };
+		C448F30615A0E7BB00AB5DF2 /* OCSScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSScale.h; sourceTree = "<group>"; };
+		C448F30715A0E7BB00AB5DF2 /* OCSScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSScale.m; sourceTree = "<group>"; };
 		C44D067C15871EBE00307AC9 /* ExpressionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExpressionsViewController.h; path = ExampleProject/Expressions/ExpressionsViewController.h; sourceTree = SOURCE_ROOT; };
 		C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionsViewController.m; path = ExampleProject/Expressions/ExpressionsViewController.m; sourceTree = SOURCE_ROOT; };
 		C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ExpressionsViewController.xib; path = ExampleProject/Expressions/ExpressionsViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -496,12 +505,16 @@
 		C4307F93159BCE650091AE59 /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C448F30015A0DFC400AB5DF2 /* OCSEvent.h */,
+				C448F30115A0DFC400AB5DF2 /* OCSEvent.m */,
 				C4307F94159BCE650091AE59 /* OCSInstrument.h */,
 				C4307F95159BCE650091AE59 /* OCSInstrument.m */,
 				C4307F96159BCE650091AE59 /* OCSManager.h */,
 				C4307F97159BCE650091AE59 /* OCSManager.m */,
 				C4307F98159BCE650091AE59 /* OCSOrchestra.h */,
 				C4307F99159BCE650091AE59 /* OCSOrchestra.m */,
+				C448F30315A0E07600AB5DF2 /* OCSScore.h */,
+				C448F30415A0E07600AB5DF2 /* OCSScore.m */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -757,6 +770,8 @@
 				C497CCC8159C58B700AB9E57 /* OCSAssignment.m */,
 				C497CCC9159C58B700AB9E57 /* OCSProduct.h */,
 				C497CCCA159C58B700AB9E57 /* OCSProduct.m */,
+				C448F30615A0E7BB00AB5DF2 /* OCSScale.h */,
+				C448F30715A0E7BB00AB5DF2 /* OCSScale.m */,
 				C497CCCB159C58B700AB9E57 /* OCSSum.h */,
 				C497CCCC159C58B700AB9E57 /* OCSSum.m */,
 			);
@@ -1124,6 +1139,9 @@
 				C497CD02159C58B700AB9E57 /* OCSNReverb.m in Sources */,
 				C497CD6B159C706D00AB9E57 /* OCSFileInput.m in Sources */,
 				C497CD6E159C75F600AB9E57 /* OCSWeightedMean.m in Sources */,
+				C448F30215A0DFC400AB5DF2 /* OCSEvent.m in Sources */,
+				C448F30515A0E07600AB5DF2 /* OCSScore.m in Sources */,
+				C448F30815A0E7BB00AB5DF2 /* OCSScale.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
