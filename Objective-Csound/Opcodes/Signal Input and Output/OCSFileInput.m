@@ -34,7 +34,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ diskin2 \"%@\", 1, 0, 1\n",
+            @"%@, %@ diskin2 \"%@\", 1, 0, 1",
             outputLeft, outputRight, file];
 }
 

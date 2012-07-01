@@ -34,7 +34,7 @@
 
 -(NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d\n", output, input, cutoff, 0];
+    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d", output, input, cutoff, 0];
 }
 
 -(NSString *) description {

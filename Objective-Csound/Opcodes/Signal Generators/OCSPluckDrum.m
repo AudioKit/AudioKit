@@ -51,7 +51,7 @@ typedef enum
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@ pluck %@, %@, %@, %@, %i, %@, %@\n",
+            @"%@ pluck %@, %@, %@, %@, %i, %@, %@",
             output, amp, resampFreq, decayFreq, buffer, kDecayTypeStretchedDrum, roughness, stretch];
 }
 

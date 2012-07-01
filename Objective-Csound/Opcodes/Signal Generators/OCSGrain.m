@@ -59,13 +59,14 @@
     isRandomGrainFunctionIndex = NO;
 }
 
-
+/// CSD Represenation: 
+/// ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
 - (NSString *)stringForCSD
 {
-    //ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
+    
     int randomnessFlag = isRandomGrainFunctionIndex ? 0 : 1;
     return [NSString stringWithFormat:
-            @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d\n",
+            @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d",
             output, amp, frequency, density, ampOffset, pchOffset, duration,
             gFunction, wFunction, maxDuration, randomnessFlag];
 }

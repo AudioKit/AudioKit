@@ -62,7 +62,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat: 
-            @"%@ ntrpol %@, %@, %@\n", 
+            @"%@ ntrpol %@, %@, %@", 
             output, in1, in2, current];
 }
 

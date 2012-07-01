@@ -57,19 +57,23 @@ static int currentID = 1;
 
 - (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable {
     [innerCSDRepresentation appendString:[newFunctionTable stringForCSD]];
+    [innerCSDRepresentation appendString:@"\n"];
 }
 
 - (void)addOpcode:(OCSOpcode *)newOpcode {
     [innerCSDRepresentation appendString:[newOpcode stringForCSD]];
+    [innerCSDRepresentation appendString:@"\n"];
 }
 
 - (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
     [userDefinedOpcodes addObject:newUserDefinedOpcode];
     [innerCSDRepresentation appendString:[newUserDefinedOpcode stringForCSD]];
+    [innerCSDRepresentation appendString:@"\n"];
 }
 
 - (void)addString:(NSString *)newString {
     [innerCSDRepresentation appendString:newString];
+    [innerCSDRepresentation appendString:@"\n"];
 }
 
 - (void)assignOutput:(OCSParam *)output To:(OCSParam *)input {

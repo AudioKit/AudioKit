@@ -79,11 +79,11 @@
     if ([segments count] == 0) {
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@\n", 
+                    @"%@ %@ %@, %@, %@", 
                     output, opcode, start, dur, target];
         } else {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@, %@, %@\n", 
+                    @"%@ %@ %@, %@, %@, %@, %@", 
                     output, opcode, start, dur, target, release, final];
         }
     } else {
@@ -95,12 +95,12 @@
        
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@, %@\n", 
+                    @"%@ %@ %@, %@, %@, %@", 
                     output, opcode, start, dur, target, segs];
             
         } else {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@, %@, %@, %@\n", 
+                    @"%@ %@ %@, %@, %@, %@, %@, %@", 
                     output, opcode, start, dur, target, segs, release, final];
         }
     }
