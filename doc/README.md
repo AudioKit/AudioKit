@@ -56,7 +56,7 @@ a) Any init function should specify everything that is required for an opcode to
 b) The problem with the first method is that it can look unwieldy.  So, if the developer prefers, she should be able to alloc-init the class without any parameters and define parameters after the fact as properties. The developer is on her own to debug the CSD file, especially looking for (null)s when underspecifying the opcode. 
 
 ### Implementation (.m) files
-Since implementation files are not used in creating documentation, there are fewer rules and conventions to follow. As in header files, the default Apple comments are fine, except that the project name should be replaced with "Objective-Csound" and you import lines should always be minimized.
+As in header files, the default Apple comments are fine, except that the project name should be replaced with "Objective-Csound" and your import lines should always be minimized.  Inside of implmentation files is where things should look "Csound-y" meaning that the original opcode names appear and you should use the short variable names from the Csounds.com manual.
 
 ### Naming Conventions
 Variables names and method signatures should be very descriptive without going overboard.  Everything in Objective-Csound should aim to be adjective-first naming.  For example this means we would write "OCSLinearEnvelope" not "OCSEnvelopeLinear." The reason for this is because we want to make everything as clear as possible in English.  The argument that you want to group similar things alphabetically is valid, but in practice it is very hard to achieve unilaterally.  
