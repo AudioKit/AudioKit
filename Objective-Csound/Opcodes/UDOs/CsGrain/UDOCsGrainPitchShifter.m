@@ -50,7 +50,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ PitchShifter %@, %@, %@, %@, %@\n",
+            @"%@, %@ PitchShifter %@, %@, %@, %@, %@",
             outputLeft, outputRight, inL, inR, pitch, offset, feedback];
 }
 

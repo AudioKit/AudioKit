@@ -61,7 +61,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat: 
-            @"%@ oscili %@, %@, %@, %@\n", 
+            @"%@ oscili %@, %@, %@, %@", 
             output, amp, freq, f, phs];
 }
 

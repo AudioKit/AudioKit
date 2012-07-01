@@ -40,7 +40,7 @@
 {
     NSString *inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
-    return [NSString stringWithFormat:@"%@ product %@\n",output, inputsCombined];
+    return [NSString stringWithFormat:@"%@ product %@",output, inputsCombined];
 }
 
 /// Gives the CSD string for the output parameter.  

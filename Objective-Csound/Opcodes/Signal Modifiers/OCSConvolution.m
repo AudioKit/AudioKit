@@ -33,7 +33,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@ pconvolve %@, \"%@\" \n",
+            @"%@ pconvolve %@, \"%@\"",
             output, ain, ifilcod];
 }
 

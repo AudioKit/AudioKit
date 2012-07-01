@@ -31,7 +31,7 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:@"outs %@, %@\n",inputLeft, inputRight];
+    return [NSString stringWithFormat:@"outs %@, %@",inputLeft, inputRight];
 }
 
 @end

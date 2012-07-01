@@ -44,7 +44,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ linen %@, %@, %@, %@\n",
+            @"%@ linen %@, %@, %@, %@",
             output, amp, rise, dur, decay];
 }
 

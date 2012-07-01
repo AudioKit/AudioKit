@@ -52,7 +52,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ reverbsc %@, %@, %@, %@\n",
+            @"%@, %@ reverbsc %@, %@, %@, %@",
             outputLeft, outputRight, inputLeft, inputRight, feedback, cutoff];
 }
 

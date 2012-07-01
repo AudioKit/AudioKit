@@ -49,10 +49,10 @@
 - (NSString *)stringForCSD {
     NSString *text;
     if (params == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i\n",
+        text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i",
                 output, size, gen];
     } else {
-        text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@\n",
+        text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@",
                 output, size, gen, [params parameterString]];
     }
     return text;

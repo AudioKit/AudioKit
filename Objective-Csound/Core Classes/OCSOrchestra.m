@@ -55,7 +55,7 @@
 
         
         [s appendFormat:@"instr %@\n", [i uniqueName]];
-        [s appendString:[NSString stringWithFormat:@"%@",[i stringForCSD]]];
+        [s appendString:[NSString stringWithFormat:@"%@\n",[i stringForCSD]]];
         [s appendString:@"endin\n\n"];
     }
     

@@ -42,7 +42,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@ msrosc %@, %@, %i\n",
+            @"%@ msrosc %@, %@, %i",
             output, amplitude, frequency, type];
 }
 

@@ -40,7 +40,7 @@
 /// CSD Representation: kscl scale kinput, kmax, kmin
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ scale %@, %@, %@\n", kscl, kin, kmax, kmin];
+    return [NSString stringWithFormat:@"%@ scale %@, %@, %@", kscl, kin, kmax, kmin];
 }
 
 /// Gives the CSD string for the output parameter.  

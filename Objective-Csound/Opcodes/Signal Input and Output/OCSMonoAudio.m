@@ -14,10 +14,6 @@
 
 @implementation OCSMonoAudio
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:@"out %@\n", input];
-}
-
 - (id)initWithInput:(OCSParam *) monoSignal {
     self = [super init];
     if (self) {
@@ -26,6 +22,9 @@
     return self; 
 }
 
-
+/// CSD Representation
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat:@"out %@", input];
+}
 
 @end

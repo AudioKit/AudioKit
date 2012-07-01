@@ -28,7 +28,7 @@
 
 - (NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ = %@\n", output, input];
+    return [NSString stringWithFormat:@"%@ = %@", output, input];
 }
 
 

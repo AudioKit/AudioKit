@@ -54,7 +54,7 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ Compressor %@, %@, %@, %@, %@, %@\n",
+            @"%@, %@ Compressor %@, %@, %@, %@, %@, %@",
             outputLeft, outputRight, inL, inR, threshold, ratio, attack, release];
 }
 

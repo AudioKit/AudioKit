@@ -68,15 +68,16 @@
                              phase:[OCSParamConstant paramWithInt:0]];
 }
 
+/// CSD Representation: ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 - (NSString *)stringForCSD
 {
     // Clean up for uninitialized parameters
     if (phs == nil)    phs    = [OCSParamConstant paramWithInt:0];
     if (output == nil) output = [OCSParam paramWithString:[self opcodeName]];
     
-    //ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
+    
     return[NSString stringWithFormat:
-             @"%@ foscili %@, %@, %@, %@, %@, %@, %@\n",
+             @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
              output, amp, freq, car, mod, modIndex, f, phs];
 }
 

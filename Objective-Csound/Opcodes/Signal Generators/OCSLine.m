@@ -44,7 +44,7 @@
 
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ line %@, %@, %@\n", output, start, dur, end];
+    return [NSString stringWithFormat:@"%@ line %@, %@, %@", output, start, dur, end];
 }
 
 /// Gives the CSD string for the output parameter.  
