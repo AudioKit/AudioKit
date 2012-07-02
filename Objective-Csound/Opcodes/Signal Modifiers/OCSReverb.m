@@ -12,8 +12,8 @@
     OCSParam *outputRight;
     OCSParam *inputLeft;
     OCSParam *inputRight;
-    OCSParamControl *feedback;
-    OCSParamControl *cutoff;
+    OCSControlParam *feedback;
+    OCSControlParam *cutoff;
 }
 @end
 
@@ -24,8 +24,8 @@
 
 - (id)initWithLeftInput:(OCSParam *)leftInput
              rightInput:(OCSParam *)rightInput
-          feedbackLevel:(OCSParamControl *)feedbackLevel
-        cutoffFrequency:(OCSParamControl *)cutoffFrequency;
+          feedbackLevel:(OCSControlParam *)feedbackLevel
+        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
 {
     self = [super init];
     if (self) {
@@ -40,8 +40,8 @@
 }
 
 - (id)initWithMonoInput:(OCSParam *)monoInput
-          feedbackLevel:(OCSParamControl *)feedbackLevel
-        cutoffFrequency:(OCSParamControl *)cutoffFrequency;
+          feedbackLevel:(OCSControlParam *)feedbackLevel
+        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
 {
     return [self initWithLeftInput:monoInput 
                         rightInput:monoInput

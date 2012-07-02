@@ -14,10 +14,10 @@
     OCSParam *outputRight;
     OCSParam *inL;
     OCSParam *inR;
-    OCSParamControl *threshold;
-    OCSParamControl *ratio;
-    OCSParamControl *attack;
-    OCSParamControl *release;
+    OCSControlParam *threshold;
+    OCSControlParam *ratio;
+    OCSControlParam *attack;
+    OCSControlParam *release;
 }
 @end
 
@@ -28,10 +28,10 @@
 
 - (id)initWithLeftInput:(OCSParam *)leftInput
              rightInput:(OCSParam *)rightInput
-              threshold:(OCSParamControl *)dBThreshold
-       compressionRatio:(OCSParamControl *)compressionRatio
-             attackTime:(OCSParamControl *)attackTime
-            releaseTime:(OCSParamControl *)releaseTime;
+              threshold:(OCSControlParam *)dBThreshold
+       compressionRatio:(OCSControlParam *)compressionRatio
+             attackTime:(OCSControlParam *)attackTime
+            releaseTime:(OCSControlParam *)releaseTime;
 {
     self = [super init];
     if (self) {

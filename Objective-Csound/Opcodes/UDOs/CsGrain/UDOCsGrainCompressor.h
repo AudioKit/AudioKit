@@ -41,8 +41,8 @@
 */
 - (id)initWithLeftInput:(OCSParam *)leftInput
              rightInput:(OCSParam *)rightInput
-              threshold:(OCSParamControl *)dBThreshold
-       compressionRatio:(OCSParamControl *)compressionRatio
-             attackTime:(OCSParamControl *)attackTime
-            releaseTime:(OCSParamControl *)releaseTime;
+              threshold:(OCSControlParam *)dBThreshold
+       compressionRatio:(OCSControlParam *)compressionRatio
+             attackTime:(OCSControlParam *)attackTime
+            releaseTime:(OCSControlParam *)releaseTime;
 @end

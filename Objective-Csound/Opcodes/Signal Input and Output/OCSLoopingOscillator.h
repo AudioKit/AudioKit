@@ -58,6 +58,6 @@
 /// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
 /// @param frequencyMultiplier Relative to a base frequency of 1.
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSParamControl *)frequencyMultiplier
+         frequencyMultiplier:(OCSControlParam *)frequencyMultiplier
                    amplitude:(OCSParam *)amplitude;
 @end

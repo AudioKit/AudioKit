@@ -31,7 +31,7 @@ typedef enum
 
 
 /// The output is a globally accessibly constant parameter
-@property (nonatomic, strong) OCSParamConstant *output;
+@property (nonatomic, strong) OCSConstantParam *output;
 
 /// Creates a function table at the most basic level.
 /// @param fTableType  One of the supported GeneratingRoutines.

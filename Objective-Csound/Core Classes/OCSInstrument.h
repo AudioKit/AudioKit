@@ -15,7 +15,7 @@
 
 @interface OCSInstrument : NSObject {
     /// All instruments need, at minimum, a duration of time to run or play.
-    OCSParamConstant *duration;
+    OCSConstantParam *duration;
 }
 
 /** This contains a list of the OCSProperty variables that are required for the instrument.

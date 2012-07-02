@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParamConstant.h"
+#import "OCSConstantParam.h"
 #import "BaseValueCacheable.h"
 /** Properties allow data to be transferred to and from Csound.
  
@@ -28,10 +28,10 @@
 @property (nonatomic, strong) OCSParam *audio;
 
 /// Control-rate (k-rate) output.
-@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSControlParam *control;
 
 /// Event-rate (i-rate) output.
-@property (nonatomic, strong) OCSParamConstant *constant;
+@property (nonatomic, strong) OCSConstantParam *constant;
 
 /// Catch-all output, necessary for parameterization.
 @property (nonatomic, strong) OCSParam *output;

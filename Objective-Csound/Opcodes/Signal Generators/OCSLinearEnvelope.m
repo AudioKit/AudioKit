@@ -9,9 +9,9 @@
 
 @interface OCSLinearEnvelope () {
     OCSParam *amp;
-    OCSParamConstant *rise;
-    OCSParamConstant *dur;
-    OCSParamConstant *decay;    
+    OCSConstantParam *rise;
+    OCSConstantParam *dur;
+    OCSConstantParam *decay;    
 }
 
 @end
@@ -23,15 +23,15 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initWithRiseTime:(OCSParamConstant *)riseTime
-         totalDuration:(OCSParamConstant *)totalDuration
-             decayTime:(OCSParamConstant *)decayTime
+- (id)initWithRiseTime:(OCSConstantParam *)riseTime
+         totalDuration:(OCSConstantParam *)totalDuration
+             decayTime:(OCSConstantParam *)decayTime
              amplitude:(OCSParam *)amplitude
 {
     self = [super init];
     if (self) {
         audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSParamControl paramWithString:[self opcodeName]];
+        control = [OCSControlParam paramWithString:[self opcodeName]];
         output  =  audio;
         amp     = amplitude;
         rise    = riseTime;

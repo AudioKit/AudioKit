@@ -1,14 +1,14 @@
 //
-//  OCSParamConstant.h
+//  OCSConstantParam.h
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParamControl.h"
+#import "OCSControlParam.h"
 
 /// These are i-Rate parameters, constant for a given opcode call or note
-@interface OCSParamConstant : OCSParamControl
+@interface OCSConstantParam : OCSControlParam
 
 /// Creates a p-value parameter.  Nearly deprecated except for use with duration.
 /// @param p P-Value, or column number.  

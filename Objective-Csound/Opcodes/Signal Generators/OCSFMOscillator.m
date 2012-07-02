@@ -9,12 +9,12 @@
 
 @interface OCSFMOscillator () {
     OCSParam *amp;
-    OCSParamControl *freq;
+    OCSControlParam *freq;
     OCSParam *car;
     OCSParam *mod;
-    OCSParamControl *modIndex;
+    OCSControlParam *modIndex;
     OCSFTable *f;
-    OCSParamConstant *phs;
+    OCSConstantParam *phs;
     OCSParam *output;
 }
 @end
@@ -31,12 +31,12 @@
 @synthesize output;
 
 - (id)initWithAmplitude:(OCSParam *)amplitude
-          baseFrequency:(OCSParamControl *)baseFrequency
+          baseFrequency:(OCSControlParam *)baseFrequency
       carrierMultiplier:(OCSParam *)carrierMultiplier
    modulatingMultiplier:(OCSParam *)modulatingMultiplier
-        modulationIndex:(OCSParamControl *)modulationIndex
+        modulationIndex:(OCSControlParam *)modulationIndex
                  fTable:(OCSFTable *)fTable
-                  phase:(OCSParamConstant *)phase;
+                  phase:(OCSConstantParam *)phase;
 {
     self = [super init];
     if ( self ) {
@@ -53,10 +53,10 @@
 }
 
 - (id)initWithAmplitude:(OCSParam *)amplitude
-          baseFrequency:(OCSParamControl *)baseFrequency
+          baseFrequency:(OCSControlParam *)baseFrequency
       carrierMultiplier:(OCSParam *)carrierMultiplier
    modulatingMultiplier:(OCSParam *)modulatingMultiplier
-        modulationIndex:(OCSParamControl *)modulationIndex
+        modulationIndex:(OCSControlParam *)modulationIndex
                  fTable:(OCSFTable *)fTable;
 {
     return [self initWithAmplitude:amplitude
@@ -65,14 +65,14 @@
               modulatingMultiplier:modulatingMultiplier
                    modulationIndex:modulationIndex
                      fTable:fTable
-                             phase:[OCSParamConstant paramWithInt:0]];
+                             phase:[OCSConstantParam paramWithInt:0]];
 }
 
 /// CSD Representation: ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
 - (NSString *)stringForCSD
 {
     // Clean up for uninitialized parameters
-    if (phs == nil)    phs    = [OCSParamConstant paramWithInt:0];
+    if (phs == nil)    phs    = [OCSConstantParam paramWithInt:0];
     if (output == nil) output = [OCSParam paramWithString:[self opcodeName]];
     
     

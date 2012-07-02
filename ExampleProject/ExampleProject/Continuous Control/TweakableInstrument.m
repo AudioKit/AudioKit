@@ -43,10 +43,10 @@
         modulation = [[OCSProperty alloc] initWithValue:0.5f minValue:0.25f maxValue:2.2f];
         modIndex   = [[OCSProperty alloc] initWithValue:1.0f minValue:0.0f  maxValue:25.0f];
         
-        [amplitude  setControl:[OCSParamControl paramWithString:@"Amplitude"]]; 
-        [frequency  setControl:[OCSParamControl paramWithString:@"Frequency"]]; 
-        [modulation setControl:[OCSParamControl paramWithString:@"Modulation"]]; 
-        [modIndex   setControl:[OCSParamControl paramWithString:@"ModIndex"]]; 
+        [amplitude  setControl:[OCSControlParam paramWithString:@"Amplitude"]]; 
+        [frequency  setControl:[OCSControlParam paramWithString:@"Frequency"]]; 
+        [modulation setControl:[OCSControlParam paramWithString:@"Modulation"]]; 
+        [modIndex   setControl:[OCSControlParam paramWithString:@"ModIndex"]]; 
         
         [self addProperty:amplitude];
         [self addProperty:frequency];

@@ -13,9 +13,9 @@
     OCSParam *outputRight;
     OCSParam *inL;
     OCSParam *inR;
-    OCSParamControl *pitch;
-    OCSParamControl *offset;
-    OCSParamControl *feedback;
+    OCSControlParam *pitch;
+    OCSControlParam *offset;
+    OCSControlParam *feedback;
 }
 @end
 
@@ -26,9 +26,9 @@
 
 - (id)initWithLeftInput:(OCSParam *)leftInput
              rightInput:(OCSParam *)rightInput
-              basePitch:(OCSParamControl *)basePitch
-        offsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
-          feedbackLevel:(OCSParamControl *)feedbackLevel;
+              basePitch:(OCSControlParam *)basePitch
+        offsetFrequency:(OCSControlParam *)fineTuningOffsetFrequency
+          feedbackLevel:(OCSControlParam *)feedbackLevel;
 {
     self = [super init];
     if (self) {

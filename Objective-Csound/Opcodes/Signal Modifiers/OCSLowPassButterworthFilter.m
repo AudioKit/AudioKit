@@ -11,7 +11,7 @@
 @interface OCSLowPassButterworthFilter () {
     OCSParam *output;
     OCSParam *input;
-    OCSParamControl *cutoff;
+    OCSControlParam *cutoff;
     
     BOOL isInitSkipped;
 }
@@ -21,7 +21,7 @@
 @synthesize output;
 
 -(id)initWithInput:(OCSParam *)inputSignal 
-   cutoffFrequency:(OCSParamControl *)cutoffFrequency;
+   cutoffFrequency:(OCSControlParam *)cutoffFrequency;
 {
     self = [super init];
     if(self) {

@@ -28,7 +28,7 @@
         // INPUTS AND CONTROLS =================================================
         
         freq = [[OCSProperty alloc] initWithMinValue:kFrequencyMin maxValue:kFrequencyMax];
-        [freq setConstant:[OCSParamConstant paramWithString:@"Frequency"]]; 
+        [freq setConstant:[OCSConstantParam paramWithString:@"Frequency"]]; 
         [self addProperty:freq];
         
         // INSTRUMENT DEFINITION ===============================================

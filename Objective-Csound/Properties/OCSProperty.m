@@ -15,8 +15,8 @@
     Float32 currentValue;
     
     OCSParam *audio;
-    OCSParamControl *control;
-    OCSParamConstant *constant;
+    OCSControlParam *control;
+    OCSConstantParam *constant;
     OCSParam *output;
     
     //channelName
@@ -41,8 +41,8 @@
     if (self) {
         // ARB / AOP - need to investigate why this can't be a-rate
         audio    = [OCSParam paramWithString:@"Property"];
-        control  = [OCSParamControl paramWithString:@"Property"];
-        constant = [OCSParamConstant paramWithString:@"Property"];
+        control  = [OCSControlParam paramWithString:@"Property"];
+        constant = [OCSConstantParam paramWithString:@"Property"];
         output = control;
         
     }
@@ -75,11 +75,11 @@
     output = audio;
 }
 
-- (void)setControl:(OCSParamControl *)p {
+- (void)setControl:(OCSControlParam *)p {
     control = p;
     output = control;
 }
-- (void)setConstant:(OCSParamConstant *)p {
+- (void)setConstant:(OCSConstantParam *)p {
     constant = p;
     output = constant;
 }

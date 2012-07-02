@@ -12,7 +12,7 @@
     OCSParam *output2;
     OCSParam *amp;
     OCSParam *freqMultiplier;
-    OCSParamConstant *baseFrequency;
+    OCSConstantParam *baseFrequency;
     OCSSoundFileTable *soundFileTable;
 }
 @end
@@ -23,20 +23,20 @@
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable 
-                    frequencyMultiplier:[OCSParamConstant paramWithInt:1]
-                              amplitude:[OCSParamConstant paramWithInt:1]];
+                    frequencyMultiplier:[OCSConstantParam paramWithInt:1]
+                              amplitude:[OCSConstantParam paramWithInt:1]];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
                    amplitude:(OCSParam *)amplitude
 {
     return [self initWithSoundFileTable:fileTable 
-                    frequencyMultiplier:[OCSParamConstant paramWithInt:1]
+                    frequencyMultiplier:[OCSConstantParam paramWithInt:1]
                               amplitude:amplitude];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSParamControl *)frequencyMultiplier
+         frequencyMultiplier:(OCSControlParam *)frequencyMultiplier
                    amplitude:(OCSParam *)amplitude;
 {
     self = [super init];
@@ -46,7 +46,7 @@
         soundFileTable = fileTable;
         amp = amplitude;
         freqMultiplier = frequencyMultiplier;
-        baseFrequency = [OCSParamConstant paramWithInt:1];
+        baseFrequency = [OCSConstantParam paramWithInt:1];
     }
     return self;
 }

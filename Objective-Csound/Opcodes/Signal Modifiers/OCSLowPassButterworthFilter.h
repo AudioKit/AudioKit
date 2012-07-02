@@ -22,6 +22,6 @@
 /// @param inputSignal     The input to be filtered.
 /// @param cutoffFrequency Cutoff or center frequency for each of the filters.
 -(id)initWithInput:(OCSParam *)inputSignal 
-   cutoffFrequency:(OCSParamControl *)cutoffFrequency;
+   cutoffFrequency:(OCSControlParam *)cutoffFrequency;
 
 @end

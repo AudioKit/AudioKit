@@ -21,7 +21,7 @@ the same direction, going negative.
 /// The output as audio.
 @property (nonatomic, strong) OCSParam *audio;
 /// The output as a control.
-@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSControlParam *control;
 /// The output can either an audio signal or a control.
 @property (nonatomic, strong) OCSParam *output;
 
@@ -30,9 +30,9 @@ the same direction, going negative.
 /// @param totalDuration Overall duration in seconds. A zero or negative value will cause initialization to be skipped.
 /// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
 /// @param amplitude     Amplitude to rise to and decay from.
-- (id)initWithRiseTime:(OCSParamConstant *)riseTime
-         totalDuration:(OCSParamConstant *)totalDuration
-             decayTime:(OCSParamConstant *)decayTime
+- (id)initWithRiseTime:(OCSConstantParam *)riseTime
+         totalDuration:(OCSConstantParam *)totalDuration
+             decayTime:(OCSConstantParam *)decayTime
              amplitude:(OCSParam *)amplitude;
 
 @end
