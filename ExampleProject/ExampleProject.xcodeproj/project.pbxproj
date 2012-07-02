@@ -293,6 +293,7 @@
 		C4842D491579C2F800E69770 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
 		C4842D4A1579C2F800E69770 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		C4842D4B1579C2F800E69770 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
+		C48A8AA515A232A600E53A1C /* CsoundCoverage.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = CsoundCoverage.md; sourceTree = "<group>"; };
 		C495F73E1583444700951461 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C495F743158344CD00951461 /* OscillatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscillatorViewController.h; path = "Simple Oscillator/OscillatorViewController.h"; sourceTree = "<group>"; };
 		C495F744158344CD00951461 /* OscillatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OscillatorViewController.m; path = "Simple Oscillator/OscillatorViewController.m"; sourceTree = "<group>"; };
@@ -633,6 +634,7 @@
 			children = (
 				C43080B8159C14E20091AE59 /* README.md */,
 				C43080B9159C2BAF0091AE59 /* CodeReviewNotes.md */,
+				C48A8AA515A232A600E53A1C /* CsoundCoverage.md */,
 			);
 			name = doc;
 			path = ../doc;
