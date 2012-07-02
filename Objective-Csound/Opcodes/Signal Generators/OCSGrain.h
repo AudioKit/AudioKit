@@ -26,8 +26,8 @@
 /// @param maxGrainDuration       Maximum grain duration in seconds.
 /// @param grainFunction          The grain waveform. This can be just a sine wave or a sampled sound.
 /// @param windowFunction         The amplitude envelope used for the grains.
-- (id)initWithGrainFunction:(OCSFunctionTable *)grainFunction
-             windowFunction:(OCSFunctionTable *)windowFunction
+- (id)initWithGrainFunction:(OCSFTable *)grainFunction
+             windowFunction:(OCSFTable *)windowFunction
            maxGrainDuration:(OCSParamConstant *)maxGrainDuration
                   amplitude:(OCSParam *)amplitude
              grainFrequency:(OCSParam *)grainFrequency

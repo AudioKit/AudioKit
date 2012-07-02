@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 
-@interface OCSRandomDistributionTable : OCSFunctionTable
+@interface OCSRandomDistributionTable : OCSFTable
 
 typedef enum
 {

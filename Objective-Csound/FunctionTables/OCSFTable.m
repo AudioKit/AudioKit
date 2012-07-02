@@ -1,24 +1,24 @@
 //
-//  OCSFunctionTable.m
+//  OCSFTable.m
 //
 //  Created by Aurelius Prochazka on 4/12/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 #import "OCSParamConstant.h"
 
-@interface OCSFunctionTable () {
+@interface OCSFTable () {
     int size;
-    FunctionTableType gen;
+    FTableType gen;
     OCSParamArray *params;    
 }
 @end
 
-@implementation OCSFunctionTable
+@implementation OCSFTable
 @synthesize output;
 
-- (id)initWithType:(FunctionTableType)functionTableType
+- (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
         parameters:(OCSParamArray *)parameters;
 {
@@ -26,16 +26,16 @@
     if (self) {
         output = [OCSParamConstant paramWithString:[self functionName]];
         size = tableSize;
-        gen = functionTableType;
+        gen = fTableType;
         params = parameters;
     }
     return self;
 }
 
-- (id)initWithType:(FunctionTableType)functionTableType
+- (id)initWithType:(FTableType)fTableType
         parameters:(OCSParamArray *)parameters;
 {
-    return [self initWithType:functionTableType size:0 parameters:parameters];
+    return [self initWithType:fTableType size:0 parameters:parameters];
 }
 
 - (NSString *)functionName {

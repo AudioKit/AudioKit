@@ -37,35 +37,22 @@
         // INSTRUMENT DEFINITION ===============================================
             
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
-        [self addFunctionTable:sineTable];
-        
-        
-        // Method 1 for defining an opcode
-        
+        [self addFTable:sineTable];
+
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
                                                     baseFrequency:[frequency control]
                                                 carrierMultiplier:ocsp(2) 
                                              modulatingMultiplier:[modulation control]
                                                   modulationIndex:ocsp(15)
-                                                    functionTable:sineTable];
+                                                           fTable:sineTable];
         [self addOpcode:fmOscillator];
-        
-        // Method 2 for defining an opcode - What do you think ARB? - AOP
-         
-        OCSFMOscillator *fmOscillator2 = [[OCSFMOscillator alloc] init];
-        [fmOscillator2 setAmplitude:ocsp(0.4)];
-        [fmOscillator2 setBaseFrequency:[frequency control]];
-        [fmOscillator2 setCarrierMultiplier:ocsp(3)];
-        [fmOscillator2 setModulatingMultiplier:[modulation control]]; 
-        [fmOscillator2 setModulationIndex:ocsp(10)];
-        [fmOscillator2 setFunctionTable:sineTable];
-        [self addOpcode:fmOscillator2];
+
 
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[fmOscillator output]
-                                                   rightInput:[fmOscillator2 output]];
+                                                   rightInput:[fmOscillator output]];
         [self addOpcode:audio];
     }
     return self;

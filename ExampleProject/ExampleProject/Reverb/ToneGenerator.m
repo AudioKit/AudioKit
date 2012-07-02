@@ -30,12 +30,12 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSSineTable *sine = [[OCSSineTable alloc] init];
-        [self addFunctionTable:sine];
+        [self addFTable:sine];
         
         OCSOscillator *oscillator;
-        oscillator = [[OCSOscillator alloc] initWithFunctionTable:sine
-                                                        frequency:[frequency control]
-                                                        amplitude:ocsp(0.4)];
+        oscillator = [[OCSOscillator alloc] initWithFTable:sine
+                                                 frequency:[frequency control]
+                                                 amplitude:ocsp(0.4)];
         [self addOpcode:oscillator];
         
         // AUDIO OUTPUT ========================================================

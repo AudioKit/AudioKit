@@ -28,12 +28,12 @@
         OCSSoundFileTable *fileTable;
         fileTable = [[OCSSoundFileTable alloc] initWithFilename:file 
                                                       tableSize:16384];
-        [self addFunctionTable:fileTable];
+        [self addFTable:fileTable];
         
-        OCSFunctionTable *hamming;
+        OCSFTable *hamming;
         hamming = [[OCSWindowsTable alloc] initWithType:kWindowHanning
                                                    size:512 ];
-        [self addFunctionTable:hamming];
+        [self addFTable:hamming];
                 
         OCSSegmentArray *amplitudeExp;
         amplitudeExp = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.001)  

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 
 /** Generates functions of different windows. These windows are usually used for 
  spectrum analysis or for grain envelopes.
@@ -33,7 +33,7 @@
  post-rescaled to a maximum value of 1.
 
  */
-@interface OCSWindowsTable : OCSFunctionTable
+@interface OCSWindowsTable : OCSFTable
 
 typedef enum
 {

@@ -85,11 +85,11 @@
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
         OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file tableSize:4096];
-        [self addFunctionTable:fiftyHzSine];
+        [self addFTable:fiftyHzSine];
         
         OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithType:kWindowHanning
                                                                     size:4097];
-        [self addFunctionTable:hanning];
+        [self addFTable:hanning];
         
         // INSTRUMENT DEFINITION ===============================================
         

@@ -55,8 +55,8 @@ static int currentID = 1;
     //[[OCSManager sharedOCSManager] addProperty:prop];
 }
 
-- (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable {
-    [innerCSDRepresentation appendString:[newFunctionTable stringForCSD]];
+- (void)addFTable:(OCSFTable *)newFTable {
+    [innerCSDRepresentation appendString:[newFTable stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 

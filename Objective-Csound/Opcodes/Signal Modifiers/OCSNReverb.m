@@ -72,7 +72,7 @@ highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity
 
     if (combGains) {
         return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@",
-                [self functionTableCSDFromFilterParams],
+                [self fTableCSDFromFilterParams],
                 output, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
     } else {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@", 
@@ -80,7 +80,7 @@ highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity
     }
 }
 
-- (NSString *)functionTableCSDFromFilterParams
+- (NSString *)fTableCSDFromFilterParams
 {
     NSString *combTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@",
                            [self opcodeName], [combGains count], -2, combTimes, combGains]; 
