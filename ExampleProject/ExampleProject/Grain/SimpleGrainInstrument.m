@@ -43,8 +43,8 @@
         [amplitudeExp useExponentialSegments];
         [self addOpcode:amplitudeExp];
 
-        OCSParamConstant *baseFrequency;
-        baseFrequency = [OCSParamConstant paramWithFormat:@"44100 / %@", [fileTable length]];
+        OCSConstantParam *baseFrequency;
+        baseFrequency = [OCSConstantParam paramWithFormat:@"44100 / %@", [fileTable length]];
         OCSLine *pitchLine;
         pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
                                            toValue:[baseFrequency scaledBy:0.8]

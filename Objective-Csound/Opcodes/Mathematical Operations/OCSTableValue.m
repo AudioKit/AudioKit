@@ -10,7 +10,7 @@
 
 @interface OCSTableValue () {
     OCSParam *output;
-    OCSParamConstant *ifn;
+    OCSConstantParam *ifn;
     OCSParam *index;
 }
 @end
@@ -24,7 +24,7 @@
 @synthesize offset = ixoff;
 @synthesize wrapData = iwrap;
 
-- (id)initWithFTable:(OCSParamConstant *)fTable;
+- (id)initWithFTable:(OCSConstantParam *)fTable;
 {
     self = [super init];
     if (self) {
@@ -37,7 +37,7 @@
     
 }
 
-- (id)initWithFTable:(OCSParamConstant *)fTable
+- (id)initWithFTable:(OCSConstantParam *)fTable
     atAudioRateIndex:(OCSParam *)audioRateIndex
 {
     
@@ -51,25 +51,25 @@
 
 }
 
-- (id)initWithFTable:(OCSParamConstant *)fTable
-atControlRateIndex:(OCSParamControl *)controlRateIndex
+- (id)initWithFTable:(OCSConstantParam *)fTable
+atControlRateIndex:(OCSControlParam *)controlRateIndex
 { 
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSParamControl paramWithString:[self opcodeName]];   
+        output = [OCSControlParam paramWithString:[self opcodeName]];   
         index = controlRateIndex;
     }
     return self; 
 }
 
-- (id)initWithFTable:(OCSParamConstant *)fTable
-     atConstantIndex:(OCSParamConstant *)constantIndex
+- (id)initWithFTable:(OCSConstantParam *)fTable
+     atConstantIndex:(OCSConstantParam *)constantIndex
 {
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSParamConstant paramWithString:[self opcodeName]];   
+        output = [OCSConstantParam paramWithString:[self opcodeName]];   
         index = constantIndex;
     }
     return self; 

@@ -18,7 +18,7 @@
 /// Indexing Parameter.
 @property (nonatomic, strong) OCSParam *index;
 /// Function table read the data from.
-@property (nonatomic, strong) OCSParamConstant *fTable;
+@property (nonatomic, strong) OCSConstantParam *fTable;
 
 /// Optional instruction to normalize the data.
 @property (nonatomic, assign) BOOL normalizeResult;
@@ -30,20 +30,20 @@
 /// Initialize the opcode as an audio operation.
 /// @param                fTable Function table read the data from.
 /// @param audioRateIndex Indexing Parameter.
-- (id)initWithFTable:(OCSParamConstant *)fTable
+- (id)initWithFTable:(OCSConstantParam *)fTable
     atAudioRateIndex:(OCSParam *)audioRateIndex;
 
 /// Initialize the opcode as a control.
 /// @param                  fTable Function table read the data from.
 /// @param controlRateIndex Indexing Parameter.
-- (id)initWithFTable:(OCSParamConstant *)fTable
-  atControlRateIndex:(OCSParamControl *)controlRateIndex;
+- (id)initWithFTable:(OCSConstantParam *)fTable
+  atControlRateIndex:(OCSControlParam *)controlRateIndex;
 
 /// Initialize the opcode as a a constant.
 /// @param               fTable Function table read the data from.
 /// @param constantIndex Indexing Parameter.
-- (id)initWithFTable:(OCSParamConstant *)fTable
-     atConstantIndex:(OCSParamConstant *)constantIndex;
+- (id)initWithFTable:(OCSConstantParam *)fTable
+     atConstantIndex:(OCSConstantParam *)constantIndex;
 
 
 

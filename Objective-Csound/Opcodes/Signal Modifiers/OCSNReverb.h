@@ -23,8 +23,8 @@
 /// @param reverbDuration       Length of reverbation in seconds.
 /// @param highFreqDiffusivity  A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster that lower ones.
 - (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSParamControl *)reverbDuration 
-highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity;
+     reverbDuration:(OCSControlParam *)reverbDuration 
+highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity;
 
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
 /// @param inputSignal          Audio signal to be reverberated.
@@ -35,8 +35,8 @@ highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity;
 /// @param allPassFilterTimes   An array of times for the all pass filter.
 /// @param allPassFilterGains   An array of gains at each time the all pass filter.
 - (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSParamControl *)reverbDuration
-highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity
+     reverbDuration:(OCSControlParam *)reverbDuration
+highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity
     combFilterTimes:(NSArray *)combFilterTimes
     combFilterGains:(NSArray *)combFilterGains
  allPassFilterTimes:(NSArray *)allPassFilterTimes

@@ -52,7 +52,7 @@ typedef enum {
  @return                 An instance of UDOMSROscillator.
  */
 - (id)initWithType:(OscillatorType)oscillatorType
-         frequency:(OCSParamConstant *)pitchOrFrequency
-         amplitude:(OCSParamConstant *)maxAmplitude;
+         frequency:(OCSConstantParam *)pitchOrFrequency
+         amplitude:(OCSConstantParam *)maxAmplitude;
 
 @end

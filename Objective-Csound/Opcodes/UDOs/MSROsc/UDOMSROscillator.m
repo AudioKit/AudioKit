@@ -10,8 +10,8 @@
 
 @interface UDOMSROscillator () {
     OCSParam *output;
-    OCSParamConstant *amplitude;
-    OCSParamConstant *frequency;
+    OCSConstantParam *amplitude;
+    OCSConstantParam *frequency;
     OscillatorType type;
 }
 @end
@@ -21,8 +21,8 @@
 @synthesize output;
 
 - (id)initWithType:(OscillatorType)oscillatorType
-         frequency:(OCSParamConstant *)pitchOrFrequency
-         amplitude:(OCSParamConstant *)maxAmplitude;
+         frequency:(OCSConstantParam *)pitchOrFrequency
+         amplitude:(OCSConstantParam *)maxAmplitude;
 
 {
     self = [super init];

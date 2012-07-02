@@ -31,14 +31,14 @@
 
 - (id) parameterString {
     NSMutableArray *s = [[NSMutableArray alloc] init];
-    for (OCSParamConstant *value in params) {
+    for (OCSConstantParam *value in params) {
         [s addObject:[value parameterString]];
     }
     return [s componentsJoinedByString:@", "]; 
 }
 
 
-+ (id)paramArrayFromParams:(OCSParamConstant *)firstParam,... {
++ (id)paramArrayFromParams:(OCSConstantParam *)firstParam,... {
     OCSParamArray *result = [[OCSParamArray alloc] init];
 
     OCSParam *eachParam;

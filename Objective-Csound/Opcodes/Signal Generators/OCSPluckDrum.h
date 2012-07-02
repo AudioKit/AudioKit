@@ -30,12 +30,12 @@
 /// @param audioBuffer        The output of a function table used to initialize the cyclic decay buffer. If set to zero, a random sequence will be used instead.
 /// @param roughnessFactor     Zero gives the plucked string effect, while 1 reverses the polarity of every sample (octave down, odd harmonics). The setting .5 gives an optimum snare drum.
 /// @param stretchFactor       Must be greater than or equal to 1.
-- (id)initWithAmplitude:(OCSParamControl *)amplitude
-    resamplingFrequency:(OCSParamControl *)resamplingFrequency
-    pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-            audioBuffer:(OCSParamConstant *)audioBuffer
-        roughnessFactor:(OCSParamConstant *)roughnessFactor
-          stretchFactor:(OCSParamConstant *)stretchFactor;
+- (id)initWithAmplitude:(OCSControlParam *)amplitude
+    resamplingFrequency:(OCSControlParam *)resamplingFrequency
+    pitchDecayFrequency:(OCSConstantParam *)pitchDecayFrequency
+            audioBuffer:(OCSConstantParam *)audioBuffer
+        roughnessFactor:(OCSConstantParam *)roughnessFactor
+          stretchFactor:(OCSConstantParam *)stretchFactor;
 
 
 @end

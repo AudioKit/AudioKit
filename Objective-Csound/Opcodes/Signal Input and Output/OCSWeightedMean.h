@@ -18,9 +18,9 @@
 /// The output as audio.
 @property (nonatomic, strong) OCSParam *audio;
 /// The output as a control.
-@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSControlParam *control;
 /// The output as a constant.
-@property (nonatomic, strong) OCSParamConstant *constant;
+@property (nonatomic, strong) OCSConstantParam *constant;
 /// The output can either an audio signal, a control, or a constant.
 @property (nonatomic, strong) OCSParam *output;
 

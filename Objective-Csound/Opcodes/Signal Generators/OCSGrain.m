@@ -12,10 +12,10 @@
     OCSParam *amp;
     OCSParam *frequency;
     OCSParam *density;
-    OCSParamControl *ampOffset;
-    OCSParamControl *pchOffset;
-    OCSParamControl *duration;
-    OCSParamConstant *maxDuration;
+    OCSControlParam *ampOffset;
+    OCSControlParam *pchOffset;
+    OCSControlParam *duration;
+    OCSConstantParam *maxDuration;
     OCSFTable *gFunction;
     OCSFTable *wFunction;
     BOOL isRandomGrainFunctionIndex;
@@ -29,13 +29,13 @@
 
 - (id)initWithGrainFunction:(OCSFTable *)grainFunction
              windowFunction:(OCSFTable *)windowFunction
-           maxGrainDuration:(OCSParamConstant *)maxGrainDuration
+           maxGrainDuration:(OCSConstantParam *)maxGrainDuration
                   amplitude:(OCSParam *)amplitude
              grainFrequency:(OCSParam *)grainFrequency
                grainDensity:(OCSParam *)grainDensity  
-              grainDuration:(OCSParamControl *)grainDuration
-      maxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation
-          maxPitchDeviation:(OCSParamControl *)maxPitchDeviation;
+              grainDuration:(OCSControlParam *)grainDuration
+      maxAmplitudeDeviation:(OCSControlParam *)maxAmplitudeDeviation
+          maxPitchDeviation:(OCSControlParam *)maxPitchDeviation;
 {
     self = [super init];
     if (self) {

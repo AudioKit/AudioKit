@@ -27,8 +27,8 @@
 /// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
 
 - (id)initWithMonoInput:(OCSParam *)monoInput
-          feedbackLevel:(OCSParamControl *)feedbackLevel
-        cutoffFrequency:(OCSParamControl *)cutoffFrequency;
+          feedbackLevel:(OCSControlParam *)feedbackLevel
+        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
 
 /// Apply reverb to a stereo signal
 /// @param leftInput       Input to the left channel.
@@ -37,7 +37,7 @@
 /// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
 - (id)initWithLeftInput:(OCSParam *)leftInput
              rightInput:(OCSParam *)rightInput
-          feedbackLevel:(OCSParamControl *)feedbackLevel
-        cutoffFrequency:(OCSParamControl *)cutoffFrequency;
+          feedbackLevel:(OCSControlParam *)feedbackLevel
+        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
 
 @end

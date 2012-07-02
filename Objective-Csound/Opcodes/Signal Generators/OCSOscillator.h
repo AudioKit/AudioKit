@@ -17,7 +17,7 @@
 /// The output as audio.
 @property (nonatomic, strong) OCSParam *audio;
 /// The output as a control.
-@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSControlParam *control;
 /// The output can either an audio signal or a control.
 @property (nonatomic, strong) OCSParam *output;
 
@@ -29,7 +29,7 @@
 - (id)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSParam *)frequency
            amplitude:(OCSParam *)amplitude 
-               phase:(OCSParamConstant *)initialPhase;
+               phase:(OCSConstantParam *)initialPhase;
 
 /// Instantiates the oscillator.
 /// @param fTable Requires a wrap-around guard point.

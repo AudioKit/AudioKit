@@ -10,8 +10,8 @@
 @interface OCSNReverb () {
     OCSParam *output;
     OCSParam *input;
-    OCSParamControl *dur;
-    OCSParamControl *hfdif;
+    OCSControlParam *dur;
+    OCSControlParam *hfdif;
     
     BOOL isInitSkipped;
     
@@ -28,8 +28,8 @@
 @synthesize output;
 
 - (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSParamControl *)reverbDuration 
-highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity;
+     reverbDuration:(OCSControlParam *)reverbDuration 
+highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity;
 {
     self = [super init];
     if(self) {
@@ -42,8 +42,8 @@ highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity;
 }
 
 - (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSParamControl *)reverbDuration
-highFreqDiffusivity:(OCSParamControl *)highFreqDiffusivity
+     reverbDuration:(OCSControlParam *)reverbDuration
+highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity
     combFilterTimes:(NSArray *)combFilterTimes
     combFilterGains:(NSArray *)combFilterGains
  allPassFilterTimes:(NSArray *)allPassFilterTimes

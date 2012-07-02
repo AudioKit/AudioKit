@@ -16,8 +16,8 @@
     OCSParam *current;
 
     OCSParam *audio;
-    OCSParamControl *control;
-    OCSParamConstant *constant;
+    OCSControlParam *control;
+    OCSConstantParam *constant;
     OCSParam *output;
 }
 @end
@@ -37,8 +37,8 @@
     self = [super init];
     if (self) {
         audio    = [OCSParam         paramWithString:[self opcodeName]];
-        control  = [OCSParamControl  paramWithString:[self opcodeName]];
-        constant = [OCSParamConstant paramWithString:[self opcodeName]];
+        control  = [OCSControlParam  paramWithString:[self opcodeName]];
+        constant = [OCSConstantParam paramWithString:[self opcodeName]];
         output  =  audio;
         min = 0;
         max = 1;
@@ -50,12 +50,12 @@
 }
 
 
-- (void)setControl:(OCSParamControl *)p {
+- (void)setControl:(OCSControlParam *)p {
     control = p;
     output = control;
 }
 
-- (void)setConstant:(OCSParamConstant *)p {
+- (void)setConstant:(OCSConstantParam *)p {
     constant = p;
     output = constant;
 }

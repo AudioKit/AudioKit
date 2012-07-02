@@ -50,12 +50,12 @@
         pitchOffsetFirstTarget  = [[OCSProperty alloc] init];
         reverbSend              = [[OCSProperty alloc] init];
         
-        [grainDensity           setControl: [OCSParamControl  paramWithString:@"GrainDensity"]]; 
-        [grainDuration          setControl: [OCSParamControl  paramWithString:@"GrainDuration"]];
-        [pitchClass             setControl: [OCSParamControl  paramWithString:@"PitchClass"]]; 
-        [pitchOffsetStartValue  setConstant:[OCSParamConstant paramWithString:@"PitchOffsetStartValue"]]; 
-        [pitchOffsetFirstTarget setConstant:[OCSParamConstant paramWithString:@"PitchOffsetFirstTarget"]]; 
-        [reverbSend             setConstant:[OCSParamConstant paramWithString:@"ReverbSend"]];
+        [grainDensity           setControl: [OCSControlParam  paramWithString:@"GrainDensity"]]; 
+        [grainDuration          setControl: [OCSControlParam  paramWithString:@"GrainDuration"]];
+        [pitchClass             setControl: [OCSControlParam  paramWithString:@"PitchClass"]]; 
+        [pitchOffsetStartValue  setConstant:[OCSConstantParam paramWithString:@"PitchOffsetStartValue"]]; 
+        [pitchOffsetFirstTarget setConstant:[OCSConstantParam paramWithString:@"PitchOffsetFirstTarget"]]; 
+        [reverbSend             setConstant:[OCSConstantParam paramWithString:@"ReverbSend"]];
         
         [self addProperty:grainDensity];
         [self addProperty:grainDuration];

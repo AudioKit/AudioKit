@@ -28,13 +28,13 @@
 /// @param windowFunction         The amplitude envelope used for the grains.
 - (id)initWithGrainFunction:(OCSFTable *)grainFunction
              windowFunction:(OCSFTable *)windowFunction
-           maxGrainDuration:(OCSParamConstant *)maxGrainDuration
+           maxGrainDuration:(OCSConstantParam *)maxGrainDuration
                   amplitude:(OCSParam *)amplitude
              grainFrequency:(OCSParam *)grainFrequency
                grainDensity:(OCSParam *)grainDensity  
-              grainDuration:(OCSParamControl *)grainDuration
-      maxAmplitudeDeviation:(OCSParamControl *)maxAmplitudeDeviation
-          maxPitchDeviation:(OCSParamControl *)maxPitchDeviation;
+              grainDuration:(OCSControlParam *)grainDuration
+      maxAmplitudeDeviation:(OCSControlParam *)maxAmplitudeDeviation
+          maxPitchDeviation:(OCSControlParam *)maxPitchDeviation;
 
 - (void) turnOffGrainOffsetRandomnes;
 

@@ -31,8 +31,8 @@
  */
 - (id)initWithLeftInput:(OCSParam *)leftInput
              rightInput:(OCSParam *)rightInput
-              basePitch:(OCSParamControl *)basePitch
-        offsetFrequency:(OCSParamControl *)fineTuningOffsetFrequency
-          feedbackLevel:(OCSParamControl *)feedbackLevel;
+              basePitch:(OCSControlParam *)basePitch
+        offsetFrequency:(OCSControlParam *)fineTuningOffsetFrequency
+          feedbackLevel:(OCSControlParam *)feedbackLevel;
 
 @end

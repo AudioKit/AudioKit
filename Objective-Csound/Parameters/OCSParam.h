@@ -7,14 +7,14 @@
 
 /** OCS Parameters are arguments to Csound opcodes.  They come in three varieties for 
  audio rate, control rate, and constant values. When something is declared as an
- OCSParam, it is at audio rate.  OCSParamControl and OCSParamConstant should be used for
+ OCSParam, it is at audio rate.  OCSControlParam and OCSConstantParam should be used for
  slower rate variables. 
  */
 
-#define ocsp(__f__)  [OCSParamConstant paramWithFloat:__f__]
-#define ocspi(__i__) [OCSParamConstant paramWithFloat:__i__]
-#define ocsps(__s__) [OCSParamConstant paramWithString:__s__]
-#define ocspfn(__fn__) [OCSParamConstant paramWithFilename:__fn__]
+#define ocsp(__f__)  [OCSConstantParam paramWithFloat:__f__]
+#define ocspi(__i__) [OCSConstantParam paramWithFloat:__i__]
+#define ocsps(__s__) [OCSConstantParam paramWithString:__s__]
+#define ocspfn(__fn__) [OCSConstantParam paramWithFilename:__fn__]
 
 @interface OCSParam : NSObject
 {

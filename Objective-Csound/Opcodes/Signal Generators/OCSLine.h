@@ -24,7 +24,7 @@
 @property (nonatomic, strong) OCSParam *audio;
 
 /// This is the control parameter.
-@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSControlParam *control;
 
 /// The output is the audio signal or the control.
 @property (nonatomic, strong) OCSParam *output;
@@ -34,9 +34,9 @@
 /// @param endingValue   Value to end the line at.
 /// @param duration      Duration of linear transition in seconds.
 /// @return An opcode to perform a linear transition over a given duration.
-- (id)initFromValue:(OCSParamConstant *)startingValue
-            toValue:(OCSParamConstant *)endingValue
-           duration:(OCSParamConstant *)duration;
+- (id)initFromValue:(OCSConstantParam *)startingValue
+            toValue:(OCSConstantParam *)endingValue
+           duration:(OCSConstantParam *)duration;
     
 
 @end

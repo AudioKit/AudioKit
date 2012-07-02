@@ -8,12 +8,12 @@
 #import "OCSPluckDrum.h"
 
 @interface OCSPluckDrum () {
-    OCSParamControl *amp;
-    OCSParamControl *resampFreq;
-    OCSParamConstant *decayFreq;
-    OCSParamConstant *buffer;
-    OCSParamConstant *roughness;
-    OCSParamConstant *stretch;
+    OCSControlParam *amp;
+    OCSControlParam *resampFreq;
+    OCSConstantParam *decayFreq;
+    OCSConstantParam *buffer;
+    OCSConstantParam *roughness;
+    OCSConstantParam *stretch;
     
     OCSParam *output;
 }
@@ -28,12 +28,12 @@ typedef enum
 @implementation OCSPluckDrum
 
 @synthesize output;
-- (id)initWithAmplitude:(OCSParamControl *)amplitude
-    resamplingFrequency:(OCSParamControl *)resamplingFrequency
-    pitchDecayFrequency:(OCSParamConstant *)pitchDecayFrequency
-            audioBuffer:(OCSParamConstant *)audioBuffer
-        roughnessFactor:(OCSParamConstant *)roughnessFactor
-          stretchFactor:(OCSParamConstant *)stretchFactor;
+- (id)initWithAmplitude:(OCSControlParam *)amplitude
+    resamplingFrequency:(OCSControlParam *)resamplingFrequency
+    pitchDecayFrequency:(OCSConstantParam *)pitchDecayFrequency
+            audioBuffer:(OCSConstantParam *)audioBuffer
+        roughnessFactor:(OCSConstantParam *)roughnessFactor
+          stretchFactor:(OCSConstantParam *)stretchFactor;
 {
     self = [super init];
     if( self ) {

@@ -9,12 +9,12 @@
 
 @interface OCSLine () {
     OCSParam *audio;
-    OCSParamControl *control;
+    OCSControlParam *control;
     OCSParam *output;
     
-    OCSParamConstant *start;
-    OCSParamConstant *end;
-    OCSParamConstant *dur;
+    OCSConstantParam *start;
+    OCSConstantParam *end;
+    OCSConstantParam *dur;
 }
 @end
 
@@ -24,15 +24,15 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initFromValue:(OCSParamConstant *)startingValue
-            toValue:(OCSParamConstant *)endingValue
-           duration:(OCSParamConstant *)duration
+- (id)initFromValue:(OCSConstantParam *)startingValue
+            toValue:(OCSConstantParam *)endingValue
+           duration:(OCSConstantParam *)duration
 {
     self = [super init];
 
     if (self) {
         audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSParamControl paramWithString:[self opcodeName]];
+        control = [OCSControlParam paramWithString:[self opcodeName]];
         output  =  audio;
         
         start = startingValue;

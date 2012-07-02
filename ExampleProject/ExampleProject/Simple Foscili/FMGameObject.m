@@ -31,8 +31,8 @@
         freq = [[OCSProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
         mod  = [[OCSProperty alloc] initWithValue:1.0 minValue:kModulationMin maxValue:kModulationMax];
 
-        [freq setControl:[OCSParamControl paramWithString:@"Frequency"]]; 
-        [mod  setControl:[OCSParamControl paramWithString:@"Modulation"]]; 
+        [freq setControl:[OCSControlParam paramWithString:@"Frequency"]]; 
+        [mod  setControl:[OCSControlParam paramWithString:@"Modulation"]]; 
         
         [self addProperty:freq];
         [self addProperty:mod];

@@ -23,7 +23,7 @@
 @property (nonatomic, strong) OCSParam *audio;
 
 /// This is the control parameter.
-@property (nonatomic, strong) OCSParamControl *control;
+@property (nonatomic, strong) OCSControlParam *control;
 
 /// The output is the audio signal or the control.
 @property (nonatomic, strong) OCSParam *output;
@@ -35,22 +35,22 @@
 /// @param firstSegmentTargetValue Value after firstSegmentDuration seconds. 
 /// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
 /// @return An OCSSegment with the first segment specified.
-- (id)initWithStartValue:(OCSParamConstant *)firstSegmentStartValue
-             toNextValue:(OCSParamConstant *)firstSegmentTargetValue
-           afterDuration:(OCSParamConstant *)firstSegmentDuration;
+- (id)initWithStartValue:(OCSConstantParam *)firstSegmentStartValue
+             toNextValue:(OCSConstantParam *)firstSegmentTargetValue
+           afterDuration:(OCSConstantParam *)firstSegmentDuration;
 
 /// Adds another segment.
 /// @param nextSegmentTargetValue Value after nextSegmentDuration seconds. 
 /// @param nextSegmentDuration    Duration in seconds.
-- (void)addValue:(OCSParamConstant *)nextSegmentTargetValue 
-   afterDuration:(OCSParamConstant *)nextSegmentDuration;
+- (void)addValue:(OCSConstantParam *)nextSegmentTargetValue 
+   afterDuration:(OCSConstantParam *)nextSegmentDuration;
 
 
 /// Adds a release segment.
 /// @param finalValue      Last value to reach, typically zero.
 /// @param releaseDuration Length of time in seconds to get to finalValue.
-- (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
-                 afterDuration:(OCSParamConstant *)releaseDuration;
+- (void)addReleaseToFinalValue:(OCSConstantParam *)finalValue 
+                 afterDuration:(OCSConstantParam *)releaseDuration;
 
 /// Switches to an exponential segment generating opcode.
 - (void)useExponentialSegments;

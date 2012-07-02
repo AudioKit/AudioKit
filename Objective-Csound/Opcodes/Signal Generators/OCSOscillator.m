@@ -10,12 +10,12 @@
 @interface OCSOscillator () {
     OCSParam *amp;
     OCSParam *freq;
-    OCSParamConstant *phs;
+    OCSConstantParam *phs;
     OCSFTable *f;
     
     
     OCSParam *audio;
-    OCSParamControl *control;
+    OCSControlParam *control;
     OCSParam *output;
 }
 @end
@@ -29,12 +29,12 @@
 - (id)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSParam *)frequency
            amplitude:(OCSParam *)amplitude 
-               phase:(OCSParamConstant *)initialPhase;
+               phase:(OCSConstantParam *)initialPhase;
 {
     self = [super init];
     if (self) {
         audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSParamControl paramWithString:[self opcodeName]];
+        control = [OCSControlParam paramWithString:[self opcodeName]];
         output  =  audio;
         amp  = amplitude;
         freq = frequency;
@@ -51,10 +51,10 @@
     return [self initWithFTable:fTable
                       frequency:frequency
                       amplitude:amplitude 
-                          phase:[OCSParamConstant paramWithInt:0]];
+                          phase:[OCSConstantParam paramWithInt:0]];
 }
 
-- (void)setControl:(OCSParamControl *)p {
+- (void)setControl:(OCSControlParam *)p {
     control = p;
     output = control;
 }

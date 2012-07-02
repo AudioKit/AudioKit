@@ -33,8 +33,8 @@
 		C4308017159BCE660091AE59 /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE2159BCE650091AE59 /* OCSUserDefinedOpcode.m */; };
 		C4308018159BCE660091AE59 /* OCSParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE5159BCE650091AE59 /* OCSParam.m */; };
 		C4308019159BCE660091AE59 /* OCSParamArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE7159BCE650091AE59 /* OCSParamArray.m */; };
-		C430801A159BCE660091AE59 /* OCSParamConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE9159BCE650091AE59 /* OCSParamConstant.m */; };
-		C430801B159BCE660091AE59 /* OCSParamControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEB159BCE650091AE59 /* OCSParamControl.m */; };
+		C430801A159BCE660091AE59 /* OCSConstantParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE9159BCE650091AE59 /* OCSConstantParam.m */; };
+		C430801B159BCE660091AE59 /* OCSControlParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEB159BCE650091AE59 /* OCSControlParam.m */; };
 		C430801C159BCE660091AE59 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEE159BCE650091AE59 /* OCSProperty.m */; };
 		C430801D159BCE660091AE59 /* OCSPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C43080AF159BD5DB0091AE59 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AA159BD5DB0091AE59 /* 808loop.wav */; };
@@ -184,10 +184,10 @@
 		C4307FE5159BCE650091AE59 /* OCSParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParam.m; sourceTree = "<group>"; };
 		C4307FE6159BCE650091AE59 /* OCSParamArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSParamArray.h; sourceTree = "<group>"; };
 		C4307FE7159BCE650091AE59 /* OCSParamArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParamArray.m; sourceTree = "<group>"; };
-		C4307FE8159BCE650091AE59 /* OCSParamConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSParamConstant.h; sourceTree = "<group>"; };
-		C4307FE9159BCE650091AE59 /* OCSParamConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParamConstant.m; sourceTree = "<group>"; };
-		C4307FEA159BCE650091AE59 /* OCSParamControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSParamControl.h; sourceTree = "<group>"; };
-		C4307FEB159BCE650091AE59 /* OCSParamControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParamControl.m; sourceTree = "<group>"; };
+		C4307FE8159BCE650091AE59 /* OCSConstantParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConstantParam.h; sourceTree = "<group>"; };
+		C4307FE9159BCE650091AE59 /* OCSConstantParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConstantParam.m; sourceTree = "<group>"; };
+		C4307FEA159BCE650091AE59 /* OCSControlParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSControlParam.h; sourceTree = "<group>"; };
+		C4307FEB159BCE650091AE59 /* OCSControlParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSControlParam.m; sourceTree = "<group>"; };
 		C4307FED159BCE650091AE59 /* OCSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSProperty.h; sourceTree = "<group>"; };
 		C4307FEE159BCE650091AE59 /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
 		C4307FEF159BCE650091AE59 /* OCSPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPropertyManager.h; sourceTree = "<group>"; };
@@ -605,14 +605,14 @@
 		C4307FE3159BCE650091AE59 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				C4307FE8159BCE650091AE59 /* OCSConstantParam.h */,
+				C4307FE9159BCE650091AE59 /* OCSConstantParam.m */,
+				C4307FEA159BCE650091AE59 /* OCSControlParam.h */,
+				C4307FEB159BCE650091AE59 /* OCSControlParam.m */,
 				C4307FE4159BCE650091AE59 /* OCSParam.h */,
 				C4307FE5159BCE650091AE59 /* OCSParam.m */,
 				C4307FE6159BCE650091AE59 /* OCSParamArray.h */,
 				C4307FE7159BCE650091AE59 /* OCSParamArray.m */,
-				C4307FE8159BCE650091AE59 /* OCSParamConstant.h */,
-				C4307FE9159BCE650091AE59 /* OCSParamConstant.m */,
-				C4307FEA159BCE650091AE59 /* OCSParamControl.h */,
-				C4307FEB159BCE650091AE59 /* OCSParamControl.m */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -1125,8 +1125,8 @@
 				C4308017159BCE660091AE59 /* OCSUserDefinedOpcode.m in Sources */,
 				C4308018159BCE660091AE59 /* OCSParam.m in Sources */,
 				C4308019159BCE660091AE59 /* OCSParamArray.m in Sources */,
-				C430801A159BCE660091AE59 /* OCSParamConstant.m in Sources */,
-				C430801B159BCE660091AE59 /* OCSParamControl.m in Sources */,
+				C430801A159BCE660091AE59 /* OCSConstantParam.m in Sources */,
+				C430801B159BCE660091AE59 /* OCSControlParam.m in Sources */,
 				C430801C159BCE660091AE59 /* OCSProperty.m in Sources */,
 				C430801D159BCE660091AE59 /* OCSPropertyManager.m in Sources */,
 				C497CCF0159C58B700AB9E57 /* OCSAssignment.m in Sources */,

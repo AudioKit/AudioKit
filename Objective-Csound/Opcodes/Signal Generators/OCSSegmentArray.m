@@ -9,16 +9,16 @@
 
 @interface OCSSegmentArray () {
     NSString *opcode;
-    OCSParamConstant *start;
-    OCSParamConstant *dur;
-    OCSParamConstant *target;
+    OCSConstantParam *start;
+    OCSConstantParam *dur;
+    OCSConstantParam *target;
     NSMutableArray *segments;
     
-    OCSParamConstant *release;
-    OCSParamConstant *final;
+    OCSConstantParam *release;
+    OCSConstantParam *final;
     
     OCSParam *audio;
-    OCSParamControl *control;
+    OCSControlParam *control;
     OCSParam *output;
 }
 @end
@@ -29,15 +29,15 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initWithStartValue:(OCSParamConstant *)firstSegmentStartValue
-             toNextValue:(OCSParamConstant *)firstSegmentTargetValue
-           afterDuration:(OCSParamConstant *)firstSegmentDuration
+- (id)initWithStartValue:(OCSConstantParam *)firstSegmentStartValue
+             toNextValue:(OCSConstantParam *)firstSegmentTargetValue
+           afterDuration:(OCSConstantParam *)firstSegmentDuration
 {
     self = [super init];
     
     if (self) {
         audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSParamControl paramWithString:[self opcodeName]];
+        control = [OCSControlParam paramWithString:[self opcodeName]];
         output  =  audio;
         
         opcode   = @"linseg";
@@ -45,22 +45,22 @@
         dur      = firstSegmentDuration;
         target   = firstSegmentTargetValue;
         segments = [[NSMutableArray alloc] init];
-        release  = [OCSParamConstant paramWithInt:0];
-        final    = [OCSParamConstant paramWithInt:0];
+        release  = [OCSConstantParam paramWithInt:0];
+        final    = [OCSConstantParam paramWithInt:0];
     }
     
     return self;
 }
 
-- (void)addValue:(OCSParamConstant *)nextSegmentTargetValue 
-   afterDuration:(OCSParamConstant *)nextSegmentDuration;
+- (void)addValue:(OCSConstantParam *)nextSegmentTargetValue 
+   afterDuration:(OCSConstantParam *)nextSegmentDuration;
 {
     [segments addObject:nextSegmentDuration];
     [segments addObject:nextSegmentTargetValue];
 }
 
-- (void)addReleaseToFinalValue:(OCSParamConstant *)finalValue 
-                 afterDuration:(OCSParamConstant *)releaseDuration
+- (void)addReleaseToFinalValue:(OCSConstantParam *)finalValue 
+                 afterDuration:(OCSConstantParam *)releaseDuration
 {
     // adds an r to the opcode
     if ([opcode isEqualToString:@"linseg"]) opcode = @"linsegr";
@@ -88,7 +88,7 @@
         }
     } else {
         NSMutableArray *s = [[NSMutableArray alloc] init];
-        for (OCSParamConstant *value in segments) {
+        for (OCSConstantParam *value in segments) {
             [s addObject:[value parameterString]];
         }
         NSString *segs = [s componentsJoinedByString:@" , "];
