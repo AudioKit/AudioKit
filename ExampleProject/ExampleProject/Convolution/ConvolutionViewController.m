@@ -35,12 +35,12 @@
 -(IBAction)changeDryWet:(id)sender 
 {
     UISlider * mySlider = (UISlider *) sender;
-    conv.dryWetBalance.value = mySlider.value;
+    conv.dryWetBalance.value = mySlider.value * kDryWetBalanceMax;
 }
 -(IBAction)changeDishWell:(id)sender;
 {
     UISlider * mySlider = (UISlider *) sender;
-    conv.dishWellBalance.value = mySlider.value;
+    conv.dishWellBalance.value = mySlider.value * kDishWellBalanceMax;
 }
 
 @end

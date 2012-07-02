@@ -29,16 +29,11 @@
     if (self) { 
         
         // INPUTS AND CONTROLS =================================================
-        dishWellBalance = [[OCSProperty alloc] init];
-        dryWetBalance   = [[OCSProperty alloc] init];
+        dishWellBalance = [[OCSProperty alloc] initWithValue:0.0 minValue:kDishWellBalanceMin maxValue:kDishWellBalanceMax];
+        dryWetBalance   = [[OCSProperty alloc] initWithValue:0.0 minValue:kDryWetBalanceMin   maxValue:kDryWetBalanceMax];
         
         [self addProperty:dishWellBalance];
-        [self addProperty:dryWetBalance];
-        
-        [dishWellBalance setMinimumValue:0.0f];
-        [dishWellBalance setMaximumValue:1.0f];
-        [dryWetBalance   setMinimumValue:0.0f];
-        [dryWetBalance   setMaximumValue:1.0f];           
+        [self addProperty:dryWetBalance];         
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -87,13 +82,13 @@
         
         OCSWeightedMean *dryWetBalanceL;
         dryWetBalanceL = [[OCSWeightedMean alloc] initWithSignal1:[loop outputLeft]
-                                                          signal2:[[dishWellBalanceL output] scaledBy:0.1]
+                                                          signal2:[dishWellBalanceL output]
                                                           balance:[dryWetBalance output]];
         [self addOpcode:dryWetBalanceL];
         
         OCSWeightedMean *dryWetBalanceR;
         dryWetBalanceR = [[OCSWeightedMean alloc] initWithSignal1:[loop outputRight]
-                                                          signal2:[[dishWellBalanceR output] scaledBy:0.1]
+                                                          signal2:[dishWellBalanceR output]
                                                           balance:[dryWetBalance output]];
         [self addOpcode:dryWetBalanceR];
         

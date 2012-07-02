@@ -17,4 +17,13 @@
                    parameters:valueLengthPairs];
 }
 
+
+- (id)initWithSize:(int)tableSize xyPairs:(OCSParamArray *)xyPairs;
+{
+    return [self initWithType:kFTExponentialCurvesFromBreakpoints
+                         size:tableSize 
+                   parameters:xyPairs];
+}
+
+
 @end

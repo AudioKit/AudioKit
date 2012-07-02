@@ -49,4 +49,7 @@
 /// Helper function to create a new OCSParam with the CSD output scaled
 /// @param scalingFactor The floating point number by which to scale.
 - (id)scaledBy:(float)scalingFactor;
+
+/// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
+- (id)amplitudeFromFullScaleDecibel;
 @end
