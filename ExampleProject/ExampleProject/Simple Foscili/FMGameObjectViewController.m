@@ -26,13 +26,17 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender
+- (IBAction)playRandomFrequency:(id)sender
 {
-    [myFMGameObject playNoteForDuration:1.0 Frequency:220 Modulation:1.0];
+    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    [[myFMGameObject frequency] setValue:randomFrequency];
+    [myFMGameObject playNoteForDuration:1.0];
 }
-- (IBAction)hit2:(id)sender
+- (IBAction)playRandomModulation:(id)sender
 {
-    [myFMGameObject playNoteForDuration:1.0 Frequency:320 Modulation:1.2];
+    float randomModulation = randomFloatBetween(kModulationMin, kModulationMax);
+    [[myFMGameObject modulation] setValue:randomModulation];
+    [myFMGameObject playNoteForDuration:1.0];
 }
 
 @end

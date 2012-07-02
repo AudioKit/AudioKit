@@ -24,7 +24,6 @@ File Specific Notes
 ### OCSProperty
 * Force all properties to be initialized with bounds. 
 * Place property bounds in the header file as constants that define the instrument.
-* Limit the value of the property to the bounded range, NSLogging whenever a limit is set instead because an attempt to set a value out of range was given.
 
 ### OCSNReverb
 * Write an example to test the longer init method.  Perhaps should use this is an excuse to learn to write unit tests.

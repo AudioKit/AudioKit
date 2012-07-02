@@ -18,7 +18,7 @@ typedef enum {
 @interface OCSInstrument () {
     OCSOrchestra *orchestra;
     NSMutableString *innerCSDRepresentation;
-    int  _myID;
+    int _myID;
     NSMutableArray *properties;
     NSMutableSet *myUDOs;
 }
@@ -94,7 +94,7 @@ static int currentID = 1;
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
     if ([properties count] > 0) {
-        [text appendString:@";--- INPUTS ---\n"];
+        [text appendString:@"\n;--- INPUTS ---\n"];
         for (OCSProperty *prop in properties) {
             [text appendString:[prop stringForCSDGetValue]];
         }

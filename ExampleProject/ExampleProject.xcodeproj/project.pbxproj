@@ -155,7 +155,7 @@
 		C4307F9C159BCE650091AE59 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
 		C4307F9E159BCE650091AE59 /* OCSExponentialCurvesTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSExponentialCurvesTable.h; sourceTree = "<group>"; };
 		C4307F9F159BCE650091AE59 /* OCSExponentialCurvesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSExponentialCurvesTable.m; sourceTree = "<group>"; };
-		C4307FA0159BCE650091AE59 /* OCSFTable.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OCSFTable.h; sourceTree = "<group>"; };
+		C4307FA0159BCE650091AE59 /* OCSFTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFTable.h; sourceTree = "<group>"; };
 		C4307FA1159BCE650091AE59 /* OCSFTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFTable.m; sourceTree = "<group>"; };
 		C4307FA2159BCE650091AE59 /* OCSRandomDistributionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomDistributionTable.h; sourceTree = "<group>"; };
 		C4307FA3159BCE650091AE59 /* OCSRandomDistributionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomDistributionTable.m; sourceTree = "<group>"; };
@@ -347,6 +347,7 @@
 		C497CD6A159C706D00AB9E57 /* OCSFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFileInput.m; sourceTree = "<group>"; };
 		C497CD6C159C75F600AB9E57 /* OCSWeightedMean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSWeightedMean.h; sourceTree = "<group>"; };
 		C497CD6D159C75F600AB9E57 /* OCSWeightedMean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSWeightedMean.m; sourceTree = "<group>"; };
+		C4C4C08915A157B600FE9119 /* UsefulFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsefulFunctions.h; sourceTree = "<group>"; };
 		C4C551141576EB08005F7EE4 /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C551181576EB08005F7EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C5511A1576EB08005F7EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -415,7 +416,7 @@
 			name = "Unit Generators";
 			sourceTree = "<group>";
 		};
-		76E93490157D39F4003C71DA /* Simple Foscili */ = {
+		76E93490157D39F4003C71DA /* Simple FM Oscillator */ = {
 			isa = PBXGroup;
 			children = (
 				C495F7481583452100951461 /* FMGameObject.h */,
@@ -424,7 +425,7 @@
 				C495F74C1583452100951461 /* FMGameObjectViewController.m */,
 				C495F74D1583452100951461 /* FMGameObjectViewController.xib */,
 			);
-			name = "Simple Foscili";
+			name = "Simple FM Oscillator";
 			sourceTree = "<group>";
 		};
 		76F2CE1D158561320059CC5E /* Expressions */ = {
@@ -515,6 +516,7 @@
 				C4307F99159BCE650091AE59 /* OCSOrchestra.m */,
 				C448F30315A0E07600AB5DF2 /* OCSScore.h */,
 				C448F30415A0E07600AB5DF2 /* OCSScore.m */,
+				C4C4C08915A157B600FE9119 /* UsefulFunctions.h */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -876,7 +878,7 @@
 				C4C5525515773428005F7EE4 /* Play CSD File */,
 				C476163D158D943E00C96DE1 /* Play Audio File */,
 				C4C5525615773453005F7EE4 /* Simple Oscillator */,
-				76E93490157D39F4003C71DA /* Simple Foscili */,
+				76E93490157D39F4003C71DA /* Simple FM Oscillator */,
 				76B9564E158145F7005AFAE9 /* Unit Generators */,
 				76F2CE1D158561320059CC5E /* Expressions */,
 				C4FE85B01583FF1F00902E07 /* Reverb */,

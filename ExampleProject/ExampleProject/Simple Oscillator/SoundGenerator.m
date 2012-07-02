@@ -13,11 +13,13 @@
 #import "OCSAudio.h"
 
 @interface SoundGenerator () {
-    OCSProperty *frequency;
+    OCSProperty *freq;
 }
 @end
 
 @implementation SoundGenerator
+
+@synthesize frequency = freq;
 
 - (id)init {
     self = [super init];
@@ -25,9 +27,9 @@
         
         // INPUTS AND CONTROLS =================================================
         
-        frequency = [[OCSProperty alloc] init];
-        [frequency setConstant:[OCSParamConstant paramWithString:@"Frequency"]]; 
-        [self addProperty:frequency];
+        freq = [[OCSProperty alloc] initWithMinValue:kFrequencyMin maxValue:kFrequencyMax];
+        [freq setConstant:[OCSParamConstant paramWithString:@"Frequency"]]; 
+        [self addProperty:freq];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -41,7 +43,7 @@
         
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
-                                              frequency:[frequency constant]
+                                              frequency:[freq constant]
                                               amplitude:ocsp(0.12)];                                
         [self addOpcode:myOscil];
         
@@ -62,10 +64,12 @@
     return self;
 }
 
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
-    frequency.value = freq;
-    NSLog(@"Playing note at frequency = %0.2f", freq);
-    [self playNoteForDuration:dur];
+- (void)playNoteForDuration:(float)noteDuration 
+                  frequency:(float)frequency;
+{
+    freq.value = frequency;
+    NSLog(@"Playing note at frequency = %0.2f", frequency);
+    [self playNoteForDuration:noteDuration];
 }
 
 @end

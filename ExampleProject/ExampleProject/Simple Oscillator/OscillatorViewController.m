@@ -26,12 +26,13 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender {
-    [mySoundGenerator playNoteForDuration:1 Frequency:440];
+- (IBAction)playA:(id)sender {
+    [mySoundGenerator playNoteForDuration:1 frequency:440];
 }
 
-- (IBAction)hit2:(id)sender {
-    [mySoundGenerator playNoteForDuration:1 Frequency:(arc4random()%200+400)];
+- (IBAction)playRandomFrequency:(id)sender {
+    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    [mySoundGenerator playNoteForDuration:1 frequency:randomFrequency];
 }
 
 @end

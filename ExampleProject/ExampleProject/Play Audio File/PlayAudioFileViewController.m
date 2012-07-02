@@ -29,7 +29,8 @@
 }
 
 - (IBAction)touchButton:(id)sender {
-    float mult = (arc4random()%51)/100.0f + 0.75f;
-    [audioFilePlayer playWithFrequencyMultiplier:mult];
+    float speed = randomFloatBetween(audioFilePlayer.speed.minimumValue,
+                                     audioFilePlayer.speed.maximumValue);
+    [audioFilePlayer playWithSpeed:speed];
 }
 @end
