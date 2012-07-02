@@ -1,5 +1,5 @@
 //
-//  OCSFunctionTable.h
+//  OCSFTable.h
 //
 //  Created by Aurelius Prochazka on 4/12/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -17,7 +17,7 @@
  - Windows (OCSWindowsTable)
  
  */
-@interface OCSFunctionTable : NSObject
+@interface OCSFTable : NSObject
 
 // The unsupported types appear in an enumeration at the bottom of this file.  Add as necessary.
 typedef enum
@@ -26,24 +26,24 @@ typedef enum
     kFTExponentialCurves=5,
     kFTSines=10,
     kFTWindows=20,
-} FunctionTableType;
+} FTableType;
 
 
 /// The output is a globally accessibly constant parameter
 @property (nonatomic, strong) OCSParamConstant *output;
 
 /// Creates a function table at the most basic level.
-/// @param functionTableType  One of the supported GeneratingRoutines.
+/// @param fTableType  One of the supported GeneratingRoutines.
 /// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
 /// @param parameters         An array of parameters that define the function table. 
-- (id)initWithType:(FunctionTableType)functionTableType
+- (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
         parameters:(OCSParamArray *)parameters;
 
 /// Creates a function table without specifying a size, deferring that calculation.
-/// @param functionTableType  One of the supported GeneratingRoutines.
+/// @param fTableType  One of the supported GeneratingRoutines.
 /// @param parameters         An array of parameters that define the function table. 
-- (id)initWithType:(FunctionTableType)functionTableType
+- (id)initWithType:(FTableType)fTableType
         parameters:(OCSParamArray *)parameters;
 
 /// @returns The textual representation of the function table for Csound
@@ -75,7 +75,7 @@ typedef enum
     kFTCompositeWaveformsFromSines=19,
     kFTRandomDistributions=21,
     kFTTextFile=23,
-    kFTScaledFunctionTable=24,
+    kFTScaledFTable=24,
     kFTExponentialCurvesFromBreakpoints=25,
     kFTStraightLinesFromBreakpoints=27,
     kFTTimeTaggedTrajectory=28,

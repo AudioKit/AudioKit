@@ -29,7 +29,7 @@
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 
                                  partialStrengths:partialStrengths];
-        [self addFunctionTable:sine];
+        [self addFTable:sine];
         
         OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
                                                  toValue:ocsp(1.5)
@@ -59,7 +59,7 @@
                                                 carrierMultiplier:ocsp(1) 
                                              modulatingMultiplier:[myLine output]
                                                   modulationIndex:[modIndexLine control]
-                                                    functionTable:sine];
+                                                           fTable:sine];
         [self addOpcode:fmOscillator];
 
         // AUDIO OUTPUT ========================================================

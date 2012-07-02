@@ -18,7 +18,7 @@
 		C4307FF4159BCE660091AE59 /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4307F9B159BCE650091AE59 /* template.csd */; };
 		C4307FF5159BCE660091AE59 /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4307F9C159BCE650091AE59 /* test.csd */; };
 		C4307FF6159BCE660091AE59 /* OCSExponentialCurvesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F9F159BCE650091AE59 /* OCSExponentialCurvesTable.m */; };
-		C4307FF7159BCE660091AE59 /* OCSFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FA1159BCE650091AE59 /* OCSFunctionTable.m */; };
+		C4307FF7159BCE660091AE59 /* OCSFTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FA1159BCE650091AE59 /* OCSFTable.m */; };
 		C4307FF8159BCE660091AE59 /* OCSRandomDistributionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FA3159BCE650091AE59 /* OCSRandomDistributionTable.m */; };
 		C4307FF9159BCE660091AE59 /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FA5159BCE650091AE59 /* OCSSineTable.m */; };
 		C4307FFA159BCE660091AE59 /* OCSSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FA7159BCE650091AE59 /* OCSSoundFileTable.m */; };
@@ -155,8 +155,8 @@
 		C4307F9C159BCE650091AE59 /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
 		C4307F9E159BCE650091AE59 /* OCSExponentialCurvesTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSExponentialCurvesTable.h; sourceTree = "<group>"; };
 		C4307F9F159BCE650091AE59 /* OCSExponentialCurvesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSExponentialCurvesTable.m; sourceTree = "<group>"; };
-		C4307FA0159BCE650091AE59 /* OCSFunctionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFunctionTable.h; sourceTree = "<group>"; };
-		C4307FA1159BCE650091AE59 /* OCSFunctionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFunctionTable.m; sourceTree = "<group>"; };
+		C4307FA0159BCE650091AE59 /* OCSFTable.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OCSFTable.h; sourceTree = "<group>"; };
+		C4307FA1159BCE650091AE59 /* OCSFTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFTable.m; sourceTree = "<group>"; };
 		C4307FA2159BCE650091AE59 /* OCSRandomDistributionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomDistributionTable.h; sourceTree = "<group>"; };
 		C4307FA3159BCE650091AE59 /* OCSRandomDistributionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomDistributionTable.m; sourceTree = "<group>"; };
 		C4307FA4159BCE650091AE59 /* OCSSineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSineTable.h; sourceTree = "<group>"; };
@@ -493,7 +493,7 @@
 				C43080B7159C14E10091AE59 /* doc */,
 				C4307F93159BCE650091AE59 /* Core Classes */,
 				C4307F9A159BCE650091AE59 /* CSDFiles */,
-				C4307F9D159BCE650091AE59 /* FunctionTables */,
+				C4307F9D159BCE650091AE59 /* FTables */,
 				C4307FAA159BCE650091AE59 /* Opcodes */,
 				C4307FE3159BCE650091AE59 /* Parameters */,
 				C4307FEC159BCE650091AE59 /* Properties */,
@@ -528,11 +528,11 @@
 			path = CSDFiles;
 			sourceTree = "<group>";
 		};
-		C4307F9D159BCE650091AE59 /* FunctionTables */ = {
+		C4307F9D159BCE650091AE59 /* FTables */ = {
 			isa = PBXGroup;
 			children = (
-				C4307FA0159BCE650091AE59 /* OCSFunctionTable.h */,
-				C4307FA1159BCE650091AE59 /* OCSFunctionTable.m */,
+				C4307FA0159BCE650091AE59 /* OCSFTable.h */,
+				C4307FA1159BCE650091AE59 /* OCSFTable.m */,
 				C4307F9E159BCE650091AE59 /* OCSExponentialCurvesTable.h */,
 				C4307F9F159BCE650091AE59 /* OCSExponentialCurvesTable.m */,
 				C4307FA2159BCE650091AE59 /* OCSRandomDistributionTable.h */,
@@ -544,6 +544,7 @@
 				C4307FA8159BCE650091AE59 /* OCSWindowsTable.h */,
 				C4307FA9159BCE650091AE59 /* OCSWindowsTable.m */,
 			);
+			name = FTables;
 			path = FunctionTables;
 			sourceTree = "<group>";
 		};
@@ -1103,7 +1104,7 @@
 				C4307FF2159BCE660091AE59 /* OCSManager.m in Sources */,
 				C4307FF3159BCE660091AE59 /* OCSOrchestra.m in Sources */,
 				C4307FF6159BCE660091AE59 /* OCSExponentialCurvesTable.m in Sources */,
-				C4307FF7159BCE660091AE59 /* OCSFunctionTable.m in Sources */,
+				C4307FF7159BCE660091AE59 /* OCSFTable.m in Sources */,
 				C4307FF8159BCE660091AE59 /* OCSRandomDistributionTable.m in Sources */,
 				C4307FF9159BCE660091AE59 /* OCSSineTable.m in Sources */,
 				C4307FFA159BCE660091AE59 /* OCSSoundFileTable.m in Sources */,

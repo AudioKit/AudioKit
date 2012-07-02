@@ -13,7 +13,7 @@
     OCSParam *car;
     OCSParam *mod;
     OCSParamControl *modIndex;
-    OCSFunctionTable *f;
+    OCSFTable *f;
     OCSParamConstant *phs;
     OCSParam *output;
 }
@@ -26,7 +26,7 @@
 @synthesize carrierMultiplier = car;
 @synthesize modulatingMultiplier = mod;
 @synthesize modulationIndex = modIndex;
-@synthesize functionTable = f;
+@synthesize fTable = f;
 @synthesize phase = phs;
 @synthesize output;
 
@@ -35,7 +35,7 @@
       carrierMultiplier:(OCSParam *)carrierMultiplier
    modulatingMultiplier:(OCSParam *)modulatingMultiplier
         modulationIndex:(OCSParamControl *)modulationIndex
-          functionTable:(OCSFunctionTable *)functionTable
+                 fTable:(OCSFTable *)fTable
                   phase:(OCSParamConstant *)phase;
 {
     self = [super init];
@@ -46,7 +46,7 @@
         car  = carrierMultiplier;
         mod  = modulatingMultiplier;
         modIndex = modulationIndex;
-        f = functionTable;
+        f = fTable;
         phs = phase;
     }
     return self;
@@ -57,14 +57,14 @@
       carrierMultiplier:(OCSParam *)carrierMultiplier
    modulatingMultiplier:(OCSParam *)modulatingMultiplier
         modulationIndex:(OCSParamControl *)modulationIndex
-          functionTable:(OCSFunctionTable *)functionTable;
+                 fTable:(OCSFTable *)fTable;
 {
     return [self initWithAmplitude:amplitude
                      baseFrequency:baseFrequency
                  carrierMultiplier:carrierMultiplier
               modulatingMultiplier:modulatingMultiplier
                    modulationIndex:modulationIndex
-                     functionTable:functionTable
+                     fTable:fTable
                              phase:[OCSParamConstant paramWithInt:0]];
 }
 

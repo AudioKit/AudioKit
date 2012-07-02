@@ -5,10 +5,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 
 /// Generates composite waveforms made up of weighted sums of simple sinusoids.
-@interface OCSSineTable : OCSFunctionTable
+@interface OCSSineTable : OCSFTable
 
 /// Creates a pure sine table with a default size of 4096.
 - (id)init;

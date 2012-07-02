@@ -35,8 +35,8 @@
 - (void)addProperty:(OCSProperty *)newProperty;
 
 /// Adds the function table to the OCSInstrument.
-/// @param newFunctionTable New function table to add to the instrument.
-- (void)addFunctionTable:(OCSFunctionTable *)newFunctionTable;
+/// @param newFTable New function table to add to the instrument.
+- (void)addFTable:(OCSFTable *)newFTable;
 
 /// Adds the opcode to the OCSInstrument.
 /// @param newOpcode New opcode to add to the instrument.

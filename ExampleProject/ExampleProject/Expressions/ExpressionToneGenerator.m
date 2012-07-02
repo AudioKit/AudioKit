@@ -21,14 +21,14 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSSineTable * sineTable = [[OCSSineTable alloc] init];
-        [self addFunctionTable:sineTable];
+        [self addFTable:sineTable];
         
         OCSSineTable * vibratoSine = [[OCSSineTable alloc] init];
-        [self addFunctionTable:vibratoSine];
+        [self addFTable:vibratoSine];
         
         OCSOscillator * vibratoOscillator; 
 
-        vibratoOscillator = [[OCSOscillator alloc] initWithFunctionTable:vibratoSine
+        vibratoOscillator = [[OCSOscillator alloc] initWithFTable:vibratoSine
                                                                frequency:ocsp(6)
                                                                amplitude:ocsp(40)];
         [vibratoOscillator setOutput:[vibratoOscillator control]];
@@ -50,7 +50,7 @@
         OCSParamControl * totalAmplitude = [OCSParamControl paramWithFormat:
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
         OCSOscillator * oscillator;
-        oscillator = [[OCSOscillator alloc]  initWithFunctionTable:sineTable
+        oscillator = [[OCSOscillator alloc]  initWithFTable:sineTable
                                                          frequency:vibrato
                                                          amplitude:totalAmplitude];
         [self addOpcode:oscillator ];

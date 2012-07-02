@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 
 /** Transfers data from a soundfile into a function table.
 
@@ -38,7 +38,7 @@
  
 */
 
-@interface OCSSoundFileTable : OCSFunctionTable
+@interface OCSSoundFileTable : OCSFTable
 
 /// Store file with a filename
 /// @param filename Audio file to load.  Most types are supported.

@@ -6,7 +6,7 @@
 //
 
 #import "OCSParamArray.h"
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 
 /** Generic function all OCS Opcodes need access to. */
 

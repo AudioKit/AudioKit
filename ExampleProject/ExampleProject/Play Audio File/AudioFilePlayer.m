@@ -34,7 +34,7 @@
         file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
         OCSSoundFileTable *fileTable;
         fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
-        [self addFunctionTable:fileTable];
+        [self addFTable:fileTable];
         
         OCSLoopingOscillator *oscil;
         oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable

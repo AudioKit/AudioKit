@@ -22,22 +22,22 @@
 @property (nonatomic, strong) OCSParam *output;
 
 /// Instantiates the oscillator with an initial phase of sampling.
-/// @param functionTable Requires a wrap-around guard point.
+/// @param fTable Requires a wrap-around guard point.
 /// @param initialPhase  Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. 
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
-- (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                  frequency:(OCSParam *)frequency
-                  amplitude:(OCSParam *)amplitude 
-                      phase:(OCSParamConstant *)initialPhase;
+- (id)initWithFTable:(OCSFTable *)fTable
+           frequency:(OCSParam *)frequency
+           amplitude:(OCSParam *)amplitude 
+               phase:(OCSParamConstant *)initialPhase;
 
 /// Instantiates the oscillator.
-/// @param functionTable Requires a wrap-around guard point.
+/// @param fTable Requires a wrap-around guard point.
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
-- (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                  frequency:(OCSParam *)frequency
-                  amplitude:(OCSParam *)amplitude;
+- (id)initWithFTable:(OCSFTable *)fTable
+           frequency:(OCSParam *)frequency
+           amplitude:(OCSParam *)amplitude;
 
 
 

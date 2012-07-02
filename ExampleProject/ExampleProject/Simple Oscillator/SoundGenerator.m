@@ -37,12 +37,12 @@
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 
                                  partialStrengths:partialStrengthParamArray];
-        [self addFunctionTable:sine];
+        [self addFTable:sine];
         
         OCSOscillator *myOscil;
-        myOscil = [[OCSOscillator alloc] initWithFunctionTable:sine
-                                                     frequency:[frequency constant]
-                                                     amplitude:ocsp(0.12)];                                
+        myOscil = [[OCSOscillator alloc] initWithFTable:sine
+                                              frequency:[frequency constant]
+                                              amplitude:ocsp(0.12)];                                
         [self addOpcode:myOscil];
         
         OCSReverb *reverb;

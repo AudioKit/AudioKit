@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFunctionTable.h"
+#import "OCSFTable.h"
 
 /** Constructs functions from segments of exponential curves.
  
@@ -28,7 +28,7 @@
  segment encompassing the end location, this value will not actually be reached, although it 
  may eventually appear as a result of final scaling.
  */
-@interface OCSExponentialCurvesTable : OCSFunctionTable
+@interface OCSExponentialCurvesTable : OCSFTable
 
 /// Instantiates an exponential curves function table.
 /// @param tableSize         Number of points in the table. Must be a power of 2 or power-of-2 plus 1.

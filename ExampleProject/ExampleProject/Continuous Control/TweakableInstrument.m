@@ -61,7 +61,7 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
-        [self addFunctionTable:sineTable];
+        [self addFTable:sineTable];
         
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:[amplitude control] 
@@ -69,7 +69,7 @@
                                                 carrierMultiplier:ocsp(1) 
                                              modulatingMultiplier:[modulation control] 
                                                   modulationIndex:[modIndex control] 
-                                                    functionTable:sineTable];
+                                                           fTable:sineTable];
         [self addOpcode:fmOscillator];
         
         // AUDIO OUTPUT ========================================================

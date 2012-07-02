@@ -11,7 +11,7 @@
     OCSParam *amp;
     OCSParam *freq;
     OCSParamConstant *phs;
-    OCSFunctionTable *f;
+    OCSFTable *f;
     
     
     OCSParam *audio;
@@ -26,10 +26,10 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                  frequency:(OCSParam *)frequency
-                  amplitude:(OCSParam *)amplitude 
-                      phase:(OCSParamConstant *)initialPhase;
+- (id)initWithFTable:(OCSFTable *)fTable
+           frequency:(OCSParam *)frequency
+           amplitude:(OCSParam *)amplitude 
+               phase:(OCSParamConstant *)initialPhase;
 {
     self = [super init];
     if (self) {
@@ -38,20 +38,20 @@
         output  =  audio;
         amp  = amplitude;
         freq = frequency;
-        f    = functionTable;
+        f    = fTable;
         phs  = initialPhase;
     }
     return self; 
 }
 
-- (id)initWithFunctionTable:(OCSFunctionTable *)functionTable
-                  frequency:(OCSParam *)frequency
-                  amplitude:(OCSParam *)amplitude;
+- (id)initWithFTable:(OCSFTable *)fTable
+           frequency:(OCSParam *)frequency
+           amplitude:(OCSParam *)amplitude;
 {
-    return [self initWithFunctionTable:functionTable
-                             frequency:frequency
-                             amplitude:amplitude 
-                                 phase:[OCSParamConstant paramWithInt:0]];
+    return [self initWithFTable:fTable
+                      frequency:frequency
+                      amplitude:amplitude 
+                          phase:[OCSParamConstant paramWithInt:0]];
 }
 
 - (void)setControl:(OCSParamControl *)p {
