@@ -15,6 +15,7 @@
 }
 @end
 @implementation OscillatorViewController
+@synthesize frequencyLabel;
 
 - (void)viewDidLoad
 {
@@ -27,12 +28,18 @@
 }
 
 - (IBAction)playA:(id)sender {
+    [frequencyLabel setText:[NSString stringWithFormat:@"%g", 440.0]];
     [mySoundGenerator playNoteForDuration:1 frequency:440];
 }
 
 - (IBAction)playRandomFrequency:(id)sender {
     float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    [frequencyLabel setText:[NSString stringWithFormat:@"%g", randomFrequency]];
     [mySoundGenerator playNoteForDuration:1 frequency:randomFrequency];
 }
 
+- (void)viewDidUnload {
+    [self setFrequencyLabel:nil];
+    [super viewDidUnload];
+}
 @end

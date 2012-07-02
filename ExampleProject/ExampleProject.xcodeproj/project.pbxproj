@@ -84,6 +84,7 @@
 		C4842D571579C2F800E69770 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4842D491579C2F800E69770 /* libcsound.a */; };
 		C4842D581579C2F800E69770 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4842D4A1579C2F800E69770 /* libsndfile.a */; };
 		C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4842D4B1579C2F800E69770 /* LICENSE.TXT */; };
+		C48A8AA315A1969100E53A1C /* OscillatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C495F745158344CD00951461 /* OscillatorViewController.xib */; };
 		C495F73F1583444700951461 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C495F73E1583444700951461 /* MasterViewController.xib */; };
 		C495F74E1583452100951461 /* FMGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F7491583452100951461 /* FMGameObject.m */; };
 		C495F74F1583452100951461 /* FMGameObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C495F74C1583452100951461 /* FMGameObjectViewController.m */; };
@@ -1053,6 +1054,7 @@
 				C43080B1159BD5DB0091AE59 /* dishR.wav in Resources */,
 				C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */,
 				C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */,
+				C48A8AA315A1969100E53A1C /* OscillatorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 @interface OscillatorViewController : UIViewController 
+@property (weak, nonatomic) IBOutlet UILabel *frequencyLabel;
 
 - (IBAction)playA:(id)sender;
 - (IBAction)playRandomFrequency:(id)sender;
