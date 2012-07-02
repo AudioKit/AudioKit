@@ -40,10 +40,10 @@
                                      @"%d + (%g * %@)", 
                                      vibratoOffset, vibratoScale, vibratoOscillator];
         
-        OCSParamConstant * amplitudeOffset = ocsp(0.1);
+        OCSParamConstant * amplitudeOffset = ocsp(0.0);
         
         OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
-                                                         toValue:ocsp(0.2)
+                                                         toValue:ocsp(0.5)
                                                         duration:duration];
         [self addOpcode:amplitudeRamp];
         

@@ -12,11 +12,13 @@
 #import "OCSAudio.h"
 
 @interface AudioFilePlayer () {
-    OCSProperty *frequencyMultiplier;
+    OCSProperty *spd;
 }
 @end
 
 @implementation AudioFilePlayer
+
+@synthesize speed = spd;
 
 - (id)init {
     self = [super init];
@@ -24,9 +26,9 @@
         
         // INPUTS AND CONTROLS =================================================
         
-        frequencyMultiplier = [[OCSProperty alloc] init];
-        [frequencyMultiplier setConstant:[OCSParamConstant paramWithString:@"FrequencyMultiplier"]]; 
-        [self addProperty:frequencyMultiplier];
+        spd = [[OCSProperty alloc] initWithMinValue:kSpeedMin  maxValue:kSpeedMax];
+        [spd setConstant:[OCSParamConstant paramWithString:@"Speed"]]; 
+        [self addProperty:spd];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -38,7 +40,7 @@
         
         OCSLoopingOscillator *oscil;
         oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
-                                                 frequencyMultiplier:[frequencyMultiplier constant]
+                                                 frequencyMultiplier:[spd constant]
                                                            amplitude:ocsp(0.5)];
         [self addOpcode:oscil];
         
@@ -62,10 +64,10 @@
     [self playNoteForDuration:3.0f];
 }
 
-- (void)playWithFrequencyMultiplier:(float)freqMutiplier {
-    frequencyMultiplier.value = freqMutiplier;
-    NSLog(@"Playing file at %0.2fx original speed", freqMutiplier);
-    [self playNoteForDuration:3.0f];
+- (void)playWithSpeed:(float)speed {
+    spd.value = speed;
+    NSLog(@"Playing file at %0.2fx original speed", speed);
+    [self playNoteForDuration:(3.0f/speed)];
 }
 
 

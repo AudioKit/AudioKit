@@ -14,8 +14,16 @@
 
 @interface FMGameObject : OCSInstrument 
 
-- (void)playNoteForDuration:(float)dur 
-                  Frequency:(float)freq 
-                 Modulation:(float)mod;
+@property (nonatomic, strong) OCSProperty *frequency;
+#define kFrequencyMin 110
+#define kFrequencyMax 880
+
+@property (nonatomic, strong) OCSProperty *modulation;
+#define kModulationMin 0.5
+#define kModulationMax 2.0
+
+- (void)playNoteForDuration:(float)noteDuration 
+                  Frequency:(float)noteFrequency
+                 Modulation:(float)noteModulation;
 
 @end

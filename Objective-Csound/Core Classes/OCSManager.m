@@ -8,7 +8,6 @@
 #import "OCSManager.h"
 #import "OCSPropertyManager.h"
 
-
 @interface OCSManager () {
     //TODO: odbfs, sr stuff
     BOOL isRunning;

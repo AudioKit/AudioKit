@@ -33,14 +33,14 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 			<object class="IBUIView" id="766721923">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="416025771">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{139, 253}, {201, 169}}</string>
+						<string key="NSFrame">{{70, 243}, {295, 169}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSNextKeyView" ref="943857707"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -48,7 +48,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">1</string>
+						<string key="IBUINormalTitle">Frequency</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="160595364">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -61,13 +61,13 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="940764729">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="42574011">
 							<int key="type">2</int>
-							<double key="pointSize">81</double>
+							<double key="pointSize">45</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="561979906">
+						<object class="NSFont" key="IBUIFont" id="752811497">
 							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">81</double>
+							<double key="NSSize">45</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -75,22 +75,22 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{415, 253}, {201, 169}}</string>
+						<string key="NSFrame">{{394, 243}, {295, 169}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">2</string>
+						<string key="IBUINormalTitle">Modulation</string>
 						<reference key="IBUIHighlightedTitleColor" ref="160595364"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="1055147783"/>
-						<reference key="IBUIFontDescription" ref="940764729"/>
-						<reference key="IBUIFont" ref="561979906"/>
+						<reference key="IBUIFontDescription" ref="42574011"/>
+						<reference key="IBUIFont" ref="752811497"/>
 					</object>
 					<object class="IBUILabel" id="363863921">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -149,6 +149,7 @@
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -175,21 +176,21 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">hit1:</string>
+						<string key="label">playRandomFrequency:</string>
 						<reference key="source" ref="416025771"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">8</int>
+					<int key="connectionID">11</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">hit2:</string>
+						<string key="label">playRandomModulation:</string>
 						<reference key="source" ref="943857707"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">9</int>
+					<int key="connectionID">10</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -217,8 +218,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="363863921"/>
 							<reference ref="672495891"/>
-							<reference ref="943857707"/>
 							<reference ref="416025771"/>
+							<reference ref="943857707"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -263,7 +264,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">9</int>
+			<int key="maxID">11</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

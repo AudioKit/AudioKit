@@ -12,7 +12,7 @@
     Float32 maximumValue;
     Float32 minimumValue;
     Float32 initValue;
-    Float32 value;
+    Float32 currentValue;
     
     OCSParam *audio;
     OCSParamControl *control;
@@ -28,7 +28,7 @@
 @synthesize maximumValue;
 @synthesize minimumValue;
 @synthesize initValue;
-@synthesize value;
+@synthesize value = currentValue;
 @synthesize audio;
 @synthesize control;
 @synthesize constant;
@@ -49,21 +49,22 @@
     return self;
 }
 
-- (id)initWithValue:(float)initialValue
+- (id)initWithMinValue:(float)minValue 
+              maxValue:(float)maxValue;
 {
     self = [self init];
-    initValue = initialValue;
-    value = initialValue;
-
+    minimumValue = minValue;
+    maximumValue = maxValue;
     return self;
 }
 
 - (id)initWithValue:(float)initialValue 
            minValue:(float)minValue 
-           maxValue:(float)maxValue;{
+           maxValue:(float)maxValue;
+{
     self = [self init];
     initValue = initialValue;
-    value = initialValue;
+    currentValue = initialValue;
     minimumValue = minValue;
     maximumValue = maxValue;
     return self;
@@ -81,6 +82,18 @@
 - (void)setConstant:(OCSParamConstant *)p {
     constant = p;
     output = constant;
+}
+
+- (void)setValue:(Float32)value {
+    currentValue = value;
+    if (value < minimumValue) {
+        currentValue = minimumValue;
+        NSLog(@"Out of bonds, assigning to minimum");
+    }
+    if (value > maximumValue) {
+        currentValue = maximumValue;
+        NSLog(@"Out of bonds, assigning to maximum");
+    }
 }
 
 - (NSString *)stringForCSDGetValue {

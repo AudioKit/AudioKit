@@ -36,9 +36,11 @@
 /// Catch-all output, necessary for parameterization.
 @property (nonatomic, strong) OCSParam *output;
 
-/// Initialize the property with an initial value
-/// @param initialValue Initial value.
-- (id)initWithValue:(float)initialValue;
+/// Initialize the property with bounds.
+/// @param minValue Minimum value.
+/// @param maxValue Maximum value.
+- (id)initWithMinValue:(float)minValue 
+              maxValue:(float)maxValue;
 
 /// Initialize the property with an initial value and bounds.
 /// @param initialValue Initial value.

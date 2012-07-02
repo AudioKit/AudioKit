@@ -10,6 +10,11 @@
 
 @interface SoundGenerator : OCSInstrument
 
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
+@property (nonatomic, strong) OCSProperty *frequency;
+#define kFrequencyMin 110
+#define kFrequencyMax 880
+
+- (void)playNoteForDuration:(float)noteDuration 
+                  frequency:(float)frequency;
 
 @end

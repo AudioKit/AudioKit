@@ -10,7 +10,11 @@
 
 @interface AudioFilePlayer : OCSInstrument
 
+@property (nonatomic, strong) OCSProperty *speed;
+#define kSpeedMin 0.5
+#define kSpeedMax 2.0 
+
 - (void)play;
-- (void)playWithFrequencyMultiplier:(float)freqMutiplier;
+- (void)playWithSpeed:(float)speed;
 
 @end
