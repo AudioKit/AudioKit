@@ -29,8 +29,8 @@
         OCSOscillator * vibratoOscillator; 
 
         vibratoOscillator = [[OCSOscillator alloc] initWithFTable:vibratoSine
-                                                               frequency:ocsp(6)
-                                                               amplitude:ocsp(40)];
+                                                        frequency:ocsp(6)
+                                                        amplitude:ocsp(40)];
         [vibratoOscillator setOutput:[vibratoOscillator control]];
         [self addOpcode:vibratoOscillator];
         
@@ -51,8 +51,8 @@
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
         OCSOscillator * oscillator;
         oscillator = [[OCSOscillator alloc]  initWithFTable:sineTable
-                                                         frequency:vibrato
-                                                         amplitude:totalAmplitude];
+                                                  frequency:vibrato
+                                                  amplitude:totalAmplitude];
         [self addOpcode:oscillator ];
         
         // AUDIO OUTPUT ========================================================

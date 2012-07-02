@@ -163,8 +163,7 @@
             controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
             break;
         case 3:
-            controller = [[FMGameObjectViewController alloc] initWithNibName:@"FMGameObjectViewController"
-                                                                  bundle:nil];
+            controller = [[FMGameObjectViewController alloc] initWithNibName:@"FMGameObjectViewController" bundle:nil];
             break;
         case 4:
             controller = [[UnitGeneratorsViewController alloc] initWithNibName:@"UnitGeneratorsViewController" bundle:nil];
@@ -179,20 +178,16 @@
             controller = [[ContinuousControlViewController alloc] initWithNibName:@"ContinuousControlViewController" bundle:nil];
             break;
         case 8:
-            controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" 
-                                                               bundle:nil];
+            controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" bundle:nil];
             break;
         case 9:
-            controller = [[MoreGrainViewController alloc] initWithNibName:@"MoreGrainViewController" 
-                                                               bundle:nil];
+            controller = [[MoreGrainViewController alloc] initWithNibName:@"MoreGrainViewController" bundle:nil];
             break;
         case 10:
-            controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" 
-                                                                   bundle:nil];
+            controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
         case 11:
-            controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" 
-                                                             bundle:nil];
+            controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
             break;
         default:
             break;

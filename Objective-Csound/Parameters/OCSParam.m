@@ -68,5 +68,12 @@ static int currentID = 1;
     return new;
 }
 
+- (id)amplitudeFromFullScaleDecibel;
+{
+    OCSParam *new = [[OCSParam alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", parameterString]];
+    return new;
+}
+
 
 @end

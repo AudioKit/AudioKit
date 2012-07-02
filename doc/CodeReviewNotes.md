@@ -15,6 +15,9 @@ Overall Notes
 File Specific Notes
 ===================
 
+### OCSExponentialCurvesTable
+* Should allow the developer to add points to the arrays.  Also, allow the developer to give the paired parameters as two different arrays.  Not sure which initialization will be most useful.
+
 ### OCSFTable
 * Standardize on how to deal with positive GenRoutine numbers mean the output is normalized to 1 and negative is not.
 

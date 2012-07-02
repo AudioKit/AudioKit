@@ -30,10 +30,15 @@
  */
 @interface OCSExponentialCurvesTable : OCSFTable
 
-/// Instantiates an exponential curves function table.
+/// Instantiates an exponential curves table.
 /// @param tableSize         Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param valueLengthPairs  Values must be nonzero and must be alike in sign.
-/// Lengths must be non-nagative and the sum should equal `tableSize`.
+/// Lengths must be non-negative and the sum should equal `tableSize`.
 - (id)initWithSize:(int)tableSize valueLengthPairs:(OCSParamArray *)valueLengthPairs;
+
+/// Instantiates an exponential curves table using breakpoints.
+/// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+/// @param breakpoints  x & y locations arranges as x1, y1, x2, y2, ... in a parameter array.  x values must be in increasing order. If the last x value is less than size, then the rest will be set to zero. Should not be negative but can be zero. y values must be non-zero and must be alike in sign.
+- (id)initWithSize:(int)tableSize xyPairs:(OCSParamArray *)xyPairs;
 
 @end

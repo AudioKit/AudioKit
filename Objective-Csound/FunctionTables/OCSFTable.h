@@ -26,6 +26,7 @@ typedef enum
     kFTExponentialCurves=5,
     kFTSines=10,
     kFTWindows=20,
+    kFTExponentialCurvesFromBreakpoints=25,
 } FTableType;
 
 
@@ -76,7 +77,6 @@ typedef enum
     kFTRandomDistributions=21,
     kFTTextFile=23,
     kFTScaledFTable=24,
-    kFTExponentialCurvesFromBreakpoints=25,
     kFTStraightLinesFromBreakpoints=27,
     kFTTimeTaggedTrajectory=28,
     kFTHarmonicPartials=30,
