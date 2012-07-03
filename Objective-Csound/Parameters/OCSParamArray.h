@@ -19,4 +19,7 @@
 /// @param ...        Terminate list with a nil.
 + (id)paramArrayFromParams:(OCSConstantParam *) firstParam, ...;
 
+/// Returns the number of elements in the array.
+- (int)count;
+
 @end
