@@ -18,15 +18,15 @@ Overall Notes
 
 File Specific Notes
 ===================
-* MoreGrainViewController.m - not properly stopping all timers
+* MoreGrainViewController.m - not properly stopping all timers.  Also, the whole thing may be too complicated for the ExampleProject.
+
 * OCSLoopingOscillator - needs work, lots of csound crap in header
 
 Untested Stuff
 ==============
-* OCSNReverb - longer init method
 * OCSArrayTable
 * OCSExponentialCurvesTable - not all method, especial those using pairing
-* OCSScale
+* OCSNReverb - longer init method
 * OCSPluckDrum
 * OCSPluckString
 * OCSScale
