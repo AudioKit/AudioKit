@@ -19,9 +19,6 @@ Overall Notes
 File Specific Notes
 ===================
 
-### OCSParameterArray
-* Does this type even need to exist?  Seems like at most it should be a category of NSArray.
-
 ### OCSNReverb
 * Write an example to test the longer init method.  Perhaps should use this is an excuse to learn to write unit tests.
 

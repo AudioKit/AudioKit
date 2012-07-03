@@ -22,4 +22,8 @@
 /// Returns the number of elements in the array.
 - (int)count;
 
+/// Takes two OCSParameterArrays and intertwines x1, y1, x2, y2, etc.
+/// @param pairingArray The second array, must be equal in size.
+- (OCSParameterArray *)pairWith:(OCSParameterArray *)pairingArray;
+
 @end
