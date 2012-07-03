@@ -7,6 +7,7 @@
 //
 
 #import "PlayAudioFileViewController.h"
+#import "Helper.h"
 #import "OCSManager.h"
 #import "AudioFilePlayer.h"
 
@@ -29,8 +30,7 @@
 }
 
 - (IBAction)touchButton:(id)sender {
-    float speed = randomFloatBetween(audioFilePlayer.speed.minimumValue,
-                                     audioFilePlayer.speed.maximumValue);
+    float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
     [audioFilePlayer playWithSpeed:speed];
 }
 @end

@@ -8,7 +8,6 @@
 #import "CsoundObj.h"
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
-#import "UsefulFunctions.h"
 
 //#import "OCSPropertyManager.h"
 

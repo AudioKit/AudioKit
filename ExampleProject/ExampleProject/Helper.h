@@ -19,5 +19,6 @@
                       minimum:(float)minimum 
                       maximum:(float)maximum;
 
++ (float)randomFloatFrom:(float)minimum to:(float)maximum; 
 
 @end

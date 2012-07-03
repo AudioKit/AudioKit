@@ -7,6 +7,7 @@
 //
 
 #import "OscillatorViewController.h"
+#import "Helper.h"
 #import "OCSManager.h"
 #import "SoundGenerator.h"
 
@@ -33,7 +34,7 @@
 }
 
 - (IBAction)playRandomFrequency:(id)sender {
-    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", randomFrequency]];
     [mySoundGenerator playNoteForDuration:1 frequency:randomFrequency];
 }

@@ -7,6 +7,7 @@
 //
 
 #import "FMGameObjectViewController.h"
+#import "Helper.h"
 #import "OCSManager.h"
 
 @interface FMGameObjectViewController () {
@@ -28,13 +29,13 @@
 
 - (IBAction)playRandomFrequency:(id)sender
 {
-    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     [[myFMGameObject frequency] setValue:randomFrequency];
     [myFMGameObject playNoteForDuration:1.0];
 }
 - (IBAction)playRandomModulation:(id)sender
 {
-    float randomModulation = randomFloatBetween(kModulationMin, kModulationMax);
+    float randomModulation = [Helper randomFloatFrom:kModulationMin to:kModulationMax];
     [[myFMGameObject modulation] setValue:randomModulation];
     [myFMGameObject playNoteForDuration:1.0];
 }
