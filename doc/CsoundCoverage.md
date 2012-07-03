@@ -1,18 +1,18 @@
 ### Csound Opcodes and their OCS counterparts
 
-* ampdbfs   - amplitudeFromFullScaleDecibel
+* ampdbfs   - OCSParameter (amplitudeFromFullScaleDecibel)
 * butterlp  - OCSLowPassButterworthFilter
 * chnget    - OCSProperty
 * chnset    - OCSProperty
 * convolve  - OCSConvolution
-* cpspch    - toCPS
+* cpspch    - OCSParam (toCPS)
 * diskin2   - OCSFileInput
 * expseg    - OCSSegmentArray
 * expsegr   - OCSSegmentArray
 * foscili   - OCSFMOscillator
-* ftchnls	- OCSSoundFileTable
+* ftchnls	- OCSSoundFileTable (channels)
 * ftgentmp  - OCSFTable
-* ftlen     - [ftable length]
+* ftlen     - OCSFTable (length)
 * grain     - OCSGrain
 * line      - OCSLine
 * linen     - OCSLinearEnvelope

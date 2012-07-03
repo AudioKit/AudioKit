@@ -1,24 +1,9 @@
-Developer's Guide
-=================
+Contributer's Guide
+===================
 
-### Documentation Instructions
+We welcome your contributions. Please fork this project, and make your suggested code additions and enhancements.  Keep in mind, for a project of this size, we have to adhere to some conventions.  Please refer to the following documents for coding style and implementation guidelines:
 
-We use appledoc to create Apple-style documentation and Quick Help from within Xcode.
-
-http://gentlebytes.com/appledoc/
-
-After installation, use this command to run documentation generator:
-
-    appledoc --project-name Objective-Csound \\
-    --project-company "Hear For Yourself" \\
-    --company-id com.hearforyourself \\
-    --no-repeat-first-par \\
-    --output ~/help \\
-    .
-
-Documentation will be automatically reloaded in Xcode, but Quick Help will not be updated until you manually restart Xcode.
-
-Since appledoc uses file comments to generate the documentation, engaging in good, consistent commenting habits is essential. 
+* [Documentation Generation](DocumentationGeneration.md)
 
 ### Header (.h) files
 
@@ -41,8 +26,11 @@ Properties should be commented with the appledoc standard.  Property names shoul
 Methods should also be fully commented to the appledoc standard which includes @param lines for every parameter sent to the method.  These parameters should be named very similarly to the method signature text that precedes them so that the display from Quick Help is clear.  
 
 For example:
+
 	initWithFrequency:(OCSParameter *)frequency
+
 not 
+
 	initWithFrequency:(OCSParameter *)f
 
 Long signatures should be broken over lines.  Some variable names such as `in` should be avoided because they break Xcode's indenting.
@@ -51,9 +39,9 @@ Although it may be tempting to create the methods in an order identical to Csoun
 
 We support two ways of using opcodes.
 
-a) Any init function should specify everything that is required for an opcode to run.  Using the initWithXXX method should try to ensure that the developer will see everything she needs to populate in order to create a working opcode.
+1. Any init function should specify everything that is required for an opcode to run.  Using the initWithXXX method should try to ensure that the developer will see everything she needs to populate in order to create a working opcode.
 
-b) The problem with the first method is that it can look unwieldy.  So, if the developer prefers, she should be able to alloc-init the class without any parameters and define parameters after the fact as properties. The developer is on her own to debug the CSD file, especially looking for (null)s when underspecifying the opcode. 
+2. The problem with the first method is that it can look unwieldy.  So, if the developer prefers, she should be able to alloc-init the class without any parameters and define parameters after the fact as properties. The developer is on her own to debug the CSD file, especially looking for (null)s when underspecifying the opcode. 
 
 ### Implementation (.m) files
 As in header files, the default Apple comments are fine, except that the project name should be replaced with "Objective-Csound" and your import lines should always be minimized.  Inside of implmentation files is where things should look "Csound-y" meaning that the original opcode names appear and you should use the short variable names from the Csounds.com manual.
