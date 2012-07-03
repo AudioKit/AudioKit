@@ -7,27 +7,19 @@
 //
 
 #import "ContinuousControlViewController.h"
+#import "Helper.h"
 #import "OCSManager.h"
+
 
 @interface ContinuousControlViewController ()
 {
     TweakableInstrument *myTweakableInstrument;
-    
     NSTimer *repeatingNoteTimer;
     NSTimer *repeatingSliderTimer;
 }
 @end
 
 @implementation ContinuousControlViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -61,38 +53,25 @@
     //[[myTweakableInstrument myPropertyManager] closeMidiIn];
 }
 
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orient
-{
-	return YES;
-}
-
 - (IBAction)runInstrument:(id)sender
 {
-    [myTweakableInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+499)];
+    float randomFrequency = randomFloatBetween(kTweakableFrequencyMin, 
+                                               kTweakableFrequencyMax);
+    [myTweakableInstrument playNoteForDuration:3.0 Frequency:randomFrequency];
     
     if (repeatingNoteTimer) {
         return;
     } else {
-        repeatingNoteTimer = 
-        [NSTimer scheduledTimerWithTimeInterval:3.0 
-                                         target:self      
-                                       selector:@selector(noteTimerFireMethod:)   
-                                       userInfo:nil 
-                                        repeats:YES];
-        repeatingSliderTimer = 
-        [NSTimer scheduledTimerWithTimeInterval:0.2 
-                                         target:self 
-                                       selector:@selector(sliderTimerFireMethod:) 
-                                       userInfo:nil 
-                                        repeats:YES];
+        repeatingNoteTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 
+                                                              target:self      
+                                                            selector:@selector(noteTimerFire:)   
+                                                            userInfo:nil 
+                                                             repeats:YES];
+        repeatingSliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 
+                                                                target:self 
+                                                              selector:@selector(sliderTimerFire:) 
+                                                              userInfo:nil 
+                                                               repeats:YES];
     }
 }
 
@@ -104,42 +83,45 @@
     repeatingSliderTimer = nil;
 }
 
-- (void)noteTimerFireMethod:(NSTimer *)timer
+- (void)noteTimerFire:(NSTimer *)timer
 {
-    [myTweakableInstrument playNoteForDuration:3.0 Frequency:(arc4random()%200+400)];
+    float randomFrequency = randomFloatBetween(kTweakableFrequencyMin, 
+                                               kTweakableFrequencyMax);
+    [myTweakableInstrument playNoteForDuration:3.0 Frequency:randomFrequency];
 }
 
-- (void)sliderTimerFireMethod:(NSTimer *)timer
+
+
+- (void)sliderTimerFire:(NSTimer *)timer
 {
-    float minValue = [[myTweakableInstrument modIndex] minimumValue];
-    float maxValue = [[myTweakableInstrument modIndex] maximumValue];
-    float newValue = minValue + (arc4random()%((int) (maxValue)));    
+    float newValue = randomFloatBetween(kTweakableModIndexMin, 
+                                        kTweakableModIndexMax);
     myTweakableInstrument.modIndex.value = newValue;
-    [modIndexSlider setValue:(newValue-minValue)/(maxValue - minValue) * 100.0];
-    
-    /*
+    [Helper setSlider:modIndexSlider 
+            withValue:newValue 
+              minimum:kTweakableModIndexMin 
+              maximum:kTweakableModIndexMax];
+
     // Test to show amplitude slider moving also
-    minValue    = [[myTweakableInstrument amplitude] minimumValue];
-    maxValue    = [[myTweakableInstrument amplitude] maximumValue];
-    float actualValue = [[myTweakableInstrument amplitude] value];
-    float sliderValue = (actualValue-minValue)/(maxValue-minValue)* 100.0;
-    [amplitudeSlider setValue:sliderValue];
-     */
+//    [self setSlider:amplitudeSlider
+//          withValue:[[myTweakableInstrument amplitude] value]  
+//            minimum:kTweakableAmplitudeMin 
+//            maximum:kTweakableAmplitudeMax];
+
 }
+
 
 - (IBAction)scaleAmplitude:(id)sender {
-    UISlider * mySlider = (UISlider *) sender;
-    float minValue = [[myTweakableInstrument amplitude] minimumValue];
-    float maxValue = [[myTweakableInstrument amplitude] maximumValue];
-    float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));
+    float newValue = [Helper scaleValueFromSlider:sender 
+                                          minimum:kTweakableAmplitudeMin 
+                                          maximum:kTweakableAmplitudeMax];
     myTweakableInstrument.amplitude.value = newValue;
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    UISlider * mySlider = (UISlider *) sender;
-    float minValue = [[myTweakableInstrument modulation] minimumValue];
-    float maxValue = [[myTweakableInstrument modulation] maximumValue];
-    float newValue = (minValue + ([mySlider value]/100.0)*(maxValue-minValue));    
+    float newValue = [Helper scaleValueFromSlider:sender 
+                                          minimum:kTweakableModulationMin 
+                                          maximum:kTweakableModulationMax];
     myTweakableInstrument.modulation.value = newValue;
 }
 

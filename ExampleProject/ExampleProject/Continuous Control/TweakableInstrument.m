@@ -38,10 +38,10 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        amplitude  = [[OCSProperty alloc] initWithValue:0.1f minValue:0.0f  maxValue:1.0f];
-        frequency  = [[OCSProperty alloc] initWithValue:20.0 minValue:20.0 maxValue:200000];
-        modulation = [[OCSProperty alloc] initWithValue:0.5f minValue:0.25f maxValue:2.2f];
-        modIndex   = [[OCSProperty alloc] initWithValue:1.0f minValue:0.0f  maxValue:25.0f];
+        amplitude  = [[OCSProperty alloc] initWithValue:kTweakableAmplitudeInit  minValue:kTweakableAmplitudeMin  maxValue:kTweakableAmplitudeMax];
+        frequency  = [[OCSProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
+        modulation = [[OCSProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
+        modIndex   = [[OCSProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
         
         [amplitude  setControl:[OCSControl parameterWithString:@"Amplitude"]]; 
         [frequency  setControl:[OCSControl parameterWithString:@"Frequency"]]; 

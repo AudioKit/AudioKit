@@ -16,6 +16,7 @@ Major Upgrades
 * OCSMidi - Do MIDI right.
 * OCSSequence - Sequencing a la CCSequence to manage timed note events
 * Improve the Example Project to be more interesting to first-timers.  Better sounds and cooler nibs.
+* Begin a testing philosophy
 
 Always More
 -----------

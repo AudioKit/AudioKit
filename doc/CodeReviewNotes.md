@@ -18,8 +18,14 @@ Overall Notes
 
 File Specific Notes
 ===================
+* MoreGrainViewController.m - not properly stopping all timers
 
-### OCSNReverb
-* Write an example to test the longer init method.  Perhaps should use this is an excuse to learn to write unit tests.
-
-* Try to change the name to something more descriptive.
+Untested Stuff
+==============
+* OCSNReverb - longer init method
+* OCSArrayTable
+* OCSExponentialCurvesTable - not all method, especial those using pairing
+* OCSScale
+* OCSPluckDrum
+* OCSPluckString
+* OCSScale
