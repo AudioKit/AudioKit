@@ -33,6 +33,21 @@
     return [params count];
 }
 
+
+- (OCSParameterArray *)pairWith:(OCSParameterArray *)pairingArray 
+{
+    NSAssert([self count] != [pairingArray count], @"Array must be equal in size");
+        
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    for (int i=0; i<[[self params] count]; i++) {
+        [temp addObject:[[self params]  objectAtIndex:i]];
+        [temp addObject:[[pairingArray params] objectAtIndex:i]];
+    }
+    OCSParameterArray *pairedArray = [[OCSParameterArray alloc] init];
+    [pairedArray setParams:temp];
+    return pairedArray;
+}
+
 - (id)parameterString {
     NSMutableArray *s = [[NSMutableArray alloc] init];
     for (OCSConstant *value in params) {

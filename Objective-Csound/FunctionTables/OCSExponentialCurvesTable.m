@@ -25,15 +25,7 @@
             values:(OCSParameterArray *)values
            lengths:(OCSParameterArray *)lengths;
 {
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (int i=0; i<[[values params] count]; i++) {
-        [temp addObject:[[values params]  objectAtIndex:i]];
-        [temp addObject:[[lengths params] objectAtIndex:i]];
-    }
-    
-    OCSParameterArray *valueLengthPairs;
-    [valueLengthPairs setParams:temp];
-    return [self initWithSize:tableSize valueLengthPairs:valueLengthPairs];
+    return [self initWithSize:tableSize valueLengthPairs:[values pairWith:lengths]];
 }
 
 #pragma mark Exponential Curves From Breakpoints
@@ -50,16 +42,7 @@
            xValues:(OCSParameterArray *)xValues
            yValues:(OCSParameterArray *)yValues;
 {
-    
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (int i=0; i<[[xValues params] count]; i++) {
-        [temp addObject:[[xValues params]  objectAtIndex:i]];
-        [temp addObject:[[yValues params] objectAtIndex:i]];
-    }
-    
-    OCSParameterArray *xyPairs;
-    [xyPairs setParams:temp];
-    return [self initWithSize:tableSize xyPairs:xyPairs];
+    return [self initWithSize:tableSize xyPairs:[xValues pairWith:yValues]];
 }
 
 
