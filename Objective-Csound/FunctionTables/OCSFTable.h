@@ -24,6 +24,7 @@
 typedef enum
 {
     kFTSoundFile = 1,
+    kFTArray=2,
     kFTExponentialCurves=5,
     kFTSines=10,
     kFTWindows=20,
@@ -63,7 +64,6 @@ typedef enum
 // Unsupported Generating Routines
 typedef enum
 {
-    kFTPFields=2,
     kFTPolynomial=3,
     kFTNormalizingFunction=4,
     kFTCubicPolynomials=6,

@@ -26,7 +26,11 @@
         params = [[NSMutableArray alloc] init];
     }
     return self;
-    
+}
+
+- (int)count 
+{
+    return [params count];
 }
 
 - (id) parameterString {

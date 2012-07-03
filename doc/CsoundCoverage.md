@@ -31,6 +31,7 @@
 ### Csound GEN Routines and their OCS counterparts
 
 * GEN01 - OCSSoundFileTable
+* GEN02 - OCSArrayTable
 * GEN05 - OCSExponentialCurvesTable
 * GEN10 - OCSSineTable
 * GEN20 - OCSWindowsTable
