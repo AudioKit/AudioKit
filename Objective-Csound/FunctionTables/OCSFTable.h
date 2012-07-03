@@ -7,7 +7,8 @@
 
 #import "OCSParamArray.h"
 
-/** Generic OCS Function Table definiton.  
+/** Generic OCS Function Table definiton.  By default, the table will not be normalized,
+ but it maybe normalized by setting the isNormalized property to YES.
 
  Currently supported function table types are
 
@@ -32,6 +33,10 @@ typedef enum
 
 /// The output is a globally accessibly constant parameter
 @property (nonatomic, strong) OCSConstantParam *output;
+
+/// This can be set to normalize the table, or not. It is not normalized by default.
+@property (nonatomic,assign) BOOL isNormalized;
+           
 
 /// Creates a function table at the most basic level.
 /// @param fTableType  One of the supported GeneratingRoutines.

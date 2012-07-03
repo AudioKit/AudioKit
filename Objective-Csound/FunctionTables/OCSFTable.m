@@ -9,14 +9,16 @@
 #import "OCSConstantParam.h"
 
 @interface OCSFTable () {
-    int size;
-    FTableType gen;
-    OCSParamArray *params;    
+    int isize;
+    FTableType igen;
+    OCSParamArray *iargs; 
+    BOOL isNormalized;
 }
 @end
 
 @implementation OCSFTable
 @synthesize output;
+@synthesize isNormalized;
 
 - (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
@@ -25,9 +27,10 @@
     self = [super init];
     if (self) {
         output = [OCSConstantParam paramWithString:[self functionName]];
-        size = tableSize;
-        gen = fTableType;
-        params = parameters;
+        isize = tableSize;
+        igen = fTableType;
+        iargs = parameters;
+        isNormalized = NO;
     }
     return self;
 }
@@ -45,15 +48,20 @@
 }
 
 
-//ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
+/// CSD Representation: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD {
+    if (isNormalized) {
+        igen = abs(igen); 
+    } else {
+        igen = -abs(igen);
+    }
     NSString *text;
-    if (params == nil) {
+    if (iargs == nil) {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i",
-                output, size, gen];
+                output, isize, igen];
     } else {
         text = [NSString stringWithFormat:@"%@ ftgentmp 0, 0, %i, %i, %@",
-                output, size, gen, [params parameterString]];
+                output, isize, igen, [iargs parameterString]];
     }
     return text;
 }
