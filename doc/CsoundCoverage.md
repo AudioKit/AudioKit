@@ -27,3 +27,12 @@
 * reverbsc  - OCSReverb
 * scale     - OCSScale
 * tablei    - OCSTableValue
+
+### Csound GEN Routines and their OCS counterparts
+
+* GEN01 - OCSSoundFileTable
+* GEN05 - OCSExponentialCurvesTable
+* GEN10 - OCSSineTable
+* GEN20 - OCSWindowsTable
+* GEN25 - OCSExponentialCurvesTable
+

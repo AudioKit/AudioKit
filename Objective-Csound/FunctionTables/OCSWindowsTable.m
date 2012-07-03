@@ -9,13 +9,12 @@
 #import "OCSWindowsTable.h"
 
 @implementation OCSWindowsTable
-//normalized to one version
 
 - (id)initWithType:(WindowType)windowType
           maxValue:(float)maximumValue    
               size:(int)tableSize; 
 {
-    return [self initWithType:(-kFTWindows)
+    return [self initWithType:kFTWindows
                          size:tableSize 
                    parameters:[OCSParamArray paramArrayFromParams:
                                ocspi(windowType),ocsp(maximumValue), nil]];
