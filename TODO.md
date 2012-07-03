@@ -26,6 +26,6 @@ Always More
 	* Make better documentation-generating comments - check McCurdy's site for insights on various opcodes
 * More documentation, not only in the comment but also in the documentation folder
 * More Opcodes
-* More Functions (Function Tables)
+* More FTables
 * More UDOs
 * More Examples

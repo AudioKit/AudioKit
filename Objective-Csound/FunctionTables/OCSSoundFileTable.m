@@ -22,4 +22,13 @@
                          size:tableSize 
                    parameters:parameters];
 }
+
+- (OCSConstant *)channels 
+{
+    OCSConstant * new = [[OCSConstant alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"ftchnls(%@)", [self output]]];
+    return new;
+}
+
+
 @end

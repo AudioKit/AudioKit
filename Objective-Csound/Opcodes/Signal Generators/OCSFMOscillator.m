@@ -68,7 +68,7 @@
                              phase:[OCSConstant parameterWithInt:0]];
 }
 
-/// CSD Representation: ares foscili xamp, kcps, xcar, xmod, kndx, ifn [, iphs]
+// CSD Representation: ares foscili xamp, kcps, xcar, xmod, kndx, ifn (, iphs)
 - (NSString *)stringForCSD
 {
     // Clean up for uninitialized parameters

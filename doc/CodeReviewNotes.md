@@ -19,6 +19,7 @@ Overall Notes
 File Specific Notes
 ===================
 * MoreGrainViewController.m - not properly stopping all timers
+* OCSLoopingOscillator - needs work, lots of csound crap in header
 
 Untested Stuff
 ==============

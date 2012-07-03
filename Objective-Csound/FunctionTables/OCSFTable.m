@@ -48,7 +48,7 @@
 }
 
 
-/// CSD Representation: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
+// CSD Representation: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD {
     if (isNormalized) {
         igen = abs(igen); 
@@ -66,12 +66,12 @@
     return text;
 }
 
-/// Gives the CSD string for the output parameter.  
+// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }
 
-- (id) length;
+- (OCSConstant *)length;
 {
     OCSConstant * new = [[OCSConstant alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ftlen(%@)", output]];

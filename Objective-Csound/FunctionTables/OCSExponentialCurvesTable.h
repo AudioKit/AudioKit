@@ -47,7 +47,7 @@
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param breakpoints  x & y locations arranges as x1, y1, x2, y2, ... in a parameter array.  x values must be in increasing order. If the last x value is less than size, then the rest will be set to zero. Should not be negative but can be zero. y values must be non-zero and must be alike in sign.
 - (id)initWithSize:(int)tableSize 
-           xyPairs:(OCSParameterArray *)xyPairs;
+       breakpoints:(OCSParameterArray *)breakpoints;
 
 
 /// Instantiates an exponential curves table using breakpoints.
@@ -55,7 +55,7 @@
 /// @param xValues   x values must be in increasing order. If the last x value is less than size, then the rest will be set to zero. Should not be negative but can be zero. 
 /// @param yValues   y values must be non-zero and must be alike in sign.
 - (id)initWithSize:(int)tableSize 
-           xValues:(OCSParameterArray *)xValues
-           yValues:(OCSParameterArray *)yValues;
+ breakpointXValues:(OCSParameterArray *)xValues
+ breakpointYValues:(OCSParameterArray *)yValues;
 
 @end
