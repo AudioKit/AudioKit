@@ -7,6 +7,7 @@
 //
 
 #import "ReverbViewController.h"
+#import "Helper.h"
 #import "OCSManager.h"
 #import "ToneGenerator.h"
 #import "EffectsProcessor.h"
@@ -39,7 +40,8 @@
 }
 
 - (IBAction)hit2:(id)sender {
-    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    
+    float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     [toneGenerator playNoteForDuration:1 Frequency:randomFrequency];
 }
 

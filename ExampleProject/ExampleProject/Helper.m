@@ -30,4 +30,10 @@
     return minimum + percentage * (maximum - minimum);
 }
 
++ (float)randomFloatFrom:(float)minimum to:(float)maximum; 
+{
+    float width = maximum - minimum;
+    return (((float) rand() / RAND_MAX) * width) + minimum;
+}
+
 @end
