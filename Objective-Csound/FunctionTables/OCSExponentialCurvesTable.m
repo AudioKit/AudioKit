@@ -31,18 +31,18 @@
 #pragma mark Exponential Curves From Breakpoints
 
 - (id)initWithSize:(int)tableSize 
-           xyPairs:(OCSParameterArray *)xyPairs;
+       breakpoints:(OCSParameterArray *)breakpoints;
 {
     return [self initWithType:kFTExponentialCurvesFromBreakpoints
                          size:tableSize 
-                   parameters:xyPairs];
+                   parameters:breakpoints];
 }
 
 - (id)initWithSize:(int)tableSize 
-           xValues:(OCSParameterArray *)xValues
-           yValues:(OCSParameterArray *)yValues;
+ breakpointXValues:(OCSParameterArray *)xValues
+ breakpointYValues:(OCSParameterArray *)yValues;
 {
-    return [self initWithSize:tableSize xyPairs:[xValues pairWith:yValues]];
+    return [self initWithSize:tableSize breakpoints:[xValues pairWith:yValues]];
 }
 
 

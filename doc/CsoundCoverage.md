@@ -10,6 +10,7 @@
 * expseg    - OCSSegmentArray
 * expsegr   - OCSSegmentArray
 * foscili   - OCSFMOscillator
+* ftchnls	- OCSSoundFileTable
 * ftgentmp  - OCSFTable
 * ftlen     - [ftable length]
 * grain     - OCSGrain

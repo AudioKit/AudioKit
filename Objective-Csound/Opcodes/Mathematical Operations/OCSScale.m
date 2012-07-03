@@ -37,7 +37,7 @@
     return self; 
 }
 
-/// CSD Representation: kscl scale kinput, kmax, kmin
+// CSD Representation: kscl scale kinput, kmax, kmin
 - (NSString *)stringForCSD 
 {
     return [NSString stringWithFormat:@"%@ scale %@, %@, %@", kscl, kin, kmax, kmin];

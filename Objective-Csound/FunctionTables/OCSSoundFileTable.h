@@ -47,6 +47,9 @@
 /// @param tableSize Size of the table to use.  Necessary for some opcodes.
 - (id)initWithFilename:(NSString *)filename tableSize:(int)tableSize;
 
+/// Returns the string to retrieve the number of channels of a sound file table
+- (OCSConstant *)channels;
+
 @end
 
 

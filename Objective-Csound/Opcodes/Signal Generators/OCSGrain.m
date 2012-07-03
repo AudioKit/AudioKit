@@ -60,7 +60,7 @@
 }
 
 /// CSD Represenation: 
-/// ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur [, igrnd]
+/// ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur (, igrnd)
 - (NSString *)stringForCSD
 {
     

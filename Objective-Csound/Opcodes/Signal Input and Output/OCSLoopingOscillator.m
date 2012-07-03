@@ -8,8 +8,9 @@
 #import "OCSLoopingOscillator.h"
 
 @interface OCSLoopingOscillator () {
-    OCSParameter *output1;
-    OCSParameter *output2;
+    OCSParameter *output;
+    OCSParameter *leftOutput;
+    OCSParameter *rightOutput;
     OCSParameter *amp;
     OCSParameter *freqMultiplier;
     OCSConstant *baseFrequency;
@@ -19,7 +20,7 @@
 
 @implementation OCSLoopingOscillator
 
-@synthesize output1, output2;
+@synthesize output, leftOutput, rightOutput;
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable 
@@ -41,8 +42,9 @@
 {
     self = [super init];
     if (self) {
-        output1 = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"1L"]];
-        output2 = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"2R"]];
+        output = output = [OCSParameter parameterWithString:[self opcodeName]];
+        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"1L"]];
+        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"2R"]];
         soundFileTable = fileTable;
         amp = amplitude;
         freqMultiplier = frequencyMultiplier;
@@ -51,12 +53,21 @@
     return self;
 }
 
-/// CSD Representation:
-/// ar1 [,ar2] loscil3 xamp, kcps, ifn [, ibas] [, imod1] [, ibeg1] [, iend1] [, imod2] [, ibeg2] [, iend2]
+// CSD Representation: TODO: 
+// ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
 - (NSString *)stringForCSD {
+    NSString *mono = [NSString stringWithFormat:
+                      @"%@ loscil3 %@, %@, %@, %@",
+                      output, amp, freqMultiplier, soundFileTable, baseFrequency];
+    NSString *stereo = [NSString stringWithFormat:
+                        @"%@, %@ loscil3 %@, %@, %@, %@",
+                        leftOutput, rightOutput, amp, freqMultiplier, soundFileTable, baseFrequency];
     return [NSString stringWithFormat:
-            @"%@ loscil3 %@, %@, %@, %@",
-            output1, amp, freqMultiplier, soundFileTable, baseFrequency];
+            @"if (ftchnls(%@) == 1) then\n"
+            @"    %@\n"
+            @"else\n"
+            @"    %@\n"
+            @"endif\n",
+            soundFileTable, mono, stereo];
 }
-
 @end

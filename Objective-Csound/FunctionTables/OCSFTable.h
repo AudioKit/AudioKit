@@ -18,7 +18,7 @@
  - Windows (OCSWindowsTable)
  
  */
-@interface OCSFTable : NSObject
+@interface OCSFTable : NSObject 
 
 // The unsupported types appear in an enumeration at the bottom of this file.  Add as necessary.
 typedef enum
@@ -57,7 +57,7 @@ typedef enum
 - (NSString *)stringForCSD;
 
 /// Returns an ftlen() wrapped around the output of this function table.
-- (id) length;
+- (OCSConstant *)length;
 
 @end
 

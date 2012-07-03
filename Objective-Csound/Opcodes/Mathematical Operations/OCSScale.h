@@ -24,7 +24,7 @@
 @property (nonatomic, strong) OCSControl *maximumOutput;
 
 /// Create a control output based on control input scaled within an output range
-/// @param inputControl  Input value in the range 0-1.
+/// @param input         Input value in the range 0-1.
 /// @param minimumOutput Minimum value of the resultant scale operation.
 /// @param maximumOutput Maximum value of the resultant scale operation.
 - (id)initWithInput:(OCSControl *)input
