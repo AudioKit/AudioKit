@@ -7,6 +7,7 @@
 //
 
 #import "ConvolutionViewController.h"
+#import "Helper.h"
 #import "OCSManager.h"
 #import "ConvolutionInstrument.h"
 
@@ -34,13 +35,15 @@
 
 -(IBAction)changeDryWet:(id)sender 
 {
-    UISlider * mySlider = (UISlider *) sender;
-    conv.dryWetBalance.value = mySlider.value * kDryWetBalanceMax;
+    conv.dryWetBalance.value = [Helper scaleValueFromSlider:sender 
+                                                    minimum:kDryWetBalanceMin 
+                                                    maximum:kDryWetBalanceMax];
 }
 -(IBAction)changeDishWell:(id)sender;
 {
-    UISlider * mySlider = (UISlider *) sender;
-    conv.dishWellBalance.value = mySlider.value * kDishWellBalanceMax;
+    conv.dishWellBalance.value = [Helper scaleValueFromSlider:sender 
+                                                      minimum:kDishWellBalanceMin 
+                                                      maximum:kDishWellBalanceMax];
 }
 
 @end
