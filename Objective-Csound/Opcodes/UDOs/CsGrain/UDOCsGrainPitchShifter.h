@@ -15,10 +15,10 @@
 @interface UDOCsGrainPitchShifter : OCSUserDefinedOpcode 
 
 /// Left channel output.
-@property (nonatomic, strong) OCSParam *outputLeft;
+@property (nonatomic, strong) OCSParameter *outputLeft;
 
 //// Right channel output.
-@property (nonatomic, strong) OCSParam *outputRight;
+@property (nonatomic, strong) OCSParameter *outputRight;
 
 /** Instantiates the pitch shifter.
  
@@ -29,10 +29,10 @@
  @param feedbackLevel              Typically a value from 0.0 (no feedback to 1.0 (100% feedback).
  @return                           An instance of the pitch shifter.
  */
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             rightInput:(OCSParam *)rightInput
-              basePitch:(OCSControlParam *)basePitch
-        offsetFrequency:(OCSControlParam *)fineTuningOffsetFrequency
-          feedbackLevel:(OCSControlParam *)feedbackLevel;
+- (id)initWithLeftInput:(OCSParameter *)leftInput
+             rightInput:(OCSParameter *)rightInput
+              basePitch:(OCSControl *)basePitch
+        offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
+          feedbackLevel:(OCSControl *)feedbackLevel;
 
 @end

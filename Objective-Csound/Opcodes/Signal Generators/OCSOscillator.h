@@ -15,11 +15,11 @@
 @interface OCSOscillator : OCSOpcode 
 
 /// The output as audio.
-@property (nonatomic, strong) OCSParam *audio;
+@property (nonatomic, strong) OCSParameter *audio;
 /// The output as a control.
-@property (nonatomic, strong) OCSControlParam *control;
+@property (nonatomic, strong) OCSControl *control;
 /// The output can either an audio signal or a control.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Instantiates the oscillator with an initial phase of sampling.
 /// @param fTable Requires a wrap-around guard point.
@@ -27,17 +27,17 @@
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
 - (id)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParam *)frequency
-           amplitude:(OCSParam *)amplitude 
-               phase:(OCSConstantParam *)initialPhase;
+           frequency:(OCSParameter *)frequency
+           amplitude:(OCSParameter *)amplitude 
+               phase:(OCSConstant *)initialPhase;
 
 /// Instantiates the oscillator.
 /// @param fTable Requires a wrap-around guard point.
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
 - (id)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParam *)frequency
-           amplitude:(OCSParam *)amplitude;
+           frequency:(OCSParameter *)frequency
+           amplitude:(OCSParameter *)amplitude;
 
 
 

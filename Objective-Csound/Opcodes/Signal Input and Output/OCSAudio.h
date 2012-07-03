@@ -20,11 +20,11 @@
 
 /// Helper function to send both channels the same monoSignal
 /// @param monoSignal The audio signal to be played on both channels.
-- (id)initWithMonoInput:(OCSParam *)monoSignal;
+- (id)initWithMonoInput:(OCSParameter *)monoSignal;
 
 /// Initialization Statement
 /// @param leftInput  The audio signal to be played on the left channel.
 /// @param rightInput The audio signal to be played on the right channel.
-- (id)initWithLeftInput:(OCSParam *)leftInput rightInput:(OCSParam *)rightInput;
+- (id)initWithLeftInput:(OCSParameter *)leftInput rightInput:(OCSParameter *)rightInput;
 
 @end

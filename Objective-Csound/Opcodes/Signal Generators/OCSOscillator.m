@@ -8,15 +8,15 @@
 #import "OCSOscillator.h"
 
 @interface OCSOscillator () {
-    OCSParam *amp;
-    OCSParam *freq;
-    OCSConstantParam *phs;
+    OCSParameter *amp;
+    OCSParameter *freq;
+    OCSConstant *phs;
     OCSFTable *f;
     
     
-    OCSParam *audio;
-    OCSControlParam *control;
-    OCSParam *output;
+    OCSParameter *audio;
+    OCSControl *control;
+    OCSParameter *output;
 }
 @end
 
@@ -27,14 +27,14 @@
 @synthesize output;
 
 - (id)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParam *)frequency
-           amplitude:(OCSParam *)amplitude 
-               phase:(OCSConstantParam *)initialPhase;
+           frequency:(OCSParameter *)frequency
+           amplitude:(OCSParameter *)amplitude 
+               phase:(OCSConstant *)initialPhase;
 {
     self = [super init];
     if (self) {
-        audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSControlParam paramWithString:[self opcodeName]];
+        audio   = [OCSParameter parameterWithString:[self opcodeName]];
+        control = [OCSControl parameterWithString:[self opcodeName]];
         output  =  audio;
         amp  = amplitude;
         freq = frequency;
@@ -45,16 +45,16 @@
 }
 
 - (id)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParam *)frequency
-           amplitude:(OCSParam *)amplitude;
+           frequency:(OCSParameter *)frequency
+           amplitude:(OCSParameter *)amplitude;
 {
     return [self initWithFTable:fTable
                       frequency:frequency
                       amplitude:amplitude 
-                          phase:[OCSConstantParam paramWithInt:0]];
+                          phase:[OCSConstant parameterWithInt:0]];
 }
 
-- (void)setControl:(OCSControlParam *)p {
+- (void)setControl:(OCSControl *)p {
     control = p;
     output = control;
 }

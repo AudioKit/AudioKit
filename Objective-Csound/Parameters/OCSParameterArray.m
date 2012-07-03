@@ -1,13 +1,13 @@
 //
-//  OCSParamArray.m
+//  OCSParameterArray.m
 //
 //  Created by Aurelius Prochazka on 6/6/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParamArray.h"
+#import "OCSParameterArray.h"
 
-@interface OCSParamArray () {
+@interface OCSParameterArray () {
     NSMutableArray *params;
     //NSString *parameterString;
     NSUInteger count;
@@ -15,7 +15,7 @@
 }
 @end
 
-@implementation OCSParamArray
+@implementation OCSParameterArray
 @synthesize params;
 //@synthesize parameterString;
 
@@ -33,19 +33,18 @@
     return [params count];
 }
 
-- (id) parameterString {
+- (id)parameterString {
     NSMutableArray *s = [[NSMutableArray alloc] init];
-    for (OCSConstantParam *value in params) {
+    for (OCSConstant *value in params) {
         [s addObject:[value parameterString]];
     }
     return [s componentsJoinedByString:@", "]; 
 }
 
-
-+ (id)paramArrayFromParams:(OCSConstantParam *)firstParam,... {
-    OCSParamArray *result = [[OCSParamArray alloc] init];
-
-    OCSParam *eachParam;
++ (id)paramArrayFromParams:(OCSConstant *)firstParam,... {
+    OCSParameterArray *result = [[OCSParameterArray alloc] init];
+    
+    OCSParameter *eachParam;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;
     if (firstParam) { // The first argument isn't part of the varargs list, so we'll handle it separately.
@@ -57,11 +56,8 @@
     }
     
     [result setParams:initParameters];
-    //[result setParameterString:[[initParameters valueForKey:@"parameterString"] componentsJoinedByString:@", "]];
     
     return result;
 }
-
-
 
 @end

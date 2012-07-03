@@ -9,17 +9,17 @@
 #import "OCSGrain.h"
 
 @interface OCSGrain () {
-    OCSParam *amp;
-    OCSParam *frequency;
-    OCSParam *density;
-    OCSControlParam *ampOffset;
-    OCSControlParam *pchOffset;
-    OCSControlParam *duration;
-    OCSConstantParam *maxDuration;
+    OCSParameter *amp;
+    OCSParameter *frequency;
+    OCSParameter *density;
+    OCSControl *ampOffset;
+    OCSControl *pchOffset;
+    OCSControl *duration;
+    OCSConstant *maxDuration;
     OCSFTable *gFunction;
     OCSFTable *wFunction;
     BOOL isRandomGrainFunctionIndex;
-    OCSParam *output;
+    OCSParameter *output;
 }
 @end
 
@@ -29,17 +29,17 @@
 
 - (id)initWithGrainFunction:(OCSFTable *)grainFunction
              windowFunction:(OCSFTable *)windowFunction
-           maxGrainDuration:(OCSConstantParam *)maxGrainDuration
-                  amplitude:(OCSParam *)amplitude
-             grainFrequency:(OCSParam *)grainFrequency
-               grainDensity:(OCSParam *)grainDensity  
-              grainDuration:(OCSControlParam *)grainDuration
-      maxAmplitudeDeviation:(OCSControlParam *)maxAmplitudeDeviation
-          maxPitchDeviation:(OCSControlParam *)maxPitchDeviation;
+           maxGrainDuration:(OCSConstant *)maxGrainDuration
+                  amplitude:(OCSParameter *)amplitude
+             grainFrequency:(OCSParameter *)grainFrequency
+               grainDensity:(OCSParameter *)grainDensity  
+              grainDuration:(OCSControl *)grainDuration
+      maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
+          maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 {
     self = [super init];
     if (self) {
-        output      = [OCSParam paramWithString:[self opcodeName]];
+        output      = [OCSParameter parameterWithString:[self opcodeName]];
         amp         = amplitude;
         frequency   = grainFrequency;
         density     = grainDensity;

@@ -1,13 +1,13 @@
 //
-//  OCSControlParam.m
+//  OCSControl.m
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSControlParam.h"
+#import "OCSControl.h"
 
-@implementation OCSControlParam
+@implementation OCSControl
 
 /// Initializes to default values
 - (id)init
@@ -29,7 +29,7 @@
 
 - (id)toCPS;
 {
-    OCSControlParam * new = [[OCSControlParam alloc] init];
+    OCSControl * new = [[OCSControl alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"cpspch(%@)", parameterString]];
     return new;
 }

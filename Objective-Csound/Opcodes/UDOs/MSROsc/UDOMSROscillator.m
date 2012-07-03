@@ -9,9 +9,9 @@
 #import "UDOMSROscillator.h"
 
 @interface UDOMSROscillator () {
-    OCSParam *output;
-    OCSConstantParam *amplitude;
-    OCSConstantParam *frequency;
+    OCSParameter *output;
+    OCSConstant *amplitude;
+    OCSConstant *frequency;
     OscillatorType type;
 }
 @end
@@ -21,13 +21,13 @@
 @synthesize output;
 
 - (id)initWithType:(OscillatorType)oscillatorType
-         frequency:(OCSConstantParam *)pitchOrFrequency
-         amplitude:(OCSConstantParam *)maxAmplitude;
+         frequency:(OCSConstant *)pitchOrFrequency
+         amplitude:(OCSConstant *)maxAmplitude;
 
 {
     self = [super init];
     if (self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         amplitude = maxAmplitude;
         frequency = pitchOrFrequency;
         type = oscillatorType;

@@ -9,9 +9,9 @@
 #import "OCSTableValue.h"
 
 @interface OCSTableValue () {
-    OCSParam *output;
-    OCSConstantParam *ifn;
-    OCSParam *index;
+    OCSParameter *output;
+    OCSConstant *ifn;
+    OCSParameter *index;
 }
 @end
 
@@ -24,7 +24,7 @@
 @synthesize offset = ixoff;
 @synthesize wrapData = iwrap;
 
-- (id)initWithFTable:(OCSConstantParam *)fTable;
+- (id)initWithFTable:(OCSConstant *)fTable;
 {
     self = [super init];
     if (self) {
@@ -37,39 +37,39 @@
     
 }
 
-- (id)initWithFTable:(OCSConstantParam *)fTable
-    atAudioRateIndex:(OCSParam *)audioRateIndex
+- (id)initWithFTable:(OCSConstant *)fTable
+    atAudioRateIndex:(OCSParameter *)audioRateIndex
 {
     
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSParam paramWithString:[self opcodeName]];   
+        output = [OCSParameter parameterWithString:[self opcodeName]];   
         index = audioRateIndex;
     }
     return self; 
 
 }
 
-- (id)initWithFTable:(OCSConstantParam *)fTable
-atControlRateIndex:(OCSControlParam *)controlRateIndex
+- (id)initWithFTable:(OCSConstant *)fTable
+atControlRateIndex:(OCSControl *)controlRateIndex
 { 
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSControlParam paramWithString:[self opcodeName]];   
+        output = [OCSControl parameterWithString:[self opcodeName]];   
         index = controlRateIndex;
     }
     return self; 
 }
 
-- (id)initWithFTable:(OCSConstantParam *)fTable
-     atConstantIndex:(OCSConstantParam *)constantIndex
+- (id)initWithFTable:(OCSConstant *)fTable
+     atConstantIndex:(OCSConstant *)constantIndex
 {
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSConstantParam paramWithString:[self opcodeName]];   
+        output = [OCSConstant parameterWithString:[self opcodeName]];   
         index = constantIndex;
     }
     return self; 

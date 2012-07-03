@@ -8,10 +8,10 @@
 #import "OCSNReverb.h"
 
 @interface OCSNReverb () {
-    OCSParam *output;
-    OCSParam *input;
-    OCSControlParam *dur;
-    OCSControlParam *hfdif;
+    OCSParameter *output;
+    OCSParameter *input;
+    OCSControl *dur;
+    OCSControl *hfdif;
     
     BOOL isInitSkipped;
     
@@ -27,13 +27,13 @@
 @implementation OCSNReverb
 @synthesize output;
 
-- (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSControlParam *)reverbDuration 
-highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity;
+- (id)initWithInput:(OCSParameter *)inputSignal
+     reverbDuration:(OCSControl *)reverbDuration 
+highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -41,9 +41,9 @@ highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity;
     return self;
 }
 
-- (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSControlParam *)reverbDuration
-highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity
+- (id)initWithInput:(OCSParameter *)inputSignal
+     reverbDuration:(OCSControl *)reverbDuration
+highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     combFilterTimes:(NSArray *)combFilterTimes
     combFilterGains:(NSArray *)combFilterGains
  allPassFilterTimes:(NSArray *)allPassFilterTimes
@@ -51,7 +51,7 @@ highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;

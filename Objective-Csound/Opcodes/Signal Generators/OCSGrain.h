@@ -14,7 +14,7 @@
 @interface OCSGrain : OCSOpcode
 
 /// The output is an audio signal.
-@property (nonatomic, retain) OCSParam *output;
+@property (nonatomic, retain) OCSParameter *output;
 
 /// Instantiates the grain synthesis with the given parameters.
 /// @param amplitude              Amplitude of each grain.
@@ -28,13 +28,13 @@
 /// @param windowFunction         The amplitude envelope used for the grains.
 - (id)initWithGrainFunction:(OCSFTable *)grainFunction
              windowFunction:(OCSFTable *)windowFunction
-           maxGrainDuration:(OCSConstantParam *)maxGrainDuration
-                  amplitude:(OCSParam *)amplitude
-             grainFrequency:(OCSParam *)grainFrequency
-               grainDensity:(OCSParam *)grainDensity  
-              grainDuration:(OCSControlParam *)grainDuration
-      maxAmplitudeDeviation:(OCSControlParam *)maxAmplitudeDeviation
-          maxPitchDeviation:(OCSControlParam *)maxPitchDeviation;
+           maxGrainDuration:(OCSConstant *)maxGrainDuration
+                  amplitude:(OCSParameter *)amplitude
+             grainFrequency:(OCSParameter *)grainFrequency
+               grainDensity:(OCSParameter *)grainDensity  
+              grainDuration:(OCSControl *)grainDuration
+      maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
+          maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 
 - (void) turnOffGrainOffsetRandomnes;
 

@@ -16,12 +16,12 @@
 @interface OCSLowPassButterworthFilter : OCSOpcode
 
 /// The output is a mono audio signal.
-@property (nonatomic, retain) OCSParam *output;
+@property (nonatomic, retain) OCSParameter *output;
 
 /// Creates a low-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.
 /// @param cutoffFrequency Cutoff or center frequency for each of the filters.
--(id)initWithInput:(OCSParam *)inputSignal 
-   cutoffFrequency:(OCSControlParam *)cutoffFrequency;
+-(id)initWithInput:(OCSParameter *)inputSignal 
+   cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 @end

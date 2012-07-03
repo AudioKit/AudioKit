@@ -8,13 +8,13 @@
 #import "OCSMonoAudio.h"
 
 @interface OCSMonoAudio (){
-    OCSParam *input;
+    OCSParameter *input;
 }
 @end
 
 @implementation OCSMonoAudio
 
-- (id)initWithInput:(OCSParam *) monoSignal {
+- (id)initWithInput:(OCSParameter *) monoSignal {
     self = [super init];
     if (self) {
         input = monoSignal;

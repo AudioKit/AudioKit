@@ -21,22 +21,22 @@
 @interface OCSLine : OCSOpcode
 
 /// This is the audio signal.
-@property (nonatomic, strong) OCSParam *audio;
+@property (nonatomic, strong) OCSParameter *audio;
 
 /// This is the control parameter.
-@property (nonatomic, strong) OCSControlParam *control;
+@property (nonatomic, strong) OCSControl *control;
 
 /// The output is the audio signal or the control.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Initialize a linear transition from one value to another over specified time.
 /// @param startingValue Value to start the line from.
 /// @param endingValue   Value to end the line at.
 /// @param duration      Duration of linear transition in seconds.
 /// @return An opcode to perform a linear transition over a given duration.
-- (id)initFromValue:(OCSConstantParam *)startingValue
-            toValue:(OCSConstantParam *)endingValue
-           duration:(OCSConstantParam *)duration;
+- (id)initFromValue:(OCSConstant *)startingValue
+            toValue:(OCSConstant *)endingValue
+           duration:(OCSConstant *)duration;
     
 
 @end

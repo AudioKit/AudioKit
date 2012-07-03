@@ -20,7 +20,7 @@
         
         // INPUTS ==============================================================
         
-        OCSParam * input = [grainBirds auxilliaryOutput];
+        OCSParameter * input = [grainBirds auxilliaryOutput];
         
         // INSTRUMENT DEFINITION ===============================================
         

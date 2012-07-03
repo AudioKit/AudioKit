@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UDOInstrument.h"
 
-@interface UDOViewController : UIViewController {
-    UDOInstrument * udoInstrument;
-}
+@interface UDOViewController : UIViewController 
+
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
 

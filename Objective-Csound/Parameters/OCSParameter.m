@@ -1,13 +1,13 @@
 //
-//  OCSParam.m
+//  OCSParameter.m
 //
 //  Created by Adam Boulanger on 6/5/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParam.h"
+#import "OCSParameter.h"
 
-@implementation OCSParam
+@implementation OCSParameter
 @synthesize parameterString;
 
 static int currentID = 1;
@@ -44,12 +44,12 @@ static int currentID = 1;
     return self;
 }
 
-+(id)paramWithString:(NSString *)name
++(id)parameterWithString:(NSString *)name
 {
     return [[self alloc] initWithString:name];
 }
 
-+(id)paramWithFormat:(NSString *)format, ... {
++(id)parameterWithFormat:(NSString *)format, ... {
     va_list argumentList;
     va_start(argumentList, format);
     return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
@@ -63,14 +63,14 @@ static int currentID = 1;
 
 - (id)scaledBy:(float)scalingFactor
 {
-    OCSParam *new = [[OCSParam alloc] init];
+    OCSParameter *new = [[OCSParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"((%@) * %g)", parameterString, scalingFactor]];
     return new;
 }
 
 - (id)amplitudeFromFullScaleDecibel;
 {
-    OCSParam *new = [[OCSParam alloc] init];
+    OCSParameter *new = [[OCSParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", parameterString]];
     return new;
 }

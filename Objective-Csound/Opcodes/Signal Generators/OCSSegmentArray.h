@@ -20,13 +20,13 @@
 @interface OCSSegmentArray : OCSOpcode 
 
 /// This is the audio signal.
-@property (nonatomic, strong) OCSParam *audio;
+@property (nonatomic, strong) OCSParameter *audio;
 
 /// This is the control parameter.
-@property (nonatomic, strong) OCSControlParam *control;
+@property (nonatomic, strong) OCSControl *control;
 
 /// The output is the audio signal or the control.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Creates the OCSSegmentArray and populates it with the minimum information.
 /// Use addValue:afterDuration to add more segments to the array.
@@ -35,22 +35,22 @@
 /// @param firstSegmentTargetValue Value after firstSegmentDuration seconds. 
 /// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
 /// @return An OCSSegment with the first segment specified.
-- (id)initWithStartValue:(OCSConstantParam *)firstSegmentStartValue
-             toNextValue:(OCSConstantParam *)firstSegmentTargetValue
-           afterDuration:(OCSConstantParam *)firstSegmentDuration;
+- (id)initWithStartValue:(OCSConstant *)firstSegmentStartValue
+             toNextValue:(OCSConstant *)firstSegmentTargetValue
+           afterDuration:(OCSConstant *)firstSegmentDuration;
 
 /// Adds another segment.
 /// @param nextSegmentTargetValue Value after nextSegmentDuration seconds. 
 /// @param nextSegmentDuration    Duration in seconds.
-- (void)addValue:(OCSConstantParam *)nextSegmentTargetValue 
-   afterDuration:(OCSConstantParam *)nextSegmentDuration;
+- (void)addValue:(OCSConstant *)nextSegmentTargetValue 
+   afterDuration:(OCSConstant *)nextSegmentDuration;
 
 
 /// Adds a release segment.
 /// @param finalValue      Last value to reach, typically zero.
 /// @param releaseDuration Length of time in seconds to get to finalValue.
-- (void)addReleaseToFinalValue:(OCSConstantParam *)finalValue 
-                 afterDuration:(OCSConstantParam *)releaseDuration;
+- (void)addReleaseToFinalValue:(OCSConstant *)finalValue 
+                 afterDuration:(OCSConstant *)releaseDuration;
 
 /// Switches to an exponential segment generating opcode.
 - (void)useExponentialSegments;

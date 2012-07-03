@@ -17,27 +17,27 @@
 @interface OCSReverb : OCSOpcode 
 
 /// The output to the left channel.
-@property (nonatomic, strong) OCSParam *outputLeft;
+@property (nonatomic, strong) OCSParameter *outputLeft;
 /// The output to the right channel.
-@property (nonatomic, strong) OCSParam *outputRight;
+@property (nonatomic, strong) OCSParameter *outputRight;
 
 /// Apply reverb to a mono signal
 /// @param monoInput       Input to both channels.
 /// @param feedbackLevel   Degree of feedback, in the range 0 to 1. 0.6 gives a good small "live" room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
 /// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
 
-- (id)initWithMonoInput:(OCSParam *)monoInput
-          feedbackLevel:(OCSControlParam *)feedbackLevel
-        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
+- (id)initWithMonoInput:(OCSParameter *)monoInput
+          feedbackLevel:(OCSControl *)feedbackLevel
+        cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 /// Apply reverb to a stereo signal
 /// @param leftInput       Input to the left channel.
 /// @param rightInput      Input to the right channel.
 /// @param feedbackLevel   Degree of feedback, in the range 0 to 1. 0.6 gives a good small "live" room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
 /// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             rightInput:(OCSParam *)rightInput
-          feedbackLevel:(OCSControlParam *)feedbackLevel
-        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
+- (id)initWithLeftInput:(OCSParameter *)leftInput
+             rightInput:(OCSParameter *)rightInput
+          feedbackLevel:(OCSControl *)feedbackLevel
+        cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 @end

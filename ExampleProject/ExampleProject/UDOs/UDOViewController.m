@@ -7,8 +7,12 @@
 //
 
 #import "UDOViewController.h"
-
 #import "OCSManager.h"
+
+@interface UDOViewController () {
+    UDOInstrument * udoInstrument;
+}
+@end
 
 @implementation UDOViewController
 - (void)viewDidLoad
@@ -26,7 +30,8 @@
 }
 
 - (IBAction)hit2:(id)sender {
-    [udoInstrument playNoteForDuration:0.5 Frequency:(arc4random()%200+400)];
+    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    [udoInstrument playNoteForDuration:0.5 Frequency:randomFrequency];
 }
 
 @end

@@ -8,10 +8,10 @@
 #import "OCSLinearEnvelope.h"
 
 @interface OCSLinearEnvelope () {
-    OCSParam *amp;
-    OCSConstantParam *rise;
-    OCSConstantParam *dur;
-    OCSConstantParam *decay;    
+    OCSParameter *amp;
+    OCSConstant *rise;
+    OCSConstant *dur;
+    OCSConstant *decay;    
 }
 
 @end
@@ -23,15 +23,15 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initWithRiseTime:(OCSConstantParam *)riseTime
-         totalDuration:(OCSConstantParam *)totalDuration
-             decayTime:(OCSConstantParam *)decayTime
-             amplitude:(OCSParam *)amplitude
+- (id)initWithRiseTime:(OCSConstant *)riseTime
+         totalDuration:(OCSConstant *)totalDuration
+             decayTime:(OCSConstant *)decayTime
+             amplitude:(OCSParameter *)amplitude
 {
     self = [super init];
     if (self) {
-        audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSControlParam paramWithString:[self opcodeName]];
+        audio   = [OCSParameter parameterWithString:[self opcodeName]];
+        control = [OCSControl parameterWithString:[self opcodeName]];
         output  =  audio;
         amp     = amplitude;
         rise    = riseTime;

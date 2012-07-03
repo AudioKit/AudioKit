@@ -17,6 +17,6 @@
 @property (nonatomic, retain) OCSProperty *pitchOffsetFirstTarget;
 @property (nonatomic, retain) OCSProperty *reverbSend;
 
-@property (readonly) OCSParam *auxilliaryOutput;
+@property (readonly) OCSParameter *auxilliaryOutput;
 
 @end

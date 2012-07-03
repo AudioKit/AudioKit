@@ -8,8 +8,8 @@
 #import "OCSConvolution.h"
 
 @interface OCSConvolution () {
-    OCSParam *output;
-    OCSParam *ain;
+    OCSParameter *output;
+    OCSParameter *ain;
     NSString *ifilcod;
 }
 @end
@@ -18,12 +18,12 @@
 
 @synthesize output;
 
-- (id)initWithInputAudio:(OCSParam *)inputAudio 
+- (id)initWithInputAudio:(OCSParameter *)inputAudio 
      impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {
-        output  =  [OCSParam paramWithString:[self opcodeName]];
+        output  =  [OCSParameter parameterWithString:[self opcodeName]];
         ain     = inputAudio;
         ifilcod = impulseResponseFilename;
     }

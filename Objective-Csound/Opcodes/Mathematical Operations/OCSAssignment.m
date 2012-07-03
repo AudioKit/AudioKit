@@ -8,19 +8,19 @@
 #import "OCSAssignment.h"
 
 @interface OCSAssignment () {
-    OCSParam *input;
-    OCSParam *output;
+    OCSParameter *input;
+    OCSParameter *output;
 }
 @end
 
 @implementation OCSAssignment
 @synthesize output;  
 
-- (id)initWithInput:(OCSParam *)in {
+- (id)initWithInput:(OCSParameter *)in {
     self = [super init];
     
     if (self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         input = in;
     }
     return self; 

@@ -14,11 +14,11 @@
 
 @interface OCSProduct : OCSOpcode 
 /// The output is an audio signal.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Initialization Statement
 /// @param firstOperand At least one input is required
 /// @param ...          End the list with a nil.
-- (id)initWithOperands:(OCSParam *)firstOperand,...;
+- (id)initWithOperands:(OCSParameter *)firstOperand,...;
 
 @end

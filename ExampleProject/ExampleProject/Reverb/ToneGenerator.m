@@ -23,13 +23,14 @@
     if (self) {       
         // INPUTS ==============================================================
         
-        frequency  = [[OCSProperty alloc] init];
-        [frequency setControl:[OCSControlParam paramWithString:@"InputFrequency"]]; 
+        frequency  = [[OCSProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
+        [frequency setControl:[OCSControl parameterWithString:@"InputFrequency"]]; 
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
         
         OCSSineTable *sine = [[OCSSineTable alloc] init];
+        [sine setIsNormalized:YES];
         [self addFTable:sine];
         
         OCSOscillator *oscillator;
@@ -46,7 +47,7 @@
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [OCSParam paramWithString:@"ToneGeneratorOutput"];
+        auxilliaryOutput = [OCSParameter parameterWithString:@"ToneGeneratorOutput"];
         [self assignOutput:auxilliaryOutput To:[oscillator output]];
     }
     return self;

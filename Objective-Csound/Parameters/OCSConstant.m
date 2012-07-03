@@ -1,13 +1,13 @@
 //
-//  OCSConstantParam.m
+//  OCSConstant.m
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSConstantParam.h"
+#import "OCSConstant.h"
 
-@implementation OCSConstantParam
+@implementation OCSConstant
 
 /// Initializes to default values
 - (id)init
@@ -66,15 +66,15 @@
     return self;
 }
 
-+ (id)paramWithFloat:(float)value
++ (id)parameterWithFloat:(float)value
 {
     return [[self alloc] initWithFloat:value];
 }
-+ (id)paramWithInt:(int)value
++ (id)parameterWithInt:(int)value
 {
     return [[self alloc] initWithInt:value];
 }
-+ (id)paramWithFilename:(NSString *)filename
++ (id)parameterWithFilename:(NSString *)filename
 {
     return [[self alloc] initWithFilename:filename];
 }

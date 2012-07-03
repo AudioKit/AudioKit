@@ -36,7 +36,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        duration = [[OCSConstantParam alloc] initWithPValue:kDuration];
+        duration = [[OCSConstant alloc] initWithPValue:kDuration];
         properties = [[NSMutableArray alloc] init];
         userDefinedOpcodes = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
@@ -76,13 +76,13 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)assignOutput:(OCSParam *)output To:(OCSParam *)input {
+- (void)assignOutput:(OCSParameter *)output To:(OCSParameter *)input {
     OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:input];
     [auxOutputAssign setOutput:output];
     [self addOpcode:auxOutputAssign];
 }
 
-- (void)resetParam:(OCSParam *)parameterToReset {
+- (void)resetParam:(OCSParameter *)parameterToReset {
     [innerCSDRepresentation appendString:[NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
 }
 

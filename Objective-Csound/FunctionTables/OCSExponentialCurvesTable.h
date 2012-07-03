@@ -18,9 +18,7 @@
  will be set to zero; if the sum is greater, only the first size locations will be stored.
  
  @warning *Unsupported Functions* 
- 
- Skipping rescaling is achieved by using a negative value for the GenRoutine Type.
- 
+
  Discrete-point linear interpolation implies an increase or decrease along a segment by equal 
  differences between adjacent locations; exponential interpolation implies that the progression 
  is by equal ratio. In both forms the interpolation from a to b is such as to assume that the 
@@ -34,11 +32,30 @@
 /// @param tableSize         Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param valueLengthPairs  Values must be nonzero and must be alike in sign.
 /// Lengths must be non-negative and the sum should equal `tableSize`.
-- (id)initWithSize:(int)tableSize valueLengthPairs:(OCSParamArray *)valueLengthPairs;
+- (id)initWithSize:(int)tableSize 
+  valueLengthPairs:(OCSParameterArray *)valueLengthPairs;
+
+/// Instantiates an exponential curves table.
+/// @param tableSize Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+/// @param values    Values must be nonzero and must be alike in sign.
+/// @param lengths   Lengths of segments (no. of storage locations) must be non-negative and the sum should equal `tableSize`.
+- (id)initWithSize:(int)tableSize 
+            values:(OCSParameterArray *)values
+           lengths:(OCSParameterArray *)lengths;
 
 /// Instantiates an exponential curves table using breakpoints.
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param breakpoints  x & y locations arranges as x1, y1, x2, y2, ... in a parameter array.  x values must be in increasing order. If the last x value is less than size, then the rest will be set to zero. Should not be negative but can be zero. y values must be non-zero and must be alike in sign.
-- (id)initWithSize:(int)tableSize xyPairs:(OCSParamArray *)xyPairs;
+- (id)initWithSize:(int)tableSize 
+           xyPairs:(OCSParameterArray *)xyPairs;
+
+
+/// Instantiates an exponential curves table using breakpoints.
+/// @param tableSize Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
+/// @param xValues   x values must be in increasing order. If the last x value is less than size, then the rest will be set to zero. Should not be negative but can be zero. 
+/// @param yValues   y values must be non-zero and must be alike in sign.
+- (id)initWithSize:(int)tableSize 
+           xValues:(OCSParameterArray *)xValues
+           yValues:(OCSParameterArray *)yValues;
 
 @end

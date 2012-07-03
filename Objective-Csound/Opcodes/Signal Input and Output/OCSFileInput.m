@@ -9,8 +9,8 @@
 #import "OCSFileInput.h"
 
 @interface OCSFileInput () {
-    OCSParam *outputLeft;
-    OCSParam *outputRight;
+    OCSParameter *outputLeft;
+    OCSParameter *outputRight;
     NSString *file;
 }
 @end
@@ -24,8 +24,8 @@
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         file = fileName;
     }
     return self; 
