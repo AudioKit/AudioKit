@@ -23,15 +23,6 @@
  8. Rectangle
  9. Sync
  
- @warning *Not Fully Supported Functions* 
- 
- Currently, when defining maximumValue, we automatically negate the Gen Type, 
- but this is description from the Csound manual:
- 
- `maximumValue` -- For negative p4 this will be the absolute value at window peak point. 
- If p4 is positive or p4 is negative and p6 is missing the table will be 
- post-rescaled to a maximum value of 1.
-
  */
 @interface OCSWindowsTable : OCSFTable
 

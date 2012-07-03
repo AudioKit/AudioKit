@@ -24,10 +24,10 @@
 @interface UDOCsGrainCompressor : OCSUserDefinedOpcode 
 
 /// Left channel output.
-@property (nonatomic, strong) OCSParam *outputLeft;
+@property (nonatomic, strong) OCSParameter *outputLeft;
 
 //// Right channel output.
-@property (nonatomic, strong) OCSParam *outputRight;
+@property (nonatomic, strong) OCSParameter *outputRight;
 
 /** Instantiates the compressor
  
@@ -39,10 +39,10 @@
  @param releaseTime       The release time in seconds. A typical value is 0.1 seconds.
  @return                  And instance of the compressor.
 */
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             rightInput:(OCSParam *)rightInput
-              threshold:(OCSControlParam *)dBThreshold
-       compressionRatio:(OCSControlParam *)compressionRatio
-             attackTime:(OCSControlParam *)attackTime
-            releaseTime:(OCSControlParam *)releaseTime;
+- (id)initWithLeftInput:(OCSParameter *)leftInput
+             rightInput:(OCSParameter *)rightInput
+              threshold:(OCSControl *)dBThreshold
+       compressionRatio:(OCSControl *)compressionRatio
+             attackTime:(OCSControl *)attackTime
+            releaseTime:(OCSControl *)releaseTime;
 @end

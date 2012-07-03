@@ -9,13 +9,13 @@
 #import "UDOCsGrainPitchShifter.h"
 
 @interface UDOCsGrainPitchShifter () {
-    OCSParam *outputLeft;
-    OCSParam *outputRight;
-    OCSParam *inL;
-    OCSParam *inR;
-    OCSControlParam *pitch;
-    OCSControlParam *offset;
-    OCSControlParam *feedback;
+    OCSParameter *outputLeft;
+    OCSParameter *outputRight;
+    OCSParameter *inL;
+    OCSParameter *inR;
+    OCSControl *pitch;
+    OCSControl *offset;
+    OCSControl *feedback;
 }
 @end
 
@@ -24,16 +24,16 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             rightInput:(OCSParam *)rightInput
-              basePitch:(OCSControlParam *)basePitch
-        offsetFrequency:(OCSControlParam *)fineTuningOffsetFrequency
-          feedbackLevel:(OCSControlParam *)feedbackLevel;
+- (id)initWithLeftInput:(OCSParameter *)leftInput
+             rightInput:(OCSParameter *)rightInput
+              basePitch:(OCSControl *)basePitch
+        offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
+          feedbackLevel:(OCSControl *)feedbackLevel;
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inL      = leftInput;
         inR      = rightInput;
         pitch    = basePitch;

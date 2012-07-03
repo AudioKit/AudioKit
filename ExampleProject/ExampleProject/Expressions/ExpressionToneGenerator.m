@@ -36,18 +36,18 @@
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
-        OCSControlParam * vibrato = [OCSControlParam paramWithFormat:
+        OCSControl * vibrato = [OCSControl parameterWithFormat:
                                      @"%d + (%g * %@)", 
                                      vibratoOffset, vibratoScale, vibratoOscillator];
         
-        OCSConstantParam * amplitudeOffset = ocsp(0.0);
+        OCSConstant * amplitudeOffset = ocsp(0.0);
         
         OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
                                                          toValue:ocsp(0.5)
                                                         duration:duration];
         [self addOpcode:amplitudeRamp];
         
-        OCSControlParam * totalAmplitude = [OCSControlParam paramWithFormat:
+        OCSControl * totalAmplitude = [OCSControl parameterWithFormat:
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
         OCSOscillator * oscillator;
         oscillator = [[OCSOscillator alloc]  initWithFTable:sineTable

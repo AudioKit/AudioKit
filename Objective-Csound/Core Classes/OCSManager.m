@@ -129,7 +129,7 @@ static OCSManager *_sharedOCSManager = nil;
     NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
 
     // Clean up the IDs for next time
-    [OCSParam resetID];
+    [OCSParameter resetID];
     [OCSInstrument resetID];
     
     // Pause to give Csound time to start, warn if nothing happens after one second

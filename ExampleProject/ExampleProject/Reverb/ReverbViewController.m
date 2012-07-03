@@ -39,7 +39,8 @@
 }
 
 - (IBAction)hit2:(id)sender {
-    [toneGenerator playNoteForDuration:1 Frequency:(arc4random()%200+400)];
+    float randomFrequency = randomFloatBetween(kFrequencyMin, kFrequencyMax);
+    [toneGenerator playNoteForDuration:1 Frequency:randomFrequency];
 }
 
 - (IBAction)startFX:(id)sender {

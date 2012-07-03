@@ -16,16 +16,16 @@
 @interface OCSWeightedMean : OCSOpcode
 
 /// The output as audio.
-@property (nonatomic, strong) OCSParam *audio;
+@property (nonatomic, strong) OCSParameter *audio;
 /// The output as a control.
-@property (nonatomic, strong) OCSControlParam *control;
+@property (nonatomic, strong) OCSControl *control;
 /// The output as a constant.
-@property (nonatomic, strong) OCSConstantParam *constant;
+@property (nonatomic, strong) OCSConstant *constant;
 /// The output can either an audio signal, a control, or a constant.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
-- (id)initWithSignal1:(OCSParam *)signal1 
-              signal2:(OCSParam *)signal2
-              balance:(OCSParam *)balancePoint;
+- (id)initWithSignal1:(OCSParameter *)signal1 
+              signal2:(OCSParameter *)signal2
+              balance:(OCSParameter *)balancePoint;
 
 @end

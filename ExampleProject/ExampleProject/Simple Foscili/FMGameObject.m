@@ -31,8 +31,8 @@
         freq = [[OCSProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
         mod  = [[OCSProperty alloc] initWithValue:1.0 minValue:kModulationMin maxValue:kModulationMax];
 
-        [freq setControl:[OCSControlParam paramWithString:@"Frequency"]]; 
-        [mod  setControl:[OCSControlParam paramWithString:@"Modulation"]]; 
+        [freq setControl:[OCSControl parameterWithString:@"Frequency"]]; 
+        [mod  setControl:[OCSControl parameterWithString:@"Modulation"]]; 
         
         [self addProperty:freq];
         [self addProperty:mod];
@@ -43,7 +43,7 @@
         [self addFTable:sineTable];
 
         OCSFMOscillator *fmOscillator;
-        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
+        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.2)
                                                     baseFrequency:[freq control]
                                                 carrierMultiplier:ocsp(2) 
                                              modulatingMultiplier:[mod control]

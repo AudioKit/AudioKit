@@ -8,10 +8,10 @@
 #import "OCSScale.h"  
 
 @interface OCSScale () {
-    OCSControlParam *kscl;
-    OCSControlParam *kin;
-    OCSControlParam *kmax;
-    OCSControlParam *kmin;
+    OCSControl *kscl;
+    OCSControl *kin;
+    OCSControl *kmax;
+    OCSControl *kmin;
 }
 @end
 
@@ -22,14 +22,14 @@
 @synthesize minimumOutput = kmin;
 @synthesize maximumOutput = kmax;
 
-- (id)initWithInput:(OCSControlParam *)input
-      minimumOutput:(OCSControlParam *)minimumOutput
-      maximumOutput:(OCSControlParam *)maximumOutput;
+- (id)initWithInput:(OCSControl *)input
+      minimumOutput:(OCSControl *)minimumOutput
+      maximumOutput:(OCSControl *)maximumOutput;
 {
     self = [super init];
     
     if (self) {
-        kscl = [OCSControlParam paramWithString:[self opcodeName]];      
+        kscl = [OCSControl parameterWithString:[self opcodeName]];      
         kin  = input;
         kmax = maximumOutput;
         kmin = minimumOutput;

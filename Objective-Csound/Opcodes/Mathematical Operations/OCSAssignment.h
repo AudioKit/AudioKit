@@ -11,11 +11,11 @@
 @interface OCSAssignment : OCSOpcode 
 
 /// The output can be audio, control or a constant.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Initialization Statement
 /// @param input The right side of the equal sign.
-- (id)initWithInput:(OCSParam *)input;
+- (id)initWithInput:(OCSParameter *)input;
 
 @end
 

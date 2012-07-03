@@ -8,12 +8,12 @@
 #import "OCSReverb.h"
 
 @interface OCSReverb () {
-    OCSParam *outputLeft;
-    OCSParam *outputRight;
-    OCSParam *inputLeft;
-    OCSParam *inputRight;
-    OCSControlParam *feedback;
-    OCSControlParam *cutoff;
+    OCSParameter *outputLeft;
+    OCSParameter *outputRight;
+    OCSParameter *inputLeft;
+    OCSParameter *inputRight;
+    OCSControl *feedback;
+    OCSControl *cutoff;
 }
 @end
 
@@ -22,15 +22,15 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             rightInput:(OCSParam *)rightInput
-          feedbackLevel:(OCSControlParam *)feedbackLevel
-        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
+- (id)initWithLeftInput:(OCSParameter *)leftInput
+             rightInput:(OCSParameter *)rightInput
+          feedbackLevel:(OCSControl *)feedbackLevel
+        cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inputLeft   = leftInput;
         inputRight  = rightInput;
         feedback    = feedbackLevel;
@@ -39,9 +39,9 @@
     return self; 
 }
 
-- (id)initWithMonoInput:(OCSParam *)monoInput
-          feedbackLevel:(OCSControlParam *)feedbackLevel
-        cutoffFrequency:(OCSControlParam *)cutoffFrequency;
+- (id)initWithMonoInput:(OCSParameter *)monoInput
+          feedbackLevel:(OCSControl *)feedbackLevel
+        cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
     return [self initWithLeftInput:monoInput 
                         rightInput:monoInput

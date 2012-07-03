@@ -15,5 +15,7 @@
 @property (nonatomic, strong) OCSProperty *frequency;
 
 - (void)playNoteForDuration:(float)dur Frequency:(float)freq;
+#define kFrequencyMin 110
+#define kFrequencyMax 880
 
 @end

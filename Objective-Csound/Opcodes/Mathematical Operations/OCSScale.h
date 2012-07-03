@@ -15,20 +15,20 @@
 @interface OCSScale : OCSOpcode
 
 /// Output is the scaled control-rate value.
-@property (nonatomic, strong) OCSControlParam *output;
+@property (nonatomic, strong) OCSControl *output;
 /// Input value in the range 0-1.
-@property (nonatomic, strong) OCSControlParam *input;
+@property (nonatomic, strong) OCSControl *input;
 /// Minimum value of the resultant scale operation.
-@property (nonatomic, strong) OCSControlParam *minimumOutput;
+@property (nonatomic, strong) OCSControl *minimumOutput;
 /// Maximum value of the resultant scale operation.
-@property (nonatomic, strong) OCSControlParam *maximumOutput;
+@property (nonatomic, strong) OCSControl *maximumOutput;
 
 /// Create a control output based on control input scaled within an output range
 /// @param inputControl  Input value in the range 0-1.
 /// @param minimumOutput Minimum value of the resultant scale operation.
 /// @param maximumOutput Maximum value of the resultant scale operation.
-- (id)initWithInput:(OCSControlParam *)input
-      minimumOutput:(OCSControlParam *)minimumOutput
-      maximumOutput:(OCSControlParam *)maximumOutput;
+- (id)initWithInput:(OCSControl *)input
+      minimumOutput:(OCSControl *)minimumOutput
+      maximumOutput:(OCSControl *)maximumOutput;
 
 @end

@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParamArray.h"
+#import "OCSParameterArray.h"
 
 /** Generic OCS Function Table definiton.  By default, the table will not be normalized,
  but it maybe normalized by setting the isNormalized property to YES.
@@ -33,7 +33,7 @@ typedef enum
 
 
 /// The output is a globally accessibly constant parameter
-@property (nonatomic, strong) OCSConstantParam *output;
+@property (nonatomic, strong) OCSConstant *output;
 
 /// This can be set to normalize the table, or not. It is not normalized by default.
 @property (nonatomic,assign) BOOL isNormalized;
@@ -45,13 +45,13 @@ typedef enum
 /// @param parameters         An array of parameters that define the function table. 
 - (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
-        parameters:(OCSParamArray *)parameters;
+        parameters:(OCSParameterArray *)parameters;
 
 /// Creates a function table without specifying a size, deferring that calculation.
 /// @param fTableType  One of the supported GeneratingRoutines.
 /// @param parameters         An array of parameters that define the function table. 
 - (id)initWithType:(FTableType)fTableType
-        parameters:(OCSParamArray *)parameters;
+        parameters:(OCSParameterArray *)parameters;
 
 /// @returns The textual representation of the function table for Csound
 - (NSString *)stringForCSD;

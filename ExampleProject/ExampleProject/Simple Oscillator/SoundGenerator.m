@@ -28,13 +28,13 @@
         // INPUTS AND CONTROLS =================================================
         
         freq = [[OCSProperty alloc] initWithMinValue:kFrequencyMin maxValue:kFrequencyMax];
-        [freq setConstant:[OCSConstantParam paramWithString:@"Frequency"]]; 
+        [freq setConstant:[OCSConstant parameterWithString:@"Frequency"]]; 
         [self addProperty:freq];
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSParamArray *partialStrengthParamArray = 
-        [OCSParamArray paramArrayFromParams: ocsp(1),ocsp(0.5), ocsp(1), nil];
+        OCSParameterArray *partialStrengthParamArray = 
+        [OCSParameterArray paramArrayFromParams: ocsp(1),ocsp(0.5), ocsp(1), nil];
         
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 

@@ -24,7 +24,7 @@
     OCSProperty *pitchOffsetFirstTarget;
     OCSProperty *reverbSend;
     
-    OCSParam *auxilliaryOutput;
+    OCSParameter *auxilliaryOutput;
 }
 @end
 
@@ -50,12 +50,12 @@
         pitchOffsetFirstTarget  = [[OCSProperty alloc] init];
         reverbSend              = [[OCSProperty alloc] init];
         
-        [grainDensity           setControl: [OCSControlParam  paramWithString:@"GrainDensity"]]; 
-        [grainDuration          setControl: [OCSControlParam  paramWithString:@"GrainDuration"]];
-        [pitchClass             setControl: [OCSControlParam  paramWithString:@"PitchClass"]]; 
-        [pitchOffsetStartValue  setConstant:[OCSConstantParam paramWithString:@"PitchOffsetStartValue"]]; 
-        [pitchOffsetFirstTarget setConstant:[OCSConstantParam paramWithString:@"PitchOffsetFirstTarget"]]; 
-        [reverbSend             setConstant:[OCSConstantParam paramWithString:@"ReverbSend"]];
+        [grainDensity           setControl: [OCSControl  parameterWithString:@"GrainDensity"]]; 
+        [grainDuration          setControl: [OCSControl  parameterWithString:@"GrainDuration"]];
+        [pitchClass             setControl: [OCSControl  parameterWithString:@"PitchClass"]]; 
+        [pitchOffsetStartValue  setConstant:[OCSConstant parameterWithString:@"PitchOffsetStartValue"]]; 
+        [pitchOffsetFirstTarget setConstant:[OCSConstant parameterWithString:@"PitchOffsetFirstTarget"]]; 
+        [reverbSend             setConstant:[OCSConstant parameterWithString:@"ReverbSend"]];
         
         [self addProperty:grainDensity];
         [self addProperty:grainDuration];
@@ -85,6 +85,7 @@
         
         NSString * file = [[NSBundle mainBundle] pathForResource:@"a50" ofType:@"aif"];
         OCSSoundFileTable *fiftyHzSine = [[OCSSoundFileTable alloc] initWithFilename:file tableSize:4096];
+        [fiftyHzSine setIsNormalized:YES];
         [self addFTable:fiftyHzSine];
         
         OCSWindowsTable *hanning = [[OCSWindowsTable alloc] initWithType:kWindowHanning
@@ -133,9 +134,9 @@
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [OCSParam paramWithString:@"ToReverb"];
+        auxilliaryOutput = [OCSParameter parameterWithString:@"ToReverb"];
         [self assignOutput:auxilliaryOutput 
-                        To:[OCSParam paramWithFormat:@"%@ + (%@ * %@)",
+                        To:[OCSParameter parameterWithFormat:@"%@ + (%@ * %@)",
                             auxilliaryOutput, [butterlp output], [reverbSend constant]]];
         
     }

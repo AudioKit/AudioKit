@@ -10,13 +10,13 @@
 @implementation OCSArrayTable
 
 
-- (id)initWithArray:(OCSParamArray *)parameterArray; 
+- (id)initWithArray:(OCSParameterArray *)parameterArray; 
 {
     return [self initWithType:kFTArray
                          size:[parameterArray count]
                    parameters:parameterArray];
 }
-- (id)initWithArray:(OCSParamArray *)parameterArray size:(int)tableSize;
+- (id)initWithArray:(OCSParameterArray *)parameterArray size:(int)tableSize;
 {
     return [self initWithType:kFTArray
                          size:tableSize

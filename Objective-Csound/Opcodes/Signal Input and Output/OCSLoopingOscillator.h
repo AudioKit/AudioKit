@@ -39,9 +39,9 @@
 @interface OCSLoopingOscillator : OCSOpcode
 
 /// This is the sole output for the mono looping oscillator, or the left for the stereo.
-@property (nonatomic, strong) OCSParam *output1;
+@property (nonatomic, strong) OCSParameter *output1;
 /// This is the output to the right channel if stereo. AOP Not implemented
-@property (nonatomic, strong) OCSParam *output2;
+@property (nonatomic, strong) OCSParameter *output2;
 
 /// Simplest initialization with a given file.
 /// @param fileTable Function table of type OCSSoundFileTable.
@@ -51,13 +51,13 @@
 /// @param fileTable Function table of type OCSSoundFileTable.
 /// @param amplitude Output of the signal in relation to the 0dB full scale amplitude.
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-                   amplitude:(OCSParam *)amplitude;
+                   amplitude:(OCSParameter *)amplitude;
 
 /// Initialization with a given file and amplitude and scale the frequency.
 /// @param fileTable           Function table of type OCSSoundFileTable.
 /// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
 /// @param frequencyMultiplier Relative to a base frequency of 1.
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControlParam *)frequencyMultiplier
-                   amplitude:(OCSParam *)amplitude;
+         frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                   amplitude:(OCSParameter *)amplitude;
 @end

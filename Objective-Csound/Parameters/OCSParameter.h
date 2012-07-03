@@ -1,5 +1,5 @@
 //
-//  OCSParam.h
+//  OCSParameter.h
 //
 //  Created by Adam Boulanger on 6/5/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -7,16 +7,16 @@
 
 /** OCS Parameters are arguments to Csound opcodes.  They come in three varieties for 
  audio rate, control rate, and constant values. When something is declared as an
- OCSParam, it is at audio rate.  OCSControlParam and OCSConstantParam should be used for
+ OCSParameter, it is at audio rate.  OCSControl and OCSConstant should be used for
  slower rate variables. 
  */
 
-#define ocsp(__f__)  [OCSConstantParam paramWithFloat:__f__]
-#define ocspi(__i__) [OCSConstantParam paramWithFloat:__i__]
-#define ocsps(__s__) [OCSConstantParam paramWithString:__s__]
-#define ocspfn(__fn__) [OCSConstantParam paramWithFilename:__fn__]
+#define ocsp(__f__)  [OCSConstant parameterWithFloat:__f__]
+#define ocspi(__i__) [OCSConstant parameterWithFloat:__i__]
+#define ocsps(__s__) [OCSConstant parameterWithString:__s__]
+#define ocspfn(__fn__) [OCSConstant parameterWithFilename:__fn__]
 
-@interface OCSParam : NSObject
+@interface OCSParameter : NSObject
 {
     NSString *type; 
     NSString *parameterString;
@@ -32,7 +32,7 @@
 
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the CSD File.
-+ (id)paramWithString:(NSString *)name;
++ (id)parameterWithString:(NSString *)name;
 
 /// Allows insertion of math into parameters
 /// @param expression A valid csound mathematical expression within an NSString.
@@ -41,12 +41,12 @@
 /// Allows a parameter to be created using NSString style string formatting
 /// @param format NSString style string format.
 /// @param ...    Any necessary format values to insert.
-+ (id)paramWithFormat:(NSString *)format, ...;
++ (id)parameterWithFormat:(NSString *)format, ...;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void) resetID;
 
-/// Helper function to create a new OCSParam with the CSD output scaled
+/// Helper function to create a new OCSParameter with the CSD output scaled
 /// @param scalingFactor The floating point number by which to scale.
 - (id)scaledBy:(float)scalingFactor;
 

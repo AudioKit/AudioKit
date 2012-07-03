@@ -18,9 +18,9 @@
 @interface OCSFileInput : OCSOpcode
 
 /// The output to the left channel.
-@property (nonatomic, strong) OCSParam *outputLeft;
+@property (nonatomic, strong) OCSParameter *outputLeft;
 /// The output to the right channel.
-@property (nonatomic, strong) OCSParam *outputRight;
+@property (nonatomic, strong) OCSParameter *outputRight;
 
 - (id)initWithFilename:(NSString *)fileName;
 

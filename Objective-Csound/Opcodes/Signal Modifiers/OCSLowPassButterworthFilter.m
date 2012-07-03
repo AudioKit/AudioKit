@@ -9,9 +9,9 @@
 #import "OCSLowPassButterworthFilter.h"
 
 @interface OCSLowPassButterworthFilter () {
-    OCSParam *output;
-    OCSParam *input;
-    OCSControlParam *cutoff;
+    OCSParameter *output;
+    OCSParameter *input;
+    OCSControl *cutoff;
     
     BOOL isInitSkipped;
 }
@@ -20,12 +20,12 @@
 @implementation OCSLowPassButterworthFilter
 @synthesize output;
 
--(id)initWithInput:(OCSParam *)inputSignal 
-   cutoffFrequency:(OCSControlParam *)cutoffFrequency;
+-(id)initWithInput:(OCSParameter *)inputSignal 
+   cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
     self = [super init];
     if(self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         input = inputSignal;
         cutoff = cutoffFrequency;
     }

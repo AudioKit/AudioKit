@@ -8,19 +8,19 @@
 #import "OCSAudio.h"
 
 @interface OCSAudio () {
-    OCSParam *inputLeft;
-    OCSParam *inputRight;
+    OCSParameter *inputLeft;
+    OCSParameter *inputRight;
 }
 @end
 
 @implementation OCSAudio
 
-- (id)initWithMonoInput:(OCSParam *)monoSignal
+- (id)initWithMonoInput:(OCSParameter *)monoSignal
 {
     return [self initWithLeftInput:monoSignal rightInput:monoSignal];
 }
 
-- (id)initWithLeftInput:(OCSParam *)leftInput rightInput:(OCSParam *)rightInput
+- (id)initWithLeftInput:(OCSParameter *)leftInput rightInput:(OCSParameter *)rightInput
 {
     self = [super init];
     if (self) {

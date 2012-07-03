@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParamArray.h"
+#import "OCSParameterArray.h"
 #import "OCSFTable.h"
 
 /** Generic function all OCS Opcodes need access to. */

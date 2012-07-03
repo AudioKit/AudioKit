@@ -20,29 +20,29 @@ http://www.csounds.com/manual/html/foscili.html
 @interface OCSFMOscillator : OCSOpcode 
 
 /// The output is mono audio signal.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// The amplitude of the output signal.
-@property (nonatomic, strong) OCSParam *amplitude;
+@property (nonatomic, strong) OCSParameter *amplitude;
 
 /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-@property (nonatomic, strong) OCSControlParam *baseFrequency;
+@property (nonatomic, strong) OCSControl *baseFrequency;
 
 /// This multiplied by the baseFrequency gives the carrier frequency.
-@property (nonatomic, strong) OCSParam *carrierMultiplier;
+@property (nonatomic, strong) OCSParameter *carrierMultiplier;
 
 /// This multiplied by the baseFrequency gives the modulating frequency.
-@property (nonatomic, strong) OCSParam *modulatingMultiplier;
+@property (nonatomic, strong) OCSParameter *modulatingMultiplier;
 
 /// This multiplied by the modulating frequency gives the modulation amplitude.
-@property (nonatomic, strong) OCSControlParam *modulationIndex;
+@property (nonatomic, strong) OCSControl *modulationIndex;
 
 /// Function table to use.  Requires a wrap-around guard point.
 @property (nonatomic, strong) OCSFTable *fTable;
 
 /// Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). 
 /// A negative value will cause phase initialization to be skipped.
-@property (nonatomic, strong) OCSControlParam *phase;
+@property (nonatomic, strong) OCSControl *phase;
 
 /// Initializes a frequency modulated oscillator with linear interpolation.
 /// @param amplitude            The amplitude of the output signal.
@@ -53,13 +53,13 @@ http://www.csounds.com/manual/html/foscili.html
 /// @param fTable        Function table to use.  Requires a wrap-around guard point.
 /// @param phase                Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). 
 /// A negative value will cause phase initialization to be skipped.
-- (id)initWithAmplitude:(OCSParam *)amplitude
-          baseFrequency:(OCSControlParam *)baseFrequency
-      carrierMultiplier:(OCSParam *)carrierMultiplier
-   modulatingMultiplier:(OCSParam *)modulatingMultiplier
-        modulationIndex:(OCSControlParam *)modulationIndex
+- (id)initWithAmplitude:(OCSParameter *)amplitude
+          baseFrequency:(OCSControl *)baseFrequency
+      carrierMultiplier:(OCSParameter *)carrierMultiplier
+   modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+        modulationIndex:(OCSControl *)modulationIndex
                  fTable:(OCSFTable *)fTable
-                  phase:(OCSConstantParam *)phase;
+                  phase:(OCSConstant *)phase;
 
 /// Initializes a frequency modulated oscillator with linear interpolation with no phasing.
 /// @param amplitude            The amplitude of the output signal.
@@ -68,11 +68,11 @@ http://www.csounds.com/manual/html/foscili.html
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
 /// @param modulationIndex      This multiplied by the modulating frequency gives the modulation amplitude.
 /// @param fTable        Function table to use.  Requires a wrap-around guard point.
-- (id)initWithAmplitude:(OCSParam *)amplitude
-          baseFrequency:(OCSControlParam *)baseFrequency
-      carrierMultiplier:(OCSParam *)carrierMultiplier
-   modulatingMultiplier:(OCSParam *)modulatingMultiplier
-        modulationIndex:(OCSControlParam *)modulationIndex
+- (id)initWithAmplitude:(OCSParameter *)amplitude
+          baseFrequency:(OCSControl *)baseFrequency
+      carrierMultiplier:(OCSParameter *)carrierMultiplier
+   modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+        modulationIndex:(OCSControl *)modulationIndex
                  fTable:(OCSFTable *)fTable;
 
 

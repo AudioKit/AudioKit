@@ -22,8 +22,6 @@
  
  @warning *Unsupported Functions* 
  
- Using a negative value for the type will cause rescaling to be skipped.
- 
  `skiptime` -- begin reading at skiptime seconds into the file.
  
  `channel` -- channel number to read in. 0 denotes read all channels.

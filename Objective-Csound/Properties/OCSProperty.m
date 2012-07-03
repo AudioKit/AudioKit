@@ -14,10 +14,10 @@
     Float32 initValue;
     Float32 currentValue;
     
-    OCSParam *audio;
-    OCSControlParam *control;
-    OCSConstantParam *constant;
-    OCSParam *output;
+    OCSParameter *audio;
+    OCSControl *control;
+    OCSConstant *constant;
+    OCSParameter *output;
     
     //channelName
     float* channelPtr;
@@ -40,9 +40,9 @@
     self = [super init];
     if (self) {
         // ARB / AOP - need to investigate why this can't be a-rate
-        audio    = [OCSParam paramWithString:@"Property"];
-        control  = [OCSControlParam paramWithString:@"Property"];
-        constant = [OCSConstantParam paramWithString:@"Property"];
+        audio    = [OCSParameter parameterWithString:@"Property"];
+        control  = [OCSControl parameterWithString:@"Property"];
+        constant = [OCSConstant parameterWithString:@"Property"];
         output = control;
         
     }
@@ -70,16 +70,16 @@
     return self;
 }
 
-- (void)setAudio:(OCSParam *)p {
+- (void)setAudio:(OCSParameter *)p {
     audio = p;
     output = audio;
 }
 
-- (void)setControl:(OCSControlParam *)p {
+- (void)setControl:(OCSControl *)p {
     control = p;
     output = control;
 }
-- (void)setConstant:(OCSConstantParam *)p {
+- (void)setConstant:(OCSConstant *)p {
     constant = p;
     output = constant;
 }
@@ -97,17 +97,17 @@
 }
 
 - (NSString *)stringForCSDGetValue {
-    return [NSString stringWithFormat:@"%@ chnget \"PropertyFor%@\"\n",  output, output];
+    return [NSString stringWithFormat:@"%@ chnget \"%@Property\"\n",  output, output];
 }
 
 - (NSString *)stringForCSDSetValue {
-    return [NSString stringWithFormat:@"chnset %@, \"PropertyFor%@\"\n", output, output];
+    return [NSString stringWithFormat:@"chnset %@, \"%@Property\"\n", output, output];
 }
 
 #pragma mark BaseValueCacheable
 
 - (void)setup:(CsoundObj*)csoundObj {
-    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"PropertyFor%@",[output parameterString]]];
+    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Property",[output parameterString]]];
     *channelPtr = [self value];
 }
 

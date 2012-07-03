@@ -41,9 +41,9 @@ Properties should be commented with the appledoc standard.  Property names shoul
 Methods should also be fully commented to the appledoc standard which includes @param lines for every parameter sent to the method.  These parameters should be named very similarly to the method signature text that precedes them so that the display from Quick Help is clear.  
 
 For example:
-	initWithFrequency:(OCSParam *)frequency
+	initWithFrequency:(OCSParameter *)frequency
 not 
-	initWithFrequency:(OCSParam *)f
+	initWithFrequency:(OCSParameter *)f
 
 Long signatures should be broken over lines.  Some variable names such as `in` should be avoided because they break Xcode's indenting.
 

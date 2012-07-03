@@ -6,12 +6,12 @@
 //
 
 #import "OCSFTable.h"
-#import "OCSConstantParam.h"
+#import "OCSConstant.h"
 
 @interface OCSFTable () {
     int isize;
     FTableType igen;
-    OCSParamArray *iargs; 
+    OCSParameterArray *iargs; 
     BOOL isNormalized;
 }
 @end
@@ -22,11 +22,11 @@
 
 - (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
-        parameters:(OCSParamArray *)parameters;
+        parameters:(OCSParameterArray *)parameters;
 {
     self = [super init];
     if (self) {
-        output = [OCSConstantParam paramWithString:[self functionName]];
+        output = [OCSConstant parameterWithString:[self functionName]];
         isize = tableSize;
         igen = fTableType;
         iargs = parameters;
@@ -36,7 +36,7 @@
 }
 
 - (id)initWithType:(FTableType)fTableType
-        parameters:(OCSParamArray *)parameters;
+        parameters:(OCSParameterArray *)parameters;
 {
     return [self initWithType:fTableType size:0 parameters:parameters];
 }
@@ -73,7 +73,7 @@
 
 - (id) length;
 {
-    OCSConstantParam * new = [[OCSConstantParam alloc] init];
+    OCSConstant * new = [[OCSConstant alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ftlen(%@)", output]];
     return new;
 }

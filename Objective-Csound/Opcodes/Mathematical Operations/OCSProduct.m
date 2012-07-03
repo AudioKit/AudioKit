@@ -9,20 +9,20 @@
 
 @interface OCSProduct () {
     NSMutableArray *inputs;
-    OCSParam *output;
+    OCSParameter *output;
 }
 @end
 
 @implementation OCSProduct
 @synthesize output;
 
-- (id)initWithOperands:(OCSParam *)firstOperand,... {
+- (id)initWithOperands:(OCSParameter *)firstOperand,... {
     self = [super init];
     
     if (self) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         inputs = [[NSMutableArray alloc] init];
-        OCSParam *eachInput;
+        OCSParameter *eachInput;
         va_list argumentList;
         if (firstOperand) // The first argument isn't part of the varargs list,
         {                                   // so we'll handle it separately.

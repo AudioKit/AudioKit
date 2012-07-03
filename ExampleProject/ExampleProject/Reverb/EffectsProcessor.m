@@ -19,7 +19,7 @@
         
         // INPUTS ==============================================================
         
-        OCSParam * input = [toneGenerator auxilliaryOutput];
+        OCSParameter * input = [toneGenerator auxilliaryOutput];
         
         // INSTRUMENT DEFINITION ===============================================
         

@@ -19,6 +19,6 @@
 
 /// Create the mono audio output.
 /// @param monoSignal The audio that should be played.
-- (id)initWithInput:(OCSParam *)monoSignal;
+- (id)initWithInput:(OCSParameter *)monoSignal;
 
 @end

@@ -15,7 +15,7 @@
 
 @interface OCSInstrument : NSObject {
     /// All instruments need, at minimum, a duration of time to run or play.
-    OCSConstantParam *duration;
+    OCSConstant *duration;
 }
 
 /** This contains a list of the OCSProperty variables that are required for the instrument.
@@ -53,11 +53,11 @@
 /// Shortcut for the OCSAssignment operation for setting a parameter equal to another.
 /// @param output Parameter being set.
 /// @param input  Parameter being read.
-- (void)assignOutput:(OCSParam *)output To:(OCSParam *)input; 
+- (void)assignOutput:(OCSParameter *)output To:(OCSParameter *)input; 
 
 /// Shortcut for setting a parameter's value to zero.
 /// @param parameterToReset Parameter whose value will be reset to zero.
-- (void)resetParam:(OCSParam *)parameterToReset;
+- (void)resetParam:(OCSParameter *)parameterToReset;
 
 /// Sets the orchestra as internal variable so that when the instrument is asked to play,
 /// it sends the event to the appropriate orchestra.

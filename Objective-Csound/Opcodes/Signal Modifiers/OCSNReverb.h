@@ -16,15 +16,15 @@
 @interface OCSNReverb : OCSOpcode
 
 /// The output is a mono audio signal.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
 /// @param inputSignal          Audio signal to be reverberated.
 /// @param reverbDuration       Length of reverbation in seconds.
 /// @param highFreqDiffusivity  A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster that lower ones.
-- (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSControlParam *)reverbDuration 
-highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity;
+- (id)initWithInput:(OCSParameter *)inputSignal
+     reverbDuration:(OCSControl *)reverbDuration 
+highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
 /// @param inputSignal          Audio signal to be reverberated.
@@ -34,9 +34,9 @@ highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity;
 /// @param combFilterGains      An array of gains at each time in the comb filter.
 /// @param allPassFilterTimes   An array of times for the all pass filter.
 /// @param allPassFilterGains   An array of gains at each time the all pass filter.
-- (id)initWithInput:(OCSParam *)inputSignal
-     reverbDuration:(OCSControlParam *)reverbDuration
-highFreqDiffusivity:(OCSControlParam *)highFreqDiffusivity
+- (id)initWithInput:(OCSParameter *)inputSignal
+     reverbDuration:(OCSControl *)reverbDuration
+highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     combFilterTimes:(NSArray *)combFilterTimes
     combFilterGains:(NSArray *)combFilterGains
  allPassFilterTimes:(NSArray *)allPassFilterTimes

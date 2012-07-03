@@ -6,7 +6,7 @@
 //
 
 #import "OCSSoundFileTable.h"
-#import "OCSParamArray.h"
+#import "OCSParameterArray.h"
 
 @implementation OCSSoundFileTable
 
@@ -16,7 +16,7 @@
 }
 
 - (id)initWithFilename:(NSString *)filename tableSize:(int)tableSize {
-    OCSParamArray *parameters = [OCSParamArray paramArrayFromParams:
+    OCSParameterArray *parameters = [OCSParameterArray paramArrayFromParams:
                                  ocspfn(filename), ocsp(0), ocsp(0), ocsp(0), nil];
     return [super initWithType:kFTSoundFile 
                          size:tableSize 

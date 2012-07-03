@@ -9,16 +9,16 @@
 #import "OCSWeightedMean.h"
 
 @interface OCSWeightedMean () {
-    OCSParam *in1;
-    OCSParam *in2;
+    OCSParameter *in1;
+    OCSParameter *in2;
     float min;
     float max;
-    OCSParam *current;
+    OCSParameter *current;
 
-    OCSParam *audio;
-    OCSControlParam *control;
-    OCSConstantParam *constant;
-    OCSParam *output;
+    OCSParameter *audio;
+    OCSControl *control;
+    OCSConstant *constant;
+    OCSParameter *output;
 }
 @end
 
@@ -30,15 +30,15 @@
 @synthesize constant;
 @synthesize output;
 
-- (id)initWithSignal1:(OCSParam *)signal1 
-              signal2:(OCSParam *)signal2
-              balance:(OCSParam *)balancePoint;
+- (id)initWithSignal1:(OCSParameter *)signal1 
+              signal2:(OCSParameter *)signal2
+              balance:(OCSParameter *)balancePoint;
 {
     self = [super init];
     if (self) {
-        audio    = [OCSParam         paramWithString:[self opcodeName]];
-        control  = [OCSControlParam  paramWithString:[self opcodeName]];
-        constant = [OCSConstantParam paramWithString:[self opcodeName]];
+        audio    = [OCSParameter         parameterWithString:[self opcodeName]];
+        control  = [OCSControl  parameterWithString:[self opcodeName]];
+        constant = [OCSConstant parameterWithString:[self opcodeName]];
         output  =  audio;
         min = 0;
         max = 1;
@@ -50,12 +50,12 @@
 }
 
 
-- (void)setControl:(OCSControlParam *)p {
+- (void)setControl:(OCSControl *)p {
     control = p;
     output = control;
 }
 
-- (void)setConstant:(OCSConstantParam *)p {
+- (void)setConstant:(OCSConstant *)p {
     constant = p;
     output = constant;
 }

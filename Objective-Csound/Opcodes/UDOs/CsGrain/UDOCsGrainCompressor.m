@@ -10,14 +10,14 @@
 
 
 @interface UDOCsGrainCompressor () {
-    OCSParam *outputLeft;
-    OCSParam *outputRight;
-    OCSParam *inL;
-    OCSParam *inR;
-    OCSControlParam *threshold;
-    OCSControlParam *ratio;
-    OCSControlParam *attack;
-    OCSControlParam *release;
+    OCSParameter *outputLeft;
+    OCSParameter *outputRight;
+    OCSParameter *inL;
+    OCSParameter *inR;
+    OCSControl *threshold;
+    OCSControl *ratio;
+    OCSControl *attack;
+    OCSControl *release;
 }
 @end
 
@@ -26,17 +26,17 @@
 @synthesize outputLeft;
 @synthesize outputRight;
 
-- (id)initWithLeftInput:(OCSParam *)leftInput
-             rightInput:(OCSParam *)rightInput
-              threshold:(OCSControlParam *)dBThreshold
-       compressionRatio:(OCSControlParam *)compressionRatio
-             attackTime:(OCSControlParam *)attackTime
-            releaseTime:(OCSControlParam *)releaseTime;
+- (id)initWithLeftInput:(OCSParameter *)leftInput
+             rightInput:(OCSParameter *)rightInput
+              threshold:(OCSControl *)dBThreshold
+       compressionRatio:(OCSControl *)compressionRatio
+             attackTime:(OCSControl *)attackTime
+            releaseTime:(OCSControl *)releaseTime;
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inL       = leftInput;
         inR       = rightInput;
         threshold = dBThreshold;

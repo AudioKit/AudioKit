@@ -16,7 +16,7 @@
 {
     return [self initWithType:kFTWindows
                          size:tableSize 
-                   parameters:[OCSParamArray paramArrayFromParams:
+                   parameters:[OCSParameterArray paramArrayFromParams:
                                ocspi(windowType),ocsp(maximumValue), nil]];
 }
 
@@ -35,7 +35,7 @@
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 
-                   parameters:[OCSParamArray paramArrayFromParams:
+                   parameters:[OCSParameterArray paramArrayFromParams:
                                ocspi(kWindowGaussian),
                                ocsp(maximumValue),
                                ocsp(windowBroadness), nil] ];
@@ -47,7 +47,7 @@
 {
     return [self initWithType:kFTWindows 
                          size:tableSize 
-                   parameters:[OCSParamArray paramArrayFromParams:
+                   parameters:[OCSParameterArray paramArrayFromParams:
                                ocspi(kWindowKaiser),
                                ocsp(maximumValue),
                                ocsp(windowOpenness), nil] ];

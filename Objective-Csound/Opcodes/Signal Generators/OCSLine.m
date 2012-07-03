@@ -8,13 +8,13 @@
 #import "OCSLine.h"
 
 @interface OCSLine () {
-    OCSParam *audio;
-    OCSControlParam *control;
-    OCSParam *output;
+    OCSParameter *audio;
+    OCSControl *control;
+    OCSParameter *output;
     
-    OCSConstantParam *start;
-    OCSConstantParam *end;
-    OCSConstantParam *dur;
+    OCSConstant *start;
+    OCSConstant *end;
+    OCSConstant *dur;
 }
 @end
 
@@ -24,15 +24,15 @@
 @synthesize control;
 @synthesize output;
 
-- (id)initFromValue:(OCSConstantParam *)startingValue
-            toValue:(OCSConstantParam *)endingValue
-           duration:(OCSConstantParam *)duration
+- (id)initFromValue:(OCSConstant *)startingValue
+            toValue:(OCSConstant *)endingValue
+           duration:(OCSConstant *)duration
 {
     self = [super init];
 
     if (self) {
-        audio   = [OCSParam paramWithString:[self opcodeName]];
-        control = [OCSControlParam paramWithString:[self opcodeName]];
+        audio   = [OCSParameter parameterWithString:[self opcodeName]];
+        control = [OCSControl parameterWithString:[self opcodeName]];
         output  =  audio;
         
         start = startingValue;

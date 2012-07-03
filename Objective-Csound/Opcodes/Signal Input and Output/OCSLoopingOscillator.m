@@ -8,11 +8,11 @@
 #import "OCSLoopingOscillator.h"
 
 @interface OCSLoopingOscillator () {
-    OCSParam *output1;
-    OCSParam *output2;
-    OCSParam *amp;
-    OCSParam *freqMultiplier;
-    OCSConstantParam *baseFrequency;
+    OCSParameter *output1;
+    OCSParameter *output2;
+    OCSParameter *amp;
+    OCSParameter *freqMultiplier;
+    OCSConstant *baseFrequency;
     OCSSoundFileTable *soundFileTable;
 }
 @end
@@ -23,30 +23,30 @@
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable 
-                    frequencyMultiplier:[OCSConstantParam paramWithInt:1]
-                              amplitude:[OCSConstantParam paramWithInt:1]];
+                    frequencyMultiplier:[OCSConstant parameterWithInt:1]
+                              amplitude:[OCSConstant parameterWithInt:1]];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
-                   amplitude:(OCSParam *)amplitude
+                   amplitude:(OCSParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable 
-                    frequencyMultiplier:[OCSConstantParam paramWithInt:1]
+                    frequencyMultiplier:[OCSConstant parameterWithInt:1]
                               amplitude:amplitude];
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControlParam *)frequencyMultiplier
-                   amplitude:(OCSParam *)amplitude;
+         frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                   amplitude:(OCSParameter *)amplitude;
 {
     self = [super init];
     if (self) {
-        output1 = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"1L"]];
-        output2 = [OCSParam paramWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"2R"]];
+        output1 = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"1L"]];
+        output2 = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"2R"]];
         soundFileTable = fileTable;
         amp = amplitude;
         freqMultiplier = frequencyMultiplier;
-        baseFrequency = [OCSConstantParam paramWithInt:1];
+        baseFrequency = [OCSConstant parameterWithInt:1];
     }
     return self;
 }

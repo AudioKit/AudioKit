@@ -8,14 +8,14 @@
 #import "OCSPluckDrum.h"
 
 @interface OCSPluckDrum () {
-    OCSControlParam *amp;
-    OCSControlParam *resampFreq;
-    OCSConstantParam *decayFreq;
-    OCSConstantParam *buffer;
-    OCSConstantParam *roughness;
-    OCSConstantParam *stretch;
+    OCSControl *amp;
+    OCSControl *resampFreq;
+    OCSConstant *decayFreq;
+    OCSConstant *buffer;
+    OCSConstant *roughness;
+    OCSConstant *stretch;
     
-    OCSParam *output;
+    OCSParameter *output;
 }
 @end
 
@@ -28,16 +28,16 @@ typedef enum
 @implementation OCSPluckDrum
 
 @synthesize output;
-- (id)initWithAmplitude:(OCSControlParam *)amplitude
-    resamplingFrequency:(OCSControlParam *)resamplingFrequency
-    pitchDecayFrequency:(OCSConstantParam *)pitchDecayFrequency
-            audioBuffer:(OCSConstantParam *)audioBuffer
-        roughnessFactor:(OCSConstantParam *)roughnessFactor
-          stretchFactor:(OCSConstantParam *)stretchFactor;
+- (id)initWithAmplitude:(OCSControl *)amplitude
+    resamplingFrequency:(OCSControl *)resamplingFrequency
+    pitchDecayFrequency:(OCSConstant *)pitchDecayFrequency
+            audioBuffer:(OCSConstant *)audioBuffer
+        roughnessFactor:(OCSConstant *)roughnessFactor
+          stretchFactor:(OCSConstant *)stretchFactor;
 {
     self = [super init];
     if( self ) {
-        output = [OCSParam paramWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self opcodeName]];
         amp = amplitude;
         resampFreq = resamplingFrequency;
         decayFreq  = pitchDecayFrequency;

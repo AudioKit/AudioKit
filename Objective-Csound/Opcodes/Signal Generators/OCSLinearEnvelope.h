@@ -19,20 +19,20 @@ the same direction, going negative.
 @interface OCSLinearEnvelope : OCSOpcode
 
 /// The output as audio.
-@property (nonatomic, strong) OCSParam *audio;
+@property (nonatomic, strong) OCSParameter *audio;
 /// The output as a control.
-@property (nonatomic, strong) OCSControlParam *control;
+@property (nonatomic, strong) OCSControl *control;
 /// The output can either an audio signal or a control.
-@property (nonatomic, strong) OCSParam *output;
+@property (nonatomic, strong) OCSParameter *output;
 
 /// Creates a straight line rise and decay patter to an input signal.
 /// @param riseTime      Rise time in seconds. A zero or negative value signifies no rise modification.
 /// @param totalDuration Overall duration in seconds. A zero or negative value will cause initialization to be skipped.
 /// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
 /// @param amplitude     Amplitude to rise to and decay from.
-- (id)initWithRiseTime:(OCSConstantParam *)riseTime
-         totalDuration:(OCSConstantParam *)totalDuration
-             decayTime:(OCSConstantParam *)decayTime
-             amplitude:(OCSParam *)amplitude;
+- (id)initWithRiseTime:(OCSConstant *)riseTime
+         totalDuration:(OCSConstant *)totalDuration
+             decayTime:(OCSConstant *)decayTime
+             amplitude:(OCSParameter *)amplitude;
 
 @end
