@@ -15,6 +15,8 @@
 /// @param p P-Value, or column number.  
 - (id)initWithPValue:(int)p;
 
+- (int)fTableNumber;
+
 /// Common method to create float parameters.  So much so that ocsp() macro was created and preferred.
 /// @param value Value to set the parameter to.
 + (id)parameterWithFloat:(float)value;

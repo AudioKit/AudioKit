@@ -1,6 +1,6 @@
 //
 //  ExpressionToneGenerator.m
-//  ExampleProject
+//  Objective-Csound Example
 //
 //  Created by Adam Boulanger on 6/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -24,7 +24,7 @@
         [self addFTable:sineTable];
         
         OCSSineTable * vibratoSine = [[OCSSineTable alloc] init];
-        [self addFTable:vibratoSine];
+        [self addDynamicFTable:vibratoSine];
         
         OCSOscillator * vibratoOscillator; 
 

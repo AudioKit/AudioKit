@@ -28,6 +28,10 @@
  instrument blocks in the CSD File. */
 @property (nonatomic, strong) NSMutableSet *userDefinedOpcodes;
 
+/** All FTables that are required by the instrument are stored here and declared 
+ once in the F-Statement section of the CSD File. */
+@property (nonatomic, strong) NSMutableSet *fTables;
+
 /// @returns A string uniquely defined by the instrument class name and a unique integer.
 - (NSString *)uniqueName;
 
@@ -35,9 +39,13 @@
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
 
-/// Adds the function table to the OCSInstrument.
+/// Adds the function table to the Orchestra, so it is only processed once.
 /// @param newFTable New function table to add to the instrument.
 - (void)addFTable:(OCSFTable *)newFTable;
+
+/// Adds the function table to the OCSInstrument dynamically, processed for each note.
+/// @param newFTable New function table to add to the instrument.
+- (void)addDynamicFTable:(OCSFTable *)newFTable;
 
 /// Adds the opcode to the OCSInstrument.
 /// @param newOpcode New opcode to add to the instrument.

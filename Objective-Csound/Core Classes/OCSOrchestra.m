@@ -13,11 +13,13 @@
 @interface OCSOrchestra () {
     NSMutableArray *instruments;
     NSMutableArray *udos;
+    NSMutableArray *fTables;
 }
 @end
 
 @implementation OCSOrchestra
 
+@synthesize fTables;
 @synthesize instruments;
 
 - (id)init {
@@ -55,6 +57,21 @@
         [s appendFormat:@"instr %@\n", [i uniqueName]];
         [s appendString:[NSString stringWithFormat:@"%@\n",[i stringForCSD]]];
         [s appendString:@"endin\n\n"];
+    }
+    
+    return s;
+}
+
+- (NSString *)fTableStringForCSD {
+    NSMutableString *s = [NSMutableString stringWithString:@""];
+    
+    for ( OCSInstrument *i in instruments) {
+        
+        for (OCSFTable *fTable in [i fTables]) {
+            [s appendString:[fTable fTableStringForCSD]];
+            [s appendString:@"\n"];
+        }
+        
     }
     
     return s;
