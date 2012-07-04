@@ -193,7 +193,6 @@
 		C43080AD159BD5DB0091AE59 /* StairwellL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellL.wav; path = Convolution/StairwellL.wav; sourceTree = "<group>"; };
 		C43080AE159BD5DB0091AE59 /* StairwellR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellR.wav; path = Convolution/StairwellR.wav; sourceTree = "<group>"; };
 		C43080B4159C14C90091AE59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C43080B6159C14DA0091AE59 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
 		C43908AF1596EFEF001FC007 /* a50.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = a50.aif; path = "More Grain/a50.aif"; sourceTree = "<group>"; };
 		C43908B91596F086001FC007 /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOViewController.h; path = UDOs/UDOViewController.h; sourceTree = "<group>"; };
 		C43908BA1596F086001FC007 /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOViewController.m; path = UDOs/UDOViewController.m; sourceTree = "<group>"; };
@@ -500,7 +499,6 @@
 			isa = PBXGroup;
 			children = (
 				C43080B4159C14C90091AE59 /* README.md */,
-				C43080B6159C14DA0091AE59 /* TODO.md */,
 				C4307F93159BCE650091AE59 /* Core Classes */,
 				C4307F9A159BCE650091AE59 /* CSDFiles */,
 				C4307F9D159BCE650091AE59 /* FTables */,
