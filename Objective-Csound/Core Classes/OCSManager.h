@@ -9,6 +9,7 @@
 #import "CsoundObj.h"
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
+#import "OCSHeader.h"
 
 //#import "OCSPropertyManager.h"
 
@@ -21,9 +22,8 @@
 
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
+@property (nonatomic, strong) OCSHeader *header;
 
-/// Determines the value from which to scale all other amplitudes in Csound
-@property (nonatomic, strong) NSNumber *zeroDBFullScaleValue;
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
 /// @returns the shared instance of OCSManager
@@ -45,4 +45,7 @@
 /// @param instrument The instrument which needs to play.
 - (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument;
 
+/// Helper function to get the string out of a file.
+/// @param filename Full path of file on disk
++ (NSString *)stringFromFile:(NSString *)filename;
 @end

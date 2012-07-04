@@ -8,10 +8,11 @@
 
 #import "OCSOrchestra.h"
 #import "OCSInstrument.h"
+#import "OCSManager.h"
 
 @interface OCSOrchestra () {
     NSMutableArray *instruments;
-    NSMutableArray *myUDOs;
+    NSMutableArray *udos;
 }
 @end
 
@@ -23,7 +24,7 @@
     self = [super init];
     if (self) {
         instruments = [[NSMutableArray alloc] init];
-        myUDOs = [[NSMutableArray alloc] init];
+        udos = [[NSMutableArray alloc] init];
     }
     return self; 
 }
@@ -34,7 +35,7 @@
 }
 
 - (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
-    [myUDOs addObject:newUserDefinedOpcode];
+    [udos addObject:newUserDefinedOpcode];
 }
 
 
@@ -42,16 +43,12 @@
 
     NSMutableString *s = [NSMutableString stringWithString:@""];
 
-    
     for ( OCSInstrument *i in instruments) {
 
-        for (OCSUserDefinedOpcode *u in [i userDefinedOpcodes]) {
-            //[s appendFormat:@"#include \"%@\"", [u myUDOFile]];  //Would be nice but it crashes Csound
-            [s appendString:@"\n\n\n"];     
-            [s appendString:[[NSString alloc] initWithContentsOfFile:[u udoFile]  
-                                                            encoding:NSUTF8StringEncoding 
-                                                               error:nil]];
-            [s appendString:@"\n\n\n"];
+        for (OCSUserDefinedOpcode *udo in [i userDefinedOpcodes]) {
+            [s appendString:@"\n\n"];     
+            [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
+            [s appendString:@"\n\n"];
         }
 
         

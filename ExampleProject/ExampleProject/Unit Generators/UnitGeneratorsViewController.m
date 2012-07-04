@@ -8,10 +8,10 @@
 
 #import "UnitGeneratorsViewController.h"
 #import "OCSManager.h"
-#import "UnitGenSoundGenerator.h"
+#import "UnitGeneratorInstrument.h"
 
 @interface UnitGeneratorsViewController () {
-    UnitGenSoundGenerator *myUnitGenSoundGenerator;
+    UnitGeneratorInstrument *unitGeneratorInstrument;
 }
 @end
 
@@ -22,19 +22,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];
-    myUnitGenSoundGenerator = [[UnitGenSoundGenerator alloc] init];
-    [orch addInstrument:myUnitGenSoundGenerator];
+    unitGeneratorInstrument = [[UnitGeneratorInstrument alloc] init];
+    [orch addInstrument:unitGeneratorInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender
 {
-    [myUnitGenSoundGenerator playNoteForDuration:9.0];
+    [unitGeneratorInstrument playNoteForDuration:9.0];
 }
 
 - (IBAction)hit2:(id)sender
 {
-    [myUnitGenSoundGenerator playNoteForDuration:3.0];
+    [unitGeneratorInstrument playNoteForDuration:3.0];
 }
 
 @end

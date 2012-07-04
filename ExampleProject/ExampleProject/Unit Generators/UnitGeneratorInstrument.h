@@ -1,5 +1,5 @@
 //
-//  UnitGenSoundGenerator.h
+//  UnitGeneratorInstrument.h
 //  ExampleProject
 //
 //  Created by Adam Boulanger on 6/7/12.
@@ -8,6 +8,6 @@
 
 #import "OCSInstrument.h"
 
-@interface UnitGenSoundGenerator : OCSInstrument
+@interface UnitGeneratorInstrument : OCSInstrument
 
 @end
