@@ -1,5 +1,6 @@
 //
 //  OCSNReverb.h
+//  Objective-Csound
 //
 //  Created by Adam Boulanger on 6/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
