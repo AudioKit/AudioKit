@@ -9,15 +9,14 @@
 #import "OCSManager.h"
 #import "OCSPropertyManager.h"
 
+
 @interface OCSManager () {
     //TODO: odbfs, sr stuff
     BOOL isRunning;
+    OCSHeader *header;
     NSString *options;
-    int sampleRate;
-    int samplesPerControlPeriod;
-    NSNumber *zeroDBFullScaleValue;
-    NSString *myCSDFile;
-    NSString *templateCSDFileContents;
+    NSString *csdFile;
+    NSString *templateString;
     
     //OCSPropertyManager *myPropertyManager;
     
@@ -28,7 +27,8 @@
 @implementation OCSManager
 
 @synthesize isRunning;
-@synthesize zeroDBFullScaleValue;
+@synthesize header;
+
 //@synthesize myPropertyManager;
 
 static OCSManager *_sharedOCSManager = nil;
@@ -53,6 +53,12 @@ static OCSManager *_sharedOCSManager = nil;
     return nil;
 }
 
++ (NSString *)stringFromFile:(NSString *)filename {
+    return [[NSString alloc] initWithContentsOfFile:filename 
+                                           encoding:NSUTF8StringEncoding 
+                                              error:nil];
+}
+
 /// Initializes to default values
 - (id)init {
     self = [super init];
@@ -66,20 +72,15 @@ static OCSManager *_sharedOCSManager = nil;
         //myPropertyManager = [[OCSPropertyManager alloc] init];
         
         options = @"-odac -+rtmidi=null -+rtaudio=null -dm0";
-        sampleRate = 44100;
-        samplesPerControlPeriod = 256;
-        //int numberOfChannels = 1; //MONO
-        zeroDBFullScaleValue = [NSNumber numberWithFloat:1.0f];
+        header = [[OCSHeader alloc] init];
         
         //Setup File System access
-        NSString *templateFile = [[NSBundle mainBundle] pathForResource: @"template" 
-                                                                  ofType: @"csd"];
-        templateCSDFileContents = [[NSString alloc] initWithContentsOfFile:templateFile  
-                                                                  encoding:NSUTF8StringEncoding 
-                                                                     error:nil];
+        NSString *template;
+        template = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
+        templateString = [OCSManager stringFromFile:template]; 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
-        myCSDFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
+        csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
 
     }
     return self;
@@ -91,54 +92,48 @@ static OCSManager *_sharedOCSManager = nil;
         NSLog(@"Csound instance already active.");
         [self stop];
     }
-    
-    NSLog(@"Running with %@.csd", filename);
     NSString *file = [[NSBundle mainBundle] pathForResource:filename 
                                                      ofType:@"csd"];  
     [csound startCsound:file];
-    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:file 
-                                                           usedEncoding:nil 
-                                                                  error:nil]);
+    NSLog(@"Starting %@ \n\n%@\n",filename, [OCSManager stringFromFile:file]);
     while(!isRunning) {
         NSLog(@"Waiting for Csound to startup completely.");
     }
 }
 
-- (void)writeCSDFileForOrchestra:(OCSOrchestra *) orchestra 
+- (void)writeCSDFileForOrchestra:(OCSOrchestra *)orchestra 
 {
-    NSString *header = [NSString stringWithFormat:@"nchnls = 2\nsr = %d\n0dbfs = %@\nksmps = %d", 
-                         sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
-    NSString *newCSD = [NSString stringWithFormat:templateCSDFileContents, options, header, [orchestra stringForCSD], @""  ];
+    NSString *newCSD = [NSString stringWithFormat:
+                        templateString, 
+                        options, header, [orchestra stringForCSD]];
 
-    [newCSD writeToFile:myCSDFile 
+    [newCSD writeToFile:csdFile 
              atomically:YES  
                encoding:NSStringEncodingConversionAllowLossy 
                   error:nil];
 }
 
-- (void)runOrchestra:(OCSOrchestra *)orch 
+- (void)runOrchestra:(OCSOrchestra *)orchestra 
 {
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
-    }
-    NSLog(@"Running Orchestra with %i instruments", [[orch instruments] count]);
-    
-    [self writeCSDFileForOrchestra:orch];
-    [self updateValueCacheWithProperties:orch];
-    [csound startCsound:myCSDFile];
-    NSLog(@"Starting \n\n%@\n",[[NSString alloc] initWithContentsOfFile:myCSDFile usedEncoding:nil error:nil]);
+    }    
+    [self writeCSDFileForOrchestra:orchestra];
+    [self updateValueCacheWithProperties:orchestra];
+    [csound startCsound:csdFile];
+    NSLog(@"Starting \n\n%@\n", [OCSManager stringFromFile:csdFile]);
 
     // Clean up the IDs for next time
     [OCSParameter resetID];
     [OCSInstrument resetID];
     
-    // Pause to give Csound time to start, warn if nothing happens after one second
+    // Pause to allow Csound to start, warn if nothing happens after 1 second
     int cycles = 0;
     while(!isRunning) {
         cycles++;
         if (cycles > 100) {
-            NSLog(@"There might be a bug in the generated CSD File, Csound has not started" );
+            NSLog(@"Csound has not started in 1 second." );
             break;
         }
         [NSThread sleepForTimeInterval:0.01];
@@ -154,8 +149,8 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument
 {
-    NSString *scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %@", [instrument uniqueName], note];
-    NSLog(@"%@", scoreline);
+    NSString *scoreline = [NSString stringWithFormat:
+                           @"i \"%@\" 0 %@", [instrument uniqueName], note];
     [csound sendScore:scoreline];
 }
 

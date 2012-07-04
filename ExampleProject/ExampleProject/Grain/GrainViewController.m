@@ -11,7 +11,7 @@
 #import "SimpleGrainInstrument.h"
 
 @interface GrainViewController () {
-    SimpleGrainInstrument *myGrainInstrument;
+    SimpleGrainInstrument *grainInstrument;
 }
 @end
 
@@ -22,19 +22,19 @@
     [super viewDidLoad];
     
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];
-    myGrainInstrument = [[SimpleGrainInstrument alloc] init];
-    [orch addInstrument:myGrainInstrument];
+    grainInstrument = [[SimpleGrainInstrument alloc] init];
+    [orch addInstrument:grainInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender
 {
-    [myGrainInstrument playNoteForDuration:15];
+    [grainInstrument playNoteForDuration:15];
 }
 
 - (IBAction)hit2:(id)sender
 {
-    [myGrainInstrument playNoteForDuration:5];
+    [grainInstrument playNoteForDuration:5];
 }
 
 @end

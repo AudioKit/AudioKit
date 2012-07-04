@@ -1,19 +1,19 @@
 //
-//  UnitGenSoundGenerator.m
+//  UnitGeneratorInstrument.m
 //  ExampleProject
 //
 //  Created by Adam Boulanger on 6/7/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "UnitGenSoundGenerator.h"
+#import "UnitGeneratorInstrument.h"
 #import "OCSSineTable.h"
 #import "OCSLine.h"
 #import "OCSSegmentArray.h"
 #import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 
-@implementation UnitGenSoundGenerator
+@implementation UnitGeneratorInstrument
 
 - (id)init
 {

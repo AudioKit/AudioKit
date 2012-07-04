@@ -17,8 +17,6 @@
 
 ;=== F-STATEMENTS ===
 f0 100000
-%@
-
 
 </CsScore>
 </CsoundSynthesizer>
