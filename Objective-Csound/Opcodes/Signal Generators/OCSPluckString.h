@@ -1,5 +1,6 @@
 //
 //  OCSPluckString.h
+//  Objective-Csound
 //
 //  Created by Aurelius Prochazka on 6/25/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
