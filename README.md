@@ -18,6 +18,10 @@ We encourage you to fork Objective-Csound and contribute one of the many
 opcodes we have yet to implement or to install your own User-Defined Opcode
 in Opcodes/UDOs.  
 
+More information on contribution is available on the wiki:
+
+https://github.com/h4y/Objective-Csound/wiki
+
 ### About Csound
 
 Csound is a sound design, audio synthesis, and signal processing system, 

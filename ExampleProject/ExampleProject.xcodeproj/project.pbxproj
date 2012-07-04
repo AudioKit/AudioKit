@@ -59,7 +59,6 @@
 		C46EB425159423DA005807A2 /* GrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB420159423DA005807A2 /* GrainViewController.m */; };
 		C46EB426159423DA005807A2 /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB421159423DA005807A2 /* GrainViewController.xib */; };
 		C46EB427159423DA005807A2 /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB423159423DA005807A2 /* SimpleGrainInstrument.m */; };
-		C47613C015A39F9400F90FE5 /* CodeReviewNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = C47613BF15A39F9400F90FE5 /* CodeReviewNotes.md */; };
 		C4761636158D934800C96DE1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761634158D932700C96DE1 /* PlayCSDFileController.m */; };
 		C4761637158D937500C96DE1 /* PlayCSDFileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4761635158D932700C96DE1 /* PlayCSDFileController.xib */; };
 		C476163B158D943800C96DE1 /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4761639158D943800C96DE1 /* PlayAudioFileViewController.m */; };
@@ -231,7 +230,6 @@
 		C46EB421159423DA005807A2 /* GrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GrainViewController.xib; path = Grain/GrainViewController.xib; sourceTree = "<group>"; };
 		C46EB422159423DA005807A2 /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleGrainInstrument.h; path = Grain/SimpleGrainInstrument.h; sourceTree = "<group>"; };
 		C46EB423159423DA005807A2 /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SimpleGrainInstrument.m; path = Grain/SimpleGrainInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C47613BF15A39F9400F90FE5 /* CodeReviewNotes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CodeReviewNotes.md; path = ../CodeReviewNotes.md; sourceTree = "<group>"; };
 		C4761633158D932700C96DE1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C4761634158D932700C96DE1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
 		C4761635158D932700C96DE1 /* PlayCSDFileController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayCSDFileController.xib; path = "Play CSD File/PlayCSDFileController.xib"; sourceTree = "<group>"; };
@@ -498,7 +496,6 @@
 		C4307F92159BCE650091AE59 /* Objective-Csound */ = {
 			isa = PBXGroup;
 			children = (
-				C47613BF15A39F9400F90FE5 /* CodeReviewNotes.md */,
 				C43080B4159C14C90091AE59 /* README.md */,
 				C43080B6159C14DA0091AE59 /* TODO.md */,
 				C4307F93159BCE650091AE59 /* Core Classes */,
@@ -1053,7 +1050,6 @@
 				C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */,
 				C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */,
 				C48A8AA315A1969100E53A1C /* OscillatorViewController.xib in Resources */,
-				C47613C015A39F9400F90FE5 /* CodeReviewNotes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

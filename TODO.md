@@ -1,31 +1,41 @@
-Notes
------
-* LOVING assignable maximum and minimum values for instant remapping of slider ranges
-* LOVING ui elements that change multiple parameters!!!!
-
 To Do
------
+=====
 * Make PluckDrum & PluckString Examples
 * Create the fof opcode and example
 * Write an audio processor that outputs something back for instance fft
 * Get Adam set up with appledoc
-* Move command line optations into an optional configuration file
 
-Major Upgrades
---------------
-* OCSMidi - Do MIDI right.
-* OCSSequence - Sequencing a la CCSequence to manage timed note events
-* Improve the Example Project to be more interesting to first-timers.  Better sounds and cooler nibs.
-* Begin a testing philosophy
+Notes
+=====
 
-Always More
------------
-* More fixes: Look in doc/CodeReviewNotes.md for a list of issues we can tackle.
-* More code review 
-	* Check opcodes for completeness
-	* Make better documentation-generating comments - check McCurdy's site for insights on various opcodes
-* More documentation, not only in the comment but also in the documentation folder
-* More Opcodes
-* More FTables
-* More UDOs
-* More Examples
+* Opcodes that have either control or audio rates work with 
+setOutput:[opcodeInst control] pattern, but perhaps there's a better way like 
+simple [opcode outputControl] and [opcode outputAudio].  Or to do it upon 
+initialization, initAsControllerYaddaYaddaYadda.  At least, establish a parity 
+between the way OCSProperty does it, which is pretty nice.
+
+* For things that require lists (like some fTables for instance), use an add 
+function rather than sending an OCSParameterArray 
+
+* Create objects like OCSEvents, OCSActions, and OCSSequences for controlling 
+the way notes are fired off, parameters are changed, and actions chained.
+
+* Create the notion of OCSEnsembles or OCSSections, in which multiple 
+instruments can be defined, but given an interface as one thing.  
+
+### Syntactical niceties
+
+* Reorder parameters in opcode signatures so that the initialization parameters 
+come first and the performance parameters come second, like in the Csound documentation.
+
+* Follow the FMOscillator model for property-izing everything and using 
+Csound manual terminology for the implementation variables.
+
+Untested Stuff
+==============
+* OCSArrayTable
+* OCSExponentialCurvesTable - not all method, especial those using pairing
+* OCSNReverb - longer init method
+* OCSPluckDrum
+* OCSPluckString
+* OCSScale
