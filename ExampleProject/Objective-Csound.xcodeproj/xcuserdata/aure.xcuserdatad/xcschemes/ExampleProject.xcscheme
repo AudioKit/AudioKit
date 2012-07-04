@@ -16,7 +16,7 @@
                BlueprintIdentifier = "C4C551131576EB08005F7EE4"
                BuildableName = "ExampleProject.app"
                BlueprintName = "ExampleProject"
-               ReferencedContainer = "container:ExampleProject.xcodeproj">
+               ReferencedContainer = "container:Objective-Csound.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,7 +34,7 @@
             BlueprintIdentifier = "C4C551131576EB08005F7EE4"
             BuildableName = "ExampleProject.app"
             BlueprintName = "ExampleProject"
-            ReferencedContainer = "container:ExampleProject.xcodeproj">
+            ReferencedContainer = "container:Objective-Csound.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,7 +53,7 @@
             BlueprintIdentifier = "C4C551131576EB08005F7EE4"
             BuildableName = "ExampleProject.app"
             BlueprintName = "ExampleProject"
-            ReferencedContainer = "container:ExampleProject.xcodeproj">
+            ReferencedContainer = "container:Objective-Csound.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,7 +71,7 @@
             BlueprintIdentifier = "C4C551131576EB08005F7EE4"
             BuildableName = "ExampleProject.app"
             BlueprintName = "ExampleProject"
-            ReferencedContainer = "container:ExampleProject.xcodeproj">
+            ReferencedContainer = "container:Objective-Csound.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
