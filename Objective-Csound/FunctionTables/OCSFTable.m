@@ -67,6 +67,23 @@
     return text;
 }
 
+- (NSString *)fTableStringForCSD {
+    if (isNormalized) {
+        igen = abs(igen); 
+    } else {
+        igen = -abs(igen);
+    }
+    NSString *text;
+    if (iargs == nil) {
+        text = [NSString stringWithFormat:@"f %@ 0 %i %i",
+                output, isize, igen];
+    } else {
+        text = [NSString stringWithFormat:@"f %@ 0 %i %i %@",
+                 output ,isize, igen, [iargs fTableString]];
+    }
+    return text;
+}
+
 // Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];

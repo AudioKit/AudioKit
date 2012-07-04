@@ -57,6 +57,10 @@ typedef enum
 /// @returns The textual representation of the function table for Csound
 - (NSString *)stringForCSD;
 
+/// @returns The textual representation of the function table for Csound
+- (NSString *)fTableStringForCSD;
+
+
 /// Returns an ftlen() wrapped around the output of this function table.
 - (OCSConstant *)length;
 

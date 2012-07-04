@@ -17,6 +17,9 @@
 /// All the instruments in the orchestra, in order they need to be created.
 @property (nonatomic, strong) NSMutableArray *instruments;
 
+/// Static fTables that can be defined outside of instruments
+@property (nonatomic, strong) NSMutableArray *fTables;
+
 /// Adds an instrument to orchestra and informs the instrument which orchestra it now belongs to.
 /// @param newInstrument Instrument that will be added to the orchestra.
 - (void)addInstrument:(OCSInstrument *)newInstrument;
@@ -28,4 +31,6 @@
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;
 
+/// @returns The FTables declared in all the instruments, prepared for the F-STATEMENT Section of the CSD.
+- (NSString *)fTableStringForCSD;
 @end

@@ -21,7 +21,8 @@ typedef enum {
     NSMutableString *innerCSDRepresentation;
     int _myID;
     NSMutableArray *properties;
-    NSMutableSet *myUDOs;
+    NSMutableSet *userDefinedOpcodes;
+    NSMutableSet *fTables;
 }
 @end
 
@@ -29,6 +30,7 @@ typedef enum {
 
 @synthesize properties;
 @synthesize userDefinedOpcodes;
+@synthesize fTables;
 
 static int currentID = 1;
 
@@ -40,6 +42,7 @@ static int currentID = 1;
         duration = [[OCSConstant alloc] initWithPValue:kDuration];
         properties = [[NSMutableArray alloc] init];
         userDefinedOpcodes = [[NSMutableSet alloc] init];
+        fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -57,6 +60,11 @@ static int currentID = 1;
 }
 
 - (void)addFTable:(OCSFTable *)newFTable {
+    [fTables addObject:newFTable];
+    [newFTable setOutput:[OCSConstant parameterWithInt:[[newFTable output] fTableNumber]]]; 
+}
+
+- (void)addDynamicFTable:(OCSFTable *)newFTable {
     [innerCSDRepresentation appendString:[newFTable stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }

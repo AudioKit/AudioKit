@@ -57,6 +57,15 @@
     return [s componentsJoinedByString:@", "]; 
 }
 
+- (id)fTableString {
+    NSMutableArray *s = [[NSMutableArray alloc] init];
+    for (OCSConstant *value in params) {
+        [s addObject:[value parameterString]];
+    }
+    return [s componentsJoinedByString:@" "]; 
+}
+
+
 + (id)paramArrayFromParams:(OCSConstant *)firstParam,... {
     OCSParameterArray *result = [[OCSParameterArray alloc] init];
     

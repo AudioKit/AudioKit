@@ -27,4 +27,6 @@
 /// @param pairingArray The second array, must be equal in size.
 - (OCSParameterArray *)pairWith:(OCSParameterArray *)pairingArray;
 
+- (id)fTableString;
+
 @end
