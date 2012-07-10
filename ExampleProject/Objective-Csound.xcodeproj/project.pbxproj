@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		764F357E15AB113C0086D377 /* MidifiedInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F357D15AB113C0086D377 /* MidifiedInstrument.m */; };
+		764F358215AB115A0086D377 /* MidifiedInstrumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F358015AB115A0086D377 /* MidifiedInstrumentViewController.m */; };
+		764F358315AB115A0086D377 /* MidifiedInstrumentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764F358115AB115A0086D377 /* MidifiedInstrumentViewController.xib */; };
+		764F358615AC60480086D377 /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F358515AC60480086D377 /* OCSMidi.m */; };
 		76DE1A4E1598E48D00A71EAF /* MoreGrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46EB41B15942369005807A2 /* MoreGrainViewController.xib */; };
 		C4307F6F159BA68C0091AE59 /* GrainBirdsReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F6E159BA68C0091AE59 /* GrainBirdsReverb.m */; };
 		C4307F88159BB2360091AE59 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */; };
@@ -32,7 +36,7 @@
 		C4308016159BCE660091AE59 /* UDOMSROscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE0159BCE650091AE59 /* UDOMSROscillator.m */; };
 		C4308017159BCE660091AE59 /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FE2159BCE650091AE59 /* OCSUserDefinedOpcode.m */; };
 		C430801C159BCE660091AE59 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEE159BCE650091AE59 /* OCSProperty.m */; };
-		C430801D159BCE660091AE59 /* OCSPropertyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C430801D159BCE660091AE59 /* OCSMidiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FF0159BCE650091AE59 /* OCSMidiManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C43080AF159BD5DB0091AE59 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AA159BD5DB0091AE59 /* 808loop.wav */; };
 		C43080B0159BD5DB0091AE59 /* dishL.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AB159BD5DB0091AE59 /* dishL.wav */; };
 		C43080B1159BD5DB0091AE59 /* dishR.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AC159BD5DB0091AE59 /* dishR.wav */; };
@@ -143,6 +147,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		764F357C15AB113C0086D377 /* MidifiedInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidifiedInstrument.h; path = Midi/MidifiedInstrument.h; sourceTree = "<group>"; };
+		764F357D15AB113C0086D377 /* MidifiedInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MidifiedInstrument.m; path = Midi/MidifiedInstrument.m; sourceTree = "<group>"; };
+		764F357F15AB115A0086D377 /* MidifiedInstrumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidifiedInstrumentViewController.h; path = Midi/MidifiedInstrumentViewController.h; sourceTree = "<group>"; };
+		764F358015AB115A0086D377 /* MidifiedInstrumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MidifiedInstrumentViewController.m; path = Midi/MidifiedInstrumentViewController.m; sourceTree = "<group>"; };
+		764F358115AB115A0086D377 /* MidifiedInstrumentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidifiedInstrumentViewController.xib; path = Midi/MidifiedInstrumentViewController.xib; sourceTree = "<group>"; };
+		764F358415AC60480086D377 /* OCSMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMidi.h; sourceTree = "<group>"; };
+		764F358515AC60480086D377 /* OCSMidi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMidi.m; sourceTree = "<group>"; };
 		C4307F6D159BA68C0091AE59 /* GrainBirdsReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrainBirdsReverb.h; path = "More Grain/GrainBirdsReverb.h"; sourceTree = "<group>"; };
 		C4307F6E159BA68C0091AE59 /* GrainBirdsReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GrainBirdsReverb.m; path = "More Grain/GrainBirdsReverb.m"; sourceTree = "<group>"; };
 		C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = Convolution/ConvolutionInstrument.h; sourceTree = "<group>"; };
@@ -185,8 +196,8 @@
 		C4307FE2159BCE650091AE59 /* OCSUserDefinedOpcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSUserDefinedOpcode.m; sourceTree = "<group>"; };
 		C4307FED159BCE650091AE59 /* OCSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSProperty.h; sourceTree = "<group>"; };
 		C4307FEE159BCE650091AE59 /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
-		C4307FEF159BCE650091AE59 /* OCSPropertyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPropertyManager.h; sourceTree = "<group>"; };
-		C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPropertyManager.m; sourceTree = "<group>"; };
+		C4307FEF159BCE650091AE59 /* OCSMidiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMidiManager.h; sourceTree = "<group>"; };
+		C4307FF0159BCE650091AE59 /* OCSMidiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMidiManager.m; sourceTree = "<group>"; };
 		C43080AA159BD5DB0091AE59 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 808loop.wav; path = Convolution/808loop.wav; sourceTree = "<group>"; };
 		C43080AB159BD5DB0091AE59 /* dishL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishL.wav; path = Convolution/dishL.wav; sourceTree = "<group>"; };
 		C43080AC159BD5DB0091AE59 /* dishR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishR.wav; path = Convolution/dishR.wav; sourceTree = "<group>"; };
@@ -413,6 +424,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		764F357A15AB10F80086D377 /* Midi */ = {
+			isa = PBXGroup;
+			children = (
+				764F357C15AB113C0086D377 /* MidifiedInstrument.h */,
+				764F357D15AB113C0086D377 /* MidifiedInstrument.m */,
+				764F357F15AB115A0086D377 /* MidifiedInstrumentViewController.h */,
+				764F358015AB115A0086D377 /* MidifiedInstrumentViewController.m */,
+				764F358115AB115A0086D377 /* MidifiedInstrumentViewController.xib */,
+			);
+			name = Midi;
+			sourceTree = "<group>";
+		};
 		76B9564E158145F7005AFAE9 /* Unit Generators */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +548,8 @@
 				C4307F99159BCE650091AE59 /* OCSOrchestra.m */,
 				C448F30315A0E07600AB5DF2 /* OCSScore.h */,
 				C448F30415A0E07600AB5DF2 /* OCSScore.m */,
+				764F358415AC60480086D377 /* OCSMidi.h */,
+				764F358515AC60480086D377 /* OCSMidi.m */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -628,8 +653,8 @@
 			children = (
 				C4307FED159BCE650091AE59 /* OCSProperty.h */,
 				C4307FEE159BCE650091AE59 /* OCSProperty.m */,
-				C4307FEF159BCE650091AE59 /* OCSPropertyManager.h */,
-				C4307FF0159BCE650091AE59 /* OCSPropertyManager.m */,
+				C4307FEF159BCE650091AE59 /* OCSMidiManager.h */,
+				C4307FF0159BCE650091AE59 /* OCSMidiManager.m */,
 			);
 			path = Properties;
 			sourceTree = "<group>";
@@ -891,6 +916,7 @@
 				76F3202215939EB2008338E2 /* MoreGrain */,
 				C43908BF1596F08D001FC007 /* UDOs */,
 				C4307F89159BB23D0091AE59 /* Convolution */,
+				764F357A15AB10F80086D377 /* Midi */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -1053,6 +1079,7 @@
 				C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */,
 				C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */,
 				C48A8AA315A1969100E53A1C /* OscillatorViewController.xib in Resources */,
+				764F358315AB115A0086D377 /* MidifiedInstrumentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,7 +1149,7 @@
 				C4308016159BCE660091AE59 /* UDOMSROscillator.m in Sources */,
 				C4308017159BCE660091AE59 /* OCSUserDefinedOpcode.m in Sources */,
 				C430801C159BCE660091AE59 /* OCSProperty.m in Sources */,
-				C430801D159BCE660091AE59 /* OCSPropertyManager.m in Sources */,
+				C430801D159BCE660091AE59 /* OCSMidiManager.m in Sources */,
 				C497CCF0159C58B700AB9E57 /* OCSAssignment.m in Sources */,
 				C497CCF1159C58B700AB9E57 /* OCSProduct.m in Sources */,
 				C497CCF2159C58B700AB9E57 /* OCSSum.m in Sources */,
@@ -1154,6 +1181,9 @@
 				C4A8602F15A38ED00078697E /* OCSParameter.m in Sources */,
 				C4A8603015A38ED00078697E /* OCSParameterArray.m in Sources */,
 				C47613C615A3D90700F90FE5 /* OCSHeader.m in Sources */,
+				764F357E15AB113C0086D377 /* MidifiedInstrument.m in Sources */,
+				764F358215AB115A0086D377 /* MidifiedInstrumentViewController.m in Sources */,
+				764F358615AC60480086D377 /* OCSMidi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

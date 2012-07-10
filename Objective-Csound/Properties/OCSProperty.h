@@ -37,6 +37,12 @@
 /// Catch-all output, necessary for parameterization.
 @property (nonatomic, strong) OCSParameter *output;
 
+/// isMidiEnabled
+@property (readwrite) BOOL isMidiEnabled;
+
+/// Midi Channel Number (0-127).
+@property (readwrite) int midiChannel;
+
 /// Initialize the property with bounds.
 /// @param minValue Minimum value.
 /// @param maxValue Maximum value.
@@ -56,5 +62,9 @@
 
 /// String with the appropriate chnset statement for the CSD File
 - (NSString *)stringForCSDSetValue;
+
+/// Enable midi for this property.
+/// @param Midi channel number (0-127).
+-(void)enableMidiForChannelNumber:(int)channelNumber;
 
 @end

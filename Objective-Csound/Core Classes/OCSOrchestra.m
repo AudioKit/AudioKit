@@ -40,9 +40,8 @@
     [udos addObject:newUserDefinedOpcode];
 }
 
-
 - (NSString *) stringForCSD {
-
+ 
     NSMutableString *s = [NSMutableString stringWithString:@""];
 
     for ( OCSInstrument *i in instruments) {
