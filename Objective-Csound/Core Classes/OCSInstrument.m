@@ -61,7 +61,6 @@ static int currentID = 1;
 
 - (void)addFTable:(OCSFTable *)newFTable {
     [fTables addObject:newFTable];
-    [newFTable setOutput:[OCSConstant parameterWithInt:[[newFTable output] fTableNumber]]]; 
 }
 
 - (void)addDynamicFTable:(OCSFTable *)newFTable {

@@ -105,8 +105,8 @@ static OCSManager *_sharedOCSManager = nil;
 {
     NSString *newCSD = [NSString stringWithFormat:
                         templateString, options, header, 
-                        [orchestra stringForCSD], 
-                        [orchestra fTableStringForCSD]];
+                        [orchestra fTableStringForCSD],
+                        [orchestra stringForCSD]];
 
     [newCSD writeToFile:csdFile 
              atomically:YES  
