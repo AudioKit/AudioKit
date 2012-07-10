@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSPropertyManager.h"
+#import "OCSMidiManager.h"
 
 void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
 
-@implementation OCSPropertyManager
+@implementation OCSMidiManager
 @synthesize propertyList;
 
 /*
@@ -26,8 +26,8 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     }
     return self;
 }
-
-- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier
+*/
+- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber
 {
     if (controllerNumber < 0 || controllerNumber > 127) {
         NSLog(@"Error: Attempted to add a widget with controller number outside of range 0-127: %d", controllerNumber);
@@ -37,6 +37,7 @@ void OCSPropertyManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     [propertyList replaceObjectAtIndex:controllerNumber withObject:prop];
 }
 
+/*
 - (void)addProperty:(OCSProperty *)prop
 {
     [propertyList addObject:prop];
