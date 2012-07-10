@@ -34,7 +34,8 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 
 /* coremidi callback, called when MIDI data is available */
 void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
-    OCSMidi* manager = (OCSMidi *)refcon;  
+    //ARB - may want to transfer ownership to arc here, with __bridge_transfer
+    OCSMidi* midi = (__bridge OCSMidi *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
 	Byte *curpack;
     int i, j;
@@ -47,12 +48,13 @@ void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
                 unsigned int controllerNumber = (unsigned int)(*curpack++);
                 unsigned int controllerValue = (unsigned int)(*curpack++);
                 
-                id midiProperty = [manager.widgetWrappers objectAtIndex:controllerNumber];
+                id midiProperty = [midi.midiProperties objectAtIndex:controllerNumber];
                 
-                //NSLog(@"Controller Number: %d Value: %d", controllerNumber, controllerValue);
+                NSLog(@"Controller Number: %d Value: %d", controllerNumber, controllerValue);
                 
                 if (midiProperty != [NSNull null]) {
-                    [(id<OCSProperty>)midiProperty setValue:(Float32)controllerValue];
+                    //ARB - questionable cast here, but no generics in obj-c
+                    [(OCSProperty *)midiProperty setValue:(Float32)controllerValue];
                 }
             }      
 		}
@@ -61,7 +63,39 @@ void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
 }
 
 -(void)openMidiIn
-{}
+{
+    int k, endpoints;
+    
+    CFStringRef name = NULL, cname = NULL, pname = NULL;
+    CFStringEncoding defaultEncoding = CFStringGetSystemEncoding();
+    MIDIPortRef mport = NULL;
+    MIDIEndpointRef endpoint;
+    OSStatus ret;
+	
+    /* MIDI client */
+    cname = CFStringCreateWithCString(NULL, "my client", defaultEncoding);
+    ret = MIDIClientCreate(cname, NULL, NULL, &mClient);
+    if(!ret){
+        /* MIDI output port */
+        pname = CFStringCreateWithCString(NULL, "outport", defaultEncoding);
+        //ARB - check bridge
+        ret = MIDIInputPortCreate(mClient, pname, MidiPropertyReadProc, (__bridge_retained void *)self, &mport);
+        if(!ret){
+            /* sources, we connect to all available input sources */
+            endpoints = MIDIGetNumberOfSources();
+			//NSLog(@"midi srcs %d\n", endpoints); 
+            for(k=0; k < endpoints; k++){
+                endpoint = MIDIGetSource(k);
+                void *srcRefCon = endpoint;
+                MIDIPortConnectSource(mport, endpoint, srcRefCon);
+                
+            }
+        }
+    }
+    if(name) CFRelease(name);
+    if(pname) CFRelease(pname);
+    if(cname) CFRelease(cname); 
+}
 
 -(void)closeMidiIn
 {
