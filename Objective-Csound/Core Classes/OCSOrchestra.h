@@ -31,6 +31,9 @@
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;
 
-/// @returns The FTables declared in all the instruments, prepared for the F-STATEMENT Section of the CSD.
+
+/// @returns The FTables declared in all the instruments, prepared for the GLOBALS Section of the CSD.
 - (NSString *)fTableStringForCSD;
+
+
 @end

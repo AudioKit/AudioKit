@@ -75,14 +75,16 @@
     }
     NSString *text;
     if (iargs == nil) {
-        text = [NSString stringWithFormat:@"f %@ 0 %i %i",
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
                 output, isize, igen];
     } else {
-        text = [NSString stringWithFormat:@"f %@ 0 %i %i %@",
-                 output ,isize, igen, [iargs fTableString]];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
+                output, isize, igen, [iargs parameterString]];
     }
     return text;
 }
+
+
 
 // Gives the CSD string for the output parameter.  
 - (NSString *)description {

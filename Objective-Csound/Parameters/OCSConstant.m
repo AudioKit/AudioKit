@@ -18,10 +18,6 @@
     return self;
 }
 
-- (int)fTableNumber {
-    return _myID;
-}
-
 - (id)initWithString:(NSString *)name
 {
     self = [super init];
