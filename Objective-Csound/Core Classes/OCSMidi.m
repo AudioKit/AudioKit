@@ -33,7 +33,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 }
 
 /* coremidi callback, called when MIDI data is available */
-void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
+void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
     //ARB - may want to transfer ownership to arc here, with __bridge_transfer
     OCSMidi* midi = (__bridge OCSMidi *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
