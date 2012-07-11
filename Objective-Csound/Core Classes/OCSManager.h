@@ -9,6 +9,7 @@
 #import "CsoundObj.h"
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
+#import "OCSMidi.h"
 #import "OCSHeader.h"
 
 //#import "OCSPropertyManager.h"
@@ -22,6 +23,7 @@
 
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
+@property (readonly) BOOL isMidiEnabled;
 @property (nonatomic, strong) OCSHeader *header;
 
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
@@ -48,4 +50,7 @@
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk
 + (NSString *)stringFromFile:(NSString *)filename;
+
+/// Enable Midi in Csound.
+- (void)enableMidi;
 @end
