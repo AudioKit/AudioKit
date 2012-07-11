@@ -7,26 +7,24 @@
 //
 
 #import "OCSManager.h"
-#import "OCSPropertyManager.h"
-
 
 @interface OCSManager () {
-    //TODO: odbfs, sr stuff
     BOOL isRunning;
+    BOOL isMidiEnabled;
     OCSHeader *header;
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
     
-    //OCSPropertyManager *myPropertyManager;
-    
     CsoundObj *csound;
+    OCSMidi *midi;
 }
 @end
 
 @implementation OCSManager
 
 @synthesize isRunning;
+@synthesize isMidiEnabled;
 @synthesize header;
 
 //@synthesize myPropertyManager;
@@ -68,6 +66,7 @@ static OCSManager *_sharedOCSManager = nil;
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         
         isRunning = NO;
+        isMidiEnabled = NO;
         
         //myPropertyManager = [[OCSPropertyManager alloc] init];
         
@@ -81,7 +80,8 @@ static OCSManager *_sharedOCSManager = nil;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
-
+        
+        midi = [[OCSMidi alloc] init];
     }
     return self;
 }   
@@ -122,6 +122,7 @@ static OCSManager *_sharedOCSManager = nil;
     }    
     [self writeCSDFileForOrchestra:orchestra];
     [self updateValueCacheWithProperties:orchestra];
+    [self updateMidiProperties:orchestra];
     [csound startCsound:csdFile];
     NSLog(@"Starting \n\n%@\n", [OCSManager stringFromFile:csdFile]);
 
@@ -155,8 +156,6 @@ static OCSManager *_sharedOCSManager = nil;
     [csound sendScore:scoreline];
 }
 
-#pragma mark CsoundCallbacks
-
 - (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra
 {
     NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
@@ -166,6 +165,20 @@ static OCSManager *_sharedOCSManager = nil;
         }
     }
 }
+
+- (void)updateMidiProperties:(OCSOrchestra *)orchestra
+{
+    NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
+    for (OCSInstrument *i in arr) {
+        for (OCSProperty *p in [i properties]) {
+            if( [p isMidiEnabled]) {
+                [midi addProperty:p];
+            }
+        }
+    }
+}
+
+#pragma mark CsoundCallbacks
 - (void)messageCallback:(NSValue *)infoObj
 {
 	Message info;
@@ -187,4 +200,11 @@ static OCSManager *_sharedOCSManager = nil;
     isRunning  = NO;
 }
 
+#pragma mark OCSMidi
+- (void)enableMidi 
+{
+    NSLog(@"Csound midi enabled");
+    [csound setMidiInEnabled:YES];
+    isMidiEnabled = YES;
+}
 @end

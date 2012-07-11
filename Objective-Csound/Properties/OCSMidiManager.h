@@ -11,9 +11,8 @@
 #import <CoreMIDI/CoreMIDI.h>
 
 #import "OCSManager.h"
-#import "OCSProperty.h"
 
-@interface OCSPropertyManager : NSObject
+@interface OCSMidiManager : NSObject
 {
     NSMutableArray *propertyList;
     MIDIClientRef myClient;
@@ -24,7 +23,7 @@
 //- (void)openMidiIn;
 //- (void)closeMidiIn;
 
-////- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber andChannelName:(NSString *)uniqueIdentifier;
+- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber;
 
 //- (void)addProperty:(OCSProperty *)prop;
 @end
