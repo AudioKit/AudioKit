@@ -48,7 +48,7 @@
 }
 
 - (NSString *) udoFile {
-    return [[NSBundle mainBundle] pathForResource: @"CSGrainCompressor" ofType: @"udo"];
+    return [[NSBundle mainBundle] pathForResource: @"CsGrainCompressor" ofType: @"udo"];
 }
 
 - (NSString *)stringForCSD

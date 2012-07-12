@@ -26,6 +26,7 @@
     [orch addInstrument:inst];
     
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[OCSManager sharedOCSManager] enableMidi];
 }
 
 - (void)viewDidUnload

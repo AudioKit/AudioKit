@@ -206,5 +206,6 @@ static OCSManager *_sharedOCSManager = nil;
     NSLog(@"Csound midi enabled");
     [csound setMidiInEnabled:YES];
     isMidiEnabled = YES;
+    [midi openMidiIn];
 }
 @end

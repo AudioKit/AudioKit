@@ -26,6 +26,7 @@
     conv = [[ConvolutionInstrument alloc] init];
     [orch addInstrument:conv];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    
 }
 
 - (IBAction)start:(id)sender
