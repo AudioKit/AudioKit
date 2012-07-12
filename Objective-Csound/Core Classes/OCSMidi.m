@@ -21,6 +21,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 
 -(id)init
 {
+    NSLog(@"Initializing Midi");
     if(self = [super init]) {
         midiProperties = [[NSMutableArray alloc] init];
         
@@ -34,6 +35,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 
 /* coremidi callback, called when MIDI data is available */
 void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
+    NSLog(@"got to this proc");
     //ARB - may want to transfer ownership to arc here, with __bridge_transfer
     OCSMidi* midi = (__bridge OCSMidi *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
@@ -64,6 +66,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 
 -(void)openMidiIn
 {
+    NSLog(@"Opening Midi In");
     int k, endpoints;
     
     CFStringRef name = NULL, cname = NULL, pname = NULL;
@@ -99,11 +102,13 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 
 -(void)closeMidiIn
 {
+    NSLog(@"Closing Midi In");
     MIDIClientDispose(mClient);
 }
 
 - (void)addProperty:(OCSProperty *)newProperty
 {
+    NSLog(@"adding a property");
     if ([newProperty isMidiEnabled]) {
         [midiProperties replaceObjectAtIndex:[newProperty midiChannel] withObject:newProperty];
     }
