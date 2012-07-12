@@ -9,8 +9,10 @@
 #import "OCSEvent.h"
 
 @interface OCSEvent () {
-    OCSInstrument * instr;
+    OCSInstrument *instr;
     float dur;
+    NSMutableArray *properties;
+    NSMutableArray *values;
 }
 @end
 
@@ -18,6 +20,7 @@
 @implementation OCSEvent
 
 @synthesize duration = dur;
+@synthesize instrument = templateInsrument;
 
 - (id)initWithInstrument:(OCSInstrument *)instrument
                 duration:(float)duration;
@@ -26,14 +29,35 @@
     if (self) {
         instr = instrument;
         dur = duration;
+        properties = [[NSMutableArray alloc] init];
+        values = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (void)setProperty:(OCSProperty *)property toValue:(float)value 
+{
+    [properties addObject:property];
+    [values addObject:[NSNumber numberWithFloat:value]];
+}
+
+- (void)trigger 
+{
+    for (int i=0; i<[properties count]; i++) {
+        OCSProperty *prop = [properties objectAtIndex:i];
+        float val = [[values objectAtIndex:i] floatValue];
+        [prop setValue:val];
+    }
 }
 
 
 - (NSString *) description 
 {
-    return [NSString stringWithFormat:@"i \"%@\" 0 %0.2f", [instr uniqueName], dur];
+    [self trigger];
+    NSString *scoreline;
+    scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %0.2f", [instr uniqueName], dur];
+    NSLog(@"%@", scoreline);
+    return scoreline;
 }
 
 @end

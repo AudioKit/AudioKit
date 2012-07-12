@@ -11,6 +11,7 @@
 #import "OCSOpcode.h"
 #import "OCSUserDefinedOpcode.h"
 #import "OCSProperty.h"
+@class OCSEvent;
 
 /** Manages functions that most OCS instruments need to have.*/
 
@@ -79,6 +80,8 @@
 /// Create a score line entry for starting the note immediately
 /// @param playDuration Length of time in seconds to play the instrument.
 - (void)playNoteForDuration:(float)playDuration;
+
+- (void)playEvent:(OCSEvent *)event;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
