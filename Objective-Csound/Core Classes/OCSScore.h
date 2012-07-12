@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface OCSScore : NSObject
 
 @end

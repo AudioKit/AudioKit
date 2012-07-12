@@ -6,8 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "OCSInstrument.h"
 
 @interface OCSEvent : NSObject
+
+@property (assign) float duration;
+
+- (id)initWithInstrument:(OCSInstrument *)instrument
+                duration:(float)duration;
 
 @end
