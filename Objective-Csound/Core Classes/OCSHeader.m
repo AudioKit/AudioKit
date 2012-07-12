@@ -11,6 +11,7 @@
 @interface OCSHeader () {
     int sampleRate;
     int samplesPerControlPeriod;
+    int numberOfChannels;
     float zeroDBFullScaleValue;
 }
 @end
@@ -23,8 +24,8 @@
     self = [super init];
     if (self != nil) {
         sampleRate = 44100;
-        samplesPerControlPeriod = 256;
-        //int numberOfChannels = 1; //MONO
+        samplesPerControlPeriod = 512;
+        numberOfChannels = 2;
         zeroDBFullScaleValue = 1.0f;
     }
     return self;
@@ -33,11 +34,11 @@
 /// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [NSString stringWithFormat:
-            @"nchnls = 2  \n"
+            @"nchnls = %d \n"
             @"sr     = %d \n"
             @"0dbfs  = %g \n"
             @"ksmps  = %d \n", 
-            sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
+            numberOfChannels, sampleRate, zeroDBFullScaleValue, samplesPerControlPeriod];
 }
 
 
