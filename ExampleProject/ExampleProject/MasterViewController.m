@@ -23,6 +23,7 @@
 #import "MoreGrainViewController.h"
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
+#import "MidifiedInstrumentViewController.h"
 
 
 @interface MasterViewController () {
@@ -56,6 +57,7 @@
                     @"MoreGrain",
                     @"User Defined Opcodes",
                     @"Convolution",
+                    @"MIDI",
                     nil];
     return self;
 }
@@ -188,6 +190,9 @@
             break;
         case 11:
             controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
+            break;
+        case 12:
+            controller = [[MidifiedInstrumentViewController alloc] initWithNibName:@"MidifiedInstrumentViewController" bundle:nil];
             break;
         default:
             break;
