@@ -11,6 +11,8 @@
 #import "OCSReverb.h"
 #import "OCSAudio.h"
 
+#import "OCSEvent.h"
+
 @interface AudioFilePlayer () {
     OCSProperty *spd;
 }
@@ -66,6 +68,15 @@
 }
 
 - (void)playWithSpeed:(float)speed {
+    OCSEvent *note = [[OCSEvent alloc]initWithInstrument:self duration:(3.0f/speed)];
+    [note setProperty:spd toValue:speed];
+    [self playEvent:note];
+    //spd.value = speed;
+    NSLog(@"Playing file at %0.2fx original speed", speed);
+    //[self playNoteForDuration:(3.0f/speed)];
+}
+
+- (void)playWithSpeedOriginal:(float)speed {
     spd.value = speed;
     NSLog(@"Playing file at %0.2fx original speed", speed);
     [self playNoteForDuration:(3.0f/speed)];
