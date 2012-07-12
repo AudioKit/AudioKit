@@ -149,11 +149,9 @@ static OCSManager *_sharedOCSManager = nil;
     while(isRunning) {} // Do nothing
 }
 
-- (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument
+- (void)playEvent:(OCSEvent *)event  
 {
-    NSString *scoreline = [NSString stringWithFormat:
-                           @"i \"%@\" 0 %@", [instrument uniqueName], note];
-    [csound sendScore:scoreline];
+    [csound sendScore:[event description]];
 }
 
 - (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra

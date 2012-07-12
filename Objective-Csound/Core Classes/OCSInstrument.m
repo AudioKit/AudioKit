@@ -121,8 +121,9 @@ static int currentID = 1;
 }
 
 - (void)playNoteForDuration:(float)playDuration {
-    NSString *noteEventString = [NSString stringWithFormat:@"%0.2f", playDuration];
-    [[OCSManager sharedOCSManager] playNote:noteEventString OnInstrument:self];
+    OCSEvent * noteEvent = [[OCSEvent alloc] initWithInstrument:self
+                                                       duration:playDuration];
+    [[OCSManager sharedOCSManager] playEvent:noteEvent];
 }
 + (void)resetID {
     currentID = 1;

@@ -11,6 +11,7 @@
 #import "OCSOrchestra.h"
 #import "OCSMidi.h"
 #import "OCSHeader.h"
+#import "OCSEvent.h"
 
 //#import "OCSPropertyManager.h"
 
@@ -43,9 +44,8 @@
 - (void)stop;
 
 /// Writes a scoreline to start playing an instrument.
-/// @param note       Space deliminated list of parameters starting with the duration in seconds and usually contains only the duration.
-/// @param instrument The instrument which needs to play.
-- (void)playNote:(NSString *)note OnInstrument:(OCSInstrument *)instrument;
+/// @param event OCS Event
+- (void)playEvent:(OCSEvent *)event;
 
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk
