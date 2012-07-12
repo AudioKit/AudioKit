@@ -36,7 +36,7 @@
         mod = [[OCSProperty alloc] initWithMinValue:kModulationMin maxValue:kModulationMax];
         cutoff = [[OCSProperty alloc] initWithValue:kLpCutoffInit minValue:kLpCutoffMin maxValue:kLpCutoffMax];
         
-        [cutoff enableMidiForChannelNumber:16];
+        [cutoff enableMidiForChannelNumber:1];
         
         [freq setControl:[OCSControl parameterWithString:@"Frequency"]];
         [mod setControl:[OCSControl parameterWithString:@"Modulation"]];

@@ -614,9 +614,9 @@
 			isa = PBXGroup;
 			children = (
 				C4307FD7159BCE650091AE59 /* CsGrainCompressor.udo */,
-				C4307FD8159BCE650091AE59 /* CsGrainPitchShifter.udo */,
 				C4307FD9159BCE650091AE59 /* UDOCsGrainCompressor.h */,
 				C4307FDA159BCE650091AE59 /* UDOCsGrainCompressor.m */,
+				C4307FD8159BCE650091AE59 /* CsGrainPitchShifter.udo */,
 				C4307FDB159BCE650091AE59 /* UDOCsGrainPitchShifter.h */,
 				C4307FDC159BCE650091AE59 /* UDOCsGrainPitchShifter.m */,
 			);
