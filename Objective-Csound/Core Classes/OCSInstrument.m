@@ -127,10 +127,7 @@ static int currentID = 1;
     [[OCSManager sharedOCSManager] playEvent:noteEvent];
 }
 
-- (void)playEvent:(OCSEvent *)event 
-{
-    [[OCSManager sharedOCSManager] playEvent:event];
-}
+
 
 + (void)resetID {
     currentID = 1;
