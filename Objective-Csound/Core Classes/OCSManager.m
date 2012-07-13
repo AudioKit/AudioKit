@@ -206,4 +206,9 @@ static OCSManager *_sharedOCSManager = nil;
     isMidiEnabled = YES;
     [midi openMidiIn];
 }
+
+-(void)panic
+{
+    [csound sendScore:@"i\"allNotesOff\" 0 1"];
+}
 @end
