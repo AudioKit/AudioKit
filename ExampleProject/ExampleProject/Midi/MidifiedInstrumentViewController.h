@@ -8,6 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MidifiedInstrumentViewController : UIViewController
+@interface MidifiedInstrumentViewController : UIViewController {
+    IBOutlet UISwitch *noteOnSwitch;
+    
+    IBOutlet UISlider *frequencySlider;
+    IBOutlet UILabel *frequencyLabel;
+    
+    IBOutlet UISlider *modulationSlider;
+    IBOutlet UILabel *modulationLabel;
+    
+    IBOutlet UISlider *midiCutoffSlider;
+    IBOutlet UILabel *midiCutoffLabel;
+}
+
+-(IBAction)noteOnOff:(id)sender;
+
+-(IBAction)moveFrequencySlider:(id)sender;
+-(IBAction)moveModulationSlider:(id)sender;
+
+-(IBAction)midiPanic:(id)sender;
 
 @end

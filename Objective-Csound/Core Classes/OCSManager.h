@@ -53,4 +53,7 @@
 
 /// Enable Midi in Csound.
 - (void)enableMidi;
+
+/// Panic function sends all notes off to csound.
+-(void)panic;
 @end

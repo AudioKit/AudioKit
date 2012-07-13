@@ -81,7 +81,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
         /* MIDI output port */
         pname = CFStringCreateWithCString(NULL, "outport", defaultEncoding);
         //ARB - check bridge
-        ret = MIDIInputPortCreate(mClient, pname, MidiPropertyReadProc, (__bridge_retained void *)self, &mport);
+        ret = MIDIInputPortCreate(mClient, pname, MidiPropertyReadProc, (__bridge void *)self, &mport);
         if(!ret){
             /* sources, we connect to all available input sources */
             endpoints = MIDIGetNumberOfSources();

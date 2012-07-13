@@ -32,10 +32,15 @@
     if ( self) {
         
         // INPUTS AND CONTROLS =================================================
-        freq = [[OCSProperty alloc] initWithMinValue:kFrequencyMin maxValue:kFrequencyMax];
-        mod = [[OCSProperty alloc] initWithMinValue:kModulationMin maxValue:kModulationMax];
-        cutoff = [[OCSProperty alloc] initWithValue:kLpCutoffInit minValue:kLpCutoffMin maxValue:kLpCutoffMax];
-        
+        freq = [[OCSProperty alloc] initWithValue:((kFrequencyMax + kFrequencyMin) / 2) 
+                                         minValue:kFrequencyMin 
+                                         maxValue:kFrequencyMax];
+        mod = [[OCSProperty alloc] initWithValue:((kModulationMax + kModulationMin)/2)
+                                        minValue:kModulationMin 
+                                        maxValue:kModulationMax];
+        cutoff = [[OCSProperty alloc] initWithValue:kLpCutoffInit 
+                                           minValue:kLpCutoffMin 
+                                           maxValue:kLpCutoffMax];
         [cutoff enableMidiForChannelNumber:1];
         
         [freq setControl:[OCSControl parameterWithString:@"Frequency"]];
@@ -48,13 +53,27 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
+        OCSSineTable *sine = [[OCSSineTable alloc] init];
+        [self addFTable:sine];
         
+        OCSFMOscillator *fm = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.2) 
+                                                           baseFrequency:[freq control] 
+                                                       carrierMultiplier:ocsp(2) 
+                                                    modulatingMultiplier:[mod control] 
+                                                         modulationIndex:ocsp(15) 
+                                                                  fTable:sine];
+        [self addOpcode:fm];
+        
+        OCSLowPassButterworthFilter *lpFilter = [[OCSLowPassButterworthFilter alloc] 
+                                                 initWithInput:[fm output] 
+                                                 cutoffFrequency:[cutoff control]];
+        [self addOpcode:lpFilter];
         
         // AUDIO OUTPUT ========================================================
-        /*
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[fmOscillator output]
-                                                   rightInput:[fmOscillator output]];
-        [self addOpcode:audio];*/
+        
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[lpFilter output]
+                                                   rightInput:[lpFilter output]];
+        [self addOpcode:audio];
     }
     return self;
 }
@@ -62,6 +81,10 @@
 - (void)playNoteForDuration:(float)noteDuration 
                   Frequency:(float)noteFrequency
                  Modulation:(float)noteModulation
-{}
+{
+    frequency.value = noteFrequency;
+    modulation.value = noteModulation;
+    [self playNoteForDuration:noteDuration];
+}
 
 @end
