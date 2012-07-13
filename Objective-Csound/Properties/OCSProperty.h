@@ -40,8 +40,8 @@
 /// isMidiEnabled
 @property (readwrite) BOOL isMidiEnabled;
 
-/// Midi Channel Number (0-127).
-@property (readwrite) int midiChannel;
+/// Midi Controller Number (0-127).
+@property (readwrite) int midiController;
 
 /// Initialize the property with bounds.
 /// @param minValue Minimum value.
@@ -65,6 +65,6 @@
 
 /// Enable midi for this property.
 /// @param Midi channel number (0-127).
--(void)enableMidiForChannelNumber:(int)channelNumber;
+-(void)enableMidiForControllerNumber:(int)controllerNumber;
 
 @end

@@ -33,7 +33,6 @@
 
     [[OCSManager sharedOCSManager] enableMidi];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
-
 }
 
 - (void)viewDidUnload

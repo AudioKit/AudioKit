@@ -109,7 +109,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 {
     NSLog(@"adding a property");
     if ([newProperty isMidiEnabled]) {
-        [midiProperties replaceObjectAtIndex:[newProperty midiChannel] withObject:newProperty];
+        [midiProperties replaceObjectAtIndex:[newProperty midiController] withObject:newProperty];
     }
 
 }
