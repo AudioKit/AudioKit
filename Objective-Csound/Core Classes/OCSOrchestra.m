@@ -40,6 +40,17 @@
     [udos addObject:newUserDefinedOpcode];
 }
 
+- (void)playEvent:(OCSEvent *)event 
+{
+    [[OCSManager sharedOCSManager] playEvent:event];
+}
+
+//
+//- (void)playSequence:(OCSSequence *)sequence
+//{
+//    
+//}
+
 - (NSString *) stringForCSD {
  
     NSMutableString *s = [NSMutableString stringWithString:@""];

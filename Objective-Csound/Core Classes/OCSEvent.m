@@ -47,6 +47,7 @@
         OCSProperty *prop = [properties objectAtIndex:i];
         float val = [[values objectAtIndex:i] floatValue];
         [prop setValue:val];
+        NSLog(@"Setting %@ to %g", prop, val);
     }
 }
 

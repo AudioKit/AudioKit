@@ -12,7 +12,7 @@
 #import "SoundGenerator.h"
 
 @interface OscillatorViewController () {
-    SoundGenerator *mySoundGenerator;
+    SoundGenerator *soundGenerator;
 }
 @end
 @implementation OscillatorViewController
@@ -23,20 +23,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
-    mySoundGenerator =  [[SoundGenerator alloc] init];
-    [orch addInstrument:mySoundGenerator];
+    soundGenerator =  [[SoundGenerator alloc] init];
+    [orch addInstrument:soundGenerator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
 - (IBAction)playA:(id)sender {
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", 440.0]];
-    [mySoundGenerator playNoteForDuration:1 frequency:440];
+    [soundGenerator playNoteForDuration:1 frequency:440];
 }
 
 - (IBAction)playRandomFrequency:(id)sender {
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", randomFrequency]];
-    [mySoundGenerator playNoteForDuration:1 frequency:randomFrequency];
+    [soundGenerator playNoteForDuration:1 frequency:randomFrequency];
 }
 
 - (void)viewDidUnload {

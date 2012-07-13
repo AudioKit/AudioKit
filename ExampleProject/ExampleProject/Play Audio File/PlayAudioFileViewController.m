@@ -13,6 +13,7 @@
 
 @interface PlayAudioFileViewController () {
     AudioFilePlayer *audioFilePlayer;
+    OCSOrchestra *orchestra;
 }
 @end
 
@@ -22,10 +23,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
+    orchestra = [[OCSOrchestra alloc] init];    
     audioFilePlayer = [[AudioFilePlayer alloc] init];
-    [orch addInstrument:audioFilePlayer];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [orchestra addInstrument:audioFilePlayer];
+    [[OCSManager sharedOCSManager] runOrchestra:orchestra];
 
 }
 
@@ -38,7 +39,7 @@
     float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
     OCSEvent *note = [[OCSEvent alloc]initWithInstrument:audioFilePlayer duration:(3.0f/speed)];
     [note setProperty:[audioFilePlayer speed] toValue:speed];
-    [audioFilePlayer playEvent:note];
+    [orchestra playEvent:note];
 }
 
 

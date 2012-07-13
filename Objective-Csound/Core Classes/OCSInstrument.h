@@ -81,7 +81,6 @@
 /// @param playDuration Length of time in seconds to play the instrument.
 - (void)playNoteForDuration:(float)playDuration;
 
-- (void)playEvent:(OCSEvent *)event;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;

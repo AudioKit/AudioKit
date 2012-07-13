@@ -8,6 +8,8 @@
 
 @class OCSInstrument;
 @class OCSUserDefinedOpcode;
+@class OCSEvent;
+@class OCSSequence;
 
 /**OCSOrchestra is a collection of instruments and  handles all of the 
  CSD file creation tasks for the CSDManager.
@@ -27,6 +29,9 @@
 /// Adds the UDO to a set of required UDOs for the entire orchestra.
 /// @param newUserDefinedOpcode UDO to add to the orchestra.
 - (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode;
+
+- (void)playEvent:(OCSEvent *)event;
+//- (void)playSequence:(OCSSequence *)sequence;
 
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;

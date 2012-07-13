@@ -24,6 +24,7 @@
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
 #import "MidifiedInstrumentViewController.h"
+#import "SequenceViewController.h"
 
 
 @interface MasterViewController () {
@@ -58,6 +59,7 @@
                     @"User Defined Opcodes",
                     @"Convolution",
                     @"MIDI",
+                    @"Sequences",
                     nil];
     return self;
 }
@@ -193,6 +195,9 @@
             break;
         case 12:
             controller = [[MidifiedInstrumentViewController alloc] initWithNibName:@"MidifiedInstrumentViewController" bundle:nil];
+            break;
+        case 13:
+            controller = [[SequenceViewController alloc] initWithNibName:@"SequenceViewController" bundle:nil];
             break;
         default:
             break;
