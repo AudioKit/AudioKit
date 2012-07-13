@@ -24,7 +24,7 @@
     float* channelPtr;
     
     BOOL isMidiEnabled;
-    int midiChannel;
+    int midiController;
 }
 @end
 
@@ -38,7 +38,7 @@
 @synthesize constant;
 @synthesize output;
 @synthesize isMidiEnabled;
-@synthesize midiChannel;
+@synthesize midiController;
 
 /// Initializes to default values
 - (id)init
@@ -110,10 +110,10 @@
     return [NSString stringWithFormat:@"chnset %@, \"%@Property\"\n", output, output];
 }
 
--(void)enableMidiForChannelNumber:(int)channelNumber
+-(void)enableMidiForControllerNumber:(int)controllerNumber
 {
     isMidiEnabled = YES;
-    midiChannel = channelNumber;
+    midiController = controllerNumber;
 }
 
 #pragma mark BaseValueCacheable
