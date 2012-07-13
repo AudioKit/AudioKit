@@ -13,7 +13,10 @@
     IBOutlet UITextField *durationValue;
     IBOutlet UISlider * durationSlider;
 }
-- (IBAction)playSequence:(id)sender;
+
+- (IBAction)playSequenceAsProperties:(id)sender; 
+- (IBAction)playSequenceAsNotes:(id)sender; 
+
 - (IBAction)moveDurationSlider:(id)sender;
 
 @end

@@ -19,12 +19,14 @@
 /// @param event Event to be added either at the beginning, or after the last event is finished
 - (void)addEvent:(OCSEvent *)event;
 
+- (void)addEvent:(OCSEvent *)event 
+          atTime:(float)timeSinceStart;
+
 // More helpers to add
 
 //- (void)addSimultaneousEvent:(OCSEvent *)event;
 //- (void)addNextEvent:(OCSEvent *)event;
-//- (void)addEvent:(OCSEvent *)event 
-//          atTime:(float)timeSinceStart;
+
 //- (void)addEvent:(OCSEvent *)event 
 //   afterDuration:(float)timeSinceLastEventStarted;
 

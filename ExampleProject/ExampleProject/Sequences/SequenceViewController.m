@@ -10,12 +10,12 @@
 
 #import "Helper.h"
 #import "OCSManager.h"
-#import "SoundGenerator.h"
+#import "FMGameObject.h"
 
 #import "OCSSequence.h"
 
 @interface SequenceViewController () {
-    SoundGenerator  *soundGenerator;
+    FMGameObject  *soundGenerator;
     OCSSequence *sequence;
     OCSOrchestra *orchestra;
     NSTimer *timer;
@@ -30,19 +30,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     orchestra = [[OCSOrchestra alloc] init];    
-    soundGenerator =  [[SoundGenerator alloc] init];
+    soundGenerator =  [[FMGameObject alloc] init];
     [orchestra addInstrument:soundGenerator];
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
     
 }
 
-- (IBAction)playSequence:(id)sender 
+- (IBAction)playSequenceAsProperties:(id)sender 
 {
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];    
     
-    //Set up sequence
+    sequence = [[OCSSequence alloc] initWithOrchestra:orchestra]; 
+    
+    OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:soundGenerator duration:duration*13];
+    [temp setProperty:[soundGenerator frequency] toValue:440];
+    [sequence addEvent:temp];
+    
+    for (int i = 0; i <=12 ; i++) {
+        OCSEvent *temp = [[OCSEvent alloc] init];
+        [temp setProperty:[soundGenerator frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [sequence addEvent:temp atTime:duration*i];
+    }
+    
+    [sequence play];
+}
+
+- (IBAction)playSequenceAsNotes:(id)sender 
+{
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];
+
     sequence = [[OCSSequence alloc] initWithOrchestra:orchestra]; 
     for (int i = 0; i <=12 ; i++) {
-        float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];
         OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:soundGenerator duration:duration];
         [temp setProperty:[soundGenerator frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:temp];

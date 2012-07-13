@@ -44,6 +44,16 @@
     //NSLog(@"Added an event at time %g, count is now up to %i", [time floatValue], [events count]);
 }
 
+
+
+- (void)addEvent:(OCSEvent *)event 
+          atTime:(float)timeSinceStart;
+{
+    [events addObject:event];
+    NSNumber *time = [NSNumber numberWithFloat:timeSinceStart];
+    [times addObject:time];
+}
+
 -(void) play
 {
     index = 0;

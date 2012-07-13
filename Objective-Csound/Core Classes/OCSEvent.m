@@ -13,6 +13,7 @@
     float dur;
     NSMutableArray *properties;
     NSMutableArray *values;
+    BOOL isNote;
 }
 @end
 
@@ -22,11 +23,22 @@
 @synthesize duration = dur;
 @synthesize instrument = templateInsrument;
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        isNote = NO;
+        properties = [[NSMutableArray alloc] init];
+        values = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 - (id)initWithInstrument:(OCSInstrument *)instrument
                 duration:(float)duration;
 {
     self = [super init];
     if (self) {
+        isNote = YES;
         instr = instrument;
         dur = duration;
         properties = [[NSMutableArray alloc] init];
@@ -55,10 +67,14 @@
 - (NSString *) description 
 {
     [self trigger];
-    NSString *scoreline;
-    scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %0.2f", [instr uniqueName], dur];
-    NSLog(@"%@", scoreline);
-    return scoreline;
+    if (isNote) {
+        NSString *scoreline;
+        scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %0.2f", [instr uniqueName], dur];
+        NSLog(@"%@", scoreline);
+        return scoreline;
+    } else {
+        return @"";
+    }
 }
 
 @end
