@@ -25,7 +25,6 @@
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
 @property (readonly) BOOL isMidiEnabled;
-@property (nonatomic, strong) OCSHeader *header;
 
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 

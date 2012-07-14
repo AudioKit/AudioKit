@@ -35,12 +35,10 @@
     [orch addInstrument:grainBirds];
     [orch addInstrument:fx];
     
-    [[[OCSManager sharedOCSManager] header] setZeroDBFullScaleValue:10000];
+    [orch setZeroDBFullScaleValue:10000];
     
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     
-    //reset this back to the default
-    [[[OCSManager sharedOCSManager] header] setZeroDBFullScaleValue:1];
 }
 
 -(IBAction)hit1:(id)sender

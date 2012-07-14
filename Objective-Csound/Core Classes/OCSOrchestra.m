@@ -11,22 +11,29 @@
 #import "OCSManager.h"
 
 @interface OCSOrchestra () {
-    NSMutableArray *instruments;
+    int sampleRate;
+    int samplesPerControlPeriod;
+    int numberOfChannels;
+    float zeroDBFullScaleValue;
     NSMutableArray *udos;
-    NSMutableArray *fTables;
+    NSMutableArray *instruments;
 }
 @end
 
 @implementation OCSOrchestra
 
-@synthesize fTables;
+@synthesize zeroDBFullScaleValue;
 @synthesize instruments;
 
 - (id)init {
     self = [super init];
     if (self) {
-        instruments = [[NSMutableArray alloc] init];
+        sampleRate = 44100;
+        samplesPerControlPeriod = 512;
+        numberOfChannels = 2;
+        zeroDBFullScaleValue = 1.0f;
         udos = [[NSMutableArray alloc] init];
+        instruments = [[NSMutableArray alloc] init];
     }
     return self; 
 }
@@ -45,44 +52,49 @@
     [[OCSManager sharedOCSManager] playEvent:event];
 }
 
-//
-//- (void)playSequence:(OCSSequence *)sequence
-//{
-//    
-//}
-
 - (NSString *) stringForCSD {
  
     NSMutableString *s = [NSMutableString stringWithString:@""];
-
-    for ( OCSInstrument *i in instruments) {
-
-        for (OCSUserDefinedOpcode *udo in [i userDefinedOpcodes]) {
-            [s appendString:@"\n\n"];     
-            [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
-            [s appendString:@"\n\n"];
-        }
-
-        
-        [s appendFormat:@"instr %@\n", [i uniqueName]];
-        [s appendString:[NSString stringWithFormat:@"%@\n",[i stringForCSD]]];
-        [s appendString:@"endin\n\n"];
-    }
     
-    return s;
-}
-
-- (NSString *)fTableStringForCSD {
-    NSMutableString *s = [NSMutableString stringWithString:@""];
+    [s appendString:@";=== HEADER ===\n"];
+    [s appendString:[NSString stringWithFormat:
+                     @"nchnls = %d \n"
+                     @"sr     = %d \n"
+                     @"0dbfs  = %g \n"
+                     @"ksmps  = %d \n", 
+                     numberOfChannels, 
+                     sampleRate, 
+                     zeroDBFullScaleValue, 
+                     samplesPerControlPeriod]];
+    [s appendString:@"\n"];
     
+    [s appendString:@";=== GLOBAL F-TABLES ===\n"];
     for ( OCSInstrument *i in instruments) {
-        
         for (OCSFTable *fTable in [i fTables]) {
             [s appendString:[fTable fTableStringForCSD]];
             [s appendString:@"\n"];
-        }
-        
+        } 
     }
+    [s appendString:@"\n"];
+    
+    [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
+    for ( OCSInstrument *i in instruments) {
+        for (OCSUserDefinedOpcode *udo in [i userDefinedOpcodes]) {
+            [s appendString:@"\n"];     
+            [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
+            [s appendString:@"\n"];
+        }
+    }
+    [s appendString:@"\n"];
+
+    [s appendString:@";=== INSTRUMENTS ===\n"];
+    for ( OCSInstrument *i in instruments) {
+        [s appendString:[NSString stringWithFormat:@"\n;--- %@ ---\n\n", [[i uniqueName] uppercaseString]]];
+        [s appendFormat:@"instr %@\n", [i uniqueName]];
+        [s appendString:[NSString stringWithFormat:@"%@\n",[i stringForCSD]]];
+        [s appendString:@"endin\n"];
+    }
+    [s appendString:@"\n"];
     
     return s;
 }

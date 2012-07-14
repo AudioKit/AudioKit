@@ -102,17 +102,17 @@ static int currentID = 1;
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
     if ([properties count] > 0) {
-        [text appendString:@"\n;--- INPUTS ---\n"];
+        [text appendString:@"\n;---- Inputs ----\n"];
         for (OCSProperty *prop in properties) {
             [text appendString:[prop stringForCSDGetValue]];
         }
-        [text appendString:@"\n;--- INSTRUMENT DEFINITION ---\n"];  
+        [text appendString:@"\n;---- Opcodes ----\n"];  
     }
 
     [text appendString:innerCSDRepresentation];
     
     if ([properties count] > 0) {
-        [text appendString:@"\n;--- OUTPUTS ---\n"];
+        [text appendString:@"\n;---- Outputs ----\n"];
         for (OCSProperty *prop in properties) {
             [text appendString:[prop stringForCSDSetValue]];
         }
