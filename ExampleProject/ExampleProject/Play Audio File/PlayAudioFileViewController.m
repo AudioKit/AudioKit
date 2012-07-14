@@ -37,9 +37,10 @@
 
 - (IBAction)touchButton:(id)sender {
     float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
-    OCSEvent *note = [[OCSEvent alloc]initWithInstrument:audioFilePlayer duration:(3.0f/speed)];
+    OCSEvent *note = [[OCSEvent alloc]initWithInstrument:audioFilePlayer 
+                                                duration:(3.0f/speed)];
     [note setProperty:[audioFilePlayer speed] toValue:speed];
-    [orchestra playEvent:note];
+    [[OCSManager sharedOCSManager] playEvent:note];
 }
 
 

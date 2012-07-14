@@ -11,11 +11,12 @@
 #import "Helper.h"
 #import "OCSManager.h"
 #import "FMGameObject.h"
-
+#import "SoundGenerator.h"
 #import "OCSSequence.h"
 
 @interface SequenceViewController () {
-    FMGameObject  *soundGenerator;
+    SoundGenerator  *soundGenerator;
+    FMGameObject *fmGameObject;
     OCSSequence *sequence;
     OCSOrchestra *orchestra;
     NSTimer *timer;
@@ -30,8 +31,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     orchestra = [[OCSOrchestra alloc] init];    
-    soundGenerator =  [[FMGameObject alloc] init];
+    soundGenerator =  [[SoundGenerator alloc] init];
+    fmGameObject = [[FMGameObject alloc] init];
     [orchestra addInstrument:soundGenerator];
+    [orchestra addInstrument:fmGameObject];
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
     
 }
@@ -42,13 +45,13 @@
     
     sequence = [[OCSSequence alloc] initWithOrchestra:orchestra]; 
     
-    OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:soundGenerator duration:duration*13];
-    [temp setProperty:[soundGenerator frequency] toValue:440];
+    OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:fmGameObject duration:duration*13];
+    [temp setProperty:[fmGameObject frequency] toValue:440];
     [sequence addEvent:temp];
     
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *temp = [[OCSEvent alloc] init];
-        [temp setProperty:[soundGenerator frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [temp setProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:temp atTime:duration*i];
     }
     

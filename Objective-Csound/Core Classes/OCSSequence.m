@@ -8,11 +8,11 @@
 //
 
 #import "OCSSequence.h"
+#import "OCSManager.h"
 
 @interface OCSSequence () {
     NSMutableArray *events;
     NSMutableArray *times;
-    OCSOrchestra *orch;
     NSTimer *timer;
     int index;
 }
@@ -27,7 +27,6 @@
     if (self) {
         events = [[NSMutableArray alloc] init];
         times  = [[NSMutableArray alloc] init];
-        orch = orchestra;
     }
     return self;
 }
@@ -64,7 +63,7 @@
 - (void)playNextEventInSequence:(NSTimer *)aTimer;
 {
     OCSEvent *event = [events objectAtIndex:index];
-    [orch playEvent:event];
+    [[OCSManager sharedOCSManager] playEvent:event];
 
     if (index < [times count]-1 ) {
         float timeUntilNextEvent = [[times objectAtIndex:index+1] floatValue] - [[times objectAtIndex:index] floatValue];

@@ -10,7 +10,6 @@
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
 #import "OCSMidi.h"
-#import "OCSHeader.h"
 #import "OCSEvent.h"
 
 //#import "OCSPropertyManager.h"

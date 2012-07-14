@@ -10,13 +10,22 @@
 
 @interface OCSEvent : NSObject
 
-@property (assign) float duration;
-@property (nonatomic, strong) OCSInstrument *instrument;
+@property (readonly) float duration;
 
 - (id)initWithInstrument:(OCSInstrument *)instrument
                 duration:(float)duration;
 
+- (id)initWithProperty:(OCSProperty *)property
+                 value:(float)value;
 
-- (void)setProperty:(OCSProperty *)property toValue:(float)value; 
+- (void)triggerInstrument:(OCSInstrument *)instrument
+                 duration:(float)duration;
+
+- (void)setProperty:(OCSProperty *)property 
+            toValue:(float)value; 
+
+- (void)play;
+- (void)setProperties;
+- (NSString *)stringForCSD;
 
 @end
