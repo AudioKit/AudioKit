@@ -103,9 +103,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)writeCSDFileForOrchestra:(OCSOrchestra *)orchestra 
 {
-    NSString *newCSD = [NSString stringWithFormat:
-                        templateString, options, 
-                        [orchestra stringForCSD]];
+    NSString *newCSD = [NSString stringWithFormat:templateString, options, [orchestra stringForCSD]];
 
     [newCSD writeToFile:csdFile 
              atomically:YES  
@@ -150,7 +148,8 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)playEvent:(OCSEvent *)event  
 {
-    [csound sendScore:[event description]];
+    [event setProperties];
+    [csound sendScore:[event stringForCSD]];
 }
 
 - (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra

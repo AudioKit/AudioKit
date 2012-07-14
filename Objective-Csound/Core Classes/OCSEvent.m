@@ -7,28 +7,27 @@
 //
 
 #import "OCSEvent.h"
+#import "OCSManager.h"
 
 @interface OCSEvent () {
-    OCSInstrument *instr;
-    float dur;
+    float maxDuration;
+    NSMutableString *scoreLines;
     NSMutableArray *properties;
-    NSMutableArray *values;
-    BOOL isNote;
+    NSMutableArray * values;
 }
 @end
 
 
 @implementation OCSEvent
-
-@synthesize duration = dur;
-@synthesize instrument = templateInsrument;
+@synthesize duration = maxDuration;
 
 - (id)init {
     self = [super init];
     if (self) {
-        isNote = NO;
+        maxDuration = 0;
+        scoreLines = [[NSMutableString alloc] init];
         properties = [[NSMutableArray alloc] init];
-        values = [[NSMutableArray alloc] init];
+        values     = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -36,24 +35,44 @@
 - (id)initWithInstrument:(OCSInstrument *)instrument
                 duration:(float)duration;
 {
-    self = [super init];
+    self = [self init];
     if (self) {
-        isNote = YES;
-        instr = instrument;
-        dur = duration;
-        properties = [[NSMutableArray alloc] init];
-        values = [[NSMutableArray alloc] init];
+        maxDuration = duration;
+        [self triggerInstrument:instrument duration:duration];
     }
     return self;
 }
 
-- (void)setProperty:(OCSProperty *)property toValue:(float)value 
+- (id)initWithProperty:(OCSProperty *)property
+                 value:(float)value;
+{
+    self = [self init];
+    if (self) {
+        [self setProperty:property toValue:value];
+    }
+    return self;
+}
+
+- (void)triggerInstrument:(OCSInstrument *)instrument
+                 duration:(float)duration;
+{
+    if (duration > maxDuration) maxDuration = duration;
+    [scoreLines appendFormat:@"i \"%@\" 0 %0.2f\n", [instrument uniqueName], duration];
+}
+
+- (void)setProperty:(OCSProperty *)property 
+            toValue:(float)value; 
 {
     [properties addObject:property];
     [values addObject:[NSNumber numberWithFloat:value]];
 }
 
-- (void)trigger 
+- (void)play;
+{
+    [[OCSManager sharedOCSManager] playEvent:self];
+}
+
+- (void)setProperties;
 {
     for (int i=0; i<[properties count]; i++) {
         OCSProperty *prop = [properties objectAtIndex:i];
@@ -64,17 +83,9 @@
 }
 
 
-- (NSString *) description 
+- (NSString *)stringForCSD;
 {
-    [self trigger];
-    if (isNote) {
-        NSString *scoreline;
-        scoreline = [NSString stringWithFormat:@"i \"%@\" 0 %0.2f", [instr uniqueName], dur];
-        NSLog(@"%@", scoreline);
-        return scoreline;
-    } else {
-        return @"";
-    }
+    return [NSString stringWithFormat:@"%@",scoreLines];
 }
 
 @end
