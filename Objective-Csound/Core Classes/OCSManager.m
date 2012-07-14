@@ -11,7 +11,6 @@
 @interface OCSManager () {
     BOOL isRunning;
     BOOL isMidiEnabled;
-    OCSHeader *header;
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
@@ -25,7 +24,6 @@
 
 @synthesize isRunning;
 @synthesize isMidiEnabled;
-@synthesize header;
 
 //@synthesize myPropertyManager;
 
@@ -70,8 +68,10 @@ static OCSManager *_sharedOCSManager = nil;
         
         //myPropertyManager = [[OCSPropertyManager alloc] init];
         
-        options = @"-odac -+rtmidi=null -+rtaudio=null -dm0";
-        header = [[OCSHeader alloc] init];
+        options = @"-o dac         ; Write sound to the host audio output"
+                   "-+rtmidi=null  ; Disable the use of any realtime midi plugin"
+                   "-+rtaudio=null ; Disable the use of any realtime midi plugin"
+                   "-dm0           ; Suppress output";
         
         //Setup File System access
         NSString *template;
@@ -104,8 +104,7 @@ static OCSManager *_sharedOCSManager = nil;
 - (void)writeCSDFileForOrchestra:(OCSOrchestra *)orchestra 
 {
     NSString *newCSD = [NSString stringWithFormat:
-                        templateString, options, header, 
-                        [orchestra fTableStringForCSD],
+                        templateString, options, 
                         [orchestra stringForCSD]];
 
     [newCSD writeToFile:csdFile 
