@@ -19,10 +19,12 @@
 
 @interface OCSParameter : NSObject
 {
-    NSString *type; 
     NSString *parameterString;
+    BOOL isGlobal;
     int _myID;
 }
+
+@property (assign) BOOL isGlobal;
 
 /// The CSD Text representation of the parameter's name
 @property (nonatomic, strong) NSString *parameterString;
@@ -34,6 +36,7 @@
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the CSD File.
 + (id)parameterWithString:(NSString *)name;
++(id)globalParameterWithString:(NSString *)name;
 
 /// Allows insertion of math into parameters
 /// @param expression A valid csound mathematical expression within an NSString.
