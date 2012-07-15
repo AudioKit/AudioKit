@@ -47,7 +47,7 @@
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [OCSParameter parameterWithString:@"ToneGeneratorOutput"];
+        auxilliaryOutput = [OCSParameter globalParameterWithString:@"ToneGeneratorOutput"];
         [self assignOutput:auxilliaryOutput To:[oscillator output]];
     }
     return self;

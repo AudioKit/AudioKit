@@ -10,20 +10,21 @@
 
 @implementation OCSControl
 
-/// Initializes to default values
-- (id)init
-{
-    self = [super init];
-    type = @"gk";
-    return self;
-}
 
 - (id)initWithString:(NSString *)aString
 {
     self = [super init];
     if (self) {
-        type = @"gk";
-        parameterString = [NSString stringWithFormat:@"%@%@%i", type, aString, _myID];
+        parameterString = [NSString stringWithFormat:@"k%@%i", aString, _myID];
+    }
+    return self;
+}
+
+- (id)initGlobalWithString:(NSString *)aString
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"gk%@%i", aString, _myID];
     }
     return self;
 }

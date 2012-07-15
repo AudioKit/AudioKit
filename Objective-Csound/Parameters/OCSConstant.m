@@ -14,7 +14,6 @@
 - (id)init
 {
     self = [super init];
-    type = @"gi";
     return self;
 }
 
@@ -22,8 +21,16 @@
 {
     self = [super init];
     if (self) {
-        type = @"gi";
-        parameterString = [NSString stringWithFormat:@"%@%@%i", type, name, _myID];
+        parameterString = [NSString stringWithFormat:@"i%@%i", name, _myID];
+    }
+    return self;
+}
+
+- (id)initGlobalWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"gi%@%i", name, _myID];
     }
     return self;
 }
@@ -32,7 +39,6 @@
 {
     self = [super init];
     if (self) {
-        type = @"gi";
         parameterString = [NSString stringWithFormat:@"%g", value];
     }
     return self;
@@ -41,7 +47,6 @@
 {
     self = [super init];
     if (self) {
-        type = @"gi";
         parameterString = [NSString stringWithFormat:@"%d", value];
     }
     return self;
@@ -51,7 +56,6 @@
 {
     self = [super init];
     if (self) {
-        type = @"gi";
         parameterString = [NSString stringWithFormat:@"p%i", p];
     }
     return self;
@@ -61,7 +65,6 @@
 {
     self = [super init];
     if (self) {
-        type = @"gi";
         parameterString = [NSString stringWithFormat:@"\"%@\"", filename];
     }
     return self;

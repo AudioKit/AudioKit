@@ -10,6 +10,7 @@
 
 @implementation OCSParameter
 @synthesize parameterString;
+@synthesize isGlobal;
 
 static int currentID = 1;
 
@@ -22,7 +23,6 @@ static int currentID = 1;
 {
     self = [super init];
     _myID = currentID++;
-    type = @"a";
     return self;
 }
 - (id)initWithString:(NSString *)name
@@ -30,7 +30,16 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        type = @"ga";
+        parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
+    }
+    return self;
+}
+
+- (id)initGlobalWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
         parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
     }
     return self;
@@ -48,6 +57,11 @@ static int currentID = 1;
 +(id)parameterWithString:(NSString *)name
 {
     return [[self alloc] initWithString:name];
+}
+
++(id)globalParameterWithString:(NSString *)name
+{
+    return [[self alloc] initGlobalWithString:name];
 }
 
 +(id)parameterWithFormat:(NSString *)format, ... {

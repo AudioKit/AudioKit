@@ -27,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        output = [OCSConstant parameterWithString:[self functionName]];
+        output = [OCSConstant globalParameterWithString:[self functionName]];
         isize = tableSize;
         igen = fTableType;
         iargs = parameters;
