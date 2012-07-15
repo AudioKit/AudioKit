@@ -16,10 +16,10 @@
 /// Current value of the property.
 @property (nonatomic, readwrite) Float32 value;
 
-/// Maximum Value allowed... although no checking is currently in place.
+/// Maximum Value allowed.
 @property (nonatomic, assign) Float32 maximumValue;
 
-/// Minimum Value allowed... although no checking is currently in place.
+/// Minimum Value allowed.
 @property (nonatomic, assign) Float32 minimumValue;
 
 /// Initial value assigned.
