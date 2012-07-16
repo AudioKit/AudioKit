@@ -12,12 +12,8 @@
 #import "OCSMidi.h"
 #import "OCSEvent.h"
 
-//#import "OCSPropertyManager.h"
-
 /** The OCSManager is a singleton class available to all controller that need
  to interact with Csound through its simplified protocol.
- 
- TODO: Consider whether or not currentOrchestra should be a property of OCSManager.
  */
 @interface OCSManager : NSObject <CsoundObjCompletionListener> 
 

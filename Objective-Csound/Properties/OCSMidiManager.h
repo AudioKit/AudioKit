@@ -1,5 +1,5 @@
 //
-//  OCSPropertyManager.h
+//  OCSMidiManager.h
 //  Objective-Csound
 //
 //  Created by Adam Boulanger on 6/15/12.
@@ -7,23 +7,22 @@
 //
 //  
 //
-
 #import <CoreMIDI/CoreMIDI.h>
+#import "OCSProperty.h"
 
-#import "OCSManager.h"
+/** This class handles MIDI Properties.
+ */
 
 @interface OCSMidiManager : NSObject
-{
-    NSMutableArray *propertyList;
-    MIDIClientRef myClient;
-}
 
+/// List of properties handled by the MIDI Manager
 @property (readonly) NSMutableArray* propertyList;
 
-//- (void)openMidiIn;
-//- (void)closeMidiIn;
-
-- (void)addProperty:(OCSProperty *)prop forControllerNumber:(int)controllerNumber;
+/// Associates a property with a controller number
+/// @param property         The property that will be set with MIDI
+/// @param controllerNumber The channel on which the MIDI information will be received.
+- (void)addProperty:(OCSProperty *)property 
+forControllerNumber:(int)controllerNumber;
 
 //- (void)addProperty:(OCSProperty *)prop;
 @end

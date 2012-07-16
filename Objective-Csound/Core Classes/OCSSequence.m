@@ -22,7 +22,7 @@
 
 @synthesize events, times;
 
-- (id) initWithOrchestra:(OCSOrchestra *)orchestra {
+- (id) init {
     self = [super init];
     if (self) {
         events = [[NSMutableArray alloc] init];

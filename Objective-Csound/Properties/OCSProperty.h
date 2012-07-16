@@ -64,7 +64,7 @@
 - (NSString *)stringForCSDSetValue;
 
 /// Enable midi for this property.
-/// @param Midi channel number (0-127).
+/// @param controllerNumber Midi channel number (0-127).
 -(void)enableMidiForControllerNumber:(int)controllerNumber;
 
 @end
