@@ -53,19 +53,23 @@
         [temp setProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:temp atTime:duration*i];
     }
+    OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:0];
+    [sequence addEvent:temp2 atTime:duration*(13)];
     
     [sequence play];
 }
 
 - (IBAction)playSequenceAsNotes:(id)sender 
 {
-    //float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];
 
     sequence = [[OCSSequence alloc] init]; 
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:soundGenerator];
         [temp setProperty:[soundGenerator frequency] toValue:440*(pow(2.0f,(float)i/12))];
-        [sequence addEvent:temp];
+        [sequence addEvent:temp atTime:duration*i];
+        OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:duration];
+        [sequence addEvent:temp2 atTime:duration*i];
     }
     
     [sequence play];

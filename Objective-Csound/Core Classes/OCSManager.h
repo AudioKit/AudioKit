@@ -39,7 +39,7 @@
 
 /// Writes a scoreline to start playing an instrument.
 /// @param event OCS Event
-- (void)playEvent:(OCSEvent *)event;
+- (void)triggerEvent:(OCSEvent *)event;
 
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk

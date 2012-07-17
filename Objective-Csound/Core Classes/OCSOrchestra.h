@@ -31,7 +31,7 @@
 /// @param newUserDefinedOpcode UDO to add to the orchestra.
 - (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode;
 
-- (void)playEvent:(OCSEvent *)event;
+- (void)triggerEvent:(OCSEvent *)event;
 //- (void)playSequence:(OCSSequence *)sequence;
 
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.

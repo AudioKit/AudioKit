@@ -39,9 +39,9 @@
 - (IBAction)playFrequency:(float)frequency { 
     OCSEvent *currentEvent = [[OCSEvent alloc] initWithInstrument:toneGenerator];
     [currentEvent setProperty:[toneGenerator frequency] toValue:frequency];
-    [currentEvent play];
+    [currentEvent trigger];
     OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0.5];
-    [off play];
+    [off trigger];
 }
 
 - (IBAction)hit1:(id)sender {

@@ -47,9 +47,9 @@
     [udos addObject:newUserDefinedOpcode];
 }
 
-- (void)playEvent:(OCSEvent *)event 
+- (void)triggerEvent:(OCSEvent *)event 
 {
-    [[OCSManager sharedOCSManager] playEvent:event];
+    [[OCSManager sharedOCSManager] triggerEvent:event];
 }
 
 - (NSString *) stringForCSD {

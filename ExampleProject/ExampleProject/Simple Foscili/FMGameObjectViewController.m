@@ -33,24 +33,24 @@
 {
     if (currentEvent) {
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off play];
+        [off trigger];
     }
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
     [currentEvent setProperty:[fmGameObject frequency] toValue:randomFrequency];
-    [currentEvent play];
+    [currentEvent trigger];
     
 }
 - (IBAction)playRandomModulation:(id)sender
 {
     if (currentEvent) {
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off play];
+        [off trigger];
     }
     float randomModulation = [Helper randomFloatFrom:kModulationMin to:kModulationMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
     [currentEvent setProperty:[fmGameObject modulation] toValue:randomModulation];
-    [currentEvent play];
+    [currentEvent trigger];
 }
 
 @end

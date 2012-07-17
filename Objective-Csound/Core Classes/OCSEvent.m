@@ -51,8 +51,11 @@ static int currentID = 1;
 {
     self = [self init];
     if (self) {
-        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n", 
-                     delay, [event eventNumber]];
+        scoreLine = [NSString stringWithFormat:@"i -%0.3f %f 0.1 \n", 
+                     [event eventNumber], delay ];
+
+//        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n", 
+//                     delay, [event eventNumber]];
     }
     return self;
 }
@@ -74,9 +77,9 @@ static int currentID = 1;
     [values addObject:[NSNumber numberWithFloat:value]];
 }
 
-- (void)play;
+- (void)trigger;
 {
-    [[OCSManager sharedOCSManager] playEvent:self];
+    [[OCSManager sharedOCSManager] triggerEvent:self];
 }
 
 - (void)setProperties;
