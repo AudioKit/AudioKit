@@ -45,6 +45,12 @@
     // e.g. self.myOutlet = nil;
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    //[[OCSManager sharedOCSManager] disableMidi];
+    [super viewWillDisappear:animated];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;

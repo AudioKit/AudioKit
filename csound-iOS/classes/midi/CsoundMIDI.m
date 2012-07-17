@@ -181,6 +181,7 @@ static int MidiDataRead(CSOUND *csound, void *userData,
 /* csound close device callback */
 static int MidiInDeviceClose(CSOUND *csound, void *userData)
 {
+    NSLog(@"closing midi in CSOUndMIDI");
     cdata * data = (cdata *)userData;
     MIDIClientDispose(data->mclient);
     free(data->mdata);
