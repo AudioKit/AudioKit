@@ -40,8 +40,8 @@ static int currentID = 1;
 {
     self = [self init];
     if (self) {
-        eventNumber  = [instrument instrumentNumber] + _myID/1000.0;
-        scoreLine = [NSString stringWithFormat:@"i %0.3f 0 -1 \n", eventNumber];
+        eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
+        scoreLine = [NSString stringWithFormat:@"i %0.5f 0 -1 \n", eventNumber];
     }
     return self;
 }
@@ -51,7 +51,7 @@ static int currentID = 1;
 {
     self = [self init];
     if (self) {
-        scoreLine = [NSString stringWithFormat:@"i -%0.3f %f 0.1 \n", 
+        scoreLine = [NSString stringWithFormat:@"i -%0.5f %f 0.1 \n", 
                      [event eventNumber], delay ];
 
 //        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n", 
