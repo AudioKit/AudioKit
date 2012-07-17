@@ -13,6 +13,7 @@
 
 @interface OscillatorViewController () {
     SoundGenerator *soundGenerator;
+    OCSEvent *currentEvent;
 }
 @end
 @implementation OscillatorViewController
@@ -26,17 +27,26 @@
     soundGenerator =  [[SoundGenerator alloc] init];
     [orch addInstrument:soundGenerator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    currentEvent = nil;
+}
+
+- (IBAction)playFrequency:(float)frequency { 
+    if (currentEvent) {
+        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
+        [off play];
+    }
+    [frequencyLabel setText:[NSString stringWithFormat:@"%g", frequency]];
+    currentEvent = [[OCSEvent alloc] initWithInstrument:soundGenerator];
+    [currentEvent setProperty:[soundGenerator frequency] toValue:frequency];
+    [currentEvent play];
 }
 
 - (IBAction)playA:(id)sender {
-    [frequencyLabel setText:[NSString stringWithFormat:@"%g", 440.0]];
-    [soundGenerator playNoteForDuration:1 frequency:440];
+    [self playFrequency:440.0f];
 }
 
-- (IBAction)playRandomFrequency:(id)sender {
-    float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
-    [frequencyLabel setText:[NSString stringWithFormat:@"%g", randomFrequency]];
-    [soundGenerator playNoteForDuration:1 frequency:randomFrequency];
+- (IBAction)playRandomFrequency:(id)sender { 
+    [self playFrequency:[Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax]];
 }
 
 - (void)viewDidUnload {

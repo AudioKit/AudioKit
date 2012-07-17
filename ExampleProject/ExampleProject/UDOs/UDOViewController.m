@@ -11,7 +11,8 @@
 #import "OCSManager.h"
 
 @interface UDOViewController () {
-    UDOInstrument * udoInstrument;
+    UDOInstrument *udoInstrument;
+    OCSEvent *currentEvent;
 }
 @end
 
@@ -24,15 +25,26 @@
     udoInstrument =  [[UDOInstrument alloc] init];
     [orch addInstrument:udoInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    currentEvent = nil;
+}
+
+- (IBAction)playFrequency:(float)frequency { 
+    if (currentEvent) {
+        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
+        [off play];
+    }
+    currentEvent = [[OCSEvent alloc] initWithInstrument:udoInstrument];
+    [currentEvent setProperty:[udoInstrument frequency] toValue:frequency];
+    [currentEvent play];
 }
 
 - (IBAction)hit1:(id)sender {
-    [udoInstrument playNoteForDuration:0.5 Frequency:440];
+    [self playFrequency:440.0f];
 }
 
-- (IBAction)hit2:(id)sender {
-    float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
-    [udoInstrument playNoteForDuration:0.5 Frequency:randomFrequency];
+- (IBAction)hit2:(id)sender { 
+    [self playFrequency:[Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax]];
 }
+
 
 @end

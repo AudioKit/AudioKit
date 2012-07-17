@@ -20,7 +20,6 @@
 #import "PlayAudioFileViewController.h"
 #import "ContinuousControlViewController.h"
 #import "GrainViewController.h"
-#import "MoreGrainViewController.h"
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
 #import "MidifiedInstrumentViewController.h"
@@ -185,9 +184,8 @@
             controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" bundle:nil];
             break;
         case 9:
-            controller = [[MoreGrainViewController alloc] initWithNibName:@"MoreGrainViewController" bundle:nil];
-            break;
-        case 10:
+            controller = [[SequenceViewController alloc] initWithNibName:@"SequenceViewController" bundle:nil];
+            break;        case 10:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
         case 11:
@@ -195,9 +193,6 @@
             break;
         case 12:
             controller = [[MidifiedInstrumentViewController alloc] initWithNibName:@"MidifiedInstrumentViewController" bundle:nil];
-            break;
-        case 13:
-            controller = [[SequenceViewController alloc] initWithNibName:@"SequenceViewController" bundle:nil];
             break;
         default:
             break;

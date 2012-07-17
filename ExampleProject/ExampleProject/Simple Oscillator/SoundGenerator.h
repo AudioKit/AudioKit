@@ -14,7 +14,7 @@
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
-- (void)playNoteForDuration:(float)noteDuration 
-                  frequency:(float)frequency;
+//- (void)playNoteForDuration:(float)noteDuration 
+//                  frequency:(float)frequency;
 
 @end

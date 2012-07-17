@@ -33,19 +33,25 @@ typedef enum {
 @synthesize fTables;
 
 static int currentID = 1;
++ (void)resetID { currentID = 1; }
+
 
 /// Initializes to default values
 - (id)init {
     self = [super init];
     if (self) {
         _myID = currentID++;
-        duration = [[OCSConstant alloc] initWithPValue:kDuration];
+//        duration = [[OCSConstant alloc] initWithPValue:kDuration];
         properties = [[NSMutableArray alloc] init];
         userDefinedOpcodes = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
+}
+
+- (int)instrumentNumber {
+    return _myID;
 }
 
 - (NSString *)uniqueName {
@@ -122,16 +128,15 @@ static int currentID = 1;
 
 - (void)playNoteForDuration:(float)playDuration 
 {
-    OCSEvent * noteEvent = [[OCSEvent alloc] initWithInstrument:self
-                                                       duration:playDuration];
-    [[OCSManager sharedOCSManager] playEvent:noteEvent];
+    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:self];
+    [noteOn play];
+    OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn 
+                                             afterDuration:playDuration];
+    [noteOff play];
 }
 
 
 
-+ (void)resetID {
-    currentID = 1;
-}
 
 
 

@@ -34,13 +34,13 @@
         
         OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
                                                  toValue:ocsp(1.5)
-                                                duration:duration];
+                                                duration:ocsp(3.0)];
         [self addOpcode:myLine];
 
         //Init LineSegment_a, without OCSParameterArray Functions like line
         OCSLine *baseFrequencyLine = [[OCSLine alloc] initFromValue:ocsp(110) 
                                                             toValue:ocsp(330)
-                                                           duration:duration];
+                                                           duration:ocsp(3.0)];
         [baseFrequencyLine setOutput:[baseFrequencyLine control]];
         [self addOpcode:baseFrequencyLine];
         

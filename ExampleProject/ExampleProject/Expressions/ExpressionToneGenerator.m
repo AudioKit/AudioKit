@@ -44,7 +44,7 @@
         
         OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
                                                          toValue:ocsp(0.5)
-                                                        duration:duration];
+                                                        duration:ocsp(3.0)];
         [self addOpcode:amplitudeRamp];
         
         OCSControl * totalAmplitude = [OCSControl parameterWithFormat:

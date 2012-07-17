@@ -14,6 +14,11 @@
 
 #import "OCSAudio.h"
 
+@interface UDOInstrument () {
+    OCSProperty *frequency;
+}
+@end
+
 @implementation UDOInstrument
 
 @synthesize frequency;
@@ -61,11 +66,5 @@
     }
     return self;
 }
-
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
-    frequency.value = freq;
-    [self playNoteForDuration:dur];
-}
-
 
 @end

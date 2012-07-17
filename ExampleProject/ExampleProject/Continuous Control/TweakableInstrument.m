@@ -30,7 +30,6 @@
 @synthesize frequency;
 @synthesize modulation;
 @synthesize modIndex;
-//@synthesize myPropertyManager;
 - (id)init
 {
     self = [super init];
@@ -52,11 +51,6 @@
         [self addProperty:frequency];
         [self addProperty:modulation];
         [self addProperty:modIndex];
-        
-        //[myPropertyManager = [[OCSPropertyManager alloc] init];
-        //[myPropertyManager addProperty:amplitude  forControllerNumber:12];
-        //[myPropertyManager addProperty:modulation forControllerNumber:13];
-        //[myPropertyManager addProperty:modIndex   forControllerNumber:14];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -85,12 +79,4 @@
     }
     return self;
 }
-
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
-    frequency.value = freq;
-    NSLog(@"Playing note at frequency = %0.2f", freq);
-    [self playNoteForDuration:dur];
-}
-
-
 @end

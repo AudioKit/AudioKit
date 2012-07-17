@@ -63,13 +63,13 @@
     }
     return self;
 }
-
-- (void)playNoteForDuration:(float)noteDuration 
-                  frequency:(float)frequency;
-{
-    freq.value = frequency;
-    NSLog(@"Playing note at frequency = %0.2f", frequency);
-    [self playNoteForDuration:noteDuration];
-}
+//
+//- (void)playNoteForDuration:(float)noteDuration 
+//                  frequency:(float)frequency;
+//{
+//    freq.value = frequency;
+//    NSLog(@"Playing note at frequency = %0.2f", frequency);
+//    [self playNoteForDuration:noteDuration];
+//}
 
 @end

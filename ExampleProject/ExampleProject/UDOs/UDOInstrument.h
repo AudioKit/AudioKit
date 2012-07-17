@@ -8,13 +8,9 @@
 
 #import "OCSInstrument.h"
 
-@interface UDOInstrument : OCSInstrument {
-    OCSProperty *frequency;
-}
+@interface UDOInstrument : OCSInstrument 
 
 @property (nonatomic, strong) OCSProperty *frequency;
-
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 

@@ -33,16 +33,23 @@
     [orch addInstrument:fx];
 
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+
+}
+
+- (IBAction)playFrequency:(float)frequency { 
+    OCSEvent *currentEvent = [[OCSEvent alloc] initWithInstrument:toneGenerator];
+    [currentEvent setProperty:[toneGenerator frequency] toValue:frequency];
+    [currentEvent play];
+    OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0.5];
+    [off play];
 }
 
 - (IBAction)hit1:(id)sender {
-    [toneGenerator playNoteForDuration:1 Frequency:440];
+    [self playFrequency:440.0f];
 }
 
-- (IBAction)hit2:(id)sender {
-    
-    float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
-    [toneGenerator playNoteForDuration:1 Frequency:randomFrequency];
+- (IBAction)hit2:(id)sender { 
+    [self playFrequency:[Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax]];
 }
 
 - (IBAction)startFX:(id)sender {

@@ -33,6 +33,6 @@
 
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
+//- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

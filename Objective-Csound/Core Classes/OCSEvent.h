@@ -14,14 +14,16 @@
 
 @interface OCSEvent : NSObject
 
-/// The maximum duration of the event.
-@property (readonly) float duration;
+/// Unique Identifier for the event
+@property (readonly) float eventNumber;
 
 /// Create an event with a fixed duration on the specified instrument.
 /// @param instrument Activated instrument.
 /// @param duration   Length of event in seconds.
-- (id)initWithInstrument:(OCSInstrument *)instrument
-                duration:(float)duration;
+- (id)initWithInstrument:(OCSInstrument *)instrument;
+
+- (id)initDeactivation:(OCSEvent *)event
+         afterDuration:(float)delay;
 
 /// Create an event that sets a property to a value
 /// @param property The property to be set.
