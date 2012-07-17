@@ -31,11 +31,11 @@
 - (IBAction)playFrequency:(float)frequency { 
     if (currentEvent) {
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off play];
+        [off trigger];
     }
     currentEvent = [[OCSEvent alloc] initWithInstrument:udoInstrument];
     [currentEvent setProperty:[udoInstrument frequency] toValue:frequency];
-    [currentEvent play];
+    [currentEvent trigger];
 }
 
 - (IBAction)hit1:(id)sender {

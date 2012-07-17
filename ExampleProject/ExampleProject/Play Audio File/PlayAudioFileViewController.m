@@ -39,9 +39,9 @@
     float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
     OCSEvent *start = [[OCSEvent alloc]initWithInstrument:audioFilePlayer];
     [start setProperty:[audioFilePlayer speed] toValue:speed];
-    [[OCSManager sharedOCSManager] playEvent:start];
+    [[OCSManager sharedOCSManager] triggerEvent:start];
     OCSEvent *stop = [[OCSEvent alloc] initDeactivation:start afterDuration:5.0f/speed];
-    [[OCSManager sharedOCSManager] playEvent:stop];
+    [[OCSManager sharedOCSManager] triggerEvent:stop];
 }
 
 

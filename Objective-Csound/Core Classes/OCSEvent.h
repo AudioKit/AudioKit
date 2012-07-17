@@ -39,7 +39,7 @@
 
 
 /// Helper method to play the event.
-- (void)play;
+- (void)trigger;
 
 /// Iterates through all properties and trigger their value changes.
 - (void)setProperties;
