@@ -16,6 +16,7 @@
     TweakableInstrument *myTweakableInstrument;
     NSTimer *repeatingNoteTimer;
     NSTimer *repeatingSliderTimer;
+    OCSEvent *currentEvent;
 }
 @end
 
@@ -30,18 +31,10 @@
     myTweakableInstrument = [[TweakableInstrument alloc] init];
     [orch addInstrument:myTweakableInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    currentEvent = nil;
     
-    float minValue    = [[myTweakableInstrument amplitude] minimumValue];
-    float maxValue    = [[myTweakableInstrument amplitude] maximumValue];
-    float actualValue = [[myTweakableInstrument amplitude] value];
-    float sliderValue = (actualValue-minValue)/(maxValue-minValue)* 100.0;
-    [amplitudeSlider setValue:sliderValue];
-
-    minValue    = [[myTweakableInstrument modulation] minimumValue];
-    maxValue    = [[myTweakableInstrument modulation] maximumValue];
-    actualValue = [[myTweakableInstrument modulation] value];
-    sliderValue = (actualValue-minValue)/(maxValue-minValue)* 100.0;
-    [modulationSlider setValue:sliderValue];
+    [Helper setSlider:amplitudeSlider  usingProperty:[myTweakableInstrument amplitude]];
+    [Helper setSlider:modulationSlider usingProperty:[myTweakableInstrument modulation]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated 
@@ -53,30 +46,42 @@
     //[[myTweakableInstrument myPropertyManager] closeMidiIn];
 }
 
+
+- (id)schedule:(SEL)selector 
+    afterDelay:(float)delayTime;
+{
+    return [NSTimer scheduledTimerWithTimeInterval:delayTime 
+                                            target:self      
+                                          selector:selector
+                                          userInfo:nil 
+                                           repeats:YES];
+}
+
 - (IBAction)runInstrument:(id)sender
 {
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
-    [myTweakableInstrument playNoteForDuration:3.0 Frequency:randomFrequency];
+    
+    currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
+    [currentEvent setProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
+    [currentEvent play];
     
     if (repeatingNoteTimer) {
         return;
     } else {
-        repeatingNoteTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 
-                                                              target:self      
-                                                            selector:@selector(noteTimerFire:)   
-                                                            userInfo:nil 
-                                                             repeats:YES];
-        repeatingSliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 
-                                                                target:self 
-                                                              selector:@selector(sliderTimerFire:) 
-                                                              userInfo:nil 
-                                                               repeats:YES];
+        repeatingNoteTimer = [self schedule:@selector(noteTimerFire:)
+                                   afterDelay:3.0f];
+        repeatingSliderTimer = [self schedule:@selector(sliderTimerFire:)
+                                     afterDelay:0.2f];
     }
 }
 
 - (IBAction)stopInstrument:(id)sender
 {
+    if (currentEvent) {
+        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
+        [off play];
+    }
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
@@ -85,9 +90,15 @@
 
 - (void)noteTimerFire:(NSTimer *)timer
 {
+    if (currentEvent) {
+        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
+        [off play];
+    }
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
-    [myTweakableInstrument playNoteForDuration:3.0 Frequency:randomFrequency];
+    currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
+    [currentEvent setProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
+    [currentEvent play];
 }
 
 

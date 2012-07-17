@@ -89,8 +89,8 @@
 
     [s appendString:@";=== INSTRUMENTS ===\n"];
     for ( OCSInstrument *i in instruments) {
-        [s appendString:[NSString stringWithFormat:@"\n;--- %@ ---\n\n", [[i uniqueName] uppercaseString]]];
-        [s appendFormat:@"instr %@\n", [i uniqueName]];
+        [s appendString:[NSString stringWithFormat:@"\n;--- %@ ---\n\n", [i uniqueName] ]];
+        [s appendFormat:@"instr %i\n", [i instrumentNumber]];
         [s appendString:[NSString stringWithFormat:@"%@\n",[i stringForCSD]]];
         [s appendString:@"endin\n"];
     }

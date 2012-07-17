@@ -11,6 +11,11 @@
 #import "OCSOscillator.h"
 #import "OCSAudio.h"
 
+@interface ToneGenerator () {
+    OCSParameter *auxilliaryOutput;
+}
+@end
+
 @implementation ToneGenerator
 
 @synthesize frequency;
@@ -51,12 +56,6 @@
         [self assignOutput:auxilliaryOutput To:[oscillator output]];
     }
     return self;
-}
-
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq {
-    frequency.value = freq;
-    NSLog(@"Playing note at frequency = %0.2f", freq);
-    [self playNoteForDuration:dur];
 }
 
 @end

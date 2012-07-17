@@ -36,8 +36,8 @@
     [events addObject:event];
     NSNumber *time = [NSNumber numberWithFloat:0.0];
     if ([times count] > 0) {
-        OCSEvent *lastEvent = [events lastObject];
-        time = [NSNumber numberWithFloat:([[times lastObject] floatValue] + [lastEvent duration])];
+        //OCSEvent *lastEvent = [events lastObject];
+        time = [NSNumber numberWithFloat:([[times lastObject] floatValue] + 1.0)];
     }
     [times addObject:time];
     //NSLog(@"Added an event at time %g, count is now up to %i", [time floatValue], [events count]);

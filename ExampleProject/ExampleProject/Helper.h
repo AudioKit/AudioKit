@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OCSManager.h"
 
 @interface Helper : NSObject
 
@@ -15,10 +16,16 @@
           minimum:(float)minimum 
           maximum:(float)maximum;
 
++ (void)setSlider:(UISlider *)slider 
+    usingProperty:(OCSProperty *)property;
+
 + (float)scaleValueFromSlider:(UISlider *)slider 
                       minimum:(float)minimum 
                       maximum:(float)maximum;
 
+
+
 + (float)randomFloatFrom:(float)minimum to:(float)maximum; 
+
 
 @end

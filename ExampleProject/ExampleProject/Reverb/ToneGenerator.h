@@ -8,15 +8,12 @@
 
 #import "OCSInstrument.h"
 
-@interface ToneGenerator : OCSInstrument {
-    OCSParameter *auxilliaryOutput;
-}
+@interface ToneGenerator : OCSInstrument 
+
 @property (nonatomic, strong) OCSProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
 @property (readonly) OCSParameter *auxilliaryOutput;
-
-- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

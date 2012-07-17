@@ -21,6 +21,16 @@
     [slider setValue:sliderValue];
 }
 
++ (void)setSlider:(UISlider *)slider 
+    usingProperty:(OCSProperty *)property 
+{
+    [self setSlider:slider 
+          withValue:[property value] 
+            minimum:[property minimumValue] 
+            maximum:[property maximumValue]];
+}
+
+
 + (float)scaleValueFromSlider:(UISlider *)slider 
                       minimum:(float)minimum 
                       maximum:(float)maximum
@@ -35,5 +45,8 @@
     float width = maximum - minimum;
     return (((float) rand() / RAND_MAX) * width) + minimum;
 }
+
+
+
 
 @end

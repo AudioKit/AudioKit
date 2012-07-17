@@ -38,8 +38,8 @@
         OCSSegmentArray *amplitudeExp;
         amplitudeExp = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.001)  
                                                        toNextValue:ocsp(0.1)  
-                                                     afterDuration:[duration scaledBy:0.5]];
-        [amplitudeExp addValue:ocsp(0.01) afterDuration:[duration scaledBy:0.5]];
+                                                     afterDuration:ocsp(4.5)];
+        [amplitudeExp addValue:ocsp(0.01) afterDuration:ocsp(4.5)];
         [amplitudeExp useExponentialSegments];
         [self addOpcode:amplitudeExp];
 
@@ -48,31 +48,31 @@
         OCSLine *pitchLine;
         pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
                                            toValue:[baseFrequency scaledBy:0.8]
-                                          duration:duration];
+                                          duration:ocsp(9.0)];
         [self addOpcode:pitchLine];
         
         OCSLine *grainDensityLine = [[OCSLine alloc] initFromValue:ocsp(600)
                                                            toValue:ocsp(300)
-                                                          duration:duration];
+                                                          duration:ocsp(9.0)];
         [self addOpcode:grainDensityLine];
         
         OCSLine *ampOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
                                                         toValue:ocsp(0.1)
-                                                       duration:duration];
+                                                       duration:ocsp(9.0)];
         [ampOffsetLine setOutput:[ampOffsetLine control]];
         [self addOpcode:ampOffsetLine];
         
         OCSLine *pitchOffsetLine;
         pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
                                                  toValue:[baseFrequency scaledBy:0.5]
-                                                duration:duration ];
+                                                duration:ocsp(9.0) ];
         [pitchOffsetLine setOutput:[pitchOffsetLine control]];
         [self addOpcode:pitchOffsetLine];   
         
         
         OCSLine *grainDurationLine = [[OCSLine alloc] initFromValue:ocsp(0.1)
                                                             toValue:ocsp(0.1)
-                                                           duration:duration];
+                                                           duration:ocsp(9.0)];
         [grainDurationLine setOutput:[grainDurationLine control]];
         [self addOpcode:grainDurationLine];
         

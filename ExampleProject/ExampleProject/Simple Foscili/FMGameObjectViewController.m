@@ -12,6 +12,7 @@
 
 @interface FMGameObjectViewController () {
     FMGameObject *fmGameObject;
+    OCSEvent *currentEvent;
 }
 @end
 
@@ -25,19 +26,31 @@
     fmGameObject =  [[FMGameObject alloc] init];
     [orch addInstrument:fmGameObject];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
+    currentEvent = nil;
 }
 
 - (IBAction)playRandomFrequency:(id)sender
 {
+    if (currentEvent) {
+        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
+        [off play];
+    }
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
-    [[fmGameObject frequency] setValue:randomFrequency];
-    [fmGameObject playNoteForDuration:1.0];
+    currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
+    [currentEvent setProperty:[fmGameObject frequency] toValue:randomFrequency];
+    [currentEvent play];
+    
 }
 - (IBAction)playRandomModulation:(id)sender
 {
+    if (currentEvent) {
+        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
+        [off play];
+    }
     float randomModulation = [Helper randomFloatFrom:kModulationMin to:kModulationMax];
-    [[fmGameObject modulation] setValue:randomModulation];
-    [fmGameObject playNoteForDuration:1.0];
+    currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
+    [currentEvent setProperty:[fmGameObject modulation] toValue:randomModulation];
+    [currentEvent play];
 }
 
 @end

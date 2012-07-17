@@ -15,10 +15,7 @@
 
 /** Manages functions that most OCS instruments need to have.*/
 
-@interface OCSInstrument : NSObject {
-    /// All instruments need, at minimum, a duration of time to run or play.
-    OCSConstant *duration;
-}
+@interface OCSInstrument : NSObject 
 
 /** This contains a list of the OCSProperty variables that are required for the instrument.
  Using this list the instrument is able to both write the get statements at the beginning 
@@ -33,7 +30,10 @@
  once in the F-Statement section of the CSD File. */
 @property (nonatomic, strong) NSMutableSet *fTables;
 
-/// @returns A string uniquely defined by the instrument class name and a unique integer.
+/// Unique instrument number
+- (int)instrumentNumber;
+
+/// A string uniquely defined by the instrument class name and a unique integer.
 - (NSString *)uniqueName;
 
 /// After an OCSProperty is created, it must be added to the instrument.

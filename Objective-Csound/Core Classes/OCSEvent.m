@@ -10,35 +10,49 @@
 #import "OCSManager.h"
 
 @interface OCSEvent () {
-    float maxDuration;
-    NSMutableString *scoreLines;
+    NSString *scoreLine;
     NSMutableArray *properties;
     NSMutableArray * values;
+    int _myID;
+    float eventNumber;
 }
 @end
 
 
+
 @implementation OCSEvent
-@synthesize duration = maxDuration;
+@synthesize eventNumber;
+
+static int currentID = 1;
 
 - (id)init {
     self = [super init];
     if (self) {
-        maxDuration = 0;
-        scoreLines = [[NSMutableString alloc] init];
+        _myID = currentID++;
+        scoreLine  = @"";
         properties = [[NSMutableArray alloc] init];
         values     = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (id)initWithInstrument:(OCSInstrument *)instrument
-                duration:(float)duration;
+- (id)initWithInstrument:(OCSInstrument *)instrument;
 {
     self = [self init];
     if (self) {
-        maxDuration = duration;
-        [self triggerInstrument:instrument duration:duration];
+        eventNumber  = [instrument instrumentNumber] + _myID/1000.0;
+        scoreLine = [NSString stringWithFormat:@"i %0.3f 0 -1 \n", eventNumber];
+    }
+    return self;
+}
+
+- (id)initDeactivation:(OCSEvent *)event
+         afterDuration:(float)delay;
+{
+    self = [self init];
+    if (self) {
+        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n", 
+                     delay, [event eventNumber]];
     }
     return self;
 }
@@ -51,13 +65,6 @@
         [self setProperty:property toValue:value];
     }
     return self;
-}
-
-- (void)triggerInstrument:(OCSInstrument *)instrument
-                 duration:(float)duration;
-{
-    if (duration > maxDuration) maxDuration = duration;
-    [scoreLines appendFormat:@"i \"%@\" 0 %0.2f\n", [instrument uniqueName], duration];
 }
 
 - (void)setProperty:(OCSProperty *)property 
@@ -85,7 +92,8 @@
 
 - (NSString *)stringForCSD;
 {
-    return [NSString stringWithFormat:@"%@",scoreLines];
+    NSLog(@"%@", scoreLine);
+    return [NSString stringWithFormat:@"%@",scoreLine];
 }
 
 @end
