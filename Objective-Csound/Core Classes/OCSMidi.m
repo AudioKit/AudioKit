@@ -36,7 +36,8 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 /* coremidi callback, called when MIDI data is available */
 void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
     //ARB - may want to transfer ownership to arc here, with __bridge_transfer
-    OCSMidi* midi = (__bridge OCSMidi *)refcon;  
+    // taking the coid* and treating it as OCS Midi, destroyed in future by arc
+    OCSMidi* midi = (__bridge_transfer OCSMidi *)refcon;  
 	MIDIPacket *packet = &((MIDIPacketList *)pktlist)->packet[0];
 	Byte *curpack;
     int i, j;
@@ -81,6 +82,8 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
         /* MIDI output port */
         pname = CFStringCreateWithCString(NULL, "outport", defaultEncoding);
         //ARB - check bridge
+        //I'm thinking, no change in ownership is taking place, self still needs to be handles by arc
+        //so continue to do so.
         ret = MIDIInputPortCreate(mClient, pname, MidiPropertyReadProc, (__bridge void *)self, &mport);
         if(!ret){
             /* sources, we connect to all available input sources */
@@ -107,11 +110,10 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
 
 - (void)addProperty:(OCSProperty *)newProperty
 {
-    NSLog(@"adding a property");
     if ([newProperty isMidiEnabled]) {
+        NSLog(@"adding a property at controller number, %d", [newProperty midiController]);
         [midiProperties replaceObjectAtIndex:[newProperty midiController] withObject:newProperty];
     }
-
 }
 
 @end

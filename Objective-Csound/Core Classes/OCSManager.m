@@ -118,8 +118,14 @@ static OCSManager *_sharedOCSManager = nil;
         [self stop];
     }    
     [self writeCSDFileForOrchestra:orchestra];
+    
     [self updateValueCacheWithProperties:orchestra];
     [self updateMidiProperties:orchestra];
+    if(isMidiEnabled) {
+        //NSLog(@"Midi enabled, opening Midi with midi property list.");
+        [midi openMidiIn];
+    }
+    
     [csound startCsound:csdFile];
     NSLog(@"Starting \n\n%@\n", [OCSManager stringFromFile:csdFile]);
 
@@ -202,7 +208,6 @@ static OCSManager *_sharedOCSManager = nil;
     NSLog(@"Csound midi enabled");
     [csound setMidiInEnabled:YES];
     isMidiEnabled = YES;
-    [midi openMidiIn];
 }
 
 -(void)panic

@@ -45,7 +45,7 @@
 /// @param filename Full path of file on disk
 + (NSString *)stringFromFile:(NSString *)filename;
 
-/// Enable Midi in Csound.
+/// Enable/disable Midi in Csound.
 - (void)enableMidi;
 
 /// Panic function sends all notes off to csound.
