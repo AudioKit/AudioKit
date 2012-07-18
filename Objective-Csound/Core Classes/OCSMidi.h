@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreMIDI/CoreMIDI.h>
-#import "OCSProperty.h"
+#import "OCSInstrumentProperty.h"
 
 /** This class handles all MIDI interaction in Objective-Csound.
  */
@@ -25,6 +25,6 @@
 
 /// Add a midi enabled Property to be updated by midi client.
 /// @param newProperty Midi enabled OCSProperty to add to midi callbacks.
-- (void)addProperty:(OCSProperty *)newProperty;
+- (void)addProperty:(OCSInstrumentProperty *)newProperty;
 
 @end

@@ -14,11 +14,11 @@
 
 @interface FMGameObject : OCSInstrument 
 
-@property (nonatomic, strong) OCSProperty *frequency;
+@property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
-@property (nonatomic, strong) OCSProperty *modulation;
+@property (nonatomic, strong) OCSInstrumentProperty *modulation;
 #define kModulationMin 0.5
 #define kModulationMax 2.0
 

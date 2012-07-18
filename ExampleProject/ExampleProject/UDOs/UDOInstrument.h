@@ -10,7 +10,7 @@
 
 @interface UDOInstrument : OCSInstrument 
 
-@property (nonatomic, strong) OCSProperty *frequency;
+@property (nonatomic, strong) OCSInstrumentProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 

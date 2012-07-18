@@ -14,7 +14,7 @@
 #import "OCSEvent.h"
 
 @interface AudioFilePlayer () {
-    OCSProperty *spd;
+    OCSNoteProperty *spd;
 }
 @end
 
@@ -28,7 +28,7 @@
         
         // INPUTS AND CONTROLS =================================================
         
-        spd = [[OCSProperty alloc] initWithMinValue:kSpeedMin  maxValue:kSpeedMax];
+        spd = [[OCSNoteProperty alloc] initWithMinValue:kSpeedMin  maxValue:kSpeedMax];
         [spd setConstant:[OCSConstant parameterWithString:@"Speed"]]; 
         [self addNoteProperty:spd];
         

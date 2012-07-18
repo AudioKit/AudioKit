@@ -15,7 +15,7 @@
 #import "OCSAudio.h"
 
 @interface UDOInstrument () {
-    OCSProperty *frequency;
+    OCSInstrumentProperty *frequency;
 }
 @end
 
@@ -29,7 +29,7 @@
         
         // INPUTS AND CONTROLS =================================================
         
-        frequency = [[OCSProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
+        frequency = [[OCSInstrumentProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
         [frequency setConstant:[OCSConstant parameterWithString:@"Frequency"]]; 
         [self addProperty:frequency];
         

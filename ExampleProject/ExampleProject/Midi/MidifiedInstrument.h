@@ -10,15 +10,15 @@
 
 @interface MidifiedInstrument : OCSInstrument
 
-@property (nonatomic, strong) OCSProperty *frequency;
+@property (nonatomic, strong) OCSInstrumentProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
-@property (nonatomic, strong) OCSProperty *modulation;
+@property (nonatomic, strong) OCSInstrumentProperty *modulation;
 #define kModulationMin 0.5
 #define kModulationMax 2.0
 
-@property  (nonatomic, strong) OCSProperty *lowPassCutoffFrequency;
+@property  (nonatomic, strong) OCSInstrumentProperty *lowPassCutoffFrequency;
 #define kLpCutoffInit 500
 #define kLpCutoffMin 200
 #define kLpCutoffMax 800

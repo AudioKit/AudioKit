@@ -56,7 +56,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
                 
                 if (midiProperty != [NSNull null]) {
                     //ARB - questionable cast here, but no generics in obj-c
-                    [(OCSProperty *)midiProperty setValue:(Float32)controllerValue];
+                    [(OCSInstrumentProperty *)midiProperty setValue:(Float32)controllerValue];
                 }
             }      
 		}
@@ -108,7 +108,7 @@ void MidiPropertyReadProc(const MIDIPacketList *pktlist, void *refcon, void *src
     MIDIClientDispose(mClient);
 }
 
-- (void)addProperty:(OCSProperty *)newProperty
+- (void)addProperty:(OCSInstrumentProperty *)newProperty
 {
     if ([newProperty isMidiEnabled]) {
         NSLog(@"adding a property at controller number, %d", [newProperty midiController]);

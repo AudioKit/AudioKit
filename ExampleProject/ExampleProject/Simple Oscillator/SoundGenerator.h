@@ -10,7 +10,7 @@
 
 @interface SoundGenerator : OCSInstrument
 
-@property (nonatomic, strong) OCSProperty *frequency;
+@property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
