@@ -21,6 +21,7 @@
  Using this list the instrument is able to both write the get statements at the beginning 
  of the instrument block and set them at the end */
 @property (nonatomic, strong) NSMutableArray *properties;
+@property (nonatomic, strong) NSMutableArray *noteParameters;
 
 /** All UDOs that are required by the instrument are stored here and declared before any 
  instrument blocks in the CSD File. */
@@ -39,6 +40,7 @@
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
+- (void)addConstant:(OCSProperty *)newNoteParameter;
 
 /// Adds the function table to the Orchestra, so it is only processed once.
 /// @param newFTable New function table to add to the instrument.

@@ -94,11 +94,11 @@
     currentValue = value;
     if (value < minimumValue) {
         currentValue = minimumValue;
-        NSLog(@"Out of bonds, assigning to minimum");
+        NSLog(@"Out of bounds, assigning to minimum");
     }
     if (value > maximumValue) {
         currentValue = maximumValue;
-        NSLog(@"Out of bonds, assigning to maximum");
+        NSLog(@"Out of bounds, assigning to maximum");
     }
 }
 

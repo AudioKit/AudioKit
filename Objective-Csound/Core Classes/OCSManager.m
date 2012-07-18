@@ -68,9 +68,9 @@ static OCSManager *_sharedOCSManager = nil;
         
         //myPropertyManager = [[OCSPropertyManager alloc] init];
         
-        options = @"-o dac         ; Write sound to the host audio output"
-                   "-+rtmidi=null  ; Disable the use of any realtime midi plugin"
-                   "-+rtaudio=null ; Disable the use of any realtime midi plugin"
+        options = @"-o dac         ; Write sound to the host audio output\n"
+                   "-+rtmidi=null  ; Disable the use of any realtime midi plugin\n"
+                   "-+rtaudio=null ; Disable the use of any realtime midi plugin\n"
                    "-dm0           ; Suppress output";
         
         //Setup File System access
@@ -148,7 +148,12 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)triggerEvent:(OCSEvent *)event  
 {
-    [event setProperties];
+    if ([[event noteParameterValues] count] > 0 ) {
+        [event setNoteParameters];
+    }
+    if ([[event properties] count] > 0) {
+        [event setInstrumentProperties];
+    }
     [csound sendScore:[event stringForCSD]];
 }
 

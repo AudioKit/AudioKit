@@ -16,11 +16,16 @@
 
 /// Unique Identifier for the event
 @property (readonly) float eventNumber;
+@property (nonatomic, strong) OCSInstrument *instrument;
+@property (nonatomic, strong) NSMutableArray *noteParameterValues;
+@property (nonatomic, strong) NSMutableArray *properties;
 
 /// Create an event with a fixed duration on the specified instrument.
 /// @param instrument Activated instrument.
 /// @param duration   Length of event in seconds.
 - (id)initWithInstrument:(OCSInstrument *)instrument;
+
+- (id)initWithEvent:(OCSEvent *)event;
 
 - (id)initDeactivation:(OCSEvent *)event
          afterDuration:(float)delay;
@@ -37,12 +42,15 @@
 - (void)setProperty:(OCSProperty *)property 
             toValue:(float)value; 
 
+- (void)setNoteParameter:(OCSProperty *)property 
+                 toValue:(float)value; 
 
 /// Helper method to play the event.
 - (void)trigger;
 
 /// Iterates through all properties and trigger their value changes.
-- (void)setProperties;
+- (void)setNoteParameters;
+- (void)setInstrumentProperties;
 
 /// Provides the scoreline to the CSD File.
 - (NSString *)stringForCSD;

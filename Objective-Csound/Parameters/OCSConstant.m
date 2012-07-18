@@ -52,15 +52,6 @@
     return self;
 }
 
-- (id)initWithPValue:(int)p
-{
-    self = [super init];
-    if (self) {
-        parameterString = [NSString stringWithFormat:@"p%i", p];
-    }
-    return self;
-}
-
 - (id)initWithFilename:(NSString *)filename
 {
     self = [super init];

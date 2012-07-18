@@ -37,7 +37,7 @@
     }
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", frequency]];
     currentEvent = [[OCSEvent alloc] initWithInstrument:soundGenerator];
-    [currentEvent setProperty:[soundGenerator frequency] toValue:frequency];
+    [currentEvent setNoteParameter:[soundGenerator frequency] toValue:frequency];
     [currentEvent trigger];
 }
 
