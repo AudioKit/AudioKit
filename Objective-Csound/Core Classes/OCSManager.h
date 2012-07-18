@@ -10,6 +10,7 @@
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
 #import "OCSMidi.h"
+#import "OCSNoteProperty.h"
 #import "OCSEvent.h"
 
 /** The OCSManager is a singleton class available to all controller that need

@@ -10,7 +10,7 @@
 
 @interface AudioFilePlayer : OCSInstrument
 
-@property (nonatomic, strong) OCSProperty *speed;
+@property (nonatomic, strong) OCSNoteProperty *speed;
 #define kSpeedMin 0.5
 #define kSpeedMax 2.0 
 

@@ -10,11 +10,11 @@
 
 @interface ConvolutionInstrument : OCSInstrument
 
-@property (nonatomic, strong) OCSProperty *dishWellBalance;
+@property (nonatomic, strong) OCSInstrumentProperty *dishWellBalance;
 #define kDishWellBalanceMin 0.0
 #define kDishWellBalanceMax 1.0
 
-@property (nonatomic, strong) OCSProperty *dryWetBalance;
+@property (nonatomic, strong) OCSInstrumentProperty *dryWetBalance;
 #define kDryWetBalanceMin 0.0
 #define kDryWetBalanceMax 0.1
 
