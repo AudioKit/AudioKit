@@ -117,11 +117,11 @@ static int currentID = 1;
     if ([properties count] + [noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Parameters ----\n"];
         int i = 4;
-        for (OCSProperty *param in noteProperties) {
-            [text appendFormat:@"%@ = p%i\n", param, i++];
+        for (OCSNoteProperty *prop in noteProperties) {
+            [text appendFormat:@"%@ = p%i\n", prop, i++];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        
-        for (OCSProperty *prop in properties) {
+        for (OCSInstrumentProperty *prop in properties) {
             [text appendString:[prop stringForCSDGetValue]];
         }
         [text appendString:@"\n;---- Opcodes ----\n"];  
@@ -131,7 +131,7 @@ static int currentID = 1;
     
     if ([properties count] > 0) {
         [text appendString:@"\n;---- Outputs ----\n"];
-        for (OCSProperty *prop in properties) {
+        for (OCSInstrumentProperty *prop in properties) {
             [text appendString:[prop stringForCSDSetValue]];
         }
     }

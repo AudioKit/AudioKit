@@ -22,7 +22,7 @@
 - (void)play;
 
 /// Add Event In Next Available Spot
-/// @param event Event to be added either at the beginning, or after the last event is finished
+/// @param event Event to be added either at the beginning, or at the same time as the last event
 - (void)addEvent:(OCSEvent *)event;
 
 /// Add Event In Next Available Spot
@@ -33,10 +33,7 @@
 
 // More helpers to add
 
-//- (void)addSimultaneousEvent:(OCSEvent *)event;
-//- (void)addNextEvent:(OCSEvent *)event;
-
-//- (void)addEvent:(OCSEvent *)event 
-//   afterDuration:(float)timeSinceLastEventStarted;
+- (void)addEvent:(OCSEvent *)event 
+   afterDuration:(float)timeSinceLastEventStarted;
 
 @end

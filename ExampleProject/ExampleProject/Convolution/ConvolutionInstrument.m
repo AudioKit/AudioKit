@@ -13,8 +13,8 @@
 #import "OCSAudio.h"
 
 @interface ConvolutionInstrument () {
-    OCSProperty *dishWellBalance;
-    OCSProperty *dryWetBalance;
+    OCSInstrumentProperty *dishWellBalance;
+    OCSInstrumentProperty *dryWetBalance;
 }
 @end
 
@@ -29,8 +29,8 @@
     if (self) { 
         
         // INPUTS AND CONTROLS =================================================
-        dishWellBalance = [[OCSProperty alloc] initWithValue:0.0 minValue:kDishWellBalanceMin maxValue:kDishWellBalanceMax];
-        dryWetBalance   = [[OCSProperty alloc] initWithValue:0.0 minValue:kDryWetBalanceMin   maxValue:kDryWetBalanceMax];
+        dishWellBalance = [[OCSInstrumentProperty alloc] initWithValue:0.0 minValue:kDishWellBalanceMin maxValue:kDishWellBalanceMax];
+        dryWetBalance   = [[OCSInstrumentProperty alloc] initWithValue:0.0 minValue:kDryWetBalanceMin   maxValue:kDryWetBalanceMax];
         
         [self addProperty:dishWellBalance];
         [self addProperty:dryWetBalance];         

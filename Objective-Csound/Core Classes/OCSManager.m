@@ -162,7 +162,7 @@ static OCSManager *_sharedOCSManager = nil;
 {
     NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
     for (OCSInstrument *instrument in arr ) {
-        for (OCSProperty *c in [instrument properties]) {
+        for (OCSInstrumentProperty *c in [instrument properties]) {
             [csound addValueCacheable:c];
         }
     }
@@ -172,7 +172,7 @@ static OCSManager *_sharedOCSManager = nil;
 {
     NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
     for (OCSInstrument *i in arr) {
-        for (OCSProperty *p in [i properties]) {
+        for (OCSInstrumentProperty *p in [i properties]) {
             if( [p isMidiEnabled]) {
                 [midi addProperty:p];
             }

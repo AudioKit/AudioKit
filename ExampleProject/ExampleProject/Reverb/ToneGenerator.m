@@ -28,7 +28,7 @@
     if (self) {       
         // INPUTS ==============================================================
         
-        frequency  = [[OCSProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
+        frequency  = [[OCSInstrumentProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
         [frequency setControl:[OCSControl parameterWithString:@"InputFrequency"]]; 
         [self addProperty:frequency];
         
