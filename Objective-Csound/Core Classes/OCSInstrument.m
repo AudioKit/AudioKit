@@ -29,7 +29,7 @@ typedef enum {
 @implementation OCSInstrument
 
 @synthesize properties;
-@synthesize noteParameters;
+@synthesize noteProperties;
 
 @synthesize userDefinedOpcodes;
 @synthesize fTables;
@@ -44,7 +44,7 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         properties = [[NSMutableArray alloc] init];
-        noteParameters = [[NSMutableArray alloc] init];
+        noteProperties = [[NSMutableArray alloc] init];
         userDefinedOpcodes = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
@@ -67,9 +67,9 @@ static int currentID = 1;
     //[[OCSManager sharedOCSManager] addProperty:prop];
 }
 
-- (void)addConstant:(OCSProperty *)newNoteParameter;
+- (void)addNoteProperty:(OCSProperty *)newNoteProperty;
 {
-    [noteParameters addObject:newNoteParameter];
+    [noteProperties addObject:newNoteProperty];
 }
 
 - (void)addFTable:(OCSFTable *)newFTable {
@@ -114,10 +114,10 @@ static int currentID = 1;
 - (NSString *)stringForCSD {
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
-    if ([properties count] + [noteParameters count] > 0 ) {
+    if ([properties count] + [noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Parameters ----\n"];
         int i = 4;
-        for (OCSProperty *param in noteParameters) {
+        for (OCSProperty *param in noteProperties) {
             [text appendFormat:@"%@ = p%i\n", param, i++];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        

@@ -126,6 +126,7 @@ static OCSManager *_sharedOCSManager = nil;
     // Clean up the IDs for next time
     [OCSParameter resetID];
     [OCSInstrument resetID];
+    [OCSEvent resetID];
     
     // Pause to allow Csound to start, warn if nothing happens after 1 second
     int cycles = 0;
@@ -148,8 +149,8 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)triggerEvent:(OCSEvent *)event  
 {
-    if ([[event noteParameterValues] count] > 0 ) {
-        [event setNoteParameters];
+    if ([[event notePropertyValues] count] > 0 ) {
+        [event setNoteProperties];
     }
     if ([[event properties] count] > 0) {
         [event setInstrumentProperties];

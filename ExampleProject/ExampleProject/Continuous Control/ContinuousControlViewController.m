@@ -63,7 +63,7 @@
                                                  to:kTweakableFrequencyMax];
     
     currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
-    [currentEvent setProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
+    [currentEvent setInstrumentProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
     [currentEvent trigger];
     
     if (repeatingNoteTimer) {
@@ -97,7 +97,7 @@
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
-    [currentEvent setProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
+    [currentEvent setInstrumentProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
     [currentEvent trigger];
 }
 

@@ -34,7 +34,7 @@
         [off trigger];
     }
     currentEvent = [[OCSEvent alloc] initWithInstrument:udoInstrument];
-    [currentEvent setProperty:[udoInstrument frequency] toValue:frequency];
+    [currentEvent setInstrumentProperty:[udoInstrument frequency] toValue:frequency];
     [currentEvent trigger];
 }
 
