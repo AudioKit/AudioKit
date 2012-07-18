@@ -11,7 +11,7 @@
 
 @interface OCSEvent () {
     NSMutableString *scoreLine;
-    NSMutableArray *noteParameterValues;
+    NSMutableArray *notePropertyValues;
     NSMutableArray *properties;
     NSMutableArray *propertyValues;
     int _myID;
@@ -25,17 +25,19 @@
 @implementation OCSEvent
 @synthesize eventNumber;
 @synthesize instrument = instr;
-@synthesize noteParameterValues;
+@synthesize notePropertyValues;
 @synthesize properties;
 
 static int currentID = 1;
++ (void)resetID { currentID = 1; }
+
 
 - (id)init {
     self = [super init];
     if (self) {
         _myID = currentID++;
         scoreLine  = [[NSMutableString alloc] init];
-        noteParameterValues = [[NSMutableArray alloc] init];
+        notePropertyValues = [[NSMutableArray alloc] init];
         properties = [[NSMutableArray alloc] init];
         propertyValues = [[NSMutableArray alloc] init];
     }
@@ -47,12 +49,12 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         instr = instrument;
-        noteParameterValues = [[NSMutableArray alloc] initWithArray:[instr noteParameters]];
+        notePropertyValues = [[NSMutableArray alloc] initWithArray:[instr noteProperties]];
         for (int i = 0; i < [propertyValues count]; i++) {
             
-            OCSProperty *prop = [[instr noteParameters] objectAtIndex:i];
+            OCSProperty *prop = [[instr noteProperties] objectAtIndex:i];
             NSNumber *val = [NSNumber numberWithFloat:[prop value]];
-            [noteParameterValues replaceObjectAtIndex:i withObject:val];
+            [notePropertyValues replaceObjectAtIndex:i withObject:val];
         }
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
@@ -65,7 +67,7 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         instr = [event instrument];
-        noteParameterValues = [NSMutableArray arrayWithArray:[event noteParameterValues]];
+        notePropertyValues = [NSMutableArray arrayWithArray:[event notePropertyValues]];
         eventNumber  = [event eventNumber];
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 0.1", eventNumber];
     }
@@ -87,26 +89,26 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initWithProperty:(OCSProperty *)property
-                 value:(float)value;
+- (id)initWithInstrumentProperty:(OCSProperty *)property
+                           value:(float)value;
 {
     self = [self init];
     if (self) {
-        [self setProperty:property toValue:value];
+        [self setInstrumentProperty:property toValue:value];
     }
     return self;
 }
 
-- (void)setNoteParameter:(OCSProperty *)property 
+- (void)setNoteProperty:(OCSProperty *)property 
                  toValue:(float)value; 
 {
-    int index = [[instr noteParameters] indexOfObject:property];
-    [noteParameterValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
+    int index = [[instr noteProperties] indexOfObject:property];
+    [notePropertyValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
     //    [properties addObject:property];
     //    [propertyValues addObject:[NSNumber numberWithFloat:value]];
 }
 
-- (void)setProperty:(OCSProperty *)property 
+- (void)setInstrumentProperty:(OCSProperty *)property 
             toValue:(float)value; 
 {
     [properties addObject:property];
@@ -118,9 +120,9 @@ static int currentID = 1;
     [[OCSManager sharedOCSManager] triggerEvent:self];
 }
 
-- (void)setNoteParameters;
+- (void)setNoteProperties;
 {
-    for (NSNumber *value in noteParameterValues) {
+    for (NSNumber *value in notePropertyValues) {
         [scoreLine appendFormat:@" %@", value];
     }
 }

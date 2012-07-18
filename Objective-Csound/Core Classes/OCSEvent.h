@@ -17,7 +17,7 @@
 /// Unique Identifier for the event
 @property (readonly) float eventNumber;
 @property (nonatomic, strong) OCSInstrument *instrument;
-@property (nonatomic, strong) NSMutableArray *noteParameterValues;
+@property (nonatomic, strong) NSMutableArray *notePropertyValues;
 @property (nonatomic, strong) NSMutableArray *properties;
 
 /// Create an event with a fixed duration on the specified instrument.
@@ -33,26 +33,29 @@
 /// Create an event that sets a property to a value
 /// @param property The property to be set.
 /// @param value    The new value of the property.
-- (id)initWithProperty:(OCSProperty *)property
-                 value:(float)value;
+- (id)initWithInstrumentProperty:(OCSProperty *)property
+                           value:(float)value;
 
 /// Add a property setting to an event.
 /// @param property The property to be set.
 /// @param value    The new value of the property.
-- (void)setProperty:(OCSProperty *)property 
+- (void)setInstrumentProperty:(OCSProperty *)property 
             toValue:(float)value; 
 
-- (void)setNoteParameter:(OCSProperty *)property 
+- (void)setNoteProperty:(OCSProperty *)property 
                  toValue:(float)value; 
 
 /// Helper method to play the event.
 - (void)trigger;
 
 /// Iterates through all properties and trigger their value changes.
-- (void)setNoteParameters;
+- (void)setNoteProperties;
 - (void)setInstrumentProperties;
 
 /// Provides the scoreline to the CSD File.
 - (NSString *)stringForCSD;
+
+/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
++ (void)resetID;
 
 @end

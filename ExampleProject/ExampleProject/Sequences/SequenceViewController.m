@@ -15,7 +15,6 @@
 #import "OCSSequence.h"
 
 @interface SequenceViewController () {
-    SoundGenerator  *soundGenerator;
     FMGameObject *fmGameObject;
     OCSSequence *sequence;
     OCSOrchestra *orchestra;
@@ -31,30 +30,41 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     orchestra = [[OCSOrchestra alloc] init];    
-    soundGenerator =  [[SoundGenerator alloc] init];
     fmGameObject = [[FMGameObject alloc] init];
-    [orchestra addInstrument:soundGenerator];
     [orchestra addInstrument:fmGameObject];
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
     
 }
 
-- (IBAction)playSequenceAsProperties:(id)sender 
+- (IBAction)playSequenceOfNotes:(id)sender 
 {
-    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];    
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    
+    sequence = [[OCSSequence alloc] init]; 
+    for (int i = 0; i <=12 ; i++) {
+        OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:fmGameObject];
+        [temp setNoteProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [sequence addEvent:temp atTime:duration*i];
+        OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:duration*0.5];
+        [sequence addEvent:temp2 atTime:duration*i];
+    }
+    
+    [sequence play];
+}
+
+- (IBAction)playSequenceOfNoteProperties:(id)sender 
+{
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
     
     sequence = [[OCSSequence alloc] init];     
     OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-    [noteOn setProperty:[fmGameObject frequency] toValue:440];
+    [noteOn setNoteProperty:[fmGameObject frequency] toValue:440];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *update= [[OCSEvent alloc] initWithEvent:noteOn];
-        [update setProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [update setNoteProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*i];
-//        OCSEvent *temp = [[OCSEvent alloc] init];
-//        [temp setProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
-//        [sequence addEvent:temp atTime:duration*i];
     }
     OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
     [sequence addEvent:noteOff atTime:duration*(13)];
@@ -62,25 +72,36 @@
     [sequence play];
 }
 
-- (IBAction)playSequenceAsNotes:(id)sender 
-{
-    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];
 
-    sequence = [[OCSSequence alloc] init]; 
+- (IBAction)playSequenceOfInstrumentProperties:(id)sender 
+{
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
+    
+    sequence = [[OCSSequence alloc] init];     
+    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmGameObject];
+    [noteOn setNoteProperty:[fmGameObject frequency] toValue:440];
+    [sequence addEvent:noteOn];
+    
     for (int i = 0; i <=12 ; i++) {
-        OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:soundGenerator];
-        [temp setProperty:[soundGenerator frequency] toValue:440*(pow(2.0f,(float)i/12))];
-        [sequence addEvent:temp atTime:duration*i];
-        OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:duration];
-        [sequence addEvent:temp2 atTime:duration*i];
+        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[fmGameObject modulation] value:(pow(2.0f,(float)i/12))];
+        [sequence addEvent:update atTime:duration*i];
     }
+    
+    for (int i = 0; i <=12 ; i++) {
+        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[fmGameObject modulation] value:3.0-(pow(2.0f,(float)i/12))];
+        [sequence addEvent:update atTime:duration*(i+13)];
+    }
+    OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
+    [sequence addEvent:noteOff atTime:duration*(13)];
     
     [sequence play];
 }
 
+
+
 - (IBAction)moveDurationSlider:(id)sender 
 {
-    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.1 maximum:1.0];
+    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
     [durationValue setText:[NSString stringWithFormat:@"%g", duration]];
 }
 
