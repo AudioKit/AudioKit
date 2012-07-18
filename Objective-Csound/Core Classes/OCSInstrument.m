@@ -29,6 +29,8 @@ typedef enum {
 @implementation OCSInstrument
 
 @synthesize properties;
+@synthesize noteParameters;
+
 @synthesize userDefinedOpcodes;
 @synthesize fTables;
 
@@ -41,8 +43,8 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-//        duration = [[OCSConstant alloc] initWithPValue:kDuration];
         properties = [[NSMutableArray alloc] init];
+        noteParameters = [[NSMutableArray alloc] init];
         userDefinedOpcodes = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
@@ -63,6 +65,11 @@ static int currentID = 1;
     [properties addObject:newProperty];
     //where I want to update csound's valuesCache array
     //[[OCSManager sharedOCSManager] addProperty:prop];
+}
+
+- (void)addConstant:(OCSProperty *)newNoteParameter;
+{
+    [noteParameters addObject:newNoteParameter];
 }
 
 - (void)addFTable:(OCSFTable *)newFTable {
@@ -107,8 +114,13 @@ static int currentID = 1;
 - (NSString *)stringForCSD {
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
-    if ([properties count] > 0) {
-        [text appendString:@"\n;---- Inputs ----\n"];
+    if ([properties count] + [noteParameters count] > 0 ) {
+        [text appendString:@"\n;---- Inputs: Note Parameters ----\n"];
+        int i = 4;
+        for (OCSProperty *param in noteParameters) {
+            [text appendFormat:@"%@ = p%i\n", param, i++];
+        }
+        [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        
         for (OCSProperty *prop in properties) {
             [text appendString:[prop stringForCSDGetValue]];
         }

@@ -31,26 +31,23 @@
 
 - (IBAction)playRandomFrequency:(id)sender
 {
+    NSLog(@"gother");
     if (currentEvent) {
+        NSLog(@"butnothere");
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
         [off trigger];
     }
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-    [currentEvent setProperty:[fmGameObject frequency] toValue:randomFrequency];
+    [currentEvent setNoteParameter:[fmGameObject frequency] toValue:randomFrequency];
     [currentEvent trigger];
     
 }
 - (IBAction)playRandomModulation:(id)sender
 {
-    if (currentEvent) {
-        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off trigger];
-    }
     float randomModulation = [Helper randomFloatFrom:kModulationMin to:kModulationMax];
-    currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-    [currentEvent setProperty:[fmGameObject modulation] toValue:randomModulation];
-    [currentEvent trigger];
+    OCSEvent *instrumentChangeEvent = [[OCSEvent alloc] initWithProperty:[fmGameObject modulation] value:randomModulation];
+    [instrumentChangeEvent trigger];
 }
 
 @end

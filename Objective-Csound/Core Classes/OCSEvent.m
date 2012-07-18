@@ -10,11 +10,13 @@
 #import "OCSManager.h"
 
 @interface OCSEvent () {
-    NSString *scoreLine;
+    NSMutableString *scoreLine;
+    NSMutableArray *noteParameterValues;
     NSMutableArray *properties;
-    NSMutableArray * values;
+    NSMutableArray *propertyValues;
     int _myID;
     float eventNumber;
+    OCSInstrument *instr;
 }
 @end
 
@@ -22,6 +24,9 @@
 
 @implementation OCSEvent
 @synthesize eventNumber;
+@synthesize instrument = instr;
+@synthesize noteParameterValues;
+@synthesize properties;
 
 static int currentID = 1;
 
@@ -29,9 +34,10 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        scoreLine  = @"";
+        scoreLine  = [[NSMutableString alloc] init];
+        noteParameterValues = [[NSMutableArray alloc] init];
         properties = [[NSMutableArray alloc] init];
-        values     = [[NSMutableArray alloc] init];
+        propertyValues = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -40,18 +46,39 @@ static int currentID = 1;
 {
     self = [self init];
     if (self) {
+        instr = instrument;
+        noteParameterValues = [[NSMutableArray alloc] initWithArray:[instr noteParameters]];
+        for (int i = 0; i < [propertyValues count]; i++) {
+            
+            OCSProperty *prop = [[instr noteParameters] objectAtIndex:i];
+            NSNumber *val = [NSNumber numberWithFloat:[prop value]];
+            [noteParameterValues replaceObjectAtIndex:i withObject:val];
+        }
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
-        scoreLine = [NSString stringWithFormat:@"i %0.5f 0 -1 \n", eventNumber];
+        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
     }
     return self;
 }
+
+- (id)initWithEvent:(OCSEvent *)event 
+{
+    self = [self init];
+    if (self) {
+        instr = [event instrument];
+        noteParameterValues = [NSMutableArray arrayWithArray:[event noteParameterValues]];
+        eventNumber  = [event eventNumber];
+        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 0.1", eventNumber];
+    }
+    return self;
+}
+
 
 - (id)initDeactivation:(OCSEvent *)event
          afterDuration:(float)delay;
 {
     self = [self init];
     if (self) {
-        scoreLine = [NSString stringWithFormat:@"i -%0.5f %f 0.1 \n", 
+        scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f %f 0.1", 
                      [event eventNumber], delay ];
 
 //        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n", 
@@ -70,11 +97,20 @@ static int currentID = 1;
     return self;
 }
 
+- (void)setNoteParameter:(OCSProperty *)property 
+                 toValue:(float)value; 
+{
+    int index = [[instr noteParameters] indexOfObject:property];
+    [noteParameterValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
+    //    [properties addObject:property];
+    //    [propertyValues addObject:[NSNumber numberWithFloat:value]];
+}
+
 - (void)setProperty:(OCSProperty *)property 
             toValue:(float)value; 
 {
     [properties addObject:property];
-    [values addObject:[NSNumber numberWithFloat:value]];
+    [propertyValues addObject:[NSNumber numberWithFloat:value]];
 }
 
 - (void)trigger;
@@ -82,11 +118,18 @@ static int currentID = 1;
     [[OCSManager sharedOCSManager] triggerEvent:self];
 }
 
-- (void)setProperties;
+- (void)setNoteParameters;
+{
+    for (NSNumber *value in noteParameterValues) {
+        [scoreLine appendFormat:@" %@", value];
+    }
+}
+
+- (void)setInstrumentProperties;
 {
     for (int i=0; i<[properties count]; i++) {
         OCSProperty *prop = [properties objectAtIndex:i];
-        float val = [[values objectAtIndex:i] floatValue];
+        float val = [[propertyValues objectAtIndex:i] floatValue];
         [prop setValue:val];
         NSLog(@"Setting %@ to %g", prop, val);
     }
@@ -95,7 +138,7 @@ static int currentID = 1;
 
 - (NSString *)stringForCSD;
 {
-    NSLog(@"%@", scoreLine);
+    NSLog(@"%@\n", scoreLine);
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 

@@ -30,7 +30,7 @@
         
         spd = [[OCSProperty alloc] initWithMinValue:kSpeedMin  maxValue:kSpeedMax];
         [spd setConstant:[OCSConstant parameterWithString:@"Speed"]]; 
-        [self addProperty:spd];
+        [self addConstant:spd];
         
         // INSTRUMENT DEFINITION ===============================================
         
