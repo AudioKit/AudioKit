@@ -63,8 +63,8 @@
                                                  to:kTweakableFrequencyMax];
     
     currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
-    [currentEvent setProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
-    [currentEvent play];
+    [currentEvent setInstrumentProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
+    [currentEvent trigger];
     
     if (repeatingNoteTimer) {
         return;
@@ -80,7 +80,7 @@
 {
     if (currentEvent) {
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off play];
+        [off trigger];
     }
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
@@ -92,13 +92,13 @@
 {
     if (currentEvent) {
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off play];
+        [off trigger];
     }
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
-    [currentEvent setProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
-    [currentEvent play];
+    [currentEvent setInstrumentProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
+    [currentEvent trigger];
 }
 
 

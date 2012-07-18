@@ -30,7 +30,7 @@
         
         spd = [[OCSProperty alloc] initWithMinValue:kSpeedMin  maxValue:kSpeedMax];
         [spd setConstant:[OCSConstant parameterWithString:@"Speed"]]; 
-        [self addProperty:spd];
+        [self addNoteProperty:spd];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -70,7 +70,7 @@
 //- (void)playWithSpeed:(float)speed {
 //    OCSEvent *note = [[OCSEvent alloc]initWithInstrument:self duration:(3.0f/speed)];
 //    [note setProperty:spd toValue:speed];
-//    [orchestra playEvent:note];
+//    [orchestra triggerEvent:note];
 //    //spd.value = speed;
 //    NSLog(@"Playing file at %0.2fx original speed", speed);
 //    //[self playNoteForDuration:(3.0f/speed)];

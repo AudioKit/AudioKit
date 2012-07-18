@@ -14,8 +14,9 @@
     IBOutlet UISlider * durationSlider;
 }
 
-- (IBAction)playSequenceAsProperties:(id)sender; 
-- (IBAction)playSequenceAsNotes:(id)sender; 
+- (IBAction)playSequenceOfNotes:(id)sender; 
+- (IBAction)playSequenceOfNoteProperties:(id)sender; 
+- (IBAction)playSequenceOfInstrumentProperties:(id)sender; 
 
 - (IBAction)moveDurationSlider:(id)sender;
 

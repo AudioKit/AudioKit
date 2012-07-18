@@ -34,7 +34,7 @@
         [freq setControl:[OCSControl parameterWithString:@"Frequency"]]; 
         [mod  setControl:[OCSControl parameterWithString:@"Modulation"]]; 
         
-        [self addProperty:freq];
+        [self addNoteProperty:freq];
         [self addProperty:mod];
         
         // INSTRUMENT DEFINITION ===============================================

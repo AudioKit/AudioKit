@@ -33,12 +33,12 @@
 - (IBAction)playFrequency:(float)frequency { 
     if (currentEvent) {
         OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off play];
+        [off trigger];
     }
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", frequency]];
     currentEvent = [[OCSEvent alloc] initWithInstrument:soundGenerator];
-    [currentEvent setProperty:[soundGenerator frequency] toValue:frequency];
-    [currentEvent play];
+    [currentEvent setNoteProperty:[soundGenerator frequency] toValue:frequency];
+    [currentEvent trigger];
 }
 
 - (IBAction)playA:(id)sender {

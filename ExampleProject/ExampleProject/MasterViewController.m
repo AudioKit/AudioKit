@@ -54,11 +54,10 @@
                     @"Global Reverb",
                     @"Continuous Control",
                     @"Grain",
-                    @"MoreGrain",
+                    @"Sequences",
                     @"User Defined Opcodes",
                     @"Convolution",
                     @"MIDI",
-                    @"Sequences",
                     nil];
     return self;
 }
@@ -185,7 +184,8 @@
             break;
         case 9:
             controller = [[SequenceViewController alloc] initWithNibName:@"SequenceViewController" bundle:nil];
-            break;        case 10:
+            break;        
+        case 10:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
         case 11:

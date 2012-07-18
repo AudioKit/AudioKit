@@ -42,7 +42,7 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{98, 156}, {214, 137}}</string>
+						<string key="NSFrame">{{97, 152}, {556, 137}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="967012014"/>
@@ -51,7 +51,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">13 Notes</string>
+						<string key="IBUINormalTitle">Separate Note Events</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="663094807">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -78,7 +78,30 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{380, 156}, {310, 137}}</string>
+						<string key="NSFrame">{{97, 297}, {556, 137}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="782159469"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Note Properties</string>
+						<reference key="IBUIHighlightedTitleColor" ref="663094807"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="475644226"/>
+						<reference key="IBUIFontDescription" ref="202811591"/>
+						<reference key="IBUIFont" ref="548590797"/>
+					</object>
+					<object class="IBUIButton" id="782159469">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">1316</int>
+						<object class="NSPSMatrix" key="NSFrameMatrix"/>
+						<string key="NSFrame">{{97, 442}, {556, 137}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="380826259"/>
@@ -87,7 +110,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">13 Properties</string>
+						<string key="IBUINormalTitle">Instrument Properties</string>
 						<reference key="IBUIHighlightedTitleColor" ref="663094807"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -158,7 +181,7 @@
 					<object class="IBUISlider" id="505301310">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{173, 354}, {422, 23}}</string>
+						<string key="NSFrame">{{126, 666}, {422, 23}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="219557729"/>
@@ -173,7 +196,7 @@
 					<object class="IBUILabel" id="380826259">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{197, 325}, {390, 21}}</string>
+						<string key="NSFrame">{{150, 637}, {390, 21}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="505301310"/>
@@ -194,9 +217,10 @@
 					<object class="IBUITextField" id="219557729">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{611, 349}, {97, 31}}</string>
+						<string key="NSFrame">{{564, 661}, {97, 31}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -272,12 +296,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">playSequenceAsNotes:</string>
+						<string key="label">playSequenceOfNotes:</string>
 						<reference key="source" ref="48678584"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">1</int>
 					</object>
-					<int key="connectionID">19</int>
+					<int key="connectionID">23</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -290,12 +314,21 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">playSequenceAsProperties:</string>
+						<string key="label">playSequenceOfNoteProperties:</string>
 						<reference key="source" ref="967012014"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">1</int>
 					</object>
-					<int key="connectionID">20</int>
+					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">playSequenceOfInstrumentProperties:</string>
+						<reference key="source" ref="782159469"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">1</int>
+					</object>
+					<int key="connectionID">25</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -323,11 +356,12 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="976924950"/>
 							<reference ref="1060626203"/>
+							<reference ref="48678584"/>
+							<reference ref="967012014"/>
+							<reference ref="782159469"/>
 							<reference ref="505301310"/>
 							<reference ref="380826259"/>
 							<reference ref="219557729"/>
-							<reference ref="967012014"/>
-							<reference ref="48678584"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -366,6 +400,11 @@
 						<reference key="object" ref="967012014"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">21</int>
+						<reference key="object" ref="782159469"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -379,6 +418,9 @@
 				<reference key="17.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="17.showNotes"/>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<reference key="21.IBUserGuides" ref="0"/>
+				<boolean value="NO" key="21.showNotes"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<reference key="4.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="4.showNotes"/>
@@ -390,7 +432,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">20</int>
+			<int key="maxID">25</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -399,25 +441,25 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="moveDurationSlider:">id</string>
-						<string key="playSequence:">id</string>
-						<string key="playSequenceAsNotes:">id</string>
-						<string key="playSequenceAsProperties:">id</string>
+						<string key="playSequenceOfInstrumentProperties:">id</string>
+						<string key="playSequenceOfNoteProperties:">id</string>
+						<string key="playSequenceOfNotes:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="moveDurationSlider:">
 							<string key="name">moveDurationSlider:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="playSequence:">
-							<string key="name">playSequence:</string>
+						<object class="IBActionInfo" key="playSequenceOfInstrumentProperties:">
+							<string key="name">playSequenceOfInstrumentProperties:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="playSequenceAsNotes:">
-							<string key="name">playSequenceAsNotes:</string>
+						<object class="IBActionInfo" key="playSequenceOfNoteProperties:">
+							<string key="name">playSequenceOfNoteProperties:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="playSequenceAsProperties:">
-							<string key="name">playSequenceAsProperties:</string>
+						<object class="IBActionInfo" key="playSequenceOfNotes:">
+							<string key="name">playSequenceOfNotes:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

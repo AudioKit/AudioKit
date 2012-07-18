@@ -13,6 +13,7 @@
 
 @interface ConvolutionViewController () {
     ConvolutionInstrument *conv;
+    OCSEvent *playback;
 }
 @end
 
@@ -31,7 +32,9 @@
 
 - (IBAction)start:(id)sender
 {
-    [conv playNoteForDuration:150000];
+    //[conv playNoteForDuration:150000];
+    playback = [[OCSEvent alloc] initWithInstrument:conv];
+    [playback trigger];
 }
 
 -(IBAction)changeDryWet:(id)sender 
@@ -39,12 +42,14 @@
     conv.dryWetBalance.value = [Helper scaleValueFromSlider:sender 
                                                     minimum:kDryWetBalanceMin 
                                                     maximum:kDryWetBalanceMax];
+
 }
 -(IBAction)changeDishWell:(id)sender;
 {
     conv.dishWellBalance.value = [Helper scaleValueFromSlider:sender 
                                                       minimum:kDishWellBalanceMin 
                                                       maximum:kDishWellBalanceMax];
+
 }
 
 @end

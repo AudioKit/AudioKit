@@ -11,10 +11,6 @@
 /// These are i-Rate parameters, constant for a given opcode call or note
 @interface OCSConstant : OCSControl
 
-/// Creates a p-value parameter.  Nearly deprecated except for use with duration.
-/// @param p P-Value, or column number.  
-- (id)initWithPValue:(int)p;
-
 /// Common method to create float parameters.  So much so that ocsp() macro was created and preferred.
 /// @param value Value to set the parameter to.
 + (id)parameterWithFloat:(float)value;
