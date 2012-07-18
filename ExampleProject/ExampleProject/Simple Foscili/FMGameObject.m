@@ -12,9 +12,8 @@
 #import "OCSAudio.h"
 
 @interface FMGameObject () {
-    OCSProperty *amp;
-    OCSProperty *freq;
-    OCSProperty *mod;
+    OCSNoteProperty *freq;
+    OCSInstrumentProperty *mod;
 }
 @end
 
@@ -28,8 +27,8 @@
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
-        freq = [[OCSProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
-        mod  = [[OCSProperty alloc] initWithValue:1.0 minValue:kModulationMin maxValue:kModulationMax];
+        freq = [[OCSNoteProperty alloc] initWithValue:220 minValue:kFrequencyMin maxValue:kFrequencyMax];
+        mod  = [[OCSInstrumentProperty alloc] initWithValue:1.0 minValue:kModulationMin maxValue:kModulationMax];
 
         [freq setControl:[OCSControl parameterWithString:@"Frequency"]]; 
         [mod  setControl:[OCSControl parameterWithString:@"Modulation"]]; 

@@ -14,9 +14,9 @@
 #import "OCSMidiManager.h"
 
 @interface MidifiedInstrument () {
-    OCSProperty *frequency;
-    OCSProperty *modulation;
-    OCSProperty *lowPassCutoffFrequency;
+    OCSInstrumentProperty *frequency;
+    OCSInstrumentProperty *modulation;
+    OCSInstrumentProperty *lowPassCutoffFrequency;
 }
 
 @end
@@ -32,15 +32,15 @@
     if ( self) {
         
         // INPUTS AND CONTROLS =================================================
-        freq = [[OCSProperty alloc] initWithValue:((kFrequencyMax + kFrequencyMin) / 2) 
-                                         minValue:kFrequencyMin 
-                                         maxValue:kFrequencyMax];
-        mod = [[OCSProperty alloc] initWithValue:((kModulationMax + kModulationMin)/2)
-                                        minValue:kModulationMin 
-                                        maxValue:kModulationMax];
-        cutoff = [[OCSProperty alloc] initWithValue:kLpCutoffInit 
-                                           minValue:kLpCutoffMin 
-                                           maxValue:kLpCutoffMax];
+        freq = [[OCSInstrumentProperty alloc] initWithValue:((kFrequencyMax + kFrequencyMin) / 2) 
+                                                   minValue:kFrequencyMin 
+                                                   maxValue:kFrequencyMax];
+        mod = [[OCSInstrumentProperty alloc] initWithValue:((kModulationMax + kModulationMin)/2)
+                                                  minValue:kModulationMin 
+                                                  maxValue:kModulationMax];
+        cutoff = [[OCSInstrumentProperty alloc] initWithValue:kLpCutoffInit 
+                                                     minValue:kLpCutoffMin 
+                                                     maxValue:kLpCutoffMax];
         [cutoff enableMidiForControllerNumber:16];
         
         [freq setControl:[OCSControl parameterWithString:@"Frequency"]];

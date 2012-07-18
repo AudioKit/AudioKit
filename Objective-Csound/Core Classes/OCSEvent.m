@@ -35,6 +35,9 @@ static int currentID = 1;
 - (id)init {
     self = [super init];
     if (self) {
+        if (currentID > 99000) {
+            [OCSEvent resetID];
+        }
         _myID = currentID++;
         scoreLine  = [[NSMutableString alloc] init];
         notePropertyValues = [[NSMutableArray alloc] init];
@@ -83,13 +86,15 @@ static int currentID = 1;
         scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f %f 0.1", 
                      [event eventNumber], delay ];
 
+        // This next method uses the turnoff2 opcode which might prove advantageous 
+        // so I won't delete it just yet.
 //        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n", 
 //                     delay, [event eventNumber]];
     }
     return self;
 }
 
-- (id)initWithInstrumentProperty:(OCSProperty *)property
+- (id)initWithInstrumentProperty:(OCSInstrumentProperty *)property
                            value:(float)value;
 {
     self = [self init];
@@ -99,7 +104,7 @@ static int currentID = 1;
     return self;
 }
 
-- (void)setNoteProperty:(OCSProperty *)property 
+- (void)setNoteProperty:(OCSNoteProperty *)property 
                  toValue:(float)value; 
 {
     int index = [[instr noteProperties] indexOfObject:property];
@@ -108,7 +113,7 @@ static int currentID = 1;
     //    [propertyValues addObject:[NSNumber numberWithFloat:value]];
 }
 
-- (void)setInstrumentProperty:(OCSProperty *)property 
+- (void)setInstrumentProperty:(OCSInstrumentProperty *)property 
             toValue:(float)value; 
 {
     [properties addObject:property];

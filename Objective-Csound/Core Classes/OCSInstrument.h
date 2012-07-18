@@ -10,7 +10,8 @@
 #import "OCSOrchestra.h"
 #import "OCSOpcode.h"
 #import "OCSUserDefinedOpcode.h"
-#import "OCSProperty.h"
+#import "OCSNoteProperty.h"
+#import "OCSInstrumentProperty.h"
 @class OCSEvent;
 
 /** Manages functions that most OCS instruments need to have.*/

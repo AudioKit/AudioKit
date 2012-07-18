@@ -8,7 +8,7 @@
 //  
 //
 #import <CoreMIDI/CoreMIDI.h>
-#import "OCSProperty.h"
+#import "OCSInstrumentProperty.h"
 
 /** This class handles MIDI Properties.
  */
@@ -21,8 +21,8 @@
 /// Associates a property with a controller number
 /// @param property         The property that will be set with MIDI
 /// @param controllerNumber The channel on which the MIDI information will be received.
-- (void)addProperty:(OCSProperty *)property 
+- (void)addProperty:(OCSInstrumentProperty *)property 
 forControllerNumber:(int)controllerNumber;
 
-//- (void)addProperty:(OCSProperty *)prop;
+//- (void)addProperty:(OCSInstrumentProperty *)prop;
 @end

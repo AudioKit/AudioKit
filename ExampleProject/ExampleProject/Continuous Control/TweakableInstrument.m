@@ -17,10 +17,10 @@
     //OCSPropertyManager *myPropertyManager;
     
     //maintain reference to properties so they can be referenced from controlling game logic 
-    OCSProperty *amplitude;
-    OCSProperty *frequency;
-    OCSProperty *modulation;
-    OCSProperty *modIndex;
+    OCSInstrumentProperty *amplitude;
+    OCSInstrumentProperty *frequency;
+    OCSInstrumentProperty *modulation;
+    OCSInstrumentProperty *modIndex;
 }
 @end
 
@@ -37,10 +37,10 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        amplitude  = [[OCSProperty alloc] initWithValue:kTweakableAmplitudeInit  minValue:kTweakableAmplitudeMin  maxValue:kTweakableAmplitudeMax];
-        frequency  = [[OCSProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
-        modulation = [[OCSProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
-        modIndex   = [[OCSProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
+        amplitude  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit  minValue:kTweakableAmplitudeMin  maxValue:kTweakableAmplitudeMax];
+        frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
+        modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
+        modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
         
         [amplitude  setControl:[OCSControl parameterWithString:@"Amplitude"]]; 
         [frequency  setControl:[OCSControl parameterWithString:@"Frequency"]]; 

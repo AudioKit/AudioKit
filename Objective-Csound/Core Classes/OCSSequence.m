@@ -33,23 +33,26 @@
 
 - (void)addEvent:(OCSEvent *)event 
 {
-    [events addObject:event];
-    NSNumber *time = [NSNumber numberWithFloat:0.0];
-    if ([times count] > 0) {
-        //OCSEvent *lastEvent = [events lastObject];
-        time = [NSNumber numberWithFloat:([[times lastObject] floatValue] + 1.0)];
-    }
-    [times addObject:time];
-    //NSLog(@"Added an event at time %g, count is now up to %i", [time floatValue], [events count]);
+    [self addEvent:event afterDuration:0.0f];
 }
-
-
 
 - (void)addEvent:(OCSEvent *)event 
           atTime:(float)timeSinceStart;
 {
     [events addObject:event];
     NSNumber *time = [NSNumber numberWithFloat:timeSinceStart];
+    [times addObject:time];
+}
+
+- (void)addEvent:(OCSEvent *)event 
+   afterDuration:(float)timeSinceLastEventStarted;
+{
+    [events addObject:event];
+    NSNumber *time = [NSNumber numberWithFloat:0.0];
+    if ([times count] > 0) {
+        //OCSEvent *lastEvent = [events lastObject];
+        time = [NSNumber numberWithFloat:([[times lastObject] floatValue] + timeSinceLastEventStarted)];
+    }
     [times addObject:time];
 }
 
