@@ -31,7 +31,6 @@
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-
 - (id)init {
     self = [super init];
     if (self) {

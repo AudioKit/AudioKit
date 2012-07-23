@@ -82,8 +82,6 @@ atControlRateIndex:(OCSControl *)controlRateIndex
     int wrap = iwrap  ? 0:1;
     return [NSString stringWithFormat:@"%@ tablei %@, %@, %@, %i, %@, %i", output, index, ifn, mode, ixoff, wrap];
 }
-
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

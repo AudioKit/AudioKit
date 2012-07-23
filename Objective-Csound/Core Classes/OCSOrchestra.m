@@ -48,11 +48,6 @@
     [udos addObject:newUserDefinedOpcode];
 }
 
-- (void)triggerEvent:(OCSEvent *)event 
-{
-    [[OCSManager sharedOCSManager] triggerEvent:event];
-}
-
 - (NSString *) stringForCSD {
  
     NSMutableString *s = [NSMutableString stringWithString:@""];

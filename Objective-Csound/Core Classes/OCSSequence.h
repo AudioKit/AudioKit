@@ -21,18 +21,19 @@
 /// Trigger playback of the sequence.
 - (void)play;
 
-/// Add Event In Next Available Spot
+/// Add event In next available spot
 /// @param event Event to be added either at the beginning, or at the same time as the last event
 - (void)addEvent:(OCSEvent *)event;
 
-/// Add Event In Next Available Spot
+/// Add event at a specific time
 /// @param event          Event to be added at the specified time.
 /// @param timeSinceStart Exact time at which the event will be trigger relative to the start of the sequence.
 - (void)addEvent:(OCSEvent *)event 
           atTime:(float)timeSinceStart;
 
-// More helpers to add
-
+/// Add event a specific time after the last event started
+/// @param event                     Event to be added at the specified time.
+/// @param timeSinceLastEventStarted Amount of time after the last event, when the event will be triggered.
 - (void)addEvent:(OCSEvent *)event 
    afterDuration:(float)timeSinceLastEventStarted;
 

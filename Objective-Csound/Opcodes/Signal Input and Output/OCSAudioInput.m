@@ -31,7 +31,6 @@
     return [NSString stringWithFormat:@"%@, aUnused ins", ar1];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [ar1 parameterString];
 }

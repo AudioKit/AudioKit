@@ -20,8 +20,6 @@
 @synthesize constant;
 @synthesize output;
 
-
-/// Initializes to default values
 - (id)init
 {
     self = [super init];
@@ -71,8 +69,6 @@
     output = constant;
 }
 
-
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

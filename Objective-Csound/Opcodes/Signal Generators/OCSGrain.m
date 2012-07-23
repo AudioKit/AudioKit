@@ -59,8 +59,7 @@
     isRandomGrainFunctionIndex = NO;
 }
 
-/// CSD Represenation: 
-/// ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur (, igrnd)
+// Csound prototype: ares grain xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur (, igrnd)
 - (NSString *)stringForCSD
 {
     
@@ -71,7 +70,6 @@
             gFunction, wFunction, maxDuration, randomnessFlag];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

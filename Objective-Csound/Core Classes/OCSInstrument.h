@@ -21,7 +21,11 @@
 /** This contains a list of the OCSProperty variables that are required for the instrument.
  Using this list the instrument is able to both write the get statements at the beginning 
  of the instrument block and set them at the end */
+
+/// Array of instrument properties available for the instrument.
 @property (nonatomic, strong) NSMutableArray *properties;
+
+/// Array of note properties available to events.
 @property (nonatomic, strong) NSMutableArray *noteProperties;
 
 /** All UDOs that are required by the instrument are stored here and declared before any 
@@ -41,6 +45,9 @@
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
+
+/// After an OCSNoteProperty is created, it must be added to the instrument.
+/// @param newNoteProperty New note property to add to the instrument.
 - (void)addNoteProperty:(OCSProperty *)newNoteProperty;
 
 /// Adds the function table to the Orchestra, so it is only processed once.

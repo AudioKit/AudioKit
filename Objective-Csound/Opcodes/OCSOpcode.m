@@ -22,4 +22,10 @@
     return @"Undefined";
 }
 
+- (NSString *)description
+{
+    //Override in subclass
+    return @"Undefined";
+}
+
 @end

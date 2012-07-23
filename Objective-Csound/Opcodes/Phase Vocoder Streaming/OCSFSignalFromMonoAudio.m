@@ -48,7 +48,6 @@
            fSig, aIn, iFFTSize, iOverlap, iWinSize, iWinType];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [fSig parameterString];
 }

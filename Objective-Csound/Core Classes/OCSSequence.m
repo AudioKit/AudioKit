@@ -63,6 +63,7 @@
 }
 
 
+// Cue up the next event to be triggered.
 - (void)playNextEventInSequence:(NSTimer *)aTimer;
 {
     OCSEvent *event = [events objectAtIndex:index];

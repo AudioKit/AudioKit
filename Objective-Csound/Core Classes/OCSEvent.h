@@ -26,10 +26,13 @@
 /// A list (usually just one) of instrument level properties.
 @property (nonatomic, strong) NSMutableArray *properties;
 
-/// Create an event with a fixed duration on the specified instrument.
+/// Create an event with an infinite duration on the specified instrument.
 /// @param instrument Activated instrument.
 - (id)initWithInstrument:(OCSInstrument *)instrument;
 
+/// Create an event with a fixed duration on the specified instrument.
+/// @param instrument Activated instrument.
+/// @param duration   Length of the event in seconds.
 - (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
 
 /// When creating a sequence of events that affect the same note, this function is useful.

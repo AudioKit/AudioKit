@@ -37,7 +37,6 @@
     return [NSString stringWithFormat:@"%@ pvsynth %@", aRes, fSrc];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [aRes parameterString];
 }

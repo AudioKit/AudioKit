@@ -13,7 +13,7 @@
 - (id)initType:(RandomDistributionType)distributionType
           size:(int)size;
 {
-    return [self initType:distributionType size:size level:ocsp(1)];
+    return [self initType:distributionType size:size level:1.0];
 }
 
 - (id)initType:(RandomDistributionType)distributionType
@@ -23,7 +23,7 @@
     return [self initWithType:kFTRandomDistributions
                          size:size
                    parameters:[OCSParameterArray paramArrayFromParams:
-                               ocspi(distributionType), level, nil]];
+                               ocspi(distributionType), ocsp(level), nil]];
 }
 
 - (id)initWeibullTypeWithSize:(int)size

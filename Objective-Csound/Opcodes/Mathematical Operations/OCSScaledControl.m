@@ -44,7 +44,6 @@
     return [NSString stringWithFormat:@"%@ scale %@, %@, %@", kscl, kin, kmax, kmin];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [kscl parameterString];
 }
