@@ -8,8 +8,13 @@
 
 #import "OCSOpcode.h"
 
+/** Reads audio data from an external device or stream. 
+ Currently only supports mono input.
+ */
+
 @interface OCSAudioInput : OCSOpcode
 
+/// The output is simply the signal being inputted.
 @property (nonatomic, strong) OCSParameter *output;
 
 @end

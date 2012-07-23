@@ -8,8 +8,13 @@
 
 #import "OCSParameter.h"
 
+/** Phase Vocoder Streaming output type 
+ */
+
 @interface OCSFSignal : OCSParameter
 
+/// Creates an f-signal
+/// @param aString Label for the f-signal
 - (id)initWithString:(NSString *)aString;
 
 @end
