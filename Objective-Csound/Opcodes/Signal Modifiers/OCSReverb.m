@@ -9,19 +9,19 @@
 #import "OCSReverb.h"
 
 @interface OCSReverb () {
-    OCSParameter *leftOutput;
-    OCSParameter *rightOutput;
-    OCSParameter *leftInput;
-    OCSParameter *rightInput;
-    OCSControl *feedback;
-    OCSControl *cutoff;
+    OCSParameter *aOutL;
+    OCSParameter *aOutR;
+    OCSParameter *aInL;
+    OCSParameter *aInR;
+    OCSControl *kFbLvl;
+    OCSControl *kFCo;
 }
 @end
 
 @implementation OCSReverb
 
-@synthesize leftOutput;
-@synthesize rightOutput;
+@synthesize leftOutput=aOutL;
+@synthesize rightOutput=aOutR;
 
 - (id)initWithLeftInput:(OCSParameter *)leftInput
              rightInput:(OCSParameter *)rightInput
@@ -30,12 +30,12 @@
 {
     self = [super init];
     if (self) {
-        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        leftInput   = leftInput;
-        rightInput  = rightInput;
-        feedback    = feedbackLevel;
-        cutoff      = cutoffFrequency;
+        aOutL  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        aOutR  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        aInL   = leftInput;
+        aInR   = rightInput;
+        kFbLvl = feedbackLevel;
+        kFCo   = cutoffFrequency;
     }
     return self; 
 }
@@ -50,11 +50,12 @@
                    cutoffFrequency:cutoffFrequency];
 }
 
+// Csound prototype: aoutL, aoutR reverbsc ainL, ainR, kfblvl, kfco[, israte[, ipitchm[, iskip]]] 
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@",
-            leftOutput, rightOutput, leftInput, rightInput, feedback, cutoff];
+            aOutL, aOutR, aInL, aInR, kFbLvl, kFCo];
 }
 
 @end
