@@ -45,10 +45,8 @@
 		C430801C159BCE660091AE59 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FEE159BCE650091AE59 /* OCSProperty.m */; };
 		C430801D159BCE660091AE59 /* OCSMidiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307FF0159BCE650091AE59 /* OCSMidiManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C43080AF159BD5DB0091AE59 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AA159BD5DB0091AE59 /* 808loop.wav */; };
-		C43080B0159BD5DB0091AE59 /* dishL.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AB159BD5DB0091AE59 /* dishL.wav */; };
-		C43080B1159BD5DB0091AE59 /* dishR.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AC159BD5DB0091AE59 /* dishR.wav */; };
-		C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AD159BD5DB0091AE59 /* StairwellL.wav */; };
-		C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AE159BD5DB0091AE59 /* StairwellR.wav */; };
+		C43080B0159BD5DB0091AE59 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AB159BD5DB0091AE59 /* dish.wav */; };
+		C43080B2159BD5DB0091AE59 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43080AD159BD5DB0091AE59 /* Stairwell.wav */; };
 		C43908BC1596F086001FC007 /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908BA1596F086001FC007 /* UDOViewController.m */; };
 		C43908BD1596F086001FC007 /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43908BB1596F086001FC007 /* UDOViewController.xib */; };
 		C43908C21596F11B001FC007 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908C11596F11B001FC007 /* UDOInstrument.m */; };
@@ -176,7 +174,7 @@
 		C42FA5F415BCD6B800010136 /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HarmonizerViewController.xib; path = Harmonizer/HarmonizerViewController.xib; sourceTree = "<group>"; };
 		C42FA5F815BCD6E400010136 /* Harmonizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Harmonizer.h; path = Harmonizer/Harmonizer.h; sourceTree = "<group>"; };
 		C42FA5F915BCD6E400010136 /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Harmonizer.m; path = Harmonizer/Harmonizer.m; sourceTree = "<group>"; };
-		C42FA5FB15BCDDA400010136 /* OCSAudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OCSAudioInput.h; sourceTree = "<group>"; };
+		C42FA5FB15BCDDA400010136 /* OCSAudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudioInput.h; sourceTree = "<group>"; };
 		C42FA5FC15BCDDA400010136 /* OCSAudioInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioInput.m; sourceTree = "<group>"; };
 		C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = Convolution/ConvolutionInstrument.h; sourceTree = "<group>"; };
 		C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = Convolution/ConvolutionInstrument.m; sourceTree = "<group>"; };
@@ -221,10 +219,8 @@
 		C4307FEF159BCE650091AE59 /* OCSMidiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMidiManager.h; sourceTree = "<group>"; };
 		C4307FF0159BCE650091AE59 /* OCSMidiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMidiManager.m; sourceTree = "<group>"; };
 		C43080AA159BD5DB0091AE59 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 808loop.wav; path = Convolution/808loop.wav; sourceTree = "<group>"; };
-		C43080AB159BD5DB0091AE59 /* dishL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishL.wav; path = Convolution/dishL.wav; sourceTree = "<group>"; };
-		C43080AC159BD5DB0091AE59 /* dishR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dishR.wav; path = Convolution/dishR.wav; sourceTree = "<group>"; };
-		C43080AD159BD5DB0091AE59 /* StairwellL.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellL.wav; path = Convolution/StairwellL.wav; sourceTree = "<group>"; };
-		C43080AE159BD5DB0091AE59 /* StairwellR.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = StairwellR.wav; path = Convolution/StairwellR.wav; sourceTree = "<group>"; };
+		C43080AB159BD5DB0091AE59 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dish.wav; path = Convolution/dish.wav; sourceTree = "<group>"; };
+		C43080AD159BD5DB0091AE59 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Stairwell.wav; path = Convolution/Stairwell.wav; sourceTree = "<group>"; };
 		C43080B4159C14C90091AE59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C43908B91596F086001FC007 /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDOViewController.h; path = UDOs/UDOViewController.h; sourceTree = "<group>"; };
 		C43908BA1596F086001FC007 /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDOViewController.m; path = UDOs/UDOViewController.m; sourceTree = "<group>"; };
@@ -538,10 +534,8 @@
 			isa = PBXGroup;
 			children = (
 				C43080AA159BD5DB0091AE59 /* 808loop.wav */,
-				C43080AB159BD5DB0091AE59 /* dishL.wav */,
-				C43080AC159BD5DB0091AE59 /* dishR.wav */,
-				C43080AD159BD5DB0091AE59 /* StairwellL.wav */,
-				C43080AE159BD5DB0091AE59 /* StairwellR.wav */,
+				C43080AB159BD5DB0091AE59 /* dish.wav */,
+				C43080AD159BD5DB0091AE59 /* Stairwell.wav */,
 				C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */,
 				C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */,
 				C4307F8D159BB28B0091AE59 /* ConvolutionViewController.h */,
@@ -1123,10 +1117,8 @@
 				C4308012159BCE660091AE59 /* CsGrainPitchShifter.udo in Resources */,
 				C4308015159BCE660091AE59 /* msrOsc.udo in Resources */,
 				C43080AF159BD5DB0091AE59 /* 808loop.wav in Resources */,
-				C43080B0159BD5DB0091AE59 /* dishL.wav in Resources */,
-				C43080B1159BD5DB0091AE59 /* dishR.wav in Resources */,
-				C43080B2159BD5DB0091AE59 /* StairwellL.wav in Resources */,
-				C43080B3159BD5DB0091AE59 /* StairwellR.wav in Resources */,
+				C43080B0159BD5DB0091AE59 /* dish.wav in Resources */,
+				C43080B2159BD5DB0091AE59 /* Stairwell.wav in Resources */,
 				C48A8AA315A1969100E53A1C /* OscillatorViewController.xib in Resources */,
 				764F358315AB115A0086D377 /* MidifiedInstrumentViewController.xib in Resources */,
 				C490478B15AFDA32002B2828 /* SequenceViewController.xib in Resources */,
