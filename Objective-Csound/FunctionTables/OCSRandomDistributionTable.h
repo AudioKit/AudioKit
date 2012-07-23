@@ -8,6 +8,9 @@
 
 #import "OCSFTable.h"
 
+/** Generates tables of different random distributions.
+ */
+
 @interface OCSRandomDistributionTable : OCSFTable
 
 typedef enum
@@ -20,10 +23,23 @@ typedef enum
     kRandomDistributionGaussian=6,
     kRandomDistributionCauchy=7,
     kRandomDistributionPositiveCauchy=8,
-    kRandomDistributionBeta=9,
-    kRandomDistributionWeibull=10,
     kRandomDistributionPoisson=11
 }RandomDistributionType;
 
+- (id)initType:(RandomDistributionType)distributionType
+           size:(int)size;
+
+- (id)initType:(RandomDistributionType)distributionType
+           size:(int)size
+          level:(float)level;
+
+- (id)initWeibullTypeWithSize:(int)size
+                        level:(float)level
+                        sigma:(float)sigma;
+
+- (id)initBetaTypeWithSize:(int)size
+                        level:(float)level
+                        alpha:(float)alpha
+                      beta:(float)beta;
 
 @end

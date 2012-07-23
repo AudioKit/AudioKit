@@ -878,6 +878,8 @@
 			children = (
 				C497CCDF159C58B700AB9E57 /* OCSAudio.h */,
 				C497CCE0159C58B700AB9E57 /* OCSAudio.m */,
+				C42FA5FB15BCDDA400010136 /* OCSAudioInput.h */,
+				C42FA5FC15BCDDA400010136 /* OCSAudioInput.m */,
 				C497CD69159C706D00AB9E57 /* OCSFileInput.h */,
 				C497CD6A159C706D00AB9E57 /* OCSFileInput.m */,
 				C497CCE3159C58B700AB9E57 /* OCSLoopingOscillator.h */,
@@ -886,8 +888,6 @@
 				C497CCE6159C58B700AB9E57 /* OCSMonoAudio.m */,
 				C497CD6C159C75F600AB9E57 /* OCSWeightedMean.h */,
 				C497CD6D159C75F600AB9E57 /* OCSWeightedMean.m */,
-				C42FA5FB15BCDDA400010136 /* OCSAudioInput.h */,
-				C42FA5FC15BCDDA400010136 /* OCSAudioInput.m */,
 			);
 			path = "Signal Input and Output";
 			sourceTree = "<group>";

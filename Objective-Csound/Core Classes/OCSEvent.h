@@ -30,6 +30,8 @@
 /// @param instrument Activated instrument.
 - (id)initWithInstrument:(OCSInstrument *)instrument;
 
+- (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
+
 /// When creating a sequence of events that affect the same note, this function is useful.
 /// @param event The event that you want to use as the basis for the next event.
 - (id)initWithEvent:(OCSEvent *)event;

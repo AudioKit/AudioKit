@@ -46,8 +46,7 @@ static int currentID = 1;
     }
     return self;
 }
-
-- (id)initWithInstrument:(OCSInstrument *)instrument;
+- (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
 {
     self = [self init];
     if (self) {
@@ -60,9 +59,14 @@ static int currentID = 1;
             [notePropertyValues replaceObjectAtIndex:i withObject:val];
         }
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
-        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 10000", eventNumber];
+        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %g", eventNumber, duration];
     }
     return self;
+}
+
+- (id)initWithInstrument:(OCSInstrument *)instrument;
+{
+    return [self initWithInstrument:instrument duration:-1];
 }
 
 - (id)initWithEvent:(OCSEvent *)event 
