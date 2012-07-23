@@ -9,8 +9,8 @@
 #import "OCSAudio.h"
 
 @interface OCSAudio () {
-    OCSParameter *inputLeft;
-    OCSParameter *inputRight;
+    OCSParameter *leftInput;
+    OCSParameter *rightInput;
 }
 @end
 
@@ -25,14 +25,14 @@
 {
     self = [super init];
     if (self) {
-        inputLeft  = leftInput;
-        inputRight = rightInput;
+        leftInput  = leftInput;
+        rightInput = rightInput;
     }
     return self; 
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:@"outs %@, %@",inputLeft, inputRight];
+    return [NSString stringWithFormat:@"outs %@, %@",leftInput, rightInput];
 }
 
 @end

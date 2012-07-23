@@ -11,8 +11,8 @@
 @interface OCSReverb () {
     OCSParameter *leftOutput;
     OCSParameter *rightOutput;
-    OCSParameter *inputLeft;
-    OCSParameter *inputRight;
+    OCSParameter *leftInput;
+    OCSParameter *rightInput;
     OCSControl *feedback;
     OCSControl *cutoff;
 }
@@ -32,8 +32,8 @@
     if (self) {
         leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
         rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        inputLeft   = leftInput;
-        inputRight  = rightInput;
+        leftInput   = leftInput;
+        rightInput  = rightInput;
         feedback    = feedbackLevel;
         cutoff      = cutoffFrequency;
     }
@@ -54,7 +54,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@",
-            leftOutput, rightOutput, inputLeft, inputRight, feedback, cutoff];
+            leftOutput, rightOutput, leftInput, rightInput, feedback, cutoff];
 }
 
 @end
