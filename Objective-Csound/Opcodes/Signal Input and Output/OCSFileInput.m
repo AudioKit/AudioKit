@@ -9,24 +9,24 @@
 #import "OCSFileInput.h"
 
 @interface OCSFileInput () {
-    OCSParameter *outputLeft;
-    OCSParameter *outputRight;
-    NSString *file;
+    OCSParameter *a1;
+    OCSParameter *a2;
+    NSString *ifilcod;
 }
 @end
 
 @implementation OCSFileInput
 
-@synthesize outputLeft;
-@synthesize outputRight;
+@synthesize leftOutput=a1;
+@synthesize rightOutput=a2;
 
 - (id)initWithFilename:(NSString *)fileName;
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
-        file = fileName;
+        a1  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        a2 = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        ifilcod = fileName;
     }
     return self; 
 }
@@ -35,7 +35,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ diskin2 \"%@\", 1, 0, 1",
-            outputLeft, outputRight, file];
+            a1, a2, ifilcod];
 }
 
 
