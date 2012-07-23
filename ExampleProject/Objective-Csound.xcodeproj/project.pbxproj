@@ -11,6 +11,15 @@
 		764F358215AB115A0086D377 /* MidifiedInstrumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F358015AB115A0086D377 /* MidifiedInstrumentViewController.m */; };
 		764F358315AB115A0086D377 /* MidifiedInstrumentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 764F358115AB115A0086D377 /* MidifiedInstrumentViewController.xib */; };
 		764F358615AC60480086D377 /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = 764F358515AC60480086D377 /* OCSMidi.m */; };
+		C42FA5E315BCBB8B00010136 /* OCSFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5E215BCBB8B00010136 /* OCSFSignal.m */; };
+		C42FA5E715BCBC8700010136 /* OCSFSignalFromMonoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5E615BCBC8700010136 /* OCSFSignalFromMonoAudio.m */; };
+		C42FA5EB15BCC6D500010136 /* OCSScaledFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5EA15BCC6D500010136 /* OCSScaledFSignal.m */; };
+		C42FA5EE15BCD1FC00010136 /* OCSFSignalMix.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5ED15BCD1FC00010136 /* OCSFSignalMix.m */; };
+		C42FA5F115BCD46A00010136 /* OCSAudioFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5F015BCD46A00010136 /* OCSAudioFromFSignal.m */; };
+		C42FA5F515BCD6B800010136 /* HarmonizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5F315BCD6B800010136 /* HarmonizerViewController.m */; };
+		C42FA5F615BCD6B800010136 /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42FA5F415BCD6B800010136 /* HarmonizerViewController.xib */; };
+		C42FA5FA15BCD6E400010136 /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5F915BCD6E400010136 /* Harmonizer.m */; };
+		C42FA5FD15BCDDA400010136 /* OCSAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C42FA5FC15BCDDA400010136 /* OCSAudioInput.m */; };
 		C4307F88159BB2360091AE59 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */; };
 		C4307F90159BB28B0091AE59 /* ConvolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4307F8E159BB28B0091AE59 /* ConvolutionViewController.m */; };
 		C4307F91159BB28B0091AE59 /* ConvolutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4307F8F159BB28B0091AE59 /* ConvolutionViewController.xib */; };
@@ -45,7 +54,7 @@
 		C43908C21596F11B001FC007 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43908C11596F11B001FC007 /* UDOInstrument.m */; };
 		C448F30215A0DFC400AB5DF2 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30115A0DFC400AB5DF2 /* OCSEvent.m */; };
 		C448F30515A0E07600AB5DF2 /* OCSSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30415A0E07600AB5DF2 /* OCSSequence.m */; };
-		C448F30815A0E7BB00AB5DF2 /* OCSScale.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30715A0E7BB00AB5DF2 /* OCSScale.m */; };
+		C448F30815A0E7BB00AB5DF2 /* OCSScaledControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C448F30715A0E7BB00AB5DF2 /* OCSScaledControl.m */; };
 		C44D068115871EE200307AC9 /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */; };
 		C44D068215871EE200307AC9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44D068015871EBE00307AC9 /* ExpressionToneGenerator.m */; };
 		C46EB3C715914235005807A2 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB3C315914235005807A2 /* TweakableInstrument.m */; };
@@ -152,6 +161,23 @@
 		764F358115AB115A0086D377 /* MidifiedInstrumentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidifiedInstrumentViewController.xib; path = Midi/MidifiedInstrumentViewController.xib; sourceTree = "<group>"; };
 		764F358415AC60480086D377 /* OCSMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMidi.h; sourceTree = "<group>"; };
 		764F358515AC60480086D377 /* OCSMidi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMidi.m; sourceTree = "<group>"; };
+		C42FA5E115BCBB8B00010136 /* OCSFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFSignal.h; sourceTree = "<group>"; };
+		C42FA5E215BCBB8B00010136 /* OCSFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFSignal.m; sourceTree = "<group>"; };
+		C42FA5E515BCBC8700010136 /* OCSFSignalFromMonoAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSFSignalFromMonoAudio.h; path = "Phase Vocoder Streaming/OCSFSignalFromMonoAudio.h"; sourceTree = "<group>"; };
+		C42FA5E615BCBC8700010136 /* OCSFSignalFromMonoAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSFSignalFromMonoAudio.m; path = "Phase Vocoder Streaming/OCSFSignalFromMonoAudio.m"; sourceTree = "<group>"; };
+		C42FA5E915BCC6D500010136 /* OCSScaledFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSScaledFSignal.h; path = "Phase Vocoder Streaming/OCSScaledFSignal.h"; sourceTree = "<group>"; };
+		C42FA5EA15BCC6D500010136 /* OCSScaledFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSScaledFSignal.m; path = "Phase Vocoder Streaming/OCSScaledFSignal.m"; sourceTree = "<group>"; };
+		C42FA5EC15BCD1FC00010136 /* OCSFSignalMix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSFSignalMix.h; path = "Phase Vocoder Streaming/OCSFSignalMix.h"; sourceTree = "<group>"; };
+		C42FA5ED15BCD1FC00010136 /* OCSFSignalMix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSFSignalMix.m; path = "Phase Vocoder Streaming/OCSFSignalMix.m"; sourceTree = "<group>"; };
+		C42FA5EF15BCD46A00010136 /* OCSAudioFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSAudioFromFSignal.h; path = "Phase Vocoder Streaming/OCSAudioFromFSignal.h"; sourceTree = "<group>"; };
+		C42FA5F015BCD46A00010136 /* OCSAudioFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSAudioFromFSignal.m; path = "Phase Vocoder Streaming/OCSAudioFromFSignal.m"; sourceTree = "<group>"; };
+		C42FA5F215BCD6B800010136 /* HarmonizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HarmonizerViewController.h; path = Harmonizer/HarmonizerViewController.h; sourceTree = "<group>"; };
+		C42FA5F315BCD6B800010136 /* HarmonizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HarmonizerViewController.m; path = Harmonizer/HarmonizerViewController.m; sourceTree = "<group>"; };
+		C42FA5F415BCD6B800010136 /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HarmonizerViewController.xib; path = Harmonizer/HarmonizerViewController.xib; sourceTree = "<group>"; };
+		C42FA5F815BCD6E400010136 /* Harmonizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Harmonizer.h; path = Harmonizer/Harmonizer.h; sourceTree = "<group>"; };
+		C42FA5F915BCD6E400010136 /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Harmonizer.m; path = Harmonizer/Harmonizer.m; sourceTree = "<group>"; };
+		C42FA5FB15BCDDA400010136 /* OCSAudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OCSAudioInput.h; sourceTree = "<group>"; };
+		C42FA5FC15BCDDA400010136 /* OCSAudioInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioInput.m; sourceTree = "<group>"; };
 		C4307F86159BB2360091AE59 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = Convolution/ConvolutionInstrument.h; sourceTree = "<group>"; };
 		C4307F87159BB2360091AE59 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = Convolution/ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C4307F8D159BB28B0091AE59 /* ConvolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionViewController.h; path = Convolution/ConvolutionViewController.h; sourceTree = "<group>"; };
@@ -209,8 +235,8 @@
 		C448F30115A0DFC400AB5DF2 /* OCSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEvent.m; sourceTree = "<group>"; };
 		C448F30315A0E07600AB5DF2 /* OCSSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSequence.h; sourceTree = "<group>"; };
 		C448F30415A0E07600AB5DF2 /* OCSSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSequence.m; sourceTree = "<group>"; };
-		C448F30615A0E7BB00AB5DF2 /* OCSScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSScale.h; sourceTree = "<group>"; };
-		C448F30715A0E7BB00AB5DF2 /* OCSScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSScale.m; sourceTree = "<group>"; };
+		C448F30615A0E7BB00AB5DF2 /* OCSScaledControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSScaledControl.h; sourceTree = "<group>"; };
+		C448F30715A0E7BB00AB5DF2 /* OCSScaledControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSScaledControl.m; sourceTree = "<group>"; };
 		C44D067C15871EBE00307AC9 /* ExpressionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExpressionsViewController.h; path = ExampleProject/Expressions/ExpressionsViewController.h; sourceTree = SOURCE_ROOT; };
 		C44D067D15871EBE00307AC9 /* ExpressionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExpressionsViewController.m; path = ExampleProject/Expressions/ExpressionsViewController.m; sourceTree = SOURCE_ROOT; };
 		C44D067E15871EBE00307AC9 /* ExpressionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ExpressionsViewController.xib; path = ExampleProject/Expressions/ExpressionsViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -481,6 +507,33 @@
 			name = Grain;
 			sourceTree = "<group>";
 		};
+		C42FA5E815BCBC8E00010136 /* Phase Vocoder Streaming */ = {
+			isa = PBXGroup;
+			children = (
+				C42FA5EF15BCD46A00010136 /* OCSAudioFromFSignal.h */,
+				C42FA5F015BCD46A00010136 /* OCSAudioFromFSignal.m */,
+				C42FA5E515BCBC8700010136 /* OCSFSignalFromMonoAudio.h */,
+				C42FA5E615BCBC8700010136 /* OCSFSignalFromMonoAudio.m */,
+				C42FA5EC15BCD1FC00010136 /* OCSFSignalMix.h */,
+				C42FA5ED15BCD1FC00010136 /* OCSFSignalMix.m */,
+				C42FA5E915BCC6D500010136 /* OCSScaledFSignal.h */,
+				C42FA5EA15BCC6D500010136 /* OCSScaledFSignal.m */,
+			);
+			name = "Phase Vocoder Streaming";
+			sourceTree = "<group>";
+		};
+		C42FA5F715BCD6C100010136 /* Harmonizer */ = {
+			isa = PBXGroup;
+			children = (
+				C42FA5F815BCD6E400010136 /* Harmonizer.h */,
+				C42FA5F915BCD6E400010136 /* Harmonizer.m */,
+				C42FA5F215BCD6B800010136 /* HarmonizerViewController.h */,
+				C42FA5F315BCD6B800010136 /* HarmonizerViewController.m */,
+				C42FA5F415BCD6B800010136 /* HarmonizerViewController.xib */,
+			);
+			name = Harmonizer;
+			sourceTree = "<group>";
+		};
 		C4307F89159BB23D0091AE59 /* Convolution */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,6 +622,7 @@
 				C4307FBF159BCE650091AE59 /* OCSOpcode.h */,
 				C4307FC0159BCE650091AE59 /* OCSOpcode.m */,
 				C497CCC6159C58B700AB9E57 /* Mathematical Operations */,
+				C42FA5E815BCBC8E00010136 /* Phase Vocoder Streaming */,
 				C497CCCD159C58B700AB9E57 /* Signal Generators */,
 				C497CCDE159C58B700AB9E57 /* Signal Input and Output */,
 				C497CCE7159C58B700AB9E57 /* Signal Modifiers */,
@@ -618,6 +672,8 @@
 				C4A8602615A38ED00078697E /* OCSConstant.m */,
 				C4A8602715A38ED00078697E /* OCSControl.h */,
 				C4A8602815A38ED00078697E /* OCSControl.m */,
+				C42FA5E115BCBB8B00010136 /* OCSFSignal.h */,
+				C42FA5E215BCBB8B00010136 /* OCSFSignal.m */,
 				C4A8602915A38ED00078697E /* OCSParameter.h */,
 				C4A8602A15A38ED00078697E /* OCSParameter.m */,
 				C4A8602B15A38ED00078697E /* OCSParameterArray.h */,
@@ -790,8 +846,8 @@
 				C497CCC8159C58B700AB9E57 /* OCSAssignment.m */,
 				C497CCC9159C58B700AB9E57 /* OCSProduct.h */,
 				C497CCCA159C58B700AB9E57 /* OCSProduct.m */,
-				C448F30615A0E7BB00AB5DF2 /* OCSScale.h */,
-				C448F30715A0E7BB00AB5DF2 /* OCSScale.m */,
+				C448F30615A0E7BB00AB5DF2 /* OCSScaledControl.h */,
+				C448F30715A0E7BB00AB5DF2 /* OCSScaledControl.m */,
 				C497CCCB159C58B700AB9E57 /* OCSSum.h */,
 				C497CCCC159C58B700AB9E57 /* OCSSum.m */,
 				C4C4C08A15A17EF000FE9119 /* OCSTableValue.h */,
@@ -836,6 +892,8 @@
 				C497CCE6159C58B700AB9E57 /* OCSMonoAudio.m */,
 				C497CD6C159C75F600AB9E57 /* OCSWeightedMean.h */,
 				C497CD6D159C75F600AB9E57 /* OCSWeightedMean.m */,
+				C42FA5FB15BCDDA400010136 /* OCSAudioInput.h */,
+				C42FA5FC15BCDDA400010136 /* OCSAudioInput.m */,
 			);
 			path = "Signal Input and Output";
 			sourceTree = "<group>";
@@ -909,6 +967,7 @@
 				C43908BF1596F08D001FC007 /* UDOs */,
 				C4307F89159BB23D0091AE59 /* Convolution */,
 				764F357A15AB10F80086D377 /* Midi */,
+				C42FA5F715BCD6C100010136 /* Harmonizer */,
 				C4C5511F1576EB08005F7EE4 /* Supporting Files */,
 			);
 			path = ExampleProject;
@@ -1071,6 +1130,7 @@
 				C48A8AA315A1969100E53A1C /* OscillatorViewController.xib in Resources */,
 				764F358315AB115A0086D377 /* MidifiedInstrumentViewController.xib in Resources */,
 				C490478B15AFDA32002B2828 /* SequenceViewController.xib in Resources */,
+				C42FA5F615BCD6B800010136 /* HarmonizerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1160,7 +1220,7 @@
 				C497CD6E159C75F600AB9E57 /* OCSWeightedMean.m in Sources */,
 				C448F30215A0DFC400AB5DF2 /* OCSEvent.m in Sources */,
 				C448F30515A0E07600AB5DF2 /* OCSSequence.m in Sources */,
-				C448F30815A0E7BB00AB5DF2 /* OCSScale.m in Sources */,
+				C448F30815A0E7BB00AB5DF2 /* OCSScaledControl.m in Sources */,
 				C4C4C08C15A17EF000FE9119 /* OCSTableValue.m in Sources */,
 				C49FC7CE15A29AD2001075CE /* OCSArrayTable.m in Sources */,
 				C4A8601A15A2E1DD0078697E /* Helper.m in Sources */,
@@ -1174,6 +1234,14 @@
 				C490478A15AFDA32002B2828 /* SequenceViewController.m in Sources */,
 				C499E8D815B6976A00E90EDB /* OCSNoteProperty.m in Sources */,
 				C499E8DC15B6977B00E90EDB /* OCSInstrumentProperty.m in Sources */,
+				C42FA5E315BCBB8B00010136 /* OCSFSignal.m in Sources */,
+				C42FA5E715BCBC8700010136 /* OCSFSignalFromMonoAudio.m in Sources */,
+				C42FA5EB15BCC6D500010136 /* OCSScaledFSignal.m in Sources */,
+				C42FA5EE15BCD1FC00010136 /* OCSFSignalMix.m in Sources */,
+				C42FA5F115BCD46A00010136 /* OCSAudioFromFSignal.m in Sources */,
+				C42FA5F515BCD6B800010136 /* HarmonizerViewController.m in Sources */,
+				C42FA5FA15BCD6E400010136 /* Harmonizer.m in Sources */,
+				C42FA5FD15BCDDA400010136 /* OCSAudioInput.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

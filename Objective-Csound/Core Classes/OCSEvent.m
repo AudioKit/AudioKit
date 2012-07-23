@@ -60,7 +60,7 @@ static int currentID = 1;
             [notePropertyValues replaceObjectAtIndex:i withObject:val];
         }
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
-        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
+        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 9876543", eventNumber];
     }
     return self;
 }

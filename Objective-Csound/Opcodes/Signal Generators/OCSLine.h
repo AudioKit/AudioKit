@@ -13,7 +13,7 @@
  time duration.  After that duration, the line continues at the same slope until
  the note event ends.  Can be an audio signal or control rate parameter.
  
- CSD Representation:
+ Csound Prototype:
  
     ares line ia, idur, ib
     kres line ia, idur, ib

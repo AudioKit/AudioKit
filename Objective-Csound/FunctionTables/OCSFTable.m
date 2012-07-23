@@ -49,7 +49,7 @@
 }
 
 
-// CSD Representation: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
+// Csound Prototype: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD {
     if (isNormalized) {
         igen = abs(igen); 

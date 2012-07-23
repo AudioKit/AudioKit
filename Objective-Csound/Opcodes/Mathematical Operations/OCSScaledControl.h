@@ -1,5 +1,5 @@
 //
-//  OCSScale.h
+//  OCSScaledControl.h
 //  Objective-Csound
 //
 //  Created by Aurelius Prochazka on 7/1/12.
@@ -13,7 +13,7 @@
  Similar to scale object found in popular dataflow languages.
  */
 
-@interface OCSScale : OCSOpcode
+@interface OCSScaledControl : OCSOpcode
 
 /// Output is the scaled control-rate value.
 @property (nonatomic, strong) OCSControl *output;

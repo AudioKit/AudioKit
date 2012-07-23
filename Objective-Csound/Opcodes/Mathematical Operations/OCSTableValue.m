@@ -75,7 +75,7 @@ atControlRateIndex:(OCSControl *)controlRateIndex
     return self; 
 }
 
-// CSD Representation: kscl scale kinput, kmax, kmin
+// Csound Prototype: kscl scale kinput, kmax, kmin
 - (NSString *)stringForCSD 
 {
     int mode = ixmode ? 0:1;

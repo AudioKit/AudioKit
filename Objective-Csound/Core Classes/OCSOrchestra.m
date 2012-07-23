@@ -24,12 +24,13 @@
 
 @synthesize zeroDBFullScaleValue;
 @synthesize instruments;
+@synthesize numberOfChannels;
 
 - (id)init {
     self = [super init];
     if (self) {
         sampleRate = 44100;
-        samplesPerControlPeriod = 512;
+        samplesPerControlPeriod = 256;
         numberOfChannels = 2;
         zeroDBFullScaleValue = 1.0f;
         udos = [[NSMutableArray alloc] init];
