@@ -10,8 +10,8 @@
 
 
 @interface UDOCsGrainCompressor () {
-    OCSParameter *outputLeft;
-    OCSParameter *outputRight;
+    OCSParameter *leftOutput;
+    OCSParameter *rightOutput;
     OCSParameter *inL;
     OCSParameter *inR;
     OCSControl *threshold;
@@ -23,8 +23,8 @@
 
 @implementation UDOCsGrainCompressor
 
-@synthesize outputLeft;
-@synthesize outputRight;
+@synthesize leftOutput;
+@synthesize rightOutput;
 
 - (id)initWithLeftInput:(OCSParameter *)leftInput
              rightInput:(OCSParameter *)rightInput
@@ -35,8 +35,8 @@
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inL       = leftInput;
         inR       = rightInput;
         threshold = dBThreshold;
@@ -55,7 +55,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ Compressor %@, %@, %@, %@, %@, %@",
-            outputLeft, outputRight, inL, inR, threshold, ratio, attack, release];
+            leftOutput, rightOutput, inL, inR, threshold, ratio, attack, release];
 }
 
 

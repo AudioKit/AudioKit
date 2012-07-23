@@ -9,8 +9,8 @@
 #import "UDOCsGrainPitchShifter.h"
 
 @interface UDOCsGrainPitchShifter () {
-    OCSParameter *outputLeft;
-    OCSParameter *outputRight;
+    OCSParameter *leftOutput;
+    OCSParameter *rightOutput;
     OCSParameter *inL;
     OCSParameter *inR;
     OCSControl *pitch;
@@ -21,8 +21,8 @@
 
 @implementation UDOCsGrainPitchShifter
 
-@synthesize outputLeft;
-@synthesize outputRight;
+@synthesize leftOutput;
+@synthesize rightOutput;
 
 - (id)initWithLeftInput:(OCSParameter *)leftInput
              rightInput:(OCSParameter *)rightInput
@@ -32,8 +32,8 @@
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inL      = leftInput;
         inR      = rightInput;
         pitch    = basePitch;
@@ -51,7 +51,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ PitchShifter %@, %@, %@, %@, %@",
-            outputLeft, outputRight, inL, inR, pitch, offset, feedback];
+            leftOutput, rightOutput, inL, inR, pitch, offset, feedback];
 }
 
 @end

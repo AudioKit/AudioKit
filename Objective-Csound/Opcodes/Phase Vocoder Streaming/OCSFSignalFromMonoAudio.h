@@ -24,8 +24,12 @@ typedef enum
 
 @interface OCSFSignalFromMonoAudio : OCSOpcode
 
+/// @name Properties
+
 /// The output is a f-Signal.
 @property (nonatomic, strong) OCSFSignal *output;
+
+/// @name Initialization
 
 
 /// Create a phase vocoder stream or f-signal from a mono audio source.

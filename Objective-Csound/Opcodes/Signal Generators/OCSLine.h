@@ -21,6 +21,8 @@
 
 @interface OCSLine : OCSOpcode
 
+/// @name Properties
+
 /// This is the audio signal.
 @property (nonatomic, strong) OCSParameter *audio;
 
@@ -29,6 +31,8 @@
 
 /// The output is the audio signal or the control.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Initialize a linear transition from one value to another over specified time.
 /// @param startingValue Value to start the line from.

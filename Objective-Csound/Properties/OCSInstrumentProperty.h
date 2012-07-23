@@ -26,11 +26,15 @@
     int midiController;
 }
 
+/// @name Properties
+
 /// isMidiEnabled
 @property (readwrite) BOOL isMidiEnabled;
 
 /// Midi Controller Number (0-127).
 @property (readwrite) int midiController;
+
+/// @name Instance Methods
 
 /// String with the appropriate chnget statement for the CSD File
 - (NSString *)stringForCSDGetValue;

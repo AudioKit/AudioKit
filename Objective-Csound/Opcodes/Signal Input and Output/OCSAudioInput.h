@@ -14,6 +14,8 @@
 
 @interface OCSAudioInput : OCSOpcode
 
+/// @name Properties
+
 /// The output is simply the signal being inputted.
 @property (nonatomic, strong) OCSParameter *output;
 

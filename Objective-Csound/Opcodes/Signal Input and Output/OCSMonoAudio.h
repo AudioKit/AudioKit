@@ -18,6 +18,8 @@
 
 @interface OCSMonoAudio : OCSOpcode 
 
+/// @name Initialization
+
 /// Create the mono audio output.
 /// @param monoSignal The audio that should be played.
 - (id)initWithInput:(OCSParameter *)monoSignal;

@@ -19,12 +19,16 @@
 
 @interface OCSLoopingOscillator : OCSOpcode
 
+/// @name Properties
+
 /// This is the output for a mono sound file table input.
 @property (nonatomic, strong) OCSParameter *output;
 /// This is the output to the left channel if stereo.
 @property (nonatomic, strong) OCSParameter *leftOutput;
 /// This is the output to the right channel if stereo.
 @property (nonatomic, strong) OCSParameter *rightOutput;
+
+/// @name Initialization
 
 /// Simplest initialization with a given file.
 /// @param fileTable Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.

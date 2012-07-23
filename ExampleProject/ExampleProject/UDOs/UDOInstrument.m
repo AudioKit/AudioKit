@@ -50,8 +50,8 @@
         [self addUDO:ps];
         
         UDOCsGrainCompressor * comp;
-        comp = [[UDOCsGrainCompressor alloc] initWithLeftInput:[ps outputLeft] 
-                                                    rightInput:[ps outputRight] 
+        comp = [[UDOCsGrainCompressor alloc] initWithLeftInput:[ps leftOutput] 
+                                                    rightInput:[ps rightOutput] 
                                                      threshold:ocsp(-2.0) 
                                               compressionRatio:ocsp(0.5) 
                                                     attackTime:ocsp(0.1) 
@@ -60,8 +60,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:[ps outputLeft] 
-                                                          rightInput:[ps outputRight]]; 
+        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:[ps leftOutput] 
+                                                          rightInput:[ps rightOutput]]; 
         [self addOpcode:stereoOutput];
     }
     return self;

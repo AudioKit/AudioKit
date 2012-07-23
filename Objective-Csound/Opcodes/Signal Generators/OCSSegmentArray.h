@@ -20,6 +20,8 @@
 
 @interface OCSSegmentArray : OCSOpcode 
 
+/// @name Properties
+
 /// This is the audio signal.
 @property (nonatomic, strong) OCSParameter *audio;
 
@@ -28,6 +30,8 @@
 
 /// The output is the audio signal or the control.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Creates the OCSSegmentArray and populates it with the minimum information.
 /// Use addValue:afterDuration to add more segments to the array.
@@ -46,6 +50,7 @@
 - (void)addValue:(OCSConstant *)nextSegmentTargetValue 
    afterDuration:(OCSConstant *)nextSegmentDuration;
 
+/// @name Optional Assignments
 
 /// Adds a release segment.
 /// @param finalValue      Last value to reach, typically zero.
