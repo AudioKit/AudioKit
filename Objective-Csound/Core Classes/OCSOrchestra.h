@@ -18,6 +18,7 @@
 
 /// Determines the value from which to scale all other amplitudes in Csound
 @property (nonatomic, assign) float zeroDBFullScaleValue;
+@property (readonly) int numberOfChannels;
 
 /// All the instruments in the orchestra, in order they need to be created.
 @property (nonatomic, strong) NSMutableArray *instruments;

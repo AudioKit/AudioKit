@@ -23,7 +23,7 @@
     return self; 
 }
 
-/// CSD Representation
+/// Csound Prototype
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:@"out %@", input];
 }

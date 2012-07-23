@@ -71,7 +71,8 @@ static OCSManager *_sharedOCSManager = nil;
         options = @"-o dac         ; Write sound to the host audio output\n"
                    "-+rtmidi=null  ; Disable the use of any realtime midi plugin\n"
                    "-+rtaudio=null ; Disable the use of any realtime midi plugin\n"
-                   "-dm0           ; Suppress output";
+                   "-dm0           ; Suppress output\n"
+                   "-i adc         ; Read sound from the microphone";
         
         //Setup File System access
         NSString *template;

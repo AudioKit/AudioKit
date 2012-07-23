@@ -1,14 +1,14 @@
 //
-//  OCSScale.m
+//  OCSScaledControl.m
 //  Objective-Csound
 //
 //  Created by Aurelius Prochazka on 7/1/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSScale.h"  
+#import "OCSScaledControl.h"  
 
-@interface OCSScale () {
+@interface OCSScaledControl () {
     OCSControl *kscl;
     OCSControl *kin;
     OCSControl *kmax;
@@ -16,7 +16,7 @@
 }
 @end
 
-@implementation OCSScale
+@implementation OCSScaledControl
 
 @synthesize output        = kscl;
 @synthesize input         = kin;
@@ -38,7 +38,7 @@
     return self; 
 }
 
-// CSD Representation: kscl scale kinput, kmax, kmin
+// Csound Prototype: kscl scale kinput, kmax, kmin
 - (NSString *)stringForCSD 
 {
     return [NSString stringWithFormat:@"%@ scale %@, %@, %@", kscl, kin, kmax, kmin];

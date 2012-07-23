@@ -13,7 +13,6 @@
 
 @interface ConvolutionViewController () {
     ConvolutionInstrument *conv;
-    OCSEvent *playback;
 }
 @end
 
@@ -33,7 +32,7 @@
 - (IBAction)start:(id)sender
 {
     //[conv playNoteForDuration:150000];
-    playback = [[OCSEvent alloc] initWithInstrument:conv];
+    OCSEvent *playback = [[OCSEvent alloc] initWithInstrument:conv];
     [playback trigger];
 }
 
