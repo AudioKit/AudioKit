@@ -11,8 +11,8 @@
 @interface OCSWeightedMean () {
     OCSParameter *in1;
     OCSParameter *in2;
-    float min;
-    float max;
+    OCSConstant *min;
+    OCSConstant *max;
     OCSParameter *current;
 
     OCSParameter *audio;
@@ -34,14 +34,27 @@
               signal2:(OCSParameter *)signal2
               balance:(OCSParameter *)balancePoint;
 {
+    return [self initWithSignal1:signal1 
+                         signal2:signal2 
+                         balance:balancePoint
+                         minimum:ocsp(0.0) 
+                         maximum:ocsp(1.0)];
+}
+
+- (id)initWithSignal1:(OCSParameter *)signal1 
+              signal2:(OCSParameter *)signal2
+              balance:(OCSParameter *)balancePoint
+              minimum:(OCSConstant *)minimum
+              maximum:(OCSConstant *)maximum;
+{
     self = [super init];
     if (self) {
-        audio    = [OCSParameter         parameterWithString:[self opcodeName]];
-        control  = [OCSControl  parameterWithString:[self opcodeName]];
-        constant = [OCSConstant parameterWithString:[self opcodeName]];
+        audio    = [OCSParameter parameterWithString:[self opcodeName]];
+        control  = [OCSControl   parameterWithString:[self opcodeName]];
+        constant = [OCSConstant  parameterWithString:[self opcodeName]];
         output  =  audio;
-        min = 0;
-        max = 1;
+        min = minimum;
+        max = maximum;
         current = balancePoint;
         in1 = signal1;
         in2 = signal2;
@@ -62,11 +75,10 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat: 
-            @"%@ ntrpol %@, %@, %@", 
-            output, in1, in2, current];
+            @"%@ ntrpol %@, %@, %@, %@, %@", 
+            output, in1, in2, current, min, max];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

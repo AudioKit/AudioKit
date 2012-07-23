@@ -30,11 +30,6 @@
 
 }
 
-- (IBAction)touchButtonOriginal:(id)sender {
-    float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
-    [audioFilePlayer playWithSpeed:speed];
-}
-
 - (IBAction)touchButton:(id)sender {
     float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
     OCSEvent *start = [[OCSEvent alloc]initWithInstrument:audioFilePlayer];

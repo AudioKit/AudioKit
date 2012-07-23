@@ -78,7 +78,6 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
             fSig, fSigIn, kScal, kKeepForm, kGain, kCoefs];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [fSig parameterString];
 }

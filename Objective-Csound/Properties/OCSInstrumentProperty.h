@@ -32,8 +32,6 @@
 /// Midi Controller Number (0-127).
 @property (readwrite) int midiController;
 
-@property (assign) BOOL cacheDirty;
-
 /// String with the appropriate chnget statement for the CSD File
 - (NSString *)stringForCSDGetValue;
 

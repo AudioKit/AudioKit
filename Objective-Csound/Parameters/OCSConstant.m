@@ -10,7 +10,6 @@
 
 @implementation OCSConstant
 
-/// Initializes to default values
 - (id)init
 {
     self = [super init];
@@ -43,6 +42,7 @@
     }
     return self;
 }
+
 - (id)initWithInt:(int)value
 {
     self = [super init];

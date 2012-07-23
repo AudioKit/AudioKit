@@ -18,6 +18,8 @@
 
 /// Determines the value from which to scale all other amplitudes in Csound
 @property (nonatomic, assign) float zeroDBFullScaleValue;
+
+/// The number of channels, ie. mono=1, stereo=2, hexaphonic=6.  Can affect both output and input.
 @property (readonly) int numberOfChannels;
 
 /// All the instruments in the orchestra, in order they need to be created.
@@ -31,9 +33,6 @@
 /// Adds the UDO to a set of required UDOs for the entire orchestra.
 /// @param newUserDefinedOpcode UDO to add to the orchestra.
 - (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode;
-
-- (void)triggerEvent:(OCSEvent *)event;
-//- (void)playSequence:(OCSSequence *)sequence;
 
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;

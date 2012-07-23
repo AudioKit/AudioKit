@@ -13,6 +13,8 @@
 
 /// CSD Textual representation of the parameter's name.
 - (NSString *)parameterString;
+
+/// The array of parameters stored.
 @property (nonatomic, strong) NSArray *params;
 
 /// Explicitly using a nil-terminated list of OCSParameters to create the array

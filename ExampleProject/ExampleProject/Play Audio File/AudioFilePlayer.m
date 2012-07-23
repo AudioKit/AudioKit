@@ -62,25 +62,4 @@
     return self;
 }
 
-- (void)play {
-    
-    [self playNoteForDuration:3.0f];
-}
-
-//- (void)playWithSpeed:(float)speed {
-//    OCSEvent *note = [[OCSEvent alloc]initWithInstrument:self duration:(3.0f/speed)];
-//    [note setProperty:spd toValue:speed];
-//    [orchestra triggerEvent:note];
-//    //spd.value = speed;
-//    NSLog(@"Playing file at %0.2fx original speed", speed);
-//    //[self playNoteForDuration:(3.0f/speed)];
-//}
-
-- (void)playWithSpeed:(float)speed {
-    spd.value = speed;
-    NSLog(@"Playing file at %0.2fx original speed", speed);
-    [self playNoteForDuration:(3.0f/speed)];
-}
-
-
 @end

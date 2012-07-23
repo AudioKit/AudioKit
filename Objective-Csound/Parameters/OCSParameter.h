@@ -20,22 +20,18 @@
 @interface OCSParameter : NSObject
 {
     NSString *parameterString;
-    BOOL isGlobal;
     int _myID;
 }
-
-@property (assign) BOOL isGlobal;
 
 /// The CSD Text representation of the parameter's name
 @property (nonatomic, strong) NSString *parameterString;
 
-/// Returns an instance with the give name for the parameter
-/// @param name The name of the parameter as it should appear in the CSD File.
-- (id)initWithString:(NSString *)name;
-
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the CSD File.
 + (id)parameterWithString:(NSString *)name;
+
+/// Create a parameter available to all instruments in the orchestra.
+/// @param name The name of the parameter as it should appear in the CSD File.
 +(id)globalParameterWithString:(NSString *)name;
 
 /// Allows insertion of math into parameters

@@ -125,7 +125,6 @@ typedef enum
             output, amp, resampFreq, decayFreq, buffer, type, param1, param2];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

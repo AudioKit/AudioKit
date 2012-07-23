@@ -32,8 +32,6 @@
     return [NSString stringWithFormat:@"%@ = %@", output, input];
 }
 
-
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

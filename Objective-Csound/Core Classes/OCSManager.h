@@ -20,6 +20,8 @@
 
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
+
+/// Determines whether MIDI is enabled
 @property (readonly) BOOL isMidiEnabled;
 
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;

@@ -15,6 +15,7 @@
 
 @interface OCSMidi : NSObject
 
+/// All the properties available to associate with midi
 @property (readonly) NSMutableArray *midiProperties;
 
 /// Create midi client and connect to all available midi input sources.

@@ -12,8 +12,6 @@
 
 @synthesize isMidiEnabled;
 @synthesize midiController;
-@synthesize cacheDirty = mCacheDirty;
-
 
 - (NSString *)stringForCSDGetValue {
     return [NSString stringWithFormat:@"%@ chnget \"%@Property\"\n",  output, output];
@@ -40,8 +38,6 @@
         NSLog(@"%@ out of bounds, assigning to maximum", [self output]);
     }
 }
-
-
 
 # pragma mark CsoundValueCacheable
 

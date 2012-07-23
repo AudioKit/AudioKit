@@ -13,9 +13,13 @@
 
 @interface OCSOpcode : NSObject 
 
-/** @returns The name of the class with the OCS prefix. */
+/// The name of the class with the OCS prefix.
 - (NSString *)opcodeName;
 
-/** @returns The opcode line for inclusion in instruments. */
+/// The opcode line for inclusion in instruments.
 - (NSString *) stringForCSD;
+
+/// Helper to allow the parameter string to appear in formatted strings.
+- (NSString *)description;
+
 @end

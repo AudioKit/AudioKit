@@ -10,7 +10,6 @@
 
 @implementation OCSParameter
 @synthesize parameterString;
-@synthesize isGlobal;
 
 static int currentID = 1;
 
@@ -18,7 +17,6 @@ static int currentID = 1;
     currentID = 1;
 }
 
-/// Initializes to default values
 - (id)init
 {
     self = [super init];
@@ -70,8 +68,7 @@ static int currentID = 1;
     return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
     va_end(argumentList);
 }
-
-/// Gives the CSD string for the parameter.  
+ 
 - (NSString *)description {
     return parameterString;
 }

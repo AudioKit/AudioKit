@@ -41,7 +41,6 @@ input2:(OCSFSignal *)input2;
     return [NSString stringWithFormat:@"%@ pvsmix %@, %@", fSig, fSigIn1, fSigIn2];
 }
 
-/// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [fSig parameterString];
 }

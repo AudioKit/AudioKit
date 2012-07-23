@@ -84,9 +84,6 @@
     return text;
 }
 
-
-
-// Gives the CSD string for the output parameter.  
 - (NSString *)description {
     return [output parameterString];
 }

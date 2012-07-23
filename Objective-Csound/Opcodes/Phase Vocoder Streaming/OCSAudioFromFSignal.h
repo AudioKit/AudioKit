@@ -14,10 +14,14 @@
 
 @interface OCSAudioFromFSignal : OCSOpcode
 
+/// Audio resynthesized from an f-signal
 @property (nonatomic, strong) OCSParameter *output;
 
+/// Input f-signal
 @property (nonatomic, strong) OCSFSignal *source;
 
+/// Create audio from an f-signal
+/// @param source Input f-signal
 - (id)initWithSource:(OCSFSignal *)source;
 
 @end

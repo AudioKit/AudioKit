@@ -37,8 +37,6 @@ typedef enum {
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-
-/// Initializes to default values
 - (id)init {
     self = [super init];
     if (self) {
