@@ -19,8 +19,12 @@
 
 @interface OCSPluckString : OCSOpcode
 
+/// @name Properties
+
 /// Audio output of the string.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Initializes the string with simple averaging smoothing process.
 /// @param amplitude           The output amplitude.

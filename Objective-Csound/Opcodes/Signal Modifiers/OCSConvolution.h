@@ -13,8 +13,12 @@
  */
 @interface OCSConvolution : OCSOpcode
 
+/// @name Properties
+
 /// The output is an audio signal.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Create a convolution
 /// @param inputAudio              Audio input to the convolution

@@ -19,12 +19,16 @@ the same direction, going negative.
 
 @interface OCSLinearEnvelope : OCSOpcode
 
+/// @name Properties
+
 /// The output as audio.
 @property (nonatomic, strong) OCSParameter *audio;
 /// The output as a control.
 @property (nonatomic, strong) OCSControl *control;
 /// The output can either an audio signal or a control.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Creates a straight line rise and decay patter to an input signal.
 /// @param riseTime      Rise time in seconds. A zero or negative value signifies no rise modification.

@@ -19,6 +19,8 @@
  */
 @interface OCSAudio : OCSOpcode
 
+/// @name Initialization
+
 /// Helper function to send both channels the same monoSignal
 /// @param monoSignal The audio signal to be played on both channels.
 - (id)initWithMonoInput:(OCSParameter *)monoSignal;

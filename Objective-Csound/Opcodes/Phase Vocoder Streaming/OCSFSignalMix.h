@@ -15,6 +15,8 @@
 
 @interface OCSFSignalMix : OCSOpcode
 
+/// @name Properties
+
 /// The mixed f-signal
 @property (nonatomic, strong) OCSFSignal *output;
 
@@ -23,6 +25,8 @@
 
 /// The second f-signal
 @property (nonatomic, strong) OCSFSignal *input2;
+
+/// @name Initialization
 
 /// Create a mixture of two f-signal.
 /// @param input1 The first f-signal.

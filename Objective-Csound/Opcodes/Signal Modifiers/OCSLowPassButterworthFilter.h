@@ -15,8 +15,12 @@
  
 @interface OCSLowPassButterworthFilter : OCSOpcode
 
+/// @name Properties
+
 /// The output is a mono audio signal.
 @property (nonatomic, retain) OCSParameter *output;
+
+/// @name Initialization
 
 /// Creates a low-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.

@@ -13,8 +13,12 @@
 
 @interface OCSGrain : OCSOpcode
 
+/// @name Properties
+
 /// The output is an audio signal.
 @property (nonatomic, retain) OCSParameter *output;
+
+/// @name Initialization
 
 /// Instantiates the grain synthesis with the given parameters.
 /// @param amplitude              Amplitude of each grain.

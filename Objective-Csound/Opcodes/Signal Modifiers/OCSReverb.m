@@ -9,8 +9,8 @@
 #import "OCSReverb.h"
 
 @interface OCSReverb () {
-    OCSParameter *outputLeft;
-    OCSParameter *outputRight;
+    OCSParameter *leftOutput;
+    OCSParameter *rightOutput;
     OCSParameter *inputLeft;
     OCSParameter *inputRight;
     OCSControl *feedback;
@@ -20,8 +20,8 @@
 
 @implementation OCSReverb
 
-@synthesize outputLeft;
-@synthesize outputRight;
+@synthesize leftOutput;
+@synthesize rightOutput;
 
 - (id)initWithLeftInput:(OCSParameter *)leftInput
              rightInput:(OCSParameter *)rightInput
@@ -30,8 +30,8 @@
 {
     self = [super init];
     if (self) {
-        outputLeft  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        outputRight = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
+        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
         inputLeft   = leftInput;
         inputRight  = rightInput;
         feedback    = feedbackLevel;
@@ -54,7 +54,7 @@
 {
     return [NSString stringWithFormat:
             @"%@, %@ reverbsc %@, %@, %@, %@",
-            outputLeft, outputRight, inputLeft, inputRight, feedback, cutoff];
+            leftOutput, rightOutput, inputLeft, inputRight, feedback, cutoff];
 }
 
 @end

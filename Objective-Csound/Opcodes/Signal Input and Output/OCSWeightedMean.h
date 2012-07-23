@@ -16,6 +16,8 @@
 
 @interface OCSWeightedMean : OCSOpcode
 
+/// @name Properties
+
 /// The output as audio.
 @property (nonatomic, strong) OCSParameter *audio;
 /// The output as a control.
@@ -24,6 +26,8 @@
 @property (nonatomic, strong) OCSConstant *constant;
 /// The output can either an audio signal, a control, or a constant.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Create a weighted mean of two signals using a balance point.
 /// @param signal1 First signal

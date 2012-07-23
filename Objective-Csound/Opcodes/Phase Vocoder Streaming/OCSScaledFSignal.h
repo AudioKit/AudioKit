@@ -26,6 +26,8 @@ typedef enum
 
 @interface OCSScaledFSignal : OCSOpcode
 
+/// @name Properties
+
 /// Scaled frequency f-Signal or phase vocoder stream.
 @property (nonatomic, strong) OCSFSignal *output;
 
@@ -43,6 +45,8 @@ typedef enum
 
 /// Number of coefficients to use in formant preservation (defaults ot 80).
 @property (nonatomic, strong) OCSControl *numberOfCepstrumCoefficients;
+
+/// @name Initialization
 
 /// Create a frequency-scaled phase vocoder stream from another stream
 /// @param input          Source f-signal

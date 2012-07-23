@@ -11,8 +11,13 @@
 /// Simply a wrapper for the equal sign
 @interface OCSAssignment : OCSOpcode 
 
+/// @name Properties
+
 /// The output can be audio, control or a constant.
 @property (nonatomic, strong) OCSParameter *output;
+
+
+/// @name Initialization
 
 /// Initialization Statement
 /// @param input The right side of the equal sign.

@@ -13,6 +13,8 @@
  */
 @interface OCSTableValue : OCSOpcode
 
+/// @name Properties
+
 /// Output can be audio, control, or constant depending on the indexing parameter.
 @property (nonatomic, strong) OCSParameter *output;
 /// Indexing Parameter.
@@ -26,6 +28,8 @@
 @property (nonatomic, strong) OCSParameter *offset;
 /// Optional instruction to wrap the data.  Without wrapping, (index < 0 treated as index=0; index > tablesize sticks at index=size)
 @property (nonatomic, assign) BOOL wrapData;
+
+/// @name Initialization
 
 /// Initialize the opcode as an audio operation.
 /// @param                fTable Function table read the data from.

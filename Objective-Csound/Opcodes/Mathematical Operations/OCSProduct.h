@@ -14,8 +14,13 @@
  */
 
 @interface OCSProduct : OCSOpcode 
+
+/// @name Properties
+
 /// The output is an audio signal.
 @property (nonatomic, strong) OCSParameter *output;
+
+/// @name Initialization
 
 /// Initialization Statement
 /// @param firstOperand At least one input is required

@@ -17,10 +17,14 @@
 
 @interface OCSReverb : OCSOpcode 
 
+/// @name Properties
+
 /// The output to the left channel.
-@property (nonatomic, strong) OCSParameter *outputLeft;
+@property (nonatomic, strong) OCSParameter *leftOutput;
 /// The output to the right channel.
-@property (nonatomic, strong) OCSParameter *outputRight;
+@property (nonatomic, strong) OCSParameter *rightOutput;
+
+/// @name Initialization
 
 /// Apply reverb to a mono signal
 /// @param monoInput       Input to both channels.

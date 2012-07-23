@@ -23,11 +23,15 @@
 
 @interface UDOCsGrainCompressor : OCSUserDefinedOpcode 
 
+/// @name Properties
+
 /// Left channel output.
-@property (nonatomic, strong) OCSParameter *outputLeft;
+@property (nonatomic, strong) OCSParameter *leftOutput;
 
 //// Right channel output.
-@property (nonatomic, strong) OCSParameter *outputRight;
+@property (nonatomic, strong) OCSParameter *rightOutput;
+
+/// @name Initialization
 
 /** Instantiates the compressor
  

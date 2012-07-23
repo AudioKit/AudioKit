@@ -20,6 +20,8 @@ http://www.csounds.com/manual/html/foscili.html
 
 @interface OCSFMOscillator : OCSOpcode 
 
+/// @name Properties
+
 /// The output is mono audio signal.
 @property (nonatomic, strong) OCSParameter *output;
 
@@ -44,6 +46,8 @@ http://www.csounds.com/manual/html/foscili.html
 /// Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). 
 /// A negative value will cause phase initialization to be skipped.
 @property (nonatomic, strong) OCSControl *phase;
+
+/// @name Initialization
 
 /// Initializes a frequency modulated oscillator with linear interpolation.
 /// @param amplitude            The amplitude of the output signal.

@@ -20,9 +20,12 @@
 
 @interface OCSPluckDrum : OCSOpcode
 
+/// @name Properties
+
 /// Audio output of the drum.
 @property (nonatomic, strong) OCSParameter *output;
 
+/// @name Initialization
 
 /// Initializes the drum with given parameters
 /// @param amplitude           The output amplitude.
