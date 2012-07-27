@@ -31,6 +31,7 @@
     return self; 
 }
 
+// Csound prototype: outs asig1, asig2
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:@"outs %@, %@", aSig1, aSig2];
 }
