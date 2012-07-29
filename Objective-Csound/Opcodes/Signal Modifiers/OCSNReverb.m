@@ -72,7 +72,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     //Check if optional parameters have been set before constructing CSD
 
     if (combGains) {
-        return [NSString stringWithFormat:@"%@ %@ nreverb %@, %@, %@, %@, %@, %@, %@",
+        return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@, %@, %@, %@, %@",
                 [self fTableCSDFromFilterParams],
                 output, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
     } else {
@@ -83,9 +83,9 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 
 - (NSString *)fTableCSDFromFilterParams
 {
-    NSString *combTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@",
+    NSString *combTable = [NSString stringWithFormat:@"%@%iCombValues ftgentmp 0, 0, %i, %@ %@",
                            [self opcodeName], [combGains count], -2, combTimes, combGains]; 
-    NSString *allPassTable = [NSString stringWithFormat:@"%i%@CombValues ftgentmp 0, 0, %i, %@ %@",
+    NSString *allPassTable = [NSString stringWithFormat:@"%@%iCombValues ftgentmp 0, 0, %i, %@ %@",
                               [self opcodeName], [allPassGains count], -2, allPassTimes, allPassGains]; 
     NSString *s = [NSString stringWithFormat:@"%@ %@", combTable, allPassTable];
     return s;

@@ -9,29 +9,32 @@
 #import "OCSTableValue.h"
 
 @interface OCSTableValue () {
-    OCSParameter *output;
+    OCSParameter *res;
     OCSConstant *ifn;
     OCSParameter *index;
+    OCSParameter *ixoff;
+    BOOL normalizeResult;
+    BOOL wrapData;
 }
 @end
 
 @implementation OCSTableValue
 
-@synthesize output;
+@synthesize output=res;
 @synthesize index;
 @synthesize fTable = ifn;
-@synthesize normalizeResult = ixmode;
+@synthesize normalizeResult;
 @synthesize offset = ixoff;
-@synthesize wrapData = iwrap;
+@synthesize wrapData;
 
 - (id)initWithFTable:(OCSConstant *)fTable;
 {
     self = [super init];
     if (self) {
         ifn  = fTable;
-        ixmode = NO;
-        ixoff = 0;
-        iwrap = NO;
+        normalizeResult = NO;
+        ixoff = [OCSConstant parameterWithInt:0];
+        wrapData = NO;
     }
     return self; 
     
@@ -44,7 +47,7 @@
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];   
+        res = [OCSParameter parameterWithString:[self opcodeName]];
         index = audioRateIndex;
     }
     return self; 
@@ -57,7 +60,7 @@ atControlRateIndex:(OCSControl *)controlRateIndex
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSControl parameterWithString:[self opcodeName]];   
+        res = [OCSControl parameterWithString:[self opcodeName]];
         index = controlRateIndex;
     }
     return self; 
@@ -69,21 +72,20 @@ atControlRateIndex:(OCSControl *)controlRateIndex
     self = [self initWithFTable:fTable];
     
     if (self) {
-        output = [OCSConstant parameterWithString:[self opcodeName]];   
+        res = [OCSConstant parameterWithString:[self opcodeName]];
         index = constantIndex;
     }
     return self; 
 }
 
-// Csound Prototype: kscl scale kinput, kmax, kmin
 - (NSString *)stringForCSD 
 {
-    int mode = ixmode ? 0:1;
-    int wrap = iwrap  ? 0:1;
-    return [NSString stringWithFormat:@"%@ tablei %@, %@, %@, %i, %@, %i", output, index, ifn, mode, ixoff, wrap];
+    int ixmode = normalizeResult ? 0:1;
+    int iwrap = wrapData ? 0:1;
+    return [NSString stringWithFormat:@"%@ tablei %@, %@, %i, %@, %i", res, index, ifn, ixmode, ixoff, iwrap];
 }
 - (NSString *)description {
-    return [output parameterString];
+    return [res parameterString];
 }
 
 
