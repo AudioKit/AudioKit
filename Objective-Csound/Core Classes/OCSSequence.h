@@ -21,6 +21,9 @@
 /// Trigger playback of the sequence.
 - (void)play;
 
+/// Stop playback of the sequence.
+- (void)stop;
+
 /// Add event In next available spot
 /// @param event Event to be added either at the beginning, or at the same time as the last event
 - (void)addEvent:(OCSEvent *)event;
