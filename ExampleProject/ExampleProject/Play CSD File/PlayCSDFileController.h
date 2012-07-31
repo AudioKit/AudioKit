@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-@interface PlayCSDFileController : UIViewController 
+@interface PlayCSDFileController : UIViewController {
+    UIBarButtonItem *rightButton;
+}
 
-- (IBAction)touchButton:(id)sender;
+- (IBAction)startOrStop;
 
 @end
