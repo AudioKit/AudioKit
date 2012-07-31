@@ -12,6 +12,7 @@
 #import "OCSMidi.h"
 #import "OCSNoteProperty.h"
 #import "OCSEvent.h"
+#import "OCSSequence.h"
 
 /** The OCSManager is a singleton class available to all controller that need
  to interact with Csound through its simplified protocol.

@@ -14,6 +14,7 @@
     NSMutableArray *events;
     NSMutableArray *times;
     NSTimer *timer;
+    BOOL isPlaying;
     int index;
 }
 @end
@@ -27,6 +28,7 @@
     if (self) {
         events = [[NSMutableArray alloc] init];
         times  = [[NSMutableArray alloc] init];
+        isPlaying = NO;
     }
     return self;
 }
@@ -56,10 +58,16 @@
     [times addObject:time];
 }
 
--(void) play
+- (void)play
 {
     index = 0;
+    isPlaying = YES;
     [self playNextEventInSequence:timer];
+}
+
+- (void)stop
+{
+    isPlaying = NO;
 }
 
 
@@ -69,7 +77,7 @@
     OCSEvent *event = [events objectAtIndex:index];
     [[OCSManager sharedOCSManager] triggerEvent:event];
 
-    if (index < [times count]-1 ) {
+    if (index < [times count]-1 && isPlaying) {
         float timeUntilNextEvent = [[times objectAtIndex:index+1] floatValue] - [[times objectAtIndex:index] floatValue];
         
         //NSLog(@"Next event in %f, times left %i", timeUntilNextEvent, [times count] - index);
