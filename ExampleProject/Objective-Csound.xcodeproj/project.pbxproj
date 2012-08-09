@@ -130,10 +130,6 @@
 		C4C551251576EB08005F7EE4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C551241576EB08005F7EE4 /* main.m */; };
 		C4C551291576EB08005F7EE4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C551281576EB08005F7EE4 /* AppDelegate.m */; };
 		C4C5512C1576EB08005F7EE4 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5512B1576EB08005F7EE4 /* MasterViewController.m */; };
-		C4C5518F157701AF005F7EE4 /* CsoundVirtualKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C55188157701AF005F7EE4 /* CsoundVirtualKeyboard.m */; };
-		C4C55190157701AF005F7EE4 /* LevelMeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5518A157701AF005F7EE4 /* LevelMeterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4C55191157701AF005F7EE4 /* UIControlXY.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5518C157701AF005F7EE4 /* UIControlXY.m */; };
-		C4C55192157701AF005F7EE4 /* UIKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5518E157701AF005F7EE4 /* UIKnob.m */; };
 		C4C55194157701EA005F7EE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55193157701EA005F7EE4 /* AudioToolbox.framework */; };
 		C4C55196157701F1005F7EE4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55195157701F1005F7EE4 /* CoreMotion.framework */; };
 		C4C55198157701F7005F7EE4 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C55197157701F7005F7EE4 /* CoreMIDI.framework */; };
@@ -385,14 +381,6 @@
 		C4C551281576EB08005F7EE4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C5512A1576EB08005F7EE4 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		C4C5512B1576EB08005F7EE4 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4C55187157701AF005F7EE4 /* CsoundVirtualKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundVirtualKeyboard.h; sourceTree = "<group>"; };
-		C4C55188157701AF005F7EE4 /* CsoundVirtualKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundVirtualKeyboard.m; sourceTree = "<group>"; };
-		C4C55189157701AF005F7EE4 /* LevelMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeterView.h; sourceTree = "<group>"; };
-		C4C5518A157701AF005F7EE4 /* LevelMeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeterView.m; sourceTree = "<group>"; };
-		C4C5518B157701AF005F7EE4 /* UIControlXY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIControlXY.h; sourceTree = "<group>"; };
-		C4C5518C157701AF005F7EE4 /* UIControlXY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControlXY.m; sourceTree = "<group>"; };
-		C4C5518D157701AF005F7EE4 /* UIKnob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKnob.h; sourceTree = "<group>"; };
-		C4C5518E157701AF005F7EE4 /* UIKnob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKnob.m; sourceTree = "<group>"; };
 		C4C55193157701EA005F7EE4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4C55195157701F1005F7EE4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C4C55197157701F7005F7EE4 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
@@ -890,7 +878,6 @@
 			children = (
 				C43080B4159C14C90091AE59 /* README.md */,
 				C4842D181579C2F800E69770 /* csound-iOS */,
-				C4C55186157701AF005F7EE4 /* UI Widgets */,
 				C400AB8115D392870020C794 /* Objective-C Sound */,
 				C4C5511E1576EB08005F7EE4 /* ExampleProject */,
 				C4C551171576EB08005F7EE4 /* Frameworks */,
@@ -964,22 +951,6 @@
 				C4E9055B1594525C0055B609 /* ox-icon-72.png */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C4C55186157701AF005F7EE4 /* UI Widgets */ = {
-			isa = PBXGroup;
-			children = (
-				C4C55187157701AF005F7EE4 /* CsoundVirtualKeyboard.h */,
-				C4C55188157701AF005F7EE4 /* CsoundVirtualKeyboard.m */,
-				C4C55189157701AF005F7EE4 /* LevelMeterView.h */,
-				C4C5518A157701AF005F7EE4 /* LevelMeterView.m */,
-				C4C5518B157701AF005F7EE4 /* UIControlXY.h */,
-				C4C5518C157701AF005F7EE4 /* UIControlXY.m */,
-				C4C5518D157701AF005F7EE4 /* UIKnob.h */,
-				C4C5518E157701AF005F7EE4 /* UIKnob.m */,
-			);
-			name = "UI Widgets";
-			path = "../UI Widgets";
 			sourceTree = "<group>";
 		};
 		C4C5525515773428005F7EE4 /* Play CSD File */ = {
@@ -1120,10 +1091,6 @@
 				C4C551251576EB08005F7EE4 /* main.m in Sources */,
 				C4C551291576EB08005F7EE4 /* AppDelegate.m in Sources */,
 				C4C5512C1576EB08005F7EE4 /* MasterViewController.m in Sources */,
-				C4C5518F157701AF005F7EE4 /* CsoundVirtualKeyboard.m in Sources */,
-				C4C55190157701AF005F7EE4 /* LevelMeterView.m in Sources */,
-				C4C55191157701AF005F7EE4 /* UIControlXY.m in Sources */,
-				C4C55192157701AF005F7EE4 /* UIKnob.m in Sources */,
 				C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */,
 				C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */,
 				C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */,
