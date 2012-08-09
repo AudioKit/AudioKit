@@ -103,14 +103,10 @@
 		C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1B1579C2F800E69770 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D1E1579C2F800E69770 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D201579C2F800E69770 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4842D4F1579C2F800E69770 /* SliderMidiWidgetWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D231579C2F800E69770 /* SliderMidiWidgetWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D501579C2F800E69770 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D261579C2F800E69770 /* BaseValueCacheable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D511579C2F800E69770 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D281579C2F800E69770 /* CachedAccelerometer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D521579C2F800E69770 /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D2A1579C2F800E69770 /* CachedAttitude.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4842D531579C2F800E69770 /* CachedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D2C1579C2F800E69770 /* CachedButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D541579C2F800E69770 /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D2E1579C2F800E69770 /* CachedGyroscope.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4842D551579C2F800E69770 /* CachedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D301579C2F800E69770 /* CachedSlider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4842D561579C2F800E69770 /* CachedSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4842D321579C2F800E69770 /* CachedSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4842D571579C2F800E69770 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4842D491579C2F800E69770 /* libcsound.a */; };
 		C4842D581579C2F800E69770 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4842D4A1579C2F800E69770 /* libsndfile.a */; };
 		C4842D591579C2F800E69770 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4842D4B1579C2F800E69770 /* LICENSE.TXT */; };
@@ -325,22 +321,14 @@
 		C4842D1F1579C2F800E69770 /* MidiWidgetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiWidgetsManager.h; sourceTree = "<group>"; };
 		C4842D201579C2F800E69770 /* MidiWidgetsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiWidgetsManager.m; sourceTree = "<group>"; };
 		C4842D211579C2F800E69770 /* MidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiWidgetWrapper.h; sourceTree = "<group>"; };
-		C4842D221579C2F800E69770 /* SliderMidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderMidiWidgetWrapper.h; sourceTree = "<group>"; };
-		C4842D231579C2F800E69770 /* SliderMidiWidgetWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderMidiWidgetWrapper.m; sourceTree = "<group>"; };
 		C4842D251579C2F800E69770 /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
 		C4842D261579C2F800E69770 /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
 		C4842D271579C2F800E69770 /* CachedAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAccelerometer.h; sourceTree = "<group>"; };
 		C4842D281579C2F800E69770 /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
 		C4842D291579C2F800E69770 /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
 		C4842D2A1579C2F800E69770 /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
-		C4842D2B1579C2F800E69770 /* CachedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedButton.h; sourceTree = "<group>"; };
-		C4842D2C1579C2F800E69770 /* CachedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedButton.m; sourceTree = "<group>"; };
 		C4842D2D1579C2F800E69770 /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
 		C4842D2E1579C2F800E69770 /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
-		C4842D2F1579C2F800E69770 /* CachedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSlider.h; sourceTree = "<group>"; };
-		C4842D301579C2F800E69770 /* CachedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSlider.m; sourceTree = "<group>"; };
-		C4842D311579C2F800E69770 /* CachedSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSwitch.h; sourceTree = "<group>"; };
-		C4842D321579C2F800E69770 /* CachedSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSwitch.m; sourceTree = "<group>"; };
 		C4842D331579C2F800E69770 /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C4842D351579C2F800E69770 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
 		C4842D361579C2F800E69770 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
@@ -832,8 +820,6 @@
 				C4842D1F1579C2F800E69770 /* MidiWidgetsManager.h */,
 				C4842D201579C2F800E69770 /* MidiWidgetsManager.m */,
 				C4842D211579C2F800E69770 /* MidiWidgetWrapper.h */,
-				C4842D221579C2F800E69770 /* SliderMidiWidgetWrapper.h */,
-				C4842D231579C2F800E69770 /* SliderMidiWidgetWrapper.m */,
 			);
 			path = midi;
 			sourceTree = "<group>";
@@ -847,14 +833,8 @@
 				C4842D281579C2F800E69770 /* CachedAccelerometer.m */,
 				C4842D291579C2F800E69770 /* CachedAttitude.h */,
 				C4842D2A1579C2F800E69770 /* CachedAttitude.m */,
-				C4842D2B1579C2F800E69770 /* CachedButton.h */,
-				C4842D2C1579C2F800E69770 /* CachedButton.m */,
 				C4842D2D1579C2F800E69770 /* CachedGyroscope.h */,
 				C4842D2E1579C2F800E69770 /* CachedGyroscope.m */,
-				C4842D2F1579C2F800E69770 /* CachedSlider.h */,
-				C4842D301579C2F800E69770 /* CachedSlider.m */,
-				C4842D311579C2F800E69770 /* CachedSwitch.h */,
-				C4842D321579C2F800E69770 /* CachedSwitch.m */,
 				C4842D331579C2F800E69770 /* CsoundValueCacheable.h */,
 			);
 			path = valueCacheable;
@@ -1147,14 +1127,10 @@
 				C4842D4C1579C2F800E69770 /* CsoundObj.m in Sources */,
 				C4842D4D1579C2F800E69770 /* CsoundMIDI.m in Sources */,
 				C4842D4E1579C2F800E69770 /* MidiWidgetsManager.m in Sources */,
-				C4842D4F1579C2F800E69770 /* SliderMidiWidgetWrapper.m in Sources */,
 				C4842D501579C2F800E69770 /* BaseValueCacheable.m in Sources */,
 				C4842D511579C2F800E69770 /* CachedAccelerometer.m in Sources */,
 				C4842D521579C2F800E69770 /* CachedAttitude.m in Sources */,
-				C4842D531579C2F800E69770 /* CachedButton.m in Sources */,
 				C4842D541579C2F800E69770 /* CachedGyroscope.m in Sources */,
-				C4842D551579C2F800E69770 /* CachedSlider.m in Sources */,
-				C4842D561579C2F800E69770 /* CachedSwitch.m in Sources */,
 				C495F74E1583452100951461 /* FMGameObject.m in Sources */,
 				C495F74F1583452100951461 /* FMGameObjectViewController.m in Sources */,
 				C495F76A158348BB00951461 /* UnitGeneratorsViewController.m in Sources */,

@@ -24,9 +24,6 @@
  */
 
 #import "CsoundObj.h"
-#import "CachedSlider.h"
-#import "CachedButton.h"
-#import "CachedSwitch.h"
 #import "CachedAccelerometer.h"
 #import "CachedGyroscope.h"
 #import "CachedAttitude.h"
@@ -87,29 +84,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
     return self;
 }
 
--(id<CsoundValueCacheable>)addSwitch:(UISwitch*)uiSwitch forChannelName:(NSString*)channelName {
-    CachedSwitch* cachedSwitch = [[[CachedSwitch alloc] init:uiSwitch 
-												 channelName:channelName] autorelease];
-    [valuesCache addObject:cachedSwitch];
-	
-    return cachedSwitch;
-}
-
--(id<CsoundValueCacheable>)addSlider:(UISlider*)uiSlider forChannelName:(NSString*)channelName { 
-
-    CachedSlider* cachedSlider = [[[CachedSlider alloc] init:uiSlider 
-                                                channelName:channelName] autorelease];
-    [valuesCache addObject:cachedSlider];
-    
-    return cachedSlider;
-}
-
--(id<CsoundValueCacheable>)addButton:(UIButton*)uiButton forChannelName:(NSString*)channelName {
-    CachedButton* cachedButton = [[[CachedButton alloc] init:uiButton 
-                                                channelName:channelName] autorelease];
-    [valuesCache addObject:cachedButton];
-    return cachedButton;
-}
 
 -(void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable {
     if (valueCacheable != nil) {

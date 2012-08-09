@@ -37,7 +37,6 @@
 -(void)openMidiIn;
 -(void)closeMidiIn;
 
--(void)addSlider:(UISlider*)slider forControllerNumber:(int)controllerNumber;
 -(void)addMidiWidgetWrapper:(id<MidiWidgetWrapper>)wrapper forControllerNumber:(int)controllerNumber;
 
 @end
