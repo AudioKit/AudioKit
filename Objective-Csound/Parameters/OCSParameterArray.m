@@ -31,7 +31,7 @@
 
 - (int)count 
 {
-    return [params count];
+    return (int) [params count];
 }
 
 

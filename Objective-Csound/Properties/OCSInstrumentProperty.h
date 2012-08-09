@@ -20,7 +20,7 @@
     BOOL mCacheDirty;
     
     //channelName
-    float* channelPtr;
+    MYFLT *channelPtr;
     
     BOOL isMidiEnabled;
     int midiController;
