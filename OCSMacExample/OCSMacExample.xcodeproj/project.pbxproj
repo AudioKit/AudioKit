@@ -1,0 +1,300 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C400AD9C15D3C9570020C794 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400AD9B15D3C9570020C794 /* Cocoa.framework */; };
+		C400ADA615D3C9570020C794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C400ADA415D3C9570020C794 /* InfoPlist.strings */; };
+		C400ADA815D3C9570020C794 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C400ADA715D3C9570020C794 /* main.m */; };
+		C400ADAC15D3C9570020C794 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C400ADAA15D3C9570020C794 /* Credits.rtf */; };
+		C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C400ADAE15D3C9580020C794 /* AppDelegate.m */; };
+		C400ADB215D3C9580020C794 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400ADB015D3C9580020C794 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C400AD9715D3C9570020C794 /* OCSMacExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCSMacExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C400AD9B15D3C9570020C794 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C400AD9E15D3C9570020C794 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		C400AD9F15D3C9570020C794 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C400ADA015D3C9570020C794 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C400ADA315D3C9570020C794 /* OCSMacExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCSMacExample-Info.plist"; sourceTree = "<group>"; };
+		C400ADA515D3C9570020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C400ADA715D3C9570020C794 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C400ADA915D3C9570020C794 /* OCSMacExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCSMacExample-Prefix.pch"; sourceTree = "<group>"; };
+		C400ADAB15D3C9570020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		C400ADAD15D3C9580020C794 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C400ADAE15D3C9580020C794 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C400ADB115D3C9580020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C400AD9415D3C9570020C794 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C400AD9C15D3C9570020C794 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C400AD8C15D3C9570020C794 = {
+			isa = PBXGroup;
+			children = (
+				C400ADA115D3C9570020C794 /* OCSMacExample */,
+				C400AD9A15D3C9570020C794 /* Frameworks */,
+				C400AD9815D3C9570020C794 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C400AD9815D3C9570020C794 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD9715D3C9570020C794 /* OCSMacExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C400AD9A15D3C9570020C794 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD9B15D3C9570020C794 /* Cocoa.framework */,
+				C400AD9D15D3C9570020C794 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C400AD9D15D3C9570020C794 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD9E15D3C9570020C794 /* AppKit.framework */,
+				C400AD9F15D3C9570020C794 /* CoreData.framework */,
+				C400ADA015D3C9570020C794 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		C400ADA115D3C9570020C794 /* OCSMacExample */ = {
+			isa = PBXGroup;
+			children = (
+				C400ADAD15D3C9580020C794 /* AppDelegate.h */,
+				C400ADAE15D3C9580020C794 /* AppDelegate.m */,
+				C400ADB015D3C9580020C794 /* MainMenu.xib */,
+				C400ADA215D3C9570020C794 /* Supporting Files */,
+			);
+			path = OCSMacExample;
+			sourceTree = "<group>";
+		};
+		C400ADA215D3C9570020C794 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C400ADA315D3C9570020C794 /* OCSMacExample-Info.plist */,
+				C400ADA415D3C9570020C794 /* InfoPlist.strings */,
+				C400ADA715D3C9570020C794 /* main.m */,
+				C400ADA915D3C9570020C794 /* OCSMacExample-Prefix.pch */,
+				C400ADAA15D3C9570020C794 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C400AD9615D3C9570020C794 /* OCSMacExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C400ADB515D3C9580020C794 /* Build configuration list for PBXNativeTarget "OCSMacExample" */;
+			buildPhases = (
+				C400AD9315D3C9570020C794 /* Sources */,
+				C400AD9415D3C9570020C794 /* Frameworks */,
+				C400AD9515D3C9570020C794 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCSMacExample;
+			productName = OCSMacExample;
+			productReference = C400AD9715D3C9570020C794 /* OCSMacExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C400AD8E15D3C9570020C794 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Hear For Yourself";
+			};
+			buildConfigurationList = C400AD9115D3C9570020C794 /* Build configuration list for PBXProject "OCSMacExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C400AD8C15D3C9570020C794;
+			productRefGroup = C400AD9815D3C9570020C794 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C400AD9615D3C9570020C794 /* OCSMacExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C400AD9515D3C9570020C794 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C400ADA615D3C9570020C794 /* InfoPlist.strings in Resources */,
+				C400ADAC15D3C9570020C794 /* Credits.rtf in Resources */,
+				C400ADB215D3C9580020C794 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C400AD9315D3C9570020C794 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C400ADA815D3C9570020C794 /* main.m in Sources */,
+				C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C400ADA415D3C9570020C794 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C400ADA515D3C9570020C794 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C400ADAA15D3C9570020C794 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C400ADAB15D3C9570020C794 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		C400ADB015D3C9580020C794 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C400ADB115D3C9580020C794 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C400ADB315D3C9580020C794 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C400ADB415D3C9580020C794 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C400ADB615D3C9580020C794 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCSMacExample/OCSMacExample-Prefix.pch";
+				INFOPLIST_FILE = "OCSMacExample/OCSMacExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C400ADB715D3C9580020C794 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCSMacExample/OCSMacExample-Prefix.pch";
+				INFOPLIST_FILE = "OCSMacExample/OCSMacExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C400AD9115D3C9570020C794 /* Build configuration list for PBXProject "OCSMacExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C400ADB315D3C9580020C794 /* Debug */,
+				C400ADB415D3C9580020C794 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C400ADB515D3C9580020C794 /* Build configuration list for PBXNativeTarget "OCSMacExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C400ADB615D3C9580020C794 /* Debug */,
+				C400ADB715D3C9580020C794 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C400AD8E15D3C9570020C794 /* Project object */;
+}

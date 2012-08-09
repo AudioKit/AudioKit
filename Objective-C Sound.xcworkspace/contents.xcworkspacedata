@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Objective-C-Sound"
+      name = "Objective-C-Sound">
+      <Group
+         location = "group:Core Classes"
+         name = "Core Classes">
+         <FileRef
+            location = "group:OCSEvent.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSEvent.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSInstrument.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSInstrument.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSManager.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSManager.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSMidi.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSMidi.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSOrchestra.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSOrchestra.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSSequence.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSSequence.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:CSDFiles"
+         name = "CSDFiles">
+         <FileRef
+            location = "group:template.csd">
+         </FileRef>
+         <FileRef
+            location = "group:test.csd">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:FunctionTables"
+         name = "FunctionTables">
+         <FileRef
+            location = "group:OCSArrayTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSArrayTable.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSExponentialCurvesTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSExponentialCurvesTable.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSFTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSFTable.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSRandomDistributionTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSRandomDistributionTable.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSSineTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSSineTable.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSSoundFileTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSSoundFileTable.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSWindowsTable.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSWindowsTable.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Opcodes"
+         name = "Opcodes">
+         <Group
+            location = "group:Mathematical Operations"
+            name = "Mathematical Operations">
+            <FileRef
+               location = "group:OCSAssignment.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSAssignment.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSProduct.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSProduct.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSScaledControl.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSScaledControl.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSSum.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSSum.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSTableValue.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSTableValue.m">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:OCSOpcode.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSOpcode.m">
+         </FileRef>
+         <Group
+            location = "group:Phase Vocoder Streaming"
+            name = "Phase Vocoder Streaming">
+            <FileRef
+               location = "group:OCSAudioFromFSignal.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSAudioFromFSignal.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFSignalFromMonoAudio.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFSignalFromMonoAudio.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFSignalMix.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFSignalMix.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSScaledFSignal.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSScaledFSignal.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Signal Generators"
+            name = "Signal Generators">
+            <FileRef
+               location = "group:OCSFMOscillator.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFMOscillator.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSGrain.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSGrain.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLine.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLine.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLinearEnvelope.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLinearEnvelope.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSOscillator.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSOscillator.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSPluckDrum.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSPluckDrum.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSPluckString.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSPluckString.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSSegmentArray.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSSegmentArray.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Signal Input and Output"
+            name = "Signal Input and Output">
+            <FileRef
+               location = "group:OCSAudio.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSAudio.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSAudioInput.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSAudioInput.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFileInput.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSFileInput.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLoopingOscillator.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLoopingOscillator.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSMonoAudio.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSMonoAudio.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSWeightedMean.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSWeightedMean.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Signal Modifiers"
+            name = "Signal Modifiers">
+            <FileRef
+               location = "group:OCSConvolution.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSConvolution.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLowPassButterworthFilter.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSLowPassButterworthFilter.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSNReverb.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSNReverb.m">
+            </FileRef>
+            <FileRef
+               location = "group:OCSReverb.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSReverb.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:UDOs"
+            name = "UDOs">
+            <Group
+               location = "group:CsGrain"
+               name = "CsGrain">
+               <FileRef
+                  location = "group:CsGrainCompressor.udo">
+               </FileRef>
+               <FileRef
+                  location = "group:CsGrainPitchShifter.udo">
+               </FileRef>
+               <FileRef
+                  location = "group:UDOCsGrainCompressor.h">
+               </FileRef>
+               <FileRef
+                  location = "group:UDOCsGrainCompressor.m">
+               </FileRef>
+               <FileRef
+                  location = "group:UDOCsGrainPitchShifter.h">
+               </FileRef>
+               <FileRef
+                  location = "group:UDOCsGrainPitchShifter.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:MSROsc"
+               name = "MSROsc">
+               <FileRef
+                  location = "group:msrOsc.udo">
+               </FileRef>
+               <FileRef
+                  location = "group:UDOMSROscillator.h">
+               </FileRef>
+               <FileRef
+                  location = "group:UDOMSROscillator.m">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:OCSUserDefinedOpcode.h">
+            </FileRef>
+            <FileRef
+               location = "group:OCSUserDefinedOpcode.m">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Parameters"
+         name = "Parameters">
+         <FileRef
+            location = "group:OCSConstant.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSConstant.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSControl.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSControl.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSFSignal.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSFSignal.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSParameter.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSParameter.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSParameterArray.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSParameterArray.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Properties"
+         name = "Properties">
+         <FileRef
+            location = "group:OCSInstrumentProperty.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSInstrumentProperty.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSMidiManager.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSMidiManager.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSNoteProperty.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSNoteProperty.m">
+         </FileRef>
+         <FileRef
+            location = "group:OCSProperty.h">
+         </FileRef>
+         <FileRef
+            location = "group:OCSProperty.m">
+         </FileRef>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:OCSMacExample/OCSMacExample.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:OCSiPadExample/OCSiPadExample.xcodeproj">
+   </FileRef>
+</Workspace>

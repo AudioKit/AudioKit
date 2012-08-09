@@ -1,0 +1,306 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C400AD5F15D3C9010020C794 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400AD5E15D3C9010020C794 /* UIKit.framework */; };
+		C400AD6115D3C9010020C794 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400AD6015D3C9010020C794 /* Foundation.framework */; };
+		C400AD6315D3C9010020C794 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400AD6215D3C9010020C794 /* CoreGraphics.framework */; };
+		C400AD6915D3C9010020C794 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C400AD6715D3C9010020C794 /* InfoPlist.strings */; };
+		C400AD6B15D3C9010020C794 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AD6A15D3C9010020C794 /* main.m */; };
+		C400AD6F15D3C9010020C794 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AD6E15D3C9010020C794 /* AppDelegate.m */; };
+		C400AD7215D3C9010020C794 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AD7115D3C9010020C794 /* MasterViewController.m */; };
+		C400AD7515D3C9010020C794 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AD7415D3C9010020C794 /* DetailViewController.m */; };
+		C400AD7815D3C9010020C794 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400AD7615D3C9010020C794 /* MasterViewController.xib */; };
+		C400AD7B15D3C9010020C794 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400AD7915D3C9010020C794 /* DetailViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C400AD5A15D3C9010020C794 /* OCSiPadExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCSiPadExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C400AD5E15D3C9010020C794 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C400AD6015D3C9010020C794 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C400AD6215D3C9010020C794 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C400AD6615D3C9010020C794 /* OCSiPadExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCSiPadExample-Info.plist"; sourceTree = "<group>"; };
+		C400AD6815D3C9010020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C400AD6A15D3C9010020C794 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C400AD6C15D3C9010020C794 /* OCSiPadExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCSiPadExample-Prefix.pch"; sourceTree = "<group>"; };
+		C400AD6D15D3C9010020C794 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C400AD6E15D3C9010020C794 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C400AD7015D3C9010020C794 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		C400AD7115D3C9010020C794 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		C400AD7315D3C9010020C794 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		C400AD7415D3C9010020C794 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		C400AD7715D3C9010020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
+		C400AD7A15D3C9010020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C400AD5715D3C9010020C794 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C400AD5F15D3C9010020C794 /* UIKit.framework in Frameworks */,
+				C400AD6115D3C9010020C794 /* Foundation.framework in Frameworks */,
+				C400AD6315D3C9010020C794 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C400AD4F15D3C9010020C794 = {
+			isa = PBXGroup;
+			children = (
+				C400AD6415D3C9010020C794 /* OCSiPadExample */,
+				C400AD5D15D3C9010020C794 /* Frameworks */,
+				C400AD5B15D3C9010020C794 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C400AD5B15D3C9010020C794 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD5A15D3C9010020C794 /* OCSiPadExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C400AD5D15D3C9010020C794 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD5E15D3C9010020C794 /* UIKit.framework */,
+				C400AD6015D3C9010020C794 /* Foundation.framework */,
+				C400AD6215D3C9010020C794 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C400AD6415D3C9010020C794 /* OCSiPadExample */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD6D15D3C9010020C794 /* AppDelegate.h */,
+				C400AD6E15D3C9010020C794 /* AppDelegate.m */,
+				C400AD7015D3C9010020C794 /* MasterViewController.h */,
+				C400AD7115D3C9010020C794 /* MasterViewController.m */,
+				C400AD7315D3C9010020C794 /* DetailViewController.h */,
+				C400AD7415D3C9010020C794 /* DetailViewController.m */,
+				C400AD7615D3C9010020C794 /* MasterViewController.xib */,
+				C400AD7915D3C9010020C794 /* DetailViewController.xib */,
+				C400AD6515D3C9010020C794 /* Supporting Files */,
+			);
+			path = OCSiPadExample;
+			sourceTree = "<group>";
+		};
+		C400AD6515D3C9010020C794 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C400AD6615D3C9010020C794 /* OCSiPadExample-Info.plist */,
+				C400AD6715D3C9010020C794 /* InfoPlist.strings */,
+				C400AD6A15D3C9010020C794 /* main.m */,
+				C400AD6C15D3C9010020C794 /* OCSiPadExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C400AD5915D3C9010020C794 /* OCSiPadExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C400AD7E15D3C9010020C794 /* Build configuration list for PBXNativeTarget "OCSiPadExample" */;
+			buildPhases = (
+				C400AD5615D3C9010020C794 /* Sources */,
+				C400AD5715D3C9010020C794 /* Frameworks */,
+				C400AD5815D3C9010020C794 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCSiPadExample;
+			productName = OCSiPadExample;
+			productReference = C400AD5A15D3C9010020C794 /* OCSiPadExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C400AD5115D3C9010020C794 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Hear For Yourself";
+			};
+			buildConfigurationList = C400AD5415D3C9010020C794 /* Build configuration list for PBXProject "OCSiPadExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C400AD4F15D3C9010020C794;
+			productRefGroup = C400AD5B15D3C9010020C794 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C400AD5915D3C9010020C794 /* OCSiPadExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C400AD5815D3C9010020C794 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C400AD6915D3C9010020C794 /* InfoPlist.strings in Resources */,
+				C400AD7815D3C9010020C794 /* MasterViewController.xib in Resources */,
+				C400AD7B15D3C9010020C794 /* DetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C400AD5615D3C9010020C794 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C400AD6B15D3C9010020C794 /* main.m in Sources */,
+				C400AD6F15D3C9010020C794 /* AppDelegate.m in Sources */,
+				C400AD7215D3C9010020C794 /* MasterViewController.m in Sources */,
+				C400AD7515D3C9010020C794 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C400AD6715D3C9010020C794 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C400AD6815D3C9010020C794 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C400AD7615D3C9010020C794 /* MasterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C400AD7715D3C9010020C794 /* en */,
+			);
+			name = MasterViewController.xib;
+			sourceTree = "<group>";
+		};
+		C400AD7915D3C9010020C794 /* DetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C400AD7A15D3C9010020C794 /* en */,
+			);
+			name = DetailViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C400AD7C15D3C9010020C794 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		C400AD7D15D3C9010020C794 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C400AD7F15D3C9010020C794 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCSiPadExample/OCSiPadExample-Prefix.pch";
+				INFOPLIST_FILE = "OCSiPadExample/OCSiPadExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C400AD8015D3C9010020C794 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCSiPadExample/OCSiPadExample-Prefix.pch";
+				INFOPLIST_FILE = "OCSiPadExample/OCSiPadExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C400AD5415D3C9010020C794 /* Build configuration list for PBXProject "OCSiPadExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C400AD7C15D3C9010020C794 /* Debug */,
+				C400AD7D15D3C9010020C794 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C400AD7E15D3C9010020C794 /* Build configuration list for PBXNativeTarget "OCSiPadExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C400AD7F15D3C9010020C794 /* Debug */,
+				C400AD8015D3C9010020C794 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C400AD5115D3C9010020C794 /* Project object */;
+}
