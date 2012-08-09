@@ -24,7 +24,6 @@
  */
 
 #import "MidiWidgetsManager.h"
-#import "SliderMidiWidgetWrapper.h"
 
 void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
 
@@ -42,12 +41,6 @@ void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
         
     }
     return self;
-}
-
-
--(void)addSlider:(UISlider*)slider forControllerNumber:(int)controllerNumber {
-    SliderMidiWidgetWrapper* wrapper = [[SliderMidiWidgetWrapper alloc] init:slider];
-    [self addMidiWidgetWrapper:wrapper forControllerNumber:controllerNumber];
 }
 
 -(void)addMidiWidgetWrapper:(id<MidiWidgetWrapper>)wrapper 
