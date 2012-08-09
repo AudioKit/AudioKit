@@ -31,7 +31,6 @@
 #import <Foundation/Foundation.h>
 #import "csound.h"
 #import <CoreMotion/CoreMotion.h>
-#import "UIKnob.h"
 
 typedef struct csdata_ {
 	CSOUND *cs;
