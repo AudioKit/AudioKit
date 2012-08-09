@@ -1,6 +1,6 @@
 //
 //  InitialViewController.m
-//  Objective-Csound Example
+//  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 6/20/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -68,7 +68,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Objective-Csound", @"Objective-Csound");
+        self.title = NSLocalizedString(@"Objective-C Sound", @"Objective-C Sound");
     }
     return self;
 }

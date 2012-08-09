@@ -1,6 +1,6 @@
 //
 //  OCSSequence.m
-//  Objective-Csound
+//  Objective-C Sound
 //
 //
 //  Created by Aurelius Prochazka on 7/1/12.

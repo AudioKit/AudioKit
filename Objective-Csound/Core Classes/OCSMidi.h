@@ -1,6 +1,6 @@
 //
 //  OCSMidi.h
-//  Objective-Csound
+//  Objective-C Sound
 //
 //  Created by Adam Boulanger on 7/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -10,7 +10,7 @@
 #import <CoreMIDI/CoreMIDI.h>
 #import "OCSInstrumentProperty.h"
 
-/** This class handles all MIDI interaction in Objective-Csound.
+/** This class handles all MIDI interaction in Objective-C Sound.
  */
 
 @interface OCSMidi : NSObject
