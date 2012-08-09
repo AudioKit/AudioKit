@@ -100,8 +100,9 @@ static OCSManager *_sharedOCSManager = nil;
     [csound startCsound:file];
     NSLog(@"Starting %@ \n\n%@\n",filename, [OCSManager stringFromFile:file]);
     while(!isRunning) {
-        NSLog(@"Waiting for Csound to startup completely.");
+        //NSLog(@"Waiting for Csound to startup completely.");
     }
+    NSLog(@"Started.");
 }
 
 - (void)writeCSDFileForOrchestra:(OCSOrchestra *)orchestra 

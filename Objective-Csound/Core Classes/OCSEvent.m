@@ -110,7 +110,7 @@ static int currentID = 1;
 - (void)setNoteProperty:(OCSNoteProperty *)property 
                  toValue:(float)value; 
 {
-    int index = [[instr noteProperties] indexOfObject:property];
+    NSUInteger index = [[instr noteProperties] indexOfObject:property];
     [notePropertyValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
     //    [properties addObject:property];
     //    [propertyValues addObject:[NSNumber numberWithFloat:value]];
