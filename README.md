@@ -20,7 +20,7 @@ in Opcodes/UDOs.
 
 More information on contribution is available on the wiki:
 
-https://github.com/h4y/Objective-CSound/wiki
+https://github.com/h4y/Objective-C-Sound/wiki
 
 ### About Csound
 
