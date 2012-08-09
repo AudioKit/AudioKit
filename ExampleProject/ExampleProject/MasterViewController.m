@@ -1,6 +1,6 @@
 //
 //  MasterViewController.m
-//  Objective-Csound Example
+//  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 5/30/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -41,7 +41,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Objective-Csound";
+        self.title = @"Objective-C Sound";
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }

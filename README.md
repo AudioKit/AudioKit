@@ -1,8 +1,8 @@
-Objective-Csound
-================
+Objective-C Sound
+=================
 
-Obective-Csound (OCS for short, pronounced "ox"), is an Objective-C wrapper
-for Csound or more specifically, Csound-for-iOS.  
+Obective-C Sound (OCS for short, pronounced "ox"), is an Objective-C wrapper
+for Csound and works on OS X computers and iOS devices. 
 
 ### Installation
 
@@ -14,13 +14,13 @@ install appdoc.  More information about this in the developer's guide doc.
 
 ### Contribute!
 
-We encourage you to fork Objective-Csound and contribute one of the many 
+We encourage you to fork Objective-C Sound and contribute one of the many 
 opcodes we have yet to implement or to install your own User-Defined Opcode
 in Opcodes/UDOs.  
 
 More information on contribution is available on the wiki:
 
-https://github.com/h4y/Objective-Csound/wiki
+https://github.com/h4y/Objective-C Sound/wiki
 
 ### About Csound
 
@@ -38,5 +38,5 @@ http://aure.com/
 
 http://www.media.mit.edu/~adamb/
 
-We use Objective-Csound at our company, Hear For Yourself, to build 
+We use Objective-C Sound at our company, Hear For Yourself, to build 
 sonically rich programs for a variety of different applications.

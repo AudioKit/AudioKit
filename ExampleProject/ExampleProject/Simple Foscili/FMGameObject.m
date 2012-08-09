@@ -1,6 +1,6 @@
 //
 //  FMGameObject.m
-//  Objective-Csound Example
+//  Objective-C Sound Example
 //
 //  Created by Adam Boulanger on 6/4/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
