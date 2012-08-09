@@ -545,7 +545,7 @@
 			name = Convolution;
 			sourceTree = "<group>";
 		};
-		C4307F92159BCE650091AE59 /* Objective-Csound */ = {
+		C4307F92159BCE650091AE59 /* Objective-C Sound */ = {
 			isa = PBXGroup;
 			children = (
 				C43080B4159C14C90091AE59 /* README.md */,
@@ -556,7 +556,7 @@
 				C4307FE3159BCE650091AE59 /* Parameters */,
 				C4307FEC159BCE650091AE59 /* Properties */,
 			);
-			name = "Objective-Csound";
+			name = "Objective-C Sound";
 			path = "../Objective-Csound";
 			sourceTree = "<group>";
 		};
@@ -911,7 +911,7 @@
 			isa = PBXGroup;
 			children = (
 				C4842D181579C2F800E69770 /* csound-iOS */,
-				C4307F92159BCE650091AE59 /* Objective-Csound */,
+				C4307F92159BCE650091AE59 /* Objective-C Sound */,
 				C4C55186157701AF005F7EE4 /* UI Widgets */,
 				C4C5511E1576EB08005F7EE4 /* ExampleProject */,
 				C4C551171576EB08005F7EE4 /* Frameworks */,
