@@ -16,7 +16,7 @@
                BlueprintIdentifier = "C4C551131576EB08005F7EE4"
                BuildableName = "ExampleProject.app"
                BlueprintName = "ExampleProject"
-               ReferencedContainer = "container:Objective-Csound.xcodeproj">
+               ReferencedContainer = "container:Objective-C Sound.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,7 +34,7 @@
             BlueprintIdentifier = "C4C551131576EB08005F7EE4"
             BuildableName = "ExampleProject.app"
             BlueprintName = "ExampleProject"
-            ReferencedContainer = "container:Objective-Csound.xcodeproj">
+            ReferencedContainer = "container:Objective-C Sound.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -46,6 +46,7 @@
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      enableOpenGLFrameCaptureMode = "0"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
@@ -53,7 +54,7 @@
             BlueprintIdentifier = "C4C551131576EB08005F7EE4"
             BuildableName = "ExampleProject.app"
             BlueprintName = "ExampleProject"
-            ReferencedContainer = "container:Objective-Csound.xcodeproj">
+            ReferencedContainer = "container:Objective-C Sound.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,7 +72,7 @@
             BlueprintIdentifier = "C4C551131576EB08005F7EE4"
             BuildableName = "ExampleProject.app"
             BlueprintName = "ExampleProject"
-            ReferencedContainer = "container:Objective-Csound.xcodeproj">
+            ReferencedContainer = "container:Objective-C Sound.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
