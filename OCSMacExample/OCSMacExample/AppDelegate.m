@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+
+#import "OCSManager.h"
+
 #import "AppDelegate.h"
 
 @implementation AppDelegate
@@ -13,6 +16,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    
+    [[OCSManager sharedOCSManager] runCSDFile:@"example"];
 }
 
 @end
