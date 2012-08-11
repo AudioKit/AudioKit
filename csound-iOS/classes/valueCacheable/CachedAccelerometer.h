@@ -31,8 +31,6 @@
     float* channelPtrX;
     float* channelPtrY;
     float* channelPtrZ;
-        
-    CMMotionManager* manager;
 }
 
 -(id)init:(CMMotionManager*)manager;

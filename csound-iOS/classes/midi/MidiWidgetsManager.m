@@ -125,9 +125,5 @@ void MidiWidgetsManagerReadProc(const MIDIPacketList *pktlist, void *refcon, voi
     MIDIClientDispose(mclient);
 }
 
--(void)dealloc {
-    [mWidgetWrappers release];
-    [super dealloc];
-}
 
 @end

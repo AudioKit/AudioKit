@@ -16,12 +16,12 @@
 		C4F0784215D5F4B40084FF9E /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0784115D5F4B40084FF9E /* MasterViewController.m */; };
 		C4F0784815D5F4B50084FF9E /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F0784615D5F4B50084FF9E /* MasterViewController.xib */; };
 		C4F0787E15D5F4F60084FF9E /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785415D5F4F50084FF9E /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4F0788015D5F4F60084FF9E /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785715D5F4F50084FF9E /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4F0788015D5F4F60084FF9E /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785715D5F4F50084FF9E /* CsoundMIDI.m */; };
 		C4F0788215D5F4F60084FF9E /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785915D5F4F50084FF9E /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4F0788515D5F4F60084FF9E /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785D15D5F4F50084FF9E /* BaseValueCacheable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4F0788715D5F4F60084FF9E /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785F15D5F4F50084FF9E /* CachedAccelerometer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4F0788915D5F4F60084FF9E /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0786115D5F4F50084FF9E /* CachedAttitude.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4F0788B15D5F4F60084FF9E /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0786315D5F4F50084FF9E /* CachedGyroscope.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C4F0788515D5F4F60084FF9E /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785D15D5F4F50084FF9E /* BaseValueCacheable.m */; };
+		C4F0788715D5F4F60084FF9E /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785F15D5F4F50084FF9E /* CachedAccelerometer.m */; };
+		C4F0788915D5F4F60084FF9E /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0786115D5F4F50084FF9E /* CachedAttitude.m */; };
+		C4F0788B15D5F4F60084FF9E /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0786315D5F4F50084FF9E /* CachedGyroscope.m */; };
 		C4F0789C15D5F4F60084FF9E /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0787A15D5F4F60084FF9E /* libcsound.a */; };
 		C4F0789D15D5F4F60084FF9E /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0787B15D5F4F60084FF9E /* libsndfile.a */; };
 		C4F0789E15D5F4F60084FF9E /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4F0787C15D5F4F60084FF9E /* LICENSE.TXT */; };
@@ -1294,6 +1294,7 @@
 				C4F0785015D5F4B50084FF9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
