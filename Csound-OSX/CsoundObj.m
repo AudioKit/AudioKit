@@ -349,10 +349,7 @@ OSStatus  Csound_Render(void *inRefCon,
     NSLog(@"%s %s %s", argv[0], argv[1], argv[2]);
 	int ret = csoundCompile(cs, 3, argv);
     
-//    NSString *f = @"trapped.csd";
-//    char *argv[2] = { "csound",  (char*)[f cStringUsingEncoding:NSASCIIStringEncoding]};
-//    NSLog(@"%s %s", argv[0], argv[1]);
-//    int result = csoundCompile(cs, 2, argv);
+
     
     NSLog(@"%@", csdFilePath);
 	mCsData.running = true;
@@ -360,16 +357,12 @@ OSStatus  Csound_Render(void *inRefCon,
   
 	if(!ret) {
         
-        NSLog(@"Aure1");
-        
 		mCsData.cs = cs;
 		mCsData.ret = ret;
 		mCsData.nchnls = csoundGetNchnls(cs);
 		mCsData.bufframes = (int) (csoundGetOutputBufferSize(cs))/mCsData.nchnls;
 		mCsData.running = true;
         mCsData.valuesCache = valuesCache;
-		AudioStreamBasicDescription format;
-		OSStatus err;
 		
         // SETUP VALUE CACHEABLE
         

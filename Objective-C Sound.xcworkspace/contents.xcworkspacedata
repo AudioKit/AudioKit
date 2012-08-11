@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:OCSMacExample/OCSMacExample.xcodeproj">
    </FileRef>
    <FileRef

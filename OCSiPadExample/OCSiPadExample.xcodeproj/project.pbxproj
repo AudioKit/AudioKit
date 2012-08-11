@@ -17,13 +17,13 @@
 		C400AD7515D3C9010020C794 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AD7415D3C9010020C794 /* DetailViewController.m */; };
 		C400AD7815D3C9010020C794 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400AD7615D3C9010020C794 /* MasterViewController.xib */; };
 		C400AD7B15D3C9010020C794 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400AD7915D3C9010020C794 /* DetailViewController.xib */; };
-		C400AEAD15D3CBC20020C794 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8415D3CBC20020C794 /* CsoundObj.m */; };
-		C400AEAE15D3CBC20020C794 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8715D3CBC20020C794 /* CsoundMIDI.m */; };
-		C400AEAF15D3CBC20020C794 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8915D3CBC20020C794 /* MidiWidgetsManager.m */; };
-		C400AEB015D3CBC20020C794 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8D15D3CBC20020C794 /* BaseValueCacheable.m */; };
-		C400AEB115D3CBC20020C794 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8F15D3CBC20020C794 /* CachedAccelerometer.m */; };
-		C400AEB215D3CBC20020C794 /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE9115D3CBC20020C794 /* CachedAttitude.m */; };
-		C400AEB315D3CBC20020C794 /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE9315D3CBC20020C794 /* CachedGyroscope.m */; };
+		C400AEAD15D3CBC20020C794 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8415D3CBC20020C794 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AEAE15D3CBC20020C794 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8715D3CBC20020C794 /* CsoundMIDI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AEAF15D3CBC20020C794 /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8915D3CBC20020C794 /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AEB015D3CBC20020C794 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8D15D3CBC20020C794 /* BaseValueCacheable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AEB115D3CBC20020C794 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE8F15D3CBC20020C794 /* CachedAccelerometer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AEB215D3CBC20020C794 /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE9115D3CBC20020C794 /* CachedAttitude.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AEB315D3CBC20020C794 /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE9315D3CBC20020C794 /* CachedGyroscope.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C400AEB415D3CBC20020C794 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C400AEAA15D3CBC20020C794 /* libcsound.a */; };
 		C400AEB515D3CBC20020C794 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C400AEAB15D3CBC20020C794 /* libsndfile.a */; };
 		C400AEB615D3CBC20020C794 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C400AEAC15D3CBC20020C794 /* LICENSE.TXT */; };
@@ -86,6 +86,10 @@
 		C400B02B15D3CC6F0020C794 /* OCSMidiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AFEE15D3CC6F0020C794 /* OCSMidiManager.m */; };
 		C400B02C15D3CC6F0020C794 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AFF015D3CC6F0020C794 /* OCSNoteProperty.m */; };
 		C400B02D15D3CC6F0020C794 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AFF215D3CC6F0020C794 /* OCSProperty.m */; };
+		C4F0780E15D5F2310084FF9E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0780D15D5F2300084FF9E /* CoreMotion.framework */; };
+		C4F0781015D5F2370084FF9E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0780F15D5F2370084FF9E /* CoreMIDI.framework */; };
+		C4F0781215D5F2400084FF9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0781115D5F2400084FF9E /* AVFoundation.framework */; };
+		C4F0781615D5F25C0084FF9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0781515D5F25C0084FF9E /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -256,6 +260,11 @@
 		C400AFF015D3CC6F0020C794 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C400AFF115D3CC6F0020C794 /* OCSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSProperty.h; sourceTree = "<group>"; };
 		C400AFF215D3CC6F0020C794 /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
+		C4F0780D15D5F2300084FF9E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C4F0780F15D5F2370084FF9E /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		C4F0781115D5F2400084FF9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C4F0781315D5F2550084FF9E /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		C4F0781515D5F25C0084FF9E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +272,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4F0781615D5F25C0084FF9E /* AudioToolbox.framework in Frameworks */,
+				C4F0781215D5F2400084FF9E /* AVFoundation.framework in Frameworks */,
+				C4F0781015D5F2370084FF9E /* CoreMIDI.framework in Frameworks */,
+				C4F0780E15D5F2310084FF9E /* CoreMotion.framework in Frameworks */,
 				C400AD5F15D3C9010020C794 /* UIKit.framework in Frameworks */,
 				C400AD6115D3C9010020C794 /* Foundation.framework in Frameworks */,
 				C400AD6315D3C9010020C794 /* CoreGraphics.framework in Frameworks */,
@@ -296,6 +309,11 @@
 		C400AD5D15D3C9010020C794 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4F0781515D5F25C0084FF9E /* AudioToolbox.framework */,
+				C4F0781315D5F2550084FF9E /* AudioUnit.framework */,
+				C4F0781115D5F2400084FF9E /* AVFoundation.framework */,
+				C4F0780F15D5F2370084FF9E /* CoreMIDI.framework */,
+				C4F0780D15D5F2300084FF9E /* CoreMotion.framework */,
 				C400AD5E15D3C9010020C794 /* UIKit.framework */,
 				C400AD6015D3C9010020C794 /* Foundation.framework */,
 				C400AD6215D3C9010020C794 /* CoreGraphics.framework */,
@@ -878,7 +896,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../Csound-iOS/libs\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OCSiPadExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -893,7 +911,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../Csound-iOS/libs\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OCSiPadExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

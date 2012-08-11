@@ -9,21 +9,21 @@
 #import "OCSLine.h"
 
 @interface OCSLine () {
-    OCSParameter *audio;
-    OCSControl *control;
-    OCSParameter *output;
+    OCSParameter *ares;
+    OCSControl *kres;
+    OCSParameter *res;
     
-    OCSConstant *start;
-    OCSConstant *end;
-    OCSConstant *dur;
+    OCSConstant *ia;
+    OCSConstant *ib;
+    OCSConstant *idur;
 }
 @end
 
 @implementation OCSLine
 
-@synthesize audio;
-@synthesize control;
-@synthesize output;
+@synthesize audio = ares;
+@synthesize control = kres;
+@synthesize output = res;
 
 - (id)initFromValue:(OCSConstant *)startingValue
             toValue:(OCSConstant *)endingValue
@@ -32,24 +32,25 @@
     self = [super init];
 
     if (self) {
-        audio   = [OCSParameter parameterWithString:[self opcodeName]];
-        control = [OCSControl parameterWithString:[self opcodeName]];
-        output  =  audio;
+        ares   = [OCSParameter parameterWithString:[self opcodeName]];
+        kres = [OCSControl parameterWithString:[self opcodeName]];
+        res  =  ares;
         
-        start = startingValue;
-        end = endingValue;
-        dur = duration;
+        ia = startingValue;
+        ib = endingValue;
+        idur = duration;
     }
     return self; 
 }
 
+//Csound Prototype: (a/k)res line ia, idur, ib
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ line %@, %@, %@", output, start, dur, end];
+    return [NSString stringWithFormat:@"%@ line %@, %@, %@", res, ia, idur, ib];
 }
 
 - (NSString *)description {
-    return [output parameterString];
+    return [res parameterString];
 }
 
 @end
