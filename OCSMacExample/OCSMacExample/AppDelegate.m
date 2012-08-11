@@ -17,7 +17,16 @@
 {
     // Insert code here to initialize your application
     
+    
+}
+
+- (IBAction)startPlayCSDFile:(id)sender {
     [[OCSManager sharedOCSManager] runCSDFile:@"example"];
+}
+
+
+- (IBAction)stopPlayCSDFile:(id)sender {
+    [[OCSManager sharedOCSManager] stop];
 }
 
 @end

@@ -330,7 +330,7 @@ OSStatus  Csound_Render(void *inRefCon,
 //    csoundPreCompile(cs);
 //    csoundSetHostImplementedAudioIO(cs, 1, 0);
 //	
-//	csoundSetMessageCallback(cs, messageCallback);
+    csoundSetMessageCallback(cs, messageCallback);
 	//csoundSetHostData(cs, self);
     
     // Hardcoding to use old parser for time being
@@ -396,7 +396,7 @@ OSStatus  Csound_Render(void *inRefCon,
     // NOTIFY COMPLETION LISTENERS
     
     for (id<CsoundObjCompletionListener> listener in completionListeners) {
-        [listener csoundObjComplete:self];	
+        [listener csoundObjComplete:self];
     }
 
 	[pool release];
