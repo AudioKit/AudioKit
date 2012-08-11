@@ -14,7 +14,7 @@
 		C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C400ADAE15D3C9580020C794 /* AppDelegate.m */; };
 		C400ADB215D3C9580020C794 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400ADB015D3C9580020C794 /* MainMenu.xib */; };
 		C400AE7F15D3CBB20020C794 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE7A15D3CBB20020C794 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C400AE8015D3CBB20020C794 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE7D15D3CBB20020C794 /* BaseValueCacheable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C400AE8015D3CBB20020C794 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE7D15D3CBB20020C794 /* BaseValueCacheable.m */; };
 		C400AF3815D3CC670020C794 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AEBB15D3CC670020C794 /* OCSEvent.m */; };
 		C400AF3915D3CC670020C794 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AEBD15D3CC670020C794 /* OCSInstrument.m */; };
 		C400AF3A15D3CC670020C794 /* OCSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AEBF15D3CC670020C794 /* OCSManager.m */; };
