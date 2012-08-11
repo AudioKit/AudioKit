@@ -7,35 +7,67 @@
 //
 
 #import "MasterViewController.h"
+#import "AppDelegate.h"
+#import "InitialViewController.h"
 
-#import "DetailViewController.h"
+// Example Controllers
+#import "PlayCSDFileController.h"
+#import "OscillatorViewController.h"
+#import "FMGameObjectViewController.h"
+#import "UnitGeneratorsViewController.h"
+#import "ExpressionsViewController.h"
+#import "ReverbViewController.h"
+#import "PlayAudioFileViewController.h"
+#import "ContinuousControlViewController.h"
+#import "GrainViewController.h"
+#import "UDOViewController.h"
+#import "ConvolutionViewController.h"
+#import "MidifiedInstrumentViewController.h"
+#import "SequenceViewController.h"
+#import "HarmonizerViewController.h"
+
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
+    NSMutableArray *exampleNames;
 }
 @end
 
 @implementation MasterViewController
 
+@synthesize initialViewController = _initialViewController;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Master", @"Master");
+        self.title = @"Objective-C Sound";
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
+    exampleNames = [NSMutableArray arrayWithObjects:
+                    @"Play a CSD File",
+                    @"Play an Audio File",
+                    @"Simple Oscillator",
+                    @"Simple Frequency Modulation",
+                    @"Unit Generators",
+                    @"Expressions",
+                    @"Global Reverb",
+                    @"Continuous Control",
+                    @"Grain",
+                    @"Sequences",
+                    @"User Defined Opcodes",
+                    @"Convolution",
+                    @"MIDI",
+                    @"Harmonizer",
+                    nil];
     return self;
 }
-							
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+	[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 - (void)viewDidUnload
@@ -56,7 +88,7 @@
     }
     [_objects insertObject:[NSDate date] atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View
@@ -68,61 +100,123 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return exampleNames.count;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Whatever";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
-
-
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
-    cell.textLabel.text = [object description];
+    
+    // Configure the cell.
+    cell.textLabel.text = [exampleNames objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
-    self.detailViewController.detailItem = object;
+    UIViewController* controller;
+    switch (indexPath.row) {
+        case 0:
+            controller = [[PlayCSDFileController alloc] initWithNibName:@"PlayCSDFileController" bundle:nil];
+            break;
+        case 1:
+            controller = [[PlayAudioFileViewController alloc] initWithNibName:@"PlayAudioFileViewController" bundle:nil];
+            break;
+        case 2:
+            controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
+            break;
+        case 3:
+            controller = [[FMGameObjectViewController alloc] initWithNibName:@"FMGameObjectViewController" bundle:nil];
+            break;
+        case 4:
+            controller = [[UnitGeneratorsViewController alloc] initWithNibName:@"UnitGeneratorsViewController" bundle:nil];
+            break;
+        case 5:
+            controller = [[ExpressionsViewController alloc] initWithNibName:@"ExpressionsViewController" bundle:nil];
+            break;
+        case 6:
+            controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
+            break;
+        case 7:
+            controller = [[ContinuousControlViewController alloc] initWithNibName:@"ContinuousControlViewController" bundle:nil];
+            break;
+        case 8:
+            controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" bundle:nil];
+            break;
+        case 9:
+            controller = [[SequenceViewController alloc] initWithNibName:@"SequenceViewController" bundle:nil];
+            break;
+        case 10:
+            controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
+            break;
+        case 11:
+            controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
+            break;
+        case 12:
+            controller = [[MidifiedInstrumentViewController alloc] initWithNibName:@"MidifiedInstrumentViewController" bundle:nil];
+            break;
+        case 13:
+            controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
+            break;
+        default:
+            break;
+    }
+    
+    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    UISplitViewController* splitViewController = appDelegate.splitViewController;
+    
+    UIViewController* currentDetail = (UIViewController*)splitViewController.delegate;
+    
+    if(currentDetail.navigationItem.leftBarButtonItem != nil) {
+        controller.navigationItem.leftBarButtonItem = currentDetail.navigationItem.leftBarButtonItem;
+    }
+    
+    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    NSArray *viewControllers = [[NSArray alloc] initWithObjects:[splitViewController.viewControllers objectAtIndex:0], detailNavigationController, nil];
+    splitViewController.viewControllers = viewControllers;
+    //splitViewController.delegate = controller;
 }
 
 @end

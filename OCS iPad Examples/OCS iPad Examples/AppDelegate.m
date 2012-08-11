@@ -10,26 +10,29 @@
 
 #import "MasterViewController.h"
 
-#import "DetailViewController.h"
+#import "InitialViewController.h"
 
 @implementation AppDelegate
+
+@synthesize window = _window;
+@synthesize splitViewController = _splitViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-
+    
     MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
     UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-
-    DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-
-    masterViewController.detailViewController = detailViewController;
-
+    
+    InitialViewController * initialViewController = [[InitialViewController alloc] initWithNibName:@"InitialViewController" bundle:nil];
+    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:initialViewController];
+    
+    masterViewController.initialViewController = initialViewController;
+    
     self.splitViewController = [[UISplitViewController alloc] init];
-    self.splitViewController.delegate = detailViewController;
-    self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
+    self.splitViewController.delegate = initialViewController;
+    [self.splitViewController setPresentsWithGesture:NO];
+    self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
     self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -43,7 +46,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

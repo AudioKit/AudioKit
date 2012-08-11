@@ -264,13 +264,13 @@
 		C400AD9A15D3C9570020C794 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C400B02E15D3CCE60020C794 /* CsoundLib64.framework */,
 				C400B03815D3CDC70020C794 /* AudioToolbox.framework */,
 				C400B03015D3CD7D0020C794 /* AudioUnit.framework */,
 				C400B03215D3CDA30020C794 /* AVFoundation.framework */,
 				C400AD9B15D3C9570020C794 /* Cocoa.framework */,
 				C400B03615D3CDBE0020C794 /* CoreAudioKit.framework */,
 				C400B03415D3CDAB0020C794 /* CoreMIDI.framework */,
+				C400B02E15D3CCE60020C794 /* CsoundLib64.framework */,
 				C400AD9D15D3C9570020C794 /* Other Frameworks */,
 			);
 			name = Frameworks;
