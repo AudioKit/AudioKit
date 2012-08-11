@@ -1,19 +1,23 @@
 //
-//  DetailViewController.m
+//  InitialViewController.m
 //  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 8/10/12.
+//  Created by Aurelius Prochazka on 6/20/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "InitialViewController.h"
 
-@interface DetailViewController ()
+@interface InitialViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
-@implementation DetailViewController
+@implementation InitialViewController
+
+@synthesize detailItem = _detailItem;
+@synthesize detailDescriptionLabel = _detailDescriptionLabel;
+@synthesize masterPopoverController = _masterPopoverController;
 
 #pragma mark - Managing the detail item
 
@@ -25,7 +29,7 @@
         // Update the view.
         [self configureView];
     }
-
+    
     if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
     }        
@@ -34,7 +38,7 @@
 - (void)configureView
 {
     // Update the user interface for the detail item.
-
+    
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [self.detailItem description];
     }
@@ -51,6 +55,8 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.detailDescriptionLabel = nil;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -62,16 +68,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Detail", @"Detail");
+        self.title = NSLocalizedString(@"Objective-C Sound", @"Objective-C Sound");
     }
     return self;
 }
-							
+
 #pragma mark - Split view
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
+    barButtonItem.title = NSLocalizedString(@"Examples", @"Examples");
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
 }
@@ -82,5 +88,4 @@
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
 }
-
 @end
