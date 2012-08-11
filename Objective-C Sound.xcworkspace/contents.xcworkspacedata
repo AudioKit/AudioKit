@@ -7,7 +7,4 @@
    <FileRef
       location = "group:OCSMacExample/OCSMacExample.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:OCSiPadExample/OCSiPadExample.xcodeproj">
-   </FileRef>
 </Workspace>
