@@ -25,12 +25,16 @@
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
 }
 
+- (IBAction)stop:(id)sender {
+    [[OCSManager sharedOCSManager] stop];
+}
+
 - (IBAction)touchButton:(id)sender {
     float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
     OCSEvent *start = [[OCSEvent alloc]initWithInstrument:audioFilePlayer];
     [start setNoteProperty:[audioFilePlayer speed] toValue:speed];
     [[OCSManager sharedOCSManager] triggerEvent:start];
-    OCSEvent *stop = [[OCSEvent alloc] initDeactivation:start afterDuration:5.0f/speed];
+    OCSEvent *stop = [[OCSEvent alloc] initDeactivation:start afterDuration:2.35f/speed];
     [[OCSManager sharedOCSManager] triggerEvent:stop];
 }
 

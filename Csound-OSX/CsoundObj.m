@@ -310,6 +310,7 @@ OSStatus  Csound_Render(void *inRefCon,
     
 -(void)stopCsound {
     mCsData.running = false;
+    csoundStop(mCsData.cs);
 }
 
 -(void)muteCsound{
