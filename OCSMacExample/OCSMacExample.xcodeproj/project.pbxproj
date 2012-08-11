@@ -80,7 +80,12 @@
 		C400B03515D3CDAB0020C794 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03415D3CDAB0020C794 /* CoreMIDI.framework */; };
 		C400B03715D3CDBE0020C794 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03615D3CDBE0020C794 /* CoreAudioKit.framework */; };
 		C400B03915D3CDC70020C794 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03815D3CDC70020C794 /* AudioToolbox.framework */; };
-		C400B03B15D3CE3A0020C794 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C400B03A15D3CE3A0020C794 /* example.csd */; };
+		C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */; };
+		C42DF45815D65A61001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF45715D65A61001E7DB1 /* example.csd */; };
+		C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */; };
+		C42DF46815D65C95001E7DB1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46615D65C95001E7DB1 /* AudioFilePlayer.m */; };
+		C42DF46915D65C95001E7DB1 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42DF46715D65C95001E7DB1 /* hellorcb.aif */; };
+		C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46B15D65D40001E7DB1 /* Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,7 +226,16 @@
 		C400B03415D3CDAB0020C794 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C400B03615D3CDBE0020C794 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		C400B03815D3CDC70020C794 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		C400B03A15D3CE3A0020C794 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
+		C42DF45415D6589F001E7DB1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
+		C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
+		C42DF45715D65A61001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example.csd; path = "Play CSD File/example.csd"; sourceTree = "<group>"; };
+		C42DF45915D65AAB001E7DB1 /* PlayAudioFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayAudioFileController.h; path = "Play Audio File/PlayAudioFileController.h"; sourceTree = "<group>"; };
+		C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayAudioFileController.m; path = "Play Audio File/PlayAudioFileController.m"; sourceTree = "<group>"; };
+		C42DF46515D65C95001E7DB1 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
+		C42DF46615D65C95001E7DB1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
+		C42DF46715D65C95001E7DB1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
+		C42DF46A15D65D40001E7DB1 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		C42DF46B15D65D40001E7DB1 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,10 +303,11 @@
 		C400ADA115D3C9570020C794 /* OCSMacExample */ = {
 			isa = PBXGroup;
 			children = (
-				C400B03A15D3CE3A0020C794 /* example.csd */,
-				C400ADAD15D3C9580020C794 /* AppDelegate.h */,
-				C400ADAE15D3C9580020C794 /* AppDelegate.m */,
 				C400ADB015D3C9580020C794 /* MainMenu.xib */,
+				C42DF46A15D65D40001E7DB1 /* Helper.h */,
+				C42DF46B15D65D40001E7DB1 /* Helper.m */,
+				C42DF45315D65848001E7DB1 /* Play CSD File */,
+				C42DF45C15D65AB3001E7DB1 /* Play Audio File */,
 				C400ADA215D3C9570020C794 /* Supporting Files */,
 			);
 			path = OCSMacExample;
@@ -301,6 +316,8 @@
 		C400ADA215D3C9570020C794 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C400ADAD15D3C9580020C794 /* AppDelegate.h */,
+				C400ADAE15D3C9580020C794 /* AppDelegate.m */,
 				C400ADA315D3C9570020C794 /* OCSMacExample-Info.plist */,
 				C400ADA415D3C9570020C794 /* InfoPlist.strings */,
 				C400ADA715D3C9570020C794 /* main.m */,
@@ -336,6 +353,7 @@
 			children = (
 				C400AEB915D3CC670020C794 /* Core Classes */,
 				C400AEC615D3CC670020C794 /* CSDFiles */,
+				C42DF46315D65C95001E7DB1 /* Examples */,
 				C400AEC915D3CC670020C794 /* FunctionTables */,
 				C400AED815D3CC670020C794 /* Opcodes */,
 				C400AF2415D3CC670020C794 /* Parameters */,
@@ -564,6 +582,43 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
+		C42DF45315D65848001E7DB1 /* Play CSD File */ = {
+			isa = PBXGroup;
+			children = (
+				C42DF45715D65A61001E7DB1 /* example.csd */,
+				C42DF45415D6589F001E7DB1 /* PlayCSDFileController.h */,
+				C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */,
+			);
+			name = "Play CSD File";
+			sourceTree = "<group>";
+		};
+		C42DF45C15D65AB3001E7DB1 /* Play Audio File */ = {
+			isa = PBXGroup;
+			children = (
+				C42DF45915D65AAB001E7DB1 /* PlayAudioFileController.h */,
+				C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */,
+			);
+			name = "Play Audio File";
+			sourceTree = "<group>";
+		};
+		C42DF46315D65C95001E7DB1 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				C42DF46415D65C95001E7DB1 /* Play Audio File */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		C42DF46415D65C95001E7DB1 /* Play Audio File */ = {
+			isa = PBXGroup;
+			children = (
+				C42DF46515D65C95001E7DB1 /* AudioFilePlayer.h */,
+				C42DF46615D65C95001E7DB1 /* AudioFilePlayer.m */,
+				C42DF46715D65C95001E7DB1 /* hellorcb.aif */,
+			);
+			path = "Play Audio File";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -623,7 +678,8 @@
 				C400AF6315D3CC670020C794 /* CsGrainCompressor.udo in Resources */,
 				C400AF6415D3CC670020C794 /* CsGrainPitchShifter.udo in Resources */,
 				C400AF6715D3CC670020C794 /* msrOsc.udo in Resources */,
-				C400B03B15D3CE3A0020C794 /* example.csd in Resources */,
+				C42DF45815D65A61001E7DB1 /* example.csd in Resources */,
+				C42DF46915D65C95001E7DB1 /* hellorcb.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +748,10 @@
 				C400AF7015D3CC670020C794 /* OCSMidiManager.m in Sources */,
 				C400AF7115D3CC670020C794 /* OCSNoteProperty.m in Sources */,
 				C400AF7215D3CC670020C794 /* OCSProperty.m in Sources */,
+				C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */,
+				C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */,
+				C42DF46815D65C95001E7DB1 /* AudioFilePlayer.m in Sources */,
+				C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
