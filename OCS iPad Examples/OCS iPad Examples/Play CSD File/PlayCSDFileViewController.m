@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "PlayCSDFileController.h"
+#import "PlayCSDFileViewController.h"
 #import "OCSManager.h"
 
-@implementation PlayCSDFileController
+@implementation PlayCSDFileViewController
 
 - (void)viewDidLoad
 {

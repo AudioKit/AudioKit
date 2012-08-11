@@ -11,7 +11,7 @@
 #import "InitialViewController.h"
 
 // Example Controllers
-#import "PlayCSDFileController.h"
+#import "PlayCSDFileViewController.h"
 #import "OscillatorViewController.h"
 #import "FMGameObjectViewController.h"
 #import "UnitGeneratorsViewController.h"
@@ -158,7 +158,7 @@
     UIViewController* controller;
     switch (indexPath.row) {
         case 0:
-            controller = [[PlayCSDFileController alloc] initWithNibName:@"PlayCSDFileController" bundle:nil];
+            controller = [[PlayCSDFileViewController alloc] initWithNibName:@"PlayCSDFileViewController" bundle:nil];
             break;
         case 1:
             controller = [[PlayAudioFileViewController alloc] initWithNibName:@"PlayAudioFileViewController" bundle:nil];

@@ -9,33 +9,34 @@
 #import "OCSConvolution.h"
 
 @interface OCSConvolution () {
-    OCSParameter *output;
-    OCSParameter *ain;
-    NSString *ifilcod;
+    OCSParameter *aR1;
+    OCSParameter *aIn;
+    NSString *iFilCod;
 }
 @end
 
 @implementation OCSConvolution
 
-@synthesize output;
+@synthesize output = aR1;
 
 - (id)initWithInputAudio:(OCSParameter *)inputAudio 
      impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {
-        output  =  [OCSParameter parameterWithString:[self opcodeName]];
-        ain     = inputAudio;
-        ifilcod = impulseResponseFilename;
+        aR1     =  [OCSParameter parameterWithString:[self opcodeName]];
+        aIn     = inputAudio;
+        iFilCod = impulseResponseFilename;
     }
     return self; 
 }
 
+// Csound prototype: ar1 [, ar2] [, ar3] [, ar4] pconvolve ain, ifilcod [, ipartitionsize, ichannel]
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@ pconvolve %@, \"%@\"",
-            output, ain, ifilcod];
+            aR1, aIn, iFilCod];
 }
 
 @end

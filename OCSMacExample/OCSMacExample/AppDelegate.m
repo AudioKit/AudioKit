@@ -6,9 +6,6 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-
-#import "OCSManager.h"
-
 #import "AppDelegate.h"
 
 @implementation AppDelegate
@@ -18,15 +15,6 @@
     // Insert code here to initialize your application
     
     
-}
-
-- (IBAction)startPlayCSDFile:(id)sender {
-    [[OCSManager sharedOCSManager] runCSDFile:@"example"];
-}
-
-
-- (IBAction)stopPlayCSDFile:(id)sender {
-    [[OCSManager sharedOCSManager] stop];
 }
 
 @end

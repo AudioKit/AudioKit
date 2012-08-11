@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-@interface PlayCSDFileController : UIViewController {
+@interface PlayCSDFileViewController : UIViewController {
     UIBarButtonItem *rightButton;
 }
 

@@ -12,7 +12,5 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
-- (IBAction)startPlayCSDFile:(id)sender;
-- (IBAction)stopPlayCSDFile:(id)sender;
 
 @end
