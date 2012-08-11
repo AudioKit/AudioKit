@@ -9,7 +9,7 @@
 #import "OCSNReverb.h"
 
 @interface OCSNReverb () {
-    OCSParameter *output;
+    OCSParameter *aRes;
     OCSParameter *input;
     OCSControl *dur;
     OCSControl *hfdif;
@@ -26,7 +26,7 @@
 
 
 @implementation OCSNReverb
-@synthesize output;
+@synthesize output = ares;
 
 - (id)initWithInput:(OCSParameter *)inputSignal
      reverbDuration:(OCSControl *)reverbDuration 
@@ -34,7 +34,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 {
     self = [super init];
     if(self) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];
+        aRes = [OCSParameter parameterWithString:[self opcodeName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -52,7 +52,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 {
     self = [super init];
     if(self) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];
+        aRes = [OCSParameter parameterWithString:[self opcodeName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -65,6 +65,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     return self;
 }
 
+//Csound Prototype: aRes nreverb asig, ktime, khdif [, iskip] [,inumCombs] [, ifnCombs] [, inumAlpas] [, ifnAlpas]
 - (NSString *)stringForCSD
 {
     //iSine ftgentmp 0, 0, 4096, 10, 1
@@ -74,10 +75,10 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     if (combGains) {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@, %@, %@, %@, %@",
                 [self fTableCSDFromFilterParams],
-                output, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
+                aRes, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
     } else {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@", 
-                output, input, dur, hfdif];
+                aRes, input, dur, hfdif];
     }
 }
 
@@ -92,7 +93,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 }
 
 - (NSString *)description {
-    return [output parameterString];
+    return [aRes parameterString];
 }
 
 @end

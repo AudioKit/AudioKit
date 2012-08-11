@@ -13,7 +13,6 @@
  being fed into a series of 5 allpass filters. 
  */
 
-//ares nreverb asig, ktime, khdif [, iskip] [,inumCombs] [, ifnCombs] [, inumAlpas] [, ifnAlpas]
 @interface OCSNReverb : OCSOpcode
 
 /// @name Properties

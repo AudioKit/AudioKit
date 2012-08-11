@@ -821,6 +821,7 @@
 				C400ADB715D3C9580020C794 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

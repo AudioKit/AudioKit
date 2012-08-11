@@ -12,11 +12,6 @@
  Creates a line that extends from a starting to a second point over the given 
  time duration.  After that duration, the line continues at the same slope until
  the note event ends.  Can be an audio signal or control rate parameter.
- 
- Csound Prototype:
- 
-    ares line ia, idur, ib
-    kres line ia, idur, ib
  */
 
 @interface OCSLine : OCSOpcode
