@@ -11,6 +11,7 @@
 @interface PlayAudioFileController : NSObject
 
 - (IBAction)start:(id)sender;
+- (IBAction)stop:(id)sender;
 - (IBAction)touchButton:(id)sender;
 
 @end

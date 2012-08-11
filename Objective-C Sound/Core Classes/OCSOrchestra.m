@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         sampleRate = 44100;
-        samplesPerControlPeriod = 100;
+        samplesPerControlPeriod = 256;
         numberOfChannels = 2;
         zeroDBFullScaleValue = 1.0f;
         udos = [[NSMutableArray alloc] init];
@@ -57,13 +57,11 @@
                      @"nchnls = %d \n"
                      @"sr     = %d \n"
                      @"0dbfs  = %g \n"
-                     @"ksmps  = %d \n"
-                     @"kr     = %d \n",
+                     @"ksmps  = %d \n",
                      numberOfChannels, 
                      sampleRate, 
                      zeroDBFullScaleValue, 
-                     samplesPerControlPeriod,
-                     sampleRate/samplesPerControlPeriod]];
+                     samplesPerControlPeriod]];
     [s appendString:@"\n"];
     
     [s appendString:@";=== GLOBAL F-TABLES ===\n"];

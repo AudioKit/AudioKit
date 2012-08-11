@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C42DF46115D65BF3001E7DB1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */; };
+		C42DF47215D66D11001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF47115D66D11001E7DB1 /* example.csd */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
 		C4F0783115D5F4B30084FF9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783015D5F4B30084FF9E /* Foundation.framework */; };
 		C4F0783315D5F4B30084FF9E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783215D5F4B30084FF9E /* CoreGraphics.framework */; };
@@ -112,7 +113,6 @@
 		C4F07A1315D603160084FF9E /* MidifiedInstrumentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079C115D603160084FF9E /* MidifiedInstrumentViewController.xib */; };
 		C4F07A1815D603160084FF9E /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */; };
 		C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */; };
-		C4F07A1A15D603160084FF9E /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4F079CA15D603160084FF9E /* example.csd */; };
 		C4F07A1C15D603160084FF9E /* PlayCSDFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079CC15D603160084FF9E /* PlayCSDFileViewController.m */; };
 		C4F07A1D15D603160084FF9E /* PlayCSDFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079CD15D603160084FF9E /* PlayCSDFileViewController.xib */; };
 		C4F07A1F15D603160084FF9E /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D015D603160084FF9E /* EffectsProcessor.m */; };
@@ -145,6 +145,7 @@
 		C42DF45F15D65BF3001E7DB1 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
 		C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C42DF46215D65C6D001E7DB1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
+		C42DF47115D66D11001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C4F0782A15D5F4B30084FF9E /* OCS Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OCS Examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F0782E15D5F4B30084FF9E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4F0783015D5F4B30084FF9E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -351,7 +352,6 @@
 		C4F079C615D603160084FF9E /* PlayAudioFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = PlayAudioFileViewController.h; sourceTree = "<group>"; };
 		C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioFileViewController.m; sourceTree = "<group>"; };
 		C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayAudioFileViewController.xib; sourceTree = "<group>"; };
-		C4F079CA15D603160084FF9E /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C4F079CB15D603160084FF9E /* PlayCSDFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayCSDFileViewController.h; sourceTree = "<group>"; };
 		C4F079CC15D603160084FF9E /* PlayCSDFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayCSDFileViewController.m; sourceTree = "<group>"; };
 		C4F079CD15D603160084FF9E /* PlayCSDFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayCSDFileViewController.xib; sourceTree = "<group>"; };
@@ -417,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				C42DF45E15D65BF3001E7DB1 /* Play Audio File */,
+				C42DF47015D66D11001E7DB1 /* Play CSD File */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -429,6 +430,14 @@
 				C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */,
 			);
 			path = "Play Audio File";
+			sourceTree = "<group>";
+		};
+		C42DF47015D66D11001E7DB1 /* Play CSD File */ = {
+			isa = PBXGroup;
+			children = (
+				C42DF47115D66D11001E7DB1 /* example.csd */,
+			);
+			path = "Play CSD File";
 			sourceTree = "<group>";
 		};
 		C4F0781F15D5F4B30084FF9E = {
@@ -918,7 +927,6 @@
 		C4F079C915D603160084FF9E /* Play CSD File */ = {
 			isa = PBXGroup;
 			children = (
-				C4F079CA15D603160084FF9E /* example.csd */,
 				C4F079CB15D603160084FF9E /* PlayCSDFileViewController.h */,
 				C4F079CC15D603160084FF9E /* PlayCSDFileViewController.m */,
 				C4F079CD15D603160084FF9E /* PlayCSDFileViewController.xib */,
@@ -1070,7 +1078,6 @@
 				C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */,
 				C4F07A1315D603160084FF9E /* MidifiedInstrumentViewController.xib in Resources */,
 				C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */,
-				C4F07A1A15D603160084FF9E /* example.csd in Resources */,
 				C4F07A1D15D603160084FF9E /* PlayCSDFileViewController.xib in Resources */,
 				C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */,
 				C4F07A2715D603160084FF9E /* SequenceViewController.xib in Resources */,
@@ -1080,6 +1087,7 @@
 				C4F07A3B15D603160084FF9E /* UnitGeneratorsViewController.xib in Resources */,
 				C4F07A4515D605540084FF9E /* ox-icon-72.png in Resources */,
 				C4F07A4715D6055D0084FF9E /* ox-icon-144.png in Resources */,
+				C42DF47215D66D11001E7DB1 /* example.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -81,11 +81,11 @@
 		C400B03715D3CDBE0020C794 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03615D3CDBE0020C794 /* CoreAudioKit.framework */; };
 		C400B03915D3CDC70020C794 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03815D3CDC70020C794 /* AudioToolbox.framework */; };
 		C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */; };
-		C42DF45815D65A61001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF45715D65A61001E7DB1 /* example.csd */; };
 		C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */; };
 		C42DF46815D65C95001E7DB1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46615D65C95001E7DB1 /* AudioFilePlayer.m */; };
 		C42DF46915D65C95001E7DB1 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42DF46715D65C95001E7DB1 /* hellorcb.aif */; };
 		C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46B15D65D40001E7DB1 /* Helper.m */; };
+		C42DF46F15D66CFB001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF46E15D66CFB001E7DB1 /* example.csd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,7 +228,6 @@
 		C400B03815D3CDC70020C794 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C42DF45415D6589F001E7DB1 /* PlayCSDFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayCSDFileController.h; path = "Play CSD File/PlayCSDFileController.h"; sourceTree = "<group>"; };
 		C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
-		C42DF45715D65A61001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example.csd; path = "Play CSD File/example.csd"; sourceTree = "<group>"; };
 		C42DF45915D65AAB001E7DB1 /* PlayAudioFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayAudioFileController.h; path = "Play Audio File/PlayAudioFileController.h"; sourceTree = "<group>"; };
 		C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayAudioFileController.m; path = "Play Audio File/PlayAudioFileController.m"; sourceTree = "<group>"; };
 		C42DF46515D65C95001E7DB1 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
@@ -236,6 +235,7 @@
 		C42DF46715D65C95001E7DB1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
 		C42DF46A15D65D40001E7DB1 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		C42DF46B15D65D40001E7DB1 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		C42DF46E15D66CFB001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -585,7 +585,6 @@
 		C42DF45315D65848001E7DB1 /* Play CSD File */ = {
 			isa = PBXGroup;
 			children = (
-				C42DF45715D65A61001E7DB1 /* example.csd */,
 				C42DF45415D6589F001E7DB1 /* PlayCSDFileController.h */,
 				C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */,
 			);
@@ -605,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				C42DF46415D65C95001E7DB1 /* Play Audio File */,
+				C42DF46D15D66CFB001E7DB1 /* Play CSD File */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -617,6 +617,14 @@
 				C42DF46715D65C95001E7DB1 /* hellorcb.aif */,
 			);
 			path = "Play Audio File";
+			sourceTree = "<group>";
+		};
+		C42DF46D15D66CFB001E7DB1 /* Play CSD File */ = {
+			isa = PBXGroup;
+			children = (
+				C42DF46E15D66CFB001E7DB1 /* example.csd */,
+			);
+			path = "Play CSD File";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -678,8 +686,8 @@
 				C400AF6315D3CC670020C794 /* CsGrainCompressor.udo in Resources */,
 				C400AF6415D3CC670020C794 /* CsGrainPitchShifter.udo in Resources */,
 				C400AF6715D3CC670020C794 /* msrOsc.udo in Resources */,
-				C42DF45815D65A61001E7DB1 /* example.csd in Resources */,
 				C42DF46915D65C95001E7DB1 /* hellorcb.aif in Resources */,
+				C42DF46F15D66CFB001E7DB1 /* example.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
