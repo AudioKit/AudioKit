@@ -25,6 +25,12 @@
 
 #import "CachedAccelerometer.h"
 
+@interface CachedAccelerometer() {
+    CMMotionManager* mManager;
+}
+@end
+
+
 @implementation CachedAccelerometer
 
 static NSString* CS_ACCEL_X = @"accelerometerX";
@@ -33,7 +39,7 @@ static NSString* CS_ACCEL_Z = @"accelerometerZ";
 
 -(id)init:(CMMotionManager*)cmManager {
     if (self = [super init]) {
-        manager = [cmManager retain];
+        mManager = cmManager;
     }
     return self;
 }
@@ -43,24 +49,17 @@ static NSString* CS_ACCEL_Z = @"accelerometerZ";
     channelPtrY = [csoundObj getInputChannelPtr:CS_ACCEL_Y];
     channelPtrZ = [csoundObj getInputChannelPtr:CS_ACCEL_Z];    
     
-    *channelPtrX = manager.accelerometerData.acceleration.x;
-    *channelPtrY = manager.accelerometerData.acceleration.y;
-    *channelPtrZ = manager.accelerometerData.acceleration.z;    
+    *channelPtrX = mManager.accelerometerData.acceleration.x;
+    *channelPtrY = mManager.accelerometerData.acceleration.y;
+    *channelPtrZ = mManager.accelerometerData.acceleration.z;    
     
     self.cacheDirty = YES;
 }
 
 -(void)updateValuesToCsound {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    *channelPtrX = manager.accelerometerData.acceleration.x;
-    *channelPtrY = manager.accelerometerData.acceleration.y;
-    *channelPtrZ = manager.accelerometerData.acceleration.z;   
-    [pool release];
-}
-
--(void)dealloc {
-    [manager release];
-    [super dealloc];
+    *channelPtrX = mManager.accelerometerData.acceleration.x;
+    *channelPtrY = mManager.accelerometerData.acceleration.y;
+    *channelPtrZ = mManager.accelerometerData.acceleration.z;   
 }
 
 @end
