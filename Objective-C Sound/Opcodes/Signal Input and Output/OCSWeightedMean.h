@@ -9,9 +9,6 @@
 #import "OCSOpcode.h"
 
 /** Calculates the weighted mean value of two input signals.
- 
- http://www.csounds.com/manual/html/ntrpol.html
-
  */
 
 @interface OCSWeightedMean : OCSOpcode

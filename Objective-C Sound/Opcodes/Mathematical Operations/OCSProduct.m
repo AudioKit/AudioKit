@@ -5,6 +5,10 @@
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
+//  Implementation of Csound's product:
+//  http://www.csounds.com/manual/html/product.html
+//
+
 
 #import "OCSProduct.h"
 

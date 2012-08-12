@@ -8,9 +8,7 @@
 
 #import "OCSOpcode.h"
 
-/** Multiplies any number of a-rate signals.
- 
- Based on http://www.csounds.com/manual/html/product.html
+/** Multiplies any number of audio signals. 
  */
 
 @interface OCSProduct : OCSOpcode 

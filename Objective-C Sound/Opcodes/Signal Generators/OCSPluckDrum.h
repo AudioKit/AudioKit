@@ -9,13 +9,15 @@
 #import "OCSOpcode.h"
 
 /** Produces a naturally decaying drum sound based on the Karplus-Strong algorithms.
- The range from pitch to noise is controlled by a Roughness Factor  (0 to 1). Zero gives the plucked string effect, while 1 reverses the polarity of every sample (octave down, odd harmonics). The setting .5 gives an optimum snare drum. The Stretch Factor must be >= 1.  Works best with a flat source (wide pulse), which produces a deep noise attack and sharp decay.
+ The range from pitch to noise is controlled by a Roughness Factor  (0 to 1). 
+ Zero gives the plucked string effect, while 1 reverses the polarity of every sample 
+ (octave down, odd harmonics). The setting .5 gives an optimum snare drum. 
+ The Stretch Factor must be >= 1.  Works best with a flat source (wide pulse), 
+ which produces a deep noise attack and sharp decay.
  
- An internal audio buffer,, is continually resampled at the Resampling Frequency and the resulting output is multiplied by the amplitude. Parallel with the sampling, the buffer is smoothed to simulate the effect of natural decay.
- 
- This is an implementation of the drum portion of "pluck"
- http://www.csounds.com/manual/html/pluck.html
- 
+ An internal audio buffer,, is continually resampled at the Resampling Frequency 
+ and the resulting output is multiplied by the amplitude. Parallel with the sampling, 
+ the buffer is smoothed to simulate the effect of natural decay.
  */
 
 @interface OCSPluckDrum : OCSOpcode
@@ -40,6 +42,5 @@
             audioBuffer:(OCSConstant *)audioBuffer
         roughnessFactor:(OCSConstant *)roughnessFactor
           stretchFactor:(OCSConstant *)stretchFactor;
-
 
 @end

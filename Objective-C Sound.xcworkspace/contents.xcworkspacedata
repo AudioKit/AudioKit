@@ -5,6 +5,6 @@
       location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:OCSMacExample/OCSMacExample.xcodeproj">
+      location = "group:OCSMacExample/OCS Mac Examples.xcodeproj">
    </FileRef>
 </Workspace>
