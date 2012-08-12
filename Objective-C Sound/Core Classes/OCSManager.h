@@ -11,6 +11,7 @@
 #import "OCSOrchestra.h"
 #import "OCSNoteProperty.h"
 #import "OCSEvent.h"
+#import "OCSMidi.h"
 #import "OCSSequence.h"
 
 /** The OCSManager is a singleton class available to all controller that need
@@ -44,5 +45,11 @@
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk
 + (NSString *)stringFromFile:(NSString *)filename;
+
+/// Enable MIDI
+- (void)enableMidi;
+
+/// Disable MIDI
+- (void)disableMidi;
 
 @end
