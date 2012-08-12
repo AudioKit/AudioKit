@@ -8,13 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OCSMidi : NSObject
+
+@protocol OCSMidiListener <NSObject>
+
+-(void)noteOn:(int)note velocity:(int)velocity;
+-(void)noteOff:(int)note velocity:(int)velocity;
+-(void)controller:(int)controller changedToValue:(int)value;
+
+@end
+
+
+@interface OCSMidi : NSObject {
+    NSMutableSet *listeners;
+}
+@property (nonatomic, strong) NSMutableArray *listeners;
+
+-(void)addListener:(id<OCSMidiListener>)listener;
 
 /// Create midi client and connect to all available midi input sources.
 - (void)openMidiIn;
 
 /// Dispose of midi client.
 - (void)closeMidiIn;
-
 
 @end

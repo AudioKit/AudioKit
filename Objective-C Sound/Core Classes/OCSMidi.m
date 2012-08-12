@@ -37,15 +37,29 @@ static void CheckError(OSStatus error, const char *operation)
 {
     NSLog(@"Initializing Midi");
     if(self = [super init]) {
+        listeners = [[NSMutableSet alloc] init];
     }
     return self;
+}
+
+-(void)addListener:(id<OCSMidiListener>)listener {
+    NSLog(@"Adding listener");
+    [listeners addObject:listener];
+    NSLog(@"listeners %i", [listeners count]);
 }
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
 	printf("MIDI Notify, messageId=%ld,", message->messageID);
 }
 
-static void	MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon) {
+- (void)broadcastNoteOn:(int)note velocity:(int)velocity {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener noteOn:note velocity:velocity];
+    }
+}
+
+void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon) {
+    OCSMidi *m = (__bridge OCSMidi *)refCon;
     
 	MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
 	for (int i=0; i < pktlist->numPackets; i++) {
@@ -57,23 +71,27 @@ static void	MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
 			Byte note = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
 			printf("midiCommand=%d. Note=%d, Velocity=%d\n", midiCommand, note, velocity);
+            [m broadcastNoteOn:(int)note velocity:(int)velocity];
+
 		}
 		packet = MIDIPacketNext(packet);
 	}
 }
 
+
+
 - (void)openMidiIn
 {
     NSLog(@"Opening Midi In");
-    CheckError (MIDIClientCreate(CFSTR("Core MIDI to System Sounds Demo"), MyMIDINotifyProc, NULL, &client),
+    CheckError (MIDIClientCreate(CFSTR("Core MIDI to System Sounds Demo"), MyMIDINotifyProc, (__bridge void *)(self), &client),
 				"Couldn't create MIDI client");
 	
 	MIDIPortRef inPort;
-	CheckError (MIDIInputPortCreate(client, CFSTR("Input port"), MyMIDIReadProc, NULL, &inPort),
+	CheckError (MIDIInputPortCreate(client, CFSTR("Input port"), MyMIDIReadProc, (__bridge void *)(self), &inPort),
 				"Couldn't create MIDI input port");
 	
 	unsigned long sourceCount = MIDIGetNumberOfSources();
-	printf ("%ld sources\n", sourceCount);
+    NSLog(@"%ld sources\n", sourceCount);
 	for (int i = 0; i < sourceCount; ++i) {
 		MIDIEndpointRef src = MIDIGetSource(i);
 		CFStringRef endpointName = NULL;
@@ -81,7 +99,7 @@ static void	MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
 				   "Couldn't get endpoint name");
 		char endpointNameC[255];
 		CFStringGetCString(endpointName, endpointNameC, 255, kCFStringEncodingUTF8);
-		printf("  source %d: %s\n", i, endpointNameC);
+		NSLog(@"source %d: %s\n", i, endpointNameC);
 		CheckError (MIDIPortConnectSource(inPort, src, NULL),
 					"Couldn't connect MIDI port");
 	}

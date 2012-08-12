@@ -22,6 +22,7 @@
 @implementation OCSManager
 
 @synthesize isRunning;
+@synthesize midi;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Singleton Setup
