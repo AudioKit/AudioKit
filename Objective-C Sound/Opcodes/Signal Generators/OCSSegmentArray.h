@@ -12,10 +12,7 @@
  Trace a series of line segments between specified points. The transition
  between these points can either be linear, by default, or exponential,
  by sending invoking the useExponentialSegments method.
- 
- http://www.csounds.com/manual/html/linsegr.html
- 
- http://www.csounds.com/manual/html/expsegr.html
+
  */
 
 @interface OCSSegmentArray : OCSOpcode 

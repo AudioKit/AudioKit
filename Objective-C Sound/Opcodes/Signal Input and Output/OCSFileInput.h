@@ -9,10 +9,6 @@
 #import "OCSOpcode.h"
 
 /** Reads stereo audio data from a file.
- 
- AOP Not complete.
- 
- http://www.csounds.com/manual/html/diskin2.html
  */
 
 @interface OCSFileInput : OCSOpcode

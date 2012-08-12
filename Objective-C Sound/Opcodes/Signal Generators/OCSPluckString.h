@@ -10,11 +10,10 @@
 
 /** Produces a naturally decaying string sound based on the Karplus-Strong algorithms.
 
- An internal audio buffer,, is continually resampled at the Resampling Frequency and the resulting output is multiplied by the amplitude. Parallel with the sampling, the buffer is smoothed to simulate the effect of natural decay.
- 
- This is an implementation of the string portion of "pluck"
- http://www.csounds.com/manual/html/pluck.html
- 
+ An internal audio buffer,, is continually resampled at the Resampling Frequency and 
+ the resulting output is multiplied by the amplitude. Parallel with the sampling, the 
+ buffer is smoothed to simulate the effect of natural decay.
+
  */
 
 @interface OCSPluckString : OCSOpcode
