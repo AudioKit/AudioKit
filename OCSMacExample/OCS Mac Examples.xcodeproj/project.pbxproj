@@ -236,8 +236,6 @@
 		C42DF46A15D65D40001E7DB1 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		C42DF46B15D65D40001E7DB1 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		C42DF46E15D66CFB001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
-		C42DF57315D6EA5F001E7DB1 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcsound.a; path = "../Csound-iOS/libs/libcsound.a"; sourceTree = "<group>"; };
-		C42DF57515D6EA6A001E7DB1 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = "../Csound-iOS/libs/libsndfile.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,8 +259,6 @@
 		C400AD8C15D3C9570020C794 = {
 			isa = PBXGroup;
 			children = (
-				C42DF57515D6EA6A001E7DB1 /* libsndfile.a */,
-				C42DF57315D6EA5F001E7DB1 /* libcsound.a */,
 				C400AEB815D3CC670020C794 /* Objective-C Sound */,
 				C400AE7815D3CBB20020C794 /* Csound-OSX */,
 				C400ADA115D3C9570020C794 /* OCSMacExample */,
