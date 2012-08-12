@@ -30,9 +30,12 @@ typedef enum {
 
 @synthesize properties;
 @synthesize noteProperties;
-
 @synthesize userDefinedOpcodes;
 @synthesize fTables;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
 
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
@@ -58,6 +61,10 @@ static int currentID = 1;
     return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Properties
+// -----------------------------------------------------------------------------
+
 - (void)addProperty:(OCSProperty *)newProperty 
 {
     [properties addObject:newProperty];
@@ -70,6 +77,10 @@ static int currentID = 1;
     [noteProperties addObject:newNoteProperty];
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - F Tables
+// -----------------------------------------------------------------------------
+
 - (void)addFTable:(OCSFTable *)newFTable {
     [fTables addObject:newFTable];
 }
@@ -78,6 +89,10 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:[newFTable stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Opcodes
+// -----------------------------------------------------------------------------
 
 - (void)addOpcode:(OCSOpcode *)newOpcode {
     [innerCSDRepresentation appendString:[newOpcode stringForCSD]];
@@ -105,11 +120,17 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:[NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
 }
 
-- (void)joinOrchestra:(OCSOrchestra *)orchestraToJoin {
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound Implementation
+// -----------------------------------------------------------------------------
+
+- (void)joinOrchestra:(OCSOrchestra *)orchestraToJoin
+{
     orchestra = orchestraToJoin;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)stringForCSD
+{
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
     if ([properties count] + [noteProperties count] > 0 ) {
@@ -144,13 +165,5 @@ static int currentID = 1;
                                              afterDuration:playDuration];
     [noteOff trigger];
 }
-
-
-
-
-
-
-
-
 
 @end

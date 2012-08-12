@@ -26,6 +26,10 @@
 @synthesize instruments;
 @synthesize numberOfChannels;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -39,6 +43,10 @@
     return self; 
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Collections
+// -----------------------------------------------------------------------------
+
 - (void)addInstrument:(OCSInstrument *)newInstrument {
     [instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];
@@ -47,6 +55,10 @@
 - (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
     [udos addObject:newUserDefinedOpcode];
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound Implementation
+// -----------------------------------------------------------------------------
 
 - (NSString *) stringForCSD {
  

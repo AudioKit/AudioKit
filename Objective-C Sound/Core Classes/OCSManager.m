@@ -22,8 +22,12 @@
 
 @synthesize isRunning;
 
-static OCSManager *_sharedOCSManager = nil;
+// -----------------------------------------------------------------------------
+#  pragma mark - Singleton Setup
+// -----------------------------------------------------------------------------
 
+
+static OCSManager *_sharedOCSManager = nil;
 
 + (OCSManager *)sharedOCSManager
 {
@@ -78,6 +82,10 @@ static OCSManager *_sharedOCSManager = nil;
     }
     return self;
 }   
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Handling CSD Files
+// -----------------------------------------------------------------------------
 
 - (void)runCSDFile:(NSString *)filename 
 {
@@ -135,6 +143,10 @@ static OCSManager *_sharedOCSManager = nil;
     } 
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound control
+// -----------------------------------------------------------------------------
+
 - (void)stop 
 {
     NSLog(@"Stopping Csound");
@@ -163,7 +175,10 @@ static OCSManager *_sharedOCSManager = nil;
     }
 }
 
-#pragma mark CsoundCallbacks
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound Callbacks
+// -----------------------------------------------------------------------------
+
 - (void)messageCallback:(NSValue *)infoObj
 {
 	Message info;
@@ -172,8 +187,6 @@ static OCSManager *_sharedOCSManager = nil;
 	vsnprintf(message, 1024, info.format, info.valist);
 	NSLog(@"%s", message);
 }
-
-#pragma mark CsoundObjCompletionListener
 
 - (void)csoundObjDidStart:(CsoundObj *)csoundObj {
     NSLog(@"Csound Started.");

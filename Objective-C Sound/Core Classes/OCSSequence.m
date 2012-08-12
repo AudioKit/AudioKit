@@ -21,7 +21,12 @@
 
 @implementation OCSSequence
 
-@synthesize events, times;
+@synthesize events;
+@synthesize times;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
 
 - (id) init {
     self = [super init];
@@ -57,6 +62,10 @@
     }
     [times addObject:time];
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Sequence Playback Control
+// -----------------------------------------------------------------------------
 
 - (void)play
 {

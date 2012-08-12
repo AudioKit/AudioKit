@@ -8,7 +8,7 @@ ie. Macs and iPads.
 
 ### Installation
 
-The repository includes the "Objective-C Sound.workspace" file which will 
+The repository includes the "Objective-C Sound" Xcode workspace file which will 
 open in Xcode with two example projects demonstrating building a project
 for the Mac or for the iPad or iOS Simulator.
 
@@ -21,8 +21,8 @@ The current version as of this writing is:
 
 http://sourceforge.net/projects/csound/files/csound5/csound5.17.11/csound5.17.11-OSX10.7-universal.dmg
 
-In order to install the Xcode-based documentation and Xcode quick help, you need to 
-install appdoc.  More information about this in the developer's guide doc.
+In order to install the Xcode-based documentation and Xcode quick help, you need 
+to install appdoc.  More information about this in the developer's guide doc.
 
 ### Contribute!
 
