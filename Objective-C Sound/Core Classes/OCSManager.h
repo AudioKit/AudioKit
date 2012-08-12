@@ -22,6 +22,8 @@
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
 
+@property (readonly) OCSMidi *midi;
+
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
 /// @returns the shared instance of OCSManager

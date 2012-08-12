@@ -7,7 +7,7 @@
 //
 
 #import "MidiViewController.h"
-#import "OCSManager.h"
+
 
 
 
@@ -22,6 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [[OCSManager sharedOCSManager] enableMidi];
+    [[[OCSManager sharedOCSManager] midi] addListener:self];
 }
 
 - (void)viewDidUnload
@@ -30,5 +31,16 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
+-(void)noteOn:(int)note velocity:(int)velocity {
+    NSLog(@"Note On: %i at Velocity: %i", note, velocity);
+}
+-(void)noteOff:(int)note velocity:(int)velocity{
+    NSLog(@"Note Of: %i at Velocity: %i", note, velocity);
+}
+-(void)controller:(int)controller changedToValue:(int)value {
+    NSLog(@"Controller: %i = %i", controller, value);
+}
+
 
 @end
