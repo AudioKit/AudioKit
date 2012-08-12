@@ -7,8 +7,9 @@
 //
 
 #import "MidiViewController.h"
+#import "OCSManager.h"
 
-#import <CoreMIDI/CoreMIDI.h>
+
 
 @interface MidiViewController ()
 
@@ -20,8 +21,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    
+    [[OCSManager sharedOCSManager] enableMidi];
 }
 
 - (void)viewDidUnload

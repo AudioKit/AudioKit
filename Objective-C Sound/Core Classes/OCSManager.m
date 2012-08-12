@@ -15,6 +15,7 @@
     NSString *templateString;
     
     CsoundObj *csound;
+    OCSMidi *midi;
 }
 @end
 
@@ -79,6 +80,7 @@ static OCSManager *_sharedOCSManager = nil;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
+        midi = [[OCSMidi alloc] init];
     }
     return self;
 }   
@@ -142,6 +144,21 @@ static OCSManager *_sharedOCSManager = nil;
         [NSThread sleepForTimeInterval:0.01];
     } 
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark OCSMidi
+// -----------------------------------------------------------------------------
+
+- (void)enableMidi
+{
+    [midi openMidiIn];
+}
+
+- (void)disableMidi
+{
+    [midi closeMidiIn];
+}
+
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound control
