@@ -1,15 +1,27 @@
 Objective-C Sound
 =================
 
-Obective-C Sound (OCS for short, pronounced "ox"), is an Objective-C wrapper
-for Csound and works on OS X computers and iOS devices. 
+Obective-C Sound (OCS for short, pronounced "ox"), is an Objective-C API 
+for sound design applications ranging from sound synthesis, real time effects
+processing, and audio analysis.  It works on all OSX and iOS based devices, 
+ie. Macs and iPads.
 
 ### Installation
 
-The repository includes the ExampleProject which you should be able to open
-with Xcode and run on your iPad or the iOS simulator.
+The repository includes the "Objective-C Sound.workspace" file which will 
+open in Xcode with two example projects demonstrating building a project
+for the Mac or for the iPad or iOS Simulator.
 
-In order to install the documentation and Xcode quick help, you need to 
+The Mac version requires installation of CsoundLib64 which can be installed
+using the universal installer available at
+
+http://sourceforge.net/projects/csound/files/csound5/
+
+The current version as of this writing is:
+
+http://sourceforge.net/projects/csound/files/csound5/csound5.17.11/csound5.17.11-OSX10.7-universal.dmg
+
+In order to install the Xcode-based documentation and Xcode quick help, you need to 
 install appdoc.  More information about this in the developer's guide doc.
 
 ### Contribute!
