@@ -11,8 +11,8 @@
 
 /** Generate an f-Signal from a mono audio source using phase vocoder overlap-add synthesis.
  
- TODO: Make each of the inputs a property.
- TODO: Add support for format and init optional variables.
+ TODO Make each of the inputs a property.
+ TODO Add support for format and init optional variables.
  */
 
 typedef enum

@@ -24,6 +24,7 @@
 #import "ConvolutionViewController.h"
 #import "SequenceViewController.h"
 #import "HarmonizerViewController.h"
+#import "MidiViewController.h"
 
 
 @interface MasterViewController () {
@@ -58,6 +59,7 @@
                     @"User Defined Opcodes",
                     @"Convolution",
                     @"Harmonizer",
+                    @"MIDI",
                     nil];
     return self;
 }
@@ -193,6 +195,9 @@
             break;
         case 12:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
+            break;
+        case 13:
+            controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
             break;
         default:
             break;

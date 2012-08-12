@@ -20,13 +20,16 @@
 }
 @end
 
-
-
 @implementation OCSEvent
+
 @synthesize eventNumber;
 @synthesize instrument = instr;
 @synthesize notePropertyValues;
 @synthesize properties;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
 
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
@@ -45,6 +48,11 @@ static int currentID = 1;
     }
     return self;
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Instrument Based Events
+// -----------------------------------------------------------------------------
+
 - (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
 {
     self = [self init];
@@ -67,6 +75,10 @@ static int currentID = 1;
 {
     return [self initWithInstrument:instrument duration:-1];
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Event Based Events
+// -----------------------------------------------------------------------------
 
 - (id)initWithEvent:(OCSEvent *)event 
 {
@@ -97,6 +109,10 @@ static int currentID = 1;
     return self;
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Property Based Events
+// -----------------------------------------------------------------------------
+
 - (id)initWithInstrumentProperty:(OCSInstrumentProperty *)property
                            value:(float)value;
 {
@@ -112,8 +128,6 @@ static int currentID = 1;
 {
     NSUInteger index = [[instr noteProperties] indexOfObject:property];
     [notePropertyValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
-    //    [properties addObject:property];
-    //    [propertyValues addObject:[NSNumber numberWithFloat:value]];
 }
 
 - (void)setInstrumentProperty:(OCSInstrumentProperty *)property 
@@ -121,11 +135,6 @@ static int currentID = 1;
 {
     [properties addObject:property];
     [propertyValues addObject:[NSNumber numberWithFloat:value]];
-}
-
-- (void)trigger;
-{
-    [[OCSManager sharedOCSManager] triggerEvent:self];
 }
 
 - (void)setNoteProperties;
@@ -145,6 +154,14 @@ static int currentID = 1;
     }
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound Implementation
+// -----------------------------------------------------------------------------
+
+- (void)trigger;
+{
+    [[OCSManager sharedOCSManager] triggerEvent:self];
+}
 
 - (NSString *)stringForCSD;
 {

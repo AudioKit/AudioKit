@@ -65,12 +65,12 @@
 - (void)setNoteProperty:(OCSNoteProperty *)property 
                  toValue:(float)value; 
 
-/// Helper method to play the event.
-- (void)trigger;
-
 /// Iterates through all properties and trigger their value changes.
 - (void)setNoteProperties;
 - (void)setInstrumentProperties;
+
+/// Helper method to play the event.
+- (void)trigger;
 
 /// Provides the scoreline to the CSD File.
 - (NSString *)stringForCSD;

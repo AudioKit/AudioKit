@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C42DF46115D65BF3001E7DB1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */; };
 		C42DF47215D66D11001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF47115D66D11001E7DB1 /* example.csd */; };
+		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
+		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
 		C4F0783115D5F4B30084FF9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783015D5F4B30084FF9E /* Foundation.framework */; };
 		C4F0783315D5F4B30084FF9E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783215D5F4B30084FF9E /* CoreGraphics.framework */; };
@@ -139,6 +141,9 @@
 		C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C42DF46215D65C6D001E7DB1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
 		C42DF47115D66D11001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
+		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
+		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; };
+		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
 		C4F0782A15D5F4B30084FF9E /* OCS Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OCS Examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F0782E15D5F4B30084FF9E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4F0783015D5F4B30084FF9E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -419,6 +424,16 @@
 			path = "Play CSD File";
 			sourceTree = "<group>";
 		};
+		C4C8272B15D752A5009D48DA /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				C4C8272C15D752F5009D48DA /* MidiViewController.h */,
+				C4C8272D15D752F5009D48DA /* MidiViewController.m */,
+				C4C8272E15D752F5009D48DA /* MidiViewController.xib */,
+			);
+			name = MIDI;
+			sourceTree = "<group>";
+		};
 		C4F0781F15D5F4B30084FF9E = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +487,7 @@
 				C4F079E615D603160084FF9E /* UDOs */,
 				C4F079A015D603160084FF9E /* Convolution */,
 				C4F079B615D603160084FF9E /* Harmonizer */,
+				C4C8272B15D752A5009D48DA /* MIDI */,
 				C4F0783515D5F4B30084FF9E /* Supporting Files */,
 			);
 			path = "OCS iPad Examples";
@@ -1036,6 +1052,7 @@
 				C4F07A4515D605540084FF9E /* ox-icon-72.png in Resources */,
 				C4F07A4715D6055D0084FF9E /* ox-icon-144.png in Resources */,
 				C42DF47215D66D11001E7DB1 /* example.csd in Resources */,
+				C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1133,6 +1150,7 @@
 				C4F07A3815D603160084FF9E /* UnitGeneratorInstrument.m in Sources */,
 				C4F07A3A15D603160084FF9E /* UnitGeneratorsViewController.m in Sources */,
 				C42DF46115D65BF3001E7DB1 /* AudioFilePlayer.m in Sources */,
+				C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
