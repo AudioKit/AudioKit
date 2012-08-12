@@ -28,7 +28,6 @@
 #import "CachedGyroscope.h"
 #import "CachedAttitude.h"
 #import "CsoundValueCacheable.h"
-#import "CsoundMIDI.h"
 
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
@@ -47,7 +46,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 @implementation CsoundObj
 
 @synthesize outputURL;
-@synthesize midiInEnabled = mMidiInEnabled;
 @synthesize motionManager = mMotionManager;
 @synthesize useOldParser = mUseOldParser;
 
@@ -76,7 +74,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 		mCsData.shouldMute = false;
         valuesCache = [[NSMutableArray alloc] init];
         completionListeners = [[NSMutableArray alloc] init];
-        mMidiInEnabled = NO;
         self.motionManager = [[CMMotionManager alloc] init];
         mUseOldParser = NO;
     }
@@ -406,11 +403,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 	
 	csoundSetMessageCallback(cs, messageCallback);
 	csoundSetHostData(cs, self);
-    
-    if (mMidiInEnabled) {
-        [CsoundMIDI setMidiInCallbacks:cs];
-    }
-    
+        
     // Hardcoding to use old parser for time being
     char* parserFlag;
 	

@@ -18,8 +18,6 @@
 		C4F0784215D5F4B40084FF9E /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0784115D5F4B40084FF9E /* MasterViewController.m */; };
 		C4F0784815D5F4B50084FF9E /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F0784615D5F4B50084FF9E /* MasterViewController.xib */; };
 		C4F0787E15D5F4F60084FF9E /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785415D5F4F50084FF9E /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C4F0788015D5F4F60084FF9E /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785715D5F4F50084FF9E /* CsoundMIDI.m */; };
-		C4F0788215D5F4F60084FF9E /* MidiWidgetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785915D5F4F50084FF9E /* MidiWidgetsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4F0788515D5F4F60084FF9E /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785D15D5F4F50084FF9E /* BaseValueCacheable.m */; };
 		C4F0788715D5F4F60084FF9E /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785F15D5F4F50084FF9E /* CachedAccelerometer.m */; };
 		C4F0788915D5F4F60084FF9E /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0786115D5F4F50084FF9E /* CachedAttitude.m */; };
@@ -30,7 +28,6 @@
 		C4F0792015D5F50E0084FF9E /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F078A215D5F50D0084FF9E /* OCSEvent.m */; };
 		C4F0792215D5F50E0084FF9E /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F078A415D5F50D0084FF9E /* OCSInstrument.m */; };
 		C4F0792415D5F50E0084FF9E /* OCSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F078A615D5F50D0084FF9E /* OCSManager.m */; };
-		C4F0792615D5F50E0084FF9E /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F078A815D5F50D0084FF9E /* OCSMidi.m */; };
 		C4F0792815D5F50E0084FF9E /* OCSOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F078AA15D5F50D0084FF9E /* OCSOrchestra.m */; };
 		C4F0792A15D5F50E0084FF9E /* OCSSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F078AC15D5F50D0084FF9E /* OCSSequence.m */; };
 		C4F0792B15D5F50E0084FF9E /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4F078AE15D5F50D0084FF9E /* template.csd */; };
@@ -83,7 +80,6 @@
 		C4F0798515D5F50E0084FF9E /* OCSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791315D5F50E0084FF9E /* OCSParameter.m */; };
 		C4F0798715D5F50E0084FF9E /* OCSParameterArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791515D5F50E0084FF9E /* OCSParameterArray.m */; };
 		C4F0798915D5F50E0084FF9E /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */; };
-		C4F0798B15D5F50E0084FF9E /* OCSMidiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791A15D5F50E0084FF9E /* OCSMidiManager.m */; };
 		C4F0798D15D5F50E0084FF9E /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791C15D5F50E0084FF9E /* OCSNoteProperty.m */; };
 		C4F0798F15D5F50E0084FF9E /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791E15D5F50E0084FF9E /* OCSProperty.m */; };
 		C4F0799315D600C40084FF9E /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F0799015D600C40084FF9E /* InitialViewController.xib */; };
@@ -108,9 +104,6 @@
 		C4F07A0B15D603160084FF9E /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079B815D603160084FF9E /* Harmonizer.m */; };
 		C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079BA15D603160084FF9E /* HarmonizerViewController.m */; };
 		C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */; };
-		C4F07A1015D603160084FF9E /* MidifiedInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079BE15D603160084FF9E /* MidifiedInstrument.m */; };
-		C4F07A1215D603160084FF9E /* MidifiedInstrumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079C015D603160084FF9E /* MidifiedInstrumentViewController.m */; };
-		C4F07A1315D603160084FF9E /* MidifiedInstrumentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079C115D603160084FF9E /* MidifiedInstrumentViewController.xib */; };
 		C4F07A1815D603160084FF9E /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */; };
 		C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */; };
 		C4F07A1C15D603160084FF9E /* PlayCSDFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079CC15D603160084FF9E /* PlayCSDFileViewController.m */; };
@@ -161,11 +154,6 @@
 		C4F0784715D5F4B50084FF9E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
 		C4F0785315D5F4F50084FF9E /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4F0785415D5F4F50084FF9E /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		C4F0785615D5F4F50084FF9E /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
-		C4F0785715D5F4F50084FF9E /* CsoundMIDI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundMIDI.m; sourceTree = "<group>"; };
-		C4F0785815D5F4F50084FF9E /* MidiWidgetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MidiWidgetsManager.h; sourceTree = "<group>"; };
-		C4F0785915D5F4F50084FF9E /* MidiWidgetsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiWidgetsManager.m; sourceTree = "<group>"; };
-		C4F0785A15D5F4F50084FF9E /* MidiWidgetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MidiWidgetWrapper.h; sourceTree = "<group>"; };
 		C4F0785C15D5F4F50084FF9E /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
 		C4F0785D15D5F4F50084FF9E /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
 		C4F0785E15D5F4F50084FF9E /* CachedAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CachedAccelerometer.h; sourceTree = "<group>"; };
@@ -203,8 +191,6 @@
 		C4F078A415D5F50D0084FF9E /* OCSInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSInstrument.m; sourceTree = "<group>"; };
 		C4F078A515D5F50D0084FF9E /* OCSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSManager.h; sourceTree = "<group>"; };
 		C4F078A615D5F50D0084FF9E /* OCSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSManager.m; sourceTree = "<group>"; };
-		C4F078A715D5F50D0084FF9E /* OCSMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSMidi.h; sourceTree = "<group>"; };
-		C4F078A815D5F50D0084FF9E /* OCSMidi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMidi.m; sourceTree = "<group>"; };
 		C4F078A915D5F50D0084FF9E /* OCSOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSOrchestra.h; sourceTree = "<group>"; };
 		C4F078AA15D5F50D0084FF9E /* OCSOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSOrchestra.m; sourceTree = "<group>"; };
 		C4F078AB15D5F50D0084FF9E /* OCSSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSequence.h; sourceTree = "<group>"; };
@@ -304,8 +290,6 @@
 		C4F0791515D5F50E0084FF9E /* OCSParameterArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameterArray.m; sourceTree = "<group>"; };
 		C4F0791715D5F50E0084FF9E /* OCSInstrumentProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSInstrumentProperty.h; sourceTree = "<group>"; };
 		C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSInstrumentProperty.m; sourceTree = "<group>"; };
-		C4F0791915D5F50E0084FF9E /* OCSMidiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSMidiManager.h; sourceTree = "<group>"; };
-		C4F0791A15D5F50E0084FF9E /* OCSMidiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMidiManager.m; sourceTree = "<group>"; };
 		C4F0791B15D5F50E0084FF9E /* OCSNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSNoteProperty.h; sourceTree = "<group>"; };
 		C4F0791C15D5F50E0084FF9E /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C4F0791D15D5F50E0084FF9E /* OCSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSProperty.h; sourceTree = "<group>"; };
@@ -344,11 +328,6 @@
 		C4F079B915D603160084FF9E /* HarmonizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = HarmonizerViewController.h; sourceTree = "<group>"; };
 		C4F079BA15D603160084FF9E /* HarmonizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarmonizerViewController.m; sourceTree = "<group>"; };
 		C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarmonizerViewController.xib; sourceTree = "<group>"; };
-		C4F079BD15D603160084FF9E /* MidifiedInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MidifiedInstrument.h; sourceTree = "<group>"; };
-		C4F079BE15D603160084FF9E /* MidifiedInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidifiedInstrument.m; sourceTree = "<group>"; };
-		C4F079BF15D603160084FF9E /* MidifiedInstrumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = MidifiedInstrumentViewController.h; sourceTree = "<group>"; };
-		C4F079C015D603160084FF9E /* MidifiedInstrumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidifiedInstrumentViewController.m; sourceTree = "<group>"; };
-		C4F079C115D603160084FF9E /* MidifiedInstrumentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidifiedInstrumentViewController.xib; sourceTree = "<group>"; };
 		C4F079C615D603160084FF9E /* PlayAudioFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = PlayAudioFileViewController.h; sourceTree = "<group>"; };
 		C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayAudioFileViewController.m; sourceTree = "<group>"; };
 		C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayAudioFileViewController.xib; sourceTree = "<group>"; };
@@ -492,7 +471,6 @@
 				C4F079D615D603160084FF9E /* Sequences */,
 				C4F079E615D603160084FF9E /* UDOs */,
 				C4F079A015D603160084FF9E /* Convolution */,
-				C4F079BC15D603160084FF9E /* Midi */,
 				C4F079B615D603160084FF9E /* Harmonizer */,
 				C4F0783515D5F4B30084FF9E /* Supporting Files */,
 			);
@@ -535,22 +513,9 @@
 			children = (
 				C4F0785315D5F4F50084FF9E /* CsoundObj.h */,
 				C4F0785415D5F4F50084FF9E /* CsoundObj.m */,
-				C4F0785515D5F4F50084FF9E /* midi */,
 				C4F0785B15D5F4F50084FF9E /* valueCacheable */,
 			);
 			path = classes;
-			sourceTree = "<group>";
-		};
-		C4F0785515D5F4F50084FF9E /* midi */ = {
-			isa = PBXGroup;
-			children = (
-				C4F0785615D5F4F50084FF9E /* CsoundMIDI.h */,
-				C4F0785715D5F4F50084FF9E /* CsoundMIDI.m */,
-				C4F0785815D5F4F50084FF9E /* MidiWidgetsManager.h */,
-				C4F0785915D5F4F50084FF9E /* MidiWidgetsManager.m */,
-				C4F0785A15D5F4F50084FF9E /* MidiWidgetWrapper.h */,
-			);
-			path = midi;
 			sourceTree = "<group>";
 		};
 		C4F0785B15D5F4F50084FF9E /* valueCacheable */ = {
@@ -628,8 +593,6 @@
 				C4F078A415D5F50D0084FF9E /* OCSInstrument.m */,
 				C4F078A515D5F50D0084FF9E /* OCSManager.h */,
 				C4F078A615D5F50D0084FF9E /* OCSManager.m */,
-				C4F078A715D5F50D0084FF9E /* OCSMidi.h */,
-				C4F078A815D5F50D0084FF9E /* OCSMidi.m */,
 				C4F078A915D5F50D0084FF9E /* OCSOrchestra.h */,
 				C4F078AA15D5F50D0084FF9E /* OCSOrchestra.m */,
 				C4F078AB15D5F50D0084FF9E /* OCSSequence.h */,
@@ -828,8 +791,6 @@
 			children = (
 				C4F0791715D5F50E0084FF9E /* OCSInstrumentProperty.h */,
 				C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */,
-				C4F0791915D5F50E0084FF9E /* OCSMidiManager.h */,
-				C4F0791A15D5F50E0084FF9E /* OCSMidiManager.m */,
 				C4F0791B15D5F50E0084FF9E /* OCSNoteProperty.h */,
 				C4F0791C15D5F50E0084FF9E /* OCSNoteProperty.m */,
 				C4F0791D15D5F50E0084FF9E /* OCSProperty.h */,
@@ -900,18 +861,6 @@
 				C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */,
 			);
 			path = Harmonizer;
-			sourceTree = "<group>";
-		};
-		C4F079BC15D603160084FF9E /* Midi */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079BD15D603160084FF9E /* MidifiedInstrument.h */,
-				C4F079BE15D603160084FF9E /* MidifiedInstrument.m */,
-				C4F079BF15D603160084FF9E /* MidifiedInstrumentViewController.h */,
-				C4F079C015D603160084FF9E /* MidifiedInstrumentViewController.m */,
-				C4F079C115D603160084FF9E /* MidifiedInstrumentViewController.xib */,
-			);
-			path = Midi;
 			sourceTree = "<group>";
 		};
 		C4F079C215D603160084FF9E /* Play Audio File */ = {
@@ -1076,7 +1025,6 @@
 				C4F07A0415D603160084FF9E /* beats.wav in Resources */,
 				C4F07A0715D603160084FF9E /* GrainViewController.xib in Resources */,
 				C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */,
-				C4F07A1315D603160084FF9E /* MidifiedInstrumentViewController.xib in Resources */,
 				C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */,
 				C4F07A1D15D603160084FF9E /* PlayCSDFileViewController.xib in Resources */,
 				C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */,
@@ -1102,8 +1050,6 @@
 				C4F0783F15D5F4B40084FF9E /* AppDelegate.m in Sources */,
 				C4F0784215D5F4B40084FF9E /* MasterViewController.m in Sources */,
 				C4F0787E15D5F4F60084FF9E /* CsoundObj.m in Sources */,
-				C4F0788015D5F4F60084FF9E /* CsoundMIDI.m in Sources */,
-				C4F0788215D5F4F60084FF9E /* MidiWidgetsManager.m in Sources */,
 				C4F0788515D5F4F60084FF9E /* BaseValueCacheable.m in Sources */,
 				C4F0788715D5F4F60084FF9E /* CachedAccelerometer.m in Sources */,
 				C4F0788915D5F4F60084FF9E /* CachedAttitude.m in Sources */,
@@ -1111,7 +1057,6 @@
 				C4F0792015D5F50E0084FF9E /* OCSEvent.m in Sources */,
 				C4F0792215D5F50E0084FF9E /* OCSInstrument.m in Sources */,
 				C4F0792415D5F50E0084FF9E /* OCSManager.m in Sources */,
-				C4F0792615D5F50E0084FF9E /* OCSMidi.m in Sources */,
 				C4F0792815D5F50E0084FF9E /* OCSOrchestra.m in Sources */,
 				C4F0792A15D5F50E0084FF9E /* OCSSequence.m in Sources */,
 				C4F0792E15D5F50E0084FF9E /* OCSArrayTable.m in Sources */,
@@ -1159,7 +1104,6 @@
 				C4F0798515D5F50E0084FF9E /* OCSParameter.m in Sources */,
 				C4F0798715D5F50E0084FF9E /* OCSParameterArray.m in Sources */,
 				C4F0798915D5F50E0084FF9E /* OCSInstrumentProperty.m in Sources */,
-				C4F0798B15D5F50E0084FF9E /* OCSMidiManager.m in Sources */,
 				C4F0798D15D5F50E0084FF9E /* OCSNoteProperty.m in Sources */,
 				C4F0798F15D5F50E0084FF9E /* OCSProperty.m in Sources */,
 				C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */,
@@ -1174,8 +1118,6 @@
 				C4F07A0915D603160084FF9E /* SimpleGrainInstrument.m in Sources */,
 				C4F07A0B15D603160084FF9E /* Harmonizer.m in Sources */,
 				C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */,
-				C4F07A1015D603160084FF9E /* MidifiedInstrument.m in Sources */,
-				C4F07A1215D603160084FF9E /* MidifiedInstrumentViewController.m in Sources */,
 				C4F07A1815D603160084FF9E /* PlayAudioFileViewController.m in Sources */,
 				C4F07A1C15D603160084FF9E /* PlayCSDFileViewController.m in Sources */,
 				C4F07A1F15D603160084FF9E /* EffectsProcessor.m in Sources */,

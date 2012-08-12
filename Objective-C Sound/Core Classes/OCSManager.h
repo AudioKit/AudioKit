@@ -9,7 +9,6 @@
 #import "CsoundObj.h"
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
-#import "OCSMidi.h"
 #import "OCSNoteProperty.h"
 #import "OCSEvent.h"
 #import "OCSSequence.h"
@@ -21,9 +20,6 @@
 
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
-
-/// Determines whether MIDI is enabled
-@property (readonly) BOOL isMidiEnabled;
 
 //@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
@@ -49,9 +45,4 @@
 /// @param filename Full path of file on disk
 + (NSString *)stringFromFile:(NSString *)filename;
 
-/// Enable/disable Midi in Csound.
-- (void)enableMidi;
-
-/// Panic function sends all notes off to csound.
--(void)panic;
 @end

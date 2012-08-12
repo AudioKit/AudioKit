@@ -66,7 +66,6 @@ typedef struct {
     NSMutableArray* valuesCache;
     NSMutableArray* completionListeners;
     csdata mCsData;
-    BOOL mMidiInEnabled;
     CMMotionManager* mMotionManager;
 	NSURL *outputURL;
 	SEL mMessageCallback;
@@ -75,7 +74,6 @@ typedef struct {
 }
 
 @property (nonatomic, retain) NSURL *outputURL;
-@property (assign) BOOL midiInEnabled;
 @property (nonatomic, retain) CMMotionManager* motionManager;
 @property (assign) BOOL useOldParser;
 

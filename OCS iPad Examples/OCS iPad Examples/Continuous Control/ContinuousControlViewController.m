@@ -43,7 +43,6 @@
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
     repeatingSliderTimer = nil;
-    //[[myTweakableInstrument myPropertyManager] closeMidiIn];
 }
 
 
