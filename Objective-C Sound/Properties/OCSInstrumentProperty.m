@@ -10,21 +10,12 @@
 
 @implementation OCSInstrumentProperty
 
-@synthesize isMidiEnabled;
-@synthesize midiController;
-
 - (NSString *)stringForCSDGetValue {
     return [NSString stringWithFormat:@"%@ chnget \"%@Property\"\n",  output, output];
 }
 
 - (NSString *)stringForCSDSetValue {
     return [NSString stringWithFormat:@"chnset %@, \"%@Property\"\n", output, output];
-}
-
--(void)enableMidiForControllerNumber:(int)controllerNumber
-{
-    isMidiEnabled = YES;
-    midiController = controllerNumber;
 }
 
 - (void)setValue:(Float32)value {

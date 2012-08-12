@@ -22,7 +22,6 @@
 #import "GrainViewController.h"
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
-#import "MidifiedInstrumentViewController.h"
 #import "SequenceViewController.h"
 #import "HarmonizerViewController.h"
 
@@ -58,7 +57,6 @@
                     @"Sequences",
                     @"User Defined Opcodes",
                     @"Convolution",
-                    @"MIDI",
                     @"Harmonizer",
                     nil];
     return self;
@@ -194,9 +192,6 @@
             controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
             break;
         case 12:
-            controller = [[MidifiedInstrumentViewController alloc] initWithNibName:@"MidifiedInstrumentViewController" bundle:nil];
-            break;
-        case 13:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
             break;
         default:
