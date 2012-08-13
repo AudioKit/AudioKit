@@ -33,12 +33,15 @@
 - (void)midiNoteOn:(int)note velocity:(int)velocity {
     NSLog(@"Note On: %i at Velocity: %i", note, velocity);
 }
-- (void)midiNoteOff:(int)note velocity:(int)velocity{
+
+- (void)midiNoteOff:(int)note velocity:(int)velocity {
     NSLog(@"Note Off: %i at Velocity: %i", note, velocity);
 }
+
 - (void)midiAftertouchOnNote:(int)note pressure:(int)pressure {
     NSLog(@"Aftertouch: %i at Velocity: %i", note, pressure);
 }
+
 - (void)midiController:(int)controller changedToValue:(int)value {
     NSLog(@"Controller: %i = %i", controller, value);
 }

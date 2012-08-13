@@ -154,17 +154,20 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 			Byte value2 = packet->data[2] & 0x7F;
             [m broadcastPitchWheel:128*value2+value1];
             
-        } else { // Other
-            Byte value1 = packet->data[1] & 0x7F;
-			Byte value2 = packet->data[2] & 0x7F;
-			printf("midiCommand=%d. Value1=%d, Value2=%d\n", midiCommand, value1, value2);
+        } else { // Other            
+            int b[10];
+            for (int i=0; i<=9; i++) {
+                b[i] = (packet->length > i) ? packet->data[i] : 0;
+            }
+            NSLog(@"Unparsed MIDI: %i %i %i %i %i %i %i %i %i %i", b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
+
         }
 		packet = MIDIPacketNext(packet);
 	}
 }
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
-	printf("MIDI Notify, messageId=%d,", message->messageID);
+	printf("MIDI Notify, messageId=%ld,", message->messageID);
 }
 
 - (void)openMidiIn
