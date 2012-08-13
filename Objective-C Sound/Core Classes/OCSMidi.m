@@ -9,6 +9,8 @@
 #import "OCSMidi.h"
 #import <CoreMIDI/CoreMIDI.h>
 
+#pragma mark  Utility Function
+
 static void CheckError(OSStatus error, const char *operation)
 {
     if (error == noErr) return;
@@ -33,6 +35,10 @@ static void CheckError(OSStatus error, const char *operation)
 
 @implementation OCSMidi
 
+@synthesize listeners;
+
+#pragma mark - Initialization
+
 -(id)init
 {
     NSLog(@"Initializing Midi");
@@ -48,27 +54,69 @@ static void CheckError(OSStatus error, const char *operation)
     NSLog(@"listeners %i", [listeners count]);
 }
 
-void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
-	printf("MIDI Notify, messageId=%ld,", message->messageID);
-}
+
+
+#pragma mark - Broadcast MIDI Events
 
 - (void)broadcastNoteOn:(int)note velocity:(int)velocity {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener noteOn:note velocity:velocity];
+        [listener midiNoteOn:note velocity:velocity];
     }
 }
 
 - (void)broadcastNoteOff:(int)note velocity:(int)velocity {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener noteOff:note velocity:velocity];
+        [listener midiNoteOff:note velocity:velocity];
+    }
+}
+
+- (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener midiAftertouchOnNote:note pressure:pressure];
     }
 }
 
 - (void)broadcastChangeController:(int)controller toValue:(int)value {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener controller:controller changedToValue:value];
+        [listener midiController:controller changedToValue:value];
+        switch (controller) {
+            case 1:
+                [listener midiModulation:value];
+                break;
+            case 5:
+                [listener midiPortamento:value];
+                break;
+            case 7:
+                [listener midiVolume:value];
+                break;
+            case 8:
+                [listener midiBalance:value];
+                break;
+            case 10:
+                [listener midiPan:value];
+                break;
+            case 11:
+                [listener midiExpression:value];
+                break;
+            default:
+                break;
+        }
     }
 }
+
+- (void)broadcastAftertouch:(int)pressure {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener midiAftertouch:pressure];
+    }
+}
+
+- (void)broadcastPitchWheel:(int)pitchWheelValue {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener midiPitchWheel:pitchWheelValue];
+    }
+}
+
+#pragma mark - Low Level MIDI Handlining
 
 void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon) {
     OCSMidi *m = (__bridge OCSMidi *)refCon;
@@ -77,39 +125,48 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 	for (int i=0; i < pktlist->numPackets; i++) {
 		Byte midiStatus = packet->data[0];
 		Byte midiCommand = midiStatus >> 4;
-        
-        
-        //Control Change
-        if (midiCommand == 0x11) {
-			Byte controller = packet->data[1] & 0x7F;
-			Byte value = packet->data[2] & 0x7F;
-			printf("midiCommand=%d. Controller=%d, Value=%d\n", midiCommand, controller, value);
-            [m broadcastChangeController:(int)controller toValue:(int)value];
-            
-		}
-        
-		// Note On
-		if (midiCommand == 0x09) {
-			Byte note = packet->data[1] & 0x7F;
+		
+		if (midiCommand == 8) { // Note Off
+			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
-			printf("midiCommand=%d. Note=%d, Velocity=%d\n", midiCommand, note, velocity);
-            [m broadcastNoteOn:(int)note velocity:(int)velocity];
-
-		}
-        
-        // Note Off
-        if (midiCommand == 0x08) {
-			Byte note = packet->data[1] & 0x7F;
-			Byte velocity = packet->data[2] & 0x7F;
-			printf("midiCommand=%d. Note=%d, Velocity=%d\n", midiCommand, note, velocity);
             [m broadcastNoteOff:(int)note velocity:(int)velocity];
             
-		}
+		} else if (midiCommand == 9) { // Note On
+			Byte note     = packet->data[1] & 0x7F;
+			Byte velocity = packet->data[2] & 0x7F;
+            [m broadcastNoteOn:(int)note velocity:(int)velocity];
+            
+		} else if (midiCommand == 10) { // Polyphonic After-touch
+			Byte note     = packet->data[1] & 0x7F;
+			Byte pressure = packet->data[2] & 0x7F;
+            [m broadcastAftertouchOnNote:(int)note pressure:(int)pressure];
+            
+		} else if (midiCommand == 11) { // Controller Change
+			Byte controller = packet->data[1] & 0x7F;
+			Byte value      = packet->data[2] & 0x7F;
+            [m broadcastChangeController:(int)controller toValue:(int)value];
+            
+        } else if (midiCommand == 13) { // Global After-touch
+			Byte pressure = packet->data[2] & 0x7F;
+            [m broadcastAftertouch:(int)pressure];
+            
+		} else if (midiCommand == 14) { // Pitch Wheel
+            Byte value1 = packet->data[1] & 0x7F;
+			Byte value2 = packet->data[2] & 0x7F;
+            [m broadcastPitchWheel:128*value2+value1];
+            
+        } else { // Other
+            Byte value1 = packet->data[1] & 0x7F;
+			Byte value2 = packet->data[2] & 0x7F;
+			printf("midiCommand=%d. Value1=%d, Value2=%d\n", midiCommand, value1, value2);
+        }
 		packet = MIDIPacketNext(packet);
 	}
 }
 
-
+void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
+	printf("MIDI Notify, messageId=%ld,", message->messageID);
+}
 
 - (void)openMidiIn
 {
