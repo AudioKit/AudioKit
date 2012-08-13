@@ -51,7 +51,6 @@ static void CheckError(OSStatus error, const char *operation)
 -(void)addListener:(id<OCSMidiListener>)listener {
     NSLog(@"Adding listener");
     [listeners addObject:listener];
-    NSLog(@"listeners %i", [listeners count]);
 }
 
 
@@ -165,7 +164,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 }
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
-	printf("MIDI Notify, messageId=%ld,", message->messageID);
+	printf("MIDI Notify, messageId=%d,", message->messageID);
 }
 
 - (void)openMidiIn

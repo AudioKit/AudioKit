@@ -71,7 +71,6 @@
 		C400AF6D15D3CC670020C794 /* OCSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AF2C15D3CC670020C794 /* OCSParameter.m */; };
 		C400AF6E15D3CC670020C794 /* OCSParameterArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AF2E15D3CC670020C794 /* OCSParameterArray.m */; };
 		C400AF6F15D3CC670020C794 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AF3115D3CC670020C794 /* OCSInstrumentProperty.m */; };
-		C400AF7015D3CC670020C794 /* OCSMidiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AF3315D3CC670020C794 /* OCSMidiManager.m */; };
 		C400AF7115D3CC670020C794 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AF3515D3CC670020C794 /* OCSNoteProperty.m */; };
 		C400AF7215D3CC670020C794 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AF3715D3CC670020C794 /* OCSProperty.m */; };
 		C400B02F15D3CCE60020C794 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B02E15D3CCE60020C794 /* CsoundLib64.framework */; };
@@ -753,7 +752,6 @@
 				C400AF6D15D3CC670020C794 /* OCSParameter.m in Sources */,
 				C400AF6E15D3CC670020C794 /* OCSParameterArray.m in Sources */,
 				C400AF6F15D3CC670020C794 /* OCSInstrumentProperty.m in Sources */,
-				C400AF7015D3CC670020C794 /* OCSMidiManager.m in Sources */,
 				C400AF7115D3CC670020C794 /* OCSNoteProperty.m in Sources */,
 				C400AF7215D3CC670020C794 /* OCSProperty.m in Sources */,
 				C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */,

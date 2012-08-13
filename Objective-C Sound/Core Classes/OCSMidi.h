@@ -11,6 +11,9 @@
 
 @protocol OCSMidiListener <NSObject>
 
+//Nothing is required, use what you need
+@optional
+
 // Basic MIDI
 - (void)midiNoteOn:(int)note velocity:(int)velocity;
 - (void)midiNoteOff:(int)note velocity:(int)velocity;
