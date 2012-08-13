@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "OCSManager.h"
 
-@interface MidiViewController : UIViewController<OCSMidiListener>
+@interface MidiViewController : UIViewController
 
 @end

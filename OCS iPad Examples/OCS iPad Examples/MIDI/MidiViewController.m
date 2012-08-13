@@ -9,9 +9,7 @@
 #import "MidiViewController.h"
 
 
-
-
-@interface MidiViewController ()
+@interface MidiViewController () <OCSMidiListener>
 
 @end
 
@@ -32,15 +30,29 @@
     // e.g. self.myOutlet = nil;
 }
 
--(void)noteOn:(int)note velocity:(int)velocity {
+- (void)midiNoteOn:(int)note velocity:(int)velocity {
     NSLog(@"Note On: %i at Velocity: %i", note, velocity);
 }
--(void)noteOff:(int)note velocity:(int)velocity{
+- (void)midiNoteOff:(int)note velocity:(int)velocity{
     NSLog(@"Note Off: %i at Velocity: %i", note, velocity);
 }
--(void)controller:(int)controller changedToValue:(int)value {
+- (void)midiAftertouchOnNote:(int)note pressure:(int)pressure {
+    NSLog(@"Aftertouch: %i at Velocity: %i", note, pressure);
+}
+- (void)midiController:(int)controller changedToValue:(int)value {
     NSLog(@"Controller: %i = %i", controller, value);
 }
 
+- (void)midiAftertouch:(int)pressure  {
+    NSLog(@"Aftertouch: %i", pressure);
+}
+
+-( void)midiPitchWheel:(int)pitchWheelValue {
+    NSLog(@"PitchWheel: %i", pitchWheelValue);
+}
+
+- (void)midiModulation:(int)modulation {
+    NSLog(@"Modulation: %i", modulation);
+}
 
 @end
