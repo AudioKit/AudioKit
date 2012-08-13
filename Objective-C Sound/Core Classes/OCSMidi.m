@@ -58,6 +58,18 @@ void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
     }
 }
 
+- (void)broadcastNoteOff:(int)note velocity:(int)velocity {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener noteOff:note velocity:velocity];
+    }
+}
+
+- (void)broadcastChangeController:(int)controller toValue:(int)value {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener controller:controller changedToValue:value];
+    }
+}
+
 void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon) {
     OCSMidi *m = (__bridge OCSMidi *)refCon;
     
@@ -65,14 +77,33 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 	for (int i=0; i < pktlist->numPackets; i++) {
 		Byte midiStatus = packet->data[0];
 		Byte midiCommand = midiStatus >> 4;
-		// is it a note-on or note-off
-		if ((midiCommand == 0x09) ||
-			(midiCommand == 0x08)) {
+        
+        
+        //Control Change
+        if (midiCommand == 0x11) {
+			Byte controller = packet->data[1] & 0x7F;
+			Byte value = packet->data[2] & 0x7F;
+			printf("midiCommand=%d. Controller=%d, Value=%d\n", midiCommand, controller, value);
+            [m broadcastChangeController:(int)controller toValue:(int)value];
+            
+		}
+        
+		// Note On
+		if (midiCommand == 0x09) {
 			Byte note = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
 			printf("midiCommand=%d. Note=%d, Velocity=%d\n", midiCommand, note, velocity);
             [m broadcastNoteOn:(int)note velocity:(int)velocity];
 
+		}
+        
+        // Note Off
+        if (midiCommand == 0x08) {
+			Byte note = packet->data[1] & 0x7F;
+			Byte velocity = packet->data[2] & 0x7F;
+			printf("midiCommand=%d. Note=%d, Velocity=%d\n", midiCommand, note, velocity);
+            [m broadcastNoteOff:(int)note velocity:(int)velocity];
+            
 		}
 		packet = MIDIPacketNext(packet);
 	}
