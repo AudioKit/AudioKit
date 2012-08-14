@@ -13,8 +13,6 @@
 		C400ADAC15D3C9570020C794 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C400ADAA15D3C9570020C794 /* Credits.rtf */; };
 		C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C400ADAE15D3C9580020C794 /* AppDelegate.m */; };
 		C400ADB215D3C9580020C794 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C400ADB015D3C9580020C794 /* MainMenu.xib */; };
-		C400AE7F15D3CBB20020C794 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE7A15D3CBB20020C794 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C400AE8015D3CBB20020C794 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C400AE7D15D3CBB20020C794 /* BaseValueCacheable.m */; };
 		C400B02F15D3CCE60020C794 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B02E15D3CCE60020C794 /* CsoundLib64.framework */; };
 		C400B03115D3CD7D0020C794 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03015D3CD7D0020C794 /* AudioUnit.framework */; };
 		C400B03315D3CDA30020C794 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03215D3CDA30020C794 /* AVFoundation.framework */; };
@@ -88,6 +86,8 @@
 		C463199915DA0CB100CA177E /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C463192415DA0CB100CA177E /* OCSNoteProperty.m */; };
 		C463199B15DA0CB100CA177E /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C463192615DA0CB100CA177E /* OCSProperty.m */; };
 		C46319A515DA0E5B00CA177E /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C46319A315DA0E5B00CA177E /* FMOscillator.m */; };
+		C46319F715DA442F00CA177E /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C46319F115DA442F00CA177E /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C46319F915DA442F00CA177E /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46319F415DA442F00CA177E /* BaseValueCacheable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,11 +104,6 @@
 		C400ADAD15D3C9580020C794 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C400ADAE15D3C9580020C794 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C400ADB115D3C9580020C794 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		C400AE7915D3CBB20020C794 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
-		C400AE7A15D3CBB20020C794 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		C400AE7C15D3CBB20020C794 /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
-		C400AE7D15D3CBB20020C794 /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
-		C400AE7E15D3CBB20020C794 /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C400B02E15D3CCE60020C794 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = /Library/Frameworks/CsoundLib64.framework; sourceTree = "<absolute>"; };
 		C400B03015D3CD7D0020C794 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		C400B03215D3CDA30020C794 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -242,6 +237,11 @@
 		C463192615DA0CB100CA177E /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
 		C46319A215DA0E5B00CA177E /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FMOscillator.h; sourceTree = "<group>"; };
 		C46319A315DA0E5B00CA177E /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
+		C46319F015DA442F00CA177E /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CsoundObj.h; sourceTree = "<group>"; };
+		C46319F115DA442F00CA177E /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
+		C46319F315DA442F00CA177E /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
+		C46319F415DA442F00CA177E /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
+		C46319F515DA442F00CA177E /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,7 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				C463189415DA0CB100CA177E /* Objective-C Sound */,
-				C400AE7815D3CBB20020C794 /* Csound-OSX */,
+				C46319EF15DA442F00CA177E /* csound-OSX */,
 				C400ADA115D3C9570020C794 /* OCSMacExample */,
 				C400AD9A15D3C9570020C794 /* Frameworks */,
 				C400AD9815D3C9570020C794 /* Products */,
@@ -332,27 +332,6 @@
 				C400ADAA15D3C9570020C794 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C400AE7815D3CBB20020C794 /* Csound-OSX */ = {
-			isa = PBXGroup;
-			children = (
-				C400AE7915D3CBB20020C794 /* CsoundObj.h */,
-				C400AE7A15D3CBB20020C794 /* CsoundObj.m */,
-				C400AE7B15D3CBB20020C794 /* valueCacheable */,
-			);
-			name = "Csound-OSX";
-			path = "../Csound-OSX";
-			sourceTree = "<group>";
-		};
-		C400AE7B15D3CBB20020C794 /* valueCacheable */ = {
-			isa = PBXGroup;
-			children = (
-				C400AE7C15D3CBB20020C794 /* BaseValueCacheable.h */,
-				C400AE7D15D3CBB20020C794 /* BaseValueCacheable.m */,
-				C400AE7E15D3CBB20020C794 /* CsoundValueCacheable.h */,
-			);
-			path = valueCacheable;
 			sourceTree = "<group>";
 		};
 		C42DF45315D65848001E7DB1 /* Play CSD File */ = {
@@ -661,6 +640,27 @@
 			path = "FM Oscillator";
 			sourceTree = "<group>";
 		};
+		C46319EF15DA442F00CA177E /* csound-OSX */ = {
+			isa = PBXGroup;
+			children = (
+				C46319F015DA442F00CA177E /* CsoundObj.h */,
+				C46319F115DA442F00CA177E /* CsoundObj.m */,
+				C46319F215DA442F00CA177E /* valueCacheable */,
+			);
+			name = "csound-OSX";
+			path = "../csound-OSX";
+			sourceTree = "<group>";
+		};
+		C46319F215DA442F00CA177E /* valueCacheable */ = {
+			isa = PBXGroup;
+			children = (
+				C46319F315DA442F00CA177E /* BaseValueCacheable.h */,
+				C46319F415DA442F00CA177E /* BaseValueCacheable.m */,
+				C46319F515DA442F00CA177E /* CsoundValueCacheable.h */,
+			);
+			path = valueCacheable;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -734,8 +734,6 @@
 			files = (
 				C400ADA815D3C9570020C794 /* main.m in Sources */,
 				C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */,
-				C400AE7F15D3CBB20020C794 /* CsoundObj.m in Sources */,
-				C400AE8015D3CBB20020C794 /* BaseValueCacheable.m in Sources */,
 				C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */,
 				C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */,
 				C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */,
@@ -796,6 +794,8 @@
 				C463199915DA0CB100CA177E /* OCSNoteProperty.m in Sources */,
 				C463199B15DA0CB100CA177E /* OCSProperty.m in Sources */,
 				C46319A515DA0E5B00CA177E /* FMOscillator.m in Sources */,
+				C46319F715DA442F00CA177E /* CsoundObj.m in Sources */,
+				C46319F915DA442F00CA177E /* BaseValueCacheable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
