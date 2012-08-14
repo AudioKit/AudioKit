@@ -57,45 +57,58 @@ static void CheckError(OSStatus error, const char *operation)
 
 #pragma mark - Broadcast MIDI Events
 
-- (void)broadcastNoteOn:(int)note velocity:(int)velocity {
+- (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiNoteOn:note velocity:velocity];
+        [listener midiNoteOn:note velocity:velocity channel:channel];
     }
 }
 
-- (void)broadcastNoteOff:(int)note velocity:(int)velocity {
+- (void)broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiNoteOff:note velocity:velocity];
+        [listener midiNoteOff:note velocity:velocity channel:channel];
     }
 }
 
-- (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure {
+- (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiAftertouchOnNote:note pressure:pressure];
+        [listener midiAftertouchOnNote:note pressure:pressure channel:channel];
     }
 }
 
-- (void)broadcastChangeController:(int)controller toValue:(int)value {
+- (void)broadcastAftertouch:(int)pressure channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiController:controller changedToValue:value];
+        [listener midiAftertouch:pressure channel:channel];
+    }
+}
+
+- (void)broadcastPitchWheel:(int)pitchWheelValue channel:(int)channel {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener midiPitchWheel:pitchWheelValue  channel:channel];
+    }
+}
+
+
+- (void)broadcastChangeController:(int)controller toValue:(int)value channel:(int)channel {
+    for (id<OCSMidiListener> listener in listeners) {
+        [listener midiController:controller changedToValue:value channel:channel];
         switch (controller) {
             case 1:
-                [listener midiModulation:value];
+                [listener midiModulation:value channel:channel];
                 break;
             case 5:
-                [listener midiPortamento:value];
+                [listener midiPortamento:value channel:channel];
                 break;
             case 7:
-                [listener midiVolume:value];
+                [listener midiVolume:value channel:channel];
                 break;
             case 8:
-                [listener midiBalance:value];
+                [listener midiBalance:value channel:channel];
                 break;
             case 10:
-                [listener midiPan:value];
+                [listener midiPan:value channel:channel];
                 break;
             case 11:
-                [listener midiExpression:value];
+                [listener midiExpression:value channel:channel];
                 break;
             default:
                 break;
@@ -103,19 +116,20 @@ static void CheckError(OSStatus error, const char *operation)
     }
 }
 
-- (void)broadcastAftertouch:(int)pressure {
-    for (id<OCSMidiListener> listener in listeners) {
-        [listener midiAftertouch:pressure];
-    }
-}
-
-- (void)broadcastPitchWheel:(int)pitchWheelValue {
-    for (id<OCSMidiListener> listener in listeners) {
-        [listener midiPitchWheel:pitchWheelValue];
-    }
-}
 
 #pragma mark - Low Level MIDI Handlining
+
+typedef enum MIDIConstants {
+    kMidiNoteOff = 8,
+    kMidiNoteOn = 9,
+    kMidiPolyphonicAftertouch = 10,
+    kMidiControllerChange = 11,
+    kMidiProgramChange = 12,
+    kMidiAftertouch = 13,
+    kMidiPitchWheel = 14,
+    kMidiSysex = 240
+} MIDIConstants;
+
 
 void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon) {
     OCSMidi *m = (__bridge OCSMidi *)refCon;
@@ -124,43 +138,55 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 	for (int i=0; i < pktlist->numPackets; i++) {
 		Byte midiStatus = packet->data[0];
 		Byte midiCommand = midiStatus >> 4;
+        Byte midiChannel = 1 + (midiStatus - (midiCommand*16));
 		
-		if (midiCommand == 8) { // Note Off
+		if (midiCommand == kMidiNoteOff) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
-            [m broadcastNoteOff:(int)note velocity:(int)velocity];
+            [m broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)midiChannel];
             
-		} else if (midiCommand == 9) { // Note On
+		} else if (midiCommand == kMidiNoteOn) { 
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
-            [m broadcastNoteOn:(int)note velocity:(int)velocity];
+            [m broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)midiChannel];
             
-		} else if (midiCommand == 10) { // Polyphonic After-touch
+		} else if (midiCommand == kMidiPolyphonicAftertouch) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte pressure = packet->data[2] & 0x7F;
-            [m broadcastAftertouchOnNote:(int)note pressure:(int)pressure];
+            [m broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)midiChannel];
             
-		} else if (midiCommand == 11) { // Controller Change
-			Byte controller = packet->data[1] & 0x7F;
-			Byte value      = packet->data[2] & 0x7F;
-            [m broadcastChangeController:(int)controller toValue:(int)value];
-            
-        } else if (midiCommand == 13) { // Global After-touch
+        } else if (midiCommand == kMidiAftertouch) {
 			Byte pressure = packet->data[2] & 0x7F;
-            [m broadcastAftertouch:(int)pressure];
+            [m broadcastAftertouch:(int)pressure channel:(int)midiChannel];
             
-		} else if (midiCommand == 14) { // Pitch Wheel
+		} else if (midiCommand == kMidiPitchWheel) {
             Byte value1 = packet->data[1] & 0x7F;
 			Byte value2 = packet->data[2] & 0x7F;
-            [m broadcastPitchWheel:128*value2+value1];
+            [m broadcastPitchWheel:128*value2+value1 channel:(int)midiChannel];
             
-        } else { // Other            
+            
+		} else if (midiCommand == kMidiControllerChange) {
+			Byte controller = packet->data[1] & 0x7F;
+			Byte value      = packet->data[2] & 0x7F;
+            [m broadcastChangeController:(int)controller toValue:(int)value channel:(int)midiChannel];
+            
+        } else if (midiCommand == kMidiProgramChange) {
+            
+        } else { // Other
+
+                            
             int b[10];
             for (int i=0; i<=9; i++) {
                 b[i] = (packet->length > i) ? packet->data[i] : 0;
             }
-            NSLog(@"Unparsed MIDI: %i %i %i %i %i %i %i %i %i %i", b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
+                
+            if (midiStatus == kMidiSysex) {
+                NSLog(@"Unparsed Sysex: %i %i %i %i %i %i %i %i %i", b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
+            } else {
+                NSLog(@"Unparsed MIDI: %i %i %i %i %i %i %i %i %i %i", b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
 
+            }
+            
         }
 		packet = MIDIPacketNext(packet);
 	}

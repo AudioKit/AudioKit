@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OCSManager.h"
 
-@interface MidiViewController : UIViewController
+@interface MidiViewController : UIViewController {
+    __weak IBOutlet UILabel *channelLabel;
+    __weak IBOutlet UILabel *noteLabel;
+    __weak IBOutlet UISlider *modulationSlider;
+    __weak IBOutlet UILabel  *modulationLabel;
+    __weak IBOutlet UISlider *pitchBendSlider;
+    __weak IBOutlet UILabel  *pitchBendLabel;
+    __weak IBOutlet UILabel *controllerNumberLabel;
+    __weak IBOutlet UILabel *controllerValueLabel;
+    __weak IBOutlet UISlider *controllerSlider;
 
+}
 @end
