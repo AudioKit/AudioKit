@@ -33,6 +33,10 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     currentEvent = nil;
     
+    [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument amplitude] value]]];
+    [modulationLabel setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modulation]value]]];
+    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modIndex]value]]];
+    
     [Helper setSlider:amplitudeSlider  usingProperty:[myTweakableInstrument amplitude]];
     [Helper setSlider:modulationSlider usingProperty:[myTweakableInstrument modulation]];
 }
@@ -111,6 +115,8 @@
             withValue:newValue 
               minimum:kTweakableModIndexMin 
               maximum:kTweakableModIndexMax];
+    
+    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modIndex]value]]];
 
     // Test to show amplitude slider moving also
 //    [self setSlider:amplitudeSlider
@@ -126,6 +132,8 @@
                                           minimum:kTweakableAmplitudeMin 
                                           maximum:kTweakableAmplitudeMax];
     myTweakableInstrument.amplitude.value = newValue;
+    [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", newValue]];
+
 }
 
 - (IBAction)scaleModulation:(id)sender {
@@ -133,6 +141,14 @@
                                           minimum:kTweakableModulationMin 
                                           maximum:kTweakableModulationMax];
     myTweakableInstrument.modulation.value = newValue;
+    [modulationLabel setText:[NSString stringWithFormat:@"%f", newValue]];
+
 }
 
+- (void)viewDidUnload {
+    amplitudeLabel = nil;
+    modulationLabel = nil;
+    modIndexLabel = nil;
+    [super viewDidUnload];
+}
 @end

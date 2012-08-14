@@ -10,9 +10,12 @@
 
 @interface ContinuousControlViewController : UIViewController
 {
-    IBOutlet UISlider * amplitudeSlider;
-    IBOutlet UISlider * modulationSlider;
-    IBOutlet UISlider * modIndexSlider;
+    IBOutlet UISlider *amplitudeSlider;
+    IBOutlet UISlider *modulationSlider;
+    IBOutlet UISlider *modIndexSlider;
+    IBOutlet UILabel *amplitudeLabel;
+    IBOutlet UILabel *modulationLabel;
+    IBOutlet UILabel *modIndexLabel;
 }
 
 - (IBAction)runInstrument:(id)sender;

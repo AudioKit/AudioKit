@@ -11,24 +11,36 @@
 
 @protocol OCSMidiListener <NSObject>
 
-//Nothing is required, use what you need
-@optional
-
 // Basic MIDI
-- (void)midiNoteOn:(int)note velocity:(int)velocity;
-- (void)midiNoteOff:(int)note velocity:(int)velocity;
-- (void)midiAftertouchOnNote:(int)note pressure:(int)pressure;
-- (void)midiController:(int)controller changedToValue:(int)value;
-- (void)midiAftertouch:(int)pressure;
-- (void)midiPitchWheel:(int)pitchWheelValue;
+- (void)midiNoteOn:(int)note
+          velocity:(int)velocity
+           channel:(int)channel;
+
+- (void)midiNoteOff:(int)note
+           velocity:(int)velocity
+            channel:(int)channel;
+
+- (void)midiAftertouchOnNote:(int)note
+                    pressure:(int)pressure
+                     channel:(int)channel;
+
+- (void)midiController:(int)controller
+        changedToValue:(int)value
+               channel:(int)channel;
+
+- (void)midiAftertouch:(int)pressure
+               channel:(int)channel;
+
+- (void)midiPitchWheel:(int)pitchWheelValue
+               channel:(int)channel;
 
 // Controller Helpers
-- (void)midiModulation:(int)modulation;
-- (void)midiPortamento:(int)modulation;
-- (void)midiVolume:(int)modulation;
-- (void)midiBalance:(int)modulation;
-- (void)midiPan:(int)modulation;
-- (void)midiExpression:(int)modulation;
+- (void)midiModulation:(int)modulation channel:(int)channel;
+- (void)midiPortamento:(int)modulation channel:(int)channel;
+- (void)midiVolume:(int)modulation     channel:(int)channel;
+- (void)midiBalance:(int)modulation    channel:(int)channel;
+- (void)midiPan:(int)modulation        channel:(int)channel;
+- (void)midiExpression:(int)modulation channel:(int)channel;;
 
 
 @end
