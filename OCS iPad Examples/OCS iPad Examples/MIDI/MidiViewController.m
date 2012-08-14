@@ -129,6 +129,7 @@
     _channel = channel;
     _pitchBend = pitchWheelValue;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+    
     float bend;
     if (pitchWheelValue <=8192) {
         bend = [Helper scaleValue:pitchWheelValue
