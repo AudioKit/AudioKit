@@ -11,6 +11,12 @@
 
 @interface Helper : NSObject
 
++ (void)setSlider:(NSSlider *)slider
+        withValue:(float)value
+          minimum:(float)minimum
+          maximum:(float)maximum;
+
+
 + (float)randomFloatFrom:(float)minimum to:(float)maximum; 
 
 

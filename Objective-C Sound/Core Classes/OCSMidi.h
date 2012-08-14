@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+// -----------------------------------------------------------------------------
+#  pragma mark OCS MIDI Listener Protocol
+// -----------------------------------------------------------------------------
 
 @protocol OCSMidiListener <NSObject>
 
-// Basic MIDI
+// All of these are optional, so perhaps we should change to using NotificationCenter
+@optional
+
+#pragma mark Basic MIDI
+
 - (void)midiNoteOn:(int)note
           velocity:(int)velocity
            channel:(int)channel;
@@ -34,7 +41,7 @@
 - (void)midiPitchWheel:(int)pitchWheelValue
                channel:(int)channel;
 
-// Controller Helpers
+# pragma mark Controller Name Helpers
 - (void)midiModulation:(int)modulation channel:(int)channel;
 - (void)midiPortamento:(int)modulation channel:(int)channel;
 - (void)midiVolume:(int)modulation     channel:(int)channel;
@@ -45,10 +52,15 @@
 
 @end
 
+// -----------------------------------------------------------------------------
+#  pragma mark - OCS MIDI
+// -----------------------------------------------------------------------------
+
 
 @interface OCSMidi : NSObject {
     NSMutableSet *listeners;
 }
+
 @property (nonatomic, strong) NSMutableSet *listeners;
 
 -(void)addListener:(id<OCSMidiListener>)listener;

@@ -1,16 +1,18 @@
 //
-//  MidiViewController.m
-//  OCS iPad Examples
+//  MIDIController.m
+//  OCS Mac Examples
 //
-//  Created by Aurelius Prochazka on 8/11/12.
+//  Created by Aurelius Prochazka on 8/13/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "MidiViewController.h"
+#import "MIDIController.h"
+
 #import "OCSManager.h"
 #import "Helper.h"
 
-@interface MidiViewController () <OCSMidiListener> {
+
+@interface MIDIController () <OCSMidiListener> {
     int _channel;
     int _note;
     int _modulation;
@@ -20,11 +22,18 @@
 }
 @end
 
-@implementation MidiViewController
+@implementation MIDIController
+@synthesize pitchBendSlider;
+@synthesize controllerSlider;
+@synthesize modulationSlider;
+@synthesize pitchBendLabel;
+@synthesize noteLabel;
+@synthesize channelLabel;
+@synthesize controllerNumberLabel;
+@synthesize controllerValueLabel;
+@synthesize modulationLabel;
 
-- (void)viewDidLoad
-{
-    self.title = NSLocalizedString(@"Respond to MIDI", @"Respond to MIDI");
+- (IBAction)enableMIDI:(id)sender {
     _channel = 1;
     _note = 0;
     _modulation = 0;
@@ -32,22 +41,8 @@
     _controllerNumber = 0;
     _controllerValue = 0;
     
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     [[OCSManager sharedOCSManager] enableMidi];
     [[[OCSManager sharedOCSManager] midi] addListener:self];
-}
-
-- (void)viewDidUnload
-{
-    controllerNumberLabel = nil;
-    controllerValueLabel = nil;
-    controllerSlider = nil;
-    channelLabel = nil;
-    noteLabel = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)midiNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
@@ -76,29 +71,30 @@
 }
 
 - (void)updateUI {
-    [channelLabel setText:[NSString stringWithFormat:@"%i", _channel]];
-    [noteLabel setText:[NSString stringWithFormat:@"%i", _note]];
+    [channelLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _channel]];
+    [noteLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _note]];
     
-    [modulationLabel setText:[NSString stringWithFormat:@"%i", _modulation]];
+    [modulationLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _modulation]];
     [Helper setSlider:modulationSlider
             withValue:_modulation
               minimum:0
               maximum:127];
     
-    [pitchBendLabel setText:[NSString stringWithFormat:@"%i", _pitchBend]];
+    [pitchBendLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _pitchBend]];
     [Helper setSlider:pitchBendSlider
             withValue:_pitchBend
               minimum:0
               maximum:powf(2.0, 14.0)];
     
     if (_controllerNumber > 1) {
-        [controllerNumberLabel setText:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
-        [controllerValueLabel  setText:[NSString stringWithFormat:@"%i", _controllerValue]];
+        [controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
+        [controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
         [Helper setSlider:controllerSlider
                 withValue:_controllerValue
                   minimum:0
                   maximum:127];
     }
 }
+
 
 @end
