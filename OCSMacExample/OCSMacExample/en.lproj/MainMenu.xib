@@ -1322,14 +1322,6 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showPlayCSDFile:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="596049465"/>
-					</object>
-					<int key="connectionID">537</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">stopPlayCSDFile:</string>
 						<reference key="source" ref="385216683"/>
 						<reference key="destination" ref="132460970"/>

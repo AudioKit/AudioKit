@@ -17,7 +17,6 @@
 		C400B03115D3CD7D0020C794 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03015D3CD7D0020C794 /* AudioUnit.framework */; };
 		C400B03315D3CDA30020C794 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03215D3CDA30020C794 /* AVFoundation.framework */; };
 		C400B03515D3CDAB0020C794 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03415D3CDAB0020C794 /* CoreMIDI.framework */; };
-		C400B03715D3CDBE0020C794 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03615D3CDBE0020C794 /* CoreAudioKit.framework */; };
 		C400B03915D3CDC70020C794 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03815D3CDC70020C794 /* AudioToolbox.framework */; };
 		C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */; };
 		C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */; };
@@ -288,7 +287,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C400B03915D3CDC70020C794 /* AudioToolbox.framework in Frameworks */,
-				C400B03715D3CDBE0020C794 /* CoreAudioKit.framework in Frameworks */,
 				C400B03515D3CDAB0020C794 /* CoreMIDI.framework in Frameworks */,
 				C400B03315D3CDA30020C794 /* AVFoundation.framework in Frameworks */,
 				C400B03115D3CD7D0020C794 /* AudioUnit.framework in Frameworks */,

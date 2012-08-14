@@ -1,4 +1,4 @@
-/* 
+/*
  
  CsoundObj.m:
  
@@ -49,24 +49,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 @synthesize motionManager = mMotionManager;
 @synthesize useOldParser = mUseOldParser;
 
-//+(void)initializeAudio {
-//    /* CONFIGURING AUDIO SETTINGS */
-//    
-//    //    self.graphSampleRate = 44100.0; // Hertz
-//    //    
-//    //    NSError *audioSessionError = nil;
-//    //    AVAudioSession *mySession = [AVAudioSession sharedInstance];     
-//    //    [mySession setPreferredHardwareSampleRate: self.graphSampleRate       
-//    //                                        error: &audioSessionError];
-//    //    [mySession setCategory: AVAudioSessionCategoryPlayAndRecord      
-//    //                     error: &audioSessionError];
-//    //    [mySession setActive: YES                                        
-//    //                   error: &audioSessionError];
-//    //    self.graphSampleRate = [mySession currentHardwareSampleRate];    
-//    
-//    
-//}
-
 - (id)init
 {
     self = [super init];
@@ -81,7 +63,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
     return self;
 }
 
-
 -(void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable {
     if (valueCacheable != nil) {
         [valuesCache addObject:valueCacheable];
@@ -92,58 +73,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 	if (valueCacheable != nil && [valuesCache containsObject:valueCacheable]) {
 		[valuesCache removeObject:valueCacheable];
 	}
-}
-
--(id<CsoundValueCacheable>)enableAccelerometer {
-    
-    if (!mMotionManager.accelerometerAvailable) {
-        NSLog(@"Accelerometer not available");
-        return nil;
-    }
-    
-    CachedAccelerometer* accelerometer = [[CachedAccelerometer alloc] init:mMotionManager];
-    [valuesCache addObject:accelerometer];
-        
-    [accelerometer release];
-    
-    mMotionManager.accelerometerUpdateInterval = 1 / 100.0; // 100 hz
-    
-    [mMotionManager startAccelerometerUpdates];
-	
-	return accelerometer;
-}
-
--(id<CsoundValueCacheable>)enableGyroscope {
-    
-    if (!mMotionManager.isGyroAvailable) {
-        NSLog(@"Gyroscope not available");
-        return nil;
-    }
-    
-    CachedGyroscope* gyro = [[[CachedGyroscope alloc] init:mMotionManager] autorelease];
-    [valuesCache addObject:gyro];
-    
-    mMotionManager.gyroUpdateInterval = 1 / 100.0; // 100 hz
-    
-    [mMotionManager startGyroUpdates];
-	
-	return gyro;
-}
-
--(id<CsoundValueCacheable>)enableAttitude {
-    if (!mMotionManager.isDeviceMotionAvailable) {
-        NSLog(@"Attitude not available");
-        return nil;
-    }
-    
-    CachedAttitude* attitude = [[[CachedAttitude alloc] init:mMotionManager] autorelease];
-    [valuesCache addObject:attitude];
-    
-    mMotionManager.deviceMotionUpdateInterval = 1 / 100.0; // 100hz
-    
-    [mMotionManager startDeviceMotionUpdates];
-	
-	return attitude;
 }
 
 #pragma mark -
@@ -195,15 +124,15 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     return mCsData.cs;
 }
 
--(float*)getInputChannelPtr:(NSString*)channelName {
-    float *value;
+-(MYFLT*)getInputChannelPtr:(NSString*)channelName {
+    MYFLT *value;
     csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
     return value;
 }
 
--(float*)getOutputChannelPtr:(NSString *)channelName
+-(MYFLT*)getOutputChannelPtr:(NSString *)channelName
 {
-	float *value;
+	MYFLT *value;
 	csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_AUDIO_CHANNEL | CSOUND_OUTPUT_CHANNEL);
 	return value;
 }
@@ -212,11 +141,11 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     if (!mCsData.running) {
         return nil;
     }
-    CSOUND* csound = [self getCsound];
-    float* spout = csoundGetSpout(csound);
+    CSOUND *csound = [self getCsound];
+    MYFLT *spout = csoundGetSpout(csound);
     int nchnls = csoundGetNchnls(csound);
     int ksmps = csoundGetKsmps(csound);
-    NSData* data = [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
+    NSData *data = [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
     return data;
 }
 
@@ -235,8 +164,6 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 
 #pragma mark Csound Code
 
-      
-    
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
                         const AudioTimeStamp *inTimeStamp,
@@ -258,7 +185,7 @@ OSStatus  Csound_Render(void *inRefCon,
     
     AudioUnitRender(*cdata->aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
     
-    NSMutableArray* cache = cdata->valuesCache;
+    NSMutableArray *cache = cdata->valuesCache;
     
     for(i=0; i < slices; i++){
 		
@@ -267,7 +194,7 @@ OSStatus  Csound_Render(void *inRefCon,
 			[cachedValue updateValuesToCsound];
 		}
         
-		/* performance */
+		// performance
 		for (k = 0; k < nchnls; k++){
 			buffer = (AudioUnitSampleType *) ioData->mBuffers[k].mData;
 			for(j=0; j < ksmps; j++){
@@ -303,14 +230,13 @@ OSStatus  Csound_Render(void *inRefCon,
 	if (cdata->shouldRecord) {
 		OSStatus err = ExtAudioFileWriteAsync(cdata->file, inNumberFrames, ioData);
 		if (err != noErr) {
-			printf("***Error writing to file: %ld\n", err);
+			printf("***Error writing to file \n");
 		}
 	}
         
     cdata->ret = ret;
     return 0;
 }
-
 
 void InterruptionListener(void *inClientData, UInt32 inInterruption)
 {
@@ -367,7 +293,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
         // Warm the file up.
         ExtAudioFileWriteAsync(mCsData.file, 0, NULL);
     } else {
-        printf("***Not recording. Error: %ld\n", err);
+        printf("*** Error: Not recording.\n");
         err = noErr;
     }
     
@@ -382,13 +308,14 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
     
 -(void)stopCsound {
     mCsData.running = false;
+    csoundStop(mCsData.cs);
 }
 
--(void)muteCsound{
+-(void)muteCsound {
 	mCsData.shouldMute = true;
 }
 
--(void)unmuteCsound{
+-(void)unmuteCsound {
 	mCsData.shouldMute = false;
 }
 
@@ -405,7 +332,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 	csoundSetHostData(cs, self);
         
     // Hardcoding to use old parser for time being
-    char* parserFlag;
+    char *parserFlag;
 	
     
     if(self.useOldParser) {
@@ -423,13 +350,13 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 		mCsData.cs = cs;
 		mCsData.ret = ret;
 		mCsData.nchnls = csoundGetNchnls(cs);
-		mCsData.bufframes = (csoundGetOutputBufferSize(cs))/mCsData.nchnls;
+		mCsData.bufframes = (int)(csoundGetOutputBufferSize(cs))/mCsData.nchnls;
 		mCsData.running = true;
         mCsData.valuesCache = valuesCache;
 		AudioStreamBasicDescription format;
 		OSStatus err;
 		
-        /* SETUP VALUE CACHEABLE */
+        // SETUP VALUE CACHEABLE
         
         for (int i = 0; i < valuesCache.count; i++) {
             id<CsoundValueCacheable> cachedValue = [valuesCache objectAtIndex:i];
@@ -437,7 +364,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
         }
         
         
-		/* Audio Session handler */
+		// Audio Session handler
         AudioSessionInitialize(NULL, NULL, InterruptionListener, &mCsData);
 		AudioSessionSetActive(true);
 //		UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
@@ -524,7 +451,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
                     
                     err = AudioOutputUnitStart(csAUHAL);
 					
-					/* NOTIFY COMPLETION LISTENERS*/
+					// NOTIFY COMPLETION LISTENERS
 					
 					for (id<CsoundObjCompletionListener> listener in completionListeners) {
 						[listener csoundObjDidStart:self];
@@ -535,7 +462,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
                     ExtAudioFileDispose(mCsData.file);
 					mCsData.shouldRecord = false;
                     AudioOutputUnitStop(csAUHAL);
-                    /* free(CAInputData); */
+                    // free(CAInputData); 
                 }
                 AudioUnitUninitialize(csAUHAL);
                 AudioComponentInstanceDispose(csAUHAL);
@@ -546,17 +473,17 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 	
     mCsData.running = false;
     
-    /* CLEANUP VALUE CACHEABLE */
+    // CLEANUP VALUE CACHEABLE
     
     for (int i = 0; i < valuesCache.count; i++) {
         id<CsoundValueCacheable> cachedValue = [valuesCache objectAtIndex:i];
         [cachedValue cleanup];
     }
     
-    /* NOTIFY COMPLETION LISTENERS*/
+    // NOTIFY COMPLETION LISTENERS
     
     for (id<CsoundObjCompletionListener> listener in completionListeners) {
-        [listener csoundObjComplete:self];	
+        [listener csoundObjComplete:self];
     }
     
     [mMotionManager stopAccelerometerUpdates];
@@ -575,6 +502,62 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
     [mMotionManager release];
     
     [super dealloc];
+}
+
+
+// -----------------------------------------------------------------------------
+#  pragma mark - iOS Hardware specific functions
+
+-(id<CsoundValueCacheable>)enableAccelerometer {
+    
+    if (!mMotionManager.accelerometerAvailable) {
+        NSLog(@"Accelerometer not available");
+        return nil;
+    }
+    
+    CachedAccelerometer *accelerometer = [[CachedAccelerometer alloc] init:mMotionManager];
+    [valuesCache addObject:accelerometer];
+    
+    [accelerometer release];
+    
+    mMotionManager.accelerometerUpdateInterval = 1 / 100.0; // 100 hz
+    
+    [mMotionManager startAccelerometerUpdates];
+	
+	return accelerometer;
+}
+
+-(id<CsoundValueCacheable>)enableGyroscope {
+    
+    if (!mMotionManager.isGyroAvailable) {
+        NSLog(@"Gyroscope not available");
+        return nil;
+    }
+    
+    CachedGyroscope *gyro = [[[CachedGyroscope alloc] init:mMotionManager] autorelease];
+    [valuesCache addObject:gyro];
+    
+    mMotionManager.gyroUpdateInterval = 1 / 100.0; // 100 hz
+    
+    [mMotionManager startGyroUpdates];
+	
+	return gyro;
+}
+
+-(id<CsoundValueCacheable>)enableAttitude {
+    if (!mMotionManager.isDeviceMotionAvailable) {
+        NSLog(@"Attitude not available");
+        return nil;
+    }
+    
+    CachedAttitude *attitude = [[[CachedAttitude alloc] init:mMotionManager] autorelease];
+    [valuesCache addObject:attitude];
+    
+    mMotionManager.deviceMotionUpdateInterval = 1 / 100.0; // 100hz
+    
+    [mMotionManager startDeviceMotionUpdates];
+	
+	return attitude;
 }
 
 

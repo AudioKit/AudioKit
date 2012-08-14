@@ -32,7 +32,6 @@
 		C4C8278215D7CBC3009D48DA /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8278115D7CBC3009D48DA /* OCSMidi.m */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
 		C4F0783115D5F4B30084FF9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783015D5F4B30084FF9E /* Foundation.framework */; };
-		C4F0783315D5F4B30084FF9E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783215D5F4B30084FF9E /* CoreGraphics.framework */; };
 		C4F0783915D5F4B40084FF9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4F0783715D5F4B40084FF9E /* InfoPlist.strings */; };
 		C4F0783B15D5F4B40084FF9E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0783A15D5F4B40084FF9E /* main.m */; };
 		C4F0783F15D5F4B40084FF9E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0783E15D5F4B40084FF9E /* AppDelegate.m */; };
@@ -394,7 +393,6 @@
 				C4F07A3D15D603B60084FF9E /* AVFoundation.framework in Frameworks */,
 				C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */,
 				C4F0783115D5F4B30084FF9E /* Foundation.framework in Frameworks */,
-				C4F0783315D5F4B30084FF9E /* CoreGraphics.framework in Frameworks */,
 				C4F0789C15D5F4F60084FF9E /* libcsound.a in Frameworks */,
 				C4F0789D15D5F4F60084FF9E /* libsndfile.a in Frameworks */,
 			);
