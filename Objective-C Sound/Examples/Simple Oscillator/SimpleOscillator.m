@@ -1,18 +1,18 @@
 //
-//  SoundGenerator.m
+//  SimpleOscillator.m
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 6/1/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "SoundGenerator.h"
+#import "SimpleOscillator.h"
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
 #import "OCSReverb.h"
 #import "OCSAudio.h"
 
-@implementation SoundGenerator
+@implementation SimpleOscillator
 
 @synthesize frequency;
 

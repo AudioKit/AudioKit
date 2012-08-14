@@ -1,23 +1,23 @@
 //
-//  FMGameObject.m
+//  FMOscillator.m
 //  Objective-C Sound Example
 //
 //  Created by Adam Boulanger on 6/4/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "FMGameObject.h"
+#import "FMOscillator.h"
 #import "OCSSineTable.h"
 #import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 
-@interface FMGameObject () {
+@interface FMOscillator () {
     OCSNoteProperty *freq;
     OCSInstrumentProperty *mod;
 }
 @end
 
-@implementation FMGameObject
+@implementation FMOscillator
 
 @synthesize frequency = freq;
 @synthesize modulation = mod;
@@ -60,15 +60,6 @@
     return self;
 }
 
-- (void)playNoteForDuration:(float)noteDuration 
-                  Frequency:(float)noteFrequency
-                 Modulation:(float)noteModulation;
-{
-    freq.value  = noteFrequency;
-    mod.value = noteModulation;
-    NSLog(@"Playing note at frequency = %0.2f and modulation = %0.2f", noteFrequency, noteModulation);
-    [self playNoteForDuration:noteDuration];
-}
 
                     
 @end

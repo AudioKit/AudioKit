@@ -1,5 +1,5 @@
 //
-//  SoundGenerator.h
+//  SimpleOscillator.h
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 6/1/12.
@@ -8,13 +8,10 @@
 
 #import "OCSInstrument.h"
 
-@interface SoundGenerator : OCSInstrument
+@interface SimpleOscillator : OCSInstrument
 
 @property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
-
-//- (void)playNoteForDuration:(float)noteDuration 
-//                  frequency:(float)frequency;
 
 @end

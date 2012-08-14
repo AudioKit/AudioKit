@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "FMGameObject.h"
+#import "FMOscillator.h"
 
-@interface FMGameObjectViewController : UIViewController
+@interface FMOscillatorViewController : UIViewController
 
 - (IBAction)playRandomFrequency:(id)sender;
 - (IBAction)playRandomModulation:(id)sender;

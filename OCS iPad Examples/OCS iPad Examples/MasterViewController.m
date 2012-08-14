@@ -13,7 +13,7 @@
 // Example Controllers
 #import "PlayCSDFileViewController.h"
 #import "OscillatorViewController.h"
-#import "FMGameObjectViewController.h"
+#import "FMOscillatorViewController.h"
 #import "UnitGeneratorsViewController.h"
 #import "ExpressionsViewController.h"
 #import "ReverbViewController.h"
@@ -167,7 +167,7 @@
             controller = [[OscillatorViewController alloc] initWithNibName:@"OscillatorViewController" bundle:nil];
             break;
         case 3:
-            controller = [[FMGameObjectViewController alloc] initWithNibName:@"FMGameObjectViewController" bundle:nil];
+            controller = [[FMOscillatorViewController alloc] initWithNibName:@"FMOscillatorViewController" bundle:nil];
             break;
         case 4:
             controller = [[UnitGeneratorsViewController alloc] initWithNibName:@"UnitGeneratorsViewController" bundle:nil];

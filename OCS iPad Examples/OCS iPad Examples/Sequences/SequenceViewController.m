@@ -10,12 +10,12 @@
 
 #import "Helper.h"
 #import "OCSManager.h"
-#import "FMGameObject.h"
-#import "SoundGenerator.h"
+#import "FMOscillator.h"
+#import "SimpleOscillator.h"
 #import "OCSSequence.h"
 
 @interface SequenceViewController () {
-    FMGameObject *fmGameObject;
+    FMOscillator *fmOscillator;
     OCSSequence *sequence;
     OCSOrchestra *orchestra;
     NSTimer *timer;
@@ -30,8 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     orchestra = [[OCSOrchestra alloc] init];    
-    fmGameObject = [[FMGameObject alloc] init];
-    [orchestra addInstrument:fmGameObject];
+    fmOscillator = [[FMOscillator alloc] init];
+    [orchestra addInstrument:fmOscillator];
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
     
 }
@@ -42,8 +42,8 @@
     
     sequence = [[OCSSequence alloc] init]; 
     for (int i = 0; i <=12 ; i++) {
-        OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-        [temp setNoteProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:fmOscillator];
+        [temp setNoteProperty:[fmOscillator frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:temp atTime:duration*i];
         OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:duration*0.5];
         [sequence addEvent:temp2 atTime:duration*i];
@@ -57,13 +57,13 @@
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
     
     sequence = [[OCSSequence alloc] init];     
-    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-    [noteOn setNoteProperty:[fmGameObject frequency] toValue:440];
+    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmOscillator];
+    [noteOn setNoteProperty:[fmOscillator frequency] toValue:440];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *update= [[OCSEvent alloc] initWithEvent:noteOn];
-        [update setNoteProperty:[fmGameObject frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [update setNoteProperty:[fmOscillator frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*i];
     }
     OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
@@ -78,17 +78,17 @@
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
     
     sequence = [[OCSSequence alloc] init];     
-    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-    [noteOn setNoteProperty:[fmGameObject frequency] toValue:440];
+    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmOscillator];
+    [noteOn setNoteProperty:[fmOscillator frequency] toValue:440];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {
-        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[fmGameObject modulation] value:(pow(2.0f,(float)i/12))];
+        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[fmOscillator modulation] value:(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*i];
     }
     
     for (int i = 0; i <=12 ; i++) {
-        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[fmGameObject modulation] value:3.0-(pow(2.0f,(float)i/12))];
+        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[fmOscillator modulation] value:3.0-(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*(i+13)];
     }
     OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
