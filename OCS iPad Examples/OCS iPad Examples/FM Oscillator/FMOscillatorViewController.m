@@ -6,25 +6,25 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "FMGameObjectViewController.h"
+#import "FMOscillatorViewController.h"
 #import "Helper.h"
 #import "OCSManager.h"
 
-@interface FMGameObjectViewController () {
-    FMGameObject *fmGameObject;
+@interface FMOscillatorViewController () {
+    FMOscillator *fmOscillator;
     OCSEvent *currentEvent;
 }
 @end
 
-@implementation FMGameObjectViewController
+@implementation FMOscillatorViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
-    fmGameObject =  [[FMGameObject alloc] init];
-    [orch addInstrument:fmGameObject];
+    fmOscillator =  [[FMOscillator alloc] init];
+    [orch addInstrument:fmOscillator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     currentEvent = nil;
 }
@@ -36,15 +36,15 @@
         [off trigger];
     }
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
-    currentEvent = [[OCSEvent alloc] initWithInstrument:fmGameObject];
-    [currentEvent setNoteProperty:[fmGameObject frequency] toValue:randomFrequency];
+    currentEvent = [[OCSEvent alloc] initWithInstrument:fmOscillator];
+    [currentEvent setNoteProperty:[fmOscillator frequency] toValue:randomFrequency];
     [currentEvent trigger];
     
 }
 - (IBAction)playRandomModulation:(id)sender
 {
     float randomModulation = [Helper randomFloatFrom:kModulationMin to:kModulationMax];
-    OCSEvent *instrumentChangeEvent = [[OCSEvent alloc] initWithInstrumentProperty:[fmGameObject modulation] value:randomModulation];
+    OCSEvent *instrumentChangeEvent = [[OCSEvent alloc] initWithInstrumentProperty:[fmOscillator modulation] value:randomModulation];
     [instrumentChangeEvent trigger];
 }
 

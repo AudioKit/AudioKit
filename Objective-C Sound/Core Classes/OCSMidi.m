@@ -11,23 +11,6 @@
 
 #pragma mark  Utility Function
 
-static void CheckError(OSStatus error, const char *operation)
-{
-    if (error == noErr) return;
-    
-    char errorString[20];
-    // See if it appears to be a 4-char code
-    *(UInt32 *)(errorString + 1) = CFSwapInt32HostToBig(error);
-    if (isprint(errorString[1]) && isprint(errorString[2]) &&
-        isprint(errorString[3]) && isprint(errorString[4])) {
-        errorString[0] = errorString[5] = '\'';
-        errorString[6] = '\0';
-    } else
-        sprintf(errorString, "%d", (int)error);
-    fprintf(stderr, "Error %s (%s)\n", operation, errorString);
-    exit(1);
-}
-
 @interface OCSMidi() {
     MIDIClientRef client;
 }
@@ -54,8 +37,9 @@ static void CheckError(OSStatus error, const char *operation)
 }
 
 
-
-#pragma mark - Broadcast MIDI Events
+// -----------------------------------------------------------------------------
+#  pragma mark - Broadcast MIDI Events
+// -----------------------------------------------------------------------------
 
 - (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
@@ -139,7 +123,9 @@ static void CheckError(OSStatus error, const char *operation)
 }
 
 
-#pragma mark - Low Level MIDI Handlining
+// -----------------------------------------------------------------------------
+#  pragma mark - Low Level MIDI Handlining
+// -----------------------------------------------------------------------------
 
 typedef enum MIDIConstants {
     kMidiNoteOff = 8,
@@ -221,25 +207,20 @@ void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
 - (void)openMidiIn
 {
     NSLog(@"Opening Midi In");
-    CheckError (MIDIClientCreate(CFSTR("Core MIDI to System Sounds Demo"), MyMIDINotifyProc, (__bridge void *)(self), &client),
-				"Couldn't create MIDI client");
-	
+    MIDIClientCreate(CFSTR("Core MIDI to System Sounds Demo"), MyMIDINotifyProc, (__bridge void *)(self), &client);
 	MIDIPortRef inPort;
-	CheckError (MIDIInputPortCreate(client, CFSTR("Input port"), MyMIDIReadProc, (__bridge void *)(self), &inPort),
-				"Couldn't create MIDI input port");
+	MIDIInputPortCreate(client, CFSTR("Input port"), MyMIDIReadProc, (__bridge void *)(self), &inPort);
 	
 	unsigned long sourceCount = MIDIGetNumberOfSources();
     NSLog(@"%ld sources\n", sourceCount);
 	for (int i = 0; i < sourceCount; ++i) {
 		MIDIEndpointRef src = MIDIGetSource(i);
 		CFStringRef endpointName = NULL;
-		CheckError(MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName),
-				   "Couldn't get endpoint name");
+		MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName);
 		char endpointNameC[255];
 		CFStringGetCString(endpointName, endpointNameC, 255, kCFStringEncodingUTF8);
 		NSLog(@"source %d: %s\n", i, endpointNameC);
-		CheckError (MIDIPortConnectSource(inPort, src, NULL),
-					"Couldn't connect MIDI port");
+		MIDIPortConnectSource(inPort, src, NULL);
 	}
 
 }

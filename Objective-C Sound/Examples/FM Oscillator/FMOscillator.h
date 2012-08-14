@@ -1,5 +1,5 @@
 //
-//  FMGameObject.h
+//  FMOscillator.h
 //  Objective-C Sound Example
 //
 //  Created by Adam Boulanger on 6/4/12.
@@ -12,7 +12,7 @@
 
 #import "OCSInstrument.h"
 
-@interface FMGameObject : OCSInstrument 
+@interface FMOscillator : OCSInstrument 
 
 @property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 110
@@ -21,9 +21,5 @@
 @property (nonatomic, strong) OCSInstrumentProperty *modulation;
 #define kModulationMin 0.5
 #define kModulationMax 2.0
-
-- (void)playNoteForDuration:(float)noteDuration 
-                  Frequency:(float)noteFrequency
-                 Modulation:(float)noteModulation;
 
 @end

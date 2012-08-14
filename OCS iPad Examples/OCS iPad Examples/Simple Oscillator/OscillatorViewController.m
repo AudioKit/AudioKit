@@ -9,10 +9,10 @@
 #import "OscillatorViewController.h"
 #import "Helper.h"
 #import "OCSManager.h"
-#import "SoundGenerator.h"
+#import "SimpleOscillator.h"
 
 @interface OscillatorViewController () {
-    SoundGenerator *soundGenerator;
+    SimpleOscillator *simpleOscillator;
     OCSEvent *currentEvent;
 }
 @end
@@ -24,8 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
-    soundGenerator =  [[SoundGenerator alloc] init];
-    [orch addInstrument:soundGenerator];
+    simpleOscillator =  [[SimpleOscillator alloc] init];
+    [orch addInstrument:simpleOscillator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     currentEvent = nil;
 }
@@ -36,8 +36,8 @@
         [off trigger];
     }
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", frequency]];
-    currentEvent = [[OCSEvent alloc] initWithInstrument:soundGenerator];
-    [currentEvent setNoteProperty:[soundGenerator frequency] toValue:frequency];
+    currentEvent = [[OCSEvent alloc] initWithInstrument:simpleOscillator];
+    [currentEvent setNoteProperty:[simpleOscillator frequency] toValue:frequency];
     [currentEvent trigger];
 }
 
