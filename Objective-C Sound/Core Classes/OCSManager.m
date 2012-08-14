@@ -121,9 +121,11 @@ static OCSManager *_sharedOCSManager = nil;
     if(isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
-    }    
+    }
+    NSLog(@"Writing CSD File");
     [self writeCSDFileForOrchestra:orchestra];
     
+    NSLog(@"Updating Value Cache");
     [self updateValueCacheWithProperties:orchestra];
     
     [csound startCsound:csdFile];

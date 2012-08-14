@@ -34,15 +34,6 @@
     return self;
 }
 
-- (id)initWithMinValue:(float)minValue 
-              maxValue:(float)maxValue;
-{
-    self = [self init];
-    minimumValue = minValue;
-    maximumValue = maxValue;
-    return self;
-}
-
 - (id)initWithValue:(float)initialValue 
            minValue:(float)minValue 
            maxValue:(float)maxValue;
@@ -54,6 +45,14 @@
     maximumValue = maxValue;
     return self;
 }
+
+
+- (id)initWithMinValue:(float)minValue
+              maxValue:(float)maxValue;
+{
+    return [self initWithValue:minValue minValue:minValue maxValue:maxValue];
+}
+
 
 - (void)setAudio:(OCSParameter *)p {
     audio = p;

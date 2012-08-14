@@ -28,4 +28,13 @@
 + (float)randomFloatFrom:(float)minimum to:(float)maximum; 
 
 
++ (float)midiNoteToFrequency:(int)note;
+
++ (float)scaleValue:(float)value
+        fromMinimum:(float)fromMinimum
+        fromMaximum:(float)fromMaximum
+          toMinimum:(float)toMinimum
+          toMaximum:(float)toMaximum;
+
 @end
+
