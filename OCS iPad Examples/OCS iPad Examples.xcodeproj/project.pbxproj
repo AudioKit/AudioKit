@@ -26,6 +26,7 @@
 		C46319DE15DA24D200CA177E /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46319D915DA24D200CA177E /* ConvolutionInstrument.m */; };
 		C46319DF15DA24D200CA177E /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C46319DA15DA24D200CA177E /* dish.wav */; };
 		C46319E015DA24D200CA177E /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C46319DB15DA24D200CA177E /* Stairwell.wav */; };
+		C46319E415DA25FA00CA177E /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C46319E215DA25FA00CA177E /* FivePropertyInstrument.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4C8278215D7CBC3009D48DA /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8278115D7CBC3009D48DA /* OCSMidi.m */; };
@@ -171,6 +172,8 @@
 		C46319D915DA24D200CA177E /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C46319DA15DA24D200CA177E /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
 		C46319DB15DA24D200CA177E /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
+		C46319E115DA25FA00CA177E /* FivePropertyInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = FivePropertyInstrument.h; path = MIDI/FivePropertyInstrument.h; sourceTree = "<group>"; };
+		C46319E215DA25FA00CA177E /* FivePropertyInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FivePropertyInstrument.m; path = MIDI/FivePropertyInstrument.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -415,6 +418,7 @@
 				C463188F15DA0C8600CA177E /* Simple Oscillator */,
 				C46319BB15DA112E00CA177E /* UDOs */,
 				C46319BE15DA112E00CA177E /* Unit Generators */,
+				C46319E515DA260000CA177E /* MIDI */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -531,6 +535,15 @@
 				C46319DB15DA24D200CA177E /* Stairwell.wav */,
 			);
 			path = Convolution;
+			sourceTree = "<group>";
+		};
+		C46319E515DA260000CA177E /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				C46319E115DA25FA00CA177E /* FivePropertyInstrument.h */,
+				C46319E215DA25FA00CA177E /* FivePropertyInstrument.m */,
+			);
+			name = MIDI;
 			sourceTree = "<group>";
 		};
 		C4C8272B15D752A5009D48DA /* MIDI */ = {
@@ -1237,6 +1250,7 @@
 				C46319CE15DA112E00CA177E /* UnitGeneratorInstrument.m in Sources */,
 				C46319D515DA24C900CA177E /* SimpleGrainInstrument.m in Sources */,
 				C46319DE15DA24D200CA177E /* ConvolutionInstrument.m in Sources */,
+				C46319E415DA25FA00CA177E /* FivePropertyInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
