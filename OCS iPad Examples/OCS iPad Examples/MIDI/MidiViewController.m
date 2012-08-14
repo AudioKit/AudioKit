@@ -119,19 +119,31 @@
     _controllerValue = value;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     
-    OCSEvent *cutOffChange = [[OCSEvent alloc] initWithInstrument:instrument];
-    float cutoff = [Helper scaleValue:value
-                          fromMinimum:0
-                          fromMaximum:127
-                            toMinimum:kLpCutoffMax
-                            toMaximum:kLpCutoffMin];
-    [cutOffChange setInstrumentProperty:[instrument cutoffFrequency] toValue:cutoff];
+    float cutoff = [Helper scaleControllerValue:value
+                                    fromMinimum:kLpCutoffMax
+                                      toMaximum:kLpCutoffMin];
+    [[instrument cutoffFrequency] setValue:cutoff];
 }
 
 - (void)midiPitchWheel:(int)pitchWheelValue channel:(int)channel {
     _channel = channel;
     _pitchBend = pitchWheelValue;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+    float bend;
+    if (pitchWheelValue <=8192) {
+        bend = [Helper scaleValue:pitchWheelValue
+                            fromMinimum:0
+                            fromMaximum:8192
+                              toMinimum:kPitchBendMin
+                              toMaximum:1];
+    } else {
+        bend = [Helper scaleValue:pitchWheelValue
+                            fromMinimum:8192
+                            fromMaximum:16384
+                              toMinimum:1
+                              toMaximum:kPitchBendMax];
+    }
+    [[instrument pitchBend] setValue:bend];
 }
 
 - (void)midiModulation:(int)modulation channel:(int)channel {
@@ -139,13 +151,11 @@
     _modulation = modulation;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     
-    OCSEvent *modulationChange = [[OCSEvent alloc] initWithInstrument:instrument];
-    float mod = [Helper scaleValue:modulation
-                       fromMinimum:0
-                       fromMaximum:127
-                         toMinimum:kModulationMin
-                         toMaximum:kModulationMax];
-    [modulationChange setInstrumentProperty:[instrument modulation] toValue:mod];
+    float mod = [Helper scaleControllerValue:modulation
+                                 fromMinimum:kModulationMin
+                                   toMaximum:kModulationMax];
+    [[instrument modulation] setValue:mod];
+
 }
 
 

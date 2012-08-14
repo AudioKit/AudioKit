@@ -36,5 +36,9 @@
           toMinimum:(float)toMinimum
           toMaximum:(float)toMaximum;
 
++ (float)scaleControllerValue:(float)value
+                  fromMinimum:(float)minimum
+                    toMaximum:(float)maximum;
+
 @end
 
