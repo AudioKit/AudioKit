@@ -11,19 +11,19 @@
 @interface FivePropertyInstrument : OCSInstrument
 
 @property (nonatomic, strong) OCSNoteProperty *volume;
-#define kVolumeMin 0.05
-#define kVolumeMax 0.5
+#define kVolumeMin 0.0
+#define kVolumeMax 0.8
 
 @property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 20
 #define kFrequencyMax 20000
 
 @property (nonatomic, strong) OCSInstrumentProperty *pitchBend;
-#define kPitchBendMin 0.9
-#define kPitchBendMax 1.11
+#define kPitchBendMin 0.5
+#define kPitchBendMax 2.0
 
 @property (nonatomic, strong) OCSInstrumentProperty *modulation;
-#define kModulationMin 0.5
+#define kModulationMin 1.0
 #define kModulationMax 2.0
 
 @property  (nonatomic, strong) OCSInstrumentProperty *cutoffFrequency;
