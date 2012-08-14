@@ -44,6 +44,8 @@
     _controllerNumber = 0;
     _controllerValue = 0;
     
+    currentNotes = [[NSMutableDictionary alloc] init];
+    
     orch = [[OCSOrchestra alloc] init];
     instrument = [[FivePropertyInstrument alloc] init];
     [orch addInstrument:instrument];
@@ -77,20 +79,21 @@
     OCSEvent *noteOnEvent = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
     OCSEvent *noteOffEvent = [[OCSEvent alloc] initDeactivation:noteOnEvent afterDuration:0];
     [noteOffEvent trigger];
-    NSLog(@"MIDI Note Off");
 }
 
 
 - (void)midiController:(int)controller changedToValue:(int)value channel:(int)channel {
     _channel = channel;
     _controllerNumber = controller;
-    _controllerValue = value;
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
-    
-    float cutoff = [Helper scaleControllerValue:value
-                                    fromMinimum:kLpCutoffMax
-                                      toMaximum:kLpCutoffMin];
-    [[instrument cutoffFrequency] setValue:cutoff];
+
+    if (_controllerNumber > 1) {
+        _controllerValue = value;
+        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+        float cutoff = [Helper scaleControllerValue:value
+                                        fromMinimum:kLpCutoffMax
+                                          toMaximum:kLpCutoffMin];
+        [[instrument cutoffFrequency] setValue:cutoff];
+    }
 }
 
 - (void)midiPitchWheel:(int)pitchWheelValue channel:(int)channel {
@@ -113,6 +116,7 @@
                         toMaximum:kPitchBendMax];
     }
     [[instrument pitchBend] setValue:bend];
+    NSLog(@"Trying to set pitch bend to %f", bend);
 }
 
 - (void)midiModulation:(int)modulation channel:(int)channel {
@@ -124,6 +128,7 @@
                                  fromMinimum:kModulationMin
                                    toMaximum:kModulationMax];
     [[instrument modulation] setValue:mod];
+    NSLog(@"Trying to set modulation to %f", mod);
 }
 
 - (void)updateUI {
@@ -142,14 +147,13 @@
               minimum:0
               maximum:powf(2.0, 14.0)];
     
-    if (_controllerNumber > 1) {
-        [controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
-        [controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
-        [Helper setSlider:controllerSlider
-                withValue:_controllerValue
-                  minimum:0
-                  maximum:127];
-    }
+    [controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
+    [controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
+    [Helper setSlider:controllerSlider
+            withValue:_controllerValue
+              minimum:0
+              maximum:127];
+    
 }
 
 

@@ -42,14 +42,12 @@
               minimum:0
               maximum:powf(2.0, 14.0)];
     
-    if (_controllerNumber > 1) {
-        [controllerNumberLabel setText:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
-        [controllerValueLabel  setText:[NSString stringWithFormat:@"%i", _controllerValue]];
-        [Helper setSlider:controllerSlider
-                withValue:_controllerValue
-                  minimum:0
-                  maximum:127];
-    }
+    [controllerNumberLabel setText:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
+    [controllerValueLabel  setText:[NSString stringWithFormat:@"%i", _controllerValue]];
+    [Helper setSlider:controllerSlider
+            withValue:_controllerValue
+              minimum:0
+              maximum:127];
 }
 
 - (void)viewDidLoad
@@ -61,6 +59,7 @@
     _pitchBend = 8192;
     _controllerNumber = 0;
     _controllerValue = 0;
+    
     currentNotes = [[NSMutableDictionary alloc] init];
     
     [super viewDidLoad];
@@ -116,13 +115,16 @@
 - (void)midiController:(int)controller changedToValue:(int)value channel:(int)channel {
     _channel = channel;
     _controllerNumber = controller;
-    _controllerValue = value;
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
-    
-    float cutoff = [Helper scaleControllerValue:value
-                                    fromMinimum:kLpCutoffMax
-                                      toMaximum:kLpCutoffMin];
-    [[instrument cutoffFrequency] setValue:cutoff];
+
+    if (_controllerNumber > 1) {
+        _controllerValue = value;
+        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+        float cutoff = [Helper scaleControllerValue:value
+                                        fromMinimum:kLpCutoffMax
+                                          toMaximum:kLpCutoffMin];
+        [[instrument cutoffFrequency] setValue:cutoff];
+    }
+
 }
 
 - (void)midiPitchWheel:(int)pitchWheelValue channel:(int)channel {
