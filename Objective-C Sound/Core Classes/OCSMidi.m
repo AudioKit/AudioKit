@@ -59,31 +59,41 @@ static void CheckError(OSStatus error, const char *operation)
 
 - (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiNoteOn:note velocity:velocity channel:channel];
+        if ([listener respondsToSelector:@selector(midiNoteOn:velocity:channel:)]) {
+            [listener midiNoteOn:note velocity:velocity channel:channel];
+        }
     }
 }
 
 - (void)broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiNoteOff:note velocity:velocity channel:channel];
+        if ([listener respondsToSelector:@selector(midiNoteOff:velocity:channel:)]) {
+            [listener midiNoteOff:note velocity:velocity channel:channel];
+        }
     }
 }
 
 - (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiAftertouchOnNote:note pressure:pressure channel:channel];
+        if ([listener respondsToSelector:@selector(midiAftertouchOnNote:pressure:channel:)]) {
+            [listener midiAftertouchOnNote:note pressure:pressure channel:channel];
+        }
     }
 }
 
 - (void)broadcastAftertouch:(int)pressure channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiAftertouch:pressure channel:channel];
+        if ([listener respondsToSelector:@selector(midiAftertouch:channel:)]) {
+            [listener midiAftertouch:pressure channel:channel];
+        }
     }
 }
 
 - (void)broadcastPitchWheel:(int)pitchWheelValue channel:(int)channel {
     for (id<OCSMidiListener> listener in listeners) {
-        [listener midiPitchWheel:pitchWheelValue  channel:channel];
+        if ([listener respondsToSelector:@selector(midiPitchWheel:channel:)]) {
+            [listener midiPitchWheel:pitchWheelValue  channel:channel];
+        }
     }
 }
 
@@ -93,22 +103,34 @@ static void CheckError(OSStatus error, const char *operation)
         [listener midiController:controller changedToValue:value channel:channel];
         switch (controller) {
             case 1:
-                [listener midiModulation:value channel:channel];
+                if ([listener respondsToSelector:@selector(midiModulation:channel:)]) {
+                    [listener midiModulation:value channel:channel];
+                }
                 break;
             case 5:
-                [listener midiPortamento:value channel:channel];
+                if ([listener respondsToSelector:@selector(midiPortamento:channel:)]) {
+                    [listener midiPortamento:value channel:channel];
+                }
                 break;
             case 7:
-                [listener midiVolume:value channel:channel];
+                if ([listener respondsToSelector:@selector(midiVolume:channel:)]) {
+                    [listener midiVolume:value channel:channel];
+                }
                 break;
             case 8:
-                [listener midiBalance:value channel:channel];
+                if ([listener respondsToSelector:@selector(midiBalance:channel:)]) {
+                    [listener midiBalance:value channel:channel];
+                }
                 break;
             case 10:
-                [listener midiPan:value channel:channel];
+                if ([listener respondsToSelector:@selector(midiPan:channel:)]) {
+                    [listener midiPan:value channel:channel];
+                }
                 break;
             case 11:
-                [listener midiExpression:value channel:channel];
+                if ([listener respondsToSelector:@selector(midiExpression:channel:)]) {
+                    [listener midiExpression:value channel:channel];
+                }
                 break;
             default:
                 break;
@@ -193,7 +215,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 }
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
-	printf("MIDI Notify, messageId=%ld,", message->messageID);
+	//printf("MIDI Notify, messageId=%d,", message->messageID);
 }
 
 - (void)openMidiIn

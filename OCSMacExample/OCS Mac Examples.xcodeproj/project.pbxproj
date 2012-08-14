@@ -85,6 +85,7 @@
 		C42DF46915D65C95001E7DB1 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42DF46715D65C95001E7DB1 /* hellorcb.aif */; };
 		C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46B15D65D40001E7DB1 /* Helper.m */; };
 		C42DF46F15D66CFB001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF46E15D66CFB001E7DB1 /* example.csd */; };
+		C463188C15D9FB6800CA177E /* MIDIController.m in Sources */ = {isa = PBXBuildFile; fileRef = C463188A15D9FB6800CA177E /* MIDIController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -235,6 +236,8 @@
 		C42DF46A15D65D40001E7DB1 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		C42DF46B15D65D40001E7DB1 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		C42DF46E15D66CFB001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
+		C463188915D9FB6800CA177E /* MIDIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MIDIController.h; path = MIDI/MIDIController.h; sourceTree = "<group>"; };
+		C463188A15D9FB6800CA177E /* MIDIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MIDIController.m; path = MIDI/MIDIController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +310,7 @@
 				C42DF46B15D65D40001E7DB1 /* Helper.m */,
 				C42DF45315D65848001E7DB1 /* Play CSD File */,
 				C42DF45C15D65AB3001E7DB1 /* Play Audio File */,
+				C463188D15D9FB6E00CA177E /* MIDI */,
 				C400ADA215D3C9570020C794 /* Supporting Files */,
 			);
 			path = OCSMacExample;
@@ -626,6 +630,15 @@
 			path = "Play CSD File";
 			sourceTree = "<group>";
 		};
+		C463188D15D9FB6E00CA177E /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				C463188915D9FB6800CA177E /* MIDIController.h */,
+				C463188A15D9FB6800CA177E /* MIDIController.m */,
+			);
+			name = MIDI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -758,6 +771,7 @@
 				C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */,
 				C42DF46815D65C95001E7DB1 /* AudioFilePlayer.m in Sources */,
 				C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */,
+				C463188C15D9FB6800CA177E /* MIDIController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
