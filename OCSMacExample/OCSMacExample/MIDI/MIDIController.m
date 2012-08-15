@@ -116,7 +116,7 @@
                         toMaximum:kPitchBendMax];
     }
     [[instrument pitchBend] setValue:bend];
-    NSLog(@"Trying to set pitch bend to %f", bend);
+    //NSLog(@"Trying to set pitch bend to %f", bend);
 }
 
 - (void)midiModulation:(int)modulation channel:(int)channel {
@@ -128,7 +128,7 @@
                                  fromMinimum:kModulationMin
                                    toMaximum:kModulationMax];
     [[instrument modulation] setValue:mod];
-    NSLog(@"Trying to set modulation to %f", mod);
+    //NSLog(@"Trying to set modulation to %f", mod);
 }
 
 - (void)updateUI {

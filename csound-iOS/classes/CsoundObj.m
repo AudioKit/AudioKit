@@ -9,7 +9,7 @@
  The Csound for iOS Library is free software; you can redistribute it
  and/or modify it under the terms of the GNU Lesser General Public
  License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.   
+ version 2.1 of the License, or (at your option) any later version.
  
  Csound is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -37,7 +37,7 @@ OSStatus  Csound_Render(void *inRefCon,
                         AudioBufferList *ioData);
 void InterruptionListener(void *inClientData, UInt32 inInterruption);
 
-@interface CsoundObj() 
+@interface CsoundObj()
 
 -(void)runCsound:(NSString*)csdFilePath;
 
@@ -77,8 +77,8 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 
 #pragma mark -
 
-static void messageCallback(CSOUND *cs, int attr, const char *format, va_list valist) 
-{	
+static void messageCallback(CSOUND *cs, int attr, const char *format, va_list valist)
+{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	CsoundObj *obj = csoundGetHostData(cs);
 	Message info;
@@ -89,7 +89,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 	NSValue *infoObj = [NSValue value:&info withObjCType:@encode(Message)];
 	[obj performSelector:@selector(performMessageCallback:) withObject:infoObj];
 	[pool drain];
-} 
+}
 
 - (void)setMessageCallback:(SEL)method withListener:(id)listener
 {
@@ -116,6 +116,9 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     [completionListeners addObject:listener];
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Getting Info About Csound
+// -----------------------------------------------------------------------------
 
 -(CSOUND*)getCsound {
     if (!mCsData.running) {
@@ -158,11 +161,13 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 -(int)getKsmps {
     if (!mCsData.running) {
         return -1;
-    }    
+    }
     return csoundGetKsmps(mCsData.cs);
 }
 
-#pragma mark Csound Code
+// -----------------------------------------------------------------------------
+#  pragma mark - Running Csound
+// -----------------------------------------------------------------------------
 
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
@@ -181,7 +186,7 @@ OSStatus  Csound_Render(void *inRefCon,
     int ksmps = csoundGetKsmps(cs);
     MYFLT *spin = csoundGetSpin(cs);
     MYFLT *spout = csoundGetSpout(cs);
-    AudioUnitSampleType *buffer; 
+    AudioUnitSampleType *buffer;
     
     AudioUnitRender(*cdata->aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
     
@@ -191,6 +196,7 @@ OSStatus  Csound_Render(void *inRefCon,
 		
 		for (int i = 0; i < cache.count; i++) {
 			id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
+            
 			[cachedValue updateValuesToCsound];
 		}
         
@@ -223,7 +229,6 @@ OSStatus  Csound_Render(void *inRefCon,
 			id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
 			[cachedValue updateValuesFromCsound];
 		}
-		
     }
 	
 	// Write to file.
@@ -233,7 +238,7 @@ OSStatus  Csound_Render(void *inRefCon,
 			printf("***Error writing to file \n");
 		}
 	}
-        
+    
     cdata->ret = ret;
     return 0;
 }
@@ -305,7 +310,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
     mCsData.shouldRecord = false;
     ExtAudioFileDispose(mCsData.file);
 }
-    
+
 -(void)stopCsound {
     mCsData.running = false;
     csoundStop(mCsData.cs);
@@ -321,7 +326,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 
 -(void)runCsound:(NSString*)csdFilePath {
 	
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];	
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	CSOUND *cs;
     
 	cs = csoundCreate(NULL);
@@ -330,15 +335,15 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 	
 	csoundSetMessageCallback(cs, messageCallback);
 	csoundSetHostData(cs, self);
-        
+    
     // Hardcoding to use old parser for time being
     char *parserFlag;
 	
     
     if(self.useOldParser) {
-       parserFlag = "--old-parser";
+        parserFlag = "--old-parser";
     } else {
-       parserFlag = "--new-parser";
+        parserFlag = "--new-parser";
     }
     
     char *argv[3] = { "csound", parserFlag, (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
@@ -353,7 +358,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 		mCsData.bufframes = (int)(csoundGetOutputBufferSize(cs))/mCsData.nchnls;
 		mCsData.running = true;
         mCsData.valuesCache = valuesCache;
-		AudioStreamBasicDescription format;
+        AudioStreamBasicDescription format;
 		OSStatus err;
 		
         // SETUP VALUE CACHEABLE
@@ -363,12 +368,11 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
             [cachedValue setup:self];
         }
         
-        
-		// Audio Session handler
+        // Audio Session handler
         AudioSessionInitialize(NULL, NULL, InterruptionListener, &mCsData);
-		AudioSessionSetActive(true);
-//		UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-//		AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+        AudioSessionSetActive(true);
+        //		UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+        //		AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
 		UInt32 audioCategory = kAudioSessionCategory_PlayAndRecord;
 		AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(audioCategory), &audioCategory);
 		
@@ -379,8 +383,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 		
 		AudioUnit csAUHAL;
 		err = AudioComponentInstanceNew(HALOutput, &csAUHAL);
-
-		
+        
 		if(!err) {
             
             mCsData.aunit = &csAUHAL;
@@ -400,14 +403,14 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
                     AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, &outsize);
                     format.mSampleRate	= csoundGetSr(cs);
                     format.mFormatID = kAudioFormatLinearPCM;
-                    format.mFormatFlags = kAudioFormatFlagsCanonical | kLinearPCMFormatFlagIsNonInterleaved;         
+                    format.mFormatFlags = kAudioFormatFlagsCanonical | kLinearPCMFormatFlagIsNonInterleaved;
                     format.mBytesPerPacket = sizeof(AudioUnitSampleType);
                     format.mFramesPerPacket = 1;
                     format.mBytesPerFrame = sizeof(AudioUnitSampleType);
                     format.mChannelsPerFrame = mCsData.nchnls;
                     format.mBitsPerChannel = sizeof(AudioUnitSampleType)*8;
                     err = AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, sizeof(AudioStreamBasicDescription));
-                }		
+                }
                 
 				if (mCsData.shouldRecord) {
 					
@@ -437,7 +440,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 						// Warm the file up.
 						ExtAudioFileWriteAsync(mCsData.file, 0, NULL);
 					} else {
-						printf("***Not recording. Error: %ld\n", err);
+						printf("***Not recording. Error.");
 						err = noErr;
 					}
 				}
@@ -447,29 +450,29 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
                     output.inputProc = Csound_Render;
                     output.inputProcRefCon = &mCsData;
                     AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &output, sizeof(output));
-                    AudioUnitInitialize(csAUHAL);	
+                    AudioUnitInitialize(csAUHAL);
                     
                     err = AudioOutputUnitStart(csAUHAL);
 					
-					// NOTIFY COMPLETION LISTENERS
-					
-					for (id<CsoundObjCompletionListener> listener in completionListeners) {
-						[listener csoundObjDidStart:self];
-					}
+                    // NOTIFY COMPLETION LISTENERS
+                    
+                    for (id<CsoundObjCompletionListener> listener in completionListeners) {
+                        [listener csoundObjDidStart:self];
+                    }
                     
                     if(!err) while (!mCsData.ret && mCsData.running);
-						
+                    
                     ExtAudioFileDispose(mCsData.file);
 					mCsData.shouldRecord = false;
                     AudioOutputUnitStop(csAUHAL);
-                    // free(CAInputData); 
+                    // free(CAInputData);
                 }
                 AudioUnitUninitialize(csAUHAL);
                 AudioComponentInstanceDispose(csAUHAL);
             }
 		}
 		csoundDestroy(cs);
-	}	
+	}
 	
     mCsData.running = false;
     
@@ -507,6 +510,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 
 // -----------------------------------------------------------------------------
 #  pragma mark - iOS Hardware specific functions
+// -----------------------------------------------------------------------------
 
 -(id<CsoundValueCacheable>)enableAccelerometer {
     
