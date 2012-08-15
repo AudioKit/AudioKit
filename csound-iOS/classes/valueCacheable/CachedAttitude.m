@@ -28,9 +28,6 @@
 @interface CachedAttitude() {
     CMMotionManager* mManager;
 }
-
--(id)init:(CMMotionManager*)manager;
-
 @end
 
 
@@ -52,9 +49,7 @@ static NSString* CS_ATTITUDE_YAW = @"attitudeYaw";
     channelPtrPitch = [csoundObj getInputChannelPtr:CS_ATTITUDE_PITCH];
     channelPtrYaw   = [csoundObj getInputChannelPtr:CS_ATTITUDE_YAW];    
     
-    *channelPtrRoll  = mManager.deviceMotion.attitude.roll;
-    *channelPtrPitch = mManager.deviceMotion.attitude.pitch;
-    *channelPtrYaw   = mManager.deviceMotion.attitude.yaw;    
+    [self updateValuesToCsound];  
     
 }
 

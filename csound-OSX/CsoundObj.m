@@ -323,7 +323,7 @@ OSStatus  Csound_Render(void *inRefCon,
 	mCsData.shouldMute = false;
 }
 
--(void)runCsound:(NSString*)csdFilePath {
+-(void)runCsound:(NSString *)csdFilePath {
     
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	CSOUND *cs;

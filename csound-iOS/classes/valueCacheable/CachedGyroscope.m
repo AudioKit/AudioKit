@@ -48,9 +48,7 @@ static NSString* CS_GYRO_Z = @"gyroZ";
     channelPtrY = [csoundObj getInputChannelPtr:CS_GYRO_Y];
     channelPtrZ = [csoundObj getInputChannelPtr:CS_GYRO_Z];    
 
-    *channelPtrX = mManager.gyroData.rotationRate.x;
-    *channelPtrY = mManager.gyroData.rotationRate.y;
-    *channelPtrZ = mManager.gyroData.rotationRate.z;    
+    [self updateValuesToCsound];
 
 }
 

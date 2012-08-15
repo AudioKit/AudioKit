@@ -120,20 +120,20 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 #  pragma mark - Getting Info About Csound
 // -----------------------------------------------------------------------------
 
--(CSOUND*)getCsound {
+-(CSOUND *)getCsound {
     if (!mCsData.running) {
         return NULL;
     }
     return mCsData.cs;
 }
 
--(MYFLT*)getInputChannelPtr:(NSString*)channelName {
+-(MYFLT *)getInputChannelPtr:(NSString*)channelName {
     MYFLT *value;
     csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
     return value;
 }
 
--(MYFLT*)getOutputChannelPtr:(NSString *)channelName
+-(MYFLT *)getOutputChannelPtr:(NSString *)channelName
 {
 	MYFLT *value;
 	csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_AUDIO_CHANNEL | CSOUND_OUTPUT_CHANNEL);
@@ -324,7 +324,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 	mCsData.shouldMute = false;
 }
 
--(void)runCsound:(NSString*)csdFilePath {
+-(void)runCsound:(NSString *)csdFilePath {
 	
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	CSOUND *cs;
