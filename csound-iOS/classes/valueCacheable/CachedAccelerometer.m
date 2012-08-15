@@ -49,9 +49,7 @@ static NSString* CS_ACCEL_Z = @"accelerometerZ";
     channelPtrY = [csoundObj getInputChannelPtr:CS_ACCEL_Y];
     channelPtrZ = [csoundObj getInputChannelPtr:CS_ACCEL_Z];    
     
-    *channelPtrX = mManager.accelerometerData.acceleration.x;
-    *channelPtrY = mManager.accelerometerData.acceleration.y;
-    *channelPtrZ = mManager.accelerometerData.acceleration.z;    
+    [self updateValuesToCsound];
     
     self.cacheDirty = YES;
 }

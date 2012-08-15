@@ -41,7 +41,7 @@ typedef struct csdata_ {
 	bool shouldMute;
 	ExtAudioFileRef file;
 	AudioUnit *aunit;
-     __unsafe_unretained NSMutableArray* valuesCache;
+     __unsafe_unretained NSMutableArray *valuesCache;
 } csdata;
 
 typedef struct {
@@ -56,14 +56,14 @@ typedef struct {
 
 @protocol CsoundObjCompletionListener 
 
--(void)csoundObjDidStart:(CsoundObj*)csoundObj;
--(void)csoundObjComplete:(CsoundObj*)csoundObj;
+-(void)csoundObjDidStart:(CsoundObj *)csoundObj;
+-(void)csoundObjComplete:(CsoundObj *)csoundObj;
 
 @end
 
 @interface CsoundObj : NSObject {
-    NSMutableArray* valuesCache;
-    NSMutableArray* completionListeners;
+    NSMutableArray *valuesCache;
+    NSMutableArray *completionListeners;
     csdata mCsData;
     BOOL mMidiInEnabled;
 	NSURL *outputURL;
@@ -85,7 +85,7 @@ typedef struct {
 
 #pragma mark -
 
--(void)sendScore:(NSString*)score;
+-(void)sendScore:(NSString *)score;
 
 #pragma mark -
 
@@ -93,7 +93,7 @@ typedef struct {
 
 #pragma mark -
 
--(void)startCsound:(NSString*)csdFilePath;
+-(void)startCsound:(NSString *)csdFilePath;
 -(void)startCsound:(NSString *)csdFilePath recordToURL:(NSURL *)outputURL;
 -(void)recordToURL:(NSURL *)outputURL;
 -(void)stopRecording;
@@ -101,10 +101,10 @@ typedef struct {
 -(void)muteCsound;
 -(void)unmuteCsound;
 
--(CSOUND*)getCsound;
--(MYFLT*)getInputChannelPtr:(NSString*)channelName;	
--(MYFLT*)getOutputChannelPtr:(NSString*)channelName;
--(NSData*)getOutSamples;
+-(CSOUND *)getCsound;
+-(MYFLT *)getInputChannelPtr:(NSString *)channelName;	
+-(MYFLT *)getOutputChannelPtr:(NSString *)channelName;
+-(NSData *)getOutSamples;
 -(int)getNumChannels;
 -(int)getKsmps;
 
