@@ -1035,10 +1035,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCSMacExample/OCSMacExample-Prefix.pch";
 				INFOPLIST_FILE = "OCSMacExample/OCSMacExample-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../Csound-iOS/libs\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "OCS Mac Examples";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1051,10 +1048,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCSMacExample/OCSMacExample-Prefix.pch";
 				INFOPLIST_FILE = "OCSMacExample/OCSMacExample-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../Csound-iOS/libs\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "OCS Mac Examples";
 				WRAPPER_EXTENSION = app;
 			};
