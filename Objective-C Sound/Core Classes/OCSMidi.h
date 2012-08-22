@@ -12,9 +12,13 @@
 #  pragma mark OCS MIDI Listener Protocol
 // -----------------------------------------------------------------------------
 
+/** Implement the OCSMidiListener protocol on any classes that need to respond
+ to incoming MIDI events.  Every method in the protocol is optional to allow
+ the classes complete freedom to respond to only the particular MIDI messages
+ of interest.
+ */
 @protocol OCSMidiListener <NSObject>
 
-// All of these are optional, so perhaps we should change to using NotificationCenter
 @optional
 
 #pragma mark Basic MIDI
@@ -61,6 +65,7 @@
     NSMutableSet *listeners;
 }
 
+/// A set of all listeners "subscribed" to MIDI Messages.
 @property (nonatomic, strong) NSMutableSet *listeners;
 
 -(void)addListener:(id<OCSMidiListener>)listener;
