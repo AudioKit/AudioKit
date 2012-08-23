@@ -42,12 +42,12 @@
         oscillator = [[OCSOscillator alloc] initWithFTable:sine
                                                  frequency:[frequency control]
                                                  amplitude:ocsp(0.4)];
-        [self addOpcode:oscillator];
+        [self connect:oscillator];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[oscillator output]]; 
-        [self addOpcode:audio];
+        [self connect:audio];
         
         
         // EXTERNAL OUTPUTS ====================================================        

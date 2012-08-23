@@ -46,7 +46,7 @@
         NSString *file;
         file = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav"];
         OCSFileInput *loop = [[OCSFileInput alloc] initWithFilename:file];
-        [self addOpcode:loop];
+        [self connect:loop];
         
         NSString *dish = [[NSBundle mainBundle] pathForResource:@"dish" ofType:@"wav"];
         NSString *well = [[NSBundle mainBundle] pathForResource:@"Stairwell" ofType:@"wav"];
@@ -54,34 +54,34 @@
         OCSConvolution *dishConv;
         dishConv  = [[OCSConvolution alloc] initWithInputAudio:[loop leftOutput] 
                                            impulseResponseFile:dish];
-        [self addOpcode:dishConv];
+        [self connect:dishConv];
 
         
         OCSConvolution *wellConv;
         wellConv  = [[OCSConvolution alloc] initWithInputAudio:[loop rightOutput] 
                                            impulseResponseFile:well];
-        [self addOpcode:wellConv];
+        [self connect:wellConv];
 
         
         OCSWeightedMean *balance;
         balance = [[OCSWeightedMean alloc] initWithSignal1:[dishConv output]
                                                    signal2:[wellConv output]
                                                    balance:[dishWellBalance output]];
-        [self addOpcode:balance];
+        [self connect:balance];
 
         
         OCSWeightedMean *dryWet;
         dryWet = [[OCSWeightedMean alloc] initWithSignal1:[loop leftOutput]
                                                   signal2:[balance output]
                                                   balance:[dryWetBalance control]];
-        [self addOpcode:dryWet];
+        [self connect:dryWet];
         
         
 
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[dryWet output]];
-        [self addOpcode:audio];
+        [self connect:audio];
     }
     return self;
 }

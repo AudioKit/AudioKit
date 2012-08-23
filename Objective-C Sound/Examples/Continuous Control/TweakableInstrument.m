@@ -64,12 +64,12 @@
                                              modulatingMultiplier:[modulation control] 
                                                   modulationIndex:[modIndex control] 
                                                            fTable:sineTable];
-        [self addOpcode:fmOscillator];
+        [self connect:fmOscillator];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscillator output]];
-        [self addOpcode:audio];
+        [self connect:audio];
         
         /*
         // Test to show amplitude slider moving also

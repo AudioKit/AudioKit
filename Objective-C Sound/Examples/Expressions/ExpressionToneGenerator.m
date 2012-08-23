@@ -32,7 +32,7 @@
                                                         frequency:ocsp(6)
                                                         amplitude:ocsp(40)];
         [vibratoOscillator setOutput:[vibratoOscillator control]];
-        [self addOpcode:vibratoOscillator];
+        [self connect:vibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
@@ -45,7 +45,7 @@
         OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
                                                          toValue:ocsp(0.5)
                                                         duration:ocsp(3.0)];
-        [self addOpcode:amplitudeRamp];
+        [self connect:amplitudeRamp];
         
         OCSControl * totalAmplitude = [OCSControl parameterWithFormat:
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
@@ -53,12 +53,12 @@
         oscillator = [[OCSOscillator alloc]  initWithFTable:sineTable
                                                   frequency:vibrato
                                                   amplitude:totalAmplitude];
-        [self addOpcode:oscillator ];
+        [self connect:oscillator ];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[oscillator output]]; 
-        [self addOpcode:audio];
+        [self connect:audio];
     }
     return self;
 }

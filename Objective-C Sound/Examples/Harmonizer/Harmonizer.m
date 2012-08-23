@@ -43,7 +43,7 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSAudioInput *audio = [[OCSAudioInput alloc] init];
-        [self addOpcode:audio];
+        [self connect:audio];
         
         OCSFSignalFromMonoAudio *fsig1;
         fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithInput:[audio output]
@@ -51,7 +51,7 @@
                                                        overlap:ocspi(256) 
                                                     windowType:kVonHannWindow
                                               windowFilterSize:ocspi(2048)];
-        [self addOpcode:fsig1];
+        [self connect:fsig1];
         
         OCSScaledFSignal *fsig2;
         fsig2 = [[OCSScaledFSignal alloc] initWithInput:[fsig1 output]
@@ -59,7 +59,7 @@
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
-        [self addOpcode:fsig2];
+        [self connect:fsig2];
         
         OCSScaledFSignal *fsig3;
         fsig3 = [[OCSScaledFSignal alloc] initWithInput:[fsig1 output]
@@ -67,21 +67,21 @@
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
-        [self addOpcode:fsig3];
+        [self connect:fsig3];
       
         OCSFSignalMix *fsig4;
         fsig4 = [[OCSFSignalMix alloc] initWithInput1:[fsig2 output] input2:[fsig3 output]];
-        [self addOpcode:fsig4];
+        [self connect:fsig4];
         
         OCSAudioFromFSignal *a1;
         a1 = [[OCSAudioFromFSignal alloc] initWithSource:[fsig4 output]];  
-        [self addOpcode:a1];
+        [self connect:a1];
         
 
         // AUDIO OUTPUT ========================================================
         OCSParameter *a2 = [OCSParameter parameterWithFormat:@"%@ * %@", a1, [gain output]];
         OCSAudio *out = [[OCSAudio alloc] initWithMonoInput:a2];
-        [self addOpcode:out];
+        [self connect:out];
     }
     return self;
 }

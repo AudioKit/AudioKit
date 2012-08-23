@@ -48,14 +48,14 @@
                                              modulatingMultiplier:[mod control]
                                                   modulationIndex:ocsp(15)
                                                            fTable:sineTable];
-        [self addOpcode:fmOscillator];
+        [self connect:fmOscillator];
 
 
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[fmOscillator output]
                                                    rightInput:[fmOscillator output]];
-        [self addOpcode:audio];
+        [self connect:audio];
     }
     return self;
 }

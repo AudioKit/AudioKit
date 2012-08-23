@@ -26,13 +26,13 @@
         OCSReverb * reverb = [[OCSReverb alloc] initWithMonoInput:input
                                                     feedbackLevel:ocsp(0.9)
                                                   cutoffFrequency:ocsp(12000)];
-        [self addOpcode:reverb];
+        [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
             
         OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[reverb leftOutput] 
                                                    rightInput:[reverb rightOutput]]; 
-        [self addOpcode:audio];
+        [self connect:audio];
         
         // RESET INPUTS ========================================================
         [self resetParam:input];

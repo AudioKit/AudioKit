@@ -94,7 +94,7 @@ static int currentID = 1;
 #  pragma mark - Opcodes
 // -----------------------------------------------------------------------------
 
-- (void)addOpcode:(OCSOpcode *)newOpcode {
+- (void)connect:(OCSOpcode *)newOpcode {
     [innerCSDRepresentation appendString:[newOpcode stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
@@ -113,7 +113,7 @@ static int currentID = 1;
 - (void)assignOutput:(OCSParameter *)output To:(OCSParameter *)input {
     OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:input];
     [auxOutputAssign setOutput:output];
-    [self addOpcode:auxOutputAssign];
+    [self connect:auxOutputAssign];
 }
 
 - (void)resetParam:(OCSParameter *)parameterToReset {

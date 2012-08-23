@@ -44,20 +44,20 @@
         oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
                                                  frequencyMultiplier:[spd constant]
                                                            amplitude:ocsp(0.5)];
-        [self addOpcode:oscil];
+        [self connect:oscil];
         
         OCSReverb * reverb;
         reverb = [[OCSReverb alloc] initWithMonoInput:[oscil output] 
                                         feedbackLevel:ocsp(0.85)
                                       cutoffFrequency:ocsp(12000)];
-        [self addOpcode:reverb];
+        [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
 
         OCSAudio * audio;
         audio = [[OCSAudio alloc] initWithLeftInput:[reverb leftOutput] 
                                          rightInput:[reverb rightOutput]]; 
-        [self addOpcode:audio];
+        [self connect:audio];
     }
     return self;
 }

@@ -60,7 +60,7 @@
 
 /// Adds the opcode to the OCSInstrument.
 /// @param newOpcode New opcode to add to the instrument.
-- (void)addOpcode:(OCSOpcode *)newOpcode;
+- (void)connect:(OCSOpcode *)newOpcode;
 
 /// Adds the User-Defined Opcode to the instrument (and the opcode defintion .udo file)
 /// @param newUserDefinedOpcode New UDO to add to the instrument.

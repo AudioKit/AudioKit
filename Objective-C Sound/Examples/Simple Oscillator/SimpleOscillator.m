@@ -40,21 +40,21 @@
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
                                               frequency:[frequency constant]
                                               amplitude:ocsp(0.12)];                                
-        [self addOpcode:myOscil];
+        [self connect:myOscil];
         
         OCSReverb *reverb;
         reverb = [[OCSReverb alloc] initWithLeftInput:[myOscil output] 
                                            rightInput:[myOscil output] 
                                         feedbackLevel:ocsp(0.85)
                                       cutoffFrequency:ocsp(12000)];
-        [self addOpcode:reverb];
+        [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio;
         audio = [[OCSAudio alloc] initWithLeftInput:[reverb leftOutput] 
                                          rightInput:[reverb rightOutput]]; 
-        [self addOpcode:audio];
+        [self connect:audio];
     }
     return self;
 }
