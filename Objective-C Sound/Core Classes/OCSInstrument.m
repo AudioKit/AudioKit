@@ -94,7 +94,7 @@ static int currentID = 1;
 #  pragma mark - Opcodes
 // -----------------------------------------------------------------------------
 
-- (void)connect:(OCSOpcode *)newOpcode {
+- (void)connect:(OCSOperation *)newOpcode {
     [innerCSDRepresentation appendString:[newOpcode stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
