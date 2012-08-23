@@ -76,18 +76,18 @@
                                                     modulatingMultiplier:[mod control]
                                                          modulationIndex:ocsp(15)
                                                                   fTable:sine];
-        [self addOpcode:fm];
+        [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter = [[OCSLowPassButterworthFilter alloc]
                                                  initWithInput:[fm output]
                                                  cutoffFrequency:[cutoff control]];
-        [self addOpcode:lpFilter];
+        [self connect:lpFilter];
         
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[lpFilter output]
                                                    rightInput:[lpFilter output]];
-        [self addOpcode:audio];
+        [self connect:audio];
     }
     return self;
 }

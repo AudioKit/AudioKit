@@ -62,7 +62,7 @@
         
         OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:[ps leftOutput] 
                                                           rightInput:[ps rightOutput]]; 
-        [self addOpcode:stereoOutput];
+        [self connect:stereoOutput];
     }
     return self;
 }
