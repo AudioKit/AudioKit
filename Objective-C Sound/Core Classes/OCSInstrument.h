@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "OCSOrchestra.h"
-#import "OCSOpcode.h"
+#import "OCSOperation.h"
 #import "OCSUserDefinedOpcode.h"
 #import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
@@ -60,7 +60,7 @@
 
 /// Adds the opcode to the OCSInstrument.
 /// @param newOpcode New opcode to add to the instrument.
-- (void)connect:(OCSOpcode *)newOpcode;
+- (void)connect:(OCSOperation *)newOpcode;
 
 /// Adds the User-Defined Opcode to the instrument (and the opcode defintion .udo file)
 /// @param newUserDefinedOpcode New UDO to add to the instrument.
