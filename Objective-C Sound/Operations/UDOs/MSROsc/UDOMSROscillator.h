@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSUserDefinedOpcode.h"
+#import "OCSUserDefinedOperation.h"
 
 /** Generates indicated wave with amplitude declick ramps of .02 sec on each end.  
  The frequency can be given either as pitch or in Hz, and the type can be
@@ -39,7 +39,7 @@ typedef enum {
     kMSROscillatorTypeWhiteNoise
 } OscillatorType;
 
-@interface UDOMSROscillator : OCSUserDefinedOpcode 
+@interface UDOMSROscillator : OCSUserDefinedOperation 
 
 /// @name Properties
 

@@ -43,9 +43,9 @@
 {
     self = [super init];
     if (self) {
-        output = output = [OCSParameter parameterWithString:[self opcodeName]];
-        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"1L"]];
-        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"2R"]];
+        output = output = [OCSParameter parameterWithString:[self operationName]];
+        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"1L"]];
+        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"2R"]];
         soundFileTable = fileTable;
         amp = amplitude;
         freqMultiplier = frequencyMultiplier;

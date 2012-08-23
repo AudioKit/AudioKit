@@ -30,7 +30,7 @@
 {
     self = [super init];
     if ( self ) {
-        fSig = [OCSFSignal parameterWithString:[self opcodeName]];  
+        fSig = [OCSFSignal parameterWithString:[self operationName]];  
         aIn = monoInput;
         iFFTSize = fftSize;
         iOverlap = overlap;

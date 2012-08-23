@@ -52,8 +52,8 @@
     [newInstrument joinOrchestra:self];
 }
 
-- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
-    [udos addObject:newUserDefinedOpcode];
+- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation {
+    [udos addObject:newUserDefinedOperation];
 }
 
 // -----------------------------------------------------------------------------
@@ -87,7 +87,7 @@
     
     [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
     for ( OCSInstrument *i in instruments) {
-        for (OCSUserDefinedOpcode *udo in [i userDefinedOpcodes]) {
+        for (OCSUserDefinedOperation *udo in [i userDefinedOperations]) {
             [s appendString:@"\n"];     
             [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
             [s appendString:@"\n"];

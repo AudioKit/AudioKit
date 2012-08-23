@@ -21,7 +21,7 @@ typedef enum {
     NSMutableString *innerCSDRepresentation;
     int _myID;
     NSMutableArray *properties;
-    NSMutableSet *userDefinedOpcodes;
+    NSMutableSet *userDefinedOperations;
     NSMutableSet *fTables;
 }
 @end
@@ -30,7 +30,7 @@ typedef enum {
 
 @synthesize properties;
 @synthesize noteProperties;
-@synthesize userDefinedOpcodes;
+@synthesize userDefinedOperations;
 @synthesize fTables;
 
 // -----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ static int currentID = 1;
         _myID = currentID++;
         properties = [[NSMutableArray alloc] init];
         noteProperties = [[NSMutableArray alloc] init];
-        userDefinedOpcodes = [[NSMutableSet alloc] init];
+        userDefinedOperations = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
@@ -91,17 +91,17 @@ static int currentID = 1;
 }
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Opcodes
+#  pragma mark - Operations
 // -----------------------------------------------------------------------------
 
-- (void)connect:(OCSOperation *)newOpcode {
-    [innerCSDRepresentation appendString:[newOpcode stringForCSD]];
+- (void)connect:(OCSOperation *)newOperation {
+    [innerCSDRepresentation appendString:[newOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode {
-    [userDefinedOpcodes addObject:newUserDefinedOpcode];
-    [innerCSDRepresentation appendString:[newUserDefinedOpcode stringForCSD]];
+- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation {
+    [userDefinedOperations addObject:newUserDefinedOperation];
+    [innerCSDRepresentation appendString:[newUserDefinedOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 

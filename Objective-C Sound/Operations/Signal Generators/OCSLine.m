@@ -32,8 +32,8 @@
     self = [super init];
 
     if (self) {
-        ares   = [OCSParameter parameterWithString:[self opcodeName]];
-        kres = [OCSControl parameterWithString:[self opcodeName]];
+        ares   = [OCSParameter parameterWithString:[self operationName]];
+        kres = [OCSControl parameterWithString:[self operationName]];
         res  =  ares;
         
         ia = startingValue;

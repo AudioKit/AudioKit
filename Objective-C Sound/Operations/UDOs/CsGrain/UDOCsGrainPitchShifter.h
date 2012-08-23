@@ -7,12 +7,12 @@
 //
 //  Pitch Shifter from Boulanger Labs' csGrain
 
-#import "OCSUserDefinedOpcode.h"
+#import "OCSUserDefinedOperation.h"
 
 /** Pitch shifter from Boulanger Labs' csGrain application.  
  Stereo audio input and output.  
  */
-@interface UDOCsGrainPitchShifter : OCSUserDefinedOpcode 
+@interface UDOCsGrainPitchShifter : OCSUserDefinedOperation 
 
 /// @name Properties
 

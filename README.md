@@ -27,8 +27,8 @@ to install appdoc.  More information about this in the developer's guide doc.
 ### Contribute!
 
 We encourage you to fork Objective-C Sound and contribute one of the many 
-opcodes we have yet to implement or to install your own User-Defined Opcode
-in Opcodes/UDOs.  
+opcodes we have yet to implement or to install your own User-Defined Operation
+in Operations/UDOs.  
 
 More information on contribution is available on the wiki:
 

@@ -34,7 +34,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 {
     self = [super init];
     if(self) {
-        aRes = [OCSParameter parameterWithString:[self opcodeName]];
+        aRes = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -52,7 +52,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 {
     self = [super init];
     if(self) {
-        aRes = [OCSParameter parameterWithString:[self opcodeName]];
+        aRes = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -85,9 +85,9 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 - (NSString *)fTableCSDFromFilterParams
 {
     NSString *combTable = [NSString stringWithFormat:@"%@%iCombValues ftgentmp 0, 0, %i, %@ %@",
-                           [self opcodeName], (int)[combGains count], -2, combTimes, combGains];
+                           [self operationName], (int)[combGains count], -2, combTimes, combGains];
     NSString *allPassTable = [NSString stringWithFormat:@"%@%iCombValues ftgentmp 0, 0, %i, %@ %@",
-                              [self opcodeName], (int)[allPassGains count], -2, allPassTimes, allPassGains];
+                              [self operationName], (int)[allPassGains count], -2, allPassTimes, allPassGains];
     NSString *s = [NSString stringWithFormat:@"%@ %@", combTable, allPassTable];
     return s;
 }

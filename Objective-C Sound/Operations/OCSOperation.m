@@ -10,7 +10,7 @@
 
 @implementation OCSOperation
 
-- (NSString *)opcodeName {
+- (NSString *)operationName {
     NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"OCS" withString:@""];
     return basename;

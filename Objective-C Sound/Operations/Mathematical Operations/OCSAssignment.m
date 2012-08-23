@@ -21,7 +21,7 @@
     self = [super init];
     
     if (self) {
-        out = [OCSParameter parameterWithString:[self opcodeName]];
+        out = [OCSParameter parameterWithString:[self operationName]];
         in = input;
     }
     return self; 

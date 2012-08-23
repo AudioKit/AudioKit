@@ -1,5 +1,5 @@
 //
-//  OCSUserDefinedOpcode.h
+//  OCSUserDefinedOperation.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 6/22/12.
@@ -12,7 +12,7 @@
  OCS opcodes because the definition is made in .udo files.  
  */
 
-@interface OCSUserDefinedOpcode : OCSOperation 
+@interface OCSUserDefinedOperation : OCSOperation 
 /** @returns The location of the udo file */
 - (NSString *) udoFile;
 @end

@@ -30,7 +30,7 @@
     self = [super init];
     
     if (self) {
-        kscl = [OCSControl parameterWithString:[self opcodeName]];      
+        kscl = [OCSControl parameterWithString:[self operationName]];      
         kin  = input;
         kmax = maximumOutput;
         kmin = minimumOutput;

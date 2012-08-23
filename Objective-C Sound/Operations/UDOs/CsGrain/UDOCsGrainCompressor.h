@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSUserDefinedOpcode.h"
+#import "OCSUserDefinedOperation.h"
 
 /** Stereo compressor from Boulanger Labs' csGrain application.  
   Stereo audio input and output.  
@@ -21,7 +21,7 @@
  The value 1 will result in no change.
  */
 
-@interface UDOCsGrainCompressor : OCSUserDefinedOpcode 
+@interface UDOCsGrainCompressor : OCSUserDefinedOperation 
 
 /// @name Properties
 
