@@ -25,7 +25,7 @@
 {
     self = [super init];
     if(self) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         cutoff = cutoffFrequency;
     }

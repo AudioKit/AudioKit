@@ -33,8 +33,8 @@
 {
     self = [super init];
     if (self) {
-        aOutL  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"L"]];
-        aOutR  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self opcodeName], @"R"]];
+        aOutL  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
+        aOutR  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
         aInL   = leftInput;
         aInR   = rightInput;
         kFbLvl = feedbackLevel;

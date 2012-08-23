@@ -20,7 +20,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        ar1  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@",[self opcodeName]]];
+        ar1  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@",[self operationName]]];
 
     }
     return self; 

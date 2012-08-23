@@ -27,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self operationName]];
         amplitude = maxAmplitude;
         frequency = pitchOrFrequency;
         type = oscillatorType;

@@ -25,7 +25,7 @@
     self = [super init];
     
     if (self) {
-        aRes = [OCSParameter parameterWithString:[self opcodeName]];
+        aRes = [OCSParameter parameterWithString:[self operationName]];
         fSrc = source;
     }
     return self; 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-/** OCS Parameters are arguments to Csound opcodes.  They come in three varieties for 
+/** OCS Parameters are arguments to Operations.  They come in three varieties for 
  audio rate, control rate, and constant values. When something is declared as an
  OCSParameter, it is at audio rate.  OCSControl and OCSConstant should be used for
  slower rate variables. 

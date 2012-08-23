@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "OCSOrchestra.h"
 #import "OCSOperation.h"
-#import "OCSUserDefinedOpcode.h"
+#import "OCSUserDefinedOperation.h"
 #import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
 @class OCSEvent;
@@ -30,7 +30,7 @@
 
 /** All UDOs that are required by the instrument are stored here and declared before any 
  instrument blocks in the CSD File. */
-@property (nonatomic, strong) NSMutableSet *userDefinedOpcodes;
+@property (nonatomic, strong) NSMutableSet *userDefinedOperations;
 
 /** All FTables that are required by the instrument are stored here and declared 
  once in the F-Statement section of the CSD File. */
@@ -58,13 +58,13 @@
 /// @param newFTable New function table to add to the instrument.
 - (void)addDynamicFTable:(OCSFTable *)newFTable;
 
-/// Adds the opcode to the OCSInstrument.
-/// @param newOpcode New opcode to add to the instrument.
-- (void)connect:(OCSOperation *)newOpcode;
+/// Adds the operation to the OCSInstrument.
+/// @param newOperation New operation to add to the instrument.
+- (void)connect:(OCSOperation *)newOperation;
 
-/// Adds the User-Defined Opcode to the instrument (and the opcode defintion .udo file)
-/// @param newUserDefinedOpcode New UDO to add to the instrument.
-- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode;
+/// Adds the User-Defined Operation to the instrument (and the opcode defintion .udo file)
+/// @param newUserDefinedOperation New UDO to add to the instrument.
+- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation;
 
 /// Adds any string to the CSD file, useful for testing and commenting within the CSD file.
 /// @param newString New string to add to the instrument definition.

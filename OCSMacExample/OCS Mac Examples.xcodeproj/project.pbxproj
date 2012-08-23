@@ -100,7 +100,7 @@
 		C4E558ED15E64FA900F4A0BA /* UDOCsGrainPitchShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E558A915E64FA900F4A0BA /* UDOCsGrainPitchShifter.m */; };
 		C4E558EE15E64FA900F4A0BA /* msrOsc.udo in Resources */ = {isa = PBXBuildFile; fileRef = C4E558AB15E64FA900F4A0BA /* msrOsc.udo */; };
 		C4E558F015E64FA900F4A0BA /* UDOMSROscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E558AD15E64FA900F4A0BA /* UDOMSROscillator.m */; };
-		C4E558F215E64FA900F4A0BA /* OCSUserDefinedOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E558AF15E64FA900F4A0BA /* OCSUserDefinedOpcode.m */; };
+		C4E558F215E64FA900F4A0BA /* OCSUserDefinedOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E558AF15E64FA900F4A0BA /* OCSUserDefinedOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -277,8 +277,8 @@
 		C4E558AB15E64FA900F4A0BA /* msrOsc.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = msrOsc.udo; sourceTree = "<group>"; };
 		C4E558AC15E64FA900F4A0BA /* UDOMSROscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOMSROscillator.h; sourceTree = "<group>"; };
 		C4E558AD15E64FA900F4A0BA /* UDOMSROscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOMSROscillator.m; sourceTree = "<group>"; };
-		C4E558AE15E64FA900F4A0BA /* OCSUserDefinedOpcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSUserDefinedOpcode.h; sourceTree = "<group>"; };
-		C4E558AF15E64FA900F4A0BA /* OCSUserDefinedOpcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSUserDefinedOpcode.m; sourceTree = "<group>"; };
+		C4E558AE15E64FA900F4A0BA /* OCSUserDefinedOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSUserDefinedOperation.h; sourceTree = "<group>"; };
+		C4E558AF15E64FA900F4A0BA /* OCSUserDefinedOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSUserDefinedOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -764,8 +764,8 @@
 			children = (
 				C4E558A315E64FA900F4A0BA /* CsGrain */,
 				C4E558AA15E64FA900F4A0BA /* MSROsc */,
-				C4E558AE15E64FA900F4A0BA /* OCSUserDefinedOpcode.h */,
-				C4E558AF15E64FA900F4A0BA /* OCSUserDefinedOpcode.m */,
+				C4E558AE15E64FA900F4A0BA /* OCSUserDefinedOperation.h */,
+				C4E558AF15E64FA900F4A0BA /* OCSUserDefinedOperation.m */,
 			);
 			path = UDOs;
 			sourceTree = "<group>";
@@ -941,7 +941,7 @@
 				C4E558EB15E64FA900F4A0BA /* UDOCsGrainCompressor.m in Sources */,
 				C4E558ED15E64FA900F4A0BA /* UDOCsGrainPitchShifter.m in Sources */,
 				C4E558F015E64FA900F4A0BA /* UDOMSROscillator.m in Sources */,
-				C4E558F215E64FA900F4A0BA /* OCSUserDefinedOpcode.m in Sources */,
+				C4E558F215E64FA900F4A0BA /* OCSUserDefinedOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

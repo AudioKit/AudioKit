@@ -41,7 +41,7 @@ typedef enum
 {
     self = [super init];
     if( self ) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self operationName]];
         amp = amplitude;
         resampFreq = resamplingFrequency;
         decayFreq  = pitchDecayFrequency;

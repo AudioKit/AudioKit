@@ -44,7 +44,7 @@
 {
     self = [super init];
     if ( self ) {
-        output = [OCSParameter parameterWithString:[self opcodeName]];
+        output = [OCSParameter parameterWithString:[self operationName]];
         amp  = amplitude;
         freq = baseFrequency;
         car  = carrierMultiplier;
@@ -77,7 +77,7 @@
 {
     // Clean up for uninitialized parameters
     if (phs == nil)    phs    = [OCSConstant parameterWithInt:0];
-    if (output == nil) output = [OCSParameter parameterWithString:[self opcodeName]];
+    if (output == nil) output = [OCSParameter parameterWithString:[self operationName]];
     
     
     return[NSString stringWithFormat:

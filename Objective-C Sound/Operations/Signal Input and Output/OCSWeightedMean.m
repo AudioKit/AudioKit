@@ -52,9 +52,9 @@
 {
     self = [super init];
     if (self) {
-        audio    = [OCSParameter parameterWithString:[self opcodeName]];
-        control  = [OCSControl   parameterWithString:[self opcodeName]];
-        constant = [OCSConstant  parameterWithString:[self opcodeName]];
+        audio    = [OCSParameter parameterWithString:[self operationName]];
+        control  = [OCSControl   parameterWithString:[self operationName]];
+        constant = [OCSConstant  parameterWithString:[self operationName]];
         output  =  audio;
         min = minimum;
         max = maximum;

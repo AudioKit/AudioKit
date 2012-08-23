@@ -50,7 +50,7 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
         } else {
             kCoefs = [OCSConstant parameterWithInt:80];
         }
-        fSig = [OCSFSignal parameterWithString:[self opcodeName]];
+        fSig = [OCSFSignal parameterWithString:[self operationName]];
         fSigIn = input;
         kScal = frequencyRatio;    
         kKeepForm = [OCSConstant parameterWithInt:formantRetainMethod];

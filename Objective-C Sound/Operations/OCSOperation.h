@@ -14,7 +14,7 @@
 @interface OCSOperation : NSObject 
 
 /// The name of the class with the OCS prefix.
-- (NSString *)opcodeName;
+- (NSString *)operationName;
 
 /// The opcode line for inclusion in instruments.
 - (NSString *) stringForCSD;

@@ -28,7 +28,7 @@ input2:(OCSFSignal *)input2;
     self = [super init];
     
     if (self) {
-        fSig = [OCSFSignal parameterWithString:[self opcodeName]];
+        fSig = [OCSFSignal parameterWithString:[self operationName]];
         fSigIn1 = input1;
         fSigIn2 = input2;
     }

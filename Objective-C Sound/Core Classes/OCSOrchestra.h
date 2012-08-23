@@ -7,7 +7,7 @@
 //
 
 @class OCSInstrument;
-@class OCSUserDefinedOpcode;
+@class OCSUserDefinedOperation;
 @class OCSEvent;
 @class OCSSequence;
 
@@ -31,8 +31,8 @@
 - (void)addInstrument:(OCSInstrument *)newInstrument;
 
 /// Adds the UDO to a set of required UDOs for the entire orchestra.
-/// @param newUserDefinedOpcode UDO to add to the orchestra.
-- (void)addUDO:(OCSUserDefinedOpcode *)newUserDefinedOpcode;
+/// @param newUserDefinedOperation UDO to add to the orchestra.
+- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation;
 
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;

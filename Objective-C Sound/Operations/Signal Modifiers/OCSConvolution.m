@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        aR1     =  [OCSParameter parameterWithString:[self opcodeName]];
+        aR1     =  [OCSParameter parameterWithString:[self operationName]];
         aIn     = inputAudio;
         iFilCod = impulseResponseFilename;
     }

@@ -8,7 +8,7 @@
 
 #import "OCSControl.h"
 
-/// These are i-Rate parameters, constant for a given opcode call or note
+/// These are i-Rate parameters, constant for a given operation call or note
 @interface OCSConstant : OCSControl
 
 /// Common method to create float parameters.  So much so that ocsp() macro was created and preferred.

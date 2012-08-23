@@ -47,7 +47,7 @@
     self = [self initWithFTable:fTable];
     
     if (self) {
-        res = [OCSParameter parameterWithString:[self opcodeName]];
+        res = [OCSParameter parameterWithString:[self operationName]];
         index = audioRateIndex;
     }
     return self; 
@@ -60,7 +60,7 @@ atControlRateIndex:(OCSControl *)controlRateIndex
     self = [self initWithFTable:fTable];
     
     if (self) {
-        res = [OCSControl parameterWithString:[self opcodeName]];
+        res = [OCSControl parameterWithString:[self operationName]];
         index = controlRateIndex;
     }
     return self; 
@@ -72,7 +72,7 @@ atControlRateIndex:(OCSControl *)controlRateIndex
     self = [self initWithFTable:fTable];
     
     if (self) {
-        res = [OCSConstant parameterWithString:[self opcodeName]];
+        res = [OCSConstant parameterWithString:[self operationName]];
         index = constantIndex;
     }
     return self; 
