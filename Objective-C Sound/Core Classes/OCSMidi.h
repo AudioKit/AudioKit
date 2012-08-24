@@ -51,7 +51,7 @@
 - (void)midiVolume:(int)modulation     channel:(int)channel;
 - (void)midiBalance:(int)modulation    channel:(int)channel;
 - (void)midiPan:(int)modulation        channel:(int)channel;
-- (void)midiExpression:(int)modulation channel:(int)channel;;
+- (void)midiExpression:(int)modulation channel:(int)channel;
 
 
 @end
