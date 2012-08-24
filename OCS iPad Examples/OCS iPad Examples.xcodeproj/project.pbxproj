@@ -30,6 +30,7 @@
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4C8278215D7CBC3009D48DA /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8278115D7CBC3009D48DA /* OCSMidi.m */; };
+		C4D43C5315E75FCC00EDB05B /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42DF46215D65C6D001E7DB1 /* hellorcb.aif */; };
 		C4E559CF15E650B200F4A0BA /* OCSAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5598515E650B200F4A0BA /* OCSAssignment.m */; };
 		C4E559D115E650B200F4A0BA /* OCSProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5598715E650B200F4A0BA /* OCSProduct.m */; };
 		C4E559D315E650B200F4A0BA /* OCSScaledControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5598915E650B200F4A0BA /* OCSScaledControl.m */; };
@@ -1149,6 +1150,7 @@
 				C4E55A0615E650B200F4A0BA /* CsGrainCompressor.udo in Resources */,
 				C4E55A0715E650B200F4A0BA /* CsGrainPitchShifter.udo in Resources */,
 				C4E55A0C15E650B200F4A0BA /* msrOsc.udo in Resources */,
+				C4D43C5315E75FCC00EDB05B /* hellorcb.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
