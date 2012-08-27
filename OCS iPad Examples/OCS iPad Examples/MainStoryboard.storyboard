@@ -18,7 +18,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="372" y="-350"/>
+            <point key="canvasLocation" x="-430" y="-278"/>
         </scene>
         <!--Initial View Controller - Detail-->
         <scene sceneID="dqa-0c-ca2">
@@ -75,7 +75,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-1101" y="-351"/>
+            <point key="canvasLocation" x="-1733" y="601"/>
         </scene>
         <!--Master View Controller - Master-->
         <scene sceneID="XmC-Yz-Rh7">
@@ -117,7 +117,7 @@
                     <navigationItem key="navigationItem" title="Master" id="1mf-wD-fta"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="783" y="-351"/>
+            <point key="canvasLocation" x="3" y="-263"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4zp-Nh-Pp9">
@@ -132,20 +132,9 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-442" y="528"/>
+            <point key="canvasLocation" x="-430" y="592"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="InitialViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

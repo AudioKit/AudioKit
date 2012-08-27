@@ -43,7 +43,8 @@
         OCSLoopingOscillator *oscil;
         oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
                                                  frequencyMultiplier:[spd constant]
-                                                           amplitude:ocsp(0.5)];
+                                                           amplitude:ocsp(0.5)
+                                                                type:kLoopingOscillatorNoLoop];
         [self connect:oscil];
         
         OCSReverb * reverb;

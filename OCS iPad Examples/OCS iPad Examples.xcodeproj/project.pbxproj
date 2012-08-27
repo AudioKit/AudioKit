@@ -728,7 +728,6 @@
 			isa = PBXGroup;
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
-				C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */,
 				C4F0799615D602C10084FF9E /* Helper.h */,
 				C4F0799715D602C10084FF9E /* Helper.m */,
 				C4F079C915D603160084FF9E /* Play CSD File */,
@@ -755,6 +754,7 @@
 			children = (
 				C4F07A4415D605540084FF9E /* ox-icon-72.png */,
 				C4F07A4615D6055D0084FF9E /* ox-icon-144.png */,
+				C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */,
 				C4F0783D15D5F4B40084FF9E /* AppDelegate.h */,
 				C4F0783E15D5F4B40084FF9E /* AppDelegate.m */,
 				C4F0784015D5F4B40084FF9E /* MasterViewController.h */,
