@@ -8,20 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-// -----------------------------------------------------------------------------
-#  pragma mark OCS MIDI Listener Protocol
-// -----------------------------------------------------------------------------
-
 /** Implement the OCSMidiListener protocol on any classes that need to respond
  to incoming MIDI events.  Every method in the protocol is optional to allow
  the classes complete freedom to respond to only the particular MIDI messages
  of interest.
  */
+
+
 @protocol OCSMidiListener <NSObject>
 
-@optional
+// -----------------------------------------------------------------------------
+#  pragma mark - OCSMidiListener Procol - Basic MIDI
+// -----------------------------------------------------------------------------
 
-#pragma mark Basic MIDI
+@optional
 
 - (void)midiNoteOn:(int)note
           velocity:(int)velocity
@@ -45,14 +45,16 @@
 - (void)midiPitchWheel:(int)pitchWheelValue
                channel:(int)channel;
 
-# pragma mark Controller Name Helpers
+// -----------------------------------------------------------------------------
+# pragma mark - OCSMidiListener Protocol - Named Controllers
+// -----------------------------------------------------------------------------
+
 - (void)midiModulation:(int)modulation channel:(int)channel;
 - (void)midiPortamento:(int)modulation channel:(int)channel;
 - (void)midiVolume:(int)modulation     channel:(int)channel;
 - (void)midiBalance:(int)modulation    channel:(int)channel;
 - (void)midiPan:(int)modulation        channel:(int)channel;
 - (void)midiExpression:(int)modulation channel:(int)channel;
-
 
 @end
 
