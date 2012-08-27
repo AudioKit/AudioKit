@@ -47,4 +47,21 @@
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
          frequencyMultiplier:(OCSControl *)frequencyMultiplier
                    amplitude:(OCSParameter *)amplitude;
+
+
+typedef enum {
+    kLoopingOscillatorNoLoop=0,
+    kLoopingOscillatorNormal=1,
+    kLoopingOscillatorForwardAndBack=2
+} LoopingOscillatorType;
+
+/// Initialization with a given file and amplitude and scale the frequency.
+/// @param fileTable           Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
+/// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
+/// @param frequencyMultiplier Relative to a base frequency of 1.
+- (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
+         frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                   amplitude:(OCSParameter *)amplitude
+                        type:(LoopingOscillatorType)type;
+
 @end
