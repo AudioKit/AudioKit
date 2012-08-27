@@ -146,7 +146,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 	for (int i=0; i < pktlist->numPackets; i++) {
 		Byte midiStatus = packet->data[0];
 		Byte midiCommand = midiStatus >> 4;
-        Byte midiChannel = 1 + (midiStatus - (midiCommand*16));
+        Byte midiChannel = (midiStatus - (midiCommand*16)) + 1;
 		
 		if (midiCommand == kMidiNoteOff) {
 			Byte note     = packet->data[1] & 0x7F;

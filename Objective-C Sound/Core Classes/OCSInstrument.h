@@ -18,29 +18,28 @@
 
 @interface OCSInstrument : NSObject 
 
-/** This contains a list of the OCSProperty variables that are required for the instrument.
- Using this list the instrument is able to both write the get statements at the beginning 
- of the instrument block and set them at the end */
-
-/// Array of instrument properties available for the instrument.
-@property (nonatomic, strong) NSMutableArray *properties;
-
-/// Array of note properties available to events.
-@property (nonatomic, strong) NSMutableArray *noteProperties;
-
-/** All UDOs that are required by the instrument are stored here and declared before any 
- instrument blocks in the CSD File. */
-@property (nonatomic, strong) NSMutableSet *userDefinedOperations;
-
-/** All FTables that are required by the instrument are stored here and declared 
- once in the F-Statement section of the CSD File. */
-@property (nonatomic, strong) NSMutableSet *fTables;
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
 
 /// Unique instrument number
 - (int)instrumentNumber;
 
 /// A string uniquely defined by the instrument class name and a unique integer.
 - (NSString *)uniqueName;
+
+/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
++ (void)resetID;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Properties
+// -----------------------------------------------------------------------------
+
+/// Array of instrument properties available for the instrument.
+@property (nonatomic, strong) NSMutableArray *properties;
+
+/// Array of note properties available to events.
+@property (nonatomic, strong) NSMutableArray *noteProperties;
 
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
@@ -50,6 +49,14 @@
 /// @param newNoteProperty New note property to add to the instrument.
 - (void)addNoteProperty:(OCSProperty *)newNoteProperty;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - F Tables
+// -----------------------------------------------------------------------------
+
+/** All FTables that are required by the instrument are stored here and declared
+ once in the F-Statement section of the CSD File. */
+@property (nonatomic, strong) NSMutableSet *fTables;
+
 /// Adds the function table to the Orchestra, so it is only processed once.
 /// @param newFTable New function table to add to the instrument.
 - (void)addFTable:(OCSFTable *)newFTable;
@@ -57,6 +64,14 @@
 /// Adds the function table to the OCSInstrument dynamically, processed for each note.
 /// @param newFTable New function table to add to the instrument.
 - (void)addDynamicFTable:(OCSFTable *)newFTable;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Operations
+// -----------------------------------------------------------------------------
+
+/** All UDOs that are required by the instrument are stored here and declared before any
+ instrument blocks in the CSD File. */
+@property (nonatomic, strong) NSMutableSet *userDefinedOperations;
 
 /// Adds the operation to the OCSInstrument.
 /// @param newOperation New operation to add to the instrument.
@@ -79,6 +94,10 @@
 /// @param parameterToReset Parameter whose value will be reset to zero.
 - (void)resetParam:(OCSParameter *)parameterToReset;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound Implementation
+// -----------------------------------------------------------------------------
+
 /// Sets the orchestra as internal variable so that when the instrument is asked to play,
 /// it sends the event to the appropriate orchestra.
 /// @param orchestraToJoin Orchestra to which the instrument belongs.
@@ -91,8 +110,5 @@
 /// @param playDuration Length of time in seconds to play the instrument.
 - (void)playNoteForDuration:(float)playDuration;
 
-
-/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void)resetID;
 
 @end

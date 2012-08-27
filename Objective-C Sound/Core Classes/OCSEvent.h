@@ -26,6 +26,17 @@
 /// A list (usually just one) of instrument level properties.
 @property (nonatomic, strong) NSMutableArray *properties;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
+
+/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
++ (void)resetID;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Instrument Based Events
+// -----------------------------------------------------------------------------
+
 /// Create an event with an infinite duration on the specified instrument.
 /// @param instrument Activated instrument.
 - (id)initWithInstrument:(OCSInstrument *)instrument;
@@ -34,6 +45,10 @@
 /// @param instrument Activated instrument.
 /// @param duration   Length of the event in seconds.
 - (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Event Based Events
+// -----------------------------------------------------------------------------
 
 /// When creating a sequence of events that affect the same note, this function is useful.
 /// @param event The event that you want to use as the basis for the next event.
@@ -45,6 +60,10 @@
 /// @param delay The time to wait before deactivation.
 - (id)initDeactivation:(OCSEvent *)event
          afterDuration:(float)delay;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Property Based Events
+// -----------------------------------------------------------------------------
 
 /// Create an event that sets a property to a value
 /// @param property The property to be set.
@@ -69,13 +88,14 @@
 - (void)setNoteProperties;
 - (void)setInstrumentProperties;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound Implementation
+// -----------------------------------------------------------------------------
+
 /// Helper method to play the event.
 - (void)trigger;
 
 /// Provides the scoreline to the CSD File.
 - (NSString *)stringForCSD;
-
-/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void)resetID;
 
 @end
