@@ -72,7 +72,6 @@
 		C4F0783B15D5F4B40084FF9E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0783A15D5F4B40084FF9E /* main.m */; };
 		C4F0783F15D5F4B40084FF9E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0783E15D5F4B40084FF9E /* AppDelegate.m */; };
 		C4F0784215D5F4B40084FF9E /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0784115D5F4B40084FF9E /* MasterViewController.m */; };
-		C4F0784815D5F4B50084FF9E /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F0784615D5F4B50084FF9E /* MasterViewController.xib */; };
 		C4F0787E15D5F4F60084FF9E /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785415D5F4F50084FF9E /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4F0788515D5F4F60084FF9E /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785D15D5F4F50084FF9E /* BaseValueCacheable.m */; };
 		C4F0788715D5F4F60084FF9E /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0785F15D5F4F50084FF9E /* CachedAccelerometer.m */; };
@@ -103,7 +102,6 @@
 		C4F0798915D5F50E0084FF9E /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */; };
 		C4F0798D15D5F50E0084FF9E /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791C15D5F50E0084FF9E /* OCSNoteProperty.m */; };
 		C4F0798F15D5F50E0084FF9E /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791E15D5F50E0084FF9E /* OCSProperty.m */; };
-		C4F0799315D600C40084FF9E /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F0799015D600C40084FF9E /* InitialViewController.xib */; };
 		C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799215D600C40084FF9E /* InitialViewController.m */; };
 		C4F0799915D602C10084FF9E /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799715D602C10084FF9E /* Helper.m */; };
 		C4F079F315D603160084FF9E /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799C15D603160084FF9E /* ContinuousControlViewController.m */; };
@@ -136,6 +134,7 @@
 		C4F07A4315D603E40084FF9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A4215D603E40084FF9E /* AudioToolbox.framework */; };
 		C4F07A4515D605540084FF9E /* ox-icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4415D605540084FF9E /* ox-icon-72.png */; };
 		C4F07A4715D6055D0084FF9E /* ox-icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4615D6055D0084FF9E /* ox-icon-144.png */; };
+		C4F1FFE315EB627600F5BADF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,7 +257,6 @@
 		C4F0783E15D5F4B40084FF9E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4F0784015D5F4B40084FF9E /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		C4F0784115D5F4B40084FF9E /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F0784715D5F4B50084FF9E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
 		C4F0785315D5F4F50084FF9E /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4F0785415D5F4F50084FF9E /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4F0785C15D5F4F50084FF9E /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
@@ -334,7 +332,6 @@
 		C4F0791C15D5F50E0084FF9E /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C4F0791D15D5F50E0084FF9E /* OCSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSProperty.h; sourceTree = "<group>"; };
 		C4F0791E15D5F50E0084FF9E /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
-		C4F0799015D600C40084FF9E /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C4F0799115D600C40084FF9E /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		C4F0799215D600C40084FF9E /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
 		C4F0799615D602C10084FF9E /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Helper.h; sourceTree = "<group>"; };
@@ -381,6 +378,7 @@
 		C4F07A4215D603E40084FF9E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4F07A4415D605540084FF9E /* ox-icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-72.png"; path = "../ox-icon-72.png"; sourceTree = "<group>"; };
 		C4F07A4615D6055D0084FF9E /* ox-icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-144.png"; path = "../ox-icon-144.png"; sourceTree = "<group>"; };
+		C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -729,8 +727,8 @@
 		C4F0783415D5F4B30084FF9E /* OCS iPad Examples */ = {
 			isa = PBXGroup;
 			children = (
-				C4F0799015D600C40084FF9E /* InitialViewController.xib */,
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
+				C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */,
 				C4F0799615D602C10084FF9E /* Helper.h */,
 				C4F0799715D602C10084FF9E /* Helper.m */,
 				C4F079C915D603160084FF9E /* Play CSD File */,
@@ -760,7 +758,6 @@
 				C4F0783D15D5F4B40084FF9E /* AppDelegate.h */,
 				C4F0783E15D5F4B40084FF9E /* AppDelegate.m */,
 				C4F0784015D5F4B40084FF9E /* MasterViewController.h */,
-				C4F0784615D5F4B50084FF9E /* MasterViewController.xib */,
 				C4F0799115D600C40084FF9E /* InitialViewController.h */,
 				C4F0799215D600C40084FF9E /* InitialViewController.m */,
 				C4F0783615D5F4B30084FF9E /* OCS iPad Examples-Info.plist */,
@@ -1121,11 +1118,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4F0783915D5F4B40084FF9E /* InfoPlist.strings in Resources */,
-				C4F0784815D5F4B50084FF9E /* MasterViewController.xib in Resources */,
 				C4F0789E15D5F4F60084FF9E /* LICENSE.TXT in Resources */,
 				C4F0792B15D5F50E0084FF9E /* template.csd in Resources */,
 				C4F0792C15D5F50E0084FF9E /* test.csd in Resources */,
-				C4F0799315D600C40084FF9E /* InitialViewController.xib in Resources */,
 				C4F079F415D603160084FF9E /* ContinuousControlViewController.xib in Resources */,
 				C4F079FC15D603160084FF9E /* ConvolutionViewController.xib in Resources */,
 				C4F07A0115D603160084FF9E /* ExpressionsViewController.xib in Resources */,
@@ -1151,6 +1146,7 @@
 				C4E55A0715E650B200F4A0BA /* CsGrainPitchShifter.udo in Resources */,
 				C4E55A0C15E650B200F4A0BA /* msrOsc.udo in Resources */,
 				C4D43C5315E75FCC00EDB05B /* hellorcb.aif in Resources */,
+				C4F1FFE315EB627600F5BADF /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,14 +1259,6 @@
 				C4F0783815D5F4B40084FF9E /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C4F0784615D5F4B50084FF9E /* MasterViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C4F0784715D5F4B50084FF9E /* en */,
-			);
-			name = MasterViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
