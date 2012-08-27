@@ -16,7 +16,7 @@
 @implementation InitialViewController
 
 @synthesize detailItem = _detailItem;
-@synthesize detailDescriptionLabel = _detailDescriptionLabel;
+
 @synthesize masterPopoverController = _masterPopoverController;
 
 #pragma mark - Managing the detail item
@@ -40,7 +40,6 @@
     // Update the user interface for the detail item.
     
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
     }
 }
 
@@ -55,8 +54,6 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    self.detailDescriptionLabel = nil;
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
