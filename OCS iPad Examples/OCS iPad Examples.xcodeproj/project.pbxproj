@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C42DF46115D65BF3001E7DB1 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */; };
 		C42DF47215D66D11001E7DB1 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42DF47115D66D11001E7DB1 /* example.csd */; };
+		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
+		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C463189315DA0C8600CA177E /* SimpleOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C463189115DA0C8600CA177E /* SimpleOscillator.m */; };
 		C46319A015DA0E1D00CA177E /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C463199E15DA0E1D00CA177E /* FMOscillator.m */; };
 		C46319AA15DA0F2400CA177E /* FMOscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C46319A715DA0F2400CA177E /* FMOscillatorViewController.m */; };
@@ -134,7 +136,6 @@
 		C4F07A4315D603E40084FF9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A4215D603E40084FF9E /* AudioToolbox.framework */; };
 		C4F07A4515D605540084FF9E /* ox-icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4415D605540084FF9E /* ox-icon-72.png */; };
 		C4F07A4715D6055D0084FF9E /* ox-icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4615D6055D0084FF9E /* ox-icon-144.png */; };
-		C4F1FFE315EB627600F5BADF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,8 @@
 		C42DF46015D65BF3001E7DB1 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C42DF46215D65C6D001E7DB1 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
 		C42DF47115D66D11001E7DB1 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
+		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
+		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C463189015DA0C8600CA177E /* SimpleOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SimpleOscillator.h; sourceTree = "<group>"; };
 		C463189115DA0C8600CA177E /* SimpleOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleOscillator.m; sourceTree = "<group>"; };
 		C463199D15DA0E1D00CA177E /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = FMOscillator.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -378,7 +381,6 @@
 		C4F07A4215D603E40084FF9E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4F07A4415D605540084FF9E /* ox-icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-72.png"; path = "../ox-icon-72.png"; sourceTree = "<group>"; };
 		C4F07A4615D6055D0084FF9E /* ox-icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-144.png"; path = "../ox-icon-144.png"; sourceTree = "<group>"; };
-		C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -754,7 +756,8 @@
 			children = (
 				C4F07A4415D605540084FF9E /* ox-icon-72.png */,
 				C4F07A4615D6055D0084FF9E /* ox-icon-144.png */,
-				C4F1FFE215EB627600F5BADF /* MainStoryboard.storyboard */,
+				C45047B415EB884C0051788A /* InitialViewController.xib */,
+				C45047B615EB891E0051788A /* MasterViewController.xib */,
 				C4F0783D15D5F4B40084FF9E /* AppDelegate.h */,
 				C4F0783E15D5F4B40084FF9E /* AppDelegate.m */,
 				C4F0784015D5F4B40084FF9E /* MasterViewController.h */,
@@ -1146,7 +1149,8 @@
 				C4E55A0715E650B200F4A0BA /* CsGrainPitchShifter.udo in Resources */,
 				C4E55A0C15E650B200F4A0BA /* msrOsc.udo in Resources */,
 				C4D43C5315E75FCC00EDB05B /* hellorcb.aif in Resources */,
-				C4F1FFE315EB627600F5BADF /* MainStoryboard.storyboard in Resources */,
+				C45047B515EB884C0051788A /* InitialViewController.xib in Resources */,
+				C45047B715EB891E0051788A /* MasterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
