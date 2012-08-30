@@ -1,0 +1,295 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C402405115EF72B4002B818C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C402405015EF72B4002B818C /* UIKit.framework */; };
+		C402405315EF72B4002B818C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C402405215EF72B4002B818C /* Foundation.framework */; };
+		C402405515EF72B4002B818C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C402405415EF72B4002B818C /* CoreGraphics.framework */; };
+		C402405B15EF72B4002B818C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C402405915EF72B4002B818C /* InfoPlist.strings */; };
+		C402405D15EF72B4002B818C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C402405C15EF72B4002B818C /* main.m */; };
+		C402406115EF72B4002B818C /* OCSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406015EF72B4002B818C /* OCSAppDelegate.m */; };
+		C402406415EF72B4002B818C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C402406215EF72B4002B818C /* MainStoryboard.storyboard */; };
+		C402406715EF72B4002B818C /* OCSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406615EF72B4002B818C /* OCSMasterViewController.m */; };
+		C402406A15EF72B4002B818C /* OCSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406915EF72B4002B818C /* OCSDetailViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C402404C15EF72B4002B818C /* OCSiPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCSiPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C402405015EF72B4002B818C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C402405215EF72B4002B818C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C402405415EF72B4002B818C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C402405815EF72B4002B818C /* OCSiPad-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OCSiPad-Info.plist"; sourceTree = "<group>"; };
+		C402405A15EF72B4002B818C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C402405C15EF72B4002B818C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C402405E15EF72B4002B818C /* OCSiPad-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCSiPad-Prefix.pch"; sourceTree = "<group>"; };
+		C402405F15EF72B4002B818C /* OCSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSAppDelegate.h; sourceTree = "<group>"; };
+		C402406015EF72B4002B818C /* OCSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSAppDelegate.m; sourceTree = "<group>"; };
+		C402406315EF72B4002B818C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		C402406515EF72B4002B818C /* OCSMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSMasterViewController.h; sourceTree = "<group>"; };
+		C402406615EF72B4002B818C /* OCSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSMasterViewController.m; sourceTree = "<group>"; };
+		C402406815EF72B4002B818C /* OCSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSDetailViewController.h; sourceTree = "<group>"; };
+		C402406915EF72B4002B818C /* OCSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSDetailViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C402404915EF72B4002B818C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C402405115EF72B4002B818C /* UIKit.framework in Frameworks */,
+				C402405315EF72B4002B818C /* Foundation.framework in Frameworks */,
+				C402405515EF72B4002B818C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C402404115EF72B4002B818C = {
+			isa = PBXGroup;
+			children = (
+				C402405615EF72B4002B818C /* OCSiPad */,
+				C402404F15EF72B4002B818C /* Frameworks */,
+				C402404D15EF72B4002B818C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C402404D15EF72B4002B818C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C402404C15EF72B4002B818C /* OCSiPad.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C402404F15EF72B4002B818C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C402405015EF72B4002B818C /* UIKit.framework */,
+				C402405215EF72B4002B818C /* Foundation.framework */,
+				C402405415EF72B4002B818C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C402405615EF72B4002B818C /* OCSiPad */ = {
+			isa = PBXGroup;
+			children = (
+				C402405F15EF72B4002B818C /* OCSAppDelegate.h */,
+				C402406015EF72B4002B818C /* OCSAppDelegate.m */,
+				C402406215EF72B4002B818C /* MainStoryboard.storyboard */,
+				C402406515EF72B4002B818C /* OCSMasterViewController.h */,
+				C402406615EF72B4002B818C /* OCSMasterViewController.m */,
+				C402406815EF72B4002B818C /* OCSDetailViewController.h */,
+				C402406915EF72B4002B818C /* OCSDetailViewController.m */,
+				C402405715EF72B4002B818C /* Supporting Files */,
+			);
+			path = OCSiPad;
+			sourceTree = "<group>";
+		};
+		C402405715EF72B4002B818C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C402405815EF72B4002B818C /* OCSiPad-Info.plist */,
+				C402405915EF72B4002B818C /* InfoPlist.strings */,
+				C402405C15EF72B4002B818C /* main.m */,
+				C402405E15EF72B4002B818C /* OCSiPad-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C402404B15EF72B4002B818C /* OCSiPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C402406D15EF72B4002B818C /* Build configuration list for PBXNativeTarget "OCSiPad" */;
+			buildPhases = (
+				C402404815EF72B4002B818C /* Sources */,
+				C402404915EF72B4002B818C /* Frameworks */,
+				C402404A15EF72B4002B818C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCSiPad;
+			productName = OCSiPad;
+			productReference = C402404C15EF72B4002B818C /* OCSiPad.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C402404315EF72B4002B818C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OCS;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Hear For Yourself";
+			};
+			buildConfigurationList = C402404615EF72B4002B818C /* Build configuration list for PBXProject "OCSiPad" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C402404115EF72B4002B818C;
+			productRefGroup = C402404D15EF72B4002B818C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C402404B15EF72B4002B818C /* OCSiPad */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C402404A15EF72B4002B818C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C402405B15EF72B4002B818C /* InfoPlist.strings in Resources */,
+				C402406415EF72B4002B818C /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C402404815EF72B4002B818C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C402405D15EF72B4002B818C /* main.m in Sources */,
+				C402406115EF72B4002B818C /* OCSAppDelegate.m in Sources */,
+				C402406715EF72B4002B818C /* OCSMasterViewController.m in Sources */,
+				C402406A15EF72B4002B818C /* OCSDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C402405915EF72B4002B818C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C402405A15EF72B4002B818C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C402406215EF72B4002B818C /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C402406315EF72B4002B818C /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C402406B15EF72B4002B818C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		C402406C15EF72B4002B818C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C402406E15EF72B4002B818C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCSiPad/OCSiPad-Prefix.pch";
+				INFOPLIST_FILE = "OCSiPad/OCSiPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C402406F15EF72B4002B818C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCSiPad/OCSiPad-Prefix.pch";
+				INFOPLIST_FILE = "OCSiPad/OCSiPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C402404615EF72B4002B818C /* Build configuration list for PBXProject "OCSiPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C402406B15EF72B4002B818C /* Debug */,
+				C402406C15EF72B4002B818C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C402406D15EF72B4002B818C /* Build configuration list for PBXNativeTarget "OCSiPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C402406E15EF72B4002B818C /* Debug */,
+				C402406F15EF72B4002B818C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C402404315EF72B4002B818C /* Project object */;
+}
