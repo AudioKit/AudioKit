@@ -11,5 +11,6 @@
 @interface OCSDetailViewController : UIViewController <UISplitViewControllerDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) IBOutlet id conductor;
 
 @end

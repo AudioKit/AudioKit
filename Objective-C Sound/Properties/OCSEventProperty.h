@@ -1,5 +1,5 @@
 //
-//  OCSNoteProperty.h
+//  OCSEventProperty.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 7/18/12.
@@ -11,6 +11,6 @@
  specific notes as opposed to properties that are share by an instrument. 
  */
 
-@interface OCSNoteProperty : OCSProperty
+@interface OCSEventProperty : OCSProperty
 
 @end

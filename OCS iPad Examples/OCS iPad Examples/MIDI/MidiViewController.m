@@ -91,13 +91,13 @@
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     
     OCSEvent *noteOnEvent = [[OCSEvent alloc] initWithInstrument:instrument];
-    [noteOnEvent setNoteProperty:[instrument frequency] toValue:[Helper midiNoteToFrequency:note]];
+    [noteOnEvent setEventProperty:[instrument frequency] toValue:[Helper midiNoteToFrequency:note]];
     float volume = [Helper scaleValue:velocity
                           fromMinimum:0
                           fromMaximum:127
                             toMinimum:kVolumeMin
                             toMaximum:kVolumeMax];
-    [noteOnEvent setNoteProperty:[instrument volume] toValue:volume];
+    [noteOnEvent setEventProperty:[instrument volume] toValue:volume];
     [noteOnEvent trigger];
     [currentNotes setObject:noteOnEvent forKey:[NSNumber numberWithInt:note]];
 }

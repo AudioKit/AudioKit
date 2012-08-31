@@ -37,7 +37,7 @@
     }
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:fmOscillator];
-    [currentEvent setNoteProperty:[fmOscillator frequency] toValue:randomFrequency];
+    [currentEvent setEventProperty:[fmOscillator frequency] toValue:randomFrequency];
     [currentEvent trigger];
     
 }

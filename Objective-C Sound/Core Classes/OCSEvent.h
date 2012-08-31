@@ -21,7 +21,7 @@
 @property (nonatomic, strong) OCSInstrument *instrument;
 
 /// A list of all the note property values.
-@property (nonatomic, strong) NSMutableArray *notePropertyValues;
+@property (nonatomic, strong) NSMutableArray *eventPropertyValues;
 
 /// A list (usually just one) of instrument level properties.
 @property (nonatomic, strong) NSMutableArray *properties;
@@ -81,7 +81,7 @@
 /// Alter the value of a note's property.
 /// @param property The note property that will be changed.
 /// @param value    The new value of the note property.
-- (void)setNoteProperty:(OCSNoteProperty *)property 
+- (void)setEventProperty:(OCSEventProperty *)property 
                  toValue:(float)value; 
 
 /// Iterates through all properties and trigger their value changes.

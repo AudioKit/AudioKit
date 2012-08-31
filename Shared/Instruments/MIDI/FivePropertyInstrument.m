@@ -15,8 +15,8 @@
 #import "OCSAudio.h"
 
 @interface FivePropertyInstrument () {
-    OCSNoteProperty *vol;
-    OCSNoteProperty *freq;
+    OCSEventProperty *vol;
+    OCSEventProperty *freq;
     OCSInstrumentProperty *bend;
     OCSInstrumentProperty *mod;
     OCSInstrumentProperty *cutoff;
@@ -38,9 +38,9 @@
     if ( self) {
         
         // INPUTS AND CONTROLS =================================================
-        vol  = [[OCSNoteProperty alloc] initWithMinValue:kVolumeMin
+        vol  = [[OCSEventProperty alloc] initWithMinValue:kVolumeMin
                                                 maxValue:kVolumeMax];
-        freq = [[OCSNoteProperty alloc] initWithMinValue:kFrequencyMin
+        freq = [[OCSEventProperty alloc] initWithMinValue:kFrequencyMin
                                                 maxValue:kFrequencyMax];
         bend = [[OCSInstrumentProperty alloc] initWithValue:1
                                                    minValue:kPitchBendMin
@@ -56,8 +56,8 @@
         [mod    setControl:[OCSControl parameterWithString:@"Modulation"]];
         [cutoff setControl:[OCSControl parameterWithString:@"LowPassCutoff"]];
         
-        [self addNoteProperty:vol];
-        [self addNoteProperty:freq];
+        [self addEventProperty:vol];
+        [self addEventProperty:freq];
         [self addProperty:bend];
         [self addProperty:mod];
         [self addProperty:cutoff];

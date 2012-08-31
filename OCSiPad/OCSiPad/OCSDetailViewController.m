@@ -17,6 +17,7 @@
 @implementation OCSDetailViewController
 
 #pragma mark - Managing the detail item
+@synthesize conductor = _conductor;
 @synthesize webView = _webView;
 
 
@@ -63,6 +64,7 @@
 - (void)viewDidUnload
 {
     [self setWebView:nil];
+    [self setConductor:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

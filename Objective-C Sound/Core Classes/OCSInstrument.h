@@ -10,7 +10,7 @@
 #import "OCSOrchestra.h"
 #import "OCSOperation.h"
 #import "OCSUserDefinedOperation.h"
-#import "OCSNoteProperty.h"
+#import "OCSEventProperty.h"
 #import "OCSInstrumentProperty.h"
 @class OCSEvent;
 
@@ -45,9 +45,9 @@
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
 
-/// After an OCSNoteProperty is created, it must be added to the instrument.
-/// @param newNoteProperty New note property to add to the instrument.
-- (void)addNoteProperty:(OCSProperty *)newNoteProperty;
+/// After an OCSEventProperty is created, it must be added to the instrument.
+/// @param newEventProperty New note property to add to the instrument.
+- (void)addEventProperty:(OCSProperty *)newEventProperty;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - F Tables

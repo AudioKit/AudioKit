@@ -43,7 +43,7 @@
     sequence = [[OCSSequence alloc] init]; 
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:fmOscillator];
-        [temp setNoteProperty:[fmOscillator frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [temp setEventProperty:[fmOscillator frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:temp atTime:duration*i];
         OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:duration*0.5];
         [sequence addEvent:temp2 atTime:duration*i];
@@ -58,12 +58,12 @@
     
     sequence = [[OCSSequence alloc] init];     
     OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmOscillator];
-    [noteOn setNoteProperty:[fmOscillator frequency] toValue:440];
+    [noteOn setEventProperty:[fmOscillator frequency] toValue:440];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *update= [[OCSEvent alloc] initWithEvent:noteOn];
-        [update setNoteProperty:[fmOscillator frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [update setEventProperty:[fmOscillator frequency] toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*i];
     }
     OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
@@ -79,7 +79,7 @@
     
     sequence = [[OCSSequence alloc] init];     
     OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:fmOscillator];
-    [noteOn setNoteProperty:[fmOscillator frequency] toValue:440];
+    [noteOn setEventProperty:[fmOscillator frequency] toValue:440];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {

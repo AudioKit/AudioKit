@@ -10,7 +10,7 @@
 
 @interface FMOscillator : OCSInstrument 
 
-@property (nonatomic, strong) OCSNoteProperty *frequency;
+@property (nonatomic, strong) OCSEventProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
