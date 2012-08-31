@@ -39,7 +39,8 @@
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
                                               frequency:[frequency constant]
-                                              amplitude:ocsp(0.12)];                                
+                                              amplitude:ocsp(0.12)
+                                                  phase:ocsp(0)];
         [self connect:myOscil];
         
         OCSReverb *reverb;
