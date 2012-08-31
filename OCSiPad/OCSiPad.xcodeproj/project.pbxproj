@@ -17,7 +17,6 @@
 		C402406715EF72B4002B818C /* OCSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406615EF72B4002B818C /* OCSMasterViewController.m */; };
 		C402406A15EF72B4002B818C /* OCSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406915EF72B4002B818C /* OCSDetailViewController.m */; };
 		C40240EF15EF7D52002B818C /* Template in Resources */ = {isa = PBXBuildFile; fileRef = C40240EE15EF7D52002B818C /* Template */; };
-		C42B1F0715F0DB84006032F9 /* OscillatorViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F0515F0DB84006032F9 /* OscillatorViewController.h */; };
 		C42B1F0815F0DB84006032F9 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F0615F0DB84006032F9 /* OscillatorViewController.m */; };
 		C4A6D74D15F08A9700FDDE68 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6AC15F08A9700FDDE68 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4A6D74E15F08A9700FDDE68 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6AF15F08A9700FDDE68 /* BaseValueCacheable.m */; };
@@ -1048,7 +1047,6 @@
 				C4A6D7F115F08B6700FDDE68 /* OscillatorOrchestra.m in Sources */,
 				C4A6D7F515F08B8700FDDE68 /* OscillatorInstrument.m in Sources */,
 				C4A6D7F815F08BD300FDDE68 /* OscillatorConductor.m in Sources */,
-				C42B1F0715F0DB84006032F9 /* OscillatorViewController.h in Sources */,
 				C42B1F0815F0DB84006032F9 /* OscillatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
