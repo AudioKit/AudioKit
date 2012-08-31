@@ -39,14 +39,14 @@
 @property (nonatomic, strong) NSMutableArray *properties;
 
 /// Array of note properties available to events.
-@property (nonatomic, strong) NSMutableArray *noteProperties;
+@property (nonatomic, strong) NSMutableArray *eventProperties;
 
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
 
 /// After an OCSEventProperty is created, it must be added to the instrument.
-/// @param newEventProperty New note property to add to the instrument.
+/// @param newEventProperty New event property to add to the instrument.
 - (void)addEventProperty:(OCSProperty *)newEventProperty;
 
 // -----------------------------------------------------------------------------

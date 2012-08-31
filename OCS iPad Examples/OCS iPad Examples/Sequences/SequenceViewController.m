@@ -52,7 +52,7 @@
     [sequence play];
 }
 
-- (IBAction)playSequenceOfNoteProperties:(id)sender 
+- (IBAction)playSequenceOfEventProperties:(id)sender 
 {
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
     

@@ -29,7 +29,7 @@ typedef enum {
 @implementation OCSInstrument
 
 @synthesize properties;
-@synthesize noteProperties;
+@synthesize eventProperties;
 @synthesize userDefinedOperations;
 @synthesize fTables;
 
@@ -45,7 +45,7 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         properties = [[NSMutableArray alloc] init];
-        noteProperties = [[NSMutableArray alloc] init];
+        eventProperties = [[NSMutableArray alloc] init];
         userDefinedOperations = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
@@ -74,7 +74,7 @@ static int currentID = 1;
 
 - (void)addEventProperty:(OCSProperty *)newEventProperty;
 {
-    [noteProperties addObject:newEventProperty];
+    [eventProperties addObject:newEventProperty];
 }
 
 // -----------------------------------------------------------------------------
@@ -133,10 +133,10 @@ static int currentID = 1;
 {
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
-    if ([properties count] + [noteProperties count] > 0 ) {
-        [text appendString:@"\n;---- Inputs: Note Parameters ----\n"];
+    if ([properties count] + [eventProperties count] > 0 ) {
+        [text appendString:@"\n;---- Inputs: Event Parameters ----\n"];
         int i = 4;
-        for (OCSEventProperty *prop in noteProperties) {
+        for (OCSEventProperty *prop in eventProperties) {
             [text appendFormat:@"%@ = p%i\n", prop, i++];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        

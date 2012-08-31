@@ -58,10 +58,10 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         instr = instrument;
-        eventPropertyValues = [[NSMutableArray alloc] initWithArray:[instr noteProperties]];
+        eventPropertyValues = [[NSMutableArray alloc] initWithArray:[instr eventProperties]];
         for (int i = 0; i < [propertyValues count]; i++) {
             
-            OCSProperty *prop = [[instr noteProperties] objectAtIndex:i];
+            OCSProperty *prop = [[instr eventProperties] objectAtIndex:i];
             NSNumber *val = [NSNumber numberWithFloat:[prop value]];
             [eventPropertyValues replaceObjectAtIndex:i withObject:val];
         }
@@ -126,7 +126,7 @@ static int currentID = 1;
 - (void)setEventProperty:(OCSEventProperty *)property 
                  toValue:(float)value; 
 {
-    NSUInteger index = [[instr noteProperties] indexOfObject:property];
+    NSUInteger index = [[instr eventProperties] indexOfObject:property];
     [eventPropertyValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
 }
 
@@ -137,7 +137,7 @@ static int currentID = 1;
     [propertyValues addObject:[NSNumber numberWithFloat:value]];
 }
 
-- (void)setNoteProperties;
+- (void)setEventProperties;
 {
     for (NSNumber *value in eventPropertyValues) {
         [scoreLine appendFormat:@" %@", value];

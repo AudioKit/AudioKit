@@ -15,7 +15,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = NSLocalizedString(@"Play a CSD File", @"Play a CSD File");
     rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Stop"
                                                    style:UIBarButtonSystemItemDone
                                                   target:self
