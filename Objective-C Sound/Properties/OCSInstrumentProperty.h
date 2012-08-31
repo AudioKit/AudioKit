@@ -13,7 +13,7 @@
 
 
 /** Instrument properties are properties of an instrument that are shared 
- amongst the notes that are created on that instrument. 
+ amongst all the notes that are created on that instrument. 
  */
 @interface OCSInstrumentProperty : OCSProperty<CsoundValueCacheable> {
     BOOL mCacheDirty;

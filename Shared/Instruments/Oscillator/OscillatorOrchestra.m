@@ -8,6 +8,19 @@
 
 #import "OscillatorOrchestra.h"
 
+
 @implementation OscillatorOrchestra
+
+@synthesize instrument = _instrument;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _instrument = [[OscillatorInstrument alloc] init];
+        [self addInstrument:_instrument];
+    }
+    return self;
+}
 
 @end

@@ -10,7 +10,7 @@
 
 #import "OCSDetailViewController.h"
 
-#import "OscillatorConductor.h"
+#import "OscillatorViewController.h"
 
 @interface OCSMasterViewController () {
     NSMutableArray *_objects;
@@ -80,9 +80,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *example = [_objects objectAtIndex:indexPath.row];
-    self.detailViewController.detailItem = example;
+    UIStoryboard *storyboard = self.storyboard;
+    //self.detailViewController.detailItem = example;
     if ([example isEqualToString:@"Oscillator"]) {
-        self.detailViewController.conductor = [[OscillatorConductor alloc] init];
+        OscillatorViewController *ovc = [storyboard instantiateViewControllerWithIdentifier:@"OscillatorViewController"];
+        [self presentViewController:ovc animated:YES completion:nil];
     }   
 }
 
