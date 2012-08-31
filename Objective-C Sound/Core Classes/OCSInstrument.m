@@ -72,9 +72,9 @@ static int currentID = 1;
     //[[OCSManager sharedOCSManager] addProperty:prop];
 }
 
-- (void)addNoteProperty:(OCSProperty *)newNoteProperty;
+- (void)addEventProperty:(OCSProperty *)newEventProperty;
 {
-    [noteProperties addObject:newNoteProperty];
+    [noteProperties addObject:newEventProperty];
 }
 
 // -----------------------------------------------------------------------------
@@ -136,7 +136,7 @@ static int currentID = 1;
     if ([properties count] + [noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Parameters ----\n"];
         int i = 4;
-        for (OCSNoteProperty *prop in noteProperties) {
+        for (OCSEventProperty *prop in noteProperties) {
             [text appendFormat:@"%@ = p%i\n", prop, i++];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        

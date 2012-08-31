@@ -10,6 +10,8 @@
 
 #import "OCSDetailViewController.h"
 
+#import "OscillatorConductor.h"
+
 @interface OCSMasterViewController () {
     NSMutableArray *_objects;
 }
@@ -77,8 +79,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
-    self.detailViewController.detailItem = object;
+    NSString *example = [_objects objectAtIndex:indexPath];
+    if ([example isEqualToString:@"Oscillator"]) {
+        self.detailViewController.conductor = [[OscillatorConductor alloc] init];
+    }   
 }
 
 @end

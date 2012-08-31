@@ -12,7 +12,7 @@
 #import "OCSAudio.h"
 
 @interface FMOscillator () {
-    OCSNoteProperty *freq;
+    OCSEventProperty *freq;
     OCSInstrumentProperty *mod;
 }
 @end
@@ -27,13 +27,13 @@
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
-        freq = [[OCSNoteProperty alloc] initWithValue:220 minValue:kFrequencyMin maxValue:kFrequencyMax];
+        freq = [[OCSEventProperty alloc] initWithValue:220 minValue:kFrequencyMin maxValue:kFrequencyMax];
         mod  = [[OCSInstrumentProperty alloc] initWithValue:1.0 minValue:kModulationMin maxValue:kModulationMax];
 
         [freq setControl:[OCSControl parameterWithString:@"Frequency"]]; 
         [mod  setControl:[OCSControl parameterWithString:@"Modulation"]]; 
         
-        [self addNoteProperty:freq];
+        [self addEventProperty:freq];
         [self addProperty:mod];
         
         // INSTRUMENT DEFINITION ===============================================

@@ -37,7 +37,7 @@
     }
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", frequency]];
     currentEvent = [[OCSEvent alloc] initWithInstrument:simpleOscillator];
-    [currentEvent setNoteProperty:[simpleOscillator frequency] toValue:frequency];
+    [currentEvent setEventProperty:[simpleOscillator frequency] toValue:frequency];
     [currentEvent trigger];
 }
 

@@ -44,9 +44,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Welcome To Objective-C Sound" id="53"/>
                     <connections>
+                        <outlet property="conductor" destination="V8t-8K-gwi" id="lra-BK-XTE"/>
                         <outlet property="webView" destination="bZ5-8m-PjN" id="rUc-tu-dnG"/>
                     </connections>
                 </viewController>
+                <customObject id="V8t-8K-gwi"/>
             </objects>
             <point key="canvasLocation" x="1226" y="282"/>
         </scene>
@@ -124,6 +126,18 @@
             <point key="canvasLocation" x="384" y="290"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="OCSDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="conductor"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="OCSMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSMasterViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

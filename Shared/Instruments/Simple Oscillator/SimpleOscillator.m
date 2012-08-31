@@ -22,9 +22,9 @@
         
         // INPUTS AND CONTROLS =================================================
         
-        frequency = [[OCSNoteProperty alloc] initWithMinValue:kFrequencyMin maxValue:kFrequencyMax];
+        frequency = [[OCSEventProperty alloc] initWithMinValue:kFrequencyMin maxValue:kFrequencyMax];
         [frequency setConstant:[OCSConstant parameterWithString:@"Frequency"]]; 
-        [self addNoteProperty:frequency];
+        [self addEventProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
         

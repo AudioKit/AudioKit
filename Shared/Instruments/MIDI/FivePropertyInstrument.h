@@ -10,11 +10,11 @@
 
 @interface FivePropertyInstrument : OCSInstrument
 
-@property (nonatomic, strong) OCSNoteProperty *volume;
+@property (nonatomic, strong) OCSEventProperty *volume;
 #define kVolumeMin 0.0
 #define kVolumeMax 0.8
 
-@property (nonatomic, strong) OCSNoteProperty *frequency;
+@property (nonatomic, strong) OCSEventProperty *frequency;
 #define kFrequencyMin 20
 #define kFrequencyMax 20000
 
