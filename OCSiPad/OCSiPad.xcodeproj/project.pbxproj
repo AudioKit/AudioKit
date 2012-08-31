@@ -16,6 +16,7 @@
 		C402406415EF72B4002B818C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C402406215EF72B4002B818C /* MainStoryboard.storyboard */; };
 		C402406715EF72B4002B818C /* OCSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406615EF72B4002B818C /* OCSMasterViewController.m */; };
 		C402406A15EF72B4002B818C /* OCSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406915EF72B4002B818C /* OCSDetailViewController.m */; };
+		C40240EF15EF7D52002B818C /* Template in Resources */ = {isa = PBXBuildFile; fileRef = C40240EE15EF7D52002B818C /* Template */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		C402406615EF72B4002B818C /* OCSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSMasterViewController.m; sourceTree = "<group>"; };
 		C402406815EF72B4002B818C /* OCSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSDetailViewController.h; sourceTree = "<group>"; };
 		C402406915EF72B4002B818C /* OCSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSDetailViewController.m; sourceTree = "<group>"; };
+		C40240EE15EF7D52002B818C /* Template */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Template; path = ../Shared/Template; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 		C402404115EF72B4002B818C = {
 			isa = PBXGroup;
 			children = (
+				C40240EE15EF7D52002B818C /* Template */,
 				C402405615EF72B4002B818C /* OCSiPad */,
 				C402404F15EF72B4002B818C /* Frameworks */,
 				C402404D15EF72B4002B818C /* Products */,
@@ -157,6 +160,7 @@
 			files = (
 				C402405B15EF72B4002B818C /* InfoPlist.strings in Resources */,
 				C402406415EF72B4002B818C /* MainStoryboard.storyboard in Resources */,
+				C40240EF15EF7D52002B818C /* Template in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +292,7 @@
 				C402406F15EF72B4002B818C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

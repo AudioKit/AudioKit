@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:OCSiPad/OCSiPad.xcodeproj">
+      location = "group:README.md">
    </FileRef>
    <FileRef
-      location = "group:README.md">
+      location = "group:OCSiPad/OCSiPad.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">

@@ -29,14 +29,6 @@
                         <rect key="frame" x="0.0" y="64" width="703" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="27">
-                                <rect key="frame" x="20" y="341" width="663" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <webView contentMode="scaleToFill" id="bZ5-8m-PjN">
                                 <rect key="frame" x="0.0" y="0.0" width="703" height="704"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,9 +42,9 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="53"/>
+                    <navigationItem key="navigationItem" title="Welcome To Objective-C Sound" id="53"/>
                     <connections>
-                        <outlet property="detailDescriptionLabel" destination="27" id="29"/>
+                        <outlet property="webView" destination="bZ5-8m-PjN" id="rUc-tu-dnG"/>
                     </connections>
                 </viewController>
             </objects>
@@ -111,7 +103,7 @@
                             <outlet property="delegate" destination="19" id="21"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="40"/>
+                    <navigationItem key="navigationItem" title="Objective-C Sound" id="40"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="859" y="-631"/>
