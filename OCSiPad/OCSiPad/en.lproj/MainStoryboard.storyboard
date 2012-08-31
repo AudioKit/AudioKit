@@ -48,7 +48,7 @@
                         <outlet property="webView" destination="bZ5-8m-PjN" id="rUc-tu-dnG"/>
                     </connections>
                 </viewController>
-                <customObject id="V8t-8K-gwi"/>
+                <customObject id="V8t-8K-gwi" customClass="OscillatorViewController"/>
             </objects>
             <point key="canvasLocation" x="1226" y="282"/>
         </scene>
@@ -136,6 +136,14 @@
         </class>
         <class className="OCSMasterViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSMasterViewController.h"/>
+        </class>
+        <class className="OscillatorViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OscillatorViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playA:"/>
+                <relationship kind="action" name="playRandomFrequency:"/>
+                <relationship kind="outlet" name="frequencyLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

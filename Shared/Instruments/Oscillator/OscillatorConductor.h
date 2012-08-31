@@ -6,8 +6,11 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface OscillatorConductor : NSObject
+
+- (void)setFrequency:(float)frequency;
+- (void)setAmplitude:(float)amplitude;
+- (void)startSound;
+- (void)stopSound;
 
 @end

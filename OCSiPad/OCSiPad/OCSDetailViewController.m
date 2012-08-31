@@ -7,6 +7,7 @@
 //
 
 #import "OCSDetailViewController.h"
+#import "OscillatorConductor.h"
 
 @interface OCSDetailViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -82,8 +83,21 @@
     if ([components count] > 1&&
         [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
     {
-        if([(NSString *)[components objectAtIndex:1] isEqualToString:@"set"]) {
-            NSLog(@"%@ = %@", [components objectAtIndex:2], [components objectAtIndex:3]);
+        NSString *action = (NSString *)[components objectAtIndex:1];
+        if([action isEqualToString:@"start"]) {
+            [_conductor startSound];
+        }
+        if([action isEqualToString:@"set"]) {
+            NSString *var = (NSString *)[components objectAtIndex:2];
+            float val = [(NSString *)[components objectAtIndex:3] floatValue];
+            
+            //NSLog(@"%@ = %g", var, val);
+            if ([var isEqualToString:@"frequency"] ) {
+                [_conductor setFrequency:val];
+            }
+            if ([var isEqualToString:@"amplitude"] ) {
+                [_conductor setAmplitude:val];
+            }
         }
         return NO;
     }

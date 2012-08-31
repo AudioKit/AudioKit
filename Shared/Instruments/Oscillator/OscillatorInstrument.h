@@ -10,4 +10,14 @@
 
 @interface OscillatorInstrument : OCSInstrument
 
+@property (nonatomic, strong) OCSInstrumentProperty *frequency;
+#define kFrequencyInit 440
+#define kFrequencyMin  110
+#define kFrequencyMax  880
+
+@property (nonatomic, strong) OCSInstrumentProperty *amplitude;
+#define kAmplitudeInit 0.2
+#define kAmplitudeMin  0
+#define kAmplitudeMax  1
+
 @end

@@ -8,6 +8,10 @@
 
 #import "OCSOrchestra.h"
 
+#import "OscillatorInstrument.h"
+
 @interface OscillatorOrchestra : OCSOrchestra
+
+@property (nonatomic, strong) OscillatorInstrument *instrument;
 
 @end
