@@ -52,7 +52,6 @@
 
 - (void)viewDidLoad
 {
-    self.title = NSLocalizedString(@"Respond to MIDI", @"Respond to MIDI");
     _channel = 1;
     _note = 0;
     _modulation = 0;

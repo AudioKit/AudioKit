@@ -79,7 +79,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *example = [_objects objectAtIndex:indexPath];
+    NSString *example = [_objects objectAtIndex:indexPath.row];
+    self.detailViewController.detailItem = example;
     if ([example isEqualToString:@"Oscillator"]) {
         self.detailViewController.conductor = [[OscillatorConductor alloc] init];
     }   

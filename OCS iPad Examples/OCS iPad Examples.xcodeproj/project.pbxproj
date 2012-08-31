@@ -26,9 +26,7 @@
 		C40240C815EF7A59002B818C /* SimpleOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C402409B15EF7A59002B818C /* SimpleOscillator.m */; };
 		C40240CA15EF7A59002B818C /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C402409E15EF7A59002B818C /* UDOInstrument.m */; };
 		C40240CC15EF7A59002B818C /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C40240A115EF7A59002B818C /* UnitGeneratorInstrument.m */; };
-		C40240F215EF7FC3002B818C /* ReverbOrchestra.h in Sources */ = {isa = PBXBuildFile; fileRef = C40240F015EF7FC3002B818C /* ReverbOrchestra.h */; };
 		C40240F315EF7FC3002B818C /* ReverbOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C40240F115EF7FC3002B818C /* ReverbOrchestra.m */; };
-		C40240F615EF834D002B818C /* SimpleOscillatorOrchestra.h in Sources */ = {isa = PBXBuildFile; fileRef = C40240F415EF834D002B818C /* SimpleOscillatorOrchestra.h */; };
 		C40240F715EF834D002B818C /* SimpleOscillatorOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C40240F515EF834D002B818C /* SimpleOscillatorOrchestra.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
@@ -1280,9 +1278,7 @@
 				C40240C815EF7A59002B818C /* SimpleOscillator.m in Sources */,
 				C40240CA15EF7A59002B818C /* UDOInstrument.m in Sources */,
 				C40240CC15EF7A59002B818C /* UnitGeneratorInstrument.m in Sources */,
-				C40240F215EF7FC3002B818C /* ReverbOrchestra.h in Sources */,
 				C40240F315EF7FC3002B818C /* ReverbOrchestra.m in Sources */,
-				C40240F615EF834D002B818C /* SimpleOscillatorOrchestra.h in Sources */,
 				C40240F715EF834D002B818C /* SimpleOscillatorOrchestra.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -177,7 +177,7 @@ static OCSManager *_sharedOCSManager = nil;
 - (void)triggerEvent:(OCSEvent *)event  
 {
     if ([[event eventPropertyValues] count] > 0 ) {
-        [event setNoteProperties];
+        [event setEventProperties];
     }
     if ([[event properties] count] > 0) {
         [event setInstrumentProperties];

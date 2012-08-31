@@ -202,6 +202,8 @@
         default:
             break;
     }
+    if (controller) controller.title = [exampleNames objectAtIndex:indexPath.row];
+
     
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     UISplitViewController* splitViewController = appDelegate.splitViewController;
