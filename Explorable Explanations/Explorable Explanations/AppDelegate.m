@@ -12,7 +12,7 @@
 @implementation AppDelegate
 
 @synthesize viewController;
-@synthesize navController;
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -20,13 +20,10 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    viewController = [[EEViewController alloc] init];
-    navController =
-    [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self.window addSubview:navController.view];
+    viewController = [[RootViewController alloc] init];
+    navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self.window addSubview:navigationController.view];
     [self.window makeKeyAndVisible];
-    
-
     
     return YES;
 }

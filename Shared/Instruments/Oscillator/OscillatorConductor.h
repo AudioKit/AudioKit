@@ -12,5 +12,6 @@
 - (void)setAmplitude:(float)amplitude;
 - (void)startSound;
 - (void)stopSound;
+- (void)quit;
 
 @end

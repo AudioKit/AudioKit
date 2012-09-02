@@ -11,7 +11,7 @@
 #import "OCSManager.h"
 
 @interface FMOscillatorViewController () {
-    FMOscillator *fmOscillator;
+    SimpleFMOscillator *fmOscillator;
     OCSEvent *currentEvent;
 }
 @end
@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
-    fmOscillator =  [[FMOscillator alloc] init];
+    fmOscillator =  [[SimpleFMOscillator alloc] init];
     [orch addInstrument:fmOscillator];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     currentEvent = nil;

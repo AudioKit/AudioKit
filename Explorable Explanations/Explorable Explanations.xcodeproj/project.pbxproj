@@ -13,8 +13,7 @@
 		C42B1F5415F31375006032F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C42B1F5215F31375006032F9 /* InfoPlist.strings */; };
 		C42B1F5615F31375006032F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F5515F31375006032F9 /* main.m */; };
 		C42B1F5A15F31375006032F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F5915F31375006032F9 /* AppDelegate.m */; };
-		C42B1F7315F332AE006032F9 /* EEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F7115F332AE006032F9 /* EEViewController.m */; };
-		C42B1F7915F34898006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B1F7815F34898006032F9 /* html */; };
+		C42B1F7315F332AE006032F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F7115F332AE006032F9 /* RootViewController.m */; };
 		C42B1F7D15F34AC8006032F9 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42B1F7C15F34AC8006032F9 /* CoreMotion.framework */; };
 		C42B1F7F15F34AD1006032F9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42B1F7E15F34AD1006032F9 /* AudioToolbox.framework */; };
 		C42B1F8115F34AD9006032F9 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42B1F8015F34AD9006032F9 /* CoreMIDI.framework */; };
@@ -109,6 +108,9 @@
 		C42B235415F34C30006032F9 /* SimpleOscillatorOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B231D15F34C2F006032F9 /* SimpleOscillatorOrchestra.m */; };
 		C42B235615F34C30006032F9 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B232015F34C2F006032F9 /* UDOInstrument.m */; };
 		C42B235815F34C30006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B232315F34C2F006032F9 /* UnitGeneratorInstrument.m */; };
+		C42B235C15F35BF4006032F9 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B235A15F35BF4006032F9 /* OscillatorViewController.m */; };
+		C42B236015F35C0D006032F9 /* FMOscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B235E15F35C0D006032F9 /* FMOscillatorViewController.m */; };
+		C42B236215F36050006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B236115F36050006032F9 /* html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,9 +124,8 @@
 		C42B1F5715F31375006032F9 /* Explorable Explanations-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Explorable Explanations-Prefix.pch"; sourceTree = "<group>"; };
 		C42B1F5815F31375006032F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C42B1F5915F31375006032F9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C42B1F7015F332AE006032F9 /* EEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = EEViewController.h; sourceTree = "<group>"; };
-		C42B1F7115F332AE006032F9 /* EEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEViewController.m; sourceTree = "<group>"; };
-		C42B1F7815F34898006032F9 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
+		C42B1F7015F332AE006032F9 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = RootViewController.h; sourceTree = "<group>"; };
+		C42B1F7115F332AE006032F9 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		C42B1F7C15F34AC8006032F9 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C42B1F7E15F34AD1006032F9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C42B1F8015F34AD9006032F9 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
@@ -315,6 +316,11 @@
 		C42B232015F34C2F006032F9 /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOInstrument.m; sourceTree = "<group>"; };
 		C42B232215F34C2F006032F9 /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
 		C42B232315F34C2F006032F9 /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
+		C42B235915F35BF4006032F9 /* OscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorViewController.h; sourceTree = "<group>"; };
+		C42B235A15F35BF4006032F9 /* OscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorViewController.m; sourceTree = "<group>"; };
+		C42B235D15F35C0D006032F9 /* FMOscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FMOscillatorViewController.h; sourceTree = "<group>"; };
+		C42B235E15F35C0D006032F9 /* FMOscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorViewController.m; sourceTree = "<group>"; };
+		C42B236115F36050006032F9 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,8 +382,12 @@
 			children = (
 				C42B1F5815F31375006032F9 /* AppDelegate.h */,
 				C42B1F5915F31375006032F9 /* AppDelegate.m */,
-				C42B1F7015F332AE006032F9 /* EEViewController.h */,
-				C42B1F7115F332AE006032F9 /* EEViewController.m */,
+				C42B1F7015F332AE006032F9 /* RootViewController.h */,
+				C42B1F7115F332AE006032F9 /* RootViewController.m */,
+				C42B235915F35BF4006032F9 /* OscillatorViewController.h */,
+				C42B235A15F35BF4006032F9 /* OscillatorViewController.m */,
+				C42B235D15F35C0D006032F9 /* FMOscillatorViewController.h */,
+				C42B235E15F35C0D006032F9 /* FMOscillatorViewController.m */,
 				C42B1F5015F31375006032F9 /* Supporting Files */,
 			);
 			path = "Explorable Explanations";
@@ -701,7 +711,7 @@
 		C42B22DD15F34C2F006032F9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C42B1F7815F34898006032F9 /* html */,
+				C42B236115F36050006032F9 /* html */,
 				C42B22EA15F34C2F006032F9 /* Instruments */,
 			);
 			name = Shared;
@@ -929,7 +939,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42B1F5415F31375006032F9 /* InfoPlist.strings in Resources */,
-				C42B1F7915F34898006032F9 /* html in Resources */,
 				C42B223715F34B90006032F9 /* template.csd in Resources */,
 				C42B223815F34B90006032F9 /* test.csd in Resources */,
 				C42B227F15F34B90006032F9 /* CsGrainCompressor.udo in Resources */,
@@ -942,6 +951,7 @@
 				C42B233A15F34C30006032F9 /* beats.wav in Resources */,
 				C42B234915F34C30006032F9 /* hellorcb.aif in Resources */,
 				C42B234A15F34C30006032F9 /* example.csd in Resources */,
+				C42B236215F36050006032F9 /* html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,7 +964,7 @@
 			files = (
 				C42B1F5615F31375006032F9 /* main.m in Sources */,
 				C42B1F5A15F31375006032F9 /* AppDelegate.m in Sources */,
-				C42B1F7315F332AE006032F9 /* EEViewController.m in Sources */,
+				C42B1F7315F332AE006032F9 /* RootViewController.m in Sources */,
 				C42B222C15F34B90006032F9 /* OCSEvent.m in Sources */,
 				C42B222E15F34B90006032F9 /* OCSInstrument.m in Sources */,
 				C42B223015F34B90006032F9 /* OCSManager.m in Sources */,
@@ -1031,6 +1041,8 @@
 				C42B235415F34C30006032F9 /* SimpleOscillatorOrchestra.m in Sources */,
 				C42B235615F34C30006032F9 /* UDOInstrument.m in Sources */,
 				C42B235815F34C30006032F9 /* UnitGeneratorInstrument.m in Sources */,
+				C42B235C15F35BF4006032F9 /* OscillatorViewController.m in Sources */,
+				C42B236015F35C0D006032F9 /* FMOscillatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
