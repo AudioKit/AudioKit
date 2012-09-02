@@ -29,10 +29,7 @@
 }
 
 - (IBAction)playFrequency:(float)frequency { 
-    if (currentEvent) {
-        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off trigger];
-    }
+    if (currentEvent) [currentEvent stop];
     currentEvent = [[OCSEvent alloc] initWithInstrument:udoInstrument];
     [currentEvent setInstrumentProperty:[udoInstrument frequency] toValue:frequency];
     [currentEvent trigger];

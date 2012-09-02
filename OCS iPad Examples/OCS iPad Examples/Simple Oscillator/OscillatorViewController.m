@@ -31,10 +31,7 @@
 }
 
 - (IBAction)playFrequency:(float)frequency { 
-    if (currentEvent) {
-        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off trigger];
-    }
+    if (currentEvent) [currentEvent stop];
     [frequencyLabel setText:[NSString stringWithFormat:@"%g", frequency]];
     currentEvent = [[OCSEvent alloc] initWithInstrument:simpleOscillator];
     [currentEvent setEventProperty:[simpleOscillator frequency] toValue:frequency];
