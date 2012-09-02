@@ -31,10 +31,7 @@
 
 - (IBAction)playRandomFrequency:(id)sender
 {
-    if (currentEvent) {
-        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off trigger];
-    }
+    if (currentEvent) [currentEvent stop];
     float randomFrequency = [Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:fmOscillator];
     [currentEvent setEventProperty:[fmOscillator frequency] toValue:randomFrequency];

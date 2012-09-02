@@ -81,10 +81,7 @@
 
 - (IBAction)stopInstrument:(id)sender
 {
-    if (currentEvent) {
-        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off trigger];
-    }
+    if (currentEvent) [currentEvent stop];
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
@@ -93,10 +90,7 @@
 
 - (void)noteTimerFire:(NSTimer *)timer
 {
-    if (currentEvent) {
-        OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0];
-        [off trigger];
-    }
+    if (currentEvent) [currentEvent stop];
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
     currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];

@@ -106,8 +106,7 @@
     _channel = channel;
     _note    = note;
     OCSEvent *noteOnEvent = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
-    OCSEvent *noteOffEvent = [[OCSEvent alloc] initDeactivation:noteOnEvent afterDuration:0];
-    [noteOffEvent trigger];
+    [noteOnEvent stop];
 }
     
 
