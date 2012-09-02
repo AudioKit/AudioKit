@@ -1,5 +1,5 @@
 //
-//  EEViewController.h
+//  RootViewController.h
 //  Explorable Explanations
 //
 //  Created by Aurelius Prochazka on 9/1/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EEViewController : UIViewController <UIWebViewDelegate>
+@interface RootViewController : UIViewController <UIWebViewDelegate>
 
 @end

@@ -18,6 +18,8 @@
 		C402406A15EF72B4002B818C /* OCSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406915EF72B4002B818C /* OCSDetailViewController.m */; };
 		C42B1F0815F0DB84006032F9 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F0615F0DB84006032F9 /* OscillatorViewController.m */; };
 		C42B1F7B15F348AC006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B1F7A15F348AC006032F9 /* html */; };
+		C42B237715F367EA006032F9 /* SimpleFMOscillator.h in Sources */ = {isa = PBXBuildFile; fileRef = C42B237515F367EA006032F9 /* SimpleFMOscillator.h */; };
+		C42B237815F367EA006032F9 /* SimpleFMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B237615F367EA006032F9 /* SimpleFMOscillator.m */; };
 		C4A6D74D15F08A9700FDDE68 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6AC15F08A9700FDDE68 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4A6D74E15F08A9700FDDE68 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6AF15F08A9700FDDE68 /* BaseValueCacheable.m */; };
 		C4A6D74F15F08A9700FDDE68 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6B115F08A9700FDDE68 /* CachedAccelerometer.m */; };
@@ -133,6 +135,8 @@
 		C42B1F0515F0DB84006032F9 /* OscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorViewController.h; sourceTree = "<group>"; };
 		C42B1F0615F0DB84006032F9 /* OscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorViewController.m; sourceTree = "<group>"; };
 		C42B1F7A15F348AC006032F9 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
+		C42B237515F367EA006032F9 /* SimpleFMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = SimpleFMOscillator.h; path = "Simple FM Oscillator/SimpleFMOscillator.h"; sourceTree = "<group>"; };
+		C42B237615F367EA006032F9 /* SimpleFMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleFMOscillator.m; path = "Simple FM Oscillator/SimpleFMOscillator.m"; sourceTree = "<group>"; };
 		C4A6D6AB15F08A9700FDDE68 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4A6D6AC15F08A9700FDDE68 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4A6D6AE15F08A9700FDDE68 /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
@@ -405,6 +409,15 @@
 				C402405E15EF72B4002B818C /* OCSiPad-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C42B237A15F367EF006032F9 /* Simple FM Oscillator */ = {
+			isa = PBXGroup;
+			children = (
+				C42B237515F367EA006032F9 /* SimpleFMOscillator.h */,
+				C42B237615F367EA006032F9 /* SimpleFMOscillator.m */,
+			);
+			name = "Simple FM Oscillator";
 			sourceTree = "<group>";
 		};
 		C4A6D6A915F08A9700FDDE68 /* csound-iOS */ = {
@@ -739,6 +752,7 @@
 				C4A6D7BD15F08AD800FDDE68 /* UDOs */,
 				C4A6D7C015F08AD800FDDE68 /* Unit Generators */,
 				C4A6D7F215F08B6E00FDDE68 /* Oscillator */,
+				C42B237A15F367EF006032F9 /* Simple FM Oscillator */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1048,6 +1062,8 @@
 				C4A6D7F515F08B8700FDDE68 /* OscillatorInstrument.m in Sources */,
 				C4A6D7F815F08BD300FDDE68 /* OscillatorConductor.m in Sources */,
 				C42B1F0815F0DB84006032F9 /* OscillatorViewController.m in Sources */,
+				C42B237715F367EA006032F9 /* SimpleFMOscillator.h in Sources */,
+				C42B237815F367EA006032F9 /* SimpleFMOscillator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

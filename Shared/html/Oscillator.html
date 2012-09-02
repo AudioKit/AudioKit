@@ -5,14 +5,14 @@
     <title>Tangle document</title>
 
     <!-- Tangle -->
-    <script type="text/javascript" src="Tangle.js"></script>
+    <script type="text/javascript" src="js/Tangle.js"></script>
 
     <!-- TangleKit (optional) -->
-    <link rel="stylesheet" href="TangleKit/TangleKit.css" type="text/css">
-    <script type="text/javascript" src="TangleKit/mootools.js"></script>
-    <script type="text/javascript" src="TangleKit/sprintf.js"></script>
-    <script type="text/javascript" src="TangleKit/BVTouchable.js"></script>
-    <script type="text/javascript" src="TangleKit/TangleKit.js"></script>
+    <link rel="stylesheet" href="js/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="js/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="js/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="js/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="js/TangleKit/TangleKit.js"></script>
 
     <!-- example -->
     <script type="text/javascript">
@@ -71,7 +71,8 @@ myOscil = [[OCSOscillator alloc]
                       phase:ocsp(0)];
 [self connect:myOscil];
 
-<a href="javascript:window.location='tangleapp:start'">start</a>
+<button style="height:40px" onClick="window.location='tangleapp:start'">startEvent = [[OCSEvent alloc] initWithInstrument:oscillator]; [startEvent trigger];</button>
+<button onClick="window.location='tangleapp:stop'" >[[[OCSEvent alloc] initDeactivation:startEvent afterDuration:0] trigger];</button>
 
 <hr>
 

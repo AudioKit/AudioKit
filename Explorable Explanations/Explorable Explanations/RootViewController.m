@@ -1,20 +1,21 @@
 //
-//  EEViewController.m
+//  RootViewController.m
 //  Explorable Explanations
 //
 //  Created by Aurelius Prochazka on 9/1/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "EEViewController.h"
+#import "RootViewController.h"
+#import "OscillatorViewController.h"
 
-@interface EEViewController () {
+@interface RootViewController () {
     UIWebView *webView;
 }
 
 @end
 
-@implementation EEViewController
+@implementation RootViewController
 
 - (id)init
 {
@@ -33,19 +34,37 @@
     self.view = webView;
     webView.delegate = self;
     
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"Oscillator"
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"index"
                                                          ofType:@"html"
                                                     inDirectory:@"html"];
     NSURL *url = [NSURL fileURLWithPath:filepath];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     self.title = @"Objective-C Sound";
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (BOOL)           webView:(UIWebView *)webView
 shouldStartLoadWithRequest:(NSURLRequest *)request
             navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"Got Here!");
+    NSString *requestString = [[request URL] absoluteString];
+    NSArray *components = [requestString componentsSeparatedByString:@":"];
+    
+    if ([components count] > 1 &&
+        [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
+    {
+        NSString *action = (NSString *)[components objectAtIndex:1];
+
+        if([action isEqualToString:@"goto"]) {
+            NSString *page = (NSString *)[components objectAtIndex:2];
+            
+            if ([page isEqualToString:@"Oscillator"] ) {
+                [self.navigationController pushViewController:[[OscillatorViewController alloc] init] animated:YES];
+            }
+
+        }
+        return NO;
+    }
     return YES;
 }
 

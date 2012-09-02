@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EEViewController.h"
+#import "RootViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) EEViewController *viewController;
-@property (strong, nonatomic) UINavigationController *navController;
+@property (strong, nonatomic) RootViewController *viewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 @end

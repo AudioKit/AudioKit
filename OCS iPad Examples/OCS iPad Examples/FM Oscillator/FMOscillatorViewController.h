@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "FMOscillator.h"
+#import "SimpleFMOscillator.h"
 
 @interface FMOscillatorViewController : UIViewController
 
