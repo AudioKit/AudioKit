@@ -49,7 +49,7 @@
     }
     NSString *filepath = [[NSBundle mainBundle] pathForResource:page
                                                          ofType:@"html"
-                                                    inDirectory:@"Template"];
+                                                    inDirectory:@"html"];
     NSURL *url = [NSURL fileURLWithPath:filepath];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }

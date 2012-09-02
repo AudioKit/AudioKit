@@ -16,8 +16,8 @@
 		C402406415EF72B4002B818C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C402406215EF72B4002B818C /* MainStoryboard.storyboard */; };
 		C402406715EF72B4002B818C /* OCSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406615EF72B4002B818C /* OCSMasterViewController.m */; };
 		C402406A15EF72B4002B818C /* OCSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C402406915EF72B4002B818C /* OCSDetailViewController.m */; };
-		C40240EF15EF7D52002B818C /* Template in Resources */ = {isa = PBXBuildFile; fileRef = C40240EE15EF7D52002B818C /* Template */; };
 		C42B1F0815F0DB84006032F9 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B1F0615F0DB84006032F9 /* OscillatorViewController.m */; };
+		C42B1F7B15F348AC006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B1F7A15F348AC006032F9 /* html */; };
 		C4A6D74D15F08A9700FDDE68 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6AC15F08A9700FDDE68 /* CsoundObj.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C4A6D74E15F08A9700FDDE68 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6AF15F08A9700FDDE68 /* BaseValueCacheable.m */; };
 		C4A6D74F15F08A9700FDDE68 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D6B115F08A9700FDDE68 /* CachedAccelerometer.m */; };
@@ -130,9 +130,9 @@
 		C402406615EF72B4002B818C /* OCSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSMasterViewController.m; sourceTree = "<group>"; };
 		C402406815EF72B4002B818C /* OCSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSDetailViewController.h; sourceTree = "<group>"; };
 		C402406915EF72B4002B818C /* OCSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSDetailViewController.m; sourceTree = "<group>"; };
-		C40240EE15EF7D52002B818C /* Template */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Template; path = ../Shared/Template; sourceTree = "<group>"; };
 		C42B1F0515F0DB84006032F9 /* OscillatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorViewController.h; sourceTree = "<group>"; };
 		C42B1F0615F0DB84006032F9 /* OscillatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorViewController.m; sourceTree = "<group>"; };
+		C42B1F7A15F348AC006032F9 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
 		C4A6D6AB15F08A9700FDDE68 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C4A6D6AC15F08A9700FDDE68 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C4A6D6AE15F08A9700FDDE68 /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
@@ -348,7 +348,6 @@
 		C402404115EF72B4002B818C = {
 			isa = PBXGroup;
 			children = (
-				C40240EE15EF7D52002B818C /* Template */,
 				C4A6D6CF15F08A9700FDDE68 /* Objective-C Sound */,
 				C4A6D6A915F08A9700FDDE68 /* csound-iOS */,
 				C4A6D78F15F08AD800FDDE68 /* Shared */,
@@ -715,6 +714,7 @@
 		C4A6D78F15F08AD800FDDE68 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C42B1F7A15F348AC006032F9 /* html */,
 				C4A6D79015F08AD800FDDE68 /* Instruments */,
 			);
 			name = Shared;
@@ -944,7 +944,6 @@
 			files = (
 				C402405B15EF72B4002B818C /* InfoPlist.strings in Resources */,
 				C402406415EF72B4002B818C /* MainStoryboard.storyboard in Resources */,
-				C40240EF15EF7D52002B818C /* Template in Resources */,
 				C4A6D75415F08A9700FDDE68 /* LICENSE.TXT in Resources */,
 				C4A6D75B15F08A9700FDDE68 /* template.csd in Resources */,
 				C4A6D75C15F08A9700FDDE68 /* test.csd in Resources */,
@@ -957,6 +956,7 @@
 				C4A6D7D715F08AD800FDDE68 /* beats.wav in Resources */,
 				C4A6D7DC15F08AD800FDDE68 /* hellorcb.aif in Resources */,
 				C4A6D7DD15F08AD800FDDE68 /* example.csd in Resources */,
+				C42B1F7B15F348AC006032F9 /* html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
