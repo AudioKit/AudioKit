@@ -95,6 +95,9 @@
 /// Helper method to play the event.
 - (void)trigger;
 
+/// Helper method to stop an event.
+- (void)stop;
+
 /// Provides the scoreline to the CSD File.
 - (NSString *)stringForCSD;
 

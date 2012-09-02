@@ -92,7 +92,6 @@ static int currentID = 1;
     return self;
 }
 
-
 - (id)initDeactivation:(OCSEvent *)event
          afterDuration:(float)delay;
 {
@@ -161,6 +160,12 @@ static int currentID = 1;
 - (void)trigger;
 {
     [[OCSManager sharedOCSManager] triggerEvent:self];
+}
+
+- (void)stop;
+{
+    OCSEvent *stopEvent = [[OCSEvent alloc] initDeactivation:self afterDuration:0.0];
+    [[OCSManager sharedOCSManager] triggerEvent:stopEvent];
 }
 
 - (NSString *)stringForCSD;
