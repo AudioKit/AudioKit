@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/TangleKit/TangleKit.js"></script>
 
     <!-- example -->
+    <link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript">
 
         function setUpTangle () {
@@ -71,8 +72,8 @@ myOscil = [[OCSOscillator alloc]
                       phase:ocsp(0)];
 [self connect:myOscil];
 
-<button style="height:40px" onClick="window.location='tangleapp:start'">startEvent = [[OCSEvent alloc] initWithInstrument:oscillator]; [startEvent trigger];</button>
-<button onClick="window.location='tangleapp:stop'" >[[[OCSEvent alloc] initDeactivation:startEvent afterDuration:0] trigger];</button>
+<button style="height:40px" onClick="window.location='tangleapp:start'">sound = [[OCSEvent alloc] initWithInstrument:oscillator]; [sound trigger];</button>
+<button onClick="window.location='tangleapp:stop'" >[sound stop];</button>
 
 <hr>
 
