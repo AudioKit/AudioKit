@@ -37,8 +37,7 @@
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     webView.multipleTouchEnabled = YES;
     self.title = @"Objective-C Sound: Oscillator";
-    
-    
+        
 }
 
 - (void) viewDidAppear:(BOOL)animated

@@ -1,6 +1,6 @@
 //
-//  SimpleFMOscillator.h
-//  OCSiPad
+//  SequenceInstrument.h
+//  OCS
 //
 //  Created by Aurelius Prochazka on 9/2/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "OCSInstrument.h"
 
-@interface SimpleFMOscillator : OCSInstrument
+@interface SequenceInstrument : OCSInstrument
 
 @property (nonatomic, strong) OCSEventProperty *frequency;
 #define kFrequencyMin 110
