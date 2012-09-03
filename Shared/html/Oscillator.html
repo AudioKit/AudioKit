@@ -14,7 +14,8 @@
     <script type="text/javascript" src="js/TangleKit/BVTouchable.js"></script>
     <script type="text/javascript" src="js/TangleKit/TangleKit.js"></script>
 
-    <!-- example -->
+    <script src="js/jquery-1.7.2.min.js"></script>
+
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript">
 
@@ -22,13 +23,14 @@
             new Tangle(document.getElementById("oscillator"), {
                 initialize: function () { 
                     this.frequency = 440;
-                    this.amplitude = 0.12; 
+                    this.amplitude = 0.2; 
                 },
                 update: function () { 
                     window.location = 'tangleapp:dict:amplitude,frequency:' + this.amplitude + ',' +this.frequency;
                 }
             });
         }
+
 
     </script>
 </head>
@@ -60,16 +62,20 @@ oscillator =
                                 phase:ocsp(0)];
 
 </pre>
-Start the sound:
-<pre>
-sound = [[OCSEvent alloc] initWithInstrument:oscillator];
-<button onClick="window.location='tangleapp:start'">[sound trigger];</button>
-</pre>
-
-Stop the sound:
-<pre>
-<button onClick="window.location='tangleapp:stop'" >[sound stop];</button>
-</pre>
+Start the sound:<br>
+<div id="start" class="white button">
+sound = [[OCSEvent alloc] initWithInstrument:oscillator];<br>
+[sound trigger];
+</div>
+<p>
+Stop the sound:<br>
+<div id="stop" class="white button">[sound stop];</div>
+<script>
+(function ($) {
+   $('#start').click(function() { window.location = 'tangleapp:start';})
+   $('#stop').click(function()  { window.location = 'tangleapp:stop'; })
+}(jQuery));
+</script>
 
 </body>
 </html>
