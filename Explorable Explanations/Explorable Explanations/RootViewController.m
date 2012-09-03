@@ -27,6 +27,10 @@
     return self;
 }
 
+-(void) displayMenu {
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,6 +46,12 @@
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     self.title = @"Objective-C Sound";
     self.navigationController.navigationBarHidden = NO;
+    
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(displayMenu)];
+    self.navigationItem.rightBarButtonItem = menuButton;
 }
 
 - (BOOL)           webView:(UIWebView *)webView

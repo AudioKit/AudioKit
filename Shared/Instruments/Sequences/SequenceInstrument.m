@@ -1,23 +1,23 @@
 //
-//  SimpleFMOscillator.m
-//  OCSiPad
+//  SequenceInstrument.m
+//  OCS
 //
 //  Created by Aurelius Prochazka on 9/2/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "SimpleFMOscillator.h"
+#import "SequenceInstrument.h"
 #import "OCSSineTable.h"
 #import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 
-@interface SimpleFMOscillator () {
+@interface SequenceInstrument () {
     OCSEventProperty *freq;
     OCSInstrumentProperty *mod;
 }
 @end
 
-@implementation SimpleFMOscillator
+@implementation SequenceInstrument
 
 @synthesize frequency = freq;
 @synthesize modulation = mod;
