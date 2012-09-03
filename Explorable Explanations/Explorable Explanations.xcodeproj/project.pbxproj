@@ -105,11 +105,8 @@
 		C42B235C15F35BF4006032F9 /* OscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B235A15F35BF4006032F9 /* OscillatorViewController.m */; };
 		C42B236015F35C0D006032F9 /* FMOscillatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B235E15F35C0D006032F9 /* FMOscillatorViewController.m */; };
 		C42B236215F36050006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B236115F36050006032F9 /* html */; };
-		C42B240615F484BC006032F9 /* FMOscillatorInstrument.h in Sources */ = {isa = PBXBuildFile; fileRef = C42B240115F484BC006032F9 /* FMOscillatorInstrument.h */; };
 		C42B240715F484BC006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B240215F484BC006032F9 /* FMOscillatorInstrument.m */; };
-		C42B240815F484BC006032F9 /* OscillatorInstrument.h in Sources */ = {isa = PBXBuildFile; fileRef = C42B240415F484BC006032F9 /* OscillatorInstrument.h */; };
 		C42B240915F484BC006032F9 /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B240515F484BC006032F9 /* OscillatorInstrument.m */; };
-		C42B247F15F48673006032F9 /* SequenceInstrument.h in Sources */ = {isa = PBXBuildFile; fileRef = C42B247D15F48673006032F9 /* SequenceInstrument.h */; };
 		C42B248015F48673006032F9 /* SequenceInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B247E15F48673006032F9 /* SequenceInstrument.m */; };
 /* End PBXBuildFile section */
 
@@ -1033,11 +1030,8 @@
 				C42B235815F34C30006032F9 /* UnitGeneratorInstrument.m in Sources */,
 				C42B235C15F35BF4006032F9 /* OscillatorViewController.m in Sources */,
 				C42B236015F35C0D006032F9 /* FMOscillatorViewController.m in Sources */,
-				C42B240615F484BC006032F9 /* FMOscillatorInstrument.h in Sources */,
 				C42B240715F484BC006032F9 /* FMOscillatorInstrument.m in Sources */,
-				C42B240815F484BC006032F9 /* OscillatorInstrument.h in Sources */,
 				C42B240915F484BC006032F9 /* OscillatorInstrument.m in Sources */,
-				C42B247F15F48673006032F9 /* SequenceInstrument.h in Sources */,
 				C42B248015F48673006032F9 /* SequenceInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
