@@ -144,7 +144,7 @@ Tangle.classes.TKAdjustableNumber = {
         this.step = (options.step !== undefined) ? parseFloat(options.step) : 1;
         
         this.initializeHover();
-        //this.initializeHelp();
+        this.initializeHelp();
         this.initializeDrag();
     },
 
@@ -160,7 +160,7 @@ Tangle.classes.TKAdjustableNumber = {
     updateRolloverEffects: function () {
         this.updateStyle();
         this.updateCursor();
-        //this.updateHelp();
+        this.updateHelp();
     },
     
     isActive: function () {
@@ -195,7 +195,7 @@ Tangle.classes.TKAdjustableNumber = {
         var top = -size.y + 7;
         var left = Math.round(0.5 * (size.x - 20));
         var display = (this.isHovering && !isAnyAdjustableNumberDragging) ? "block" : "none";
-        this.helpElement.setStyles({ left:left, top:top, display:display });
+        //this.helpElement.setStyles({ left:left, top:top, display:display });
     },
 
 

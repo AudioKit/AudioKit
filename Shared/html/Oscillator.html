@@ -19,13 +19,13 @@
     <script type="text/javascript">
 
         function setUpTangle () {
-            var frequencyTangle = new Tangle(document.getElementById("oscillator"), {
+            new Tangle(document.getElementById("oscillator"), {
                 initialize: function () { 
-                  this.frequency = 440;
-                  this.amplitude = 0.12; 
+                    this.frequency = 440;
+                    this.amplitude = 0.12; 
                 },
                 update: function () { 
-                  window.location = 'tangleapp:dict:amplitude,frequency:' + this.amplitude + ',' +this.frequency;
+                    window.location = 'tangleapp:dict:amplitude,frequency:' + this.amplitude + ',' +this.frequency;
                 }
             });
         }

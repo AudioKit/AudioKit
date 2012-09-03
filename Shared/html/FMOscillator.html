@@ -18,25 +18,25 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript">
 
-        function setUpTangle () {
-            var frequencyTangle = new Tangle(document.getElementById("fmOscillator"), {
-                initialize: function () { 
-                  this.amplitude = 0.12; 
-                  this.frequency = 440;
-                  this.carrierMultiplier = 1;
-                  this.modulatingMultiplier = 1;
-                  this.modulationIndex = 15;
-                },
-                update: function () { 
-                  window.location = 'tangleapp:dict:amplitude,frequency,carrierMultiplier,modulatingMultiplier,modulationIndex:' +
-                                    this.amplitude + ',' + 
-                                    this.frequency + ',' + 
-                                    this.carrierMultiplier + ',' + 
-                                    this.modulatingMultiplier + ',' + 
-                                    this.modulationIndex;
-                }
-            });
-        }
+    function setUpTangle () {
+        new Tangle(document.getElementById("fmOscillator"), {
+            initialize: function () { 
+                this.amplitude = 0.12; 
+                this.frequency = 440;
+                this.carrierMultiplier = 1;
+                this.modulatingMultiplier = 1;
+                this.modulationIndex = 15;
+            },
+            update: function () { 
+                window.location = 'tangleapp:dict:amplitude,frequency,carrierMultiplier,modulatingMultiplier,modulationIndex:' +
+                                              this.amplitude + ',' + 
+                                              this.frequency + ',' + 
+                                              this.carrierMultiplier + ',' + 
+                                              this.modulatingMultiplier + ',' + 
+                                              this.modulationIndex;
+            }
+        });
+    }
 
     </script>
 </head>
