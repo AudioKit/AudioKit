@@ -9,8 +9,11 @@ ie. Macs and iPads.
 ### Installation
 
 The repository includes the "Objective-C Sound" Xcode workspace file which will 
-open in Xcode with two example projects demonstrating building a project
-for the Mac or for the iPad or iOS Simulator.
+open in Xcode with a few example projects demonstrating building a project
+for the Mac or for the iPad or iOS Simulator.  
+
+To get a quick sense for what the code can do, check out the Bret Victor
+inspired "Explorable Explanations" project.
 
 The Mac version requires installation of CsoundLib64 which can be installed
 using the universal installer available at

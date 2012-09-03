@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C42B244C15F484D0006032F9 /* ipad.css in Resources */ = {isa = PBXBuildFile; fileRef = C42B240D15F484D0006032F9 /* ipad.css */; };
-		C42B244D15F484D0006032F9 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = C42B240E15F484D0006032F9 /* style.css */; };
-		C42B244E15F484D0006032F9 /* FMOscillator.html in Resources */ = {isa = PBXBuildFile; fileRef = C42B240F15F484D0006032F9 /* FMOscillator.html */; };
-		C42B244F15F484D0006032F9 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = C42B241015F484D0006032F9 /* index.html */; };
-		C42B245415F484D0006032F9 /* TangleKit.css in Resources */ = {isa = PBXBuildFile; fileRef = C42B241715F484D0006032F9 /* TangleKit.css */; };
-		C42B245615F484D0006032F9 /* Oscillator.html in Resources */ = {isa = PBXBuildFile; fileRef = C42B241915F484D0006032F9 /* Oscillator.html */; };
 		C42B245815F484D0006032F9 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B241D15F484D0006032F9 /* TweakableInstrument.m */; };
 		C42B245915F484D0006032F9 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B241F15F484D0006032F9 /* 808loop.wav */; };
 		C42B245B15F484D0006032F9 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242115F484D0006032F9 /* ConvolutionInstrument.m */; };
@@ -143,17 +137,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C42B240D15F484D0006032F9 /* ipad.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ipad.css; sourceTree = "<group>"; };
-		C42B240E15F484D0006032F9 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		C42B240F15F484D0006032F9 /* FMOscillator.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = FMOscillator.html; sourceTree = "<group>"; };
-		C42B241015F484D0006032F9 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		C42B241215F484D0006032F9 /* Tangle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Tangle.js; sourceTree = "<group>"; };
-		C42B241415F484D0006032F9 /* BVTouchable.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = BVTouchable.js; sourceTree = "<group>"; };
-		C42B241515F484D0006032F9 /* mootools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mootools.js; sourceTree = "<group>"; };
-		C42B241615F484D0006032F9 /* sprintf.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sprintf.js; sourceTree = "<group>"; };
-		C42B241715F484D0006032F9 /* TangleKit.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = TangleKit.css; sourceTree = "<group>"; };
-		C42B241815F484D0006032F9 /* TangleKit.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TangleKit.js; sourceTree = "<group>"; };
-		C42B241915F484D0006032F9 /* Oscillator.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Oscillator.html; sourceTree = "<group>"; };
 		C42B241C15F484D0006032F9 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
 		C42B241D15F484D0006032F9 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
 		C42B241F15F484D0006032F9 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
@@ -418,53 +401,10 @@
 		C42B240A15F484D0006032F9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C42B240B15F484D0006032F9 /* html */,
 				C42B241A15F484D0006032F9 /* Instruments */,
 			);
 			name = Shared;
 			path = ../Shared;
-			sourceTree = "<group>";
-		};
-		C42B240B15F484D0006032F9 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				C42B240C15F484D0006032F9 /* css */,
-				C42B240F15F484D0006032F9 /* FMOscillator.html */,
-				C42B241015F484D0006032F9 /* index.html */,
-				C42B241115F484D0006032F9 /* js */,
-				C42B241915F484D0006032F9 /* Oscillator.html */,
-			);
-			path = html;
-			sourceTree = "<group>";
-		};
-		C42B240C15F484D0006032F9 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				C42B240D15F484D0006032F9 /* ipad.css */,
-				C42B240E15F484D0006032F9 /* style.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		C42B241115F484D0006032F9 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				C42B241215F484D0006032F9 /* Tangle.js */,
-				C42B241315F484D0006032F9 /* TangleKit */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		C42B241315F484D0006032F9 /* TangleKit */ = {
-			isa = PBXGroup;
-			children = (
-				C42B241415F484D0006032F9 /* BVTouchable.js */,
-				C42B241515F484D0006032F9 /* mootools.js */,
-				C42B241615F484D0006032F9 /* sprintf.js */,
-				C42B241715F484D0006032F9 /* TangleKit.css */,
-				C42B241815F484D0006032F9 /* TangleKit.js */,
-			);
-			path = TangleKit;
 			sourceTree = "<group>";
 		};
 		C42B241A15F484D0006032F9 /* Instruments */ = {
@@ -1205,12 +1145,6 @@
 				C4E55A0C15E650B200F4A0BA /* msrOsc.udo in Resources */,
 				C45047B515EB884C0051788A /* InitialViewController.xib in Resources */,
 				C45047B715EB891E0051788A /* MasterViewController.xib in Resources */,
-				C42B244C15F484D0006032F9 /* ipad.css in Resources */,
-				C42B244D15F484D0006032F9 /* style.css in Resources */,
-				C42B244E15F484D0006032F9 /* FMOscillator.html in Resources */,
-				C42B244F15F484D0006032F9 /* index.html in Resources */,
-				C42B245415F484D0006032F9 /* TangleKit.css in Resources */,
-				C42B245615F484D0006032F9 /* Oscillator.html in Resources */,
 				C42B245915F484D0006032F9 /* 808loop.wav in Resources */,
 				C42B245C15F484D0006032F9 /* dish.wav in Resources */,
 				C42B245D15F484D0006032F9 /* Stairwell.wav in Resources */,
