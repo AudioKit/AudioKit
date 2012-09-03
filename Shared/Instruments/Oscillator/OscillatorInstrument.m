@@ -14,8 +14,8 @@
 
 @implementation OscillatorInstrument 
 
-@synthesize frequency = _frequency;
-@synthesize amplitude = _amplitude;
+@synthesize frequency = freq;
+@synthesize amplitude = amp;
 
 - (id)init {
     self = [super init];
@@ -23,17 +23,17 @@
         
         // INPUTS AND CONTROLS =================================================
         
-        _frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
-                                                         minValue:kFrequencyMin
-                                                         maxValue:kFrequencyMax];
-        [_frequency setControl:[OCSControl parameterWithString:@"Frequency"]];
-        [self addProperty:_frequency];
+        freq = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
+                                                   minValue:kFrequencyMin
+                                                   maxValue:kFrequencyMax];
+        [freq setControl:[OCSControl parameterWithString:@"Frequency"]];
+        [self addProperty:freq];
         
-        _amplitude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
-                                                         minValue:kAmplitudeMin
-                                                         maxValue:kAmplitudeMax];
-        [_amplitude setControl:[OCSControl parameterWithString:@"Amplitude"]];
-        [self addProperty:_amplitude];
+        amp = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
+                                                  minValue:kAmplitudeMin
+                                                  maxValue:kAmplitudeMax];
+        [amp setControl:[OCSControl parameterWithString:@"Amplitude"]];
+        [self addProperty:amp];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -47,8 +47,8 @@
         
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
-                                              frequency:[_frequency control]
-                                              amplitude:[_amplitude control]
+                                              frequency:[freq control]
+                                              amplitude:[amp control]
                                                   phase:ocsp(0)];
         [self connect:myOscil];
         

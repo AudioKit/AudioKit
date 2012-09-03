@@ -7,11 +7,15 @@
 //
 
 #import "OscillatorViewController.h"
-#import "OscillatorConductor.h"
+#import "OCSManager.h"
+#import "OscillatorInstrument.h"
 
 @interface OscillatorViewController () {
     UIWebView *webView;
-    OscillatorConductor *conductor;
+    
+    OCSEvent *startEvent;
+    OCSOrchestra *orchestra;
+    OscillatorInstrument *oscillator;
 }
 @end
 
@@ -31,6 +35,7 @@
                                                     inDirectory:@"html"];
     NSURL *url = [NSURL fileURLWithPath:filepath];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
+    webView.multipleTouchEnabled = YES;
     self.title = @"Objective-C Sound: Oscillator";
     
     
@@ -38,7 +43,10 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    conductor = [[OscillatorConductor alloc] init];
+    oscillator = [[OscillatorInstrument alloc] init];
+    orchestra = [[OCSOrchestra alloc] init];
+    [orchestra addInstrument:oscillator];
+    [[OCSManager sharedOCSManager] runOrchestra:orchestra];
 }
 
 - (BOOL)           webView:(UIWebView *)webView
@@ -52,22 +60,26 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
     {
         NSString *action = (NSString *)[components objectAtIndex:1];
-        if([action isEqualToString:@"start"]) {
-            [conductor startSound];
-        }
-        if([action isEqualToString:@"stop"]) {
-            [conductor stopSound];
-        }
-        if([action isEqualToString:@"set"]) {
-            NSString *var = (NSString *)[components objectAtIndex:2];
-            float val = [(NSString *)[components objectAtIndex:3] floatValue];
+        
+        if([action isEqualToString:@"start"] && !startEvent) {
+            startEvent = [[OCSEvent alloc] initWithInstrument:oscillator];
+            [startEvent trigger];
             
-            //NSLog(@"%@ = %g", var, val);
-            if ([var isEqualToString:@"frequency"] ) {
-                [conductor setFrequency:val];
-            }
-            if ([var isEqualToString:@"amplitude"] ) {
-                [conductor setAmplitude:val];
+        } else if([action isEqualToString:@"stop"] && startEvent) {
+            [startEvent stop];
+            startEvent = nil;
+            
+        } else if([action isEqualToString:@"dict"]) {
+            NSArray *keys   = [[components objectAtIndex:2] componentsSeparatedByString:@","];
+            NSArray *values = [[components objectAtIndex:3] componentsSeparatedByString:@","];
+            
+            NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
+            for (NSString *var in dict) {
+                if ([var isEqualToString:@"frequency"] ) {
+                    oscillator.frequency.value = [[dict objectForKey:var] floatValue];
+                } else if ([var isEqualToString:@"amplitude"] ) {
+                    oscillator.amplitude.value = [[dict objectForKey:var] floatValue];
+                }
             }
         }
         return NO;
@@ -76,7 +88,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 }
 
 - (void)viewWillDisappear:(BOOL)animated  {
-    [conductor quit];
+    [[OCSManager sharedOCSManager] stop];
 }
 
 - (void)viewDidUnload

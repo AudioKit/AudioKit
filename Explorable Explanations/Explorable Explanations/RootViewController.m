@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import "OscillatorViewController.h"
+#import "FMOscillatorViewController.h"
 
 @interface RootViewController () {
     UIWebView *webView;
@@ -60,6 +61,9 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
             
             if ([page isEqualToString:@"Oscillator"] ) {
                 [self.navigationController pushViewController:[[OscillatorViewController alloc] init] animated:YES];
+            }
+            if ([page isEqualToString:@"FMOscillator"] ) {
+                [self.navigationController pushViewController:[[FMOscillatorViewController alloc] init] animated:YES];
             }
 
         }

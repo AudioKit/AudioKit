@@ -90,14 +90,12 @@
 		C42B233415F34C30006032F9 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B22F215F34C2F006032F9 /* dish.wav */; };
 		C42B233515F34C30006032F9 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B22F315F34C2F006032F9 /* Stairwell.wav */; };
 		C42B233715F34C30006032F9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B22F615F34C2F006032F9 /* ExpressionToneGenerator.m */; };
-		C42B233915F34C30006032F9 /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B22F915F34C2F006032F9 /* FMOscillator.m */; };
+		C42B233915F34C30006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B22F915F34C2F006032F9 /* FMOscillatorInstrument.m */; };
 		C42B233A15F34C30006032F9 /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B22FB15F34C2F006032F9 /* beats.wav */; };
 		C42B233C15F34C30006032F9 /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B22FD15F34C2F006032F9 /* SimpleGrainInstrument.m */; };
 		C42B233E15F34C30006032F9 /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B230015F34C2F006032F9 /* Harmonizer.m */; };
 		C42B234015F34C30006032F9 /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B230315F34C2F006032F9 /* FivePropertyInstrument.m */; };
-		C42B234215F34C30006032F9 /* OscillatorConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B230615F34C2F006032F9 /* OscillatorConductor.m */; };
 		C42B234415F34C30006032F9 /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B230815F34C2F006032F9 /* OscillatorInstrument.m */; };
-		C42B234615F34C30006032F9 /* OscillatorOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B230A15F34C2F006032F9 /* OscillatorOrchestra.m */; };
 		C42B234815F34C30006032F9 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B230D15F34C2F006032F9 /* AudioFilePlayer.m */; };
 		C42B234915F34C30006032F9 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42B230E15F34C2F006032F9 /* hellorcb.aif */; };
 		C42B234A15F34C30006032F9 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42B231015F34C2F006032F9 /* example.csd */; };
@@ -283,8 +281,8 @@
 		C42B22F315F34C2F006032F9 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
 		C42B22F515F34C2F006032F9 /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ExpressionToneGenerator.h; sourceTree = "<group>"; };
 		C42B22F615F34C2F006032F9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionToneGenerator.m; sourceTree = "<group>"; };
-		C42B22F815F34C2F006032F9 /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FMOscillator.h; sourceTree = "<group>"; };
-		C42B22F915F34C2F006032F9 /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
+		C42B22F815F34C2F006032F9 /* FMOscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FMOscillatorInstrument.h; sourceTree = "<group>"; };
+		C42B22F915F34C2F006032F9 /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
 		C42B22FB15F34C2F006032F9 /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		C42B22FC15F34C2F006032F9 /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SimpleGrainInstrument.h; sourceTree = "<group>"; };
 		C42B22FD15F34C2F006032F9 /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGrainInstrument.m; sourceTree = "<group>"; };
@@ -292,12 +290,8 @@
 		C42B230015F34C2F006032F9 /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harmonizer.m; sourceTree = "<group>"; };
 		C42B230215F34C2F006032F9 /* FivePropertyInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FivePropertyInstrument.h; sourceTree = "<group>"; };
 		C42B230315F34C2F006032F9 /* FivePropertyInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FivePropertyInstrument.m; sourceTree = "<group>"; };
-		C42B230515F34C2F006032F9 /* OscillatorConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorConductor.h; sourceTree = "<group>"; };
-		C42B230615F34C2F006032F9 /* OscillatorConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorConductor.m; sourceTree = "<group>"; };
 		C42B230715F34C2F006032F9 /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
 		C42B230815F34C2F006032F9 /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
-		C42B230915F34C2F006032F9 /* OscillatorOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorOrchestra.h; sourceTree = "<group>"; };
-		C42B230A15F34C2F006032F9 /* OscillatorOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorOrchestra.m; sourceTree = "<group>"; };
 		C42B230C15F34C2F006032F9 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
 		C42B230D15F34C2F006032F9 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C42B230E15F34C2F006032F9 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
@@ -384,10 +378,7 @@
 				C42B1F5915F31375006032F9 /* AppDelegate.m */,
 				C42B1F7015F332AE006032F9 /* RootViewController.h */,
 				C42B1F7115F332AE006032F9 /* RootViewController.m */,
-				C42B235915F35BF4006032F9 /* OscillatorViewController.h */,
-				C42B235A15F35BF4006032F9 /* OscillatorViewController.m */,
-				C42B235D15F35C0D006032F9 /* FMOscillatorViewController.h */,
-				C42B235E15F35C0D006032F9 /* FMOscillatorViewController.m */,
+				C42B23FD15F45D8C006032F9 /* Operation Examples */,
 				C42B1F5015F31375006032F9 /* Supporting Files */,
 			);
 			path = "Explorable Explanations";
@@ -721,14 +712,13 @@
 		C42B22EA15F34C2F006032F9 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
+				C42B23FE15F45DAE006032F9 /* Operation Examples */,
 				C42B22EB15F34C2F006032F9 /* Continuous Control */,
 				C42B22EE15F34C2F006032F9 /* Convolution */,
 				C42B22F415F34C2F006032F9 /* Expressions */,
-				C42B22F715F34C2F006032F9 /* FM Oscillator */,
 				C42B22FA15F34C2F006032F9 /* Grain */,
 				C42B22FE15F34C2F006032F9 /* Harmonizer */,
 				C42B230115F34C2F006032F9 /* MIDI */,
-				C42B230415F34C2F006032F9 /* Oscillator */,
 				C42B230B15F34C2F006032F9 /* Play Audio File */,
 				C42B230F15F34C2F006032F9 /* Play CSD File */,
 				C42B231115F34C2F006032F9 /* Reverb */,
@@ -773,8 +763,8 @@
 		C42B22F715F34C2F006032F9 /* FM Oscillator */ = {
 			isa = PBXGroup;
 			children = (
-				C42B22F815F34C2F006032F9 /* FMOscillator.h */,
-				C42B22F915F34C2F006032F9 /* FMOscillator.m */,
+				C42B22F815F34C2F006032F9 /* FMOscillatorInstrument.h */,
+				C42B22F915F34C2F006032F9 /* FMOscillatorInstrument.m */,
 			);
 			path = "FM Oscillator";
 			sourceTree = "<group>";
@@ -810,12 +800,8 @@
 		C42B230415F34C2F006032F9 /* Oscillator */ = {
 			isa = PBXGroup;
 			children = (
-				C42B230515F34C2F006032F9 /* OscillatorConductor.h */,
-				C42B230615F34C2F006032F9 /* OscillatorConductor.m */,
 				C42B230715F34C2F006032F9 /* OscillatorInstrument.h */,
 				C42B230815F34C2F006032F9 /* OscillatorInstrument.m */,
-				C42B230915F34C2F006032F9 /* OscillatorOrchestra.h */,
-				C42B230A15F34C2F006032F9 /* OscillatorOrchestra.m */,
 			);
 			path = Oscillator;
 			sourceTree = "<group>";
@@ -885,6 +871,26 @@
 				C42B232315F34C2F006032F9 /* UnitGeneratorInstrument.m */,
 			);
 			path = "Unit Generators";
+			sourceTree = "<group>";
+		};
+		C42B23FD15F45D8C006032F9 /* Operation Examples */ = {
+			isa = PBXGroup;
+			children = (
+				C42B235915F35BF4006032F9 /* OscillatorViewController.h */,
+				C42B235A15F35BF4006032F9 /* OscillatorViewController.m */,
+				C42B235D15F35C0D006032F9 /* FMOscillatorViewController.h */,
+				C42B235E15F35C0D006032F9 /* FMOscillatorViewController.m */,
+			);
+			name = "Operation Examples";
+			sourceTree = "<group>";
+		};
+		C42B23FE15F45DAE006032F9 /* Operation Examples */ = {
+			isa = PBXGroup;
+			children = (
+				C42B22F715F34C2F006032F9 /* FM Oscillator */,
+				C42B230415F34C2F006032F9 /* Oscillator */,
+			);
+			name = "Operation Examples";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1026,13 +1032,11 @@
 				C42B233015F34C30006032F9 /* TweakableInstrument.m in Sources */,
 				C42B233315F34C30006032F9 /* ConvolutionInstrument.m in Sources */,
 				C42B233715F34C30006032F9 /* ExpressionToneGenerator.m in Sources */,
-				C42B233915F34C30006032F9 /* FMOscillator.m in Sources */,
+				C42B233915F34C30006032F9 /* FMOscillatorInstrument.m in Sources */,
 				C42B233C15F34C30006032F9 /* SimpleGrainInstrument.m in Sources */,
 				C42B233E15F34C30006032F9 /* Harmonizer.m in Sources */,
 				C42B234015F34C30006032F9 /* FivePropertyInstrument.m in Sources */,
-				C42B234215F34C30006032F9 /* OscillatorConductor.m in Sources */,
 				C42B234415F34C30006032F9 /* OscillatorInstrument.m in Sources */,
-				C42B234615F34C30006032F9 /* OscillatorOrchestra.m in Sources */,
 				C42B234815F34C30006032F9 /* AudioFilePlayer.m in Sources */,
 				C42B234C15F34C30006032F9 /* EffectsProcessor.m in Sources */,
 				C42B234E15F34C30006032F9 /* ReverbOrchestra.m in Sources */,
