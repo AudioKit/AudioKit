@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Tangle document</title>
+    <title>Oscillator</title>
 
     <!-- Tangle -->
     <script type="text/javascript" src="js/Tangle.js"></script>
@@ -19,23 +19,13 @@
     <script type="text/javascript">
 
         function setUpTangle () {
-
-            var element = document.getElementById("example");
-
-            var tangle = new Tangle(element, {
-                initialize: function () {
-                    this.frequency = 440;
+            var frequencyTangle = new Tangle(document.getElementById("oscillator"), {
+                initialize: function () { 
+                  this.frequency = 440;
+                  this.amplitude = 0.12; 
                 },
-                update: function () {
-                    window.location = 'tangleapp:set:frequency:' + this.frequency 
-                }
-            });
-            var tangle = new Tangle(element, {
-                initialize: function () {
-                    this.amplitude = 0.12;
-                },
-                update: function () {
-                    window.location = 'tangleapp:set:amplitude:' + this.amplitude 
+                update: function () { 
+                  window.location = 'tangleapp:dict:amplitude,frequency:' + this.amplitude + ',' +this.frequency;
                 }
             });
         }
@@ -52,33 +42,34 @@
 
  <hr>
 
-<pre id="example">
-
-OCSOscillator *myOscil;
-myOscil = [[OCSOscillator alloc] 
-             initWithFTable:sine
-                  frequency:ocsp(<span data-var="frequency" 
-                                  class="TKAdjustableNumber" 
-                                  data-min="110" 
-                                  data-max="880" 
-                                  data-step="1" 
-                                  data-format="%0.0f"></span>)
-                  amplitude:ocsp(<span data-var="amplitude" 
-                                  class="TKAdjustableNumber" 
-                                  data-min="0" 
-                                  data-max="1" 
-                                  data-step="0.001" 
-                                  data-format="%0.3f"></span>)
-                      phase:ocsp(0)];
-[self connect:myOscil];
-
-<button style="height:40px" onClick="window.location='tangleapp:start'">sound = [[OCSEvent alloc] initWithInstrument:oscillator]; [sound trigger];</button>
-<button onClick="window.location='tangleapp:stop'" >[sound stop];</button>
-
-<hr>
+<pre id="oscillator">
+oscillator = 
+[[OCSOscillator alloc] initWithFTable:sine
+                            frequency:ocsp(<span data-var="frequency" 
+                                            class="TKAdjustableNumber" 
+                                            data-min="110" 
+                                            data-max="880" 
+                                            data-step="1" 
+                                            data-format="%0.0f"></span>)
+                            amplitude:ocsp(<span data-var="amplitude" 
+                                            class="TKAdjustableNumber" 
+                                            data-min="0" 
+                                            data-max="1" 
+                                            data-step="0.001" 
+                                            data-format="%0.3f"></span>)
+                                phase:ocsp(0)];
 
 </pre>
+Start the sound:
+<pre>
+sound = [[OCSEvent alloc] initWithInstrument:oscillator];
+<button onClick="window.location='tangleapp:start'">[sound trigger];</button>
+</pre>
 
+Stop the sound:
+<pre>
+<button onClick="window.location='tangleapp:stop'" >[sound stop];</button>
+</pre>
 
 </body>
 </html>

@@ -144,7 +144,7 @@ Tangle.classes.TKAdjustableNumber = {
         this.step = (options.step !== undefined) ? parseFloat(options.step) : 1;
         
         this.initializeHover();
-        this.initializeHelp();
+        //this.initializeHelp();
         this.initializeDrag();
     },
 
@@ -160,7 +160,7 @@ Tangle.classes.TKAdjustableNumber = {
     updateRolloverEffects: function () {
         this.updateStyle();
         this.updateCursor();
-        this.updateHelp();
+        //this.updateHelp();
     },
     
     isActive: function () {
