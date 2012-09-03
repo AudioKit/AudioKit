@@ -14,14 +14,15 @@
     <script type="text/javascript" src="js/TangleKit/BVTouchable.js"></script>
     <script type="text/javascript" src="js/TangleKit/TangleKit.js"></script>
 
-    <!-- example -->
+    <script src="js/jquery-1.7.2.min.js"></script>
+
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript">
 
     function setUpTangle () {
         new Tangle(document.getElementById("fmOscillator"), {
             initialize: function () { 
-                this.amplitude = 0.12; 
+                this.amplitude = 0.2; 
                 this.frequency = 440;
                 this.carrierMultiplier = 1;
                 this.modulatingMultiplier = 1;
@@ -51,6 +52,7 @@
  <hr>
 
 <pre id="fmOscillator">
+fmOscillator = 
 [[OCSFMOscillator alloc] initWithAmplitude:ocsp(<span data-var="amplitude" 
                                                  class="TKAdjustableNumber" 
                                                  data-min="0" 
@@ -59,20 +61,20 @@
                                                  data-format="%0.3f"></span>)
                              baseFrequency:ocsp(<span data-var="frequency" 
                                                  class="TKAdjustableNumber" 
-                                                 data-min="110" 
-                                                 data-max="880" 
+                                                 data-min="20" 
+                                                 data-max="20000" 
                                                  data-step="1" 
                                                  data-format="%0.0f"></span>)
                          carrierMultiplier:ocsp(<span data-var="carrierMultiplier" 
                                                  class="TKAdjustableNumber" 
-                                                 data-min="0.5" 
-                                                 data-max="2.0" 
+                                                 data-min="0.0" 
+                                                 data-max="3.0" 
                                                  data-step="0.01" 
                                                  data-format="%0.2f"></span>) 
                       modulatingMultiplier:ocsp(<span data-var="modulatingMultiplier" 
                                                  class="TKAdjustableNumber" 
-                                                 data-min="0.5" 
-                                                 data-max="2.0" 
+                                                 data-min="0.0" 
+                                                 data-max="3.0" 
                                                  data-step="0.01" 
                                                  data-format="%0.2f"></span>)
                            modulationIndex:ocsp(<span data-var="modulationIndex" 
@@ -84,12 +86,21 @@
                                     fTable:sine];
 
 
-<button style="height:40px" onClick="window.location='tangleapp:start'">sound = [[OCSEvent alloc] initWithInstrument:fmOscillator]; [sound trigger];</button>
-<button onClick="window.location='tangleapp:stop'" >[sound stop];</button>
-
-<hr>
-
 </pre>
+Start the sound:<br>
+<div id="start" class="white button">
+sound = [[OCSEvent alloc] initWithInstrument:fmOscillator];<br>
+[sound trigger];
+</div>
+<p>
+Stop the sound:<br>
+<div id="stop" class="white button">[sound stop];</div>
+<script>
+(function ($) {
+   $('#start').click(function() { window.location = 'tangleapp:start';})
+   $('#stop').click(function()  { window.location = 'tangleapp:stop'; })
+}(jQuery));
+</script>
 
 
 </body>
