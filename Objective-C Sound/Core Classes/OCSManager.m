@@ -96,7 +96,7 @@ static OCSManager *_sharedOCSManager = nil;
         NSLog(@"Csound instance already active.");
         [self stop];
     }
-    NSString *file = [[NSBundle mainBundle] pathForResource:filename 
+    NSString *file = [[NSBundle mainBundle] pathForResource:filename
                                                      ofType:@"csd"];  
     [csound startCsound:file];
     NSLog(@"Starting %@ \n\n%@\n",filename, [OCSManager stringFromFile:file]);
