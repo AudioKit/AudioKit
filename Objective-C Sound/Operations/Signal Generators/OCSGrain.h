@@ -40,6 +40,6 @@
       maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
           maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 
-- (void) turnOffGrainOffsetRandomnes;
+- (void) turnOffGrainOffsetRandomness;
 
 @end
