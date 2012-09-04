@@ -183,10 +183,23 @@ OSStatus  Csound_Render(void *inRefCon,
 uintptr_t csThread(void *data)
 {
     csdata *cdata = (csdata *) data;
+    NSMutableArray *cache = cdata->valuesCache;
     if(!cdata->ret)
     {
-        while(csoundPerformKsmps(cdata->cs)== 0);
-        csoundDestroy(cdata->cs);
+        int result = 0;
+        while(result == 0) {
+            for (int i = 0; i < cache.count; i++) {
+                id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
+                [cachedValue updateValuesToCsound];
+            }
+            result = csoundPerformKsmps(cdata->cs);
+        }
+        for (int i = 0; i < cache.count; i++) {
+            id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
+            [cachedValue updateValuesFromCsound];
+        }
+
+
     }
     cdata->ret = 0;
     return 1;
