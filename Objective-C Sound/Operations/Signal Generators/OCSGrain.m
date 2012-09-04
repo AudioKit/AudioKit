@@ -55,7 +55,7 @@
     return self;
 }
 
-- (void) turnOffGrainOffsetRandomnes {
+- (void) turnOffGrainOffsetRandomness {
     isRandomGrainFunctionIndex = NO;
 }
 

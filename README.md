@@ -22,7 +22,7 @@ http://sourceforge.net/projects/csound/files/csound5/
 
 The current version as of this writing is:
 
-http://sourceforge.net/projects/csound/files/csound5/csound5.17.11/csound5.17.11-OSX10.7-universal.dmg
+http://sourceforge.net/projects/csound/files/csound5/csound5.18/csound5.18.02-OSX10.7-universal.dmg
 
 In order to install the Xcode-based documentation and Xcode quick help, you need 
 to install appdoc.  More information about this in the developer's guide doc.
