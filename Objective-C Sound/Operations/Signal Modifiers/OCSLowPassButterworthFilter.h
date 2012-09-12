@@ -24,7 +24,7 @@
 
 /// Creates a low-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.
-/// @param cutoffFrequency Cutoff or center frequency for each of the filters.
+/// @param cutoffFrequency Cutoff of the lowpass filter.
 -(id)initWithInput:(OCSParameter *)inputSignal 
    cutoffFrequency:(OCSControl *)cutoffFrequency;
 
