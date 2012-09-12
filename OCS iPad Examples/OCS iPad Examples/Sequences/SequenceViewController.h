@@ -10,7 +10,7 @@
 
 @interface SequenceViewController : UIViewController 
 {
-    IBOutlet UITextField *durationValue;
+    IBOutlet UITextField * durationValue;
     IBOutlet UISlider * durationSlider;
 }
 
