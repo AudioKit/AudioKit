@@ -17,6 +17,8 @@
     int _myID;
     float eventNumber;
     OCSInstrument *instr;
+    
+    BOOL isDeactivator;
 }
 @end
 
@@ -26,6 +28,7 @@
 @synthesize instrument = instr;
 @synthesize eventPropertyValues;
 @synthesize properties;
+@synthesize isDeactivator;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
@@ -45,6 +48,8 @@ static int currentID = 1;
         eventPropertyValues = [[NSMutableArray alloc] init];
         properties = [[NSMutableArray alloc] init];
         propertyValues = [[NSMutableArray alloc] init];
+        
+        isDeactivator = NO;
     }
     return self;
 }
@@ -67,6 +72,8 @@ static int currentID = 1;
         }
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %g", eventNumber, duration];
+        
+        isDeactivator = NO;
     }
     return self;
 }
@@ -88,6 +95,7 @@ static int currentID = 1;
         eventPropertyValues = [NSMutableArray arrayWithArray:[event eventPropertyValues]];
         eventNumber  = [event eventNumber];
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 0.1", eventNumber];
+        isDeactivator = NO;
     }
     return self;
 }
@@ -99,6 +107,7 @@ static int currentID = 1;
     if (self) {
         scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f %f 0.1", 
                      [event eventNumber], delay ];
+        isDeactivator = YES;
 
         // This next method uses the turnoff2 opcode which might prove advantageous 
         // so I won't delete it just yet.
@@ -118,6 +127,7 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         [self setInstrumentProperty:property toValue:value];
+        isDeactivator = NO;
     }
     return self;
 }

@@ -330,7 +330,7 @@
 		C4F0790F15D5F50E0084FF9E /* OCSControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSControl.m; sourceTree = "<group>"; };
 		C4F0791015D5F50E0084FF9E /* OCSFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSFSignal.h; sourceTree = "<group>"; };
 		C4F0791115D5F50E0084FF9E /* OCSFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFSignal.m; sourceTree = "<group>"; };
-		C4F0791215D5F50E0084FF9E /* OCSParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = OCSParameter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C4F0791215D5F50E0084FF9E /* OCSParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = OCSParameter.h; sourceTree = "<group>"; };
 		C4F0791315D5F50E0084FF9E /* OCSParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameter.m; sourceTree = "<group>"; };
 		C4F0791415D5F50E0084FF9E /* OCSParameterArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSParameterArray.h; sourceTree = "<group>"; };
 		C4F0791515D5F50E0084FF9E /* OCSParameterArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameterArray.m; sourceTree = "<group>"; };

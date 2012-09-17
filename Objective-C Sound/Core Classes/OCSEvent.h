@@ -26,6 +26,9 @@
 /// A list (usually just one) of instrument level properties.
 @property (nonatomic, strong) NSMutableArray *properties;
 
+/// A flag indicating whether event is a note deactivation event.
+@property (readonly) BOOL isDeactivator;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
