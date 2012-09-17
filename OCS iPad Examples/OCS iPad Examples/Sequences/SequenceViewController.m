@@ -96,8 +96,6 @@
     [sequence play];
 }
 
-
-
 - (IBAction)moveDurationSlider:(id)sender 
 {
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
