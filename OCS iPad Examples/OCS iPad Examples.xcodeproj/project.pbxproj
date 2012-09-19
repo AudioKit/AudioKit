@@ -32,6 +32,10 @@
 		C42B247C15F4866B006032F9 /* SequenceInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B247A15F4866B006032F9 /* SequenceInstrument.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
+		C494655416098269002E4C34 /* SeqInstrument.h in Sources */ = {isa = PBXBuildFile; fileRef = C494655216098269002E4C34 /* SeqInstrument.h */; };
+		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
+		C4946559160982B1002E4C34 /* OCSNote.h in Sources */ = {isa = PBXBuildFile; fileRef = C4946557160982B1002E4C34 /* OCSNote.h */; };
+		C494655A160982B1002E4C34 /* OCSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C4946558160982B1002E4C34 /* OCSNote.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4C8278215D7CBC3009D48DA /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8278115D7CBC3009D48DA /* OCSMidi.m */; };
@@ -181,6 +185,10 @@
 		C42B247A15F4866B006032F9 /* SequenceInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceInstrument.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
+		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C4946557160982B1002E4C34 /* OCSNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSNote.h; sourceTree = "<group>"; };
+		C4946558160982B1002E4C34 /* OCSNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNote.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -552,6 +560,8 @@
 		C42B244515F484D0006032F9 /* Sequences */ = {
 			isa = PBXGroup;
 			children = (
+				C494655216098269002E4C34 /* SeqInstrument.h */,
+				C494655316098269002E4C34 /* SeqInstrument.m */,
 				C42B247915F4866B006032F9 /* SequenceInstrument.h */,
 				C42B247A15F4866B006032F9 /* SequenceInstrument.m */,
 			);
@@ -899,6 +909,8 @@
 				C4F078A215D5F50D0084FF9E /* OCSEvent.m */,
 				C4F078A315D5F50D0084FF9E /* OCSInstrument.h */,
 				C4F078A415D5F50D0084FF9E /* OCSInstrument.m */,
+				C4946557160982B1002E4C34 /* OCSNote.h */,
+				C4946558160982B1002E4C34 /* OCSNote.m */,
 				C4F078A515D5F50D0084FF9E /* OCSManager.h */,
 				C4F078A615D5F50D0084FF9E /* OCSManager.m */,
 				C4C8278015D7CBC3009D48DA /* OCSMidi.h */,
@@ -1263,6 +1275,10 @@
 				C42B247C15F4866B006032F9 /* SequenceInstrument.m in Sources */,
 				53FEF53C16012299001D1AAD /* OCSBandPassButterworthFilter.m in Sources */,
 				53FEF540160125A1001D1AAD /* OCSBandRejectButterworthFilter.m in Sources */,
+				C494655416098269002E4C34 /* SeqInstrument.h in Sources */,
+				C494655516098269002E4C34 /* SeqInstrument.m in Sources */,
+				C4946559160982B1002E4C34 /* OCSNote.h in Sources */,
+				C494655A160982B1002E4C34 /* OCSNote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
