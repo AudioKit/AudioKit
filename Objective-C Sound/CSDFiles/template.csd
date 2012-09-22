@@ -16,7 +16,7 @@ endin
 </CsInstruments>
 
 <CsScore>
-f0 100000
+f0 10000000
 </CsScore>
 
 </CsoundSynthesizer>

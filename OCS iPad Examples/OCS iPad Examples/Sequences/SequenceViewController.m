@@ -10,11 +10,11 @@
 
 #import "Helper.h"
 #import "OCSManager.h"
-#import "SequenceInstrument.h"
+#import "SeqInstrument.h"
 #import "OCSSequence.h"
 
 @interface SequenceViewController () {
-    SequenceInstrument *instrument;
+    SeqInstrument *instrument;
     OCSSequence *sequence;
     OCSOrchestra *orchestra;
     NSTimer *timer;
@@ -29,21 +29,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     orchestra = [[OCSOrchestra alloc] init];    
-    instrument = [[SequenceInstrument alloc] init];
+    instrument = [[SeqInstrument alloc] init];
     [orchestra addInstrument:instrument];
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
     
 }
 
+
+
 - (IBAction)playSequenceOfNotes:(id)sender 
 {
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
     
-    sequence = [[OCSSequence alloc] init]; 
-    for (int i = 0; i <=12 ; i++) {
-        OCSEvent *temp = [[OCSEvent alloc] initWithInstrument:instrument];
-        [temp setEventProperty:[instrument frequency] toValue:440*(pow(2.0f,(float)i/12))];
+    sequence = [[OCSSequence alloc] init];
+    
+    for (int i = 0; i <= 12 ; i++) {
+        
+        // Create the note (not to be played yet)
+        SeqInstrumentNote *note = [instrument createNote];
+        note.frequency.value = 440*(pow(2.0f,(float)i/12));
+
+        // Create the event to play the note
+        OCSEvent *temp = [[OCSEvent alloc] initWithNote:note];
         [sequence addEvent:temp atTime:duration*i];
+        
+        // Create the event to turn off the note
         OCSEvent *temp2 = [[OCSEvent alloc] initDeactivation:temp afterDuration:duration*0.5];
         [sequence addEvent:temp2 atTime:duration*i];
     }
@@ -51,43 +61,52 @@
     [sequence play];
 }
 
-- (IBAction)playSequenceOfEventProperties:(id)sender 
+- (IBAction)playSequenceOfNoteProperties:(id)sender
 {
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
     
-    sequence = [[OCSSequence alloc] init];     
-    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:instrument];
-    [noteOn setEventProperty:[instrument frequency] toValue:440];
+    sequence = [[OCSSequence alloc] init];
+    
+    SeqInstrumentNote *note = [instrument createNote];
+    note.frequency.value = 440;
+    
+    OCSEvent *noteOn = [[OCSEvent alloc] initWithNote:note];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *update= [[OCSEvent alloc] initWithEvent:noteOn];
-        [update setEventProperty:[instrument frequency] toValue:440*(pow(2.0f,(float)i/12))];
+        [update setNoteProperty:note.frequency
+                        toValue:440*(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*i];
     }
-    OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
+    OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn
+                                             afterDuration:0];
     [sequence addEvent:noteOff atTime:duration*(13)];
     
     [sequence play];
 }
 
 
+ 
 - (IBAction)playSequenceOfInstrumentProperties:(id)sender 
 {
     float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];    
     
-    sequence = [[OCSSequence alloc] init];     
-    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:instrument];
-    [noteOn setEventProperty:[instrument frequency] toValue:440];
+    sequence = [[OCSSequence alloc] init];
+    
+    SeqInstrumentNote *note = [instrument createNote];
+    note.frequency.value = 440;
+    
+    OCSEvent *noteOn = [[OCSEvent alloc] initWithNote:note];
     [sequence addEvent:noteOn];
     
     for (int i = 0; i <=12 ; i++) {
-        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[instrument modulation] value:(pow(2.0f,(float)i/12))];
+        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:instrument.modulation value:(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*i];
     }
     
     for (int i = 0; i <=12 ; i++) {
-        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:[instrument modulation] value:3.0-(pow(2.0f,(float)i/12))];
+        OCSEvent *update= [[OCSEvent alloc] initWithInstrumentProperty:instrument.modulation value:3.0-(pow(2.0f,(float)i/12))];
         [sequence addEvent:update atTime:duration*(i+13)];
     }
     OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn afterDuration:0];
