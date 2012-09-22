@@ -10,4 +10,15 @@
 
 @implementation OCSNote
 
+@synthesize instrument;
+@synthesize properties;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        properties = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "OCSInstrument.h"
+#import "OCSNote.h"
 
 /** Analogous to a MIDI event, an OCS Event can be a note on or off command
  or a control property change.
@@ -19,6 +20,9 @@
 
 /// The instrument the event is targeting.
 @property (nonatomic, strong) OCSInstrument *instrument;
+
+/// A list of all the note property values.
+@property (nonatomic, strong) NSMutableArray *notePropertyValues;
 
 /// A list of all the event property values.
 @property (nonatomic, strong) NSMutableArray *eventPropertyValues;
@@ -49,6 +53,18 @@
 /// @param duration   Length of the event in seconds.
 - (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
 
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Note Based Events
+// -----------------------------------------------------------------------------
+
+@property (nonatomic, strong) OCSNote *note;
+@property BOOL isNewNote;
+- (id)initWithNote:(OCSNote *)newNote;
+
+- (void)setNoteProperty:(OCSNoteProperty *)noteProperty
+                toValue:(float)value;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Event Based Events
 // -----------------------------------------------------------------------------
@@ -56,6 +72,7 @@
 /// When creating a sequence of events that affect the same note, this function is useful.
 /// @param event The event that you want to use as the basis for the next event.
 - (id)initWithEvent:(OCSEvent *)event;
+
 
 
 /// Send a note-off message to an event.
@@ -89,6 +106,7 @@
 
 /// Iterates through all properties and trigger their value changes.
 - (void)setEventProperties;
+- (void)setNoteProperties;
 - (void)setInstrumentProperties;
 
 // -----------------------------------------------------------------------------

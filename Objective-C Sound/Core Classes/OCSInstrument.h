@@ -11,6 +11,7 @@
 #import "OCSOperation.h"
 #import "OCSUserDefinedOperation.h"
 #import "OCSEventProperty.h"
+#import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
 @class OCSEvent;
 
@@ -41,13 +42,21 @@
 /// Array of note properties available to events.
 @property (nonatomic, strong) NSMutableArray *eventProperties;
 
+/// Array of note properties available to events.
+@property (nonatomic, strong) NSMutableArray *noteProperties;
+
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
 
 /// After an OCSEventProperty is created, it must be added to the instrument.
 /// @param newEventProperty New event property to add to the instrument.
-- (void)addEventProperty:(OCSProperty *)newEventProperty;
+- (void)addEventProperty:(OCSEventProperty *)newEventProperty;
+
+/// After an OCSNoteProperty is created, it must be added to the instrument.
+/// @param newNoteProperty New note property instrument needs to be aware of.
+- (void)addNoteProperty:(OCSNoteProperty *)newNoteProperty;
+
 
 // -----------------------------------------------------------------------------
 #  pragma mark - F Tables

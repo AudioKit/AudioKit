@@ -11,6 +11,7 @@
 
 @interface OCSEvent () {
     NSMutableString *scoreLine;
+    NSMutableDictionary *noteProperties;
     NSMutableArray *eventPropertyValues;
     NSMutableArray *properties;
     NSMutableArray *propertyValues;
@@ -19,6 +20,8 @@
     OCSInstrument *instr;
     
     BOOL isDeactivator;
+    
+    BOOL isNewNote;
 }
 @end
 
@@ -46,9 +49,11 @@ static int currentID = 1;
         _myID = currentID++;
         scoreLine  = [[NSMutableString alloc] init];
         eventPropertyValues = [[NSMutableArray alloc] init];
+        noteProperties = [[NSMutableDictionary alloc] init];
         properties = [[NSMutableArray alloc] init];
         propertyValues = [[NSMutableArray alloc] init];
         
+        isNewNote = NO;
         isDeactivator = NO;
     }
     return self;
@@ -83,6 +88,33 @@ static int currentID = 1;
     return [self initWithInstrument:instrument duration:-1];
 }
 
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Note Based Events
+// -----------------------------------------------------------------------------
+
+@synthesize note;
+@synthesize isNewNote;
+
+- (id)initWithNote:(OCSNote *)newNote {
+    self = [self init];
+    if (self) {
+        isNewNote =  YES;
+        note = newNote;
+        //note.instrumentnotePropertyValues = note.propertyValues;
+        eventNumber  = [note.instrument instrumentNumber] + _myID/100000.0;
+        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
+    }
+    return self;
+}
+
+- (void)setNoteProperty:(OCSNoteProperty *)noteProperty
+                toValue:(float)value;
+{
+    noteProperty.value = value;
+}
+
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Event Based Events
 // -----------------------------------------------------------------------------
@@ -95,10 +127,15 @@ static int currentID = 1;
         eventPropertyValues = [NSMutableArray arrayWithArray:[event eventPropertyValues]];
         eventNumber  = [event eventNumber];
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 0.1", eventNumber];
+        if (event.note) {
+            note = event.note;
+            noteProperties = [noteProperties copy];
+        }
         isDeactivator = NO;
     }
     return self;
 }
+
 
 - (id)initDeactivation:(OCSEvent *)event
          afterDuration:(float)delay;
@@ -153,13 +190,22 @@ static int currentID = 1;
     }
 }
 
+- (void)setNoteProperties;
+{
+    for (NSString* key in note.properties) {
+        OCSNoteProperty *prop = [note.properties objectForKey:key];
+        [scoreLine appendFormat:@" %f", [prop value]];
+        NSLog(@"Setting Note Property %@ to %f", key, [prop value]);
+    }
+}
+
 - (void)setInstrumentProperties;
 {
     for (int i=0; i<[properties count]; i++) {
         OCSProperty *prop = [properties objectAtIndex:i];
         float val = [[propertyValues objectAtIndex:i] floatValue];
         [prop setValue:val];
-        NSLog(@"Setting %@ to %g", prop, val);
+        NSLog(@"Setting Instrument Property %@ to %g", prop, val);
     }
 }
 

@@ -30,6 +30,7 @@ typedef enum {
 
 @synthesize properties;
 @synthesize eventProperties;
+@synthesize noteProperties;
 @synthesize userDefinedOperations;
 @synthesize fTables;
 
@@ -46,6 +47,7 @@ static int currentID = 1;
         _myID = currentID++;
         properties = [[NSMutableArray alloc] init];
         eventProperties = [[NSMutableArray alloc] init];
+        noteProperties = [[NSMutableArray alloc] init];
         userDefinedOperations = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
@@ -72,10 +74,16 @@ static int currentID = 1;
     //[[OCSManager sharedOCSManager] addProperty:prop];
 }
 
-- (void)addEventProperty:(OCSProperty *)newEventProperty;
+- (void)addEventProperty:(OCSEventProperty *)newEventProperty;
 {
     [eventProperties addObject:newEventProperty];
 }
+
+- (void)addNoteProperty:(OCSNoteProperty *)newNoteProperty;
+{
+    [noteProperties addObject:newNoteProperty];
+}
+
 
 // -----------------------------------------------------------------------------
 #  pragma mark - F Tables
@@ -133,10 +141,10 @@ static int currentID = 1;
 {
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
-    if ([properties count] + [eventProperties count] > 0 ) {
-        [text appendString:@"\n;---- Inputs: Event Parameters ----\n"];
+    if ([properties count] + [noteProperties count] > 0 ) {
+        [text appendString:@"\n;---- Inputs: Note Properties ----\n"];
         int i = 4;
-        for (OCSEventProperty *prop in eventProperties) {
+        for (OCSNoteProperty *prop in noteProperties) {
             [text appendFormat:@"%@ = p%i\n", prop, i++];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        
