@@ -8,10 +8,12 @@
 
 #import "ReverbViewController.h"
 #import "Helper.h"
-#import "ReverbOrchestra.h"
+#import "ToneGenerator.h"
+#import "EffectsProcessor.h"
 
 @interface ReverbViewController () {
-    ReverbOrchestra *orch;
+    ToneGenerator *toneGenerator;
+    EffectsProcessor *fx;
 }
 @end
 
@@ -20,15 +22,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    orch = [[ReverbOrchestra alloc] init];
+    
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    toneGenerator = [[ToneGenerator alloc] init];
+    fx = [[EffectsProcessor alloc] initWithToneGenerator:toneGenerator];
+    
+    [orch addInstrument:toneGenerator];
+    [orch addInstrument:fx];
+    
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    
+    [toneGenerator start];
 }
 
-- (IBAction)playFrequency:(float)frequency { 
-    OCSEvent *currentEvent = [[OCSEvent alloc] initWithInstrument:orch.toneGenerator];
-    [currentEvent setInstrumentProperty:[orch.toneGenerator frequency] toValue:frequency];
-    [currentEvent trigger];
-    OCSEvent *off = [[OCSEvent alloc] initDeactivation:currentEvent afterDuration:0.5];
-    [off trigger];
+- (IBAction)playFrequency:(float)frequency {
+    
+    toneGenerator.frequency.value = frequency;
 }
 
 - (IBAction)hit1:(id)sender {
@@ -40,7 +49,7 @@
 }
 
 - (IBAction)startFX:(id)sender {
-    [orch.fx start];
+    [fx start];
 }
 
 @end

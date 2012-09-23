@@ -26,6 +26,7 @@
 
 - (id)initWithInstrument:(OCSInstrument *)anInstrument;
 
+- (void)start;
 - (void)kill;
 - (void)updateProperties;
 

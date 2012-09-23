@@ -42,6 +42,11 @@ static int currentID = 1;
     return self;
 }
 
+- (void)start
+{
+    [[OCSManager sharedOCSManager] updateNote:self];
+}
+
 - (void)kill
 {
     [[OCSManager sharedOCSManager] killNote:self];

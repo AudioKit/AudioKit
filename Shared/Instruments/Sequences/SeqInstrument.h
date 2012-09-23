@@ -7,7 +7,6 @@
 //
 
 #import "OCSInstrument.h"
-#import "OCSNote.h"
 
 @class SeqInstrumentNote;
 

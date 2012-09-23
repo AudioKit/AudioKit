@@ -11,6 +11,7 @@
 #import "OCSOperation.h"
 #import "OCSUserDefinedOperation.h"
 #import "OCSEventProperty.h"
+#import "OCSNote.h"
 #import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
 @class OCSEvent;
@@ -118,6 +119,9 @@
 /// Create a score line entry for starting the note immediately
 /// @param playDuration Length of time in seconds to play the instrument.
 - (void)playNoteForDuration:(float)playDuration;
+
+/// For instruments that do not create note instance, start the instrument with start.
+- (void)start;
 
 
 @end

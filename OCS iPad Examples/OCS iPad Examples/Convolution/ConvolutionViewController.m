@@ -26,14 +26,10 @@
     conv = [[ConvolutionInstrument alloc] init];
     [orch addInstrument:conv];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
-    
 }
 
-- (IBAction)start:(id)sender
-{
-    //[conv playNoteForDuration:150000];
-    OCSEvent *playback = [[OCSEvent alloc] initWithInstrument:conv];
-    [playback trigger];
+- (IBAction)start:(id)sender {
+    [conv start];
 }
 
 -(IBAction)changeDryWet:(id)sender 
@@ -41,14 +37,12 @@
     conv.dryWetBalance.value = [Helper scaleValueFromSlider:sender 
                                                     minimum:kDryWetBalanceMin 
                                                     maximum:kDryWetBalanceMax];
-
 }
 -(IBAction)changeDishWell:(id)sender;
 {
     conv.dishWellBalance.value = [Helper scaleValueFromSlider:sender 
                                                       minimum:kDishWellBalanceMin 
                                                       maximum:kDishWellBalanceMax];
-
 }
 
 @end

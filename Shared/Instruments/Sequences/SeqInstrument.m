@@ -74,9 +74,6 @@
                                                  maxValue:kFrequencyMax];
         [frequency setControl:[OCSControl parameterWithString:frequencyString]];
         [self.properties setValue:frequency forKey:frequencyString];
-        //NSLog(@"Count: %u", [self.properties count]);
-        //NSLog(@"%@", self.properties);
-
     }
     return self;
 }

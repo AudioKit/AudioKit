@@ -250,7 +250,7 @@ static int currentID = 1;
 
 - (NSString *)stringForCSD;
 {
-    NSLog(@"Event Scoreline: %@\n", scoreLine);
+    if (![scoreLine isEqual:@""]) NSLog(@"Event Scoreline: %@\n", scoreLine);
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 

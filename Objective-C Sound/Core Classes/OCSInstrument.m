@@ -174,4 +174,10 @@ static int currentID = 1;
     [noteOff trigger];
 }
 
+- (void)start
+{
+    OCSNote *note = [[OCSNote alloc] initWithInstrument:self];
+    [note start];
+}
+
 @end
