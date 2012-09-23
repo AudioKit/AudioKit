@@ -7,7 +7,13 @@
 //
 
 #import "OCSProperty.h"
+@class OCSNote;
 
 @interface OCSNoteProperty : OCSProperty
+
+- (id) initWithNote:(OCSNote *)note
+       initialValue:(float)initialValue
+           minValue:(float)minValue
+           maxValue:(float)maxValue;
 
 @end

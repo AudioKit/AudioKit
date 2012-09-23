@@ -1,4 +1,4 @@
-notete;/*
+/*
  
  CsoundObj.m:
  

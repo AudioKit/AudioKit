@@ -14,4 +14,24 @@
 @property (nonatomic, strong) OCSInstrument *instrument;
 @property (nonatomic, strong) NSMutableDictionary *properties;
 
+/// Unique Identifier for the event
+@property (readonly) float eventNumber;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
+
+/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
++ (void)resetID;
+
+- (id)initWithInstrument:(OCSInstrument *)anInstrument;
+
+- (void)kill;
+- (void)updateProperties;
+
+/// Provides the scoreline to the CSD File.
+- (NSString *)stringForCSD;
+
+- (NSString *)killStringForCSD;
+
 @end
