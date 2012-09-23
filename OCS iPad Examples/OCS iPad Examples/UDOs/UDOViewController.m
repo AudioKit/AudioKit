@@ -12,7 +12,6 @@
 
 @interface UDOViewController () {
     UDOInstrument *udoInstrument;
-    OCSEvent *currentEvent;
 }
 @end
 
@@ -20,19 +19,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
     udoInstrument =  [[UDOInstrument alloc] init];
     [orch addInstrument:udoInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
-    currentEvent = nil;
 }
 
-- (IBAction)playFrequency:(float)frequency { 
-    if (currentEvent) [currentEvent stop];
-    currentEvent = [[OCSEvent alloc] initWithInstrument:udoInstrument];
-    [currentEvent setInstrumentProperty:[udoInstrument frequency] toValue:frequency];
-    [currentEvent trigger];
+- (IBAction)playFrequency:(float)frequency
+{
+    [udoInstrument playNoteForDuration:1.0];    
+    udoInstrument.frequency.value = frequency;
 }
 
 - (IBAction)hit1:(id)sender {

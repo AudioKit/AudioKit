@@ -13,24 +13,24 @@
 
 #import "OCSEvent.h"
 
-@interface AudioFilePlayer () {
-    OCSEventProperty *spd;
-}
-@end
+//@interface AudioFilePlayer () {
+//    OCSEventProperty *spd;
+//}
+//@end
 
 @implementation AudioFilePlayer
 
-@synthesize speed = spd;
+- (AudioFilePlayerNote *)createNote {
+    return [[AudioFilePlayerNote alloc] initWithInstrument:self];
+}
 
 - (id)init {
     self = [super init];
     if (self) {
         
-        // INPUTS AND CONTROLS =================================================
-        
-        spd = [[OCSEventProperty alloc] initWithMinValue:kSpeedMin  maxValue:kSpeedMax];
-        [spd setConstant:[OCSConstant parameterWithString:@"Speed"]]; 
-        [self addEventProperty:spd];
+        // NOTE BASED CONTROL ==================================================
+        AudioFilePlayerNote *note = [self createNote];
+        [self addNoteProperty:note.speed];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -42,7 +42,7 @@
         
         OCSLoopingOscillator *oscil;
         oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
-                                                 frequencyMultiplier:[spd constant]
+                                                 frequencyMultiplier:[note.speed constant]
                                                            amplitude:ocsp(0.5)
                                                                 type:kLoopingOscillatorNoLoop];
         [self connect:oscil];
@@ -62,5 +62,26 @@
     }
     return self;
 }
+
+@end
+
+@implementation AudioFilePlayerNote
+
+@synthesize speed;
+
+- (id)initWithInstrument:(OCSInstrument *)anInstrument {
+    self = [super initWithInstrument:anInstrument];
+    if (self) {
+        NSString *speedString = @"Speed";
+        speed = [[OCSNoteProperty alloc] initWithNote:self
+                                             initialValue:kSpeedInit
+                                                 minValue:kSpeedMin
+                                                 maxValue:kSpeedMax];
+        [speed setConstant:[OCSConstant parameterWithString:speedString]];
+        [self.properties setValue:speed forKey:speedString];
+    }
+    return self;
+}
+
 
 @end

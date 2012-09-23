@@ -188,7 +188,7 @@ static OCSManager *_sharedOCSManager = nil;
     if ([[event properties] count] > 0) {
         [event setInstrumentProperties];
     }
-    //[csound sendScore:[event stringForCSD]];
+    [csound sendScore:[event stringForCSD]];
 }
 
 - (void)killNote:(OCSNote *)note

@@ -25,7 +25,6 @@
 		C42B246D15F484D0006032F9 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42B243B15F484D0006032F9 /* hellorcb.aif */; };
 		C42B246E15F484D0006032F9 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42B243D15F484D0006032F9 /* example.csd */; };
 		C42B247015F484D0006032F9 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244015F484D0006032F9 /* EffectsProcessor.m */; };
-		C42B247215F484D0006032F9 /* ReverbOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244215F484D0006032F9 /* ReverbOrchestra.m */; };
 		C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244415F484D0006032F9 /* ToneGenerator.m */; };
 		C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244815F484D0006032F9 /* UDOInstrument.m */; };
 		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
@@ -172,8 +171,6 @@
 		C42B243D15F484D0006032F9 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C42B243F15F484D0006032F9 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
 		C42B244015F484D0006032F9 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
-		C42B244115F484D0006032F9 /* ReverbOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ReverbOrchestra.h; sourceTree = "<group>"; };
-		C42B244215F484D0006032F9 /* ReverbOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbOrchestra.m; sourceTree = "<group>"; };
 		C42B244315F484D0006032F9 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ToneGenerator.h; sourceTree = "<group>"; };
 		C42B244415F484D0006032F9 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
 		C42B244715F484D0006032F9 /* UDOInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOInstrument.h; sourceTree = "<group>"; };
@@ -550,8 +547,6 @@
 			children = (
 				C42B243F15F484D0006032F9 /* EffectsProcessor.h */,
 				C42B244015F484D0006032F9 /* EffectsProcessor.m */,
-				C42B244115F484D0006032F9 /* ReverbOrchestra.h */,
-				C42B244215F484D0006032F9 /* ReverbOrchestra.m */,
 				C42B244315F484D0006032F9 /* ToneGenerator.h */,
 				C42B244415F484D0006032F9 /* ToneGenerator.m */,
 			);
@@ -1271,7 +1266,6 @@
 				C42B246A15F484D0006032F9 /* OscillatorInstrument.m in Sources */,
 				C42B246C15F484D0006032F9 /* AudioFilePlayer.m in Sources */,
 				C42B247015F484D0006032F9 /* EffectsProcessor.m in Sources */,
-				C42B247215F484D0006032F9 /* ReverbOrchestra.m in Sources */,
 				C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */,
 				C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */,
 				C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */,

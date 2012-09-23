@@ -22,19 +22,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    orchestra = [[OCSOrchestra alloc] init];    
+
+    // Create the orchestra and instruments
+    orchestra = [[OCSOrchestra alloc] init];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
+    
+    // Add instruments to orchestra
     [orchestra addInstrument:audioFilePlayer];
+    
+    // Start the orchestra
     [[OCSManager sharedOCSManager] runOrchestra:orchestra];
 
 }
 
 - (IBAction)touchButton:(id)sender {
-    float speed = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
-    OCSEvent *start = [[OCSEvent alloc]initWithInstrument:audioFilePlayer];
-    [start setEventProperty:[audioFilePlayer speed] toValue:speed];
-    [[OCSManager sharedOCSManager] triggerEvent:start];
+    AudioFilePlayerNote *note = [audioFilePlayer createNote];
+    note.speed.value = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
 }
 
 

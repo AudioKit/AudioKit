@@ -30,9 +30,7 @@
 
 - (IBAction)start:(id)sender
 {
-    //[conv playNoteForDuration:150000];
-    OCSEvent *playback = [[OCSEvent alloc] initWithInstrument:harmonizer];
-    [playback trigger];
+    [harmonizer start];
 }
 
 -(IBAction)changePitch:(id)sender 
