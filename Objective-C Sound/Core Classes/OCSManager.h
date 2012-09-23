@@ -44,6 +44,9 @@
 /// @param event OCS Event
 - (void)triggerEvent:(OCSEvent *)event;
 
+- (void)killNote:(OCSNote *)note;
+- (void)updateNote:(OCSNote *)note;
+
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk
 + (NSString *)stringFromFile:(NSString *)filename;

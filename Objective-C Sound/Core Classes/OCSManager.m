@@ -176,9 +176,10 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)triggerEvent:(OCSEvent *)event  
 {
-
+    [event runBlock];
+    
     if (event.note) {
-        [event setNoteProperties];
+        //[self updateNote:event.note];
     }
     
     if ([[event eventPropertyValues] count] > 0 ) {
@@ -187,7 +188,19 @@ static OCSManager *_sharedOCSManager = nil;
     if ([[event properties] count] > 0) {
         [event setInstrumentProperties];
     }
-    [csound sendScore:[event stringForCSD]];
+    //[csound sendScore:[event stringForCSD]];
+}
+
+- (void)killNote:(OCSNote *)note
+{
+    NSLog(@"killing Note with %@", [note killStringForCSD]);
+    [csound sendScore:[note killStringForCSD]];
+}
+
+- (void)updateNote:(OCSNote *)note
+{
+    NSLog(@"updating Note with %@", [note stringForCSD]);
+    [csound sendScore:[note stringForCSD]];
 }
 
 - (void)updateValueCacheWithProperties:(OCSOrchestra *)orchestra

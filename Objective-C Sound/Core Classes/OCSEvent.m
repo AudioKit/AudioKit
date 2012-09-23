@@ -9,12 +9,15 @@
 #import "OCSEvent.h"
 #import "OCSManager.h"
 
+typedef void (^MyBlockType)();
+
 @interface OCSEvent () {
     NSMutableString *scoreLine;
     NSMutableDictionary *noteProperties;
     NSMutableArray *eventPropertyValues;
     NSMutableArray *properties;
     NSMutableArray *propertyValues;
+    MyBlockType block;
     int _myID;
     float eventNumber;
     OCSInstrument *instr;
@@ -114,6 +117,26 @@ static int currentID = 1;
     noteProperty.value = value;
 }
 
+- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock {
+    self = [self initWithNote:newNote];
+    if (self) {
+        block = aBlock;
+    }
+    return self;
+}
+
+
+- (id)initWithBlock:(void (^)())aBlock {
+    self = [self init];
+    if (self) {
+        block = aBlock;
+    }
+    return self;
+}
+
+- (void)runBlock {
+    if (self->block) block();
+}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Event Based Events
@@ -192,11 +215,12 @@ static int currentID = 1;
 
 - (void)setNoteProperties;
 {
-    for (NSString* key in note.properties) {
-        OCSNoteProperty *prop = [note.properties objectForKey:key];
-        [scoreLine appendFormat:@" %f", [prop value]];
-        NSLog(@"Setting Note Property %@ to %f", key, [prop value]);
-    }
+    NSLog(@"deprecated");
+//    for (NSString* key in note.properties) {
+//        OCSNoteProperty *prop = [note.properties objectForKey:key];
+//        [scoreLine appendFormat:@" %f", [prop value]];
+//        NSLog(@"Setting Note Property %@ to %f", key, [prop value]);
+//    }
 }
 
 - (void)setInstrumentProperties;
@@ -226,7 +250,7 @@ static int currentID = 1;
 
 - (NSString *)stringForCSD;
 {
-    NSLog(@"%@\n", scoreLine);
+    NSLog(@"Event Scoreline: %@\n", scoreLine);
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 

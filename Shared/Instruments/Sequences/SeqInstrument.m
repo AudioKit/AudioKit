@@ -17,16 +17,14 @@
 @synthesize modulation = mod;
 
 - (SeqInstrumentNote *)createNote {
-    SeqInstrumentNote *note = [[SeqInstrumentNote alloc] init];
-    note.instrument = self;
-    return note;
+    return [[SeqInstrumentNote alloc] initWithInstrument:self];
 }
 
 - (id)init {
     self = [super init];
     if (self) {
         // NOTE BASED CONTROL ==================================================
-        SeqInstrumentNote *note = [[SeqInstrumentNote alloc] init];
+        SeqInstrumentNote *note = [self createNote];
         [self addNoteProperty:note.frequency];
         
         // INSTRUMENT CONTROL ==================================================
@@ -64,17 +62,21 @@
 
 @implementation SeqInstrumentNote
 
-@synthesize frequency = freq;
+@synthesize frequency;
 
-- (id)init {
-    self = [super init];
+- (id)initWithInstrument:(OCSInstrument *)anInstrument {
+    self = [super initWithInstrument:anInstrument];
     if (self) {
-        NSString *freqString = @"Frequency";
-        freq = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
-                                             minValue:kFrequencyMin
-                                             maxValue:kFrequencyMax];
-        [freq setControl:[OCSControl parameterWithString:freqString]];
-        [self.properties setValue:freq forKey:freqString];
+        NSString *frequencyString = @"Frequency";
+        frequency = [[OCSNoteProperty alloc] initWithNote:self
+                                             initialValue:kFrequencyInit
+                                                 minValue:kFrequencyMin
+                                                 maxValue:kFrequencyMax];
+        [frequency setControl:[OCSControl parameterWithString:frequencyString]];
+        [self.properties setValue:frequency forKey:frequencyString];
+        //NSLog(@"Count: %u", [self.properties count]);
+        //NSLog(@"%@", self.properties);
+
     }
     return self;
 }
