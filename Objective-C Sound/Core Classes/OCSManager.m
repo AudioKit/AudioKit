@@ -177,10 +177,6 @@ static OCSManager *_sharedOCSManager = nil;
 - (void)triggerEvent:(OCSEvent *)event  
 {
     [event runBlock];
-    
-    if ([[event properties] count] > 0) {
-        [event setInstrumentProperties];
-    }
     [csound sendScore:[event stringForCSD]];
 }
 

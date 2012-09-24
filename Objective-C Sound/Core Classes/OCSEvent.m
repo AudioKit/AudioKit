@@ -152,36 +152,6 @@ static int currentID = 1;
     return self;
 }
 
-// -----------------------------------------------------------------------------
-#  pragma mark - Property Based Events
-// -----------------------------------------------------------------------------
-
-- (id)initWithInstrumentProperty:(OCSInstrumentProperty *)property
-                           value:(float)value;
-{
-    self = [self init];
-    if (self) {
-        [self setInstrumentProperty:property toValue:value];
-    }
-    return self;
-}
-
-- (void)setInstrumentProperty:(OCSInstrumentProperty *)property 
-            toValue:(float)value; 
-{
-    [properties addObject:property];
-    [propertyValues addObject:[NSNumber numberWithFloat:value]];
-}
-
-- (void)setInstrumentProperties;
-{
-    for (int i=0; i<[properties count]; i++) {
-        OCSProperty *prop = [properties objectAtIndex:i];
-        float val = [[propertyValues objectAtIndex:i] floatValue];
-        [prop setValue:val];
-        NSLog(@"Setting Instrument Property %@ to %g", prop, val);
-    }
-}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation

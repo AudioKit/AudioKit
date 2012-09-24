@@ -79,25 +79,6 @@
          afterDuration:(float)delay;
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Property Based Events
-// -----------------------------------------------------------------------------
-
-/// Create an event that sets a property to a value
-/// @param property The property to be set.
-/// @param value    The new value of the property.
-- (id)initWithInstrumentProperty:(OCSInstrumentProperty *)property
-                           value:(float)value;
-
-/// Add a property setting to an event.
-/// @param property The property to be set.
-/// @param value    The new value of the property.
-- (void)setInstrumentProperty:(OCSInstrumentProperty *)property 
-            toValue:(float)value; 
-
-/// Iterates through all properties and trigger their value changes.
-- (void)setInstrumentProperties;
-
-// -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
 
