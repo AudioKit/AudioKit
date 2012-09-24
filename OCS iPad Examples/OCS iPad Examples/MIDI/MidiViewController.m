@@ -85,27 +85,31 @@
 }
 
 - (void)midiNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
-    _channel = channel;
-    _note    = note;
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
-    
-    OCSEvent *noteOnEvent = [[OCSEvent alloc] initWithInstrument:instrument];
-    [noteOnEvent setEventProperty:[instrument frequency] toValue:[Helper midiNoteToFrequency:note]];
-    float volume = [Helper scaleValue:velocity
-                          fromMinimum:0
-                          fromMaximum:127
-                            toMinimum:kVolumeMin
-                            toMaximum:kVolumeMax];
-    [noteOnEvent setEventProperty:[instrument volume] toValue:volume];
-    [noteOnEvent trigger];
-    [currentNotes setObject:noteOnEvent forKey:[NSNumber numberWithInt:note]];
+//    _channel = channel;
+//    _note    = note;
+//    [self performSelectorOnMainThread:@selector(updateUI)
+//                           withObject:nil waitUntilDone:YES];
+//    
+//    OCSEvent *noteOnEvent = [[OCSEvent alloc] initWithInstrument:instrument];
+//    [noteOnEvent setEventProperty:[instrument frequency]
+//                          toValue:[Helper midiNoteToFrequency:note]];
+//    float volume = [Helper scaleValue:velocity
+//                          fromMinimum:0
+//                          fromMaximum:127
+//                            toMinimum:kVolumeMin
+//                            toMaximum:kVolumeMax];
+//    [noteOnEvent setEventProperty:[instrument volume] toValue:volume];
+//       
+//    [noteOnEvent trigger];
+//    [currentNotes setObject:noteOnEvent forKey:[NSNumber numberWithInt:note]];
 }
 
 - (void)midiNoteOff:(int)note velocity:(int)velocity channel:(int)channel
 {
     _channel = channel;
     _note    = note;
-    OCSEvent *noteOnEvent = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
+    OCSEvent *noteOnEvent = [currentNotes objectForKey:
+                             [NSNumber numberWithInt:note]];
     [noteOnEvent stop];
 }
     
@@ -116,7 +120,8 @@
 
     if (_controllerNumber > 1) {
         _controllerValue = value;
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(updateUI)
+                               withObject:nil waitUntilDone:YES];
         float cutoff = [Helper scaleControllerValue:value
                                         fromMinimum:kLpCutoffMax
                                           toMaximum:kLpCutoffMin];
@@ -150,7 +155,8 @@
 - (void)midiModulation:(int)modulation channel:(int)channel {
     _channel = channel;
     _modulation = modulation;
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(updateUI)
+                           withObject:nil waitUntilDone:YES];
     
     float mod = [Helper scaleControllerValue:modulation
                                  fromMinimum:kModulationMin

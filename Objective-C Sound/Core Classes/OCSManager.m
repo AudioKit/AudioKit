@@ -178,13 +178,6 @@ static OCSManager *_sharedOCSManager = nil;
 {
     [event runBlock];
     
-    if (event.note) {
-        //[self updateNote:event.note];
-    }
-    
-    if ([[event eventPropertyValues] count] > 0 ) {
-        [event setEventProperties];
-    }
     if ([[event properties] count] > 0) {
         [event setInstrumentProperties];
     }

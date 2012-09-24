@@ -28,7 +28,6 @@
 		C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244415F484D0006032F9 /* ToneGenerator.m */; };
 		C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244815F484D0006032F9 /* UDOInstrument.m */; };
 		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
-		C42B247C15F4866B006032F9 /* SequenceInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B247A15F4866B006032F9 /* SequenceInstrument.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
@@ -177,8 +176,6 @@
 		C42B244815F484D0006032F9 /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOInstrument.m; sourceTree = "<group>"; };
 		C42B244A15F484D0006032F9 /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
 		C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
-		C42B247915F4866B006032F9 /* SequenceInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SequenceInstrument.h; sourceTree = "<group>"; };
-		C42B247A15F4866B006032F9 /* SequenceInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceInstrument.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
@@ -558,8 +555,6 @@
 			children = (
 				C494655216098269002E4C34 /* SeqInstrument.h */,
 				C494655316098269002E4C34 /* SeqInstrument.m */,
-				C42B247915F4866B006032F9 /* SequenceInstrument.h */,
-				C42B247A15F4866B006032F9 /* SequenceInstrument.m */,
 			);
 			path = Sequences;
 			sourceTree = "<group>";
@@ -1269,7 +1264,6 @@
 				C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */,
 				C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */,
 				C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */,
-				C42B247C15F4866B006032F9 /* SequenceInstrument.m in Sources */,
 				53FEF53C16012299001D1AAD /* OCSBandPassButterworthFilter.m in Sources */,
 				53FEF540160125A1001D1AAD /* OCSBandRejectButterworthFilter.m in Sources */,
 				C494655516098269002E4C34 /* SeqInstrument.m in Sources */,

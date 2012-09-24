@@ -29,7 +29,6 @@ typedef enum {
 @implementation OCSInstrument
 
 @synthesize properties;
-@synthesize eventProperties;
 @synthesize noteProperties;
 @synthesize userDefinedOperations;
 @synthesize fTables;
@@ -46,7 +45,6 @@ static int currentID = 1;
     if (self) {
         _myID = currentID++;
         properties = [[NSMutableArray alloc] init];
-        eventProperties = [[NSMutableArray alloc] init];
         noteProperties = [[NSMutableArray alloc] init];
         userDefinedOperations = [[NSMutableSet alloc] init];
         fTables = [[NSMutableSet alloc] init];
@@ -72,11 +70,6 @@ static int currentID = 1;
     [properties addObject:newProperty];
     //where I want to update csound's valuesCache array
     //[[OCSManager sharedOCSManager] addProperty:prop];
-}
-
-- (void)addEventProperty:(OCSEventProperty *)newEventProperty;
-{
-    [eventProperties addObject:newEventProperty];
 }
 
 - (void)addNoteProperty:(OCSNoteProperty *)newNoteProperty;

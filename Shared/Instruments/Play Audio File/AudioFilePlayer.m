@@ -13,11 +13,6 @@
 
 #import "OCSEvent.h"
 
-//@interface AudioFilePlayer () {
-//    OCSEventProperty *spd;
-//}
-//@end
-
 @implementation AudioFilePlayer
 
 - (AudioFilePlayerNote *)createNote {
