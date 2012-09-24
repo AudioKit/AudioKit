@@ -43,6 +43,8 @@
 /// @param event OCS Event
 - (void)triggerEvent:(OCSEvent *)event;
 
+- (void)stopInstrument:(OCSInstrument *)instrument;
+
 - (void)killNote:(OCSNote *)note;
 - (void)updateNote:(OCSNote *)note;
 
