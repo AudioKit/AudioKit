@@ -14,7 +14,6 @@ typedef void (^MyBlockType)();
 @interface OCSEvent () {
     NSMutableString *scoreLine;
     NSMutableDictionary *noteProperties;
-    NSMutableArray *eventPropertyValues;
     NSMutableArray *properties;
     NSMutableArray *propertyValues;
     MyBlockType block;
@@ -32,7 +31,6 @@ typedef void (^MyBlockType)();
 
 @synthesize eventNumber;
 @synthesize instrument = instr;
-@synthesize eventPropertyValues;
 @synthesize properties;
 @synthesize isDeactivator;
 
@@ -51,7 +49,6 @@ static int currentID = 1;
         }
         _myID = currentID++;
         scoreLine  = [[NSMutableString alloc] init];
-        eventPropertyValues = [[NSMutableArray alloc] init];
         noteProperties = [[NSMutableDictionary alloc] init];
         properties = [[NSMutableArray alloc] init];
         propertyValues = [[NSMutableArray alloc] init];
@@ -71,13 +68,6 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         instr = instrument;
-        eventPropertyValues = [[NSMutableArray alloc] initWithArray:[instr eventProperties]];
-        for (int i = 0; i < [propertyValues count]; i++) {
-            
-            OCSProperty *prop = [[instr eventProperties] objectAtIndex:i];
-            NSNumber *val = [NSNumber numberWithFloat:[prop value]];
-            [eventPropertyValues replaceObjectAtIndex:i withObject:val];
-        }
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %g", eventNumber, duration];
         
@@ -147,7 +137,6 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         instr = [event instrument];
-        eventPropertyValues = [NSMutableArray arrayWithArray:[event eventPropertyValues]];
         eventNumber  = [event eventNumber];
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 0.1", eventNumber];
         if (event.note) {
@@ -192,35 +181,11 @@ static int currentID = 1;
     return self;
 }
 
-- (void)setEventProperty:(OCSEventProperty *)property 
-                 toValue:(float)value; 
-{
-    NSUInteger index = [[instr eventProperties] indexOfObject:property];
-    [eventPropertyValues replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value]];
-}
-
 - (void)setInstrumentProperty:(OCSInstrumentProperty *)property 
             toValue:(float)value; 
 {
     [properties addObject:property];
     [propertyValues addObject:[NSNumber numberWithFloat:value]];
-}
-
-- (void)setEventProperties;
-{
-    for (NSNumber *value in eventPropertyValues) {
-        [scoreLine appendFormat:@" %@", value];
-    }
-}
-
-- (void)setNoteProperties;
-{
-    NSLog(@"deprecated");
-//    for (NSString* key in note.properties) {
-//        OCSNoteProperty *prop = [note.properties objectForKey:key];
-//        [scoreLine appendFormat:@" %f", [prop value]];
-//        NSLog(@"Setting Note Property %@ to %f", key, [prop value]);
-//    }
 }
 
 - (void)setInstrumentProperties;

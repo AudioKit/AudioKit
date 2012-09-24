@@ -10,7 +10,6 @@
 #import "OCSOrchestra.h"
 #import "OCSOperation.h"
 #import "OCSUserDefinedOperation.h"
-#import "OCSEventProperty.h"
 #import "OCSNote.h"
 #import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
@@ -40,8 +39,6 @@
 /// Array of instrument properties available for the instrument.
 @property (nonatomic, strong) NSMutableArray *properties;
 
-/// Array of note properties available to events.
-@property (nonatomic, strong) NSMutableArray *eventProperties;
 
 /// Array of note properties available to events.
 @property (nonatomic, strong) NSMutableArray *noteProperties;
@@ -49,10 +46,6 @@
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void)addProperty:(OCSProperty *)newProperty;
-
-/// After an OCSEventProperty is created, it must be added to the instrument.
-/// @param newEventProperty New event property to add to the instrument.
-- (void)addEventProperty:(OCSEventProperty *)newEventProperty;
 
 /// After an OCSNoteProperty is created, it must be added to the instrument.
 /// @param newNoteProperty New note property instrument needs to be aware of.
@@ -125,3 +118,15 @@
 
 
 @end
+
+
+//Removed
+//#import "OCSEventProperty.h"
+
+/// Array of note properties available to events.
+//@property (nonatomic, strong) NSMutableArray *eventProperties;
+
+
+/// After an OCSEventProperty is created, it must be added to the instrument.
+/// @param newEventProperty New event property to add to the instrument.
+//- (void)addEventProperty:(OCSEventProperty *)newEventProperty;
