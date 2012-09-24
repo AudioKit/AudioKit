@@ -16,7 +16,6 @@
     TweakableInstrument *myTweakableInstrument;
     NSTimer *repeatingNoteTimer;
     NSTimer *repeatingSliderTimer;
-    OCSEvent *currentEvent;
 }
 @end
 
@@ -31,7 +30,6 @@
     myTweakableInstrument = [[TweakableInstrument alloc] init];
     [orch addInstrument:myTweakableInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
-    currentEvent = nil;
     
     [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument amplitude] value]]];
     [modulationLabel setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modulation]value]]];
@@ -65,9 +63,8 @@
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
     
-    currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
-    [currentEvent setInstrumentProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
-    [currentEvent trigger];
+    [myTweakableInstrument start];
+    myTweakableInstrument.frequency.value = randomFrequency;
     
     if (repeatingNoteTimer) {
         return;
@@ -81,7 +78,7 @@
 
 - (IBAction)stopInstrument:(id)sender
 {
-    if (currentEvent) [currentEvent stop];
+    [myTweakableInstrument stop];
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
     [repeatingSliderTimer invalidate];
@@ -90,12 +87,9 @@
 
 - (void)noteTimerFire:(NSTimer *)timer
 {
-    if (currentEvent) [currentEvent stop];
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
-    currentEvent = [[OCSEvent alloc] initWithInstrument:myTweakableInstrument];
-    [currentEvent setInstrumentProperty:[myTweakableInstrument frequency] toValue:randomFrequency];
-    [currentEvent trigger];
+    myTweakableInstrument.frequency.value = randomFrequency;
 }
 
 
