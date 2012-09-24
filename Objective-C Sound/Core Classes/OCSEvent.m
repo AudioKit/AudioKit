@@ -19,11 +19,7 @@ typedef void (^MyBlockType)();
     MyBlockType block;
     int _myID;
     float eventNumber;
-    OCSInstrument *instr;
-    
-    BOOL isDeactivator;
-    
-    BOOL isNewNote;
+    OCSInstrument *instr;    
 }
 @end
 
@@ -32,7 +28,6 @@ typedef void (^MyBlockType)();
 @synthesize eventNumber;
 @synthesize instrument = instr;
 @synthesize properties;
-@synthesize isDeactivator;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
@@ -51,10 +46,7 @@ static int currentID = 1;
         scoreLine  = [[NSMutableString alloc] init];
         noteProperties = [[NSMutableDictionary alloc] init];
         properties = [[NSMutableArray alloc] init];
-        propertyValues = [[NSMutableArray alloc] init];
-        
-        isNewNote = NO;
-        isDeactivator = NO;
+        propertyValues = [[NSMutableArray alloc] init];        
     }
     return self;
 }
@@ -70,8 +62,6 @@ static int currentID = 1;
         instr = instrument;
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %g", eventNumber, duration];
-        
-        isDeactivator = NO;
     }
     return self;
 }
@@ -87,12 +77,10 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 
 @synthesize note;
-@synthesize isNewNote;
 
 - (id)initWithNote:(OCSNote *)newNote {
     self = [self init];
     if (self) {
-        isNewNote =  YES;
         note = newNote;
         //note.instrumentnotePropertyValues = note.propertyValues;
         eventNumber  = [note.instrument instrumentNumber] + _myID/100000.0;
@@ -143,7 +131,6 @@ static int currentID = 1;
             note = event.note;
             noteProperties = [noteProperties copy];
         }
-        isDeactivator = NO;
     }
     return self;
 }
@@ -156,7 +143,6 @@ static int currentID = 1;
     if (self) {
         scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f %f 0.1", 
                      [event eventNumber], delay ];
-        isDeactivator = YES;
 
         // This next method uses the turnoff2 opcode which might prove advantageous 
         // so I won't delete it just yet.
@@ -176,7 +162,6 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         [self setInstrumentProperty:property toValue:value];
-        isDeactivator = NO;
     }
     return self;
 }

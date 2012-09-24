@@ -173,4 +173,14 @@ static int currentID = 1;
     [note start];
 }
 
+- (NSString *)stopStringForCSD
+{
+    return [NSString stringWithFormat:@"i \"DeactivateInstrument\" 0 0.1 %i\n", _myID ];
+}
+
+- (void)stop
+{
+    [[OCSManager sharedOCSManager] stopInstrument:self];
+}
+
 @end

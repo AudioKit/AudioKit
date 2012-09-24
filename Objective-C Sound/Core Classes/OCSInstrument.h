@@ -108,25 +108,15 @@
 
 /// @returns The complete textual respresentation of the instrument in CSD form.
 - (NSString *)stringForCSD;
+- (NSString *)stopStringForCSD;
 
 /// Create a score line entry for starting the note immediately
 /// @param playDuration Length of time in seconds to play the instrument.
 - (void)playNoteForDuration:(float)playDuration;
 
-/// For instruments that do not create note instance, start the instrument with start.
+/// For instruments that do not create note instances, start the instrument with start.
 - (void)start;
+- (void)stop;
 
 
 @end
-
-
-//Removed
-//#import "OCSEventProperty.h"
-
-/// Array of note properties available to events.
-//@property (nonatomic, strong) NSMutableArray *eventProperties;
-
-
-/// After an OCSEventProperty is created, it must be added to the instrument.
-/// @param newEventProperty New event property to add to the instrument.
-//- (void)addEventProperty:(OCSEventProperty *)newEventProperty;

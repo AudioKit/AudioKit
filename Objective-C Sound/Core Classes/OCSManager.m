@@ -184,6 +184,12 @@ static OCSManager *_sharedOCSManager = nil;
     [csound sendScore:[event stringForCSD]];
 }
 
+- (void)stopInstrument:(OCSInstrument *)instrument
+{
+    NSLog(@"killing Instrument with '%@'", [instrument stopStringForCSD]);
+    [csound sendScore:[instrument stopStringForCSD]];
+}
+
 - (void)killNote:(OCSNote *)note
 {
     NSLog(@"killing Note with %@", [note killStringForCSD]);

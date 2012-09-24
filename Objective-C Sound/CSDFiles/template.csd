@@ -8,8 +8,13 @@
 
 %@
 
+; Deactivates a complete instrument
+instr DeactivateInstrument
+    turnoff2 p4, 0, 1
+endin
+
 ; Event End or Note Off
-instr Deactivator
+instr DeactivateNote
     turnoff2 p4, 4, 1
 endin
 
