@@ -9,7 +9,6 @@
 #import "CsoundObj.h"
 #import "OCSInstrument.h"
 #import "OCSOrchestra.h"
-#import "OCSEventProperty.h"
 #import "OCSEvent.h"
 #import "OCSMidi.h"
 #import "OCSSequence.h"

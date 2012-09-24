@@ -105,7 +105,6 @@
 		C4F0798515D5F50E0084FF9E /* OCSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791315D5F50E0084FF9E /* OCSParameter.m */; };
 		C4F0798715D5F50E0084FF9E /* OCSParameterArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791515D5F50E0084FF9E /* OCSParameterArray.m */; };
 		C4F0798915D5F50E0084FF9E /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */; };
-		C4F0798D15D5F50E0084FF9E /* OCSEventProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791C15D5F50E0084FF9E /* OCSEventProperty.m */; };
 		C4F0798F15D5F50E0084FF9E /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0791E15D5F50E0084FF9E /* OCSProperty.m */; };
 		C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799215D600C40084FF9E /* InitialViewController.m */; };
 		C4F0799915D602C10084FF9E /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799715D602C10084FF9E /* Helper.m */; };
@@ -339,8 +338,6 @@
 		C4F0791515D5F50E0084FF9E /* OCSParameterArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameterArray.m; sourceTree = "<group>"; };
 		C4F0791715D5F50E0084FF9E /* OCSInstrumentProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSInstrumentProperty.h; sourceTree = "<group>"; };
 		C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSInstrumentProperty.m; sourceTree = "<group>"; };
-		C4F0791B15D5F50E0084FF9E /* OCSEventProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OCSEventProperty.h; sourceTree = "<group>"; };
-		C4F0791C15D5F50E0084FF9E /* OCSEventProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OCSEventProperty.m; sourceTree = "<group>"; };
 		C4F0791D15D5F50E0084FF9E /* OCSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSProperty.h; sourceTree = "<group>"; };
 		C4F0791E15D5F50E0084FF9E /* OCSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSProperty.m; sourceTree = "<group>"; };
 		C4F0799115D600C40084FF9E /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = InitialViewController.h; sourceTree = "<group>"; };
@@ -968,8 +965,6 @@
 				C4F0791815D5F50E0084FF9E /* OCSInstrumentProperty.m */,
 				C4CE9D21160E4B2400A27FAF /* OCSNoteProperty.h */,
 				C4CE9D22160E4B2400A27FAF /* OCSNoteProperty.m */,
-				C4F0791B15D5F50E0084FF9E /* OCSEventProperty.h */,
-				C4F0791C15D5F50E0084FF9E /* OCSEventProperty.m */,
 				C4F0791D15D5F50E0084FF9E /* OCSProperty.h */,
 				C4F0791E15D5F50E0084FF9E /* OCSProperty.m */,
 			);
@@ -1202,7 +1197,6 @@
 				C4F0798515D5F50E0084FF9E /* OCSParameter.m in Sources */,
 				C4F0798715D5F50E0084FF9E /* OCSParameterArray.m in Sources */,
 				C4F0798915D5F50E0084FF9E /* OCSInstrumentProperty.m in Sources */,
-				C4F0798D15D5F50E0084FF9E /* OCSEventProperty.m in Sources */,
 				C4F0798F15D5F50E0084FF9E /* OCSProperty.m in Sources */,
 				C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */,
 				C4F0799915D602C10084FF9E /* Helper.m in Sources */,

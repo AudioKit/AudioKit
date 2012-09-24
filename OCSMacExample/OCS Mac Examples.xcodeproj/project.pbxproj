@@ -101,7 +101,6 @@
 		C4D1F925160FC7F100DEBD82 /* OCSFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8E0160FC7F000DEBD82 /* OCSFSignal.m */; };
 		C4D1F926160FC7F100DEBD82 /* OCSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8E2160FC7F000DEBD82 /* OCSParameter.m */; };
 		C4D1F927160FC7F100DEBD82 /* OCSParameterArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8E4160FC7F000DEBD82 /* OCSParameterArray.m */; };
-		C4D1F928160FC7F100DEBD82 /* OCSEventProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8E7160FC7F000DEBD82 /* OCSEventProperty.m */; };
 		C4D1F929160FC7F100DEBD82 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8E9160FC7F000DEBD82 /* OCSInstrumentProperty.m */; };
 		C4D1F92A160FC7F100DEBD82 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8EB160FC7F000DEBD82 /* OCSNoteProperty.m */; };
 		C4D1F92B160FC7F100DEBD82 /* OCSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F8ED160FC7F000DEBD82 /* OCSProperty.m */; };
@@ -289,8 +288,6 @@
 		C4D1F8E2160FC7F000DEBD82 /* OCSParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameter.m; sourceTree = "<group>"; };
 		C4D1F8E3160FC7F000DEBD82 /* OCSParameterArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSParameterArray.h; sourceTree = "<group>"; };
 		C4D1F8E4160FC7F000DEBD82 /* OCSParameterArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameterArray.m; sourceTree = "<group>"; };
-		C4D1F8E6160FC7F000DEBD82 /* OCSEventProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEventProperty.h; sourceTree = "<group>"; };
-		C4D1F8E7160FC7F000DEBD82 /* OCSEventProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEventProperty.m; sourceTree = "<group>"; };
 		C4D1F8E8160FC7F000DEBD82 /* OCSInstrumentProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSInstrumentProperty.h; sourceTree = "<group>"; };
 		C4D1F8E9160FC7F000DEBD82 /* OCSInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSInstrumentProperty.m; sourceTree = "<group>"; };
 		C4D1F8EA160FC7F000DEBD82 /* OCSNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSNoteProperty.h; sourceTree = "<group>"; };
@@ -838,8 +835,6 @@
 		C4D1F8E5160FC7F000DEBD82 /* Properties */ = {
 			isa = PBXGroup;
 			children = (
-				C4D1F8E6160FC7F000DEBD82 /* OCSEventProperty.h */,
-				C4D1F8E7160FC7F000DEBD82 /* OCSEventProperty.m */,
 				C4D1F8E8160FC7F000DEBD82 /* OCSInstrumentProperty.h */,
 				C4D1F8E9160FC7F000DEBD82 /* OCSInstrumentProperty.m */,
 				C4D1F8EA160FC7F000DEBD82 /* OCSNoteProperty.h */,
@@ -999,7 +994,6 @@
 				C4D1F925160FC7F100DEBD82 /* OCSFSignal.m in Sources */,
 				C4D1F926160FC7F100DEBD82 /* OCSParameter.m in Sources */,
 				C4D1F927160FC7F100DEBD82 /* OCSParameterArray.m in Sources */,
-				C4D1F928160FC7F100DEBD82 /* OCSEventProperty.m in Sources */,
 				C4D1F929160FC7F100DEBD82 /* OCSInstrumentProperty.m in Sources */,
 				C4D1F92A160FC7F100DEBD82 /* OCSNoteProperty.m in Sources */,
 				C4D1F92B160FC7F100DEBD82 /* OCSProperty.m in Sources */,
