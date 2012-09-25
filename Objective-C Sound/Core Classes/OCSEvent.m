@@ -13,9 +13,6 @@ typedef void (^MyBlockType)();
 
 @interface OCSEvent () {
     NSMutableString *scoreLine;
-    NSMutableDictionary *noteProperties;
-    NSMutableArray *properties;
-    NSMutableArray *propertyValues;
     MyBlockType block;
     int _myID;
     float eventNumber;
@@ -27,7 +24,6 @@ typedef void (^MyBlockType)();
 
 @synthesize eventNumber;
 @synthesize instrument = instr;
-@synthesize properties;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
@@ -44,9 +40,6 @@ static int currentID = 1;
         }
         _myID = currentID++;
         scoreLine  = [[NSMutableString alloc] init];
-        noteProperties = [[NSMutableDictionary alloc] init];
-        properties = [[NSMutableArray alloc] init];
-        propertyValues = [[NSMutableArray alloc] init];        
     }
     return self;
 }
@@ -82,17 +75,10 @@ static int currentID = 1;
     self = [self init];
     if (self) {
         note = newNote;
-        //note.instrumentnotePropertyValues = note.propertyValues;
         eventNumber  = [note.instrument instrumentNumber] + _myID/100000.0;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
     }
     return self;
-}
-
-- (void)setNoteProperty:(OCSNoteProperty *)noteProperty
-                toValue:(float)value;
-{
-    noteProperty.value = value;
 }
 
 - (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock {
@@ -129,7 +115,6 @@ static int currentID = 1;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 0.1", eventNumber];
         if (event.note) {
             note = event.note;
-            noteProperties = [noteProperties copy];
         }
     }
     return self;

@@ -13,6 +13,7 @@
     NSMutableString *scoreLine;
     int _myID;
     float eventNumber;
+    NSMutableArray *propOrder;
 }
 @end
 
@@ -36,19 +37,18 @@ static int currentID = 1;
         
         instrument = anInstrument;
         properties = [[NSMutableDictionary alloc] init];
+        propOrder = [[NSMutableArray alloc] init];
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
         scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
     }
     return self;
 }
 
-- (void)start
-{
+- (void)start {
     [[OCSManager sharedOCSManager] updateNote:self];
 }
 
-- (void)kill
-{
+- (void)kill {
     [[OCSManager sharedOCSManager] killNote:self];
 }
 
@@ -56,30 +56,12 @@ static int currentID = 1;
     [[OCSManager sharedOCSManager] updateNote:self];
 }
 
-- (id)initDeactivation:(OCSNote *)targetNote;
-{
-    self = [self init];
-    if (self) {
-        scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f 0.0 0.1",
-                     [targetNote eventNumber]];
-        
-        // This next method uses the turnoff2 opcode which might prove advantageous
-        // so I won't delete it just yet.
-        //        scoreLine = [NSString stringWithFormat:@"i \"Deactivator\" %f 0.1 %0.3f\n",
-        //                     delay, [event eventNumber]];
-    }
-    return self;
-}
-
-
 - (NSString *)stringForCSD;
 {
     scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
-    //NSLog(@"Count: %u", [properties count]);
-    for (NSString* key in properties) {
+    for (NSString* key in propOrder) {
         OCSNoteProperty *prop = [properties objectForKey:key];
         [scoreLine appendFormat:@" %f", [prop value]];
-        //NSLog(@"Setting Note Property %@ to %f", key, [prop value]);
     }
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
@@ -90,6 +72,13 @@ static int currentID = 1;
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 
+- (void) addProperty:(OCSNoteProperty *)newProperty
+            withName:(NSString *)name
+{
+    [newProperty setConstant:[OCSConstant parameterWithString:name]];
+    [self.properties setValue:newProperty forKey:name];
+    [propOrder addObject:name];
+}
 
 
 @end

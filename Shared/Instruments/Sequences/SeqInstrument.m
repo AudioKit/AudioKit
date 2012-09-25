@@ -41,7 +41,7 @@
         
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.2)
-                                                    baseFrequency:[note.frequency control]
+                                                    baseFrequency:[note.frequency constant]
                                                 carrierMultiplier:ocsp(2)
                                              modulatingMultiplier:[mod control]
                                                   modulationIndex:ocsp(15)
@@ -67,13 +67,11 @@
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {
     self = [super initWithInstrument:anInstrument];
     if (self) {
-        NSString *frequencyString = @"Frequency";
         frequency = [[OCSNoteProperty alloc] initWithNote:self
                                              initialValue:kFrequencyInit
                                                  minValue:kFrequencyMin
                                                  maxValue:kFrequencyMax];
-        [frequency setControl:[OCSControl parameterWithString:frequencyString]];
-        [self.properties setValue:frequency forKey:frequencyString];
+        [self addProperty:frequency withName:@"Frequency"];
     }
     return self;
 }

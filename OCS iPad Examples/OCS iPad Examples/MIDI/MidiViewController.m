@@ -85,23 +85,17 @@
 }
 
 - (void)midiNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
-//    _channel = channel;
-//    _note    = note;
-//    [self performSelectorOnMainThread:@selector(updateUI)
-//                           withObject:nil waitUntilDone:YES];
-//    
-//    OCSEvent *noteOnEvent = [[OCSEvent alloc] initWithInstrument:instrument];
-//    [noteOnEvent setEventProperty:[instrument frequency]
-//                          toValue:[Helper midiNoteToFrequency:note]];
-//    float volume = [Helper scaleValue:velocity
-//                          fromMinimum:0
-//                          fromMaximum:127
-//                            toMinimum:kVolumeMin
-//                            toMaximum:kVolumeMax];
-//    [noteOnEvent setEventProperty:[instrument volume] toValue:volume];
-//       
-//    [noteOnEvent trigger];
-//    [currentNotes setObject:noteOnEvent forKey:[NSNumber numberWithInt:note]];
+    _channel = channel;
+    _note    = note;
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+    FivePropertyInstrumentNote *ocsNote = [instrument createNote];
+    ocsNote.frequency.value = [Helper midiNoteToFrequency:note];
+    ocsNote.volume.value = [Helper scaleValue:velocity
+                                  fromMinimum:0
+                                  fromMaximum:127
+                                    toMinimum:kVolumeMin
+                                    toMaximum:kVolumeMax];
+    [currentNotes setObject:ocsNote forKey:[NSNumber numberWithInt:note]];
 }
 
 - (void)midiNoteOff:(int)note velocity:(int)velocity channel:(int)channel
@@ -125,7 +119,7 @@
         float cutoff = [Helper scaleControllerValue:value
                                         fromMinimum:kLpCutoffMax
                                           toMaximum:kLpCutoffMin];
-        [[instrument cutoffFrequency] setValue:cutoff];
+        instrument.cutoffFrequency.value = cutoff;
     }
 
 }
@@ -149,7 +143,7 @@
                               toMinimum:1
                               toMaximum:kPitchBendMax];
     }
-    [[instrument pitchBend] setValue:bend];
+    instrument.pitchBend.value = bend;
 }
 
 - (void)midiModulation:(int)modulation channel:(int)channel {
