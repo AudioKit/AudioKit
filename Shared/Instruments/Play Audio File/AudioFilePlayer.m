@@ -67,13 +67,11 @@
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {
     self = [super initWithInstrument:anInstrument];
     if (self) {
-        NSString *speedString = @"Speed";
         speed = [[OCSNoteProperty alloc] initWithNote:self
                                              initialValue:kSpeedInit
                                                  minValue:kSpeedMin
                                                  maxValue:kSpeedMax];
-        [speed setConstant:[OCSConstant parameterWithString:speedString]];
-        [self.properties setValue:speed forKey:speedString];
+        [self addProperty:speed withName:@"Speed"];
     }
     return self;
 }

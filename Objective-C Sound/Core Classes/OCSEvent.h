@@ -21,12 +21,6 @@
 /// The instrument the event is targeting.
 @property (nonatomic, strong) OCSInstrument *instrument;
 
-/// A list of all the note property values.
-@property (nonatomic, strong) NSMutableArray *notePropertyValues;
-
-/// A list (usually just one) of instrument level properties.
-@property (nonatomic, strong) NSMutableArray *properties;
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
@@ -54,9 +48,6 @@
 
 @property (nonatomic, strong) OCSNote *note;
 - (id)initWithNote:(OCSNote *)newNote;
-
-- (void)setNoteProperty:(OCSNoteProperty *)noteProperty
-                toValue:(float)value;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Event Based Events

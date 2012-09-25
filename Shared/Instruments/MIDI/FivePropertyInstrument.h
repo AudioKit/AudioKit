@@ -7,6 +7,7 @@
 //
 
 #import "OCSInstrument.h"
+@class FivePropertyInstrumentNote;
 
 @interface FivePropertyInstrument : OCSInstrument
 
@@ -22,9 +23,11 @@
 #define kLpCutoffMin  200
 #define kLpCutoffMax  800
 
+- (FivePropertyInstrumentNote *)createNote;
+
 @end
 
-@interface FivePropertyInstrumentNote : OCSInstrument
+@interface FivePropertyInstrumentNote : OCSNote
 
 @property (nonatomic, strong) OCSNoteProperty *volume;
 #define kVolumeMin 0.0

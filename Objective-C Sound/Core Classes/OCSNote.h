@@ -9,6 +9,12 @@
 #import "OCSInstrument.h"
 #import "OCSNoteProperty.h"
 
+/** OCSNote is a representation of a sound object that is created by an
+ OCSInstrument and has at least one of the two following qualities:
+ a) The note has a duration, it starts and some finite time later, it ends.
+ b) The note is created concurrently with other notes created by the instrument
+ */
+
 @interface OCSNote : NSObject
 
 @property (nonatomic, strong) OCSInstrument *instrument;
@@ -34,5 +40,8 @@
 - (NSString *)stringForCSD;
 
 - (NSString *)killStringForCSD;
+
+- (void) addProperty:(OCSNoteProperty *)newProperty
+            withName:(NSString *)name;
 
 @end
