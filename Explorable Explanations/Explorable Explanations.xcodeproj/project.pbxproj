@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		533E57CA161A2B9500984500 /* OCSRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 533E57C9161A2B9500984500 /* OCSRandom.m */; };
 		C42B1F4A15F31375006032F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42B1F4915F31375006032F9 /* UIKit.framework */; };
 		C42B1F4C15F31375006032F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42B1F4B15F31375006032F9 /* Foundation.framework */; };
 		C42B1F4E15F31375006032F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42B1F4D15F31375006032F9 /* CoreGraphics.framework */; };
@@ -112,6 +113,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		533E57C8161A2B9500984500 /* OCSRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandom.h; sourceTree = "<group>"; };
+		533E57C9161A2B9500984500 /* OCSRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandom.m; sourceTree = "<group>"; };
 		C42B1F4515F31375006032F9 /* Explorable Explanations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Explorable Explanations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42B1F4915F31375006032F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C42B1F4B15F31375006032F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -787,6 +790,8 @@
 				C4D1F7EA160FC6D600DEBD82 /* OCSPluckString.m */,
 				C4D1F7EB160FC6D600DEBD82 /* OCSSegmentArray.h */,
 				C4D1F7EC160FC6D600DEBD82 /* OCSSegmentArray.m */,
+				533E57C8161A2B9500984500 /* OCSRandom.h */,
+				533E57C9161A2B9500984500 /* OCSRandom.m */,
 			);
 			path = "Signal Generators";
 			sourceTree = "<group>";
@@ -1047,6 +1052,7 @@
 				C4D1F864160FC6D600DEBD82 /* OCSInstrumentProperty.m in Sources */,
 				C4D1F865160FC6D600DEBD82 /* OCSNoteProperty.m in Sources */,
 				C4D1F866160FC6D600DEBD82 /* OCSProperty.m in Sources */,
+				533E57CA161A2B9500984500 /* OCSRandom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
