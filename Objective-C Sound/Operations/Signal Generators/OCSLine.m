@@ -46,7 +46,7 @@
 //Csound Prototype: (a/k)res line ia, idur, ib
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ line %@, %@, %@", res, ia, idur, ib];
+    return [NSString stringWithFormat:@"%@ linseg %@, %@, %@", res, ia, idur, ib];
 }
 
 - (NSString *)description {
