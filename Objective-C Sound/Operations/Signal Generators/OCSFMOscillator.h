@@ -58,12 +58,12 @@ tables of 2K, 4K or 8K points if the space is available.
 /// @param phase                Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1).
 /// A negative value will cause phase initialization to be skipped.
 - (id)initWithFTable:(OCSFTable *)fTable
+               phase:(OCSConstant *)phase
        baseFrequency:(OCSControl *)baseFrequency
    carrierMultiplier:(OCSParameter *)carrierMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier
      modulationIndex:(OCSControl *)modulationIndex
-           amplitude:(OCSParameter *)amplitude
-               phase:(OCSConstant *)phase;
+           amplitude:(OCSParameter *)amplitude;
 
 /// Initializes a frequency modulated oscillator with linear interpolation with no phasing.
 /// @param fTable        Function table to use.  Requires a wrap-around guard point.

@@ -28,9 +28,9 @@
 @synthesize output;
 
 - (id)initWithFTable:(OCSFTable *)fTable
+               phase:(OCSConstant *)initialPhase
            frequency:(OCSParameter *)frequency
-           amplitude:(OCSParameter *)amplitude 
-               phase:(OCSConstant *)initialPhase;
+           amplitude:(OCSParameter *)amplitude;
 {
     self = [super init];
     if (self) {
@@ -50,9 +50,9 @@
            amplitude:(OCSParameter *)amplitude;
 {
     return [self initWithFTable:fTable
+                          phase:[OCSConstant parameterWithInt:0]
                       frequency:frequency
-                      amplitude:amplitude 
-                          phase:[OCSConstant parameterWithInt:0]];
+                      amplitude:amplitude];
 }
 
 - (void)setControl:(OCSControl *)p {

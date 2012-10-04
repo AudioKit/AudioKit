@@ -32,9 +32,9 @@
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
 - (id)initWithFTable:(OCSFTable *)fTable
+               phase:(OCSConstant *)initialPhase
            frequency:(OCSParameter *)frequency
-           amplitude:(OCSParameter *)amplitude 
-               phase:(OCSConstant *)initialPhase;
+           amplitude:(OCSParameter *)amplitude;
 
 /// Instantiates the oscillator.
 /// @param fTable Requires a wrap-around guard point.
