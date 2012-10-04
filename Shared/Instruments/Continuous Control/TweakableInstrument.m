@@ -45,18 +45,18 @@
         OCSSineTable *sineTable = [[OCSSineTable alloc] init];
         [self addFTable:sineTable];
         
-        OCSFMOscillator *fmOscillator;
-        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:[amplitude control] 
-                                                    baseFrequency:[frequency control] 
-                                                carrierMultiplier:ocsp(1) 
-                                             modulatingMultiplier:[modulation control] 
-                                                  modulationIndex:[modIndex control] 
-                                                           fTable:sineTable];
-        [self connect:fmOscillator];
+        OCSFMOscillator *fmOscil;
+        fmOscil = [[OCSFMOscillator alloc] initWithFTable:sineTable
+                                            baseFrequency:[frequency control]
+                                        carrierMultiplier:ocsp(1)
+                                     modulatingMultiplier:[modulation control]
+                                          modulationIndex:[modIndex control]
+                                                amplitude:[amplitude control]];
+        [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscillator output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscil output]];
         [self connect:audio];
         
         /*

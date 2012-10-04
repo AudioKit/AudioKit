@@ -60,19 +60,18 @@
         [self addFTable:sine];
 
         OCSFMOscillator *fmOscillator;
-        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:[amp control]
-                                                    baseFrequency:[freq control]
-                                                carrierMultiplier:[car control]
-                                             modulatingMultiplier:[mod control]
-                                                  modulationIndex:[index control]
-                                                           fTable:sine];
+        fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sine
+                                                 baseFrequency:[freq control]
+                                             carrierMultiplier:[car control]
+                                          modulatingMultiplier:[mod control]
+                                               modulationIndex:[index control]
+                                                     amplitude:[amp control]];
         [self connect:fmOscillator];
 
 
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[fmOscillator output]
-                                                   rightInput:[fmOscillator output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscillator output]];
         [self connect:audio];
     }
     return self;

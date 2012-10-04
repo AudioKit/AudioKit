@@ -55,7 +55,7 @@
    afterDuration:(float)timeSinceLastEventStarted;
 {
     [events addObject:event];
-    NSNumber *time = [NSNumber numberWithFloat:0.0];
+    NSNumber *time = @0.0;
     if ([times count] > 0) {
         //OCSEvent *lastEvent = [events lastObject];
         time = [NSNumber numberWithFloat:([[times lastObject] floatValue] + timeSinceLastEventStarted)];

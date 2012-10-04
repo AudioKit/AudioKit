@@ -54,18 +54,18 @@
         [self connect:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
-        OCSFMOscillator *fmOscillator;
-        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.4)
-                                                    baseFrequency:[baseFrequencyLine control]
-                                                carrierMultiplier:ocsp(1) 
-                                             modulatingMultiplier:[myLine output]
-                                                  modulationIndex:[modIndexLine control]
-                                                           fTable:sine];
-        [self connect:fmOscillator];
-
+        OCSFMOscillator *fmOscil;
+        fmOscil = [[OCSFMOscillator alloc] initWithFTable:sine
+                                            baseFrequency:[baseFrequencyLine control]
+                                        carrierMultiplier:ocsp(1)
+                                     modulatingMultiplier:[myLine output]
+                                          modulationIndex:[modIndexLine control]
+                                                amplitude:ocsp(0.4)];
+        [self connect:fmOscil];
+        
         // AUDIO OUTPUT ========================================================
-
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscillator output]];
+        
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscil output]];
         [self connect:audio];
     }
     return self;

@@ -57,12 +57,12 @@
         OCSControl *bentFreq;
         bentFreq = [[OCSControl alloc] initWithExpression:[NSString stringWithFormat:@"%@  * %@", note.frequency, pitchBend]];
         
-        OCSFMOscillator *fm = [[OCSFMOscillator alloc] initWithAmplitude:[note.volume constant]
-                                                           baseFrequency:bentFreq
-                                                       carrierMultiplier:ocsp(2)
-                                                    modulatingMultiplier:[modulation control]
-                                                         modulationIndex:ocsp(15)
-                                                                  fTable:sine];
+        OCSFMOscillator *fm = [[OCSFMOscillator alloc] initWithFTable:sine
+                                                        baseFrequency:bentFreq
+                                                    carrierMultiplier:ocsp(2)
+                                                 modulatingMultiplier:[modulation control]
+                                                      modulationIndex:ocsp(15)
+                                                            amplitude:[note.volume constant]];
         [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter = [[OCSLowPassButterworthFilter alloc]

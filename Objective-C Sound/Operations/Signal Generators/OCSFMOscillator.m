@@ -34,13 +34,13 @@
 @synthesize phase = phs;
 @synthesize output;
 
-- (id)initWithAmplitude:(OCSParameter *)amplitude
-          baseFrequency:(OCSControl *)baseFrequency
-      carrierMultiplier:(OCSParameter *)carrierMultiplier
-   modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-        modulationIndex:(OCSControl *)modulationIndex
-                 fTable:(OCSFTable *)fTable
-                  phase:(OCSConstant *)phase;
+- (id)initWithFTable:(OCSFTable *)fTable
+       baseFrequency:(OCSControl *)baseFrequency
+   carrierMultiplier:(OCSParameter *)carrierMultiplier
+modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+     modulationIndex:(OCSControl *)modulationIndex
+           amplitude:(OCSParameter *)amplitude
+               phase:(OCSConstant *)phase;
 {
     self = [super init];
     if ( self ) {
@@ -56,20 +56,20 @@
     return self;
 }
 
-- (id)initWithAmplitude:(OCSParameter *)amplitude
-          baseFrequency:(OCSControl *)baseFrequency
-      carrierMultiplier:(OCSParameter *)carrierMultiplier
-   modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-        modulationIndex:(OCSControl *)modulationIndex
-                 fTable:(OCSFTable *)fTable;
+- (id)initWithFTable:(OCSFTable *)fTable
+       baseFrequency:(OCSControl *)baseFrequency
+   carrierMultiplier:(OCSParameter *)carrierMultiplier
+modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+     modulationIndex:(OCSControl *)modulationIndex
+           amplitude:(OCSParameter *)amplitude;
 {
-    return [self initWithAmplitude:amplitude
-                     baseFrequency:baseFrequency
-                 carrierMultiplier:carrierMultiplier
-              modulatingMultiplier:modulatingMultiplier
-                   modulationIndex:modulationIndex
-                     fTable:fTable
-                             phase:[OCSConstant parameterWithInt:0]];
+    return [self initWithFTable:fTable
+                  baseFrequency:baseFrequency
+              carrierMultiplier:carrierMultiplier
+           modulatingMultiplier:modulatingMultiplier
+                modulationIndex:modulationIndex
+                      amplitude:amplitude
+                          phase:[OCSConstant parameterWithInt:0]];
 }
 
 // Csound Prototype: ares foscili xamp, kcps, xcar, xmod, kndx, ifn (, iphs)

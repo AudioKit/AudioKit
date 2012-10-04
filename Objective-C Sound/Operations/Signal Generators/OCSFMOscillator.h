@@ -49,37 +49,34 @@ tables of 2K, 4K or 8K points if the space is available.
 /// @name Initialization
 
 /// Initializes a frequency modulated oscillator with linear interpolation.
-/// @param amplitude            The amplitude of the output signal.
+/// @param fTable        Function table to use.  Requires a wrap-around guard point.
 /// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
 /// @param carrierMultiplier    This multiplied by the baseFrequency gives the carrier frequency.
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
 /// @param modulationIndex      This multiplied by the modulating frequency gives the modulation amplitude.
-/// @param fTable        Function table to use.  Requires a wrap-around guard point.
-/// @param phase                Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). 
+/// @param amplitude            The amplitude of the output signal.
+/// @param phase                Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1).
 /// A negative value will cause phase initialization to be skipped.
-- (id)initWithAmplitude:(OCSParameter *)amplitude
-          baseFrequency:(OCSControl *)baseFrequency
-      carrierMultiplier:(OCSParameter *)carrierMultiplier
-   modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-        modulationIndex:(OCSControl *)modulationIndex
-                 fTable:(OCSFTable *)fTable
-                  phase:(OCSConstant *)phase;
+- (id)initWithFTable:(OCSFTable *)fTable
+       baseFrequency:(OCSControl *)baseFrequency
+   carrierMultiplier:(OCSParameter *)carrierMultiplier
+modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+     modulationIndex:(OCSControl *)modulationIndex
+           amplitude:(OCSParameter *)amplitude
+               phase:(OCSConstant *)phase;
 
 /// Initializes a frequency modulated oscillator with linear interpolation with no phasing.
-/// @param amplitude            The amplitude of the output signal.
+/// @param fTable        Function table to use.  Requires a wrap-around guard point.
 /// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
 /// @param carrierMultiplier    This multiplied by the baseFrequency gives the carrier frequency.
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
 /// @param modulationIndex      This multiplied by the modulating frequency gives the modulation amplitude.
-/// @param fTable        Function table to use.  Requires a wrap-around guard point.
-- (id)initWithAmplitude:(OCSParameter *)amplitude
-          baseFrequency:(OCSControl *)baseFrequency
-      carrierMultiplier:(OCSParameter *)carrierMultiplier
-   modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-        modulationIndex:(OCSControl *)modulationIndex
-                 fTable:(OCSFTable *)fTable;
-
-
-
+/// @param amplitude            The amplitude of the output signal.
+- (id)initWithFTable:(OCSFTable *)fTable
+       baseFrequency:(OCSControl *)baseFrequency
+   carrierMultiplier:(OCSParameter *)carrierMultiplier
+modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+     modulationIndex:(OCSControl *)modulationIndex
+           amplitude:(OCSParameter *)amplitude;
 
 @end
