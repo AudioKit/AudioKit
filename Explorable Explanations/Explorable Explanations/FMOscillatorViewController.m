@@ -11,9 +11,7 @@
 #import "FMOscillatorInstrument.h"
 
 @interface FMOscillatorViewController () {
-    UIWebView *webView;
-    
-    OCSEvent *startEvent;
+    UIWebView *webView;    
     OCSOrchestra *orchestra;
     FMOscillatorInstrument *fmOscillator;
 }
@@ -59,14 +57,10 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
     {
         NSString *action = (NSString *)[components objectAtIndex:1];
-        
-        if([action isEqualToString:@"start"] && !startEvent) {
-            startEvent = [[OCSEvent alloc] initWithInstrument:fmOscillator];
-            [startEvent trigger];
-            
-        } else if([action isEqualToString:@"stop"] && startEvent) {
-            [startEvent stop];
-            startEvent = nil;
+        if([action isEqualToString:@"start"]) {
+            [fmOscillator start];
+        } else if([action isEqualToString:@"stop"]) {
+            [fmOscillator stop];
             
         } else if([action isEqualToString:@"dict"]) {
             NSArray *keys   = [[components objectAtIndex:2] componentsSeparatedByString:@","];

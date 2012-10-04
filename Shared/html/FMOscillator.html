@@ -53,52 +53,23 @@
 
 <pre id="fmOscillator">
 fmOscillator = 
-[[OCSFMOscillator alloc] initWithAmplitude:ocsp(<span data-var="amplitude" 
-                                                 class="TKAdjustableNumber" 
-                                                 data-min="0" 
-                                                 data-max="1" 
-                                                 data-step="0.001" 
-                                                 data-format="%0.3f"></span>)
-                             baseFrequency:ocsp(<span data-var="frequency" 
-                                                 class="TKAdjustableNumber" 
-                                                 data-min="20" 
-                                                 data-max="20000" 
-                                                 data-step="1" 
-                                                 data-format="%0.0f"></span>)
-                         carrierMultiplier:ocsp(<span data-var="carrierMultiplier" 
-                                                 class="TKAdjustableNumber" 
-                                                 data-min="0.0" 
-                                                 data-max="3.0" 
-                                                 data-step="0.01" 
-                                                 data-format="%0.2f"></span>) 
-                      modulatingMultiplier:ocsp(<span data-var="modulatingMultiplier" 
-                                                 class="TKAdjustableNumber" 
-                                                 data-min="0.0" 
-                                                 data-max="3.0" 
-                                                 data-step="0.01" 
-                                                 data-format="%0.2f"></span>)
-                           modulationIndex:ocsp(<span data-var="modulationIndex" 
-                                                 class="TKAdjustableNumber" 
-                                                 data-min="0" 
-                                                 data-max="30" 
-                                                 data-step="0.1" 
-                                                 data-format="%0.1f"></span>)
-                                    fTable:sine];
-
+    [[OCSFMOscillator alloc] initWithFTable:sine
+                              baseFrequency:ocsp(<span data-var="frequency"            class="TKAdjustableNumber" data-min="20"  data-max="20000" data-step="1"     data-format="%0.0f"></span>) 
+                          carrierMultiplier:ocsp(<span data-var="carrierMultiplier"    class="TKAdjustableNumber" data-min="0.0" data-max="3.0"   data-step="0.01"  data-format="%0.2f"></span>)
+                       modulatingMultiplier:ocsp(<span data-var="modulatingMultiplier" class="TKAdjustableNumber" data-min="0.0" data-max="3.0"   data-step="0.01"  data-format="%0.2f"></span>)
+                            modulationIndex:ocsp(<span data-var="modulationIndex"      class="TKAdjustableNumber" data-min="0"   data-max="30"    data-step="0.1"   data-format="%0.1f"></span>)
+                                  amplitude:ocsp(<span data-var="amplitude"            class="TKAdjustableNumber" data-min="0"   data-max="1"     data-step="0.001" data-format="%0.3f"></span>);
 
 </pre>
 Start the sound:<br>
-<div id="start" class="white button">
-sound = [[OCSEvent alloc] initWithInstrument:fmOscillator];<br>
-[sound trigger];
-</div>
+<div id="start" class="white button">[fmOscillator start];</div>
 <p>
 Stop the sound:<br>
-<div id="stop" class="white button">[sound stop];</div>
+<div id="stop" class="white button">[fmOscillator stop];</div>
 <script>
 (function ($) {
    $('#start').click(function() { window.location = 'tangleapp:start';})
-   $('#stop').click(function()  { window.location = 'tangleapp:stop'; })
+   $('#stop' ).click(function() { window.location = 'tangleapp:stop'; })
 }(jQuery));
 </script>
 

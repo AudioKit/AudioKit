@@ -40,12 +40,12 @@
         [self addFTable:sineTable];
         
         OCSFMOscillator *fmOscillator;
-        fmOscillator = [[OCSFMOscillator alloc] initWithAmplitude:ocsp(0.2)
-                                                    baseFrequency:[note.frequency constant]
-                                                carrierMultiplier:ocsp(2)
-                                             modulatingMultiplier:[mod control]
-                                                  modulationIndex:ocsp(15)
-                                                           fTable:sineTable];
+        fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sineTable
+                                                 baseFrequency:[note.frequency constant]
+                                             carrierMultiplier:ocsp(2)
+                                          modulatingMultiplier:[mod control]
+                                               modulationIndex:ocsp(15)
+                                                     amplitude:ocsp(0.2)];
         [self connect:fmOscillator];
         
         
