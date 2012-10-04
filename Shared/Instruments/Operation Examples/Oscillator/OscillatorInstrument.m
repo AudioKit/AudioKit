@@ -48,8 +48,7 @@
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
                                               frequency:[freq control]
-                                              amplitude:[amp control]
-                                                  phase:ocsp(0)];
+                                              amplitude:[amp control]];
         [self connect:myOscil];
         
 

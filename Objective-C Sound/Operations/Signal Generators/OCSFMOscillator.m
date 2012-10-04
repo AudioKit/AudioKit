@@ -35,12 +35,13 @@
 @synthesize output;
 
 - (id)initWithFTable:(OCSFTable *)fTable
+
+               phase:(OCSConstant *)phase
        baseFrequency:(OCSControl *)baseFrequency
    carrierMultiplier:(OCSParameter *)carrierMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier
      modulationIndex:(OCSControl *)modulationIndex
-           amplitude:(OCSParameter *)amplitude
-               phase:(OCSConstant *)phase;
+           amplitude:(OCSParameter *)amplitude;
 {
     self = [super init];
     if ( self ) {
@@ -64,12 +65,12 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
            amplitude:(OCSParameter *)amplitude;
 {
     return [self initWithFTable:fTable
+                          phase:[OCSConstant parameterWithInt:0]
                   baseFrequency:baseFrequency
               carrierMultiplier:carrierMultiplier
            modulatingMultiplier:modulatingMultiplier
                 modulationIndex:modulationIndex
-                      amplitude:amplitude
-                          phase:[OCSConstant parameterWithInt:0]];
+                      amplitude:amplitude];
 }
 
 // Csound Prototype: ares foscili xamp, kcps, xcar, xmod, kndx, ifn (, iphs)
