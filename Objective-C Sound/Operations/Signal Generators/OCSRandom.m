@@ -10,13 +10,13 @@
 
 @interface OCSRandom()
 {
-    OCSParameter *minimum;
-    OCSParameter *maximum;
-
     OCSConstant *constant;
     OCSControl *control;
     OCSParameter *audio;
     OCSParameter *output;
+    
+    OCSParameter *min;
+    OCSParameter *max;
 
 }
 @end
@@ -27,8 +27,8 @@
 @synthesize audio;
 @synthesize output;
 
--(id)initWithMinimumValue:(OCSParameter *)minimumRange
-             maximumValue:(OCSParameter *)maximumRange
+-(id)initWithMinimum:(OCSParameter *)minimum
+             maximum:(OCSParameter *)maximum
 {
     if( self = [super init]) {
         constant = [OCSConstant parameterWithString:[self operationName]];
@@ -36,8 +36,8 @@
         audio = [OCSParameter parameterWithString:[self operationName]];
         output = audio;
         
-        minimum = minimumRange;
-        maximum = maximumRange;
+        min = minimumRange;
+        max = maximumRange;
     }
     return self;
 }
@@ -55,8 +55,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ random %@, %@",
-            output, minimum, maximum];
+            @"%@ random %@, %@", output, min, max];
 }
 
 - (NSString *)description {
