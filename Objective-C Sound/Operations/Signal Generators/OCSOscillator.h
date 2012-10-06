@@ -27,8 +27,8 @@
 /// @name Initialization
 
 /// Instantiates the oscillator with an initial phase of sampling.
-/// @param fTable Requires a wrap-around guard point.
-/// @param initialPhase  Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. 
+/// @param fTable        Requires a wrap-around guard point.
+/// @param initialPhase  Initial phase of sampling, expressed as a fraction of a cycle (0 to 
 /// @param amplitude     Amplitude of the output
 /// @param frequency     Frequency in cycles per second.
 - (id)initWithFTable:(OCSFTable *)fTable
@@ -38,8 +38,8 @@
 
 /// Instantiates the oscillator.
 /// @param fTable Requires a wrap-around guard point.
-/// @param amplitude     Amplitude of the output
-/// @param frequency     Frequency in cycles per second.
+/// @param amplitude Amplitude of the output
+/// @param frequency Frequency in cycles per second.
 - (id)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSParameter *)frequency
            amplitude:(OCSParameter *)amplitude;
