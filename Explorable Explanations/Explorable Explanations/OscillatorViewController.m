@@ -62,7 +62,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         
         if([action isEqualToString:@"start"] && !startEvent) {
             startEvent = [[OCSEvent alloc] initWithInstrument:oscillator];
-            [startEvent trigger];
+            [startEvent start];
             
         } else if([action isEqualToString:@"stop"] && startEvent) {
             [startEvent stop];

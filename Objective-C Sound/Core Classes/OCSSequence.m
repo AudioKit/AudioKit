@@ -84,7 +84,7 @@
 - (void)playNextEventInSequence:(NSTimer *)aTimer;
 {
     OCSEvent *event = [events objectAtIndex:index];
-    [[OCSManager sharedOCSManager] triggerEvent:event];
+    [[OCSManager sharedOCSManager] startEvent:event];
 
     if (index < [times count]-1 && isPlaying) {
         float timeUntilNextEvent = [[times objectAtIndex:index+1] floatValue] - [[times objectAtIndex:index] floatValue];

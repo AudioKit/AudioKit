@@ -142,15 +142,15 @@ static int currentID = 1;
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
 
-- (void)trigger;
+- (void)start;
 {
-    [[OCSManager sharedOCSManager] triggerEvent:self];
+    [[OCSManager sharedOCSManager] startEvent:self];
 }
 
 - (void)stop;
 {
-    OCSEvent *stopEvent = [[OCSEvent alloc] initDeactivation:self afterDuration:0.0];
-    [[OCSManager sharedOCSManager] triggerEvent:stopEvent];
+    OCSEvent *stoppage = [[OCSEvent alloc] initDeactivation:self afterDuration:0.0];
+    [[OCSManager sharedOCSManager] startEvent:stoppage];
 }
 
 - (NSString *)stringForCSD;

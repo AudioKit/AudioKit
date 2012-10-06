@@ -174,7 +174,7 @@ static OCSManager *_sharedOCSManager = nil;
     while(isRunning) {} // Do nothing
 }
 
-- (void)triggerEvent:(OCSEvent *)event  
+- (void)startEvent:(OCSEvent *)event
 {
     [event runBlock];
     [csound sendScore:[event stringForCSD]];

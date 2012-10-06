@@ -74,7 +74,7 @@
 // -----------------------------------------------------------------------------
 
 /// Helper method to play the event.
-- (void)trigger;
+- (void)start;
 
 /// Helper method to stop an event.
 - (void)stop;
