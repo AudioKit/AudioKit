@@ -64,12 +64,11 @@ oscillator =
 </pre>
 Start the sound:<br>
 <div id="start" class="white button">
-sound = [[OCSEvent alloc] initWithInstrument:oscillator];<br>
-[sound trigger];
+[oscillator start];
 </div>
 <p>
 Stop the sound:<br>
-<div id="stop" class="white button">[sound stop];</div>
+<div id="stop" class="white button">[oscillator stop];</div>
 <script>
 (function ($) {
    $('#start').click(function() { window.location = 'tangleapp:start';})

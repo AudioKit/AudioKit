@@ -36,8 +36,8 @@
         audio = [OCSParameter parameterWithString:[self operationName]];
         output = audio;
         
-        min = minimumRange;
-        max = maximumRange;
+        min = minimum;
+        max = maximum;
     }
     return self;
 }

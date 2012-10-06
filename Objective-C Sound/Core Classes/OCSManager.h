@@ -41,7 +41,7 @@
 
 /// Writes a scoreline to start playing an instrument.
 /// @param event OCS Event
-- (void)triggerEvent:(OCSEvent *)event;
+- (void)startEvent:(OCSEvent *)event;
 
 - (void)stopInstrument:(OCSInstrument *)instrument;
 
