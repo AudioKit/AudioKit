@@ -106,8 +106,10 @@
 /// @param orchestraToJoin Orchestra to which the instrument belongs.
 - (void)joinOrchestra:(OCSOrchestra *)orchestraToJoin;
 
-/// @returns The complete textual respresentation of the instrument in CSD form.
+/// The textual respresentation of the instrument in CSD form.
 - (NSString *)stringForCSD;
+
+/// The CSD line that deactivates all notes created by the instrument
 - (NSString *)stopStringForCSD;
 
 /// Create a score line entry for starting the note immediately
@@ -116,6 +118,8 @@
 
 /// For instruments that do not create note instances, play the instrument with play.
 - (void)play;
+
+/// Stop all notes created by the instrument
 - (void)stop;
 
 

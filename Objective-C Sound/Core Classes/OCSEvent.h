@@ -50,11 +50,16 @@
 - (id)initWithNote:(OCSNote *)newNote;
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Event Based Events
+#  pragma mark - Block Based Events
 // -----------------------------------------------------------------------------
 
-- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock;
+//- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock;
+
+/// Create an event from the code block given
+/// @param aBlock Code to run when the event is started
 - (id)initWithBlock:(void (^)())aBlock;
+
+/// Execute the block of code stored in the event.
 - (void)runBlock;
 
 /// When creating a sequence of events that affect the same note, this function is useful.

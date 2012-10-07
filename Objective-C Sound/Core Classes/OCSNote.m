@@ -52,10 +52,6 @@ static int currentID = 1;
     [[OCSManager sharedOCSManager] stopNote:self];
 }
 
-- (void)updateProperties {
-    [[OCSManager sharedOCSManager] updateNote:self];
-}
-
 - (NSString *)stringForCSD;
 {
     scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];

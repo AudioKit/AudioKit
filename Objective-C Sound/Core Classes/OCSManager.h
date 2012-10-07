@@ -21,9 +21,8 @@
 /// Determines whether or not Csound is available to send events to.
 @property (readonly) BOOL isRunning;
 
+/// Common midi property shared across the application
 @property (readonly) OCSMidi *midi;
-
-//@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
 
 /// @returns the shared instance of OCSManager
 + (OCSManager *)sharedOCSManager;
@@ -43,9 +42,16 @@
 /// @param event OCS Event
 - (void)startEvent:(OCSEvent *)event;
 
+/// Stop all notes of an instrument
+/// @param instrument The instrument that needs to be turned off.
 - (void)stopInstrument:(OCSInstrument *)instrument;
 
+/// Stop playback of a given note
+/// @param note Note to stop
 - (void)stopNote:(OCSNote *)note;
+
+/// Update playback of a given note
+/// @param note Note to update
 - (void)updateNote:(OCSNote *)note;
 
 /// Helper function to get the string out of a file.
