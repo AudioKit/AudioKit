@@ -31,7 +31,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         if (currentID > 99000) {
-            [OCSEvent resetID];
+            [OCSNote resetID];
         }
         _myID = currentID++;
         

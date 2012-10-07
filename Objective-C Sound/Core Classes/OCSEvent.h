@@ -26,7 +26,7 @@
 // -----------------------------------------------------------------------------
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void)resetID;
+///+ (void)resetID;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Instrument Based Events
@@ -34,12 +34,12 @@
 
 /// Create an event with an infinite duration on the specified instrument.
 /// @param instrument Activated instrument.
-- (id)initWithInstrument:(OCSInstrument *)instrument;
+///- (id)initWithInstrument:(OCSInstrument *)instrument;
 
 /// Create an event with a fixed duration on the specified instrument.
 /// @param instrument Activated instrument.
 /// @param duration   Length of the event in seconds.
-- (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
+///- (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
 
 
 // -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@
 // -----------------------------------------------------------------------------
 
 @property (nonatomic, strong) OCSNote *note;
-- (id)initWithNote:(OCSNote *)newNote;
+///- (id)initWithNote:(OCSNote *)newNote;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Block Based Events
@@ -71,8 +71,8 @@
 /// Send a note-off message to an event.
 /// @param event The event to be turned off.
 /// @param delay The time to wait before deactivation.
-- (id)initDeactivation:(OCSEvent *)event
-         afterDuration:(float)delay;
+///- (id)initDeactivation:(OCSEvent *)event
+///         afterDuration:(float)delay;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
@@ -82,10 +82,10 @@
 - (void)start;
 
 /// Helper method to stop an event.
-- (void)stop;
+///- (void)stop;
 
 /// Provides the scoreline to the CSD File.
-- (NSString *)stringForCSD;
+///- (NSString *)stringForCSD;
 
 @end
 

@@ -81,6 +81,10 @@ static int currentID = 1;
     return self;
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Block Based Events
+// -----------------------------------------------------------------------------
+
 - (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock {
     self = [self initWithNote:newNote];
     if (self) {
