@@ -13,6 +13,7 @@
 
 @interface OCSMidi() {
     MIDIClientRef client;
+    NSMutableSet *listeners;
 }
 @end
 

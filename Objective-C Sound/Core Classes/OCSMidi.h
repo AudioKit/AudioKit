@@ -38,7 +38,7 @@
            velocity:(int)velocity
             channel:(int)channel;
 
-/// Receive aftertouch event
+/// Receive single note based aftertouch event
 /// @param note     Note number of touched note
 /// @param pressure Pressure applied to the note (0-127)
 /// @param channel  MIDI Channel (1-16)
@@ -46,25 +46,57 @@
                     pressure:(int)pressure
                      channel:(int)channel;
 
+/// Receive a generic controller value
+/// @param controller MIDI Controller Number
+/// @param value      Value of this controller
+/// @param channel    MIDI Channel (1-16)
 - (void)midiController:(int)controller
         changedToValue:(int)value
                channel:(int)channel;
 
+/// Receive global aftertouch
+/// @param pressure Pressure applied (0-127)
+/// @param channel  MIDI Channel (1-16)
 - (void)midiAftertouch:(int)pressure
                channel:(int)channel;
 
+/// Receive pitch wheel value
+/// @param pitchWheelValue MIDI Pitch Wheel Value (0-127)
+/// @param channel         MIDI Channel (1-16)
 - (void)midiPitchWheel:(int)pitchWheelValue
                channel:(int)channel;
 
 // -----------------------------------------------------------------------------
 # pragma mark - OCSMidiListener Protocol - Named Controllers
 // -----------------------------------------------------------------------------
-
+/// Receive modulation controllervalue
+/// @param modulation Modulation value
+/// @param channel    MIDI Channel (1-16)
 - (void)midiModulation:(int)modulation channel:(int)channel;
+
+/// Receive portamento controller value
+/// @param portamento Portamento value
+/// @param channel    MIDI Channel (1-16)
 - (void)midiPortamento:(int)portamento channel:(int)channel;
-- (void)midiVolume:(int)volume         channel:(int)channel;
-- (void)midiBalance:(int)balance       channel:(int)channel;
-- (void)midiPan:(int)pan               channel:(int)channel;
+
+/// Receive value controller value
+/// @param volume Volume (Loudness)
+/// @param channel  MIDI Channel (1-16)
+- (void)midiVolume:(int)volume channel:(int)channel;
+
+/// Receive balance controller value
+/// @param balance Left-right balance (Left 0-63, Center 64, Right 65-127)
+/// @param channel MIDI Channel (1-16)
+- (void)midiBalance:(int)balance channel:(int)channel;
+
+/// Receive pan controller value
+/// @param pan     Pan (Left 0-63, Center 64, Right 65-127)
+/// @param channel MIDI Channel (1-16)
+- (void)midiPan:(int)pan channel:(int)channel;
+
+/// Receive expression controller value
+/// @param expression Expression (usually as a pedal)
+/// @param channel    MIDI Channel (1-16)
 - (void)midiExpression:(int)expression channel:(int)channel;
 
 @end
@@ -76,13 +108,13 @@
 /** OCSMidi is the object that handles the MIDI input and output from OCS.
  */
 
-@interface OCSMidi : NSObject {
-    NSMutableSet *listeners;
-}
+@interface OCSMidi : NSObject 
 
 /// A set of all listeners "subscribed" to MIDI Messages.
 @property (nonatomic, strong) NSMutableSet *listeners;
 
+/// Add listener to a list of notified listeners
+/// @param listener Object that implements the OCSMidiListener protocol
 -(void)addListener:(id<OCSMidiListener>)listener;
 
 /// Create midi client and connect to all available midi input sources.
