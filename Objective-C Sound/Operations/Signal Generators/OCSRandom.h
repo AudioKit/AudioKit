@@ -33,7 +33,7 @@
 /// Instantiates the oscillator with an initial phase of sampling.
 /// @param minimum minimum range limit
 /// @param maximum maximum range limit
-- (id)initWithMinimum:(OCSParameter *)minimum
-              maximum:(OCSParameter *)maximum;
+- (id)initWithMinimum:(OCSControl *)minimum
+              maximum:(OCSControl *)maximum;
 
 @end
