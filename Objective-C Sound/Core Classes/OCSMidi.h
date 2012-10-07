@@ -49,11 +49,11 @@
 // -----------------------------------------------------------------------------
 
 - (void)midiModulation:(int)modulation channel:(int)channel;
-- (void)midiPortamento:(int)modulation channel:(int)channel;
-- (void)midiVolume:(int)modulation     channel:(int)channel;
-- (void)midiBalance:(int)modulation    channel:(int)channel;
-- (void)midiPan:(int)modulation        channel:(int)channel;
-- (void)midiExpression:(int)modulation channel:(int)channel;
+- (void)midiPortamento:(int)portamento channel:(int)channel;
+- (void)midiVolume:(int)volume         channel:(int)channel;
+- (void)midiBalance:(int)balance       channel:(int)channel;
+- (void)midiPan:(int)pan               channel:(int)channel;
+- (void)midiExpression:(int)expression channel:(int)channel;
 
 @end
 
