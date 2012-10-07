@@ -166,11 +166,15 @@ static int currentID = 1;
 
 - (void)playForDuration:(float)playDuration 
 {
-    OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:self];
-    [noteOn start];
-    OCSEvent *noteOff = [[OCSEvent alloc] initDeactivation:noteOn 
-                                             afterDuration:playDuration];
-    [noteOff start];
+    OCSSequence *onOffSequence = [[OCSSequence alloc] init];
+    OCSNote *myNote = [[OCSNote alloc] initWithInstrument:self];
+    OCSEvent *myNoteOn = [[OCSEvent alloc] initWithNote:myNote];
+    OCSEvent *myNoteOff = [[OCSEvent alloc] initWithBlock:^{
+        [myNote stop];
+    }];
+    [onOffSequence addEvent:myNoteOn];
+    [onOffSequence addEvent:myNoteOff afterDuration:playDuration];
+    [onOffSequence play];
 }
 
 - (void)play

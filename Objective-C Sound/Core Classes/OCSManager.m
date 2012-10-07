@@ -134,7 +134,7 @@ static OCSManager *_sharedOCSManager = nil;
     // Clean up the IDs for next time
     [OCSParameter resetID];
     [OCSInstrument resetID];
-    [OCSEvent resetID];
+    [OCSNote resetID];
     
     // Pause to allow Csound to start, warn if nothing happens after 1 second
     int cycles = 0;
@@ -174,10 +174,10 @@ static OCSManager *_sharedOCSManager = nil;
     while(isRunning) {} // Do nothing
 }
 
-- (void)startEvent:(OCSEvent *)event
+- (void)triggerEvent:(OCSEvent *)event
 {
+    [event playNote];
     [event runBlock];
-    [csound sendScore:[event stringForCSD]];
 }
 
 - (void)stopInstrument:(OCSInstrument *)instrument

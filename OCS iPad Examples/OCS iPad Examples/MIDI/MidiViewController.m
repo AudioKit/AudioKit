@@ -102,9 +102,8 @@
 {
     _channel = channel;
     _note    = note;
-    OCSEvent *noteOnEvent = [currentNotes objectForKey:
-                             [NSNumber numberWithInt:note]];
-    [noteOnEvent stop];
+    OCSNote *noteOn = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
+    [noteOn stop];
 }
     
 
