@@ -9,83 +9,42 @@
 #import "OCSInstrument.h"
 #import "OCSNote.h"
 
-/** Analogous to a MIDI event, an OCS Event can be a note on or off command
- or a control property change.
+/** Analogous to a MIDI event, an OCS Event can be based on a OCSNote such as
+ a note on, note off, note property change, or it can be a block containing
+ intrument property changes.  The block can 
  */
 
 @interface OCSEvent : NSObject
-
-/// Unique Identifier for the event
-@property (readonly) float eventNumber;
-
-/// The instrument the event is targeting.
-@property (nonatomic, strong) OCSInstrument *instrument;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void)resetID;
-
-// -----------------------------------------------------------------------------
-#  pragma mark - Instrument Based Events
-// -----------------------------------------------------------------------------
-
-/// Create an event with an infinite duration on the specified instrument.
-/// @param instrument Activated instrument.
-- (id)initWithInstrument:(OCSInstrument *)instrument;
-
-/// Create an event with a fixed duration on the specified instrument.
-/// @param instrument Activated instrument.
-/// @param duration   Length of the event in seconds.
-- (id)initWithInstrument:(OCSInstrument *)instrument duration:(float)duration;
-
-
-// -----------------------------------------------------------------------------
-#  pragma mark - Note Based Events
-// -----------------------------------------------------------------------------
-
 @property (nonatomic, strong) OCSNote *note;
+
+/// Create an event with a note
 - (id)initWithNote:(OCSNote *)newNote;
 
-// -----------------------------------------------------------------------------
-#  pragma mark - Block Based Events
-// -----------------------------------------------------------------------------
-
-//- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock;
+/// Create an event with a note and a block
+- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock;
 
 /// Create an event from the code block given
 /// @param aBlock Code to run when the event is started
 - (id)initWithBlock:(void (^)())aBlock;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Event actions
+// -----------------------------------------------------------------------------
+
+/// Play the stored note
+- (void)playNote;
+
 /// Execute the block of code stored in the event.
 - (void)runBlock;
 
-/// When creating a sequence of events that affect the same note, this function is useful.
-/// @param event The event that you want to use as the basis for the next event.
-- (id)initWithEvent:(OCSEvent *)event;
-
-
-
-/// Send a note-off message to an event.
-/// @param event The event to be turned off.
-/// @param delay The time to wait before deactivation.
-- (id)initDeactivation:(OCSEvent *)event
-         afterDuration:(float)delay;
-
-// -----------------------------------------------------------------------------
-#  pragma mark - Csound Implementation
-// -----------------------------------------------------------------------------
-
 /// Helper method to start the event.
-- (void)start;
+- (void)trigger;
 
-/// Helper method to stop an event.
-- (void)stop;
-
-/// Provides the scoreline to the CSD File.
-- (NSString *)stringForCSD;
 
 @end
 
