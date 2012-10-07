@@ -74,7 +74,7 @@
     _channel = channel;
     _note    = note;
     OCSNote *endingNote = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
-    [endingNote kill];
+    [endingNote stop];
 }
 
 

@@ -57,8 +57,8 @@
         
         [sequence addEvent:updateNote atTime:duration*i];
         
-        OCSEvent *killNote = [[OCSEvent alloc] initWithBlock:^{[note kill];}];
-        [sequence addEvent:killNote atTime:duration*(i+0.5)];
+        OCSEvent *stopNote = [[OCSEvent alloc] initWithBlock:^{[note stop];}];
+        [sequence addEvent:stopNote atTime:duration*(i+0.5)];
     }
     
     [sequence play];
@@ -80,8 +80,8 @@
         [sequence addEvent:update atTime:duration*i];
     }
 
-    OCSEvent *killNote = [[OCSEvent alloc] initWithBlock:^{[note kill];}];
-    [sequence addEvent:killNote atTime:duration*(13)];
+    OCSEvent *stopNote = [[OCSEvent alloc] initWithBlock:^{[note stop];}];
+    [sequence addEvent:stopNote atTime:duration*(13)];
     
     [sequence play];
 }
@@ -114,8 +114,8 @@
         [sequence addEvent:update atTime:duration*(i+13)];
     }
     
-    OCSEvent *killNote = [[OCSEvent alloc] initWithBlock:^{[note kill];}];
-    [sequence addEvent:killNote atTime:duration*(13)];
+    OCSEvent *stopNote = [[OCSEvent alloc] initWithBlock:^{[note stop];}];
+    [sequence addEvent:stopNote atTime:duration*(13)];
     
     [sequence play];
 }

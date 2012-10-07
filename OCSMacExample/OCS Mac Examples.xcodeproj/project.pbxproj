@@ -160,8 +160,6 @@
 		C45ECB8B15F5F90500F9B542 /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C45ECB8D15F5F90500F9B542 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
 		C45ECB8E15F5F90500F9B542 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
-		C45ECB8F15F5F90500F9B542 /* ReverbOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ReverbOrchestra.h; sourceTree = "<group>"; };
-		C45ECB9015F5F90500F9B542 /* ReverbOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbOrchestra.m; sourceTree = "<group>"; };
 		C45ECB9115F5F90500F9B542 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ToneGenerator.h; sourceTree = "<group>"; };
 		C45ECB9215F5F90500F9B542 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
 		C45ECB9415F5F90500F9B542 /* SequenceInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SequenceInstrument.h; sourceTree = "<group>"; };
@@ -541,8 +539,6 @@
 			children = (
 				C45ECB8D15F5F90500F9B542 /* EffectsProcessor.h */,
 				C45ECB8E15F5F90500F9B542 /* EffectsProcessor.m */,
-				C45ECB8F15F5F90500F9B542 /* ReverbOrchestra.h */,
-				C45ECB9015F5F90500F9B542 /* ReverbOrchestra.m */,
 				C45ECB9115F5F90500F9B542 /* ToneGenerator.h */,
 				C45ECB9215F5F90500F9B542 /* ToneGenerator.m */,
 			);

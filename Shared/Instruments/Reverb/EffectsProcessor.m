@@ -40,8 +40,4 @@
     return self;
 }
 
-- (void)start {
-    [self playForDuration:10000.0f];
-}
-
 @end

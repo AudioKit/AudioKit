@@ -11,5 +11,6 @@
 - (IBAction)hit1:(id)sender;
 - (IBAction)hit2:(id)sender;
 - (IBAction)startFX:(id)sender;
+- (IBAction)stopFX:(id)sender;
 
 @end

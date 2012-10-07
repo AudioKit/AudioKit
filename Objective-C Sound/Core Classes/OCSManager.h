@@ -45,7 +45,7 @@
 
 - (void)stopInstrument:(OCSInstrument *)instrument;
 
-- (void)killNote:(OCSNote *)note;
+- (void)stopNote:(OCSNote *)note;
 - (void)updateNote:(OCSNote *)note;
 
 /// Helper function to get the string out of a file.
