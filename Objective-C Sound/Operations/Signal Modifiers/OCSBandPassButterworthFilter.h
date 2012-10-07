@@ -25,7 +25,7 @@
 /// Creates a band-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.
 /// @param centerFrequency Center frequency for each of the filters.
-/// @param bandwidth Bandwidth of the bandpass filter.
+/// @param bandwidthRange  Bandwidth of the bandpass filter.
 -(id)initWithInput:(OCSParameter *)inputSignal
    centerFrequency:(OCSControl *)centerFrequency
          bandwidth:(OCSControl *)bandwidthRange;
