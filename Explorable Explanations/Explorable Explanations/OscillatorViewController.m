@@ -59,7 +59,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     {
         NSString *action = (NSString *)[components objectAtIndex:1];
         
-        if([action isEqualToString:@"start"]) {
+        if([action isEqualToString:@"play"]) {
             [oscillator play];
         } else if([action isEqualToString:@"stop"]) {
             [oscillator stop];
