@@ -14,7 +14,6 @@
  of interest.
  */
 
-
 @protocol OCSMidiListener <NSObject>
 
 // -----------------------------------------------------------------------------
@@ -62,6 +61,8 @@
 #  pragma mark - OCS MIDI
 // -----------------------------------------------------------------------------
 
+/** OCSMidi is the object that handles the MIDI input and output from OCS.
+ */
 
 @interface OCSMidi : NSObject {
     NSMutableSet *listeners;

@@ -25,7 +25,7 @@
 /// Creates a band-reject Butterworth filter.
 /// @param inputSignal     The input to be filtered.
 /// @param centerFrequency Center frequency for each of the filters.
-/// @param bandwidth Bandwidth of the bandreject filter.
+/// @param bandwidthRange  Bandwidth of the bandreject filter.
 -(id)initWithInput:(OCSParameter *)inputSignal
    centerFrequency:(OCSControl *)centerFrequency
          bandwidth:(OCSControl *)bandwidthRange;
