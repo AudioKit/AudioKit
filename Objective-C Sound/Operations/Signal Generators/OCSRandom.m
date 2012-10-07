@@ -42,7 +42,8 @@
     return self;
 }
 
-- (void)setControl:(OCSControl *)p {
+- (void)setControl:(OCSControl *)p
+{
     control = p;
     output = control;
 }
@@ -54,8 +55,7 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ random %@, %@", output, min, max];
+    return [NSString stringWithFormat:@"%@ random %@, %@", output, min, max];
 }
 
 - (NSString *)description {
