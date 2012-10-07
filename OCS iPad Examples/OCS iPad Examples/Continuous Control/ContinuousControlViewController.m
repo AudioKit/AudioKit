@@ -63,7 +63,7 @@
     float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
                                                  to:kTweakableFrequencyMax];
     
-    [myTweakableInstrument start];
+    [myTweakableInstrument play];
     myTweakableInstrument.frequency.value = randomFrequency;
     
     if (repeatingNoteTimer) {

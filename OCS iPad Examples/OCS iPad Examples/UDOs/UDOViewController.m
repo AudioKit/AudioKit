@@ -28,7 +28,7 @@
 
 - (IBAction)playFrequency:(float)frequency
 {
-    [udoInstrument playNoteForDuration:1.0];    
+    [udoInstrument playForDuration:1.0];
     udoInstrument.frequency.value = frequency;
 }
 

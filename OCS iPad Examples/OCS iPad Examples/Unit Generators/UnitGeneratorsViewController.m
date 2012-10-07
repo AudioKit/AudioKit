@@ -29,12 +29,12 @@
 
 - (IBAction)hit1:(id)sender
 {
-    [unitGeneratorInstrument playNoteForDuration:9.0];
+    [unitGeneratorInstrument playForDuration:9.0];
 }
 
 - (IBAction)hit2:(id)sender
 {
-    [unitGeneratorInstrument playNoteForDuration:3.0];
+    [unitGeneratorInstrument playForDuration:3.0];
 }
 
 @end

@@ -57,8 +57,8 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
     {
         NSString *action = (NSString *)[components objectAtIndex:1];
-        if([action isEqualToString:@"start"]) {
-            [fmOscillator start];
+        if([action isEqualToString:@"play"]) {
+            [fmOscillator play];
         } else if([action isEqualToString:@"stop"]) {
             [fmOscillator stop];
             

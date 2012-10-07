@@ -158,7 +158,13 @@ static int currentID = 1;
     return (NSString *)text;
 }
 
-- (void)playNoteForDuration:(float)playDuration 
+- (NSString *)stopStringForCSD
+{
+    return [NSString stringWithFormat:@"i \"DeactivateInstrument\" 0 0.1 %i\n", _myID ];
+}
+
+
+- (void)playForDuration:(float)playDuration 
 {
     OCSEvent *noteOn = [[OCSEvent alloc] initWithInstrument:self];
     [noteOn start];
@@ -167,15 +173,10 @@ static int currentID = 1;
     [noteOff start];
 }
 
-- (void)start
+- (void)play
 {
     OCSNote *note = [[OCSNote alloc] initWithInstrument:self];
-    [note start];
-}
-
-- (NSString *)stopStringForCSD
-{
-    return [NSString stringWithFormat:@"i \"DeactivateInstrument\" 0 0.1 %i\n", _myID ];
+    [note play];
 }
 
 - (void)stop
