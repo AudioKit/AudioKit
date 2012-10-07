@@ -43,7 +43,7 @@
     return self; 
 }
 
-//Csound Prototype: (a/k)res line ia, idur, ib
+//Csound Prototype: (a/k)res linseg ia, idur, ib
 - (NSString *)stringForCSD 
 {
     return [NSString stringWithFormat:@"%@ linseg %@, %@, %@", res, ia, idur, ib];

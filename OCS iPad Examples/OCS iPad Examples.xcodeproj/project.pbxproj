@@ -32,6 +32,7 @@
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C494655A160982B1002E4C34 /* OCSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C4946558160982B1002E4C34 /* OCSNote.m */; };
+		C49D1DD416213E7000E26AC2 /* OCSRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D1DD216213E6100E26AC2 /* OCSRandom.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4C8278215D7CBC3009D48DA /* OCSMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8278115D7CBC3009D48DA /* OCSMidi.m */; };
@@ -181,6 +182,8 @@
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4946557160982B1002E4C34 /* OCSNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSNote.h; sourceTree = "<group>"; };
 		C4946558160982B1002E4C34 /* OCSNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNote.m; sourceTree = "<group>"; };
+		C49D1DD116213E6100E26AC2 /* OCSRandom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCSRandom.h; sourceTree = "<group>"; };
+		C49D1DD216213E6100E26AC2 /* OCSRandom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCSRandom.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -648,6 +651,8 @@
 				C4E559A515E650B200F4A0BA /* OCSPluckDrum.m */,
 				C4E559A615E650B200F4A0BA /* OCSPluckString.h */,
 				C4E559A715E650B200F4A0BA /* OCSPluckString.m */,
+				C49D1DD116213E6100E26AC2 /* OCSRandom.h */,
+				C49D1DD216213E6100E26AC2 /* OCSRandom.m */,
 				C4E559A815E650B200F4A0BA /* OCSSegmentArray.h */,
 				C4E559A915E650B200F4A0BA /* OCSSegmentArray.m */,
 			);
@@ -1263,6 +1268,7 @@
 				C494655516098269002E4C34 /* SeqInstrument.m in Sources */,
 				C494655A160982B1002E4C34 /* OCSNote.m in Sources */,
 				C4CE9D23160E4B2400A27FAF /* OCSNoteProperty.m in Sources */,
+				C49D1DD416213E7000E26AC2 /* OCSRandom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
