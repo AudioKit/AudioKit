@@ -49,7 +49,11 @@
 }
 
 - (IBAction)startFX:(id)sender {
-    [fx start];
+    [fx play];
+}
+
+- (IBAction)stopFX:(id)sender {
+    [fx stop];
 }
 
 @end

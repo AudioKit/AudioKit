@@ -48,8 +48,8 @@ static int currentID = 1;
     [[OCSManager sharedOCSManager] updateNote:self];
 }
 
-- (void)kill {
-    [[OCSManager sharedOCSManager] killNote:self];
+- (void)stop {
+    [[OCSManager sharedOCSManager] stopNote:self];
 }
 
 - (void)updateProperties {
@@ -66,7 +66,7 @@ static int currentID = 1;
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 
-- (NSString *)killStringForCSD;
+- (NSString *)stopStringForCSD;
 {
     scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f 0 0.1", eventNumber];
     return [NSString stringWithFormat:@"%@",scoreLine];

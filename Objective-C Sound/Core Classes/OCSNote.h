@@ -33,13 +33,13 @@
 - (id)initWithInstrument:(OCSInstrument *)anInstrument;
 
 - (void)play;
-- (void)kill;
+- (void)stop;
 - (void)updateProperties;
 
 /// Provides the scoreline to the CSD File.
 - (NSString *)stringForCSD;
 
-- (NSString *)killStringForCSD;
+- (NSString *)stopStringForCSD;
 
 - (void) addProperty:(OCSNoteProperty *)newProperty
             withName:(NSString *)name;

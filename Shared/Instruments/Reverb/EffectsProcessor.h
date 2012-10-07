@@ -12,6 +12,5 @@
 @interface EffectsProcessor : OCSInstrument 
 
 - (id)initWithToneGenerator:(ToneGenerator *) toneGenerator;
-- (void)start;
 
 @end

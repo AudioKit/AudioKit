@@ -73,7 +73,7 @@
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
 
-/// Helper method to play the event.
+/// Helper method to start the event.
 - (void)start;
 
 /// Helper method to stop an event.
