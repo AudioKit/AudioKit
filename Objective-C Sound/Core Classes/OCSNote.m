@@ -44,7 +44,7 @@ static int currentID = 1;
     return self;
 }
 
-- (void)start {
+- (void)play {
     [[OCSManager sharedOCSManager] updateNote:self];
 }
 

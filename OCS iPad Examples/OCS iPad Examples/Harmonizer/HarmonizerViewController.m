@@ -30,7 +30,7 @@
 
 - (IBAction)start:(id)sender
 {
-    [harmonizer start];
+    [harmonizer play];
 }
 
 -(IBAction)changePitch:(id)sender 

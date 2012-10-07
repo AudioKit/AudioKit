@@ -32,7 +32,7 @@
     
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     
-    [toneGenerator start];
+    [toneGenerator play];
 }
 
 - (IBAction)playFrequency:(float)frequency {

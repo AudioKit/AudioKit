@@ -13,7 +13,6 @@
 @interface OscillatorViewController () {
     UIWebView *webView;
     
-    OCSEvent *startEvent;
     OCSOrchestra *orchestra;
     OscillatorInstrument *oscillator;
 }
@@ -60,14 +59,10 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     {
         NSString *action = (NSString *)[components objectAtIndex:1];
         
-        if([action isEqualToString:@"start"] && !startEvent) {
-            startEvent = [[OCSEvent alloc] initWithInstrument:oscillator];
-            [startEvent start];
-            
-        } else if([action isEqualToString:@"stop"] && startEvent) {
-            [startEvent stop];
-            startEvent = nil;
-            
+        if([action isEqualToString:@"start"]) {
+            [oscillator play];
+        } else if([action isEqualToString:@"stop"]) {
+            [oscillator stop];
         } else if([action isEqualToString:@"dict"]) {
             NSArray *keys   = [[components objectAtIndex:2] componentsSeparatedByString:@","];
             NSArray *values = [[components objectAtIndex:3] componentsSeparatedByString:@","];

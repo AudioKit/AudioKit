@@ -29,12 +29,12 @@
 
 - (IBAction)hit1:(id)sender
 {
-    [grainInstrument playNoteForDuration:15];
+    [grainInstrument playForDuration:15];
 }
 
 - (IBAction)hit2:(id)sender
 {
-    [grainInstrument playNoteForDuration:5];
+    [grainInstrument playForDuration:5];
 }
 
 @end

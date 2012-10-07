@@ -29,11 +29,11 @@
 
 - (IBAction)hit1:(id)sender
 {
-    [myToneGenerator playNoteForDuration:3];
+    [myToneGenerator playForDuration:3];
 }
 - (IBAction)hit2:(id)sender
 {
-    [myToneGenerator playNoteForDuration:9];
+    [myToneGenerator playForDuration:9];
 }
 
 @end

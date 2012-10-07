@@ -32,7 +32,7 @@
 
 - (id)initWithInstrument:(OCSInstrument *)anInstrument;
 
-- (void)start;
+- (void)play;
 - (void)kill;
 - (void)updateProperties;
 

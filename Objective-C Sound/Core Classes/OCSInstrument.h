@@ -112,10 +112,10 @@
 
 /// Create a score line entry for starting the note immediately
 /// @param playDuration Length of time in seconds to play the instrument.
-- (void)playNoteForDuration:(float)playDuration;
+- (void)playForDuration:(float)playDuration;
 
-/// For instruments that do not create note instances, start the instrument with start.
-- (void)start;
+/// For instruments that do not create note instances, play the instrument with play.
+- (void)play;
 - (void)stop;
 
 

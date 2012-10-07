@@ -62,17 +62,15 @@ oscillator =
                                 phase:ocsp(0)];
 
 </pre>
-Start the sound:<br>
-<div id="start" class="white button">
-[oscillator start];
+Play the sound: <div id="start" class="white button">
+[oscillator play];
 </div>
 <p>
-Stop the sound:<br>
-<div id="stop" class="white button">[oscillator stop];</div>
+Stop the sound: <div id="stop" class="white button">[oscillator stop];</div>
 <script>
 (function ($) {
-   $('#start').click(function() { window.location = 'tangleapp:start';})
-   $('#stop').click(function()  { window.location = 'tangleapp:stop'; })
+   $('#play').click(function() { window.location = 'tangleapp:play';})
+   $('#stop').click(function() { window.location = 'tangleapp:stop';})
 }(jQuery));
 </script>
 

@@ -29,7 +29,7 @@
 }
 
 - (IBAction)start:(id)sender {
-    [conv start];
+    [conv play];
 }
 
 -(IBAction)changeDryWet:(id)sender 
