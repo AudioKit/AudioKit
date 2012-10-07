@@ -27,8 +27,8 @@
 @synthesize audio;
 @synthesize output;
 
--(id)initWithMinimum:(OCSParameter *)minimum
-             maximum:(OCSParameter *)maximum
+-(id)initWithMinimum:(OCSControl *)minimum
+             maximum:(OCSControl *)maximum
 {
     if( self = [super init]) {
         constant = [OCSConstant parameterWithString:[self operationName]];
