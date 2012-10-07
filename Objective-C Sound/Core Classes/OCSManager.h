@@ -38,9 +38,9 @@
 /// Stop Csound
 - (void)stop;
 
-/// Writes a scoreline to start playing an instrument.
+/// Triggers an OCSEvent
 /// @param event OCS Event
-- (void)startEvent:(OCSEvent *)event;
+- (void)triggerEvent:(OCSEvent *)event;
 
 /// Stop all notes of an instrument
 /// @param instrument The instrument that needs to be turned off.
