@@ -22,14 +22,26 @@
 
 @optional
 
+/// Receive the MIDI note on event
+/// @param note     Note number of activated note
+/// @param velocity MIDI Velocity (0-127)
+/// @param channel  MIDI Channel (1-16)
 - (void)midiNoteOn:(int)note
           velocity:(int)velocity
            channel:(int)channel;
 
+/// Receive the MIDI note off event
+/// @param note     Note number of released note
+/// @param velocity MIDI Velocity (0-127) usually speed of release, often 0.
+/// @param channel  MIDI Channel (1-16)
 - (void)midiNoteOff:(int)note
            velocity:(int)velocity
             channel:(int)channel;
 
+/// Receive aftertouch event
+/// @param note     Note number of touched note
+/// @param pressure Pressure applied to the note (0-127)
+/// @param channel  MIDI Channel (1-16)
 - (void)midiAftertouchOnNote:(int)note
                     pressure:(int)pressure
                      channel:(int)channel;

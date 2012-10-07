@@ -38,7 +38,8 @@
         currentValue = maximumValue;
         NSLog(@"%@ out of bounds, assigning to maximum", [self output]);
     }
-    [myNote updateProperties];
+    // AOP This is the automatic playback of the note that Adam doesn't like
+    [myNote play];
 }
 
 @end
