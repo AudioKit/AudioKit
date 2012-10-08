@@ -74,9 +74,19 @@
     [self playNextEventInSequence:timer];
 }
 
+- (void)pause
+{
+    isPlaying = NO;
+}
+
 - (void)stop
 {
     isPlaying = NO;
+    for (OCSEvent *event in events) {
+        if (event.note) {
+            [event.note stop];
+        }
+    }
 }
 
 
