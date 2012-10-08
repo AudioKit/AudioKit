@@ -20,6 +20,9 @@
 /// Instrument this note belongs to
 @property (nonatomic, strong) OCSInstrument *instrument;
 
+/// Duration of this note (for finite notes with length defined)
+@property (nonatomic, strong) OCSConstant *duration;
+
 /// Set of properties of the note
 @property (nonatomic, strong) NSMutableDictionary *properties;
 
@@ -32,6 +35,12 @@
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
+
+/// Creates the note associated with the given instrument
+/// @param anInstrument This note's instrument.
+/// @param noteDuration Length of time to play the note in seconds
+- (id)initWithInstrument:(OCSInstrument *)anInstrument
+             forDuration:(OCSConstant *)noteDuration;
 
 /// Creates the note associated with the given instrument
 /// @param anInstrument This note's instrument.
