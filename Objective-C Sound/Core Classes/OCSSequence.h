@@ -22,7 +22,10 @@
 /// Trigger playback of the sequence.
 - (void)play;
 
-/// Stop playback of the sequence.
+/// Pause playback of the sequence.
+- (void)pause;
+
+/// Stop playback of the sequence, stopping all the notes in the sequence.
 - (void)stop;
 
 /// Add event In next available spot
