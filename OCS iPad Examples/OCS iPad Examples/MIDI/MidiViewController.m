@@ -95,6 +95,9 @@
                                   fromMaximum:127
                                     toMinimum:kVolumeMin
                                     toMaximum:kVolumeMax];
+    if ([currentNotes objectForKey:[NSNumber numberWithInt:note]]) {
+        [self midiNoteOff:note velocity:0 channel:channel];
+    }
     [currentNotes setObject:ocsNote forKey:[NSNumber numberWithInt:note]];
 }
 
@@ -129,18 +132,18 @@
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     
     float bend;
-    if (pitchWheelValue <=8192) {
+    if (pitchWheelValue <= 8192) {
         bend = [Helper scaleValue:pitchWheelValue
-                            fromMinimum:0
-                            fromMaximum:8192
-                              toMinimum:kPitchBendMin
-                              toMaximum:1];
+                      fromMinimum:0
+                      fromMaximum:8192
+                        toMinimum:kPitchBendMin
+                        toMaximum:1];
     } else {
         bend = [Helper scaleValue:pitchWheelValue
-                            fromMinimum:8192
-                            fromMaximum:16384
-                              toMinimum:1
-                              toMaximum:kPitchBendMax];
+                      fromMinimum:8192
+                      fromMaximum:16384
+                        toMinimum:1
+                        toMaximum:kPitchBendMax];
     }
     instrument.pitchBend.value = bend;
 }

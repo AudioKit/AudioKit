@@ -178,6 +178,7 @@
 		C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		C48587D9162367A800DB0295 /* OCSMidiListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSMidiListener.h; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4946557160982B1002E4C34 /* OCSNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSNote.h; sourceTree = "<group>"; };
@@ -908,6 +909,7 @@
 				C4F078A615D5F50D0084FF9E /* OCSManager.m */,
 				C4C8278015D7CBC3009D48DA /* OCSMidi.h */,
 				C4C8278115D7CBC3009D48DA /* OCSMidi.m */,
+				C48587D9162367A800DB0295 /* OCSMidiListener.h */,
 				C4F078A915D5F50D0084FF9E /* OCSOrchestra.h */,
 				C4F078AA15D5F50D0084FF9E /* OCSOrchestra.m */,
 				C4F078AB15D5F50D0084FF9E /* OCSSequence.h */,
