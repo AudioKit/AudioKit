@@ -112,11 +112,12 @@
 /// The CSD line that deactivates all notes created by the instrument
 - (NSString *)stopStringForCSD;
 
-/// Create a score line entry for starting the note immediately
+/// Play an instrument that contains no note properties ie. uses a generic
+/// OCSNote to begin playback for a specific amount of time.
 /// @param playDuration Length of time in seconds to play the instrument.
 - (void)playForDuration:(float)playDuration;
 
-/// For instruments that do not create note instances, play the instrument with play.
+/// For instruments that do not create note instances, play the instrument with infinite duration.
 - (void)play;
 
 /// Stop all notes created by the instrument

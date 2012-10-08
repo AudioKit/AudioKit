@@ -49,6 +49,7 @@
 		C42B236215F36050006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B236115F36050006032F9 /* html */; };
 		C42B240715F484BC006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B240215F484BC006032F9 /* FMOscillatorInstrument.m */; };
 		C42B240915F484BC006032F9 /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B240515F484BC006032F9 /* OscillatorInstrument.m */; };
+		C49DBF5C16223C2D003037BA /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C49DBF5B16223C26003037BA /* SeqInstrument.m */; };
 		C4D1F829160FC6D600DEBD82 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F7A6160FC6D600DEBD82 /* OCSEvent.m */; };
 		C4D1F82A160FC6D600DEBD82 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F7A8160FC6D600DEBD82 /* OCSInstrument.m */; };
 		C4D1F82B160FC6D600DEBD82 /* OCSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D1F7AA160FC6D600DEBD82 /* OCSManager.m */; };
@@ -203,8 +204,8 @@
 		C42B240215F484BC006032F9 /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
 		C42B240415F484BC006032F9 /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
 		C42B240515F484BC006032F9 /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
-		C42B247D15F48673006032F9 /* SequenceInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SequenceInstrument.h; sourceTree = "<group>"; };
-		C42B247E15F48673006032F9 /* SequenceInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceInstrument.m; sourceTree = "<group>"; };
+		C49DBF5A16223C26003037BA /* SeqInstrument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeqInstrument.h; sourceTree = "<group>"; };
+		C49DBF5B16223C26003037BA /* SeqInstrument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4D1F7A5160FC6D600DEBD82 /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEvent.h; sourceTree = "<group>"; };
 		C4D1F7A6160FC6D600DEBD82 /* OCSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEvent.m; sourceTree = "<group>"; };
 		C4D1F7A7160FC6D600DEBD82 /* OCSInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSInstrument.h; sourceTree = "<group>"; };
@@ -597,8 +598,8 @@
 		C42B231815F34C2F006032F9 /* Sequences */ = {
 			isa = PBXGroup;
 			children = (
-				C42B247D15F48673006032F9 /* SequenceInstrument.h */,
-				C42B247E15F48673006032F9 /* SequenceInstrument.m */,
+				C49DBF5A16223C26003037BA /* SeqInstrument.h */,
+				C49DBF5B16223C26003037BA /* SeqInstrument.m */,
 			);
 			path = Sequences;
 			sourceTree = "<group>";
@@ -1053,6 +1054,7 @@
 				C4D1F865160FC6D600DEBD82 /* OCSNoteProperty.m in Sources */,
 				C4D1F866160FC6D600DEBD82 /* OCSProperty.m in Sources */,
 				533E57CA161A2B9500984500 /* OCSRandom.m in Sources */,
+				C49DBF5C16223C2D003037BA /* SeqInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

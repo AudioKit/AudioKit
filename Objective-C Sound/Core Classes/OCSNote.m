@@ -23,11 +23,13 @@
 @synthesize instrument;
 @synthesize properties;
 @synthesize eventNumber;
+@synthesize duration;
 
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-- (id)initWithInstrument:(OCSInstrument *)anInstrument {
+- (id)initWithInstrument:(OCSInstrument *)anInstrument
+             forDuration:(OCSConstant *)noteDuration {
     self = [super init];
     if (self) {
         if (currentID > 99000) {
@@ -36,13 +38,20 @@ static int currentID = 1;
         _myID = currentID++;
         
         instrument = anInstrument;
+        duration = noteDuration;
         properties = [[NSMutableDictionary alloc] init];
         propOrder = [[NSMutableArray alloc] init];
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
-        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
+        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %@",
+                     eventNumber, duration];
     }
     return self;
 }
+
+- (id)initWithInstrument:(OCSInstrument *)anInstrument {
+    return [self initWithInstrument:anInstrument forDuration:ocspi(-1)];
+}
+
 
 - (void)play {
     [[OCSManager sharedOCSManager] updateNote:self];
@@ -54,7 +63,7 @@ static int currentID = 1;
 
 - (NSString *)stringForCSD;
 {
-    scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 -1", eventNumber];
+    scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %@", eventNumber, duration];
     for (NSString* key in propOrder) {
         OCSNoteProperty *prop = [properties objectForKey:key];
         [scoreLine appendFormat:@" %f", [prop value]];
