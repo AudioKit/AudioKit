@@ -16,8 +16,30 @@
 
 @interface OCSSinusoidBursts : OCSOperation
 
--(id) initWithOverlaps:(OCSConstant *)numberOfOverlaps
-             sineTable:(OCSSineTable *)sineburstSynthesisTable
+@property (nonatomic, strong) OCSSineTable *sineburstSynthesisTable;
+@property (nonatomic, strong) OCSFTable *riseShapeTable;
+@property (nonatomic, strong) OCSConstant *numberOfOverlaps;
+@property (nonatomic, strong) OCSConstant *totalTime;
+@property (nonatomic, strong) OCSControl *octavationIndex;
+@property (nonatomic, strong) OCSControl *formantBandwidth;
+@property (nonatomic, strong) OCSControl *burstRiseTime;
+@property (nonatomic, strong) OCSControl *burstDuration;
+@property (nonatomic, strong) OCSControl *burstDecayTime;
+@property (nonatomic, strong) OCSParameter *peakAmplitude;
+@property (nonatomic, strong) OCSParameter *fundamentalFrequency;
+@property (nonatomic, strong) OCSParameter *formantFrequency;
 
+-(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
+         riseShapeTable:(OCSFTable *)riseShapeTable
+               Overlaps:(OCSConstant *)numberOfOverlaps
+              totalTime:(OCSConstant *)totalTime
+        octavationIndex:(OCSControl *)octavationIndex
+       formantBandwidth:(OCSControl *)formantBandwidth
+          burstRiseTime:(OCSControl *)burstRiseTime
+          burstDuration:(OCSControl *)burstDuration
+         burstDecayTime:(OCSControl *)burstDecayTime
+          peakAmplitude:(OCSParameter *)peakAmplitude
+   fundamentalFrequency:(OCSParameter *)fundamentalFrequency
+       formantFrequence:(OCSParameter *)formantFrequency;
 
 @end
