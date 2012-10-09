@@ -136,9 +136,9 @@ static int currentID = 1;
     
     if ([properties count] + [noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Properties ----\n"];
-        int i = 4;
+
         for (OCSNoteProperty *prop in noteProperties) {
-            [text appendFormat:@"%@ = p%i\n", prop, i++];
+            [text appendFormat:@"%@ = p%i\n", prop, prop.pValue];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        
         for (OCSInstrumentProperty *prop in properties) {
@@ -167,7 +167,7 @@ static int currentID = 1;
 - (void)playForDuration:(float)playDuration 
 {
     OCSNote *myNote = [[OCSNote alloc] initWithInstrument:self
-                                              forDuration:ocsp(playDuration)];
+                                              forDuration:playDuration];
     [myNote play];
 }
 
