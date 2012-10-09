@@ -30,6 +30,10 @@
 		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
+		C48587F41624D52600DB0295 /* OCSAdditiveCosineTable.h in Sources */ = {isa = PBXBuildFile; fileRef = C48587F21624D52600DB0295 /* OCSAdditiveCosineTable.h */; };
+		C48587F51624D52600DB0295 /* OCSAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C48587F31624D52600DB0295 /* OCSAdditiveCosineTable.m */; };
+		C48587F91624DE9700DB0295 /* OCSSinusoidBursts.h in Sources */ = {isa = PBXBuildFile; fileRef = C48587F71624DE9700DB0295 /* OCSSinusoidBursts.h */; };
+		C48587FA1624DE9700DB0295 /* OCSSinusoidBursts.m in Sources */ = {isa = PBXBuildFile; fileRef = C48587F81624DE9700DB0295 /* OCSSinusoidBursts.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C494655A160982B1002E4C34 /* OCSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C4946558160982B1002E4C34 /* OCSNote.m */; };
 		C49D1DD416213E7000E26AC2 /* OCSRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D1DD216213E6100E26AC2 /* OCSRandom.m */; };
@@ -181,6 +185,10 @@
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C48587D9162367A800DB0295 /* OCSMidiListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSMidiListener.h; sourceTree = "<group>"; };
+		C48587F21624D52600DB0295 /* OCSAdditiveCosineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSAdditiveCosineTable.h; sourceTree = "<group>"; };
+		C48587F31624D52600DB0295 /* OCSAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAdditiveCosineTable.m; sourceTree = "<group>"; };
+		C48587F71624DE9700DB0295 /* OCSSinusoidBursts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSinusoidBursts.h; sourceTree = "<group>"; };
+		C48587F81624DE9700DB0295 /* OCSSinusoidBursts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSinusoidBursts.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4946557160982B1002E4C34 /* OCSNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSNote.h; sourceTree = "<group>"; };
@@ -660,6 +668,8 @@
 				C49D1DD216213E6100E26AC2 /* OCSRandom.m */,
 				C4E559A815E650B200F4A0BA /* OCSSegmentArray.h */,
 				C4E559A915E650B200F4A0BA /* OCSSegmentArray.m */,
+				C48587F71624DE9700DB0295 /* OCSSinusoidBursts.h */,
+				C48587F81624DE9700DB0295 /* OCSSinusoidBursts.m */,
 			);
 			path = "Signal Generators";
 			sourceTree = "<group>";
@@ -934,6 +944,8 @@
 		C4F078B015D5F50E0084FF9E /* FunctionTables */ = {
 			isa = PBXGroup;
 			children = (
+				C48587F21624D52600DB0295 /* OCSAdditiveCosineTable.h */,
+				C48587F31624D52600DB0295 /* OCSAdditiveCosineTable.m */,
 				C4F078B115D5F50E0084FF9E /* OCSArrayTable.h */,
 				C4F078B215D5F50E0084FF9E /* OCSArrayTable.m */,
 				C4F078B315D5F50E0084FF9E /* OCSExponentialCurvesTable.h */,
@@ -1275,6 +1287,10 @@
 				C494655A160982B1002E4C34 /* OCSNote.m in Sources */,
 				C4CE9D23160E4B2400A27FAF /* OCSNoteProperty.m in Sources */,
 				C49D1DD416213E7000E26AC2 /* OCSRandom.m in Sources */,
+				C48587F41624D52600DB0295 /* OCSAdditiveCosineTable.h in Sources */,
+				C48587F51624D52600DB0295 /* OCSAdditiveCosineTable.m in Sources */,
+				C48587F91624DE9700DB0295 /* OCSSinusoidBursts.h in Sources */,
+				C48587FA1624DE9700DB0295 /* OCSSinusoidBursts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
