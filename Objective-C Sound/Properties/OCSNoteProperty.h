@@ -16,6 +16,8 @@
 
 @interface OCSNoteProperty : OCSProperty
 
+@property (assign) int pValue;
+
 /// Create a note property with bounds
 /// @param note Note this will be a property of
 /// @param initialValue Starting value of the property

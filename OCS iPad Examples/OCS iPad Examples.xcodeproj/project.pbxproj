@@ -310,8 +310,8 @@
 		C4F078A415D5F50D0084FF9E /* OCSInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OCSInstrument.m; sourceTree = "<group>"; };
 		C4F078A515D5F50D0084FF9E /* OCSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = OCSManager.h; sourceTree = "<group>"; };
 		C4F078A615D5F50D0084FF9E /* OCSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OCSManager.m; sourceTree = "<group>"; };
-		C4F078A915D5F50D0084FF9E /* OCSOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = OCSOrchestra.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C4F078AA15D5F50D0084FF9E /* OCSOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OCSOrchestra.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C4F078A915D5F50D0084FF9E /* OCSOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = OCSOrchestra.h; sourceTree = "<group>"; };
+		C4F078AA15D5F50D0084FF9E /* OCSOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OCSOrchestra.m; sourceTree = "<group>"; };
 		C4F078AB15D5F50D0084FF9E /* OCSSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSequence.h; sourceTree = "<group>"; };
 		C4F078AC15D5F50D0084FF9E /* OCSSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSequence.m; sourceTree = "<group>"; };
 		C4F078AE15D5F50D0084FF9E /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };

@@ -29,7 +29,7 @@ static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
 - (id)initWithInstrument:(OCSInstrument *)anInstrument
-             forDuration:(OCSConstant *)noteDuration {
+             forDuration:(float)noteDuration {
     self = [super init];
     if (self) {
         if (currentID > 99000) {
@@ -38,7 +38,10 @@ static int currentID = 1;
         _myID = currentID++;
         
         instrument = anInstrument;
-        duration = noteDuration;
+        duration = [[OCSNoteProperty alloc] init];
+        [self addProperty:duration withName:@"Duration"];
+        [instrument addNoteProperty:duration];
+        duration.value = noteDuration;
         properties = [[NSMutableDictionary alloc] init];
         propOrder = [[NSMutableArray alloc] init];
         eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
@@ -49,7 +52,7 @@ static int currentID = 1;
 }
 
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {
-    return [self initWithInstrument:anInstrument forDuration:ocspi(-1)];
+    return [self initWithInstrument:anInstrument forDuration:-1];
 }
 
 
@@ -63,7 +66,7 @@ static int currentID = 1;
 
 - (NSString *)stringForCSD;
 {
-    scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %@", eventNumber, duration];
+    scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %f", eventNumber, duration.value];
     for (NSString* key in propOrder) {
         OCSNoteProperty *prop = [properties objectForKey:key];
         [scoreLine appendFormat:@" %f", [prop value]];
@@ -83,6 +86,7 @@ static int currentID = 1;
     [newProperty setConstant:[OCSConstant parameterWithString:name]];
     [self.properties setValue:newProperty forKey:name];
     [propOrder addObject:name];
+    [newProperty setPValue:propOrder.count +3];
 }
 
 
