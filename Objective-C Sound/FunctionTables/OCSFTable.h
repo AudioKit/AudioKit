@@ -27,11 +27,13 @@ typedef enum
     kFTSoundFile = 1,
     kFTArray=2,
     kFTExponentialCurves=5,
+    kFTStraightLines=7,
     kFTSines=10,
     kFTAdditiveCosines=11,
     kFTWindows=20,
     kFTRandomDistributions=21,
     kFTExponentialCurvesFromBreakpoints=25,
+    kFTStraightLinesFromBreakpoints=27,
 } FTableType;
 
 
@@ -76,7 +78,6 @@ typedef enum
     kFTPolynomial=3,
     kFTNormalizingFunction=4,
     kFTCubicPolynomials=6,
-    kFTStraightLines=7,
     kFTCubicSpline=8,
     kFTSinesWithThreeParameters=9,
     kFTBessels=12,
@@ -89,7 +90,6 @@ typedef enum
     kFTCompositeWaveformsFromSines=19,
     kFTTextFile=23,
     kFTScaledFTable=24,
-    kFTStraightLinesFromBreakpoints=27,
     kFTTimeTaggedTrajectory=28,
     kFTHarmonicPartials=30,
     kFTTableMixer=31,
