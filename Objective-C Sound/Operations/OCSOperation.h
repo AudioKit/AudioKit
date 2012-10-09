@@ -11,7 +11,7 @@
 
 /** Generic function all OCS Opcodes need access to. */
 
-@interface OCSOperation : NSObject 
+@interface OCSOperation : OCSParameter
 
 /// The name of the class with the OCS prefix.
 - (NSString *)operationName;
