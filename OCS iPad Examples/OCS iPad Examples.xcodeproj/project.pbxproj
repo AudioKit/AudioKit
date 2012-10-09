@@ -32,7 +32,6 @@
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C48587F41624D52600DB0295 /* OCSAdditiveCosineTable.h in Sources */ = {isa = PBXBuildFile; fileRef = C48587F21624D52600DB0295 /* OCSAdditiveCosineTable.h */; };
 		C48587F51624D52600DB0295 /* OCSAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C48587F31624D52600DB0295 /* OCSAdditiveCosineTable.m */; };
-		C48587F91624DE9700DB0295 /* OCSSinusoidBursts.h in Sources */ = {isa = PBXBuildFile; fileRef = C48587F71624DE9700DB0295 /* OCSSinusoidBursts.h */; };
 		C48587FA1624DE9700DB0295 /* OCSSinusoidBursts.m in Sources */ = {isa = PBXBuildFile; fileRef = C48587F81624DE9700DB0295 /* OCSSinusoidBursts.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C494655A160982B1002E4C34 /* OCSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C4946558160982B1002E4C34 /* OCSNote.m */; };
@@ -1289,7 +1288,6 @@
 				C49D1DD416213E7000E26AC2 /* OCSRandom.m in Sources */,
 				C48587F41624D52600DB0295 /* OCSAdditiveCosineTable.h in Sources */,
 				C48587F51624D52600DB0295 /* OCSAdditiveCosineTable.m in Sources */,
-				C48587F91624DE9700DB0295 /* OCSSinusoidBursts.h in Sources */,
 				C48587FA1624DE9700DB0295 /* OCSSinusoidBursts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
