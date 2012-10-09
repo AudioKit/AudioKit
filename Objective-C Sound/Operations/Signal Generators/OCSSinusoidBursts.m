@@ -62,7 +62,12 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ oscili %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ fof %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
             ares, xAmp, xFund, xForm, kOct, kBand, kRis, kDur, kDec, iOlaps, iFnA, iFnB, iTotDur];
+}
+
+- (NSString *)description
+{
+    return [ares parameterString];
 }
 @end
