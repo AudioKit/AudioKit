@@ -62,7 +62,7 @@
         [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter;
-        lpFilter = [[OCSLowPassButterworthFilter alloc] initWithInput:[fm output]
+        lpFilter = [[OCSLowPassButterworthFilter alloc] initWithInput:fm
                                                       cutoffFrequency:cutoffFrequency];
         [self connect:lpFilter];
         

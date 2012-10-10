@@ -111,7 +111,7 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)assignOutput:(OCSParameter *)output To:(OCSParameter *)input {
+- (void)assignOutput:(OCSParameter *)output to:(OCSParameter *)input {
     OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:input];
     [auxOutputAssign setOutput:output];
     [self connect:auxOutputAssign];

@@ -30,7 +30,7 @@
 
 -(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
          riseShapeTable:(OCSFTable *)riseShapeTable
-               Overlaps:(OCSConstant *)numberOfOverlaps
+               overlaps:(OCSConstant *)numberOfOverlaps
               totalTime:(OCSConstant *)totalTime
         octavationIndex:(OCSControl *)octavationIndex
        formantBandwidth:(OCSControl *)formantBandwidth
@@ -39,7 +39,7 @@
          burstDecayTime:(OCSControl *)burstDecayTime
           peakAmplitude:(OCSParameter *)peakAmplitude
    fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-       formantFrequence:(OCSParameter *)formantFrequency;
+       formantFrequency:(OCSParameter *)formantFrequency;
 {
     self = [super init];
     if (self) {

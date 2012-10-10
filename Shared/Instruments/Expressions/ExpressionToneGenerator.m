@@ -31,7 +31,7 @@
         vibratoOscillator = [[OCSOscillator alloc] initWithFTable:vibratoSine
                                                         frequency:ocsp(6)
                                                         amplitude:ocsp(40)];
-        [vibratoOscillator setOutput:[vibratoOscillator control]];
+        [vibratoOscillator setOutput:vibratoOscillator.control];
         [self connect:vibratoOscillator];
         
         float vibratoScale = 2.0f;
@@ -57,7 +57,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[oscillator output]]; 
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:oscillator];
         [self connect:audio];
     }
     return self;
