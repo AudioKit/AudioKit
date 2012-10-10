@@ -91,7 +91,7 @@
 /// Shortcut for the OCSAssignment operation for setting a parameter equal to another.
 /// @param output Parameter being set.
 /// @param input  Parameter being read.
-- (void)assignOutput:(OCSParameter *)output To:(OCSParameter *)input; 
+- (void)assignOutput:(OCSParameter *)output to:(OCSParameter *)input;
 
 /// Shortcut for setting a parameter's value to zero.
 /// @param parameterToReset Parameter whose value will be reset to zero.

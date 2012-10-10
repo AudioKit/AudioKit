@@ -19,7 +19,7 @@
         
         // INPUTS ==============================================================
         
-        OCSParameter * input = [toneGenerator auxilliaryOutput];
+        OCSParameter * input = toneGenerator.auxilliaryOutput;
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -30,8 +30,8 @@
         
         // AUDIO OUTPUT ========================================================
             
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[reverb leftOutput] 
-                                                   rightInput:[reverb rightOutput]]; 
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:reverb.leftOutput
+                                                   rightInput:reverb.rightOutput];
         [self connect:audio];
         
         // RESET INPUTS ========================================================
