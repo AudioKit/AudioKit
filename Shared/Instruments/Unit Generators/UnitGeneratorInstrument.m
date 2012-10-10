@@ -41,7 +41,7 @@
         OCSLine *baseFrequencyLine = [[OCSLine alloc] initFromValue:ocsp(110) 
                                                             toValue:ocsp(330)
                                                            duration:ocsp(3.0)];
-        [baseFrequencyLine setOutput:[baseFrequencyLine control]];
+        [baseFrequencyLine setControl:[baseFrequencyLine control]];
         [self connect:baseFrequencyLine];
         
         OCSSegmentArray *modIndexLine;
@@ -50,7 +50,7 @@
                                                           afterDuration:ocsp(3)];
         [modIndexLine addValue:ocsp(1.5) afterDuration:ocsp(3)];
         [modIndexLine addValue:ocsp(0.5) afterDuration:ocsp(3)];
-        [modIndexLine setOutput:[modIndexLine control]];
+        [modIndexLine setControl:[modIndexLine control]];
         [self connect:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex

@@ -59,21 +59,21 @@
         OCSLine *ampOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
                                                         toValue:ocsp(0.1)
                                                        duration:ocsp(9.0)];
-        [ampOffsetLine setOutput:[ampOffsetLine control]];
+        [ampOffsetLine setControl:[ampOffsetLine control]];
         [self connect:ampOffsetLine];
         
         OCSLine *pitchOffsetLine;
         pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
                                                  toValue:[baseFrequency scaledBy:0.5]
                                                 duration:ocsp(9.0) ];
-        [pitchOffsetLine setOutput:[pitchOffsetLine control]];
-        [self connect:pitchOffsetLine];   
+        [pitchOffsetLine setControl:[pitchOffsetLine control]];
+        [self connect:pitchOffsetLine];
         
         
         OCSLine *grainDurationLine = [[OCSLine alloc] initFromValue:ocsp(0.1)
                                                             toValue:ocsp(0.1)
                                                            duration:ocsp(9.0)];
-        [grainDurationLine setOutput:[grainDurationLine control]];
+        [grainDurationLine setControl:[grainDurationLine control]];
         [self connect:grainDurationLine];
         
         OCSGrain *grainL;
