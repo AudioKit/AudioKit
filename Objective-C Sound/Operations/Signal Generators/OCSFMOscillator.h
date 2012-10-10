@@ -19,33 +19,6 @@ tables of 2K, 4K or 8K points if the space is available.
 
 @interface OCSFMOscillator : OCSParameter
 
-/// @name Properties
-
-/// The output is mono audio signal.
-@property (nonatomic, strong) OCSParameter *output;
-
-/// The amplitude of the output signal.
-@property (nonatomic, strong) OCSParameter *amplitude;
-
-/// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-@property (nonatomic, strong) OCSControl *baseFrequency;
-
-/// This multiplied by the baseFrequency gives the carrier frequency.
-@property (nonatomic, strong) OCSParameter *carrierMultiplier;
-
-/// This multiplied by the baseFrequency gives the modulating frequency.
-@property (nonatomic, strong) OCSParameter *modulatingMultiplier;
-
-/// This multiplied by the modulating frequency gives the modulation amplitude.
-@property (nonatomic, strong) OCSControl *modulationIndex;
-
-/// Function table to use.  Requires a wrap-around guard point.
-@property (nonatomic, strong) OCSFTable *fTable;
-
-/// Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). 
-/// A negative value will cause phase initialization to be skipped.
-@property (nonatomic, strong) OCSControl *phase;
-
 /// @name Initialization
 
 /// Initializes a frequency modulated oscillator with linear interpolation.

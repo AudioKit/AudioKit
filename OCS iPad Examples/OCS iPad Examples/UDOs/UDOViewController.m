@@ -21,23 +21,19 @@
     [super viewDidLoad];
 
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
-    udoInstrument =  [[UDOInstrument alloc] init];
+    udoInstrument = [[UDOInstrument alloc] init];
     [orch addInstrument:udoInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (IBAction)playFrequency:(float)frequency
-{
-    [udoInstrument playForDuration:1.0];
-    udoInstrument.frequency.value = frequency;
-}
-
 - (IBAction)hit1:(id)sender {
-    [self playFrequency:440.0f];
+    udoInstrument.frequency.value = 440.0f;
+    [udoInstrument playForDuration:1.0];
 }
 
 - (IBAction)hit2:(id)sender { 
-    [self playFrequency:[Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax]];
+    [udoInstrument.frequency randomize];
+    [udoInstrument playForDuration:1.0];
 }
 
 

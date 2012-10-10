@@ -16,19 +16,7 @@
 
 @interface OCSSinusoidBursts : OCSParameter
 
-@property (nonatomic, strong) OCSSineTable *sineburstSynthesisTable;
-@property (nonatomic, strong) OCSFTable *riseShapeTable;
-@property (nonatomic, strong) OCSConstant *numberOfOverlaps;
-@property (nonatomic, strong) OCSConstant *totalTime;
-@property (nonatomic, strong) OCSControl *octavationIndex;
-@property (nonatomic, strong) OCSControl *formantBandwidth;
-@property (nonatomic, strong) OCSControl *burstRiseTime;
-@property (nonatomic, strong) OCSControl *burstDuration;
-@property (nonatomic, strong) OCSControl *burstDecayTime;
-@property (nonatomic, strong) OCSParameter *peakAmplitude;
-@property (nonatomic, strong) OCSParameter *fundamentalFrequency;
-@property (nonatomic, strong) OCSParameter *formantFrequency;
-
+/// Initialize the Sinusoid Bursts
 -(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
          riseShapeTable:(OCSFTable *)riseShapeTable
                overlaps:(OCSConstant *)numberOfOverlaps

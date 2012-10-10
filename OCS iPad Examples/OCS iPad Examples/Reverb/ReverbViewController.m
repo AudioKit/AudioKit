@@ -35,17 +35,12 @@
     [toneGenerator play];
 }
 
-- (IBAction)playFrequency:(float)frequency {
-    
-    toneGenerator.frequency.value = frequency;
-}
-
 - (IBAction)hit1:(id)sender {
-    [self playFrequency:440.0f];
+    toneGenerator.frequency.value = 440.0f;
 }
 
-- (IBAction)hit2:(id)sender { 
-    [self playFrequency:[Helper randomFloatFrom:kFrequencyMin to:kFrequencyMax]];
+- (IBAction)hit2:(id)sender {
+    [toneGenerator.frequency randomize];
 }
 
 - (IBAction)startFX:(id)sender {
