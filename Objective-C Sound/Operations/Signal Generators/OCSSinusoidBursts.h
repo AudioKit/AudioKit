@@ -40,6 +40,6 @@
          burstDecayTime:(OCSControl *)burstDecayTime
           peakAmplitude:(OCSParameter *)peakAmplitude
    fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-       formantFrequence:(OCSParameter *)formantFrequency;
+       formantFrequency:(OCSParameter *)formantFrequency;
 
 @end
