@@ -31,7 +31,7 @@
         vibratoOscillator = [[OCSOscillator alloc] initWithFTable:vibratoSine
                                                         frequency:ocsp(6)
                                                         amplitude:ocsp(40)];
-        [vibratoOscillator setOutput:[vibratoOscillator control]];
+        [vibratoOscillator setControl:[vibratoOscillator control]];
         [self connect:vibratoOscillator];
         
         float vibratoScale = 2.0f;
