@@ -17,7 +17,6 @@
 
 @implementation OCSAudioFromFSignal
 
-@synthesize output=aRes;
 @synthesize source=fSrc;
 
 - (id)initWithSource:(OCSFSignal *)source;

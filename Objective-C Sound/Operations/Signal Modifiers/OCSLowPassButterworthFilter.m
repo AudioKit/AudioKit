@@ -18,7 +18,6 @@
 @end
 
 @implementation OCSLowPassButterworthFilter
-@synthesize output;
 
 -(id)initWithInput:(OCSParameter *)inputSignal 
    cutoffFrequency:(OCSControl *)cutoffFrequency;

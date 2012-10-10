@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Calculates the weighted mean value of two input signals.
  */
 
-@interface OCSWeightedMean : OCSOperation
+@interface OCSWeightedMean : OCSParameter
 
 /// @name Properties
 

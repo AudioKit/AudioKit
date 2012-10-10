@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Produces a naturally decaying string sound based on the Karplus-Strong algorithms.
 
@@ -16,12 +16,9 @@
 
  */
 
-@interface OCSPluckString : OCSOperation
+@interface OCSPluckString : OCSParameter
 
 /// @name Properties
-
-/// Audio output of the string.
-@property (nonatomic, strong) OCSParameter *output;
 
 /// @name Initialization
 

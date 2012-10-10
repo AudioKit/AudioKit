@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Produces a naturally decaying drum sound based on the Karplus-Strong algorithms.
  The range from pitch to noise is controlled by a Roughness Factor  (0 to 1). 
@@ -20,7 +20,7 @@
  the buffer is smoothed to simulate the effect of natural decay.
  */
 
-@interface OCSPluckDrum : OCSOperation
+@interface OCSPluckDrum : OCSParameter
 
 /// @name Properties
 

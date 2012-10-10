@@ -6,19 +6,18 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSControl.h"
+#import "OCSParameter+Operation.h"
 
 /**
  Scales incoming value from 0 to 1 to user-definable range. 
  Similar to scale object found in popular dataflow languages.
  */
 
-@interface OCSScaledControl : OCSOperation
+@interface OCSScaledControl : OCSControl
 
 /// @name Properties
 
-/// Output is the scaled control-rate value.
-@property (nonatomic, strong) OCSControl *output;
 /// Input value in the range 0-1.
 @property (nonatomic, strong) OCSControl *input;
 /// Minimum value of the resultant scale operation.

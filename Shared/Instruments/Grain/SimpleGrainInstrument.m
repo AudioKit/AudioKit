@@ -102,8 +102,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[grainL output] 
-                                                   rightInput:[grainR output]]; 
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:grainL
+                                                   rightInput:grainR]; 
         [self connect:audio];
     }
     return self;

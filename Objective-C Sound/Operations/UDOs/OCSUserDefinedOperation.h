@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** User-defined opcodes found on csounds.com and elsewhere.  Differs from
  OCS opcodes because the definition is made in .udo files.  
  */
 
-@interface OCSUserDefinedOperation : OCSOperation 
+@interface OCSUserDefinedOperation : OCSParameter
 /** @returns The location of the udo file */
 - (NSString *) udoFile;
 @end

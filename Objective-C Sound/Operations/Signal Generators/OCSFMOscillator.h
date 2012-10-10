@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 MIT Media Lab. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Basic frequency modulated oscillator with linear interpolation.
 
@@ -17,7 +17,7 @@ tables of 2K, 4K or 8K points if the space is available.
 
 */
 
-@interface OCSFMOscillator : OCSOperation 
+@interface OCSFMOscillator : OCSParameter
 
 /// @name Properties
 

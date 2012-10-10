@@ -52,4 +52,5 @@
 
 /// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
 - (id)amplitudeFromFullScaleDecibel;
+
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSFSignal.h"
 
 /** Generate an f-Signal from a mono audio source using phase vocoder overlap-add synthesis.
@@ -22,7 +22,7 @@ typedef enum
 
 } WindowType;
 
-@interface OCSFSignalFromMonoAudio : OCSOperation
+@interface OCSFSignalFromMonoAudio : OCSParameter
 
 /// @name Properties
 

@@ -1,14 +1,14 @@
 //
-//  OCSOperation.m
-//  Objective-C Sound
+//  OCSParameter+Operation.m
+//  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 4/11/12.
+//  Created by Aurelius Prochazka on 10/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
-@implementation OCSOperation
+@implementation OCSParameter (Operation)
 
 - (NSString *)operationName {
     NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
@@ -17,12 +17,6 @@
 }
 
 - (NSString *)stringForCSD
-{
-    //Override in subclass
-    return @"Undefined";
-}
-
-- (NSString *)description
 {
     //Override in subclass
     return @"Undefined";

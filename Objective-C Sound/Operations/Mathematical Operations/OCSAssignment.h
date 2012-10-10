@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /// Simply a wrapper for the equal sign
-@interface OCSAssignment : OCSOperation 
+@interface OCSAssignment : OCSParameter
 
 /// @name Properties
 

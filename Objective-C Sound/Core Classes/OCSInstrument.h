@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "OCSOrchestra.h"
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSUserDefinedOperation.h"
 #import "OCSNote.h"
 #import "OCSNoteProperty.h"
@@ -78,7 +78,7 @@
 
 /// Adds the operation to the OCSInstrument.
 /// @param newOperation New operation to add to the instrument.
-- (void)connect:(OCSOperation *)newOperation;
+- (void)connect:(OCSParameter *)newOperation;
 
 /// Adds the User-Defined Operation to the instrument (and the opcode defintion .udo file)
 /// @param newUserDefinedOperation New UDO to add to the instrument.

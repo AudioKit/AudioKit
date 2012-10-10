@@ -15,7 +15,6 @@
 @end
 
 @implementation OCSSum
-@synthesize output;
 
 - (id)initWithOperands:(OCSParameter *)firstOperand,... {
     self = [super init];

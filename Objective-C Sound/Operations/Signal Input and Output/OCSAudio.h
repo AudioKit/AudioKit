@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Writes stereo audio data to an external device or stream.
  
@@ -17,7 +17,7 @@
  output units in an instrument.
  
  */
-@interface OCSAudio : OCSOperation
+@interface OCSAudio : OCSParameter
 
 /// @name Initialization
 

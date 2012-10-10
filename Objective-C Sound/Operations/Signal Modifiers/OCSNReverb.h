@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSNReverb.h"
 
 /** This is a reverberator consisting of 6 parallel comb-lowpass filters 
  being fed into a series of 5 allpass filters. 
  */
 
-@interface OCSNReverb : OCSOperation
+@interface OCSNReverb : OCSParameter
 
 /// @name Properties
 

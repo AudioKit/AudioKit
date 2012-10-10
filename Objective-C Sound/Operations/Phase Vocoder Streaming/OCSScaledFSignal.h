@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSFSignal.h"
 
 /** Scale the frequency components of a pv stream, resulting in pitch shift. 
@@ -24,7 +24,7 @@ typedef enum
     kFormantRetainMethodTrueEnvelope=2,
 } FormantRetainMethodType;
 
-@interface OCSScaledFSignal : OCSOperation
+@interface OCSScaledFSignal : OCSParameter
 
 /// @name Properties
 

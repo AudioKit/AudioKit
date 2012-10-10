@@ -18,7 +18,6 @@
 
 @implementation OCSScaledControl
 
-@synthesize output        = kscl;
 @synthesize input         = kin;
 @synthesize minimumOutput = kmin;
 @synthesize maximumOutput = kmax;

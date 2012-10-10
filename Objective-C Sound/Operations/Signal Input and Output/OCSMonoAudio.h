@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Writes mono audio data to an external device or stream.
  
@@ -16,7 +16,7 @@
  There can be any number of these output units in an instrument.
  */
 
-@interface OCSMonoAudio : OCSOperation 
+@interface OCSMonoAudio : OCSParameter
 
 /// @name Initialization
 

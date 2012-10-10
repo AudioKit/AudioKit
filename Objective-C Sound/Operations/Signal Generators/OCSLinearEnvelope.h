@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 /** Applies a straight line rise and decay pattern to an input amp signal.
  
 Rise modifications are applied for the first irise seconds, and decay from time
@@ -17,7 +17,7 @@ overall duration is exceeded in performance, the final decay will continue on in
 the same direction, going negative.
 */
 
-@interface OCSLinearEnvelope : OCSOperation
+@interface OCSLinearEnvelope : OCSParameter
 
 /// @name Properties
 

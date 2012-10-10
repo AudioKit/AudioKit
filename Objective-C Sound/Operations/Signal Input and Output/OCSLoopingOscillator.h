@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSSoundFileTable.h"
 
 /** Read sampled sound (mono or stereo) from a table, with 
@@ -17,7 +17,7 @@
  */
 // TODO: Add optional params
 
-@interface OCSLoopingOscillator : OCSOperation
+@interface OCSLoopingOscillator : OCSParameter
 
 /// @name Properties
 

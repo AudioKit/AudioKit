@@ -6,15 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /// Sums any number of a-rate signals.
-@interface OCSSum : OCSOperation 
-
-/// @name Properties
-
-/// The output is an audio signal.
-@property (nonatomic, strong) OCSParameter *output;
+@interface OCSSum : OCSParameter
 
 /// @name Initialization
 
