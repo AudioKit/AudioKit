@@ -39,7 +39,7 @@
          burstDecayTime:(OCSControl *)burstDecayTime
           peakAmplitude:(OCSParameter *)peakAmplitude
    fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-       formantFrequence:(OCSParameter *)formantFrequency;
+       formantFrequency:(OCSParameter *)formantFrequency;
 {
     self = [super init];
     if (self) {
