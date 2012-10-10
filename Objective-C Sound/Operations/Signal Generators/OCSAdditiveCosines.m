@@ -24,7 +24,6 @@
 @end
 
 @implementation OCSAdditiveCosines
-@synthesize output;
 
 /*
 -(id)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
