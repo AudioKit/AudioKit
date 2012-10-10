@@ -31,7 +31,7 @@
 
 - (IBAction)touchButton:(id)sender {
     AudioFilePlayerNote *note = [audioFilePlayer createNote];
-    note.speed.value = [Helper randomFloatFrom:kSpeedMin to:kSpeedMax];
+    [note.speed randomize];
 }
 
 @end

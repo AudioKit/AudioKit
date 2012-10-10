@@ -9,24 +9,23 @@
 #import "OCSSinusoidBursts.h"
 
 @interface OCSSinusoidBursts () {
-    OCSParameter *ares;
+    OCSParameter *aRes;
+    OCSSineTable *iFnA;
+    OCSFTable *iFnB;
+    OCSConstant *iOlaps;
+    OCSConstant *iTotDur;
+    OCSControl *kOct;
+    OCSControl *kBand;
+    OCSControl *kRis;
+    OCSControl *kDur;
+    OCSControl *kDec;
+    OCSParameter *xAmp;
+    OCSParameter *xFund;
+    OCSParameter *xForm;
 }
 @end
 
 @implementation OCSSinusoidBursts
-
-@synthesize sineburstSynthesisTable = iFnA;
-@synthesize riseShapeTable = iFnB;
-@synthesize numberOfOverlaps = iOlaps;
-@synthesize totalTime = iTotDur;
-@synthesize octavationIndex = kOct;
-@synthesize formantBandwidth = kBand;
-@synthesize burstRiseTime = kRis;
-@synthesize burstDuration = kDur;
-@synthesize burstDecayTime = kDec;
-@synthesize peakAmplitude = xAmp;
-@synthesize fundamentalFrequency = xFund;
-@synthesize formantFrequency = xForm;
 
 -(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
          riseShapeTable:(OCSFTable *)riseShapeTable
@@ -43,7 +42,7 @@
 {
     self = [super init];
     if (self) {
-        ares = [OCSParameter parameterWithString:[self operationName]];
+        aRes = [OCSParameter parameterWithString:[self operationName]];
         iFnA = sineburstSynthesisTable;
         iFnB = riseShapeTable;
         iOlaps = numberOfOverlaps;
@@ -63,11 +62,11 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ fof %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            ares, xAmp, xFund, xForm, kOct, kBand, kRis, kDur, kDec, iOlaps, iFnA, iFnB, iTotDur];
+            aRes, xAmp, xFund, xForm, kOct, kBand, kRis, kDur, kDec, iOlaps, iFnA, iFnB, iTotDur];
 }
 
 - (NSString *)description
 {
-    return [ares parameterString];
+    return [aRes parameterString];
 }
 @end

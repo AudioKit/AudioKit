@@ -8,7 +8,6 @@
 
 #import "OCSInstrument.h"
 
-
 @interface TweakableInstrument : OCSInstrument
 
 @property (nonatomic, strong) OCSInstrumentProperty *amplitude;
@@ -30,9 +29,5 @@
 #define kTweakableModIndexInit 1.0
 #define kTweakableModIndexMin  0.0
 #define kTweakableModIndexMax 25.0
-
-//@property (nonatomic, strong) OCSPropertyManager *myPropertyManager;
-
-//- (void)playNoteForDuration:(float)dur Frequency:(float)freq;
 
 @end

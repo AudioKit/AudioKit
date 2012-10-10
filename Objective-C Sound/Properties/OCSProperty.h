@@ -54,7 +54,7 @@
            minValue:(float)minValue 
            maxValue:(float)maxValue;
 
-
-
+/// Randomize the current value between the minimum and maximum values
+- (void)randomize;
 
 @end

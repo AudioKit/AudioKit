@@ -47,6 +47,13 @@
     return [self initWithValue:minValue minValue:minValue maxValue:maxValue];
 }
 
+- (void)randomize;
+{
+    float width = maximumValue - minimumValue;
+    [self setValue:(((float) rand() / RAND_MAX) * width) + minimumValue];
+}
+
+
 - (void)setConstant:(OCSConstant *)p {
     constant = p;
     output = constant;

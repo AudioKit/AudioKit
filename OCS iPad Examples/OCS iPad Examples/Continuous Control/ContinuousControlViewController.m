@@ -60,11 +60,8 @@
 
 - (IBAction)runInstrument:(id)sender
 {
-    float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
-                                                 to:kTweakableFrequencyMax];
-    
     [myTweakableInstrument play];
-    myTweakableInstrument.frequency.value = randomFrequency;
+    [myTweakableInstrument.frequency randomize];
     
     if (repeatingNoteTimer) {
         return;
@@ -87,20 +84,16 @@
 
 - (void)noteTimerFire:(NSTimer *)timer
 {
-    float randomFrequency = [Helper randomFloatFrom:kTweakableFrequencyMin 
-                                                 to:kTweakableFrequencyMax];
-    myTweakableInstrument.frequency.value = randomFrequency;
+    [myTweakableInstrument.frequency randomize];
 }
 
 
 
 - (void)sliderTimerFire:(NSTimer *)timer
 {
-    float newValue = [Helper randomFloatFrom:kTweakableModIndexMin 
-                                          to:kTweakableModIndexMax];
-    myTweakableInstrument.modIndex.value = newValue;
+    [myTweakableInstrument.modIndex randomize];
     [Helper setSlider:modIndexSlider 
-            withValue:newValue 
+            withValue:myTweakableInstrument.modIndex.value
               minimum:kTweakableModIndexMin 
               maximum:kTweakableModIndexMax];
     

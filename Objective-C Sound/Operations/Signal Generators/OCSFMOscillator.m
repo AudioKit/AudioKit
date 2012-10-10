@@ -25,15 +25,6 @@
 
 @implementation OCSFMOscillator
 
-@synthesize amplitude = amp;
-@synthesize baseFrequency = freq;
-@synthesize carrierMultiplier = car;
-@synthesize modulatingMultiplier = mod;
-@synthesize modulationIndex = modIndex;
-@synthesize fTable = f;
-@synthesize phase = phs;
-@synthesize output;
-
 - (id)initWithFTable:(OCSFTable *)fTable
 
                phase:(OCSConstant *)phase
