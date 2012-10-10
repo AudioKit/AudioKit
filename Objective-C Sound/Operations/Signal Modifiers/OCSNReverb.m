@@ -26,7 +26,6 @@
 
 
 @implementation OCSNReverb
-@synthesize output = ares;
 
 - (id)initWithInput:(OCSParameter *)inputSignal
      reverbDuration:(OCSControl *)reverbDuration 

@@ -17,9 +17,6 @@
 
 /// @name Properties
 
-/// The output is a mono audio signal.
-@property (nonatomic, strong) OCSParameter *output;
-
 /// @name Initialization
 
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
