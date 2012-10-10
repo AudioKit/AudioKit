@@ -24,9 +24,6 @@
 
 /// @name Properties
 
-/// Audio output of the drum.
-@property (nonatomic, strong) OCSParameter *output;
-
 /// @name Initialization
 
 /// Initializes the drum with given parameters
