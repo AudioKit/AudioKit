@@ -19,7 +19,6 @@
 @end
 
 @implementation OCSFSignalFromMonoAudio
-@synthesize output = fSig;
 
 - (id)initWithInput:(OCSParameter *)monoInput
             fftSize:(OCSConstant *)fftSize

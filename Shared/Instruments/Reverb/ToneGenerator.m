@@ -29,7 +29,6 @@
         // INPUTS ==============================================================
         
         frequency  = [[OCSInstrumentProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
-        [frequency setControl:[OCSControl parameterWithString:@"InputFrequency"]]; 
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -40,7 +39,7 @@
         
         OCSOscillator *oscillator;
         oscillator = [[OCSOscillator alloc] initWithFTable:sine
-                                                 frequency:[frequency control]
+                                                 frequency:frequency
                                                  amplitude:ocsp(0.4)];
         [self connect:oscillator];
         

@@ -40,11 +40,7 @@
                                                      maxValue:kModulationMax];
         cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinValue:kLpCutoffMin
                                                         maxValue:kLpCutoffMax];
-        
-        [pitchBend       setControl:[OCSControl parameterWithString:@"PitchBend"]];
-        [modulation      setControl:[OCSControl parameterWithString:@"Modulation"]];
-        [cutoffFrequency setControl:[OCSControl parameterWithString:@"LowPassCutoff"]];
-        
+                
         [self addProperty:pitchBend];
         [self addProperty:modulation];
         [self addProperty:cutoffFrequency];
@@ -60,14 +56,14 @@
         OCSFMOscillator *fm = [[OCSFMOscillator alloc] initWithFTable:sine
                                                         baseFrequency:bentFreq
                                                     carrierMultiplier:ocsp(2)
-                                                 modulatingMultiplier:[modulation control]
+                                                 modulatingMultiplier:modulation
                                                       modulationIndex:ocsp(15)
                                                             amplitude:[note.volume constant]];
         [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter;
         lpFilter = [[OCSLowPassButterworthFilter alloc] initWithInput:[fm output]
-                                                      cutoffFrequency:[cutoffFrequency control]];
+                                                      cutoffFrequency:cutoffFrequency];
         [self connect:lpFilter];
         
         // AUDIO OUTPUT ========================================================

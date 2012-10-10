@@ -36,8 +36,6 @@
                                                               minValue:kDryWetBalanceMin   
                                                               maxValue:kDryWetBalanceMax];
         
-        [dishWellBalance setControl:[OCSControl parameterWithString:@"dishWellBalance"]]; 
-        [dryWetBalance   setControl:[OCSControl parameterWithString:@"dryWetBalance"]]; 
         [self addProperty:dishWellBalance];
         [self addProperty:dryWetBalance];         
         
@@ -66,14 +64,14 @@
         OCSWeightedMean *balance;
         balance = [[OCSWeightedMean alloc] initWithSignal1:dishConv
                                                    signal2:wellConv
-                                                   balance:[dishWellBalance output]];
+                                                   balance:dishWellBalance];
         [self connect:balance];
 
         
         OCSWeightedMean *dryWet;
         dryWet = [[OCSWeightedMean alloc] initWithSignal1:[loop leftOutput]
                                                   signal2:[balance output]
-                                                  balance:[dryWetBalance control]];
+                                                  balance:dryWetBalance];
         [self connect:dryWet];
         
         

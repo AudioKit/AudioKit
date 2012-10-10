@@ -31,7 +31,6 @@
         mod  = [[OCSInstrumentProperty alloc] initWithValue:kModulationInit
                                                    minValue:kModulationMin
                                                    maxValue:kModulationMax];
-        [mod  setControl:[OCSControl parameterWithString:@"Modulation"]];
         [self addProperty:mod];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -43,7 +42,7 @@
         fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sineTable
                                                  baseFrequency:[note.frequency constant]
                                              carrierMultiplier:ocsp(2)
-                                          modulatingMultiplier:[mod control]
+                                          modulatingMultiplier:mod
                                                modulationIndex:ocsp(15)
                                                      amplitude:ocsp(0.2)];
         [self connect:fmOscillator];

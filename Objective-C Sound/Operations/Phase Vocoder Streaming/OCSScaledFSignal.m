@@ -20,7 +20,6 @@
 
 @implementation OCSScaledFSignal
 
-@synthesize output=fSig;
 @synthesize input=fSigIn;
 @synthesize frequencyRatio=kScal;
 @synthesize formantRetainMethod=kKeepForm;

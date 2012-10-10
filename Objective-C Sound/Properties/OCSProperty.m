@@ -15,21 +15,15 @@
 @synthesize minimumValue;
 @synthesize initValue;
 @synthesize value = currentValue;
-@synthesize audio;
-@synthesize control;
 @synthesize constant;
-@synthesize output;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         // ARB / AOP - need to investigate why this can't be a-rate
-        audio    = [OCSParameter parameterWithString:@"Property"];
-        control  = [OCSControl   parameterWithString:@"Property"];
+        output  = [OCSControl   parameterWithString:@"Property"];
         constant = [OCSConstant  parameterWithString:@"Property"];
-        output = control;
-        
     }
     return self;
 }
@@ -53,16 +47,6 @@
     return [self initWithValue:minValue minValue:minValue maxValue:maxValue];
 }
 
-
-- (void)setAudio:(OCSParameter *)p {
-    audio = p;
-    output = audio;
-}
-
-- (void)setControl:(OCSControl *)p {
-    control = p;
-    output = control;
-}
 - (void)setConstant:(OCSConstant *)p {
     constant = p;
     output = constant;

@@ -29,12 +29,7 @@
         frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
         modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
         modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
-        
-        [amplitude  setControl:[OCSControl parameterWithString:@"Amplitude"]]; 
-        [frequency  setControl:[OCSControl parameterWithString:@"Frequency"]]; 
-        [modulation setControl:[OCSControl parameterWithString:@"Modulation"]]; 
-        [modIndex   setControl:[OCSControl parameterWithString:@"ModIndex"]]; 
-        
+                
         [self addProperty:amplitude];
         [self addProperty:frequency];
         [self addProperty:modulation];
@@ -47,11 +42,11 @@
         
         OCSFMOscillator *fmOscil;
         fmOscil = [[OCSFMOscillator alloc] initWithFTable:sineTable
-                                            baseFrequency:[frequency control]
+                                            baseFrequency:frequency
                                         carrierMultiplier:ocsp(1)
-                                     modulatingMultiplier:[modulation control]
-                                          modulationIndex:[modIndex control]
-                                                amplitude:[amplitude control]];
+                                     modulatingMultiplier:modulation
+                                          modulationIndex:modIndex
+                                                amplitude:amplitude];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================
