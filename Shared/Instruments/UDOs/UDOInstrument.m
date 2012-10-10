@@ -42,8 +42,8 @@
         [self addUDO:osc];
         
         UDOCsGrainPitchShifter * ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:osc 
-                                                    rightInput:osc
+        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:osc.output
+                                                    rightInput:osc.output
                                                      basePitch:ocsp(2.7) 
                                                offsetFrequency:ocsp(0) 
                                                  feedbackLevel:ocsp(0.9)];
