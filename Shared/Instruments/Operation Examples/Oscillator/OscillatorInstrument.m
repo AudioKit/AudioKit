@@ -26,13 +26,11 @@
         freq = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
                                                    minValue:kFrequencyMin
                                                    maxValue:kFrequencyMax];
-        [freq setControl:[OCSControl parameterWithString:@"Frequency"]];
         [self addProperty:freq];
         
         amp = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
                                                   minValue:kAmplitudeMin
                                                   maxValue:kAmplitudeMax];
-        [amp setControl:[OCSControl parameterWithString:@"Amplitude"]];
         [self addProperty:amp];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -47,8 +45,8 @@
         
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
-                                              frequency:[freq control]
-                                              amplitude:[amp control]];
+                                              frequency:freq
+                                              amplitude:amp];
         [self connect:myOscil];
         
 

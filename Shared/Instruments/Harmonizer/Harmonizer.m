@@ -54,32 +54,32 @@
         [self connect:fsig1];
         
         OCSScaledFSignal *fsig2;
-        fsig2 = [[OCSScaledFSignal alloc] initWithInput:[fsig1 output]
-                                         frequencyRatio:[pitch control]
+        fsig2 = [[OCSScaledFSignal alloc] initWithInput:fsig1
+                                         frequencyRatio:pitch
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
         [self connect:fsig2];
         
         OCSScaledFSignal *fsig3;
-        fsig3 = [[OCSScaledFSignal alloc] initWithInput:[fsig1 output]
-                                         frequencyRatio:[[pitch control] scaledBy:1.25f]
+        fsig3 = [[OCSScaledFSignal alloc] initWithInput:fsig1
+                                         frequencyRatio:[pitch scaledBy:1.25f]
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
         [self connect:fsig3];
       
         OCSFSignalMix *fsig4;
-        fsig4 = [[OCSFSignalMix alloc] initWithInput1:[fsig2 output] input2:[fsig3 output]];
+        fsig4 = [[OCSFSignalMix alloc] initWithInput1:fsig2 input2:fsig3];
         [self connect:fsig4];
         
         OCSAudioFromFSignal *a1;
-        a1 = [[OCSAudioFromFSignal alloc] initWithSource:[fsig4 output]];  
+        a1 = [[OCSAudioFromFSignal alloc] initWithSource:fsig4];
         [self connect:a1];
         
 
         // AUDIO OUTPUT ========================================================
-        OCSParameter *a2 = [OCSParameter parameterWithFormat:@"%@ * %@", a1, [gain output]];
+        OCSParameter *a2 = [OCSParameter parameterWithFormat:@"%@ * %@", a1, gain];
         OCSAudio *out = [[OCSAudio alloc] initWithMonoInput:a2];
         [self connect:out];
     }

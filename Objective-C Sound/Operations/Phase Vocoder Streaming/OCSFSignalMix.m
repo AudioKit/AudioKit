@@ -17,7 +17,6 @@
 
 @implementation OCSFSignalMix
 
-@synthesize output=fSig;
 @synthesize input1=fSigIn1;
 @synthesize input2=fSigIn2;
 

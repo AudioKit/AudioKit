@@ -22,11 +22,11 @@
     currentValue = value;
     if (value < minimumValue) {
         currentValue = minimumValue;
-        NSLog(@"%@ out of bounds, assigning to minimum", [self output]);
+        NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
     if (value > maximumValue) {
         currentValue = maximumValue;
-        NSLog(@"%@ out of bounds, assigning to maximum", [self output]);
+        NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
 }
 

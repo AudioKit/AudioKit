@@ -13,12 +13,9 @@
  components of two pvoc streams into a single mixed stream.
  */
 
-@interface OCSFSignalMix : OCSParameter
+@interface OCSFSignalMix : OCSFSignal
 
 /// @name Properties
-
-/// The mixed f-signal
-@property (nonatomic, strong) OCSFSignal *output;
 
 /// The first f-signal
 @property (nonatomic, strong) OCSFSignal *input1;

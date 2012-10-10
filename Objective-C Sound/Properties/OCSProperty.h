@@ -11,7 +11,7 @@
 /** Properties allow data to be transferred to and from Csound.
  
  */
-@interface OCSProperty : NSObject
+@interface OCSProperty : OCSControl
 {
     Float32 maximumValue;
     Float32 minimumValue;
@@ -37,18 +37,8 @@
 /// Initial value assigned.
 @property (nonatomic, assign) Float32 initValue;
 
-/// Audio (a-rate) output, theoretically.
-@property (nonatomic, strong) OCSParameter *audio;
-
-/// Control-rate (k-rate) output.
-@property (nonatomic, strong) OCSControl *control;
-
 /// Event-rate (i-rate) output.
 @property (nonatomic, strong) OCSConstant *constant;
-
-/// Catch-all output, necessary for parameterization.
-@property (nonatomic, strong) OCSParameter *output;
-
 
 /// Initialize the property with bounds.
 /// @param minValue Minimum value.

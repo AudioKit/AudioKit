@@ -22,12 +22,9 @@ typedef enum
 
 } WindowType;
 
-@interface OCSFSignalFromMonoAudio : OCSParameter
+@interface OCSFSignalFromMonoAudio : OCSFSignal
 
 /// @name Properties
-
-/// The output is a f-Signal.
-@property (nonatomic, strong) OCSFSignal *output;
 
 /// @name Initialization
 

@@ -27,31 +27,26 @@
         freq = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
                                                    minValue:kFrequencyMin
                                                    maxValue:kFrequencyMax];
-        [freq setControl:[OCSControl parameterWithString:@"Frequency"]];
         [self addProperty:freq];
         
         amp = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
                                                   minValue:kAmplitudeMin
                                                   maxValue:kAmplitudeMax];
-        [amp setControl:[OCSControl parameterWithString:@"Amplitude"]];
         [self addProperty:amp];
         
         car = [[OCSInstrumentProperty alloc] initWithValue:kCarrierMultiplierInit
                                                   minValue:kCarrierMultiplierMin
                                                   maxValue:kCarrierMultiplierMax];
-        [car setControl:[OCSControl parameterWithString:@"CarrierMultiplier"]];
         [self addProperty:car];
         
         mod = [[OCSInstrumentProperty alloc] initWithValue:kModulatingMultiplierInit
                                                   minValue:kModulatingMultiplierMin
                                                   maxValue:kModulatingMultiplierMax];
-        [mod setControl:[OCSControl parameterWithString:@"ModulatingMultiplier"]];
         [self addProperty:mod];
         
         index = [[OCSInstrumentProperty alloc] initWithValue:kModulationIndexInit
                                                     minValue:kModulationIndexMin
                                                     maxValue:kModulationIndexMax];
-        [index setControl:[OCSControl parameterWithString:@"ModulationIndex"]];
         [self addProperty:index];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -61,11 +56,11 @@
 
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sine
-                                                 baseFrequency:[freq control]
-                                             carrierMultiplier:[car control]
-                                          modulatingMultiplier:[mod control]
-                                               modulationIndex:[index control]
-                                                     amplitude:[amp control]];
+                                                 baseFrequency:freq
+                                             carrierMultiplier:car
+                                          modulatingMultiplier:mod
+                                               modulationIndex:index
+                                                     amplitude:amp];
         [self connect:fmOscillator];
 
 

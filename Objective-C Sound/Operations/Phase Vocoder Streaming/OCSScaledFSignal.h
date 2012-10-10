@@ -24,12 +24,9 @@ typedef enum
     kFormantRetainMethodTrueEnvelope=2,
 } FormantRetainMethodType;
 
-@interface OCSScaledFSignal : OCSParameter
+@interface OCSScaledFSignal : OCSFSignal
 
 /// @name Properties
-
-/// Scaled frequency f-Signal or phase vocoder stream.
-@property (nonatomic, strong) OCSFSignal *output;
 
 /// Input f-Signal or phase vocoder stream.
 @property (nonatomic, strong) OCSFSignal *input;

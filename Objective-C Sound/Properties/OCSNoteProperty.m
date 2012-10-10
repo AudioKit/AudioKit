@@ -36,11 +36,11 @@
     currentValue = value;
     if (minimumValue && value < minimumValue) {
         currentValue = minimumValue;
-        NSLog(@"%@ out of bounds, assigning to minimum", [self output]);
+        NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
     if (maximumValue && value > maximumValue) {
         currentValue = maximumValue;
-        NSLog(@"%@ out of bounds, assigning to maximum", [self output]);
+        NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
     // AOP This is the automatic playback of the note that Adam doesn't like
     [myNote play];
