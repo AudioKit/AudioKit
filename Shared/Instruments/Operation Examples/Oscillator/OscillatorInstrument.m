@@ -54,7 +54,7 @@
         // AUDIO OUTPUT ========================================================
         
         OCSAudio *audio;
-        audio = [[OCSAudio alloc] initWithMonoInput:[myOscil output]];
+        audio = [[OCSAudio alloc] initWithMonoInput:myOscil];
         [self connect:audio];
     }
     return self;

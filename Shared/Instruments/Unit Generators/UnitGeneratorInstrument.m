@@ -41,7 +41,7 @@
         OCSLine *baseFrequencyLine = [[OCSLine alloc] initFromValue:ocsp(110) 
                                                             toValue:ocsp(330)
                                                            duration:ocsp(3.0)];
-        [baseFrequencyLine setOutput:[baseFrequencyLine control]];
+        [baseFrequencyLine setOutput:baseFrequencyLine.control];
         [self connect:baseFrequencyLine];
         
         OCSSegmentArray *modIndexLine;
@@ -50,22 +50,22 @@
                                                           afterDuration:ocsp(3)];
         [modIndexLine addValue:ocsp(1.5) afterDuration:ocsp(3)];
         [modIndexLine addValue:ocsp(0.5) afterDuration:ocsp(3)];
-        [modIndexLine setOutput:[modIndexLine control]];
+        [modIndexLine setOutput:modIndexLine.control];
         [self connect:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
         OCSFMOscillator *fmOscil;
         fmOscil = [[OCSFMOscillator alloc] initWithFTable:sine
-                                            baseFrequency:[baseFrequencyLine control]
+                                            baseFrequency:baseFrequencyLine.control
                                         carrierMultiplier:ocsp(1)
-                                     modulatingMultiplier:[myLine output]
-                                          modulationIndex:[modIndexLine control]
+                                     modulatingMultiplier:myLine
+                                          modulationIndex:modIndexLine.control
                                                 amplitude:ocsp(0.4)];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[fmOscil output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:fmOscil];
         [self connect:audio];
     }
     return self;
