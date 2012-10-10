@@ -65,15 +65,14 @@
                                                             amplitude:[note.volume constant]];
         [self connect:fm];
         
-        OCSLowPassButterworthFilter *lpFilter = [[OCSLowPassButterworthFilter alloc]
-                                                 initWithInput:[fm output]
-                                                 cutoffFrequency:[cutoffFrequency control]];
+        OCSLowPassButterworthFilter *lpFilter;
+        lpFilter = [[OCSLowPassButterworthFilter alloc] initWithInput:[fm output]
+                                                      cutoffFrequency:[cutoffFrequency control]];
         [self connect:lpFilter];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[lpFilter output]
-                                                   rightInput:[lpFilter output]];
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:lpFilter];
         [self connect:audio];
     }
     return self;

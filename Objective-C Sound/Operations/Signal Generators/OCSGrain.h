@@ -6,17 +6,14 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /**  Generates granular synthesis textures.
 */
 
-@interface OCSGrain : OCSOperation
+@interface OCSGrain : OCSParameter
 
 /// @name Properties
-
-/// The output is an audio signal.
-@property (nonatomic, retain) OCSParameter *output;
 
 /// @name Initialization
 

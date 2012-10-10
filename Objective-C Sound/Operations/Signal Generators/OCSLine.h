@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /**
  Creates a line that extends from a starting to a second point over the given 
@@ -14,7 +14,7 @@
  the note event ends.  Can be an audio signal or control rate parameter.
  */
 
-@interface OCSLine : OCSOperation
+@interface OCSLine : OCSParameter
 
 /// @name Properties
 

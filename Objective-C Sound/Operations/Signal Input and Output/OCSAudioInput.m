@@ -13,9 +13,7 @@
 }
 @end
 
-
 @implementation OCSAudioInput
-@synthesize output=ar1;
 
 - (id)init {
     self = [super init];

@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /**
  Accesses table values by direct indexing with linear interpolation.
  */
-@interface OCSTableValue : OCSOperation
+@interface OCSTableValue : OCSParameter
 
 /// @name Properties
 

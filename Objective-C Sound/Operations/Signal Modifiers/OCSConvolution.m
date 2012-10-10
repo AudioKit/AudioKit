@@ -17,8 +17,6 @@
 
 @implementation OCSConvolution
 
-@synthesize output = aR1;
-
 - (id)initWithInputAudio:(OCSParameter *)inputAudio 
      impulseResponseFile:(NSString *)impulseResponseFilename;
 {
@@ -37,6 +35,10 @@
     return [NSString stringWithFormat:
             @"%@ pconvolve %@, \"%@\"",
             aR1, aIn, iFilCod];
+}
+
+- (NSString *)description {
+    return [aR1 parameterString];
 }
 
 @end

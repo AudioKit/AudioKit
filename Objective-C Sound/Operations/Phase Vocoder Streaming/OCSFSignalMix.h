@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSFSignal.h"
 
 /** Mix 'seamlessly' two pv signals. This opcode combines the most prominent 
  components of two pvoc streams into a single mixed stream.
  */
 
-@interface OCSFSignalMix : OCSOperation
+@interface OCSFSignalMix : OCSParameter
 
 /// @name Properties
 

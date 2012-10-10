@@ -25,8 +25,6 @@
 
 @implementation OCSGrain
 
-@synthesize output;
-
 - (id)initWithGrainFunction:(OCSFTable *)grainFunction
              windowFunction:(OCSFTable *)windowFunction
            maxGrainDuration:(OCSConstant *)maxGrainDuration

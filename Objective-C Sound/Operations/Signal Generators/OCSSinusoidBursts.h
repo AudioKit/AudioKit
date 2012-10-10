@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 #import "OCSSineTable.h"
 
@@ -14,7 +14,7 @@
  Produces sinusoid bursts useful for formant and granular synthesis.
  */
 
-@interface OCSSinusoidBursts : OCSOperation
+@interface OCSSinusoidBursts : OCSParameter
 
 @property (nonatomic, strong) OCSSineTable *sineburstSynthesisTable;
 @property (nonatomic, strong) OCSFTable *riseShapeTable;

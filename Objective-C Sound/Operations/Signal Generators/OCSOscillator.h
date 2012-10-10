@@ -6,14 +6,15 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
+
 
 /** A simple oscillator with linear interpolation.
  
  Reads from the function table sequentially and repeatedly at given frequency. 
  Linear interpolation is applied for table look up from internal phase values.
  */
-@interface OCSOscillator : OCSOperation 
+@interface OCSOscillator : OCSParameter
 
 /// @name Properties
 

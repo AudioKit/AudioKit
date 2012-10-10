@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Reads stereo audio data from a file.
  */
 
-@interface OCSFileInput : OCSOperation
+@interface OCSFileInput : OCSParameter
 
 /// @name Properties
 

@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /**
  Generates is a controlled pseudo-random number series between min and max values.
  */
 
-@interface OCSRandom : OCSOperation
+@interface OCSRandom : OCSParameter
 
 /// @name Properties
 

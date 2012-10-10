@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /** Multiplies any number of audio signals. 
  */
 
-@interface OCSProduct : OCSOperation 
+@interface OCSProduct : OCSParameter
 
 /// @name Properties
 

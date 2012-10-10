@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 
 /**
  Trace a series of line segments between specified points. The transition
@@ -15,7 +15,7 @@
 
  */
 
-@interface OCSSegmentArray : OCSOperation 
+@interface OCSSegmentArray : OCSParameter
 
 /// @name Properties
 

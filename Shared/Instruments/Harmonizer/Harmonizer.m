@@ -42,11 +42,11 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSAudioInput *audio = [[OCSAudioInput alloc] init];
-        [self connect:audio];
+        OCSAudioInput *microphone = [[OCSAudioInput alloc] init];
+        [self connect:microphone];
         
         OCSFSignalFromMonoAudio *fsig1;
-        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithInput:[audio output]
+        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithInput:microphone
                                                        fftSize:ocspi(2048) 
                                                        overlap:ocspi(256) 
                                                     windowType:kVonHannWindow

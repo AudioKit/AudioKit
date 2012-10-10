@@ -20,7 +20,6 @@
 @end
 
 @implementation OCSBandPassButterworthFilter
-@synthesize output;
 
 -(id)initWithInput:(OCSParameter *)inputSignal
    centerFrequency:(OCSControl *)centerFrequency

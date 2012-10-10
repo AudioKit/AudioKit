@@ -64,8 +64,8 @@
 
         
         OCSWeightedMean *balance;
-        balance = [[OCSWeightedMean alloc] initWithSignal1:[dishConv output]
-                                                   signal2:[wellConv output]
+        balance = [[OCSWeightedMean alloc] initWithSignal1:dishConv
+                                                   signal2:wellConv
                                                    balance:[dishWellBalance output]];
         [self connect:balance];
 

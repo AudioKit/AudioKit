@@ -6,18 +6,15 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
 #import "OCSFSignal.h"
 
 /** Resynthesise phase vocoder data (f-signal) using a FFT overlap-add.
  */
 
-@interface OCSAudioFromFSignal : OCSOperation
+@interface OCSAudioFromFSignal : OCSParameter
 
 /// @name Properties
-
-/// Audio resynthesized from an f-signal
-@property (nonatomic, strong) OCSParameter *output;
 
 /// Input f-signal
 @property (nonatomic, strong) OCSFSignal *source;

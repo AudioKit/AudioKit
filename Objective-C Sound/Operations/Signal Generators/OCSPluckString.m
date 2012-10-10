@@ -34,8 +34,6 @@ typedef enum
 
 @implementation OCSPluckString
 
-@synthesize output;
-
 - (id) initWithAmplitude:(OCSControl *)amplitude
      resamplingFrequency:(OCSControl *)resamplingFrequency
      pitchDecayFrequency:(OCSConstant *)pitchDecayFrequency

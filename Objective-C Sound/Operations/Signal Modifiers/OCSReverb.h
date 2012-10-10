@@ -6,13 +6,14 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOperation.h"
+#import "OCSParameter+Operation.h"
+#import "OCSControl.h"
 
 /** 8 delay line stereo FDN reverb, with feedback matrix based upon physical 
  modeling scattering junction of 8 lossless waveguides of equal characteristic impedance. 
  */
 
-@interface OCSReverb : OCSOperation 
+@interface OCSReverb : OCSParameter
 
 /// @name Properties
 
