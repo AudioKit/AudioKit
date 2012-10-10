@@ -31,7 +31,7 @@
 
 -(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
          riseShapeTable:(OCSFTable *)riseShapeTable
-               Overlaps:(OCSConstant *)numberOfOverlaps
+               overlaps:(OCSConstant *)numberOfOverlaps
               totalTime:(OCSConstant *)totalTime
         octavationIndex:(OCSControl *)octavationIndex
        formantBandwidth:(OCSControl *)formantBandwidth
