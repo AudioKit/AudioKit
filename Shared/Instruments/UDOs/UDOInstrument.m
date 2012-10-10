@@ -42,16 +42,16 @@
         [self addUDO:osc];
         
         UDOCsGrainPitchShifter * ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:[osc output] 
-                                                    rightInput:[osc output] 
+        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:osc 
+                                                    rightInput:osc
                                                      basePitch:ocsp(2.7) 
                                                offsetFrequency:ocsp(0) 
                                                  feedbackLevel:ocsp(0.9)];
         [self addUDO:ps];
         
         UDOCsGrainCompressor * comp;
-        comp = [[UDOCsGrainCompressor alloc] initWithLeftInput:[ps leftOutput] 
-                                                    rightInput:[ps rightOutput] 
+        comp = [[UDOCsGrainCompressor alloc] initWithLeftInput:ps.leftOutput
+                                                    rightInput:ps.rightOutput
                                                      threshold:ocsp(-2.0) 
                                               compressionRatio:ocsp(0.5) 
                                                     attackTime:ocsp(0.1) 
@@ -60,8 +60,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:[ps leftOutput] 
-                                                          rightInput:[ps rightOutput]]; 
+        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:ps.leftOutput
+                                                          rightInput:ps.rightOutput];
         [self connect:stereoOutput];
     }
     return self;

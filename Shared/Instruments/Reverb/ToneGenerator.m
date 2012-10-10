@@ -45,14 +45,14 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:[oscillator output]]; 
+        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:oscillator]; 
         [self connect:audio];
         
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
         auxilliaryOutput = [OCSParameter globalParameterWithString:@"ToneGeneratorOutput"];
-        [self assignOutput:auxilliaryOutput To:[oscillator output]];
+        [self assignOutput:auxilliaryOutput to:oscillator];
     }
     return self;
 }
