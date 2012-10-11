@@ -7,18 +7,17 @@
 //
 
 #import "OCSFTable.h"
-#import "OCSConstant.h"
 
 @interface OCSFTable () {
     int isize;
     FTableType igen;
+    OCSConstant *output;
     OCSParameterArray *iargs; 
     BOOL isNormalized;
 }
 @end
 
 @implementation OCSFTable
-@synthesize output;
 @synthesize isNormalized;
 
 - (id)initWithType:(FTableType)fTableType
@@ -94,7 +93,5 @@
     [new setParameterString:[NSString stringWithFormat:@"ftlen(%@)", output]];
     return new;
 }
-
-
 
 @end

@@ -11,8 +11,7 @@
 /** Properties allow data to be transferred to and from Csound.
  
  */
-@interface OCSProperty : OCSControl
-{
+@interface OCSProperty : OCSControl {
     Float32 maximumValue;
     Float32 minimumValue;
     Float32 initValue;
@@ -23,7 +22,6 @@
     OCSConstant *constant;
     OCSParameter *output;
 }
-
 
 /// Current value of the property.
 @property (nonatomic, readwrite) Float32 value;
@@ -39,6 +37,8 @@
 
 /// Event-rate (i-rate) output.
 @property (nonatomic, strong) OCSConstant *constant;
+
+@property (nonatomic, strong) NSString *name;
 
 /// Initialize the property with bounds.
 /// @param minValue Minimum value.

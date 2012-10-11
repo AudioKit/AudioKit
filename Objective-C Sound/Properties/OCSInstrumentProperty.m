@@ -11,11 +11,11 @@
 @implementation OCSInstrumentProperty
 
 - (NSString *)stringForCSDGetValue {
-    return [NSString stringWithFormat:@"%@ chnget \"%@Property\"\n",  output, output];
+    return [NSString stringWithFormat:@"%@ chnget \"%@Pointer\"\n",  output, output];
 }
 
 - (NSString *)stringForCSDSetValue {
-    return [NSString stringWithFormat:@"chnset %@, \"%@Property\"\n", output, output];
+    return [NSString stringWithFormat:@"chnset %@, \"%@Pointer\"\n", output, output];
 }
 
 - (void)setValue:(Float32)value {
@@ -37,7 +37,7 @@
 }
 
 - (void)setup:(CsoundObj*)csoundObj {
-    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Property",[output parameterString]]];
+    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",[output parameterString]]];
     *channelPtr = [self value];
 }
 

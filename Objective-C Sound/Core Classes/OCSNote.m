@@ -89,5 +89,10 @@ static int currentID = 1;
     [newProperty setPValue:propOrder.count +3];
 }
 
+- (void) addProperty:(OCSNoteProperty *)newProperty
+{
+    [self addProperty:newProperty withName:@"NoteProperty"];
+}
+
 
 @end

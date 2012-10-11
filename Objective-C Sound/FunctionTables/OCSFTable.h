@@ -19,7 +19,7 @@
  - Windows (OCSWindowsTable)
  
  */
-@interface OCSFTable : NSObject 
+@interface OCSFTable : OCSConstant
 
 // The unsupported types appear in an enumeration at the bottom of this file.  Add as necessary.
 typedef enum
@@ -36,9 +36,6 @@ typedef enum
     kFTStraightLinesFromBreakpoints=27,
 } FTableType;
 
-
-/// The output is a globally accessibly constant parameter
-@property (nonatomic, strong) OCSConstant *output;
 
 /// This can be set to normalize the table, or not. It is not normalized by default.
 @property (nonatomic,assign) BOOL isNormalized;

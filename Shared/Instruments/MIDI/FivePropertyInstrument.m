@@ -88,13 +88,13 @@
                                           initialValue:kVolumeMin
                                               minValue:kVolumeMin
                                               maxValue:kVolumeMax];
-        [self addProperty:volume withName:@"Volume"];
+        [self addProperty:volume];
         
         frequency = [[OCSNoteProperty alloc] initWithNote:self
                                          initialValue:kFrequencyMin
                                              minValue:kFrequencyMin
                                              maxValue:kFrequencyMax];
-        [self addProperty:frequency withName:@"Frequency"];
+        [self addProperty:frequency];
     }
     return self;
 }
