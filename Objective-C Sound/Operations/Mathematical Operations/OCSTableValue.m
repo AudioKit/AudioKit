@@ -20,9 +20,6 @@
 
 @implementation OCSTableValue
 
-@synthesize output=res;
-@synthesize index;
-@synthesize fTable = ifn;
 @synthesize normalizeResult;
 @synthesize offset = ixoff;
 @synthesize wrapData;

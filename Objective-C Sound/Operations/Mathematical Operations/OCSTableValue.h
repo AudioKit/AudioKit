@@ -13,24 +13,6 @@
  */
 @interface OCSTableValue : OCSParameter
 
-/// @name Properties
-
-/// Output can be audio, control, or constant depending on the indexing parameter.
-@property (nonatomic, strong) OCSParameter *output;
-/// Indexing Parameter.
-@property (nonatomic, strong) OCSParameter *index;
-/// Function table read the data from.
-@property (nonatomic, strong) OCSConstant *fTable;
-
-/// Optional instruction to normalize the data.
-@property (nonatomic, assign) BOOL normalizeResult;
-/// Optional value by which index is to be offset. For a table with origin at center, use tablesize/2 (raw) or .5 (normalized). The default value is 0.
-@property (nonatomic, strong) OCSParameter *offset;
-/// Optional instruction to wrap the data.  Without wrapping, (index < 0 treated as index=0; index > tablesize sticks at index=size)
-@property (nonatomic, assign) BOOL wrapData;
-
-/// @name Initialization
-
 /// Initialize the opcode as an audio operation.
 /// @param                fTable Function table read the data from.
 /// @param audioRateIndex Indexing Parameter.
@@ -50,6 +32,12 @@
      atConstantIndex:(OCSConstant *)constantIndex;
 
 
+/// Optional instruction to normalize the data.
+@property (nonatomic, assign) BOOL normalizeResult;
+/// Optional value by which index is to be offset. For a table with origin at center, use tablesize/2 (raw) or .5 (normalized). The default value is 0.
+@property (nonatomic, strong) OCSParameter *offset;
+/// Optional instruction to wrap the data.  Without wrapping, (index < 0 treated as index=0; index > tablesize sticks at index=size)
+@property (nonatomic, assign) BOOL wrapData;
 
 
 @end

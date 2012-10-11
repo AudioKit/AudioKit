@@ -24,14 +24,14 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSReverb * reverb = [[OCSReverb alloc] initWithMonoInput:input
-                                                    feedbackLevel:ocsp(0.9)
+                                                    feedbackLevel:ocsp(0.8)
                                                   cutoffFrequency:ocsp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
             
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:reverb.leftOutput
-                                                   rightInput:reverb.rightOutput];
+        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[reverb.leftOutput scaledBy:0.2]
+                                                   rightInput:[reverb.rightOutput scaledBy:0.2]];
         [self connect:audio];
         
         // RESET INPUTS ========================================================
