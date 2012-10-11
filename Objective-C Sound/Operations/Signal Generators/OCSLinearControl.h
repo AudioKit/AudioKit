@@ -1,20 +1,15 @@
 //
-//  OCSLine.h
-//  Objective-C Sound
+//  OCSLinearControl.h
+//  OCS iPad Examples
 //
-//  Created by Adam Boulanger on 6/7/12.
+//  Created by Aurelius Prochazka on 10/11/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSConstant.h"
 #import "OCSParameter+Operation.h"
 
-/**
- Creates a line that extends from a starting to a second point over the given 
- time duration.  After that duration, the line continues at the same slope until
- the note event ends.  Can be an audio signal or control rate parameter.
- */
-
-@interface OCSLine : OCSParameter
+@interface OCSLinearControl : OCSControl
 
 /// Initialize a linear transition from one value to another over specified time.
 /// @param startingValue Value to start the line from.
@@ -24,6 +19,6 @@
 - (id)initFromValue:(OCSConstant *)startingValue
             toValue:(OCSConstant *)endingValue
            duration:(OCSConstant *)duration;
-    
+
 
 @end

@@ -1,15 +1,15 @@
 //
-//  OCSLine.m
-//  Objective-C Sound
+//  OCSLinearControl.m
+//  OCS iPad Examples
 //
-//  Created by Adam Boulanger on 6/7/12.
+//  Created by Aurelius Prochazka on 10/11/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSLine.h"
+#import "OCSLinearControl.h"
 
-@interface OCSLine () {
-    OCSParameter *output;
+@interface OCSLinearControl () {
+    OCSControl *output;
     
     OCSConstant *ia;
     OCSConstant *ib;
@@ -17,26 +17,26 @@
 }
 @end
 
-@implementation OCSLine
+@implementation OCSLinearControl
 
 - (id)initFromValue:(OCSConstant *)startingValue
             toValue:(OCSConstant *)endingValue
            duration:(OCSConstant *)duration
 {
     self = [super init];
-
+    
     if (self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
+        output = [OCSControl parameterWithString:[self operationName]];
         
         ia = startingValue;
         ib = endingValue;
         idur = duration;
     }
-    return self; 
+    return self;
 }
 
 //Csound Prototype: (a/k)res linseg ia, idur, ib
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:@"%@ linseg %@, %@, %@", output, ia, idur, ib];
 }
@@ -44,5 +44,6 @@
 - (NSString *)description {
     return [output parameterString];
 }
+
 
 @end

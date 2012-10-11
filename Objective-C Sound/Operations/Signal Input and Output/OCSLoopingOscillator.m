@@ -22,7 +22,7 @@
 
 @implementation OCSLoopingOscillator
 
-@synthesize output, leftOutput, rightOutput;
+@synthesize leftOutput, rightOutput;
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable

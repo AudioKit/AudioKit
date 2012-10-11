@@ -10,6 +10,7 @@
 #import "OCSSoundFileTable.h"
 #import "OCSWindowsTable.h"
 #import "OCSLine.h"
+#import "OCSLinearControl.h"
 #import "OCSSegmentArray.h"
 #import "OCSProperty.h"
 #import "OCSGrain.h"
@@ -56,24 +57,23 @@
                                                           duration:ocsp(9.0)];
         [self connect:grainDensityLine];
         
-        OCSLine *ampOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
+        OCSLinearControl *ampOffsetLine;
+        ampOffsetLine = [[OCSLinearControl alloc] initFromValue:ocsp(0)
                                                         toValue:ocsp(0.1)
                                                        duration:ocsp(9.0)];
-        [ampOffsetLine setOutput:ampOffsetLine.control];
         [self connect:ampOffsetLine];
         
-        OCSLine *pitchOffsetLine;
-        pitchOffsetLine = [[OCSLine alloc] initFromValue:ocsp(0)
-                                                 toValue:[baseFrequency scaledBy:0.5]
-                                                duration:ocsp(9.0) ];
-        [pitchOffsetLine setOutput:pitchOffsetLine.control];
+        OCSLinearControl *pitchOffsetLine;
+        pitchOffsetLine = [[OCSLinearControl alloc] initFromValue:ocsp(0)
+                                                          toValue:[baseFrequency scaledBy:0.5]
+                                                         duration:ocsp(9.0) ];
         [self connect:pitchOffsetLine];
         
         
-        OCSLine *grainDurationLine = [[OCSLine alloc] initFromValue:ocsp(0.1)
+        OCSLinearControl *grainDurationLine;
+        grainDurationLine = [[OCSLinearControl alloc] initFromValue:ocsp(0.1)
                                                             toValue:ocsp(0.1)
                                                            duration:ocsp(9.0)];
-        [grainDurationLine setOutput:grainDurationLine.control];
         [self connect:grainDurationLine];
         
         OCSGrain *grainL;
@@ -81,11 +81,11 @@
                                           windowFunction:hamming 
                                         maxGrainDuration:ocsp(5) 
                                                amplitude:amplitudeExp.output
-                                          grainFrequency:pitchLine.output
-                                            grainDensity:grainDensityLine.output
-                                           grainDuration:grainDurationLine.control
-                                   maxAmplitudeDeviation:ampOffsetLine.control
-                                       maxPitchDeviation:pitchOffsetLine.control];
+                                          grainFrequency:pitchLine
+                                            grainDensity:grainDensityLine
+                                           grainDuration:grainDurationLine
+                                   maxAmplitudeDeviation:ampOffsetLine
+                                       maxPitchDeviation:pitchOffsetLine];
         [self connect:grainL];
         
         OCSGrain *grainR;
@@ -93,11 +93,11 @@
                                           windowFunction:hamming 
                                         maxGrainDuration:ocsp(6) 
                                                amplitude:amplitudeExp.output
-                                          grainFrequency:pitchLine.output
-                                            grainDensity:grainDensityLine.output
-                                           grainDuration:grainDurationLine.control
-                                   maxAmplitudeDeviation:ampOffsetLine.control
-                                       maxPitchDeviation:pitchOffsetLine.control];
+                                          grainFrequency:pitchLine
+                                            grainDensity:grainDensityLine
+                                           grainDuration:grainDurationLine
+                                   maxAmplitudeDeviation:ampOffsetLine
+                                       maxPitchDeviation:pitchOffsetLine];
         [self connect:grainR];
         
         // AUDIO OUTPUT ========================================================

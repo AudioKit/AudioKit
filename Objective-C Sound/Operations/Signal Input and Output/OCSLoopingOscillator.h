@@ -21,8 +21,6 @@
 
 /// @name Properties
 
-/// This is the output for a mono sound file table input.
-@property (nonatomic, strong) OCSParameter *output;
 /// This is the output to the left channel if stereo.
 @property (nonatomic, strong) OCSParameter *leftOutput;
 /// This is the output to the right channel if stereo.
