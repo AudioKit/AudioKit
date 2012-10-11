@@ -14,6 +14,7 @@
     int _myID;
     float eventNumber;
     NSMutableArray *propOrder;
+    BOOL isPlayingP;
 }
 @end
 
@@ -37,6 +38,7 @@ static int currentID = 1;
         }
         _myID = currentID++;
         
+        isPlayingP = NO;
         instrument = anInstrument;
         duration = [[OCSNoteProperty alloc] init];
         [self addProperty:duration withName:@"Duration"];
@@ -55,13 +57,20 @@ static int currentID = 1;
     return [self initWithInstrument:anInstrument forDuration:-1];
 }
 
+- (void)updateProperties {
+    if (isPlayingP) {
+        [[OCSManager sharedOCSManager] updateNote:self];
+    }
+}
 
 - (void)play {
     [[OCSManager sharedOCSManager] updateNote:self];
+    isPlayingP = YES;
 }
 
 - (void)stop {
     [[OCSManager sharedOCSManager] stopNote:self];
+    isPlayingP = NO;
 }
 
 - (NSString *)stringForCSD;
@@ -87,6 +96,7 @@ static int currentID = 1;
     [self.properties setValue:newProperty forKey:name];
     [propOrder addObject:name];
     [newProperty setPValue:propOrder.count +3];
+    [newProperty setNote:self];
 }
 
 - (void) addProperty:(OCSNoteProperty *)newProperty
