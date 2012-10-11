@@ -31,16 +31,16 @@
     [orch addInstrument:fx];
     
     [[OCSManager sharedOCSManager] runOrchestra:orch];
-    
-    [toneGenerator play];
 }
 
 - (IBAction)hit1:(id)sender {
     toneGenerator.frequency.value = 440.0f;
+    [toneGenerator playForDuration:0.1];
 }
 
 - (IBAction)hit2:(id)sender {
     [toneGenerator.frequency randomize];
+    [toneGenerator playForDuration:0.1];
 }
 
 - (IBAction)startFX:(id)sender {

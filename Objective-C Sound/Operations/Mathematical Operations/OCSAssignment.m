@@ -9,31 +9,30 @@
 #import "OCSAssignment.h"
 
 @interface OCSAssignment () {
-    OCSParameter *in;
-    OCSParameter *out;
+    OCSParameter *lhs;
+    OCSParameter *rhs;
 }
 @end
 
 @implementation OCSAssignment
-@synthesize output = out;
 
-- (id)initWithInput:(OCSParameter *)input {
+- (id)initWithOutput:(OCSParameter *)output input:(OCSParameter *)input {
     self = [super init];
     
     if (self) {
-        out = [OCSParameter parameterWithString:[self operationName]];
-        in = input;
+        lhs = output;
+        rhs = input;
     }
     return self; 
 }
 
 - (NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ = %@", out, in];
+    return [NSString stringWithFormat:@"%@ = %@", lhs, rhs];
 }
 
 - (NSString *)description {
-    return [out parameterString];
+    return [lhs parameterString];
 }
 
 @end

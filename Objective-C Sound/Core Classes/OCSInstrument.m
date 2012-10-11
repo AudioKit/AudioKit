@@ -112,8 +112,7 @@ static int currentID = 1;
 }
 
 - (void)assignOutput:(OCSParameter *)output to:(OCSParameter *)input {
-    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithInput:input];
-    [auxOutputAssign setOutput:output];
+    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithOutput:output input:input];
     [self connect:auxOutputAssign];
 }
 

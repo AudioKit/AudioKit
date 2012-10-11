@@ -11,17 +11,9 @@
 /// Simply a wrapper for the equal sign
 @interface OCSAssignment : OCSParameter
 
-/// @name Properties
-
-/// The output can be audio, control or a constant.
-@property (nonatomic, strong) OCSParameter *output;
-
-
-/// @name Initialization
-
 /// Initialization Statement
 /// @param input The right side of the equal sign.
-- (id)initWithInput:(OCSParameter *)input;
+- (id)initWithOutput:(OCSParameter *)output input:(OCSParameter *)input;
 
 @end
 

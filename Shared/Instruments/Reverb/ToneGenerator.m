@@ -40,7 +40,7 @@
         OCSOscillator *oscillator;
         oscillator = [[OCSOscillator alloc] initWithFTable:sine
                                                  frequency:frequency
-                                                 amplitude:ocsp(0.4)];
+                                                 amplitude:ocsp(0.2)];
         [self connect:oscillator];
         
         // AUDIO OUTPUT ========================================================
