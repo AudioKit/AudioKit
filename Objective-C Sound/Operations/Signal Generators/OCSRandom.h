@@ -16,9 +16,6 @@
 
 /// @name Properties
 
-/// The output as audio.
-@property (nonatomic, strong) OCSParameter *audio;
-
 /// The output as a control.
 @property (nonatomic, strong) OCSControl *control;
 

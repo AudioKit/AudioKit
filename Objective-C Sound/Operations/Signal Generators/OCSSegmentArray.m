@@ -30,7 +30,6 @@
 
 @implementation OCSSegmentArray
 
-@synthesize audio;
 @synthesize control;
 @synthesize output;
 

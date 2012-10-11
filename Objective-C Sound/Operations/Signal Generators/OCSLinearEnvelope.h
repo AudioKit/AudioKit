@@ -21,8 +21,6 @@ the same direction, going negative.
 
 /// @name Properties
 
-/// The output as audio.
-@property (nonatomic, strong) OCSParameter *audio;
 /// The output as a control.
 @property (nonatomic, strong) OCSControl *control;
 /// The output can either an audio signal or a control.
