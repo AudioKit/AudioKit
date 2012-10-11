@@ -37,7 +37,7 @@
         
         OCSLoopingOscillator *oscil;
         oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
-                                                 frequencyMultiplier:[note.speed constant]
+                                                 frequencyMultiplier:note.speed
                                                            amplitude:ocsp(0.5)
                                                                 type:kLoopingOscillatorNoLoop];
         [self connect:oscil];

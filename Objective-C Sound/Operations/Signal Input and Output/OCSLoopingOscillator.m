@@ -88,4 +88,8 @@
             @"endif\n",
             soundFileTable, mono, stereo];
 }
+
+- (NSString *)description {
+    return [output parameterString];
+}
 @end
