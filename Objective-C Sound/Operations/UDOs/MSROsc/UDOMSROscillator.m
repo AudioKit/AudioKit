@@ -18,8 +18,6 @@
 
 @implementation UDOMSROscillator
 
-@synthesize output;
-
 - (id)initWithType:(OscillatorType)oscillatorType
          frequency:(OCSConstant *)pitchOrFrequency
          amplitude:(OCSConstant *)maxAmplitude;
@@ -44,6 +42,10 @@
     return [NSString stringWithFormat:
             @"%@ msrosc %@, %@, %i",
             output, amplitude, frequency, type];
+}
+
+- (NSString *)description {
+    return [output parameterString];
 }
 
 

@@ -41,13 +41,6 @@ typedef enum {
 
 @interface UDOMSROscillator : OCSUserDefinedOperation 
 
-/// @name Properties
-
-/// The output is the audio signal.
-@property (nonatomic, strong) OCSParameter *output;
-
-/// @name Initialization
-
 /** Instantiates the user-defined opcode for Michael Rempel's Oscillator.
  
  @param maxAmplitude     Maximum output of the signal in relation to the 0dB full scale amplitude. Must be greater than zero.

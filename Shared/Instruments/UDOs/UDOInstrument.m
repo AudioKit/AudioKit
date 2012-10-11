@@ -35,15 +35,15 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        UDOMSROscillator *osc;
-        osc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
-                                           frequency:[frequency constant]
-                                           amplitude:ocsp(0.5)];
-        [self addUDO:osc];
+        UDOMSROscillator *msrOsc;
+        msrOsc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
+                                              frequency:[frequency constant]
+                                              amplitude:ocsp(0.5)];
+        [self addUDO:msrOsc];
         
         UDOCsGrainPitchShifter * ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:osc.output
-                                                    rightInput:osc.output
+        ps = [[UDOCsGrainPitchShifter alloc] initWithLeftInput:msrOsc
+                                                    rightInput:msrOsc
                                                      basePitch:ocsp(2.7) 
                                                offsetFrequency:ocsp(0) 
                                                  feedbackLevel:ocsp(0.9)];

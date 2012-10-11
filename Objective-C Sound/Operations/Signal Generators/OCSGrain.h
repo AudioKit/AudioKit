@@ -13,10 +13,6 @@
 
 @interface OCSGrain : OCSParameter
 
-/// @name Properties
-
-/// @name Initialization
-
 /// Instantiates the grain synthesis with the given parameters.
 /// @param amplitude              Amplitude of each grain.
 /// @param grainFrequency         To use the original frequency of the input sound, divide the original sample rate of the grain waveform by the length of the grain function table.
@@ -37,6 +33,6 @@
       maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
           maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 
-- (void) turnOffGrainOffsetRandomness;
+- (void)turnOffGrainOffsetRandomness;
 
 @end
