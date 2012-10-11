@@ -12,22 +12,20 @@
 #import "OCSFMOscillator.h"
 
 @interface OCSFMOscillator () {
-    OCSParameter *amp;
-    OCSControl *freq;
-    OCSParameter *car;
-    OCSParameter *mod;
-    OCSControl *modIndex;
-    OCSFTable *f;
+    OCSParameter *xamp;
+    OCSControl *kcps;
+    OCSParameter *xcar;
+    OCSParameter *xmod;
+    OCSControl *kndx;
+    OCSFTable *ifn;
     OCSConstant *phs;
-    OCSParameter *output;
+    OCSParameter *ares;
 }
 @end
 
 @implementation OCSFMOscillator
 
 - (id)initWithFTable:(OCSFTable *)fTable
-
-               phase:(OCSConstant *)phase
        baseFrequency:(OCSControl *)baseFrequency
    carrierMultiplier:(OCSParameter *)carrierMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier
@@ -36,49 +34,32 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
 {
     self = [super init];
     if ( self ) {
-        output = [OCSParameter parameterWithString:[self operationName]];
-        amp  = amplitude;
-        freq = baseFrequency;
-        car  = carrierMultiplier;
-        mod  = modulatingMultiplier;
-        modIndex = modulationIndex;
-        f = fTable;
-        phs = phase;
+        ares = [OCSParameter parameterWithString:[self operationName]];
+        xamp = amplitude;
+        kcps = baseFrequency;
+        xcar = carrierMultiplier;
+        xmod = modulatingMultiplier;
+        kndx = modulationIndex;
+        ifn  = fTable;
+        phs  = ocsp(0);
     }
     return self;
 }
 
-- (id)initWithFTable:(OCSFTable *)fTable
-       baseFrequency:(OCSControl *)baseFrequency
-   carrierMultiplier:(OCSParameter *)carrierMultiplier
-modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-     modulationIndex:(OCSControl *)modulationIndex
-           amplitude:(OCSParameter *)amplitude;
-{
-    return [self initWithFTable:fTable
-                          phase:[OCSConstant parameterWithInt:0]
-                  baseFrequency:baseFrequency
-              carrierMultiplier:carrierMultiplier
-           modulatingMultiplier:modulatingMultiplier
-                modulationIndex:modulationIndex
-                      amplitude:amplitude];
+- (void)setPhase:(OCSConstant *)phase {
+    phs = phase;
 }
 
 // Csound Prototype: ares foscili xamp, kcps, xcar, xmod, kndx, ifn (, iphs)
 - (NSString *)stringForCSD
 {
-    // Clean up for uninitialized parameters
-    if (phs == nil)    phs    = [OCSConstant parameterWithInt:0];
-    if (output == nil) output = [OCSParameter parameterWithString:[self operationName]];
-    
-    
     return[NSString stringWithFormat:
-             @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
-             output, amp, freq, car, mod, modIndex, f, phs];
+           @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
+           ares, xamp, kcps, xcar, xmod, kndx, ifn, phs];
 }
  
 - (NSString *)description {
-    return [output parameterString];
+    return [ares parameterString];
 }
 
 @end
