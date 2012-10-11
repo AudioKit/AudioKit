@@ -9,6 +9,7 @@
 #import "UnitGeneratorInstrument.h"
 #import "OCSSineTable.h"
 #import "OCSLine.h"
+#import "OCSLinearControl.h"
 #import "OCSSegmentArray.h"
 #import "OCSFMOscillator.h"
 #import "OCSAudio.h"
@@ -38,10 +39,10 @@
         [self connect:myLine];
 
         //Init LineSegment_a, without OCSParameterArray Functions like line
-        OCSLine *baseFrequencyLine = [[OCSLine alloc] initFromValue:ocsp(110) 
+        OCSLinearControl *baseFrequencyLine;
+        baseFrequencyLine = [[OCSLinearControl alloc] initFromValue:ocsp(110)
                                                             toValue:ocsp(330)
                                                            duration:ocsp(3.0)];
-        [baseFrequencyLine setOutput:baseFrequencyLine.control];
         [self connect:baseFrequencyLine];
         
         OCSSegmentArray *modIndexLine;
@@ -56,7 +57,7 @@
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
         OCSFMOscillator *fmOscil;
         fmOscil = [[OCSFMOscillator alloc] initWithFTable:sine
-                                            baseFrequency:baseFrequencyLine.control
+                                            baseFrequency:baseFrequencyLine
                                         carrierMultiplier:ocsp(1)
                                      modulatingMultiplier:myLine
                                           modulationIndex:modIndexLine.control
