@@ -16,16 +16,7 @@
 
 @interface OCSNoteProperty : OCSProperty
 
+@property (nonatomic, strong) OCSNote *note;
 @property (assign) int pValue;
-
-/// Create a note property with bounds
-/// @param note Note this will be a property of
-/// @param initialValue Starting value of the property
-/// @param minValue Maximum value of the property
-/// @param maxValue Minimum value of the property
-- (id) initWithNote:(OCSNote *)note
-       initialValue:(float)initialValue
-           minValue:(float)minValue
-           maxValue:(float)maxValue;
 
 @end

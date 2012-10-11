@@ -84,17 +84,15 @@
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {
     self = [super initWithInstrument:anInstrument];
     if (self) {
-        volume = [[OCSNoteProperty alloc] initWithNote:self
-                                          initialValue:kVolumeMin
-                                              minValue:kVolumeMin
-                                              maxValue:kVolumeMax];
-        [self addProperty:volume];
+        volume = [[OCSNoteProperty alloc] initWithValue:kVolumeMin
+                                               minValue:kVolumeMin
+                                               maxValue:kVolumeMax];
+        [self addProperty:volume withName:@"Volume"];
         
-        frequency = [[OCSNoteProperty alloc] initWithNote:self
-                                         initialValue:kFrequencyMin
-                                             minValue:kFrequencyMin
-                                             maxValue:kFrequencyMax];
-        [self addProperty:frequency];
+        frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
+                                                  minValue:kFrequencyMin
+                                                  maxValue:kFrequencyMax];
+        [self addProperty:frequency withName:@"Frequency"];
     }
     return self;
 }

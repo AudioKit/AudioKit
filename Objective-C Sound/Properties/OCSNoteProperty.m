@@ -18,6 +18,7 @@
 @implementation OCSNoteProperty
 
 @synthesize pValue;
+@synthesize note=myNote;
 
 - (id) initWithNote:(OCSNote *)note
        initialValue:(float)initialValue
@@ -42,8 +43,7 @@
         currentValue = maximumValue;
         NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
-    // AOP This is the automatic playback of the note that Adam doesn't like
-    [myNote play];
+    [myNote updateProperties];
 }
 
 

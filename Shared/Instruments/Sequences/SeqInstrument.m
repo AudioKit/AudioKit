@@ -65,10 +65,9 @@
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {
     self = [super initWithInstrument:anInstrument];
     if (self) {
-        frequency = [[OCSNoteProperty alloc] initWithNote:self
-                                             initialValue:kFrequencyInit
-                                                 minValue:kFrequencyMin
-                                                 maxValue:kFrequencyMax];
+        frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
+                                                  minValue:kFrequencyMin
+                                                  maxValue:kFrequencyMax];
         [self addProperty:frequency];
     }
     return self;

@@ -50,6 +50,9 @@
 /// Begin playback of the note.
 - (void)play;
 
+/// Refine playback of the note.
+- (void)updateProperties;
+
 /// Stop playback of the note.
 - (void)stop;
 
