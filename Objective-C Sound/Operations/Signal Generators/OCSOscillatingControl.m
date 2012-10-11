@@ -1,39 +1,38 @@
 //
-//  OCSOscillator.m
-//  Objective-C Sound
+//  OCSOscillatingControl.m
+//  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 4/13/12.
+//  Created by Aurelius Prochazka on 10/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSOscillator.h"
+#import "OCSOscillatingControl.h"
 
-@interface OCSOscillator () {
-    OCSParameter *amp;
-    OCSParameter *freq;
+@interface OCSOscillatingControl () {
+    OCSControl *amp;
+    OCSControl *freq;
     OCSConstant *phs;
     OCSFTable *f;
-
+    
     OCSParameter *output;
 }
 @end
 
-@implementation OCSOscillator 
-
+@implementation OCSOscillatingControl
 
 - (id)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParameter *)frequency
-           amplitude:(OCSParameter *)amplitude;
+           frequency:(OCSControl *)frequency
+           amplitude:(OCSControl *)amplitude;
 {
     self = [super init];
     if (self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
+        output = [OCSControl parameterWithString:[self operationName]];
         amp  = amplitude;
         freq = frequency;
         f    = fTable;
         phs  = ocsp(0);
     }
-    return self; 
+    return self;
 }
 
 - (void)setPhase:(OCSConstant *)phase {
@@ -41,8 +40,8 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
-            @"%@ oscili %@, %@, %@, %@", 
+    return [NSString stringWithFormat:
+            @"%@ oscili %@, %@, %@, %@",
             output, amp, freq, f, phs];
 }
 
