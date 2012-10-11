@@ -9,6 +9,7 @@
 #import "OCSLinearEnvelope.h"
 
 @interface OCSLinearEnvelope () {
+    OCSParameter *audio;
     OCSParameter *amp;
     OCSConstant *rise;
     OCSConstant *dur;
@@ -19,8 +20,6 @@
 
 @implementation OCSLinearEnvelope
 
-
-@synthesize audio;
 @synthesize control;
 @synthesize output;
 

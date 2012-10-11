@@ -27,8 +27,6 @@
 
 @implementation OCSWeightedMean
 
-
-@synthesize audio;
 @synthesize control;
 @synthesize constant;
 @synthesize output;

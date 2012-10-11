@@ -24,7 +24,6 @@
 @implementation OCSRandom
 @synthesize constant;
 @synthesize control;
-@synthesize audio;
 @synthesize output;
 
 -(id)initWithMinimum:(OCSControl *)minimum
