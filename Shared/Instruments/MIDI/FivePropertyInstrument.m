@@ -32,15 +32,16 @@
         [self addNoteProperty:note.volume];
         [self addNoteProperty:note.frequency];
         
+        
         // INPUTS AND CONTROLS =================================================
         pitchBend = [[OCSInstrumentProperty alloc] initWithValue:1
-                                                   minValue:kPitchBendMin
-                                                   maxValue:kPitchBendMax];
+                                                        minValue:kPitchBendMin
+                                                        maxValue:kPitchBendMax];
         modulation = [[OCSInstrumentProperty alloc] initWithMinValue:kModulationMin
-                                                     maxValue:kModulationMax];
+                                                            maxValue:kModulationMax];
         cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinValue:kLpCutoffMin
-                                                        maxValue:kLpCutoffMax];
-                
+                                                                 maxValue:kLpCutoffMax];
+        
         [self addProperty:pitchBend];
         [self addProperty:modulation];
         [self addProperty:cutoffFrequency];
@@ -58,7 +59,7 @@
                                                     carrierMultiplier:ocsp(2)
                                                  modulatingMultiplier:modulation
                                                       modulationIndex:ocsp(15)
-                                                            amplitude:[note.volume constant]];
+                                                            amplitude:note.volume];
         [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter;
@@ -79,20 +80,23 @@
 
 @implementation FivePropertyInstrumentNote
 
-@synthesize volume, frequency;
+@synthesize volume;
+@synthesize frequency;
 
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {
     self = [super initWithInstrument:anInstrument];
     if (self) {
-        volume = [[OCSNoteProperty alloc] initWithValue:kVolumeMin
+
+        volume = [[OCSNoteProperty alloc] initWithValue:kVolumeInit
                                                minValue:kVolumeMin
                                                maxValue:kVolumeMax];
-        [self addProperty:volume withName:@"Volume"];
+        [self addProperty:volume];
         
         frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
                                                   minValue:kFrequencyMin
                                                   maxValue:kFrequencyMax];
-        [self addProperty:frequency withName:@"Frequency"];
+        [self addProperty:frequency];
+
     }
     return self;
 }

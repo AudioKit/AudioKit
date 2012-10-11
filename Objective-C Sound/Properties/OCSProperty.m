@@ -32,12 +32,15 @@
            maxValue:(float)maxValue;
 {
     self = [self init];
-    initValue = initialValue;
-    currentValue = initialValue;
-    minimumValue = minValue;
-    maximumValue = maxValue;
+    if (self) {
+        initValue = initialValue;
+        currentValue = initialValue;
+        minimumValue = minValue;
+        maximumValue = maxValue;
+    }
     return self;
 }
+
 - (void)setName:(NSString *)newName {
     output  = [OCSControl   parameterWithString:newName];
     constant = [OCSConstant parameterWithString:newName];

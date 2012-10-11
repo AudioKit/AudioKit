@@ -30,8 +30,9 @@
 @interface FivePropertyInstrumentNote : OCSNote
 
 @property (nonatomic, strong) OCSNoteProperty *volume;
-#define kVolumeMin 0.0
-#define kVolumeMax 0.8
+#define kVolumeInit 0.2
+#define kVolumeMin  0.0
+#define kVolumeMax  0.8
 
 @property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 20

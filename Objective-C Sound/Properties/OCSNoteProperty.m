@@ -20,14 +20,10 @@
 @synthesize pValue;
 @synthesize note=myNote;
 
-- (id) initWithNote:(OCSNote *)note
-       initialValue:(float)initialValue
-           minValue:(float)minValue
-           maxValue:(float)maxValue
+- (id) init
 {
-    self = [super initWithValue:initialValue minValue:minValue maxValue:maxValue];
+    self = [super init];
     if (self) {
-        myNote = note;
         pValue = 0;
     }
     return self;
@@ -44,15 +40,6 @@
         NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
     [myNote updateProperties];
-}
-
-
-- (NSString *)description {
-    if (currentValue) {
-        return [super description];
-    } else {
-        return [NSString stringWithFormat:@"p%i", pValue];
-    }
 }
 
 @end
