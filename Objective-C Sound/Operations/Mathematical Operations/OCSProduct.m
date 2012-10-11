@@ -19,7 +19,7 @@
 @end
 
 @implementation OCSProduct
-@synthesize output;
+
 
 - (id)initWithOperands:(OCSParameter *)firstOperand,... {
     self = [super init];
