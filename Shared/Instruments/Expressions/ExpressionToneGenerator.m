@@ -9,6 +9,7 @@
 #import "ExpressionToneGenerator.h"
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
+#import "OCSOscillatingControl.h"
 #import "OCSLine.h"
 #import "OCSAudio.h"
 
@@ -26,12 +27,11 @@
         OCSSineTable * vibratoSine = [[OCSSineTable alloc] init];
         [self addDynamicFTable:vibratoSine];
         
-        OCSOscillator * vibratoOscillator; 
+        OCSOscillatingControl * vibratoOscillator;
 
-        vibratoOscillator = [[OCSOscillator alloc] initWithFTable:vibratoSine
-                                                        frequency:ocsp(6)
-                                                        amplitude:ocsp(40)];
-        [vibratoOscillator setOutput:vibratoOscillator.control];
+        vibratoOscillator = [[OCSOscillatingControl alloc] initWithFTable:vibratoSine
+                                                                frequency:ocsp(6)
+                                                                amplitude:ocsp(40)];
         [self connect:vibratoOscillator];
         
         float vibratoScale = 2.0f;
