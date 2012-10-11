@@ -19,24 +19,6 @@ tables of 2K, 4K or 8K points if the space is available.
 
 @interface OCSFMOscillator : OCSParameter
 
-/// @name Initialization
-
-/// Initializes a frequency modulated oscillator with linear interpolation.
-/// @param fTable               Function table to use.  Requires a wrap-around guard point.
-/// @param phase                Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1).
-/// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-/// @param carrierMultiplier    This multiplied by the baseFrequency gives the carrier frequency.
-/// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
-/// @param modulationIndex      This multiplied by the modulating frequency gives the modulation amplitude.
-/// @param amplitude            The amplitude of the output signal.
-- (id)initWithFTable:(OCSFTable *)fTable
-               phase:(OCSConstant *)phase
-       baseFrequency:(OCSControl *)baseFrequency
-   carrierMultiplier:(OCSParameter *)carrierMultiplier
-modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-     modulationIndex:(OCSControl *)modulationIndex
-           amplitude:(OCSParameter *)amplitude;
-
 /// Initializes a frequency modulated oscillator with linear interpolation with no phasing.
 /// @param fTable               Function table to use.  Requires a wrap-around guard point.
 /// @param baseFrequency        In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
@@ -50,5 +32,11 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier
      modulationIndex:(OCSControl *)modulationIndex
            amplitude:(OCSParameter *)amplitude;
+
+/// @name Optional Arguments
+
+/// Set an optional phase of the waveform
+/// @param phase Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1).
+- (void)setPhase:(OCSConstant *)phase;
 
 @end

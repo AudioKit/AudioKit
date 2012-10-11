@@ -14,8 +14,6 @@
 
 @interface OCSAdditiveCosines : OCSParameter
 
-/// @name Properties
-
 /*
 /// @name Initialization
 
