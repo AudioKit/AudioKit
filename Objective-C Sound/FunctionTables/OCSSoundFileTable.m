@@ -27,7 +27,7 @@
 - (OCSConstant *)channels 
 {
     OCSConstant * new = [[OCSConstant alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"ftchnls(%@)", [self output]]];
+    [new setParameterString:[NSString stringWithFormat:@"ftchnls(%@)", self]];
     return new;
 }
 

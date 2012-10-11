@@ -16,14 +16,13 @@
 @synthesize initValue;
 @synthesize value = currentValue;
 @synthesize constant;
+@synthesize name;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        // ARB / AOP - need to investigate why this can't be a-rate
-        output  = [OCSControl   parameterWithString:@"Property"];
-        constant = [OCSConstant  parameterWithString:@"Property"];
+        [self setName:@"Property"];
     }
     return self;
 }
@@ -38,6 +37,10 @@
     minimumValue = minValue;
     maximumValue = maxValue;
     return self;
+}
+- (void)setName:(NSString *)newName {
+    output  = [OCSControl   parameterWithString:newName];
+    constant = [OCSConstant parameterWithString:newName];
 }
 
 

@@ -64,5 +64,7 @@
 /// @param name        Human readable name for the of the property
 - (void) addProperty:(OCSNoteProperty *)newProperty
             withName:(NSString *)name;
+- (void) addProperty:(OCSNoteProperty *)newProperty;
+
 
 @end

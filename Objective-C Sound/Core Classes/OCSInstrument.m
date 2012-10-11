@@ -65,17 +65,24 @@ static int currentID = 1;
 #  pragma mark - Properties
 // -----------------------------------------------------------------------------
 
-- (void)addProperty:(OCSProperty *)newProperty 
+
+- (void) addProperty:(OCSProperty *)newProperty;
 {
     [properties addObject:newProperty];
-    //where I want to update csound's valuesCache array
-    //[[OCSManager sharedOCSManager] addProperty:prop];
 }
+
+- (void) addProperty:(OCSProperty *)newProperty withName:(NSString *)name;
+{
+    [properties addObject:newProperty];
+    [newProperty setName:name];
+}
+
 
 - (void)addNoteProperty:(OCSNoteProperty *)newNoteProperty;
 {
     [noteProperties addObject:newNoteProperty];
 }
+
 
 
 // -----------------------------------------------------------------------------

@@ -69,7 +69,7 @@
                                              initialValue:kFrequencyInit
                                                  minValue:kFrequencyMin
                                                  maxValue:kFrequencyMax];
-        [self addProperty:frequency withName:@"Frequency"];
+        [self addProperty:frequency];
     }
     return self;
 }

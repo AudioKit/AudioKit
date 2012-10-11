@@ -68,10 +68,10 @@
     self = [super initWithInstrument:anInstrument];
     if (self) {
         speed = [[OCSNoteProperty alloc] initWithNote:self
-                                             initialValue:kSpeedInit
-                                                 minValue:kSpeedMin
-                                                 maxValue:kSpeedMax];
-        [self addProperty:speed withName:@"Speed"];
+                                         initialValue:kSpeedInit
+                                             minValue:kSpeedMin
+                                             maxValue:kSpeedMax];
+        [self addProperty:speed];
     }
     return self;
 }
