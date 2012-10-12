@@ -1,24 +1,25 @@
 //
-//  OCSTableValue.h
-//  Objective-C Sound
+//  OCSTableValueConstant.h
+//  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 7/2/12.
+//  Created by Aurelius Prochazka on 10/11/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSConstant.h"
 #import "OCSParameter+Operation.h"
 
 /**
  Accesses table values by direct indexing with linear interpolation.
  */
 
-@interface OCSTableValue : OCSParameter
+@interface OCSTableValueConstant : OCSConstant
 
 /// Initialize the opcode as an audio operation.
 /// @param fTable Function table read the data from.
 /// @param index  Indexing Parameter.
 - (id)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSParameter *)index;
+             atIndex:(OCSConstant *)index;
 
 /// Normalize data to a maximum of 1.
 -(void) normalize;
@@ -28,5 +29,6 @@
 
 /// Amount by which index is to be offset. For a table with origin at center, use tablesize/2 (raw) or .5 (normalized).
 -(void) offsetBy:(OCSConstant *)offsetAmount;
+
 
 @end
