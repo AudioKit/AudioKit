@@ -36,15 +36,15 @@
 
 }
 
--(void) normalize {
+- (void)normalize {
     normalizeResult = YES;
 }
 
--(void) wrap {
+- (void)wrap {
     wrapData = YES;
 }
 
--(void) offsetBy:(OCSConstant *)offsetAmount {
+- (void)offsetBy:(OCSConstant *)offsetAmount {
     ixoff = offsetAmount;
 }
 

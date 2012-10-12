@@ -100,6 +100,8 @@
 		C49DC6A31626AC34003037BA /* OCSLinearControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C49DC6A21626AC33003037BA /* OCSLinearControl.m */; };
 		C4A9796E1627B6A800893A5B /* OCSTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9796D1627B6A800893A5B /* OCSTableValueControl.m */; };
 		C4A979721627B6C400893A5B /* OCSTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A979711627B6C400893A5B /* OCSTableValueConstant.m */; };
+		C4A97B661627C85A00893A5B /* OCSPhasingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A97B631627C85A00893A5B /* OCSPhasingControl.m */; };
+		C4A97B671627C85A00893A5B /* OCSPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A97B651627C85A00893A5B /* OCSPhasor.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
@@ -323,6 +325,10 @@
 		C4A9796D1627B6A800893A5B /* OCSTableValueControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTableValueControl.m; sourceTree = "<group>"; };
 		C4A979701627B6C400893A5B /* OCSTableValueConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTableValueConstant.h; sourceTree = "<group>"; };
 		C4A979711627B6C400893A5B /* OCSTableValueConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTableValueConstant.m; sourceTree = "<group>"; };
+		C4A97B621627C85A00893A5B /* OCSPhasingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPhasingControl.h; sourceTree = "<group>"; };
+		C4A97B631627C85A00893A5B /* OCSPhasingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhasingControl.m; sourceTree = "<group>"; };
+		C4A97B641627C85A00893A5B /* OCSPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPhasor.h; sourceTree = "<group>"; };
+		C4A97B651627C85A00893A5B /* OCSPhasor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhasor.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -745,6 +751,10 @@
 				C49DC1C316255E7F003037BA /* OCSOscillator.m */,
 				C49DC6921626A44B003037BA /* OCSOscillatingControl.h */,
 				C49DC6931626A44C003037BA /* OCSOscillatingControl.m */,
+				C4A97B621627C85A00893A5B /* OCSPhasingControl.h */,
+				C4A97B631627C85A00893A5B /* OCSPhasingControl.m */,
+				C4A97B641627C85A00893A5B /* OCSPhasor.h */,
+				C4A97B651627C85A00893A5B /* OCSPhasor.m */,
 				C49DC1C416255E7F003037BA /* OCSPluckDrum.h */,
 				C49DC1C516255E7F003037BA /* OCSPluckDrum.m */,
 				C49DC1C616255E7F003037BA /* OCSPluckString.h */,
@@ -1325,6 +1335,8 @@
 				C49DC6A31626AC34003037BA /* OCSLinearControl.m in Sources */,
 				C4A9796E1627B6A800893A5B /* OCSTableValueControl.m in Sources */,
 				C4A979721627B6C400893A5B /* OCSTableValueConstant.m in Sources */,
+				C4A97B661627C85A00893A5B /* OCSPhasingControl.m in Sources */,
+				C4A97B671627C85A00893A5B /* OCSPhasor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
