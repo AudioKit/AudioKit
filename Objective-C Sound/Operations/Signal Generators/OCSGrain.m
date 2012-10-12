@@ -19,7 +19,6 @@
     OCSFTable *gFunction;
     OCSFTable *wFunction;
     BOOL isRandomGrainFunctionIndex;
-    OCSParameter *output;
 }
 @end
 
@@ -35,9 +34,8 @@
       maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
           maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        output      = [OCSParameter parameterWithString:[self operationName]];
         amp         = amplitude;
         frequency   = grainFrequency;
         density     = grainDensity;
@@ -64,12 +62,8 @@
     int randomnessFlag = isRandomGrainFunctionIndex ? 0 : 1;
     return [NSString stringWithFormat:
             @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d",
-            output, amp, frequency, density, ampOffset, pchOffset, duration,
+            self, amp, frequency, density, ampOffset, pchOffset, duration,
             gFunction, wFunction, maxDuration, randomnessFlag];
-}
-
-- (NSString *)description {
-    return [output parameterString];
 }
 
 @end

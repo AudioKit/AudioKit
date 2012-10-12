@@ -22,13 +22,13 @@
              atIndex:(OCSConstant *)index;
 
 /// Normalize data to a maximum of 1.
--(void) normalize;
+- (void)normalize;
 
 /// Wrap around the fTable data for out of range indices.
--(void) wrap;
+- (void)wrap;
 
 /// Amount by which index is to be offset. For a table with origin at center, use tablesize/2 (raw) or .5 (normalized).
--(void) offsetBy:(OCSConstant *)offsetAmount;
+- (void)offsetBy:(OCSConstant *)offsetAmount;
 
 
 @end

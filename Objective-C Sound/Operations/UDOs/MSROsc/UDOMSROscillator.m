@@ -9,7 +9,6 @@
 #import "UDOMSROscillator.h"
 
 @interface UDOMSROscillator () {
-    OCSParameter *output;
     OCSConstant *amplitude;
     OCSConstant *frequency;
     OscillatorType type;
@@ -23,9 +22,8 @@
          amplitude:(OCSConstant *)maxAmplitude;
 
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         amplitude = maxAmplitude;
         frequency = pitchOrFrequency;
         type = oscillatorType;
@@ -41,14 +39,7 @@
 {
     return [NSString stringWithFormat:
             @"%@ msrosc %@, %@, %i",
-            output, amplitude, frequency, type];
+            self, amplitude, frequency, type];
 }
-
-- (NSString *)description {
-    return [output parameterString];
-}
-
-
-
 
 @end
