@@ -9,7 +9,6 @@
 #import "OCSFSignalFromMonoAudio.h"
 
 @interface OCSFSignalFromMonoAudio () {
-    OCSFSignal *fSig;
     OCSParameter *aIn;
     OCSConstant *iFFTSize;
     OCSConstant *iOverlap;
@@ -27,9 +26,8 @@
    windowFilterSize:(OCSConstant *)windowSize;
 
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if ( self ) {
-        fSig = [OCSFSignal parameterWithString:[self operationName]];  
         aIn = monoInput;
         iFFTSize = fftSize;
         iOverlap = overlap;
@@ -44,12 +42,7 @@
 {
     return[NSString stringWithFormat:
            @"%@ pvsanal %@, %@, %@, %@, %@",
-           fSig, aIn, iFFTSize, iOverlap, iWinSize, iWinType];
+           self, aIn, iFFTSize, iOverlap, iWinSize, iWinType];
 }
-
-- (NSString *)description {
-    return [fSig parameterString];
-}
-
 
 @end

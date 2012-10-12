@@ -9,7 +9,6 @@
 #import "OCSConvolution.h"
 
 @interface OCSConvolution () {
-    OCSParameter *aR1;
     OCSParameter *aIn;
     NSString *iFilCod;
 }
@@ -20,9 +19,8 @@
 - (id)initWithInputAudio:(OCSParameter *)inputAudio 
      impulseResponseFile:(NSString *)impulseResponseFilename;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        aR1     =  [OCSParameter parameterWithString:[self operationName]];
         aIn     = inputAudio;
         iFilCod = impulseResponseFilename;
     }
@@ -34,11 +32,7 @@
 {
     return [NSString stringWithFormat:
             @"%@ pconvolve %@, \"%@\"",
-            aR1, aIn, iFilCod];
-}
-
-- (NSString *)description {
-    return [aR1 parameterString];
+            self, aIn, iFilCod];
 }
 
 @end

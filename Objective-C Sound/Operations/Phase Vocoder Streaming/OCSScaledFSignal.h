@@ -26,25 +26,6 @@ typedef enum
 
 @interface OCSScaledFSignal : OCSFSignal
 
-/// @name Properties
-
-/// Input f-Signal or phase vocoder stream.
-@property (nonatomic, strong) OCSFSignal *input;
-
-/// Frequency scaling ratio
-@property (nonatomic, strong) OCSControl *frequencyRatio;
-
-/// Method by which to attempt to keep input signal formants.
-@property (nonatomic, strong) OCSControl *formantRetainMethod;
-
-/// Amplitude scaling ratio (default 1.0 equals no change)
-@property (nonatomic, strong) OCSControl *amplitudeRatio;
-
-/// Number of coefficients to use in formant preservation (defaults ot 80).
-@property (nonatomic, strong) OCSControl *numberOfCepstrumCoefficients;
-
-/// @name Initialization
-
 /// Create a frequency-scaled phase vocoder stream from another stream
 /// @param input          Source f-signal
 /// @param frequencyRatio Scaling ratio.

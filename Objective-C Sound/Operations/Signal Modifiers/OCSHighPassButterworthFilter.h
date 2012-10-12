@@ -15,11 +15,6 @@
 
 @interface OCSHighPassButterworthFilter : OCSParameter
 
-/// @name Properties
-
-
-/// @name Initialization
-
 /// Creates a low-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.
 /// @param cutoffFrequency Cutoff of the lowpass filter.
