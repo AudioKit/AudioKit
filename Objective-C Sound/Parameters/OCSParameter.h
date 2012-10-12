@@ -34,6 +34,8 @@
 /// @param name The name of the parameter as it should appear in the CSD File.
 +(id)globalParameterWithString:(NSString *)name;
 
+- (id)initWithString:(NSString *)name;
+
 /// Allows insertion of math into parameters
 /// @param expression A valid csound mathematical expression within an NSString.
 - (id)initWithExpression:(NSString *)expression;
