@@ -24,7 +24,7 @@
 - (id)initWithFrequency:(OCSParameter *)frequency;
 
 /// Set an optional phase of sampling
-/// @param initialPhase  Initial phase, expressed as a fraction of a cycle (0 to 1).
+/// @param phase Initial phase, expressed as a fraction of a cycle (0 to 1).
 - (void)setPhase:(OCSConstant *)phase;
 
 @end

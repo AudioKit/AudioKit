@@ -9,14 +9,14 @@
 #import "OCSControl.h"
 #import "OCSParameter+Operation.h"
 
-/** Calculates the weighted mean value of two input signals.
+/** Calculates the weighted mean value of two control signals.
  */
 
 @interface OCSMixedControl : OCSControl
 
 /// Create a weighted mean of two signals using a balance point.
-/// @param signal1 First signal
-/// @param signal2 Second signal
+/// @param control1 First control
+/// @param control2 Second control
 /// @param balancePoint A number from 0 (all signal 1) to 1 (all signal 2).
 - (id)initWithControl1:(OCSControl *)control1
               control2:(OCSControl *)control2
