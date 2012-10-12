@@ -9,7 +9,6 @@
 #import "OCSNReverb.h"
 
 @interface OCSNReverb () {
-    OCSParameter *aRes;
     OCSParameter *input;
     OCSControl *dur;
     OCSControl *hfdif;
@@ -31,9 +30,8 @@
      reverbDuration:(OCSControl *)reverbDuration 
 highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if(self) {
-        aRes = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -49,9 +47,8 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
  allPassFilterTimes:(NSArray *)allPassFilterTimes
  allPassFilterGains:(NSArray *)allPassFilterGains;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if(self) {
-        aRes = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
@@ -74,10 +71,10 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     if (combGains) {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@, %@, %@, %@, %@",
                 [self fTableCSDFromFilterParams],
-                aRes, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
+                self, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
     } else {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@", 
-                aRes, input, dur, hfdif];
+                self, input, dur, hfdif];
     }
 }
 
@@ -90,9 +87,4 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     NSString *s = [NSString stringWithFormat:@"%@ %@", combTable, allPassTable];
     return s;
 }
-
-- (NSString *)description {
-    return [aRes parameterString];
-}
-
 @end

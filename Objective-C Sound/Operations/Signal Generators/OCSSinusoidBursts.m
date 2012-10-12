@@ -9,7 +9,6 @@
 #import "OCSSinusoidBursts.h"
 
 @interface OCSSinusoidBursts () {
-    OCSParameter *aRes;
     OCSSineTable *iFnA;
     OCSFTable *iFnB;
     OCSConstant *iOlaps;
@@ -40,9 +39,8 @@
    fundamentalFrequency:(OCSParameter *)fundamentalFrequency
        formantFrequency:(OCSParameter *)formantFrequency;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        aRes = [OCSParameter parameterWithString:[self operationName]];
         iFnA = sineburstSynthesisTable;
         iFnB = riseShapeTable;
         iOlaps = numberOfOverlaps;
@@ -62,11 +60,6 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ fof %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            aRes, xAmp, xFund, xForm, kOct, kBand, kRis, kDur, kDec, iOlaps, iFnA, iFnB, iTotDur];
-}
-
-- (NSString *)description
-{
-    return [aRes parameterString];
+            self, xAmp, xFund, xForm, kOct, kBand, kRis, kDur, kDec, iOlaps, iFnA, iFnB, iTotDur];
 }
 @end
