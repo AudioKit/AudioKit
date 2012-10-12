@@ -40,7 +40,7 @@
         
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sineTable
-                                                 baseFrequency:[note.frequency constant]
+                                                 baseFrequency:note.frequency
                                              carrierMultiplier:ocsp(2)
                                           modulatingMultiplier:mod
                                                modulationIndex:ocsp(15)

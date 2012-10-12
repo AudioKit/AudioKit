@@ -11,7 +11,7 @@
 #import "OCSWindowsTable.h"
 #import "OCSLine.h"
 #import "OCSLinearControl.h"
-#import "OCSSegmentArray.h"
+#import "OCSAudioSegmentArray.h"
 #import "OCSProperty.h"
 #import "OCSGrain.h"
 #import "OCSAudio.h"
@@ -36,10 +36,10 @@
                                                    size:512 ];
         [self addFTable:hamming];
                 
-        OCSSegmentArray *amplitudeExp;
-        amplitudeExp = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.001)  
-                                                       toNextValue:ocsp(0.1)  
-                                                     afterDuration:ocsp(4.5)];
+        OCSAudioSegmentArray *amplitudeExp;
+        amplitudeExp = [[OCSAudioSegmentArray alloc] initWithStartValue:ocsp(0.001)
+                                                            toNextValue:ocsp(0.1)
+                                                          afterDuration:ocsp(4.5)];
         [amplitudeExp addValue:ocsp(0.01) afterDuration:ocsp(4.5)];
         [amplitudeExp useExponentialSegments];
         [self connect:amplitudeExp];
@@ -80,7 +80,7 @@
         grainL = [[OCSGrain alloc] initWithGrainFunction:fileTable  
                                           windowFunction:hamming 
                                         maxGrainDuration:ocsp(5) 
-                                               amplitude:amplitudeExp.output
+                                               amplitude:amplitudeExp
                                           grainFrequency:pitchLine
                                             grainDensity:grainDensityLine
                                            grainDuration:grainDurationLine
@@ -92,7 +92,7 @@
         grainR = [[OCSGrain alloc] initWithGrainFunction:fileTable  
                                           windowFunction:hamming 
                                         maxGrainDuration:ocsp(6) 
-                                               amplitude:amplitudeExp.output
+                                               amplitude:amplitudeExp
                                           grainFrequency:pitchLine
                                             grainDensity:grainDensityLine
                                            grainDuration:grainDurationLine
