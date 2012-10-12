@@ -1,15 +1,14 @@
 //
-//  OCSEnvelope.m
+//  OCSLinearAudioEnvelope.m
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 5/17/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSLinearEnvelope.h"
+#import "OCSLinearAudioEnvelope.h"
 
-@interface OCSLinearEnvelope () {
-    OCSParameter *audio;
+@interface OCSLinearAudioEnvelope () {
     OCSParameter *amp;
     OCSConstant *rise;
     OCSConstant *dur;
@@ -18,21 +17,15 @@
 
 @end
 
-@implementation OCSLinearEnvelope
-
-@synthesize control;
-@synthesize output;
+@implementation OCSLinearAudioEnvelope
 
 - (id)initWithRiseTime:(OCSConstant *)riseTime
          totalDuration:(OCSConstant *)totalDuration
              decayTime:(OCSConstant *)decayTime
              amplitude:(OCSParameter *)amplitude
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        audio   = [OCSParameter parameterWithString:[self operationName]];
-        control = [OCSControl parameterWithString:[self operationName]];
-        output  =  audio;
         amp     = amplitude;
         rise    = riseTime;
         dur     = totalDuration;
@@ -45,11 +38,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ linen %@, %@, %@, %@",
-            output, amp, rise, dur, decay];
-}
-
-- (NSString *)description {
-    return [output parameterString];
+            self, amp, rise, dur, decay];
 }
 
 @end
