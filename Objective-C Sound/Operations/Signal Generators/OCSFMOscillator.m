@@ -19,7 +19,6 @@
     OCSControl *kndx;
     OCSFTable *ifn;
     OCSConstant *phs;
-    OCSParameter *ares;
 }
 @end
 
@@ -32,9 +31,8 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
      modulationIndex:(OCSControl *)modulationIndex
            amplitude:(OCSParameter *)amplitude;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if ( self ) {
-        ares = [OCSParameter parameterWithString:[self operationName]];
         xamp = amplitude;
         kcps = baseFrequency;
         xcar = carrierMultiplier;
@@ -55,11 +53,7 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
 {
     return[NSString stringWithFormat:
            @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
-           ares, xamp, kcps, xcar, xmod, kndx, ifn, phs];
-}
- 
-- (NSString *)description {
-    return [ares parameterString];
+           self, xamp, kcps, xcar, xmod, kndx, ifn, phs];
 }
 
 @end
