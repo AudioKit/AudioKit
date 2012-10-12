@@ -10,17 +10,15 @@
 
 @interface OCSSum () {
     NSMutableArray *inputs;
-    OCSParameter *output;
 }
 @end
 
 @implementation OCSSum
 
 - (id)initWithOperands:(OCSParameter *)firstOperand,... {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     
     if (self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         inputs = [[NSMutableArray alloc] init];
         OCSParameter *eachInput;
         va_list argumentList;
@@ -40,11 +38,7 @@
 {
     NSString *inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
-    return [NSString stringWithFormat:@"%@ sum %@", output, inputsCombined];
-}
-
-- (NSString *)description {
-    return [output parameterString];
+    return [NSString stringWithFormat:@"%@ sum %@", self, inputsCombined];
 }
 
 @end

@@ -13,8 +13,6 @@
     OCSControl *freq;
     OCSConstant *phs;
     OCSFTable *f;
-    
-    OCSParameter *output;
 }
 @end
 
@@ -24,9 +22,8 @@
            frequency:(OCSControl *)frequency
            amplitude:(OCSControl *)amplitude;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        output = [OCSControl parameterWithString:[self operationName]];
         amp  = amplitude;
         freq = frequency;
         f    = fTable;
@@ -42,12 +39,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ oscili %@, %@, %@, %@",
-            output, amp, freq, f, phs];
+            self, amp, freq, f, phs];
 }
-
-- (NSString *)description {
-    return [output parameterString];
-}
-
 
 @end
