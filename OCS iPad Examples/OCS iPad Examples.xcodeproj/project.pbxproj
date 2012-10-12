@@ -31,6 +31,7 @@
 		C485886A1627E2A600DB0295 /* OCSTableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C48588641627E2A300DB0295 /* OCSTableValue.m */; };
 		C485886C1627E2A600DB0295 /* OCSTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C48588661627E2A400DB0295 /* OCSTableValueConstant.m */; };
 		C485886E1627E2A600DB0295 /* OCSTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48588681627E2A600DB0295 /* OCSTableValueControl.m */; };
+		C48588721627EAA800DB0295 /* OCSCompositeWaveformsFromSines.m in Sources */ = {isa = PBXBuildFile; fileRef = C48588701627EAA800DB0295 /* OCSCompositeWaveformsFromSines.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C49DC20A16255E7F003037BA /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C49DC17C16255E7F003037BA /* OCSEvent.m */; };
 		C49DC20B16255E7F003037BA /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C49DC17E16255E7F003037BA /* OCSInstrument.m */; };
@@ -191,6 +192,8 @@
 		C48588661627E2A400DB0295 /* OCSTableValueConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSTableValueConstant.m; path = OCSTableValue/OCSTableValueConstant.m; sourceTree = "<group>"; };
 		C48588671627E2A500DB0295 /* OCSTableValueControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = OCSTableValueControl.h; path = OCSTableValue/OCSTableValueControl.h; sourceTree = "<group>"; };
 		C48588681627E2A600DB0295 /* OCSTableValueControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSTableValueControl.m; path = OCSTableValue/OCSTableValueControl.m; sourceTree = "<group>"; };
+		C485886F1627EAA800DB0295 /* OCSCompositeWaveformsFromSines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCompositeWaveformsFromSines.h; sourceTree = "<group>"; };
+		C48588701627EAA800DB0295 /* OCSCompositeWaveformsFromSines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCompositeWaveformsFromSines.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C49DC17B16255E7F003037BA /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEvent.h; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				C49DC18F16255E7F003037BA /* OCSAdditiveCosineTable.m */,
 				C49DC19016255E7F003037BA /* OCSArrayTable.h */,
 				C49DC19116255E7F003037BA /* OCSArrayTable.m */,
+				C485886F1627EAA800DB0295 /* OCSCompositeWaveformsFromSines.h */,
+				C48588701627EAA800DB0295 /* OCSCompositeWaveformsFromSines.m */,
 				C49DC19216255E7F003037BA /* OCSExponentialCurvesTable.h */,
 				C49DC19316255E7F003037BA /* OCSExponentialCurvesTable.m */,
 				C49DC19416255E7F003037BA /* OCSFTable.h */,
@@ -1345,6 +1350,7 @@
 				C485886A1627E2A600DB0295 /* OCSTableValue.m in Sources */,
 				C485886C1627E2A600DB0295 /* OCSTableValueConstant.m in Sources */,
 				C485886E1627E2A600DB0295 /* OCSTableValueControl.m in Sources */,
+				C48588721627EAA800DB0295 /* OCSCompositeWaveformsFromSines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
