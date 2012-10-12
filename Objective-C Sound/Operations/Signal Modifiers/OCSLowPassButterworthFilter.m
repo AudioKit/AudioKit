@@ -9,10 +9,8 @@
 #import "OCSLowPassButterworthFilter.h"
 
 @interface OCSLowPassButterworthFilter () {
-    OCSParameter *output;
     OCSParameter *input;
     OCSControl *cutoff;
-    
     BOOL isInitSkipped;
 }
 @end
@@ -22,9 +20,8 @@
 -(id)initWithInput:(OCSParameter *)inputSignal 
    cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if(self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         cutoff = cutoffFrequency;
     }
@@ -33,11 +30,9 @@
 
 -(NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ butterlp %@, %@, %d", output, input, cutoff, 0];
-}
-
--(NSString *) description {
-    return [output parameterString];
+    return [NSString stringWithFormat:
+            @"%@ butterlp %@, %@, %d",
+            self, input, cutoff, 0];
 }
 
 @end

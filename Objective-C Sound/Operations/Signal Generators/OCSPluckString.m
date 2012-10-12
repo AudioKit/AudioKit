@@ -27,8 +27,6 @@ typedef enum
     PluckStringDecayType type;
     OCSConstant *param1;
     OCSConstant *param2;
-    
-    OCSParameter *output;
 }
 @end
 
@@ -42,9 +40,8 @@ typedef enum
                   param1:(OCSConstant *)parameter1
                   param2:(OCSConstant *)parameter2 
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if( self ) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         amp = amplitude;
         resampFreq = resamplingFrequency;
         decayFreq  = pitchDecayFrequency;
@@ -123,11 +120,7 @@ typedef enum
 {
     return [NSString stringWithFormat:
             @"%@ pluck %@, %@, %@, %@, %i, %@, %@",
-            output, amp, resampFreq, decayFreq, buffer, type, param1, param2];
-}
-
-- (NSString *)description {
-    return [output parameterString];
+            self, amp, resampFreq, decayFreq, buffer, type, param1, param2];
 }
 
 @end

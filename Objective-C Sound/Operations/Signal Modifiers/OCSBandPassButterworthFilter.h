@@ -15,10 +15,6 @@
 
 @interface OCSBandPassButterworthFilter : OCSParameter
 
-/// @name Properties
-
-/// @name Initialization
-
 /// Creates a band-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.
 /// @param centerFrequency Center frequency for each of the filters.
