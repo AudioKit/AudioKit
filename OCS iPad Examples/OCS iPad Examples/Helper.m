@@ -22,12 +22,12 @@
 }
 
 + (void)setSlider:(UISlider *)slider 
-    usingProperty:(OCSProperty *)property 
+    usingProperty:(OCSInstrumentProperty *)property 
 {
     [self setSlider:slider 
-          withValue:[property value] 
-            minimum:[property minimumValue] 
-            maximum:[property maximumValue]];
+          withValue:property.value
+            minimum:property.minimumValue
+            maximum:property.maximumValue];
 }
 
 

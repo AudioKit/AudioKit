@@ -66,12 +66,12 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 
 
-- (void) addProperty:(OCSProperty *)newProperty;
+- (void) addProperty:(OCSInstrumentProperty *)newProperty;
 {
     [properties addObject:newProperty];
 }
 
-- (void) addProperty:(OCSProperty *)newProperty withName:(NSString *)name;
+- (void) addProperty:(OCSInstrumentProperty *)newProperty withName:(NSString *)name;
 {
     [properties addObject:newProperty];
     [newProperty setName:name];

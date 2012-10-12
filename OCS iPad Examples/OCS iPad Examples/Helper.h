@@ -17,16 +17,13 @@
           maximum:(float)maximum;
 
 + (void)setSlider:(UISlider *)slider 
-    usingProperty:(OCSProperty *)property;
+    usingProperty:(OCSInstrumentProperty *)property;
 
 + (float)scaleValueFromSlider:(UISlider *)slider 
                       minimum:(float)minimum 
                       maximum:(float)maximum;
 
-
-
 + (float)randomFloatFrom:(float)minimum to:(float)maximum; 
-
 
 + (float)midiNoteToFrequency:(int)note;
 

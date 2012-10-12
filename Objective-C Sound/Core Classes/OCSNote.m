@@ -40,7 +40,7 @@ static int currentID = 1;
         
         isPlayingP = NO;
         instrument = anInstrument;
-        duration = [[OCSNoteProperty alloc] init];
+        duration = [[OCSNoteProperty alloc] initWithMinValue:-2 maxValue:1000000];
         [self addProperty:duration withName:@"Duration"];
         [instrument addNoteProperty:duration];
         duration.value = noteDuration;
@@ -92,7 +92,7 @@ static int currentID = 1;
 - (void) addProperty:(OCSNoteProperty *)newProperty
             withName:(NSString *)name
 {
-    [newProperty setConstant:[OCSConstant parameterWithString:name]];
+    newProperty.name = name;
     [self.properties setValue:newProperty forKey:name];
     [propOrder addObject:name];
     [newProperty setPValue:propOrder.count +3];

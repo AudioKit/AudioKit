@@ -30,14 +30,13 @@
         // INPUTS AND CONTROLS =================================================
         
         frequency = [[OCSInstrumentProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
-        [frequency setConstant:[OCSConstant parameterWithString:@"Frequency"]]; 
         [self addProperty:frequency];
         
         // INSTRUMENT DEFINITION ===============================================
         
         UDOMSROscillator *msrOsc;
         msrOsc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
-                                              frequency:[frequency constant]
+                                              frequency:frequency
                                               amplitude:ocsp(0.5)];
         [self addUDO:msrOsc];
         
