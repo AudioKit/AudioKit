@@ -9,7 +9,7 @@
 #import "ConvolutionInstrument.h"
 #import "OCSFileInput.h"
 #import "OCSConvolution.h"
-#import "OCSWeightedMean.h"
+#import "OCSMixedAudio.h"
 #import "OCSAudio.h"
 
 @interface ConvolutionInstrument () {
@@ -61,15 +61,15 @@
         [self connect:wellConv];
 
         
-        OCSWeightedMean *balance;
-        balance = [[OCSWeightedMean alloc] initWithSignal1:dishConv
+        OCSMixedAudio *balance;
+        balance = [[OCSMixedAudio alloc] initWithSignal1:dishConv
                                                    signal2:wellConv
                                                    balance:dishWellBalance];
         [self connect:balance];
 
         
-        OCSWeightedMean *dryWet;
-        dryWet = [[OCSWeightedMean alloc] initWithSignal1:loop.leftOutput
+        OCSMixedAudio *dryWet;
+        dryWet = [[OCSMixedAudio alloc] initWithSignal1:loop.leftOutput
                                                   signal2:balance
                                                   balance:dryWetBalance];
         [self connect:dryWet];
