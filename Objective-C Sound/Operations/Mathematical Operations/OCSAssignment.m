@@ -26,6 +26,16 @@
     return self; 
 }
 
+- (id)initWithInput:(OCSParameter *)input {
+    self = [super init];
+    
+    if (self) {
+        lhs = [OCSParameter parameterWithString:[self operationName]];
+        rhs = input;
+    }
+    return self;
+}
+
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:@"%@ = %@", lhs, rhs];

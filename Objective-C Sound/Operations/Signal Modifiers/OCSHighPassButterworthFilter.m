@@ -9,11 +9,8 @@
 #import "OCSHighPassButterworthFilter.h"
 
 @interface OCSHighPassButterworthFilter () {
-    OCSParameter *output;
     OCSParameter *input;
     OCSControl *cutoff;
-    
-    BOOL isInitSkipped;
 }
 @end
 
@@ -22,9 +19,8 @@
 -(id)initWithInput:(OCSParameter *)inputSignal
    cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if(self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         cutoff = cutoffFrequency;
     }
@@ -33,11 +29,9 @@
 
 -(NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ butterhp %@, %@, %d", output, input, cutoff, 0];
-}
-
--(NSString *) description {
-    return [output parameterString];
+    return [NSString stringWithFormat:
+            @"%@ butterhp %@, %@, %d",
+            self, input, cutoff, 0];
 }
 
 @end

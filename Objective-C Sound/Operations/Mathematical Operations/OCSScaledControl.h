@@ -16,16 +16,6 @@
 
 @interface OCSScaledControl : OCSControl
 
-/// @name Properties
-
-/// Input value in the range 0-1.
-@property (nonatomic, strong) OCSControl *input;
-/// Minimum value of the resultant scale operation.
-@property (nonatomic, strong) OCSControl *minimumOutput;
-/// Maximum value of the resultant scale operation.
-@property (nonatomic, strong) OCSControl *maximumOutput;
-
-/// @name Initialization
 
 /// Create a control output based on control input scaled within an output range
 /// @param input         Input value in the range 0-1.

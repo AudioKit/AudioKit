@@ -9,7 +9,6 @@
 #import "OCSFSignalMix.h"
 
 @interface OCSFSignalMix () {
-    OCSFSignal *fSig;
     OCSFSignal *fSigIn1;
     OCSFSignal *fSigIn2;
 }
@@ -17,31 +16,22 @@
 
 @implementation OCSFSignalMix
 
-@synthesize input1=fSigIn1;
-@synthesize input2=fSigIn2;
-
-
 - (id)initWithInput1:(OCSFSignal *)input1
-input2:(OCSFSignal *)input2;
+              input2:(OCSFSignal *)input2;
 {
-    self = [super init];
-    
+    self = [super initWithString:[self operationName]];
     if (self) {
-        fSig = [OCSFSignal parameterWithString:[self operationName]];
         fSigIn1 = input1;
         fSigIn2 = input2;
     }
     return self; 
 }
 
-// Csound Prototype: fsig pvsmix fsigin1, fsigin2
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ pvsmix %@, %@", fSig, fSigIn1, fSigIn2];
-}
-
-- (NSString *)description {
-    return [fSig parameterString];
+    return [NSString stringWithFormat:
+            @"%@ pvsmix %@, %@",
+            self, fSigIn1, fSigIn2];
 }
 
 @end

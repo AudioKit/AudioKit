@@ -7,6 +7,7 @@
 //
 
 #import "OCSParameter+Operation.h"
+
 /** Applies a straight line rise and decay pattern to an input amp signal.
  
 Rise modifications are applied for the first irise seconds, and decay from time

@@ -9,7 +9,6 @@
 #import "OCSScaledControl.h"  
 
 @interface OCSScaledControl () {
-    OCSControl *kscl;
     OCSControl *kin;
     OCSControl *kmax;
     OCSControl *kmin;
@@ -18,18 +17,12 @@
 
 @implementation OCSScaledControl
 
-@synthesize input         = kin;
-@synthesize minimumOutput = kmin;
-@synthesize maximumOutput = kmax;
-
 - (id)initWithInput:(OCSControl *)input
       minimumOutput:(OCSControl *)minimumOutput
       maximumOutput:(OCSControl *)maximumOutput;
 {
-    self = [super init];
-    
+    self = [super initWithString:[self operationName]];
     if (self) {
-        kscl = [OCSControl parameterWithString:[self operationName]];      
         kin  = input;
         kmax = maximumOutput;
         kmin = minimumOutput;
@@ -40,11 +33,9 @@
 // Csound Prototype: kscl scale kinput, kmax, kmin
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ scale %@, %@, %@", kscl, kin, kmax, kmin];
-}
-
-- (NSString *)description {
-    return [kscl parameterString];
+    return [NSString stringWithFormat:
+            @"%@ scale %@, %@, %@",
+            self, kin, kmax, kmin];
 }
 
 @end

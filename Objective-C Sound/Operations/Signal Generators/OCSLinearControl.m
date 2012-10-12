@@ -9,8 +9,6 @@
 #import "OCSLinearControl.h"
 
 @interface OCSLinearControl () {
-    OCSControl *output;
-    
     OCSConstant *ia;
     OCSConstant *ib;
     OCSConstant *idur;
@@ -23,11 +21,8 @@
             toValue:(OCSConstant *)endingValue
            duration:(OCSConstant *)duration
 {
-    self = [super init];
-    
+    self = [super initWithString:[self operationName]];
     if (self) {
-        output = [OCSControl parameterWithString:[self operationName]];
-        
         ia = startingValue;
         ib = endingValue;
         idur = duration;
@@ -38,12 +33,9 @@
 //Csound Prototype: (a/k)res linseg ia, idur, ib
 - (NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ linseg %@, %@, %@", output, ia, idur, ib];
+    return [NSString stringWithFormat:
+            @"%@ linseg %@, %@, %@",
+            self, ia, idur, ib];
 }
-
-- (NSString *)description {
-    return [output parameterString];
-}
-
 
 @end

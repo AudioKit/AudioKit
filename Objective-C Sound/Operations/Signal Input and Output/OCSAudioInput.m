@@ -8,31 +8,15 @@
 
 #import "OCSAudioInput.h"
 
-@interface OCSAudioInput () {   
-    OCSParameter *ar1;
-}
-@end
-
 @implementation OCSAudioInput
 
 - (id)init {
-    self = [super init];
-    if (self) {
-        ar1  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@",[self operationName]]];
-
-    }
+    self = [super initWithString:[self operationName]];
     return self; 
 }
 
-
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:@"%@, aUnused ins", ar1];
+    return [NSString stringWithFormat:@"%@, aUnused ins", self];
 }
-
-- (NSString *)description {
-    return [ar1 parameterString];
-}
-
-
 
 @end

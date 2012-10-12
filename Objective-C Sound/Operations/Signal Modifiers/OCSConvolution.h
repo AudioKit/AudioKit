@@ -9,13 +9,9 @@
 #import "OCSParameter+Operation.h"
 
 /**  Convolution based on a uniformly partitioned overlap-save algorithm.
- 
  */
+
 @interface OCSConvolution : OCSParameter
-
-/// @name Properties
-
-/// @name Initialization
 
 /// Create a convolution
 /// @param inputAudio              Audio input to the convolution

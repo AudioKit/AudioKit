@@ -105,6 +105,7 @@
 		C4A97C751627FD3B00893A5B /* OCSMixedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A97C731627FD3B00893A5B /* OCSMixedControl.m */; };
 		C4A97C791627FF6100893A5B /* OCSRandomAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A97C781627FF6100893A5B /* OCSRandomAudio.m */; };
 		C4A97C7C1627FFDE00893A5B /* OCSRandomControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A97C7B1627FFDE00893A5B /* OCSRandomControl.m */; };
+		C4A97D89162806CF00893A5B /* OCSHighPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A97D88162806CE00893A5B /* OCSHighPassButterworthFilter.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
@@ -338,6 +339,8 @@
 		C4A97C781627FF6100893A5B /* OCSRandomAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomAudio.m; sourceTree = "<group>"; };
 		C4A97C7A1627FFDE00893A5B /* OCSRandomControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomControl.h; sourceTree = "<group>"; };
 		C4A97C7B1627FFDE00893A5B /* OCSRandomControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomControl.m; sourceTree = "<group>"; };
+		C4A97D87162806CE00893A5B /* OCSHighPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSHighPassButterworthFilter.h; sourceTree = "<group>"; };
+		C4A97D88162806CE00893A5B /* OCSHighPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSHighPassButterworthFilter.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -814,6 +817,8 @@
 				C49DC1DF16255E7F003037BA /* OCSBandRejectButterworthFilter.m */,
 				C49DC1E016255E7F003037BA /* OCSConvolution.h */,
 				C49DC1E116255E7F003037BA /* OCSConvolution.m */,
+				C4A97D87162806CE00893A5B /* OCSHighPassButterworthFilter.h */,
+				C4A97D88162806CE00893A5B /* OCSHighPassButterworthFilter.m */,
 				C49DC1E216255E7F003037BA /* OCSLowPassButterworthFilter.h */,
 				C49DC1E316255E7F003037BA /* OCSLowPassButterworthFilter.m */,
 				C49DC1E416255E7F003037BA /* OCSNReverb.h */,
@@ -1379,6 +1384,7 @@
 				C4A97C751627FD3B00893A5B /* OCSMixedControl.m in Sources */,
 				C4A97C791627FF6100893A5B /* OCSRandomAudio.m in Sources */,
 				C4A97C7C1627FFDE00893A5B /* OCSRandomControl.m in Sources */,
+				C4A97D89162806CF00893A5B /* OCSHighPassButterworthFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

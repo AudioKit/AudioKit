@@ -9,7 +9,6 @@
 #import "OCSScaledFSignal.h"
 
 @interface OCSScaledFSignal () {
-    OCSFSignal *fSig;
     OCSFSignal *fSigIn;
     OCSControl *kScal;
     OCSControl *kKeepForm;
@@ -20,12 +19,6 @@
 
 @implementation OCSScaledFSignal
 
-@synthesize input=fSigIn;
-@synthesize frequencyRatio=kScal;
-@synthesize formantRetainMethod=kKeepForm;
-@synthesize amplitudeRatio=kGain;
-@synthesize numberOfCepstrumCoefficients=kCoefs;
-
 - (id)initWithInput:(OCSFSignal *)input
      frequencyRatio:(OCSControl *)frequencyRatio
 formantRetainMethod:(FormantRetainMethodType)formantRetainMethod
@@ -33,13 +26,10 @@ formantRetainMethod:(FormantRetainMethodType)formantRetainMethod
 cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
 
 {
-    self = [super init];
-    
+    self = [super initWithString:[self operationName]];
     if (self) {
-        
         if (amplitudeRatio) {
             kGain  = amplitudeRatio;
-            
         } else {
             kGain = [OCSConstant parameterWithInt:1];
         }
@@ -49,7 +39,6 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
         } else {
             kCoefs = [OCSConstant parameterWithInt:80];
         }
-        fSig = [OCSFSignal parameterWithString:[self operationName]];
         fSigIn = input;
         kScal = frequencyRatio;    
         kKeepForm = [OCSConstant parameterWithInt:formantRetainMethod];
@@ -74,14 +63,8 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
 {
     return [NSString stringWithFormat:
             @"%@ pvscale %@, %@, %@, %@, %@", 
-            fSig, fSigIn, kScal, kKeepForm, kGain, kCoefs];
+            self, fSigIn, kScal, kKeepForm, kGain, kCoefs];
 }
-
-- (NSString *)description {
-    return [fSig parameterString];
-}
-
-
 
 @end
 
