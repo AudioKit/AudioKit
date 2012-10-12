@@ -20,12 +20,6 @@
 
 @interface OCSPhasingControl : OCSControl
 
-//An internal phase is successively accumulated in accordance with the kcps or xcps frequency to produce a moving phase value, normalized to lie in the range 0 <= phs < 1.
-//
-//When used as the index to a table unit, this phase (multiplied by the desired function table length) will cause it to behave like an oscillator.
-//
-//Note that phasor is a special kind of integrator, accumulating phase increments that represent frequency settings.
-
 /// Instantiates the phasor.
 /// @param frequency Frequency in cycles per second.
 - (id)initWithFrequency:(OCSControl *)frequency;
