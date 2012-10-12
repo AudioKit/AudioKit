@@ -31,6 +31,9 @@
 + (id)parameterWithString:(NSString *)name;
 
 /// Create a parameter available to all instruments in the orchestra.
++(id)globalParameter;
+
+/// Create a parameter available to all instruments in the orchestra.
 /// @param name The name of the parameter as it should appear in the CSD File.
 +(id)globalParameterWithString:(NSString *)name;
 
