@@ -12,7 +12,6 @@
 #import "OCSLine.h"
 #import "OCSLinearControl.h"
 #import "OCSAudioSegmentArray.h"
-#import "OCSProperty.h"
 #import "OCSGrain.h"
 #import "OCSAudio.h"
 

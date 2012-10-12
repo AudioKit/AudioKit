@@ -15,7 +15,7 @@ all other functions have a range of -1 to 1
 
 iamp -- Amplitude, must be greater than zero. If out of range it is set to zero.
 
-ifreq -- Frequcency. If 20 or less, is assumed to need convertion
+kfreq -- Frequcency. If 20 or less, is assumed to need convertion
 	 from pitch to Hz
 
 ifn   -- 1 Sine
@@ -67,8 +67,8 @@ gimsrhsw	ftgen 0, 0, 8193, 7, 0, 8192,1
 ; Noise
 gimsrnse        	ftgen 0, 0, 8193, 21, 1
 
-        opcode  msrosc, a,iii
-iamp, ifreq, ifn xin
+        opcode  msrosc, a,iki
+iamp, kfreq, ifn xin
 ifunc	= ifn
 	if ifn >=1 igoto ifnok1
 	ifunc = 1
@@ -76,7 +76,7 @@ ifnok1:
 	if ifn < 10 igoto ifnok2
 	ifunc = 1
 ifnok2:
-ifr	= ifreq
+ifr	= i(kfreq)
 	if ifreq > 20 igoto freqok
 		ifr = cpspch(ifreq)
 freqok:

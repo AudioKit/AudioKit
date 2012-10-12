@@ -10,7 +10,7 @@
 
 @interface UDOMSROscillator () {
     OCSConstant *amplitude;
-    OCSConstant *frequency;
+    OCSControl *frequency;
     OscillatorType type;
 }
 @end
@@ -18,7 +18,7 @@
 @implementation UDOMSROscillator
 
 - (id)initWithType:(OscillatorType)oscillatorType
-         frequency:(OCSConstant *)pitchOrFrequency
+         frequency:(OCSControl *)pitchOrFrequency
          amplitude:(OCSConstant *)maxAmplitude;
 
 {
