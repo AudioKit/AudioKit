@@ -9,7 +9,6 @@
 #import "OCSAudioFromFSignal.h"
 
 @interface OCSAudioFromFSignal () {
-    OCSParameter *aRes;
     OCSFSignal *fSrc;
 }
 @end
@@ -17,14 +16,11 @@
 
 @implementation OCSAudioFromFSignal
 
-@synthesize source=fSrc;
 
 - (id)initWithSource:(OCSFSignal *)source;
 {
-    self = [super init];
-    
+    self = [super initWithString:[self operationName]];
     if (self) {
-        aRes = [OCSParameter parameterWithString:[self operationName]];
         fSrc = source;
     }
     return self; 
@@ -33,11 +29,7 @@
 // Csound Prototype: ares pvsynth fsrc
 - (NSString *)stringForCSD 
 {
-    return [NSString stringWithFormat:@"%@ pvsynth %@", aRes, fSrc];
-}
-
-- (NSString *)description {
-    return [aRes parameterString];
+    return [NSString stringWithFormat:@"%@ pvsynth %@", self, fSrc];
 }
 
 @end
