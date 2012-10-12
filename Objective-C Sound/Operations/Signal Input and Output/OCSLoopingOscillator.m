@@ -9,7 +9,6 @@
 #import "OCSLoopingOscillator.h"
 
 @interface OCSLoopingOscillator () {
-    OCSParameter *output;
     OCSParameter *leftOutput;
     OCSParameter *rightOutput;
     OCSParameter *amp;
@@ -57,9 +56,8 @@
                    amplitude:(OCSParameter *)amplitude
                         type:(LoopingOscillatorType)type
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        output = output = [OCSParameter parameterWithString:[self operationName]];
         leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"1L"]];
         rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"2R"]];
         soundFileTable = fileTable;
@@ -76,7 +74,7 @@
 - (NSString *)stringForCSD {
     NSString *mono = [NSString stringWithFormat:
                       @"%@ loscil3 %@, %@, %@, %@, %i",
-                      output, amp, freqMultiplier, soundFileTable, baseFrequency, imod1];
+                      self, amp, freqMultiplier, soundFileTable, baseFrequency, imod1];
     NSString *stereo = [NSString stringWithFormat:
                         @"%@, %@ loscil3 %@, %@, %@, %@, %i",
                         leftOutput, rightOutput, amp, freqMultiplier, soundFileTable, baseFrequency, imod1];
@@ -89,7 +87,4 @@
             soundFileTable, mono, stereo];
 }
 
-- (NSString *)description {
-    return [output parameterString];
-}
 @end

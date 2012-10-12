@@ -9,7 +9,6 @@
 #import "OCSTableValueConstant.h"
 
 @interface OCSTableValueConstant () {
-    OCSConstant *ares;
     OCSConstant  *ifn;
     OCSParameter *andx;
     OCSParameter *ixoff;
@@ -23,9 +22,8 @@
 - (id)initWithFTable:(OCSConstant *)fTable
              atIndex:(OCSConstant *)index
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        ares = [OCSConstant parameterWithString:[self operationName]];
         ifn  = fTable;
         normalizeResult = NO;
         ixoff = [OCSConstant parameterWithInt:0];
@@ -52,12 +50,9 @@
 {
     int ixmode = normalizeResult ? 0:1;
     int iwrap = wrapData ? 0:1;
-    return [NSString stringWithFormat:@"%@ tablei %@, %@, %i, %@, %i", ares, andx, ifn, ixmode, ixoff, iwrap];
+    return [NSString stringWithFormat:
+            @"%@ tablei %@, %@, %i, %@, %i",
+            self, andx, ifn, ixmode, ixoff, iwrap];
 }
-
-- (NSString *)description {
-    return [ares parameterString];
-}
-
 
 @end
