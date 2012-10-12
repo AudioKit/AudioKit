@@ -8,12 +8,9 @@
 
 #import "OCSPhasingControl.h"
 
-@interface OCSPhasingControl ()
-{
+@interface OCSPhasingControl () {
     OCSControl *freq;
     OCSConstant *phs;
-    
-    OCSControl *output;
 }
 
 @end
@@ -22,28 +19,22 @@
 
 - (id)initWithFrequency:(OCSControl *)frequency
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
-        output = [OCSControl parameterWithString:[self operationName]];
         freq = frequency;
         phs  = ocsp(0);
     }
     return self;
 }
 
-- (void)setPhase:(OCSConstant *)phase
-{
+- (void)setPhase:(OCSConstant *)phase {
     phs = phase;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ phasor %@, %@",
-            output, freq, phs];
-}
-
-- (NSString *)description {
-    return [output parameterString];
+            self, freq, phs];
 }
 
 @end
