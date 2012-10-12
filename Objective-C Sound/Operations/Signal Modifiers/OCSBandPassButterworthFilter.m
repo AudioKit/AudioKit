@@ -10,7 +10,6 @@
 
 @interface OCSBandPassButterworthFilter ()
 {
-    OCSParameter *output;
     OCSParameter *input;
     OCSControl *center;
     OCSControl *bandwidth;
@@ -25,9 +24,8 @@
    centerFrequency:(OCSControl *)centerFrequency
          bandwidth:(OCSControl *)bandwidthRange
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if(self) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         input = inputSignal;
         center = centerFrequency;
         bandwidth = bandwidthRange;
@@ -37,11 +35,9 @@
 
 -(NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@ butterbp %@, %@, %@, %d", output, input, center, bandwidth, 0];
-}
-
--(NSString *) description {
-    return [output parameterString];
+    return [NSString stringWithFormat:
+            @"%@ butterbp %@, %@, %@, %d",
+            self, input, center, bandwidth, 0];
 }
 
 @end

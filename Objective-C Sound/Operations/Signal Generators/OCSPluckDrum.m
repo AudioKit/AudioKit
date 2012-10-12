@@ -18,8 +18,6 @@
     OCSConstant *buffer;
     OCSConstant *roughness;
     OCSConstant *stretch;
-    
-    OCSParameter *output;
 }
 @end
 
@@ -38,9 +36,8 @@ typedef enum
         roughnessFactor:(OCSConstant *)roughnessFactor
           stretchFactor:(OCSConstant *)stretchFactor;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if( self ) {
-        output = [OCSParameter parameterWithString:[self operationName]];
         amp = amplitude;
         resampFreq = resamplingFrequency;
         decayFreq  = pitchDecayFrequency;
@@ -55,11 +52,7 @@ typedef enum
 {
     return [NSString stringWithFormat:
             @"%@ pluck %@, %@, %@, %@, %i, %@, %@",
-            output, amp, resampFreq, decayFreq, buffer, kDecayTypeStretchedDrum, roughness, stretch];
-}
-
-- (NSString *)description {
-    return [output parameterString];
+            self, amp, resampFreq, decayFreq, buffer, kDecayTypeStretchedDrum, roughness, stretch];
 }
 
 @end

@@ -17,7 +17,6 @@
     OCSControl *partialMul;
     OCSParameter *freq;
     OCSParameter *amp;
-    OCSParameter *output;
     
     OCSFTable *f;
 }
@@ -86,7 +85,7 @@ fundamentalFrequency:(OCSParameter *)fundamentalFrequency
 fundamentalFrequency:(OCSParameter *)fundamentalFrequency
           amplitude:(OCSParameter *)amplitude
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
         f = cosineTable;
         phs = ocspi(0);
@@ -101,15 +100,9 @@ fundamentalFrequency:(OCSParameter *)fundamentalFrequency
 
 - (NSString *)stringForCSD
 {
-    if (output == nil) output = [OCSParameter parameterWithString:[self operationName]];
-    
     return [NSString stringWithFormat:
             @"%@ gbuzz %@, %@, %@, %@, %@, %@, %@",
-            output, amp, freq, numHarmonics, firstHarmonic, partialMul, f, phs];
-}
-
-- (NSString *)description {
-    return [output parameterString];
+            self, amp, freq, numHarmonics, firstHarmonic, partialMul, f, phs];
 }
 
 @end
