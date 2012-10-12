@@ -1,15 +1,15 @@
 //
-//  OCSTableValue.m
-//  Objective-C Sound
+//  OCSTableValueConstant.m
+//  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 7/2/12.
+//  Created by Aurelius Prochazka on 10/11/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSTableValue.h"
+#import "OCSTableValueConstant.h"
 
-@interface OCSTableValue () {
-    OCSParameter *ares;
+@interface OCSTableValueConstant () {
+    OCSConstant *ares;
     OCSConstant  *ifn;
     OCSParameter *andx;
     OCSParameter *ixoff;
@@ -18,22 +18,22 @@
 }
 @end
 
-@implementation OCSTableValue
+@implementation OCSTableValueConstant
 
 - (id)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSParameter *)index
+             atIndex:(OCSConstant *)index
 {
     self = [super init];
     if (self) {
-        ares = [OCSParameter parameterWithString:[self operationName]];
+        ares = [OCSConstant parameterWithString:[self operationName]];
         ifn  = fTable;
         normalizeResult = NO;
         ixoff = [OCSConstant parameterWithInt:0];
         wrapData = NO;
         andx = index;
     }
-    return self; 
-
+    return self;
+    
 }
 
 -(void) normalize {
@@ -48,7 +48,7 @@
     ixoff = offsetAmount;
 }
 
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     int ixmode = normalizeResult ? 0:1;
     int iwrap = wrapData ? 0:1;
@@ -58,5 +58,6 @@
 - (NSString *)description {
     return [ares parameterString];
 }
+
 
 @end
