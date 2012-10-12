@@ -10,10 +10,10 @@
 
 @interface OCSPhasingControl ()
 {
-    OCSControl * freq;
-    OCSConstant * phs;
+    OCSControl *freq;
+    OCSConstant *phs;
     
-    OCSParameter * output;
+    OCSControl *output;
 }
 
 @end
