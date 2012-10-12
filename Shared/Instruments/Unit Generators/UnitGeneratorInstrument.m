@@ -10,7 +10,7 @@
 #import "OCSSineTable.h"
 #import "OCSLine.h"
 #import "OCSLinearControl.h"
-#import "OCSSegmentArray.h"
+#import "OCSControlSegmentArray.h"
 #import "OCSFMOscillator.h"
 #import "OCSAudio.h"
 
@@ -45,13 +45,12 @@
                                                            duration:ocsp(3.0)];
         [self connect:baseFrequencyLine];
         
-        OCSSegmentArray *modIndexLine;
-        modIndexLine = [[OCSSegmentArray alloc] initWithStartValue:ocsp(0.5)
-                                                       toNextValue:ocsp(0.2)
-                                                          afterDuration:ocsp(3)];
+        OCSControlSegmentArray *modIndexLine;
+        modIndexLine = [[OCSControlSegmentArray alloc] initWithStartValue:ocsp(0.5)
+                                                              toNextValue:ocsp(0.2)
+                                                            afterDuration:ocsp(3)];
         [modIndexLine addValue:ocsp(1.5) afterDuration:ocsp(3)];
         [modIndexLine addValue:ocsp(0.5) afterDuration:ocsp(3)];
-        [modIndexLine setOutput:modIndexLine.control];
         [self connect:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
@@ -60,7 +59,7 @@
                                             baseFrequency:baseFrequencyLine
                                         carrierMultiplier:ocsp(1)
                                      modulatingMultiplier:myLine
-                                          modulationIndex:modIndexLine.control
+                                          modulationIndex:modIndexLine
                                                 amplitude:ocsp(0.4)];
         [self connect:fmOscil];
         

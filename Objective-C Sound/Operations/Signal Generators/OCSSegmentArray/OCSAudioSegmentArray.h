@@ -1,5 +1,5 @@
 //
-//  OCSSegmentArray.h
+//  OCSAudioSegmentArray.h
 //  Objective-C Sound
 //
 //  Created by Adam Boulanger on 6/7/12.
@@ -15,17 +15,7 @@
 
  */
 
-@interface OCSSegmentArray : OCSParameter
-
-/// @name Properties
-
-/// This is the control parameter.
-@property (nonatomic, strong) OCSControl *control;
-
-/// The output is the audio signal or the control.
-@property (nonatomic, strong) OCSParameter *output;
-
-/// @name Initialization
+@interface OCSAudioSegmentArray : OCSParameter
 
 /// Creates the OCSSegmentArray and populates it with the minimum information.
 /// Use addValue:afterDuration to add more segments to the array.

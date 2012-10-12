@@ -1,5 +1,5 @@
 //
-//  OCSSegmentArray.m
+//  OCSAudioSegmentArray.m
 //  Objective-C Sound
 //
 //  Created by Adam Boulanger on 6/7/12.
@@ -10,9 +10,9 @@
 //  http://www.csounds.com/manual/html/expsegr.html
 //
 
-#import "OCSSegmentArray.h"
+#import "OCSAudioSegmentArray.h"
 
-@interface OCSSegmentArray () {
+@interface OCSAudioSegmentArray () {
     NSString *opcode;
     OCSConstant *start;
     OCSConstant *dur;
@@ -21,29 +21,17 @@
     
     OCSConstant *release;
     OCSConstant *final;
-    
-    OCSParameter *audio;
-    OCSControl *control;
-    OCSParameter *output;
 }
 @end
 
-@implementation OCSSegmentArray
-
-@synthesize control;
-@synthesize output;
+@implementation OCSAudioSegmentArray
 
 - (id)initWithStartValue:(OCSConstant *)firstSegmentStartValue
              toNextValue:(OCSConstant *)firstSegmentTargetValue
            afterDuration:(OCSConstant *)firstSegmentDuration
 {
-    self = [super init];
-    
-    if (self) {
-        audio   = [OCSParameter parameterWithString:[self operationName]];
-        control = [OCSControl parameterWithString:[self operationName]];
-        output  =  audio;
-        
+    self = [super initWithString:[self operationName]];
+    if (self) {        
         opcode   = @"linseg";
         start    = firstSegmentStartValue;
         dur      = firstSegmentDuration;
@@ -84,11 +72,11 @@
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@", 
-                    output, opcode, start, dur, target];
+                    self, opcode, start, dur, target];
         } else {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@, %@, %@", 
-                    output, opcode, start, dur, target, release, final];
+                    self, opcode, start, dur, target, release, final];
         }
     } else {
         NSMutableArray *s = [[NSMutableArray alloc] init];
@@ -100,18 +88,14 @@
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@, %@", 
-                    output, opcode, start, dur, target, segs];
+                    self, opcode, start, dur, target, segs];
             
         } else {
             return [NSString stringWithFormat:
                     @"%@ %@ %@, %@, %@, %@, %@, %@", 
-                    output, opcode, start, dur, target, segs, release, final];
+                    self, opcode, start, dur, target, segs, release, final];
         }
     }
 }
  
-- (NSString *)description {
-    return [output parameterString];
-}
-
 @end
