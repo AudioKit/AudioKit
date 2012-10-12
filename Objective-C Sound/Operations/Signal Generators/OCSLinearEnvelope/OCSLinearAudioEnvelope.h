@@ -1,5 +1,5 @@
 //
-//  OCSEnvelope.h
+//  OCSLinearAudioEnvelope.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 5/17/12.
@@ -18,16 +18,7 @@ overall duration is exceeded in performance, the final decay will continue on in
 the same direction, going negative.
 */
 
-@interface OCSLinearEnvelope : OCSParameter
-
-/// @name Properties
-
-/// The output as a control.
-@property (nonatomic, strong) OCSControl *control;
-/// The output can either an audio signal or a control.
-@property (nonatomic, strong) OCSParameter *output;
-
-/// @name Initialization
+@interface OCSLinearAudioEnvelope : OCSParameter
 
 /// Creates a straight line rise and decay patter to an input signal.
 /// @param riseTime      Rise time in seconds. A zero or negative value signifies no rise modification.
