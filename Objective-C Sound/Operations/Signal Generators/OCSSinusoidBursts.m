@@ -1,6 +1,6 @@
 //
 //  OCSSinusoidBursts.m
-//  OCS iPad Examples
+//  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
