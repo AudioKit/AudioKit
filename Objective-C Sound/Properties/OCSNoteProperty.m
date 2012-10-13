@@ -30,6 +30,7 @@
     self = [super init];
     if (self) {
         pValue = 0;
+        [self setName:@"NoteProperty"];
     }
     return self;
 }
@@ -59,9 +60,8 @@
 }
 
 - (void)setValue:(Float32)newValue {
-    if (minimumValue && maximumValue && newValue >= minimumValue && newValue <= maximumValue) {
-        currentValue = newValue;
-    } else if (minimumValue && newValue < minimumValue) {
+    currentValue = newValue;
+    if (minimumValue && newValue < minimumValue) {
         currentValue = minimumValue;
         NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
