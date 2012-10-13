@@ -40,6 +40,4 @@
         offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
           feedbackLevel:(OCSControl *)feedbackLevel;
 
-- (NSString *) udoFile;
-
 @end

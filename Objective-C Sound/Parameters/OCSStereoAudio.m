@@ -9,8 +9,8 @@
 #import "OCSStereoAudio.h"
 
 @interface OCSStereoAudio () {
-    OCSParameter *aOutL;
-    OCSParameter *aOutR;
+    OCSAudio *aOutL;
+    OCSAudio *aOutR;
     int _myID;
 }
 @end
@@ -31,8 +31,19 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        aOutL  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"aLeft%i",_myID]];
-        aOutR  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"aRight%i",_myID]];
+        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"aLeft%i",_myID]];
+        aOutR  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"aRight%i",_myID]];
+    }
+    return self;
+}
+
+- (id)initWithLeftInput:(OCSAudio *)leftInput
+             rightInput:(OCSAudio *)rightInput
+{
+    self = [self init];
+    if (self) {
+        aOutL = leftInput;
+        aOutR = rightInput;
     }
     return self;
 }

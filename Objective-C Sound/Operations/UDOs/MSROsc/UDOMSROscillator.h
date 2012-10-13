@@ -53,6 +53,4 @@ typedef enum {
          frequency:(OCSControl *)pitchOrFrequency
          amplitude:(OCSConstant *)maxAmplitude;
 
-- (NSString *) udoFile;
-
 @end
