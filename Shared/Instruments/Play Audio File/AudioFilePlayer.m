@@ -51,8 +51,7 @@
         // AUDIO OUTPUT ========================================================
 
         OCSAudioOutput * audio;
-        audio = [[OCSAudioOutput alloc] initWithLeftInput:reverb.leftOutput
-                                               rightInput:reverb.rightOutput];
+        audio = [[OCSAudioOutput alloc] initWithStereoInput:reverb];
         [self connect:audio];
     }
     return self;

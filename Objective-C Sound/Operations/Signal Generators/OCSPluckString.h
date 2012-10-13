@@ -19,10 +19,6 @@
 
 @interface OCSPluckString : OCSAudio
 
-/// @name Properties
-
-/// @name Initialization
-
 /// Initializes the string with simple averaging smoothing process.
 /// @param amplitude           The output amplitude.
 /// @param resamplingFrequency The resampling frequency in cycles-per-second.

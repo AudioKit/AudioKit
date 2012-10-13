@@ -30,8 +30,7 @@
         
         // AUDIO OUTPUT ========================================================
             
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithLeftInput:[reverb.leftOutput scaledBy:0.2]
-                                                               rightInput:[reverb.rightOutput scaledBy:0.2]];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithStereoInput:[reverb scaledBy:0.2] ];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

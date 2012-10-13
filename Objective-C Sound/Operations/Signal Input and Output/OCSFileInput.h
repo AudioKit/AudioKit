@@ -6,23 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
+#import "OCSStereoAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Reads stereo audio data from a file.
  */
 
-@interface OCSFileInput : OCSAudio
-
-/// @name Properties
-
-/// The output to the left channel.
-@property (nonatomic, strong) OCSAudio *leftOutput;
-/// The output to the right channel.
-@property (nonatomic, strong) OCSAudio *rightOutput;
-
-
-/// @name Initialization
+@interface OCSFileInput : OCSStereoAudio
 
 /// Create a file input.
 /// @param fileName Location of the file on disk.

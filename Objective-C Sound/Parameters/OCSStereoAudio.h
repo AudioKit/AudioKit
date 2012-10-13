@@ -24,4 +24,6 @@
 /// Quick and dirty way to get a stereo signal from a mono.
 + (OCSStereoAudio *)stereoFromMono:(OCSAudio *)mono;
 
+- (id)scaledBy:(float)scalingFactor;
+
 @end

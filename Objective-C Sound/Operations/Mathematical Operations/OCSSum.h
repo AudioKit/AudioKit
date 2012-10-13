@@ -11,8 +11,6 @@
 /// Sums any number of a-rate signals.
 @interface OCSSum : OCSParameter
 
-/// @name Initialization
-
 /// Create a new signal as a sum of given signals.
 /// @param firstOperand At least one input is required
 /// @param ...          End the list with a nil.
