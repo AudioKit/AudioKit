@@ -12,7 +12,7 @@
 #import "OCSLinearControl.h"
 #import "OCSControlSegmentArray.h"
 #import "OCSFMOscillator.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation UnitGeneratorInstrument
 
@@ -65,7 +65,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:fmOscil];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:fmOscil];
         [self connect:audio];
     }
     return self;

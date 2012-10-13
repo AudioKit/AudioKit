@@ -9,7 +9,7 @@
 #import "AudioFilePlayer.h"
 #import "OCSLoopingOscillator.h"
 #import "OCSReverb.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 #import "OCSEvent.h"
 
@@ -50,9 +50,9 @@
         
         // AUDIO OUTPUT ========================================================
 
-        OCSAudio * audio;
-        audio = [[OCSAudio alloc] initWithLeftInput:reverb.leftOutput
-                                         rightInput:reverb.rightOutput];
+        OCSAudioOutput * audio;
+        audio = [[OCSAudioOutput alloc] initWithLeftInput:reverb.leftOutput
+                                               rightInput:reverb.rightOutput];
         [self connect:audio];
     }
     return self;

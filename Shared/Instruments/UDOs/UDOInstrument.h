@@ -8,10 +8,19 @@
 
 #import "OCSInstrument.h"
 
-@interface UDOInstrument : OCSInstrument 
+@class UDOInstrumentNote;
 
-@property (nonatomic, strong) OCSInstrumentProperty *frequency;
-#define kFrequencyMin 110
-#define kFrequencyMax 880
+@interface UDOInstrument : OCSInstrument
+
+- (UDOInstrumentNote *)createNote;
+
+@end
+
+@interface UDOInstrumentNote : OCSNote
+
+@property (nonatomic, strong) OCSNoteProperty *frequency;
+#define kFrequencyInit 220
+#define kFrequencyMin  110
+#define kFrequencyMax  880
 
 @end

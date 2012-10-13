@@ -12,31 +12,28 @@
 #import "UDOCsGrainCompressor.h"
 #import "UDOCsGrainPitchShifter.h"
 
-#import "OCSAudio.h"
-
-@interface UDOInstrument () {
-    OCSInstrumentProperty *frequency;
-}
-@end
+#import "OCSAudioOutput.h"
 
 @implementation UDOInstrument
 
-@synthesize frequency;
+- (UDOInstrumentNote *)createNote {
+    return [[UDOInstrumentNote alloc] initWithInstrument:self];
+}
+
 
 - (id)init {
     self = [super init];
     if (self) {
         
-        // INPUTS AND CONTROLS =================================================
-        
-        frequency = [[OCSInstrumentProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
-        [self addProperty:frequency];
+        // NOTE BASED CONTROL ==================================================
+        UDOInstrumentNote *note = [self createNote];
+        [self addNoteProperty:note.frequency];
         
         // INSTRUMENT DEFINITION ===============================================
         
         UDOMSROscillator *msrOsc;
         msrOsc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
-                                              frequency:frequency
+                                              frequency:note.frequency
                                               amplitude:ocsp(0.5)];
         [self addUDO:msrOsc];
         
@@ -59,9 +56,26 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *stereoOutput = [[OCSAudio alloc] initWithLeftInput:ps.leftOutput
-                                                          rightInput:ps.rightOutput];
+        OCSAudioOutput *stereoOutput = [[OCSAudioOutput alloc] initWithLeftInput:ps.leftOutput
+                                                                      rightInput:ps.rightOutput];
         [self connect:stereoOutput];
+    }
+    return self;
+}
+
+@end
+
+@implementation UDOInstrumentNote
+
+@synthesize frequency;
+
+- (id)initWithInstrument:(OCSInstrument *)anInstrument {
+    self = [super initWithInstrument:anInstrument];
+    if (self) {
+        frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
+                                                  minValue:kFrequencyMin
+                                                  maxValue:kFrequencyMax];
+        [self addProperty:frequency];
     }
     return self;
 }

@@ -9,7 +9,7 @@
 #import "TweakableInstrument.h"
 #import "OCSSineTable.h"
 #import "OCSFMOscillator.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 #import "OCSAssignment.h"
 
 
@@ -51,7 +51,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:fmOscil];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:fmOscil];
         [self connect:audio];
         
         /*

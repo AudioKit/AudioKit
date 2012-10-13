@@ -11,7 +11,7 @@
 #import "OCSOscillator.h"
 #import "OCSOscillatingControl.h"
 #import "OCSLine.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation ExpressionToneGenerator
 
@@ -57,7 +57,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:oscillator];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:oscillator];
         [self connect:audio];
     }
     return self;

@@ -10,7 +10,7 @@
 #import "OCSFileInput.h"
 #import "OCSConvolution.h"
 #import "OCSMixedAudio.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @interface ConvolutionInstrument () {
     OCSInstrumentProperty *dishWellBalance;
@@ -78,7 +78,7 @@
 
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:dryWet];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:dryWet];
         [self connect:audio];
     }
     return self;

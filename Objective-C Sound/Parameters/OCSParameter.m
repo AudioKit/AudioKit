@@ -57,6 +57,11 @@ static int currentID = 1;
     return [[self alloc] initWithString:name];
 }
 
++(id)globalParameter
+{
+    return [[self alloc] initGlobalWithString:@"Global"];
+}
+
 +(id)globalParameterWithString:(NSString *)name
 {
     return [[self alloc] initGlobalWithString:name];

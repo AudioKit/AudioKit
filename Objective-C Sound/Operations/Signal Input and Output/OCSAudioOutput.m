@@ -1,20 +1,20 @@
 //
-//  OCSAudio.m
+//  OCSAudioOutput.m
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
-@interface OCSAudio () {
+@interface OCSAudioOutput () {
     OCSParameter *aSig1;
     OCSParameter *aSig2;
 }
 @end
 
-@implementation OCSAudio
+@implementation OCSAudioOutput
 
 - (id)initWithMonoInput:(OCSParameter *)monoSignal
 {
