@@ -19,6 +19,9 @@
              rightInput:(OCSAudio *)rightInput;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void) resetID;
++ (void)resetID;
+
+/// Quick and dirty way to get a stereo signal from a mono.
++ (OCSStereoAudio *)stereoFromMono:(OCSAudio *)mono;
 
 @end

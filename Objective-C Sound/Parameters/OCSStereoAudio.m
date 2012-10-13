@@ -22,8 +22,12 @@
 
 static int currentID = 1;
 
-+(void) resetID {
++ (void)resetID {
     currentID = 1;
+}
+
++ (OCSStereoAudio *)stereoFromMono:(OCSAudio *)mono {
+    return [[OCSStereoAudio alloc] initWithLeftInput:mono rightInput:mono];
 }
 
 - (id)init
