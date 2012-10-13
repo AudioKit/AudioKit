@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 
@@ -15,7 +16,7 @@
  Linear interpolation is applied for table look up from internal phase values.
  */
 
-@interface OCSOscillator : OCSParameter
+@interface OCSOscillator : OCSAudio
 
 /// Instantiates the oscillator.
 /// @param fTable Requires a wrap-around guard point.

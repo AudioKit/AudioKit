@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**
@@ -14,7 +15,7 @@
  the note event ends.  Can be an audio signal or control rate parameter.
  */
 
-@interface OCSLine : OCSParameter
+@interface OCSLine : OCSAudio
 
 /// Initialize a linear transition from one value to another over specified time.
 /// @param startingValue Value to start the line from.

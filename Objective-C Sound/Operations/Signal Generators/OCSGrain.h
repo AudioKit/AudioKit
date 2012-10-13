@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**  Generates granular synthesis textures.
 */
 
-@interface OCSGrain : OCSParameter
+@interface OCSGrain : OCSAudio
 
 /// Instantiates the grain synthesis with the given parameters.
 /// @param amplitude              Amplitude of each grain.

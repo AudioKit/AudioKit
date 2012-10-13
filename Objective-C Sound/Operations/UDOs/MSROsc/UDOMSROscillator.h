@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSUserDefinedOperation.h"
+#import "OCSAudio.h"
+#import "OCSParameter+Operation.h"
 
 /** Generates indicated wave with amplitude declick ramps of .02 sec on each end.  
  The frequency can be given either as pitch or in Hz, and the type can be
@@ -39,7 +40,7 @@ typedef enum {
     kMSROscillatorTypeWhiteNoise
 } OscillatorType;
 
-@interface UDOMSROscillator : OCSUserDefinedOperation 
+@interface UDOMSROscillator : OCSAudio 
 
 /** Instantiates the user-defined opcode for Michael Rempel's Oscillator.
  
@@ -51,5 +52,7 @@ typedef enum {
 - (id)initWithType:(OscillatorType)oscillatorType
          frequency:(OCSControl *)pitchOrFrequency
          amplitude:(OCSConstant *)maxAmplitude;
+
+- (NSString *) udoFile;
 
 @end

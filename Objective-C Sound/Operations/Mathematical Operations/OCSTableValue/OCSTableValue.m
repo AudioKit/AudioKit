@@ -10,7 +10,7 @@
 
 @interface OCSTableValue () {
     OCSConstant  *ifn;
-    OCSParameter *andx;
+    OCSAudio *andx;
     OCSParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
@@ -20,7 +20,7 @@
 @implementation OCSTableValue
 
 - (id)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSParameter *)index
+             atIndex:(OCSAudio *)index
 {
     self = [super initWithString:[self operationName]];
     if (self) {

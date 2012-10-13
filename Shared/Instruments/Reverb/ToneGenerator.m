@@ -12,7 +12,7 @@
 #import "OCSAudioOutput.h"
 
 @interface ToneGenerator () {
-    OCSParameter *auxilliaryOutput;
+    OCSAudio *auxilliaryOutput;
 }
 @end
 
@@ -51,7 +51,7 @@
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [OCSParameter globalParameter];
+        auxilliaryOutput = [OCSAudio globalParameter];
         [self assignOutput:auxilliaryOutput to:oscillator];
     }
     return self;

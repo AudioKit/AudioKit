@@ -18,4 +18,7 @@
 /// The opcode line for inclusion in instruments.
 - (NSString *) stringForCSD;
 
+/// The text of the User Defined Opcode
+- (NSString *) udoFile;
+
 @end

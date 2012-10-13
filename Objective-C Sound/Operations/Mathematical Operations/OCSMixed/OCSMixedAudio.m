@@ -22,8 +22,8 @@
 
 @implementation OCSMixedAudio
 
-- (id)initWithSignal1:(OCSParameter *)signal1
-              signal2:(OCSParameter *)signal2
+- (id)initWithSignal1:(OCSAudio *)signal1
+              signal2:(OCSAudio *)signal2
               balance:(OCSControl *)balancePoint;
 {
     self = [super initWithString:[self operationName]];

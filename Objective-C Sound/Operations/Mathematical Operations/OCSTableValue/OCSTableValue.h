@@ -6,19 +6,20 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**
  Accesses table values by direct indexing with linear interpolation.
  */
 
-@interface OCSTableValue : OCSParameter
+@interface OCSTableValue : OCSAudio
 
 /// Initialize the opcode as an audio operation.
 /// @param fTable Function table read the data from.
 /// @param index  Indexing Parameter.
 - (id)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSParameter *)index;
+             atIndex:(OCSAudio *)index;
 
 /// Normalize data to a maximum of 1.
 - (void)normalize;

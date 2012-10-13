@@ -19,7 +19,7 @@
         
         // INPUTS ==============================================================
         
-        OCSParameter * input = toneGenerator.auxilliaryOutput;
+        OCSAudio * input = toneGenerator.auxilliaryOutput;
         
         // INSTRUMENT DEFINITION ===============================================
         

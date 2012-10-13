@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSInstrument.h"
 
 @interface ToneGenerator : OCSInstrument 
@@ -14,6 +15,6 @@
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
-@property (readonly) OCSParameter *auxilliaryOutput;
+@property (readonly) OCSAudio *auxilliaryOutput;
 
 @end

@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Reads audio data from an external device or stream. 
  Currently only supports mono input.
  */
 
-@interface OCSAudioInput : OCSParameter
+@interface OCSAudioInput : OCSAudio
 
 @end

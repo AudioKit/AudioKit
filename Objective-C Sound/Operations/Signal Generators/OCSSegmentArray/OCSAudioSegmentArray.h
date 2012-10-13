@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**
@@ -15,7 +16,7 @@
 
  */
 
-@interface OCSAudioSegmentArray : OCSParameter
+@interface OCSAudioSegmentArray : OCSAudio
 
 /// Creates the OCSSegmentArray and populates it with the minimum information.
 /// Use addValue:afterDuration to add more segments to the array.

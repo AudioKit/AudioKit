@@ -6,13 +6,14 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**
  Generates noise based on a controlled pseudo-random number series between minimum and maximum values.
  */
 
-@interface OCSRandomAudio : OCSParameter
+@interface OCSRandomAudio : OCSAudio
 
 /// Instantiates the oscillator with an initial phase of sampling.
 /// @param minimum minimum range limit

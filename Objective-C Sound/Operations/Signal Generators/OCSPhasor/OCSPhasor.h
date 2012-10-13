@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Adam Boulanger. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** A normalized moving phase value.
@@ -17,7 +18,7 @@
  Note that phasor is a special kind of integrator, accumulating phase increments that represent frequency settings.
  */
 
-@interface OCSPhasor : OCSParameter
+@interface OCSPhasor : OCSAudio
 
 /// Instantiates the phasor.
 /// @param frequency Frequency in cycles per second.

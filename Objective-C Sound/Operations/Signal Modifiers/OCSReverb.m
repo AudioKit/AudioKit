@@ -12,10 +12,10 @@
 #import "OCSReverb.h"
 
 @interface OCSReverb () {
-    OCSParameter *aOutL;
-    OCSParameter *aOutR;
-    OCSParameter *aInL;
-    OCSParameter *aInR;
+    OCSAudio *aOutL;
+    OCSAudio *aOutR;
+    OCSAudio *aInL;
+    OCSAudio *aInR;
     OCSControl *kFbLvl;
     OCSControl *kFCo;
 }
@@ -26,15 +26,15 @@
 @synthesize leftOutput=aOutL;
 @synthesize rightOutput=aOutR;
 
-- (id)initWithLeftInput:(OCSParameter *)leftInput
-             rightInput:(OCSParameter *)rightInput
+- (id)initWithLeftInput:(OCSAudio *)leftInput
+             rightInput:(OCSAudio *)rightInput
           feedbackLevel:(OCSControl *)feedbackLevel
         cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
     self = [super init];
     if (self) {
-        aOutL  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        aOutR  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
+        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
+        aOutR  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
         aInL   = leftInput;
         aInR   = rightInput;
         kFbLvl = feedbackLevel;
@@ -43,7 +43,7 @@
     return self; 
 }
 
-- (id)initWithMonoInput:(OCSParameter *)monoInput
+- (id)initWithMonoInput:(OCSAudio *)monoInput
           feedbackLevel:(OCSControl *)feedbackLevel
         cutoffFrequency:(OCSControl *)cutoffFrequency;
 {

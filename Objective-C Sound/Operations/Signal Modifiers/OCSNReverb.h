@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 #import "OCSNReverb.h"
 
@@ -13,7 +14,7 @@
  being fed into a series of 5 allpass filters. 
  */
 
-@interface OCSNReverb : OCSParameter
+@interface OCSNReverb : OCSAudio
 
 /// @name Properties
 
@@ -35,7 +36,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 /// @param combFilterGains      An array of gains at each time in the comb filter.
 /// @param allPassFilterTimes   An array of times for the all pass filter.
 /// @param allPassFilterGains   An array of gains at each time the all pass filter.
-- (id)initWithInput:(OCSParameter *)inputSignal
+- (id)initWithInput:(OCSAudio *)inputSignal
      reverbDuration:(OCSControl *)reverbDuration
 highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     combFilterTimes:(NSArray *)combFilterTimes

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "OCSOrchestra.h"
 #import "OCSParameter+Operation.h"
-#import "OCSUserDefinedOperation.h"
 #import "OCSNote.h"
 #import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
@@ -83,7 +82,7 @@
 
 /// Adds the User-Defined Operation to the instrument (and the opcode defintion .udo file)
 /// @param newUserDefinedOperation New UDO to add to the instrument.
-- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation;
+- (void)addUDO:(OCSParameter *)newUserDefinedOperation;
 
 /// Adds any string to the CSD file, useful for testing and commenting within the CSD file.
 /// @param newString New string to add to the instrument definition.
