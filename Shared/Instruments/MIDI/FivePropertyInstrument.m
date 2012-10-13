@@ -12,7 +12,7 @@
 #import "OCSProduct.h"
 #import "OCSFMOscillator.h"
 #import "OCSLowPassButterworthFilter.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation FivePropertyInstrument
 
@@ -69,7 +69,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:lpFilter];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:lpFilter];
         [self connect:audio];
     }
     return self;

@@ -9,7 +9,7 @@
 #import "ToneGenerator.h"
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @interface ToneGenerator () {
     OCSParameter *auxilliaryOutput;
@@ -45,13 +45,13 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:oscillator]; 
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:oscillator]; 
         [self connect:audio];
         
         
         // EXTERNAL OUTPUTS ====================================================        
         // After your instrument is set up, define outputs available to others
-        auxilliaryOutput = [OCSParameter globalParameterWithString:@"ToneGeneratorOutput"];
+        auxilliaryOutput = [OCSParameter globalParameter];
         [self assignOutput:auxilliaryOutput to:oscillator];
     }
     return self;

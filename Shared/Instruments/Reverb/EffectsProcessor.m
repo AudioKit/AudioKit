@@ -8,7 +8,7 @@
 
 #import "EffectsProcessor.h"
 #import "OCSReverb.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation EffectsProcessor
 
@@ -30,8 +30,8 @@
         
         // AUDIO OUTPUT ========================================================
             
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:[reverb.leftOutput scaledBy:0.2]
-                                                   rightInput:[reverb.rightOutput scaledBy:0.2]];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithLeftInput:[reverb.leftOutput scaledBy:0.2]
+                                                               rightInput:[reverb.rightOutput scaledBy:0.2]];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

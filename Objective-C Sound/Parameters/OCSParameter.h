@@ -31,6 +31,9 @@
 + (id)parameterWithString:(NSString *)name;
 
 /// Create a parameter available to all instruments in the orchestra.
++(id)globalParameter;
+
+/// Create a parameter available to all instruments in the orchestra.
 /// @param name The name of the parameter as it should appear in the CSD File.
 +(id)globalParameterWithString:(NSString *)name;
 
@@ -46,7 +49,7 @@
 + (id)parameterWithFormat:(NSString *)format, ...;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void) resetID;
++ (void)resetID;
 
 /// Helper function to create a new OCSParameter with the CSD output scaled
 /// @param scalingFactor The floating point number by which to scale.

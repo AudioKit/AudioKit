@@ -10,7 +10,7 @@
 
 #import "OCSSineTable.h"
 #import "OCSOscillator.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation OscillatorInstrument 
 
@@ -53,8 +53,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio;
-        audio = [[OCSAudio alloc] initWithMonoInput:myOscil];
+        OCSAudioOutput *audio;
+        audio = [[OCSAudioOutput alloc] initWithMonoInput:myOscil];
         [self connect:audio];
     }
     return self;

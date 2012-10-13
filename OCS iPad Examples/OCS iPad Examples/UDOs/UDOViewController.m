@@ -27,13 +27,17 @@
 }
 
 - (IBAction)hit1:(id)sender {
-    udoInstrument.frequency.value = 440.0f;
-    [udoInstrument playForDuration:1.0];
+    UDOInstrumentNote *note = [udoInstrument createNote];
+    note.frequency.value = 440.0f;
+    note.duration.value = 0.5;
+    [note play];
 }
 
 - (IBAction)hit2:(id)sender { 
-    [udoInstrument.frequency randomize];
-    [udoInstrument playForDuration:1.0];
+    UDOInstrumentNote *note = [udoInstrument createNote];
+    [note.frequency randomize];
+    note.duration.value = 0.5;
+    [note play];
 }
 
 
