@@ -10,17 +10,17 @@
 
 @interface OCSReverbAllpass ()
 {
-    OCSParameter * asig;
-    OCSControl * krvt;
-    OCSConstant * ilpt;
-    OCSConstant * iskip;
-    OCSConstant * insmps;
+    OCSAudio *asig;
+    OCSControl *krvt;
+    OCSConstant *ilpt;
+    OCSConstant *iskip;
+    OCSConstant *insmps;
 }
 @end
 
 @implementation OCSReverbAllpass
 
--(id)initWithInput:(OCSParameter *)input
+-(id)initWithInput:(OCSAudio *)input
  reverberationTime:(OCSControl *)reverberationTime
           loopTime:(OCSConstant *)loopTime
 {
@@ -31,7 +31,7 @@
                    delayAmount:ocspi(0)];
 }
 
--(id)initWithInput:(OCSParameter *)input
+-(id)initWithInput:(OCSAudio *)input
  reverberationTime:(OCSControl *)reverberationTime
           loopTime:(OCSConstant *)loopTime
   initialDelayTime:(OCSConstant *)initialDelayTime
