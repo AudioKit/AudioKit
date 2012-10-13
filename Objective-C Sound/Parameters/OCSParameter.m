@@ -23,6 +23,7 @@ static int currentID = 1;
     _myID = currentID++;
     return self;
 }
+
 - (id)initWithString:(NSString *)name
 {
     self = [super init];

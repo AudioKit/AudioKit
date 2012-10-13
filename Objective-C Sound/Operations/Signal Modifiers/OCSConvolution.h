@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**  Convolution based on a uniformly partitioned overlap-save algorithm.
  */
 
-@interface OCSConvolution : OCSParameter
+@interface OCSConvolution : OCSAudio
 
 /// Create a convolution
 /// @param inputAudio              Audio input to the convolution

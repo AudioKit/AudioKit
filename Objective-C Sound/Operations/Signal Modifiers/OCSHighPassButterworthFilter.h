@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Adam Boulanger. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** A second-order high-pass Butterworth filter. These filters are Butterworth second-order IIR filters.
@@ -13,7 +14,7 @@
  passband and very good precision and stopband attenuation.
  */
 
-@interface OCSHighPassButterworthFilter : OCSParameter
+@interface OCSHighPassButterworthFilter : OCSAudio
 
 /// Creates a low-pass Butterworth filter.
 /// @param inputSignal     The input to be filtered.

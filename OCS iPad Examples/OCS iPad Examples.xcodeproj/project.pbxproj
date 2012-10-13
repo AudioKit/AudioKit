@@ -84,7 +84,6 @@
 		C4A9816C16280F1900893A5B /* OCSAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810116280F1900893A5B /* OCSAudioInput.m */; };
 		C4A9816D16280F1900893A5B /* OCSFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810316280F1900893A5B /* OCSFileInput.m */; };
 		C4A9816E16280F1900893A5B /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810516280F1900893A5B /* OCSLoopingOscillator.m */; };
-		C4A9816F16280F1900893A5B /* OCSMonoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810716280F1900893A5B /* OCSMonoAudio.m */; };
 		C4A9817016280F1900893A5B /* OCSBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810A16280F1900893A5B /* OCSBandPassButterworthFilter.m */; };
 		C4A9817116280F1900893A5B /* OCSBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810C16280F1900893A5B /* OCSBandRejectButterworthFilter.m */; };
 		C4A9817216280F1900893A5B /* OCSConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810E16280F1900893A5B /* OCSConvolution.m */; };
@@ -99,7 +98,6 @@
 		C4A9817B16280F1900893A5B /* UDOCsGrainPitchShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9812016280F1900893A5B /* UDOCsGrainPitchShifter.m */; };
 		C4A9817C16280F1900893A5B /* msrOsc.udo in Resources */ = {isa = PBXBuildFile; fileRef = C4A9812216280F1900893A5B /* msrOsc.udo */; };
 		C4A9817D16280F1900893A5B /* UDOMSROscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9812416280F1900893A5B /* UDOMSROscillator.m */; };
-		C4A9817E16280F1900893A5B /* OCSUserDefinedOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9812616280F1900893A5B /* OCSUserDefinedOperation.m */; };
 		C4A9817F16280F1900893A5B /* OCSConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9812916280F1900893A5B /* OCSConstant.m */; };
 		C4A9818016280F1900893A5B /* OCSControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9812B16280F1900893A5B /* OCSControl.m */; };
 		C4A9818116280F1900893A5B /* OCSFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9812D16280F1900893A5B /* OCSFSignal.m */; };
@@ -303,8 +301,6 @@
 		C4A9810316280F1900893A5B /* OCSFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFileInput.m; sourceTree = "<group>"; };
 		C4A9810416280F1900893A5B /* OCSLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLoopingOscillator.h; sourceTree = "<group>"; };
 		C4A9810516280F1900893A5B /* OCSLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingOscillator.m; sourceTree = "<group>"; };
-		C4A9810616280F1900893A5B /* OCSMonoAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMonoAudio.h; sourceTree = "<group>"; };
-		C4A9810716280F1900893A5B /* OCSMonoAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMonoAudio.m; sourceTree = "<group>"; };
 		C4A9810916280F1900893A5B /* OCSBandPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBandPassButterworthFilter.h; sourceTree = "<group>"; };
 		C4A9810A16280F1900893A5B /* OCSBandPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBandPassButterworthFilter.m; sourceTree = "<group>"; };
 		C4A9810B16280F1900893A5B /* OCSBandRejectButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBandRejectButterworthFilter.h; sourceTree = "<group>"; };
@@ -330,8 +326,6 @@
 		C4A9812216280F1900893A5B /* msrOsc.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = msrOsc.udo; sourceTree = "<group>"; };
 		C4A9812316280F1900893A5B /* UDOMSROscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOMSROscillator.h; sourceTree = "<group>"; };
 		C4A9812416280F1900893A5B /* UDOMSROscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOMSROscillator.m; sourceTree = "<group>"; };
-		C4A9812516280F1900893A5B /* OCSUserDefinedOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSUserDefinedOperation.h; sourceTree = "<group>"; };
-		C4A9812616280F1900893A5B /* OCSUserDefinedOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSUserDefinedOperation.m; sourceTree = "<group>"; };
 		C4A9812816280F1900893A5B /* OCSConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConstant.h; sourceTree = "<group>"; };
 		C4A9812916280F1900893A5B /* OCSConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConstant.m; sourceTree = "<group>"; };
 		C4A9812A16280F1900893A5B /* OCSControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSControl.h; sourceTree = "<group>"; };
@@ -866,8 +860,6 @@
 				C4A9810316280F1900893A5B /* OCSFileInput.m */,
 				C4A9810416280F1900893A5B /* OCSLoopingOscillator.h */,
 				C4A9810516280F1900893A5B /* OCSLoopingOscillator.m */,
-				C4A9810616280F1900893A5B /* OCSMonoAudio.h */,
-				C4A9810716280F1900893A5B /* OCSMonoAudio.m */,
 			);
 			path = "Signal Input and Output";
 			sourceTree = "<group>";
@@ -900,8 +892,6 @@
 			children = (
 				C4A9811A16280F1900893A5B /* CsGrain */,
 				C4A9812116280F1900893A5B /* MSROsc */,
-				C4A9812516280F1900893A5B /* OCSUserDefinedOperation.h */,
-				C4A9812616280F1900893A5B /* OCSUserDefinedOperation.m */,
 			);
 			path = UDOs;
 			sourceTree = "<group>";
@@ -1419,7 +1409,6 @@
 				C4A9816C16280F1900893A5B /* OCSAudioInput.m in Sources */,
 				C4A9816D16280F1900893A5B /* OCSFileInput.m in Sources */,
 				C4A9816E16280F1900893A5B /* OCSLoopingOscillator.m in Sources */,
-				C4A9816F16280F1900893A5B /* OCSMonoAudio.m in Sources */,
 				C4A9817016280F1900893A5B /* OCSBandPassButterworthFilter.m in Sources */,
 				C4A9817116280F1900893A5B /* OCSBandRejectButterworthFilter.m in Sources */,
 				C4A9817216280F1900893A5B /* OCSConvolution.m in Sources */,
@@ -1431,7 +1420,6 @@
 				C4A9817A16280F1900893A5B /* UDOCsGrainCompressor.m in Sources */,
 				C4A9817B16280F1900893A5B /* UDOCsGrainPitchShifter.m in Sources */,
 				C4A9817D16280F1900893A5B /* UDOMSROscillator.m in Sources */,
-				C4A9817E16280F1900893A5B /* OCSUserDefinedOperation.m in Sources */,
 				C4A9817F16280F1900893A5B /* OCSConstant.m in Sources */,
 				C4A9818016280F1900893A5B /* OCSControl.m in Sources */,
 				C4A9818116280F1900893A5B /* OCSFSignal.m in Sources */,

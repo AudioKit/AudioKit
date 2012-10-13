@@ -10,10 +10,10 @@
 
 
 @interface UDOCsGrainCompressor () {
-    OCSParameter *leftOutput;
-    OCSParameter *rightOutput;
-    OCSParameter *inL;
-    OCSParameter *inR;
+    OCSAudio *leftOutput;
+    OCSAudio *rightOutput;
+    OCSAudio *inL;
+    OCSAudio *inR;
     OCSControl *threshold;
     OCSControl *ratio;
     OCSControl *attack;
@@ -26,8 +26,8 @@
 @synthesize leftOutput;
 @synthesize rightOutput;
 
-- (id)initWithLeftInput:(OCSParameter *)leftInput
-             rightInput:(OCSParameter *)rightInput
+- (id)initWithLeftInput:(OCSAudio *)leftInput
+             rightInput:(OCSAudio *)rightInput
               threshold:(OCSControl *)dBThreshold
        compressionRatio:(OCSControl *)compressionRatio
              attackTime:(OCSControl *)attackTime

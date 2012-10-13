@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Writes stereo audio data to an external device or stream.
@@ -23,11 +24,11 @@
 
 /// Helper function to send both channels the same monoSignal
 /// @param monoSignal The audio signal to be played on both channels.
-- (id)initWithMonoInput:(OCSParameter *)monoSignal;
+- (id)initWithMonoInput:(OCSAudio *)monoSignal;
 
 /// Initialization Statement
 /// @param leftInput  The audio signal to be played on the left channel.
 /// @param rightInput The audio signal to be played on the right channel.
-- (id)initWithLeftInput:(OCSParameter *)leftInput rightInput:(OCSParameter *)rightInput;
+- (id)initWithLeftInput:(OCSAudio *)leftInput rightInput:(OCSAudio *)rightInput;
 
 @end

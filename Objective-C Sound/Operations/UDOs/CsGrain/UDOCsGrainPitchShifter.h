@@ -7,20 +7,21 @@
 //
 //  Pitch Shifter from Boulanger Labs' csGrain
 
-#import "OCSUserDefinedOperation.h"
+#import "OCSAudio.h"
+#import "OCSParameter+Operation.h"
 
 /** Pitch shifter from Boulanger Labs' csGrain application.  
  Stereo audio input and output.  
  */
-@interface UDOCsGrainPitchShifter : OCSUserDefinedOperation 
+@interface UDOCsGrainPitchShifter : OCSAudio 
 
 /// @name Properties
 
 /// Left channel output.
-@property (nonatomic, strong) OCSParameter *leftOutput;
+@property (nonatomic, strong) OCSAudio *leftOutput;
 
 //// Right channel output.
-@property (nonatomic, strong) OCSParameter *rightOutput;
+@property (nonatomic, strong) OCSAudio *rightOutput;
 
 /// @name Initialization
 
@@ -33,10 +34,12 @@
  @param feedbackLevel              Typically a value from 0.0 (no feedback to 1.0 (100% feedback).
  @return                           An instance of the pitch shifter.
  */
-- (id)initWithLeftInput:(OCSParameter *)leftInput
-             rightInput:(OCSParameter *)rightInput
+- (id)initWithLeftInput:(OCSAudio *)leftInput
+             rightInput:(OCSAudio *)rightInput
               basePitch:(OCSControl *)basePitch
         offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
           feedbackLevel:(OCSControl *)feedbackLevel;
+
+- (NSString *) udoFile;
 
 @end

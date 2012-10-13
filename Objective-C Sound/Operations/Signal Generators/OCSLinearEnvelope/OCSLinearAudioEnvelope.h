@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Applies a straight line rise and decay pattern to an input amp signal.
@@ -18,7 +19,7 @@ overall duration is exceeded in performance, the final decay will continue on in
 the same direction, going negative.
 */
 
-@interface OCSLinearAudioEnvelope : OCSParameter
+@interface OCSLinearAudioEnvelope : OCSAudio
 
 /// Creates a straight line rise and decay patter to an input signal.
 /// @param riseTime      Rise time in seconds. A zero or negative value signifies no rise modification.

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 #import "OCSSoundFileTable.h"
 
@@ -17,7 +18,7 @@
  */
 // TODO: Add optional params
 
-@interface OCSLoopingOscillator : OCSParameter
+@interface OCSLoopingOscillator : OCSAudio
 
 /// @name Properties
 

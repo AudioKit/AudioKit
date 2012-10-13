@@ -12,8 +12,8 @@
 #import "OCSFileInput.h"
 
 @interface OCSFileInput () {
-    OCSParameter *a1;
-    OCSParameter *a2;
+    OCSAudio *a1;
+    OCSAudio *a2;
     NSString *ifilcod;
 }
 @end
@@ -27,8 +27,8 @@
 {
     self = [super init];
     if (self) {
-        a1  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        a2 = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
+        a1 = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
+        a2 = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
         ifilcod = fileName;
     }
     return self; 

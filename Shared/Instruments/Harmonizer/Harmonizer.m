@@ -79,7 +79,7 @@
         
 
         // AUDIO OUTPUT ========================================================
-        OCSParameter *a2 = [OCSParameter parameterWithFormat:@"%@ * %@", a1, gain];
+        OCSAudio *a2 = [OCSAudio parameterWithFormat:@"%@ * %@", a1, gain];
         OCSAudioOutput *out = [[OCSAudioOutput alloc] initWithMonoInput:a2];
         [self connect:out];
     }

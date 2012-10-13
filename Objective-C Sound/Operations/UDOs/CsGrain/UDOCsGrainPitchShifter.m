@@ -9,10 +9,10 @@
 #import "UDOCsGrainPitchShifter.h"
 
 @interface UDOCsGrainPitchShifter () {
-    OCSParameter *leftOutput;
-    OCSParameter *rightOutput;
-    OCSParameter *inL;
-    OCSParameter *inR;
+    OCSAudio *leftOutput;
+    OCSAudio *rightOutput;
+    OCSAudio *inL;
+    OCSAudio *inR;
     OCSControl *pitch;
     OCSControl *offset;
     OCSControl *feedback;
@@ -24,16 +24,16 @@
 @synthesize leftOutput;
 @synthesize rightOutput;
 
-- (id)initWithLeftInput:(OCSParameter *)leftInput
-             rightInput:(OCSParameter *)rightInput
+- (id)initWithLeftInput:(OCSAudio *)leftInput
+             rightInput:(OCSAudio *)rightInput
               basePitch:(OCSControl *)basePitch
         offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
           feedbackLevel:(OCSControl *)feedbackLevel;
 {
     self = [super init];
     if (self) {
-        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
+        leftOutput  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
+        rightOutput = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
         inL      = leftInput;
         inR      = rightInput;
         pitch    = basePitch;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 MIT Media Lab. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Basic frequency modulated oscillator with linear interpolation.
@@ -17,7 +18,7 @@ tables of 2K, 4K or 8K points if the space is available.
 
 */
 
-@interface OCSFMOscillator : OCSParameter
+@interface OCSFMOscillator : OCSAudio
 
 /// Initializes a frequency modulated oscillator with linear interpolation with no phasing.
 /// @param fTable               Function table to use.  Requires a wrap-around guard point.

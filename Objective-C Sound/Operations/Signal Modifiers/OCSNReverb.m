@@ -39,7 +39,7 @@ highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
     return self;
 }
 
-- (id)initWithInput:(OCSParameter *)inputSignal
+- (id)initWithInput:(OCSAudio *)inputSignal
      reverbDuration:(OCSControl *)reverbDuration
 highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
     combFilterTimes:(NSArray *)combFilterTimes

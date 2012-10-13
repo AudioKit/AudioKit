@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSUserDefinedOperation.h"
+#import "OCSAudio.h"
+#import "OCSParameter+Operation.h"
 
 /** Stereo compressor from Boulanger Labs' csGrain application.  
   Stereo audio input and output.  
@@ -21,15 +22,15 @@
  The value 1 will result in no change.
  */
 
-@interface UDOCsGrainCompressor : OCSUserDefinedOperation 
+@interface UDOCsGrainCompressor : OCSAudio 
 
 /// @name Properties
 
 /// Left channel output.
-@property (nonatomic, strong) OCSParameter *leftOutput;
+@property (nonatomic, strong) OCSAudio *leftOutput;
 
 //// Right channel output.
-@property (nonatomic, strong) OCSParameter *rightOutput;
+@property (nonatomic, strong) OCSAudio *rightOutput;
 
 /// @name Initialization
 
@@ -43,10 +44,12 @@
  @param releaseTime       The release time in seconds. A typical value is 0.1 seconds.
  @return                  And instance of the compressor.
 */
-- (id)initWithLeftInput:(OCSParameter *)leftInput
-             rightInput:(OCSParameter *)rightInput
+- (id)initWithLeftInput:(OCSAudio *)leftInput
+             rightInput:(OCSAudio *)rightInput
               threshold:(OCSControl *)dBThreshold
        compressionRatio:(OCSControl *)compressionRatio
              attackTime:(OCSControl *)attackTime
             releaseTime:(OCSControl *)releaseTime;
+
+- (NSString *) udoFile;
 @end

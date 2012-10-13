@@ -107,7 +107,7 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation {
+- (void)addUDO:(OCSParameter *)newUserDefinedOperation {
     [userDefinedOperations addObject:newUserDefinedOperation];
     [innerCSDRepresentation appendString:[newUserDefinedOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];

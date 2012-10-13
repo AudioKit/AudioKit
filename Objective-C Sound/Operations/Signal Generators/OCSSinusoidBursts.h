@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 #import "OCSSineTable.h"
@@ -14,7 +15,7 @@
  Produces sinusoid bursts useful for formant and granular synthesis.
  */
 
-@interface OCSSinusoidBursts : OCSParameter
+@interface OCSSinusoidBursts : OCSAudio
 
 /// Initialize the Sinusoid Bursts
 /// @param sineburstSynthesisTable Sine table for sineburst synthesis (size of at least 4096 recommended)

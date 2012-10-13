@@ -52,9 +52,9 @@
     [newInstrument joinOrchestra:self];
 }
 
-- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation {
-    [udos addObject:newUserDefinedOperation];
-}
+//- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation {
+//    [udos addObject:newUserDefinedOperation];
+//}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
@@ -87,7 +87,7 @@
     
     [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
     for ( OCSInstrument *i in instruments) {
-        for (OCSUserDefinedOperation *udo in [i userDefinedOperations]) {
+        for (OCSParameter *udo in [i userDefinedOperations]) {
             [s appendString:@"\n"];     
             [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
             [s appendString:@"\n"];

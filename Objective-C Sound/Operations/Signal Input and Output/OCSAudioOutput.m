@@ -16,12 +16,12 @@
 
 @implementation OCSAudioOutput
 
-- (id)initWithMonoInput:(OCSParameter *)monoSignal
+- (id)initWithMonoInput:(OCSAudio *)monoSignal
 {
     return [self initWithLeftInput:monoSignal rightInput:monoSignal];
 }
 
-- (id)initWithLeftInput:(OCSParameter *)leftInput rightInput:(OCSParameter *)rightInput
+- (id)initWithLeftInput:(OCSAudio *)leftInput rightInput:(OCSAudio *)rightInput
 {
     self = [super init];
     if (self) {
