@@ -10,10 +10,7 @@
 
 
 @interface UDOCsGrainCompressor () {
-    OCSAudio *leftOutput;
-    OCSAudio *rightOutput;
-    OCSAudio *inL;
-    OCSAudio *inR;
+    OCSStereoAudio *inLR;
     OCSControl *threshold;
     OCSControl *ratio;
     OCSControl *attack;
@@ -23,22 +20,15 @@
 
 @implementation UDOCsGrainCompressor
 
-@synthesize leftOutput;
-@synthesize rightOutput;
-
-- (id)initWithLeftInput:(OCSAudio *)leftInput
-             rightInput:(OCSAudio *)rightInput
-              threshold:(OCSControl *)dBThreshold
-       compressionRatio:(OCSControl *)compressionRatio
-             attackTime:(OCSControl *)attackTime
-            releaseTime:(OCSControl *)releaseTime;
+- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
+                threshold:(OCSControl *)dBThreshold
+         compressionRatio:(OCSControl *)compressionRatio
+               attackTime:(OCSControl *)attackTime
+              releaseTime:(OCSControl *)releaseTime;
 {
     self = [super init];
     if (self) {
-        leftOutput  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        rightOutput = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
-        inL       = leftInput;
-        inR       = rightInput;
+        inLR      = stereoInput;
         threshold = dBThreshold;
         ratio     = compressionRatio;
         attack    = attackTime;
@@ -54,8 +44,8 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ Compressor %@, %@, %@, %@, %@, %@",
-            leftOutput, rightOutput, inL, inR, threshold, ratio, attack, release];
+            @"%@ Compressor %@, %@, %@, %@, %@",
+            self, inLR, threshold, ratio, attack, release];
 }
 
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
+#import "OCSStereoAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Stereo compressor from Boulanger Labs' csGrain application.  
@@ -22,33 +22,21 @@
  The value 1 will result in no change.
  */
 
-@interface UDOCsGrainCompressor : OCSAudio 
-
-/// @name Properties
-
-/// Left channel output.
-@property (nonatomic, strong) OCSAudio *leftOutput;
-
-//// Right channel output.
-@property (nonatomic, strong) OCSAudio *rightOutput;
-
-/// @name Initialization
+@interface UDOCsGrainCompressor : OCSStereoAudio
 
 /** Instantiates the compressor
  
- @param leftInput         Input to the left channel.
- @param rightInput        Input to the right channel.
- @param dBThreshold       The lowest decibel level that will be allowed through. 
+ @param stereoInput       Input to the left and right channels.
+ @param dBThreshold       The lowest decibel level that will be allowed through.
  @param compressionRatio  The ratio of compression(>1) or exapansion(<1) when the signal level is above the knee. 
  @param attackTime        The attack time in seconds. A typical value is 0.01 seconds.
  @param releaseTime       The release time in seconds. A typical value is 0.1 seconds.
  @return                  And instance of the compressor.
 */
-- (id)initWithLeftInput:(OCSAudio *)leftInput
-             rightInput:(OCSAudio *)rightInput
-              threshold:(OCSControl *)dBThreshold
-       compressionRatio:(OCSControl *)compressionRatio
-             attackTime:(OCSControl *)attackTime
-            releaseTime:(OCSControl *)releaseTime;
+- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
+                threshold:(OCSControl *)dBThreshold
+         compressionRatio:(OCSControl *)compressionRatio
+               attackTime:(OCSControl *)attackTime
+              releaseTime:(OCSControl *)releaseTime;
 
 @end
