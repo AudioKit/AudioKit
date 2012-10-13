@@ -17,10 +17,25 @@ partialStrengthOffsets:(OCSParameterArray *)partialOffsets
          partialPhases:(OCSParameterArray *)partialPhases
 {
     self = [super init];
+    
+    OCSParameterArray *parameters = [[OCSParameterArray alloc] init];
     if (self) {
-        
+        NSAssert([partialNumbers count] == [partialStrengths count] &&
+                 [partialStrengths count] == [partialOffsets count] &&
+                 [partialOffsets count] == [partialPhases count], @"Array must be equal in size");
+
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (int i=0; i<[partialNumbers count]; i++){
+            [temp addObject:[[partialNumbers params] objectAtIndex:i]];
+            [temp addObject:[[partialStrengths params] objectAtIndex:i]];
+            [temp addObject:[[partialPhases params] objectAtIndex:i]];
+            [temp addObject:[[partialOffsets params] objectAtIndex:i]];
+        }
+        [parameters setParams:temp];
     }
-    return self;
+    return [self initWithType:kFTCompositeWaveformsFromSines
+                         size:tableSize
+                   parameters:parameters];
 }
 
 
