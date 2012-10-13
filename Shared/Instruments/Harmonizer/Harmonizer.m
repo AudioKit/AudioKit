@@ -12,7 +12,7 @@
 #import "OCSScaledFSignal.h"
 #import "OCSFSignalMix.h"
 #import "OCSAudioFromFSignal.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @interface Harmonizer () {
     OCSInstrumentProperty *pitch;
@@ -80,7 +80,7 @@
 
         // AUDIO OUTPUT ========================================================
         OCSParameter *a2 = [OCSParameter parameterWithFormat:@"%@ * %@", a1, gain];
-        OCSAudio *out = [[OCSAudio alloc] initWithMonoInput:a2];
+        OCSAudioOutput *out = [[OCSAudioOutput alloc] initWithMonoInput:a2];
         [self connect:out];
     }
     return self;

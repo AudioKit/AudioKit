@@ -49,7 +49,7 @@
 + (id)parameterWithFormat:(NSString *)format, ...;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void) resetID;
++ (void)resetID;
 
 /// Helper function to create a new OCSParameter with the CSD output scaled
 /// @param scalingFactor The floating point number by which to scale.

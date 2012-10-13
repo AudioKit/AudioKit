@@ -10,7 +10,7 @@
 
 #import "OCSSineTable.h"
 #import "OCSFMOscillator.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation SeqInstrument
 
@@ -50,7 +50,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithMonoInput:fmOscillator];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:fmOscillator];
         [self connect:audio];
     }
     return self;

@@ -28,6 +28,8 @@
 		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
+		C4858B4B1628E02F00DB0295 /* OCSStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4858B491628E02F00DB0295 /* OCSStereoAudio.m */; };
+		C4858B501628E07800DB0295 /* OCSAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4858B4E1628E07800DB0295 /* OCSAudio.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4A9813916280F1900893A5B /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9808E16280F1900893A5B /* OCSEvent.m */; };
 		C4A9813A16280F1900893A5B /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9809016280F1900893A5B /* OCSInstrument.m */; };
@@ -78,7 +80,7 @@
 		C4A9816716280F1900893A5B /* OCSRandomAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A980F616280F1900893A5B /* OCSRandomAudio.m */; };
 		C4A9816816280F1900893A5B /* OCSRandomControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A980F816280F1900893A5B /* OCSRandomControl.m */; };
 		C4A9816A16280F1900893A5B /* OCSSinusoidBursts.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A980FC16280F1900893A5B /* OCSSinusoidBursts.m */; };
-		C4A9816B16280F1900893A5B /* OCSAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A980FF16280F1900893A5B /* OCSAudio.m */; };
+		C4A9816B16280F1900893A5B /* OCSAudioOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A980FF16280F1900893A5B /* OCSAudioOutput.m */; };
 		C4A9816C16280F1900893A5B /* OCSAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810116280F1900893A5B /* OCSAudioInput.m */; };
 		C4A9816D16280F1900893A5B /* OCSFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810316280F1900893A5B /* OCSFileInput.m */; };
 		C4A9816E16280F1900893A5B /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A9810516280F1900893A5B /* OCSLoopingOscillator.m */; };
@@ -190,6 +192,10 @@
 		C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		C4858B481628E02F00DB0295 /* OCSStereoAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSStereoAudio.h; sourceTree = "<group>"; };
+		C4858B491628E02F00DB0295 /* OCSStereoAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStereoAudio.m; sourceTree = "<group>"; };
+		C4858B4D1628E07800DB0295 /* OCSAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSAudio.h; sourceTree = "<group>"; };
+		C4858B4E1628E07800DB0295 /* OCSAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudio.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4A9808D16280F1900893A5B /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEvent.h; sourceTree = "<group>"; };
@@ -289,8 +295,8 @@
 		C4A980F816280F1900893A5B /* OCSRandomControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomControl.m; sourceTree = "<group>"; };
 		C4A980FB16280F1900893A5B /* OCSSinusoidBursts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSinusoidBursts.h; sourceTree = "<group>"; };
 		C4A980FC16280F1900893A5B /* OCSSinusoidBursts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSinusoidBursts.m; sourceTree = "<group>"; };
-		C4A980FE16280F1900893A5B /* OCSAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudio.h; sourceTree = "<group>"; };
-		C4A980FF16280F1900893A5B /* OCSAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudio.m; sourceTree = "<group>"; };
+		C4A980FE16280F1900893A5B /* OCSAudioOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSAudioOutput.h; sourceTree = "<group>"; };
+		C4A980FF16280F1900893A5B /* OCSAudioOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioOutput.m; sourceTree = "<group>"; };
 		C4A9810016280F1900893A5B /* OCSAudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudioInput.h; sourceTree = "<group>"; };
 		C4A9810116280F1900893A5B /* OCSAudioInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioInput.m; sourceTree = "<group>"; };
 		C4A9810216280F1900893A5B /* OCSFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFileInput.h; sourceTree = "<group>"; };
@@ -852,8 +858,8 @@
 		C4A980FD16280F1900893A5B /* Signal Input and Output */ = {
 			isa = PBXGroup;
 			children = (
-				C4A980FE16280F1900893A5B /* OCSAudio.h */,
-				C4A980FF16280F1900893A5B /* OCSAudio.m */,
+				C4A980FE16280F1900893A5B /* OCSAudioOutput.h */,
+				C4A980FF16280F1900893A5B /* OCSAudioOutput.m */,
 				C4A9810016280F1900893A5B /* OCSAudioInput.h */,
 				C4A9810116280F1900893A5B /* OCSAudioInput.m */,
 				C4A9810216280F1900893A5B /* OCSFileInput.h */,
@@ -926,6 +932,8 @@
 		C4A9812716280F1900893A5B /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				C4858B4D1628E07800DB0295 /* OCSAudio.h */,
+				C4858B4E1628E07800DB0295 /* OCSAudio.m */,
 				C4A9812816280F1900893A5B /* OCSConstant.h */,
 				C4A9812916280F1900893A5B /* OCSConstant.m */,
 				C4A9812A16280F1900893A5B /* OCSControl.h */,
@@ -936,6 +944,8 @@
 				C4A9812F16280F1900893A5B /* OCSParameter.m */,
 				C4A9813016280F1900893A5B /* OCSParameterArray.h */,
 				C4A9813116280F1900893A5B /* OCSParameterArray.m */,
+				C4858B481628E02F00DB0295 /* OCSStereoAudio.h */,
+				C4858B491628E02F00DB0295 /* OCSStereoAudio.m */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -1405,7 +1415,7 @@
 				C4A9816716280F1900893A5B /* OCSRandomAudio.m in Sources */,
 				C4A9816816280F1900893A5B /* OCSRandomControl.m in Sources */,
 				C4A9816A16280F1900893A5B /* OCSSinusoidBursts.m in Sources */,
-				C4A9816B16280F1900893A5B /* OCSAudio.m in Sources */,
+				C4A9816B16280F1900893A5B /* OCSAudioOutput.m in Sources */,
 				C4A9816C16280F1900893A5B /* OCSAudioInput.m in Sources */,
 				C4A9816D16280F1900893A5B /* OCSFileInput.m in Sources */,
 				C4A9816E16280F1900893A5B /* OCSLoopingOscillator.m in Sources */,
@@ -1431,6 +1441,8 @@
 				C4A9818516280F1900893A5B /* OCSNoteProperty.m in Sources */,
 				C4A9867A162811E700893A5B /* OCSAudioSegmentArray.m in Sources */,
 				C4A9867B162811E700893A5B /* OCSControlSegmentArray.m in Sources */,
+				C4858B4B1628E02F00DB0295 /* OCSStereoAudio.m in Sources */,
+				C4858B501628E07800DB0295 /* OCSAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  OCSAudio.h
+//  OCSAudioOutput.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 6/9/12.
@@ -17,7 +17,7 @@
  output units in an instrument.
  
  */
-@interface OCSAudio : OCSParameter
+@interface OCSAudioOutput : OCSParameter
 
 /// @name Initialization
 
