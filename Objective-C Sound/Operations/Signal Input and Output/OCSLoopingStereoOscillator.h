@@ -1,23 +1,23 @@
 //
-//  OCSLoopingOscillator.h
-//  Objective-C Sound
+//  OCSLoopingStereoOscillator.h
+//  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 6/16/12.
+//  Created by Aurelius Prochazka on 10/12/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
+#import "OCSStereoAudio.h"
 #import "OCSParameter+Operation.h"
 #import "OCSSoundFileTable.h"
 
-/** Read sampled sound (mono or stereo) from a table, with 
+/** Read sampled stereo sound from a table, with
  optional sustain and release looping, using cubic interpolation.
  
- @warning *Not fully implemented yet:* Currently no 
+ @warning *Not fully implemented yet:* Currently no
  optional parameters are implemented.
  */
 
-@interface OCSLoopingOscillator : OCSAudio
+@interface OCSLoopingStereoOscillator : OCSStereoAudio
 
 /// Simplest initialization with a given file.
 /// @param fileTable Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
@@ -36,7 +36,6 @@
 - (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
          frequencyMultiplier:(OCSControl *)frequencyMultiplier
                    amplitude:(OCSParameter *)amplitude;
-
 
 typedef enum {
     kLoopingOscillatorNoLoop=0,
