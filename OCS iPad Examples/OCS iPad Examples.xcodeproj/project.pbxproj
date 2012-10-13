@@ -106,6 +106,7 @@
 		C474D1E116290A4200878841 /* OCSStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D18F16290A4200878841 /* OCSStereoAudio.m */; };
 		C474D1E216290A4200878841 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19216290A4200878841 /* OCSInstrumentProperty.m */; };
 		C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19416290A4200878841 /* OCSNoteProperty.m */; };
+		C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
@@ -344,6 +345,8 @@
 		C474D19216290A4200878841 /* OCSInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSInstrumentProperty.m; sourceTree = "<group>"; };
 		C474D19316290A4200878841 /* OCSNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSNoteProperty.h; sourceTree = "<group>"; };
 		C474D19416290A4200878841 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
+		C474D6F4162918D700878841 /* OCSLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLoopingStereoOscillator.h; sourceTree = "<group>"; };
+		C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
@@ -873,6 +876,8 @@
 				C474D15F16290A4200878841 /* OCSFileInput.m */,
 				C474D16016290A4200878841 /* OCSLoopingOscillator.h */,
 				C474D16116290A4200878841 /* OCSLoopingOscillator.m */,
+				C474D6F4162918D700878841 /* OCSLoopingStereoOscillator.h */,
+				C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */,
 			);
 			path = "Signal Input and Output";
 			sourceTree = "<group>";
@@ -1435,6 +1440,7 @@
 				C474D1E116290A4200878841 /* OCSStereoAudio.m in Sources */,
 				C474D1E216290A4200878841 /* OCSInstrumentProperty.m in Sources */,
 				C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */,
+				C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

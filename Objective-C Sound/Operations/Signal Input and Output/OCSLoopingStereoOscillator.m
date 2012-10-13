@@ -1,14 +1,14 @@
 //
-//  OCSLoopingOscillator.m
-//  Objective-C Sound
+//  OCSLoopingStereoOscillator.m
+//  OCS iPad Examples
 //
-//  Created by Aurelius Prochazka on 6/16/12.
+//  Created by Aurelius Prochazka on 10/12/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSLoopingOscillator.h"
+#import "OCSLoopingStereoOscillator.h"
 
-@interface OCSLoopingOscillator () {
+@interface OCSLoopingStereoOscillator () {
     OCSParameter *amp;
     OCSParameter *freqMultiplier;
     OCSConstant *baseFrequency;
@@ -17,20 +17,21 @@
 }
 @end
 
-@implementation OCSLoopingOscillator
+@implementation OCSLoopingStereoOscillator
+
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:[OCSConstant parameterWithInt:1]
                               amplitude:[OCSConstant parameterWithInt:1]
                                    type:kLoopingOscillatorNormal];
-                
+    
 }
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
                    amplitude:(OCSParameter *)amplitude
 {
-    return [self initWithSoundFileTable:fileTable 
+    return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:[OCSConstant parameterWithInt:1]
                               amplitude:amplitude
                                    type:kLoopingOscillatorNormal];
@@ -63,7 +64,7 @@
     return self;
 }
 
-// Csound Prototype: 
+// Csound Prototype:
 // ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
