@@ -23,10 +23,6 @@
 
 @interface OCSPluckDrum : OCSAudio
 
-/// @name Properties
-
-/// @name Initialization
-
 /// Initializes the drum with given parameters
 /// @param amplitude           The output amplitude.
 /// @param resamplingFrequency The resampling frequency in cycles-per-second.

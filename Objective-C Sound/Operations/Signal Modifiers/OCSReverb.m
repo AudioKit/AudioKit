@@ -12,10 +12,7 @@
 #import "OCSReverb.h"
 
 @interface OCSReverb () {
-    OCSAudio *aOutL;
-    OCSAudio *aOutR;
-    OCSAudio *aInL;
-    OCSAudio *aInR;
+    OCSStereoAudio *aInLR;
     OCSControl *kFbLvl;
     OCSControl *kFCo;
 }
@@ -23,20 +20,13 @@
 
 @implementation OCSReverb
 
-@synthesize leftOutput=aOutL;
-@synthesize rightOutput=aOutR;
-
-- (id)initWithLeftInput:(OCSAudio *)leftInput
-             rightInput:(OCSAudio *)rightInput
-          feedbackLevel:(OCSControl *)feedbackLevel
-        cutoffFrequency:(OCSControl *)cutoffFrequency;
+- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
+            feedbackLevel:(OCSControl *)feedbackLevel
+          cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
     self = [super init];
     if (self) {
-        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        aOutR  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
-        aInL   = leftInput;
-        aInR   = rightInput;
+        aInLR  = stereoInput;
         kFbLvl = feedbackLevel;
         kFCo   = cutoffFrequency;
     }
@@ -47,18 +37,17 @@
           feedbackLevel:(OCSControl *)feedbackLevel
         cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
-    return [self initWithLeftInput:monoInput 
-                        rightInput:monoInput
-                     feedbackLevel:feedbackLevel
-                   cutoffFrequency:cutoffFrequency];
+    return [self initWithStereoInput:[OCSStereoAudio stereoFromMono:monoInput]
+                       feedbackLevel:feedbackLevel
+                     cutoffFrequency:cutoffFrequency];
 }
 
 // Csound prototype: aoutL, aoutR reverbsc ainL, ainR, kfblvl, kfco[, israte[, ipitchm[, iskip]]] 
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ reverbsc %@, %@, %@, %@",
-            aOutL, aOutR, aInL, aInR, kFbLvl, kFCo];
+            @"%@ reverbsc %@, %@, %@",
+            self , aInLR, kFbLvl, kFCo];
 }
 
 @end

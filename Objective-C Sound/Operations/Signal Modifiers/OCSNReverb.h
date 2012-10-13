@@ -16,10 +16,6 @@
 
 @interface OCSNReverb : OCSAudio
 
-/// @name Properties
-
-/// @name Initialization
-
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
 /// @param inputSignal          Audio signal to be reverberated.
 /// @param reverbDuration       Length of reverbation in seconds.

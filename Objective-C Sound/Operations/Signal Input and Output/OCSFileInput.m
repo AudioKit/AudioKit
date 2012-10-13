@@ -12,23 +12,16 @@
 #import "OCSFileInput.h"
 
 @interface OCSFileInput () {
-    OCSAudio *a1;
-    OCSAudio *a2;
     NSString *ifilcod;
 }
 @end
 
 @implementation OCSFileInput
 
-@synthesize leftOutput=a1;
-@synthesize rightOutput=a2;
-
 - (id)initWithFilename:(NSString *)fileName;
 {
     self = [super init];
     if (self) {
-        a1 = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        a2 = [OCSAudio parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
         ifilcod = fileName;
     }
     return self; 
@@ -39,8 +32,8 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ diskin2 \"%@\", 1, 0, 1",
-            a1, a2, ifilcod];
+            @"%@ diskin2 \"%@\", 1, 0, 1",
+            self, ifilcod];
 }
 
 
