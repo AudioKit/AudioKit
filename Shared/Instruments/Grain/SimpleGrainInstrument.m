@@ -13,7 +13,7 @@
 #import "OCSLinearControl.h"
 #import "OCSAudioSegmentArray.h"
 #import "OCSGrain.h"
-#import "OCSAudio.h"
+#import "OCSAudioOutput.h"
 
 @implementation SimpleGrainInstrument
 
@@ -101,8 +101,8 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudio *audio = [[OCSAudio alloc] initWithLeftInput:grainL
-                                                   rightInput:grainR]; 
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithLeftInput:grainL
+                                                               rightInput:grainR];
         [self connect:audio];
     }
     return self;
