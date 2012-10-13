@@ -9,8 +9,6 @@
 #import "OCSStereoConvolution.h"
 
 @interface OCSStereoConvolution () {
-    OCSParameter *aOutL;
-    OCSParameter *aOutR;
     OCSParameter *aIn;
     NSString *iFilCod;
 }
@@ -18,16 +16,11 @@
 
 @implementation OCSStereoConvolution
 
-@synthesize leftOutput=aOutL;
-@synthesize rightOutput=aOutR;
-
 - (id)initWithInputAudio:(OCSParameter *)inputAudio
      impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {
-        aOutL  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"L"]];
-        aOutR  = [OCSParameter parameterWithString:[NSString stringWithFormat:@"%@%@",[self operationName], @"R"]];
         aIn     = inputAudio;
         iFilCod = impulseResponseFilename;
     }
@@ -38,8 +31,8 @@
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@, %@ pconvolve %@, \"%@\"",
-            aOutL, aOutR, aIn, iFilCod];
+            @"%@ pconvolve %@, \"%@\"",
+            self, aIn, iFilCod];
 }
 
 @end

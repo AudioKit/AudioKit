@@ -51,5 +51,4 @@
              attackTime:(OCSControl *)attackTime
             releaseTime:(OCSControl *)releaseTime;
 
-- (NSString *) udoFile;
 @end

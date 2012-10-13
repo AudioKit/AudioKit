@@ -6,21 +6,13 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import "OCSStereoAudio.h"
 #import "OCSParameter+Operation.h"
 
 /**  Convolution based on a uniformly partitioned overlap-save algorithm.
  
  */
-@interface OCSStereoConvolution : OCSParameter
-
-/// @name Properties
-
-/// The output to the left channel.
-@property (nonatomic, strong) OCSParameter *leftOutput;
-/// The output to the right channel.
-@property (nonatomic, strong) OCSParameter *rightOutput;
-
-/// @name Initialization
+@interface OCSStereoConvolution : OCSStereoAudio
 
 /// Create a convolution
 /// @param inputAudio              Audio input to the convolution

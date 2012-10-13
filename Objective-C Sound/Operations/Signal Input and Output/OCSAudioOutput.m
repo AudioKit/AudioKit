@@ -9,8 +9,7 @@
 #import "OCSAudioOutput.h"
 
 @interface OCSAudioOutput () {
-    OCSParameter *aSig1;
-    OCSParameter *aSig2;
+    OCSStereoAudio *aStereoOutput;
 }
 @end
 
@@ -21,19 +20,26 @@
     return [self initWithLeftInput:monoSignal rightInput:monoSignal];
 }
 
+- (id)initWithStereoInput:(OCSStereoAudio *)stereoSignal {
+    self = [super init];
+    if (self) {
+        aStereoOutput = stereoSignal;
+    }
+    return self;
+}
+
 - (id)initWithLeftInput:(OCSAudio *)leftInput rightInput:(OCSAudio *)rightInput
 {
     self = [super init];
     if (self) {
-        aSig1  = leftInput;
-        aSig2 = rightInput;
+        aStereoOutput = [[OCSStereoAudio alloc] initWithLeftInput:leftInput rightInput:rightInput];
     }
     return self; 
 }
 
 // Csound prototype: outs asig1, asig2
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:@"outs %@, %@", aSig1, aSig2];
+    return [NSString stringWithFormat:@"outs %@", aStereoOutput];
 }
 
 @end
