@@ -8,7 +8,7 @@
 
 #import "OCSAudio.h"
 
-@interface OCSStereoAudio : NSObject
+@interface OCSStereoAudio : OCSParameter
 
 /// The output to the left channel.
 @property (nonatomic, strong) OCSAudio *leftOutput;
