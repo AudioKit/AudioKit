@@ -8,6 +8,10 @@
 
 #import "OCSParameter.h"
 
+/** OCS Audio Type
+ */
+
+
 @interface OCSAudio : OCSParameter
 
 @end
