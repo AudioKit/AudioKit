@@ -32,8 +32,10 @@
 /// Optional pretty name for properties useful for debugging.
 @property (nonatomic, strong) NSString *name;
 
-
+/// Note this property belongs to
 @property (nonatomic, strong) OCSNote *note;
+
+/// Csound internal reference number
 @property (assign) int pValue;
 
 
