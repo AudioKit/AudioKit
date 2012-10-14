@@ -67,6 +67,9 @@
 /// @param name        Human readable name for the of the property
 - (void) addProperty:(OCSNoteProperty *)newProperty
             withName:(NSString *)name;
+
+/// Adds the property to the list of available properties of the note
+/// @param newProperty New property to add to the note's set of properties
 - (void) addProperty:(OCSNoteProperty *)newProperty;
 
 

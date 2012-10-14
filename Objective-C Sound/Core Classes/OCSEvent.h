@@ -20,6 +20,7 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
+/// Optional note to play at the time of the event
 @property (nonatomic, strong) OCSNote *note;
 
 /// Create an event with a note

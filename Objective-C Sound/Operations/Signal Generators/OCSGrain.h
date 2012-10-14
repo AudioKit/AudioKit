@@ -34,6 +34,7 @@
       maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
           maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 
+/// Optional disabling off the grain offset randomness
 - (void)turnOffGrainOffsetRandomness;
 
 @end
