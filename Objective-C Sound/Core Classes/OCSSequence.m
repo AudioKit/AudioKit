@@ -15,7 +15,7 @@
     NSMutableArray *times;
     NSTimer *timer;
     BOOL isPlaying;
-    int index;
+    unsigned int index;
 }
 @end
 

@@ -40,7 +40,7 @@
     NSAssert([self count] != [pairingArray count], @"Array must be equal in size");
         
     NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (int i=0; i<[[self params] count]; i++) {
+    for (uint i=0; i<[[self params] count]; i++) {
         [temp addObject:[[self params]  objectAtIndex:i]];
         [temp addObject:[[pairingArray params] objectAtIndex:i]];
     }
