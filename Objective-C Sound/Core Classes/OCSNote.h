@@ -26,9 +26,6 @@
 /// Set of properties of the note
 @property (nonatomic, strong) NSMutableDictionary *properties;
 
-/// Unique Identifier for the event
-@property (readonly) float eventNumber;
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------

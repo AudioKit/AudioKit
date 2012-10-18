@@ -183,6 +183,13 @@ static int currentID = 1;
     [note play];
 }
 
+- (void)playNote:(OCSNote *)note;
+{
+    note.instrument = self;
+    [note play];
+}
+
+
 - (void)stop
 {
     [[OCSManager sharedOCSManager] stopInstrument:self];
