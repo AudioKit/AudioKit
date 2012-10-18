@@ -10,9 +10,7 @@
 #import "OCSManager.h"
 
 @interface OCSNote () {
-    NSMutableString *scoreLine;
     int _myID;
-    float eventNumber;
     NSMutableArray *propOrder;
     BOOL isPlayingP;
 }
@@ -23,14 +21,13 @@
 
 @synthesize instrument;
 @synthesize properties;
-@synthesize eventNumber;
 @synthesize duration;
 
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-- (id)initWithInstrument:(OCSInstrument *)anInstrument
-             forDuration:(float)noteDuration {
+- (id)init
+{
     self = [super init];
     if (self) {
         if (currentID > 99000) {
@@ -39,16 +36,22 @@ static int currentID = 1;
         _myID = currentID++;
         
         isPlayingP = NO;
-        instrument = anInstrument;
         duration = [[OCSNoteProperty alloc] initWithMinValue:-2 maxValue:1000000];
         [self addProperty:duration withName:@"Duration"];
         [instrument addNoteProperty:duration];
-        duration.value = noteDuration;
+
         properties = [[NSMutableDictionary alloc] init];
         propOrder = [[NSMutableArray alloc] init];
-        eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
-        scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %@",
-                     eventNumber, duration];
+    }
+    return self;
+}
+
+- (id)initWithInstrument:(OCSInstrument *)anInstrument
+             forDuration:(float)noteDuration {
+    self = [self init];
+    if (self) {
+        instrument = anInstrument;
+        duration.value = noteDuration;
     }
     return self;
 }
@@ -75,7 +78,8 @@ static int currentID = 1;
 
 - (NSString *)stringForCSD;
 {
-    scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %f", eventNumber, duration.value];
+    float eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
+    NSMutableString *scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %f", eventNumber, duration.value];
     for (NSString* key in propOrder) {
         OCSNoteProperty *prop = [properties objectForKey:key];
         [scoreLine appendFormat:@" %f", [prop value]];
@@ -85,7 +89,8 @@ static int currentID = 1;
 
 - (NSString *)stopStringForCSD;
 {
-    scoreLine = [NSMutableString stringWithFormat:@"i -%0.5f 0 0.1", eventNumber];
+    float eventNumber  = [instrument instrumentNumber] + _myID/100000.0;
+    NSString *scoreLine = [NSString stringWithFormat:@"i -%0.5f 0 0.1", eventNumber];
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 
