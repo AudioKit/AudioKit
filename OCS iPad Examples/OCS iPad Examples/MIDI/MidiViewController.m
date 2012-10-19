@@ -88,13 +88,15 @@
     _channel = channel;
     _note    = note;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
-    FivePropertyInstrumentNote *ocsNote = [instrument createNote];
-    ocsNote.frequency.value = [Helper midiNoteToFrequency:note];
-    ocsNote.volume.value = [Helper scaleValue:velocity
-                                  fromMinimum:0
-                                  fromMaximum:127
-                                    toMinimum:kVolumeMin
-                                    toMaximum:kVolumeMax];
+    FivePropertyInstrumentNote *ocsNote;
+    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[Helper midiNoteToFrequency:note]
+                                                           atVolume:[Helper scaleValue:velocity
+                                                                           fromMinimum:0
+                                                                           fromMaximum:127
+                                                                             toMinimum:kVolumeMin
+                                                                             toMaximum:kVolumeMax]];
+    [instrument playNote:ocsNote];
+    
     if ([currentNotes objectForKey:[NSNumber numberWithInt:note]]) {
         [self midiNoteOff:note velocity:0 channel:channel];
     }

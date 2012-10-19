@@ -15,16 +15,12 @@
 
 @implementation AudioFilePlayer
 
-- (AudioFilePlayerNote *)createNote {
-    return [[AudioFilePlayerNote alloc] initWithInstrument:self];
-}
-
 - (id)init {
     self = [super init];
     if (self) {
         
         // NOTE BASED CONTROL ==================================================
-        AudioFilePlayerNote *note = [self createNote];
+        AudioFilePlayerNote *note = [[AudioFilePlayerNote alloc] init];
         [self addNoteProperty:note.speed];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -60,19 +56,26 @@
 @end
 
 @implementation AudioFilePlayerNote
+@synthesize speed = _speed;
 
-@synthesize speed;
-
-- (id)initWithInstrument:(OCSInstrument *)anInstrument {
-    self = [super initWithInstrument:anInstrument];
-    if (self) {
-        speed = [[OCSNoteProperty alloc] initWithValue:kSpeedInit
-                                              minValue:kSpeedMin
-                                              maxValue:kSpeedMax];
-        [self addProperty:speed];
+- (id)init;
+{
+    self = [super init];
+    if(self) {
+        _speed = [[OCSNoteProperty alloc] initWithValue:kSpeedInit
+                                               minValue:kSpeedMin
+                                               maxValue:kSpeedMax];
+        [self addProperty:_speed];
     }
     return self;
 }
-
+- (id)initWithSpeed:(float)speed;
+{
+    self = [self init];
+    if(self) {
+        self.speed.value = speed;
+    }
+    return self;
+}
 
 @end

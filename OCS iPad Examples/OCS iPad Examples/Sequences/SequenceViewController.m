@@ -48,11 +48,11 @@
     for (int i = 0; i <= 12 ; i++) {
         
         // Create the note (not to be played yet)
-        SeqInstrumentNote *note = [instrument createNote];
+        SeqInstrumentNote *note = [[SeqInstrumentNote alloc] init];
         // Create event to update the note
         OCSEvent *updateNote = [[OCSEvent alloc] initWithBlock:^{
             note.frequency.value = 440*(pow(2.0f,(float)i/12));
-            [note play];
+            [instrument playNote:note];
         }];
         
         [sequence addEvent:updateNote atTime:duration*i];
@@ -69,9 +69,7 @@
     
     sequence = [[OCSSequence alloc] init];
     
-    SeqInstrumentNote *note = [instrument createNote];
-    note.frequency.value = 440;
-    
+    SeqInstrumentNote *note = [[SeqInstrumentNote alloc] initWithFrequency:440];
     
     for (int i = 0; i <=12 ; i++) {
         OCSEvent *update= [[OCSEvent alloc] initWithBlock:^{
@@ -83,7 +81,7 @@
     OCSEvent *stopNote = [[OCSEvent alloc] initWithBlock:^{[note stop];}];
     [sequence addEvent:stopNote atTime:duration*(13)];
     
-    [note play];
+    [instrument playNote:note];
     [sequence play];
 }
 
@@ -95,8 +93,7 @@
     
     sequence = [[OCSSequence alloc] init];
     
-    SeqInstrumentNote *note = [instrument createNote];
-    note.frequency.value = 440;
+    SeqInstrumentNote *note = [[SeqInstrumentNote alloc] initWithFrequency:440];
     
     OCSEvent *noteOn = [[OCSEvent alloc] initWithNote:note];
     [sequence addEvent:noteOn];
@@ -118,7 +115,7 @@
     OCSEvent *stopNote = [[OCSEvent alloc] initWithBlock:^{[note stop];}];
     [sequence addEvent:stopNote atTime:duration*(13)];
     
-    [note play];
+    [instrument playNote:note];
     [sequence play];
 }
 

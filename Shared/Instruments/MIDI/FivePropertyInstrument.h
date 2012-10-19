@@ -23,20 +23,19 @@
 #define kLpCutoffMin  200
 #define kLpCutoffMax  800
 
-- (FivePropertyInstrumentNote *)createNote;
-
 @end
 
 @interface FivePropertyInstrumentNote : OCSNote
 
-@property (nonatomic, strong) OCSNoteProperty *volume;
 #define kVolumeInit 0.2
 #define kVolumeMin  0.0
 #define kVolumeMax  0.8
+@property (nonatomic, strong) OCSNoteProperty *volume;
 
-@property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyMin 20
 #define kFrequencyMax 20000
+@property (nonatomic, strong) OCSNoteProperty *frequency;
 
+- (id)initWithFrequency:(float)frequency atVolume:(float)volume;
 
 @end
