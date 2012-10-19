@@ -79,4 +79,10 @@
     [self setValue:(((float) rand() / RAND_MAX) * width) + minimumValue];
 }
 
++ (id)duration {
+    OCSNoteProperty *dur = [[self alloc] initWithMinValue:-2 maxValue:1000000];
+    [dur setParameterString:@"p3"];
+    return dur;
+}
+
 @end

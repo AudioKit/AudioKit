@@ -36,9 +36,8 @@ static int currentID = 1;
         _myID = currentID++;
         
         isPlayingP = NO;
-        duration = [[OCSNoteProperty alloc] initWithMinValue:-2 maxValue:1000000];
-        [self addProperty:duration withName:@"Duration"];
-        [instrument addNoteProperty:duration];
+        duration = [OCSNoteProperty duration];
+        [self addProperty:duration];
 
         properties = [[NSMutableDictionary alloc] init];
         propOrder = [[NSMutableArray alloc] init];
@@ -54,6 +53,11 @@ static int currentID = 1;
         duration.value = noteDuration;
     }
     return self;
+}
+
+- (void)setInstrument:(OCSInstrument *)instr {
+    instrument = instr;
+    [instrument addNoteProperty:duration];
 }
 
 - (id)initWithInstrument:(OCSInstrument *)anInstrument {

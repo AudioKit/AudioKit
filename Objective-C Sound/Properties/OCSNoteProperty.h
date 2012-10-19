@@ -58,4 +58,6 @@
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;
 
++(id)duration;
+
 @end

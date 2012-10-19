@@ -11,16 +11,14 @@
 @class UDOInstrumentNote;
 
 @interface UDOInstrument : OCSInstrument
-
-- (UDOInstrumentNote *)createNote;
-
 @end
 
 @interface UDOInstrumentNote : OCSNote
 
-@property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyInit 220
 #define kFrequencyMin  110
 #define kFrequencyMax  880
+@property (nonatomic, strong) OCSNoteProperty *frequency;
+- (id)initWithFrequency:(float)frequency;
 
 @end
