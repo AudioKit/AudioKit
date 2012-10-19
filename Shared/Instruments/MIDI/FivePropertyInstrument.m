@@ -18,17 +18,13 @@
 
 @synthesize pitchBend, modulation, cutoffFrequency;
 
-- (FivePropertyInstrumentNote *)createNote {
-    return [[FivePropertyInstrumentNote alloc] initWithInstrument:self];
-}
-
 -(id)init
 {
     self = [super init];
     if ( self) {
         
         // NOTE BASED CONTROL ==================================================
-        FivePropertyInstrumentNote *note = [self createNote];
+        FivePropertyInstrumentNote *note = [[FivePropertyInstrumentNote alloc] init];
         [self addNoteProperty:note.volume];
         [self addNoteProperty:note.frequency];
         
@@ -80,23 +76,33 @@
 
 @implementation FivePropertyInstrumentNote
 
-@synthesize volume;
-@synthesize frequency;
+@synthesize volume=_volume;
+@synthesize frequency=_frequency;
 
-- (id)initWithInstrument:(OCSInstrument *)anInstrument {
-    self = [super initWithInstrument:anInstrument];
+- (id)init {
+    self = [super init];
     if (self) {
 
-        volume = [[OCSNoteProperty alloc] initWithValue:kVolumeInit
+        _volume = [[OCSNoteProperty alloc] initWithValue:kVolumeInit
                                                minValue:kVolumeMin
                                                maxValue:kVolumeMax];
-        [self addProperty:volume];
+        [self addProperty:_volume];
         
-        frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
+        _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
                                                   minValue:kFrequencyMin
                                                   maxValue:kFrequencyMax];
-        [self addProperty:frequency];
+        [self addProperty:_frequency];
 
+    }
+    return self;
+}
+
+- (id)initWithFrequency:(float)frequency atVolume:(float)volume
+{
+    self = [self init];
+    if (self) {
+        self.frequency.value = frequency;
+        self.volume.value = volume;
     }
     return self;
 }

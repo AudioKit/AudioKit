@@ -30,9 +30,9 @@
 }
 
 - (IBAction)touchButton:(id)sender {
-    AudioFilePlayerNote *note = [audioFilePlayer createNote];
+    AudioFilePlayerNote *note = [[AudioFilePlayerNote alloc] init];
     [note.speed randomize];
-    [note play];
+    [audioFilePlayer playNote:note];
 }
 
 @end

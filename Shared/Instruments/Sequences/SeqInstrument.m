@@ -16,15 +16,11 @@
 
 @synthesize modulation = mod;
 
-- (SeqInstrumentNote *)createNote {
-    return [[SeqInstrumentNote alloc] initWithInstrument:self];
-}
-
 - (id)init {
     self = [super init];
     if (self) {
         // NOTE BASED CONTROL ==================================================
-        SeqInstrumentNote *note = [self createNote];
+        SeqInstrumentNote *note = [[SeqInstrumentNote alloc] init];
         [self addNoteProperty:note.frequency];
         
         // INSTRUMENT CONTROL ==================================================
@@ -60,17 +56,27 @@
 
 @implementation SeqInstrumentNote
 
-@synthesize frequency;
+@synthesize frequency=_frequency;
 
-- (id)initWithInstrument:(OCSInstrument *)anInstrument {
-    self = [super initWithInstrument:anInstrument];
+- (id)init {
+    self = [super init];
     if (self) {
-        frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
-                                                  minValue:kFrequencyMin
-                                                  maxValue:kFrequencyMax];
-        [self addProperty:frequency];
+        _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
+                                                   minValue:kFrequencyMin
+                                                   maxValue:kFrequencyMax];
+        [self addProperty:_frequency];
     }
     return self;
 }
+
+- (id)initWithFrequency:(float)frequency {
+    self = [self init];
+    if (self) {
+        self.frequency.value = frequency;
+    }
+    return self;
+}
+
+
 
 @end
