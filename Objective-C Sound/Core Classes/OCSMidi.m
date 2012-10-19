@@ -144,7 +144,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
     OCSMidi *m = (__bridge OCSMidi *)refCon;
     
 	MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
-	for (int i=0; i < pktlist->numPackets; i++) {
+	for (uint i=0; i < pktlist->numPackets; i++) {
 		Byte midiStatus = packet->data[0];
 		Byte midiCommand = midiStatus >> 4;
         Byte midiChannel = (midiStatus - (midiCommand*16)) + 1;
@@ -214,7 +214,7 @@ void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
 	
 	unsigned long sourceCount = MIDIGetNumberOfSources();
     NSLog(@"%ld sources\n", sourceCount);
-	for (int i = 0; i < sourceCount; ++i) {
+	for (uint i = 0; i < sourceCount; ++i) {
 		MIDIEndpointRef src = MIDIGetSource(i);
 		CFStringRef endpointName = NULL;
 		MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName);
