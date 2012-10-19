@@ -120,6 +120,8 @@
 /// For instruments that do not create note instances, play the instrument with infinite duration.
 - (void)play;
 
+- (void)playNote:(OCSNote *)note;
+
 /// Stop all notes created by the instrument
 - (void)stop;
 

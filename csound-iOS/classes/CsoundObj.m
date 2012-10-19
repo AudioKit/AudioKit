@@ -194,7 +194,7 @@ OSStatus  Csound_Render(void *inRefCon,
     
     for(i=0; i < slices; i++){
 		
-		for (int i = 0; i < cache.count; i++) {
+		for (uint i = 0; i < cache.count; i++) {
 			id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
             
 			[cachedValue updateValuesToCsound];
@@ -225,7 +225,7 @@ OSStatus  Csound_Render(void *inRefCon,
 		}
         
 		
-		for (int i = 0; i < cache.count; i++) {
+		for (uint i = 0; i < cache.count; i++) {
 			id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
 			[cachedValue updateValuesFromCsound];
 		}
@@ -363,7 +363,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 		
         // SETUP VALUE CACHEABLE
         
-        for (int i = 0; i < valuesCache.count; i++) {
+        for (uint i = 0; i < valuesCache.count; i++) {
             id<CsoundValueCacheable> cachedValue = [valuesCache objectAtIndex:i];
             [cachedValue setup:self];
         }
@@ -478,7 +478,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
     
     // CLEANUP VALUE CACHEABLE
     
-    for (int i = 0; i < valuesCache.count; i++) {
+    for (uint i = 0; i < valuesCache.count; i++) {
         id<CsoundValueCacheable> cachedValue = [valuesCache objectAtIndex:i];
         [cachedValue cleanup];
     }
