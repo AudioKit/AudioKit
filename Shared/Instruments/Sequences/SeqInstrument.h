@@ -17,15 +17,14 @@
 #define kModulationMin  0.5
 #define kModulationMax  2.0
 
-- (SeqInstrumentNote *)createNote;
-
 @end
 
 @interface SeqInstrumentNote : OCSNote
 
-@property (nonatomic, strong) OCSNoteProperty *frequency;
 #define kFrequencyInit 220
 #define kFrequencyMin  110
 #define kFrequencyMax  880
+@property (nonatomic, strong) OCSNoteProperty *frequency;
+- (id)initWithFrequency:(float)frequency;
 
 @end
