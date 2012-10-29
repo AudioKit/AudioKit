@@ -16,7 +16,7 @@
 
 @interface OCSGuiro : OCSAudio
 
-/// Instantiates the uiro
+/// Instantiates the guiro
 /// @param duration Period of time over which all sound is stopped
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
 - (id)initWithDuration:(OCSConstant *)duration

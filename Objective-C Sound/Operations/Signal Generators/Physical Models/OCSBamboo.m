@@ -28,7 +28,7 @@
 - (void)setCount:(OCSConstant *)count;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor, as part of this equation "damping = 0.9999 + (dampingFactor * 0.002)" The default damping is 0.9999 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.05.  The recommended range for dampingFactor is usually below 75% of the maximum value.]
+/// @param dampingFactor The damping factor as part of this equation "damping = 0.9999 + (dampingFactor * 0.002)" The default damping is 0.9999 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.05.  The recommended range for dampingFactor is usually below 75% of the maximum value.]
 - (void)setDampingFactor:(OCSConstant *)dampingFactor;
 
 /// Set an optional energy return

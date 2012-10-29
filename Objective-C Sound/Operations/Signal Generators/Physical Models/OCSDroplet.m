@@ -16,7 +16,7 @@
 
 @interface OCSDroplet : OCSAudio
 
-/// Instantiates the roplet
+/// Instantiates the droplet
 /// @param duration Period of time over which all sound is stopped
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
 - (id)initWithDuration:(OCSConstant *)duration
@@ -28,7 +28,7 @@
 - (void)setCount:(OCSConstant *)count;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor
+/// @param dampingFactor The damping factor as part of this equation "damping = 0.996 + (dampingFactor * 0.002)" The default damping is 0.996 which means that the default value of dampingFactor is 0. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 2.0.  The recommended range for dampingFactor is usually below 75% of the maximum value. Rasmus Ekman suggests a range of 1.4-1.75. He also suggests a maximum value of 1.9 instead of the theoretical limit of 2.0.
 - (void)setDampingFactor:(OCSConstant *)dampingFactor;
 
 /// Set an optional energy return
