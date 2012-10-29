@@ -1,5 +1,5 @@
 //
-//  OCSCabasa.h
+//  OCSCrunch.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/28/12.
@@ -9,14 +9,14 @@
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
-/** Semi-physical model of a cabasa sound.
+/** Semi-physical model of a crunch sound.
  
  This one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
-@interface OCSCabasa : OCSAudio
+@interface OCSCrunch : OCSAudio
 
-/// Instantiates the cabasa
+/// Instantiates the runch
 /// @param duration Period of time over which all sound is stopped.
 /// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
 - (id)initWithDuration:(OCSConstant *)duration
