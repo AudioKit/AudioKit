@@ -16,7 +16,7 @@
 
 @interface OCSStruckMetalBar : OCSAudio
 
-/// Instantiates the ocs struck metal bar
+/// Instantiates the struck metal bar
 /// @param decayTime 30 db decay time in seconds.
 /// @param dimensionlessStiffness Dimensionless stiffness parameter. If this parameter is negative then the initialization is skipped and the previous state of the bar is continued.
 /// @param highFrequencyLoss high-frequency loss parameter (keep this small).

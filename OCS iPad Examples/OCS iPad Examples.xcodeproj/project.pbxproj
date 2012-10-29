@@ -27,10 +27,12 @@
 		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
 		C4460F23163E09C90003A15C /* OCSBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4460F21163E09C80003A15C /* OCSBamboo.m */; };
 		C4460F28163E17A50003A15C /* OCSStruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4460F26163E17A40003A15C /* OCSStruckMetalBar.m */; };
-		C4460F2B163E1A5B0003A15C /* OCSCabasa.h in Sources */ = {isa = PBXBuildFile; fileRef = C4460F29163E1A590003A15C /* OCSCabasa.h */; };
 		C4460F2C163E1A5B0003A15C /* OCSCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C4460F2A163E1A590003A15C /* OCSCabasa.m */; };
+		C4460F30163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
+		C4632AB2163E45AD007DEF70 /* OCSCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AB0163E45AD007DEF70 /* OCSCrunch.m */; };
+		C4632AB7163E4770007DEF70 /* OCSDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AB5163E4770007DEF70 /* OCSDroplet.m */; };
 		C474D19516290A4200878841 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E716290A4200878841 /* OCSEvent.m */; };
 		C474D19616290A4200878841 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E916290A4200878841 /* OCSInstrument.m */; };
 		C474D19716290A4200878841 /* OCSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0EB16290A4200878841 /* OCSManager.m */; };
@@ -199,8 +201,14 @@
 		C4460F26163E17A40003A15C /* OCSStruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStruckMetalBar.m; sourceTree = "<group>"; };
 		C4460F29163E1A590003A15C /* OCSCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCabasa.h; sourceTree = "<group>"; };
 		C4460F2A163E1A590003A15C /* OCSCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCabasa.m; sourceTree = "<group>"; };
+		C4460F2D163E2AB20003A15C /* OCSBallWithinTheBoxReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBallWithinTheBoxReverb.h; sourceTree = "<group>"; };
+		C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		C4632AAF163E45AD007DEF70 /* OCSCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCrunch.h; sourceTree = "<group>"; };
+		C4632AB0163E45AD007DEF70 /* OCSCrunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCrunch.m; sourceTree = "<group>"; };
+		C4632AB4163E4770007DEF70 /* OCSDroplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSDroplet.h; sourceTree = "<group>"; };
+		C4632AB5163E4770007DEF70 /* OCSDroplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDroplet.m; sourceTree = "<group>"; };
 		C474D0E616290A4200878841 /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEvent.h; sourceTree = "<group>"; };
 		C474D0E716290A4200878841 /* OCSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEvent.m; sourceTree = "<group>"; };
 		C474D0E816290A4200878841 /* OCSInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSInstrument.h; sourceTree = "<group>"; };
@@ -808,6 +816,10 @@
 				C4460F20163E09C80003A15C /* OCSBamboo.h */,
 				C4460F21163E09C80003A15C /* OCSBamboo.m */,
 				C4460F25163E17A40003A15C /* OCSStruckMetalBar.h */,
+				C4632AAF163E45AD007DEF70 /* OCSCrunch.h */,
+				C4632AB0163E45AD007DEF70 /* OCSCrunch.m */,
+				C4632AB4163E4770007DEF70 /* OCSDroplet.h */,
+				C4632AB5163E4770007DEF70 /* OCSDroplet.m */,
 				C4460F26163E17A40003A15C /* OCSStruckMetalBar.m */,
 				C4460F29163E1A590003A15C /* OCSCabasa.h */,
 				C4460F2A163E1A590003A15C /* OCSCabasa.m */,
@@ -919,6 +931,8 @@
 				C474D17216290A4200878841 /* OCSReverbAllpass.m */,
 				C474D17316290A4200878841 /* OCSStereoConvolution.h */,
 				C474D17416290A4200878841 /* OCSStereoConvolution.m */,
+				C4460F2D163E2AB20003A15C /* OCSBallWithinTheBoxReverb.h */,
+				C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1459,8 +1473,10 @@
 				C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */,
 				C4460F23163E09C90003A15C /* OCSBamboo.m in Sources */,
 				C4460F28163E17A50003A15C /* OCSStruckMetalBar.m in Sources */,
-				C4460F2B163E1A5B0003A15C /* OCSCabasa.h in Sources */,
 				C4460F2C163E1A5B0003A15C /* OCSCabasa.m in Sources */,
+				C4460F30163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m in Sources */,
+				C4632AB2163E45AD007DEF70 /* OCSCrunch.m in Sources */,
+				C4632AB7163E4770007DEF70 /* OCSDroplet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
