@@ -41,6 +41,17 @@ static int currentID = 1;
     return self;
 }
 
+- (id)initWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Left%@%i", name, _myID]];
+        aOutR  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Right%@%i", name, _myID]];
+    }
+    return self;
+}
+
 - (id)initWithLeftInput:(OCSAudio *)leftInput
              rightInput:(OCSAudio *)rightInput
 {

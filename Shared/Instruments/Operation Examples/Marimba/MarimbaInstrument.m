@@ -10,11 +10,12 @@
 #import "OCSMarimba.h"
 #import "OCSAudioOutput.h"
 
-//@implementation MarimbaInstrument
-//
-//- (id)init {
-//    self = [super init];
-//    if (self) {
+@implementation MarimbaInstrument
+
+- (id)init {
+    self = [super init];
+    
+    if (self) {
 //        
 //        // INPUTS AND CONTROLS =================================================
 //        
@@ -66,12 +67,12 @@
 //        OCSAudioOutput *audio;
 //        audio = [[OCSAudioOutput alloc] initWithMonoInput:marimba];
 //        [self connect:audio];
-//    }
-//    return self;
-//}
-//
-//
-//@end
+    }
+    return self;
+}
+
+
+@end
 
 
 @implementation MarimbaNote
