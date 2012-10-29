@@ -16,7 +16,7 @@
 
 @interface OCSCrunch : OCSAudio
 
-/// Instantiates the runch
+/// Instantiates the crunch
 /// @param duration Period of time over which all sound is stopped.
 /// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
 - (id)initWithDuration:(OCSConstant *)duration
@@ -28,7 +28,7 @@
 - (void)setCount:(OCSConstant *)count;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor
+/// @param dampingFactor The damping factor, as part of this equation "damping = 0.998 + (dampingFactor * 0.002)" The default damping is 0.99806 which means that the default value of dampingFactor is 0.03. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0. The recommended range for dampingFactor is usually below 75% of the maximum value.
 - (void)setDampingFactor:(OCSConstant *)dampingFactor;
 
 /// Set an optional energy return

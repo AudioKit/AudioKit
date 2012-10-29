@@ -23,8 +23,8 @@
 /// @param strikePosition Position along the bar that the strike occurs.
 /// @param strikeVelocity Normalized strike velocity.
 /// @param strikeWidth Spatial width of strike.
-/// @param leftBoundaryCondition Boundary condition at left end of bar (1 is clamped
-/// @param rightBoundaryCondition Boundary condition at right end of bar (1 is clamped
+/// @param leftBoundaryCondition Boundary condition at left end of bar (1 is clamped; 2 pivoting and 3 free).
+/// @param rightBoundaryCondition Boundary condition at right end of bar (1 is clamped; 2 pivoting and 3 free).
 /// @param scanSpeed Speed of scanning the output location.
 - (id)initWithDecayTime:(OCSConstant *)decayTime
  dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
