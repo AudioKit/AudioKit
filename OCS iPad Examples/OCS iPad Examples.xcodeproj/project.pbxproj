@@ -28,21 +28,13 @@
 		C4460F30163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
-		C4632AC7163E4A35007DEF70 /* OCSBamboo.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632AB9163E4A35007DEF70 /* OCSBamboo.h */; };
 		C4632AC8163E4A35007DEF70 /* OCSBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABA163E4A35007DEF70 /* OCSBamboo.m */; };
-		C4632AC9163E4A35007DEF70 /* OCSCabasa.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABB163E4A35007DEF70 /* OCSCabasa.h */; };
 		C4632ACA163E4A35007DEF70 /* OCSCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABC163E4A35007DEF70 /* OCSCabasa.m */; };
-		C4632ACB163E4A35007DEF70 /* OCSCrunch.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABD163E4A35007DEF70 /* OCSCrunch.h */; };
 		C4632ACC163E4A35007DEF70 /* OCSCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABE163E4A35007DEF70 /* OCSCrunch.m */; };
-		C4632ACD163E4A35007DEF70 /* OCSDroplet.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABF163E4A35007DEF70 /* OCSDroplet.h */; };
 		C4632ACE163E4A35007DEF70 /* OCSDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC0163E4A35007DEF70 /* OCSDroplet.m */; };
-		C4632ACF163E4A35007DEF70 /* OCSPluckDrum.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC1163E4A35007DEF70 /* OCSPluckDrum.h */; };
 		C4632AD0163E4A35007DEF70 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC2163E4A35007DEF70 /* OCSPluckDrum.m */; };
-		C4632AD1163E4A35007DEF70 /* OCSPluckString.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC3163E4A35007DEF70 /* OCSPluckString.h */; };
 		C4632AD2163E4A35007DEF70 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC4163E4A35007DEF70 /* OCSPluckString.m */; };
-		C4632AD3163E4A35007DEF70 /* OCSStruckMetalBar.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC5163E4A35007DEF70 /* OCSStruckMetalBar.h */; };
 		C4632AD4163E4A35007DEF70 /* OCSStruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC6163E4A35007DEF70 /* OCSStruckMetalBar.m */; };
-		C4632AD7163E4B49007DEF70 /* OCSGuiro.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632AD5163E4B49007DEF70 /* OCSGuiro.h */; };
 		C4632AD8163E4B49007DEF70 /* OCSGuiro.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AD6163E4B49007DEF70 /* OCSGuiro.m */; };
 		C474D19516290A4200878841 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E716290A4200878841 /* OCSEvent.m */; };
 		C474D19616290A4200878841 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E916290A4200878841 /* OCSInstrument.m */; };
@@ -1491,21 +1483,13 @@
 				C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */,
 				C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */,
 				C4460F30163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m in Sources */,
-				C4632AC7163E4A35007DEF70 /* OCSBamboo.h in Sources */,
 				C4632AC8163E4A35007DEF70 /* OCSBamboo.m in Sources */,
-				C4632AC9163E4A35007DEF70 /* OCSCabasa.h in Sources */,
 				C4632ACA163E4A35007DEF70 /* OCSCabasa.m in Sources */,
-				C4632ACB163E4A35007DEF70 /* OCSCrunch.h in Sources */,
 				C4632ACC163E4A35007DEF70 /* OCSCrunch.m in Sources */,
-				C4632ACD163E4A35007DEF70 /* OCSDroplet.h in Sources */,
 				C4632ACE163E4A35007DEF70 /* OCSDroplet.m in Sources */,
-				C4632ACF163E4A35007DEF70 /* OCSPluckDrum.h in Sources */,
 				C4632AD0163E4A35007DEF70 /* OCSPluckDrum.m in Sources */,
-				C4632AD1163E4A35007DEF70 /* OCSPluckString.h in Sources */,
 				C4632AD2163E4A35007DEF70 /* OCSPluckString.m in Sources */,
-				C4632AD3163E4A35007DEF70 /* OCSStruckMetalBar.h in Sources */,
 				C4632AD4163E4A35007DEF70 /* OCSStruckMetalBar.m in Sources */,
-				C4632AD7163E4B49007DEF70 /* OCSGuiro.h in Sources */,
 				C4632AD8163E4B49007DEF70 /* OCSGuiro.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
