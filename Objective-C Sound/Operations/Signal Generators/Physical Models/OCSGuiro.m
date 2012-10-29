@@ -54,8 +54,8 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ guiro %@, %@, %@, %@, %@",
-            self, kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1];
+            @"%@ guiro %@, %@, %@, 0, %@, %@",
+            self, kamp, idettack, inum, imaxshake, ifreq];
 }
 
 @end
