@@ -24,7 +24,7 @@
              amplitude:(OCSControl *)amplitude;
 
 /// Set an optional count
-/// @param count The number of beads
+/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 1.25.
 - (void)setCount:(OCSConstant *)count;
 
 /// Set an optional damping factor
