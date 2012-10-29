@@ -33,12 +33,12 @@
         idettack = duration;
         kamp = amplitude;
         
-        inum = DEFAULT_VALUE;
-        idamp = DEFAULT_VALUE;
-        imaxshake = DEFAULT_VALUE;
-        ifreq = DEFAULT_VALUE;
-        ifreq1 = DEFAULT_VALUE;
-        ifreq2 = DEFAULT_VALUE;
+        inum = ocsp(10);
+        idamp = ocsp(0);
+        imaxshake = ocsp(0);
+        ifreq = ocsp(450);
+        ifreq1 = ocsp(600);
+        ifreq2 = ocsp(750);
         
         
     }
