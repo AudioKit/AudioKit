@@ -9,6 +9,8 @@ build/
 project.xcworkspace/
 xcuserdata/
 
+# Aure helpers
+scripts
 
 # old skool
 .svn

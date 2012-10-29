@@ -2,13 +2,12 @@
 //  OCSOscillator.h
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 4/13/12.
+//  Created by Aurelius Prochazka on 10/28/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
-
 
 /** A simple oscillator with linear interpolation.
  
@@ -18,18 +17,16 @@
 
 @interface OCSOscillator : OCSAudio
 
-/// Instantiates the oscillator.
-/// @param fTable Requires a wrap-around guard point.
+/// Instantiates the oscillator
+/// @param fTable    Requires a wrap-around guard point
+/// @param frequency Frequency in cycles per second
 /// @param amplitude Amplitude of the output
-/// @param frequency Frequency in cycles per second.
 - (id)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSParameter *)frequency
            amplitude:(OCSParameter *)amplitude;
 
-/// Set an optional phase of sampling
-/// @param initialPhase  Initial phase of sampling, expressed as a fraction of a cycle (0 to 1).
-- (void)setPhase:(OCSConstant *)initialPhase;
-
-
+/// Set an optional phase
+/// @param phase Comment
+- (void)setPhase:(OCSConstant *)phase;
 
 @end
