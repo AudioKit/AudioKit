@@ -2,23 +2,23 @@
 //  OCSFMOscillator.m
 //  Objective-C Sound
 //
-//  Created by Adam Boulanger on 5/29/12.
-//  Copyright (c) 2012 MIT Media Lab. All rights reserved.
+//  Created by Aurelius Prochazka on 10/28/12.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's foscili:
-// http://www.csounds.com/manual/html/foscili.html
+//  http://www.csounds.com/manual/html/foscili.html
 //
 
 #import "OCSFMOscillator.h"
 
 @interface OCSFMOscillator () {
-    OCSParameter *xamp;
+    OCSFTable *ifn;
     OCSControl *kcps;
     OCSParameter *xcar;
     OCSParameter *xmod;
     OCSControl *kndx;
-    OCSFTable *ifn;
-    OCSConstant *phs;
+    OCSParameter *xamp;
+    OCSConstant *iphs;
 }
 @end
 
@@ -29,31 +29,31 @@
    carrierMultiplier:(OCSParameter *)carrierMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier
      modulationIndex:(OCSControl *)modulationIndex
-           amplitude:(OCSParameter *)amplitude;
+           amplitude:(OCSParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
-    if ( self ) {
-        xamp = amplitude;
+    if (self) {
+        ifn = fTable;
         kcps = baseFrequency;
         xcar = carrierMultiplier;
         xmod = modulatingMultiplier;
         kndx = modulationIndex;
-        ifn  = fTable;
-        phs  = ocsp(0);
+        xamp = amplitude;
+        
+        iphs = ocsp(0);
+        
     }
     return self;
 }
 
 - (void)setPhase:(OCSConstant *)phase {
-    phs = phase;
+	iphs = phase;
 }
 
-// Csound Prototype: ares foscili xamp, kcps, xcar, xmod, kndx, ifn (, iphs)
-- (NSString *)stringForCSD
-{
-    return[NSString stringWithFormat:
-           @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
-           self, xamp, kcps, xcar, xmod, kndx, ifn, phs];
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat:
+            @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
+            self, xamp, kcps, xcar, xmod, kndx, ifn, iphs];
 }
 
 @end
