@@ -34,7 +34,6 @@
 		C4632ACE163E4A35007DEF70 /* OCSDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC0163E4A35007DEF70 /* OCSDroplet.m */; };
 		C4632AD4163E4A35007DEF70 /* OCSStruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC6163E4A35007DEF70 /* OCSStruckMetalBar.m */; };
 		C4632AD8163E4B49007DEF70 /* OCSGuiro.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AD6163E4B49007DEF70 /* OCSGuiro.m */; };
-		C4632ADF163EF9A2007DEF70 /* OCSMarimba.h in Sources */ = {isa = PBXBuildFile; fileRef = C4632ADD163EF9A2007DEF70 /* OCSMarimba.h */; };
 		C4632AE0163EF9A2007DEF70 /* OCSMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ADE163EF9A2007DEF70 /* OCSMarimba.m */; };
 		C474D19516290A4200878841 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E716290A4200878841 /* OCSEvent.m */; };
 		C474D19616290A4200878841 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E916290A4200878841 /* OCSInstrument.m */; };
@@ -114,6 +113,9 @@
 		C474D1E216290A4200878841 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19216290A4200878841 /* OCSInstrumentProperty.m */; };
 		C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19416290A4200878841 /* OCSNoteProperty.m */; };
 		C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */; };
+		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
+		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
+		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
@@ -366,6 +368,11 @@
 		C474D19416290A4200878841 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C474D6F4162918D700878841 /* OCSLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLoopingStereoOscillator.h; sourceTree = "<group>"; };
 		C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
+		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
+		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
+		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
+		C47E2866163F08DF00BBB569 /* MarimbaInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MarimbaInstrument.h; path = Marimba/MarimbaInstrument.h; sourceTree = "<group>"; };
+		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
@@ -572,6 +579,7 @@
 			children = (
 				C42B243215F484D0006032F9 /* FM Oscillator */,
 				C42B243515F484D0006032F9 /* Oscillator */,
+				C47E286A163F08E300BBB569 /* Marimba */,
 			);
 			path = "Operation Examples";
 			sourceTree = "<group>";
@@ -1010,6 +1018,25 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
+		C47E2865163F084400BBB569 /* Physical Models */ = {
+			isa = PBXGroup;
+			children = (
+				C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */,
+				C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */,
+				C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */,
+			);
+			name = "Physical Models";
+			sourceTree = "<group>";
+		};
+		C47E286A163F08E300BBB569 /* Marimba */ = {
+			isa = PBXGroup;
+			children = (
+				C47E2866163F08DF00BBB569 /* MarimbaInstrument.h */,
+				C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */,
+			);
+			name = Marimba;
+			sourceTree = "<group>";
+		};
 		C4C8272B15D752A5009D48DA /* MIDI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1072,6 +1099,7 @@
 				C4F079A015D603160084FF9E /* Convolution */,
 				C4F079B615D603160084FF9E /* Harmonizer */,
 				C4C8272B15D752A5009D48DA /* MIDI */,
+				C47E2865163F084400BBB569 /* Physical Models */,
 				C4F0783515D5F4B30084FF9E /* Supporting Files */,
 			);
 			path = "OCS iPad Examples";
@@ -1359,6 +1387,7 @@
 				C474D1D516290A4200878841 /* CsGrainCompressor.udo in Resources */,
 				C474D1D616290A4200878841 /* CsGrainPitchShifter.udo in Resources */,
 				C474D1D916290A4200878841 /* msrOsc.udo in Resources */,
+				C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1485,8 +1514,9 @@
 				C4632ACE163E4A35007DEF70 /* OCSDroplet.m in Sources */,
 				C4632AD4163E4A35007DEF70 /* OCSStruckMetalBar.m in Sources */,
 				C4632AD8163E4B49007DEF70 /* OCSGuiro.m in Sources */,
-				C4632ADF163EF9A2007DEF70 /* OCSMarimba.h in Sources */,
 				C4632AE0163EF9A2007DEF70 /* OCSMarimba.m in Sources */,
+				C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */,
+				C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
