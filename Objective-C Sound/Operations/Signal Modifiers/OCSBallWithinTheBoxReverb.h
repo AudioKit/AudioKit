@@ -35,7 +35,7 @@
 
 
 /// Set an optional diffusion
-/// @param diffusion Coefficient of diffusion at the walls
+/// @param diffusion Coefficient of diffusion at the walls, which regulates the amount of diffusion (0-1, where 0 = no diffusion, 1 = maximum diffusion, default= 1)
 - (void)setDiffusion:(OCSConstant *)diffusion;
 
 

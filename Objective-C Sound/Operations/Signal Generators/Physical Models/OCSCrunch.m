@@ -1,39 +1,60 @@
 //
-//  OCSCrunch.h
+//  OCSCrunch.m
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/28/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
+//  Implementation of Csound's crunch:
+//  http://www.csounds.com/manual/html/crunch.html
+//
 
-#import "OCSAudio.h"
-#import "OCSParameter+Operation.h"
+#import "OCSCrunch.h"
 
-/** Semi-physical model of a crunch sound.
- 
- This one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
- */
+@interface OCSCrunch () {
+    OCSConstant *idettack;
+    OCSConstant *iamp;
+    OCSConstant *inum;
+    OCSConstant *idamp;
+    OCSConstant *imaxshake;
+}
+@end
 
-@interface OCSCrunch : OCSAudio
+@implementation OCSCrunch
 
-/// Instantiates the crunch
-/// @param duration Period of time over which all sound is stopped.
-/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
 - (id)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSConstant *)amplitude;
+             amplitude:(OCSConstant *)amplitude
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        idettack = duration;
+        iamp = amplitude;
+        
+        inum = ocsp(7);
+        idamp = ocsp(0.03);
+        imaxshake = ocsp(0);
+        
+    }
+    return self;
+}
 
 
-/// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 7.
-- (void)setCount:(OCSConstant *)count;
+- (void)setCount:(OCSConstant *)count {
+	inum = count;
+}
 
-/// Set an optional damping factor
-/// @param dampingFactor The damping factor, as part of this equation "damping = 0.998 + (dampingFactor * 0.002)" The default damping is 0.99806 which means that the default value of dampingFactor is 0.03. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0. The recommended range for dampingFactor is usually below 75% of the maximum value.
-- (void)setDampingFactor:(OCSConstant *)dampingFactor;
+- (void)setDampingFactor:(OCSConstant *)dampingFactor {
+	idamp = dampingFactor;
+}
 
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setEnergyReturn:(OCSConstant *)energyReturn;
+- (void)setEnergyReturn:(OCSConstant *)energyReturn {
+	imaxshake = energyReturn;
+}
 
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat:
+            @"%@ crunch %@, %@, %@, %@, %@",
+            self, iamp, idettack, inum, idamp, imaxshake];
+}
 
 @end

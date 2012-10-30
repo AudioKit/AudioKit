@@ -1,31 +1,31 @@
 //
-//  OCSStruckMetalBar.m
+//  OCSStruckMetalBar.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/28/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  Implementation of Csound's barmodel:
-//  http://www.csounds.com/manual/html/barmodel.html
-//
 
-#import "OCSStruckMetalBar.h"
+#import "OCSAudio.h"
+#import "OCSParameter+Operation.h"
 
-@interface OCSStruckMetalBar () {
-    OCSConstant *iT30;
-    OCSConstant *iK;
-    OCSConstant *ib;
-    OCSConstant *ipos;
-    OCSConstant *ivel;
-    OCSConstant *iwid;
-    OCSControl *kbcL;
-    OCSControl *kbcR;
-    OCSControl *kscan;
-}
-@end
+/** Creates a tone similar to a struck metal bar.
+ 
+ Audio output is a tone similar to a struck metal bar, using a physical model developed from solving the partial differential equation. There are controls over the boundary conditions as well as the bar characteristics.
+ */
 
-@implementation OCSStruckMetalBar
+@interface OCSStruckMetalBar : OCSAudio
 
+/// Instantiates the struck metal bar
+/// @param decayTime 30 db decay time in seconds.
+/// @param dimensionlessStiffness Dimensionless stiffness parameter. If this parameter is negative then the initialization is skipped and the previous state of the bar is continued.
+/// @param highFrequencyLoss high-frequency loss parameter (keep this small).
+/// @param strikePosition Position along the bar that the strike occurs.
+/// @param strikeVelocity Normalized strike velocity.
+/// @param strikeWidth Spatial width of strike.
+/// @param leftBoundaryCondition Boundary condition at left end of bar (1 is clamped; 2 pivoting and 3 free).
+/// @param rightBoundaryCondition Boundary condition at right end of bar (1 is clamped; 2 pivoting and 3 free).
+/// @param scanSpeed Speed of scanning the output location.
 - (id)initWithDecayTime:(OCSConstant *)decayTime
  dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
       highFrequencyLoss:(OCSConstant *)highFrequencyLoss
@@ -34,29 +34,6 @@
             strikeWidth:(OCSConstant *)strikeWidth
   leftBoundaryCondition:(OCSControl *)leftBoundaryCondition
  rightBoundaryCondition:(OCSControl *)rightBoundaryCondition
-              scanSpeed:(OCSControl *)scanSpeed
-{
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        iT30 = decayTime;
-        iK = dimensionlessStiffness;
-        ib = highFrequencyLoss;
-        ipos = strikePosition;
-        ivel = strikeVelocity;
-        iwid = strikeWidth;
-        kbcL = leftBoundaryCondition;
-        kbcR = rightBoundaryCondition;
-        kscan = scanSpeed;
-        
-        
-    }
-    return self;
-}
-
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ barmodel %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kbcL, kbcR, iK, ib, kscan, iT30, ipos, ivel, iwid, iwid];
-}
+              scanSpeed:(OCSControl *)scanSpeed;
 
 @end
