@@ -2,7 +2,7 @@
 //  OCSMarimba.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/29/12.
+//  Created by Aurelius Prochazka on 10/30/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's marimba:
@@ -28,19 +28,19 @@
 
 @implementation OCSMarimba
 
-- (id)initWithHardnesss:(OCSConstant *)hardnesss
-               position:(OCSConstant *)position
-              decayTime:(OCSConstant *)decayTime
-     strikeImpulseTable:(OCSConstant *)strikeImpulseTable
-      vibratoShapeTable:(OCSConstant *)vibratoShapeTable
-              frequency:(OCSControl *)frequency
-              amplitude:(OCSControl *)amplitude
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude
+- (id)initWithHardness:(OCSConstant *)hardness
+              position:(OCSConstant *)position
+             decayTime:(OCSConstant *)decayTime
+    strikeImpulseTable:(OCSConstant *)strikeImpulseTable
+     vibratoShapeTable:(OCSConstant *)vibratoShapeTable
+             frequency:(OCSControl *)frequency
+             amplitude:(OCSControl *)amplitude
+      vibratoFrequency:(OCSControl *)vibratoFrequency
+      vibratoAmplitude:(OCSControl *)vibratoAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ihrd = hardnesss;
+        ihrd = hardness;
         ipos = position;
         idec = decayTime;
         ifnmp = strikeImpulseTable;
@@ -52,7 +52,6 @@
         
         idoubles = ocsp(40);
         itriples = ocsp(20);
-        
         
     }
     return self;
@@ -67,10 +66,10 @@
 	itriples = tripleStrikePercentage;
 }
 
-
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
             self, kamp, kfreq, ihrd, ipos, ifnmp, kvibf, kvamp, ifnvib, idec, idoubles, itriples];
 }
+
 @end
