@@ -18,10 +18,10 @@
 
 /// Instantiates the marimba
 /// @param hardnesss The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value.
-/// @param position Where the block is hit
+/// @param position Where the block is hit, in the range 0 to 1.
 /// @param decayTime Time before end of note when damping is introduced
 /// @param strikeImpulseTable Table of the strike impulses. The file marmstk1.wav is a suitable function from measurements and can be loaded with a GEN01 table. It is also available at ftp://ftp.cs.bath.ac.uk/pub/dream/documentation/sounds/modelling/.
-/// @param vibratoShapeTable Shape of vibrato
+/// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function
 /// @param frequency Frequency of note played.
 /// @param amplitude Amplitude of note.
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12

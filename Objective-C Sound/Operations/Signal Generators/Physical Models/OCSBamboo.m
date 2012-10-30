@@ -1,50 +1,77 @@
 //
-//  OCSBamboo.h
+//  OCSBamboo.m
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/28/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
+//  Implementation of Csound's bamboo:
+//  http://www.csounds.com/manual/html/bamboo.html
+//
 
-#import "OCSAudio.h"
-#import "OCSParameter+Operation.h"
+#import "OCSBamboo.h"
 
-/** Semi-physical model of a bamboo sound.
- 
- This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) 
- is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
- */
+@interface OCSBamboo () {
+    OCSConstant *idettack;
+    OCSControl *kamp;
+    OCSConstant *inum;
+    OCSConstant *idamp;
+    OCSConstant *imaxshake;
+    OCSConstant *ifreq;
+    OCSConstant *ifreq1;
+    OCSConstant *ifreq2;
+}
+@end
 
-@interface OCSBamboo : OCSAudio
+@implementation OCSBamboo
 
-/// Instantiates the bamboo
-/// @param duration Period of time over which all sound is stopped
-/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
 - (id)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSControl *)amplitude;
+             amplitude:(OCSControl *)amplitude
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        idettack = duration;
+        kamp = amplitude;
+        
+        inum = ocsp(1.25);
+        idamp = ocsp(0);
+        imaxshake = ocsp(0);
+        ifreq  = ocsp(2800);
+        ifreq1 = ocsp(2240);
+        ifreq2 = ocsp(3360);
+        
+    }
+    return self;
+}
 
-/// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 1.25.
-- (void)setCount:(OCSConstant *)count;
+- (void)setCount:(OCSConstant *)count {
+	inum = count;
+}
 
-/// Set an optional damping factor
-/// @param dampingFactor The damping factor as part of this equation "damping = 0.9999 + (dampingFactor * 0.002)" The default damping is 0.9999 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.05.  The recommended range for dampingFactor is usually below 75% of the maximum value.]
-- (void)setDampingFactor:(OCSConstant *)dampingFactor;
+- (void)setDampingFactor:(OCSConstant *)dampingFactor {
+	idamp = dampingFactor;
+}
 
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setEnergyReturn:(OCSConstant *)energyReturn;
+- (void)setEnergyReturn:(OCSConstant *)energyReturn {
+	imaxshake = energyReturn;
+}
 
-/// Set an optional main resonant frequency
-/// @param mainResonantFrequency The main resonant frequency. The default value is 2800.
-- (void)setMainResonantFrequency:(OCSConstant *)mainResonantFrequency;
+- (void)setMainResonantFrequency:(OCSConstant *)mainResonantFrequency {
+	ifreq = mainResonantFrequency;
+}
 
-/// Set an optional first resonant frequency
-/// @param firstResonantFrequency The first resonant frequency. The default value is 2240.
-- (void)setFirstResonantFrequency:(OCSConstant *)firstResonantFrequency;
+- (void)setFirstResonantFrequency:(OCSConstant *)firstResonantFrequency {
+	ifreq1 = firstResonantFrequency;
+}
 
-/// Set an optional second resonant frequency
-/// @param secondResonantFrequency The second resonant frequency. The default value is 3360.
-- (void)setSecondResonantFrequency:(OCSConstant *)secondResonantFrequency;
+- (void)setSecondResonantFrequency:(OCSConstant *)secondResonantFrequency {
+	ifreq2 = secondResonantFrequency;
+}
+
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat:
+            @"%@ bamboo %@, %@, %@, %@, %@, %@, %@, %@",
+            self, kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2];
+}
 
 @end

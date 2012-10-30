@@ -35,7 +35,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Left%i",_myID]];
+        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Left%i", _myID]];
         aOutR  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Right%i",_myID]];
     }
     return self;
@@ -46,7 +46,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Left%@%i", name, _myID]];
+        aOutL  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Left%@%i",  name, _myID]];
         aOutR  = [OCSAudio parameterWithString:[NSString stringWithFormat:@"Right%@%i", name, _myID]];
     }
     return self;
@@ -65,7 +65,7 @@ static int currentID = 1;
 
 - (id)scaledBy:(float)scalingFactor
 {
-    OCSAudio *left = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutL, scalingFactor];
+    OCSAudio *left  = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutL, scalingFactor];
     OCSAudio *right = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutR, scalingFactor];
     return [[OCSStereoAudio alloc] initWithLeftInput:left rightInput:right];
 }
