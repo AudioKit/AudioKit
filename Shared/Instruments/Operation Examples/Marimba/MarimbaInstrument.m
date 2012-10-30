@@ -50,18 +50,18 @@
 //        [self addFTable:sine];
 //        
 //        OCSMarimba  *marimba;
-//        marimba = [[OCSMarimba alloc] initWithHardnesss:hardness
-//                                               position:position
-//                                              decayTime:decayTime
-//                                     strikeImpulseTable:sine
-//                                      vibratoShapeTable:sine    
-//                                              frequency:frequency
-//                                              amplitude:amplitude
-//                                       vibratoFrequency:vibratoFrequency
-//                                       vibratoAmplitude:vibratoAmplitude;
+//        marimba = [[OCSMarimba alloc] initWithHardness:hardness
+//                                              position:position
+//                                             decayTime:decayTime
+//                                    strikeImpulseTable:sine
+//                                     vibratoShapeTable:sine
+//                                             frequency:frequency
+//                                             amplitude:amplitude
+//                                      vibratoFrequency:vibratoFrequency
+//                                      vibratoAmplitude:vibratoAmplitude];
 //
 //        [self connect:marimba];
-//        
+//
 //        // AUDIO OUTPUT ========================================================
 //        
 //        OCSAudioOutput *audio;

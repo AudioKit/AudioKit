@@ -117,6 +117,12 @@
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
+		C4B5834E1640758B0089E1D7 /* OCSPluckedString.h in Sources */ = {isa = PBXBuildFile; fileRef = C4B5834C1640758B0089E1D7 /* OCSPluckedString.h */; };
+		C4B5834F1640758B0089E1D7 /* OCSPluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */; };
+		C4B5835716407CEF0089E1D7 /* OCSFlanger.h in Sources */ = {isa = PBXBuildFile; fileRef = C4B5835516407CEF0089E1D7 /* OCSFlanger.h */; };
+		C4B5835816407CEF0089E1D7 /* OCSFlanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5835616407CEF0089E1D7 /* OCSFlanger.m */; };
+		C4B5835B164081730089E1D7 /* OCSMoogLadder.h in Sources */ = {isa = PBXBuildFile; fileRef = C4B58359164081730089E1D7 /* OCSMoogLadder.h */; };
+		C4B5835C164081730089E1D7 /* OCSMoogLadder.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5835A164081730089E1D7 /* OCSMoogLadder.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
@@ -375,6 +381,12 @@
 		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C4B5834C1640758B0089E1D7 /* OCSPluckedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSPluckedString.h; sourceTree = "<group>"; };
+		C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckedString.m; sourceTree = "<group>"; };
+		C4B5835516407CEF0089E1D7 /* OCSFlanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSFlanger.h; sourceTree = "<group>"; };
+		C4B5835616407CEF0089E1D7 /* OCSFlanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFlanger.m; sourceTree = "<group>"; };
+		C4B58359164081730089E1D7 /* OCSMoogLadder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSMoogLadder.h; sourceTree = "<group>"; };
+		C4B5835A164081730089E1D7 /* OCSMoogLadder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMoogLadder.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -675,6 +687,8 @@
 				C4632AD6163E4B49007DEF70 /* OCSGuiro.m */,
 				C4632ADD163EF9A2007DEF70 /* OCSMarimba.h */,
 				C4632ADE163EF9A2007DEF70 /* OCSMarimba.m */,
+				C4B5834C1640758B0089E1D7 /* OCSPluckedString.h */,
+				C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */,
 			);
 			path = "Physical Models";
 			sourceTree = "<group>";
@@ -950,6 +964,10 @@
 				C474D17416290A4200878841 /* OCSStereoConvolution.m */,
 				C4460F2D163E2AB20003A15C /* OCSBallWithinTheBoxReverb.h */,
 				C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */,
+				C4B5835516407CEF0089E1D7 /* OCSFlanger.h */,
+				C4B5835616407CEF0089E1D7 /* OCSFlanger.m */,
+				C4B58359164081730089E1D7 /* OCSMoogLadder.h */,
+				C4B5835A164081730089E1D7 /* OCSMoogLadder.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1517,6 +1535,12 @@
 				C4632AE0163EF9A2007DEF70 /* OCSMarimba.m in Sources */,
 				C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */,
 				C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */,
+				C4B5834E1640758B0089E1D7 /* OCSPluckedString.h in Sources */,
+				C4B5834F1640758B0089E1D7 /* OCSPluckedString.m in Sources */,
+				C4B5835716407CEF0089E1D7 /* OCSFlanger.h in Sources */,
+				C4B5835816407CEF0089E1D7 /* OCSFlanger.m in Sources */,
+				C4B5835B164081730089E1D7 /* OCSMoogLadder.h in Sources */,
+				C4B5835C164081730089E1D7 /* OCSMoogLadder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
