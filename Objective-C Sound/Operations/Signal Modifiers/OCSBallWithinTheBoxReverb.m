@@ -51,7 +51,7 @@
 }
 
 
-- (void)setDiffusion:(OCSConstant *)diffusion {
+- (void)setOptionalDiffusion:(OCSConstant *)diffusion {
 	idiff = diffusion;
 }
 

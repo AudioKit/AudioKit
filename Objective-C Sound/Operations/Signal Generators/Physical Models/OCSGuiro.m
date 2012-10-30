@@ -40,15 +40,15 @@
 }
 
 
-- (void)setCount:(OCSConstant *)count {
+- (void)setOptionalCount:(OCSConstant *)count {
 	inum = count;
 }
 
-- (void)setEnergyReturn:(OCSConstant *)energyReturn {
+- (void)setOptionalEnergyReturn:(OCSConstant *)energyReturn {
 	imaxshake = energyReturn;
 }
 
-- (void)setMainResonantFrequency:(OCSConstant *)mainResonantFrequency {
+- (void)setOptionalMainResonantFrequency:(OCSConstant *)mainResonantFrequency {
 	ifreq = mainResonantFrequency;
 }
 

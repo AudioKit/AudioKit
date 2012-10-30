@@ -56,7 +56,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ barmodel %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kbcL, kbcR, iK, ib, kscan, iT30, ipos, ivel, iwid, iwid];
+            self, kbcL, kbcR, iK, ib, kscan, iT30, ipos, ivel, iwid];
 }
 
 @end

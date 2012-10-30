@@ -59,11 +59,11 @@
 }
 
 
-- (void)setDoubleStrikePercentage:(OCSConstant *)doubleStrikePercentage {
+- (void)setOptionalDoubleStrikePercentage:(OCSConstant *)doubleStrikePercentage {
 	idoubles = doubleStrikePercentage;
 }
 
-- (void)setTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage {
+- (void)setOptionalTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage {
 	itriples = tripleStrikePercentage;
 }
 

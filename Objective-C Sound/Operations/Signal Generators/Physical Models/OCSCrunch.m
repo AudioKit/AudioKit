@@ -39,15 +39,15 @@
 }
 
 
-- (void)setCount:(OCSConstant *)count {
+- (void)setOptionalCount:(OCSConstant *)count {
 	inum = count;
 }
 
-- (void)setDampingFactor:(OCSConstant *)dampingFactor {
+- (void)setOptionalDampingFactor:(OCSConstant *)dampingFactor {
 	idamp = dampingFactor;
 }
 
-- (void)setEnergyReturn:(OCSConstant *)energyReturn {
+- (void)setOptionalEnergyReturn:(OCSConstant *)energyReturn {
 	imaxshake = energyReturn;
 }
 

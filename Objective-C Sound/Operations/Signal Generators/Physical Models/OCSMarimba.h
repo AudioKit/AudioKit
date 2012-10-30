@@ -39,11 +39,11 @@
 
 /// Set an optional double strike percentage
 /// @param doubleStrikePercentage Percentage of double strikes. Default is 40%.
-- (void)setDoubleStrikePercentage:(OCSConstant *)doubleStrikePercentage;
+- (void)setOptionalDoubleStrikePercentage:(OCSConstant *)doubleStrikePercentage;
 
 /// Set an optional triple strike percentage
 /// @param tripleStrikePercentage Percentage of triple strikes. Default is 20%.
-- (void)setTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage;
+- (void)setOptionalTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage;
 
 
 @end

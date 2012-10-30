@@ -44,27 +44,27 @@
     return self;
 }
 
-- (void)setCount:(OCSConstant *)count {
+- (void)setOptionalCount:(OCSConstant *)count {
 	inum = count;
 }
 
-- (void)setDampingFactor:(OCSConstant *)dampingFactor {
+- (void)setOptionalDampingFactor:(OCSConstant *)dampingFactor {
 	idamp = dampingFactor;
 }
 
-- (void)setEnergyReturn:(OCSConstant *)energyReturn {
+- (void)setOptionalEnergyReturn:(OCSConstant *)energyReturn {
 	imaxshake = energyReturn;
 }
 
-- (void)setMainResonantFrequency:(OCSConstant *)mainResonantFrequency {
+- (void)setOptionalMainResonantFrequency:(OCSConstant *)mainResonantFrequency {
 	ifreq = mainResonantFrequency;
 }
 
-- (void)setFirstResonantFrequency:(OCSConstant *)firstResonantFrequency {
+- (void)setOptionalFirstResonantFrequency:(OCSConstant *)firstResonantFrequency {
 	ifreq1 = firstResonantFrequency;
 }
 
-- (void)setSecondResonantFrequency:(OCSConstant *)secondResonantFrequency {
+- (void)setOptionalSecondResonantFrequency:(OCSConstant *)secondResonantFrequency {
 	ifreq2 = secondResonantFrequency;
 }
 
