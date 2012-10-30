@@ -25,15 +25,15 @@
 
 /// Set an optional count
 /// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 128.
-- (void)setCount:(OCSConstant *)count;
+- (void)setOptionalCount:(OCSConstant *)count;
 
 /// Set an optional energy return
 /// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setEnergyReturn:(OCSConstant *)energyReturn;
+- (void)setOptionalEnergyReturn:(OCSConstant *)energyReturn;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. The default value is 2500.
-- (void)setMainResonantFrequency:(OCSConstant *)mainResonantFrequency;
+- (void)setOptionalMainResonantFrequency:(OCSConstant *)mainResonantFrequency;
 
 
 @end
