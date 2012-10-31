@@ -14,6 +14,11 @@
     OCSConstant *baseFrequency;
     OCSSoundFileTable *soundFileTable;
     LoopingOscillatorType imod1;
+    
+    OCSConstant *ibeg1;
+    OCSConstant *iend1;
+    OCSConstant *ibeg2;
+    OCSConstant *iend2;
 }
 @end
 
@@ -53,7 +58,7 @@
                    amplitude:(OCSParameter *)amplitude
                         type:(LoopingOscillatorType)type
 {
-    self = [super initWithString:[self operationName]];
+    self = [super init];
     if (self) {
         soundFileTable = fileTable;
         amp = amplitude;
@@ -64,9 +69,23 @@
     return self;
 }
 
+-(void)setLoopPointStart:(int)startingSample end:(int)endingSample releaseStart:(int)releaseStart releaseEnd:(int)releaseEndingSample
+{
+    ibeg1 = ocspi(startingSample);
+    iend1 = ocspi(endingSample);
+    ibeg2 = ocspi(releaseStart);
+    iend2 = ocspi(releaseEndingSample);
+}
+
 // Csound Prototype:
 // ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
 - (NSString *)stringForCSD {
+    //TODO: fix ugly conditional hack
+    if(ibeg1) {
+        return [NSString stringWithFormat:
+                @"%@ loscil3 %@, %@, %@, %@, %i, %@, %@, %i, %@, %@",
+                self, amp, freqMultiplier, soundFileTable, baseFrequency, imod1, ibeg1, iend1, imod1, ibeg2, iend2];
+    }
     return [NSString stringWithFormat:
             @"%@ loscil3 %@, %@, %@, %@, %i",
             self, amp, freqMultiplier, soundFileTable, baseFrequency, imod1];

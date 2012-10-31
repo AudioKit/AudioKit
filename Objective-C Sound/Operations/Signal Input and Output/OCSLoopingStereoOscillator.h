@@ -53,4 +53,11 @@ typedef enum {
                    amplitude:(OCSParameter *)amplitude
                         type:(LoopingOscillatorType)type;
 
+/// Set start and finish loop points
+/// @param startingSample       starting point of loop segment in samples.
+/// @param endingSample         endpoing of loop in samples.
+/// @param releaseStart         release loop startpoint in samples.
+/// @param releaseEnd         release loop endpoing in samples.
+-(void)setLoopPointStart:(int)startingSample end:(int)endingSample releaseStart:(int)releaseStart releaseEnd:(int)releaseEndingSample;
+
 @end
