@@ -116,6 +116,7 @@
 		C475059E1640F20900A82BE5 /* OCSSandPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C475059C1640F20900A82BE5 /* OCSSandPaper.m */; };
 		C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A11640F3BF00A82BE5 /* OCSSekere.m */; };
 		C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A51640F60400A82BE5 /* OCSSleighbells.m */; };
+		C47505BF1641AFEB00A82BE5 /* OCSVibes.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505BD1641AFEB00A82BE5 /* OCSVibes.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
@@ -380,6 +381,8 @@
 		C47505A11640F3BF00A82BE5 /* OCSSekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSekere.m; sourceTree = "<group>"; };
 		C47505A41640F60400A82BE5 /* OCSSleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSleighbells.h; sourceTree = "<group>"; };
 		C47505A51640F60400A82BE5 /* OCSSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSleighbells.m; sourceTree = "<group>"; };
+		C47505BC1641AFEB00A82BE5 /* OCSVibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSVibes.h; sourceTree = "<group>"; };
+		C47505BD1641AFEB00A82BE5 /* OCSVibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSVibes.m; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
 		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
@@ -701,6 +704,8 @@
 				C47505A11640F3BF00A82BE5 /* OCSSekere.m */,
 				C47505A41640F60400A82BE5 /* OCSSleighbells.h */,
 				C47505A51640F60400A82BE5 /* OCSSleighbells.m */,
+				C47505BC1641AFEB00A82BE5 /* OCSVibes.h */,
+				C47505BD1641AFEB00A82BE5 /* OCSVibes.m */,
 			);
 			path = "Physical Models";
 			sourceTree = "<group>";
@@ -1553,6 +1558,7 @@
 				C475059E1640F20900A82BE5 /* OCSSandPaper.m in Sources */,
 				C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */,
 				C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */,
+				C47505BF1641AFEB00A82BE5 /* OCSVibes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
