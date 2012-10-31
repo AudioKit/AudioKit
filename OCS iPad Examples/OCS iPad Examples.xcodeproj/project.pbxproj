@@ -117,6 +117,10 @@
 		C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A11640F3BF00A82BE5 /* OCSSekere.m */; };
 		C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A51640F60400A82BE5 /* OCSSleighbells.m */; };
 		C47505BF1641AFEB00A82BE5 /* OCSVibes.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505BD1641AFEB00A82BE5 /* OCSVibes.m */; };
+		C47505D81641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h in Sources */ = {isa = PBXBuildFile; fileRef = C47505D41641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h */; };
+		C47505D91641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505D51641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m */; };
+		C47505DA1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h in Sources */ = {isa = PBXBuildFile; fileRef = C47505D61641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h */; };
+		C47505DB1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505D71641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
@@ -383,6 +387,10 @@
 		C47505A51640F60400A82BE5 /* OCSSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSleighbells.m; sourceTree = "<group>"; };
 		C47505BC1641AFEB00A82BE5 /* OCSVibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSVibes.h; sourceTree = "<group>"; };
 		C47505BD1641AFEB00A82BE5 /* OCSVibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSVibes.m; sourceTree = "<group>"; };
+		C47505D41641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLinearADSRAudioEnvelope.h; sourceTree = "<group>"; };
+		C47505D51641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLinearADSRAudioEnvelope.m; sourceTree = "<group>"; };
+		C47505D61641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLinearADSRControlEnvelope.h; sourceTree = "<group>"; };
+		C47505D71641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLinearADSRControlEnvelope.m; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
 		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
@@ -863,6 +871,7 @@
 				C474D13316290A4200878841 /* OCSGrain.h */,
 				C474D13416290A4200878841 /* OCSGrain.m */,
 				C474D13516290A4200878841 /* OCSLine */,
+				C47505D31641DA1E00A82BE5 /* OCSLinearADSREnvelope */,
 				C474D13A16290A4200878841 /* OCSLinearEnvelope */,
 				C474D13F16290A4200878841 /* OCSOscillator */,
 				C474D14416290A4200878841 /* OCSPhasor */,
@@ -1051,6 +1060,17 @@
 				C474D19416290A4200878841 /* OCSNoteProperty.m */,
 			);
 			path = Properties;
+			sourceTree = "<group>";
+		};
+		C47505D31641DA1E00A82BE5 /* OCSLinearADSREnvelope */ = {
+			isa = PBXGroup;
+			children = (
+				C47505D41641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h */,
+				C47505D51641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m */,
+				C47505D61641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h */,
+				C47505D71641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m */,
+			);
+			path = OCSLinearADSREnvelope;
 			sourceTree = "<group>";
 		};
 		C47E2865163F084400BBB569 /* Physical Models */ = {
@@ -1559,6 +1579,10 @@
 				C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */,
 				C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */,
 				C47505BF1641AFEB00A82BE5 /* OCSVibes.m in Sources */,
+				C47505D81641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h in Sources */,
+				C47505D91641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m in Sources */,
+				C47505DA1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h in Sources */,
+				C47505DB1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
