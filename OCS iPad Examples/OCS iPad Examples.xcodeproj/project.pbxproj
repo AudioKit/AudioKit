@@ -113,15 +113,15 @@
 		C474D1E216290A4200878841 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19216290A4200878841 /* OCSInstrumentProperty.m */; };
 		C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19416290A4200878841 /* OCSNoteProperty.m */; };
 		C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */; };
+		C475059E1640F20900A82BE5 /* OCSSandPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C475059C1640F20900A82BE5 /* OCSSandPaper.m */; };
+		C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A11640F3BF00A82BE5 /* OCSSekere.m */; };
+		C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A51640F60400A82BE5 /* OCSSleighbells.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
-		C4B5834E1640758B0089E1D7 /* OCSPluckedString.h in Sources */ = {isa = PBXBuildFile; fileRef = C4B5834C1640758B0089E1D7 /* OCSPluckedString.h */; };
 		C4B5834F1640758B0089E1D7 /* OCSPluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */; };
-		C4B5835716407CEF0089E1D7 /* OCSFlanger.h in Sources */ = {isa = PBXBuildFile; fileRef = C4B5835516407CEF0089E1D7 /* OCSFlanger.h */; };
 		C4B5835816407CEF0089E1D7 /* OCSFlanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5835616407CEF0089E1D7 /* OCSFlanger.m */; };
-		C4B5835B164081730089E1D7 /* OCSMoogLadder.h in Sources */ = {isa = PBXBuildFile; fileRef = C4B58359164081730089E1D7 /* OCSMoogLadder.h */; };
 		C4B5835C164081730089E1D7 /* OCSMoogLadder.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5835A164081730089E1D7 /* OCSMoogLadder.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
@@ -374,6 +374,12 @@
 		C474D19416290A4200878841 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C474D6F4162918D700878841 /* OCSLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLoopingStereoOscillator.h; sourceTree = "<group>"; };
 		C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
+		C475059B1640F20900A82BE5 /* OCSSandPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSandPaper.h; sourceTree = "<group>"; };
+		C475059C1640F20900A82BE5 /* OCSSandPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSandPaper.m; sourceTree = "<group>"; };
+		C47505A01640F3BF00A82BE5 /* OCSSekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSekere.h; sourceTree = "<group>"; };
+		C47505A11640F3BF00A82BE5 /* OCSSekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSekere.m; sourceTree = "<group>"; };
+		C47505A41640F60400A82BE5 /* OCSSleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSleighbells.h; sourceTree = "<group>"; };
+		C47505A51640F60400A82BE5 /* OCSSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSleighbells.m; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
 		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
@@ -689,6 +695,12 @@
 				C4632ADE163EF9A2007DEF70 /* OCSMarimba.m */,
 				C4B5834C1640758B0089E1D7 /* OCSPluckedString.h */,
 				C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */,
+				C475059B1640F20900A82BE5 /* OCSSandPaper.h */,
+				C475059C1640F20900A82BE5 /* OCSSandPaper.m */,
+				C47505A01640F3BF00A82BE5 /* OCSSekere.h */,
+				C47505A11640F3BF00A82BE5 /* OCSSekere.m */,
+				C47505A41640F60400A82BE5 /* OCSSleighbells.h */,
+				C47505A51640F60400A82BE5 /* OCSSleighbells.m */,
 			);
 			path = "Physical Models";
 			sourceTree = "<group>";
@@ -1535,12 +1547,12 @@
 				C4632AE0163EF9A2007DEF70 /* OCSMarimba.m in Sources */,
 				C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */,
 				C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */,
-				C4B5834E1640758B0089E1D7 /* OCSPluckedString.h in Sources */,
 				C4B5834F1640758B0089E1D7 /* OCSPluckedString.m in Sources */,
-				C4B5835716407CEF0089E1D7 /* OCSFlanger.h in Sources */,
 				C4B5835816407CEF0089E1D7 /* OCSFlanger.m in Sources */,
-				C4B5835B164081730089E1D7 /* OCSMoogLadder.h in Sources */,
 				C4B5835C164081730089E1D7 /* OCSMoogLadder.m in Sources */,
+				C475059E1640F20900A82BE5 /* OCSSandPaper.m in Sources */,
+				C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */,
+				C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
