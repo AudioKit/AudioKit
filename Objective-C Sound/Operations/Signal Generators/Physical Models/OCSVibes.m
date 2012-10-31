@@ -1,17 +1,17 @@
 //
-//  OCSMarimba.m
+//  OCSVibes.m
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/31/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  Implementation of Csound's marimba:
-//  http://www.csounds.com/manual/html/marimba.html
+//  Implementation of Csound's vibes:
+//  http://www.csounds.com/manual/html/vibes.html
 //
 
-#import "OCSMarimba.h"
+#import "OCSVibes.h"
 
-@interface OCSMarimba () {
+@interface OCSVibes () {
     OCSControl *kfreq;
     OCSConstant *idec;
     OCSConstant *ihrd;
@@ -21,12 +21,10 @@
     OCSFTable *ifnvib;
     OCSControl *kvibf;
     OCSControl *kvamp;
-    OCSConstant *idoubles;
-    OCSConstant *itriples;
 }
 @end
 
-@implementation OCSMarimba
+@implementation OCSVibes
 
 - (id)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
@@ -49,24 +47,14 @@
         ifnvib = vibratoShapeTable;
         kvibf = vibratoFrequency;
         kvamp = vibratoAmplitude;
-        idoubles = ocsp(40);
-        itriples = ocsp(20);
     }
     return self;
 }
 
-- (void)setOptionalDoubleStrikePercentage:(OCSConstant *)doubleStrikePercentage {
-	idoubles = doubleStrikePercentage;
-}
-
-- (void)setOptionalTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage {
-	itriples = tripleStrikePercentage;
-}
-
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, kfreq, ihrd, ipos, ifnmp, kvibf, kvamp, ifnvib, idec, idoubles, itriples];
+            @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            self, kamp, kfreq, ihrd, ipos, ifnmp, kvibf, kvamp, ifnvib, idec];
 }
 
 @end

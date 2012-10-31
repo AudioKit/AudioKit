@@ -1,5 +1,5 @@
 //
-//  OCSMarimba.h
+//  OCSVibes.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 10/31/12.
@@ -9,14 +9,14 @@
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
-/** Physical model related to the striking of a wooden block.
+/** Physical model related to the striking of a metal block.
  
- Audio output is a tone related to the striking of a wooden block as found in a marimba. The method is a physical model developed from Perry Cook but re-coded for Csound.
+ Audio output is a tone related to the striking of a metal block as found in a vibraphone. The method is a physical model developed from Perry Cook, but re-coded for Csound.
  */
 
-@interface OCSMarimba : OCSAudio
+@interface OCSVibes : OCSAudio
 
-/// Instantiates the marimba
+/// Instantiates the vibes
 /// @param frequency Frequency of note played.
 /// @param maximumDuration Time before end of note when damping is introduced
 /// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value.
@@ -35,15 +35,5 @@
       vibratoShapeTable:(OCSFTable *)vibratoShapeTable
        vibratoFrequency:(OCSControl *)vibratoFrequency
        vibratoAmplitude:(OCSControl *)vibratoAmplitude;
-
-
-/// Set an optional double strike percentage
-/// @param doubleStrikePercentage Percentage of double strikes. Default is 40%.
-- (void)setOptionalDoubleStrikePercentage:(OCSConstant *)doubleStrikePercentage;
-
-/// Set an optional triple strike percentage
-/// @param tripleStrikePercentage Percentage of triple strikes. Default is 20%.
-- (void)setOptionalTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage;
-
 
 @end
