@@ -35,5 +35,8 @@
 /// @param mainResonantFrequency The main resonant frequency. The default value is 2500.
 - (void)setOptionalMainResonantFrequency:(OCSConstant *)mainResonantFrequency;
 
+/// Set an optional first resonant frequency
+/// @param firstResonantFrequency The first resonant frequency. The default value is 4000.
+- (void)setOptionalFirstResonantFrequency:(OCSConstant *)firstResonantFrequency;
 
 @end
