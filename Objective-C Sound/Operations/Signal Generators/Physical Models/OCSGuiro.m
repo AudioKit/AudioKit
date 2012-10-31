@@ -17,6 +17,7 @@
     OCSConstant *inum;
     OCSConstant *imaxshake;
     OCSConstant *ifreq;
+    OCSConstant *ifreq1;
 }
 @end
 
@@ -33,8 +34,7 @@
         inum = ocsp(128);
         imaxshake = ocsp(0);
         ifreq = ocsp(2500);
-        
-        
+        ifreq1 = ocsp(4000);
     }
     return self;
 }
@@ -52,10 +52,14 @@
 	ifreq = mainResonantFrequency;
 }
 
+- (void)setOptionalFirstResonantFrequency:(OCSConstant *)firstResonantFrequency {
+	ifreq = firstResonantFrequency;
+}
+
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ guiro %@, %@, %@, 0, %@, %@",
-            self, kamp, idettack, inum, imaxshake, ifreq];
+            @"%@ guiro %@, %@, %@, 0, %@, %@, %@",
+            self, kamp, idettack, inum, imaxshake, ifreq, ifreq1];
 }
 
 @end
