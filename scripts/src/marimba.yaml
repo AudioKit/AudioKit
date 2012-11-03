@@ -1,0 +1,63 @@
+opcode: marimba
+
+operation: OCSMarimba
+
+operationClass: OCSAudio
+
+summary:  Physical model related to the striking of a wooden block.
+
+description:
+  Audio output is a tone related to the striking of a wooden block as found in a marimba. The method is a physical model developed from Perry Cook but re-coded for Csound.
+
+input_list: kamp, kfreq, ihrd, ipos, ifnmp, kvibf, kvamp, ifnvib, idec, idoubles, itriples
+
+required_inputs:
+- kfreq: {
+	ocsVar: frequency, 
+	comment: "Frequency of note played."
+}
+- idec: {
+	ocsVar: maximumDuration, 
+	comment: "Time before end of note when damping is introduced"
+}
+- ihrd: {
+	ocsVar: stickHardness, 
+	comment: "The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value."
+}
+- ifnmp: {
+	ocsVar: strikeImpulseTable, 
+	comment: "Table of the strike impulses. The file marmstk1.wav is a suitable function from measurements and can be loaded with a GEN01 table. It is also available at ftp://ftp.cs.bath.ac.uk/pub/dream/documentation/sounds/modelling/."
+}
+- ipos: {
+	ocsVar: strikePosition, 
+	comment: "Where the block is hit, in the range 0 to 1."
+}
+- kamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of note."
+}
+- ifnvib: {
+	ocsVar: vibratoShapeTable, 
+	comment: "Shape of vibrato, usually a sine table, created by a function"
+}
+- kvibf: {
+	ocsVar: vibratoFrequency, 
+	comment: "Frequency of vibrato in Hertz. Suggested range is 0 to 12"
+}
+- kvamp: {
+	ocsVar: vibratoAmplitude, 
+	comment: "Amplitude of the vibrato"
+}
+
+optional_inputs:
+- idoubles: {
+	ocsVar: doubleStrikePercentage,
+	comment: "Percentage of double strikes. Default is 40%.",
+	default: 40
+}
+- itriples: {
+	ocsVar: tripleStrikePercentage,
+	comment: "Percentage of triple strikes. Default is 20%.",
+	default: 20
+}
+

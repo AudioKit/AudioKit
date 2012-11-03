@@ -1,0 +1,1 @@
+ares cabasa iamp, idettack [, inum] [, idamp] [, imaxshake]

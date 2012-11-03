@@ -1,0 +1,2 @@
+ares marimba kamp, kfreq, ihrd, ipos, imp, kvibf, kvamp, ivibfn, idec \
+      [, idoubles] [, itriples]

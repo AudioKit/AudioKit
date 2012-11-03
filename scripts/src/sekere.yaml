@@ -1,0 +1,41 @@
+opcode: sekere
+
+operation: OCSSekere
+
+operationClass: OCSAudio
+
+summary: Semi-physical model of a sekere sound.
+
+description:
+  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
+
+input_list: iamp, idettack, inum, idamp, imaxshake
+
+required_inputs:
+
+- idettack: {
+	ocsVar: maximumDuration, 
+	comment: "Period of time over which all sound is stopped."
+}
+
+- iamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of output. Note: As these instruments are stochastic, this is only a approximation."
+}
+
+optional_inputs:
+- inum: {
+	ocsVar: count, 
+	comment: "The number of beads, teeth, bells, timbrels, etc. If zero, the default value is 64.",
+	default: 64
+}
+- idamp: {
+	ocsVar: dampingFactor, 
+	comment: "The damping factor as part of this equation damping = 0.998 + (dampingFactor * 0.002). The default damping is 0.999 which means that the default value of dampingFactor is 0.5. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0.",
+	default: 0.5
+}
+- imaxshake: {
+	ocsVar: energyReturn, 
+	comment: "Amount of energy to add back into the system. The value should be in range 0 to 1.",
+	default: 0
+}

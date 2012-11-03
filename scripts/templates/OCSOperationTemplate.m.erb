@@ -1,0 +1,76 @@
+//
+//  <%= operation %>.m
+//  Objective-C Sound
+//
+//  Created by Aurelius Prochazka on <%= Time.now.strftime('%-m/%-d/%y') %>.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's <%= opcode %>:
+//  http://www.csounds.com/manual/html/<%= opcode %>.html
+//
+
+#import "<%= operation %>.h"
+
+@interface <%= operation %> () {
+<% (required_inputs+optional_inputs.to_a).each do |input| -%>
+<% input.each do  |csd_var, data| -%>
+<% type = detectType(csd_var); -%>
+    <%= type %> *<%= csd_var %>;
+<% end -%>
+<% end -%>
+}
+@end
+
+@implementation <%= operation.camelize %> 
+
+<% indent_length = 0 -%>
+<% required_inputs.each_with_index do |required_input, i| -%>
+<% required_input.each do  |csd_var, data| -%>
+<% ocs_var =  data["ocsVar"] -%>
+<% type = detectType(csd_var) -%>
+<% if i == 0 then -%>
+<% indent_length = "- (id).initWith#{ocs_var}".length - 1 -%>
+- (id)initWith<%= ocs_var.camelize %>:(<%= type %> *)<%= ocs_var -%>
+<% else -%>
+<%= " "*(indent_length-ocs_var.length) %><%= ocs_var %>:(<%= type %> *)<%= ocs_var -%>
+<% end %>
+<% end -%>
+<% end -%>
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+    <% required_inputs.each do |required_input| -%>
+    <% required_input.each do  |csd_var, data| -%>    <%= csd_var %> = <%= data["ocsVar"] -%>;    
+    <% end -%>
+    <% end -%>
+    <% if !optional_inputs.nil? -%>
+    <% optional_inputs.each do |optional_input| -%>
+    <% optional_input.each do  |csd_var, data| -%>    <%= csd_var %> = ocsp(<%= data["default"] -%>);<% end -%> 
+    <% end -%>
+    <% end -%>
+    }
+    return self; 
+}
+<% if !optional_inputs.nil? -%>
+<% optional_inputs.each do |optional_input| %>
+<% optional_input.each do  |csd_var, data| -%>
+<% type = detectType(csd_var); -%>
+- (void)setOptional<%= data["ocsVar"].camelize %>:(<%= type %> *)<%= data["ocsVar"] %> {
+	<%= csd_var %> = <%= data["ocsVar"] %>;
+}
+<% end -%>
+<% end -%>
+<% end -%>
+<%
+var_count = (required_inputs + optional_inputs.to_a).length
+if var_count > 0 
+	input_string = "%@" + ", %@" * (var_count - 1)
+end
+%>
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat: 
+            @"%@ <%= opcode %> <%= input_string %>", 
+            self, <%= input_list %>];
+}
+
+@end

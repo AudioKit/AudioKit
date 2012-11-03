@@ -1,0 +1,111 @@
+opcode: granule
+
+operation: OCSGranule
+
+operationClass: OCSStereoAudioOrAudioOrControlOrConstant
+
+summary:  One line title / summary for the operation.
+
+description:
+  More detailed description from http://www.csounds.com/manual/html/
+
+input_list: xamp, ivoice, iratio, imode, ithd, ifn, ipshift, igskip, igskip_os, ilength, kgap, igap_os, kgsize, igsize_os, iatt, idec, iseed, ipitch1, ipitch2, ipitch3, ipitch4, ifnenv
+
+required_inputs:
+
+- iatt: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- idec: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- ifn: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- igap_os: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- igsize_os: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- igskip: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- igskip_os: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- ilength: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- imode: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- ipshift: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- iratio: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- ithd: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- ivoice: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- kgap: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- kgsize: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+- xamp: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+
+optional_inputs:
+- iseed: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}
+- ipitch1: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}
+- ipitch2: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}
+- ipitch3: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}
+- ipitch4: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}
+- ifnenv: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}

@@ -1,0 +1,20 @@
+opcode: foscili
+operation: OCSFMOscillator
+operationClass: OCSAudio
+summary:  Basic frequency modulated oscillator with linear interpolation.
+description:
+  Interpolating generators will produce a noticeably cleaner output signal, but
+  they may take as much as twice as long to run. Adequate accuracy can also be
+  gained without the time cost of interpolation by using large stored function
+  tables of 2K, 4K or 8K points if the space is available.  
+input_list: xamp, kcps, xcar, xmod, kndx, ifn, iphs
+required_inputs:
+- [ifn, fTable, Function table to use.  Requires a wrap-around guard point.]
+- [kcps, baseFrequency, In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.]
+- [xcar, carrierMultiplier, This multiplied by the baseFrequency gives the carrier frequency.]
+- [xmod, modulatingMultiplier, This multiplied by the baseFrequency gives the modulating frequency.]
+- [kndx, modulationIndex, This multiplied by the modulating frequency gives the modulation amplitude.]
+- [xamp, amplitude, The amplitude of the output signal]
+
+optional_inputs:
+- [iphs, phase, Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1).]

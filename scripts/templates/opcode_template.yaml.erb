@@ -1,0 +1,27 @@
+opcode: <%= opcode %>
+
+operation: OCS<%= opcode.camelize %>
+
+operationClass: OCSStereoAudioOrAudioOrControlOrConstant
+
+summary:  One line title / summary for the operation.
+
+description:
+  More detailed description from http://www.csounds.com/manual/html/
+
+input_list: <%= (inputs + optionals).join(", ") %>
+
+required_inputs:
+
+<% inputs.sort.each do |input| %>- <%= input %>: {
+	ocsVar: ocsVar, 
+	comment: "comment"
+}
+<% end %>
+optional_inputs:
+<% optionals.each do |opt| %>- <%= opt %>: {
+	ocsVar: ocsVar, 
+	comment: "comment",
+	default: 0
+}
+<% end %>
