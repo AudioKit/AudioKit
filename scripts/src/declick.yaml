@@ -1,0 +1,19 @@
+opcode: declick
+
+operation: OCSDeclick
+
+operationClass: OCSAudio
+
+summary:  Removes clicks from signal start and end
+
+description:
+ Given a signal, declick will apply an envelope to ensure there is no clicking at the start or end of the sound.
+
+input_list: ain
+
+required_inputs:
+
+- ain: {
+	ocsVar: sourceAudio, 
+	comment: "Audio to declick"
+}

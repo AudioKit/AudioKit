@@ -9,8 +9,8 @@ build/
 project.xcworkspace/
 xcuserdata/
 
-# Aure helpers
-scripts
+# Place to put output file from scripts once you're done with them 
+scripts/junk
 
 # old skool
 .svn

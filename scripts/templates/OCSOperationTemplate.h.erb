@@ -1,0 +1,50 @@
+//
+//  <%= operation %>.h
+//  Objective-C Sound
+//
+//  Created by Aurelius Prochazka on <%= Time.now.strftime('%-m/%-d/%y') %>.
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+
+#import "<%= operationClass %>.h"
+#import "OCSParameter+Operation.h"
+
+/** <%= summary %>
+ 
+ <%= description %>
+ */
+
+@interface <%= operation %> : <%= operationClass %>
+
+/// Instantiates the <%= operation[3..-1].titleize.downcase %>
+<% required_inputs.each do |required_input| -%>
+<% required_input.each do  |csd_var, data| -%>
+<% ocs_var =  data["ocsVar"] -%>
+/// @param <%= data["ocsVar"] %> <%= data["comment"] %>
+<% end -%>
+<% end -%>
+<% indent_length = 0 -%>
+<% required_inputs.each_with_index do |required_input, i| -%>
+<% required_input.each do  |csd_var, data| -%>
+<% ocs_var =  data["ocsVar"] -%>
+<% type = detectType(csd_var) -%>
+<% if i == 0 then -%>
+<% indent_length = "- (id).initWith#{ocs_var}".length - 1 -%>
+- (id)initWith<%= ocs_var.camelize %>:(<%= type %> *)<%= ocs_var %>
+<% else -%>
+<%= " "*(indent_length-ocs_var.length) %><%= ocs_var %>:(<%= type %> *)<%= ocs_var -%>
+<%= ";" if i == required_inputs.length-1 %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% if !optional_inputs.nil? %>
+<% optional_inputs.each do |optional_input| %>
+<% optional_input.each do  |csd_var, data| -%>
+<% type = detectType(csd_var) -%>
+/// Set an optional <%= data["ocsVar"].titleize.downcase %>
+/// @param <%= data["ocsVar"] %> <%= data["comment"] %>
+- (void)setOptional<%= data["ocsVar"].camelize %>:(<%= type %> *)<%= data["ocsVar"] %>;
+<% end -%>
+<% end %>
+<% end %>
+@end
