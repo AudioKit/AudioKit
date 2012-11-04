@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# TODO: Guess OCS Variable names from the Csound counterparts xcps, xfreq => frequency xamp => amplitude, ifn =>fTable, etc. 
+# TODO: Guess OCSParameter type (Audio, Control, etc.) from first letter of the output
+
 require 'active_support/all'
 require 'erb' 
 

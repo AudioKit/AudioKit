@@ -27,6 +27,8 @@
 		C40B5B081646510200BD9E09 /* OCSTambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B061646510200BD9E09 /* OCSTambourine.m */; };
 		C40B5B0B1646549600BD9E09 /* OCSStick.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B091646549600BD9E09 /* OCSStick.h */; };
 		C40B5B0C1646549600BD9E09 /* OCSStick.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B0A1646549600BD9E09 /* OCSStick.m */; };
+		C40B5B0F16465B6E00BD9E09 /* OCSBowedString.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B0D16465B6D00BD9E09 /* OCSBowedString.h */; };
+		C40B5B1016465B6E00BD9E09 /* OCSBowedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B0E16465B6D00BD9E09 /* OCSBowedString.m */; };
 		C42B245815F484D0006032F9 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B241D15F484D0006032F9 /* TweakableInstrument.m */; };
 		C42B245915F484D0006032F9 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B241F15F484D0006032F9 /* 808loop.wav */; };
 		C42B245B15F484D0006032F9 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242115F484D0006032F9 /* ConvolutionInstrument.m */; };
@@ -207,6 +209,8 @@
 		C40B5B061646510200BD9E09 /* OCSTambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTambourine.m; sourceTree = "<group>"; };
 		C40B5B091646549600BD9E09 /* OCSStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSStick.h; sourceTree = "<group>"; };
 		C40B5B0A1646549600BD9E09 /* OCSStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStick.m; sourceTree = "<group>"; };
+		C40B5B0D16465B6D00BD9E09 /* OCSBowedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = OCSBowedString.h; path = Waveguide/OCSBowedString.h; sourceTree = "<group>"; };
+		C40B5B0E16465B6D00BD9E09 /* OCSBowedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSBowedString.m; path = Waveguide/OCSBowedString.m; sourceTree = "<group>"; };
 		C42B241C15F484D0006032F9 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
 		C42B241D15F484D0006032F9 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
 		C42B241F15F484D0006032F9 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
@@ -557,6 +561,15 @@
 			path = PhISEM;
 			sourceTree = "<group>";
 		};
+		C40B5B1116465C7C00BD9E09 /* Waveguide */ = {
+			isa = PBXGroup;
+			children = (
+				C40B5B0D16465B6D00BD9E09 /* OCSBowedString.h */,
+				C40B5B0E16465B6D00BD9E09 /* OCSBowedString.m */,
+			);
+			name = Waveguide;
+			sourceTree = "<group>";
+		};
 		C42B240A15F484D0006032F9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -731,7 +744,6 @@
 		C4632AB8163E4A35007DEF70 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
-				C40B5AE416464F2600BD9E09 /* PhISEM */,
 				C4632AC5163E4A35007DEF70 /* OCSStruckMetalBar.h */,
 				C4632AC6163E4A35007DEF70 /* OCSStruckMetalBar.m */,
 				C4632ADD163EF9A2007DEF70 /* OCSMarimba.h */,
@@ -740,6 +752,8 @@
 				C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */,
 				C47505BC1641AFEB00A82BE5 /* OCSVibes.h */,
 				C47505BD1641AFEB00A82BE5 /* OCSVibes.m */,
+				C40B5AE416464F2600BD9E09 /* PhISEM */,
+				C40B5B1116465C7C00BD9E09 /* Waveguide */,
 			);
 			path = "Physical Models";
 			sourceTree = "<group>";
@@ -1619,6 +1633,8 @@
 				C40B5B081646510200BD9E09 /* OCSTambourine.m in Sources */,
 				C40B5B0B1646549600BD9E09 /* OCSStick.h in Sources */,
 				C40B5B0C1646549600BD9E09 /* OCSStick.m in Sources */,
+				C40B5B0F16465B6E00BD9E09 /* OCSBowedString.h in Sources */,
+				C40B5B1016465B6E00BD9E09 /* OCSBowedString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

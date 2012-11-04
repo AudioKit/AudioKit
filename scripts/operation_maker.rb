@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# TODO: Get the indentation perfect
+# TODO: Output Explorable Explanations Operation Examples and HTML
+# TODO: Handle special cases like unused variables in CSound signature
+
 require 'erb'
 require 'yaml' 
 require 'pp'
