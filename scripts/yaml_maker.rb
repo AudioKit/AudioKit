@@ -1,16 +1,28 @@
 #!/usr/bin/env ruby
 
-# TODO: Guess OCS Variable names from the Csound counterparts xcps, xfreq => frequency xamp => amplitude, ifn =>fTable, etc. 
-# TODO: Guess OCSParameter type (Audio, Control, etc.) from first letter of the output
+# TODO: Do not overwrite an existing file.
 
 require 'active_support/all'
 require 'erb' 
+
+def ocsVarBestGuess(input)
+	ocsVar = "ocsVar"
+	ocsVar = "amplitude"       if input[1..3] == "amp" 
+	ocsVar = "cutoffFrequency" if input[1..3] == "fco"
+	ocsVar = "distortion"      if input[1..4] == "dist"
+	ocsVar = "frequency"       if input[1..3] == "cps" || input[1..4] == "freq" 
+	ocsVar = "fTable"          if input[0..2] == "ifn" 
+	ocsVar = "phase"           if input[1..3] == "phs" 
+	ocsVar = "resonance"       if input[1..3] == "res"
+	ocsVar = "sourceSignal"    if input[1..3] == "sig"
+	return ocsVar
+end
 
 opcode_file = ARGV[0]
 file = File.open("#{opcode_file}")
 
 opcode_file_stub = opcode_file.sub(/.txt/) { "" }
-opcode = /([A-z]+)/.match(opcode_file_stub).to_s
+opcode = /([A-z0-9]+)/.match(opcode_file_stub).to_s
 
 contents = ""
 file.each do |line|
@@ -24,6 +36,22 @@ contents.gsub!(/[ \n\\]/, "")
 # load everything before the opcode name as outputs
 outputs =  /(.+)#{opcode}/.match(contents)[1].split(",")
 
+outputType = "OCSStereoAudioOrAudioOrControlOrConstant"
+if outputs[0][0] == "i"
+	outputType =  "OCSConstant"
+end
+
+if outputs[0][0] == "k"
+	outputType =  "OCSControl"
+end
+
+if outputs[0][0] == "a"
+	outputType = "OCSAudio"
+	if outputs.count == 2
+		outputType = "OCSStereoAudio"
+	end
+end
+
 # load all the inputs before the first bracket, indicating optionals
 inputs =  /#{opcode}([^\[]+)/.match(contents)[1].split(",")
 
@@ -31,7 +59,7 @@ inputs =  /#{opcode}([^\[]+)/.match(contents)[1].split(",")
 optionals = /#{opcode}[^\[]+[^,]+,(.+)/.match(contents)[1].gsub(/[\[\]\ ]/, "").split(",")
 
 File.open( "templates/opcode_template.yaml.erb" ) { |template|
-	erb = ERB.new( template.read )
+	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{opcode_file_stub}.yaml", 'w') {|f| f.write(erb.result) }
 	puts erb.result
 }

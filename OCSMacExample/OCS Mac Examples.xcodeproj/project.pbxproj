@@ -87,8 +87,6 @@
 		C474D3BF16290AAF00878841 /* OCSOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D34416290AAF00878841 /* OCSOscillator.m */; };
 		C474D3C016290AAF00878841 /* OCSPhasingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D34716290AAF00878841 /* OCSPhasingControl.m */; };
 		C474D3C116290AAF00878841 /* OCSPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D34916290AAF00878841 /* OCSPhasor.m */; };
-		C474D3C216290AAF00878841 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D34B16290AAF00878841 /* OCSPluckDrum.m */; };
-		C474D3C316290AAF00878841 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D34D16290AAF00878841 /* OCSPluckString.m */; };
 		C474D3C416290AAF00878841 /* OCSRandomAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D35016290AAF00878841 /* OCSRandomAudio.m */; };
 		C474D3C516290AAF00878841 /* OCSRandomControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D35216290AAF00878841 /* OCSRandomControl.m */; };
 		C474D3C616290AAF00878841 /* OCSAudioSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D35516290AAF00878841 /* OCSAudioSegmentArray.m */; };
@@ -280,10 +278,6 @@
 		C474D34716290AAF00878841 /* OCSPhasingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhasingControl.m; sourceTree = "<group>"; };
 		C474D34816290AAF00878841 /* OCSPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPhasor.h; sourceTree = "<group>"; };
 		C474D34916290AAF00878841 /* OCSPhasor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhasor.m; sourceTree = "<group>"; };
-		C474D34A16290AAF00878841 /* OCSPluckDrum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckDrum.h; sourceTree = "<group>"; };
-		C474D34B16290AAF00878841 /* OCSPluckDrum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckDrum.m; sourceTree = "<group>"; };
-		C474D34C16290AAF00878841 /* OCSPluckString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckString.h; sourceTree = "<group>"; };
-		C474D34D16290AAF00878841 /* OCSPluckString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckString.m; sourceTree = "<group>"; };
 		C474D34F16290AAF00878841 /* OCSRandomAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomAudio.h; sourceTree = "<group>"; };
 		C474D35016290AAF00878841 /* OCSRandomAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomAudio.m; sourceTree = "<group>"; };
 		C474D35116290AAF00878841 /* OCSRandomControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomControl.h; sourceTree = "<group>"; };
@@ -815,10 +809,6 @@
 				C474D33B16290AAF00878841 /* OCSLinearEnvelope */,
 				C474D34016290AAF00878841 /* OCSOscillator */,
 				C474D34516290AAF00878841 /* OCSPhasor */,
-				C474D34A16290AAF00878841 /* OCSPluckDrum.h */,
-				C474D34B16290AAF00878841 /* OCSPluckDrum.m */,
-				C474D34C16290AAF00878841 /* OCSPluckString.h */,
-				C474D34D16290AAF00878841 /* OCSPluckString.m */,
 				C474D34E16290AAF00878841 /* OCSRandom */,
 				C474D35316290AAF00878841 /* OCSSegmentArray */,
 				C474D35816290AAF00878841 /* OCSSinusoidBursts.h */,
@@ -1135,8 +1125,6 @@
 				C474D3BF16290AAF00878841 /* OCSOscillator.m in Sources */,
 				C474D3C016290AAF00878841 /* OCSPhasingControl.m in Sources */,
 				C474D3C116290AAF00878841 /* OCSPhasor.m in Sources */,
-				C474D3C216290AAF00878841 /* OCSPluckDrum.m in Sources */,
-				C474D3C316290AAF00878841 /* OCSPluckString.m in Sources */,
 				C474D3C416290AAF00878841 /* OCSRandomAudio.m in Sources */,
 				C474D3C516290AAF00878841 /* OCSRandomControl.m in Sources */,
 				C474D3C616290AAF00878841 /* OCSAudioSegmentArray.m in Sources */,

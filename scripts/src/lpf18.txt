@@ -1,0 +1,1 @@
+ares lpf18 asig, kfco, kres, kdist [, iskip]

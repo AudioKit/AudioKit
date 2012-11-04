@@ -2,7 +2,7 @@ opcode: <%= opcode %>
 
 operation: OCS<%= opcode.camelize %>
 
-operationClass: OCSStereoAudioOrAudioOrControlOrConstant
+operationClass: <%= outputType %>
 
 summary:  One line title / summary for the operation.
 
@@ -14,13 +14,13 @@ input_list: <%= (inputs + optionals).join(", ") %>
 required_inputs:
 
 <% inputs.sort.each do |input| %>- <%= input %>: {
-	ocsVar: ocsVar, 
+	ocsVar: <%= ocsVarBestGuess(input) %>, 
 	comment: "comment"
 }
 <% end %>
 optional_inputs:
 <% optionals.each do |opt| %>- <%= opt %>: {
-	ocsVar: ocsVar, 
+	ocsVar: <%= ocsVarBestGuess(opt) %>, 
 	comment: "comment",
 	default: 0
 }
