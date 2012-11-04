@@ -13,7 +13,7 @@
  */
 
 #define ocsp(__f__)  [OCSConstant parameterWithFloat:__f__]
-#define ocspi(__i__) [OCSConstant parameterWithFloat:__i__]
+#define ocspi(__i__) [OCSConstant parameterWithInt:__i__]
 #define ocsps(__s__) [OCSConstant parameterWithString:__s__]
 #define ocspfn(__fn__) [OCSConstant parameterWithFilename:__fn__]
 
