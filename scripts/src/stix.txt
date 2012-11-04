@@ -1,0 +1,1 @@
+ares stix iamp, idettack [, inum] [, idamp] [, imaxshake]
