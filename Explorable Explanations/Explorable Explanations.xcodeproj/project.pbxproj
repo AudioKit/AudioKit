@@ -304,10 +304,6 @@
 		C474D24616290A5200878841 /* OCSPhasingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhasingControl.m; sourceTree = "<group>"; };
 		C474D24716290A5200878841 /* OCSPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPhasor.h; sourceTree = "<group>"; };
 		C474D24816290A5200878841 /* OCSPhasor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhasor.m; sourceTree = "<group>"; };
-		C474D24916290A5200878841 /* OCSPluckDrum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckDrum.h; sourceTree = "<group>"; };
-		C474D24A16290A5200878841 /* OCSPluckDrum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckDrum.m; sourceTree = "<group>"; };
-		C474D24B16290A5200878841 /* OCSPluckString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPluckString.h; sourceTree = "<group>"; };
-		C474D24C16290A5200878841 /* OCSPluckString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPluckString.m; sourceTree = "<group>"; };
 		C474D24E16290A5200878841 /* OCSRandomAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomAudio.h; sourceTree = "<group>"; };
 		C474D24F16290A5200878841 /* OCSRandomAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSRandomAudio.m; sourceTree = "<group>"; };
 		C474D25016290A5200878841 /* OCSRandomControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSRandomControl.h; sourceTree = "<group>"; };
@@ -866,10 +862,6 @@
 				C474D23A16290A5200878841 /* OCSLinearEnvelope */,
 				C474D23F16290A5200878841 /* OCSOscillator */,
 				C474D24416290A5200878841 /* OCSPhasor */,
-				C474D24916290A5200878841 /* OCSPluckDrum.h */,
-				C474D24A16290A5200878841 /* OCSPluckDrum.m */,
-				C474D24B16290A5200878841 /* OCSPluckString.h */,
-				C474D24C16290A5200878841 /* OCSPluckString.m */,
 				C474D24D16290A5200878841 /* OCSRandom */,
 				C474D25216290A5200878841 /* OCSSegmentArray */,
 				C474D25716290A5200878841 /* OCSSinusoidBursts.h */,
