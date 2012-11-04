@@ -24,9 +24,9 @@ def detectType(csd_var)
 end
 
 
-opcode = ARGV[0]
+opcode_yaml = ARGV[0]
 
-o = YAML::load(File.open("#{opcode}.yaml"))
+o = YAML::load(File.open("#{opcode_yaml}"))
 
 opcode = o["opcode"]
 operation = o["operation"]

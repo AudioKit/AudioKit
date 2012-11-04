@@ -2,7 +2,7 @@
 //  OCSVibes.h
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/31/12.
+//  Auto-generated from database on 11/3/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
@@ -23,17 +23,17 @@
 /// @param strikeImpulseTable Table of the strike impulses. The file marmstk1.wav is a suitable function from measurements and can be loaded with a GEN01 table. It is also available at ftp://ftp.cs.bath.ac.uk/pub/dream/documentation/sounds/modelling/.
 /// @param strikePosition Where the block is hit, in the range 0 to 1.
 /// @param amplitude Amplitude of note.
-/// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function
-/// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12
-/// @param vibratoAmplitude Amplitude of the vibrato
+/// @param tremoloShapeTable Shape of tremolo, usually a sine table, created by a function
+/// @param tremoloFrequency Frequency of tremolo in Hertz. Suggested range is 0 to 12
+/// @param tremoloAmplitude Amplitude of the tremolo
 - (id)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
           stickHardness:(OCSConstant *)stickHardness
      strikeImpulseTable:(OCSFTable *)strikeImpulseTable
          strikePosition:(OCSConstant *)strikePosition
               amplitude:(OCSControl *)amplitude
-      vibratoShapeTable:(OCSFTable *)vibratoShapeTable
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude;
+      tremoloShapeTable:(OCSFTable *)tremoloShapeTable
+       tremoloFrequency:(OCSControl *)tremoloFrequency
+       tremoloAmplitude:(OCSControl *)tremoloAmplitude;
 
 @end

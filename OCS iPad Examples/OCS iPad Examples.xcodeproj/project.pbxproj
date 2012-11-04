@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40B5AF516464F2600BD9E09 /* OCSBamboo.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AE516464F2600BD9E09 /* OCSBamboo.h */; };
+		C40B5AF616464F2600BD9E09 /* OCSBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AE616464F2600BD9E09 /* OCSBamboo.m */; };
+		C40B5AF716464F2600BD9E09 /* OCSCabasa.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AE716464F2600BD9E09 /* OCSCabasa.h */; };
+		C40B5AF816464F2600BD9E09 /* OCSCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AE816464F2600BD9E09 /* OCSCabasa.m */; };
+		C40B5AF916464F2600BD9E09 /* OCSCrunch.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AE916464F2600BD9E09 /* OCSCrunch.h */; };
+		C40B5AFA16464F2600BD9E09 /* OCSCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AEA16464F2600BD9E09 /* OCSCrunch.m */; };
+		C40B5AFB16464F2600BD9E09 /* OCSDroplet.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AEB16464F2600BD9E09 /* OCSDroplet.h */; };
+		C40B5AFC16464F2600BD9E09 /* OCSDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AEC16464F2600BD9E09 /* OCSDroplet.m */; };
+		C40B5AFD16464F2600BD9E09 /* OCSGuiro.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AED16464F2600BD9E09 /* OCSGuiro.h */; };
+		C40B5AFE16464F2600BD9E09 /* OCSGuiro.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AEE16464F2600BD9E09 /* OCSGuiro.m */; };
+		C40B5AFF16464F2600BD9E09 /* OCSSandPaper.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AEF16464F2600BD9E09 /* OCSSandPaper.h */; };
+		C40B5B0016464F2600BD9E09 /* OCSSandPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AF016464F2600BD9E09 /* OCSSandPaper.m */; };
+		C40B5B0116464F2600BD9E09 /* OCSSekere.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AF116464F2600BD9E09 /* OCSSekere.h */; };
+		C40B5B0216464F2600BD9E09 /* OCSSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AF216464F2600BD9E09 /* OCSSekere.m */; };
+		C40B5B0316464F2600BD9E09 /* OCSSleighbells.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AF316464F2600BD9E09 /* OCSSleighbells.h */; };
+		C40B5B0416464F2600BD9E09 /* OCSSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5AF416464F2600BD9E09 /* OCSSleighbells.m */; };
+		C40B5B071646510200BD9E09 /* OCSTambourine.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B051646510100BD9E09 /* OCSTambourine.h */; };
+		C40B5B081646510200BD9E09 /* OCSTambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B061646510200BD9E09 /* OCSTambourine.m */; };
+		C40B5B0B1646549600BD9E09 /* OCSStick.h in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B091646549600BD9E09 /* OCSStick.h */; };
+		C40B5B0C1646549600BD9E09 /* OCSStick.m in Sources */ = {isa = PBXBuildFile; fileRef = C40B5B0A1646549600BD9E09 /* OCSStick.m */; };
 		C42B245815F484D0006032F9 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B241D15F484D0006032F9 /* TweakableInstrument.m */; };
 		C42B245915F484D0006032F9 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B241F15F484D0006032F9 /* 808loop.wav */; };
 		C42B245B15F484D0006032F9 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242115F484D0006032F9 /* ConvolutionInstrument.m */; };
@@ -28,12 +48,7 @@
 		C4460F30163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
-		C4632AC8163E4A35007DEF70 /* OCSBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABA163E4A35007DEF70 /* OCSBamboo.m */; };
-		C4632ACA163E4A35007DEF70 /* OCSCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABC163E4A35007DEF70 /* OCSCabasa.m */; };
-		C4632ACC163E4A35007DEF70 /* OCSCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ABE163E4A35007DEF70 /* OCSCrunch.m */; };
-		C4632ACE163E4A35007DEF70 /* OCSDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC0163E4A35007DEF70 /* OCSDroplet.m */; };
 		C4632AD4163E4A35007DEF70 /* OCSStruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AC6163E4A35007DEF70 /* OCSStruckMetalBar.m */; };
-		C4632AD8163E4B49007DEF70 /* OCSGuiro.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632AD6163E4B49007DEF70 /* OCSGuiro.m */; };
 		C4632AE0163EF9A2007DEF70 /* OCSMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C4632ADE163EF9A2007DEF70 /* OCSMarimba.m */; };
 		C474D19516290A4200878841 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E716290A4200878841 /* OCSEvent.m */; };
 		C474D19616290A4200878841 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D0E916290A4200878841 /* OCSInstrument.m */; };
@@ -113,13 +128,8 @@
 		C474D1E216290A4200878841 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19216290A4200878841 /* OCSInstrumentProperty.m */; };
 		C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D19416290A4200878841 /* OCSNoteProperty.m */; };
 		C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */; };
-		C475059E1640F20900A82BE5 /* OCSSandPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C475059C1640F20900A82BE5 /* OCSSandPaper.m */; };
-		C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A11640F3BF00A82BE5 /* OCSSekere.m */; };
-		C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505A51640F60400A82BE5 /* OCSSleighbells.m */; };
 		C47505BF1641AFEB00A82BE5 /* OCSVibes.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505BD1641AFEB00A82BE5 /* OCSVibes.m */; };
-		C47505D81641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h in Sources */ = {isa = PBXBuildFile; fileRef = C47505D41641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h */; };
 		C47505D91641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505D51641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m */; };
-		C47505DA1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h in Sources */ = {isa = PBXBuildFile; fileRef = C47505D61641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h */; };
 		C47505DB1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C47505D71641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
@@ -177,6 +187,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C40B5AE516464F2600BD9E09 /* OCSBamboo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBamboo.h; sourceTree = "<group>"; };
+		C40B5AE616464F2600BD9E09 /* OCSBamboo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBamboo.m; sourceTree = "<group>"; };
+		C40B5AE716464F2600BD9E09 /* OCSCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCabasa.h; sourceTree = "<group>"; };
+		C40B5AE816464F2600BD9E09 /* OCSCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCabasa.m; sourceTree = "<group>"; };
+		C40B5AE916464F2600BD9E09 /* OCSCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCrunch.h; sourceTree = "<group>"; };
+		C40B5AEA16464F2600BD9E09 /* OCSCrunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCrunch.m; sourceTree = "<group>"; };
+		C40B5AEB16464F2600BD9E09 /* OCSDroplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSDroplet.h; sourceTree = "<group>"; };
+		C40B5AEC16464F2600BD9E09 /* OCSDroplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDroplet.m; sourceTree = "<group>"; };
+		C40B5AED16464F2600BD9E09 /* OCSGuiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSGuiro.h; sourceTree = "<group>"; };
+		C40B5AEE16464F2600BD9E09 /* OCSGuiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSGuiro.m; sourceTree = "<group>"; };
+		C40B5AEF16464F2600BD9E09 /* OCSSandPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSandPaper.h; sourceTree = "<group>"; };
+		C40B5AF016464F2600BD9E09 /* OCSSandPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSandPaper.m; sourceTree = "<group>"; };
+		C40B5AF116464F2600BD9E09 /* OCSSekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSekere.h; sourceTree = "<group>"; };
+		C40B5AF216464F2600BD9E09 /* OCSSekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSekere.m; sourceTree = "<group>"; };
+		C40B5AF316464F2600BD9E09 /* OCSSleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSleighbells.h; sourceTree = "<group>"; };
+		C40B5AF416464F2600BD9E09 /* OCSSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSleighbells.m; sourceTree = "<group>"; };
+		C40B5B051646510100BD9E09 /* OCSTambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSTambourine.h; sourceTree = "<group>"; };
+		C40B5B061646510200BD9E09 /* OCSTambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTambourine.m; sourceTree = "<group>"; };
+		C40B5B091646549600BD9E09 /* OCSStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSStick.h; sourceTree = "<group>"; };
+		C40B5B0A1646549600BD9E09 /* OCSStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStick.m; sourceTree = "<group>"; };
 		C42B241C15F484D0006032F9 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
 		C42B241D15F484D0006032F9 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
 		C42B241F15F484D0006032F9 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
@@ -213,18 +243,8 @@
 		C4460F2E163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
-		C4632AB9163E4A35007DEF70 /* OCSBamboo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBamboo.h; sourceTree = "<group>"; };
-		C4632ABA163E4A35007DEF70 /* OCSBamboo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBamboo.m; sourceTree = "<group>"; };
-		C4632ABB163E4A35007DEF70 /* OCSCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCabasa.h; sourceTree = "<group>"; };
-		C4632ABC163E4A35007DEF70 /* OCSCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCabasa.m; sourceTree = "<group>"; };
-		C4632ABD163E4A35007DEF70 /* OCSCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSCrunch.h; sourceTree = "<group>"; };
-		C4632ABE163E4A35007DEF70 /* OCSCrunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCrunch.m; sourceTree = "<group>"; };
-		C4632ABF163E4A35007DEF70 /* OCSDroplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSDroplet.h; sourceTree = "<group>"; };
-		C4632AC0163E4A35007DEF70 /* OCSDroplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDroplet.m; sourceTree = "<group>"; };
 		C4632AC5163E4A35007DEF70 /* OCSStruckMetalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSStruckMetalBar.h; sourceTree = "<group>"; };
 		C4632AC6163E4A35007DEF70 /* OCSStruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStruckMetalBar.m; sourceTree = "<group>"; };
-		C4632AD5163E4B49007DEF70 /* OCSGuiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSGuiro.h; sourceTree = "<group>"; };
-		C4632AD6163E4B49007DEF70 /* OCSGuiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSGuiro.m; sourceTree = "<group>"; };
 		C4632ADD163EF9A2007DEF70 /* OCSMarimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSMarimba.h; sourceTree = "<group>"; };
 		C4632ADE163EF9A2007DEF70 /* OCSMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMarimba.m; sourceTree = "<group>"; };
 		C474D0E616290A4200878841 /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEvent.h; sourceTree = "<group>"; };
@@ -379,12 +399,6 @@
 		C474D19416290A4200878841 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C474D6F4162918D700878841 /* OCSLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLoopingStereoOscillator.h; sourceTree = "<group>"; };
 		C474D6F5162918D800878841 /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
-		C475059B1640F20900A82BE5 /* OCSSandPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSandPaper.h; sourceTree = "<group>"; };
-		C475059C1640F20900A82BE5 /* OCSSandPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSandPaper.m; sourceTree = "<group>"; };
-		C47505A01640F3BF00A82BE5 /* OCSSekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSekere.h; sourceTree = "<group>"; };
-		C47505A11640F3BF00A82BE5 /* OCSSekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSekere.m; sourceTree = "<group>"; };
-		C47505A41640F60400A82BE5 /* OCSSleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSleighbells.h; sourceTree = "<group>"; };
-		C47505A51640F60400A82BE5 /* OCSSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSleighbells.m; sourceTree = "<group>"; };
 		C47505BC1641AFEB00A82BE5 /* OCSVibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSVibes.h; sourceTree = "<group>"; };
 		C47505BD1641AFEB00A82BE5 /* OCSVibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSVibes.m; sourceTree = "<group>"; };
 		C47505D41641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLinearADSRAudioEnvelope.h; sourceTree = "<group>"; };
@@ -516,6 +530,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C40B5AE416464F2600BD9E09 /* PhISEM */ = {
+			isa = PBXGroup;
+			children = (
+				C40B5AE516464F2600BD9E09 /* OCSBamboo.h */,
+				C40B5AE616464F2600BD9E09 /* OCSBamboo.m */,
+				C40B5AE716464F2600BD9E09 /* OCSCabasa.h */,
+				C40B5AE816464F2600BD9E09 /* OCSCabasa.m */,
+				C40B5AE916464F2600BD9E09 /* OCSCrunch.h */,
+				C40B5AEA16464F2600BD9E09 /* OCSCrunch.m */,
+				C40B5AEB16464F2600BD9E09 /* OCSDroplet.h */,
+				C40B5AEC16464F2600BD9E09 /* OCSDroplet.m */,
+				C40B5AED16464F2600BD9E09 /* OCSGuiro.h */,
+				C40B5AEE16464F2600BD9E09 /* OCSGuiro.m */,
+				C40B5AEF16464F2600BD9E09 /* OCSSandPaper.h */,
+				C40B5AF016464F2600BD9E09 /* OCSSandPaper.m */,
+				C40B5AF116464F2600BD9E09 /* OCSSekere.h */,
+				C40B5AF216464F2600BD9E09 /* OCSSekere.m */,
+				C40B5AF316464F2600BD9E09 /* OCSSleighbells.h */,
+				C40B5AF416464F2600BD9E09 /* OCSSleighbells.m */,
+				C40B5B091646549600BD9E09 /* OCSStick.h */,
+				C40B5B0A1646549600BD9E09 /* OCSStick.m */,
+				C40B5B051646510100BD9E09 /* OCSTambourine.h */,
+				C40B5B061646510200BD9E09 /* OCSTambourine.m */,
+			);
+			path = PhISEM;
+			sourceTree = "<group>";
+		};
 		C42B240A15F484D0006032F9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -690,28 +731,13 @@
 		C4632AB8163E4A35007DEF70 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
-				C4632AB9163E4A35007DEF70 /* OCSBamboo.h */,
-				C4632ABA163E4A35007DEF70 /* OCSBamboo.m */,
-				C4632ABB163E4A35007DEF70 /* OCSCabasa.h */,
-				C4632ABC163E4A35007DEF70 /* OCSCabasa.m */,
-				C4632ABD163E4A35007DEF70 /* OCSCrunch.h */,
-				C4632ABE163E4A35007DEF70 /* OCSCrunch.m */,
-				C4632ABF163E4A35007DEF70 /* OCSDroplet.h */,
-				C4632AC0163E4A35007DEF70 /* OCSDroplet.m */,
+				C40B5AE416464F2600BD9E09 /* PhISEM */,
 				C4632AC5163E4A35007DEF70 /* OCSStruckMetalBar.h */,
 				C4632AC6163E4A35007DEF70 /* OCSStruckMetalBar.m */,
-				C4632AD5163E4B49007DEF70 /* OCSGuiro.h */,
-				C4632AD6163E4B49007DEF70 /* OCSGuiro.m */,
 				C4632ADD163EF9A2007DEF70 /* OCSMarimba.h */,
 				C4632ADE163EF9A2007DEF70 /* OCSMarimba.m */,
 				C4B5834C1640758B0089E1D7 /* OCSPluckedString.h */,
 				C4B5834D1640758B0089E1D7 /* OCSPluckedString.m */,
-				C475059B1640F20900A82BE5 /* OCSSandPaper.h */,
-				C475059C1640F20900A82BE5 /* OCSSandPaper.m */,
-				C47505A01640F3BF00A82BE5 /* OCSSekere.h */,
-				C47505A11640F3BF00A82BE5 /* OCSSekere.m */,
-				C47505A41640F60400A82BE5 /* OCSSleighbells.h */,
-				C47505A51640F60400A82BE5 /* OCSSleighbells.m */,
 				C47505BC1641AFEB00A82BE5 /* OCSVibes.h */,
 				C47505BD1641AFEB00A82BE5 /* OCSVibes.m */,
 			);
@@ -1563,26 +1589,36 @@
 				C474D1E316290A4200878841 /* OCSNoteProperty.m in Sources */,
 				C474D6F6162918D800878841 /* OCSLoopingStereoOscillator.m in Sources */,
 				C4460F30163E2AB20003A15C /* OCSBallWithinTheBoxReverb.m in Sources */,
-				C4632AC8163E4A35007DEF70 /* OCSBamboo.m in Sources */,
-				C4632ACA163E4A35007DEF70 /* OCSCabasa.m in Sources */,
-				C4632ACC163E4A35007DEF70 /* OCSCrunch.m in Sources */,
-				C4632ACE163E4A35007DEF70 /* OCSDroplet.m in Sources */,
 				C4632AD4163E4A35007DEF70 /* OCSStruckMetalBar.m in Sources */,
-				C4632AD8163E4B49007DEF70 /* OCSGuiro.m in Sources */,
 				C4632AE0163EF9A2007DEF70 /* OCSMarimba.m in Sources */,
 				C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */,
 				C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */,
 				C4B5834F1640758B0089E1D7 /* OCSPluckedString.m in Sources */,
 				C4B5835816407CEF0089E1D7 /* OCSFlanger.m in Sources */,
 				C4B5835C164081730089E1D7 /* OCSMoogLadder.m in Sources */,
-				C475059E1640F20900A82BE5 /* OCSSandPaper.m in Sources */,
-				C47505A31640F3BF00A82BE5 /* OCSSekere.m in Sources */,
-				C47505A71640F60400A82BE5 /* OCSSleighbells.m in Sources */,
 				C47505BF1641AFEB00A82BE5 /* OCSVibes.m in Sources */,
-				C47505D81641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.h in Sources */,
 				C47505D91641DA1F00A82BE5 /* OCSLinearADSRAudioEnvelope.m in Sources */,
-				C47505DA1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.h in Sources */,
 				C47505DB1641DA1F00A82BE5 /* OCSLinearADSRControlEnvelope.m in Sources */,
+				C40B5AF516464F2600BD9E09 /* OCSBamboo.h in Sources */,
+				C40B5AF616464F2600BD9E09 /* OCSBamboo.m in Sources */,
+				C40B5AF716464F2600BD9E09 /* OCSCabasa.h in Sources */,
+				C40B5AF816464F2600BD9E09 /* OCSCabasa.m in Sources */,
+				C40B5AF916464F2600BD9E09 /* OCSCrunch.h in Sources */,
+				C40B5AFA16464F2600BD9E09 /* OCSCrunch.m in Sources */,
+				C40B5AFB16464F2600BD9E09 /* OCSDroplet.h in Sources */,
+				C40B5AFC16464F2600BD9E09 /* OCSDroplet.m in Sources */,
+				C40B5AFD16464F2600BD9E09 /* OCSGuiro.h in Sources */,
+				C40B5AFE16464F2600BD9E09 /* OCSGuiro.m in Sources */,
+				C40B5AFF16464F2600BD9E09 /* OCSSandPaper.h in Sources */,
+				C40B5B0016464F2600BD9E09 /* OCSSandPaper.m in Sources */,
+				C40B5B0116464F2600BD9E09 /* OCSSekere.h in Sources */,
+				C40B5B0216464F2600BD9E09 /* OCSSekere.m in Sources */,
+				C40B5B0316464F2600BD9E09 /* OCSSleighbells.h in Sources */,
+				C40B5B0416464F2600BD9E09 /* OCSSleighbells.m in Sources */,
+				C40B5B071646510200BD9E09 /* OCSTambourine.h in Sources */,
+				C40B5B081646510200BD9E09 /* OCSTambourine.m in Sources */,
+				C40B5B0B1646549600BD9E09 /* OCSStick.h in Sources */,
+				C40B5B0C1646549600BD9E09 /* OCSStick.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

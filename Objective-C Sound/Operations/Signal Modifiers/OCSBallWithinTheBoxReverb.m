@@ -2,7 +2,7 @@
 //  OCSBallWithinTheBoxReverb.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/28/12.
+//  Auto-generated from database on 11/2/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's babo:
@@ -42,14 +42,10 @@
         ksrcy = yLocation;
         ksrcz = zLocation;
         asig = sourceAudio;
-        
-        idiff = ocsp(1);
-        
-        
+        idiff = ocsp(0);
     }
     return self;
 }
-
 
 - (void)setOptionalDiffusion:(OCSConstant *)diffusion {
 	idiff = diffusion;

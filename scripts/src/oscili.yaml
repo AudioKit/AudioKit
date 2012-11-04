@@ -1,15 +1,36 @@
 opcode: oscili
+
 operation: OCSOscillator
+
 operationClass: OCSAudio
+
 summary: A simple oscillator with linear interpolation.
+
 description:
  Reads from the function table sequentially and repeatedly at given frequency.
  Linear interpolation is applied for table look up from internal phase values.
+
 input_list: xamp, xcps, ifn, iphs
+
 required_inputs:
-- [ifn, fTable, Requires a wrap-around guard point]
-- [xcps, frequency, Frequency in cycles per second]
-- [xamp, amplitude, Amplitude of the output]
+
+- ifn: {
+	ocsVar: fTable, 
+	comment: "Requires a wrap-around guard point"
+}
+- xcps: {
+	ocsVar: frequency, 
+	comment: "Frequency in cycles per second"
+}
+- xamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of the output"
+}
+
 
 optional_inputs:
-- [iphs, phase]
+- iphs: {
+	ocsVar: phase, 
+	comment: "Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0.",
+	default: 0
+}

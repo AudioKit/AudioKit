@@ -1,19 +1,56 @@
 opcode: dripwater
+
 operation: OCSDroplet
+
 operationClass: OCSAudio
+
 summary:   Semi-physical model of a water drop.
+
 description:
   This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) 
   is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
+
 input_list: kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2
+
 required_inputs:
-- [idettack, maximumDuration, Period of time over which all sound is stopped]
-- [kamp, amplitude, Amplitude of output. Since these instruments are stochastic this is only an approximation.]
+
+- idettack: {
+	ocsVar: maximumDuration, 
+	comment: "Period of time over which all sound is stopped"
+}
+- kamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of output. Since these instruments are stochastic this is only an approximation."
+}
 
 optional_inputs:
-- [inum, count, The number of beads, teeth, bells, timbrels, etc. If zero, the default value is 10.]
-- [idamp, dampingFactor, The damping factor as part of this equation "damping = 0.996 + (dampingFactor * 0.002)" The default damping is 0.996 which means that the default value of dampingFactor is 0. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 2.0.  The recommended range for dampingFactor is usually below 75% of the maximum value. Rasmus Ekman suggests a range of 1.4-1.75. He also suggests a maximum value of 1.9 instead of the theoretical limit of 2.0.]
-- [imaxshake, energyReturn, Amount of energy to add back into the system. The value should be in range 0 to 1.]
-- [ifreq, mainResonantFrequency, The main resonant frequency. The default value is 450.]
-- [ifreq1, firstResonantFrequency, The first resonant frequency. The default value is 600.]
-- [ifreq2, secondResonantFrequency, The second resonant frequency. The default value is 750.]
+- inum: {
+	ocsVar: count, 
+	comment: "The number of beads/teeth/bells/timbrels/etc. The default value is 10",
+	default: 10
+}
+- idamp: {
+	ocsVar: dampingFactor, 
+	comment: "The damping factor, as part of this equation damping = 0.996 + (dampingFactor * 0.002). The default damping is 0.996 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.05.  The recommended range for dampingFactor is usually below 75% of the maximum value.",
+	default: 0
+}
+- imaxshake: {
+	ocsVar: energyReturn, 
+	comment: "Amount of energy to add back into the system. The value should be in range 0 to 1.",
+	default: 0
+}
+- ifreq: {
+	ocsVar: mainResonantFrequency, 
+	comment: "The main resonant frequency. The default value is 450.",
+	default: 450
+}
+- ifreq1: {
+	ocsVar: firstResonantFrequency, 
+	comment: "The first resonant frequency. The default value is 600.",
+	default: 600
+}
+- ifreq2: {
+	ocsVar: secondResonantFrequency, 
+	comment: "The second resonant frequency. The default value is 750.",
+	default: 750
+}

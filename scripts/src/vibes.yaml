@@ -37,15 +37,15 @@ required_inputs:
 	comment: "Amplitude of note."
 }
 - ifnvib: {
-	ocsVar: vibratoShapeTable, 
-	comment: "Shape of vibrato, usually a sine table, created by a function"
+	ocsVar: tremoloShapeTable, 
+	comment: "Shape of tremolo, usually a sine table, created by a function"
 }
 - kvibf: {
-	ocsVar: vibratoFrequency, 
-	comment: "Frequency of vibrato in Hertz. Suggested range is 0 to 12"
+	ocsVar: tremoloFrequency, 
+	comment: "Frequency of tremolo in Hertz. Suggested range is 0 to 12"
 }
 - kvamp: {
-	ocsVar: vibratoAmplitude, 
-	comment: "Amplitude of the vibrato"
+	ocsVar: tremoloAmplitude, 
+	comment: "Amplitude of the tremolo"
 }
 
