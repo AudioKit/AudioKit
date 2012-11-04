@@ -15,6 +15,7 @@ def ocsVarBestGuess(input)
 	ocsVar = "phase"           if input[1..3] == "phs" 
 	ocsVar = "resonance"       if input[1..3] == "res"
 	ocsVar = "sourceSignal"    if input[1..3] == "sig"
+	ocsVar = "type"            if input[1..3] == "typ"
 	return ocsVar
 end
 
