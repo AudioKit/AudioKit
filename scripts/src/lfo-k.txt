@@ -1,0 +1,1 @@
+kres lfo kamp, kcps [, itype]
