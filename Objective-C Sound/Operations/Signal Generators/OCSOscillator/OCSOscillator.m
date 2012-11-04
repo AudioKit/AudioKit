@@ -2,8 +2,11 @@
 //  OCSOscillator.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/28/12.
+//  Auto-generated from database on 11/2/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's oscili:
+//  http://www.csounds.com/manual/html/oscili.html
 //
 
 #import "OCSOscillator.h"
@@ -27,14 +30,12 @@
         ifn = fTable;
         xcps = frequency;
         xamp = amplitude;
-        
         iphs = ocsp(0);
-        
     }
     return self;
 }
 
-- (void)setPhase:(OCSConstant *)phase {
+- (void)setOptionalPhase:(OCSConstant *)phase {
 	iphs = phase;
 }
 

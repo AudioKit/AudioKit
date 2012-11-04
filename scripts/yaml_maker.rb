@@ -3,9 +3,12 @@
 require 'active_support/all'
 require 'erb' 
 
-opcode = ARGV[0]
+opcode_file = ARGV[0]
+file = File.open("#{opcode_file}")
 
-file = File.open("#{opcode}.txt")
+opcode_file_stub = opcode_file.sub(/.txt/) { "" }
+opcode = /([A-z]+)/.match(opcode_file_stub).to_s
+
 contents = ""
 file.each do |line|
   contents << line
@@ -26,5 +29,6 @@ optionals = /#{opcode}[^\[]+[^,]+,(.+)/.match(contents)[1].gsub(/[\[\]\ ]/, "").
 
 File.open( "templates/opcode_template.yaml.erb" ) { |template|
 	erb = ERB.new( template.read )
-	File.open("#{opcode}.yaml", 'w') {|f| f.write(erb.result) }
+	File.open("#{opcode_file_stub}.yaml", 'w') {|f| f.write(erb.result) }
+	puts erb.result
 }

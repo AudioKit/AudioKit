@@ -2,7 +2,7 @@
 //  OCSVibes.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/31/12.
+//  Auto-generated from database on 11/3/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's vibes:
@@ -32,9 +32,9 @@
      strikeImpulseTable:(OCSFTable *)strikeImpulseTable
          strikePosition:(OCSConstant *)strikePosition
               amplitude:(OCSControl *)amplitude
-      vibratoShapeTable:(OCSFTable *)vibratoShapeTable
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude
+      tremoloShapeTable:(OCSFTable *)tremoloShapeTable
+       tremoloFrequency:(OCSControl *)tremoloFrequency
+       tremoloAmplitude:(OCSControl *)tremoloAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -44,9 +44,9 @@
         ifnmp = strikeImpulseTable;
         ipos = strikePosition;
         kamp = amplitude;
-        ifnvib = vibratoShapeTable;
-        kvibf = vibratoFrequency;
-        kvamp = vibratoAmplitude;
+        ifnvib = tremoloShapeTable;
+        kvibf = tremoloFrequency;
+        kvamp = tremoloAmplitude;
     }
     return self;
 }

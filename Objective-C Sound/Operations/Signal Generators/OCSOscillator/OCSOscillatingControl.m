@@ -2,17 +2,20 @@
 //  OCSOscillatingControl.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/10/12.
+//  Auto-generated from database on 11/2/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's oscili:
+//  http://www.csounds.com/manual/html/oscili.html
 //
 
 #import "OCSOscillatingControl.h"
 
 @interface OCSOscillatingControl () {
-    OCSControl *amp;
-    OCSControl *freq;
-    OCSConstant *phs;
-    OCSFTable *f;
+    OCSFTable *ifn;
+    OCSControl *kcps;
+    OCSControl *kamp;
+    OCSConstant *iphs;
 }
 @end
 
@@ -20,26 +23,26 @@
 
 - (id)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSControl *)frequency
-           amplitude:(OCSControl *)amplitude;
+           amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        amp  = amplitude;
-        freq = frequency;
-        f    = fTable;
-        phs  = ocsp(0);
+        ifn = fTable;
+        kcps = frequency;
+        kamp = amplitude;
+        iphs = ocsp(0);
     }
     return self;
 }
 
-- (void)setPhase:(OCSConstant *)phase {
-    phs = phase;
+- (void)setOptionalPhase:(OCSConstant *)phase {
+	iphs = phase;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ oscili %@, %@, %@, %@",
-            self, amp, freq, f, phs];
+            self, kamp, kcps, ifn, iphs];
 }
 
 @end

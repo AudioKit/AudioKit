@@ -92,8 +92,6 @@
 		C474D2BE16290A5200878841 /* OCSOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D24316290A5200878841 /* OCSOscillator.m */; };
 		C474D2BF16290A5200878841 /* OCSPhasingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D24616290A5200878841 /* OCSPhasingControl.m */; };
 		C474D2C016290A5200878841 /* OCSPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D24816290A5200878841 /* OCSPhasor.m */; };
-		C474D2C116290A5200878841 /* OCSPluckDrum.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D24A16290A5200878841 /* OCSPluckDrum.m */; };
-		C474D2C216290A5200878841 /* OCSPluckString.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D24C16290A5200878841 /* OCSPluckString.m */; };
 		C474D2C316290A5200878841 /* OCSRandomAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D24F16290A5200878841 /* OCSRandomAudio.m */; };
 		C474D2C416290A5200878841 /* OCSRandomControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D25116290A5200878841 /* OCSRandomControl.m */; };
 		C474D2C516290A5200878841 /* OCSAudioSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D25416290A5200878841 /* OCSAudioSegmentArray.m */; };
@@ -1191,8 +1189,6 @@
 				C474D2BE16290A5200878841 /* OCSOscillator.m in Sources */,
 				C474D2BF16290A5200878841 /* OCSPhasingControl.m in Sources */,
 				C474D2C016290A5200878841 /* OCSPhasor.m in Sources */,
-				C474D2C116290A5200878841 /* OCSPluckDrum.m in Sources */,
-				C474D2C216290A5200878841 /* OCSPluckString.m in Sources */,
 				C474D2C316290A5200878841 /* OCSRandomAudio.m in Sources */,
 				C474D2C416290A5200878841 /* OCSRandomControl.m in Sources */,
 				C474D2C516290A5200878841 /* OCSAudioSegmentArray.m in Sources */,

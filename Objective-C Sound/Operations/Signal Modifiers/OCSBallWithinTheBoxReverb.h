@@ -2,7 +2,7 @@
 //  OCSBallWithinTheBoxReverb.h
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/28/12.
+//  Auto-generated from database on 11/2/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
@@ -11,8 +11,7 @@
 
 /** A physical model reverberator.
  
- Physical model reverberator based on the paper by Davide Rocchesso 
- "The Ball within the Box => a sound-processing metaphor", Computer Music Journal, Vol 19, N.4, pp.45-47, Winter 1995.
+ Physical model reverberator based on the paper by Davide Rocchesso 'The Ball within the Box - a sound-processing metaphor', Computer Music Journal, Vol 19, N.4, pp.45-47, Winter 1995.
  */
 
 @interface OCSBallWithinTheBoxReverb : OCSStereoAudio

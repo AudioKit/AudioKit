@@ -1,17 +1,17 @@
 //
-//  OCSBamboo.m
+//  OCSTambourine.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/28/12.
+//  Auto-generated from database on 11/4/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  Implementation of Csound's bamboo:
-//  http://www.csounds.com/manual/html/bamboo.html
+//  Implementation of Csound's tambourine:
+//  http://www.csounds.com/manual/html/tambourine.html
 //
 
-#import "OCSBamboo.h"
+#import "OCSTambourine.h"
 
-@interface OCSBamboo () {
+@interface OCSTambourine () {
     OCSConstant *idettack;
     OCSControl *kamp;
     OCSConstant *inum;
@@ -23,23 +23,21 @@
 }
 @end
 
-@implementation OCSBamboo
+@implementation OCSTambourine
 
-- (id)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSControl *)amplitude
+- (id)initWithMaximumDuration:(OCSConstant *)maximumDuration
+                    amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
+        idettack = maximumDuration;
         kamp = amplitude;
-        
-        inum = ocsp(1.25);
+        inum = ocsp(32);
         idamp = ocsp(0);
         imaxshake = ocsp(0);
-        ifreq  = ocsp(2800);
-        ifreq1 = ocsp(2240);
-        ifreq2 = ocsp(3360);
-        
+        ifreq = ocsp(2300);
+        ifreq1 = ocsp(5600);
+        ifreq2 = ocsp(8100);
     }
     return self;
 }
@@ -70,7 +68,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ bamboo %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ tambourine %@, %@, %@, %@, %@, %@, %@, %@",
             self, kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2];
 }
 

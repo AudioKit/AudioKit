@@ -26,7 +26,7 @@ optional_inputs:
 - inum: {
 	ocsVar: count, 
 	comment: "The number of beads/teeth/bells/timbrels/etc. The default value is 1.25.",
-	default: 0
+	default: 1.25
 }
 - idamp: {
 	ocsVar: dampingFactor, 

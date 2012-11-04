@@ -1,17 +1,17 @@
 //
-//  OCSCrunch.m
+//  OCSStick.m
 //  Objective-C Sound
 //
-//  Created by Aurelius Prochazka on 10/28/12.
+//  Auto-generated from database on 11/4/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  Implementation of Csound's crunch:
-//  http://www.csounds.com/manual/html/crunch.html
+//  Implementation of Csound's stix:
+//  http://www.csounds.com/manual/html/stix.html
 //
 
-#import "OCSCrunch.h"
+#import "OCSStick.h"
 
-@interface OCSCrunch () {
+@interface OCSStick () {
     OCSConstant *idettack;
     OCSConstant *iamp;
     OCSConstant *inum;
@@ -20,24 +20,21 @@
 }
 @end
 
-@implementation OCSCrunch
+@implementation OCSStick
 
-- (id)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSConstant *)amplitude
+- (id)initWithMaximumDuration:(OCSConstant *)maximumDuration
+                    amplitude:(OCSConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
+        idettack = maximumDuration;
         iamp = amplitude;
-        
-        inum = ocsp(7);
-        idamp = ocsp(0.03);
+        inum = ocsp(30);
+        idamp = ocsp(0);
         imaxshake = ocsp(0);
-        
     }
     return self;
 }
-
 
 - (void)setOptionalCount:(OCSConstant *)count {
 	inum = count;
@@ -53,7 +50,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ crunch %@, %@, %@, %@, %@",
+            @"%@ stix %@, %@, %@, %@, %@",
             self, iamp, idettack, inum, idamp, imaxshake];
 }
 
