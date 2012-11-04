@@ -1,0 +1,55 @@
+opcode: tambourine
+
+operation: OCSTambourine
+
+operationClass: OCSAudio
+
+summary: Semi-physical model of a tambourine sound.
+
+description:
+  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
+
+input_list: kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2
+
+required_inputs:
+
+- idettack: {
+	ocsVar: maximumDuration, 
+	comment: "Period of time over which all sound is stopped"
+}
+- kamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of output. Since these instruments are stochastic this is only an approximation."
+}
+
+optional_inputs:
+- inum: {
+	ocsVar: count, 
+	comment: "The number of beads/teeth/bells/timbrels/etc. The default value is 32.",
+	default: 32
+}
+- idamp: {
+	ocsVar: dampingFactor, 
+	comment: "The damping factor, as part of this equation damping = 0.9985 + (dampingFactor * 0.002) The default damping is 0.9985 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.05.  The recommended range for dampingFactor is usually below 75% of the maximum value.",
+	default: 0
+}
+- imaxshake: {
+	ocsVar: energyReturn, 
+	comment: "Amount of energy to add back into the system. The value should be in range 0 to 1.",
+	default: 0
+}
+- ifreq: {
+	ocsVar: mainResonantFrequency, 
+	comment: "The main resonant frequency. The default value is 2300.",
+	default: 2300
+}
+- ifreq1: {
+	ocsVar: firstResonantFrequency, 
+	comment: "The first resonant frequency. The default value is 5600.",
+	default: 5600
+}
+- ifreq2: {
+	ocsVar: secondResonantFrequency, 
+	comment: "The second resonant frequency. The default value is 8100.",
+	default: 8100
+}
