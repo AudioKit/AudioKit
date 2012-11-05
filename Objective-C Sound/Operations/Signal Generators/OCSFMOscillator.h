@@ -35,6 +35,6 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
 
 /// Set an optional phase
 /// @param phase Initial phase of waveform in fTable
-- (void)setPhase:(OCSConstant *)phase;
+- (void)setOptionalPhase:(OCSConstant *)phase;
 
 @end

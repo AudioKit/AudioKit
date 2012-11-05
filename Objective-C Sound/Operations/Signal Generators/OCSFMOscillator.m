@@ -46,7 +46,7 @@ modulatingMultiplier:(OCSParameter *)modulatingMultiplier
     return self;
 }
 
-- (void)setPhase:(OCSConstant *)phase {
+- (void)setOptionalPhase:(OCSConstant *)phase {
 	iphs = phase;
 }
 
