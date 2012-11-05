@@ -21,14 +21,14 @@
 
 @implementation OCSThreePoleLowpassFilter
 
-- (id)initWithSourceSignal:(OCSAudio *)sourceSignal
-                distortion:(OCSControl *)distortion
-           cutoffFrequency:(OCSControl *)cutoffFrequency
-                 resonance:(OCSControl *)resonance
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+               distortion:(OCSControl *)distortion
+          cutoffFrequency:(OCSControl *)cutoffFrequency
+                resonance:(OCSControl *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = sourceSignal;
+        asig = sourceAudio;
         kdist = distortion;
         kfco = cutoffFrequency;
         kres = resonance;

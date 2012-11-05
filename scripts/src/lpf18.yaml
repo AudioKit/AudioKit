@@ -16,7 +16,7 @@ input_list: asig, kfco, kres, kdist
 required_inputs:
 
 - asig: {
-	ocsVar: sourceSignal, 
+	ocsVar: sourceAudio, 
 	comment: "Signal that will be modified."
 }
 - kdist: {
