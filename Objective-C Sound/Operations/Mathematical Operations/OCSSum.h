@@ -7,9 +7,10 @@
 //
 
 #import "OCSParameter+Operation.h"
+#import "OCSAudio.h"
 
 /// Sums any number of a-rate signals.
-@interface OCSSum : OCSParameter
+@interface OCSSum : OCSAudio
 
 /// Create a new signal as a sum of given signals.
 /// @param firstOperand At least one input is required
