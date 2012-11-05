@@ -27,12 +27,12 @@
 
 typedef enum
 {
-    kSine = 0,
-    kTriangle = 1,
-    kBipolarSquare =2,
-    kUnipolarSquare = 3,
-    kSawTooth = 4,
-    kDownSawTooth = 5
+    kLFOTypeSine = 0,
+    kLFOTypeTriangle = 1,
+    kLFOTypeBipolarSquare =2,
+    kLFOTypeUnipolarSquare = 3,
+    kLFOTypeSawTooth = 4,
+    kLFOTypeDownSawTooth = 5
 } LFOType;
 
 /// Set an optional type
