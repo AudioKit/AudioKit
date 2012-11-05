@@ -1,0 +1,67 @@
+opcode: vibrato
+
+operation: OCSVibrato
+
+operationClass: OCSControl
+
+summary: Generates a natural-sounding user-controllable vibrato.
+
+description:
+  vibrato outputs a natural-sounding user-controllable vibrato. The concept is to randomly vary both frequency and amplitude of 
+  the oscillator generating the vibrato, in order to simulate the irregularities of a real vibrato.
+  In order to have a total control of these random variations, several input arguments are present. 
+  Random variations are obtained by two separated segmented lines, the first controlling frequency deviations, 
+  the second the amplitude deviations. Average duration of each segment of each line can be shortened or 
+  enlarged by the minimum and maximum randomness arguments, and the deviation from 
+  the average amplitude and frequency values can be independently adjusted by means of randomness arguments.
+
+input_list: kAverageAmp, kAverageFreq, kRandAmountAmp, kRandAmountFreq, kAmpMinRate, kAmpMaxRate, kcpsMinRate, kcpsMaxRate, ifn, iphs
+
+required_inputs:
+
+- ifn: {
+	ocsVar: vibratoShapeTable, 
+	comment: "Vibrato table. It normally contains a sine or a triangle wave."
+}
+
+- kAverageFreq: {
+	ocsVar: averageFrequency, 
+	comment: "Average frequency value of vibrato in Hz"
+}
+- kRandAmountFreq: {
+	ocsVar: frequencyRandomness, 
+	comment: "Amount of random frequency deviation"
+}
+- kcpsMinRate: {
+	ocsVar: minimumFrequencyRandomness, 
+	comment: "Minimum frequency of random frequency deviation segments in Hz"
+}
+- kcpsMaxRate: {
+	ocsVar: maximumFrequencyRandomness, 
+	comment: "Maximum frequency of random frequency deviation segments in Hz"
+}
+
+- kAverageAmp: {
+	ocsVar: averageAmplitude, 
+	comment: "Average amplitude value of vibrato."
+}
+- kRandAmountAmp: {
+	ocsVar: amplitudeDeviation, 
+	comment: "Amount of random amplitude deviation,"
+}
+- kAmpMinRate: {
+	ocsVar: minimumAmplitudeRandomness, 
+	comment: "Minimum frequency of random amplitude deviation segments in Hz"
+}
+
+- kAmpMaxRate: {
+	ocsVar: maximumAmplitudeRandomness, 
+	comment: "Maximum frequency of random amplitude deviation segments in Hz"
+}
+
+optional_inputs:
+- iphs: {
+	ocsVar: phase, 
+	comment: "Initial phase of table, expressed as a fraction of a cycle (0 to 1).",
+	default: 0
+}

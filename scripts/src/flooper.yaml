@@ -1,0 +1,39 @@
+opcode: flooper
+
+operation: OCSFTablelooper
+
+operationClass: OCSAudio
+
+summary: Function-table-based crossfading looper.
+
+description:
+ This opcode reads audio from a function table and plays it back in a loop with user-defined start time, duration and crossfade time. 
+ It also allows the pitch of the loop to be controlled, including reversed playback. It accepts non-power-of-two tables, such as deferred-allocation GEN01 tables.
+
+input_list: kamp, kpitch, istart, idur, ifad, ifn
+
+required_inputs:
+- ifn: {
+	ocsVar: fTable, 
+	comment: "comment"
+}
+- istart: {
+	ocsVar: startingPosition, 
+	comment: "Loop start position in seconds"
+}
+- idur: {
+	ocsVar: loopDuration, 
+	comment: "Loop duration in seconds"
+}
+- ifad: {
+	ocsVar: crossfadeDuration, 
+	comment: "Crossfade duration in seconds"
+}
+- kpitch: {
+	ocsVar: transpositionRatio, 
+	comment: "Pitch control, negative values play the loop in reverse."
+}
+- kamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of loop"
+}

@@ -6,11 +6,12 @@ require 'active_support/all'
 require 'erb' 
 
 def ocsVarBestGuess(input)
-	ocsVar = "ocsVar"
+	ocsVar = input[1..-1]
 	ocsVar = "amplitude"       if input[1..3] == "amp" 
 	ocsVar = "cutoffFrequency" if input[1..3] == "fco"
 	ocsVar = "distortion"      if input[1..4] == "dist"
-	ocsVar = "frequency"       if input[1..3] == "cps" || input[1..4] == "freq" 
+	ocsVar = "duration"        if input[1..3] == "dur"
+	ocsVar = "frequency"       if input[1..3] == "cps" || input[1..4] == "freq"  || input[1..5] == "pitch" 
 	ocsVar = "fTable"          if input[0..2] == "ifn" 
 	ocsVar = "phase"           if input[1..3] == "phs" 
 	ocsVar = "resonance"       if input[1..3] == "res"

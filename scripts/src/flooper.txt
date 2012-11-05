@@ -1,0 +1,1 @@
+asig flooper kamp, kpitch, istart, idur, ifad, ifn

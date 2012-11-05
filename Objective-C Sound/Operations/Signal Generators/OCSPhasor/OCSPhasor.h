@@ -26,6 +26,6 @@
 
 /// Set an optional phase of sampling
 /// @param phase Initial phase, expressed as a fraction of a cycle (0 to 1).
-- (void)setPhase:(OCSConstant *)phase;
+- (void)setOptionalPhase:(OCSConstant *)phase;
 
 @end
