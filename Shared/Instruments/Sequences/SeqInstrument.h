@@ -8,8 +8,6 @@
 
 #import "OCSInstrument.h"
 
-@class SeqInstrumentNote;
-
 @interface SeqInstrument : OCSInstrument
 
 @property (nonatomic, strong) OCSInstrumentProperty *modulation;
