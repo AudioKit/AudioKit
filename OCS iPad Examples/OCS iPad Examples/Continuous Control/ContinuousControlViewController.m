@@ -31,9 +31,9 @@
     [orch addInstrument:myTweakableInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     
-    [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument amplitude] value]]];
-    [modulationLabel setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modulation]value]]];
-    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modIndex]value]]];
+    [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.amplitude.value]];
+    [modulationLabel setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modulation.value]];
+    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modIndex.value]];
     
     [Helper setSlider:amplitudeSlider  usingProperty:[myTweakableInstrument amplitude]];
     [Helper setSlider:modulationSlider usingProperty:[myTweakableInstrument modulation]];
@@ -97,7 +97,7 @@
               minimum:kTweakableModIndexMin 
               maximum:kTweakableModIndexMax];
     
-    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", [[myTweakableInstrument modIndex]value]]];
+    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modIndex.value]];
 
     // Test to show amplitude slider moving also
 //    [self setSlider:amplitudeSlider

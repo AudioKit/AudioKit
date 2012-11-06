@@ -34,7 +34,7 @@
     self = [super init];
     if (self) {
         sampleRate = 44100;
-        samplesPerControlPeriod = 256;
+        samplesPerControlPeriod = 64;
         numberOfChannels = 2;
         zeroDBFullScaleValue = 1.0f;
         udos = [[NSMutableArray alloc] init];
