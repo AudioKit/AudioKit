@@ -23,7 +23,7 @@ end
 opcode_file = ARGV[0]
 file = File.open("#{opcode_file}")
 
-opcode_file_stub = opcode_file[0..-3]
+opcode_file_stub = opcode_file[0..-5]
 opcode = /([A-z0-9]+)/.match(opcode_file_stub).to_s
 
 contents = ""

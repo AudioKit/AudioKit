@@ -1,0 +1,23 @@
+opcode: atone
+
+operation: OCSHighPassFilter
+
+operationClass: OCSAudio
+
+summary: A first-order recursive high-pass filter with variable frequency response.
+
+description:
+  A complement to the OCSLowPassFilter.
+
+input_list: asig, khp
+
+required_inputs:
+
+- asig: {
+	ocsVar: sourceAudio, 
+	comment: "The audio to be filtered"
+}
+- khp: {
+	ocsVar: halfPowerPoint, 
+	comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2."
+}
