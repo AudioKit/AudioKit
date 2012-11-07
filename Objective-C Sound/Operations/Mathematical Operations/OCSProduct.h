@@ -7,15 +7,16 @@
 //
 
 #import "OCSParameter+Operation.h"
+#import "OCSAudio.h"
 
 /** Multiplies any number of audio signals. 
  */
 
-@interface OCSProduct : OCSParameter
+@interface OCSProduct : OCSAudio    
 
 /// Initialization Statement
 /// @param firstOperand At least one input is required
 /// @param ...          End the list with a nil.
-- (id)initWithOperands:(OCSParameter *)firstOperand,...;
+- (id)initWithOperands:(OCSAudio *)firstOperand,...;
 
 @end

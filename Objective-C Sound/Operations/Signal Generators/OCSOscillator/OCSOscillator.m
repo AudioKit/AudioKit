@@ -41,7 +41,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ oscili %@, %@, %@, %@",
+            @"%@ poscil %@, %@, %@, %@",
             self, xamp, xcps, ifn, iphs];
 }
 
