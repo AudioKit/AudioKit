@@ -134,7 +134,6 @@
 		C444C93E164BB1C4009FC32F /* OCSStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C868164BB1C3009FC32F /* OCSStereoAudio.m */; };
 		C444C940164BB1C4009FC32F /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86B164BB1C3009FC32F /* OCSInstrumentProperty.m */; };
 		C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86D164BB1C3009FC32F /* OCSNoteProperty.m */; };
-		C444C949164BB249009FC32F /* OCSLowPassControlFilter.h in Sources */ = {isa = PBXBuildFile; fileRef = C444C947164BB249009FC32F /* OCSLowPassControlFilter.h */; };
 		C444C94A164BB249009FC32F /* OCSLowPassControlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
@@ -1699,7 +1698,6 @@
 				C444C93E164BB1C4009FC32F /* OCSStereoAudio.m in Sources */,
 				C444C940164BB1C4009FC32F /* OCSInstrumentProperty.m in Sources */,
 				C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */,
-				C444C949164BB249009FC32F /* OCSLowPassControlFilter.h in Sources */,
 				C444C94A164BB249009FC32F /* OCSLowPassControlFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

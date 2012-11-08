@@ -12,7 +12,7 @@
 #import "OCSLowPassControlFilter.h"
 
 @interface OCSLowPassControlFilter () {
-    OCSAudio *ksig;
+    OCSControl *ksig;
     OCSControl *khp;
 }
 @end
