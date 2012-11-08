@@ -1,21 +1,21 @@
-opcode: tone
+opcode: tonek
 
-operation: OCSLowPassFilter
+operation: OCSLowPassControlFilter
 
-operationClass: OCSAudio
+operationClass: OCSCntrol
 
 summary:  A first-order recursive low-pass filter with variable frequency response.
 
 description:
   More detailed description from http://www.csounds.com/manual/html/tone.html
 
-input_list: asig, khp
+input_list: ksig, khp
 
 required_inputs:
 
-- asig: {
-	ocsVar: sourceAudio, 
-	comment: "The audio to be filtered"
+- ksig: {
+	ocsVar: sourceControl, 
+	comment: "The control to be filtered"
 }
 - khp: {
 	ocsVar: halfPowerPoint, 
