@@ -1,0 +1,24 @@
+opcode: loopseg
+
+operation: OCSControlSegmentArrayLoop
+
+operationClass: OCSControl
+
+summary: Generate control signal consisting of linear segments delimited by two or more specified points.
+
+description:
+  Generate control signal consisting of linear segments delimited by two or more specified points. 
+  The entire envelope is looped at a rate defined byt frequency. Each parameter can be varied as controls.
+
+input_list: kfreq, tmp, tmp, kvalue0
+
+required_inputs:
+
+- kfreq: {
+	ocsVar: frequency, 
+	comment: "Repeat rate in Hz or fraction of Hz."
+}
+- kvalue0: {
+	ocsVar: startValue, 
+	comment: "Initial value at time zero."
+}
