@@ -1,0 +1,1 @@
+ksig loopseg kfreq, ktrig, ktime0, kvalue0

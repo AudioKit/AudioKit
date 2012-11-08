@@ -194,7 +194,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)updateNote:(OCSNote *)note
 {
-    NSLog(@"updating Note with %@", [note stringForCSD]);
+    //NSLog(@"updating Note with %@", [note stringForCSD]);
     [csound sendScore:[note stringForCSD]];
 }
 
