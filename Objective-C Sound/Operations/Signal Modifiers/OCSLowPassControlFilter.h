@@ -14,7 +14,7 @@
  More detailed description from http://www.csounds.com/manual/html/tone.html
  */
 
-@interface OCSLowPassControlFilter : OCSAudio
+@interface OCSLowPassControlFilter : OCSControl
 
 /// Instantiates the low pass control filter 
 /// @param sourceControl The control signal to be filtered
