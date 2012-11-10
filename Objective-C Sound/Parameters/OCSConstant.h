@@ -15,6 +15,10 @@
 /// @param value Value to set the parameter to.
 + (id)parameterWithFloat:(float)value;
 
+/// Common method to create float parameters.  So much so that ocsp() macro was created and preferred.
+/// @param number Value to set the parameter to.
++ (id)parameterWithNumber:(NSNumber *)number;
+
 /// Common method to create integer parameters.  So much so that ocspi() macro was created and preferred.
 /// @param value Value to set the parameter to.
 + (id)parameterWithInt:(int)value;

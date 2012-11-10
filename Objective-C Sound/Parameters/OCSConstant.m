@@ -43,6 +43,16 @@
     return self;
 }
 
+- (id)initWithNumber:(NSNumber *)number
+{
+    self = [super init];
+    if (self) {
+        parameterString = [NSString stringWithFormat:@"%@", number];
+    }
+    return self;
+}
+
+
 - (id)initWithInt:(int)value
 {
     self = [super init];
@@ -64,6 +74,10 @@
 + (id)parameterWithFloat:(float)value
 {
     return [[self alloc] initWithFloat:value];
+}
++ (id)parameterWithNumber:(NSNumber *)number    
+{
+    return [[self alloc] initWithNumber:number];
 }
 + (id)parameterWithInt:(int)value
 {
