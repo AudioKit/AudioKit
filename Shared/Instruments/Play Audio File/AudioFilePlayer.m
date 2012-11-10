@@ -39,9 +39,9 @@
         [self connect:oscil];
         
         OCSReverb * reverb;
-        reverb = [[OCSReverb alloc] initWithMonoInput:oscil
-                                        feedbackLevel:ocsp(0.85)
-                                      cutoffFrequency:ocsp(12000)];
+        reverb = [[OCSReverb alloc] initWithSourceAudio:oscil
+                                          feedbackLevel:ocsp(0.85)
+                                        cutoffFrequency:ocsp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================

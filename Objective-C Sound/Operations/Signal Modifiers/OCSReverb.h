@@ -16,21 +16,23 @@
 
 @interface OCSReverb : OCSStereoAudio
 
-/// Apply reverb to a mono signal
-/// @param monoInput       Input to both channels.
-/// @param feedbackLevel   Degree of feedback, in the range 0 to 1. 0.6 gives a good small "live" room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-/// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
-
-- (id)initWithMonoInput:(OCSAudio *)monoInput
-          feedbackLevel:(OCSControl *)feedbackLevel
-        cutoffFrequency:(OCSControl *)cutoffFrequency;
-
 /// Apply reverb to a stereo signal
-/// @param stereoInput     Input to the left and right channel.
+/// @param sourceStereo    Input to the left and right channel.
 /// @param feedbackLevel   Degree of feedback, in the range 0 to 1. 0.6 gives a good small "live" room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
 /// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+                  feedbackLevel:(OCSControl *)feedbackLevel
+                cutoffFrequency:(OCSControl *)cutoffFrequency;
+
+/// Apply reverb to a mono signal
+/// @param sourceAudio       Input to both channels.
+/// @param feedbackLevel   Degree of feedback, in the range 0 to 1. 0.6 gives a good small "live" room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+/// @param cutoffFrequency Cutoff frequency of simple first order lowpass filters in the feedback loop of delay lines, in Hz.  A lower value means faster decay in the high frequency range.
+
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
             feedbackLevel:(OCSControl *)feedbackLevel
           cutoffFrequency:(OCSControl *)cutoffFrequency;
+
+
 
 @end

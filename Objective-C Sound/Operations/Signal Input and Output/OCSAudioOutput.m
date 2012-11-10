@@ -15,24 +15,24 @@
 
 @implementation OCSAudioOutput
 
-- (id)initWithMonoInput:(OCSAudio *)monoSignal
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
 {
-    return [self initWithLeftInput:monoSignal rightInput:monoSignal];
+    return [self initWithLeftAudio:sourceAudio rightAudio:sourceAudio];
 }
 
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoSignal {
+- (id)initWithStereoInput:(OCSStereoAudio *)stereoAudio {
     self = [super init];
     if (self) {
-        aStereoOutput = stereoSignal;
+        aStereoOutput = stereoAudio;
     }
     return self;
 }
 
-- (id)initWithLeftInput:(OCSAudio *)leftInput rightInput:(OCSAudio *)rightInput
+- (id)initWithLeftAudio:(OCSAudio *)leftAudio rightAudio:(OCSAudio *)rightAudio
 {
     self = [super init];
     if (self) {
-        aStereoOutput = [[OCSStereoAudio alloc] initWithLeftInput:leftInput rightInput:rightInput];
+        aStereoOutput = [[OCSStereoAudio alloc] initWithLeftAudio:leftAudio rightAudio:rightAudio];
     }
     return self; 
 }
