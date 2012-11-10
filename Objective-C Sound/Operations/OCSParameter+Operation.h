@@ -7,7 +7,7 @@
 //
 
 #import "OCSParameter.h"
-#import "OCSParameterArray.h"
+#import "OCSArray.h"
 #import "OCSFTable.h"
 
 @interface OCSParameter (Operation)

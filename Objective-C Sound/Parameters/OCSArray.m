@@ -1,24 +1,22 @@
 //
-//  OCSParameterArray.m
+//  OCSArray.m
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 6/6/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSParameterArray.h"
+#import "OCSArray.h"
 
-@interface OCSParameterArray () {
+@interface OCSArray () {
     NSMutableArray *params;
-    //NSString *parameterString;
     NSUInteger count;
     float      numbers[0];
 }
 @end
 
-@implementation OCSParameterArray
+@implementation OCSArray
 @synthesize params;
-//@synthesize parameterString;
 
 - (id)init 
 {
@@ -35,7 +33,7 @@
 }
 
 
-- (OCSParameterArray *)pairWith:(OCSParameterArray *)pairingArray 
+- (OCSArray *)pairWith:(OCSArray *)pairingArray 
 {
     NSAssert([self count] != [pairingArray count], @"Array must be equal in size");
         
@@ -44,7 +42,7 @@
         [temp addObject:[[self params]  objectAtIndex:i]];
         [temp addObject:[[pairingArray params] objectAtIndex:i]];
     }
-    OCSParameterArray *pairedArray = [[OCSParameterArray alloc] init];
+    OCSArray *pairedArray = [[OCSArray alloc] init];
     [pairedArray setParams:temp];
     return pairedArray;
 }
@@ -66,8 +64,8 @@
 }
 
 
-+ (id)paramArrayFromParams:(OCSConstant *)firstParam,... {
-    OCSParameterArray *result = [[OCSParameterArray alloc] init];
++ (id)arrayFromParams:(OCSConstant *)firstParam,... {
+    OCSArray *result = [[OCSArray alloc] init];
     
     OCSParameter *eachParam;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
@@ -85,8 +83,8 @@
     return result;
 }
 
-+ (id)paramArrayFromNumbers:(NSNumber *)firstValue,... {
-    OCSParameterArray *result = [[OCSParameterArray alloc] init];
++ (id)arrayFromNumbers:(NSNumber *)firstValue,... {
+    OCSArray *result = [[OCSArray alloc] init];
     
     NSNumber *eachValue;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];

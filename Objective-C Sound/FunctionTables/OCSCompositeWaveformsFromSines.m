@@ -11,14 +11,14 @@
 @implementation OCSCompositeWaveformsFromSines
 
 -(id)initWithTableSize:(int)tableSize
-        partialNumbers:(OCSParameterArray *)partialNumbers
-      partialStrengths:(OCSParameterArray *)partialStrengths
-partialStrengthOffsets:(OCSParameterArray *)partialOffsets
-         partialPhases:(OCSParameterArray *)partialPhases
+        partialNumbers:(OCSArray *)partialNumbers
+      partialStrengths:(OCSArray *)partialStrengths
+partialStrengthOffsets:(OCSArray *)partialOffsets
+         partialPhases:(OCSArray *)partialPhases
 {
     self = [super init];
     
-    OCSParameterArray *parameters = [[OCSParameterArray alloc] init];
+    OCSArray *parameters = [[OCSArray alloc] init];
     if (self) {
         NSAssert([partialNumbers count] == [partialStrengths count] &&
                  [partialStrengths count] == [partialOffsets count] &&

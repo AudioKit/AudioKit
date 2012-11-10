@@ -24,8 +24,8 @@
         // INSTRUMENT DEFINITION ===============================================
         // create sign function with variable partial strengths
 
-        OCSParameterArray *partialStrengths;
-        partialStrengths = [OCSParameterArray paramArrayFromParams:
+        OCSArray *partialStrengths;
+        partialStrengths = [OCSArray arrayFromParams:
                             ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 
@@ -38,7 +38,7 @@
                                                 duration:ocsp(3.0)];
         [self connect:myLine];
 
-        //Init LineSegment_a, without OCSParameterArray Functions like line
+        //Init LineSegment_a, without OCSArray Functions like line
         OCSLinearControl *baseFrequencyLine;
         baseFrequencyLine = [[OCSLinearControl alloc] initFromValue:ocsp(110)
                                                             toValue:ocsp(330)

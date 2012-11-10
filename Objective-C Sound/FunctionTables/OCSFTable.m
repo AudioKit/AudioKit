@@ -12,7 +12,7 @@
     int isize;
     FTableType igen;
     OCSConstant *output;
-    OCSParameterArray *iargs; 
+    OCSArray *iargs; 
     BOOL isNormalized;
 }
 @end
@@ -22,7 +22,7 @@
 
 - (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
-        parameters:(OCSParameterArray *)parameters;
+        parameters:(OCSArray *)parameters;
 {
     self = [super init];
     if (self) {
@@ -36,7 +36,7 @@
 }
 
 - (id)initWithType:(FTableType)fTableType
-        parameters:(OCSParameterArray *)parameters;
+        parameters:(OCSArray *)parameters;
 {
     return [self initWithType:fTableType size:0 parameters:parameters];
 }

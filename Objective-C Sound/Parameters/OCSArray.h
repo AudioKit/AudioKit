@@ -1,5 +1,5 @@
 //
-//  OCSParameterArray.h
+//  OCSArray.h
 //  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 6/6/12.
@@ -8,12 +8,11 @@
 
 #import "OCSConstant.h"
 
-#define ocspa(__p__, ...)   [OCSParameterArray paramArrayFromParams:__p__, __VA_ARGS__]
-#define ocspna(__n__, ...)  [OCSParameterArray paramArrayFromNumbers:__n__, __VA_ARGS__]
-#define ocs1paramarray(__f__) [OCSParameterArray paramArrayFromParams:[OCSConstant parameterWithFloat:__f__], nil]
+#define ocspa(__p__, ...)   [OCSArray arrayFromParams:__p__, __VA_ARGS__]
+#define ocspna(__n__, ...)  [OCSArray arrayFromNumbers:__n__, __VA_ARGS__]
 
 /// Am array of OCSParameter variables
-@interface OCSParameterArray : NSObject
+@interface OCSArray : NSObject
 
 /// CSD Textual representation of the parameter's name.
 - (NSString *)parameterString;
@@ -24,15 +23,19 @@
 /// Explicitly using a nil-terminated list of OCSParameters to create the array
 /// @param firstParam At least one OCSConstant is required
 /// @param ...        Terminate list with a nil.
-+ (id)paramArrayFromParams:(OCSConstant *) firstParam, ...;
-+ (id)paramArrayFromNumbers:(NSNumber *)firstValue, ...;
++ (id)arrayFromParams:(OCSConstant *) firstParam, ...;
+
+/// Explicitly using a nil-terminated list of NSNumbers to create the array
+/// @param firstValue At least one NSNumber is required
+/// @param ...        Terminate list with a nil.
++ (id)arrayFromNumbers:(NSNumber *)firstValue, ...;
 
 /// Returns the number of elements in the array.
 - (int)count;
 
-/// Takes two OCSParameterArrays and intertwines x1, y1, x2, y2, etc.
+/// Takes two OCSArrays and intertwines x1, y1, x2, y2, etc.
 /// @param pairingArray The second array, must be equal in size.
-- (OCSParameterArray *)pairWith:(OCSParameterArray *)pairingArray;
+- (OCSArray *)pairWith:(OCSArray *)pairingArray;
 
 - (id)fTableString;
 

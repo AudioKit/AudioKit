@@ -41,12 +41,11 @@
 //        
 //        // INSTRUMENT DEFINITION ===============================================
 //        
-//        OCSParameterArray *partialStrengthParamArray =
-//        [OCSParameterArray paramArrayFromParams: ocsp(1),ocsp(0.5), ocsp(1), nil];
+//        OCSArray *partialStrengthArray = ocspna(@1, @0.5, @1, nil);
 //        
 //        OCSSineTable *sine;
 //        sine = [[OCSSineTable alloc] initWithSize:4096
-//                                 partialStrengths:partialStrengthParamArray];
+//                                 partialStrengths:partialStrengthArray];
 //        [self addFTable:sine];
 //        
 //        OCSMarimba  *marimba;
