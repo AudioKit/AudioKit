@@ -78,7 +78,7 @@
 
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:dryWet];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithSourceAudio:dryWet];
         [self connect:audio];
     }
     return self;

@@ -65,7 +65,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithMonoInput:lpFilter];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithSourceAudio:lpFilter];
         [self connect:audio];
     }
     return self;

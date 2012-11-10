@@ -27,7 +27,7 @@ static int currentID = 1;
 }
 
 + (OCSStereoAudio *)stereoFromMono:(OCSAudio *)mono {
-    return [[OCSStereoAudio alloc] initWithLeftInput:mono rightInput:mono];
+    return [[OCSStereoAudio alloc] initWithLeftAudio:mono rightAudio:mono];
 }
 
 - (id)init
@@ -52,13 +52,13 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initWithLeftInput:(OCSAudio *)leftInput
-             rightInput:(OCSAudio *)rightInput
+- (id)initWithLeftAudio:(OCSAudio *)leftAudio
+             rightAudio:(OCSAudio *)rightAudio
 {
     self = [self init];
     if (self) {
-        aOutL = leftInput;
-        aOutR = rightInput;
+        aOutL = leftAudio;
+        aOutR = rightAudio;
     }
     return self;
 }
@@ -67,7 +67,7 @@ static int currentID = 1;
 {
     OCSAudio *left  = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutL, scalingFactor];
     OCSAudio *right = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutR, scalingFactor];
-    return [[OCSStereoAudio alloc] initWithLeftInput:left rightInput:right];
+    return [[OCSStereoAudio alloc] initWithLeftAudio:left rightAudio:right];
 }
 
 - (NSString *)description {

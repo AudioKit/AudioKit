@@ -20,26 +20,27 @@
 
 @implementation OCSReverb
 
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
-            feedbackLevel:(OCSControl *)feedbackLevel
-          cutoffFrequency:(OCSControl *)cutoffFrequency;
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+                  feedbackLevel:(OCSControl *)feedbackLevel
+                cutoffFrequency:(OCSControl *)cutoffFrequency;
+
 {
     self = [super init];
     if (self) {
-        aInLR  = stereoInput;
+        aInLR  = sourceStereo;
         kFbLvl = feedbackLevel;
         kFCo   = cutoffFrequency;
     }
     return self; 
 }
 
-- (id)initWithMonoInput:(OCSAudio *)monoInput
-          feedbackLevel:(OCSControl *)feedbackLevel
-        cutoffFrequency:(OCSControl *)cutoffFrequency;
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+            feedbackLevel:(OCSControl *)feedbackLevel
+          cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
-    return [self initWithStereoInput:[OCSStereoAudio stereoFromMono:monoInput]
-                       feedbackLevel:feedbackLevel
-                     cutoffFrequency:cutoffFrequency];
+    return [self initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:sourceAudio]
+                             feedbackLevel:feedbackLevel
+                           cutoffFrequency:cutoffFrequency];
 }
 
 // Csound prototype: aoutL, aoutR reverbsc ainL, ainR, kfblvl, kfco[, israte[, ipitchm[, iskip]]] 

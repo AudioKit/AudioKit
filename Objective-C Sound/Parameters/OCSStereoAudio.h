@@ -19,10 +19,10 @@
 @property (nonatomic, strong) OCSAudio *rightOutput;
 
 /// Create an audio pair from left and right inputs
-/// @param leftInput  Left channel input
-/// @param rightInput Rigt channel input
-- (id)initWithLeftInput:(OCSAudio *)leftInput
-             rightInput:(OCSAudio *)rightInput;
+/// @param leftAudio  Left channel input
+/// @param rightAudio Rigt channel input
+- (id)initWithLeftAudio:(OCSAudio *)leftAudio
+             rightAudio:(OCSAudio *)rightAudio;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
