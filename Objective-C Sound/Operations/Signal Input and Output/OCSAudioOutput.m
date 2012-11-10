@@ -20,7 +20,7 @@
     return [self initWithLeftAudio:sourceAudio rightAudio:sourceAudio];
 }
 
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoAudio {
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)stereoAudio {
     self = [super init];
     if (self) {
         aStereoOutput = stereoAudio;

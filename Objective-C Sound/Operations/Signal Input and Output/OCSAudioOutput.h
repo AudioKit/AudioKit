@@ -26,7 +26,7 @@
 
 /// Send a stereo output pair
 /// @param stereoSignal The audio as an OCSStereoAudio pair
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoAudio;
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)stereoAudio;
 
 /// Initialization Statement
 /// @param leftAudio  The audio signal to be played on the left channel.
