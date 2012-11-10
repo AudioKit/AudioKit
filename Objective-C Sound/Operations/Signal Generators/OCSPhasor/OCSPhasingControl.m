@@ -1,6 +1,6 @@
 //
 //  OCSPhasingControl.m
-//  Sonification
+//  Objective-C Sound
 //
 //  Created by Adam Boulanger on 10/11/12.
 //  Copyright (c) 2012 Adam Boulanger. All rights reserved.
