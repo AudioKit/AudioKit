@@ -17,13 +17,13 @@
 
 @implementation OCSScaledControl
 
-- (id)initWithInput:(OCSControl *)input
-      minimumOutput:(OCSControl *)minimumOutput
-      maximumOutput:(OCSControl *)maximumOutput;
+- (id)initWithControl:(OCSControl *)inputControl
+        minimumOutput:(OCSControl *)minimumOutput
+        maximumOutput:(OCSControl *)maximumOutput;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        kin  = input;
+        kin  = inputControl;
         kmax = maximumOutput;
         kmin = minimumOutput;
     }

@@ -30,7 +30,8 @@
         
         // AUDIO OUTPUT ========================================================
             
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithStereoInput:[reverb scaledBy:0.2] ];
+        OCSAudioOutput *audio;
+        audio = [[OCSAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:0.2] ];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

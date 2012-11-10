@@ -17,15 +17,15 @@
 
 /** Instantiates the pitch shifter.
  
- @param stereoInput                Input to the left and right channels.
+ @param sourceStereo               Input to the left and right channels.
  @param basePitch                  The pitch to shift by in pitch notation.
  @param fineTuningOffsetFrequency  Frequency in Hz that will be added to the converted pitch frequency (a negative will detune). 
  @param feedbackLevel              Typically a value from 0.0 (no feedback to 1.0 (100% feedback).
  @return                           An instance of the pitch shifter.
  */
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
-                basePitch:(OCSControl *)basePitch
-          offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
-            feedbackLevel:(OCSControl *)feedbackLevel;
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+                      basePitch:(OCSControl *)basePitch
+                offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
+                  feedbackLevel:(OCSControl *)feedbackLevel;
 
 @end

@@ -9,7 +9,7 @@
 #import "UDOCsGrainPitchShifter.h"
 
 @interface UDOCsGrainPitchShifter () {
-    OCSAudio *inLR;
+    OCSStereoAudio *inLR;
     OCSControl *pitch;
     OCSControl *offset;
     OCSControl *feedback;
@@ -18,14 +18,14 @@
 
 @implementation UDOCsGrainPitchShifter
 
-- (id)initWithStereoInput:(OCSAudio *)stereoInput
-                basePitch:(OCSControl *)basePitch
-          offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
-            feedbackLevel:(OCSControl *)feedbackLevel
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+                      basePitch:(OCSControl *)basePitch
+                offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
+                  feedbackLevel:(OCSControl *)feedbackLevel
 {
     self = [super init];
     if (self) {
-        inLR     = stereoInput;
+        inLR     = sourceStereo;
         pitch    = basePitch;
         offset   = fineTuningOffsetFrequency;
         feedback = feedbackLevel;

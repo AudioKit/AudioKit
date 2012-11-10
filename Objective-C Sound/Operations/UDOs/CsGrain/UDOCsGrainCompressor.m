@@ -20,15 +20,15 @@
 
 @implementation UDOCsGrainCompressor
 
-- (id)initWithStereoInput:(OCSStereoAudio *)stereoInput
-                threshold:(OCSControl *)dBThreshold
-         compressionRatio:(OCSControl *)compressionRatio
-               attackTime:(OCSControl *)attackTime
-              releaseTime:(OCSControl *)releaseTime;
+- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+                      threshold:(OCSControl *)dBThreshold
+               compressionRatio:(OCSControl *)compressionRatio
+                     attackTime:(OCSControl *)attackTime
+                    releaseTime:(OCSControl *)releaseTime
 {
     self = [super init];
     if (self) {
-        inLR      = stereoInput;
+        inLR      = sourceStereo;
         threshold = dBThreshold;
         ratio     = compressionRatio;
         attack    = attackTime;

@@ -33,23 +33,23 @@
         [self addUDO:msrOsc];
         
         UDOCsGrainPitchShifter * ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithStereoInput:[OCSStereoAudio stereoFromMono:msrOsc]
-                                                       basePitch:ocsp(2.7)
-                                                 offsetFrequency:ocsp(0)
-                                                   feedbackLevel:ocsp(0.9)];
+        ps = [[UDOCsGrainPitchShifter alloc] initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:msrOsc]
+                                                             basePitch:ocsp(2.7)
+                                                       offsetFrequency:ocsp(0)
+                                                         feedbackLevel:ocsp(0.9)];
         [self addUDO:ps];
         
         UDOCsGrainCompressor * comp;
-        comp = [[UDOCsGrainCompressor alloc] initWithStereoInput:ps
-                                                       threshold:ocsp(-2.0)
-                                                compressionRatio:ocsp(0.5)
-                                                      attackTime:ocsp(0.1)
-                                                     releaseTime:ocsp(0.2)];
+        comp = [[UDOCsGrainCompressor alloc] initWithSourceStereoAudio:ps
+                                                             threshold:ocsp(-2.0)
+                                                      compressionRatio:ocsp(0.5)
+                                                            attackTime:ocsp(0.1)
+                                                           releaseTime:ocsp(0.2)];
         [self addUDO:comp];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *stereoOutput = [[OCSAudioOutput alloc] initWithStereoInput:comp ];
+        OCSAudioOutput *stereoOutput = [[OCSAudioOutput alloc] initWithSourceStereoAudio:comp];
         [self connect:stereoOutput];
     }
     return self;
