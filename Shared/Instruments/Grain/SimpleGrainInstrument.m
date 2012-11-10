@@ -47,7 +47,7 @@
         baseFrequency = [OCSConstant parameterWithFormat:@"44100 / %@", [fileTable length]];
         OCSLine *pitchLine;
         pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
-                                           toValue:[baseFrequency scaledBy:0.8]
+                                           toValue:[baseFrequency scaledBy:ocsp(0.8)]
                                           duration:ocsp(9.0)];
         [self connect:pitchLine];
         
@@ -64,7 +64,7 @@
         
         OCSLinearControl *pitchOffsetLine;
         pitchOffsetLine = [[OCSLinearControl alloc] initFromValue:ocsp(0)
-                                                          toValue:[baseFrequency scaledBy:0.5]
+                                                          toValue:[baseFrequency scaledBy:ocsp(0.5)]
                                                          duration:ocsp(9.0) ];
         [self connect:pitchOffsetLine];
         

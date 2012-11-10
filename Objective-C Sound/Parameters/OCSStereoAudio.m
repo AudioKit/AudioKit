@@ -63,10 +63,12 @@ static int currentID = 1;
     return self;
 }
 
-- (id)scaledBy:(float)scalingFactor
+- (id)scaledBy:(OCSParameter *)scalingFactor
 {
-    OCSAudio *left  = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutL, scalingFactor];
-    OCSAudio *right = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutR, scalingFactor];
+    OCSAudio *left   = [aOutL scaledBy:scalingFactor];
+    OCSAudio *right  = [aOutR scaledBy:scalingFactor];
+    //[OCSAudio parameterWithFormat:@"((%@) * %g)", aOutL, scalingFactor];
+    //OCSAudio *right = [OCSAudio parameterWithFormat:@"((%@) * %g)", aOutR, scalingFactor];
     return [[OCSStereoAudio alloc] initWithLeftAudio:left rightAudio:right];
 }
 

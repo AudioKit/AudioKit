@@ -63,7 +63,7 @@
         
         OCSScaledFSignal *fsig3;
         fsig3 = [[OCSScaledFSignal alloc] initWithInput:fsig1
-                                         frequencyRatio:[pitch scaledBy:1.25f]
+                                         frequencyRatio:[pitch scaledBy:ocsp(1.25)]
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];

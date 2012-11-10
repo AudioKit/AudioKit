@@ -8,6 +8,10 @@
 
 #import "OCSConstant.h"
 
+#define ocspa(__p__, ...)   [OCSParameterArray paramArrayFromParams:__p__, __VA_ARGS__]
+#define ocspfa(__f__, ...)  [OCSParameterArray paramArrayFromFloats:__f__, __VA_ARGS__]
+#define ocs1paramarray(__f__) [OCSParameterArray paramArrayFromParams:[OCSConstant parameterWithFloat:__f__], nil]
+
 /// Am array of OCSParameter variables
 @interface OCSParameterArray : NSObject
 
@@ -21,6 +25,7 @@
 /// @param firstParam At least one OCSConstant is required
 /// @param ...        Terminate list with a nil.
 + (id)paramArrayFromParams:(OCSConstant *) firstParam, ...;
++ (id)paramArrayFromFloats:(double)firstValue, ...;
 
 /// Returns the number of elements in the array.
 - (int)count;
