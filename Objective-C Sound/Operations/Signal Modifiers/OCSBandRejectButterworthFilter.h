@@ -20,7 +20,7 @@
 /// @param sourceAudio     The input to be filtered.
 /// @param centerFrequency Center frequency for each of the filters.
 /// @param bandwidthRange  Bandwidth of the bandreject filter.
--(id)initWithSourceAudio:(OCSAUdio *)sourceAudio
+-(id)initWithSourceAudio:(OCSAudio *)sourceAudio
          centerFrequency:(OCSControl *)centerFrequency
                bandwidth:(OCSControl *)bandwidthRange;
 

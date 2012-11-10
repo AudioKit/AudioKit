@@ -9,19 +9,20 @@
 #import "OCSHighPassButterworthFilter.h"
 
 @interface OCSHighPassButterworthFilter () {
-    OCSParameter *input;
+    OCSAudio *input;
     OCSControl *cutoff;
 }
 @end
 
 @implementation OCSHighPassButterworthFilter
 
--(id)initWithInput:(OCSAudio *)inputSignal
-   cutoffFrequency:(OCSControl *)cutoffFrequency;
+-(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+         cutoffFrequency:(OCSControl *)cutoffFrequency
+
 {
     self = [super initWithString:[self operationName]];
     if(self) {
-        input = inputSignal;
+        input = sourceAudio;
         cutoff = cutoffFrequency;
     }
     return self;
