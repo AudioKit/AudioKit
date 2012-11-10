@@ -9,19 +9,19 @@
 #import "OCSStereoConvolution.h"
 
 @interface OCSStereoConvolution () {
-    OCSParameter *aIn;
+    OCSAudio *aIn;
     NSString *iFilCod;
 }
 @end
 
 @implementation OCSStereoConvolution
 
-- (id)initWithInputAudio:(OCSParameter *)inputAudio
-     impulseResponseFile:(NSString *)impulseResponseFilename;
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+      impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {
-        aIn     = inputAudio;
+        aIn     = sourceAudio;
         iFilCod = impulseResponseFilename;
     }
     return self;

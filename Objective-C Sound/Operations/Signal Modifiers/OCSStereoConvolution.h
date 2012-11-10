@@ -15,8 +15,8 @@
 @interface OCSStereoConvolution : OCSStereoAudio
 
 /// Create a convolution
-/// @param inputAudio              Audio input to the convolution
+/// @param sourceAudio             Audio input to the convolution
 /// @param impulseResponseFilename Impulse response file. Multichannel files are supported, the file must have the same sample-rate as the orchestra.  Keep in mind that longer files require more calculation time [and probably larger partition sizes and more latency]. At current processor speeds, files longer than a few seconds may not render in real-time.
-- (id)initWithInputAudio:(OCSParameter *)inputAudio
-     impulseResponseFile:(NSString *)impulseResponseFilename;
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+      impulseResponseFile:(NSString *)impulseResponseFilename;
 @end
