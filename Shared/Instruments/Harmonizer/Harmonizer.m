@@ -46,11 +46,11 @@
         [self connect:microphone];
         
         OCSFSignalFromMonoAudio *fsig1;
-        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithInput:microphone
-                                                       fftSize:ocspi(2048) 
-                                                       overlap:ocspi(256) 
-                                                    windowType:kVonHannWindow
-                                              windowFilterSize:ocspi(2048)];
+        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithSourceAudio:microphone
+                                                             fftSize:ocspi(2048)
+                                                             overlap:ocspi(256)
+                                                          windowType:kVonHannWindow
+                                                    windowFilterSize:ocspi(2048)];
         [self connect:fsig1];
         
         OCSScaledFSignal *fsig2;
