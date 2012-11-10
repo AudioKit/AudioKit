@@ -16,12 +16,12 @@
 
 @implementation OCSConvolution
 
-- (id)initWithInputAudio:(OCSParameter *)inputAudio 
-     impulseResponseFile:(NSString *)impulseResponseFilename;
+- (id)initWithSourceAudio:(OCSParameter *)sourceAudio
+      impulseResponseFile:(NSString *)impulseResponseFilename
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        aIn     = inputAudio;
+        aIn     = sourceAudio;
         iFilCod = impulseResponseFilename;
     }
     return self; 
