@@ -130,7 +130,7 @@
 		C444C936164BB1C4009FC32F /* OCSControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C860164BB1C3009FC32F /* OCSControl.m */; };
 		C444C938164BB1C4009FC32F /* OCSFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C862164BB1C3009FC32F /* OCSFSignal.m */; };
 		C444C93A164BB1C4009FC32F /* OCSParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C864164BB1C3009FC32F /* OCSParameter.m */; };
-		C444C93C164BB1C4009FC32F /* OCSParameterArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C866164BB1C3009FC32F /* OCSParameterArray.m */; };
+		C444C93C164BB1C4009FC32F /* OCSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C866164BB1C3009FC32F /* OCSArray.m */; };
 		C444C93E164BB1C4009FC32F /* OCSStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C868164BB1C3009FC32F /* OCSStereoAudio.m */; };
 		C444C940164BB1C4009FC32F /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86B164BB1C3009FC32F /* OCSInstrumentProperty.m */; };
 		C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86D164BB1C3009FC32F /* OCSNoteProperty.m */; };
@@ -427,8 +427,8 @@
 		C444C862164BB1C3009FC32F /* OCSFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFSignal.m; sourceTree = "<group>"; };
 		C444C863164BB1C3009FC32F /* OCSParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSParameter.h; sourceTree = "<group>"; };
 		C444C864164BB1C3009FC32F /* OCSParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameter.m; sourceTree = "<group>"; };
-		C444C865164BB1C3009FC32F /* OCSParameterArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSParameterArray.h; sourceTree = "<group>"; };
-		C444C866164BB1C3009FC32F /* OCSParameterArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSParameterArray.m; sourceTree = "<group>"; };
+		C444C865164BB1C3009FC32F /* OCSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSArray.h; sourceTree = "<group>"; };
+		C444C866164BB1C3009FC32F /* OCSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSArray.m; sourceTree = "<group>"; };
 		C444C867164BB1C3009FC32F /* OCSStereoAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSStereoAudio.h; sourceTree = "<group>"; };
 		C444C868164BB1C3009FC32F /* OCSStereoAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStereoAudio.m; sourceTree = "<group>"; };
 		C444C86A164BB1C3009FC32F /* OCSInstrumentProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSInstrumentProperty.h; sourceTree = "<group>"; };
@@ -1157,8 +1157,8 @@
 				C444C862164BB1C3009FC32F /* OCSFSignal.m */,
 				C444C863164BB1C3009FC32F /* OCSParameter.h */,
 				C444C864164BB1C3009FC32F /* OCSParameter.m */,
-				C444C865164BB1C3009FC32F /* OCSParameterArray.h */,
-				C444C866164BB1C3009FC32F /* OCSParameterArray.m */,
+				C444C865164BB1C3009FC32F /* OCSArray.h */,
+				C444C866164BB1C3009FC32F /* OCSArray.m */,
 				C444C867164BB1C3009FC32F /* OCSStereoAudio.h */,
 				C444C868164BB1C3009FC32F /* OCSStereoAudio.m */,
 			);
@@ -1694,7 +1694,7 @@
 				C444C936164BB1C4009FC32F /* OCSControl.m in Sources */,
 				C444C938164BB1C4009FC32F /* OCSFSignal.m in Sources */,
 				C444C93A164BB1C4009FC32F /* OCSParameter.m in Sources */,
-				C444C93C164BB1C4009FC32F /* OCSParameterArray.m in Sources */,
+				C444C93C164BB1C4009FC32F /* OCSArray.m in Sources */,
 				C444C93E164BB1C4009FC32F /* OCSStereoAudio.m in Sources */,
 				C444C940164BB1C4009FC32F /* OCSInstrumentProperty.m in Sources */,
 				C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */,

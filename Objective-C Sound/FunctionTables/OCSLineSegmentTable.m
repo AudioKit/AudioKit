@@ -13,7 +13,7 @@
 #pragma mark Straight lines Values and Lengths
 
 - (id)initWithSize:(int)tableSize
-  valueLengthPairs:(OCSParameterArray *)valueLengthPairs
+  valueLengthPairs:(OCSArray *)valueLengthPairs
 {
     return [self initWithType:kFTStraightLines
                          size:tableSize
@@ -21,8 +21,8 @@
 }
 
 - (id)initWithSize:(int)tableSize
-            values:(OCSParameterArray *)values
-           lengths:(OCSParameterArray *)lengths;
+            values:(OCSArray *)values
+           lengths:(OCSArray *)lengths;
 {
     return [self initWithSize:tableSize valueLengthPairs:[values pairWith:lengths]];
 }
@@ -30,7 +30,7 @@
 #pragma mark Straight lines From Breakpoints
 
 - (id)initWithSize:(int)tableSize
-       breakpoints:(OCSParameterArray *)breakpoints;
+       breakpoints:(OCSArray *)breakpoints;
 {
     return [self initWithType:kFTStraightLinesFromBreakpoints
                          size:tableSize
@@ -38,8 +38,8 @@
 }
 
 - (id)initWithSize:(int)tableSize
- breakpointXValues:(OCSParameterArray *)xValues
- breakpointYValues:(OCSParameterArray *)yValues;
+ breakpointXValues:(OCSArray *)xValues
+ breakpointYValues:(OCSArray *)yValues;
 {
     return [self initWithSize:tableSize breakpoints:[xValues pairWith:yValues]];
 }
