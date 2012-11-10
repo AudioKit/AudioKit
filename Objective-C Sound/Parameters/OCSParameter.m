@@ -79,10 +79,24 @@ static int currentID = 1;
     return parameterString;
 }
 
-- (id)scaledBy:(float)scalingFactor
+- (id)plus:(OCSParameter *)additionalParameter
 {
     OCSParameter *new = [[OCSParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) * %g)", parameterString, scalingFactor]];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) + %@)", self, additionalParameter]];
+    return new;
+}
+
+- (id)scaledBy:(OCSParameter *)scalingFactor
+{
+    OCSParameter *new = [[OCSParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) * %@)", self, scalingFactor]];
+    return new;
+}
+
+- (id)inverse
+{
+    OCSParameter *new = [[OCSParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"(1/(%@))", self]];
     return new;
 }
 

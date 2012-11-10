@@ -51,9 +51,16 @@
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
 
+/// Helper function to create a new OCSParameter combined with the original
+/// @param additionalParameter The additional parameter (should be of the same type)
+- (id)plus:(OCSParameter *)additionalParameter;
+
 /// Helper function to create a new OCSParameter with the CSD output scaled
-/// @param scalingFactor The floating point number by which to scale.
-- (id)scaledBy:(float)scalingFactor;
+/// @param scalingFactor The scaling factor should be multiplied by
+- (id)scaledBy:(OCSParameter *)scalingFactor;
+
+/// Helper function to return one-over-this-parameter
+- (id)inverse;
 
 /// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
 - (id)amplitudeFromFullScaleDecibel;
