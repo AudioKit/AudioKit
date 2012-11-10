@@ -12,11 +12,11 @@
 #import "OCSMixedAudio.h"
 
 @interface OCSMixedAudio () {
-    OCSParameter *in1;
-    OCSParameter *in2;
+    OCSAudio *in1;
+    OCSAudio *in2;
     OCSConstant *min;
     OCSConstant *max;
-    OCSParameter *current;
+    OCSControl *current;
 }
 @end
 

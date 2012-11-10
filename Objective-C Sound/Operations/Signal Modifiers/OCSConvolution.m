@@ -9,14 +9,14 @@
 #import "OCSConvolution.h"
 
 @interface OCSConvolution () {
-    OCSParameter *aIn;
+    OCSAudio *aIn;
     NSString *iFilCod;
 }
 @end
 
 @implementation OCSConvolution
 
-- (id)initWithSourceAudio:(OCSParameter *)sourceAudio
+- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
       impulseResponseFile:(NSString *)impulseResponseFilename
 {
     self = [super initWithString:[self operationName]];

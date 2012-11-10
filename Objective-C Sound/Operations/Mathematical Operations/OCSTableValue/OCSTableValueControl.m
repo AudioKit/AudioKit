@@ -10,7 +10,7 @@
 
 @interface OCSTableValueControl () {
     OCSConstant  *ifn;
-    OCSParameter *andx;
+    OCSControl  *kndx;
     OCSParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
@@ -28,7 +28,7 @@
         normalizeResult = NO;
         ixoff = [OCSConstant parameterWithInt:0];
         wrapData = NO;
-        andx = index;
+        kndx = index;
     }
     return self;
     
@@ -52,7 +52,7 @@
     int iwrap = wrapData ? 0:1;
     return [NSString stringWithFormat:
             @"%@ tablei %@, %@, %i, %@, %i",
-            self, andx, ifn, ixmode, ixoff, iwrap];
+            self, kndx, ifn, ixmode, ixoff, iwrap];
 }
 
 @end
