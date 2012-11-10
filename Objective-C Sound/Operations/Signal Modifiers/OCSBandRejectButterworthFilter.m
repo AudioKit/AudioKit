@@ -10,7 +10,7 @@
 
 @interface OCSBandRejectButterworthFilter ()
 {
-    OCSParameter *input;
+    OCSAudio *input;
     OCSControl *center;
     OCSControl *bandwidth;
     
@@ -20,13 +20,13 @@
 
 @implementation OCSBandRejectButterworthFilter
 
--(id)initWithInput:(OCSParameter *)inputSignal
-   centerFrequency:(OCSControl *)centerFrequency
-         bandwidth:(OCSControl *)bandwidthRange
+-(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+         centerFrequency:(OCSControl *)centerFrequency
+               bandwidth:(OCSControl *)bandwidthRange
 {
     self = [super initWithString:[self operationName]];
     if(self) {
-        input = inputSignal;
+        input = sourceAudio;
         center = centerFrequency;
         bandwidth = bandwidthRange;
     }
