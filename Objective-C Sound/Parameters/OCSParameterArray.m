@@ -85,18 +85,20 @@
     return result;
 }
 
-+ (id)paramArrayFromFloats:(double)firstValue,... {
++ (id)paramArrayFromNumbers:(NSNumber *)firstValue,... {
     OCSParameterArray *result = [[OCSParameterArray alloc] init];
     
-    double eachValue;
+    NSNumber *eachValue;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;
-    [initParameters addObject:[OCSConstant parameterWithFloat:firstValue]];
-    va_start(argumentList, firstValue); // Start scanning for arguments after firstObject.
-    while ((eachValue = va_arg(argumentList, double))) // As many times as we can get an argument of type "id"
-        [initParameters addObject:[OCSConstant parameterWithFloat:(float)eachValue]]; // that isn't nil, add it to self's contents.
-    va_end(argumentList);
-
+    if (firstValue) { // The first argument isn't part of the varargs list, so we'll handle it separately.
+        [initParameters addObject:[OCSConstant parameterWithNumber:firstValue]];
+        va_start(argumentList, firstValue); // Start scanning for arguments after firstObject.
+        while ((eachValue = va_arg(argumentList, id))) // As many times as we can get an argument of type "id"
+            [initParameters addObject:[OCSConstant parameterWithNumber:eachValue]]; // that isn't nil, add it to self's contents.
+        va_end(argumentList);
+    }
+    
     [result setParams:initParameters];
     
     return result;
