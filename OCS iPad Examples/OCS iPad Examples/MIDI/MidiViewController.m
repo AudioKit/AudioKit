@@ -9,7 +9,7 @@
 #import "MidiViewController.h"
 #import "OCSManager.h"
 #import "FivePropertyInstrument.h"
-#import "Helper.h"
+#import "OCSiOSTools.h"
 
 @interface MidiViewController () <OCSMidiListener> {
     int _channel;
@@ -31,23 +31,23 @@
     [noteLabel setText:[NSString stringWithFormat:@"%i", _note]];
     
     [modulationLabel setText:[NSString stringWithFormat:@"%i", _modulation]];
-    [Helper setSlider:modulationSlider
-            withValue:_modulation
-              minimum:0
-              maximum:127];
+    [OCSiOSTools setSlider:modulationSlider
+                 withValue:_modulation
+                   minimum:0
+                   maximum:127];
     
     [pitchBendLabel setText:[NSString stringWithFormat:@"%i", _pitchBend]];
-    [Helper setSlider:pitchBendSlider
-            withValue:_pitchBend
-              minimum:0
-              maximum:powf(2.0, 14.0)];
+    [OCSiOSTools setSlider:pitchBendSlider
+                 withValue:_pitchBend
+                   minimum:0
+                   maximum:powf(2.0, 14.0)];
     
     [controllerNumberLabel setText:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
     [controllerValueLabel  setText:[NSString stringWithFormat:@"%i", _controllerValue]];
-    [Helper setSlider:controllerSlider
-            withValue:_controllerValue
-              minimum:0
-              maximum:127];
+    [OCSiOSTools setSlider:controllerSlider
+                 withValue:_controllerValue
+                   minimum:0
+                   maximum:127];
 }
 
 - (void)viewDidLoad
@@ -66,7 +66,7 @@
     orch = [[OCSOrchestra alloc] init];
     instrument = [[FivePropertyInstrument alloc] init];
     [orch addInstrument:instrument];
-
+    
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     [[OCSManager sharedOCSManager] enableMidi];
     [[[OCSManager sharedOCSManager] midi] addListener:self];
@@ -89,12 +89,12 @@
     _note    = note;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     FivePropertyInstrumentNote *ocsNote;
-    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[Helper midiNoteToFrequency:note]
-                                                           atVolume:[Helper scaleValue:velocity
-                                                                           fromMinimum:0
-                                                                           fromMaximum:127
-                                                                             toMinimum:kVolumeMin
-                                                                             toMaximum:kVolumeMax]];
+    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[OCSiOSTools midiNoteToFrequency:note]
+                                                           atVolume:[OCSiOSTools scaleValue:velocity
+                                                                                fromMinimum:0
+                                                                                fromMaximum:127
+                                                                                  toMinimum:kVolumeMin
+                                                                                  toMaximum:kVolumeMax]];
     [instrument playNote:ocsNote];
     
     if ([currentNotes objectForKey:[NSNumber numberWithInt:note]]) {
@@ -110,22 +110,22 @@
     OCSNote *noteOn = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
     [noteOn stop];
 }
-    
+
 
 - (void)midiController:(int)controller changedToValue:(int)value channel:(int)channel {
     _channel = channel;
     _controllerNumber = controller;
-
+    
     if (_controllerNumber > 1) {
         _controllerValue = value;
         [self performSelectorOnMainThread:@selector(updateUI)
                                withObject:nil waitUntilDone:YES];
-        float cutoff = [Helper scaleControllerValue:value
-                                        fromMinimum:kLpCutoffMax
-                                          toMaximum:kLpCutoffMin];
+        float cutoff = [OCSiOSTools scaleControllerValue:value
+                                             fromMinimum:kLpCutoffMax
+                                               toMaximum:kLpCutoffMin];
         instrument.cutoffFrequency.value = cutoff;
     }
-
+    
 }
 
 - (void)midiPitchWheel:(int)pitchWheelValue channel:(int)channel {
@@ -135,17 +135,17 @@
     
     float bend;
     if (pitchWheelValue <= 8192) {
-        bend = [Helper scaleValue:pitchWheelValue
-                      fromMinimum:0
-                      fromMaximum:8192
-                        toMinimum:kPitchBendMin
-                        toMaximum:1];
+        bend = [OCSiOSTools scaleValue:pitchWheelValue
+                           fromMinimum:0
+                           fromMaximum:8192
+                             toMinimum:kPitchBendMin
+                             toMaximum:1];
     } else {
-        bend = [Helper scaleValue:pitchWheelValue
-                      fromMinimum:8192
-                      fromMaximum:16384
-                        toMinimum:1
-                        toMaximum:kPitchBendMax];
+        bend = [OCSiOSTools scaleValue:pitchWheelValue
+                           fromMinimum:8192
+                           fromMaximum:16384
+                             toMinimum:1
+                             toMaximum:kPitchBendMax];
     }
     instrument.pitchBend.value = bend;
 }
@@ -156,11 +156,11 @@
     [self performSelectorOnMainThread:@selector(updateUI)
                            withObject:nil waitUntilDone:YES];
     
-    float mod = [Helper scaleControllerValue:modulation
-                                 fromMinimum:kModulationMin
-                                   toMaximum:kModulationMax];
+    float mod = [OCSiOSTools scaleControllerValue:modulation
+                                      fromMinimum:kModulationMin
+                                        toMaximum:kModulationMax];
     [[instrument modulation] setValue:mod];
-
+    
 }
 
 

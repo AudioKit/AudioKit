@@ -9,7 +9,7 @@
 #import "MIDIController.h"
 #import "OCSManager.h"
 #import "FivePropertyInstrument.h"
-#import "Helper.h"
+#import "OCSMacTools.h"
 
 
 @interface MIDIController () <OCSMidiListener> {
@@ -60,8 +60,8 @@
     _note    = note;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     FivePropertyInstrumentNote *ocsNote;
-    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[Helper midiNoteToFrequency:note]
-                                                           atVolume:[Helper scaleValue:velocity
+    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[OCSMacTools midiNoteToFrequency:note]
+                                                           atVolume:[OCSMacTools scaleValue:velocity
                                                                            fromMinimum:0
                                                                            fromMaximum:127
                                                                              toMinimum:kVolumeMin
@@ -90,7 +90,7 @@
     if (_controllerNumber > 1) {
         _controllerValue = value;
         [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
-        float cutoff = [Helper scaleControllerValue:value
+        float cutoff = [OCSMacTools scaleControllerValue:value
                                         fromMinimum:kLpCutoffMax
                                           toMaximum:kLpCutoffMin];
         instrument.cutoffFrequency.value = cutoff;
@@ -104,13 +104,13 @@
     
     float bend;
     if (pitchWheelValue <=8192) {
-        bend = [Helper scaleValue:pitchWheelValue
+        bend = [OCSMacTools scaleValue:pitchWheelValue
                       fromMinimum:0
                       fromMaximum:8192
                         toMinimum:kPitchBendMin
                         toMaximum:1];
     } else {
-        bend = [Helper scaleValue:pitchWheelValue
+        bend = [OCSMacTools scaleValue:pitchWheelValue
                       fromMinimum:8192
                       fromMaximum:16384
                         toMinimum:1
@@ -124,7 +124,7 @@
     _modulation = modulation;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     
-    float mod = [Helper scaleControllerValue:modulation
+    float mod = [OCSMacTools scaleControllerValue:modulation
                                  fromMinimum:kModulationMin
                                    toMaximum:kModulationMax];
     instrument.modulation.value = mod;
@@ -135,20 +135,20 @@
     [noteLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _note]];
     
     [modulationLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _modulation]];
-    [Helper setSlider:modulationSlider
+    [OCSMacTools setSlider:modulationSlider
             withValue:_modulation
               minimum:0
               maximum:127];
     
     [pitchBendLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _pitchBend]];
-    [Helper setSlider:pitchBendSlider
+    [OCSMacTools setSlider:pitchBendSlider
             withValue:_pitchBend
               minimum:0
               maximum:powf(2.0, 14.0)];
     
     [controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
     [controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
-    [Helper setSlider:controllerSlider
+    [OCSMacTools setSlider:controllerSlider
             withValue:_controllerValue
               minimum:0
               maximum:127];

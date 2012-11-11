@@ -104,7 +104,7 @@ static int currentID = 1;
     // AOP the name functionality may not be working
     [self.properties setValue:newProperty forKey:name];
     [propOrder addObject:name];
-    [newProperty setPValue:propOrder.count +3];
+    [newProperty setPValue:(int)propOrder.count + 3];
     [newProperty setNote:self];
 }
 

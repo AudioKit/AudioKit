@@ -8,7 +8,7 @@
 
 #import "SequenceViewController.h"
 
-#import "Helper.h"
+#import "OCSiOSTools.h"
 #import "OCSManager.h"
 #import "SeqInstrument.h"
 #import "OCSSequence.h"
@@ -36,7 +36,7 @@
 }
 
 - (float)getDuration {
-    return [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    return [OCSiOSTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
 }
 
 - (IBAction)playSequenceOfNotes:(id)sender 
@@ -121,7 +121,7 @@
 
 - (IBAction)moveDurationSlider:(id)sender 
 {
-    float duration  = [Helper scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    float duration  = [OCSiOSTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
     [durationValue setText:[NSString stringWithFormat:@"%g", duration]];
 }
 

@@ -132,7 +132,7 @@ static OCSManager *_sharedOCSManager = nil;
     NSLog(@"Starting \n\n%@\n", [OCSManager stringFromFile:csdFile]);
 
     // Clean up the IDs for next time
-    [OCSParameter resetID];
+    //[OCSParameter resetID]; //Should work but generating lots of out of bounds errors
     [OCSInstrument resetID];
     [OCSNote resetID];
     

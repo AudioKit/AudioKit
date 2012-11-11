@@ -1,14 +1,14 @@
 //
-//  Helper.m
+//  OCSMacTools.m
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 7/3/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "Helper.h"
+#import "OCSMacTools.h"
 
-@implementation Helper
+@implementation OCSMacTools
 
 + (void)setSlider:(NSSlider *)slider
         withValue:(float)value

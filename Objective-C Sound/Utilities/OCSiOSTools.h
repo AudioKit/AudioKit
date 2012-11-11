@@ -1,5 +1,5 @@
 //
-//  Helper.h
+//  OCSiOSTools.h
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 7/3/12.
@@ -9,21 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "OCSManager.h"
 
-@interface Helper : NSObject
+@interface OCSiOSTools : NSObject
 
-+ (void)setSlider:(UISlider *)slider 
-        withValue:(float)value 
-          minimum:(float)minimum 
++ (void)setSlider:(UISlider *)slider
+        withValue:(float)value
+          minimum:(float)minimum
           maximum:(float)maximum;
 
-+ (void)setSlider:(UISlider *)slider 
++ (void)setSlider:(UISlider *)slider
     usingProperty:(OCSInstrumentProperty *)property;
 
-+ (float)scaleValueFromSlider:(UISlider *)slider 
-                      minimum:(float)minimum 
++ (void)setSlider:(UISlider *)slider
+usingNoteProperty:(OCSNoteProperty *)property;
+
++ (float)scaleValueFromSlider:(UISlider *)slider
+                      minimum:(float)minimum
                       maximum:(float)maximum;
 
-+ (float)randomFloatFrom:(float)minimum to:(float)maximum; 
++ (float)randomFloatFrom:(float)minimum to:(float)maximum;
 
 + (float)midiNoteToFrequency:(int)note;
 

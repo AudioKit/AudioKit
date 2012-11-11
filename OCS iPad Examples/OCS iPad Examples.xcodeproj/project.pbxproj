@@ -135,6 +135,7 @@
 		C444C940164BB1C4009FC32F /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86B164BB1C3009FC32F /* OCSInstrumentProperty.m */; };
 		C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86D164BB1C3009FC32F /* OCSNoteProperty.m */; };
 		C444C94A164BB249009FC32F /* OCSLowPassControlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */; };
+		C444CB52164F9815009FC32F /* OCSiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CB50164F9815009FC32F /* OCSiOSTools.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
@@ -158,7 +159,6 @@
 		C4F0789D15D5F4F60084FF9E /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0787B15D5F4F60084FF9E /* libsndfile.a */; };
 		C4F0789E15D5F4F60084FF9E /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4F0787C15D5F4F60084FF9E /* LICENSE.TXT */; };
 		C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799215D600C40084FF9E /* InitialViewController.m */; };
-		C4F0799915D602C10084FF9E /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799715D602C10084FF9E /* Helper.m */; };
 		C4F079F315D603160084FF9E /* ContinuousControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799C15D603160084FF9E /* ContinuousControlViewController.m */; };
 		C4F079F415D603160084FF9E /* ContinuousControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F0799D15D603160084FF9E /* ContinuousControlViewController.xib */; };
 		C4F079FB15D603160084FF9E /* ConvolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079A515D603160084FF9E /* ConvolutionViewController.m */; };
@@ -437,6 +437,8 @@
 		C444C86D164BB1C3009FC32F /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C444C947164BB249009FC32F /* OCSLowPassControlFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLowPassControlFilter.h; sourceTree = "<group>"; };
 		C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLowPassControlFilter.m; sourceTree = "<group>"; };
+		C444CB4F164F9815009FC32F /* OCSiOSTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSiOSTools.h; sourceTree = "<group>"; };
+		C444CB50164F9815009FC32F /* OCSiOSTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSiOSTools.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
@@ -496,8 +498,6 @@
 		C4F0787C15D5F4F60084FF9E /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		C4F0799115D600C40084FF9E /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		C4F0799215D600C40084FF9E /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
-		C4F0799615D602C10084FF9E /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Helper.h; sourceTree = "<group>"; };
-		C4F0799715D602C10084FF9E /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		C4F0799B15D603160084FF9E /* ContinuousControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ContinuousControlViewController.h; sourceTree = "<group>"; };
 		C4F0799C15D603160084FF9E /* ContinuousControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinuousControlViewController.m; sourceTree = "<group>"; };
 		C4F0799D15D603160084FF9E /* ContinuousControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinuousControlViewController.xib; sourceTree = "<group>"; };
@@ -738,6 +738,7 @@
 				C444C7A5164BB1C3009FC32F /* Operations */,
 				C444C85A164BB1C3009FC32F /* Parameters */,
 				C444C869164BB1C3009FC32F /* Properties */,
+				C444CB4E164F9815009FC32F /* Utilities */,
 			);
 			name = "Objective-C Sound";
 			path = "../Objective-C Sound";
@@ -1176,6 +1177,15 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
+		C444CB4E164F9815009FC32F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C444CB4F164F9815009FC32F /* OCSiOSTools.h */,
+				C444CB50164F9815009FC32F /* OCSiOSTools.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		C47E2865163F084400BBB569 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1243,8 +1253,6 @@
 			isa = PBXGroup;
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
-				C4F0799615D602C10084FF9E /* Helper.h */,
-				C4F0799715D602C10084FF9E /* Helper.m */,
 				C4F079C915D603160084FF9E /* Play CSD File */,
 				C4F079C215D603160084FF9E /* Play Audio File */,
 				C4F079EC15D603160084FF9E /* Unit Generators */,
@@ -1566,7 +1574,6 @@
 				C4F0788915D5F4F60084FF9E /* CachedAttitude.m in Sources */,
 				C4F0788B15D5F4F60084FF9E /* CachedGyroscope.m in Sources */,
 				C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */,
-				C4F0799915D602C10084FF9E /* Helper.m in Sources */,
 				C4F079F315D603160084FF9E /* ContinuousControlViewController.m in Sources */,
 				C4F079FB15D603160084FF9E /* ConvolutionViewController.m in Sources */,
 				C4F07A0015D603160084FF9E /* ExpressionsViewController.m in Sources */,
@@ -1699,6 +1706,7 @@
 				C444C940164BB1C4009FC32F /* OCSInstrumentProperty.m in Sources */,
 				C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */,
 				C444C94A164BB249009FC32F /* OCSLowPassControlFilter.m in Sources */,
+				C444CB52164F9815009FC32F /* OCSiOSTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
