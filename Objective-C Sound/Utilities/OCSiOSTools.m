@@ -21,22 +21,25 @@
     [slider setValue:sliderValue];
 }
 
-+ (void)setSlider:(UISlider *)slider
-    usingProperty:(OCSInstrumentProperty *)property
-{
-    [self setSlider:slider
-          withValue:property.value
-            minimum:property.minimumValue
-            maximum:property.maximumValue];
-}
 
 + (void)setSlider:(UISlider *)slider
-usingNoteProperty:(OCSNoteProperty *)property
+    usingProperty:(id)property
 {
-    [self setSlider:slider
-          withValue:property.value
-            minimum:property.minimumValue
-            maximum:property.maximumValue];
+    if ([property isKindOfClass:[OCSInstrumentProperty class]])
+    {
+        [self setSlider:slider
+              withValue:[(OCSInstrumentProperty *)property value]
+                minimum:[(OCSInstrumentProperty *)property minimumValue]
+                maximum:[(OCSInstrumentProperty *)property maximumValue]];
+    }
+    else if ([property isKindOfClass:[OCSNoteProperty class]])
+    {
+        [self setSlider:slider
+              withValue:[(OCSNoteProperty *)property value]
+                minimum:[(OCSNoteProperty *)property minimumValue]
+                maximum:[(OCSNoteProperty *)property maximumValue]];
+    }
+
 }
 
 
@@ -48,6 +51,39 @@ usingNoteProperty:(OCSNoteProperty *)property
     float percentage = ([slider value] - [slider minimumValue]) / width;
     return minimum + percentage * (maximum - minimum);
 }
+
+
++ (void)setProperty:(id)property
+         fromSlider:(UISlider *)slider
+{
+    if ([property isKindOfClass:[OCSInstrumentProperty class]])
+    {
+        [(OCSInstrumentProperty *)property setValue:[self scaleValueFromSlider:slider
+                                                                       minimum:[(OCSInstrumentProperty *)property minimumValue]
+                                                                       maximum:[(OCSInstrumentProperty *)property maximumValue]]];
+    }
+    else if ([property isKindOfClass:[OCSNoteProperty class]])
+    {
+        [(OCSNoteProperty *)property setValue:[self scaleValueFromSlider:slider
+                                                                 minimum:[(OCSNoteProperty *)property minimumValue]
+                                                                 maximum:[(OCSNoteProperty *)property maximumValue]]];
+    }
+}
+
++ (void)setTextField:(UITextField *)textfield
+        fromProperty:(id)property
+{
+    if ([property isKindOfClass:[OCSInstrumentProperty class]])
+    {
+        [textfield setText:[NSString stringWithFormat:@"%g", [(OCSInstrumentProperty *)property value]]];
+
+    }
+    else if ([property isKindOfClass:[OCSNoteProperty class]])
+    {
+        [textfield setText:[NSString stringWithFormat:@"%g", [(OCSNoteProperty *)property value]]];
+    }
+}
+
 
 + (float)randomFloatFrom:(float)minimum to:(float)maximum;
 {

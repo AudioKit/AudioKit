@@ -17,14 +17,17 @@
           maximum:(float)maximum;
 
 + (void)setSlider:(UISlider *)slider
-    usingProperty:(OCSInstrumentProperty *)property;
-
-+ (void)setSlider:(UISlider *)slider
-usingNoteProperty:(OCSNoteProperty *)property;
+    usingProperty:(id)property;
 
 + (float)scaleValueFromSlider:(UISlider *)slider
                       minimum:(float)minimum
                       maximum:(float)maximum;
+
++ (void)setProperty:(id)property
+         fromSlider:(UISlider *)slider;
+
++ (void)setTextField:(UITextField *)textfield
+        fromProperty:(id)property;
 
 + (float)randomFloatFrom:(float)minimum to:(float)maximum;
 
