@@ -17,9 +17,9 @@
 @interface OCSHighPassButterworthFilter : OCSAudio
 
 /// Creates a low-pass Butterworth filter.
-/// @param sourceAudio     The input to be filtered.
+/// @param audioSource     The input to be filtered.
 /// @param cutoffFrequency Cutoff of the lowpass filter.
--(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+-(id)initWithAudioSource:(OCSAudio *)audioSource
          cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 @end

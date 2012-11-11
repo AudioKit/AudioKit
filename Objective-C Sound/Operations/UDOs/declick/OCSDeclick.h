@@ -17,7 +17,7 @@
 @interface OCSDeclick : OCSAudio
 
 /// Instantiates the declick
-/// @param sourceAudio Audio to declick
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio;
+/// @param audioSource Audio to declick
+- (id)initWithAudioSource:(OCSAudio *)audioSource;
 
 @end

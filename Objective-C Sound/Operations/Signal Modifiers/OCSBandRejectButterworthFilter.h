@@ -17,10 +17,10 @@
 @interface OCSBandRejectButterworthFilter : OCSAudio
 
 /// Creates a band-reject Butterworth filter.
-/// @param sourceAudio     The input to be filtered.
+/// @param audioSource     The input to be filtered.
 /// @param centerFrequency Center frequency for each of the filters.
 /// @param bandwidthRange  Bandwidth of the bandreject filter.
--(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+-(id)initWithAudioSource:(OCSAudio *)audioSource
          centerFrequency:(OCSControl *)centerFrequency
                bandwidth:(OCSControl *)bandwidthRange;
 

@@ -59,13 +59,13 @@
         [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter;
-        lpFilter = [[OCSLowPassButterworthFilter alloc] initWithSourceAudio:fm
+        lpFilter = [[OCSLowPassButterworthFilter alloc] initWithAudioSource:fm
                                                       cutoffFrequency:cutoffFrequency];
         [self connect:lpFilter];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithSourceAudio:lpFilter];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:lpFilter];
         [self connect:audio];
     }
     return self;

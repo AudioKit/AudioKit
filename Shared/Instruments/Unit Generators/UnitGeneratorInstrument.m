@@ -65,7 +65,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithSourceAudio:fmOscil];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:fmOscil];
         [self connect:audio];
     }
     return self;

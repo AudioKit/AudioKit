@@ -26,20 +26,20 @@
 
 @implementation OCSNReverb
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
            reverbDuration:(OCSControl *)reverbDuration
       highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 {
     self = [super initWithString:[self operationName]];
     if(self) {
-        input = sourceAudio;
+        input = audioSource;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
     }
     return self;
 }
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
            reverbDuration:(OCSControl *)reverbDuration
       highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
           combFilterTimes:(NSArray *)combFilterTimes
@@ -49,7 +49,7 @@
 {
     self = [super initWithString:[self operationName]];
     if(self) {
-        input = sourceAudio;
+        input = audioSource;
         dur = reverbDuration;
         hfdif = highFreqDiffusivity;
         

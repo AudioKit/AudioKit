@@ -20,13 +20,13 @@
 
 @implementation OCSMoogLadder
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
           cutoffFrequency:(OCSControl *)cutoffFrequency
                 resonance:(OCSControl *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ain = sourceAudio;
+        ain = audioSource;
         kcf = cutoffFrequency;
         kres = resonance;
     }

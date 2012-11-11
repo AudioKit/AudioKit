@@ -17,12 +17,12 @@
 
 @implementation OCSLowPassButterworthFilter
 
--(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+-(id)initWithAudioSource:(OCSAudio *)audioSource
          cutoffFrequency:(OCSControl *)cutoffFrequency
 {
     self = [super initWithString:[self operationName]];
     if(self) {
-        input = sourceAudio;
+        input = audioSource;
         cutoff = cutoffFrequency;
     }
     return self;

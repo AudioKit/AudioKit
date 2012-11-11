@@ -16,12 +16,12 @@
 
 @implementation OCSStereoConvolution
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
       impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {
-        aIn     = sourceAudio;
+        aIn     = audioSource;
         iFilCod = impulseResponseFilename;
     }
     return self;

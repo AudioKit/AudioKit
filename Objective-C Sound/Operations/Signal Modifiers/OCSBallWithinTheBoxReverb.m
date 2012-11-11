@@ -31,7 +31,7 @@
                       xLocation:(OCSControl *)xLocation
                       yLocation:(OCSControl *)yLocation
                       zLocation:(OCSControl *)zLocation
-                    sourceAudio:(OCSAudio *)sourceAudio
+                    audioSource:(OCSAudio *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -41,7 +41,7 @@
         ksrcx = xLocation;
         ksrcy = yLocation;
         ksrcz = zLocation;
-        asig = sourceAudio;
+        asig = audioSource;
         idiff = ocsp(0);
     }
     return self;

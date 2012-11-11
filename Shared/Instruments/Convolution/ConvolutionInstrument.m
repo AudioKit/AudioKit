@@ -50,13 +50,13 @@
         NSString *well = [[NSBundle mainBundle] pathForResource:@"Stairwell" ofType:@"wav"];
         
         OCSConvolution *dishConv;
-        dishConv  = [[OCSConvolution alloc] initWithSourceAudio:loop.leftOutput
+        dishConv  = [[OCSConvolution alloc] initWithAudioSource:loop.leftOutput
                                             impulseResponseFile:dish];
         [self connect:dishConv];
 
         
         OCSConvolution *wellConv;
-        wellConv  = [[OCSConvolution alloc] initWithSourceAudio:loop.rightOutput
+        wellConv  = [[OCSConvolution alloc] initWithAudioSource:loop.rightOutput
                                             impulseResponseFile:well];
         [self connect:wellConv];
 
@@ -78,7 +78,7 @@
 
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithSourceAudio:dryWet];
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:dryWet];
         [self connect:audio];
     }
     return self;

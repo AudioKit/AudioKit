@@ -17,22 +17,22 @@
 @interface OCSNReverb : OCSAudio
 
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
-/// @param sourceAudio          Audio signal to be reverberated.
+/// @param audioSource          Audio signal to be reverberated.
 /// @param reverbDuration       Length of reverbation in seconds.
 /// @param highFreqDiffusivity  A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster that lower ones.
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
            reverbDuration:(OCSControl *)reverbDuration
       highFreqDiffusivity:(OCSControl *)highFreqDiffusivity;
 
 /// Creates a reverberator consisting of 6 parallel comb-lowpass filters.
-/// @param sourceAudio          Audio signal to be reverberated.
+/// @param audioSource          Audio signal to be reverberated.
 /// @param reverbDuration       Length of reverbation in seconds.
 /// @param highFreqDiffusivity  A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster that lower ones.
 /// @param combFilterTimes      An array of times for the comb filter.
 /// @param combFilterGains      An array of gains at each time in the comb filter.
 /// @param allPassFilterTimes   An array of times for the all pass filter.
 /// @param allPassFilterGains   An array of gains at each time the all pass filter.
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
            reverbDuration:(OCSControl *)reverbDuration
       highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
           combFilterTimes:(NSArray *)combFilterTimes

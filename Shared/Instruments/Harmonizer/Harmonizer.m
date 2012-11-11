@@ -46,7 +46,7 @@
         [self connect:microphone];
         
         OCSFSignalFromMonoAudio *fsig1;
-        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithSourceAudio:microphone
+        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithAudioSource:microphone
                                                              fftSize:ocspi(2048)
                                                              overlap:ocspi(256)
                                                           windowType:kVonHannWindow
@@ -80,7 +80,7 @@
 
         // AUDIO OUTPUT ========================================================
         OCSAudio *a2 = [OCSAudio parameterWithFormat:@"%@ * %@", a1, gain];
-        OCSAudioOutput *out = [[OCSAudioOutput alloc] initWithSourceAudio:a2];
+        OCSAudioOutput *out = [[OCSAudioOutput alloc] initWithAudioSource:a2];
         [self connect:out];
     }
     return self;

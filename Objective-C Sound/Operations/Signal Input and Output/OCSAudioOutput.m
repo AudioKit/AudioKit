@@ -15,9 +15,9 @@
 
 @implementation OCSAudioOutput
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
 {
-    return [self initWithLeftAudio:sourceAudio rightAudio:sourceAudio];
+    return [self initWithLeftAudio:audioSource rightAudio:audioSource];
 }
 
 - (id)initWithSourceStereoAudio:(OCSStereoAudio *)stereoAudio {

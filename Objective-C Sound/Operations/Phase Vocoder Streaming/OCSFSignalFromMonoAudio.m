@@ -19,7 +19,7 @@
 
 @implementation OCSFSignalFromMonoAudio
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
                   fftSize:(OCSConstant *)fftSize
                   overlap:(OCSConstant *)overlap
                windowType:(WindowType)windowType
@@ -28,7 +28,7 @@
 {
     self = [super initWithString:[self operationName]];
     if ( self ) {
-        aIn = sourceAudio;
+        aIn = audioSource;
         iFFTSize = fftSize;
         iOverlap = overlap;
         iWinType = [OCSConstant parameterWithInt:windowType];
