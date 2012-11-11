@@ -11,27 +11,12 @@
 
 @interface OCSiOSTools : NSObject
 
-+ (void)setSlider:(UISlider *)slider
-        withValue:(float)value
-          minimum:(float)minimum
-          maximum:(float)maximum;
 
-+ (void)setSlider:(UISlider *)slider
-    usingProperty:(id)property;
-
-+ (float)scaleValueFromSlider:(UISlider *)slider
-                      minimum:(float)minimum
-                      maximum:(float)maximum;
-
-+ (void)setProperty:(id)property
-         fromSlider:(UISlider *)slider;
-
-+ (void)setTextField:(UITextField *)textfield
-        fromProperty:(id)property;
+// -----------------------------------------------------------------------------
+#  pragma mark - Common Math
+// -----------------------------------------------------------------------------
 
 + (float)randomFloatFrom:(float)minimum to:(float)maximum;
-
-+ (float)midiNoteToFrequency:(int)note;
 
 + (float)scaleValue:(float)value
         fromMinimum:(float)fromMinimum
@@ -39,9 +24,40 @@
           toMinimum:(float)toMinimum
           toMaximum:(float)toMaximum;
 
+
+// -----------------------------------------------------------------------------
+#  pragma mark - General UI
+// -----------------------------------------------------------------------------
+
++ (void)setSlider:(UISlider *)slider
+        withValue:(float)value
+          minimum:(float)minimum
+          maximum:(float)maximum;
+
++ (float)scaleValueFromSlider:(UISlider *)slider
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - UI For Properties
+// -----------------------------------------------------------------------------
+
++ (void)setSlider:(UISlider *)slider withProperty:(id)property;
++ (void)setProperty:(id)property withSlider:(UISlider *)slider;
++ (void)setTextField:(UITextField *)textfield withProperty:(id)property;
++ (void)setLabel:(UILabel *)label withProperty:(id)property;
+
+
+// -----------------------------------------------------------------------------
+#  pragma mark - MIDI
+// -----------------------------------------------------------------------------
+
++ (float)midiNoteToFrequency:(int)note;
+
 + (float)scaleControllerValue:(float)value
                   fromMinimum:(float)minimum
                     toMaximum:(float)maximum;
+
 
 @end
 
