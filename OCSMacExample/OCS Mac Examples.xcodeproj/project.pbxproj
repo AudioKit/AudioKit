@@ -20,7 +20,7 @@
 		C400B03915D3CDC70020C794 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C400B03815D3CDC70020C794 /* AudioToolbox.framework */; };
 		C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */; };
 		C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */; };
-		C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46B15D65D40001E7DB1 /* Helper.m */; };
+		C42DF46C15D65D40001E7DB1 /* OCSMacTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DF46B15D65D40001E7DB1 /* OCSMacTools.m */; };
 		C436D2A2164EE8F60069986B /* OCSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C436D2A1164EE8F60069986B /* OCSArray.m */; };
 		C444CA57164E2A70009FC32F /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C965164E2A70009FC32F /* OCSEvent.m */; };
 		C444CA59164E2A70009FC32F /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C967164E2A70009FC32F /* OCSInstrument.m */; };
@@ -179,8 +179,8 @@
 		C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayCSDFileController.m; path = "Play CSD File/PlayCSDFileController.m"; sourceTree = "<group>"; };
 		C42DF45915D65AAB001E7DB1 /* PlayAudioFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayAudioFileController.h; path = "Play Audio File/PlayAudioFileController.h"; sourceTree = "<group>"; };
 		C42DF45A15D65AAB001E7DB1 /* PlayAudioFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PlayAudioFileController.m; path = "Play Audio File/PlayAudioFileController.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C42DF46A15D65D40001E7DB1 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
-		C42DF46B15D65D40001E7DB1 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		C42DF46A15D65D40001E7DB1 /* OCSMacTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSMacTools.h; sourceTree = "<group>"; };
+		C42DF46B15D65D40001E7DB1 /* OCSMacTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMacTools.m; sourceTree = "<group>"; };
 		C436D2A0164EE8F60069986B /* OCSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSArray.h; sourceTree = "<group>"; };
 		C436D2A1164EE8F60069986B /* OCSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSArray.m; sourceTree = "<group>"; };
 		C444C964164E2A70009FC32F /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSEvent.h; sourceTree = "<group>"; };
@@ -507,8 +507,8 @@
 			isa = PBXGroup;
 			children = (
 				C400ADB015D3C9580020C794 /* MainMenu.xib */,
-				C42DF46A15D65D40001E7DB1 /* Helper.h */,
-				C42DF46B15D65D40001E7DB1 /* Helper.m */,
+				C42DF46A15D65D40001E7DB1 /* OCSMacTools.h */,
+				C42DF46B15D65D40001E7DB1 /* OCSMacTools.m */,
 				C42DF45315D65848001E7DB1 /* Play CSD File */,
 				C42DF45C15D65AB3001E7DB1 /* Play Audio File */,
 				C463188D15D9FB6E00CA177E /* MIDI */,
@@ -1278,7 +1278,7 @@
 				C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */,
 				C42DF45615D6589F001E7DB1 /* PlayCSDFileController.m in Sources */,
 				C42DF45B15D65AAB001E7DB1 /* PlayAudioFileController.m in Sources */,
-				C42DF46C15D65D40001E7DB1 /* Helper.m in Sources */,
+				C42DF46C15D65D40001E7DB1 /* OCSMacTools.m in Sources */,
 				C463188C15D9FB6800CA177E /* MIDIController.m in Sources */,
 				C46319F715DA442F00CA177E /* CsoundObj.m in Sources */,
 				C46319F915DA442F00CA177E /* BaseValueCacheable.m in Sources */,

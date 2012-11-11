@@ -1,18 +1,18 @@
 //
-//  Helper.m
+//  OCSiOSTools.m
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 7/3/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "Helper.h"
+#import "OCSiOSTools.h"
 
-@implementation Helper
+@implementation OCSiOSTools
 
-+ (void)setSlider:(UISlider *)slider 
-        withValue:(float)value 
-          minimum:(float)minimum 
++ (void)setSlider:(UISlider *)slider
+        withValue:(float)value
+          minimum:(float)minimum
           maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
@@ -21,26 +21,35 @@
     [slider setValue:sliderValue];
 }
 
-+ (void)setSlider:(UISlider *)slider 
-    usingProperty:(OCSInstrumentProperty *)property 
++ (void)setSlider:(UISlider *)slider
+    usingProperty:(OCSInstrumentProperty *)property
 {
-    [self setSlider:slider 
+    [self setSlider:slider
+          withValue:property.value
+            minimum:property.minimumValue
+            maximum:property.maximumValue];
+}
+
++ (void)setSlider:(UISlider *)slider
+usingNoteProperty:(OCSNoteProperty *)property
+{
+    [self setSlider:slider
           withValue:property.value
             minimum:property.minimumValue
             maximum:property.maximumValue];
 }
 
 
-+ (float)scaleValueFromSlider:(UISlider *)slider 
-                      minimum:(float)minimum 
++ (float)scaleValueFromSlider:(UISlider *)slider
+                      minimum:(float)minimum
                       maximum:(float)maximum
-{   
+{
     float width = [slider maximumValue] - [slider minimumValue];
     float percentage = ([slider value] - [slider minimumValue]) / width;
     return minimum + percentage * (maximum - minimum);
 }
 
-+ (float)randomFloatFrom:(float)minimum to:(float)maximum; 
++ (float)randomFloatFrom:(float)minimum to:(float)maximum;
 {
     float width = maximum - minimum;
     return (((float) rand() / RAND_MAX) * width) + minimum;
@@ -60,7 +69,7 @@
     float percentage = (value-fromMinimum)/(fromMaximum - fromMinimum);
     float width = toMaximum - toMinimum;
     return toMinimum + percentage * width;
-
+    
 }
 
 + (float)scaleControllerValue:(float)value

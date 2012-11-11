@@ -1,5 +1,5 @@
 //
-//  Helper.h
+//  OCSMacTools.h
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 7/3/12.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "OCSManager.h"
 
-@interface Helper : NSObject
+@interface OCSMacTools : NSObject
 
 + (void)setSlider:(NSSlider *)slider
         withValue:(float)value

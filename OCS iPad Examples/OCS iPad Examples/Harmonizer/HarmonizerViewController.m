@@ -7,7 +7,7 @@
 //
 
 #import "HarmonizerViewController.h"
-#import "Helper.h"
+#import "OCSiOSTools.h"
 #import "OCSManager.h"
 #import "Harmonizer.h"
 
@@ -33,17 +33,17 @@
     [harmonizer play];
 }
 
--(IBAction)changePitch:(id)sender 
+-(IBAction)changePitch:(id)sender
 {
-    harmonizer.pitch.value = [Helper scaleValueFromSlider:sender 
-                                                  minimum:kPitchMin 
-                                                  maximum:kPitchMax];
+    harmonizer.pitch.value = [OCSiOSTools scaleValueFromSlider:sender
+                                                       minimum:kPitchMin
+                                                       maximum:kPitchMax];
     
 }
 -(IBAction)changeGain:(id)sender;
 {
-    harmonizer.gain.value = [Helper scaleValueFromSlider:sender 
-                                                      minimum:kGainMin 
+    harmonizer.gain.value = [OCSiOSTools scaleValueFromSlider:sender
+                                                      minimum:kGainMin
                                                       maximum:kGainMax];
     
 }

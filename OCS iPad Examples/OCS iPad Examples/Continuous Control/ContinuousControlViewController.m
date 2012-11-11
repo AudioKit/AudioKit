@@ -7,7 +7,7 @@
 //
 
 #import "ContinuousControlViewController.h"
-#import "Helper.h"
+#import "OCSiOSTools.h"
 #import "OCSManager.h"
 
 
@@ -35,8 +35,8 @@
     [modulationLabel setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modulation.value]];
     [modIndexLabel   setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modIndex.value]];
     
-    [Helper setSlider:amplitudeSlider  usingProperty:[myTweakableInstrument amplitude]];
-    [Helper setSlider:modulationSlider usingProperty:[myTweakableInstrument modulation]];
+    [OCSiOSTools setSlider:amplitudeSlider  usingProperty:[myTweakableInstrument amplitude]];
+    [OCSiOSTools setSlider:modulationSlider usingProperty:[myTweakableInstrument modulation]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated 
@@ -92,7 +92,7 @@
 - (void)sliderTimerFire:(NSTimer *)timer
 {
     [myTweakableInstrument.modIndex randomize];
-    [Helper setSlider:modIndexSlider 
+    [OCSiOSTools setSlider:modIndexSlider 
             withValue:myTweakableInstrument.modIndex.value
               minimum:kTweakableModIndexMin 
               maximum:kTweakableModIndexMax];
@@ -109,21 +109,21 @@
 
 
 - (IBAction)scaleAmplitude:(id)sender {
-    float newValue = [Helper scaleValueFromSlider:sender 
-                                          minimum:kTweakableAmplitudeMin 
-                                          maximum:kTweakableAmplitudeMax];
+    float newValue = [OCSiOSTools scaleValueFromSlider:sender
+                                               minimum:kTweakableAmplitudeMin
+                                               maximum:kTweakableAmplitudeMax];
     myTweakableInstrument.amplitude.value = newValue;
     [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", newValue]];
-
+    
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    float newValue = [Helper scaleValueFromSlider:sender 
-                                          minimum:kTweakableModulationMin 
-                                          maximum:kTweakableModulationMax];
+    float newValue = [OCSiOSTools scaleValueFromSlider:sender
+                                               minimum:kTweakableModulationMin
+                                               maximum:kTweakableModulationMax];
     myTweakableInstrument.modulation.value = newValue;
     [modulationLabel setText:[NSString stringWithFormat:@"%f", newValue]];
-
+    
 }
 
 - (void)viewDidUnload {
