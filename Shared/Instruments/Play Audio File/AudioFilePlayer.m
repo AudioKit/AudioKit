@@ -39,7 +39,7 @@
         [self connect:oscil];
         
         OCSReverb * reverb;
-        reverb = [[OCSReverb alloc] initWithSourceAudio:oscil
+        reverb = [[OCSReverb alloc] initWithAudioSource:oscil
                                           feedbackLevel:ocsp(0.85)
                                         cutoffFrequency:ocsp(12000)];
         [self connect:reverb];

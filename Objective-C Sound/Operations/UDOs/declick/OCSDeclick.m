@@ -18,11 +18,11 @@
 
 @implementation OCSDeclick
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ain = sourceAudio;
+        ain = audioSource;
     }
     return self;
 }

@@ -20,18 +20,18 @@
 
 @implementation OCSReverbAllpass
 
--(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+-(id)initWithAudioSource:(OCSAudio *)audioSource
        reverberationTime:(OCSControl *)reverberationTime
                 loopTime:(OCSConstant *)loopTime;
 {
-    return [self initWithSourceAudio:sourceAudio
+    return [self initWithAudioSource:audioSource
                    reverberationTime:reverberationTime
                             loopTime:loopTime
                     initialDelayTime:ocspi(0)
                          delayAmount:ocspi(0)];
 }
 
--(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+-(id)initWithAudioSource:(OCSAudio *)audioSource
        reverberationTime:(OCSControl *)reverberationTime
                 loopTime:(OCSConstant *)loopTime
         initialDelayTime:(OCSConstant *)initialDelayTime
@@ -39,7 +39,7 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = sourceAudio;
+        asig = audioSource;
         krvt = reverberationTime;
         ilpt = loopTime;
         iskip = initialDelayTime;

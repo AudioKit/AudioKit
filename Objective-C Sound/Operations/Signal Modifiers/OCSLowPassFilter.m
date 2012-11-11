@@ -19,12 +19,12 @@
 
 @implementation OCSLowPassFilter
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
            halfPowerPoint:(OCSControl *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = sourceAudio;
+        asig = audioSource;
         khp = halfPowerPoint;
     }
     return self;

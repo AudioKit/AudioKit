@@ -34,11 +34,11 @@
     return self; 
 }
 
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio
+- (id)initWithAudioSource:(OCSAudio *)audioSource
             feedbackLevel:(OCSControl *)feedbackLevel
           cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
-    return [self initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:sourceAudio]
+    return [self initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:audioSource]
                              feedbackLevel:feedbackLevel
                            cutoffFrequency:cutoffFrequency];
 }

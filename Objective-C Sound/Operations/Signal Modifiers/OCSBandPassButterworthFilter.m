@@ -20,13 +20,13 @@
 
 @implementation OCSBandPassButterworthFilter
 
--(id)initWithSourceAudio:(OCSAudio *)sourceAudio
+-(id)initWithAudioSource:(OCSAudio *)audioSource
          centerFrequency:(OCSControl *)centerFrequency
                bandwidth:(OCSControl *)bandwidthRange
 {
     self = [super initWithString:[self operationName]];
     if(self) {
-        input = sourceAudio;
+        input = audioSource;
         center = centerFrequency;
         bandwidth = bandwidthRange;
     }

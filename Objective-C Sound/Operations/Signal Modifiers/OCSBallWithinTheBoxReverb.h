@@ -23,14 +23,14 @@
 /// @param xLocation The virtual x-coordinate of the source of sound (the input signal).
 /// @param yLocation The virtual y-coordinate of the source of sound (the input signal).
 /// @param zLocation The virtual z-coordinate of the source of sound (the input signal).
-/// @param sourceAudio The input signal
+/// @param audioSource The input signal
 - (id)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
               lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
               lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
                       xLocation:(OCSControl *)xLocation
                       yLocation:(OCSControl *)yLocation
                       zLocation:(OCSControl *)zLocation
-                    sourceAudio:(OCSAudio *)sourceAudio;
+                    audioSource:(OCSAudio *)audioSource;
 
 
 /// Set an optional diffusion

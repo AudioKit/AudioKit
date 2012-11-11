@@ -19,11 +19,11 @@
         
         // INPUTS ==============================================================
         
-        OCSAudio *sourceAudio = toneGenerator.auxilliaryOutput;
+        OCSAudio *audioSource = toneGenerator.auxilliaryOutput;
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSReverb * reverb = [[OCSReverb alloc] initWithSourceAudio:sourceAudio
+        OCSReverb * reverb = [[OCSReverb alloc] initWithAudioSource:audioSource
                                                       feedbackLevel:ocsp(0.8)
                                                     cutoffFrequency:ocsp(12000)];
         [self connect:reverb];
@@ -35,7 +35,7 @@
         [self connect:audio];
         
         // RESET INPUTS ========================================================
-        [self resetParam:sourceAudio];
+        [self resetParam:audioSource];
     }
     return self;
 }

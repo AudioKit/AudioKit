@@ -45,7 +45,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithSourceAudio:oscillator]; 
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:oscillator]; 
         [self connect:audio];
         
         

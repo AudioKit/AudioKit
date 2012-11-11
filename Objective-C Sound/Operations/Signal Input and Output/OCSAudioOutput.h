@@ -22,7 +22,7 @@
 
 /// Helper function to send both channels the same monoSignal
 /// @param monoSignal The audio signal to be played on both channels.
-- (id)initWithSourceAudio:(OCSAudio *)sourceAudio;
+- (id)initWithAudioSource:(OCSAudio *)audioSource;
 
 /// Send a stereo output pair
 /// @param stereoSignal The audio as an OCSStereoAudio pair
