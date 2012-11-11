@@ -31,7 +31,7 @@
         aIn = audioSource;
         iFFTSize = fftSize;
         iOverlap = overlap;
-        iWinType = [OCSConstant parameterWithInt:windowType];
+        iWinType = ocspi(windowType);
         iWinSize = windowSize;
     }
     return self;

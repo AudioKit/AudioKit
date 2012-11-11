@@ -71,21 +71,25 @@
     return self;
 }
 
-+ (id)parameterWithFloat:(float)value
++ (id)constantWithFloat:(float)value
 {
     return [[self alloc] initWithFloat:value];
 }
-+ (id)parameterWithNumber:(NSNumber *)number    
++ (id)constantWithNumber:(NSNumber *)number    
 {
     return [[self alloc] initWithNumber:number];
 }
-+ (id)parameterWithInt:(int)value
++ (id)constantWithInt:(int)value
 {
     return [[self alloc] initWithInt:value];
 }
-+ (id)parameterWithFilename:(NSString *)filename
++ (id)constantWithFilename:(NSString *)filename
 {
     return [[self alloc] initWithFilename:filename];
+}
++ (id)constantWithControl:(OCSControl *)control
+{
+    return [self parameterWithFormat:@"i(%@)", control];
 }
 
 @end

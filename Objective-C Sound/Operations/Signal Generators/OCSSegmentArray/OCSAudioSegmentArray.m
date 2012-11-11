@@ -37,8 +37,8 @@
         dur      = firstSegmentDuration;
         target   = firstSegmentTargetValue;
         segments = [[NSMutableArray alloc] init];
-        release  = [OCSConstant parameterWithInt:0];
-        final    = [OCSConstant parameterWithInt:0];
+        release  = ocspi(0);
+        final    = ocspi(0);
     }
     
     return self;

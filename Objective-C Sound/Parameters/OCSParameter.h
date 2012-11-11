@@ -12,10 +12,10 @@
  slower rate variables. 
  */
 
-#define ocsp(__f__)  [OCSConstant parameterWithFloat:__f__]
-#define ocspi(__i__) [OCSConstant parameterWithInt:__i__]
+#define ocsp(__f__)  [OCSConstant constantWithFloat:__f__]
+#define ocspi(__i__) [OCSConstant constantWithInt:__i__]
 #define ocsps(__s__) [OCSConstant parameterWithString:__s__]
-#define ocspfn(__fn__) [OCSConstant parameterWithFilename:__fn__]
+#define ocspfn(__fn__) [OCSConstant constantWithFilename:__fn__]
 
 @interface OCSParameter : NSObject
 {
@@ -55,9 +55,13 @@
 /// @param additionalParameter The additional parameter (should be of the same type)
 - (id)plus:(OCSParameter *)additionalParameter;
 
-/// Helper function to create a new OCSParameter with the CSD output scaled
+/// Helper function to create a new OCSParameter with the CSD output scaled by another parameter
 /// @param scalingFactor The scaling factor should be multiplied by
 - (id)scaledBy:(OCSParameter *)scalingFactor;
+
+/// Helper function to create a new OCSParameter with the CSD output scaled
+/// @param divisor The scaling factor should be divided by
+- (id)dividedBy:(OCSParameter *)divisor;
 
 /// Helper function to return one-over-this-parameter
 - (id)inverse;

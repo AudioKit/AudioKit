@@ -90,10 +90,10 @@
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;
     if (firstValue) { // The first argument isn't part of the varargs list, so we'll handle it separately.
-        [initParameters addObject:[OCSConstant parameterWithNumber:firstValue]];
+        [initParameters addObject:[OCSConstant constantWithNumber:firstValue]];
         va_start(argumentList, firstValue); // Start scanning for arguments after firstObject.
         while ((eachValue = va_arg(argumentList, id))) // As many times as we can get an argument of type "id"
-            [initParameters addObject:[OCSConstant parameterWithNumber:eachValue]]; // that isn't nil, add it to self's contents.
+            [initParameters addObject:[OCSConstant constantWithNumber:eachValue]]; // that isn't nil, add it to self's contents.
         va_end(argumentList);
     }
     
