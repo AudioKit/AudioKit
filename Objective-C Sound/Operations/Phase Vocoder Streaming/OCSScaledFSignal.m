@@ -31,17 +31,17 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
         if (amplitudeRatio) {
             kGain  = amplitudeRatio;
         } else {
-            kGain = [OCSConstant parameterWithInt:1];
+            kGain = ocspi(1);
         }
         
         if (numberOfCepstrumCoefficients) {
             kCoefs  = numberOfCepstrumCoefficients;
         } else {
-            kCoefs = [OCSConstant parameterWithInt:80];
+            kCoefs = ocspi(80);
         }
         fSigIn = input;
         kScal = frequencyRatio;    
-        kKeepForm = [OCSConstant parameterWithInt:formantRetainMethod];
+        kKeepForm = [OCSConstant constantWithInt:formantRetainMethod];
 
     }
     return self;

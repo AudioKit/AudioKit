@@ -43,7 +43,7 @@
         ifn = vibratoShapeTable;
         kvibf = vibratoFrequency;
         kvamp = vibratoAmplitude;
-        iminfreq = [[OCSConstant alloc] initWithExpression:[NSString stringWithFormat:@"i(%@)", kfreq]];
+        iminfreq = [OCSConstant constantWithControl:kfreq];
     }
     return self;
 }

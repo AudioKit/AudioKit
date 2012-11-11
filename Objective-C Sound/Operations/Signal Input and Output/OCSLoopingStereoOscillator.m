@@ -27,8 +27,8 @@
 
 - (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable
-                    frequencyMultiplier:[OCSConstant parameterWithInt:1]
-                              amplitude:[OCSConstant parameterWithInt:1]
+                    frequencyMultiplier:ocspi(1)
+                              amplitude:ocspi(1)
                                    type:kLoopingOscillatorNormal];
     
 }
@@ -37,7 +37,7 @@
                    amplitude:(OCSParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable
-                    frequencyMultiplier:[OCSConstant parameterWithInt:1]
+                    frequencyMultiplier:ocspi(1)
                               amplitude:amplitude
                                    type:kLoopingOscillatorNormal];
 }
@@ -63,7 +63,7 @@
         soundFileTable = fileTable;
         amp = amplitude;
         freqMultiplier = frequencyMultiplier;
-        baseFrequency = [OCSConstant parameterWithInt:1];
+        baseFrequency = ocspi(1);
         imod1 = type;
     }
     return self;

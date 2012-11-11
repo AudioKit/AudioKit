@@ -26,7 +26,7 @@
     if (self) {
         ifn  = fTable;
         normalizeResult = NO;
-        ixoff = [OCSConstant parameterWithInt:0];
+        ixoff = ocspi(0);
         wrapData = NO;
         indx = index;
     }
