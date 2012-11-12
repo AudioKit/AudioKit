@@ -39,7 +39,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ eqfil %@, %@, %@, %@",
-            self, ain, kcf, kbw, kgain, kgain];
+            self, ain, kcf, kbw, kgain];
 }
 
 @end

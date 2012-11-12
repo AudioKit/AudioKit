@@ -138,7 +138,6 @@
 		C444CB52164F9815009FC32F /* OCSiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CB50164F9815009FC32F /* OCSiOSTools.m */; };
 		C444CD401650E149009FC32F /* OCSSineOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CD3E1650E149009FC32F /* OCSSineOscillator.m */; };
 		C444CD441650EA6C009FC32F /* OCSTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CD421650EA6B009FC32F /* OCSTrackedFrequency.m */; };
-		C444CD481650F1F2009FC32F /* OCSTrackedAmplitude.h in Sources */ = {isa = PBXBuildFile; fileRef = C444CD461650F1F1009FC32F /* OCSTrackedAmplitude.h */; };
 		C444CD491650F1F2009FC32F /* OCSTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CD471650F1F1009FC32F /* OCSTrackedAmplitude.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
@@ -1733,7 +1732,6 @@
 				C444CB52164F9815009FC32F /* OCSiOSTools.m in Sources */,
 				C444CD401650E149009FC32F /* OCSSineOscillator.m in Sources */,
 				C444CD441650EA6C009FC32F /* OCSTrackedFrequency.m in Sources */,
-				C444CD481650F1F2009FC32F /* OCSTrackedAmplitude.h in Sources */,
 				C444CD491650F1F2009FC32F /* OCSTrackedAmplitude.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

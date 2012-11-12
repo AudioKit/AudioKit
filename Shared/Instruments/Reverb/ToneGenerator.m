@@ -11,11 +11,6 @@
 #import "OCSOscillator.h"
 #import "OCSAudioOutput.h"
 
-@interface ToneGenerator () {
-    OCSAudio *auxilliaryOutput;
-}
-@end
-
 @implementation ToneGenerator
 
 @synthesize frequency;
