@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "OCSOrchestra.h"
 #import "OCSParameter+Operation.h"
+#import "OCSAudio.h"
 #import "OCSNote.h"
 #import "OCSNoteProperty.h"
 #import "OCSInstrumentProperty.h"
