@@ -28,26 +28,16 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (IBAction)start:(id)sender
-{
+- (IBAction)start:(id)sender {
     [harmonizer play];
 }
 
--(IBAction)changePitch:(id)sender
-{
-    harmonizer.pitch.value = [OCSiOSTools scaleValueFromSlider:sender
-                                                       minimum:kPitchMin
-                                                       maximum:kPitchMax];
-    
-}
--(IBAction)changeGain:(id)sender;
-{
-    harmonizer.gain.value = [OCSiOSTools scaleValueFromSlider:sender
-                                                      minimum:kGainMin
-                                                      maximum:kGainMax];
-    
+-(IBAction)changePitch:(id)sender {
+    [OCSiOSTools setProperty:harmonizer.pitch withSlider:(UISlider *)sender];
 }
 
-
+-(IBAction)changeGain:(id)sender {
+    [OCSiOSTools setProperty:harmonizer.gain withSlider:(UISlider *)sender];
+}
 
 @end
