@@ -1,0 +1,39 @@
+opcode: eqfil
+
+operation: OCSEqualizerFilter
+
+operationClass: OCSAudio
+
+summary: Second-order tunable equalisation filter based on Regalia and Mitra design.
+
+description:
+  Provides a peak/notch filter for building parametric/graphic equalisers.
+
+  The amplitude response for this filter will be flat (=1) for gain=1. 
+  With gain bigger than 1, there will be a peak at the center frequency, 
+  whose width is given by the bandwidth parameter, but outside this band, the 
+  response will tend towards 1. Conversely, if gain is smaller than 1, 
+  a notch will be created around the CF.
+
+
+
+input_list: ain, kcf, kbw, kgain, kgain
+
+required_inputs:
+
+- ain: {
+	ocsVar: audioSource, 
+	comment: "Input signal."
+}
+- kcf: {
+	ocsVar: centerFrequency, 
+	comment: "Filter center frequency in Hz."
+}
+- kbw: {
+	ocsVar: bandwidth, 
+	comment: "Peak/notch bandwidth in Hz."
+}
+- kgain: {
+	ocsVar: gain, 
+	comment: "Peak/notch gain."
+}

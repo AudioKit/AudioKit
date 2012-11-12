@@ -31,12 +31,12 @@
     [orch addInstrument:myTweakableInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
     
-    [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.amplitude.value]];
-    [modulationLabel setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modulation.value]];
-    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modIndex.value]];
+    [OCSiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
+    [OCSiOSTools setLabel:modulationLabel withProperty:myTweakableInstrument.modulation];
+    [OCSiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
     
-    [OCSiOSTools setSlider:amplitudeSlider  usingProperty:[myTweakableInstrument amplitude]];
-    [OCSiOSTools setSlider:modulationSlider usingProperty:[myTweakableInstrument modulation]];
+    [OCSiOSTools setSlider:amplitudeSlider  withProperty:myTweakableInstrument.amplitude];
+    [OCSiOSTools setSlider:modulationSlider withProperty:myTweakableInstrument.modulation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated 
@@ -82,48 +82,28 @@
     repeatingSliderTimer = nil;
 }
 
-- (void)noteTimerFire:(NSTimer *)timer
-{
+- (void)noteTimerFire:(NSTimer *)timer {
     [myTweakableInstrument.frequency randomize];
 }
-
-
 
 - (void)sliderTimerFire:(NSTimer *)timer
 {
     [myTweakableInstrument.modIndex randomize];
-    [OCSiOSTools setSlider:modIndexSlider 
-            withValue:myTweakableInstrument.modIndex.value
-              minimum:kTweakableModIndexMin 
-              maximum:kTweakableModIndexMax];
-    
-    [modIndexLabel   setText:[NSString stringWithFormat:@"%f", myTweakableInstrument.modIndex.value]];
-
+    [OCSiOSTools setSlider:modIndexSlider withProperty:myTweakableInstrument.modIndex];
+    [OCSiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
     // Test to show amplitude slider moving also
-//    [self setSlider:amplitudeSlider
-//          withValue:[[myTweakableInstrument amplitude] value]  
-//            minimum:kTweakableAmplitudeMin 
-//            maximum:kTweakableAmplitudeMax];
-
+    //[OCSiOSTools setSlider:amplitudeSlider withProperty:myTweakableInstrument.amplitude];
 }
 
 
 - (IBAction)scaleAmplitude:(id)sender {
-    float newValue = [OCSiOSTools scaleValueFromSlider:sender
-                                               minimum:kTweakableAmplitudeMin
-                                               maximum:kTweakableAmplitudeMax];
-    myTweakableInstrument.amplitude.value = newValue;
-    [amplitudeLabel  setText:[NSString stringWithFormat:@"%f", newValue]];
-    
+    [OCSiOSTools setProperty:myTweakableInstrument.amplitude withSlider:(UISlider *)sender];
+    [OCSiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    float newValue = [OCSiOSTools scaleValueFromSlider:sender
-                                               minimum:kTweakableModulationMin
-                                               maximum:kTweakableModulationMax];
-    myTweakableInstrument.modulation.value = newValue;
-    [modulationLabel setText:[NSString stringWithFormat:@"%f", newValue]];
-    
+    [OCSiOSTools setProperty:myTweakableInstrument.modulation withSlider:(UISlider *)sender];
+    [OCSiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.modulation];
 }
 
 - (void)viewDidUnload {

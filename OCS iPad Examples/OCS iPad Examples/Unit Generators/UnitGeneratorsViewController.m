@@ -27,13 +27,11 @@
     [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender
-{
+- (IBAction)hit1:(id)sender {
     [unitGeneratorInstrument playForDuration:9.0];
 }
 
-- (IBAction)hit2:(id)sender
-{
+- (IBAction)hit2:(id)sender {
     [unitGeneratorInstrument playForDuration:3.0];
 }
 

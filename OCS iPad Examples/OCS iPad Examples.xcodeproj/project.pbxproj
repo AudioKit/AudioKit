@@ -136,6 +136,8 @@
 		C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C86D164BB1C3009FC32F /* OCSNoteProperty.m */; };
 		C444C94A164BB249009FC32F /* OCSLowPassControlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */; };
 		C444CB52164F9815009FC32F /* OCSiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CB50164F9815009FC32F /* OCSiOSTools.m */; };
+		C444CD401650E149009FC32F /* OCSSineOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CD3E1650E149009FC32F /* OCSSineOscillator.m */; };
+		C444CD441650EA6C009FC32F /* OCSTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CD421650EA6B009FC32F /* OCSTrackedFrequency.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
@@ -439,6 +441,10 @@
 		C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLowPassControlFilter.m; sourceTree = "<group>"; };
 		C444CB4F164F9815009FC32F /* OCSiOSTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSiOSTools.h; sourceTree = "<group>"; };
 		C444CB50164F9815009FC32F /* OCSiOSTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSiOSTools.m; sourceTree = "<group>"; };
+		C444CD3D1650E149009FC32F /* OCSSineOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSSineOscillator.h; sourceTree = "<group>"; };
+		C444CD3E1650E149009FC32F /* OCSSineOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSineOscillator.m; sourceTree = "<group>"; };
+		C444CD411650EA6B009FC32F /* OCSTrackedFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = OCSTrackedFrequency.h; path = Analysis/OCSTrackedFrequency.h; sourceTree = "<group>"; };
+		C444CD421650EA6B009FC32F /* OCSTrackedFrequency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSTrackedFrequency.m; path = Analysis/OCSTrackedFrequency.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
@@ -805,6 +811,7 @@
 		C444C7A5164BB1C3009FC32F /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				C444CD451650EA7C009FC32F /* Analysis */,
 				C444C7A6164BB1C3009FC32F /* Mathematical Operations */,
 				C444C7BB164BB1C3009FC32F /* OCSParameter+Operation.h */,
 				C444C7BC164BB1C3009FC32F /* OCSParameter+Operation.m */,
@@ -950,6 +957,8 @@
 				C444C7E3164BB1C3009FC32F /* OCSOscillatingControl.m */,
 				C444C7E4164BB1C3009FC32F /* OCSOscillator.h */,
 				C444C7E5164BB1C3009FC32F /* OCSOscillator.m */,
+				C444CD3D1650E149009FC32F /* OCSSineOscillator.h */,
+				C444CD3E1650E149009FC32F /* OCSSineOscillator.m */,
 			);
 			path = OCSOscillator;
 			sourceTree = "<group>";
@@ -1184,6 +1193,15 @@
 				C444CB50164F9815009FC32F /* OCSiOSTools.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C444CD451650EA7C009FC32F /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				C444CD411650EA6B009FC32F /* OCSTrackedFrequency.h */,
+				C444CD421650EA6B009FC32F /* OCSTrackedFrequency.m */,
+			);
+			name = Analysis;
 			sourceTree = "<group>";
 		};
 		C47E2865163F084400BBB569 /* Physical Models */ = {
@@ -1707,6 +1725,8 @@
 				C444C942164BB1C4009FC32F /* OCSNoteProperty.m in Sources */,
 				C444C94A164BB249009FC32F /* OCSLowPassControlFilter.m in Sources */,
 				C444CB52164F9815009FC32F /* OCSiOSTools.m in Sources */,
+				C444CD401650E149009FC32F /* OCSSineOscillator.m in Sources */,
+				C444CD441650EA6C009FC32F /* OCSTrackedFrequency.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
