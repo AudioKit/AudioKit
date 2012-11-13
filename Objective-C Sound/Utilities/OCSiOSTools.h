@@ -43,6 +43,7 @@
 // -----------------------------------------------------------------------------
 
 + (void)setSlider:(UISlider *)slider withProperty:(id)property;
++ (void)setProgressView:(UIProgressView *)progressView withProperty:(id)property;
 + (void)setProperty:(id)property withSlider:(UISlider *)slider;
 + (void)setTextField:(UITextField *)textfield withProperty:(id)property;
 + (void)setLabel:(UILabel *)label withProperty:(id)property;
