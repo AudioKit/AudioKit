@@ -42,9 +42,18 @@
           maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
-    float width = [slider maximumValue] - [slider minimumValue];
-    float sliderValue = [slider minimumValue] + percentage * width;
+    float width = slider.maximumValue - slider.minimumValue;
+    float sliderValue = slider.minimumValue + percentage * width;
     [slider setValue:sliderValue];
+}
+
++ (void)setProgressView:(UIProgressView *)progressView
+        withValue:(float)value
+          minimum:(float)minimum
+          maximum:(float)maximum
+{
+    float percentage = (value-minimum)/(maximum - minimum);
+    [progressView setProgress:percentage];
 }
 
 + (float)scaleValueFromSlider:(UISlider *)slider
@@ -80,6 +89,24 @@
     
 }
 
++ (void)setProgressView:(UIProgressView *)progressView withProperty:(id)property
+{
+    if ([property isKindOfClass:[OCSInstrumentProperty class]])
+    {
+        [self setProgressView:progressView
+                    withValue:[(OCSInstrumentProperty *)property value]
+                      minimum:[(OCSInstrumentProperty *)property minimumValue]
+                      maximum:[(OCSInstrumentProperty *)property maximumValue]];
+    }
+    else if ([property isKindOfClass:[OCSNoteProperty class]])
+    {
+        [self setProgressView:progressView
+                    withValue:[(OCSNoteProperty *)property value]
+                      minimum:[(OCSNoteProperty *)property minimumValue]
+                      maximum:[(OCSNoteProperty *)property maximumValue]];
+    }
+    
+}
 
 + (void)setProperty:(id)property withSlider:(UISlider *)slider
 {
