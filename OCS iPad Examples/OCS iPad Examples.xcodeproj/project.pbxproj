@@ -190,7 +190,6 @@
 		C4F07A4315D603E40084FF9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A4215D603E40084FF9E /* AudioToolbox.framework */; };
 		C4F07A4515D605540084FF9E /* ox-icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4415D605540084FF9E /* ox-icon-72.png */; };
 		C4F07A4715D6055D0084FF9E /* ox-icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4615D6055D0084FF9E /* ox-icon-144.png */; };
-		C4FB18031653A8ED00211621 /* OCSPortamento.h in Sources */ = {isa = PBXBuildFile; fileRef = C4FB18011653A8ED00211621 /* OCSPortamento.h */; };
 		C4FB18041653A8ED00211621 /* OCSPortamento.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB18021653A8ED00211621 /* OCSPortamento.m */; };
 /* End PBXBuildFile section */
 
@@ -1739,7 +1738,6 @@
 				C444CD401650E149009FC32F /* OCSSineOscillator.m in Sources */,
 				C444CD441650EA6C009FC32F /* OCSTrackedFrequency.m in Sources */,
 				C444CD491650F1F2009FC32F /* OCSTrackedAmplitude.m in Sources */,
-				C4FB18031653A8ED00211621 /* OCSPortamento.h in Sources */,
 				C4FB18041653A8ED00211621 /* OCSPortamento.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,33 +10,24 @@
 
 @interface OCSTrackedAmplitude () {
     OCSAudio *asig;
-    OCSConstant *ihopsize;
-    OCSConstant *ipeaks;
 }
 @end
 
 @implementation OCSTrackedAmplitude
 
 - (id)initWithAudioSource:(OCSAudio *)audioSource
-               sampleSize:(OCSConstant *)hopSize
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         asig = audioSource;
-        ihopsize = hopSize;
-        ipeaks = ocsp(20);
     }
     return self;
 }
 
-- (void)setOptionalSpectralPeaks:(OCSConstant *)numberOfSpectralPeaks {
-	ipeaks = numberOfSpectralPeaks;
-}
-
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"kUnused, %@ ptrack %@, %@, %@",
-            self, asig, ihopsize, ipeaks];
+            @"%@ rms %@",
+            self, asig];
 }
 
 @end
