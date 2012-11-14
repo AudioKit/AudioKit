@@ -10,4 +10,12 @@
 
 @interface OCSAudioAnalyzer : OCSInstrument
 
+@property (nonatomic, strong) OCSInstrumentProperty *trackedFrequency;
+#define kTrackedFrequencyMin  0.0
+#define kTrackedFrequencyMax  2500.0
+
+@property (nonatomic, strong) OCSInstrumentProperty *trackedAmplitude;
+
+- (id)initWithAudioSource:(OCSAudio *)audioSource;
+
 @end
