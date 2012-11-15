@@ -8,10 +8,6 @@
 
 #import "OscillatorInstrument.h"
 
-#import "OCSSineTable.h"
-#import "OCSOscillator.h"
-#import "OCSAudioOutput.h"
-
 @implementation OscillatorInstrument 
 
 @synthesize frequency = freq;

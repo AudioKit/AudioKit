@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSInstrument.h"
-@class AudioFilePlayerNote;
+#import "OCSFoundation.h"
 
 @interface AudioFilePlayer : OCSInstrument
 @end

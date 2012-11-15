@@ -7,8 +7,6 @@
 //
 
 #import "MarimbaInstrument.h"
-#import "OCSMarimba.h"
-#import "OCSAudioOutput.h"
 
 @implementation MarimbaInstrument
 

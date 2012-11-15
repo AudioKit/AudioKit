@@ -6,9 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSInstrument.h"
-
-@class UDOInstrumentNote;
+#import "OCSFoundation.h"
 
 @interface UDOInstrument : OCSInstrument
 @end

@@ -6,11 +6,10 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSInstrument.h"
-#import "ToneGenerator.h"
+#import "OCSFoundation.h"
 
 @interface EffectsProcessor : OCSInstrument 
 
-- (id)initWithToneGenerator:(ToneGenerator *) toneGenerator;
+- (id)initWithAudioSource:(OCSAudio *)audioSource;
 
 @end

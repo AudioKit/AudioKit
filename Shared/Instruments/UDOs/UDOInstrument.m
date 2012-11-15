@@ -12,8 +12,6 @@
 #import "UDOCsGrainCompressor.h"
 #import "UDOCsGrainPitchShifter.h"
 
-#import "OCSAudioOutput.h"
-
 @implementation UDOInstrument
 
 - (id)init {

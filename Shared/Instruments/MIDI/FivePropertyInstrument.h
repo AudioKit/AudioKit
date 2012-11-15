@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSInstrument.h"
+#import "OCSFoundation.h"
+
 @class FivePropertyInstrumentNote;
 
 @interface FivePropertyInstrument : OCSInstrument

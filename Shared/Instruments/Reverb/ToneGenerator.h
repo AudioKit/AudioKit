@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
-#import "OCSInstrument.h"
+#import "OCSFoundation.h"
 
 @interface ToneGenerator : OCSInstrument 
 

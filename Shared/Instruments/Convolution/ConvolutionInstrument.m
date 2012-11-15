@@ -7,10 +7,6 @@
 //
 
 #import "ConvolutionInstrument.h"
-#import "OCSFileInput.h"
-#import "OCSConvolution.h"
-#import "OCSMixedAudio.h"
-#import "OCSAudioOutput.h"
 
 @interface ConvolutionInstrument () {
     OCSInstrumentProperty *dishWellBalance;

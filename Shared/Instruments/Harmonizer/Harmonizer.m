@@ -7,12 +7,6 @@
 //
 
 #import "Harmonizer.h"
-#import "OCSAudioInput.h"
-#import "OCSFSignalFromMonoAudio.h"
-#import "OCSScaledFSignal.h"
-#import "OCSFSignalMix.h"
-#import "OCSAudioFromFSignal.h"
-#import "OCSAudioOutput.h"
 
 @interface Harmonizer () {
     OCSInstrumentProperty *pitch;

@@ -37,20 +37,20 @@ typedef enum
     kWindowKaiser=7,
     KWindowRectangle=8,
     kWindowSync=9
-} WindowType;
+} WindowTableType;
 
 /// Instantiates the window function table.
 /// @param windowType   Type of window to generate.
 /// @param maximumValue Absolute value at window peak point. 
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-- (id)initWithType:(WindowType)windowType
+- (id)initWithType:(WindowTableType)windowType
           maxValue:(float)maximumValue    
               size:(int)tableSize; 
 
 /// Instantiates the window function table with a maximum value of 1.
 /// @param windowType   Type of window to generate.
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-- (id)initWithType:(WindowType)windowType 
+- (id)initWithType:(WindowTableType)windowType 
               size:(int)tableSize; 
 
 /// Creates a Gaussian Windown Function Table

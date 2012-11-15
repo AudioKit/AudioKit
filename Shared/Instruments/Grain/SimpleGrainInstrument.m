@@ -7,13 +7,6 @@
 //
 
 #import "SimpleGrainInstrument.h"
-#import "OCSSoundFileTable.h"
-#import "OCSWindowsTable.h"
-#import "OCSLine.h"
-#import "OCSLinearControl.h"
-#import "OCSAudioSegmentArray.h"
-#import "OCSGrain.h"
-#import "OCSAudioOutput.h"
 
 @implementation SimpleGrainInstrument
 

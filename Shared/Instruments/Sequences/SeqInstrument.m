@@ -8,10 +8,6 @@
 
 #import "SeqInstrument.h"
 
-#import "OCSSineTable.h"
-#import "OCSFMOscillator.h"
-#import "OCSAudioOutput.h"
-
 @implementation SeqInstrument
 
 @synthesize modulation = mod;
