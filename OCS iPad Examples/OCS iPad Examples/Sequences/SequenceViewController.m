@@ -9,9 +9,8 @@
 #import "SequenceViewController.h"
 
 #import "OCSiOSTools.h"
-#import "OCSManager.h"
+#import "OCSFoundation.h"
 #import "SeqInstrument.h"
-#import "OCSSequence.h"
 
 @interface SequenceViewController () {
     SeqInstrument *instrument;

@@ -7,11 +7,6 @@
 //
 
 #import "AudioFilePlayer.h"
-#import "OCSLoopingOscillator.h"
-#import "OCSReverb.h"
-#import "OCSAudioOutput.h"
-
-#import "OCSEvent.h"
 
 @implementation AudioFilePlayer
 

@@ -7,11 +7,6 @@
 //
 
 #import "ExpressionToneGenerator.h"
-#import "OCSSineTable.h"
-#import "OCSOscillator.h"
-#import "OCSOscillatingControl.h"
-#import "OCSLine.h"
-#import "OCSAudioOutput.h"
 
 @implementation ExpressionToneGenerator
 

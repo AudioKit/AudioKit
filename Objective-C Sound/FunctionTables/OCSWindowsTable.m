@@ -10,7 +10,7 @@
 
 @implementation OCSWindowsTable
 
-- (id)initWithType:(WindowType)windowType
+- (id)initWithType:(WindowTableType)windowType
           maxValue:(float)maximumValue    
               size:(int)tableSize; 
 {
@@ -21,7 +21,7 @@
 }
 
 
-- (id)initWithType:(WindowType)windowType
+- (id)initWithType:(WindowTableType)windowType
               size:(int)tableSize; 
 {
     return [self initWithType:windowType

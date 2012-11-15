@@ -7,9 +7,6 @@
 //
 
 #import "ToneGenerator.h"
-#import "OCSSineTable.h"
-#import "OCSOscillator.h"
-#import "OCSAudioOutput.h"
 
 @implementation ToneGenerator
 

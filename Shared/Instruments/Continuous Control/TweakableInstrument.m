@@ -7,11 +7,6 @@
 //
 
 #import "TweakableInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSFMOscillator.h"
-#import "OCSAudioOutput.h"
-#import "OCSAssignment.h"
-
 
 @implementation TweakableInstrument
 @synthesize amplitude;

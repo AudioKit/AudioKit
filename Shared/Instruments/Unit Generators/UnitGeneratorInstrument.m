@@ -7,12 +7,6 @@
 //
 
 #import "UnitGeneratorInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSLine.h"
-#import "OCSLinearControl.h"
-#import "OCSControlSegmentArray.h"
-#import "OCSFMOscillator.h"
-#import "OCSAudioOutput.h"
 
 @implementation UnitGeneratorInstrument
 

@@ -25,7 +25,7 @@
     
     OCSOrchestra *orch = [[OCSOrchestra alloc] init];
     toneGenerator = [[ToneGenerator alloc] init];
-    fx = [[EffectsProcessor alloc] initWithToneGenerator:toneGenerator];
+    fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
     
     [orch addInstrument:toneGenerator];
     [orch addInstrument:fx];

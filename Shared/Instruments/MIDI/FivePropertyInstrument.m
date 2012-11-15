@@ -8,11 +8,6 @@
 
 
 #import "FivePropertyInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSProduct.h"
-#import "OCSFMOscillator.h"
-#import "OCSLowPassButterworthFilter.h"
-#import "OCSAudioOutput.h"
 
 @implementation FivePropertyInstrument
 

@@ -7,9 +7,6 @@
 //
 
 #import "FMOscillatorInstrument.h"
-#import "OCSSineTable.h"
-#import "OCSFMOscillator.h"
-#import "OCSAudioOutput.h"
 
 @implementation FMOscillatorInstrument
 

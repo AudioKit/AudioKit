@@ -7,19 +7,13 @@
 //
 
 #import "EffectsProcessor.h"
-#import "OCSReverb.h"
-#import "OCSAudioOutput.h"
 
 @implementation EffectsProcessor
 
-- (id)initWithToneGenerator:(ToneGenerator *)toneGenerator
+- (id)initWithAudioSource:(OCSAudio *)audioSource
 {
     self = [super init];
     if (self) {                  
-        
-        // INPUTS ==============================================================
-        
-        OCSAudio *audioSource = toneGenerator.auxilliaryOutput;
         
         // INSTRUMENT DEFINITION ===============================================
         

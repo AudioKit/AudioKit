@@ -99,8 +99,6 @@
 		C444C8FC164BB1C4009FC32F /* OCSAudioOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C820164BB1C3009FC32F /* OCSAudioOutput.m */; };
 		C444C8FE164BB1C4009FC32F /* OCSFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C822164BB1C3009FC32F /* OCSFileInput.m */; };
 		C444C900164BB1C4009FC32F /* OCSFTablelooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C824164BB1C3009FC32F /* OCSFTablelooper.m */; };
-		C444C902164BB1C4009FC32F /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C826164BB1C3009FC32F /* OCSLoopingOscillator.m */; };
-		C444C904164BB1C4009FC32F /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C828164BB1C3009FC32F /* OCSLoopingStereoOscillator.m */; };
 		C444C906164BB1C4009FC32F /* OCSBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C82B164BB1C3009FC32F /* OCSBallWithinTheBoxReverb.m */; };
 		C444C908164BB1C4009FC32F /* OCSBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C82D164BB1C3009FC32F /* OCSBandPassButterworthFilter.m */; };
 		C444C90A164BB1C4009FC32F /* OCSBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444C82F164BB1C3009FC32F /* OCSBandRejectButterworthFilter.m */; };
@@ -191,6 +189,9 @@
 		C4F07A4515D605540084FF9E /* ox-icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4415D605540084FF9E /* ox-icon-72.png */; };
 		C4F07A4715D6055D0084FF9E /* ox-icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F07A4615D6055D0084FF9E /* ox-icon-144.png */; };
 		C4FB18041653A8ED00211621 /* OCSPortamento.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB18021653A8ED00211621 /* OCSPortamento.m */; };
+		C4FB18171654E98000211621 /* OCSEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB18151654E98000211621 /* OCSEqualizerFilter.m */; };
+		C4FB181F1654EA6A00211621 /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB181B1654EA6A00211621 /* OCSLoopingOscillator.m */; };
+		C4FB18211654EA6A00211621 /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FB181D1654EA6A00211621 /* OCSLoopingStereoOscillator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -373,10 +374,6 @@
 		C444C822164BB1C3009FC32F /* OCSFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFileInput.m; sourceTree = "<group>"; };
 		C444C823164BB1C3009FC32F /* OCSFTablelooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSFTablelooper.h; sourceTree = "<group>"; };
 		C444C824164BB1C3009FC32F /* OCSFTablelooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFTablelooper.m; sourceTree = "<group>"; };
-		C444C825164BB1C3009FC32F /* OCSLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLoopingOscillator.h; sourceTree = "<group>"; };
-		C444C826164BB1C3009FC32F /* OCSLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingOscillator.m; sourceTree = "<group>"; };
-		C444C827164BB1C3009FC32F /* OCSLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLoopingStereoOscillator.h; sourceTree = "<group>"; };
-		C444C828164BB1C3009FC32F /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
 		C444C82A164BB1C3009FC32F /* OCSBallWithinTheBoxReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBallWithinTheBoxReverb.h; sourceTree = "<group>"; };
 		C444C82B164BB1C3009FC32F /* OCSBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
 		C444C82C164BB1C3009FC32F /* OCSBandPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBandPassButterworthFilter.h; sourceTree = "<group>"; };
@@ -549,6 +546,15 @@
 		C4F07A4615D6055D0084FF9E /* ox-icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ox-icon-144.png"; path = "../ox-icon-144.png"; sourceTree = "<group>"; };
 		C4FB18011653A8ED00211621 /* OCSPortamento.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSPortamento.h; sourceTree = "<group>"; };
 		C4FB18021653A8ED00211621 /* OCSPortamento.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPortamento.m; sourceTree = "<group>"; };
+		C4FB18131654E3E500211621 /* OCSFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSFoundation.h; sourceTree = "<group>"; };
+		C4FB18141654E98000211621 /* OCSEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSEqualizerFilter.h; sourceTree = "<group>"; };
+		C4FB18151654E98000211621 /* OCSEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEqualizerFilter.m; sourceTree = "<group>"; };
+		C4FB18181654E9C400211621 /* OCSLowFrequencyOscillatorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSLowFrequencyOscillatorConstants.h; sourceTree = "<group>"; };
+		C4FB181A1654EA6A00211621 /* OCSLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLoopingOscillator.h; sourceTree = "<group>"; };
+		C4FB181B1654EA6A00211621 /* OCSLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingOscillator.m; sourceTree = "<group>"; };
+		C4FB181C1654EA6A00211621 /* OCSLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLoopingStereoOscillator.h; sourceTree = "<group>"; };
+		C4FB181D1654EA6A00211621 /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
+		C4FB18221654EA7F00211621 /* OCSLoopingOscillatorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = OCSLoopingOscillatorConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -759,6 +765,7 @@
 		C444C77D164BB1C3009FC32F /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C4FB18131654E3E500211621 /* OCSFoundation.h */,
 				C444C77E164BB1C3009FC32F /* OCSEvent.h */,
 				C444C77F164BB1C3009FC32F /* OCSEvent.m */,
 				C444C780164BB1C3009FC32F /* OCSInstrument.h */,
@@ -948,6 +955,7 @@
 		C444C7DC164BB1C3009FC32F /* OCSLowFrequencyOscillator */ = {
 			isa = PBXGroup;
 			children = (
+				C4FB18181654E9C400211621 /* OCSLowFrequencyOscillatorConstants.h */,
 				C444C7DD164BB1C3009FC32F /* OCSLowFrequencyOscillatingControl.h */,
 				C444C7DE164BB1C3009FC32F /* OCSLowFrequencyOscillatingControl.m */,
 				C444C7DF164BB1C3009FC32F /* OCSLowFrequencyOscillator.h */,
@@ -1068,10 +1076,7 @@
 				C444C822164BB1C3009FC32F /* OCSFileInput.m */,
 				C444C823164BB1C3009FC32F /* OCSFTablelooper.h */,
 				C444C824164BB1C3009FC32F /* OCSFTablelooper.m */,
-				C444C825164BB1C3009FC32F /* OCSLoopingOscillator.h */,
-				C444C826164BB1C3009FC32F /* OCSLoopingOscillator.m */,
-				C444C827164BB1C3009FC32F /* OCSLoopingStereoOscillator.h */,
-				C444C828164BB1C3009FC32F /* OCSLoopingStereoOscillator.m */,
+				C4FB18191654EA6A00211621 /* OCSLoopingOscillator */,
 			);
 			path = "Signal Input and Output";
 			sourceTree = "<group>";
@@ -1087,6 +1092,8 @@
 				C444C82F164BB1C3009FC32F /* OCSBandRejectButterworthFilter.m */,
 				C444C830164BB1C3009FC32F /* OCSConvolution.h */,
 				C444C831164BB1C3009FC32F /* OCSConvolution.m */,
+				C4FB18141654E98000211621 /* OCSEqualizerFilter.h */,
+				C4FB18151654E98000211621 /* OCSEqualizerFilter.m */,
 				C444C832164BB1C3009FC32F /* OCSFlanger.h */,
 				C444C833164BB1C3009FC32F /* OCSFlanger.m */,
 				C444C834164BB1C3009FC32F /* OCSHighPassButterworthFilter.h */,
@@ -1502,6 +1509,18 @@
 			path = "Unit Generators";
 			sourceTree = "<group>";
 		};
+		C4FB18191654EA6A00211621 /* OCSLoopingOscillator */ = {
+			isa = PBXGroup;
+			children = (
+				C4FB18221654EA7F00211621 /* OCSLoopingOscillatorConstants.h */,
+				C4FB181A1654EA6A00211621 /* OCSLoopingOscillator.h */,
+				C4FB181B1654EA6A00211621 /* OCSLoopingOscillator.m */,
+				C4FB181C1654EA6A00211621 /* OCSLoopingStereoOscillator.h */,
+				C4FB181D1654EA6A00211621 /* OCSLoopingStereoOscillator.m */,
+			);
+			path = OCSLoopingOscillator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1702,8 +1721,6 @@
 				C444C8FC164BB1C4009FC32F /* OCSAudioOutput.m in Sources */,
 				C444C8FE164BB1C4009FC32F /* OCSFileInput.m in Sources */,
 				C444C900164BB1C4009FC32F /* OCSFTablelooper.m in Sources */,
-				C444C902164BB1C4009FC32F /* OCSLoopingOscillator.m in Sources */,
-				C444C904164BB1C4009FC32F /* OCSLoopingStereoOscillator.m in Sources */,
 				C444C906164BB1C4009FC32F /* OCSBallWithinTheBoxReverb.m in Sources */,
 				C444C908164BB1C4009FC32F /* OCSBandPassButterworthFilter.m in Sources */,
 				C444C90A164BB1C4009FC32F /* OCSBandRejectButterworthFilter.m in Sources */,
@@ -1739,6 +1756,9 @@
 				C444CD441650EA6C009FC32F /* OCSTrackedFrequency.m in Sources */,
 				C444CD491650F1F2009FC32F /* OCSTrackedAmplitude.m in Sources */,
 				C4FB18041653A8ED00211621 /* OCSPortamento.m in Sources */,
+				C4FB18171654E98000211621 /* OCSEqualizerFilter.m in Sources */,
+				C4FB181F1654EA6A00211621 /* OCSLoopingOscillator.m in Sources */,
+				C4FB18211654EA6A00211621 /* OCSLoopingStereoOscillator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

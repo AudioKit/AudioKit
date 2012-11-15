@@ -8,6 +8,7 @@
 
 #import "OCSControl.h"
 #import "OCSParameter+Operation.h"
+#import "OCSLowFrequencyOscillatorConstants.h"
 
 /** A low frequency oscillator of various shapes.
  
@@ -23,15 +24,6 @@
               amplitude:(OCSControl *)amplitude;
 
 
-typedef enum
-{
-    kLFOTypeSine = 0,
-    kLFOTypeTriangle = 1,
-    kLFOTypeBipolarSquare =2,
-    kLFOTypeUnipolarSquare = 3,
-    kLFOTypeSawTooth = 4,
-    kLFOTypeDownSawTooth = 5
-} LFOType;
 
 /// Set an optional type
 /// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down).
