@@ -113,7 +113,7 @@
 	
 	if (_numLights == 0)
 	{
-		int i;
+		uint i;
 		CGFloat currentTop = 0.;
 		
 		if (_bgColor)
@@ -146,7 +146,7 @@
 		}
 		
 	} else {
-		int light_i;
+		uint light_i;
 		CGFloat lightMinVal = 0.;
 		CGFloat insetAmount, lightVSpace;
 		lightVSpace = bds.size.height / (CGFloat)_numLights;
@@ -154,7 +154,7 @@
 		else if (lightVSpace < 8.) insetAmount = 0.5;
 		else insetAmount = 1.;
 		
-		int peakLight = -1;
+		uint peakLight = -1;
 		if (_peakLevel > 0.)
 		{
 			peakLight = _peakLevel * _numLights;
