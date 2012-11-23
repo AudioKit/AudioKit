@@ -12,7 +12,7 @@
 @class OCSSequence;
 
 /**OCSOrchestra is a collection of instruments and  handles all of the 
- CSD file creation tasks for the CSDManager.
+ CSD file creation tasks for the OCSManager.
  */
 @interface OCSOrchestra : NSObject 
 
