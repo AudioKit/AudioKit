@@ -27,7 +27,7 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifn = fTable;
+        ifn  = fTable;
         xcps = frequency;
         xamp = amplitude;
         iphs = ocsp(0);
