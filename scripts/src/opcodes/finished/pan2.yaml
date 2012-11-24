@@ -1,0 +1,31 @@
+opcode: pan2
+
+operation: OCSPanner
+
+operationClass: OCSStereoAudio
+
+summary: Distribute an audio signal across two channels with a choice of methods.
+
+description:
+  Panning methods include equal power, square root, simple linear, and an alternative equal power method
+  based on the MIDI Association Recommend Practice for GM2 RP036 (Default Pan Curve).
+
+input_list: asig, xp, imode
+
+required_inputs:
+
+- asig: {
+	ocsVar: audioSource, 
+	comment: "Source signal."
+}
+- xp: {
+	ocsVar: pan, 
+	comment: "From hard left (0) to hard right (1)."
+}
+
+optional_inputs:
+- imode: {
+	ocsVar: panMethod, 
+	comment: "Pan Method",
+	default: 0
+}
