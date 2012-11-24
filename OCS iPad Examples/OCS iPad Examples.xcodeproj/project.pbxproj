@@ -142,6 +142,7 @@
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
+		C4839A1C1660CA8C00B444BF /* OCSPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C4839A1B1660CA8C00B444BF /* OCSPanner.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
@@ -453,6 +454,8 @@
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
 		C47E2866163F08DF00BBB569 /* MarimbaInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MarimbaInstrument.h; path = Marimba/MarimbaInstrument.h; sourceTree = "<group>"; };
 		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
+		C4839A1A1660CA8C00B444BF /* OCSPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPanner.h; sourceTree = "<group>"; };
+		C4839A1B1660CA8C00B444BF /* OCSPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPanner.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
@@ -1122,6 +1125,8 @@
 				C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */,
 				C4FB18011653A8ED00211621 /* OCSPortamento.h */,
 				C4FB18021653A8ED00211621 /* OCSPortamento.m */,
+				C4839A1A1660CA8C00B444BF /* OCSPanner.h */,
+				C4839A1B1660CA8C00B444BF /* OCSPanner.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1759,6 +1764,7 @@
 				C4FB18171654E98000211621 /* OCSEqualizerFilter.m in Sources */,
 				C4FB181F1654EA6A00211621 /* OCSLoopingOscillator.m in Sources */,
 				C4FB18211654EA6A00211621 /* OCSLoopingStereoOscillator.m in Sources */,
+				C4839A1C1660CA8C00B444BF /* OCSPanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
