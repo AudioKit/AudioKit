@@ -110,6 +110,7 @@
 #import "OCSLowPassFilter.h"
 #import "OCSMoogLadder.h"
 #import "OCSNReverb.h"
+#import "OCSPanner.h"
 #import "OCSPortamento.h"
 #import "OCSReverb.h"
 #import "OCSReverbAllpass.h"

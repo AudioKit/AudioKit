@@ -143,6 +143,7 @@
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C4839A1C1660CA8C00B444BF /* OCSPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C4839A1B1660CA8C00B444BF /* OCSPanner.m */; };
+		C4839A201660D96300B444BF /* OCSDopplerEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
@@ -456,6 +457,8 @@
 		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
 		C4839A1A1660CA8C00B444BF /* OCSPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPanner.h; sourceTree = "<group>"; };
 		C4839A1B1660CA8C00B444BF /* OCSPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPanner.m; sourceTree = "<group>"; };
+		C4839A1E1660D96200B444BF /* OCSDopplerEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSDopplerEffect.h; sourceTree = "<group>"; };
+		C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDopplerEffect.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
@@ -1105,12 +1108,18 @@
 				C444C837164BB1C3009FC32F /* OCSHighPassFilter.m */,
 				C444C838164BB1C3009FC32F /* OCSLowPassButterworthFilter.h */,
 				C444C839164BB1C3009FC32F /* OCSLowPassButterworthFilter.m */,
+				C444C947164BB249009FC32F /* OCSLowPassControlFilter.h */,
+				C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */,
 				C444C83A164BB1C3009FC32F /* OCSLowPassFilter.h */,
 				C444C83B164BB1C3009FC32F /* OCSLowPassFilter.m */,
 				C444C83C164BB1C3009FC32F /* OCSMoogLadder.h */,
 				C444C83D164BB1C3009FC32F /* OCSMoogLadder.m */,
 				C444C83E164BB1C3009FC32F /* OCSNReverb.h */,
 				C444C83F164BB1C3009FC32F /* OCSNReverb.m */,
+				C4839A1A1660CA8C00B444BF /* OCSPanner.h */,
+				C4839A1B1660CA8C00B444BF /* OCSPanner.m */,
+				C4FB18011653A8ED00211621 /* OCSPortamento.h */,
+				C4FB18021653A8ED00211621 /* OCSPortamento.m */,
 				C444C840164BB1C3009FC32F /* OCSReverb.h */,
 				C444C841164BB1C3009FC32F /* OCSReverb.m */,
 				C444C842164BB1C3009FC32F /* OCSReverbAllpass.h */,
@@ -1121,12 +1130,8 @@
 				C444C847164BB1C3009FC32F /* OCSThreePoleLowpassFilter.m */,
 				C444C848164BB1C3009FC32F /* OCSVibrato.h */,
 				C444C849164BB1C3009FC32F /* OCSVibrato.m */,
-				C444C947164BB249009FC32F /* OCSLowPassControlFilter.h */,
-				C444C948164BB249009FC32F /* OCSLowPassControlFilter.m */,
-				C4FB18011653A8ED00211621 /* OCSPortamento.h */,
-				C4FB18021653A8ED00211621 /* OCSPortamento.m */,
-				C4839A1A1660CA8C00B444BF /* OCSPanner.h */,
-				C4839A1B1660CA8C00B444BF /* OCSPanner.m */,
+				C4839A1E1660D96200B444BF /* OCSDopplerEffect.h */,
+				C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1765,6 +1770,7 @@
 				C4FB181F1654EA6A00211621 /* OCSLoopingOscillator.m in Sources */,
 				C4FB18211654EA6A00211621 /* OCSLoopingStereoOscillator.m in Sources */,
 				C4839A1C1660CA8C00B444BF /* OCSPanner.m in Sources */,
+				C4839A201660D96300B444BF /* OCSDopplerEffect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
