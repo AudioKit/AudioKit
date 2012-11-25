@@ -11,10 +11,22 @@
 
 /** Compress, limit, expand, duck or gate an audio signal.
  
- This unit functions as an audio compressor, limiter, expander, or noise gate, using either soft-knee or hard-knee mapping, and with dynamically variable performance characteristics. It takes two audio input signals, aasig and acsig, the first of which is modified by a running analysis of the second. Both signals can be the same, or the first can be modified by a different controlling signal.
- This operation first examines the controlling acsig by performing envelope detection. This is directed by two control values katt and krel, defining the attack and release time constants (in seconds) of the detector. The detector rides the peaks (not the RMS) of the control signal. Typical values are .01 and .1, the latter usually being similar to ilook.
- The running envelope is next converted to decibels, then passed through a mapping function to determine what compresser action (if any) should be taken. The mapping function is defined by four decibel control values. These are given as positive values, where 0 db corresponds to an amplitude of 1, and 90 db corresponds to an amplitude of 32768.
- */
+ This unit functions as an audio compressor, limiter, expander, or noise gate, using either
+ soft-knee or hard-knee mapping, and with dynamically variable performance characteristics.
+ It takes two audio input signals, affectedAudioSource and controllingAudioSource, the first of which is modified by a running
+ analysis of the second. Both signals can be the same, or the first can be modified by a different
+ controlling signal.
+ 
+ This operation first examines the controllingAudioSource by performing envelope detection. This is directed
+ by two control values attackTime and releaseTime, defining the attack and release time constants (in seconds)
+ of the detector. The detector rides the peaks (not the RMS) of the control signal. Typical values
+ are .01 and .1, the latter usually being similar to the optional lookAheadTime.
+ 
+ The running envelope is next converted to decibels, then passed through a mapping function to
+ determine what compresser action (if any) should be taken. The mapping function is defined by
+ four decibel control values. These are given as positive values, where 0 db corresponds to an
+ amplitude of 1, and 90 db corresponds to an amplitude of 32768.
+*/
 
 @interface OCSCompressor : OCSAudio
 
