@@ -144,6 +144,7 @@
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C4839A1C1660CA8C00B444BF /* OCSPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C4839A1B1660CA8C00B444BF /* OCSPanner.m */; };
 		C4839A201660D96300B444BF /* OCSDopplerEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */; };
+		C4839A2316623EC000B444BF /* OCSCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4839A2216623EC000B444BF /* OCSCompressor.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
@@ -459,6 +460,8 @@
 		C4839A1B1660CA8C00B444BF /* OCSPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPanner.m; sourceTree = "<group>"; };
 		C4839A1E1660D96200B444BF /* OCSDopplerEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSDopplerEffect.h; sourceTree = "<group>"; };
 		C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDopplerEffect.m; sourceTree = "<group>"; };
+		C4839A2116623EC000B444BF /* OCSCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSCompressor.h; sourceTree = "<group>"; };
+		C4839A2216623EC000B444BF /* OCSCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCompressor.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
@@ -1096,8 +1099,12 @@
 				C444C82D164BB1C3009FC32F /* OCSBandPassButterworthFilter.m */,
 				C444C82E164BB1C3009FC32F /* OCSBandRejectButterworthFilter.h */,
 				C444C82F164BB1C3009FC32F /* OCSBandRejectButterworthFilter.m */,
+				C4839A2116623EC000B444BF /* OCSCompressor.h */,
+				C4839A2216623EC000B444BF /* OCSCompressor.m */,
 				C444C830164BB1C3009FC32F /* OCSConvolution.h */,
 				C444C831164BB1C3009FC32F /* OCSConvolution.m */,
+				C4839A1E1660D96200B444BF /* OCSDopplerEffect.h */,
+				C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */,
 				C4FB18141654E98000211621 /* OCSEqualizerFilter.h */,
 				C4FB18151654E98000211621 /* OCSEqualizerFilter.m */,
 				C444C832164BB1C3009FC32F /* OCSFlanger.h */,
@@ -1130,8 +1137,6 @@
 				C444C847164BB1C3009FC32F /* OCSThreePoleLowpassFilter.m */,
 				C444C848164BB1C3009FC32F /* OCSVibrato.h */,
 				C444C849164BB1C3009FC32F /* OCSVibrato.m */,
-				C4839A1E1660D96200B444BF /* OCSDopplerEffect.h */,
-				C4839A1F1660D96200B444BF /* OCSDopplerEffect.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1771,6 +1776,7 @@
 				C4FB18211654EA6A00211621 /* OCSLoopingStereoOscillator.m in Sources */,
 				C4839A1C1660CA8C00B444BF /* OCSPanner.m in Sources */,
 				C4839A201660D96300B444BF /* OCSDopplerEffect.m in Sources */,
+				C4839A2316623EC000B444BF /* OCSCompressor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
