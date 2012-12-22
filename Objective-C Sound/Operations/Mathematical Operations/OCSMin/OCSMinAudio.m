@@ -1,22 +1,22 @@
 //
-//  OCSMaxAudio.m
+//  OCSMinAudio.m
 //  Objective-C Sound
 //
 //  Auto-generated from database on 12/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  Implementation of Csound's max:
-//  http://www.csounds.com/manual/html/max.html
+//  Implementation of Csound's min:
+//  http://www.csounds.com/manual/html/min.html
 //
 
-#import "OCSMaxAudio.h"
+#import "OCSMinAudio.h"
 
-@interface OCSMaxAudio () {
+@interface OCSMinAudio () {
     OCSArray *ains;
 }
 @end
 
-@implementation OCSMaxAudio
+@implementation OCSMinAudio
 
 - (id)initWithAudioSources:(OCSArray *)inputAudioSources;
 {
@@ -29,7 +29,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ max %@",
+            @"%@ min %@",
             self, ains];
 }
 

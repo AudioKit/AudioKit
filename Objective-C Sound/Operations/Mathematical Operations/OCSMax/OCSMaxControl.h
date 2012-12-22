@@ -1,23 +1,23 @@
 //
-//  OCSMaxAudio.h
+//  OCSMaxControl.h
 //  Objective-C Sound
 //
 //  Auto-generated from database on 12/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
+#import "OCSControl.h"
 #import "OCSParameter+Operation.h"
 
 /** Produces a signal that is the maximum of any number of input signals.
  
- Takes any number of audio signals and outputs an audio signal that is the maximum of all of the inputs.
+ Takes any number of control signals and outputs a control that is the maximum of all of the inputs.
  */
 
-@interface OCSMaxAudio : OCSAudio
+@interface OCSMaxControl : OCSControl
 
 /// Finds the maximum audio signal from an array of sources
-/// @param inputAudioSources Array of audio sources
-- (id)initWithAudioSources:(OCSArray *)inputAudioSources;
+/// @param inputConrols Array of controls
+- (id)initWithControls:(OCSArray *)inputControls;
 
 @end
