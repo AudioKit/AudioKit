@@ -48,6 +48,7 @@
 		C42B236215F36050006032F9 /* html in Resources */ = {isa = PBXBuildFile; fileRef = C42B236115F36050006032F9 /* html */; };
 		C42B240715F484BC006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B240215F484BC006032F9 /* FMOscillatorInstrument.m */; };
 		C42B240915F484BC006032F9 /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B240515F484BC006032F9 /* OscillatorInstrument.m */; };
+		C4310F421685C005000EDE50 /* OCSMaxAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4310F411685C005000EDE50 /* OCSMaxAudio.m */; };
 		C436D29E164EE8D80069986B /* OCSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C436D29D164EE8D80069986B /* OCSArray.m */; };
 		C444CD3A1650D44F009FC32F /* OCSEqualizerFilter.h in Sources */ = {isa = PBXBuildFile; fileRef = C444CD381650D44F009FC32F /* OCSEqualizerFilter.h */; };
 		C444CD3B1650D44F009FC32F /* OCSEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C444CD391650D44F009FC32F /* OCSEqualizerFilter.m */; };
@@ -103,7 +104,6 @@
 		C474D2C816290A5200878841 /* OCSAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D25B16290A5200878841 /* OCSAudioInput.m */; };
 		C474D2C916290A5200878841 /* OCSAudioOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D25D16290A5200878841 /* OCSAudioOutput.m */; };
 		C474D2CA16290A5200878841 /* OCSFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D25F16290A5200878841 /* OCSFileInput.m */; };
-		C474D2CB16290A5200878841 /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D26116290A5200878841 /* OCSLoopingOscillator.m */; };
 		C474D2CC16290A5200878841 /* OCSBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D26416290A5200878841 /* OCSBandPassButterworthFilter.m */; };
 		C474D2CD16290A5200878841 /* OCSBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D26616290A5200878841 /* OCSBandRejectButterworthFilter.m */; };
 		C474D2CE16290A5200878841 /* OCSConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C474D26816290A5200878841 /* OCSConvolution.m */; };
@@ -219,6 +219,8 @@
 		C42B240215F484BC006032F9 /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
 		C42B240415F484BC006032F9 /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
 		C42B240515F484BC006032F9 /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
+		C4310F401685C005000EDE50 /* OCSMaxAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCSMaxAudio.h; path = OCSMax/OCSMaxAudio.h; sourceTree = "<group>"; };
+		C4310F411685C005000EDE50 /* OCSMaxAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCSMaxAudio.m; path = OCSMax/OCSMaxAudio.m; sourceTree = "<group>"; };
 		C436D29C164EE8D80069986B /* OCSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSArray.h; sourceTree = "<group>"; };
 		C436D29D164EE8D80069986B /* OCSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSArray.m; sourceTree = "<group>"; };
 		C444CD381650D44F009FC32F /* OCSEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSEqualizerFilter.h; sourceTree = "<group>"; };
@@ -710,6 +712,15 @@
 			path = Oscillator;
 			sourceTree = "<group>";
 		};
+		C4310F441685C00E000EDE50 /* OCSMax */ = {
+			isa = PBXGroup;
+			children = (
+				C4310F401685C005000EDE50 /* OCSMaxAudio.h */,
+				C4310F411685C005000EDE50 /* OCSMaxAudio.m */,
+			);
+			name = OCSMax;
+			sourceTree = "<group>";
+		};
 		C474D1E416290A5200878841 /* Objective-C Sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,6 +821,7 @@
 				C474D21A16290A5200878841 /* OCSSum.h */,
 				C474D21B16290A5200878841 /* OCSSum.m */,
 				C474D21C16290A5200878841 /* OCSTableValue */,
+				C4310F441685C00E000EDE50 /* OCSMax */,
 			);
 			path = "Mathematical Operations";
 			sourceTree = "<group>";
@@ -1195,7 +1207,6 @@
 				C474D2C816290A5200878841 /* OCSAudioInput.m in Sources */,
 				C474D2C916290A5200878841 /* OCSAudioOutput.m in Sources */,
 				C474D2CA16290A5200878841 /* OCSFileInput.m in Sources */,
-				C474D2CB16290A5200878841 /* OCSLoopingOscillator.m in Sources */,
 				C474D2CC16290A5200878841 /* OCSBandPassButterworthFilter.m in Sources */,
 				C474D2CD16290A5200878841 /* OCSBandRejectButterworthFilter.m in Sources */,
 				C474D2CE16290A5200878841 /* OCSConvolution.m in Sources */,
@@ -1219,6 +1230,7 @@
 				C436D29E164EE8D80069986B /* OCSArray.m in Sources */,
 				C444CD3A1650D44F009FC32F /* OCSEqualizerFilter.h in Sources */,
 				C444CD3B1650D44F009FC32F /* OCSEqualizerFilter.m in Sources */,
+				C4310F421685C005000EDE50 /* OCSMaxAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
