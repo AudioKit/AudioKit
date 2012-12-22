@@ -1,5 +1,5 @@
 //
-//  OCSMaxAudio.m
+//  OCSMaxControl.m
 //  Objective-C Sound
 //
 //  Auto-generated from database on 12/22/12.
@@ -9,20 +9,20 @@
 //  http://www.csounds.com/manual/html/max.html
 //
 
-#import "OCSMaxAudio.h"
+#import "OCSMaxControl.h"
 
-@interface OCSMaxAudio () {
-    OCSArray *ains;
+@interface OCSMaxControl () {
+    OCSArray *kins;
 }
 @end
 
-@implementation OCSMaxAudio
+@implementation OCSMaxControl
 
-- (id)initWithAudioSources:(OCSArray *)inputAudioSources;
+- (id)initWithControls:(OCSArray *)inputControls;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ains = inputAudioSources;
+        kins = inputControls;
     }
     return self;
 }
@@ -30,7 +30,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ max %@",
-            self, ains];
+            self, kins];
 }
 
 @end

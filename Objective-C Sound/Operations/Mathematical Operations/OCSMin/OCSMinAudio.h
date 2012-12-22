@@ -1,5 +1,5 @@
 //
-//  OCSMaxAudio.h
+//  OCSMinAudio.h
 //  Objective-C Sound
 //
 //  Auto-generated from database on 12/22/12.
@@ -9,14 +9,14 @@
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
-/** Produces a signal that is the maximum of any number of input signals.
+/** Produces a signal that is the minimum of any number of input signals.
  
- Takes any number of audio signals and outputs an audio signal that is the maximum of all of the inputs.
+ Takes any number of audio signals and outputs an audio signal that is the minimum of all of the inputs.
  */
 
-@interface OCSMaxAudio : OCSAudio
+@interface OCSMinAudio : OCSAudio
 
-/// Finds the maximum audio signal from an array of sources
+/// Finds the minimum audio signal from an array of sources
 /// @param inputAudioSources Array of audio sources
 - (id)initWithAudioSources:(OCSArray *)inputAudioSources;
 
