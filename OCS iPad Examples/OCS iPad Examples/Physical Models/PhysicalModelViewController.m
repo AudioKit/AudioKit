@@ -7,6 +7,10 @@
 //
 
 #import "PhysicalModelViewController.h"
+#import "OCSiOSTools.h"
+#import "OCSManager.h"
+
+#import "OCSFoundation.h"
 
 @interface PhysicalModelViewController ()
 
@@ -14,25 +18,23 @@
 
 @implementation PhysicalModelViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    OCSInstrument *instrument = [[OCSInstrument alloc] init];
+    
+    OCSMandolin *mandolin = [[OCSMandolin alloc] initWithBodySize:ocsp(1)
+                                                        frequency:ocsp(440)
+                                             pairedStringDetuning:ocsp(1)
+                                                    pluckPosition:ocsp(0.4)
+                                                         loopGain:ocsp(1)
+                                                        amplitude:ocsp(1)];
+    [instrument connect:mandolin];
+    [orch addInstrument:instrument];
+    [[OCSManager sharedOCSManager] runOrchestra:orch];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
