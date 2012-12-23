@@ -1,0 +1,39 @@
+opcode: mandol
+
+operation: OCSMandolin
+
+operationClass: OCSAudio
+
+summary:  An emulation of a mandolin.
+
+description:
+  A mandolin emulation with amplitude, frequency, tuning, gain and mandolin size parameters.
+
+input_list: kamp, kfreq, kpluck, kdetune, kgain, ksize, ksize
+
+required_inputs:
+
+- ksize: {
+	ocsVar: bodySize, 
+	comment: "The size of the body of the mandolin. Range 0 to 2."
+}
+- kfreq: {
+	ocsVar: frequency, 
+	comment: "Frequency of note played."
+}
+- kdetune: {
+	ocsVar: pairedStringDetuning, 
+	comment: "The proportional detuning between the two strings. Suggested range 0.9 to 1."
+}
+- kpluck: {
+	ocsVar: pluckPosition, 
+	comment: "The pluck position, in range 0 to 1. Suggest 0.4."
+}
+- kgain: {
+	ocsVar: loopGain, 
+	comment: "The loop gain of the model, in the range 0.97 to 1."
+}
+- kamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude of note."
+}

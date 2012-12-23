@@ -149,6 +149,8 @@
 		C43110E51685C4FC000EDE50 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110651685C4FB000EDE50 /* OCSInstrumentProperty.m */; };
 		C43110E61685C4FC000EDE50 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110671685C4FB000EDE50 /* OCSNoteProperty.m */; };
 		C43110E71685C4FC000EDE50 /* OCSiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C431106A1685C4FB000EDE50 /* OCSiOSTools.m */; };
+		C431141D1687320E000EDE50 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C431141C1687320E000EDE50 /* mandpluk.aif */; };
+		C431142016873224000EDE50 /* OCSMandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C431141F16873224000EDE50 /* OCSMandolin.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
@@ -483,6 +485,9 @@
 		C43110671685C4FB000EDE50 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C43110691685C4FB000EDE50 /* OCSiOSTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSiOSTools.h; sourceTree = "<group>"; };
 		C431106A1685C4FB000EDE50 /* OCSiOSTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSiOSTools.m; sourceTree = "<group>"; };
+		C431141C1687320E000EDE50 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
+		C431141E16873224000EDE50 /* OCSMandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMandolin.h; sourceTree = "<group>"; };
+		C431141F16873224000EDE50 /* OCSMandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMandolin.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
@@ -1088,6 +1093,7 @@
 		C4310FE71685C4FB000EDE50 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
+				C431141B1687320E000EDE50 /* OCSMandolin */,
 				C4310FE81685C4FB000EDE50 /* OCSMarimba.h */,
 				C4310FE91685C4FB000EDE50 /* OCSMarimba.m */,
 				C4310FEA1685C4FB000EDE50 /* OCSPluckedString.h */,
@@ -1299,6 +1305,16 @@
 				C431106A1685C4FB000EDE50 /* OCSiOSTools.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C431141B1687320E000EDE50 /* OCSMandolin */ = {
+			isa = PBXGroup;
+			children = (
+				C431141C1687320E000EDE50 /* mandpluk.aif */,
+				C431141E16873224000EDE50 /* OCSMandolin.h */,
+				C431141F16873224000EDE50 /* OCSMandolin.m */,
+			);
+			path = OCSMandolin;
 			sourceTree = "<group>";
 		};
 		C47E2865163F084400BBB569 /* Physical Models */ = {
@@ -1670,6 +1686,7 @@
 				C43110D71685C4FC000EDE50 /* CsGrainPitchShifter.udo in Resources */,
 				C43110DA1685C4FC000EDE50 /* declick.udo in Resources */,
 				C43110DC1685C4FC000EDE50 /* msrOsc.udo in Resources */,
+				C431141D1687320E000EDE50 /* mandpluk.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1835,6 +1852,7 @@
 				C43110E51685C4FC000EDE50 /* OCSInstrumentProperty.m in Sources */,
 				C43110E61685C4FC000EDE50 /* OCSNoteProperty.m in Sources */,
 				C43110E71685C4FC000EDE50 /* OCSiOSTools.m in Sources */,
+				C431142016873224000EDE50 /* OCSMandolin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

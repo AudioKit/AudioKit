@@ -64,6 +64,7 @@
 #import "OCSLinearControlEnvelope.h"
 #import "OCSLowFrequencyOscillatingControl.h"
 #import "OCSLowFrequencyOscillator.h"
+#import "OCSMandolin.h"
 #import "OCSOscillatingControl.h"
 #import "OCSOscillator.h"
 #import "OCSSineOscillator.h"
