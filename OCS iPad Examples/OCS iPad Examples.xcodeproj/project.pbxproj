@@ -151,6 +151,7 @@
 		C43110E71685C4FC000EDE50 /* OCSiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C431106A1685C4FB000EDE50 /* OCSiOSTools.m */; };
 		C431141D1687320E000EDE50 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C431141C1687320E000EDE50 /* mandpluk.aif */; };
 		C431142016873224000EDE50 /* OCSMandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C431141F16873224000EDE50 /* OCSMandolin.m */; };
+		C43115C116888209000EDE50 /* OCSBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = C43115C016888209000EDE50 /* OCSBalance.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
@@ -488,6 +489,8 @@
 		C431141C1687320E000EDE50 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C431141E16873224000EDE50 /* OCSMandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSMandolin.h; sourceTree = "<group>"; };
 		C431141F16873224000EDE50 /* OCSMandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMandolin.m; sourceTree = "<group>"; };
+		C43115BF16888209000EDE50 /* OCSBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBalance.h; sourceTree = "<group>"; };
+		C43115C016888209000EDE50 /* OCSBalance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBalance.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
@@ -1219,6 +1222,8 @@
 				C43110411685C4FB000EDE50 /* OCSThreePoleLowpassFilter.m */,
 				C43110421685C4FB000EDE50 /* OCSVibrato.h */,
 				C43110431685C4FB000EDE50 /* OCSVibrato.m */,
+				C43115BF16888209000EDE50 /* OCSBalance.h */,
+				C43115C016888209000EDE50 /* OCSBalance.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1853,6 +1858,7 @@
 				C43110E61685C4FC000EDE50 /* OCSNoteProperty.m in Sources */,
 				C43110E71685C4FC000EDE50 /* OCSiOSTools.m in Sources */,
 				C431142016873224000EDE50 /* OCSMandolin.m in Sources */,
+				C43115C116888209000EDE50 /* OCSBalance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

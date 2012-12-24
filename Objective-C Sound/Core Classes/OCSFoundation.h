@@ -98,6 +98,7 @@
 #import "OCSFTablelooper.h"
 #import "OCSLoopingOscillator.h"
 #import "OCSLoopingStereoOscillator.h"
+#import "OCSBalance.h"
 #import "OCSBallWithinTheBoxReverb.h"
 #import "OCSBandPassButterworthFilter.h"
 #import "OCSBandRejectButterworthFilter.h"

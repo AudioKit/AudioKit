@@ -1,0 +1,36 @@
+opcode: balance
+
+operation: OCSBalance
+
+operationClass: OCSAudio
+
+summary: Adjusts one audio signal according to the values of another.
+
+description:
+  This operation outputs a version of the audio source, amplitude-modified 
+  so that its rms power is equal to that of the comparator audio source. 
+  Thus a signal that has suffered loss of power (eg., in passing through a filter bank)
+  can be restored by matching it with, for instance, its own source. It should be noted 
+  that this modifies amplitude only; output signal is not altered in any other respect.
+
+input_list: asig, acomp, ihp
+
+required_inputs:
+
+- asig: {
+    ocsVar: audioSource, 
+    comment: "Input audio signal"
+}
+
+- acomp: {
+	ocsVar: comparatorAudioSource, 
+	comment: "The comparator signal"
+}
+
+
+optional_inputs:
+- ihp: {
+	ocsVar: halfPowerPoint, 
+	comment: "Half-power point (in Hz) of a special internal low-pass filter. The default value is 10.",
+	default: 10
+}
