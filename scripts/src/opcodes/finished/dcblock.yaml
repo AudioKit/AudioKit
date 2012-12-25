@@ -1,0 +1,26 @@
+opcode: dcblock
+
+operation: OCSDCBlock
+
+operationClass: OCSAudio
+
+summary:  A DC blocking filter.
+
+description:
+  Implements the DC blocking filter: Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based on work by Perry Cook.
+
+input_list: ain, igain
+
+required_inputs:
+
+- ain: {
+	ocsVar: audioSource, 
+	comment: "Input audio signal."
+}
+
+optional_inputs:
+- igain: {
+	ocsVar: gain, 
+	comment: "The gain of the filter, which defaults to 0.99.",
+	default: 0.99
+}
