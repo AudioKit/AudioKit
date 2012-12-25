@@ -152,6 +152,8 @@
 		C431141D1687320E000EDE50 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C431141C1687320E000EDE50 /* mandpluk.aif */; };
 		C431142016873224000EDE50 /* OCSMandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C431141F16873224000EDE50 /* OCSMandolin.m */; };
 		C43115C116888209000EDE50 /* OCSBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = C43115C016888209000EDE50 /* OCSBalance.m */; };
+		C43115C316888666000EDE50 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C43115C216888665000EDE50 /* marmstk1.wav */; };
+		C43115C61689DC3B000EDE50 /* OCSDCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = C43115C51689DC3B000EDE50 /* OCSDCBlock.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
@@ -491,6 +493,9 @@
 		C431141F16873224000EDE50 /* OCSMandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMandolin.m; sourceTree = "<group>"; };
 		C43115BF16888209000EDE50 /* OCSBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBalance.h; sourceTree = "<group>"; };
 		C43115C016888209000EDE50 /* OCSBalance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBalance.m; sourceTree = "<group>"; };
+		C43115C216888665000EDE50 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
+		C43115C41689DC3B000EDE50 /* OCSDCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSDCBlock.h; sourceTree = "<group>"; };
+		C43115C51689DC3B000EDE50 /* OCSDCBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDCBlock.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
@@ -1096,6 +1101,7 @@
 		C4310FE71685C4FB000EDE50 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
+				C43115C216888665000EDE50 /* marmstk1.wav */,
 				C431141B1687320E000EDE50 /* OCSMandolin */,
 				C4310FE81685C4FB000EDE50 /* OCSMarimba.h */,
 				C4310FE91685C4FB000EDE50 /* OCSMarimba.m */,
@@ -1224,6 +1230,8 @@
 				C43110431685C4FB000EDE50 /* OCSVibrato.m */,
 				C43115BF16888209000EDE50 /* OCSBalance.h */,
 				C43115C016888209000EDE50 /* OCSBalance.m */,
+				C43115C41689DC3B000EDE50 /* OCSDCBlock.h */,
+				C43115C51689DC3B000EDE50 /* OCSDCBlock.m */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
@@ -1692,6 +1700,7 @@
 				C43110DA1685C4FC000EDE50 /* declick.udo in Resources */,
 				C43110DC1685C4FC000EDE50 /* msrOsc.udo in Resources */,
 				C431141D1687320E000EDE50 /* mandpluk.aif in Resources */,
+				C43115C316888666000EDE50 /* marmstk1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1859,6 +1868,7 @@
 				C43110E71685C4FC000EDE50 /* OCSiOSTools.m in Sources */,
 				C431142016873224000EDE50 /* OCSMandolin.m in Sources */,
 				C43115C116888209000EDE50 /* OCSBalance.m in Sources */,
+				C43115C61689DC3B000EDE50 /* OCSDCBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

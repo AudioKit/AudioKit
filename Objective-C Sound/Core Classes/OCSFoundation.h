@@ -105,6 +105,7 @@
 #import "OCSCompressor.h"
 #import "OCSConvolution.h"
 #import "OCSDopplerEffect.h"
+#import "OCSDCBlock.h"
 #import "OCSEqualizerFilter.h"
 #import "OCSFlanger.h"
 #import "OCSHighPassButterworthFilter.h"
