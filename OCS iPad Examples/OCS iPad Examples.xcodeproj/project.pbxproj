@@ -854,10 +854,10 @@
 		C4310F7F1685C4FB000EDE50 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				C4310F801685C4FB000EDE50 /* Analysis */,
-				C4310F851685C4FB000EDE50 /* Mathematical Operations */,
 				C4310FA41685C4FB000EDE50 /* OCSParameter+Operation.h */,
 				C4310FA51685C4FB000EDE50 /* OCSParameter+Operation.m */,
+				C4310F801685C4FB000EDE50 /* Analysis */,
+				C4310F851685C4FB000EDE50 /* Mathematical Operations */,
 				C4310FA61685C4FB000EDE50 /* Phase Vocoder Streaming */,
 				C49F5487168B3EAB0054C10F /* Signal Generators */,
 				C43110081685C4FB000EDE50 /* Signal Input and Output */,
