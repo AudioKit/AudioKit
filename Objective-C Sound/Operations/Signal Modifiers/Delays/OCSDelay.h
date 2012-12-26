@@ -14,7 +14,7 @@
  Delays an input signal by some time interval.
  */
 
-@interface OCSDelay : OCSDelay
+@interface OCSDelay : OCSAudio
 
 /// Instantiates the delay
 /// @param audioSource Audio signal

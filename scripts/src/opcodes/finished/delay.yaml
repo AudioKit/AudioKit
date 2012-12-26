@@ -2,14 +2,14 @@ opcode: delay
 
 operation: OCSDelay
 
-operationClass: OCSDelay
+operationClass: OCSAudio
 
 summary:  Simple audio delay
 
 description:
     Delays an input signal by some time interval.
   
-input_list: asig, idlt, idlt
+input_list: asig, idlt
 
 required_inputs:
 
