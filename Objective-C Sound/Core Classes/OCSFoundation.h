@@ -38,8 +38,11 @@
 
 // Operations
 
+// Analysis
 #import "OCSTrackedAmplitude.h"
 #import "OCSTrackedFrequency.h"
+
+// Mathematical Operations
 #import "OCSAssignment.h"
 #import "OCSMixedAudio.h"
 #import "OCSMixedControl.h"
@@ -49,10 +52,14 @@
 #import "OCSTableValue.h"
 #import "OCSTableValueConstant.h"
 #import "OCSTableValueControl.h"
+
+// Phase Vocoder Streaming
 #import "OCSAudioFromFSignal.h"
 #import "OCSFSignalFromMonoAudio.h"
 #import "OCSFSignalMix.h"
 #import "OCSScaledFSignal.h"
+
+// Signal Generators
 #import "OCSAdditiveCosines.h"
 #import "OCSFMOscillator.h"
 #import "OCSGrain.h"
@@ -92,18 +99,23 @@
 #import "OCSStick.h"
 #import "OCSTambourine.h"
 #import "OCSBowedString.h"
+
+// Signal Input and Output
 #import "OCSAudioInput.h"
 #import "OCSAudioOutput.h"
 #import "OCSFileInput.h"
 #import "OCSFTablelooper.h"
 #import "OCSLoopingOscillator.h"
 #import "OCSLoopingStereoOscillator.h"
+
+// Signal Modifiers
 #import "OCSBalance.h"
 #import "OCSBallWithinTheBoxReverb.h"
 #import "OCSBandPassButterworthFilter.h"
 #import "OCSBandRejectButterworthFilter.h"
 #import "OCSCompressor.h"
 #import "OCSConvolution.h"
+#import "OCSDelay.h"
 #import "OCSDopplerEffect.h"
 #import "OCSDCBlock.h"
 #import "OCSEqualizerFilter.h"
@@ -121,6 +133,7 @@
 #import "OCSReverbAllpass.h"
 #import "OCSStereoConvolution.h"
 #import "OCSThreePoleLowpassFilter.h"
+#import "OCSVariableDelay.h"
 #import "OCSVibrato.h"
 #import "OCSDeclick.h"
 

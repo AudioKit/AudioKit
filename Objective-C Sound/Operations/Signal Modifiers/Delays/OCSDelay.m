@@ -33,7 +33,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ delay %@, %@",
-            self, asig, idlt, idlt];
+            self, asig, idlt];
 }
 
 @end
