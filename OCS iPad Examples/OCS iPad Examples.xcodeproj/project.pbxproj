@@ -110,16 +110,11 @@
 		C43110BE1685C4FC000EDE50 /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110131685C4FB000EDE50 /* OCSLoopingOscillator.m */; };
 		C43110BF1685C4FC000EDE50 /* OCSLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110161685C4FB000EDE50 /* OCSLoopingStereoOscillator.m */; };
 		C43110C01685C4FC000EDE50 /* OCSBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110191685C4FB000EDE50 /* OCSBallWithinTheBoxReverb.m */; };
-		C43110C11685C4FC000EDE50 /* OCSBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C431101B1685C4FB000EDE50 /* OCSBandPassButterworthFilter.m */; };
-		C43110C21685C4FC000EDE50 /* OCSBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C431101D1685C4FB000EDE50 /* OCSBandRejectButterworthFilter.m */; };
 		C43110C31685C4FC000EDE50 /* OCSCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C431101F1685C4FB000EDE50 /* OCSCompressor.m */; };
-		C43110C41685C4FC000EDE50 /* OCSConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110211685C4FB000EDE50 /* OCSConvolution.m */; };
 		C43110C51685C4FC000EDE50 /* OCSDopplerEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110231685C4FB000EDE50 /* OCSDopplerEffect.m */; };
 		C43110C61685C4FC000EDE50 /* OCSEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110251685C4FB000EDE50 /* OCSEqualizerFilter.m */; };
 		C43110C71685C4FC000EDE50 /* OCSFlanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110271685C4FB000EDE50 /* OCSFlanger.m */; };
-		C43110C81685C4FC000EDE50 /* OCSHighPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110291685C4FB000EDE50 /* OCSHighPassButterworthFilter.m */; };
 		C43110C91685C4FC000EDE50 /* OCSHighPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C431102B1685C4FB000EDE50 /* OCSHighPassFilter.m */; };
-		C43110CA1685C4FC000EDE50 /* OCSLowPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C431102D1685C4FB000EDE50 /* OCSLowPassButterworthFilter.m */; };
 		C43110CB1685C4FC000EDE50 /* OCSLowPassControlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C431102F1685C4FB000EDE50 /* OCSLowPassControlFilter.m */; };
 		C43110CC1685C4FC000EDE50 /* OCSLowPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110311685C4FB000EDE50 /* OCSLowPassFilter.m */; };
 		C43110CD1685C4FC000EDE50 /* OCSMoogLadder.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110331685C4FB000EDE50 /* OCSMoogLadder.m */; };
@@ -128,7 +123,6 @@
 		C43110D01685C4FC000EDE50 /* OCSPortamento.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110391685C4FB000EDE50 /* OCSPortamento.m */; };
 		C43110D11685C4FC000EDE50 /* OCSReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C431103B1685C4FB000EDE50 /* OCSReverb.m */; };
 		C43110D21685C4FC000EDE50 /* OCSReverbAllpass.m in Sources */ = {isa = PBXBuildFile; fileRef = C431103D1685C4FB000EDE50 /* OCSReverbAllpass.m */; };
-		C43110D31685C4FC000EDE50 /* OCSStereoConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C431103F1685C4FB000EDE50 /* OCSStereoConvolution.m */; };
 		C43110D41685C4FC000EDE50 /* OCSThreePoleLowpassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110411685C4FB000EDE50 /* OCSThreePoleLowpassFilter.m */; };
 		C43110D51685C4FC000EDE50 /* OCSVibrato.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110431685C4FB000EDE50 /* OCSVibrato.m */; };
 		C43110D61685C4FC000EDE50 /* CsGrainCompressor.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43110461685C4FB000EDE50 /* CsGrainCompressor.udo */; };
@@ -160,6 +154,13 @@
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
+		C49F53A4168B2C3B0054C10F /* OCSBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F539C168B2C3B0054C10F /* OCSBandPassButterworthFilter.m */; };
+		C49F53A6168B2C3B0054C10F /* OCSBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F539E168B2C3B0054C10F /* OCSBandRejectButterworthFilter.m */; };
+		C49F53A8168B2C3B0054C10F /* OCSHighPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F53A0168B2C3B0054C10F /* OCSHighPassButterworthFilter.m */; };
+		C49F53AA168B2C3B0054C10F /* OCSLowPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F53A2168B2C3B0054C10F /* OCSLowPassButterworthFilter.m */; };
+		C49F53B1168B2C9D0054C10F /* OCSConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F53AD168B2C9D0054C10F /* OCSConvolution.m */; };
+		C49F53B3168B2C9D0054C10F /* OCSStereoConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C49F53AF168B2C9D0054C10F /* OCSStereoConvolution.m */; };
+		C49F53B7168B32060054C10F /* OCSDelay.m in Resources */ = {isa = PBXBuildFile; fileRef = C49F53B5168B32060054C10F /* OCSDelay.m */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
 		C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8272E15D752F5009D48DA /* MidiViewController.xib */; };
 		C4F0782F15D5F4B30084FF9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0782E15D5F4B30084FF9E /* UIKit.framework */; };
@@ -414,26 +415,16 @@
 		C43110161685C4FB000EDE50 /* OCSLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLoopingStereoOscillator.m; sourceTree = "<group>"; };
 		C43110181685C4FB000EDE50 /* OCSBallWithinTheBoxReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBallWithinTheBoxReverb.h; sourceTree = "<group>"; };
 		C43110191685C4FB000EDE50 /* OCSBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
-		C431101A1685C4FB000EDE50 /* OCSBandPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBandPassButterworthFilter.h; sourceTree = "<group>"; };
-		C431101B1685C4FB000EDE50 /* OCSBandPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBandPassButterworthFilter.m; sourceTree = "<group>"; };
-		C431101C1685C4FB000EDE50 /* OCSBandRejectButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBandRejectButterworthFilter.h; sourceTree = "<group>"; };
-		C431101D1685C4FB000EDE50 /* OCSBandRejectButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBandRejectButterworthFilter.m; sourceTree = "<group>"; };
 		C431101E1685C4FB000EDE50 /* OCSCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSCompressor.h; sourceTree = "<group>"; };
 		C431101F1685C4FB000EDE50 /* OCSCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCompressor.m; sourceTree = "<group>"; };
-		C43110201685C4FB000EDE50 /* OCSConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSConvolution.h; sourceTree = "<group>"; };
-		C43110211685C4FB000EDE50 /* OCSConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConvolution.m; sourceTree = "<group>"; };
 		C43110221685C4FB000EDE50 /* OCSDopplerEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSDopplerEffect.h; sourceTree = "<group>"; };
 		C43110231685C4FB000EDE50 /* OCSDopplerEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSDopplerEffect.m; sourceTree = "<group>"; };
 		C43110241685C4FB000EDE50 /* OCSEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSEqualizerFilter.h; sourceTree = "<group>"; };
 		C43110251685C4FB000EDE50 /* OCSEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEqualizerFilter.m; sourceTree = "<group>"; };
 		C43110261685C4FB000EDE50 /* OCSFlanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSFlanger.h; sourceTree = "<group>"; };
 		C43110271685C4FB000EDE50 /* OCSFlanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSFlanger.m; sourceTree = "<group>"; };
-		C43110281685C4FB000EDE50 /* OCSHighPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSHighPassButterworthFilter.h; sourceTree = "<group>"; };
-		C43110291685C4FB000EDE50 /* OCSHighPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSHighPassButterworthFilter.m; sourceTree = "<group>"; };
 		C431102A1685C4FB000EDE50 /* OCSHighPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSHighPassFilter.h; sourceTree = "<group>"; };
 		C431102B1685C4FB000EDE50 /* OCSHighPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSHighPassFilter.m; sourceTree = "<group>"; };
-		C431102C1685C4FB000EDE50 /* OCSLowPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLowPassButterworthFilter.h; sourceTree = "<group>"; };
-		C431102D1685C4FB000EDE50 /* OCSLowPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLowPassButterworthFilter.m; sourceTree = "<group>"; };
 		C431102E1685C4FB000EDE50 /* OCSLowPassControlFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLowPassControlFilter.h; sourceTree = "<group>"; };
 		C431102F1685C4FB000EDE50 /* OCSLowPassControlFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLowPassControlFilter.m; sourceTree = "<group>"; };
 		C43110301685C4FB000EDE50 /* OCSLowPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSLowPassFilter.h; sourceTree = "<group>"; };
@@ -450,8 +441,6 @@
 		C431103B1685C4FB000EDE50 /* OCSReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSReverb.m; sourceTree = "<group>"; };
 		C431103C1685C4FB000EDE50 /* OCSReverbAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSReverbAllpass.h; sourceTree = "<group>"; };
 		C431103D1685C4FB000EDE50 /* OCSReverbAllpass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSReverbAllpass.m; sourceTree = "<group>"; };
-		C431103E1685C4FB000EDE50 /* OCSStereoConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSStereoConvolution.h; sourceTree = "<group>"; };
-		C431103F1685C4FB000EDE50 /* OCSStereoConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStereoConvolution.m; sourceTree = "<group>"; };
 		C43110401685C4FB000EDE50 /* OCSThreePoleLowpassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSThreePoleLowpassFilter.h; sourceTree = "<group>"; };
 		C43110411685C4FB000EDE50 /* OCSThreePoleLowpassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSThreePoleLowpassFilter.m; sourceTree = "<group>"; };
 		C43110421685C4FB000EDE50 /* OCSVibrato.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSVibrato.h; sourceTree = "<group>"; };
@@ -505,6 +494,20 @@
 		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C49F539B168B2C3B0054C10F /* OCSBandPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBandPassButterworthFilter.h; sourceTree = "<group>"; };
+		C49F539C168B2C3B0054C10F /* OCSBandPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBandPassButterworthFilter.m; sourceTree = "<group>"; };
+		C49F539D168B2C3B0054C10F /* OCSBandRejectButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSBandRejectButterworthFilter.h; sourceTree = "<group>"; };
+		C49F539E168B2C3B0054C10F /* OCSBandRejectButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBandRejectButterworthFilter.m; sourceTree = "<group>"; };
+		C49F539F168B2C3B0054C10F /* OCSHighPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSHighPassButterworthFilter.h; sourceTree = "<group>"; };
+		C49F53A0168B2C3B0054C10F /* OCSHighPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSHighPassButterworthFilter.m; sourceTree = "<group>"; };
+		C49F53A1168B2C3B0054C10F /* OCSLowPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLowPassButterworthFilter.h; sourceTree = "<group>"; };
+		C49F53A2168B2C3B0054C10F /* OCSLowPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSLowPassButterworthFilter.m; sourceTree = "<group>"; };
+		C49F53AC168B2C9D0054C10F /* OCSConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSConvolution.h; sourceTree = "<group>"; };
+		C49F53AD168B2C9D0054C10F /* OCSConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSConvolution.m; sourceTree = "<group>"; };
+		C49F53AE168B2C9D0054C10F /* OCSStereoConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSStereoConvolution.h; sourceTree = "<group>"; };
+		C49F53AF168B2C9D0054C10F /* OCSStereoConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSStereoConvolution.m; sourceTree = "<group>"; };
+		C49F53B4168B32060054C10F /* OCSDelay.h */ = {isa = PBXFileReference; lastKnownFileType = file; name = OCSDelay.h; path = Delays/OCSDelay.h; sourceTree = "<group>"; };
+		C49F53B5168B32060054C10F /* OCSDelay.m */ = {isa = PBXFileReference; lastKnownFileType = file; name = OCSDelay.m; path = Delays/OCSDelay.m; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4C8272E15D752F5009D48DA /* MidiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidiViewController.xib; path = MIDI/MidiViewController.xib; sourceTree = "<group>"; };
@@ -1184,28 +1187,21 @@
 		C43110171685C4FB000EDE50 /* Signal Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				C49F539A168B2C3B0054C10F /* Butterworth Filters */,
+				C49F53AB168B2C9D0054C10F /* Convolution */,
+				C49F53B8168B322D0054C10F /* Delays */,
 				C43110181685C4FB000EDE50 /* OCSBallWithinTheBoxReverb.h */,
 				C43110191685C4FB000EDE50 /* OCSBallWithinTheBoxReverb.m */,
-				C431101A1685C4FB000EDE50 /* OCSBandPassButterworthFilter.h */,
-				C431101B1685C4FB000EDE50 /* OCSBandPassButterworthFilter.m */,
-				C431101C1685C4FB000EDE50 /* OCSBandRejectButterworthFilter.h */,
-				C431101D1685C4FB000EDE50 /* OCSBandRejectButterworthFilter.m */,
 				C431101E1685C4FB000EDE50 /* OCSCompressor.h */,
 				C431101F1685C4FB000EDE50 /* OCSCompressor.m */,
-				C43110201685C4FB000EDE50 /* OCSConvolution.h */,
-				C43110211685C4FB000EDE50 /* OCSConvolution.m */,
 				C43110221685C4FB000EDE50 /* OCSDopplerEffect.h */,
 				C43110231685C4FB000EDE50 /* OCSDopplerEffect.m */,
 				C43110241685C4FB000EDE50 /* OCSEqualizerFilter.h */,
 				C43110251685C4FB000EDE50 /* OCSEqualizerFilter.m */,
 				C43110261685C4FB000EDE50 /* OCSFlanger.h */,
 				C43110271685C4FB000EDE50 /* OCSFlanger.m */,
-				C43110281685C4FB000EDE50 /* OCSHighPassButterworthFilter.h */,
-				C43110291685C4FB000EDE50 /* OCSHighPassButterworthFilter.m */,
 				C431102A1685C4FB000EDE50 /* OCSHighPassFilter.h */,
 				C431102B1685C4FB000EDE50 /* OCSHighPassFilter.m */,
-				C431102C1685C4FB000EDE50 /* OCSLowPassButterworthFilter.h */,
-				C431102D1685C4FB000EDE50 /* OCSLowPassButterworthFilter.m */,
 				C431102E1685C4FB000EDE50 /* OCSLowPassControlFilter.h */,
 				C431102F1685C4FB000EDE50 /* OCSLowPassControlFilter.m */,
 				C43110301685C4FB000EDE50 /* OCSLowPassFilter.h */,
@@ -1222,8 +1218,6 @@
 				C431103B1685C4FB000EDE50 /* OCSReverb.m */,
 				C431103C1685C4FB000EDE50 /* OCSReverbAllpass.h */,
 				C431103D1685C4FB000EDE50 /* OCSReverbAllpass.m */,
-				C431103E1685C4FB000EDE50 /* OCSStereoConvolution.h */,
-				C431103F1685C4FB000EDE50 /* OCSStereoConvolution.m */,
 				C43110401685C4FB000EDE50 /* OCSThreePoleLowpassFilter.h */,
 				C43110411685C4FB000EDE50 /* OCSThreePoleLowpassFilter.m */,
 				C43110421685C4FB000EDE50 /* OCSVibrato.h */,
@@ -1347,6 +1341,41 @@
 				C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */,
 			);
 			name = Marimba;
+			sourceTree = "<group>";
+		};
+		C49F539A168B2C3B0054C10F /* Butterworth Filters */ = {
+			isa = PBXGroup;
+			children = (
+				C49F539B168B2C3B0054C10F /* OCSBandPassButterworthFilter.h */,
+				C49F539C168B2C3B0054C10F /* OCSBandPassButterworthFilter.m */,
+				C49F539D168B2C3B0054C10F /* OCSBandRejectButterworthFilter.h */,
+				C49F539E168B2C3B0054C10F /* OCSBandRejectButterworthFilter.m */,
+				C49F539F168B2C3B0054C10F /* OCSHighPassButterworthFilter.h */,
+				C49F53A0168B2C3B0054C10F /* OCSHighPassButterworthFilter.m */,
+				C49F53A1168B2C3B0054C10F /* OCSLowPassButterworthFilter.h */,
+				C49F53A2168B2C3B0054C10F /* OCSLowPassButterworthFilter.m */,
+			);
+			path = "Butterworth Filters";
+			sourceTree = "<group>";
+		};
+		C49F53AB168B2C9D0054C10F /* Convolution */ = {
+			isa = PBXGroup;
+			children = (
+				C49F53AC168B2C9D0054C10F /* OCSConvolution.h */,
+				C49F53AD168B2C9D0054C10F /* OCSConvolution.m */,
+				C49F53AE168B2C9D0054C10F /* OCSStereoConvolution.h */,
+				C49F53AF168B2C9D0054C10F /* OCSStereoConvolution.m */,
+			);
+			path = Convolution;
+			sourceTree = "<group>";
+		};
+		C49F53B8168B322D0054C10F /* Delays */ = {
+			isa = PBXGroup;
+			children = (
+				C49F53B4168B32060054C10F /* OCSDelay.h */,
+				C49F53B5168B32060054C10F /* OCSDelay.m */,
+			);
+			name = Delays;
 			sourceTree = "<group>";
 		};
 		C4C8272B15D752A5009D48DA /* MIDI */ = {
@@ -1701,6 +1730,7 @@
 				C43110DC1685C4FC000EDE50 /* msrOsc.udo in Resources */,
 				C431141D1687320E000EDE50 /* mandpluk.aif in Resources */,
 				C43115C316888666000EDE50 /* marmstk1.wav in Resources */,
+				C49F53B7168B32060054C10F /* OCSDelay.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1831,16 +1861,11 @@
 				C43110BE1685C4FC000EDE50 /* OCSLoopingOscillator.m in Sources */,
 				C43110BF1685C4FC000EDE50 /* OCSLoopingStereoOscillator.m in Sources */,
 				C43110C01685C4FC000EDE50 /* OCSBallWithinTheBoxReverb.m in Sources */,
-				C43110C11685C4FC000EDE50 /* OCSBandPassButterworthFilter.m in Sources */,
-				C43110C21685C4FC000EDE50 /* OCSBandRejectButterworthFilter.m in Sources */,
 				C43110C31685C4FC000EDE50 /* OCSCompressor.m in Sources */,
-				C43110C41685C4FC000EDE50 /* OCSConvolution.m in Sources */,
 				C43110C51685C4FC000EDE50 /* OCSDopplerEffect.m in Sources */,
 				C43110C61685C4FC000EDE50 /* OCSEqualizerFilter.m in Sources */,
 				C43110C71685C4FC000EDE50 /* OCSFlanger.m in Sources */,
-				C43110C81685C4FC000EDE50 /* OCSHighPassButterworthFilter.m in Sources */,
 				C43110C91685C4FC000EDE50 /* OCSHighPassFilter.m in Sources */,
-				C43110CA1685C4FC000EDE50 /* OCSLowPassButterworthFilter.m in Sources */,
 				C43110CB1685C4FC000EDE50 /* OCSLowPassControlFilter.m in Sources */,
 				C43110CC1685C4FC000EDE50 /* OCSLowPassFilter.m in Sources */,
 				C43110CD1685C4FC000EDE50 /* OCSMoogLadder.m in Sources */,
@@ -1849,7 +1874,6 @@
 				C43110D01685C4FC000EDE50 /* OCSPortamento.m in Sources */,
 				C43110D11685C4FC000EDE50 /* OCSReverb.m in Sources */,
 				C43110D21685C4FC000EDE50 /* OCSReverbAllpass.m in Sources */,
-				C43110D31685C4FC000EDE50 /* OCSStereoConvolution.m in Sources */,
 				C43110D41685C4FC000EDE50 /* OCSThreePoleLowpassFilter.m in Sources */,
 				C43110D51685C4FC000EDE50 /* OCSVibrato.m in Sources */,
 				C43110D81685C4FC000EDE50 /* UDOCsGrainCompressor.m in Sources */,
@@ -1869,6 +1893,12 @@
 				C431142016873224000EDE50 /* OCSMandolin.m in Sources */,
 				C43115C116888209000EDE50 /* OCSBalance.m in Sources */,
 				C43115C61689DC3B000EDE50 /* OCSDCBlock.m in Sources */,
+				C49F53A4168B2C3B0054C10F /* OCSBandPassButterworthFilter.m in Sources */,
+				C49F53A6168B2C3B0054C10F /* OCSBandRejectButterworthFilter.m in Sources */,
+				C49F53A8168B2C3B0054C10F /* OCSHighPassButterworthFilter.m in Sources */,
+				C49F53AA168B2C3B0054C10F /* OCSLowPassButterworthFilter.m in Sources */,
+				C49F53B1168B2C9D0054C10F /* OCSConvolution.m in Sources */,
+				C49F53B3168B2C9D0054C10F /* OCSStereoConvolution.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
