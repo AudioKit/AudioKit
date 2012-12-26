@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSDelay.h"
+#import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
 /** Simple audio delay
