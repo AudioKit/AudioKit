@@ -10,12 +10,12 @@
 //
 
 #import "OCSMarimba.h"
+#import "OCSSoundFileTable.h"
 
 @interface OCSMarimba () {
     OCSControl *kfreq;
     OCSConstant *idec;
     OCSConstant *ihrd;
-    OCSFTable *ifnmp;
     OCSConstant *ipos;
     OCSControl *kamp;
     OCSFTable *ifnvib;
@@ -31,7 +31,6 @@
 - (id)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
           stickHardness:(OCSConstant *)stickHardness
-     strikeImpulseTable:(OCSFTable *)strikeImpulseTable
          strikePosition:(OCSConstant *)strikePosition
               amplitude:(OCSControl *)amplitude
       vibratoShapeTable:(OCSFTable *)vibratoShapeTable
@@ -43,7 +42,6 @@
         kfreq = frequency;
         idec = maximumDuration;
         ihrd = stickHardness;
-        ifnmp = strikeImpulseTable;
         ipos = strikePosition;
         kamp = amplitude;
         ifnvib = vibratoShapeTable;
@@ -64,9 +62,16 @@
 }
 
 - (NSString *)stringForCSD {
+    NSString *file;
+    file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+    OCSSoundFileTable *fileTable;
+    fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
+    
     return [NSString stringWithFormat:
-            @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, kfreq, ihrd, ipos, ifnmp, kvibf, kvamp, ifnvib, idec, idoubles, itriples];
+            @"%@\n"
+            @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            [fileTable stringForCSD],
+            self, kamp, kfreq, ihrd, ipos, kvibf, kvamp, ifnvib, idec, idoubles, itriples];
 }
 
 @end
