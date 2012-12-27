@@ -3,6 +3,7 @@
 //  Objective-C Sound
 //
 //  Auto-generated from database on 11/3/12.
+//  Improved from database version by Aurelius Prochazka on 12/27/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's vibes:
@@ -10,12 +11,12 @@
 //
 
 #import "OCSVibes.h"
+#import "OCSSoundFileTable.h"
 
 @interface OCSVibes () {
     OCSControl *kfreq;
     OCSConstant *idec;
     OCSConstant *ihrd;
-    OCSFTable *ifnmp;
     OCSConstant *ipos;
     OCSControl *kamp;
     OCSFTable *ifnvib;
@@ -29,7 +30,6 @@
 - (id)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
           stickHardness:(OCSConstant *)stickHardness
-     strikeImpulseTable:(OCSFTable *)strikeImpulseTable
          strikePosition:(OCSConstant *)strikePosition
               amplitude:(OCSControl *)amplitude
       tremoloShapeTable:(OCSFTable *)tremoloShapeTable
@@ -41,7 +41,6 @@
         kfreq = frequency;
         idec = maximumDuration;
         ihrd = stickHardness;
-        ifnmp = strikeImpulseTable;
         ipos = strikePosition;
         kamp = amplitude;
         ifnvib = tremoloShapeTable;
@@ -52,9 +51,16 @@
 }
 
 - (NSString *)stringForCSD {
+    NSString *file;
+    file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+    OCSSoundFileTable *fileTable;
+    fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
+    
     return [NSString stringWithFormat:
-            @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, kfreq, ihrd, ipos, ifnmp, kvibf, kvamp, ifnvib, idec];
+            @"%@\n"
+            @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@",
+            [fileTable stringForCSD],
+            self, kamp, kfreq, ihrd, ipos, kvibf, kvamp, ifnvib, idec];
 }
 
 @end
