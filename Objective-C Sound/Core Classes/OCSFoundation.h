@@ -125,6 +125,7 @@
 #import "OCSLowPassButterworthFilter.h"
 #import "OCSLowPassControlFilter.h"
 #import "OCSLowPassFilter.h"
+#import "OCSMoogVCF.h"
 #import "OCSMoogLadder.h"
 #import "OCSNReverb.h"
 #import "OCSPanner.h"
