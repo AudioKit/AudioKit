@@ -9,8 +9,8 @@
 //  http://www.csounds.com/manual/html/mandol.html
 //
 
-#import "OCSSoundFileTable.h"
 #import "OCSMandolin.h"
+#import "OCSSoundFileTable.h"
 
 @interface OCSMandolin () {
     OCSControl *ksize;
