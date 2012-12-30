@@ -122,6 +122,7 @@
 #import "OCSFlanger.h"
 #import "OCSHighPassButterworthFilter.h"
 #import "OCSHighPassFilter.h"
+#import "OCSHilbertTransformer.h"
 #import "OCSLowPassButterworthFilter.h"
 #import "OCSLowPassControlFilter.h"
 #import "OCSLowPassFilter.h"
