@@ -75,6 +75,7 @@
 		C46550A2168C766600BC6E3B /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C465509F168C766600BC6E3B /* marmstk1.wav */; };
 		C46550A4168C766600BC6E3B /* OCSMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C46550A1168C766600BC6E3B /* OCSMarimba.m */; };
 		C46550A8168C790900BC6E3B /* OCSMoogVCF.m in Sources */ = {isa = PBXBuildFile; fileRef = C46550A6168C790900BC6E3B /* OCSMoogVCF.m */; };
+		C46550AC16907D5F00BC6E3B /* OCSHilbertTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C46550AA16907D5F00BC6E3B /* OCSHilbertTransformer.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
@@ -338,6 +339,8 @@
 		C46550A1168C766600BC6E3B /* OCSMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMarimba.m; sourceTree = "<group>"; };
 		C46550A5168C790900BC6E3B /* OCSMoogVCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSMoogVCF.h; sourceTree = "<group>"; };
 		C46550A6168C790900BC6E3B /* OCSMoogVCF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSMoogVCF.m; sourceTree = "<group>"; };
+		C46550A916907D5F00BC6E3B /* OCSHilbertTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSHilbertTransformer.h; sourceTree = "<group>"; };
+		C46550AA16907D5F00BC6E3B /* OCSHilbertTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSHilbertTransformer.m; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
 		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
@@ -1391,6 +1394,8 @@
 				C49F5565168B40020054C10F /* OCSThreePoleLowpassFilter.m */,
 				C46550A5168C790900BC6E3B /* OCSMoogVCF.h */,
 				C46550A6168C790900BC6E3B /* OCSMoogVCF.m */,
+				C46550A916907D5F00BC6E3B /* OCSHilbertTransformer.h */,
+				C46550AA16907D5F00BC6E3B /* OCSHilbertTransformer.m */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -1959,6 +1964,7 @@
 				C465509D168C765E00BC6E3B /* OCSMandolin.m in Sources */,
 				C46550A4168C766600BC6E3B /* OCSMarimba.m in Sources */,
 				C46550A8168C790900BC6E3B /* OCSMoogVCF.m in Sources */,
+				C46550AC16907D5F00BC6E3B /* OCSHilbertTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
