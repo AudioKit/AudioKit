@@ -43,7 +43,6 @@
                            cutoffFrequency:cutoffFrequency];
 }
 
-// Csound prototype: aoutL, aoutR reverbsc ainL, ainR, kfblvl, kfco[, israte[, ipitchm[, iskip]]] 
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:

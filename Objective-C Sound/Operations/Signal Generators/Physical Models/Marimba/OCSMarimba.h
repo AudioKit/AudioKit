@@ -8,6 +8,7 @@
 
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
+#import "OCSSoundFileTable.h"
 
 /** Physical model related to the striking of a wooden block.
  
@@ -42,6 +43,10 @@
 /// Set an optional triple strike percentage
 /// @param tripleStrikePercentage Percentage of triple strikes. Default is 20%.
 - (void)setOptionalTripleStrikePercentage:(OCSConstant *)tripleStrikePercentage;
+
+/// Set an optional custom strike impulse table
+/// @param strikeImpulseTable Sound file table for the desired impulse response
+- (void)setOptionalStrikeImpulseTable:(OCSSoundFileTable *)strikeImpulseTable;
 
 
 @end

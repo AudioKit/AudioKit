@@ -10,7 +10,7 @@
 //
 
 #import "OCSMarimba.h"
-#import "OCSSoundFileTable.h"
+
 
 @interface OCSMarimba () {
     OCSControl *kfreq;
@@ -23,6 +23,7 @@
     OCSControl *kvamp;
     OCSConstant *idoubles;
     OCSConstant *itriples;
+    OCSSoundFileTable *fileTable;
 }
 @end
 
@@ -49,6 +50,9 @@
         kvamp = vibratoAmplitude;
         idoubles = ocsp(40);
         itriples = ocsp(20);
+        
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
     }
     return self;
 }
@@ -61,17 +65,18 @@
 	itriples = tripleStrikePercentage;
 }
 
+- (void)setOptionalStrikeImpulseTable:(OCSSoundFileTable *)strikeImpulseTable {
+    fileTable = strikeImpulseTable;
+}
+
+
+
 - (NSString *)stringForCSD {
-    NSString *file;
-    file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
-    OCSSoundFileTable *fileTable;
-    fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
-    
     return [NSString stringWithFormat:
             @"%@\n"
-            @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
             [fileTable stringForCSD],
-            self, kamp, kfreq, ihrd, ipos, kvibf, kvamp, ifnvib, idec, idoubles, itriples];
+            self, kamp, kfreq, ihrd, ipos, fileTable, kvibf, kvamp, ifnvib, idec, idoubles, itriples];
 }
 
 @end
