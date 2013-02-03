@@ -16,7 +16,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Stop"
-                                                   style:UIBarButtonSystemItemDone
+                                                   style:UIBarButtonItemStyleDone
                                                   target:self
                                                   action:@selector(startOrStop)];
     self.navigationItem.rightBarButtonItem = rightButton;
