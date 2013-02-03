@@ -29,8 +29,10 @@
 #define CSOUNDCORE_H
 
 #include "sysdep.h"
-#ifdef PARCS
+#if (defined(__GNUC__) || !defined(SWIG))
 #include <pthread.h>
+#endif
+#ifdef PARCS
 #include "cs_par_structs.h"
 #endif /* PARCS */
 #include <stdarg.h>
@@ -76,6 +78,21 @@ typedef struct {
 #endif /* PTHREAD_BARRIER_SERIAL_THREAd */
 #endif /* __MACH__ */
 
+/* I'm sure this can be combined with the above */
+#ifdef __HAIKU__
+#define BARRIER_SERIAL_THREAD (-1)
+typedef struct {
+  pthread_mutex_t mut;
+  pthread_cond_t cond;
+  unsigned int count, max, iteration;
+} barrier_t;
+
+#define pthread_barrier_t barrier_t
+#define pthread_barrier_init(barrier, attr, count) \
+  barrier_init(barrier,NULL,count)
+#define pthread_barrier_destroy barrier_destroy
+#define pthread_barrier_wait barrier_wait
+#endif /* __HAIKU__ */
 
 #define OK        (0)
 #define NOTOK     (-1)
@@ -200,11 +217,12 @@ typedef struct {
                               from files */
     int     numThreads;
     int     syntaxCheckOnly;
-    int     useOCSLineCounts;
-#ifdef ENABLE_NEW_PARSER
+    int     useCsdLineCounts;
+    //#ifdef ENABLE_NEW_PARSER
     int     newParser; /* SYY - July 30, 2006: for --new-parser */
     int     calculateWeights;
-#endif /* ENABLE_NEW_PARSE */
+    int     sampleAccurate;
+    //#endif /* ENABLE_NEW_PARSE */
   } OPARMS;
 
   typedef struct arglst {
@@ -262,6 +280,7 @@ typedef struct {
                                     /* (pointer to next one is INSDS.nxtact) */
     struct instr * nxtinstxt;       /* Next instrument in orch (num order) */
     int     active;                 /* To count activations for control */
+    int     pending_release;        /* To count instruments in release phase */
     int     maxalloc;
     MYFLT   cpuload;                /* % load this instrumemnt makes */
     struct opcodinfo *opcode_info;  /* IV - Nov 10 2002 */
@@ -407,7 +426,15 @@ typedef struct {
     MYFLT   p1;
     MYFLT   p2;
     MYFLT   p3;
+    
   } INSDS;
+
+#define CS_KSMPS     (csound->ksmps)
+#define CS_KCNT      (csound->kcounter)
+#define CS_EKR       (csound->ekr)
+#define CS_ONEDKSMPS (csound->onedksmps)
+#define CS_ONEDKR    (csound->onedkr)
+#define CS_KICVT     (csound->kicvt)
 
   typedef int (*SUBR)(CSOUND *, void *);
 
@@ -1042,7 +1069,12 @@ typedef struct {
     void *(*GetNamedGens)(CSOUND *);
  /* SUBR dummyfn_1; */
     MYFLT (*Pow2)(CSOUND *, MYFLT a);
-    SUBR dummyfn_2[75];
+    /* int (*csoundCompileFromStrings)(CSOUND *, char *orchst, char *scorst, int argc, char **argv); */
+    void *(*CreateCircularBuffer)(CSOUND *, int);
+    int (*ReadCircularBuffer)(CSOUND *, void *, MYFLT *, int);
+    int (*WriteCircularBuffer)(CSOUND *, void *, const MYFLT *, int);
+    void (*FreeCircularBuffer)(CSOUND *, void *);
+    SUBR dummyfn_2[71];
     int           dither_output;
     void          *flgraphGlobals;
     char          *delayederrormessages;
@@ -1070,11 +1102,11 @@ typedef struct {
     double        curBeat, curBeat_inc;
     /** beat time = 60 / tempo           */
     int64_t       ibeatTime;   /* Beat time in samples */
-#if defined(HAVE_PTHREAD_SPIN_LOCK) && defined(PARCS)
+#if defined(HAVE_PTHREAD_SPIN_LOCK)
     pthread_spinlock_t spoutlock, spinlock;
 #else
-    int           spoutlock, spinlock;
-#endif /* defined(HAVE_PTHREAD_SPIN_LOCK) && defined(PARCS) */
+    volatile int           spoutlock, spinlock;
+#endif
     /* Widgets */
     void          *widgetGlobals;
     /** reserved for std opcode library  */
@@ -1108,11 +1140,11 @@ typedef struct {
     CsoundRandMTState *csRandState;
     int           randSeed1;
     int           randSeed2;
-#if defined(HAVE_PTHREAD_SPIN_LOCK) && defined(PARCS)
+#if defined(HAVE_PTHREAD_SPIN_LOCK)
     pthread_spinlock_t memlock;
 #else
-    int           memlock;
-#endif /* defined(HAVE_PTHREAD_SPIN_LOCK) && defined(PARCS */
+    volatile int32_t   memlock;
+#endif
     int           floatsize;
     int           inchnls;      /* Not fully used yet -- JPff */
     int   dummyint[7];
@@ -1291,6 +1323,7 @@ typedef struct {
     int           stdin_assign_flg;
     int           stdout_assign_flg;
     int           orcname_mode;         /* 0: normal, 1: ignore, 2: fail */
+    int           use_only_orchfile;
     void          *csmodule_db;
     char          *dl_opcodes_oplibs;
     char          *SF_csd_licence;

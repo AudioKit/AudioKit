@@ -55,7 +55,9 @@
 #define PUBLIC __declspec(dllexport)
 #include <io.h>
 #elif defined(__GNUC__) && !defined(__MACH__)
+#if !defined(PUBLIC)
 #define PUBLIC __attribute__ ( (visibility("default")) )
+#endif
 #else
 #define PUBLIC
 #endif

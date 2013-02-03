@@ -39,7 +39,7 @@
 %}
 #else
 #include "csound.h"
-#if defined(HAVE_PTHREAD_SPIN_LOCK) && !defined(SWIG)
+#if defined(__GNUC__) && !defined(SWIG)
 #include <pthread.h>
 #endif
 #ifdef __BUILDING_CSOUND_INTERFACES
@@ -189,6 +189,62 @@ public:
     argv[6] = (char*) 0;
     return csoundCompile(csound, 6, &(argv[0]));
   }
+
+   virtual int Compile(char *orcstr, char *scorstr, int argc, char **argv)
+  {
+    return csoundCompileFromStrings(csound, orcstr, scorstr, argc, argv);
+  }
+
+  virtual int CompileFromStrings(char *orcstr, char *scorstr, char *arg1=NULL, char *arg2=NULL,
+		      char *arg3=NULL, char *arg4=NULL, char *arg5=NULL, char *arg6=NULL)
+  {
+    char  *argv[8] = { (char *)"csound", NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+    int    argc = 1;
+   
+    if(arg1!=NULL) {
+     argv[1] = arg1;
+     argc++;
+    }
+    else goto _compile_;
+
+    if(arg2!=NULL) {
+     argv[2] = arg2;
+     argc++;
+    }
+    else goto _compile_;
+
+    if(arg3!=NULL) {
+     argv[3] = arg3;
+     argc++;
+    }
+    else goto _compile_;
+
+    if(arg4!=NULL) {
+     argv[4] = arg4;
+     argc++;
+    }
+    else goto _compile_;
+
+    if(arg5!=NULL) {
+     argv[5] = arg5;
+     argc++;
+    }
+    else goto _compile_;
+
+    if(arg6!=NULL) {
+     argv[6] = arg6;
+     argc++;
+    }
+  
+   _compile_:
+    return csoundCompileFromStrings(csound, orcstr, scorstr, argc, argv);
+  }
+
+   virtual int CompileFromStrings(char *orcstr, char *scorstr, int argc, char **argv)
+  {
+    return csoundCompileFromStrings(csound, orcstr, scorstr, argc, argv);
+  }
+
   virtual int Perform()
   {
     return csoundPerform(csound);
@@ -455,7 +511,7 @@ public:
     return csoundScoreEvent(csound, type, pFields, numFields);
   }
   virtual int ScoreEventAbsolute(char type, const MYFLT *pFields,
-				 long numFields, double time_ofs)
+                                 long numFields, double time_ofs)
   {
     return csoundScoreEventAbsolute(csound, type, pFields, numFields, time_ofs);
   }
@@ -1031,4 +1087,3 @@ public:
 #endif  // __cplusplus
 
 #endif  // __CSOUND_HPP__
-

@@ -67,6 +67,7 @@
 #define AE_DWVW_N       SF_FORMAT_DWVW_N
 #define AE_DPCM_8       SF_FORMAT_DPCM_8
 #define AE_DPCM_16      SF_FORMAT_DPCM_16
+#define AE_VORBIS       SF_FORMAT_VORBIS
 
 #define AE_LAST   SF_FORMAT_DPCM_16     /* current last audio encoding value */
 
@@ -90,21 +91,13 @@
 #define TYP_SDS   (SF_FORMAT_SDS >> 16)
 #define TYP_AVR   (SF_FORMAT_AVR >> 16)
 #define TYP_WAVEX (SF_FORMAT_WAVEX >> 16)
-#if defined(HAVE_LIBSNDFILE) && HAVE_LIBSNDFILE >= 1011
-#  define TYP_SD2     (SF_FORMAT_SD2 >> 16)
-#  if HAVE_LIBSNDFILE >= 1013
-#    define TYP_FLAC  (SF_FORMAT_FLAC >> 16)
-#    define TYP_CAF   (SF_FORMAT_CAF >> 16)
-#  endif
-#  if HAVE_LIBSNDFILE >= 1018
-#    define TYP_WVE   (SF_FORMAT_WVE >> 16)
-#    define TYP_OGG   (SF_FORMAT_OFF >> 16)
-#  endif
-#  if HAVE_LIBSNDFILE >= 1019
-#    define TYP_MPC2K (SF_FORMAT_MPC2K >> 16)
-#    define TYP_RF64  (SF_FORMAT_RF64 >> 16)
-#  endif
-#endif
+#define TYP_SD2   (SF_FORMAT_SD2 >> 16)
+#define TYP_FLAC  (SF_FORMAT_FLAC >> 16)
+#define TYP_CAF   (SF_FORMAT_CAF >> 16)
+#define TYP_WVE   (SF_FORMAT_WVE >> 16)
+#define TYP_OGG   (SF_FORMAT_OGG >> 16)
+#define TYP_MPC2K (SF_FORMAT_MPC2K >> 16)
+#define TYP_RF64  (SF_FORMAT_RF64 >> 16)
 
 #define FORMAT2SF(x) ((int) (x))
 #define SF2FORMAT(x) ((int) (x) & 0xFFFF)

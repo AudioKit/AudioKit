@@ -52,11 +52,16 @@
 #  define HAVE_C99 1
 #endif
 
+#ifndef CABBAGE
 #ifdef MSVC
 typedef __int32 int32;
 typedef __int16 int16;
 typedef unsigned __int32 uint32;
 typedef unsigned __int16 uint16;
+#else
+#ifdef __HAIKU__
+/* avoid conflicting typedefs */
+#include <SupportDefs.h>
 #else
 #include <stdint.h>
 typedef int_least32_t int32;
@@ -64,12 +69,14 @@ typedef int_least16_t int16;
 typedef uint_least32_t uint32;
 typedef uint_least16_t uint16;
 #endif
+#endif
+#endif
 
-#if defined(HAVE_PTHREAD_SPIN_LOCK)
+#if defined(HAVE_PTHREAD_SPIN_LOCK) && !defined(SWIG)
 #include <pthread.h>
 #endif
 
-#if defined(HAVE_PTHREAD_SPIN_LOCK)
+#if defined(HAVE_SYNC_LOCK_AND_TEST) && !defined(SWIG)
 #include <pthread.h>
 #endif
 
@@ -78,6 +85,10 @@ typedef uint_least16_t uint16;
 #endif
 
 #include "float-version.h"
+
+/* Defined here as Android does not have log2 functions */
+#define MYRECIPLN2  1.442695040888963407359924681001892137426 /* 1.0/log(2) */
+#define LOG2(a) (MYRECIPLN2*log(a))       /* floating point logarithm base 2 */
 
 #ifdef USE_DOUBLE
   #define ACOS acos
@@ -96,6 +107,7 @@ typedef uint_least16_t uint16;
   #define EXP exp
   #define LOG log
   #define LOG10 log10
+  /* #define LOG2 log2 */
   #define POWER pow
   #define SQRT sqrt
   #define HYPOT hypot
@@ -121,6 +133,7 @@ typedef uint_least16_t uint16;
   #define EXP expf
   #define LOG logf
   #define LOG10 log10f
+  /* #define LOG2 log2f */
   #define POWER powf
   #define SQRT sqrtf
   #define HYPOT hypotf

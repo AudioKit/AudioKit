@@ -24,7 +24,7 @@
 #ifndef CSOUND_VERSION_H
 #define CSOUND_VERSION_H
 
-#define VERSION "5.17"
+#define VERSION "5.19.02"
 
 /* Define to the full name of this package. */
 #ifndef PARCS
@@ -46,8 +46,8 @@
 /* Define to the version of this package. */
 #define CS_PACKAGE_VERSION  VERSION
 #define CS_VERSION          (5)
-#define CS_SUBVER           (17)
-#define CS_PATCHLEVEL       (6)
+#define CS_SUBVER           (19)
+#define CS_PATCHLEVEL       (02)
 
 #define CS_APIVERSION       2   /* should be increased anytime a new version
                                    contains changes that an older host will
