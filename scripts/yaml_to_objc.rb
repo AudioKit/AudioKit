@@ -21,6 +21,8 @@ def detectType(csd_var)
 		type = "OCSControl"
 	elsif csd_var[0] == "i"  
 		type = "OCSConstant"
+	elsif csd_var[0] == "f"  
+		type = "OCSFSignal"	
 	end
 
 	return type
