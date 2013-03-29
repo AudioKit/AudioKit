@@ -66,6 +66,8 @@
 		C43110E51685C4FC000EDE50 /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110651685C4FB000EDE50 /* OCSInstrumentProperty.m */; };
 		C43110E61685C4FC000EDE50 /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C43110671685C4FB000EDE50 /* OCSNoteProperty.m */; };
 		C43110E71685C4FC000EDE50 /* OCSiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C431106A1685C4FB000EDE50 /* OCSiOSTools.m */; };
+		C43962F91705787A001E6958 /* OCSCrossSynthesis.m in Sources */ = {isa = PBXBuildFile; fileRef = C43962F81705787A001E6958 /* OCSCrossSynthesis.m */; };
+		C43962FC17057B67001E6958 /* OCSWarp.m in Sources */ = {isa = PBXBuildFile; fileRef = C43962FB17057B67001E6958 /* OCSWarp.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C4655092168C761400BC6E3B /* OCSLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C465508D168C761400BC6E3B /* OCSLoopingOscillator.m */; };
@@ -324,6 +326,10 @@
 		C43110671685C4FB000EDE50 /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
 		C43110691685C4FB000EDE50 /* OCSiOSTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSiOSTools.h; sourceTree = "<group>"; };
 		C431106A1685C4FB000EDE50 /* OCSiOSTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSiOSTools.m; sourceTree = "<group>"; };
+		C43962F71705787A001E6958 /* OCSCrossSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSCrossSynthesis.h; sourceTree = "<group>"; };
+		C43962F81705787A001E6958 /* OCSCrossSynthesis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSCrossSynthesis.m; sourceTree = "<group>"; };
+		C43962FA17057B67001E6958 /* OCSWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSWarp.h; sourceTree = "<group>"; };
+		C43962FB17057B67001E6958 /* OCSWarp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSWarp.m; sourceTree = "<group>"; };
 		C45047B415EB884C0051788A /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C465508C168C761400BC6E3B /* OCSLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSLoopingOscillator.h; sourceTree = "<group>"; };
@@ -903,12 +909,16 @@
 			children = (
 				C4310FA71685C4FB000EDE50 /* OCSAudioFromFSignal.h */,
 				C4310FA81685C4FB000EDE50 /* OCSAudioFromFSignal.m */,
+				C43962F71705787A001E6958 /* OCSCrossSynthesis.h */,
+				C43962F81705787A001E6958 /* OCSCrossSynthesis.m */,
 				C4310FA91685C4FB000EDE50 /* OCSFSignalFromMonoAudio.h */,
 				C4310FAA1685C4FB000EDE50 /* OCSFSignalFromMonoAudio.m */,
 				C4310FAB1685C4FB000EDE50 /* OCSFSignalMix.h */,
 				C4310FAC1685C4FB000EDE50 /* OCSFSignalMix.m */,
 				C4310FAD1685C4FB000EDE50 /* OCSScaledFSignal.h */,
 				C4310FAE1685C4FB000EDE50 /* OCSScaledFSignal.m */,
+				C43962FA17057B67001E6958 /* OCSWarp.h */,
+				C43962FB17057B67001E6958 /* OCSWarp.m */,
 			);
 			path = "Phase Vocoder Streaming";
 			sourceTree = "<group>";
@@ -1965,6 +1975,8 @@
 				C46550A4168C766600BC6E3B /* OCSMarimba.m in Sources */,
 				C46550A8168C790900BC6E3B /* OCSMoogVCF.m in Sources */,
 				C46550AC16907D5F00BC6E3B /* OCSHilbertTransformer.m in Sources */,
+				C43962F91705787A001E6958 /* OCSCrossSynthesis.m in Sources */,
+				C43962FC17057B67001E6958 /* OCSWarp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
