@@ -20,7 +20,7 @@ typedef struct csdata_ {
 	SEL mMessageCallback;
 	id  mMessageListener;
 }
-//-(void)runCsound:(NSString*)csdFilePath;
+//-(void)runCsound:(NSString *)csdFilePath;
 @end
 
 @implementation CsoundObj
@@ -90,13 +90,13 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     [completionListeners addObject:listener];
 }
 
--(MYFLT*)getInputChannelPtr:(NSString*)channelName {
+-(MYFLT*)getInputChannelPtr:(NSString *)channelName {
     MYFLT *value;
     csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
     return value;
 }
 
--(void)startCsound:(NSString*)csdFilePath {
+-(void)startCsound:(NSString *)csdFilePath {
 	mCsData.shouldRecord = false;
     [self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
 }

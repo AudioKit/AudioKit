@@ -196,7 +196,7 @@ public:
   }
 
   virtual int CompileFromStrings(char *orcstr, char *scorstr, char *arg1=NULL, char *arg2=NULL,
-		      char *arg3=NULL, char *arg4=NULL, char *arg5=NULL, char *arg6=NULL)
+                      char *arg3=NULL, char *arg4=NULL, char *arg5=NULL, char *arg6=NULL)
   {
     char  *argv[8] = { (char *)"csound", NULL, NULL, NULL, NULL, NULL, NULL, NULL };
     int    argc = 1;

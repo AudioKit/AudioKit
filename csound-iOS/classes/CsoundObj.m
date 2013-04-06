@@ -39,7 +39,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 
 @interface CsoundObj()
 
--(void)runCsound:(NSString*)csdFilePath;
+-(void)runCsound:(NSString *)csdFilePath;
 
 @end
 
@@ -127,7 +127,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     return mCsData.cs;
 }
 
--(MYFLT *)getInputChannelPtr:(NSString*)channelName {
+-(MYFLT *)getInputChannelPtr:(NSString *)channelName {
     MYFLT *value;
     csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
     return value;
@@ -258,7 +258,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
     }
 }
 
--(void)startCsound:(NSString*)csdFilePath {
+-(void)startCsound:(NSString *)csdFilePath {
 	mCsData.shouldRecord = false;
     [self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
 }
