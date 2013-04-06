@@ -361,7 +361,7 @@ extern "C" {
     CSFTYPE_VOC,
     CSFTYPE_XI,
     CSFTYPE_UNKNOWN_AUDIO,     /* used when opening audio file for reading
-				  or temp file written with <CsSampleB> */
+                                  or temp file written with <CsSampleB> */
 
     /* miscellaneous music formats */
     CSFTYPE_SOUNDFONT,
@@ -485,9 +485,9 @@ extern "C" {
   } TABDAT;
 
   typedef void (*CsoundChannelIOCallback_t)(CSOUND *csound,
-					    const char *channelName,
-					    MYFLT *channelValuePtr,
-					    int channelType);
+                                            const char *channelName,
+                                            MYFLT *channelValuePtr,
+                                            int channelType);
 #ifndef CSOUND_CSDL_H
 
   /* This pragma must come before all public function declarations */
@@ -767,7 +767,7 @@ extern "C" {
    * The frame and channel must be in bounds relative to ksmps and nchnls.
    */
   PUBLIC void csoundAddSpinSample(CSOUND *csound,
-				  int frame, int channel, MYFLT sample);
+                                  int frame, int channel, MYFLT sample);
 
   /**
    * Returns the address of the Csound audio output working buffer (spout).
@@ -855,7 +855,7 @@ extern "C" {
    * This callback is retained after a csoundReset() call.
    */
   PUBLIC void csoundSetCscoreCallback(CSOUND *,
-				      void (*cscoreCallback_)(CSOUND *));
+                                      void (*cscoreCallback_)(CSOUND *));
 
   /**
    * Sorts score file 'inFile' and writes the result to 'outFile'.
@@ -873,7 +873,7 @@ extern "C" {
    * The return value is zero on success.
    */
   PUBLIC int csoundScoreExtract(CSOUND *,
-				FILE *inFile, FILE *outFile, FILE *extractFile);
+                                FILE *inFile, FILE *outFile, FILE *extractFile);
 
   /*
    * MESSAGES & TEXT
@@ -890,19 +890,19 @@ extern "C" {
    * csoundMessage().
    */
   PUBLIC CS_PRINTF3 void csoundMessageS(CSOUND *,
-					int attr, const char *format, ...);
+                                        int attr, const char *format, ...);
 
   PUBLIC void csoundMessageV(CSOUND *,
-			     int attr, const char *format, va_list args);
+                             int attr, const char *format, va_list args);
 
   /**
    * Sets a function to be called by Csound to print an informational message.
    */
   PUBLIC void csoundSetMessageCallback(CSOUND *,
-				       void (*csoundMessageCallback_)(CSOUND *,
-								      int attr,
-								      const char *format,
-								      va_list valist));
+                                       void (*csoundMessageCallback_)(CSOUND *,
+                                                                      int attr,
+                                                                      const char *format,
+                                                                      va_list valist));
 
   /**
    * Returns the Csound message level (from 0 to 231).
@@ -947,9 +947,9 @@ extern "C" {
    * to 'value', with maximum size csoundGetStrVarMaxLen().
    */
   PUBLIC void csoundSetInputValueCallback(CSOUND *,
-					  void (*inputValueCalback_)(CSOUND *,
-								     const char *channelName,
-								     MYFLT *value));
+                                          void (*inputValueCalback_)(CSOUND *,
+                                                                     const char *channelName,
+                                                                     MYFLT *value));
 
   /**
    * Called by external software to set a function for Csound to
@@ -961,9 +961,9 @@ extern "C" {
    * the stringOutput begins.
    */
   PUBLIC void csoundSetOutputValueCallback(CSOUND *,
-					   void (*outputValueCalback_)(CSOUND *,
-								       const char *channelName,
-								       MYFLT value));
+                                           void (*outputValueCalback_)(CSOUND *,
+                                                                       const char *channelName,
+                                                                       MYFLT value));
 
   /**
    * Send a new score event. 'type' is the score event type ('a', 'i', 'q',
@@ -973,10 +973,10 @@ extern "C" {
    * specified in pFields[0].
    */
   PUBLIC int csoundScoreEvent(CSOUND *,
-			      char type, const MYFLT *pFields, long numFields);
+                              char type, const MYFLT *pFields, long numFields);
 
   PUBLIC int csoundScoreEventAbsolute(CSOUND *,
-				      char type, const MYFLT *pfields, long numFields, double time_ofs);
+                                      char type, const MYFLT *pfields, long numFields, double time_ofs);
 
   /*
    * MIDI
@@ -986,45 +986,45 @@ extern "C" {
    * Sets callback for opening real time MIDI input.
    */
   PUBLIC void csoundSetExternalMidiInOpenCallback(CSOUND *,
-						  int (*func)(CSOUND *, void **userData, const char *devName));
+                                                  int (*func)(CSOUND *, void **userData, const char *devName));
 
   /**
    * Sets callback for reading from real time MIDI input.
    */
   PUBLIC void csoundSetExternalMidiReadCallback(CSOUND *,
-						int (*func)(CSOUND *, void *userData,
-							    unsigned char *buf, int nBytes));
+                                                int (*func)(CSOUND *, void *userData,
+                                                            unsigned char *buf, int nBytes));
 
   /**
    * Sets callback for closing real time MIDI input.
    */
   PUBLIC void csoundSetExternalMidiInCloseCallback(CSOUND *,
-						   int (*func)(CSOUND *, void *userData));
+                                                   int (*func)(CSOUND *, void *userData));
 
   /**
    * Sets callback for opening real time MIDI output.
    */
   PUBLIC void csoundSetExternalMidiOutOpenCallback(CSOUND *,
-						   int (*func)(CSOUND *, void **userData, const char *devName));
+                                                   int (*func)(CSOUND *, void **userData, const char *devName));
 
   /**
    * Sets callback for writing to real time MIDI output.
    */
   PUBLIC void csoundSetExternalMidiWriteCallback(CSOUND *,
-						 int (*func)(CSOUND *, void *userData,
-							     const unsigned char *buf, int nBytes));
+                                                 int (*func)(CSOUND *, void *userData,
+                                                             const unsigned char *buf, int nBytes));
 
   /**
    * Sets callback for closing real time MIDI output.
    */
   PUBLIC void csoundSetExternalMidiOutCloseCallback(CSOUND *,
-						    int (*func)(CSOUND *, void *userData));
+                                                    int (*func)(CSOUND *, void *userData));
 
   /**
    * Sets callback for converting MIDI error codes to strings.
    */
   PUBLIC void csoundSetExternalMidiErrorStringCallback(CSOUND *,
-						       const char *(*func)(int));
+                                                       const char *(*func)(int));
 
   /*
    * FUNCTION TABLE DISPLAY
@@ -1040,48 +1040,48 @@ extern "C" {
    * Called by external software to set Csound's MakeGraph function.
    */
   PUBLIC void csoundSetMakeGraphCallback(CSOUND *,
-					 void (*makeGraphCallback_)(CSOUND *,
-								    WINDAT *windat,
-								    const char *name));
+                                         void (*makeGraphCallback_)(CSOUND *,
+                                                                    WINDAT *windat,
+                                                                    const char *name));
 
   /**
    * Called by external software to set Csound's DrawGraph function.
    */
   PUBLIC void csoundSetDrawGraphCallback(CSOUND *,
-					 void (*drawGraphCallback_)(CSOUND *,
-								    WINDAT *windat));
+                                         void (*drawGraphCallback_)(CSOUND *,
+                                                                    WINDAT *windat));
 
   /**
    * Called by external software to set Csound's KillGraph function.
    */
   PUBLIC void csoundSetKillGraphCallback(CSOUND *,
-					 void (*killGraphCallback_)(CSOUND *,
-								    WINDAT *windat));
+                                         void (*killGraphCallback_)(CSOUND *,
+                                                                    WINDAT *windat));
 
   /**
    * Called by external software to set Csound's MakeXYin function.
    */
   PUBLIC void csoundSetMakeXYinCallback(CSOUND *,
-					void (*makeXYinCallback_)(CSOUND *, XYINDAT *,
-								  MYFLT x, MYFLT y));
+                                        void (*makeXYinCallback_)(CSOUND *, XYINDAT *,
+                                                                  MYFLT x, MYFLT y));
 
   /**
    * Called by external software to set Csound's ReadXYin function.
    */
   PUBLIC void csoundSetReadXYinCallback(CSOUND *,
-					void (*readXYinCallback_)(CSOUND *, XYINDAT *));
+                                        void (*readXYinCallback_)(CSOUND *, XYINDAT *));
 
   /**
    * Called by external software to set Csound's KillXYin function.
    */
   PUBLIC void csoundSetKillXYinCallback(CSOUND *,
-					void (*killXYinCallback_)(CSOUND *, XYINDAT *));
+                                        void (*killXYinCallback_)(CSOUND *, XYINDAT *));
 
   /**
    * Called by external software to set Csound's ExitGraph function.
    */
   PUBLIC void csoundSetExitGraphCallback(CSOUND *,
-					 int (*exitGraphCallback_)(CSOUND *));
+                                         int (*exitGraphCallback_)(CSOUND *));
 
   /*
    * OPCODES
@@ -1108,11 +1108,11 @@ extern "C" {
    * Returns zero on success.
    */
   PUBLIC int csoundAppendOpcode(CSOUND *, const char *opname,
-				int dsblksiz, int thread,
-				const char *outypes, const char *intypes,
-				int (*iopadr)(CSOUND *, void *),
-				int (*kopadr)(CSOUND *, void *),
-				int (*aopadr)(CSOUND *, void *));
+                                int dsblksiz, int thread,
+                                const char *outypes, const char *intypes,
+                                int (*iopadr)(CSOUND *, void *),
+                                int (*kopadr)(CSOUND *, void *),
+                                int (*aopadr)(CSOUND *, void *));
 
   /*
    * MISCELLANEOUS FUNCTIONS
@@ -1153,32 +1153,32 @@ extern "C" {
    * audio playback.
    */
   PUBLIC void csoundSetPlayopenCallback(CSOUND *,
-					int (*playopen__)(CSOUND *,
-							  const csRtAudioParams *parm));
+                                        int (*playopen__)(CSOUND *,
+                                                          const csRtAudioParams *parm));
 
   /**
    * Sets a function to be called by Csound for performing real-time
    * audio playback.
    */
   PUBLIC void csoundSetRtplayCallback(CSOUND *,
-				      void (*rtplay__)(CSOUND *,
-						       const MYFLT *outBuf, int nbytes));
+                                      void (*rtplay__)(CSOUND *,
+                                                       const MYFLT *outBuf, int nbytes));
 
   /**
    * Sets a function to be called by Csound for opening real-time
    * audio recording.
    */
   PUBLIC void csoundSetRecopenCallback(CSOUND *,
-				       int (*recopen_)(CSOUND *,
-						       const csRtAudioParams *parm));
+                                       int (*recopen_)(CSOUND *,
+                                                       const csRtAudioParams *parm));
 
   /**
    * Sets a function to be called by Csound for performing real-time
    * audio recording.
    */
   PUBLIC void csoundSetRtrecordCallback(CSOUND *,
-					int (*rtrecord__)(CSOUND *,
-							  MYFLT *inBuf, int nbytes));
+                                        int (*rtrecord__)(CSOUND *,
+                                                          MYFLT *inBuf, int nbytes));
 
   /**
    * Sets a function to be called by Csound for closing real-time
@@ -1229,7 +1229,7 @@ extern "C" {
    * The userdata pointer is passed to the thread routine.
    */
   PUBLIC void *csoundCreateThread(uintptr_t (*threadRoutine)(void *),
-				  void *userdata);
+                                  void *userdata);
 
   /**
    * Returns the ID of the currently executing thread,
@@ -1416,7 +1416,7 @@ extern "C" {
    * CSOUND_MEMORY if there is not enough memory.
    */
   PUBLIC int csoundCreateGlobalVariable(CSOUND *,
-					const char *name, size_t nbytes);
+                                        const char *name, size_t nbytes);
 
   /**
    * Get pointer to space allocated with the name "name".
@@ -1463,8 +1463,8 @@ extern "C" {
    * Returns zero on success.
    */
   PUBLIC int csoundRegisterSenseEventCallback(CSOUND *,
-					      void (*func)(CSOUND *, void *),
-					      void *userData);
+                                              void (*func)(CSOUND *, void *),
+                                              void *userData);
 
   /**
    * Run utility with the specified name and command line arguments.
@@ -1473,7 +1473,7 @@ extern "C" {
    * Returns zero if the utility was run successfully.
    */
   PUBLIC int csoundRunUtility(CSOUND *, const char *name,
-			      int argc, char **argv);
+                              int argc, char **argv);
 
   /**
    * Returns a NULL terminated list of registered utility names.
@@ -1495,7 +1495,7 @@ extern "C" {
    * or an error occured.
    */
   PUBLIC const char *csoundGetUtilityDescription(CSOUND *,
-						 const char *utilName);
+                                                 const char *utilName);
 
   /**
    * Stores a pointer to the specified channel of the bus in *p,
@@ -1528,7 +1528,7 @@ extern "C" {
    * the type of the channel, or CSOUND_ERROR if it does not exist.
    */
   PUBLIC int csoundGetChannelPtr(CSOUND *,
-				 MYFLT **p, const char *name, int type);
+                                 MYFLT **p, const char *name, int type);
 
   /**
    * Returns a list of allocated channels in *lst. A CsoundChannelListEntry
@@ -1567,8 +1567,8 @@ extern "C" {
    *   CSOUND_MEMORY: could not allocate memory
    */
   PUBLIC int csoundSetControlChannelParams(CSOUND *, const char *name,
-					   int type, MYFLT dflt,
-					   MYFLT min, MYFLT max);
+                                           int type, MYFLT dflt,
+                                           MYFLT min, MYFLT max);
 
   /**
    * Returns special parameters (assuming there are any) of a control channel,
@@ -1583,7 +1583,7 @@ extern "C" {
    * special parameters set; otherwise, a negative error code is returned.
    */
   PUBLIC int csoundGetControlChannelParams(CSOUND *, const char *name,
-					   MYFLT *dflt, MYFLT *min, MYFLT *max);
+                                           MYFLT *dflt, MYFLT *min, MYFLT *max);
 
   /**
    * Sets callback function to be called by the opcodes 'chnsend' and
@@ -1609,7 +1609,7 @@ extern "C" {
    * The callback is not preserved on csoundReset().
    */
   PUBLIC void csoundSetChannelIOCallback(CSOUND *,
-					 CsoundChannelIOCallback_t func);
+                                         CsoundChannelIOCallback_t func);
 
   /**
    * Recovers a pointer to a lock for the specified channel of the bus in *p
@@ -1629,7 +1629,7 @@ extern "C" {
    * Return value is the address of the lock
    */
   PUBLIC int *csoundGetChannelLock(CSOUND *,
-				   const char *name, int type);
+                                   const char *name, int type);
 
   /**
    * Simple linear congruential random number generator:
@@ -1646,7 +1646,7 @@ extern "C" {
    * If the array is NULL, the length parameter is used for seeding.
    */
   PUBLIC void csoundSeedRandMT(CsoundRandMTState *p,
-			       const uint32_t *initKey, uint32_t keyLength);
+                               const uint32_t *initKey, uint32_t keyLength);
 
   /**
    * Returns next random number from MT19937 generator.
@@ -1717,7 +1717,7 @@ extern "C" {
    * and CSOUND_MEMORY if there is not enough memory to estend the bus.
    */
   PUBLIC int csoundChanIASetSample(CSOUND *,
-				   int channel, int frame, MYFLT sample);
+                                   int channel, int frame, MYFLT sample);
 
   /**
    * Sets the chani opcode MYFLT a-rate value for the indicated frame
@@ -1738,7 +1738,7 @@ extern "C" {
    * CSOUND_MEMORY if there is not enough memory to extend the bus.
    */
   PUBLIC int csoundChanIASetSample(CSOUND *,
-				   int channel, int frame, MYFLT sample);
+                                   int channel, int frame, MYFLT sample);
 
   /**
    * Sets the chani opcode MYFLT a-rate value for the indicated frame
@@ -1806,14 +1806,14 @@ extern "C" {
    * not known).
    */
   PUBLIC int csoundSetCallback(CSOUND *, int (*func)(void *userData, void *p,
-						     unsigned int type),
-			       void *userData, unsigned int typeMask);
+                                                     unsigned int type),
+                               void *userData, unsigned int typeMask);
 
   /**
    * Removes a callback previously set with csoundSetCallback().
    */
   PUBLIC void csoundRemoveCallback(CSOUND *,
-				   int (*func)(void *, void *, unsigned int));
+                                   int (*func)(void *, void *, unsigned int));
 
 
 
@@ -1873,7 +1873,7 @@ extern "C" {
    * This callback is retained after a csoundReset() call.
    */
   PUBLIC void csoundSetFileOpenCallback(CSOUND *p,
-					void (*func)(CSOUND *, const char *, int, int, int));
+                                        void (*func)(CSOUND *, const char *, int, int, int));
 #endif
 
   /* This pragma must come after all public function declarations */
@@ -1883,7 +1883,7 @@ extern "C" {
 
 #endif  /* !CSOUND_CSDL_H */
 
-	/* typedefs, macros, and interface functions for configuration variables */
+        /* typedefs, macros, and interface functions for configuration variables */
 #include "cfgvar.h"
   /* message attribute definitions for csoundMessageS() and csoundMessageV() */
 #include "msg_attr.h"

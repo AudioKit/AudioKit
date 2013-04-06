@@ -33,9 +33,9 @@
 
 @implementation CachedAccelerometer
 
-static NSString* CS_ACCEL_X = @"accelerometerX";
-static NSString* CS_ACCEL_Y = @"accelerometerY";
-static NSString* CS_ACCEL_Z = @"accelerometerZ";
+static NSString *CS_ACCEL_X = @"accelerometerX";
+static NSString *CS_ACCEL_Y = @"accelerometerY";
+static NSString *CS_ACCEL_Z = @"accelerometerZ";
 
 -(id)init:(CMMotionManager*)cmManager {
     if (self = [super init]) {
