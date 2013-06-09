@@ -46,9 +46,24 @@
 - (void)addEvent:(OCSEvent *)event 
           atTime:(float)timeSinceStart;
 {
-    [events addObject:event];
     NSNumber *time = [NSNumber numberWithFloat:timeSinceStart];
-    [times addObject:time];
+    
+    int insertionIndex = 0;
+    BOOL doInsertion = NO;
+    for (NSNumber *t in times) {
+        if (t.floatValue > timeSinceStart) {
+            doInsertion = YES;
+            break;
+        }
+        insertionIndex++;
+    }
+    if (doInsertion) {
+        [events insertObject:event atIndex:insertionIndex];
+        [times  insertObject:time  atIndex:insertionIndex];
+    } else {
+        [events addObject:event];
+        [times addObject:time];
+    }
 }
 
 - (void)addEvent:(OCSEvent *)event 
@@ -71,7 +86,12 @@
 {
     index = 0;
     isPlaying = YES;
-    [self playNextEventInSequence:timer];
+    // Delay playback until first event is set to start.
+    timer = [NSTimer scheduledTimerWithTimeInterval:[[times objectAtIndex:0] floatValue]
+                                             target:self
+                                           selector:@selector(playNextEventInSequence:)
+                                           userInfo:nil
+                                            repeats:NO];
 }
 
 - (void)pause
@@ -85,6 +105,8 @@
     for (OCSEvent *event in events) {
         if (event.note) {
             [event.note stop];
+            [timer invalidate];
+            timer = nil;
         }
     }
 }
@@ -107,6 +129,9 @@
                                                 repeats:NO];
         index++;
 
+    } else {
+        [timer invalidate];
+        timer = nil;
     }
 }
 
