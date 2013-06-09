@@ -14,6 +14,7 @@
 @interface OCSPortamento () {
     OCSControl *ksig;
     OCSControl *khtim;
+    OCSConstant *isig;
 }
 @end
 
@@ -26,14 +27,20 @@
     if (self) {
         ksig = controlSource;
         khtim = halfTime;
+        isig = ocsp(0);
     }
     return self;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ portk %@, %@",
-            self, ksig, khtim];
+            @"%@ portk %@, %@, %@",
+            self, ksig, khtim, isig];
+}
+
+- (void)setOptionalFeedbackAmount:(OCSConstant *)feedback
+{
+    isig = feedback;
 }
 
 @end

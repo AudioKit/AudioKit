@@ -22,4 +22,6 @@
 - (id)initWithControlSource:(OCSControl *)controlSource
                    halfTime:(OCSControl *)halfTime;
 
+-(void)setOptionalFeedbackAmount:(OCSConstant *)feedback;
+
 @end
