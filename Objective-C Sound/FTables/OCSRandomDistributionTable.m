@@ -22,7 +22,7 @@
 {
     return [self initWithType:kFTRandomDistributions
                          size:size
-                   parameters:[OCSArray arrayFromParams:
+                   parameters:[OCSArray arrayFromConstants:
                                ocspi(distributionType), ocsp(level), nil]];
 }
 
@@ -33,7 +33,7 @@
     int distributionType = 10;
     return [self initWithType:kFTRandomDistributions
                          size:size
-                   parameters:[OCSArray arrayFromParams:
+                   parameters:[OCSArray arrayFromConstants:
                                ocspi(distributionType), level, ocsp(sigma), nil]];
 }
 
@@ -45,7 +45,7 @@
     int distributionType = 9;
     return [self initWithType:kFTRandomDistributions
                          size:size
-                   parameters:[OCSArray arrayFromParams:
+                   parameters:[OCSArray arrayFromConstants:
                                ocspi(distributionType), level, ocsp(alpha), ocsp(beta), nil]]; 
 }
 

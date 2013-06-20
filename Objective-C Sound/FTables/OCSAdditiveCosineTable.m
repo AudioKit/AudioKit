@@ -18,7 +18,7 @@
 - (id)initWithSize:(int)tableSize
  numberOfHarmonics:(int)numberOfHarmonics
 {
-    return [self initWithType:kFTAdditiveCosines size:tableSize parameters:[OCSArray arrayFromParams:ocspi(numberOfHarmonics), nil]];
+    return [self initWithType:kFTAdditiveCosines size:tableSize parameters:[OCSArray arrayFromConstants:ocspi(numberOfHarmonics), nil]];
 }
 
 - (id)initWithSize:(int)tableSize
@@ -28,7 +28,7 @@
     return [self initWithType:kFTAdditiveCosines
                          size:tableSize
                    parameters:[OCSArray
-                               arrayFromParams:ocspi(numberOfHarmonics),
+                               arrayFromConstants:ocspi(numberOfHarmonics),
                                                     ocspi(lowestHarmonic), nil]];
 }
 
@@ -39,7 +39,7 @@
 {
     return [self initWithType:kFTAdditiveCosines
                          size:tableSize
-                   parameters:[OCSArray arrayFromParams:
+                   parameters:[OCSArray arrayFromConstants:
                                ocsp(numberOfHarmonics),
                                ocsp(lowestHarmonic),
                                ocsp(partialMultiplier), nil]];

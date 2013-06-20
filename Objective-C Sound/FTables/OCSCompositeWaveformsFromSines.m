@@ -26,12 +26,12 @@ partialStrengthOffsets:(OCSArray *)partialOffsets
 
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (int i=0; i<[partialNumbers count]; i++){
-            [temp addObject:[[partialNumbers params] objectAtIndex:i]];
-            [temp addObject:[[partialStrengths params] objectAtIndex:i]];
-            [temp addObject:[[partialPhases params] objectAtIndex:i]];
-            [temp addObject:[[partialOffsets params] objectAtIndex:i]];
+            [temp addObject:[[partialNumbers   constants] objectAtIndex:i]];
+            [temp addObject:[[partialStrengths constants] objectAtIndex:i]];
+            [temp addObject:[[partialPhases    constants] objectAtIndex:i]];
+            [temp addObject:[[partialOffsets   constants] objectAtIndex:i]];
         }
-        [parameters setParams:temp];
+        [parameters setConstants:temp];
     }
     return [self initWithType:kFTCompositeWaveformsFromSines
                          size:tableSize

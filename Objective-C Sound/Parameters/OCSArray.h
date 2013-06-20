@@ -8,7 +8,7 @@
 
 #import "OCSConstant.h"
 
-#define ocspa(__p__, ...)   [OCSArray arrayFromParams:__p__, __VA_ARGS__]
+#define ocspa(__p__, ...)   [OCSArray arrayFromConstants:__p__, __VA_ARGS__]
 #define ocspna(__n__, ...)  [OCSArray arrayFromNumbers:__n__, __VA_ARGS__]
 
 /// Am array of OCSParameter variables
@@ -18,12 +18,14 @@
 - (NSString *)parameterString;
 
 /// The array of parameters stored.
-@property (nonatomic, strong) NSArray *params;
+@property (nonatomic, strong) NSMutableArray *constants;
 
-/// Explicitly using a nil-terminated list of OCSParameters to create the array
-/// @param firstParam At least one OCSConstant is required
+- (void)addConstant:(OCSConstant *)constant;
+
+/// Explicitly using a nil-terminated list of OCSConstants to create the array
+/// @param firstConstant At least one OCSConstant is required
 /// @param ...        Terminate list with a nil.
-+ (id)arrayFromParams:(OCSConstant *) firstParam, ...;
++ (id)arrayFromConstants:(OCSConstant *) firstConstant, ...;
 
 /// Explicitly using a nil-terminated list of NSNumbers to create the array
 /// @param firstValue At least one NSNumber is required

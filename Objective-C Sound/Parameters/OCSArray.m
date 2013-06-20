@@ -9,27 +9,24 @@
 #import "OCSArray.h"
 
 @interface OCSArray () {
-    NSMutableArray *params;
     NSUInteger count;
     float      numbers[0];
 }
 @end
 
 @implementation OCSArray
-@synthesize params;
 
 - (id)init 
 {
     self = [super init];
     if (self) {
-        params = [[NSMutableArray alloc] init];
+        _constants = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (int)count 
-{
-    return (int) [params count];
+- (int)count {
+    return (int) [_constants count];
 }
 
 
@@ -38,18 +35,18 @@
     NSAssert([self count] != [pairingArray count], @"Array must be equal in size");
         
     NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (uint i=0; i<[[self params] count]; i++) {
-        [temp addObject:[[self params]  objectAtIndex:i]];
-        [temp addObject:[[pairingArray params] objectAtIndex:i]];
+    for (uint i=0; i<[[self constants] count]; i++) {
+        [temp addObject:[[self constants]  objectAtIndex:i]];
+        [temp addObject:[[pairingArray constants] objectAtIndex:i]];
     }
     OCSArray *pairedArray = [[OCSArray alloc] init];
-    [pairedArray setParams:temp];
+    [pairedArray setConstants:temp];
     return pairedArray;
 }
 
 - (id)parameterString {
     NSMutableArray *s = [[NSMutableArray alloc] init];
-    for (OCSConstant *value in params) {
+    for (OCSConstant *value in _constants) {
         [s addObject:[value parameterString]];
     }
     return [s componentsJoinedByString:@", "]; 
@@ -57,28 +54,34 @@
 
 - (id)fTableString {
     NSMutableArray *s = [[NSMutableArray alloc] init];
-    for (OCSConstant *value in params) {
+    for (OCSConstant *value in _constants) {
         [s addObject:[value parameterString]];
     }
     return [s componentsJoinedByString:@" "]; 
 }
 
+- (void)addConstant:(OCSConstant *)constant
+{
+    [_constants addObject:constant];
+}
 
-+ (id)arrayFromParams:(OCSConstant *)firstParam,... {
+
++ (id)arrayFromConstants:(OCSConstant *)firstConstant,... {
     OCSArray *result = [[OCSArray alloc] init];
     
+    // AOP Shouldn't this be OCSConstant?
     OCSParameter *eachParam;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;
-    if (firstParam) { // The first argument isn't part of the varargs list, so we'll handle it separately.
-        [initParameters addObject: firstParam];
-        va_start(argumentList, firstParam); // Start scanning for arguments after firstObject.
+    if (firstConstant) { // The first argument isn't part of the varargs list, so we'll handle it separately.
+        [initParameters addObject: firstConstant];
+        va_start(argumentList, firstConstant); // Start scanning for arguments after firstObject.
         while ((eachParam = va_arg(argumentList, id))) // As many times as we can get an argument of type "id"
             [initParameters addObject: eachParam]; // that isn't nil, add it to self's contents.
         va_end(argumentList);
     }
     
-    [result setParams:initParameters];
+    [result setConstants:initParameters];
     
     return result;
 }
@@ -97,7 +100,7 @@
         va_end(argumentList);
     }
     
-    [result setParams:initParameters];
+    [result setConstants:initParameters];
     
     return result;
 }

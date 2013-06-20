@@ -32,7 +32,7 @@
         // INSTRUMENT DEFINITION ===============================================
         
         OCSArray *partialStrengthArray = ocspna(@1, @0.5, @1, nil);
-        //[OCSArray arrayFromParams: ocsp(1),ocsp(0.5), ocsp(1), nil];
+        //[OCSArray arrayFromConstants: ocsp(1),ocsp(0.5), ocsp(1), nil];
         
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096

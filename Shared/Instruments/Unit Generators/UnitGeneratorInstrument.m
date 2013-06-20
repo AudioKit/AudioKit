@@ -18,9 +18,17 @@
         // INSTRUMENT DEFINITION ===============================================
         // create sign function with variable partial strengths
 
-        OCSArray *partialStrengths;
-        partialStrengths = [OCSArray arrayFromParams:
-                            ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
+        OCSArray *partialStrengths = ocspna(@1, @0.5, @1, nil);
+        
+//        OCSArray *partialStrengths = [[OCSArray alloc] init];
+//        [partialStrengths addConstant:ocsp(1.0f)];
+//        [partialStrengths addConstant:ocsp(0.15f)];
+//        [partialStrengths addConstant:ocsp(0.0f)];
+        
+//        OCSArray *partialStrengths;
+//        partialStrengths = [OCSArray arrayFromConstants:
+//                            ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
+        
         OCSSineTable *sine;
         sine = [[OCSSineTable alloc] initWithSize:4096 
                                  partialStrengths:partialStrengths];
