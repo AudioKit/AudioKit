@@ -10,57 +10,51 @@
 
 @implementation FMOscillatorInstrument
 
-@synthesize frequency = freq;
-@synthesize amplitude = amp;
-@synthesize carrierMultiplier = car;
-@synthesize modulatingMultiplier = mod;
-@synthesize modulationIndex = index;
-
 - (id)init {
     self = [super init];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
-        freq = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
-                                                   minValue:kFrequencyMin
-                                                   maxValue:kFrequencyMax];
-        [self addProperty:freq];
+        _frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
+                                                         minValue:kFrequencyMin
+                                                         maxValue:kFrequencyMax];
+        [self addProperty:_frequency];
         
-        amp = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
-                                                  minValue:kAmplitudeMin
-                                                  maxValue:kAmplitudeMax];
-        [self addProperty:amp];
+        _amplitude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
+                                                         minValue:kAmplitudeMin
+                                                         maxValue:kAmplitudeMax];
+        [self addProperty:_amplitude];
         
-        car = [[OCSInstrumentProperty alloc] initWithValue:kCarrierMultiplierInit
-                                                  minValue:kCarrierMultiplierMin
-                                                  maxValue:kCarrierMultiplierMax];
-        [self addProperty:car];
+        _carrierMultiplier = [[OCSInstrumentProperty alloc] initWithValue:kCarrierMultiplierInit
+                                                                 minValue:kCarrierMultiplierMin
+                                                                 maxValue:kCarrierMultiplierMax];
+        [self addProperty:_carrierMultiplier];
         
-        mod = [[OCSInstrumentProperty alloc] initWithValue:kModulatingMultiplierInit
-                                                  minValue:kModulatingMultiplierMin
-                                                  maxValue:kModulatingMultiplierMax];
-        [self addProperty:mod];
+        _modulatingMultiplier = [[OCSInstrumentProperty alloc] initWithValue:kModulatingMultiplierInit
+                                                                    minValue:kModulatingMultiplierMin
+                                                                    maxValue:kModulatingMultiplierMax];
+        [self addProperty:_modulatingMultiplier];
         
-        index = [[OCSInstrumentProperty alloc] initWithValue:kModulationIndexInit
-                                                    minValue:kModulationIndexMin
-                                                    maxValue:kModulationIndexMax];
-        [self addProperty:index];
+        _modulationIndex = [[OCSInstrumentProperty alloc] initWithValue:kModulationIndexInit
+                                                               minValue:kModulationIndexMin
+                                                               maxValue:kModulationIndexMax];
+        [self addProperty:_modulationIndex];
         
         // INSTRUMENT DEFINITION ===============================================
-            
+        
         OCSSineTable *sine = [[OCSSineTable alloc] init];
         [self addFTable:sine];
-
+        
         OCSFMOscillator *fmOscillator;
         fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sine
-                                                 baseFrequency:freq
-                                             carrierMultiplier:car
-                                          modulatingMultiplier:mod
-                                               modulationIndex:index
-                                                     amplitude:amp];
+                                                 baseFrequency:_frequency
+                                             carrierMultiplier:_carrierMultiplier
+                                          modulatingMultiplier:_modulatingMultiplier
+                                               modulationIndex:_modulationIndex
+                                                     amplitude:_amplitude];
         [self connect:fmOscillator];
-
-
+        
+        
         // AUDIO OUTPUT ========================================================
         
         OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:fmOscillator];
@@ -70,5 +64,5 @@
 }
 
 
-                    
+
 @end

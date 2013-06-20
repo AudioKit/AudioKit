@@ -19,7 +19,6 @@
 
 @interface OCSParameter : NSObject
 {
-    NSString *parameterString;
     int _myID;
 }
 

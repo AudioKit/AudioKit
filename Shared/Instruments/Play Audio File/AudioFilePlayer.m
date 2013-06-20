@@ -51,7 +51,6 @@
 @end
 
 @implementation AudioFilePlayerNote
-@synthesize speed = _speed;
 
 - (id)init;
 {

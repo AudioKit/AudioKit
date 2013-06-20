@@ -9,27 +9,21 @@
 #import "OCSNoteProperty.h"
 #import "OCSNote.h"
 
-@interface OCSNoteProperty() {
-    OCSNote *myNote;
-    int pValue;
-}
-@end
+//@interface OCSNoteProperty() {
+//    OCSNote *myNote;
+//    int pValue;
+//}
+//@end
 
 @implementation OCSNoteProperty
 
-@synthesize minimumValue, maximumValue;
 @synthesize value=currentValue;
-@synthesize name;
-
-@synthesize pValue;
-@synthesize note=myNote;
-
 
 - (id) init
 {
     self = [super init];
     if (self) {
-        pValue = 0;
+        _pValue = 0;
         [self setName:@"NoteProperty"];
     }
     return self;
@@ -49,8 +43,8 @@
     self = [self init];
     if (self) {
         currentValue = initialValue;
-        minimumValue = minValue;
-        maximumValue = maxValue;
+        _minimumValue = minValue;
+        _maximumValue = maxValue;
     }
     return self;
 }
@@ -61,22 +55,22 @@
 
 - (void)setValue:(Float32)newValue {
     currentValue = newValue;
-    if (minimumValue && newValue < minimumValue) {
-        currentValue = minimumValue;
+    if (_minimumValue && newValue < _minimumValue) {
+        currentValue = _minimumValue;
         NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
-    else if (maximumValue && newValue > maximumValue) {
-        currentValue = maximumValue;
+    else if (_maximumValue && newValue > _maximumValue) {
+        currentValue = _maximumValue;
         NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
-    [myNote updateProperties];
+    [_note updateProperties];
 }
 
 
 - (void)randomize;
 {
-    float width = maximumValue - minimumValue;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + minimumValue];
+    float width = _maximumValue - _minimumValue;
+    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimumValue];
 }
 
 + (id)duration {

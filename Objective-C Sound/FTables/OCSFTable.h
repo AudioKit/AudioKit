@@ -63,8 +63,6 @@ typedef enum
 - (NSString *)fTableStringForCSD;
 
 
-
-
 /// Returns an ftlen() wrapped around the output of this function table.
 - (OCSConstant *)length;
 

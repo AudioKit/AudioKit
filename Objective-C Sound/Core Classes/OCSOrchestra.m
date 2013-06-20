@@ -13,18 +13,11 @@
 @interface OCSOrchestra () {
     int sampleRate;
     int samplesPerControlPeriod;
-    int numberOfChannels;
-    float zeroDBFullScaleValue;
     NSMutableArray *udos;
-    NSMutableArray *instruments;
 }
 @end
 
 @implementation OCSOrchestra
-
-@synthesize zeroDBFullScaleValue;
-@synthesize instruments;
-@synthesize numberOfChannels;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
@@ -35,10 +28,10 @@
     if (self) {
         sampleRate = 44100;
         samplesPerControlPeriod = 64;
-        numberOfChannels = 2;
-        zeroDBFullScaleValue = 1.0f;
+        _numberOfChannels = 2;
+        _zeroDBFullScaleValue = 1.0f;
         udos = [[NSMutableArray alloc] init];
-        instruments = [[NSMutableArray alloc] init];
+        _instruments = [[NSMutableArray alloc] init];
     }
     return self; 
 }
@@ -48,7 +41,7 @@
 // -----------------------------------------------------------------------------
 
 - (void)addInstrument:(OCSInstrument *)newInstrument {
-    [instruments addObject:newInstrument];
+    [_instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];
 }
 
@@ -70,14 +63,14 @@
                      @"sr     = %d \n"
                      @"0dbfs  = %g \n"
                      @"ksmps  = %d \n",
-                     numberOfChannels, 
+                     _numberOfChannels,
                      sampleRate, 
-                     zeroDBFullScaleValue, 
+                     _zeroDBFullScaleValue,
                      samplesPerControlPeriod]];
     [s appendString:@"\n"];
     
     [s appendString:@";=== GLOBAL F-TABLES ===\n"];
-    for ( OCSInstrument *i in instruments) {
+    for ( OCSInstrument *i in _instruments) {
         for (OCSFTable *fTable in [i fTables]) {
             [s appendString:[fTable fTableStringForCSD]];
             [s appendString:@"\n"];
@@ -86,7 +79,7 @@
     [s appendString:@"\n"];
     
     [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
-    for ( OCSInstrument *i in instruments) {
+    for ( OCSInstrument *i in _instruments) {
         for (OCSParameter *udo in [i userDefinedOperations]) {
             [s appendString:@"\n"];     
             [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
@@ -96,7 +89,7 @@
     [s appendString:@"\n"];
 
     [s appendString:@";=== INSTRUMENTS ===\n"];
-    for ( OCSInstrument *i in instruments) {
+    for ( OCSInstrument *i in _instruments) {
         [s appendString:[NSString stringWithFormat:@"\n;--- %@ ---\n\n", [i uniqueName] ]];
         [s appendFormat:@"instr %i\n", [i instrumentNumber]];
         [s appendString:[NSString stringWithFormat:@"%@\n",[i stringForCSD]]];

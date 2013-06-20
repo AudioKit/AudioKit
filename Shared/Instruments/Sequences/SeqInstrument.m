@@ -10,8 +10,6 @@
 
 @implementation SeqInstrument
 
-@synthesize modulation = mod;
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -20,10 +18,10 @@
         [self addNoteProperty:note.frequency];
         
         // INSTRUMENT CONTROL ==================================================
-        mod  = [[OCSInstrumentProperty alloc] initWithValue:kModulationInit
-                                                   minValue:kModulationMin
-                                                   maxValue:kModulationMax];
-        [self addProperty:mod];
+        _modulation  = [[OCSInstrumentProperty alloc] initWithValue:kModulationInit
+                                                           minValue:kModulationMin
+                                                           maxValue:kModulationMax];
+        [self addProperty:_modulation];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -34,7 +32,7 @@
         fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sineTable
                                                  baseFrequency:note.frequency
                                              carrierMultiplier:ocsp(2)
-                                          modulatingMultiplier:mod
+                                          modulatingMultiplier:_modulation
                                                modulationIndex:ocsp(15)
                                                      amplitude:ocsp(0.2)];
         [self connect:fmOscillator];
@@ -52,8 +50,6 @@
 
 @implementation SeqInstrumentNote
 
-@synthesize frequency=_frequency;
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -68,7 +64,7 @@
 - (id)initWithFrequency:(float)frequency {
     self = [self init];
     if (self) {
-        self.frequency.value = frequency;
+        _frequency.value = frequency;
     }
     return self;
 }

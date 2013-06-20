@@ -74,10 +74,5 @@
 
 @implementation MarimbaNote
 
-
-@synthesize frequency;
-@synthesize amplitude;
-@synthesize vibratoFrequency;
-@synthesize vibratoAmplitude;
                    
 @end

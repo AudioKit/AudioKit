@@ -9,9 +9,8 @@
 #import "OCSInstrumentProperty.h"
 
 @implementation OCSInstrumentProperty
-@synthesize minimumValue, maximumValue;
+
 @synthesize value=currentValue;
-@synthesize name;
 
 - (id)init
 {
@@ -35,8 +34,8 @@
     self = [self init];
     if (self) {
         currentValue = initialValue;
-        minimumValue = minValue;
-        maximumValue = maxValue;
+        _minimumValue = minValue;
+        _maximumValue = maxValue;
     }
     return self;
 }
@@ -56,20 +55,20 @@
 
 - (void)setValue:(Float32)newValue {
     currentValue = newValue;
-    if (minimumValue && newValue < minimumValue) {
-        currentValue = minimumValue;
+    if (_minimumValue && newValue < _minimumValue) {
+        currentValue = _minimumValue;
         NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
-    else if (maximumValue && newValue > maximumValue) {
-        currentValue = maximumValue;
+    else if (_maximumValue && newValue > _maximumValue) {
+        currentValue = _maximumValue;
         NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
 }
 
 - (void)randomize;
 {
-    float width = maximumValue - minimumValue;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + minimumValue];
+    float width = _maximumValue - _minimumValue;
+    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimumValue];
 }
 
 # pragma mark CsoundValueCacheable

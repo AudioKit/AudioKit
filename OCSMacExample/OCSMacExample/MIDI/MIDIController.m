@@ -26,15 +26,6 @@
 @end
 
 @implementation MIDIController
-@synthesize pitchBendSlider;
-@synthesize controllerSlider;
-@synthesize modulationSlider;
-@synthesize pitchBendLabel;
-@synthesize noteLabel;
-@synthesize channelLabel;
-@synthesize controllerNumberLabel;
-@synthesize controllerValueLabel;
-@synthesize modulationLabel;
 
 - (IBAction)enableMIDI:(id)sender {
     _channel = 1;

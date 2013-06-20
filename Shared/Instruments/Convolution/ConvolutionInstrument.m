@@ -8,32 +8,23 @@
 
 #import "ConvolutionInstrument.h"
 
-@interface ConvolutionInstrument () {
-    OCSInstrumentProperty *dishWellBalance;
-    OCSInstrumentProperty *dryWetBalance;
-}
-@end
-
 @implementation ConvolutionInstrument
 
-@synthesize dishWellBalance;
-@synthesize dryWetBalance;
-
-- (id)init 
+- (id)init
 {
     self = [super init];
-    if (self) { 
+    if (self) {
         
         // INPUTS AND CONTROLS =================================================
-        dishWellBalance = [[OCSInstrumentProperty alloc] initWithValue:kDishWellBalanceInit 
-                                                              minValue:kDishWellBalanceMin 
-                                                              maxValue:kDishWellBalanceMax];
-        dryWetBalance   = [[OCSInstrumentProperty alloc] initWithValue:kDryWetBalanceInit 
-                                                              minValue:kDryWetBalanceMin   
-                                                              maxValue:kDryWetBalanceMax];
+        _dishWellBalance = [[OCSInstrumentProperty alloc] initWithValue:kDishWellBalanceInit
+                                                               minValue:kDishWellBalanceMin
+                                                               maxValue:kDishWellBalanceMax];
+        _dryWetBalance   = [[OCSInstrumentProperty alloc] initWithValue:kDryWetBalanceInit
+                                                               minValue:kDryWetBalanceMin
+                                                               maxValue:kDryWetBalanceMax];
         
-        [self addProperty:dishWellBalance];
-        [self addProperty:dryWetBalance];         
+        [self addProperty:_dishWellBalance];
+        [self addProperty:_dryWetBalance];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -49,29 +40,29 @@
         dishConv  = [[OCSConvolution alloc] initWithAudioSource:loop.leftOutput
                                             impulseResponseFile:dish];
         [self connect:dishConv];
-
+        
         
         OCSConvolution *wellConv;
         wellConv  = [[OCSConvolution alloc] initWithAudioSource:loop.rightOutput
                                             impulseResponseFile:well];
         [self connect:wellConv];
-
+        
         
         OCSMixedAudio *balance;
         balance = [[OCSMixedAudio alloc] initWithSignal1:dishConv
-                                                   signal2:wellConv
-                                                   balance:dishWellBalance];
+                                                 signal2:wellConv
+                                                 balance:_dishWellBalance];
         [self connect:balance];
-
+        
         
         OCSMixedAudio *dryWet;
         dryWet = [[OCSMixedAudio alloc] initWithSignal1:loop.leftOutput
-                                                  signal2:balance
-                                                  balance:dryWetBalance];
+                                                signal2:balance
+                                                balance:_dryWetBalance];
         [self connect:dryWet];
         
         
-
+        
         // AUDIO OUTPUT ========================================================
         
         OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:dryWet];

@@ -11,8 +11,6 @@
 
 @implementation FivePropertyInstrument
 
-@synthesize pitchBend, modulation, cutoffFrequency;
-
 -(id)init
 {
     self = [super init];
@@ -25,17 +23,17 @@
         
         
         // INPUTS AND CONTROLS =================================================
-        pitchBend = [[OCSInstrumentProperty alloc] initWithValue:1
-                                                        minValue:kPitchBendMin
-                                                        maxValue:kPitchBendMax];
-        modulation = [[OCSInstrumentProperty alloc] initWithMinValue:kModulationMin
-                                                            maxValue:kModulationMax];
-        cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinValue:kLpCutoffMin
-                                                                 maxValue:kLpCutoffMax];
+        _pitchBend = [[OCSInstrumentProperty alloc] initWithValue:1
+                                                         minValue:kPitchBendMin
+                                                         maxValue:kPitchBendMax];
+        _modulation = [[OCSInstrumentProperty alloc] initWithMinValue:kModulationMin
+                                                             maxValue:kModulationMax];
+        _cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinValue:kLpCutoffMin
+                                                                  maxValue:kLpCutoffMax];
         
-        [self addProperty:pitchBend];
-        [self addProperty:modulation];
-        [self addProperty:cutoffFrequency];
+        [self addProperty:_pitchBend];
+        [self addProperty:_modulation];
+        [self addProperty:_cutoffFrequency];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -43,19 +41,19 @@
         [self addFTable:sine];
         
         OCSControl *bentFreq;
-        bentFreq = [[OCSControl alloc] initWithExpression:[NSString stringWithFormat:@"%@  * %@", note.frequency, pitchBend]];
+        bentFreq = [[OCSControl alloc] initWithExpression:[NSString stringWithFormat:@"%@  * %@", note.frequency, _pitchBend]];
         
         OCSFMOscillator *fm = [[OCSFMOscillator alloc] initWithFTable:sine
                                                         baseFrequency:bentFreq
                                                     carrierMultiplier:ocsp(2)
-                                                 modulatingMultiplier:modulation
+                                                 modulatingMultiplier:_modulation
                                                       modulationIndex:ocsp(15)
                                                             amplitude:note.volume];
         [self connect:fm];
         
         OCSLowPassButterworthFilter *lpFilter;
         lpFilter = [[OCSLowPassButterworthFilter alloc] initWithAudioSource:fm
-                                                      cutoffFrequency:cutoffFrequency];
+                                                            cutoffFrequency:_cutoffFrequency];
         [self connect:lpFilter];
         
         // AUDIO OUTPUT ========================================================
@@ -71,23 +69,20 @@
 
 @implementation FivePropertyInstrumentNote
 
-@synthesize volume=_volume;
-@synthesize frequency=_frequency;
-
 - (id)init {
     self = [super init];
     if (self) {
-
+        
         _volume = [[OCSNoteProperty alloc] initWithValue:kVolumeInit
-                                               minValue:kVolumeMin
-                                               maxValue:kVolumeMax];
+                                                minValue:kVolumeMin
+                                                maxValue:kVolumeMax];
         [self addProperty:_volume];
         
         _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
-                                                  minValue:kFrequencyMin
-                                                  maxValue:kFrequencyMax];
+                                                   minValue:kFrequencyMin
+                                                   maxValue:kFrequencyMax];
         [self addProperty:_frequency];
-
+        
     }
     return self;
 }

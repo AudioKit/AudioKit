@@ -14,9 +14,6 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window;
-@synthesize splitViewController = _splitViewController;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

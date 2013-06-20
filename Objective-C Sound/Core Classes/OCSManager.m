@@ -9,20 +9,15 @@
 #import "OCSManager.h"
 
 @interface OCSManager () {
-    BOOL isRunning;
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
     
     CsoundObj *csound;
-    OCSMidi *midi;
 }
 @end
 
 @implementation OCSManager
-
-@synthesize isRunning;
-@synthesize midi;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Singleton Setup
@@ -63,7 +58,7 @@ static OCSManager *_sharedOCSManager = nil;
         [csound addCompletionListener:self];
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         
-        isRunning = NO;
+        _isRunning = NO;
         
 //        "-+rtmidi=null    ; Disable the use of any realtime midi plugin\n"
 //        "-+rtaudio=null   ; Disable the use of any realtime audio plugin\n"
@@ -81,7 +76,7 @@ static OCSManager *_sharedOCSManager = nil;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
-        midi = [[OCSMidi alloc] init];
+        _midi = [[OCSMidi alloc] init];
     }
     return self;
 }   
@@ -92,7 +87,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)runCSDFile:(NSString *)filename 
 {
-    if(isRunning) {
+    if(_isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
     }
@@ -100,7 +95,7 @@ static OCSManager *_sharedOCSManager = nil;
                                                      ofType:@"csd"];  
     [csound startCsound:file];
     NSLog(@"Starting %@ \n\n%@\n",filename, [OCSManager stringFromFile:file]);
-    while(!isRunning) {
+    while(!_isRunning) {
         //NSLog(@"Waiting for Csound to startup completely.");
     }
     NSLog(@"Started.");
@@ -118,7 +113,7 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)runOrchestra:(OCSOrchestra *)orchestra 
 {
-    if(isRunning) {
+    if(_isRunning) {
         NSLog(@"Csound instance already active.");
         [self stop];
     }
@@ -138,7 +133,7 @@ static OCSManager *_sharedOCSManager = nil;
     
     // Pause to allow Csound to start, warn if nothing happens after 1 second
     int cycles = 0;
-    while(!isRunning) {
+    while(!_isRunning) {
         cycles++;
         if (cycles > 100) {
             NSLog(@"Csound has not started in 1 second." );
@@ -154,12 +149,12 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)enableMidi
 {
-    [midi openMidiIn];
+    [_midi openMidiIn];
 }
 
 - (void)disableMidi
 {
-    [midi closeMidiIn];
+    [_midi closeMidiIn];
 }
 
 
@@ -171,7 +166,7 @@ static OCSManager *_sharedOCSManager = nil;
 {
     NSLog(@"Stopping Csound");
     [csound stopCsound];
-    while(isRunning) {} // Do nothing
+    while(_isRunning) {} // Do nothing
 }
 
 - (void)triggerEvent:(OCSEvent *)event
@@ -223,12 +218,12 @@ static OCSManager *_sharedOCSManager = nil;
 
 - (void)csoundObjDidStart:(CsoundObj *)csoundObj {
     NSLog(@"Csound Started.");
-    isRunning = YES;
+    _isRunning = YES;
 }
 
 - (void)csoundObjComplete:(CsoundObj *)csoundObj {
     NSLog(@"Csound Completed.");
-    isRunning  = NO;
+    _isRunning  = NO;
 }
 
 @end

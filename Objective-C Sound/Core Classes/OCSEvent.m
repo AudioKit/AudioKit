@@ -12,11 +12,7 @@
 typedef void (^MyBlockType)();
 
 @interface OCSEvent () {
-    //NSMutableString *scoreLine;
     MyBlockType block;
-    //int _myID;
-    //float eventNumber;
-    //OCSInstrument *instr;
 }
 @end
 
@@ -26,12 +22,10 @@ typedef void (^MyBlockType)();
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-@synthesize note;
-
 - (id)initWithNote:(OCSNote *)newNote {
     self = [self init];
     if (self) {
-        note = newNote;
+        _note = newNote;
     }
     return self;
 }
@@ -57,7 +51,7 @@ typedef void (^MyBlockType)();
 // -----------------------------------------------------------------------------
 
 - (void)playNote {
-    if (self->note) [note play];
+    if (self->_note) [_note play];
 }
 
 - (void)runBlock {

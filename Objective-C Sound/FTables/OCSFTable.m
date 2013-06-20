@@ -13,12 +13,10 @@
     FTableType igen;
     OCSConstant *output;
     OCSArray *iargs; 
-    BOOL isNormalized;
 }
 @end
 
 @implementation OCSFTable
-@synthesize isNormalized;
 
 - (id)initWithType:(FTableType)fTableType
               size:(int)tableSize
@@ -30,7 +28,7 @@
         isize = tableSize;
         igen = fTableType;
         iargs = parameters;
-        isNormalized = NO;
+        _isNormalized = NO;
     }
     return self;
 }
@@ -50,7 +48,7 @@
 
 // Csound Prototype: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD {
-    if (isNormalized) {
+    if (_isNormalized) {
         igen = abs(igen); 
     } else {
         igen = -abs(igen);
@@ -67,7 +65,7 @@
 }
 
 - (NSString *)fTableStringForCSD {
-    if (isNormalized) {
+    if (_isNormalized) {
         igen = abs(igen); 
     } else {
         igen = -abs(igen);

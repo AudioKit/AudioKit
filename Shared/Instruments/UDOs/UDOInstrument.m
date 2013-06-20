@@ -57,8 +57,6 @@
 
 @implementation UDOInstrumentNote
 
-@synthesize frequency=_frequency;
-
 - (id)init {
     self = [super init];
     if (self) {

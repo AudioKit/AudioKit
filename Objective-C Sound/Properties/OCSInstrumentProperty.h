@@ -19,9 +19,6 @@
     
     //channelName
     MYFLT *channelPtr;
-
-    Float32 maximumValue;
-    Float32 minimumValue;
     Float32 currentValue;
 }
 

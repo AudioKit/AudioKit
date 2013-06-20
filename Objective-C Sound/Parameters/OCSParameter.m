@@ -9,7 +9,6 @@
 #import "OCSParameter.h"
 
 @implementation OCSParameter
-@synthesize parameterString;
 
 static int currentID = 1;
 
@@ -29,7 +28,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
+        _parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
     }
     return self;
 }
@@ -39,7 +38,7 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
+        _parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
     }
     return self;
 }
@@ -48,7 +47,7 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithString:expression];
+        _parameterString = [NSString stringWithString:expression];
     }
     return self;
 }
@@ -76,7 +75,7 @@ static int currentID = 1;
 }
  
 - (NSString *)description {
-    return parameterString;
+    return _parameterString;
 }
 
 - (id)plus:(OCSParameter *)additionalParameter
@@ -110,7 +109,7 @@ static int currentID = 1;
 - (id)amplitudeFromFullScaleDecibel;
 {
     OCSParameter *new = [[OCSParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", parameterString]];
+    [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
     return new;
 }
 

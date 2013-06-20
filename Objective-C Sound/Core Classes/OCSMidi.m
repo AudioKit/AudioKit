@@ -13,13 +13,10 @@
 
 @interface OCSMidi() {
     MIDIClientRef client;
-    NSMutableSet *listeners;
 }
 @end
 
 @implementation OCSMidi
-
-@synthesize listeners;
 
 #pragma mark - Initialization
 
@@ -27,14 +24,14 @@
 {
     NSLog(@"Initializing Midi");
     if(self = [super init]) {
-        listeners = [[NSMutableSet alloc] init];
+        _listeners = [[NSMutableSet alloc] init];
     }
     return self;
 }
 
 -(void)addListener:(id<OCSMidiListener>)listener {
     NSLog(@"Adding listener");
-    [listeners addObject:listener];
+    [_listeners addObject:listener];
 }
 
 
@@ -43,7 +40,7 @@
 // -----------------------------------------------------------------------------
 
 - (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
-    for (id<OCSMidiListener> listener in listeners) {
+    for (id<OCSMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiNoteOn:velocity:channel:)]) {
             [listener midiNoteOn:note velocity:velocity channel:channel];
         }
@@ -51,7 +48,7 @@
 }
 
 - (void)broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)channel {
-    for (id<OCSMidiListener> listener in listeners) {
+    for (id<OCSMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiNoteOff:velocity:channel:)]) {
             [listener midiNoteOff:note velocity:velocity channel:channel];
         }
@@ -59,7 +56,7 @@
 }
 
 - (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)channel {
-    for (id<OCSMidiListener> listener in listeners) {
+    for (id<OCSMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiAftertouchOnNote:pressure:channel:)]) {
             [listener midiAftertouchOnNote:note pressure:pressure channel:channel];
         }
@@ -67,7 +64,7 @@
 }
 
 - (void)broadcastAftertouch:(int)pressure channel:(int)channel {
-    for (id<OCSMidiListener> listener in listeners) {
+    for (id<OCSMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiAftertouch:channel:)]) {
             [listener midiAftertouch:pressure channel:channel];
         }
@@ -75,7 +72,7 @@
 }
 
 - (void)broadcastPitchWheel:(int)pitchWheelValue channel:(int)channel {
-    for (id<OCSMidiListener> listener in listeners) {
+    for (id<OCSMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiPitchWheel:channel:)]) {
             [listener midiPitchWheel:pitchWheelValue  channel:channel];
         }
@@ -84,7 +81,7 @@
 
 
 - (void)broadcastChangeController:(int)controller toValue:(int)value channel:(int)channel {
-    for (id<OCSMidiListener> listener in listeners) {
+    for (id<OCSMidiListener> listener in _listeners) {
         [listener midiController:controller changedToValue:value channel:channel];
         switch (controller) {
             case 1:

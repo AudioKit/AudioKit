@@ -15,7 +15,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"k%@%i", aString, _myID];
+        self.parameterString = [NSString stringWithFormat:@"k%@%i", aString, _myID];
     }
     return self;
 }
@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"gk%@%i", aString, _myID];
+        self.parameterString = [NSString stringWithFormat:@"gk%@%i", aString, _myID];
     }
     return self;
 }
@@ -32,7 +32,7 @@
 - (id)toCPS;
 {
     OCSControl * new = [[OCSControl alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"cpspch(%@)", parameterString]];
+    [new setParameterString:[NSString stringWithFormat:@"cpspch(%@)", self.parameterString]];
     return new;
 }
 

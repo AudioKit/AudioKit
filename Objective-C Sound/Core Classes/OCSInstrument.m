@@ -20,18 +20,10 @@ typedef enum {
     OCSOrchestra *orchestra;
     NSMutableString *innerCSDRepresentation;
     int _myID;
-    NSMutableArray *properties;
-    NSMutableSet *userDefinedOperations;
-    NSMutableSet *fTables;
 }
 @end
 
 @implementation OCSInstrument
-
-@synthesize properties;
-@synthesize noteProperties;
-@synthesize userDefinedOperations;
-@synthesize fTables;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
@@ -44,10 +36,10 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        properties = [[NSMutableArray alloc] init];
-        noteProperties = [[NSMutableArray alloc] init];
-        userDefinedOperations = [[NSMutableSet alloc] init];
-        fTables = [[NSMutableSet alloc] init];
+        _properties = [[NSMutableArray alloc] init];
+        _noteProperties = [[NSMutableArray alloc] init];
+        _userDefinedOperations = [[NSMutableSet alloc] init];
+        _fTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
     }
     return self; 
@@ -68,19 +60,19 @@ static int currentID = 1;
 
 - (void) addProperty:(OCSInstrumentProperty *)newProperty;
 {
-    [properties addObject:newProperty];
+    [_properties addObject:newProperty];
 }
 
 - (void) addProperty:(OCSInstrumentProperty *)newProperty withName:(NSString *)name;
 {
-    [properties addObject:newProperty];
+    [_properties addObject:newProperty];
     [newProperty setName:name];
 }
 
 
 - (void)addNoteProperty:(OCSNoteProperty *)newNoteProperty;
 {
-    [noteProperties addObject:newNoteProperty];
+    [_noteProperties addObject:newNoteProperty];
 }
 
 
@@ -90,7 +82,7 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 
 - (void)addFTable:(OCSFTable *)newFTable {
-    [fTables addObject:newFTable];
+    [_fTables addObject:newFTable];
 }
 
 - (void)addDynamicFTable:(OCSFTable *)newFTable {
@@ -108,7 +100,7 @@ static int currentID = 1;
 }
 
 - (void)addUDO:(OCSParameter *)newUserDefinedOperation {
-    [userDefinedOperations addObject:newUserDefinedOperation];
+    [_userDefinedOperations addObject:newUserDefinedOperation];
     [innerCSDRepresentation appendString:[newUserDefinedOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
@@ -140,14 +132,14 @@ static int currentID = 1;
 {
     NSMutableString *text = [NSMutableString stringWithString:@""];
     
-    if ([properties count] + [noteProperties count] > 0 ) {
+    if ([_properties count] + [_noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Properties ----\n"];
 
-        for (OCSNoteProperty *prop in noteProperties) {
+        for (OCSNoteProperty *prop in _noteProperties) {
             [text appendFormat:@"%@ = p%i\n", prop, prop.pValue];
         }
         [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        
-        for (OCSInstrumentProperty *prop in properties) {
+        for (OCSInstrumentProperty *prop in _properties) {
             [text appendString:[prop stringForCSDGetValue]];
         }
         [text appendString:@"\n;---- Opcodes ----\n"];  
@@ -155,9 +147,9 @@ static int currentID = 1;
 
     [text appendString:innerCSDRepresentation];
     
-    if ([properties count] > 0) {
+    if ([_properties count] > 0) {
         [text appendString:@"\n;---- Outputs ----\n"];
-        for (OCSInstrumentProperty *prop in properties) {
+        for (OCSInstrumentProperty *prop in _properties) {
             [text appendString:[prop stringForCSDSetValue]];
         }
     }

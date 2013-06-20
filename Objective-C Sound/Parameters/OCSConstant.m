@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"i%@%i", name, _myID];
+        self.parameterString = [NSString stringWithFormat:@"i%@%i", name, _myID];
     }
     return self;
 }
@@ -29,7 +29,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"gi%@%i", name, _myID];
+        self.parameterString = [NSString stringWithFormat:@"gi%@%i", name, _myID];
     }
     return self;
 }
@@ -38,7 +38,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"%g", value];
+        self.parameterString = [NSString stringWithFormat:@"%g", value];
     }
     return self;
 }
@@ -47,7 +47,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"%@", number];
+        self.parameterString = [NSString stringWithFormat:@"%@", number];
     }
     return self;
 }
@@ -57,7 +57,7 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"%d", value];
+        self.parameterString = [NSString stringWithFormat:@"%d", value];
     }
     return self;
 }
@@ -66,29 +66,28 @@
 {
     self = [super init];
     if (self) {
-        parameterString = [NSString stringWithFormat:@"\"%@\"", filename];
+        self.parameterString = [NSString stringWithFormat:@"\"%@\"", filename];
     }
     return self;
 }
 
-+ (id)constantWithFloat:(float)value
-{
++ (id)constantWithFloat:(float)value {
     return [[self alloc] initWithFloat:value];
 }
-+ (id)constantWithNumber:(NSNumber *)number    
-{
+
++ (id)constantWithNumber:(NSNumber *)number {
     return [[self alloc] initWithNumber:number];
 }
-+ (id)constantWithInt:(int)value
-{
+
++ (id)constantWithInt:(int)value {
     return [[self alloc] initWithInt:value];
 }
-+ (id)constantWithFilename:(NSString *)filename
-{
+
++ (id)constantWithFilename:(NSString *)filename {
     return [[self alloc] initWithFilename:filename];
 }
-+ (id)constantWithControl:(OCSControl *)control
-{
+
++ (id)constantWithControl:(OCSControl *)control {
     return [self parameterWithFormat:@"i(%@)", control];
 }
 
