@@ -12,7 +12,7 @@
 
 - (id)init;
 {
-    OCSArray * params = [OCSArray arrayFromParams: ocspi(1), nil]; 
+    OCSArray *params = [OCSArray arrayFromConstants: ocspi(1), nil];
     return [self initWithType:kFTSines size:4096 parameters:params];
 }
 
