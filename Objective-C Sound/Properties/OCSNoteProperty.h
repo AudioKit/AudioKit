@@ -15,8 +15,6 @@
 @class OCSNote;
 
 @interface OCSNoteProperty : OCSConstant {
-    Float32 maximumValue;
-    Float32 minimumValue;
     Float32 currentValue;
 }
 

@@ -13,31 +13,29 @@
 
 @implementation OCSAudioAnalyzer
 
-@synthesize trackedFrequency, trackedAmplitude;
-
 - (id)initWithAudioSource:(OCSAudio *)audioSource {
     self = [super init];
     if (self) {
-        trackedFrequency = [[OCSInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin
-                                                               minValue:kTrackedFrequencyMin
-                                                               maxValue:kTrackedFrequencyMax];
-        [self addProperty:trackedFrequency];
-        trackedAmplitude = [[OCSInstrumentProperty alloc] initWithMinValue:0 maxValue:1];
-        [self addProperty:trackedAmplitude];
+        _trackedFrequency = [[OCSInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin
+                                                                minValue:kTrackedFrequencyMin
+                                                                maxValue:kTrackedFrequencyMax];
+        [self addProperty:_trackedFrequency];
+        _trackedAmplitude = [[OCSInstrumentProperty alloc] initWithMinValue:0 maxValue:1];
+        [self addProperty:_trackedAmplitude];
         
         
         OCSTrackedFrequency *frequency;
         frequency = [[OCSTrackedFrequency alloc] initWithAudioSource:audioSource
                                                           sampleSize:ocsp(2048)];
         [self connect:frequency];
-        [self connect:[[OCSAssignment alloc] initWithOutput:trackedFrequency
+        [self connect:[[OCSAssignment alloc] initWithOutput:_trackedFrequency
                                                       input:frequency]];
         
         
         OCSTrackedAmplitude *amplitude;
         amplitude = [[OCSTrackedAmplitude alloc] initWithAudioSource:audioSource];
         [self connect:amplitude];
-        [self connect:[[OCSAssignment alloc] initWithOutput:trackedAmplitude
+        [self connect:[[OCSAssignment alloc] initWithOutput:_trackedAmplitude
                                                       input:amplitude]];
     }
     return self;

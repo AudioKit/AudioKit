@@ -9,10 +9,7 @@
 #import "TweakableInstrument.h"
 
 @implementation TweakableInstrument
-@synthesize amplitude;
-@synthesize frequency;
-@synthesize modulation;
-@synthesize modIndex;
+
 - (id)init
 {
     self = [super init];
@@ -20,15 +17,15 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        amplitude  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit  minValue:kTweakableAmplitudeMin  maxValue:kTweakableAmplitudeMax];
-        frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
-        modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
-        modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
+        _amplitude  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit  minValue:kTweakableAmplitudeMin  maxValue:kTweakableAmplitudeMax];
+        _frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
+        _modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
+        _modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
                 
-        [self addProperty:amplitude];
-        [self addProperty:frequency];
-        [self addProperty:modulation];
-        [self addProperty:modIndex];
+        [self addProperty:_amplitude];
+        [self addProperty:_frequency];
+        [self addProperty:_modulation];
+        [self addProperty:_modIndex];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -37,11 +34,11 @@
         
         OCSFMOscillator *fmOscil;
         fmOscil = [[OCSFMOscillator alloc] initWithFTable:sineTable
-                                            baseFrequency:frequency
+                                            baseFrequency:_frequency
                                         carrierMultiplier:ocsp(1)
-                                     modulatingMultiplier:modulation
-                                          modulationIndex:modIndex
-                                                amplitude:amplitude];
+                                     modulatingMultiplier:_modulation
+                                          modulationIndex:_modIndex
+                                                amplitude:_amplitude];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================

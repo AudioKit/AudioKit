@@ -10,24 +10,21 @@
 
 @implementation OscillatorInstrument 
 
-@synthesize frequency = freq;
-@synthesize amplitude = amp;
-
 - (id)init {
     self = [super init];
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
         
-        freq = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
+        _frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
                                                    minValue:kFrequencyMin
                                                    maxValue:kFrequencyMax];
-        [self addProperty:freq];
+        [self addProperty:_frequency];
         
-        amp = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
+        _amplitude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
                                                   minValue:kAmplitudeMin
                                                   maxValue:kAmplitudeMax];
-        [self addProperty:amp];
+        [self addProperty:_amplitude];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -41,8 +38,8 @@
         
         OCSOscillator *myOscil;
         myOscil = [[OCSOscillator alloc] initWithFTable:sine
-                                              frequency:freq
-                                              amplitude:amp];
+                                              frequency:_frequency
+                                              amplitude:_amplitude];
         [self connect:myOscil];
         
 

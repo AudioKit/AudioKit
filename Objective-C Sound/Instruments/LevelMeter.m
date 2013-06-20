@@ -53,11 +53,6 @@
 
 @implementation LevelMeter
 
-@synthesize vertical = _vertical;
-@synthesize bgColor = _bgColor;
-@synthesize borderColor = _borderColor;
-@synthesize variableLightIntensity = _variableLightIntensity;
-
 - (void)_performInit
 {
 	_level = 0.;

@@ -8,31 +8,22 @@
 
 #import "Harmonizer.h"
 
-@interface Harmonizer () {
-    OCSInstrumentProperty *pitch;
-    OCSInstrumentProperty *gain;
-}
-@end
-
 @implementation Harmonizer
-
-@synthesize pitch;
-@synthesize gain;
 
 - (id)init 
 {
     self = [super init];
     if (self) { 
         // INPUTS AND CONTROLS =================================================
-        pitch = [[OCSInstrumentProperty alloc] initWithValue:kPitchInit 
-                                                    minValue:kPitchMin 
-                                                    maxValue:kPitchMax];
-        gain  = [[OCSInstrumentProperty alloc] initWithValue:kGainInit 
-                                                    minValue:kGainMin 
-                                                    maxValue:kGainMax];
+        _pitch = [[OCSInstrumentProperty alloc] initWithValue:kPitchInit
+                                                     minValue:kPitchMin
+                                                     maxValue:kPitchMax];
+        _gain  = [[OCSInstrumentProperty alloc] initWithValue:kGainInit
+                                                     minValue:kGainMin
+                                                     maxValue:kGainMax];
         
-        [self addProperty:pitch];
-        [self addProperty:gain];         
+        [self addProperty:_pitch];
+        [self addProperty:_gain];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -49,7 +40,7 @@
         
         OCSScaledFSignal *fsig2;
         fsig2 = [[OCSScaledFSignal alloc] initWithInput:fsig1
-                                         frequencyRatio:pitch
+                                         frequencyRatio:_pitch
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
@@ -57,7 +48,7 @@
         
         OCSScaledFSignal *fsig3;
         fsig3 = [[OCSScaledFSignal alloc] initWithInput:fsig1
-                                         frequencyRatio:[pitch scaledBy:ocsp(1.25)]
+                                         frequencyRatio:[_pitch scaledBy:ocsp(1.25)]
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
@@ -73,7 +64,7 @@
         
 
         // AUDIO OUTPUT ========================================================
-        OCSAudio *a2 = [OCSAudio parameterWithFormat:@"%@ * %@", a1, gain];
+        OCSAudio *a2 = [OCSAudio parameterWithFormat:@"%@ * %@", a1, _gain];
         OCSAudioOutput *out = [[OCSAudioOutput alloc] initWithAudioSource:a2];
         [self connect:out];
     }

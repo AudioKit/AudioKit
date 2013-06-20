@@ -11,8 +11,6 @@
 #import "OCSManager.h"
 
 @interface OCSSequence () {
-    NSMutableArray *events;
-    NSMutableArray *times;
     NSTimer *timer;
     BOOL isPlaying;
     unsigned int index;
@@ -21,9 +19,6 @@
 
 @implementation OCSSequence
 
-@synthesize events;
-@synthesize times;
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
@@ -31,8 +26,8 @@
 - (id) init {
     self = [super init];
     if (self) {
-        events = [[NSMutableArray alloc] init];
-        times  = [[NSMutableArray alloc] init];
+        _events = [[NSMutableArray alloc] init];
+        _times  = [[NSMutableArray alloc] init];
         isPlaying = NO;
     }
     return self;
@@ -50,7 +45,7 @@
     
     int insertionIndex = 0;
     BOOL doInsertion = NO;
-    for (NSNumber *t in times) {
+    for (NSNumber *t in _times) {
         if (t.floatValue > timeSinceStart) {
             doInsertion = YES;
             break;
@@ -58,24 +53,24 @@
         insertionIndex++;
     }
     if (doInsertion) {
-        [events insertObject:event atIndex:insertionIndex];
-        [times  insertObject:time  atIndex:insertionIndex];
+        [_events insertObject:event atIndex:insertionIndex];
+        [_times  insertObject:time  atIndex:insertionIndex];
     } else {
-        [events addObject:event];
-        [times addObject:time];
+        [_events addObject:event];
+        [_times addObject:time];
     }
 }
 
 - (void)addEvent:(OCSEvent *)event 
    afterDuration:(float)timeSinceLastEventStarted;
 {
-    [events addObject:event];
+    [_events addObject:event];
     NSNumber *time = @0.0F;
-    if ([times count] > 0) {
-        //OCSEvent *lastEvent = [events lastObject];
-        time = [NSNumber numberWithFloat:([[times lastObject] floatValue] + timeSinceLastEventStarted)];
+    if ([_times count] > 0) {
+        //OCSEvent *lastEvent = [_events lastObject];
+        time = [NSNumber numberWithFloat:([[_times lastObject] floatValue] + timeSinceLastEventStarted)];
     }
-    [times addObject:time];
+    [_times addObject:time];
 }
 
 // -----------------------------------------------------------------------------
@@ -87,7 +82,7 @@
     index = 0;
     isPlaying = YES;
     // Delay playback until first event is set to start.
-    timer = [NSTimer scheduledTimerWithTimeInterval:[[times objectAtIndex:0] floatValue]
+    timer = [NSTimer scheduledTimerWithTimeInterval:[[_times objectAtIndex:0] floatValue]
                                              target:self
                                            selector:@selector(playNextEventInSequence:)
                                            userInfo:nil
@@ -102,7 +97,7 @@
 - (void)stop
 {
     isPlaying = NO;
-    for (OCSEvent *event in events) {
+    for (OCSEvent *event in _events) {
         if (event.note) {
             [event.note stop];
             [timer invalidate];
@@ -115,13 +110,13 @@
 // Cue up the next event to be triggered.
 - (void)playNextEventInSequence:(NSTimer *)aTimer;
 {
-    OCSEvent *event = [events objectAtIndex:index];
+    OCSEvent *event = [_events objectAtIndex:index];
     [[OCSManager sharedOCSManager] triggerEvent:event];
 
-    if (index < [times count]-1 && isPlaying) {
-        float timeUntilNextEvent = [[times objectAtIndex:index+1] floatValue] - [[times objectAtIndex:index] floatValue];
+    if (index < [_times count]-1 && isPlaying) {
+        float timeUntilNextEvent = [[_times objectAtIndex:index+1] floatValue] -
+                                   [[_times objectAtIndex:index]   floatValue];
         
-        //NSLog(@"Next event in %f, times left %i", timeUntilNextEvent, [times count] - index);
         timer = [NSTimer scheduledTimerWithTimeInterval:timeUntilNextEvent
                                                  target:self 
                                                selector:@selector(playNextEventInSequence:) 

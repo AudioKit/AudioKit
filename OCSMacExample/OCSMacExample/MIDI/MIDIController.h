@@ -8,17 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MIDIController : NSObject {
-    __weak NSTextField *channelLabel;
-    __weak NSTextField *noteLabel;
-    __weak NSTextField *modulationLabel;
-    __weak NSSlider *modulationSlider;
-    __weak NSTextField *pitchBendLabel;
-    __weak NSSlider *pitchBendSlider;
-    __weak NSTextField *controllerValueLabel;
-    __weak NSTextField *controllerNumberLabel;
-    __weak NSSlider *controllerSlider;
-}
+@interface MIDIController : NSObject 
 
 @property (weak) IBOutlet NSTextField *modulationLabel;
 @property (weak) IBOutlet NSTextField *controllerValueLabel;

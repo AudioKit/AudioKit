@@ -15,10 +15,6 @@
 
 @implementation InitialViewController
 
-@synthesize detailItem = _detailItem;
-
-@synthesize masterPopoverController = _masterPopoverController;
-
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
