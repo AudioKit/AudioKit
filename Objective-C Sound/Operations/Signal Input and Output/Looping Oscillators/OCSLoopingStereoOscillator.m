@@ -69,11 +69,14 @@
     return self;
 }
 
--(void)setLoopPointStart:(int)startingSample end:(int)endingSample releaseStart:(int)releaseStart releaseEnd:(int)releaseEndingSample
+-(void)setLoopPointStart:(int)startingSample
+                     end:(int)endingSample
+            releaseStart:(int)releaseStartingSample
+              releaseEnd:(int)releaseEndingSample
 {
     ibeg1 = ocspi(startingSample);
     iend1 = ocspi(endingSample);
-    ibeg2 = ocspi(releaseStart);
+    ibeg2 = ocspi(releaseStartingSample);
     iend2 = ocspi(releaseEndingSample);
 }
 

@@ -9,11 +9,25 @@
 #import "OCSParameter+Operation.h"
 #import "OCSAudio.h"
 
+/** Tracks the pitch of a signal.
+ 
+ Takes an input signal, splits it into hopSize blocks and using a STFT method, 
+ extracts an estimated pitch for its fundamental frequency as well as estimating the 
+ total amplitude of the signal in dB, relative to full-scale (0dB). The method 
+ implies an analysis window size of 2*hopSize samples (overlaping by 1/2 window), 
+ which has to be a power-of-two, between 128 and 8192 (hopsizes between 64 and 4096).
+ Smaller windows will give better time precision, but worse frequency accuracy 
+ (esp. in low fundamentals).
+ 
+ Based on an original algorithm by M. Puckette. 
+ 
+ */
+
 @interface OCSTrackedFrequency : OCSControl
 
 /// Initialize the tracked frequency.
 /// @param audioSource Input signal.
-/// @param hopsize  Size of the analysis 'hop', in samples, required to be power-of-two (min 64, max 4096). This is the period between measurements.
+/// @param hopSize  Size of the analysis 'hop', in samples, required to be power-of-two (min 64, max 4096). This is the period between measurements.
 - (id)initWithAudioSource:(OCSAudio *)audioSource
                sampleSize:(OCSConstant *)hopSize;
 
