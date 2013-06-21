@@ -9,7 +9,11 @@
 #import "OCSParameter+Operation.h"
 #import "OCSAudio.h"
 
-/* Determines the root-mean-square amplitude of an audio signal.
+/** Determines the root-mean-square amplitude of an audio signal.
+ 
+ Determines the root-mean-square amplitude of an audio signal. 
+ It low-pass filters the actual value, to average in the manner of a VU meter.
+ 
  */
 
 @interface OCSTrackedAmplitude : OCSControl

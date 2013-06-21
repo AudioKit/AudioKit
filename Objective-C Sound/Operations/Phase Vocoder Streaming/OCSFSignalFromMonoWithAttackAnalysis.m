@@ -33,9 +33,9 @@
 
 
 -(id)initWithSoundFile:(OCSFTable *)soundFileSource
-              timeScaler:(OCSControl *)timeScaler
-         amplitudeScaler:(OCSControl *)amplitudeScaler
-             pitchScaler:(OCSControl *)pitchScaler
+            timeScaler:(OCSControl *)timeScaler
+       amplitudeScaler:(OCSControl *)amplitudeScaler
+           pitchScaler:(OCSControl *)pitchScaler
 {
     return [self initWithSoundFile:soundFileSource
                         timeScaler:timeScaler
@@ -50,15 +50,15 @@
 }
 
 -(id)initWithSoundFile:(OCSFTable *)soundFileSource
-              timeScaler:(OCSControl *)timeScaler
-         amplitudeScaler:(OCSControl *)amplitudeScaler
-             pitchScaler:(OCSControl *)pitchScaler
-                 fftSize:(OCSConstant *)fftSize
-                 overlap:(OCSConstant *)overlap
+            timeScaler:(OCSControl *)timeScaler
+       amplitudeScaler:(OCSControl *)amplitudeScaler
+           pitchScaler:(OCSControl *)pitchScaler
+               fftSize:(OCSConstant *)fftSize
+               overlap:(OCSConstant *)overlap
        tableReadOffset:(OCSConstant *)tableReadOffset
-   audioSourceWraparound:(OCSControl *)wraparoundFlag
-         onsetProcessing:(OCSControl *)onsetProcessingFlag
-onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold
+ audioSourceWraparound:(OCSControl *)wraparoundFlag
+       onsetProcessing:(OCSControl *)onsetProcessingFlag
+ onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold
 {
     self = [super initWithString:[self operationName]];
     if( self) {

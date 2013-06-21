@@ -17,7 +17,7 @@
 @interface OCSMaxControl : OCSControl
 
 /// Finds the maximum audio signal from an array of sources
-/// @param inputConrols Array of controls
+/// @param inputControls Array of controls
 - (id)initWithControls:(OCSArray *)inputControls;
 
 @end
