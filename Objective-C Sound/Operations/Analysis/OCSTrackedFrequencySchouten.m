@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Adam Boulanger. All rights reserved.
 //
 
-#import "OCSTrackedPitchSchouten.h"
+#import "OCSTrackedFrequencySchouten.h"
 
-@interface OCSTrackedPitchSchouten ()
+@interface OCSTrackedFrequencySchouten ()
 {
     OCSFSignal *asig;
     OCSControl *iampThresh;
 }
 @end
 
-@implementation OCSTrackedPitchSchouten
+@implementation OCSTrackedFrequencySchouten
 
 -(id)initWithFSignalSource:(OCSFSignal *)fSignalSource
   amplitudeThreshold:(OCSControl *)amplitude

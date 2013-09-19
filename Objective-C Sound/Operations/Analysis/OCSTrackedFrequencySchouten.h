@@ -17,7 +17,7 @@
  
  */
 
-@interface OCSTrackedPitchSchouten : OCSControl
+@interface OCSTrackedFrequencySchouten : OCSControl
 
 /// Initialize the tracked frequency.
 /// @param input Input mono F-Signal.
