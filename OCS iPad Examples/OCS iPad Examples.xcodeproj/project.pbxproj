@@ -31,6 +31,7 @@
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
 		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
+		C4A0D00D17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A0D00C17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.m */; };
 		C4C4F03E1773D66F00CB1D44 /* OCSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C4EF031773D66F00CB1D44 /* OCSEvent.m */; };
 		C4C4F0411773D66F00CB1D44 /* OCSInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C4EF061773D66F00CB1D44 /* OCSInstrument.m */; };
 		C4C4F0431773D66F00CB1D44 /* OCSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C4EF081773D66F00CB1D44 /* OCSManager.m */; };
@@ -259,6 +260,8 @@
 		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
 		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C4A0D00B17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedFrequencySchouten.h; sourceTree = "<group>"; };
+		C4A0D00C17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTrackedFrequencySchouten.m; sourceTree = "<group>"; };
 		C4C4EF021773D66F00CB1D44 /* OCSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSEvent.h; sourceTree = "<group>"; };
 		C4C4EF031773D66F00CB1D44 /* OCSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSEvent.m; sourceTree = "<group>"; };
 		C4C4EF041773D66F00CB1D44 /* OCSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OCSFoundation.h; sourceTree = "<group>"; };
@@ -941,6 +944,8 @@
 				C4C4EF321773D66F00CB1D44 /* OCSTrackedAmplitude.m */,
 				C4C4EF331773D66F00CB1D44 /* OCSTrackedFrequency.h */,
 				C4C4EF341773D66F00CB1D44 /* OCSTrackedFrequency.m */,
+				C4A0D00B17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.h */,
+				C4A0D00C17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.m */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -1960,6 +1965,7 @@
 				C4C4F1021773D67000CB1D44 /* OCSPortamento.m in Sources */,
 				C4C4F1041773D67000CB1D44 /* OCSVibrato.m in Sources */,
 				C4C4F1061773D67000CB1D44 /* OCSBandPassButterworthFilter.m in Sources */,
+				C4A0D00D17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.m in Sources */,
 				C4C4F1081773D67000CB1D44 /* OCSBandRejectButterworthFilter.m in Sources */,
 				C4C4F10A1773D67000CB1D44 /* OCSHighPassButterworthFilter.m in Sources */,
 				C4C4F10C1773D67000CB1D44 /* OCSLowPassButterworthFilter.m in Sources */,
