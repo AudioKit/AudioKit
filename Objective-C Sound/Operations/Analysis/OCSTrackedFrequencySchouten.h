@@ -1,6 +1,6 @@
 //
-//  OCSTrackedPitchSchouten.h
-//  SocialMedia Sounds
+//  OCSTrackedFrequencySchouten.h
+//  Objective-C Sound
 //
 //  Created by Adam Boulanger on 9/18/13.
 //  Copyright (c) 2013 Adam Boulanger. All rights reserved.
@@ -23,6 +23,6 @@
 /// @param input Input mono F-Signal.
 /// @param amplitude amplitude threshold (0-1). Higher values will eliminate low-amplitude spectral components from being included in the analysis.
 -(id)initWithFSignalSource:(OCSFSignal *)fSignalSource
-  amplitudeThreshold:(OCSControl *)amplitude;
+        amplitudeThreshold:(OCSControl *)amplitude;
 
 @end

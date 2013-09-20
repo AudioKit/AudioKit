@@ -1,6 +1,6 @@
 //
-//  OCSTrackedPitchSchouten.m
-//  SocialMedia Sounds
+//  OCSTrackedFrequencySchouten.m
+//  Objective-C Sound
 //
 //  Created by Adam Boulanger on 9/18/13.
 //  Copyright (c) 2013 Adam Boulanger. All rights reserved.
@@ -18,7 +18,7 @@
 @implementation OCSTrackedFrequencySchouten
 
 -(id)initWithFSignalSource:(OCSFSignal *)fSignalSource
-  amplitudeThreshold:(OCSControl *)amplitude
+        amplitudeThreshold:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
