@@ -25,9 +25,9 @@
 @interface OCSTrackedFrequencySchouten : OCSControl
 
 /// Initialize the tracked frequency.
-/// @param input Input mono F-Signal.
-/// @param amplitude amplitude threshold (0-1). Higher values will eliminate low-amplitude spectral components from being included in the analysis.
+/// @param fSignalSource      Input mono F-Signal.
+/// @param amplitudeThreshold Amplitude threshold (0-1). Higher values will eliminate low-amplitude spectral components from being included in the analysis.
 -(id)initWithFSignalSource:(OCSFSignal *)fSignalSource
-        amplitudeThreshold:(OCSControl *)amplitude;
+        amplitudeThreshold:(OCSControl *)amplitudeThreshold;
 
 @end
