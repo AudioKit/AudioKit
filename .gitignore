@@ -6,6 +6,7 @@ build/
 *.perspective 
 *.perspectivev3 
 *.xcuserstate
+*.xccheckout
 project.xcworkspace/
 xcuserdata/
 

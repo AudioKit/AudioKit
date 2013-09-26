@@ -11,9 +11,14 @@
 #import "OCSFSignal.h"
 
 /**
- Track the pitch and amplitude of a PVS signal as k-rate variables.
+ Track the frequency of a PVS signal as k-rate variables.
  
- The pitch detection algorithm implemented by pvspitch is based upon J. F. Schouten's hypothesis of the neural processes of the brain used to determine the pitch of a sound after the frequency analysis of the basilar membrane. Except for some further considerations, pvspitch essentially seeks out the highest common factor of an incoming sound's spectral peaks to find the pitch that may be attributed to it.
+ The pitch detection algorithm implemented by pvspitch is based upon 
+ J. F. Schouten's hypothesis of the neural processes of the brain used to 
+ determine the pitch of a sound after the frequency analysis of the basilar 
+ membrane. Except for some further considerations, this operation essentially 
+ seeks out the highest common factor of an incoming sound's spectral peaks 
+ to find the pitch that may be attributed to it.
  
  */
 
