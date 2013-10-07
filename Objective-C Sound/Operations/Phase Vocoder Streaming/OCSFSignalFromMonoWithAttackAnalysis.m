@@ -1,6 +1,6 @@
 //
 //  OCSFSignalFromMonoWithAttackAnalysis.m
-//  SoundGenerator
+//  Objective-C Sound
 //
 //  Created by Adam Boulanger on 2/13/13.
 //  Copyright (c) 2013 Hear For Yourself. All rights reserved.
