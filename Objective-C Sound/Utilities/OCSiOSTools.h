@@ -24,6 +24,11 @@
           toMinimum:(float)toMinimum
           toMaximum:(float)toMaximum;
 
++ (float)scaleLogValue:(float)logValue
+        fromMinimum:(float)fromMinimum
+        fromMaximum:(float)fromMaximum
+          toMinimum:(float)toMinimum
+          toMaximum:(float)toMaximum;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - General UI
@@ -37,6 +42,10 @@
 + (float)scaleValueFromSlider:(UISlider *)slider
                       minimum:(float)minimum
                       maximum:(float)maximum;
+
++ (float)scaleLogValueFromSlider:(UISlider *)slider
+                         minimum:(float)minimum
+                         maximum:(float)maximum;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - UI For Properties

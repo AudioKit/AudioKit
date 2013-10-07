@@ -29,7 +29,17 @@
     float percentage = (value-fromMinimum)/(fromMaximum - fromMinimum);
     float width = toMaximum - toMinimum;
     return toMinimum + percentage * width;
-    
+}
+
++ (float)scaleLogValue:(float)logValue
+           fromMinimum:(float)fromMinimum
+           fromMaximum:(float)fromMaximum
+             toMinimum:(float)toMinimum
+             toMaximum:(float)toMaximum
+{
+    float percentage = ((log(logValue) - log( fromMinimum)) / (log(fromMaximum) - log(fromMinimum)));
+    float width = toMaximum - toMinimum;
+    return toMinimum + percentage * width;
 }
 
 // -----------------------------------------------------------------------------
@@ -63,6 +73,16 @@
     float width = [slider maximumValue] - [slider minimumValue];
     float percentage = ([slider value] - [slider minimumValue]) / width;
     return minimum + percentage * (maximum - minimum);
+}
+
++ (float)scaleLogValueFromSlider:(UISlider *)slider
+                         minimum:(float)minimum
+                         maximum:(float)maximum
+{
+    float width = [slider maximumValue] - [slider minimumValue];
+    float percentage = (log(maximum) - log(minimum)) / width;
+    
+    return expf( log( minimum) + percentage * ( [slider value] - [slider minimumValue]) );
 }
 
 // -----------------------------------------------------------------------------
