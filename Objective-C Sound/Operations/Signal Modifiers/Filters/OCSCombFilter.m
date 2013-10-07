@@ -1,6 +1,6 @@
 //
 //  OCSCombFilter.m
-//  SoundGenerator
+//  Objective-C Sound
 //
 //  Created by Adam Boulanger on 4/10/13.
 //  Copyright (c) 2013 Hear For Yourself. All rights reserved.
