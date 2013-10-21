@@ -53,7 +53,7 @@
 }
 
 
-- (void)setValue:(Float32)newValue {
+- (void)setValue:(float)newValue {
     currentValue = newValue;
     if (_minimumValue && newValue < _minimumValue) {
         NSLog(@"%@ = %g is too low using minimum %g", self, newValue, _minimumValue);
