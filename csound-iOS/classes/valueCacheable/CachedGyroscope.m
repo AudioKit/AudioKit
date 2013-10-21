@@ -25,16 +25,11 @@
 
 #import "CachedGyroscope.h"
 
-@interface CachedGyroscope() {
-    CMMotionManager* mManager;
-}
-@end
-
 @implementation CachedGyroscope
 
-static NSString *CS_GYRO_X = @"gyroX";
-static NSString *CS_GYRO_Y = @"gyroY";
-static NSString *CS_GYRO_Z = @"gyroZ";
+static NSString* CS_GYRO_X = @"gyroX";
+static NSString* CS_GYRO_Y = @"gyroY";
+static NSString* CS_GYRO_Z = @"gyroZ";
 
 -(id)init:(CMMotionManager*)manager {
     if (self = [super init]) {
@@ -44,18 +39,25 @@ static NSString *CS_GYRO_Z = @"gyroZ";
 }
 
 -(void)setup:(CsoundObj*)csoundObj {
-    channelPtrX = [csoundObj getInputChannelPtr:CS_GYRO_X];
-    channelPtrY = [csoundObj getInputChannelPtr:CS_GYRO_Y];
-    channelPtrZ = [csoundObj getInputChannelPtr:CS_GYRO_Z];    
+    channelPtrX = [csoundObj getInputChannelPtr:CS_GYRO_X
+                                    channelType:CSOUND_CONTROL_CHANNEL];
+    channelPtrY = [csoundObj getInputChannelPtr:CS_GYRO_Y
+                                    channelType:CSOUND_CONTROL_CHANNEL];
+    channelPtrZ = [csoundObj getInputChannelPtr:CS_GYRO_Z
+                                    channelType:CSOUND_CONTROL_CHANNEL];
 
-    [self updateValuesToCsound];
+    *channelPtrX = mManager.gyroData.rotationRate.x;
+    *channelPtrY = mManager.gyroData.rotationRate.y;
+    *channelPtrZ = mManager.gyroData.rotationRate.z;    
 
 }
 
 -(void)updateValuesToCsound {
-    *channelPtrX = mManager.gyroData.rotationRate.x;
-    *channelPtrY = mManager.gyroData.rotationRate.y;
-    *channelPtrZ = mManager.gyroData.rotationRate.z;  
+    @autoreleasepool {
+        *channelPtrX = mManager.gyroData.rotationRate.x;
+        *channelPtrY = mManager.gyroData.rotationRate.y;
+        *channelPtrZ = mManager.gyroData.rotationRate.z;  
+    }
 }
 
 

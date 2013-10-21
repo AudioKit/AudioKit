@@ -1,7 +1,7 @@
 /*
-    interlocks.h:
+    float-version.h:
 
-    Copyright (C) 2011 John ffitch
+    Copyright (C) 1991-2010 Victor Lazzarini
 
     This file is part of Csound.
 
@@ -21,31 +21,10 @@
     02111-1307 USA
 */
 
-// ZAK
-#define ZR (0x0001)
-#define ZW (0x0002)
-#define ZB (0x0003)
+/* this file can be copied as float-version.h in installers for double precision
+   currently implemented only for OSX
+*/
 
-// Not used??
-#define MO (0x0004)
-
-//Tables
-#define TR (0x0008)
-#define TW (0x0010)
-#define TB (0x0018)
-
-//Channels
-#define CR (0x0020)
-#define CW (0x0040)
-#define CB (0x0060)
-
-//Stack
-#define SK (0x0080)
-
-//Printing
-#define WR (0x0100)
-
-//Deprecated
-#define _QQ (0x8000)
-
-
+#ifndef USE_DOUBLE
+#define USE_DOUBLE
+#endif

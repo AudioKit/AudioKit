@@ -1,7 +1,8 @@
 /*
-    interlocks.h:
+    cs_par_structs.h:
 
-    Copyright (C) 2011 John ffitch
+    Copyright (C) 2011 John ffitch and Chris Wilson
+                  2013 John ffitch and Martin Brain
 
     This file is part of Csound.
 
@@ -21,31 +22,28 @@
     02111-1307 USA
 */
 
-// ZAK
-#define ZR (0x0001)
-#define ZW (0x0002)
-#define ZB (0x0003)
+#ifndef __CS_PAR_DISPATCH_H
+#define __CS_PAR_DISPATCH_H
 
-// Not used??
-#define MO (0x0004)
+/* global variables lock support */
+struct global_var_lock_t;
 
-//Tables
-#define TR (0x0008)
-#define TW (0x0010)
-#define TB (0x0018)
+struct instr_semantics_t;
 
-//Channels
-#define CR (0x0020)
-#define CW (0x0040)
-#define CB (0x0060)
+/* New model */
 
-//Stack
-#define SK (0x0080)
+typedef int taskID;
 
-//Printing
-#define WR (0x0100)
+/* Each task has a status */
+enum state { WAITING = 3,          /* Dependencies have not been finished */
+             AVAILABLE = 2,        /* Dependencies met, ready to be run */
+             INPROGRESS = 1,       /* Has been started */
+             DONE = 0 };           /* Has been completed */
 
-//Deprecated
-#define _QQ (0x8000)
+/* Sets of prerequiste tasks for each task */
+typedef struct _watchList {
+  taskID id;
+  struct _watchList *next;
+} watchList;
 
-
+#endif

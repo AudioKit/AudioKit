@@ -1,6 +1,6 @@
 /* 
  
- CachedGyroscope.h:
+ CachedSlider.h:
  
  Copyright (C) 2011 Steven Yi
  
@@ -24,17 +24,18 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CoreMotion/CoreMotion.h>
 #import "BaseValueCacheable.h"
+#import "CsoundObj.h"
 
-@interface CachedGyroscope : BaseValueCacheable {
-    float* channelPtrX;
-    float* channelPtrY;
-    float* channelPtrZ;
-
-    CMMotionManager* mManager;
+@interface CachedSlider : BaseValueCacheable {
+    float cachedValue;
+    float* channelPtr;
+    NSString* mChannelName;
+    UISlider* mSlider;
 }
 
--(id)init:(CMMotionManager*)manager;
+@property (nonatomic, strong) NSString* channelName;
+
+-(CachedSlider*)init:(UISlider*)slider channelName:(NSString*)channelName;
 
 @end

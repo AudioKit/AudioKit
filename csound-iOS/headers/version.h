@@ -24,37 +24,29 @@
 #ifndef CSOUND_VERSION_H
 #define CSOUND_VERSION_H
 
-#define VERSION "5.19.02"
+#define VERSION "6.01.0"
 
 /* Define to the full name of this package. */
-#ifndef PARCS
 #define CS_PACKAGE_NAME     "Csound"
-#else /* PARCS */
-#define CS_PACKAGE_NAME     "ParCsound"
-#endif /* PARCS */
 
 /* Define to the full name and version of this package. */
-#ifndef PARCS
 #define CS_PACKAGE_STRING   "Csound " VERSION
-#else /* PARCS */
-#define CS_PACKAGE_STRING   "ParCsound " VERSION
-#endif /* PARCS */
 
 /* Define to the one symbol short name of this package. */
 #define CS_PACKAGE_TARNAME  "csound"
 
 /* Define to the version of this package. */
 #define CS_PACKAGE_VERSION  VERSION
-#define CS_VERSION          (5)
-#define CS_SUBVER           (19)
-#define CS_PATCHLEVEL       (02)
+#define CS_VERSION          (6)
+#define CS_SUBVER           (1)
+#define CS_PATCHLEVEL       (0)
 
-#define CS_APIVERSION       2   /* should be increased anytime a new version
+#define CS_APIVERSION       3   /* should be increased anytime a new version
                                    contains changes that an older host will
                                    not be able to handle -- most likely this
                                    will be a change to an API function or
                                    the CSOUND struct */
-#define CS_APISUBVER        6   /* for minor changes that will still allow
+#define CS_APISUBVER        0   /* for minor changes that will still allow
                                    compatiblity with older hosts */
 
 #endif /* CSOUND_VERSION_H */

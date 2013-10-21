@@ -1,12 +1,10 @@
 #ifndef OPCODE_BASE_H
 #define OPCODE_BASE_H
-#ifndef MSVC
-#include "csdl.h"
+
+
+#include <interlocks.h>
+#include <csdl.h>
 #include <cstdarg>
-#else
-#include <cmath>
-#include "csdl.h"
-#endif
 
 /**
  * Template base class, or pseudo-virtual base class,
@@ -62,6 +60,21 @@ public:
   {
     return reinterpret_cast<T *>(opcode)->audio(csound);
   }
+  /**
+   * For sample accurate timing, kperf may be called at some
+   * offset after the first frame of the kperiod. Hence, opcodes
+   * must output zeros up until the offset, and then output
+   * their signal until the end of the kperiod. After the first
+   * kperiod of activation, the offset will always be 0.
+   */
+  uint32_t kperiodOffset() const
+  {
+      return opds.insdshead->ksmps_offset;
+  }
+  uint32_t ksmps() const
+  {
+      return opds.insdshead->ksmps;
+  }
   void log(CSOUND *csound, const char *format,...)
   {
     va_list args;
@@ -77,8 +90,7 @@ public:
   void warn(CSOUND *csound, const char *format,...)
   {
     if(csound) {
-      if(csound->GetMessageLevel(csound) & WARNMSG ||
-         csound->GetDebug(csound)) {
+      if(csound->GetMessageLevel(csound) & WARNMSG) {
         va_list args;
         va_start(args, format);
         csound->MessageV(csound, CSOUNDMSG_WARNING, format, args);
@@ -92,7 +104,7 @@ public:
       va_end(args);
     }
   }
-  OPDS h;
+  OPDS opds;
 };
 
 template<typename T>
@@ -105,8 +117,9 @@ public:
   }
   static int init_(CSOUND *csound, void *opcode)
   {
-    if (!csound->reinitflag && !csound->tieflag) {
-      csound->RegisterDeinitCallback(csound, opcode, &OpcodeNoteoffBase<T>::noteoff_);
+    if (!csound->GetReinitFlag(csound) && !csound->GetTieFlag(csound)) {
+      csound->RegisterDeinitCallback(csound, opcode,
+                                     &OpcodeNoteoffBase<T>::noteoff_);
     }
     return reinterpret_cast<T *>(opcode)->init(csound);
   }
@@ -126,6 +139,21 @@ public:
   {
     return reinterpret_cast<T *>(opcode)->audio(csound);
   }
+  /**
+   * For sample accurate timing, kperf may be called at some
+   * offset after the first frame of the kperiod. Hence, opcodes
+   * must output zeros up until the offset, and then output
+   * their signal until the end of the kperiod. After the first
+   * kperiod of activation, the offset will always be 0.
+   */
+  uint32_t kperiodOffset() const
+  {
+      return opds.insdshead->ksmps_offset;
+  }
+  uint32_t ksmps() const
+  {
+      return opds.insdshead->ksmps;
+  }
   void log(CSOUND *csound, const char *format,...)
   {
     va_list args;
@@ -141,8 +169,7 @@ public:
   void warn(CSOUND *csound, const char *format,...)
   {
     if(csound) {
-      if(csound->GetMessageLevel(csound) & WARNMSG ||
-         csound->GetDebug(csound)) {
+      if(csound->GetMessageLevel(csound) & WARNMSG) {
         va_list args;
         va_start(args, format);
         csound->MessageV(csound, CSOUNDMSG_WARNING, format, args);
@@ -164,8 +191,7 @@ public:
   {
     return reinterpret_cast<T *>(opcode)->noteoff(csound);
   }
-  OPDS h;
+  OPDS opds;
 };
 
 #endif
-

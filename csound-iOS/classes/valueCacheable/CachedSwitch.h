@@ -1,6 +1,6 @@
 /* 
  
- CachedGyroscope.h:
+ CachedSwitch.h:
  
  Copyright (C) 2011 Steven Yi
  
@@ -24,17 +24,15 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CoreMotion/CoreMotion.h>
 #import "BaseValueCacheable.h"
 
-@interface CachedGyroscope : BaseValueCacheable {
-    float* channelPtrX;
-    float* channelPtrY;
-    float* channelPtrZ;
+@interface CachedSwitch : BaseValueCacheable
+    @property float cachedValue;
+    @property float* channelPtr;
+    @property (unsafe_unretained) NSString* channelName;
+    @property (unsafe_unretained) UISwitch* mSwitch;
 
-    CMMotionManager* mManager;
-}
 
--(id)init:(CMMotionManager*)manager;
+-(CachedSwitch*)init:(UISwitch*)uiSwitch channelName:(NSString*)channelName;
 
 @end
