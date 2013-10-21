@@ -85,9 +85,9 @@ typedef struct {
 
 #pragma mark UI and Hardware Methods
 
--(id<CsoundValueCacheable>)addSwitch:(UISwitch*)uiSwitch forChannelName:(NSString*)channelName;
--(id<CsoundValueCacheable>)addSlider:(UISlider*)uiSlider forChannelName:(NSString*)channelName;
--(id<CsoundValueCacheable>)addButton:(UIButton*)uiButton forChannelName:(NSString*)channelName;
+//-(id<CsoundValueCacheable>)addSwitch:(UISwitch*)uiSwitch forChannelName:(NSString*)channelName;
+//-(id<CsoundValueCacheable>)addSlider:(UISlider*)uiSlider forChannelName:(NSString*)channelName;
+//-(id<CsoundValueCacheable>)addButton:(UIButton*)uiButton forChannelName:(NSString*)channelName;
 
 -(void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable;
 -(void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable;

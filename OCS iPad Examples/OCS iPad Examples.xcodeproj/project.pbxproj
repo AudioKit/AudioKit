@@ -177,10 +177,7 @@
 		C4EFBBBB1815C3CE001AB306 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB8D1815C3CE001AB306 /* BaseValueCacheable.m */; };
 		C4EFBBBC1815C3CE001AB306 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB8F1815C3CE001AB306 /* CachedAccelerometer.m */; };
 		C4EFBBBD1815C3CE001AB306 /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB911815C3CE001AB306 /* CachedAttitude.m */; };
-		C4EFBBBE1815C3CE001AB306 /* CachedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB931815C3CE001AB306 /* CachedButton.m */; };
 		C4EFBBBF1815C3CE001AB306 /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB951815C3CE001AB306 /* CachedGyroscope.m */; };
-		C4EFBBC01815C3CE001AB306 /* CachedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB971815C3CE001AB306 /* CachedSlider.m */; };
-		C4EFBBC11815C3CE001AB306 /* CachedSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB991815C3CE001AB306 /* CachedSwitch.m */; };
 		C4EFBBC21815C3CE001AB306 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EFBBB71815C3CE001AB306 /* libcsound.a */; };
 		C4EFBBC31815C3CE001AB306 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EFBBB81815C3CE001AB306 /* libsndfile.a */; };
 		C4EFBBC41815C3CE001AB306 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4EFBBB91815C3CE001AB306 /* LICENSE.TXT */; };
@@ -548,14 +545,8 @@
 		C4EFBB8F1815C3CE001AB306 /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
 		C4EFBB901815C3CE001AB306 /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
 		C4EFBB911815C3CE001AB306 /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
-		C4EFBB921815C3CE001AB306 /* CachedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedButton.h; sourceTree = "<group>"; };
-		C4EFBB931815C3CE001AB306 /* CachedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedButton.m; sourceTree = "<group>"; };
 		C4EFBB941815C3CE001AB306 /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
 		C4EFBB951815C3CE001AB306 /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
-		C4EFBB961815C3CE001AB306 /* CachedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSlider.h; sourceTree = "<group>"; };
-		C4EFBB971815C3CE001AB306 /* CachedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSlider.m; sourceTree = "<group>"; };
-		C4EFBB981815C3CE001AB306 /* CachedSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSwitch.h; sourceTree = "<group>"; };
-		C4EFBB991815C3CE001AB306 /* CachedSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSwitch.m; sourceTree = "<group>"; };
 		C4EFBB9A1815C3CE001AB306 /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C4EFBB9C1815C3CE001AB306 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
 		C4EFBB9D1815C3CE001AB306 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
@@ -1526,14 +1517,8 @@
 				C4EFBB8F1815C3CE001AB306 /* CachedAccelerometer.m */,
 				C4EFBB901815C3CE001AB306 /* CachedAttitude.h */,
 				C4EFBB911815C3CE001AB306 /* CachedAttitude.m */,
-				C4EFBB921815C3CE001AB306 /* CachedButton.h */,
-				C4EFBB931815C3CE001AB306 /* CachedButton.m */,
 				C4EFBB941815C3CE001AB306 /* CachedGyroscope.h */,
 				C4EFBB951815C3CE001AB306 /* CachedGyroscope.m */,
-				C4EFBB961815C3CE001AB306 /* CachedSlider.h */,
-				C4EFBB971815C3CE001AB306 /* CachedSlider.m */,
-				C4EFBB981815C3CE001AB306 /* CachedSwitch.h */,
-				C4EFBB991815C3CE001AB306 /* CachedSwitch.m */,
 				C4EFBB9A1815C3CE001AB306 /* CsoundValueCacheable.h */,
 			);
 			path = valueCacheable;
@@ -1793,7 +1778,7 @@
 		C4F0782115D5F4B30084FF9E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Hear For Yourself";
 			};
 			buildConfigurationList = C4F0782415D5F4B30084FF9E /* Build configuration list for PBXProject "OCS iPad Examples" */;
@@ -1881,7 +1866,6 @@
 				C42B245F15F484D0006032F9 /* ExpressionToneGenerator.m in Sources */,
 				C42B246215F484D0006032F9 /* SimpleGrainInstrument.m in Sources */,
 				C42B246415F484D0006032F9 /* Harmonizer.m in Sources */,
-				C4EFBBBE1815C3CE001AB306 /* CachedButton.m in Sources */,
 				C42B246615F484D0006032F9 /* FivePropertyInstrument.m in Sources */,
 				C42B246815F484D0006032F9 /* FMOscillatorInstrument.m in Sources */,
 				C42B246A15F484D0006032F9 /* OscillatorInstrument.m in Sources */,
@@ -1934,7 +1918,6 @@
 				C4C4F08A1773D66F00CB1D44 /* OCSCrossSynthesis.m in Sources */,
 				C4C4F08C1773D66F00CB1D44 /* OCSFSignalFromMonoAudio.m in Sources */,
 				C4C4F08E1773D66F00CB1D44 /* OCSFSignalFromMonoWithAttackAnalysis.m in Sources */,
-				C4EFBBC11815C3CE001AB306 /* CachedSwitch.m in Sources */,
 				C4C4F0901773D66F00CB1D44 /* OCSFSignalMix.m in Sources */,
 				C4C4F0921773D67000CB1D44 /* OCSScaledFSignal.m in Sources */,
 				C4C4F0941773D67000CB1D44 /* OCSWarp.m in Sources */,
@@ -1995,7 +1978,6 @@
 				C4C4F1021773D67000CB1D44 /* OCSPortamento.m in Sources */,
 				C4C4F1041773D67000CB1D44 /* OCSVibrato.m in Sources */,
 				C4C4F1061773D67000CB1D44 /* OCSBandPassButterworthFilter.m in Sources */,
-				C4EFBBC01815C3CE001AB306 /* CachedSlider.m in Sources */,
 				C4A0D00D17ECEB5E00B55130 /* OCSTrackedFrequencySchouten.m in Sources */,
 				C4C4F1081773D67000CB1D44 /* OCSBandRejectButterworthFilter.m in Sources */,
 				C4C4F10A1773D67000CB1D44 /* OCSHighPassButterworthFilter.m in Sources */,
@@ -2052,10 +2034,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2070,10 +2053,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2083,10 +2071,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2094,10 +2083,14 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -2113,7 +2106,7 @@
 				INFOPLIST_FILE = "OCS iPad Examples/OCS iPad Examples-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/../csound-iOS/libs\\\"",
+					"$(SRCROOT)/../csound-iOS/libs",
 					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "OCS Examples";
@@ -2129,7 +2122,7 @@
 				INFOPLIST_FILE = "OCS iPad Examples/OCS iPad Examples-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/../csound-iOS/libs\\\"",
+					"$(SRCROOT)/../csound-iOS/libs",
 					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "OCS Examples";
