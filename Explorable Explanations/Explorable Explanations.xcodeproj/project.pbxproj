@@ -45,10 +45,7 @@
 		C4EFBB7D1815C3C1001AB306 /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB4F1815C3C1001AB306 /* BaseValueCacheable.m */; };
 		C4EFBB7E1815C3C1001AB306 /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB511815C3C1001AB306 /* CachedAccelerometer.m */; };
 		C4EFBB7F1815C3C1001AB306 /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB531815C3C1001AB306 /* CachedAttitude.m */; };
-		C4EFBB801815C3C1001AB306 /* CachedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB551815C3C1001AB306 /* CachedButton.m */; };
 		C4EFBB811815C3C1001AB306 /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB571815C3C1001AB306 /* CachedGyroscope.m */; };
-		C4EFBB821815C3C1001AB306 /* CachedSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB591815C3C1001AB306 /* CachedSlider.m */; };
-		C4EFBB831815C3C1001AB306 /* CachedSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFBB5B1815C3C1001AB306 /* CachedSwitch.m */; };
 		C4EFBB841815C3C1001AB306 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EFBB791815C3C1001AB306 /* libcsound.a */; };
 		C4EFBB851815C3C1001AB306 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EFBB7A1815C3C1001AB306 /* libsndfile.a */; };
 		C4EFBB861815C3C1001AB306 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4EFBB7B1815C3C1001AB306 /* LICENSE.TXT */; };
@@ -254,14 +251,8 @@
 		C4EFBB511815C3C1001AB306 /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
 		C4EFBB521815C3C1001AB306 /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
 		C4EFBB531815C3C1001AB306 /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
-		C4EFBB541815C3C1001AB306 /* CachedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedButton.h; sourceTree = "<group>"; };
-		C4EFBB551815C3C1001AB306 /* CachedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedButton.m; sourceTree = "<group>"; };
 		C4EFBB561815C3C1001AB306 /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
 		C4EFBB571815C3C1001AB306 /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
-		C4EFBB581815C3C1001AB306 /* CachedSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSlider.h; sourceTree = "<group>"; };
-		C4EFBB591815C3C1001AB306 /* CachedSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSlider.m; sourceTree = "<group>"; };
-		C4EFBB5A1815C3C1001AB306 /* CachedSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedSwitch.h; sourceTree = "<group>"; };
-		C4EFBB5B1815C3C1001AB306 /* CachedSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedSwitch.m; sourceTree = "<group>"; };
 		C4EFBB5C1815C3C1001AB306 /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C4EFBB5E1815C3C1001AB306 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
 		C4EFBB5F1815C3C1001AB306 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
@@ -851,14 +842,8 @@
 				C4EFBB511815C3C1001AB306 /* CachedAccelerometer.m */,
 				C4EFBB521815C3C1001AB306 /* CachedAttitude.h */,
 				C4EFBB531815C3C1001AB306 /* CachedAttitude.m */,
-				C4EFBB541815C3C1001AB306 /* CachedButton.h */,
-				C4EFBB551815C3C1001AB306 /* CachedButton.m */,
 				C4EFBB561815C3C1001AB306 /* CachedGyroscope.h */,
 				C4EFBB571815C3C1001AB306 /* CachedGyroscope.m */,
-				C4EFBB581815C3C1001AB306 /* CachedSlider.h */,
-				C4EFBB591815C3C1001AB306 /* CachedSlider.m */,
-				C4EFBB5A1815C3C1001AB306 /* CachedSwitch.h */,
-				C4EFBB5B1815C3C1001AB306 /* CachedSwitch.m */,
 				C4EFBB5C1815C3C1001AB306 /* CsoundValueCacheable.h */,
 			);
 			path = valueCacheable;
@@ -1610,7 +1595,6 @@
 			files = (
 				C42B1F5615F31375006032F9 /* main.m in Sources */,
 				C42B1F5A15F31375006032F9 /* AppDelegate.m in Sources */,
-				C4EFBB831815C3C1001AB306 /* CachedSwitch.m in Sources */,
 				C42B1F7315F332AE006032F9 /* RootViewController.m in Sources */,
 				C42B233015F34C30006032F9 /* TweakableInstrument.m in Sources */,
 				C42B233315F34C30006032F9 /* ConvolutionInstrument.m in Sources */,
@@ -1630,7 +1614,6 @@
 				C4EFBB7F1815C3C1001AB306 /* CachedAttitude.m in Sources */,
 				C49DBF5C16223C2D003037BA /* SeqInstrument.m in Sources */,
 				C4F5579316BE8D5700EDDF63 /* OCSEvent.m in Sources */,
-				C4EFBB801815C3C1001AB306 /* CachedButton.m in Sources */,
 				C4F5579616BE8D5700EDDF63 /* OCSInstrument.m in Sources */,
 				C4F5579816BE8D5700EDDF63 /* OCSManager.m in Sources */,
 				C4F5579A16BE8D5700EDDF63 /* OCSMidi.m in Sources */,
@@ -1757,7 +1740,6 @@
 				C4F5588F16BE8D5700EDDF63 /* OCSFSignal.m in Sources */,
 				C4F5589116BE8D5700EDDF63 /* OCSParameter.m in Sources */,
 				C4F5589316BE8D5700EDDF63 /* OCSStereoAudio.m in Sources */,
-				C4EFBB821815C3C1001AB306 /* CachedSlider.m in Sources */,
 				C4F5589516BE8D5700EDDF63 /* OCSInstrumentProperty.m in Sources */,
 				C4F5589716BE8D5700EDDF63 /* OCSNoteProperty.m in Sources */,
 				C4F5589916BE8D5700EDDF63 /* OCSiOSTools.m in Sources */,
@@ -1843,7 +1825,7 @@
 				INFOPLIST_FILE = "Explorable Explanations/Explorable Explanations-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/../csound-iOS/libs\\\"",
+					"$(SRCROOT)/../csound-iOS/libs",
 					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1859,7 +1841,7 @@
 				INFOPLIST_FILE = "Explorable Explanations/Explorable Explanations-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/../csound-iOS/libs\\\"",
+					"$(SRCROOT)/../csound-iOS/libs",
 					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
