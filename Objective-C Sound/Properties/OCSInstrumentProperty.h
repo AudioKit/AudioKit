@@ -19,17 +19,17 @@
     
     //channelName
     MYFLT *channelPtr;
-    Float32 currentValue;
+    float currentValue;
 }
 
 /// Current value of the property.
-@property (nonatomic, assign) Float32 value;
+@property (nonatomic, assign) float value;
 
 /// Minimum Value allowed.
-@property (nonatomic, assign) Float32 minimumValue;
+@property (nonatomic, assign) float minimumValue;
 
 /// Maximum Value allowed.
-@property (nonatomic, assign) Float32 maximumValue;
+@property (nonatomic, assign) float maximumValue;
 
 /// Optional pretty name for properties useful for debugging.
 @property (nonatomic, strong) NSString *name;
