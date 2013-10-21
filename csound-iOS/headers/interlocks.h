@@ -21,19 +21,31 @@
     02111-1307 USA
 */
 
-#define ZR (0x0100)
-#define ZW (0x0200)
-#define ZB (0x0300)
+// ZAK
+#define ZR (0x0001)
+#define ZW (0x0002)
+#define ZB (0x0003)
 
-#define TR (0x0400)
-#define TW (0x0800)
-#define TB (0x0c00)
+// Not used??
+#define MO (0x0004)
 
-#define CR (0x1000)
-#define CW (0x2000)
-#define CB (0x3000)
+//Tables
+#define TR (0x0008)
+#define TW (0x0010)
+#define TB (0x0018)
 
-#define SB (0x4000)
+//Channels
+#define CR (0x0020)
+#define CW (0x0040)
+#define CB (0x0060)
+
+//Stack
+#define SK (0x0080)
+
+//Printing
+#define WR (0x0100)
+
+//Deprecated
 #define _QQ (0x8000)
 
 

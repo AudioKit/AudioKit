@@ -37,12 +37,14 @@ typedef struct csdata_ {
 	int bufframes;
 	int ret;
 	int nchnls;
+    int nchnls_i;
     bool running;
 	bool shouldRecord;
 	bool shouldMute;
+    bool useAudioInput;
 	ExtAudioFileRef file;
 	AudioUnit *aunit;
-     __unsafe_unretained NSMutableArray *valuesCache;
+     __unsafe_unretained NSMutableArray* valuesCache;
 } csdata;
 
 typedef struct {
@@ -57,29 +59,35 @@ typedef struct {
 
 @protocol CsoundObjCompletionListener 
 
--(void)csoundObjDidStart:(CsoundObj *)csoundObj;
--(void)csoundObjComplete:(CsoundObj *)csoundObj;
+-(void)csoundObjDidStart:(CsoundObj*)csoundObj;
+-(void)csoundObjComplete:(CsoundObj*)csoundObj;
 
 @end
 
 @interface CsoundObj : NSObject {
-    NSMutableArray *valuesCache;
-    NSMutableArray *completionListeners;
+    NSMutableArray* valuesCache;
+    NSMutableArray* completionListeners;
     csdata mCsData;
-    CMMotionManager *mMotionManager;
+    BOOL mMidiInEnabled;
+    CMMotionManager* mMotionManager;
 	NSURL *outputURL;
-	SEL mMessageCallback;
 	id  mMessageListener;
-    BOOL mUseOldParser;
 }
 
-@property (nonatomic, retain) NSURL *outputURL;
-@property (nonatomic, retain) CMMotionManager *motionManager;
-@property (assign) BOOL useOldParser;
+
+@property (assign) SEL mMessageCallback;
+@property (nonatomic, strong) NSURL *outputURL;
+@property (assign) BOOL midiInEnabled;
+@property (nonatomic, strong) CMMotionManager* motionManager;
+@property (assign) BOOL useAudioInput;
 
 
 
 #pragma mark UI and Hardware Methods
+
+-(id<CsoundValueCacheable>)addSwitch:(UISwitch*)uiSwitch forChannelName:(NSString*)channelName;
+-(id<CsoundValueCacheable>)addSlider:(UISlider*)uiSlider forChannelName:(NSString*)channelName;
+-(id<CsoundValueCacheable>)addButton:(UIButton*)uiButton forChannelName:(NSString*)channelName;
 
 -(void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable;
 -(void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable;
@@ -90,7 +98,7 @@ typedef struct {
 
 #pragma mark -
 
--(void)sendScore:(NSString *)score;
+-(void)sendScore:(NSString*)score;
 
 #pragma mark -
 
@@ -98,18 +106,27 @@ typedef struct {
 
 #pragma mark -
 
--(void)startCsound:(NSString *)csdFilePath;
+-(void)startCsound:(NSString*)csdFilePath;
 -(void)startCsound:(NSString *)csdFilePath recordToURL:(NSURL *)outputURL;
+-(void)startCsoundToDisk:(NSString*)csdFilePath outputFile:(NSString*)outputFile;
 -(void)recordToURL:(NSURL *)outputURL;
 -(void)stopRecording;
 -(void)stopCsound;
 -(void)muteCsound;
 -(void)unmuteCsound;
 
--(CSOUND *)getCsound;
--(MYFLT *)getInputChannelPtr:(NSString *)channelName;	
--(MYFLT *)getOutputChannelPtr:(NSString *)channelName;
--(NSData *)getOutSamples;
+-(CSOUND*)getCsound;
+-(AudioUnit*)getAudioUnit;
+
+/** get a float* output channel that maps to a channel name and type, where type is 
+ CSOUND_AUDIO_CHANNEL, CSOUND_CONTROL_CHANNEL, etc. */
+-(float*)getInputChannelPtr:(NSString*)channelName channelType:(controlChannelType)channelType;
+
+/** get a float* output channel that maps to a channel name and type, where type is 
+ CSOUND_AUDIO_CHANNEL, CSOUND_CONTROL_CHANNEL, etc. */
+-(float*)getOutputChannelPtr:(NSString*)channelName channelType:(controlChannelType)channelType;
+
+-(NSData*)getOutSamples;
 -(int)getNumChannels;
 -(int)getKsmps;
 

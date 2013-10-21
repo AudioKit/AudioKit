@@ -25,17 +25,11 @@
 
 #import "CachedAttitude.h"
 
-@interface CachedAttitude() {
-    CMMotionManager* mManager;
-}
-@end
-
-
 @implementation CachedAttitude
 
-static NSString *CS_ATTITUDE_ROLL = @"attitudeRoll";
-static NSString *CS_ATTITUDE_PITCH = @"attitudePitch";
-static NSString *CS_ATTITUDE_YAW = @"attitudeYaw";
+static NSString* CS_ATTITUDE_ROLL = @"attitudeRoll";
+static NSString* CS_ATTITUDE_PITCH = @"attitudePitch";
+static NSString* CS_ATTITUDE_YAW = @"attitudeYaw";
 
 -(id)init:(CMMotionManager*)manager {
     if (self = [super init]) {
@@ -45,18 +39,26 @@ static NSString *CS_ATTITUDE_YAW = @"attitudeYaw";
 }
 
 -(void)setup:(CsoundObj*)csoundObj {
-    channelPtrRoll  = [csoundObj getInputChannelPtr:CS_ATTITUDE_ROLL];
-    channelPtrPitch = [csoundObj getInputChannelPtr:CS_ATTITUDE_PITCH];
-    channelPtrYaw   = [csoundObj getInputChannelPtr:CS_ATTITUDE_YAW];    
+    channelPtrRoll = [csoundObj getInputChannelPtr:CS_ATTITUDE_ROLL
+                                       channelType:CSOUND_CONTROL_CHANNEL];
+    channelPtrPitch = [csoundObj getInputChannelPtr:CS_ATTITUDE_PITCH
+                                        channelType:CSOUND_CONTROL_CHANNEL];
+    channelPtrYaw = [csoundObj getInputChannelPtr:CS_ATTITUDE_YAW
+                                      channelType:CSOUND_CONTROL_CHANNEL];
     
-    [self updateValuesToCsound];  
+    *channelPtrRoll = mManager.deviceMotion.attitude.roll;
+    *channelPtrPitch = mManager.deviceMotion.attitude.pitch;
+    *channelPtrYaw = mManager.deviceMotion.attitude.yaw;    
     
 }
 
 -(void)updateValuesToCsound {
-    *channelPtrRoll = mManager.deviceMotion.attitude.roll;
-    *channelPtrPitch = mManager.deviceMotion.attitude.pitch;
-    *channelPtrYaw = mManager.deviceMotion.attitude.yaw;    
+    @autoreleasepool {
+        *channelPtrRoll = mManager.deviceMotion.attitude.roll;
+        *channelPtrPitch = mManager.deviceMotion.attitude.pitch;
+        *channelPtrYaw = mManager.deviceMotion.attitude.yaw;    
+    }
 }
+
 
 @end

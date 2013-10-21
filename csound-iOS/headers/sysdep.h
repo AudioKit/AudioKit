@@ -24,10 +24,12 @@
 #ifndef CSOUND_SYSDEP_H
 #define CSOUND_SYSDEP_H
 
-
-
-
 /* check for the presence of a modern compiler (for use of certain features) */
+#if defined(WIN32)
+#if !defined(locale_t)
+typedef void *locale_t;
+#endif
+#endif
 
 #ifdef HAVE_GCC3
 #  undef HAVE_GCC3
@@ -52,16 +54,23 @@
 #  define HAVE_C99 1
 #endif
 
+#if defined(__GNUC__)
+# if defined(__GNUC_PATCHLEVEL__)
+#  define __GNUC_VERSION__ (__GNUC__ * 10000 \
+                            + __GNUC_MINOR__ * 100 \
+                            + __GNUC_PATCHLEVEL__)
+# else
+#  define __GNUC_VERSION__ (__GNUC__ * 10000 \
+                            + __GNUC_MINOR__ * 100)
+# endif
+#endif
+
 #ifndef CABBAGE
 #ifdef MSVC
 typedef __int32 int32;
 typedef __int16 int16;
 typedef unsigned __int32 uint32;
 typedef unsigned __int16 uint16;
-#else
-#ifdef __HAIKU__
-/* avoid conflicting typedefs */
-#include <SupportDefs.h>
 #else
 #include <stdint.h>
 typedef int_least32_t int32;
@@ -70,13 +79,12 @@ typedef uint_least32_t uint32;
 typedef uint_least16_t uint16;
 #endif
 #endif
-#endif
 
-#if defined(HAVE_PTHREAD_SPIN_LOCK) && !defined(SWIG)
+#if defined(HAVE_PTHREAD_SPIN_LOCK)
 #include <pthread.h>
 #endif
 
-#if defined(HAVE_SYNC_LOCK_AND_TEST) && !defined(SWIG)
+#if defined(HAVE_PTHREAD_SPIN_LOCK)
 #include <pthread.h>
 #endif
 
@@ -198,66 +206,42 @@ typedef uint_least16_t uint16;
 #    endif
 #  elif defined(MSVC)
 #    define inline  __inline
-#  elif defined(__MWERKS__)
-#    define inline inline
 #  else
 #    define inline
 #  endif
 #endif
 
-#if defined(macintosh)
-#  define mac_classic   /* All Mac Compiles Before OSX, including Carbon */
-   /* define mills_macintosh in your prefix file
-      to compile the Mills "Perf" version */
-#  ifndef  USE_GUSI2
-#    include <stat.h>
+#define DIRSEP '/'
+#ifdef WIN32
+#  undef  DIRSEP
+#  define DIRSEP '\\'
+#  if !defined(O_NDELAY)
+#    define  O_NDELAY (0)
 #  endif
-#  define  O_NDELAY (0)
-#  define  DIRSEP ':'
-#elif defined(SYMANTEC)
-#  include <unix.h>     /* for open() etc protos on mac */
-#  define  DIRSEP ':'
+#  include <io.h>
 #else
-#  define DIRSEP '/'
-#  ifdef  LATTICE
-#    ifdef HAVE_SYS_TYPES_H
-#      include <sys/types.h>
-#    endif
-#  else
-#    ifdef __WATCOMC__
-#      if !defined(O_NDELAY)
-#        define  O_NDELAY (0)
-#      endif
-#      include <io.h>
-#    else
-#      ifdef WIN32
-#        undef  DIRSEP
-#        define DIRSEP '\\'
-#        if !defined(O_NDELAY)
-#          define  O_NDELAY (0)
-#        endif
-#        include <io.h>
-#      else
-#        ifdef DOSGCC
-#          if !defined(O_NDELAY)
-#            define  O_NDELAY (0)
-#          endif
-#        endif
-#        ifdef HAVE_SYS_TYPES_H
-#          include <sys/types.h>
-#        endif
-#      endif
-/*  RWD for WIN32 on VC++ */
-#      ifndef MSVC
-#        include <sys/file.h>
-#      endif
+#  ifdef DOSGCC
+#    if !defined(O_NDELAY)
+#      define  O_NDELAY (0)
 #    endif
 #  endif
-#  include <sys/stat.h>
+#  ifdef HAVE_SYS_TYPES_H
+#    include <sys/types.h>
+#  endif
+/*  RWD for WIN32 on VC++ */
 #endif
+#ifndef MSVC
+#  include <sys/file.h>
+#endif
+#include <sys/stat.h>
 
 #endif  /* __BUILDING_LIBCSOUND || CSOUND_CSDL_H */
 
+#ifdef WIN32
+#  define ENVSEP ';'
+#else
+#  define ENVSEP ':'
+#endif
 /* standard integer types */
 
 #if defined(USE_GUSI2)
@@ -411,6 +395,17 @@ static inline double csoundUndenormalizeDouble(double x)
 #endif
 
 #endif  /* __BUILDING_LIBCSOUND || CSOUND_CSDL_H */
+
+// This is wrong.....  needs thought
+/* #ifdef HAVE_SPRINTF_L */
+/* # define CS_SPRINTF sprintf_l */
+/* #elseif HAVE__SPRINT_L */
+/*   /\* this would be the case for the Windows locale aware function *\/ */
+/* # define CS_SPRINTF _sprintf_l */
+/* #else */
+# define CS_SPRINTF cs_sprintf
+# define CS_SSCANF cs_sscanf
+/* #endif */
 
 #endif  /* CSOUND_SYSDEP_H */
 

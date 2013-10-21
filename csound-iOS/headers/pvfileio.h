@@ -151,7 +151,7 @@ int     pvoc_createfile(CSOUND *, const char *,
                         uint32, int32, int, int,
                         float, float *, uint32);
 int     pvoc_openfile(CSOUND *,
-                      const char *filename, PVOCDATA *data, WAVEFORMATEX *fmt);
+                      const char *filename, void *data_, void *fmt_);
 int     pvoc_closefile(CSOUND *, int);
 int     pvoc_putframes(CSOUND *,
                        int ofd, const float *frame, int32 numframes);

@@ -102,14 +102,14 @@ typedef struct {
 } CMPLX;
 
 typedef struct pvsdat {
-        int32            N;
+        int32           N;
         int             sliding; /* Flag to indicate sliding case */
-        int32            NB;
-        int32            overlap;
-        int32            winsize;
+        int32           NB;
+        int32           overlap;
+        int32           winsize;
         int             wintype;
-        int32            format;         /* fixed for now to AMP:FREQ */
-        uint32   framecount;
+        int32           format;         /* fixed for now to AMP:FREQ */
+        uint32          framecount;
         AUXCH           frame;          /* RWD MUST always be 32bit floats */
                                         /* But not in sliding case when MYFLT */
 } PVSDAT;

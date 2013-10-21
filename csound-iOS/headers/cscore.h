@@ -23,6 +23,33 @@
 
 #ifndef  CSCORE_H
 #define  CSCORE_H
+/**
+* \file csound.h
+* \section section_api_cscore Cscore
+*
+* Beginning with Csound 5, all of the Cscore functions described in the
+* manual are now part of the Csound API, and they can be called from a program
+* that calls the Csound library.
+*
+* All of the CScore functions are renamed in the Csound API. For
+* example, createv() is now cscoreCreateEvent(), and lcopy() is now
+* cscoreListCopy().  In addition, each function takes an additional
+* first parameter that is a pointer to a CSOUND instance.  You can
+* find the details in the header file, cscore.h, which may be
+* included with your Csound distribution, or if not, can be found in
+* Csound CVS `on SourceForge.
+*
+* Before you can use any of the Cscore API functions, you must create a CSOUND
+* instance and initialize Cscore by calling csoundInitializeCscore() -- see
+* csound.h for an explanation.  An example main program that does all of this
+* Top/cscormai.c.  You should add a function called cscore() with your own
+* score-processing code.  An example that does nothing except write the score
+* back out unchanged can be found in the file Top/cscore_internal.c.
+*
+* To create your own standalone Cscore program, you must compile cscormai.c
+* (or your own main program) and the file containing your
+* cscore() function, and link them with the Csound API library.
+*/
 
 #include <stdio.h>
 
@@ -56,11 +83,6 @@ typedef struct {
         int   nevents;
         EVENT *e[1];
 } EVLIST;
-
-/* This pragma must come before all public function declarations */
-#if (defined(macintosh) && defined(__MWERKS__))
-#  pragma export on
-#endif
 
 /* Functions for working with single events */
 PUBLIC EVENT  *cscoreCreateEvent(CSOUND*, int);
@@ -100,10 +122,5 @@ PUBLIC FILE   *cscoreFileOpen(CSOUND*, char*);
 PUBLIC void    cscoreFileClose(CSOUND*, FILE*);
 PUBLIC FILE   *cscoreFileGetCurrent(CSOUND*);
 PUBLIC void    cscoreFileSetCurrent(CSOUND*, FILE*);
-
-/* This pragma must come after all public function declarations */
-#if (defined(macintosh) && defined(__MWERKS__))
-#  pragma export off
-#endif
 
 #endif

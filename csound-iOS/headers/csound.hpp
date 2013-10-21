@@ -32,18 +32,18 @@
 #define __CSOUND_HPP__
 
 #ifdef SWIG
-%module csnd
+%module csnd6
 %{
 #include "csound.h"
-  //#include "cs_glue.h"
+
 %}
 #else
 #include "csound.h"
-#if defined(__GNUC__) && !defined(SWIG)
+#if defined(HAVE_PTHREAD_SPIN_LOCK) && !defined(SWIG)
 #include <pthread.h>
 #endif
 #ifdef __BUILDING_CSOUND_INTERFACES
-//#include "cs_glue.h"
+
 #endif
 #endif
 
@@ -113,13 +113,17 @@ public:
     return csound;
   }
   // csound.h interface
-  virtual int PreCompile()
-  {
-    return csoundPreCompile(csound);
-  }
   virtual int InitializeCscore(FILE *insco, FILE *outsco)
   {
     return csoundInitializeCscore(csound, insco, outsco);
+  }
+  virtual int GetVersion()
+  {
+    return csoundGetVersion();
+  }
+  virtual int GetAPIVersion()
+  {
+    return csoundGetAPIVersion();
   }
   virtual void *GetHostData()
   {
@@ -133,7 +137,73 @@ public:
   {
     return csoundGetEnv(csound, name);
   }
+  virtual int SetGlobalEnv(const char *name,const char *value)
+  {
+    return csoundSetGlobalEnv(name, value);
+
+  }
+  virtual int SetOption(char *option)
+  {
+   return csoundSetOption(csound, option);
+  }
+
+  virtual void SetParams(CSOUND_PARAMS *p){
+   csoundSetParams(csound, p);
+  }
+  virtual void GetParams(CSOUND_PARAMS *p){
+   csoundGetParams(csound, p);
+  }
+  virtual void SetOutput(char *name, char *type, char *format){
+    csoundSetOutput(csound, name, type, format);
+  }
+  virtual void SetInput(char *name, char *type){
+    csoundSetInput(csound, name);
+  }
+  virtual void SetMIDIInput(char *name){
+    csoundSetMIDIInput(csound,name);
+  }
+  virtual void SetMIDIFileInput(char *name){
+    csoundSetMIDIFileInput(csound,name);
+  }
+  virtual void SetMIDIOutput(char *name){
+     csoundSetMIDIOutput(csound,name);
+  }
+   virtual void SetMIDIFileOutput(char *name){
+    csoundSetMIDIFileOutput(csound,name);
+  }
   // performance
+  virtual TREE *ParseOrc(const char *str)
+  {
+    return csoundParseOrc(csound, str);
+  }
+  virtual int CompileTree(TREE *root)
+  {
+    return csoundCompileTree(csound, root);
+  }
+  virtual void DeleteTree(TREE *root)
+  {
+    csoundDeleteTree(csound, root);
+  }
+  virtual int CompileOrc(const char *str)
+  {
+    return csoundCompileOrc(csound, str);
+  }
+  virtual MYFLT EvalCode(const char *str)
+  {
+    return csoundEvalCode(csound, str);
+  }
+  virtual int ReadScore(char *str)
+  {
+    return csoundReadScore(csound, str);
+  }
+  virtual int CompileArgs(int argc, char **argv)
+  {
+    return csoundCompileArgs(csound, argc, argv);
+  }
+  virtual int Start(CSOUND *csound)
+  {
+    return  csoundStart(csound);
+  }
   virtual int Compile(int argc, char **argv)
   {
     return csoundCompile(csound, argc, argv);
@@ -189,62 +259,10 @@ public:
     argv[6] = (char*) 0;
     return csoundCompile(csound, 6, &(argv[0]));
   }
-
-   virtual int Compile(char *orcstr, char *scorstr, int argc, char **argv)
+  virtual int Start()
   {
-    return csoundCompileFromStrings(csound, orcstr, scorstr, argc, argv);
+    return csoundStart(csound);
   }
-
-  virtual int CompileFromStrings(char *orcstr, char *scorstr, char *arg1=NULL, char *arg2=NULL,
-                      char *arg3=NULL, char *arg4=NULL, char *arg5=NULL, char *arg6=NULL)
-  {
-    char  *argv[8] = { (char *)"csound", NULL, NULL, NULL, NULL, NULL, NULL, NULL };
-    int    argc = 1;
-   
-    if(arg1!=NULL) {
-     argv[1] = arg1;
-     argc++;
-    }
-    else goto _compile_;
-
-    if(arg2!=NULL) {
-     argv[2] = arg2;
-     argc++;
-    }
-    else goto _compile_;
-
-    if(arg3!=NULL) {
-     argv[3] = arg3;
-     argc++;
-    }
-    else goto _compile_;
-
-    if(arg4!=NULL) {
-     argv[4] = arg4;
-     argc++;
-    }
-    else goto _compile_;
-
-    if(arg5!=NULL) {
-     argv[5] = arg5;
-     argc++;
-    }
-    else goto _compile_;
-
-    if(arg6!=NULL) {
-     argv[6] = arg6;
-     argc++;
-    }
-  
-   _compile_:
-    return csoundCompileFromStrings(csound, orcstr, scorstr, argc, argv);
-  }
-
-   virtual int CompileFromStrings(char *orcstr, char *scorstr, int argc, char **argv)
-  {
-    return csoundCompileFromStrings(csound, orcstr, scorstr, argc, argv);
-  }
-
   virtual int Perform()
   {
     return csoundPerform(csound);
@@ -332,10 +350,6 @@ public:
   {
     return csoundPerformKsmps(csound);
   }
-  virtual int PerformKsmpsAbsolute()
-  {
-    return csoundPerformKsmpsAbsolute(csound);
-  }
   virtual int PerformBuffer()
   {
     return csoundPerformBuffer(csound);
@@ -369,21 +383,13 @@ public:
   {
     return csoundGetNchnls(csound);
   }
+  virtual int GetNchnlsInput()
+  {
+    return csoundGetNchnlsInput(csound);
+  }
   virtual MYFLT Get0dBFS()
   {
     return csoundGet0dBFS(csound);
-  }
-  virtual int GetStrVarMaxLen()
-  {
-    return csoundGetStrVarMaxLen(csound);
-  }
-  virtual int GetSampleFormat()
-  {
-    return csoundGetSampleFormat(csound);
-  }
-  virtual int GetSampleSize()
-  {
-    return csoundGetSampleSize(csound);
   }
   virtual long GetInputBufferSize()
   {
@@ -409,13 +415,17 @@ public:
   {
     return csoundGetSpout(csound);
   }
-  virtual const char *GetOutputFileName()
+  virtual const char *GetOutputName()
   {
-    return csoundGetOutputFileName(csound);
+    return csoundGetOutputName(csound);
   }
   virtual void SetHostImplementedAudioIO(int state, int bufSize)
   {
     csoundSetHostImplementedAudioIO(csound, state, bufSize);
+  }
+  virtual void SetHostImplementedMIDIIO(int state)
+  {
+    csoundSetHostImplementedMIDIIO(csound, state);
   }
   virtual double GetScoreTime()
   {
@@ -496,16 +506,6 @@ public:
     csoundKeyPress(csound, c);
   }
   // control and events
-  virtual void SetInputValueCallback(
-      void (*inputValueCallback_)(CSOUND *, const char *, MYFLT *))
-  {
-    csoundSetInputValueCallback(csound, inputValueCallback_);
-  }
-  virtual void SetOutputValueCallback(
-      void (*outputValueCallback_)(CSOUND *, const char *, MYFLT))
-  {
-    csoundSetOutputValueCallback(csound, outputValueCallback_);
-  }
   virtual int ScoreEvent(char type, const MYFLT *pFields, long numFields)
   {
     return csoundScoreEvent(csound, type, pFields, numFields);
@@ -571,21 +571,6 @@ public:
   {
     csoundSetKillGraphCallback(csound, killGraphCallback_);
   }
-  virtual void SetMakeXYinCallback(
-      void (*makeXYinCallback_)(CSOUND *, XYINDAT *, MYFLT x, MYFLT y))
-  {
-    csoundSetMakeXYinCallback(csound, makeXYinCallback_);
-  }
-  virtual void SetReadXYinCallback(
-      void (*readXYinCallback_)(CSOUND *, XYINDAT *))
-  {
-    csoundSetReadXYinCallback(csound, readXYinCallback_);
-  }
-  virtual void SetKillXYinCallback(
-      void (*killXYinCallback_)(CSOUND *, XYINDAT *))
-  {
-    csoundSetKillXYinCallback(csound, killXYinCallback_);
-  }
   virtual void SetExitGraphCallback(
       int (*exitGraphCallback_)(CSOUND *))
   {
@@ -604,13 +589,14 @@ public:
   {
     csoundDisposeOpcodeList(csound, opcodelist);
   }
-  virtual int AppendOpcode(const char *opname, int dsblksiz, int thread,
+  virtual int AppendOpcode(const char *opname, int dsblksiz, int flags,
+                           int thread,
                            const char *outypes, const char *intypes,
                            int (*iopadr)(CSOUND *, void *),
                            int (*kopadr)(CSOUND *, void *),
                            int (*aopadr)(CSOUND *, void *))
   {
-    return csoundAppendOpcode(csound, opname, dsblksiz, thread,
+      return csoundAppendOpcode(csound, opname, dsblksiz, flags, thread,
                               outypes, intypes, iopadr, kopadr, aopadr);
   }
   // miscellaneous functions
@@ -673,6 +659,12 @@ public:
     tablePtr = ftable;
     return tmp;
   }
+  virtual void TableCopyOut(int table, MYFLT *dest){
+    csoundTableCopyOut(csound,table,dest);
+  }
+  virtual void TableCopyIn(int table, MYFLT *src){
+    csoundTableCopyIn(csound,table,src);
+  }
   virtual int CreateGlobalVariable(const char *name, size_t nbytes)
   {
     return csoundCreateGlobalVariable(csound, name, nbytes);
@@ -726,95 +718,67 @@ public:
     p = tmp;
     return retval;
   }
-  virtual int ListChannels(CsoundChannelListEntry* &lst)
+  virtual int ListChannels(controlChannelInfo_t* &lst)
   {
-    CsoundChannelListEntry  *tmp;
+    controlChannelInfo_t  *tmp;
     int                     retval;
     retval = csoundListChannels(csound, &tmp);
     lst = tmp;
     return retval;
   }
-  virtual void DeleteChannelList(CsoundChannelListEntry *lst)
+  virtual void DeleteChannelList(controlChannelInfo_t *lst)
   {
     csoundDeleteChannelList(csound, lst);
   }
-  virtual int SetControlChannelParams(const char *name, int type,
-                                      double dflt, double min, double max)
+  virtual int SetControlChannelHints(const char *name,
+                                      controlChannelHints_t hints)
   {
-    return csoundSetControlChannelParams(csound, name, type, (MYFLT) dflt,
-                                         (MYFLT) min, (MYFLT) max);
+    return csoundSetControlChannelHints(csound, name, hints);
   }
-  virtual int GetControlChannelParams(const char *name,
-                                      MYFLT &dflt, MYFLT &min, MYFLT &max)
+  virtual int GetControlChannelHints(const char *name, controlChannelHints_t *hints)
   {
-    MYFLT tmp1 = (MYFLT) 0, tmp2 = (MYFLT) 0, tmp3 = (MYFLT) 0;
-    int   retval;
-    retval = csoundGetControlChannelParams(csound, name, &tmp1, &tmp2, &tmp3);
-    dflt = tmp1;
-    min = tmp2;
-    max = tmp3;
-    return retval;
+    return csoundGetControlChannelHints(csound, name, hints);
   }
   virtual void SetChannel(const char *name, double value)
   {
-    MYFLT *p;
-    if (!(csoundGetChannelPtr(csound, &p, name,
-                              CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL)))
-      *p = (MYFLT) value;
+    csoundSetControlChannel(csound,name,value);
   }
-  virtual void SetChannel(const char *name, const char *value)
+  virtual void SetChannel(const char *name, char *string)
   {
-    MYFLT *p;
-    if (!(csoundGetChannelPtr(csound, &p, name,
-                              CSOUND_STRING_CHANNEL | CSOUND_INPUT_CHANNEL))) {
-      size_t maxLen = (size_t) (csoundGetStrVarMaxLen(csound) - 1);
-      size_t i = (size_t) 0;
-      while (value[i]) {
-        ((char*) p)[i] = value[i];
-        if (++i >= maxLen)
-          break;
-      }
-      ((char*) p)[i] = '\0';
-    }
+   csoundSetStringChannel(csound,name,string);
   }
-  virtual MYFLT GetChannel(const char *name)
+  virtual void SetChannel(const char *name, MYFLT *samples)
   {
-    MYFLT *p;
-    if (!(csoundGetChannelPtr(csound, &p, name,
-                              CSOUND_CONTROL_CHANNEL | CSOUND_OUTPUT_CHANNEL)))
-      return (*p);
-    return (MYFLT) 0;
+   csoundSetAudioChannel(csound,name,samples);
   }
-  virtual int ChanIKSet(double value, int n)
+  virtual MYFLT GetChannel(const char *name, int *err = NULL)
   {
-    return csoundChanIKSet(csound, (MYFLT) value, n);
+   return csoundGetControlChannel(csound,name, err);
   }
-  virtual int ChanOKGet(MYFLT &value, int n)
+  virtual void GetStringChannel(const char *name, char *string)
   {
-    MYFLT tmp = (MYFLT) 0;
-    int   retval;
-    retval = csoundChanOKGet(csound, &tmp, n);
-    value = tmp;
-    return retval;
+    csoundGetStringChannel(csound,name,string);
   }
-  virtual int ChanIASet(const MYFLT *value, int n)
+  virtual void GetAudioChannel(const char *name, MYFLT *samples)
   {
-    return csoundChanIASet(csound, value, n);
+    csoundGetAudioChannel(csound,name,samples);
   }
-  virtual int ChanOAGet(MYFLT *value, int n)
+  virtual int PvsinSet(const PVSDATEXT* value, const char *name)
   {
-    return csoundChanOAGet(csound, value, n);
+    return csoundSetPvsChannel(csound, value, name);
   }
 
-
-  virtual int PvsinSet(const PVSDATEXT* value, int n)
+  virtual int PvsoutGet(PVSDATEXT* value, const char *name)
   {
-    return csoundPvsinSet(csound, value, n);
+    return csoundGetPvsChannel(csound, value, name);
   }
 
-  virtual int PvsoutGet(PVSDATEXT* value, int n)
-  {
-    return csoundPvsoutGet(csound, value, n);
+  virtual void SetInputChannelCallback(channelCallback_t inputChannelCalback){
+    csoundSetInputChannelCallback(csound, inputChannelCalback);
+  }
+
+  virtual void SetOutputChannelCallback(channelCallback_t outputChannelCalback){
+    csoundSetOutputChannelCallback(csound, outputChannelCalback);
   }
 
   // cfgvar.h interface
@@ -857,10 +821,6 @@ public:
   {
     return csoundDeleteConfigurationVariable(csound, name);
   }
-  virtual void SetChannelIOCallback(CsoundChannelIOCallback_t func)
-  {
-    csoundSetChannelIOCallback(csound, func);
-  }
   // constructors
   // FIXME: should throw exception on failure ?
   Csound()
@@ -895,9 +855,9 @@ public:
 
   }
   // Functions for embedding.
-  virtual void EnableMessageBuffer(int toStdOut)
+  virtual void CreateMessageBuffer(int toStdOut)
   {
-    csoundEnableMessageBuffer(csound, toStdOut);
+    csoundCreateMessageBuffer(csound, toStdOut);
   }
   virtual const char *GetFirstMessage()
   {
@@ -926,22 +886,6 @@ public:
   virtual MYFLT GetSpoutSample(int frame, int channel) const
   {
     return csoundGetSpoutSample(csound, frame, channel);
-  }
-  virtual int ChanIKSetValue(int channel, MYFLT value)
-  {
-    return csoundChanIKSetValue(csound, channel, value);
-  }
-  virtual MYFLT ChanOKGetValue(int channel)
-  {
-    return  csoundChanOKGetValue(csound, channel);
-  }
-  virtual int ChanIASetSample(int channel, int frame, MYFLT sample)
-  {
-    return csoundChanIASetSample(csound, channel, frame, sample);
-  }
-  virtual MYFLT ChanOAGetSample(int channel, int frame)
-  {
-    return csoundChanOAGetSample(csound, channel, frame);
   }
 };
 
