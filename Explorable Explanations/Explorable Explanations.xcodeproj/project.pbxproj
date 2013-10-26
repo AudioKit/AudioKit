@@ -1543,6 +1543,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Hear For Yourself";
+				TargetAttributes = {
+					C42B1F4415F31375006032F9 = {
+						DevelopmentTeam = T9KEX275FG;
+					};
+				};
 			};
 			buildConfigurationList = C42B1F3F15F31375006032F9 /* Build configuration list for PBXProject "Explorable Explanations" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1829,6 +1834,8 @@
 		C42B1F5E15F31375006032F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Explorable Explanations/Explorable Explanations-Prefix.pch";
 				INFOPLIST_FILE = "Explorable Explanations/Explorable Explanations-Info.plist";
@@ -1838,6 +1845,7 @@
 					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1845,6 +1853,8 @@
 		C42B1F5F15F31375006032F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Explorable Explanations/Explorable Explanations-Prefix.pch";
 				INFOPLIST_FILE = "Explorable Explanations/Explorable Explanations-Info.plist";
@@ -1854,6 +1864,7 @@
 					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
