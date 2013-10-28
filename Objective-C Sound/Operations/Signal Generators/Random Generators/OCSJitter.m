@@ -21,8 +21,8 @@
 @implementation OCSJitter 
 
 - (id)initWithAmplitude:(OCSControl *)amplitude
-           maxFrequency:(OCSControl *)maxFrequency
            minFrequency:(OCSControl *)minFrequency
+           maxFrequency:(OCSControl *)maxFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {

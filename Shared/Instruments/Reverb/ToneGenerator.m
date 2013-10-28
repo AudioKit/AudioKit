@@ -14,10 +14,12 @@
 {
     self = [super init];
     
-    if (self) {       
+    if (self) {
         // INPUTS ==============================================================
         
-        _frequency  = [[OCSInstrumentProperty alloc] initWithValue:220 minValue:kFrequencyMin  maxValue:kFrequencyMax];
+        _frequency  = [[OCSInstrumentProperty alloc] initWithValue:220
+                                                          minValue:kFrequencyMin
+                                                          maxValue:kFrequencyMax];
         [self addProperty:_frequency];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -34,11 +36,11 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:oscillator]; 
+        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:oscillator];
         [self connect:audio];
         
         
-        // EXTERNAL OUTPUTS ====================================================        
+        // EXTERNAL OUTPUTS ====================================================
         // After your instrument is set up, define outputs available to others
         _auxilliaryOutput = [OCSAudio globalParameter];
         [self assignOutput:_auxilliaryOutput to:oscillator];
