@@ -63,6 +63,7 @@
 #import "OCSAdditiveCosines.h"
 #import "OCSFMOscillator.h"
 #import "OCSGrain.h"
+#import "OCSJitter.h"
 #import "OCSLine.h"
 #import "OCSLinearControl.h"
 #import "OCSLinearADSRAudioEnvelope.h"
