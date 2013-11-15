@@ -30,10 +30,6 @@
 /// @param newInstrument Instrument that will be added to the orchestra.
 - (void)addInstrument:(OCSInstrument *)newInstrument;
 
-/// Adds the UDO to a set of required UDOs for the entire orchestra.
-/// @param newUserDefinedOperation UDO to add to the orchestra.
-//- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation;
-
 /// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;
 

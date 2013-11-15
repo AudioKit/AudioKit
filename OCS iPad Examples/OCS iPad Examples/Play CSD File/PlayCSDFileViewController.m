@@ -21,6 +21,7 @@
                                                   action:@selector(startOrStop)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
+    NSLog(@"fdsa");
     [[OCSManager sharedOCSManager] runCSDFile:@"example"];
     
 }

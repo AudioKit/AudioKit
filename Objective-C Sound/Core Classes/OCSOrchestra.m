@@ -13,7 +13,7 @@
 @interface OCSOrchestra () {
     int sampleRate;
     int samplesPerControlPeriod;
-    NSMutableArray *udos;
+    NSMutableSet *udoFiles;
 }
 @end
 
@@ -30,7 +30,7 @@
         samplesPerControlPeriod = 64;
         _numberOfChannels = 2;
         _zeroDBFullScaleValue = 1.0f;
-        udos = [[NSMutableArray alloc] init];
+        udoFiles = [[NSMutableSet alloc] init];
         _instruments = [[NSMutableArray alloc] init];
     }
     return self; 
@@ -44,10 +44,6 @@
     [_instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];
 }
-
-//- (void)addUDO:(OCSUserDefinedOperation *)newUserDefinedOperation {
-//    [udos addObject:newUserDefinedOperation];
-//}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
@@ -81,10 +77,22 @@
     [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
     for ( OCSInstrument *i in _instruments) {
         for (OCSParameter *udo in [i userDefinedOperations]) {
-            [s appendString:@"\n"];     
-            [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
-            [s appendString:@"\n"];
+            NSString *newUDOFile = [udo udoFile];
+            for (OCSParameter *udo in udoFiles) {
+                if ([newUDOFile isEqualToString:[udo udoFile]]) {
+                    newUDOFile  = @"";
+                }
+            }
+            if (![newUDOFile isEqualToString:@""]) {
+                [udoFiles addObject:udo];
+            }
         }
+    }
+    for (OCSParameter *udo in udoFiles) {
+        [s appendString:@"\n"];
+        [s appendString:[OCSManager stringFromFile:[udo udoFile]]];
+        [s appendString:@"\n"];
+
     }
     [s appendString:@"\n"];
 
