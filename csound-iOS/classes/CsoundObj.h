@@ -34,7 +34,7 @@
 
 typedef struct csdata_ {
 	CSOUND *cs;
-	int bufframes;
+	long bufframes;
 	int ret;
 	int nchnls;
     int nchnls_i;
