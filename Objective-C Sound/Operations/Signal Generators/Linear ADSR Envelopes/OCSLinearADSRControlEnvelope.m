@@ -22,7 +22,7 @@
 
 @implementation OCSLinearADSRControlEnvelope
 
-- (id)initWithAttackDuration:(OCSConstant *)attackDuration
+- (instancetype)initWithAttackDuration:(OCSConstant *)attackDuration
                decayDuration:(OCSConstant *)decayDuration
                 sustainLevel:(OCSConstant *)sustainLevel
              releaseDuration:(OCSConstant *)releaseDuration

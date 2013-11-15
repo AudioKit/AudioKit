@@ -19,7 +19,7 @@
 /// Instantiates the delay
 /// @param audioSource Audio signal
 /// @param delayTime Requested delay time in seconds.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                 delayTime:(OCSConstant *)delayTime;
 
 @end

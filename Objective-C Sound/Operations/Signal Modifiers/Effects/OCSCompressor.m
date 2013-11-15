@@ -26,7 +26,7 @@
 
 @implementation OCSCompressor
 
-- (id)initWithAffectedAudioSource:(OCSAudio *)affectedAudioSource
+- (instancetype)initWithAffectedAudioSource:(OCSAudio *)affectedAudioSource
            controllingAudioSource:(OCSAudio *)controllingAudioSource
                         threshold:(OCSControl *)threshold
                           lowKnee:(OCSControl *)lowKnee

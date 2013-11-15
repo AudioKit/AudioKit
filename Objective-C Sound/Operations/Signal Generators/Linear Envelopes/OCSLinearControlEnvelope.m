@@ -18,7 +18,7 @@
 
 @implementation OCSLinearControlEnvelope
 
-- (id)initWithRiseTime:(OCSConstant *)riseTime
+- (instancetype)initWithRiseTime:(OCSConstant *)riseTime
          totalDuration:(OCSConstant *)totalDuration
              decayTime:(OCSConstant *)decayTime
              amplitude:(OCSControl  *)amplitude

@@ -17,11 +17,11 @@
 
 /// Create a function table from a parameter array
 /// @param parameterArray The array to be stored in the function table.
-- (id)initWithArray:(OCSArray *)parameterArray;
+- (instancetype)initWithArray:(OCSArray *)parameterArray;
 
 /// Create a function table from a parameter array, but define the size as something besides the array count.
 /// @param parameterArray The array to be stored in the function table.
 /// @param tableSize      The number of elements in the function table, the contents of the array, plus zeroes afterwards.
-- (id)initWithArray:(OCSArray *)parameterArray size:(int)tableSize;
+- (instancetype)initWithArray:(OCSArray *)parameterArray size:(int)tableSize;
 
 @end

@@ -24,7 +24,7 @@
 
 @implementation OCSMandolin
 
-- (id)initWithBodySize:(OCSControl *)bodySize
+- (instancetype)initWithBodySize:(OCSControl *)bodySize
              frequency:(OCSControl *)frequency
   pairedStringDetuning:(OCSControl *)pairedStringDetuning
          pluckPosition:(OCSControl *)pluckPosition

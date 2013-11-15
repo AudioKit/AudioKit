@@ -20,7 +20,7 @@
 
 @implementation UDOCsGrainCompressor
 
-- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
                       threshold:(OCSControl *)dBThreshold
                compressionRatio:(OCSControl *)compressionRatio
                      attackTime:(OCSControl *)attackTime

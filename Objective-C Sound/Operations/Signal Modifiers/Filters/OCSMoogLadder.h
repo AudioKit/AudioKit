@@ -20,7 +20,7 @@
 /// @param audioSource Input Signal
 /// @param cutoffFrequency Filter cutoff frequency
 /// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
           cutoffFrequency:(OCSControl *)cutoffFrequency
                 resonance:(OCSControl *)resonance;
 

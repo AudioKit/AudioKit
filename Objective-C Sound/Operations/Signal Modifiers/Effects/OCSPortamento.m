@@ -20,7 +20,7 @@
 
 @implementation OCSPortamento
 
-- (id)initWithControlSource:(OCSControl *)controlSource
+- (instancetype)initWithControlSource:(OCSControl *)controlSource
                    halfTime:(OCSControl *)halfTime
 {
     self = [super initWithString:[self operationName]];

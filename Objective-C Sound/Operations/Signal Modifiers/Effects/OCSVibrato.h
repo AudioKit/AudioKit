@@ -26,7 +26,7 @@
 /// @param amplitudeDeviation Amount of random amplitude deviation,
 /// @param minimumAmplitudeRandomness Minimum frequency of random amplitude deviation segments in Hz
 /// @param maximumAmplitudeRandomness Maximum frequency of random amplitude deviation segments in Hz
-- (id)initWithVibratoShapeTable:(OCSFTable *)vibratoShapeTable
+- (instancetype)initWithVibratoShapeTable:(OCSFTable *)vibratoShapeTable
                averageFrequency:(OCSControl *)averageFrequency
             frequencyRandomness:(OCSControl *)frequencyRandomness
      minimumFrequencyRandomness:(OCSControl *)minimumFrequencyRandomness

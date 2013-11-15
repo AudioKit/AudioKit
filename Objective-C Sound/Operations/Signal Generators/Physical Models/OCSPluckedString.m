@@ -23,7 +23,7 @@
 
 @implementation OCSPluckedString
 
-- (id)initWithFrequency:(OCSConstant *)frequency
+- (instancetype)initWithFrequency:(OCSConstant *)frequency
           pluckPosition:(OCSConstant *)pluckPosition
               amplitude:(OCSControl *)amplitude
          samplePosition:(OCSControl *)samplePosition

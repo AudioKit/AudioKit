@@ -18,6 +18,6 @@
 
 /// Instantiates the declick
 /// @param audioSource Audio to declick
-- (id)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
 
 @end

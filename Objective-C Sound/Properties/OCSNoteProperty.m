@@ -30,13 +30,13 @@
 }
 
 
-- (id)initWithMinValue:(float)minValue
+- (instancetype)initWithMinValue:(float)minValue
               maxValue:(float)maxValue;
 {
     return [self initWithValue:minValue minValue:minValue maxValue:maxValue];
 }
 
-- (id)initWithValue:(float)initialValue
+- (instancetype)initWithValue:(float)initialValue
            minValue:(float)minValue
            maxValue:(float)maxValue;
 {

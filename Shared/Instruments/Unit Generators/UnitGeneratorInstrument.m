@@ -10,7 +10,7 @@
 
 @implementation UnitGeneratorInstrument
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

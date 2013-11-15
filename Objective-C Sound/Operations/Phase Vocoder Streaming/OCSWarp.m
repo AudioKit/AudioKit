@@ -24,7 +24,7 @@
 
 @implementation OCSWarp
 
-- (id)initWithSourceSignal:(OCSFSignal *)sourceSignal
+- (instancetype)initWithSourceSignal:(OCSFSignal *)sourceSignal
               scalingRatio:(OCSControl *)scalingRatio
                      shift:(OCSControl *)shift
 {

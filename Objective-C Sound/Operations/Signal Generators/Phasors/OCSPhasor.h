@@ -22,7 +22,7 @@
 
 /// Instantiates the phasor.
 /// @param frequency Frequency in cycles per second.
-- (id)initWithFrequency:(OCSParameter *)frequency;
+- (instancetype)initWithFrequency:(OCSParameter *)frequency;
 
 /// Set an optional phase of sampling
 /// @param phase Initial phase, expressed as a fraction of a cycle (0 to 1).

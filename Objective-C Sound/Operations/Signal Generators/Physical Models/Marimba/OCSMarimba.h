@@ -26,7 +26,7 @@
 /// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12
 /// @param vibratoAmplitude Amplitude of the vibrato
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
           stickHardness:(OCSConstant *)stickHardness
          strikePosition:(OCSConstant *)strikePosition

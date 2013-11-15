@@ -21,7 +21,7 @@
 /// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged.
 /// @param cutoffFrequency The filter cutoff frequency in Hz.
 /// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                distortion:(OCSControl *)distortion
           cutoffFrequency:(OCSControl *)cutoffFrequency
                 resonance:(OCSControl *)resonance;

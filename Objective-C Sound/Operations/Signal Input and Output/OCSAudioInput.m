@@ -10,7 +10,7 @@
 
 @implementation OCSAudioInput
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithString:[self operationName]];
     return self; 
 }

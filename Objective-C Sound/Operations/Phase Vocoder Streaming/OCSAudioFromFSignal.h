@@ -17,6 +17,6 @@
 
 /// Create audio from an f-signal
 /// @param source Input f-signal
-- (id)initWithSource:(OCSFSignal *)source;
+- (instancetype)initWithSource:(OCSFSignal *)source;
 
 @end

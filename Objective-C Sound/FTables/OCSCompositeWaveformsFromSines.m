@@ -10,7 +10,7 @@
 
 @implementation OCSCompositeWaveformsFromSines
 
--(id)initWithTableSize:(int)tableSize
+-(instancetype)initWithTableSize:(int)tableSize
         partialNumbers:(OCSArray *)partialNumbers
       partialStrengths:(OCSArray *)partialStrengths
 partialStrengthOffsets:(OCSArray *)partialOffsets

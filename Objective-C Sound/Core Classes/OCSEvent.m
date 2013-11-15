@@ -22,7 +22,7 @@ typedef void (^MyBlockType)();
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-- (id)initWithNote:(OCSNote *)newNote {
+- (instancetype)initWithNote:(OCSNote *)newNote {
     self = [self init];
     if (self) {
         _note = newNote;
@@ -30,7 +30,7 @@ typedef void (^MyBlockType)();
     return self;
 }
 
-- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock {
+- (instancetype)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock {
     self = [self initWithNote:newNote];
     if (self) {
         block = aBlock;
@@ -38,7 +38,7 @@ typedef void (^MyBlockType)();
     return self;
 }
 
-- (id)initWithBlock:(void (^)())aBlock {
+- (instancetype)initWithBlock:(void (^)())aBlock {
     self = [self init];
     if (self) {
         block = aBlock;

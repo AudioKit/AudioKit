@@ -25,7 +25,7 @@
 @implementation OCSAdditiveCosines
 
 /*
--(id)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
+-(instancetype)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
         harmonicsCount:(OCSControl *)harmonicsCount
       firstHarmonicIdx:(OCSControl *)firstHarmonicIdx 
      partialMultiplier:(OCSControl *)partialMultiplier 
@@ -46,7 +46,7 @@
     return self;
 }
 
--(id)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
+-(instancetype)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
                phase:(OCSConstant *)phase
       harmonicsCount:(OCSControl *)harmonicsCount 
     firstHarmonicIdx:(OCSControl *)firstHarmonicIdx 
@@ -78,7 +78,7 @@ fundamentalFrequency:(OCSParameter *)fundamentalFrequency
 }
  */
 
--(id)initWithFTable:(OCSFTable *)cosineTable
+-(instancetype)initWithFTable:(OCSFTable *)cosineTable
      harmonicsCount:(OCSControl *)harmonicsCount
    firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
   partialMultiplier:(OCSControl *)partialMultiplier

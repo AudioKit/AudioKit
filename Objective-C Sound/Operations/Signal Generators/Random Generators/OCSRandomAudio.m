@@ -16,7 +16,7 @@
 
 @implementation OCSRandomAudio
 
--(id)initWithMinimum:(OCSControl *)minimum
+-(instancetype)initWithMinimum:(OCSControl *)minimum
              maximum:(OCSControl *)maximum
 {
     self = [super initWithString:[self operationName]];

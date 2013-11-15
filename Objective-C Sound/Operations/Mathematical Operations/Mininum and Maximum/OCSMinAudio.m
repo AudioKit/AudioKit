@@ -18,7 +18,7 @@
 
 @implementation OCSMinAudio
 
-- (id)initWithAudioSources:(OCSArray *)inputAudioSources;
+- (instancetype)initWithAudioSources:(OCSArray *)inputAudioSources;
 {
     self = [super initWithString:[self operationName]];
     if (self) {

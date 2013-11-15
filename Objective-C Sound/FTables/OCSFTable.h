@@ -46,14 +46,14 @@ typedef enum
 /// @param fTableType  One of the supported GeneratingRoutines.
 /// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
 /// @param parameters         An array of parameters that define the function table. 
-- (id)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(FTableType)fTableType
               size:(int)tableSize
         parameters:(OCSArray *)parameters;
 
 /// Creates a function table without specifying a size, deferring that calculation.
 /// @param fTableType  One of the supported GeneratingRoutines.
 /// @param parameters         An array of parameters that define the function table. 
-- (id)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(FTableType)fTableType
         parameters:(OCSArray *)parameters;
 
 /// @returns The textual representation of the dynamic function table for Csound

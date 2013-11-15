@@ -18,7 +18,7 @@
 /// Initialize the opcode as an audio operation.
 /// @param fTable Function table read the data from.
 /// @param index  Indexing Parameter.
-- (id)initWithFTable:(OCSConstant *)fTable
+- (instancetype)initWithFTable:(OCSConstant *)fTable
              atIndex:(OCSConstant *)index;
 
 /// Normalize data to a maximum of 1.

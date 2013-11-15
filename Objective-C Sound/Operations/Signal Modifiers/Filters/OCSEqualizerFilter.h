@@ -22,7 +22,7 @@
 /// @param centerFrequency Filter center frequency in Hz.
 /// @param bandwidth Peak/notch bandwidth in Hz.
 /// @param gain Peak/notch gain.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
           centerFrequency:(OCSControl *)centerFrequency
                 bandwidth:(OCSControl *)bandwidth
                      gain:(OCSControl *)gain;

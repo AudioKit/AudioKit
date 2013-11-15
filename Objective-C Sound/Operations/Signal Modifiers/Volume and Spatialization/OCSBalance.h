@@ -19,7 +19,7 @@
 /// Instantiates the balance
 /// @param audioSource Input audio signal
 /// @param comparatorAudioSource The comparator signal
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
     comparatorAudioSource:(OCSAudio *)comparatorAudioSource;
 
 

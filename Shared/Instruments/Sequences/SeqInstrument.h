@@ -23,6 +23,6 @@
 #define kFrequencyMin  110
 #define kFrequencyMax  880
 @property (nonatomic, strong) OCSNoteProperty *frequency;
-- (id)initWithFrequency:(float)frequency;
+- (instancetype)initWithFrequency:(float)frequency;
 
 @end

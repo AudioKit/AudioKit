@@ -16,7 +16,7 @@
 
 @implementation OCSConvolution
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
       impulseResponseFile:(NSString *)impulseResponseFilename
 {
     self = [super initWithString:[self operationName]];

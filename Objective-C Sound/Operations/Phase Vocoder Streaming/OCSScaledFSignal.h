@@ -29,7 +29,7 @@ typedef enum
 /// Create a frequency-scaled phase vocoder stream from another stream
 /// @param input          Source f-signal
 /// @param frequencyRatio Scaling ratio.
-- (id)initWithInput:(OCSFSignal *)input
+- (instancetype)initWithInput:(OCSFSignal *)input
      frequencyRatio:(OCSControl *)frequencyRatio;
 
 /// Create a frequency-scaled phase vocoder stream from another stream
@@ -38,7 +38,7 @@ typedef enum
 /// @param formantRetainMethod          Method by which to attempt to keep input signal formants.
 /// @param amplitudeRatio               Amplitude scaling ratio (default 1.0 equals no change)
 /// @param numberOfCepstrumCoefficients Number of coefficients to use in formant preservation (defaults ot 80).
-- (id)initWithInput:(OCSFSignal *)input
+- (instancetype)initWithInput:(OCSFSignal *)input
      frequencyRatio:(OCSControl *)frequencyRatio
 formantRetainMethod:(FormantRetainMethodType) formantRetainMethod
      amplitudeRatio:(OCSControl *)amplitudeRatio

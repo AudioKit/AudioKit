@@ -31,7 +31,7 @@ typedef enum
 /// Instantiates the panner
 /// @param audioSource Source signal.
 /// @param pan From hard left (0) to hard right (1).
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                       pan:(OCSParameter *)pan;
 
 

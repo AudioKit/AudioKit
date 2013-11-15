@@ -38,14 +38,14 @@
 /// Initialize the property with bounds.
 /// @param minValue Minimum value.
 /// @param maxValue Maximum value.
-- (id)initWithMinValue:(float)minValue
+- (instancetype)initWithMinValue:(float)minValue
               maxValue:(float)maxValue;
 
 /// Initialize the property with an initial value and bounds.
 /// @param initialValue Initial value.
 /// @param minValue Minimum value.
 /// @param maxValue Maximum value.
-- (id)initWithValue:(float)initialValue
+- (instancetype)initWithValue:(float)initialValue
            minValue:(float)minValue
            maxValue:(float)maxValue;
 

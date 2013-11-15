@@ -17,7 +17,7 @@
 
 @implementation UDOMSROscillator
 
-- (id)initWithType:(OscillatorType)oscillatorType
+- (instancetype)initWithType:(OscillatorType)oscillatorType
          frequency:(OCSControl *)pitchOrFrequency
          amplitude:(OCSConstant *)maxAmplitude;
 

@@ -15,12 +15,12 @@
 
 @implementation OCSAudioOutput
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
 {
     return [self initWithLeftAudio:audioSource rightAudio:audioSource];
 }
 
-- (id)initWithSourceStereoAudio:(OCSStereoAudio *)stereoAudio {
+- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)stereoAudio {
     self = [super init];
     if (self) {
         aStereoOutput = stereoAudio;
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (id)initWithLeftAudio:(OCSAudio *)leftAudio rightAudio:(OCSAudio *)rightAudio
+- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio rightAudio:(OCSAudio *)rightAudio
 {
     self = [super init];
     if (self) {

@@ -18,6 +18,6 @@
 
 /// Finds the maximum audio signal from an array of sources
 /// @param inputControls Array of controls
-- (id)initWithControls:(OCSArray *)inputControls;
+- (instancetype)initWithControls:(OCSArray *)inputControls;
 
 @end

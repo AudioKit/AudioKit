@@ -27,7 +27,7 @@
 
 @implementation OCSVibes
 
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
           stickHardness:(OCSConstant *)stickHardness
          strikePosition:(OCSConstant *)strikePosition

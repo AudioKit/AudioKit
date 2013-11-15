@@ -22,7 +22,7 @@
 
 @implementation OCSDopplerEffect
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
               micPosition:(OCSControl *)micPosition
            sourcePosition:(OCSControl *)sourcePosition
 {

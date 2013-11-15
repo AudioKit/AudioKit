@@ -17,7 +17,7 @@
 
 @implementation OCSTrackedFrequency
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                sampleSize:(OCSConstant *)hopSize
 {
     self = [super initWithString:[self operationName]];

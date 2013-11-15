@@ -20,7 +20,7 @@
 /// @param audioSource Input signal.
 /// @param cutoffFrequency Filter cut-off frequency in Hz.
 /// @param resonance Amount of resonance. Self-oscillation occurs when this is approximately one.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
           cutoffFrequency:(OCSParameter *)cutoffFrequency
                 resonance:(OCSParameter *)resonance;
 

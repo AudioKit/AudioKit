@@ -18,7 +18,7 @@
 
 /// Instantiates the dc block
 /// @param audioSource Input audio signal.
-- (id)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
 
 
 /// Set an optional gain

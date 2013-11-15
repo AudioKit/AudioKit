@@ -19,7 +19,7 @@
 /// Instantiates the control segment array loop
 /// @param frequency Repeat rate in Hz or fraction of Hz.
 /// @param startValue Initial value at time zero.
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
              startValue:(OCSControl *)startValue;
 
 /// Adds another segment.

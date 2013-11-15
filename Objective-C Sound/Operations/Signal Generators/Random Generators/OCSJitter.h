@@ -21,7 +21,7 @@ This can be used to make more natural and “analog-sounding” some static, dul
 /// @param amplitude Amplitude of jitter deviation
 /// @param minFrequency Minimum speed of random frequency variations (expressed in Hz)
 /// @param maxFrequency Maximum speed of random frequency variations (expressed in Hz)
-- (id)initWithAmplitude:(OCSControl *)amplitude
+- (instancetype)initWithAmplitude:(OCSControl *)amplitude
            minFrequency:(OCSControl *)minFrequency
            maxFrequency:(OCSControl *)maxFrequency;
 

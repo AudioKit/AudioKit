@@ -20,7 +20,7 @@
 /// @param audioSource Input signal at the sound source.
 /// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound.
 /// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
               micPosition:(OCSControl *)micPosition
            sourcePosition:(OCSControl *)sourcePosition;
 

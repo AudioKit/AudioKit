@@ -28,7 +28,7 @@
 /// Initialize the tracked frequency.
 /// @param audioSource Input signal.
 /// @param hopSize  Size of the analysis 'hop', in samples, required to be power-of-two (min 64, max 4096). This is the period between measurements.
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                sampleSize:(OCSConstant *)hopSize;
 
 /// Set the optional number of spectral peaks

@@ -31,7 +31,7 @@ static NSString* CS_ACCEL_X = @"accelerometerX";
 static NSString* CS_ACCEL_Y = @"accelerometerY";
 static NSString* CS_ACCEL_Z = @"accelerometerZ";
 
--(id)init:(CMMotionManager*)cmManager {
+-(instancetype)init:(CMMotionManager*)cmManager {
     if (self = [super init]) {
         manager = cmManager;
     }

@@ -26,7 +26,7 @@
 
 @implementation OCSStruckMetalBar
 
-- (id)initWithDecayTime:(OCSConstant *)decayTime
+- (instancetype)initWithDecayTime:(OCSConstant *)decayTime
  dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
       highFrequencyLoss:(OCSConstant *)highFrequencyLoss
          strikePosition:(OCSConstant *)strikePosition

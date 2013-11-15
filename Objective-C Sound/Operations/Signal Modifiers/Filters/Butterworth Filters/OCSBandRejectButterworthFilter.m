@@ -20,7 +20,7 @@
 
 @implementation OCSBandRejectButterworthFilter
 
--(id)initWithAudioSource:(OCSAudio *)audioSource
+-(instancetype)initWithAudioSource:(OCSAudio *)audioSource
          centerFrequency:(OCSControl *)centerFrequency
                bandwidth:(OCSControl *)bandwidthRange
 {

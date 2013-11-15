@@ -29,14 +29,14 @@ typedef enum
 /// Create a random distribution table
 /// @param distributionType Type of distribution to use (note that Beta and Weibull use their own init methods).
 /// @param size             Size of the table.
-- (id)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(RandomDistributionType)distributionType
            size:(int)size;
 
 /// Create a random distribution table
 /// @param distributionType Type of distribution to use (note that Beta and Weibull use their own init methods).
 /// @param size             Size of the table.
 /// @param level            Level is the maximum amplitude of the signal varying from 0 to level or -level to level depending on the type.
-- (id)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(RandomDistributionType)distributionType
            size:(int)size
           level:(float)level;
 
@@ -44,7 +44,7 @@ typedef enum
 /// @param size  Size of the table.
 /// @param level Level is the maximum amplitude of the signal varying from 0 to level or -level to level depending on the type.
 /// @param sigma Value that determines the spread of the distribution.
-- (id)initWeibullTypeWithSize:(int)size
+- (instancetype)initWeibullTypeWithSize:(int)size
                         level:(float)level
                         sigma:(float)sigma;
 
@@ -53,7 +53,7 @@ typedef enum
 /// @param level Level is the maximum amplitude of the signal varying from 0 to level or -level to level depending on the type.
 /// @param alpha If alpha is smaller than one, smaller values favor values near 0.
 /// @param beta  If beta is smaller than one, smaller values favor values near level.
-- (id)initBetaTypeWithSize:(int)size
+- (instancetype)initBetaTypeWithSize:(int)size
                         level:(float)level
                         alpha:(float)alpha
                       beta:(float)beta;

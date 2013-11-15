@@ -21,7 +21,7 @@
 /// @param decayDuration Duration of decay
 /// @param sustainLevel Level for sustain phase
 /// @param releaseDuration Duration of release phase
-- (id)initWithAttackDuration:(OCSConstant *)attackDuration
+- (instancetype)initWithAttackDuration:(OCSConstant *)attackDuration
                decayDuration:(OCSConstant *)decayDuration
                 sustainLevel:(OCSConstant *)sustainLevel
              releaseDuration:(OCSConstant *)releaseDuration;

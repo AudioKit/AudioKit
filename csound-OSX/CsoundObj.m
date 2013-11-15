@@ -25,7 +25,7 @@ typedef struct csdata_ {
 
 @implementation CsoundObj
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -90,9 +90,11 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     [completionListeners addObject:listener];
 }
 
--(MYFLT*)getInputChannelPtr:(NSString *)channelName {
-    MYFLT *value;
-    csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding], CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
+-(float*)getInputChannelPtr:(NSString*)channelName channelType:(controlChannelType)channelType
+{
+    float *value;
+    csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding],
+                        channelType | CSOUND_INPUT_CHANNEL);
     return value;
 }
 

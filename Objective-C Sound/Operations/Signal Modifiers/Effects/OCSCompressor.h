@@ -39,7 +39,7 @@
 /// @param compressionRatio Ratio of compression when the signal level is above the knee. The value 2 will advance the output just one decibel for every input gain of two; 3 will advance just one in three; 20 just one in twenty, etc. Inverse ratios will cause signal expansion: .5 gives two for one, .25 four for one, etc. The value 1 will result in no change.
 /// @param attackTime Attack time in seconds.
 /// @param releaseTime Release time in seconds.
-- (id)initWithAffectedAudioSource:(OCSAudio *)affectedAudioSource
+- (instancetype)initWithAffectedAudioSource:(OCSAudio *)affectedAudioSource
            controllingAudioSource:(OCSAudio *)controllingAudioSource
                         threshold:(OCSControl *)threshold
                           lowKnee:(OCSControl *)lowKnee

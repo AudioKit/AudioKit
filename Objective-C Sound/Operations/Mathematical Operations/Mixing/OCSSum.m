@@ -15,7 +15,7 @@
 
 @implementation OCSSum
 
-- (id)initWithOperands:(OCSParameter *)firstOperand,... {
+- (instancetype)initWithOperands:(OCSParameter *)firstOperand,... {
     self = [super initWithString:[self operationName]];
     
     if (self) {

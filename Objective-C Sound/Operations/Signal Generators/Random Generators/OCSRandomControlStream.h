@@ -17,7 +17,7 @@
 /// Instantiates the oscillator with an initial frequency of sampling.
 /// @param maximum maximum range limit.  Sampled values will be between 0 .. maximum
 /// @param frequency frequency with which new samples are generated
-- (id)initWithMaximum:(OCSControl *)maximum
+- (instancetype)initWithMaximum:(OCSControl *)maximum
             frequency:(OCSControl *)frequency;
 
 /// Sets optional seed value for the pseudo-random number generator.

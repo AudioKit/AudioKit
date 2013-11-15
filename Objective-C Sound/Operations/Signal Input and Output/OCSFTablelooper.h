@@ -23,7 +23,7 @@
 /// @param crossfadeDuration Crossfade duration in seconds
 /// @param transpositionRatio Pitch control, negative values play the loop in reverse.
 /// @param amplitude Amplitude of loop
-- (id)initWithFTable:(OCSFTable *)fTable
+- (instancetype)initWithFTable:(OCSFTable *)fTable
     startingPosition:(OCSConstant *)startingPosition
         loopDuration:(OCSConstant *)loopDuration
    crossfadeDuration:(OCSConstant *)crossfadeDuration

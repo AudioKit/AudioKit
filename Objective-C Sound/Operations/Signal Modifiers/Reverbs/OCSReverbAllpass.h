@@ -20,7 +20,7 @@
 ///@param audioSource The input to the alpass reverb.
 ///@param reverberationTime The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude
 ///@param loopTime The loop time in seconds, which determines the “echo density” of the reverberation. This in turn characterizes the “color” of the filter whose frequency response curve will contain ilpt * sr/2 peaks spaced evenly between 0 and sr/2 (the Nyquist frequency). Loop time can be as large as available memory will permit. The space required for an n second loop is 4n*sr bytes.
--(id)initWithAudioSource:(OCSAudio *)audioSource
+-(instancetype)initWithAudioSource:(OCSAudio *)audioSource
  reverberationTime:(OCSControl *)reverberationTime
           loopTime:(OCSConstant *)loopTime;
 
@@ -29,7 +29,7 @@
 ///@param loopTime The loop time in seconds, which determines the “echo density” of the reverberation. This in turn characterizes the “color” of the filter whose frequency response curve will contain ilpt * sr/2 peaks spaced evenly between 0 and sr/2 (the Nyquist frequency). Loop time can be as large as available memory will permit. The space required for an n second loop is 4n*sr bytes.
 ///@param initialDelayTime The initial disposition of internal data space. Since reverberation incorporates a feedback loop of previous output, the initial status of the storage space used is significant. A zero value will clear the space; a non-zero value will allow previous information to remain. The default value is 0.
 ///@param delayAmount The number of samples to delay by.
--(id)initWithAudioSource:(OCSAudio *)audioSource
+-(instancetype)initWithAudioSource:(OCSAudio *)audioSource
        reverberationTime:(OCSControl *)reverberationTime
                 loopTime:(OCSConstant *)loopTime
         initialDelayTime:(OCSConstant *)initialDelayTime

@@ -23,7 +23,7 @@
 /// @param samplePosition  Proportion of the way along the string to sample the output.
 /// @param reflectionCoefficient The coefficient of reflection, indicating the lossiness and the rate of decay. It must be strictly between 0 and 1 (it will complain about both 0 and 1).
 /// @param excitationSignal A signal which excites the string.
-- (id)initWithFrequency:(OCSConstant *)frequency
+- (instancetype)initWithFrequency:(OCSConstant *)frequency
           pluckPosition:(OCSConstant *)pluckPosition
               amplitude:(OCSControl *)amplitude
          samplePosition:(OCSControl *)samplePosition

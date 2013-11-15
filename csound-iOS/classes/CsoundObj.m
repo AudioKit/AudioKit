@@ -55,7 +55,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 @synthesize midiInEnabled = mMidiInEnabled;
 @synthesize motionManager = mMotionManager;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

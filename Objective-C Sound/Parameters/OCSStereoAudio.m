@@ -30,7 +30,7 @@ static int currentID = 1;
     return [[OCSStereoAudio alloc] initWithLeftAudio:mono rightAudio:mono];
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -41,7 +41,7 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initWithString:(NSString *)name
+- (instancetype)initWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
@@ -52,7 +52,7 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initWithLeftAudio:(OCSAudio *)leftAudio
+- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio
              rightAudio:(OCSAudio *)rightAudio
 {
     self = [self init];

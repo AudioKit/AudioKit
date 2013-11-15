@@ -22,7 +22,7 @@
 /// @param endingValue   Value to end the line at.
 /// @param duration      Duration of linear transition in seconds.
 /// @return An opcode to perform a linear transition over a given duration.
-- (id)initFromValue:(OCSConstant *)startingValue
+- (instancetype)initFromValue:(OCSConstant *)startingValue
             toValue:(OCSConstant *)endingValue
            duration:(OCSConstant *)duration;
 

@@ -23,7 +23,7 @@
 /// @param pluckPosition The pluck position, in range 0 to 1. Suggest 0.4.
 /// @param loopGain The loop gain of the model, in the range 0.97 to 1.
 /// @param amplitude Amplitude of note.
-- (id)initWithBodySize:(OCSControl *)bodySize
+- (instancetype)initWithBodySize:(OCSControl *)bodySize
              frequency:(OCSControl *)frequency
   pairedStringDetuning:(OCSControl *)pairedStringDetuning
          pluckPosition:(OCSControl *)pluckPosition

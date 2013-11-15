@@ -122,24 +122,24 @@
 }
 
 - (void)updateUI {
-    [channelLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _channel]];
-    [noteLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _note]];
+    [_channelLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _channel]];
+    [_noteLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _note]];
     
-    [modulationLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _modulation]];
-    [OCSMacTools setSlider:modulationSlider
+    [_modulationLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _modulation]];
+    [OCSMacTools setSlider:_modulationSlider
             withValue:_modulation
               minimum:0
               maximum:127];
     
-    [pitchBendLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _pitchBend]];
-    [OCSMacTools setSlider:pitchBendSlider
+    [_pitchBendLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _pitchBend]];
+    [OCSMacTools setSlider:_pitchBendSlider
             withValue:_pitchBend
               minimum:0
               maximum:powf(2.0, 14.0)];
     
-    [controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
-    [controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
-    [OCSMacTools setSlider:controllerSlider
+    [_controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
+    [_controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
+    [OCSMacTools setSlider:_controllerSlider
             withValue:_controllerValue
               minimum:0
               maximum:127];

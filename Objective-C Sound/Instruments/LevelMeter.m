@@ -65,7 +65,7 @@
 }
 
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
 		[self _performInit];
@@ -74,7 +74,7 @@
 }
 
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
 	if (self = [super initWithCoder:coder]) {
 		[self _performInit];

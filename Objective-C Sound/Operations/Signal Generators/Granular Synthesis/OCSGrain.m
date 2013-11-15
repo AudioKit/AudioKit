@@ -24,7 +24,7 @@
 
 @implementation OCSGrain
 
-- (id)initWithGrainFunction:(OCSFTable *)grainFunction
+- (instancetype)initWithGrainFunction:(OCSFTable *)grainFunction
              windowFunction:(OCSFTable *)windowFunction
            maxGrainDuration:(OCSConstant *)maxGrainDuration
                   amplitude:(OCSParameter *)amplitude

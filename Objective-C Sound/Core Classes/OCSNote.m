@@ -22,7 +22,7 @@
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -41,7 +41,7 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initWithInstrument:(OCSInstrument *)anInstrument
+- (instancetype)initWithInstrument:(OCSInstrument *)anInstrument
              forDuration:(float)noteDuration {
     self = [self init];
     if (self) {
@@ -56,7 +56,7 @@ static int currentID = 1;
     [_instrument addNoteProperty:_duration];
 }
 
-- (id)initWithInstrument:(OCSInstrument *)anInstrument {
+- (instancetype)initWithInstrument:(OCSInstrument *)anInstrument {
     return [self initWithInstrument:anInstrument forDuration:-1];
 }
 

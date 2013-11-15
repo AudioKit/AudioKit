@@ -20,7 +20,7 @@
 /// Instantiates the VC Oscillator
 /// @param frequency Frequency in Hz
 /// @param amplitude Amplitude scale. In the case of a imode waveform value of a pulse waveform, the actual output level can be a lot higher than this value.
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
               amplitude:(OCSControl *)amplitude;
 
 /// Set an optional waveform type

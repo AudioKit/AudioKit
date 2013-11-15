@@ -22,7 +22,7 @@
 
 @implementation OCSStick
 
-- (id)initWithMaximumDuration:(OCSConstant *)maximumDuration
+- (instancetype)initWithMaximumDuration:(OCSConstant *)maximumDuration
                     amplitude:(OCSConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];

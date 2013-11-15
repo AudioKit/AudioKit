@@ -20,7 +20,7 @@
 
 @implementation OCSFlanger
 
-- (id)initWithSourceSignal:(OCSAudio *)sourceSignal
+- (instancetype)initWithSourceSignal:(OCSAudio *)sourceSignal
                  delayTime:(OCSAudio *)delayTime
                   feedback:(OCSControl *)feedback
 {

@@ -26,7 +26,7 @@
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency.
 /// @param modulationIndex This multiplied by the modulating frequency gives the modulation amplitude.
 /// @param amplitude The amplitude of the output signal
-- (id)initWithFTable:(OCSFTable *)fTable
+- (instancetype)initWithFTable:(OCSFTable *)fTable
        baseFrequency:(OCSControl *)baseFrequency
    carrierMultiplier:(OCSParameter *)carrierMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier

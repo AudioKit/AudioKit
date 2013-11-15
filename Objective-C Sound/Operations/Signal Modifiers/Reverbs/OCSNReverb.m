@@ -26,7 +26,7 @@
 
 @implementation OCSNReverb
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
            reverbDuration:(OCSControl *)reverbDuration
       highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 {
@@ -39,7 +39,7 @@
     return self;
 }
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
            reverbDuration:(OCSControl *)reverbDuration
       highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
           combFilterTimes:(NSArray *)combFilterTimes

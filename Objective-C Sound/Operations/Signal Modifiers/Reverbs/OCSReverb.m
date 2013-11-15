@@ -20,7 +20,7 @@
 
 @implementation OCSReverb
 
-- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
                   feedbackLevel:(OCSControl *)feedbackLevel
                 cutoffFrequency:(OCSControl *)cutoffFrequency;
 
@@ -34,7 +34,7 @@
     return self; 
 }
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
             feedbackLevel:(OCSControl *)feedbackLevel
           cutoffFrequency:(OCSControl *)cutoffFrequency;
 {

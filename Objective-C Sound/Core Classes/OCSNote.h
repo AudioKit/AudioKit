@@ -36,12 +36,12 @@
 /// Creates the note associated with the given instrument
 /// @param anInstrument This note's instrument.
 /// @param noteDuration Length of time to play the note in seconds
-- (id)initWithInstrument:(OCSInstrument *)anInstrument
+- (instancetype)initWithInstrument:(OCSInstrument *)anInstrument
              forDuration:(float)noteDuration;
 
 /// Creates the note associated with the given instrument
 /// @param anInstrument This note's instrument.
-- (id)initWithInstrument:(OCSInstrument *)anInstrument;
+- (instancetype)initWithInstrument:(OCSInstrument *)anInstrument;
 
 
 /// Begin playback of the note.

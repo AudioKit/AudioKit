@@ -11,7 +11,7 @@
 @implementation OCSControl
 
 
-- (id)initWithString:(NSString *)aString
+- (instancetype)initWithString:(NSString *)aString
 {
     self = [super init];
     if (self) {
@@ -20,7 +20,7 @@
     return self;
 }
 
-- (id)initGlobalWithString:(NSString *)aString
+- (instancetype)initGlobalWithString:(NSString *)aString
 {
     self = [super init];
     if (self) {

@@ -21,7 +21,7 @@
 /// Create an audio pair from left and right inputs
 /// @param leftAudio  Left channel input
 /// @param rightAudio Rigt channel input
-- (id)initWithLeftAudio:(OCSAudio *)leftAudio
+- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio
              rightAudio:(OCSAudio *)rightAudio;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.

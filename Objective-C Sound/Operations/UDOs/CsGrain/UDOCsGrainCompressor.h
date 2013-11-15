@@ -33,7 +33,7 @@
  @param releaseTime       The release time in seconds. A typical value is 0.1 seconds.
  @return                  And instance of the compressor.
 */
-- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
                       threshold:(OCSControl *)dBThreshold
                compressionRatio:(OCSControl *)compressionRatio
                      attackTime:(OCSControl *)attackTime

@@ -18,6 +18,6 @@
 #define kSpeedMin  0.5
 #define kSpeedMax  2.0
 @property (nonatomic, strong) OCSNoteProperty *speed;
-- (id)initWithSpeed:(float)speed;
+- (instancetype)initWithSpeed:(float)speed;
 
 @end

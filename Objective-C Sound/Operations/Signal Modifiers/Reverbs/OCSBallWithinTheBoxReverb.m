@@ -25,7 +25,7 @@
 
 @implementation OCSBallWithinTheBoxReverb
 
-- (id)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
+- (instancetype)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
               lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
               lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
                       xLocation:(OCSControl *)xLocation

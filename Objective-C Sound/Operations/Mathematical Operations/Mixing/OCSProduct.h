@@ -17,6 +17,6 @@
 /// Initialization Statement
 /// @param firstOperand At least one input is required
 /// @param ...          End the list with a nil.
-- (id)initWithOperands:(OCSAudio *)firstOperand,...;
+- (instancetype)initWithOperands:(OCSAudio *)firstOperand,...;
 
 @end

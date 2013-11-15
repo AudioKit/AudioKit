@@ -17,7 +17,7 @@
 
 @implementation OCSPhasingControl
 
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
