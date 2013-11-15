@@ -23,7 +23,7 @@
 
 @implementation OCSFTablelooper
 
-- (id)initWithFTable:(OCSFTable *)fTable
+- (instancetype)initWithFTable:(OCSFTable *)fTable
     startingPosition:(OCSConstant *)startingPosition
         loopDuration:(OCSConstant *)loopDuration
    crossfadeDuration:(OCSConstant *)crossfadeDuration

@@ -19,7 +19,7 @@
 
 @implementation OCSCombFilter
 
--(id)initWithAudioSource:(OCSAudio *)audioSource
+-(instancetype)initWithAudioSource:(OCSAudio *)audioSource
               reverbTime:(OCSControl *)reverbTime
                 loopTime:(OCSConstant *)loopTime
 {
@@ -35,7 +35,7 @@
     
 }
 
--(id)initWithAudioSource:(OCSAudio *)audioSource
+-(instancetype)initWithAudioSource:(OCSAudio *)audioSource
               reverbTime:(OCSControl *)reverbTime
                 loopTime:(OCSConstant *)loopTime
                delayAmount:(OCSConstant *)delayAmount

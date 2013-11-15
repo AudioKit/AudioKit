@@ -19,7 +19,7 @@
 
 @implementation OCSLinearAudioEnvelope
 
-- (id)initWithRiseTime:(OCSConstant *)riseTime
+- (instancetype)initWithRiseTime:(OCSConstant *)riseTime
          totalDuration:(OCSConstant *)totalDuration
              decayTime:(OCSConstant *)decayTime
              amplitude:(OCSParameter *)amplitude

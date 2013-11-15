@@ -13,7 +13,7 @@
 
 @implementation OCSAudioAnalyzer
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource {
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource {
     self = [super init];
     if (self) {
         _trackedFrequency = [[OCSInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin

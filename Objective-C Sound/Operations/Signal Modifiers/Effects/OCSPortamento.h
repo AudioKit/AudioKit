@@ -19,7 +19,7 @@
 /// Instantiates the portamento
 /// @param controlSource The input signal at control-rate.
 /// @param halfTime Half-time of the function in seconds.
-- (id)initWithControlSource:(OCSControl *)controlSource
+- (instancetype)initWithControlSource:(OCSControl *)controlSource
                    halfTime:(OCSControl *)halfTime;
 
 -(void)setOptionalFeedbackAmount:(OCSConstant *)feedback;

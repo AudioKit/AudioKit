@@ -23,7 +23,8 @@ typedef struct {
 -(void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable;
 -(void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable;
 
--(MYFLT *)getInputChannelPtr:(NSString *)channelName;
+-(float*)getInputChannelPtr:(NSString*)channelName channelType:(controlChannelType)channelType;
+
 
 -(void)setMessageCallback:(SEL)method withListener:(id)listener;
 -(void)performMessageCallback:(NSValue *)infoObj;

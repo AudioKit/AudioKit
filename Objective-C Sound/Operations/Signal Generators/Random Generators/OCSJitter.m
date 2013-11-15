@@ -20,7 +20,7 @@
 
 @implementation OCSJitter 
 
-- (id)initWithAmplitude:(OCSControl *)amplitude
+- (instancetype)initWithAmplitude:(OCSControl *)amplitude
            minFrequency:(OCSControl *)minFrequency
            maxFrequency:(OCSControl *)maxFrequency
 {

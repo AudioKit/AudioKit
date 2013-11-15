@@ -22,7 +22,7 @@
 
 @implementation OCSMixedAudio
 
-- (id)initWithSignal1:(OCSAudio *)signal1
+- (instancetype)initWithSignal1:(OCSAudio *)signal1
               signal2:(OCSAudio *)signal2
               balance:(OCSControl *)balancePoint;
 {

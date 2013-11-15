@@ -24,7 +24,7 @@
 /// @param firstSegmentTargetValue Value after firstSegmentDuration seconds. 
 /// @param firstSegmentDuration    Duration in seconds of first segment. A zero or negative value will cause all initialization to be skipped.
 /// @return An OCSSegment with the first segment specified.
-- (id)initWithStartValue:(OCSConstant *)firstSegmentStartValue
+- (instancetype)initWithStartValue:(OCSConstant *)firstSegmentStartValue
              toNextValue:(OCSConstant *)firstSegmentTargetValue
            afterDuration:(OCSConstant *)firstSegmentDuration;
 

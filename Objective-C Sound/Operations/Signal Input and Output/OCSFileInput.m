@@ -18,7 +18,7 @@
 
 @implementation OCSFileInput
 
-- (id)initWithFilename:(NSString *)fileName;
+- (instancetype)initWithFilename:(NSString *)fileName;
 {
     self = [super init];
     if (self) {

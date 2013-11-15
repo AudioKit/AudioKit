@@ -10,18 +10,18 @@
 
 @implementation OCSAdditiveCosineTable
 
-- (id)init
+- (instancetype)init
 {
     return [self initWithSize:8192 numberOfHarmonics:1];
 }
 
-- (id)initWithSize:(int)tableSize
+- (instancetype)initWithSize:(int)tableSize
  numberOfHarmonics:(int)numberOfHarmonics
 {
     return [self initWithType:kFTAdditiveCosines size:tableSize parameters:[OCSArray arrayFromConstants:ocspi(numberOfHarmonics), nil]];
 }
 
-- (id)initWithSize:(int)tableSize
+- (instancetype)initWithSize:(int)tableSize
  numberOfHarmonics:(int)numberOfHarmonics
     lowestHarmonic:(int)lowestHarmonic
 {
@@ -32,7 +32,7 @@
                                                     ocspi(lowestHarmonic), nil]];
 }
 
-- (id)initWithSize:(int)tableSize
+- (instancetype)initWithSize:(int)tableSize
  numberOfHarmonics:(int)numberOfHarmonics
     lowestHarmonic:(int)lowestHarmonic
  partialMultiplier:(int)partialMultiplier

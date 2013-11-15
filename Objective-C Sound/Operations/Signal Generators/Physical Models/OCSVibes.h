@@ -26,7 +26,7 @@
 /// @param tremoloShapeTable Shape of tremolo, usually a sine table, created by a function
 /// @param tremoloFrequency Frequency of tremolo in Hertz. Suggested range is 0 to 12
 /// @param tremoloAmplitude Amplitude of the tremolo
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
         maximumDuration:(OCSConstant *)maximumDuration
           stickHardness:(OCSConstant *)stickHardness
          strikePosition:(OCSConstant *)strikePosition

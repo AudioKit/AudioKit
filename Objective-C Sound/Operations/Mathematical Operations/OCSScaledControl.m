@@ -17,7 +17,7 @@
 
 @implementation OCSScaledControl
 
-- (id)initWithControl:(OCSControl *)inputControl
+- (instancetype)initWithControl:(OCSControl *)inputControl
         minimumOutput:(OCSControl *)minimumOutput
         maximumOutput:(OCSControl *)maximumOutput;
 {

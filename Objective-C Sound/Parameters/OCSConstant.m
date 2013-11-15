@@ -10,13 +10,13 @@
 
 @implementation OCSConstant
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     return self;
 }
 
-- (id)initWithString:(NSString *)name
+- (instancetype)initWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initGlobalWithString:(NSString *)name
+- (instancetype)initGlobalWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
@@ -34,7 +34,7 @@
     return self;
 }
 
-- (id)initWithFloat:(float)value
+- (instancetype)initWithFloat:(float)value
 {
     self = [super init];
     if (self) {
@@ -43,7 +43,7 @@
     return self;
 }
 
-- (id)initWithNumber:(NSNumber *)number
+- (instancetype)initWithNumber:(NSNumber *)number
 {
     self = [super init];
     if (self) {
@@ -53,7 +53,7 @@
 }
 
 
-- (id)initWithInt:(int)value
+- (instancetype)initWithInt:(int)value
 {
     self = [super init];
     if (self) {
@@ -62,7 +62,7 @@
     return self;
 }
 
-- (id)initWithFilename:(NSString *)filename
+- (instancetype)initWithFilename:(NSString *)filename
 {
     self = [super init];
     if (self) {

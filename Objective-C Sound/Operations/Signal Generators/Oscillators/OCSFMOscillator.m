@@ -24,7 +24,7 @@
 
 @implementation OCSFMOscillator
 
-- (id)initWithFTable:(OCSFTable *)fTable
+- (instancetype)initWithFTable:(OCSFTable *)fTable
        baseFrequency:(OCSControl *)baseFrequency
    carrierMultiplier:(OCSParameter *)carrierMultiplier
 modulatingMultiplier:(OCSParameter *)modulatingMultiplier

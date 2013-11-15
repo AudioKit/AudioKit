@@ -20,7 +20,7 @@
 /// Instantiates the low frequency oscillating control
 /// @param frequency Frequency of the note.
 /// @param amplitude Amplitude of output.
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
               amplitude:(OCSControl *)amplitude;
 
 

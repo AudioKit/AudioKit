@@ -20,6 +20,6 @@
 
 /// Initialize the tracked amplitude.
 /// @param audioSource Input signal.
-- (id)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
 
 @end

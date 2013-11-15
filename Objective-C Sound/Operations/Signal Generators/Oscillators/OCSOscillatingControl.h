@@ -20,7 +20,7 @@
 /// @param fTable Requires a wrap-around guard point
 /// @param frequency Frequency in cycles per second
 /// @param amplitude Amplitude of the output
-- (id)initWithFTable:(OCSFTable *)fTable
+- (instancetype)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSControl *)frequency
            amplitude:(OCSControl *)amplitude;
 

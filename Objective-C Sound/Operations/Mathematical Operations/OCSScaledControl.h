@@ -20,7 +20,7 @@
 /// @param inputControl  Input value in the range 0-1.
 /// @param minimumOutput Minimum value of the resultant scale operation.
 /// @param maximumOutput Maximum value of the resultant scale operation.
-- (id)initWithControl:(OCSControl *)inputControl
+- (instancetype)initWithControl:(OCSControl *)inputControl
         minimumOutput:(OCSControl *)minimumOutput
         maximumOutput:(OCSControl *)maximumOutput;
 

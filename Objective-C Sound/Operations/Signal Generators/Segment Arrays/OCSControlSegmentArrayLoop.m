@@ -21,7 +21,7 @@
 
 @implementation OCSControlSegmentArrayLoop
 
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
              startValue:(OCSControl *)startValue
 {
     self = [super initWithString:[self operationName]];

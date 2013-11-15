@@ -24,7 +24,7 @@
 /// @param yLocation The virtual y-coordinate of the source of sound (the input signal).
 /// @param zLocation The virtual z-coordinate of the source of sound (the input signal).
 /// @param audioSource The input signal
-- (id)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
+- (instancetype)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
               lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
               lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
                       xLocation:(OCSControl *)xLocation

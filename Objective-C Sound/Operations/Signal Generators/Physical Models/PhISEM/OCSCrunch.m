@@ -22,7 +22,7 @@
 
 @implementation OCSCrunch
 
-- (id)initWithDuration:(OCSConstant *)duration
+- (instancetype)initWithDuration:(OCSConstant *)duration
              amplitude:(OCSConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];

@@ -49,7 +49,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 //@synthesize motionManager = mMotionManager;
 @synthesize useOldParser = mUseOldParser;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

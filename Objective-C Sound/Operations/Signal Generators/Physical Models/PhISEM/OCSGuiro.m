@@ -24,7 +24,7 @@
 
 @implementation OCSGuiro
 
-- (id)initWithDuration:(OCSConstant *)duration
+- (instancetype)initWithDuration:(OCSConstant *)duration
              amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];

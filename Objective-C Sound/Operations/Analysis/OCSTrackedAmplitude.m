@@ -15,7 +15,7 @@
 
 @implementation OCSTrackedAmplitude
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {

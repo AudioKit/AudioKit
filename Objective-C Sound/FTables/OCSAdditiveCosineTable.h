@@ -12,19 +12,19 @@
 @interface OCSAdditiveCosineTable : OCSFTable
 
 /// Creates a pure cosine table with 1 harmonic (the fundamental).
-- (id)init;
+- (instancetype)init;
 
 /// Creates an additive set of cosine partials with a given total number of harmonics.
 /// @param tableSize             Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param numberOfHarmonics     Number of harmonics in the partial series.
-- (id)initWithSize:(int)tableSize
+- (instancetype)initWithSize:(int)tableSize
   numberOfHarmonics:(int)numberOfHarmonics;
 
 /// Creates an additive set of cosine partials with a given total number of harmonics and lowest harmonic.
 /// @param tableSize             Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
 /// @param numberOfHarmonics     Number of harmonics in the partial series.
 /// @param lowestHarmonic        Number of lowers harmonic in partial series.  If negative, all negative partials will reflect about zero and add constructively to positive partials.
-- (id)initWithSize:(int)tableSize
+- (instancetype)initWithSize:(int)tableSize
  numberOfHarmonics:(int)numberOfHarmonics
     lowestHarmonic:(int)lowestHarmonic;
 
@@ -33,7 +33,7 @@
 /// @param numberOfHarmonics     Number of harmonics in the partial series.
 /// @param lowestHarmonic        Number of lowers harmonic in partial series.  If negative, all negative partials will reflect about zero and add constructively to positive partials.
 /// @param partialMultiplier     Multiplier by which to scale partials in the harmonic series.  If the lowest harmonic (lh) has amplitude "A" then the (lh + n)th harmonic will have a coefficient of A*(partialMultiplier ** n).
-- (id)initWithSize:(int)tableSize
+- (instancetype)initWithSize:(int)tableSize
  numberOfHarmonics:(int)numberOfHarmonics
     lowestHarmonic:(int)lowestHarmonic
  partialMultiplier:(int)partialMultiplier;

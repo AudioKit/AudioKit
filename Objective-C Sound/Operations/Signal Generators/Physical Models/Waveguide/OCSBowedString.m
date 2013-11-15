@@ -26,7 +26,7 @@
 
 @implementation OCSBowedString
 
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
                pressure:(OCSControl *)pressure
                position:(OCSControl *)position
               amplitude:(OCSControl *)amplitude

@@ -21,7 +21,7 @@
 
 @implementation OCSCrossSynthesis
 
-- (id)initWithSignal1:(OCSFSignal *)signal1
+- (instancetype)initWithSignal1:(OCSFSignal *)signal1
               signal2:(OCSFSignal *)signal2
            amplitude1:(OCSControl *)amplitude1
            amplitude2:(OCSControl *)amplitude2

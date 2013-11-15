@@ -20,7 +20,7 @@
 
 @implementation OCSVariableDelay
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                 delayTime:(OCSAudio *)delayTime
          maximumDelayTime:(OCSConstant *)maximumDelayTime
 {

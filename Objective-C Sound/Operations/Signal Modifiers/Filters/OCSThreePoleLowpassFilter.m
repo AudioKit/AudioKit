@@ -21,7 +21,7 @@
 
 @implementation OCSThreePoleLowpassFilter
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                distortion:(OCSControl *)distortion
           cutoffFrequency:(OCSControl *)cutoffFrequency
                 resonance:(OCSControl *)resonance

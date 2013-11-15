@@ -11,7 +11,7 @@
 
 @implementation FivePropertyInstrument
 
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if ( self) {
@@ -69,7 +69,7 @@
 
 @implementation FivePropertyInstrumentNote
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -87,7 +87,7 @@
     return self;
 }
 
-- (id)initWithFrequency:(float)frequency atVolume:(float)volume
+- (instancetype)initWithFrequency:(float)frequency atVolume:(float)volume
 {
     self = [self init];
     if (self) {

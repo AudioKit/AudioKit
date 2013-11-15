@@ -10,6 +10,6 @@
 
 @interface EffectsProcessor : OCSInstrument 
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
 
 @end

@@ -49,7 +49,7 @@ typedef enum {
  @param oscillatorType   Type of waveform to be used from the available OscillatorTypes.
  @return                 An instance of UDOMSROscillator.
  */
-- (id)initWithType:(OscillatorType)oscillatorType
+- (instancetype)initWithType:(OscillatorType)oscillatorType
          frequency:(OCSControl *)pitchOrFrequency
          amplitude:(OCSConstant *)maxAmplitude;
 

@@ -19,7 +19,7 @@
 /// Instantiates the cabasa
 /// @param duration Period of time over which all sound is stopped.
 /// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
-- (id)initWithDuration:(OCSConstant *)duration
+- (instancetype)initWithDuration:(OCSConstant *)duration
              amplitude:(OCSConstant *)amplitude;
 
 

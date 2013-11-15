@@ -19,7 +19,7 @@
 
 @implementation OCSLoopingOscillator
 
-- (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
+- (instancetype)initWithSoundFileTable:(OCSSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:ocspi(1)
                               amplitude:ocspi(1)
@@ -27,7 +27,7 @@
                 
 }
 
-- (id)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
+- (instancetype)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
                    amplitude:(OCSParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable 
@@ -36,7 +36,7 @@
                                    type:kLoopingOscillatorNormal];
 }
 
-- (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
+- (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
          frequencyMultiplier:(OCSControl *)frequencyMultiplier
                    amplitude:(OCSParameter *)amplitude
 {
@@ -47,7 +47,7 @@
 }
 
 
-- (id)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
+- (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
          frequencyMultiplier:(OCSControl *)frequencyMultiplier
                    amplitude:(OCSParameter *)amplitude
                         type:(LoopingOscillatorType)type

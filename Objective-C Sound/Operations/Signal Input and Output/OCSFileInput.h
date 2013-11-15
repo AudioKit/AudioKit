@@ -16,6 +16,6 @@
 
 /// Create a file input.
 /// @param fileName Location of the file on disk.
-- (id)initWithFilename:(NSString *)fileName;
+- (instancetype)initWithFilename:(NSString *)fileName;
 
 @end

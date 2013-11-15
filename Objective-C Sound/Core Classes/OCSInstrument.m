@@ -32,7 +32,7 @@ typedef enum {
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _myID = currentID++;

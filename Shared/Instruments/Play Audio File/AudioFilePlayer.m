@@ -10,7 +10,7 @@
 
 @implementation AudioFilePlayer
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -52,7 +52,7 @@
 
 @implementation AudioFilePlayerNote
 
-- (id)init;
+- (instancetype)init;
 {
     self = [super init];
     if(self) {
@@ -63,7 +63,7 @@
     }
     return self;
 }
-- (id)initWithSpeed:(float)speed;
+- (instancetype)initWithSpeed:(float)speed;
 {
     self = [self init];
     if(self) {

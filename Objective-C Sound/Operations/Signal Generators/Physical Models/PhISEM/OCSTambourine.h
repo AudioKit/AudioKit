@@ -19,7 +19,7 @@
 /// Instantiates the tambourine
 /// @param maximumDuration Period of time over which all sound is stopped
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
-- (id)initWithMaximumDuration:(OCSConstant *)maximumDuration
+- (instancetype)initWithMaximumDuration:(OCSConstant *)maximumDuration
                     amplitude:(OCSControl *)amplitude;
 
 

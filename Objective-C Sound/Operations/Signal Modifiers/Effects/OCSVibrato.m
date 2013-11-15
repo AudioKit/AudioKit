@@ -27,7 +27,7 @@
 
 @implementation OCSVibrato
 
-- (id)initWithVibratoShapeTable:(OCSFTable *)vibratoShapeTable
+- (instancetype)initWithVibratoShapeTable:(OCSFTable *)vibratoShapeTable
                averageFrequency:(OCSControl *)averageFrequency
             frequencyRandomness:(OCSControl *)frequencyRandomness
      minimumFrequencyRandomness:(OCSControl *)minimumFrequencyRandomness

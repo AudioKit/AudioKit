@@ -10,13 +10,13 @@
 
 @implementation OCSSineTable
 
-- (id)init;
+- (instancetype)init;
 {
     OCSArray *params = [OCSArray arrayFromConstants: ocspi(1), nil];
     return [self initWithType:kFTSines size:4096 parameters:params];
 }
 
-- (id)initWithSize:(int)size partialStrengths:(OCSArray *)partialStrengthsArray
+- (instancetype)initWithSize:(int)size partialStrengths:(OCSArray *)partialStrengthsArray
 {
     return [self initWithType:kFTSines 
                          size:size 

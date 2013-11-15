@@ -16,7 +16,7 @@
 
 @implementation OCSFSignalMix
 
-- (id)initWithInput1:(OCSFSignal *)input1
+- (instancetype)initWithInput1:(OCSFSignal *)input1
               input2:(OCSFSignal *)input2;
 {
     self = [super initWithString:[self operationName]];

@@ -31,7 +31,7 @@ static NSString* CS_ATTITUDE_ROLL = @"attitudeRoll";
 static NSString* CS_ATTITUDE_PITCH = @"attitudePitch";
 static NSString* CS_ATTITUDE_YAW = @"attitudeYaw";
 
--(id)init:(CMMotionManager*)manager {
+-(instancetype)init:(CMMotionManager*)manager {
     if (self = [super init]) {
         mManager = manager;
     }

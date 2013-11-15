@@ -26,7 +26,7 @@ the same direction, going negative.
 /// @param totalDuration Overall duration in seconds. A zero or negative value will cause initialization to be skipped.
 /// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
 /// @param amplitude     Amplitude to rise to and decay from.
-- (id)initWithRiseTime:(OCSConstant *)riseTime
+- (instancetype)initWithRiseTime:(OCSConstant *)riseTime
          totalDuration:(OCSConstant *)totalDuration
              decayTime:(OCSConstant *)decayTime
              amplitude:(OCSParameter *)amplitude;

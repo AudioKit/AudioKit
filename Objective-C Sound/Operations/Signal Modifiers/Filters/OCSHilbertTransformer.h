@@ -22,7 +22,7 @@
 
 /// Instantiates the hilbert transformer
 /// @param audioSource The Input Signal
-- (id)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
 
 /// Helper functions to pull apart the stereo audio output appropriately.
 - (OCSAudio *)realPart;

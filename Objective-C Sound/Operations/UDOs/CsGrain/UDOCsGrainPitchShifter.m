@@ -18,7 +18,7 @@
 
 @implementation UDOCsGrainPitchShifter
 
-- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
                       basePitch:(OCSControl *)basePitch
                 offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
                   feedbackLevel:(OCSControl *)feedbackLevel

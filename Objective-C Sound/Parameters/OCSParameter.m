@@ -16,14 +16,14 @@ static int currentID = 1;
     currentID = 1;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     _myID = currentID++;
     return self;
 }
 
-- (id)initWithString:(NSString *)name
+- (instancetype)initWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
@@ -33,7 +33,7 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initGlobalWithString:(NSString *)name
+- (instancetype)initGlobalWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
@@ -43,7 +43,7 @@ static int currentID = 1;
     return self;
 }
 
-- (id)initWithExpression:(NSString *)expression
+- (instancetype)initWithExpression:(NSString *)expression
 {
     self = [super init];
     if (self) {

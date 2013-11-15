@@ -20,7 +20,7 @@
 
 @implementation OCSMoogVCF
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
           cutoffFrequency:(OCSParameter *)cutoffFrequency
                 resonance:(OCSParameter *)resonance
 {

@@ -26,7 +26,7 @@
 
 @implementation OCSAudioSegmentArray
 
-- (id)initWithStartValue:(OCSConstant *)firstSegmentStartValue
+- (instancetype)initWithStartValue:(OCSConstant *)firstSegmentStartValue
              toNextValue:(OCSConstant *)firstSegmentTargetValue
            afterDuration:(OCSConstant *)firstSegmentDuration
 {

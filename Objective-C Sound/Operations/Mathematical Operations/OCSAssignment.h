@@ -14,11 +14,11 @@
 /// Initialization Statement with both sides
 /// @param output The left side of the equal sign.
 /// @param input  The right side of the equal sign.
-- (id)initWithOutput:(OCSParameter *)output input:(OCSParameter *)input;
+- (instancetype)initWithOutput:(OCSParameter *)output input:(OCSParameter *)input;
 
 /// Initialization Statement
 /// @param input The right side of the equal sign.
-- (id)initWithInput:(OCSParameter *)input;
+- (instancetype)initWithInput:(OCSParameter *)input;
 
 
 @end

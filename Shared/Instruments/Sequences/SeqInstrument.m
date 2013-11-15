@@ -10,7 +10,7 @@
 
 @implementation SeqInstrument
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         // NOTE BASED CONTROL ==================================================
@@ -50,7 +50,7 @@
 
 @implementation SeqInstrumentNote
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
@@ -61,7 +61,7 @@
     return self;
 }
 
-- (id)initWithFrequency:(float)frequency {
+- (instancetype)initWithFrequency:(float)frequency {
     self = [self init];
     if (self) {
         _frequency.value = frequency;

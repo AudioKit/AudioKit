@@ -19,7 +19,7 @@
 
 @implementation OCSLowPassControlFilter
 
-- (id)initWithSourceControl:(OCSControl *)sourceControl
+- (instancetype)initWithSourceControl:(OCSControl *)sourceControl
              halfPowerPoint:(OCSControl *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];

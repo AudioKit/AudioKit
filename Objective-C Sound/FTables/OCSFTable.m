@@ -18,7 +18,7 @@
 
 @implementation OCSFTable
 
-- (id)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(FTableType)fTableType
               size:(int)tableSize
         parameters:(OCSArray *)parameters;
 {
@@ -33,7 +33,7 @@
     return self;
 }
 
-- (id)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(FTableType)fTableType
         parameters:(OCSArray *)parameters;
 {
     return [self initWithType:fTableType size:0 parameters:parameters];

@@ -21,7 +21,7 @@
 
 @implementation OCSOscillatingControl
 
-- (id)initWithFTable:(OCSFTable *)fTable
+- (instancetype)initWithFTable:(OCSFTable *)fTable
            frequency:(OCSControl *)frequency
            amplitude:(OCSControl *)amplitude
 {

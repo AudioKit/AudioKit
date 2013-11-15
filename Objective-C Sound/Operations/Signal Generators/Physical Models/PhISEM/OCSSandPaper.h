@@ -19,7 +19,7 @@
 /// Instantiates the sand paper
 /// @param duration Period of time over which all sound is stopped.
 /// @param amplitude Amplitude of output. Note: As these instruments are stochastic, this is only a approximation.
-- (id)initWithDuration:(OCSConstant *)duration
+- (instancetype)initWithDuration:(OCSConstant *)duration
              amplitude:(OCSConstant *)amplitude;
 
 

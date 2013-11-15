@@ -17,7 +17,7 @@
 @implementation OCSAudioFromFSignal
 
 
-- (id)initWithSource:(OCSFSignal *)source;
+- (instancetype)initWithSource:(OCSFSignal *)source;
 {
     self = [super initWithString:[self operationName]];
     if (self) {

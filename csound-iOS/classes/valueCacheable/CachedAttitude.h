@@ -35,6 +35,6 @@
     CMMotionManager* mManager;
 }
 
--(id)init:(CMMotionManager*)manager;
+-(instancetype)init:(CMMotionManager*)manager;
 
 @end

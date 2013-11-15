@@ -37,6 +37,6 @@
 #define kFrequencyMax 20000
 @property (nonatomic, strong) OCSNoteProperty *frequency;
 
-- (id)initWithFrequency:(float)frequency atVolume:(float)volume;
+- (instancetype)initWithFrequency:(float)frequency atVolume:(float)volume;
 
 @end

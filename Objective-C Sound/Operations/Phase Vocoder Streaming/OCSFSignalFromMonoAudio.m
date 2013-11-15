@@ -19,7 +19,7 @@
 
 @implementation OCSFSignalFromMonoAudio
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                   fftSize:(OCSConstant *)fftSize
                   overlap:(OCSConstant *)overlap
                windowType:(WindowType)windowType

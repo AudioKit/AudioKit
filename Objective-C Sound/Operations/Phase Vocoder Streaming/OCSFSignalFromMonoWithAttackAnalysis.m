@@ -32,7 +32,7 @@
 @implementation OCSFSignalFromMonoWithAttackAnalysis
 
 
--(id)initWithSoundFile:(OCSFTable *)soundFileSource
+-(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
             timeScaler:(OCSControl *)timeScaler
        amplitudeScaler:(OCSControl *)amplitudeScaler
            pitchScaler:(OCSControl *)pitchScaler
@@ -49,7 +49,7 @@
              onsetDecibelThreshold:ocspi(1)];
 }
 
--(id)initWithSoundFile:(OCSFTable *)soundFileSource
+-(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
             timeScaler:(OCSControl *)timeScaler
        amplitudeScaler:(OCSControl *)amplitudeScaler
            pitchScaler:(OCSControl *)pitchScaler

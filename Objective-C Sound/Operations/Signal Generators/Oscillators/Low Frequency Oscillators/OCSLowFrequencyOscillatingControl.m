@@ -20,7 +20,7 @@
 
 @implementation OCSLowFrequencyOscillatingControl
 
-- (id)initWithFrequency:(OCSControl *)frequency
+- (instancetype)initWithFrequency:(OCSControl *)frequency
               amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];

@@ -20,7 +20,7 @@
 
 @implementation OCSMixedControl
 
-- (id)initWithControl1:(OCSControl *)control1
+- (instancetype)initWithControl1:(OCSControl *)control1
               control2:(OCSControl *)control2
                balance:(OCSControl *)balancePoint;
 {

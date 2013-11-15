@@ -5,6 +5,9 @@
       location = "group:README.md">
    </FileRef>
    <FileRef
+      location = "group:OCS iOS Examples/OCS iOS Examples.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Explorable Explanations/Explorable Explanations.xcodeproj">
    </FileRef>
    <FileRef

@@ -19,7 +19,7 @@
 
 @implementation OCSHighPassFilter
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
            halfPowerPoint:(OCSControl *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];

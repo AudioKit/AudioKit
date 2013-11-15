@@ -22,7 +22,7 @@
 
 @implementation OCSPanner
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                       pan:(OCSParameter *)pan
 {
     self = [super initWithString:[self operationName]];

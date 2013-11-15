@@ -10,7 +10,7 @@
 
 @implementation OCSFSignal
 
-- (id)initWithString:(NSString *)aString;
+- (instancetype)initWithString:(NSString *)aString;
 {
     self = [super init];
     if (self) {

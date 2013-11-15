@@ -16,6 +16,6 @@
 
 @property (nonatomic, strong) OCSInstrumentProperty *trackedAmplitude;
 
-- (id)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
 
 @end

@@ -18,6 +18,6 @@
 
 /// Finds the maximum audio signal from an array of sources
 /// @param inputAudioSources Array of audio sources
-- (id)initWithAudioSources:(OCSArray *)inputAudioSources;
+- (instancetype)initWithAudioSources:(OCSArray *)inputAudioSources;
 
 @end

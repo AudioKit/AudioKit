@@ -19,7 +19,7 @@
 
 @implementation OCSScaledFSignal
 
-- (id)initWithInput:(OCSFSignal *)input
+- (instancetype)initWithInput:(OCSFSignal *)input
      frequencyRatio:(OCSControl *)frequencyRatio
 formantRetainMethod:(FormantRetainMethodType)formantRetainMethod
      amplitudeRatio:(OCSControl *)amplitudeRatio
@@ -47,7 +47,7 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
     return self;
 }
 
-- (id)initWithInput:(OCSFSignal *)input
+- (instancetype)initWithInput:(OCSFSignal *)input
      frequencyRatio:(OCSControl *)frequencyRatio
 {
     return [self initWithInput:input 

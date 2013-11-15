@@ -15,6 +15,6 @@
 
 /// Creates an f-signal
 /// @param aString Label for the f-signal
-- (id)initWithString:(NSString *)aString;
+- (instancetype)initWithString:(NSString *)aString;
 
 @end

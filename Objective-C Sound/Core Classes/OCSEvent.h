@@ -25,16 +25,16 @@
 
 /// Create an event with a note
 /// @param newNote Note to play when the event is started
-- (id)initWithNote:(OCSNote *)newNote;
+- (instancetype)initWithNote:(OCSNote *)newNote;
 
 /// Create an event with a note and a block
 /// @param newNote Note to play when the event is started
 /// @param aBlock  Code to run when the event is started
-- (id)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock;
+- (instancetype)initWithNote:(OCSNote *)newNote block:(void (^)())aBlock;
 
 /// Create an event from the code block given
 /// @param aBlock Code to run when the event is started
-- (id)initWithBlock:(void (^)())aBlock;
+- (instancetype)initWithBlock:(void (^)())aBlock;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Event actions

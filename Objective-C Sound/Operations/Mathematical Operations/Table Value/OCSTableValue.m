@@ -19,7 +19,7 @@
 
 @implementation OCSTableValue
 
-- (id)initWithFTable:(OCSConstant *)fTable
+- (instancetype)initWithFTable:(OCSConstant *)fTable
              atIndex:(OCSAudio *)index
 {
     self = [super initWithString:[self operationName]];

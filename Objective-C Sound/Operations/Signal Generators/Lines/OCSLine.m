@@ -17,7 +17,7 @@
 
 @implementation OCSLine
 
-- (id)initFromValue:(OCSConstant *)startingValue
+- (instancetype)initFromValue:(OCSConstant *)startingValue
             toValue:(OCSConstant *)endingValue
            duration:(OCSConstant *)duration
 {

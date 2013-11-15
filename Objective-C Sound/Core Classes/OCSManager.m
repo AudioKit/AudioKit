@@ -51,7 +51,7 @@ static OCSManager *_sharedOCSManager = nil;
                                               error:nil];
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
         csound = [[CsoundObj alloc] init];

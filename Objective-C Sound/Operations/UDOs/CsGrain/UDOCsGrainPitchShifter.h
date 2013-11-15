@@ -23,7 +23,7 @@
  @param feedbackLevel              Typically a value from 0.0 (no feedback to 1.0 (100% feedback).
  @return                           An instance of the pitch shifter.
  */
-- (id)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
+- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
                       basePitch:(OCSControl *)basePitch
                 offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
                   feedbackLevel:(OCSControl *)feedbackLevel;

@@ -19,7 +19,7 @@
 
 @implementation OCSTableValueControl
 
-- (id)initWithFTable:(OCSConstant *)fTable
+- (instancetype)initWithFTable:(OCSConstant *)fTable
              atIndex:(OCSControl *)index
 {
     self = [super initWithString:[self operationName]];

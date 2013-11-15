@@ -19,7 +19,7 @@
 /// Instantiates the sine oscillator
 /// @param frequency comment
 /// @param amplitude comment
-- (id)initWithFrequency:(OCSConstant *)frequency
+- (instancetype)initWithFrequency:(OCSConstant *)frequency
               amplitude:(OCSConstant *)amplitude;
 
 

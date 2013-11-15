@@ -17,7 +17,7 @@
 
 @implementation OCSPhasor
 
-- (id)initWithFrequency:(OCSParameter *)frequency
+- (instancetype)initWithFrequency:(OCSParameter *)frequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {

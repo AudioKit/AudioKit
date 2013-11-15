@@ -10,13 +10,13 @@
 
 @implementation OCSRandomDistributionTable
 
-- (id)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(RandomDistributionType)distributionType
           size:(int)size;
 {
     return [self initType:distributionType size:size level:1.0];
 }
 
-- (id)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(RandomDistributionType)distributionType
           size:(int)size
          level:(float)level;
 {
@@ -26,7 +26,7 @@
                                ocspi(distributionType), ocsp(level), nil]];
 }
 
-- (id)initWeibullTypeWithSize:(int)size
+- (instancetype)initWeibullTypeWithSize:(int)size
                         level:(float)level
                         sigma:(float)sigma;
 {
@@ -37,7 +37,7 @@
                                ocspi(distributionType), level, ocsp(sigma), nil]];
 }
 
-- (id)initBetaTypeWithSize:(int)size
+- (instancetype)initBetaTypeWithSize:(int)size
                      level:(float)level
                      alpha:(float)alpha
                       beta:(float)beta;

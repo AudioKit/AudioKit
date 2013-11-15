@@ -30,7 +30,7 @@
 /// @param fundamentalFrequency   The fundamental frequency of harmonically related cosine partials.
 /// @param amplitude              The amplitude of the output signal.
 
--(id)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints
+-(instancetype)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints
              harmonicsCount:(OCSControl *)harmonicsCount
            firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
           partialMultiplier:(OCSControl *)partialMultiplier
@@ -46,7 +46,7 @@
 /// @param fundamentalFrequency   The fundamental frequency of harmonically related cosine partials.
 /// @param amplitude              The amplitude of the output signal.
 
--(id)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints
+-(instancetype)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints
                                  phase:(OCSConstant *)phase
                         harmonicsCount:(OCSControl *)harmonicsCount
                       firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
@@ -63,7 +63,7 @@
 /// @param partialMultiplier      Multiplier by which to scale partials in the harmonic series.  If the lowest harmonic (lh) has amplitude "A" then the (lh + n)th harmonic will have a coefficient of A*(partialMultiplier ** n).
 /// @param fundamentalFrequency   The fundamental frequency of harmonically related cosine partials.
 /// @param amplitude              The amplitude of the output signal.
--(id)initWithFTable:(OCSFTable *)cosineTable
+-(instancetype)initWithFTable:(OCSFTable *)cosineTable
      harmonicsCount:(OCSControl *)harmonicsCount
    firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
   partialMultiplier:(OCSControl *)partialMultiplier

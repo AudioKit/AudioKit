@@ -10,7 +10,7 @@
 
 @implementation OCSWindowsTable
 
-- (id)initWithType:(WindowTableType)windowType
+- (instancetype)initWithType:(WindowTableType)windowType
           maxValue:(float)maximumValue    
               size:(int)tableSize; 
 {
@@ -21,7 +21,7 @@
 }
 
 
-- (id)initWithType:(WindowTableType)windowType
+- (instancetype)initWithType:(WindowTableType)windowType
               size:(int)tableSize; 
 {
     return [self initWithType:windowType
@@ -29,7 +29,7 @@
                          size:tableSize];
 }
 
-- (id)initGaussianTypeWithBroadness:(float)windowBroadness
+- (instancetype)initGaussianTypeWithBroadness:(float)windowBroadness
                            maxValue:(float)maximumValue  
                                size:(int)tableSize;
 {
@@ -41,7 +41,7 @@
                                ocsp(windowBroadness), nil] ];
 }
 
-- (id)initKaiserTypeWithOpenness:(float)windowOpenness
+- (instancetype)initKaiserTypeWithOpenness:(float)windowOpenness
                         maxValue:(float)maximumValue  
                             size:(int)tableSize
 {

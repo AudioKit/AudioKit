@@ -26,7 +26,7 @@
 /// @param leftBoundaryCondition Boundary condition at left end of bar (1 is clamped; 2 pivoting and 3 free).
 /// @param rightBoundaryCondition Boundary condition at right end of bar (1 is clamped; 2 pivoting and 3 free).
 /// @param scanSpeed Speed of scanning the output location.
-- (id)initWithDecayTime:(OCSConstant *)decayTime
+- (instancetype)initWithDecayTime:(OCSConstant *)decayTime
  dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
       highFrequencyLoss:(OCSConstant *)highFrequencyLoss
          strikePosition:(OCSConstant *)strikePosition

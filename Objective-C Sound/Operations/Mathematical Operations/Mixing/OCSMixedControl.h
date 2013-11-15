@@ -18,7 +18,7 @@
 /// @param control1 First control
 /// @param control2 Second control
 /// @param balancePoint A number from 0 (all signal 1) to 1 (all signal 2).
-- (id)initWithControl1:(OCSControl *)control1
+- (instancetype)initWithControl1:(OCSControl *)control1
               control2:(OCSControl *)control2
                balance:(OCSControl *)balancePoint;
 

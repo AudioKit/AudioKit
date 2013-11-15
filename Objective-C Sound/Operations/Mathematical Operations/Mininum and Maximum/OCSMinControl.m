@@ -18,7 +18,7 @@
 
 @implementation OCSMinControl
 
-- (id)initWithControls:(OCSArray *)inputControls;
+- (instancetype)initWithControls:(OCSArray *)inputControls;
 {
     self = [super initWithString:[self operationName]];
     if (self) {

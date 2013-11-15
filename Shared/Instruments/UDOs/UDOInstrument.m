@@ -14,7 +14,7 @@
 
 @implementation UDOInstrument
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         
@@ -57,7 +57,7 @@
 
 @implementation UDOInstrumentNote
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
@@ -69,7 +69,7 @@
 }
 
 
-- (id)initWithFrequency:(float)frequency {
+- (instancetype)initWithFrequency:(float)frequency {
     self = [self init];
     if (self) {
         self.frequency.value = frequency;

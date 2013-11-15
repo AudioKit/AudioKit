@@ -17,7 +17,7 @@
     OCSConstant *off;
 }
 
-- (id)initWithMaximum:(OCSControl *)maximum
+- (instancetype)initWithMaximum:(OCSControl *)maximum
             frequency:(OCSControl *)frequency
 {
     self = [super initWithString:[self operationName]];
