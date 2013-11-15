@@ -103,7 +103,7 @@
 
 - (IBAction)scaleModulation:(id)sender {
     [OCSiOSTools setProperty:myTweakableInstrument.modulation withSlider:(UISlider *)sender];
-    [OCSiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.modulation];
+    [OCSiOSTools setLabel:modulationLabel  withProperty:myTweakableInstrument.modulation];
 }
 
 - (void)viewDidUnload {

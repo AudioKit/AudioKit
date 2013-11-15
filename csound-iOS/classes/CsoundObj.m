@@ -167,7 +167,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 		info.cs = cs;
 		info.attr = attr;
 		info.format = format;
-		info.valist = valist;
+        va_copy(info.valist,valist);
 		NSValue *infoObj = [NSValue value:&info withObjCType:@encode(Message)];
 		[obj performSelector:@selector(performMessageCallback:) withObject:infoObj];
 	}
@@ -329,7 +329,7 @@ OSStatus  Csound_Render(void *inRefCon,
 	if (cdata->shouldRecord) {
 		OSStatus err = ExtAudioFileWriteAsync(cdata->file, inNumberFrames, ioData);
 		if (err != noErr) {
-			printf("***Error writing to file: %ld\n", err);
+			printf("***Error writing to file: %d\n", (int)err);
 		}
 	}
     
@@ -404,7 +404,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
         // Warm the file up.
         ExtAudioFileWriteAsync(mCsData.file, 0, NULL);
     } else {
-        printf("***Not recording. Error: %ld\n", err);
+        printf("***Not recording. Error: %d\n", (int)err);
         err = noErr;
     }
     
@@ -500,9 +500,9 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 		csoundSetMessageCallback(cs, messageCallback);
 		csoundSetHostData(cs, (__bridge void *)(self));
         
-//        if (mMidiInEnabled) {
+        if (mMidiInEnabled) {
 //            [CsoundMIDI setMidiInCallbacks:cs];
-//        }
+        }
         
         char *argv[2] = { "csound", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 		int ret = csoundCompile(cs, 2, argv);
@@ -622,7 +622,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption)
 							// Warm the file up.
 							ExtAudioFileWriteAsync(mCsData.file, 0, NULL);
 						} else {
-							printf("***Not recording. Error: %ld\n", err);
+							printf("***Not recording. Error: %d\n", (int)err);
 							err = noErr;
 						}
 					}
