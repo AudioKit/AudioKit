@@ -27,6 +27,7 @@
 		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
 		C45047B515EB884C0051788A /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B415EB884C0051788A /* InitialViewController.xib */; };
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
+		C467EE751835A704006F0743 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42B243D15F484D0006032F9 /* example.csd */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
@@ -1809,6 +1810,7 @@
 				C4F07A0115D603160084FF9E /* ExpressionsViewController.xib in Resources */,
 				C4F07A0715D603160084FF9E /* GrainViewController.xib in Resources */,
 				C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */,
+				C467EE751835A704006F0743 /* example.csd in Resources */,
 				C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */,
 				C4F07A1D15D603160084FF9E /* PlayCSDFileViewController.xib in Resources */,
 				C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */,
