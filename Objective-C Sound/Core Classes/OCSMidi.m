@@ -22,7 +22,6 @@
 
 -(id)init
 {
-    NSLog(@"Initializing Midi");
     if(self = [super init]) {
         _listeners = [[NSMutableSet alloc] init];
     }
