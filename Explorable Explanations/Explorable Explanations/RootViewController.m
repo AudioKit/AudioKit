@@ -62,12 +62,12 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     NSArray *components = [requestString componentsSeparatedByString:@":"];
     
     if ([components count] > 1 &&
-        [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
+        [(NSString *)components[0] isEqualToString:@"tangleapp"])
     {
-        NSString *action = (NSString *)[components objectAtIndex:1];
+        NSString *action = (NSString *)components[1];
 
         if([action isEqualToString:@"goto"]) {
-            NSString *page = (NSString *)[components objectAtIndex:2];
+            NSString *page = (NSString *)components[2];
             
             if ([page isEqualToString:@"Oscillator"] ) {
                 [self.navigationController pushViewController:[[OscillatorViewController alloc] init] animated:YES];

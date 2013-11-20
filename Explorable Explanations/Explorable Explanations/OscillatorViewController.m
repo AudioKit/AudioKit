@@ -55,24 +55,24 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     NSArray *components = [requestString componentsSeparatedByString:@":"];
     
     if ([components count] > 1 &&
-        [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
+        [(NSString *)components[0] isEqualToString:@"tangleapp"])
     {
-        NSString *action = (NSString *)[components objectAtIndex:1];
+        NSString *action = (NSString *)components[1];
         
         if([action isEqualToString:@"play"]) {
             [oscillator play];
         } else if([action isEqualToString:@"stop"]) {
             [oscillator stop];
         } else if([action isEqualToString:@"dict"]) {
-            NSArray *keys   = [[components objectAtIndex:2] componentsSeparatedByString:@","];
-            NSArray *values = [[components objectAtIndex:3] componentsSeparatedByString:@","];
+            NSArray *keys   = [components[2] componentsSeparatedByString:@","];
+            NSArray *values = [components[3] componentsSeparatedByString:@","];
             
             NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
-            for (NSString *var in dict) {
-                if ([var isEqualToString:@"frequency"] ) {
-                    oscillator.frequency.value = [[dict objectForKey:var] floatValue];
-                } else if ([var isEqualToString:@"amplitude"] ) {
-                    oscillator.amplitude.value = [[dict objectForKey:var] floatValue];
+            for (NSString *key in dict) {
+                if ([key isEqualToString:@"frequency"] ) {
+                    oscillator.frequency.value = [dict[key] floatValue];
+                } else if ([key isEqualToString:@"amplitude"] ) {
+                    oscillator.amplitude.value = [dict[key] floatValue];
                 }
             }
         }

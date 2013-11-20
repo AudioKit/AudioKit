@@ -54,30 +54,30 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     NSArray *components = [requestString componentsSeparatedByString:@":"];
     
     if ([components count] > 1 &&
-        [(NSString *)[components objectAtIndex:0] isEqualToString:@"tangleapp"])
+        [(NSString *)components[0] isEqualToString:@"tangleapp"])
     {
-        NSString *action = (NSString *)[components objectAtIndex:1];
+        NSString *action = (NSString *)components[1];
         if([action isEqualToString:@"play"]) {
             [fmOscillator play];
         } else if([action isEqualToString:@"stop"]) {
             [fmOscillator stop];
             
         } else if([action isEqualToString:@"dict"]) {
-            NSArray *keys   = [[components objectAtIndex:2] componentsSeparatedByString:@","];
-            NSArray *values = [[components objectAtIndex:3] componentsSeparatedByString:@","];
+            NSArray *keys   = [components[2] componentsSeparatedByString:@","];
+            NSArray *values = [components[3] componentsSeparatedByString:@","];
             
             NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
-            for (NSString *var in dict) {
-                if ([var isEqualToString:@"frequency"] ) {
-                    fmOscillator.frequency.value = [[dict objectForKey:var] floatValue];
-                } else if ([var isEqualToString:@"amplitude"] ) {
-                    fmOscillator.amplitude.value = [[dict objectForKey:var] floatValue];
-                } else if ([var isEqualToString:@"carrierMultiplier"] ) {
-                    fmOscillator.carrierMultiplier.value = [[dict objectForKey:var] floatValue];
-                } else if ([var isEqualToString:@"modulatingMultiplier"] ) {
-                    fmOscillator.modulatingMultiplier.value = [[dict objectForKey:var] floatValue];
-                } else if ([var isEqualToString:@"modulationIndex"] ) {
-                    fmOscillator.modulationIndex.value = [[dict objectForKey:var] floatValue];
+            for (NSString *key in dict) {
+                if ([key  isEqual: @"frequency"] ) {
+                    fmOscillator.frequency.value = [dict[key] floatValue];
+                } else if ([key isEqualToString:@"amplitude"] ) {
+                    fmOscillator.amplitude.value = [dict[key] floatValue];
+                } else if ([key isEqualToString:@"carrierMultiplier"] ) {
+                    fmOscillator.carrierMultiplier.value = [dict[key] floatValue];
+                } else if ([key isEqualToString:@"modulatingMultiplier"] ) {
+                    fmOscillator.modulatingMultiplier.value = [dict[key] floatValue];
+                } else if ([key isEqualToString:@"modulationIndex"] ) {
+                    fmOscillator.modulationIndex.value = [dict[key] floatValue];
                 }
             }
         }

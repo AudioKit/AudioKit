@@ -113,7 +113,7 @@
     }
     
     // Configure the cell.
-    cell.textLabel.text = [exampleNames objectAtIndex:indexPath.row];
+    cell.textLabel.text = exampleNames[indexPath.row];
     return cell;
 }
 
@@ -195,7 +195,7 @@
         default:
             break;
     }
-    if (controller) controller.title = [exampleNames objectAtIndex:indexPath.row];
+    if (controller) controller.title = exampleNames[indexPath.row];
 
     
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
@@ -209,7 +209,7 @@
     
     UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     
-    NSArray *viewControllers = [[NSArray alloc] initWithObjects:[splitViewController.viewControllers objectAtIndex:0], detailNavigationController, nil];
+    NSArray *viewControllers = [[NSArray alloc] initWithObjects:splitViewController.viewControllers[0], detailNavigationController, nil];
     splitViewController.viewControllers = viewControllers;
     //splitViewController.delegate = controller;
 }

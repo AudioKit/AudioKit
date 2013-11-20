@@ -74,7 +74,7 @@ static OCSManager *_sharedOCSManager = nil;
         template = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
         templateString = [OCSManager stringFromFile:template]; 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
         _midi = [[OCSMidi alloc] init];
     }
