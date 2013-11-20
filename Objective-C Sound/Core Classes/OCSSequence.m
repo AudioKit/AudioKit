@@ -82,7 +82,7 @@
     index = 0;
     isPlaying = YES;
     // Delay playback until first event is set to start.
-    timer = [NSTimer scheduledTimerWithTimeInterval:[[_times objectAtIndex:0] floatValue]
+    timer = [NSTimer scheduledTimerWithTimeInterval:[_times[0] floatValue]
                                              target:self
                                            selector:@selector(playNextEventInSequence:)
                                            userInfo:nil
@@ -110,12 +110,12 @@
 // Cue up the next event to be triggered.
 - (void)playNextEventInSequence:(NSTimer *)aTimer;
 {
-    OCSEvent *event = [_events objectAtIndex:index];
+    OCSEvent *event = _events[index];
     [[OCSManager sharedOCSManager] triggerEvent:event];
 
     if (index < [_times count]-1 && isPlaying) {
-        float timeUntilNextEvent = [[_times objectAtIndex:index+1] floatValue] -
-                                   [[_times objectAtIndex:index]   floatValue];
+        float timeUntilNextEvent = [_times[index+1] floatValue] -
+                                   [_times[index]   floatValue];
         
         timer = [NSTimer scheduledTimerWithTimeInterval:timeUntilNextEvent
                                                  target:self 

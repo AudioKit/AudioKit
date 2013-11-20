@@ -20,16 +20,17 @@ partialStrengthOffsets:(OCSArray *)partialOffsets
     
     OCSArray *parameters = [[OCSArray alloc] init];
     if (self) {
-        NSAssert([partialNumbers count] == [partialStrengths count] &&
-                 [partialStrengths count] == [partialOffsets count] &&
-                 [partialOffsets count] == [partialPhases count], @"Array must be equal in size");
+        NSAssert([partialNumbers   count] == [partialStrengths count] &&
+                 [partialStrengths count] == [partialOffsets   count] &&
+                 [partialOffsets   count] == [partialPhases    count],
+                 @"Array must be equal in size");
 
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (int i=0; i<[partialNumbers count]; i++){
-            [temp addObject:[[partialNumbers   constants] objectAtIndex:i]];
-            [temp addObject:[[partialStrengths constants] objectAtIndex:i]];
-            [temp addObject:[[partialPhases    constants] objectAtIndex:i]];
-            [temp addObject:[[partialOffsets   constants] objectAtIndex:i]];
+            [temp addObject:partialNumbers.constants[i]];
+            [temp addObject:partialStrengths.constants[i]];
+            [temp addObject:partialPhases.constants[i]];
+            [temp addObject:partialOffsets.constants[i]];
         }
         [parameters setConstants:temp];
     }

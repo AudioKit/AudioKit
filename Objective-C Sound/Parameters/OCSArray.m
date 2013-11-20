@@ -36,8 +36,8 @@
         
     NSMutableArray *temp = [[NSMutableArray alloc] init];
     for (uint i=0; i<[[self constants] count]; i++) {
-        [temp addObject:[[self constants]  objectAtIndex:i]];
-        [temp addObject:[[pairingArray constants] objectAtIndex:i]];
+        [temp addObject:self.constants[i]];
+        [temp addObject:pairingArray.constants[i]];
     }
     OCSArray *pairedArray = [[OCSArray alloc] init];
     [pairedArray setConstants:temp];

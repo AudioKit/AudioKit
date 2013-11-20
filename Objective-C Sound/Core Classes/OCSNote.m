@@ -81,7 +81,7 @@ static int currentID = 1;
     float eventNumber  = [_instrument instrumentNumber] + _myID/100000.0;
     NSMutableString *scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %f", eventNumber, _duration.value];
     for (NSString *key in propOrder) {
-        OCSNoteProperty *prop = [_properties objectForKey:key];
+        OCSNoteProperty *prop = _properties[key];
         [scoreLine appendFormat:@" %f", [prop value]];
     }
     return [NSString stringWithFormat:@"%@",scoreLine];
