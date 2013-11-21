@@ -115,6 +115,8 @@ typedef struct {
 -(void)muteCsound;
 -(void)unmuteCsound;
 
+-(void)handleInterruption:(NSNotification*)notification;
+
 -(CSOUND*)getCsound;
 -(AudioUnit*)getAudioUnit;
 

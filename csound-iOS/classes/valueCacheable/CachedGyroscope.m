@@ -31,7 +31,7 @@ static NSString* CS_GYRO_X = @"gyroX";
 static NSString* CS_GYRO_Y = @"gyroY";
 static NSString* CS_GYRO_Z = @"gyroZ";
 
--(instancetype)init:(CMMotionManager*)manager {
+-(id)init:(CMMotionManager*)manager {
     if (self = [super init]) {
         mManager = manager;
     }
