@@ -10,8 +10,6 @@
 
 @implementation OCSInstrumentProperty
 
-@synthesize value=currentValue;
-
 - (instancetype)init
 {
     self = [super init];
@@ -33,7 +31,7 @@
 {
     self = [self init];
     if (self) {
-        currentValue = initialValue;
+        _value        = initialValue;
         _minimumValue = minValue;
         _maximumValue = maxValue;
     }
@@ -54,14 +52,14 @@
 
 
 - (void)setValue:(float)newValue {
-    currentValue = newValue;
+    _value = newValue;
     if (_minimumValue && newValue < _minimumValue) {
         NSLog(@"%@ = %g is too low using minimum %g", self, newValue, _minimumValue);
-        currentValue = _minimumValue;
+        _value = _minimumValue;
     }
     else if (_maximumValue && newValue > _maximumValue) {
         NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximumValue);
-        currentValue = _maximumValue;
+        _value = _maximumValue;
     }
 }
 

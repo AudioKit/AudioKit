@@ -24,7 +24,7 @@
 @implementation OCSVCOscillator
 
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-              amplitude:(OCSControl *)amplitude
+                        amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

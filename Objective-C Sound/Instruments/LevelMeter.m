@@ -153,7 +153,7 @@
 		if (_peakLevel > 0.)
 		{
 			peakLight = _peakLevel * _numLights;
-			if (peakLight >= _numLights) peakLight = _numLights - 1;
+			if (peakLight >= _numLights) peakLight = (uint)_numLights - 1;
 		}
 		
 		for (light_i=0; light_i<_numLights; light_i++)
