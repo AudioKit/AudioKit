@@ -21,8 +21,8 @@
 @implementation OCSMoogVCF
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-          cutoffFrequency:(OCSParameter *)cutoffFrequency
-                resonance:(OCSParameter *)resonance
+                    cutoffFrequency:(OCSParameter *)cutoffFrequency
+                          resonance:(OCSParameter *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {

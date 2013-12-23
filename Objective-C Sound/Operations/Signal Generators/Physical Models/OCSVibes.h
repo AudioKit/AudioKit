@@ -27,12 +27,12 @@
 /// @param tremoloFrequency Frequency of tremolo in Hertz. Suggested range is 0 to 12
 /// @param tremoloAmplitude Amplitude of the tremolo
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-        maximumDuration:(OCSConstant *)maximumDuration
-          stickHardness:(OCSConstant *)stickHardness
-         strikePosition:(OCSConstant *)strikePosition
-              amplitude:(OCSControl *)amplitude
-      tremoloShapeTable:(OCSFTable *)tremoloShapeTable
-       tremoloFrequency:(OCSControl *)tremoloFrequency
-       tremoloAmplitude:(OCSControl *)tremoloAmplitude;
+                  maximumDuration:(OCSConstant *)maximumDuration
+                    stickHardness:(OCSConstant *)stickHardness
+                   strikePosition:(OCSConstant *)strikePosition
+                        amplitude:(OCSControl *)amplitude
+                tremoloShapeTable:(OCSFTable *)tremoloShapeTable
+                 tremoloFrequency:(OCSControl *)tremoloFrequency
+                 tremoloAmplitude:(OCSControl *)tremoloAmplitude;
 
 @end

@@ -27,12 +27,12 @@
 @implementation OCSBowedString
 
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-               pressure:(OCSControl *)pressure
-               position:(OCSControl *)position
-              amplitude:(OCSControl *)amplitude
-      vibratoShapeTable:(OCSFTable *)vibratoShapeTable
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude
+                         pressure:(OCSControl *)pressure
+                         position:(OCSControl *)position
+                        amplitude:(OCSControl *)amplitude
+                vibratoShapeTable:(OCSFTable *)vibratoShapeTable
+                 vibratoFrequency:(OCSControl *)vibratoFrequency
+                 vibratoAmplitude:(OCSControl *)vibratoAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

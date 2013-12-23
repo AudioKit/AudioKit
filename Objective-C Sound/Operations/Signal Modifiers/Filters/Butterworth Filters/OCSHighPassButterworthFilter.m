@@ -17,7 +17,7 @@
 @implementation OCSHighPassButterworthFilter
 
 -(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-         cutoffFrequency:(OCSControl *)cutoffFrequency
+                   cutoffFrequency:(OCSControl *)cutoffFrequency
 
 {
     self = [super initWithString:[self operationName]];

@@ -25,11 +25,11 @@
 @implementation OCSFMOscillator
 
 - (instancetype)initWithFTable:(OCSFTable *)fTable
-       baseFrequency:(OCSControl *)baseFrequency
-   carrierMultiplier:(OCSParameter *)carrierMultiplier
-modulatingMultiplier:(OCSParameter *)modulatingMultiplier
-     modulationIndex:(OCSControl *)modulationIndex
-           amplitude:(OCSParameter *)amplitude
+                 baseFrequency:(OCSControl *)baseFrequency
+             carrierMultiplier:(OCSParameter *)carrierMultiplier
+          modulatingMultiplier:(OCSParameter *)modulatingMultiplier
+               modulationIndex:(OCSControl *)modulationIndex
+                     amplitude:(OCSParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

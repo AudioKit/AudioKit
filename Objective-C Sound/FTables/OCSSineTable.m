@@ -16,10 +16,11 @@
     return [self initWithType:kFTSines size:4096 parameters:params];
 }
 
-- (instancetype)initWithSize:(int)size partialStrengths:(OCSArray *)partialStrengthsArray
+- (instancetype)initWithSize:(int)size
+            partialStrengths:(OCSArray *)partialStrengthsArray
 {
-    return [self initWithType:kFTSines 
-                         size:size 
+    return [self initWithType:kFTSines
+                         size:size
                    parameters:partialStrengthsArray];
 }
 

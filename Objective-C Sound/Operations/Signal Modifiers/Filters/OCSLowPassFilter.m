@@ -20,7 +20,7 @@
 @implementation OCSLowPassFilter
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-           halfPowerPoint:(OCSControl *)halfPowerPoint
+                     halfPowerPoint:(OCSControl *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {

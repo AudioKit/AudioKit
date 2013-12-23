@@ -13,8 +13,8 @@
 
 /** Distribute an audio signal across two channels with a choice of methods.
  
- Panning methods include equal power, square root, simple linear, and an 
- alternative equal power method based on the MIDI Association Recommend 
+ Panning methods include equal power, square root, simple linear, and an
+ alternative equal power method based on the MIDI Association Recommend
  Practice for GM2 RP036 (Default Pan Curve).
  */
 
@@ -32,7 +32,7 @@ typedef enum
 /// @param audioSource Source signal.
 /// @param pan From hard left (0) to hard right (1).
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                      pan:(OCSParameter *)pan;
+                                pan:(OCSParameter *)pan;
 
 
 /// Set an optional pan method

@@ -29,14 +29,14 @@
 
 
 - (instancetype)initWithMinValue:(float)minValue
-              maxValue:(float)maxValue;
+                        maxValue:(float)maxValue;
 {
     return [self initWithValue:minValue minValue:minValue maxValue:maxValue];
 }
 
 - (instancetype)initWithValue:(float)initialValue
-           minValue:(float)minValue
-           maxValue:(float)maxValue;
+                     minValue:(float)minValue
+                     maxValue:(float)maxValue;
 {
     self = [self init];
     if (self) {

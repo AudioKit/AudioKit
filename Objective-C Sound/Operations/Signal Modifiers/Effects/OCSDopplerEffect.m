@@ -23,8 +23,8 @@
 @implementation OCSDopplerEffect
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-              micPosition:(OCSControl *)micPosition
-           sourcePosition:(OCSControl *)sourcePosition
+                        micPosition:(OCSControl *)micPosition
+                     sourcePosition:(OCSControl *)sourcePosition
 {
     self = [super initWithString:[self operationName]];
     if (self) {

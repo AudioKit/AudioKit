@@ -20,7 +20,7 @@
 @implementation OCSTableValueConstant
 
 - (instancetype)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSConstant *)index
+                       atIndex:(OCSConstant *)index
 {
     self = [super initWithString:[self operationName]];
     if (self) {

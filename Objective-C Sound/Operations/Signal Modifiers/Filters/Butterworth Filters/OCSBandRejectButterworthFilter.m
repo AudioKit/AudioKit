@@ -21,8 +21,8 @@
 @implementation OCSBandRejectButterworthFilter
 
 -(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-         centerFrequency:(OCSControl *)centerFrequency
-               bandwidth:(OCSControl *)bandwidthRange
+                   centerFrequency:(OCSControl *)centerFrequency
+                         bandwidth:(OCSControl *)bandwidthRange
 {
     self = [super initWithString:[self operationName]];
     if(self) {

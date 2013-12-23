@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSScaledControl.h"  
+#import "OCSScaledControl.h"
 
 @interface OCSScaledControl () {
     OCSControl *kin;
@@ -18,8 +18,8 @@
 @implementation OCSScaledControl
 
 - (instancetype)initWithControl:(OCSControl *)inputControl
-        minimumOutput:(OCSControl *)minimumOutput
-        maximumOutput:(OCSControl *)maximumOutput;
+                  minimumOutput:(OCSControl *)minimumOutput
+                  maximumOutput:(OCSControl *)maximumOutput;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -27,11 +27,11 @@
         kmax = maximumOutput;
         kmin = minimumOutput;
     }
-    return self; 
+    return self;
 }
 
 // Csound Prototype: kscl scale kinput, kmax, kmin
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@ scale %@, %@, %@",

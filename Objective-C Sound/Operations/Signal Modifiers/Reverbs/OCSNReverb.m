@@ -27,8 +27,8 @@
 @implementation OCSNReverb
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-           reverbDuration:(OCSControl *)reverbDuration
-      highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
+                     reverbDuration:(OCSControl *)reverbDuration
+                highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
 {
     self = [super initWithString:[self operationName]];
     if(self) {
@@ -40,12 +40,12 @@
 }
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-           reverbDuration:(OCSControl *)reverbDuration
-      highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
-          combFilterTimes:(NSArray *)combFilterTimes
-          combFilterGains:(NSArray *)combFilterGains
-       allPassFilterTimes:(NSArray *)allPassFilterTimes
-       allPassFilterGains:(NSArray *)allPassFilterGains
+                     reverbDuration:(OCSControl *)reverbDuration
+                highFreqDiffusivity:(OCSControl *)highFreqDiffusivity
+                    combFilterTimes:(NSArray *)combFilterTimes
+                    combFilterGains:(NSArray *)combFilterGains
+                 allPassFilterTimes:(NSArray *)allPassFilterTimes
+                 allPassFilterGains:(NSArray *)allPassFilterGains
 {
     self = [super initWithString:[self operationName]];
     if(self) {
@@ -67,13 +67,13 @@
     //iSine ftgentmp 0, 0, 4096, 10, 1
     
     //Check if optional parameters have been set before constructing CSD
-
+    
     if (combGains) {
         return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@, %@, %@, %@, %@",
                 [self fTableCSDFromFilterParams],
                 self, dur, hfdif, combTimes, combGains, allPassTimes, allPassGains];
     } else {
-        return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@", 
+        return [NSString stringWithFormat:@"%@ nreverb %@, %@, %@",
                 self, input, dur, hfdif];
     }
 }

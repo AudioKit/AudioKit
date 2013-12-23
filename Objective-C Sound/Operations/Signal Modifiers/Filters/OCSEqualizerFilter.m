@@ -22,9 +22,9 @@
 @implementation OCSEqualizerFilter
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-          centerFrequency:(OCSControl *)centerFrequency
-                bandwidth:(OCSControl *)bandwidth
-                     gain:(OCSControl *)gain
+                    centerFrequency:(OCSControl *)centerFrequency
+                          bandwidth:(OCSControl *)bandwidth
+                               gain:(OCSControl *)gain
 {
     self = [super initWithString:[self operationName]];
     if (self) {

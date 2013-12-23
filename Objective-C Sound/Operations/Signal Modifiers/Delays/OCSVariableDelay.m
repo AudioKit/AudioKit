@@ -21,8 +21,8 @@
 @implementation OCSVariableDelay
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                delayTime:(OCSAudio *)delayTime
-         maximumDelayTime:(OCSConstant *)maximumDelayTime
+                          delayTime:(OCSAudio *)delayTime
+                   maximumDelayTime:(OCSConstant *)maximumDelayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {

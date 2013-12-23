@@ -18,7 +18,7 @@
 @implementation OCSTrackedFrequencySchouten
 
 -(instancetype)initWithFSignalSource:(OCSFSignal *)fSignalSource
-        amplitudeThreshold:(OCSControl *)amplitudeThreshold
+                  amplitudeThreshold:(OCSControl *)amplitudeThreshold
 {
     self = [super initWithString:[self operationName]];
     if (self) {

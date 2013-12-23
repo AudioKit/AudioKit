@@ -21,8 +21,8 @@
 /// @param scalingRatio Spectral envelope scaling ratio. Values > 1 stretch the envelope and < 1 compress it.
 /// @param shift Spectral envelope shift, values > 0 shift the envelope linearly upwards and values < 1 shift it downwards.
 - (instancetype)initWithSourceSignal:(OCSFSignal *)sourceSignal
-              scalingRatio:(OCSControl *)scalingRatio
-                     shift:(OCSControl *)shift;
+                        scalingRatio:(OCSControl *)scalingRatio
+                               shift:(OCSControl *)shift;
 
 
 /// Set an optional low frequency

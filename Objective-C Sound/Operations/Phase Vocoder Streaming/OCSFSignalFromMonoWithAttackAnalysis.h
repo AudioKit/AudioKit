@@ -12,15 +12,15 @@
 
 /**  Phase vocoder analysis processing with onset detection/processing.
  
- Implements phase vocoder analysis by reading function tables containing sampled-sound 
+ Implements phase vocoder analysis by reading function tables containing sampled-sound
  sources and will accept deferred allocation tables.
  
- This operation allows for time and frequency-independent scaling. Time is advanced 
- internally, but controlled by a tempo scaling parameter; when an onset is detected, 
- timescaling is momentarily stopped to avoid smearing of attacks. The quality of the 
+ This operation allows for time and frequency-independent scaling. Time is advanced
+ internally, but controlled by a tempo scaling parameter; when an onset is detected,
+ timescaling is momentarily stopped to avoid smearing of attacks. The quality of the
  effect is generally improved with phase locking switched on.
  
- This operation will also scale pitch, independently of frequency, using a transposition 
+ This operation will also scale pitch, independently of frequency, using a transposition
  factor (k-rate).
  
  */
@@ -33,9 +33,9 @@
 /// @param amplitudeScaler Amplitude scaling ratio.
 /// @param pitchScaler     Grain pitch scaling ration (1=normal pitch, <1 lower, >1 higher, <0 backwards)
 -(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
-            timeScaler:(OCSControl *)timeScaler
-       amplitudeScaler:(OCSControl *)amplitudeScaler
-           pitchScaler:(OCSControl *)pitchScaler;
+                      timeScaler:(OCSControl *)timeScaler
+                 amplitudeScaler:(OCSControl *)amplitudeScaler
+                     pitchScaler:(OCSControl *)pitchScaler;
 
 /// Create a phase vocoder stream or f-signal from a mono audio source and performs attack analysis.
 /// @param soundFileSource  Audio to use to generate the f-signal.
@@ -49,15 +49,15 @@
 /// @param onsetProcessingFlag 0 or 1, to switch onset detection/processing. The onset detector checks for power difference between analysis windows. If more than what has been specified in the dbthresh parameter, an onset is declared. It suspends timescaling momentarily so the onsets are not modified.
 /// @param onsetDecibelThreshold Threshold for onset detection, based on dB power spectrum ratio between two successive windows. A detected ratio above it will cancel timescaling momentarily, to avoid smearing (defaults to 1). By default anything more than a 1 dB inter-frame power difference will be detected as an onset.
 -(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
-            timeScaler:(OCSControl *)timeScaler
-       amplitudeScaler:(OCSControl *)amplitudeScaler
-           pitchScaler:(OCSControl *)pitchScaler
-               fftSize:(OCSConstant *)fftSize
-               overlap:(OCSConstant *)overlap
-       tableReadOffset:(OCSConstant *)tableReadOffset
- audioSourceWraparound:(OCSControl *)wraparoundFlag
-       onsetProcessing:(OCSControl *)onsetProcessingFlag
- onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold;
+                      timeScaler:(OCSControl *)timeScaler
+                 amplitudeScaler:(OCSControl *)amplitudeScaler
+                     pitchScaler:(OCSControl *)pitchScaler
+                         fftSize:(OCSConstant *)fftSize
+                         overlap:(OCSConstant *)overlap
+                 tableReadOffset:(OCSConstant *)tableReadOffset
+           audioSourceWraparound:(OCSControl *)wraparoundFlag
+                 onsetProcessing:(OCSControl *)onsetProcessingFlag
+           onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold;
 
 // AOP - these optional flags should be methods on the instance, not part of an initialization
 

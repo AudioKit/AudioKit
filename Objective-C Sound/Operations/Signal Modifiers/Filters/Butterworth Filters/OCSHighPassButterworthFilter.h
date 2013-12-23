@@ -20,7 +20,7 @@
 /// @param audioSource     The input to be filtered.
 /// @param cutoffFrequency Cutoff of the lowpass filter.
 -(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-         cutoffFrequency:(OCSControl *)cutoffFrequency;
+                   cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 @end
 

@@ -18,8 +18,8 @@
 @implementation OCSLinearControl
 
 - (instancetype)initFromValue:(OCSConstant *)startingValue
-            toValue:(OCSConstant *)endingValue
-           duration:(OCSConstant *)duration
+                      toValue:(OCSConstant *)endingValue
+                     duration:(OCSConstant *)duration
 {
     self = [super initWithString:[self operationName]];
     if (self) {

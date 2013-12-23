@@ -23,7 +23,7 @@
 @implementation OCSPanner
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                      pan:(OCSParameter *)pan
+                                pan:(OCSParameter *)pan
 {
     self = [super initWithString:[self operationName]];
     if (self) {

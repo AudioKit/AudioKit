@@ -46,7 +46,8 @@
 /// Store file with a filename using a specifically sized function table
 /// @param filename  Audio file to load.  Most types are supported.
 /// @param tableSize Size of the table to use.  Necessary for some opcodes.
-- (instancetype)initWithFilename:(NSString *)filename tableSize:(int)tableSize;
+- (instancetype)initWithFilename:(NSString *)filename
+                       tableSize:(int)tableSize;
 
 /// Returns the string to retrieve the number of channels of a sound file table
 - (OCSConstant *)channels;

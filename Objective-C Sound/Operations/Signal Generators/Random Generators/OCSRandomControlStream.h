@@ -18,7 +18,7 @@
 /// @param maximum maximum range limit.  Sampled values will be between 0 .. maximum
 /// @param frequency frequency with which new samples are generated
 - (instancetype)initWithMaximum:(OCSControl *)maximum
-            frequency:(OCSControl *)frequency;
+                      frequency:(OCSControl *)frequency;
 
 /// Sets optional seed value for the pseudo-random number generator.
 /// @param seed seed value for the recursive pseudo-random formula. A value between 0 and +1 will produce an initial output of kamp * iseed. A negative value will cause seed re-initialization to be skipped. A value greater than 1 will seed from system time, this is the best option to generate a different random sequence for each run.

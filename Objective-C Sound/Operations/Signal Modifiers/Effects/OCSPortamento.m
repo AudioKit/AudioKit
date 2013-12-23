@@ -21,7 +21,7 @@
 @implementation OCSPortamento
 
 - (instancetype)initWithControlSource:(OCSControl *)controlSource
-                   halfTime:(OCSControl *)halfTime
+                             halfTime:(OCSControl *)halfTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {

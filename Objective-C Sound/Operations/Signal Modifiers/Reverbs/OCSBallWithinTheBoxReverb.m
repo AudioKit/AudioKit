@@ -26,12 +26,12 @@
 @implementation OCSBallWithinTheBoxReverb
 
 - (instancetype)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
-              lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
-              lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
-                      xLocation:(OCSControl *)xLocation
-                      yLocation:(OCSControl *)yLocation
-                      zLocation:(OCSControl *)zLocation
-                    audioSource:(OCSAudio *)audioSource
+                        lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
+                        lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
+                                xLocation:(OCSControl *)xLocation
+                                yLocation:(OCSControl *)yLocation
+                                zLocation:(OCSControl *)zLocation
+                              audioSource:(OCSAudio *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {

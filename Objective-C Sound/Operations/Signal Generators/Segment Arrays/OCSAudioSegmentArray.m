@@ -27,11 +27,11 @@
 @implementation OCSAudioSegmentArray
 
 - (instancetype)initWithStartValue:(OCSConstant *)firstSegmentStartValue
-             toNextValue:(OCSConstant *)firstSegmentTargetValue
-           afterDuration:(OCSConstant *)firstSegmentDuration
+                       toNextValue:(OCSConstant *)firstSegmentTargetValue
+                     afterDuration:(OCSConstant *)firstSegmentDuration
 {
     self = [super initWithString:[self operationName]];
-    if (self) {        
+    if (self) {
         opcode   = @"linseg";
         start    = firstSegmentStartValue;
         dur      = firstSegmentDuration;
@@ -44,14 +44,14 @@
     return self;
 }
 
-- (void)addValue:(OCSConstant *)nextSegmentTargetValue 
+- (void)addValue:(OCSConstant *)nextSegmentTargetValue
    afterDuration:(OCSConstant *)nextSegmentDuration;
 {
     [segments addObject:nextSegmentDuration];
     [segments addObject:nextSegmentTargetValue];
 }
 
-- (void)addReleaseToFinalValue:(OCSConstant *)finalValue 
+- (void)addReleaseToFinalValue:(OCSConstant *)finalValue
                  afterDuration:(OCSConstant *)releaseDuration
 {
     // adds an r to the opcode
@@ -71,11 +71,11 @@
     if ([segments count] == 0) {
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@", 
+                    @"%@ %@ %@, %@, %@",
                     self, opcode, start, dur, target];
         } else {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@, %@, %@", 
+                    @"%@ %@ %@, %@, %@, %@, %@",
                     self, opcode, start, dur, target, release, final];
         }
     } else {
@@ -84,18 +84,18 @@
             [s addObject:[value parameterString]];
         }
         NSString *segs = [s componentsJoinedByString:@" , "];
-       
+        
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@, %@", 
+                    @"%@ %@ %@, %@, %@, %@",
                     self, opcode, start, dur, target, segs];
             
         } else {
             return [NSString stringWithFormat:
-                    @"%@ %@ %@, %@, %@, %@, %@, %@", 
+                    @"%@ %@ %@, %@, %@, %@, %@, %@",
                     self, opcode, start, dur, target, segs, release, final];
         }
     }
 }
- 
+
 @end

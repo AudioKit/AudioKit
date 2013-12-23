@@ -11,14 +11,14 @@
 @implementation OCSRandomDistributionTable
 
 - (instancetype)initType:(RandomDistributionType)distributionType
-          size:(int)size;
+                    size:(int)size;
 {
     return [self initType:distributionType size:size level:1.0];
 }
 
 - (instancetype)initType:(RandomDistributionType)distributionType
-          size:(int)size
-         level:(float)level;
+                    size:(int)size
+                   level:(float)level;
 {
     return [self initWithType:kFTRandomDistributions
                          size:size
@@ -27,8 +27,8 @@
 }
 
 - (instancetype)initWeibullTypeWithSize:(int)size
-                        level:(float)level
-                        sigma:(float)sigma;
+                                  level:(float)level
+                                  sigma:(float)sigma;
 {
     int distributionType = 10;
     return [self initWithType:kFTRandomDistributions
@@ -38,15 +38,15 @@
 }
 
 - (instancetype)initBetaTypeWithSize:(int)size
-                     level:(float)level
-                     alpha:(float)alpha
-                      beta:(float)beta;
+                               level:(float)level
+                               alpha:(float)alpha
+                                beta:(float)beta;
 {
     int distributionType = 9;
     return [self initWithType:kFTRandomDistributions
                          size:size
                    parameters:[OCSArray arrayFromConstants:
-                               ocspi(distributionType), level, ocsp(alpha), ocsp(beta), nil]]; 
+                               ocspi(distributionType), level, ocsp(alpha), ocsp(beta), nil]];
 }
 
 

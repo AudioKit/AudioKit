@@ -27,13 +27,13 @@
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12
 /// @param vibratoAmplitude Amplitude of the vibrato
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-        maximumDuration:(OCSConstant *)maximumDuration
-          stickHardness:(OCSConstant *)stickHardness
-         strikePosition:(OCSConstant *)strikePosition
-              amplitude:(OCSControl *)amplitude
-      vibratoShapeTable:(OCSFTable *)vibratoShapeTable
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude;
+                  maximumDuration:(OCSConstant *)maximumDuration
+                    stickHardness:(OCSConstant *)stickHardness
+                   strikePosition:(OCSConstant *)strikePosition
+                        amplitude:(OCSControl *)amplitude
+                vibratoShapeTable:(OCSFTable *)vibratoShapeTable
+                 vibratoFrequency:(OCSControl *)vibratoFrequency
+                 vibratoAmplitude:(OCSControl *)vibratoAmplitude;
 
 
 /// Set an optional double strike percentage

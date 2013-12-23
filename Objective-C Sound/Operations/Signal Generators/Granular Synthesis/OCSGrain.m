@@ -25,14 +25,14 @@
 @implementation OCSGrain
 
 - (instancetype)initWithGrainFunction:(OCSFTable *)grainFunction
-             windowFunction:(OCSFTable *)windowFunction
-           maxGrainDuration:(OCSConstant *)maxGrainDuration
-                  amplitude:(OCSParameter *)amplitude
-             grainFrequency:(OCSParameter *)grainFrequency
-               grainDensity:(OCSParameter *)grainDensity  
-              grainDuration:(OCSControl *)grainDuration
-      maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
-          maxPitchDeviation:(OCSControl *)maxPitchDeviation;
+                       windowFunction:(OCSFTable *)windowFunction
+                     maxGrainDuration:(OCSConstant *)maxGrainDuration
+                            amplitude:(OCSParameter *)amplitude
+                       grainFrequency:(OCSParameter *)grainFrequency
+                         grainDensity:(OCSParameter *)grainDensity
+                        grainDuration:(OCSControl *)grainDuration
+                maxAmplitudeDeviation:(OCSControl *)maxAmplitudeDeviation
+                    maxPitchDeviation:(OCSControl *)maxPitchDeviation;
 {
     self = [super initWithString:[self operationName]];
     if (self) {

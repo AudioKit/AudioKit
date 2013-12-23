@@ -25,12 +25,12 @@
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12.
 /// @param vibratoAmplitude Amplitude of the vibrato.
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-               pressure:(OCSControl *)pressure
-               position:(OCSControl *)position
-              amplitude:(OCSControl *)amplitude
-      vibratoShapeTable:(OCSFTable *)vibratoShapeTable
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude;
+                         pressure:(OCSControl *)pressure
+                         position:(OCSControl *)position
+                        amplitude:(OCSControl *)amplitude
+                vibratoShapeTable:(OCSFTable *)vibratoShapeTable
+                 vibratoFrequency:(OCSControl *)vibratoFrequency
+                 vibratoAmplitude:(OCSControl *)vibratoAmplitude;
 
 
 /// Set an optional minimum frequency

@@ -22,7 +22,7 @@
 @implementation OCSControlSegmentArrayLoop
 
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-             startValue:(OCSControl *)startValue
+                       startValue:(OCSControl *)startValue
 {
     self = [super initWithString:[self operationName]];
     if (self) {

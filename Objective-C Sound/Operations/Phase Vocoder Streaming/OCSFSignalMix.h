@@ -9,7 +9,7 @@
 #import "OCSParameter+Operation.h"
 #import "OCSFSignal.h"
 
-/** Mix 'seamlessly' two pv signals. This opcode combines the most prominent 
+/** Mix 'seamlessly' two pv signals. This opcode combines the most prominent
  components of two pvoc streams into a single mixed stream.
  */
 
@@ -19,7 +19,7 @@
 /// @param input1 The first f-signal.
 /// @param input2 The second f-signal.
 - (instancetype)initWithInput1:(OCSFSignal *)input1
-              input2:(OCSFSignal *)input2;
+                        input2:(OCSFSignal *)input2;
 
 
 @end

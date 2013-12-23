@@ -24,11 +24,11 @@
 @implementation OCSFTablelooper
 
 - (instancetype)initWithFTable:(OCSFTable *)fTable
-    startingPosition:(OCSConstant *)startingPosition
-        loopDuration:(OCSConstant *)loopDuration
-   crossfadeDuration:(OCSConstant *)crossfadeDuration
-  transpositionRatio:(OCSControl *)transpositionRatio
-           amplitude:(OCSControl *)amplitude
+              startingPosition:(OCSConstant *)startingPosition
+                  loopDuration:(OCSConstant *)loopDuration
+             crossfadeDuration:(OCSConstant *)crossfadeDuration
+            transpositionRatio:(OCSControl *)transpositionRatio
+                     amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -53,7 +53,7 @@ static int currentID = 1;
 }
 
 - (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio
-             rightAudio:(OCSAudio *)rightAudio
+                       rightAudio:(OCSAudio *)rightAudio
 {
     self = [self init];
     if (self) {

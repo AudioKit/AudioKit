@@ -26,7 +26,7 @@
 @implementation OCSTambourine
 
 - (instancetype)initWithMaximumDuration:(OCSConstant *)maximumDuration
-                    amplitude:(OCSControl *)amplitude
+                              amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

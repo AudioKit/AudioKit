@@ -11,18 +11,18 @@
 @implementation OCSWindowsTable
 
 - (instancetype)initWithType:(WindowTableType)windowType
-          maxValue:(float)maximumValue    
-              size:(int)tableSize; 
+                    maxValue:(float)maximumValue
+                        size:(int)tableSize;
 {
     return [self initWithType:kFTWindows
-                         size:tableSize 
+                         size:tableSize
                    parameters:[OCSArray arrayFromConstants:
                                ocspi(windowType),ocsp(maximumValue), nil]];
 }
 
 
 - (instancetype)initWithType:(WindowTableType)windowType
-              size:(int)tableSize; 
+                        size:(int)tableSize;
 {
     return [self initWithType:windowType
                      maxValue:1.0f
@@ -30,11 +30,11 @@
 }
 
 - (instancetype)initGaussianTypeWithBroadness:(float)windowBroadness
-                           maxValue:(float)maximumValue  
-                               size:(int)tableSize;
+                                     maxValue:(float)maximumValue
+                                         size:(int)tableSize;
 {
-    return [self initWithType:kFTWindows 
-                         size:tableSize 
+    return [self initWithType:kFTWindows
+                         size:tableSize
                    parameters:[OCSArray arrayFromConstants:
                                ocspi(kWindowGaussian),
                                ocsp(maximumValue),
@@ -42,11 +42,11 @@
 }
 
 - (instancetype)initKaiserTypeWithOpenness:(float)windowOpenness
-                        maxValue:(float)maximumValue  
-                            size:(int)tableSize
+                                  maxValue:(float)maximumValue
+                                      size:(int)tableSize
 {
-    return [self initWithType:kFTWindows 
-                         size:tableSize 
+    return [self initWithType:kFTWindows
+                         size:tableSize
                    parameters:[OCSArray arrayFromConstants:
                                ocspi(kWindowKaiser),
                                ocsp(maximumValue),

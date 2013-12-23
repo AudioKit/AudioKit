@@ -21,8 +21,8 @@
 @implementation OCSMixedControl
 
 - (instancetype)initWithControl1:(OCSControl *)control1
-              control2:(OCSControl *)control2
-               balance:(OCSControl *)balancePoint;
+                        control2:(OCSControl *)control2
+                         balance:(OCSControl *)balancePoint;
 {
     self = [super initWithString:[self operationName]];
     if (self) {

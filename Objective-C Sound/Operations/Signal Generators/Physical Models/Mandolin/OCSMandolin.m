@@ -25,11 +25,11 @@
 @implementation OCSMandolin
 
 - (instancetype)initWithBodySize:(OCSControl *)bodySize
-             frequency:(OCSControl *)frequency
-  pairedStringDetuning:(OCSControl *)pairedStringDetuning
-         pluckPosition:(OCSControl *)pluckPosition
-              loopGain:(OCSControl *)loopGain
-             amplitude:(OCSControl *)amplitude
+                       frequency:(OCSControl *)frequency
+            pairedStringDetuning:(OCSControl *)pairedStringDetuning
+                   pluckPosition:(OCSControl *)pluckPosition
+                        loopGain:(OCSControl *)loopGain
+                       amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

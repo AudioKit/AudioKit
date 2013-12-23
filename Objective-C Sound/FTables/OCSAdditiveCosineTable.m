@@ -16,26 +16,28 @@
 }
 
 - (instancetype)initWithSize:(int)tableSize
- numberOfHarmonics:(int)numberOfHarmonics
-{
-    return [self initWithType:kFTAdditiveCosines size:tableSize parameters:[OCSArray arrayFromConstants:ocspi(numberOfHarmonics), nil]];
-}
-
-- (instancetype)initWithSize:(int)tableSize
- numberOfHarmonics:(int)numberOfHarmonics
-    lowestHarmonic:(int)lowestHarmonic
+           numberOfHarmonics:(int)numberOfHarmonics
 {
     return [self initWithType:kFTAdditiveCosines
                          size:tableSize
-                   parameters:[OCSArray
-                               arrayFromConstants:ocspi(numberOfHarmonics),
-                                                    ocspi(lowestHarmonic), nil]];
+                   parameters:[OCSArray arrayFromConstants:ocspi(numberOfHarmonics), nil]];
 }
 
 - (instancetype)initWithSize:(int)tableSize
- numberOfHarmonics:(int)numberOfHarmonics
-    lowestHarmonic:(int)lowestHarmonic
- partialMultiplier:(int)partialMultiplier
+           numberOfHarmonics:(int)numberOfHarmonics
+              lowestHarmonic:(int)lowestHarmonic
+{
+    return [self initWithType:kFTAdditiveCosines
+                         size:tableSize
+                   parameters:[OCSArray arrayFromConstants:
+                               ocspi(numberOfHarmonics),
+                               ocspi(lowestHarmonic), nil]];
+}
+
+- (instancetype)initWithSize:(int)tableSize
+           numberOfHarmonics:(int)numberOfHarmonics
+              lowestHarmonic:(int)lowestHarmonic
+           partialMultiplier:(int)partialMultiplier
 {
     return [self initWithType:kFTAdditiveCosines
                          size:tableSize

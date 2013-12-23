@@ -21,8 +21,8 @@
 @implementation OCSMoogLadder
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-          cutoffFrequency:(OCSControl *)cutoffFrequency
-                resonance:(OCSControl *)resonance
+                    cutoffFrequency:(OCSControl *)cutoffFrequency
+                          resonance:(OCSControl *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -21,7 +21,7 @@
 /// @param duration Period of time over which all sound is stopped
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
 - (instancetype)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSControl *)amplitude;
+                       amplitude:(OCSControl *)amplitude;
 
 /// Set an optional count
 /// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 1.25.

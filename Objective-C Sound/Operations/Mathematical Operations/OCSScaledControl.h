@@ -10,7 +10,7 @@
 #import "OCSParameter+Operation.h"
 
 /**
- Scales incoming value from 0 to 1 to user-definable range. 
+ Scales incoming value from 0 to 1 to user-definable range.
  Similar to scale object found in popular dataflow languages.
  */
 
@@ -21,7 +21,7 @@
 /// @param minimumOutput Minimum value of the resultant scale operation.
 /// @param maximumOutput Maximum value of the resultant scale operation.
 - (instancetype)initWithControl:(OCSControl *)inputControl
-        minimumOutput:(OCSControl *)minimumOutput
-        maximumOutput:(OCSControl *)maximumOutput;
+                  minimumOutput:(OCSControl *)minimumOutput
+                  maximumOutput:(OCSControl *)maximumOutput;
 
 @end

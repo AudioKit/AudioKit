@@ -24,21 +24,21 @@
                     frequencyMultiplier:ocspi(1)
                               amplitude:ocspi(1)
                                    type:kLoopingOscillatorNormal];
-                
+    
 }
 
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
-                   amplitude:(OCSParameter *)amplitude
+                             amplitude:(OCSParameter *)amplitude
 {
-    return [self initWithSoundFileTable:fileTable 
+    return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:ocspi(1)
                               amplitude:amplitude
                                    type:kLoopingOscillatorNormal];
 }
 
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControl *)frequencyMultiplier
-                   amplitude:(OCSParameter *)amplitude
+                   frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                             amplitude:(OCSParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:frequencyMultiplier
@@ -48,9 +48,9 @@
 
 
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControl *)frequencyMultiplier
-                   amplitude:(OCSParameter *)amplitude
-                        type:(LoopingOscillatorType)type
+                   frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                             amplitude:(OCSParameter *)amplitude
+                                  type:(LoopingOscillatorType)type
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -63,7 +63,7 @@
     return self;
 }
 
-// Csound Prototype: 
+// Csound Prototype:
 // ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:

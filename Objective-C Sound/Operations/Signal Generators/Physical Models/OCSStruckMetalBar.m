@@ -27,14 +27,14 @@
 @implementation OCSStruckMetalBar
 
 - (instancetype)initWithDecayTime:(OCSConstant *)decayTime
- dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
-      highFrequencyLoss:(OCSConstant *)highFrequencyLoss
-         strikePosition:(OCSConstant *)strikePosition
-         strikeVelocity:(OCSConstant *)strikeVelocity
-            strikeWidth:(OCSConstant *)strikeWidth
-  leftBoundaryCondition:(OCSControl *)leftBoundaryCondition
- rightBoundaryCondition:(OCSControl *)rightBoundaryCondition
-              scanSpeed:(OCSControl *)scanSpeed
+           dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
+                highFrequencyLoss:(OCSConstant *)highFrequencyLoss
+                   strikePosition:(OCSConstant *)strikePosition
+                   strikeVelocity:(OCSConstant *)strikeVelocity
+                      strikeWidth:(OCSConstant *)strikeWidth
+            leftBoundaryCondition:(OCSControl *)leftBoundaryCondition
+           rightBoundaryCondition:(OCSControl *)rightBoundaryCondition
+                        scanSpeed:(OCSControl *)scanSpeed
 {
     self = [super initWithString:[self operationName]];
     if (self) {

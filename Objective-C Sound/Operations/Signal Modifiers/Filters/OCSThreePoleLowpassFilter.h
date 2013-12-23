@@ -22,8 +22,8 @@
 /// @param cutoffFrequency The filter cutoff frequency in Hz.
 /// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-               distortion:(OCSControl *)distortion
-          cutoffFrequency:(OCSControl *)cutoffFrequency
-                resonance:(OCSControl *)resonance;
+                         distortion:(OCSControl *)distortion
+                    cutoffFrequency:(OCSControl *)cutoffFrequency
+                          resonance:(OCSControl *)resonance;
 
 @end

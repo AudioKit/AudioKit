@@ -12,7 +12,7 @@
     OCSParameter *amp;
     OCSConstant *rise;
     OCSConstant *dur;
-    OCSConstant *decay;    
+    OCSConstant *decay;
 }
 
 @end
@@ -20,9 +20,9 @@
 @implementation OCSLinearAudioEnvelope
 
 - (instancetype)initWithRiseTime:(OCSConstant *)riseTime
-         totalDuration:(OCSConstant *)totalDuration
-             decayTime:(OCSConstant *)decayTime
-             amplitude:(OCSParameter *)amplitude
+                   totalDuration:(OCSConstant *)totalDuration
+                       decayTime:(OCSConstant *)decayTime
+                       amplitude:(OCSParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -31,7 +31,7 @@
         dur     = totalDuration;
         decay   = decayTime;
     }
-    return self; 
+    return self;
 }
 
 

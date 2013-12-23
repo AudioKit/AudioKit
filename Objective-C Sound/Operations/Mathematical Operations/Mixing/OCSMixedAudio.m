@@ -23,18 +23,18 @@
 @implementation OCSMixedAudio
 
 - (instancetype)initWithSignal1:(OCSAudio *)signal1
-              signal2:(OCSAudio *)signal2
-              balance:(OCSControl *)balancePoint;
+                        signal2:(OCSAudio *)signal2
+                        balance:(OCSControl *)balancePoint;
 {
     self = [super initWithString:[self operationName]];
-    if (self) {        
+    if (self) {
         min = ocsp(0.0);
         max = ocsp(1.0);
         current = balancePoint;
         in1 = signal1;
         in2 = signal2;
     }
-    return self; 
+    return self;
 }
 
 
@@ -46,8 +46,8 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
-            @"%@ ntrpol %@, %@, %@, %@, %@", 
+    return [NSString stringWithFormat:
+            @"%@ ntrpol %@, %@, %@, %@, %@",
             self, in1, in2, current, min, max];
 }
 

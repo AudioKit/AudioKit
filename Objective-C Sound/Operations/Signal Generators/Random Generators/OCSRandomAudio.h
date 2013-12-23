@@ -19,6 +19,6 @@
 /// @param minimum minimum range limit
 /// @param maximum maximum range limit
 - (instancetype)initWithMinimum:(OCSControl *)minimum
-              maximum:(OCSControl *)maximum;
+                        maximum:(OCSControl *)maximum;
 
 @end

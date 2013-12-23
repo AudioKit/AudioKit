@@ -13,34 +13,34 @@
 
 #pragma mark Exponential Curves Values and Lengths
 
-- (instancetype)initWithSize:(int)tableSize 
-  valueLengthPairs:(OCSArray *)valueLengthPairs
+- (instancetype)initWithSize:(int)tableSize
+            valueLengthPairs:(OCSArray *)valueLengthPairs
 {
-    return [self initWithType:kFTExponentialCurves 
-                         size:tableSize 
+    return [self initWithType:kFTExponentialCurves
+                         size:tableSize
                    parameters:valueLengthPairs];
 }
 
-- (instancetype)initWithSize:(int)tableSize 
-            values:(OCSArray *)values
-           lengths:(OCSArray *)lengths;
+- (instancetype)initWithSize:(int)tableSize
+                      values:(OCSArray *)values
+                     lengths:(OCSArray *)lengths;
 {
     return [self initWithSize:tableSize valueLengthPairs:[values pairWith:lengths]];
 }
 
 #pragma mark Exponential Curves From Breakpoints
 
-- (instancetype)initWithSize:(int)tableSize 
-       breakpoints:(OCSArray *)breakpoints;
+- (instancetype)initWithSize:(int)tableSize
+                 breakpoints:(OCSArray *)breakpoints;
 {
     return [self initWithType:kFTExponentialCurvesFromBreakpoints
-                         size:tableSize 
+                         size:tableSize
                    parameters:breakpoints];
 }
 
-- (instancetype)initWithSize:(int)tableSize 
- breakpointXValues:(OCSArray *)xValues
- breakpointYValues:(OCSArray *)yValues;
+- (instancetype)initWithSize:(int)tableSize
+           breakpointXValues:(OCSArray *)xValues
+           breakpointYValues:(OCSArray *)yValues;
 {
     return [self initWithSize:tableSize breakpoints:[xValues pairWith:yValues]];
 }

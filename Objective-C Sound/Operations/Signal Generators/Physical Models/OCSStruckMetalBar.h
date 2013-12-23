@@ -27,13 +27,13 @@
 /// @param rightBoundaryCondition Boundary condition at right end of bar (1 is clamped; 2 pivoting and 3 free).
 /// @param scanSpeed Speed of scanning the output location.
 - (instancetype)initWithDecayTime:(OCSConstant *)decayTime
- dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
-      highFrequencyLoss:(OCSConstant *)highFrequencyLoss
-         strikePosition:(OCSConstant *)strikePosition
-         strikeVelocity:(OCSConstant *)strikeVelocity
-            strikeWidth:(OCSConstant *)strikeWidth
-  leftBoundaryCondition:(OCSControl *)leftBoundaryCondition
- rightBoundaryCondition:(OCSControl *)rightBoundaryCondition
-              scanSpeed:(OCSControl *)scanSpeed;
+           dimensionlessStiffness:(OCSConstant *)dimensionlessStiffness
+                highFrequencyLoss:(OCSConstant *)highFrequencyLoss
+                   strikePosition:(OCSConstant *)strikePosition
+                   strikeVelocity:(OCSConstant *)strikeVelocity
+                      strikeWidth:(OCSConstant *)strikeWidth
+            leftBoundaryCondition:(OCSControl *)leftBoundaryCondition
+           rightBoundaryCondition:(OCSControl *)rightBoundaryCondition
+                        scanSpeed:(OCSControl *)scanSpeed;
 
 @end
