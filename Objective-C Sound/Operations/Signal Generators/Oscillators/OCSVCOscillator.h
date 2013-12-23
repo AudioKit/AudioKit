@@ -12,8 +12,9 @@
 /** Implementation of a band-limited oscillator using pre-calculated tables.  Meant to model vintage analog synthesizers.
  
  Different modes require different inputs so this could be a reason to break this up into separate classes, or use more custom initializers.
- Should also look at how to integrate vco2init into this operation.  In this current state this operation is highly unstable.  
  */
+
+#warning In Csound, vco2 usually requires a vco2init, in the current state OCSVCOscillator is highly unstable.
 
 @interface OCSVCOscillator : OCSAudio
 
@@ -21,8 +22,9 @@
 /// @param frequency Frequency in Hz
 /// @param amplitude Amplitude scale. In the case of a imode waveform value of a pulse waveform, the actual output level can be a lot higher than this value.
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-              amplitude:(OCSControl *)amplitude;
+                        amplitude:(OCSControl *)amplitude;
 
+#warning Waveform type is a magic number, should change this to take an enumerated value or use separate methods for each waveform type
 /// Set an optional waveform type
 /// @param waveformType Choose from various waveform types.
 - (void)setOptionalWaveformType:(OCSConstant *)waveformType;

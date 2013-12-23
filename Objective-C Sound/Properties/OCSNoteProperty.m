@@ -17,8 +17,6 @@
 
 @implementation OCSNoteProperty
 
-@synthesize value=currentValue;
-
 - (id) init
 {
     self = [super init];
@@ -42,7 +40,7 @@
 {
     self = [self init];
     if (self) {
-        currentValue = initialValue;
+        _value        = initialValue;
         _minimumValue = minValue;
         _maximumValue = maxValue;
     }
@@ -54,13 +52,13 @@
 }
 
 - (void)setValue:(Float32)newValue {
-    currentValue = newValue;
+    _value = newValue;
     if (_minimumValue && newValue < _minimumValue) {
-        currentValue = _minimumValue;
+        _value = _minimumValue;
         NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
     else if (_maximumValue && newValue > _maximumValue) {
-        currentValue = _maximumValue;
+        _value = _maximumValue;
         NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
     [_note updateProperties];
