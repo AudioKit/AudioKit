@@ -26,7 +26,7 @@
  determine what compresser action (if any) should be taken. The mapping function is defined by
  four decibel control values. These are given as positive values, where 0 db corresponds to an
  amplitude of 1, and 90 db corresponds to an amplitude of 32768.
-*/
+ */
 
 @interface OCSCompressor : OCSAudio
 
@@ -40,13 +40,13 @@
 /// @param attackTime Attack time in seconds.
 /// @param releaseTime Release time in seconds.
 - (instancetype)initWithAffectedAudioSource:(OCSAudio *)affectedAudioSource
-           controllingAudioSource:(OCSAudio *)controllingAudioSource
-                        threshold:(OCSControl *)threshold
-                          lowKnee:(OCSControl *)lowKnee
-                         highKnee:(OCSControl *)highKnee
-                 compressionRatio:(OCSControl *)compressionRatio
-                       attackTime:(OCSControl *)attackTime
-                      releaseTime:(OCSControl *)releaseTime;
+                     controllingAudioSource:(OCSAudio *)controllingAudioSource
+                                  threshold:(OCSControl *)threshold
+                                    lowKnee:(OCSControl *)lowKnee
+                                   highKnee:(OCSControl *)highKnee
+                           compressionRatio:(OCSControl *)compressionRatio
+                                 attackTime:(OCSControl *)attackTime
+                                releaseTime:(OCSControl *)releaseTime;
 
 
 /// Set an optional look ahead time

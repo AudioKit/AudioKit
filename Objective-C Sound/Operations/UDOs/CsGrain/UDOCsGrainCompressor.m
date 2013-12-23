@@ -21,10 +21,10 @@
 @implementation UDOCsGrainCompressor
 
 - (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                      threshold:(OCSControl *)dBThreshold
-               compressionRatio:(OCSControl *)compressionRatio
-                     attackTime:(OCSControl *)attackTime
-                    releaseTime:(OCSControl *)releaseTime
+                                threshold:(OCSControl *)dBThreshold
+                         compressionRatio:(OCSControl *)compressionRatio
+                               attackTime:(OCSControl *)attackTime
+                              releaseTime:(OCSControl *)releaseTime
 {
     self = [super init];
     if (self) {
@@ -34,7 +34,7 @@
         attack    = attackTime;
         release   = releaseTime;
     }
-    return self; 
+    return self;
 }
 
 - (NSString *) udoFile {

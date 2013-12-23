@@ -21,8 +21,8 @@
 @implementation OCSReverb
 
 - (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                  feedbackLevel:(OCSControl *)feedbackLevel
-                cutoffFrequency:(OCSControl *)cutoffFrequency;
+                            feedbackLevel:(OCSControl *)feedbackLevel
+                          cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 {
     self = [super init];
@@ -31,12 +31,12 @@
         kFbLvl = feedbackLevel;
         kFCo   = cutoffFrequency;
     }
-    return self; 
+    return self;
 }
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-            feedbackLevel:(OCSControl *)feedbackLevel
-          cutoffFrequency:(OCSControl *)cutoffFrequency;
+                      feedbackLevel:(OCSControl *)feedbackLevel
+                    cutoffFrequency:(OCSControl *)cutoffFrequency;
 {
     return [self initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:audioSource]
                              feedbackLevel:feedbackLevel

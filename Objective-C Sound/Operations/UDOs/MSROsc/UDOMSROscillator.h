@@ -9,9 +9,9 @@
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
-/** Generates indicated wave with amplitude declick ramps of .02 sec on each end.  
+/** Generates indicated wave with amplitude declick ramps of .02 sec on each end.
  The frequency can be given either as pitch or in Hz, and the type can be
- a sine, triangle, saw, square, tube distortion, half triangle, half square, half-saw, or 
+ a sine, triangle, saw, square, tube distortion, half triangle, half square, half-saw, or
  white noise.
  
  Available Types:
@@ -26,7 +26,7 @@
  - Half Saw
  - White Noise (in this case, frequency has no meaning)
  
-*/
+ */
 
 typedef enum {
     kMSROscillatorTypeSine,
@@ -40,7 +40,7 @@ typedef enum {
     kMSROscillatorTypeWhiteNoise
 } OscillatorType;
 
-@interface UDOMSROscillator : OCSAudio 
+@interface UDOMSROscillator : OCSAudio
 
 /** Instantiates the user-defined opcode for Michael Rempel's Oscillator.
  
@@ -50,7 +50,7 @@ typedef enum {
  @return                 An instance of UDOMSROscillator.
  */
 - (instancetype)initWithType:(OscillatorType)oscillatorType
-         frequency:(OCSControl *)pitchOrFrequency
-         amplitude:(OCSConstant *)maxAmplitude;
+                   frequency:(OCSControl *)pitchOrFrequency
+                   amplitude:(OCSConstant *)maxAmplitude;
 
 @end

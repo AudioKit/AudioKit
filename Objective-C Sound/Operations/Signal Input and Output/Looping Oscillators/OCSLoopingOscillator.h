@@ -12,10 +12,10 @@
 
 #import "OCSLoopingOscillatorConstants.h"
 
-/** Read sampled sound (mono or stereo) from a table, with 
+/** Read sampled sound (mono or stereo) from a table, with
  optional sustain and release looping, using cubic interpolation.
  
- @warning *Not fully implemented yet:* Currently no 
+ @warning *Not fully implemented yet:* Currently no
  optional parameters are implemented.
  */
 
@@ -29,15 +29,15 @@
 /// @param fileTable Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
 /// @param amplitude Output of the signal in relation to the 0dB full scale amplitude.
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-                   amplitude:(OCSParameter *)amplitude;
+                             amplitude:(OCSParameter *)amplitude;
 
 /// Initialization with a given file and amplitude and scale the frequency.
 /// @param fileTable           Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
 /// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
 /// @param frequencyMultiplier Relative to a base frequency of 1.
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControl *)frequencyMultiplier
-                   amplitude:(OCSParameter *)amplitude;
+                   frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                             amplitude:(OCSParameter *)amplitude;
 
 
 
@@ -47,8 +47,8 @@
 /// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
 /// @param type                Behavior of the loop, no loop, normal, or forward and back
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControl *)frequencyMultiplier
-                   amplitude:(OCSParameter *)amplitude
-                        type:(LoopingOscillatorType)type;
+                   frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                             amplitude:(OCSParameter *)amplitude
+                                  type:(LoopingOscillatorType)type;
 
 @end

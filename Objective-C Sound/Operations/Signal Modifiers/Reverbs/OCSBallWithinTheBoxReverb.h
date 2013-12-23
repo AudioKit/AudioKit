@@ -25,12 +25,12 @@
 /// @param zLocation The virtual z-coordinate of the source of sound (the input signal).
 /// @param audioSource The input signal
 - (instancetype)initWithLengthOfXAxisEdge:(OCSConstant *)lengthOfXAxisEdge
-              lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
-              lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
-                      xLocation:(OCSControl *)xLocation
-                      yLocation:(OCSControl *)yLocation
-                      zLocation:(OCSControl *)zLocation
-                    audioSource:(OCSAudio *)audioSource;
+                        lengthOfYAxisEdge:(OCSConstant *)lengthOfYAxisEdge
+                        lengthOfZAxisEdge:(OCSConstant *)lengthOfZAxisEdge
+                                xLocation:(OCSControl *)xLocation
+                                yLocation:(OCSControl *)yLocation
+                                zLocation:(OCSControl *)zLocation
+                              audioSource:(OCSAudio *)audioSource;
 
 
 /// Set an optional diffusion

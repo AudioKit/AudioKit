@@ -20,10 +20,10 @@
 @implementation OCSFSignalFromMonoAudio
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                  fftSize:(OCSConstant *)fftSize
-                  overlap:(OCSConstant *)overlap
-               windowType:(WindowType)windowType
-         windowFilterSize:(OCSConstant *)windowSize
+                            fftSize:(OCSConstant *)fftSize
+                            overlap:(OCSConstant *)overlap
+                         windowType:(WindowType)windowType
+                   windowFilterSize:(OCSConstant *)windowSize
 
 {
     self = [super initWithString:[self operationName]];

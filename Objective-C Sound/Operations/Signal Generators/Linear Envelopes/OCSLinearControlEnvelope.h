@@ -27,9 +27,9 @@
 /// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
 /// @param amplitude     Amplitude to rise to and decay from.
 - (instancetype)initWithRiseTime:(OCSConstant *)riseTime
-         totalDuration:(OCSConstant *)totalDuration
-             decayTime:(OCSConstant *)decayTime
-             amplitude:(OCSControl  *)amplitude;
+                   totalDuration:(OCSConstant *)totalDuration
+                       decayTime:(OCSConstant *)decayTime
+                       amplitude:(OCSControl  *)amplitude;
 
 
 @end

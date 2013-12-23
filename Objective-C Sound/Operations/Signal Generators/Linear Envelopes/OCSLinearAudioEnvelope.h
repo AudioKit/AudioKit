@@ -11,13 +11,13 @@
 
 /** Applies a straight line rise and decay pattern to an input amp signal.
  
-Rise modifications are applied for the first irise seconds, and decay from time
-totalDuration - decayTime. If these periods are separated in time there will be
-a steady state during which amp will be unmodified. If linen rise and decay
-periods overlap then both modifications will be in effect for that time. If the
-overall duration is exceeded in performance, the final decay will continue on in
-the same direction, going negative.
-*/
+ Rise modifications are applied for the first irise seconds, and decay from time
+ totalDuration - decayTime. If these periods are separated in time there will be
+ a steady state during which amp will be unmodified. If linen rise and decay
+ periods overlap then both modifications will be in effect for that time. If the
+ overall duration is exceeded in performance, the final decay will continue on in
+ the same direction, going negative.
+ */
 
 @interface OCSLinearAudioEnvelope : OCSAudio
 
@@ -27,8 +27,8 @@ the same direction, going negative.
 /// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
 /// @param amplitude     Amplitude to rise to and decay from.
 - (instancetype)initWithRiseTime:(OCSConstant *)riseTime
-         totalDuration:(OCSConstant *)totalDuration
-             decayTime:(OCSConstant *)decayTime
-             amplitude:(OCSParameter *)amplitude;
+                   totalDuration:(OCSConstant *)totalDuration
+                       decayTime:(OCSConstant *)decayTime
+                       amplitude:(OCSParameter *)amplitude;
 
 @end

@@ -23,7 +23,7 @@
 @implementation OCSSekere
 
 - (instancetype)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSConstant *)amplitude
+                       amplitude:(OCSConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

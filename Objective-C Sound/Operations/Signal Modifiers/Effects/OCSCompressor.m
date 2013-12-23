@@ -27,13 +27,13 @@
 @implementation OCSCompressor
 
 - (instancetype)initWithAffectedAudioSource:(OCSAudio *)affectedAudioSource
-           controllingAudioSource:(OCSAudio *)controllingAudioSource
-                        threshold:(OCSControl *)threshold
-                          lowKnee:(OCSControl *)lowKnee
-                         highKnee:(OCSControl *)highKnee
-                 compressionRatio:(OCSControl *)compressionRatio
-                       attackTime:(OCSControl *)attackTime
-                      releaseTime:(OCSControl *)releaseTime
+                     controllingAudioSource:(OCSAudio *)controllingAudioSource
+                                  threshold:(OCSControl *)threshold
+                                    lowKnee:(OCSControl *)lowKnee
+                                   highKnee:(OCSControl *)highKnee
+                           compressionRatio:(OCSControl *)compressionRatio
+                                 attackTime:(OCSControl *)attackTime
+                                releaseTime:(OCSControl *)releaseTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {

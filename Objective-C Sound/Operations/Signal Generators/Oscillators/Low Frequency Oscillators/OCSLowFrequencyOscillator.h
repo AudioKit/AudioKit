@@ -23,7 +23,7 @@
 /// @param frequency Frequency of the note.
 /// @param amplitude Amplitude of output.
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-              amplitude:(OCSControl *)amplitude;
+                        amplitude:(OCSControl *)amplitude;
 
 
 

@@ -20,7 +20,7 @@
 /// @param audioSource Input audio signal
 /// @param comparatorAudioSource The comparator signal
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-    comparatorAudioSource:(OCSAudio *)comparatorAudioSource;
+              comparatorAudioSource:(OCSAudio *)comparatorAudioSource;
 
 
 /// Set an optional half power point

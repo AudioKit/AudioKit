@@ -19,9 +19,9 @@
 @implementation OCSLinearControlEnvelope
 
 - (instancetype)initWithRiseTime:(OCSConstant *)riseTime
-         totalDuration:(OCSConstant *)totalDuration
-             decayTime:(OCSConstant *)decayTime
-             amplitude:(OCSControl  *)amplitude
+                   totalDuration:(OCSConstant *)totalDuration
+                       decayTime:(OCSConstant *)decayTime
+                       amplitude:(OCSControl  *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

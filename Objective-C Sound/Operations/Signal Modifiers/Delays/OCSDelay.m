@@ -20,7 +20,7 @@
 @implementation OCSDelay
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                delayTime:(OCSConstant *)delayTime
+                          delayTime:(OCSConstant *)delayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -28,11 +28,13 @@
     return self;
 }
 
-- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio rightAudio:(OCSAudio *)rightAudio
+- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio
+                       rightAudio:(OCSAudio *)rightAudio
 {
     self = [super init];
     if (self) {
-        aStereoOutput = [[OCSStereoAudio alloc] initWithLeftAudio:leftAudio rightAudio:rightAudio];
+        aStereoOutput = [[OCSStereoAudio alloc] initWithLeftAudio:leftAudio
+                                                       rightAudio:rightAudio];
     }
     return self; 
 }

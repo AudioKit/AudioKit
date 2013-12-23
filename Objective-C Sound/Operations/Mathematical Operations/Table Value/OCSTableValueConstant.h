@@ -19,7 +19,7 @@
 /// @param fTable Function table read the data from.
 /// @param index  Indexing Parameter.
 - (instancetype)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSConstant *)index;
+                       atIndex:(OCSConstant *)index;
 
 /// Normalize data to a maximum of 1.
 - (void)normalize;

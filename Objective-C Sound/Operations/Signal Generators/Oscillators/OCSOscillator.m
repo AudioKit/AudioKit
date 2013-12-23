@@ -22,8 +22,8 @@
 @implementation OCSOscillator
 
 - (instancetype)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParameter *)frequency
-           amplitude:(OCSParameter *)amplitude
+                     frequency:(OCSParameter *)frequency
+                     amplitude:(OCSParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -28,14 +28,14 @@
 @implementation OCSVibrato
 
 - (instancetype)initWithVibratoShapeTable:(OCSFTable *)vibratoShapeTable
-               averageFrequency:(OCSControl *)averageFrequency
-            frequencyRandomness:(OCSControl *)frequencyRandomness
-     minimumFrequencyRandomness:(OCSControl *)minimumFrequencyRandomness
-     maximumFrequencyRandomness:(OCSControl *)maximumFrequencyRandomness
-               averageAmplitude:(OCSControl *)averageAmplitude
-             amplitudeDeviation:(OCSControl *)amplitudeDeviation
-     minimumAmplitudeRandomness:(OCSControl *)minimumAmplitudeRandomness
-     maximumAmplitudeRandomness:(OCSControl *)maximumAmplitudeRandomness
+                         averageFrequency:(OCSControl *)averageFrequency
+                      frequencyRandomness:(OCSControl *)frequencyRandomness
+               minimumFrequencyRandomness:(OCSControl *)minimumFrequencyRandomness
+               maximumFrequencyRandomness:(OCSControl *)maximumFrequencyRandomness
+                         averageAmplitude:(OCSControl *)averageAmplitude
+                       amplitudeDeviation:(OCSControl *)amplitudeDeviation
+               minimumAmplitudeRandomness:(OCSControl *)minimumAmplitudeRandomness
+               maximumAmplitudeRandomness:(OCSControl *)maximumAmplitudeRandomness
 {
     self = [super initWithString:[self operationName]];
     if (self) {

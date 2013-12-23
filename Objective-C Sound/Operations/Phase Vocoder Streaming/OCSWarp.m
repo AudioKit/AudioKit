@@ -25,8 +25,8 @@
 @implementation OCSWarp
 
 - (instancetype)initWithSourceSignal:(OCSFSignal *)sourceSignal
-              scalingRatio:(OCSControl *)scalingRatio
-                     shift:(OCSControl *)shift
+                        scalingRatio:(OCSControl *)scalingRatio
+                               shift:(OCSControl *)shift
 {
     self = [super initWithString:[self operationName]];
     if (self) {

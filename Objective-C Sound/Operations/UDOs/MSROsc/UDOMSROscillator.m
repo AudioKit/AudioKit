@@ -18,8 +18,8 @@
 @implementation UDOMSROscillator
 
 - (instancetype)initWithType:(OscillatorType)oscillatorType
-         frequency:(OCSControl *)pitchOrFrequency
-         amplitude:(OCSConstant *)maxAmplitude;
+                   frequency:(OCSControl *)pitchOrFrequency
+                   amplitude:(OCSConstant *)maxAmplitude;
 
 {
     self = [super initWithString:[self operationName]];
@@ -28,7 +28,7 @@
         frequency = pitchOrFrequency;
         type = oscillatorType;
     }
-    return self; 
+    return self;
 }
 
 - (NSString *) udoFile {

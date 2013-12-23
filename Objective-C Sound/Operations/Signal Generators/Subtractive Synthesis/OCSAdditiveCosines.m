@@ -24,66 +24,12 @@
 
 @implementation OCSAdditiveCosines
 
-/*
--(instancetype)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
-        harmonicsCount:(OCSControl *)harmonicsCount
-      firstHarmonicIdx:(OCSControl *)firstHarmonicIdx 
-     partialMultiplier:(OCSControl *)partialMultiplier 
-  fundamentalFrequency:(OCSParameter *)fundamentalFrequency 
-             amplitude:(OCSParameter *)amplitude
-{
-    self = [super init];
-    if (self) {
-        pts = numberOfCosineTablePoints;
-        phs = ocspi(0);
-        numHarmonics = harmonicsCount;
-        firstHarmonic = firstHarmonicIdx;
-        partialMul = partialMultiplier;
-        freq = fundamentalFrequency;
-        amp = amplitude;
-        
-    }
-    return self;
-}
-
--(instancetype)initWithNumberOfCosineTablePoints:(OCSConstant *)numberOfCosineTablePoints 
-               phase:(OCSConstant *)phase
-      harmonicsCount:(OCSControl *)harmonicsCount 
-    firstHarmonicIdx:(OCSControl *)firstHarmonicIdx 
-   partialMultiplier:(OCSControl *)partialMultiplier 
-fundamentalFrequency:(OCSParameter *)fundamentalFrequency 
-           amplitude:(OCSParameter *)amplitude
-{
-    self = [super init];
-    if (self) {
-        pts = numberOfCosineTablePoints;
-        phs = phase;
-        numHarmonics = harmonicsCount;
-        firstHarmonic = firstHarmonicIdx;
-        partialMul = partialMultiplier;
-        freq = fundamentalFrequency;
-        amp = amplitude;
-        
-    }
-    return self;
-}
-
-
-
-- (NSString *)stringForCSD
-{
-    return [NSString stringWithFormat:
-            @"%@ gbuzz %@, %@, %@, %@, %@, %@, %@",
-            output, amp, freq, numHarmonics, firstHarmonic, partialMul, ... ];
-}
- */
-
 -(instancetype)initWithFTable:(OCSFTable *)cosineTable
-     harmonicsCount:(OCSControl *)harmonicsCount
-   firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
-  partialMultiplier:(OCSControl *)partialMultiplier
-fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-          amplitude:(OCSParameter *)amplitude
+               harmonicsCount:(OCSControl *)harmonicsCount
+             firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
+            partialMultiplier:(OCSControl *)partialMultiplier
+         fundamentalFrequency:(OCSParameter *)fundamentalFrequency
+                    amplitude:(OCSParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -22,9 +22,9 @@
 @implementation OCSThreePoleLowpassFilter
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-               distortion:(OCSControl *)distortion
-          cutoffFrequency:(OCSControl *)cutoffFrequency
-                resonance:(OCSControl *)resonance
+                         distortion:(OCSControl *)distortion
+                    cutoffFrequency:(OCSControl *)cutoffFrequency
+                          resonance:(OCSControl *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {

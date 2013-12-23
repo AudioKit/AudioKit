@@ -24,11 +24,11 @@
 @implementation OCSPluckedString
 
 - (instancetype)initWithFrequency:(OCSConstant *)frequency
-          pluckPosition:(OCSConstant *)pluckPosition
-              amplitude:(OCSControl *)amplitude
-         samplePosition:(OCSControl *)samplePosition
-  reflectionCoefficient:(OCSControl *)reflectionCoefficient
-       excitationSignal:(OCSAudio *)excitationSignal
+                    pluckPosition:(OCSConstant *)pluckPosition
+                        amplitude:(OCSControl *)amplitude
+                   samplePosition:(OCSControl *)samplePosition
+            reflectionCoefficient:(OCSControl *)reflectionCoefficient
+                 excitationSignal:(OCSAudio *)excitationSignal
 {
     self = [super initWithString:[self operationName]];
     if (self) {

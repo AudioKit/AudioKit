@@ -17,17 +17,17 @@
 @implementation OCSFSignalMix
 
 - (instancetype)initWithInput1:(OCSFSignal *)input1
-              input2:(OCSFSignal *)input2;
+                        input2:(OCSFSignal *)input2;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         fSigIn1 = input1;
         fSigIn2 = input2;
     }
-    return self; 
+    return self;
 }
 
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@ pvsmix %@, %@",

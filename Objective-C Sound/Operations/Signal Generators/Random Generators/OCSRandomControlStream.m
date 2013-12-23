@@ -18,7 +18,7 @@
 }
 
 - (instancetype)initWithMaximum:(OCSControl *)maximum
-            frequency:(OCSControl *)frequency
+                      frequency:(OCSControl *)frequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {

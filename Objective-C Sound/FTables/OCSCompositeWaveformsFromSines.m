@@ -11,10 +11,10 @@
 @implementation OCSCompositeWaveformsFromSines
 
 -(instancetype)initWithTableSize:(int)tableSize
-        partialNumbers:(OCSArray *)partialNumbers
-      partialStrengths:(OCSArray *)partialStrengths
-partialStrengthOffsets:(OCSArray *)partialOffsets
-         partialPhases:(OCSArray *)partialPhases
+                  partialNumbers:(OCSArray *)partialNumbers
+                partialStrengths:(OCSArray *)partialStrengths
+          partialStrengthOffsets:(OCSArray *)partialOffsets
+                   partialPhases:(OCSArray *)partialPhases
 {
     self = [super init];
     
@@ -24,7 +24,7 @@ partialStrengthOffsets:(OCSArray *)partialOffsets
                  [partialStrengths count] == [partialOffsets   count] &&
                  [partialOffsets   count] == [partialPhases    count],
                  @"Array must be equal in size");
-
+        
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (int i=0; i<[partialNumbers count]; i++){
             [temp addObject:partialNumbers.constants[i]];

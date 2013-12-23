@@ -23,9 +23,9 @@
 /// @param partialOffsets Array of DC offset of partials pna, pnb, etc. This is applied after strength scaling, i.e. a value of 2 will lift a 2-strength sinusoid from range [-2,2] to range [0,4] (before later rescaling).
 /// @param partialPhases Array of initial phase of partials pna, pnb, etc., expressed in degrees.
 -(instancetype)initWithTableSize:(int)tableSize
-        partialNumbers:(OCSArray *)partialNumbers
-      partialStrengths:(OCSArray *)partialStrengths
-partialStrengthOffsets:(OCSArray *)partialOffsets
-         partialPhases:(OCSArray *)partialPhases;
+                  partialNumbers:(OCSArray *)partialNumbers
+                partialStrengths:(OCSArray *)partialStrengths
+          partialStrengthOffsets:(OCSArray *)partialOffsets
+                   partialPhases:(OCSArray *)partialPhases;
 
 @end

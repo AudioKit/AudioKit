@@ -10,7 +10,7 @@
 #import "OCSParameter+Operation.h"
 
 /**
- Creates a line that extends from a starting to a second point over the given 
+ Creates a line that extends from a starting to a second point over the given
  time duration.  After that duration, the line continues at the same slope until
  the note event ends.  Can be an audio signal or control rate parameter.
  */
@@ -23,8 +23,8 @@
 /// @param duration      Duration of linear transition in seconds.
 /// @return An opcode to perform a linear transition over a given duration.
 - (instancetype)initFromValue:(OCSConstant *)startingValue
-            toValue:(OCSConstant *)endingValue
-           duration:(OCSConstant *)duration;
-    
+                      toValue:(OCSConstant *)endingValue
+                     duration:(OCSConstant *)duration;
+
 
 @end

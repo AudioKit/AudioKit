@@ -28,13 +28,13 @@
 @implementation OCSVibes
 
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-        maximumDuration:(OCSConstant *)maximumDuration
-          stickHardness:(OCSConstant *)stickHardness
-         strikePosition:(OCSConstant *)strikePosition
-              amplitude:(OCSControl *)amplitude
-      tremoloShapeTable:(OCSFTable *)tremoloShapeTable
-       tremoloFrequency:(OCSControl *)tremoloFrequency
-       tremoloAmplitude:(OCSControl *)tremoloAmplitude
+                  maximumDuration:(OCSConstant *)maximumDuration
+                    stickHardness:(OCSConstant *)stickHardness
+                   strikePosition:(OCSConstant *)strikePosition
+                        amplitude:(OCSControl *)amplitude
+                tremoloShapeTable:(OCSFTable *)tremoloShapeTable
+                 tremoloFrequency:(OCSControl *)tremoloFrequency
+                 tremoloAmplitude:(OCSControl *)tremoloAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -20,7 +20,7 @@
 /// @param frequency Repeat rate in Hz or fraction of Hz.
 /// @param startValue Initial value at time zero.
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-             startValue:(OCSControl *)startValue;
+                       startValue:(OCSControl *)startValue;
 
 /// Adds another segment.
 /// @param nextSegmentTargetValue Value after nextSegmentDuration seconds.

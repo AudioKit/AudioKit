@@ -12,15 +12,15 @@
     int isize;
     FTableType igen;
     OCSConstant *output;
-    OCSArray *iargs; 
+    OCSArray *iargs;
 }
 @end
 
 @implementation OCSFTable
 
 - (instancetype)initWithType:(FTableType)fTableType
-              size:(int)tableSize
-        parameters:(OCSArray *)parameters;
+                        size:(int)tableSize
+                  parameters:(OCSArray *)parameters;
 {
     self = [super init];
     if (self) {
@@ -34,7 +34,7 @@
 }
 
 - (instancetype)initWithType:(FTableType)fTableType
-        parameters:(OCSArray *)parameters;
+                  parameters:(OCSArray *)parameters;
 {
     return [self initWithType:fTableType size:0 parameters:parameters];
 }
@@ -49,7 +49,7 @@
 // Csound Prototype: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD {
     if (_isNormalized) {
-        igen = abs(igen); 
+        igen = abs(igen);
     } else {
         igen = -abs(igen);
     }
@@ -66,7 +66,7 @@
 
 - (NSString *)fTableStringForCSD {
     if (_isNormalized) {
-        igen = abs(igen); 
+        igen = abs(igen);
     } else {
         igen = -abs(igen);
     }

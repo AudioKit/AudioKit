@@ -20,7 +20,7 @@
 /// @param frequency comment
 /// @param amplitude comment
 - (instancetype)initWithFrequency:(OCSConstant *)frequency
-              amplitude:(OCSConstant *)amplitude;
+                        amplitude:(OCSConstant *)amplitude;
 
 
 /// Set an optional phase

@@ -8,7 +8,7 @@
 
 #import "OCSLine.h"
 
-@interface OCSLine () {    
+@interface OCSLine () {
     OCSConstant *ia;
     OCSConstant *ib;
     OCSConstant *idur;
@@ -18,8 +18,8 @@
 @implementation OCSLine
 
 - (instancetype)initFromValue:(OCSConstant *)startingValue
-            toValue:(OCSConstant *)endingValue
-           duration:(OCSConstant *)duration
+                      toValue:(OCSConstant *)endingValue
+                     duration:(OCSConstant *)duration
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -27,11 +27,11 @@
         ib = endingValue;
         idur = duration;
     }
-    return self; 
+    return self;
 }
 
 //Csound Prototype: (a/k)res linseg ia, idur, ib
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@ linseg %@, %@, %@",

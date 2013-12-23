@@ -11,8 +11,8 @@
 #import "CsoundValueCacheable.h"
 
 
-/** Instrument properties are properties of an instrument that are shared 
- amongst all the notes that are created on that instrument. 
+/** Instrument properties are properties of an instrument that are shared
+ amongst all the notes that are created on that instrument.
  */
 @interface OCSInstrumentProperty : OCSControl <CsoundValueCacheable> {
     BOOL mCacheDirty;
@@ -39,15 +39,15 @@
 /// @param minValue Minimum value.
 /// @param maxValue Maximum value.
 - (instancetype)initWithMinValue:(float)minValue
-              maxValue:(float)maxValue;
+                        maxValue:(float)maxValue;
 
 /// Initialize the property with an initial value and bounds.
 /// @param initialValue Initial value.
 /// @param minValue Minimum value.
 /// @param maxValue Maximum value.
 - (instancetype)initWithValue:(float)initialValue
-           minValue:(float)minValue
-           maxValue:(float)maxValue;
+                     minValue:(float)minValue
+                     maxValue:(float)maxValue;
 
 
 

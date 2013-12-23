@@ -22,9 +22,9 @@
 /// @param sustainLevel Level for sustain phase
 /// @param releaseDuration Duration of release phase
 - (instancetype)initWithAttackDuration:(OCSConstant *)attackDuration
-               decayDuration:(OCSConstant *)decayDuration
-                sustainLevel:(OCSConstant *)sustainLevel
-             releaseDuration:(OCSConstant *)releaseDuration;
+                         decayDuration:(OCSConstant *)decayDuration
+                          sustainLevel:(OCSConstant *)sustainLevel
+                       releaseDuration:(OCSConstant *)releaseDuration;
 
 
 /// Set an optional delay

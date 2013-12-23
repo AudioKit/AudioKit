@@ -26,7 +26,7 @@
 @implementation OCSSleighbells
 
 - (instancetype)initWithDuration:(OCSConstant *)duration
-             amplitude:(OCSControl *)amplitude
+                       amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -12,7 +12,7 @@
 /** Generates a segmented line whose segments are randomly generated.
  
  This operation generates a segmented line whose segments are randomly generated inside the interval amplitude to -amplitude. Duration of each segment is a random value generated according to minimum and maximum frequency values.
-This can be used to make more natural and “analog-sounding” some static, dull sound. For best results, it is suggested to keep its amplitude moderate.
+ This can be used to make more natural and “analog-sounding” some static, dull sound. For best results, it is suggested to keep its amplitude moderate.
  */
 
 @interface OCSJitter : OCSControl
@@ -22,7 +22,7 @@ This can be used to make more natural and “analog-sounding” some static, dul
 /// @param minFrequency Minimum speed of random frequency variations (expressed in Hz)
 /// @param maxFrequency Maximum speed of random frequency variations (expressed in Hz)
 - (instancetype)initWithAmplitude:(OCSControl *)amplitude
-           minFrequency:(OCSControl *)minFrequency
-           maxFrequency:(OCSControl *)maxFrequency;
+                     minFrequency:(OCSControl *)minFrequency
+                     maxFrequency:(OCSControl *)maxFrequency;
 
 @end

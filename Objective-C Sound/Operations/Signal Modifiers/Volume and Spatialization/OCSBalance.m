@@ -21,7 +21,7 @@
 @implementation OCSBalance
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-    comparatorAudioSource:(OCSAudio *)comparatorAudioSource
+              comparatorAudioSource:(OCSAudio *)comparatorAudioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {

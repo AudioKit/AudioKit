@@ -27,14 +27,14 @@
 /// @param minimumAmplitudeRandomness Minimum frequency of random amplitude deviation segments in Hz
 /// @param maximumAmplitudeRandomness Maximum frequency of random amplitude deviation segments in Hz
 - (instancetype)initWithVibratoShapeTable:(OCSFTable *)vibratoShapeTable
-               averageFrequency:(OCSControl *)averageFrequency
-            frequencyRandomness:(OCSControl *)frequencyRandomness
-     minimumFrequencyRandomness:(OCSControl *)minimumFrequencyRandomness
-     maximumFrequencyRandomness:(OCSControl *)maximumFrequencyRandomness
-               averageAmplitude:(OCSControl *)averageAmplitude
-             amplitudeDeviation:(OCSControl *)amplitudeDeviation
-     minimumAmplitudeRandomness:(OCSControl *)minimumAmplitudeRandomness
-     maximumAmplitudeRandomness:(OCSControl *)maximumAmplitudeRandomness;
+                         averageFrequency:(OCSControl *)averageFrequency
+                      frequencyRandomness:(OCSControl *)frequencyRandomness
+               minimumFrequencyRandomness:(OCSControl *)minimumFrequencyRandomness
+               maximumFrequencyRandomness:(OCSControl *)maximumFrequencyRandomness
+                         averageAmplitude:(OCSControl *)averageAmplitude
+                       amplitudeDeviation:(OCSControl *)amplitudeDeviation
+               minimumAmplitudeRandomness:(OCSControl *)minimumAmplitudeRandomness
+               maximumAmplitudeRandomness:(OCSControl *)maximumAmplitudeRandomness;
 
 
 /// Set an optional phase

@@ -20,10 +20,10 @@
 @implementation OCSScaledFSignal
 
 - (instancetype)initWithInput:(OCSFSignal *)input
-     frequencyRatio:(OCSControl *)frequencyRatio
-formantRetainMethod:(FormantRetainMethodType)formantRetainMethod
-     amplitudeRatio:(OCSControl *)amplitudeRatio
-cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
+               frequencyRatio:(OCSControl *)frequencyRatio
+          formantRetainMethod:(FormantRetainMethodType)formantRetainMethod
+               amplitudeRatio:(OCSControl *)amplitudeRatio
+         cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
 
 {
     self = [super initWithString:[self operationName]];
@@ -40,17 +40,17 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
             kCoefs = ocspi(80);
         }
         fSigIn = input;
-        kScal = frequencyRatio;    
+        kScal = frequencyRatio;
         kKeepForm = [OCSConstant constantWithInt:formantRetainMethod];
-
+        
     }
     return self;
 }
 
 - (instancetype)initWithInput:(OCSFSignal *)input
-     frequencyRatio:(OCSControl *)frequencyRatio
+               frequencyRatio:(OCSControl *)frequencyRatio
 {
-    return [self initWithInput:input 
+    return [self initWithInput:input
                 frequencyRatio:frequencyRatio
            formantRetainMethod:kFormantRetainMethodNone
                 amplitudeRatio:nil
@@ -59,10 +59,10 @@ cepstrumCoefficients:(OCSControl *)numberOfCepstrumCoefficients;
 
 
 // Csound Prototype: fsig pvscale fsigin, kscal[, kkeepform, kgain, kcoefs]
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@ pvscale %@, %@, %@, %@, %@", 
+            @"%@ pvscale %@, %@, %@, %@, %@",
             self, fSigIn, kScal, kKeepForm, kGain, kCoefs];
 }
 

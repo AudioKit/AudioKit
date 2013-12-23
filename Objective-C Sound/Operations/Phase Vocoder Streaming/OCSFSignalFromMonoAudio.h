@@ -20,7 +20,7 @@ typedef enum
 {
     kHammingWindow=0,
     kVonHannWindow=1,
-
+    
 } WindowType;
 
 @interface OCSFSignalFromMonoAudio : OCSFSignal
@@ -32,9 +32,9 @@ typedef enum
 /// @param windowType   Most users will find the Hamming window meets all normal needs, and can be regarded as the default choice.
 /// @param windowSize   The size in samples of the analysis window filter (as set by windowType). This must be at least fftSize, and can usefully be larger. Though other proportions are permitted, it is recommended that iwinsize always be an integral multiple of fftSize, e.g. 2048 for the example above. Internally, the analysis window (Hamming, von Hann) is multiplied by a sinc function, so that amplitudes are zero at the boundaries between frames. The larger analysis window size has been found to be especially important for oscillator bank resynthesis (e.g. using pvsadsyn), as it has the effect of increasing the frequency resolution of the analysis, and hence the accuracy of the resynthesis. As noted above, windowSize determines the overall latency of the analysis/resynthesis system. In many cases, and especially in the absence of pitch modifications, it will be found that setting iwinsize=ifftsize works very well, and offers the lowest latency.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                  fftSize:(OCSConstant *)fftSize
-                  overlap:(OCSConstant *)overlap
-               windowType:(WindowType)windowType
-         windowFilterSize:(OCSConstant *)windowSize;
+                            fftSize:(OCSConstant *)fftSize
+                            overlap:(OCSConstant *)overlap
+                         windowType:(WindowType)windowType
+                   windowFilterSize:(OCSConstant *)windowSize;
 
 @end

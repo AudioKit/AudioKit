@@ -10,9 +10,9 @@
 
 /** Generic OCS Function Table definiton.  By default, the table will not be normalized,
  but it maybe normalized by setting the isNormalized property to YES.
-
+ 
  Currently supported function table types are
-
+ 
  - Sound File (OCSSoundFileTable)
  - Exponential Curves (OCSExponentialCurvesTable)
  - Sines (OCSSineTable)
@@ -40,21 +40,21 @@ typedef enum
 
 /// This can be set to normalize the table, or not. It is not normalized by default.
 @property (nonatomic,assign) BOOL isNormalized;
-           
+
 
 /// Creates a function table at the most basic level.
 /// @param fTableType  One of the supported GeneratingRoutines.
 /// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
-/// @param parameters         An array of parameters that define the function table. 
+/// @param parameters         An array of parameters that define the function table.
 - (instancetype)initWithType:(FTableType)fTableType
-              size:(int)tableSize
-        parameters:(OCSArray *)parameters;
+                        size:(int)tableSize
+                  parameters:(OCSArray *)parameters;
 
 /// Creates a function table without specifying a size, deferring that calculation.
 /// @param fTableType  One of the supported GeneratingRoutines.
-/// @param parameters         An array of parameters that define the function table. 
+/// @param parameters         An array of parameters that define the function table.
 - (instancetype)initWithType:(FTableType)fTableType
-        parameters:(OCSArray *)parameters;
+                  parameters:(OCSArray *)parameters;
 
 /// @returns The textual representation of the dynamic function table for Csound
 - (NSString *)stringForCSD;

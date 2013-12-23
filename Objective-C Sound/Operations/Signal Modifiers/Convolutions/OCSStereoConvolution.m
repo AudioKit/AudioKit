@@ -17,7 +17,7 @@
 @implementation OCSStereoConvolution
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-      impulseResponseFile:(NSString *)impulseResponseFilename;
+                impulseResponseFile:(NSString *)impulseResponseFilename;
 {
     self = [super init];
     if (self) {

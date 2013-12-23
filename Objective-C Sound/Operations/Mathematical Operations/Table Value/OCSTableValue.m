@@ -20,7 +20,7 @@
 @implementation OCSTableValue
 
 - (instancetype)initWithFTable:(OCSConstant *)fTable
-             atIndex:(OCSAudio *)index
+                       atIndex:(OCSAudio *)index
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -30,8 +30,8 @@
         wrapData = NO;
         andx = index;
     }
-    return self; 
-
+    return self;
+    
 }
 
 - (void)normalize {
@@ -46,7 +46,7 @@
     ixoff = offsetAmount;
 }
 
-- (NSString *)stringForCSD 
+- (NSString *)stringForCSD
 {
     int ixmode = normalizeResult ? 0:1;
     int iwrap = wrapData ? 0:1;

@@ -24,10 +24,10 @@
 /// @param reflectionCoefficient The coefficient of reflection, indicating the lossiness and the rate of decay. It must be strictly between 0 and 1 (it will complain about both 0 and 1).
 /// @param excitationSignal A signal which excites the string.
 - (instancetype)initWithFrequency:(OCSConstant *)frequency
-          pluckPosition:(OCSConstant *)pluckPosition
-              amplitude:(OCSControl *)amplitude
-         samplePosition:(OCSControl *)samplePosition
-  reflectionCoefficient:(OCSControl *)reflectionCoefficient
-       excitationSignal:(OCSAudio *)excitationSignal;
+                    pluckPosition:(OCSConstant *)pluckPosition
+                        amplitude:(OCSControl *)amplitude
+                   samplePosition:(OCSControl *)samplePosition
+            reflectionCoefficient:(OCSControl *)reflectionCoefficient
+                 excitationSignal:(OCSAudio *)excitationSignal;
 
 @end

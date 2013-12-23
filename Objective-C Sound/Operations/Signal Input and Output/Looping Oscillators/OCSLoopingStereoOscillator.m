@@ -34,7 +34,7 @@
 }
 
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *) fileTable
-                   amplitude:(OCSParameter *)amplitude
+                             amplitude:(OCSParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:ocspi(1)
@@ -43,8 +43,8 @@
 }
 
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControl *)frequencyMultiplier
-                   amplitude:(OCSParameter *)amplitude
+                   frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                             amplitude:(OCSParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:frequencyMultiplier
@@ -54,9 +54,9 @@
 
 
 - (instancetype)initWithSoundFileTable:(OCSSoundFileTable *)fileTable
-         frequencyMultiplier:(OCSControl *)frequencyMultiplier
-                   amplitude:(OCSParameter *)amplitude
-                        type:(LoopingOscillatorType)type
+                   frequencyMultiplier:(OCSControl *)frequencyMultiplier
+                             amplitude:(OCSParameter *)amplitude
+                                  type:(LoopingOscillatorType)type
 {
     self = [super init];
     if (self) {

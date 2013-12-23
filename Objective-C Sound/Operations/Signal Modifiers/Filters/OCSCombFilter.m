@@ -20,8 +20,8 @@
 @implementation OCSCombFilter
 
 -(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-              reverbTime:(OCSControl *)reverbTime
-                loopTime:(OCSConstant *)loopTime
+                        reverbTime:(OCSControl *)reverbTime
+                          loopTime:(OCSConstant *)loopTime
 {
     self = [super initWithString:[self operationName]];
     if(self) {
@@ -36,10 +36,10 @@
 }
 
 -(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-              reverbTime:(OCSControl *)reverbTime
-                loopTime:(OCSConstant *)loopTime
-               delayAmount:(OCSConstant *)delayAmount
-             isFeedbackRetained:(BOOL)isFeedbackRetained
+                        reverbTime:(OCSControl *)reverbTime
+                          loopTime:(OCSConstant *)loopTime
+                       delayAmount:(OCSConstant *)delayAmount
+                isFeedbackRetained:(BOOL)isFeedbackRetained
 {
     self = [super initWithString:[self operationName]];
     if(self) {

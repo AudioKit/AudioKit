@@ -20,7 +20,7 @@
 /// @param maximumDuration Period of time over which all sound is stopped
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
 - (instancetype)initWithMaximumDuration:(OCSConstant *)maximumDuration
-                    amplitude:(OCSControl *)amplitude;
+                              amplitude:(OCSControl *)amplitude;
 
 
 /// Set an optional count

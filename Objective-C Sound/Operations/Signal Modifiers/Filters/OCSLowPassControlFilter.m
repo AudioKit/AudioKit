@@ -20,7 +20,7 @@
 @implementation OCSLowPassControlFilter
 
 - (instancetype)initWithSourceControl:(OCSControl *)sourceControl
-             halfPowerPoint:(OCSControl *)halfPowerPoint
+                       halfPowerPoint:(OCSControl *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {

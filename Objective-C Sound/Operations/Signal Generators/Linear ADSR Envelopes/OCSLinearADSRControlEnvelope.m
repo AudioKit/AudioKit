@@ -23,9 +23,9 @@
 @implementation OCSLinearADSRControlEnvelope
 
 - (instancetype)initWithAttackDuration:(OCSConstant *)attackDuration
-               decayDuration:(OCSConstant *)decayDuration
-                sustainLevel:(OCSConstant *)sustainLevel
-             releaseDuration:(OCSConstant *)releaseDuration
+                         decayDuration:(OCSConstant *)decayDuration
+                          sustainLevel:(OCSConstant *)sustainLevel
+                       releaseDuration:(OCSConstant *)releaseDuration
 {
     self = [super initWithString:[self operationName]];
     if (self) {

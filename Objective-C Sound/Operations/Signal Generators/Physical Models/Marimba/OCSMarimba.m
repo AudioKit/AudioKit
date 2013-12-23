@@ -30,13 +30,13 @@
 @implementation OCSMarimba
 
 - (instancetype)initWithFrequency:(OCSControl *)frequency
-        maximumDuration:(OCSConstant *)maximumDuration
-          stickHardness:(OCSConstant *)stickHardness
-         strikePosition:(OCSConstant *)strikePosition
-              amplitude:(OCSControl *)amplitude
-      vibratoShapeTable:(OCSFTable *)vibratoShapeTable
-       vibratoFrequency:(OCSControl *)vibratoFrequency
-       vibratoAmplitude:(OCSControl *)vibratoAmplitude
+                  maximumDuration:(OCSConstant *)maximumDuration
+                    stickHardness:(OCSConstant *)stickHardness
+                   strikePosition:(OCSConstant *)strikePosition
+                        amplitude:(OCSControl *)amplitude
+                vibratoShapeTable:(OCSFTable *)vibratoShapeTable
+                 vibratoFrequency:(OCSControl *)vibratoFrequency
+                 vibratoAmplitude:(OCSControl *)vibratoAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

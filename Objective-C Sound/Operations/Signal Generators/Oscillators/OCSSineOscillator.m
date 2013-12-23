@@ -21,7 +21,7 @@
 @implementation OCSSineOscillator
 
 - (instancetype)initWithFrequency:(OCSConstant *)frequency
-              amplitude:(OCSConstant *)amplitude
+                        amplitude:(OCSConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

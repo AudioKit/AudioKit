@@ -21,8 +21,8 @@
 @implementation OCSFlanger
 
 - (instancetype)initWithSourceSignal:(OCSAudio *)sourceSignal
-                 delayTime:(OCSAudio *)delayTime
-                  feedback:(OCSControl *)feedback
+                           delayTime:(OCSAudio *)delayTime
+                            feedback:(OCSControl *)feedback
 {
     self = [super initWithString:[self operationName]];
     if (self) {

@@ -16,7 +16,8 @@
 
 }
 
-- (instancetype)initWithFilename:(NSString *)filename tableSize:(int)tableSize {
+- (instancetype)initWithFilename:(NSString *)filename
+                       tableSize:(int)tableSize {
     OCSArray *parameters = [OCSArray arrayFromConstants:
                                  ocspfn(filename), ocsp(0), ocsp(0), ocsp(0), nil];
     return [super initWithType:kFTSoundFile 

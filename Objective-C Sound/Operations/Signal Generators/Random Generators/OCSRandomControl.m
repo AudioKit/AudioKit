@@ -17,7 +17,7 @@
 @implementation OCSRandomControl
 
 -(instancetype)initWithMinimum:(OCSControl *)minimum
-             maximum:(OCSControl *)maximum
+                       maximum:(OCSControl *)maximum
 {
     self = [super initWithString:[self operationName]];
     if (self) {

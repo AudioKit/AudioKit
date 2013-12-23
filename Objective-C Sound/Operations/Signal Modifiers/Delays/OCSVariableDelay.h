@@ -18,7 +18,7 @@
 /// @param delayTime Current value of delay in milliseconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise.
 /// @param maximumDelayTime Maximum value of delay in milliseconds.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                delayTime:(OCSAudio *)delayTime
-         maximumDelayTime:(OCSConstant *)maximumDelayTime;
+                          delayTime:(OCSAudio *)delayTime
+                   maximumDelayTime:(OCSConstant *)maximumDelayTime;
 
 @end

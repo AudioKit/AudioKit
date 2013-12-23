@@ -16,7 +16,8 @@
 
 @implementation OCSAssignment
 
-- (instancetype)initWithOutput:(OCSParameter *)output input:(OCSParameter *)input {
+- (instancetype)initWithOutput:(OCSParameter *)output
+                         input:(OCSParameter *)input {
     self = [super init];
     
     if (self) {

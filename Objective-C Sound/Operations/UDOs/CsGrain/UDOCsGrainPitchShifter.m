@@ -19,9 +19,9 @@
 @implementation UDOCsGrainPitchShifter
 
 - (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                      basePitch:(OCSControl *)basePitch
-                offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
-                  feedbackLevel:(OCSControl *)feedbackLevel
+                                basePitch:(OCSControl *)basePitch
+                          offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
+                            feedbackLevel:(OCSControl *)feedbackLevel
 {
     self = [super init];
     if (self) {
@@ -30,7 +30,7 @@
         offset   = fineTuningOffsetFrequency;
         feedback = feedbackLevel;
     }
-    return self; 
+    return self;
 }
 
 - (NSString *) udoFile {

@@ -19,8 +19,8 @@
 /// @param control2 Second control
 /// @param balancePoint A number from 0 (all signal 1) to 1 (all signal 2).
 - (instancetype)initWithControl1:(OCSControl *)control1
-              control2:(OCSControl *)control2
-               balance:(OCSControl *)balancePoint;
+                        control2:(OCSControl *)control2
+                         balance:(OCSControl *)balancePoint;
 
 /// Set the minimum balance point.
 /// @param minimumBalancePoint The value for which the balance point would indicate all signal 1.

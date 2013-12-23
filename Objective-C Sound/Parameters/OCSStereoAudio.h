@@ -8,7 +8,7 @@
 
 #import "OCSAudio.h"
 
-/** Stereo Audio Pair 
+/** Stereo Audio Pair
  */
 
 @interface OCSStereoAudio : OCSParameter
@@ -22,7 +22,7 @@
 /// @param leftAudio  Left channel input
 /// @param rightAudio Rigt channel input
 - (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio
-             rightAudio:(OCSAudio *)rightAudio;
+                       rightAudio:(OCSAudio *)rightAudio;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;

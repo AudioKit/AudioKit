@@ -18,24 +18,24 @@
 }
 @end
 
-@implementation OCSJitter 
+@implementation OCSJitter
 
 - (instancetype)initWithAmplitude:(OCSControl *)amplitude
-           minFrequency:(OCSControl *)minFrequency
-           maxFrequency:(OCSControl *)maxFrequency
+                     minFrequency:(OCSControl *)minFrequency
+                     maxFrequency:(OCSControl *)maxFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            kamp = amplitude;    
-                kcpsMax = maxFrequency;    
-                kcpsMin = minFrequency;    
-                }
-    return self; 
+        kamp = amplitude;
+        kcpsMax = maxFrequency;
+        kcpsMin = minFrequency;
+    }
+    return self;
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
-            @"%@ jitter %@, %@, %@", 
+    return [NSString stringWithFormat:
+            @"%@ jitter %@, %@, %@",
             self, kamp, kcpsMin, kcpsMax];
 }
 

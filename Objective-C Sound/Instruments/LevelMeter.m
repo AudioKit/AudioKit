@@ -130,7 +130,7 @@
 			UIColor *lightColor = [[UIColor alloc] initWithRed:0. green:1. blue:0. alpha:1.];
             [lightColor set];
 			CGContextFillRect(cxt, rect);
-
+            
 			currentTop = val;
 		}
 		
@@ -172,7 +172,7 @@
 				lightIntensity = LEVELMETER_CLAMP(0., lightIntensity, 1.);
 				if ((!_variableLightIntensity) && (lightIntensity > 0.)) lightIntensity = 1.;
 			}
-
+            
 			lightRect = CGRectMake(
 								   0.,
 								   bds.size.height * ((CGFloat)(light_i) / (CGFloat)_numLights),

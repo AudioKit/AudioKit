@@ -21,8 +21,8 @@
 /// @param frequency Frequency in cycles per second
 /// @param amplitude Amplitude of the output
 - (instancetype)initWithFTable:(OCSFTable *)fTable
-           frequency:(OCSParameter *)frequency
-           amplitude:(OCSParameter *)amplitude;
+                     frequency:(OCSParameter *)frequency
+                     amplitude:(OCSParameter *)amplitude;
 
 
 /// Set an optional phase

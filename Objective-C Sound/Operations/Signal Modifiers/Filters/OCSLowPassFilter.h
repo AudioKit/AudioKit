@@ -20,6 +20,6 @@
 /// @param audioSource The audio to be filtered
 /// @param halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-           halfPowerPoint:(OCSControl *)halfPowerPoint;
+                     halfPowerPoint:(OCSControl *)halfPowerPoint;
 
 @end

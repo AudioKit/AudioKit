@@ -31,6 +31,7 @@
 /// Initialization Statement
 /// @param leftAudio  The audio signal to be played on the left channel.
 /// @param rightAudio The audio signal to be played on the right channel.
-- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio rightAudio:(OCSAudio *)rightAudio;
+- (instancetype)initWithLeftAudio:(OCSAudio *)leftAudio
+                       rightAudio:(OCSAudio *)rightAudio;
 
 @end

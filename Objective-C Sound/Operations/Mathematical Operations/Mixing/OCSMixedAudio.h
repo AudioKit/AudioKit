@@ -18,9 +18,9 @@
 /// @param signal1 First signal
 /// @param signal2 Second signal
 /// @param balancePoint A number from 0 (all signal 1) to 1 (all signal 2).
-- (instancetype)initWithSignal1:(OCSAudio *)signal1 
-              signal2:(OCSAudio *)signal2
-              balance:(OCSControl *)balancePoint;
+- (instancetype)initWithSignal1:(OCSAudio *)signal1
+                        signal2:(OCSAudio *)signal2
+                        balance:(OCSControl *)balancePoint;
 
 /// Set the minimum balance point.
 /// @param minimumBalancePoint The value for which the balance point would indicate all signal 1.

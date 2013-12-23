@@ -22,8 +22,8 @@
 /// @param amplitude1 First signal's amplitude scaling factor from 0 to 1.
 /// @param amplitude2 Second signal's amplitude scaling factor from 0 to 1.
 - (instancetype)initWithSignal1:(OCSFSignal *)signal1
-              signal2:(OCSFSignal *)signal2
-           amplitude1:(OCSControl *)amplitude1
-           amplitude2:(OCSControl *)amplitude2;
+                        signal2:(OCSFSignal *)signal2
+                     amplitude1:(OCSControl *)amplitude1
+                     amplitude2:(OCSControl *)amplitude2;
 
 @end

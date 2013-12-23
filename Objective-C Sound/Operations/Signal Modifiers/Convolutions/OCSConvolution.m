@@ -17,14 +17,14 @@
 @implementation OCSConvolution
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
-      impulseResponseFile:(NSString *)impulseResponseFilename
+                impulseResponseFile:(NSString *)impulseResponseFilename
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         aIn     = audioSource;
         iFilCod = impulseResponseFilename;
     }
-    return self; 
+    return self;
 }
 
 // Csound prototype: ar1 [, ar2] [, ar3] [, ar4] pconvolve ain, ifilcod [, ipartitionsize, ichannel]
