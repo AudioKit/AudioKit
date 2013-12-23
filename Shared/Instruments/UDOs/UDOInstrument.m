@@ -30,14 +30,14 @@
                                               amplitude:ocsp(0.5)];
         [self addUDO:msrOsc];
         
-        UDOCsGrainPitchShifter * ps;
+        UDOCsGrainPitchShifter *ps;
         ps = [[UDOCsGrainPitchShifter alloc] initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:msrOsc]
                                                              basePitch:ocsp(2.7)
                                                        offsetFrequency:ocsp(0)
                                                          feedbackLevel:ocsp(0.9)];
         [self addUDO:ps];
         
-        UDOCsGrainCompressor * comp;
+        UDOCsGrainCompressor *comp;
         comp = [[UDOCsGrainCompressor alloc] initWithSourceStereoAudio:ps
                                                              threshold:ocsp(-2.0)
                                                       compressionRatio:ocsp(0.5)

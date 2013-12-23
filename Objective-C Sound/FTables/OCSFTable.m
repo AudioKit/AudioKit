@@ -87,7 +87,7 @@
 
 - (OCSConstant *)length;
 {
-    OCSConstant * new = [[OCSConstant alloc] init];
+    OCSConstant *new = [[OCSConstant alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ftlen(%@)", output]];
     return new;
 }

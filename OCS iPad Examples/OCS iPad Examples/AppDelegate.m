@@ -21,7 +21,7 @@
     MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
     UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
     
-    InitialViewController * initialViewController = [[InitialViewController alloc] initWithNibName:@"InitialViewController" bundle:nil];
+    InitialViewController *initialViewController = [[InitialViewController alloc] initWithNibName:@"InitialViewController" bundle:nil];
     UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:initialViewController];
     
     masterViewController.initialViewController = initialViewController;

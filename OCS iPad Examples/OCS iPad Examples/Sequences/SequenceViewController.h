@@ -10,8 +10,8 @@
 
 @interface SequenceViewController : UIViewController 
 {
-    IBOutlet UITextField * durationValue;
-    IBOutlet UISlider * durationSlider;
+    IBOutlet UITextField *durationValue;
+    IBOutlet UISlider *durationSlider;
 }
 
 - (IBAction)playSequenceOfNotes:(id)sender; 
