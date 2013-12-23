@@ -33,7 +33,7 @@
                                                                 type:kLoopingOscillatorNoLoop];
         [self connect:oscil];
         
-        OCSReverb * reverb;
+        OCSReverb *reverb;
         reverb = [[OCSReverb alloc] initWithAudioSource:oscil
                                           feedbackLevel:ocsp(0.85)
                                         cutoffFrequency:ocsp(12000)];
@@ -41,7 +41,7 @@
         
         // AUDIO OUTPUT ========================================================
 
-        OCSAudioOutput * audio;
+        OCSAudioOutput *audio;
         audio = [[OCSAudioOutput alloc] initWithSourceStereoAudio:reverb];
         [self connect:audio];
     }

@@ -9,8 +9,8 @@
 #import "OCSPhasor.h"
 
 @interface OCSPhasor () {
-    OCSParameter * freq;
-    OCSConstant * phs;
+    OCSParameter *freq;
+    OCSConstant *phs;
 }
 
 @end

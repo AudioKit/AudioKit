@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    OCSOrchestra * orch = [[OCSOrchestra alloc] init];
+    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
     myTweakableInstrument = [[TweakableInstrument alloc] init];
     [orch addInstrument:myTweakableInstrument];
     [[OCSManager sharedOCSManager] runOrchestra:orch];
