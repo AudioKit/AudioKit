@@ -29,8 +29,8 @@
 <% ocs_var =  data["ocsVar"] -%>
 <% type = detectType(csd_var) -%>
 <% if i == 0 then -%>
-<% indent_length = "- (id).initWith#{ocs_var}".length - 1 -%>
-- (id)initWith<%= ocs_var.camelize %>:(<%= type %> *)<%= ocs_var %>
+<% indent_length = "- (instancetype).initWith#{ocs_var}".length - 1 -%>
+- (instancetype)initWith<%= ocs_var.camelize %>:(<%= type %> *)<%= ocs_var %>
 <% else -%>
 <%= " "*(indent_length-ocs_var.length) %><%= ocs_var %>:(<%= type %> *)<%= ocs_var -%>
 <%= ";" if i == required_inputs.length-1 %>

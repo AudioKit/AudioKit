@@ -21,23 +21,23 @@
 }
 @end
 
-@implementation OCSPhaseLockedVocoder 
+@implementation OCSPhaseLockedVocoder
 
-- (id)initWithSourceFTable:(OCSControl *)sourceFTable
-                      time:(OCSAudio *)time
-               scaledPitch:(OCSControl *)scaledPitch
-                 amplitude:(OCSControl *)amplitude
+- (instancetype)initWithSourceFTable:(OCSControl *)sourceFTable
+                                time:(OCSAudio *)time
+                         scaledPitch:(OCSControl *)scaledPitch
+                           amplitude:(OCSControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            ktab = sourceFTable;    
-                atimpt = time;    
-                kpitch = scaledPitch;    
-                kamp = amplitude;    
-                        ifftsize = ocsp(2048); 
-            idecim = ocsp(4); 
-            }
-    return self; 
+        ktab = sourceFTable;
+        atimpt = time;
+        kpitch = scaledPitch;
+        kamp = amplitude;
+        ifftsize = ocsp(2048);
+        idecim = ocsp(4);
+    }
+    return self;
 }
 
 - (void)setOptionalSizeOfFFT:(OCSConstant *)sizeOfFFT {
@@ -49,7 +49,7 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
+    return [NSString stringWithFormat:
             @"%@ mincer %@, %@, %@, %@, 1, %@, %@",
             self, atimpt, kamp, kpitch, ktab, ifftsize, idecim];
 }
