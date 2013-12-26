@@ -11,7 +11,7 @@
 
 /** A simple waveguide model consisting of one delay-line and one first-order lowpass filter.
  
- More detailed description from http://www.csounds.com/manual/html/wguide1.html
+ This is the most elemental waveguide model, consisting of one delay-line and one first-order lowpass filter.
  */
 
 @interface OCSSimpleWaveGuideModel : OCSAudio
