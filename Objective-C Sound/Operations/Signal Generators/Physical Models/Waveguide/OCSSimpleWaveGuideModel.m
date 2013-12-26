@@ -39,7 +39,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat: 
             @"%@ wguide1 %@, %@, %@, %@", 
-            self, asig, xfreq, kcutoff, kfeedback, kfeedback];
+            self, asig, xfreq, kcutoff, kfeedback];
 }
 
 @end

@@ -100,6 +100,7 @@
 #import "OCSSleighbells.h"
 #import "OCSStick.h"
 #import "OCSTambourine.h"
+#import "OCSBeatenPlate.h"
 #import "OCSBowedString.h"
 #import "OCSSimpleWaveGuideModel.h"
 
