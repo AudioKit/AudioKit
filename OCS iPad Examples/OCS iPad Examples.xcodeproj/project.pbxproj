@@ -29,6 +29,7 @@
 		C45047B715EB891E0051788A /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45047B615EB891E0051788A /* MasterViewController.xib */; };
 		C467EE751835A704006F0743 /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C42B243D15F484D0006032F9 /* example.csd */; };
 		C4695F29186BBFB2009527A8 /* OCSPhaseLockedVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C4695F28186BBFB2009527A8 /* OCSPhaseLockedVocoder.m */; };
+		C4695F2C186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4695F2B186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
@@ -259,6 +260,8 @@
 		C45047B615EB891E0051788A /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
 		C4695F27186BBFB2009527A8 /* OCSPhaseLockedVocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSPhaseLockedVocoder.h; sourceTree = "<group>"; };
 		C4695F28186BBFB2009527A8 /* OCSPhaseLockedVocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSPhaseLockedVocoder.m; sourceTree = "<group>"; };
+		C4695F2A186BFA1B009527A8 /* OCSSimpleWaveGuideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSimpleWaveGuideModel.h; sourceTree = "<group>"; };
+		C4695F2B186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSimpleWaveGuideModel.m; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
 		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
@@ -1218,6 +1221,8 @@
 			children = (
 				C4BA68301815F4BF006E4673 /* OCSBowedString.h */,
 				C4BA68311815F4BF006E4673 /* OCSBowedString.m */,
+				C4695F2A186BFA1B009527A8 /* OCSSimpleWaveGuideModel.h */,
+				C4695F2B186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m */,
 			);
 			path = Waveguide;
 			sourceTree = "<group>";
@@ -1963,6 +1968,7 @@
 				C4BA69111815F4BF006E4673 /* OCSAdditiveCosines.m in Sources */,
 				C4BA68F51815F4BF006E4673 /* OCSSineOscillator.m in Sources */,
 				C4BA68CF1815F4BF006E4673 /* OCSAudioAnalyzer.m in Sources */,
+				C4695F2C186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m in Sources */,
 				C4BA68DF1815F4BF006E4673 /* OCSTableValueControl.m in Sources */,
 				C42B247015F484D0006032F9 /* EffectsProcessor.m in Sources */,
 				C4BA69251815F4BF006E4673 /* OCSCombFilter.m in Sources */,

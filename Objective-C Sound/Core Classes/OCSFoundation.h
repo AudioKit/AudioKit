@@ -101,6 +101,7 @@
 #import "OCSStick.h"
 #import "OCSTambourine.h"
 #import "OCSBowedString.h"
+#import "OCSSimpleWaveGuideModel.h"
 
 // Signal Input and Output
 #import "OCSAudioInput.h"
