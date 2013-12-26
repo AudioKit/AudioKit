@@ -19,7 +19,7 @@
 }
 @end
 
-@implementation OCSSimpleWaveGuideModel 
+@implementation OCSSimpleWaveGuideModel
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                           frequency:(OCSParameter *)frequency
@@ -28,17 +28,17 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            asig = audioSource;    
-                xfreq = frequency;    
-                kcutoff = cutoff;    
-                kfeedback = feedback;    
-                }
-    return self; 
+        asig = audioSource;
+        xfreq = frequency;
+        kcutoff = cutoff;
+        kfeedback = feedback;
+    }
+    return self;
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
-            @"%@ wguide1 %@, %@, %@, %@", 
+    return [NSString stringWithFormat:
+            @"%@ wguide1 %@, %@, %@, %@",
             self, asig, xfreq, kcutoff, kfeedback];
 }
 

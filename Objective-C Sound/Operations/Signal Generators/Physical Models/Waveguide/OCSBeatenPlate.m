@@ -22,7 +22,7 @@
 }
 @end
 
-@implementation OCSBeatenPlate 
+@implementation OCSBeatenPlate
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                          frequency1:(OCSParameter *)frequency1
@@ -34,20 +34,20 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            asig = audioSource;    
-                xfreq1 = frequency1;    
-                xfreq2 = frequency2;    
-                kcutoff1 = cutoffFrequency1;    
-                kcutoff2 = cutoffFrequency2;    
-                kfeedback1 = feedback1;    
-                kfeedback2 = feedback2;    
-                }
-    return self; 
+        asig = audioSource;
+        xfreq1 = frequency1;
+        xfreq2 = frequency2;
+        kcutoff1 = cutoffFrequency1;
+        kcutoff2 = cutoffFrequency2;
+        kfeedback1 = feedback1;
+        kfeedback2 = feedback2;
+    }
+    return self;
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
-            @"%@ wguide2 %@, %@, %@, %@, %@, %@, %@", 
+    return [NSString stringWithFormat:
+            @"%@ wguide2 %@, %@, %@, %@, %@, %@, %@",
             self, asig, xfreq1, xfreq2, kcutoff1, kcutoff2, kfeedback1, kfeedback2];
 }
 
