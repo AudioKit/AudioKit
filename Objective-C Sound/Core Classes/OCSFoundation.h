@@ -59,6 +59,9 @@
 #import "OCSFSignalMix.h"
 #import "OCSPhaseLockedVocoder.h"
 #import "OCSScaledFSignal.h"
+#import "OCSSpectralVocoder.h"
+#import "OCSWarp.h"
+
 
 // Signal Generators
 #import "OCSAdditiveCosines.h"
