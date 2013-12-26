@@ -3,7 +3,7 @@
 //  Objective-C Sound
 //
 //  Created by Adam Boulanger on 9/18/13.
-//  Copyright (c) 2013 Adam Boulanger. All rights reserved.
+//  Copyright (c) 2013 Hear For Yourself. All rights reserved.
 //
 
 #import "OCSParameter+Operation.h"

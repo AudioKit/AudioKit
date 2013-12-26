@@ -1,0 +1,29 @@
+opcode: butterbr
+
+operation: OCSBandRejectButterworthFilter
+
+operationClass: OCSAudio
+
+summary:  A band-reject Butterworth filter.
+
+description:
+  These filters are Butterworth second-order IIR filters. They offer an almost flat
+ passband and very good precision and stopband attenuation.
+
+input_list: asig, kfreq, kband
+
+required_inputs:
+
+- asig: {
+	ocsVar: audioSource, 
+	comment: "Input signal to be filtered."
+}
+
+- kfreq: {
+	ocsVar: centerFrequency, 
+	comment: "Center frequency for each of the filters."
+}
+- kband: {
+	ocsVar: bandwidth, 
+	comment: "Bandwidth of the band-reject filters."
+}

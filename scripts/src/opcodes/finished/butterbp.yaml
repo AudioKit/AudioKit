@@ -1,0 +1,29 @@
+opcode: butterbp
+
+operation: OCSBandPassButterworthFilter
+
+operationClass: OCSAudio
+
+summary:  A band-pass Butterworth filter.
+
+description:
+  These filters are Butterworth second-order IIR filters. They offer an almost flat
+ passband and very good precision and stopband attenuation.
+
+input_list: asig, kfreq, kband
+
+required_inputs:
+
+- asig: {
+	ocsVar: audioSource, 
+	comment: "Input signal to be filtered."
+}
+
+- kfreq: {
+	ocsVar: centerFrequency, 
+	comment: "Center frequency for each of the filters."
+}
+- kband: {
+	ocsVar: bandwidth, 
+	comment: "Bandwidth of the band-pass filters."
+}
