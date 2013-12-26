@@ -10,7 +10,7 @@
 
 @implementation OCSLineSegmentTable
 
-#pragma mark Straight lines Values and Lengths
+#pragma mark - Straight lines Values and Lengths
 
 - (instancetype)initWithSize:(int)tableSize
             valueLengthPairs:(OCSArray *)valueLengthPairs
@@ -27,7 +27,7 @@
     return [self initWithSize:tableSize valueLengthPairs:[values pairWith:lengths]];
 }
 
-#pragma mark Straight lines From Breakpoints
+#pragma mark - Straight lines From Breakpoints
 
 - (instancetype)initWithSize:(int)tableSize
                  breakpoints:(OCSArray *)breakpoints;

@@ -69,7 +69,7 @@
     [self setValue:(((float) rand() / RAND_MAX) * width) + _minimumValue];
 }
 
-# pragma mark CsoundValueCacheable
+# pragma mark - CsoundValueCacheable
 
 -(BOOL)isCacheDirty {
     return NO;
