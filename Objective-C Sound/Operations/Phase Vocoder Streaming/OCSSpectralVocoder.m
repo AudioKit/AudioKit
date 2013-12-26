@@ -20,7 +20,7 @@
 }
 @end
 
-@implementation OCSSpectralVocoder 
+@implementation OCSSpectralVocoder
 
 - (instancetype)initWithAmplitudeFSignal:(OCSFSignal *)amplitudeFSignal
             excitationFrequenciesFSignal:(OCSFSignal *)excitationFrequenciesFSignal
@@ -29,13 +29,13 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            famp = amplitudeFSignal;    
-                fexc = excitationFrequenciesFSignal;    
-                kdepth = depth;    
-                kgain = gain;    
-                        kcoefs = ocsp(80); 
-            }
-    return self; 
+        famp = amplitudeFSignal;
+        fexc = excitationFrequenciesFSignal;
+        kdepth = depth;
+        kgain = gain;
+        kcoefs = ocsp(80);
+    }
+    return self;
 }
 
 - (void)setOptionalCoefs:(OCSControl *)coefs {
@@ -43,8 +43,8 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat: 
-            @"%@ pvsvoc %@, %@, %@, %@, %@", 
+    return [NSString stringWithFormat:
+            @"%@ pvsvoc %@, %@, %@, %@, %@",
             self, famp, fexc, kdepth, kgain, kcoefs];
 }
 
