@@ -12,10 +12,10 @@
 /** Flange effect
  
  This is useful for generating choruses and flangers. The delay must be varied at
- audio-rate connecting delay to an oscillator output.
+ audio-rate.
  */
 
-#warning According to the docs, the delay must varied at a-rate, connected to an oscillator but the example given doesn't even do that.  If the most common case is to use an oscillator this should be bundled into the operation as an init case
+#warning Should consider replacing this with a wguide1 implementation since it allows for more flexibility.
 
 @interface OCSFlanger : OCSAudio
 
