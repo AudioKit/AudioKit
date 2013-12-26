@@ -1,6 +1,6 @@
 //
 //  FivePropertyInstrument.m
-//  OCS iPad Examples
+//  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 8/13/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -11,7 +11,7 @@
 
 @implementation FivePropertyInstrument
 
--(instancetype)init
+- (instancetype)init
 {
     self = [super init];
     if ( self) {

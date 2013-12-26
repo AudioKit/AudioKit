@@ -24,12 +24,12 @@
 
 @implementation OCSAdditiveCosines
 
--(instancetype)initWithFTable:(OCSFTable *)cosineTable
-               harmonicsCount:(OCSControl *)harmonicsCount
-             firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
-            partialMultiplier:(OCSControl *)partialMultiplier
-         fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-                    amplitude:(OCSParameter *)amplitude
+- (instancetype)initWithFTable:(OCSFTable *)cosineTable
+                harmonicsCount:(OCSControl *)harmonicsCount
+              firstHarmonicIdx:(OCSControl *)firstHarmonicIdx
+             partialMultiplier:(OCSControl *)partialMultiplier
+          fundamentalFrequency:(OCSParameter *)fundamentalFrequency
+                     amplitude:(OCSParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {

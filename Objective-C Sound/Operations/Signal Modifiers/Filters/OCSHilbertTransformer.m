@@ -2,7 +2,7 @@
 //  OCSHilbertTransformer.m
 //  Objective-C Sound
 //
-//  Auto-generated from database on 12/30/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/30/12.
 //  Modified by Aurelius Prochazka on 12/30/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //

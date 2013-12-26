@@ -9,8 +9,7 @@
 @interface ConvolutionViewController : UIViewController
 
 - (IBAction)start:(id)sender;
-
--(IBAction)changeDryWet:(id)sender;
--(IBAction)changeDishWell:(id)sender;
+- (IBAction)changeDryWet:(id)sender;
+- (IBAction)changeDishWell:(id)sender;
 
 @end

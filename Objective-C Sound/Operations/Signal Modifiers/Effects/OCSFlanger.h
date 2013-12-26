@@ -15,7 +15,7 @@
  audio-rate.
  */
 
-#warning Should consider replacing this with a wguide1 implementation since it allows for more flexibility.
+#warning Should consider replacing this with an OCSSimpleWaveGuideModel (wguide1) implementation since it allows for more flexibility.
 
 @interface OCSFlanger : OCSAudio
 

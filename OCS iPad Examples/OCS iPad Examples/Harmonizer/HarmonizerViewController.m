@@ -32,11 +32,11 @@
     [harmonizer play];
 }
 
--(IBAction)changePitch:(id)sender {
+- (IBAction)changePitch:(id)sender {
     [OCSiOSTools setProperty:harmonizer.pitch withSlider:(UISlider *)sender];
 }
 
--(IBAction)changeGain:(id)sender {
+- (IBAction)changeGain:(id)sender {
     [OCSiOSTools setProperty:harmonizer.gain withSlider:(UISlider *)sender];
 }
 

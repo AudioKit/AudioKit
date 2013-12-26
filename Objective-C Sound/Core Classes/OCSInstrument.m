@@ -63,7 +63,8 @@ static int currentID = 1;
     [_properties addObject:newProperty];
 }
 
-- (void) addProperty:(OCSInstrumentProperty *)newProperty withName:(NSString *)name;
+- (void) addProperty:(OCSInstrumentProperty *)newProperty
+            withName:(NSString *)name;
 {
     [_properties addObject:newProperty];
     [newProperty setName:name];
@@ -111,12 +112,14 @@ static int currentID = 1;
 }
 
 - (void)assignOutput:(OCSParameter *)output to:(OCSParameter *)input {
-    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithOutput:output input:input];
+    OCSAssignment *auxOutputAssign = [[OCSAssignment alloc] initWithOutput:output
+                                                                     input:input];
     [self connect:auxOutputAssign];
 }
 
 - (void)resetParam:(OCSParameter *)parameterToReset {
-    [innerCSDRepresentation appendString:[NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
+    [innerCSDRepresentation appendString:
+     [NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
 }
 
 // -----------------------------------------------------------------------------

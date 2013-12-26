@@ -26,18 +26,18 @@
 
 @implementation OCSSinusoidBursts
 
--(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
-         riseShapeTable:(OCSFTable *)riseShapeTable
-               overlaps:(OCSConstant *)numberOfOverlaps
-              totalTime:(OCSConstant *)totalTime
-        octavationIndex:(OCSControl *)octavationIndex
-       formantBandwidth:(OCSControl *)formantBandwidth
-          burstRiseTime:(OCSControl *)burstRiseTime
-          burstDuration:(OCSControl *)burstDuration
-         burstDecayTime:(OCSControl *)burstDecayTime
-          peakAmplitude:(OCSParameter *)peakAmplitude
-   fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-       formantFrequency:(OCSParameter *)formantFrequency;
+- (instancetype)initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
+                   riseShapeTable:(OCSFTable *)riseShapeTable
+                         overlaps:(OCSConstant *)numberOfOverlaps
+                        totalTime:(OCSConstant *)totalTime
+                  octavationIndex:(OCSControl *)octavationIndex
+                 formantBandwidth:(OCSControl *)formantBandwidth
+                    burstRiseTime:(OCSControl *)burstRiseTime
+                    burstDuration:(OCSControl *)burstDuration
+                   burstDecayTime:(OCSControl *)burstDecayTime
+                    peakAmplitude:(OCSParameter *)peakAmplitude
+             fundamentalFrequency:(OCSParameter *)fundamentalFrequency
+                 formantFrequency:(OCSParameter *)formantFrequency;
 {
     self = [super initWithString:[self operationName]];
     if (self) {

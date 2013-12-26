@@ -32,10 +32,10 @@
     [conv play];
 }
 
--(IBAction)changeDryWet:(id)sender {
+- (IBAction)changeDryWet:(id)sender {
     [OCSiOSTools setProperty:conv.dryWetBalance withSlider:(UISlider *)sender];
 }
--(IBAction)changeDishWell:(id)sender {
+- (IBAction)changeDishWell:(id)sender {
     [OCSiOSTools setProperty:conv.dishWellBalance withSlider:(UISlider *)sender];
 }
 

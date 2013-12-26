@@ -32,10 +32,10 @@
 /// @param timeScaler      Time scaling ratio, <1 stretches, >1 contracts.
 /// @param amplitudeScaler Amplitude scaling ratio.
 /// @param pitchScaler     Grain pitch scaling ration (1=normal pitch, <1 lower, >1 higher, <0 backwards)
--(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
-                      timeScaler:(OCSControl *)timeScaler
-                 amplitudeScaler:(OCSControl *)amplitudeScaler
-                     pitchScaler:(OCSControl *)pitchScaler;
+- (instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
+                       timeScaler:(OCSControl *)timeScaler
+                  amplitudeScaler:(OCSControl *)amplitudeScaler
+                      pitchScaler:(OCSControl *)pitchScaler;
 
 /// Create a phase vocoder stream or f-signal from a mono audio source and performs attack analysis.
 /// @param soundFileSource  Audio to use to generate the f-signal.
@@ -48,17 +48,17 @@
 /// @param wraparoundFlag  0 or 1, to switch on/off table wrap-around read (default to 1)
 /// @param onsetProcessingFlag 0 or 1, to switch onset detection/processing. The onset detector checks for power difference between analysis windows. If more than what has been specified in the dbthresh parameter, an onset is declared. It suspends timescaling momentarily so the onsets are not modified.
 /// @param onsetDecibelThreshold Threshold for onset detection, based on dB power spectrum ratio between two successive windows. A detected ratio above it will cancel timescaling momentarily, to avoid smearing (defaults to 1). By default anything more than a 1 dB inter-frame power difference will be detected as an onset.
--(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
-                      timeScaler:(OCSControl *)timeScaler
-                 amplitudeScaler:(OCSControl *)amplitudeScaler
-                     pitchScaler:(OCSControl *)pitchScaler
-                         fftSize:(OCSConstant *)fftSize
-                         overlap:(OCSConstant *)overlap
-                 tableReadOffset:(OCSConstant *)tableReadOffset
-           audioSourceWraparound:(OCSControl *)wraparoundFlag
-                 onsetProcessing:(OCSControl *)onsetProcessingFlag
-           onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold;
+- (instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
+                       timeScaler:(OCSControl *)timeScaler
+                  amplitudeScaler:(OCSControl *)amplitudeScaler
+                      pitchScaler:(OCSControl *)pitchScaler
+                          fftSize:(OCSConstant *)fftSize
+                          overlap:(OCSConstant *)overlap
+                  tableReadOffset:(OCSConstant *)tableReadOffset
+            audioSourceWraparound:(OCSControl *)wraparoundFlag
+                  onsetProcessing:(OCSControl *)onsetProcessingFlag
+            onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold;
 
-// AOP - these optional flags should be methods on the instance, not part of an initialization
+#warning these optional flags should be methods on the instance, not part of an initialization
 
 @end

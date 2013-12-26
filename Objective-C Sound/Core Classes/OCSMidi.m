@@ -1,6 +1,6 @@
 //
 //  OCSMidi.m
-//  OCS iPad Examples
+//  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 8/12/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -20,7 +20,7 @@
 
 #pragma mark - Initialization
 
--(instancetype)init
+- (instancetype)init
 {
     if(self = [super init]) {
         _listeners = [[NSMutableSet alloc] init];
@@ -150,7 +150,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 			Byte velocity = packet->data[2] & 0x7F;
             [m broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)midiChannel];
             
-		} else if (midiCommand == kMidiNoteOn) { 
+		} else if (midiCommand == kMidiNoteOn) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
             [m broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)midiChannel];
@@ -178,18 +178,18 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
         } else if (midiCommand == kMidiProgramChange) {
             
         } else { // Other
-
-                            
+            
+            
             int b[10];
             for (int i=0; i<=9; i++) {
                 b[i] = (packet->length > i) ? packet->data[i] : 0;
             }
-                
+            
             if (midiStatus == kMidiSysex) {
                 NSLog(@"Unparsed Sysex: %i %i %i %i %i %i %i %i %i", b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
             } else {
                 NSLog(@"Unparsed MIDI: %i %i %i %i %i %i %i %i %i %i", b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
-
+                
             }
             
         }
@@ -219,7 +219,7 @@ void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
 		NSLog(@"source %d: %s\n", i, endpointNameC);
 		MIDIPortConnectSource(inPort, src, NULL);
 	}
-
+    
 }
 
 -(void)closeMidiIn

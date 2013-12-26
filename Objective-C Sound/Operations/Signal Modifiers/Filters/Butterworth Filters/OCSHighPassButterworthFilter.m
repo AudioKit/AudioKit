@@ -16,8 +16,8 @@
 
 @implementation OCSHighPassButterworthFilter
 
--(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                   cutoffFrequency:(OCSControl *)cutoffFrequency
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
+                    cutoffFrequency:(OCSControl *)cutoffFrequency
 
 {
     self = [super initWithString:[self operationName]];
@@ -28,7 +28,7 @@
     return self;
 }
 
--(NSString *)stringForCSD
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@ butterhp %@, %@, %d",

@@ -2,7 +2,7 @@
 //  OCSPanner.h
 //  Objective-C Sound
 //
-//  Auto-generated from database on 11/24/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/24/12.
 //  Modified by Aurelius Prochazka to add pan methods.
 //
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.

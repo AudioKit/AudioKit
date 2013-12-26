@@ -19,9 +19,9 @@
 
 @implementation OCSCombFilter
 
--(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                        reverbTime:(OCSControl *)reverbTime
-                          loopTime:(OCSConstant *)loopTime
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
+                         reverbTime:(OCSControl *)reverbTime
+                           loopTime:(OCSConstant *)loopTime
 {
     self = [super initWithString:[self operationName]];
     if(self) {
@@ -35,11 +35,11 @@
     
 }
 
--(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                        reverbTime:(OCSControl *)reverbTime
-                          loopTime:(OCSConstant *)loopTime
-                       delayAmount:(OCSConstant *)delayAmount
-                isFeedbackRetained:(BOOL)isFeedbackRetained
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
+                         reverbTime:(OCSControl *)reverbTime
+                           loopTime:(OCSConstant *)loopTime
+                        delayAmount:(OCSConstant *)delayAmount
+                 isFeedbackRetained:(BOOL)isFeedbackRetained
 {
     self = [super initWithString:[self operationName]];
     if(self) {
@@ -52,12 +52,12 @@
     return self;
 }
 
--(void)setOptionalDelayAmount:(OCSConstant *)delayAmount
+- (void)setOptionalDelayAmount:(OCSConstant *)delayAmount
 {
     insmps = delayAmount;
 }
 
--(void)setOptionalRetainFeedbackFlag:(BOOL)isFeedbackRetained
+- (void)setOptionalRetainFeedbackFlag:(BOOL)isFeedbackRetained
 {
     iskip = ocsp( isFeedbackRetained);
 }
