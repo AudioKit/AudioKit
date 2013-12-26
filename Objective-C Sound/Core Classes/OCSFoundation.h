@@ -195,6 +195,7 @@
 #import "OCSLowPassFilter.h"
 #import "OCSMoogLadder.h"
 #import "OCSMoogVCF.h"
+#import "OCSResonantFilter.h"
 #import "OCSThreePoleLowpassFilter.h"
 
 // Operations - Signal Modifiers - Reverbs

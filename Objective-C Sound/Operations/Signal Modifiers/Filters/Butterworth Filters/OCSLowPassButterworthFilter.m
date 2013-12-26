@@ -2,16 +2,18 @@
 //  OCSLowPassButterworthFilter.m
 //  Objective-C Sound
 //
-//  Created by Adam Boulanger on 6/22/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's butterlp:
+//  http://www.csounds.com/manual/html/butterlp.html
 //
 
 #import "OCSLowPassButterworthFilter.h"
 
 @interface OCSLowPassButterworthFilter () {
-    OCSAudio *input;
-    OCSControl *cutoff;
-    BOOL isInitSkipped;
+    OCSAudio *asig;
+    OCSControl *kfreq;
 }
 @end
 
@@ -21,18 +23,17 @@
                     cutoffFrequency:(OCSControl *)cutoffFrequency
 {
     self = [super initWithString:[self operationName]];
-    if(self) {
-        input = audioSource;
-        cutoff = cutoffFrequency;
+    if (self) {
+        asig = audioSource;
+        kfreq = cutoffFrequency;
     }
     return self;
 }
 
-- (NSString *)stringForCSD
-{
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ butterlp %@, %@, %d",
-            self, input, cutoff, 0];
+            @"%@ butterlp %@, %@",
+            self, asig, kfreq];
 }
 
 @end

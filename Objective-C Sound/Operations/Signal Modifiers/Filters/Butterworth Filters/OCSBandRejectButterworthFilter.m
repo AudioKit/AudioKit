@@ -2,19 +2,19 @@
 //  OCSBandRejectButterworthFilter.m
 //  Objective-C Sound
 //
-//  Created by Adam Boulanger on 9/12/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's butterbr:
+//  http://www.csounds.com/manual/html/butterbr.html
 //
 
 #import "OCSBandRejectButterworthFilter.h"
 
-@interface OCSBandRejectButterworthFilter ()
-{
-    OCSAudio *input;
-    OCSControl *center;
-    OCSControl *bandwidth;
-    
-    BOOL isInitSkipped;
+@interface OCSBandRejectButterworthFilter () {
+    OCSAudio *asig;
+    OCSControl *kfreq;
+    OCSControl *kband;
 }
 @end
 
@@ -22,22 +22,21 @@
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     centerFrequency:(OCSControl *)centerFrequency
-                          bandwidth:(OCSControl *)bandwidthRange
+                          bandwidth:(OCSControl *)bandwidth
 {
     self = [super initWithString:[self operationName]];
-    if(self) {
-        input = audioSource;
-        center = centerFrequency;
-        bandwidth = bandwidthRange;
+    if (self) {
+        asig = audioSource;
+        kfreq = centerFrequency;
+        kband = bandwidth;
     }
     return self;
 }
 
-- (NSString *)stringForCSD
-{
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ butterbr %@, %@, %@, %d",
-            self, input, center, bandwidth, 0];
+            @"%@ butterbr %@, %@, %@",
+            self, asig, kfreq, kband];
 }
 
 @end

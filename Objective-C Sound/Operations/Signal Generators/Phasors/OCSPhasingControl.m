@@ -2,17 +2,19 @@
 //  OCSPhasingControl.m
 //  Objective-C Sound
 //
-//  Created by Adam Boulanger on 10/11/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's phasor:
+//  http://www.csounds.com/manual/html/phasor.html
 //
 
 #import "OCSPhasingControl.h"
 
 @interface OCSPhasingControl () {
-    OCSControl *freq;
-    OCSConstant *phs;
+    OCSControl *kcps;
+    OCSConstant *iphs;
 }
-
 @end
 
 @implementation OCSPhasingControl
@@ -21,20 +23,20 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        freq = frequency;
-        phs  = ocsp(0);
+        kcps = frequency;
+        iphs = ocsp(0);
     }
     return self;
 }
 
 - (void)setOptionalPhase:(OCSConstant *)phase {
-    phs = phase;
+	iphs = phase;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ phasor %@, %@",
-            self, freq, phs];
+            self, kcps, iphs];
 }
 
 @end

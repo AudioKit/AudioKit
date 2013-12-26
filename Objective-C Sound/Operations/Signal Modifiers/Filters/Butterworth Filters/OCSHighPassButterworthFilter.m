@@ -2,15 +2,18 @@
 //  OCSHighPassButterworthFilter.m
 //  Objective-C Sound
 //
-//  Created by Adam Boulanger on 10/10/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's butterhp:
+//  http://www.csounds.com/manual/html/butterhp.html
 //
 
 #import "OCSHighPassButterworthFilter.h"
 
 @interface OCSHighPassButterworthFilter () {
-    OCSAudio *input;
-    OCSControl *cutoff;
+    OCSAudio *asig;
+    OCSControl *kfreq;
 }
 @end
 
@@ -18,21 +21,19 @@
 
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     cutoffFrequency:(OCSControl *)cutoffFrequency
-
 {
     self = [super initWithString:[self operationName]];
-    if(self) {
-        input = audioSource;
-        cutoff = cutoffFrequency;
+    if (self) {
+        asig = audioSource;
+        kfreq = cutoffFrequency;
     }
     return self;
 }
 
-- (NSString *)stringForCSD
-{
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ butterhp %@, %@, %d",
-            self, input, cutoff, 0];
+            @"%@ butterhp %@, %@",
+            self, asig, kfreq];
 }
 
 @end
