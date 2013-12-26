@@ -4,7 +4,7 @@ Objective-C Sound
 Obective-C Sound (OCS for short, pronounced "ox"), is an Objective-C API 
 for sound design applications ranging from sound synthesis, real time effects
 processing, and audio analysis.  It works on all OSX and iOS based devices, 
-ie. Macs and iPads.
+ie. Macs, iPads and iPhones.
 
 ### Installation
 
@@ -40,7 +40,8 @@ http://csounds.com/
 
 ### About Us
 
-This project was started by us, and we are Aurelius Prochazka and Adam Boulanger.  
+Objective-C Sound was initially conceived by Aurelius Prochazka and Adam Boulanger
+and primarily programmed by Aurelius Prochazka.
 
 http://aure.com/
 

@@ -1,0 +1,28 @@
+opcode: reson
+
+operation: OCSResonantFilter
+
+operationClass: OCSAudio
+
+summary:  A second-order resonant filter.
+
+description:
+  This is a second-order filter defined by a center frequency which is the frequency position of 
+  the peak response, and a bandwidth which is the frequency difference between the upper and lower half-power points.
+
+input_list: asig, kcf, kbw, kbw
+
+required_inputs:
+
+- asig: {
+	ocsVar: audioSource, 
+	comment: "The input audio stream."
+}
+- kcf: {
+	ocsVar: centerFrequency, 
+	comment: "Center frequency of the filter, or frequency position of the peak response."
+}
+- kbw: {
+	ocsVar: bandwidth, 
+	comment: "Bandwidth of the filter (the Hz difference between the upper and lower half-power points)."
+}

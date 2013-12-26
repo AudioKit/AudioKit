@@ -1,0 +1,30 @@
+opcode: phasor
+
+operation: OCSPhasingControl
+
+operationClass: OCSControl
+
+summary:  A normalized moving phase value.
+
+description:
+  An internal phase is successively accumulated in accordance with the frequency to produce a moving phase value, normalized to lie in the range 0 <= phase < 1.
+ 
+  When used as the index to a table unit, this phase (multiplied by the desired function table length) will cause it to behave like an oscillator.
+ 
+  Note that phasor is a special kind of integrator, accumulating phase increments that represent frequency settings.
+
+input_list: kcps, iphs
+
+required_inputs:
+
+- kcps: {
+	ocsVar: frequency, 
+	comment: "Frequency in cycles per second."
+}
+
+optional_inputs:
+- iphs: {
+	ocsVar: phase, 
+	comment: "Initial phase, expressed as a fraction of a cycle (0 to 1).",
+	default: 0
+}
