@@ -57,6 +57,7 @@
 #import "OCSAudioFromFSignal.h"
 #import "OCSFSignalFromMonoAudio.h"
 #import "OCSFSignalMix.h"
+#import "OCSPhaseLockedVocoder.h"
 #import "OCSScaledFSignal.h"
 
 // Signal Generators
