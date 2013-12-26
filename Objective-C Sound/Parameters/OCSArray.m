@@ -69,7 +69,7 @@
 + (id)arrayFromConstants:(OCSConstant *)firstConstant,... {
     OCSArray *result = [[OCSArray alloc] init];
     
-    // AOP Shouldn't this be OCSConstant?
+    #warning Shouldn't this be OCSConstant?
     OCSParameter *eachParam;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;

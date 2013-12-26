@@ -2,25 +2,24 @@
 //  OCSHighPassButterworthFilter.h
 //  Objective-C Sound
 //
-//  Created by Adam Boulanger on 10/10/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "OCSAudio.h"
 #import "OCSParameter+Operation.h"
 
-/** A second-order high-pass Butterworth filter. These filters are Butterworth second-order IIR filters.
- They are slightly slower than the original filters in Csound, but they offer an almost flat
- passband and very good precision and stopband attenuation.
+/** A high-pass Butterworth filter.
+ 
+ These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
  */
 
 @interface OCSHighPassButterworthFilter : OCSAudio
 
-/// Creates a low-pass Butterworth filter.
-/// @param audioSource     The input to be filtered.
-/// @param cutoffFrequency Cutoff of the lowpass filter.
+/// Instantiates the high pass butterworth filter
+/// @param audioSource Input signal to be filtered.
+/// @param cutoffFrequency Cutoff frequency for each of the filters.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     cutoffFrequency:(OCSControl *)cutoffFrequency;
 
 @end
-
