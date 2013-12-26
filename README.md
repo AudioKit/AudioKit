@@ -12,17 +12,10 @@ The repository includes the "Objective-C Sound" Xcode workspace file which will
 open in Xcode with a few example projects demonstrating building a project
 for the Mac or for the iPad or iOS Simulator.  
 
-To get a quick sense for what the code can do, check out the Bret Victor
-inspired "Explorable Explanations" project.
-
 The Mac version requires installation of CsoundLib64 which can be installed
 using the universal installer available at
 
-http://sourceforge.net/projects/csound/files/csound5/
-
-The current version as of this writing is:
-
-http://sourceforge.net/projects/csound/files/csound5/csound5.18/csound5.18.02-OSX10.7-universal.dmg
+https://sourceforge.net/projects/csound/
 
 In order to install the Xcode-based documentation and Xcode quick help, you need 
 to install appdoc.  More information about this in the developer's guide doc.
@@ -51,7 +44,7 @@ This project was started by us, and we are Aurelius Prochazka and Adam Boulanger
 
 http://aure.com/
 
-http://www.media.mit.edu/~adamb/
+http://adamboulanger.com/
 
 We use Objective-C Sound at our company, Hear For Yourself, to build 
 sonically rich programs for a variety of different applications.

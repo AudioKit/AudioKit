@@ -11,7 +11,7 @@
 @implementation OCSExponentialCurvesTable
 
 
-#pragma mark Exponential Curves Values and Lengths
+#pragma mark - Exponential Curves Values and Lengths
 
 - (instancetype)initWithSize:(int)tableSize
             valueLengthPairs:(OCSArray *)valueLengthPairs
@@ -28,7 +28,7 @@
     return [self initWithSize:tableSize valueLengthPairs:[values pairWith:lengths]];
 }
 
-#pragma mark Exponential Curves From Breakpoints
+#pragma mark - Exponential Curves From Breakpoints
 
 - (instancetype)initWithSize:(int)tableSize
                  breakpoints:(OCSArray *)breakpoints;
