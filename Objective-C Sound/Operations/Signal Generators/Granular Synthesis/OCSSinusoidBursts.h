@@ -30,17 +30,17 @@
 /// @param peakAmplitude           Peak amplitude of each sineburst, observed at the true end of its rise pattern. The rise may exceed this value given a large bandwidth (say, Q < 10) and/or when the bursts are overlapping.
 /// @param fundamentalFrequency    Fundamental frequency (in Hertz) of the impulses that create new sinebursts.
 /// @param formantFrequency        Freq of the sinusoid burst induced by each fundamental frequency impulse. This frequency can be fixed for each burst or can vary continuously.
--(id) initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
-         riseShapeTable:(OCSFTable *)riseShapeTable
-               overlaps:(OCSConstant *)numberOfOverlaps
-              totalTime:(OCSConstant *)totalTime
-        octavationIndex:(OCSControl *)octavationIndex
-       formantBandwidth:(OCSControl *)formantBandwidth
-          burstRiseTime:(OCSControl *)burstRiseTime
-          burstDuration:(OCSControl *)burstDuration
-         burstDecayTime:(OCSControl *)burstDecayTime
-          peakAmplitude:(OCSParameter *)peakAmplitude
-   fundamentalFrequency:(OCSParameter *)fundamentalFrequency
-       formantFrequency:(OCSParameter *)formantFrequency;
+- (instancetype)initWithSineTable:(OCSSineTable *)sineburstSynthesisTable
+                   riseShapeTable:(OCSFTable *)riseShapeTable
+                         overlaps:(OCSConstant *)numberOfOverlaps
+                        totalTime:(OCSConstant *)totalTime
+                  octavationIndex:(OCSControl *)octavationIndex
+                 formantBandwidth:(OCSControl *)formantBandwidth
+                    burstRiseTime:(OCSControl *)burstRiseTime
+                    burstDuration:(OCSControl *)burstDuration
+                   burstDecayTime:(OCSControl *)burstDecayTime
+                    peakAmplitude:(OCSParameter *)peakAmplitude
+             fundamentalFrequency:(OCSParameter *)fundamentalFrequency
+                 formantFrequency:(OCSParameter *)formantFrequency;
 
 @end

@@ -1,6 +1,6 @@
 //
 //  OCSNote.m
-//  OCS iPad Examples
+//  Objective-C Sound
 //
 //  Created by Aurelius Prochazka on 9/18/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.

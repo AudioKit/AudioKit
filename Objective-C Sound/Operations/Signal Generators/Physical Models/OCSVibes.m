@@ -2,7 +2,7 @@
 //  OCSVibes.m
 //  Objective-C Sound
 //
-//  Auto-generated from database on 11/3/12.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/3/12.
 //  Improved from database version by Aurelius Prochazka on 12/27/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //

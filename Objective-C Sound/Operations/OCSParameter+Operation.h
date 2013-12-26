@@ -16,9 +16,9 @@
 - (NSString *)operationName;
 
 /// The opcode line for inclusion in instruments.
-- (NSString *) stringForCSD;
+- (NSString *)stringForCSD;
 
 /// The text of the User Defined Opcode
-- (NSString *) udoFile;
+- (NSString *)udoFile;
 
 @end

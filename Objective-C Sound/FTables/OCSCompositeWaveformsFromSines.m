@@ -10,11 +10,11 @@
 
 @implementation OCSCompositeWaveformsFromSines
 
--(instancetype)initWithTableSize:(int)tableSize
-                  partialNumbers:(OCSArray *)partialNumbers
-                partialStrengths:(OCSArray *)partialStrengths
-          partialStrengthOffsets:(OCSArray *)partialOffsets
-                   partialPhases:(OCSArray *)partialPhases
+- (instancetype)initWithTableSize:(int)tableSize
+                   partialNumbers:(OCSArray *)partialNumbers
+                 partialStrengths:(OCSArray *)partialStrengths
+           partialStrengthOffsets:(OCSArray *)partialOffsets
+                    partialPhases:(OCSArray *)partialPhases
 {
     self = [super init];
     

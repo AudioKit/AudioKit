@@ -27,7 +27,7 @@
 /// Initialize the tracked frequency.
 /// @param fSignalSource      Input mono F-Signal.
 /// @param amplitudeThreshold Amplitude threshold (0-1). Higher values will eliminate low-amplitude spectral components from being included in the analysis.
--(instancetype)initWithFSignalSource:(OCSFSignal *)fSignalSource
-                  amplitudeThreshold:(OCSControl *)amplitudeThreshold;
+- (instancetype)initWithFSignalSource:(OCSFSignal *)fSignalSource
+                   amplitudeThreshold:(OCSControl *)amplitudeThreshold;
 
 @end

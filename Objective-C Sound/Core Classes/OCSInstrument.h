@@ -46,7 +46,8 @@
 /// After an OCSProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void) addProperty:(OCSInstrumentProperty *)newProperty;
-- (void) addProperty:(OCSInstrumentProperty *)newProperty withName:(NSString *)name;
+- (void) addProperty:(OCSInstrumentProperty *)newProperty
+            withName:(NSString *)name;
 
 /// After an OCSNoteProperty is created, it must be added to the instrument.
 /// @param newNoteProperty New note property instrument needs to be aware of.

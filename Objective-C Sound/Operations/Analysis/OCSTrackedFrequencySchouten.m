@@ -17,8 +17,8 @@
 
 @implementation OCSTrackedFrequencySchouten
 
--(instancetype)initWithFSignalSource:(OCSFSignal *)fSignalSource
-                  amplitudeThreshold:(OCSControl *)amplitudeThreshold
+- (instancetype)initWithFSignalSource:(OCSFSignal *)fSignalSource
+                   amplitudeThreshold:(OCSControl *)amplitudeThreshold
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -28,7 +28,7 @@
     return self;
 }
 
--(NSString *)stringForCSD
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:@"%@, kUnused pvspitch %@, %@", self, asig, iampThresh];
 }

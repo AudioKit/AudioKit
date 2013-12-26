@@ -32,10 +32,10 @@
 @implementation OCSFSignalFromMonoWithAttackAnalysis
 
 
--(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
-                      timeScaler:(OCSControl *)timeScaler
-                 amplitudeScaler:(OCSControl *)amplitudeScaler
-                     pitchScaler:(OCSControl *)pitchScaler
+- (instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
+                       timeScaler:(OCSControl *)timeScaler
+                  amplitudeScaler:(OCSControl *)amplitudeScaler
+                      pitchScaler:(OCSControl *)pitchScaler
 {
     return [self initWithSoundFile:soundFileSource
                         timeScaler:timeScaler
@@ -49,16 +49,16 @@
              onsetDecibelThreshold:ocspi(1)];
 }
 
--(instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
-                      timeScaler:(OCSControl *)timeScaler
-                 amplitudeScaler:(OCSControl *)amplitudeScaler
-                     pitchScaler:(OCSControl *)pitchScaler
-                         fftSize:(OCSConstant *)fftSize
-                         overlap:(OCSConstant *)overlap
-                 tableReadOffset:(OCSConstant *)tableReadOffset
-           audioSourceWraparound:(OCSControl *)wraparoundFlag
-                 onsetProcessing:(OCSControl *)onsetProcessingFlag
-           onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold
+- (instancetype)initWithSoundFile:(OCSFTable *)soundFileSource
+                       timeScaler:(OCSControl *)timeScaler
+                  amplitudeScaler:(OCSControl *)amplitudeScaler
+                      pitchScaler:(OCSControl *)pitchScaler
+                          fftSize:(OCSConstant *)fftSize
+                          overlap:(OCSConstant *)overlap
+                  tableReadOffset:(OCSConstant *)tableReadOffset
+            audioSourceWraparound:(OCSControl *)wraparoundFlag
+                  onsetProcessing:(OCSControl *)onsetProcessingFlag
+            onsetDecibelThreshold:(OCSConstant *)onsetDecibelThreshold
 {
     self = [super initWithString:[self operationName]];
     if( self) {

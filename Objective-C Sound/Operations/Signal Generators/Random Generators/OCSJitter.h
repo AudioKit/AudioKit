@@ -2,7 +2,7 @@
 //  OCSJitter.h
 //  Objective-C Sound
 //
-//  Auto-generated from database on 10/21/13.
+//  Auto-generated from scripts by Aurelius Prochazka on 10/21/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 

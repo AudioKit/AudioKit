@@ -20,9 +20,9 @@
 
 @implementation OCSBandRejectButterworthFilter
 
--(instancetype)initWithAudioSource:(OCSAudio *)audioSource
-                   centerFrequency:(OCSControl *)centerFrequency
-                         bandwidth:(OCSControl *)bandwidthRange
+- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
+                    centerFrequency:(OCSControl *)centerFrequency
+                          bandwidth:(OCSControl *)bandwidthRange
 {
     self = [super initWithString:[self operationName]];
     if(self) {
@@ -33,7 +33,7 @@
     return self;
 }
 
--(NSString *)stringForCSD
+- (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
             @"%@ butterbr %@, %@, %@, %d",
