@@ -1,0 +1,41 @@
+opcode: mincer
+
+operation: OCSPhaseLockedVocoder
+
+operationClass: OCSAudio
+
+summary:  Phase-locked vocoder processing.
+
+description:
+  More detailed description from http://www.csounds.com/manual/html/mincer.html
+
+input_list: atimpt, kamp, kpitch, ktab, klock, ifftsize, idecim
+
+required_inputs:
+- ktab: {
+	ocsVar: sourceFTable, 
+	comment: "Source signal function table. Only mono audio files work."
+}
+- atimpt: {
+	ocsVar: time, 
+	comment: "Time position of current audio sample in secs. Table reading wraps around the ends of the function table."
+}
+- kpitch: {
+	ocsVar: scaledPitch, 
+	comment: "Grain pitch scaling (1=normal pitch, < 1 lower, > 1 higher; negative, backwards)"
+}
+- kamp: {
+	ocsVar: amplitude, 
+	comment: "Amplitude scaling"
+}
+optional_inputs:
+- ifftsize: {
+	ocsVar: sizeOfFFT, 
+	comment: "FFT size (power-of-two), defaults to 2048.",
+	default: 2048
+}
+- idecim: {
+	ocsVar: decimation, 
+	comment: "Defaults to 4 (meaning hopsize = fftsize/4)",
+	default: 4
+}

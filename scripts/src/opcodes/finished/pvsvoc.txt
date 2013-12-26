@@ -1,0 +1,1 @@
+fsig pvsvoc famp, fexc, kdepth, kgain [,kcoefs]

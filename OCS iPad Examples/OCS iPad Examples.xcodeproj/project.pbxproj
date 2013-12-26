@@ -31,6 +31,7 @@
 		C4695F29186BBFB2009527A8 /* OCSPhaseLockedVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C4695F28186BBFB2009527A8 /* OCSPhaseLockedVocoder.m */; };
 		C4695F2C186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4695F2B186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m */; };
 		C4695F2F186C03B4009527A8 /* OCSBeatenPlate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4695F2E186C03B3009527A8 /* OCSBeatenPlate.m */; };
+		C4695F32186C0FD5009527A8 /* OCSSpectralVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C4695F31186C0FD5009527A8 /* OCSSpectralVocoder.m */; };
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
@@ -265,6 +266,8 @@
 		C4695F2B186BFA1B009527A8 /* OCSSimpleWaveGuideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSimpleWaveGuideModel.m; sourceTree = "<group>"; };
 		C4695F2D186C03B3009527A8 /* OCSBeatenPlate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSBeatenPlate.h; sourceTree = "<group>"; };
 		C4695F2E186C03B3009527A8 /* OCSBeatenPlate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSBeatenPlate.m; sourceTree = "<group>"; };
+		C4695F30186C0FD5009527A8 /* OCSSpectralVocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSSpectralVocoder.h; sourceTree = "<group>"; };
+		C4695F31186C0FD5009527A8 /* OCSSpectralVocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSpectralVocoder.m; sourceTree = "<group>"; };
 		C47E285E163F083A00BBB569 /* PhysicalModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PhysicalModelViewController.h; path = "Physical Models/PhysicalModelViewController.h"; sourceTree = "<group>"; };
 		C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicalModelViewController.m; path = "Physical Models/PhysicalModelViewController.m"; sourceTree = "<group>"; };
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
@@ -1047,6 +1050,8 @@
 				C4695F28186BBFB2009527A8 /* OCSPhaseLockedVocoder.m */,
 				C4BA67DC1815F4BF006E4673 /* OCSScaledFSignal.h */,
 				C4BA67DD1815F4BF006E4673 /* OCSScaledFSignal.m */,
+				C4695F30186C0FD5009527A8 /* OCSSpectralVocoder.h */,
+				C4695F31186C0FD5009527A8 /* OCSSpectralVocoder.m */,
 				C4BA67DE1815F4BF006E4673 /* OCSWarp.h */,
 				C4BA67DF1815F4BF006E4673 /* OCSWarp.m */,
 			);
@@ -1942,6 +1947,7 @@
 				C4BA69321815F4BF006E4673 /* OCSReverbAllpass.m in Sources */,
 				C42B245815F484D0006032F9 /* TweakableInstrument.m in Sources */,
 				C4BA69281815F4BF006E4673 /* OCSHighPassFilter.m in Sources */,
+				C4695F32186C0FD5009527A8 /* OCSSpectralVocoder.m in Sources */,
 				C42B245B15F484D0006032F9 /* ConvolutionInstrument.m in Sources */,
 				C42B245F15F484D0006032F9 /* ExpressionToneGenerator.m in Sources */,
 				C4BA68C81815F4BF006E4673 /* OCSFTable.m in Sources */,
