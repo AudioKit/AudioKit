@@ -1,7 +1,7 @@
 //
 //  OCSFoundation.h
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/27/13.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
@@ -197,6 +197,7 @@
 #import "OCSMoogVCF.h"
 #import "OCSResonantFilter.h"
 #import "OCSThreePoleLowpassFilter.h"
+#import "OCSVariableFrequencyResponseBandPassFilter.h"
 
 // Operations - Signal Modifiers - Reverbs
 #import "OCSBallWithinTheBoxReverb.h"
