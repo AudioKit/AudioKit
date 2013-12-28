@@ -17,10 +17,10 @@
     self = [super init];
     if (self) {
         _trackedFrequency = [[OCSInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin
-                                                                minValue:kTrackedFrequencyMin
-                                                                maxValue:kTrackedFrequencyMax];
+                                                            minimumValue:kTrackedFrequencyMin
+                                                            maximumValue:kTrackedFrequencyMax];
         [self addProperty:_trackedFrequency];
-        _trackedAmplitude = [[OCSInstrumentProperty alloc] initWithMinValue:0 maxValue:1];
+        _trackedAmplitude = [[OCSInstrumentProperty alloc] initWithMinimumValue:0 maximumValue:1];
         [self addProperty:_trackedAmplitude];
         
         

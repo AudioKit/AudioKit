@@ -671,7 +671,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C42B241A15F484D0006032F9 /* Instruments */ = {
+		C42B241A15F484D0006032F9 /* Shared Instruments */ = {
 			isa = PBXGroup;
 			children = (
 				C42B241B15F484D0006032F9 /* Continuous Control */,
@@ -688,8 +688,8 @@
 				C42B244615F484D0006032F9 /* UDOs */,
 				C42B244915F484D0006032F9 /* Unit Generators */,
 			);
-			name = Instruments;
-			path = ../Shared/Instruments;
+			name = "Shared Instruments";
+			path = ../../Shared/Instruments;
 			sourceTree = "<group>";
 		};
 		C42B241B15F484D0006032F9 /* Continuous Control */ = {
@@ -1586,7 +1586,6 @@
 			children = (
 				C4E4B457186E2C6E00D8D32B /* Objective-C Sound */,
 				C4EFBB871815C3CE001AB306 /* csound-iOS */,
-				C42B241A15F484D0006032F9 /* Instruments */,
 				C4F0783415D5F4B30084FF9E /* OCS iPad Examples */,
 				C4F0782D15D5F4B30084FF9E /* Frameworks */,
 				C4F0782B15D5F4B30084FF9E /* Products */,
@@ -1619,6 +1618,7 @@
 			isa = PBXGroup;
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
+				C42B241A15F484D0006032F9 /* Shared Instruments */,
 				C4F079C915D603160084FF9E /* Play CSD File */,
 				C4F079C215D603160084FF9E /* Play Audio File */,
 				C4F079EC15D603160084FF9E /* Unit Generators */,

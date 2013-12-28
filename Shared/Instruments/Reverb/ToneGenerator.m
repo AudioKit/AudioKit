@@ -18,8 +18,8 @@
         // INPUTS ==============================================================
         
         _frequency  = [[OCSInstrumentProperty alloc] initWithValue:220
-                                                          minValue:kFrequencyMin
-                                                          maxValue:kFrequencyMax];
+                                                      minimumValue:kFrequencyMin
+                                                      maximumValue:kFrequencyMax];
         [self addProperty:_frequency];
         
         // INSTRUMENT DEFINITION ===============================================

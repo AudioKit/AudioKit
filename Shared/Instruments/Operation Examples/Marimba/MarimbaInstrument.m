@@ -18,23 +18,23 @@
 //        // INPUTS AND CONTROLS =================================================
 //        
 //        frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
-//                                                        minValue:kFrequencyMin
-//                                                        maxValue:kFrequencyMax];
+//                                                        minimumValue:kFrequencyMin
+//                                                        maximumValue:kFrequencyMax];
 //        [self addProperty:frequency];
 //        
 //        ampliude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
-//                                                       minValue:kAmplitudeMin
-//                                                       maxValue:kAmplitudeMax];
+//                                                       minimumValue:kAmplitudeMin
+//                                                       maximumValue:kAmplitudeMax];
 //        [self addProperty:amplitude];
 //        
 //        vibratoFrequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
-//                                                               minValue:kFrequencyMin
-//                                                               maxValue:kFrequencyMax];
+//                                                               minimumValue:kFrequencyMin
+//                                                               maximumValue:kFrequencyMax];
 //        [self addProperty:vibratoFrequency];
 //        
 //        vibratoAmpliude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
-//                                                              minValue:kAmplitudeMin
-//                                                              maxValue:kAmplitudeMax];
+//                                                              minimumValue:kAmplitudeMin
+//                                                              maximumValue:kAmplitudeMax];
 //        [self addProperty:vibratoAmpliude];
 //        
 //        // INSTRUMENT DEFINITION ===============================================

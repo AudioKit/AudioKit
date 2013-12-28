@@ -17,11 +17,11 @@
         
         // INPUTS AND CONTROLS =================================================
         _dishWellBalance = [[OCSInstrumentProperty alloc] initWithValue:kDishWellBalanceInit
-                                                               minValue:kDishWellBalanceMin
-                                                               maxValue:kDishWellBalanceMax];
+                                                           minimumValue:kDishWellBalanceMin
+                                                           maximumValue:kDishWellBalanceMax];
         _dryWetBalance   = [[OCSInstrumentProperty alloc] initWithValue:kDryWetBalanceInit
-                                                               minValue:kDryWetBalanceMin
-                                                               maxValue:kDryWetBalanceMax];
+                                                           minimumValue:kDryWetBalanceMin
+                                                           maximumValue:kDryWetBalanceMax];
         
         [self addProperty:_dishWellBalance];
         [self addProperty:_dryWetBalance];

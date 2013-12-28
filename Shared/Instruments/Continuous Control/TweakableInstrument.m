@@ -17,10 +17,18 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        _amplitude  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit  minValue:kTweakableAmplitudeMin  maxValue:kTweakableAmplitudeMax];
-        _frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit  minValue:kTweakableFrequencyMin  maxValue:kTweakableFrequencyMax];
-        _modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit minValue:kTweakableModulationMin maxValue:kTweakableModulationMax];
-        _modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit   minValue:kTweakableModIndexMin   maxValue:kTweakableModIndexMax];
+        _amplitude  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit
+                                                      minimumValue:kTweakableAmplitudeMin
+                                                      maximumValue:kTweakableAmplitudeMax];
+        _frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit
+                                                      minimumValue:kTweakableFrequencyMin
+                                                      maximumValue:kTweakableFrequencyMax];
+        _modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit
+                                                      minimumValue:kTweakableModulationMin
+                                                      maximumValue:kTweakableModulationMax];
+        _modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit
+                                                      minimumValue:kTweakableModIndexMin
+                                                      maximumValue:kTweakableModIndexMax];
                 
         [self addProperty:_amplitude];
         [self addProperty:_frequency];

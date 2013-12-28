@@ -8,7 +8,7 @@
 
 #import "OscillatorInstrument.h"
 
-@implementation OscillatorInstrument 
+@implementation OscillatorInstrument
 
 - (instancetype)init {
     self = [super init];
@@ -17,13 +17,13 @@
         // INPUTS AND CONTROLS =================================================
         
         _frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
-                                                   minValue:kFrequencyMin
-                                                   maxValue:kFrequencyMax];
+                                                     minimumValue:kFrequencyMin
+                                                     maximumValue:kFrequencyMax];
         [self addProperty:_frequency];
         
         _amplitude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
-                                                  minValue:kAmplitudeMin
-                                                  maxValue:kAmplitudeMax];
+                                                     minimumValue:kAmplitudeMin
+                                                     maximumValue:kAmplitudeMax];
         [self addProperty:_amplitude];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -42,7 +42,7 @@
                                               amplitude:_amplitude];
         [self connect:myOscil];
         
-
+        
         
         // AUDIO OUTPUT ========================================================
         

@@ -19,8 +19,8 @@
         
         // INSTRUMENT CONTROL ==================================================
         _modulation  = [[OCSInstrumentProperty alloc] initWithValue:kModulationInit
-                                                           minValue:kModulationMin
-                                                           maxValue:kModulationMax];
+                                                       minimumValue:kModulationMin
+                                                       maximumValue:kModulationMax];
         [self addProperty:_modulation];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -54,8 +54,8 @@
     self = [super init];
     if (self) {
         _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
-                                                   minValue:kFrequencyMin
-                                                   maxValue:kFrequencyMax];
+                                               minimumValue:kFrequencyMin
+                                               maximumValue:kFrequencyMax];
         [self addProperty:_frequency];
     }
     return self;
