@@ -40,7 +40,6 @@
 		C4E4B972186EA59800D8D32B /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B950186EA59800D8D32B /* OscillatorInstrument.m */; };
 		C4E4B973186EA59800D8D32B /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B953186EA59800D8D32B /* AudioFilePlayer.m */; };
 		C4E4B974186EA59800D8D32B /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B954186EA59800D8D32B /* hellorcb.aif */; };
-		C4E4B975186EA59800D8D32B /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B956186EA59800D8D32B /* example.csd */; };
 		C4E4B976186EA59800D8D32B /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B959186EA59800D8D32B /* EffectsProcessor.m */; };
 		C4E4B977186EA59800D8D32B /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B95B186EA59800D8D32B /* ToneGenerator.m */; };
 		C4E4B978186EA59800D8D32B /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B95E186EA59800D8D32B /* SeqInstrument.m */; };
@@ -190,6 +189,7 @@
 		C4E4C0F9186ED35100D8D32B /* OCSStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4C061186ED35100D8D32B /* OCSStereoAudio.m */; };
 		C4E4C0FA186ED35100D8D32B /* OCSInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4C064186ED35100D8D32B /* OCSInstrumentProperty.m */; };
 		C4E4C0FB186ED35100D8D32B /* OCSNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4C066186ED35100D8D32B /* OCSNoteProperty.m */; };
+		C4E4C368186F7A4E00D8D32B /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4E4C367186F7A4E00D8D32B /* example.csd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -254,7 +254,6 @@
 		C4E4B952186EA59800D8D32B /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
 		C4E4B953186EA59800D8D32B /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C4E4B954186EA59800D8D32B /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
-		C4E4B956186EA59800D8D32B /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
 		C4E4B958186EA59800D8D32B /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
 		C4E4B959186EA59800D8D32B /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
 		C4E4B95A186EA59800D8D32B /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
@@ -549,6 +548,7 @@
 		C4E4C064186ED35100D8D32B /* OCSInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSInstrumentProperty.m; sourceTree = "<group>"; };
 		C4E4C065186ED35100D8D32B /* OCSNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSNoteProperty.h; sourceTree = "<group>"; };
 		C4E4C066186ED35100D8D32B /* OCSNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSNoteProperty.m; sourceTree = "<group>"; };
+		C4E4C367186F7A4E00D8D32B /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example.csd; path = "Play Audio File/example.csd"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -644,6 +644,7 @@
 		C42DF45315D65848001E7DB1 /* Play CSD File */ = {
 			isa = PBXGroup;
 			children = (
+				C4E4C367186F7A4E00D8D32B /* example.csd */,
 				C42DF45415D6589F001E7DB1 /* PlayCSDFileController.h */,
 				C42DF45515D6589F001E7DB1 /* PlayCSDFileController.m */,
 			);
@@ -703,7 +704,6 @@
 				C4E4B944186EA59800D8D32B /* OCSAudioAnalyzer */,
 				C4E4B947186EA59800D8D32B /* Operation Examples */,
 				C4E4B951186EA59800D8D32B /* Play Audio File */,
-				C4E4B955186EA59800D8D32B /* Play CSD File */,
 				C4E4B957186EA59800D8D32B /* Reverb */,
 				C4E4B95C186EA59800D8D32B /* Sequences */,
 				C4E4B95F186EA59800D8D32B /* UDOs */,
@@ -825,14 +825,6 @@
 				C4E4B954186EA59800D8D32B /* hellorcb.aif */,
 			);
 			path = "Play Audio File";
-			sourceTree = "<group>";
-		};
-		C4E4B955186EA59800D8D32B /* Play CSD File */ = {
-			isa = PBXGroup;
-			children = (
-				C4E4B956186EA59800D8D32B /* example.csd */,
-			);
-			path = "Play CSD File";
 			sourceTree = "<group>";
 		};
 		C4E4B957186EA59800D8D32B /* Reverb */ = {
@@ -1563,11 +1555,11 @@
 				C400ADAC15D3C9570020C794 /* Credits.rtf in Resources */,
 				C400ADB215D3C9580020C794 /* MainMenu.xib in Resources */,
 				C4E4C0EB186ED35100D8D32B /* CsGrainCompressor.udo in Resources */,
-				C4E4B975186EA59800D8D32B /* example.csd in Resources */,
 				C4E4C0EC186ED35100D8D32B /* CsGrainPitchShifter.udo in Resources */,
 				C4E4C0F1186ED35100D8D32B /* msrOsc.udo in Resources */,
 				C4E4B968186EA59800D8D32B /* dish.wav in Resources */,
 				C4E4C0AA186ED35100D8D32B /* mandpluk.aif in Resources */,
+				C4E4C368186F7A4E00D8D32B /* example.csd in Resources */,
 				C4E4B969186EA59800D8D32B /* Stairwell.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
