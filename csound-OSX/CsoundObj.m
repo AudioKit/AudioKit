@@ -212,7 +212,7 @@ uintptr_t csThread(void *data)
     CSOUND *cs;
     
 	cs = csoundCreate(NULL);
-    csoundPreCompile(cs);
+///    csoundPreCompile(cs);
     csoundSetHostImplementedAudioIO(cs, 0, 0);
     csoundSetMessageCallback(cs, messageCallback);
     
