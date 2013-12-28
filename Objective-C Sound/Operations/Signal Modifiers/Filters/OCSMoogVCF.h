@@ -17,9 +17,9 @@
 @interface OCSMoogVCF : OCSAudio
 
 /// Instantiates the moog vcf
-/// @param audioSource Input signal.
+/// @param audioSource     Input signal.
 /// @param cutoffFrequency Filter cut-off frequency in Hz.
-/// @param resonance Amount of resonance. Self-oscillation occurs when this is approximately one.
+/// @param resonance       Amount of resonance. Self-oscillation occurs when this is approximately one.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     cutoffFrequency:(OCSParameter *)cutoffFrequency
                           resonance:(OCSParameter *)resonance;

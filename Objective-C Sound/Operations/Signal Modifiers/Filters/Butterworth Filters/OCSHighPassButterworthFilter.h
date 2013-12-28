@@ -17,7 +17,7 @@
 @interface OCSHighPassButterworthFilter : OCSAudio
 
 /// Instantiates the high pass butterworth filter
-/// @param audioSource Input signal to be filtered.
+/// @param audioSource     Input signal to be filtered.
 /// @param cutoffFrequency Cutoff frequency for each of the filters.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     cutoffFrequency:(OCSControl *)cutoffFrequency;

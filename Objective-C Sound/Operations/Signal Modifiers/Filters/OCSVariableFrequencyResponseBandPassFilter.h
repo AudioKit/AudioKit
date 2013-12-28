@@ -17,9 +17,9 @@
 @interface OCSVariableFrequencyResponseBandPassFilter : OCSAudio
 
 /// Instantiates the variable frequency response band pass filter
-/// @param audioSource The input signal to be filtered.
+/// @param audioSource     The input signal to be filtered.
 /// @param cutoffFrequency Cutoff or resonant frequency of the filter, measured in Hz.
-/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points).
+/// @param bandwidth       Bandwidth of the filter (the Hz difference between the upper and lower half-power points).
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     cutoffFrequency:(OCSControl *)cutoffFrequency
                           bandwidth:(OCSControl *)bandwidth;

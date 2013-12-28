@@ -42,8 +42,6 @@
 		C4C5139F18640FA80036F065 /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5127118640FA70036F065 /* OCSSineTable.m */; };
 		C4C513A018640FA80036F065 /* OCSSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5127318640FA70036F065 /* OCSSoundFileTable.m */; };
 		C4C513A118640FA80036F065 /* OCSWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5127518640FA70036F065 /* OCSWindowsTable.m */; };
-		C4C513A218640FA80036F065 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5127818640FA70036F065 /* LevelMeter.m */; };
-		C4C513A318640FA80036F065 /* OCSAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5127A18640FA70036F065 /* OCSAudioAnalyzer.m */; };
 		C4C513A418640FA80036F065 /* OCSTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5127E18640FA70036F065 /* OCSTrackedAmplitude.m */; };
 		C4C513A518640FA80036F065 /* OCSTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5128018640FA70036F065 /* OCSTrackedFrequency.m */; };
 		C4C513A618640FA80036F065 /* OCSTrackedFrequencySchouten.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5128218640FA70036F065 /* OCSTrackedFrequencySchouten.m */; };
@@ -172,6 +170,27 @@
 		C4C5144E18640FB30036F065 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5144618640FB30036F065 /* libcsound.a */; };
 		C4C5144F18640FB30036F065 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5144718640FB30036F065 /* libsndfile.a */; };
 		C4C5145018640FB30036F065 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4C5144818640FB30036F065 /* LICENSE.TXT */; };
+		C4E4B8CA186E9A0700D8D32B /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B898186E9A0700D8D32B /* TweakableInstrument.m */; };
+		C4E4B8CB186E9A0700D8D32B /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B89A186E9A0700D8D32B /* 808loop.wav */; };
+		C4E4B8CC186E9A0700D8D32B /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B89C186E9A0700D8D32B /* ConvolutionInstrument.m */; };
+		C4E4B8CD186E9A0700D8D32B /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B89D186E9A0700D8D32B /* dish.wav */; };
+		C4E4B8CE186E9A0700D8D32B /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B89E186E9A0700D8D32B /* Stairwell.wav */; };
+		C4E4B8CF186E9A0700D8D32B /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8A1186E9A0700D8D32B /* ExpressionToneGenerator.m */; };
+		C4E4B8D0186E9A0700D8D32B /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B8A3186E9A0700D8D32B /* beats.wav */; };
+		C4E4B8D1186E9A0700D8D32B /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8A5186E9A0700D8D32B /* SimpleGrainInstrument.m */; };
+		C4E4B8D2186E9A0700D8D32B /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8A8186E9A0700D8D32B /* Harmonizer.m */; };
+		C4E4B8D3186E9A0700D8D32B /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8AB186E9A0700D8D32B /* FivePropertyInstrument.m */; };
+		C4E4B8D4186E9A0700D8D32B /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8AF186E9A0700D8D32B /* FMOscillatorInstrument.m */; };
+		C4E4B8D5186E9A0700D8D32B /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8B2186E9A0700D8D32B /* MarimbaInstrument.m */; };
+		C4E4B8D6186E9A0700D8D32B /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8B5186E9A0700D8D32B /* OscillatorInstrument.m */; };
+		C4E4B8D7186E9A0700D8D32B /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8B8186E9A0700D8D32B /* AudioFilePlayer.m */; };
+		C4E4B8D8186E9A0700D8D32B /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B8B9186E9A0700D8D32B /* hellorcb.aif */; };
+		C4E4B8D9186E9A0700D8D32B /* example.csd in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B8BB186E9A0700D8D32B /* example.csd */; };
+		C4E4B8DA186E9A0700D8D32B /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8BE186E9A0700D8D32B /* EffectsProcessor.m */; };
+		C4E4B8DB186E9A0700D8D32B /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8C0186E9A0700D8D32B /* ToneGenerator.m */; };
+		C4E4B8DC186E9A0700D8D32B /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8C3186E9A0700D8D32B /* SeqInstrument.m */; };
+		C4E4B8DD186E9A0700D8D32B /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8C6186E9A0700D8D32B /* UDOInstrument.m */; };
+		C4E4B8DE186E9A0700D8D32B /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B8C9186E9A0700D8D32B /* UnitGeneratorInstrument.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,10 +264,6 @@
 		C4C5127318640FA70036F065 /* OCSSoundFileTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSoundFileTable.m; sourceTree = "<group>"; };
 		C4C5127418640FA70036F065 /* OCSWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSWindowsTable.h; sourceTree = "<group>"; };
 		C4C5127518640FA70036F065 /* OCSWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSWindowsTable.m; sourceTree = "<group>"; };
-		C4C5127718640FA70036F065 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
-		C4C5127818640FA70036F065 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
-		C4C5127918640FA70036F065 /* OCSAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudioAnalyzer.h; sourceTree = "<group>"; };
-		C4C5127A18640FA70036F065 /* OCSAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioAnalyzer.m; sourceTree = "<group>"; };
 		C4C5127D18640FA70036F065 /* OCSTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedAmplitude.h; sourceTree = "<group>"; };
 		C4C5127E18640FA70036F065 /* OCSTrackedAmplitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTrackedAmplitude.m; sourceTree = "<group>"; };
 		C4C5127F18640FA70036F065 /* OCSTrackedFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedFrequency.h; sourceTree = "<group>"; };
@@ -525,6 +540,42 @@
 		C4C5144618640FB30036F065 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
 		C4C5144718640FB30036F065 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		C4C5144818640FB30036F065 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
+		C4E4B897186E9A0700D8D32B /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
+		C4E4B898186E9A0700D8D32B /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
+		C4E4B89A186E9A0700D8D32B /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
+		C4E4B89B186E9A0700D8D32B /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvolutionInstrument.h; sourceTree = "<group>"; };
+		C4E4B89C186E9A0700D8D32B /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionInstrument.m; sourceTree = "<group>"; };
+		C4E4B89D186E9A0700D8D32B /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
+		C4E4B89E186E9A0700D8D32B /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
+		C4E4B8A0186E9A0700D8D32B /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionToneGenerator.h; sourceTree = "<group>"; };
+		C4E4B8A1186E9A0700D8D32B /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionToneGenerator.m; sourceTree = "<group>"; };
+		C4E4B8A3186E9A0700D8D32B /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
+		C4E4B8A4186E9A0700D8D32B /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleGrainInstrument.h; sourceTree = "<group>"; };
+		C4E4B8A5186E9A0700D8D32B /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGrainInstrument.m; sourceTree = "<group>"; };
+		C4E4B8A7186E9A0700D8D32B /* Harmonizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Harmonizer.h; sourceTree = "<group>"; };
+		C4E4B8A8186E9A0700D8D32B /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harmonizer.m; sourceTree = "<group>"; };
+		C4E4B8AA186E9A0700D8D32B /* FivePropertyInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FivePropertyInstrument.h; sourceTree = "<group>"; };
+		C4E4B8AB186E9A0700D8D32B /* FivePropertyInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FivePropertyInstrument.m; sourceTree = "<group>"; };
+		C4E4B8AE186E9A0700D8D32B /* FMOscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillatorInstrument.h; sourceTree = "<group>"; };
+		C4E4B8AF186E9A0700D8D32B /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
+		C4E4B8B1186E9A0700D8D32B /* MarimbaInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarimbaInstrument.h; sourceTree = "<group>"; };
+		C4E4B8B2186E9A0700D8D32B /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarimbaInstrument.m; sourceTree = "<group>"; };
+		C4E4B8B4186E9A0700D8D32B /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
+		C4E4B8B5186E9A0700D8D32B /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
+		C4E4B8B7186E9A0700D8D32B /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
+		C4E4B8B8186E9A0700D8D32B /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
+		C4E4B8B9186E9A0700D8D32B /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
+		C4E4B8BB186E9A0700D8D32B /* example.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.csd; sourceTree = "<group>"; };
+		C4E4B8BD186E9A0700D8D32B /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
+		C4E4B8BE186E9A0700D8D32B /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
+		C4E4B8BF186E9A0700D8D32B /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
+		C4E4B8C0186E9A0700D8D32B /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
+		C4E4B8C2186E9A0700D8D32B /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqInstrument.h; sourceTree = "<group>"; };
+		C4E4B8C3186E9A0700D8D32B /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C4E4B8C5186E9A0700D8D32B /* UDOInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOInstrument.h; sourceTree = "<group>"; };
+		C4E4B8C6186E9A0700D8D32B /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOInstrument.m; sourceTree = "<group>"; };
+		C4E4B8C8186E9A0700D8D32B /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
+		C4E4B8C9186E9A0700D8D32B /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -557,6 +608,7 @@
 			isa = PBXGroup;
 			children = (
 				C4C5124C18640FA70036F065 /* Objective-C Sound */,
+				C4E4B895186E9A0700D8D32B /* Instruments */,
 				C4C5141C18640FB30036F065 /* csound-iOS */,
 				C4AEE0891835DFD7004FB983 /* OCS iOS Examples */,
 				C4AEE0AE1835DFD7004FB983 /* OCS iOS ExamplesTests */,
@@ -637,7 +689,6 @@
 				C4C5124D18640FA70036F065 /* Core Classes */,
 				C4C5125E18640FA70036F065 /* CSDFiles */,
 				C4C5126118640FA70036F065 /* FTables */,
-				C4C5127618640FA70036F065 /* Instruments */,
 				C4C5127B18640FA70036F065 /* Operations */,
 				C4C5137818640FA70036F065 /* Parameters */,
 				C4C5138718640FA80036F065 /* Properties */,
@@ -704,17 +755,6 @@
 				C4C5127518640FA70036F065 /* OCSWindowsTable.m */,
 			);
 			path = FTables;
-			sourceTree = "<group>";
-		};
-		C4C5127618640FA70036F065 /* Instruments */ = {
-			isa = PBXGroup;
-			children = (
-				C4C5127718640FA70036F065 /* LevelMeter.h */,
-				C4C5127818640FA70036F065 /* LevelMeter.m */,
-				C4C5127918640FA70036F065 /* OCSAudioAnalyzer.h */,
-				C4C5127A18640FA70036F065 /* OCSAudioAnalyzer.m */,
-			);
-			path = Instruments;
 			sourceTree = "<group>";
 		};
 		C4C5127B18640FA70036F065 /* Operations */ = {
@@ -1349,6 +1389,178 @@
 			path = libs;
 			sourceTree = "<group>";
 		};
+		C4E4B895186E9A0700D8D32B /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B896186E9A0700D8D32B /* Continuous Control */,
+				C4E4B899186E9A0700D8D32B /* Convolution */,
+				C4E4B89F186E9A0700D8D32B /* Expressions */,
+				C4E4B8A2186E9A0700D8D32B /* Grain */,
+				C4E4B8A6186E9A0700D8D32B /* Harmonizer */,
+				C4E4B8A9186E9A0700D8D32B /* MIDI */,
+				C4E4B8AC186E9A0700D8D32B /* Operation Examples */,
+				C4E4B8B6186E9A0700D8D32B /* Play Audio File */,
+				C4E4B8BA186E9A0700D8D32B /* Play CSD File */,
+				C4E4B8BC186E9A0700D8D32B /* Reverb */,
+				C4E4B8C1186E9A0700D8D32B /* Sequences */,
+				C4E4B8C4186E9A0700D8D32B /* UDOs */,
+				C4E4B8C7186E9A0700D8D32B /* Unit Generators */,
+			);
+			name = Instruments;
+			path = ../Shared/Instruments;
+			sourceTree = "<group>";
+		};
+		C4E4B896186E9A0700D8D32B /* Continuous Control */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B897186E9A0700D8D32B /* TweakableInstrument.h */,
+				C4E4B898186E9A0700D8D32B /* TweakableInstrument.m */,
+			);
+			path = "Continuous Control";
+			sourceTree = "<group>";
+		};
+		C4E4B899186E9A0700D8D32B /* Convolution */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B89A186E9A0700D8D32B /* 808loop.wav */,
+				C4E4B89B186E9A0700D8D32B /* ConvolutionInstrument.h */,
+				C4E4B89C186E9A0700D8D32B /* ConvolutionInstrument.m */,
+				C4E4B89D186E9A0700D8D32B /* dish.wav */,
+				C4E4B89E186E9A0700D8D32B /* Stairwell.wav */,
+			);
+			path = Convolution;
+			sourceTree = "<group>";
+		};
+		C4E4B89F186E9A0700D8D32B /* Expressions */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8A0186E9A0700D8D32B /* ExpressionToneGenerator.h */,
+				C4E4B8A1186E9A0700D8D32B /* ExpressionToneGenerator.m */,
+			);
+			path = Expressions;
+			sourceTree = "<group>";
+		};
+		C4E4B8A2186E9A0700D8D32B /* Grain */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8A3186E9A0700D8D32B /* beats.wav */,
+				C4E4B8A4186E9A0700D8D32B /* SimpleGrainInstrument.h */,
+				C4E4B8A5186E9A0700D8D32B /* SimpleGrainInstrument.m */,
+			);
+			path = Grain;
+			sourceTree = "<group>";
+		};
+		C4E4B8A6186E9A0700D8D32B /* Harmonizer */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8A7186E9A0700D8D32B /* Harmonizer.h */,
+				C4E4B8A8186E9A0700D8D32B /* Harmonizer.m */,
+			);
+			path = Harmonizer;
+			sourceTree = "<group>";
+		};
+		C4E4B8A9186E9A0700D8D32B /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8AA186E9A0700D8D32B /* FivePropertyInstrument.h */,
+				C4E4B8AB186E9A0700D8D32B /* FivePropertyInstrument.m */,
+			);
+			path = MIDI;
+			sourceTree = "<group>";
+		};
+		C4E4B8AC186E9A0700D8D32B /* Operation Examples */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8AD186E9A0700D8D32B /* FM Oscillator */,
+				C4E4B8B0186E9A0700D8D32B /* Marimba */,
+				C4E4B8B3186E9A0700D8D32B /* Oscillator */,
+			);
+			path = "Operation Examples";
+			sourceTree = "<group>";
+		};
+		C4E4B8AD186E9A0700D8D32B /* FM Oscillator */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8AE186E9A0700D8D32B /* FMOscillatorInstrument.h */,
+				C4E4B8AF186E9A0700D8D32B /* FMOscillatorInstrument.m */,
+			);
+			path = "FM Oscillator";
+			sourceTree = "<group>";
+		};
+		C4E4B8B0186E9A0700D8D32B /* Marimba */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8B1186E9A0700D8D32B /* MarimbaInstrument.h */,
+				C4E4B8B2186E9A0700D8D32B /* MarimbaInstrument.m */,
+			);
+			path = Marimba;
+			sourceTree = "<group>";
+		};
+		C4E4B8B3186E9A0700D8D32B /* Oscillator */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8B4186E9A0700D8D32B /* OscillatorInstrument.h */,
+				C4E4B8B5186E9A0700D8D32B /* OscillatorInstrument.m */,
+			);
+			path = Oscillator;
+			sourceTree = "<group>";
+		};
+		C4E4B8B6186E9A0700D8D32B /* Play Audio File */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8B7186E9A0700D8D32B /* AudioFilePlayer.h */,
+				C4E4B8B8186E9A0700D8D32B /* AudioFilePlayer.m */,
+				C4E4B8B9186E9A0700D8D32B /* hellorcb.aif */,
+			);
+			path = "Play Audio File";
+			sourceTree = "<group>";
+		};
+		C4E4B8BA186E9A0700D8D32B /* Play CSD File */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8BB186E9A0700D8D32B /* example.csd */,
+			);
+			path = "Play CSD File";
+			sourceTree = "<group>";
+		};
+		C4E4B8BC186E9A0700D8D32B /* Reverb */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8BD186E9A0700D8D32B /* EffectsProcessor.h */,
+				C4E4B8BE186E9A0700D8D32B /* EffectsProcessor.m */,
+				C4E4B8BF186E9A0700D8D32B /* ToneGenerator.h */,
+				C4E4B8C0186E9A0700D8D32B /* ToneGenerator.m */,
+			);
+			path = Reverb;
+			sourceTree = "<group>";
+		};
+		C4E4B8C1186E9A0700D8D32B /* Sequences */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8C2186E9A0700D8D32B /* SeqInstrument.h */,
+				C4E4B8C3186E9A0700D8D32B /* SeqInstrument.m */,
+			);
+			path = Sequences;
+			sourceTree = "<group>";
+		};
+		C4E4B8C4186E9A0700D8D32B /* UDOs */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8C5186E9A0700D8D32B /* UDOInstrument.h */,
+				C4E4B8C6186E9A0700D8D32B /* UDOInstrument.m */,
+			);
+			path = UDOs;
+			sourceTree = "<group>";
+		};
+		C4E4B8C7186E9A0700D8D32B /* Unit Generators */ = {
+			isa = PBXGroup;
+			children = (
+				C4E4B8C8186E9A0700D8D32B /* UnitGeneratorInstrument.h */,
+				C4E4B8C9186E9A0700D8D32B /* UnitGeneratorInstrument.m */,
+			);
+			path = "Unit Generators";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1425,18 +1637,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E4B8CE186E9A0700D8D32B /* Stairwell.wav in Resources */,
+				C4E4B8CD186E9A0700D8D32B /* dish.wav in Resources */,
 				C4C513CF18640FA80036F065 /* marmstk1.wav in Resources */,
 				C4C5140E18640FA80036F065 /* declick.udo in Resources */,
 				C4C5140B18640FA80036F065 /* CsGrainPitchShifter.udo in Resources */,
+				C4E4B8D8186E9A0700D8D32B /* hellorcb.aif in Resources */,
 				C4AEE09A1835DFD7004FB983 /* Main_iPad.storyboard in Resources */,
 				C4AEE0A21835DFD7004FB983 /* Images.xcassets in Resources */,
+				C4E4B8D0186E9A0700D8D32B /* beats.wav in Resources */,
 				C4C5140A18640FA80036F065 /* CsGrainCompressor.udo in Resources */,
 				C4C5139718640FA80036F065 /* test.csd in Resources */,
 				C4C5145018640FB30036F065 /* LICENSE.TXT in Resources */,
 				C4C5141018640FA80036F065 /* msrOsc.udo in Resources */,
 				C4C513CD18640FA80036F065 /* mandpluk.aif in Resources */,
 				C4AEE0971835DFD7004FB983 /* Main_iPhone.storyboard in Resources */,
+				C4E4B8CB186E9A0700D8D32B /* 808loop.wav in Resources */,
 				C4AEE08E1835DFD7004FB983 /* InfoPlist.strings in Resources */,
+				C4E4B8D9186E9A0700D8D32B /* example.csd in Resources */,
 				C4C5139618640FA80036F065 /* template.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1462,15 +1680,19 @@
 				C4C5140318640FA80036F065 /* OCSThreePoleLowpassFilter.m in Sources */,
 				C4C513A418640FA80036F065 /* OCSTrackedAmplitude.m in Sources */,
 				C4C5139D18640FA80036F065 /* OCSLineSegmentTable.m in Sources */,
+				C4E4B8D4186E9A0700D8D32B /* FMOscillatorInstrument.m in Sources */,
+				C4E4B8DD186E9A0700D8D32B /* UDOInstrument.m in Sources */,
 				C4C5140D18640FA80036F065 /* UDOCsGrainPitchShifter.m in Sources */,
 				C4C513FF18640FA80036F065 /* OCSLowPassControlFilter.m in Sources */,
 				C4C513EB18640FA80036F065 /* OCSFileInput.m in Sources */,
 				C4C5141218640FA80036F065 /* OCSArray.m in Sources */,
 				C4C513B618640FA80036F065 /* OCSCrossSynthesis.m in Sources */,
+				C4E4B8CC186E9A0700D8D32B /* ConvolutionInstrument.m in Sources */,
 				C4C5141718640FA80036F065 /* OCSParameter.m in Sources */,
 				C4C5139118640FA80036F065 /* OCSManager.m in Sources */,
 				C4C513BF18640FA80036F065 /* OCSLinearADSRControlEnvelope.m in Sources */,
 				C4C5140418640FA80036F065 /* OCSBallWithinTheBoxReverb.m in Sources */,
+				C4E4B8CA186E9A0700D8D32B /* TweakableInstrument.m in Sources */,
 				C4C513D318640FA80036F065 /* OCSVibes.m in Sources */,
 				C4C5141318640FA80036F065 /* OCSAudio.m in Sources */,
 				C4C513C918640FA80036F065 /* OCSSineOscillator.m in Sources */,
@@ -1488,6 +1710,7 @@
 				C4C513B918640FA80036F065 /* OCSFSignalMix.m in Sources */,
 				C4C5141A18640FA80036F065 /* OCSNoteProperty.m in Sources */,
 				C4C5141B18640FA80036F065 /* OCSiOSTools.m in Sources */,
+				C4E4B8DE186E9A0700D8D32B /* UnitGeneratorInstrument.m in Sources */,
 				C4C513D218640FA80036F065 /* OCSStruckMetalBar.m in Sources */,
 				C4C513DA18640FA80036F065 /* OCSSekere.m in Sources */,
 				C4C513D418640FA80036F065 /* OCSBamboo.m in Sources */,
@@ -1500,24 +1723,26 @@
 				C4C5140218640FA80036F065 /* OCSMoogVCF.m in Sources */,
 				C4C513E318640FA80036F065 /* OCSAudioSegmentArray.m in Sources */,
 				C4C513AE18640FA80036F065 /* OCSSum.m in Sources */,
+				C4E4B8D2186E9A0700D8D32B /* Harmonizer.m in Sources */,
 				C4C513BE18640FA80036F065 /* OCSLinearADSRAudioEnvelope.m in Sources */,
 				C4C513E718640FA80036F065 /* OCSLoopingOscillator.m in Sources */,
 				C4C513BD18640FA80036F065 /* OCSSinusoidBursts.m in Sources */,
 				C4AEE0941835DFD7004FB983 /* AppDelegate.m in Sources */,
 				C4C513DB18640FA80036F065 /* OCSSleighbells.m in Sources */,
 				C4C513E818640FA80036F065 /* OCSLoopingStereoOscillator.m in Sources */,
+				C4E4B8D5186E9A0700D8D32B /* MarimbaInstrument.m in Sources */,
 				C4C5138F18640FA80036F065 /* OCSEvent.m in Sources */,
 				C4C513AC18640FA80036F065 /* OCSMixedControl.m in Sources */,
 				C4C5139318640FA80036F065 /* OCSNote.m in Sources */,
 				C4C513D518640FA80036F065 /* OCSCabasa.m in Sources */,
 				C4AEE09D1835DFD7004FB983 /* MasterViewController.m in Sources */,
 				C4C513F718640FA80036F065 /* OCSBandRejectButterworthFilter.m in Sources */,
-				C4C513A318640FA80036F065 /* OCSAudioAnalyzer.m in Sources */,
 				C4C513ED18640FA80036F065 /* OCSConvolution.m in Sources */,
 				C4C513E118640FA80036F065 /* OCSRandomControl.m in Sources */,
 				C4C513E618640FA80036F065 /* OCSAdditiveCosines.m in Sources */,
 				C4C5140718640FA80036F065 /* OCSReverbAllpass.m in Sources */,
 				C4C513C718640FA80036F065 /* OCSOscillatingControl.m in Sources */,
+				C4E4B8D1186E9A0700D8D32B /* SimpleGrainInstrument.m in Sources */,
 				C4C513C218640FA80036F065 /* OCSLine.m in Sources */,
 				C4C513B118640FA80036F065 /* OCSTableValue.m in Sources */,
 				C4C513A618640FA80036F065 /* OCSTrackedFrequencySchouten.m in Sources */,
@@ -1525,6 +1750,7 @@
 				C4C513C518640FA80036F065 /* OCSLowFrequencyOscillator.m in Sources */,
 				C4C5141818640FA80036F065 /* OCSStereoAudio.m in Sources */,
 				C4C513B318640FA80036F065 /* OCSTableValueControl.m in Sources */,
+				C4E4B8D7186E9A0700D8D32B /* AudioFilePlayer.m in Sources */,
 				C4C5140618640FA80036F065 /* OCSReverb.m in Sources */,
 				C4C513D018640FA80036F065 /* OCSMarimba.m in Sources */,
 				C4C513CB18640FA80036F065 /* OCSPhasingControl.m in Sources */,
@@ -1538,15 +1764,17 @@
 				C4C513E018640FA80036F065 /* OCSRandomAudio.m in Sources */,
 				C4C513FD18640FA80036F065 /* OCSHighPassFilter.m in Sources */,
 				C4C513B518640FA80036F065 /* OCSAudioFromFSignal.m in Sources */,
+				C4E4B8DC186E9A0700D8D32B /* SeqInstrument.m in Sources */,
 				C4C513F918640FA80036F065 /* OCSLowPassButterworthFilter.m in Sources */,
 				C4C513FB18640FA80036F065 /* OCSDCBlock.m in Sources */,
 				C4C5140F18640FA80036F065 /* OCSDeclick.m in Sources */,
 				C4C513D118640FA80036F065 /* OCSPluckedString.m in Sources */,
+				C4E4B8DB186E9A0700D8D32B /* ToneGenerator.m in Sources */,
 				C4C513B218640FA80036F065 /* OCSTableValueConstant.m in Sources */,
 				C4C513B018640FA80036F065 /* OCSScaledControl.m in Sources */,
-				C4C513A218640FA80036F065 /* LevelMeter.m in Sources */,
 				C4C513CA18640FA80036F065 /* OCSVCOscillator.m in Sources */,
 				C4C513FA18640FA80036F065 /* OCSCombFilter.m in Sources */,
+				C4E4B8D3186E9A0700D8D32B /* FivePropertyInstrument.m in Sources */,
 				C4C5144D18640FB30036F065 /* CachedGyroscope.m in Sources */,
 				C4C513F818640FA80036F065 /* OCSHighPassButterworthFilter.m in Sources */,
 				C4C513C418640FA80036F065 /* OCSLowFrequencyOscillatingControl.m in Sources */,
@@ -1559,6 +1787,7 @@
 				C4C513D618640FA80036F065 /* OCSCrunch.m in Sources */,
 				C4C513E918640FA80036F065 /* OCSAudioInput.m in Sources */,
 				C4C513BA18640FA80036F065 /* OCSScaledFSignal.m in Sources */,
+				C4E4B8D6186E9A0700D8D32B /* OscillatorInstrument.m in Sources */,
 				C4C513B818640FA80036F065 /* OCSFSignalFromMonoWithAttackAnalysis.m in Sources */,
 				C4C513C618640FA80036F065 /* OCSFMOscillator.m in Sources */,
 				C4C513F418640FA80036F065 /* OCSPortamento.m in Sources */,
@@ -1584,6 +1813,7 @@
 				C4C5140118640FA80036F065 /* OCSMoogLadder.m in Sources */,
 				C4C513CC18640FA80036F065 /* OCSPhasor.m in Sources */,
 				C4C5140818640FA80036F065 /* OCSBalance.m in Sources */,
+				C4E4B8CF186E9A0700D8D32B /* ExpressionToneGenerator.m in Sources */,
 				C4C513A018640FA80036F065 /* OCSSoundFileTable.m in Sources */,
 				C4C513FE18640FA80036F065 /* OCSHilbertTransformer.m in Sources */,
 				C4C513D818640FA80036F065 /* OCSGuiro.m in Sources */,
@@ -1593,6 +1823,7 @@
 				C4C5139A18640FA80036F065 /* OCSCompositeWaveformsFromSines.m in Sources */,
 				C4C513F618640FA80036F065 /* OCSBandPassButterworthFilter.m in Sources */,
 				C4C513B418640FA80036F065 /* OCSParameter+Operation.m in Sources */,
+				C4E4B8DA186E9A0700D8D32B /* EffectsProcessor.m in Sources */,
 				C4C5139818640FA80036F065 /* OCSAdditiveCosineTable.m in Sources */,
 				C4C513E218640FA80036F065 /* OCSRandomControlStream.m in Sources */,
 				C4C5141418640FA80036F065 /* OCSConstant.m in Sources */,

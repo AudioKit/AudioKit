@@ -18,10 +18,10 @@
 @interface OCSEqualizerFilter : OCSAudio
 
 /// Instantiates the equalizer filter
-/// @param audioSource Input signal.
+/// @param audioSource     Input signal.
 /// @param centerFrequency Filter center frequency in Hz.
-/// @param bandwidth Peak/notch bandwidth in Hz.
-/// @param gain Peak/notch gain.
+/// @param bandwidth       Peak/notch bandwidth in Hz.
+/// @param gain            Peak/notch gain.
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                     centerFrequency:(OCSControl *)centerFrequency
                           bandwidth:(OCSControl *)bandwidth

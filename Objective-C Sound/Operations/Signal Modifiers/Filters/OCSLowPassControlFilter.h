@@ -17,7 +17,7 @@
 @interface OCSLowPassControlFilter : OCSControl
 
 /// Instantiates the low pass control filter
-/// @param sourceControl The control signal to be filtered
+/// @param sourceControl  The control signal to be filtered
 /// @param halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
 - (instancetype)initWithSourceControl:(OCSControl *)sourceControl
                        halfPowerPoint:(OCSControl *)halfPowerPoint;
