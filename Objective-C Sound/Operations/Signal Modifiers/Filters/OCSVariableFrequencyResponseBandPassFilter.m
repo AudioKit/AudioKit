@@ -36,7 +36,7 @@
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ resonz %@, %@, %@",
-            self, asig, kcf, kbw, kbw];
+            self, asig, kcf, kbw];
 }
 
 @end

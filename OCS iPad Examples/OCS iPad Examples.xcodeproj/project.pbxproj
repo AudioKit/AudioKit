@@ -54,8 +54,6 @@
 		C4E4B5B6186E2C6F00D8D32B /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B47C186E2C6F00D8D32B /* OCSSineTable.m */; };
 		C4E4B5B7186E2C6F00D8D32B /* OCSSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B47E186E2C6F00D8D32B /* OCSSoundFileTable.m */; };
 		C4E4B5B8186E2C6F00D8D32B /* OCSWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B480186E2C6F00D8D32B /* OCSWindowsTable.m */; };
-		C4E4B5B9186E2C6F00D8D32B /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B483186E2C6F00D8D32B /* LevelMeter.m */; };
-		C4E4B5BA186E2C6F00D8D32B /* OCSAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B485186E2C6F00D8D32B /* OCSAudioAnalyzer.m */; };
 		C4E4B5BB186E2C6F00D8D32B /* OCSTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B489186E2C6F00D8D32B /* OCSTrackedAmplitude.m */; };
 		C4E4B5BC186E2C6F00D8D32B /* OCSTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B48B186E2C6F00D8D32B /* OCSTrackedFrequency.m */; };
 		C4E4B5BD186E2C6F00D8D32B /* OCSTrackedFrequencySchouten.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B48D186E2C6F00D8D32B /* OCSTrackedFrequencySchouten.m */; };
@@ -310,10 +308,6 @@
 		C4E4B47E186E2C6F00D8D32B /* OCSSoundFileTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSoundFileTable.m; sourceTree = "<group>"; };
 		C4E4B47F186E2C6F00D8D32B /* OCSWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSWindowsTable.h; sourceTree = "<group>"; };
 		C4E4B480186E2C6F00D8D32B /* OCSWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSWindowsTable.m; sourceTree = "<group>"; };
-		C4E4B482186E2C6F00D8D32B /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
-		C4E4B483186E2C6F00D8D32B /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
-		C4E4B484186E2C6F00D8D32B /* OCSAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudioAnalyzer.h; sourceTree = "<group>"; };
-		C4E4B485186E2C6F00D8D32B /* OCSAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioAnalyzer.m; sourceTree = "<group>"; };
 		C4E4B488186E2C6F00D8D32B /* OCSTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedAmplitude.h; sourceTree = "<group>"; };
 		C4E4B489186E2C6F00D8D32B /* OCSTrackedAmplitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTrackedAmplitude.m; sourceTree = "<group>"; };
 		C4E4B48A186E2C6F00D8D32B /* OCSTrackedFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedFrequency.h; sourceTree = "<group>"; };
@@ -677,15 +671,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C42B240A15F484D0006032F9 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				C42B241A15F484D0006032F9 /* Instruments */,
-			);
-			name = Shared;
-			path = ../Shared;
-			sourceTree = "<group>";
-		};
 		C42B241A15F484D0006032F9 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,7 +688,8 @@
 				C42B244615F484D0006032F9 /* UDOs */,
 				C42B244915F484D0006032F9 /* Unit Generators */,
 			);
-			path = Instruments;
+			name = Instruments;
+			path = ../Shared/Instruments;
 			sourceTree = "<group>";
 		};
 		C42B241B15F484D0006032F9 /* Continuous Control */ = {
@@ -883,7 +869,6 @@
 				C4E4B458186E2C6E00D8D32B /* Core Classes */,
 				C4E4B469186E2C6E00D8D32B /* CSDFiles */,
 				C4E4B46C186E2C6E00D8D32B /* FTables */,
-				C4E4B481186E2C6F00D8D32B /* Instruments */,
 				C4E4B486186E2C6F00D8D32B /* Operations */,
 				C4E4B58F186E2C6F00D8D32B /* Parameters */,
 				C4E4B59E186E2C6F00D8D32B /* Properties */,
@@ -950,17 +935,6 @@
 				C4E4B480186E2C6F00D8D32B /* OCSWindowsTable.m */,
 			);
 			path = FTables;
-			sourceTree = "<group>";
-		};
-		C4E4B481186E2C6F00D8D32B /* Instruments */ = {
-			isa = PBXGroup;
-			children = (
-				C4E4B482186E2C6F00D8D32B /* LevelMeter.h */,
-				C4E4B483186E2C6F00D8D32B /* LevelMeter.m */,
-				C4E4B484186E2C6F00D8D32B /* OCSAudioAnalyzer.h */,
-				C4E4B485186E2C6F00D8D32B /* OCSAudioAnalyzer.m */,
-			);
-			path = Instruments;
 			sourceTree = "<group>";
 		};
 		C4E4B486186E2C6F00D8D32B /* Operations */ = {
@@ -1612,7 +1586,7 @@
 			children = (
 				C4E4B457186E2C6E00D8D32B /* Objective-C Sound */,
 				C4EFBB871815C3CE001AB306 /* csound-iOS */,
-				C42B240A15F484D0006032F9 /* Shared */,
+				C42B241A15F484D0006032F9 /* Instruments */,
 				C4F0783415D5F4B30084FF9E /* OCS iPad Examples */,
 				C4F0782D15D5F4B30084FF9E /* Frameworks */,
 				C4F0782B15D5F4B30084FF9E /* Products */,
@@ -1946,7 +1920,6 @@
 				C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */,
 				C4E4B5BE186E2C6F00D8D32B /* OCSMaxAudio.m in Sources */,
 				C4E4B5AF186E2C6F00D8D32B /* OCSAdditiveCosineTable.m in Sources */,
-				C4E4B5B9186E2C6F00D8D32B /* LevelMeter.m in Sources */,
 				C4E4B5B7186E2C6F00D8D32B /* OCSSoundFileTable.m in Sources */,
 				C42B245815F484D0006032F9 /* TweakableInstrument.m in Sources */,
 				C42B245B15F484D0006032F9 /* ConvolutionInstrument.m in Sources */,
@@ -1988,7 +1961,6 @@
 				C42B246C15F484D0006032F9 /* AudioFilePlayer.m in Sources */,
 				C4E4B636186E2C6F00D8D32B /* OCSInstrumentProperty.m in Sources */,
 				C4E4B5FE186E2C6F00D8D32B /* OCSAudioSegmentArray.m in Sources */,
-				C4E4B5BA186E2C6F00D8D32B /* OCSAudioAnalyzer.m in Sources */,
 				C4E4B5CA186E2C6F00D8D32B /* OCSTableValueControl.m in Sources */,
 				C42B247015F484D0006032F9 /* EffectsProcessor.m in Sources */,
 				C4E4B62E186E2C6F00D8D32B /* UDOMSROscillator.m in Sources */,

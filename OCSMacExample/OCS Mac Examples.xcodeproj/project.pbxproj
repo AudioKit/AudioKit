@@ -62,7 +62,6 @@
 		C4AEE2111835E567004FB983 /* OCSSineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0E31835E567004FB983 /* OCSSineTable.m */; };
 		C4AEE2121835E567004FB983 /* OCSSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0E51835E567004FB983 /* OCSSoundFileTable.m */; };
 		C4AEE2131835E567004FB983 /* OCSWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0E71835E567004FB983 /* OCSWindowsTable.m */; };
-		C4AEE2151835E567004FB983 /* OCSAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0EC1835E567004FB983 /* OCSAudioAnalyzer.m */; };
 		C4AEE2161835E567004FB983 /* OCSTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0F01835E567004FB983 /* OCSTrackedAmplitude.m */; };
 		C4AEE2171835E567004FB983 /* OCSTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0F21835E567004FB983 /* OCSTrackedFrequency.m */; };
 		C4AEE2181835E567004FB983 /* OCSTrackedFrequencySchouten.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AEE0F41835E567004FB983 /* OCSTrackedFrequencySchouten.m */; };
@@ -291,8 +290,6 @@
 		C4AEE0E51835E567004FB983 /* OCSSoundFileTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSSoundFileTable.m; sourceTree = "<group>"; };
 		C4AEE0E61835E567004FB983 /* OCSWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSWindowsTable.h; sourceTree = "<group>"; };
 		C4AEE0E71835E567004FB983 /* OCSWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSWindowsTable.m; sourceTree = "<group>"; };
-		C4AEE0EB1835E567004FB983 /* OCSAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSAudioAnalyzer.h; sourceTree = "<group>"; };
-		C4AEE0EC1835E567004FB983 /* OCSAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSAudioAnalyzer.m; sourceTree = "<group>"; };
 		C4AEE0EF1835E567004FB983 /* OCSTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedAmplitude.h; sourceTree = "<group>"; };
 		C4AEE0F01835E567004FB983 /* OCSTrackedAmplitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSTrackedAmplitude.m; sourceTree = "<group>"; };
 		C4AEE0F11835E567004FB983 /* OCSTrackedFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSTrackedFrequency.h; sourceTree = "<group>"; };
@@ -845,11 +842,9 @@
 				C4AEE0BF1835E566004FB983 /* Core Classes */,
 				C4AEE0D01835E566004FB983 /* CSDFiles */,
 				C4AEE0D31835E566004FB983 /* FTables */,
-				C4AEE0E81835E567004FB983 /* Instruments */,
 				C4AEE0ED1835E567004FB983 /* Operations */,
 				C4AEE1EA1835E567004FB983 /* Parameters */,
 				C4AEE1F91835E567004FB983 /* Properties */,
-				C4AEE1FE1835E567004FB983 /* Utilities */,
 			);
 			name = "Objective-C Sound";
 			path = "../Objective-C Sound";
@@ -912,15 +907,6 @@
 				C4AEE0E71835E567004FB983 /* OCSWindowsTable.m */,
 			);
 			path = FTables;
-			sourceTree = "<group>";
-		};
-		C4AEE0E81835E567004FB983 /* Instruments */ = {
-			isa = PBXGroup;
-			children = (
-				C4AEE0EB1835E567004FB983 /* OCSAudioAnalyzer.h */,
-				C4AEE0EC1835E567004FB983 /* OCSAudioAnalyzer.m */,
-			);
-			path = Instruments;
 			sourceTree = "<group>";
 		};
 		C4AEE0ED1835E567004FB983 /* Operations */ = {
@@ -1466,13 +1452,6 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
-		C4AEE1FE1835E567004FB983 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1682,7 +1661,6 @@
 				C4AEE2651835E567004FB983 /* OCSFlanger.m in Sources */,
 				C45ECBC515F5F90600F9B542 /* ToneGenerator.m in Sources */,
 				C4AEE24E1835E567004FB983 /* OCSStick.m in Sources */,
-				C4AEE2151835E567004FB983 /* OCSAudioAnalyzer.m in Sources */,
 				C4AEE2761835E567004FB983 /* OCSBallWithinTheBoxReverb.m in Sources */,
 				C4AEE2401835E567004FB983 /* OCSMandolin.m in Sources */,
 				C45ECBC915F5F90600F9B542 /* UDOInstrument.m in Sources */,
