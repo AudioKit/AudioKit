@@ -28,21 +28,23 @@
 }
 
 
-- (instancetype)initWithMinValue:(float)minValue
-                        maxValue:(float)maxValue;
+- (instancetype)initWithMinimumValue:(float)minimumValue
+                        maximumValue:(float)maximumValue;
 {
-    return [self initWithValue:minValue minValue:minValue maxValue:maxValue];
+    return [self initWithValue:minimumValue
+                  minimumValue:minimumValue
+                  maximumValue:maximumValue];
 }
 
 - (instancetype)initWithValue:(float)initialValue
-                     minValue:(float)minValue
-                     maxValue:(float)maxValue;
+                 minimumValue:(float)minimumValue
+                 maximumValue:(float)maximumValue;
 {
     self = [self init];
     if (self) {
         _value        = initialValue;
-        _minimumValue = minValue;
-        _maximumValue = maxValue;
+        _minimumValue = minimumValue;
+        _maximumValue = maximumValue;
     }
     return self;
 }
@@ -72,7 +74,7 @@
 }
 
 + (id)duration {
-    OCSNoteProperty *dur = [[self alloc] initWithMinValue:-2 maxValue:1000000];
+    OCSNoteProperty *dur = [[self alloc] initWithMinimumValue:-2 maximumValue:1000000];
     [dur setParameterString:@"p3"];
     return dur;
 }

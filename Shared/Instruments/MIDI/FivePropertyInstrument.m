@@ -24,12 +24,12 @@
         
         // INPUTS AND CONTROLS =================================================
         _pitchBend = [[OCSInstrumentProperty alloc] initWithValue:1
-                                                         minValue:kPitchBendMin
-                                                         maxValue:kPitchBendMax];
-        _modulation = [[OCSInstrumentProperty alloc] initWithMinValue:kModulationMin
-                                                             maxValue:kModulationMax];
-        _cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinValue:kLpCutoffMin
-                                                                  maxValue:kLpCutoffMax];
+                                                     minimumValue:kPitchBendMin
+                                                     maximumValue:kPitchBendMax];
+        _modulation = [[OCSInstrumentProperty alloc] initWithMinimumValue:kModulationMin
+                                                             maximumValue:kModulationMax];
+        _cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinimumValue:kLpCutoffMin
+                                                                  maximumValue:kLpCutoffMax];
         
         [self addProperty:_pitchBend];
         [self addProperty:_modulation];
@@ -74,13 +74,13 @@
     if (self) {
         
         _volume = [[OCSNoteProperty alloc] initWithValue:kVolumeInit
-                                                minValue:kVolumeMin
-                                                maxValue:kVolumeMax];
+                                            minimumValue:kVolumeMin
+                                            maximumValue:kVolumeMax];
         [self addProperty:_volume];
         
         _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
-                                                   minValue:kFrequencyMin
-                                                   maxValue:kFrequencyMax];
+                                               minimumValue:kFrequencyMin
+                                               maximumValue:kFrequencyMax];
         [self addProperty:_frequency];
         
     }

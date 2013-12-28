@@ -61,8 +61,8 @@
     self = [super init];
     if (self) {
         _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
-                                                   minValue:kFrequencyMin
-                                                   maxValue:kFrequencyMax];
+                                               minimumValue:kFrequencyMin
+                                               maximumValue:kFrequencyMax];
         [self addProperty:_frequency];
     }
     return self;

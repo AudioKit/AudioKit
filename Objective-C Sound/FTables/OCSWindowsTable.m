@@ -11,7 +11,7 @@
 @implementation OCSWindowsTable
 
 - (instancetype)initWithType:(WindowTableType)windowType
-                    maxValue:(float)maximumValue
+                maximumValue:(float)maximumValue
                         size:(int)tableSize;
 {
     return [self initWithType:kFTWindows
@@ -25,12 +25,12 @@
                         size:(int)tableSize;
 {
     return [self initWithType:windowType
-                     maxValue:1.0f
+                 maximumValue:1.0f
                          size:tableSize];
 }
 
 - (instancetype)initGaussianTypeWithBroadness:(float)windowBroadness
-                                     maxValue:(float)maximumValue
+                                 maximumValue:(float)maximumValue
                                          size:(int)tableSize;
 {
     return [self initWithType:kFTWindows
@@ -42,7 +42,7 @@
 }
 
 - (instancetype)initKaiserTypeWithOpenness:(float)windowOpenness
-                                  maxValue:(float)maximumValue
+                              maximumValue:(float)maximumValue
                                       size:(int)tableSize
 {
     return [self initWithType:kFTWindows

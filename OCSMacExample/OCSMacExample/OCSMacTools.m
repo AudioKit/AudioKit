@@ -16,8 +16,8 @@
           maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
-    float width = [slider maxValue] - [slider minValue];
-    float sliderValue = [slider minValue] + percentage * width;
+    float width = [slider maximumValue] - [slider minimumValue];
+    float sliderValue = [slider minimumValue] + percentage * width;
     [slider takeFloatValueFrom:[NSNumber numberWithFloat:sliderValue]];
 }
 

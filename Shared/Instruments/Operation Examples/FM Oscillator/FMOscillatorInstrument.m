@@ -16,28 +16,28 @@
         
         // INPUTS AND CONTROLS =================================================
         _frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
-                                                         minValue:kFrequencyMin
-                                                         maxValue:kFrequencyMax];
+                                                     minimumValue:kFrequencyMin
+                                                     maximumValue:kFrequencyMax];
         [self addProperty:_frequency];
         
         _amplitude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
-                                                         minValue:kAmplitudeMin
-                                                         maxValue:kAmplitudeMax];
+                                                     minimumValue:kAmplitudeMin
+                                                     maximumValue:kAmplitudeMax];
         [self addProperty:_amplitude];
         
         _carrierMultiplier = [[OCSInstrumentProperty alloc] initWithValue:kCarrierMultiplierInit
-                                                                 minValue:kCarrierMultiplierMin
-                                                                 maxValue:kCarrierMultiplierMax];
+                                                             minimumValue:kCarrierMultiplierMin
+                                                             maximumValue:kCarrierMultiplierMax];
         [self addProperty:_carrierMultiplier];
         
         _modulatingMultiplier = [[OCSInstrumentProperty alloc] initWithValue:kModulatingMultiplierInit
-                                                                    minValue:kModulatingMultiplierMin
-                                                                    maxValue:kModulatingMultiplierMax];
+                                                                minimumValue:kModulatingMultiplierMin
+                                                                maximumValue:kModulatingMultiplierMax];
         [self addProperty:_modulatingMultiplier];
         
         _modulationIndex = [[OCSInstrumentProperty alloc] initWithValue:kModulationIndexInit
-                                                               minValue:kModulationIndexMin
-                                                               maxValue:kModulationIndexMax];
+                                                           minimumValue:kModulationIndexMin
+                                                           maximumValue:kModulationIndexMax];
         [self addProperty:_modulationIndex];
         
         // INSTRUMENT DEFINITION ===============================================

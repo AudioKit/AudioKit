@@ -38,24 +38,24 @@
 
 
 /// Initialize the property with bounds.
-/// @param minValue Minimum value.
-/// @param maxValue Maximum value.
-- (instancetype)initWithMinValue:(float)minValue
-                        maxValue:(float)maxValue;
+/// @param minimumValue Minimum value.
+/// @param maximumValue Maximum value.
+- (instancetype)initWithMinimumValue:(float)minimumValue
+                        maximumValue:(float)maximumValue;
 
 /// Initialize the property with an initial value and bounds.
 /// @param initialValue Initial value.
-/// @param minValue Minimum value.
-/// @param maxValue Maximum value.
+/// @param minimumValue Minimum value.
+/// @param maximumValue Maximum value.
 - (instancetype)initWithValue:(float)initialValue
-                     minValue:(float)minValue
-                     maxValue:(float)maxValue;
+                 minimumValue:(float)minimumValue
+                 maximumValue:(float)maximumValue;
 
 
 
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;
 
-+(id)duration;
++ (id)duration;
 
 @end

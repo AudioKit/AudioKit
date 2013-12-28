@@ -40,7 +40,7 @@
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
-
+        
         OCSAudioOutput *audio;
         audio = [[OCSAudioOutput alloc] initWithSourceStereoAudio:reverb];
         [self connect:audio];
@@ -57,8 +57,8 @@
     self = [super init];
     if(self) {
         _speed = [[OCSNoteProperty alloc] initWithValue:kSpeedInit
-                                               minValue:kSpeedMin
-                                               maxValue:kSpeedMax];
+                                           minimumValue:kSpeedMin
+                                           maximumValue:kSpeedMax];
         [self addProperty:_speed];
     }
     return self;

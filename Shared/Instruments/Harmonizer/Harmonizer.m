@@ -16,11 +16,11 @@
     if (self) { 
         // INPUTS AND CONTROLS =================================================
         _pitch = [[OCSInstrumentProperty alloc] initWithValue:kPitchInit
-                                                     minValue:kPitchMin
-                                                     maxValue:kPitchMax];
+                                                     minimumValue:kPitchMin
+                                                     maximumValue:kPitchMax];
         _gain  = [[OCSInstrumentProperty alloc] initWithValue:kGainInit
-                                                     minValue:kGainMin
-                                                     maxValue:kGainMax];
+                                                     minimumValue:kGainMin
+                                                     maximumValue:kGainMax];
         
         [self addProperty:_pitch];
         [self addProperty:_gain];
