@@ -22,4 +22,5 @@
 - (instancetype)initWithAudioSource:(OCSAudio *)audioSource
                           delayTime:(OCSConstant *)delayTime;
 
+- (void)setOptionalFeedback:(OCSControl *)feedback;
 @end
