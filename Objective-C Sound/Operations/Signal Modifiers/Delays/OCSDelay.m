@@ -3,6 +3,8 @@
 //  Objective-C Sound
 //
 //  Auto-generated from scripts by Aurelius Prochazka on 12/26/12.
+//  Customization by Aurelius Prochazka on 12/28/13
+//
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's delay:
@@ -13,6 +15,7 @@
 
 @interface OCSDelay () {
     OCSAudio *asig;
+    OCSControl *kFeedback;
     OCSConstant *idlt;
 }
 @end
@@ -26,14 +29,21 @@
     if (self) {
         asig = audioSource;
         idlt = delayTime;
+        kFeedback = ocsp(0);
     }
     return self;
 }
+- (void)setOptionalFeedback:(OCSControl *)feedback {
+    kFeedback = feedback;
+}
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ delay %@, %@",
-            self, asig, idlt];
+    NSString *initialization = [NSString stringWithFormat:@"%@ init 0", self];
+    
+    NSString *opcodeLine = [NSString stringWithFormat:
+                            @"%@ delay %@ + (%@*%@), %@",
+                            self, asig, self, kFeedback, idlt];
+    return [NSString stringWithFormat:@"%@\n%@", initialization, opcodeLine];
 }
 
 @end
