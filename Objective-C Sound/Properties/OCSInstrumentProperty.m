@@ -71,6 +71,15 @@
     [self setValue:(((float) rand() / RAND_MAX) * width) + _minimumValue];
 }
 
+- (void)scaleWithValue:(float)value
+               minimum:(float)minimum
+               maximum:(float)maximum
+{
+    float percentage = (value-minimum)/(maximum - minimum);
+    float width = self.maximumValue - self.minimumValue;
+    self.value = self.minimumValue + percentage * width;
+}
+
 # pragma mark - CsoundValueCacheable
 
 -(BOOL)isCacheDirty {
