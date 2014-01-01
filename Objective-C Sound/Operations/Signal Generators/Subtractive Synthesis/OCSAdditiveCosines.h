@@ -2,7 +2,7 @@
 //  OCSAdditiveCosines.h
 //  Explorable Explanations
 //
-//  Created by Aurelius Prochazka on 12/22/23.
+//  Created by Aurelius Prochazka on 12/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
