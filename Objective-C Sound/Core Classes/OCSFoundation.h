@@ -103,7 +103,6 @@
 #import "OCSOscillatingControl.h"
 #import "OCSOscillator.h"
 #import "OCSSineOscillator.h"
-#import "OCSVCOscillator.h"
 
 // Operations - Signal Generators - Phasors
 #import "OCSPhasingControl.h"
