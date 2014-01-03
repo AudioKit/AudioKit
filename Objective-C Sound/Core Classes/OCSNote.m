@@ -97,7 +97,6 @@ static int currentID = 1;
 - (void) addProperty:(OCSNoteProperty *)newProperty
             withName:(NSString *)name
 {
-    #warning the name functionality may not be working
     [self.properties setValue:newProperty forKey:name];
     [propOrder addObject:name];
     [newProperty setPValue:(int)propOrder.count + 3];
