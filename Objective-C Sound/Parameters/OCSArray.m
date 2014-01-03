@@ -69,8 +69,7 @@
 + (id)arrayFromConstants:(OCSConstant *)firstConstant,... {
     OCSArray *result = [[OCSArray alloc] init];
     
-    #warning Shouldn't this be OCSConstant?
-    OCSParameter *eachParam;
+    OCSConstant *eachParam;
     NSMutableArray *initParameters = [[NSMutableArray alloc] init];
     va_list argumentList;
     if (firstConstant) { // The first argument isn't part of the varargs list, so we'll handle it separately.
