@@ -21,6 +21,9 @@
 /// Current value of the property.
 @property (nonatomic, assign) Float32 value;
 
+/// Start value for initialization.
+@property (nonatomic, assign) float initialValue;
+
 /// Minimum Value allowed.
 @property (nonatomic, assign) Float32 minimumValue;
 
@@ -51,7 +54,8 @@
                  minimumValue:(float)minimumValue
                  maximumValue:(float)maximumValue;
 
-
+/// Sets the current value to the initial value.
+- (void)reset;
 
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;

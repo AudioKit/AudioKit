@@ -25,6 +25,9 @@
 /// Current value of the property.
 @property (nonatomic, assign) float value;
 
+/// Start value for initialization.
+@property (nonatomic, assign) float initialValue;
+
 /// Minimum Value allowed.
 @property (nonatomic, assign) float minimumValue;
 
@@ -55,6 +58,9 @@
 
 /// String with the appropriate chnset statement for the CSD File
 - (NSString *)stringForCSDSetValue;
+
+/// Sets the current value to the initial value.
+- (void)reset;
 
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;

@@ -34,6 +34,7 @@
     self = [self init];
     if (self) {
         _value        = initialValue;
+        _initialValue = initialValue;
         _minimumValue = minimumValue;
         _maximumValue = maximumValue;
     }
@@ -63,6 +64,10 @@
         NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximumValue);
         _value = _maximumValue;
     }
+}
+
+- (void)reset {
+    self.value = self.initialValue;
 }
 
 - (void)randomize;

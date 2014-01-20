@@ -43,6 +43,7 @@
     self = [self init];
     if (self) {
         _value        = initialValue;
+        _initialValue = initialValue;
         _minimumValue = minimumValue;
         _maximumValue = maximumValue;
     }
@@ -66,6 +67,9 @@
     [_note updateProperties];
 }
 
+- (void)reset {
+    self.value = self.initialValue;
+}
 
 - (void)randomize;
 {
