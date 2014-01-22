@@ -1,6 +1,6 @@
 //
 //  MIDIController.h
-//  OCS Mac Examples
+//  AK Mac Examples
 //
 //  Created by Aurelius Prochazka on 8/13/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.

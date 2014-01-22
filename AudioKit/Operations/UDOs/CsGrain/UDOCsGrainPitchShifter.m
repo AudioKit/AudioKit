@@ -1,27 +1,27 @@
 //
 //  UDOPitchShifter.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/23/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "UDOCsGrainPitchShifter.h"
+#import "UDOCSGrainPitchShifter.h"
 
-@interface UDOCsGrainPitchShifter () {
-    OCSStereoAudio *inLR;
-    OCSControl *pitch;
-    OCSControl *offset;
-    OCSControl *feedback;
+@interface UDOCSGrainPitchShifter () {
+    AKStereoAudio *inLR;
+    AKControl *pitch;
+    AKControl *offset;
+    AKControl *feedback;
 }
 @end
 
-@implementation UDOCsGrainPitchShifter
+@implementation UDOCSGrainPitchShifter
 
-- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                                basePitch:(OCSControl *)basePitch
-                          offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
-                            feedbackLevel:(OCSControl *)feedbackLevel
+- (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)sourceStereo
+                                basePitch:(AKControl *)basePitch
+                          offsetFrequency:(AKControl *)fineTuningOffsetFrequency
+                            feedbackLevel:(AKControl *)feedbackLevel
 {
     self = [super init];
     if (self) {

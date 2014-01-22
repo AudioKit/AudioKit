@@ -1,19 +1,19 @@
 //
 //  UDOPitchShifter.h
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/23/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Pitch Shifter from Boulanger Labs' csGrain
 
-#import "OCSStereoAudio.h"
-#import "OCSParameter+Operation.h"
+#import "AKStereoAudio.h"
+#import "AKParameter+Operation.h"
 
 /** Pitch shifter from Boulanger Labs' csGrain application.
  Stereo audio input and output.
  */
-@interface UDOCsGrainPitchShifter : OCSStereoAudio
+@interface UDOCSGrainPitchShifter : AKStereoAudio
 
 /** Instantiates the pitch shifter.
  
@@ -23,9 +23,9 @@
  @param feedbackLevel              Typically a value from 0.0 (no feedback to 1.0 (100% feedback).
  @return                           An instance of the pitch shifter.
  */
-- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                                basePitch:(OCSControl *)basePitch
-                          offsetFrequency:(OCSControl *)fineTuningOffsetFrequency
-                            feedbackLevel:(OCSControl *)feedbackLevel;
+- (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)sourceStereo
+                                basePitch:(AKControl *)basePitch
+                          offsetFrequency:(AKControl *)fineTuningOffsetFrequency
+                            feedbackLevel:(AKControl *)feedbackLevel;
 
 @end

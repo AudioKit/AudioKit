@@ -1,41 +1,41 @@
 //
-//  OCSAudioAnalyzer.m
-//  Objective-C Sound
+//  AKAudioAnalyzer.m
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 11/14/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudioAnalyzer.h"
-#import "OCSTrackedFrequency.h"
-#import "OCSTrackedAmplitude.h"
-#import "OCSAssignment.h"
+#import "AKAudioAnalyzer.h"
+#import "AKTrackedFrequency.h"
+#import "AKTrackedAmplitude.h"
+#import "AKAssignment.h"
 
-@implementation OCSAudioAnalyzer
+@implementation AKAudioAnalyzer
 
-- (instancetype)initWithAudioSource:(OCSAudio *)audioSource {
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource {
     self = [super init];
     if (self) {
-        _trackedFrequency = [[OCSInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin
+        _trackedFrequency = [[AKInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin
                                                             minimumValue:kTrackedFrequencyMin
                                                             maximumValue:kTrackedFrequencyMax];
         [self addProperty:_trackedFrequency];
-        _trackedAmplitude = [[OCSInstrumentProperty alloc] initWithMinimumValue:0 maximumValue:1];
+        _trackedAmplitude = [[AKInstrumentProperty alloc] initWithMinimumValue:0 maximumValue:1];
         [self addProperty:_trackedAmplitude];
         
         
-        OCSTrackedFrequency *frequency;
-        frequency = [[OCSTrackedFrequency alloc] initWithAudioSource:audioSource
-                                                          sampleSize:ocsp(2048)];
+        AKTrackedFrequency *frequency;
+        frequency = [[AKTrackedFrequency alloc] initWithAudioSource:audioSource
+                                                          sampleSize:akp(2048)];
         [self connect:frequency];
-        [self connect:[[OCSAssignment alloc] initWithOutput:_trackedFrequency
+        [self connect:[[AKAssignment alloc] initWithOutput:_trackedFrequency
                                                       input:frequency]];
         
         
-        OCSTrackedAmplitude *amplitude;
-        amplitude = [[OCSTrackedAmplitude alloc] initWithAudioSource:audioSource];
+        AKTrackedAmplitude *amplitude;
+        amplitude = [[AKTrackedAmplitude alloc] initWithAudioSource:audioSource];
         [self connect:amplitude];
-        [self connect:[[OCSAssignment alloc] initWithOutput:_trackedAmplitude
+        [self connect:[[AKAssignment alloc] initWithOutput:_trackedAmplitude
                                                       input:amplitude]];
     }
     return self;

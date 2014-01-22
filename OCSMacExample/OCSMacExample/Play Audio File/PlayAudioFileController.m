@@ -1,32 +1,32 @@
 //
 //  PlayAudioFileController.m
-//  OCSMacExample
+//  AKMacExample
 //
 //  Created by Aurelius Prochazka on 8/11/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "PlayAudioFileController.h"
-#import "OCSManager.h"
+#import "AKManager.h"
 #import "AudioFilePlayer.h"
 
 @interface PlayAudioFileController () {
     AudioFilePlayer *audioFilePlayer;
-    OCSOrchestra *orchestra;
+    AKOrchestra *orchestra;
 }
 @end
 
 @implementation PlayAudioFileController
 
 - (IBAction)start:(id)sender {
-    orchestra = [[OCSOrchestra alloc] init];
+    orchestra = [[AKOrchestra alloc] init];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     [orchestra addInstrument:audioFilePlayer];
-    [[OCSManager sharedOCSManager] runOrchestra:orchestra];
+    [[AKManager sharedAKManager] runOrchestra:orchestra];
 }
 
 - (IBAction)stop:(id)sender {
-    [[OCSManager sharedOCSManager] stop];
+    [[AKManager sharedAKManager] stop];
 }
 
 - (IBAction)touchButton:(id)sender {

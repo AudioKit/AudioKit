@@ -29,7 +29,7 @@
 @protocol CsoundValueCacheable <NSObject>
 
 -(void)setup:(CsoundObj*)csoundObj;
--(void)updateValuesToCsound;
+-(void)updateValuesTAKound;
 -(void)updateValuesFromCsound;
 -(void)cleanup;
 

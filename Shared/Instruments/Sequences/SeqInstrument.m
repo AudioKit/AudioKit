@@ -1,6 +1,6 @@
 //
 //  SeqInstrument.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/18/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -18,29 +18,29 @@
         [self addNoteProperty:note.frequency];
         
         // INSTRUMENT CONTROL ==================================================
-        _modulation  = [[OCSInstrumentProperty alloc] initWithValue:kModulationInit
+        _modulation  = [[AKInstrumentProperty alloc] initWithValue:kModulationInit
                                                        minimumValue:kModulationMin
                                                        maximumValue:kModulationMax];
         [self addProperty:_modulation];
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSSineTable *sineTable = [[OCSSineTable alloc] init];
+        AKSineTable *sineTable = [[AKSineTable alloc] init];
         [self addFTable:sineTable];
         
-        OCSFMOscillator *fmOscillator;
-        fmOscillator = [[OCSFMOscillator alloc] initWithFTable:sineTable
+        AKFMOscillator *fmOscillator;
+        fmOscillator = [[AKFMOscillator alloc] initWithFTable:sineTable
                                                  baseFrequency:note.frequency
-                                             carrierMultiplier:ocsp(2)
+                                             carrierMultiplier:akp(2)
                                           modulatingMultiplier:_modulation
-                                               modulationIndex:ocsp(15)
-                                                     amplitude:ocsp(0.2)];
+                                               modulationIndex:akp(15)
+                                                     amplitude:akp(0.2)];
         [self connect:fmOscillator];
         
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:fmOscillator];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscillator];
         [self connect:audio];
     }
     return self;
@@ -53,7 +53,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
+        _frequency = [[AKNoteProperty alloc] initWithValue:kFrequencyInit
                                                minimumValue:kFrequencyMin
                                                maximumValue:kFrequencyMax];
         [self addProperty:_frequency];

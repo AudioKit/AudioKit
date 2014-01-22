@@ -1,13 +1,13 @@
 //
 //  ExpressionToneGenerator.h
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFoundation.h"
+#import "AKFoundation.h"
 
-@interface ExpressionToneGenerator : OCSInstrument
+@interface ExpressionToneGenerator : AKInstrument
 
 @end

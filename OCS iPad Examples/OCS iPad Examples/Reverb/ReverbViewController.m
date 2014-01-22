@@ -1,13 +1,13 @@
 //
 //  ReverbViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "ReverbViewController.h"
-#import "OCSiOSTools.h"
+#import "AKiOSTools.h"
 #import "ToneGenerator.h"
 #import "EffectsProcessor.h"
 
@@ -23,14 +23,14 @@
 {
     [super viewDidLoad];
     
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     toneGenerator = [[ToneGenerator alloc] init];
     fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
     
     [orch addInstrument:toneGenerator];
     [orch addInstrument:fx];
     
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender {

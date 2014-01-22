@@ -1,6 +1,6 @@
 //
 //  EffectsProcessor.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -10,22 +10,22 @@
 
 @implementation EffectsProcessor
 
-- (instancetype)initWithAudioSource:(OCSAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {
     self = [super init];
     if (self) {                  
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSReverb * reverb = [[OCSReverb alloc] initWithAudioSource:audioSource
-                                                      feedbackLevel:ocsp(0.8)
-                                                    cutoffFrequency:ocsp(12000)];
+        AKReverb * reverb = [[AKReverb alloc] initWithAudioSource:audioSource
+                                                      feedbackLevel:akp(0.8)
+                                                    cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
             
-        OCSAudioOutput *audio;
-        audio = [[OCSAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:ocsp(0.2)] ];
+        AKAudioOutput *audio;
+        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:akp(0.2)] ];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

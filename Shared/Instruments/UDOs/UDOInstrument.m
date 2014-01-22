@@ -1,6 +1,6 @@
 //
 //  UDOInstrument.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/23/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -27,27 +27,27 @@
         UDOMSROscillator *msrOsc;
         msrOsc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
                                               frequency:note.frequency
-                                              amplitude:ocsp(0.5)];
+                                              amplitude:akp(0.5)];
         [self addUDO:msrOsc];
         
         UDOCsGrainPitchShifter *ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithSourceStereoAudio:[OCSStereoAudio stereoFromMono:msrOsc]
-                                                             basePitch:ocsp(2.7)
-                                                       offsetFrequency:ocsp(0)
-                                                         feedbackLevel:ocsp(0.9)];
+        ps = [[UDOCsGrainPitchShifter alloc] initWithSourceStereoAudio:[AKStereoAudio stereoFromMono:msrOsc]
+                                                             basePitch:akp(2.7)
+                                                       offsetFrequency:akp(0)
+                                                         feedbackLevel:akp(0.9)];
         [self addUDO:ps];
         
         UDOCsGrainCompressor *comp;
         comp = [[UDOCsGrainCompressor alloc] initWithSourceStereoAudio:ps
-                                                             threshold:ocsp(-2.0)
-                                                      compressionRatio:ocsp(0.5)
-                                                            attackTime:ocsp(0.1)
-                                                           releaseTime:ocsp(0.2)];
+                                                             threshold:akp(-2.0)
+                                                      compressionRatio:akp(0.5)
+                                                            attackTime:akp(0.1)
+                                                           releaseTime:akp(0.2)];
         [self addUDO:comp];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *stereoOutput = [[OCSAudioOutput alloc] initWithSourceStereoAudio:comp];
+        AKAudioOutput *stereoOutput = [[AKAudioOutput alloc] initWithSourceStereoAudio:comp];
         [self connect:stereoOutput];
     }
     return self;
@@ -60,7 +60,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyInit
+        _frequency = [[AKNoteProperty alloc] initWithValue:kFrequencyInit
                                                minimumValue:kFrequencyMin
                                                maximumValue:kFrequencyMax];
         [self addProperty:_frequency];

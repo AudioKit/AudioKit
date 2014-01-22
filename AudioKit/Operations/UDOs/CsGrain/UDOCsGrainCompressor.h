@@ -1,13 +1,13 @@
 //
 //  UDOCompressor.h
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSStereoAudio.h"
-#import "OCSParameter+Operation.h"
+#import "AKStereoAudio.h"
+#import "AKParameter+Operation.h"
 
 /** Stereo compressor from Boulanger Labs' csGrain application.
  Stereo audio input and output.
@@ -22,7 +22,7 @@
  The value 1 will result in no change.
  */
 
-@interface UDOCsGrainCompressor : OCSStereoAudio
+@interface UDOCSGrainCompressor : AKStereoAudio
 
 /** Instantiates the compressor
  
@@ -33,10 +33,10 @@
  @param releaseTime       The release time in seconds. A typical value is 0.1 seconds.
  @return                  And instance of the compressor.
  */
-- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                                threshold:(OCSControl *)dBThreshold
-                         compressionRatio:(OCSControl *)compressionRatio
-                               attackTime:(OCSControl *)attackTime
-                              releaseTime:(OCSControl *)releaseTime;
+- (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)sourceStereo
+                                threshold:(AKControl *)dBThreshold
+                         compressionRatio:(AKControl *)compressionRatio
+                               attackTime:(AKControl *)attackTime
+                              releaseTime:(AKControl *)releaseTime;
 
 @end

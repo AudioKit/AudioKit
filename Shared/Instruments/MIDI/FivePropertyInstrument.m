@@ -1,6 +1,6 @@
 //
 //  FivePropertyInstrument.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/13/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -23,12 +23,12 @@
         
         
         // INPUTS AND CONTROLS =================================================
-        _pitchBend = [[OCSInstrumentProperty alloc] initWithValue:1
+        _pitchBend = [[AKInstrumentProperty alloc] initWithValue:1
                                                      minimumValue:kPitchBendMin
                                                      maximumValue:kPitchBendMax];
-        _modulation = [[OCSInstrumentProperty alloc] initWithMinimumValue:kModulationMin
+        _modulation = [[AKInstrumentProperty alloc] initWithMinimumValue:kModulationMin
                                                              maximumValue:kModulationMax];
-        _cutoffFrequency = [[OCSInstrumentProperty alloc] initWithMinimumValue:kLpCutoffMin
+        _cutoffFrequency = [[AKInstrumentProperty alloc] initWithMinimumValue:kLpCutoffMin
                                                                   maximumValue:kLpCutoffMax];
         
         [self addProperty:_pitchBend];
@@ -37,28 +37,28 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSSineTable *sine = [[OCSSineTable alloc] init];
+        AKSineTable *sine = [[AKSineTable alloc] init];
         [self addFTable:sine];
         
-        OCSControl *bentFreq;
-        bentFreq = [[OCSControl alloc] initWithExpression:[NSString stringWithFormat:@"%@  * %@", note.frequency, _pitchBend]];
+        AKControl *bentFreq;
+        bentFreq = [[AKControl alloc] initWithExpression:[NSString stringWithFormat:@"%@  * %@", note.frequency, _pitchBend]];
         
-        OCSFMOscillator *fm = [[OCSFMOscillator alloc] initWithFTable:sine
+        AKFMOscillator *fm = [[AKFMOscillator alloc] initWithFTable:sine
                                                         baseFrequency:bentFreq
-                                                    carrierMultiplier:ocsp(2)
+                                                    carrierMultiplier:akp(2)
                                                  modulatingMultiplier:_modulation
-                                                      modulationIndex:ocsp(15)
+                                                      modulationIndex:akp(15)
                                                             amplitude:note.volume];
         [self connect:fm];
         
-        OCSLowPassButterworthFilter *lpFilter;
-        lpFilter = [[OCSLowPassButterworthFilter alloc] initWithAudioSource:fm
+        AKLowPassButterworthFilter *lpFilter;
+        lpFilter = [[AKLowPassButterworthFilter alloc] initWithAudioSource:fm
                                                             cutoffFrequency:_cutoffFrequency];
         [self connect:lpFilter];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:lpFilter];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:lpFilter];
         [self connect:audio];
     }
     return self;
@@ -73,12 +73,12 @@
     self = [super init];
     if (self) {
         
-        _volume = [[OCSNoteProperty alloc] initWithValue:kVolumeInit
+        _volume = [[AKNoteProperty alloc] initWithValue:kVolumeInit
                                             minimumValue:kVolumeMin
                                             maximumValue:kVolumeMax];
         [self addProperty:_volume];
         
-        _frequency = [[OCSNoteProperty alloc] initWithValue:kFrequencyMin
+        _frequency = [[AKNoteProperty alloc] initWithValue:kFrequencyMin
                                                minimumValue:kFrequencyMin
                                                maximumValue:kFrequencyMax];
         [self addProperty:_frequency];

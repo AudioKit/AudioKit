@@ -1,21 +1,21 @@
 //
-//  OCSAudioAnalyzer.h
-//  Objective-C Sound
+//  AKAudioAnalyzer.h
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 11/14/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSInstrument.h"
+#import "AKInstrument.h"
 
-@interface OCSAudioAnalyzer : OCSInstrument
+@interface AKAudioAnalyzer : AKInstrument
 
-@property (nonatomic, strong) OCSInstrumentProperty *trackedFrequency;
+@property (nonatomic, strong) AKInstrumentProperty *trackedFrequency;
 #define kTrackedFrequencyMin  0.0
 #define kTrackedFrequencyMax  2500.0
 
-@property (nonatomic, strong) OCSInstrumentProperty *trackedAmplitude;
+@property (nonatomic, strong) AKInstrumentProperty *trackedAmplitude;
 
-- (instancetype)initWithAudioSource:(OCSAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
 
 @end

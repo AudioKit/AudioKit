@@ -1,6 +1,6 @@
 //
 //  InitialViewController.m
-//  OCS iPad Examples
+//  AK iPad Examples
 //
 //  Created by Aurelius Prochazka on 6/20/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -61,7 +61,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Objective-C Sound", @"Objective-C Sound");
+        self.title = NSLocalizedString(@"AudioKit", @"AudioKit");
     }
     return self;
 }

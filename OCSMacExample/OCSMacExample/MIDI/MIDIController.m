@@ -1,18 +1,18 @@
 //
 //  MIDIController.m
-//  OCS Mac Examples
+//  AK Mac Examples
 //
 //  Created by Aurelius Prochazka on 8/13/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "MIDIController.h"
-#import "OCSManager.h"
+#import "AKManager.h"
 #import "FivePropertyInstrument.h"
-#import "OCSMacTools.h"
+#import "AKMacTools.h"
 
 
-@interface MIDIController () <OCSMidiListener> {
+@interface MIDIController () <AKMidiListener> {
     int _channel;
     int _note;
     int _modulation;
@@ -20,7 +20,7 @@
     int _controllerNumber;
     int _controllerValue;
     FivePropertyInstrument *instrument;
-    OCSOrchestra *orch;
+    AKOrchestra *orch;
     NSMutableDictionary *currentNotes;
 }
 @end
@@ -37,13 +37,13 @@
     
     currentNotes = [[NSMutableDictionary alloc] init];
     
-    orch = [[OCSOrchestra alloc] init];
+    orch = [[AKOrchestra alloc] init];
     instrument = [[FivePropertyInstrument alloc] init];
     [orch addInstrument:instrument];
     
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
-    [[OCSManager sharedOCSManager] enableMidi];
-    [[[OCSManager sharedOCSManager] midi] addListener:self];
+    [[AKManager sharedAKManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] enableMidi];
+    [[[AKManager sharedAKManager] midi] addListener:self];
 }
 
 - (void)midiNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
@@ -51,8 +51,8 @@
     _note    = note;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     FivePropertyInstrumentNote *ocsNote;
-    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[OCSMacTools midiNoteToFrequency:note]
-                                                           atVolume:[OCSMacTools scaleValue:velocity
+    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[AKMacTools midiNoteToFrequency:note]
+                                                           atVolume:[AKMacTools scaleValue:velocity
                                                                            fromMinimum:0
                                                                            fromMaximum:127
                                                                              toMinimum:kVolumeMin
@@ -69,7 +69,7 @@
 {
     _channel = channel;
     _note    = note;
-    OCSNote *endingNote = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
+    AKNote *endingNote = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
     [endingNote stop];
 }
 
@@ -81,7 +81,7 @@
     if (_controllerNumber > 1) {
         _controllerValue = value;
         [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
-        float cutoff = [OCSMacTools scaleControllerValue:value
+        float cutoff = [AKMacTools scaleControllerValue:value
                                         fromMinimum:kLpCutoffMax
                                           toMaximum:kLpCutoffMin];
         instrument.cutoffFrequency.value = cutoff;
@@ -95,13 +95,13 @@
     
     float bend;
     if (pitchWheelValue <=8192) {
-        bend = [OCSMacTools scaleValue:pitchWheelValue
+        bend = [AKMacTools scaleValue:pitchWheelValue
                       fromMinimum:0
                       fromMaximum:8192
                         toMinimum:kPitchBendMin
                         toMaximum:1];
     } else {
-        bend = [OCSMacTools scaleValue:pitchWheelValue
+        bend = [AKMacTools scaleValue:pitchWheelValue
                       fromMinimum:8192
                       fromMaximum:16384
                         toMinimum:1
@@ -115,7 +115,7 @@
     _modulation = modulation;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     
-    float mod = [OCSMacTools scaleControllerValue:modulation
+    float mod = [AKMacTools scaleControllerValue:modulation
                                  fromMinimum:kModulationMin
                                    toMaximum:kModulationMax];
     instrument.modulation.value = mod;
@@ -126,20 +126,20 @@
     [_noteLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _note]];
     
     [_modulationLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _modulation]];
-    [OCSMacTools setSlider:_modulationSlider
+    [AKMacTools setSlider:_modulationSlider
             withValue:_modulation
               minimum:0
               maximum:127];
     
     [_pitchBendLabel setAttributedStringValue:[NSString stringWithFormat:@"%i", _pitchBend]];
-    [OCSMacTools setSlider:_pitchBendSlider
+    [AKMacTools setSlider:_pitchBendSlider
             withValue:_pitchBend
               minimum:0
               maximum:powf(2.0, 14.0)];
     
     [_controllerNumberLabel setAttributedStringValue:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
     [_controllerValueLabel  setAttributedStringValue:[NSString stringWithFormat:@"%i", _controllerValue]];
-    [OCSMacTools setSlider:_controllerSlider
+    [AKMacTools setSlider:_controllerSlider
             withValue:_controllerValue
               minimum:0
               maximum:127];

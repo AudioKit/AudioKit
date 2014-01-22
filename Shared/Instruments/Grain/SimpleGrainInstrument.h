@@ -1,13 +1,13 @@
 //
 //  SimpleGrainInstrument.h
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/21/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFoundation.h"
+#import "AKFoundation.h"
 
-@interface SimpleGrainInstrument : OCSInstrument
+@interface SimpleGrainInstrument : AKInstrument
 
 @end

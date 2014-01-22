@@ -1,6 +1,6 @@
 //
 //  ExpressionToneGenerator.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -16,43 +16,43 @@
     if (self) {                  
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSSineTable * sineTable = [[OCSSineTable alloc] init];
+        AKSineTable * sineTable = [[AKSineTable alloc] init];
         [self addFTable:sineTable];
         
-        OCSSineTable * vibratoSine = [[OCSSineTable alloc] init];
+        AKSineTable * vibratoSine = [[AKSineTable alloc] init];
         [self addDynamicFTable:vibratoSine];
         
-        OCSOscillatingControl * vibratoOscillator;
+        AKOscillatingControl * vibratoOscillator;
 
-        vibratoOscillator = [[OCSOscillatingControl alloc] initWithFTable:vibratoSine
-                                                                frequency:ocsp(6)
-                                                                amplitude:ocsp(40)];
+        vibratoOscillator = [[AKOscillatingControl alloc] initWithFTable:vibratoSine
+                                                                frequency:akp(6)
+                                                                amplitude:akp(40)];
         [self connect:vibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
-        OCSControl * vibrato = [OCSControl parameterWithFormat:
+        AKControl * vibrato = [AKControl parameterWithFormat:
                                      @"%d + (%g * %@)", 
                                      vibratoOffset, vibratoScale, vibratoOscillator];
         
-        OCSConstant * amplitudeOffset = ocsp(0.0);
+        AKConstant * amplitudeOffset = akp(0.0);
         
-        OCSLine * amplitudeRamp = [[OCSLine alloc] initFromValue:ocsp(0) 
-                                                         toValue:ocsp(0.5)
-                                                        duration:ocsp(3.0)];
+        AKLine * amplitudeRamp = [[AKLine alloc] initFromValue:akp(0) 
+                                                         toValue:akp(0.5)
+                                                        duration:akp(3.0)];
         [self connect:amplitudeRamp];
         
-        OCSControl * totalAmplitude = [OCSControl parameterWithFormat:
+        AKControl * totalAmplitude = [AKControl parameterWithFormat:
                                             @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
-        OCSOscillator * oscillator;
-        oscillator = [[OCSOscillator alloc]  initWithFTable:sineTable
+        AKOscillator * oscillator;
+        oscillator = [[AKOscillator alloc]  initWithFTable:sineTable
                                                   frequency:vibrato
                                                   amplitude:totalAmplitude];
         [self connect:oscillator ];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:oscillator];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:oscillator];
         [self connect:audio];
     }
     return self;

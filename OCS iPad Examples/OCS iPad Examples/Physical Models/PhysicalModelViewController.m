@@ -1,16 +1,16 @@
 //
 //  PhysicalModelViewController.m
-//  OCS iPad Examples
+//  AK iPad Examples
 //
 //  Created by Aurelius Prochazka on 10/29/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "PhysicalModelViewController.h"
-#import "OCSiOSTools.h"
-#import "OCSManager.h"
+#import "AKiOSTools.h"
+#import "AKManager.h"
 
-#import "OCSFoundation.h"
+#import "AKFoundation.h"
 
 @interface PhysicalModelViewController ()
 
@@ -22,18 +22,18 @@
 {
     [super viewDidLoad];
     
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
-    OCSInstrument *instrument = [[OCSInstrument alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
+    AKInstrument *instrument = [[AKInstrument alloc] init];
     
-    OCSMandolin *mandolin = [[OCSMandolin alloc] initWithBodySize:ocsp(1)
-                                                        frequency:ocsp(440)
-                                             pairedStringDetuning:ocsp(1)
-                                                    pluckPosition:ocsp(0.4)
-                                                         loopGain:ocsp(1)
-                                                        amplitude:ocsp(1)];
+    AKMandolin *mandolin = [[AKMandolin alloc] initWithBodySize:akp(1)
+                                                        frequency:akp(440)
+                                             pairedStringDetuning:akp(1)
+                                                    pluckPosition:akp(0.4)
+                                                         loopGain:akp(1)
+                                                        amplitude:akp(1)];
     [instrument connect:mandolin];
     [orch addInstrument:instrument];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 

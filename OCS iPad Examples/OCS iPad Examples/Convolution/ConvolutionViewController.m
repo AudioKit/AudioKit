@@ -1,14 +1,14 @@
 //
 //  ConvolutionViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/27/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "ConvolutionViewController.h"
-#import "OCSiOSTools.h"
-#import "OCSManager.h"
+#import "AKiOSTools.h"
+#import "AKManager.h"
 #import "ConvolutionInstrument.h"
 
 @interface ConvolutionViewController () {
@@ -22,10 +22,10 @@
 {
     [super viewDidLoad];
     
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     conv = [[ConvolutionInstrument alloc] init];
     [orch addInstrument:conv];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 - (IBAction)start:(id)sender {
@@ -33,10 +33,10 @@
 }
 
 - (IBAction)changeDryWet:(id)sender {
-    [OCSiOSTools setProperty:conv.dryWetBalance withSlider:(UISlider *)sender];
+    [AKiOSTools setProperty:conv.dryWetBalance withSlider:(UISlider *)sender];
 }
 - (IBAction)changeDishWell:(id)sender {
-    [OCSiOSTools setProperty:conv.dishWellBalance withSlider:(UISlider *)sender];
+    [AKiOSTools setProperty:conv.dishWellBalance withSlider:(UISlider *)sender];
 }
 
 @end

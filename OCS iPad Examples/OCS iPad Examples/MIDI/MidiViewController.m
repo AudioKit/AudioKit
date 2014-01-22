@@ -1,17 +1,17 @@
 //
 //  MidiViewController.m
-//  OCS iPad Examples
+//  AK iPad Examples
 //
 //  Created by Aurelius Prochazka on 8/11/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "MidiViewController.h"
-#import "OCSManager.h"
+#import "AKManager.h"
 #import "FivePropertyInstrument.h"
-#import "OCSiOSTools.h"
+#import "AKiOSTools.h"
 
-@interface MidiViewController () <OCSMidiListener> {
+@interface MidiViewController () <AKMidiListener> {
     int _channel;
     int _note;
     int _modulation;
@@ -19,7 +19,7 @@
     int _controllerNumber;
     int _controllerValue;
     FivePropertyInstrument *instrument;
-    OCSOrchestra *orch;
+    AKOrchestra *orch;
     NSMutableDictionary *currentNotes;
 }
 @end
@@ -31,20 +31,20 @@
     [noteLabel setText:[NSString stringWithFormat:@"%i", _note]];
     
     [modulationLabel setText:[NSString stringWithFormat:@"%i", _modulation]];
-    [OCSiOSTools setSlider:modulationSlider
+    [AKiOSTools setSlider:modulationSlider
                  withValue:_modulation
                    minimum:0
                    maximum:127];
     
     [pitchBendLabel setText:[NSString stringWithFormat:@"%i", _pitchBend]];
-    [OCSiOSTools setSlider:pitchBendSlider
+    [AKiOSTools setSlider:pitchBendSlider
                  withValue:_pitchBend
                    minimum:0
                    maximum:powf(2.0, 14.0)];
     
     [controllerNumberLabel setText:[NSString stringWithFormat:@"CC# %i", _controllerNumber]];
     [controllerValueLabel  setText:[NSString stringWithFormat:@"%i", _controllerValue]];
-    [OCSiOSTools setSlider:controllerSlider
+    [AKiOSTools setSlider:controllerSlider
                  withValue:_controllerValue
                    minimum:0
                    maximum:127];
@@ -63,13 +63,13 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    orch = [[OCSOrchestra alloc] init];
+    orch = [[AKOrchestra alloc] init];
     instrument = [[FivePropertyInstrument alloc] init];
     [orch addInstrument:instrument];
     
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
-    [[OCSManager sharedOCSManager] enableMidi];
-    [[[OCSManager sharedOCSManager] midi] addListener:self];
+    [[AKManager sharedAKManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] enableMidi];
+    [[[AKManager sharedAKManager] midi] addListener:self];
 }
 
 - (void)viewDidUnload
@@ -89,8 +89,8 @@
     _note    = note;
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
     FivePropertyInstrumentNote *ocsNote;
-    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[OCSiOSTools midiNoteToFrequency:note]
-                                                           atVolume:[OCSiOSTools scaleValue:velocity
+    ocsNote = [[FivePropertyInstrumentNote alloc] initWithFrequency:[AKiOSTools midiNoteToFrequency:note]
+                                                           atVolume:[AKiOSTools scaleValue:velocity
                                                                                 fromMinimum:0
                                                                                 fromMaximum:127
                                                                                   toMinimum:kVolumeMin
@@ -107,7 +107,7 @@
 {
     _channel = channel;
     _note    = note;
-    OCSNote *noteOn = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
+    AKNote *noteOn = [currentNotes objectForKey:[NSNumber numberWithInt:note]];
     [noteOn stop];
 }
 
@@ -120,7 +120,7 @@
         _controllerValue = value;
         [self performSelectorOnMainThread:@selector(updateUI)
                                withObject:nil waitUntilDone:YES];
-        float cutoff = [OCSiOSTools scaleControllerValue:value
+        float cutoff = [AKiOSTools scaleControllerValue:value
                                              fromMinimum:kLpCutoffMax
                                                toMaximum:kLpCutoffMin];
         instrument.cutoffFrequency.value = cutoff;
@@ -135,13 +135,13 @@
     
     float bend;
     if (pitchWheelValue <= 8192) {
-        bend = [OCSiOSTools scaleValue:pitchWheelValue
+        bend = [AKiOSTools scaleValue:pitchWheelValue
                            fromMinimum:0
                            fromMaximum:8192
                              toMinimum:kPitchBendMin
                              toMaximum:1];
     } else {
-        bend = [OCSiOSTools scaleValue:pitchWheelValue
+        bend = [AKiOSTools scaleValue:pitchWheelValue
                            fromMinimum:8192
                            fromMaximum:16384
                              toMinimum:1
@@ -156,7 +156,7 @@
     [self performSelectorOnMainThread:@selector(updateUI)
                            withObject:nil waitUntilDone:YES];
     
-    float mod = [OCSiOSTools scaleControllerValue:modulation
+    float mod = [AKiOSTools scaleControllerValue:modulation
                                       fromMinimum:kModulationMin
                                         toMaximum:kModulationMax];
     [[instrument modulation] setValue:mod];
