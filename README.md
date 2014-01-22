@@ -1,7 +1,7 @@
 AudioKit
 ========
 
-AudioKit, is an API for sound design applications ranging from sound synthesis, 
+AudioKit is an API for sound design applications ranging from sound synthesis, 
 real time effects processing, and audio analysis.  It works on all OSX and iOS 
 based devices, ie. Macs, iPads and iPhones.
 

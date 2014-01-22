@@ -1,28 +1,28 @@
 //
 //  SeqInstrument.h
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/18/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFoundation.h"
+#import "AKFoundation.h"
 
-@interface SeqInstrument : OCSInstrument
+@interface SeqInstrument : AKInstrument
 
-@property (nonatomic, strong) OCSInstrumentProperty *modulation;
+@property (nonatomic, strong) AKInstrumentProperty *modulation;
 #define kModulationInit 1.0
 #define kModulationMin  0.5
 #define kModulationMax  2.0
 
 @end
 
-@interface SeqInstrumentNote : OCSNote
+@interface SeqInstrumentNote : AKNote
 
 #define kFrequencyInit 220
 #define kFrequencyMin  110
 #define kFrequencyMax  880
-@property (nonatomic, strong) OCSNoteProperty *frequency;
+@property (nonatomic, strong) AKNoteProperty *frequency;
 - (instancetype)initWithFrequency:(float)frequency;
 
 @end

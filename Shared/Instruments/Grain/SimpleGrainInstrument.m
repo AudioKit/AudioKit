@@ -1,6 +1,6 @@
 //
 //  SimpleGrainInstrument.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/21/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -18,60 +18,60 @@
         
         NSString *file = [[NSBundle mainBundle] pathForResource:@"beats" 
                                                          ofType:@"wav"];
-        OCSSoundFileTable *fileTable;
-        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file 
+        AKSoundFileTable *fileTable;
+        fileTable = [[AKSoundFileTable alloc] initWithFilename:file 
                                                       tableSize:16384];
         [self addFTable:fileTable];
         
-        OCSFTable *hamming;
-        hamming = [[OCSWindowsTable alloc] initWithType:kWindowHanning
+        AKFTable *hamming;
+        hamming = [[AKWindowsTable alloc] initWithType:kWindowHanning
                                                    size:512 ];
         [self addFTable:hamming];
                 
-        OCSAudioSegmentArray *amplitudeExp;
-        amplitudeExp = [[OCSAudioSegmentArray alloc] initWithStartValue:ocsp(0.001)
-                                                            toNextValue:ocsp(0.1)
-                                                          afterDuration:ocsp(4.5)];
-        [amplitudeExp addValue:ocsp(0.01) afterDuration:ocsp(4.5)];
+        AKAudioSegmentArray *amplitudeExp;
+        amplitudeExp = [[AKAudioSegmentArray alloc] initWithStartValue:akp(0.001)
+                                                            toNextValue:akp(0.1)
+                                                          afterDuration:akp(4.5)];
+        [amplitudeExp addValue:akp(0.01) afterDuration:akp(4.5)];
         [amplitudeExp useExponentialSegments];
         [self connect:amplitudeExp];
 
-        OCSConstant *baseFrequency;
-        baseFrequency = [OCSConstant parameterWithFormat:@"44100 / %@", [fileTable length]];
-        OCSLine *pitchLine;
-        pitchLine = [[OCSLine alloc] initFromValue:baseFrequency
-                                           toValue:[baseFrequency scaledBy:ocsp(0.8)]
-                                          duration:ocsp(9.0)];
+        AKConstant *baseFrequency;
+        baseFrequency = [AKConstant parameterWithFormat:@"44100 / %@", [fileTable length]];
+        AKLine *pitchLine;
+        pitchLine = [[AKLine alloc] initFromValue:baseFrequency
+                                           toValue:[baseFrequency scaledBy:akp(0.8)]
+                                          duration:akp(9.0)];
         [self connect:pitchLine];
         
-        OCSLine *grainDensityLine = [[OCSLine alloc] initFromValue:ocsp(600)
-                                                           toValue:ocsp(300)
-                                                          duration:ocsp(9.0)];
+        AKLine *grainDensityLine = [[AKLine alloc] initFromValue:akp(600)
+                                                           toValue:akp(300)
+                                                          duration:akp(9.0)];
         [self connect:grainDensityLine];
         
-        OCSLinearControl *ampOffsetLine;
-        ampOffsetLine = [[OCSLinearControl alloc] initFromValue:ocsp(0)
-                                                        toValue:ocsp(0.1)
-                                                       duration:ocsp(9.0)];
+        AKLinearControl *ampOffsetLine;
+        ampOffsetLine = [[AKLinearControl alloc] initFromValue:akp(0)
+                                                        toValue:akp(0.1)
+                                                       duration:akp(9.0)];
         [self connect:ampOffsetLine];
         
-        OCSLinearControl *pitchOffsetLine;
-        pitchOffsetLine = [[OCSLinearControl alloc] initFromValue:ocsp(0)
-                                                          toValue:[baseFrequency scaledBy:ocsp(0.5)]
-                                                         duration:ocsp(9.0) ];
+        AKLinearControl *pitchOffsetLine;
+        pitchOffsetLine = [[AKLinearControl alloc] initFromValue:akp(0)
+                                                          toValue:[baseFrequency scaledBy:akp(0.5)]
+                                                         duration:akp(9.0) ];
         [self connect:pitchOffsetLine];
         
         
-        OCSLinearControl *grainDurationLine;
-        grainDurationLine = [[OCSLinearControl alloc] initFromValue:ocsp(0.1)
-                                                            toValue:ocsp(0.1)
-                                                           duration:ocsp(9.0)];
+        AKLinearControl *grainDurationLine;
+        grainDurationLine = [[AKLinearControl alloc] initFromValue:akp(0.1)
+                                                            toValue:akp(0.1)
+                                                           duration:akp(9.0)];
         [self connect:grainDurationLine];
         
-        OCSGrain *grainL;
-        grainL = [[OCSGrain alloc] initWithGrainFunction:fileTable  
+        AKGrain *grainL;
+        grainL = [[AKGrain alloc] initWithGrainFunction:fileTable  
                                           windowFunction:hamming 
-                                        maxGrainDuration:ocsp(5) 
+                                        maxGrainDuration:akp(5) 
                                                amplitude:amplitudeExp
                                           grainFrequency:pitchLine
                                             grainDensity:grainDensityLine
@@ -80,10 +80,10 @@
                                        maxPitchDeviation:pitchOffsetLine];
         [self connect:grainL];
         
-        OCSGrain *grainR;
-        grainR = [[OCSGrain alloc] initWithGrainFunction:fileTable  
+        AKGrain *grainR;
+        grainR = [[AKGrain alloc] initWithGrainFunction:fileTable  
                                           windowFunction:hamming 
-                                        maxGrainDuration:ocsp(6) 
+                                        maxGrainDuration:akp(6) 
                                                amplitude:amplitudeExp
                                           grainFrequency:pitchLine
                                             grainDensity:grainDensityLine
@@ -94,7 +94,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithLeftAudio:grainL
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithLeftAudio:grainL
                                                                rightAudio:grainR];
         [self connect:audio];
     }

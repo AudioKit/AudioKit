@@ -1,19 +1,19 @@
 //
 //  ToneGenerator.h
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/9/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSFoundation.h"
+#import "AKFoundation.h"
 
-@interface ToneGenerator : OCSInstrument 
+@interface ToneGenerator : AKInstrument 
 
-@property (nonatomic, strong) OCSInstrumentProperty *frequency;
+@property (nonatomic, strong) AKInstrumentProperty *frequency;
 #define kFrequencyMin 110
 #define kFrequencyMax 880
 
-@property (readonly) OCSAudio *auxilliaryOutput;
+@property (readonly) AKAudio *auxilliaryOutput;
 
 @end

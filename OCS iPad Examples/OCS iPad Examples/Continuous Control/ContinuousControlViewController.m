@@ -1,14 +1,14 @@
 //
 //  ContinuousControlViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/18/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "ContinuousControlViewController.h"
-#import "OCSiOSTools.h"
-#import "OCSManager.h"
+#import "AKiOSTools.h"
+#import "AKManager.h"
 
 
 @interface ContinuousControlViewController ()
@@ -26,17 +26,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     myTweakableInstrument = [[TweakableInstrument alloc] init];
     [orch addInstrument:myTweakableInstrument];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
     
-    [OCSiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
-    [OCSiOSTools setLabel:modulationLabel withProperty:myTweakableInstrument.modulation];
-    [OCSiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
+    [AKiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
+    [AKiOSTools setLabel:modulationLabel withProperty:myTweakableInstrument.modulation];
+    [AKiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
     
-    [OCSiOSTools setSlider:amplitudeSlider  withProperty:myTweakableInstrument.amplitude];
-    [OCSiOSTools setSlider:modulationSlider withProperty:myTweakableInstrument.modulation];
+    [AKiOSTools setSlider:amplitudeSlider  withProperty:myTweakableInstrument.amplitude];
+    [AKiOSTools setSlider:modulationSlider withProperty:myTweakableInstrument.modulation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated 
@@ -89,21 +89,21 @@
 - (void)sliderTimerFire:(NSTimer *)timer
 {
     [myTweakableInstrument.modIndex randomize];
-    [OCSiOSTools setSlider:modIndexSlider withProperty:myTweakableInstrument.modIndex];
-    [OCSiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
+    [AKiOSTools setSlider:modIndexSlider withProperty:myTweakableInstrument.modIndex];
+    [AKiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
     // Test to show amplitude slider moving also
-    //[OCSiOSTools setSlider:amplitudeSlider withProperty:myTweakableInstrument.amplitude];
+    //[AKiOSTools setSlider:amplitudeSlider withProperty:myTweakableInstrument.amplitude];
 }
 
 
 - (IBAction)scaleAmplitude:(id)sender {
-    [OCSiOSTools setProperty:myTweakableInstrument.amplitude withSlider:(UISlider *)sender];
-    [OCSiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
+    [AKiOSTools setProperty:myTweakableInstrument.amplitude withSlider:(UISlider *)sender];
+    [AKiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    [OCSiOSTools setProperty:myTweakableInstrument.modulation withSlider:(UISlider *)sender];
-    [OCSiOSTools setLabel:modulationLabel  withProperty:myTweakableInstrument.modulation];
+    [AKiOSTools setProperty:myTweakableInstrument.modulation withSlider:(UISlider *)sender];
+    [AKiOSTools setLabel:modulationLabel  withProperty:myTweakableInstrument.modulation];
 }
 
 - (void)viewDidUnload {

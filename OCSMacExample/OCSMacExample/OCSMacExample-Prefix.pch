@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'OCSMacExample' target in the 'OCSMacExample' project
+// Prefix header for all source files of the 'AKMacExample' target in the 'AKMacExample' project
 //
 
 #ifdef __OBJC__

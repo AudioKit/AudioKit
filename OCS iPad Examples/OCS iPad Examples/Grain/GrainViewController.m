@@ -1,13 +1,13 @@
 //
 //  GrainViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/21/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "GrainViewController.h"
-#import "OCSManager.h"
+#import "AKManager.h"
 #import "SimpleGrainInstrument.h"
 
 @interface GrainViewController () {
@@ -21,10 +21,10 @@
 {
     [super viewDidLoad];
     
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     grainInstrument = [[SimpleGrainInstrument alloc] init];
     [orch addInstrument:grainInstrument];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender

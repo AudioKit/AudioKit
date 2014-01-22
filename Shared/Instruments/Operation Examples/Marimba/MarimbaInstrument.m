@@ -1,6 +1,6 @@
 //
 //  MarimbaInstrument.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 10/29/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -17,37 +17,37 @@
 //        
 //        // INPUTS AND CONTROLS =================================================
 //        
-//        frequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
+//        frequency = [[AKInstrumentProperty alloc] initWithValue:kFrequencyInit
 //                                                        minimumValue:kFrequencyMin
 //                                                        maximumValue:kFrequencyMax];
 //        [self addProperty:frequency];
 //        
-//        ampliude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
+//        ampliude = [[AKInstrumentProperty alloc] initWithValue:kAmplitudeInit
 //                                                       minimumValue:kAmplitudeMin
 //                                                       maximumValue:kAmplitudeMax];
 //        [self addProperty:amplitude];
 //        
-//        vibratoFrequency = [[OCSInstrumentProperty alloc] initWithValue:kFrequencyInit
+//        vibratoFrequency = [[AKInstrumentProperty alloc] initWithValue:kFrequencyInit
 //                                                               minimumValue:kFrequencyMin
 //                                                               maximumValue:kFrequencyMax];
 //        [self addProperty:vibratoFrequency];
 //        
-//        vibratoAmpliude = [[OCSInstrumentProperty alloc] initWithValue:kAmplitudeInit
+//        vibratoAmpliude = [[AKInstrumentProperty alloc] initWithValue:kAmplitudeInit
 //                                                              minimumValue:kAmplitudeMin
 //                                                              maximumValue:kAmplitudeMax];
 //        [self addProperty:vibratoAmpliude];
 //        
 //        // INSTRUMENT DEFINITION ===============================================
 //        
-//        OCSArray *partialStrengthArray = ocspna(@1, @0.5, @1, nil);
+//        AKArray *partialStrengthArray = akpna(@1, @0.5, @1, nil);
 //        
-//        OCSSineTable *sine;
-//        sine = [[OCSSineTable alloc] initWithSize:4096
+//        AKSineTable *sine;
+//        sine = [[AKSineTable alloc] initWithSize:4096
 //                                 partialStrengths:partialStrengthArray];
 //        [self addFTable:sine];
 //        
-//        OCSMarimba  *marimba;
-//        marimba = [[OCSMarimba alloc] initWithHardness:hardness
+//        AKMarimba  *marimba;
+//        marimba = [[AKMarimba alloc] initWithHardness:hardness
 //                                              position:position
 //                                             decayTime:decayTime
 //                                    strikeImpulseTable:sine
@@ -61,8 +61,8 @@
 //
 //        // AUDIO OUTPUT ========================================================
 //        
-//        OCSAudioOutput *audio;
-//        audio = [[OCSAudioOutput alloc] initWithMonoInput:marimba];
+//        AKAudioOutput *audio;
+//        audio = [[AKAudioOutput alloc] initWithMonoInput:marimba];
 //        [self connect:audio];
     }
     return self;

@@ -1,6 +1,6 @@
 //
 //  Harmonizer.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -15,10 +15,10 @@
     self = [super init];
     if (self) { 
         // INPUTS AND CONTROLS =================================================
-        _pitch = [[OCSInstrumentProperty alloc] initWithValue:kPitchInit
+        _pitch = [[AKInstrumentProperty alloc] initWithValue:kPitchInit
                                                      minimumValue:kPitchMin
                                                      maximumValue:kPitchMax];
-        _gain  = [[OCSInstrumentProperty alloc] initWithValue:kGainInit
+        _gain  = [[AKInstrumentProperty alloc] initWithValue:kGainInit
                                                      minimumValue:kGainMin
                                                      maximumValue:kGainMax];
         
@@ -27,45 +27,45 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSAudioInput *microphone = [[OCSAudioInput alloc] init];
+        AKAudioInput *microphone = [[AKAudioInput alloc] init];
         [self connect:microphone];
         
-        OCSFSignalFromMonoAudio *fsig1;
-        fsig1 = [[OCSFSignalFromMonoAudio alloc] initWithAudioSource:microphone
-                                                             fftSize:ocspi(2048)
-                                                             overlap:ocspi(256)
+        AKFSignalFromMonoAudio *fsig1;
+        fsig1 = [[AKFSignalFromMonoAudio alloc] initWithAudioSource:microphone
+                                                             fftSize:akpi(2048)
+                                                             overlap:akpi(256)
                                                           windowType:kVonHannWindow
-                                                    windowFilterSize:ocspi(2048)];
+                                                    windowFilterSize:akpi(2048)];
         [self connect:fsig1];
         
-        OCSScaledFSignal *fsig2;
-        fsig2 = [[OCSScaledFSignal alloc] initWithInput:fsig1
+        AKScaledFSignal *fsig2;
+        fsig2 = [[AKScaledFSignal alloc] initWithInput:fsig1
                                          frequencyRatio:_pitch
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
         [self connect:fsig2];
         
-        OCSScaledFSignal *fsig3;
-        fsig3 = [[OCSScaledFSignal alloc] initWithInput:fsig1
-                                         frequencyRatio:[_pitch scaledBy:ocsp(1.25)]
+        AKScaledFSignal *fsig3;
+        fsig3 = [[AKScaledFSignal alloc] initWithInput:fsig1
+                                         frequencyRatio:[_pitch scaledBy:akp(1.25)]
                                     formantRetainMethod:kFormantRetainMethodLifteredCepstrum 
                                          amplitudeRatio:nil
                                    cepstrumCoefficients:nil];
         [self connect:fsig3];
       
-        OCSFSignalMix *fsig4;
-        fsig4 = [[OCSFSignalMix alloc] initWithInput1:fsig2 input2:fsig3];
+        AKFSignalMix *fsig4;
+        fsig4 = [[AKFSignalMix alloc] initWithInput1:fsig2 input2:fsig3];
         [self connect:fsig4];
         
-        OCSAudioFromFSignal *a1;
-        a1 = [[OCSAudioFromFSignal alloc] initWithSource:fsig4];
+        AKAudioFromFSignal *a1;
+        a1 = [[AKAudioFromFSignal alloc] initWithSource:fsig4];
         [self connect:a1];
         
 
         // AUDIO OUTPUT ========================================================
-        OCSAudio *a2 = [OCSAudio parameterWithFormat:@"%@ * %@", a1, _gain];
-        OCSAudioOutput *out = [[OCSAudioOutput alloc] initWithAudioSource:a2];
+        AKAudio *a2 = [AKAudio parameterWithFormat:@"%@ * %@", a1, _gain];
+        AKAudioOutput *out = [[AKAudioOutput alloc] initWithAudioSource:a2];
         [self connect:out];
     }
     return self;

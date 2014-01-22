@@ -1,6 +1,6 @@
 //
 //  PhysicalModelViewController.h
-//  OCS iPad Examples
+//  AK iPad Examples
 //
 //  Created by Aurelius Prochazka on 10/29/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.

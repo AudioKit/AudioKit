@@ -1,14 +1,14 @@
 //
 //  UDOViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/23/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "UDOViewController.h"
-#import "OCSiOSTools.h"
-#import "OCSManager.h"
+#import "AKiOSTools.h"
+#import "AKManager.h"
 
 @interface UDOViewController () {
     UDOInstrument *udoInstrument;
@@ -20,10 +20,10 @@
 {
     [super viewDidLoad];
 
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];    
+    AKOrchestra *orch = [[AKOrchestra alloc] init];    
     udoInstrument = [[UDOInstrument alloc] init];
     [orch addInstrument:udoInstrument];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender {

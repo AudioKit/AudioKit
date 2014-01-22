@@ -1,14 +1,14 @@
 //
 //  HarmonizerViewController.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "HarmonizerViewController.h"
-#import "OCSiOSTools.h"
-#import "OCSManager.h"
+#import "AKiOSTools.h"
+#import "AKManager.h"
 #import "Harmonizer.h"
 
 @interface HarmonizerViewController () {
@@ -22,10 +22,10 @@
 {
     [super viewDidLoad];
     
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     harmonizer = [[Harmonizer alloc] init];
     [orch addInstrument:harmonizer];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 - (IBAction)start:(id)sender {
@@ -33,11 +33,11 @@
 }
 
 - (IBAction)changePitch:(id)sender {
-    [OCSiOSTools setProperty:harmonizer.pitch withSlider:(UISlider *)sender];
+    [AKiOSTools setProperty:harmonizer.pitch withSlider:(UISlider *)sender];
 }
 
 - (IBAction)changeGain:(id)sender {
-    [OCSiOSTools setProperty:harmonizer.gain withSlider:(UISlider *)sender];
+    [AKiOSTools setProperty:harmonizer.gain withSlider:(UISlider *)sender];
 }
 
 @end

@@ -1,15 +1,15 @@
 //
-//  OCSMacTools.h
-//  Objective-C Sound Example
+//  AKMacTools.h
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 7/3/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "OCSManager.h"
+#import "AKManager.h"
 
-@interface OCSMacTools : NSObject
+@interface AKMacTools : NSObject
 
 + (void)setSlider:(NSSlider *)slider
         withValue:(float)value

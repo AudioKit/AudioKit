@@ -1,13 +1,13 @@
 //
 //  UnitGeneratorsViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/7/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "UnitGeneratorsViewController.h"
-#import "OCSManager.h"
+#import "AKManager.h"
 #import "UnitGeneratorInstrument.h"
 
 @interface UnitGeneratorsViewController () {
@@ -21,10 +21,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    OCSOrchestra *orch = [[OCSOrchestra alloc] init];
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     unitGeneratorInstrument = [[UnitGeneratorInstrument alloc] init];
     [orch addInstrument:unitGeneratorInstrument];
-    [[OCSManager sharedOCSManager] runOrchestra:orch];
+    [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
 - (IBAction)hit1:(id)sender {

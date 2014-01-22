@@ -1,6 +1,6 @@
 //
 //  AudioFilePlayer.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/16/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -22,27 +22,27 @@
         
         NSString *file;
         file = [[NSBundle mainBundle] pathForResource:@"hellorcb" ofType:@"aif"];
-        OCSSoundFileTable *fileTable;
-        fileTable = [[OCSSoundFileTable alloc] initWithFilename:file];
+        AKSoundFileTable *fileTable;
+        fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
         [self connect:fileTable];
         
-        OCSLoopingOscillator *oscil;
-        oscil = [[OCSLoopingOscillator alloc] initWithSoundFileTable:fileTable
+        AKLoopingOscillator *oscil;
+        oscil = [[AKLoopingOscillator alloc] initWithSoundFileTable:fileTable
                                                  frequencyMultiplier:note.speed
-                                                           amplitude:ocsp(0.5)
+                                                           amplitude:akp(0.5)
                                                                 type:kLoopingOscillatorNoLoop];
         [self connect:oscil];
         
-        OCSReverb *reverb;
-        reverb = [[OCSReverb alloc] initWithAudioSource:oscil
-                                          feedbackLevel:ocsp(0.85)
-                                        cutoffFrequency:ocsp(12000)];
+        AKReverb *reverb;
+        reverb = [[AKReverb alloc] initWithAudioSource:oscil
+                                          feedbackLevel:akp(0.85)
+                                        cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio;
-        audio = [[OCSAudioOutput alloc] initWithSourceStereoAudio:reverb];
+        AKAudioOutput *audio;
+        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:reverb];
         [self connect:audio];
     }
     return self;
@@ -56,7 +56,7 @@
 {
     self = [super init];
     if(self) {
-        _speed = [[OCSNoteProperty alloc] initWithValue:kSpeedInit
+        _speed = [[AKNoteProperty alloc] initWithValue:kSpeedInit
                                            minimumValue:kSpeedMin
                                            maximumValue:kSpeedMax];
         [self addProperty:_speed];

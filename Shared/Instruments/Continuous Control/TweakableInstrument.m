@@ -1,6 +1,6 @@
 //
 //  TweakableInstrument.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/18/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -17,16 +17,16 @@
         
         // INPUTS AND CONTROLS =================================================
     
-        _amplitude  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit
+        _amplitude  = [[AKInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit
                                                       minimumValue:kTweakableAmplitudeMin
                                                       maximumValue:kTweakableAmplitudeMax];
-        _frequency  = [[OCSInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit
+        _frequency  = [[AKInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit
                                                       minimumValue:kTweakableFrequencyMin
                                                       maximumValue:kTweakableFrequencyMax];
-        _modulation = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModulationInit
+        _modulation = [[AKInstrumentProperty alloc] initWithValue:kTweakableModulationInit
                                                       minimumValue:kTweakableModulationMin
                                                       maximumValue:kTweakableModulationMax];
-        _modIndex   = [[OCSInstrumentProperty alloc] initWithValue:kTweakableModIndexInit
+        _modIndex   = [[AKInstrumentProperty alloc] initWithValue:kTweakableModIndexInit
                                                       minimumValue:kTweakableModIndexMin
                                                       maximumValue:kTweakableModIndexMax];
                 
@@ -37,13 +37,13 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        OCSSineTable *sineTable = [[OCSSineTable alloc] init];
+        AKSineTable *sineTable = [[AKSineTable alloc] init];
         [self addFTable:sineTable];
         
-        OCSFMOscillator *fmOscil;
-        fmOscil = [[OCSFMOscillator alloc] initWithFTable:sineTable
+        AKFMOscillator *fmOscil;
+        fmOscil = [[AKFMOscillator alloc] initWithFTable:sineTable
                                             baseFrequency:_frequency
-                                        carrierMultiplier:ocsp(1)
+                                        carrierMultiplier:akp(1)
                                      modulatingMultiplier:_modulation
                                           modulationIndex:_modIndex
                                                 amplitude:_amplitude];
@@ -51,7 +51,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:fmOscil];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscil];
         [self connect:audio];
         
         /*

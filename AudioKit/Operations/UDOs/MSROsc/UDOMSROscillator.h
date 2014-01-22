@@ -1,13 +1,13 @@
 //
 //  UDOMSROscillator.h
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/24/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "OCSAudio.h"
-#import "OCSParameter+Operation.h"
+#import "AKAudio.h"
+#import "AKParameter+Operation.h"
 
 /** Generates indicated wave with amplitude declick ramps of .02 sec on each end.
  The frequency can be given either as pitch or in Hz, and the type can be
@@ -40,7 +40,7 @@ typedef enum {
     kMSROscillatorTypeWhiteNoise
 } OscillatorType;
 
-@interface UDOMSROscillator : OCSAudio
+@interface UDOMSROscillator : AKAudio
 
 /** Instantiates the user-defined opcode for Michael Rempel's Oscillator.
  
@@ -50,7 +50,7 @@ typedef enum {
  @return                 An instance of UDOMSROscillator.
  */
 - (instancetype)initWithType:(OscillatorType)oscillatorType
-                   frequency:(OCSControl *)pitchOrFrequency
-                   amplitude:(OCSConstant *)maxAmplitude;
+                   frequency:(AKControl *)pitchOrFrequency
+                   amplitude:(AKConstant *)maxAmplitude;
 
 @end

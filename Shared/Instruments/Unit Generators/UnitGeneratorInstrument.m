@@ -1,6 +1,6 @@
 //
 //  UnitGeneratorInstrument.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Adam Boulanger on 6/7/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -18,56 +18,56 @@
         // INSTRUMENT DEFINITION ===============================================
         // create sign function with variable partial strengths
 
-        OCSArray *partialStrengths = ocspna(@1, @0.5, @1, nil);
+        AKArray *partialStrengths = akpna(@1, @0.5, @1, nil);
         
-//        OCSArray *partialStrengths = [[OCSArray alloc] init];
-//        [partialStrengths addConstant:ocsp(1.0f)];
-//        [partialStrengths addConstant:ocsp(0.15f)];
-//        [partialStrengths addConstant:ocsp(0.0f)];
+//        AKArray *partialStrengths = [[AKArray alloc] init];
+//        [partialStrengths addConstant:akp(1.0f)];
+//        [partialStrengths addConstant:akp(0.15f)];
+//        [partialStrengths addConstant:akp(0.0f)];
         
-//        OCSArray *partialStrengths;
-//        partialStrengths = [OCSArray arrayFromConstants:
-//                            ocsp(1.0f), ocsp(0.5f), ocsp(1.0f), nil];
+//        AKArray *partialStrengths;
+//        partialStrengths = [AKArray arrayFromConstants:
+//                            akp(1.0f), akp(0.5f), akp(1.0f), nil];
         
-        OCSSineTable *sine;
-        sine = [[OCSSineTable alloc] initWithSize:4096 
+        AKSineTable *sine;
+        sine = [[AKSineTable alloc] initWithSize:4096 
                                  partialStrengths:partialStrengths];
         [sine setIsNormalized:YES];
         [self addFTable:sine];
         
-        OCSLine *myLine = [[OCSLine alloc] initFromValue:ocsp(0.5) 
-                                                 toValue:ocsp(1.5)
-                                                duration:ocsp(3.0)];
+        AKLine *myLine = [[AKLine alloc] initFromValue:akp(0.5) 
+                                                 toValue:akp(1.5)
+                                                duration:akp(3.0)];
         [self connect:myLine];
 
-        //Init LineSegment_a, without OCSArray Functions like line
-        OCSLinearControl *baseFrequencyLine;
-        baseFrequencyLine = [[OCSLinearControl alloc] initFromValue:ocsp(110)
-                                                            toValue:ocsp(330)
-                                                           duration:ocsp(3.0)];
+        //Init LineSegment_a, without AKArray Functions like line
+        AKLinearControl *baseFrequencyLine;
+        baseFrequencyLine = [[AKLinearControl alloc] initFromValue:akp(110)
+                                                            toValue:akp(330)
+                                                           duration:akp(3.0)];
         [self connect:baseFrequencyLine];
         
-        OCSControlSegmentArray *modIndexLine;
-        modIndexLine = [[OCSControlSegmentArray alloc] initWithStartValue:ocsp(0.5)
-                                                              toNextValue:ocsp(0.2)
-                                                            afterDuration:ocsp(3)];
-        [modIndexLine addValue:ocsp(1.5) afterDuration:ocsp(3)];
-        [modIndexLine addValue:ocsp(0.5) afterDuration:ocsp(3)];
+        AKControlSegmentArray *modIndexLine;
+        modIndexLine = [[AKControlSegmentArray alloc] initWithStartValue:akp(0.5)
+                                                              toNextValue:akp(0.2)
+                                                            afterDuration:akp(3)];
+        [modIndexLine addValue:akp(1.5) afterDuration:akp(3)];
+        [modIndexLine addValue:akp(0.5) afterDuration:akp(3)];
         [self connect:modIndexLine];
         
         // create fmOscillator with sine, lines for pitch, modulation, and modindex
-        OCSFMOscillator *fmOscil;
-        fmOscil = [[OCSFMOscillator alloc] initWithFTable:sine
+        AKFMOscillator *fmOscil;
+        fmOscil = [[AKFMOscillator alloc] initWithFTable:sine
                                             baseFrequency:baseFrequencyLine
-                                        carrierMultiplier:ocsp(1)
+                                        carrierMultiplier:akp(1)
                                      modulatingMultiplier:myLine
                                           modulationIndex:modIndexLine
-                                                amplitude:ocsp(0.4)];
+                                                amplitude:akp(0.4)];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================
         
-        OCSAudioOutput *audio = [[OCSAudioOutput alloc] initWithAudioSource:fmOscil];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscil];
         [self connect:audio];
     }
     return self;

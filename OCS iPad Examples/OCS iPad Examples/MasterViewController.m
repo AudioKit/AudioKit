@@ -1,6 +1,6 @@
 //
 //  MasterViewController.m
-//  OCS iPad Examples
+//  AK iPad Examples
 //
 //  Created by Aurelius Prochazka on 8/10/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -37,7 +37,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Objective-C Sound";
+        self.title = @"AudioKit";
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }

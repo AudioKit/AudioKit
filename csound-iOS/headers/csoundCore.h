@@ -1294,7 +1294,7 @@ typedef struct NAME__ {
     void          (*rtclose_callback)(CSOUND *);
     int           (*audio_dev_list_callback)(CSOUND *, CS_AUDIODEVICE *, int);
     int           (*midi_dev_list_callback)(CSOUND *, CS_MIDIDEVICE *, int);
-    int           (*doCsoundCallback)(CSOUND *, void *, unsigned int);
+    int           (*dAKoundCallback)(CSOUND *, void *, unsigned int);
     int           (*csoundInternalYieldCallback_)(CSOUND *);
     /* end of callbacks */
     void          (*spinrecv)(CSOUND *);

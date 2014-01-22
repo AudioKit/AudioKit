@@ -1,30 +1,30 @@
 //
 //  UDOCompressor.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "UDOCsGrainCompressor.h"
+#import "UDOCSGrainCompressor.h"
 
 
-@interface UDOCsGrainCompressor () {
-    OCSStereoAudio *inLR;
-    OCSControl *threshold;
-    OCSControl *ratio;
-    OCSControl *attack;
-    OCSControl *release;
+@interface UDOCSGrainCompressor () {
+    AKStereoAudio *inLR;
+    AKControl *threshold;
+    AKControl *ratio;
+    AKControl *attack;
+    AKControl *release;
 }
 @end
 
-@implementation UDOCsGrainCompressor
+@implementation UDOCSGrainCompressor
 
-- (instancetype)initWithSourceStereoAudio:(OCSStereoAudio *)sourceStereo
-                                threshold:(OCSControl *)dBThreshold
-                         compressionRatio:(OCSControl *)compressionRatio
-                               attackTime:(OCSControl *)attackTime
-                              releaseTime:(OCSControl *)releaseTime
+- (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)sourceStereo
+                                threshold:(AKControl *)dBThreshold
+                         compressionRatio:(AKControl *)compressionRatio
+                               attackTime:(AKControl *)attackTime
+                              releaseTime:(AKControl *)releaseTime
 {
     self = [super init];
     if (self) {

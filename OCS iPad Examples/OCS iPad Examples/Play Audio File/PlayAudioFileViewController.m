@@ -1,18 +1,18 @@
 //
 //  PlayAudioFileViewController.m
-//  Objective-C Sound Example
+//  AudioKit Example
 //
 //  Created by Aurelius Prochazka on 6/16/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
 #import "PlayAudioFileViewController.h"
-#import "OCSManager.h"
+#import "AKManager.h"
 #import "AudioFilePlayer.h"
 
 @interface PlayAudioFileViewController () {
     AudioFilePlayer *audioFilePlayer;
-    OCSOrchestra *orchestra;
+    AKOrchestra *orchestra;
 }
 @end
 
@@ -23,14 +23,14 @@
     [super viewDidLoad];
 
     // Create the orchestra and instruments
-    orchestra = [[OCSOrchestra alloc] init];
+    orchestra = [[AKOrchestra alloc] init];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     
     // Add instruments to orchestra
     [orchestra addInstrument:audioFilePlayer];
     
     // Start the orchestra
-    [[OCSManager sharedOCSManager] runOrchestra:orchestra];
+    [[AKManager sharedAKManager] runOrchestra:orchestra];
 
 }
 
