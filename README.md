@@ -1,14 +1,13 @@
-Objective-C Sound
-=================
+AudioKit
+========
 
-Obective-C Sound (OCS for short, pronounced "ox"), is an Objective-C API 
-for sound design applications ranging from sound synthesis, real time effects
-processing, and audio analysis.  It works on all OSX and iOS based devices, 
-ie. Macs, iPads and iPhones.
+AudioKit, is an API for sound design applications ranging from sound synthesis, 
+real time effects processing, and audio analysis.  It works on all OSX and iOS 
+based devices, ie. Macs, iPads and iPhones.
 
 ### Installation
 
-The repository includes the "Objective-C Sound" Xcode workspace file which will 
+The repository includes the AudioKit Xcode workspace file which will 
 open in Xcode with a few example projects demonstrating building a project
 for the Mac or for the iPad or iOS Simulator.  
 
@@ -22,13 +21,13 @@ to install appdoc.  More information about this in the developer's guide doc.
 
 ### Contribute!
 
-We encourage you to fork Objective-C Sound and contribute one of the many 
+We encourage you to fork AudioKit and contribute one of the many 
 opcodes we have yet to implement or to install your own User-Defined Operation
 in Operations/UDOs.  
 
 More information on contribution is available on the wiki:
 
-https://github.com/h4y/Objective-C-Sound/wiki
+https://github.com/h4y/AudioKit/wiki
 
 ### About Csound
 
@@ -40,12 +39,12 @@ http://csounds.com/
 
 ### About Us
 
-Objective-C Sound was initially conceived by Aurelius Prochazka and Adam Boulanger
+AudioKit was initially conceived by Aurelius Prochazka and Adam Boulanger
 and primarily programmed by Aurelius Prochazka.
 
 http://aure.com/
 
 http://adamboulanger.com/
 
-We use Objective-C Sound at our company, Hear For Yourself, to build 
+We use AudioKit at our company, Hear For Yourself, to build 
 sonically rich programs for a variety of different applications.

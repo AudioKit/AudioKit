@@ -42,7 +42,6 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     exampleNames = [NSMutableArray arrayWithObjects:
-                    @"Play a CSD File",
                     @"Play an Audio File",
                     @"Unit Generators",
                     @"Expressions",
