@@ -1,8 +1,8 @@
 opcode: eqfil
 
-operation: OCSEqualizerFilter
+operation: AKEqualizerFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Second-order tunable equalisation filter based on Regalia and Mitra design.
 
@@ -22,18 +22,18 @@ input_list: ain, kcf, kbw, kgain, kgain
 required_inputs:
 
 - ain: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input signal."
 }
 - kcf: {
-	ocsVar: centerFrequency, 
+	audioKitName: centerFrequency, 
 	comment: "Filter center frequency in Hz."
 }
 - kbw: {
-	ocsVar: bandwidth, 
+	audioKitName: bandwidth, 
 	comment: "Peak/notch bandwidth in Hz."
 }
 - kgain: {
-	ocsVar: gain, 
+	audioKitName: gain, 
 	comment: "Peak/notch gain."
 }

@@ -1,8 +1,8 @@
 opcode: lpf18
 
-operation: OCSThreePoleLowpassFilter
+operation: AKThreePoleLowpassFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: A 3-pole sweepable resonant lowpass filter.
 
@@ -16,18 +16,18 @@ input_list: asig, kfco, kres, kdist
 required_inputs:
 
 - asig: {
-	ocsVar: sourceAudio, 
+	audioKitName: sourceAudio, 
 	comment: "Signal that will be modified."
 }
 - kdist: {
-	ocsVar: distortion, 
+	audioKitName: distortion, 
 	comment: "Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged."
 }
 - kfco: {
-	ocsVar: cutoffFrequency, 
+	audioKitName: cutoffFrequency, 
 	comment: "The filter cutoff frequency in Hz."
 }
 - kres: {
-	ocsVar: resonance, 
+	audioKitName: resonance, 
 	comment: "Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect."
 }

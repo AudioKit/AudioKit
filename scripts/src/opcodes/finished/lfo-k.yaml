@@ -1,8 +1,8 @@
 opcode: lfo
 
-operation: OCSLowFrequencyOscillatingControl
+operation: AKLowFrequencyOscillatingControl
 
-operationClass: OCSControl
+operationClass: AKControl
 
 summary: A low frequency oscillator of various shapes.
 
@@ -14,18 +14,18 @@ input_list: kamp, kcps, itype
 required_inputs:
 
 - kcps: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Frequency of the note."
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of output."
 }
 
 
 optional_inputs:
 - itype: {
-	ocsVar: type, 
+	audioKitName: type, 
 	comment: "Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down).",
 	default: 0
 }

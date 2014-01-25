@@ -1,8 +1,8 @@
 opcode: doppler
 
-operation: OCSDopplerEffect
+operation: AKDopplerEffect
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: A fast and robust method for approximating sound propagation, achieving convincing Doppler shifts without having to solve equations.
 
@@ -14,26 +14,26 @@ input_list: asource, ksourceposition, kmicposition, isoundspeed, ifiltercutoff
 required_inputs:
 
 - asource: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input signal at the sound source."
 }
 - kmicposition: {
-	ocsVar: micPosition, 
+	audioKitName: micPosition, 
 	comment: "Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound."
 }
 - ksourceposition: {
-	ocsVar: sourcePosition, 
+	audioKitName: sourcePosition, 
 	comment: "Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound."
 }
 
 optional_inputs:
 - isoundspeed: {
-	ocsVar: soundSpeed, 
+	audioKitName: soundSpeed, 
 	comment: "Speed of sound in meters/second.",
 	default: 340.29
 }
 - ifiltercutoff: {
-	ocsVar: smoothingFilterUpdateRate, 
+	audioKitName: smoothingFilterUpdateRate, 
 	comment: "Rate of updating the position smoothing filter, in cycles/second.",
 	default: 6
 }

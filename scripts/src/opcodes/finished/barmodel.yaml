@@ -1,6 +1,6 @@
 opcode: barmodel
-operation: OCSStruckMetalBar
-operationClass: OCSAudio
+operation: AKStruckMetalBar
+operationClass: AKAudio
 summary:  Creates a tone similar to a struck metal bar.
 description:
   Audio output is a tone similar to a struck metal bar, using a physical model developed from solving the partial differential equation. 

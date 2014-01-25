@@ -1,8 +1,8 @@
 opcode: balance
 
-operation: OCSBalance
+operation: AKBalance
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Adjusts one audio signal according to the values of another.
 
@@ -18,19 +18,19 @@ input_list: asig, acomp, ihp
 required_inputs:
 
 - asig: {
-    ocsVar: audioSource, 
+    audioKitName: audioSource, 
     comment: "Input audio signal"
 }
 
 - acomp: {
-	ocsVar: comparatorAudioSource, 
+	audioKitName: comparatorAudioSource, 
 	comment: "The comparator signal"
 }
 
 
 optional_inputs:
 - ihp: {
-	ocsVar: halfPowerPoint, 
+	audioKitName: halfPowerPoint, 
 	comment: "Half-power point (in Hz) of a special internal low-pass filter. The default value is 10.",
 	default: 10
 }

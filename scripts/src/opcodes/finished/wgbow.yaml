@@ -1,8 +1,8 @@
 opcode: wgbow
 
-operation: OCSBowedString
+operation: AKBowedString
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Creates a tone similar to a bowed string.
 
@@ -14,37 +14,37 @@ input_list: kamp, kfreq, kpres, krat, kvibf, kvamp, ifn, iminfreq
 required_inputs:
 
 - kfreq: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set."
 }
 - kpres: {
-	ocsVar: pressure, 
+	audioKitName: pressure, 
 	comment: "Parameter controlling the pressure of the bow on the string. Values should be about 3. The useful range is approximately 1 to 5."
 }
 - krat: {
-	ocsVar: position, 
+	audioKitName: position, 
 	comment: "Position of the bow along the string. Usual playing is about 0.127236. The suggested range is 0.025 to 0.23."
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of the note played."
 }
 - ifn: {
-	ocsVar: vibratoShapeTable, 
+	audioKitName: vibratoShapeTable, 
 	comment: "Table shape of vibrato, usually a sine table."
 }
 - kvibf: {
-	ocsVar: vibratoFrequency, 
+	audioKitName: vibratoFrequency, 
 	comment: "Frequency of vibrato in Hertz. Suggested range is 0 to 12."
 }
 - kvamp: {
-	ocsVar: vibratoAmplitude, 
+	audioKitName: vibratoAmplitude, 
 	comment: "Amplitude of the vibrato."
 }
 
 optional_inputs:
 - iminfreq: {
-	ocsVar: minimumFrequency,
+	audioKitName: minimumFrequency,
 	comment: "Lowest frequency at which the instrument will play. ",
 	default: kfreq
 }

@@ -1,8 +1,8 @@
 opcode: wguide2
 
-operation: OCSBeatenPlate
+operation: AKBeatenPlate
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: A model of beaten plate consisting of two parallel delay-lines and two first-order lowpass filters.
 
@@ -14,30 +14,30 @@ input_list: asig, xfreq1, xfreq2, kcutoff1, kcutoff2, kfeedback1, kfeedback2
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "The excitation noise."
 }
 - xfreq1: {
-	ocsVar: frequency1, 
+	audioKitName: frequency1, 
 	comment: "The inverse of delay time for the first of two parallel delay lines."
 }
 - xfreq2: {
-	ocsVar: frequency2, 
+	audioKitName: frequency2, 
 	comment: "The inverse of delay time for the second of two parallel delay lines."
 }
 - kcutoff1: {
-	ocsVar: cutoffFrequency1, 
+	audioKitName: cutoffFrequency1, 
 	comment: "The filter cutoff frequency in Hz for the first low-pass filter."
 }
 - kcutoff2: {
-	ocsVar: cutoffFrequency2, 
+	audioKitName: cutoffFrequency2, 
 	comment: "The filter cutoff frequency in Hz for the second low-pass filter."
 }
 - kfeedback1: {
-	ocsVar: feedback1, 
+	audioKitName: feedback1, 
 	comment: "The feedback factor for the first effects loop."
 }
 - kfeedback2: {
-	ocsVar: feedback2, 
+	audioKitName: feedback2, 
 	comment: "The feedback factor for the second effects loop."
 }

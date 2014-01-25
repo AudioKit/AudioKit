@@ -1,8 +1,8 @@
 opcode: loopseg
 
-operation: OCSControlSegmentArrayLoop
+operation: AKControlSegmentArrayLoop
 
-operationClass: OCSControl
+operationClass: AKControl
 
 summary: Generate control signal consisting of linear segments delimited by two or more specified points.
 
@@ -15,10 +15,10 @@ input_list: kfreq, tmp, tmp, kvalue0
 required_inputs:
 
 - kfreq: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Repeat rate in Hz or fraction of Hz."
 }
 - kvalue0: {
-	ocsVar: startValue, 
+	audioKitName: startValue, 
 	comment: "Initial value at time zero."
 }

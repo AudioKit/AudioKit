@@ -1,8 +1,8 @@
 opcode: vco2
 
-operation: OCSVCOscillator
+operation: AKVCOscillator
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Implementation of a band-limited oscillator using pre-calculated tables.  Meant to model vintage analog synthesizers.
 
@@ -14,32 +14,32 @@ input_list: kamp, kcps, imode, kpw, kphs, inyx
 required_inputs:
 
 - kcps: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Frequency in Hz"
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude scale. In the case of a imode waveform value of a pulse waveform, the actual output level can be a lot higher than this value."
 }
 
 optional_inputs:
 - imode: {
-	ocsVar: waveformType, 
+	audioKitName: waveformType, 
 	comment: "Choose from various waveform types.",
 	default: 0
 }
 - kpw: {
-	ocsVar: pulseWidth, 
+	audioKitName: pulseWidth, 
 	comment: "The pulse width of the square wave or the ramp characteristics of the triangle wave. It is required only by these waveforms and ignored in all other cases. The expected range is 0 to 1, any other value is wrapped to the allowed range.",
 	default: 0
 }
 - kphs: {
-	ocsVar: phase, 
+	audioKitName: phase, 
 	comment: "Oscillator phase (depending on imode, this can be either an optional i-rate parameter that defaults to zero or required k-rate). Similarly to pulseWidth, the expected range is 0 to 1.",
 	default: 0
 }
 - inyx: {
-	ocsVar: bandwidth, 
+	audioKitName: bandwidth, 
 	comment: "Bandwidth of the generated waveform, as percentage (0 to 1) of the sample rate. The expected range is 0 to 0.5",
 	default: 0.5
 }

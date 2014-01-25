@@ -1,8 +1,8 @@
 opcode: moogvcf2
 
-operation: OCSMoogVCF
+operation: AKMoogVCF
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A digital emulation of the Moog diode ladder filter configuration.
 
@@ -14,14 +14,14 @@ input_list: asig, xfco, xres
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input signal."
 }
 - xfco: {
-	ocsVar: cutoffFrequency, 
+	audioKitName: cutoffFrequency, 
 	comment: "Filter cut-off frequency in Hz."
 }
 - xres: {
-	ocsVar: resonance, 
+	audioKitName: resonance, 
 	comment: "Amount of resonance. Self-oscillation occurs when this is approximately one."
 }

@@ -14,6 +14,6 @@ input_list: ain
 required_inputs:
 
 - ain: {
-	ocsVar: sourceAudio, 
+	audioKitName: sourceAudio, 
 	comment: "Audio to declick"
 }

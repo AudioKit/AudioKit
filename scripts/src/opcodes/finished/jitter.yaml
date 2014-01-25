@@ -1,8 +1,8 @@
 opcode: jitter
 
-operation: OCSJitter
+operation: AKJitter
 
-operationClass: OCSControl
+operationClass: AKControl
 
 summary:  Generates a segmented line whose segments are randomly generated.
 
@@ -18,14 +18,14 @@ input_list: kamp, kcpsMin, kcpsMax, kcpsMax
 required_inputs:
 
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of jitter deviation"
 }
 - kcpsMax: {
-	ocsVar: maxFrequency, 
+	audioKitName: maxFrequency, 
 	comment: "Maximum speed of random frequency variations (expressed in Hz)"
 }
 - kcpsMin: {
-	ocsVar: minFrequency, 
+	audioKitName: minFrequency, 
 	comment: "Minimum speed of random frequency variations (expressed in Hz)"
 }

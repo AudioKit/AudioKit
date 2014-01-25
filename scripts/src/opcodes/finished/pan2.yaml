@@ -1,8 +1,8 @@
 opcode: pan2
 
-operation: OCSPanner
+operation: AKPanner
 
-operationClass: OCSStereoAudio
+operationClass: AKStereoAudio
 
 summary: Distribute an audio signal across two channels with a choice of methods.
 
@@ -15,17 +15,17 @@ input_list: asig, xp, imode
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Source signal."
 }
 - xp: {
-	ocsVar: pan, 
+	audioKitName: pan, 
 	comment: "From hard left (0) to hard right (1)."
 }
 
 optional_inputs:
 - imode: {
-	ocsVar: panMethod, 
+	audioKitName: panMethod, 
 	comment: "Pan Method",
 	default: 0
 }

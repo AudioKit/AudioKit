@@ -1,8 +1,8 @@
 opcode: vdelay3
 
-operation: OCSVariableDelay
+operation: AKVariableDelay
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  An interpolating variable time delay.
 
@@ -13,16 +13,16 @@ input_list: asig, adel, imaxdel
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input signal."
 }
 
 - adel: {
-	ocsVar: delayTime, 
+	audioKitName: delayTime, 
 	comment: "Current value of delay in milliseconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise."
 }
 
 - imaxdel: {
-	ocsVar: maximumDelayTime, 
+	audioKitName: maximumDelayTime, 
 	comment: "Maximum value of delay in milliseconds."
 }

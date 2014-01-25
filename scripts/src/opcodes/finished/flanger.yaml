@@ -1,8 +1,8 @@
 opcode: flanger
 
-operation: OCSFlanger
+operation: AKFlanger
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  Flange effect
 
@@ -15,14 +15,14 @@ input_list: asig, adel, kfeedback
 required_inputs:
 
 - asig: {
-	ocsVar: sourceSignal, 
+	audioKitName: sourceSignal, 
 	comment: "Input signal."
 }
 - adel: {
-	ocsVar: delayTime, 
+	audioKitName: delayTime, 
 	comment: "Delay in seconds"
 }
 - kfeedback: {
-	ocsVar: feedback, 
+	audioKitName: feedback, 
 	comment: "Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed)"
 }

@@ -5,19 +5,19 @@
 require 'active_support/all'
 require 'erb' 
 
-def ocsVarBestGuess(input)
-	ocsVar = input[1..-1]
-	ocsVar = "amplitude"       if input[1..3] == "amp" 
-	ocsVar = "cutoffFrequency" if input[1..3] == "fco"
-	ocsVar = "distortion"      if input[1..4] == "dist"
-	ocsVar = "duration"        if input[1..3] == "dur"
-	ocsVar = "frequency"       if input[1..3] == "cps" || input[1..4] == "freq"  || input[1..5] == "pitch" 
-	ocsVar = "fTable"          if input[0..2] == "ifn" 
-	ocsVar = "phase"           if input[1..3] == "phs" 
-	ocsVar = "resonance"       if input[1..3] == "res"
-	ocsVar = "audioSource"     if input[1..3] == "sig"
-	ocsVar = "type"            if input[1..3] == "typ"
-	return ocsVar
+def audioKitNameBestGuess(input)
+	audioKitName = input[1..-1]
+	audioKitName = "amplitude"       if input[1..3] == "amp" 
+	audioKitName = "cutoffFrequency" if input[1..3] == "fco"
+	audioKitName = "distortion"      if input[1..4] == "dist"
+	audioKitName = "duration"        if input[1..3] == "dur"
+	audioKitName = "frequency"       if input[1..3] == "cps" || input[1..4] == "freq"  || input[1..5] == "pitch" 
+	audioKitName = "fTable"          if input[0..2] == "ifn" 
+	audioKitName = "phase"           if input[1..3] == "phs" 
+	audioKitName = "resonance"       if input[1..3] == "res"
+	audioKitName = "audioSource"     if input[1..3] == "sig"
+	audioKitName = "type"            if input[1..3] == "typ"
+	return audioKitName
 end
 
 opcode_file = ARGV[0]
@@ -38,19 +38,19 @@ contents.gsub!(/[ \n\\]/, "")
 # load everything before the opcode name as outputs
 outputs =  /(.+)#{opcode}/.match(contents)[1].split(",")
 
-outputType = "OCSStereoAudioOrAudioOrControlOrConstant"
+outputType = "AKStereoAudioOrAudioOrControlOrConstant"
 if outputs[0][0] == "i"
-	outputType =  "OCSConstant"
+	outputType =  "AKConstant"
 end
 
 if outputs[0][0] == "k"
-	outputType =  "OCSControl"
+	outputType =  "AKControl"
 end
 
 if outputs[0][0] == "a"
-	outputType = "OCSAudio"
+	outputType = "AKAudio"
 	if outputs.count == 2
-		outputType = "OCSStereoAudio"
+		outputType = "AKStereoAudio"
 	end
 end
 

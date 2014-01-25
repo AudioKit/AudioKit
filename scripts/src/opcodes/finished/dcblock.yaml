@@ -1,8 +1,8 @@
 opcode: dcblock
 
-operation: OCSDCBlock
+operation: AKDCBlock
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A DC blocking filter.
 
@@ -14,13 +14,13 @@ input_list: ain, igain
 required_inputs:
 
 - ain: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input audio signal."
 }
 
 optional_inputs:
 - igain: {
-	ocsVar: gain, 
+	audioKitName: gain, 
 	comment: "The gain of the filter, which defaults to 0.99.",
 	default: 0.99
 }

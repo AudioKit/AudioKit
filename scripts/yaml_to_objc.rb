@@ -11,18 +11,18 @@ require 'active_support/all'
 
 def detectType(csd_var)
 
-	type = "OCSParameter"
+	type = "AKParameter"
 	
 	if csd_var[0..2] == "ifn" 
-		type = "OCSFTable"
+		type = "AKFTable"
 	elsif csd_var[0] == "a"  
-		type = "OCSAudio"
+		type = "AKAudio"
 	elsif csd_var[0] == "k"  
-		type = "OCSControl"
+		type = "AKControl"
 	elsif csd_var[0] == "i"  
-		type = "OCSConstant"
+		type = "AKConstant"
 	elsif csd_var[0] == "f"  
-		type = "OCSFSignal"	
+		type = "AKFSignal"	
 	end
 
 	return type
@@ -43,13 +43,13 @@ optional_inputs = o["optional_inputs"]
 summary = o["summary"]
 description = o["description"]
 
-File.open( "templates/OCSOperationTemplate.h.erb" ) { |template|
+File.open( "templates/AKOperationTemplate.h.erb" ) { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{operation}.h", 'w') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
-File.open( "templates/OCSOperationTemplate.m.erb" ) { |template|
+File.open( "templates/AKOperationTemplate.m.erb" ) { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{operation}.m", 'w') {|f| f.write(erb.result) }
 	puts erb.result

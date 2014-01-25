@@ -1,8 +1,8 @@
 opcode: butterbp
 
-operation: OCSBandPassButterworthFilter
+operation: AKBandPassButterworthFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A band-pass Butterworth filter.
 
@@ -15,15 +15,15 @@ input_list: asig, kfreq, kband
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input signal to be filtered."
 }
 
 - kfreq: {
-	ocsVar: centerFrequency, 
+	audioKitName: centerFrequency, 
 	comment: "Center frequency for each of the filters."
 }
 - kband: {
-	ocsVar: bandwidth, 
+	audioKitName: bandwidth, 
 	comment: "Bandwidth of the band-pass filters."
 }

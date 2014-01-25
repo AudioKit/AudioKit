@@ -1,8 +1,8 @@
 opcode: reson
 
-operation: OCSResonantFilter
+operation: AKResonantFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A second-order resonant filter.
 
@@ -15,14 +15,14 @@ input_list: asig, kcf, kbw, kbw
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "The input audio stream."
 }
 - kcf: {
-	ocsVar: centerFrequency, 
+	audioKitName: centerFrequency, 
 	comment: "Center frequency of the filter, or frequency position of the peak response."
 }
 - kbw: {
-	ocsVar: bandwidth, 
+	audioKitName: bandwidth, 
 	comment: "Bandwidth of the filter (the Hz difference between the upper and lower half-power points)."
 }

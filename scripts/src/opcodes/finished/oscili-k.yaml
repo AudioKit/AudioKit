@@ -1,8 +1,8 @@
 opcode: oscili
 
-operation: OCSOscillatingControl
+operation: AKOscillatingControl
 
-operationClass: OCSControl
+operationClass: AKControl
 
 summary: A simple oscillator with linear interpolation.
 
@@ -15,22 +15,22 @@ input_list: kamp, kcps, ifn, iphs
 required_inputs:
 
 - ifn: {
-	ocsVar: fTable, 
+	audioKitName: fTable, 
 	comment: "Requires a wrap-around guard point"
 }
 - kcps: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Frequency in cycles per second"
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of the output"
 }
 
 
 optional_inputs:
 - iphs: {
-	ocsVar: phase, 
+	audioKitName: phase, 
 	comment: "Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0.",
 	default: 0
 }

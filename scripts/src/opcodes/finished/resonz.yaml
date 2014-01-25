@@ -1,8 +1,8 @@
 opcode: resonz
 
-operation: OCSVariableFrequencyResponseBandPassFilter
+operation: AKVariableFrequencyResponseBandPassFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A second-order resonant filter.
 
@@ -15,14 +15,14 @@ input_list: asig, kcf, kbw, kbw
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "The input signal to be filtered."
 }
 - kcf: {
-	ocsVar: cutoffFrequency, 
+	audioKitName: cutoffFrequency, 
 	comment: "Cutoff or resonant frequency of the filter, measured in Hz."
 }
 - kbw: {
-	ocsVar: bandwidth, 
+	audioKitName: bandwidth, 
 	comment: "Bandwidth of the filter (the Hz difference between the upper and lower half-power points)."
 }

@@ -1,8 +1,8 @@
 opcode: pvswarp
 
-operation: OCSWarp
+operation: AKWarp
 
-operationClass: OCSFSignal
+operationClass: AKFSignal
 
 summary:  Warp the spectral envelope of a PVS signal by means of shifting and scaling.
 
@@ -14,36 +14,36 @@ input_list: fsigin, kscal, kshift, klowest, kmeth, kgain, kcoefs
 required_inputs:
 
 - fsigin: {
-	ocsVar: sourceSignal, 
+	audioKitName: sourceSignal, 
 	comment: "Input Stream"
 }
 - kscal: {
-	ocsVar: scalingRatio, 
+	audioKitName: scalingRatio, 
 	comment: "Spectral envelope scaling ratio. Values > 1 stretch the envelope and < 1 compress it."
 }
 - kshift: {
-	ocsVar: shift, 
+	audioKitName: shift, 
 	comment: "Spectral envelope shift, values > 0 shift the envelope linearly upwards and values < 1 shift it downwards."
 }
 
 optional_inputs:
 - klowest: {
-	ocsVar: lowFrequency, 
+	audioKitName: lowFrequency, 
 	comment: "Lowest frequency shifted, defaults to zero.",
 	default: 0
 }
 - kmeth: {
-	ocsVar: extractionMethod, 
+	audioKitName: extractionMethod, 
 	comment: "Spectral envelope extraction method 1: liftered cepstrum method (default); 2: true envelope method (defaults to 1).",
 	default: 1
 }
 - kgain: {
-	ocsVar: gain, 
+	audioKitName: gain, 
 	comment: "Amplitude Scaling (defaults to 1)",
 	default: 1
 }
 - kcoefs: {
-	ocsVar: numberOfCoefficients, 
+	audioKitName: numberOfCoefficients, 
 	comment: "Number of cepstrum coefs used in formant preservation (defaults to 80).",
 	default: 80
 }

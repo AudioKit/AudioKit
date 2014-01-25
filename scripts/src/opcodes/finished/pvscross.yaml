@@ -1,8 +1,8 @@
 opcode: pvscross
 
-operation: OCSCrossSynthesis
+operation: AKCrossSynthesis
 
-operationClass: OCSFSignal
+operationClass: AKFSignal
 
 summary: Performs cross-synthesis between two source F-Signals.
 
@@ -14,21 +14,21 @@ input_list: fsrc, fdest, kamp1, kamp2
 required_inputs:
 
 - fsrc: {
-	ocsVar: signal1, 
+	audioKitName: signal1, 
 	comment: "First F-Signal"
 }
 
 - fdest: {
-	ocsVar: signal2, 
+	audioKitName: signal2, 
 	comment: "Second F-Signal"
 }
 
 - kamp1: {
-	ocsVar: amplitude1, 
+	audioKitName: amplitude1, 
 	comment: "First signal's amplitude scaling factor from 0 to 1."
 }
 - kamp2: {
-	ocsVar: amplitude2, 
+	audioKitName: amplitude2, 
 	comment: "Second signal's amplitude scaling factor from 0 to 1."
 }
 

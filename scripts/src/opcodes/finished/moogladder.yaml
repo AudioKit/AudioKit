@@ -1,8 +1,8 @@
 opcode: moogladder
 
-operation: OCSMoogLadder
+operation: AKMoogLadder
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Moog ladder lowpass filter.
 
@@ -15,14 +15,14 @@ input_list: ain, kcf, kres
 required_inputs:
 
 - ain: {
-	ocsVar: sourceAudio, 
+	audioKitName: sourceAudio, 
 	comment: "Input Signal"
 }
 - kcf: {
-	ocsVar: cutoffFrequency, 
+	audioKitName: cutoffFrequency, 
 	comment: "Filter cutoff frequency"
 }
 - kres: {
-	ocsVar: resonance, 
+	audioKitName: resonance, 
 	comment: "Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1."
 }
