@@ -1,8 +1,8 @@
 opcode: tonek
 
-operation: OCSLowPassControlFilter
+operation: AKLowPassControlFilter
 
-operationClass: OCSCntrol
+operationClass: AKCntrol
 
 summary:  A first-order recursive low-pass filter with variable frequency response.
 
@@ -14,10 +14,10 @@ input_list: ksig, khp
 required_inputs:
 
 - ksig: {
-	ocsVar: sourceControl, 
+	audioKitName: sourceControl, 
 	comment: "The control to be filtered"
 }
 - khp: {
-	ocsVar: halfPowerPoint, 
+	audioKitName: halfPowerPoint, 
 	comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2."
 }

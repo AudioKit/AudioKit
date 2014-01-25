@@ -1,8 +1,8 @@
 opcode: repluck
 
-operation: OCSPluckedString
+operation: AKPluckedString
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  Physical model of the plucked string.
 
@@ -14,26 +14,26 @@ input_list: iplk, kamp, icps, kpick, krefl, axcite
 
 required_inputs:
 - icps: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Frequency of the string"
 }
 - iplk: {
-	ocsVar: pluckPosition, 
+	audioKitName: pluckPosition, 
 	comment: " The point of pluck as a fraction of the way up the string (0 to 1). A pluck point of zero means no initial pluck."
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of note."
 }
 - kpick: {
-	ocsVar: samplePosition, 
+	audioKitName: samplePosition, 
 	comment: " Proportion of the way along the string to sample the output."
 }
 - krefl: {
-	ocsVar: reflectionCoefficient, 
+	audioKitName: reflectionCoefficient, 
 	comment: "The coefficient of reflection, indicating the lossiness and the rate of decay. It must be strictly between 0 and 1 (it will complain about both 0 and 1)."
 }
 - axcite: {
-	ocsVar: excitationSignal, 
+	audioKitName: excitationSignal, 
 	comment: "A signal which excites the string."
 }

@@ -1,8 +1,8 @@
 opcode: oscils
 
-operation: OCSSineOscillator
+operation: AKSineOscillator
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: A simple, fast sine oscillator
 
@@ -14,17 +14,17 @@ input_list: iamp, icps, iphs
 required_inputs:
 
 - icps: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "comment"
 }
 - iamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "comment"
 }
 
 optional_inputs:
 - iphs: {
-	ocsVar: phase, 
+	audioKitName: phase, 
 	comment: "comment",
 	default: 0
 }

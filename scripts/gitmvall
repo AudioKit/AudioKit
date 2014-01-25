@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'erb'
+require 'pp'
+require 'find'
+require 'pathname'
+require 'active_support/all'
+
+def pretty_operation_list
+	return_string = ""
+	Find.find("../AudioKit/Operations/") do |file_path|
+
+		if /OCS.+/.match(file_path)
+			original_path = Pathname.new(file_path).to_s
+			new_path = original_path.gsub("OCS", "AK")
+			return_string = return_string + 'git mv "' + original_path + '"  "' + new_path + '"' + ";"
+		end
+
+	end
+	return return_string
+end
+
+operation_file_paths = []
+Find.find("../AudioKit/Operations/") do |file|
+	operation_file_paths << file if  /\.h/.match(file) && !/UDOs/.match(file)
+end
+
+operation_files = operation_file_paths.map{|f| Pathname.new(f).basename }
+
+puts pretty_operation_list

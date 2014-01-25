@@ -1,8 +1,8 @@
 opcode: butterhp
 
-operation: OCSHighPassButterworthFilter
+operation: AKHighPassButterworthFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A high-pass Butterworth filter.
 
@@ -15,11 +15,11 @@ input_list: asig, kfreq
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Input signal to be filtered."
 }
 
 - kfreq: {
-	ocsVar: cutoffFrequency, 
+	audioKitName: cutoffFrequency, 
 	comment: "Cutoff frequency for each of the filters."
 }

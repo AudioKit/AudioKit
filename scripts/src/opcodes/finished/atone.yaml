@@ -1,23 +1,23 @@
 opcode: atone
 
-operation: OCSHighPassFilter
+operation: AKHighPassFilter
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: A first-order recursive high-pass filter with variable frequency response.
 
 description:
-  A complement to the OCSLowPassFilter.
+  A complement to the AKLowPassFilter.
 
 input_list: asig, khp
 
 required_inputs:
 
 - asig: {
-	ocsVar: sourceAudio, 
+	audioKitName: sourceAudio, 
 	comment: "The audio to be filtered"
 }
 - khp: {
-	ocsVar: halfPowerPoint, 
+	audioKitName: halfPowerPoint, 
 	comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2."
 }

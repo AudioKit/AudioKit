@@ -1,6 +1,6 @@
 opcode: foscili
-operation: OCSFMOscillator
-operationClass: OCSAudio
+operation: AKFMOscillator
+operationClass: AKAudio
 summary:  Basic frequency modulated oscillator with linear interpolation.
 description:
   Interpolating generators will produce a noticeably cleaner output signal, but

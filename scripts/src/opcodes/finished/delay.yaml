@@ -1,8 +1,8 @@
 opcode: delay
 
-operation: OCSDelay
+operation: AKDelay
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  Simple audio delay
 
@@ -14,10 +14,10 @@ input_list: asig, idlt
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "Audio signal"
 }
 - idlt: {
-	ocsVar: delayTime, 
+	audioKitName: delayTime, 
 	comment: "Requested delay time in seconds."
 }

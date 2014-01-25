@@ -1,6 +1,6 @@
 //
 //  <%= operation %>.m
-//  Objective-C Sound
+//  AudioKit
 //
 //  Auto-generated from scripts by Aurelius Prochazka on <%= Time.now.strftime('%-m/%-d/%y') %>.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -26,7 +26,7 @@
 <% indent_length = 0 -%>
 <% required_inputs.each_with_index do |required_input, i| -%>
 <% required_input.each do  |csd_var, data| -%>
-<% ocs_var =  data["ocsVar"] -%>
+<% ocs_var =  data["audioKitName"] -%>
 <% type = detectType(csd_var) -%>
 <% if i == 0 then -%>
 <% indent_length = "- (instancetype).initWith#{ocs_var}".length - 1 -%>
@@ -40,7 +40,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
     <% required_inputs.each do |required_input| -%>
-    <% required_input.each do  |csd_var, data| -%>    <%= csd_var %> = <%= data["ocsVar"] -%>;    
+    <% required_input.each do  |csd_var, data| -%>    <%= csd_var %> = <%= data["audioKitName"] -%>;    
     <% end -%>
     <% end -%>
     <% if !optional_inputs.nil? -%>
@@ -55,8 +55,8 @@
 <% optional_inputs.each do |optional_input| %>
 <% optional_input.each do  |csd_var, data| -%>
 <% type = detectType(csd_var); -%>
-- (void)setOptional<%= data["ocsVar"].camelize %>:(<%= type %> *)<%= data["ocsVar"] %> {
-	<%= csd_var %> = <%= data["ocsVar"] %>;
+- (void)setOptional<%= data["audioKitName"].camelize %>:(<%= type %> *)<%= data["audioKitName"] %> {
+	<%= csd_var %> = <%= data["audioKitName"] %>;
 }
 <% end -%>
 <% end -%>

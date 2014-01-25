@@ -1,8 +1,8 @@
 opcode: sleighbells
 
-operation: OCSSleighbells
+operation: AKSleighbells
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Semi-physical model of a sleighbell sound.
 
@@ -14,42 +14,42 @@ input_list: kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2
 required_inputs:
 
 - idettack: {
-	ocsVar: maximumDuration, 
+	audioKitName: maximumDuration, 
 	comment: "Period of time over which all sound is stopped"
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of output. Since these instruments are stochastic this is only an approximation."
 }
 
 optional_inputs:
 - inum: {
-	ocsVar: count, 
+	audioKitName: count, 
 	comment: "The number of beads/teeth/bells/timbrels/etc. The default value is 1.25.",
 	default: 1.25
 }
 - idamp: {
-	ocsVar: dampingFactor, 
+	audioKitName: dampingFactor, 
 	comment: "The damping factor, as part of this equation damping = 0.9994 + (dampingFactor * 0.002). The default damping is 0.9994 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.03.  The recommended range for dampingFactor is usually below 75% of the maximum value.",
 	default: 0
 }
 - imaxshake: {
-	ocsVar: energyReturn, 
+	audioKitName: energyReturn, 
 	comment: "Amount of energy to add back into the system. The value should be in range 0 to 1.",
 	default: 0
 }
 - ifreq: {
-	ocsVar: mainResonantFrequency, 
+	audioKitName: mainResonantFrequency, 
 	comment: "The main resonant frequency. The default value is 2500.",
 	default: 2500
 }
 - ifreq1: {
-	ocsVar: firstResonantFrequency, 
+	audioKitName: firstResonantFrequency, 
 	comment: "The first resonant frequency. The default value is 5300.",
 	default: 5300
 }
 - ifreq2: {
-	ocsVar: secondResonantFrequency, 
+	audioKitName: secondResonantFrequency, 
 	comment: "The second resonant frequency. The default value is 6500.",
 	default: 6500
 }

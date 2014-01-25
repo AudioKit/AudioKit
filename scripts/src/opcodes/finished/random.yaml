@@ -1,8 +1,8 @@
 opcode: random
 
-operation: OCSRandomAudio
+operation: AKRandomAudio
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  Generates a controlled pseudo-random number series between min and max values.
 
@@ -14,10 +14,10 @@ input_list: kmin, kmax
 required_inputs:
 
 - kmin: {
-	ocsVar: minimum, 
+	audioKitName: minimum, 
 	comment: "Minimum range limit."
 }
 - kmax: {
-	ocsVar: maximum, 
+	audioKitName: maximum, 
 	comment: "Maximum range limit"
 }

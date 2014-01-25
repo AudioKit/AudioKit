@@ -1,8 +1,8 @@
 opcode: adsr
 
-operation: OCSLinearADSRAudioEnvelope
+operation: AKLinearADSRAudioEnvelope
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  Calculates the classical ADSR envelope using linear segments.
 
@@ -15,26 +15,26 @@ input_list: iatt, idec, islev, irel, idel
 required_inputs:
 
 - iatt: {
-	ocsVar: attackDuration, 
+	audioKitName: attackDuration, 
 	comment: "Duration of attack phase"
 }
 - idec: {
-	ocsVar: decayDuration, 
+	audioKitName: decayDuration, 
 	comment: "Duration of decay"
 }
 - islev: {
-	ocsVar: sustainLevel, 
+	audioKitName: sustainLevel, 
 	comment: "Level for sustain phase"
 }
 
 - irel: {
-	ocsVar: releaseDuration, 
+	audioKitName: releaseDuration, 
 	comment: "Duration of release phase"
 }
 
 optional_inputs:
 - idel: {
-	ocsVar: delay, 
+	audioKitName: delay, 
 	comment: "Period of zero before the envelope starts",
 	default: 0
 }

@@ -1,8 +1,8 @@
 opcode: granule
 
-operation: OCSGranule
+operation: AKGranule
 
-operationClass: OCSStereoAudioOrAudioOrControlOrConstant
+operationClass: AKStereoAudioOrAudioOrControlOrConstant
 
 summary:  One line title / summary for the operation.
 
@@ -14,98 +14,98 @@ input_list: xamp, ivoice, iratio, imode, ithd, ifn, ipshift, igskip, igskip_os, 
 required_inputs:
 
 - iatt: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - idec: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - ifn: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - igap_os: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - igsize_os: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - igskip: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - igskip_os: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - ilength: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - imode: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - ipshift: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - iratio: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - ithd: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - ivoice: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - kgap: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - kgsize: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 - xamp: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment"
 }
 
 optional_inputs:
 - iseed: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment",
 	default: 0
 }
 - ipitch1: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment",
 	default: 0
 }
 - ipitch2: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment",
 	default: 0
 }
 - ipitch3: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment",
 	default: 0
 }
 - ipitch4: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment",
 	default: 0
 }
 - ifnenv: {
-	ocsVar: ocsVar, 
+	audioKitName: audioKitName, 
 	comment: "comment",
 	default: 0
 }

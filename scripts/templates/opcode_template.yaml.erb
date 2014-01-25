@@ -1,6 +1,6 @@
 opcode: <%= opcode %>
 
-operation: OCS<%= opcode.camelize %>
+operation: AK<%= opcode.camelize %>
 
 operationClass: <%= outputType %>
 
@@ -14,13 +14,13 @@ input_list: <%= (inputs + optionals).join(", ") %>
 required_inputs:
 
 <% inputs.sort.each do |input| %>- <%= input %>: {
-	ocsVar: <%= ocsVarBestGuess(input) %>, 
+	audioKitName: <%= audioKitNameBestGuess(input) %>, 
 	comment: "comment"
 }
 <% end %>
 optional_inputs:
 <% optionals.each do |opt| %>- <%= opt %>: {
-	ocsVar: <%= ocsVarBestGuess(opt) %>, 
+	audioKitName: <%= audioKitNameBestGuess(opt) %>, 
 	comment: "comment",
 	default: 0
 }

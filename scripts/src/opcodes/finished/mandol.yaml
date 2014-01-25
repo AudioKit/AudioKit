@@ -1,8 +1,8 @@
 opcode: mandol
 
-operation: OCSMandolin
+operation: AKMandolin
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  An emulation of a mandolin.
 
@@ -14,26 +14,26 @@ input_list: kamp, kfreq, kpluck, kdetune, kgain, ksize, ksize
 required_inputs:
 
 - ksize: {
-	ocsVar: bodySize, 
+	audioKitName: bodySize, 
 	comment: "The size of the body of the mandolin. Range 0 to 2."
 }
 - kfreq: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "Frequency of note played."
 }
 - kdetune: {
-	ocsVar: pairedStringDetuning, 
+	audioKitName: pairedStringDetuning, 
 	comment: "The proportional detuning between the two strings. Suggested range 0.9 to 1."
 }
 - kpluck: {
-	ocsVar: pluckPosition, 
+	audioKitName: pluckPosition, 
 	comment: "The pluck position, in range 0 to 1. Suggest 0.4."
 }
 - kgain: {
-	ocsVar: loopGain, 
+	audioKitName: loopGain, 
 	comment: "The loop gain of the model, in the range 0.97 to 1."
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of note."
 }

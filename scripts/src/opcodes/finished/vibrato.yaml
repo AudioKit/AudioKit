@@ -1,8 +1,8 @@
 opcode: vibrato
 
-operation: OCSVibrato
+operation: AKVibrato
 
-operationClass: OCSControl
+operationClass: AKControl
 
 summary: Generates a natural-sounding user-controllable vibrato.
 
@@ -20,48 +20,48 @@ input_list: kAverageAmp, kAverageFreq, kRandAmountAmp, kRandAmountFreq, kAmpMinR
 required_inputs:
 
 - ifn: {
-	ocsVar: vibratoShapeTable, 
+	audioKitName: vibratoShapeTable, 
 	comment: "Vibrato table. It normally contains a sine or a triangle wave."
 }
 
 - kAverageFreq: {
-	ocsVar: averageFrequency, 
+	audioKitName: averageFrequency, 
 	comment: "Average frequency value of vibrato in Hz"
 }
 - kRandAmountFreq: {
-	ocsVar: frequencyRandomness, 
+	audioKitName: frequencyRandomness, 
 	comment: "Amount of random frequency deviation"
 }
 - kcpsMinRate: {
-	ocsVar: minimumFrequencyRandomness, 
+	audioKitName: minimumFrequencyRandomness, 
 	comment: "Minimum frequency of random frequency deviation segments in Hz"
 }
 - kcpsMaxRate: {
-	ocsVar: maximumFrequencyRandomness, 
+	audioKitName: maximumFrequencyRandomness, 
 	comment: "Maximum frequency of random frequency deviation segments in Hz"
 }
 
 - kAverageAmp: {
-	ocsVar: averageAmplitude, 
+	audioKitName: averageAmplitude, 
 	comment: "Average amplitude value of vibrato."
 }
 - kRandAmountAmp: {
-	ocsVar: amplitudeDeviation, 
+	audioKitName: amplitudeDeviation, 
 	comment: "Amount of random amplitude deviation,"
 }
 - kAmpMinRate: {
-	ocsVar: minimumAmplitudeRandomness, 
+	audioKitName: minimumAmplitudeRandomness, 
 	comment: "Minimum frequency of random amplitude deviation segments in Hz"
 }
 
 - kAmpMaxRate: {
-	ocsVar: maximumAmplitudeRandomness, 
+	audioKitName: maximumAmplitudeRandomness, 
 	comment: "Maximum frequency of random amplitude deviation segments in Hz"
 }
 
 optional_inputs:
 - iphs: {
-	ocsVar: phase, 
+	audioKitName: phase, 
 	comment: "Initial phase of table, expressed as a fraction of a cycle (0 to 1).",
 	default: 0
 }

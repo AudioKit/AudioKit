@@ -1,8 +1,8 @@
 opcode: pvsvoc
 
-operation: OCSSpectralVocoder
+operation: AKSpectralVocoder
 
-operationClass: OCSFSignal
+operationClass: AKFSignal
 
 summary:  Combine the spectral envelope of one F-signal with the excitation (frequencies) of another.
 
@@ -16,25 +16,25 @@ input_list: famp, fexc, kdepth, kgain, kcoefs
 required_inputs:
 
 - famp: {
-	ocsVar: amplitudeFSignal, 
+	audioKitName: amplitudeFSignal, 
 	comment: "Input phase vocoder stream from which the amplitudes will be extracted."
 }
 - fexc: {
-	ocsVar: excitationFrequenciesFSignal, 
+	audioKitName: excitationFrequenciesFSignal, 
 	comment: "Input phase vocoder stream from which the frequencies will be taken."
 }
 - kdepth: {
-	ocsVar: depth, 
+	audioKitName: depth, 
 	comment: "Depth of effect, affecting how much of the frequencies will be taken from the second fsig: 0, the output is amplitudeFSignal, 1 the output is the amplitudeFSignal amplitudes and excitationFrequenciesFSignal frequencies."
 }
 - kgain: {
-	ocsVar: gain, 
+	audioKitName: gain, 
 	comment: "Boost or attenuation applied to the output"
 }
 
 optional_inputs:
 - kcoefs: {
-	ocsVar: coefs, 
+	audioKitName: coefs, 
 	comment: "Number of cepstrum coefs used in spectral envelope estimation (defaults to 80).",
 	default: 80
 }

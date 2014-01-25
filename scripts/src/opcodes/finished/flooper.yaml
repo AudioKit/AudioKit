@@ -1,8 +1,8 @@
 opcode: flooper
 
-operation: OCSFTablelooper
+operation: AKFTablelooper
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary: Function-table-based crossfading looper.
 
@@ -14,26 +14,26 @@ input_list: kamp, kpitch, istart, idur, ifad, ifn
 
 required_inputs:
 - ifn: {
-	ocsVar: fTable, 
+	audioKitName: fTable, 
 	comment: "comment"
 }
 - istart: {
-	ocsVar: startingPosition, 
+	audioKitName: startingPosition, 
 	comment: "Loop start position in seconds"
 }
 - idur: {
-	ocsVar: loopDuration, 
+	audioKitName: loopDuration, 
 	comment: "Loop duration in seconds"
 }
 - ifad: {
-	ocsVar: crossfadeDuration, 
+	audioKitName: crossfadeDuration, 
 	comment: "Crossfade duration in seconds"
 }
 - kpitch: {
-	ocsVar: transpositionRatio, 
+	audioKitName: transpositionRatio, 
 	comment: "Pitch control, negative values play the loop in reverse."
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of loop"
 }

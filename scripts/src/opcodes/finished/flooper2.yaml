@@ -1,8 +1,8 @@
 opcode: flooper2
 
-operation: OCSFlooper2
+operation: AKFlooper2
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  One line title / summary for the operation.
 
@@ -14,48 +14,48 @@ input_list: kamp, kpitch, kloopstart, kloopend, kcrossfade, ifn, istart, imode, 
 required_inputs:
 
 - ifn: {
-	ocsVar: fTable, 
+	audioKitName: fTable, 
 	comment: "Sound source function table number, generally created using GEN01"
 }
 - kloopstart: {
-	ocsVar: , 
+	audioKitName: , 
 	comment: ""
 }
 - kloopend: {
-	ocsVar: endTime, 
+	audioKitName: endTime, 
 	comment: "Playback end position in seconds"
 }
 - kpitch: {
-	ocsVar: transpositionRatio, 
+	audioKitName: transpositionRatio, 
 	comment: "Pitch control by way of transposition ratio."
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of loop"
 }
 - kcrossfade: {
-	ocsVar: crossfadeDuration, 
+	audioKitName: crossfadeDuration, 
 	comment: "crossfade length in seconds, updated once per loop cycle and limited to loop length."
 }
 
 optional_inputs:
 - istart: {
-	ocsVar: startTime, 
+	audioKitName: startTime, 
 	comment: "Playback start position in seconds",
 	default: 0
 }
 - imode: {
-	ocsVar: mode, 
+	audioKitName: mode, 
 	comment: "comment",
 	default: 0
 }
 - ifenv: {
-	ocsVar: fenv, 
+	audioKitName: fenv, 
 	comment: "comment",
 	default: 0
 }
 - iskip: {
-	ocsVar: skip, 
+	audioKitName: skip, 
 	comment: "comment",
 	default: 0
 }

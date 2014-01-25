@@ -1,8 +1,8 @@
 opcode: wguide1
 
-operation: OCSSimpleWaveGuideModel
+operation: AKSimpleWaveGuideModel
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  A simple waveguide model consisting of one delay-line and one first-order lowpass filter.
 
@@ -14,18 +14,18 @@ input_list: asig, xfreq, kcutoff, kfeedback
 required_inputs:
 
 - asig: {
-	ocsVar: audioSource, 
+	audioKitName: audioSource, 
 	comment: "The excitation noise."
 }
 - xfreq: {
-	ocsVar: frequency, 
+	audioKitName: frequency, 
 	comment: "The inverse of delay time."
 }
 - kcutoff: {
-	ocsVar: cutoff, 
+	audioKitName: cutoff, 
 	comment: "Filter cut-off frequency in Hz"
 }
 - kfeedback: {
-	ocsVar: feedback, 
+	audioKitName: feedback, 
 	comment: "Feedback factor usually between 0 and 1"
 }

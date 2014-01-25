@@ -1,8 +1,8 @@
 opcode: guiro
 
-operation: OCSGuiro
+operation: AKGuiro
 
-operationClass: OCSAudio
+operationClass: AKAudio
 
 summary:  Semi-physical model of a guiro sound.
 
@@ -15,32 +15,32 @@ input_list: kamp, idettack, inum, 0, imaxshake, ifreq, ifreq1
 required_inputs:
 
 - idettack: {
-	ocsVar: maximumDuration, 
+	audioKitName: maximumDuration, 
 	comment: "Period of time over which all sound is stopped"
 }
 - kamp: {
-	ocsVar: amplitude, 
+	audioKitName: amplitude, 
 	comment: "Amplitude of output. Since these instruments are stochastic this is only an approximation."
 }
 
 optional_inputs:
 - inum: {
-	ocsVar: count, 
+	audioKitName: count, 
 	comment: "The number of beads/teeth/bells/timbrels/etc. The default value is 1.25.",
 	default: 1.25
 }
 - imaxshake: {
-	ocsVar: energyReturn, 
+	audioKitName: energyReturn, 
 	comment: "Amount of energy to add back into the system. The value should be in range 0 to 1.",
 	default: 0
 }
 - ifreq: {
-	ocsVar: mainResonantFrequency, 
+	audioKitName: mainResonantFrequency, 
 	comment: "The main resonant frequency. The default value is 2500.",
 	default: 2500
 }
 - ifreq1: {
-	ocsVar: firstResonantFrequency, 
+	audioKitName: firstResonantFrequency, 
 	comment: "The first resonant frequency. The default value is 4000.",
 	default: 4000
 }

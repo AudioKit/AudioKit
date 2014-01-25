@@ -8,10 +8,10 @@ require 'active_support/all'
 
 def pretty_operation_list
 	return_string = ""
-	Find.find("../Objective-C Sound/Operations/") do |file_path|
+	Find.find("../AudioKit/Operations/") do |file_path|
 		next if /UDOs/.match(file_path)
 		if File.directory?(file_path) 
-			pretty_directory = /Objective-C Sound\/(.*)$/.match(file_path)[1]
+			pretty_directory = /AudioKit\/(.*)$/.match(file_path)[1]
 			pretty_directory.gsub!(/\/$/,"")
 			pretty_directory.gsub!(/\//," - ")
 			return_string = return_string + "\n// " + pretty_directory + "\n"
@@ -25,14 +25,14 @@ def pretty_operation_list
 end
 
 operation_file_paths = []
-Find.find("../Objective-C Sound/Operations/") do |file|
+Find.find("../AudioKit/Operations/") do |file|
 	operation_file_paths << file if  /\.h/.match(file) && !/UDOs/.match(file)
 end
 
 operation_files = operation_file_paths.map{|f| Pathname.new(f).basename }
 
-File.open( "templates/OCSFoundationTemplate.h.erb" ) { |template|
+File.open( "templates/AKFoundationTemplate.h.erb" ) { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("OCSFoundation.h", 'w') {|f| f.write(erb.result) }
+	File.open("AKFoundation.h", 'w') {|f| f.write(erb.result) }
 	puts erb.result
 }
