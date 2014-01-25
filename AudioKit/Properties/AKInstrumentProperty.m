@@ -96,7 +96,7 @@
     *channelPtr = [self value];
 }
 
-- (void)updateValuesTAKound {
+- (void)updateValuesToCsound {
     *channelPtr = [self value];
 }
 - (void)updateValuesFromCsound {
