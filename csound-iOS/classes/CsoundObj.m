@@ -288,7 +288,7 @@ OSStatus  Csound_Render(void *inRefCon,
 		
 		for (int i = 0; i < cache.count; i++) {
 			id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
-			[cachedValue updateValuesTAKound];
+			[cachedValue updateValuesToCsound];
 		}
         
 		/* performance */
@@ -462,7 +462,7 @@ OSStatus  Csound_Render(void *inRefCon,
         /* SET VALUES FROM CACHE */
         for (int i = 0; i < valuesCache.count; i++) {
 			id<CsoundValueCacheable> cachedValue = [valuesCache objectAtIndex:i];
-			[cachedValue updateValuesTAKound];
+			[cachedValue updateValuesToCsound];
 		}
         
         if(!ret) {

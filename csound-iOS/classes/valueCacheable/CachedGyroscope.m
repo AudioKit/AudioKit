@@ -52,7 +52,7 @@ static NSString* CS_GYRO_Z = @"gyroZ";
 
 }
 
--(void)updateValuesTAKound {
+-(void)updateValuesToCsound {
     @autoreleasepool {
         *channelPtrX = mManager.gyroData.rotationRate.x;
         *channelPtrY = mManager.gyroData.rotationRate.y;
