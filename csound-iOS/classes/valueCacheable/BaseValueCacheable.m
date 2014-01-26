@@ -33,7 +33,7 @@
     return NO;
 }
 
--(void)updateValuesTAKound {
+-(void)updateValuesToCsound {
 }
 
 -(void)updateValuesFromCsound {

@@ -53,7 +53,7 @@ static NSString* CS_ACCEL_Z = @"accelerometerZ";
     self.cacheDirty = YES;
 }
 
--(void)updateValuesTAKound {
+-(void)updateValuesToCsound {
     @autoreleasepool {
         *channelPtrX = manager.accelerometerData.acceleration.x;
         *channelPtrY = manager.accelerometerData.acceleration.y;

@@ -52,7 +52,7 @@ static NSString* CS_ATTITUDE_YAW = @"attitudeYaw";
     
 }
 
--(void)updateValuesTAKound {
+-(void)updateValuesToCsound {
     @autoreleasepool {
         *channelPtrRoll = mManager.deviceMotion.attitude.roll;
         *channelPtrPitch = mManager.deviceMotion.attitude.pitch;
