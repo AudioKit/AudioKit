@@ -21,7 +21,7 @@
 }
 
 - (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)stereoAudio {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
         aStereoOutput = stereoAudio;
     }
@@ -31,7 +31,7 @@
 - (instancetype)initWithLeftAudio:(AKAudio *)leftAudio
                        rightAudio:(AKAudio *)rightAudio
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
         aStereoOutput = [[AKStereoAudio alloc] initWithLeftAudio:leftAudio
                                                        rightAudio:rightAudio];

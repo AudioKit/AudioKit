@@ -160,6 +160,7 @@
 #import "AKAudioOutput.h"
 #import "AKFTablelooper.h"
 #import "AKFileInput.h"
+#import "AKMonoFileInput.h"
 
 // Operations - Signal Modifiers
 

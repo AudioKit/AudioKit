@@ -25,7 +25,7 @@
                           cutoffFrequency:(AKControl *)cutoffFrequency;
 
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
         aInLR  = sourceStereo;
         kFbLvl = feedbackLevel;

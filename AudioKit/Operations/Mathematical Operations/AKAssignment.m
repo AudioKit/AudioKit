@@ -18,7 +18,7 @@
 
 - (instancetype)initWithOutput:(AKParameter *)output
                          input:(AKParameter *)input {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     
     if (self) {
         lhs = output;
@@ -28,7 +28,7 @@
 }
 
 - (instancetype)initWithInput:(AKParameter *)input {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     
     if (self) {
         lhs = [AKParameter parameterWithString:[self operationName]];
