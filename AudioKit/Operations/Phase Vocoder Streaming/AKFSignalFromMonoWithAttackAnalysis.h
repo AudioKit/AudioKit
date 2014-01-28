@@ -10,6 +10,8 @@
 #import "AKFSignal.h"
 #import "AKAudio.h"
 
+#warning This file needs to be ported to modern AudioKit naming and commenting standards
+
 /**  Phase vocoder analysis processing with onset detection/processing.
  
  Implements phase vocoder analysis by reading function tables containing sampled-sound
@@ -28,14 +30,12 @@
 @interface AKFSignalFromMonoWithAttackAnalysis : AKFSignal
 
 /// Create a phase vocoder stream or f-signal from a mono audio source and performs attack analysis.
-/// @param soundFileSource Audio to use to generate the f-signal.
-/// @param timeScaler      Time scaling ratio, <1 stretches, >1 contracts.
-/// @param amplitudeScaler Amplitude scaling ratio.
-/// @param pitchScaler     Grain pitch scaling ration (1=normal pitch, <1 lower, >1 higher, <0 backwards)
+/// @param soundFileSource  Audio to use to generate the f-signal.
+/// @param timeScalingRadio Time scaling ratio, <1 stretches, >1 contracts.
+/// @param pitchRatio       Grain pitch scaling ratio (1=normal pitch, <1 lower, >1 higher, <0 backwards)
 - (instancetype)initWithSoundFile:(AKFTable *)soundFileSource
-                       timeScaler:(AKControl *)timeScaler
-                  amplitudeScaler:(AKControl *)amplitudeScaler
-                      pitchScaler:(AKControl *)pitchScaler;
+                 timeScalingRatio:(AKControl *)timeScalingRatio
+                       pitchRatio:(AKControl *)pitchRatio;
 
 /// Create a phase vocoder stream or f-signal from a mono audio source and performs attack analysis.
 /// @param soundFileSource  Audio to use to generate the f-signal.
