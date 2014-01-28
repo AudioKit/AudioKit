@@ -33,14 +33,13 @@
 
 
 - (instancetype)initWithSoundFile:(AKFTable *)soundFileSource
-                       timeScaler:(AKControl *)timeScaler
-                  amplitudeScaler:(AKControl *)amplitudeScaler
-                      pitchScaler:(AKControl *)pitchScaler
+                 timeScalingRatio:(AKControl *)timeScalingRatio
+                       pitchRatio:(AKControl *)pitchRatio
 {
     return [self initWithSoundFile:soundFileSource
-                        timeScaler:timeScaler
-                   amplitudeScaler:amplitudeScaler
-                       pitchScaler:pitchScaler
+                        timeScaler:timeScalingRatio
+                   amplitudeScaler:akpi(1)
+                       pitchScaler:pitchRatio
                            fftSize:akpi(2048)
                            overlap:akpi(512)
                    tableReadOffset:akpi(0)
