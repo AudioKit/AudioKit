@@ -58,7 +58,7 @@
                              amplitude:(AKParameter *)amplitude
                                   type:(LoopingOscillatorType)type
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
         soundFileTable = fileTable;
         amp = amplitude;

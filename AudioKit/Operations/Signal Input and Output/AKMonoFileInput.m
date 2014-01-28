@@ -1,5 +1,5 @@
 //
-//  AKFileInput.m
+//  AKMonoFileInput.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/28/12.
@@ -9,14 +9,14 @@
 //  http://www.csounds.com/manual/html/diskin2.html
 //
 
-#import "AKFileInput.h"
+#import "AKMonoFileInput.h"
 
-@interface AKFileInput () {
+@interface AKMonoFileInput () {
     NSString *ifilcod;
 }
 @end
 
-@implementation AKFileInput
+@implementation AKMonoFileInput
 
 - (instancetype)initWithFilename:(NSString *)fileName;
 {
@@ -24,15 +24,15 @@
     if (self) {
         ifilcod = fileName;
     }
-    return self; 
+    return self;
 }
 
 // Csound Prototype:
-// a1[, a2[, ... aN]] diskin2 ifilcod, kpitch[, iskiptim [, iwrap[, iformat [, iwsize[, ibufsize[, iskipinit]]]]]]
+// a1[, a2[, ... aN]] diskin ifilcod, kpitch[, iskiptim [, iwrap[, iformat [, iwsize[, ibufsize[, iskipinit]]]]]]
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@ diskin2 \"%@\", 1, 0, 1",
+            @"%@ diskin \"%@\", 1, 0, 1",
             self, ifilcod];
 }
 

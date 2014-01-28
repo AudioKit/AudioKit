@@ -19,7 +19,7 @@
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                 impulseResponseFile:(NSString *)impulseResponseFilename;
 {
-    self = [super init];
+    self = [super initWithString:[self operationName]];
     if (self) {
         aIn     = audioSource;
         iFilCod = impulseResponseFilename;
