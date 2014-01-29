@@ -40,8 +40,8 @@
                         timeScaler:timeScalingRatio
                    amplitudeScaler:akpi(1)
                        pitchScaler:pitchRatio
-                           fftSize:akpi(2048)
-                           overlap:akpi(512)
+                           fftSize:akpi(1024)
+                           overlap:akpi(256)
                    tableReadOffset:akpi(0)
              audioSourceWraparound:akpi(1)
                    onsetProcessing:akp(1)
