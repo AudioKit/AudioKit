@@ -14,7 +14,7 @@
  Different modes require different inputs so this could be a reason to break this up into separate classes, or use more custom initializers.
  */
 
-#warning In Csound, vco2 usually requires a vco2init, in the current state OCSVCOscillator is highly unstable.
+#warning In Csound, vco2 usually requires a vco2init, in the current state AKVCOscillator is highly unstable.
 
 @interface AKVCOscillator : AKAudio
 
