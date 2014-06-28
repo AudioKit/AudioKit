@@ -5,7 +5,7 @@
 //  Created by Aurelius Prochazka on 7/22/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-
+	
 #import "Harmonizer.h"
 
 @implementation Harmonizer
