@@ -103,6 +103,7 @@
 #import "AKOscillatingControl.h"
 #import "AKOscillator.h"
 #import "AKSineOscillator.h"
+#import "AKVCOscillator.h"
 
 // Operations - Signal Generators - Phasors
 #import "AKPhasingControl.h"

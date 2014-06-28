@@ -30,15 +30,15 @@
                                               amplitude:akp(0.5)];
         [self addUDO:msrOsc];
         
-        UDOCsGrainPitchShifter *ps;
-        ps = [[UDOCsGrainPitchShifter alloc] initWithSourceStereoAudio:[AKStereoAudio stereoFromMono:msrOsc]
+        UDOCSGrainPitchShifter *ps;
+        ps = [[UDOCSGrainPitchShifter alloc] initWithSourceStereoAudio:[AKStereoAudio stereoFromMono:msrOsc]
                                                              basePitch:akp(2.7)
                                                        offsetFrequency:akp(0)
                                                          feedbackLevel:akp(0.9)];
         [self addUDO:ps];
         
-        UDOCsGrainCompressor *comp;
-        comp = [[UDOCsGrainCompressor alloc] initWithSourceStereoAudio:ps
+        UDOCSGrainCompressor *comp;
+        comp = [[UDOCSGrainCompressor alloc] initWithSourceStereoAudio:ps
                                                              threshold:akp(-2.0)
                                                       compressionRatio:akp(0.5)
                                                             attackTime:akp(0.1)
