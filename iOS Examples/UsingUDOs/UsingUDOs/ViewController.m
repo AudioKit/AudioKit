@@ -1,26 +1,31 @@
 //
-//  UDOViewController.m
-//  AudioKit Example
+//  ViewController.m
+//  UsingUDOs
 //
-//  Created by Aurelius Prochazka on 6/23/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 7/1/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import "UDOViewController.h"
+#import "ViewController.h"
+
 #import "AKiOSTools.h"
-#import "AKManager.h"
+#import "AKFoundation.h"
 
-@interface UDOViewController () {
+#import "UDOInstrument.h"
+
+@interface ViewController () {
     UDOInstrument *udoInstrument;
 }
 @end
 
-@implementation UDOViewController
+
+@implementation ViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    AKOrchestra *orch = [[AKOrchestra alloc] init];    
+    
+    AKOrchestra *orch = [[AKOrchestra alloc] init];
     udoInstrument = [[UDOInstrument alloc] init];
     [orch addInstrument:udoInstrument];
     [[AKManager sharedAKManager] runOrchestra:orch];
@@ -32,12 +37,13 @@
     [udoInstrument playNote:note];
 }
 
-- (IBAction)hit2:(id)sender { 
+- (IBAction)hit2:(id)sender {
     UDOInstrumentNote *note = [[UDOInstrumentNote alloc] init];
     [note.frequency randomize];
     note.duration.value = 0.5;
     [udoInstrument playNote:note];
 }
+
 
 
 @end

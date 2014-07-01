@@ -27,14 +27,14 @@
         UDOMSROscillator *msrOsc;
         msrOsc = [[UDOMSROscillator alloc] initWithType:kMSROscillatorTypeTriangle
                                               frequency:note.frequency
-                                              amplitude:akp(0.5)];
+                                              amplitude:akp(0.2)];
         [self addUDO:msrOsc];
         
         UDOCSGrainPitchShifter *ps;
         ps = [[UDOCSGrainPitchShifter alloc] initWithSourceStereoAudio:[AKStereoAudio stereoFromMono:msrOsc]
                                                              basePitch:akp(2.7)
                                                        offsetFrequency:akp(0)
-                                                         feedbackLevel:akp(0.9)];
+                                                         feedbackLevel:akp(0.8)];
         [self addUDO:ps];
         
         UDOCSGrainCompressor *comp;

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C42B246415F484D0006032F9 /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242D15F484D0006032F9 /* Harmonizer.m */; };
 		C42B246615F484D0006032F9 /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243015F484D0006032F9 /* FivePropertyInstrument.m */; };
-		C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244815F484D0006032F9 /* UDOInstrument.m */; };
 		C43976C9195F6B2C0076F005 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C439757E195F6B2C0076F005 /* AKEvent.m */; };
 		C43976CA195F6B2C0076F005 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397581195F6B2C0076F005 /* AKInstrument.m */; };
 		C43976CB195F6B2C0076F005 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397583195F6B2C0076F005 /* AKManager.m */; };
@@ -180,8 +179,6 @@
 		C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799215D600C40084FF9E /* InitialViewController.m */; };
 		C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079BA15D603160084FF9E /* HarmonizerViewController.m */; };
 		C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */; };
-		C4F07A3515D603160084FF9E /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079EA15D603160084FF9E /* UDOViewController.m */; };
-		C4F07A3615D603160084FF9E /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079EB15D603160084FF9E /* UDOViewController.xib */; };
 		C4F07A3D15D603B60084FF9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A3C15D603B60084FF9E /* AVFoundation.framework */; };
 		C4F07A3F15D603BD0084FF9E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A3E15D603BD0084FF9E /* CoreMotion.framework */; };
 		C4F07A4115D603C40084FF9E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A4015D603C40084FF9E /* CoreMIDI.framework */; };
@@ -193,8 +190,6 @@
 		C42B242D15F484D0006032F9 /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harmonizer.m; sourceTree = "<group>"; };
 		C42B242F15F484D0006032F9 /* FivePropertyInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FivePropertyInstrument.h; sourceTree = "<group>"; };
 		C42B243015F484D0006032F9 /* FivePropertyInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FivePropertyInstrument.m; sourceTree = "<group>"; };
-		C42B244715F484D0006032F9 /* UDOInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOInstrument.h; sourceTree = "<group>"; };
-		C42B244815F484D0006032F9 /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOInstrument.m; sourceTree = "<group>"; };
 		C439757D195F6B2C0076F005 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C439757E195F6B2C0076F005 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C439757F195F6B2C0076F005 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -548,9 +543,6 @@
 		C4F079B915D603160084FF9E /* HarmonizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = HarmonizerViewController.h; sourceTree = "<group>"; };
 		C4F079BA15D603160084FF9E /* HarmonizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarmonizerViewController.m; sourceTree = "<group>"; };
 		C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarmonizerViewController.xib; sourceTree = "<group>"; };
-		C4F079E915D603160084FF9E /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOViewController.h; sourceTree = "<group>"; };
-		C4F079EA15D603160084FF9E /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOViewController.m; sourceTree = "<group>"; };
-		C4F079EB15D603160084FF9E /* UDOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UDOViewController.xib; sourceTree = "<group>"; };
 		C4F07A3C15D603B60084FF9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4F07A3E15D603BD0084FF9E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C4F07A4015D603C40084FF9E /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
@@ -582,7 +574,6 @@
 			children = (
 				C42B242B15F484D0006032F9 /* Harmonizer */,
 				C42B242E15F484D0006032F9 /* MIDI */,
-				C42B244615F484D0006032F9 /* UDOs */,
 			);
 			name = "Shared Instruments";
 			path = ../../Shared/Instruments;
@@ -604,15 +595,6 @@
 				C42B243015F484D0006032F9 /* FivePropertyInstrument.m */,
 			);
 			path = MIDI;
-			sourceTree = "<group>";
-		};
-		C42B244615F484D0006032F9 /* UDOs */ = {
-			isa = PBXGroup;
-			children = (
-				C42B244715F484D0006032F9 /* UDOInstrument.h */,
-				C42B244815F484D0006032F9 /* UDOInstrument.m */,
-			);
-			path = UDOs;
 			sourceTree = "<group>";
 		};
 		C439757B195F6B2C0076F005 /* AudioKit */ = {
@@ -1385,7 +1367,6 @@
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
 				C42B241A15F484D0006032F9 /* Shared Instruments */,
-				C4F079E615D603160084FF9E /* UDOs */,
 				C4F079B615D603160084FF9E /* Harmonizer */,
 				C4C8272B15D752A5009D48DA /* MIDI */,
 				C4F0783515D5F4B30084FF9E /* Supporting Files */,
@@ -1420,16 +1401,6 @@
 				C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */,
 			);
 			path = Harmonizer;
-			sourceTree = "<group>";
-		};
-		C4F079E615D603160084FF9E /* UDOs */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079E915D603160084FF9E /* UDOViewController.h */,
-				C4F079EA15D603160084FF9E /* UDOViewController.m */,
-				C4F079EB15D603160084FF9E /* UDOViewController.xib */,
-			);
-			path = UDOs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1494,7 +1465,6 @@
 				C439774E195F6B2C0076F005 /* declick.udo in Resources */,
 				C439774A195F6B2C0076F005 /* CsGrainPitchShifter.udo in Resources */,
 				C439770B195F6B2C0076F005 /* mandpluk.aif in Resources */,
-				C4F07A3615D603160084FF9E /* UDOViewController.xib in Resources */,
 				C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */,
 				C45047B515EB884C0051788A /* InitialViewController.xib in Resources */,
 				C45047B715EB891E0051788A /* MasterViewController.xib in Resources */,
@@ -1567,7 +1537,6 @@
 				C439773B195F6B2C0076F005 /* AKMoogVCF.m in Sources */,
 				C4397728195F6B2C0076F005 /* AKLoopingOscillator.m in Sources */,
 				C43976CF195F6B2C0076F005 /* AKSequence.m in Sources */,
-				C4F07A3515D603160084FF9E /* UDOViewController.m in Sources */,
 				C4397712195F6B2C0076F005 /* AKGuiro.m in Sources */,
 				C43976E5195F6B2C0076F005 /* AKMinControl.m in Sources */,
 				C4397714195F6B2C0076F005 /* AKSekere.m in Sources */,
@@ -1626,7 +1595,6 @@
 				C4397738195F6B2C0076F005 /* AKLowPassControlFilter.m in Sources */,
 				C439773E195F6B2C0076F005 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
 				C439772A195F6B2C0076F005 /* AKConvolution.m in Sources */,
-				C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */,
 				C4397739195F6B2C0076F005 /* AKLowPassFilter.m in Sources */,
 				C4397740195F6B2C0076F005 /* AKBandRejectButterworthFilter.m in Sources */,
 				C4397715195F6B2C0076F005 /* AKSleighbells.m in Sources */,
@@ -1759,7 +1727,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../csound-iOS/libs",
-					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "OCS Examples";
 				WRAPPER_EXTENSION = app;
@@ -1777,7 +1744,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../csound-iOS/libs",
-					"/Users/aure/Developer/h4y/Objective-C-Sound/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "OCS Examples";
 				WRAPPER_EXTENSION = app;
