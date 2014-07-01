@@ -27,7 +27,7 @@ in Operations/UDOs.
 
 More information on contribution is available on the wiki:
 
-https://github.com/h4y/AudioKit/wiki
+https://github.com/audiokit/AudioKit/wiki
 
 ### About Csound
 
