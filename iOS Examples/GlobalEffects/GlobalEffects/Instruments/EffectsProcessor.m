@@ -13,17 +13,17 @@
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {
     self = [super init];
-    if (self) {                  
+    if (self) {
         
         // INSTRUMENT DEFINITION ===============================================
         
         AKReverb * reverb = [[AKReverb alloc] initWithAudioSource:audioSource
-                                                      feedbackLevel:akp(0.8)
-                                                    cutoffFrequency:akp(12000)];
+                                                    feedbackLevel:akp(0.8)
+                                                  cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
-            
+        
         AKAudioOutput *audio;
         audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:akp(0.2)] ];
         [self connect:audio];

@@ -16,12 +16,12 @@
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
-        _dishWellBalance = [[AKInstrumentProperty alloc] initWithValue:kDishWellBalanceInit
-                                                           minimumValue:kDishWellBalanceMin
-                                                           maximumValue:kDishWellBalanceMax];
-        _dryWetBalance   = [[AKInstrumentProperty alloc] initWithValue:kDryWetBalanceInit
-                                                           minimumValue:kDryWetBalanceMin
-                                                           maximumValue:kDryWetBalanceMax];
+        _dishWellBalance = [[AKInstrumentProperty alloc] initWithValue:0
+                                                           minimumValue:0
+                                                           maximumValue:1.0];
+        _dryWetBalance   = [[AKInstrumentProperty alloc] initWithValue:0
+                                                           minimumValue:0
+                                                           maximumValue:0.1];
         
         [self addProperty:_dishWellBalance];
         [self addProperty:_dryWetBalance];

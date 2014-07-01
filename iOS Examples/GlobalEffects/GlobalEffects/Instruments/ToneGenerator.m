@@ -18,8 +18,8 @@
         // INPUTS ==============================================================
         
         _frequency  = [[AKInstrumentProperty alloc] initWithValue:220
-                                                      minimumValue:kFrequencyMin
-                                                      maximumValue:kFrequencyMax];
+                                                     minimumValue:110
+                                                     maximumValue:880];
         [self addProperty:_frequency];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -30,8 +30,8 @@
         
         AKOscillator *oscillator;
         oscillator = [[AKOscillator alloc] initWithFTable:sine
-                                                 frequency:_frequency
-                                                 amplitude:akp(0.2)];
+                                                frequency:_frequency
+                                                amplitude:akp(0.2)];
         [self connect:oscillator];
         
         // AUDIO OUTPUT ========================================================
