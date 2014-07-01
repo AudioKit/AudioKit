@@ -14,7 +14,6 @@
 #import "UDOViewController.h"
 #import "HarmonizerViewController.h"
 #import "MidiViewController.h"
-#import "PhysicalModelViewController.h"
 
 
 @interface MasterViewController () {
@@ -37,7 +36,6 @@
                     @"User Defined Opcodes",
                     @"Harmonizer",
                     @"MIDI",
-                    @"Physical Models",
                     nil];
     return self;
 }
@@ -145,9 +143,6 @@
             break;
         case 2:
             controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
-            break;
-        case 3:
-            controller = [[PhysicalModelViewController alloc] initWithNibName:@"PhysicalModelViewController" bundle:nil];
             break;
         default:
             break;
