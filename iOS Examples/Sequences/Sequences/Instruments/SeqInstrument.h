@@ -11,18 +11,17 @@
 @interface SeqInstrument : AKInstrument
 
 @property (nonatomic, strong) AKInstrumentProperty *modulation;
-#define kModulationInit 1.0
-#define kModulationMin  0.5
-#define kModulationMax  2.0
 
 @end
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Sequence Instrument Note
+// -----------------------------------------------------------------------------
+
 @interface SeqInstrumentNote : AKNote
 
-#define kFrequencyInit 220
-#define kFrequencyMin  110
-#define kFrequencyMax  880
 @property (nonatomic, strong) AKNoteProperty *frequency;
+
 - (instancetype)initWithFrequency:(float)frequency;
 
 @end

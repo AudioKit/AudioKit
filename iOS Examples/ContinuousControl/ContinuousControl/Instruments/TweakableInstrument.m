@@ -2,8 +2,8 @@
 //  TweakableInstrument.m
 //  AudioKit Example
 //
-//  Created by Adam Boulanger on 6/18/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 h4y. All rights reserved.
 //
 
 #import "TweakableInstrument.h"
@@ -16,20 +16,23 @@
     if (self) {
         
         // INPUTS AND CONTROLS =================================================
-    
-        _amplitude  = [[AKInstrumentProperty alloc] initWithValue:kTweakableAmplitudeInit
-                                                      minimumValue:kTweakableAmplitudeMin
-                                                      maximumValue:kTweakableAmplitudeMax];
-        _frequency  = [[AKInstrumentProperty alloc] initWithValue:kTweakableFrequencyInit
-                                                      minimumValue:kTweakableFrequencyMin
-                                                      maximumValue:kTweakableFrequencyMax];
-        _modulation = [[AKInstrumentProperty alloc] initWithValue:kTweakableModulationInit
-                                                      minimumValue:kTweakableModulationMin
-                                                      maximumValue:kTweakableModulationMax];
-        _modIndex   = [[AKInstrumentProperty alloc] initWithValue:kTweakableModIndexInit
-                                                      minimumValue:kTweakableModIndexMin
-                                                      maximumValue:kTweakableModIndexMax];
-                
+        
+        _amplitude  = [[AKInstrumentProperty alloc] initWithValue:0.1
+                                                     minimumValue:0.0
+                                                     maximumValue:0.3];
+        
+        _frequency  = [[AKInstrumentProperty alloc] initWithValue:220
+                                                     minimumValue:110
+                                                     maximumValue:880];
+        
+        _modulation = [[AKInstrumentProperty alloc] initWithValue:0.5
+                                                     minimumValue:0.25
+                                                     maximumValue:2.2];
+        
+        _modIndex   = [[AKInstrumentProperty alloc] initWithValue:1.0
+                                                     minimumValue:0.0
+                                                     maximumValue:25];
+        
         [self addProperty:_amplitude];
         [self addProperty:_frequency];
         [self addProperty:_modulation];
@@ -42,11 +45,11 @@
         
         AKFMOscillator *fmOscil;
         fmOscil = [[AKFMOscillator alloc] initWithFTable:sineTable
-                                            baseFrequency:_frequency
-                                        carrierMultiplier:akp(1)
-                                     modulatingMultiplier:_modulation
-                                          modulationIndex:_modIndex
-                                                amplitude:_amplitude];
+                                           baseFrequency:_frequency
+                                       carrierMultiplier:akp(1)
+                                    modulatingMultiplier:_modulation
+                                         modulationIndex:_modIndex
+                                               amplitude:_amplitude];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================

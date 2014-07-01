@@ -1,33 +1,33 @@
 //
-//  SequenceViewController.m
-//  AudioKit
+//  ViewController.m
+//  Sequences
 //
-//  Created by Aurelius Prochazka on 7/12/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 h4y. All rights reserved.
 //
 
-#import "SequenceViewController.h"
+#import "ViewController.h"
 
 #import "AKiOSTools.h"
 #import "AKFoundation.h"
 #import "SeqInstrument.h"
 
-@interface SequenceViewController () {
+@interface ViewController ()
+{
     SeqInstrument *instrument;
     AKSequence *sequence;
     AKOrchestra *orchestra;
     NSTimer *timer;
 }
-
 @end
 
-@implementation SequenceViewController
+@implementation ViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    orchestra = [[AKOrchestra alloc] init];    
+    orchestra = [[AKOrchestra alloc] init];
     instrument = [[SeqInstrument alloc] init];
     [orchestra addInstrument:instrument];
     [[AKManager sharedAKManager] runOrchestra:orchestra];
@@ -38,7 +38,7 @@
     return [AKiOSTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
 }
 
-- (IBAction)playSequenceOfNotes:(id)sender 
+- (IBAction)playSequenceOfNotes:(id)sender
 {
     float duration = [self getDuration];
     
@@ -76,7 +76,7 @@
         }];
         [sequence addEvent:update atTime:duration*i];
     }
-
+    
     AKEvent *stopNote = [[AKEvent alloc] initWithBlock:^{[note stop];}];
     [sequence addEvent:stopNote atTime:duration*(13)];
     
@@ -85,8 +85,8 @@
 }
 
 
- 
-- (IBAction)playSequenceOfInstrumentProperties:(id)sender 
+
+- (IBAction)playSequenceOfInstrumentProperties:(id)sender
 {
     float duration = [self getDuration];
     
@@ -118,15 +118,11 @@
     [sequence play];
 }
 
-- (IBAction)moveDurationSlider:(id)sender 
+- (IBAction)moveDurationSlider:(id)sender
 {
     float duration  = [AKiOSTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
     [durationValue setText:[NSString stringWithFormat:@"%g", duration]];
 }
 
 
-- (void)viewDidUnload {
-    durationValue = nil;
-    [super viewDidUnload];
-}
 @end
