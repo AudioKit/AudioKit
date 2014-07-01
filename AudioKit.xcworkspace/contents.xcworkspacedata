@@ -35,11 +35,4 @@
          location = "group:iOS Examples/UsingUDOs/UsingUDOs.xcodeproj">
       </FileRef>
    </Group>
-   <Group
-      location = "container:"
-      name = "Old Example Project Being Phased Out">
-      <FileRef
-         location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">
-      </FileRef>
-   </Group>
 </Workspace>
