@@ -19,8 +19,6 @@
 		C42B246615F484D0006032F9 /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243015F484D0006032F9 /* FivePropertyInstrument.m */; };
 		C42B246815F484D0006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243415F484D0006032F9 /* FMOscillatorInstrument.m */; };
 		C42B246A15F484D0006032F9 /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243715F484D0006032F9 /* OscillatorInstrument.m */; };
-		C42B246C15F484D0006032F9 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243A15F484D0006032F9 /* AudioFilePlayer.m */; };
-		C42B246D15F484D0006032F9 /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42B243B15F484D0006032F9 /* hellorcb.aif */; };
 		C42B247015F484D0006032F9 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244015F484D0006032F9 /* EffectsProcessor.m */; };
 		C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244415F484D0006032F9 /* ToneGenerator.m */; };
 		C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244815F484D0006032F9 /* UDOInstrument.m */; };
@@ -207,8 +205,6 @@
 		C4F07A0715D603160084FF9E /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079B315D603160084FF9E /* GrainViewController.xib */; };
 		C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079BA15D603160084FF9E /* HarmonizerViewController.m */; };
 		C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */; };
-		C4F07A1815D603160084FF9E /* PlayAudioFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */; };
-		C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */; };
 		C4F07A2115D603160084FF9E /* ReverbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D215D603160084FF9E /* ReverbViewController.m */; };
 		C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079D315D603160084FF9E /* ReverbViewController.xib */; };
 		C4F07A2615D603160084FF9E /* SequenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D815D603160084FF9E /* SequenceViewController.m */; };
@@ -244,9 +240,6 @@
 		C42B243415F484D0006032F9 /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
 		C42B243615F484D0006032F9 /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
 		C42B243715F484D0006032F9 /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
-		C42B243915F484D0006032F9 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
-		C42B243A15F484D0006032F9 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
-		C42B243B15F484D0006032F9 /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
 		C42B243F15F484D0006032F9 /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
 		C42B244015F484D0006032F9 /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
 		C42B244315F484D0006032F9 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ToneGenerator.h; sourceTree = "<group>"; };
@@ -627,9 +620,6 @@
 		C4F079B915D603160084FF9E /* HarmonizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = HarmonizerViewController.h; sourceTree = "<group>"; };
 		C4F079BA15D603160084FF9E /* HarmonizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarmonizerViewController.m; sourceTree = "<group>"; };
 		C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarmonizerViewController.xib; sourceTree = "<group>"; };
-		C4F079C615D603160084FF9E /* PlayAudioFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = PlayAudioFileViewController.h; sourceTree = "<group>"; };
-		C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlayAudioFileViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayAudioFileViewController.xib; sourceTree = "<group>"; };
 		C4F079D115D603160084FF9E /* ReverbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ReverbViewController.h; sourceTree = "<group>"; };
 		C4F079D215D603160084FF9E /* ReverbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbViewController.m; sourceTree = "<group>"; };
 		C4F079D315D603160084FF9E /* ReverbViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReverbViewController.xib; sourceTree = "<group>"; };
@@ -678,7 +668,6 @@
 				C42B242B15F484D0006032F9 /* Harmonizer */,
 				C42B242E15F484D0006032F9 /* MIDI */,
 				C42B243115F484D0006032F9 /* Operation Examples */,
-				C42B243815F484D0006032F9 /* Play Audio File */,
 				C42B243E15F484D0006032F9 /* Reverb */,
 				C42B244515F484D0006032F9 /* Sequences */,
 				C42B244615F484D0006032F9 /* UDOs */,
@@ -772,16 +761,6 @@
 				C42B243715F484D0006032F9 /* OscillatorInstrument.m */,
 			);
 			path = Oscillator;
-			sourceTree = "<group>";
-		};
-		C42B243815F484D0006032F9 /* Play Audio File */ = {
-			isa = PBXGroup;
-			children = (
-				C42B243915F484D0006032F9 /* AudioFilePlayer.h */,
-				C42B243A15F484D0006032F9 /* AudioFilePlayer.m */,
-				C42B243B15F484D0006032F9 /* hellorcb.aif */,
-			);
-			path = "Play Audio File";
 			sourceTree = "<group>";
 		};
 		C42B243E15F484D0006032F9 /* Reverb */ = {
@@ -1611,7 +1590,6 @@
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
 				C42B241A15F484D0006032F9 /* Shared Instruments */,
-				C4F079C215D603160084FF9E /* Play Audio File */,
 				C4F079EC15D603160084FF9E /* Unit Generators */,
 				C4F079A915D603160084FF9E /* Expressions */,
 				C4F079CE15D603160084FF9E /* Reverb */,
@@ -1695,16 +1673,6 @@
 				C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */,
 			);
 			path = Harmonizer;
-			sourceTree = "<group>";
-		};
-		C4F079C215D603160084FF9E /* Play Audio File */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079C615D603160084FF9E /* PlayAudioFileViewController.h */,
-				C4F079C715D603160084FF9E /* PlayAudioFileViewController.m */,
-				C4F079C815D603160084FF9E /* PlayAudioFileViewController.xib */,
-			);
-			path = "Play Audio File";
 			sourceTree = "<group>";
 		};
 		C4F079CE15D603160084FF9E /* Reverb */ = {
@@ -1810,7 +1778,6 @@
 				C4F07A0715D603160084FF9E /* GrainViewController.xib in Resources */,
 				C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */,
 				C43976D1195F6B2C0076F005 /* test.csd in Resources */,
-				C4F07A1915D603160084FF9E /* PlayAudioFileViewController.xib in Resources */,
 				C439774E195F6B2C0076F005 /* declick.udo in Resources */,
 				C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */,
 				C439774A195F6B2C0076F005 /* CsGrainPitchShifter.udo in Resources */,
@@ -1825,7 +1792,6 @@
 				C42B245C15F484D0006032F9 /* dish.wav in Resources */,
 				C42B245D15F484D0006032F9 /* Stairwell.wav in Resources */,
 				C42B246015F484D0006032F9 /* beats.wav in Resources */,
-				C42B246D15F484D0006032F9 /* hellorcb.aif in Resources */,
 				C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */,
 				C4EFBBC41815C3CE001AB306 /* LICENSE.TXT in Resources */,
 			);
@@ -1884,7 +1850,6 @@
 				C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */,
 				C4397741195F6B2C0076F005 /* AKHighPassButterworthFilter.m in Sources */,
 				C43976FC195F6B2C0076F005 /* AKLine.m in Sources */,
-				C4F07A1815D603160084FF9E /* PlayAudioFileViewController.m in Sources */,
 				C4397705195F6B2C0076F005 /* AKPhasingControl.m in Sources */,
 				C4397732195F6B2C0076F005 /* AKVibrato.m in Sources */,
 				C43976FB195F6B2C0076F005 /* AKLinearControlEnvelope.m in Sources */,
@@ -1960,7 +1925,6 @@
 				C4397721195F6B2C0076F005 /* AKControlSegmentArrayLoop.m in Sources */,
 				C43976CC195F6B2C0076F005 /* AKMidi.m in Sources */,
 				C4397747195F6B2C0076F005 /* AKBalance.m in Sources */,
-				C42B246C15F484D0006032F9 /* AudioFilePlayer.m in Sources */,
 				C43976CD195F6B2C0076F005 /* AKNote.m in Sources */,
 				C4397758195F6B2C0076F005 /* AKInstrumentProperty.m in Sources */,
 				C4397725195F6B2C0076F005 /* AKFileInput.m in Sources */,

@@ -182,8 +182,6 @@
 		C4E4B970186EA59800D8D32B /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B94A186EA59800D8D32B /* FMOscillatorInstrument.m */; };
 		C4E4B971186EA59800D8D32B /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B94D186EA59800D8D32B /* MarimbaInstrument.m */; };
 		C4E4B972186EA59800D8D32B /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B950186EA59800D8D32B /* OscillatorInstrument.m */; };
-		C4E4B973186EA59800D8D32B /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B953186EA59800D8D32B /* AudioFilePlayer.m */; };
-		C4E4B974186EA59800D8D32B /* hellorcb.aif in Resources */ = {isa = PBXBuildFile; fileRef = C4E4B954186EA59800D8D32B /* hellorcb.aif */; };
 		C4E4B976186EA59800D8D32B /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B959186EA59800D8D32B /* EffectsProcessor.m */; };
 		C4E4B977186EA59800D8D32B /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B95B186EA59800D8D32B /* ToneGenerator.m */; };
 		C4E4B978186EA59800D8D32B /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4B95E186EA59800D8D32B /* SeqInstrument.m */; };
@@ -533,9 +531,6 @@
 		C4E4B94D186EA59800D8D32B /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarimbaInstrument.m; sourceTree = "<group>"; };
 		C4E4B94F186EA59800D8D32B /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
 		C4E4B950186EA59800D8D32B /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
-		C4E4B952186EA59800D8D32B /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
-		C4E4B953186EA59800D8D32B /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
-		C4E4B954186EA59800D8D32B /* hellorcb.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = hellorcb.aif; sourceTree = "<group>"; };
 		C4E4B958186EA59800D8D32B /* EffectsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsProcessor.h; sourceTree = "<group>"; };
 		C4E4B959186EA59800D8D32B /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
 		C4E4B95A186EA59800D8D32B /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
@@ -1327,7 +1322,6 @@
 				C4E4B941186EA59800D8D32B /* MIDI */,
 				C4E4B944186EA59800D8D32B /* AKAudioAnalyzer */,
 				C4E4B947186EA59800D8D32B /* Operation Examples */,
-				C4E4B951186EA59800D8D32B /* Play Audio File */,
 				C4E4B957186EA59800D8D32B /* Reverb */,
 				C4E4B95C186EA59800D8D32B /* Sequences */,
 				C4E4B95F186EA59800D8D32B /* UDOs */,
@@ -1442,16 +1436,6 @@
 			path = Oscillator;
 			sourceTree = "<group>";
 		};
-		C4E4B951186EA59800D8D32B /* Play Audio File */ = {
-			isa = PBXGroup;
-			children = (
-				C4E4B952186EA59800D8D32B /* AudioFilePlayer.h */,
-				C4E4B953186EA59800D8D32B /* AudioFilePlayer.m */,
-				C4E4B954186EA59800D8D32B /* hellorcb.aif */,
-			);
-			path = "Play Audio File";
-			sourceTree = "<group>";
-		};
 		C4E4B957186EA59800D8D32B /* Reverb */ = {
 			isa = PBXGroup;
 			children = (
@@ -1546,7 +1530,6 @@
 				C4E4B96B186EA59800D8D32B /* beats.wav in Resources */,
 				C4E4B966186EA59800D8D32B /* 808loop.wav in Resources */,
 				C400ADA615D3C9570020C794 /* InfoPlist.strings in Resources */,
-				C4E4B974186EA59800D8D32B /* hellorcb.aif in Resources */,
 				C47B5748189F2DCE003ED908 /* template.csd in Resources */,
 				C47B5749189F2DCE003ED908 /* test.csd in Resources */,
 				C400ADAC15D3C9570020C794 /* Credits.rtf in Resources */,
@@ -1584,7 +1567,6 @@
 				C47B57B6189F2DCE003ED908 /* AKBandPassButterworthFilter.m in Sources */,
 				C400ADAF15D3C9580020C794 /* AppDelegate.m in Sources */,
 				C47B574C189F2DCE003ED908 /* AKCompositeWaveformsFromSines.m in Sources */,
-				C4E4B973186EA59800D8D32B /* AudioFilePlayer.m in Sources */,
 				C47B5771189F2DCE003ED908 /* AKLinearADSRControlEnvelope.m in Sources */,
 				C47B5766189F2DCE003ED908 /* AKCrossSynthesis.m in Sources */,
 				C47B576B189F2DCE003ED908 /* AKScaledFSignal.m in Sources */,

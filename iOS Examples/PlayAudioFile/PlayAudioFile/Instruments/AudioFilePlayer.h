@@ -11,12 +11,8 @@
 @interface AudioFilePlayer : AKInstrument
 @end
 
-
 @interface AudioFilePlayerNote : AKNote
 
-#define kSpeedInit 1.0
-#define kSpeedMin  0.5
-#define kSpeedMax  2.0
 @property (nonatomic, strong) AKNoteProperty *speed;
 - (instancetype)initWithSpeed:(float)speed;
 
