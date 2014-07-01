@@ -11,7 +11,6 @@
 		C42B245B15F484D0006032F9 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242115F484D0006032F9 /* ConvolutionInstrument.m */; };
 		C42B245C15F484D0006032F9 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B242215F484D0006032F9 /* dish.wav */; };
 		C42B245D15F484D0006032F9 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B242315F484D0006032F9 /* Stairwell.wav */; };
-		C42B245F15F484D0006032F9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242615F484D0006032F9 /* ExpressionToneGenerator.m */; };
 		C42B246415F484D0006032F9 /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242D15F484D0006032F9 /* Harmonizer.m */; };
 		C42B246615F484D0006032F9 /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243015F484D0006032F9 /* FivePropertyInstrument.m */; };
 		C42B246815F484D0006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243415F484D0006032F9 /* FMOscillatorInstrument.m */; };
@@ -192,8 +191,6 @@
 		C4F0799515D600C40084FF9E /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0799215D600C40084FF9E /* InitialViewController.m */; };
 		C4F079FB15D603160084FF9E /* ConvolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079A515D603160084FF9E /* ConvolutionViewController.m */; };
 		C4F079FC15D603160084FF9E /* ConvolutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079A615D603160084FF9E /* ConvolutionViewController.xib */; };
-		C4F07A0015D603160084FF9E /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079AB15D603160084FF9E /* ExpressionsViewController.m */; };
-		C4F07A0115D603160084FF9E /* ExpressionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079AC15D603160084FF9E /* ExpressionsViewController.xib */; };
 		C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079BA15D603160084FF9E /* HarmonizerViewController.m */; };
 		C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */; };
 		C4F07A2115D603160084FF9E /* ReverbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D215D603160084FF9E /* ReverbViewController.m */; };
@@ -212,8 +209,6 @@
 		C42B242115F484D0006032F9 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C42B242215F484D0006032F9 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
 		C42B242315F484D0006032F9 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
-		C42B242515F484D0006032F9 /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ExpressionToneGenerator.h; sourceTree = "<group>"; };
-		C42B242615F484D0006032F9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionToneGenerator.m; sourceTree = "<group>"; };
 		C42B242C15F484D0006032F9 /* Harmonizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Harmonizer.h; sourceTree = "<group>"; };
 		C42B242D15F484D0006032F9 /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harmonizer.m; sourceTree = "<group>"; };
 		C42B242F15F484D0006032F9 /* FivePropertyInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FivePropertyInstrument.h; sourceTree = "<group>"; };
@@ -586,9 +581,6 @@
 		C4F079A415D603160084FF9E /* ConvolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ConvolutionViewController.h; sourceTree = "<group>"; };
 		C4F079A515D603160084FF9E /* ConvolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionViewController.m; sourceTree = "<group>"; };
 		C4F079A615D603160084FF9E /* ConvolutionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConvolutionViewController.xib; sourceTree = "<group>"; };
-		C4F079AA15D603160084FF9E /* ExpressionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ExpressionsViewController.h; sourceTree = "<group>"; };
-		C4F079AB15D603160084FF9E /* ExpressionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionsViewController.m; sourceTree = "<group>"; };
-		C4F079AC15D603160084FF9E /* ExpressionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpressionsViewController.xib; sourceTree = "<group>"; };
 		C4F079B915D603160084FF9E /* HarmonizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = HarmonizerViewController.h; sourceTree = "<group>"; };
 		C4F079BA15D603160084FF9E /* HarmonizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarmonizerViewController.m; sourceTree = "<group>"; };
 		C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarmonizerViewController.xib; sourceTree = "<group>"; };
@@ -628,7 +620,6 @@
 			isa = PBXGroup;
 			children = (
 				C42B241E15F484D0006032F9 /* Convolution */,
-				C42B242415F484D0006032F9 /* Expressions */,
 				C42B242B15F484D0006032F9 /* Harmonizer */,
 				C42B242E15F484D0006032F9 /* MIDI */,
 				C42B243115F484D0006032F9 /* Operation Examples */,
@@ -649,15 +640,6 @@
 				C42B242315F484D0006032F9 /* Stairwell.wav */,
 			);
 			path = Convolution;
-			sourceTree = "<group>";
-		};
-		C42B242415F484D0006032F9 /* Expressions */ = {
-			isa = PBXGroup;
-			children = (
-				C42B242515F484D0006032F9 /* ExpressionToneGenerator.h */,
-				C42B242615F484D0006032F9 /* ExpressionToneGenerator.m */,
-			);
-			path = Expressions;
 			sourceTree = "<group>";
 		};
 		C42B242B15F484D0006032F9 /* Harmonizer */ = {
@@ -1515,7 +1497,6 @@
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
 				C42B241A15F484D0006032F9 /* Shared Instruments */,
-				C4F079A915D603160084FF9E /* Expressions */,
 				C4F079CE15D603160084FF9E /* Reverb */,
 				C4F079E615D603160084FF9E /* UDOs */,
 				C4F079A015D603160084FF9E /* Convolution */,
@@ -1554,16 +1535,6 @@
 				C4F079A615D603160084FF9E /* ConvolutionViewController.xib */,
 			);
 			path = Convolution;
-			sourceTree = "<group>";
-		};
-		C4F079A915D603160084FF9E /* Expressions */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079AA15D603160084FF9E /* ExpressionsViewController.h */,
-				C4F079AB15D603160084FF9E /* ExpressionsViewController.m */,
-				C4F079AC15D603160084FF9E /* ExpressionsViewController.xib */,
-			);
-			path = Expressions;
 			sourceTree = "<group>";
 		};
 		C4F079B615D603160084FF9E /* Harmonizer */ = {
@@ -1654,7 +1625,6 @@
 				C4397749195F6B2C0076F005 /* CsGrainCompressor.udo in Resources */,
 				C43976D0195F6B2C0076F005 /* template.csd in Resources */,
 				C4F079FC15D603160084FF9E /* ConvolutionViewController.xib in Resources */,
-				C4F07A0115D603160084FF9E /* ExpressionsViewController.xib in Resources */,
 				C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */,
 				C43976D1195F6B2C0076F005 /* test.csd in Resources */,
 				C439774E195F6B2C0076F005 /* declick.udo in Resources */,
@@ -1714,7 +1684,6 @@
 				C43976F6195F6B2C0076F005 /* AKGrain.m in Sources */,
 				C4397736195F6B2C0076F005 /* AKHighPassFilter.m in Sources */,
 				C4397734195F6B2C0076F005 /* AKDCBlock.m in Sources */,
-				C4F07A0015D603160084FF9E /* ExpressionsViewController.m in Sources */,
 				C43976CB195F6B2C0076F005 /* AKManager.m in Sources */,
 				C439771A195F6B2C0076F005 /* AKSimpleWaveGuideModel.m in Sources */,
 				C439770C195F6B2C0076F005 /* AKMarimba.m in Sources */,
@@ -1767,7 +1736,6 @@
 				C43976F7195F6B2C0076F005 /* AKSinusoidBursts.m in Sources */,
 				C43976D8195F6B2C0076F005 /* AKRandomDistributionTable.m in Sources */,
 				C43976E9195F6B2C0076F005 /* AKSum.m in Sources */,
-				C42B245F15F484D0006032F9 /* ExpressionToneGenerator.m in Sources */,
 				C439771B195F6B2C0076F005 /* AKJitter.m in Sources */,
 				C43976ED195F6B2C0076F005 /* AKAudioFromFSignal.m in Sources */,
 				C43976EA195F6B2C0076F005 /* AKTableValue.m in Sources */,

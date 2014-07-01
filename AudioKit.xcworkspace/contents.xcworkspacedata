@@ -22,6 +22,9 @@
       <FileRef
          location = "group:iOS Examples/Grain/Grain.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:iOS Examples/Expressions/Expressions.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
