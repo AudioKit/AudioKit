@@ -21,7 +21,6 @@
 		C42B247015F484D0006032F9 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244015F484D0006032F9 /* EffectsProcessor.m */; };
 		C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244415F484D0006032F9 /* ToneGenerator.m */; };
 		C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244815F484D0006032F9 /* UDOInstrument.m */; };
-		C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */; };
 		C43976C9195F6B2C0076F005 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C439757E195F6B2C0076F005 /* AKEvent.m */; };
 		C43976CA195F6B2C0076F005 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397581195F6B2C0076F005 /* AKInstrument.m */; };
 		C43976CB195F6B2C0076F005 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397583195F6B2C0076F005 /* AKManager.m */; };
@@ -205,8 +204,6 @@
 		C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079D315D603160084FF9E /* ReverbViewController.xib */; };
 		C4F07A3515D603160084FF9E /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079EA15D603160084FF9E /* UDOViewController.m */; };
 		C4F07A3615D603160084FF9E /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079EB15D603160084FF9E /* UDOViewController.xib */; };
-		C4F07A3A15D603160084FF9E /* UnitGeneratorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079F015D603160084FF9E /* UnitGeneratorsViewController.m */; };
-		C4F07A3B15D603160084FF9E /* UnitGeneratorsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079F115D603160084FF9E /* UnitGeneratorsViewController.xib */; };
 		C4F07A3D15D603B60084FF9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A3C15D603B60084FF9E /* AVFoundation.framework */; };
 		C4F07A3F15D603BD0084FF9E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A3E15D603BD0084FF9E /* CoreMotion.framework */; };
 		C4F07A4115D603C40084FF9E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F07A4015D603C40084FF9E /* CoreMIDI.framework */; };
@@ -238,8 +235,6 @@
 		C42B244415F484D0006032F9 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
 		C42B244715F484D0006032F9 /* UDOInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOInstrument.h; sourceTree = "<group>"; };
 		C42B244815F484D0006032F9 /* UDOInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOInstrument.m; sourceTree = "<group>"; };
-		C42B244A15F484D0006032F9 /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
-		C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
 		C439757D195F6B2C0076F005 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C439757E195F6B2C0076F005 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C439757F195F6B2C0076F005 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -613,9 +608,6 @@
 		C4F079E915D603160084FF9E /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOViewController.h; sourceTree = "<group>"; };
 		C4F079EA15D603160084FF9E /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOViewController.m; sourceTree = "<group>"; };
 		C4F079EB15D603160084FF9E /* UDOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UDOViewController.xib; sourceTree = "<group>"; };
-		C4F079EF15D603160084FF9E /* UnitGeneratorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UnitGeneratorsViewController.h; sourceTree = "<group>"; };
-		C4F079F015D603160084FF9E /* UnitGeneratorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorsViewController.m; sourceTree = "<group>"; };
-		C4F079F115D603160084FF9E /* UnitGeneratorsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnitGeneratorsViewController.xib; sourceTree = "<group>"; };
 		C4F07A3C15D603B60084FF9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4F07A3E15D603BD0084FF9E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C4F07A4015D603C40084FF9E /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
@@ -653,7 +645,6 @@
 				C42B243115F484D0006032F9 /* Operation Examples */,
 				C42B243E15F484D0006032F9 /* Reverb */,
 				C42B244615F484D0006032F9 /* UDOs */,
-				C42B244915F484D0006032F9 /* Unit Generators */,
 			);
 			name = "Shared Instruments";
 			path = ../../Shared/Instruments;
@@ -754,15 +745,6 @@
 				C42B244815F484D0006032F9 /* UDOInstrument.m */,
 			);
 			path = UDOs;
-			sourceTree = "<group>";
-		};
-		C42B244915F484D0006032F9 /* Unit Generators */ = {
-			isa = PBXGroup;
-			children = (
-				C42B244A15F484D0006032F9 /* UnitGeneratorInstrument.h */,
-				C42B244B15F484D0006032F9 /* UnitGeneratorInstrument.m */,
-			);
-			path = "Unit Generators";
 			sourceTree = "<group>";
 		};
 		C439757B195F6B2C0076F005 /* AudioKit */ = {
@@ -1554,7 +1536,6 @@
 			children = (
 				C4F0784115D5F4B40084FF9E /* MasterViewController.m */,
 				C42B241A15F484D0006032F9 /* Shared Instruments */,
-				C4F079EC15D603160084FF9E /* Unit Generators */,
 				C4F079A915D603160084FF9E /* Expressions */,
 				C4F079CE15D603160084FF9E /* Reverb */,
 				C4F079AF15D603160084FF9E /* Grain */,
@@ -1647,16 +1628,6 @@
 			path = UDOs;
 			sourceTree = "<group>";
 		};
-		C4F079EC15D603160084FF9E /* Unit Generators */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079EF15D603160084FF9E /* UnitGeneratorsViewController.h */,
-				C4F079F015D603160084FF9E /* UnitGeneratorsViewController.m */,
-				C4F079F115D603160084FF9E /* UnitGeneratorsViewController.xib */,
-			);
-			path = "Unit Generators";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1724,7 +1695,6 @@
 				C439774A195F6B2C0076F005 /* CsGrainPitchShifter.udo in Resources */,
 				C439770B195F6B2C0076F005 /* mandpluk.aif in Resources */,
 				C4F07A3615D603160084FF9E /* UDOViewController.xib in Resources */,
-				C4F07A3B15D603160084FF9E /* UnitGeneratorsViewController.xib in Resources */,
 				C4C8273015D752F5009D48DA /* MidiViewController.xib in Resources */,
 				C45047B515EB884C0051788A /* InitialViewController.xib in Resources */,
 				C45047B715EB891E0051788A /* MasterViewController.xib in Resources */,
@@ -1812,7 +1782,6 @@
 				C4397714195F6B2C0076F005 /* AKSekere.m in Sources */,
 				C4397708195F6B2C0076F005 /* AKStruckMetalBar.m in Sources */,
 				C4397710195F6B2C0076F005 /* AKCrunch.m in Sources */,
-				C4F07A3A15D603160084FF9E /* UnitGeneratorsViewController.m in Sources */,
 				C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */,
 				C4397700195F6B2C0076F005 /* AKOscillator.m in Sources */,
 				C439770A195F6B2C0076F005 /* AKMandolin.m in Sources */,
@@ -1875,7 +1844,6 @@
 				C42B247415F484D0006032F9 /* ToneGenerator.m in Sources */,
 				C42B247615F484D0006032F9 /* UDOInstrument.m in Sources */,
 				C4397739195F6B2C0076F005 /* AKLowPassFilter.m in Sources */,
-				C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */,
 				C4397740195F6B2C0076F005 /* AKBandRejectButterworthFilter.m in Sources */,
 				C4397715195F6B2C0076F005 /* AKSleighbells.m in Sources */,
 				C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */,

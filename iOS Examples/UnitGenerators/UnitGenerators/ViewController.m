@@ -1,21 +1,22 @@
 //
-//  UnitGeneratorsViewController.m
-//  AudioKit Example
+//  ViewController.m
+//  UnitGenerators
 //
-//  Created by Adam Boulanger on 6/7/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import "UnitGeneratorsViewController.h"
-#import "AKManager.h"
+#import "ViewController.h"
+#import "AKFoundation.h"
 #import "UnitGeneratorInstrument.h"
 
-@interface UnitGeneratorsViewController () {
+@interface ViewController ()
+{
     UnitGeneratorInstrument *unitGeneratorInstrument;
 }
 @end
 
-@implementation UnitGeneratorsViewController
+@implementation ViewController
 
 - (void)viewDidLoad
 {

@@ -16,6 +16,9 @@
       <FileRef
          location = "group:iOS Examples/Sequences/Sequences.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:iOS Examples/UnitGenerators/UnitGenerators.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
