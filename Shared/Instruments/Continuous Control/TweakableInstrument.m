@@ -54,11 +54,6 @@
         AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscil];
         [self connect:audio];
         
-        /*
-        // Test to show amplitude slider moving also
-        [self addString:[NSString stringWithFormat:
-         @"%@ = %@ + 0.001\n", amplitude, amplitude]];
-         */
     }
     return self;
 }
