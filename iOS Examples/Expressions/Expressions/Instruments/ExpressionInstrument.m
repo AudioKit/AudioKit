@@ -1,19 +1,20 @@
 //
-//  ExpressionToneGenerator.m
-//  AudioKit Example
+//  ExpressionInstrument.m
+//  Expressions
 //
-//  Created by Adam Boulanger on 6/10/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import "ExpressionToneGenerator.h"
+#import "ExpressionInstrument.h"
+#import "AKFoundation.h"
 
-@implementation ExpressionToneGenerator
+@implementation ExpressionInstrument
 
 - (instancetype)init
 {
     self = [super init];
-    if (self) {                  
+    if (self) {
         // INSTRUMENT DEFINITION ===============================================
         
         AKSineTable * sineTable = [[AKSineTable alloc] init];
@@ -23,31 +24,31 @@
         [self addDynamicFTable:vibratoSine];
         
         AKOscillatingControl * vibratoOscillator;
-
+        
         vibratoOscillator = [[AKOscillatingControl alloc] initWithFTable:vibratoSine
-                                                                frequency:akp(6)
-                                                                amplitude:akp(40)];
+                                                               frequency:akp(6)
+                                                               amplitude:akp(40)];
         [self connect:vibratoOscillator];
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
         AKControl * vibrato = [AKControl parameterWithFormat:
-                                     @"%d + (%g * %@)", 
-                                     vibratoOffset, vibratoScale, vibratoOscillator];
+                               @"%d + (%g * %@)",
+                               vibratoOffset, vibratoScale, vibratoOscillator];
         
         AKConstant * amplitudeOffset = akp(0.0);
         
-        AKLine * amplitudeRamp = [[AKLine alloc] initFromValue:akp(0) 
-                                                         toValue:akp(0.5)
-                                                        duration:akp(3.0)];
+        AKLine * amplitudeRamp = [[AKLine alloc] initFromValue:akp(0)
+                                                       toValue:akp(0.5)
+                                                      duration:akp(3.0)];
         [self connect:amplitudeRamp];
         
         AKControl * totalAmplitude = [AKControl parameterWithFormat:
-                                            @"%@ + %@", amplitudeRamp, amplitudeOffset];                    
+                                      @"%@ + %@", amplitudeRamp, amplitudeOffset];
         AKOscillator * oscillator;
         oscillator = [[AKOscillator alloc]  initWithFTable:sineTable
-                                                  frequency:vibrato
-                                                  amplitude:totalAmplitude];
+                                                 frequency:vibrato
+                                                 amplitude:totalAmplitude];
         [self connect:oscillator ];
         
         // AUDIO OUTPUT ========================================================

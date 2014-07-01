@@ -11,7 +11,6 @@
 #import "InitialViewController.h"
 
 // Example Controllers
-#import "ExpressionsViewController.h"
 #import "ReverbViewController.h"
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
@@ -37,7 +36,6 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     exampleNames = [NSMutableArray arrayWithObjects:
-                    @"Expressions",
                     @"Global Reverb",
                     @"User Defined Opcodes",
                     @"Convolution",
@@ -144,24 +142,21 @@
     switch (indexPath.row) {
 
         case 0:
-            controller = [[ExpressionsViewController alloc] initWithNibName:@"ExpressionsViewController" bundle:nil];
-            break;
-        case 1:
             controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
             break;
-        case 2:
+        case 1:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
-        case 3:
+        case 2:
             controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
             break;
-        case 4:
+        case 3:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
             break;
-        case 5:
+        case 4:
             controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
             break;
-        case 6:
+        case 5:
             controller = [[PhysicalModelViewController alloc] initWithNibName:@"PhysicalModelViewController" bundle:nil];
             break;
         default:
