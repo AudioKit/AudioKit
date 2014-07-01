@@ -17,9 +17,6 @@
 		C43980B1196275C80076F005 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43980AF196275C80076F005 /* Main_iPad.storyboard */; };
 		C43980B4196275C80076F005 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980B3196275C80076F005 /* ViewController.m */; };
 		C43980B6196275C80076F005 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C43980B5196275C80076F005 /* Images.xcassets */; };
-		C43980BD196275C80076F005 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43980BC196275C80076F005 /* XCTest.framework */; };
-		C43980BE196275C80076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439809A196275C80076F005 /* Foundation.framework */; };
-		C43980BF196275C80076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439809E196275C80076F005 /* UIKit.framework */; };
 		C439824D196275EA0076F005 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980D3196275EA0076F005 /* AKEvent.m */; };
 		C439824E196275EA0076F005 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980D6196275EA0076F005 /* AKInstrument.m */; };
 		C439824F196275EA0076F005 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980D8196275EA0076F005 /* AKManager.m */; };
@@ -148,14 +145,8 @@
 		C43982CA196275EA0076F005 /* AKReverbAllpass.m in Sources */ = {isa = PBXBuildFile; fileRef = C43981ED196275EA0076F005 /* AKReverbAllpass.m */; };
 		C43982CB196275EA0076F005 /* AKBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = C43981F0196275EA0076F005 /* AKBalance.m */; };
 		C43982CC196275EA0076F005 /* AKPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C43981F2196275EA0076F005 /* AKPanner.m */; };
-		C43982CD196275EA0076F005 /* CsGrainCompressor.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43981F5196275EA0076F005 /* CsGrainCompressor.udo */; };
-		C43982CE196275EA0076F005 /* CsGrainPitchShifter.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43981F6196275EA0076F005 /* CsGrainPitchShifter.udo */; };
-		C43982CF196275EA0076F005 /* UDOCsGrainCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C43981F8196275EA0076F005 /* UDOCsGrainCompressor.m */; };
-		C43982D0196275EA0076F005 /* UDOCsGrainPitchShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43981FA196275EA0076F005 /* UDOCsGrainPitchShifter.m */; };
 		C43982D1196275EA0076F005 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C43981FD196275EA0076F005 /* AKDeclick.m */; };
 		C43982D2196275EA0076F005 /* declick.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43981FE196275EA0076F005 /* declick.udo */; };
-		C43982D3196275EA0076F005 /* msrOsc.udo in Resources */ = {isa = PBXBuildFile; fileRef = C4398200196275EA0076F005 /* msrOsc.udo */; };
-		C43982D4196275EA0076F005 /* UDOMSROscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398202196275EA0076F005 /* UDOMSROscillator.m */; };
 		C43982D5196275EA0076F005 /* AKArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398207196275EA0076F005 /* AKArray.m */; };
 		C43982D6196275EA0076F005 /* AKAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398209196275EA0076F005 /* AKAudio.m */; };
 		C43982D7196275EA0076F005 /* AKConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C439820B196275EA0076F005 /* AKConstant.m */; };
@@ -178,16 +169,6 @@
 		C43982EC196276620076F005 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43982EB196276620076F005 /* TweakableInstrument.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C43980C0196275C80076F005 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C439808F196275C80076F005 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C4398096196275C80076F005;
-			remoteInfo = ContinuousControl;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		C4398097196275C80076F005 /* ContinuousControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContinuousControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C439809A196275C80076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -204,7 +185,6 @@
 		C43980B2196275C80076F005 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C43980B3196275C80076F005 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C43980B5196275C80076F005 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C43980BB196275C80076F005 /* ContinuousControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContinuousControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43980BC196275C80076F005 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C43980D2196275EA0076F005 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C43980D3196275EA0076F005 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
@@ -462,18 +442,9 @@
 		C43981F0196275EA0076F005 /* AKBalance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBalance.m; sourceTree = "<group>"; };
 		C43981F1196275EA0076F005 /* AKPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPanner.h; sourceTree = "<group>"; };
 		C43981F2196275EA0076F005 /* AKPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPanner.m; sourceTree = "<group>"; };
-		C43981F5196275EA0076F005 /* CsGrainCompressor.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CsGrainCompressor.udo; sourceTree = "<group>"; };
-		C43981F6196275EA0076F005 /* CsGrainPitchShifter.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CsGrainPitchShifter.udo; sourceTree = "<group>"; };
-		C43981F7196275EA0076F005 /* UDOCsGrainCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOCsGrainCompressor.h; sourceTree = "<group>"; };
-		C43981F8196275EA0076F005 /* UDOCsGrainCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOCsGrainCompressor.m; sourceTree = "<group>"; };
-		C43981F9196275EA0076F005 /* UDOCsGrainPitchShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOCsGrainPitchShifter.h; sourceTree = "<group>"; };
-		C43981FA196275EA0076F005 /* UDOCsGrainPitchShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOCsGrainPitchShifter.m; sourceTree = "<group>"; };
 		C43981FC196275EA0076F005 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
 		C43981FD196275EA0076F005 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
 		C43981FE196275EA0076F005 /* declick.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = declick.udo; sourceTree = "<group>"; };
-		C4398200196275EA0076F005 /* msrOsc.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = msrOsc.udo; sourceTree = "<group>"; };
-		C4398201196275EA0076F005 /* UDOMSROscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOMSROscillator.h; sourceTree = "<group>"; };
-		C4398202196275EA0076F005 /* UDOMSROscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOMSROscillator.m; sourceTree = "<group>"; };
 		C4398206196275EA0076F005 /* AKArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArray.h; sourceTree = "<group>"; };
 		C4398207196275EA0076F005 /* AKArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKArray.m; sourceTree = "<group>"; };
 		C4398208196275EA0076F005 /* AKAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudio.h; sourceTree = "<group>"; };
@@ -553,16 +524,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C43980B8196275C80076F005 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C43980BD196275C80076F005 /* XCTest.framework in Frameworks */,
-				C43980BF196275C80076F005 /* UIKit.framework in Frameworks */,
-				C43980BE196275C80076F005 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -581,7 +542,6 @@
 			isa = PBXGroup;
 			children = (
 				C4398097196275C80076F005 /* ContinuousControl.app */,
-				C43980BB196275C80076F005 /* ContinuousControlTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1148,19 +1108,6 @@
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
 		};
-		C43981FB196275EA0076F005 /* CsGrain */ = {
-			isa = PBXGroup;
-			children = (
-				C43981F5196275EA0076F005 /* CsGrainCompressor.udo */,
-				C43981F6196275EA0076F005 /* CsGrainPitchShifter.udo */,
-				C43981F7196275EA0076F005 /* UDOCsGrainCompressor.h */,
-				C43981F8196275EA0076F005 /* UDOCsGrainCompressor.m */,
-				C43981F9196275EA0076F005 /* UDOCsGrainPitchShifter.h */,
-				C43981FA196275EA0076F005 /* UDOCsGrainPitchShifter.m */,
-			);
-			path = CsGrain;
-			sourceTree = "<group>";
-		};
 		C43981FF196275EA0076F005 /* declick */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,22 +1118,10 @@
 			path = declick;
 			sourceTree = "<group>";
 		};
-		C4398203196275EA0076F005 /* MSROsc */ = {
-			isa = PBXGroup;
-			children = (
-				C4398200196275EA0076F005 /* msrOsc.udo */,
-				C4398201196275EA0076F005 /* UDOMSROscillator.h */,
-				C4398202196275EA0076F005 /* UDOMSROscillator.m */,
-			);
-			path = MSROsc;
-			sourceTree = "<group>";
-		};
 		C4398204196275EA0076F005 /* UDOs */ = {
 			isa = PBXGroup;
 			children = (
-				C43981FB196275EA0076F005 /* CsGrain */,
 				C43981FF196275EA0076F005 /* declick */,
-				C4398203196275EA0076F005 /* MSROsc */,
 			);
 			path = UDOs;
 			sourceTree = "<group>";
@@ -1383,24 +1318,6 @@
 			productReference = C4398097196275C80076F005 /* ContinuousControl.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C43980BA196275C80076F005 /* ContinuousControlTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C43980CF196275C80076F005 /* Build configuration list for PBXNativeTarget "ContinuousControlTests" */;
-			buildPhases = (
-				C43980B7196275C80076F005 /* Sources */,
-				C43980B8196275C80076F005 /* Frameworks */,
-				C43980B9196275C80076F005 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C43980C1196275C80076F005 /* PBXTargetDependency */,
-			);
-			name = ContinuousControlTests;
-			productName = ContinuousControlTests;
-			productReference = C43980BB196275C80076F005 /* ContinuousControlTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1409,11 +1326,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = h4y;
-				TargetAttributes = {
-					C43980BA196275C80076F005 = {
-						TestTargetID = C4398096196275C80076F005;
-					};
-				};
 			};
 			buildConfigurationList = C4398092196275C80076F005 /* Build configuration list for PBXProject "ContinuousControl" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1429,7 +1341,6 @@
 			projectRoot = "";
 			targets = (
 				C4398096196275C80076F005 /* ContinuousControl */,
-				C43980BA196275C80076F005 /* ContinuousControlTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1441,24 +1352,14 @@
 			files = (
 				C4398291196275EA0076F005 /* marmstk1.wav in Resources */,
 				C43982D2196275EA0076F005 /* declick.udo in Resources */,
-				C43982CE196275EA0076F005 /* CsGrainPitchShifter.udo in Resources */,
 				C43980B1196275C80076F005 /* Main_iPad.storyboard in Resources */,
 				C43980B6196275C80076F005 /* Images.xcassets in Resources */,
-				C43982CD196275EA0076F005 /* CsGrainCompressor.udo in Resources */,
 				C4398255196275EA0076F005 /* test.csd in Resources */,
 				C43982E7196275EA0076F005 /* LICENSE.TXT in Resources */,
-				C43982D3196275EA0076F005 /* msrOsc.udo in Resources */,
 				C439828F196275EA0076F005 /* mandpluk.aif in Resources */,
 				C43980AE196275C80076F005 /* Main_iPhone.storyboard in Resources */,
 				C43980A5196275C80076F005 /* InfoPlist.strings in Resources */,
 				C4398254196275EA0076F005 /* template.csd in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C43980B9196275C80076F005 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1547,7 +1448,6 @@
 				C43982D9196275EA0076F005 /* AKFSignal.m in Sources */,
 				C43982BF196275EA0076F005 /* AKMoogVCF.m in Sources */,
 				C43982C8196275EA0076F005 /* AKNReverb.m in Sources */,
-				C43982D0196275EA0076F005 /* UDOCsGrainPitchShifter.m in Sources */,
 				C4398274196275EA0076F005 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */,
 				C4398289196275EA0076F005 /* AKPhasingControl.m in Sources */,
 				C43982AA196275EA0076F005 /* AKFTablelooper.m in Sources */,
@@ -1573,7 +1473,6 @@
 				C4398260196275EA0076F005 /* AKParameter+Operation.m in Sources */,
 				C43980AB196275C80076F005 /* AppDelegate.m in Sources */,
 				C4398293196275EA0076F005 /* AKCabasa.m in Sources */,
-				C43982D4196275EA0076F005 /* UDOMSROscillator.m in Sources */,
 				C439826E196275EA0076F005 /* AKTableValue.m in Sources */,
 				C439824D196275EA0076F005 /* AKEvent.m in Sources */,
 				C43982D6196275EA0076F005 /* AKAudio.m in Sources */,
@@ -1596,7 +1495,6 @@
 				C439828B196275EA0076F005 /* AKPluckedString.m in Sources */,
 				C43982B2196275EA0076F005 /* AKCompressor.m in Sources */,
 				C43982AE196275EA0076F005 /* AKConvolution.m in Sources */,
-				C43982CF196275EA0076F005 /* UDOCsGrainCompressor.m in Sources */,
 				C43982BC196275EA0076F005 /* AKLowPassControlFilter.m in Sources */,
 				C4398273196275EA0076F005 /* AKFSignalFromMonoAudio.m in Sources */,
 				C43980A7196275C80076F005 /* main.m in Sources */,
@@ -1620,22 +1518,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C43980B7196275C80076F005 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C43980C1196275C80076F005 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C4398096196275C80076F005 /* ContinuousControl */;
-			targetProxy = C43980C0196275C80076F005 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C43980A3196275C80076F005 /* InfoPlist.strings */ = {
@@ -1747,7 +1630,7 @@
 				INFOPLIST_FILE = "ContinuousControl/ContinuousControl-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/csound-iOS/libs",
+					"$(SRCROOT)/../../csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1764,50 +1647,10 @@
 				INFOPLIST_FILE = "ContinuousControl/ContinuousControl-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/csound-iOS/libs",
+					"$(SRCROOT)/../../csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		C43980D0196275C80076F005 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ContinuousControl.app/ContinuousControl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ContinuousControl/ContinuousControl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ContinuousControlTests/ContinuousControlTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		C43980D1196275C80076F005 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ContinuousControl.app/ContinuousControl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ContinuousControl/ContinuousControl-Prefix.pch";
-				INFOPLIST_FILE = "ContinuousControlTests/ContinuousControlTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1830,14 +1673,7 @@
 				C43980CE196275C80076F005 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		C43980CF196275C80076F005 /* Build configuration list for PBXNativeTarget "ContinuousControlTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C43980D0196275C80076F005 /* Debug */,
-				C43980D1196275C80076F005 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

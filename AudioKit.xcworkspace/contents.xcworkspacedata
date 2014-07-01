@@ -31,6 +31,9 @@
       <FileRef
          location = "group:iOS Examples/GlobalEffects/GlobalEffects.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:iOS Examples/UsingUDOs/UsingUDOs.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"

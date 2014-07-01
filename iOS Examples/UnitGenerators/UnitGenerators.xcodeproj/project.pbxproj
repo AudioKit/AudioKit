@@ -17,9 +17,6 @@
 		C439856F1962823A0076F005 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C439856D1962823A0076F005 /* Main_iPad.storyboard */; };
 		C43985721962823A0076F005 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43985711962823A0076F005 /* ViewController.m */; };
 		C43985741962823A0076F005 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C43985731962823A0076F005 /* Images.xcassets */; };
-		C439857B1962823A0076F005 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439857A1962823A0076F005 /* XCTest.framework */; };
-		C439857C1962823A0076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43985581962823A0076F005 /* Foundation.framework */; };
-		C439857D1962823A0076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439855C1962823A0076F005 /* UIKit.framework */; };
 		C439870B196282530076F005 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398591196282530076F005 /* AKEvent.m */; };
 		C439870C196282530076F005 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398594196282530076F005 /* AKInstrument.m */; };
 		C439870D196282530076F005 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398596196282530076F005 /* AKManager.m */; };
@@ -148,14 +145,8 @@
 		C4398788196282530076F005 /* AKReverbAllpass.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986AB196282530076F005 /* AKReverbAllpass.m */; };
 		C4398789196282530076F005 /* AKBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986AE196282530076F005 /* AKBalance.m */; };
 		C439878A196282530076F005 /* AKPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986B0196282530076F005 /* AKPanner.m */; };
-		C439878B196282530076F005 /* CsGrainCompressor.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43986B3196282530076F005 /* CsGrainCompressor.udo */; };
-		C439878C196282530076F005 /* CsGrainPitchShifter.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43986B4196282530076F005 /* CsGrainPitchShifter.udo */; };
-		C439878D196282530076F005 /* UDOCsGrainCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986B6196282530076F005 /* UDOCsGrainCompressor.m */; };
-		C439878E196282530076F005 /* UDOCsGrainPitchShifter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986B8196282530076F005 /* UDOCsGrainPitchShifter.m */; };
 		C439878F196282530076F005 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986BB196282530076F005 /* AKDeclick.m */; };
 		C4398790196282530076F005 /* declick.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43986BC196282530076F005 /* declick.udo */; };
-		C4398791196282530076F005 /* msrOsc.udo in Resources */ = {isa = PBXBuildFile; fileRef = C43986BE196282530076F005 /* msrOsc.udo */; };
-		C4398792196282530076F005 /* UDOMSROscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986C0196282530076F005 /* UDOMSROscillator.m */; };
 		C4398793196282530076F005 /* AKArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986C5196282530076F005 /* AKArray.m */; };
 		C4398794196282530076F005 /* AKAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986C7196282530076F005 /* AKAudio.m */; };
 		C4398795196282530076F005 /* AKConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C43986C9196282530076F005 /* AKConstant.m */; };
@@ -178,16 +169,6 @@
 		C43987AC196282C40076F005 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43987AB196282C40076F005 /* UnitGeneratorInstrument.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C439857E1962823A0076F005 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C439854D1962823A0076F005 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C43985541962823A0076F005;
-			remoteInfo = UnitGenerators;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		C43985551962823A0076F005 /* UnitGenerators.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitGenerators.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43985581962823A0076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -204,7 +185,6 @@
 		C43985701962823A0076F005 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C43985711962823A0076F005 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C43985731962823A0076F005 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C43985791962823A0076F005 /* UnitGeneratorsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitGeneratorsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C439857A1962823A0076F005 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4398590196282530076F005 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C4398591196282530076F005 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
@@ -462,18 +442,9 @@
 		C43986AE196282530076F005 /* AKBalance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBalance.m; sourceTree = "<group>"; };
 		C43986AF196282530076F005 /* AKPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPanner.h; sourceTree = "<group>"; };
 		C43986B0196282530076F005 /* AKPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPanner.m; sourceTree = "<group>"; };
-		C43986B3196282530076F005 /* CsGrainCompressor.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CsGrainCompressor.udo; sourceTree = "<group>"; };
-		C43986B4196282530076F005 /* CsGrainPitchShifter.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CsGrainPitchShifter.udo; sourceTree = "<group>"; };
-		C43986B5196282530076F005 /* UDOCsGrainCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOCsGrainCompressor.h; sourceTree = "<group>"; };
-		C43986B6196282530076F005 /* UDOCsGrainCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOCsGrainCompressor.m; sourceTree = "<group>"; };
-		C43986B7196282530076F005 /* UDOCsGrainPitchShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOCsGrainPitchShifter.h; sourceTree = "<group>"; };
-		C43986B8196282530076F005 /* UDOCsGrainPitchShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOCsGrainPitchShifter.m; sourceTree = "<group>"; };
 		C43986BA196282530076F005 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
 		C43986BB196282530076F005 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
 		C43986BC196282530076F005 /* declick.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = declick.udo; sourceTree = "<group>"; };
-		C43986BE196282530076F005 /* msrOsc.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = msrOsc.udo; sourceTree = "<group>"; };
-		C43986BF196282530076F005 /* UDOMSROscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDOMSROscillator.h; sourceTree = "<group>"; };
-		C43986C0196282530076F005 /* UDOMSROscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOMSROscillator.m; sourceTree = "<group>"; };
 		C43986C4196282530076F005 /* AKArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArray.h; sourceTree = "<group>"; };
 		C43986C5196282530076F005 /* AKArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKArray.m; sourceTree = "<group>"; };
 		C43986C6196282530076F005 /* AKAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudio.h; sourceTree = "<group>"; };
@@ -553,16 +524,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C43985761962823A0076F005 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C439857B1962823A0076F005 /* XCTest.framework in Frameworks */,
-				C439857D1962823A0076F005 /* UIKit.framework in Frameworks */,
-				C439857C1962823A0076F005 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -581,7 +542,6 @@
 			isa = PBXGroup;
 			children = (
 				C43985551962823A0076F005 /* UnitGenerators.app */,
-				C43985791962823A0076F005 /* UnitGeneratorsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1148,19 +1108,6 @@
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
 		};
-		C43986B9196282530076F005 /* CsGrain */ = {
-			isa = PBXGroup;
-			children = (
-				C43986B3196282530076F005 /* CsGrainCompressor.udo */,
-				C43986B4196282530076F005 /* CsGrainPitchShifter.udo */,
-				C43986B5196282530076F005 /* UDOCsGrainCompressor.h */,
-				C43986B6196282530076F005 /* UDOCsGrainCompressor.m */,
-				C43986B7196282530076F005 /* UDOCsGrainPitchShifter.h */,
-				C43986B8196282530076F005 /* UDOCsGrainPitchShifter.m */,
-			);
-			path = CsGrain;
-			sourceTree = "<group>";
-		};
 		C43986BD196282530076F005 /* declick */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,22 +1118,10 @@
 			path = declick;
 			sourceTree = "<group>";
 		};
-		C43986C1196282530076F005 /* MSROsc */ = {
-			isa = PBXGroup;
-			children = (
-				C43986BE196282530076F005 /* msrOsc.udo */,
-				C43986BF196282530076F005 /* UDOMSROscillator.h */,
-				C43986C0196282530076F005 /* UDOMSROscillator.m */,
-			);
-			path = MSROsc;
-			sourceTree = "<group>";
-		};
 		C43986C2196282530076F005 /* UDOs */ = {
 			isa = PBXGroup;
 			children = (
-				C43986B9196282530076F005 /* CsGrain */,
 				C43986BD196282530076F005 /* declick */,
-				C43986C1196282530076F005 /* MSROsc */,
 			);
 			path = UDOs;
 			sourceTree = "<group>";
@@ -1384,24 +1319,6 @@
 			productReference = C43985551962823A0076F005 /* UnitGenerators.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C43985781962823A0076F005 /* UnitGeneratorsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C439858D1962823A0076F005 /* Build configuration list for PBXNativeTarget "UnitGeneratorsTests" */;
-			buildPhases = (
-				C43985751962823A0076F005 /* Sources */,
-				C43985761962823A0076F005 /* Frameworks */,
-				C43985771962823A0076F005 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C439857F1962823A0076F005 /* PBXTargetDependency */,
-			);
-			name = UnitGeneratorsTests;
-			productName = UnitGeneratorsTests;
-			productReference = C43985791962823A0076F005 /* UnitGeneratorsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1410,11 +1327,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Hear For Yourself";
-				TargetAttributes = {
-					C43985781962823A0076F005 = {
-						TestTargetID = C43985541962823A0076F005;
-					};
-				};
 			};
 			buildConfigurationList = C43985501962823A0076F005 /* Build configuration list for PBXProject "UnitGenerators" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1430,7 +1342,6 @@
 			projectRoot = "";
 			targets = (
 				C43985541962823A0076F005 /* UnitGenerators */,
-				C43985781962823A0076F005 /* UnitGeneratorsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1442,24 +1353,14 @@
 			files = (
 				C439874F196282530076F005 /* marmstk1.wav in Resources */,
 				C4398790196282530076F005 /* declick.udo in Resources */,
-				C439878C196282530076F005 /* CsGrainPitchShifter.udo in Resources */,
 				C439856F1962823A0076F005 /* Main_iPad.storyboard in Resources */,
 				C43985741962823A0076F005 /* Images.xcassets in Resources */,
-				C439878B196282530076F005 /* CsGrainCompressor.udo in Resources */,
 				C4398713196282530076F005 /* test.csd in Resources */,
 				C43987A5196282530076F005 /* LICENSE.TXT in Resources */,
-				C4398791196282530076F005 /* msrOsc.udo in Resources */,
 				C439874D196282530076F005 /* mandpluk.aif in Resources */,
 				C439856C1962823A0076F005 /* Main_iPhone.storyboard in Resources */,
 				C43985631962823A0076F005 /* InfoPlist.strings in Resources */,
 				C4398712196282530076F005 /* template.csd in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C43985771962823A0076F005 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1548,7 +1449,6 @@
 				C4398797196282530076F005 /* AKFSignal.m in Sources */,
 				C439877D196282530076F005 /* AKMoogVCF.m in Sources */,
 				C4398786196282530076F005 /* AKNReverb.m in Sources */,
-				C439878E196282530076F005 /* UDOCsGrainPitchShifter.m in Sources */,
 				C4398732196282530076F005 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */,
 				C4398747196282530076F005 /* AKPhasingControl.m in Sources */,
 				C4398768196282530076F005 /* AKFTablelooper.m in Sources */,
@@ -1574,7 +1474,6 @@
 				C439871E196282530076F005 /* AKParameter+Operation.m in Sources */,
 				C43985691962823A0076F005 /* AppDelegate.m in Sources */,
 				C4398751196282530076F005 /* AKCabasa.m in Sources */,
-				C4398792196282530076F005 /* UDOMSROscillator.m in Sources */,
 				C439872C196282530076F005 /* AKTableValue.m in Sources */,
 				C439870B196282530076F005 /* AKEvent.m in Sources */,
 				C4398794196282530076F005 /* AKAudio.m in Sources */,
@@ -1597,7 +1496,6 @@
 				C4398749196282530076F005 /* AKPluckedString.m in Sources */,
 				C4398770196282530076F005 /* AKCompressor.m in Sources */,
 				C439876C196282530076F005 /* AKConvolution.m in Sources */,
-				C439878D196282530076F005 /* UDOCsGrainCompressor.m in Sources */,
 				C439877A196282530076F005 /* AKLowPassControlFilter.m in Sources */,
 				C4398731196282530076F005 /* AKFSignalFromMonoAudio.m in Sources */,
 				C43985651962823A0076F005 /* main.m in Sources */,
@@ -1621,22 +1519,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C43985751962823A0076F005 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C439857F1962823A0076F005 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C43985541962823A0076F005 /* UnitGenerators */;
-			targetProxy = C439857E1962823A0076F005 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C43985611962823A0076F005 /* InfoPlist.strings */ = {
@@ -1748,7 +1631,7 @@
 				INFOPLIST_FILE = "UnitGenerators/UnitGenerators-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/csound-iOS/libs",
+					"$(SRCROOT)/../../csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1765,50 +1648,10 @@
 				INFOPLIST_FILE = "UnitGenerators/UnitGenerators-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/csound-iOS/libs",
+					"$(SRCROOT)/../../csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		C439858E1962823A0076F005 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/UnitGenerators.app/UnitGenerators";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UnitGenerators/UnitGenerators-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "UnitGeneratorsTests/UnitGeneratorsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		C439858F1962823A0076F005 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/UnitGenerators.app/UnitGenerators";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UnitGenerators/UnitGenerators-Prefix.pch";
-				INFOPLIST_FILE = "UnitGeneratorsTests/UnitGeneratorsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1831,14 +1674,7 @@
 				C439858C1962823A0076F005 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		C439858D1962823A0076F005 /* Build configuration list for PBXNativeTarget "UnitGeneratorsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C439858E1962823A0076F005 /* Debug */,
-				C439858F1962823A0076F005 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
