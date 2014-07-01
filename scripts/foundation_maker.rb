@@ -9,7 +9,7 @@ require 'active_support/all'
 def pretty_operation_list
 	return_string = ""
 	Find.find("../AudioKit/Operations/") do |file_path|
-		next if /UDOs/.match(file_path)
+
 		if File.directory?(file_path) 
 			pretty_directory = /AudioKit\/(.*)$/.match(file_path)[1]
 			pretty_directory.gsub!(/\/$/,"")
@@ -26,7 +26,7 @@ end
 
 operation_file_paths = []
 Find.find("../AudioKit/Operations/") do |file|
-	operation_file_paths << file if  /\.h/.match(file) && !/UDOs/.match(file)
+	operation_file_paths << file if  /\.h/.match(file) 
 end
 
 operation_files = operation_file_paths.map{|f| Pathname.new(f).basename }

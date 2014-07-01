@@ -189,6 +189,7 @@
 #import "AKLowPassButterworthFilter.h"
 #import "AKCombFilter.h"
 #import "AKDCBlock.h"
+#import "AKDeclick.h"
 #import "AKEqualizerFilter.h"
 #import "AKHighPassFilter.h"
 #import "AKHilbertTransformer.h"
