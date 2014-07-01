@@ -4,10 +4,21 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
-   <FileRef
-      location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:OCSMacExample/OCS Mac Examples.xcodeproj">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "iOS Examples">
+      <FileRef
+         location = "group:iOS Examples/PlayAudioFile/PlayAudioFile.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Old Example Projects">
+      <FileRef
+         location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:OCSMacExample/OCS Mac Examples.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
