@@ -11,7 +11,6 @@
 #import "InitialViewController.h"
 
 // Example Controllers
-#import "UnitGeneratorsViewController.h"
 #import "ExpressionsViewController.h"
 #import "ReverbViewController.h"
 #import "GrainViewController.h"
@@ -39,7 +38,6 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     exampleNames = [NSMutableArray arrayWithObjects:
-                    @"Unit Generators",
                     @"Expressions",
                     @"Global Reverb",
                     @"Grain",
@@ -144,32 +142,31 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIViewController* controller;
+    int counter = 0;
     switch (indexPath.row) {
+
         case 0:
-            controller = [[UnitGeneratorsViewController alloc] initWithNibName:@"UnitGeneratorsViewController" bundle:nil];
-            break;
-        case 1:
             controller = [[ExpressionsViewController alloc] initWithNibName:@"ExpressionsViewController" bundle:nil];
             break;
-        case 2:
+        case 1:
             controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
             break;
-        case 3:
+        case 2:
             controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" bundle:nil];
             break;
-        case 4:
+        case 3:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
-        case 5:
+        case 4:
             controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
             break;
-        case 6:
+        case 5:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
             break;
-        case 7:
+        case 6:
             controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
             break;
-        case 8:
+        case 7:
             controller = [[PhysicalModelViewController alloc] initWithNibName:@"PhysicalModelViewController" bundle:nil];
             break;
         default:
