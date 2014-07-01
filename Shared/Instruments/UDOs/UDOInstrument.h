@@ -13,9 +13,6 @@
 
 @interface UDOInstrumentNote : AKNote
 
-#define kFrequencyInit 220
-#define kFrequencyMin  110
-#define kFrequencyMax  880
 @property (nonatomic, strong) AKNoteProperty *frequency;
 - (instancetype)initWithFrequency:(float)frequency;
 

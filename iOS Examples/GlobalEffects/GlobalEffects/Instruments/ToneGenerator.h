@@ -11,8 +11,6 @@
 @interface ToneGenerator : AKInstrument 
 
 @property (nonatomic, strong) AKInstrumentProperty *frequency;
-#define kFrequencyMin 110
-#define kFrequencyMax 880
 
 @property (readonly) AKAudio *auxilliaryOutput;
 

@@ -60,9 +60,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _frequency = [[AKNoteProperty alloc] initWithValue:kFrequencyInit
-                                               minimumValue:kFrequencyMin
-                                               maximumValue:kFrequencyMax];
+        _frequency = [[AKNoteProperty alloc] initWithValue:220
+                                               minimumValue:110
+                                               maximumValue:880];
         [self addProperty:_frequency];
     }
     return self;
