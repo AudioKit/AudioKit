@@ -122,6 +122,7 @@
 /// For instruments that do not create note instances, play the instrument with infinite duration.
 - (void)play;
 
+/// Play the given note
 - (void)playNote:(AKNote *)note;
 
 /// Stop all notes created by the instrument
