@@ -1,14 +1,14 @@
 //
-//  ContinuousControlViewController.h
-//  AudioKit Example
+//  ViewController.h
+//  ContinuousControl
 //
-//  Created by Adam Boulanger on 6/18/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 h4y. All rights reserved.
 //
 
-#import "TweakableInstrument.h"
+#import <UIKit/UIKit.h>
 
-@interface ContinuousControlViewController : UIViewController
+@interface ViewController : UIViewController
 {
     IBOutlet UISlider *amplitudeSlider;
     IBOutlet UISlider *modulationSlider;
