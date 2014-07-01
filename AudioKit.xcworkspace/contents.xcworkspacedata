@@ -25,6 +25,12 @@
       <FileRef
          location = "group:iOS Examples/Expressions/Expressions.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:iOS Examples/Convolution/Convolution.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:iOS Examples/GlobalEffects/GlobalEffects.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"

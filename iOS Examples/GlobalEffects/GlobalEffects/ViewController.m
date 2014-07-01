@@ -1,23 +1,26 @@
 //
-//  ReverbViewController.m
-//  AudioKit Example
+//  ViewController.m
+//  GlobalEffects
 //
-//  Created by Aurelius Prochazka on 6/9/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import "ReverbViewController.h"
+#import "ViewController.h"
+
+#import "AKFoundation.h"
 #import "AKiOSTools.h"
 #import "ToneGenerator.h"
 #import "EffectsProcessor.h"
 
-@interface ReverbViewController () {
+@interface ViewController () {
     ToneGenerator *toneGenerator;
     EffectsProcessor *fx;
 }
+
 @end
 
-@implementation ReverbViewController
+@implementation ViewController
 
 - (void)viewDidLoad
 {
@@ -50,5 +53,6 @@
 - (IBAction)stopFX:(id)sender {
     [fx stop];
 }
+
 
 @end

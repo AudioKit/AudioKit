@@ -23,6 +23,9 @@
                                 <state key="normal" title="Shoot">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="touchPlayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zfi-uT-MGj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -1,6 +1,6 @@
 //
-//  ViewController.h
-//  PlayAudioFile
+//  AppDelegate.h
+//  Convolution
 //
 //  Created by Aurelius Prochazka on 6/30/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-- (IBAction)touchPlayButton:(id)sender;
+@property (strong, nonatomic) UIWindow *window;
 
 @end

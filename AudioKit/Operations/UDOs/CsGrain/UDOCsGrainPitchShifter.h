@@ -5,7 +5,7 @@
 //  Created by Aurelius Prochazka on 6/23/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
-//  Pitch Shifter from Boulanger Labs' csGrain
+//  Pitch Shifter from the csGrain app
 
 #import "AKStereoAudio.h"
 #import "AKParameter+Operation.h"
