@@ -12,8 +12,6 @@
 		C42B245C15F484D0006032F9 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B242215F484D0006032F9 /* dish.wav */; };
 		C42B245D15F484D0006032F9 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B242315F484D0006032F9 /* Stairwell.wav */; };
 		C42B245F15F484D0006032F9 /* ExpressionToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242615F484D0006032F9 /* ExpressionToneGenerator.m */; };
-		C42B246015F484D0006032F9 /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42B242815F484D0006032F9 /* beats.wav */; };
-		C42B246215F484D0006032F9 /* SimpleGrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242A15F484D0006032F9 /* SimpleGrainInstrument.m */; };
 		C42B246415F484D0006032F9 /* Harmonizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B242D15F484D0006032F9 /* Harmonizer.m */; };
 		C42B246615F484D0006032F9 /* FivePropertyInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243015F484D0006032F9 /* FivePropertyInstrument.m */; };
 		C42B246815F484D0006032F9 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42B243415F484D0006032F9 /* FMOscillatorInstrument.m */; };
@@ -196,8 +194,6 @@
 		C4F079FC15D603160084FF9E /* ConvolutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079A615D603160084FF9E /* ConvolutionViewController.xib */; };
 		C4F07A0015D603160084FF9E /* ExpressionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079AB15D603160084FF9E /* ExpressionsViewController.m */; };
 		C4F07A0115D603160084FF9E /* ExpressionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079AC15D603160084FF9E /* ExpressionsViewController.xib */; };
-		C4F07A0615D603160084FF9E /* GrainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079B215D603160084FF9E /* GrainViewController.m */; };
-		C4F07A0715D603160084FF9E /* GrainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079B315D603160084FF9E /* GrainViewController.xib */; };
 		C4F07A0D15D603160084FF9E /* HarmonizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079BA15D603160084FF9E /* HarmonizerViewController.m */; };
 		C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */; };
 		C4F07A2115D603160084FF9E /* ReverbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D215D603160084FF9E /* ReverbViewController.m */; };
@@ -218,9 +214,6 @@
 		C42B242315F484D0006032F9 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
 		C42B242515F484D0006032F9 /* ExpressionToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ExpressionToneGenerator.h; sourceTree = "<group>"; };
 		C42B242615F484D0006032F9 /* ExpressionToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionToneGenerator.m; sourceTree = "<group>"; };
-		C42B242815F484D0006032F9 /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
-		C42B242915F484D0006032F9 /* SimpleGrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SimpleGrainInstrument.h; sourceTree = "<group>"; };
-		C42B242A15F484D0006032F9 /* SimpleGrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGrainInstrument.m; sourceTree = "<group>"; };
 		C42B242C15F484D0006032F9 /* Harmonizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Harmonizer.h; sourceTree = "<group>"; };
 		C42B242D15F484D0006032F9 /* Harmonizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harmonizer.m; sourceTree = "<group>"; };
 		C42B242F15F484D0006032F9 /* FivePropertyInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = FivePropertyInstrument.h; sourceTree = "<group>"; };
@@ -596,9 +589,6 @@
 		C4F079AA15D603160084FF9E /* ExpressionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ExpressionsViewController.h; sourceTree = "<group>"; };
 		C4F079AB15D603160084FF9E /* ExpressionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionsViewController.m; sourceTree = "<group>"; };
 		C4F079AC15D603160084FF9E /* ExpressionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpressionsViewController.xib; sourceTree = "<group>"; };
-		C4F079B115D603160084FF9E /* GrainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = GrainViewController.h; sourceTree = "<group>"; };
-		C4F079B215D603160084FF9E /* GrainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainViewController.m; sourceTree = "<group>"; };
-		C4F079B315D603160084FF9E /* GrainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GrainViewController.xib; sourceTree = "<group>"; };
 		C4F079B915D603160084FF9E /* HarmonizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = HarmonizerViewController.h; sourceTree = "<group>"; };
 		C4F079BA15D603160084FF9E /* HarmonizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarmonizerViewController.m; sourceTree = "<group>"; };
 		C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarmonizerViewController.xib; sourceTree = "<group>"; };
@@ -639,7 +629,6 @@
 			children = (
 				C42B241E15F484D0006032F9 /* Convolution */,
 				C42B242415F484D0006032F9 /* Expressions */,
-				C42B242715F484D0006032F9 /* Grain */,
 				C42B242B15F484D0006032F9 /* Harmonizer */,
 				C42B242E15F484D0006032F9 /* MIDI */,
 				C42B243115F484D0006032F9 /* Operation Examples */,
@@ -669,16 +658,6 @@
 				C42B242615F484D0006032F9 /* ExpressionToneGenerator.m */,
 			);
 			path = Expressions;
-			sourceTree = "<group>";
-		};
-		C42B242715F484D0006032F9 /* Grain */ = {
-			isa = PBXGroup;
-			children = (
-				C42B242815F484D0006032F9 /* beats.wav */,
-				C42B242915F484D0006032F9 /* SimpleGrainInstrument.h */,
-				C42B242A15F484D0006032F9 /* SimpleGrainInstrument.m */,
-			);
-			path = Grain;
 			sourceTree = "<group>";
 		};
 		C42B242B15F484D0006032F9 /* Harmonizer */ = {
@@ -1538,7 +1517,6 @@
 				C42B241A15F484D0006032F9 /* Shared Instruments */,
 				C4F079A915D603160084FF9E /* Expressions */,
 				C4F079CE15D603160084FF9E /* Reverb */,
-				C4F079AF15D603160084FF9E /* Grain */,
 				C4F079E615D603160084FF9E /* UDOs */,
 				C4F079A015D603160084FF9E /* Convolution */,
 				C4F079B615D603160084FF9E /* Harmonizer */,
@@ -1586,16 +1564,6 @@
 				C4F079AC15D603160084FF9E /* ExpressionsViewController.xib */,
 			);
 			path = Expressions;
-			sourceTree = "<group>";
-		};
-		C4F079AF15D603160084FF9E /* Grain */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079B115D603160084FF9E /* GrainViewController.h */,
-				C4F079B215D603160084FF9E /* GrainViewController.m */,
-				C4F079B315D603160084FF9E /* GrainViewController.xib */,
-			);
-			path = Grain;
 			sourceTree = "<group>";
 		};
 		C4F079B615D603160084FF9E /* Harmonizer */ = {
@@ -1687,7 +1655,6 @@
 				C43976D0195F6B2C0076F005 /* template.csd in Resources */,
 				C4F079FC15D603160084FF9E /* ConvolutionViewController.xib in Resources */,
 				C4F07A0115D603160084FF9E /* ExpressionsViewController.xib in Resources */,
-				C4F07A0715D603160084FF9E /* GrainViewController.xib in Resources */,
 				C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */,
 				C43976D1195F6B2C0076F005 /* test.csd in Resources */,
 				C439774E195F6B2C0076F005 /* declick.udo in Resources */,
@@ -1701,7 +1668,6 @@
 				C42B245915F484D0006032F9 /* 808loop.wav in Resources */,
 				C42B245C15F484D0006032F9 /* dish.wav in Resources */,
 				C42B245D15F484D0006032F9 /* Stairwell.wav in Resources */,
-				C42B246015F484D0006032F9 /* beats.wav in Resources */,
 				C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */,
 				C4EFBBC41815C3CE001AB306 /* LICENSE.TXT in Resources */,
 			);
@@ -1750,7 +1716,6 @@
 				C4397734195F6B2C0076F005 /* AKDCBlock.m in Sources */,
 				C4F07A0015D603160084FF9E /* ExpressionsViewController.m in Sources */,
 				C43976CB195F6B2C0076F005 /* AKManager.m in Sources */,
-				C4F07A0615D603160084FF9E /* GrainViewController.m in Sources */,
 				C439771A195F6B2C0076F005 /* AKSimpleWaveGuideModel.m in Sources */,
 				C439770C195F6B2C0076F005 /* AKMarimba.m in Sources */,
 				C439774C195F6B2C0076F005 /* UDOCsGrainPitchShifter.m in Sources */,
@@ -1811,7 +1776,6 @@
 				C4397735195F6B2C0076F005 /* AKEqualizerFilter.m in Sources */,
 				C4397756195F6B2C0076F005 /* AKParameter.m in Sources */,
 				C43976E0195F6B2C0076F005 /* AKAssignment.m in Sources */,
-				C42B246215F484D0006032F9 /* SimpleGrainInstrument.m in Sources */,
 				C42B246415F484D0006032F9 /* Harmonizer.m in Sources */,
 				C42B246615F484D0006032F9 /* FivePropertyInstrument.m in Sources */,
 				C4397702195F6B2C0076F005 /* AKVCOscillator.m in Sources */,

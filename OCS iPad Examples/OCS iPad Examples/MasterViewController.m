@@ -13,7 +13,6 @@
 // Example Controllers
 #import "ExpressionsViewController.h"
 #import "ReverbViewController.h"
-#import "GrainViewController.h"
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
 #import "HarmonizerViewController.h"
@@ -40,7 +39,6 @@
     exampleNames = [NSMutableArray arrayWithObjects:
                     @"Expressions",
                     @"Global Reverb",
-                    @"Grain",
                     @"User Defined Opcodes",
                     @"Convolution",
                     @"Harmonizer",
@@ -152,21 +150,18 @@
             controller = [[ReverbViewController alloc] initWithNibName:@"ReverbViewController" bundle:nil];
             break;
         case 2:
-            controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" bundle:nil];
-            break;
-        case 3:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
-        case 4:
+        case 3:
             controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
             break;
-        case 5:
+        case 4:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
             break;
-        case 6:
+        case 5:
             controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
             break;
-        case 7:
+        case 6:
             controller = [[PhysicalModelViewController alloc] initWithNibName:@"PhysicalModelViewController" bundle:nil];
             break;
         default:
