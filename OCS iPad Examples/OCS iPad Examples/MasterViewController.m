@@ -17,7 +17,6 @@
 #import "GrainViewController.h"
 #import "UDOViewController.h"
 #import "ConvolutionViewController.h"
-#import "SequenceViewController.h"
 #import "HarmonizerViewController.h"
 #import "MidiViewController.h"
 #import "PhysicalModelViewController.h"
@@ -44,7 +43,6 @@
                     @"Expressions",
                     @"Global Reverb",
                     @"Grain",
-                    @"Sequences",
                     @"User Defined Opcodes",
                     @"Convolution",
                     @"Harmonizer",
@@ -160,21 +158,18 @@
             controller = [[GrainViewController alloc] initWithNibName:@"GrainViewController" bundle:nil];
             break;
         case 4:
-            controller = [[SequenceViewController alloc] initWithNibName:@"SequenceViewController" bundle:nil];
-            break;
-        case 5:
             controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
             break;
-        case 6:
+        case 5:
             controller = [[ConvolutionViewController alloc] initWithNibName:@"ConvolutionViewController" bundle:nil];
             break;
-        case 7:
+        case 6:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
             break;
-        case 8:
+        case 7:
             controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
             break;
-        case 9:
+        case 8:
             controller = [[PhysicalModelViewController alloc] initWithNibName:@"PhysicalModelViewController" bundle:nil];
             break;
         default:

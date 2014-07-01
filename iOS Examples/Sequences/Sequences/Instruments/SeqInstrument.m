@@ -18,9 +18,9 @@
         [self addNoteProperty:note.frequency];
         
         // INSTRUMENT CONTROL ==================================================
-        _modulation  = [[AKInstrumentProperty alloc] initWithValue:kModulationInit
-                                                       minimumValue:kModulationMin
-                                                       maximumValue:kModulationMax];
+        _modulation  = [[AKInstrumentProperty alloc] initWithValue:1.0
+                                                      minimumValue:0.5
+                                                      maximumValue:2.0];
         [self addProperty:_modulation];
         
         // INSTRUMENT DEFINITION ===============================================
@@ -30,11 +30,11 @@
         
         AKFMOscillator *fmOscillator;
         fmOscillator = [[AKFMOscillator alloc] initWithFTable:sineTable
-                                                 baseFrequency:note.frequency
-                                             carrierMultiplier:akp(2)
-                                          modulatingMultiplier:_modulation
-                                               modulationIndex:akp(15)
-                                                     amplitude:akp(0.2)];
+                                                baseFrequency:note.frequency
+                                            carrierMultiplier:akp(2)
+                                         modulatingMultiplier:_modulation
+                                              modulationIndex:akp(15)
+                                                    amplitude:akp(0.2)];
         [self connect:fmOscillator];
         
         
@@ -48,14 +48,19 @@
 
 @end
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Sequence Instrument Note
+// -----------------------------------------------------------------------------
+
+
 @implementation SeqInstrumentNote
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _frequency = [[AKNoteProperty alloc] initWithValue:kFrequencyInit
-                                               minimumValue:kFrequencyMin
-                                               maximumValue:kFrequencyMax];
+        _frequency = [[AKNoteProperty alloc] initWithValue:220
+                                              minimumValue:110
+                                              maximumValue:880];
         [self addProperty:_frequency];
     }
     return self;

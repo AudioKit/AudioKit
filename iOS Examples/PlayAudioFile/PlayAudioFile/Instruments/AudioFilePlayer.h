@@ -11,6 +11,10 @@
 @interface AudioFilePlayer : AKInstrument
 @end
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Instrument Note
+// -----------------------------------------------------------------------------
+
 @interface AudioFilePlayerNote : AKNote
 
 @property (nonatomic, strong) AKNoteProperty *speed;

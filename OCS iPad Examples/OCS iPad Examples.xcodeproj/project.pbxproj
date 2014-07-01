@@ -174,7 +174,6 @@
 		C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E285F163F083A00BBB569 /* PhysicalModelViewController.m */; };
 		C47E2863163F083A00BBB569 /* PhysicalModelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */; };
 		C47E2869163F08DF00BBB569 /* MarimbaInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */; };
-		C494655516098269002E4C34 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C494655316098269002E4C34 /* SeqInstrument.m */; };
 		C4B6AFE3188FB182000B714D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B6AFE2188FB182000B714D /* Images.xcassets */; };
 		C4C4F39A1773D7C700CB1D44 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0783215D5F4B30084FF9E /* CoreGraphics.framework */; };
 		C4C8272F15D752F5009D48DA /* MidiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8272D15D752F5009D48DA /* MidiViewController.m */; };
@@ -204,8 +203,6 @@
 		C4F07A0E15D603160084FF9E /* HarmonizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079BB15D603160084FF9E /* HarmonizerViewController.xib */; };
 		C4F07A2115D603160084FF9E /* ReverbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D215D603160084FF9E /* ReverbViewController.m */; };
 		C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079D315D603160084FF9E /* ReverbViewController.xib */; };
-		C4F07A2615D603160084FF9E /* SequenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079D815D603160084FF9E /* SequenceViewController.m */; };
-		C4F07A2715D603160084FF9E /* SequenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079D915D603160084FF9E /* SequenceViewController.xib */; };
 		C4F07A3515D603160084FF9E /* UDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079EA15D603160084FF9E /* UDOViewController.m */; };
 		C4F07A3615D603160084FF9E /* UDOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F079EB15D603160084FF9E /* UDOViewController.xib */; };
 		C4F07A3A15D603160084FF9E /* UnitGeneratorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F079F015D603160084FF9E /* UnitGeneratorsViewController.m */; };
@@ -540,8 +537,6 @@
 		C47E2860163F083A00BBB569 /* PhysicalModelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalModelViewController.xib; path = "Physical Models/PhysicalModelViewController.xib"; sourceTree = "<group>"; };
 		C47E2866163F08DF00BBB569 /* MarimbaInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = MarimbaInstrument.h; path = Marimba/MarimbaInstrument.h; sourceTree = "<group>"; };
 		C47E2867163F08DF00BBB569 /* MarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarimbaInstrument.m; path = Marimba/MarimbaInstrument.m; sourceTree = "<group>"; };
-		C494655216098269002E4C34 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SeqInstrument.h; sourceTree = "<group>"; };
-		C494655316098269002E4C34 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4B6AFE2188FB182000B714D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C4C8272C15D752F5009D48DA /* MidiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiViewController.h; path = MIDI/MidiViewController.h; sourceTree = "<group>"; };
 		C4C8272D15D752F5009D48DA /* MidiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MidiViewController.m; path = MIDI/MidiViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -615,9 +610,6 @@
 		C4F079D115D603160084FF9E /* ReverbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ReverbViewController.h; sourceTree = "<group>"; };
 		C4F079D215D603160084FF9E /* ReverbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbViewController.m; sourceTree = "<group>"; };
 		C4F079D315D603160084FF9E /* ReverbViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReverbViewController.xib; sourceTree = "<group>"; };
-		C4F079D715D603160084FF9E /* SequenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SequenceViewController.h; sourceTree = "<group>"; };
-		C4F079D815D603160084FF9E /* SequenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SequenceViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F079D915D603160084FF9E /* SequenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SequenceViewController.xib; sourceTree = "<group>"; };
 		C4F079E915D603160084FF9E /* UDOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = UDOViewController.h; sourceTree = "<group>"; };
 		C4F079EA15D603160084FF9E /* UDOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDOViewController.m; sourceTree = "<group>"; };
 		C4F079EB15D603160084FF9E /* UDOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UDOViewController.xib; sourceTree = "<group>"; };
@@ -660,7 +652,6 @@
 				C42B242E15F484D0006032F9 /* MIDI */,
 				C42B243115F484D0006032F9 /* Operation Examples */,
 				C42B243E15F484D0006032F9 /* Reverb */,
-				C42B244515F484D0006032F9 /* Sequences */,
 				C42B244615F484D0006032F9 /* UDOs */,
 				C42B244915F484D0006032F9 /* Unit Generators */,
 			);
@@ -754,15 +745,6 @@
 				C42B244415F484D0006032F9 /* ToneGenerator.m */,
 			);
 			path = Reverb;
-			sourceTree = "<group>";
-		};
-		C42B244515F484D0006032F9 /* Sequences */ = {
-			isa = PBXGroup;
-			children = (
-				C494655216098269002E4C34 /* SeqInstrument.h */,
-				C494655316098269002E4C34 /* SeqInstrument.m */,
-			);
-			path = Sequences;
 			sourceTree = "<group>";
 		};
 		C42B244615F484D0006032F9 /* UDOs */ = {
@@ -1576,7 +1558,6 @@
 				C4F079A915D603160084FF9E /* Expressions */,
 				C4F079CE15D603160084FF9E /* Reverb */,
 				C4F079AF15D603160084FF9E /* Grain */,
-				C4F079D615D603160084FF9E /* Sequences */,
 				C4F079E615D603160084FF9E /* UDOs */,
 				C4F079A015D603160084FF9E /* Convolution */,
 				C4F079B615D603160084FF9E /* Harmonizer */,
@@ -1654,16 +1635,6 @@
 				C4F079D315D603160084FF9E /* ReverbViewController.xib */,
 			);
 			path = Reverb;
-			sourceTree = "<group>";
-		};
-		C4F079D615D603160084FF9E /* Sequences */ = {
-			isa = PBXGroup;
-			children = (
-				C4F079D715D603160084FF9E /* SequenceViewController.h */,
-				C4F079D815D603160084FF9E /* SequenceViewController.m */,
-				C4F079D915D603160084FF9E /* SequenceViewController.xib */,
-			);
-			path = Sequences;
 			sourceTree = "<group>";
 		};
 		C4F079E615D603160084FF9E /* UDOs */ = {
@@ -1751,7 +1722,6 @@
 				C439774E195F6B2C0076F005 /* declick.udo in Resources */,
 				C4F07A2215D603160084FF9E /* ReverbViewController.xib in Resources */,
 				C439774A195F6B2C0076F005 /* CsGrainPitchShifter.udo in Resources */,
-				C4F07A2715D603160084FF9E /* SequenceViewController.xib in Resources */,
 				C439770B195F6B2C0076F005 /* mandpluk.aif in Resources */,
 				C4F07A3615D603160084FF9E /* UDOViewController.xib in Resources */,
 				C4F07A3B15D603160084FF9E /* UnitGeneratorsViewController.xib in Resources */,
@@ -1831,7 +1801,6 @@
 				C4397733195F6B2C0076F005 /* AKCombFilter.m in Sources */,
 				C43976D4195F6B2C0076F005 /* AKCompositeWaveformsFromSines.m in Sources */,
 				C4397719195F6B2C0076F005 /* AKBowedString.m in Sources */,
-				C4F07A2615D603160084FF9E /* SequenceViewController.m in Sources */,
 				C43976CA195F6B2C0076F005 /* AKInstrument.m in Sources */,
 				C4397704195F6B2C0076F005 /* AKLowFrequencyOscillator.m in Sources */,
 				C439773B195F6B2C0076F005 /* AKMoogVCF.m in Sources */,
@@ -1909,7 +1878,6 @@
 				C42B247815F484D0006032F9 /* UnitGeneratorInstrument.m in Sources */,
 				C4397740195F6B2C0076F005 /* AKBandRejectButterworthFilter.m in Sources */,
 				C4397715195F6B2C0076F005 /* AKSleighbells.m in Sources */,
-				C494655516098269002E4C34 /* SeqInstrument.m in Sources */,
 				C47E2862163F083A00BBB569 /* PhysicalModelViewController.m in Sources */,
 				C43976D2195F6B2C0076F005 /* AKAdditiveCosineTable.m in Sources */,
 				C4397726195F6B2C0076F005 /* AKFTablelooper.m in Sources */,
