@@ -11,7 +11,6 @@
 #import "InitialViewController.h"
 
 // Example Controllers
-#import "UDOViewController.h"
 #import "HarmonizerViewController.h"
 #import "MidiViewController.h"
 
@@ -33,7 +32,6 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     exampleNames = [NSMutableArray arrayWithObjects:
-                    @"User Defined Opcodes",
                     @"Harmonizer",
                     @"MIDI",
                     nil];
@@ -135,12 +133,9 @@
     switch (indexPath.row) {
 
         case 0:
-            controller = [[UDOViewController alloc] initWithNibName:@"UDOViewController" bundle:nil];
-            break;
-        case 1:
             controller = [[HarmonizerViewController alloc] initWithNibName:@"HarmonizerViewController" bundle:nil];
             break;
-        case 2:
+        case 1:
             controller = [[MidiViewController alloc] initWithNibName:@"MidiViewController" bundle:nil];
             break;
         default:
