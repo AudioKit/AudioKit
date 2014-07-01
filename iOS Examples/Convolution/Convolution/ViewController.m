@@ -1,22 +1,23 @@
 //
-//  ConvolutionViewController.m
-//  AudioKit Example
+//  ViewController.m
+//  Convolution
 //
-//  Created by Aurelius Prochazka on 6/27/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import "ConvolutionViewController.h"
+#import "ViewController.h"
+#import "AKFoundation.h"
 #import "AKiOSTools.h"
-#import "AKManager.h"
 #import "ConvolutionInstrument.h"
 
-@interface ConvolutionViewController () {
+@interface ViewController ()
+{
     ConvolutionInstrument *conv;
 }
 @end
 
-@implementation ConvolutionViewController
+@implementation ViewController
 
 - (void)viewDidLoad
 {
@@ -32,11 +33,16 @@
     [conv play];
 }
 
+- (IBAction)stop:(id)sender {
+    [conv stop];
+}
+
 - (IBAction)changeDryWet:(id)sender {
     [AKiOSTools setProperty:conv.dryWetBalance withSlider:(UISlider *)sender];
 }
 - (IBAction)changeDishWell:(id)sender {
     [AKiOSTools setProperty:conv.dishWellBalance withSlider:(UISlider *)sender];
 }
+
 
 @end

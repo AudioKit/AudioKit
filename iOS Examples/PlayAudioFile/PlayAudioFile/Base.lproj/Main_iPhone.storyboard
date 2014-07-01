@@ -25,6 +25,7 @@
                                 </state>
                                 <connections>
                                     <action selector="touchButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4rm-lZ-56C"/>
+                                    <action selector="touchPlayButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mrF-PH-x7j"/>
                                 </connections>
                             </button>
                         </subviews>

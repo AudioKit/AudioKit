@@ -3,7 +3,7 @@
 //  PlayAudioFile
 //
 //  Created by Aurelius Prochazka on 6/30/14.
-//  Copyright (c) 2014 h4y. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -32,7 +32,7 @@
     [[AKManager sharedAKManager] runOrchestra:orchestra];
 }
 
-- (IBAction)touchButton:(id)sender {
+- (IBAction)touchPlayButton:(id)sender {
     AudioFilePlayerNote *note = [[AudioFilePlayerNote alloc] init];
     [note.speed randomize];
     [audioFilePlayer playNote:note];
@@ -43,6 +43,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
