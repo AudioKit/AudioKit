@@ -1,17 +1,18 @@
 //
-//  ContinuousControlViewController.m
-//  AudioKit Example
+//  ViewController.m
+//  ContinuousControl
 //
-//  Created by Adam Boulanger on 6/18/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 6/30/14.
+//  Copyright (c) 2014 h4y. All rights reserved.
 //
 
-#import "ContinuousControlViewController.h"
+#import "ViewController.h"
+#import "AKFoundation.h"
 #import "AKiOSTools.h"
-#import "AKManager.h"
+#import "TweakableInstrument.h"
 
 
-@interface ContinuousControlViewController ()
+@interface ViewController ()
 {
     TweakableInstrument *myTweakableInstrument;
     NSTimer *repeatingNoteTimer;
@@ -19,13 +20,12 @@
 }
 @end
 
-@implementation ContinuousControlViewController
+@implementation ViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
+
     AKOrchestra *orch = [[AKOrchestra alloc] init];
     myTweakableInstrument = [[TweakableInstrument alloc] init];
     [orch addInstrument:myTweakableInstrument];
@@ -39,7 +39,7 @@
     [AKiOSTools setSlider:modulationSlider withProperty:myTweakableInstrument.modulation];
 }
 
-- (void)viewDidDisappear:(BOOL)animated 
+- (void)viewDidDisappear:(BOOL)animated
 {
     [repeatingNoteTimer invalidate];
     repeatingNoteTimer = nil;
@@ -48,13 +48,13 @@
 }
 
 
-- (id)schedule:(SEL)selector 
+- (id)schedule:(SEL)selector
     afterDelay:(float)delayTime;
 {
-    return [NSTimer scheduledTimerWithTimeInterval:delayTime 
-                                            target:self      
+    return [NSTimer scheduledTimerWithTimeInterval:delayTime
+                                            target:self
                                           selector:selector
-                                          userInfo:nil 
+                                          userInfo:nil
                                            repeats:YES];
 }
 
@@ -67,9 +67,9 @@
         return;
     } else {
         repeatingNoteTimer = [self schedule:@selector(noteTimerFire:)
-                                   afterDelay:3.0f];
+                                 afterDelay:3.0f];
         repeatingSliderTimer = [self schedule:@selector(sliderTimerFire:)
-                                     afterDelay:0.2f];
+                                   afterDelay:0.2f];
     }
 }
 
@@ -106,10 +106,6 @@
     [AKiOSTools setLabel:modulationLabel  withProperty:myTweakableInstrument.modulation];
 }
 
-- (void)viewDidUnload {
-    amplitudeLabel = nil;
-    modulationLabel = nil;
-    modIndexLabel = nil;
-    [super viewDidUnload];
-}
+
+
 @end

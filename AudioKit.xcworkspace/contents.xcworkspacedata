@@ -10,10 +10,13 @@
       <FileRef
          location = "group:iOS Examples/PlayAudioFile/PlayAudioFile.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:iOS Examples/ContinuousControl/ContinuousControl.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
-      name = "Old Example Projects">
+      name = "Old Example Projects Being Phased Out">
       <FileRef
          location = "group:OCS iPad Examples/OCS iPad Examples.xcodeproj">
       </FileRef>
