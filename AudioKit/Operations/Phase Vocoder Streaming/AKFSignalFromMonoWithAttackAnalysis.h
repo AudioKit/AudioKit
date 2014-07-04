@@ -10,7 +10,7 @@
 #import "AKFSignal.h"
 #import "AKAudio.h"
 
-#warning This file needs to be ported to modern AudioKit naming and commenting standards
+#warning This file needs to be ported to modern AudioKit naming and commenting standards including removing optional flags from initialization
 
 /**  Phase vocoder analysis processing with onset detection/processing.
  
@@ -58,7 +58,5 @@
             audioSourceWraparound:(AKControl *)wraparoundFlag
                   onsetProcessing:(AKControl *)onsetProcessingFlag
             onsetDecibelThreshold:(AKConstant *)onsetDecibelThreshold;
-
-#warning these optional flags should be methods on the instance, not part of an initialization
 
 @end

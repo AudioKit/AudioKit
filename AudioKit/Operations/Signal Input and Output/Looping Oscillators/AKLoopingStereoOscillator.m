@@ -83,7 +83,6 @@
 // Csound Prototype:
 // ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
 - (NSString *)stringForCSD {
-#warning ugly conditional hack
     if(ibeg1) {
         return [NSString stringWithFormat:
                 @"%@ loscil3 %@, %@, %@, %@, %i, %@, %@, %i, %@, %@",
