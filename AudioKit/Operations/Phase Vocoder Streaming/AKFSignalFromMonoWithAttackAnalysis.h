@@ -10,7 +10,7 @@
 #import "AKFSignal.h"
 #import "AKAudio.h"
 
-#warning This file needs to be ported to modern AudioKit naming and commenting standards including removing optional flags from initialization
+/* TODO: This file needs to be ported to modern AudioKit naming and commenting standards including removing optional flags from initialization */
 
 /**  Phase vocoder analysis processing with onset detection/processing.
  

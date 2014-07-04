@@ -1,4 +1,8 @@
-/* 
+#if TARGET_OS_IPHONE
+
+#elif TARGET_OS_MAC
+
+/*
  
  CsoundValueCacheable.h:
  
@@ -34,3 +38,5 @@
 -(void)cleanup;
 
 @end
+
+#endif
