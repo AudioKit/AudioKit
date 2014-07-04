@@ -15,8 +15,6 @@
  audio-rate.
  */
 
-#warning Should consider replacing this with an AKSimpleWaveGuideModel (wguide1) implementation since it allows for more flexibility.
-
 @interface AKFlanger : AKAudio
 
 /// Instantiates the flanger

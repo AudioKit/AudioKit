@@ -1,3 +1,8 @@
+#if TARGET_OS_IPHONE
+
+#elif TARGET_OS_MAC
+
+
 #import <AudioUnit/AudioUnit.h>
 #include "csound.h"
 
@@ -41,5 +46,5 @@ typedef struct {
 @end
 
 
-
+#endif
 

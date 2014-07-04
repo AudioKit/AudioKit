@@ -1,4 +1,8 @@
-/* 
+#if TARGET_OS_IPHONE
+
+#elif TARGET_OS_MAC
+
+/*
  
  BaseValueCacheable.m:
  
@@ -49,3 +53,5 @@
 }
 
 @end
+
+#endif

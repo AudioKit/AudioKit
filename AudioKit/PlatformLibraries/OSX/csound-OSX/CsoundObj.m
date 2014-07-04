@@ -1,3 +1,7 @@
+#if TARGET_OS_IPHONE
+
+#elif TARGET_OS_MAC
+
 #import "CsoundObj.h"
 #import "CsoundValueCacheable.h"
 
@@ -268,3 +272,5 @@ uintptr_t csThread(void *data)
 
 
 @end
+
+#endif
