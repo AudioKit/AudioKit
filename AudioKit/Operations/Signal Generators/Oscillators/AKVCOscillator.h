@@ -2,8 +2,8 @@
 //  AKVCOscillator.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Rewritten by Aurelius Prochazka on 7/4/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -14,7 +14,16 @@
  Different modes require different inputs so this could be a reason to break this up into separate classes, or use more custom initializers.
  */
 
-#warning In Csound, vco2 usually requires a vco2init, in the current state AKVCOscillator is highly unstable.
+typedef enum
+{
+    kVCOscillatorWaveformSawtooth  = 16,
+    kVCOscillatorWaveformSquarePWM = 18,
+    kVCOscillatorWaveformTriangleWithRamp = 20,
+    kVCOscillatorWaveformPulseUnnormalized = 22,
+    kVCOscillatorWaveformIntegratedSawtooth = 24,
+    kVCOscillatorWaveformSquareNoPWM = 26,
+    kVCOscillatorWaveformTriangleNoRamp = 28
+} VCOscillatorType;
 
 @interface AKVCOscillator : AKAudio
 
@@ -24,10 +33,9 @@
 - (instancetype)initWithFrequency:(AKControl *)frequency
                         amplitude:(AKControl *)amplitude;
 
-#warning Waveform type is a magic number, should change this to take an enumerated value or use separate methods for each waveform type
 /// Set an optional waveform type
 /// @param waveformType Choose from various waveform types.
-- (void)setOptionalWaveformType:(AKConstant *)waveformType;
+- (void)setOptionalWaveformType:(VCOscillatorType)waveformType;
 
 /// Set an optional pulse width
 /// @param pulseWidth The pulse width of the square wave or the ramp characteristics of the triangle wave. It is required only by these waveforms and ignored in all other cases. The expected range is 0 to 1, any other value is wrapped to the allowed range.

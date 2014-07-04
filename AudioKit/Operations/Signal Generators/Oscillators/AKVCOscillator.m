@@ -2,8 +2,8 @@
 //  AKVCOscillator.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Rewritten by Aurelius Prochazka on 7/4/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's vco2:
 //  http://www.csounds.com/manual/html/vco2.html
@@ -38,8 +38,8 @@
     return self;
 }
 
-- (void)setOptionalWaveformType:(AKConstant *)waveformType {
-	imode = waveformType;
+- (void)setOptionalWaveformType:(VCOscillatorType)waveformType {
+	imode = akp(waveformType);
 }
 
 - (void)setOptionalPulseWidth:(AKControl *)pulseWidth {

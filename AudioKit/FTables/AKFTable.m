@@ -47,7 +47,6 @@
 
 
 // Csound Prototype: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
-#warning ftgen or ftgentmp?
 - (NSString *)stringForCSD {
     if (_isNormalized) {
         igen = abs(igen);

@@ -13,8 +13,6 @@
 /** Generate an f-Signal from a mono audio source using phase vocoder overlap-add synthesis.
  */
 
-#warning Need to add support for format and init optional values
-
 typedef enum
 {
     kHammingWindow=0,
