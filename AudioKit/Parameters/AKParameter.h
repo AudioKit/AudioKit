@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-/** AK Parameters are arguments to Operations.  They come in three varieties for 
+/** Parameters are arguments to Operations.  They come in three varieties for 
  audio rate, control rate, and constant values. When something is declared as an
  AKParameter, it is at audio rate.  AKControl and AKConstant should be used for
  slower rate variables. 
