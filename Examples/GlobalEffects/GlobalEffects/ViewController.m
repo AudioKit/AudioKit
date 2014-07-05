@@ -36,12 +36,8 @@
     [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender {
-    toneGenerator.frequency.value = 440.0f;
-    [toneGenerator playForDuration:0.1];
-}
 
-- (IBAction)hit2:(id)sender {
+- (IBAction)play:(id)sender {
     [toneGenerator.frequency randomize];
     [toneGenerator playForDuration:0.1];
 }
