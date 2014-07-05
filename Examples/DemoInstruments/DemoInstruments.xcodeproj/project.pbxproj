@@ -17,11 +17,6 @@
 		C42A36A11968A01C008D412D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42A369F1968A01C008D412D /* Main_iPad.storyboard */; };
 		C42A36A41968A01C008D412D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36A31968A01C008D412D /* ViewController.m */; };
 		C42A36A61968A01C008D412D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42A36A51968A01C008D412D /* Images.xcassets */; };
-		C42A36AD1968A01C008D412D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42A36AC1968A01C008D412D /* XCTest.framework */; };
-		C42A36AE1968A01C008D412D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42A368A1968A01C008D412D /* Foundation.framework */; };
-		C42A36AF1968A01C008D412D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42A368E1968A01C008D412D /* UIKit.framework */; };
-		C42A36B71968A01C008D412D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C42A36B51968A01C008D412D /* InfoPlist.strings */; };
-		C42A36B91968A01C008D412D /* DemoInstrumentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36B81968A01C008D412D /* DemoInstrumentsTests.m */; };
 		C42A36CB1968A03E008D412D /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42A36C31968A03E008D412D /* beats.wav */; };
 		C42A36CC1968A03E008D412D /* ExpressionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36C61968A03E008D412D /* ExpressionInstrument.m */; };
 		C42A36CD1968A03E008D412D /* GrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36C81968A03E008D412D /* GrainInstrument.m */; };
@@ -177,16 +172,6 @@
 		C42A38DA1968A044008D412D /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A38451968A044008D412D /* AKNoteProperty.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C42A36B01968A01C008D412D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C42A367F1968A01C008D412D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C42A36861968A01C008D412D;
-			remoteInfo = DemoInstruments;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		C42A36871968A01C008D412D /* DemoInstruments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoInstruments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42A368A1968A01C008D412D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -203,11 +188,7 @@
 		C42A36A21968A01C008D412D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C42A36A31968A01C008D412D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C42A36A51968A01C008D412D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C42A36AB1968A01C008D412D /* DemoInstrumentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoInstrumentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42A36AC1968A01C008D412D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C42A36B41968A01C008D412D /* DemoInstrumentsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DemoInstrumentsTests-Info.plist"; sourceTree = "<group>"; };
-		C42A36B61968A01C008D412D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C42A36B81968A01C008D412D /* DemoInstrumentsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoInstrumentsTests.m; sourceTree = "<group>"; };
 		C42A36C31968A03E008D412D /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		C42A36C51968A03E008D412D /* ExpressionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionInstrument.h; sourceTree = "<group>"; };
 		C42A36C61968A03E008D412D /* ExpressionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionInstrument.m; sourceTree = "<group>"; };
@@ -552,16 +533,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C42A36A81968A01C008D412D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C42A36AD1968A01C008D412D /* XCTest.framework in Frameworks */,
-				C42A36AF1968A01C008D412D /* UIKit.framework in Frameworks */,
-				C42A36AE1968A01C008D412D /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -570,7 +541,6 @@
 			children = (
 				C42A36CF1968A044008D412D /* AudioKit */,
 				C42A36901968A01C008D412D /* DemoInstruments */,
-				C42A36B21968A01C008D412D /* DemoInstrumentsTests */,
 				C42A36891968A01C008D412D /* Frameworks */,
 				C42A36881968A01C008D412D /* Products */,
 			);
@@ -580,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				C42A36871968A01C008D412D /* DemoInstruments.app */,
-				C42A36AB1968A01C008D412D /* DemoInstrumentsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -619,24 +588,6 @@
 				C42A36931968A01C008D412D /* InfoPlist.strings */,
 				C42A36961968A01C008D412D /* main.m */,
 				C42A36981968A01C008D412D /* DemoInstruments-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C42A36B21968A01C008D412D /* DemoInstrumentsTests */ = {
-			isa = PBXGroup;
-			children = (
-				C42A36B81968A01C008D412D /* DemoInstrumentsTests.m */,
-				C42A36B31968A01C008D412D /* Supporting Files */,
-			);
-			path = DemoInstrumentsTests;
-			sourceTree = "<group>";
-		};
-		C42A36B31968A01C008D412D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C42A36B41968A01C008D412D /* DemoInstrumentsTests-Info.plist */,
-				C42A36B51968A01C008D412D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1437,24 +1388,6 @@
 			productReference = C42A36871968A01C008D412D /* DemoInstruments.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C42A36AA1968A01C008D412D /* DemoInstrumentsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C42A36BF1968A01C008D412D /* Build configuration list for PBXNativeTarget "DemoInstrumentsTests" */;
-			buildPhases = (
-				C42A36A71968A01C008D412D /* Sources */,
-				C42A36A81968A01C008D412D /* Frameworks */,
-				C42A36A91968A01C008D412D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C42A36B11968A01C008D412D /* PBXTargetDependency */,
-			);
-			name = DemoInstrumentsTests;
-			productName = DemoInstrumentsTests;
-			productReference = C42A36AB1968A01C008D412D /* DemoInstrumentsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1463,11 +1396,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Hear For Yourself";
-				TargetAttributes = {
-					C42A36AA1968A01C008D412D = {
-						TestTargetID = C42A36861968A01C008D412D;
-					};
-				};
 			};
 			buildConfigurationList = C42A36821968A01C008D412D /* Build configuration list for PBXProject "DemoInstruments" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1483,7 +1411,6 @@
 			projectRoot = "";
 			targets = (
 				C42A36861968A01C008D412D /* DemoInstruments */,
-				C42A36AA1968A01C008D412D /* DemoInstrumentsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1504,14 +1431,6 @@
 				C42A36951968A01C008D412D /* InfoPlist.strings in Resources */,
 				C42A38941968A044008D412D /* marmstk1.wav in Resources */,
 				C42A384E1968A044008D412D /* test.csd in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C42A36A91968A01C008D412D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C42A36B71968A01C008D412D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1672,23 +1591,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C42A36A71968A01C008D412D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C42A36B91968A01C008D412D /* DemoInstrumentsTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C42A36B11968A01C008D412D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C42A36861968A01C008D412D /* DemoInstruments */;
-			targetProxy = C42A36B01968A01C008D412D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C42A36931968A01C008D412D /* InfoPlist.strings */ = {
@@ -1713,14 +1616,6 @@
 				C42A36A01968A01C008D412D /* Base */,
 			);
 			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		C42A36B51968A01C008D412D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C42A36B61968A01C008D412D /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1832,46 +1727,6 @@
 			};
 			name = Release;
 		};
-		C42A36C01968A01C008D412D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DemoInstruments.app/DemoInstruments";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DemoInstruments/DemoInstruments-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "DemoInstrumentsTests/DemoInstrumentsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		C42A36C11968A01C008D412D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DemoInstruments.app/DemoInstruments";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DemoInstruments/DemoInstruments-Prefix.pch";
-				INFOPLIST_FILE = "DemoInstrumentsTests/DemoInstrumentsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1891,14 +1746,7 @@
 				C42A36BE1968A01C008D412D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		C42A36BF1968A01C008D412D /* Build configuration list for PBXNativeTarget "DemoInstrumentsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C42A36C01968A01C008D412D /* Debug */,
-				C42A36C11968A01C008D412D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
