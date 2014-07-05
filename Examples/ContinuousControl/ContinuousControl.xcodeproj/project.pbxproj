@@ -40,9 +40,6 @@
 		C44F480C1967906400D846BB /* AKiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F46AD1967906400D846BB /* AKiOSTools.m */; };
 		C44F480D1967906400D846BB /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F46B11967906400D846BB /* CsoundObj.m */; };
 		C44F480E1967906400D846BB /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F46B41967906400D846BB /* BaseValueCacheable.m */; };
-		C44F480F1967906400D846BB /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F46B61967906400D846BB /* CachedAccelerometer.m */; };
-		C44F48101967906400D846BB /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F46B81967906400D846BB /* CachedAttitude.m */; };
-		C44F48111967906400D846BB /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F46BA1967906400D846BB /* CachedGyroscope.m */; };
 		C44F48121967906400D846BB /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C44F46D81967906400D846BB /* libcsound.a */; };
 		C44F48131967906400D846BB /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C44F46D91967906400D846BB /* libsndfile.a */; };
 		C44F48141967906400D846BB /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C44F46DA1967906400D846BB /* LICENSE.TXT */; };
@@ -234,12 +231,6 @@
 		C44F46B11967906400D846BB /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C44F46B31967906400D846BB /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
 		C44F46B41967906400D846BB /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
-		C44F46B51967906400D846BB /* CachedAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAccelerometer.h; sourceTree = "<group>"; };
-		C44F46B61967906400D846BB /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
-		C44F46B71967906400D846BB /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
-		C44F46B81967906400D846BB /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
-		C44F46B91967906400D846BB /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
-		C44F46BA1967906400D846BB /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
 		C44F46BB1967906400D846BB /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C44F46BD1967906400D846BB /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
 		C44F46BE1967906400D846BB /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
@@ -728,12 +719,6 @@
 			children = (
 				C44F46B31967906400D846BB /* BaseValueCacheable.h */,
 				C44F46B41967906400D846BB /* BaseValueCacheable.m */,
-				C44F46B51967906400D846BB /* CachedAccelerometer.h */,
-				C44F46B61967906400D846BB /* CachedAccelerometer.m */,
-				C44F46B71967906400D846BB /* CachedAttitude.h */,
-				C44F46B81967906400D846BB /* CachedAttitude.m */,
-				C44F46B91967906400D846BB /* CachedGyroscope.h */,
-				C44F46BA1967906400D846BB /* CachedGyroscope.m */,
 				C44F46BB1967906400D846BB /* CsoundValueCacheable.h */,
 			);
 			path = valueCacheable;
@@ -1505,9 +1490,7 @@
 				C44F482E1967906400D846BB /* AKPhaseLockedVocoder.m in Sources */,
 				C44F485D1967906400D846BB /* AKControlSegmentArrayLoop.m in Sources */,
 				C44F48521967906400D846BB /* AKStick.m in Sources */,
-				C44F48101967906400D846BB /* CachedAttitude.m in Sources */,
 				C44F48341967906400D846BB /* AKLinearADSRAudioEnvelope.m in Sources */,
-				C44F48111967906400D846BB /* CachedGyroscope.m in Sources */,
 				C44F485B1967906400D846BB /* AKAudioSegmentArray.m in Sources */,
 				C44F48811967906400D846BB /* AKBallWithinTheBoxReverb.m in Sources */,
 				C44F480C1967906400D846BB /* AKiOSTools.m in Sources */,
@@ -1517,7 +1500,6 @@
 				C44F48781967906400D846BB /* AKResonantFilter.m in Sources */,
 				C44F48791967906400D846BB /* AKThreePoleLowpassFilter.m in Sources */,
 				C44F481B1967906400D846BB /* AKTrackedFrequencySchouten.m in Sources */,
-				C44F480F1967906400D846BB /* CachedAccelerometer.m in Sources */,
 				C44F48241967906400D846BB /* AKProduct.m in Sources */,
 				C44F48761967906400D846BB /* AKMoogLadder.m in Sources */,
 				C44F48561967906400D846BB /* AKSimpleWaveGuideModel.m in Sources */,

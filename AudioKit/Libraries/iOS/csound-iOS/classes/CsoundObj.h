@@ -92,9 +92,9 @@ typedef struct {
 -(void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable;
 -(void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable;
 
--(id<CsoundValueCacheable>)enableAccelerometer;
--(id<CsoundValueCacheable>)enableGyroscope;
--(id<CsoundValueCacheable>)enableAttitude;
+//-(id<CsoundValueCacheable>)enableAccelerometer;
+//-(id<CsoundValueCacheable>)enableGyroscope;
+//-(id<CsoundValueCacheable>)enableAttitude;
 
 #pragma mark -
 

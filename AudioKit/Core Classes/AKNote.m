@@ -12,7 +12,7 @@
 @interface AKNote () {
     int _myID;
     NSMutableArray *propOrder;
-    BOOL isPlayingP;
+    BOOL isPlaying;
 }
 @end
 
@@ -31,7 +31,7 @@ static int currentID = 1;
         }
         _myID = currentID++;
         
-        isPlayingP = NO;
+        isPlaying = NO;
         _duration = [AKNoteProperty duration];
         [self addProperty:_duration];
         
@@ -61,19 +61,19 @@ static int currentID = 1;
 }
 
 - (void)updateProperties {
-    if (isPlayingP) {
+    if (isPlaying) {
         [[AKManager sharedAKManager] updateNote:self];
     }
 }
 
 - (void)play {
     [[AKManager sharedAKManager] updateNote:self];
-    isPlayingP = YES;
+    isPlaying = YES;
 }
 
 - (void)stop {
     [[AKManager sharedAKManager] stopNote:self];
-    isPlayingP = NO;
+    isPlaying = NO;
 }
 
 - (NSString *)stringForCSD;
