@@ -6,10 +6,6 @@
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface ViewController : UIViewController
-
-- (IBAction)touchPlayButton:(id)sender;
 
 @end

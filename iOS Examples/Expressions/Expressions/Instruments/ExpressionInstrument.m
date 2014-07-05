@@ -32,6 +32,7 @@
         
         float vibratoScale = 2.0f;
         int vibratoOffset = 320;
+
         AKControl * vibrato = [AKControl parameterWithFormat:
                                @"%d + (%g * %@)",
                                vibratoOffset, vibratoScale, vibratoOscillator];

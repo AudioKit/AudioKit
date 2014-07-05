@@ -29,13 +29,12 @@
     [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender
-{
-    [expressionInstrument playForDuration:3];
+- (IBAction)start:(id)sender {
+    [expressionInstrument play];
 }
-- (IBAction)hit2:(id)sender
-{
-    [expressionInstrument playForDuration:9];
+- (IBAction)stop:(id)sender {
+    [expressionInstrument stop];
 }
+
 
 @end

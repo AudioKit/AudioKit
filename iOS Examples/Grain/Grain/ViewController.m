@@ -28,14 +28,13 @@
     [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender
-{
-    [grainInstrument playForDuration:15];
+
+- (IBAction)start:(id)sender {
+    [grainInstrument play];
+}
+- (IBAction)stop:(id)sender {
+    [grainInstrument stop];
 }
 
-- (IBAction)hit2:(id)sender
-{
-    [grainInstrument playForDuration:5];
-}
 
 @end
