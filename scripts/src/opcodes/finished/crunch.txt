@@ -1,1 +1,0 @@
-ares crunch iamp, idettack [, inum] [, idamp] [, imaxshake]

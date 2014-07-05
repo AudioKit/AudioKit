@@ -1,1 +1,0 @@
-asig mincer atimpt, kamp, kpitch, ktab, klock[,ifftsize,idecim]

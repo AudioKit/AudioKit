@@ -1,1 +1,0 @@
-kcps, kamp ptrack asig, ihopsize[, ipeaks]

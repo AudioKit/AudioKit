@@ -1,3 +1,0 @@
-ares sleighbells kamp, idettack [, inum] [, idamp] [, imaxshake] [, ifreq] \
-      [, ifreq1] [, ifreq2]
-

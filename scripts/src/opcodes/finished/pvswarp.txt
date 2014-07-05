@@ -1,1 +1,0 @@
-fsig pvswarp fsigin, kscal, kshift[, klowest, kmeth, kgain, kcoefs]

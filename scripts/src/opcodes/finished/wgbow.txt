@@ -1,1 +1,0 @@
-ares wgbow kamp, kfreq, kpres, krat, kvibf, kvamp, ifn [, iminfreq]

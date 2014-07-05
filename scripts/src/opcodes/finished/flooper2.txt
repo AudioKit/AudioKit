@@ -1,2 +1,0 @@
-asig flooper2 kamp, kpitch, kloopstart, kloopend, kcrossfade, ifn \
-      [, istart, imode, ifenv, iskip]

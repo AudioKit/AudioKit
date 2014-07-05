@@ -1,1 +1,0 @@
-ares vco2 kamp, kcps [, imode] [, kpw] [, kphs] [, inyx]
