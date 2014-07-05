@@ -52,6 +52,9 @@
     return self;
 }
 
+- (instancetype)initWithValue:(NSNumber *)value {
+    return [self initWithNumber:value];
+}
 
 - (instancetype)initWithInt:(int)value
 {
@@ -71,23 +74,23 @@
     return self;
 }
 
-+ (id)constantWithFloat:(float)value {
++ (instancetype)constantWithFloat:(float)value {
     return [[self alloc] initWithFloat:value];
 }
 
-+ (id)constantWithNumber:(NSNumber *)number {
++ (instancetype)constantWithNumber:(NSNumber *)number {
     return [[self alloc] initWithNumber:number];
 }
 
-+ (id)constantWithInt:(int)value {
++ (instancetype)constantWithInt:(int)value {
     return [[self alloc] initWithInt:value];
 }
 
-+ (id)constantWithFilename:(NSString *)filename {
++ (instancetype)constantWithFilename:(NSString *)filename {
     return [[self alloc] initWithFilename:filename];
 }
 
-+ (id)constantWithControl:(AKControl *)control {
++ (instancetype)constantWithControl:(AKControl *)control {
     return [self parameterWithFormat:@"i(%@)", control];
 }
 

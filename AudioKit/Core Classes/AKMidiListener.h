@@ -12,6 +12,8 @@
  of interest.
  */
 
+#import <Foundation/Foundation.h>
+
 @protocol AKMidiListener <NSObject>
 
 // -----------------------------------------------------------------------------

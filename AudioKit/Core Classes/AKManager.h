@@ -27,6 +27,9 @@
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedAKManager;
 
+/// @returns the shared instance of AKManager
+- (AKManager *)sharedSwiftManager;
+
 /// Run Csound from a given filename
 /// @param filename CSD file use when running Csound.
 - (void)runCSDFile:(NSString *)filename;

@@ -17,6 +17,8 @@
 #define akps(__s__) [AKConstant parameterWithString:__s__]
 #define akpfn(__fn__) [AKConstant constantWithFilename:__fn__]
 
+#import <Foundation/Foundation.h>
+
 @interface AKParameter : NSObject
 {
     int _myID;

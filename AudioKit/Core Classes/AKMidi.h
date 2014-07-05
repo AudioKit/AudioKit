@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #import "AKMidiListener.h"
 
 /** AKMidi is the object that handles the MIDI input and output from AK.

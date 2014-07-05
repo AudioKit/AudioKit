@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @class AKInstrument;
 @class AKUserDefinedOperation;
 @class AKEvent;

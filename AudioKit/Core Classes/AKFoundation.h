@@ -8,6 +8,8 @@
 #ifndef AKFoundation_h
 #define AKFoundation_h
 
+#import <Foundation/Foundation.h>
+
 #import "AKManager.h"
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
