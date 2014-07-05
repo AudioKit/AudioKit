@@ -1,1 +1,0 @@
-kres oscili kamp, kcps, ifn [, iphs]

@@ -1,1 +1,0 @@
-ares sandpaper iamp, idettack [, inum] [, idamp] [, imaxshake]

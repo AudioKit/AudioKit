@@ -1,3 +1,0 @@
-ares granule xamp, ivoice, iratio, imode, ithd, ifn, ipshift, igskip, \
-      igskip_os, ilength, kgap, igap_os, kgsize, igsize_os, iatt, idec \
-      [, iseed] [, ipitch1] [, ipitch2] [, ipitch3] [, ipitch4] [, ifnenv]

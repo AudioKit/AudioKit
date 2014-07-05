@@ -1,1 +1,0 @@
-ashifted doppler asource, ksourceposition, kmicposition [, isoundspeed, ifiltercutoff]
