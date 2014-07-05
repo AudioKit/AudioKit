@@ -31,13 +31,7 @@
     [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender {
-    UDOInstrumentNote *note = [[UDOInstrumentNote alloc] initWithFrequency:440];
-    note.duration.value = 0.5;
-    [udoInstrument playNote:note];
-}
-
-- (IBAction)hit2:(id)sender {
+- (IBAction)play:(id)sender {
     UDOInstrumentNote *note = [[UDOInstrumentNote alloc] init];
     [note.frequency randomize];
     note.duration.value = 0.5;

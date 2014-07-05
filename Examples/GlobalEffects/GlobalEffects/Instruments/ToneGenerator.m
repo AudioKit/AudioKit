@@ -17,8 +17,8 @@
     if (self) {
         // INPUTS ==============================================================
         
-        _frequency  = [[AKInstrumentProperty alloc] initWithValue:220
-                                                     minimumValue:110
+        _frequency  = [[AKInstrumentProperty alloc] initWithValue:440
+                                                     minimumValue:220
                                                      maximumValue:880];
         [self addProperty:_frequency];
         

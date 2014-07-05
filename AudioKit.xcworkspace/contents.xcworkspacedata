@@ -4,35 +4,31 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "iOS Examples">
-      <FileRef
-         location = "group:iOS Examples/PlayAudioFile/PlayAudioFile.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/ContinuousControl/ContinuousControl.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/Sequences/Sequences.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/UnitGenerators/UnitGenerators.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/Grain/Grain.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/Expressions/Expressions.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/Convolution/Convolution.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/GlobalEffects/GlobalEffects.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:iOS Examples/UsingUDOs/UsingUDOs.xcodeproj">
-      </FileRef>
-   </Group>
+   <FileRef
+      location = "group:Examples/ContinuousControl/ContinuousControl.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/Convolution/Convolution.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/Expressions/Expressions.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/GlobalEffects/GlobalEffects.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/Grain/Grain.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/PlayAudioFile/PlayAudioFile.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/Sequences/Sequences.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/UnitGenerators/UnitGenerators.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/UsingUDOs/UsingUDOs.xcodeproj">
+   </FileRef>
 </Workspace>

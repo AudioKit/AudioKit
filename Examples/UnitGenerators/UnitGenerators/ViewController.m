@@ -28,12 +28,11 @@
     [[AKManager sharedAKManager] runOrchestra:orch];
 }
 
-- (IBAction)hit1:(id)sender {
-    [unitGeneratorInstrument playForDuration:9.0];
+- (IBAction)start:(id)sender {
+    [unitGeneratorInstrument play];
 }
-
-- (IBAction)hit2:(id)sender {
-    [unitGeneratorInstrument playForDuration:3.0];
+- (IBAction)stop:(id)sender {
+    [unitGeneratorInstrument stop];
 }
 
 @end
