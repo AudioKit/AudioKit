@@ -17,25 +17,25 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tki-Q7-O9Z">
-                                <rect key="frame" x="138" y="112" width="45" height="109"/>
+                                <rect key="frame" x="71" y="118" width="179" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="81"/>
-                                <state key="normal" title="1">
+                                <state key="normal" title="Start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="hit1:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="B4r-hT-hnO"/>
+                                    <action selector="start:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KYT-IQ-qnk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7L-ET-NM6">
-                                <rect key="frame" x="138" y="290" width="45" height="109"/>
+                                <rect key="frame" x="71" y="296" width="177" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="81"/>
-                                <state key="normal" title="2">
+                                <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="hit2:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bAt-3V-gGv"/>
+                                    <action selector="stop:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="N02-ff-CgW"/>
                                 </connections>
                             </button>
                         </subviews>

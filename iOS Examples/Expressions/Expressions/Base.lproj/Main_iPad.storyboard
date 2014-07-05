@@ -16,30 +16,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="172-p2-D38">
-                                <rect key="frame" x="146" y="448" width="201" height="169"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="81"/>
-                                <state key="normal" title="1">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="hit1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZhZ-nf-S7y"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-2t-2dU">
-                                <rect key="frame" x="422" y="448" width="201" height="169"/>
+                                <rect key="frame" x="126" y="458" width="201" height="169"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="81"/>
-                                <state key="normal" title="2">
+                                <state key="normal" title="Start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="hit2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Al4-0i-aXy"/>
+                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kn0-cB-Zhd"/>
                                 </connections>
                             </button>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" text="Instrument With Math in Paramaters " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="5" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="442" translatesAutoresizingMaskIntoConstraints="NO" id="5Xz-Cy-FhA">
-                                <rect key="frame" x="161" y="407" width="442" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZh-iZ-0uC">
+                                <rect key="frame" x="442" y="458" width="201" height="169"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="81"/>
+                                <state key="normal" title="Stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="stop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XOg-NW-z1Q"/>
+                                </connections>
+                            </button>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" text="Instrument With Math in Parameters " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="5" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="442" translatesAutoresizingMaskIntoConstraints="NO" id="5Xz-Cy-FhA">
+                                <rect key="frame" x="163" y="407" width="442" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>

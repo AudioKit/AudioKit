@@ -14,6 +14,13 @@
 
 @interface ViewController ()
 {
+    IBOutlet UISlider *amplitudeSlider;
+    IBOutlet UISlider *modulationSlider;
+    IBOutlet UISlider *modIndexSlider;
+    IBOutlet UILabel *amplitudeLabel;
+    IBOutlet UILabel *modulationLabel;
+    IBOutlet UILabel *modIndexLabel;
+
     TweakableInstrument *myTweakableInstrument;
     NSTimer *repeatingNoteTimer;
     NSTimer *repeatingSliderTimer;

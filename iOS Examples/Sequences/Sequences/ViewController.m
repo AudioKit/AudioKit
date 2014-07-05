@@ -14,6 +14,9 @@
 
 @interface ViewController ()
 {
+    IBOutlet UITextField *durationValue;
+    IBOutlet UISlider *durationSlider;
+    
     SeqInstrument *instrument;
     AKSequence *sequence;
     AKOrchestra *orchestra;
