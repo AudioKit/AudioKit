@@ -1657,7 +1657,7 @@
 				INFOPLIST_FILE = "ContinuousControl/ContinuousControl-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../AudioKit/PlatformLibraries/iOS/csound-iOS/libs",
+					"$(SRCROOT)/../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1674,7 +1674,7 @@
 				INFOPLIST_FILE = "ContinuousControl/ContinuousControl-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../AudioKit/PlatformLibraries/iOS/csound-iOS/libs",
+					"$(SRCROOT)/../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

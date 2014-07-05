@@ -1710,9 +1710,8 @@
 				GCC_PREFIX_HEADER = "UsingUDOs/UsingUDOs-Prefix.pch";
 				INFOPLIST_FILE = "UsingUDOs/UsingUDOs-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../AudioKit/PlatformLibraries/iOS/csound-iOS/libs",
+					"$(SRCROOT)/../../AudioKit/Libraries/iOS/csound-iOS/libs",
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1728,9 +1727,8 @@
 				GCC_PREFIX_HEADER = "UsingUDOs/UsingUDOs-Prefix.pch";
 				INFOPLIST_FILE = "UsingUDOs/UsingUDOs-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../AudioKit/PlatformLibraries/iOS/csound-iOS/libs",
+					"$(SRCROOT)/../../AudioKit/Libraries/iOS/csound-iOS/libs",
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
