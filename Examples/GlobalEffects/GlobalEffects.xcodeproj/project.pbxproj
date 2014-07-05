@@ -41,9 +41,6 @@
 		C44F4E3C196790A000D846BB /* AKiOSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F4CDA1967909F00D846BB /* AKiOSTools.m */; };
 		C44F4E3D196790A000D846BB /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F4CDC1967909F00D846BB /* CsoundObj.m */; };
 		C44F4E3E196790A000D846BB /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F4CDE1967909F00D846BB /* BaseValueCacheable.m */; };
-		C44F4E3F196790A000D846BB /* CachedAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F4CE01967909F00D846BB /* CachedAccelerometer.m */; };
-		C44F4E40196790A000D846BB /* CachedAttitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F4CE21967909F00D846BB /* CachedAttitude.m */; };
-		C44F4E41196790A000D846BB /* CachedGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F4CE41967909F00D846BB /* CachedGyroscope.m */; };
 		C44F4E42196790A000D846BB /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C44F4D031967909F00D846BB /* libcsound.a */; };
 		C44F4E43196790A000D846BB /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C44F4D041967909F00D846BB /* libsndfile.a */; };
 		C44F4E44196790A000D846BB /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C44F4D061967909F00D846BB /* LICENSE.TXT */; };
@@ -237,12 +234,6 @@
 		C44F4CDC1967909F00D846BB /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		C44F4CDD1967909F00D846BB /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
 		C44F4CDE1967909F00D846BB /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
-		C44F4CDF1967909F00D846BB /* CachedAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAccelerometer.h; sourceTree = "<group>"; };
-		C44F4CE01967909F00D846BB /* CachedAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAccelerometer.m; sourceTree = "<group>"; };
-		C44F4CE11967909F00D846BB /* CachedAttitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAttitude.h; sourceTree = "<group>"; };
-		C44F4CE21967909F00D846BB /* CachedAttitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAttitude.m; sourceTree = "<group>"; };
-		C44F4CE31967909F00D846BB /* CachedGyroscope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedGyroscope.h; sourceTree = "<group>"; };
-		C44F4CE41967909F00D846BB /* CachedGyroscope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedGyroscope.m; sourceTree = "<group>"; };
 		C44F4CE51967909F00D846BB /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C44F4CE81967909F00D846BB /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
 		C44F4CE91967909F00D846BB /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
@@ -676,12 +667,6 @@
 			children = (
 				C44F4CDD1967909F00D846BB /* BaseValueCacheable.h */,
 				C44F4CDE1967909F00D846BB /* BaseValueCacheable.m */,
-				C44F4CDF1967909F00D846BB /* CachedAccelerometer.h */,
-				C44F4CE01967909F00D846BB /* CachedAccelerometer.m */,
-				C44F4CE11967909F00D846BB /* CachedAttitude.h */,
-				C44F4CE21967909F00D846BB /* CachedAttitude.m */,
-				C44F4CE31967909F00D846BB /* CachedGyroscope.h */,
-				C44F4CE41967909F00D846BB /* CachedGyroscope.m */,
 				C44F4CE51967909F00D846BB /* CsoundValueCacheable.h */,
 			);
 			path = valueCacheable;
@@ -1486,7 +1471,6 @@
 				C4398EFE196290620076F005 /* ViewController.m in Sources */,
 				C44F4E9D196790A000D846BB /* AKPortamento.m in Sources */,
 				C44F4EB7196790A000D846BB /* AKArray.m in Sources */,
-				C44F4E41196790A000D846BB /* CachedGyroscope.m in Sources */,
 				C44F4E9F196790A000D846BB /* AKCombFilter.m in Sources */,
 				C44F4E61196790A000D846BB /* AKWarp.m in Sources */,
 				C44F4E67196790A000D846BB /* AKLinearControlEnvelope.m in Sources */,
@@ -1527,7 +1511,6 @@
 				C44F4E76196790A000D846BB /* AKMandolin.m in Sources */,
 				C44F4E49196790A000D846BB /* AKTrackedAmplitude.m in Sources */,
 				C44F4E2D196790A000D846BB /* AKNote.m in Sources */,
-				C44F4E40196790A000D846BB /* CachedAttitude.m in Sources */,
 				C44F4E91196790A000D846BB /* AKFileInput.m in Sources */,
 				C44F4EBC196790A000D846BB /* AKParameter.m in Sources */,
 				C44F4EB3196790A000D846BB /* AKReverb.m in Sources */,
@@ -1563,7 +1546,6 @@
 				C44F4E7B196790A000D846BB /* AKCabasa.m in Sources */,
 				C44F4EA5196790A000D846BB /* AKLowPassFilter.m in Sources */,
 				C44F4E57196790A000D846BB /* AKTableValueConstant.m in Sources */,
-				C44F4E3F196790A000D846BB /* CachedAccelerometer.m in Sources */,
 				C44F4E90196790A000D846BB /* AKAudioOutput.m in Sources */,
 				C44F4E99196790A000D846BB /* AKVariableDelay.m in Sources */,
 			);
@@ -1680,9 +1662,8 @@
 				GCC_PREFIX_HEADER = "GlobalEffects/GlobalEffects-Prefix.pch";
 				INFOPLIST_FILE = "GlobalEffects/GlobalEffects-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../AudioKit/PlatformLibraries/iOS/csound-iOS/libs",
+					"$(SRCROOT)/../../AudioKit/Libraries/iOS/csound-iOS/libs",
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1698,9 +1679,8 @@
 				GCC_PREFIX_HEADER = "GlobalEffects/GlobalEffects-Prefix.pch";
 				INFOPLIST_FILE = "GlobalEffects/GlobalEffects-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../AudioKit/PlatformLibraries/iOS/csound-iOS/libs",
+					"$(SRCROOT)/../../AudioKit/Libraries/iOS/csound-iOS/libs",
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
