@@ -8,6 +8,12 @@
       location = "group:Examples/DemoInstruments/DemoInstruments.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Examples/PlayAudioFile/PlayAudioFile.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Examples/SongLibraryPlayer/SongLibraryPlayer.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Examples/ContinuousControl/ContinuousControl.xcodeproj">
    </FileRef>
    <FileRef
@@ -15,9 +21,6 @@
    </FileRef>
    <FileRef
       location = "group:Examples/GlobalEffects/GlobalEffects.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Examples/PlayAudioFile/PlayAudioFile.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Examples/Sequences/Sequences.xcodeproj">
