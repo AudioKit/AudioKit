@@ -66,8 +66,8 @@ static AKManager *_sharedAKManager = nil;
                    "-d               ; Suppress all displays\n"
                    "-+msg_color=0    ; Disable message attributes\n"
                    "--expression-opt ; Enable expression optimatizations\n"
-                   "-m0              ; Print raw amplitudes\n";
-                  // "-i adc           ; Request sound from the host audio input device";
+                   "-m0              ; Print raw amplitudes\n"
+                   "-i adc           ; Request sound from the host audio input device";
         
         templateString = @""
         "<CsoundSynthesizer>\n\n"
@@ -154,6 +154,20 @@ static AKManager *_sharedAKManager = nil;
         }
         [NSThread sleepForTimeInterval:0.01];
     } 
+}
+
+// -----------------------------------------------------------------------------
+#  pragma mark Audio Input from Hardware
+// -----------------------------------------------------------------------------
+
+/// Enable Audio Input
+- (void)enableAudioInput {
+    [csound setUseAudioInput:YES];
+}
+
+/// Disable AudioInput
+- (void)disableAudioInput {
+    [csound setUseAudioInput:YES];    
 }
 
 // -----------------------------------------------------------------------------

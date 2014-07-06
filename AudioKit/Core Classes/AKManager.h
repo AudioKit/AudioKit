@@ -58,6 +58,12 @@
 /// @param filename Full path of file on disk
 + (NSString *)stringFromFile:(NSString *)filename;
 
+/// Enable Audio Input
+- (void)enableAudioInput;
+
+/// Disable AudioInput
+- (void)disableAudioInput;
+
 /// Enable MIDI
 - (void)enableMidi;
 
