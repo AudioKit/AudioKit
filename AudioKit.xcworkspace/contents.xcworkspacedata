@@ -5,6 +5,9 @@
       location = "group:README.md">
    </FileRef>
    <FileRef
+      location = "group:Examples/SwiftFMOscillator/SwiftFMOscillator.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Examples/DemoInstruments/DemoInstruments.xcodeproj">
    </FileRef>
    <FileRef
