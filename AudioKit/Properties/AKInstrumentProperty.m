@@ -19,24 +19,24 @@
     return self;
 }
 
-- (instancetype)initWithMinimumValue:(float)minimumValue
-                        maximumValue:(float)maximumValue;
+- (instancetype)initWithMinimum:(float)minimum
+                        maximum:(float)maximum;
 {
-    return [self initWithValue:minimumValue
-                  minimumValue:minimumValue
-                  maximumValue:maximumValue];
+    return [self initWithValue:minimum
+                       minimum:minimum
+                       maximum:maximum];
 }
 
 - (instancetype)initWithValue:(float)initialValue
-                 minimumValue:(float)minimumValue
-                 maximumValue:(float)maximumValue;
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
 {
     self = [self init];
     if (self) {
         _value        = initialValue;
         _initialValue = initialValue;
-        _minimumValue = minimumValue;
-        _maximumValue = maximumValue;
+        _minimum = minimum;
+        _maximum = maximum;
     }
     return self;
 }
@@ -56,13 +56,13 @@
 
 - (void)setValue:(float)newValue {
     _value = newValue;
-    if (_minimumValue && newValue < _minimumValue) {
-        NSLog(@"%@ = %g is too low using minimum %g", self, newValue, _minimumValue);
-        _value = _minimumValue;
+    if (_minimum && newValue < _minimum) {
+        NSLog(@"%@ = %g is too low using minimum %g", self, newValue, _minimum);
+        _value = _minimum;
     }
-    else if (_maximumValue && newValue > _maximumValue) {
-        NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximumValue);
-        _value = _maximumValue;
+    else if (_maximum && newValue > _maximum) {
+        NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximum);
+        _value = _maximum;
     }
 }
 
@@ -72,8 +72,8 @@
 
 - (void)randomize;
 {
-    float width = _maximumValue - _minimumValue;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimumValue];
+    float width = _maximum - _minimum;
+    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimum];
 }
 
 - (void)scaleWithValue:(float)value
@@ -81,8 +81,8 @@
                maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
-    float width = self.maximumValue - self.minimumValue;
-    self.value = self.minimumValue + percentage * width;
+    float width = self.maximum - self.minimum;
+    self.value = self.minimum + percentage * width;
 }
 
 # pragma mark - CsoundValueCacheable

@@ -61,8 +61,8 @@
     self = [super init];
     if (self) {
         _frequency = [[AKNoteProperty alloc] initWithValue:220
-                                               minimumValue:110
-                                               maximumValue:880];
+                                                   minimum:110
+                                                   maximum:880];
         [self addProperty:_frequency];
     }
     return self;

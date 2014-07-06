@@ -11,13 +11,13 @@
 @implementation AKWindowsTable
 
 - (instancetype)initWithType:(WindowTableType)windowType
-                maximumValue:(float)maximumValue
+                     maximum:(float)maximum
                         size:(int)tableSize;
 {
     return [self initWithType:kFTWindows
                          size:tableSize
                    parameters:[AKArray arrayFromConstants:
-                               akpi(windowType),akp(maximumValue), nil]];
+                               akpi(windowType),akp(maximum), nil]];
 }
 
 
@@ -25,31 +25,31 @@
                         size:(int)tableSize;
 {
     return [self initWithType:windowType
-                 maximumValue:1.0f
+                      maximum:1.0f
                          size:tableSize];
 }
 
 - (instancetype)initGaussianTypeWithBroadness:(float)windowBroadness
-                                 maximumValue:(float)maximumValue
+                                      maximum:(float)maximum
                                          size:(int)tableSize;
 {
     return [self initWithType:kFTWindows
                          size:tableSize
                    parameters:[AKArray arrayFromConstants:
                                akpi(kWindowGaussian),
-                               akp(maximumValue),
+                               akp(maximum),
                                akp(windowBroadness), nil] ];
 }
 
 - (instancetype)initKaiserTypeWithOpenness:(float)windowOpenness
-                              maximumValue:(float)maximumValue
+                                   maximum:(float)maximum
                                       size:(int)tableSize
 {
     return [self initWithType:kFTWindows
                          size:tableSize
                    parameters:[AKArray arrayFromConstants:
                                akpi(kWindowKaiser),
-                               akp(maximumValue),
+                               akp(maximum),
                                akp(windowOpenness), nil] ];
     
 }

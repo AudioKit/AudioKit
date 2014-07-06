@@ -17,11 +17,11 @@
         
         // INPUTS AND CONTROLS =================================================
         _dishWellBalance = [[AKInstrumentProperty alloc] initWithValue:0
-                                                           minimumValue:0
-                                                           maximumValue:1.0];
+                                                               minimum:0
+                                                               maximum:1.0];
         _dryWetBalance   = [[AKInstrumentProperty alloc] initWithValue:0
-                                                           minimumValue:0
-                                                           maximumValue:0.1];
+                                                               minimum:0
+                                                               maximum:0.1];
         
         [self addProperty:_dishWellBalance];
         [self addProperty:_dryWetBalance];
@@ -38,27 +38,27 @@
         
         AKConvolution *dishConv;
         dishConv  = [[AKConvolution alloc] initWithAudioSource:loop.leftOutput
-                                            impulseResponseFile:dish];
+                                           impulseResponseFile:dish];
         [self connect:dishConv];
         
         
         AKConvolution *wellConv;
         wellConv  = [[AKConvolution alloc] initWithAudioSource:loop.rightOutput
-                                            impulseResponseFile:well];
+                                           impulseResponseFile:well];
         [self connect:wellConv];
         
         
         AKMixedAudio *balance;
         balance = [[AKMixedAudio alloc] initWithSignal1:dishConv
-                                                 signal2:wellConv
-                                                 balance:_dishWellBalance];
+                                                signal2:wellConv
+                                                balance:_dishWellBalance];
         [self connect:balance];
         
         
         AKMixedAudio *dryWet;
         dryWet = [[AKMixedAudio alloc] initWithSignal1:loop.leftOutput
-                                                signal2:balance
-                                                balance:_dryWetBalance];
+                                               signal2:balance
+                                               balance:_dryWetBalance];
         [self connect:dryWet];
         
         

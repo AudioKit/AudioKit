@@ -17,26 +17,26 @@
     self = [super init];
     if (self) {
         _trackedFrequency = [[AKInstrumentProperty alloc] initWithValue:kTrackedFrequencyMin
-                                                            minimumValue:kTrackedFrequencyMin
-                                                            maximumValue:kTrackedFrequencyMax];
+                                                                minimum:kTrackedFrequencyMin
+                                                                maximum:kTrackedFrequencyMax];
         [self addProperty:_trackedFrequency];
-        _trackedAmplitude = [[AKInstrumentProperty alloc] initWithMinimumValue:0 maximumValue:1];
+        _trackedAmplitude = [[AKInstrumentProperty alloc] initWithMinimum:0 maximum:1];
         [self addProperty:_trackedAmplitude];
         
         
         AKTrackedFrequency *frequency;
         frequency = [[AKTrackedFrequency alloc] initWithAudioSource:audioSource
-                                                          sampleSize:akp(2048)];
+                                                         sampleSize:akp(2048)];
         [self connect:frequency];
         [self connect:[[AKAssignment alloc] initWithOutput:_trackedFrequency
-                                                      input:frequency]];
+                                                     input:frequency]];
         
         
         AKTrackedAmplitude *amplitude;
         amplitude = [[AKTrackedAmplitude alloc] initWithAudioSource:audioSource];
         [self connect:amplitude];
         [self connect:[[AKAssignment alloc] initWithOutput:_trackedAmplitude
-                                                      input:amplitude]];
+                                                     input:amplitude]];
     }
     return self;
 }

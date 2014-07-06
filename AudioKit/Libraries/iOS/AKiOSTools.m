@@ -96,15 +96,15 @@
     {
         [self setSlider:slider
               withValue:[(AKInstrumentProperty *)property value]
-                minimum:[(AKInstrumentProperty *)property minimumValue]
-                maximum:[(AKInstrumentProperty *)property maximumValue]];
+                minimum:[(AKInstrumentProperty *)property minimum]
+                maximum:[(AKInstrumentProperty *)property maximum]];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         [self setSlider:slider
               withValue:[(AKNoteProperty *)property value]
-                minimum:[(AKNoteProperty *)property minimumValue]
-                maximum:[(AKNoteProperty *)property maximumValue]];
+                minimum:[(AKNoteProperty *)property minimum]
+                maximum:[(AKNoteProperty *)property maximum]];
     }
     
 }
@@ -115,15 +115,15 @@
     {
         [self setProgressView:progressView
                     withValue:[(AKInstrumentProperty *)property value]
-                      minimum:[(AKInstrumentProperty *)property minimumValue]
-                      maximum:[(AKInstrumentProperty *)property maximumValue]];
+                      minimum:[(AKInstrumentProperty *)property minimum]
+                      maximum:[(AKInstrumentProperty *)property maximum]];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         [self setProgressView:progressView
                     withValue:[(AKNoteProperty *)property value]
-                      minimum:[(AKNoteProperty *)property minimumValue]
-                      maximum:[(AKNoteProperty *)property maximumValue]];
+                      minimum:[(AKNoteProperty *)property minimum]
+                      maximum:[(AKNoteProperty *)property maximum]];
     }
     
 }
@@ -133,14 +133,14 @@
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
         [(AKInstrumentProperty *)property setValue:[self scaleValueFromSlider:slider
-                                                                       minimum:[(AKInstrumentProperty *)property minimumValue]
-                                                                       maximum:[(AKInstrumentProperty *)property maximumValue]]];
+                                                                       minimum:[(AKInstrumentProperty *)property minimum]
+                                                                       maximum:[(AKInstrumentProperty *)property maximum]]];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         [(AKNoteProperty *)property setValue:[self scaleValueFromSlider:slider
-                                                                 minimum:[(AKNoteProperty *)property minimumValue]
-                                                                 maximum:[(AKNoteProperty *)property maximumValue]]];
+                                                                 minimum:[(AKNoteProperty *)property minimum]
+                                                                 maximum:[(AKNoteProperty *)property maximum]]];
     }
 }
 

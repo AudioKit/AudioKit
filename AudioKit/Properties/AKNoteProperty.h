@@ -25,10 +25,10 @@
 @property (nonatomic, assign) float initialValue;
 
 /// Minimum Value allowed.
-@property (nonatomic, assign) Float32 minimumValue;
+@property (nonatomic, assign) Float32 minimum;
 
 /// Maximum Value allowed.
-@property (nonatomic, assign) Float32 maximumValue;
+@property (nonatomic, assign) Float32 maximum;
 
 /// Optional pretty name for properties useful for debugging.
 @property (nonatomic, strong) NSString *name;
@@ -41,18 +41,18 @@
 
 
 /// Initialize the property with bounds.
-/// @param minimumValue Minimum value.
-/// @param maximumValue Maximum value.
-- (instancetype)initWithMinimumValue:(float)minimumValue
-                        maximumValue:(float)maximumValue;
+/// @param minimum Minimum value.
+/// @param maximum Maximum value.
+- (instancetype)initWithMinimum:(float)minimum
+                        maximum:(float)maximum;
 
 /// Initialize the property with an initial value and bounds.
 /// @param initialValue Initial value.
-/// @param minimumValue Minimum value.
-/// @param maximumValue Maximum value.
+/// @param minimum Minimum value.
+/// @param maximum Maximum value.
 - (instancetype)initWithValue:(float)initialValue
-                 minimumValue:(float)minimumValue
-                 maximumValue:(float)maximumValue;
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
 
 /// Sets the current value to the initial value.
 - (void)reset;
