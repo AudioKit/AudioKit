@@ -72,10 +72,23 @@ static AKManager *_sharedAKManager = nil;
                    "-m0              ; Print raw amplitudes\n";
                   // "-i adc           ; Request sound from the host audio input device";
         
-        //Setup File System access
-        NSString *template;
-        template = [[NSBundle mainBundle] pathForResource: @"template" ofType: @"csd"];
-        templateString = [AKManager stringFromFile:template]; 
+        templateString = @""
+        "<CsoundSynthesizer>\n\n"
+        "<CsOptions>\n\%@\n</CsOptions>\n\n"
+        "<CsInstruments>\n\n"
+        "\%@\n\n"
+        "; Deactivates a complete instrument\n"
+        "instr DeactivateInstrument\n"
+        "turnoff2 p4, 0, 1\n"
+        "endin\n\n"
+        "; Event End or Note Off\n"
+        "instr DeactivateNote\n"
+        "turnoff2 p4, 4, 1\n"
+        "endin\n\n"
+        "</CsInstruments>\n\n"
+        "<CsScore>\nf0 10000000\n</CsScore>\n\n"
+        "</CsoundSynthesizer>\n";
+        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
