@@ -29,10 +29,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let orchestra = AKOrchestra()
         orchestra.addInstrument(fmSynth)
-        let manager = AKManager().sharedSwiftManager()
+        let manager = AKManager.sharedAKManager()
         manager.runOrchestra(orchestra)
         updateLabels()
-        updateSliders()
+        updateSliders() 
         fmSynth.play()
     }
     
