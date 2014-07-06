@@ -26,8 +26,6 @@
 		C44F524D196790AA00D846BB /* AKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F50DB196790A900D846BB /* AKNote.m */; };
 		C44F524E196790AA00D846BB /* AKOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F50DD196790A900D846BB /* AKOrchestra.m */; };
 		C44F524F196790AA00D846BB /* AKSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F50DF196790A900D846BB /* AKSequence.m */; };
-		C44F5250196790AA00D846BB /* template.csd in Resources */ = {isa = PBXBuildFile; fileRef = C44F50E1196790A900D846BB /* template.csd */; };
-		C44F5251196790AA00D846BB /* test.csd in Resources */ = {isa = PBXBuildFile; fileRef = C44F50E2196790A900D846BB /* test.csd */; };
 		C44F5252196790AA00D846BB /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F50E5196790A900D846BB /* AKAdditiveCosineTable.m */; };
 		C44F5253196790AA00D846BB /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F50E7196790A900D846BB /* AKArrayTable.m */; };
 		C44F5254196790AA00D846BB /* AKCompositeWaveformsFromSines.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F50E9196790A900D846BB /* AKCompositeWaveformsFromSines.m */; };
@@ -204,8 +202,6 @@
 		C44F50DD196790A900D846BB /* AKOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOrchestra.m; sourceTree = "<group>"; };
 		C44F50DE196790A900D846BB /* AKSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequence.h; sourceTree = "<group>"; };
 		C44F50DF196790A900D846BB /* AKSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSequence.m; sourceTree = "<group>"; };
-		C44F50E1196790A900D846BB /* template.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csd; sourceTree = "<group>"; };
-		C44F50E2196790A900D846BB /* test.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.csd; sourceTree = "<group>"; };
 		C44F50E4196790A900D846BB /* AKAdditiveCosineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosineTable.h; sourceTree = "<group>"; };
 		C44F50E5196790A900D846BB /* AKAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosineTable.m; sourceTree = "<group>"; };
 		C44F50E6196790A900D846BB /* AKArrayTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArrayTable.h; sourceTree = "<group>"; };
@@ -626,15 +622,6 @@
 				C44F50DF196790A900D846BB /* AKSequence.m */,
 			);
 			path = "Core Classes";
-			sourceTree = "<group>";
-		};
-		C44F50E3196790A900D846BB /* CSDFiles */ = {
-			isa = PBXGroup;
-			children = (
-				C44F50E1196790A900D846BB /* template.csd */,
-				C44F50E2196790A900D846BB /* test.csd */,
-			);
-			path = CSDFiles;
 			sourceTree = "<group>";
 		};
 		C44F50F8196790A900D846BB /* FTables */ = {
@@ -1311,7 +1298,6 @@
 			isa = PBXGroup;
 			children = (
 				C44F50E0196790A900D846BB /* Core Classes */,
-				C44F50E3196790A900D846BB /* CSDFiles */,
 				C44F50F8196790A900D846BB /* FTables */,
 				C44F5133196790A900D846BB /* Libraries */,
 				C44F5233196790A900D846BB /* Operations */,
@@ -1378,13 +1364,11 @@
 				C44F52D0196790AA00D846BB /* declick.udo in Resources */,
 				C44F5297196790AA00D846BB /* mandpluk.aif in Resources */,
 				C4397E4919626F300076F005 /* Main_iPad.storyboard in Resources */,
-				C44F5250196790AA00D846BB /* template.csd in Resources */,
 				C4397E4E19626F300076F005 /* Images.xcassets in Resources */,
 				C44F5264196790AA00D846BB /* LICENSE.TXT in Resources */,
 				C4397E4619626F300076F005 /* Main_iPhone.storyboard in Resources */,
 				C4397E3D19626F300076F005 /* InfoPlist.strings in Resources */,
 				C44F5299196790AA00D846BB /* marmstk1.wav in Resources */,
-				C44F5251196790AA00D846BB /* test.csd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
