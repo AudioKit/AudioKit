@@ -35,9 +35,6 @@ static AKManager *_sharedAKManager = nil;
     }
     return nil;
 }
-- (AKManager *)sharedSwiftManager {
-    return [AKManager sharedAKManager];
-}
 
 + (id)alloc {
     @synchronized([AKManager class]) {
