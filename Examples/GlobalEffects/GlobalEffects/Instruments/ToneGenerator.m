@@ -18,8 +18,8 @@
         // INPUTS ==============================================================
         
         _frequency  = [[AKInstrumentProperty alloc] initWithValue:440
-                                                     minimumValue:220
-                                                     maximumValue:880];
+                                                          minimum:220
+                                                          maximum:880];
         [self addProperty:_frequency];
         
         // INSTRUMENT DEFINITION ===============================================

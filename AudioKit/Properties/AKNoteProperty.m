@@ -28,24 +28,24 @@
 }
 
 
-- (instancetype)initWithMinimumValue:(float)minimumValue
-                        maximumValue:(float)maximumValue;
+- (instancetype)initWithMinimum:(float)minimum
+                        maximum:(float)maximum;
 {
-    return [self initWithValue:minimumValue
-                  minimumValue:minimumValue
-                  maximumValue:maximumValue];
+    return [self initWithValue:minimum
+                       minimum:minimum
+                       maximum:maximum];
 }
 
 - (instancetype)initWithValue:(float)initialValue
-                 minimumValue:(float)minimumValue
-                 maximumValue:(float)maximumValue;
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
 {
     self = [self init];
     if (self) {
         _value        = initialValue;
         _initialValue = initialValue;
-        _minimumValue = minimumValue;
-        _maximumValue = maximumValue;
+        _minimum = minimum;
+        _maximum = maximum;
     }
     return self;
 }
@@ -56,12 +56,12 @@
 
 - (void)setValue:(Float32)newValue {
     _value = newValue;
-    if (_minimumValue && newValue < _minimumValue) {
-        _value = _minimumValue;
+    if (_minimum && newValue < _minimum) {
+        _value = _minimum;
         NSLog(@"%@ out of bounds, assigning to minimum", self);
     }
-    else if (_maximumValue && newValue > _maximumValue) {
-        _value = _maximumValue;
+    else if (_maximum && newValue > _maximum) {
+        _value = _maximum;
         NSLog(@"%@ out of bounds, assigning to maximum", self);
     }
     [_note updateProperties];
@@ -73,12 +73,12 @@
 
 - (void)randomize;
 {
-    float width = _maximumValue - _minimumValue;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimumValue];
+    float width = _maximum - _minimum;
+    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimum];
 }
 
 + (id)duration {
-    AKNoteProperty *dur = [[self alloc] initWithMinimumValue:-2 maximumValue:1000000];
+    AKNoteProperty *dur = [[self alloc] initWithMinimum:-2 maximum:1000000];
     [dur setParameterString:@"p3"];
     return dur;
 }

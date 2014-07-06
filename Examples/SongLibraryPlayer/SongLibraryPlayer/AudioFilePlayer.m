@@ -20,12 +20,12 @@
         
         // INSTRUMENT BASED CONTROL ============================================
         _reverbAmount = [[AKInstrumentProperty alloc] initWithValue:0.5
-                                                        minimumValue:0
-                                                        maximumValue:1.0];
+                                                            minimum:0
+                                                            maximum:1.0];
         [self addProperty:_reverbAmount];
         _mix = [[AKInstrumentProperty alloc] initWithValue:0.5
-                                               minimumValue:0
-                                               maximumValue:1.0];
+                                                   minimum:0
+                                                   maximum:1.0];
         [self addProperty:_mix];
         
         
@@ -48,25 +48,25 @@
         
         AKReverb *reverb;
         reverb = [[AKReverb alloc] initWithSourceStereoAudio:fileIn
-                                                feedbackLevel:_reverbAmount
-                                              cutoffFrequency:akp(12000)];
+                                               feedbackLevel:_reverbAmount
+                                             cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         AKMixedAudio *leftMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.leftOutput
-                                                                signal2:reverb.leftOutput
-                                                                balance:_mix];
+                                                              signal2:reverb.leftOutput
+                                                              balance:_mix];
         [self connect:leftMix];
         
         AKMixedAudio *rightMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.rightOutput
-                                                                 signal2:reverb.rightOutput
-                                                                 balance:_mix];
+                                                               signal2:reverb.rightOutput
+                                                               balance:_mix];
         [self connect:rightMix  ];
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput * audio;
         //audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[fileIn plus:reverb]];
         audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix
-                                               rightAudio:rightMix];
+                                              rightAudio:rightMix];
         
         [self connect:audio];
     }
