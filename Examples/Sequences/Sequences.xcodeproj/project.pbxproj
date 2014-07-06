@@ -45,7 +45,6 @@
 		C44F5474196790AF00D846BB /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C44F5336196790AF00D846BB /* LICENSE.TXT */; };
 		C44F5475196790AF00D846BB /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F5339196790AF00D846BB /* LevelMeter.m */; };
 		C44F5476196790AF00D846BB /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F533C196790AF00D846BB /* CsoundObj.m */; };
-		C44F5477196790AF00D846BB /* BaseValueCacheable.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F533E196790AF00D846BB /* BaseValueCacheable.m */; };
 		C44F5478196790AF00D846BB /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F5345196790AF00D846BB /* AKParameter+Operation.m */; };
 		C44F5479196790AF00D846BB /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F5347196790AF00D846BB /* AKTrackedAmplitude.m */; };
 		C44F547A196790AF00D846BB /* AKTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C44F5349196790AF00D846BB /* AKTrackedFrequency.m */; };
@@ -265,9 +264,6 @@
 		C44F5339196790AF00D846BB /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C44F533B196790AF00D846BB /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		C44F533C196790AF00D846BB /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		C44F533D196790AF00D846BB /* BaseValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseValueCacheable.h; sourceTree = "<group>"; };
-		C44F533E196790AF00D846BB /* BaseValueCacheable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseValueCacheable.m; sourceTree = "<group>"; };
-		C44F533F196790AF00D846BB /* CsoundValueCacheable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundValueCacheable.h; sourceTree = "<group>"; };
 		C44F5344196790AF00D846BB /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
 		C44F5345196790AF00D846BB /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
 		C44F5346196790AF00D846BB /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
@@ -742,22 +738,11 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		C44F5340196790AF00D846BB /* valueCacheable */ = {
-			isa = PBXGroup;
-			children = (
-				C44F533D196790AF00D846BB /* BaseValueCacheable.h */,
-				C44F533E196790AF00D846BB /* BaseValueCacheable.m */,
-				C44F533F196790AF00D846BB /* CsoundValueCacheable.h */,
-			);
-			path = valueCacheable;
-			sourceTree = "<group>";
-		};
 		C44F5341196790AF00D846BB /* csound-OSX */ = {
 			isa = PBXGroup;
 			children = (
 				C44F533B196790AF00D846BB /* CsoundObj.h */,
 				C44F533C196790AF00D846BB /* CsoundObj.m */,
-				C44F5340196790AF00D846BB /* valueCacheable */,
 			);
 			path = "csound-OSX";
 			sourceTree = "<group>";
@@ -1417,7 +1402,6 @@
 				C44F5489196790AF00D846BB /* AKAudioFromFSignal.m in Sources */,
 				C44F54E6196790AF00D846BB /* AKPanner.m in Sources */,
 				C44F54CB196790AF00D846BB /* AKDopplerEffect.m in Sources */,
-				C44F5477196790AF00D846BB /* BaseValueCacheable.m in Sources */,
 				C44F5459196790AF00D846BB /* AKEvent.m in Sources */,
 				C44F54C9196790AF00D846BB /* AKVariableDelay.m in Sources */,
 				C44F54CE196790AF00D846BB /* AKVibrato.m in Sources */,
