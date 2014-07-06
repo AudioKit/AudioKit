@@ -548,7 +548,7 @@ OSStatus  Csound_Render(void *inRefCon,
             }
             
             
-            success = [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+//            success = [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
             
             Float32 preferredBufferSize = mCsData.bufframes / csoundGetSr(cs);
             [session setPreferredIOBufferDuration:preferredBufferSize error:&error];
