@@ -24,6 +24,8 @@
 #import "AKConstant.h"
 #import "AKNoteProperty.h"
 
+#import "AKSampler.h"
+
 // Ftables
 
 #import "AKAdditiveCosineTable.h"
