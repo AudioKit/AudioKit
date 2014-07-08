@@ -171,6 +171,19 @@ static AKManager *_sharedAKManager = nil;
 }
 
 // -----------------------------------------------------------------------------
+#  pragma mark Recording Interface
+// -----------------------------------------------------------------------------
+
+- (void)stopRecording {
+    [csound stopRecording];
+}
+
+- (void)startRecordingToURL:(NSURL *)url {
+    [csound recordToURL:url];
+
+}
+
+// -----------------------------------------------------------------------------
 #  pragma mark AKMidi
 // -----------------------------------------------------------------------------
 
