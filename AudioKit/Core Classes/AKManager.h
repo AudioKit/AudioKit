@@ -64,6 +64,9 @@
 /// Disable AudioInput
 - (void)disableAudioInput;
 
+- (void)stopRecording;
+- (void)startRecordingToURL:(NSURL *)url;
+
 /// Enable MIDI
 - (void)enableMidi;
 
