@@ -1,7 +1,8 @@
 //
 //  AKFoundation.h
+//  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/27/13.
+//  Auto-generated from scripts by Aurelius Prochazka on 7/10/14.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
@@ -40,6 +41,7 @@
 #import "AKWindowsTable.h"
 
 // Operations
+#import "AKParameter+Operation.h"
 
 // Operations - Analysis
 #import "AKTrackedAmplitude.h"
@@ -47,6 +49,8 @@
 #import "AKTrackedFrequencySchouten.h"
 
 // Operations - Mathematical Operations
+#import "AKAssignment.h"
+#import "AKScaledControl.h"
 
 // Operations - Mathematical Operations - Mininum and Maximum
 #import "AKMaxAudio.h"
@@ -59,14 +63,11 @@
 #import "AKMixedControl.h"
 #import "AKProduct.h"
 #import "AKSum.h"
-#import "AKAssignment.h"
-#import "AKScaledControl.h"
 
 // Operations - Mathematical Operations - Table Value
 #import "AKTableValue.h"
 #import "AKTableValueConstant.h"
 #import "AKTableValueControl.h"
-#import "AKParameter+Operation.h"
 
 // Operations - Phase Vocoder Streaming
 #import "AKAudioFromFSignal.h"
@@ -98,31 +99,31 @@
 #import "AKLinearControl.h"
 
 // Operations - Signal Generators - Oscillators
-
-// Operations - Signal Generators - Oscillators - Low Frequency Oscillators
-#import "AKLowFrequencyOscillatingControl.h"
-#import "AKLowFrequencyOscillator.h"
-#import "AKLowFrequencyOscillatorConstants.h"
 #import "AKFMOscillator.h"
 #import "AKOscillatingControl.h"
 #import "AKOscillator.h"
 #import "AKSineOscillator.h"
 #import "AKVCOscillator.h"
 
+// Operations - Signal Generators - Oscillators - Low Frequency Oscillators
+#import "AKLowFrequencyOscillatingControl.h"
+#import "AKLowFrequencyOscillator.h"
+#import "AKLowFrequencyOscillatorConstants.h"
+
 // Operations - Signal Generators - Phasors
 #import "AKPhasingControl.h"
 #import "AKPhasor.h"
 
 // Operations - Signal Generators - Physical Models
+#import "AKPluckedString.h"
+#import "AKStruckMetalBar.h"
+#import "AKVibes.h"
 
 // Operations - Signal Generators - Physical Models - Mandolin
 #import "AKMandolin.h"
 
 // Operations - Signal Generators - Physical Models - Marimba
 #import "AKMarimba.h"
-#import "AKPluckedString.h"
-#import "AKStruckMetalBar.h"
-#import "AKVibes.h"
 
 // Operations - Signal Generators - Physical Models - PhISEM
 #import "AKBamboo.h"
@@ -156,16 +157,16 @@
 #import "AKAdditiveCosines.h"
 
 // Operations - Signal Input and Output
-
-// Operations - Signal Input and Output - Looping Oscillators
-#import "AKLoopingOscillator.h"
-#import "AKLoopingOscillatorConstants.h"
-#import "AKLoopingStereoOscillator.h"
 #import "AKAudioInput.h"
 #import "AKAudioOutput.h"
 #import "AKFTablelooper.h"
 #import "AKFileInput.h"
 #import "AKMonoFileInput.h"
+
+// Operations - Signal Input and Output - Looping Oscillators
+#import "AKLoopingOscillator.h"
+#import "AKLoopingOscillatorConstants.h"
+#import "AKLoopingStereoOscillator.h"
 
 // Operations - Signal Modifiers
 
@@ -185,15 +186,8 @@
 #import "AKVibrato.h"
 
 // Operations - Signal Modifiers - Filters
-
-// Operations - Signal Modifiers - Filters - Butterworth Filters
-#import "AKBandPassButterworthFilter.h"
-#import "AKBandRejectButterworthFilter.h"
-#import "AKHighPassButterworthFilter.h"
-#import "AKLowPassButterworthFilter.h"
 #import "AKCombFilter.h"
 #import "AKDCBlock.h"
-#import "AKDeclick.h"
 #import "AKEqualizerFilter.h"
 #import "AKHighPassFilter.h"
 #import "AKHilbertTransformer.h"
@@ -205,6 +199,15 @@
 #import "AKThreePoleLowpassFilter.h"
 #import "AKVariableFrequencyResponseBandPassFilter.h"
 
+// Operations - Signal Modifiers - Filters - Butterworth Filters
+#import "AKBandPassButterworthFilter.h"
+#import "AKBandRejectButterworthFilter.h"
+#import "AKHighPassButterworthFilter.h"
+#import "AKLowPassButterworthFilter.h"
+
+// Operations - Signal Modifiers - Filters - declick
+#import "AKDeclick.h"
+
 // Operations - Signal Modifiers - Reverbs
 #import "AKBallWithinTheBoxReverb.h"
 #import "AKNReverb.h"
@@ -214,6 +217,8 @@
 // Operations - Signal Modifiers - Volume and Spatialization
 #import "AKBalance.h"
 #import "AKPanner.h"
+
+// Operations - UDOs
 
 
 #endif
