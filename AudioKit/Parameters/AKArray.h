@@ -14,7 +14,7 @@
 /// Am array of AKParameter variables
 @interface AKArray : NSObject
 
-/// CSD Textual representation of the parameter's name.
+// CSD Textual representation of the parameter's name.
 - (NSString *)parameterString;
 
 /// The array of parameters stored.

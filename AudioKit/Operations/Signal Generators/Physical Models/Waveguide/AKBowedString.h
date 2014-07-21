@@ -11,7 +11,7 @@
 
 /** Creates a tone similar to a bowed string.
  
- Audio output is a tone similar to a bowed string, using a physical model developed from Perry Cook, but recoded for Csound.
+ Audio output is a tone similar to a bowed string, using a physical model developed from Perry Cook.
  */
 
 @interface AKBowedString : AKAudio

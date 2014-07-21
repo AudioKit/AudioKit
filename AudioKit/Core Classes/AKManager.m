@@ -7,14 +7,20 @@
 //
 
 #import "AKManager.h"
+#import "CsoundObj.h"
 
-@interface AKManager () {
+@interface AKManager () <CsoundObjCompletionListener> {
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
     
     CsoundObj *csound;
 }
+
+// Run Csound from a given filename
+// @param filename CSD file use when running Csound.
+- (void)runCSDFile:(NSString *)filename;
+
 @end
 
 @implementation AKManager
@@ -238,7 +244,7 @@ static AKManager *_sharedAKManager = nil;
     NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
     for (AKInstrument *instrument in arr ) {
         for (AKInstrumentProperty *c in [instrument properties]) {
-            [csound addValueCacheable:c];
+            [csound addValueCacheable:(AKInstrumentProperty<CsoundValueCacheable> *)c];
         }
     }
 }

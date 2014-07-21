@@ -6,19 +6,17 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "CsoundObj.h"
 #import "AKInstrument.h"
 #import "AKOrchestra.h"
 #import "AKEvent.h"
 #import "AKMidi.h"
 #import "AKSequence.h"
 
-/** The AKManager is a singleton class available to all controller that need
- to interact with Csound through its simplified protocol.
+/** The AKManager is a singleton class available to all controllers that need access to audio.
  */
-@interface AKManager : NSObject <CsoundObjCompletionListener> 
+@interface AKManager : NSObject
 
-/// Determines whether or not Csound is available to send events to.
+/// Determines whether or not AudioKit is available to send events to.
 @property (readonly) BOOL isRunning;
 
 /// Common midi property shared across the application
@@ -27,19 +25,15 @@
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedAKManager;
 
-/// Run Csound from a given filename
-/// @param filename CSD file use when running Csound.
-- (void)runCSDFile:(NSString *)filename;
-
-/// Run Csound using an AKOrechestra 
-/// @param orchestra The AKOrchestra that will be used to create the CSD File.
+/// Run AudioKit using an AKOrechestra
+/// @param orchestra The AKOrchestra that will be started.
 - (void)runOrchestra:(AKOrchestra *)orchestra;
 
-/// Stop Csound
+/// Stop AudioKit from making any more sound.
 - (void)stop;
 
 /// Triggers an AKEvent
-/// @param event AK Event
+/// @param event AKEvent to be triggered
 - (void)triggerEvent:(AKEvent *)event;
 
 /// Stop all notes of an instrument

@@ -36,7 +36,7 @@
 /// Note this property belongs to
 @property (nonatomic, strong) AKNote *note;
 
-/// Csound internal reference number
+/// Internal reference number
 @property (assign) int pValue;
 
 

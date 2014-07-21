@@ -32,7 +32,7 @@
 + (instancetype)constantWithControl:(AKControl *)control;
 
 /// Initialize the constant with a number
-/// @param number Value of the constant
+/// @param value Number value of the constant
 - (instancetype)initWithValue:(NSNumber *)value;
 
 @end

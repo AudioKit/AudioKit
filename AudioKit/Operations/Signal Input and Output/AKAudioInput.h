@@ -9,8 +9,7 @@
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
-/** Reads audio data from an external device or stream. 
- Currently only supports mono input.
+/** Reads monophonic audio data from an external device or stream.
  */
 
 @interface AKAudioInput : AKAudio

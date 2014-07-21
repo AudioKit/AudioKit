@@ -12,7 +12,7 @@
 
 /** Physical model related to the striking of a wooden block.
  
- Audio output is a tone related to the striking of a wooden block as found in a marimba. The method is a physical model developed from Perry Cook but re-coded for Csound.
+ Audio output is a tone related to the striking of a wooden block as found in a marimba. The method is a physical model developed from Perry Cook.
  */
 
 @interface AKMarimba : AKAudio
