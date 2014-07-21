@@ -11,7 +11,7 @@
 
 /** A digital emulation of the Moog diode ladder filter configuration.
  
- This emulation is based loosely on the paper “Analyzing the Moog VCF with Considerations for Digital Implementation” by Stilson and Smith (CCRMA). This version was originally coded in Csound by Josep Comajuncosas. Some modifications and conversion to C were done by Hans Mikelson and then adjusted.
+ This emulation is based loosely on the paper “Analyzing the Moog VCF with Considerations for Digital Implementation” by Stilson and Smith (CCRMA). 
  */
 
 @interface AKMoogVCF : AKAudio

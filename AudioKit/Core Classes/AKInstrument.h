@@ -59,7 +59,7 @@
 // -----------------------------------------------------------------------------
 
 /** All FTables that are required by the instrument are stored here and declared
- once in the F-Statement section of the CSD File. */
+ once in the F-Statement section. */
 @property (nonatomic, strong) NSMutableSet *fTables;
 
 /// Adds the function table to the Orchestra, so it is only processed once.
@@ -75,7 +75,7 @@
 // -----------------------------------------------------------------------------
 
 /** All UDOs that are required by the instrument are stored here and declared before any
- instrument blocks in the CSD File. */
+ instrument blocks. */
 @property (nonatomic, strong) NSMutableSet *userDefinedOperations;
 
 /// Adds the operation to the AKInstrument.
@@ -86,7 +86,7 @@
 /// @param newUserDefinedOperation New UDO to add to the instrument.
 - (void)addUDO:(AKParameter *)newUserDefinedOperation;
 
-/// Adds any string to the CSD file, useful for testing and commenting within the CSD file.
+/// Adds any string to the output file, useful for testing and commenting.
 /// @param newString New string to add to the instrument definition.
 - (void)addString:(NSString *)newString;
 
@@ -108,10 +108,10 @@
 /// @param orchestraToJoin Orchestra to which the instrument belongs.
 - (void)joinOrchestra:(AKOrchestra *)orchestraToJoin;
 
-/// The textual respresentation of the instrument in CSD form.
+// The textual respresentation of the instrument in CSD form.
 - (NSString *)stringForCSD;
 
-/// The CSD line that deactivates all notes created by the instrument
+// The CSD line that deactivates all notes created by the instrument
 - (NSString *)stopStringForCSD;
 
 /// Play an instrument that contains no note properties ie. uses a generic
@@ -123,6 +123,7 @@
 - (void)play;
 
 /// Play the given note
+/// @param note The note that will be played.
 - (void)playNote:(AKNote *)note;
 
 /// Stop all notes created by the instrument

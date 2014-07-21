@@ -1,6 +1,6 @@
 //
 //  AKAdditiveCosines.m
-//  Explorable Explanations
+//  AudioKit
 //
 //  Created by Adam Boulanger on 10/8/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
@@ -26,7 +26,7 @@
 
 - (instancetype)initWithFTable:(AKFTable *)cosineTable
                 harmonicsCount:(AKControl *)harmonicsCount
-              firstHarmonicIdx:(AKControl *)firstHarmonicIdx
+            firstHarmonicIndex:(AKControl *)firstHarmonicIndex
              partialMultiplier:(AKControl *)partialMultiplier
           fundamentalFrequency:(AKParameter *)fundamentalFrequency
                      amplitude:(AKParameter *)amplitude
@@ -36,7 +36,7 @@
         f = cosineTable;
         phs = akpi(0);
         numHarmonics = harmonicsCount;
-        firstHarmonic = firstHarmonicIdx;
+        firstHarmonic = firstHarmonicIndex;
         partialMul = partialMultiplier;
         freq = fundamentalFrequency;
         amp = amplitude;

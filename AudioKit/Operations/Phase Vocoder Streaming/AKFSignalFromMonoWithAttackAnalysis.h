@@ -31,7 +31,7 @@
 
 /// Create a phase vocoder stream or f-signal from a mono audio source and performs attack analysis.
 /// @param soundFileSource  Audio to use to generate the f-signal.
-/// @param timeScalingRadio Time scaling ratio, <1 stretches, >1 contracts.
+/// @param timeScalingRatio Time scaling ratio, <1 stretches, >1 contracts.
 /// @param pitchRatio       Grain pitch scaling ratio (1=normal pitch, <1 lower, >1 higher, <0 backwards)
 - (instancetype)initWithSoundFile:(AKFTable *)soundFileSource
                  timeScalingRatio:(AKControl *)timeScalingRatio

@@ -8,7 +8,7 @@
 
 #import "AKParameter.h"
 
-/** AK Audio Type
+/** This class specifies a parameter that is specifically updated at the audio rate.  
  */
 
 

@@ -7,20 +7,11 @@
 //
 
 #import "AKControl.h"
-#import "CsoundObj.h"
-#import "CsoundValueCacheable.h"
-
 
 /** Instrument properties are properties of an instrument that are shared
  amongst all the notes that are created on that instrument.
  */
-@interface AKInstrumentProperty : AKControl <CsoundValueCacheable> {
-    BOOL mCacheDirty;
-    
-    //channelName
-    MYFLT *channelPtr;
-    float currentValue;
-}
+@interface AKInstrumentProperty : AKControl
 
 /// Current value of the property.
 @property (nonatomic, assign) float value;
@@ -51,12 +42,10 @@
                       minimum:(float)minimum
                       maximum:(float)maximum;
 
-
-
-/// String with the appropriate chnget statement for the CSD File
+// String with the appropriate chnget statement for the CSD File
 - (NSString *)stringForCSDGetValue;
 
-/// String with the appropriate chnset statement for the CSD File
+// String with the appropriate chnset statement for the CSD File
 - (NSString *)stringForCSDSetValue;
 
 /// Sets the current value to the initial value.

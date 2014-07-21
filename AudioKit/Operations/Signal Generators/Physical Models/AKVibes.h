@@ -12,7 +12,7 @@
 
 /** Physical model related to the striking of a metal block.
  
- Audio output is a tone related to the striking of a metal block as found in a vibraphone. The method is a physical model developed from Perry Cook, but re-coded for Csound.
+ Audio output is a tone related to the striking of a metal block as found in a vibraphone. The method is a physical model developed from Perry Cook.
  */
 
 @interface AKVibes : AKAudio

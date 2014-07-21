@@ -13,12 +13,11 @@
 @class AKEvent;
 @class AKSequence;
 
-/**AKOrchestra is a collection of instruments and  handles all of the 
- CSD file creation tasks for the AKManager.
+/** AKOrchestra is an AKInstrument collection that can be run by the AKManager.
  */
 @interface AKOrchestra : NSObject 
 
-/// Determines the value from which to scale all other amplitudes in Csound
+/// Determines the value from which to scale all other amplitudes
 @property (nonatomic, assign) float zeroDBFullScaleValue;
 
 /// The number of channels, ie. mono=1, stereo=2, hexaphonic=6.  Can affect both output and input.
@@ -32,7 +31,7 @@
 /// @param newInstrument Instrument that will be added to the orchestra.
 - (void)addInstrument:(AKInstrument *)newInstrument;
 
-/// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
+// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;
 
 @end

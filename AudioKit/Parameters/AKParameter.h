@@ -24,18 +24,18 @@
     int _myID;
 }
 
-/// The CSD Text representation of the parameter's name
+// The CSD Text representation of the parameter's name
 @property (nonatomic, strong) NSString *parameterString;
 
 /// Helper method to avoid alloc and init each time.
-/// @param name The name of the parameter as it should appear in the CSD File.
+/// @param name The name of the parameter as it should appear in the output file.
 + (id)parameterWithString:(NSString *)name;
 
 /// Create a parameter available to all instruments in the orchestra.
 +(id)globalParameter;
 
 /// Create a parameter available to all instruments in the orchestra.
-/// @param name The name of the parameter as it should appear in the CSD File.
+/// @param name The name of the parameter as it should appear in the output File.
 +(id)globalParameterWithString:(NSString *)name;
 
 - (instancetype)initWithString:(NSString *)name;
@@ -56,11 +56,11 @@
 /// @param additionalParameter The additional parameter (should be of the same type)
 - (id)plus:(AKParameter *)additionalParameter;
 
-/// Helper function to create a new AKParameter with the CSD output scaled by another parameter
+/// Helper function to create a new AKParameter with the output scaled by another parameter
 /// @param scalingFactor The scaling factor should be multiplied by
 - (id)scaledBy:(AKParameter *)scalingFactor;
 
-/// Helper function to create a new AKParameter with the CSD output scaled
+/// Helper function to create a new AKParameter with the output scaled
 /// @param divisor The scaling factor should be divided by
 - (id)dividedBy:(AKParameter *)divisor;
 

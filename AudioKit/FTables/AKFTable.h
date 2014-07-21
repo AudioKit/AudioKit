@@ -56,10 +56,10 @@ typedef enum
 - (instancetype)initWithType:(FTableType)fTableType
                   parameters:(AKArray *)parameters;
 
-/// @returns The textual representation of the dynamic function table for Csound
+// The textual representation of the dynamic function table for Csound
 - (NSString *)stringForCSD;
 
-/// @returns The textual representation of the global function table for Csound
+// The textual representation of the global function table for Csound
 - (NSString *)fTableStringForCSD;
 
 

@@ -53,10 +53,10 @@
 /// Stop playback of the note.
 - (void)stop;
 
-/// Returns the playback scoreline to the CSD File.
+// Returns the playback scoreline to the CSD File.
 - (NSString *)stringForCSD;
 
-/// Returns the stop scoreline to the CSD File.
+// Returns the stop scoreline to the CSD File.
 - (NSString *)stopStringForCSD;
 
 /// Adds the property to the list of available properties of the note
