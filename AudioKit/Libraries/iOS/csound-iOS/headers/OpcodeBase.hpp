@@ -61,15 +61,47 @@ public:
     return reinterpret_cast<T *>(opcode)->audio(csound);
   }
   /**
-   * For sample accurate timing, kperf may be called at some
-   * offset after the first frame of the kperiod. Hence, opcodes
-   * must output zeros up until the offset, and then output
-   * their signal until the end of the kperiod. After the first
-   * kperiod of activation, the offset will always be 0.
+    This is how to compute audio signals for normal opcodes:
+    (1) Zero all frames from 0 up to but not including Offset.
+    (2) Compute all frames from ksmps_offset up to but not including End.
+    (3) Zero all frames from End up to but not including ksmps.
+    Example from a C opcode:
+    uint32_t offset = p->h.insdshead->ksmps_offset;
+    uint32_t early  = p->h.insdshead->ksmps_no_end;
+    uint32_t n, nsmps = CS_KSMPS;
+    if (UNLIKELY(offset)) memset(p->r, '\0', offset*sizeof(MYFLT));
+    if (UNLIKELY(early)) {
+      nsmps -= early;
+      memset(&p->r[nsmps], '\0', early*sizeof(MYFLT));
+    }
+    for (n = offset; n < nsmps; n++) {
+      input1 = MYFLT2LRND(p->a[n]);
+      p->r[n] = (MYFLT) (input1 >> input2);
+    }
+    So in C++ it should look like this (which is much easier to understand):
+    int frameIndex = 0;
+    for( ; frameIndex < kperiodOffset(); ++frameIndex) {
+        asignal[frameIndex] = 0;
+    }
+    for( ; frameIndex < kperiodEnd(); ++frameIndex) {
+        asignal[frameIndex] = compute();
+    }
+    for( ; frameIndex < ksmps(); ++frameIndex) {
+        asignal[frameIndex] = 0;
+    }
    */
   uint32_t kperiodOffset() const
   {
       return opds.insdshead->ksmps_offset;
+  }
+  uint32_t kperiodEnd() const
+  {
+      uint32_t end = opds.insdshead->ksmps_no_end;
+      if (end) {
+          return end;
+      } else {
+          return ksmps();
+      }
   }
   uint32_t ksmps() const
   {
@@ -140,15 +172,47 @@ public:
     return reinterpret_cast<T *>(opcode)->audio(csound);
   }
   /**
-   * For sample accurate timing, kperf may be called at some
-   * offset after the first frame of the kperiod. Hence, opcodes
-   * must output zeros up until the offset, and then output
-   * their signal until the end of the kperiod. After the first
-   * kperiod of activation, the offset will always be 0.
+    This is how to compute audio signals for normal opcodes:
+    (1) Zero all frames from 0 up to but not including Offset.
+    (2) Compute all frames from ksmps_offset up to but not including End.
+    (3) Zero all frames from End up to but not including ksmps.
+    Example from a C opcode:
+    uint32_t offset = p->h.insdshead->ksmps_offset;
+    uint32_t early  = p->h.insdshead->ksmps_no_end;
+    uint32_t n, nsmps = CS_KSMPS;
+    if (UNLIKELY(offset)) memset(p->r, '\0', offset*sizeof(MYFLT));
+    if (UNLIKELY(early)) {
+      nsmps -= early;
+      memset(&p->r[nsmps], '\0', early*sizeof(MYFLT));
+    }
+    for (n = offset; n < nsmps; n++) {
+      input1 = MYFLT2LRND(p->a[n]);
+      p->r[n] = (MYFLT) (input1 >> input2);
+    }
+    So in C++ it should look like this (which is much easier to understand):
+    int frameIndex = 0;
+    for( ; frameIndex < kperiodOffset(); ++frameIndex) {
+        asignal[frameIndex] = 0;
+    }
+    for( ; frameIndex < kperiodEnd(); ++frameIndex) {
+        asignal[frameIndex] = compute();
+    }
+    for( ; frameIndex < ksmps(); ++frameIndex) {
+        asignal[frameIndex] = 0;
+    }
    */
   uint32_t kperiodOffset() const
   {
       return opds.insdshead->ksmps_offset;
+  }
+  uint32_t kperiodEnd() const
+  {
+      uint32_t end = opds.insdshead->ksmps_no_end;
+      if (end) {
+          return end;
+      } else {
+          return ksmps();
+      }
   }
   uint32_t ksmps() const
   {

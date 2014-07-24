@@ -42,7 +42,7 @@
 
 #define SNDINBUFSIZ  4096   /* soundin bufsize;   must be > sizeof(SFHEADER), */
                             /*                 but small is kind to net rexec */
-
+#define MAXSNDNAME   1024
 /* standard audio encoding types */
 
 #define AE_CHAR         SF_FORMAT_PCM_S8
@@ -135,7 +135,7 @@ typedef struct {
         int64_t audrem, framesrem, getframes;   /* samples, frames, frames */
         MYFLT   fscalefac;
         MYFLT   skiptime;
-        char    sfname[512];
+        char    sfname[MAXSNDNAME];
         MYFLT   inbuf[SNDINBUFSIZ];
 } SOUNDIN;
 

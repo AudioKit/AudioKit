@@ -8,7 +8,6 @@
 
 #import "AKInstrumentProperty.h"
 #import "CsoundObj.h"
-#import "CsoundValueCacheable.h"
 
 @interface AKInstrumentProperty() <CsoundValueCacheable> {
     MYFLT *channelPtr;

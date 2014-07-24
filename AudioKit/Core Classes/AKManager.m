@@ -9,7 +9,7 @@
 #import "AKManager.h"
 #import "CsoundObj.h"
 
-@interface AKManager () <CsoundObjCompletionListener> {
+@interface AKManager () <CsoundObjListener> {
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
@@ -61,7 +61,7 @@ static AKManager *_sharedAKManager = nil;
     self = [super init];
     if (self != nil) {
         csound = [[CsoundObj alloc] init];
-        [csound addCompletionListener:self];
+        [csound addListener:self];
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         
         _isRunning = NO;
@@ -112,7 +112,7 @@ static AKManager *_sharedAKManager = nil;
     }
     NSString *file = [[NSBundle mainBundle] pathForResource:filename
                                                      ofType:@"csd"];  
-    [csound startCsound:file];
+    [csound play:file];
     NSLog(@"Starting %@ \n\n%@\n",filename, [AKManager stringFromFile:file]);
     while(!_isRunning) {
         //NSLog(@"Waiting for Csound to startup completely.");
@@ -142,7 +142,7 @@ static AKManager *_sharedAKManager = nil;
     NSLog(@"Updating Value Cache");
     [self updateValueCacheWithProperties:orchestra];
     
-    [csound startCsound:csdFile];
+    [csound play:csdFile];
     NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
 
     // Clean up the IDs for next time
@@ -211,7 +211,7 @@ static AKManager *_sharedAKManager = nil;
 - (void)stop 
 {
     NSLog(@"Stopping Csound");
-    [csound stopCsound];
+    [csound stop];
     while(_isRunning) {} // Do nothing
 }
 

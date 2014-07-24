@@ -46,6 +46,7 @@ struct windat_ {
     MYFLT   absmax;             /* workspace .. largest of above */
     MYFLT   oabsmax;            /* Y axis scaling factor */
     int     danflag;            /* set to 1 for extra Yaxis mid span */
+  int     absflag;             /* set to 1 to skip abs check */
 };
 
 enum {                  /* symbols for WINDAT.polarity field */

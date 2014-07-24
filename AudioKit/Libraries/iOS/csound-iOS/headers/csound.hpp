@@ -192,7 +192,7 @@ public:
   {
     return csoundEvalCode(csound, str);
   }
-  virtual int ReadScore(char *str)
+  virtual int ReadScore(const char *str)
   {
     return csoundReadScore(csound, str);
   }
@@ -259,6 +259,11 @@ public:
     argv[6] = (char*) 0;
     return csoundCompile(csound, 6, &(argv[0]));
   }
+  virtual int CompileCsd(char *csd)
+  {
+    return csoundCompileCsd(csound, csd);
+  }
+
   virtual int Start()
   {
     return csoundStart(csound);
@@ -828,11 +833,14 @@ public:
     csound = csoundCreate((CSOUND*) 0);
      #ifdef SWIGPYTHON
       pydata =(pycbdata *) new pycbdata;
-      memset(pydata, sizeof(pydata), 0);
+      memset(pydata, 0, sizeof(pydata));
     ((pycbdata *)pydata)->mfunc = NULL;
     ((pycbdata *)pydata)->messageBufferIndex = 0;
     csoundSetHostData(csound, this);
+    #else
+    pydata = NULL;
     #endif
+    
   }
   Csound(void *hostData)
   {
@@ -842,6 +850,8 @@ public:
     ((pycbdata *)pydata)->mfunc = NULL;
     ((pycbdata *)pydata)->messageBufferIndex = 0;
     csoundSetHostData(csound, this);
+    #else
+    pydata = NULL;
     #endif
   }
   // destructor
