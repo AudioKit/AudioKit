@@ -29,7 +29,9 @@
 #define CSOUNDCORE_H
 
 #include "sysdep.h"
+#ifndef EMSCRIPTEN
 #include <pthread.h>
+#endif
 #include "cs_par_structs.h"
 #include <stdarg.h>
 #include <setjmp.h>
@@ -93,7 +95,7 @@ typedef struct {
 #define CURTIME (((double)csound->icurTime)/((double)csound->esr))
 #define CURTIME_inc (((double)csound->ksmps)/((double)csound->esr))
 
-#ifdef USE_DOUBLE
+#ifdef  B64BIT
 #define MAXLEN     0x40000000
 #define FMAXLEN    ((MYFLT)(MAXLEN))
 #define PHMASK     0x3fffffff
@@ -195,7 +197,7 @@ typedef struct {
     int     RTevents, Midiin, FMidiin, RMidiin;
     int     ringbell, termifend;
     int     rewrt_hdr, heartbeat, gen01defer;
-    int     expr_opt;       /* IV - Jan 27 2005: for --expression-opt */
+    //    int     expr_opt;       /* IV - Jan 27 2005: for --expression-opt */
     float   sr_override, kr_override;
     int     nchnls_override, nchnls_i_override;
     char    *infilename, *outfilename;
@@ -214,6 +216,7 @@ typedef struct {
     int     realtime; /* realtime priority mode  */
     MYFLT   e0dbfs_override;
     int     daemon;
+    double  quality;        /* for ogg encoding */
   } OPARMS;
 
   typedef struct arglst {
@@ -426,6 +429,8 @@ typedef struct {
     /** String argument(s) (NULL if none) */
     int     scnt;
     char    *strarg;
+    /* instance pointer */
+    void  *pinstance;
     /** Event type */
     char    opcod;
     /** Number of p-fields */
@@ -515,6 +520,7 @@ typedef struct {
     int    tieflag;
     int    reinitflag;
     MYFLT  retval;
+    MYFLT  *lclbas;  /* base for variable memory pool */
     char   *strarg;       /* string argument */
     /* Copy of required p-field values for quick access */
     MYFLT   p0;
@@ -812,6 +818,11 @@ typedef struct {
   extern const uint32_t csMidiScoMask;
   extern const uint32_t csPlayScoMask;
 
+/* kperf function protoypes. Used by the debugger to switch between debug
+ * and nodebug kperf functions */
+  int kperf_nodebug(CSOUND *csound);
+  int kperf_debug(CSOUND *csound);
+
 #endif  /* __BUILDING_LIBCSOUND */
 
 #define MARGS   (3)
@@ -857,8 +868,9 @@ typedef struct NAME__ {
   typedef struct opcodinfo {
     int32    instno;
     char    *name, *intypes, *outtypes;
-    int16   inchns, outchns, perf_incnt, perf_outcnt;
-    int16   *in_ndx_list, *out_ndx_list;
+    int16   inchns, outchns;
+    CS_VAR_POOL* out_arg_pool;
+    CS_VAR_POOL* in_arg_pool;
     INSTRTXT *ip;
     struct opcodinfo *prv;
   } OPCODINFO;
@@ -904,19 +916,24 @@ typedef struct NAME__ {
     MYFLT (*GetSr)(CSOUND *);
     MYFLT (*GetKr)(CSOUND *);
     uint32_t (*GetKsmps)(CSOUND *);
+     /** Get number of output channels */
     uint32_t (*GetNchnls)(CSOUND *);
+    /** Get number of input channels */
     uint32_t (*GetNchnls_i)(CSOUND *);
     MYFLT (*Get0dBFS) (CSOUND *);
+    /** Get number of control blocks elapsed */
     long (*GetKcounter)(CSOUND *);
     int64_t (*GetCurrentTimeSamples)(CSOUND *);
     long (*GetInputBufferSize)(CSOUND *);
     long (*GetOutputBufferSize)(CSOUND *);
     MYFLT *(*GetInputBuffer)(CSOUND *);
     MYFLT *(*GetOutputBuffer)(CSOUND *);
+    /** Set internal debug mode */
     void (*SetDebug)(CSOUND *, int d);
     int (*GetDebug)(CSOUND *);
     int (*GetSizeOfMYFLT)(void);
     void (*GetOParms)(CSOUND *, OPARMS *);
+    /** Get environment variable */
     const char *(*GetEnv)(CSOUND *, const char *name);
     /**@}*/
     /** @name Message printout */
@@ -946,10 +963,15 @@ typedef struct NAME__ {
     int (*GetZakBounds)(CSOUND *, MYFLT **);
     int (*GetTieFlag)(CSOUND *);
     int (*GetReinitFlag)(CSOUND *);
+    /** Current maximum number of strings, accessible through the strset
+        and strget opcodes */
     int (*GetStrsmax)(CSOUND *);
     char *(*GetStrsets)(CSOUND *, long);
+    /* Fast power of two function from a precomputed table */
     MYFLT (*Pow2)(CSOUND *, MYFLT a);
+    /* Fast power function for positive integers */
     MYFLT (*intpow)(MYFLT, int32);
+    /* Returns a string name for the file type */
     char *(*type2string)(int type);
     /**@}*/
     /** @name Arguments to opcodes */
@@ -982,8 +1004,12 @@ typedef struct NAME__ {
     int (*hfgens)(CSOUND *, FUNC **, const EVTBLK *, int);
     int (*FTAlloc)(CSOUND *, int tableNum, int len);
     int (*FTDelete)(CSOUND *, int tableNum);
+    /** Find tables with power of two size. If table exists but is
+        not a power of 2, NULL is returned. */
     FUNC *(*FTFind)(CSOUND *, MYFLT *argp);
+    /** Find any table, except deferred load tables. */
     FUNC *(*FTFindP)(CSOUND *, MYFLT *argp);
+    /** Find any table. */
     FUNC *(*FTnp2Find)(CSOUND *, MYFLT *argp);
     int (*GetTable)(CSOUND *, MYFLT **tablePtr, int tableNum);
     int (*TableLength)(CSOUND *, int table);
@@ -1239,19 +1265,29 @@ typedef struct NAME__ {
     double (*strtod)(char*, char**);
     int (*sprintf)(char *str, const char *format, ...);
     int (*sscanf)(char *str, const char *format, ...);
-      /**@}*/
-    /** @name Placeholders */
-    /**@{ */
-    SUBR dummyfn_2[48];
+    MYFLT (*system_sr)(CSOUND *, MYFLT );
     /**@}*/
-    /*  NO MORE PUBLIC VARIABLES IN CSOUND struct
-
-      NB: if a new variable member is needed by the library, add it below, as a
-      private data member.
-
-      If access is required solely by plugins (and not by internally by the
-      library), use the CreateGlobalVariable() etc. interface, instead of adding
-      to CSOUND.
+    /** @name Score Event s*/
+    /**@{ */
+    MYFLT (*GetScoreOffsetSeconds)(CSOUND *);
+    void (*SetScoreOffsetSeconds)(CSOUND *, MYFLT offset);
+    void (*RewindScore)(CSOUND *);
+    void (*InputMessage)(CSOUND *, const char *message__);
+       /**@}*/
+    /** @name Placeholders
+        To allow the API to grow while maintining backward binary compatibility. */
+    /**@{ */
+    SUBR dummyfn_2[43];
+    /**@}*/
+#ifdef __BUILDING_LIBCSOUND
+    /* ------- private data (not to be used by hosts or externals) ------- */
+    /** @name Private Data
+      Private Data in the CSOUND struct to be used internally by the Csound
+      library and should be hidden from plugins.
+      If a new variable member is needed by the library, add it below, as a
+      private data member. If access is required solely by plugins (and not
+      internally by the library), use the CreateGlobalVariable() etc. interface,
+      instead of adding to CSOUND.
 
       If you find that a plugin needs to access existing private data,
       first check above for an existing interface; if none is available,
@@ -1260,17 +1296,19 @@ typedef struct NAME__ {
       below:
 
       1) To get the data member value:
+      \code
          returnType (*GetVar)(CSOUND *)
-
+      \endcode
       2) in case of pointers, data should be copied out to a supplied memory
          slot, rather than the pointer being obtained:
+      \code
          void (*GetData)(CSOUND *, dataType *)
 
          dataType var;
          csound->GetData(csound, &var);
+      \endcode
     */
-#ifdef __BUILDING_LIBCSOUND
-    /* ------- private data (not to be used by hosts or externals) ------- */
+    /**@{ */
     SUBR          first_callback_;
     channelCallback_t InputChannelCallback_;
     channelCallback_t OutputChannelCallback_;
@@ -1294,7 +1332,7 @@ typedef struct NAME__ {
     void          (*rtclose_callback)(CSOUND *);
     int           (*audio_dev_list_callback)(CSOUND *, CS_AUDIODEVICE *, int);
     int           (*midi_dev_list_callback)(CSOUND *, CS_MIDIDEVICE *, int);
-    int           (*dAKoundCallback)(CSOUND *, void *, unsigned int);
+    int           (*doCsoundCallback)(CSOUND *, void *, unsigned int);
     int           (*csoundInternalYieldCallback_)(CSOUND *);
     /* end of callbacks */
     void          (*spinrecv)(CSOUND *);
@@ -1478,9 +1516,9 @@ typedef struct NAME__ {
     } sreadStatics;
     struct onefileStatics__ {
       NAMELST *toremove;
-      char    orcname[L_tmpnam + 4];
-      char    sconame[L_tmpnam + 4];
-      char    midname[L_tmpnam + 4];
+      char    *orcname;
+      char    *sconame;
+      char    *midname;
       int     midiSet;
       int     csdlinecount;
     } onefileStatics;
@@ -1632,12 +1670,16 @@ typedef struct NAME__ {
     MYFLT         *cpsocfrc;    /* cps conv table */
     CORFIL*       expanded_orc; /* output of preprocessor */
     CORFIL*       expanded_sco; /* output of preprocessor */
-    char          *filedir[64]; /* for location directory */
+    char          *filedir[256];/* for location directory */
     void          *message_buffer;
     int           jumpset;
     int           info_message_request;
     int           modules_loaded;
-    struct CSOUND_ **self;
+    MYFLT         _system_sr;
+    void*         csdebug_data; /* debugger data */
+    int (*kperf)(CSOUND *); /* kperf function pointer, to switch between debug and nodebug function */
+    /*struct CSOUND_ **self;*/
+    /**@}*/
 #endif  /* __BUILDING_LIBCSOUND */
   };
 
@@ -1647,12 +1689,12 @@ typedef struct NAME__ {
  */
 
 #define LINKAGE_BUILTIN(name)                                         \
-long name##_init(CSOUND *csound, OENTRY **ep)           \
+long name##_init(CSOUND *csound, OENTRY **ep)                         \
 {   (void) csound; *ep = name; return (long) (sizeof(name));  }
 
-#define FLINKAGE_BUILTIN(name)                                                 \
-NGFENS* name##_init(CSOUND *csound)                         \
-{   (void) csound; return name;                                     }
+#define FLINKAGE_BUILTIN(name)                                        \
+NGFENS* name##_init(CSOUND *csound)                                   \
+{   (void) csound; return name; }
 
 #ifdef __cplusplus
 }

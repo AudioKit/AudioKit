@@ -1,4 +1,4 @@
-#/*
+/*
     text.h:
 
     Copyright (C) 1999 John ffitch
@@ -110,7 +110,8 @@
 extern "C" {
 #endif
 #include <libintl.h>
-char *csoundLocalizeString(const char *s);
+  char *csoundLocalizeString(const char *s)
+     __attribute__ ((format (printf, 1,0)));
   /* This could be gettext but this indirection helps debugging */
 #define Str(x) csoundLocalizeString(x)
   void init_getstring(void*);
@@ -129,7 +130,8 @@ extern "C" {
 
 #ifdef __BUILDING_LIBCSOUND
 
-char *csoundLocalizeString(const char *s);
+  char *csoundLocalizeString(const char *s)
+     __attribute__ ((format (printf, 1,0)));
 /* Deal with localisation of mesages */
 
 #define Str(x)  (x)

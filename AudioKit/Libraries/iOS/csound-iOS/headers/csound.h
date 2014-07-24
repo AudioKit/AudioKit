@@ -183,6 +183,7 @@
 #ifdef SWIG
 #define CS_PRINTF2
 #define CS_PRINTF3
+#include "float-version.h"
 #ifndef __MYFLT_DEF
 #define __MYFLT_DEF
 #ifndef USE_DOUBLE
@@ -482,7 +483,7 @@ extern "C" {
         int           rate;
         int           len;
         int           line;
-        int           locn;
+        uint64_t      locn;
         struct TREE   *left;
         struct TREE   *right;
         struct TREE   *next;
@@ -675,6 +676,24 @@ extern "C" {
      *  Calls csoundStart() internally.
      */
     PUBLIC int csoundCompile(CSOUND *, int argc, char **argv);
+
+    /**
+     * Compiles a Csound input file (.csd file)
+     * which includes command-line arguments,
+     * but does not perform the file. Returns a non-zero error code on failure.
+     * In this (host-driven) mode, the sequence of calls should be as follows:
+     * /code
+     *       csoundCompileCsd(csound, argc, argv);
+     *       while (!csoundPerformBuffer(csound));
+     *       csoundCleanup(csound);
+     *       csoundReset(csound);
+     * /endcode
+     * NB: this function can be called during performance to
+     * replace or add new instruments and events.
+     *
+     */
+
+    PUBLIC int csoundCompileCsd(CSOUND *csound, char *str);
 
     /**
      * Senses input events and performs audio output until the end of score
@@ -1016,7 +1035,7 @@ extern "C" {
       *       malloc(n*sizeof(CS_AUDIODEVICE));
       *   csoundGetAudioDevList(csound,devs,1);
       *   for(i=0; i < n; i++)
-      *       csound-Message(csound, " %d: %s (%s)\n",
+      *       csound->Message(csound, " %d: %s (%s)\n",
       *             i, devs[i].device_id, devs[i].device_name);
       *   free(devs);
       * \endcode
@@ -1166,7 +1185,7 @@ extern "C" {
      *  It can be called repeatedly, with the new score events
      *  being added to the currently scheduled ones.
      */
-    PUBLIC int csoundReadScore(CSOUND *csound, char *str);
+    PUBLIC int csoundReadScore(CSOUND *csound, const char *str);
 
     /**
      * Returns the current score time in seconds
@@ -2177,7 +2196,7 @@ extern "C" {
   * void *out - preallocated buffer with at least items number of elements, where
   *              buffer contents will be read into
   * int items - number of samples to be read
-  * returns the actual number of samples read (0 <= n <= items)
+  * returns the actual number of items read (0 <= n <= items)
   */
   PUBLIC int csoundReadCircularBuffer(CSOUND *csound, void *circular_buffer,
                                       void *out, int items);
@@ -2188,7 +2207,7 @@ extern "C" {
    * void *out - preallocated buffer with at least items number of elements, where
    *              buffer contents will be read into
    * int items - number of samples to be read
-   * returns the actual number of samples read (0 <= n <= items)
+   * returns the actual number of items read (0 <= n <= items)
    */
    PUBLIC int csoundPeekCircularBuffer(CSOUND *csound, void *circular_buffer,
                                        void *out, int items);

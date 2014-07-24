@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+/** AKSampler is a simple multi-track capable recorder and playback system.
+ */
 @interface AKSampler : NSObject
 
 @property (readonly) NSArray *trackNames;
