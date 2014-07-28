@@ -23,6 +23,9 @@
       location = "group:Examples/GlobalEffects/GlobalEffects.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Examples/Harmonizer/Harmonizer.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Examples/Sequences/Sequences.xcodeproj">
    </FileRef>
    <FileRef
