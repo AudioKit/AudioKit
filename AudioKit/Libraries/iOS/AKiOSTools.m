@@ -58,9 +58,9 @@
 }
 
 + (void)setProgressView:(UIProgressView *)progressView
-        withValue:(float)value
-          minimum:(float)minimum
-          maximum:(float)maximum
+              withValue:(float)value
+                minimum:(float)minimum
+                maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
     [progressView setProgress:percentage];
@@ -70,8 +70,8 @@
                       minimum:(float)minimum
                       maximum:(float)maximum
 {
-    float width = [slider maximumValue] - [slider minimumValue];
-    float percentage = ([slider value] - [slider minimumValue]) / width;
+    float width = slider.maximumValue - slider.minimumValue;
+    float percentage = (slider.value - slider.minimumValue) / width;
     return minimum + percentage * (maximum - minimum);
 }
 
@@ -79,7 +79,7 @@
                          minimum:(float)minimum
                          maximum:(float)maximum
 {
-    float width = [slider maximumValue] - [slider minimumValue];
+    float width = slider.maximumValue - slider.minimumValue;
     float percentage = (log(maximum) - log(minimum)) / width;
     
     return expf( log( minimum) + percentage * ( [slider value] - [slider minimumValue]) );
@@ -94,17 +94,13 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [self setSlider:slider
-              withValue:[(AKInstrumentProperty *)property value]
-                minimum:[(AKInstrumentProperty *)property minimum]
-                maximum:[(AKInstrumentProperty *)property maximum]];
+        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [self setSlider:slider
-              withValue:[(AKNoteProperty *)property value]
-                minimum:[(AKNoteProperty *)property minimum]
-                maximum:[(AKNoteProperty *)property maximum]];
+        AKNoteProperty *p =(AKNoteProperty *)property;
+        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     
 }
@@ -113,17 +109,13 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [self setProgressView:progressView
-                    withValue:[(AKInstrumentProperty *)property value]
-                      minimum:[(AKInstrumentProperty *)property minimum]
-                      maximum:[(AKInstrumentProperty *)property maximum]];
+        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        [self setProgressView:progressView withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [self setProgressView:progressView
-                    withValue:[(AKNoteProperty *)property value]
-                      minimum:[(AKNoteProperty *)property minimum]
-                      maximum:[(AKNoteProperty *)property maximum]];
+        AKNoteProperty *p =(AKNoteProperty *)property;
+        [self setProgressView:progressView withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     
 }
@@ -132,15 +124,13 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [(AKInstrumentProperty *)property setValue:[self scaleValueFromSlider:slider
-                                                                       minimum:[(AKInstrumentProperty *)property minimum]
-                                                                       maximum:[(AKInstrumentProperty *)property maximum]]];
+        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [(AKNoteProperty *)property setValue:[self scaleValueFromSlider:slider
-                                                                 minimum:[(AKNoteProperty *)property minimum]
-                                                                 maximum:[(AKNoteProperty *)property maximum]]];
+        AKNoteProperty *p =(AKNoteProperty *)property;
+        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
     }
 }
 
@@ -148,12 +138,11 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [textfield setText:[NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]]];
-        
+        textfield.text = [NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [textfield setText:[NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]]];
+        textfield.text = [NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]];
     }
 }
 
@@ -161,12 +150,12 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [label setText:[NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]]];
+        label.text = [NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]];
         
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [label setText:[NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]]];
+        label.text = [NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]];
     }
 }
 
@@ -183,7 +172,11 @@
                   fromMinimum:(float)minimum
                     toMaximum:(float)maximum
 {
-    return [self scaleValue:value fromMinimum:0 fromMaximum:127 toMinimum:minimum toMaximum:maximum];
+    return [self scaleValue:value
+                fromMinimum:0
+                fromMaximum:127
+                  toMinimum:minimum
+                  toMaximum:maximum];
 }
 
 
