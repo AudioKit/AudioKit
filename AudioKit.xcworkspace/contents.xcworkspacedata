@@ -31,4 +31,11 @@
    <FileRef
       location = "group:Examples/UsingUDOs/UsingUDOs.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "OS X Examples">
+      <FileRef
+         location = "group:Examples/OSX/Convolution/Convolution.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
