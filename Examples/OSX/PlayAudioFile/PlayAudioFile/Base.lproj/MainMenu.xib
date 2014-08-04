@@ -670,7 +670,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="195" height="105"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="195" height="105"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -683,11 +683,12 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="touchPlayButton:" target="Voe-Tx-rLC" id="ELy-hc-6eM"/>
+                            <action selector="touchPlayButton:" target="Bkg-DF-ctf" id="YZP-qp-Tru"/>
                         </connections>
                     </button>
                 </subviews>
             </view>
         </window>
+        <customObject id="Bkg-DF-ctf" customClass="AudioFileConductor"/>
     </objects>
 </document>
