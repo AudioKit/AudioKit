@@ -5,6 +5,8 @@
 //  Created by Aurelius Prochazka on 7/27/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
 
 #import "AKOSXTools.h"
 
@@ -145,6 +147,5 @@
     return [self scaleValue:value fromMinimum:0 fromMaximum:127 toMinimum:minimum toMaximum:maximum];
 }
 
-
-
 @end
+#endif
