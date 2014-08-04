@@ -163,6 +163,7 @@
 		C4E9DDA7198F719700F261DA /* blaster.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C4E9DDA3198F719700F261DA /* blaster.aiff */; };
 		C4E9DDA8198F719700F261DA /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DDA6198F719700F261DA /* AudioFilePlayer.m */; };
 		C4E9DDAA198F727C00F261DA /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E9DDA9198F727C00F261DA /* CsoundLib64.framework */; };
+		C4E9E01E1990461000F261DA /* AudioFileConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E01D1990461000F261DA /* AudioFileConductor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -474,6 +475,8 @@
 		C4E9DDA5198F719700F261DA /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
 		C4E9DDA6198F719700F261DA /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C4E9DDA9198F727C00F261DA /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
+		C4E9E01C1990461000F261DA /* AudioFileConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFileConductor.h; path = ../../../iOS/PlayAudioFile/PlayAudioFile/AudioFileConductor.h; sourceTree = "<group>"; };
+		C4E9E01D1990461000F261DA /* AudioFileConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFileConductor.m; path = ../../../iOS/PlayAudioFile/PlayAudioFile/AudioFileConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -539,6 +542,8 @@
 		C4E9DB65198F70F500F261DA /* PlayAudioFile */ = {
 			isa = PBXGroup;
 			children = (
+				C4E9E01C1990461000F261DA /* AudioFileConductor.h */,
+				C4E9E01D1990461000F261DA /* AudioFileConductor.m */,
 				C4E9DDA2198F719700F261DA /* Audio Files */,
 				C4E9DDA4198F719700F261DA /* Instruments */,
 				C4E9DB71198F70F500F261DA /* AppDelegate.h */,
@@ -1379,6 +1384,7 @@
 				C4E9DD5C198F714C00F261DA /* AKBamboo.m in Sources */,
 				C4E9DD0E198F714C00F261DA /* AKEvent.m in Sources */,
 				C4E9DD0F198F714C00F261DA /* AKInstrument.m in Sources */,
+				C4E9E01E1990461000F261DA /* AudioFileConductor.m in Sources */,
 				C4E9DD63198F714C00F261DA /* AKSleighbells.m in Sources */,
 				C4E9DD41198F714C00F261DA /* AKScaledFSignal.m in Sources */,
 				C4E9DB6C198F70F500F261DA /* main.m in Sources */,
@@ -1604,6 +1610,7 @@
 				C4E9DB8F198F70F500F261DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
