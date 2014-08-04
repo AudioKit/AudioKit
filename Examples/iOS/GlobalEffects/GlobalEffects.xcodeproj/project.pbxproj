@@ -167,6 +167,7 @@
 		C4E9C923198F5F4F00F261DA /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9C88A198F5F4F00F261DA /* AKStereoAudio.m */; };
 		C4E9C924198F5F4F00F261DA /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9C88D198F5F4F00F261DA /* AKInstrumentProperty.m */; };
 		C4E9C925198F5F4F00F261DA /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9C88F198F5F4F00F261DA /* AKNoteProperty.m */; };
+		C4E9DFD519903F4500F261DA /* GlobalEffectsConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DFD419903F4500F261DA /* GlobalEffectsConductor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -510,6 +511,8 @@
 		C4E9C88D198F5F4F00F261DA /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4E9C88E198F5F4F00F261DA /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4E9C88F198F5F4F00F261DA /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
+		C4E9DFD319903F4500F261DA /* GlobalEffectsConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalEffectsConductor.h; sourceTree = "<group>"; };
+		C4E9DFD419903F4500F261DA /* GlobalEffectsConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEffectsConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +563,8 @@
 		C4398EEA196290620076F005 /* GlobalEffects */ = {
 			isa = PBXGroup;
 			children = (
+				C4E9DFD319903F4500F261DA /* GlobalEffectsConductor.h */,
+				C4E9DFD419903F4500F261DA /* GlobalEffectsConductor.m */,
 				C4399133196293A50076F005 /* Instruments */,
 				C43991321962926C0076F005 /* StoryBoards */,
 				C4398EFC196290620076F005 /* ViewController.h */,
@@ -1390,6 +1395,7 @@
 				C4E9C8EF198F5F4F00F261DA /* AKRandomAudio.m in Sources */,
 				C4E9C8DB198F5F4F00F261DA /* AKVibes.m in Sources */,
 				C4E9C8AF198F5F4F00F261DA /* AKTrackedAmplitudeFromFSignal.m in Sources */,
+				C4E9DFD519903F4500F261DA /* GlobalEffectsConductor.m in Sources */,
 				C4E9C925198F5F4F00F261DA /* AKNoteProperty.m in Sources */,
 				C4E9C902198F5F4F00F261DA /* AKFlanger.m in Sources */,
 				C4E9C8B6198F5F4F00F261DA /* AKMinAudio.m in Sources */,

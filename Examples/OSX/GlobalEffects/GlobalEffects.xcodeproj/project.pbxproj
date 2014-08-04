@@ -163,6 +163,7 @@
 		C4E9DFCB198F746100F261DA /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E9DFC6198F746100F261DA /* AudioUnit.framework */; };
 		C4E9DFD1198F747100F261DA /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DFCD198F747100F261DA /* EffectsProcessor.m */; };
 		C4E9DFD2198F747100F261DA /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DFCF198F747100F261DA /* ToneGenerator.m */; };
+		C4E9E0181990431F00F261DA /* GlobalEffectsConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E0171990431F00F261DA /* GlobalEffectsConductor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -475,6 +476,8 @@
 		C4E9DFCD198F747100F261DA /* EffectsProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsProcessor.m; sourceTree = "<group>"; };
 		C4E9DFCE198F747100F261DA /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
 		C4E9DFCF198F747100F261DA /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
+		C4E9E0161990431F00F261DA /* GlobalEffectsConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalEffectsConductor.h; path = ../../../iOS/GlobalEffects/GlobalEffects/GlobalEffectsConductor.h; sourceTree = "<group>"; };
+		C4E9E0171990431F00F261DA /* GlobalEffectsConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalEffectsConductor.m; path = ../../../iOS/GlobalEffects/GlobalEffects/GlobalEffectsConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,6 +543,8 @@
 		C4E9DDBD198F744500F261DA /* GlobalEffects */ = {
 			isa = PBXGroup;
 			children = (
+				C4E9E0161990431F00F261DA /* GlobalEffectsConductor.h */,
+				C4E9E0171990431F00F261DA /* GlobalEffectsConductor.m */,
 				C4E9DFD0198F747100F261DA /* Instruments */,
 				C4E9DDC9198F744500F261DA /* AppDelegate.h */,
 				C4E9DDCA198F744500F261DA /* AppDelegate.m */,
@@ -1413,6 +1418,7 @@
 				C4E9DF7C198F745500F261DA /* AKBamboo.m in Sources */,
 				C4E9DF89198F745500F261DA /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				C4E9DF7E198F745500F261DA /* AKCrunch.m in Sources */,
+				C4E9E0181990431F00F261DA /* GlobalEffectsConductor.m in Sources */,
 				C4E9DFAD198F745500F261DA /* AKBandPassButterworthFilter.m in Sources */,
 				C4E9DF8A198F745500F261DA /* AKJitter.m in Sources */,
 				C4E9DF45198F745500F261DA /* AKWindowsTable.m in Sources */,

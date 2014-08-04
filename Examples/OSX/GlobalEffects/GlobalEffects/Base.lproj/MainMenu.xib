@@ -683,7 +683,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="play:" target="Voe-Tx-rLC" id="CFW-wY-cH0"/>
+                            <action selector="play:" target="D1c-qc-o7b" id="VOC-gX-jMi"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8H-Jx-6i3">
@@ -694,7 +694,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="startFX:" target="Voe-Tx-rLC" id="5JM-js-YxG"/>
+                            <action selector="startFX:" target="D1c-qc-o7b" id="4HB-Cx-QgZ"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TTT-jU-eGa">
@@ -705,11 +705,12 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="stopFX:" target="Voe-Tx-rLC" id="kk9-z4-WLo"/>
+                            <action selector="stopFX:" target="D1c-qc-o7b" id="DYP-fC-wkt"/>
                         </connections>
                     </button>
                 </subviews>
             </view>
         </window>
+        <customObject id="D1c-qc-o7b" customClass="GlobalEffectsConductor"/>
     </objects>
 </document>
