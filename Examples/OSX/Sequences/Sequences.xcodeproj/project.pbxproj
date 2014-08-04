@@ -148,7 +148,7 @@
 		C4BA00C1198F006400BE4F61 /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA002F198F006400BE4F61 /* AKStereoAudio.m */; };
 		C4BA00C2198F006400BE4F61 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA0032198F006400BE4F61 /* AKInstrumentProperty.m */; };
 		C4BA00C3198F006400BE4F61 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA0034198F006400BE4F61 /* AKNoteProperty.m */; };
-		C4BA00C7198F007E00BE4F61 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA00C5198F007E00BE4F61 /* SeqInstrument.m */; };
+		C4BA1717198F149700BE4F61 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA1715198F149700BE4F61 /* SeqInstrument.m */; };
 		C4BAFEB2198F001500BE4F61 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BAFEB1198F001500BE4F61 /* Cocoa.framework */; };
 		C4BAFEBC198F001500BE4F61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4BAFEBA198F001500BE4F61 /* InfoPlist.strings */; };
 		C4BAFEBE198F001500BE4F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BAFEBD198F001500BE4F61 /* main.m */; };
@@ -208,8 +208,8 @@
 		C4BA0032198F006400BE4F61 /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4BA0033198F006400BE4F61 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4BA0034198F006400BE4F61 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
-		C4BA00C4198F007E00BE4F61 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqInstrument.h; sourceTree = "<group>"; };
-		C4BA00C5198F007E00BE4F61 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C4BA1714198F149700BE4F61 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqInstrument.h; sourceTree = "<group>"; };
+		C4BA1715198F149700BE4F61 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
 		C4BAFEAE198F001500BE4F61 /* Sequences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sequences.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BAFEB1198F001500BE4F61 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C4BAFEB4198F001500BE4F61 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -655,14 +655,14 @@
 			path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../AudioKit;
 			sourceTree = "<absolute>";
 		};
-		C4BA00C6198F007E00BE4F61 /* Instruments */ = {
+		C4BA1716198F149700BE4F61 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C4BA00C4198F007E00BE4F61 /* SeqInstrument.h */,
-				C4BA00C5198F007E00BE4F61 /* SeqInstrument.m */,
+				C4BA1714198F149700BE4F61 /* SeqInstrument.h */,
+				C4BA1715198F149700BE4F61 /* SeqInstrument.m */,
 			);
 			name = Instruments;
-			path = ../../../Sequences/Sequences/Instruments;
+			path = ../../../iOS/Sequences/Sequences/Instruments;
 			sourceTree = "<group>";
 		};
 		C4BAFEA5198F001500BE4F61 = {
@@ -711,7 +711,7 @@
 		C4BAFEB7198F001500BE4F61 /* Sequences */ = {
 			isa = PBXGroup;
 			children = (
-				C4BA00C6198F007E00BE4F61 /* Instruments */,
+				C4BA1716198F149700BE4F61 /* Instruments */,
 				C4BAFEC3198F001500BE4F61 /* AppDelegate.h */,
 				C4BAFEC4198F001500BE4F61 /* AppDelegate.m */,
 				C4BAFEC6198F001500BE4F61 /* MainMenu.xib */,
@@ -1289,7 +1289,7 @@
 				C4BA0099198F006400BE4F61 /* AKLoopingStereoOscillator.m in Sources */,
 				C4BA0092198F006400BE4F61 /* AKAdditiveCosines.m in Sources */,
 				C4BA008E198F006400BE4F61 /* AKRandomControlStream.m in Sources */,
-				C4BA00C7198F007E00BE4F61 /* SeqInstrument.m in Sources */,
+				C4BA1717198F149700BE4F61 /* SeqInstrument.m in Sources */,
 				C4BA004D198F006400BE4F61 /* AKTrackedAmplitude.m in Sources */,
 				C4BA0040198F006400BE4F61 /* AKArrayTable.m in Sources */,
 				C4BA0046198F006400BE4F61 /* AKSineTable.m in Sources */,
