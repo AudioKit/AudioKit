@@ -154,16 +154,16 @@
 		C4780DD91986143C000FD79F /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780D441986143B000FD79F /* AKStereoAudio.m */; };
 		C4780DDA1986143C000FD79F /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780D471986143B000FD79F /* AKInstrumentProperty.m */; };
 		C4780DDB1986143C000FD79F /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780D491986143B000FD79F /* AKNoteProperty.m */; };
-		C4780DDF19861556000FD79F /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780DDE19861556000FD79F /* ConvolutionInstrument.m */; };
 		C4780DE219861609000FD79F /* AKOSXTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780DE119861609000FD79F /* AKOSXTools.m */; };
 		C4780DE5198619A7000FD79F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4780DE3198619A7000FD79F /* AudioToolbox.framework */; };
 		C4780DE6198619A7000FD79F /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4780DE4198619A7000FD79F /* AudioUnit.framework */; };
 		C4780DE8198619B0000FD79F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4780DE7198619B0000FD79F /* AVFoundation.framework */; };
 		C4780DEA198619B5000FD79F /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4780DE9198619B5000FD79F /* CoreMIDI.framework */; };
 		C4780DEC19861A03000FD79F /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4780DEB19861A03000FD79F /* CsoundLib64.framework */; };
-		C4780DF119862034000FD79F /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4780DEE19862033000FD79F /* 808loop.wav */; };
-		C4780DF219862034000FD79F /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4780DEF19862034000FD79F /* dish.wav */; };
-		C4780DF319862034000FD79F /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4780DF019862034000FD79F /* Stairwell.wav */; };
+		C4BA170C198F148300BE4F61 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA170A198F148300BE4F61 /* ConvolutionInstrument.m */; };
+		C4BA1711198F148A00BE4F61 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BA170D198F148A00BE4F61 /* 808loop.wav */; };
+		C4BA1712198F148A00BE4F61 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BA170E198F148A00BE4F61 /* dish.wav */; };
+		C4BA1713198F148A00BE4F61 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BA170F198F148A00BE4F61 /* Stairwell.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -463,8 +463,6 @@
 		C4780D471986143B000FD79F /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4780D481986143B000FD79F /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4780D491986143B000FD79F /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
-		C4780DDD19861556000FD79F /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvolutionInstrument.h; sourceTree = "<group>"; };
-		C4780DDE19861556000FD79F /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C4780DE019861609000FD79F /* AKOSXTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOSXTools.h; sourceTree = "<group>"; };
 		C4780DE119861609000FD79F /* AKOSXTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOSXTools.m; sourceTree = "<group>"; };
 		C4780DE3198619A7000FD79F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -472,9 +470,11 @@
 		C4780DE7198619B0000FD79F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4780DE9198619B5000FD79F /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C4780DEB19861A03000FD79F /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
-		C4780DEE19862033000FD79F /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
-		C4780DEF19862034000FD79F /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
-		C4780DF019862034000FD79F /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
+		C4BA1709198F148300BE4F61 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvolutionInstrument.h; sourceTree = "<group>"; };
+		C4BA170A198F148300BE4F61 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionInstrument.m; sourceTree = "<group>"; };
+		C4BA170D198F148A00BE4F61 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
+		C4BA170E198F148A00BE4F61 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
+		C4BA170F198F148A00BE4F61 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,8 +540,8 @@
 		C4780BAE198613DE000FD79F /* Convolution */ = {
 			isa = PBXGroup;
 			children = (
-				C4780DED19862033000FD79F /* Audio Files */,
-				C4780DDC19861556000FD79F /* Instruments */,
+				C4BA1710198F148A00BE4F61 /* Audio Files */,
+				C4BA170B198F148300BE4F61 /* Instruments */,
 				C4780BBA198613DE000FD79F /* AppDelegate.h */,
 				C4780BBB198613DE000FD79F /* AppDelegate.m */,
 				C4780BBD198613DE000FD79F /* MainMenu.xib */,
@@ -1206,25 +1206,25 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
-		C4780DDC19861556000FD79F /* Instruments */ = {
+		C4BA170B198F148300BE4F61 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C4780DDD19861556000FD79F /* ConvolutionInstrument.h */,
-				C4780DDE19861556000FD79F /* ConvolutionInstrument.m */,
+				C4BA1709198F148300BE4F61 /* ConvolutionInstrument.h */,
+				C4BA170A198F148300BE4F61 /* ConvolutionInstrument.m */,
 			);
 			name = Instruments;
-			path = ../../../Convolution/Convolution/Instruments;
+			path = ../../../iOS/Convolution/Convolution/Instruments;
 			sourceTree = "<group>";
 		};
-		C4780DED19862033000FD79F /* Audio Files */ = {
+		C4BA1710198F148A00BE4F61 /* Audio Files */ = {
 			isa = PBXGroup;
 			children = (
-				C4780DEE19862033000FD79F /* 808loop.wav */,
-				C4780DEF19862034000FD79F /* dish.wav */,
-				C4780DF019862034000FD79F /* Stairwell.wav */,
+				C4BA170D198F148A00BE4F61 /* 808loop.wav */,
+				C4BA170E198F148A00BE4F61 /* dish.wav */,
+				C4BA170F198F148A00BE4F61 /* Stairwell.wav */,
 			);
 			name = "Audio Files";
-			path = "../../../Convolution/Convolution/Audio Files";
+			path = "../../../iOS/Convolution/Convolution/Audio Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1280,13 +1280,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4780DCC1986143C000FD79F /* declick.udo in Resources */,
-				C4780DF119862034000FD79F /* 808loop.wav in Resources */,
-				C4780DF319862034000FD79F /* Stairwell.wav in Resources */,
+				C4BA1711198F148A00BE4F61 /* 808loop.wav in Resources */,
+				C4BA1713198F148A00BE4F61 /* Stairwell.wav in Resources */,
 				C4780D951986143C000FD79F /* marmstk1.wav in Resources */,
 				C4780BB3198613DE000FD79F /* InfoPlist.strings in Resources */,
 				C4780BC1198613DE000FD79F /* Images.xcassets in Resources */,
 				C4780BB9198613DE000FD79F /* Credits.rtf in Resources */,
-				C4780DF219862034000FD79F /* dish.wav in Resources */,
+				C4BA1712198F148A00BE4F61 /* dish.wav in Resources */,
 				C4780D931986143C000FD79F /* mandpluk.aif in Resources */,
 				C4780BBF198613DE000FD79F /* MainMenu.xib in Resources */,
 			);
@@ -1307,6 +1307,7 @@
 				C4780D721986143C000FD79F /* AKTableValue.m in Sources */,
 				C4780D4E1986143B000FD79F /* AKNote.m in Sources */,
 				C4780DB41986143C000FD79F /* AKDelay.m in Sources */,
+				C4BA170C198F148300BE4F61 /* ConvolutionInstrument.m in Sources */,
 				C4780D651986143C000FD79F /* AKTrackedAmplitude.m in Sources */,
 				C4780DD91986143C000FD79F /* AKStereoAudio.m in Sources */,
 				C4780D4D1986143B000FD79F /* AKMidi.m in Sources */,
@@ -1384,7 +1385,6 @@
 				C4780D571986143B000FD79F /* AKLineSegmentTable.m in Sources */,
 				C4780D731986143C000FD79F /* AKTableValueConstant.m in Sources */,
 				C4780D8A1986143C000FD79F /* AKVCOscillator.m in Sources */,
-				C4780DDF19861556000FD79F /* ConvolutionInstrument.m in Sources */,
 				C4780D981986143C000FD79F /* AKCrunch.m in Sources */,
 				C4780DB21986143C000FD79F /* AKConvolution.m in Sources */,
 				C4780DAE1986143C000FD79F /* AKFTablelooper.m in Sources */,

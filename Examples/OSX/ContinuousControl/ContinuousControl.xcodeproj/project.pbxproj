@@ -160,7 +160,7 @@
 		C4BA02E4198F08F600BE4F61 /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA0252198F08F400BE4F61 /* AKStereoAudio.m */; };
 		C4BA02E5198F08F600BE4F61 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA0255198F08F400BE4F61 /* AKInstrumentProperty.m */; };
 		C4BA02E6198F08F600BE4F61 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA0257198F08F400BE4F61 /* AKNoteProperty.m */; };
-		C4BA02EA198F0A6200BE4F61 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA02E8198F0A6200BE4F61 /* TweakableInstrument.m */; };
+		C4BA171B198F14A400BE4F61 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA1719198F14A400BE4F61 /* TweakableInstrument.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -467,8 +467,8 @@
 		C4BA0255198F08F400BE4F61 /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4BA0256198F08F400BE4F61 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4BA0257198F08F400BE4F61 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
-		C4BA02E7198F0A6200BE4F61 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
-		C4BA02E8198F0A6200BE4F61 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
+		C4BA1718198F14A400BE4F61 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
+		C4BA1719198F14A400BE4F61 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,7 +534,7 @@
 		C4BA00DA198F08C900BE4F61 /* ContinuousControl */ = {
 			isa = PBXGroup;
 			children = (
-				C4BA02E9198F0A6200BE4F61 /* Instruments */,
+				C4BA171A198F14A400BE4F61 /* Instruments */,
 				C4BA00E6198F08C900BE4F61 /* AppDelegate.h */,
 				C4BA00E7198F08C900BE4F61 /* AppDelegate.m */,
 				C4BA00E9198F08C900BE4F61 /* MainMenu.xib */,
@@ -1199,14 +1199,14 @@
 			path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../AudioKit;
 			sourceTree = "<absolute>";
 		};
-		C4BA02E9198F0A6200BE4F61 /* Instruments */ = {
+		C4BA171A198F14A400BE4F61 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C4BA02E7198F0A6200BE4F61 /* TweakableInstrument.h */,
-				C4BA02E8198F0A6200BE4F61 /* TweakableInstrument.m */,
+				C4BA1718198F14A400BE4F61 /* TweakableInstrument.h */,
+				C4BA1719198F14A400BE4F61 /* TweakableInstrument.m */,
 			);
 			name = Instruments;
-			path = ../../../ContinuousControl/ContinuousControl/Instruments;
+			path = ../../../iOS/ContinuousControl/ContinuousControl/Instruments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1331,7 +1331,7 @@
 				C4BA02C6198F08F600BE4F61 /* AKCombFilter.m in Sources */,
 				C4BA0281198F08F600BE4F61 /* AKCrossSynthesis.m in Sources */,
 				C4BA028E198F08F600BE4F61 /* AKLinearControlEnvelope.m in Sources */,
-				C4BA02EA198F0A6200BE4F61 /* TweakableInstrument.m in Sources */,
+				C4BA171B198F14A400BE4F61 /* TweakableInstrument.m in Sources */,
 				C4BA0276198F08F600BE4F61 /* AKMaxControl.m in Sources */,
 				C4BA02E5198F08F600BE4F61 /* AKInstrumentProperty.m in Sources */,
 				C4BA02AC198F08F600BE4F61 /* AKBowedString.m in Sources */,
@@ -1585,6 +1585,7 @@
 				C4BA0104198F08C900BE4F61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
