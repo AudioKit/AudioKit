@@ -2,8 +2,8 @@
 //  AKFoundation.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 7/10/14.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 8/3/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #ifndef AKFoundation_h
@@ -45,8 +45,9 @@
 
 // Operations - Analysis
 #import "AKTrackedAmplitude.h"
+#import "AKTrackedAmplitudeFromFSignal.h"
 #import "AKTrackedFrequency.h"
-#import "AKTrackedFrequencySchouten.h"
+#import "AKTrackedFrequencyFromFSignal.h"
 
 // Operations - Mathematical Operations
 #import "AKAssignment.h"
@@ -143,10 +144,10 @@
 #import "AKSimpleWaveGuideModel.h"
 
 // Operations - Signal Generators - Random Generators
+#import "AKInterpolatedRandomNumberPulse.h"
 #import "AKJitter.h"
 #import "AKRandomAudio.h"
 #import "AKRandomControl.h"
-#import "AKRandomControlStream.h"
 
 // Operations - Signal Generators - Segment Arrays
 #import "AKAudioSegmentArray.h"
@@ -210,15 +211,12 @@
 
 // Operations - Signal Modifiers - Reverbs
 #import "AKBallWithinTheBoxReverb.h"
-#import "AKNReverb.h"
+#import "AKFlatFrequencyResponseReverb.h"
+#import "AKParallelCombLowPassFilterReverb.h"
 #import "AKReverb.h"
-#import "AKReverbAllpass.h"
 
 // Operations - Signal Modifiers - Volume and Spatialization
 #import "AKBalance.h"
 #import "AKPanner.h"
-
-// Operations - UDOs
-
 
 #endif
