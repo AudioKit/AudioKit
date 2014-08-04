@@ -37,5 +37,8 @@
       <FileRef
          location = "group:Examples/OSX/Convolution/Convolution.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:Examples/OSX/Sequences/Sequences.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>
