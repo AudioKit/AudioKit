@@ -12,7 +12,6 @@
 
 @interface ViewController () {
     AudioFilePlayer *audioFilePlayer;
-    AKOrchestra *orchestra;
 }
 @end
 
@@ -22,7 +21,7 @@
 {
     [super viewDidLoad];
     // Create the orchestra and instruments
-    orchestra = [[AKOrchestra alloc] init];
+    AKOrchestra *orchestra = [[AKOrchestra alloc] init];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     
     // Add instruments to orchestra
@@ -36,12 +35,6 @@
     AudioFilePlayerNote *note = [[AudioFilePlayerNote alloc] init];
     [note.speed randomize];
     [audioFilePlayer playNote:note];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
