@@ -8,47 +8,12 @@
 
 #import "ViewController.h"
 
-#import "AKFoundation.h"
-#import "AKiOSTools.h"
-#import "ToneGenerator.h"
-#import "EffectsProcessor.h"
-
-@interface ViewController () {
-    ToneGenerator *toneGenerator;
-    EffectsProcessor *fx;
-}
-
-@end
 
 @implementation ViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    AKOrchestra *orch = [[AKOrchestra alloc] init];
-    toneGenerator = [[ToneGenerator alloc] init];
-    fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
-    
-    [orch addInstrument:toneGenerator];
-    [orch addInstrument:fx];
-    
-    [[AKManager sharedAKManager] runOrchestra:orch];
 }
-
-
-- (IBAction)play:(id)sender {
-    [toneGenerator.frequency randomize];
-    [toneGenerator playForDuration:0.1];
-}
-
-- (IBAction)startFX:(id)sender {
-    [fx play];
-}
-
-- (IBAction)stopFX:(id)sender {
-    [fx stop];
-}
-
 
 @end
