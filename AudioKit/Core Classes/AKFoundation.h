@@ -84,7 +84,7 @@
 // Operations - Signal Generators
 
 // Operations - Signal Generators - Granular Synthesis
-#import "AKGrain.h"
+#import "AKGranularSynthesisTexture.h"
 #import "AKSinusoidBursts.h"
 
 // Operations - Signal Generators - Linear ADSR Envelopes

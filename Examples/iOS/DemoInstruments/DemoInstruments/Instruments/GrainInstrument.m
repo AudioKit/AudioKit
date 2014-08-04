@@ -69,28 +69,28 @@
                                                           duration:akp(9.0)];
         [self connect:grainDurationLine];
         
-        AKGrain *grainL;
-        grainL = [[AKGrain alloc] initWithGrainFunction:fileTable
-                                         windowFunction:hamming
-                                       maxGrainDuration:akp(5)
-                                              amplitude:amplitudeExp
-                                         grainFrequency:pitchLine
-                                           grainDensity:grainDensityLine
-                                          grainDuration:grainDurationLine
-                                  maxAmplitudeDeviation:ampOffsetLine
-                                      maxPitchDeviation:pitchOffsetLine];
+        AKGranularSynthesisTexture *grainL;
+        grainL = [[AKGranularSynthesisTexture alloc] initWithGrainFTable:fileTable
+                                                            windowFTable:hamming
+                                                    maximumGrainDuration:akp(5)
+                                                    averageGrainDuration:grainDurationLine
+                                               maximumFrequencyDeviation:pitchOffsetLine
+                                                          grainFrequency:pitchLine
+                                               maximumAmplitudeDeviation:ampOffsetLine
+                                                          grainAmplitude:amplitudeExp
+                                                            grainDensity:grainDensityLine];
         [self connect:grainL];
         
-        AKGrain *grainR;
-        grainR = [[AKGrain alloc] initWithGrainFunction:fileTable
-                                         windowFunction:hamming
-                                       maxGrainDuration:akp(6)
-                                              amplitude:amplitudeExp
-                                         grainFrequency:pitchLine
-                                           grainDensity:grainDensityLine
-                                          grainDuration:grainDurationLine
-                                  maxAmplitudeDeviation:ampOffsetLine
-                                      maxPitchDeviation:pitchOffsetLine];
+        AKGranularSynthesisTexture *grainR;
+        grainR = [[AKGranularSynthesisTexture alloc] initWithGrainFTable:fileTable
+                                                            windowFTable:hamming
+                                                    maximumGrainDuration:akp(6)
+                                                    averageGrainDuration:grainDurationLine
+                                               maximumFrequencyDeviation:pitchOffsetLine
+                                                          grainFrequency:pitchLine
+                                               maximumAmplitudeDeviation:ampOffsetLine
+                                                          grainAmplitude:amplitudeExp
+                                                            grainDensity:grainDensityLine];
         [self connect:grainR];
         
         // AUDIO OUTPUT ========================================================
