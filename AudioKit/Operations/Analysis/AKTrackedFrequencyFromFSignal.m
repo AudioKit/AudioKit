@@ -1,21 +1,21 @@
 //
-//  AKTrackedPitchSchouten.m
+//  AKTrackedFrequencyFromFSignal.m
 //  AudioKit
 //
-//  Created by Adam Boulanger on 9/18/13.
-//  Copyright (c) 2013 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 8/3/14.
+//  Copyright (c) 2014 h4y. All rights reserved.
 //
 
-#import "AKTrackedFrequencySchouten.h"
+#import "AKTrackedFrequencyFromFSignal.h"
 
-@interface AKTrackedFrequencySchouten ()
+@interface AKTrackedFrequencyFromFSignal ()
 {
     AKFSignal *asig;
     AKControl *iampThresh;
 }
 @end
 
-@implementation AKTrackedFrequencySchouten
+@implementation AKTrackedFrequencyFromFSignal
 
 - (instancetype)initWithFSignalSource:(AKFSignal *)fSignalSource
                    amplitudeThreshold:(AKControl *)amplitudeThreshold
@@ -30,7 +30,9 @@
 
 - (NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:@"%@, kUnused pvspitch %@, %@", self, asig, iampThresh];
+    return [NSString stringWithFormat:
+            @"%@, kUnused pvspitch %@, %@",
+            self, asig, iampThresh];
 }
 
 @end
