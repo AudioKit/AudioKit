@@ -5,6 +5,8 @@
 //  Created by Aurelius Prochazka on 7/27/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
 
 #import <Foundation/Foundation.h>
 
@@ -67,3 +69,4 @@
                     toMaximum:(float)maximum;
 
 @end
+#endif
