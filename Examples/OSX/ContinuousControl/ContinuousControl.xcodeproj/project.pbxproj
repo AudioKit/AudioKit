@@ -162,6 +162,7 @@
 		C4E9D746198F5F7F00F261DA /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9D6AF198F5F7F00F261DA /* AKStereoAudio.m */; };
 		C4E9D747198F5F7F00F261DA /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9D6B2198F5F7F00F261DA /* AKInstrumentProperty.m */; };
 		C4E9D748198F5F7F00F261DA /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9D6B4198F5F7F00F261DA /* AKNoteProperty.m */; };
+		C4E9E024199051E300F261DA /* ContinuousControlConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E023199051E300F261DA /* ContinuousControlConductor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -472,6 +473,8 @@
 		C4E9D6B2198F5F7F00F261DA /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4E9D6B3198F5F7F00F261DA /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4E9D6B4198F5F7F00F261DA /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
+		C4E9E022199051E300F261DA /* ContinuousControlConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContinuousControlConductor.h; path = ../../../iOS/ContinuousControl/ContinuousControl/ContinuousControlConductor.h; sourceTree = "<group>"; };
+		C4E9E023199051E300F261DA /* ContinuousControlConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContinuousControlConductor.m; path = ../../../iOS/ContinuousControl/ContinuousControl/ContinuousControlConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -537,6 +540,8 @@
 		C4BA00DA198F08C900BE4F61 /* ContinuousControl */ = {
 			isa = PBXGroup;
 			children = (
+				C4E9E022199051E300F261DA /* ContinuousControlConductor.h */,
+				C4E9E023199051E300F261DA /* ContinuousControlConductor.m */,
 				C4BA171A198F14A400BE4F61 /* Instruments */,
 				C4BA00E6198F08C900BE4F61 /* AppDelegate.h */,
 				C4BA00E7198F08C900BE4F61 /* AppDelegate.m */,
@@ -1331,6 +1336,7 @@
 				C4E9D71B198F5F7F00F261DA /* AKFTablelooper.m in Sources */,
 				C4E9D729198F5F7F00F261DA /* AKDCBlock.m in Sources */,
 				C4BA00E8198F08C900BE4F61 /* AppDelegate.m in Sources */,
+				C4E9E024199051E300F261DA /* ContinuousControlConductor.m in Sources */,
 				C4E9D6F3198F5F7F00F261DA /* AKFMOscillator.m in Sources */,
 				C4E9D73D198F5F7F00F261DA /* AKReverb.m in Sources */,
 				C4E9D6D0198F5F7F00F261DA /* AKParameter+Operation.m in Sources */,

@@ -7,10 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "AKFoundation.h"
-#import "AKiOSTools.h"
-#import "TweakableInstrument.h"
 
+#import "AKiOSTools.h"
+#import "ContinuousControlConductor.h"
 
 @interface ViewController ()
 {
@@ -20,10 +19,8 @@
     IBOutlet UILabel *amplitudeLabel;
     IBOutlet UILabel *modulationLabel;
     IBOutlet UILabel *modIndexLabel;
-
-    TweakableInstrument *myTweakableInstrument;
-    NSTimer *repeatingNoteTimer;
-    NSTimer *repeatingSliderTimer;
+    
+    ContinuousControlConductor *conductor;
 }
 @end
 
@@ -32,85 +29,65 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    AKOrchestra *orch = [[AKOrchestra alloc] init];
-    myTweakableInstrument = [[TweakableInstrument alloc] init];
-    [orch addInstrument:myTweakableInstrument];
-    [[AKManager sharedAKManager] runOrchestra:orch];
     
-    [AKiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
-    [AKiOSTools setLabel:modulationLabel withProperty:myTweakableInstrument.modulation];
-    [AKiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
+    conductor = [[ContinuousControlConductor alloc] init];
     
-    [AKiOSTools setSlider:amplitudeSlider  withProperty:myTweakableInstrument.amplitude];
-    [AKiOSTools setSlider:modulationSlider withProperty:myTweakableInstrument.modulation];
+    [AKiOSTools setLabel:amplitudeLabel  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKiOSTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+    [AKiOSTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
+    
+    [AKiOSTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKiOSTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
+    
+    [conductor.tweakableInstrument.modIndex addObserver:self
+                                    forKeyPath:@"value"
+                                       options:NSKeyValueObservingOptionNew
+                                       context:Nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [repeatingNoteTimer invalidate];
-    repeatingNoteTimer = nil;
-    [repeatingSliderTimer invalidate];
-    repeatingSliderTimer = nil;
+    [conductor stop];
 }
 
-
-- (id)schedule:(SEL)selector
-    afterDelay:(float)delayTime;
-{
-    return [NSTimer scheduledTimerWithTimeInterval:delayTime
-                                            target:self
-                                          selector:selector
-                                          userInfo:nil
-                                           repeats:YES];
-}
-
-- (IBAction)runInstrument:(id)sender
-{
-    [myTweakableInstrument play];
-    [myTweakableInstrument.frequency randomize];
-    
-    if (repeatingNoteTimer) {
-        return;
-    } else {
-        repeatingNoteTimer = [self schedule:@selector(noteTimerFire:)
-                                 afterDelay:3.0f];
-        repeatingSliderTimer = [self schedule:@selector(sliderTimerFire:)
-                                   afterDelay:0.2f];
-    }
+- (IBAction)runInstrument:(id)sender {
+    [conductor start];
 }
 
 - (IBAction)stopInstrument:(id)sender
 {
-    [myTweakableInstrument stop];
-    [repeatingNoteTimer invalidate];
-    repeatingNoteTimer = nil;
-    [repeatingSliderTimer invalidate];
-    repeatingSliderTimer = nil;
-}
-
-- (void)noteTimerFire:(NSTimer *)timer {
-    [myTweakableInstrument.frequency randomize];
+    [conductor stop];
 }
 
 - (void)sliderTimerFire:(NSTimer *)timer
 {
-    [myTweakableInstrument.modIndex randomize];
-    [AKiOSTools setSlider:modIndexSlider withProperty:myTweakableInstrument.modIndex];
-    [AKiOSTools setLabel:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
-    // Test to show amplitude slider moving also
-    //[AKiOSTools setSlider:amplitudeSlider withProperty:myTweakableInstrument.amplitude];
+    [AKiOSTools setSlider:modIndexSlider withProperty:conductor.tweakableInstrument.modIndex];
+    [AKiOSTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
 }
 
 
 - (IBAction)scaleAmplitude:(id)sender {
-    [AKiOSTools setProperty:myTweakableInstrument.amplitude withSlider:(UISlider *)sender];
-    [AKiOSTools setLabel:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
+    [AKiOSTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(UISlider *)sender];
+    [AKiOSTools setLabel:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    [AKiOSTools setProperty:myTweakableInstrument.modulation withSlider:(UISlider *)sender];
-    [AKiOSTools setLabel:modulationLabel  withProperty:myTweakableInstrument.modulation];
+    [AKiOSTools setProperty:conductor.tweakableInstrument.modulation withSlider:(UISlider *)sender];
+    [AKiOSTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"value"]) {
+        [AKiOSTools setSlider:modIndexSlider withProperty:conductor.tweakableInstrument.modIndex];
+        [AKiOSTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
+    } else {
+        [NSException raise:@"Unexpected Keypath" format:@"%@", keyPath];
+    }
+    
 }
 
 

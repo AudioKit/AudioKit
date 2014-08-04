@@ -7,9 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "AKFoundation.h"
 #import "AKOSXTools.h"
-#import "TweakableInstrument.h"
+#import "ContinuousControlConductor.h"
 
 @interface AppDelegate ()
 {
@@ -19,10 +18,8 @@
     IBOutlet NSTextField *amplitudeLabel;
     IBOutlet NSTextField *modulationLabel;
     IBOutlet NSTextField *modIndexLabel;
-    
-    TweakableInstrument *myTweakableInstrument;
-    NSTimer *repeatingNoteTimer;
-    NSTimer *repeatingSliderTimer;
+
+    ContinuousControlConductor *conductor;
 }
 @end
 
@@ -30,78 +27,53 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    AKOrchestra *orch = [[AKOrchestra alloc] init];
-    myTweakableInstrument = [[TweakableInstrument alloc] init];
-    [orch addInstrument:myTweakableInstrument];
-    [[AKManager sharedAKManager] runOrchestra:orch];
+    conductor = [[ContinuousControlConductor alloc] init];
     
-    [AKOSXTools setTextField:amplitudeLabel  withProperty:myTweakableInstrument.amplitude];
-    [AKOSXTools setTextField:modulationLabel withProperty:myTweakableInstrument.modulation];
-    [AKOSXTools setTextField:modIndexLabel   withProperty:myTweakableInstrument.modIndex];
+    [AKOSXTools setTextField:amplitudeLabel  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKOSXTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+    [AKOSXTools setTextField:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
     
-    [AKOSXTools setSlider:amplitudeSlider  withProperty:myTweakableInstrument.amplitude];
-    [AKOSXTools setSlider:modulationSlider withProperty:myTweakableInstrument.modulation];
-}
-
-
-- (id)schedule:(SEL)selector
-    afterDelay:(float)delayTime;
-{
-    return [NSTimer scheduledTimerWithTimeInterval:delayTime
-                                            target:self
-                                          selector:selector
-                                          userInfo:nil
-                                           repeats:YES];
+    [AKOSXTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKOSXTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
+    
+    [conductor.tweakableInstrument.modIndex addObserver:self
+                                             forKeyPath:@"value"
+                                                options:NSKeyValueObservingOptionNew
+                                                context:Nil];
 }
 
 - (IBAction)runInstrument:(id)sender
 {
-    [myTweakableInstrument play];
-    [myTweakableInstrument.frequency randomize];
-    
-    if (repeatingNoteTimer) {
-        return;
-    } else {
-        repeatingNoteTimer = [self schedule:@selector(noteTimerFire:)
-                                 afterDelay:3.0f];
-        repeatingSliderTimer = [self schedule:@selector(sliderTimerFire:)
-                                   afterDelay:0.2f];
-        [[NSRunLoop currentRunLoop] addTimer:repeatingNoteTimer   forMode:NSEventTrackingRunLoopMode];
-        [[NSRunLoop currentRunLoop] addTimer:repeatingSliderTimer forMode:NSEventTrackingRunLoopMode];
-    }
+    [conductor start];
 }
 
 - (IBAction)stopInstrument:(id)sender
 {
-    [myTweakableInstrument stop];
-    [repeatingNoteTimer invalidate];
-    repeatingNoteTimer = nil;
-    [repeatingSliderTimer invalidate];
-    repeatingSliderTimer = nil;
+    [conductor stop];
 }
-
-- (void)noteTimerFire:(NSTimer *)timer {
-    [myTweakableInstrument.frequency randomize];
-}
-
-- (void)sliderTimerFire:(NSTimer *)timer
-{
-    [myTweakableInstrument.modIndex randomize];
-    [AKOSXTools setSlider:modIndexSlider withProperty:myTweakableInstrument.modIndex];
-    [AKOSXTools setTextField:modIndexLabel withProperty:myTweakableInstrument.modIndex];
-    // Test to show amplitude slider moving also
-    //[AKOSXTools setSlider:amplitudeSlider withProperty:myTweakableInstrument.amplitude];
-}
-
 
 - (IBAction)scaleAmplitude:(id)sender {
-    [AKOSXTools setProperty:myTweakableInstrument.amplitude withSlider:(NSSlider *)sender];
-    [AKOSXTools setTextField:amplitudeLabel withProperty:myTweakableInstrument.amplitude];
+    [AKOSXTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(NSSlider *)sender];
+    [AKOSXTools setTextField:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    [AKOSXTools setProperty:myTweakableInstrument.modulation withSlider:(NSSlider *)sender];
-    [AKOSXTools setTextField:modulationLabel withProperty:myTweakableInstrument.modulation];
+    [AKOSXTools setProperty:conductor.tweakableInstrument.modulation withSlider:(NSSlider *)sender];
+    [AKOSXTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"value"]) {
+        [AKOSXTools setSlider:modIndexSlider    withProperty:conductor.tweakableInstrument.modIndex];
+        [AKOSXTools setTextField:modIndexLabel  withProperty:conductor.tweakableInstrument.modIndex];
+    } else {
+        [NSException raise:@"Unexpected Keypath" format:@"%@", keyPath];
+    }
+    
 }
 
 
