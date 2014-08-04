@@ -87,6 +87,10 @@
                                            selector:@selector(playNextEventInSequence:)
                                            userInfo:nil
                                             repeats:NO];
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
+#endif
 }
 
 - (void)pause
@@ -123,6 +127,10 @@
                                                userInfo:nil 
                                                 repeats:NO];
         index++;
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
+#endif
 
     } else {
         [timer invalidate];
