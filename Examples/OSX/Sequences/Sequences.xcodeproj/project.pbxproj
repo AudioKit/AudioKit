@@ -162,6 +162,7 @@
 		C4E9DB50198F5F9600F261DA /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DAB9198F5F9600F261DA /* AKStereoAudio.m */; };
 		C4E9DB51198F5F9600F261DA /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DABC198F5F9600F261DA /* AKInstrumentProperty.m */; };
 		C4E9DB52198F5F9600F261DA /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9DABE198F5F9600F261DA /* AKNoteProperty.m */; };
+		C4E9E02A1990560000F261DA /* SequencesConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E0291990560000F261DA /* SequencesConductor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -472,6 +473,8 @@
 		C4E9DABC198F5F9600F261DA /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4E9DABD198F5F9600F261DA /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4E9DABE198F5F9600F261DA /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
+		C4E9E0281990560000F261DA /* SequencesConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SequencesConductor.h; path = ../../../iOS/Sequences/Sequences/SequencesConductor.h; sourceTree = "<group>"; };
+		C4E9E0291990560000F261DA /* SequencesConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SequencesConductor.m; path = ../../../iOS/Sequences/Sequences/SequencesConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -547,6 +550,8 @@
 		C4BAFEB7198F001500BE4F61 /* Sequences */ = {
 			isa = PBXGroup;
 			children = (
+				C4E9E0281990560000F261DA /* SequencesConductor.h */,
+				C4E9E0291990560000F261DA /* SequencesConductor.m */,
 				C4BA1716198F149700BE4F61 /* Instruments */,
 				C4BAFEC3198F001500BE4F61 /* AppDelegate.h */,
 				C4BAFEC4198F001500BE4F61 /* AppDelegate.m */,
@@ -1315,6 +1320,7 @@
 				C4E9DB09198F5F9600F261DA /* AKMandolin.m in Sources */,
 				C4E9DB49198F5F9600F261DA /* AKPanner.m in Sources */,
 				C4E9DB38198F5F9600F261DA /* AKLowPassFilter.m in Sources */,
+				C4E9E02A1990560000F261DA /* SequencesConductor.m in Sources */,
 				C4E9DAC8198F5F9600F261DA /* AKArrayTable.m in Sources */,
 				C4E9DB29198F5F9600F261DA /* AKConvolution.m in Sources */,
 				C4E9DB13198F5F9600F261DA /* AKSekere.m in Sources */,
