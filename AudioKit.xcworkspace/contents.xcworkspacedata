@@ -48,6 +48,9 @@
          location = "group:Examples/OSX/Convolution/Convolution.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Examples/OSX/DemoInstruments/DemoInstruments.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Examples/OSX/GlobalEffects/GlobalEffects.xcodeproj">
       </FileRef>
       <FileRef
