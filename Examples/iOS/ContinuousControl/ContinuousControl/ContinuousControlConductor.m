@@ -48,10 +48,8 @@
     if (frequencyTimer) {
         return;
     } else {
-        frequencyTimer = [self schedule:@selector(randomizeFrequency:)
-                             afterDelay:3.0f];
-        modIndexTimer = [self schedule:@selector(randomizeModIndex:)
-                            afterDelay:0.2f];
+        frequencyTimer = [self schedule:@selector(randomizeFrequency:) afterDelay:3.0f];
+        modIndexTimer  = [self schedule:@selector(randomizeModIndex:)  afterDelay:0.2f];
         [[NSRunLoop currentRunLoop] addTimer:frequencyTimer forMode:NSEventTrackingRunLoopMode];
         [[NSRunLoop currentRunLoop] addTimer:modIndexTimer  forMode:NSEventTrackingRunLoopMode];
     }
