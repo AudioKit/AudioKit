@@ -1,17 +1,18 @@
 //
-//  AKiOSTools.h
-//  AudioKit Example
+//  AKTools.h
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 7/3/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Created by Aurelius Prochazka on 7/27/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 #import "AKManager.h"
 
-@interface AKiOSTools : NSObject
+@interface AKTools : NSObject
 
 
 // -----------------------------------------------------------------------------
@@ -27,25 +28,25 @@
           toMaximum:(float)toMaximum;
 
 + (float)scaleLogValue:(float)logValue
-        fromMinimum:(float)fromMinimum
-        fromMaximum:(float)fromMaximum
-          toMinimum:(float)toMinimum
-          toMaximum:(float)toMaximum;
+           fromMinimum:(float)fromMinimum
+           fromMaximum:(float)fromMaximum
+             toMinimum:(float)toMinimum
+             toMaximum:(float)toMaximum;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - General UI
 // -----------------------------------------------------------------------------
 
-+ (void)setSlider:(UISlider *)slider
++ (void)setSlider:(NSSlider *)slider
         withValue:(float)value
           minimum:(float)minimum
           maximum:(float)maximum;
 
-+ (float)scaleValueFromSlider:(UISlider *)slider
++ (float)scaleValueFromSlider:(NSSlider *)slider
                       minimum:(float)minimum
                       maximum:(float)maximum;
 
-+ (float)scaleLogValueFromSlider:(UISlider *)slider
++ (float)scaleLogValueFromSlider:(NSSlider *)slider
                          minimum:(float)minimum
                          maximum:(float)maximum;
 
@@ -53,12 +54,9 @@
 #  pragma mark - UI For Properties
 // -----------------------------------------------------------------------------
 
-+ (void)setSlider:(UISlider *)slider withProperty:(id)property;
-+ (void)setProgressView:(UIProgressView *)progressView withProperty:(id)property;
-+ (void)setProperty:(id)property withSlider:(UISlider *)slider;
-+ (void)setTextField:(UITextField *)textfield withProperty:(id)property;
-+ (void)setLabel:(UILabel *)label withProperty:(id)property;
-
++ (void)setSlider:(NSSlider *)slider withProperty:(id)property;
++ (void)setProperty:(id)property withSlider:(NSSlider *)slider;
++ (void)setTextField:(NSTextField *)textfield withProperty:(id)property;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - MIDI
@@ -70,6 +68,5 @@
                   fromMinimum:(float)minimum
                     toMaximum:(float)maximum;
 
-
 @end
-
+#endif

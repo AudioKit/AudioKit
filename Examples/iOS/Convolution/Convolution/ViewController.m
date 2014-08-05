@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "AKFoundation.h"
-#import "AKiOSTools.h"
+#import "AKTools.h"
 #import "ConvolutionInstrument.h"
 
 @interface ViewController ()
@@ -38,10 +38,10 @@
 }
 
 - (IBAction)changeDryWet:(id)sender {
-    [AKiOSTools setProperty:conv.dryWetBalance withSlider:(UISlider *)sender];
+    [AKTools setProperty:conv.dryWetBalance withSlider:(UISlider *)sender];
 }
 - (IBAction)changeDishWell:(id)sender {
-    [AKiOSTools setProperty:conv.dishWellBalance withSlider:(UISlider *)sender];
+    [AKTools setProperty:conv.dishWellBalance withSlider:(UISlider *)sender];
 }
 
 

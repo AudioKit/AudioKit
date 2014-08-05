@@ -42,40 +42,40 @@ class ViewController: UIViewController {
     }
     
     func updateLabels()->Void {
-        AKiOSTools.setLabel(frequencyLabel, withProperty: fmSynth.frequency)
-        AKiOSTools.setLabel(amplitudeLabel, withProperty: fmSynth.amplitude)
-        AKiOSTools.setLabel(carrierMultiplierLabel, withProperty: fmSynth.carrierMultiplier)
-        AKiOSTools.setLabel(modulatingMultiplierLabel, withProperty: fmSynth.modulatingMultiplier)
-        AKiOSTools.setLabel(modulationIndexLabel, withProperty: fmSynth.modulationIndex)
+        AKTools.setLabel(frequencyLabel, withProperty: fmSynth.frequency)
+        AKTools.setLabel(amplitudeLabel, withProperty: fmSynth.amplitude)
+        AKTools.setLabel(carrierMultiplierLabel, withProperty: fmSynth.carrierMultiplier)
+        AKTools.setLabel(modulatingMultiplierLabel, withProperty: fmSynth.modulatingMultiplier)
+        AKTools.setLabel(modulationIndexLabel, withProperty: fmSynth.modulationIndex)
     }
     
     func updateSliders()->Void {
-        AKiOSTools.setSlider(frequencySlider, withProperty: fmSynth.frequency)
-        AKiOSTools.setSlider(amplitudeSlider, withProperty: fmSynth.amplitude)
-        AKiOSTools.setSlider(carrierMultiplierSlider, withProperty: fmSynth.carrierMultiplier)
-        AKiOSTools.setSlider(modulatingMultiplierSlider, withProperty: fmSynth.modulatingMultiplier)
-        AKiOSTools.setSlider(modulationIndexSlider, withProperty: fmSynth.modulationIndex)
+        AKTools.setSlider(frequencySlider, withProperty: fmSynth.frequency)
+        AKTools.setSlider(amplitudeSlider, withProperty: fmSynth.amplitude)
+        AKTools.setSlider(carrierMultiplierSlider, withProperty: fmSynth.carrierMultiplier)
+        AKTools.setSlider(modulatingMultiplierSlider, withProperty: fmSynth.modulatingMultiplier)
+        AKTools.setSlider(modulationIndexSlider, withProperty: fmSynth.modulationIndex)
     }
     
     
     @IBAction func frequencySliderMoved(sender : AnyObject) {
-        AKiOSTools.setProperty(fmSynth.frequency, withSlider: sender as UISlider)
+        AKTools.setProperty(fmSynth.frequency, withSlider: sender as UISlider)
         updateLabels()
     }
     @IBAction func amplitudeSliderMoved(sender : AnyObject) {
-        AKiOSTools.setProperty(fmSynth.amplitude, withSlider: sender as UISlider)
+        AKTools.setProperty(fmSynth.amplitude, withSlider: sender as UISlider)
         updateLabels()
     }
     @IBAction func carrierMultiplierSliderMoved(sender : AnyObject) {
-        AKiOSTools.setProperty(fmSynth.carrierMultiplier, withSlider: sender as UISlider)
+        AKTools.setProperty(fmSynth.carrierMultiplier, withSlider: sender as UISlider)
         updateLabels()
     }
     @IBAction func modulatingMultiplierSliderMoved(sender : AnyObject) {
-        AKiOSTools.setProperty(fmSynth.modulatingMultiplier, withSlider: sender as UISlider)
+        AKTools.setProperty(fmSynth.modulatingMultiplier, withSlider: sender as UISlider)
         updateLabels()
     }
     @IBAction func modulationIndexSliderMoved(sender : AnyObject) {
-        AKiOSTools.setProperty(fmSynth.modulationIndex, withSlider: sender as UISlider)
+        AKTools.setProperty(fmSynth.modulationIndex, withSlider: sender as UISlider)
         updateLabels()
     }
     

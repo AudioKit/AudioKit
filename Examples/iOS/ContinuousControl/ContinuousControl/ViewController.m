@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-#import "AKiOSTools.h"
+#import "AKTools.h"
 #import "ContinuousControlConductor.h"
 
 @interface ViewController ()
@@ -32,12 +32,12 @@
     
     conductor = [[ContinuousControlConductor alloc] init];
     
-    [AKiOSTools setLabel:amplitudeLabel  withProperty:conductor.tweakableInstrument.amplitude];
-    [AKiOSTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
-    [AKiOSTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
+    [AKTools setLabel:amplitudeLabel  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
     
-    [AKiOSTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
-    [AKiOSTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
     
     [conductor.tweakableInstrument.modIndex addObserver:self
                                     forKeyPath:@"value"
@@ -61,19 +61,19 @@
 
 - (void)sliderTimerFire:(NSTimer *)timer
 {
-    [AKiOSTools setSlider:modIndexSlider withProperty:conductor.tweakableInstrument.modIndex];
-    [AKiOSTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
+    [AKTools setSlider:modIndexSlider withProperty:conductor.tweakableInstrument.modIndex];
+    [AKTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
 }
 
 
 - (IBAction)scaleAmplitude:(id)sender {
-    [AKiOSTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(UISlider *)sender];
-    [AKiOSTools setLabel:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
+    [AKTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(UISlider *)sender];
+    [AKTools setLabel:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    [AKiOSTools setProperty:conductor.tweakableInstrument.modulation withSlider:(UISlider *)sender];
-    [AKiOSTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setProperty:conductor.tweakableInstrument.modulation withSlider:(UISlider *)sender];
+    [AKTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -82,8 +82,8 @@
                        context:(void *)context
 {
     if ([keyPath isEqualToString:@"value"]) {
-        [AKiOSTools setSlider:modIndexSlider withProperty:conductor.tweakableInstrument.modIndex];
-        [AKiOSTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
+        [AKTools setSlider:modIndexSlider withProperty:conductor.tweakableInstrument.modIndex];
+        [AKTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
     } else {
         [NSException raise:@"Unexpected Keypath" format:@"%@", keyPath];
     }

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "AKFoundation.h"
 #import "ConvolutionInstrument.h"
-#import "AKOSXTools.h"
+#import "AKTools.h"
 
 @interface AppDelegate() {
     ConvolutionInstrument *conv;
@@ -36,10 +36,10 @@
 }
 
 - (IBAction)changeDryWet:(id)sender {
-    [AKOSXTools setProperty:conv.dryWetBalance withSlider:(NSSlider *)sender];
+    [AKTools setProperty:conv.dryWetBalance withSlider:(NSSlider *)sender];
 }
 - (IBAction)changeDishWell:(id)sender {
-    [AKOSXTools setProperty:conv.dishWellBalance withSlider:(NSSlider *)sender];
+    [AKTools setProperty:conv.dishWellBalance withSlider:(NSSlider *)sender];
 }
 
 

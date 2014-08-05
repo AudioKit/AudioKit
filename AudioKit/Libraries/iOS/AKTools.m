@@ -1,14 +1,14 @@
 //
-//  AKiOSTools.m
-//  AudioKit Example
+//  AKTools.m
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/3/12.
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "AKiOSTools.h"
+#import "AKTools.h"
 
-@implementation AKiOSTools
+@implementation AKTools
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Common Math
@@ -94,12 +94,12 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
         [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        AKNoteProperty *p =(AKNoteProperty *)property;
+        AKNoteProperty *p = (AKNoteProperty *)property;
         [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     
@@ -109,7 +109,7 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
         [self setProgressView:progressView withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
@@ -124,7 +124,7 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
         p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
@@ -150,12 +150,14 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        label.text = [NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]];
+        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        label.text = [NSString stringWithFormat:@"%g", p.value];
         
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        label.text = [NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]];
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        label.text = [NSString stringWithFormat:@"%g", p.value];
     }
 }
 

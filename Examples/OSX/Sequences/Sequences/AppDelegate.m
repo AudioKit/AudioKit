@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SequencesConductor.h"
-#import "AKOSXTools.h"
+#import "AKTools.h"
 
 @interface AppDelegate() {
     IBOutlet NSTextField *durationValue;
@@ -26,7 +26,7 @@
 }
 
 - (float)getDuration {
-    return [AKOSXTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    return [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
 }
 
 - (IBAction)playSequenceOfNotes:(id)sender {
@@ -40,7 +40,7 @@
 }
 - (IBAction)moveDurationSlider:(id)sender
 {
-    float duration  = [AKOSXTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    float duration  = [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
     [durationValue setStringValue:[NSString stringWithFormat:@"%g", duration]];
 }
 
