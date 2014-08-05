@@ -1,5 +1,5 @@
 //
-//  AKOSXTools.m
+//  AKTools.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/27/14.
@@ -8,9 +8,9 @@
 #if TARGET_OS_IPHONE
 #elif TARGET_OS_MAC
 
-#import "AKOSXTools.h"
+#import "AKTools.h"
 
-@implementation AKOSXTools
+@implementation AKTools
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Common Math
@@ -87,17 +87,13 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [self setSlider:slider
-              withValue:[(AKInstrumentProperty *)property value]
-                minimum:[(AKInstrumentProperty *)property minimum]
-                maximum:[(AKInstrumentProperty *)property maximum]];
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [self setSlider:slider
-              withValue:[(AKNoteProperty *)property value]
-                minimum:[(AKNoteProperty *)property minimum]
-                maximum:[(AKNoteProperty *)property maximum]];
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     
 }
@@ -106,15 +102,13 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [(AKInstrumentProperty *)property setValue:[self scaleValueFromSlider:slider
-                                                                      minimum:[(AKInstrumentProperty *)property minimum]
-                                                                      maximum:[(AKInstrumentProperty *)property maximum]]];
+        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
+        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [(AKNoteProperty *)property setValue:[self scaleValueFromSlider:slider
-                                                                minimum:[(AKNoteProperty *)property minimum]
-                                                                maximum:[(AKNoteProperty *)property maximum]]];
+        AKNoteProperty *p =(AKNoteProperty *)property;
+        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
     }
 }
 
@@ -122,12 +116,14 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        [textfield setStringValue:[NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]]];
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        [textfield setStringValue:[NSString stringWithFormat:@"%g", p.value]];
         
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        [textfield setStringValue:[NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]]];
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        [textfield setStringValue:[NSString stringWithFormat:@"%g", p.value]];
     }
 }
 

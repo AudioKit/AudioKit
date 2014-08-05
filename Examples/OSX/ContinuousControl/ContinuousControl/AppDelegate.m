@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AKOSXTools.h"
+#import "AKTools.h"
 #import "ContinuousControlConductor.h"
 
 @interface AppDelegate ()
@@ -29,12 +29,12 @@
 {
     conductor = [[ContinuousControlConductor alloc] init];
     
-    [AKOSXTools setTextField:amplitudeLabel  withProperty:conductor.tweakableInstrument.amplitude];
-    [AKOSXTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
-    [AKOSXTools setTextField:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
+    [AKTools setTextField:amplitudeLabel  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setTextField:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
     
-    [AKOSXTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
-    [AKOSXTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
+    [AKTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
     
     [conductor.tweakableInstrument.modIndex addObserver:self
                                              forKeyPath:@"value"
@@ -53,13 +53,13 @@
 }
 
 - (IBAction)scaleAmplitude:(id)sender {
-    [AKOSXTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(NSSlider *)sender];
-    [AKOSXTools setTextField:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
+    [AKTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(NSSlider *)sender];
+    [AKTools setTextField:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
 }
 
 - (IBAction)scaleModulation:(id)sender {
-    [AKOSXTools setProperty:conductor.tweakableInstrument.modulation withSlider:(NSSlider *)sender];
-    [AKOSXTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setProperty:conductor.tweakableInstrument.modulation withSlider:(NSSlider *)sender];
+    [AKTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -68,8 +68,8 @@
                        context:(void *)context
 {
     if ([keyPath isEqualToString:@"value"]) {
-        [AKOSXTools setSlider:modIndexSlider    withProperty:conductor.tweakableInstrument.modIndex];
-        [AKOSXTools setTextField:modIndexLabel  withProperty:conductor.tweakableInstrument.modIndex];
+        [AKTools setSlider:modIndexSlider    withProperty:conductor.tweakableInstrument.modIndex];
+        [AKTools setTextField:modIndexLabel  withProperty:conductor.tweakableInstrument.modIndex];
     } else {
         [NSException raise:@"Unexpected Keypath" format:@"%@", keyPath];
     }

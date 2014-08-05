@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "SequencesConductor.h"
-#import "AKiOSTools.h"
+#import "AKTools.h"
 
 @interface ViewController ()
 {
@@ -29,7 +29,7 @@
 }
 
 - (float)getDuration {
-    return [AKiOSTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    return [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
 }
 
 - (IBAction)playSequenceOfNotes:(id)sender {
@@ -44,7 +44,7 @@
 
 - (IBAction)moveDurationSlider:(id)sender
 {
-    float duration  = [AKiOSTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
+    float duration  = [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
     [durationValue setText:[NSString stringWithFormat:@"%g", duration]];
 }
 
