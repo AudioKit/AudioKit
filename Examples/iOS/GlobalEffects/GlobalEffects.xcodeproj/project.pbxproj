@@ -1654,7 +1654,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1672,7 +1671,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

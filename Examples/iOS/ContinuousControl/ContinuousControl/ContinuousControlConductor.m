@@ -50,8 +50,11 @@
     } else {
         frequencyTimer = [self schedule:@selector(randomizeFrequency:) afterDelay:3.0f];
         modIndexTimer  = [self schedule:@selector(randomizeModIndex:)  afterDelay:0.2f];
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
         [[NSRunLoop currentRunLoop] addTimer:frequencyTimer forMode:NSEventTrackingRunLoopMode];
         [[NSRunLoop currentRunLoop] addTimer:modIndexTimer  forMode:NSEventTrackingRunLoopMode];
+#endif
     }
 }
 
