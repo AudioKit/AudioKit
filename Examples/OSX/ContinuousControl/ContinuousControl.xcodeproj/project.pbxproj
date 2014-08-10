@@ -1533,7 +1533,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ContinuousControl/ContinuousControl-Prefix.pch";
@@ -1556,7 +1556,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ContinuousControl/ContinuousControl-Prefix.pch";
