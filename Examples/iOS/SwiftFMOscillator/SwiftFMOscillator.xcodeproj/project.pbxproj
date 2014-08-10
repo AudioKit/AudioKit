@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C408707C1997E480000E0057 /* AKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C40870561997E47F000E0057 /* AKTools.m */; };
+		C408707D1997E480000E0057 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C408705A1997E47F000E0057 /* CsoundObj.m */; };
+		C408707E1997E480000E0057 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C40870771997E480000E0057 /* libcsound.a */; };
+		C408707F1997E480000E0057 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C40870781997E480000E0057 /* libsndfile.a */; };
+		C40870801997E480000E0057 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C40870791997E480000E0057 /* LICENSE.TXT */; };
+		C40870811997E480000E0057 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C408707B1997E480000E0057 /* LevelMeter.m */; };
 		C42A960D1968F04900E1D8C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A960C1968F04900E1D8C0 /* AppDelegate.swift */; };
 		C42A960F1968F04900E1D8C0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A960E1968F04900E1D8C0 /* ViewController.swift */; };
 		C42A96121968F04900E1D8C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42A96101968F04900E1D8C0 /* Main.storyboard */; };
@@ -31,12 +37,6 @@
 		C4B5C1DB19905F990072A430 /* AKSoundFileTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C08019905F980072A430 /* AKSoundFileTable.m */; };
 		C4B5C1DC19905F990072A430 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C08219905F980072A430 /* AKWindowsTable.m */; };
 		C4B5C1DD19905F990072A430 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C08619905F980072A430 /* AKAudioAnalyzer.m */; };
-		C4B5C1DE19905F990072A430 /* AKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C08A19905F980072A430 /* AKTools.m */; };
-		C4B5C1DF19905F990072A430 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C08E19905F980072A430 /* CsoundObj.m */; };
-		C4B5C1E019905F990072A430 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B5C0AB19905F980072A430 /* libcsound.a */; };
-		C4B5C1E119905F990072A430 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B5C0AC19905F980072A430 /* libsndfile.a */; };
-		C4B5C1E219905F990072A430 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C4B5C0AD19905F980072A430 /* LICENSE.TXT */; };
-		C4B5C1E319905F990072A430 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C0AF19905F980072A430 /* LevelMeter.m */; };
 		C4B5C1E419905F990072A430 /* AKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C0B219905F980072A430 /* AKTools.m */; };
 		C4B5C1E519905F990072A430 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C0B519905F990072A430 /* CsoundObj.m */; };
 		C4B5C1E619905F990072A430 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5C0B819905F990072A430 /* AKParameter+Operation.m */; };
@@ -180,6 +180,41 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C40870551997E47F000E0057 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
+		C40870561997E47F000E0057 /* AKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTools.m; sourceTree = "<group>"; };
+		C40870591997E47F000E0057 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
+		C408705A1997E47F000E0057 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
+		C408705C1997E47F000E0057 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
+		C408705D1997E480000E0057 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
+		C408705E1997E480000E0057 /* cs_par_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_par_structs.h; sourceTree = "<group>"; };
+		C408705F1997E480000E0057 /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cscore.h; sourceTree = "<group>"; };
+		C40870601997E480000E0057 /* csdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdebug.h; sourceTree = "<group>"; };
+		C40870611997E480000E0057 /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdl.h; sourceTree = "<group>"; };
+		C40870621997E480000E0057 /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound.h; sourceTree = "<group>"; };
+		C40870631997E480000E0057 /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound.hpp; sourceTree = "<group>"; };
+		C40870641997E480000E0057 /* csound_data_structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_data_structures.h; sourceTree = "<group>"; };
+		C40870651997E480000E0057 /* csound_standard_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_standard_types.h; sourceTree = "<group>"; };
+		C40870661997E480000E0057 /* csound_type_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_type_system.h; sourceTree = "<group>"; };
+		C40870671997E480000E0057 /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csoundCore.h; sourceTree = "<group>"; };
+		C40870681997E480000E0057 /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CsoundFile.hpp; sourceTree = "<group>"; };
+		C40870691997E480000E0057 /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwindow.h; sourceTree = "<group>"; };
+		C408706A1997E480000E0057 /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filebuilding.h; sourceTree = "<group>"; };
+		C408706B1997E480000E0057 /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "float-version.h"; sourceTree = "<group>"; };
+		C408706C1997E480000E0057 /* interlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interlocks.h; sourceTree = "<group>"; };
+		C408706D1997E480000E0057 /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_attr.h; sourceTree = "<group>"; };
+		C408706E1997E480000E0057 /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpcodeBase.hpp; sourceTree = "<group>"; };
+		C408706F1997E480000E0057 /* pools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pools.h; sourceTree = "<group>"; };
+		C40870701997E480000E0057 /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstream.h; sourceTree = "<group>"; };
+		C40870711997E480000E0057 /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pvfileio.h; sourceTree = "<group>"; };
+		C40870721997E480000E0057 /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundio.h; sourceTree = "<group>"; };
+		C40870731997E480000E0057 /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
+		C40870741997E480000E0057 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
+		C40870751997E480000E0057 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		C40870771997E480000E0057 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
+		C40870781997E480000E0057 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
+		C40870791997E480000E0057 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
+		C408707A1997E480000E0057 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
+		C408707B1997E480000E0057 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C42A96071968F04900E1D8C0 /* SwiftFMOscillator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftFMOscillator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42A960B1968F04900E1D8C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42A960C1968F04900E1D8C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -229,41 +264,6 @@
 		C4B5C08219905F980072A430 /* AKWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWindowsTable.m; sourceTree = "<group>"; };
 		C4B5C08519905F980072A430 /* AKAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioAnalyzer.h; sourceTree = "<group>"; };
 		C4B5C08619905F980072A430 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
-		C4B5C08919905F980072A430 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
-		C4B5C08A19905F980072A430 /* AKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTools.m; sourceTree = "<group>"; };
-		C4B5C08D19905F980072A430 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
-		C4B5C08E19905F980072A430 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		C4B5C09019905F980072A430 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
-		C4B5C09119905F980072A430 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
-		C4B5C09219905F980072A430 /* cs_par_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_par_structs.h; sourceTree = "<group>"; };
-		C4B5C09319905F980072A430 /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cscore.h; sourceTree = "<group>"; };
-		C4B5C09419905F980072A430 /* csdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdebug.h; sourceTree = "<group>"; };
-		C4B5C09519905F980072A430 /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdl.h; sourceTree = "<group>"; };
-		C4B5C09619905F980072A430 /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound.h; sourceTree = "<group>"; };
-		C4B5C09719905F980072A430 /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound.hpp; sourceTree = "<group>"; };
-		C4B5C09819905F980072A430 /* csound_data_structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_data_structures.h; sourceTree = "<group>"; };
-		C4B5C09919905F980072A430 /* csound_standard_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_standard_types.h; sourceTree = "<group>"; };
-		C4B5C09A19905F980072A430 /* csound_type_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_type_system.h; sourceTree = "<group>"; };
-		C4B5C09B19905F980072A430 /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csoundCore.h; sourceTree = "<group>"; };
-		C4B5C09C19905F980072A430 /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CsoundFile.hpp; sourceTree = "<group>"; };
-		C4B5C09D19905F980072A430 /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwindow.h; sourceTree = "<group>"; };
-		C4B5C09E19905F980072A430 /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filebuilding.h; sourceTree = "<group>"; };
-		C4B5C09F19905F980072A430 /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "float-version.h"; sourceTree = "<group>"; };
-		C4B5C0A019905F980072A430 /* interlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interlocks.h; sourceTree = "<group>"; };
-		C4B5C0A119905F980072A430 /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_attr.h; sourceTree = "<group>"; };
-		C4B5C0A219905F980072A430 /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpcodeBase.hpp; sourceTree = "<group>"; };
-		C4B5C0A319905F980072A430 /* pools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pools.h; sourceTree = "<group>"; };
-		C4B5C0A419905F980072A430 /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstream.h; sourceTree = "<group>"; };
-		C4B5C0A519905F980072A430 /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pvfileio.h; sourceTree = "<group>"; };
-		C4B5C0A619905F980072A430 /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundio.h; sourceTree = "<group>"; };
-		C4B5C0A719905F980072A430 /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
-		C4B5C0A819905F980072A430 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
-		C4B5C0A919905F980072A430 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		C4B5C0AB19905F980072A430 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
-		C4B5C0AC19905F980072A430 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
-		C4B5C0AD19905F980072A430 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
-		C4B5C0AE19905F980072A430 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
-		C4B5C0AF19905F980072A430 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C4B5C0B119905F980072A430 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
 		C4B5C0B219905F980072A430 /* AKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTools.m; sourceTree = "<group>"; };
 		C4B5C0B419905F990072A430 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
@@ -516,8 +516,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B5C1E019905F990072A430 /* libcsound.a in Frameworks */,
-				C4B5C1E119905F990072A430 /* libsndfile.a in Frameworks */,
+				C408707E1997E480000E0057 /* libcsound.a in Frameworks */,
+				C408707F1997E480000E0057 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +531,80 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C40870541997E47F000E0057 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C40870551997E47F000E0057 /* AKTools.h */,
+				C40870561997E47F000E0057 /* AKTools.m */,
+				C40870571997E47F000E0057 /* csound-iOS */,
+				C408707A1997E480000E0057 /* LevelMeter.h */,
+				C408707B1997E480000E0057 /* LevelMeter.m */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		C40870571997E47F000E0057 /* csound-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C40870581997E47F000E0057 /* classes */,
+				C408705B1997E47F000E0057 /* headers */,
+				C40870761997E480000E0057 /* libs */,
+				C40870791997E480000E0057 /* LICENSE.TXT */,
+			);
+			path = "csound-iOS";
+			sourceTree = "<group>";
+		};
+		C40870581997E47F000E0057 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				C40870591997E47F000E0057 /* CsoundObj.h */,
+				C408705A1997E47F000E0057 /* CsoundObj.m */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
+		C408705B1997E47F000E0057 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				C408705C1997E47F000E0057 /* cfgvar.h */,
+				C408705D1997E480000E0057 /* CppSound.hpp */,
+				C408705E1997E480000E0057 /* cs_par_structs.h */,
+				C408705F1997E480000E0057 /* cscore.h */,
+				C40870601997E480000E0057 /* csdebug.h */,
+				C40870611997E480000E0057 /* csdl.h */,
+				C40870621997E480000E0057 /* csound.h */,
+				C40870631997E480000E0057 /* csound.hpp */,
+				C40870641997E480000E0057 /* csound_data_structures.h */,
+				C40870651997E480000E0057 /* csound_standard_types.h */,
+				C40870661997E480000E0057 /* csound_type_system.h */,
+				C40870671997E480000E0057 /* csoundCore.h */,
+				C40870681997E480000E0057 /* CsoundFile.hpp */,
+				C40870691997E480000E0057 /* cwindow.h */,
+				C408706A1997E480000E0057 /* filebuilding.h */,
+				C408706B1997E480000E0057 /* float-version.h */,
+				C408706C1997E480000E0057 /* interlocks.h */,
+				C408706D1997E480000E0057 /* msg_attr.h */,
+				C408706E1997E480000E0057 /* OpcodeBase.hpp */,
+				C408706F1997E480000E0057 /* pools.h */,
+				C40870701997E480000E0057 /* pstream.h */,
+				C40870711997E480000E0057 /* pvfileio.h */,
+				C40870721997E480000E0057 /* soundio.h */,
+				C40870731997E480000E0057 /* sysdep.h */,
+				C40870741997E480000E0057 /* text.h */,
+				C40870751997E480000E0057 /* version.h */,
+			);
+			path = headers;
+			sourceTree = "<group>";
+		};
+		C40870761997E480000E0057 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				C40870771997E480000E0057 /* libcsound.a */,
+				C40870781997E480000E0057 /* libsndfile.a */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
 		C42A95FE1968F04900E1D8C0 = {
 			isa = PBXGroup;
 			children = (
@@ -658,84 +732,10 @@
 		C4B5C08719905F980072A430 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				C4B5C08819905F980072A430 /* iOS */,
+				C40870541997E47F000E0057 /* iOS */,
 				C4B5C0B019905F980072A430 /* OSX */,
 			);
 			path = Libraries;
-			sourceTree = "<group>";
-		};
-		C4B5C08819905F980072A430 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				C4B5C08919905F980072A430 /* AKTools.h */,
-				C4B5C08A19905F980072A430 /* AKTools.m */,
-				C4B5C08B19905F980072A430 /* csound-iOS */,
-				C4B5C0AE19905F980072A430 /* LevelMeter.h */,
-				C4B5C0AF19905F980072A430 /* LevelMeter.m */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		C4B5C08B19905F980072A430 /* csound-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				C4B5C08C19905F980072A430 /* classes */,
-				C4B5C08F19905F980072A430 /* headers */,
-				C4B5C0AA19905F980072A430 /* libs */,
-				C4B5C0AD19905F980072A430 /* LICENSE.TXT */,
-			);
-			path = "csound-iOS";
-			sourceTree = "<group>";
-		};
-		C4B5C08C19905F980072A430 /* classes */ = {
-			isa = PBXGroup;
-			children = (
-				C4B5C08D19905F980072A430 /* CsoundObj.h */,
-				C4B5C08E19905F980072A430 /* CsoundObj.m */,
-			);
-			path = classes;
-			sourceTree = "<group>";
-		};
-		C4B5C08F19905F980072A430 /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				C4B5C09019905F980072A430 /* cfgvar.h */,
-				C4B5C09119905F980072A430 /* CppSound.hpp */,
-				C4B5C09219905F980072A430 /* cs_par_structs.h */,
-				C4B5C09319905F980072A430 /* cscore.h */,
-				C4B5C09419905F980072A430 /* csdebug.h */,
-				C4B5C09519905F980072A430 /* csdl.h */,
-				C4B5C09619905F980072A430 /* csound.h */,
-				C4B5C09719905F980072A430 /* csound.hpp */,
-				C4B5C09819905F980072A430 /* csound_data_structures.h */,
-				C4B5C09919905F980072A430 /* csound_standard_types.h */,
-				C4B5C09A19905F980072A430 /* csound_type_system.h */,
-				C4B5C09B19905F980072A430 /* csoundCore.h */,
-				C4B5C09C19905F980072A430 /* CsoundFile.hpp */,
-				C4B5C09D19905F980072A430 /* cwindow.h */,
-				C4B5C09E19905F980072A430 /* filebuilding.h */,
-				C4B5C09F19905F980072A430 /* float-version.h */,
-				C4B5C0A019905F980072A430 /* interlocks.h */,
-				C4B5C0A119905F980072A430 /* msg_attr.h */,
-				C4B5C0A219905F980072A430 /* OpcodeBase.hpp */,
-				C4B5C0A319905F980072A430 /* pools.h */,
-				C4B5C0A419905F980072A430 /* pstream.h */,
-				C4B5C0A519905F980072A430 /* pvfileio.h */,
-				C4B5C0A619905F980072A430 /* soundio.h */,
-				C4B5C0A719905F980072A430 /* sysdep.h */,
-				C4B5C0A819905F980072A430 /* text.h */,
-				C4B5C0A919905F980072A430 /* version.h */,
-			);
-			path = headers;
-			sourceTree = "<group>";
-		};
-		C4B5C0AA19905F980072A430 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				C4B5C0AB19905F980072A430 /* libcsound.a */,
-				C4B5C0AC19905F980072A430 /* libsndfile.a */,
-			);
-			path = libs;
 			sourceTree = "<group>";
 		};
 		C4B5C0B019905F980072A430 /* OSX */ = {
@@ -1364,8 +1364,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40870801997E480000E0057 /* LICENSE.TXT in Resources */,
 				C4B5C24F19905F990072A430 /* declick.udo in Resources */,
-				C4B5C1E219905F990072A430 /* LICENSE.TXT in Resources */,
 				C42A96121968F04900E1D8C0 /* Main.storyboard in Resources */,
 				C4B5C21619905F990072A430 /* mandpluk.aif in Resources */,
 				C4B5C21819905F990072A430 /* marmstk1.wav in Resources */,
@@ -1413,6 +1413,7 @@
 				C4B5C1D319905F990072A430 /* AKAdditiveCosineTable.m in Sources */,
 				C4B5C21319905F990072A430 /* AKStruckMetalBar.m in Sources */,
 				C4B5C25A19905F990072A430 /* AKFSignal.m in Sources */,
+				C408707C1997E480000E0057 /* AKTools.m in Sources */,
 				C4B5C24D19905F990072A430 /* AKLowPassButterworthFilter.m in Sources */,
 				C4B5C25619905F990072A430 /* AKArray.m in Sources */,
 				C42A98341968F24E00E1D8C0 /* FMSynth.swift in Sources */,
@@ -1439,7 +1440,6 @@
 				C4B5C20319905F990072A430 /* AKLinearADSRAudioEnvelope.m in Sources */,
 				C4B5C1ED19905F990072A430 /* AKMaxAudio.m in Sources */,
 				C4B5C1FB19905F990072A430 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */,
-				C4B5C1DE19905F990072A430 /* AKTools.m in Sources */,
 				C4B5C20A19905F990072A430 /* AKOscillatingControl.m in Sources */,
 				C4B5C23119905F990072A430 /* AKFTablelooper.m in Sources */,
 				C4B5C23F19905F990072A430 /* AKDCBlock.m in Sources */,
@@ -1448,6 +1448,7 @@
 				C4B5C25319905F990072A430 /* AKReverb.m in Sources */,
 				C4B5C1E619905F990072A430 /* AKParameter+Operation.m in Sources */,
 				C4B5C20F19905F990072A430 /* AKLowFrequencyOscillator.m in Sources */,
+				C408707D1997E480000E0057 /* CsoundObj.m in Sources */,
 				C4B5C1DD19905F990072A430 /* AKAudioAnalyzer.m in Sources */,
 				C4B5C1F019905F990072A430 /* AKMinControl.m in Sources */,
 				C4B5C1CB19905F990072A430 /* AKEvent.m in Sources */,
@@ -1462,6 +1463,7 @@
 				C4B5C1EB19905F990072A430 /* AKAssignment.m in Sources */,
 				C4B5C1E419905F990072A430 /* AKTools.m in Sources */,
 				C4B5C21C19905F990072A430 /* AKDroplet.m in Sources */,
+				C40870811997E480000E0057 /* LevelMeter.m in Sources */,
 				C4B5C21919905F990072A430 /* AKBamboo.m in Sources */,
 				C4B5C23E19905F990072A430 /* AKCombFilter.m in Sources */,
 				C4B5C22319905F990072A430 /* AKBeatenPlate.m in Sources */,
@@ -1470,7 +1472,6 @@
 				C4B5C25919905F990072A430 /* AKControl.m in Sources */,
 				C4B5C22A19905F990072A430 /* AKAudioSegmentArray.m in Sources */,
 				C4B5C22919905F990072A430 /* AKRandomControl.m in Sources */,
-				C4B5C1DF19905F990072A430 /* CsoundObj.m in Sources */,
 				C4B5C24019905F990072A430 /* AKEqualizerFilter.m in Sources */,
 				C4B5C1CE19905F990072A430 /* AKMidi.m in Sources */,
 				C4B5C1CF19905F990072A430 /* AKNote.m in Sources */,
@@ -1489,7 +1490,6 @@
 				C4B5C24619905F990072A430 /* AKMoogVCF.m in Sources */,
 				C4B5C20C19905F990072A430 /* AKSineOscillator.m in Sources */,
 				C4B5C1F619905F990072A430 /* AKTableValueConstant.m in Sources */,
-				C4B5C1E319905F990072A430 /* LevelMeter.m in Sources */,
 				C4B5C1F819905F990072A430 /* AKAudioFromFSignal.m in Sources */,
 				C4B5C24119905F990072A430 /* AKHighPassFilter.m in Sources */,
 				C4B5C23019905F990072A430 /* AKFileInput.m in Sources */,
@@ -1658,6 +1658,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
+					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftFMOscillator-Bridging-Header.h";
@@ -1675,6 +1676,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
+					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftFMOscillator-Bridging-Header.h";
