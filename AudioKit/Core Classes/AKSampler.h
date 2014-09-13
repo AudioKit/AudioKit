@@ -8,6 +8,9 @@
 
 /** AKSampler is a simple multi-track capable recorder and playback system.
  */
+
+#import <Foundation/Foundation.h>
+
 @interface AKSampler : NSObject
 
 @property (readonly) NSArray *trackNames;
