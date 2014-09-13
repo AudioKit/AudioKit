@@ -18,7 +18,7 @@ class FMSynth: AKInstrument {
     
     // INSTRUMENT DEFINITION ===================================================
     
-    init() {
+    override init() {
         super.init()
         
         addProperty(frequency)

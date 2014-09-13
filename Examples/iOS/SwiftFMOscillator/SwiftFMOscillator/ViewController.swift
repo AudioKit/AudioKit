@@ -10,17 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet var frequencyLabel : UILabel = nil
-    @IBOutlet var amplitudeLabel : UILabel = nil
-    @IBOutlet var carrierMultiplierLabel : UILabel = nil
-    @IBOutlet var modulatingMultiplierLabel : UILabel = nil
-    @IBOutlet var modulationIndexLabel : UILabel = nil
+    @IBOutlet var frequencyLabel : UILabel? = nil
+    @IBOutlet var amplitudeLabel : UILabel? = nil
+    @IBOutlet var carrierMultiplierLabel : UILabel? = nil
+    @IBOutlet var modulatingMultiplierLabel : UILabel? = nil
+    @IBOutlet var modulationIndexLabel : UILabel? = nil
     
-    @IBOutlet var frequencySlider : UISlider = nil
-    @IBOutlet var amplitudeSlider : UISlider = nil
-    @IBOutlet var carrierMultiplierSlider : UISlider = nil
-    @IBOutlet var modulatingMultiplierSlider : UISlider = nil
-    @IBOutlet var modulationIndexSlider : UISlider = nil
+    @IBOutlet var frequencySlider : UISlider? = nil
+    @IBOutlet var amplitudeSlider : UISlider? = nil
+    @IBOutlet var carrierMultiplierSlider : UISlider? = nil
+    @IBOutlet var modulatingMultiplierSlider : UISlider? = nil
+    @IBOutlet var modulationIndexSlider : UISlider? = nil
     
     let fmSynth = FMSynth()
     
