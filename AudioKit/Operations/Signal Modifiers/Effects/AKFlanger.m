@@ -11,14 +11,12 @@
 
 #import "AKFlanger.h"
 
-@interface AKFlanger () {
+@implementation AKFlanger
+{
     AKAudio *asig;
     AKAudio *adel;
     AKControl *kfeedback;
 }
-@end
-
-@implementation AKFlanger
 
 - (instancetype)initWithSourceSignal:(AKAudio *)sourceSignal
                            delayTime:(AKAudio *)delayTime

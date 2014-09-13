@@ -9,15 +9,12 @@
 #import "AKNote.h"
 #import "AKManager.h"
 
-@interface AKNote () {
+@implementation AKNote
+{
     int _myID;
     NSMutableArray *propOrder;
     BOOL isPlaying;
 }
-@end
-
-
-@implementation AKNote
 
 static int currentID = 1;
 + (void)resetID { currentID = 1; }

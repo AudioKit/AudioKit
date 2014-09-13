@@ -11,13 +11,11 @@
 
 #import "AKHighPassButterworthFilter.h"
 
-@interface AKHighPassButterworthFilter () {
+@implementation AKHighPassButterworthFilter
+{
     AKAudio *asig;
     AKControl *kfreq;
 }
-@end
-
-@implementation AKHighPassButterworthFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     cutoffFrequency:(AKControl *)cutoffFrequency

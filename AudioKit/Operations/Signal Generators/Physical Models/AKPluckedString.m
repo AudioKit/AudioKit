@@ -11,7 +11,8 @@
 
 #import "AKPluckedString.h"
 
-@interface AKPluckedString () {
+@implementation AKPluckedString
+{
     AKConstant *icps;
     AKConstant *iplk;
     AKControl *kamp;
@@ -19,9 +20,6 @@
     AKControl *krefl;
     AKAudio *axcite;
 }
-@end
-
-@implementation AKPluckedString
 
 - (instancetype)initWithFrequency:(AKConstant *)frequency
                     pluckPosition:(AKConstant *)pluckPosition

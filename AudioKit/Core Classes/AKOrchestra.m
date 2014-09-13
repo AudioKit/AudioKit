@@ -10,14 +10,12 @@
 #import "AKInstrument.h"
 #import "AKManager.h"
 
-@interface AKOrchestra () {
+@implementation AKOrchestra
+{
     int sampleRate;
     int samplesPerControlPeriod;
     NSMutableSet *udoFiles;
 }
-@end
-
-@implementation AKOrchestra
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization

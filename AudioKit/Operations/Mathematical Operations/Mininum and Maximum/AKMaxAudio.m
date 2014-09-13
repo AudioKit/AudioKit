@@ -11,12 +11,10 @@
 
 #import "AKMaxAudio.h"
 
-@interface AKMaxAudio () {
+@implementation AKMaxAudio
+{
     AKArray *ains;
 }
-@end
-
-@implementation AKMaxAudio
 
 - (instancetype)initWithAudioSources:(AKArray *)inputAudioSources;
 {

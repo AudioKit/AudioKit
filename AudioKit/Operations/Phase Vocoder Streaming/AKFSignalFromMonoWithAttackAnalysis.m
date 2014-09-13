@@ -8,7 +8,7 @@
 
 #import "AKFSignalFromMonoWithAttackAnalysis.h"
 
-@interface AKFSignalFromMonoWithAttackAnalysis()
+@implementation AKFSignalFromMonoWithAttackAnalysis
 {
     AKFTable *fTable;
     
@@ -24,12 +24,7 @@
     AKControl *wrapFlag;
     AKControl *attFlag;
     AKConstant *dbThresh;
-    
 }
-
-@end
-
-@implementation AKFSignalFromMonoWithAttackAnalysis
 
 
 - (instancetype)initWithSoundFile:(AKFTable *)soundFileSource

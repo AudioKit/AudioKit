@@ -11,7 +11,8 @@
 
 #import "AKStruckMetalBar.h"
 
-@interface AKStruckMetalBar () {
+@implementation AKStruckMetalBar
+{
     AKConstant *iT30;
     AKConstant *iK;
     AKConstant *ib;
@@ -22,9 +23,6 @@
     AKControl *kbcR;
     AKControl *kscan;
 }
-@end
-
-@implementation AKStruckMetalBar
 
 - (instancetype)initWithDecayTime:(AKConstant *)decayTime
            dimensionlessStiffness:(AKConstant *)dimensionlessStiffness

@@ -11,7 +11,8 @@
 
 #import "AKVCOscillator.h"
 
-@interface AKVCOscillator () {
+@implementation AKVCOscillator
+{
     AKControl *kcps;
     AKControl *kamp;
     AKConstant *imode;
@@ -19,9 +20,6 @@
     AKControl *kphs;
     AKConstant *inyx;
 }
-@end
-
-@implementation AKVCOscillator
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
                         amplitude:(AKControl *)amplitude

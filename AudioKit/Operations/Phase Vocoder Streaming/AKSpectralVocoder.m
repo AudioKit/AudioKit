@@ -11,16 +11,14 @@
 
 #import "AKSpectralVocoder.h"
 
-@interface AKSpectralVocoder () {
+@implementation AKSpectralVocoder
+{
     AKFSignal *famp;
     AKFSignal *fexc;
     AKControl *kdepth;
     AKControl *kgain;
     AKControl *kcoefs;
 }
-@end
-
-@implementation AKSpectralVocoder
 
 - (instancetype)initWithAmplitudeFSignal:(AKFSignal *)amplitudeFSignal
             excitationFrequenciesFSignal:(AKFSignal *)excitationFrequenciesFSignal

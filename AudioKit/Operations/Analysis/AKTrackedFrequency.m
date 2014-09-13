@@ -8,14 +8,12 @@
 
 #import "AKTrackedFrequency.h"
 
-@interface AKTrackedFrequency () {
+@implementation AKTrackedFrequency
+{
     AKAudio *asig;
     AKConstant *ihopsize;
     AKConstant *ipeaks;
 }
-@end
-
-@implementation AKTrackedFrequency
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                          sampleSize:(AKConstant *)hopSize

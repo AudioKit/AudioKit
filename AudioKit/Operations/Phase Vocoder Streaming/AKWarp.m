@@ -11,7 +11,8 @@
 
 #import "AKWarp.h"
 
-@interface AKWarp () {
+@implementation AKWarp
+{
     AKFSignal *fsigin;
     AKControl *kscal;
     AKControl *kshift;
@@ -20,9 +21,6 @@
     AKControl *kgain;
     AKControl *kcoefs;
 }
-@end
-
-@implementation AKWarp
 
 - (instancetype)initWithSourceSignal:(AKFSignal *)sourceSignal
                         scalingRatio:(AKControl *)scalingRatio

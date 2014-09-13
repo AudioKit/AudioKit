@@ -9,14 +9,11 @@
 #import "ContinuousControlConductor.h"
 #import "AKFoundation.h"
 
-@interface ContinuousControlConductor ()
+@implementation ContinuousControlConductor
 {
     NSTimer *frequencyTimer;
     NSTimer *modIndexTimer;
 }
-@end
-
-@implementation ContinuousControlConductor
 
 - (instancetype)init
 {

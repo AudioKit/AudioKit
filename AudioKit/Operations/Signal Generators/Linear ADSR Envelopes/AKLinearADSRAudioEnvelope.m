@@ -11,16 +11,14 @@
 
 #import "AKLinearADSRAudioEnvelope.h"
 
-@interface AKLinearADSRAudioEnvelope () {
+@implementation AKLinearADSRAudioEnvelope
+{
     AKConstant *iatt;
     AKConstant *idec;
     AKConstant *islev;
     AKConstant *irel;
     AKConstant *idel;
 }
-@end
-
-@implementation AKLinearADSRAudioEnvelope
 
 - (instancetype)initWithAttackDuration:(AKConstant *)attackDuration
                          decayDuration:(AKConstant *)decayDuration

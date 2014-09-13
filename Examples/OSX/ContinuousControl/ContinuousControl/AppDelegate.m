@@ -10,7 +10,7 @@
 #import "AKTools.h"
 #import "ContinuousControlConductor.h"
 
-@interface AppDelegate ()
+@implementation AppDelegate
 {
     IBOutlet NSSlider *amplitudeSlider;
     IBOutlet NSSlider *modulationSlider;
@@ -18,12 +18,9 @@
     IBOutlet NSTextField *amplitudeLabel;
     IBOutlet NSTextField *modulationLabel;
     IBOutlet NSTextField *modIndexLabel;
-
+    
     ContinuousControlConductor *conductor;
 }
-@end
-
-@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

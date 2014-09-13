@@ -11,15 +11,13 @@
 
 #import "AKOscillatingControl.h"
 
-@interface AKOscillatingControl () {
+@implementation AKOscillatingControl
+{
     AKFTable *ifn;
     AKControl *kcps;
     AKControl *kamp;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKOscillatingControl
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
                      frequency:(AKControl *)frequency

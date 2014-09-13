@@ -8,17 +8,14 @@
 
 #import "AKMixedControl.h"
 
-
-@interface AKMixedControl () {
+@implementation AKMixedControl
+{
     AKControl *in1;
     AKControl *in2;
     AKConstant *min;
     AKConstant *max;
     AKParameter *current;
 }
-@end
-
-@implementation AKMixedControl
 
 - (instancetype)initWithControl1:(AKControl *)control1
                         control2:(AKControl *)control2

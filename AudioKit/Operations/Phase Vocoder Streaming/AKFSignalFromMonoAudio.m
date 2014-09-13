@@ -8,16 +8,14 @@
 
 #import "AKFSignalFromMonoAudio.h"
 
-@interface AKFSignalFromMonoAudio () {
+@implementation AKFSignalFromMonoAudio
+{
     AKParameter *aIn;
     AKConstant *iFFTSize;
     AKConstant *iOverlap;
     AKConstant *iWinSize;
     AKConstant *iWinType;
 }
-@end
-
-@implementation AKFSignalFromMonoAudio
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                             fftSize:(AKConstant *)fftSize

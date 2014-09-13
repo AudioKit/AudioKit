@@ -12,12 +12,10 @@
 
 #import "AKHilbertTransformer.h"
 
-@interface AKHilbertTransformer () {
+@implementation AKHilbertTransformer
+{
     AKAudio *asig;
 }
-@end
-
-@implementation AKHilbertTransformer
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {

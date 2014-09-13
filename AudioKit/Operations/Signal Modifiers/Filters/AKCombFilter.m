@@ -8,16 +8,14 @@
 
 #import "AKCombFilter.h"
 
-@interface AKCombFilter () {
+@implementation AKCombFilter
+{
     AKAudio *asig;
     AKControl *krvt;
     AKConstant *iskip;
     AKConstant *ilpt;
     AKConstant *insmps;
 }
-@end
-
-@implementation AKCombFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                          reverbTime:(AKControl *)reverbTime

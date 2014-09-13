@@ -11,13 +11,11 @@
 
 #import "AKLowPassFilter.h"
 
-@interface AKLowPassFilter () {
+@implementation AKLowPassFilter
+{
     AKAudio *asig;
     AKControl *khp;
 }
-@end
-
-@implementation AKLowPassFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                      halfPowerPoint:(AKControl *)halfPowerPoint

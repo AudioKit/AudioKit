@@ -11,14 +11,12 @@
 
 #import "AKSineOscillator.h"
 
-@interface AKSineOscillator () {
+@implementation AKSineOscillator
+{
     AKConstant *icps;
     AKConstant *iamp;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKSineOscillator
 
 - (instancetype)initWithFrequency:(AKConstant *)frequency
                         amplitude:(AKConstant *)amplitude

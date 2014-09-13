@@ -8,14 +8,12 @@
 
 #import "AKScaledControl.h"
 
-@interface AKScaledControl () {
+@implementation AKScaledControl
+{
     AKControl *kin;
     AKControl *kmax;
     AKControl *kmin;
 }
-@end
-
-@implementation AKScaledControl
 
 - (instancetype)initWithControl:(AKControl *)inputControl
                   minimumOutput:(AKControl *)minimumOutput

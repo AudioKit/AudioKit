@@ -10,15 +10,13 @@
 #import "SequencesConductor.h"
 #import "AKTools.h"
 
-@interface AppDelegate() {
+@implementation AppDelegate
+{
     IBOutlet NSTextField *durationValue;
     IBOutlet NSSlider *durationSlider;
     
     SequencesConductor *conductor;
 }
-@end
-
-@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

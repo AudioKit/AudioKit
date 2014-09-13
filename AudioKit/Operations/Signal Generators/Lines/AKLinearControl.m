@@ -8,14 +8,12 @@
 
 #import "AKLinearControl.h"
 
-@interface AKLinearControl () {
+@implementation AKLinearControl
+{
     AKConstant *ia;
     AKConstant *ib;
     AKConstant *idur;
 }
-@end
-
-@implementation AKLinearControl
 
 - (instancetype)initFromValue:(AKConstant *)startingValue
                       toValue:(AKConstant *)endingValue

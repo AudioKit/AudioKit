@@ -11,13 +11,10 @@
 #import "ConvolutionInstrument.h"
 #import "AKTools.h"
 
-@interface AppDelegate() {
+@implementation AppDelegate
+{
     ConvolutionInstrument *conv;
 }
-
-@end
-
-@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

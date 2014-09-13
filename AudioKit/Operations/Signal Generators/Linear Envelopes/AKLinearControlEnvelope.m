@@ -8,15 +8,13 @@
 
 #import "AKLinearControlEnvelope.h"
 
-@interface AKLinearControlEnvelope () {
+@implementation AKLinearControlEnvelope
+{
     AKControl *amp;
     AKConstant *rise;
     AKConstant *dur;
     AKConstant *decay;
 }
-@end
-
-@implementation AKLinearControlEnvelope
 
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
                    totalDuration:(AKConstant *)totalDuration

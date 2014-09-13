@@ -10,16 +10,13 @@
 #import "SequencesConductor.h"
 #import "AKTools.h"
 
-@interface ViewController ()
+@implementation ViewController
 {
     IBOutlet UITextField *durationValue;
     IBOutlet UISlider *durationSlider;
     
     SequencesConductor *conductor;
 }
-@end
-
-@implementation ViewController
 
 - (void)viewDidLoad
 {

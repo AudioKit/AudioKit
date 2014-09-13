@@ -13,14 +13,12 @@
 
 #import "AKPanner.h"
 
-@interface AKPanner () {
+@implementation AKPanner
+{
     AKAudio *asig;
     AKParameter *xp;
     AKConstant *imode;
 }
-@end
-
-@implementation AKPanner
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                                 pan:(AKParameter *)pan

@@ -11,12 +11,10 @@
 
 #import "AKDeclick.h"
 
-@interface AKDeclick () {
+@implementation AKDeclick
+{
     AKAudio *ain;
 }
-@end
-
-@implementation AKDeclick
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {

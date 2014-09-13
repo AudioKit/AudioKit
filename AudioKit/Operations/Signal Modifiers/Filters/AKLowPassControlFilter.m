@@ -11,13 +11,11 @@
 
 #import "AKLowPassControlFilter.h"
 
-@interface AKLowPassControlFilter () {
+@implementation AKLowPassControlFilter
+{
     AKControl *ksig;
     AKControl *khp;
 }
-@end
-
-@implementation AKLowPassControlFilter
 
 - (instancetype)initWithSourceControl:(AKControl *)sourceControl
                        halfPowerPoint:(AKControl *)halfPowerPoint

@@ -11,16 +11,14 @@
 
 #import "AKMixedAudio.h"
 
-@interface AKMixedAudio () {
+@implementation AKMixedAudio
+{
     AKAudio *in1;
     AKAudio *in2;
     AKConstant *min;
     AKConstant *max;
     AKControl *current;
 }
-@end
-
-@implementation AKMixedAudio
 
 - (instancetype)initWithSignal1:(AKAudio *)signal1
                         signal2:(AKAudio *)signal2

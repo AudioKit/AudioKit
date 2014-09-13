@@ -12,7 +12,8 @@
 
 #import "AKAudioSegmentArray.h"
 
-@interface AKAudioSegmentArray () {
+@implementation AKAudioSegmentArray
+{
     NSString *opcode;
     AKConstant *start;
     AKConstant *dur;
@@ -22,9 +23,6 @@
     AKConstant *release;
     AKConstant *final;
 }
-@end
-
-@implementation AKAudioSegmentArray
 
 - (instancetype)initWithStartValue:(AKConstant *)firstSegmentStartValue
                        toNextValue:(AKConstant *)firstSegmentTargetValue

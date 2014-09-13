@@ -9,12 +9,6 @@
 #import "AKNoteProperty.h"
 #import "AKNote.h"
 
-//@interface AKNoteProperty() {
-//    AKNote *myNote;
-//    int pValue;
-//}
-//@end
-
 @implementation AKNoteProperty
 
 - (id) init

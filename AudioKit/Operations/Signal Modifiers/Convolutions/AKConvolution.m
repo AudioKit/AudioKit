@@ -8,13 +8,11 @@
 
 #import "AKConvolution.h"
 
-@interface AKConvolution () {
+@implementation AKConvolution
+{
     AKAudio *aIn;
     NSString *iFilCod;
 }
-@end
-
-@implementation AKConvolution
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                 impulseResponseFile:(NSString *)impulseResponseFilename

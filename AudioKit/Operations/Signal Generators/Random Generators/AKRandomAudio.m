@@ -11,13 +11,11 @@
 
 #import "AKRandomAudio.h"
 
-@interface AKRandomAudio () {
+@implementation AKRandomAudio
+{
     AKControl *kmin;
     AKControl *kmax;
 }
-@end
-
-@implementation AKRandomAudio
 
 - (instancetype)initWithMinimum:(AKControl *)minimum
                         maximum:(AKControl *)maximum

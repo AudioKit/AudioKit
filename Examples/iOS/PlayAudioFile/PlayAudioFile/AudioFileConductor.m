@@ -10,12 +10,10 @@
 #import "AKFoundation.h"
 #import "AudioFilePlayer.h"
 
-@interface AudioFileConductor () {
+@implementation AudioFileConductor
+{
     AudioFilePlayer *audioFilePlayer;
 }
-@end
-
-@implementation AudioFileConductor
 
 - (instancetype)init
 {

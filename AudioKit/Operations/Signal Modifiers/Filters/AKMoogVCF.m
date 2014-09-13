@@ -11,14 +11,12 @@
 
 #import "AKMoogVCF.h"
 
-@interface AKMoogVCF () {
+@implementation AKMoogVCF
+{
     AKAudio *asig;
     AKParameter *xfco;
     AKParameter *xres;
 }
-@end
-
-@implementation AKMoogVCF
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     cutoffFrequency:(AKParameter *)cutoffFrequency

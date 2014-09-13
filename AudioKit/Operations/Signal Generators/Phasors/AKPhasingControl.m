@@ -11,13 +11,11 @@
 
 #import "AKPhasingControl.h"
 
-@interface AKPhasingControl () {
+@implementation AKPhasingControl
+{
     AKControl *kcps;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKPhasingControl
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
 {

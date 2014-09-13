@@ -8,7 +8,7 @@
 
 #import "AKAdditiveCosines.h"
 
-@interface AKAdditiveCosines ()
+@implementation AKAdditiveCosines
 {
     AKConstant *pts;
     AKConstant *phs;
@@ -20,9 +20,6 @@
     
     AKFTable *f;
 }
-@end
-
-@implementation AKAdditiveCosines
 
 - (instancetype)initWithFTable:(AKFTable *)cosineTable
                 harmonicsCount:(AKControl *)harmonicsCount

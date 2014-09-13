@@ -11,14 +11,12 @@
 
 #import "AKResonantFilter.h"
 
-@interface AKResonantFilter () {
+@implementation AKResonantFilter
+{
     AKAudio *asig;
     AKControl *kcf;
     AKControl *kbw;
 }
-@end
-
-@implementation AKResonantFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     centerFrequency:(AKControl *)centerFrequency

@@ -13,13 +13,10 @@
 
 #import "UDOInstrument.h"
 
-@interface ViewController () {
+@implementation ViewController
+{
     UDOInstrument *udoInstrument;
 }
-@end
-
-
-@implementation ViewController
 
 - (void)viewDidLoad
 {

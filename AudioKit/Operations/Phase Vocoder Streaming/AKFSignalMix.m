@@ -8,13 +8,11 @@
 
 #import "AKFSignalMix.h"
 
-@interface AKFSignalMix () {
+@implementation AKFSignalMix
+{
     AKFSignal *fSigIn1;
     AKFSignal *fSigIn2;
 }
-@end
-
-@implementation AKFSignalMix
 
 - (instancetype)initWithInput1:(AKFSignal *)input1
                         input2:(AKFSignal *)input2;

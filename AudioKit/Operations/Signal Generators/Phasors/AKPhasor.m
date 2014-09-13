@@ -11,13 +11,11 @@
 
 #import "AKPhasor.h"
 
-@interface AKPhasor () {
+@implementation AKPhasor
+{
     AKParameter *xcps;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKPhasor
 
 - (instancetype)initWithFrequency:(AKParameter *)frequency
 {

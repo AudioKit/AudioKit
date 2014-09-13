@@ -12,13 +12,11 @@
 
 #import "AKInterpolatedRandomNumberPulse.h"
 
-@interface AKInterpolatedRandomNumberPulse () {
+@implementation AKInterpolatedRandomNumberPulse
+{
     AKControl *kamp;
     AKControl *kcps;
 }
-@end
-
-@implementation AKInterpolatedRandomNumberPulse
 
 - (instancetype)initWithMaximum:(AKControl *)maximum
                       frequency:(AKControl *)frequency

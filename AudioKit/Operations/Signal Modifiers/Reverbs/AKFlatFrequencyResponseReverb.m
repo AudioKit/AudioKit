@@ -11,14 +11,12 @@
 
 #import "AKFlatFrequencyResponseReverb.h"
 
-@interface AKFlatFrequencyResponseReverb () {
+@implementation AKFlatFrequencyResponseReverb
+{
     AKAudio *asig;
     AKControl *krvt;
     AKConstant *ilpt;
 }
-@end
-
-@implementation AKFlatFrequencyResponseReverb
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                   reverberationTime:(AKControl *)reverberationTime

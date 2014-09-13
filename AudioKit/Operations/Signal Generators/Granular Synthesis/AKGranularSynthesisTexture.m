@@ -11,7 +11,8 @@
 
 #import "AKGranularSynthesisTexture.h"
 
-@interface AKGranularSynthesisTexture () {
+@implementation AKGranularSynthesisTexture
+{
     AKConstant *igfn;
     AKConstant *iwfn;
     AKConstant *imgdur;
@@ -23,9 +24,6 @@
     AKParameter *xdens;
     BOOL useRandomGrainOffset;
 }
-@end
-
-@implementation AKGranularSynthesisTexture
 
 - (instancetype)initWithGrainFTable:(AKConstant *)grainFTable
                        windowFTable:(AKConstant *)windowFTable

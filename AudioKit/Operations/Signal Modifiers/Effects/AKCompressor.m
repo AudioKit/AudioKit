@@ -11,7 +11,8 @@
 
 #import "AKCompressor.h"
 
-@interface AKCompressor () {
+@implementation AKCompressor
+{
     AKAudio *aasig;
     AKAudio *acsig;
     AKControl *kthresh;
@@ -22,9 +23,6 @@
     AKControl *krel;
     AKConstant *ilook;
 }
-@end
-
-@implementation AKCompressor
 
 - (instancetype)initWithAffectedAudioSource:(AKAudio *)affectedAudioSource
                      controllingAudioSource:(AKAudio *)controllingAudioSource

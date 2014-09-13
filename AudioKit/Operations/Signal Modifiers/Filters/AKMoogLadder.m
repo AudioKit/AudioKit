@@ -11,14 +11,12 @@
 
 #import "AKMoogLadder.h"
 
-@interface AKMoogLadder () {
+@implementation AKMoogLadder
+{
     AKAudio *ain;
     AKControl *kcf;
     AKControl *kres;
 }
-@end
-
-@implementation AKMoogLadder
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     cutoffFrequency:(AKControl *)cutoffFrequency

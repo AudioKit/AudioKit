@@ -8,13 +8,11 @@
 
 #import "AKAssignment.h"
 
-@interface AKAssignment () {
+@implementation AKAssignment
+{
     AKParameter *lhs;
     AKParameter *rhs;
 }
-@end
-
-@implementation AKAssignment
 
 - (instancetype)initWithOutput:(AKParameter *)output
                          input:(AKParameter *)input {

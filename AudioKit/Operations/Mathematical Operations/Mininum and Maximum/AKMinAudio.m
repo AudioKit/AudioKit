@@ -11,12 +11,10 @@
 
 #import "AKMinAudio.h"
 
-@interface AKMinAudio () {
+@implementation AKMinAudio
+{
     AKArray *ains;
 }
-@end
-
-@implementation AKMinAudio
 
 - (instancetype)initWithAudioSources:(AKArray *)inputAudioSources;
 {

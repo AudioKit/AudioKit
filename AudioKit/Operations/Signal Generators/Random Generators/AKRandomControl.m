@@ -11,13 +11,11 @@
 
 #import "AKRandomControl.h"
 
-@interface AKRandomControl () {
+@implementation AKRandomControl
+{
     AKControl *kmin;
     AKControl *kmax;
 }
-@end
-
-@implementation AKRandomControl
 
 - (instancetype)initWithMinimum:(AKControl *)minimum
                         maximum:(AKControl *)maximum

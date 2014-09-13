@@ -11,14 +11,12 @@
 
 #import "AKVariableDelay.h"
 
-@interface AKVariableDelay () {
+@implementation AKVariableDelay
+{
     AKAudio *asig;
     AKAudio *adel;
     AKConstant *imaxdel;
 }
-@end
-
-@implementation AKVariableDelay
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                           delayTime:(AKAudio *)delayTime

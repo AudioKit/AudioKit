@@ -11,13 +11,11 @@
 
 #import "AKHighPassFilter.h"
 
-@interface AKHighPassFilter () {
+@implementation AKHighPassFilter
+{
     AKAudio *asig;
     AKControl *khp;
 }
-@end
-
-@implementation AKHighPassFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                      halfPowerPoint:(AKControl *)halfPowerPoint

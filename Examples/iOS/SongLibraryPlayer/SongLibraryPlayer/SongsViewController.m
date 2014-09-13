@@ -11,11 +11,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface SongsViewController () <UITableViewDelegate> {
-}
-
+@interface SongsViewController () <UITableViewDelegate>
 @property (strong, nonatomic) NSMutableArray *songsList;
-
 @end
 
 @implementation SongsViewController

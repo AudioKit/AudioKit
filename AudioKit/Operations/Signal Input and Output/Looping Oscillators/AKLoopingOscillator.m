@@ -8,16 +8,14 @@
 
 #import "AKLoopingOscillator.h"
 
-@interface AKLoopingOscillator () {
+@implementation AKLoopingOscillator
+{
     AKParameter *amp;
     AKParameter *freqMultiplier;
     AKConstant *baseFrequency;
     AKSoundFileTable *soundFileTable;
     LoopingOscillatorType imod1;
 }
-@end
-
-@implementation AKLoopingOscillator
 
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable

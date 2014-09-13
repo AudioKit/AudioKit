@@ -11,15 +11,13 @@
 
 #import "AKEqualizerFilter.h"
 
-@interface AKEqualizerFilter () {
+@implementation AKEqualizerFilter
+{
     AKAudio *ain;
     AKControl *kcf;
     AKControl *kbw;
     AKControl *kgain;
 }
-@end
-
-@implementation AKEqualizerFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     centerFrequency:(AKControl *)centerFrequency

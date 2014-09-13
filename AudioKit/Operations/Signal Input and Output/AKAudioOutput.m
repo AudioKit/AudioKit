@@ -8,12 +8,10 @@
 
 #import "AKAudioOutput.h"
 
-@interface AKAudioOutput () {
+@implementation AKAudioOutput
+{
     AKStereoAudio *aStereoOutput;
 }
-@end
-
-@implementation AKAudioOutput
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {
