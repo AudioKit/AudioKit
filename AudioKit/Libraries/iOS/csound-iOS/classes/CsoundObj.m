@@ -41,7 +41,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 @interface CsoundObj() {
     NSMutableArray *listeners;
     csdata mCsData;
-	id  mMessageListener;
+    id  mMessageListener;
 }
 
 - (void)runCsound:(NSString *)csdFilePath;
@@ -55,8 +55,8 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 {
     self = [super init];
     if (self) {
-		mCsData.shouldMute = false;
-        _valuesCache = [[NSMutableArray alloc] init];
+        mCsData.shouldMute = false;
+        _bindings = [[NSMutableArray alloc] init];
         listeners = [[NSMutableArray alloc] init];
         _midiInEnabled = NO;
         _useAudioInput = NO;
@@ -69,15 +69,24 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 #  pragma mark - CsoundObj Interface
 // -----------------------------------------------------------------------------
 
-- (void)sendScore:(NSString *)score {
+- (void)sendScore:(NSString *)score
+{
     if (mCsData.cs != NULL) {
         csoundReadScore(mCsData.cs, (char*)[score cStringUsingEncoding:NSASCIIStringEncoding]);
     }
 }
 
-- (void)play:(NSString *)csdFilePath {
-	mCsData.shouldRecord = false;
+- (void)play:(NSString *)csdFilePath
+{
+    mCsData.shouldRecord = false;
     [self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
+}
+
+- (void)updateOrchestra:(NSString *)orchestraString
+{
+    if (mCsData.cs != NULL) {
+        csoundCompileOrc(mCsData.cs, (char*)[orchestraString cStringUsingEncoding:NSASCIIStringEncoding]);
+    }
 }
 
 - (void)stop {
@@ -85,11 +94,11 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 }
 
 - (void)mute {
-	mCsData.shouldMute = true;
+    mCsData.shouldMute = true;
 }
 
 - (void)unmute {
-	mCsData.shouldMute = false;
+    mCsData.shouldMute = false;
 }
 
 // -----------------------------------------------------------------------------
@@ -98,14 +107,14 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 
 - (void)record:(NSString *)csdFilePath toURL:(NSURL *)outputURL
 {
-	mCsData.shouldRecord = true;
-	self.outputURL = outputURL;
-	[self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
+    mCsData.shouldRecord = true;
+    self.outputURL = outputURL;
+    [self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
 }
 
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
-	mCsData.shouldRecord = false;
+    mCsData.shouldRecord = false;
     
     [self performSelectorInBackground:@selector(runCsoundToDisk:)
                            withObject:[NSMutableArray arrayWithObjects:csdFilePath, outputFile, nil]];
@@ -154,39 +163,47 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 }
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Value Cache
+#  pragma mark - Bindings
 // -----------------------------------------------------------------------------
 
-- (void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable {
-    if (valueCacheable != nil) {
-        [_valuesCache addObject:valueCacheable];
+- (void)addBinding:(id<CsoundBinding>)binding
+{
+    if (binding != nil) {
+        [_bindings addObject:binding];
     }
 }
 
-- (void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable {
-	if (valueCacheable != nil && [_valuesCache containsObject:valueCacheable]) {
-		[_valuesCache removeObject:valueCacheable];
-	}
-}
-
-- (void)setupValueCache {
-    for (int i = 0; i < _valuesCache.count; i++) {
-        id<CsoundValueCacheable> cachedValue = [_valuesCache objectAtIndex:i];
-        [cachedValue setup:self];
-    }
-}
-- (void)cleanupValueCache {
-    for (int i = 0; i < _valuesCache.count; i++) {
-        id<CsoundValueCacheable> cachedValue = [_valuesCache objectAtIndex:i];
-        [cachedValue cleanup];
+- (void)removeBinding:(id<CsoundBinding>)binding
+{
+    if (binding != nil && [_bindings containsObject:binding]) {
+        [_bindings removeObject:binding];
     }
 }
 
-- (void)updateAllValuesToCsound {
-    for (int i = 0; i < _valuesCache.count; i++) {
-        id<CsoundValueCacheable> cachedValue = [_valuesCache objectAtIndex:i];
-        if ([cachedValue respondsToSelector:@selector(updateValuesToCsound)]) {
-            [cachedValue updateValuesToCsound];
+- (void)setupBindings
+{
+    for (int i = 0; i < _bindings.count; i++) {
+        id<CsoundBinding> binding = [_bindings objectAtIndex:i];
+        [binding setup:self];
+    }
+}
+
+- (void)cleanupBindings
+{
+    for (int i = 0; i < _bindings.count; i++) {
+        id<CsoundBinding> binding = [_bindings objectAtIndex:i];
+        if ([binding respondsToSelector:@selector(cleanup)]) {
+            [binding cleanup];
+        }
+    }
+}
+
+- (void)updateAllValuesToCsound
+{
+    for (int i = 0; i < _bindings.count; i++) {
+        id<CsoundBinding> binding = [_bindings objectAtIndex:i];
+        if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+            [binding updateValuesToCsound];
         }
     }
 }
@@ -199,14 +216,16 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
     [listeners addObject:listener];
 }
 
-- (void)notifyListenersOfStartup {
+- (void)notifyListenersOfStartup
+{
     for (id<CsoundObjListener> listener in listeners) {
         if ([listener respondsToSelector:@selector(csoundObjStarted:)]) {
             [listener csoundObjStarted:self];
         }
     }
 }
-- (void)notifyListenersOfCompletion {
+- (void)notifyListenersOfCompletion
+{
     for (id<CsoundObjListener> listener in listeners) {
         if ([listener respondsToSelector:@selector(csoundObjCompleted:)]) {
             [listener csoundObjCompleted:self];
@@ -216,29 +235,29 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 
 static void messageCallback(CSOUND *cs, int attr, const char *format, va_list valist)
 {
-	@autoreleasepool {
-		CsoundObj *obj = (__bridge CsoundObj *)(csoundGetHostData(cs));
-		Message info;
-		info.cs = cs;
-		info.attr = attr;
-		info.format = format;
+    @autoreleasepool {
+        CsoundObj *obj = (__bridge CsoundObj *)(csoundGetHostData(cs));
+        Message info;
+        info.cs = cs;
+        info.attr = attr;
+        info.format = format;
         va_copy(info.valist,valist);
-		NSValue *infoObj = [NSValue value:&info withObjCType:@encode(Message)];
-		[obj performSelector:@selector(performMessageCallback:) withObject:infoObj];
-	}
+        NSValue *infoObj = [NSValue value:&info withObjCType:@encode(Message)];
+        [obj performSelector:@selector(performMessageCallback:) withObject:infoObj];
+    }
 }
 
 - (void)setMessageCallback:(SEL)method withListener:(id)listener
 {
-	self.messageCallbackSelector = method;
-	mMessageListener = listener;
+    self.messageCallbackSelector = method;
+    mMessageListener = listener;
 }
 
 - (void)performMessageCallback:(NSValue *)infoObj
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	[mMessageListener performSelector:self.messageCallbackSelector withObject:infoObj];
+    [mMessageListener performSelector:self.messageCallbackSelector withObject:infoObj];
 #pragma clang diagnostic pop
 }
 
@@ -246,14 +265,16 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 #  pragma mark - Csound Internals / Advanced Methods
 // -----------------------------------------------------------------------------
 
-- (CSOUND *)getCsound {
+- (CSOUND *)getCsound
+{
     if (!mCsData.running) {
         return NULL;
     }
     return mCsData.cs;
 }
 
-- (AudioUnit *)getAudioUnit {
+- (AudioUnit *)getAudioUnit
+{
     if (!mCsData.running) {
         return NULL;
     }
@@ -270,13 +291,14 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 
 - (MYFLT *)getOutputChannelPtr:(NSString *)channelName channelType:(controlChannelType)channelType
 {
-	MYFLT *value;
-	csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding],
+    MYFLT *value;
+    csoundGetChannelPtr(mCsData.cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding],
                         channelType | CSOUND_OUTPUT_CHANNEL);
-	return value;
+    return value;
 }
 
-- (NSData*)getOutSamples {
+- (NSData *)getOutSamples
+{
     if (!mCsData.running) {
         return nil;
     }
@@ -288,13 +310,16 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     return data;
 }
 
-- (int)getNumChannels {
+- (int)getNumChannels
+{
     if (!mCsData.running) {
         return -1;
     }
     return csoundGetNchnls(mCsData.cs);
 }
-- (int)getKsmps {
+
+- (int)getKsmps
+{
     if (!mCsData.running) {
         return -1;
     }
@@ -327,15 +352,15 @@ OSStatus  Csound_Render(void *inRefCon,
     NSMutableArray* cache = cdata->valuesCache;
     
     for(i=0; i < slices; i++){
-		
-		for (int i = 0; i < cache.count; i++) {
-			id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
-            if ([cachedValue respondsToSelector:@selector(updateValuesToCsound)]) {
-                [cachedValue updateValuesToCsound];
-            }
-		}
         
-		/* performance */
+        for (int i = 0; i < cache.count; i++) {
+            id<CsoundBinding> binding = [cache objectAtIndex:i];
+            if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                [binding updateValuesToCsound];
+            }
+        }
+        
+        /* performance */
         if(cdata->useAudioInput) {
             for (k = 0; k < nchnls; k++){
                 buffer = (AudioUnitSampleType *) ioData->mBuffers[k].mData;
@@ -349,40 +374,40 @@ OSStatus  Csound_Render(void *inRefCon,
         } else {
             cdata->running = false;
         }
-		
-		for (k = 0; k < nchnls; k++) {
-			buffer = (AudioUnitSampleType *) ioData->mBuffers[k].mData;
-			if (cdata->shouldMute == false) {
-				for(j=0; j < ksmps; j++){
-					buffer[j+i*ksmps] = (AudioUnitSampleType) lrintf(spout[j*nchnls+k]*coef) ;
-				}
-			} else {
-				memset(buffer, 0, sizeof(AudioUnitSampleType) * inNumberFrames);
-			}
-		}
+        
+        for (k = 0; k < nchnls; k++) {
+            buffer = (AudioUnitSampleType *) ioData->mBuffers[k].mData;
+            if (cdata->shouldMute == false) {
+                for(j=0; j < ksmps; j++){
+                    buffer[j+i*ksmps] = (AudioUnitSampleType) lrintf(spout[j*nchnls+k]*coef) ;
+                }
+            } else {
+                memset(buffer, 0, sizeof(AudioUnitSampleType) * inNumberFrames);
+            }
+        }
         
         for (int i = 0; i < cache.count; i++) {
-            id<CsoundValueCacheable> cachedValue = [cache objectAtIndex:i];
-            if ([cachedValue respondsToSelector:@selector(updateValuesFromCsound)]) {
-                [cachedValue updateValuesFromCsound];
+            id<CsoundBinding> binding = [cache objectAtIndex:i];
+            if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                [binding updateValuesFromCsound];
             }
         }
     }
-	
-	// Write to file.
-	if (cdata->shouldRecord) {
-		OSStatus err = ExtAudioFileWriteAsync(cdata->file, inNumberFrames, ioData);
-		if (err != noErr) {
-			printf("***Error writing to file: %d\n", (int)err);
-		}
-	}
+    
+    // Write to file.
+    if (cdata->shouldRecord) {
+        OSStatus err = ExtAudioFileWriteAsync(cdata->file, inNumberFrames, ioData);
+        if (err != noErr) {
+            printf("***Error writing to file: %d\n", (int)err);
+        }
+    }
     
     cdata->ret = ret;
     return 0;
 }
 
-- (void)runCsoundToDisk:(NSArray *)paths {
-	
+- (void)runCsoundToDisk:(NSArray *)paths
+{
     @autoreleasepool {
         
         CSOUND *cs;
@@ -393,7 +418,7 @@ OSStatus  Csound_Render(void *inRefCon,
             (char*)[[paths objectAtIndex:0] cStringUsingEncoding:NSASCIIStringEncoding], "-o", (char*)[[paths objectAtIndex:1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 4, argv);
         
-        [self setupValueCache];
+        [self setupBindings];
         [self notifyListenersOfStartup];
         
         [self updateAllValuesToCsound];
@@ -404,45 +429,45 @@ OSStatus  Csound_Render(void *inRefCon,
             csoundDestroy(cs);
         }
         
-        [self cleanupValueCache];
+        [self cleanupBindings];
         [self notifyListenersOfCompletion];
     }
 }
 
-- (void)runCsound:(NSString *)csdFilePath {
-	
+- (void)runCsound:(NSString *)csdFilePath
+{
     @autoreleasepool {
-		CSOUND *cs;
+        CSOUND *cs;
         NSError* error;
         BOOL success;
         
-		cs = csoundCreate(NULL);
+        cs = csoundCreate(NULL);
         csoundSetHostImplementedAudioIO(cs, 1, 0);
-		
-		csoundSetMessageCallback(cs, messageCallback);
-		csoundSetHostData(cs, (__bridge void *)(self));
         
-//        if (_midiInEnabled) {
-//            [CsoundMIDI setMidiInCallbacks:cs];
-//        }
+        csoundSetMessageCallback(cs, messageCallback);
+        csoundSetHostData(cs, (__bridge void *)(self));
+        
+        if (_midiInEnabled) {
+            // [CsoundMIDI setMidiInCallbacks:cs];
+        }
         
         char *argv[2] = { "csound", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
-		int ret = csoundCompile(cs, 2, argv);
-		mCsData.running = true;
+        int ret = csoundCompile(cs, 2, argv);
+        mCsData.running = true;
         
-		if(!ret) {
+        if(!ret) {
             
-			mCsData.cs = cs;
-			mCsData.ret = ret;
-			mCsData.nchnls = csoundGetNchnls(cs);
-			mCsData.bufframes = (csoundGetOutputBufferSize(cs))/mCsData.nchnls;
-			mCsData.running = true;
-            mCsData.valuesCache = _valuesCache;
+            mCsData.cs = cs;
+            mCsData.ret = ret;
+            mCsData.nchnls = csoundGetNchnls(cs);
+            mCsData.bufframes = (csoundGetOutputBufferSize(cs))/mCsData.nchnls;
+            mCsData.running = true;
+            mCsData.valuesCache = _bindings;
             mCsData.useAudioInput = _useAudioInput;
             AudioStreamBasicDescription format;
             OSStatus err;
             
-            [self setupValueCache];
+            [self setupBindings];
             
             /* Audio Session handler */
             AVAudioSession* session = [AVAudioSession sharedInstance];
@@ -474,13 +499,13 @@ OSStatus  Csound_Render(void *inRefCon,
                                                          name:AVAudioSessionInterruptionNotification
                                                        object:session];
             
-			AudioComponentDescription cd = {kAudioUnitType_Output, kAudioUnitSubType_RemoteIO, kAudioUnitManufacturer_Apple, 0, 0};
-			AudioComponent HALOutput = AudioComponentFindNext(NULL, &cd);
-			
-			AudioUnit csAUHAL;
-			err = AudioComponentInstanceNew(HALOutput, &csAUHAL);
+            AudioComponentDescription cd = {kAudioUnitType_Output, kAudioUnitSubType_RemoteIO, kAudioUnitManufacturer_Apple, 0, 0};
+            AudioComponent HALOutput = AudioComponentFindNext(NULL, &cd);
             
-			if(!err) {
+            AudioUnit csAUHAL;
+            err = AudioComponentInstanceNew(HALOutput, &csAUHAL);
+            
+            if(!err) {
                 
                 mCsData.aunit = &csAUHAL;
                 UInt32 enableIO = 1;
@@ -510,39 +535,39 @@ OSStatus  Csound_Render(void *inRefCon,
                         err = AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, sizeof(AudioStreamBasicDescription));
                     }
                     
-					if (mCsData.shouldRecord) {
-						
-						// Define format for the audio file.
-						AudioStreamBasicDescription destFormat, clientFormat;
-						memset(&destFormat, 0, sizeof(AudioStreamBasicDescription));
-						memset(&clientFormat, 0, sizeof(AudioStreamBasicDescription));
-						destFormat.mFormatID = kAudioFormatLinearPCM;
-						destFormat.mFormatFlags = kLinearPCMFormatFlagIsPacked | kLinearPCMFormatFlagIsSignedInteger;
-						destFormat.mSampleRate = csoundGetSr(cs);
-						destFormat.mChannelsPerFrame = mCsData.nchnls;
-						destFormat.mBytesPerPacket = mCsData.nchnls * 2;
-						destFormat.mBytesPerFrame = mCsData.nchnls * 2;
-						destFormat.mBitsPerChannel = 16;
-						destFormat.mFramesPerPacket = 1;
-						
-						// Create the audio file.
-						CFURLRef fileURL = (__bridge CFURLRef)self.outputURL;
-						err = ExtAudioFileCreateWithURL(fileURL, kAudioFileWAVEType, &destFormat, NULL, kAudioFileFlags_EraseFile, &(mCsData.file));
-						if (err == noErr) {
-							// Get the stream format from the AU...
-							UInt32 propSize = sizeof(AudioStreamBasicDescription);
-							AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &clientFormat, &propSize);
-							// ...and set it as the client format for the audio file. The file will use this
-							// format to perform any necessary conversions when asked to read or write.
-							ExtAudioFileSetProperty(mCsData.file, kExtAudioFileProperty_ClientDataFormat, sizeof(clientFormat), &clientFormat);
-							// Warm the file up.
-							ExtAudioFileWriteAsync(mCsData.file, 0, NULL);
-						} else {
-							printf("***Not recording. Error: %d\n", (int)err);
-							err = noErr;
-						}
-					}
-					
+                    if (mCsData.shouldRecord) {
+                        
+                        // Define format for the audio file.
+                        AudioStreamBasicDescription destFormat, clientFormat;
+                        memset(&destFormat, 0, sizeof(AudioStreamBasicDescription));
+                        memset(&clientFormat, 0, sizeof(AudioStreamBasicDescription));
+                        destFormat.mFormatID = kAudioFormatLinearPCM;
+                        destFormat.mFormatFlags = kLinearPCMFormatFlagIsPacked | kLinearPCMFormatFlagIsSignedInteger;
+                        destFormat.mSampleRate = csoundGetSr(cs);
+                        destFormat.mChannelsPerFrame = mCsData.nchnls;
+                        destFormat.mBytesPerPacket = mCsData.nchnls * 2;
+                        destFormat.mBytesPerFrame = mCsData.nchnls * 2;
+                        destFormat.mBitsPerChannel = 16;
+                        destFormat.mFramesPerPacket = 1;
+                        
+                        // Create the audio file.
+                        CFURLRef fileURL = (__bridge CFURLRef)self.outputURL;
+                        err = ExtAudioFileCreateWithURL(fileURL, kAudioFileWAVEType, &destFormat, NULL, kAudioFileFlags_EraseFile, &(mCsData.file));
+                        if (err == noErr) {
+                            // Get the stream format from the AU...
+                            UInt32 propSize = sizeof(AudioStreamBasicDescription);
+                            AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &clientFormat, &propSize);
+                            // ...and set it as the client format for the audio file. The file will use this
+                            // format to perform any necessary conversions when asked to read or write.
+                            ExtAudioFileSetProperty(mCsData.file, kExtAudioFileProperty_ClientDataFormat, sizeof(clientFormat), &clientFormat);
+                            // Warm the file up.
+                            ExtAudioFileWriteAsync(mCsData.file, 0, NULL);
+                        } else {
+                            printf("***Not recording. Error: %d\n", (int)err);
+                            err = noErr;
+                        }
+                    }
+                    
                     if(!err) {
                         AURenderCallbackStruct output;
                         output.inputProc = Csound_Render;
@@ -551,7 +576,7 @@ OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitInitialize(csAUHAL);
                         
                         err = AudioOutputUnitStart(csAUHAL);
-						
+                        
                         [self notifyListenersOfStartup];
                         
                         if(!err) {
@@ -561,26 +586,26 @@ OSStatus  Csound_Render(void *inRefCon,
                         }
                         
                         ExtAudioFileDispose(mCsData.file);
-						mCsData.shouldRecord = false;
+                        mCsData.shouldRecord = false;
                         AudioOutputUnitStop(csAUHAL);
                         /* free(CAInputData); */
                     }
                     AudioUnitUninitialize(csAUHAL);
                     AudioComponentInstanceDispose(csAUHAL);
                 }
-			}
-			csoundDestroy(cs);
-		}
-		
+            }
+            csoundDestroy(cs);
+        }
+        
         mCsData.running = false;
         
-        [self cleanupValueCache];
+        [self cleanupBindings];
         [self notifyListenersOfCompletion];
-	}
+    }
 }
 
-- (void)handleInterruption:(NSNotification *)notification {
-    
+- (void)handleInterruption:(NSNotification *)notification
+{
     NSDictionary *interuptionDict = notification.userInfo;
     NSUInteger interuptionType = (NSUInteger)[interuptionDict
                                               valueForKey:AVAudioSessionInterruptionTypeKey];

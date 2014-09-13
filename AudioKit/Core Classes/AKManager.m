@@ -244,7 +244,7 @@ static AKManager *_sharedAKManager = nil;
     NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
     for (AKInstrument *instrument in arr ) {
         for (AKInstrumentProperty *c in [instrument properties]) {
-            [csound addValueCacheable:(AKInstrumentProperty<CsoundValueCacheable> *)c];
+            [csound addBinding:(AKInstrumentProperty<CsoundBinding> *)c];
         }
     }
 }
