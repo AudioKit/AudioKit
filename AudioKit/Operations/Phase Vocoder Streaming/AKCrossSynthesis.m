@@ -11,15 +11,13 @@
 
 #import "AKCrossSynthesis.h"
 
-@interface AKCrossSynthesis () {
+@implementation AKCrossSynthesis
+{
     AKFSignal *fsrc;
     AKFSignal *fdest;
     AKControl *kamp1;
     AKControl *kamp2;
 }
-@end
-
-@implementation AKCrossSynthesis
 
 - (instancetype)initWithSignal1:(AKFSignal *)signal1
                         signal2:(AKFSignal *)signal2

@@ -12,7 +12,8 @@
 
 #import "AKControlSegmentArray.h"
 
-@interface AKControlSegmentArray () {
+@implementation AKControlSegmentArray
+{
     NSString *opcode;
     AKConstant *start;
     AKConstant *dur;
@@ -22,9 +23,6 @@
     AKConstant *release;
     AKConstant *final;
 }
-@end
-
-@implementation AKControlSegmentArray
 
 - (instancetype)initWithStartValue:(AKConstant *)firstSegmentStartValue
                        toNextValue:(AKConstant *)firstSegmentTargetValue

@@ -11,12 +11,10 @@
 
 #import "AKMaxControl.h"
 
-@interface AKMaxControl () {
+@implementation AKMaxControl
+{
     AKArray *kins;
 }
-@end
-
-@implementation AKMaxControl
 
 - (instancetype)initWithControls:(AKArray *)inputControls;
 {

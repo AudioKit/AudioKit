@@ -8,14 +8,12 @@
 
 #import "AKStereoAudio.h"
 
-@interface AKStereoAudio () {
+@implementation AKStereoAudio
+{
     AKAudio *aOutL;
     AKAudio *aOutR;
     int _myID;
 }
-@end
-
-@implementation AKStereoAudio
 
 @synthesize leftOutput=aOutL;
 @synthesize rightOutput=aOutR;

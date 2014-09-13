@@ -11,14 +11,12 @@
 
 #import "AKParallelCombLowPassFilterReverb.h"
 
-@interface AKParallelCombLowPassFilterReverb () {
+@implementation AKParallelCombLowPassFilterReverb
+{
     AKAudio *asig;
     AKControl *ktime;
     AKControl *khdif;
 }
-@end
-
-@implementation AKParallelCombLowPassFilterReverb
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                            duration:(AKControl *)duration

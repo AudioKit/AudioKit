@@ -11,7 +11,8 @@
 
 #import "AKPhaseLockedVocoder.h"
 
-@interface AKPhaseLockedVocoder () {
+@implementation AKPhaseLockedVocoder
+{
     AKControl *ktab;
     AKAudio *atimpt;
     AKControl *kpitch;
@@ -19,9 +20,6 @@
     AKConstant *ifftsize;
     AKConstant *idecim;
 }
-@end
-
-@implementation AKPhaseLockedVocoder
 
 - (instancetype)initWithSourceFTable:(AKControl *)sourceFTable
                                 time:(AKAudio *)time

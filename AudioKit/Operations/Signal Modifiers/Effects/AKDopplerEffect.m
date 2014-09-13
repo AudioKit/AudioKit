@@ -11,16 +11,14 @@
 
 #import "AKDopplerEffect.h"
 
-@interface AKDopplerEffect () {
+@implementation AKDopplerEffect
+{
     AKAudio *asource;
     AKControl *kmicposition;
     AKControl *ksourceposition;
     AKConstant *isoundspeed;
     AKConstant *ifiltercutoff;
 }
-@end
-
-@implementation AKDopplerEffect
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                         micPosition:(AKControl *)micPosition

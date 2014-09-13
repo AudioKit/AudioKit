@@ -8,15 +8,13 @@
 
 #import "AKFTable.h"
 
-@interface AKFTable () {
+@implementation AKFTable
+{
     int isize;
     FTableType igen;
     AKConstant *output;
     AKArray *iargs;
 }
-@end
-
-@implementation AKFTable
 
 - (instancetype)initWithType:(FTableType)fTableType
                         size:(int)tableSize

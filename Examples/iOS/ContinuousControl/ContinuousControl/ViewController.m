@@ -11,7 +11,7 @@
 #import "AKTools.h"
 #import "ContinuousControlConductor.h"
 
-@interface ViewController ()
+@implementation ViewController
 {
     IBOutlet UISlider *amplitudeSlider;
     IBOutlet UISlider *modulationSlider;
@@ -22,9 +22,6 @@
     
     ContinuousControlConductor *conductor;
 }
-@end
-
-@implementation ViewController
 
 - (void)viewDidLoad
 {

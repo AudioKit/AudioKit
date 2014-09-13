@@ -10,13 +10,11 @@
 #import "AKFoundation.h"
 #import "HarmonizerInstrument.h"
 
-@interface ViewController () {
+@implementation ViewController
+{
     HarmonizerInstrument *harmonizer;
     AKSampler *sampler;
 }
-@end
-
-@implementation ViewController
 
 - (void)viewDidLoad
 {

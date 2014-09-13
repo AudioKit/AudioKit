@@ -11,14 +11,12 @@
 
 #import "AKPortamento.h"
 
-@interface AKPortamento () {
+@implementation AKPortamento
+{
     AKControl *ksig;
     AKControl *khtim;
     AKConstant *isig;
 }
-@end
-
-@implementation AKPortamento
 
 - (instancetype)initWithControlSource:(AKControl *)controlSource
                              halfTime:(AKControl *)halfTime

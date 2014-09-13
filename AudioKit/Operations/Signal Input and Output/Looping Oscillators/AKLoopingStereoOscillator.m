@@ -8,7 +8,8 @@
 
 #import "AKLoopingStereoOscillator.h"
 
-@interface AKLoopingStereoOscillator () {
+@implementation AKLoopingStereoOscillator
+{
     AKParameter *amp;
     AKParameter *freqMultiplier;
     AKConstant *baseFrequency;
@@ -20,10 +21,6 @@
     AKConstant *ibeg2;
     AKConstant *iend2;
 }
-@end
-
-@implementation AKLoopingStereoOscillator
-
 
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *) fileTable {
     return [self initWithSoundFileTable:fileTable

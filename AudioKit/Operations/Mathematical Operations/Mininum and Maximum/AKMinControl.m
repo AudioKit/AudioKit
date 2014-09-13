@@ -11,12 +11,10 @@
 
 #import "AKMinControl.h"
 
-@interface AKMinControl () {
+@implementation AKMinControl
+{
     AKArray *kins;
 }
-@end
-
-@implementation AKMinControl
 
 - (instancetype)initWithControls:(AKArray *)inputControls;
 {

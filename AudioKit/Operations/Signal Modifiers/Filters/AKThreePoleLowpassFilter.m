@@ -11,15 +11,13 @@
 
 #import "AKThreePoleLowpassFilter.h"
 
-@interface AKThreePoleLowpassFilter () {
+@implementation AKThreePoleLowpassFilter
+{
     AKAudio *asig;
     AKControl *kdist;
     AKControl *kfco;
     AKControl *kres;
 }
-@end
-
-@implementation AKThreePoleLowpassFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                          distortion:(AKControl *)distortion

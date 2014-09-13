@@ -11,13 +11,11 @@
 
 #import "AKDCBlock.h"
 
-@interface AKDCBlock () {
+@implementation AKDCBlock
+{
     AKAudio *ain;
     AKConstant *igain;
 }
-@end
-
-@implementation AKDCBlock
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {

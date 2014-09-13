@@ -11,14 +11,12 @@
 
 #import "AKVariableFrequencyResponseBandPassFilter.h"
 
-@interface AKVariableFrequencyResponseBandPassFilter () {
+@implementation AKVariableFrequencyResponseBandPassFilter
+{
     AKAudio *asig;
     AKControl *kcf;
     AKControl *kbw;
 }
-@end
-
-@implementation AKVariableFrequencyResponseBandPassFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     cutoffFrequency:(AKControl *)cutoffFrequency

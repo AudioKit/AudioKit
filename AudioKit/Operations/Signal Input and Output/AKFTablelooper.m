@@ -11,7 +11,8 @@
 
 #import "AKFTablelooper.h"
 
-@interface AKFTablelooper () {
+@implementation AKFTablelooper
+{
     AKFTable *ifn;
     AKConstant *istart;
     AKConstant *idur;
@@ -19,9 +20,6 @@
     AKControl *kpitch;
     AKControl *kamp;
 }
-@end
-
-@implementation AKFTablelooper
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
               startingPosition:(AKConstant *)startingPosition

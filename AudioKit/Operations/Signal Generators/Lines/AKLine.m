@@ -8,14 +8,12 @@
 
 #import "AKLine.h"
 
-@interface AKLine () {
+@implementation AKLine
+{
     AKConstant *ia;
     AKConstant *ib;
     AKConstant *idur;
 }
-@end
-
-@implementation AKLine
 
 - (instancetype)initFromValue:(AKConstant *)startingValue
                       toValue:(AKConstant *)endingValue

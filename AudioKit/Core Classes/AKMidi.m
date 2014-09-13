@@ -11,12 +11,10 @@
 
 #pragma mark  Utility Function
 
-@interface AKMidi() {
+@implementation AKMidi
+{
     MIDIClientRef client;
 }
-@end
-
-@implementation AKMidi
 
 #pragma mark - Initialization
 

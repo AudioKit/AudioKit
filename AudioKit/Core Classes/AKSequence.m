@@ -10,14 +10,12 @@
 #import "AKSequence.h"
 #import "AKManager.h"
 
-@interface AKSequence () {
+@implementation AKSequence
+{
     NSTimer *timer;
     BOOL isPlaying;
     unsigned int index;
 }
-@end
-
-@implementation AKSequence
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization

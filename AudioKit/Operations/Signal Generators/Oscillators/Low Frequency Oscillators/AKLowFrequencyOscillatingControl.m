@@ -11,14 +11,12 @@
 
 #import "AKLowFrequencyOscillatingControl.h"
 
-@interface AKLowFrequencyOscillatingControl () {
+@implementation AKLowFrequencyOscillatingControl
+{
     AKControl *kcps;
     AKControl *kamp;
     AKConstant *itype;
 }
-@end
-
-@implementation AKLowFrequencyOscillatingControl
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
                         amplitude:(AKControl *)amplitude

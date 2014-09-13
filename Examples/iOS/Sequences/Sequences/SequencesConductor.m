@@ -10,14 +10,11 @@
 #import "AKFoundation.h"
 #import "SeqInstrument.h"
 
-@interface SequencesConductor ()
+@implementation SequencesConductor
 {
     SeqInstrument *instrument;
     AKSequence *sequence;
 }
-@end
-
-@implementation SequencesConductor
 
 - (instancetype)init
 {

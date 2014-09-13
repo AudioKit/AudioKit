@@ -13,14 +13,12 @@
 
 #import "AKDelay.h"
 
-@interface AKDelay () {
+@implementation AKDelay
+{
     AKAudio *asig;
     AKControl *kFeedback;
     AKConstant *idlt;
 }
-@end
-
-@implementation AKDelay
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                           delayTime:(AKConstant *)delayTime

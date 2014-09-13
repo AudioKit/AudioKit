@@ -10,12 +10,10 @@
 #import "AKManager.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface AKSampler() {
+@implementation AKSampler
+{
     NSMutableDictionary *players;
 }
-@end
-
-@implementation AKSampler
 
 - (id) init {
     self = [super init];

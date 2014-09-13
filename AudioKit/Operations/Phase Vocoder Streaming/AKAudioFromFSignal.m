@@ -8,13 +8,10 @@
 
 #import "AKAudioFromFSignal.h"
 
-@interface AKAudioFromFSignal () {
+@implementation AKAudioFromFSignal
+{
     AKFSignal *fSrc;
 }
-@end
-
-
-@implementation AKAudioFromFSignal
 
 
 - (instancetype)initWithSource:(AKFSignal *)source;

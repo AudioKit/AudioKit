@@ -11,12 +11,10 @@
 
 #import "AKFileInput.h"
 
-@interface AKFileInput () {
+@implementation AKFileInput
+{
     NSString *ifilcod;
 }
-@end
-
-@implementation AKFileInput
 
 - (instancetype)initWithFilename:(NSString *)fileName;
 {

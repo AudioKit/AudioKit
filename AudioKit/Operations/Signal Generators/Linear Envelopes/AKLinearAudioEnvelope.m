@@ -8,16 +8,13 @@
 
 #import "AKLinearAudioEnvelope.h"
 
-@interface AKLinearAudioEnvelope () {
+@implementation AKLinearAudioEnvelope
+{
     AKParameter *amp;
     AKConstant *rise;
     AKConstant *dur;
     AKConstant *decay;
 }
-
-@end
-
-@implementation AKLinearAudioEnvelope
 
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
                    totalDuration:(AKConstant *)totalDuration

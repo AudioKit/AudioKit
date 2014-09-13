@@ -8,16 +8,14 @@
 
 #import "AKTableValueControl.h"
 
-@interface AKTableValueControl () {
+@implementation AKTableValueControl
+{
     AKConstant  *ifn;
     AKControl  *kndx;
     AKParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
 }
-@end
-
-@implementation AKTableValueControl
 
 - (instancetype)initWithFTable:(AKConstant *)fTable
                        atIndex:(AKControl *)index

@@ -11,15 +11,13 @@
 
 #import "AKOscillator.h"
 
-@interface AKOscillator () {
+@implementation AKOscillator
+{
     AKFTable *ifn;
     AKParameter *xcps;
     AKParameter *xamp;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKOscillator
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
                      frequency:(AKParameter *)frequency

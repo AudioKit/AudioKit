@@ -16,14 +16,12 @@ typedef enum {
     kDuration=3
 } kRequiredPValues;
 
-@interface AKInstrument () {
+@implementation AKInstrument
+{
     AKOrchestra *orchestra;
     NSMutableString *innerCSDRepresentation;
     int _myID;
 }
-@end
-
-@implementation AKInstrument
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization

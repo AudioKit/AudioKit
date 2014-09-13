@@ -8,16 +8,14 @@
 
 #import "AKTableValue.h"
 
-@interface AKTableValue () {
+@implementation AKTableValue
+{
     AKConstant  *ifn;
     AKAudio *andx;
     AKParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
 }
-@end
-
-@implementation AKTableValue
 
 - (instancetype)initWithFTable:(AKConstant *)fTable
                        atIndex:(AKAudio *)index

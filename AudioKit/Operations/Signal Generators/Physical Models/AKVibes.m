@@ -13,7 +13,8 @@
 #import "AKVibes.h"
 #import "AKSoundFileTable.h"
 
-@interface AKVibes () {
+@implementation AKVibes
+{
     AKControl *kfreq;
     AKConstant *idec;
     AKConstant *ihrd;
@@ -23,9 +24,6 @@
     AKControl *kvibf;
     AKControl *kvamp;
 }
-@end
-
-@implementation AKVibes
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
                   maximumDuration:(AKConstant *)maximumDuration

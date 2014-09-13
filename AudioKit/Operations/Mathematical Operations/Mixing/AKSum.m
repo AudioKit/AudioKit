@@ -8,12 +8,10 @@
 
 #import "AKSum.h"
 
-@interface AKSum () {
+@implementation AKSum
+{
     NSMutableArray *inputs;
 }
-@end
-
-@implementation AKSum
 
 - (instancetype)initWithOperands:(AKParameter *)firstOperand,... {
     self = [super initWithString:[self operationName]];

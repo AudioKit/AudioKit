@@ -11,12 +11,10 @@
 
 typedef void (^MyBlockType)();
 
-@interface AKEvent () {
+@implementation AKEvent
+{
     MyBlockType block;
 }
-@end
-
-@implementation AKEvent
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization

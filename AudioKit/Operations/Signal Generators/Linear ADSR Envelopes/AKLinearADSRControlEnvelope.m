@@ -11,16 +11,14 @@
 
 #import "AKLinearADSRControlEnvelope.h"
 
-@interface AKLinearADSRControlEnvelope () {
+@implementation AKLinearADSRControlEnvelope
+{
     AKConstant *iatt;
     AKConstant *idec;
     AKConstant *islev;
     AKConstant *irel;
     AKConstant *idel;
 }
-@end
-
-@implementation AKLinearADSRControlEnvelope
 
 - (instancetype)initWithAttackDuration:(AKConstant *)attackDuration
                          decayDuration:(AKConstant *)decayDuration

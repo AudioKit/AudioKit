@@ -8,12 +8,10 @@
 
 #import "AKTrackedAmplitude.h"
 
-@interface AKTrackedAmplitude () {
+@implementation AKTrackedAmplitude
+{
     AKAudio *asig;
 }
-@end
-
-@implementation AKTrackedAmplitude
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {

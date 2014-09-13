@@ -8,16 +8,14 @@
 
 #import "AKTableValueConstant.h"
 
-@interface AKTableValueConstant () {
+@implementation AKTableValueConstant
+{
     AKConstant  *ifn;
     AKParameter *indx;
     AKParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
 }
-@end
-
-@implementation AKTableValueConstant
 
 - (instancetype)initWithFTable:(AKConstant *)fTable
                        atIndex:(AKConstant *)index

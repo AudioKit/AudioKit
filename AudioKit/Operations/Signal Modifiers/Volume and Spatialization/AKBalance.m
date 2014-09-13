@@ -11,14 +11,12 @@
 
 #import "AKBalance.h"
 
-@interface AKBalance () {
+@implementation AKBalance
+{
     AKAudio *asig;
     AKAudio *acomp;
     AKConstant *ihp;
 }
-@end
-
-@implementation AKBalance
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
               comparatorAudioSource:(AKAudio *)comparatorAudioSource

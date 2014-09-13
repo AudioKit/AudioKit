@@ -11,14 +11,12 @@
 
 #import "AKBandPassButterworthFilter.h"
 
-@interface AKBandPassButterworthFilter () {
+@implementation AKBandPassButterworthFilter
+{
     AKAudio *asig;
     AKControl *kfreq;
     AKControl *kband;
 }
-@end
-
-@implementation AKBandPassButterworthFilter
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                     centerFrequency:(AKControl *)centerFrequency

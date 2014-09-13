@@ -11,15 +11,13 @@
 
 #import "AKControlSegmentArrayLoop.h"
 
-@interface AKControlSegmentArrayLoop () {
+@implementation AKControlSegmentArrayLoop
+{
     NSString *opcode;
     AKControl *kfreq;
     AKControl *kvalue0;
     NSMutableArray *segments;
 }
-@end
-
-@implementation AKControlSegmentArrayLoop
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
                        startValue:(AKControl *)startValue

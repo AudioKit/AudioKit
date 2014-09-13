@@ -11,7 +11,8 @@
 
 #import "AKVibrato.h"
 
-@interface AKVibrato () {
+@implementation AKVibrato
+{
     AKFTable *ifn;
     AKControl *kAverageFreq;
     AKControl *kRandAmountFreq;
@@ -23,9 +24,6 @@
     AKControl *kAmpMaxRate;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKVibrato
 
 - (instancetype)initWithVibratoShapeTable:(AKFTable *)vibratoShapeTable
                          averageFrequency:(AKControl *)averageFrequency

@@ -12,13 +12,10 @@
 
 #import "AKProduct.h"
 
-@interface AKProduct () {
+@implementation AKProduct
+{
     NSMutableArray *inputs;
 }
-@end
-
-@implementation AKProduct
-
 
 - (instancetype)initWithOperands:(AKParameter *)firstOperand,... {
     self = [super initWithString:[self operationName]];

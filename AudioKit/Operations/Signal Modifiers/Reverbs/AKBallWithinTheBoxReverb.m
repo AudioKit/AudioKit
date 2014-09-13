@@ -11,7 +11,8 @@
 
 #import "AKBallWithinTheBoxReverb.h"
 
-@interface AKBallWithinTheBoxReverb () {
+@implementation AKBallWithinTheBoxReverb
+{
     AKConstant *irx;
     AKConstant *iry;
     AKConstant *irz;
@@ -21,9 +22,6 @@
     AKAudio *asig;
     AKConstant *idiff;
 }
-@end
-
-@implementation AKBallWithinTheBoxReverb
 
 - (instancetype)initWithLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
                         lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge

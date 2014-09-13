@@ -11,14 +11,12 @@
 
 #import "AKReverb.h"
 
-@interface AKReverb () {
+@implementation AKReverb
+{
     AKStereoAudio *aInLR;
     AKControl *kFbLvl;
     AKControl *kFCo;
 }
-@end
-
-@implementation AKReverb
 
 - (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)sourceStereo
                             feedbackLevel:(AKControl *)feedbackLevel

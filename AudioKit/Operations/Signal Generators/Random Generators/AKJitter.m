@@ -11,14 +11,12 @@
 
 #import "AKJitter.h"
 
-@interface AKJitter () {
+@implementation AKJitter
+{
     AKControl *kamp;
     AKControl *kcpsMax;
     AKControl *kcpsMin;
 }
-@end
-
-@implementation AKJitter
 
 - (instancetype)initWithAmplitude:(AKControl *)amplitude
                      minFrequency:(AKControl *)minFrequency

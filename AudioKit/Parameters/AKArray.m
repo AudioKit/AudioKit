@@ -8,13 +8,11 @@
 
 #import "AKArray.h"
 
-@interface AKArray () {
+@implementation AKArray
+{
     NSUInteger count;
     float      numbers[0];
 }
-@end
-
-@implementation AKArray
 
 - (instancetype)init 
 {

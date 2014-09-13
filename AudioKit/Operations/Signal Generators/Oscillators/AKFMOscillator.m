@@ -11,7 +11,8 @@
 
 #import "AKFMOscillator.h"
 
-@interface AKFMOscillator () {
+@implementation AKFMOscillator
+{
     AKFTable *ifn;
     AKControl *kcps;
     AKParameter *xcar;
@@ -20,9 +21,6 @@
     AKParameter *xamp;
     AKConstant *iphs;
 }
-@end
-
-@implementation AKFMOscillator
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
                  baseFrequency:(AKControl *)baseFrequency

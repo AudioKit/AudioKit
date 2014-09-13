@@ -12,14 +12,11 @@
 #import "ToneGenerator.h"
 #import "EffectsProcessor.h"
 
-@interface GlobalEffectsConductor () {
+@implementation GlobalEffectsConductor
+{
     ToneGenerator *toneGenerator;
     EffectsProcessor *fx;
 }
-
-@end
-
-@implementation GlobalEffectsConductor
 
 - (instancetype)init
 {

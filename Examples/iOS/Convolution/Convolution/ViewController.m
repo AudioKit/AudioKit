@@ -11,13 +11,10 @@
 #import "AKTools.h"
 #import "ConvolutionInstrument.h"
 
-@interface ViewController ()
+@implementation ViewController
 {
     ConvolutionInstrument *conv;
 }
-@end
-
-@implementation ViewController
 
 - (void)viewDidLoad
 {

@@ -8,16 +8,14 @@
 
 #import "AKScaledFSignal.h"
 
-@interface AKScaledFSignal () {
+@implementation AKScaledFSignal
+{
     AKFSignal *fSigIn;
     AKControl *kScal;
     AKControl *kKeepForm;
     AKControl *kGain;
     AKControl *kCoefs;
 }
-@end
-
-@implementation AKScaledFSignal
 
 - (instancetype)initWithInput:(AKFSignal *)input
                frequencyRatio:(AKControl *)frequencyRatio

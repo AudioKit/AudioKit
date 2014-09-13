@@ -8,14 +8,11 @@
 
 #import "AKTrackedFrequencyFromFSignal.h"
 
-@interface AKTrackedFrequencyFromFSignal ()
+@implementation AKTrackedFrequencyFromFSignal
 {
     AKFSignal *asig;
     AKControl *iampThresh;
 }
-@end
-
-@implementation AKTrackedFrequencyFromFSignal
 
 - (instancetype)initWithFSignalSource:(AKFSignal *)fSignalSource
                    amplitudeThreshold:(AKControl *)amplitudeThreshold

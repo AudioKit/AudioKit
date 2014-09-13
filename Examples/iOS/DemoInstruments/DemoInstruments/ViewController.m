@@ -14,7 +14,7 @@
 #import "GrainInstrument.h"
 #import "UnitGeneratorInstrument.h"
 
-@interface ViewController ()
+@implementation ViewController
 {
     ExpressionInstrument *expressionInstrument;
     GrainInstrument *grainInstrument;
@@ -23,9 +23,6 @@
     BOOL isGrainInstrumentPlaying;
     BOOL isUnitGeneratorInstrumentPlaying;
 }
-@end
-
-@implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

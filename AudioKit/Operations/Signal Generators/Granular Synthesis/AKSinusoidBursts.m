@@ -8,7 +8,8 @@
 
 #import "AKSinusoidBursts.h"
 
-@interface AKSinusoidBursts () {
+@implementation AKSinusoidBursts
+{
     AKSineTable *iFnA;
     AKFTable *iFnB;
     AKConstant *iOlaps;
@@ -22,9 +23,6 @@
     AKParameter *xFund;
     AKParameter *xForm;
 }
-@end
-
-@implementation AKSinusoidBursts
 
 - (instancetype)initWithSineTable:(AKSineTable *)sineburstSynthesisTable
                    riseShapeTable:(AKFTable *)riseShapeTable
