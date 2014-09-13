@@ -32,10 +32,10 @@
          location = "group:Examples/iOS/SongLibraryPlayer/SongLibraryPlayer.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
+         location = "group:Examples/iOS/SwiftFMOscillator/SwiftFMOscillator.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/SwiftFMOscillator/SwiftFMOscillator.xcodeproj">
+         location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/UsingUDOs/UsingUDOs.xcodeproj">

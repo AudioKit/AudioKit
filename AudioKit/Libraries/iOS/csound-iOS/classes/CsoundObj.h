@@ -29,45 +29,45 @@
 #import "csound.h"
 
 typedef struct csdata_ {
-	CSOUND *cs;
-	long bufframes;
-	int ret;
-	int nchnls;
+    CSOUND *cs;
+    long bufframes;
+    int ret;
+    int nchnls;
     int nchnls_i;
     bool running;
-	bool shouldRecord;
-	bool shouldMute;
+    bool shouldRecord;
+    bool shouldMute;
     bool useAudioInput;
-	ExtAudioFileRef file;
-	AudioUnit *aunit;
+    ExtAudioFileRef file;
+    AudioUnit *aunit;
     __unsafe_unretained NSMutableArray *valuesCache;
 } csdata;
 
 typedef struct {
-	CSOUND *cs;
-	int attr;
-	const char *format;
-	va_list valist;
+    CSOUND *cs;
+    int attr;
+    const char *format;
+    va_list valist;
 } Message;
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Protocols (Cacheable Values and Listeners)
+#  pragma mark - Protocols (Bindings and Listeners)
 // -----------------------------------------------------------------------------
 
 @class CsoundObj;
 
-@protocol CsoundValueCacheable <NSObject>
-- (void)setup:(CsoundObj*)csoundObj;
-- (void)cleanup;
+@protocol CsoundBinding <NSObject>
+- (void)setup:(CsoundObj *)csoundObj;
 @optional
+- (void)cleanup;
 - (void)updateValuesFromCsound;
 - (void)updateValuesToCsound;
 @end
 
 @protocol CsoundObjListener <NSObject>
 @optional
-- (void)csoundObjStarted:(CsoundObj*)csoundObj;
-- (void)csoundObjCompleted:(CsoundObj*)csoundObj;
+- (void)csoundObjStarted:(CsoundObj *)csoundObj;
+- (void)csoundObjCompleted:(CsoundObj *)csoundObj;
 @end
 
 // -----------------------------------------------------------------------------
@@ -83,6 +83,7 @@ typedef struct {
 - (void)sendScore:(NSString *)score;
 
 - (void)play:(NSString *)csdFilePath;
+- (void)updateOrchestra:(NSString *)orchestraString;
 - (void)stop;
 - (void)mute;
 - (void)unmute;
@@ -98,12 +99,12 @@ typedef struct {
 
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Value Cache
+#  pragma mark - Binding
 // -----------------------------------------------------------------------------
 
-@property (nonatomic, strong) NSMutableArray *valuesCache;
-- (void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable;
-- (void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable;
+@property (nonatomic, strong) NSMutableArray *bindings;
+- (void)addBinding:(id<CsoundBinding>)binding;
+- (void)removeBinding:(id<CsoundBinding>)binding;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Listeners and Messages

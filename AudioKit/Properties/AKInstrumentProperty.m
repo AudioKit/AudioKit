@@ -9,7 +9,7 @@
 #import "AKInstrumentProperty.h"
 #import "CsoundObj.h"
 
-@interface AKInstrumentProperty() <CsoundValueCacheable> {
+@interface AKInstrumentProperty() <CsoundBinding> {
     MYFLT *channelPtr;
     float currentValue;
 }
