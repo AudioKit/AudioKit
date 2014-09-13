@@ -13,7 +13,6 @@
 		C44619961994A31D0073E819 /* AKMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = C446182C1994A31C0073E819 /* AKMidi.m */; };
 		C44619971994A31D0073E819 /* AKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C446182F1994A31C0073E819 /* AKNote.m */; };
 		C44619981994A31D0073E819 /* AKOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C44618311994A31C0073E819 /* AKOrchestra.m */; };
-		C44619991994A31D0073E819 /* AKSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = C44618331994A31C0073E819 /* AKSampler.m */; };
 		C446199A1994A31D0073E819 /* AKSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = C44618351994A31C0073E819 /* AKSequence.m */; };
 		C446199B1994A31D0073E819 /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C44618381994A31C0073E819 /* AKAdditiveCosineTable.m */; };
 		C446199C1994A31D0073E819 /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C446183A1994A31C0073E819 /* AKArrayTable.m */; };
@@ -172,6 +171,7 @@
 		C48E4647199212FE00B3C1F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C48E4645199212FE00B3C1F8 /* InfoPlist.strings */; };
 		C48E4649199212FE00B3C1F8 /* TouchRegionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C48E4648199212FE00B3C1F8 /* TouchRegionsTests.m */; };
 		C48E4654199214E900B3C1F8 /* TouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C48E4653199214E900B3C1F8 /* TouchView.m */; };
+		C4C0C4AA19C42275004CA6C0 /* AKSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = C44618331994A31C0073E819 /* AKSampler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1507,6 +1507,7 @@
 				C44619D51994A31D0073E819 /* AKVCOscillator.m in Sources */,
 				C4461A121994A31D0073E819 /* AKBandPassButterworthFilter.m in Sources */,
 				C44619F01994A31D0073E819 /* AKRandomAudio.m in Sources */,
+				C4C0C4AA19C42275004CA6C0 /* AKSampler.m in Sources */,
 				C48E4654199214E900B3C1F8 /* TouchView.m in Sources */,
 				C44619D91994A31D0073E819 /* AKPhasor.m in Sources */,
 				C4461A261994A31D0073E819 /* AKNoteProperty.m in Sources */,
@@ -1542,7 +1543,6 @@
 				C4461A201994A31D0073E819 /* AKConstant.m in Sources */,
 				C44619B81994A31D0073E819 /* AKMinControl.m in Sources */,
 				C44619DB1994A31D0073E819 /* AKStruckMetalBar.m in Sources */,
-				C44619991994A31D0073E819 /* AKSampler.m in Sources */,
 				C44619B51994A31D0073E819 /* AKMaxAudio.m in Sources */,
 				C4461A231994A31D0073E819 /* AKParameter.m in Sources */,
 				C44619C81994A31D0073E819 /* AKWarp.m in Sources */,
