@@ -8,6 +8,9 @@
       location = "container:"
       name = "iOS Examples">
       <FileRef
+         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Examples/iOS/SwiftConvolution/SwiftConvolution.xcodeproj">
       </FileRef>
       <FileRef
