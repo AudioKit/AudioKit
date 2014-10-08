@@ -29,10 +29,10 @@ class GranularSynth: AKInstrument
         
         let file = String (NSBundle .mainBundle() .pathForResource("PianoBassDrumLoop", ofType: "wav")!)
 
-        let fileTable: AKSoundFileTable = AKSoundFileTable (filename: file, tableSize: 16384)
+        let fileTable = AKSoundFileTable (filename: file, tableSize: 16384)
         connect(fileTable)
 
-        let hamming: AKFTable = AKWindowsTable (type: kWindowHamming, size: 512)
+        let hamming = AKWindowsTable (type: kWindowHamming, size: 512)
         connect(hamming)
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", fileTable.length()))
