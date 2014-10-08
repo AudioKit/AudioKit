@@ -36,7 +36,6 @@ class ViewController: UIViewController {
     }
     
     
-    
     func updateSliders()->Void
     {
         AKTools.setSlider(averageGrainDurationControl, withProperty: granularSynth.averageGrainDuration)
@@ -44,7 +43,6 @@ class ViewController: UIViewController {
         AKTools.setSlider(freqDevControl, withProperty: granularSynth.granularFrequencyDeviation)
         AKTools.setSlider(amplitudeControl, withProperty: granularSynth.granularAmplitude)
     }
-    
     
     
     @IBAction func toggleGranularInstrument(sender: AnyObject) {
@@ -75,15 +73,3 @@ class ViewController: UIViewController {
         AKTools.setProperty(granularSynth.granularAmplitude, withSlider: sender as UISlider)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
