@@ -8,12 +8,6 @@
       location = "container:"
       name = "iOS Examples">
       <FileRef
-         location = "group:Examples/iOS/SwiftConvolution/SwiftConvolution.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/iOS/SwiftGranularSynthesis/SwiftGranularSynthesis.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Examples/iOS/ContinuousControl/ContinuousControl.xcodeproj">
       </FileRef>
       <FileRef
@@ -38,7 +32,13 @@
          location = "group:Examples/iOS/SongLibraryPlayer/SongLibraryPlayer.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Examples/iOS/SwiftConvolution/SwiftConvolution.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Examples/iOS/SwiftFMOscillator/SwiftFMOscillator.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Examples/iOS/SwiftGranularSynthesis/SwiftGranularSynthesis.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
