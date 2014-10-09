@@ -162,23 +162,6 @@
 		C4C0C4AE19C42B5F004CA6C0 /* AKSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C0C4AD19C42B5F004CA6C0 /* AKSampler.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C42A961A1968F04900E1D8C0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C42A95FF1968F04900E1D8C0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C42A96061968F04900E1D8C0;
-			remoteInfo = SwiftFMOscillator;
-		};
-		C4B2207419691FAE00F1A530 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C42A95FF1968F04900E1D8C0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C42A96061968F04900E1D8C0;
-			remoteInfo = SwiftFMOscillator;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		C40870551997E47F000E0057 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
 		C40870561997E47F000E0057 /* AKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTools.m; sourceTree = "<group>"; };
@@ -221,7 +204,6 @@
 		C42A960E1968F04900E1D8C0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C42A96111968F04900E1D8C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42A96131968F04900E1D8C0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C42A96191968F04900E1D8C0 /* SwiftFMOscillatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftFMOscillatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42A98321968F1DC00E1D8C0 /* SwiftFMOscillator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftFMOscillator-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		C42A98331968F24E00E1D8C0 /* FMSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMSynth.swift; sourceTree = "<group>"; };
 		C4B5C05C19905F980072A430 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -521,13 +503,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C42A96161968F04900E1D8C0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -618,7 +593,6 @@
 			isa = PBXGroup;
 			children = (
 				C42A96071968F04900E1D8C0 /* SwiftFMOscillator.app */,
-				C42A96191968F04900E1D8C0 /* SwiftFMOscillatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1303,25 +1277,6 @@
 			productReference = C42A96071968F04900E1D8C0 /* SwiftFMOscillator.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C42A96181968F04900E1D8C0 /* SwiftFMOscillatorTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C42A96261968F04900E1D8C0 /* Build configuration list for PBXNativeTarget "SwiftFMOscillatorTests" */;
-			buildPhases = (
-				C42A96151968F04900E1D8C0 /* Sources */,
-				C42A96161968F04900E1D8C0 /* Frameworks */,
-				C42A96171968F04900E1D8C0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C42A961B1968F04900E1D8C0 /* PBXTargetDependency */,
-				C4B2207519691FAE00F1A530 /* PBXTargetDependency */,
-			);
-			name = SwiftFMOscillatorTests;
-			productName = SwiftFMOscillatorTests;
-			productReference = C42A96191968F04900E1D8C0 /* SwiftFMOscillatorTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1333,10 +1288,6 @@
 				TargetAttributes = {
 					C42A96061968F04900E1D8C0 = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					C42A96181968F04900E1D8C0 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = C42A96061968F04900E1D8C0;
 					};
 				};
 			};
@@ -1354,7 +1305,6 @@
 			projectRoot = "";
 			targets = (
 				C42A96061968F04900E1D8C0 /* SwiftFMOscillator */,
-				C42A96181968F04900E1D8C0 /* SwiftFMOscillatorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1370,13 +1320,6 @@
 				C4B5C21619905F990072A430 /* mandpluk.aif in Resources */,
 				C4B5C21819905F990072A430 /* marmstk1.wav in Resources */,
 				C42A96141968F04900E1D8C0 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C42A96171968F04900E1D8C0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1535,27 +1478,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C42A96151968F04900E1D8C0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C42A961B1968F04900E1D8C0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C42A96061968F04900E1D8C0 /* SwiftFMOscillator */;
-			targetProxy = C42A961A1968F04900E1D8C0 /* PBXContainerItemProxy */;
-		};
-		C4B2207519691FAE00F1A530 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C42A96061968F04900E1D8C0 /* SwiftFMOscillator */;
-			targetProxy = C4B2207419691FAE00F1A530 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C42A96101968F04900E1D8C0 /* Main.storyboard */ = {
@@ -1684,42 +1607,6 @@
 			};
 			name = Release;
 		};
-		C42A96271968F04900E1D8C0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SwiftFMOscillator.app/SwiftFMOscillator";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftFMOscillatorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Debug;
-		};
-		C42A96281968F04900E1D8C0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SwiftFMOscillator.app/SwiftFMOscillator";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftFMOscillatorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1737,15 +1624,6 @@
 			buildConfigurations = (
 				C42A96241968F04900E1D8C0 /* Debug */,
 				C42A96251968F04900E1D8C0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C42A96261968F04900E1D8C0 /* Build configuration list for PBXNativeTarget "SwiftFMOscillatorTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C42A96271968F04900E1D8C0 /* Debug */,
-				C42A96281968F04900E1D8C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
