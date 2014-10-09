@@ -30,23 +30,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
-    
     func updateSliders()->Void{
         AKTools.setSlider(changeDryWet, withProperty: conv.dryWetBalance)
-//        AKTools.setSlider(changeDishWell, withProperty: conv.dishWellBalance)
     }
-
     
     @IBAction func start(sender: AnyObject) {
         conv.play()
     }
 
-    
     @IBAction func stop(sender: AnyObject) {
         conv.stop()
     }
-    
     
     @IBAction func changeDryWet(sender: AnyObject) {
         AKTools.setProperty(conv.dryWetBalance, withSlider: sender as UISlider)
