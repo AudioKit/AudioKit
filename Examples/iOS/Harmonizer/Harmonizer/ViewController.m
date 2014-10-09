@@ -45,7 +45,4 @@
     [sampler stopPlayingTrack:@"harmonizer"];
 }
 
-
-
-
 @end
