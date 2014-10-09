@@ -41,6 +41,4 @@ class FMSynth: AKInstrument {
         connect(fmOscillator)
         connect(AKAudioOutput(audioSource: fmOscillator))
     }
-    
-
 }
