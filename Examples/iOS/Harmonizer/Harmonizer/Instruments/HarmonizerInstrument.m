@@ -16,10 +16,7 @@
     if (self) {
         AKAudioInput *microphone = [[AKAudioInput alloc] init];
         [self connect:microphone];
-        
-//        AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:microphone];
-//        [self connect:output];
-        
+                
         AKFSignalFromMonoAudio *fsig1;
         fsig1 = [[AKFSignalFromMonoAudio alloc] initWithAudioSource:microphone
                                                             fftSize:akpi(2048)
