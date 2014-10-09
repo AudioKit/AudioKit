@@ -78,7 +78,4 @@ class ViewController: UIViewController {
         AKTools.setProperty(fmSynth.modulationIndex, withSlider: sender as UISlider)
         updateLabels()
     }
-    
-    
 }
-
