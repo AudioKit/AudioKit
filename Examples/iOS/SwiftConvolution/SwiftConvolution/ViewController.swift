@@ -31,10 +31,8 @@ class ViewController: UIViewController {
     }
 
     
-    
     func updateSliders()->Void{
         AKTools.setSlider(changeDryWet, withProperty: conv.dryWetBalance)
-//        AKTools.setSlider(changeDishWell, withProperty: conv.dishWellBalance)
     }
 
     
