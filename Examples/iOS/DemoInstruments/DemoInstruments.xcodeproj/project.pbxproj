@@ -17,9 +17,7 @@
 		C42A36A11968A01C008D412D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42A369F1968A01C008D412D /* Main_iPad.storyboard */; };
 		C42A36A41968A01C008D412D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36A31968A01C008D412D /* ViewController.m */; };
 		C42A36A61968A01C008D412D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42A36A51968A01C008D412D /* Images.xcassets */; };
-		C42A36CB1968A03E008D412D /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42A36C31968A03E008D412D /* beats.wav */; };
 		C42A36CC1968A03E008D412D /* ExpressionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36C61968A03E008D412D /* ExpressionInstrument.m */; };
-		C42A36CD1968A03E008D412D /* GrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36C81968A03E008D412D /* GrainInstrument.m */; };
 		C42A36CE1968A03E008D412D /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42A36CA1968A03E008D412D /* UnitGeneratorInstrument.m */; };
 		C4B5B5AD19905F300072A430 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5B43F19905F300072A430 /* AKEvent.m */; };
 		C4B5B5AE19905F300072A430 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5B44219905F300072A430 /* AKInstrument.m */; };
@@ -188,11 +186,8 @@
 		C42A36A31968A01C008D412D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C42A36A51968A01C008D412D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C42A36AC1968A01C008D412D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C42A36C31968A03E008D412D /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		C42A36C51968A03E008D412D /* ExpressionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionInstrument.h; sourceTree = "<group>"; };
 		C42A36C61968A03E008D412D /* ExpressionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionInstrument.m; sourceTree = "<group>"; };
-		C42A36C71968A03E008D412D /* GrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainInstrument.h; sourceTree = "<group>"; };
-		C42A36C81968A03E008D412D /* GrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainInstrument.m; sourceTree = "<group>"; };
 		C42A36C91968A03E008D412D /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
 		C42A36CA1968A03E008D412D /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
 		C4B5B43E19905F300072A430 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -565,7 +560,6 @@
 		C42A36901968A01C008D412D /* DemoInstruments */ = {
 			isa = PBXGroup;
 			children = (
-				C42A36C21968A03E008D412D /* AudioFiles */,
 				C42A36C41968A03E008D412D /* Instruments */,
 				C42A38DB1968A1F0008D412D /* StoryBoards */,
 				C42A36A21968A01C008D412D /* ViewController.h */,
@@ -589,21 +583,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C42A36C21968A03E008D412D /* AudioFiles */ = {
-			isa = PBXGroup;
-			children = (
-				C42A36C31968A03E008D412D /* beats.wav */,
-			);
-			path = AudioFiles;
-			sourceTree = "<group>";
-		};
 		C42A36C41968A03E008D412D /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
 				C42A36C51968A03E008D412D /* ExpressionInstrument.h */,
 				C42A36C61968A03E008D412D /* ExpressionInstrument.m */,
-				C42A36C71968A03E008D412D /* GrainInstrument.h */,
-				C42A36C81968A03E008D412D /* GrainInstrument.m */,
 				C42A36C91968A03E008D412D /* UnitGeneratorInstrument.h */,
 				C42A36CA1968A03E008D412D /* UnitGeneratorInstrument.m */,
 			);
@@ -1385,7 +1369,6 @@
 			files = (
 				C4B5B5FA19905F300072A430 /* marmstk1.wav in Resources */,
 				C4B5B5C419905F300072A430 /* LICENSE.TXT in Resources */,
-				C42A36CB1968A03E008D412D /* beats.wav in Resources */,
 				C42A36A11968A01C008D412D /* Main_iPad.storyboard in Resources */,
 				C4B5B5F819905F300072A430 /* mandpluk.aif in Resources */,
 				C42A36A61968A01C008D412D /* Images.xcassets in Resources */,
@@ -1534,7 +1517,6 @@
 				C4B5B5C619905F300072A430 /* AKTools.m in Sources */,
 				C4B5B5E119905F300072A430 /* AKSpectralVocoder.m in Sources */,
 				C4B5B62419905F300072A430 /* AKHilbertTransformer.m in Sources */,
-				C42A36CD1968A03E008D412D /* GrainInstrument.m in Sources */,
 				C4B5B5C119905F300072A430 /* CsoundObj.m in Sources */,
 				C4B5B62719905F300072A430 /* AKMoogLadder.m in Sources */,
 				C4B5B63A19905F300072A430 /* AKConstant.m in Sources */,
