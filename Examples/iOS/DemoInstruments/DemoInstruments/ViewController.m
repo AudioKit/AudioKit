@@ -11,16 +11,13 @@
 #import "AKFoundation.h"
 
 #import "ExpressionInstrument.h"
-#import "GrainInstrument.h"
 #import "UnitGeneratorInstrument.h"
 
 @implementation ViewController
 {
     ExpressionInstrument *expressionInstrument;
-    GrainInstrument *grainInstrument;
     UnitGeneratorInstrument *unitGeneratorInstrument;
     BOOL isExpressionInstrumentPlaying;
-    BOOL isGrainInstrumentPlaying;
     BOOL isUnitGeneratorInstrumentPlaying;
 }
 
@@ -30,11 +27,9 @@
     AKOrchestra *orch = [[AKOrchestra alloc] init];
     
     expressionInstrument = [[ExpressionInstrument alloc] init];
-    grainInstrument = [[GrainInstrument alloc] init];
     unitGeneratorInstrument = [[UnitGeneratorInstrument alloc] init];
     
     [orch addInstrument:expressionInstrument];
-    [orch addInstrument:grainInstrument];
     [orch addInstrument:unitGeneratorInstrument];
     
     [[AKManager sharedAKManager] runOrchestra:orch];
@@ -47,16 +42,6 @@
     } else {
         [expressionInstrument play];
         isExpressionInstrumentPlaying = YES;
-    }
-}
-
-- (IBAction)toggleGrainInstrument:(id)sender {
-    if (isGrainInstrumentPlaying) {
-        [grainInstrument stop];
-        isGrainInstrumentPlaying = NO;
-    } else {
-        [grainInstrument play];
-        isGrainInstrumentPlaying = YES;
     }
 }
 
