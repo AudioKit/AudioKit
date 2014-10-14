@@ -8,12 +8,6 @@
       location = "container:"
       name = "iOS Examples">
       <FileRef
-         location = "group:Examples/iOS/SwiftHarmonizer/SwiftHarmonizer.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Examples/iOS/ContinuousControl/ContinuousControl.xcodeproj">
       </FileRef>
       <FileRef
@@ -24,6 +18,9 @@
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/GlobalEffects/GlobalEffects.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/Harmonizer/Harmonizer.xcodeproj">
@@ -45,6 +42,9 @@
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/SwiftGranularSynthesis/SwiftGranularSynthesis.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Examples/iOS/SwiftHarmonizer/SwiftHarmonizer.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
