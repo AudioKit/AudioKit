@@ -29,14 +29,6 @@ More information on contribution is available on the wiki:
 
 https://github.com/audiokit/AudioKit/wiki
 
-### About Csound
-
-Csound is a sound design, audio synthesis, and signal processing system, 
-providing facilities for music composition and performance on all major 
-operating systems and platforms.
-
-http://csounds.com/
-
 ### About Us
 
 AudioKit was initially conceived by Aurelius Prochazka and Adam Boulanger
