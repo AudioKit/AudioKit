@@ -11,6 +11,11 @@ The repository includes the AudioKit Xcode workspace file which will
 open in Xcode with a few example projects demonstrating building a project
 for the Mac or for the iPad or iOS Simulator.  
 
+### Contributing
+
+Fork AudioKit and add your own changes, examples, or fixes, and submit pull requests; 
+which we will happily review. 
+
 ### About Us
 
 AudioKit was initially conceived by Aurelius Prochazka and Adam Boulanger
