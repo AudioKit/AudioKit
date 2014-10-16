@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 #import "AKFoundation.h"
-#import "ConvolutionInstrument.h"
 #import "AKTools.h"
+#import "ConvolutionInstrument.h"
 
 @implementation AppDelegate
 {
@@ -38,7 +38,5 @@
 - (IBAction)changeDishWell:(id)sender {
     [AKTools setProperty:conv.dishWellBalance withSlider:(NSSlider *)sender];
 }
-
-
 
 @end

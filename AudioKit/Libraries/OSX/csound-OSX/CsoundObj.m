@@ -503,8 +503,7 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
                 
                 for (int i = 0; i < _bindings.count; i++) {
-                    id<CsoundBinding> binding =
-                    [_bindings objectAtIndex:i];
+                    id<CsoundBinding> binding = [_bindings objectAtIndex:i];
                     if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
                         [binding updateValuesFromCsound];
                     }
