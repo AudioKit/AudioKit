@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "AKFoundation.h"
 #import "ExpressionInstrument.h"
-#import "GrainInstrument.h"
 #import "UnitGeneratorInstrument.h"
 
 @interface AppDelegate ()
@@ -18,7 +17,6 @@
     __weak NSButton *_grainStartButton;
     __weak NSButton *_unitGeneratorStartButton;
     ExpressionInstrument *expressionInstrument;
-    GrainInstrument *grainInstrument;
     UnitGeneratorInstrument *unitGeneratorInstrument;
     BOOL isExpressionInstrumentPlaying;
     BOOL isGrainInstrumentPlaying;
@@ -36,11 +34,9 @@
     AKOrchestra *orch = [[AKOrchestra alloc] init];
     
     expressionInstrument = [[ExpressionInstrument alloc] init];
-    grainInstrument = [[GrainInstrument alloc] init];
     unitGeneratorInstrument = [[UnitGeneratorInstrument alloc] init];
     
     [orch addInstrument:expressionInstrument];
-    [orch addInstrument:grainInstrument];
     [orch addInstrument:unitGeneratorInstrument];
     
     [[AKManager sharedAKManager] runOrchestra:orch];
@@ -58,17 +54,6 @@
     }
 }
 
-- (IBAction)toggleGrainInstrument:(id)sender {
-    if (isGrainInstrumentPlaying) {
-        [grainInstrument stop];
-        isGrainInstrumentPlaying = NO;
-        self.grainStartButton.title = @"Start";
-    } else {
-        [grainInstrument play];
-        isGrainInstrumentPlaying = YES;
-        self.grainStartButton.title = @"Stop";
-    }
-}
 
 - (IBAction)toggleUnitGeneratorInstrument:(id)sender {
     if (isUnitGeneratorInstrumentPlaying) {
