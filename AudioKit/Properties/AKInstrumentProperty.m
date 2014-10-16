@@ -94,26 +94,16 @@
 
 # pragma mark - CsoundBinding
 
--(BOOL)isCacheDirty {
-    return NO;
-}
-
 - (void)setup:(CsoundObj*)csoundObj {
     channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",self] channelType:CSOUND_CONTROL_CHANNEL];
-    *channelPtr = [self value];
+    *channelPtr = self.value;
 }
 
 - (void)updateValuesToCsound {
-    *channelPtr = [self value];
+    *channelPtr = self.value;
 }
 - (void)updateValuesFromCsound {
-    [self setValue:*channelPtr];
+    self.value = *channelPtr;
 }
-
--(void)cleanup {
-    
-}
-
-
 
 @end

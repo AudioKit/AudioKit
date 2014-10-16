@@ -74,7 +74,6 @@ typedef struct {
 - (void)csoundObjCompleted:(CsoundObj *)csoundObj;
 @end
 
-
 // -----------------------------------------------------------------------------
 #  pragma mark - CsoundObj Interface
 // -----------------------------------------------------------------------------
@@ -102,7 +101,6 @@ typedef struct {
 - (void)recordToURL:(NSURL *)outputURL;
 - (void)stopRecording;
 
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Binding
 // -----------------------------------------------------------------------------
@@ -119,7 +117,6 @@ typedef struct {
 - (void)addListener:(id<CsoundObjListener>)listener;
 - (void)setMessageCallback:(SEL)method withListener:(id)listener;
 - (void)performMessageCallback:(NSValue *)infoObj;
-
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Internals / Advanced Methods
