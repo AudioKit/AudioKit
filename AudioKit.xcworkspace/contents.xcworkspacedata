@@ -49,9 +49,6 @@
       <FileRef
          location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
       </FileRef>
-      <FileRef
-         location = "group:Examples/iOS/UsingUDOs/UsingUDOs.xcodeproj">
-      </FileRef>
    </Group>
    <Group
       location = "container:"
