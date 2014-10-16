@@ -92,7 +92,7 @@
     self.value = self.minimum + percentage * width;
 }
 
-# pragma mark - CsoundValueCacheable
+# pragma mark - CsoundBinding
 
 -(BOOL)isCacheDirty {
     return NO;
