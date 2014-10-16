@@ -136,11 +136,8 @@ static AKManager *_sharedAKManager = nil;
         NSLog(@"Csound instance already active.");
         [self stop];
     }
-    NSLog(@"Writing CSD File");
     [self writeCSDFileForOrchestra:orchestra];
-    
-    NSLog(@"Updating Value Cache");
-    [self updateValueCacheWithProperties:orchestra];
+    [self updateBindingsWithProperties:orchestra];
     
     [csound play:csdFile];
     NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
@@ -239,7 +236,7 @@ static AKManager *_sharedAKManager = nil;
     [csound sendScore:[note stringForCSD]];
 }
 
-- (void)updateValueCacheWithProperties:(AKOrchestra *)orchestra
+- (void)updateBindingsWithProperties:(AKOrchestra *)orchestra
 {
     NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
     for (AKInstrument *instrument in arr ) {
