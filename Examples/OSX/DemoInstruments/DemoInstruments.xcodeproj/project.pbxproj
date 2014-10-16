@@ -156,9 +156,7 @@
 		C4B5D0071990635B0072A430 /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5CF701990635B0072A430 /* AKStereoAudio.m */; };
 		C4B5D0081990635B0072A430 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5CF731990635B0072A430 /* AKInstrumentProperty.m */; };
 		C4B5D0091990635B0072A430 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5CF751990635B0072A430 /* AKNoteProperty.m */; };
-		C4B5D0131990637A0072A430 /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4B5D00A1990637A0072A430 /* beats.wav */; };
 		C4B5D0141990637A0072A430 /* ExpressionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5D00D1990637A0072A430 /* ExpressionInstrument.m */; };
-		C4B5D0151990637A0072A430 /* GrainInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5D00F1990637A0072A430 /* GrainInstrument.m */; };
 		C4B5D0161990637A0072A430 /* UnitGeneratorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5D0111990637A0072A430 /* UnitGeneratorInstrument.m */; };
 		C4B5D01C199066060072A430 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B5D017199066060072A430 /* CsoundLib64.framework */; };
 		C4B5D01D199066060072A430 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B5D018199066060072A430 /* CoreMIDI.framework */; };
@@ -468,11 +466,8 @@
 		C4B5CF731990635B0072A430 /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4B5CF741990635B0072A430 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4B5CF751990635B0072A430 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
-		C4B5D00A1990637A0072A430 /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		C4B5D00C1990637A0072A430 /* ExpressionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionInstrument.h; sourceTree = "<group>"; };
 		C4B5D00D1990637A0072A430 /* ExpressionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionInstrument.m; sourceTree = "<group>"; };
-		C4B5D00E1990637A0072A430 /* GrainInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrainInstrument.h; sourceTree = "<group>"; };
-		C4B5D00F1990637A0072A430 /* GrainInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrainInstrument.m; sourceTree = "<group>"; };
 		C4B5D0101990637A0072A430 /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
 		C4B5D0111990637A0072A430 /* UnitGeneratorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitGeneratorInstrument.m; sourceTree = "<group>"; };
 		C4B5D017199066060072A430 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<absolute>"; };
@@ -545,7 +540,6 @@
 		C4B5CDD71990634A0072A430 /* DemoInstruments */ = {
 			isa = PBXGroup;
 			children = (
-				C4B5D00B1990637A0072A430 /* AudioFiles */,
 				C4B5D0121990637A0072A430 /* Instruments */,
 				C4B5CDE31990634A0072A430 /* AppDelegate.h */,
 				C4B5CDE41990634A0072A430 /* AppDelegate.m */,
@@ -1205,22 +1199,11 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
-		C4B5D00B1990637A0072A430 /* AudioFiles */ = {
-			isa = PBXGroup;
-			children = (
-				C4B5D00A1990637A0072A430 /* beats.wav */,
-			);
-			name = AudioFiles;
-			path = ../../../iOS/DemoInstruments/DemoInstruments/AudioFiles;
-			sourceTree = "<group>";
-		};
 		C4B5D0121990637A0072A430 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
 				C4B5D00C1990637A0072A430 /* ExpressionInstrument.h */,
 				C4B5D00D1990637A0072A430 /* ExpressionInstrument.m */,
-				C4B5D00E1990637A0072A430 /* GrainInstrument.h */,
-				C4B5D00F1990637A0072A430 /* GrainInstrument.m */,
 				C4B5D0101990637A0072A430 /* UnitGeneratorInstrument.h */,
 				C4B5D0111990637A0072A430 /* UnitGeneratorInstrument.m */,
 			);
@@ -1284,7 +1267,6 @@
 				C4B5CFC31990635B0072A430 /* marmstk1.wav in Resources */,
 				C4B5CDDC1990634A0072A430 /* InfoPlist.strings in Resources */,
 				C4B5CDEA1990634A0072A430 /* Images.xcassets in Resources */,
-				C4B5D0131990637A0072A430 /* beats.wav in Resources */,
 				C4B5CDE21990634A0072A430 /* Credits.rtf in Resources */,
 				C4B5CFC11990635B0072A430 /* mandpluk.aif in Resources */,
 				C4B5CDE81990634A0072A430 /* MainMenu.xib in Resources */,
@@ -1359,7 +1341,6 @@
 				C4B5CF941990635B0072A430 /* AKTrackedFrequency.m in Sources */,
 				C4B5CFE11990635B0072A430 /* AKStereoConvolution.m in Sources */,
 				C4B5CF811990635B0072A430 /* AKExponentialCurvesTable.m in Sources */,
-				C4B5D0151990637A0072A430 /* GrainInstrument.m in Sources */,
 				C4B5CFE51990635B0072A430 /* AKDopplerEffect.m in Sources */,
 				C4B5CF961990635B0072A430 /* AKAssignment.m in Sources */,
 				C4B5CFD91990635B0072A430 /* AKAudioInput.m in Sources */,
