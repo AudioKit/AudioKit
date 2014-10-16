@@ -36,8 +36,6 @@ iOS-only Examples
 
 * Touch Regions - an FM Oscillator with two touch regions that control various parameters
 
-* Using UDOs - is for advanced Csound users wanting to use a pre-made UDO from Csound.com within AudioKit
-
 
 
 
