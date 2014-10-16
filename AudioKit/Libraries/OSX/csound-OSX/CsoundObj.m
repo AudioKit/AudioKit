@@ -23,6 +23,10 @@
  
  */
 
+#if TARGET_OS_IPHONE
+
+#elif TARGET_OS_MAC
+
 #import <AudioToolbox/AudioConverter.h>
 #import <AudioToolbox/AudioServices.h>
 #import <AVFoundation/AVFoundation.h>
@@ -523,3 +527,5 @@ OSStatus  Csound_Render(void *inRefCon,
     }
 }
 @end
+
+#endif
