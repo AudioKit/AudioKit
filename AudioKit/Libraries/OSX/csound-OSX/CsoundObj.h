@@ -6,7 +6,7 @@
  
  This file is part of Csound for OS X.
  
- The Csound for iOS Library is free software; you can redistribute it
+ The Csound for OSX Library is free software; you can redistribute it
  and/or modify it under the terms of the GNU Lesser General Public
  License as published by the Free Software Foundation; either
  version 2.1 of the License, or (at your option) any later version.
@@ -22,10 +22,6 @@
  02111-1307 USA
  
  */
-
-#if TARGET_OS_IPHONE
-
-#elif TARGET_OS_MAC
 
 #import <AudioToolbox/ExtendedAudioFile.h>
 #import <AudioUnit/AudioUnit.h>
@@ -55,24 +51,25 @@ typedef struct {
 } Message;
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Protocols (Cacheable Values and Listeners)
+#  pragma mark - Protocols (Bindings and Listeners)
 // -----------------------------------------------------------------------------
 
 @class CsoundObj;
 
-@protocol CsoundValueCacheable <NSObject>
-- (void)setup:(CsoundObj*)csoundObj;
-- (void)cleanup;
+@protocol CsoundBinding <NSObject>
+- (void)setup:(CsoundObj *)csoundObj;
 @optional
+- (void)cleanup;
 - (void)updateValuesFromCsound;
 - (void)updateValuesToCsound;
 @end
 
 @protocol CsoundObjListener <NSObject>
 @optional
-- (void)csoundObjStarted:(CsoundObj*)csoundObj;
-- (void)csoundObjCompleted:(CsoundObj*)csoundObj;
+- (void)csoundObjStarted:(CsoundObj *)csoundObj;
+- (void)csoundObjCompleted:(CsoundObj *)csoundObj;
 @end
+
 
 // -----------------------------------------------------------------------------
 #  pragma mark - CsoundObj Interface
@@ -87,6 +84,7 @@ typedef struct {
 - (void)sendScore:(NSString *)score;
 
 - (void)play:(NSString *)csdFilePath;
+- (void)updateOrchestra:(NSString *)orchestraString;
 - (void)stop;
 - (void)mute;
 - (void)unmute;
@@ -102,12 +100,12 @@ typedef struct {
 
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Value Cache
+#  pragma mark - Binding
 // -----------------------------------------------------------------------------
 
-@property (nonatomic, strong) NSMutableArray *valuesCache;
-- (void)addValueCacheable:(id<CsoundValueCacheable>)valueCacheable;
-- (void)removeValueCaheable:(id<CsoundValueCacheable>)valueCacheable;
+@property (nonatomic, strong) NSMutableArray *bindings;
+- (void)addBinding:(id<CsoundBinding>)binding;
+- (void)removeBinding:(id<CsoundBinding>)binding;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Listeners and Messages
@@ -139,6 +137,6 @@ typedef struct {
 
 @end
 
-#endif
+
 
 
