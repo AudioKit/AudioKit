@@ -23,6 +23,10 @@
  
  */
 
+#if TARGET_OS_IPHONE
+
+#elif TARGET_OS_MAC
+
 #import <AudioToolbox/ExtendedAudioFile.h>
 #import <AudioUnit/AudioUnit.h>
 
@@ -137,6 +141,4 @@ typedef struct {
 
 @end
 
-
-
-
+#endif
