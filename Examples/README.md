@@ -1,6 +1,8 @@
 Audio Kit Examples
 ==================
 
+Audio clips for the examples are available at <http://audiokit.io/examples>.
+
 This folder contains examples of simple mini-projects for both iOS devices and on the Mac (OS X).  There are examples in Objective-C as well as Swift.
 
 Examples for both iOS and OSX (Mac)
