@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,22 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ri-jI-Ida">
-                                <rect key="frame" x="324" y="478" width="121" height="67"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
-                                <state key="normal" title="Shoot">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RG-lH-uk8">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchPlayButton:" destination="QHs-SL-eq4" eventType="touchUpInside" id="hlg-AM-BFs"/>
+                                    <action selector="touchPlayButton:" destination="QHs-SL-eq4" eventType="touchUpInside" id="2YC-p9-XNm"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="raygun.png" translatesAutoresizingMaskIntoConstraints="NO" id="3xU-0i-h68">
+                                <rect key="frame" x="20" y="20" width="728" height="984"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="4ri-jI-Ida" secondAttribute="centerY" constant="0.5" id="7Xr-Te-c97"/>
-                            <constraint firstAttribute="centerX" secondItem="4ri-jI-Ida" secondAttribute="centerX" constant="-0.5" id="9e6-37-5Fd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3xU-0i-h68" secondAttribute="bottom" constant="20" id="BN5-an-ZOi"/>
+                            <constraint firstItem="3xU-0i-h68" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Dlp-7l-tyx"/>
+                            <constraint firstItem="3xU-0i-h68" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="cB2-D5-778"/>
+                            <constraint firstItem="3xU-0i-h68" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kjZ-zT-Xuk"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,6 +44,9 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="raygun.png" width="600" height="485"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
