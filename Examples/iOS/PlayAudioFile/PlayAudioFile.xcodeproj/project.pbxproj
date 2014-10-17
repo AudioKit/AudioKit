@@ -19,6 +19,7 @@
 		C4397E4E19626F300076F005 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4397E4D19626F300076F005 /* Images.xcassets */; };
 		C4398089196271FC0076F005 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398088196271FC0076F005 /* AudioFilePlayer.m */; };
 		C439808C196273980076F005 /* blaster.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C439808B196273980076F005 /* blaster.aiff */; };
+		C460584D19F09EAF0067B5D7 /* raygun.png in Resources */ = {isa = PBXBuildFile; fileRef = C460584C19F09EAF0067B5D7 /* raygun.png */; };
 		C4B5BBBC19905F830072A430 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5BA4E19905F820072A430 /* AKEvent.m */; };
 		C4B5BBBD19905F830072A430 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5BA5119905F820072A430 /* AKInstrument.m */; };
 		C4B5BBBE19905F830072A430 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B5BA5319905F820072A430 /* AKManager.m */; };
@@ -190,6 +191,7 @@
 		C4398087196271FC0076F005 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
 		C4398088196271FC0076F005 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		C439808B196273980076F005 /* blaster.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = blaster.aiff; sourceTree = "<group>"; };
+		C460584C19F09EAF0067B5D7 /* raygun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raygun.png; sourceTree = "<group>"; };
 		C4B5BA4D19905F820072A430 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C4B5BA4E19905F820072A430 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C4B5BA4F19905F820072A430 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 		C4397E3919626F300076F005 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C460584C19F09EAF0067B5D7 /* raygun.png */,
 				C4397E4119626F300076F005 /* AppDelegate.h */,
 				C4397E4219626F300076F005 /* AppDelegate.m */,
 				C4397E3A19626F300076F005 /* PlayAudioFile-Info.plist */,
@@ -1386,6 +1389,7 @@
 				C4397E4E19626F300076F005 /* Images.xcassets in Resources */,
 				C4B5BC4019905F830072A430 /* declick.udo in Resources */,
 				C4397E4619626F300076F005 /* Main_iPhone.storyboard in Resources */,
+				C460584D19F09EAF0067B5D7 /* raygun.png in Resources */,
 				C4397E3D19626F300076F005 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
