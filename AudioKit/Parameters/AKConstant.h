@@ -1,5 +1,5 @@
 //
-//  AKConstant.h	
+//  AKConstant.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/9/12.
@@ -8,7 +8,8 @@
 
 #import "AKControl.h"
 
-/// These are i-Rate parameters, constant for a given operation call or note
+/** These are i-Rate parameters, constant for a given operation call or note
+ */
 @interface AKConstant : AKControl
 
 /// Common method to create float parameters.  So much so that akp() macro was created and preferred.

@@ -9,7 +9,8 @@
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
-/** An interpolating variable time delay. */
+/** An interpolating variable time delay.
+ */
 
 @interface AKVariableDelay : AKAudio
 

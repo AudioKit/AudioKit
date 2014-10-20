@@ -8,10 +8,7 @@
 
 #import "AKFTable.h"
 
-/**
- 
- Generates composite waveforms made up of weighted sums of sinusoids.
- 
+/** Generates composite waveforms made up of weighted sums of sinusoids.
  */
 
 @interface AKCompositeWaveformsFromSines : AKFTable

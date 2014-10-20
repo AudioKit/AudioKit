@@ -9,8 +9,8 @@
 #import "AKControl.h"
 #import "AKParameter+Operation.h"
 
-/**
- Scales incoming value from 0 to 1 to user-definable range.
+/** Scales incoming value from 0 to 1 to user-definable range.
+
  Similar to scale object found in popular dataflow languages.
  */
 

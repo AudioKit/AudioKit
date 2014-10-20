@@ -8,7 +8,8 @@
 
 #import "AKFTable.h"
 
-/// Generates composite waveforms made up of weighted sums of simple sinusoids.
+/** Generates composite waveforms made up of weighted sums of simple sinusoids.
+ */
 @interface AKSineTable : AKFTable
 
 /// Creates a pure sine table with a default size of 4096.
