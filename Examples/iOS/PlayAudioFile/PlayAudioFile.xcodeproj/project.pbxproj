@@ -99,7 +99,7 @@
 		C41D547819F232F900269203 /* AKAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D539D19F232F900269203 /* AKAudioInput.m */; };
 		C41D547919F232F900269203 /* AKAudioOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D539F19F232F900269203 /* AKAudioOutput.m */; };
 		C41D547A19F232F900269203 /* AKFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D53A119F232F900269203 /* AKFileInput.m */; };
-		C41D547B19F232F900269203 /* AKFTablelooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D53A319F232F900269203 /* AKFTablelooper.m */; };
+		C41D547B19F232F900269203 /* AKFTableLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D53A319F232F900269203 /* AKFTableLooper.m */; };
 		C41D547C19F232F900269203 /* AKMonoFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D53A519F232F900269203 /* AKMonoFileInput.m */; };
 		C41D547D19F232F900269203 /* AKLoopingOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D53A819F232F900269203 /* AKLoopingOscillator.m */; };
 		C41D547E19F232F900269203 /* AKLoopingStereoOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D53AB19F232F900269203 /* AKLoopingStereoOscillator.m */; };
@@ -380,8 +380,8 @@
 		C41D539F19F232F900269203 /* AKAudioOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutput.m; sourceTree = "<group>"; };
 		C41D53A019F232F900269203 /* AKFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFileInput.h; sourceTree = "<group>"; };
 		C41D53A119F232F900269203 /* AKFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFileInput.m; sourceTree = "<group>"; };
-		C41D53A219F232F900269203 /* AKFTablelooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFTablelooper.h; sourceTree = "<group>"; };
-		C41D53A319F232F900269203 /* AKFTablelooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFTablelooper.m; sourceTree = "<group>"; };
+		C41D53A219F232F900269203 /* AKFTableLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFTableLooper.h; sourceTree = "<group>"; };
+		C41D53A319F232F900269203 /* AKFTableLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFTableLooper.m; sourceTree = "<group>"; };
 		C41D53A419F232F900269203 /* AKMonoFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMonoFileInput.h; sourceTree = "<group>"; };
 		C41D53A519F232F900269203 /* AKMonoFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoFileInput.m; sourceTree = "<group>"; };
 		C41D53A719F232F900269203 /* AKLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLoopingOscillator.h; sourceTree = "<group>"; };
@@ -1027,8 +1027,8 @@
 				C41D539F19F232F900269203 /* AKAudioOutput.m */,
 				C41D53A019F232F900269203 /* AKFileInput.h */,
 				C41D53A119F232F900269203 /* AKFileInput.m */,
-				C41D53A219F232F900269203 /* AKFTablelooper.h */,
-				C41D53A319F232F900269203 /* AKFTablelooper.m */,
+				C41D53A219F232F900269203 /* AKFTableLooper.h */,
+				C41D53A319F232F900269203 /* AKFTableLooper.m */,
 				C41D53A419F232F900269203 /* AKMonoFileInput.h */,
 				C41D53A519F232F900269203 /* AKMonoFileInput.m */,
 				C41D53A619F232F900269203 /* Looping Oscillators */,
@@ -1482,7 +1482,7 @@
 				C41D54AA19F232F900269203 /* AKExponentialCurvesTable.m in Sources */,
 				C41D54AB19F232F900269203 /* AKFTable.m in Sources */,
 				C41D545119F232F900269203 /* AKLine.m in Sources */,
-				C41D547B19F232F900269203 /* AKFTablelooper.m in Sources */,
+				C41D547B19F232F900269203 /* AKFTableLooper.m in Sources */,
 				C41D545E19F232F900269203 /* AKVibes.m in Sources */,
 				C41D547D19F232F900269203 /* AKLoopingOscillator.m in Sources */,
 				C41D547619F232F900269203 /* AKControlSegmentArrayLoop.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  AKFTablelooper.m
+//  AKFTableLooper.m
 //  AudioKit
 //
 //  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
@@ -9,9 +9,9 @@
 //  http://www.csounds.com/manual/html/flooper.html
 //
 
-#import "AKFTablelooper.h"
+#import "AKFTableLooper.h"
 
-@implementation AKFTablelooper
+@implementation AKFTableLooper
 {
     AKFTable *ifn;
     AKConstant *istart;
