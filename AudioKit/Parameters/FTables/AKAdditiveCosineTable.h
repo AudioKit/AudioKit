@@ -8,7 +8,8 @@
 
 #import "AKFTable.h"
 
-/// Generates an additive set of cosine partials.
+/** Generates an additive set of cosine partials.
+ */
 @interface AKAdditiveCosineTable : AKFTable
 
 /// Creates a pure cosine table with 1 harmonic (the fundamental).

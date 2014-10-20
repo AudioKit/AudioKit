@@ -11,8 +11,7 @@
 
 #import "AKSineTable.h"
 
-/**
- Produces sinusoid bursts useful for formant and granular synthesis.
+/** Produces sinusoid bursts useful for formant and granular synthesis.
  */
 
 @interface AKSinusoidBursts : AKAudio

@@ -8,7 +8,9 @@
 
 #import "AKParameter+Operation.h"
 
-/// Simply a wrapper for the equal sign
+/** Simply a wrapper for the equal sign
+*/
+
 @interface AKAssignment : AKParameter
 
 /// Initialization Statement with both sides

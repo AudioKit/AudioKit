@@ -8,11 +8,11 @@
 
 #import "AKParameter+Operation.h"
 
-/**
- Trace a series of line segments between specified points. The transition
- between these points can either be linear, by default, or exponential,
+/** Trace a series of line segments between specified points.
+
+ The transition between these points can either be linear, by default, or exponential,
  by sending invoking the useExponentialSegments method.
- 
+
  */
 
 @interface AKControlSegmentArray : AKControl
