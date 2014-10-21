@@ -505,7 +505,6 @@
 		C42A36A21968A01C008D412D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C42A36A31968A01C008D412D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C42A36A51968A01C008D412D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C42A36AC1968A01C008D412D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C42A36C51968A03E008D412D /* ExpressionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionInstrument.h; sourceTree = "<group>"; };
 		C42A36C61968A03E008D412D /* ExpressionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionInstrument.m; sourceTree = "<group>"; };
 		C42A36C91968A03E008D412D /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
@@ -1264,7 +1263,6 @@
 				C42A368A1968A01C008D412D /* Foundation.framework */,
 				C42A368C1968A01C008D412D /* CoreGraphics.framework */,
 				C42A368E1968A01C008D412D /* UIKit.framework */,
-				C42A36AC1968A01C008D412D /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

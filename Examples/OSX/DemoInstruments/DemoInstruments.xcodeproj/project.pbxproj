@@ -465,7 +465,6 @@
 		C4B5CDE41990634A0072A430 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4B5CDE71990634A0072A430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4B5CDE91990634A0072A430 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4B5CDF01990634A0072A430 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4B5D00C1990637A0072A430 /* ExpressionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionInstrument.h; sourceTree = "<group>"; };
 		C4B5D00D1990637A0072A430 /* ExpressionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionInstrument.m; sourceTree = "<group>"; };
 		C4B5D0101990637A0072A430 /* UnitGeneratorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitGeneratorInstrument.h; sourceTree = "<group>"; };
@@ -1158,7 +1157,6 @@
 				C4B5D01A199066060072A430 /* AudioToolbox.framework */,
 				C4B5D01B199066060072A430 /* AudioUnit.framework */,
 				C4B5CDD11990634A0072A430 /* Cocoa.framework */,
-				C4B5CDF01990634A0072A430 /* XCTest.framework */,
 				C4B5CDD31990634A0072A430 /* Other Frameworks */,
 			);
 			name = Frameworks;

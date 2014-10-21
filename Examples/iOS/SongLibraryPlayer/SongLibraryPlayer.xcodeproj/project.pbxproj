@@ -523,7 +523,6 @@
 		C4C51475186410540036F065 /* SongsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongsViewController.h; sourceTree = "<group>"; };
 		C4C51476186410540036F065 /* SongsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongsViewController.m; sourceTree = "<group>"; };
 		C4C51478186410540036F065 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4C5147F186410540036F065 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4C5169A1864128E0036F065 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4C5169C186412A90036F065 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -1284,7 +1283,6 @@
 				C4C5145D186410540036F065 /* Foundation.framework */,
 				C4C5145F186410540036F065 /* CoreGraphics.framework */,
 				C4C51461186410540036F065 /* UIKit.framework */,
-				C4C5147F186410540036F065 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
