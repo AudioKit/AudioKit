@@ -12,9 +12,7 @@
 #import "AKParameter+Operation.h"
 #import "AKLowFrequencyOscillatorConstants.h"
 
-/** A low frequency oscillator of various shapes.
- 
- More detailed description from http://www.csounds.com/manual/html/
+/** A low frequency oscillator of various shapes.s
  */
 
 @interface AKLowFrequencyOscillator : AKAudio
