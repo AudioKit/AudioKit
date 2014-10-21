@@ -466,7 +466,6 @@
 		C4E9DDCA198F744500F261DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4E9DDCD198F744500F261DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4E9DDCF198F744500F261DA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4E9DDD6198F744500F261DA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4E9DFC2198F746100F261DA /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<absolute>"; };
 		C4E9DFC3198F746100F261DA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
 		C4E9DFC4198F746100F261DA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
@@ -1161,7 +1160,6 @@
 				C4E9DFC5198F746100F261DA /* AudioToolbox.framework */,
 				C4E9DFC6198F746100F261DA /* AudioUnit.framework */,
 				C4E9DDB7198F744500F261DA /* Cocoa.framework */,
-				C4E9DDD6198F744500F261DA /* XCTest.framework */,
 				C4E9DDB9198F744500F261DA /* Other Frameworks */,
 			);
 			name = Frameworks;

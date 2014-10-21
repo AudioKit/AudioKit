@@ -467,7 +467,6 @@
 		C4780BBB198613DE000FD79F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4780BBE198613DE000FD79F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4780BC0198613DE000FD79F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4780BC7198613DE000FD79F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4780DE3198619A7000FD79F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4780DE4198619A7000FD79F /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		C4780DE7198619B0000FD79F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1161,7 +1160,6 @@
 				C4780DE3198619A7000FD79F /* AudioToolbox.framework */,
 				C4780DE4198619A7000FD79F /* AudioUnit.framework */,
 				C4780BA8198613DE000FD79F /* Cocoa.framework */,
-				C4780BC7198613DE000FD79F /* XCTest.framework */,
 				C4780BAA198613DE000FD79F /* Other Frameworks */,
 			);
 			name = Frameworks;

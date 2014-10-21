@@ -507,7 +507,6 @@
 		C4398C9619628CBC0076F005 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C4398C9719628CBC0076F005 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C4398C9919628CBC0076F005 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4398CA019628CBC0076F005 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4398ECE19628D6E0076F005 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C4398ECF19628D6E0076F005 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
 		C4398ED019628D6E0076F005 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
@@ -1267,7 +1266,6 @@
 				C4398C7E19628CBC0076F005 /* Foundation.framework */,
 				C4398C8019628CBC0076F005 /* CoreGraphics.framework */,
 				C4398C8219628CBC0076F005 /* UIKit.framework */,
-				C4398CA019628CBC0076F005 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

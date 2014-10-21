@@ -184,7 +184,6 @@
 		C407D56F1969D75D00322F25 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C407D5701969D75D00322F25 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C407D5721969D75D00322F25 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C407D5791969D75D00322F25 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C407D7921969D83C00322F25 /* HarmonizerInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HarmonizerInstrument.h; path = Instruments/HarmonizerInstrument.h; sourceTree = "<group>"; };
 		C407D7931969D83C00322F25 /* HarmonizerInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HarmonizerInstrument.m; path = Instruments/HarmonizerInstrument.m; sourceTree = "<group>"; };
 		C41D50AB19F232E800269203 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -549,7 +548,6 @@
 				C407D5571969D75D00322F25 /* Foundation.framework */,
 				C407D5591969D75D00322F25 /* CoreGraphics.framework */,
 				C407D55B1969D75D00322F25 /* UIKit.framework */,
-				C407D5791969D75D00322F25 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

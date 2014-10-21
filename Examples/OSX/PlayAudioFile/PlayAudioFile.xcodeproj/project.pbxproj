@@ -466,7 +466,6 @@
 		C4E9DB72198F70F500F261DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4E9DB75198F70F500F261DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4E9DB77198F70F500F261DA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4E9DB7E198F70F500F261DA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C4E9DB94198F713100F261DA /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C4E9DB95198F713100F261DA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4E9DB96198F713100F261DA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1160,7 +1159,6 @@
 				C4E9DB96198F713100F261DA /* AudioToolbox.framework */,
 				C4E9DB97198F713100F261DA /* AudioUnit.framework */,
 				C4E9DB5F198F70F500F261DA /* Cocoa.framework */,
-				C4E9DB7E198F70F500F261DA /* XCTest.framework */,
 				C4E9DB61198F70F500F261DA /* Other Frameworks */,
 			);
 			name = Frameworks;

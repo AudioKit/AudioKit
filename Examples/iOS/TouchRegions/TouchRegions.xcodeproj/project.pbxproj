@@ -507,7 +507,6 @@
 		C48E4632199212FE00B3C1F8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C48E4633199212FE00B3C1F8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C48E4635199212FE00B3C1F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C48E463C199212FE00B3C1F8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C48E4652199214E900B3C1F8 /* TouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchView.h; sourceTree = "<group>"; };
 		C48E4653199214E900B3C1F8 /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1264,7 +1263,6 @@
 				C48E461A199212FD00B3C1F8 /* Foundation.framework */,
 				C48E461C199212FD00B3C1F8 /* CoreGraphics.framework */,
 				C48E461E199212FD00B3C1F8 /* UIKit.framework */,
-				C48E463C199212FE00B3C1F8 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
