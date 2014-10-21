@@ -11,8 +11,6 @@
 #import "AKLowFrequencyOscillatorConstants.h"
 
 /** A low frequency oscillator of various shapes.
- 
- More detailed description from http://www.csounds.com/manual/html/
  */
 
 @interface AKLowFrequencyOscillatingControl : AKControl

@@ -10,8 +10,6 @@
 #import "AKParameter+Operation.h"
 
 /** A first-order recursive low-pass filter with variable frequency response.
- 
- More detailed description from http://www.csounds.com/manual/html/tone.html
  */
 
 @interface AKLowPassControlFilter : AKControl
