@@ -155,9 +155,6 @@
 		C41D56B519F2330000269203 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D561E19F2330000269203 /* AKWindowsTable.m */; };
 		C41D56B619F2330000269203 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D562119F2330000269203 /* AKInstrumentProperty.m */; };
 		C41D56B719F2330000269203 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D562319F2330000269203 /* AKNoteProperty.m */; };
-		C43982FA19627B910076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43982F919627B910076F005 /* Foundation.framework */; };
-		C43982FC19627B910076F005 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43982FB19627B910076F005 /* CoreGraphics.framework */; };
-		C43982FE19627B910076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43982FD19627B910076F005 /* UIKit.framework */; };
 		C439830419627B910076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C439830219627B910076F005 /* InfoPlist.strings */; };
 		C439830619627B910076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C439830519627B910076F005 /* main.m */; };
 		C439830A19627B910076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C439830919627B910076F005 /* AppDelegate.m */; };
@@ -491,9 +488,6 @@
 		C41D562219F2330000269203 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41D562319F2330000269203 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		C43982F619627B910076F005 /* Sequences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sequences.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C43982F919627B910076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C43982FB19627B910076F005 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C43982FD19627B910076F005 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C439830119627B910076F005 /* Sequences-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sequences-Info.plist"; sourceTree = "<group>"; };
 		C439830319627B910076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C439830519627B910076F005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -516,10 +510,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C43982FC19627B910076F005 /* CoreGraphics.framework in Frameworks */,
 				C41D562F19F2330000269203 /* libcsound.a in Frameworks */,
-				C43982FE19627B910076F005 /* UIKit.framework in Frameworks */,
-				C43982FA19627B910076F005 /* Foundation.framework in Frameworks */,
 				C41D563019F2330000269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1244,7 +1235,6 @@
 			children = (
 				C41D54B319F2330000269203 /* AudioKit */,
 				C43982FF19627B910076F005 /* Sequences */,
-				C43982F819627B910076F005 /* Frameworks */,
 				C43982F719627B910076F005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1255,16 +1245,6 @@
 				C43982F619627B910076F005 /* Sequences.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C43982F819627B910076F005 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C43982F919627B910076F005 /* Foundation.framework */,
-				C43982FB19627B910076F005 /* CoreGraphics.framework */,
-				C43982FD19627B910076F005 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C43982FF19627B910076F005 /* Sequences */ = {

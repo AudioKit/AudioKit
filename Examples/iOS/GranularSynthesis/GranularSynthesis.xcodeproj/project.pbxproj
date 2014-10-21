@@ -163,9 +163,6 @@
 		E481EAE019DF55B1004BDD9E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E481EADF19DF55B1004BDD9E /* ViewController.m */; };
 		E481EAE319DF55BE004BDD9E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481EAE119DF55BE004BDD9E /* Main_iPhone.storyboard */; };
 		E481EAE419DF55BE004BDD9E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481EAE219DF55BE004BDD9E /* Main_iPad.storyboard */; };
-		E481EAE719DF56C4004BDD9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E481EAE619DF56C4004BDD9E /* Foundation.framework */; };
-		E481EAE919DF56CA004BDD9E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E481EAE819DF56CA004BDD9E /* CoreGraphics.framework */; };
-		E481EAEB19DF56D1004BDD9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E481EAEA19DF56D1004BDD9E /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -502,9 +499,6 @@
 		E481EADF19DF55B1004BDD9E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E481EAE119DF55BE004BDD9E /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		E481EAE219DF55BE004BDD9E /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
-		E481EAE619DF56C4004BDD9E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E481EAE819DF56CA004BDD9E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		E481EAEA19DF56D1004BDD9E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -512,10 +506,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E481EAEB19DF56D1004BDD9E /* UIKit.framework in Frameworks */,
 				C41D502019F232DB00269203 /* libcsound.a in Frameworks */,
-				E481EAE919DF56CA004BDD9E /* CoreGraphics.framework in Frameworks */,
-				E481EAE719DF56C4004BDD9E /* Foundation.framework in Frameworks */,
 				C41D502119F232DB00269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1240,7 +1231,6 @@
 			children = (
 				C41D4EA419F232DB00269203 /* AudioKit */,
 				E481E8AB19DF54F8004BDD9E /* GranularSynthesis */,
-				E481EAEC19DF571A004BDD9E /* Frameworks */,
 				E481E8AA19DF54F8004BDD9E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1302,16 +1292,6 @@
 				E481EAE219DF55BE004BDD9E /* Main_iPad.storyboard */,
 			);
 			name = Storyboards;
-			sourceTree = "<group>";
-		};
-		E481EAEC19DF571A004BDD9E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E481EAEA19DF56D1004BDD9E /* UIKit.framework */,
-				E481EAE819DF56CA004BDD9E /* CoreGraphics.framework */,
-				E481EAE619DF56C4004BDD9E /* Foundation.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

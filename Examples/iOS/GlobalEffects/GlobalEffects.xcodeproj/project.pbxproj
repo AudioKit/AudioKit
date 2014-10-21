@@ -155,9 +155,6 @@
 		C41D4EA119F232D500269203 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D4E0A19F232D500269203 /* AKWindowsTable.m */; };
 		C41D4EA219F232D500269203 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D4E0D19F232D500269203 /* AKInstrumentProperty.m */; };
 		C41D4EA319F232D500269203 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D4E0F19F232D500269203 /* AKNoteProperty.m */; };
-		C4398EE5196290620076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4398EE4196290620076F005 /* Foundation.framework */; };
-		C4398EE7196290620076F005 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4398EE6196290620076F005 /* CoreGraphics.framework */; };
-		C4398EE9196290620076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4398EE8196290620076F005 /* UIKit.framework */; };
 		C4398EEF196290620076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4398EED196290620076F005 /* InfoPlist.strings */; };
 		C4398EF1196290620076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398EF0196290620076F005 /* main.m */; };
 		C4398EF5196290620076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398EF4196290620076F005 /* AppDelegate.m */; };
@@ -492,9 +489,6 @@
 		C41D4E0E19F232D500269203 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41D4E0F19F232D500269203 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		C4398EE1196290620076F005 /* GlobalEffects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlobalEffects.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4398EE4196290620076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C4398EE6196290620076F005 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C4398EE8196290620076F005 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4398EEC196290620076F005 /* GlobalEffects-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlobalEffects-Info.plist"; sourceTree = "<group>"; };
 		C4398EEE196290620076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C4398EF0196290620076F005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -519,10 +513,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4398EE7196290620076F005 /* CoreGraphics.framework in Frameworks */,
 				C41D4E1B19F232D500269203 /* libcsound.a in Frameworks */,
-				C4398EE9196290620076F005 /* UIKit.framework in Frameworks */,
-				C4398EE5196290620076F005 /* Foundation.framework in Frameworks */,
 				C41D4E1C19F232D500269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1247,7 +1238,6 @@
 			children = (
 				C41D4C9F19F232D400269203 /* AudioKit */,
 				C4398EEA196290620076F005 /* GlobalEffects */,
-				C4398EE3196290620076F005 /* Frameworks */,
 				C4398EE2196290620076F005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1258,16 +1248,6 @@
 				C4398EE1196290620076F005 /* GlobalEffects.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C4398EE3196290620076F005 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4398EE4196290620076F005 /* Foundation.framework */,
-				C4398EE6196290620076F005 /* CoreGraphics.framework */,
-				C4398EE8196290620076F005 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C4398EEA196290620076F005 /* GlobalEffects */ = {

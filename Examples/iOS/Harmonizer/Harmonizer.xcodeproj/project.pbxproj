@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C407D5581969D75D00322F25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C407D5571969D75D00322F25 /* Foundation.framework */; };
-		C407D55A1969D75D00322F25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C407D5591969D75D00322F25 /* CoreGraphics.framework */; };
-		C407D55C1969D75D00322F25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C407D55B1969D75D00322F25 /* UIKit.framework */; };
 		C407D5621969D75D00322F25 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C407D5601969D75D00322F25 /* InfoPlist.strings */; };
 		C407D5641969D75D00322F25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C407D5631969D75D00322F25 /* main.m */; };
 		C407D5681969D75D00322F25 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C407D5671969D75D00322F25 /* AppDelegate.m */; };
@@ -170,9 +167,6 @@
 
 /* Begin PBXFileReference section */
 		C407D5541969D75D00322F25 /* Harmonizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmonizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C407D5571969D75D00322F25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C407D5591969D75D00322F25 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C407D55B1969D75D00322F25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C407D55F1969D75D00322F25 /* Harmonizer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Harmonizer-Info.plist"; sourceTree = "<group>"; };
 		C407D5611969D75D00322F25 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C407D5631969D75D00322F25 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -513,10 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C407D55A1969D75D00322F25 /* CoreGraphics.framework in Frameworks */,
 				C41D522519F232E800269203 /* libcsound.a in Frameworks */,
-				C407D55C1969D75D00322F25 /* UIKit.framework in Frameworks */,
-				C407D5581969D75D00322F25 /* Foundation.framework in Frameworks */,
 				C41D522619F232E800269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,7 +520,6 @@
 			children = (
 				C41D50A919F232E800269203 /* AudioKit */,
 				C407D55D1969D75D00322F25 /* Harmonizer */,
-				C407D5561969D75D00322F25 /* Frameworks */,
 				C407D5551969D75D00322F25 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -540,16 +530,6 @@
 				C407D5541969D75D00322F25 /* Harmonizer.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C407D5561969D75D00322F25 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C407D5571969D75D00322F25 /* Foundation.framework */,
-				C407D5591969D75D00322F25 /* CoreGraphics.framework */,
-				C407D55B1969D75D00322F25 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C407D55D1969D75D00322F25 /* Harmonizer */ = {

@@ -156,9 +156,6 @@
 		C41D62D419F2332900269203 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D623F19F2332900269203 /* AKInstrumentProperty.m */; };
 		C41D62D519F2332900269203 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D624119F2332900269203 /* AKNoteProperty.m */; };
 		C4461A291994A37D0073E819 /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4461A281994A37D0073E819 /* FMOscillator.m */; };
-		C48E461B199212FD00B3C1F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48E461A199212FD00B3C1F8 /* Foundation.framework */; };
-		C48E461D199212FD00B3C1F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48E461C199212FD00B3C1F8 /* CoreGraphics.framework */; };
-		C48E461F199212FD00B3C1F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48E461E199212FD00B3C1F8 /* UIKit.framework */; };
 		C48E4625199212FE00B3C1F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C48E4623199212FE00B3C1F8 /* InfoPlist.strings */; };
 		C48E4627199212FE00B3C1F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C48E4626199212FE00B3C1F8 /* main.m */; };
 		C48E462B199212FE00B3C1F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C48E462A199212FE00B3C1F8 /* AppDelegate.m */; };
@@ -493,9 +490,6 @@
 		C4461A271994A37D0073E819 /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillator.h; sourceTree = "<group>"; };
 		C4461A281994A37D0073E819 /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
 		C48E4617199212FD00B3C1F8 /* TouchRegions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchRegions.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C48E461A199212FD00B3C1F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C48E461C199212FD00B3C1F8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C48E461E199212FD00B3C1F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C48E4622199212FD00B3C1F8 /* TouchRegions-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchRegions-Info.plist"; sourceTree = "<group>"; };
 		C48E4624199212FE00B3C1F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C48E4626199212FE00B3C1F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -516,10 +510,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C48E461D199212FD00B3C1F8 /* CoreGraphics.framework in Frameworks */,
 				C41D624D19F2332900269203 /* libcsound.a in Frameworks */,
-				C48E461F199212FD00B3C1F8 /* UIKit.framework in Frameworks */,
-				C48E461B199212FD00B3C1F8 /* Foundation.framework in Frameworks */,
 				C41D624E19F2332900269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1244,7 +1235,6 @@
 			children = (
 				C41D60D119F2332900269203 /* AudioKit */,
 				C48E4620199212FD00B3C1F8 /* TouchRegions */,
-				C48E4619199212FD00B3C1F8 /* Frameworks */,
 				C48E4618199212FD00B3C1F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1255,16 +1245,6 @@
 				C48E4617199212FD00B3C1F8 /* TouchRegions.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C48E4619199212FD00B3C1F8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C48E461A199212FD00B3C1F8 /* Foundation.framework */,
-				C48E461C199212FD00B3C1F8 /* CoreGraphics.framework */,
-				C48E461E199212FD00B3C1F8 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C48E4620199212FD00B3C1F8 /* TouchRegions */ = {
