@@ -1230,7 +1230,6 @@
 				C41D58BD19F2330E00269203 /* AudioKit */,
 				E4E58F1D19E412C6009D3169 /* SwiftConvolution */,
 				E4E58F1C19E412C6009D3169 /* Products */,
-				E4E5914E19E4166F009D3169 /* Audio Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1245,6 +1244,7 @@
 		E4E58F1D19E412C6009D3169 /* SwiftConvolution */ = {
 			isa = PBXGroup;
 			children = (
+				E4E5914E19E4166F009D3169 /* Audio Files */,
 				E4E58F2219E412C6009D3169 /* ViewController.swift */,
 				E4E5914619E4139C009D3169 /* ConvolutionInstrument.swift */,
 				E4E58F2419E412C6009D3169 /* Main.storyboard */,
@@ -1272,6 +1272,7 @@
 				E4E5914A19E41669009D3169 /* Stairwell.wav */,
 			);
 			name = "Audio Files";
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

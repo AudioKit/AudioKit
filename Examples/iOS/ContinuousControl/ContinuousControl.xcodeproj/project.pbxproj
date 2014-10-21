@@ -155,9 +155,6 @@
 		C41D489219F232C000269203 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D47FB19F232C000269203 /* AKWindowsTable.m */; };
 		C41D489319F232C000269203 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D47FE19F232C000269203 /* AKInstrumentProperty.m */; };
 		C41D489419F232C000269203 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D480019F232C000269203 /* AKNoteProperty.m */; };
-		C439809B196275C80076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439809A196275C80076F005 /* Foundation.framework */; };
-		C439809D196275C80076F005 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439809C196275C80076F005 /* CoreGraphics.framework */; };
-		C439809F196275C80076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C439809E196275C80076F005 /* UIKit.framework */; };
 		C43980A5196275C80076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C43980A3196275C80076F005 /* InfoPlist.strings */; };
 		C43980A7196275C80076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980A6196275C80076F005 /* main.m */; };
 		C43980AB196275C80076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980AA196275C80076F005 /* AppDelegate.m */; };
@@ -491,9 +488,6 @@
 		C41D47FF19F232C000269203 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41D480019F232C000269203 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		C4398097196275C80076F005 /* ContinuousControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContinuousControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C439809A196275C80076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C439809C196275C80076F005 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C439809E196275C80076F005 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C43980A2196275C80076F005 /* ContinuousControl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContinuousControl-Info.plist"; sourceTree = "<group>"; };
 		C43980A4196275C80076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C43980A6196275C80076F005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -516,10 +510,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C439809D196275C80076F005 /* CoreGraphics.framework in Frameworks */,
 				C41D480C19F232C000269203 /* libcsound.a in Frameworks */,
-				C439809F196275C80076F005 /* UIKit.framework in Frameworks */,
-				C439809B196275C80076F005 /* Foundation.framework in Frameworks */,
 				C41D480D19F232C000269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1244,7 +1235,6 @@
 			children = (
 				C41D469019F232C000269203 /* AudioKit */,
 				C43980A0196275C80076F005 /* ContinuousControl */,
-				C4398099196275C80076F005 /* Frameworks */,
 				C4398098196275C80076F005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1255,16 +1245,6 @@
 				C4398097196275C80076F005 /* ContinuousControl.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C4398099196275C80076F005 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C439809A196275C80076F005 /* Foundation.framework */,
-				C439809C196275C80076F005 /* CoreGraphics.framework */,
-				C439809E196275C80076F005 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C43980A0196275C80076F005 /* ContinuousControl */ = {

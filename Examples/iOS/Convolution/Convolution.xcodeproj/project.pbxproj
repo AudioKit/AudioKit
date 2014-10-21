@@ -155,9 +155,6 @@
 		C41D4A9719F232C700269203 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D4A0019F232C700269203 /* AKWindowsTable.m */; };
 		C41D4A9819F232C700269203 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D4A0319F232C700269203 /* AKInstrumentProperty.m */; };
 		C41D4A9919F232C700269203 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D4A0519F232C700269203 /* AKNoteProperty.m */; };
-		C4398C7F19628CBC0076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4398C7E19628CBC0076F005 /* Foundation.framework */; };
-		C4398C8119628CBC0076F005 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4398C8019628CBC0076F005 /* CoreGraphics.framework */; };
-		C4398C8319628CBC0076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4398C8219628CBC0076F005 /* UIKit.framework */; };
 		C4398C8919628CBC0076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4398C8719628CBC0076F005 /* InfoPlist.strings */; };
 		C4398C8B19628CBC0076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398C8A19628CBC0076F005 /* main.m */; };
 		C4398C8F19628CBC0076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4398C8E19628CBC0076F005 /* AppDelegate.m */; };
@@ -493,9 +490,6 @@
 		C41D4A0419F232C700269203 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41D4A0519F232C700269203 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		C4398C7B19628CBC0076F005 /* Convolution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convolution.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4398C7E19628CBC0076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C4398C8019628CBC0076F005 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C4398C8219628CBC0076F005 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4398C8619628CBC0076F005 /* Convolution-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Convolution-Info.plist"; sourceTree = "<group>"; };
 		C4398C8819628CBC0076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C4398C8A19628CBC0076F005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -519,10 +513,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4398C8119628CBC0076F005 /* CoreGraphics.framework in Frameworks */,
 				C41D4A1119F232C700269203 /* libcsound.a in Frameworks */,
-				C4398C8319628CBC0076F005 /* UIKit.framework in Frameworks */,
-				C4398C7F19628CBC0076F005 /* Foundation.framework in Frameworks */,
 				C41D4A1219F232C700269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1247,7 +1238,6 @@
 			children = (
 				C41D489519F232C600269203 /* AudioKit */,
 				C4398C8419628CBC0076F005 /* Convolution */,
-				C4398C7D19628CBC0076F005 /* Frameworks */,
 				C4398C7C19628CBC0076F005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1258,16 +1248,6 @@
 				C4398C7B19628CBC0076F005 /* Convolution.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C4398C7D19628CBC0076F005 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4398C7E19628CBC0076F005 /* Foundation.framework */,
-				C4398C8019628CBC0076F005 /* CoreGraphics.framework */,
-				C4398C8219628CBC0076F005 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C4398C8419628CBC0076F005 /* Convolution */ = {

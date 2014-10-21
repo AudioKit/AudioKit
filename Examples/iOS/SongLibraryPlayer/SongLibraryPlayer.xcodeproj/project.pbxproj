@@ -161,9 +161,6 @@
 		C4BD3DD2186D202F00B11A55 /* SongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD3DD1186D202F00B11A55 /* SongViewController.m */; };
 		C4BD3DD8186D3EF700B11A55 /* SharedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD3DD7186D3EF700B11A55 /* SharedStore.m */; };
 		C4BD3DDB186D4FE500B11A55 /* TweakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD3DDA186D4FE500B11A55 /* TweakViewController.m */; };
-		C4C5145E186410540036F065 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5145D186410540036F065 /* Foundation.framework */; };
-		C4C51460186410540036F065 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5145F186410540036F065 /* CoreGraphics.framework */; };
-		C4C51462186410540036F065 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C51461186410540036F065 /* UIKit.framework */; };
 		C4C51468186410540036F065 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4C51466186410540036F065 /* InfoPlist.strings */; };
 		C4C5146A186410540036F065 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C51469186410540036F065 /* main.m */; };
 		C4C5146E186410540036F065 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5146D186410540036F065 /* AppDelegate.m */; };
@@ -509,9 +506,6 @@
 		C4BD3DD9186D4FE500B11A55 /* TweakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweakViewController.h; sourceTree = "<group>"; };
 		C4BD3DDA186D4FE500B11A55 /* TweakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakViewController.m; sourceTree = "<group>"; };
 		C4C5145A186410540036F065 /* SongLibraryPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongLibraryPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4C5145D186410540036F065 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C4C5145F186410540036F065 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C4C51461186410540036F065 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4C51465186410540036F065 /* SongLibraryPlayer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SongLibraryPlayer-Info.plist"; sourceTree = "<group>"; };
 		C4C51467186410540036F065 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C4C51469186410540036F065 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -535,9 +529,6 @@
 				C41D583519F2330700269203 /* libsndfile.a in Frameworks */,
 				C4C5169D186412A90036F065 /* MediaPlayer.framework in Frameworks */,
 				C4C5169B1864128E0036F065 /* AVFoundation.framework in Frameworks */,
-				C4C51460186410540036F065 /* CoreGraphics.framework in Frameworks */,
-				C4C51462186410540036F065 /* UIKit.framework in Frameworks */,
-				C4C5145E186410540036F065 /* Foundation.framework in Frameworks */,
 				C41D583419F2330700269203 /* libcsound.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1280,9 +1271,6 @@
 			children = (
 				C4C5169C186412A90036F065 /* MediaPlayer.framework */,
 				C4C5169A1864128E0036F065 /* AVFoundation.framework */,
-				C4C5145D186410540036F065 /* Foundation.framework */,
-				C4C5145F186410540036F065 /* CoreGraphics.framework */,
-				C4C51461186410540036F065 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

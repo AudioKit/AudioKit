@@ -155,9 +155,6 @@
 		C41D54B019F232F900269203 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D541919F232F900269203 /* AKWindowsTable.m */; };
 		C41D54B119F232F900269203 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D541C19F232F900269203 /* AKInstrumentProperty.m */; };
 		C41D54B219F232F900269203 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D541E19F232F900269203 /* AKNoteProperty.m */; };
-		C4397E3319626F300076F005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4397E3219626F300076F005 /* Foundation.framework */; };
-		C4397E3519626F300076F005 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4397E3419626F300076F005 /* CoreGraphics.framework */; };
-		C4397E3719626F300076F005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4397E3619626F300076F005 /* UIKit.framework */; };
 		C4397E3D19626F300076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4397E3B19626F300076F005 /* InfoPlist.strings */; };
 		C4397E3F19626F300076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397E3E19626F300076F005 /* main.m */; };
 		C4397E4319626F300076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397E4219626F300076F005 /* AppDelegate.m */; };
@@ -493,9 +490,6 @@
 		C41D541D19F232F900269203 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41D541E19F232F900269203 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		C4397E2F19626F300076F005 /* PlayAudioFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayAudioFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4397E3219626F300076F005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C4397E3419626F300076F005 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C4397E3619626F300076F005 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C4397E3A19626F300076F005 /* PlayAudioFile-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlayAudioFile-Info.plist"; sourceTree = "<group>"; };
 		C4397E3C19626F300076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C4397E3E19626F300076F005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -520,10 +514,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4397E3519626F300076F005 /* CoreGraphics.framework in Frameworks */,
 				C41D542A19F232F900269203 /* libcsound.a in Frameworks */,
-				C4397E3719626F300076F005 /* UIKit.framework in Frameworks */,
-				C4397E3319626F300076F005 /* Foundation.framework in Frameworks */,
 				C41D542B19F232F900269203 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1248,7 +1239,6 @@
 			children = (
 				C41D52AE19F232F900269203 /* AudioKit */,
 				C4397E3819626F300076F005 /* PlayAudioFile */,
-				C4397E3119626F300076F005 /* Frameworks */,
 				C4397E3019626F300076F005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1259,16 +1249,6 @@
 				C4397E2F19626F300076F005 /* PlayAudioFile.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C4397E3119626F300076F005 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4397E3219626F300076F005 /* Foundation.framework */,
-				C4397E3419626F300076F005 /* CoreGraphics.framework */,
-				C4397E3619626F300076F005 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C4397E3819626F300076F005 /* PlayAudioFile */ = {
