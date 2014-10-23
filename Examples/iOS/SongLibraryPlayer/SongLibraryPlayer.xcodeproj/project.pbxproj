@@ -168,8 +168,6 @@
 		C4C51474186410540036F065 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C51472186410540036F065 /* Main_iPad.storyboard */; };
 		C4C51477186410540036F065 /* SongsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C51476186410540036F065 /* SongsViewController.m */; };
 		C4C51479186410540036F065 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C51478186410540036F065 /* Images.xcassets */; };
-		C4C5169B1864128E0036F065 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5169A1864128E0036F065 /* AVFoundation.framework */; };
-		C4C5169D186412A90036F065 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C5169C186412A90036F065 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -517,8 +515,6 @@
 		C4C51475186410540036F065 /* SongsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongsViewController.h; sourceTree = "<group>"; };
 		C4C51476186410540036F065 /* SongsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongsViewController.m; sourceTree = "<group>"; };
 		C4C51478186410540036F065 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4C5169A1864128E0036F065 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C4C5169C186412A90036F065 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,8 +523,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C41D583519F2330700269203 /* libsndfile.a in Frameworks */,
-				C4C5169D186412A90036F065 /* MediaPlayer.framework in Frameworks */,
-				C4C5169B1864128E0036F065 /* AVFoundation.framework in Frameworks */,
 				C41D583419F2330700269203 /* libcsound.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1253,7 +1247,6 @@
 			children = (
 				C41D56B819F2330700269203 /* AudioKit */,
 				C4C51463186410540036F065 /* SongLibraryPlayer */,
-				C4C5145C186410540036F065 /* Frameworks */,
 				C4C5145B186410540036F065 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1264,15 +1257,6 @@
 				C4C5145A186410540036F065 /* SongLibraryPlayer.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C4C5145C186410540036F065 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4C5169C186412A90036F065 /* MediaPlayer.framework */,
-				C4C5169A1864128E0036F065 /* AVFoundation.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C4C51463186410540036F065 /* SongLibraryPlayer */ = {
