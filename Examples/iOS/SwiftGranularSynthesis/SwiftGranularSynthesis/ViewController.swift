@@ -13,10 +13,10 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var toggleSwitchClicked: UISwitch!
-    @IBOutlet var averageGrainDurationControl : UISlider? = nil
-    @IBOutlet var grainDensityControl : UISlider? = nil
-    @IBOutlet var freqDevControl : UISlider? = nil
-    @IBOutlet var amplitudeControl : UISlider? = nil
+    @IBOutlet var averageGrainDurationControl : UISlider!
+    @IBOutlet var grainDensityControl : UISlider!
+    @IBOutlet var freqDevControl : UISlider!
+    @IBOutlet var amplitudeControl : UISlider!
     
     let granularSynth = GranularSynth();
     
