@@ -13,11 +13,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
-        // NOTE BASED CONTROL ==================================================
-        //AudioFilePlayerNote *note = [[AudioFilePlayerNote alloc] init];
-        //[self addNoteProperty:note.speed];
-        
+
         // INSTRUMENT BASED CONTROL ============================================
         _reverbAmount = [[AKInstrumentProperty alloc] initWithValue:0.5
                                                             minimum:0
@@ -27,47 +23,46 @@
                                                    minimum:0
                                                    maximum:1.0];
         [self addProperty:_mix];
-        
-        
+
+
         // INSTRUMENT DEFINITION ===============================================
-        
+
         NSString *file;
         file = [[NSBundle mainBundle] pathForResource:@"exported" ofType:@"wav"];
         NSArray *docDirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *docDir = [docDirs objectAtIndex:0];
         NSString *outPath = [[docDir stringByAppendingPathComponent:@"exported"]
                              stringByAppendingPathExtension:@"wav"];
-        
+
         file = outPath;
-        
-        NSLog(@"file: %@", file);
-        
+
         AKFileInput *fileIn = [[AKFileInput alloc] initWithFilename:file];
-        
+
         [self connect:fileIn];
-        
+
         AKReverb *reverb;
         reverb = [[AKReverb alloc] initWithSourceStereoAudio:fileIn
                                                feedbackLevel:_reverbAmount
                                              cutoffFrequency:akp(12000)];
         [self connect:reverb];
-        
+
         AKMixedAudio *leftMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.leftOutput
                                                               signal2:reverb.leftOutput
                                                               balance:_mix];
         [self connect:leftMix];
-        
+
         AKMixedAudio *rightMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.rightOutput
                                                                signal2:reverb.rightOutput
                                                                balance:_mix];
         [self connect:rightMix  ];
+
         // AUDIO OUTPUT ========================================================
-        
+
         AKAudioOutput * audio;
         //audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[fileIn plus:reverb]];
         audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix
                                               rightAudio:rightMix];
-        
+
         [self connect:audio];
     }
     return self;
@@ -81,7 +76,7 @@
 {
     self = [super init];
     if(self) {
-        
+
     }
     return self;
 }
