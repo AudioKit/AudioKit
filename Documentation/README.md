@@ -22,6 +22,6 @@ After installation, use this command from within the AudioKit Xcode folder to ru
     --project-company "Hear For Yourself" \
     --company-id com.hearforyourself \
     --no-repeat-first-par \
-    --output ~/help \
+    --output ~/AppleDoc \
     .
 
