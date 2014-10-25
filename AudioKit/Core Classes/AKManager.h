@@ -25,7 +25,7 @@
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedAKManager;
 
-/// Run AudioKit using an AKOrechestra
+/// Run AudioKit using an AKOrchestra
 /// @param orchestra The AKOrchestra that will be started.
 - (void)runOrchestra:(AKOrchestra *)orchestra;
 
