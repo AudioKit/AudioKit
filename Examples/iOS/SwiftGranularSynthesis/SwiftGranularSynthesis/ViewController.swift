@@ -46,14 +46,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func toggleGranularInstrument(sender: AnyObject) {
-        if toggleSwitchClicked.on
-        {
-            granularSynth.play()
-        }
-        else
-        {
-            granularSynth.stop()
-        }
+        toggleSwitchClicked.on ?  granularSynth.play() : granularSynth.stop()
     }
     
 
