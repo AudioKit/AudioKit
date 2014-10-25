@@ -24,7 +24,6 @@
                                                    maximum:1.0];
         [self addProperty:_mix];
 
-
         // INSTRUMENT DEFINITION ===============================================
 
         NSString *file;
@@ -46,15 +45,17 @@
                                              cutoffFrequency:akp(12000)];
         [self connect:reverb];
 
-        AKMixedAudio *leftMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.leftOutput
-                                                              signal2:reverb.leftOutput
-                                                              balance:_mix];
+        AKMixedAudio *leftMix;
+        leftMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.leftOutput
+                                                signal2:reverb.leftOutput
+                                                balance:_mix];
         [self connect:leftMix];
 
-        AKMixedAudio *rightMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.rightOutput
-                                                               signal2:reverb.rightOutput
-                                                               balance:_mix];
-        [self connect:rightMix  ];
+        AKMixedAudio *rightMix;
+        rightMix = [[AKMixedAudio alloc] initWithSignal1:fileIn.rightOutput
+                                                 signal2:reverb.rightOutput
+                                                 balance:_mix];
+        [self connect:rightMix];
 
         // AUDIO OUTPUT ========================================================
 
