@@ -160,7 +160,7 @@
 		E45CE8E819DF5A0A00DB99FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45CE8E719DF5A0A00DB99FE /* ViewController.swift */; };
 		E45CE8EB19DF5A0A00DB99FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45CE8E919DF5A0A00DB99FE /* Main.storyboard */; };
 		E45CE8ED19DF5A0A00DB99FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45CE8EC19DF5A0A00DB99FE /* Images.xcassets */; };
-		E45CEB0B19DF5A8200DB99FE /* GranularSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45CEB0A19DF5A8200DB99FE /* GranularSynth.swift */; };
+		E45CEB0B19DF5A8200DB99FE /* GranularInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45CEB0A19DF5A8200DB99FE /* GranularInstrument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -492,7 +492,7 @@
 		E45CE8E719DF5A0A00DB99FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E45CE8EA19DF5A0A00DB99FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E45CE8EC19DF5A0A00DB99FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E45CEB0A19DF5A8200DB99FE /* GranularSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GranularSynth.swift; sourceTree = "<group>"; };
+		E45CEB0A19DF5A8200DB99FE /* GranularInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GranularInstrument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1242,7 +1242,7 @@
 			children = (
 				E45CE8E719DF5A0A00DB99FE /* ViewController.swift */,
 				E45CE8E919DF5A0A00DB99FE /* Main.storyboard */,
-				E45CEB0A19DF5A8200DB99FE /* GranularSynth.swift */,
+				E45CEB0A19DF5A8200DB99FE /* GranularInstrument.swift */,
 				E45CE8EC19DF5A0A00DB99FE /* Images.xcassets */,
 				E45CE8E319DF5A0A00DB99FE /* Supporting Files */,
 			);
@@ -1377,7 +1377,7 @@
 				C41D5EB819F2331B00269203 /* AKPanner.m in Sources */,
 				C41D5E7119F2331B00269203 /* AKLowFrequencyOscillatingControl.m in Sources */,
 				C41D5EC419F2331B00269203 /* AKFTable.m in Sources */,
-				E45CEB0B19DF5A8200DB99FE /* GranularSynth.swift in Sources */,
+				E45CEB0B19DF5A8200DB99FE /* GranularInstrument.swift in Sources */,
 				C41D5EB519F2331B00269203 /* AKParallelCombLowPassFilterReverb.m in Sources */,
 				C41D5E6319F2331B00269203 /* AKWarp.m in Sources */,
 				C41D5E4919F2331B00269203 /* AKParameter+Operation.m in Sources */,
