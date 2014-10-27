@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var toggleSwitchClicked: UISwitch!
+    
     @IBOutlet var frequencyLabel : UILabel!
     @IBOutlet var amplitudeLabel : UILabel!
     @IBOutlet var carrierMultiplierLabel : UILabel!
@@ -33,12 +35,15 @@ class ViewController: UIViewController {
         manager.runOrchestra(orchestra)
         updateLabels()
         updateSliders() 
-        fmSynth.play()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func toggleFMsynth(sender: AnyObject) {
+        toggleSwitchClicked.on ?  fmSynth.play() : fmSynth.stop()
     }
     
     func updateLabels()->Void {
