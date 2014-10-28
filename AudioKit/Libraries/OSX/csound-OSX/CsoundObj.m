@@ -346,7 +346,7 @@ OSStatus  Csound_Render(void *inRefCon,
     int ksmps = csoundGetKsmps(cs);
     MYFLT *spin = csoundGetSpin(cs);
     MYFLT *spout = csoundGetSpout(cs);
-    AudioUnitSampleType *buffer;
+    SInt32 *buffer;
     
     AudioUnitRender(*cdata->aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
     
@@ -364,7 +364,7 @@ OSStatus  Csound_Render(void *inRefCon,
 		/* performance */
         if(cdata->useAudioInput) {
             for (k = 0; k < nchnls; k++){
-                buffer = (AudioUnitSampleType *) ioData->mBuffers[k].mData;
+                buffer = (SInt32 *) ioData->mBuffers[k].mData;
                 for(j=0; j < ksmps; j++){
                     spin[j*nchnls+k] = buffer[j+i*ksmps];
                 }
@@ -377,13 +377,13 @@ OSStatus  Csound_Render(void *inRefCon,
         }
 		
 		for (k = 0; k < nchnls; k++) {
-			buffer = (AudioUnitSampleType *) ioData->mBuffers[k].mData;
+			buffer = (SInt32 *) ioData->mBuffers[k].mData;
 			if (cdata->shouldMute == false) {
 				for(j=0; j < ksmps; j++){
-					buffer[j+i*ksmps] = (AudioUnitSampleType) spout[j*nchnls+k];
+					buffer[j+i*ksmps] = (SInt32) spout[j*nchnls+k];
 				}
 			} else {
-				memset(buffer, 0, sizeof(AudioUnitSampleType) * inNumberFrames);
+				memset(buffer, 0, sizeof(SInt32) * inNumberFrames);
 			}
 		}
         

@@ -17,9 +17,9 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        AKReverb * reverb = [[AKReverb alloc] initWithAudioSource:audioSource
-                                                    feedbackLevel:akp(0.8)
-                                                  cutoffFrequency:akp(12000)];
+        AKReverb *reverb = [[AKReverb alloc] initWithAudioSource:audioSource
+                                                   feedbackLevel:akp(0.8)
+                                                 cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================

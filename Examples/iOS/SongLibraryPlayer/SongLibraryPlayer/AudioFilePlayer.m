@@ -59,7 +59,7 @@
 
         // AUDIO OUTPUT ========================================================
 
-        AKAudioOutput * audio;
+        AKAudioOutput *audio;
         //audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[fileIn plus:reverb]];
         audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix
                                               rightAudio:rightMix];
