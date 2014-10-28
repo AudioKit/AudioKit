@@ -30,9 +30,6 @@
 #import "CsoundObj.h"
 //#import "CsoundMIDI.h"
 
-#define AUDIO_UNIT_SAMPLE_TYPE SInt32
-#define AUDIO_FORMAT_FLAGS_CANONICAL  kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved
-
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
                         const AudioTimeStamp *inTimeStamp,
@@ -348,7 +345,7 @@ OSStatus  Csound_Render(void *inRefCon,
     int ksmps = csoundGetKsmps(cs);
     MYFLT *spin = csoundGetSpin(cs);
     MYFLT *spout = csoundGetSpout(cs);
-    AUDIO_UNIT_SAMPLE_TYPE *buffer;
+    SInt32 *buffer;
     
     AudioUnitRender(*cdata->aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
     
@@ -366,7 +363,7 @@ OSStatus  Csound_Render(void *inRefCon,
         /* performance */
         if(cdata->useAudioInput) {
             for (k = 0; k < nchnls; k++){
-                buffer = (AUDIO_UNIT_SAMPLE_TYPE *) ioData->mBuffers[k].mData;
+                buffer = (SInt32 *) ioData->mBuffers[k].mData;
                 for(j=0; j < ksmps; j++){
                     spin[j*nchnls+k] =(1./coef)*buffer[j+i*ksmps];
                 }
@@ -379,13 +376,13 @@ OSStatus  Csound_Render(void *inRefCon,
         }
         
         for (k = 0; k < nchnls; k++) {
-            buffer = (AUDIO_UNIT_SAMPLE_TYPE *) ioData->mBuffers[k].mData;
+            buffer = (SInt32 *) ioData->mBuffers[k].mData;
             if (cdata->shouldMute == false) {
                 for(j=0; j < ksmps; j++){
-                    buffer[j+i*ksmps] = (AUDIO_UNIT_SAMPLE_TYPE) lrintf(spout[j*nchnls+k]*coef) ;
+                    buffer[j+i*ksmps] = (SInt32) lrintf(spout[j*nchnls+k]*coef) ;
                 }
             } else {
-                memset(buffer, 0, sizeof(AUDIO_UNIT_SAMPLE_TYPE) * inNumberFrames);
+                memset(buffer, 0, sizeof(SInt32) * inNumberFrames);
             }
         }
         
@@ -451,7 +448,7 @@ OSStatus  Csound_Render(void *inRefCon,
         csoundSetHostData(cs, (__bridge void *)(self));
         
         if (_midiInEnabled) {
-            // [CsoundMIDI setMidiInCallbacks:cs];
+//            [CsoundMIDI setMidiInCallbacks:cs];
         }
         
         char *argv[2] = { "csound", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
@@ -529,12 +526,12 @@ OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, &outsize);
                         format.mSampleRate	= csoundGetSr(cs);
                         format.mFormatID = kAudioFormatLinearPCM;
-                        format.mFormatFlags = AUDIO_FORMAT_FLAGS_CANONICAL | kLinearPCMFormatFlagIsNonInterleaved;
-                        format.mBytesPerPacket = sizeof(AUDIO_UNIT_SAMPLE_TYPE);
+                        format.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked | kLinearPCMFormatFlagIsNonInterleaved;
+                        format.mBytesPerPacket = sizeof(SInt32);
                         format.mFramesPerPacket = 1;
-                        format.mBytesPerFrame = sizeof(AUDIO_UNIT_SAMPLE_TYPE);
+                        format.mBytesPerFrame = sizeof(SInt32);
                         format.mChannelsPerFrame = mCsData.nchnls;
-                        format.mBitsPerChannel = sizeof(AUDIO_UNIT_SAMPLE_TYPE)*8;
+                        format.mBitsPerChannel = sizeof(SInt32)*8;
                         err = AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, sizeof(AudioStreamBasicDescription));
                     }
                     
