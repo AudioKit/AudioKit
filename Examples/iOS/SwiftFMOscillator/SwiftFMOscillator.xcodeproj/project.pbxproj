@@ -1578,11 +1578,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SwiftFMOscillator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftFMOscillator-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1596,11 +1592,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SwiftFMOscillator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftFMOscillator-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
