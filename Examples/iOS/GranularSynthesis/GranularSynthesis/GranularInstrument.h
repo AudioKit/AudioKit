@@ -3,7 +3,7 @@
 //  GranularSynthTest
 //
 //  Created by Nicholas Arner on 9/2/14.
-//  Copyright (c) 2014 Nicholas Arner. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKInstrument.h"
