@@ -11,7 +11,7 @@
 
 @interface AKInstrumentProperty() <CsoundBinding> {
     MYFLT *channelPtr;
-    float currentValue;
+    BOOL isCacheDirty;
 }
 @end
 
@@ -22,6 +22,7 @@
     self = [super init];
     if (self) {
         [self setName:@"Property"];
+        isCacheDirty = NO;
     }
     return self;
 }
@@ -71,6 +72,7 @@
         NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximum);
         _value = _maximum;
     }
+    isCacheDirty = YES;
 }
 
 - (void)reset {
@@ -103,7 +105,10 @@
     *channelPtr = self.value;
 }
 - (void)updateValuesFromCsound {
-    self.value = *channelPtr;
+    if ((isCacheDirty) && (*channelPtr == self.value))
+        isCacheDirty = NO;
+    if ((!isCacheDirty) && (*channelPtr))
+        self.value = *channelPtr;
 }
 
 @end
