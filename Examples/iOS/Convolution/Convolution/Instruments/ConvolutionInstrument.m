@@ -61,8 +61,6 @@
                                                balance:_dryWetBalance];
         [self connect:dryWet];
         
-        
-        
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:dryWet];
