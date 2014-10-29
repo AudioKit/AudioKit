@@ -95,12 +95,16 @@
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
         AKInstrumentProperty *p = (AKInstrumentProperty *)property;
-        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
+        });
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)property;
-        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
+        });
     }
     
 }
@@ -138,11 +142,17 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        textfield.text = [NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]];
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textfield.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        textfield.text = [NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]];
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textfield.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
 }
 
@@ -150,14 +160,17 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
-        label.text = [NSString stringWithFormat:@"%g", p.value];
-        
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            label.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)property;
-        label.text = [NSString stringWithFormat:@"%g", p.value];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            label.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
 }
 
