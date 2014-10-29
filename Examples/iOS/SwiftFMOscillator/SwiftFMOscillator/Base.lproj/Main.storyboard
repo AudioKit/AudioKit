@@ -263,8 +263,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="amplitudeLabel" destination="5Lf-kl-pgV" id="Ior-fN-lV1"/>
-                        <outlet property="amplitudeSlider" destination="X9T-Ye-kPd" id="WqL-P5-3lf"/>
                         <outlet property="carrierMultiplierLabel" destination="Z96-FY-Wye" id="okR-gj-IGk"/>
                         <outlet property="carrierMultiplierSlider" destination="cIw-sK-lwo" id="zhe-yc-QNQ"/>
                         <outlet property="frequencyLabel" destination="9OM-f7-Kgj" id="6Xc-jb-qAr"/>
