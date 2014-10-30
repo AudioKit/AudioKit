@@ -54,7 +54,9 @@
     float percentage = (value-minimum)/(maximum - minimum);
     float width = slider.maximumValue - slider.minimumValue;
     float sliderValue = slider.minimumValue + percentage * width;
-    [slider setValue:sliderValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [slider setValue:sliderValue];
+    });
 }
 
 + (void)setProgressView:(UIProgressView *)progressView
@@ -63,7 +65,9 @@
                 maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
-    [progressView setProgress:percentage];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [progressView setProgress:percentage];
+    });
 }
 
 + (float)scaleValueFromSlider:(UISlider *)slider
@@ -95,16 +99,12 @@
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
         AKInstrumentProperty *p = (AKInstrumentProperty *)property;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
-        });
+        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)property;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
-        });
+        [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
     
 }
