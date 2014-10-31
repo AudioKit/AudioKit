@@ -1541,10 +1541,7 @@
 					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				INFOPLIST_FILE = "ContinuousControl/ContinuousControl-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1567,10 +1564,7 @@
 					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				INFOPLIST_FILE = "ContinuousControl/ContinuousControl-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
