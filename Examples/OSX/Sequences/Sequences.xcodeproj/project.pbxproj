@@ -1541,7 +1541,7 @@
 					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				INFOPLIST_FILE = "Sequences/Sequences-Info.plist";
-				LIBRARY_SEARCH_PATHS = "/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1564,7 +1564,7 @@
 					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				INFOPLIST_FILE = "Sequences/Sequences-Info.plist";
-				LIBRARY_SEARCH_PATHS = "/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
