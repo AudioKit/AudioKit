@@ -12,4 +12,6 @@
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource;
 
+@property (nonatomic, strong) AKInstrumentProperty *reverb;
+
 @end
