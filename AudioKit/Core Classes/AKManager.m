@@ -94,7 +94,7 @@ static AKManager *_sharedAKManager = nil;
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = paths[0];
-        csdFile = [NSString stringWithFormat:@"%@/new.csd", documentsDirectory];
+        csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
         _midi = [[AKMidi alloc] init];
     }
     return self;
