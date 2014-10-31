@@ -15,17 +15,23 @@
     self = [super init];
     if (self) {
         
+        // INSTRUMENT CONTROL ==================================================
+        _reverb  = [[AKInstrumentProperty alloc] initWithValue:0.0
+                                                       minimum:0.0
+                                                       maximum:1.0];
+        [self addProperty:_reverb];
+        
         // INSTRUMENT DEFINITION ===============================================
         
         AKReverb *reverb = [[AKReverb alloc] initWithAudioSource:audioSource
-                                                   feedbackLevel:akp(0.8)
+                                                   feedbackLevel:_reverb
                                                  cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput *audio;
-        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:akp(0.2)] ];
+        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:akp(0.4)] ];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

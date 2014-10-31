@@ -14,10 +14,10 @@
          location = "group:Examples/iOS/Convolution/Convolution.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/GlobalEffects/GlobalEffects.xcodeproj">
+         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
+         location = "group:Examples/iOS/Keyboard/Keyboard.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/Harmonizer/Harmonizer.xcodeproj">
@@ -55,9 +55,6 @@
       </FileRef>
       <FileRef
          location = "group:Examples/OSX/Convolution/Convolution.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/OSX/GlobalEffects/GlobalEffects.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/OSX/PlayAudioFile/PlayAudioFile.xcodeproj">
