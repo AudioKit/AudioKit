@@ -37,7 +37,9 @@
 
 - (IBAction)keyPressed:(id)sender {
     NSArray *frequencies = @[@440, @466.16, @493.88, @523.25, @554.37, @587.33, @622.25, @659.26, @698.46, @739.99, @783.99, @830.61, @880];
-    NSInteger index = [(UILabel *)sender tag];
+    UILabel *key = (UILabel *)sender;
+    NSInteger index = [key tag];
+    [key setBackgroundColor:[UIColor redColor]];
     float frequency = [[frequencies objectAtIndex:index] floatValue];
     
     ToneGeneratorNote *note = [[ToneGeneratorNote alloc] initWithFrequency:frequency];
@@ -46,7 +48,13 @@
 }
 
 - (IBAction)keyReleased:(id)sender {
-    NSInteger index = [(UILabel *)sender tag];
+    UILabel *key = (UILabel *)sender;
+    NSInteger index = [key tag];
+    if ((index == 1) || (index == 3) || (index == 6) || (index == 8) || (index == 10)) {
+        [key setBackgroundColor:[UIColor blackColor]];
+    } else {
+        [key setBackgroundColor:[UIColor whiteColor]];
+    }
     ToneGeneratorNote *noteToStop = [currentNotes objectForKey:[NSNumber numberWithInt:(int)index]];
     [noteToStop stop];
     [currentNotes removeObjectForKey:sender];
@@ -56,7 +64,6 @@
 
 - (IBAction)reverbSliderValueChanged:(id)sender {
     fx.reverb.value = [(UISlider *)sender value];
-    NSLog(@"%g", fx.reverb.value);
 }
 
 - (IBAction)volumeSliderValueChanged:(id)sender {
