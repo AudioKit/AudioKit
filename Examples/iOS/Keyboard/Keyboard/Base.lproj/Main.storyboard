@@ -12,7 +12,7 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -24,7 +24,6 @@
                                 </state>
                                 <connections>
                                     <action selector="keyPressed:" destination="BYZ-38-t0r" eventType="touchDown" id="1re-rE-o0I"/>
-                                    <action selector="keyReleased:" destination="BYZ-38-t0r" eventType="touchDragExit" id="40a-0f-J5U"/>
                                     <action selector="keyReleased:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="7hv-UR-gr5"/>
                                     <action selector="keyReleased:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CNG-dY-JkA"/>
                                 </connections>
@@ -37,7 +36,6 @@
                                 </state>
                                 <connections>
                                     <action selector="keyPressed:" destination="BYZ-38-t0r" eventType="touchDown" id="WTd-TG-hMC"/>
-                                    <action selector="keyPressed:" destination="BYZ-38-t0r" eventType="touchDragEnter" id="o7Q-1w-3C3"/>
                                     <action selector="keyReleased:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="UQy-2b-UEz"/>
                                     <action selector="keyReleased:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mNm-mC-p1l"/>
                                 </connections>
