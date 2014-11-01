@@ -66,8 +66,8 @@
     fx.reverb.value = [(UISlider *)sender value];
 }
 
-- (IBAction)volumeSliderValueChanged:(id)sender {
-    toneGenerator.volume.value = [(UISlider *)sender value];
+- (IBAction)toneColorSliderValueChanged:(id)sender {
+    toneGenerator.toneColor.value = [(UISlider *)sender value];
 }
 
 @end

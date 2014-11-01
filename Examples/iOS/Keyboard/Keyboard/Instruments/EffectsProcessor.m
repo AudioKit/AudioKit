@@ -25,13 +25,13 @@
         
         AKReverb *reverb = [[AKReverb alloc] initWithAudioSource:audioSource
                                                    feedbackLevel:_reverb
-                                                 cutoffFrequency:akp(12000)];
+                                                 cutoffFrequency:akp(4000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput *audio;
-        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[reverb scaledBy:akp(0.4)] ];
+        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:reverb];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

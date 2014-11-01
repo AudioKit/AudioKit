@@ -18,10 +18,10 @@
         [self addNoteProperty:note.frequency];
         
         // INSTRUMENT CONTROL ==================================================
-        _volume  = [[AKInstrumentProperty alloc] initWithValue:0.2
-                                                           minimum:0.0
-                                                           maximum:1.0];
-        [self addProperty:_volume];
+        _toneColor  = [[AKInstrumentProperty alloc] initWithValue:0.2
+                                                          minimum:0.0
+                                                          maximum:1.0];
+        [self addProperty:_toneColor];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -31,10 +31,10 @@
         AKFMOscillator *fmOscillator;
         fmOscillator = [[AKFMOscillator alloc] initWithFTable:sineTable
                                                 baseFrequency:note.frequency
-                                            carrierMultiplier:akp(2)
-                                         modulatingMultiplier:akp(2.3)
-                                              modulationIndex:akp(15)
-                                                    amplitude:_volume];
+                                            carrierMultiplier:[_toneColor scaledBy:akp(3)]
+                                         modulatingMultiplier:[_toneColor scaledBy:akp(3)]
+                                              modulationIndex:[_toneColor scaledBy:akp(30)]
+                                                    amplitude:akp(0.15)];
         [self connect:fmOscillator];
         
         
