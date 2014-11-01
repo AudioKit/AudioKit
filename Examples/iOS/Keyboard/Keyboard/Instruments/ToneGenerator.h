@@ -10,7 +10,7 @@
 
 @interface ToneGenerator : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *volume;
+@property (nonatomic, strong) AKInstrumentProperty *toneColor;
 
 @property (readonly) AKAudio *auxilliaryOutput;
 
