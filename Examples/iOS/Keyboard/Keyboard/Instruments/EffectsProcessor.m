@@ -35,7 +35,7 @@
         [self connect:audio];
         
         // RESET INPUTS ========================================================
-        [self resetParam:audioSource];
+        [self resetParameter:audioSource];
     }
     return self;
 }
