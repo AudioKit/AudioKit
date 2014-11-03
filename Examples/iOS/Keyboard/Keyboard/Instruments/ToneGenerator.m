@@ -37,10 +37,13 @@
                                                     amplitude:akp(0.15)];
         [self connect:fmOscillator];
         
+        AKDeclick *declick;
+        declick = [[AKDeclick alloc] initWithAudioSource:fmOscillator];
+        [self addUDO:declick];
         
         // AUDIO OUTPUT ========================================================
         
-        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscillator];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:declick];
         [self connect:audio];
         
         // EXTERNAL OUTPUTS ====================================================
