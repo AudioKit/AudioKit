@@ -115,7 +115,7 @@ static int currentID = 1;
     [self connect:auxOutputAssign];
 }
 
-- (void)resetParam:(AKParameter *)parameterToReset {
+- (void)resetParameter:(AKParameter *)parameterToReset {
     [innerCSDRepresentation appendString:
      [NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
 }

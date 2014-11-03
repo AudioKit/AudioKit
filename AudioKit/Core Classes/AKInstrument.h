@@ -97,7 +97,7 @@
 
 /// Shortcut for setting a parameter's value to zero.
 /// @param parameterToReset Parameter whose value will be reset to zero.
-- (void)resetParam:(AKParameter *)parameterToReset;
+- (void)resetParameter:(AKParameter *)parameterToReset;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
