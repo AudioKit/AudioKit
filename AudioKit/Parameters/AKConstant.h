@@ -24,6 +24,10 @@
 /// @param value Value to set the parameter to.
 + (instancetype)constantWithInt:(int)value;
 
+/// Common method to create integer parameters.  So much so that akpi() macro was created and preferred.
+/// @param value Value to set the parameter to.
++ (instancetype)constantWithInteger:(int)value;
+
 /// Common method to create file locations.  So much so that akpfn() macro was created and preferred.
 /// @param filename String containing full path of file.
 + (instancetype)constantWithFilename:(NSString *)filename;

@@ -15,7 +15,7 @@
     NSMutableDictionary *players;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         players = [[NSMutableDictionary alloc] init];

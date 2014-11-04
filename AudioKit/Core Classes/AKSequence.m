@@ -21,7 +21,7 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _events = [[NSMutableArray alloc] init];

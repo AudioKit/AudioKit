@@ -61,7 +61,7 @@ static int currentID = 1;
     return self;
 }
 
-- (id)scaledBy:(AKParameter *)scalingFactor
+- (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
     AKAudio *left   = [aOutL scaledBy:scalingFactor];
     AKAudio *right  = [aOutR scaledBy:scalingFactor];

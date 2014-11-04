@@ -33,6 +33,6 @@
 
 /// Scale both sides of an audio pair equally.
 /// @param scalingFactor Amount by which to scale the audio.
-- (id)scaledBy:(AKParameter *)scalingFactor;
+- (instancetype)scaledBy:(AKParameter *)scalingFactor;
 
 @end
