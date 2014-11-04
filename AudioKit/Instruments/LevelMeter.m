@@ -44,9 +44,9 @@
  
  Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
- 
  */
 
+#if TARGET_OS_IPHONE
 
 #import "LevelMeter.h"
 
@@ -224,3 +224,7 @@
 
 
 @end
+
+#elif TARGET_OS_MAC
+
+#endif

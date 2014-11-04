@@ -48,6 +48,8 @@
  */
 
 
+#if TARGET_OS_IPHONE
+
 #import <UIKit/UIKit.h>
 
 #ifndef LEVELMETER_CLAMP
@@ -89,3 +91,8 @@
 
 
 @end
+
+
+#elif TARGET_OS_MAC
+
+#endif
