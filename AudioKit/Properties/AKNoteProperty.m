@@ -11,7 +11,7 @@
 
 @implementation AKNoteProperty
 
-- (id) init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -71,7 +71,7 @@
     [self setValue:(((float) rand() / RAND_MAX) * width) + _minimum];
 }
 
-+ (id)duration {
++ (instancetype)duration {
     AKNoteProperty *dur = [[self alloc] initWithMinimum:-2 maximum:1000000];
     [dur setParameterString:@"p3"];
     return dur;

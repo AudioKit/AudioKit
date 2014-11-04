@@ -13,5 +13,5 @@
 @interface AKControl : AKParameter
 
 /// Converts pitch to frequency
-- (id)toCPS;
+- (instancetype)toCPS;
 @end
