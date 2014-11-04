@@ -39,11 +39,11 @@ class GranularSynth: AKInstrument
         
         let grainTexture =  AKGranularSynthesisTexture (grainFTable: fileTable,
                                                         windowFTable: hamming,
-                                                        maximumGrainDuration: AKConstant(float: 0.05),
+                                                        maximumGrainDuration: 0.05.ak,
                                                         averageGrainDuration: averageGrainDuration,
                                                         maximumFrequencyDeviation: granularFrequencyDeviation,
                                                         grainFrequency: baseFrequency,
-                                                        maximumAmplitudeDeviation: AKConstant(float: 0.05),
+                                                        maximumAmplitudeDeviation: 0.05.ak,
                                                         grainAmplitude: granularAmplitude,
                                                         grainDensity: grainDensity)
         
