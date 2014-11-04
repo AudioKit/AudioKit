@@ -86,12 +86,17 @@
     return [[self alloc] initWithInt:value];
 }
 
++ (instancetype)constantWithInteger:(int)value {
+    return [[self alloc] initWithInt:value];
+}
+
 + (instancetype)constantWithFilename:(NSString *)filename {
     return [[self alloc] initWithFilename:filename];
 }
 
 + (instancetype)constantWithControl:(AKControl *)control {
-    return [self parameterWithFormat:@"i(%@)", control];
+    NSString *formattedString = [NSString stringWithFormat:@"i(%@)", control];
+    return [self parameterWithString:formattedString];
 }
 
 @end

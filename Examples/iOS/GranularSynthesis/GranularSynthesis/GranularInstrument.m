@@ -55,7 +55,8 @@
         [self addFTable:hamming];
         
         AKConstant *baseFrequency;
-        baseFrequency = [AKConstant parameterWithFormat:@"44100 / %@", [fileTable length]];
+        NSString *frequencyMathString = [NSString stringWithFormat:@"44100 / %@", [fileTable length]];
+        baseFrequency = [AKConstant parameterWithString:frequencyMathString];
         
         AKGranularSynthesisTexture *grainTexture;
         grainTexture = [[AKGranularSynthesisTexture alloc] initWithGrainFTable:fileTable
