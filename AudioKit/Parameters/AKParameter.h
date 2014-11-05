@@ -29,14 +29,14 @@
 
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the output file.
-+ (id)parameterWithString:(NSString *)name;
++ (instancetype)parameterWithString:(NSString *)name;
 
 /// Create a parameter available to all instruments in the orchestra.
-+(id)globalParameter;
++ (instancetype)globalParameter;
 
 /// Create a parameter available to all instruments in the orchestra.
 /// @param name The name of the parameter as it should appear in the output File.
-+(id)globalParameterWithString:(NSString *)name;
++ (instancetype)globalParameterWithString:(NSString *)name;
 
 - (instancetype)initWithString:(NSString *)name;
 
@@ -44,30 +44,25 @@
 /// @param expression A valid csound mathematical expression within an NSString.
 - (instancetype)initWithExpression:(NSString *)expression;
 
-/// Allows a parameter to be created using NSString style string formatting
-/// @param format NSString style string format.
-/// @param ...    Any necessary format values to insert.
-+ (id)parameterWithFormat:(NSString *)format, ...;
-
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
 
 /// Helper function to create a new AKParameter combined with the original
 /// @param additionalParameter The additional parameter (should be of the same type)
-- (id)plus:(AKParameter *)additionalParameter;
+- (instancetype)plus:(AKParameter *)additionalParameter;
 
 /// Helper function to create a new AKParameter with the output scaled by another parameter
 /// @param scalingFactor The scaling factor should be multiplied by
-- (id)scaledBy:(AKParameter *)scalingFactor;
+- (instancetype)scaledBy:(AKParameter *)scalingFactor;
 
 /// Helper function to create a new AKParameter with the output scaled
 /// @param divisor The scaling factor should be divided by
-- (id)dividedBy:(AKParameter *)divisor;
+- (instancetype)dividedBy:(AKParameter *)divisor;
 
 /// Helper function to return one-over-this-parameter
-- (id)inverse;
+- (instancetype)inverse;
 
 /// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
-- (id)amplitudeFromFullScaleDecibel;
+- (instancetype)amplitudeFromFullScaleDecibel;
 
 @end

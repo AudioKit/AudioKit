@@ -52,66 +52,58 @@ static int currentID = 1;
     return self;
 }
 
-+(id)parameterWithString:(NSString *)name
++ (instancetype)parameterWithString:(NSString *)name
 {
     return [[self alloc] initWithString:name];
 }
 
-+(id)globalParameter
++ (instancetype)globalParameter
 {
     return [[self alloc] initGlobalWithString:@"Global"];
 }
 
-+(id)globalParameterWithString:(NSString *)name
++ (instancetype)globalParameterWithString:(NSString *)name
 {
     return [[self alloc] initGlobalWithString:name];
 }
 
-+(id)parameterWithFormat:(NSString *)format, ... {
-    va_list argumentList;
-    va_start(argumentList, format);
-    return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
-    va_end(argumentList);
-}
- 
 - (NSString *)description {
     return _parameterString;
 }
 
-- (id)plus:(AKParameter *)additionalParameter
+- (instancetype)plus:(AKParameter *)additionalParameter
 {
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"((%@) + (%@))", self, additionalParameter]];
     return new;
 }
 
-- (id)scaledBy:(AKParameter *)scalingFactor
+- (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"((%@) * (%@))", self, scalingFactor]];
     return new;
 }
 
-- (id)dividedBy:(AKParameter *)divisor
+- (instancetype)dividedBy:(AKParameter *)divisor
 {
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"((%@) / (%@))", self, divisor]];
     return new;
 }
 
-- (id)inverse
+- (instancetype)inverse
 {
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"(1/(%@))", self]];
     return new;
 }
 
-- (id)amplitudeFromFullScaleDecibel;
+- (instancetype)amplitudeFromFullScaleDecibel;
 {
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
     return new;
 }
-
 
 @end

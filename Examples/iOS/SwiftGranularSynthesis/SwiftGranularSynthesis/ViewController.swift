@@ -3,20 +3,18 @@
 //  SwiftGranularSynthesis
 //
 //  Created by Nicholas Arner on 10/3/14.
-//  Copyright (c) 2014 Nicholas Arner. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 import UIKit
 
-
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var toggleSwitchClicked: UISwitch!
-    @IBOutlet var averageGrainDurationControl : UISlider? = nil
-    @IBOutlet var grainDensityControl : UISlider? = nil
-    @IBOutlet var freqDevControl : UISlider? = nil
-    @IBOutlet var amplitudeControl : UISlider? = nil
+    @IBOutlet var averageGrainDurationControl : UISlider!
+    @IBOutlet var grainDensityControl : UISlider!
+    @IBOutlet var freqDevControl : UISlider!
+    @IBOutlet var amplitudeControl : UISlider!
     
     let granularSynth = GranularSynth();
     
@@ -46,14 +44,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func toggleGranularInstrument(sender: AnyObject) {
-        if toggleSwitchClicked.on
-        {
-            granularSynth.play()
-        }
-        else
-        {
-            granularSynth.stop()
-        }
+        toggleSwitchClicked.on ?  granularSynth.play() : granularSynth.stop()
     }
     
 

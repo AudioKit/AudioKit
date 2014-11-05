@@ -11,7 +11,8 @@
 #define akpa(__p__, ...)   [AKArray arrayFromConstants:__p__, __VA_ARGS__]
 #define akpna(__n__, ...)  [AKArray arrayFromNumbers:__n__, __VA_ARGS__]
 
-/// Am array of AKParameter variables
+/** An array of AKParameter variables
+ */
 @interface AKArray : NSObject
 
 // CSD Textual representation of the parameter's name.

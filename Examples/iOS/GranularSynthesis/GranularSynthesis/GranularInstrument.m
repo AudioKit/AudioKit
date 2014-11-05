@@ -3,7 +3,7 @@
 //  GranularSynthTest
 //
 //  Created by Nicholas Arner on 9/2/14.
-//  Copyright (c) 2014 Nicholas Arner. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "GranularInstrument.h"
@@ -55,7 +55,8 @@
         [self addFTable:hamming];
         
         AKConstant *baseFrequency;
-        baseFrequency = [AKConstant parameterWithFormat:@"44100 / %@", [fileTable length]];
+        NSString *frequencyMathString = [NSString stringWithFormat:@"44100 / %@", [fileTable length]];
+        baseFrequency = [AKConstant parameterWithString:frequencyMathString];
         
         AKGranularSynthesisTexture *grainTexture;
         grainTexture = [[AKGranularSynthesisTexture alloc] initWithGrainFTable:fileTable

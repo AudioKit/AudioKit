@@ -51,7 +51,7 @@
         
         
         // AUDIO OUTPUT ========================================================
-        AKAudio *a2 = [AKAudio parameterWithFormat:@"%@ * 3", a1];
+        AKAudio *a2 = [a1 scaledBy:akp(3)];
         AKAudioOutput *out = [[AKAudioOutput alloc] initWithAudioSource:a2];
         [self connect:out];
     }

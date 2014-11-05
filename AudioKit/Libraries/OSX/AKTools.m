@@ -5,8 +5,6 @@
 //  Created by Aurelius Prochazka on 7/27/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
-#if TARGET_OS_IPHONE
-#elif TARGET_OS_MAC
 
 #import "AKTools.h"
 
@@ -39,7 +37,7 @@
              toMinimum:(float)toMinimum
              toMaximum:(float)toMaximum
 {
-    float percentage = ((log(logValue) - log( fromMinimum)) / (log(fromMaximum) - log(fromMinimum)));
+    float percentage = ((log(logValue) - log(fromMinimum)) / (log(fromMaximum) - log(fromMinimum)));
     float width = toMaximum - toMinimum;
     return toMinimum + percentage * width;
 }
@@ -56,7 +54,9 @@
     float percentage = (value-minimum)/(maximum - minimum);
     float width =  slider.maxValue - slider.minValue;
     float sliderValue = slider.minValue + percentage * width;
-    [slider setDoubleValue:sliderValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [slider setDoubleValue:sliderValue];
+    });
 }
 
 + (float)scaleValueFromSlider:(NSSlider *)slider
@@ -117,13 +117,17 @@
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
         AKInstrumentProperty *p = (AKInstrumentProperty *)property;
-        [textfield setStringValue:[NSString stringWithFormat:@"%g", p.value]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [textfield setStringValue:[NSString stringWithFormat:@"%g", p.value]];
+        });
         
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)property;
-        [textfield setStringValue:[NSString stringWithFormat:@"%g", p.value]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [textfield setStringValue:[NSString stringWithFormat:@"%g", p.value]];
+        });
     }
 }
 
@@ -144,4 +148,3 @@
 }
 
 @end
-#endif

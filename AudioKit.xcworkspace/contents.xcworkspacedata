@@ -8,25 +8,19 @@
       location = "container:"
       name = "iOS Examples">
       <FileRef
-         location = "group:Examples/iOS/SwiftHarmonizer/SwiftHarmonizer.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Examples/iOS/ContinuousControl/ContinuousControl.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/Convolution/Convolution.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/DemoInstruments/DemoInstruments.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/iOS/GlobalEffects/GlobalEffects.xcodeproj">
+         location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/Harmonizer/Harmonizer.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Examples/iOS/Keyboard/Keyboard.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/PlayAudioFile/PlayAudioFile.xcodeproj">
@@ -47,26 +41,23 @@
          location = "group:Examples/iOS/SwiftGranularSynthesis/SwiftGranularSynthesis.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
+         location = "group:Examples/iOS/SwiftHarmonizer/SwiftHarmonizer.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/UsingUDOs/UsingUDOs.xcodeproj">
+         location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
       </FileRef>
    </Group>
    <Group
       location = "container:"
       name = "OS X Examples">
       <FileRef
+         location = "group:Examples/OSX/MacSwiftConvolution/MacSwiftConvolution.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Examples/OSX/ContinuousControl/ContinuousControl.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/OSX/Convolution/Convolution.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/OSX/DemoInstruments/DemoInstruments.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/OSX/GlobalEffects/GlobalEffects.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/OSX/PlayAudioFile/PlayAudioFile.xcodeproj">

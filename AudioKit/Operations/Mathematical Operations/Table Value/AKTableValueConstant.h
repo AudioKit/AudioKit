@@ -9,8 +9,7 @@
 #import "AKConstant.h"
 #import "AKParameter+Operation.h"
 
-/**
- Accesses table values by direct indexing with linear interpolation.
+/** Accesses table values by direct indexing with linear interpolation.
  */
 
 @interface AKTableValueConstant : AKConstant

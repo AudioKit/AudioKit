@@ -14,9 +14,7 @@
 
 @class AKNote;
 
-@interface AKNoteProperty : AKConstant {
-    Float32 currentValue;
-}
+@interface AKNoteProperty : AKConstant 
 
 /// Current value of the property.
 @property (nonatomic, assign) Float32 value;
@@ -60,6 +58,6 @@
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;
 
-+ (id)duration;
++ (instancetype)duration;
 
 @end

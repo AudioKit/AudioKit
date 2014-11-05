@@ -3,7 +3,7 @@
 //  SwiftHarmonizer
 //
 //  Created by Nicholas Arner on 10/7/14.
-//  Copyright (c) 2014 Nicholas Arner. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 class HarmonizerInstrument: AKInstrument {
@@ -18,25 +18,29 @@ class HarmonizerInstrument: AKInstrument {
         
         let fsig1 = AKFSignalFromMonoAudio(
             audioSource: microphone,
-            fftSize: AKConstant(int: 2048),
-            overlap: AKConstant(int: 256),
+            fftSize: 2048.ak,
+            overlap: 256.ak,
             windowType: kVonHannWindow,
-            windowFilterSize: AKConstant(int:2048))
+            windowFilterSize: 2048.ak)
         
         connect(fsig1)
         
-        let fsig2 = AKScaledFSignal(input: fsig1,
-            frequencyRatio: AKConstant(int:2),
+        let fsig2 = AKScaledFSignal(
+            input: fsig1,
+            frequencyRatio: 2.ak,
             formantRetainMethod: kFormantRetainMethodLifteredCepstrum,
             amplitudeRatio: nil,
-            cepstrumCoefficients: nil)
+            cepstrumCoefficients: nil
+        )
         connect(fsig2)
         
-        let fsig3 = AKScaledFSignal(input: fsig1,
-            frequencyRatio: AKConstant(int:2),
+        let fsig3 = AKScaledFSignal(
+            input: fsig1,
+            frequencyRatio: 2.ak,
             formantRetainMethod: kFormantRetainMethodLifteredCepstrum,
             amplitudeRatio: nil,
-            cepstrumCoefficients: nil)
+            cepstrumCoefficients: nil
+        )
         connect (fsig3)
         
         let fsig4 = AKFSignalMix(input1: fsig2, input2: fsig3)

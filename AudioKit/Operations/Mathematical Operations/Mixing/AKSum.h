@@ -9,7 +9,9 @@
 #import "AKParameter+Operation.h"
 #import "AKAudio.h"
 
-/// Sums any number of a-rate signals.
+/** Sums any number of a-rate signals.
+*/
+
 @interface AKSum : AKAudio
 
 /// Create a new signal as a sum of given signals.

@@ -54,7 +54,9 @@
     float percentage = (value-minimum)/(maximum - minimum);
     float width = slider.maximumValue - slider.minimumValue;
     float sliderValue = slider.minimumValue + percentage * width;
-    [slider setValue:sliderValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [slider setValue:sliderValue];
+    });
 }
 
 + (void)setProgressView:(UIProgressView *)progressView
@@ -63,7 +65,9 @@
                 maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
-    [progressView setProgress:percentage];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [progressView setProgress:percentage];
+    });
 }
 
 + (float)scaleValueFromSlider:(UISlider *)slider
@@ -138,11 +142,17 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        textfield.text = [NSString stringWithFormat:@"%g", [(AKInstrumentProperty *)property value]];
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textfield.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
-        textfield.text = [NSString stringWithFormat:@"%g", [(AKNoteProperty *)property value]];
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textfield.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
 }
 
@@ -150,14 +160,17 @@
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
-        AKInstrumentProperty *p =(AKInstrumentProperty *)property;
-        label.text = [NSString stringWithFormat:@"%g", p.value];
-        
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            label.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
     else if ([property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)property;
-        label.text = [NSString stringWithFormat:@"%g", p.value];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            label.text = [NSString stringWithFormat:@"%g", p.value];
+        });
     }
 }
 

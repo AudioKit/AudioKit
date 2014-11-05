@@ -11,7 +11,7 @@
 
 @interface AKInstrumentProperty() <CsoundBinding> {
     MYFLT *channelPtr;
-    float currentValue;
+    BOOL isCacheDirty;
 }
 @end
 
@@ -22,6 +22,7 @@
     self = [super init];
     if (self) {
         [self setName:@"Property"];
+        isCacheDirty = NO;
     }
     return self;
 }
@@ -71,6 +72,7 @@
         NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximum);
         _value = _maximum;
     }
+    isCacheDirty = YES;
 }
 
 - (void)reset {
@@ -92,28 +94,21 @@
     self.value = self.minimum + percentage * width;
 }
 
-# pragma mark - CsoundValueCacheable
-
--(BOOL)isCacheDirty {
-    return NO;
-}
+# pragma mark - CsoundBinding
 
 - (void)setup:(CsoundObj*)csoundObj {
     channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",self] channelType:CSOUND_CONTROL_CHANNEL];
-    *channelPtr = [self value];
+    *channelPtr = self.value;
 }
 
 - (void)updateValuesToCsound {
-    *channelPtr = [self value];
+    *channelPtr = self.value;
 }
 - (void)updateValuesFromCsound {
-    [self setValue:*channelPtr];
+    if ((isCacheDirty) && (*channelPtr == self.value))
+        isCacheDirty = NO;
+    if ((!isCacheDirty) && (*channelPtr))
+        self.value = *channelPtr;
 }
-
--(void)cleanup {
-    
-}
-
-
 
 @end

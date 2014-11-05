@@ -3,12 +3,12 @@
 //  SwiftConvolution
 //
 //  Created by Nicholas Arner on 10/7/14.
-//  Copyright (c) 2014 Nicholas Arner. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 class ConvolutionInstrument: AKInstrument
 {
-    // INPUTS AND CONTROLS =================================================
+    // INPUTS AND CONTROLS =====================================================
     
     var dishWellBalance = AKInstrumentProperty(value: 0, minimum: 0, maximum: 1.0)
     var dryWetBalance   = AKInstrumentProperty(value: 0, minimum: 0, maximum: 0.1)

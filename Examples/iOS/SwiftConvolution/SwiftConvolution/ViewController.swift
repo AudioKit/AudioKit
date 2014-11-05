@@ -3,15 +3,16 @@
 //  SwiftConvolution
 //
 //  Created by Nicholas Arner on 10/7/14.
-//  Copyright (c) 2014 Nicholas Arner. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
 
-    @IBOutlet weak var changeDryWet: UISlider!
-    @IBOutlet weak var dryWetBalance: UISlider!
+
+class ViewController: UIViewController {
+    
+    @IBOutlet var dryWetBalanceSlider: UISlider!
     
     let conv = ConvolutionInstrument()
 
@@ -31,7 +32,7 @@ class ViewController: UIViewController {
     }
 
     func updateSliders()->Void{
-        AKTools.setSlider(changeDryWet, withProperty: conv.dryWetBalance)
+        AKTools.setSlider(dryWetBalanceSlider, withProperty: conv.dryWetBalance)
     }
     
     @IBAction func start(sender: AnyObject) {
