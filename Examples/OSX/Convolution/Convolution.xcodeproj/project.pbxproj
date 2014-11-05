@@ -15,7 +15,6 @@
 		C41D665119F2333600269203 /* AKOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D64EA19F2333500269203 /* AKOrchestra.m */; };
 		C41D665219F2333600269203 /* AKSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D64EC19F2333500269203 /* AKSampler.m */; };
 		C41D665319F2333600269203 /* AKSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D64EE19F2333500269203 /* AKSequence.m */; };
-		C41D665419F2333600269203 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D64F219F2333500269203 /* AKAudioAnalyzer.m */; };
 		C41D665B19F2333600269203 /* AKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D651E19F2333500269203 /* AKTools.m */; };
 		C41D665C19F2333600269203 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D652119F2333500269203 /* CsoundObj.m */; };
 		C41D665D19F2333600269203 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D652419F2333500269203 /* AKParameter+Operation.m */; };
@@ -186,8 +185,6 @@
 		C41D64EC19F2333500269203 /* AKSampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSampler.m; sourceTree = "<group>"; };
 		C41D64ED19F2333500269203 /* AKSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequence.h; sourceTree = "<group>"; };
 		C41D64EE19F2333500269203 /* AKSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSequence.m; sourceTree = "<group>"; };
-		C41D64F119F2333500269203 /* AKAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioAnalyzer.h; sourceTree = "<group>"; };
-		C41D64F219F2333500269203 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
 		C41D651D19F2333500269203 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
 		C41D651E19F2333500269203 /* AKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTools.m; sourceTree = "<group>"; };
 		C41D652019F2333500269203 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
@@ -538,18 +535,8 @@
 		C41D64EF19F2333500269203 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C41D64F019F2333500269203 /* AKAudioAnalyzer */,
 			);
 			path = Instruments;
-			sourceTree = "<group>";
-		};
-		C41D64F019F2333500269203 /* AKAudioAnalyzer */ = {
-			isa = PBXGroup;
-			children = (
-				C41D64F119F2333500269203 /* AKAudioAnalyzer.h */,
-				C41D64F219F2333500269203 /* AKAudioAnalyzer.m */,
-			);
-			path = AKAudioAnalyzer;
 			sourceTree = "<group>";
 		};
 		C41D64F319F2333500269203 /* Libraries */ = {
@@ -1323,7 +1310,6 @@
 				C41D66D219F2333600269203 /* AKParameter.m in Sources */,
 				C41D668219F2333600269203 /* AKOscillator.m in Sources */,
 				C41D667C19F2333600269203 /* AKLinearAudioEnvelope.m in Sources */,
-				C41D665419F2333600269203 /* AKAudioAnalyzer.m in Sources */,
 				C41D66B819F2333600269203 /* AKHighPassFilter.m in Sources */,
 				C41D668719F2333600269203 /* AKPhasingControl.m in Sources */,
 				C41D668E19F2333600269203 /* AKMarimba.m in Sources */,

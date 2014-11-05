@@ -22,8 +22,6 @@
 		C46E6A101A08BA3400E5D389 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E68CF1A08BA3300E5D389 /* libcsound.a */; };
 		C46E6A111A08BA3400E5D389 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E68D01A08BA3300E5D389 /* libsndfile.a */; };
 		C46E6A121A08BA3400E5D389 /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = C46E68D11A08BA3300E5D389 /* LICENSE.TXT */; };
-		C46E6A131A08BA3400E5D389 /* AKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C46E68D41A08BA3300E5D389 /* AKTools.m */; };
-		C46E6A141A08BA3400E5D389 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C46E68D71A08BA3300E5D389 /* CsoundObj.m */; };
 		C46E6A161A08BA3400E5D389 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C46E68DC1A08BA3300E5D389 /* AKParameter+Operation.m */; };
 		C46E6A171A08BA3400E5D389 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C46E68DF1A08BA3300E5D389 /* AKTrackedAmplitude.m */; };
 		C46E6A181A08BA3400E5D389 /* AKTrackedAmplitudeFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C46E68E11A08BA3300E5D389 /* AKTrackedAmplitudeFromFSignal.m */; };
@@ -221,11 +219,6 @@
 		C46E68CF1A08BA3300E5D389 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
 		C46E68D01A08BA3300E5D389 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		C46E68D11A08BA3300E5D389 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
-		C46E68D31A08BA3300E5D389 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
-		C46E68D41A08BA3300E5D389 /* AKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTools.m; sourceTree = "<group>"; };
-		C46E68D61A08BA3300E5D389 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
-		C46E68D71A08BA3300E5D389 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		C46E68D91A08BA3300E5D389 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		C46E68DB1A08BA3300E5D389 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
 		C46E68DC1A08BA3300E5D389 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
 		C46E68DE1A08BA3300E5D389 /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
@@ -570,8 +563,6 @@
 			isa = PBXGroup;
 			children = (
 				C46E68AC1A08BA3300E5D389 /* iOS */,
-				C46E68D21A08BA3300E5D389 /* OSX */,
-				C46E68D81A08BA3300E5D389 /* Swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -646,33 +637,6 @@
 				C46E68D01A08BA3300E5D389 /* libsndfile.a */,
 			);
 			path = libs;
-			sourceTree = "<group>";
-		};
-		C46E68D21A08BA3300E5D389 /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-				C46E68D31A08BA3300E5D389 /* AKTools.h */,
-				C46E68D41A08BA3300E5D389 /* AKTools.m */,
-				C46E68D51A08BA3300E5D389 /* csound-OSX */,
-			);
-			path = OSX;
-			sourceTree = "<group>";
-		};
-		C46E68D51A08BA3300E5D389 /* csound-OSX */ = {
-			isa = PBXGroup;
-			children = (
-				C46E68D61A08BA3300E5D389 /* CsoundObj.h */,
-				C46E68D71A08BA3300E5D389 /* CsoundObj.m */,
-			);
-			path = "csound-OSX";
-			sourceTree = "<group>";
-		};
-		C46E68D81A08BA3300E5D389 /* Swift */ = {
-			isa = PBXGroup;
-			children = (
-				C46E68D91A08BA3300E5D389 /* AudioKit.swift */,
-			);
-			path = Swift;
 			sourceTree = "<group>";
 		};
 		C46E68DA1A08BA3300E5D389 /* Operations */ = {
@@ -1394,7 +1358,6 @@
 				C46E6A4C1A08BA3400E5D389 /* AKDroplet.m in Sources */,
 				C46E6A2A1A08BA3400E5D389 /* AKFSignalFromMonoAudio.m in Sources */,
 				C46E6A6C1A08BA3400E5D389 /* AKPortamento.m in Sources */,
-				C46E6A131A08BA3400E5D389 /* AKTools.m in Sources */,
 				C46E6A6E1A08BA3400E5D389 /* AKCombFilter.m in Sources */,
 				C46E6A441A08BA3400E5D389 /* AKVibes.m in Sources */,
 				C46E6A5B1A08BA3400E5D389 /* AKControlSegmentArray.m in Sources */,
@@ -1413,7 +1376,6 @@
 				C46E6A431A08BA3400E5D389 /* AKStruckMetalBar.m in Sources */,
 				C46E6A381A08BA3400E5D389 /* AKLinearControl.m in Sources */,
 				C46E6A181A08BA3400E5D389 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
-				C46E6A141A08BA3400E5D389 /* CsoundObj.m in Sources */,
 				C46E6A3A1A08BA3400E5D389 /* AKOscillatingControl.m in Sources */,
 				C46E6A831A08BA3400E5D389 /* AKReverb.m in Sources */,
 				C46E6A471A08BA3400E5D389 /* AKMarimba.m in Sources */,
@@ -1611,6 +1573,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Keyboard/Info.plist;
@@ -1618,10 +1581,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1629,6 +1592,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Keyboard/Info.plist;
@@ -1636,7 +1600,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -5,8 +5,6 @@
 //  Created by Aurelius Prochazka on 7/27/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
-#if TARGET_OS_IPHONE
-#elif TARGET_OS_MAC
 
 #import "AKTools.h"
 
@@ -39,7 +37,7 @@
              toMinimum:(float)toMinimum
              toMaximum:(float)toMaximum
 {
-    float percentage = ((log(logValue) - log( fromMinimum)) / (log(fromMaximum) - log(fromMinimum)));
+    float percentage = ((log(logValue) - log(fromMinimum)) / (log(fromMaximum) - log(fromMinimum)));
     float width = toMaximum - toMinimum;
     return toMinimum + percentage * width;
 }
@@ -150,4 +148,3 @@
 }
 
 @end
-#endif

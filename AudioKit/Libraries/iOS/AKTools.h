@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
+#if TARGET_OS_IPHONE
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -73,3 +75,5 @@
 
 @end
 
+#elif TARGET_OS_MAC
+#endif
