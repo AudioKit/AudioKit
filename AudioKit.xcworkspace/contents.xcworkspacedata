@@ -17,10 +17,10 @@
          location = "group:Examples/iOS/GranularSynthesis/GranularSynthesis.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/Keyboard/Keyboard.xcodeproj">
+         location = "group:Examples/iOS/Harmonizer/Harmonizer.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/Harmonizer/Harmonizer.xcodeproj">
+         location = "group:Examples/iOS/Keyboard/Keyboard.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/iOS/PlayAudioFile/PlayAudioFile.xcodeproj">
