@@ -12,13 +12,11 @@
 		C46E6EC01A08C65200E5D389 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E6EBF1A08C65100E5D389 /* Images.xcassets */; };
 		C46E6EC31A08C65200E5D389 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46E6EC11A08C65200E5D389 /* Main.storyboard */; };
 		C46E70F41A08C6A700E5D389 /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E70F31A08C6A700E5D389 /* ConvolutionInstrument.swift */; };
-		C478BFC71A09F0FB00705D4E /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E6ED81A08C67200E5D389 /* CsoundLib64.framework */; };
 		C478BFC81A09F11A00705D4E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E733C1A09E1A400E5D389 /* Cocoa.framework */; };
 		C478BFC91A09F11A00705D4E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E733A1A09E19700E5D389 /* AudioUnit.framework */; };
 		C478BFCA1A09F11A00705D4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E73371A09E17F00E5D389 /* AudioToolbox.framework */; };
 		C478BFCB1A09F11A00705D4E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E73351A09E17600E5D389 /* CoreMIDI.framework */; };
 		C478BFCC1A09F11A00705D4E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E73331A09E16100E5D389 /* AVFoundation.framework */; };
-		C478BFCE1A09F1E700705D4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C478BFCD1A09F1E700705D4E /* QuartzCore.framework */; };
 		C478C1411A09F2C000705D4E /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C478BFD21A09F2C000705D4E /* AKEvent.m */; };
 		C478C1421A09F2C000705D4E /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C478BFD51A09F2C000705D4E /* AKInstrument.m */; };
 		C478C1431A09F2C000705D4E /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C478BFD71A09F2C000705D4E /* AKManager.m */; };
@@ -166,6 +164,8 @@
 		C4C3181C1A09FF9E005AF737 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4C318191A09FF9E005AF737 /* 808loop.wav */; };
 		C4C3181D1A09FF9E005AF737 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4C3181A1A09FF9E005AF737 /* dish.wav */; };
 		C4C3181E1A09FF9E005AF737 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4C3181B1A09FF9E005AF737 /* Stairwell.wav */; };
+		E4435A761A0AEAEA00EFA608 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E6ED81A08C67200E5D389 /* CsoundLib64.framework */; };
+		E4435A771A0AEB7900EFA608 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C478BFCD1A09F1E700705D4E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -485,8 +485,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C478BFCE1A09F1E700705D4E /* QuartzCore.framework in Frameworks */,
-				C478BFC71A09F0FB00705D4E /* CsoundLib64.framework in Frameworks */,
+				E4435A771A0AEB7900EFA608 /* QuartzCore.framework in Frameworks */,
+				E4435A761A0AEAEA00EFA608 /* CsoundLib64.framework in Frameworks */,
 				C478BFC81A09F11A00705D4E /* Cocoa.framework in Frameworks */,
 				C478BFC91A09F11A00705D4E /* AudioUnit.framework in Frameworks */,
 				C478BFCA1A09F11A00705D4E /* AudioToolbox.framework in Frameworks */,
@@ -1536,8 +1536,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks,
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks",
+					/Library/Frameworks,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1559,8 +1559,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks,
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks",
+					/Library/Frameworks,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
