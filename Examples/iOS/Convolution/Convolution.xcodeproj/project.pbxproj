@@ -1603,10 +1603,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Convolution/Convolution-Prefix.pch";
 				INFOPLIST_FILE = "Convolution/Convolution-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1620,10 +1617,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Convolution/Convolution-Prefix.pch";
 				INFOPLIST_FILE = "Convolution/Convolution-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
