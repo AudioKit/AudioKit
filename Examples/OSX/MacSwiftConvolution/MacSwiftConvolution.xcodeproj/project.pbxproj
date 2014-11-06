@@ -164,7 +164,7 @@
 		C4C3181C1A09FF9E005AF737 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4C318191A09FF9E005AF737 /* 808loop.wav */; };
 		C4C3181D1A09FF9E005AF737 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4C3181A1A09FF9E005AF737 /* dish.wav */; };
 		C4C3181E1A09FF9E005AF737 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4C3181B1A09FF9E005AF737 /* Stairwell.wav */; };
-		E4435A761A0AEAEA00EFA608 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E6ED81A08C67200E5D389 /* CsoundLib64.framework */; };
+		C4C3182D1A0B1C3E005AF737 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C3182C1A0B1C3E005AF737 /* CsoundLib64.framework */; };
 		E4435A771A0AEB7900EFA608 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C478BFCD1A09F1E700705D4E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -175,7 +175,6 @@
 		C46E6EBD1A08C65100E5D389 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C46E6EBF1A08C65100E5D389 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C46E6EC21A08C65200E5D389 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C46E6ED81A08C67200E5D389 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<absolute>"; };
 		C46E6EDE1A08C67200E5D389 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		C46E6EDF1A08C67200E5D389 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		C46E6EE01A08C67200E5D389 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -478,6 +477,7 @@
 		C4C318191A09FF9E005AF737 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C4C3181A1A09FF9E005AF737 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
 		C4C3181B1A09FF9E005AF737 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
+		C4C3182C1A0B1C3E005AF737 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,8 +485,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C3182D1A0B1C3E005AF737 /* CsoundLib64.framework in Frameworks */,
 				E4435A771A0AEB7900EFA608 /* QuartzCore.framework in Frameworks */,
-				E4435A761A0AEAEA00EFA608 /* CsoundLib64.framework in Frameworks */,
 				C478BFC81A09F11A00705D4E /* Cocoa.framework in Frameworks */,
 				C478BFC91A09F11A00705D4E /* AudioUnit.framework in Frameworks */,
 				C478BFCA1A09F11A00705D4E /* AudioToolbox.framework in Frameworks */,
@@ -552,13 +552,13 @@
 		C46E6EE21A08C67200E5D389 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4C3182C1A0B1C3E005AF737 /* CsoundLib64.framework */,
 				C478BFCD1A09F1E700705D4E /* QuartzCore.framework */,
 				C46E733C1A09E1A400E5D389 /* Cocoa.framework */,
 				C46E733A1A09E19700E5D389 /* AudioUnit.framework */,
 				C46E73371A09E17F00E5D389 /* AudioToolbox.framework */,
 				C46E73351A09E17600E5D389 /* CoreMIDI.framework */,
 				C46E73331A09E16100E5D389 /* AVFoundation.framework */,
-				C46E6ED81A08C67200E5D389 /* CsoundLib64.framework */,
 				C46E6EE11A08C67200E5D389 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -1538,6 +1538,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks",
 					/Library/Frameworks,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1561,6 +1562,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks",
 					/Library/Frameworks,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
