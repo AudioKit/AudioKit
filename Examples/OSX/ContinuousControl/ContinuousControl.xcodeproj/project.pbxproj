@@ -157,12 +157,12 @@
 		C4BA00E8198F08C900BE4F61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA00E7198F08C900BE4F61 /* AppDelegate.m */; };
 		C4BA00EB198F08C900BE4F61 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BA00E9198F08C900BE4F61 /* MainMenu.xib */; };
 		C4BA00ED198F08C900BE4F61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BA00EC198F08C900BE4F61 /* Images.xcassets */; };
-		C4BA010D198F08E300BE4F61 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA0108198F08E300BE4F61 /* CsoundLib64.framework */; };
 		C4BA010E198F08E300BE4F61 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA0109198F08E300BE4F61 /* CoreMIDI.framework */; };
 		C4BA010F198F08E300BE4F61 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA010A198F08E300BE4F61 /* AVFoundation.framework */; };
 		C4BA0110198F08E300BE4F61 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA010B198F08E300BE4F61 /* AudioToolbox.framework */; };
 		C4BA0111198F08E300BE4F61 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA010C198F08E300BE4F61 /* AudioUnit.framework */; };
 		C4BA171B198F14A400BE4F61 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA1719198F14A400BE4F61 /* TweakableInstrument.m */; };
+		C4C318291A0B1BBF005AF737 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C318281A0B1BBF005AF737 /* CsoundLib64.framework */; };
 		C4E9E024199051E300F261DA /* ContinuousControlConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E023199051E300F261DA /* ContinuousControlConductor.m */; };
 /* End PBXBuildFile section */
 
@@ -468,13 +468,13 @@
 		C4BA00E7198F08C900BE4F61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4BA00EA198F08C900BE4F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4BA00EC198F08C900BE4F61 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4BA0108198F08E300BE4F61 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<absolute>"; };
 		C4BA0109198F08E300BE4F61 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
 		C4BA010A198F08E300BE4F61 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		C4BA010B198F08E300BE4F61 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		C4BA010C198F08E300BE4F61 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		C4BA1718198F14A400BE4F61 /* TweakableInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweakableInstrument.h; sourceTree = "<group>"; };
 		C4BA1719198F14A400BE4F61 /* TweakableInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweakableInstrument.m; sourceTree = "<group>"; };
+		C4C318281A0B1BBF005AF737 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
 		C4E9E022199051E300F261DA /* ContinuousControlConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContinuousControlConductor.h; path = ../../../iOS/ContinuousControl/ContinuousControl/ContinuousControlConductor.h; sourceTree = "<group>"; };
 		C4E9E023199051E300F261DA /* ContinuousControlConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContinuousControlConductor.m; path = ../../../iOS/ContinuousControl/ContinuousControl/ContinuousControlConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -484,8 +484,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C318291A0B1BBF005AF737 /* CsoundLib64.framework in Frameworks */,
 				C4BA010F198F08E300BE4F61 /* AVFoundation.framework in Frameworks */,
-				C4BA010D198F08E300BE4F61 /* CsoundLib64.framework in Frameworks */,
 				C4BA0110198F08E300BE4F61 /* AudioToolbox.framework in Frameworks */,
 				C4BA010E198F08E300BE4F61 /* CoreMIDI.framework in Frameworks */,
 				C4BA00D5198F08C900BE4F61 /* Cocoa.framework in Frameworks */,
@@ -1148,7 +1148,7 @@
 		C4BA00D3198F08C900BE4F61 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C4BA0108198F08E300BE4F61 /* CsoundLib64.framework */,
+				C4C318281A0B1BBF005AF737 /* CsoundLib64.framework */,
 				C4BA0109198F08E300BE4F61 /* CoreMIDI.framework */,
 				C4BA010A198F08E300BE4F61 /* AVFoundation.framework */,
 				C4BA010B198F08E300BE4F61 /* AudioToolbox.framework */,

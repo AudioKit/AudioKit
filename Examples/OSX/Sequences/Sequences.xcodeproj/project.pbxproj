@@ -15,7 +15,6 @@
 		C4BAFEC5198F001500BE4F61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BAFEC4198F001500BE4F61 /* AppDelegate.m */; };
 		C4BAFEC8198F001500BE4F61 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BAFEC6198F001500BE4F61 /* MainMenu.xib */; };
 		C4BAFECA198F001500BE4F61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BAFEC9198F001500BE4F61 /* Images.xcassets */; };
-		C4BAFEEA198F005100BE4F61 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BAFEE5198F005100BE4F61 /* CsoundLib64.framework */; };
 		C4BAFEEB198F005100BE4F61 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BAFEE6198F005100BE4F61 /* CoreMIDI.framework */; };
 		C4BAFEEC198F005100BE4F61 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BAFEE7198F005100BE4F61 /* AVFoundation.framework */; };
 		C4BAFEED198F005100BE4F61 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BAFEE8198F005100BE4F61 /* AudioToolbox.framework */; };
@@ -163,6 +162,7 @@
 		C4C318151A09FB31005AF737 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3177D1A09FB30005AF737 /* AKWindowsTable.m */; };
 		C4C318161A09FB31005AF737 /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C317801A09FB31005AF737 /* AKInstrumentProperty.m */; };
 		C4C318171A09FB31005AF737 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C317821A09FB31005AF737 /* AKNoteProperty.m */; };
+		C4C3182B1A0B1C0C005AF737 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C3182A1A0B1C0C005AF737 /* CsoundLib64.framework */; };
 		C4E9E02A1990560000F261DA /* SequencesConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E0291990560000F261DA /* SequencesConductor.m */; };
 /* End PBXBuildFile section */
 
@@ -183,7 +183,6 @@
 		C4BAFEC4198F001500BE4F61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4BAFEC7198F001500BE4F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4BAFEC9198F001500BE4F61 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C4BAFEE5198F005100BE4F61 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = /Users/aure/Developer/h4y/AudioKit/Examples/OSX/Convolution/../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<absolute>"; };
 		C4BAFEE6198F005100BE4F61 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
 		C4BAFEE7198F005100BE4F61 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		C4BAFEE8198F005100BE4F61 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -475,6 +474,7 @@
 		C4C317801A09FB31005AF737 /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C4C317811A09FB31005AF737 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C4C317821A09FB31005AF737 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
+		C4C3182A1A0B1C0C005AF737 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
 		C4E9E0281990560000F261DA /* SequencesConductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SequencesConductor.h; path = ../../../iOS/Sequences/Sequences/SequencesConductor.h; sourceTree = "<group>"; };
 		C4E9E0291990560000F261DA /* SequencesConductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SequencesConductor.m; path = ../../../iOS/Sequences/Sequences/SequencesConductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -484,8 +484,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C3182B1A0B1C0C005AF737 /* CsoundLib64.framework in Frameworks */,
 				C4BAFEEC198F005100BE4F61 /* AVFoundation.framework in Frameworks */,
-				C4BAFEEA198F005100BE4F61 /* CsoundLib64.framework in Frameworks */,
 				C4BAFEED198F005100BE4F61 /* AudioToolbox.framework in Frameworks */,
 				C4BAFEEB198F005100BE4F61 /* CoreMIDI.framework in Frameworks */,
 				C4BAFEB2198F001500BE4F61 /* Cocoa.framework in Frameworks */,
@@ -527,7 +527,7 @@
 		C4BAFEB0198F001500BE4F61 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C4BAFEE5198F005100BE4F61 /* CsoundLib64.framework */,
+				C4C3182A1A0B1C0C005AF737 /* CsoundLib64.framework */,
 				C4BAFEE6198F005100BE4F61 /* CoreMIDI.framework */,
 				C4BAFEE7198F005100BE4F61 /* AVFoundation.framework */,
 				C4BAFEE8198F005100BE4F61 /* AudioToolbox.framework */,
