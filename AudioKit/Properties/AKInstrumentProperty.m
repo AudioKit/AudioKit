@@ -27,28 +27,6 @@
     return self;
 }
 
-- (instancetype)initWithMinimum:(float)minimum
-                        maximum:(float)maximum;
-{
-    return [self initWithValue:minimum
-                       minimum:minimum
-                       maximum:maximum];
-}
-
-- (instancetype)initWithValue:(float)initialValue
-                      minimum:(float)minimum
-                      maximum:(float)maximum;
-{
-    self = [self init];
-    if (self) {
-        _value        = initialValue;
-        _initialValue = initialValue;
-        _minimum = minimum;
-        _maximum = maximum;
-    }
-    return self;
-}
-
 - (void)setName:(NSString *)newName {
     [self setParameterString:[NSString stringWithFormat:@"k%@%i", newName, _myID]];
 }
@@ -63,26 +41,8 @@
 
 
 - (void)setValue:(float)newValue {
-    _value = newValue;
-    if (_minimum && newValue < _minimum) {
-        NSLog(@"%@ = %g is too low using minimum %g", self, newValue, _minimum);
-        _value = _minimum;
-    }
-    else if (_maximum && newValue > _maximum) {
-        NSLog(@"%@ = %g is too high using maximum %g", self, newValue, _maximum);
-        _value = _maximum;
-    }
+    [super setValue:newValue];
     isCacheDirty = YES;
-}
-
-- (void)reset {
-    self.value = self.initialValue;
-}
-
-- (void)randomize;
-{
-    float width = _maximum - _minimum;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + _minimum];
 }
 
 - (void)scaleWithValue:(float)value
