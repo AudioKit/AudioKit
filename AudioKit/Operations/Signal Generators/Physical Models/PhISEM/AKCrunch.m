@@ -47,10 +47,6 @@
 	idamp = dampingFactor;
 }
 
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
-}
-
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ crunch %@, %@, %@, %@, %@",
