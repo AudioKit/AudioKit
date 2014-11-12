@@ -14,3 +14,17 @@ extension Int {
 extension Double {
     var ak: AKConstant {return AKConstant(value: self)}
 }
+
+extension AKSum {
+    convenience init(operands: AKParameter...) {
+        self.init()
+        self.inputs = operands
+    }
+}
+
+extension AKProduct {
+    convenience init(operands: AKParameter...) {
+        self.init()
+        self.inputs = operands
+    }
+}

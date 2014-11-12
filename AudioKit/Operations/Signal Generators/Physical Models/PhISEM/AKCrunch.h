@@ -31,9 +31,5 @@
 /// @param dampingFactor The damping factor, as part of this equation "damping = 0.998 + (dampingFactor * 0.002)" The default damping is 0.99806 which means that the default value of dampingFactor is 0.03. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0. The recommended range for dampingFactor is usually below 75% of the maximum value.
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn;
-
 
 @end

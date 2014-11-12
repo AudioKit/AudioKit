@@ -16,18 +16,6 @@
 
 @interface AKNoteProperty : AKConstant 
 
-/// Current value of the property.
-@property (nonatomic, assign) Float32 value;
-
-/// Start value for initialization.
-@property (nonatomic, assign) float initialValue;
-
-/// Minimum Value allowed.
-@property (nonatomic, assign) Float32 minimum;
-
-/// Maximum Value allowed.
-@property (nonatomic, assign) Float32 maximum;
-
 /// Optional pretty name for properties useful for debugging.
 @property (nonatomic, strong) NSString *name;
 
@@ -36,27 +24,6 @@
 
 /// Internal reference number
 @property (assign) int pValue;
-
-
-/// Initialize the property with bounds.
-/// @param minimum Minimum value.
-/// @param maximum Maximum value.
-- (instancetype)initWithMinimum:(float)minimum
-                        maximum:(float)maximum;
-
-/// Initialize the property with an initial value and bounds.
-/// @param initialValue Initial value.
-/// @param minimum Minimum value.
-/// @param maximum Maximum value.
-- (instancetype)initWithValue:(float)initialValue
-                      minimum:(float)minimum
-                      maximum:(float)maximum;
-
-/// Sets the current value to the initial value.
-- (void)reset;
-
-/// Randomize the current value between the minimum and maximum values
-- (void)randomize;
 
 + (instancetype)duration;
 
