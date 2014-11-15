@@ -39,8 +39,6 @@
         ifreq = akp(450);
         ifreq1 = akp(600);
         ifreq2 = akp(750);
-        
-        
     }
     return self;
 }

@@ -33,9 +33,4 @@
                  vibratoAmplitude:(AKControl *)vibratoAmplitude;
 
 
-/// Set an optional minimum frequency
-/// @param minimumFrequency Lowest frequency at which the instrument will play.
-- (void)setOptionalMinimumFrequency:(AKConstant *)minimumFrequency;
-
-
 @end
