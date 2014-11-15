@@ -43,19 +43,14 @@
         ifn = vibratoShapeTable;
         kvibf = vibratoFrequency;
         kvamp = vibratoAmplitude;
-        iminfreq = [AKConstant constantWithControl:kfreq];
     }
     return self;
 }
 
-- (void)setOptionalMinimumFrequency:(AKConstant *)minimumFrequency {
-	iminfreq = minimumFrequency;
-}
-
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ wgbow %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, kfreq, kpres, krat, kvibf, kvamp, ifn, iminfreq];
+            @"%@ wgbow %@, %@, %@, %@, %@, %@, %@",
+            self, kamp, kfreq, kpres, krat, kvibf, kvamp, ifn];
 }
 
 @end
