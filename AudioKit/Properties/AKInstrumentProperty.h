@@ -22,4 +22,12 @@
 // String with the appropriate chnset statement for the CSD File
 - (NSString *)stringForCSDSetValue;
 
+/// Scale the property in its own range given another range and value
+/// @param value   Source value.
+/// @param minimum Minimum value in source range.
+/// @param maximum Maximum value in source range.
+- (void)scaleWithValue:(float)value
+               minimum:(float)minimum
+               maximum:(float)maximum;
+
 @end
