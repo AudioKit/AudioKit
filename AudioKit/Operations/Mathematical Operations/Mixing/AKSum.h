@@ -25,7 +25,7 @@
 /// Create a new signal as a sum of exactly two given signals.
 /// @param firstOperand First signal to be summed.
 /// @param secondOperand Second Signal to be summed.
-//- (instancetype)initWithFirstOperand:(AKParameter *)firstOperand
-//                       secondOperand:(AKParameter *)secondOperand;
+- (instancetype)initWithFirstOperand:(AKParameter *)firstOperand
+                       secondOperand:(AKParameter *)secondOperand;
 
 @end
