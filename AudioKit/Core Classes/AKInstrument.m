@@ -9,6 +9,7 @@
 #import "AKInstrument.h"
 #import "AKManager.h"
 #import "AKAssignment.h"
+#import "AKStereoAudio.h"
 
 typedef enum {
     kInstrument=1,
@@ -38,9 +39,9 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
         _fTables = [[NSMutableSet alloc] init];
-        innerCSDRepresentation = [NSMutableString stringWithString:@""]; 
+        innerCSDRepresentation = [NSMutableString stringWithString:@""];
     }
-    return self; 
+    return self;
 }
 
 - (int)instrumentNumber {
@@ -110,14 +111,38 @@ static int currentID = 1;
 }
 
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input {
-    AKAssignment *auxOutputAssign = [[AKAssignment alloc] initWithOutput:output
-                                                                     input:input];
-    [self connect:auxOutputAssign];
+    if ([output class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
+        NSLog(@"Stereo Output");
+        AKStereoAudio *stereoOutput = (AKStereoAudio *)output;
+        AKStereoAudio *stereoInput  = (AKStereoAudio *)input;
+        
+        AKAssignment *auxLeftOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.leftOutput
+                                                                           input:stereoInput.leftOutput];
+        [self connect:auxLeftOutputAssign];
+
+        AKAssignment *auxRightOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.rightOutput
+                                                                           input:stereoInput.rightOutput];
+        [self connect:auxRightOutputAssign];
+
+    
+    } else {
+        AKAssignment *auxOutputAssign = [[AKAssignment alloc] initWithOutput:output
+                                                                       input:input];
+        [self connect:auxOutputAssign];
+    }
 }
 
 - (void)resetParameter:(AKParameter *)parameterToReset {
-    [innerCSDRepresentation appendString:
-     [NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
+    if ([parameterToReset class] == [AKStereoAudio class]) {
+        AKStereoAudio *stereoParameterToReset = (AKStereoAudio *)parameterToReset;
+        [innerCSDRepresentation appendString:
+         [NSString stringWithFormat:@"%@ = 0\n", stereoParameterToReset.leftOutput]];
+        [innerCSDRepresentation appendString:
+         [NSString stringWithFormat:@"%@ = 0\n", stereoParameterToReset.rightOutput]];
+    } else {
+        [innerCSDRepresentation appendString:
+         [NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -135,17 +160,17 @@ static int currentID = 1;
     
     if ([_properties count] + [_noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Properties ----\n"];
-
+        
         for (AKNoteProperty *prop in _noteProperties) {
             [text appendFormat:@"%@ = p%i\n", prop, prop.pValue];
         }
-        [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];        
+        [text appendString:@"\n;---- Inputs: Instrument Properties ----\n"];
         for (AKInstrumentProperty *prop in _properties) {
             [text appendString:[prop stringForCSDGetValue]];
         }
-        [text appendString:@"\n;---- Opcodes ----\n"];  
+        [text appendString:@"\n;---- Opcodes ----\n"];
     }
-
+    
     [text appendString:innerCSDRepresentation];
     
     if ([_properties count] > 0) {
@@ -163,10 +188,10 @@ static int currentID = 1;
 }
 
 
-- (void)playForDuration:(float)playDuration 
+- (void)playForDuration:(float)playDuration
 {
     AKNote *myNote = [[AKNote alloc] initWithInstrument:self
-                                              forDuration:playDuration];
+                                            forDuration:playDuration];
     [myNote play];
 }
 
