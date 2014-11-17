@@ -112,7 +112,6 @@ static int currentID = 1;
 
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input {
     if ([output class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
-        NSLog(@"Stereo Output");
         AKStereoAudio *stereoOutput = (AKStereoAudio *)output;
         AKStereoAudio *stereoInput  = (AKStereoAudio *)input;
         
