@@ -28,6 +28,7 @@
 /// Run AudioKit using an AKOrchestra
 /// @param orchestra The AKOrchestra that will be started.
 - (void)runOrchestra:(AKOrchestra *)orchestra;
+- (void)runTestOrchestra:(AKOrchestra *)orchestra;
 
 /// Stop AudioKit from making any more sound.
 - (void)stop;
