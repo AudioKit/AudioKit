@@ -13,6 +13,7 @@
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
+    NSString *testTemplateString;
     
     CsoundObj *csound;
 }
@@ -92,6 +93,23 @@ static AKManager *_sharedAKManager = nil;
         "<CsScore>\nf0 10000000\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
+        testTemplateString = @""
+        "<CsoundSynthesizer>\n\n"
+        "<CsOptions>\n\%@\n</CsOptions>\n\n"
+        "<CsInstruments>\n\n"
+        "\%@\n\n"
+        "; Deactivates a complete instrument\n"
+        "instr DeactivateInstrument\n"
+        "turnoff2 p4, 0, 1\n"
+        "endin\n\n"
+        "; Event End or Note Off\n"
+        "instr DeactivateNote\n"
+        "turnoff2 p4, 4, 1\n"
+        "endin\n\n"
+        "</CsInstruments>\n\n"
+        "<CsScore>\ni1 0 10\n</CsScore>\n\n"
+        "</CsoundSynthesizer>\n";
+        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
@@ -107,7 +125,7 @@ static AKManager *_sharedAKManager = nil;
 - (void)runCSDFile:(NSString *)filename 
 {
     if(_isRunning) {
-        //NSLog(@"Csound instance already active.");
+        NSLog(@"Csound instance already active.");
         [self stop];
     }
     NSString *file = [[NSBundle mainBundle] pathForResource:filename
@@ -115,9 +133,9 @@ static AKManager *_sharedAKManager = nil;
     [csound play:file];
     NSLog(@"Starting %@ \n\n%@\n",filename, [AKManager stringFromFile:file]);
     while(!_isRunning) {
-        //NSLog(@"Waiting for Csound to startup completely.");
+        NSLog(@"Waiting for Csound to startup completely.");
     }
-    //NSLog(@"Started.");
+    NSLog(@"Started.");
 }
 
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
@@ -130,17 +148,26 @@ static AKManager *_sharedAKManager = nil;
                   error:nil];
 }
 
+- (void)writeCSDFileForTestOrchestra:(AKOrchestra *)orchestra
+{
+    NSString *newCSD = [NSString stringWithFormat:testTemplateString, options, [orchestra stringForCSD]];
+    
+    [newCSD writeToFile:csdFile
+             atomically:YES
+               encoding:NSStringEncodingConversionAllowLossy
+                  error:nil];
+}
 - (void)runOrchestra:(AKOrchestra *)orchestra 
 {
     if(_isRunning) {
-        //NSLog(@"Csound instance already active.");
+        NSLog(@"Csound instance already active.");
         [self stop];
     }
     [self writeCSDFileForOrchestra:orchestra];
     [self updateBindingsWithProperties:orchestra];
     
     [csound play:csdFile];
-    //NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
+    NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
 
     // Clean up the IDs for next time
     //[AKParameter resetID]; //Should work but generating lots of out of bounds errors
@@ -157,6 +184,35 @@ static AKManager *_sharedAKManager = nil;
         }
         [NSThread sleepForTimeInterval:0.01];
     } 
+}
+
+- (void)runTestOrchestra:(AKOrchestra *)orchestra
+{
+    if(_isRunning) {
+        NSLog(@"Csound instance already active.");
+        [self stop];
+    }
+    [self writeCSDFileForTestOrchestra:orchestra];
+    [self updateBindingsWithProperties:orchestra];
+    [csound play:csdFile];
+
+    NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
+    
+    // Clean up the IDs for next time
+    //[AKParameter resetID]; //Should work but generating lots of out of bounds errors
+    [AKInstrument resetID];
+    [AKNote resetID];
+    
+    // Pause to allow Csound to start, warn if nothing happens after 1 second
+    int cycles = 0;
+    while(!_isRunning) {
+        cycles++;
+        if (cycles > 100) {
+            //NSLog(@"Csound has not started in 1 second." );
+            break;
+        }
+        [NSThread sleepForTimeInterval:0.01];
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -207,7 +263,7 @@ static AKManager *_sharedAKManager = nil;
 
 - (void)stop 
 {
-    //NSLog(@"Stopping Csound");
+    NSLog(@"Stopping Csound");
     [csound stop];
     while(_isRunning) {} // Do nothing
 }
@@ -220,19 +276,19 @@ static AKManager *_sharedAKManager = nil;
 
 - (void)stopInstrument:(AKInstrument *)instrument
 {
-    //NSLog(@"Stopping Instrument with '%@'", [instrument stopStringForCSD]);
+    NSLog(@"Stopping Instrument with '%@'", [instrument stopStringForCSD]);
     [csound sendScore:[instrument stopStringForCSD]];
 }
 
 - (void)stopNote:(AKNote *)note
 {
-    //NSLog(@"Stopping Note with %@", [note stopStringForCSD]);
+    NSLog(@"Stopping Note with %@", [note stopStringForCSD]);
     [csound sendScore:[note stopStringForCSD]];
 }
 
 - (void)updateNote:(AKNote *)note
 {
-    //NSLog(@"updating Note with %@", [note stringForCSD]);
+    NSLog(@"updating Note with %@", [note stringForCSD]);
     [csound sendScore:[note stringForCSD]];
 }
 
@@ -256,16 +312,16 @@ static AKManager *_sharedAKManager = nil;
 	[infoObj getValue:&info];
 	char message[1024];
 	vsnprintf(message, 1024, info.format, info.valist);
-	//NSLog(@"%s", message);
+	NSLog(@"%s", message);
 }
 
-- (void)csoundObjDidStart:(CsoundObj *)csoundObj {
-    //NSLog(@"Csound Started.");
+- (void)csoundObjStarted:(CsoundObj *)csoundObj {
+    NSLog(@"Csound Started.");
     _isRunning = YES;
 }
 
-- (void)csoundObjComplete:(CsoundObj *)csoundObj {
-    //NSLog(@"Csound Completed.");
+- (void)csoundObjCompleted:(CsoundObj *)csoundObj {
+    NSLog(@"Csound Completed.");
     _isRunning  = NO;
 }
 
