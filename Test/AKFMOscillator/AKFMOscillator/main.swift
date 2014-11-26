@@ -2,8 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/22/14.
-//  Modified by Aurelius Prochazka on 11/23/14 to include sine table.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/26/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -15,10 +14,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let operation = AKFMOscillator()
-        
-        operation.setOptionalCarrierMultiplier(4.4.ak)
-        operation.carrierMultiplier = 2.4.ak
-        operation.carrierMultiplier.value()
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
