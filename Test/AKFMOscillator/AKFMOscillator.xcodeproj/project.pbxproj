@@ -1530,7 +1530,6 @@
 				C4A396B81A213BEA00E8FB4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
