@@ -2,7 +2,7 @@
 //  AKFMOscillator.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/25/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/26/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -33,14 +33,21 @@
                          phase:(AKConstant *)phase;
 
 /// Instantiates the fm oscillator with default values
-/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point.
-- (instancetype)initWithFTable:(AKFTable *)fTable;
+- (instancetype)init;
+
 
 /// Instantiates the fm oscillator with default values
-/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point.
-+ (instancetype)audioWithFTable:(AKFTable *)fTable;
++ (instancetype)audio;
 
 
+
+
+/// fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: AKManager.sharedAKManager().standardSineTable]
+@property AKFTable *fTable;
+
+/// Set an optional f table
+/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: AKManager.sharedAKManager().standardSineTable]
+- (void)setOptionalFTable:(AKFTable *)fTable;
 
 
 /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440]
