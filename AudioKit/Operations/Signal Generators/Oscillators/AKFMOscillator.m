@@ -54,7 +54,7 @@
     }
     return self;
 }
-- (instancetype)audioWithFTable:(AKFTable *)fTable
++ (instancetype)audioWithFTable:(AKFTable *)fTable
 {
     return [[AKFMOscillator alloc] initWithFTable:fTable];
 }
