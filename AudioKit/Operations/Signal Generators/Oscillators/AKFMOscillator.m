@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/25/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/26/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -10,11 +10,9 @@
 //
 
 #import "AKFMOscillator.h"
+#import "AKManager.h"
 
 @implementation AKFMOscillator
-{
-    AKFTable *_fTable;
-}
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
                  baseFrequency:(AKControl *)baseFrequency
@@ -33,18 +31,19 @@
         _modulationIndex = modulationIndex;
         _amplitude = amplitude;
         _phase = phase;
+        
     }
     return self;
 }
 
-
-- (instancetype)initWithFTable:(AKFTable *)fTable
+- (instancetype)init
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _fTable = fTable;
         
         // Default Values
+        _fTable = [AKManager sharedAKManager].standardSineTable;
+        
         _baseFrequency = akp(440);
         _carrierMultiplier = akp(1);
         _modulatingMultiplier = akp(1);
@@ -54,9 +53,14 @@
     }
     return self;
 }
-+ (instancetype)audioWithFTable:(AKFTable *)fTable
+
++ (instancetype)audio
 {
-    return [[AKFMOscillator alloc] initWithFTable:fTable];
+    return [[AKFMOscillator alloc] init];
+}
+
+- (void)setOptionalFTable:(AKFTable *)fTable {
+    _fTable = fTable;
 }
 
 - (void)setOptionalBaseFrequency:(AKControl *)baseFrequency {

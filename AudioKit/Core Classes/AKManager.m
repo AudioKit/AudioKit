@@ -114,6 +114,8 @@ static AKManager *_sharedAKManager = nil;
         NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
         _midi = [[AKMidi alloc] init];
+        
+        _standardSineTable = [[AKSineTable alloc] init];
     }
     return self;
 }   
@@ -255,7 +257,6 @@ static AKManager *_sharedAKManager = nil;
 {
     [_midi closeMidiIn];
 }
-
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound control

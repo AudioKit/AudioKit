@@ -11,6 +11,7 @@
 #import "AKEvent.h"
 #import "AKMidi.h"
 #import "AKSequence.h"
+#import "AKSineTable.h"
 
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
@@ -21,6 +22,8 @@
 
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
+
+@property AKSineTable *standardSineTable;
 
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedAKManager;

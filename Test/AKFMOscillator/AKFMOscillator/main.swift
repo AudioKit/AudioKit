@@ -14,12 +14,8 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let sine = AKSineTable()
-        connect(sine)
-
-        let operation = AKFMOscillator(
-            FTable: sine
-        )
+        let operation = AKFMOscillator()
+        
         operation.setOptionalCarrierMultiplier(4.4.ak)
         operation.carrierMultiplier = 2.4.ak
         operation.carrierMultiplier.value()
