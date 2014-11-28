@@ -194,6 +194,7 @@ static AKManager *_sharedAKManager = nil;
 
 - (void)runTestOrchestra
 {
+    _isLogging = YES;
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
