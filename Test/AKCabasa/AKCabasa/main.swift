@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/25/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/28/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -13,20 +13,16 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKCabasa(
-                    )
+        let operation = AKCabasa()
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
 }
 
 // Set Up
-let orchestra = AKOrchestra()
 let instrument = Instrument()
-orchestra.addInstrument(instrument)
-let manager = AKManager.sharedAKManager()
+AKOrchestra.addInstrument(instrument)
+AKOrchestra.test()
 
-// Run Test
-manager.runTestOrchestra(orchestra)
-while(manager.isRunning) {} //do nothing
+while(AKManager.sharedAKManager().isRunning) {} //do nothing
 println("Test complete!")
