@@ -68,6 +68,8 @@ static AKManager *_sharedAKManager = nil;
         _isRunning = NO;
         _isLogging = NO;
         
+        _orchestra = [[AKOrchestra alloc] init];
+        
 //        "-+rtmidi=null    ; Disable the use of any realtime midi plugin\n"
 //        "-+rtaudio=null   ; Disable the use of any realtime audio plugin\n"
         options = @"-o dac           ; Write sound to the host audio output\n"
@@ -160,18 +162,19 @@ static AKManager *_sharedAKManager = nil;
                encoding:NSStringEncodingConversionAllowLossy
                   error:nil];
 }
-- (void)runOrchestra:(AKOrchestra *)orchestra 
+
+- (void)runOrchestra
 {
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
     }
-    [self writeCSDFileForOrchestra:orchestra];
-    [self updateBindingsWithProperties:orchestra];
+    [self writeCSDFileForOrchestra:_orchestra];
+    [self updateBindingsWithProperties:_orchestra];
     
     [csound play:csdFile];
     if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
-
+    
     // Clean up the IDs for next time
     //[AKParameter resetID]; //Should work but generating lots of out of bounds errors
     [AKInstrument resetID];
@@ -186,17 +189,17 @@ static AKManager *_sharedAKManager = nil;
             break;
         }
         [NSThread sleepForTimeInterval:0.01];
-    } 
+    }
 }
 
-- (void)runTestOrchestra:(AKOrchestra *)orchestra
+- (void)runTestOrchestra
 {
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
     }
-    [self writeCSDFileForTestOrchestra:orchestra];
-    [self updateBindingsWithProperties:orchestra];
+    [self writeCSDFileForTestOrchestra:_orchestra];
+    [self updateBindingsWithProperties:_orchestra];
     [csound play:csdFile];
 
     if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);

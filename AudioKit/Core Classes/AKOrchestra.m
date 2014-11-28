@@ -38,6 +38,24 @@
 #  pragma mark - Collections
 // -----------------------------------------------------------------------------
 
++ (void)addInstrument:(AKInstrument *)instrument {
+    [[[AKManager sharedAKManager] orchestra] addInstrument:instrument];
+}
+
++ (void)start
+{
+    if (![[AKManager sharedAKManager] isRunning]) {
+        [[AKManager sharedAKManager] runOrchestra];
+    }
+}
+
++ (void)test
+{
+    if (![[AKManager sharedAKManager] isRunning]) {
+        [[AKManager sharedAKManager] runTestOrchestra];
+    }
+}
+
 - (void)addInstrument:(AKInstrument *)newInstrument {
     [_instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];

@@ -20,10 +20,9 @@
 {
     [super viewDidLoad];
     
-    AKOrchestra *orch = [[AKOrchestra alloc] init];
     conv = [[ConvolutionInstrument alloc] init];
-    [orch addInstrument:conv];
-    [[AKManager sharedAKManager] runOrchestra:orch];
+    [AKOrchestra addInstrument:conv];
+    [AKOrchestra start];
 }
 
 - (IBAction)start:(id)sender {
