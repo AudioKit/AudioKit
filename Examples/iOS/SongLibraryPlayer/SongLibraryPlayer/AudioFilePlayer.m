@@ -40,7 +40,7 @@
         [self connect:fileIn];
 
         AKReverb *reverb;
-        reverb = [[AKReverb alloc] initWithSourceStereoAudio:fileIn
+        reverb = [[AKReverb alloc] initWithStereoAudioSource:fileIn
                                                feedbackLevel:_reverbAmount
                                              cutoffFrequency:akp(12000)];
         [self connect:reverb];
@@ -60,7 +60,7 @@
         // AUDIO OUTPUT ========================================================
 
         AKAudioOutput *audio;
-        //audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:[fileIn plus:reverb]];
+        //audio = [[AKAudioOutput alloc] initWithStereoAudioSource:[fileIn plus:reverb]];
         audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix
                                               rightAudio:rightMix];
 
