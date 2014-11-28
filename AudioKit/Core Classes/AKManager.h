@@ -20,6 +20,9 @@
 /// Determines whether or not AudioKit is available to send events to.
 @property (readonly) BOOL isRunning;
 
+/// Determines whether or not to log
+@property BOOL isLogging;
+
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
 
