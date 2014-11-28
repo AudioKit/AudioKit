@@ -36,10 +36,9 @@
     [self.rightView addObserver:self forKeyPath:@"horizontalPercentage" options:NSKeyValueObservingOptionNew context:Nil];
     [self.rightView addObserver:self forKeyPath:@"verticalPercentage"   options:NSKeyValueObservingOptionNew context:Nil];
     
-    AKOrchestra *orchestra = [[AKOrchestra alloc] init];
     fm = [[FMOscillator alloc] init];
-    [orchestra addInstrument:fm];
-    [[AKManager sharedAKManager] runOrchestra:orchestra];
+    [AKOrchestra addInstrument:fm];
+    [AKOrchestra start];
     [fm play];
     leftTouchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-350, -350, 50, 50) ];
     leftTouchImageView.image = [UIImage imageNamed:@"circle.png"];

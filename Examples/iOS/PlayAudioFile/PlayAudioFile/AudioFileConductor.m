@@ -20,14 +20,9 @@
     self = [super init];
     if (self) {
         // Create the orchestra and instruments
-        AKOrchestra *orchestra = [[AKOrchestra alloc] init];
         audioFilePlayer = [[AudioFilePlayer alloc] init];
-        
-        // Add instruments to orchestra
-        [orchestra addInstrument:audioFilePlayer];
-        
-        // Start the orchestra
-        [[AKManager sharedAKManager] runOrchestra:orchestra];
+        [AKOrchestra addInstrument:audioFilePlayer];
+        [AKOrchestra start];
     }
     return self;
 }

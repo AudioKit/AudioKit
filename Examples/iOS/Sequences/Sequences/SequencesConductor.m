@@ -20,10 +20,9 @@
 {
     self = [super init];
     if (self) {
-        AKOrchestra *orchestra = [[AKOrchestra alloc] init];
         instrument = [[SeqInstrument alloc] init];
-        [orchestra addInstrument:instrument];
-        [[AKManager sharedAKManager] runOrchestra:orchestra];
+        [AKOrchestra addInstrument:instrument];
+        [AKOrchestra start];
     }
     return self;
 }
