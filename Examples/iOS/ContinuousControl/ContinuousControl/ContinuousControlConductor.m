@@ -19,10 +19,9 @@
 {
     self = [super init];
     if (self) {
-        AKOrchestra *orch = [[AKOrchestra alloc] init];
         self.tweakableInstrument = [[TweakableInstrument alloc] init];
-        [orch addInstrument:self.tweakableInstrument];
-        [[AKManager sharedAKManager] runOrchestra:orch];
+        [AKOrchestra addInstrument:_tweakableInstrument];
+        [AKOrchestra start];
     }
     return self;
 }
