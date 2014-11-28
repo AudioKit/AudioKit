@@ -497,7 +497,6 @@
 			isa = PBXGroup;
 			children = (
 				C41D64DC19F2333500269203 /* Core Classes */,
-				C41D64EF19F2333500269203 /* Instruments */,
 				C41D64F319F2333500269203 /* Libraries */,
 				C41D652219F2333500269203 /* Operations */,
 				C41D662319F2333600269203 /* Parameters */,
@@ -530,13 +529,6 @@
 				C41D64EE19F2333500269203 /* AKSequence.m */,
 			);
 			path = "Core Classes";
-			sourceTree = "<group>";
-		};
-		C41D64EF19F2333500269203 /* Instruments */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Instruments;
 			sourceTree = "<group>";
 		};
 		C41D64F319F2333500269203 /* Libraries */ = {
