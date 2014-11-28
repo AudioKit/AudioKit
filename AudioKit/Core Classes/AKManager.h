@@ -38,7 +38,7 @@
 - (void)runOrchestra;
 
 /// Run AudioKit
-- (void)runTestOrchestra:(AKOrchestra *)orchestra;
+- (void)runTestOrchestra;
 
 /// Stop AudioKit from making any more sound.
 - (void)stop;

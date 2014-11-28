@@ -70,14 +70,9 @@
         return;
     }
     // Create the orchestra and instruments
-    global.orchestra = [[AKOrchestra alloc] init];
     global.audioFilePlayer = [[AudioFilePlayer alloc] init];
-    
-    // Add instruments to orchestra
-    [global.orchestra addInstrument:global.audioFilePlayer];
-    
-    // Start the orchestra
-    [[AKManager sharedAKManager] runOrchestra:global.orchestra];
+    [AKOrchestra addInstrument:global.audioFilePlayer];
+    [AKOrchestra start];
 }
 
 
