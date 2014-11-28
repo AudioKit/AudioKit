@@ -140,6 +140,15 @@ static int currentID = 1;
     return self;
 }
 
+- (void)scaleWithValue:(float)value
+               minimum:(float)minimum
+               maximum:(float)maximum
+{
+    float percentage = (value-minimum)/(maximum - minimum);
+    float width = self.maximum - self.minimum;
+    self.value = self.minimum + percentage * width;
+}
+
 - (void)reset {
     self.value = self.initialValue;
 }
