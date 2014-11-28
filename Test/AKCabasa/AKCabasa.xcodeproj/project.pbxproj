@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C47913DB1A29352F00D9807B /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C479126B1A29352F00D9807B /* AKAudioAnalyzer.m */; };
-		C47913DC1A29352F00D9807B /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C479126D1A29352F00D9807B /* LevelMeter.m */; };
 		C47913DD1A29352F00D9807B /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912701A29352F00D9807B /* AKEvent.m */; };
 		C47913DE1A29352F00D9807B /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912731A29352F00D9807B /* AKInstrument.m */; };
 		C47913DF1A29352F00D9807B /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912751A29352F00D9807B /* AKManager.m */; };
@@ -174,10 +172,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C479126A1A29352F00D9807B /* AKAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioAnalyzer.h; sourceTree = "<group>"; };
-		C479126B1A29352F00D9807B /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
-		C479126C1A29352F00D9807B /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
-		C479126D1A29352F00D9807B /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C479126F1A29352F00D9807B /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C47912701A29352F00D9807B /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C47912711A29352F00D9807B /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -501,7 +495,6 @@
 		C47912681A29352F00D9807B /* AudioKit */ = {
 			isa = PBXGroup;
 			children = (
-				C47912691A29352F00D9807B /* Components */,
 				C479126E1A29352F00D9807B /* Core Classes */,
 				C47912811A29352F00D9807B /* Libraries */,
 				C47912B01A29352F00D9807B /* Operations */,
@@ -509,17 +502,6 @@
 			);
 			name = AudioKit;
 			path = ../../AudioKit;
-			sourceTree = "<group>";
-		};
-		C47912691A29352F00D9807B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				C479126A1A29352F00D9807B /* AKAudioAnalyzer.h */,
-				C479126B1A29352F00D9807B /* AKAudioAnalyzer.m */,
-				C479126C1A29352F00D9807B /* LevelMeter.h */,
-				C479126D1A29352F00D9807B /* LevelMeter.m */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		C479126E1A29352F00D9807B /* Core Classes */ = {
@@ -1286,7 +1268,6 @@
 				C479141F1A29352F00D9807B /* AKBamboo.m in Sources */,
 				C47913ED1A29352F00D9807B /* AKTrackedAmplitude.m in Sources */,
 				C47913EE1A29352F00D9807B /* AKTrackedAmplitudeFromFSignal.m in Sources */,
-				C47913DB1A29352F00D9807B /* AKAudioAnalyzer.m in Sources */,
 				C47914561A29352F00D9807B /* AKReverb.m in Sources */,
 				C47914551A29352F00D9807B /* AKParallelCombLowPassFilterReverb.m in Sources */,
 				C47913FA1A29352F00D9807B /* AKSum.m in Sources */,
@@ -1375,7 +1356,6 @@
 				C47914301A29352F00D9807B /* AKAudioSegmentArray.m in Sources */,
 				C47914221A29352F00D9807B /* AKDroplet.m in Sources */,
 				C47914391A29352F00D9807B /* AKLoopingOscillator.m in Sources */,
-				C47913DC1A29352F00D9807B /* LevelMeter.m in Sources */,
 				C47913DE1A29352F00D9807B /* AKInstrument.m in Sources */,
 				C479144B1A29352F00D9807B /* AKResonantFilter.m in Sources */,
 				C479141B1A29352F00D9807B /* AKStruckMetalBar.m in Sources */,
