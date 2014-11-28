@@ -25,13 +25,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    AKOrchestra *orch = [[AKOrchestra alloc] init];
     toneGenerator = [[ToneGenerator alloc] init];
     fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
     currentNotes = [NSMutableDictionary dictionary];
-    [orch addInstrument:toneGenerator];
-    [orch addInstrument:fx];
-    [[AKManager sharedAKManager] runOrchestra:orch];
+    
+    [AKOrchestra addInstrument:toneGenerator];
+    [AKOrchestra addInstrument:fx];
+    [AKOrchestra start];
     [fx play];
 }
 
