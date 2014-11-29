@@ -2,8 +2,8 @@
 //  AKCrunch.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/28/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/29/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -16,19 +16,35 @@
 
 @interface AKCrunch : AKAudio
 
-/// Instantiates the crunch
-/// @param duration Period of time over which all sound is stopped.
-/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKConstant *)amplitude;
+/// Instantiates the crunch with all values
+/// @param intensity The intensity of the crunch sound
+/// @param dampingFactor This value ranges from 0 to 1, and is best with numbers around 0.9.
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor;
+
+/// Instantiates the crunch with default values
+- (instancetype)init;
 
 
-/// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 7.
-- (void)setOptionalCount:(AKConstant *)count;
+/// Instantiates the crunch with default values
++ (instancetype)audio;
+
+
+
+
+/// The intensity of the crunch sound [Default Value: 100]
+@property AKConstant *intensity;
+
+/// Set an optional intensity
+/// @param intensity The intensity of the crunch sound [Default Value: 100]
+- (void)setOptionalIntensity:(AKConstant *)intensity;
+
+
+/// This value ranges from 0 to 1, and is best with numbers around 0.9. [Default Value: 0.9]
+@property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor, as part of this equation "damping = 0.998 + (dampingFactor * 0.002)" The default damping is 0.99806 which means that the default value of dampingFactor is 0.03. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0. The recommended range for dampingFactor is usually below 75% of the maximum value.
+/// @param dampingFactor This value ranges from 0 to 1, and is best with numbers around 0.9. [Default Value: 0.9]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 
