@@ -45,14 +45,7 @@
     isCacheDirty = YES;
 }
 
-- (void)scaleWithValue:(float)value
-               minimum:(float)minimum
-               maximum:(float)maximum
-{
-    float percentage = (value-minimum)/(maximum - minimum);
-    float width = self.maximum - self.minimum;
-    self.value = self.minimum + percentage * width;
-}
+
 
 # pragma mark - CsoundBinding
 

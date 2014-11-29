@@ -106,4 +106,58 @@ static int currentID = 1;
     return new;
 }
 
+
+
+- (instancetype)initWithValue:(float)initialValue
+{
+    self = [self init];
+    if (self) {
+        self.value        = initialValue;
+        self.initialValue = initialValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithMinimum:(float)minimum
+                        maximum:(float)maximum;
+{
+    return [self initWithValue:minimum
+                       minimum:minimum
+                       maximum:maximum];
+}
+
+- (instancetype)initWithValue:(float)initialValue
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
+{
+    self = [self init];
+    if (self) {
+        self.value        = initialValue;
+        self.initialValue = initialValue;
+        self.minimum = minimum;
+        self.maximum = maximum;
+    }
+    return self;
+}
+
+- (void)scaleWithValue:(float)value
+               minimum:(float)minimum
+               maximum:(float)maximum
+{
+    float percentage = (value-minimum)/(maximum - minimum);
+    float width = self.maximum - self.minimum;
+    self.value = self.minimum + percentage * width;
+}
+
+- (void)reset {
+    self.value = self.initialValue;
+}
+
+- (void)randomize;
+{
+    float width = self.maximum - self.minimum;
+    [self setValue:(((float) rand() / RAND_MAX) * width) + self.minimum];
+}
+
+
 @end

@@ -2,8 +2,8 @@
 //  AKCabasa.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/28/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/26/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -16,24 +16,36 @@
 
 @interface AKCabasa : AKAudio
 
-/// Instantiates the cabasa
-/// @param duration Period of time over which all sound is stopped.
-/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKConstant *)amplitude;
+/// Instantiates the cabasa with all values
+/// @param count The number of beads, teeth, bells, timbrels, etc.
+/// @param dampingFactor Damping factor where 0 is full damped and 1 is no damping.
+- (instancetype)initWithCount:(AKConstant *)count
+                dampingFactor:(AKConstant *)dampingFactor;
 
+/// Instantiates the cabasa with default values
+- (instancetype)init;
+
+
+/// Instantiates the cabasa with default values
++ (instancetype)audio;
+
+
+
+
+/// The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
+@property AKConstant *count;
 
 /// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 512.
+/// @param count The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
 - (void)setOptionalCount:(AKConstant *)count;
 
-/// Set an optional damping factor
-/// @param dampingFactor The damping factor as part of this equation "damping = 0.998 + (dampingFactor * 0.002)" The default damping is 0.997 which means that the default value of dampingFactor is -0.5. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0.
-- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn;
+/// Damping factor where 0 is full damped and 1 is no damping. [Default Value: 0.93]
+@property AKConstant *dampingFactor;
+
+/// Set an optional damping factor
+/// @param dampingFactor Damping factor where 0 is full damped and 1 is no damping. [Default Value: 0.93]
+- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 
 @end

@@ -29,10 +29,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let orchestra = AKOrchestra()
-        orchestra.addInstrument(fmSynth)
-        let manager = AKManager.sharedAKManager()
-        manager.runOrchestra(orchestra)
+        AKOrchestra.addInstrument(fmSynth)
+        AKOrchestra.start()
+        
         updateLabels()
         updateSliders() 
     }

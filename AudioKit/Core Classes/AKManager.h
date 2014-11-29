@@ -11,6 +11,7 @@
 #import "AKEvent.h"
 #import "AKMidi.h"
 #import "AKSequence.h"
+#import "AKSineTable.h"
 
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
@@ -19,15 +20,25 @@
 /// Determines whether or not AudioKit is available to send events to.
 @property (readonly) BOOL isRunning;
 
+/// Determines whether or not to log
+@property BOOL isLogging;
+
+/// The default orchestra
+@property AKOrchestra *orchestra;
+
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
+
+@property AKSineTable *standardSineTable;
 
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedAKManager;
 
 /// Run AudioKit using an AKOrchestra
-/// @param orchestra The AKOrchestra that will be started.
-- (void)runOrchestra:(AKOrchestra *)orchestra;
+- (void)runOrchestra;
+
+/// Run AudioKit
+- (void)runTestOrchestra;
 
 /// Stop AudioKit from making any more sound.
 - (void)stop;

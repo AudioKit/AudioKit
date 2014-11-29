@@ -28,12 +28,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    AKOrchestra *orch = [[AKOrchestra alloc] init];
     granularInstrument = [[GranularInstrument alloc] init];
-    
-    [orch addInstrument:granularInstrument];
-    [[AKManager sharedAKManager] runOrchestra:orch];
-
+    [AKOrchestra addInstrument:granularInstrument];
+    [AKOrchestra start];
 }
 
 - (void)didReceiveMemoryWarning

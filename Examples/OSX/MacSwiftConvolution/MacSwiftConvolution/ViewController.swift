@@ -16,10 +16,9 @@ class ViewController: NSViewController {
     
     func viewDidLoad() {
         // Do any additional setup after loading the view, typically from a nib.
-        let orchestra = AKOrchestra()
-        orchestra.addInstrument(conv)
-        let manager = AKManager.sharedAKManager()
-        manager.runOrchestra(orchestra)
+        AKOrchestra.addInstrument(conv)
+        AKOrchestra.start()
+        
         updateSliders()
     }
     
