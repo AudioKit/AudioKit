@@ -35,8 +35,8 @@ class ToneGenerator: AKInstrument {
             phase: 0.ak)
         connect(fmOscillator)
         
-        let output = AKAudioOutput(audioSource: fmOscillator)
-        connect(output)
+        auxilliaryOutput = AKAudio.globalParameter()
+        assignOutput(auxilliaryOutput, to: fmOscillator)
     }
 }
 

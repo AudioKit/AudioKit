@@ -9,15 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    var toneGenerator = ToneGenerator()
-    var currentNotes = [ToneGeneratorNote](count: 13, repeatedValue: ToneGeneratorNote())
+    var conductor = Conductor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        AKOrchestra.addInstrument(toneGenerator)
-        AKOrchestra.start()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,16 +23,12 @@ class ViewController: UIViewController {
 
     @IBAction func keyPressed(sender: UIButton) {
         
-        let frequencies = [440, 466.16, 493.88, 523.25, 554.37, 587.33, 622.25, 659.26, 698.46, 739.99, 783.99, 830.61, 880]
         let key = sender
         let index = key.tag
         
         key.backgroundColor = UIColor.redColor()
-        let frequency = Float(frequencies[index])
-        let note = ToneGeneratorNote()
-        note.frequency.value = frequency
-        toneGenerator.playNote(note)
-        currentNotes[index]=note;
+        conductor.play(index)
+
     }
 
     @IBAction func keyReleased(sender: UIButton) {
@@ -49,8 +41,14 @@ class ViewController: UIViewController {
         } else {
             key.backgroundColor = UIColor.whiteColor()
         }
-        let noteToStop = currentNotes[index]
-        noteToStop.stop()
+        conductor.stop(index)
+
+    }
+    @IBAction func reverbSliderValueChanged(sender: UISlider) {
+        conductor.setReverbFeedbackLevel(sender.value)
+    }
+    @IBAction func toneColorSliderValueChanged(sender: UISlider) {
+        conductor.setToneColor(sender.value)
     }
 }
 
