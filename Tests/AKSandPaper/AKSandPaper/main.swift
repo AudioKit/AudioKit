@@ -13,7 +13,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKBambooSticks()
+        let operation = AKSandPaper()
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
