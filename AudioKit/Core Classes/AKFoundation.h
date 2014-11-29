@@ -127,7 +127,7 @@
 #import "AKMarimba.h"
 
 // Operations - Signal Generators - Physical Models - PhISEM
-#import "AKBamboo.h"
+#import "AKBambooSticks.h"
 #import "AKCabasa.h"
 #import "AKCrunch.h"
 #import "AKDroplet.h"
