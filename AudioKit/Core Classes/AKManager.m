@@ -110,7 +110,7 @@ static AKManager *_sharedAKManager = nil;
         "turnoff2 p4, 4, 1\n"
         "endin\n\n"
         "</CsInstruments>\n\n"
-        "<CsScore>\ni1 0 10\n</CsScore>\n\n"
+        "<CsScore>\ni1 0.5 10\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
