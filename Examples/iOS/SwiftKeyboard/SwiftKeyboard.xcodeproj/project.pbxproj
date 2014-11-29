@@ -161,6 +161,8 @@
 		C48820721A2970A800E46B03 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881FDA1A2970A800E46B03 /* AKNoteProperty.m */; };
 		C48820731A2970A800E46B03 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881FDD1A2970A800E46B03 /* AKAudioAnalyzer.m */; };
 		C48820741A2970A800E46B03 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881FDF1A2970A800E46B03 /* LevelMeter.m */; };
+		C48820781A29910100E46B03 /* EffectsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48820771A29910100E46B03 /* EffectsProcessor.swift */; };
+		C488207A1A29969600E46B03 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48820791A29969600E46B03 /* Conductor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -503,6 +505,8 @@
 		C4881FDD1A2970A800E46B03 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
 		C4881FDE1A2970A800E46B03 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		C4881FDF1A2970A800E46B03 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
+		C48820771A29910100E46B03 /* EffectsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EffectsProcessor.swift; path = Instruments/EffectsProcessor.swift; sourceTree = "<group>"; };
+		C48820791A29969600E46B03 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,6 +553,8 @@
 			children = (
 				C4881C421A296A7D00E46B03 /* AppDelegate.swift */,
 				C4881C441A296A7D00E46B03 /* ViewController.swift */,
+				C48820791A29969600E46B03 /* Conductor.swift */,
+				C48820771A29910100E46B03 /* EffectsProcessor.swift */,
 				C4881E6A1A296EAC00E46B03 /* ToneGenerator.swift */,
 				C4881C461A296A7D00E46B03 /* Main.storyboard */,
 				C4881C491A296A7D00E46B03 /* Images.xcassets */,
@@ -1409,6 +1415,7 @@
 				C48820371A2970A800E46B03 /* AKControlSegmentArray.m in Sources */,
 				C488204B1A2970A800E46B03 /* AKHighPassFilter.m in Sources */,
 				C4881FFA1A2970A800E46B03 /* AKMinControl.m in Sources */,
+				C48820781A29910100E46B03 /* EffectsProcessor.swift in Sources */,
 				C48820091A2970A800E46B03 /* AKSpectralVocoder.m in Sources */,
 				C488202E1A2970A800E46B03 /* AKTambourine.m in Sources */,
 				C48820261A2970A800E46B03 /* AKCabasa.m in Sources */,
@@ -1477,6 +1484,7 @@
 				C488201C1A2970A800E46B03 /* AKPhasingControl.m in Sources */,
 				C48820741A2970A800E46B03 /* LevelMeter.m in Sources */,
 				C488200B1A2970A800E46B03 /* AKGranularSynthesisTexture.m in Sources */,
+				C488207A1A29969600E46B03 /* Conductor.swift in Sources */,
 				C48820461A2970A800E46B03 /* AKDopplerEffect.m in Sources */,
 				C48820331A2970A800E46B03 /* AKJitter.m in Sources */,
 				C48820351A2970A800E46B03 /* AKRandomControl.m in Sources */,
@@ -1656,6 +1664,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1671,6 +1680,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

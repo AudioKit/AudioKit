@@ -162,9 +162,15 @@
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000298023224" minValue="0.10000000149011612" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="m4u-ZO-g8u">
                                 <rect key="frame" x="288" y="10" width="234" height="31"/>
+                                <connections>
+                                    <action selector="toneColorSliderValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="cuu-Hy-if3"/>
+                                </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="u5h-e7-gU3">
                                 <rect key="frame" x="8" y="10" width="234" height="31"/>
+                                <connections>
+                                    <action selector="reverbSliderValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="UVr-a4-PyG"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tone Color" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkp-Ba-79t">
                                 <rect key="frame" x="335" y="47" width="146" height="30"/>
