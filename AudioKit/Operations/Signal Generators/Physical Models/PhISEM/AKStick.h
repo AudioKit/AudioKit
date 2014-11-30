@@ -2,38 +2,50 @@
 //  AKStick.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
 /** Semi-physical model of a stick sound.
- 
+
  This one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
 @interface AKStick : AKAudio
 
-/// Instantiates the stick
-/// @param maximumDuration Period of time over which all sound is stopped.
-/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
-- (instancetype)initWithMaximumDuration:(AKConstant *)maximumDuration
-                              amplitude:(AKConstant *)amplitude;
+/// Instantiates the stick with all values
+/// @param intensity The intensity of the stick sound.
+/// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1.
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor;
+
+/// Instantiates the stick with default values
+- (instancetype)init;
 
 
-/// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 30.
-- (void)setOptionalCount:(AKConstant *)count;
+/// Instantiates the stick with default values
++ (instancetype)audio;
+
+
+
+
+/// The intensity of the stick sound. [Default Value: 30]
+@property AKConstant *intensity;
+
+/// Set an optional intensity
+/// @param intensity The intensity of the stick sound. [Default Value: 30]
+- (void)setOptionalIntensity:(AKConstant *)intensity;
+
+
+/// This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
+@property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor as part of this equation damping = 0.998 + (dampingFactor * 0.002). The default damping is 0.998 which means that the default value of dampingFactor is 0. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0.]
+/// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
-
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn;
 
 
 @end
