@@ -69,7 +69,6 @@
 		C479141C1A29352F00D9807B /* AKVibes.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913231A29352F00D9807B /* AKVibes.m */; };
 		C479141D1A29352F00D9807B /* AKMandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913261A29352F00D9807B /* AKMandolin.m */; };
 		C479141E1A29352F00D9807B /* AKMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C479132A1A29352F00D9807B /* AKMarimba.m */; };
-		C479141F1A29352F00D9807B /* AKBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C479132E1A29352F00D9807B /* AKBamboo.m */; };
 		C47914201A29352F00D9807B /* AKCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913301A29352F00D9807B /* AKCabasa.m */; };
 		C47914211A29352F00D9807B /* AKCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913321A29352F00D9807B /* AKCrunch.m */; };
 		C47914221A29352F00D9807B /* AKDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913341A29352F00D9807B /* AKDroplet.m */; };
@@ -157,6 +156,7 @@
 		C4A398D01A213D8000E8FB4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398CD1A213D8000E8FB4D /* AppKit.framework */; };
 		C4A398D11A213D8000E8FB4D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398CE1A213D8000E8FB4D /* CoreData.framework */; };
 		C4A398D21A213D8000E8FB4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398CF1A213D8000E8FB4D /* Foundation.framework */; };
+		E49429711A2AB49000BDEF72 /* AKBambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = E49429701A2AB49000BDEF72 /* AKBambooSticks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -300,8 +300,6 @@
 		C47913291A29352F00D9807B /* AKMarimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMarimba.h; sourceTree = "<group>"; };
 		C479132A1A29352F00D9807B /* AKMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMarimba.m; sourceTree = "<group>"; };
 		C479132B1A29352F00D9807B /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
-		C479132D1A29352F00D9807B /* AKBamboo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBamboo.h; sourceTree = "<group>"; };
-		C479132E1A29352F00D9807B /* AKBamboo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBamboo.m; sourceTree = "<group>"; };
 		C479132F1A29352F00D9807B /* AKCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCabasa.h; sourceTree = "<group>"; };
 		C47913301A29352F00D9807B /* AKCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCabasa.m; sourceTree = "<group>"; };
 		C47913311A29352F00D9807B /* AKCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrunch.h; sourceTree = "<group>"; };
@@ -469,6 +467,8 @@
 		C4A398CE1A213D8000E8FB4D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C4A398CF1A213D8000E8FB4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C4A398D51A213EC600E8FB4D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		E494296F1A2AB49000BDEF72 /* AKBambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBambooSticks.h; sourceTree = "<group>"; };
+		E49429701A2AB49000BDEF72 /* AKBambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBambooSticks.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -831,8 +831,8 @@
 		C479132C1A29352F00D9807B /* PhISEM */ = {
 			isa = PBXGroup;
 			children = (
-				C479132D1A29352F00D9807B /* AKBamboo.h */,
-				C479132E1A29352F00D9807B /* AKBamboo.m */,
+				E494296F1A2AB49000BDEF72 /* AKBambooSticks.h */,
+				E49429701A2AB49000BDEF72 /* AKBambooSticks.m */,
 				C479132F1A29352F00D9807B /* AKCabasa.h */,
 				C47913301A29352F00D9807B /* AKCabasa.m */,
 				C47913311A29352F00D9807B /* AKCrunch.h */,
@@ -1264,8 +1264,8 @@
 				C479144C1A29352F00D9807B /* AKThreePoleLowpassFilter.m in Sources */,
 				C479142C1A29352F00D9807B /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				C47914141A29352F00D9807B /* AKSineOscillator.m in Sources */,
+				E49429711A2AB49000BDEF72 /* AKBambooSticks.m in Sources */,
 				C47914131A29352F00D9807B /* AKOscillator.m in Sources */,
-				C479141F1A29352F00D9807B /* AKBamboo.m in Sources */,
 				C47913ED1A29352F00D9807B /* AKTrackedAmplitude.m in Sources */,
 				C47913EE1A29352F00D9807B /* AKTrackedAmplitudeFromFSignal.m in Sources */,
 				C47914561A29352F00D9807B /* AKReverb.m in Sources */,
@@ -1464,7 +1464,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AKCabasa/Bridging-Header.h";
@@ -1486,7 +1485,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AKCabasa/Bridging-Header.h";
