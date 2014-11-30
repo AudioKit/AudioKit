@@ -2,74 +2,93 @@
 //  AKSleighbells.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's sleighbells:
 //  http://www.csounds.com/manual/html/sleighbells.html
 //
 
 #import "AKSleighbells.h"
-
-@interface AKSleighbells () {
-    AKConstant *idettack;
-    AKControl *kamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-    AKConstant *ifreq;
-    AKConstant *ifreq1;
-    AKConstant *ifreq2;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKSleighbells
 
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKControl *)amplitude
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
+            mainResonantFrequency:(AKConstant *)mainResonantFrequency
+           firstResonantFrequency:(AKConstant *)firstResonantFrequency
+          secondResonantFrequency:(AKConstant *)secondResonantFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
-        kamp = amplitude;
-        inum = akp(1.25);
-        idamp = akp(0);
-        imaxshake = akp(0);
-        ifreq = akp(2500);
-        ifreq1 = akp(5300);
-        ifreq2 = akp(6500);
+            _intensity = intensity;
+                _dampingFactor = dampingFactor;
+                _mainResonantFrequency = mainResonantFrequency;
+                _firstResonantFrequency = firstResonantFrequency;
+                _secondResonantFrequency = secondResonantFrequency;
+        
     }
     return self;
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+    // Default Values   
+            _intensity = akp(32);        
+            _dampingFactor = akp(0.25);        
+            _mainResonantFrequency = akp(2500);        
+            _firstResonantFrequency = akp(5300);        
+            _secondResonantFrequency = akp(6500);            
+    }
+    return self;
+}
+
++ (instancetype)audio
+ {
+    return [[AKSleighbells alloc] init];
+}
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    _intensity = intensity;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
-}
-
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
+    _dampingFactor = dampingFactor;
 }
 
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-	ifreq = mainResonantFrequency;
+    _mainResonantFrequency = mainResonantFrequency;
 }
 
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-	ifreq1 = firstResonantFrequency;
+    _firstResonantFrequency = firstResonantFrequency;
 }
 
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
-	ifreq2 = secondResonantFrequency;
+    _secondResonantFrequency = secondResonantFrequency;
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
+        // Constant Values  
+        AKConstant *_amplitude = akp(1);    
+        AKConstant *_maximumDuration = akp(1);    
+        AKConstant *_energyReturn = akp(0);    
+        return [NSString stringWithFormat:
             @"%@ sleighbells %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2];
+            self,
+            _amplitude,
+            _maximumDuration,
+            _intensity,
+            _dampingFactor,
+            _energyReturn,
+            _mainResonantFrequency,
+            _firstResonantFrequency,
+            _secondResonantFrequency];
 }
+
 
 @end
