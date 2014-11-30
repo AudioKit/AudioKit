@@ -90,7 +90,7 @@
 - (NSString *)stringForCSD {
         // Constant Values  
         AKConstant *_amplitude = akp(1.0);    
-        AKConstant *_strikeImpulseTable = akp();    
+        AKConstant *_strikeImpulseTable = akp(0);
         return [NSString stringWithFormat:
             @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@, %@",
             self,
