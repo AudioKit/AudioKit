@@ -19,8 +19,8 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            _intensity = intensity;
-                _dampingFactor = dampingFactor;
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
         
     }
     return self;
@@ -31,15 +31,15 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         
-    // Default Values   
-            _intensity = akp(30);        
-            _dampingFactor = akp(0.3);            
+        // Default Values
+        _intensity = akp(30);
+        _dampingFactor = akp(0.3);
     }
     return self;
 }
 
 + (instancetype)audio
- {
+{
     return [[AKStick alloc] init];
 }
 
@@ -52,11 +52,11 @@
 }
 
 - (NSString *)stringForCSD {
-        // Constant Values  
-        AKConstant *_amplitude = akp(1);    
-        AKConstant *_energyReturn = akp(0);    
-        AKConstant *_maximumDuration = akp(1);    
-        return [NSString stringWithFormat:
+    // Constant Values
+    AKConstant *_amplitude = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_maximumDuration = akp(1);
+    return [NSString stringWithFormat:
             @"%@ stix %@, %@, %@, %@, %@",
             self,
             _amplitude,
