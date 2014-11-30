@@ -12,43 +12,14 @@
 
 static int currentID = 1;
 
-+(void) resetID {
-    currentID = 1;
-}
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and String Representation
+// -----------------------------------------------------------------------------
 
 - (instancetype)init
 {
     self = [super init];
     _myID = currentID++;
-    return self;
-}
-
-- (instancetype)initWithString:(NSString *)name
-{
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-        _parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
-    }
-    return self;
-}
-
-- (instancetype)initGlobalWithString:(NSString *)name
-{
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-        _parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
-    }
-    return self;
-}
-
-- (instancetype)initWithExpression:(NSString *)expression
-{
-    self = [super init];
-    if (self) {
-        _parameterString = [NSString stringWithString:expression];
-    }
     return self;
 }
 
@@ -62,6 +33,16 @@ static int currentID = 1;
     return [[self alloc] initGlobalWithString:@"Global"];
 }
 
+- (instancetype)initGlobalWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+        _parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
+    }
+    return self;
+}
+
 + (instancetype)globalParameterWithString:(NSString *)name
 {
     return [[self alloc] initGlobalWithString:name];
@@ -71,42 +52,32 @@ static int currentID = 1;
     return _parameterString;
 }
 
-- (instancetype)plus:(AKParameter *)additionalParameter
+- (instancetype)initWithString:(NSString *)name
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) + (%@))", self, additionalParameter]];
-    return new;
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+        _parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
+    }
+    return self;
 }
 
-- (instancetype)scaledBy:(AKParameter *)scalingFactor
+- (instancetype)initWithExpression:(NSString *)expression
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) * (%@))", self, scalingFactor]];
-    return new;
+    self = [super init];
+    if (self) {
+        _parameterString = [NSString stringWithString:expression];
+    }
+    return self;
 }
 
-- (instancetype)dividedBy:(AKParameter *)divisor
-{
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) / (%@))", self, divisor]];
-    return new;
++(void) resetID {
+    currentID = 1;
 }
 
-- (instancetype)inverse
-{
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"(1/(%@))", self]];
-    return new;
-}
-
-- (instancetype)amplitudeFromFullScaleDecibel;
-{
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
-    return new;
-}
-
-
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and Range Definition
+// -----------------------------------------------------------------------------
 
 - (instancetype)initWithValue:(float)initialValue
 {
@@ -157,6 +128,46 @@ static int currentID = 1;
 {
     float width = self.maximum - self.minimum;
     [self setValue:(((float) rand() / RAND_MAX) * width) + self.minimum];
+}
+
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Helper Functions
+// -----------------------------------------------------------------------------
+
+- (instancetype)plus:(AKParameter *)additionalParameter
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) + (%@))", self, additionalParameter]];
+    return new;
+}
+
+- (instancetype)scaledBy:(AKParameter *)scalingFactor
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) * (%@))", self, scalingFactor]];
+    return new;
+}
+
+- (instancetype)dividedBy:(AKParameter *)divisor
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) / (%@))", self, divisor]];
+    return new;
+}
+
+- (instancetype)inverse
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"(1/(%@))", self]];
+    return new;
+}
+
+- (instancetype)amplitudeFromFullScaleDecibel;
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
+    return new;
 }
 
 
