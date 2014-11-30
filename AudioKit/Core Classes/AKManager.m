@@ -30,7 +30,6 @@
 #  pragma mark - Singleton Setup
 // -----------------------------------------------------------------------------
 
-
 static AKManager *_sharedAKManager = nil;
 
 + (AKManager *)sharedAKManager

@@ -12,6 +12,10 @@
  slower rate variables. 
  */
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Shortcuts for AKConstant creation
+// -----------------------------------------------------------------------------
+
 #define akp(__f__)  [AKConstant constantWithFloat:__f__]
 #define akpi(__i__) [AKConstant constantWithInt:__i__]
 #define akps(__s__) [AKConstant parameterWithString:__s__]
@@ -23,6 +27,10 @@
 {
     int _myID;
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and String Representation
+// -----------------------------------------------------------------------------
 
 // The CSD Text representation of the parameter's name
 @property (nonatomic, strong) NSString *parameterString;
@@ -47,24 +55,9 @@
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
 
-/// Helper function to create a new AKParameter combined with the original
-/// @param additionalParameter The additional parameter (should be of the same type)
-- (instancetype)plus:(AKParameter *)additionalParameter;
-
-/// Helper function to create a new AKParameter with the output scaled by another parameter
-/// @param scalingFactor The scaling factor should be multiplied by
-- (instancetype)scaledBy:(AKParameter *)scalingFactor;
-
-/// Helper function to create a new AKParameter with the output scaled
-/// @param divisor The scaling factor should be divided by
-- (instancetype)dividedBy:(AKParameter *)divisor;
-
-/// Helper function to return one-over-this-parameter
-- (instancetype)inverse;
-
-/// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
-- (instancetype)amplitudeFromFullScaleDecibel;
-
+// -----------------------------------------------------------------------------
+#  pragma mark - Current, Initial, Minimum, and Maximum Properties
+// -----------------------------------------------------------------------------
 
 /// Current value of the parameter.
 @property (nonatomic, assign) float value;
@@ -77,6 +70,10 @@
 
 /// Maximum Value allowed.
 @property (nonatomic, assign) float maximum;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and Range Definition
+// -----------------------------------------------------------------------------
 
 /// Initialize the control with an initial value and bounds.
 /// @param initialValue Initial value.
@@ -109,5 +106,27 @@
 
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Helper Functions
+// -----------------------------------------------------------------------------
+
+/// Helper function to create a new AKParameter combined with the original
+/// @param additionalParameter The additional parameter (should be of the same type)
+- (instancetype)plus:(AKParameter *)additionalParameter;
+
+/// Helper function to create a new AKParameter with the output scaled by another parameter
+/// @param scalingFactor The scaling factor should be multiplied by
+- (instancetype)scaledBy:(AKParameter *)scalingFactor;
+
+/// Helper function to create a new AKParameter with the output scaled
+/// @param divisor The scaling factor should be divided by
+- (instancetype)dividedBy:(AKParameter *)divisor;
+
+/// Helper function to return one-over-this-parameter
+- (instancetype)inverse;
+
+/// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
+- (instancetype)amplitudeFromFullScaleDecibel;
 
 @end
