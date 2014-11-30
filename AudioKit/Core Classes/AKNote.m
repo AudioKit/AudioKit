@@ -17,6 +17,11 @@
 }
 
 static int currentID = 1;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization
+// -----------------------------------------------------------------------------
+
 + (void)resetID { currentID = 1; }
 
 - (instancetype)init
@@ -63,6 +68,31 @@ static int currentID = 1;
     }
 }
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Properties and Property Management
+// -----------------------------------------------------------------------------
+
+
+- (void) addProperty:(AKNoteProperty *)newProperty
+            withName:(NSString *)name
+{
+    [self.properties setValue:newProperty forKey:name];
+    [propOrder addObject:name];
+    [newProperty setPValue:(int)propOrder.count + 3];
+    [newProperty setNote:self];
+}
+
+- (void) addProperty:(AKNoteProperty *)newProperty
+{
+    [self addProperty:newProperty withName:[newProperty description]];
+}
+
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Playback Controls
+// -----------------------------------------------------------------------------
+
+
 - (void)play {
     [[AKManager sharedAKManager] updateNote:self];
     isPlaying = YES;
@@ -91,19 +121,6 @@ static int currentID = 1;
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 
-- (void) addProperty:(AKNoteProperty *)newProperty
-            withName:(NSString *)name
-{
-    [self.properties setValue:newProperty forKey:name];
-    [propOrder addObject:name];
-    [newProperty setPValue:(int)propOrder.count + 3];
-    [newProperty setNote:self];
-}
-
-- (void) addProperty:(AKNoteProperty *)newProperty
-{
-    [self addProperty:newProperty withName:[newProperty description]];
-}
 
 
 @end
