@@ -81,7 +81,7 @@
 		C48820221A2970A800E46B03 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C4881F271A2970A800E46B03 /* mandpluk.aif */; };
 		C48820231A2970A800E46B03 /* AKMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881F2A1A2970A800E46B03 /* AKMarimba.m */; };
 		C48820241A2970A800E46B03 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4881F2B1A2970A800E46B03 /* marmstk1.wav */; };
-		C48820251A2970A800E46B03 /* AKBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881F2E1A2970A800E46B03 /* AKBamboo.m */; };
+		C48820251A2970A800E46B03 /* AKBambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881F2E1A2970A800E46B03 /* AKBambooSticks.m */; };
 		C48820261A2970A800E46B03 /* AKCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881F301A2970A800E46B03 /* AKCabasa.m */; };
 		C48820271A2970A800E46B03 /* AKCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881F321A2970A800E46B03 /* AKCrunch.m */; };
 		C48820281A2970A800E46B03 /* AKDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C4881F341A2970A800E46B03 /* AKDroplet.m */; };
@@ -345,8 +345,8 @@
 		C4881F291A2970A800E46B03 /* AKMarimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMarimba.h; sourceTree = "<group>"; };
 		C4881F2A1A2970A800E46B03 /* AKMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMarimba.m; sourceTree = "<group>"; };
 		C4881F2B1A2970A800E46B03 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
-		C4881F2D1A2970A800E46B03 /* AKBamboo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBamboo.h; sourceTree = "<group>"; };
-		C4881F2E1A2970A800E46B03 /* AKBamboo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBamboo.m; sourceTree = "<group>"; };
+		C4881F2D1A2970A800E46B03 /* AKBambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBambooSticks.h; sourceTree = "<group>"; };
+		C4881F2E1A2970A800E46B03 /* AKBambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBambooSticks.m; sourceTree = "<group>"; };
 		C4881F2F1A2970A800E46B03 /* AKCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCabasa.h; sourceTree = "<group>"; };
 		C4881F301A2970A800E46B03 /* AKCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCabasa.m; sourceTree = "<group>"; };
 		C4881F311A2970A800E46B03 /* AKCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrunch.h; sourceTree = "<group>"; };
@@ -983,8 +983,8 @@
 		C4881F2C1A2970A800E46B03 /* PhISEM */ = {
 			isa = PBXGroup;
 			children = (
-				C4881F2D1A2970A800E46B03 /* AKBamboo.h */,
-				C4881F2E1A2970A800E46B03 /* AKBamboo.m */,
+				C4881F2D1A2970A800E46B03 /* AKBambooSticks.h */,
+				C4881F2E1A2970A800E46B03 /* AKBambooSticks.m */,
 				C4881F2F1A2970A800E46B03 /* AKCabasa.h */,
 				C4881F301A2970A800E46B03 /* AKCabasa.m */,
 				C4881F311A2970A800E46B03 /* AKCrunch.h */,
@@ -1433,7 +1433,7 @@
 				C48820321A2970A800E46B03 /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				C48820181A2970A800E46B03 /* AKSineOscillator.m in Sources */,
 				C48820171A2970A800E46B03 /* AKOscillator.m in Sources */,
-				C48820251A2970A800E46B03 /* AKBamboo.m in Sources */,
+				C48820251A2970A800E46B03 /* AKBambooSticks.m in Sources */,
 				C4881FF11A2970A800E46B03 /* AKTrackedAmplitude.m in Sources */,
 				C4881FF21A2970A800E46B03 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
 				C4881C451A296A7D00E46B03 /* ViewController.swift in Sources */,
@@ -1668,7 +1668,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
+					"../../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftKeyboard/Bridging-Header.h";
@@ -1684,7 +1684,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/h4y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftKeyboard/Bridging-Header.h";
