@@ -21,6 +21,8 @@ class Instrument : AKInstrument {
         connect(oscil)
         
         let operation = AKPluckedString(excitationSignal: oscil)
+        operation.setOptionalPluckPosition(0.01.ak)
+        operation.setOptionalReflectionCoefficient(0.7.ak)
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }

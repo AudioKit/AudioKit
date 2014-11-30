@@ -84,7 +84,7 @@
 		C478C38A1A09F50600705D4E /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C478C2901A09F50600705D4E /* mandpluk.aif */; };
 		C478C38B1A09F50600705D4E /* AKMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C478C2931A09F50600705D4E /* AKMarimba.m */; };
 		C478C38C1A09F50600705D4E /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C478C2941A09F50600705D4E /* marmstk1.wav */; };
-		C478C38D1A09F50600705D4E /* AKBamboo.m in Sources */ = {isa = PBXBuildFile; fileRef = C478C2971A09F50600705D4E /* AKBamboo.m */; };
+		C478C38D1A09F50600705D4E /* AKBambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = C478C2971A09F50600705D4E /* AKBambooSticks.m */; };
 		C478C38E1A09F50600705D4E /* AKCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C478C2991A09F50600705D4E /* AKCabasa.m */; };
 		C478C38F1A09F50600705D4E /* AKCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C478C29B1A09F50600705D4E /* AKCrunch.m */; };
 		C478C3901A09F50600705D4E /* AKDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C478C29D1A09F50600705D4E /* AKDroplet.m */; };
@@ -338,8 +338,8 @@
 		C478C2921A09F50600705D4E /* AKMarimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMarimba.h; sourceTree = "<group>"; };
 		C478C2931A09F50600705D4E /* AKMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMarimba.m; sourceTree = "<group>"; };
 		C478C2941A09F50600705D4E /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
-		C478C2961A09F50600705D4E /* AKBamboo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBamboo.h; sourceTree = "<group>"; };
-		C478C2971A09F50600705D4E /* AKBamboo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBamboo.m; sourceTree = "<group>"; };
+		C478C2961A09F50600705D4E /* AKBambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBambooSticks.h; sourceTree = "<group>"; };
+		C478C2971A09F50600705D4E /* AKBambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBambooSticks.m; sourceTree = "<group>"; };
 		C478C2981A09F50600705D4E /* AKCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCabasa.h; sourceTree = "<group>"; };
 		C478C2991A09F50600705D4E /* AKCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCabasa.m; sourceTree = "<group>"; };
 		C478C29A1A09F50600705D4E /* AKCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrunch.h; sourceTree = "<group>"; };
@@ -964,8 +964,8 @@
 		C478C2951A09F50600705D4E /* PhISEM */ = {
 			isa = PBXGroup;
 			children = (
-				C478C2961A09F50600705D4E /* AKBamboo.h */,
-				C478C2971A09F50600705D4E /* AKBamboo.m */,
+				C478C2961A09F50600705D4E /* AKBambooSticks.h */,
+				C478C2971A09F50600705D4E /* AKBambooSticks.m */,
 				C478C2981A09F50600705D4E /* AKCabasa.h */,
 				C478C2991A09F50600705D4E /* AKCabasa.m */,
 				C478C29A1A09F50600705D4E /* AKCrunch.h */,
@@ -1345,7 +1345,7 @@
 				C4398C9819628CBC0076F005 /* ViewController.m in Sources */,
 				C478C3481A09F50600705D4E /* AKEvent.m in Sources */,
 				C478C3791A09F50600705D4E /* AKLinearAudioEnvelope.m in Sources */,
-				C478C38D1A09F50600705D4E /* AKBamboo.m in Sources */,
+				C478C38D1A09F50600705D4E /* AKBambooSticks.m in Sources */,
 				C478C3B41A09F50600705D4E /* AKEqualizerFilter.m in Sources */,
 				C478C3D31A09F50600705D4E /* AKCompositeWaveformsFromSines.m in Sources */,
 				C478C34B1A09F50600705D4E /* AKMidi.m in Sources */,
