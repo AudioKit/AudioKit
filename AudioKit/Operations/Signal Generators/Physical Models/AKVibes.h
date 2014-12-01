@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Customized by Aurelius Prochazka on 11/30/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -25,7 +26,6 @@
 /// @param tremoloFrequency Frequency of tremolo in Hertz. Suggested range is 0 to 12
 /// @param tremoloAmplitude Amplitude of the tremolo
 - (instancetype)initWithFrequency:(AKControl *)frequency
-                  maximumDuration:(AKConstant *)maximumDuration
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
                 tremoloShapeTable:(AKFTable *)tremoloShapeTable
@@ -42,35 +42,27 @@
 
 
 
-/// Frequency of note played. [Default Value: 440]
+/// Frequency of note played. [Default Value: 220]
 @property AKControl *frequency;
 
 /// Set an optional frequency
-/// @param frequency Frequency of note played. [Default Value: 440]
+/// @param frequency Frequency of note played. [Default Value: 220]
 - (void)setOptionalFrequency:(AKControl *)frequency;
 
 
-/// Time before end of note when damping is introduced [Default Value: 0.5]
-@property AKConstant *maximumDuration;
-
-/// Set an optional maximum duration
-/// @param maximumDuration Time before end of note when damping is introduced [Default Value: 0.5]
-- (void)setOptionalMaximumDuration:(AKConstant *)maximumDuration;
-
-
-/// The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value. [Default Value: 0.5]
+/// The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value. [Default Value: 0.1]
 @property AKConstant *stickHardness;
 
 /// Set an optional stick hardness
-/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value. [Default Value: 0.5]
+/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value. [Default Value: 0.1]
 - (void)setOptionalStickHardness:(AKConstant *)stickHardness;
 
 
-/// Where the block is hit, in the range 0 to 1. [Default Value: 0]
+/// Where the block is hit, in the range 0 to 1. [Default Value: 0.1]
 @property AKConstant *strikePosition;
 
 /// Set an optional strike position
-/// @param strikePosition Where the block is hit, in the range 0 to 1. [Default Value: 0]
+/// @param strikePosition Where the block is hit, in the range 0 to 1. [Default Value: 0.1]
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition;
 
 
@@ -82,11 +74,11 @@
 - (void)setOptionalTremoloShapeTable:(AKFTable *)tremoloShapeTable;
 
 
-/// Frequency of tremolo in Hertz. Suggested range is 0 to 12 [Default Value: 6]
+/// Frequency of tremolo in Hertz. Suggested range is 0 to 12 [Default Value: 0]
 @property AKControl *tremoloFrequency;
 
 /// Set an optional tremolo frequency
-/// @param tremoloFrequency Frequency of tremolo in Hertz. Suggested range is 0 to 12 [Default Value: 6]
+/// @param tremoloFrequency Frequency of tremolo in Hertz. Suggested range is 0 to 12 [Default Value: 0]
 - (void)setOptionalTremoloFrequency:(AKControl *)tremoloFrequency;
 
 
