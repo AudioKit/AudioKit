@@ -85,7 +85,7 @@
     // Constant Values
     AKConstant *_amplitude = akp(1.0);
     AKConstant *_maximumDuration = akp(1);
-    NSLog(@"%@ %@", [[AKManager sharedAKManager] fullPathToAudioKit], [NSString class]);
+
     NSString *file;
     if ([[[AKManager sharedAKManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
         file = [[AKManager sharedAKManager] fullPathToAudioKit];
