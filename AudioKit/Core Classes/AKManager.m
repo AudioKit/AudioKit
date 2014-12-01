@@ -42,6 +42,10 @@ static AKManager *_sharedAKManager = nil;
     return nil;
 }
 
++ (AKSineTable *)standardSineTable {
+    return [[AKManager sharedAKManager] standardSineTable];
+}
+
 + (id)alloc {
     @synchronized([AKManager class]) {
         NSAssert(_sharedAKManager == nil, @"Attempted to allocate a 2nd AKManager");
@@ -118,6 +122,7 @@ static AKManager *_sharedAKManager = nil;
         _midi = [[AKMidi alloc] init];
         
         _standardSineTable = [[AKSineTable alloc] init];
+        _fullPathToAudioKit = nil;
     }
     return self;
 }   

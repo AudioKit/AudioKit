@@ -10,16 +10,16 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let oscil = AKOscillator(
-            FTable: AKManager.sharedAKManager().standardSineTable,
+            FTable: AKManager.standardSineTable,
             frequency: 1.ak,
             amplitude: 1.ak)
         connect(oscil)
-        
+
         let operation = AKPluckedString(excitationSignal: oscil)
         operation.setOptionalPluckPosition(0.01.ak)
         operation.setOptionalReflectionCoefficient(0.7.ak)
