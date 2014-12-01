@@ -42,7 +42,7 @@
     if (self) {
         
         // Default Values
-        _fTable = [AKManager sharedAKManager].standardSineTable;
+        _fTable = [AKManager standardSineTable];
         
         _baseFrequency = akp(440);
         _carrierMultiplier = akp(1);

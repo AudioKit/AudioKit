@@ -30,6 +30,9 @@
 @property (readonly) AKMidi *midi;
 
 @property AKSineTable *standardSineTable;
++ (AKSineTable *)standardSineTable;
+
+@property NSString *fullPathToAudioKit;
 
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedAKManager;

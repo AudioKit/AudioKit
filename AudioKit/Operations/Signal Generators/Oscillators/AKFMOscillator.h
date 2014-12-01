@@ -42,11 +42,11 @@
 
 
 
-/// fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: AKManager.sharedAKManager().standardSineTable]
+/// fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: AKManager.standardSineTable]
 @property AKFTable *fTable;
 
 /// Set an optional f table
-/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: AKManager.sharedAKManager().standardSineTable]
+/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: AKManager.standardSineTable]
 - (void)setOptionalFTable:(AKFTable *)fTable;
 
 
