@@ -103,7 +103,6 @@
 #import "AKFMOscillator.h"
 #import "AKOscillatingControl.h"
 #import "AKOscillator.h"
-#import "AKSineOscillator.h"
 #import "AKVCOscillator.h"
 
 // Operations - Signal Generators - Oscillators - Low Frequency Oscillators
