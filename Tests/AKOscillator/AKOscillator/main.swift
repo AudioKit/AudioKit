@@ -13,7 +13,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKFMOscillator()
+        let operation = AKOscillator()
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
