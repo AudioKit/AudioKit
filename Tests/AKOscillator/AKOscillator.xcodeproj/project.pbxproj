@@ -456,7 +456,7 @@
 		C47913D81A29352F00D9807B /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C47913D91A29352F00D9807B /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C47913DA1A29352F00D9807B /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
-		C4A396AF1A213BEA00E8FB4D /* AKFMOscillator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AKFMOscillator; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4A396AF1A213BEA00E8FB4D /* AKOscillator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AKOscillator; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A396B21A213BEA00E8FB4D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C4A398BD1A213D4300E8FB4D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4A398C11A213D6D00E8FB4D /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
@@ -1132,7 +1132,7 @@
 			isa = PBXGroup;
 			children = (
 				C47912681A29352F00D9807B /* AudioKit */,
-				C4A396B11A213BEA00E8FB4D /* AKFMOscillator */,
+				C4A396B11A213BEA00E8FB4D /* AKOscillator */,
 				C4A398BF1A213D4800E8FB4D /* Frameworks */,
 				C4A396B01A213BEA00E8FB4D /* Products */,
 			);
@@ -1141,18 +1141,18 @@
 		C4A396B01A213BEA00E8FB4D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4A396AF1A213BEA00E8FB4D /* AKFMOscillator */,
+				C4A396AF1A213BEA00E8FB4D /* AKOscillator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C4A396B11A213BEA00E8FB4D /* AKFMOscillator */ = {
+		C4A396B11A213BEA00E8FB4D /* AKOscillator */ = {
 			isa = PBXGroup;
 			children = (
 				C4A396B21A213BEA00E8FB4D /* main.swift */,
 				C4A398D51A213EC600E8FB4D /* Bridging-Header.h */,
 			);
-			path = AKFMOscillator;
+			path = AKOscillator;
 			sourceTree = "<group>";
 		};
 		C4A398BF1A213D4800E8FB4D /* Frameworks */ = {
@@ -1175,9 +1175,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4A396AE1A213BEA00E8FB4D /* AKFMOscillator */ = {
+		C4A396AE1A213BEA00E8FB4D /* AKOscillator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKFMOscillator" */;
+			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKOscillator" */;
 			buildPhases = (
 				C4A396AB1A213BEA00E8FB4D /* Sources */,
 				C4A396AC1A213BEA00E8FB4D /* Frameworks */,
@@ -1187,9 +1187,9 @@
 			);
 			dependencies = (
 			);
-			name = AKFMOscillator;
-			productName = AKFMOscillator;
-			productReference = C4A396AF1A213BEA00E8FB4D /* AKFMOscillator */;
+			name = AKOscillator;
+			productName = AKOscillator;
+			productReference = C4A396AF1A213BEA00E8FB4D /* AKOscillator */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -1206,7 +1206,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKFMOscillator" */;
+			buildConfigurationList = C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKOscillator" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1218,7 +1218,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C4A396AE1A213BEA00E8FB4D /* AKFMOscillator */,
+				C4A396AE1A213BEA00E8FB4D /* AKOscillator */,
 			);
 		};
 /* End PBXProject section */
@@ -1466,7 +1466,7 @@
 					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "AKFMOscillator/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "AKOscillator/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1487,14 +1487,14 @@
 					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "AKFMOscillator/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "AKOscillator/Bridging-Header.h";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKFMOscillator" */ = {
+		C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKOscillator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B41A213BEA00E8FB4D /* Debug */,
@@ -1503,7 +1503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKFMOscillator" */ = {
+		C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKOscillator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B71A213BEA00E8FB4D /* Debug */,

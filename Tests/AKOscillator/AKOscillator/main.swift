@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/28/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/1/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKFMOscillator()
+        let operation = AKOscillator()
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
