@@ -17,14 +17,14 @@
 @interface AKOscillator : AKAudio
 
 /// Instantiates the oscillator with all values
-/// @param fTable Requires a wrap-around guard point
 /// @param frequency Frequency in cycles per second
 /// @param amplitude Amplitude of the output
+/// @param fTable Requires a wrap-around guard point
 /// @param phase Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0.
-- (instancetype)initWithFTable:(AKFTable *)fTable
-                     frequency:(AKParameter *)frequency
-                     amplitude:(AKParameter *)amplitude
-                         phase:(AKConstant *)phase;
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
+                           fTable:(AKFTable *)fTable
+                            phase:(AKConstant *)phase;
 
 /// Instantiates the oscillator with default values
 - (instancetype)init;
@@ -34,14 +34,6 @@
 + (instancetype)audio;
 
 
-
-
-/// Requires a wrap-around guard point [Default Value: sine]
-@property AKFTable *fTable;
-
-/// Set an optional f table
-/// @param fTable Requires a wrap-around guard point [Default Value: sine]
-- (void)setOptionalFTable:(AKFTable *)fTable;
 
 
 /// Frequency in cycles per second [Default Value: 440]
@@ -58,6 +50,14 @@
 /// Set an optional amplitude
 /// @param amplitude Amplitude of the output [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
+
+
+/// Requires a wrap-around guard point [Default Value: sine]
+@property AKFTable *fTable;
+
+/// Set an optional f table
+/// @param fTable Requires a wrap-around guard point [Default Value: sine]
+- (void)setOptionalFTable:(AKFTable *)fTable;
 
 
 /// Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0. [Default Value: 0]
