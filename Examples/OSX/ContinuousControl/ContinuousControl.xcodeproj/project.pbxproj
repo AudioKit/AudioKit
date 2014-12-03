@@ -55,7 +55,6 @@
 		C41D647B19F2333000269203 /* AKFMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637119F2332F00269203 /* AKFMOscillator.m */; };
 		C41D647C19F2333000269203 /* AKOscillatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637319F2332F00269203 /* AKOscillatingControl.m */; };
 		C41D647D19F2333000269203 /* AKOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637519F2332F00269203 /* AKOscillator.m */; };
-		C41D647E19F2333000269203 /* AKSineOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637719F2332F00269203 /* AKSineOscillator.m */; };
 		C41D647F19F2333000269203 /* AKVCOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637919F2332F00269203 /* AKVCOscillator.m */; };
 		C41D648019F2333000269203 /* AKLowFrequencyOscillatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637C19F2332F00269203 /* AKLowFrequencyOscillatingControl.m */; };
 		C41D648119F2333000269203 /* AKLowFrequencyOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D637E19F2332F00269203 /* AKLowFrequencyOscillator.m */; };
@@ -263,8 +262,6 @@
 		C41D637319F2332F00269203 /* AKOscillatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOscillatingControl.m; sourceTree = "<group>"; };
 		C41D637419F2332F00269203 /* AKOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillator.h; sourceTree = "<group>"; };
 		C41D637519F2332F00269203 /* AKOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOscillator.m; sourceTree = "<group>"; };
-		C41D637619F2332F00269203 /* AKSineOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSineOscillator.h; sourceTree = "<group>"; };
-		C41D637719F2332F00269203 /* AKSineOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSineOscillator.m; sourceTree = "<group>"; };
 		C41D637819F2332F00269203 /* AKVCOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVCOscillator.h; sourceTree = "<group>"; };
 		C41D637919F2332F00269203 /* AKVCOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVCOscillator.m; sourceTree = "<group>"; };
 		C41D637B19F2332F00269203 /* AKLowFrequencyOscillatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowFrequencyOscillatingControl.h; sourceTree = "<group>"; };
@@ -737,8 +734,6 @@
 				C41D637319F2332F00269203 /* AKOscillatingControl.m */,
 				C41D637419F2332F00269203 /* AKOscillator.h */,
 				C41D637519F2332F00269203 /* AKOscillator.m */,
-				C41D637619F2332F00269203 /* AKSineOscillator.h */,
-				C41D637719F2332F00269203 /* AKSineOscillator.m */,
 				C41D637819F2332F00269203 /* AKVCOscillator.h */,
 				C41D637919F2332F00269203 /* AKVCOscillator.m */,
 				C41D637A19F2332F00269203 /* Low Frequency Oscillators */,
@@ -1301,7 +1296,6 @@
 				C41D644A19F2333000269203 /* AKMidi.m in Sources */,
 				C41D649819F2333000269203 /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				C41D64D719F2333000269203 /* AKSoundFileTable.m in Sources */,
-				C41D647E19F2333000269203 /* AKSineOscillator.m in Sources */,
 				C41D647D19F2333000269203 /* AKOscillator.m in Sources */,
 				C41D64D119F2333000269203 /* AKCompositeWaveformsFromSines.m in Sources */,
 				C41D648B19F2333000269203 /* AKBambooSticks.m in Sources */,
