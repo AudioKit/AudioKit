@@ -14,16 +14,16 @@
 
 @implementation AKOscillator
 
-- (instancetype)initWithFrequency:(AKParameter *)frequency
-                        amplitude:(AKParameter *)amplitude
-                           fTable:(AKFTable *)fTable
-                            phase:(AKConstant *)phase
+- (instancetype)initWithFTable:(AKFTable *)fTable
+                     frequency:(AKParameter *)frequency
+                     amplitude:(AKParameter *)amplitude
+                         phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            _frequency = frequency;
+            _fTable = fTable;
+                _frequency = frequency;
                 _amplitude = amplitude;
-                _fTable = fTable;
                 _phase = phase;
         
     }
@@ -36,10 +36,10 @@
     if (self) {
         
     // Default Values   
-            _frequency = akp(440);        
-            _amplitude = akp(1);        
            _fTable = [AKManager standardSineTable];
             
+            _frequency = akp(440);        
+            _amplitude = akp(1);        
             _phase = akp(0);            
     }
     return self;
@@ -50,16 +50,16 @@
     return [[AKOscillator alloc] init];
 }
 
+- (void)setOptionalFTable:(AKFTable *)fTable {
+    _fTable = fTable;
+}
+
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
 
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
-}
-
-- (void)setOptionalFTable:(AKFTable *)fTable {
-    _fTable = fTable;
 }
 
 - (void)setOptionalPhase:(AKConstant *)phase {
