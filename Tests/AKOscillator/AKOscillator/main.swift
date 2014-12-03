@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/1/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/2/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
