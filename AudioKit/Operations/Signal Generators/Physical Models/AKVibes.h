@@ -19,7 +19,6 @@
 
 /// Instantiates the vibes with all values
 /// @param frequency Frequency of note played.
-/// @param maximumDuration Time before end of note when damping is introduced
 /// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value.
 /// @param strikePosition Where the block is hit, in the range 0 to 1.
 /// @param tremoloShapeTable Shape of tremolo, usually a sine table, created by a function
