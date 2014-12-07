@@ -436,6 +436,9 @@ OSStatus  Csound_Render(void *inRefCon,
     @autoreleasepool {
         CSOUND *cs;
         
+        // AURE: Move to somewhere else
+        csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib64.framework/Resources/Opcodes64");
+        
         cs = csoundCreate(NULL);
         
         csoundSetMessageCallback(cs, messageCallback);

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C462E36E1A32719E00F80B56 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
+		C462E36F1A32733D00F80B56 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
 		C47913DD1A29352F00D9807B /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912701A29352F00D9807B /* AKEvent.m */; };
 		C47913DE1A29352F00D9807B /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912731A29352F00D9807B /* AKInstrument.m */; };
 		C47913DF1A29352F00D9807B /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912751A29352F00D9807B /* AKManager.m */; };
@@ -146,31 +148,23 @@
 		C479146A1A29352F00D9807B /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913D81A29352F00D9807B /* AKInstrumentProperty.m */; };
 		C479146B1A29352F00D9807B /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913DA1A29352F00D9807B /* AKNoteProperty.m */; };
 		C4A396B31A213BEA00E8FB4D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A396B21A213BEA00E8FB4D /* main.swift */; };
-		C4A398C01A213D5E00E8FB4D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398BD1A213D4300E8FB4D /* AVFoundation.framework */; };
-		C4A398C71A213D6D00E8FB4D /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398C11A213D6D00E8FB4D /* CsoundLib64.framework */; };
-		C4A398C81A213D6D00E8FB4D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398C21A213D6D00E8FB4D /* QuartzCore.framework */; };
-		C4A398C91A213D6D00E8FB4D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398C31A213D6D00E8FB4D /* Cocoa.framework */; };
-		C4A398CA1A213D6D00E8FB4D /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398C41A213D6D00E8FB4D /* AudioUnit.framework */; };
-		C4A398CB1A213D6D00E8FB4D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398C51A213D6D00E8FB4D /* AudioToolbox.framework */; };
-		C4A398CC1A213D6D00E8FB4D /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398C61A213D6D00E8FB4D /* CoreMIDI.framework */; };
-		C4A398D01A213D8000E8FB4D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398CD1A213D8000E8FB4D /* AppKit.framework */; };
-		C4A398D11A213D8000E8FB4D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398CE1A213D8000E8FB4D /* CoreData.framework */; };
-		C4A398D21A213D8000E8FB4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A398CF1A213D8000E8FB4D /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C4A396AD1A213BEA00E8FB4D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				C462E36F1A32733D00F80B56 /* CsoundLib64.framework in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C462E36D1A32719E00F80B56 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib64.framework; sourceTree = "<group>"; };
 		C479126F1A29352F00D9807B /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C47912701A29352F00D9807B /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C47912711A29352F00D9807B /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -455,16 +449,6 @@
 		C47913DA1A29352F00D9807B /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		C4A396AF1A213BEA00E8FB4D /* AKBowedString */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AKBowedString; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A396B21A213BEA00E8FB4D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		C4A398BD1A213D4300E8FB4D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C4A398C11A213D6D00E8FB4D /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../../../../Library/Frameworks/CsoundLib64.framework; sourceTree = "<group>"; };
-		C4A398C21A213D6D00E8FB4D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C4A398C31A213D6D00E8FB4D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		C4A398C41A213D6D00E8FB4D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
-		C4A398C51A213D6D00E8FB4D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		C4A398C61A213D6D00E8FB4D /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
-		C4A398CD1A213D8000E8FB4D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		C4A398CE1A213D8000E8FB4D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C4A398CF1A213D8000E8FB4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C4A398D51A213EC600E8FB4D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -473,16 +457,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4A398C01A213D5E00E8FB4D /* AVFoundation.framework in Frameworks */,
-				C4A398C71A213D6D00E8FB4D /* CsoundLib64.framework in Frameworks */,
-				C4A398C81A213D6D00E8FB4D /* QuartzCore.framework in Frameworks */,
-				C4A398C91A213D6D00E8FB4D /* Cocoa.framework in Frameworks */,
-				C4A398CA1A213D6D00E8FB4D /* AudioUnit.framework in Frameworks */,
-				C4A398CB1A213D6D00E8FB4D /* AudioToolbox.framework in Frameworks */,
-				C4A398CC1A213D6D00E8FB4D /* CoreMIDI.framework in Frameworks */,
-				C4A398D01A213D8000E8FB4D /* AppKit.framework in Frameworks */,
-				C4A398D11A213D8000E8FB4D /* CoreData.framework in Frameworks */,
-				C4A398D21A213D8000E8FB4D /* Foundation.framework in Frameworks */,
+				C462E36E1A32719E00F80B56 /* CsoundLib64.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +523,7 @@
 		C47912AB1A29352F00D9807B /* csound-OSX */ = {
 			isa = PBXGroup;
 			children = (
+				C462E36D1A32719E00F80B56 /* CsoundLib64.framework */,
 				C47912AC1A29352F00D9807B /* CsoundObj.h */,
 				C47912AD1A29352F00D9807B /* CsoundObj.m */,
 			);
@@ -1128,7 +1104,6 @@
 			children = (
 				C47912681A29352F00D9807B /* AudioKit */,
 				C4A396B11A213BEA00E8FB4D /* AKBowedString */,
-				C4A398BF1A213D4800E8FB4D /* Frameworks */,
 				C4A396B01A213BEA00E8FB4D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1148,23 +1123,6 @@
 				C4A398D51A213EC600E8FB4D /* Bridging-Header.h */,
 			);
 			path = AKBowedString;
-			sourceTree = "<group>";
-		};
-		C4A398BF1A213D4800E8FB4D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4A398CD1A213D8000E8FB4D /* AppKit.framework */,
-				C4A398CE1A213D8000E8FB4D /* CoreData.framework */,
-				C4A398CF1A213D8000E8FB4D /* Foundation.framework */,
-				C4A398C11A213D6D00E8FB4D /* CsoundLib64.framework */,
-				C4A398C21A213D6D00E8FB4D /* QuartzCore.framework */,
-				C4A398C31A213D6D00E8FB4D /* Cocoa.framework */,
-				C4A398C41A213D6D00E8FB4D /* AudioUnit.framework */,
-				C4A398C51A213D6D00E8FB4D /* AudioToolbox.framework */,
-				C4A398C61A213D6D00E8FB4D /* CoreMIDI.framework */,
-				C4A398BD1A213D4300E8FB4D /* AVFoundation.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1453,14 +1411,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "AKBowedString/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKBowedString/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1474,14 +1430,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "AKBowedString/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKBowedString/Bridging-Header.h";
 			};
 			name = Release;
 		};
