@@ -1505,6 +1505,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Convolution/Convolution-Prefix.pch";
@@ -1527,6 +1528,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Convolution/Convolution-Prefix.pch";
