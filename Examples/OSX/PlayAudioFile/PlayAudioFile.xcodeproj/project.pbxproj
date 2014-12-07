@@ -1509,7 +1509,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				INFOPLIST_FILE = "PlayAudioFile/PlayAudioFile-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -1532,7 +1531,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Library/Frameworks/CsoundLib64.framework/Headers,
 				);
 				INFOPLIST_FILE = "PlayAudioFile/PlayAudioFile-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
