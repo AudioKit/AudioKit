@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
 }
 
 // Set Up
-AKManager.sharedAKManager().fullPathToAudioKit = "/Users/aure/Developer/h4y/AudioKit/"
+AKManager.sharedAKManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit/"
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.test()
