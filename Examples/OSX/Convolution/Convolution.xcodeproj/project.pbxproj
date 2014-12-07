@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4276FD31A34211C00469EAF /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4BDEF521A32BD4200454915 /* CsoundLib64.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4780BB3198613DE000FD79F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4780BB1198613DE000FD79F /* InfoPlist.strings */; };
 		C4780BB5198613DE000FD79F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780BB4198613DE000FD79F /* main.m */; };
 		C4780BB9198613DE000FD79F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C4780BB7198613DE000FD79F /* Credits.rtf */; };
@@ -161,6 +162,19 @@
 		C4BDF1181A32BD4200454915 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF0821A32BD4200454915 /* AKAudioAnalyzer.m */; };
 		C4BDF1191A32BD4200454915 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF0841A32BD4200454915 /* LevelMeter.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4276FD11A341F6A00469EAF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4276FD31A34211C00469EAF /* CsoundLib64.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C4780BA5198613DE000FD79F /* Convolution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convolution.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1190,6 +1204,7 @@
 				C4780BA1198613DE000FD79F /* Sources */,
 				C4780BA2198613DE000FD79F /* Frameworks */,
 				C4780BA3198613DE000FD79F /* Resources */,
+				C4276FD11A341F6A00469EAF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1505,6 +1520,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Convolution/Convolution-Prefix.pch";
@@ -1527,6 +1543,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Convolution/Convolution-Prefix.pch";
