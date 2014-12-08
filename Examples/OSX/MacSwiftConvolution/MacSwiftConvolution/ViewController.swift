@@ -14,7 +14,7 @@ class ViewController: NSViewController {
 
     let conv = ConvolutionInstrument()
     
-    func viewDidLoad() {
+    override func viewDidLoad() {
         // Do any additional setup after loading the view, typically from a nib.
         AKOrchestra.addInstrument(conv)
         AKOrchestra.start()
