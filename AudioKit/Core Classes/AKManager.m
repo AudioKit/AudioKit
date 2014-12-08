@@ -37,6 +37,15 @@ static AKManager *_sharedAKManager = nil;
     @synchronized([AKManager class]) 
     {
         if(!_sharedAKManager) _sharedAKManager = [[self alloc] init];
+        NSString *name = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+        if (name) {
+            // This is an app that will contain the framework
+            NSString *opcodeDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/Opcodes64", name];
+            csoundSetGlobalEnv("OPCODE6DIR64", [opcodeDir cStringUsingEncoding:NSUTF8StringEncoding]);
+        } else {
+            // This is a command-line program that sits beside the framework
+            csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib64.framework/Resources/Opcodes64");
+        }
         return _sharedAKManager;
     }
     return nil;
