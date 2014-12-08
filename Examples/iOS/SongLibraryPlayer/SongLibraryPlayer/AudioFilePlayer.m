@@ -1,9 +1,9 @@
 //
 //  AudioFilePlayer.m
-//  Objective-C Sound Example
+//  Song Library Player Example
 //
 //  Created by Aurelius Prochazka on 6/16/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AudioFilePlayer.h"
@@ -19,21 +19,17 @@
                                                             minimum:0
                                                             maximum:1.0];
         [self addProperty:_reverbAmount];
+        
         _mix = [[AKInstrumentProperty alloc] initWithValue:0.5
                                                    minimum:0
                                                    maximum:1.0];
         [self addProperty:_mix];
 
         // INSTRUMENT DEFINITION ===============================================
-
-        NSString *file;
-        file = [[NSBundle mainBundle] pathForResource:@"exported" ofType:@"wav"];
         NSArray *docDirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *docDir = [docDirs objectAtIndex:0];
-        NSString *outPath = [[docDir stringByAppendingPathComponent:@"exported"]
+        NSString *file = [[docDir stringByAppendingPathComponent:@"exported"]
                              stringByAppendingPathExtension:@"wav"];
-
-        file = outPath;
 
         AKFileInput *fileIn = [[AKFileInput alloc] initWithFilename:file];
 
@@ -60,7 +56,6 @@
         // AUDIO OUTPUT ========================================================
 
         AKAudioOutput *audio;
-        //audio = [[AKAudioOutput alloc] initWithStereoAudioSource:[fileIn plus:reverb]];
         audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix
                                               rightAudio:rightMix];
 
@@ -68,19 +63,5 @@
     }
     return self;
 }
-
-@end
-
-@implementation AudioFilePlayerNote
-
-- (instancetype)init;
-{
-    self = [super init];
-    if(self) {
-
-    }
-    return self;
-}
-
 
 @end
