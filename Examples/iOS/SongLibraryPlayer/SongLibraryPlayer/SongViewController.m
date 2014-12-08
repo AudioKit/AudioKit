@@ -51,8 +51,7 @@
     global = [SharedStore globals];
     if ([[(UIButton *)sender titleLabel].text isEqualToString:@"Play"]) {
         [self loadSong];
-        global.currentPlayback = [[AudioFilePlayerNote alloc] init];
-        [global.audioFilePlayer playNote:global.currentPlayback];
+        [global.audioFilePlayer play];
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
         global.isPlaying = YES;
     } else {

@@ -14,10 +14,8 @@
 
 @interface SharedStore : NSObject
 
-@property (nonatomic, retain) AKOrchestra *orchestra;
 @property (nonatomic, retain) AudioFilePlayer *audioFilePlayer;
 @property (nonatomic, strong) MPMediaItem *currentSong;
-@property (nonatomic, strong) AudioFilePlayerNote *currentPlayback;
 @property (nonatomic) BOOL isPlaying;
 
 // message from which our instance is obtained
