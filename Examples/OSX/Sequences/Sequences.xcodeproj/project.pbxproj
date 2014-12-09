@@ -157,8 +157,22 @@
 		C4BAFEC5198F001500BE4F61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BAFEC4198F001500BE4F61 /* AppDelegate.m */; };
 		C4BAFEC8198F001500BE4F61 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BAFEC6198F001500BE4F61 /* MainMenu.xib */; };
 		C4BAFECA198F001500BE4F61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BAFEC9198F001500BE4F61 /* Images.xcassets */; };
+		C4DF3DCB1A3579A200B46932 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C462E3AF1A32B99300F80B56 /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4E9E02A1990560000F261DA /* SequencesConductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E9E0291990560000F261DA /* SequencesConductor.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4DF3DCA1A35799400B46932 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4DF3DCB1A3579A200B46932 /* CsoundLib64.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C462E3721A32B99300F80B56 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -1177,6 +1191,8 @@
 				C4BAFEAA198F001500BE4F61 /* Sources */,
 				C4BAFEAB198F001500BE4F61 /* Frameworks */,
 				C4BAFEAC198F001500BE4F61 /* Resources */,
+				C4DF3DCA1A35799400B46932 /* CopyFiles */,
+				C4DF3DCC1A3579AC00B46932 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1230,6 +1246,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C4DF3DCC1A3579AC00B46932 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib64.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib64.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib64\"\nfor TARGET in ${TARGETS} ; do\nLIBFILE=${LIBPATH}/${TARGET}\nTARGETID=`otool -DX ${LIBPATH}/$TARGET`\nNEWTARGETID=${NEWLIBPATH}/${TARGET}\ninstall_name_tool -id ${NEWTARGETID} ${LIBFILE}\ninstall_name_tool -change ${TARGETID} ${NEWTARGETID} ${EXECFILE}\ndone";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4BAFEAA198F001500BE4F61 /* Sources */ = {
@@ -1490,6 +1522,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sequences/Sequences-Prefix.pch";
@@ -1512,6 +1545,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sequences/Sequences-Prefix.pch";

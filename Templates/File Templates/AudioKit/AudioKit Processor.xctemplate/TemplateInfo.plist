@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>DefaultCompletionName</key>
+  <string>Processor</string>
+  <key>Description</key>
+  <string>A global processor (effects, mixing) template in Objective-C.</string>
+  <key>Kind</key>
+  <string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+  <key>MainTemplateFile</key>
+  <string>___FILEBASENAME___.h</string>
+  <key>SortOrder</key>
+  <string>5</string>
+  <key>Summary</key>
+  <string>A global processor (effects, mixing) template in Objective-C.</string>
+</dict>
+</plist>

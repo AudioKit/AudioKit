@@ -1407,18 +1407,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Library/Frameworks/CsoundLib64.framework/Headers,
+					"$(SRCROOT)/../../AudioKit/Libraries/OSX/csound-OSX/CsoundLib64.framework/Headers",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "AKSleighbells/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKSleighbells/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1428,18 +1428,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(SRCROOT)/../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Library/Frameworks/CsoundLib64.framework/Headers,
+					"$(SRCROOT)/../../AudioKit/Libraries/OSX/csound-OSX/CsoundLib64.framework/Headers",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "AKSleighbells/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKSleighbells/Bridging-Header.h";
 			};
 			name = Release;
 		};

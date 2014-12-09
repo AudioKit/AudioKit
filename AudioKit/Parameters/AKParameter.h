@@ -46,6 +46,11 @@
 /// @param name The name of the parameter as it should appear in the output File.
 + (instancetype)globalParameterWithString:(NSString *)name;
 
+/// Allows a parameter to be created using NSString style string formatting
+/// @param format NSString style string format.
+/// @param ...    Any necessary format values to insert.
++ (id)parameterWithFormat:(NSString *)format, ...;
+
 - (instancetype)initWithString:(NSString *)name;
 
 /// Allows insertion of math into parameters
