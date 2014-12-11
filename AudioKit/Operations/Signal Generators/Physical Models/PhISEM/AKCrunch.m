@@ -2,7 +2,7 @@
 //  AKCrunch.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/29/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's crunch:
@@ -33,7 +33,7 @@
         
         // Default Values
         _intensity = akp(100);
-        _dampingFactor = akp(0.9);
+        _dampingFactor = akp(0.1);
     }
     return self;
 }
@@ -50,14 +50,13 @@
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_maximumDuration = akp(1);
     AKConstant *_energyReturn = akp(0);
     AKConstant *_amplitude = akp(1);
     return [NSString stringWithFormat:
-            @"%@ crunch %@, %@, %@, %@, %@",
+            @"%@ crunch %@, %@, %@, (1 - %@), %@",
             self,
             _amplitude,
             _maximumDuration,
