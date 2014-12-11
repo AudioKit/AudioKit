@@ -2,8 +2,7 @@
 //  AKMandolin.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
-//  Customized by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/10/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -19,7 +18,7 @@
 
 /// Instantiates the mandolin with all values
 /// @param frequency Frequency of note played.
-/// @param bodySize The size of the body of the mandolin. Range 0 to 2.
+/// @param bodySize The size of the body of the mandolin. Range 0 (small) to 1 (large).
 /// @param pairedStringDetuning The proportional detuning between the two strings. Suggested range 0.9 to 1.
 /// @param pluckPosition The pluck position, in range 0 to 1.
 /// @param loopGain The loop gain of the model, in the range 0.97 to 1.
@@ -47,11 +46,11 @@
 - (void)setOptionalFrequency:(AKControl *)frequency;
 
 
-/// The size of the body of the mandolin. Range 0 to 2. [Default Value: 1]
+/// The size of the body of the mandolin. Range 0 (small) to 1 (large). [Default Value: 0.5]
 @property AKControl *bodySize;
 
 /// Set an optional body size
-/// @param bodySize The size of the body of the mandolin. Range 0 to 2. [Default Value: 1]
+/// @param bodySize The size of the body of the mandolin. Range 0 (small) to 1 (large). [Default Value: 0.5]
 - (void)setOptionalBodySize:(AKControl *)bodySize;
 
 
@@ -75,7 +74,7 @@
 @property AKControl *loopGain;
 
 /// Set an optional loop gain
-/// @param loopGain The loop gain of the model, in the range 0.97 to 1. [Default Value: 1]
+/// @param loopGain The loop gain of the model, in the range 0.97 to 1. [Default Value: 0.99]
 - (void)setOptionalLoopGain:(AKControl *)loopGain;
 
 
