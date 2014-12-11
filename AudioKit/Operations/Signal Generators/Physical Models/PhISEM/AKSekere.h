@@ -2,7 +2,7 @@
 //  AKSekere.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/28/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import "AKParameter+Operation.h"
 
 /** Semi-physical model of a sekere sound.
- 
+
  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
@@ -18,7 +18,7 @@
 
 /// Instantiates the sekere with all values
 /// @param count The number of beads, teeth, bells, timbrels, etc. If zero, the default value is 64.
-/// @param dampingFactor Damping factor where 0 is full damped and 1 is no damping.
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
 - (instancetype)initWithCount:(AKConstant *)count
                 dampingFactor:(AKConstant *)dampingFactor;
 
@@ -40,11 +40,11 @@
 - (void)setOptionalCount:(AKConstant *)count;
 
 
-/// Damping factor where 0 is full damped and 1 is no damping. [Default Value: 0.9]
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor Damping factor where 0 is full damped and 1 is no damping. [Default Value: 0.9]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 
