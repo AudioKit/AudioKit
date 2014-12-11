@@ -2,7 +2,7 @@
 //  AKCabasa.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/26/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 
 /// Instantiates the cabasa with all values
 /// @param count The number of beads, teeth, bells, timbrels, etc.
-/// @param dampingFactor Damping factor where 0 is full damped and 1 is no damping.
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
 - (instancetype)initWithCount:(AKConstant *)count
                 dampingFactor:(AKConstant *)dampingFactor;
 
@@ -40,11 +40,11 @@
 - (void)setOptionalCount:(AKConstant *)count;
 
 
-/// Damping factor where 0 is full damped and 1 is no damping. [Default Value: 0.93]
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.14]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor Damping factor where 0 is full damped and 1 is no damping. [Default Value: 0.93]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.14]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 
