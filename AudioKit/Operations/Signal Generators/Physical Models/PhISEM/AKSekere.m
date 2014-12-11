@@ -2,7 +2,7 @@
 //  AKSekere.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/28/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's sekere:
@@ -33,7 +33,7 @@
         
         // Default Values
         _count = akp(64);
-        _dampingFactor = akp(0.9);
+        _dampingFactor = akp(0.1);
     }
     return self;
 }
@@ -50,14 +50,13 @@
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_amplitude = akp(1);
     AKConstant *_energyReturn = akp(0);
     AKConstant *_maximumDuration = akp(1);
     return [NSString stringWithFormat:
-            @"%@ sekere %@, %@, %@, %@, %@",
+            @"%@ sekere %@, %@, %@, (1 - %@), %@",
             self,
             _amplitude,
             _maximumDuration,
