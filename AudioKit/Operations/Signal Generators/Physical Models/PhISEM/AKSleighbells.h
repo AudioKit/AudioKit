@@ -2,7 +2,7 @@
 //  AKSleighbells.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 
 /// Instantiates the sleighbells with all values
 /// @param intensity The intensity of the bell sound.
-/// @param dampingFactor The value ranges from 0 to 1.
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
 /// @param mainResonantFrequency The main resonant frequency.
 /// @param firstResonantFrequency The first resonant frequency.
 /// @param secondResonantFrequency The second resonant frequency.
@@ -46,11 +46,11 @@
 - (void)setOptionalIntensity:(AKConstant *)intensity;
 
 
-/// The value ranges from 0 to 1. [Default Value: 0.25]
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.2]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor The value ranges from 0 to 1. [Default Value: 0.25]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.2]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 

@@ -2,7 +2,7 @@
 //  AKDroplet.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 
 /// Instantiates the droplet with all values
 /// @param intensity The intensity of the dripping sound.
-/// @param dampingFactor This value ranges from 0 to 1,
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
 /// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
 /// @param mainResonantFrequency The main resonant frequency.
 /// @param firstResonantFrequency The first resonant frequency.
@@ -48,11 +48,11 @@
 - (void)setOptionalIntensity:(AKConstant *)intensity;
 
 
-/// This value ranges from 0 to 1, [Default Value: 0.9]
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor This value ranges from 0 to 1, [Default Value: 0.9]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 

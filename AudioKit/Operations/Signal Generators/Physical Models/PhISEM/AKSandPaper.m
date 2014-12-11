@@ -2,7 +2,7 @@
 //  AKSandPaper.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/29/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's sandpaper:
@@ -33,7 +33,7 @@
         
         // Default Values
         _intensity = akp(128);
-        _dampingFactor = akp(0.95);
+        _dampingFactor = akp(0.9);
     }
     return self;
 }
@@ -50,14 +50,13 @@
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_amplitude = akp(1);
     AKConstant *_energyReturn = akp(0);
     AKConstant *_maximumDuration = akp(1);
     return [NSString stringWithFormat:
-            @"%@ sandpaper %@, %@, %@, %@, %@",
+            @"%@ sandpaper %@, %@, %@, (1 - %@), %@",
             self,
             _amplitude,
             _maximumDuration,
