@@ -2,7 +2,7 @@
 //  AKCabasa.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/26/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's cabasa:
@@ -10,6 +10,7 @@
 //
 
 #import "AKCabasa.h"
+#import "AKManager.h"
 
 @implementation AKCabasa
 
@@ -32,7 +33,7 @@
         
         // Default Values
         _count = akp(100);
-        _dampingFactor = akp(0.93);
+        _dampingFactor = akp(0.14);
     }
     return self;
 }
@@ -49,13 +50,12 @@
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_maximumDuration = akp(1);
     AKConstant *_amplitude = akp(1);
     return [NSString stringWithFormat:
-            @"%@ cabasa %@, %@, %@, %@",
+            @"%@ cabasa %@, %@, %@, (1 - 0.5*%@)",
             self,
             _amplitude,
             _maximumDuration,
