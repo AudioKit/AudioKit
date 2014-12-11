@@ -2,7 +2,7 @@
 //  AKDroplet.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's dripwater:
@@ -41,7 +41,7 @@
         
         // Default Values
         _intensity = akp(10);
-        _dampingFactor = akp(0.9);
+        _dampingFactor = akp(0.1);
         _energyReturn = akp(0.5);
         _mainResonantFrequency = akp(450);
         _firstResonantFrequency = akp(600);
@@ -78,13 +78,12 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_maximumDuration = akp(1);
     AKConstant *_amplitude = akp(1);
     return [NSString stringWithFormat:
-            @"%@ dripwater %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ dripwater %@, %@, %@, (1 - %@), %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,

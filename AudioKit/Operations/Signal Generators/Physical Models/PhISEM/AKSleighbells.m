@@ -2,7 +2,7 @@
 //  AKSleighbells.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's sleighbells:
@@ -22,11 +22,11 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            _intensity = intensity;
-                _dampingFactor = dampingFactor;
-                _mainResonantFrequency = mainResonantFrequency;
-                _firstResonantFrequency = firstResonantFrequency;
-                _secondResonantFrequency = secondResonantFrequency;
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
+        _mainResonantFrequency = mainResonantFrequency;
+        _firstResonantFrequency = firstResonantFrequency;
+        _secondResonantFrequency = secondResonantFrequency;
         
     }
     return self;
@@ -37,18 +37,18 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         
-    // Default Values   
-            _intensity = akp(32);        
-            _dampingFactor = akp(0.25);        
-            _mainResonantFrequency = akp(2500);        
-            _firstResonantFrequency = akp(5300);        
-            _secondResonantFrequency = akp(6500);            
+        // Default Values
+        _intensity = akp(32);
+        _dampingFactor = akp(0.2);
+        _mainResonantFrequency = akp(2500);
+        _firstResonantFrequency = akp(5300);
+        _secondResonantFrequency = akp(6500);
     }
     return self;
 }
 
 + (instancetype)audio
- {
+{
     return [[AKSleighbells alloc] init];
 }
 
@@ -71,14 +71,13 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
-
 - (NSString *)stringForCSD {
-        // Constant Values  
-        AKConstant *_amplitude = akp(1);    
-        AKConstant *_maximumDuration = akp(1);    
-        AKConstant *_energyReturn = akp(0);    
-        return [NSString stringWithFormat:
-            @"%@ sleighbells %@, %@, %@, %@, %@, %@, %@, %@",
+    // Constant Values
+    AKConstant *_amplitude = akp(1);
+    AKConstant *_maximumDuration = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    return [NSString stringWithFormat:
+            @"%@ sleighbells %@, %@, %@, (1 - %@) * 0.25, %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,

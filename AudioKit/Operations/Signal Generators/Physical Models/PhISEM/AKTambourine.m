@@ -2,7 +2,7 @@
 //  AKTambourine.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's tambourine:
@@ -39,7 +39,7 @@
         
         // Default Values
         _intensity = akp(1000);
-        _dampingFactor = akp(0.7);
+        _dampingFactor = akp(0.1);
         _mainResonantFrequency = akp(2300);
         _firstResonantFrequency = akp(5600);
         _secondResonantFrequency = akp(8100);
@@ -71,14 +71,13 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_amplitude = akp(1);
     AKConstant *_energyReturn = akp(0);
     AKConstant *_maximumDuration = akp(1);
     return [NSString stringWithFormat:
-            @"%@ tambourine %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ tambourine %@, %@, %@, (1 - %@) * 0.7, %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,

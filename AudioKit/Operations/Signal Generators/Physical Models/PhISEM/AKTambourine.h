@@ -2,7 +2,7 @@
 //  AKTambourine.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 
 /// Instantiates the tambourine with all values
 /// @param intensity The intensity of the tambourine sound
-/// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable between 0 and .7
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
 /// @param mainResonantFrequency The main resonant frequency.
 /// @param firstResonantFrequency The first resonant frequency.
 /// @param secondResonantFrequency The second resonant frequency.
@@ -46,11 +46,11 @@
 - (void)setOptionalIntensity:(AKConstant *)intensity;
 
 
-/// This value ranges from 0 to 1, but seems to be most stable between 0 and .7 [Default Value: 0.7]
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable between 0 and .7 [Default Value: 0.7]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 
