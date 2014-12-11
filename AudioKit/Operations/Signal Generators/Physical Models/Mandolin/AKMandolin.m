@@ -2,8 +2,8 @@
 //  AKMandolin.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
-//  Customized by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/10/14.
+//  Customized by Aurelius Prochazka on 12/10/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's mandol:
@@ -24,11 +24,11 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _frequency = frequency;
-        _bodySize = bodySize;
-        _pairedStringDetuning = pairedStringDetuning;
-        _pluckPosition = pluckPosition;
-        _loopGain = loopGain;
+            _frequency = frequency;
+                _bodySize = bodySize;
+                _pairedStringDetuning = pairedStringDetuning;
+                _pluckPosition = pluckPosition;
+                _loopGain = loopGain;
         
     }
     return self;
@@ -39,18 +39,18 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         
-        // Default Values
-        _frequency = akp(220);
-        _bodySize = akp(1);
-        _pairedStringDetuning = akp(1);
-        _pluckPosition = akp(0.4);
-        _loopGain = akp(0.99);
+    // Default Values   
+            _frequency = akp(220);        
+            _bodySize = akp(0.5);        
+            _pairedStringDetuning = akp(1);        
+            _pluckPosition = akp(0.4);        
+            _loopGain = akp(0.99);            
     }
     return self;
 }
 
 + (instancetype)audio
-{
+ {
     return [[AKMandolin alloc] init];
 }
 
@@ -73,7 +73,6 @@
 - (void)setOptionalLoopGain:(AKControl *)loopGain {
     _loopGain = loopGain;
 }
-
 - (NSString *)stringForCSD {
     // Constant Values
     AKConstant *_amplitude = akp(1);
@@ -90,7 +89,7 @@
     
     return [NSString stringWithFormat:
             @"%@\n"
-            @"%@ mandol %@, %@, %@, %@, %@, %@, %@",
+            @"%@ mandol %@, %@, %@, %@, %@, 2 - (2 * %@), %@",
             [_strikeImpulseTable stringForCSD],
             self,
             _amplitude,
