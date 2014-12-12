@@ -12,6 +12,7 @@
 		C46E6EC01A08C65200E5D389 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E6EBF1A08C65100E5D389 /* Images.xcassets */; };
 		C46E6EC31A08C65200E5D389 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46E6EC11A08C65200E5D389 /* Main.storyboard */; };
 		C46E70F41A08C6A700E5D389 /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E70F31A08C6A700E5D389 /* ConvolutionInstrument.swift */; };
+		C489BEA21A3B924E00129C7E /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = C489BEA11A3B924E00129C7E /* AKPhrase.m */; };
 		C4BDEE7E1A32BD0B00454915 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BDED0F1A32BD0A00454915 /* AKEvent.m */; };
 		C4BDEE7F1A32BD0B00454915 /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BDED121A32BD0A00454915 /* AKInstrument.m */; };
 		C4BDEE801A32BD0B00454915 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BDED141A32BD0A00454915 /* AKManager.m */; };
@@ -184,6 +185,8 @@
 		C46E6EC21A08C65200E5D389 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C46E70F31A08C6A700E5D389 /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = ../../../iOS/SwiftConvolution/ConvolutionInstrument.swift; sourceTree = "<group>"; };
 		C46E70F61A08C7E700E5D389 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		C489BEA01A3B924E00129C7E /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
+		C489BEA11A3B924E00129C7E /* AKPhrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhrase.m; sourceTree = "<group>"; };
 		C4BDED0E1A32BD0A00454915 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C4BDED0F1A32BD0A00454915 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C4BDED101A32BD0A00454915 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 				C4BDED191A32BD0A00454915 /* AKNote.m */,
 				C4BDED1A1A32BD0A00454915 /* AKOrchestra.h */,
 				C4BDED1B1A32BD0A00454915 /* AKOrchestra.m */,
+				C489BEA01A3B924E00129C7E /* AKPhrase.h */,
+				C489BEA11A3B924E00129C7E /* AKPhrase.m */,
 				C4BDED1C1A32BD0A00454915 /* AKSampler.h */,
 				C4BDED1D1A32BD0A00454915 /* AKSampler.m */,
 				C4BDED1E1A32BD0A00454915 /* AKSequence.h */,
@@ -1299,6 +1304,7 @@
 				C4BDEE951A32BD0B00454915 /* AKScaledControl.m in Sources */,
 				C4BDEEF21A32BD0B00454915 /* AKBandPassButterworthFilter.m in Sources */,
 				C4BDEF011A32BD0B00454915 /* AKControl.m in Sources */,
+				C489BEA21A3B924E00129C7E /* AKPhrase.m in Sources */,
 				C4BDEE991A32BD0B00454915 /* AKMinControl.m in Sources */,
 				C4BDEEA81A32BD0B00454915 /* AKSpectralVocoder.m in Sources */,
 				C4BDEE8E1A32BD0B00454915 /* AudioKit.swift in Sources */,

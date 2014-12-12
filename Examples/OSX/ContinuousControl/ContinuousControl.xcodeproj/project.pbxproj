@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C489BEA51A3B926500129C7E /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = C489BEA41A3B926500129C7E /* AKPhrase.m */; };
 		C4BA00DF198F08C900BE4F61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4BA00DD198F08C900BE4F61 /* InfoPlist.strings */; };
 		C4BA00E1198F08C900BE4F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA00E0198F08C900BE4F61 /* main.m */; };
 		C4BA00E5198F08C900BE4F61 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C4BA00E3198F08C900BE4F61 /* Credits.rtf */; };
@@ -175,6 +176,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C489BEA31A3B926500129C7E /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
+		C489BEA41A3B926500129C7E /* AKPhrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhrase.m; sourceTree = "<group>"; };
 		C4BA00D1198F08C900BE4F61 /* ContinuousControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContinuousControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BA00DC198F08C900BE4F61 /* ContinuousControl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContinuousControl-Info.plist"; sourceTree = "<group>"; };
 		C4BA00DE198F08C900BE4F61 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -573,6 +576,8 @@
 				C4BDF1271A32BDAF00454915 /* AKNote.m */,
 				C4BDF1281A32BDAF00454915 /* AKOrchestra.h */,
 				C4BDF1291A32BDAF00454915 /* AKOrchestra.m */,
+				C489BEA31A3B926500129C7E /* AKPhrase.h */,
+				C489BEA41A3B926500129C7E /* AKPhrase.m */,
 				C4BDF12A1A32BDAF00454915 /* AKSampler.h */,
 				C4BDF12B1A32BDAF00454915 /* AKSampler.m */,
 				C4BDF12C1A32BDAF00454915 /* AKSequence.h */,
@@ -1288,6 +1293,7 @@
 				C4BDF2E31A32BDAF00454915 /* AKControlSegmentArray.m in Sources */,
 				C4BDF2F71A32BDAF00454915 /* AKHighPassFilter.m in Sources */,
 				C4BDF2991A32BDAF00454915 /* AKTools.m in Sources */,
+				C489BEA51A3B926500129C7E /* AKPhrase.m in Sources */,
 				C4BDF2BC1A32BDAF00454915 /* AKLinearAudioEnvelope.m in Sources */,
 				C4BDF2DA1A32BDAF00454915 /* AKTambourine.m in Sources */,
 				C4BDF2D21A32BDAF00454915 /* AKCabasa.m in Sources */,
