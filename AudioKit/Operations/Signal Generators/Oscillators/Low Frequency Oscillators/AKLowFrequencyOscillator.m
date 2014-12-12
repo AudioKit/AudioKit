@@ -2,65 +2,44 @@
 //  AKLowFrequencyOscillator.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/2/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
+//  Modified by Aurelius Prochazka on 11/4/12 to enumerate types.
+//
+//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's lfo:
 //  http://www.csounds.com/manual/html/lfo.html
 //
 
 #import "AKLowFrequencyOscillator.h"
-#import "AKManager.h"
 
 @implementation AKLowFrequencyOscillator
+{
+    AKControl *kcps;
+    AKControl *kamp;
+    AKConstant *itype;
+}
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
-                             type:(AKConstant *)type
+                        amplitude:(AKControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            _frequency = frequency;
-                _type = type;
-        
+        kcps = frequency;
+        kamp = amplitude;
+        itype = akpi(0);
     }
     return self;
 }
 
-- (instancetype)init
-{
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        
-    // Default Values   
-            _frequency = akp(440);        
-            _type = akp(0);            
-    }
-    return self;
-}
-
-+ (instancetype)audio
- {
-    return [[AKLowFrequencyOscillator alloc] init];
-}
-
-- (void)setOptionalFrequency:(AKControl *)frequency {
-    _frequency = frequency;
-}
-
-- (void)setOptionalType:(AKConstant *)type {
-    _type = type;
+- (void)setOptionalType:(LFOType)type {
+    itype = akpi(type);
 }
 
 - (NSString *)stringForCSD {
-        // Constant Values  
-                    AKConstant *_amplitude = akp(1);        
-        return [NSString stringWithFormat:
+    return [NSString stringWithFormat:
             @"%@ lfo %@, %@, %@",
-            self,
-            _amplitude,
-            _frequency,
-            _type];
+            self, kamp, kcps, itype];
 }
-
 
 @end
