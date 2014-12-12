@@ -298,7 +298,6 @@ static AKManager *_sharedAKManager = nil;
 
 - (void)triggerEvent:(AKEvent *)event
 {
-    [event playNote];
     [event runBlock];
 }
 
