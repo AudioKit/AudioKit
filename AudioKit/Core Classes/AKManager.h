@@ -40,7 +40,11 @@
 /// Run AudioKit using an AKOrchestra
 - (void)runOrchestra;
 
-/// Run AudioKit
+/// Run AudioKit using an AKOrchestra for a specific amount of time
+/// @param duration Time for the orchestra to play in seconds
+- (void)runOrchestraForDuration:(int)duration;
+
+/// Test AudioKit by playing the first instrument for ten seconds
 - (void)runTestOrchestra;
 
 /// Stop AudioKit from making any more sound.
