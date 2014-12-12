@@ -39,7 +39,7 @@ AKManager.sharedAKManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedAKManager().isLogging = true
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(4)
 
 let note1 = Note(frequency: 440)
 let note2 = Note(frequency: 550)
@@ -53,10 +53,6 @@ phrase.addNote(note2, atTime:2.0)
 
 instrument.playPhrase(phrase)
 
-//instrument.playNote(note1, afterDelay:0.5)
-//instrument.playNote(note2, afterDelay:1.0)
-//instrument.playNote(note3, afterDelay:1.5)
-//instrument.playNote(note2, afterDelay:2.0)
 
 while(AKManager.sharedAKManager().isRunning) {} //do nothing
 println("Test complete!")
