@@ -220,7 +220,7 @@ static int currentID = 1;
 
 - (void)stop
 {
-    [[AKManager sharedAKManager] stopInstrument:self];
+    [[AKManager sharedManager] stopInstrument:self];
 }
 
 @end

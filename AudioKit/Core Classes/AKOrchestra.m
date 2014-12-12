@@ -39,27 +39,27 @@
 // -----------------------------------------------------------------------------
 
 + (void)addInstrument:(AKInstrument *)instrument {
-    [[[AKManager sharedAKManager] orchestra] addInstrument:instrument];
+    [[[AKManager sharedManager] orchestra] addInstrument:instrument];
 }
 
 + (void)start
 {
-    if (![[AKManager sharedAKManager] isRunning]) {
-        [[AKManager sharedAKManager] runOrchestra];
+    if (![[AKManager sharedManager] isRunning]) {
+        [[AKManager sharedManager] runOrchestra];
     }
 }
 
 + (void)test
 {
-    if (![[AKManager sharedAKManager] isRunning]) {
-        [[AKManager sharedAKManager] runTestOrchestra];
+    if (![[AKManager sharedManager] isRunning]) {
+        [[AKManager sharedManager] runTestOrchestra];
     }
 }
 
 + (void)testForDuration:(int)duration
 {
-    if (![[AKManager sharedAKManager] isRunning]) {
-        [[AKManager sharedAKManager] runOrchestraForDuration:duration];
+    if (![[AKManager sharedManager] isRunning]) {
+        [[AKManager sharedManager] runOrchestraForDuration:duration];
     }
 }
 

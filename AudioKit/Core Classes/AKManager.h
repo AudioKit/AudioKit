@@ -35,7 +35,7 @@
 @property NSString *fullPathToAudioKit;
 
 /// @returns the shared instance of AKManager
-+ (AKManager *)sharedAKManager;
++ (AKManager *)sharedManager;
 
 /// Run AudioKit using an AKOrchestra
 - (void)runOrchestra;

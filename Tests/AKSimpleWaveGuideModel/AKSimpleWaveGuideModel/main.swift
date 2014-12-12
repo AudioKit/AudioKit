@@ -9,13 +9,13 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let source = AKTambourine()
         connect(source)
-        
+
         let operation = AKSimpleWaveGuideModel(
             audioSource: source
         )
@@ -29,5 +29,5 @@ let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.test()
 
-while(AKManager.sharedAKManager().isRunning) {} //do nothing
+while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

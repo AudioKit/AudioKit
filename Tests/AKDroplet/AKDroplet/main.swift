@@ -9,10 +9,10 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let operation = AKDroplet()
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
@@ -24,5 +24,5 @@ let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.test()
 
-while(AKManager.sharedAKManager().isRunning) {} //do nothing
+while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

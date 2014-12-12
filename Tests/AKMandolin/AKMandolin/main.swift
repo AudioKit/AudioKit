@@ -21,10 +21,10 @@ class Instrument : AKInstrument {
 }
 
 // Set Up
-AKManager.sharedAKManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit/"
+AKManager.sharedManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit/"
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.test()
 
-while(AKManager.sharedAKManager().isRunning) {} //do nothing
+while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

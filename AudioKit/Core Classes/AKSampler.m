@@ -28,10 +28,10 @@
 }
 
 - (void)startRecordingToTrack:(NSString *)trackName {
-    [[AKManager sharedAKManager] startRecordingToURL:[self recordingURLForTrack:trackName]];
+    [[AKManager sharedManager] startRecordingToURL:[self recordingURLForTrack:trackName]];
 }
 - (void)stopRecordingToTrack:(NSString *)trackName {
-    [[AKManager sharedAKManager] stopRecording];
+    [[AKManager sharedManager] stopRecording];
     
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self recordingURLForTrack:trackName] error:nil];
     [players setObject:player forKey:trackName];
