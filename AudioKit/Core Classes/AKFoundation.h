@@ -14,6 +14,7 @@
 #import "AKManager.h"
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
+#import "AKPhrase.h"
 #import "AKSequence.h"
 #import "AKEvent.h"
 #import "AKNote.h"

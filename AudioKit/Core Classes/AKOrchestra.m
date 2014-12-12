@@ -56,6 +56,13 @@
     }
 }
 
++ (void)testForDuration:(int)duration
+{
+    if (![[AKManager sharedAKManager] isRunning]) {
+        [[AKManager sharedAKManager] runOrchestraForDuration:duration];
+    }
+}
+
 - (void)addInstrument:(AKInstrument *)newInstrument {
     [_instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];
