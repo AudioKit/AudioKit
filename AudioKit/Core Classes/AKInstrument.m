@@ -206,6 +206,12 @@ static int currentID = 1;
     [note play];
 }
 
+- (void)playNote:(AKNote *)note afterDelay:(float)delay
+{
+    note.instrument = self;
+    [note playAfterDelay:delay];
+}
+
 
 - (void)stop
 {

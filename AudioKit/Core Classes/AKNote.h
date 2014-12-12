@@ -64,6 +64,10 @@
 /// Begin playback of the note.
 - (void)play;
 
+/// Begin playback of the note after a delay.
+/// @param delay Time to wait before beginning note playback.
+- (void)playAfterDelay:(float)delay;
+
 /// Refine playback of the note.
 - (void)updateProperties;
 
