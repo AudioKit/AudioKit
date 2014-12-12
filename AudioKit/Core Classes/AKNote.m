@@ -66,7 +66,7 @@ static int currentID = 1;
 
 - (void)updateProperties {
     if (isPlaying) {
-        [[AKManager sharedAKManager] updateNote:self];
+        [[AKManager sharedManager] updateNote:self];
     }
 }
 
@@ -97,7 +97,7 @@ static int currentID = 1;
 
 - (void)play
 {
-    [[AKManager sharedAKManager] updateNote:self];
+    [[AKManager sharedManager] updateNote:self];
     isPlaying = YES;
 }
 
@@ -109,7 +109,7 @@ static int currentID = 1;
 
 - (void)stop
 {
-    [[AKManager sharedAKManager] stopNote:self];
+    [[AKManager sharedManager] stopNote:self];
     isPlaying = NO;
 }
 

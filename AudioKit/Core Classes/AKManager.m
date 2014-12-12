@@ -31,13 +31,13 @@
 #  pragma mark - Singleton Setup
 // -----------------------------------------------------------------------------
 
-static AKManager *_sharedAKManager = nil;
+static AKManager *_sharedManager = nil;
 
-+ (AKManager *)sharedAKManager
++ (AKManager *)sharedManager
 {
     @synchronized([AKManager class]) 
     {
-        if(!_sharedAKManager) _sharedAKManager = [[self alloc] init];
+        if(!_sharedManager) _sharedManager = [[self alloc] init];
         NSString *name = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
         if (name) {
             // This is an app that will contain the framework
@@ -47,20 +47,20 @@ static AKManager *_sharedAKManager = nil;
             // This is a command-line program that sits beside the framework
             csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib64.framework/Resources/Opcodes64");
         }
-        return _sharedAKManager;
+        return _sharedManager;
     }
     return nil;
 }
 
 + (AKSineTable *)standardSineTable {
-    return [[AKManager sharedAKManager] standardSineTable];
+    return [[AKManager sharedManager] standardSineTable];
 }
 
 + (id)alloc {
     @synchronized([AKManager class]) {
-        NSAssert(_sharedAKManager == nil, @"Attempted to allocate a 2nd AKManager");
-        _sharedAKManager = [super alloc];
-        return _sharedAKManager;
+        NSAssert(_sharedManager == nil, @"Attempted to allocate a 2nd AKManager");
+        _sharedManager = [super alloc];
+        return _sharedManager;
     }
     return nil;
 }

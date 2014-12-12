@@ -38,7 +38,7 @@ typedef void (^MyBlockType)();
 
 - (void)trigger;
 {
-    [[AKManager sharedAKManager] triggerEvent:self];
+    [[AKManager sharedManager] triggerEvent:self];
 }
 
 @end

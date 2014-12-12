@@ -87,8 +87,8 @@
     AKConstant *_maximumDuration = akp(1);
 
     NSString *file;
-    if ([[[AKManager sharedAKManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
-        file = [[AKManager sharedAKManager] fullPathToAudioKit];
+    if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
+        file = [[AKManager sharedManager] fullPathToAudioKit];
         file = [file stringByAppendingPathComponent:@"AudioKit/Operations/Signal Generators/Physical Models/Marimba/marmstk1.wav"];
     } else {
         file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];

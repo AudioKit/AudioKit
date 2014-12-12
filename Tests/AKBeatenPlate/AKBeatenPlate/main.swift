@@ -15,9 +15,9 @@ class Instrument : AKInstrument {
 
         let source = AKStick()
         connect(source)
-        
+
         let operation = AKBeatenPlate(audioSource: source)
-            
+
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
@@ -28,5 +28,5 @@ let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.test()
 
-while(AKManager.sharedAKManager().isRunning) {} //do nothing
+while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

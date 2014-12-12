@@ -78,8 +78,8 @@
     AKConstant *_amplitude = akp(1);
     
     NSString *file;
-    if ([[[AKManager sharedAKManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
-        file = [[AKManager sharedAKManager] fullPathToAudioKit];
+    if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
+        file = [[AKManager sharedManager] fullPathToAudioKit];
         file = [file stringByAppendingPathComponent:@"AudioKit/Operations/Signal Generators/Physical Models/Mandolin/mandpluk.aif"];
     } else {
         file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];

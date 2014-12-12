@@ -17,7 +17,7 @@
 }
 
 - (NSString *)stringForCSD {
-    [[AKManager sharedAKManager] enableAudioInput];
+    [[AKManager sharedManager] enableAudioInput];
     return [NSString stringWithFormat:@"%@, aUnused ins", self];
 }
 

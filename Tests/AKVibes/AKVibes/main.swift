@@ -35,10 +35,10 @@ class Note: AKNote {
 }
 
 // Set Up
-AKManager.sharedAKManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit/"
+AKManager.sharedManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit/"
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedAKManager().isLogging = true
+AKManager.sharedManager().isLogging = true
 AKOrchestra.testForDuration(4)
 
 let note1 = Note(frequency: 440)
@@ -54,5 +54,5 @@ phrase.addNote(note2, atTime:2.0)
 instrument.playPhrase(phrase)
 
 
-while(AKManager.sharedAKManager().isRunning) {} //do nothing
+while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")
