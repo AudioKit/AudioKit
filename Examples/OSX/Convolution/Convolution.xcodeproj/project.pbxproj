@@ -14,6 +14,7 @@
 		C4780BBC198613DE000FD79F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4780BBB198613DE000FD79F /* AppDelegate.m */; };
 		C4780BBF198613DE000FD79F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4780BBD198613DE000FD79F /* MainMenu.xib */; };
 		C4780BC1198613DE000FD79F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4780BC0198613DE000FD79F /* Images.xcassets */; };
+		C489BEA81A3B928000129C7E /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = C489BEA71A3B928000129C7E /* AKPhrase.m */; };
 		C4BA170C198F148300BE4F61 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA170A198F148300BE4F61 /* ConvolutionInstrument.m */; };
 		C4BA1711198F148A00BE4F61 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BA170D198F148A00BE4F61 /* 808loop.wav */; };
 		C4BA1712198F148A00BE4F61 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BA170E198F148A00BE4F61 /* dish.wav */; };
@@ -187,6 +188,8 @@
 		C4780BBB198613DE000FD79F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C4780BBE198613DE000FD79F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4780BC0198613DE000FD79F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C489BEA61A3B928000129C7E /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
+		C489BEA71A3B928000129C7E /* AKPhrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhrase.m; sourceTree = "<group>"; };
 		C4BA1709198F148300BE4F61 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvolutionInstrument.h; sourceTree = "<group>"; };
 		C4BA170A198F148300BE4F61 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C4BA170D198F148A00BE4F61 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
@@ -586,6 +589,8 @@
 				C4BDEF201A32BD4200454915 /* AKNote.m */,
 				C4BDEF211A32BD4200454915 /* AKOrchestra.h */,
 				C4BDEF221A32BD4200454915 /* AKOrchestra.m */,
+				C489BEA61A3B928000129C7E /* AKPhrase.h */,
+				C489BEA71A3B928000129C7E /* AKPhrase.m */,
 				C4BDEF231A32BD4200454915 /* AKSampler.h */,
 				C4BDEF241A32BD4200454915 /* AKSampler.m */,
 				C4BDEF251A32BD4200454915 /* AKSequence.h */,
@@ -1382,6 +1387,7 @@
 				C4BDF0C51A32BD4200454915 /* AKVibes.m in Sources */,
 				C4BDF0B11A32BD4200454915 /* AKGranularSynthesisTexture.m in Sources */,
 				C4BDF1031A32BD4200454915 /* AKBalance.m in Sources */,
+				C489BEA81A3B928000129C7E /* AKPhrase.m in Sources */,
 				C4780BBC198613DE000FD79F /* AppDelegate.m in Sources */,
 				C4BDF0AD1A32BD4200454915 /* AKPhaseLockedVocoder.m in Sources */,
 				C4BDF0961A32BD4200454915 /* AKParameter+Operation.m in Sources */,
