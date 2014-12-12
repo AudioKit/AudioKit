@@ -16,6 +16,7 @@
     NSString *testTemplateString;
     
     CsoundObj *csound;
+    int totalRunDuration;
 }
 
 // Run Csound from a given filename
@@ -80,6 +81,8 @@ static AKManager *_sharedAKManager = nil;
         _isRunning = NO;
         _isLogging = NO;
         
+        totalRunDuration = 10000000;
+        
         _orchestra = [[AKOrchestra alloc] init];
         
 //        "-+rtmidi=null    ; Disable the use of any realtime midi plugin\n"
@@ -105,7 +108,7 @@ static AKManager *_sharedAKManager = nil;
         "turnoff2 p4, 4, 1\n"
         "endin\n\n"
         "</CsInstruments>\n\n"
-        "<CsScore>\nf0 10000000\n</CsScore>\n\n"
+        "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
         testTemplateString = @""
@@ -158,7 +161,7 @@ static AKManager *_sharedAKManager = nil;
 
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
 {
-    NSString *newCSD = [NSString stringWithFormat:templateString, options, [orchestra stringForCSD]];
+    NSString *newCSD = [NSString stringWithFormat:templateString, options, [orchestra stringForCSD], totalRunDuration];
 
     [newCSD writeToFile:csdFile 
              atomically:YES  
@@ -203,6 +206,12 @@ static AKManager *_sharedAKManager = nil;
         }
         [NSThread sleepForTimeInterval:0.01];
     }
+}
+
+- (void)runOrchestraForDuration:(int)duration
+{
+    totalRunDuration = duration;
+    [self runOrchestra];
 }
 
 - (void)runTestOrchestra
