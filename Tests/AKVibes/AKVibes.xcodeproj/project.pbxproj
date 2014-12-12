@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4152BAF1A3AEB7600ABF83C /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = C4152BAE1A3AEB7600ABF83C /* AKPhrase.m */; };
 		C462E36E1A32719E00F80B56 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
 		C462E36F1A32733D00F80B56 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
 		C47913DD1A29352F00D9807B /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912701A29352F00D9807B /* AKEvent.m */; };
@@ -164,6 +165,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C4152BAD1A3AEB7600ABF83C /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
+		C4152BAE1A3AEB7600ABF83C /* AKPhrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhrase.m; sourceTree = "<group>"; };
 		C462E36D1A32719E00F80B56 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib64.framework; sourceTree = "<group>"; };
 		C479126F1A29352F00D9807B /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C47912701A29352F00D9807B /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
@@ -493,6 +496,8 @@
 				C479127A1A29352F00D9807B /* AKNote.m */,
 				C479127B1A29352F00D9807B /* AKOrchestra.h */,
 				C479127C1A29352F00D9807B /* AKOrchestra.m */,
+				C4152BAD1A3AEB7600ABF83C /* AKPhrase.h */,
+				C4152BAE1A3AEB7600ABF83C /* AKPhrase.m */,
 				C479127D1A29352F00D9807B /* AKSampler.h */,
 				C479127E1A29352F00D9807B /* AKSampler.m */,
 				C479127F1A29352F00D9807B /* AKSequence.h */,
@@ -1205,6 +1210,7 @@
 				C47914281A29352F00D9807B /* AKTambourine.m in Sources */,
 				C47914201A29352F00D9807B /* AKCabasa.m in Sources */,
 				C47913EB1A29352F00D9807B /* AudioKit.swift in Sources */,
+				C4152BAF1A3AEB7600ABF83C /* AKPhrase.m in Sources */,
 				C47914151A29352F00D9807B /* AKVCOscillator.m in Sources */,
 				C47913FF1A29352F00D9807B /* AKCrossSynthesis.m in Sources */,
 				C47914691A29352F00D9807B /* AKWindowsTable.m in Sources */,
@@ -1414,9 +1420,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../AudioKit/Libraries/OSX/csound-OSX/CsoundLib64.framework/Headers",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKVibes/Bridging-Header.h";
 			};
@@ -1435,9 +1439,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../AudioKit/Libraries/OSX/csound-OSX/CsoundLib64.framework/Headers",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKVibes/Bridging-Header.h";
 			};

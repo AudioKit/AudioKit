@@ -10,6 +10,7 @@
 #import "AKOrchestra.h"
 #import "AKParameter+Operation.h"
 #import "AKAudio.h"
+#import "AKPhrase.h"
 #import "AKNote.h"
 #import "AKNoteProperty.h"
 #import "AKInstrumentProperty.h"
