@@ -14,6 +14,7 @@
     int _myID;
     NSMutableArray *propOrder;
     BOOL isPlaying;
+    float playbackDelay;
 }
 
 static int currentID = 1;
@@ -36,6 +37,7 @@ static int currentID = 1;
         isPlaying = NO;
         _duration = [AKNoteProperty duration];
         [self addProperty:_duration];
+        playbackDelay = 0;
         
         _properties = [[NSMutableDictionary alloc] init];
         propOrder = [[NSMutableArray alloc] init];
@@ -93,12 +95,20 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 
 
-- (void)play {
+- (void)play
+{
     [[AKManager sharedAKManager] updateNote:self];
     isPlaying = YES;
 }
 
-- (void)stop {
+- (void)playAfterDelay:(float)delay
+{
+    playbackDelay = delay;
+    [self play];
+}
+
+- (void)stop
+{
     [[AKManager sharedAKManager] stopNote:self];
     isPlaying = NO;
 }
@@ -106,7 +116,7 @@ static int currentID = 1;
 - (NSString *)stringForCSD;
 {
     float eventNumber  = [_instrument instrumentNumber] + _myID/100000.0;
-    NSMutableString *scoreLine = [NSMutableString stringWithFormat:@"i %0.5f 0 %f", eventNumber, _duration.value];
+    NSMutableString *scoreLine = [NSMutableString stringWithFormat:@"i %0.5f %f %f", eventNumber, playbackDelay, _duration.value];
     for (NSString *key in propOrder) {
         AKNoteProperty *prop = _properties[key];
         [scoreLine appendFormat:@" %f", [prop value]];
@@ -117,7 +127,7 @@ static int currentID = 1;
 - (NSString *)stopStringForCSD;
 {
     float eventNumber  = [_instrument instrumentNumber] + _myID/100000.0;
-    NSString *scoreLine = [NSString stringWithFormat:@"i -%0.5f 0 0.1", eventNumber];
+    NSString *scoreLine = [NSString stringWithFormat:@"i -%0.5f %f 0.1", eventNumber, playbackDelay];
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
 
