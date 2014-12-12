@@ -10,6 +10,7 @@
 #import "AKOrchestra.h"
 #import "AKParameter+Operation.h"
 #import "AKAudio.h"
+#import "AKPhrase.h"
 #import "AKNote.h"
 #import "AKNoteProperty.h"
 #import "AKInstrumentProperty.h"
@@ -130,6 +131,11 @@
 /// @param note The note that will be played.
 /// @param delay The amount of time to wait until playing the note
 - (void)playNote:(AKNote *)note afterDelay:(float)delay;
+
+/// Play the given note phrase
+/// @param phrase The note phrase that will be played.
+- (void)playPhrase:(AKPhrase *)phrase;
+
 
 /// Stop all notes created by the instrument
 - (void)stop;
