@@ -132,6 +132,11 @@
 /// @param delay The amount of time to wait until playing the note
 - (void)playNote:(AKNote *)note afterDelay:(float)delay;
 
+/// Play the given note phrase
+/// @param phrase The note phrase that will be played.
+- (void)playPhrase:(AKPhrase *)phrase;
+
+
 /// Stop all notes created by the instrument
 - (void)stop;
 

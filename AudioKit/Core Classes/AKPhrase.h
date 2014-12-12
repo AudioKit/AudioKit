@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class AKNote;
+@class AKInstrument;
+
 @interface AKPhrase : NSObject
 
 - (void)addNote:(AKNote *)note;
 - (void)addNote:(AKNote *)note atTime:(float)time;
+- (void)playUsingInstrument:(AKInstrument *)instrument;
 
 @end

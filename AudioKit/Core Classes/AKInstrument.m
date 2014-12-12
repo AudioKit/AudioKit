@@ -200,7 +200,7 @@ static int currentID = 1;
     [note play];
 }
 
-- (void)playNote:(AKNote *)note;
+- (void)playNote:(AKNote *)note
 {
     note.instrument = self;
     [note play];
@@ -210,6 +210,11 @@ static int currentID = 1;
 {
     note.instrument = self;
     [note playAfterDelay:delay];
+}
+
+- (void)playPhrase:(AKPhrase *)phrase
+{
+    [phrase playUsingInstrument:self];
 }
 
 
