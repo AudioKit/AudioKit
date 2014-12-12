@@ -77,7 +77,10 @@
 
     SeqInstrumentNote *note = [[SeqInstrumentNote alloc] initWithFrequency:440];
 
-    AKEvent *noteOn = [[AKEvent alloc] initWithNote:note];
+    AKEvent *noteOn = [[AKEvent alloc] initWithBlock:^{
+        [instrument playNote:note];
+    }];
+
     [sequence addEvent:noteOn];
 
     for (int i = 0; i <=12 ; i++) {
