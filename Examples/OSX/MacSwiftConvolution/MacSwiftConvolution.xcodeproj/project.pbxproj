@@ -183,7 +183,7 @@
 		C46E6EBF1A08C65100E5D389 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C46E6EC21A08C65200E5D389 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C46E70F31A08C6A700E5D389 /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = ../../../iOS/SwiftConvolution/ConvolutionInstrument.swift; sourceTree = "<group>"; };
-		C46E70F61A08C7E700E5D389 /* MacSwiftConvolution-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacSwiftConvolution-Bridging-Header.h"; sourceTree = "<group>"; };
+		C46E70F61A08C7E700E5D389 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		C4BDED0E1A32BD0A00454915 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C4BDED0F1A32BD0A00454915 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C4BDED101A32BD0A00454915 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -523,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				C46E6EBA1A08C65100E5D389 /* Info.plist */,
-				C46E70F61A08C7E700E5D389 /* MacSwiftConvolution-Bridging-Header.h */,
+				C46E70F61A08C7E700E5D389 /* Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1535,7 +1535,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MacSwiftConvolution/MacSwiftConvolution-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MacSwiftConvolution/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1557,7 +1557,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MacSwiftConvolution/MacSwiftConvolution-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MacSwiftConvolution/Bridging-Header.h";
 			};
 			name = Release;
 		};
