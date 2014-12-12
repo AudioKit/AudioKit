@@ -11,6 +11,8 @@
 @class AKNote;
 @class AKInstrument;
 
+/** A collection of notes and start times that can be played by an instrument.
+ */
 @interface AKPhrase : NSObject
 
 /// Add a note to the beginning of the phrase
