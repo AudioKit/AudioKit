@@ -27,26 +27,16 @@
     return self;
 }
 
-- (void)playSequenceOfNotesOfDuration:(float)duration
+- (void)playPhraseOfNotesOfDuration:(float)duration
 {
-    sequence = [[AKSequence alloc] init];
-
+    AKPhrase *phrase = [[AKPhrase alloc] init];
     for (int i = 0; i <= 12 ; i++) {
-
-        // Create the note (not to be played yet)
         SeqInstrumentNote *note = [[SeqInstrumentNote alloc] init];
-        // Create event to update the note
-        AKEvent *updateNote = [[AKEvent alloc] initWithBlock:^{
-            note.frequency.value = 440*(pow(2.0f,(float)i/12));
-            [instrument playNote:note];
-        }];
-
-        [sequence addEvent:updateNote atTime:duration*i];
-
-        AKEvent *stopNote = [[AKEvent alloc] initWithBlock:^{[note stop];}];
-        [sequence addEvent:stopNote atTime:duration*(i+0.5)];
+        note.frequency.value = 440*(pow(2.0f,(float)i/12));
+        note.duration.value = duration;
+        [phrase addNote:note atTime:i*duration];
     }
-    [sequence play];
+    [instrument playPhrase:phrase];
 }
 
 - (void)playSequenceOfNotePropertiesOfDuration:(float)duration

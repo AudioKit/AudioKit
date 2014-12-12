@@ -10,7 +10,7 @@
 
 @interface SequencesConductor : NSObject
 
-- (void)playSequenceOfNotesOfDuration:(float)duration;
+- (void)playPhraseOfNotesOfDuration:(float)duration;
 - (void)playSequenceOfNotePropertiesOfDuration:(float)duration;
 - (void)playSequenceOfInstrumentPropertiesOfDuration:(float)duration;
 

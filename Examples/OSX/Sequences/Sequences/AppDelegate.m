@@ -27,8 +27,8 @@
     return [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
 }
 
-- (IBAction)playSequenceOfNotes:(id)sender {
-    [conductor playSequenceOfNotesOfDuration:[self getDuration]];
+- (IBAction)playPhrase:(id)sender {
+    [conductor playPhraseOfNotesOfDuration:[self getDuration]];
 }
 - (IBAction)playSequenceOfNoteProperties:(id)sender {
     [conductor playSequenceOfNotePropertiesOfDuration:[self getDuration]];
