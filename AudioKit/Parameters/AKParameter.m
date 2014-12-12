@@ -134,7 +134,7 @@ static int currentID = 1;
 - (void)randomize;
 {
     float width = self.maximum - self.minimum;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + self.minimum];
+    [self setValue:(((float) arc4random() / RAND_MAX) * width) + self.minimum];
 }
 
 
