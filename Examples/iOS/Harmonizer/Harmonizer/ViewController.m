@@ -20,13 +20,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    AKOrchestra *orchestra = [[AKOrchestra alloc] init];
-    harmonizer = [[HarmonizerInstrument alloc] init];
-    [orchestra addInstrument:harmonizer];
     
-    [[AKManager sharedAKManager] runOrchestra:orchestra];
     sampler = [[AKSampler alloc] init];
-    
+    harmonizer = [[HarmonizerInstrument alloc] init];
+    [AKOrchestra addInstrument:harmonizer];
+    [AKOrchestra start];
 }
 
 - (IBAction)startRecording:(id)sender {

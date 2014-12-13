@@ -34,7 +34,8 @@
                                             carrierMultiplier:[_toneColor scaledBy:akp(2.0)]
                                          modulatingMultiplier:[_toneColor scaledBy:akp(1.2)]
                                               modulationIndex:[_toneColor scaledBy:akp(1.5)]
-                                                    amplitude:akp(0.15)];
+                                                    amplitude:akp(0.15)
+                                                        phase:akp(0)];
         [self connect:fmOscillator];
         
         AKDeclick *declick;

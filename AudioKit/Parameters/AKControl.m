@@ -29,37 +29,6 @@
     return self;
 }
 
-- (instancetype)initWithMinimum:(float)minimum
-                        maximum:(float)maximum;
-{
-    return [self initWithValue:minimum
-                       minimum:minimum
-                       maximum:maximum];
-}
-
-- (instancetype)initWithValue:(float)initialValue
-                      minimum:(float)minimum
-                      maximum:(float)maximum;
-{
-    self = [self init];
-    if (self) {
-        self.value        = initialValue;
-        self.initialValue = initialValue;
-        self.minimum = minimum;
-        self.maximum = maximum;
-    }
-    return self;
-}
-
-- (void)reset {
-    self.value = self.initialValue;
-}
-
-- (void)randomize;
-{
-    float width = self.maximum - self.minimum;
-    [self setValue:(((float) rand() / RAND_MAX) * width) + self.minimum];
-}
 
 - (instancetype)toCPS;
 {

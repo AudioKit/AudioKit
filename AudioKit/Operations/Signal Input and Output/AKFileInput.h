@@ -17,5 +17,6 @@
 /// Create a file input.
 /// @param fileName Location of the file on disk.
 - (instancetype)initWithFilename:(NSString *)fileName;
-
+- (instancetype)initWithFilename:(NSString *)fileName
+                           speed:(AKControl *)speed;
 @end

@@ -20,22 +20,6 @@ typedef void (^MyBlockType)();
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-- (instancetype)initWithNote:(AKNote *)newNote {
-    self = [self init];
-    if (self) {
-        _note = newNote;
-    }
-    return self;
-}
-
-- (instancetype)initWithNote:(AKNote *)newNote block:(void (^)())aBlock {
-    self = [self initWithNote:newNote];
-    if (self) {
-        block = aBlock;
-    }
-    return self;
-}
-
 - (instancetype)initWithBlock:(void (^)())aBlock {
     self = [self init];
     if (self) {
@@ -48,17 +32,13 @@ typedef void (^MyBlockType)();
 #  pragma mark - event Actions
 // -----------------------------------------------------------------------------
 
-- (void)playNote {
-    if (self->_note) [_note play];
-}
-
 - (void)runBlock {
     if (self->block) block();
 }
 
 - (void)trigger;
 {
-    [[AKManager sharedAKManager] triggerEvent:self];
+    [[AKManager sharedManager] triggerEvent:self];
 }
 
 @end

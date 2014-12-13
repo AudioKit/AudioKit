@@ -14,6 +14,7 @@
 #import "AKManager.h"
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
+#import "AKPhrase.h"
 #import "AKSequence.h"
 #import "AKEvent.h"
 #import "AKNote.h"
@@ -103,7 +104,6 @@
 #import "AKFMOscillator.h"
 #import "AKOscillatingControl.h"
 #import "AKOscillator.h"
-#import "AKSineOscillator.h"
 #import "AKVCOscillator.h"
 
 // Operations - Signal Generators - Oscillators - Low Frequency Oscillators
@@ -127,7 +127,7 @@
 #import "AKMarimba.h"
 
 // Operations - Signal Generators - Physical Models - PhISEM
-#import "AKBamboo.h"
+#import "AKBambooSticks.h"
 #import "AKCabasa.h"
 #import "AKCrunch.h"
 #import "AKDroplet.h"

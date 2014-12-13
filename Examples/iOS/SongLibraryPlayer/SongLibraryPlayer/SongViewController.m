@@ -26,7 +26,7 @@
     
     if ([[song  valueForProperty:MPMediaItemPropertyPersistentID] integerValue] !=
         [[global.currentSong valueForProperty:MPMediaItemPropertyPersistentID] integerValue]) {
-        [[AKManager sharedAKManager] stop];
+        [[AKManager sharedManager] stop];
         global.isPlaying = NO;
         _song = song;
         global.currentSong = song;
@@ -51,8 +51,7 @@
     global = [SharedStore globals];
     if ([[(UIButton *)sender titleLabel].text isEqualToString:@"Play"]) {
         [self loadSong];
-        global.currentPlayback = [[AudioFilePlayerNote alloc] init];
-        [global.audioFilePlayer playNote:global.currentPlayback];
+        [global.audioFilePlayer play];
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
         global.isPlaying = YES;
     } else {
@@ -70,14 +69,9 @@
         return;
     }
     // Create the orchestra and instruments
-    global.orchestra = [[AKOrchestra alloc] init];
     global.audioFilePlayer = [[AudioFilePlayer alloc] init];
-    
-    // Add instruments to orchestra
-    [global.orchestra addInstrument:global.audioFilePlayer];
-    
-    // Start the orchestra
-    [[AKManager sharedAKManager] runOrchestra:global.orchestra];
+    [AKOrchestra addInstrument:global.audioFilePlayer];
+    [AKOrchestra start];
 }
 
 

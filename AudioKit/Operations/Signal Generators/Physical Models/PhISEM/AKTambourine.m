@@ -2,74 +2,92 @@
 //  AKTambourine.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's tambourine:
 //  http://www.csounds.com/manual/html/tambourine.html
 //
 
 #import "AKTambourine.h"
-
-@interface AKTambourine () {
-    AKConstant *idettack;
-    AKControl *kamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-    AKConstant *ifreq;
-    AKConstant *ifreq1;
-    AKConstant *ifreq2;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKTambourine
 
-- (instancetype)initWithMaximumDuration:(AKConstant *)maximumDuration
-                              amplitude:(AKControl *)amplitude
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
+            mainResonantFrequency:(AKConstant *)mainResonantFrequency
+           firstResonantFrequency:(AKConstant *)firstResonantFrequency
+          secondResonantFrequency:(AKConstant *)secondResonantFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = maximumDuration;
-        kamp = amplitude;
-        inum = akp(32);
-        idamp = akp(0);
-        imaxshake = akp(0);
-        ifreq = akp(2300);
-        ifreq1 = akp(5600);
-        ifreq2 = akp(8100);
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
+        _mainResonantFrequency = mainResonantFrequency;
+        _firstResonantFrequency = firstResonantFrequency;
+        _secondResonantFrequency = secondResonantFrequency;
+        
     }
     return self;
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _intensity = akp(1000);
+        _dampingFactor = akp(0.1);
+        _mainResonantFrequency = akp(2300);
+        _firstResonantFrequency = akp(5600);
+        _secondResonantFrequency = akp(8100);
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKTambourine alloc] init];
+}
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    _intensity = intensity;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
-}
-
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
+    _dampingFactor = dampingFactor;
 }
 
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-	ifreq = mainResonantFrequency;
+    _mainResonantFrequency = mainResonantFrequency;
 }
 
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-	ifreq1 = firstResonantFrequency;
+    _firstResonantFrequency = firstResonantFrequency;
 }
 
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
-	ifreq2 = secondResonantFrequency;
+    _secondResonantFrequency = secondResonantFrequency;
+}
+- (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_amplitude = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_maximumDuration = akp(1);
+    return [NSString stringWithFormat:
+            @"%@ tambourine %@, %@, %@, (1 - %@) * 0.7, %@, %@, %@, %@",
+            self,
+            _amplitude,
+            _maximumDuration,
+            _intensity,
+            _dampingFactor,
+            _energyReturn,
+            _mainResonantFrequency,
+            _firstResonantFrequency,
+            _secondResonantFrequency];
 }
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ tambourine %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2];
-}
 
 @end

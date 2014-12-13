@@ -29,14 +29,15 @@ class FMSynth: AKInstrument {
         
         let sine = AKSineTable()
         addFTable(sine)
-        
+
         let fmOscillator = AKFMOscillator(
             FTable: sine,
             baseFrequency: frequency,
             carrierMultiplier: carrierMultiplier,
             modulatingMultiplier: modulatingMultiplier,
             modulationIndex: modulationIndex,
-            amplitude: amplitude
+            amplitude: amplitude,
+            phase: 0.ak
         )
         connect(fmOscillator)
         connect(AKAudioOutput(audioSource: fmOscillator))

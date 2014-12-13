@@ -42,7 +42,7 @@
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput *audio;
-        audio = [[AKAudioOutput alloc] initWithSourceStereoAudio:reverb];
+        audio = [[AKAudioOutput alloc] initWithStereoAudioSource:reverb];
         [self connect:audio];
     }
     return self;

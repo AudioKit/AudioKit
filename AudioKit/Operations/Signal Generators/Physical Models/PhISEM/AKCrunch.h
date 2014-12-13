@@ -2,33 +2,49 @@
 //  AKCrunch.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/28/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
 /** Semi-physical model of a crunch sound.
- 
+
  This one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
 @interface AKCrunch : AKAudio
 
-/// Instantiates the crunch
-/// @param duration Period of time over which all sound is stopped.
-/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation.
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKConstant *)amplitude;
+/// Instantiates the crunch with all values
+/// @param intensity The intensity of the crunch sound
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor;
+
+/// Instantiates the crunch with default values
+- (instancetype)init;
 
 
-/// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 7.
-- (void)setOptionalCount:(AKConstant *)count;
+/// Instantiates the crunch with default values
++ (instancetype)audio;
+
+
+
+
+/// The intensity of the crunch sound [Default Value: 100]
+@property AKConstant *intensity;
+
+/// Set an optional intensity
+/// @param intensity The intensity of the crunch sound [Default Value: 100]
+- (void)setOptionalIntensity:(AKConstant *)intensity;
+
+
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
+@property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor, as part of this equation "damping = 0.998 + (dampingFactor * 0.002)" The default damping is 0.99806 which means that the default value of dampingFactor is 0.03. The maximum damping is 1.0 (no damping). This means the maximum value for dampingFactor is 1.0. The recommended range for dampingFactor is usually below 75% of the maximum value.
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 

@@ -2,55 +2,68 @@
 //  AKCrunch.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/28/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's crunch:
 //  http://www.csounds.com/manual/html/crunch.html
 //
 
 #import "AKCrunch.h"
-
-@interface AKCrunch () {
-    AKConstant *idettack;
-    AKConstant *iamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKCrunch
 
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKConstant *)amplitude
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
-        iamp = amplitude;
-        
-        inum = akp(7);
-        idamp = akp(0.03);
-        imaxshake = akp(0);
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
         
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _intensity = akp(100);
+        _dampingFactor = akp(0.1);
+    }
+    return self;
+}
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
++ (instancetype)audio
+{
+    return [[AKCrunch alloc] init];
+}
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    _intensity = intensity;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
+    _dampingFactor = dampingFactor;
+}
+- (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_maximumDuration = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_amplitude = akp(1);
+    return [NSString stringWithFormat:
+            @"%@ crunch %@, %@, %@, (1 - %@), %@",
+            self,
+            _amplitude,
+            _maximumDuration,
+            _intensity,
+            _dampingFactor,
+            _energyReturn];
 }
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ crunch %@, %@, %@, %@, %@",
-            self, iamp, idettack, inum, idamp, imaxshake];
-}
 
 @end
