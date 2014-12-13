@@ -2,56 +2,68 @@
 //  AKSekere.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's sekere:
 //  http://www.csounds.com/manual/html/sekere.html
 //
 
 #import "AKSekere.h"
-
-@interface AKSekere () {
-    AKConstant *idettack;
-    AKConstant *iamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKSekere
 
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKConstant *)amplitude
+- (instancetype)initWithCount:(AKConstant *)count
+                dampingFactor:(AKConstant *)dampingFactor
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
-        iamp = amplitude;
-        inum = akp(64);
-        idamp = akp(0.5);
-        imaxshake = akp(0);
+        _count = count;
+        _dampingFactor = dampingFactor;
+        
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _count = akp(64);
+        _dampingFactor = akp(0.1);
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKSekere alloc] init];
+}
+
 - (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
+    _count = count;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
+    _dampingFactor = dampingFactor;
 }
-
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
-}
-
 - (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_amplitude = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_maximumDuration = akp(1);
     return [NSString stringWithFormat:
-            @"%@ sekere %@, %@, %@, %@, %@",
-            self, iamp, idettack, inum, idamp, imaxshake];
+            @"%@ sekere %@, %@, %@, (1 - %@), %@",
+            self,
+            _amplitude,
+            _maximumDuration,
+            _count,
+            _dampingFactor,
+            _energyReturn];
 }
+
 
 @end

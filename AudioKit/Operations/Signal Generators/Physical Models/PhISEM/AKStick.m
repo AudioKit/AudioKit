@@ -2,56 +2,69 @@
 //  AKStick.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's stix:
 //  http://www.csounds.com/manual/html/stix.html
 //
 
 #import "AKStick.h"
-
-@interface AKStick () {
-    AKConstant *idettack;
-    AKConstant *iamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKStick
 
-- (instancetype)initWithMaximumDuration:(AKConstant *)maximumDuration
-                              amplitude:(AKConstant *)amplitude
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = maximumDuration;
-        iamp = amplitude;
-        inum = akp(30);
-        idamp = akp(0);
-        imaxshake = akp(0);
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
+        
     }
     return self;
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _intensity = akp(30);
+        _dampingFactor = akp(0.3);
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKStick alloc] init];
+}
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    _intensity = intensity;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
-}
-
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
+    _dampingFactor = dampingFactor;
 }
 
 - (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_amplitude = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_maximumDuration = akp(1);
     return [NSString stringWithFormat:
             @"%@ stix %@, %@, %@, %@, %@",
-            self, iamp, idettack, inum, idamp, imaxshake];
+            self,
+            _amplitude,
+            _maximumDuration,
+            _intensity,
+            _dampingFactor,
+            _energyReturn];
 }
+
 
 @end

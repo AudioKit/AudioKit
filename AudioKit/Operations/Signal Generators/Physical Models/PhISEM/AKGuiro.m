@@ -2,65 +2,79 @@
 //  AKGuiro.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Manually modified by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/27/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's guiro:
 //  http://www.csounds.com/manual/html/guiro.html
 //
 
 #import "AKGuiro.h"
-
-@interface AKGuiro () {
-    AKConstant *idettack;
-    AKControl *kamp;
-    AKConstant *inum;
-    AKConstant *imaxshake;
-    AKConstant *ifreq;
-    AKConstant *ifreq1;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKGuiro
 
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKControl *)amplitude
+- (instancetype)initWithCount:(AKConstant *)count
+        mainResonantFrequency:(AKConstant *)mainResonantFrequency
+       firstResonantFrequency:(AKConstant *)firstResonantFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
-        kamp = amplitude;
+        _count = count;
+        _mainResonantFrequency = mainResonantFrequency;
+        _firstResonantFrequency = firstResonantFrequency;
         
-        inum = akp(128);
-        imaxshake = akp(0);
-        ifreq = akp(2500);
-        ifreq1 = akp(4000);
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
+        // Default Values
+        _count = akp(128);
+        _mainResonantFrequency = akp(2500);
+        _firstResonantFrequency = akp(4000);
+    }
+    return self;
 }
 
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
++ (instancetype)audio
+{
+    return [[AKGuiro alloc] init];
+}
+
+- (void)setOptionalCount:(AKConstant *)count {
+    _count = count;
 }
 
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-	ifreq = mainResonantFrequency;
+    _mainResonantFrequency = mainResonantFrequency;
 }
 
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-	ifreq = firstResonantFrequency;
+    _firstResonantFrequency = firstResonantFrequency;
 }
 
 - (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_maximumDuration = akp(1.0);
+    AKConstant *_amplitude = akp(1.0);
+    AKConstant *_dampingFactor = akp(0);
     return [NSString stringWithFormat:
-            @"%@ guiro %@, %@, %@, 0, %@, %@, %@",
-            self, kamp, idettack, inum, imaxshake, ifreq, ifreq1];
+            @"%@ guiro %@, %@, %@, %@, %@, %@, %@",
+            self,
+            _amplitude,
+            _maximumDuration,
+            _count,
+            _dampingFactor,
+            _energyReturn,
+            _mainResonantFrequency,
+            _firstResonantFrequency];
 }
+
 
 @end

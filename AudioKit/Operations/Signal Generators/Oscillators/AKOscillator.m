@@ -2,45 +2,79 @@
 //  AKOscillator.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/2/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/2/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's oscili:
 //  http://www.csounds.com/manual/html/oscili.html
 //
 
 #import "AKOscillator.h"
+#import "AKManager.h"
 
 @implementation AKOscillator
-{
-    AKFTable *ifn;
-    AKParameter *xcps;
-    AKParameter *xamp;
-    AKConstant *iphs;
-}
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
                      frequency:(AKParameter *)frequency
                      amplitude:(AKParameter *)amplitude
+                         phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifn  = fTable;
-        xcps = frequency;
-        xamp = amplitude;
-        iphs = akp(0);
+            _fTable = fTable;
+                _frequency = frequency;
+                _amplitude = amplitude;
+                _phase = phase;
+        
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+    // Default Values   
+           _fTable = [AKManager standardSineTable];
+            
+            _frequency = akp(440);        
+            _amplitude = akp(1);        
+            _phase = akp(0);            
+    }
+    return self;
+}
+
++ (instancetype)audio
+ {
+    return [[AKOscillator alloc] init];
+}
+
+- (void)setOptionalFTable:(AKFTable *)fTable {
+    _fTable = fTable;
+}
+
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    _frequency = frequency;
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
+
 - (void)setOptionalPhase:(AKConstant *)phase {
-	iphs = phase;
+    _phase = phase;
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ poscil %@, %@, %@, %@",
-            self, xamp, xcps, ifn, iphs];
+        return [NSString stringWithFormat:
+            @"%@ oscili %@, %@, %@, %@",
+            self,
+            _amplitude,
+            _frequency,
+            _fTable,
+            _phase];
 }
+
 
 @end

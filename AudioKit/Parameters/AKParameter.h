@@ -12,6 +12,10 @@
  slower rate variables. 
  */
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Shortcuts for AKConstant creation
+// -----------------------------------------------------------------------------
+
 #define akp(__f__)  [AKConstant constantWithFloat:__f__]
 #define akpi(__i__) [AKConstant constantWithInt:__i__]
 #define akps(__s__) [AKConstant parameterWithString:__s__]
@@ -23,6 +27,10 @@
 {
     int _myID;
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and String Representation
+// -----------------------------------------------------------------------------
 
 // The CSD Text representation of the parameter's name
 @property (nonatomic, strong) NSString *parameterString;
@@ -38,6 +46,11 @@
 /// @param name The name of the parameter as it should appear in the output File.
 + (instancetype)globalParameterWithString:(NSString *)name;
 
+/// Allows a parameter to be created using NSString style string formatting
+/// @param format NSString style string format.
+/// @param ...    Any necessary format values to insert.
++ (id)parameterWithFormat:(NSString *)format, ...;
+
 - (instancetype)initWithString:(NSString *)name;
 
 /// Allows insertion of math into parameters
@@ -46,6 +59,62 @@
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Current, Initial, Minimum, and Maximum Properties
+// -----------------------------------------------------------------------------
+
+/// Current value of the parameter.
+@property (nonatomic, assign) float value;
+
+/// Start value for initialization.
+@property (nonatomic, assign) float initialValue;
+
+/// Minimum Value allowed.
+@property (nonatomic, assign) float minimum;
+
+/// Maximum Value allowed.
+@property (nonatomic, assign) float maximum;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and Range Definition
+// -----------------------------------------------------------------------------
+
+/// Initialize the control with an initial value and bounds.
+/// @param initialValue Initial value.
+- (instancetype)initWithValue:(float)initialValue;
+
+/// Initialize the control with bounds.
+/// @param minimum Minimum value.
+/// @param maximum Maximum value.
+- (instancetype)initWithMinimum:(float)minimum
+                        maximum:(float)maximum;
+
+/// Initialize the control with an initial value and bounds.
+/// @param initialValue Initial value.
+/// @param minimum Minimum value.
+/// @param maximum Maximum value.
+- (instancetype)initWithValue:(float)initialValue
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
+
+/// Scale the property in its own range given another range and value
+/// @param value   Source value.
+/// @param minimum Minimum value in source range.
+/// @param maximum Maximum value in source range.
+- (void)scaleWithValue:(float)value
+               minimum:(float)minimum
+               maximum:(float)maximum;
+
+/// Sets the current value to the initial value.
+- (void)reset;
+
+/// Randomize the current value between the minimum and maximum values
+- (void)randomize;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Helper Functions
+// -----------------------------------------------------------------------------
 
 /// Helper function to create a new AKParameter combined with the original
 /// @param additionalParameter The additional parameter (should be of the same type)

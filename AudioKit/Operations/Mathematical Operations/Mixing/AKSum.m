@@ -9,15 +9,16 @@
 #import "AKSum.h"
 
 @implementation AKSum
-{
-    NSMutableArray *inputs;
+
+- (instancetype)init {
+    return [super initWithString:[self operationName]];
 }
 
 - (instancetype)initWithOperands:(AKParameter *)firstOperand,... {
     self = [super initWithString:[self operationName]];
     
     if (self) {
-        inputs = [[NSMutableArray alloc] init];
+        NSMutableArray *inputs = [[NSMutableArray alloc] init];
         AKParameter *eachInput;
         va_list argumentList;
         if (firstOperand) // The first argument isn't part of the varargs list,
@@ -28,13 +29,31 @@
                 [inputs addObject: eachInput]; // that isn't nil, add it to self's contents.
             va_end(argumentList);
         }
+        self.inputs = inputs;
     }
     return self; 
 }
 
+
+- (instancetype)initWithFirstOperand:(AKParameter *)firstOperand
+                    secondOperand:(AKParameter *)secondOperand;
+{
+    self = [super initWithString:[self operationName]];
+
+    if (self) {
+        NSMutableArray *inputs = [[NSMutableArray alloc] init];
+        [inputs addObject:firstOperand];
+        [inputs addObject:secondOperand];
+        self.inputs = inputs;
+    }
+    return self;
+}
+
+
+
 - (NSString *)stringForCSD
 {
-    NSString *inputsCombined = [[inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
+    NSString *inputsCombined = [[self.inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
     
     return [NSString stringWithFormat:@"%@ sum %@", self, inputsCombined];
 }

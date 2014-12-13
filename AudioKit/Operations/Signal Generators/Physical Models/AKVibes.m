@@ -2,63 +2,116 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/3/12.
-//  Improved from database version by Aurelius Prochazka on 12/27/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Customized by Aurelius Prochazka on 11/30/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's vibes:
 //  http://www.csounds.com/manual/html/vibes.html
 //
 
 #import "AKVibes.h"
-#import "AKSoundFileTable.h"
+#import "AKFoundation.h"
 
 @implementation AKVibes
-{
-    AKControl *kfreq;
-    AKConstant *idec;
-    AKConstant *ihrd;
-    AKConstant *ipos;
-    AKControl *kamp;
-    AKFTable *ifnvib;
-    AKControl *kvibf;
-    AKControl *kvamp;
-}
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
-                  maximumDuration:(AKConstant *)maximumDuration
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                        amplitude:(AKControl *)amplitude
                 tremoloShapeTable:(AKFTable *)tremoloShapeTable
                  tremoloFrequency:(AKControl *)tremoloFrequency
                  tremoloAmplitude:(AKControl *)tremoloAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        kfreq = frequency;
-        idec = maximumDuration;
-        ihrd = stickHardness;
-        ipos = strikePosition;
-        kamp = amplitude;
-        ifnvib = tremoloShapeTable;
-        kvibf = tremoloFrequency;
-        kvamp = tremoloAmplitude;
+        _frequency = frequency;
+        _stickHardness = stickHardness;
+        _strikePosition = strikePosition;
+        _tremoloShapeTable = tremoloShapeTable;
+        _tremoloFrequency = tremoloFrequency;
+        _tremoloAmplitude = tremoloAmplitude;
+        
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _frequency = akp(220);
+        _stickHardness = akp(0.1);
+        _strikePosition = akp(0.1);
+        _tremoloShapeTable = [AKManager standardSineTable];
+        
+        _tremoloFrequency = akp(0);
+        _tremoloAmplitude = akp(0);
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKVibes alloc] init];
+}
+
+- (void)setOptionalFrequency:(AKControl *)frequency {
+    _frequency = frequency;
+}
+
+- (void)setOptionalStickHardness:(AKConstant *)stickHardness {
+    _stickHardness = stickHardness;
+}
+
+- (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
+    _strikePosition = strikePosition;
+}
+
+- (void)setOptionalTremoloShapeTable:(AKFTable *)tremoloShapeTable {
+    _tremoloShapeTable = tremoloShapeTable;
+}
+
+- (void)setOptionalTremoloFrequency:(AKControl *)tremoloFrequency {
+    _tremoloFrequency = tremoloFrequency;
+}
+
+- (void)setOptionalTremoloAmplitude:(AKControl *)tremoloAmplitude {
+    _tremoloAmplitude = tremoloAmplitude;
+}
+
 - (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_amplitude = akp(1.0);
+    AKConstant *_maximumDuration = akp(1);
+
     NSString *file;
-    file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
-    AKSoundFileTable *fileTable;
-    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+    if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
+        file = [[AKManager sharedManager] fullPathToAudioKit];
+        file = [file stringByAppendingPathComponent:@"AudioKit/Operations/Signal Generators/Physical Models/Marimba/marmstk1.wav"];
+    } else {
+        file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+    }
+    NSLog(@"file %@", file);
+    AKSoundFileTable *_strikeImpulseTable;
+    _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
     
     return [NSString stringWithFormat:
             @"%@\n"
-            @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@",
-            [fileTable stringForCSD],
-            self, kamp, kfreq, ihrd, ipos, kvibf, kvamp, ifnvib, idec];
+            @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            [_strikeImpulseTable stringForCSD],
+            self,
+            _amplitude,
+            _frequency,
+            _stickHardness,
+            _strikePosition,
+            _strikeImpulseTable,
+            _tremoloFrequency,
+            _tremoloAmplitude,
+            _tremoloShapeTable,
+            _maximumDuration];
 }
+
 
 @end
