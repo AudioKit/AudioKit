@@ -15,7 +15,7 @@
 
 /** AKOrchestra is an AKInstrument collection that can be run by the AKManager.
  */
-@interface AKOrchestra : NSObject 
+@interface AKOrchestra : NSObject
 
 /// Determines the value from which to scale all other amplitudes
 @property (nonatomic, assign) float zeroDBFullScaleValue;
@@ -26,6 +26,20 @@
 /// All the instruments in the orchestra, in order they need to be created.
 @property (nonatomic, strong) NSMutableArray *instruments;
 
+/// Start the orchestra
++ (void)start;
+
+/// Test the orchestra
++ (void)test;
+
+/// Test the orchestra for a specified time
+/// @param duration Testing run time in seconds
++ (void)testForDuration:(int)duration;
+
+
+/// Add an instrument to the orchestra
+/// @param instrument Instrument to add to the orchestra
++ (void)addInstrument:(AKInstrument *)instrument;
 
 /// Adds an instrument to orchestra and informs the instrument which orchestra it now belongs to.
 /// @param newInstrument Instrument that will be added to the orchestra.

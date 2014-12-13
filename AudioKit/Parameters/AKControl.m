@@ -29,12 +29,12 @@
     return self;
 }
 
+
 - (instancetype)toCPS;
 {
     AKControl *new = [[AKControl alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"cpspch(%@)", self.parameterString]];
     return new;
 }
-
 
 @end

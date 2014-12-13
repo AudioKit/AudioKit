@@ -17,15 +17,6 @@
 
 @interface AKNote : NSObject
 
-/// Instrument this note belongs to
-@property (nonatomic, strong) AKInstrument *instrument;
-
-/// Duration of this note (for finite notes with length defined)
-@property (nonatomic, strong) AKNoteProperty *duration;
-
-/// Set of properties of the note
-@property (nonatomic, strong) NSMutableDictionary *properties;
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
@@ -43,9 +34,39 @@
 /// @param anInstrument This note's instrument.
 - (instancetype)initWithInstrument:(AKInstrument *)anInstrument;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Properties and Property Management
+// -----------------------------------------------------------------------------
+
+/// Instrument this note belongs to
+@property (nonatomic, strong) AKInstrument *instrument;
+
+/// Duration of this note (for finite notes with length defined)
+@property (nonatomic, strong) AKNoteProperty *duration;
+
+/// Set of properties of the note
+@property (nonatomic, strong) NSMutableDictionary *properties;
+
+/// Adds the property to the list of available properties of the note
+/// @param newProperty New property to add to the note's set of properties
+/// @param name        Human readable name for the of the property
+- (void) addProperty:(AKNoteProperty *)newProperty
+            withName:(NSString *)name;
+
+/// Adds the property to the list of available properties of the note
+/// @param newProperty New property to add to the note's set of properties
+- (void) addProperty:(AKNoteProperty *)newProperty;
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Playback Controls
+// -----------------------------------------------------------------------------
 
 /// Begin playback of the note.
 - (void)play;
+
+/// Begin playback of the note after a delay.
+/// @param delay Time to wait before beginning note playback.
+- (void)playAfterDelay:(float)delay;
 
 /// Refine playback of the note.
 - (void)updateProperties;
@@ -58,16 +79,5 @@
 
 // Returns the stop scoreline to the CSD File.
 - (NSString *)stopStringForCSD;
-
-/// Adds the property to the list of available properties of the note
-/// @param newProperty New property to add to the note's set of properties
-/// @param name        Human readable name for the of the property
-- (void) addProperty:(AKNoteProperty *)newProperty
-            withName:(NSString *)name;
-
-/// Adds the property to the list of available properties of the note
-/// @param newProperty New property to add to the note's set of properties
-- (void) addProperty:(AKNoteProperty *)newProperty;
-
 
 @end

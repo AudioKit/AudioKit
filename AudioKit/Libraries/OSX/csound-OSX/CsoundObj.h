@@ -26,7 +26,7 @@
 #import <AudioToolbox/ExtendedAudioFile.h>
 #import <AudioUnit/AudioUnit.h>
 
-#import "csound.h"
+#import "CsoundLib64.framework/Headers/csound.h"
 
 typedef struct csdata_ {
 	CSOUND *cs;

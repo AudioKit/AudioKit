@@ -33,7 +33,7 @@
 }
 
 - (void)setOptionalType:(LFOType)type {
-	itype = akpi(type);
+    itype = akpi(type);
 }
 
 - (NSString *)stringForCSD {

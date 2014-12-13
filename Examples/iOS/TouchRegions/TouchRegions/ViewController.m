@@ -12,6 +12,8 @@
 
 @interface ViewController () {
     FMOscillator *fm;
+    UIImageView *leftTouchImageView;
+    UIImageView *rightTouchImageView;
 }
 @property (strong, nonatomic) IBOutlet UIView *leftView;
 @property (strong, nonatomic) IBOutlet UIView *rightView;
@@ -34,11 +36,16 @@
     [self.rightView addObserver:self forKeyPath:@"horizontalPercentage" options:NSKeyValueObservingOptionNew context:Nil];
     [self.rightView addObserver:self forKeyPath:@"verticalPercentage"   options:NSKeyValueObservingOptionNew context:Nil];
     
-    AKOrchestra *orchestra = [[AKOrchestra alloc] init];
     fm = [[FMOscillator alloc] init];
-    [orchestra addInstrument:fm];
-    [[AKManager sharedAKManager] runOrchestra:orchestra];
+    [AKOrchestra addInstrument:fm];
+    [AKOrchestra start];
     [fm play];
+    leftTouchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-350, -350, 50, 50) ];
+    leftTouchImageView.image = [UIImage imageNamed:@"circle.png"];
+    rightTouchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-350, -350, 50, 50) ];
+    rightTouchImageView.image = [UIImage imageNamed:@"circle.png"];
+    [self.view addSubview:leftTouchImageView];
+    [self.view addSubview:rightTouchImageView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,15 +60,21 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
+    float middle = self.view.frame.size.width/2.0;
+    float height = self.view.frame.size.height;
+    
     if ([keyPath isEqualToString:@"horizontalPercentage"]) {
         float newValue = [[change objectForKey:@"new"] floatValue];
         if (object == self.leftView) {
             fm.frequency.value  = newValue * (fm.frequency.maximum - fm.frequency.minimum) + fm.frequency.minimum;
             self.frequencyLabel.text = [NSString stringWithFormat:@"%0.2f", fm.frequency.value];
+            leftTouchImageView.center = CGPointMake(newValue * middle, leftTouchImageView.center.y);
+            NSLog(@"%f", newValue*400);
         }
         if (object == self.rightView) {
             fm.modulatingMultiplier.value  = newValue * (fm.modulatingMultiplier.maximum - fm.modulatingMultiplier.minimum) + fm.modulatingMultiplier.minimum;
             self.modulatingMultiplierLabel.text = [NSString stringWithFormat:@"%0.6f", fm.modulatingMultiplier.value];
+            rightTouchImageView.center = CGPointMake(newValue * middle + middle, rightTouchImageView.center.y);
         }
     } else if ([keyPath isEqualToString:@"verticalPercentage"]) {
         float newValue = [[change objectForKey:@"new"] floatValue];
@@ -69,10 +82,12 @@
             
             fm.carrierMultiplier.value  = newValue * (fm.carrierMultiplier.maximum - fm.carrierMultiplier.minimum) + fm.carrierMultiplier.minimum;
             self.carrierMultiplierLabel.text = [NSString stringWithFormat:@"%0.6f", fm.carrierMultiplier.value];
+            leftTouchImageView.center = CGPointMake(leftTouchImageView.center.x, newValue*height);
         }
         if (object == self.rightView) {
             fm.modulationIndex.value  = newValue * (fm.modulationIndex.maximum - fm.modulationIndex.minimum) + fm.modulationIndex.minimum;
             self.modulationIndexLabel.text = [NSString stringWithFormat:@"%0.4f", fm.modulationIndex.value];
+            rightTouchImageView.center = CGPointMake(rightTouchImageView.center.x, newValue*height);
         }
     } else {
         [NSException raise:@"Unexpected Keypath" format:@"%@", keyPath];

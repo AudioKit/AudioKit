@@ -12,43 +12,14 @@
 
 static int currentID = 1;
 
-+(void) resetID {
-    currentID = 1;
-}
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and String Representation
+// -----------------------------------------------------------------------------
 
 - (instancetype)init
 {
     self = [super init];
     _myID = currentID++;
-    return self;
-}
-
-- (instancetype)initWithString:(NSString *)name
-{
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-        _parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
-    }
-    return self;
-}
-
-- (instancetype)initGlobalWithString:(NSString *)name
-{
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-        _parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
-    }
-    return self;
-}
-
-- (instancetype)initWithExpression:(NSString *)expression
-{
-    self = [super init];
-    if (self) {
-        _parameterString = [NSString stringWithString:expression];
-    }
     return self;
 }
 
@@ -62,14 +33,114 @@ static int currentID = 1;
     return [[self alloc] initGlobalWithString:@"Global"];
 }
 
+- (instancetype)initGlobalWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+        _parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
+    }
+    return self;
+}
+
 + (instancetype)globalParameterWithString:(NSString *)name
 {
     return [[self alloc] initGlobalWithString:name];
 }
 
++(id)parameterWithFormat:(NSString *)format, ... {
+    va_list argumentList;
+    va_start(argumentList, format);
+    return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
+    va_end(argumentList);
+}
+
 - (NSString *)description {
     return _parameterString;
 }
+
+- (instancetype)initWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+        _parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
+    }
+    return self;
+}
+
+- (instancetype)initWithExpression:(NSString *)expression
+{
+    self = [super init];
+    if (self) {
+        _parameterString = [NSString stringWithString:expression];
+    }
+    return self;
+}
+
++(void) resetID {
+    currentID = 1;
+}
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Initialization and Range Definition
+// -----------------------------------------------------------------------------
+
+- (instancetype)initWithValue:(float)initialValue
+{
+    self = [self init];
+    if (self) {
+        self.value        = initialValue;
+        self.initialValue = initialValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithMinimum:(float)minimum
+                        maximum:(float)maximum;
+{
+    return [self initWithValue:minimum
+                       minimum:minimum
+                       maximum:maximum];
+}
+
+- (instancetype)initWithValue:(float)initialValue
+                      minimum:(float)minimum
+                      maximum:(float)maximum;
+{
+    self = [self init];
+    if (self) {
+        self.value        = initialValue;
+        self.initialValue = initialValue;
+        self.minimum = minimum;
+        self.maximum = maximum;
+    }
+    return self;
+}
+
+- (void)scaleWithValue:(float)value
+               minimum:(float)minimum
+               maximum:(float)maximum
+{
+    float percentage = (value-minimum)/(maximum - minimum);
+    float width = self.maximum - self.minimum;
+    self.value = self.minimum + percentage * width;
+}
+
+- (void)reset {
+    self.value = self.initialValue;
+}
+
+- (void)randomize;
+{
+    float width = self.maximum - self.minimum;
+    [self setValue:(((float) arc4random() / RAND_MAX) * width) + self.minimum];
+}
+
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Helper Functions
+// -----------------------------------------------------------------------------
 
 - (instancetype)plus:(AKParameter *)additionalParameter
 {
@@ -105,5 +176,6 @@ static int currentID = 1;
     [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
     return new;
 }
+
 
 @end

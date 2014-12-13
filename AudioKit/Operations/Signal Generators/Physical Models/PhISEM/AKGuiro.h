@@ -2,9 +2,8 @@
 //  AKGuiro.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Manually modified by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 11/27/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -17,27 +16,46 @@
 
 @interface AKGuiro : AKAudio
 
-/// Instantiates the guiro
-/// @param duration Period of time over which all sound is stopped
-/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKControl *)amplitude;
+/// Instantiates the guiro with all values
+/// @param count The number of beads/teeth/bells/timbrels/etc.
+/// @param mainResonantFrequency The main resonant frequency.
+/// @param firstResonantFrequency The first resonant frequency.
+- (instancetype)initWithCount:(AKConstant *)count
+        mainResonantFrequency:(AKConstant *)mainResonantFrequency
+       firstResonantFrequency:(AKConstant *)firstResonantFrequency;
 
+/// Instantiates the guiro with default values
+- (instancetype)init;
+
+
+/// Instantiates the guiro with default values
++ (instancetype)audio;
+
+
+
+
+/// The number of beads/teeth/bells/timbrels/etc. [Default Value: 128]
+@property AKConstant *count;
 
 /// Set an optional count
-/// @param count The number of beads, teeth, bells, timbrels, etc. The default value is 128.
+/// @param count The number of beads/teeth/bells/timbrels/etc. [Default Value: 128]
 - (void)setOptionalCount:(AKConstant *)count;
 
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn;
+
+/// The main resonant frequency. [Default Value: 2500]
+@property AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
-/// @param mainResonantFrequency The main resonant frequency. The default value is 2500.
+/// @param mainResonantFrequency The main resonant frequency. [Default Value: 2500]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
 
+
+/// The first resonant frequency. [Default Value: 4000]
+@property AKConstant *firstResonantFrequency;
+
 /// Set an optional first resonant frequency
-/// @param firstResonantFrequency The first resonant frequency. The default value is 4000.
+/// @param firstResonantFrequency The first resonant frequency. [Default Value: 4000]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
+
 
 @end

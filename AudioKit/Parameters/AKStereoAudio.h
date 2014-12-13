@@ -31,6 +31,13 @@
 /// @param mono Regular mono audio source.
 + (AKStereoAudio *)stereoFromMono:(AKAudio *)mono;
 
+/// Create a parameter available to all instruments in the orchestra.
++ (instancetype)globalParameter;
+
+/// Create a parameter available to all instruments in the orchestra.
+/// @param name The name of the parameter as it should appear in the output File.
++ (instancetype)globalParameterWithString:(NSString *)name;
+
 /// Scale both sides of an audio pair equally.
 /// @param scalingFactor Amount by which to scale the audio.
 - (instancetype)scaledBy:(AKParameter *)scalingFactor;

@@ -16,10 +16,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let orchestra = AKOrchestra()
-        orchestra.addInstrument(harmonizer)
-        let manager = AKManager.sharedAKManager()
-        manager.runOrchestra(orchestra)
+        AKOrchestra.addInstrument(harmonizer)
+        AKOrchestra.start()
     }
 
     override func didReceiveMemoryWarning() {

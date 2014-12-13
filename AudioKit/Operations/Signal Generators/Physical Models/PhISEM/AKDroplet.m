@@ -2,78 +2,98 @@
 //  AKDroplet.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/28/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's dripwater:
 //  http://www.csounds.com/manual/html/dripwater.html
 //
 
 #import "AKDroplet.h"
-
-@interface AKDroplet () {
-    AKConstant *idettack;
-    AKControl *kamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-    AKConstant *ifreq;
-    AKConstant *ifreq1;
-    AKConstant *ifreq2;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKDroplet
 
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKControl *)amplitude
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
+                     energyReturn:(AKConstant *)energyReturn
+            mainResonantFrequency:(AKConstant *)mainResonantFrequency
+           firstResonantFrequency:(AKConstant *)firstResonantFrequency
+          secondResonantFrequency:(AKConstant *)secondResonantFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
-        kamp = amplitude;
-        
-        inum = akp(10);
-        idamp = akp(0);
-        imaxshake = akp(0);
-        ifreq = akp(450);
-        ifreq1 = akp(600);
-        ifreq2 = akp(750);
-        
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
+        _energyReturn = energyReturn;
+        _mainResonantFrequency = mainResonantFrequency;
+        _firstResonantFrequency = firstResonantFrequency;
+        _secondResonantFrequency = secondResonantFrequency;
         
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _intensity = akp(10);
+        _dampingFactor = akp(0.1);
+        _energyReturn = akp(0.5);
+        _mainResonantFrequency = akp(450);
+        _firstResonantFrequency = akp(600);
+        _secondResonantFrequency = akp(750);
+    }
+    return self;
+}
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
++ (instancetype)audio
+{
+    return [[AKDroplet alloc] init];
+}
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    _intensity = intensity;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
+    _dampingFactor = dampingFactor;
 }
 
 - (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
+    _energyReturn = energyReturn;
 }
 
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-	ifreq = mainResonantFrequency;
+    _mainResonantFrequency = mainResonantFrequency;
 }
 
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-	ifreq1 = firstResonantFrequency;
+    _firstResonantFrequency = firstResonantFrequency;
 }
 
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
-	ifreq2 = secondResonantFrequency;
+    _secondResonantFrequency = secondResonantFrequency;
+}
+- (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_maximumDuration = akp(1);
+    AKConstant *_amplitude = akp(1);
+    return [NSString stringWithFormat:
+            @"%@ dripwater %@, %@, %@, (1 - %@), %@, %@, %@, %@",
+            self,
+            _amplitude,
+            _maximumDuration,
+            _intensity,
+            _dampingFactor,
+            _energyReturn,
+            _mainResonantFrequency,
+            _firstResonantFrequency,
+            _secondResonantFrequency];
 }
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ dripwater %@, %@, %@, %@, %@, %@, %@, %@",
-            self, kamp, idettack, inum, idamp, imaxshake, ifreq, ifreq1, ifreq2];
-}
 
 @end

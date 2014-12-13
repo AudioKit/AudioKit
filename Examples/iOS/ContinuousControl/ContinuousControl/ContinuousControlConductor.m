@@ -3,7 +3,7 @@
 //  ContinuousControl
 //
 //  Created by Aurelius Prochazka on 8/4/14.
-//  Copyright (c) 2014 h4y. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "ContinuousControlConductor.h"
@@ -19,10 +19,9 @@
 {
     self = [super init];
     if (self) {
-        AKOrchestra *orch = [[AKOrchestra alloc] init];
         self.tweakableInstrument = [[TweakableInstrument alloc] init];
-        [orch addInstrument:self.tweakableInstrument];
-        [[AKManager sharedAKManager] runOrchestra:orch];
+        [AKOrchestra addInstrument:_tweakableInstrument];
+        [AKOrchestra start];
     }
     return self;
 }
@@ -41,7 +40,7 @@
 {
     [self.tweakableInstrument play];
     [self.tweakableInstrument.frequency randomize];
-    
+
     if (frequencyTimer) {
         return;
     } else {

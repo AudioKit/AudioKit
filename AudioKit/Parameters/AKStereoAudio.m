@@ -61,6 +61,28 @@ static int currentID = 1;
     return self;
 }
 
+- (instancetype)initGlobalWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        _myID = currentID++;
+        aOutL  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Left%i",name, _myID]];
+        aOutR  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Right%i",name,_myID]];
+    }
+    return self;
+}
+
++ (instancetype)globalParameter
+{
+    return [[self alloc] initGlobalWithString:@"Global"];
+}
+
++ (instancetype)globalParameterWithString:(NSString *)name
+{
+    return [[self alloc] initGlobalWithString:name];
+}
+
+
 - (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
     AKAudio *left   = [aOutL scaledBy:scalingFactor];

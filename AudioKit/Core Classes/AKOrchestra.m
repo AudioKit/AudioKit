@@ -38,6 +38,31 @@
 #  pragma mark - Collections
 // -----------------------------------------------------------------------------
 
++ (void)addInstrument:(AKInstrument *)instrument {
+    [[[AKManager sharedManager] orchestra] addInstrument:instrument];
+}
+
++ (void)start
+{
+    if (![[AKManager sharedManager] isRunning]) {
+        [[AKManager sharedManager] runOrchestra];
+    }
+}
+
++ (void)test
+{
+    if (![[AKManager sharedManager] isRunning]) {
+        [[AKManager sharedManager] runTestOrchestra];
+    }
+}
+
++ (void)testForDuration:(int)duration
+{
+    if (![[AKManager sharedManager] isRunning]) {
+        [[AKManager sharedManager] runOrchestraForDuration:duration];
+    }
+}
+
 - (void)addInstrument:(AKInstrument *)newInstrument {
     [_instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];
@@ -64,6 +89,8 @@
     [s appendString:@"\n"];
     
     [s appendString:@";=== GLOBAL F-TABLES ===\n"];
+    [s appendString:[[AKManager standardSineTable] fTableStringForCSD]];
+    [s appendString:@"\n"];
     for ( AKInstrument *i in _instruments) {
         for (AKFTable *fTable in [i fTables]) {
             [s appendString:[fTable fTableStringForCSD]];

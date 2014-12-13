@@ -2,49 +2,79 @@
 //  AKSleighbells.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
 /** Semi-physical model of a sleighbell sound.
- 
+
  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
 @interface AKSleighbells : AKAudio
 
-/// Instantiates the sleighbells
-/// @param duration Period of time over which all sound is stopped
-/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation.
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKControl *)amplitude;
+/// Instantiates the sleighbells with all values
+/// @param intensity The intensity of the bell sound.
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
+/// @param mainResonantFrequency The main resonant frequency.
+/// @param firstResonantFrequency The first resonant frequency.
+/// @param secondResonantFrequency The second resonant frequency.
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
+            mainResonantFrequency:(AKConstant *)mainResonantFrequency
+           firstResonantFrequency:(AKConstant *)firstResonantFrequency
+          secondResonantFrequency:(AKConstant *)secondResonantFrequency;
+
+/// Instantiates the sleighbells with default values
+- (instancetype)init;
 
 
-/// Set an optional count
-/// @param count The number of beads/teeth/bells/timbrels/etc. The default value is 1.25.
-- (void)setOptionalCount:(AKConstant *)count;
+/// Instantiates the sleighbells with default values
++ (instancetype)audio;
+
+
+
+
+/// The intensity of the bell sound. [Default Value: 32]
+@property AKConstant *intensity;
+
+/// Set an optional intensity
+/// @param intensity The intensity of the bell sound. [Default Value: 32]
+- (void)setOptionalIntensity:(AKConstant *)intensity;
+
+
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.2]
+@property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor The damping factor, as part of this equation damping = 0.9994 + (dampingFactor * 0.002). The default damping is 0.9994 which means that the default value is 0. The maximum damping is 1.0 (no damping). This means the maximum value for the dampingFactor is 0.03.  The recommended range for dampingFactor is usually below 75% of the maximum value.
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.2]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
-/// Set an optional energy return
-/// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1.
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn;
+
+/// The main resonant frequency. [Default Value: 2500]
+@property AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
-/// @param mainResonantFrequency The main resonant frequency. The default value is 2500.
+/// @param mainResonantFrequency The main resonant frequency. [Default Value: 2500]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
 
+
+/// The first resonant frequency. [Default Value: 5300]
+@property AKConstant *firstResonantFrequency;
+
 /// Set an optional first resonant frequency
-/// @param firstResonantFrequency The first resonant frequency. The default value is 5300.
+/// @param firstResonantFrequency The first resonant frequency. [Default Value: 5300]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
 
+
+/// The second resonant frequency. [Default Value: 6500]
+@property AKConstant *secondResonantFrequency;
+
 /// Set an optional second resonant frequency
-/// @param secondResonantFrequency The second resonant frequency. The default value is 6500.
+/// @param secondResonantFrequency The second resonant frequency. [Default Value: 6500]
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
 
 
