@@ -113,7 +113,7 @@
 - (void)playNextEventInSequence:(NSTimer *)aTimer;
 {
     AKEvent *event = _events[index];
-    [[AKManager sharedAKManager] triggerEvent:event];
+    [[AKManager sharedManager] triggerEvent:event];
 
     if (index < [_times count]-1 && isPlaying) {
         float timeUntilNextEvent = [_times[index+1] floatValue] -

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/3/14.
-//  Copyright (c) 2014 h4y. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKTrackedAmplitudeFromFSignal.h"

@@ -3,7 +3,7 @@
 //  PlayAudioFile
 //
 //  Created by Aurelius Prochazka on 8/4/14.
-//  Copyright (c) 2014 h4y. All rights reserved.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AudioFileConductor.h"
@@ -20,14 +20,9 @@
     self = [super init];
     if (self) {
         // Create the orchestra and instruments
-        AKOrchestra *orchestra = [[AKOrchestra alloc] init];
         audioFilePlayer = [[AudioFilePlayer alloc] init];
-        
-        // Add instruments to orchestra
-        [orchestra addInstrument:audioFilePlayer];
-        
-        // Start the orchestra
-        [[AKManager sharedAKManager] runOrchestra:orchestra];
+        [AKOrchestra addInstrument:audioFilePlayer];
+        [AKOrchestra start];
     }
     return self;
 }

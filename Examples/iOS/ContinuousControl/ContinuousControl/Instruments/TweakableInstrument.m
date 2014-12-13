@@ -49,7 +49,8 @@
                                        carrierMultiplier:akp(1)
                                     modulatingMultiplier:_modulation
                                          modulationIndex:_modIndex
-                                               amplitude:_amplitude];
+                                               amplitude:_amplitude
+                                                   phase:akp(0)];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================

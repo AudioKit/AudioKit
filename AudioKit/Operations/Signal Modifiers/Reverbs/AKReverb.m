@@ -18,7 +18,7 @@
     AKControl *kFCo;
 }
 
-- (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)sourceStereo
+- (instancetype)initWithStereoAudioSource:(AKStereoAudio *)sourceStereo
                             feedbackLevel:(AKControl *)feedbackLevel
                           cutoffFrequency:(AKControl *)cutoffFrequency;
 
@@ -36,7 +36,7 @@
                       feedbackLevel:(AKControl *)feedbackLevel
                     cutoffFrequency:(AKControl *)cutoffFrequency;
 {
-    return [self initWithSourceStereoAudio:[AKStereoAudio stereoFromMono:audioSource]
+    return [self initWithStereoAudioSource:[AKStereoAudio stereoFromMono:audioSource]
                              feedbackLevel:feedbackLevel
                            cutoffFrequency:cutoffFrequency];
 }

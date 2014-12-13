@@ -2,56 +2,68 @@
 //  AKSandPaper.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's sandpaper:
 //  http://www.csounds.com/manual/html/sandpaper.html
 //
 
 #import "AKSandPaper.h"
-
-@interface AKSandPaper () {
-    AKConstant *idettack;
-    AKConstant *iamp;
-    AKConstant *inum;
-    AKConstant *idamp;
-    AKConstant *imaxshake;
-}
-@end
+#import "AKManager.h"
 
 @implementation AKSandPaper
 
-- (instancetype)initWithDuration:(AKConstant *)duration
-                       amplitude:(AKConstant *)amplitude
+- (instancetype)initWithIntensity:(AKConstant *)intensity
+                    dampingFactor:(AKConstant *)dampingFactor
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        idettack = duration;
-        iamp = amplitude;
-        inum = akp(128);
-        idamp = akp(0.5);
-        imaxshake = akp(0);
+        _intensity = intensity;
+        _dampingFactor = dampingFactor;
+        
     }
     return self;
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
-	inum = count;
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _intensity = akp(128);
+        _dampingFactor = akp(0.9);
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKSandPaper alloc] init];
+}
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    _intensity = intensity;
 }
 
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-	idamp = dampingFactor;
+    _dampingFactor = dampingFactor;
 }
-
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-	imaxshake = energyReturn;
-}
-
 - (NSString *)stringForCSD {
+    // Constant Values
+    AKConstant *_amplitude = akp(1);
+    AKConstant *_energyReturn = akp(0);
+    AKConstant *_maximumDuration = akp(1);
     return [NSString stringWithFormat:
-            @"%@ sandpaper %@, %@, %@, %@, %@",
-            self, iamp, idettack, inum, idamp, imaxshake];
+            @"%@ sandpaper %@, %@, %@, (1 - %@), %@",
+            self,
+            _amplitude,
+            _maximumDuration,
+            _intensity,
+            _dampingFactor,
+            _energyReturn];
 }
+
 
 @end

@@ -26,7 +26,7 @@
 
 /// Send a stereo output pair
 /// @param stereoAudio The audio as an AKStereoAudio pair
-- (instancetype)initWithSourceStereoAudio:(AKStereoAudio *)stereoAudio;
+- (instancetype)initWithStereoAudioSource:(AKStereoAudio *)stereoAudio;
 
 /// Initialization Statement
 /// @param leftAudio  The audio signal to be played on the left channel.
