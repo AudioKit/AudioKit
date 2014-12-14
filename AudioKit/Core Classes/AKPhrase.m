@@ -17,7 +17,8 @@
 
 @implementation AKPhrase 
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
         timeNotePairs = [[NSMutableArray alloc] init];
@@ -26,10 +27,12 @@
     
 }
 
-- (void)addNote:(AKNote *)note {
+- (void)addNote:(AKNote *)note
+{
     [timeNotePairs addObject:@[@0, note]];
 }
-- (void)addNote:(AKNote *)note atTime:(float)time {
+- (void)addNote:(AKNote *)note atTime:(float)time
+{
     NSNumber *startTime = [NSNumber numberWithFloat:time];
     [timeNotePairs addObject:@[startTime, note]];
 }

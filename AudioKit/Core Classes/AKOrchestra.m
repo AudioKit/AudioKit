@@ -21,7 +21,8 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
         sampleRate = 44100;
@@ -38,7 +39,8 @@
 #  pragma mark - Collections
 // -----------------------------------------------------------------------------
 
-+ (void)addInstrument:(AKInstrument *)instrument {
++ (void)addInstrument:(AKInstrument *)instrument
+{
     [[[AKManager sharedManager] orchestra] addInstrument:instrument];
 }
 
@@ -72,8 +74,8 @@
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
 
-- (NSString *) stringForCSD {
- 
+- (NSString *) stringForCSD
+{ 
     NSMutableString *s = [NSMutableString stringWithString:@""];
     
     [s appendString:@";=== HEADER ===\n"];

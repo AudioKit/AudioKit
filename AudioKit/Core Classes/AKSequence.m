@@ -21,7 +21,8 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
         _events = [[NSMutableArray alloc] init];
@@ -37,7 +38,7 @@
 }
 
 - (void)addEvent:(AKEvent *)event 
-          atTime:(float)timeSinceStart;
+          atTime:(float)timeSinceStart
 {
     NSNumber *time = [NSNumber numberWithFloat:timeSinceStart];
     
@@ -60,7 +61,7 @@
 }
 
 - (void)addEvent:(AKEvent *)event 
-   afterDuration:(float)timeSinceLastEventStarted;
+   afterDuration:(float)timeSinceLastEventStarted
 {
     [_events addObject:event];
     NSNumber *time = @0.0F;
@@ -110,7 +111,7 @@
 
 
 // Cue up the next event to be triggered.
-- (void)playNextEventInSequence:(NSTimer *)aTimer;
+- (void)playNextEventInSequence:(NSTimer *)aTimer
 {
     AKEvent *event = _events[index];
     [[AKManager sharedManager] triggerEvent:event];

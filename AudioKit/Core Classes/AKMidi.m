@@ -26,7 +26,8 @@
     return self;
 }
 
--(void)addListener:(id<AKMidiListener>)listener {
+-(void)addListener:(id<AKMidiListener>)listener
+{
     NSLog(@"Adding listener");
     [_listeners addObject:listener];
 }
@@ -36,7 +37,8 @@
 #  pragma mark - Broadcast MIDI Events
 // -----------------------------------------------------------------------------
 
-- (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel {
+- (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel
+{
     for (id<AKMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiNoteOn:velocity:channel:)]) {
             [listener midiNoteOn:note velocity:velocity channel:channel];
@@ -44,7 +46,8 @@
     }
 }
 
-- (void)broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)channel {
+- (void)broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)channel
+{
     for (id<AKMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiNoteOff:velocity:channel:)]) {
             [listener midiNoteOff:note velocity:velocity channel:channel];
@@ -52,7 +55,8 @@
     }
 }
 
-- (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)channel {
+- (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)channel
+{
     for (id<AKMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiAftertouchOnNote:pressure:channel:)]) {
             [listener midiAftertouchOnNote:note pressure:pressure channel:channel];
@@ -60,7 +64,8 @@
     }
 }
 
-- (void)broadcastAftertouch:(int)pressure channel:(int)channel {
+- (void)broadcastAftertouch:(int)pressure channel:(int)channel
+{
     for (id<AKMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiAftertouch:channel:)]) {
             [listener midiAftertouch:pressure channel:channel];
@@ -68,7 +73,8 @@
     }
 }
 
-- (void)broadcastPitchWheel:(int)pitchWheelValue channel:(int)channel {
+- (void)broadcastPitchWheel:(int)pitchWheelValue channel:(int)channel
+{
     for (id<AKMidiListener> listener in _listeners) {
         if ([listener respondsToSelector:@selector(midiPitchWheel:channel:)]) {
             [listener midiPitchWheel:pitchWheelValue  channel:channel];
@@ -77,7 +83,8 @@
 }
 
 
-- (void)broadcastChangeController:(int)controller toValue:(int)value channel:(int)channel {
+- (void)broadcastChangeController:(int)controller toValue:(int)value channel:(int)channel
+{
     for (id<AKMidiListener> listener in _listeners) {
         [listener midiController:controller changedToValue:value channel:channel];
         switch (controller) {
@@ -134,7 +141,8 @@ typedef enum MIDIConstants {
 } MIDIConstants;
 
 
-void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon) {
+void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
+{
     AKMidi *m = (__bridge AKMidi *)refCon;
     
 	MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
@@ -195,7 +203,8 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 	}
 }
 
-void MyMIDINotifyProc (const MIDINotification  *message, void *refCon) {
+void MyMIDINotifyProc (const MIDINotification  *message, void *refCon)
+{
 	//printf("MIDI Notify, messageId=%d,", message->messageID);
 }
 

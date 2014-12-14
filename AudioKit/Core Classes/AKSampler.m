@@ -27,23 +27,27 @@
     return [players allKeys];
 }
 
-- (void)startRecordingToTrack:(NSString *)trackName {
+- (void)startRecordingToTrack:(NSString *)trackName
+{
     [[AKManager sharedManager] startRecordingToURL:[self recordingURLForTrack:trackName]];
 }
-- (void)stopRecordingToTrack:(NSString *)trackName {
+- (void)stopRecordingToTrack:(NSString *)trackName
+{
     [[AKManager sharedManager] stopRecording];
     
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self recordingURLForTrack:trackName] error:nil];
     [players setObject:player forKey:trackName];
 }
 
-- (void)startPlayingTrack:(NSString *)trackName {
+- (void)startPlayingTrack:(NSString *)trackName
+{
     if ([[players allKeys] containsObject:trackName]) {
         AVAudioPlayer *player = [players objectForKey:trackName];
         [player play];
     }
 }
-- (void)stopPlayingTrack:(NSString *)trackName {
+- (void)stopPlayingTrack:(NSString *)trackName
+{
     if ([[players allKeys] containsObject:trackName]) {
         AVAudioPlayer *player = [players objectForKey:trackName];
         [player stop];
@@ -51,7 +55,7 @@
     }
 }
 
-- (NSURL *)recordingURLForTrack:(NSString *)name;
+- (NSURL *)recordingURLForTrack:(NSString *)name
 {
     NSURL *localDocDirURL = nil;
     if (localDocDirURL == nil) {

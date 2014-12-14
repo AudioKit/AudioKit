@@ -31,7 +31,8 @@ typedef enum {
 static int currentID = 1;
 + (void)resetID { currentID = 1; }
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
         _myID = currentID++;
@@ -44,11 +45,13 @@ static int currentID = 1;
     return self;
 }
 
-- (int)instrumentNumber {
+- (int)instrumentNumber
+{
     return _myID;
 }
 
-- (NSString *)uniqueName {
+- (NSString *)uniqueName
+{
     return [NSString stringWithFormat:@"%@%i", [self class], _myID];
 }
 
@@ -57,7 +60,7 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 
 
-- (void) addProperty:(AKInstrumentProperty *)newProperty;
+- (void) addProperty:(AKInstrumentProperty *)newProperty
 {
     [_properties addObject:newProperty];
 }
@@ -70,7 +73,7 @@ static int currentID = 1;
 }
 
 
-- (void)addNoteProperty:(AKNoteProperty *)newNoteProperty;
+- (void)addNoteProperty:(AKNoteProperty *)newNoteProperty
 {
     [_noteProperties addObject:newNoteProperty];
 }
@@ -81,11 +84,13 @@ static int currentID = 1;
 #  pragma mark - F Tables
 // -----------------------------------------------------------------------------
 
-- (void)addFTable:(AKFTable *)newFTable {
+- (void)addFTable:(AKFTable *)newFTable
+{
     [_fTables addObject:newFTable];
 }
 
-- (void)addDynamicFTable:(AKFTable *)newFTable {
+- (void)addDynamicFTable:(AKFTable *)newFTable
+{
     [innerCSDRepresentation appendString:[newFTable stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
@@ -94,23 +99,27 @@ static int currentID = 1;
 #  pragma mark - Operations
 // -----------------------------------------------------------------------------
 
-- (void)connect:(AKParameter *)newOperation {
+- (void)connect:(AKParameter *)newOperation
+{
     [innerCSDRepresentation appendString:[newOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)addUDO:(AKParameter *)newUserDefinedOperation {
+- (void)addUDO:(AKParameter *)newUserDefinedOperation
+{
     [_userDefinedOperations addObject:newUserDefinedOperation];
     [innerCSDRepresentation appendString:[newUserDefinedOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)addString:(NSString *)newString {
+- (void)addString:(NSString *)newString
+{
     [innerCSDRepresentation appendString:newString];
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)assignOutput:(AKParameter *)output to:(AKParameter *)input {
+- (void)assignOutput:(AKParameter *)output to:(AKParameter *)input
+{
     if ([output class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
         AKStereoAudio *stereoOutput = (AKStereoAudio *)output;
         AKStereoAudio *stereoInput  = (AKStereoAudio *)input;
@@ -131,7 +140,8 @@ static int currentID = 1;
     }
 }
 
-- (void)resetParameter:(AKParameter *)parameterToReset {
+- (void)resetParameter:(AKParameter *)parameterToReset
+{
     if ([parameterToReset class] == [AKStereoAudio class]) {
         AKStereoAudio *stereoParameterToReset = (AKStereoAudio *)parameterToReset;
         [innerCSDRepresentation appendString:
