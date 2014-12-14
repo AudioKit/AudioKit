@@ -9,7 +9,8 @@
 #import "AKInstrumentProperty.h"
 #import "CsoundObj.h"
 
-@interface AKInstrumentProperty() <CsoundBinding> {
+@interface AKInstrumentProperty() <CsoundBinding>
+{
     MYFLT *channelPtr;
     BOOL isCacheDirty;
 }
@@ -27,15 +28,18 @@
     return self;
 }
 
-- (void)setName:(NSString *)newName {
+- (void)setName:(NSString *)newName
+{
     [self setParameterString:[NSString stringWithFormat:@"k%@%i", newName, _myID]];
 }
 
-- (NSString *)stringForCSDGetValue {
+- (NSString *)stringForCSDGetValue
+{
     return [NSString stringWithFormat:@"%@ chnget \"%@Pointer\"\n",  self, self];
 }
 
-- (NSString *)stringForCSDSetValue {
+- (NSString *)stringForCSDSetValue
+{
     return [NSString stringWithFormat:@"chnset %@, \"%@Pointer\"\n", self, self];
 }
 
@@ -45,19 +49,22 @@
     isCacheDirty = YES;
 }
 
-
-
+// -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
+// -----------------------------------------------------------------------------
 
-- (void)setup:(CsoundObj*)csoundObj {
+- (void)setup:(CsoundObj*)csoundObj
+{
     channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",self] channelType:CSOUND_CONTROL_CHANNEL];
     *channelPtr = self.value;
 }
 
-- (void)updateValuesToCsound {
+- (void)updateValuesToCsound
+{
     *channelPtr = self.value;
 }
-- (void)updateValuesFromCsound {
+- (void)updateValuesFromCsound
+{
     if ((isCacheDirty) && (*channelPtr == self.value))
         isCacheDirty = NO;
     if ((!isCacheDirty) && (*channelPtr))

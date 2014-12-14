@@ -27,15 +27,21 @@
     return [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];
 }
 
-- (IBAction)playPhrase:(id)sender {
+- (IBAction)playPhrase:(id)sender
+{
     [conductor playPhraseOfNotesOfDuration:[self getDuration]];
 }
-- (IBAction)playSequenceOfNoteProperties:(id)sender {
+
+- (IBAction)playSequenceOfNoteProperties:(id)sender
+{
     [conductor playSequenceOfNotePropertiesOfDuration:[self getDuration]];
 }
-- (IBAction)playSequenceOfInstrumentProperties:(id)sender {
+
+- (IBAction)playSequenceOfInstrumentProperties:(id)sender
+{
     [conductor playSequenceOfInstrumentPropertiesOfDuration:[self getDuration]];
 }
+
 - (IBAction)moveDurationSlider:(id)sender
 {
     float duration  = [AKTools scaleValueFromSlider:durationSlider minimum:0.05 maximum:0.2];

@@ -10,18 +10,21 @@
 
 @implementation AKParameter (Operation)
 
-- (NSString *)operationName {
+- (NSString *)operationName
+{
     NSString *basename = [NSString stringWithFormat:@"%@", [self class]];
     basename = [basename stringByReplacingOccurrencesOfString:@"AK" withString:@""];
     return basename;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)stringForCSD
+{
     //Override in subclass
     return @"Undefined";
 }
 
-- (NSString *)udoFile {
+- (NSString *)udoFile
+{
     //Override in subclass
     return @"Undefined";
 }

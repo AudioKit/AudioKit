@@ -11,13 +11,14 @@
 
 @implementation AKSoundFileTable
 
-- (instancetype)initWithFilename:(NSString *)filename {
+- (instancetype)initWithFilename:(NSString *)filename
+{
     return [self initWithFilename:filename tableSize:0];
-
 }
 
 - (instancetype)initWithFilename:(NSString *)filename
-                       tableSize:(int)tableSize {
+                       tableSize:(int)tableSize
+{
     AKArray *parameters = [AKArray arrayFromConstants:
                                  akpfn(filename), akp(0), akp(0), akp(0), nil];
     return [super initWithType:kFTSoundFile 
@@ -31,6 +32,5 @@
     [new setParameterString:[NSString stringWithFormat:@"ftchnls(%@)", self]];
     return new;
 }
-
 
 @end

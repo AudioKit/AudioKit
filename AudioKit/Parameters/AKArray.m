@@ -42,7 +42,8 @@
     return pairedArray;
 }
 
-- (id)parameterString {
+- (id)parameterString
+{
     NSMutableArray *s = [[NSMutableArray alloc] init];
     for (AKConstant *value in _constants) {
         [s addObject:[value parameterString]];
@@ -50,7 +51,8 @@
     return [s componentsJoinedByString:@", "]; 
 }
 
-- (id)fTableString {
+- (id)fTableString
+{
     NSMutableArray *s = [[NSMutableArray alloc] init];
     for (AKConstant *value in _constants) {
         [s addObject:[value parameterString]];
@@ -64,7 +66,8 @@
 }
 
 
-+ (id)arrayFromConstants:(AKConstant *)firstConstant,... {
++ (id)arrayFromConstants:(AKConstant *)firstConstant,...
+{
     AKArray *result = [[AKArray alloc] init];
     
     AKConstant *eachParam;
@@ -83,7 +86,8 @@
     return result;
 }
 
-+ (id)arrayFromNumbers:(NSNumber *)firstValue,... {
++ (id)arrayFromNumbers:(NSNumber *)firstValue,...
+{
     AKArray *result = [[AKArray alloc] init];
     
     NSNumber *eachValue;

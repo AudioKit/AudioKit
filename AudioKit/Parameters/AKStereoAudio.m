@@ -20,11 +20,13 @@
 
 static int currentID = 1;
 
-+ (void)resetID {
++ (void)resetID
+{
     currentID = 1;
 }
 
-+ (AKStereoAudio *)stereoFromMono:(AKAudio *)mono {
++ (AKStereoAudio *)stereoFromMono:(AKAudio *)mono
+{
     return [[AKStereoAudio alloc] initWithLeftAudio:mono rightAudio:mono];
 }
 
@@ -82,7 +84,6 @@ static int currentID = 1;
     return [[self alloc] initGlobalWithString:name];
 }
 
-
 - (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
     AKAudio *left   = [aOutL scaledBy:scalingFactor];
@@ -90,7 +91,8 @@ static int currentID = 1;
     return [[AKStereoAudio alloc] initWithLeftAudio:left rightAudio:right];
 }
 
-- (NSString *)description {
+- (NSString *)description
+{
     return [NSString stringWithFormat:@"%@, %@", aOutL, aOutR];
 }
 @end

@@ -49,5 +49,4 @@
                                akpi(distributionType), level, akp(alpha), akp(beta), nil]];
 }
 
-
 @end

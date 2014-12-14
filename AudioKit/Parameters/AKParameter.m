@@ -48,14 +48,16 @@ static int currentID = 1;
     return [[self alloc] initGlobalWithString:name];
 }
 
-+(id)parameterWithFormat:(NSString *)format, ... {
++(id)parameterWithFormat:(NSString *)format, ...
+{
     va_list argumentList;
     va_start(argumentList, format);
     return [[self alloc] initWithExpression:[[NSString alloc] initWithFormat:format arguments:argumentList]];
     va_end(argumentList);
 }
 
-- (NSString *)description {
+- (NSString *)description
+{
     return _parameterString;
 }
 

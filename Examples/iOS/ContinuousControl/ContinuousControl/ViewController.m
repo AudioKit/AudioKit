@@ -47,7 +47,8 @@
     [conductor stop];
 }
 
-- (IBAction)runInstrument:(id)sender {
+- (IBAction)runInstrument:(id)sender
+{
     [conductor start];
 }
 
@@ -62,13 +63,14 @@
     [AKTools setLabel:modIndexLabel   withProperty:conductor.tweakableInstrument.modIndex];
 }
 
-
-- (IBAction)scaleAmplitude:(id)sender {
+- (IBAction)scaleAmplitude:(id)sender
+{
     [AKTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(UISlider *)sender];
     [AKTools setLabel:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
 }
 
-- (IBAction)scaleModulation:(id)sender {
+- (IBAction)scaleModulation:(id)sender
+{
     [AKTools setProperty:conductor.tweakableInstrument.modulation withSlider:(UISlider *)sender];
     [AKTools setLabel:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
 }
@@ -86,7 +88,5 @@
     }
     
 }
-
-
 
 @end

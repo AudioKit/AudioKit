@@ -37,7 +37,8 @@
     return [self initWithType:fTableType size:0 parameters:parameters];
 }
 
-- (NSString *)functionName {
+- (NSString *)functionName
+{
     NSString *functionName = [NSString stringWithFormat:@"%@", [self class]];
     functionName = [functionName stringByReplacingOccurrencesOfString:@"AK" withString:@""];
     return functionName;
@@ -45,7 +46,8 @@
 
 
 // Csound Prototype: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
-- (NSString *)stringForCSD {
+- (NSString *)stringForCSD
+{
     if (_isNormalized) {
         igen = abs(igen);
     } else {
@@ -62,7 +64,8 @@
     return text;
 }
 
-- (NSString *)fTableStringForCSD {
+- (NSString *)fTableStringForCSD
+{
     if (_isNormalized) {
         igen = abs(igen);
     } else {
@@ -79,11 +82,12 @@
     return text;
 }
 
-- (NSString *)description {
+- (NSString *)description
+{
     return [output parameterString];
 }
 
-- (AKConstant *)length;
+- (AKConstant *)length
 {
     AKConstant *new = [[AKConstant alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ftlen(%@)", output]];

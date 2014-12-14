@@ -17,6 +17,7 @@
                          size:[parameterArray count]
                    parameters:parameterArray];
 }
+
 - (instancetype)initWithArray:(AKArray *)parameterArray size:(int)tableSize;
 {
     return [self initWithType:kFTArray
