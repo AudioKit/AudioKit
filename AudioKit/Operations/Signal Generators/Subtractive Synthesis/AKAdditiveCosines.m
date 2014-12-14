@@ -48,7 +48,7 @@
         // Default Values
         _harmonicsCount = akp(10);
         _firstHarmonicIndex = akp(1);
-        _partialMultiplier = akp(0.5);
+        _partialMultiplier = akp(1);
         _fundamentalFrequency = akp(220);
         _amplitude = akp(1);
         _phase = akp(0);

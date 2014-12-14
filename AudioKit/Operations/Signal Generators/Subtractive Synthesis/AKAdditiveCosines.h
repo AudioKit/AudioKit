@@ -62,11 +62,11 @@
 - (void)setOptionalFirstHarmonicIndex:(AKControl *)firstHarmonicIndex;
 
 
-/// The multiplier in the series of amplitude coefficients. [Default Value: 0.5]
+/// The multiplier in the series of amplitude coefficients. [Default Value: 1]
 @property AKControl *partialMultiplier;
 
 /// Set an optional partial multiplier
-/// @param partialMultiplier The multiplier in the series of amplitude coefficients. [Default Value: 0.5]
+/// @param partialMultiplier The multiplier in the series of amplitude coefficients. [Default Value: 1]
 - (void)setOptionalPartialMultiplier:(AKControl *)partialMultiplier;
 
 
