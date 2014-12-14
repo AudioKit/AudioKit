@@ -43,6 +43,11 @@ typedef enum
 /// This can be set to normalize the table, or not. It is not normalized by default.
 @property (nonatomic,assign) BOOL isNormalized;
 
+/// The parameters list which can be assigned by subclasses
+@property AKArray *parameters;
+
+/// The size of the FTable
+@property int size;
 
 /// Creates a function table at the most basic level.
 /// @param fTableType  One of the supported GeneratingRoutines.

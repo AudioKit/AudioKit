@@ -2,41 +2,65 @@
 //  AKAdditiveCosineTable.h
 //  AudioKit
 //
-//  Created by Adam Boulanger on 10/9/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/14/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
 #import "AKFTable.h"
 
-/** Generates an additive set of cosine partials.
+/** Generates an additive set of cosine partials
+
+ This table generates an additive set of cosine partials, in the manner of the AKAdditiveCosines operation
  */
+
 @interface AKAdditiveCosineTable : AKFTable
 
-/// Creates a pure cosine table with 1 harmonic (the fundamental).
-- (instancetype)init;
-
-/// Creates an additive set of cosine partials with a given total number of harmonics.
-/// @param tableSize             Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-/// @param numberOfHarmonics     Number of harmonics in the partial series.
-- (instancetype)initWithSize:(int)tableSize
-           numberOfHarmonics:(int)numberOfHarmonics;
-
-/// Creates an additive set of cosine partials with a given total number of harmonics and lowest harmonic.
-/// @param tableSize             Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-/// @param numberOfHarmonics     Number of harmonics in the partial series.
-/// @param lowestHarmonic        Number of lowers harmonic in partial series.  If negative, all negative partials will reflect about zero and add constructively to positive partials.
-- (instancetype)initWithSize:(int)tableSize
-           numberOfHarmonics:(int)numberOfHarmonics
-              lowestHarmonic:(int)lowestHarmonic;
-
-/// Creates an additive set of cosine partials with a given total number of harmonics and lowest harmonic.
-/// @param tableSize             Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-/// @param numberOfHarmonics     Number of harmonics in the partial series.
-/// @param lowestHarmonic        Number of lowers harmonic in partial series.  If negative, all negative partials will reflect about zero and add constructively to positive partials.
-/// @param partialMultiplier     Multiplier by which to scale partials in the harmonic series.  If the lowest harmonic (lh) has amplitude "A" then the (lh + n)th harmonic will have a coefficient of A*(partialMultiplier ** n).
-- (instancetype)initWithSize:(int)tableSize
+/// Instantiates the additive cosine table with all values defined
+/// @param size Number of points in the table.
+/// @param numberOfHarmonics Number of harmonics in the partial series.
+/// @param lowestHarmonic Lowest harmonic partial present. Can be positive, zero or negative. The set of partials can begin at any partial number and proceeds upwards; if this is negative, all partials below zero will reflect in zero to produce positive partials without phase change (since cosine is an even function), and will add constructively to any positive partials in the set.
+/// @param partialMultiplier Multiplier in an amplitude coefficient series.  This is a power series: if the lhth partial has a strength coefficient of A the (lowestHarmonic + n)th partial will have a coefficient of A * r^n, i.e. strength values trace an exponential curve. May be positive, zero or negative, and is not restricted to integers.
+- (instancetype)initWithSize:(int)size
            numberOfHarmonics:(int)numberOfHarmonics
               lowestHarmonic:(int)lowestHarmonic
-           partialMultiplier:(int)partialMultiplier;
+           partialMultiplier:(float)partialMultiplier;
+
+
+/// Instantiates the additive cosine table with default values
+- (instancetype)init;
+
+
+
+
+/// Number of points in the table. [Default Value: 16384]
+
+
+/// Set an optional size
+/// @param size Number of points in the table. [Default Value: 16384]
+- (void)setOptionalSize:(int)size;
+
+
+/// Number of harmonics in the partial series. [Default Value: 1]
+@property int numberOfHarmonics;
+
+/// Set an optional number of harmonics
+/// @param numberOfHarmonics Number of harmonics in the partial series. [Default Value: 1]
+- (void)setOptionalNumberOfHarmonics:(int)numberOfHarmonics;
+
+
+/// Lowest harmonic partial present. Can be positive, zero or negative. The set of partials can begin at any partial number and proceeds upwards; if this is negative, all partials below zero will reflect in zero to produce positive partials without phase change (since cosine is an even function), and will add constructively to any positive partials in the set. [Default Value: 1]
+@property int lowestHarmonic;
+
+/// Set an optional lowest harmonic
+/// @param lowestHarmonic Lowest harmonic partial present. Can be positive, zero or negative. The set of partials can begin at any partial number and proceeds upwards; if this is negative, all partials below zero will reflect in zero to produce positive partials without phase change (since cosine is an even function), and will add constructively to any positive partials in the set. [Default Value: 1]
+- (void)setOptionalLowestHarmonic:(int)lowestHarmonic;
+
+
+/// Multiplier in an amplitude coefficient series.  This is a power series: if the lhth partial has a strength coefficient of A the (lowestHarmonic + n)th partial will have a coefficient of A * r^n, i.e. strength values trace an exponential curve. May be positive, zero or negative, and is not restricted to integers. [Default Value: 1]
+@property float partialMultiplier;
+
+/// Set an optional partial multiplier
+/// @param partialMultiplier Multiplier in an amplitude coefficient series.  This is a power series: if the lhth partial has a strength coefficient of A the (lowestHarmonic + n)th partial will have a coefficient of A * r^n, i.e. strength values trace an exponential curve. May be positive, zero or negative, and is not restricted to integers. [Default Value: 1]
+- (void)setOptionalPartialMultiplier:(float)partialMultiplier;
 
 @end

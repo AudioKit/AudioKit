@@ -2,49 +2,79 @@
 //  AKAdditiveCosineTable.m
 //  AudioKit
 //
-//  Created by Adam Boulanger on 10/9/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/14/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's GEN11:
+//  http://www.csounds.com/manual/html/GEN11.html
 //
 
 #import "AKAdditiveCosineTable.h"
 
 @implementation AKAdditiveCosineTable
 
+
+- (instancetype)initWithSize:(int)size
+           numberOfHarmonics:(int)numberOfHarmonics
+              lowestHarmonic:(int)lowestHarmonic
+           partialMultiplier:(float)partialMultiplier
+{
+    self = [super initWithType:11 parameters:[[AKArray alloc] init]];
+    if (self) {
+        self.size = size;
+        self.numberOfHarmonics = numberOfHarmonics;
+        self.lowestHarmonic = lowestHarmonic;
+        self.partialMultiplier = partialMultiplier;
+    
+    }
+    [self setParametersFromProperties];
+    return self;
+}
+
 - (instancetype)init
 {
-    return [self initWithSize:8192 numberOfHarmonics:1];
+    self = [super initWithType:11 parameters:[[AKArray alloc] init]];
+    if (self) {
+        // Default Values   
+        self.size = 16384;
+        self.numberOfHarmonics = 1;
+        self.lowestHarmonic = 1;
+        self.partialMultiplier = 1;
+    }
+    [self setParametersFromProperties];
+    return self;
 }
 
-- (instancetype)initWithSize:(int)tableSize
-           numberOfHarmonics:(int)numberOfHarmonics
-{
-    return [self initWithType:kFTAdditiveCosines
-                         size:tableSize
-                   parameters:[AKArray arrayFromConstants:akpi(numberOfHarmonics), nil]];
+
+
+- (void)setOptionalSize:(int)size {
+    self.size = size;
+
 }
 
-- (instancetype)initWithSize:(int)tableSize
-           numberOfHarmonics:(int)numberOfHarmonics
-              lowestHarmonic:(int)lowestHarmonic
-{
-    return [self initWithType:kFTAdditiveCosines
-                         size:tableSize
-                   parameters:[AKArray arrayFromConstants:
-                               akpi(numberOfHarmonics),
-                               akpi(lowestHarmonic), nil]];
+- (void)setOptionalNumberOfHarmonics:(int)numberOfHarmonics {
+    self.numberOfHarmonics = numberOfHarmonics;
+    [self setParametersFromProperties];
 }
 
-- (instancetype)initWithSize:(int)tableSize
-           numberOfHarmonics:(int)numberOfHarmonics
-              lowestHarmonic:(int)lowestHarmonic
-           partialMultiplier:(int)partialMultiplier
+- (void)setOptionalLowestHarmonic:(int)lowestHarmonic {
+    self.lowestHarmonic = lowestHarmonic;
+    [self setParametersFromProperties];
+}
+
+- (void)setOptionalPartialMultiplier:(float)partialMultiplier {
+    self.partialMultiplier = partialMultiplier;
+    [self setParametersFromProperties];
+}
+
+- (void)setParametersFromProperties
 {
-    return [self initWithType:kFTAdditiveCosines
-                         size:tableSize
-                   parameters:[AKArray arrayFromConstants:
-                               akp(numberOfHarmonics),
-                               akp(lowestHarmonic),
-                               akp(partialMultiplier), nil]];
+    self.parameters = [[AKArray alloc] init];
+    [self.parameters addConstant:akp(self.size)];
+    [self.parameters addConstant:akp(self.numberOfHarmonics)];
+    [self.parameters addConstant:akp(self.lowestHarmonic)];
+    [self.parameters addConstant:akp(self.partialMultiplier)];
 }
 
 @end
+
