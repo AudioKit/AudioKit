@@ -10,10 +10,8 @@
 
 @implementation AKFTable
 {
-    int isize;
     FTableType igen;
     AKConstant *output;
-    AKArray *iargs;
 }
 
 - (instancetype)initWithType:(FTableType)fTableType
@@ -23,9 +21,9 @@
     self = [super init];
     if (self) {
         output = [AKConstant globalParameterWithString:[self functionName]];
-        isize = tableSize;
+        _size = tableSize;
         igen = fTableType;
-        iargs = parameters;
+        _parameters = parameters;
         _isNormalized = NO;
     }
     return self;
@@ -54,12 +52,12 @@
         igen = -abs(igen);
     }
     NSString *text;
-    if (iargs == nil) {
+    if (_parameters == nil) {
         text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
-                output, isize, igen];
+                output, _size, igen];
     } else {
         text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
-                output, isize, igen, [iargs parameterString]];
+                output, _size, igen, [_parameters parameterString]];
     }
     return text;
 }
@@ -72,12 +70,12 @@
         igen = -abs(igen);
     }
     NSString *text;
-    if (iargs == nil) {
+    if (_parameters == nil) {
         text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
-                output, isize, igen];
+                output, _size, igen];
     } else {
         text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
-                output, isize, igen, [iargs parameterString]];
+                output, _size, igen, [_parameters parameterString]];
     }
     return text;
 }
