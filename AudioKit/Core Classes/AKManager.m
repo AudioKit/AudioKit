@@ -268,7 +268,6 @@ static AKManager *_sharedManager = nil;
 
 - (void)startRecordingToURL:(NSURL *)url {
     [csound recordToURL:url];
-
 }
 
 // -----------------------------------------------------------------------------

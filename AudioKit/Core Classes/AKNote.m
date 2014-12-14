@@ -55,16 +55,19 @@ static int currentID = 1;
     return self;
 }
 
-- (void)setInstrument:(AKInstrument *)instr {
+- (void)setInstrument:(AKInstrument *)instr
+{
     _instrument = instr;
     [_instrument addNoteProperty:_duration];
 }
 
-- (instancetype)initWithInstrument:(AKInstrument *)anInstrument {
+- (instancetype)initWithInstrument:(AKInstrument *)anInstrument
+{
     return [self initWithInstrument:anInstrument forDuration:-1];
 }
 
-- (void)updateProperties {
+- (void)updateProperties
+{
     if (isPlaying) {
         [[AKManager sharedManager] updateNote:self];
     }

@@ -20,7 +20,8 @@ typedef void (^MyBlockType)();
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-- (instancetype)initWithBlock:(void (^)())aBlock {
+- (instancetype)initWithBlock:(void (^)())aBlock
+{
     self = [self init];
     if (self) {
         block = aBlock;
@@ -32,7 +33,8 @@ typedef void (^MyBlockType)();
 #  pragma mark - event Actions
 // -----------------------------------------------------------------------------
 
-- (void)runBlock {
+- (void)runBlock
+{
     if (self->block) block();
 }
 
