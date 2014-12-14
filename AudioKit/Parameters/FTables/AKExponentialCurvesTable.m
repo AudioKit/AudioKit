@@ -10,7 +10,6 @@
 
 @implementation AKExponentialCurvesTable
 
-
 #pragma mark - Exponential Curves Values and Lengths
 
 - (instancetype)initWithSize:(int)tableSize

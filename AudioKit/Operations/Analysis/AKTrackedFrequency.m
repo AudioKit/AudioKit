@@ -27,17 +27,16 @@
     return self;
 }
 
-- (void)setOptionalSpectralPeaks:(AKConstant *)numberOfSpectralPeaks {
+- (void)setOptionalSpectralPeaks:(AKConstant *)numberOfSpectralPeaks
+{
 	ipeaks = numberOfSpectralPeaks;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)stringForCSD
+{
     return [NSString stringWithFormat:
             @"%@, kUnused ptrack %@, %@, %@",
             self, asig, ihopsize, ipeaks];
 }
 
 @end
-
-
-

@@ -21,16 +21,19 @@
     return self;
 }
 
-- (void)setName:(NSString *)newName {
+- (void)setName:(NSString *)newName
+{
     [self setParameterString:[NSString stringWithFormat:@"i%@%i", newName, _myID]];
 }
 
-- (void)setValue:(float)newValue {
+- (void)setValue:(float)newValue
+{
     [super setValue:newValue];
     [_note updateProperties];
 }
 
-+ (instancetype)duration {
++ (instancetype)duration
+{
     AKNoteProperty *dur = [[self alloc] initWithMinimum:-2 maximum:1000000];
     [dur setParameterString:@"p3"];
     return dur;

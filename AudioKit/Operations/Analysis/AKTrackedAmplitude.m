@@ -22,7 +22,8 @@
     return self;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)stringForCSD
+{
     return [NSString stringWithFormat:
             @"%@ rms %@",
             self, asig];

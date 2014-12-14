@@ -52,7 +52,8 @@
     return self;
 }
 
-- (instancetype)initWithValue:(NSNumber *)value {
+- (instancetype)initWithValue:(NSNumber *)value
+{
     return [self initWithNumber:value];
 }
 
@@ -74,27 +75,33 @@
     return self;
 }
 
-+ (instancetype)constantWithFloat:(float)value {
++ (instancetype)constantWithFloat:(float)value
+{
     return [[self alloc] initWithFloat:value];
 }
 
-+ (instancetype)constantWithNumber:(NSNumber *)number {
++ (instancetype)constantWithNumber:(NSNumber *)number
+{
     return [[self alloc] initWithNumber:number];
 }
 
-+ (instancetype)constantWithInt:(int)value {
++ (instancetype)constantWithInt:(int)value
+{
     return [[self alloc] initWithInt:value];
 }
 
-+ (instancetype)constantWithInteger:(int)value {
++ (instancetype)constantWithInteger:(int)value
+{
     return [[self alloc] initWithInt:value];
 }
 
-+ (instancetype)constantWithFilename:(NSString *)filename {
++ (instancetype)constantWithFilename:(NSString *)filename
+{
     return [[self alloc] initWithFilename:filename];
 }
 
-+ (instancetype)constantWithControl:(AKControl *)control {
++ (instancetype)constantWithControl:(AKControl *)control
+{
     NSString *formattedString = [NSString stringWithFormat:@"i(%@)", control];
     return [self parameterWithString:formattedString];
 }

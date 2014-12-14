@@ -63,11 +63,13 @@
     modIndexTimer = nil;
 }
 
-- (void)randomizeFrequency:(NSTimer *)timer {
+- (void)randomizeFrequency:(NSTimer *)timer
+{
     [self.tweakableInstrument.frequency randomize];
 }
 
-- (void)randomizeModIndex:(NSTimer *)timer {
+- (void)randomizeModIndex:(NSTimer *)timer
+{
     [self.tweakableInstrument.modIndex randomize];
 }
 
