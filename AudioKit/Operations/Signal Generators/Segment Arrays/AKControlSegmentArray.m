@@ -81,7 +81,7 @@
         for (AKConstant *value in segments) {
             [s addObject:[value parameterString]];
         }
-        NSString *segs = [s componentsJoinedByString:@" , "];
+        NSString *segs = [s componentsJoinedByString:@", "];
         
         if ([opcode isEqualToString:@"linseg"] || [opcode isEqualToString:@"expseg"]) {
             return [NSString stringWithFormat:
