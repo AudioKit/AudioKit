@@ -2,38 +2,66 @@
 //  AKLinearControl.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/11/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/14/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//
+//  Implementation of Csound's line:
+//  http://www.csounds.com/manual/html/line.html
 //
 
 #import "AKLinearControl.h"
+#import "AKManager.h"
 
 @implementation AKLinearControl
-{
-    AKConstant *ia;
-    AKConstant *ib;
-    AKConstant *idur;
-}
 
-- (instancetype)initFromValue:(AKConstant *)startingValue
-                      toValue:(AKConstant *)endingValue
-                     duration:(AKConstant *)duration
+- (instancetype)initWithFirstPoint:(AKConstant *)firstPoint
+                       secondPoint:(AKConstant *)secondPoint
+             durationBetweenPoints:(AKConstant *)durationBetweenPoints
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ia = startingValue;
-        ib = endingValue;
-        idur = duration;
+        _firstPoint = firstPoint;
+        _secondPoint = secondPoint;
+        _durationBetweenPoints = durationBetweenPoints;
     }
     return self;
 }
 
-//Csound Prototype: (a/k)res linseg ia, idur, ib
-- (NSString *)stringForCSD
+- (instancetype)init
 {
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        
+        // Default Values
+        _firstPoint = akp(0);    
+        _secondPoint = akp(1);    
+        _durationBetweenPoints = akp(1);    
+    }
+    return self;
+}
+
++ (instancetype)control
+{
+    return [[AKLinearControl alloc] init];
+}
+
+- (void)setOptionalFirstPoint:(AKConstant *)firstPoint {
+    _firstPoint = firstPoint;
+}
+- (void)setOptionalSecondPoint:(AKConstant *)secondPoint {
+    _secondPoint = secondPoint;
+}
+- (void)setOptionalDurationBetweenPoints:(AKConstant *)durationBetweenPoints {
+    _durationBetweenPoints = durationBetweenPoints;
+}
+
+- (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ linseg %@, %@, %@",
-            self, ia, idur, ib];
+            @"%@ line %@, %@, %@",
+            self,
+            _firstPoint,
+            _durationBetweenPoints,
+            _secondPoint];
 }
 
 @end
