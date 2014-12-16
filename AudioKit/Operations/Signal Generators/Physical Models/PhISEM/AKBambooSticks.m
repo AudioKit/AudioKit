@@ -2,7 +2,7 @@
 //  AKBambooSticks.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/29/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's bamboo:
@@ -25,7 +25,6 @@
         _mainResonantFrequency = mainResonantFrequency;
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
-        
     }
     return self;
 }
@@ -34,12 +33,11 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _count = akp(2);
-        _mainResonantFrequency = akp(2800);
-        _firstResonantFrequency = akp(2240);
-        _secondResonantFrequency = akp(3360);
+        _count = akp(2);    
+        _mainResonantFrequency = akp(2800);    
+        _firstResonantFrequency = akp(2240);    
+        _secondResonantFrequency = akp(3360);    
     }
     return self;
 }
@@ -52,25 +50,22 @@
 - (void)setOptionalCount:(AKConstant *)count {
     _count = count;
 }
-
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
     _mainResonantFrequency = mainResonantFrequency;
 }
-
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
     _firstResonantFrequency = firstResonantFrequency;
 }
-
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values
-    AKConstant *_amplitude = akp(1);
-    AKConstant *_maximumDuration = akp(1);
-    AKConstant *_energyReturn = akp(0);
-    AKConstant *_dampingFactor = akp(0);
+    // Constant Values  
+    AKConstant *_amplitude = akp(1);        
+    AKConstant *_maximumDuration = akp(1);        
+    AKConstant *_energyReturn = akp(0);        
+    AKConstant *_dampingFactor = akp(0);        
     return [NSString stringWithFormat:
             @"%@ bamboo %@, %@, %@, %@, %@, %@, %@, %@",
             self,
@@ -83,6 +78,5 @@
             _firstResonantFrequency,
             _secondResonantFrequency];
 }
-
 
 @end

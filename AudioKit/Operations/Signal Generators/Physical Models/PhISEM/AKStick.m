@@ -2,7 +2,7 @@
 //  AKStick.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's stix:
@@ -21,7 +21,6 @@
     if (self) {
         _intensity = intensity;
         _dampingFactor = dampingFactor;
-        
     }
     return self;
 }
@@ -30,10 +29,9 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _intensity = akp(30);
-        _dampingFactor = akp(0.3);
+        _intensity = akp(30);    
+        _dampingFactor = akp(0.3);    
     }
     return self;
 }
@@ -46,16 +44,15 @@
 - (void)setOptionalIntensity:(AKConstant *)intensity {
     _intensity = intensity;
 }
-
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values
-    AKConstant *_amplitude = akp(1);
-    AKConstant *_energyReturn = akp(0);
-    AKConstant *_maximumDuration = akp(1);
+    // Constant Values  
+    AKConstant *_amplitude = akp(1);        
+    AKConstant *_energyReturn = akp(0);        
+    AKConstant *_maximumDuration = akp(1);        
     return [NSString stringWithFormat:
             @"%@ stix %@, %@, %@, %@, %@",
             self,
@@ -65,6 +62,5 @@
             _dampingFactor,
             _energyReturn];
 }
-
 
 @end

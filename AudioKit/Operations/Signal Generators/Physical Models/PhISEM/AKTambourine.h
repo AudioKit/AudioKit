@@ -2,7 +2,7 @@
 //  AKTambourine.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -15,13 +15,12 @@
  */
 
 @interface AKTambourine : AKAudio
-
 /// Instantiates the tambourine with all values
-/// @param intensity The intensity of the tambourine sound
-/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped.
-/// @param mainResonantFrequency The main resonant frequency.
-/// @param firstResonantFrequency The first resonant frequency.
-/// @param secondResonantFrequency The second resonant frequency.
+/// @param intensity The intensity of the tambourine sound [Default Value: 1000]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
+/// @param mainResonantFrequency The main resonant frequency. [Default Value: 2300]
+/// @param firstResonantFrequency The first resonant frequency. [Default Value: 5600]
+/// @param secondResonantFrequency The second resonant frequency. [Default Value: 8100]
 - (instancetype)initWithIntensity:(AKConstant *)intensity
                     dampingFactor:(AKConstant *)dampingFactor
             mainResonantFrequency:(AKConstant *)mainResonantFrequency
@@ -31,12 +30,8 @@
 /// Instantiates the tambourine with default values
 - (instancetype)init;
 
-
 /// Instantiates the tambourine with default values
 + (instancetype)audio;
-
-
-
 
 /// The intensity of the tambourine sound [Default Value: 1000]
 @property AKConstant *intensity;
@@ -44,38 +39,31 @@
 /// Set an optional intensity
 /// @param intensity The intensity of the tambourine sound [Default Value: 1000]
 - (void)setOptionalIntensity:(AKConstant *)intensity;
-
-
 /// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
 /// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
-
-
 /// The main resonant frequency. [Default Value: 2300]
 @property AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2300]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
-
-
 /// The first resonant frequency. [Default Value: 5600]
 @property AKConstant *firstResonantFrequency;
 
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 5600]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
-
-
 /// The second resonant frequency. [Default Value: 8100]
 @property AKConstant *secondResonantFrequency;
 
 /// Set an optional second resonant frequency
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 8100]
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
+
 
 
 @end
