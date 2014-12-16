@@ -2,7 +2,7 @@
 //  AKStruckMetalBar.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/29/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's barmodel:
@@ -35,7 +35,6 @@
         _leftBoundaryCondition = leftBoundaryCondition;
         _rightBoundaryCondition = rightBoundaryCondition;
         _scanSpeed = scanSpeed;
-        
     }
     return self;
 }
@@ -44,17 +43,16 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _decayTime = akp(2.0);
-        _dimensionlessStiffness = akp(100);
-        _highFrequencyLoss = akp(0.001);
-        _strikePosition = akp(0.2);
-        _strikeVelocity = akp(800);
-        _strikeWidth = akp(0.2);
-        _leftBoundaryCondition = akp(1);
-        _rightBoundaryCondition = akp(1);
-        _scanSpeed = akp(0.23);
+        _decayTime = akp(2.0);    
+        _dimensionlessStiffness = akp(100);    
+        _highFrequencyLoss = akp(0.001);    
+        _strikePosition = akp(0.2);    
+        _strikeVelocity = akp(800);    
+        _strikeWidth = akp(0.2);    
+        _leftBoundaryCondition = akp(1);    
+        _rightBoundaryCondition = akp(1);    
+        _scanSpeed = akp(0.23);    
     }
     return self;
 }
@@ -67,35 +65,27 @@
 - (void)setOptionalDecayTime:(AKConstant *)decayTime {
     _decayTime = decayTime;
 }
-
 - (void)setOptionalDimensionlessStiffness:(AKConstant *)dimensionlessStiffness {
     _dimensionlessStiffness = dimensionlessStiffness;
 }
-
 - (void)setOptionalHighFrequencyLoss:(AKConstant *)highFrequencyLoss {
     _highFrequencyLoss = highFrequencyLoss;
 }
-
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
     _strikePosition = strikePosition;
 }
-
 - (void)setOptionalStrikeVelocity:(AKConstant *)strikeVelocity {
     _strikeVelocity = strikeVelocity;
 }
-
 - (void)setOptionalStrikeWidth:(AKConstant *)strikeWidth {
     _strikeWidth = strikeWidth;
 }
-
 - (void)setOptionalLeftBoundaryCondition:(AKControl *)leftBoundaryCondition {
     _leftBoundaryCondition = leftBoundaryCondition;
 }
-
 - (void)setOptionalRightBoundaryCondition:(AKControl *)rightBoundaryCondition {
     _rightBoundaryCondition = rightBoundaryCondition;
 }
-
 - (void)setOptionalScanSpeed:(AKControl *)scanSpeed {
     _scanSpeed = scanSpeed;
 }
@@ -114,6 +104,5 @@
             _strikeVelocity,
             _strikeWidth];
 }
-
 
 @end

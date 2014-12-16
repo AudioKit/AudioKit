@@ -2,7 +2,7 @@
 //  AKDroplet.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/11/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's dripwater:
@@ -29,7 +29,6 @@
         _mainResonantFrequency = mainResonantFrequency;
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
-        
     }
     return self;
 }
@@ -38,14 +37,13 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _intensity = akp(10);
-        _dampingFactor = akp(0.1);
-        _energyReturn = akp(0.5);
-        _mainResonantFrequency = akp(450);
-        _firstResonantFrequency = akp(600);
-        _secondResonantFrequency = akp(750);
+        _intensity = akp(10);    
+        _dampingFactor = akp(0.1);    
+        _energyReturn = akp(0.5);    
+        _mainResonantFrequency = akp(450);    
+        _firstResonantFrequency = akp(600);    
+        _secondResonantFrequency = akp(750);    
     }
     return self;
 }
@@ -58,30 +56,26 @@
 - (void)setOptionalIntensity:(AKConstant *)intensity {
     _intensity = intensity;
 }
-
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
-
 - (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
     _energyReturn = energyReturn;
 }
-
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
     _mainResonantFrequency = mainResonantFrequency;
 }
-
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
     _firstResonantFrequency = firstResonantFrequency;
 }
-
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
+
 - (NSString *)stringForCSD {
-    // Constant Values
-    AKConstant *_maximumDuration = akp(1);
-    AKConstant *_amplitude = akp(1);
+    // Constant Values  
+    AKConstant *_maximumDuration = akp(1);        
+    AKConstant *_amplitude = akp(1);        
     return [NSString stringWithFormat:
             @"%@ dripwater %@, %@, %@, (1 - %@), %@, %@, %@, %@",
             self,
@@ -94,6 +88,5 @@
             _firstResonantFrequency,
             _secondResonantFrequency];
 }
-
 
 @end

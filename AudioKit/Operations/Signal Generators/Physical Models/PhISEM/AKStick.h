@@ -2,7 +2,7 @@
 //  AKStick.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -15,22 +15,17 @@
  */
 
 @interface AKStick : AKAudio
-
 /// Instantiates the stick with all values
-/// @param intensity The intensity of the stick sound.
-/// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1.
+/// @param intensity The intensity of the stick sound. [Default Value: 30]
+/// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
 - (instancetype)initWithIntensity:(AKConstant *)intensity
                     dampingFactor:(AKConstant *)dampingFactor;
 
 /// Instantiates the stick with default values
 - (instancetype)init;
 
-
 /// Instantiates the stick with default values
 + (instancetype)audio;
-
-
-
 
 /// The intensity of the stick sound. [Default Value: 30]
 @property AKConstant *intensity;
@@ -38,14 +33,13 @@
 /// Set an optional intensity
 /// @param intensity The intensity of the stick sound. [Default Value: 30]
 - (void)setOptionalIntensity:(AKConstant *)intensity;
-
-
 /// This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
 /// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
+
 
 
 @end
