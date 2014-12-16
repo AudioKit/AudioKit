@@ -29,6 +29,7 @@
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
 
+/// Common table required by many applications
 @property AKSineTable *standardSineTable;
 + (AKSineTable *)standardSineTable;
 
