@@ -8,6 +8,14 @@
 
 import Foundation
 
+func akp(num: Float)->AKConstant {
+    return AKConstant(value: num)
+}
+
+func akpi(num: Int)->AKConstant {
+    return AKConstant(value: num)
+}
+
 extension Int {
     var ak: AKConstant {return AKConstant(value: self)}
 }
