@@ -9,8 +9,9 @@
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
-/** Semi-physical model of a water drop.
+/** Semi-physical model of a randomized water drop.
 
+ The sound of the water drop will always be somewhat random redgardless of the parameter choices.  
  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
