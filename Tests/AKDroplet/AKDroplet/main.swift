@@ -22,7 +22,15 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
+
+let phrase = AKPhrase()
+for index in 1...40 {
+    let note = AKNote()
+    let time = Float(index) / 4.0
+    phrase.addNote(note, atTime:time)
+}
+instrument.playPhrase(phrase)
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")
