@@ -88,7 +88,7 @@
                                             repeats:NO];
 #if TARGET_OS_IPHONE
 #elif TARGET_OS_MAC
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 #endif
 }
 
@@ -128,7 +128,7 @@
         index++;
 #if TARGET_OS_IPHONE
 #elif TARGET_OS_MAC
-        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 #endif
 
     } else {
