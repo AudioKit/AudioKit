@@ -2,20 +2,19 @@
 //  AKBandPassButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/20/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's butterbp:
 //  http://www.csounds.com/manual/html/butterbp.html
 //
 
 #import "AKBandPassButterworthFilter.h"
+#import "AKManager.h"
 
 @implementation AKBandPassButterworthFilter
 {
-    AKAudio *asig;
-    AKControl *kfreq;
-    AKControl *kband;
+    AKAudio *_audioSource;
 }
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
@@ -24,17 +23,44 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = audioSource;
-        kfreq = centerFrequency;
-        kband = bandwidth;
+        _audioSource = audioSource;
+        _centerFrequency = centerFrequency;
+        _bandwidth = bandwidth;
     }
     return self;
+}
+
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _audioSource = audioSource;
+        // Default Values
+        _centerFrequency = akp(2000);    
+        _bandwidth = akp(100);    
+    }
+    return self;
+}
+
++ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
+{
+    return [[AKBandPassButterworthFilter alloc] initWithAudioSource:audioSource];
+}
+
+- (void)setOptionalCenterFrequency:(AKControl *)centerFrequency {
+    _centerFrequency = centerFrequency;
+}
+- (void)setOptionalBandwidth:(AKControl *)bandwidth {
+    _bandwidth = bandwidth;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ butterbp %@, %@, %@",
-            self, asig, kfreq, kband];
+            self,
+            _audioSource,
+            _centerFrequency,
+            _bandwidth];
 }
 
 @end
