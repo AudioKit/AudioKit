@@ -10,8 +10,7 @@
 		C43980A5196275C80076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C43980A3196275C80076F005 /* InfoPlist.strings */; };
 		C43980A7196275C80076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980A6196275C80076F005 /* main.m */; };
 		C43980AB196275C80076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980AA196275C80076F005 /* AppDelegate.m */; };
-		C43980AE196275C80076F005 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43980AC196275C80076F005 /* Main_iPhone.storyboard */; };
-		C43980B1196275C80076F005 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43980AF196275C80076F005 /* Main_iPad.storyboard */; };
+		C43980AE196275C80076F005 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43980AC196275C80076F005 /* Main.storyboard */; };
 		C43980B4196275C80076F005 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980B3196275C80076F005 /* ViewController.m */; };
 		C43980B6196275C80076F005 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C43980B5196275C80076F005 /* Images.xcassets */; };
 		C43982EC196276620076F005 /* TweakableInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C43982EB196276620076F005 /* TweakableInstrument.m */; };
@@ -170,8 +169,7 @@
 		C43980A8196275C80076F005 /* ContinuousControl-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ContinuousControl-Prefix.pch"; sourceTree = "<group>"; };
 		C43980A9196275C80076F005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C43980AA196275C80076F005 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C43980AD196275C80076F005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		C43980B0196275C80076F005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		C43980AD196275C80076F005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C43980B2196275C80076F005 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C43980B3196275C80076F005 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C43980B5196275C80076F005 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -529,7 +527,7 @@
 				C43982E9196276620076F005 /* Instruments */,
 				C4E9E01F199048D500F261DA /* ContinuousControlConductor.h */,
 				C4E9E020199048D500F261DA /* ContinuousControlConductor.m */,
-				C43982E8196276180076F005 /* Storyboards */,
+				C43980AC196275C80076F005 /* Main.storyboard */,
 				C43980B2196275C80076F005 /* ViewController.h */,
 				C43980B3196275C80076F005 /* ViewController.m */,
 				C43980B5196275C80076F005 /* Images.xcassets */,
@@ -549,15 +547,6 @@
 				C43980A8196275C80076F005 /* ContinuousControl-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C43982E8196276180076F005 /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				C43980AC196275C80076F005 /* Main_iPhone.storyboard */,
-				C43980AF196275C80076F005 /* Main_iPad.storyboard */,
-			);
-			name = Storyboards;
 			sourceTree = "<group>";
 		};
 		C43982E9196276620076F005 /* Instruments */ = {
@@ -1303,10 +1292,9 @@
 			files = (
 				C46E683C1A08AFFF00E5D389 /* declick.udo in Resources */,
 				C46E68051A08AFFF00E5D389 /* marmstk1.wav in Resources */,
-				C43980B1196275C80076F005 /* Main_iPad.storyboard in Resources */,
 				C43980B6196275C80076F005 /* Images.xcassets in Resources */,
 				C46E688E1A08B52400E5D389 /* LICENSE.TXT in Resources */,
-				C43980AE196275C80076F005 /* Main_iPhone.storyboard in Resources */,
+				C43980AE196275C80076F005 /* Main.storyboard in Resources */,
 				C46E68031A08AFFF00E5D389 /* mandpluk.aif in Resources */,
 				C43980A5196275C80076F005 /* InfoPlist.strings in Resources */,
 			);
@@ -1476,20 +1464,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		C43980AC196275C80076F005 /* Main_iPhone.storyboard */ = {
+		C43980AC196275C80076F005 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C43980AD196275C80076F005 /* Base */,
 			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		C43980AF196275C80076F005 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C43980B0196275C80076F005 /* Base */,
-			);
-			name = Main_iPad.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
