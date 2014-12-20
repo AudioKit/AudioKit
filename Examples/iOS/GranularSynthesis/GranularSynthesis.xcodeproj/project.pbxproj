@@ -157,8 +157,7 @@
 		E481EAD819DF553F004BDD9E /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = E481EAD719DF553F004BDD9E /* PianoBassDrumLoop.wav */; };
 		E481EADC19DF5557004BDD9E /* GranularInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = E481EADB19DF5557004BDD9E /* GranularInstrument.m */; };
 		E481EAE019DF55B1004BDD9E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E481EADF19DF55B1004BDD9E /* ViewController.m */; };
-		E481EAE319DF55BE004BDD9E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481EAE119DF55BE004BDD9E /* Main_iPhone.storyboard */; };
-		E481EAE419DF55BE004BDD9E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481EAE219DF55BE004BDD9E /* Main_iPad.storyboard */; };
+		E481EAE319DF55BE004BDD9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481EAE119DF55BE004BDD9E /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -485,8 +484,7 @@
 		E481EADB19DF5557004BDD9E /* GranularInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GranularInstrument.m; sourceTree = "<group>"; };
 		E481EADE19DF55B1004BDD9E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E481EADF19DF55B1004BDD9E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E481EAE119DF55BE004BDD9E /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
-		E481EAE219DF55BE004BDD9E /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
+		E481EAE119DF55BE004BDD9E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1204,9 +1202,9 @@
 			children = (
 				E481EAD919DF5545004BDD9E /* Audio Files */,
 				E481EADD19DF5560004BDD9E /* Instruments */,
-				E481EAE519DF55D2004BDD9E /* Storyboards */,
 				E481EADE19DF55B1004BDD9E /* ViewController.h */,
 				E481EADF19DF55B1004BDD9E /* ViewController.m */,
+				E481EAE119DF55BE004BDD9E /* Main.storyboard */,
 				E481E8B919DF54F8004BDD9E /* Images.xcassets */,
 				E481E8AC19DF54F8004BDD9E /* Supporting Files */,
 			);
@@ -1239,15 +1237,6 @@
 				E481EADB19DF5557004BDD9E /* GranularInstrument.m */,
 			);
 			name = Instruments;
-			sourceTree = "<group>";
-		};
-		E481EAE519DF55D2004BDD9E /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				E481EAE119DF55BE004BDD9E /* Main_iPhone.storyboard */,
-				E481EAE219DF55BE004BDD9E /* Main_iPad.storyboard */,
-			);
-			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1309,10 +1298,9 @@
 			files = (
 				C478C5CA1A09F57800705D4E /* declick.udo in Resources */,
 				C478C5931A09F57800705D4E /* marmstk1.wav in Resources */,
-				E481EAE419DF55BE004BDD9E /* Main_iPad.storyboard in Resources */,
 				E481EAD819DF553F004BDD9E /* PianoBassDrumLoop.wav in Resources */,
 				C478C55D1A09F57800705D4E /* LICENSE.TXT in Resources */,
-				E481EAE319DF55BE004BDD9E /* Main_iPhone.storyboard in Resources */,
+				E481EAE319DF55BE004BDD9E /* Main.storyboard in Resources */,
 				C478C5911A09F57800705D4E /* mandpluk.aif in Resources */,
 				E481E8BA19DF54F8004BDD9E /* Images.xcassets in Resources */,
 			);
@@ -1565,7 +1553,7 @@
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1581,7 +1569,7 @@
 					"$(SRCROOT)/../../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
