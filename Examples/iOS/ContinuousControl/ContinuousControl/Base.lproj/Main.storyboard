@@ -45,50 +45,11 @@
                                     <action selector="stopInstrument:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="PzL-GB-pvy"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjL-1W-vYi" userLabel="Amplitude Container">
-                                <rect key="frame" x="0.0" y="90" width="600" height="120"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UBb-rf-WCV">
-                                        <rect key="frame" x="20" y="41" width="544" height="31"/>
-                                        <connections>
-                                            <action selector="scaleAmplitude:" destination="vXZ-lx-hvc" eventType="valueChanged" id="FKQ-dT-5rW"/>
-                                        </connections>
-                                    </slider>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amplitude (user controlled)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZN-yX-qXZ">
-                                        <rect key="frame" x="8" y="0.0" width="206" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amplitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UL3-g5-IWc">
-                                        <rect key="frame" x="514" y="91" width="78" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        </variation>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="centerX" secondItem="OjL-1W-vYi" secondAttribute="centerX" constant="-8" id="8QG-tw-nnR"/>
-                                    <constraint firstItem="QZN-yX-qXZ" firstAttribute="top" secondItem="OjL-1W-vYi" secondAttribute="top" id="9Wb-pn-V7g"/>
-                                    <constraint firstAttribute="trailing" secondItem="UL3-g5-IWc" secondAttribute="trailing" constant="8" id="Psq-I7-s1P"/>
-                                    <constraint firstItem="UL3-g5-IWc" firstAttribute="top" secondItem="UBb-rf-WCV" secondAttribute="bottom" constant="20" id="XTe-Bg-s9D"/>
-                                    <constraint firstAttribute="bottom" secondItem="UL3-g5-IWc" secondAttribute="bottom" constant="8" id="biE-al-OeB"/>
-                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="top" secondItem="QZN-yX-qXZ" secondAttribute="bottom" constant="20" id="fdr-PB-rOm"/>
-                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="width" secondItem="OjL-1W-vYi" secondAttribute="width" multiplier="0.9" id="r5t-dp-atx"/>
-                                    <constraint firstItem="QZN-yX-qXZ" firstAttribute="leading" secondItem="OjL-1W-vYi" secondAttribute="leading" constant="8" id="tUw-YA-8Fh"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KkZ-n8-FO4" userLabel="Modulation Container">
-                                <rect key="frame" x="0.0" y="236" width="600" height="128"/>
+                                <rect key="frame" x="0.0" y="240" width="600" height="120"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modulation (user controlled)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yP6-pE-kvQ">
-                                        <rect key="frame" x="13" y="8" width="214" height="21"/>
+                                        <rect key="frame" x="30" y="0.0" width="214" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -97,13 +58,13 @@
                                         </variation>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="T1t-a5-EvG">
-                                        <rect key="frame" x="28" y="49" width="544" height="31"/>
+                                        <rect key="frame" x="28" y="41" width="544" height="31"/>
                                         <connections>
                                             <action selector="scaleModulation:" destination="vXZ-lx-hvc" eventType="valueChanged" id="5ih-Kj-rqZ"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modulation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJj-0q-9qK">
-                                        <rect key="frame" x="505" y="99" width="87" height="21"/>
+                                        <rect key="frame" x="483" y="91" width="87" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -113,19 +74,23 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="RJj-0q-9qK" firstAttribute="trailing" secondItem="T1t-a5-EvG" secondAttribute="trailing" id="38A-65-3ac"/>
                                     <constraint firstItem="T1t-a5-EvG" firstAttribute="top" secondItem="yP6-pE-kvQ" secondAttribute="bottom" constant="20" id="57Y-cS-zqT"/>
-                                    <constraint firstItem="yP6-pE-kvQ" firstAttribute="top" secondItem="KkZ-n8-FO4" secondAttribute="top" constant="8" id="64q-Aa-XpQ"/>
+                                    <constraint firstItem="yP6-pE-kvQ" firstAttribute="top" secondItem="KkZ-n8-FO4" secondAttribute="top" id="64q-Aa-XpQ"/>
                                     <constraint firstItem="yP6-pE-kvQ" firstAttribute="leading" secondItem="KkZ-n8-FO4" secondAttribute="leading" constant="13" id="k52-6q-IuT"/>
                                     <constraint firstAttribute="trailing" secondItem="RJj-0q-9qK" secondAttribute="trailing" constant="8" id="kQH-K5-0A9"/>
                                     <constraint firstItem="T1t-a5-EvG" firstAttribute="centerX" secondItem="KkZ-n8-FO4" secondAttribute="centerX" id="mYe-K1-Qwi"/>
                                     <constraint firstAttribute="bottom" secondItem="RJj-0q-9qK" secondAttribute="bottom" constant="8" id="oiJ-gC-TGq"/>
                                     <constraint firstItem="T1t-a5-EvG" firstAttribute="top" secondItem="KkZ-n8-FO4" secondAttribute="top" constant="20" id="uZ3-UI-hS6"/>
+                                    <constraint firstItem="T1t-a5-EvG" firstAttribute="leading" secondItem="yP6-pE-kvQ" secondAttribute="leading" id="w2u-gW-9Mn"/>
                                     <constraint firstItem="RJj-0q-9qK" firstAttribute="top" secondItem="T1t-a5-EvG" secondAttribute="bottom" constant="20" id="yzV-Ma-DoV"/>
                                     <constraint firstItem="T1t-a5-EvG" firstAttribute="width" secondItem="KkZ-n8-FO4" secondAttribute="width" multiplier="0.9" id="zlI-LT-kpd"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="k52-6q-IuT"/>
                                         <exclude reference="uZ3-UI-hS6"/>
+                                        <exclude reference="kQH-K5-0A9"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -133,7 +98,7 @@
                                 <rect key="frame" x="0.0" y="386" width="600" height="128"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modulation Index (automated)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZrN-pd-zcV">
-                                        <rect key="frame" x="8" y="8" width="230" height="21"/>
+                                        <rect key="frame" x="30" y="8" width="230" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -145,7 +110,7 @@
                                         <rect key="frame" x="28" y="49" width="544" height="31"/>
                                     </slider>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mod Index" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noF-fy-D63">
-                                        <rect key="frame" x="510" y="99" width="82" height="21"/>
+                                        <rect key="frame" x="488" y="99" width="82" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -158,20 +123,71 @@
                                     <constraint firstAttribute="centerY" secondItem="4OB-Hs-X00" secondAttribute="centerY" id="084-0L-dyo"/>
                                     <constraint firstItem="ZrN-pd-zcV" firstAttribute="top" secondItem="inu-5i-Lrj" secondAttribute="top" constant="8" id="3yO-MK-Ife"/>
                                     <constraint firstItem="noF-fy-D63" firstAttribute="top" secondItem="4OB-Hs-X00" secondAttribute="bottom" constant="20" id="8Pe-kI-B1Z"/>
+                                    <constraint firstItem="noF-fy-D63" firstAttribute="trailing" secondItem="4OB-Hs-X00" secondAttribute="trailing" id="ByM-e0-oSz"/>
                                     <constraint firstAttribute="trailing" secondItem="noF-fy-D63" secondAttribute="trailing" constant="8" id="Hhd-h3-huE"/>
                                     <constraint firstItem="4OB-Hs-X00" firstAttribute="top" secondItem="inu-5i-Lrj" secondAttribute="top" constant="20" id="M7q-WQ-EMF"/>
                                     <constraint firstAttribute="centerX" secondItem="4OB-Hs-X00" secondAttribute="centerX" id="Vjy-SJ-GoV"/>
                                     <constraint firstAttribute="bottom" secondItem="noF-fy-D63" secondAttribute="bottom" constant="8" id="cmU-2K-gMu"/>
                                     <constraint firstItem="4OB-Hs-X00" firstAttribute="width" secondItem="inu-5i-Lrj" secondAttribute="width" multiplier="0.9" id="g1j-i6-Ofj"/>
+                                    <constraint firstItem="ZrN-pd-zcV" firstAttribute="leading" secondItem="4OB-Hs-X00" secondAttribute="leading" id="pgS-0X-vvM"/>
                                     <constraint firstItem="4OB-Hs-X00" firstAttribute="top" secondItem="ZrN-pd-zcV" secondAttribute="bottom" constant="21" id="qdV-aW-Ei5"/>
                                     <constraint firstItem="4OB-Hs-X00" firstAttribute="top" secondItem="ZrN-pd-zcV" secondAttribute="bottom" constant="20" id="vQj-YD-UYw"/>
                                     <constraint firstItem="ZrN-pd-zcV" firstAttribute="leading" secondItem="inu-5i-Lrj" secondAttribute="leading" constant="8" id="zIH-Ps-u8N"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="zIH-Ps-u8N"/>
                                         <exclude reference="084-0L-dyo"/>
                                         <exclude reference="M7q-WQ-EMF"/>
                                         <exclude reference="qdV-aW-Ei5"/>
+                                        <exclude reference="Hhd-h3-huE"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjL-1W-vYi" userLabel="Amplitude Container">
+                                <rect key="frame" x="0.0" y="90" width="600" height="120"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UBb-rf-WCV">
+                                        <rect key="frame" x="20" y="41" width="544" height="31"/>
+                                        <connections>
+                                            <action selector="scaleAmplitude:" destination="vXZ-lx-hvc" eventType="valueChanged" id="FKQ-dT-5rW"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amplitude (user controlled)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZN-yX-qXZ">
+                                        <rect key="frame" x="22" y="0.0" width="206" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amplitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UL3-g5-IWc">
+                                        <rect key="frame" x="484" y="91" width="78" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="centerX" secondItem="OjL-1W-vYi" secondAttribute="centerX" constant="-8" id="8QG-tw-nnR"/>
+                                    <constraint firstItem="QZN-yX-qXZ" firstAttribute="top" secondItem="OjL-1W-vYi" secondAttribute="top" id="9Wb-pn-V7g"/>
+                                    <constraint firstAttribute="trailing" secondItem="UL3-g5-IWc" secondAttribute="trailing" constant="8" id="Psq-I7-s1P"/>
+                                    <constraint firstItem="UL3-g5-IWc" firstAttribute="trailing" secondItem="UBb-rf-WCV" secondAttribute="trailing" id="UOf-5f-XeL"/>
+                                    <constraint firstItem="UL3-g5-IWc" firstAttribute="top" secondItem="UBb-rf-WCV" secondAttribute="bottom" constant="20" id="XTe-Bg-s9D"/>
+                                    <constraint firstAttribute="bottom" secondItem="UL3-g5-IWc" secondAttribute="bottom" constant="8" id="biE-al-OeB"/>
+                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="top" secondItem="QZN-yX-qXZ" secondAttribute="bottom" constant="20" id="fdr-PB-rOm"/>
+                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="leading" secondItem="QZN-yX-qXZ" secondAttribute="leading" id="qgl-3S-trF"/>
+                                    <constraint firstItem="UBb-rf-WCV" firstAttribute="width" secondItem="OjL-1W-vYi" secondAttribute="width" multiplier="0.9" id="r5t-dp-atx"/>
+                                    <constraint firstItem="QZN-yX-qXZ" firstAttribute="leading" secondItem="OjL-1W-vYi" secondAttribute="leading" constant="8" id="tUw-YA-8Fh"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="tUw-YA-8Fh"/>
+                                        <exclude reference="Psq-I7-s1P"/>
                                     </mask>
                                 </variation>
                             </view>
