@@ -2,57 +2,100 @@
 //  AKBallWithinTheBoxReverb.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/2/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/19/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's babo:
 //  http://www.csounds.com/manual/html/babo.html
 //
 
 #import "AKBallWithinTheBoxReverb.h"
+#import "AKManager.h"
 
 @implementation AKBallWithinTheBoxReverb
 {
-    AKConstant *irx;
-    AKConstant *iry;
-    AKConstant *irz;
-    AKControl *ksrcx;
-    AKControl *ksrcy;
-    AKControl *ksrcz;
-    AKAudio *asig;
-    AKConstant *idiff;
+    AKAudio *_audioSource;
 }
 
-- (instancetype)initWithLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
-                        lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge
-                        lengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge
-                                xLocation:(AKControl *)xLocation
-                                yLocation:(AKControl *)yLocation
-                                zLocation:(AKControl *)zLocation
-                              audioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+                  lengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
+                  lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge
+                  lengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge
+                          xLocation:(AKControl *)xLocation
+                          yLocation:(AKControl *)yLocation
+                          zLocation:(AKControl *)zLocation
+                          diffusion:(AKConstant *)diffusion
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        irx = lengthOfXAxisEdge;
-        iry = lengthOfYAxisEdge;
-        irz = lengthOfZAxisEdge;
-        ksrcx = xLocation;
-        ksrcy = yLocation;
-        ksrcz = zLocation;
-        asig = audioSource;
-        idiff = akp(0);
+        _audioSource = audioSource;
+        _lengthOfXAxisEdge = lengthOfXAxisEdge;
+        _lengthOfYAxisEdge = lengthOfYAxisEdge;
+        _lengthOfZAxisEdge = lengthOfZAxisEdge;
+        _xLocation = xLocation;
+        _yLocation = yLocation;
+        _zLocation = zLocation;
+        _diffusion = diffusion;
     }
     return self;
 }
 
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _audioSource = audioSource;
+        // Default Values
+        _lengthOfXAxisEdge = akp(14.39);    
+        _lengthOfYAxisEdge = akp(11.86);    
+        _lengthOfZAxisEdge = akp(10);    
+        _xLocation = akp(6);    
+        _yLocation = akp(4);    
+        _zLocation = akp(3);    
+        _diffusion = akp(1);
+    }
+    return self;
+}
+
++ (instancetype)stereoaudioWithAudioSource:(AKAudio *)audioSource
+{
+    return [[AKBallWithinTheBoxReverb alloc] initWithAudioSource:audioSource];
+}
+
+- (void)setOptionalLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge {
+    _lengthOfXAxisEdge = lengthOfXAxisEdge;
+}
+- (void)setOptionalLengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge {
+    _lengthOfYAxisEdge = lengthOfYAxisEdge;
+}
+- (void)setOptionalLengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge {
+    _lengthOfZAxisEdge = lengthOfZAxisEdge;
+}
+- (void)setOptionalXLocation:(AKControl *)xLocation {
+    _xLocation = xLocation;
+}
+- (void)setOptionalYLocation:(AKControl *)yLocation {
+    _yLocation = yLocation;
+}
+- (void)setOptionalZLocation:(AKControl *)zLocation {
+    _zLocation = zLocation;
+}
 - (void)setOptionalDiffusion:(AKConstant *)diffusion {
-	idiff = diffusion;
+    _diffusion = diffusion;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ babo %@, %@, %@, %@, %@, %@, %@, %@",
-            self, asig, ksrcx, ksrcy, ksrcz, irx, iry, irz, idiff];
+            self,
+            _audioSource,
+            _xLocation,
+            _yLocation,
+            _zLocation,
+            _lengthOfXAxisEdge,
+            _lengthOfYAxisEdge,
+            _lengthOfZAxisEdge,
+            _diffusion];
 }
 
 @end
