@@ -2,7 +2,7 @@
 //  AKOscillator.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/2/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
@@ -15,12 +15,11 @@
  */
 
 @interface AKOscillator : AKAudio
-
 /// Instantiates the oscillator with all values
-/// @param fTable Requires a wrap-around guard point
-/// @param frequency Frequency in cycles per second
-/// @param amplitude Amplitude of the output
-/// @param phase Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0.
+/// @param fTable Requires a wrap-around guard point [Default Value: sine]
+/// @param frequency Frequency in cycles per second [Default Value: 440]
+/// @param amplitude Amplitude of the output [Default Value: 1]
+/// @param phase Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0. [Default Value: 0]
 - (instancetype)initWithFTable:(AKFTable *)fTable
                      frequency:(AKParameter *)frequency
                      amplitude:(AKParameter *)amplitude
@@ -29,11 +28,8 @@
 /// Instantiates the oscillator with default values
 - (instancetype)init;
 
-
 /// Instantiates the oscillator with default values
 + (instancetype)audio;
-
-
 
 
 /// Requires a wrap-around guard point [Default Value: sine]
@@ -43,14 +39,12 @@
 /// @param fTable Requires a wrap-around guard point [Default Value: sine]
 - (void)setOptionalFTable:(AKFTable *)fTable;
 
-
 /// Frequency in cycles per second [Default Value: 440]
 @property AKParameter *frequency;
 
 /// Set an optional frequency
 /// @param frequency Frequency in cycles per second [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
-
 
 /// Amplitude of the output [Default Value: 1]
 @property AKParameter *amplitude;
@@ -59,13 +53,13 @@
 /// @param amplitude Amplitude of the output [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
-
 /// Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0. [Default Value: 0]
 @property AKConstant *phase;
 
 /// Set an optional phase
 /// @param phase Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0. [Default Value: 0]
 - (void)setOptionalPhase:(AKConstant *)phase;
+
 
 
 @end
