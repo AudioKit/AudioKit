@@ -1,64 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftHarmonizer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="SwiftHarmonizer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iad-PW-vmb">
-                                <rect key="frame" x="206" y="281" width="189" height="142"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="51"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startPlaying:" destination="BYZ-38-t0r" eventType="touchDown" id="d24-cP-WTt"/>
-                                    <action selector="stopPlaying:" destination="BYZ-38-t0r" eventType="touchDragInside" id="HKf-0K-uin"/>
-                                    <action selector="stopPlaying:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="UtH-EV-gaw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPl-IW-OsR">
-                                <rect key="frame" x="206" y="281" width="189" height="142"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="51"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startPlaying:" destination="BYZ-38-t0r" eventType="touchDown" id="TZV-ta-sIL"/>
-                                    <action selector="stopPlaying:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="2ca-4A-Qpn"/>
-                                    <action selector="stopPlaying:" destination="BYZ-38-t0r" eventType="touchDragInside" id="rcU-hw-QfL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfc-2A-bsr">
-                                <rect key="frame" x="160" y="129" width="280" height="116"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="51"/>
-                                <state key="normal" title="Record">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startRecording:" destination="BYZ-38-t0r" eventType="touchDown" id="zD1-Wr-xUz"/>
-                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Mx-Yo-DuK"/>
-                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="T5T-Ka-PlV"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-Xz-NAf" userLabel="Record View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB4-h5-Zlp">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                        <state key="normal" title="Record">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startRecording:" destination="vXZ-lx-hvc" eventType="touchDown" id="O3H-Ha-QQ4"/>
+                                            <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="7O5-Fn-19Q"/>
+                                            <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ody-ts-DRJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="GB4-h5-Zlp" secondAttribute="centerX" id="B6i-KI-SlV"/>
+                                    <constraint firstItem="GB4-h5-Zlp" firstAttribute="height" secondItem="Plg-Xz-NAf" secondAttribute="height" id="ihe-xc-UnU"/>
+                                    <constraint firstItem="GB4-h5-Zlp" firstAttribute="width" secondItem="Plg-Xz-NAf" secondAttribute="width" id="n3H-7X-DjY"/>
+                                    <constraint firstAttribute="centerY" secondItem="GB4-h5-Zlp" secondAttribute="centerY" id="s12-66-RKC"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1OZ-5P-cpF" userLabel="Play View">
+                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDK-h9-cK3">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                        <state key="normal" title="Play">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startPlaying:" destination="vXZ-lx-hvc" eventType="touchDown" id="7sZ-PW-GbN"/>
+                                            <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1SN-Ug-Wur"/>
+                                            <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="CYq-fE-6wN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="pDK-h9-cK3" secondAttribute="centerY" id="702-rO-dPz"/>
+                                    <constraint firstAttribute="centerX" secondItem="pDK-h9-cK3" secondAttribute="centerX" id="TSs-1Y-1YM"/>
+                                    <constraint firstItem="pDK-h9-cK3" firstAttribute="height" secondItem="1OZ-5P-cpF" secondAttribute="height" id="bAh-TB-dos"/>
+                                    <constraint firstItem="pDK-h9-cK3" firstAttribute="width" secondItem="1OZ-5P-cpF" secondAttribute="width" id="h5z-j9-au0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="GAq-KG-qRq"/>
+                            <constraint firstAttribute="centerX" secondItem="1OZ-5P-cpF" secondAttribute="centerX" id="Kav-0C-c2h"/>
+                            <constraint firstItem="Plg-Xz-NAf" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.25" id="Xa1-0e-Mj7"/>
+                            <constraint firstAttribute="centerX" secondItem="Plg-Xz-NAf" secondAttribute="centerX" id="cqI-84-1Ac"/>
+                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="jLk-kc-aS6"/>
+                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.75" id="ky2-ON-bvH"/>
+                            <constraint firstAttribute="width" secondItem="Plg-Xz-NAf" secondAttribute="width" id="tOK-lF-pX7"/>
+                            <constraint firstItem="Plg-Xz-NAf" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="xM3-FU-ZBr"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="571" y="408"/>
         </scene>
     </scenes>
 </document>
