@@ -2,36 +2,58 @@
 //  AKRandomControl.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's random:
 //  http://www.csounds.com/manual/html/random.html
 //
 
 #import "AKRandomControl.h"
+#import "AKManager.h"
 
 @implementation AKRandomControl
-{
-    AKControl *kmin;
-    AKControl *kmax;
-}
 
-- (instancetype)initWithMinimum:(AKControl *)minimum
-                        maximum:(AKControl *)maximum
+- (instancetype)initWithLowerBound:(AKControl *)lowerBound
+                        upperBound:(AKControl *)upperBound
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        kmin = minimum;
-        kmax = maximum;
+        _lowerBound = lowerBound;
+        _upperBound = upperBound;
     }
     return self;
+}
+
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _lowerBound = akp(0);    
+        _upperBound = akp(1);    
+    }
+    return self;
+}
+
++ (instancetype)control
+{
+    return [[AKRandomControl alloc] init];
+}
+
+- (void)setOptionalLowerBound:(AKControl *)lowerBound {
+    _lowerBound = lowerBound;
+}
+- (void)setOptionalUpperBound:(AKControl *)upperBound {
+    _upperBound = upperBound;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ random %@, %@",
-            self, kmin, kmax];
+            self,
+            _lowerBound,
+            _upperBound];
 }
 
 @end
