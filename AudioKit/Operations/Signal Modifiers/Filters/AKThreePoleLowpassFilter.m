@@ -2,21 +2,19 @@
 //  AKThreePoleLowpassFilter.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's lpf18:
 //  http://www.csounds.com/manual/html/lpf18.html
 //
 
 #import "AKThreePoleLowpassFilter.h"
+#import "AKManager.h"
 
 @implementation AKThreePoleLowpassFilter
 {
-    AKAudio *asig;
-    AKControl *kdist;
-    AKControl *kfco;
-    AKControl *kres;
+    AKAudio *_audioSource;
 }
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
@@ -26,18 +24,50 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = audioSource;
-        kdist = distortion;
-        kfco = cutoffFrequency;
-        kres = resonance;
+        _audioSource = audioSource;
+        _distortion = distortion;
+        _cutoffFrequency = cutoffFrequency;
+        _resonance = resonance;
     }
     return self;
+}
+
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _audioSource = audioSource;
+        // Default Values
+        _distortion = akp(0.5);    
+        _cutoffFrequency = akp(1500);    
+        _resonance = akp(0.5);    
+    }
+    return self;
+}
+
++ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
+{
+    return [[AKThreePoleLowpassFilter alloc] initWithAudioSource:audioSource];
+}
+
+- (void)setOptionalDistortion:(AKControl *)distortion {
+    _distortion = distortion;
+}
+- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency {
+    _cutoffFrequency = cutoffFrequency;
+}
+- (void)setOptionalResonance:(AKControl *)resonance {
+    _resonance = resonance;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ lpf18 %@, %@, %@, %@",
-            self, asig, kfco, kres, kdist];
+            self,
+            _audioSource,
+            _cutoffFrequency,
+            _resonance,
+            _distortion];
 }
 
 @end

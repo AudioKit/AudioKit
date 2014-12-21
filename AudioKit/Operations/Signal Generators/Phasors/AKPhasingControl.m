@@ -2,39 +2,58 @@
 //  AKPhasingControl.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/26/13.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's phasor:
 //  http://www.csounds.com/manual/html/phasor.html
 //
 
 #import "AKPhasingControl.h"
+#import "AKManager.h"
 
 @implementation AKPhasingControl
-{
-    AKControl *kcps;
-    AKConstant *iphs;
-}
 
 - (instancetype)initWithFrequency:(AKControl *)frequency
+                            phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        kcps = frequency;
-        iphs = akp(0);
+        _frequency = frequency;
+        _phase = phase;
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(1);    
+        _phase = akp(0);    
+    }
+    return self;
+}
+
++ (instancetype)control
+{
+    return [[AKPhasingControl alloc] init];
+}
+
+- (void)setOptionalFrequency:(AKControl *)frequency {
+    _frequency = frequency;
+}
 - (void)setOptionalPhase:(AKConstant *)phase {
-	iphs = phase;
+    _phase = phase;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ phasor %@, %@",
-            self, kcps, iphs];
+            self,
+            _frequency,
+            _phase];
 }
 
 @end
