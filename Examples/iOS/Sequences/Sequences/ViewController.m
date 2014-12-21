@@ -12,7 +12,7 @@
 
 @implementation ViewController
 {
-    IBOutlet UITextField *durationValue;
+    IBOutlet UILabel *durationValue;
     IBOutlet UISlider *durationSlider;
     
     SequencesConductor *conductor;
