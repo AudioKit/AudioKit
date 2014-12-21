@@ -2,7 +2,7 @@
 //  AKOscillator.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/2/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's oscili:
@@ -21,11 +21,10 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-            _fTable = fTable;
-                _frequency = frequency;
-                _amplitude = amplitude;
-                _phase = phase;
-        
+        _fTable = fTable;
+        _frequency = frequency;
+        _amplitude = amplitude;
+        _phase = phase;
     }
     return self;
 }
@@ -34,40 +33,36 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
+        // Default Values
+        _fTable = [AKManager standardSineTable];
         
-    // Default Values   
-           _fTable = [AKManager standardSineTable];
-            
-            _frequency = akp(440);        
-            _amplitude = akp(1);        
-            _phase = akp(0);            
+        _frequency = akp(440);    
+        _amplitude = akp(1);    
+        _phase = akp(0);    
     }
     return self;
 }
 
 + (instancetype)audio
- {
+{
     return [[AKOscillator alloc] init];
 }
 
 - (void)setOptionalFTable:(AKFTable *)fTable {
     _fTable = fTable;
 }
-
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
-
 - (void)setOptionalPhase:(AKConstant *)phase {
     _phase = phase;
 }
 
 - (NSString *)stringForCSD {
-        return [NSString stringWithFormat:
+    return [NSString stringWithFormat:
             @"%@ oscili %@, %@, %@, %@",
             self,
             _amplitude,
@@ -75,6 +70,5 @@
             _fTable,
             _phase];
 }
-
 
 @end
