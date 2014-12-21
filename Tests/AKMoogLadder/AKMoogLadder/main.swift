@@ -3,6 +3,8 @@
 //  AudioKit
 //
 //  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
+//  Customized by Nick Arner on 12/21/14.
+//
 //  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 
