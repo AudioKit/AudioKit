@@ -2,39 +2,65 @@
 //  AKJitter.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 10/21/13.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's jitter:
 //  http://www.csounds.com/manual/html/jitter.html
 //
 
 #import "AKJitter.h"
+#import "AKManager.h"
 
 @implementation AKJitter
-{
-    AKControl *kamp;
-    AKControl *kcpsMax;
-    AKControl *kcpsMin;
-}
 
 - (instancetype)initWithAmplitude:(AKControl *)amplitude
-                     minFrequency:(AKControl *)minFrequency
-                     maxFrequency:(AKControl *)maxFrequency
+                 minimumFrequency:(AKControl *)minimumFrequency
+                 maximumFrequency:(AKControl *)maximumFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        kamp = amplitude;
-        kcpsMax = maxFrequency;
-        kcpsMin = minFrequency;
+        _amplitude = amplitude;
+        _minimumFrequency = minimumFrequency;
+        _maximumFrequency = maximumFrequency;
     }
     return self;
+}
+
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _amplitude = akp(1);    
+        _minimumFrequency = akp(0);    
+        _maximumFrequency = akp(60);    
+    }
+    return self;
+}
+
++ (instancetype)control
+{
+    return [[AKJitter alloc] init];
+}
+
+- (void)setOptionalAmplitude:(AKControl *)amplitude {
+    _amplitude = amplitude;
+}
+- (void)setOptionalMinimumFrequency:(AKControl *)minimumFrequency {
+    _minimumFrequency = minimumFrequency;
+}
+- (void)setOptionalMaximumFrequency:(AKControl *)maximumFrequency {
+    _maximumFrequency = maximumFrequency;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ jitter %@, %@, %@",
-            self, kamp, kcpsMin, kcpsMax];
+            self,
+            _amplitude,
+            _minimumFrequency,
+            _maximumFrequency];
 }
 
 @end
