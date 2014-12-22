@@ -2,26 +2,40 @@
 //  AKPortamento.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/14/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKControl.h"
 #import "AKParameter+Operation.h"
 
 /** Applies portamento to a step-valued control signal.
- 
- applies portamento to a step-valued control signal. At each new step value, the output is low-pass filtered to move towards that value at a rate determined by halfTime. halfTime is the “half-time” of the function (in seconds), during which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote.
+
+ Applies portamento to a step-valued control signal. At each new step value, the output is low-pass filtered to move towards that value at a rate determined by halfTime. halfTime is the “half-time” of the function (in seconds), during which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote.
  */
 
 @interface AKPortamento : AKControl
-
-/// Instantiates the portamento
-/// @param controlSource The input signal at control-rate.
-/// @param halfTime Half-time of the function in seconds.
+/// Instantiates the portamento with all values
+/// @param controlSource The input signal at control-rate. [Default Value: ]
+/// @param halfTime Half-time of the function in seconds. [Default Value: 1]
 - (instancetype)initWithControlSource:(AKControl *)controlSource
                              halfTime:(AKControl *)halfTime;
 
--(void)setOptionalFeedbackAmount:(AKConstant *)feedback;
+/// Instantiates the portamento with default values
+/// @param controlSource The input signal at control-rate.
+- (instancetype)initWithControlSource:(AKControl *)controlSource;
+
+/// Instantiates the portamento with default values
+/// @param controlSource The input signal at control-rate.
++ (instancetype)controlWithControlSource:(AKControl *)controlSource;
+
+/// Half-time of the function in seconds. [Default Value: 1]
+@property AKControl *halfTime;
+
+/// Set an optional half time
+/// @param halfTime Half-time of the function in seconds. [Default Value: 1]
+- (void)setOptionalHalfTime:(AKControl *)halfTime;
+
+
 
 @end

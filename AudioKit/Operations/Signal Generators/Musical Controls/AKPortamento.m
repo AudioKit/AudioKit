@@ -2,20 +2,19 @@
 //  AKPortamento.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/14/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's portk:
 //  http://www.csounds.com/manual/html/portk.html
 //
 
 #import "AKPortamento.h"
+#import "AKManager.h"
 
 @implementation AKPortamento
 {
-    AKControl *ksig;
-    AKControl *khtim;
-    AKConstant *isig;
+    AKControl * _controlSource;
 }
 
 - (instancetype)initWithControlSource:(AKControl *)controlSource
@@ -23,22 +22,38 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ksig = controlSource;
-        khtim = halfTime;
-        isig = akp(0);
+        _controlSource = controlSource;
+        _halfTime = halfTime;
     }
     return self;
 }
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ portk %@, %@, %@",
-            self, ksig, khtim, isig];
+- (instancetype)initWithControlSource:(AKControl *)controlSource
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _controlSource = controlSource;
+        // Default Values
+        _halfTime = akp(1);    
+    }
+    return self;
 }
 
-- (void)setOptionalFeedbackAmount:(AKConstant *)feedback
++ (instancetype)controlWithControlSource:(AKControl *)controlSource
 {
-    isig = feedback;
+    return [[AKPortamento alloc] initWithControlSource:controlSource];
+}
+
+- (void)setOptionalHalfTime:(AKControl *)halfTime {
+    _halfTime = halfTime;
+}
+
+- (NSString *)stringForCSD {
+    return [NSString stringWithFormat:
+            @"%@ portk %@, %@",
+            self,
+            _controlSource,
+            _halfTime];
 }
 
 @end
