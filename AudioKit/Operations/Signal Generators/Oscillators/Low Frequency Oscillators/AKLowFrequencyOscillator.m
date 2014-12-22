@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
 //  http://www.csounds.com/manual/html/lfo.html
@@ -33,7 +33,7 @@
     if (self) {
         // Default Values
         _frequency = akp(110);    
-        _type = 0;    
+        _type = AKLowFrequencyOscillatorTypeSine;    
         _amplitude = akp(1);    
     }
     return self;
