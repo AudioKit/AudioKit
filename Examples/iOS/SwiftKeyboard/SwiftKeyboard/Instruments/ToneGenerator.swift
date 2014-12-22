@@ -28,9 +28,9 @@ class ToneGenerator: AKInstrument {
         let fmOscillator = AKFMOscillator(
             FTable: sine,
             baseFrequency: note.frequency,
-            carrierMultiplier: toneColor.scaledBy(2.ak),
-            modulatingMultiplier: toneColor.scaledBy(1.2.ak),
-            modulationIndex: toneColor.scaledBy(1.5.ak),
+            carrierMultiplier: toneColor.scaledBy(20.ak),
+            modulatingMultiplier: toneColor.scaledBy(12.ak),
+            modulationIndex: toneColor.scaledBy(15.ak),
             amplitude: 0.15.ak,
             phase: 0.ak)
         connect(fmOscillator)

@@ -28,10 +28,16 @@
                                                  cutoffFrequency:akp(4000)];
         [self connect:reverb];
         
+        AKMixedAudio *leftMix = [[AKMixedAudio alloc] initWithSignal1:reverb.leftOutput signal2:audioSource balance:akp(0.5)];
+        [self connect:leftMix];
+        
+        AKMixedAudio *rightMix = [[AKMixedAudio alloc] initWithSignal1:reverb.rightOutput signal2:audioSource balance:akp(0.5)];
+        [self connect:rightMix];
+        
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput *audio;
-        audio = [[AKAudioOutput alloc] initWithStereoAudioSource:reverb];
+        audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix rightAudio:rightMix];
         [self connect:audio];
         
         // RESET INPUTS ========================================================

@@ -1676,9 +1676,7 @@
 				INFOPLIST_FILE = SwiftKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftKeyboard/Bridging-Header.h";
 			};
@@ -1697,6 +1695,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SwiftKeyboardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftKeyboard.app/SwiftKeyboard";
@@ -1712,6 +1711,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SwiftKeyboardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftKeyboard.app/SwiftKeyboard";
@@ -1737,6 +1737,7 @@
 				C4881C5E1A296A7D00E46B03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C4881C5F1A296A7D00E46B03 /* Build configuration list for PBXNativeTarget "SwiftKeyboardTests" */ = {
 			isa = XCConfigurationList;
@@ -1745,6 +1746,7 @@
 				C4881C611A296A7D00E46B03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
