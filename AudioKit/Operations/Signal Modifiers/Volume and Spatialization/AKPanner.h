@@ -2,8 +2,8 @@
 //  AKPanner.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKStereoAudio.h"
@@ -18,10 +18,10 @@
 /// Instantiates the panner with all values
 /// @param audioSource Source signal. [Default Value: ]
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
-/// @param panMethod Pan Method: EqualPower = 0, SquareRoot = 1, Linear = 2, AltEqualPower = 3 [Default Value: 0]
+/// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                                 pan:(AKParameter *)pan
-                          panMethod:(AKConstant *)panMethod;
+                          panMethod:(AKPanMethod)panMethod;
 
 /// Instantiates the panner with default values
 /// @param audioSource Source signal.
@@ -38,12 +38,12 @@
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 - (void)setOptionalPan:(AKParameter *)pan;
 
-/// Pan Method: EqualPower = 0, SquareRoot = 1, Linear = 2, AltEqualPower = 3 [Default Value: 0]
-@property AKConstant *panMethod;
+/// AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
+@property AKPanMethod panMethod;
 
 /// Set an optional pan method
-/// @param panMethod Pan Method: EqualPower = 0, SquareRoot = 1, Linear = 2, AltEqualPower = 3 [Default Value: 0]
-- (void)setOptionalPanMethod:(AKConstant *)panMethod;
+/// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
+- (void)setOptionalPanMethod:(AKPanMethod)panMethod;
 
 
 
