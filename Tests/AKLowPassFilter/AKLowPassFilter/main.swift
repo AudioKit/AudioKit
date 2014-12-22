@@ -2,10 +2,10 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
-//  Customized by Nick Arner on 12/21/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Customized by Nick Arner on 12/22/14.
 //
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
@@ -17,7 +17,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let source = AKFMOscillator()
+        let source = AKOscillator()
         connect(source)
         
         auxilliaryOutput = AKAudio.globalParameter()
@@ -30,21 +30,15 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line1 = AKLinearControl(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
-        connect(line1)
+        let halfPower = AKLowFrequencyOscillatingControl()
+        halfPower.frequency = 0.5.ak
+        connect(halfPower)
         
-        let line2 = AKLinearControl(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
-        connect(line2)
-        
-        let operation = AKResonantFilter(audioSource: audioSource)
-        operation.centerFrequency = line1
-        operation.bandwidth = line2
+        let operation = AKLowPassFilter(audioSource: audioSource)
+        operation.halfPowerPoint = halfPower.scaledBy(500.ak).plus(500.ak)
         connect(operation)
         
-        let balance = AKBalance(audioSource: operation, comparatorAudioSource: audioSource)
-        connect(balance)
-        
-        connect(AKAudioOutput(audioSource:balance))
+        connect(AKAudioOutput(audioSource:operation))
     }
 }
 
@@ -54,8 +48,10 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
+
 processor.play()
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")
