@@ -17,11 +17,11 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let operation = AKOscillator()
-        connect(operation)
+        let source = AKFMOscillator()
+        connect(source)
         
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:operation)
+        assignOutput(auxilliaryOutput, to:source)
     }
 }
 
@@ -30,7 +30,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line1 = AKLinearControl(firstPoint: 220.ak, secondPoint: 1500.ak, durationBetweenPoints: 11.ak)
+        let line1 = AKLinearControl(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
         connect(line1)
         
         let line2 = AKLinearControl(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
