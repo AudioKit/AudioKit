@@ -151,37 +151,37 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 		Byte midiCommand = midiStatus >> 4;
         Byte midiChannel = (midiStatus - (midiCommand*16)) + 1;
 		
-		if (midiCommand == kMidiNoteOff) {
+		if (midiCommand == AKMidiConstantNoteOff) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
             [m broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)midiChannel];
             
-		} else if (midiCommand == kMidiNoteOn) {
+		} else if (midiCommand == AKMidiConstantNoteOn) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
             [m broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)midiChannel];
             
-		} else if (midiCommand == kMidiPolyphonicAftertouch) {
+		} else if (midiCommand == AKMidiConstantPolyphonicAftertouch) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte pressure = packet->data[2] & 0x7F;
             [m broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)midiChannel];
             
-        } else if (midiCommand == kMidiAftertouch) {
+        } else if (midiCommand == AKMidiConstantAftertouch) {
 			Byte pressure = packet->data[2] & 0x7F;
             [m broadcastAftertouch:(int)pressure channel:(int)midiChannel];
             
-		} else if (midiCommand == kMidiPitchWheel) {
+		} else if (midiCommand == AKMidiConstantPitchWheel) {
             Byte value1 = packet->data[1] & 0x7F;
 			Byte value2 = packet->data[2] & 0x7F;
             [m broadcastPitchWheel:128*value2+value1 channel:(int)midiChannel];
             
             
-		} else if (midiCommand == kMidiControllerChange) {
+		} else if (midiCommand == AKMidiConstantControllerChange) {
 			Byte controller = packet->data[1] & 0x7F;
 			Byte value      = packet->data[2] & 0x7F;
             [m broadcastChangeController:(int)controller toValue:(int)value channel:(int)midiChannel];
             
-        } else if (midiCommand == kMidiProgramChange) {
+        } else if (midiCommand == AKMidiConstantProgramChange) {
             
         } else { // Other
             
@@ -191,7 +191,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
                 b[i] = (packet->length > i) ? packet->data[i] : 0;
             }
             
-            if (midiStatus == kMidiSysex) {
+            if (midiStatus == AKMidiConstantSysex) {
                 NSLog(@"Unparsed Sysex: %i %i %i %i %i %i %i %i %i", b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
             } else {
                 NSLog(@"Unparsed MIDI: %i %i %i %i %i %i %i %i %i %i", b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);

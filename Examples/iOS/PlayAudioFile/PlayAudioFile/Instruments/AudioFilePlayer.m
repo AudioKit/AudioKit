@@ -30,7 +30,7 @@
         oscil = [[AKLoopingOscillator alloc] initWithSoundFileTable:fileTable
                                                 frequencyMultiplier:note.speed
                                                           amplitude:akp(0.5)
-                                                               type:kLoopingOscillatorNoLoop];
+                                                               type:AKLoopingOscillatorTypeNoLoop];
         [self connect:oscil];
         
         AKReverb *reverb;

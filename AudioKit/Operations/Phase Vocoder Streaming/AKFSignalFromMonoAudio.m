@@ -20,7 +20,7 @@
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
                             fftSize:(AKConstant *)fftSize
                             overlap:(AKConstant *)overlap
-                         windowType:(WindowType)windowType
+                         windowType:(AKFSignalFromMonoAudioWindowType)windowType
                    windowFilterSize:(AKConstant *)windowSize
 
 {

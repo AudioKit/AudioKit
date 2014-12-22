@@ -47,7 +47,7 @@
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
                    frequencyMultiplier:(AKControl *)frequencyMultiplier
                              amplitude:(AKParameter *)amplitude
-                                  type:(LoopingOscillatorType)type;
+                                  type:(AKLoopingOscillatorType)type;
 
 /// Set start and finish loop points
 /// @param startingSample        Starting point of loop segment in samples.

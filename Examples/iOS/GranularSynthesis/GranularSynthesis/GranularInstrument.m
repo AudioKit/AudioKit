@@ -50,7 +50,7 @@
         [self addFTable:fileTable];
         
         AKFTable *hamming;
-        hamming = [[AKWindowsTable alloc] initWithType:kWindowHanning
+        hamming = [[AKWindowsTable alloc] initWithType:AKWindowTableTypeHamming
                                                   size:512 ];
         [self addFTable:hamming];
         

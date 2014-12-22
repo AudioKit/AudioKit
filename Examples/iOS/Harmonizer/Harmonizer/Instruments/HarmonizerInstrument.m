@@ -21,14 +21,14 @@
         fsig1 = [[AKFSignalFromMonoAudio alloc] initWithAudioSource:microphone
                                                             fftSize:akpi(2048)
                                                             overlap:akpi(256)
-                                                         windowType:kVonHannWindow
+                                                         windowType:AKFSignalFromMonoAudioWindowTypeVonHann
                                                    windowFilterSize:akpi(2048)];
         [self connect:fsig1];
         
         AKScaledFSignal *fsig2;
         fsig2 = [[AKScaledFSignal alloc] initWithInput:fsig1
                                         frequencyRatio:akp(2.0)
-                                   formantRetainMethod:kFormantRetainMethodLifteredCepstrum
+                                   formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
                                         amplitudeRatio:nil
                                   cepstrumCoefficients:nil];
         [self connect:fsig2];
@@ -36,7 +36,7 @@
         AKScaledFSignal *fsig3;
         fsig3 = [[AKScaledFSignal alloc] initWithInput:fsig1
                                         frequencyRatio:akp(2.0)
-                                   formantRetainMethod:kFormantRetainMethodLifteredCepstrum
+                                   formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
                                         amplitudeRatio:nil
                                   cepstrumCoefficients:nil];
         [self connect:fsig3];
