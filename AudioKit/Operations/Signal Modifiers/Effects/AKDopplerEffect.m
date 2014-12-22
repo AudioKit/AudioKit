@@ -2,51 +2,76 @@
 //  AKDopplerEffect.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/24/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
+//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
 //
 //  Implementation of Csound's doppler:
 //  http://www.csounds.com/manual/html/doppler.html
 //
 
 #import "AKDopplerEffect.h"
+#import "AKManager.h"
 
 @implementation AKDopplerEffect
 {
-    AKAudio *asource;
-    AKControl *kmicposition;
-    AKControl *ksourceposition;
-    AKConstant *isoundspeed;
-    AKConstant *ifiltercutoff;
+    AKAudio *_audioSource;
+    AKControl *_sourcePosition;
 }
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                        micPosition:(AKControl *)micPosition
                      sourcePosition:(AKControl *)sourcePosition
+                        micPosition:(AKControl *)micPosition
+          smoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asource = audioSource;
-        kmicposition = micPosition;
-        ksourceposition = sourcePosition;
-        isoundspeed = akp(340.29);
-        ifiltercutoff = akp(6);
+        _audioSource = audioSource;
+        _sourcePosition = sourcePosition;
+        _micPosition = micPosition;
+        _smoothingFilterUpdateRate = smoothingFilterUpdateRate;
     }
     return self;
 }
 
-- (void)setOptionalSoundSpeed:(AKConstant *)soundSpeed {
-	isoundspeed = soundSpeed;
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+                     sourcePosition:(AKControl *)sourcePosition
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _audioSource = audioSource;
+        _sourcePosition = sourcePosition;
+        // Default Values
+        _micPosition = akp(0);    
+        _smoothingFilterUpdateRate = akp(6);    
+    }
+    return self;
 }
 
++ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
+                     sourcePosition:(AKControl *)sourcePosition
+{
+    return [[AKDopplerEffect alloc] initWithAudioSource:audioSource
+                     sourcePosition:sourcePosition];
+}
+
+- (void)setOptionalMicPosition:(AKControl *)micPosition {
+    _micPosition = micPosition;
+}
 - (void)setOptionalSmoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate {
-	ifiltercutoff = smoothingFilterUpdateRate;
+    _smoothingFilterUpdateRate = smoothingFilterUpdateRate;
 }
 
 - (NSString *)stringForCSD {
+    // Constant Values  
+    AKConstant *_soundSpeed = akp(340.29);        
     return [NSString stringWithFormat:
             @"%@ doppler %@, %@, %@, %@, %@",
-            self, asource, ksourceposition, kmicposition, isoundspeed, ifiltercutoff];
+            self,
+            _audioSource,
+            _sourcePosition,
+            _micPosition,
+            _soundSpeed,
+            _smoothingFilterUpdateRate];
 }
 
 @end
