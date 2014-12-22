@@ -2,10 +2,10 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
-//  Customized by Nick Arner on 12/21/14.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Customized by Nick Arner on 12/22/14.
 //
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
@@ -17,11 +17,11 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let source = AKFMOscillator()
-        connect(source)
+        let operation = AKFMOscillator()
+        connect(operation)
         
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:source)
+        assignOutput(auxilliaryOutput, to:operation)
     }
 }
 
@@ -36,8 +36,8 @@ class Processor : AKInstrument {
         let line2 = AKLinearControl(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
         connect(line2)
         
-        let operation = AKResonantFilter(audioSource: audioSource)
-        operation.centerFrequency = line1
+        let operation = AKVariableFrequencyResponseBandPassFilter(audioSource: audioSource)
+        operation.cutoffFrequency = line1
         operation.bandwidth = line2
         connect(operation)
         let balance = AKBalance(audioSource: operation, comparatorAudioSource: audioSource)

@@ -149,8 +149,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-TF-zI9">
-                                <rect key="frame" x="284" y="414" width="300" height="178"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-TF-zI9">
+                                <rect key="frame" x="443" y="445" width="141" height="147"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Tweak">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -159,14 +159,11 @@
                                     <segue destination="g9G-CX-rGa" kind="show" id="IUd-HF-Xnp"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="igd-RJ-QBC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="igd-RJ-QBC">
                                 <rect key="frame" x="140" y="91" width="320" height="323"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="uYf-ck-6zs"/>
-                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0p-yW-cJc">
-                                <rect key="frame" x="16" y="414" width="300" height="178"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0p-yW-cJc">
+                                <rect key="frame" x="16" y="445" width="137" height="147"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -185,7 +182,6 @@
                             <constraint firstItem="ypp-TF-zI9" firstAttribute="trailing" secondItem="BGE-m7-iyx" secondAttribute="trailingMargin" id="T85-VT-hUR"/>
                             <constraint firstItem="ypp-TF-zI9" firstAttribute="width" secondItem="BGE-m7-iyx" secondAttribute="width" multiplier="0.5" id="bDV-wq-P34"/>
                             <constraint firstItem="B0p-yW-cJc" firstAttribute="width" secondItem="BGE-m7-iyx" secondAttribute="width" multiplier="0.5" id="lLx-HD-Mu8"/>
-                            <constraint firstItem="igd-RJ-QBC" firstAttribute="top" secondItem="sUw-zA-IIG" secondAttribute="bottom" constant="27" id="reU-SW-TKI"/>
                             <constraint firstItem="ypp-TF-zI9" firstAttribute="top" secondItem="igd-RJ-QBC" secondAttribute="bottom" id="rfx-Al-qhI"/>
                             <constraint firstItem="B0p-yW-cJc" firstAttribute="leading" secondItem="BGE-m7-iyx" secondAttribute="leadingMargin" id="tLq-gR-IU9"/>
                             <constraint firstItem="B0p-yW-cJc" firstAttribute="top" secondItem="igd-RJ-QBC" secondAttribute="bottom" id="xqM-Jd-0FA"/>
