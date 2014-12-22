@@ -11,12 +11,6 @@
 #import "AKAssignment.h"
 #import "AKStereoAudio.h"
 
-typedef enum {
-    kInstrument=1,
-    kStartTime=2,
-    kDuration=3
-} kRequiredPValues;
-
 @implementation AKInstrument
 {
     AKOrchestra *orchestra;

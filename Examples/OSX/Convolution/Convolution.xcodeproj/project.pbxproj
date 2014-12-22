@@ -304,7 +304,6 @@
 		C4BDEFB91A32BD4200454915 /* AKLowFrequencyOscillatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowFrequencyOscillatingControl.m; sourceTree = "<group>"; };
 		C4BDEFBA1A32BD4200454915 /* AKLowFrequencyOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowFrequencyOscillator.h; sourceTree = "<group>"; };
 		C4BDEFBB1A32BD4200454915 /* AKLowFrequencyOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowFrequencyOscillator.m; sourceTree = "<group>"; };
-		C4BDEFBC1A32BD4200454915 /* AKLowFrequencyOscillatorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowFrequencyOscillatorConstants.h; sourceTree = "<group>"; };
 		C4BDEFBE1A32BD4200454915 /* AKPhasingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhasingControl.h; sourceTree = "<group>"; };
 		C4BDEFBF1A32BD4200454915 /* AKPhasingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhasingControl.m; sourceTree = "<group>"; };
 		C4BDEFC01A32BD4200454915 /* AKPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhasor.h; sourceTree = "<group>"; };
@@ -375,7 +374,6 @@
 		C4BDF00A1A32BD4200454915 /* AKMonoFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoFileInput.m; sourceTree = "<group>"; };
 		C4BDF00C1A32BD4200454915 /* AKLoopingOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLoopingOscillator.h; sourceTree = "<group>"; };
 		C4BDF00D1A32BD4200454915 /* AKLoopingOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLoopingOscillator.m; sourceTree = "<group>"; };
-		C4BDF00E1A32BD4200454915 /* AKLoopingOscillatorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLoopingOscillatorConstants.h; sourceTree = "<group>"; };
 		C4BDF00F1A32BD4200454915 /* AKLoopingStereoOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLoopingStereoOscillator.h; sourceTree = "<group>"; };
 		C4BDF0101A32BD4200454915 /* AKLoopingStereoOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLoopingStereoOscillator.m; sourceTree = "<group>"; };
 		C4BDF0131A32BD4200454915 /* AKConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKConvolution.h; sourceTree = "<group>"; };
@@ -481,6 +479,7 @@
 		C4BDF0821A32BD4200454915 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
 		C4BDF0831A32BD4200454915 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		C4BDF0841A32BD4200454915 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
+		C4C2804E1A4827A900C0558B /* AKTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -595,6 +594,7 @@
 				C4BDEF241A32BD4200454915 /* AKSampler.m */,
 				C4BDEF251A32BD4200454915 /* AKSequence.h */,
 				C4BDEF261A32BD4200454915 /* AKSequence.m */,
+				C4C2804E1A4827A900C0558B /* AKTypes.h */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -835,7 +835,6 @@
 				C4BDEFB91A32BD4200454915 /* AKLowFrequencyOscillatingControl.m */,
 				C4BDEFBA1A32BD4200454915 /* AKLowFrequencyOscillator.h */,
 				C4BDEFBB1A32BD4200454915 /* AKLowFrequencyOscillator.m */,
-				C4BDEFBC1A32BD4200454915 /* AKLowFrequencyOscillatorConstants.h */,
 			);
 			path = "Low Frequency Oscillators";
 			sourceTree = "<group>";
@@ -988,7 +987,6 @@
 			children = (
 				C4BDF00C1A32BD4200454915 /* AKLoopingOscillator.h */,
 				C4BDF00D1A32BD4200454915 /* AKLoopingOscillator.m */,
-				C4BDF00E1A32BD4200454915 /* AKLoopingOscillatorConstants.h */,
 				C4BDF00F1A32BD4200454915 /* AKLoopingStereoOscillator.h */,
 				C4BDF0101A32BD4200454915 /* AKLoopingStereoOscillator.m */,
 			);

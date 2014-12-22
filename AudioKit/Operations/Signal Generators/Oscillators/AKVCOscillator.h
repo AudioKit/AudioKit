@@ -14,17 +14,6 @@
  Different modes require different inputs so this could be a reason to break this up into separate classes, or use more custom initializers.
  */
 
-typedef enum
-{
-    kVCOscillatorWaveformSawtooth  = 16,
-    kVCOscillatorWaveformSquarePWM = 18,
-    kVCOscillatorWaveformTriangleWithRamp = 20,
-    kVCOscillatorWaveformPulseUnnormalized = 22,
-    kVCOscillatorWaveformIntegratedSawtooth = 24,
-    kVCOscillatorWaveformSquareNoPWM = 26,
-    kVCOscillatorWaveformTriangleNoRamp = 28
-} VCOscillatorType;
-
 @interface AKVCOscillator : AKAudio
 
 /// Instantiates the VC Oscillator
@@ -35,7 +24,7 @@ typedef enum
 
 /// Set an optional waveform type
 /// @param waveformType Choose from various waveform types.
-- (void)setOptionalWaveformType:(VCOscillatorType)waveformType;
+- (void)setOptionalWaveformType:(AKVCOscillatorWaveformType)waveformType;
 
 /// Set an optional pulse width
 /// @param pulseWidth The pulse width of the square wave or the ramp characteristics of the triangle wave. It is required only by these waveforms and ignored in all other cases. The expected range is 0 to 1, any other value is wrapped to the allowed range.

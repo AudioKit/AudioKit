@@ -10,8 +10,6 @@
 #import "AKParameter+Operation.h"
 #import "AKSoundFileTable.h"
 
-#import "AKLoopingOscillatorConstants.h"
-
 /** Read sampled sound (mono or stereo) from a table, with
  optional sustain and release looping, using cubic interpolation.
  
@@ -49,6 +47,6 @@
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
                    frequencyMultiplier:(AKControl *)frequencyMultiplier
                              amplitude:(AKParameter *)amplitude
-                                  type:(LoopingOscillatorType)type;
+                                  type:(AKLoopingOscillatorType)type;
 
 @end

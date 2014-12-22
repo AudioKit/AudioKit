@@ -10,11 +10,11 @@
 
 @implementation AKFTable
 {
-    FTableType igen;
+    AKFTableType igen;
     AKConstant *output;
 }
 
-- (instancetype)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(AKFTableType)fTableType
                         size:(int)tableSize
                   parameters:(AKArray *)parameters;
 {
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (instancetype)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(AKFTableType)fTableType
                   parameters:(AKArray *)parameters;
 {
     return [self initWithType:fTableType size:0 parameters:parameters];
@@ -53,11 +53,11 @@
     }
     NSString *text;
     if (_parameters == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
-                output, _size, igen];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@",
+                output, _size, akpi(igen)];
     } else {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
-                output, _size, igen, [_parameters parameterString]];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@, %@",
+                output, _size, akpi(igen), [_parameters parameterString]];
     }
     return text;
 }
@@ -71,11 +71,11 @@
     }
     NSString *text;
     if (_parameters == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
-                output, _size, igen];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@",
+                output, _size, akpi(igen)];
     } else {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
-                output, _size, igen, [_parameters parameterString]];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@, %@",
+                output, _size, akpi(igen), [_parameters parameterString]];
     }
     return text;
 }

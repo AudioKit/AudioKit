@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated from scripts by Aurelius Prochazka on 12/26/12.
-//  Customization by Aurelius Prochazka on 12/28/13
+//  Customized by Aurelius Prochazka on 12/28/13
 //
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //

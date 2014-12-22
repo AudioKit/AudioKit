@@ -36,7 +36,7 @@
     return self;
 }
 
-- (void)setOptionalWaveformType:(VCOscillatorType)waveformType {
+- (void)setOptionalWaveformType:(AKVCOscillatorWaveformType)waveformType {
 	imode = akp(waveformType);
 }
 

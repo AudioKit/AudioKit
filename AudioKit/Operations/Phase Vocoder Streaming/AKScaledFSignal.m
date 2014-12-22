@@ -19,7 +19,7 @@
 
 - (instancetype)initWithInput:(AKFSignal *)input
                frequencyRatio:(AKControl *)frequencyRatio
-          formantRetainMethod:(FormantRetainMethodType)formantRetainMethod
+          formantRetainMethod:(AKScaledFSignalFormantRetainMethod)formantRetainMethod
                amplitudeRatio:(AKControl *)amplitudeRatio
          cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
 
@@ -50,7 +50,7 @@
 {
     return [self initWithInput:input
                 frequencyRatio:frequencyRatio
-           formantRetainMethod:kFormantRetainMethodNone
+           formantRetainMethod:AKScaledFSignalFormantRetainMethodNone
                 amplitudeRatio:nil
           cepstrumCoefficients:nil];
 }
