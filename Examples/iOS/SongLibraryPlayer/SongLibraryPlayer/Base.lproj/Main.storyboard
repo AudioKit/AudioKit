@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uhT-uF-ipq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uhT-uF-ipq">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Albums View Controller-->
@@ -10,7 +12,7 @@
             <objects>
                 <tableViewController id="Ng4-LM-H0v" customClass="AlbumsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rHt-NE-YKf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -31,7 +33,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Q6q-2I-kbt" kind="push" identifier="SongsSegue" id="6aO-0g-rL0"/>
+                                    <segue destination="Q6q-2I-kbt" kind="show" identifier="SongsSegue" id="6aO-0g-rL0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -44,14 +46,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghI-Cg-5Xe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463" y="256"/>
+            <point key="canvasLocation" x="868.125" y="270.42253521126759"/>
         </scene>
         <!--Artists-->
         <scene sceneID="k1Z-CX-Lib">
             <objects>
                 <tableViewController id="XvM-Oc-rZE" customClass="ArtistsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DnR-RD-12L">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -72,7 +74,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Ng4-LM-H0v" kind="push" identifier="AlbumSegue" id="8gH-ft-cUW"/>
+                                    <segue destination="Ng4-LM-H0v" kind="show" identifier="AlbumSegue" id="8gH-ft-cUW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -85,14 +87,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4d-AZ-J1O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="256"/>
+            <point key="canvasLocation" x="86.25" y="270.42253521126759"/>
         </scene>
         <!--Songs-->
         <scene sceneID="ngP-Mi-za1">
             <objects>
                 <tableViewController id="Q6q-2I-kbt" customClass="SongsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iOH-CY-chK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -120,7 +122,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="qDP-je-A5o" kind="push" identifier="SongSegue" id="HXh-1d-Bgw"/>
+                                    <segue destination="qDP-je-A5o" kind="show" identifier="SongSegue" id="HXh-1d-Bgw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -133,7 +135,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeO-r5-dAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463" y="933"/>
+            <point key="canvasLocation" x="868.125" y="985.56338028169012"/>
         </scene>
         <!--Song View Controller-->
         <scene sceneID="YV6-mi-yuu">
@@ -144,11 +146,24 @@
                         <viewControllerLayoutGuide type="bottom" id="8ZE-8p-gMo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BGE-m7-iyx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0p-yW-cJc">
-                                <rect key="frame" x="6" y="387" width="137" height="147"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-TF-zI9">
+                                <rect key="frame" x="443" y="445" width="141" height="147"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
+                                <state key="normal" title="Tweak">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="g9G-CX-rGa" kind="show" id="IUd-HF-Xnp"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="igd-RJ-QBC">
+                                <rect key="frame" x="140" y="91" width="320" height="323"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0p-yW-cJc">
+                                <rect key="frame" x="16" y="445" width="137" height="147"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,21 +172,20 @@
                                     <action selector="play:" destination="qDP-je-A5o" eventType="touchUpInside" id="Wwn-cw-ccL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-TF-zI9">
-                                <rect key="frame" x="159" y="387" width="141" height="147"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
-                                <state key="normal" title="Tweak">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="g9G-CX-rGa" kind="push" id="IUd-HF-Xnp"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="igd-RJ-QBC">
-                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="igd-RJ-QBC" secondAttribute="centerY" constant="47.5" id="4Xf-gH-Ae7"/>
+                            <constraint firstItem="8ZE-8p-gMo" firstAttribute="top" secondItem="ypp-TF-zI9" secondAttribute="bottom" constant="8" id="4cV-Qx-PKh"/>
+                            <constraint firstItem="8ZE-8p-gMo" firstAttribute="top" secondItem="B0p-yW-cJc" secondAttribute="bottom" constant="8" id="8ZH-ci-w8D"/>
+                            <constraint firstAttribute="centerX" secondItem="igd-RJ-QBC" secondAttribute="centerX" id="Nyd-rl-SKq"/>
+                            <constraint firstItem="ypp-TF-zI9" firstAttribute="trailing" secondItem="BGE-m7-iyx" secondAttribute="trailingMargin" id="T85-VT-hUR"/>
+                            <constraint firstItem="ypp-TF-zI9" firstAttribute="width" secondItem="BGE-m7-iyx" secondAttribute="width" multiplier="0.5" id="bDV-wq-P34"/>
+                            <constraint firstItem="B0p-yW-cJc" firstAttribute="width" secondItem="BGE-m7-iyx" secondAttribute="width" multiplier="0.5" id="lLx-HD-Mu8"/>
+                            <constraint firstItem="ypp-TF-zI9" firstAttribute="top" secondItem="igd-RJ-QBC" secondAttribute="bottom" id="rfx-Al-qhI"/>
+                            <constraint firstItem="B0p-yW-cJc" firstAttribute="leading" secondItem="BGE-m7-iyx" secondAttribute="leadingMargin" id="tLq-gR-IU9"/>
+                            <constraint firstItem="B0p-yW-cJc" firstAttribute="top" secondItem="igd-RJ-QBC" secondAttribute="bottom" id="xqM-Jd-0FA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="grk-CS-t7G"/>
                     <connections>
@@ -181,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8E7-jJ-RXp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463" y="1617"/>
+            <point key="canvasLocation" x="868.125" y="1708.0985915492956"/>
         </scene>
         <!--Tweak View Controller-->
         <scene sceneID="eIq-mz-U9T">
@@ -192,40 +206,52 @@
                         <viewControllerLayoutGuide type="bottom" id="osK-V1-CZB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Mye-FI-yRI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0gp-kY-QxY">
-                                <rect key="frame" x="18" y="267" width="284" height="34"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0gp-kY-QxY">
+                                <rect key="frame" x="28" y="285" width="544" height="31"/>
                                 <connections>
                                     <action selector="changeReverbAmount:" destination="g9G-CX-rGa" eventType="valueChanged" id="3pk-c8-S7t"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reverb Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cA-Yw-yWz">
-                                <rect key="frame" x="100" y="226" width="120" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reverb Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cA-Yw-yWz">
+                                <rect key="frame" x="198" y="229" width="205" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mix" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YO-yu-Z5N">
-                                <rect key="frame" x="146" y="336" width="28" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mix" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YO-yu-Z5N">
+                                <rect key="frame" x="276" y="405" width="48" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="erD-v4-LdC">
-                                <rect key="frame" x="18" y="381" width="284" height="34"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="erD-v4-LdC">
+                                <rect key="frame" x="28" y="465" width="544" height="31"/>
                                 <connections>
                                     <action selector="changeMix:" destination="g9G-CX-rGa" eventType="valueChanged" id="5EX-2t-WKJ"/>
                                 </connections>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="erD-v4-LdC" firstAttribute="width" secondItem="Mye-FI-yRI" secondAttribute="width" multiplier="0.9" id="4CU-3Z-yLc"/>
+                            <constraint firstAttribute="centerX" secondItem="0gp-kY-QxY" secondAttribute="centerX" id="BtM-jE-V8j"/>
+                            <constraint firstItem="0gp-kY-QxY" firstAttribute="top" secondItem="9cA-Yw-yWz" secondAttribute="bottom" constant="20" id="DxQ-6c-MFH"/>
+                            <constraint firstAttribute="centerX" secondItem="erD-v4-LdC" secondAttribute="centerX" id="Jmw-ci-FU0"/>
+                            <constraint firstItem="0gp-kY-QxY" firstAttribute="centerY" secondItem="Mye-FI-yRI" secondAttribute="bottom" multiplier="0.5" id="VJW-es-FpB"/>
+                            <constraint firstItem="0gp-kY-QxY" firstAttribute="width" secondItem="Mye-FI-yRI" secondAttribute="width" multiplier="0.9" id="YuR-xW-8XF"/>
+                            <constraint firstAttribute="centerX" secondItem="2YO-yu-Z5N" secondAttribute="centerX" id="kd7-2f-Zxx"/>
+                            <constraint firstItem="erD-v4-LdC" firstAttribute="centerY" secondItem="Mye-FI-yRI" secondAttribute="bottom" multiplier="0.8" id="oPW-eJ-mgb"/>
+                            <constraint firstAttribute="centerX" secondItem="9cA-Yw-yWz" secondAttribute="centerX" id="pxQ-dW-Ayh"/>
+                            <constraint firstItem="erD-v4-LdC" firstAttribute="top" secondItem="2YO-yu-Z5N" secondAttribute="bottom" constant="24" id="u1k-wm-zpL"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wqf-wh-rEd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJB-16-DuB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="463" y="2303"/>
+            <point key="canvasLocation" x="868.125" y="2432.7464788732391"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YLb-jd-wSZ">
@@ -243,12 +269,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGF-Fp-cAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-377" y="256"/>
+            <point key="canvasLocation" x="-706.875" y="270.42253521126759"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
