@@ -33,7 +33,7 @@ class Processor : AKInstrument {
         let line1 = AKLinearControl(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
         connect(line1)
         
-        let line2 = AKLinearControl(firstPoint: 50.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        let line2 = AKLinearControl(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
         connect(line2)
         
         let operation = AKVariableFrequencyResponseBandPassFilter(audioSource: audioSource)
