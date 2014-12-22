@@ -23,12 +23,6 @@
                                     <action selector="changeDryWet:" destination="vXZ-lx-hvc" eventType="valueChanged" id="9NS-hT-UDN"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PMf-LV-pSb">
-                                <rect key="frame" x="58" y="375" width="484" height="31"/>
-                                <connections>
-                                    <action selector="changeDishWell:" destination="vXZ-lx-hvc" eventType="valueChanged" id="wHS-HD-BHf"/>
-                                </connections>
-                            </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G2J-ay-QfW">
                                 <rect key="frame" x="510" y="166" width="30" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -65,34 +59,11 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 </variation>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eVh-rL-z1J">
-                                <rect key="frame" x="340" y="78" width="300" height="300"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szu-gN-bhf">
+                                <rect key="frame" x="0.0" y="20" width="300" height="90"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGj-g0-Ezs">
-                                        <rect key="frame" x="108" y="120" width="84" height="60"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                        <state key="normal" title="start">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="start:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dFR-TM-h3e"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0097406406529999996" green="0.71086275580000002" blue="0.1231240827" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" secondItem="NGj-g0-Ezs" secondAttribute="height" id="3Y8-cr-dJS"/>
-                                    <constraint firstAttribute="width" secondItem="NGj-g0-Ezs" secondAttribute="width" id="DbR-n7-NZt"/>
-                                    <constraint firstAttribute="centerY" secondItem="NGj-g0-Ezs" secondAttribute="centerY" id="P6D-9F-am3"/>
-                                    <constraint firstAttribute="centerX" secondItem="NGj-g0-Ezs" secondAttribute="centerX" id="esQ-BO-u71"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="szu-gN-bhf">
-                                <rect key="frame" x="16" y="38" width="300" height="300"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEp-sy-RMd">
-                                        <rect key="frame" x="109" y="87" width="82" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEp-sy-RMd">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="90"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                         <state key="normal" title="stop">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,6 +82,35 @@
                                     <constraint firstAttribute="centerY" secondItem="GEp-sy-RMd" secondAttribute="centerY" id="vGR-wD-3aE"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVh-rL-z1J">
+                                <rect key="frame" x="300" y="20" width="300" height="90"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGj-g0-Ezs">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="90"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                        <state key="normal" title="start">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="start:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dFR-TM-h3e"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0097406406529999996" green="0.71086275580000002" blue="0.1231240827" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" secondItem="NGj-g0-Ezs" secondAttribute="height" id="3Y8-cr-dJS"/>
+                                    <constraint firstAttribute="width" secondItem="NGj-g0-Ezs" secondAttribute="width" id="DbR-n7-NZt"/>
+                                    <constraint firstAttribute="centerY" secondItem="NGj-g0-Ezs" secondAttribute="centerY" id="P6D-9F-am3"/>
+                                    <constraint firstAttribute="centerX" secondItem="NGj-g0-Ezs" secondAttribute="centerX" id="esQ-BO-u71"/>
+                                </constraints>
+                            </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PMf-LV-pSb">
+                                <rect key="frame" x="58" y="375" width="484" height="31"/>
+                                <connections>
+                                    <action selector="changeDishWell:" destination="vXZ-lx-hvc" eventType="valueChanged" id="wHS-HD-BHf"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
