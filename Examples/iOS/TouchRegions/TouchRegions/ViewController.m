@@ -69,7 +69,7 @@
             fm.frequency.value  = newValue * (fm.frequency.maximum - fm.frequency.minimum) + fm.frequency.minimum;
             self.frequencyLabel.text = [NSString stringWithFormat:@"%0.2f", fm.frequency.value];
             leftTouchImageView.center = CGPointMake(newValue * middle, leftTouchImageView.center.y);
-            NSLog(@"%f", newValue*400);
+            //NSLog(@"%f", newValue*400);
         }
         if (object == self.rightView) {
             fm.modulatingMultiplier.value  = newValue * (fm.modulatingMultiplier.maximum - fm.modulatingMultiplier.minimum) + fm.modulatingMultiplier.minimum;
