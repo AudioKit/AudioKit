@@ -58,12 +58,6 @@
                                     <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="30"/>
                                 </variation>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UBb-rf-WCV">
-                                <rect key="frame" x="28" y="225" width="544" height="31"/>
-                                <connections>
-                                    <action selector="scaleAmplitude:" destination="vXZ-lx-hvc" eventType="valueChanged" id="FKQ-dT-5rW"/>
-                                </connections>
-                            </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amplitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZN-yX-qXZ">
                                 <rect key="frame" x="30" y="196" width="78" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -135,6 +129,12 @@
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4OB-Hs-X00">
                                 <rect key="frame" x="28" y="525" width="544" height="31"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UBb-rf-WCV">
+                                <rect key="frame" x="28" y="225" width="544" height="31"/>
+                                <connections>
+                                    <action selector="scaleAmplitude:" destination="vXZ-lx-hvc" eventType="valueChanged" id="FKQ-dT-5rW"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
