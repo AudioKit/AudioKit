@@ -13,30 +13,17 @@
 
 @interface AKRandomDistributionTable : AKFTable
 
-typedef enum
-{
-    kRandomDistributionUniform=1,
-    kRandomDistributionLinear=2,
-    kRandomDistributionTriangular=3,
-    kRandomDistributionExponential=4,
-    kRandomDistributionBiexponential=5,
-    kRandomDistributionGaussian=6,
-    kRandomDistributionCauchy=7,
-    kRandomDistributionPositiveCauchy=8,
-    kRandomDistributionPoisson=11
-}RandomDistributionType;
-
 /// Create a random distribution table
 /// @param distributionType Type of distribution to use (note that Beta and Weibull use their own init methods).
 /// @param size             Size of the table.
-- (instancetype)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(AKRandomDistributionType)distributionType
                     size:(int)size;
 
 /// Create a random distribution table
 /// @param distributionType Type of distribution to use (note that Beta and Weibull use their own init methods).
 /// @param size             Size of the table.
 /// @param level            Level is the maximum amplitude of the signal varying from 0 to level or -level to level depending on the type.
-- (instancetype)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(AKRandomDistributionType)distributionType
                     size:(int)size
                    level:(float)level;
 

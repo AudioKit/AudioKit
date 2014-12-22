@@ -9,6 +9,7 @@
 #import "AKParameter.h"
 #import "AKArray.h"
 #import "AKFTable.h"
+#import "AKTypes.h"
 
 @interface AKParameter (Operation)
 

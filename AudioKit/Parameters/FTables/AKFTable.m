@@ -53,11 +53,11 @@
     }
     NSString *text;
     if (_parameters == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
-                output, _size, igen];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@",
+                output, _size, akpi(igen)];
     } else {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
-                output, _size, igen, [_parameters parameterString]];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@, %@",
+                output, _size, akpi(igen), [_parameters parameterString]];
     }
     return text;
 }
@@ -71,11 +71,11 @@
     }
     NSString *text;
     if (_parameters == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i",
-                output, _size, igen];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@",
+                output, _size, akpi(igen)];
     } else {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %i, %@",
-                output, _size, igen, [_parameters parameterString]];
+        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@, %@",
+                output, _size, akpi(igen), [_parameters parameterString]];
     }
     return text;
 }

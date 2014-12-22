@@ -8,6 +8,7 @@
 
 #import "AKMidi.h"
 #import <CoreMIDI/CoreMIDI.h>
+#import "AKTypes.h"
 
 #pragma mark  Utility Function
 
@@ -128,17 +129,6 @@
 // -----------------------------------------------------------------------------
 #  pragma mark - Low Level MIDI Handlining
 // -----------------------------------------------------------------------------
-
-typedef enum MIDIConstants {
-    kMidiNoteOff = 8,
-    kMidiNoteOn = 9,
-    kMidiPolyphonicAftertouch = 10,
-    kMidiControllerChange = 11,
-    kMidiProgramChange = 12,
-    kMidiAftertouch = 13,
-    kMidiPitchWheel = 14,
-    kMidiSysex = 240
-} MIDIConstants;
 
 
 void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)

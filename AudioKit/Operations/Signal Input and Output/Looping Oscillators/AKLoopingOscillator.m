@@ -65,8 +65,8 @@
 // ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ loscil3 %@, %@, %@, %@, %i",
-            self, amp, freqMultiplier, soundFileTable, baseFrequency, imod1];
+            @"%@ loscil3 %@, %@, %@, %@, %@",
+            self, amp, freqMultiplier, soundFileTable, baseFrequency, akpi(imod1)];
 }
 
 @end
