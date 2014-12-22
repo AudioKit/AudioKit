@@ -160,8 +160,7 @@
 		C4C51468186410540036F065 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4C51466186410540036F065 /* InfoPlist.strings */; };
 		C4C5146A186410540036F065 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C51469186410540036F065 /* main.m */; };
 		C4C5146E186410540036F065 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5146D186410540036F065 /* AppDelegate.m */; };
-		C4C51471186410540036F065 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C5146F186410540036F065 /* Main_iPhone.storyboard */; };
-		C4C51474186410540036F065 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C51472186410540036F065 /* Main_iPad.storyboard */; };
+		C4C51471186410540036F065 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C5146F186410540036F065 /* Main.storyboard */; };
 		C4C51477186410540036F065 /* SongsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C51476186410540036F065 /* SongsViewController.m */; };
 		C4C51479186410540036F065 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C51478186410540036F065 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -498,8 +497,7 @@
 		C4C5146B186410540036F065 /* SongLibraryPlayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SongLibraryPlayer-Prefix.pch"; sourceTree = "<group>"; };
 		C4C5146C186410540036F065 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4C5146D186410540036F065 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C4C51470186410540036F065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		C4C51473186410540036F065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		C4C51470186410540036F065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4C51475186410540036F065 /* SongsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongsViewController.h; sourceTree = "<group>"; };
 		C4C51476186410540036F065 /* SongsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongsViewController.m; sourceTree = "<group>"; };
 		C4C51478186410540036F065 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1218,8 +1216,7 @@
 		C4C51463186410540036F065 /* SongLibraryPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				C4C5146F186410540036F065 /* Main_iPhone.storyboard */,
-				C4C51472186410540036F065 /* Main_iPad.storyboard */,
+				C4C5146F186410540036F065 /* Main.storyboard */,
 				C4BD3DCA186D04AF00B11A55 /* ArtistsViewController.h */,
 				C4BD3DCB186D04AF00B11A55 /* ArtistsViewController.m */,
 				C4BD3DCD186D1EDA00B11A55 /* AlbumsViewController.h */,
@@ -1307,10 +1304,9 @@
 			files = (
 				C4C307C61A09F856005AF737 /* declick.udo in Resources */,
 				C4C3078F1A09F856005AF737 /* marmstk1.wav in Resources */,
-				C4C51474186410540036F065 /* Main_iPad.storyboard in Resources */,
 				C4C51479186410540036F065 /* Images.xcassets in Resources */,
 				C4C307591A09F856005AF737 /* LICENSE.TXT in Resources */,
-				C4C51471186410540036F065 /* Main_iPhone.storyboard in Resources */,
+				C4C51471186410540036F065 /* Main.storyboard in Resources */,
 				C4C3078D1A09F856005AF737 /* mandpluk.aif in Resources */,
 				C4C51468186410540036F065 /* InfoPlist.strings in Resources */,
 			);
@@ -1484,20 +1480,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		C4C5146F186410540036F065 /* Main_iPhone.storyboard */ = {
+		C4C5146F186410540036F065 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C4C51470186410540036F065 /* Base */,
 			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		C4C51472186410540036F065 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C4C51473186410540036F065 /* Base */,
-			);
-			name = Main_iPad.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
