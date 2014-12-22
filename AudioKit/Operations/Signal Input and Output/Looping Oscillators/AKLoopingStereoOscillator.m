@@ -14,7 +14,7 @@
     AKParameter *freqMultiplier;
     AKConstant *baseFrequency;
     AKSoundFileTable *soundFileTable;
-    LoopingOscillatorType imod1;
+    AKLoopingOscillatorType imod1;
     
     AKConstant *ibeg1;
     AKConstant *iend1;
@@ -26,7 +26,7 @@
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:akpi(1)
                               amplitude:akpi(1)
-                                   type:kLoopingOscillatorNormal];
+                                   type:AKLoopingOscillatorTypeNormal];
     
 }
 
@@ -36,7 +36,7 @@
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:akpi(1)
                               amplitude:amplitude
-                                   type:kLoopingOscillatorNormal];
+                                   type:AKLoopingOscillatorTypeNormal];
 }
 
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
@@ -46,14 +46,14 @@
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:frequencyMultiplier
                               amplitude:amplitude
-                                   type:kLoopingOscillatorNormal];
+                                   type:AKLoopingOscillatorTypeNormal];
 }
 
 
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
                    frequencyMultiplier:(AKControl *)frequencyMultiplier
                              amplitude:(AKParameter *)amplitude
-                                  type:(LoopingOscillatorType)type
+                                  type:(AKLoopingOscillatorType)type
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -82,12 +82,12 @@
 - (NSString *)stringForCSD {
     if(ibeg1) {
         return [NSString stringWithFormat:
-                @"%@ loscil3 %@, %@, %@, %@, %i, %@, %@, %i, %@, %@",
-                self, amp, freqMultiplier, soundFileTable, baseFrequency, imod1, ibeg1, iend1, imod1, ibeg2, iend2];
+                @"%@ loscil3 %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
+                self, amp, freqMultiplier, soundFileTable, baseFrequency, akpi(imod1), ibeg1, iend1, akpi(imod1), ibeg2, iend2];
     }
     return [NSString stringWithFormat:
-            @"%@ loscil3 %@, %@, %@, %@, %i",
-            self, amp, freqMultiplier, soundFileTable, baseFrequency, imod1];
+            @"%@ loscil3 %@, %@, %@, %@, %@",
+            self, amp, freqMultiplier, soundFileTable, baseFrequency, akpi(imod1)];
 }
 
 @end

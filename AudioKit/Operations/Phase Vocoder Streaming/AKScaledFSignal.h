@@ -17,13 +17,6 @@
  which might not be suited to realtime use.
  */
 
-typedef enum
-{
-    kFormantRetainMethodNone=0,
-    kFormantRetainMethodLifteredCepstrum=1,
-    kFormantRetainMethodTrueEnvelope=2,
-} FormantRetainMethodType;
-
 @interface AKScaledFSignal : AKFSignal
 
 /// Create a frequency-scaled phase vocoder stream from another stream
@@ -40,7 +33,7 @@ typedef enum
 /// @param numberOfCepstrumCoefficients Number of coefficients to use in formant preservation (defaults ot 80).
 - (instancetype)initWithInput:(AKFSignal *)input
                frequencyRatio:(AKControl *)frequencyRatio
-          formantRetainMethod:(FormantRetainMethodType) formantRetainMethod
+          formantRetainMethod:(AKScaledFSignalFormantRetainMethod)formantRetainMethod
                amplitudeRatio:(AKControl *)amplitudeRatio
          cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
 

@@ -20,7 +20,7 @@ class HarmonizerInstrument: AKInstrument {
             audioSource: microphone,
             fftSize: 2048.ak,
             overlap: 256.ak,
-            windowType: kVonHannWindow,
+            windowType: AKFSignalFromMonoAudioWindowType.VonHann,
             windowFilterSize: 2048.ak)
         
         connect(fsig1)
@@ -28,7 +28,7 @@ class HarmonizerInstrument: AKInstrument {
         let fsig2 = AKScaledFSignal(
             input: fsig1,
             frequencyRatio: 2.ak,
-            formantRetainMethod: kFormantRetainMethodLifteredCepstrum,
+            formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
             amplitudeRatio: nil,
             cepstrumCoefficients: nil
         )
@@ -37,7 +37,7 @@ class HarmonizerInstrument: AKInstrument {
         let fsig3 = AKScaledFSignal(
             input: fsig1,
             frequencyRatio: 2.ak,
-            formantRetainMethod: kFormantRetainMethodLifteredCepstrum,
+            formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
             amplitudeRatio: nil,
             cepstrumCoefficients: nil
         )

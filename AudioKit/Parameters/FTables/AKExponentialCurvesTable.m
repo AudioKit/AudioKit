@@ -15,7 +15,7 @@
 - (instancetype)initWithSize:(int)tableSize
             valueLengthPairs:(AKArray *)valueLengthPairs
 {
-    return [self initWithType:kFTExponentialCurves
+    return [self initWithType:AKFTableTypeExponentialCurves
                          size:tableSize
                    parameters:valueLengthPairs];
 }
@@ -32,7 +32,7 @@
 - (instancetype)initWithSize:(int)tableSize
                  breakpoints:(AKArray *)breakpoints;
 {
-    return [self initWithType:kFTExponentialCurvesFromBreakpoints
+    return [self initWithType:AKFTableTypeExponentialCurvesFromBreakpoints
                          size:tableSize
                    parameters:breakpoints];
 }

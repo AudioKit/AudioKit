@@ -11,6 +11,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AKTypes.h" 
+
 #import "AKManager.h"
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
@@ -109,7 +111,6 @@
 // Operations - Signal Generators - Oscillators - Low Frequency Oscillators
 #import "AKLowFrequencyOscillatingControl.h"
 #import "AKLowFrequencyOscillator.h"
-#import "AKLowFrequencyOscillatorConstants.h"
 
 // Operations - Signal Generators - Phasors
 #import "AKPhasingControl.h"
@@ -166,7 +167,6 @@
 
 // Operations - Signal Input and Output - Looping Oscillators
 #import "AKLoopingOscillator.h"
-#import "AKLoopingOscillatorConstants.h"
 #import "AKLoopingStereoOscillator.h"
 
 // Operations - Signal Modifiers
