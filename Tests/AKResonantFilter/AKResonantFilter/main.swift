@@ -40,6 +40,7 @@ class Processor : AKInstrument {
         operation.centerFrequency = line1
         operation.bandwidth = line2
         connect(operation)
+        
         let balance = AKBalance(audioSource: operation, comparatorAudioSource: audioSource)
         connect(balance)
         
