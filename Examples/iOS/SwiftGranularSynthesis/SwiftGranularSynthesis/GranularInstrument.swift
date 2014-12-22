@@ -32,7 +32,7 @@ class GranularSynth: AKInstrument
         let fileTable = AKSoundFileTable (filename: file, tableSize: 16384)
         connect(fileTable)
 
-        let hamming = AKWindowsTable (type: kWindowHamming, size: 512)
+        let hamming = AKWindowsTable (type: AKWindowTableType.Hamming, size: 512)
         connect(hamming)
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", fileTable.length()))
