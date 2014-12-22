@@ -31,9 +31,9 @@
         AKFMOscillator *fmOscillator;
         fmOscillator = [[AKFMOscillator alloc] initWithFTable:sineTable
                                                 baseFrequency:note.frequency
-                                            carrierMultiplier:[_toneColor scaledBy:akp(2.0)]
-                                         modulatingMultiplier:[_toneColor scaledBy:akp(1.2)]
-                                              modulationIndex:[_toneColor scaledBy:akp(1.5)]
+                                            carrierMultiplier:[_toneColor scaledBy:akp(20)]
+                                         modulatingMultiplier:[_toneColor scaledBy:akp(12)]
+                                              modulationIndex:[_toneColor scaledBy:akp(15)]
                                                     amplitude:akp(0.15)
                                                         phase:akp(0)];
         [self connect:fmOscillator];
