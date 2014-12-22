@@ -28,15 +28,14 @@
     
     MPMediaQuery *songsQuery = [MPMediaQuery songsQuery];
     [songsQuery addFilterPredicate:artistPredicate];
+    [songsQuery addFilterPredicate:[MPMediaPropertyPredicate predicateWithValue:[NSNumber numberWithBool:NO] forProperty:MPMediaItemPropertyIsCloudItem]];
+
     
     NSArray *itemsFromGenericQuery = [songsQuery items];
+
     self.songsList = [NSMutableArray arrayWithArray:itemsFromGenericQuery];
     [self.tableView reloadData];
-    
-
 }
-
-
 
 #pragma mark - Table view data source
 
