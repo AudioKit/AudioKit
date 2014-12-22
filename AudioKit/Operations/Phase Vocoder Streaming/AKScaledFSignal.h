@@ -17,13 +17,6 @@
  which might not be suited to realtime use.
  */
 
-typedef enum
-{
-    kFormantRetainMethodNone=0,
-    kFormantRetainMethodLifteredCepstrum=1,
-    kFormantRetainMethodTrueEnvelope=2,
-} FormantRetainMethodType;
-
 @interface AKScaledFSignal : AKFSignal
 
 /// Create a frequency-scaled phase vocoder stream from another stream

@@ -13,13 +13,6 @@
 /** Generate an f-Signal from a mono audio source using phase vocoder overlap-add synthesis.
  */
 
-typedef enum
-{
-    kHammingWindow=0,
-    kVonHannWindow=1,
-    
-} WindowType;
-
 @interface AKFSignalFromMonoAudio : AKFSignal
 
 /// Create a phase vocoder stream or f-signal from a mono audio source.

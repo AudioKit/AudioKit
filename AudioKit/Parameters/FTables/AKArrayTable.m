@@ -13,14 +13,14 @@
 
 - (instancetype)initWithArray:(AKArray *)parameterArray; 
 {
-    return [self initWithType:kFTArray
+    return [self initWithType:AKFTableTypeArray
                          size:[parameterArray count]
                    parameters:parameterArray];
 }
 
 - (instancetype)initWithArray:(AKArray *)parameterArray size:(int)tableSize;
 {
-    return [self initWithType:kFTArray
+    return [self initWithType:AKFTableTypeArray
                          size:tableSize
                    parameters:parameterArray];
 }

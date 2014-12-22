@@ -14,17 +14,6 @@
  Different modes require different inputs so this could be a reason to break this up into separate classes, or use more custom initializers.
  */
 
-typedef enum
-{
-    kVCOscillatorWaveformSawtooth  = 16,
-    kVCOscillatorWaveformSquarePWM = 18,
-    kVCOscillatorWaveformTriangleWithRamp = 20,
-    kVCOscillatorWaveformPulseUnnormalized = 22,
-    kVCOscillatorWaveformIntegratedSawtooth = 24,
-    kVCOscillatorWaveformSquareNoPWM = 26,
-    kVCOscillatorWaveformTriangleNoRamp = 28
-} VCOscillatorType;
-
 @interface AKVCOscillator : AKAudio
 
 /// Instantiates the VC Oscillator
