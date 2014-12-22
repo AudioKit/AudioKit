@@ -49,6 +49,6 @@
 - (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
                    frequencyMultiplier:(AKControl *)frequencyMultiplier
                              amplitude:(AKParameter *)amplitude
-                                  type:(LoopingOscillatorType)type;
+                                  type:(AKLoopingOscillatorType)type;
 
 @end

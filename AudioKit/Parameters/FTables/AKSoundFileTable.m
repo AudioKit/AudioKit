@@ -21,7 +21,7 @@
 {
     AKArray *parameters = [AKArray arrayFromConstants:
                                  akpfn(filename), akp(0), akp(0), akp(0), nil];
-    return [super initWithType:kFTSoundFile 
+    return [super initWithType:AKFTableTypeSoundFile
                          size:tableSize 
                    parameters:parameters];
 }

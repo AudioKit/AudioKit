@@ -10,17 +10,17 @@
 
 @implementation AKRandomDistributionTable
 
-- (instancetype)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(AKRandomDistributionType)distributionType
                     size:(int)size;
 {
     return [self initType:distributionType size:size level:1.0];
 }
 
-- (instancetype)initType:(RandomDistributionType)distributionType
+- (instancetype)initType:(AKRandomDistributionType)distributionType
                     size:(int)size
                    level:(float)level;
 {
-    return [self initWithType:kFTRandomDistributions
+    return [self initWithType:AKFTableTypeRandomDistributions
                          size:size
                    parameters:[AKArray arrayFromConstants:
                                akpi(distributionType), akp(level), nil]];
@@ -31,7 +31,7 @@
                                   sigma:(float)sigma;
 {
     int distributionType = 10;
-    return [self initWithType:kFTRandomDistributions
+    return [self initWithType:AKFTableTypeRandomDistributions
                          size:size
                    parameters:[AKArray arrayFromConstants:
                                akpi(distributionType), level, akp(sigma), nil]];
@@ -43,7 +43,7 @@
                                 beta:(float)beta;
 {
     int distributionType = 9;
-    return [self initWithType:kFTRandomDistributions
+    return [self initWithType:AKFTableTypeRandomDistributions
                          size:size
                    parameters:[AKArray arrayFromConstants:
                                akpi(distributionType), level, akp(alpha), akp(beta), nil]];

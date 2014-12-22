@@ -40,7 +40,7 @@ typedef enum
 /// @param numberOfCepstrumCoefficients Number of coefficients to use in formant preservation (defaults ot 80).
 - (instancetype)initWithInput:(AKFSignal *)input
                frequencyRatio:(AKControl *)frequencyRatio
-          formantRetainMethod:(FormantRetainMethodType) formantRetainMethod
+          formantRetainMethod:(AKScaledFSignalFormantRetainMethod)formantRetainMethod
                amplitudeRatio:(AKControl *)amplitudeRatio
          cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
 

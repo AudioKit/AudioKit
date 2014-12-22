@@ -10,11 +10,11 @@
 
 @implementation AKFTable
 {
-    FTableType igen;
+    AKFTableType igen;
     AKConstant *output;
 }
 
-- (instancetype)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(AKFTableType)fTableType
                         size:(int)tableSize
                   parameters:(AKArray *)parameters;
 {
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (instancetype)initWithType:(FTableType)fTableType
+- (instancetype)initWithType:(AKFTableType)fTableType
                   parameters:(AKArray *)parameters;
 {
     return [self initWithType:fTableType size:0 parameters:parameters];
