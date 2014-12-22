@@ -258,7 +258,7 @@ static AKManager *_sharedManager = nil;
 
 /// Disable AudioInput
 - (void)disableAudioInput {
-    [csound setUseAudioInput:YES];    
+    [csound setUseAudioInput:NO];    
 }
 
 // -----------------------------------------------------------------------------
