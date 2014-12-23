@@ -2,7 +2,7 @@
 //  AKAdditiveCosines.m
 //  AudioKit
 //
-//  Auto-generated on 12/14/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's gbuzz:
@@ -14,13 +14,13 @@
 
 @implementation AKAdditiveCosines
 {
-    AKFTable *_cosineTable;
+    AKFTable * _cosineTable;
 }
 
 - (instancetype)initWithCosineTable:(AKFTable *)cosineTable
-                     harmonicsCount:(AKControl *)harmonicsCount
-                 firstHarmonicIndex:(AKControl *)firstHarmonicIndex
-                  partialMultiplier:(AKControl *)partialMultiplier
+                     harmonicsCount:(AKParameter *)harmonicsCount
+                 firstHarmonicIndex:(AKParameter *)firstHarmonicIndex
+                  partialMultiplier:(AKParameter *)partialMultiplier
                fundamentalFrequency:(AKParameter *)fundamentalFrequency
                           amplitude:(AKParameter *)amplitude
                               phase:(AKConstant *)phase
@@ -34,7 +34,6 @@
         _fundamentalFrequency = fundamentalFrequency;
         _amplitude = amplitude;
         _phase = phase;
-        
     }
     return self;
 }
@@ -44,14 +43,13 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         _cosineTable = cosineTable;
-        
         // Default Values
-        _harmonicsCount = akp(10);
-        _firstHarmonicIndex = akp(1);
-        _partialMultiplier = akp(1);
-        _fundamentalFrequency = akp(220);
-        _amplitude = akp(1);
-        _phase = akp(0);
+        _harmonicsCount = akp(10);    
+        _firstHarmonicIndex = akp(1);    
+        _partialMultiplier = akp(1);    
+        _fundamentalFrequency = akp(220);    
+        _amplitude = akp(1);    
+        _phase = akp(0);    
     }
     return self;
 }
@@ -61,32 +59,28 @@
     return [[AKAdditiveCosines alloc] initWithCosineTable:cosineTable];
 }
 
-- (void)setOptionalHarmonicsCount:(AKControl *)harmonicsCount {
+- (void)setOptionalHarmonicsCount:(AKParameter *)harmonicsCount {
     _harmonicsCount = harmonicsCount;
 }
-
-- (void)setOptionalFirstHarmonicIndex:(AKControl *)firstHarmonicIndex {
+- (void)setOptionalFirstHarmonicIndex:(AKParameter *)firstHarmonicIndex {
     _firstHarmonicIndex = firstHarmonicIndex;
 }
-
-- (void)setOptionalPartialMultiplier:(AKControl *)partialMultiplier {
+- (void)setOptionalPartialMultiplier:(AKParameter *)partialMultiplier {
     _partialMultiplier = partialMultiplier;
 }
-
 - (void)setOptionalFundamentalFrequency:(AKParameter *)fundamentalFrequency {
     _fundamentalFrequency = fundamentalFrequency;
 }
-
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
-
 - (void)setOptionalPhase:(AKConstant *)phase {
     _phase = phase;
 }
+
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ gbuzz %@, %@, %@, %@, %@, %@, %@",
+            @"%@ gbuzz %@, %@, AKControl(%@), AKControl(%@), AKControl(%@), %@, %@",
             self,
             _amplitude,
             _fundamentalFrequency,
