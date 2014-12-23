@@ -2,8 +2,8 @@
 //  AKStruckMetalBar.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/15/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's barmodel:
 //  http://www.csounds.com/manual/html/barmodel.html
@@ -20,8 +20,8 @@
                    strikePosition:(AKConstant *)strikePosition
                    strikeVelocity:(AKConstant *)strikeVelocity
                       strikeWidth:(AKConstant *)strikeWidth
-            leftBoundaryCondition:(AKControl *)leftBoundaryCondition
-           rightBoundaryCondition:(AKControl *)rightBoundaryCondition
+            leftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition
+           rightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition
                         scanSpeed:(AKControl *)scanSpeed
 {
     self = [super initWithString:[self operationName]];
@@ -50,8 +50,8 @@
         _strikePosition = akp(0.2);    
         _strikeVelocity = akp(800);    
         _strikeWidth = akp(0.2);    
-        _leftBoundaryCondition = akp(1);    
-        _rightBoundaryCondition = akp(1);    
+        _leftBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;    
+        _rightBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;    
         _scanSpeed = akp(0.23);    
     }
     return self;
@@ -80,10 +80,10 @@
 - (void)setOptionalStrikeWidth:(AKConstant *)strikeWidth {
     _strikeWidth = strikeWidth;
 }
-- (void)setOptionalLeftBoundaryCondition:(AKControl *)leftBoundaryCondition {
+- (void)setOptionalLeftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition {
     _leftBoundaryCondition = leftBoundaryCondition;
 }
-- (void)setOptionalRightBoundaryCondition:(AKControl *)rightBoundaryCondition {
+- (void)setOptionalRightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition {
     _rightBoundaryCondition = rightBoundaryCondition;
 }
 - (void)setOptionalScanSpeed:(AKControl *)scanSpeed {
@@ -94,8 +94,8 @@
     return [NSString stringWithFormat:
             @"%@ barmodel %@, %@, %@, %@, %@, %@, %@, %@, %@",
             self,
-            _leftBoundaryCondition,
-            _rightBoundaryCondition,
+            akpi(_leftBoundaryCondition),
+            akpi(_rightBoundaryCondition),
             _dimensionlessStiffness,
             _highFrequencyLoss,
             _scanSpeed,

@@ -59,6 +59,13 @@ typedef NS_OPTIONS(NSUInteger, AKScaledFSignalFormantRetainMethod)
     AKScaledFSignalFormantRetainMethodTrueEnvelope=2,
 };
 
+typedef NS_OPTIONS(NSUInteger, AKStruckMetalBarBoundaryCondition)
+{
+    AKStruckMetalBarBoundaryConditionClamped=1,
+    AKStruckMetalBarBoundaryConditionPivoting=2,
+    AKStruckMetalBarBoundaryConditionFree=3,
+};
+
 typedef NS_OPTIONS(NSUInteger, AKRandomDistributionType)
 {
     AKRandomDistributionTypeUniform=1,
