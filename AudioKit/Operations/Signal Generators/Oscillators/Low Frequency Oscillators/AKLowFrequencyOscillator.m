@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
@@ -14,14 +14,14 @@
 
 @implementation AKLowFrequencyOscillator
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                             type:(AKLowFrequencyOscillatorType)type
-                        amplitude:(AKControl *)amplitude
+- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
+                   frequency:(AKParameter *)frequency
+                   amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _frequency = frequency;
         _type = type;
+        _frequency = frequency;
         _amplitude = amplitude;
     }
     return self;
@@ -32,8 +32,8 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _frequency = akp(110);    
         _type = AKLowFrequencyOscillatorTypeSine;    
+        _frequency = akp(110);    
         _amplitude = akp(1);    
     }
     return self;
@@ -44,19 +44,19 @@
     return [[AKLowFrequencyOscillator alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKControl *)frequency {
-    _frequency = frequency;
-}
 - (void)setOptionalType:(AKLowFrequencyOscillatorType)type {
     _type = type;
 }
-- (void)setOptionalAmplitude:(AKControl *)amplitude {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    _frequency = frequency;
+}
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ lfo %@, %@, %@",
+            @"%@ lfo AKControl(%@), AKControl(%@), %@",
             self,
             _amplitude,
             _frequency,

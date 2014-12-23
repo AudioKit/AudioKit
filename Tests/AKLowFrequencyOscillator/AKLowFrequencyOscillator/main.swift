@@ -15,9 +15,16 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
+        let control = AKLowFrequencyOscillator()
+        control.type = AKLowFrequencyOscillatorType.SawTooth
+        control.amplitude = 100.ak
+        control.frequency = 2.ak
+        connect(control)
+
+        
         let operation = AKLowFrequencyOscillator()
-        let type: AKLowFrequencyOscillatorType = .Triangle
-        operation.type = type
+        operation.type = AKLowFrequencyOscillatorType.Triangle
+        operation.frequency = control.plus(110.ak)
         connect(operation)
 
         connect(AKAudioOutput(audioSource:operation))
