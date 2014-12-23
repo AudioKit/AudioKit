@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 11/26/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -15,10 +15,10 @@
 @implementation AKFMOscillator
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
-                 baseFrequency:(AKControl *)baseFrequency
+                 baseFrequency:(AKParameter *)baseFrequency
              carrierMultiplier:(AKParameter *)carrierMultiplier
           modulatingMultiplier:(AKParameter *)modulatingMultiplier
-               modulationIndex:(AKControl *)modulationIndex
+               modulationIndex:(AKParameter *)modulationIndex
                      amplitude:(AKParameter *)amplitude
                          phase:(AKConstant *)phase
 {
@@ -31,7 +31,6 @@
         _modulationIndex = modulationIndex;
         _amplitude = amplitude;
         _phase = phase;
-        
     }
     return self;
 }
@@ -40,16 +39,15 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
         _fTable = [AKManager standardSineTable];
         
-        _baseFrequency = akp(440);
-        _carrierMultiplier = akp(1);
-        _modulatingMultiplier = akp(1);
-        _modulationIndex = akp(1);
-        _amplitude = akp(0.5);
-        _phase = akp(0);
+        _baseFrequency = akp(440);    
+        _carrierMultiplier = akp(1);    
+        _modulatingMultiplier = akp(1);    
+        _modulationIndex = akp(1);    
+        _amplitude = akp(0.5);    
+        _phase = akp(0);    
     }
     return self;
 }
@@ -62,34 +60,28 @@
 - (void)setOptionalFTable:(AKFTable *)fTable {
     _fTable = fTable;
 }
-
-- (void)setOptionalBaseFrequency:(AKControl *)baseFrequency {
+- (void)setOptionalBaseFrequency:(AKParameter *)baseFrequency {
     _baseFrequency = baseFrequency;
 }
-
 - (void)setOptionalCarrierMultiplier:(AKParameter *)carrierMultiplier {
     _carrierMultiplier = carrierMultiplier;
 }
-
 - (void)setOptionalModulatingMultiplier:(AKParameter *)modulatingMultiplier {
     _modulatingMultiplier = modulatingMultiplier;
 }
-
-- (void)setOptionalModulationIndex:(AKControl *)modulationIndex {
+- (void)setOptionalModulationIndex:(AKParameter *)modulationIndex {
     _modulationIndex = modulationIndex;
 }
-
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
-
 - (void)setOptionalPhase:(AKConstant *)phase {
     _phase = phase;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ foscili %@, %@, %@, %@, %@, %@, %@",
+            @"%@ foscili %@, AKControl(%@), %@, %@, AKControl(%@), %@, %@",
             self,
             _amplitude,
             _baseFrequency,
@@ -99,6 +91,5 @@
             _fTable,
             _phase];
 }
-
 
 @end

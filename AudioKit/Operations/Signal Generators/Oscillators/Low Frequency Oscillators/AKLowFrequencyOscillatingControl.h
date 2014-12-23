@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillatingControl.h
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,40 +16,34 @@
 
 @interface AKLowFrequencyOscillatingControl : AKControl
 /// Instantiates the low frequency oscillating control with all values
-/// @param frequency Frequency of the note. [Default Value: 110]
 /// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down). [Default Value: AKLowFrequencyOscillatorTypeSine]
-/// @param amplitude Amplitude of output. [Default Value: 1]
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                             type:(AKLowFrequencyOscillatorType)type
-                        amplitude:(AKControl *)amplitude;
+/// @param frequency Frequency of the note. Updated at Control-rate. [Default Value: 110]
+/// @param amplitude Amplitude of output. Updated at Control-rate. [Default Value: 1]
+- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
+                   frequency:(AKParameter *)frequency
+                   amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the low frequency oscillating control with default values
-- (instancetype)init;
+/// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down).
+- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type;
 
 /// Instantiates the low frequency oscillating control with default values
-+ (instancetype)control;
-
+/// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down).
++ (instancetype)controlWithType:(AKLowFrequencyOscillatorType)type;
 
 /// Frequency of the note. [Default Value: 110]
-@property AKControl *frequency;
+@property AKParameter *frequency;
 
 /// Set an optional frequency
-/// @param frequency Frequency of the note. [Default Value: 110]
-- (void)setOptionalFrequency:(AKControl *)frequency;
-
-/// Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down). [Default Value: AKLowFrequencyOscillatorTypeSine]
-@property AKLowFrequencyOscillatorType type;
-
-/// Set an optional type
-/// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down). [Default Value: AKLowFrequencyOscillatorTypeSine]
-- (void)setOptionalType:(AKLowFrequencyOscillatorType)type;
+/// @param frequency Frequency of the note. Updated at Control-rate. [Default Value: 110]
+- (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Amplitude of output. [Default Value: 1]
-@property AKControl *amplitude;
+@property AKParameter *amplitude;
 
 /// Set an optional amplitude
-/// @param amplitude Amplitude of output. [Default Value: 1]
-- (void)setOptionalAmplitude:(AKControl *)amplitude;
+/// @param amplitude Amplitude of output. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 
 

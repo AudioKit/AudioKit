@@ -2,7 +2,7 @@
 //  AKOscillatingControl.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's oscili:
@@ -15,8 +15,8 @@
 @implementation AKOscillatingControl
 
 - (instancetype)initWithFTable:(AKFTable *)fTable
-                     frequency:(AKControl *)frequency
-                     amplitude:(AKControl *)amplitude
+                     frequency:(AKParameter *)frequency
+                     amplitude:(AKParameter *)amplitude
                          phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
@@ -51,10 +51,10 @@
 - (void)setOptionalFTable:(AKFTable *)fTable {
     _fTable = fTable;
 }
-- (void)setOptionalFrequency:(AKControl *)frequency {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-- (void)setOptionalAmplitude:(AKControl *)amplitude {
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
 - (void)setOptionalPhase:(AKConstant *)phase {
@@ -63,7 +63,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ oscili %@, %@, %@, %@",
+            @"%@ oscili AKControl(%@), AKControl(%@), %@, %@",
             self,
             _amplitude,
             _frequency,
