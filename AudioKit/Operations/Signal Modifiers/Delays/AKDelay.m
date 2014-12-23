@@ -2,10 +2,10 @@
 //  AKDelay.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/26/12.
+//  Auto-generated on 12/26/12.
 //  Customized by Aurelius Prochazka on 12/28/13
 //
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's delay:
 //  http://www.csounds.com/manual/html/delay.html

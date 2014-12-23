@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/9/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  This is an incomplete port of the Csound's reverbsc:
 //  http://www.csounds.com/manual/html/reverbsc.html

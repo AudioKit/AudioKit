@@ -2,9 +2,9 @@
 //  AKMandolin.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/10/14.
+//  Auto-generated on 12/10/14.
 //  Customized by Aurelius Prochazka on 12/10/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mandol:
 //  http://www.csounds.com/manual/html/mandol.html

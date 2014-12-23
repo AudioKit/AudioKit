@@ -2,8 +2,8 @@
 //  AKFTableLooper.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/4/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated on 11/4/12.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's flooper:
 //  http://www.csounds.com/manual/html/flooper.html

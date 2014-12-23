@@ -2,8 +2,8 @@
 //  AKPhaseLockedVocoder.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/25/13.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated on 12/25/13.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mincer:
 //  http://www.csounds.com/manual/html/mincer.html

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 5/17/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"

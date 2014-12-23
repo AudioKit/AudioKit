@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/28/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's diskin2:
 //  http://www.csounds.com/manual/html/diskin2.html

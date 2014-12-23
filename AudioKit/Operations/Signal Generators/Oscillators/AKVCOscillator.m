@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Rewritten by Aurelius Prochazka on 7/4/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vco2:
 //  http://www.csounds.com/manual/html/vco2.html
