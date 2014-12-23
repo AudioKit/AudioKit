@@ -2,7 +2,7 @@
 //  AKRandomAudio.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's random:
@@ -14,8 +14,8 @@
 
 @implementation AKRandomAudio
 
-- (instancetype)initWithLowerBound:(AKControl *)lowerBound
-                        upperBound:(AKControl *)upperBound
+- (instancetype)initWithLowerBound:(AKParameter *)lowerBound
+                        upperBound:(AKParameter *)upperBound
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -41,16 +41,16 @@
     return [[AKRandomAudio alloc] init];
 }
 
-- (void)setOptionalLowerBound:(AKControl *)lowerBound {
+- (void)setOptionalLowerBound:(AKParameter *)lowerBound {
     _lowerBound = lowerBound;
 }
-- (void)setOptionalUpperBound:(AKControl *)upperBound {
+- (void)setOptionalUpperBound:(AKParameter *)upperBound {
     _upperBound = upperBound;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ random %@, %@",
+            @"%@ random AKControl(%@), AKControl(%@)",
             self,
             _lowerBound,
             _upperBound];

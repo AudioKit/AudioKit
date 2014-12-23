@@ -2,7 +2,7 @@
 //  AKRandomAudio.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,10 +16,10 @@
 
 @interface AKRandomAudio : AKAudio
 /// Instantiates the random audio with all values
-/// @param lowerBound Minimum range limit. [Default Value: 0]
-/// @param upperBound Maximum range limit. [Default Value: 1]
-- (instancetype)initWithLowerBound:(AKControl *)lowerBound
-                        upperBound:(AKControl *)upperBound;
+/// @param lowerBound Minimum range limit. Updated at Control-rate. [Default Value: 0]
+/// @param upperBound Maximum range limit. Updated at Control-rate. [Default Value: 1]
+- (instancetype)initWithLowerBound:(AKParameter *)lowerBound
+                        upperBound:(AKParameter *)upperBound;
 
 /// Instantiates the random audio with default values
 - (instancetype)init;
@@ -29,18 +29,18 @@
 
 
 /// Minimum range limit. [Default Value: 0]
-@property AKControl *lowerBound;
+@property AKParameter *lowerBound;
 
 /// Set an optional lower bound
-/// @param lowerBound Minimum range limit. [Default Value: 0]
-- (void)setOptionalLowerBound:(AKControl *)lowerBound;
+/// @param lowerBound Minimum range limit. Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalLowerBound:(AKParameter *)lowerBound;
 
 /// Maximum range limit. [Default Value: 1]
-@property AKControl *upperBound;
+@property AKParameter *upperBound;
 
 /// Set an optional upper bound
-/// @param upperBound Maximum range limit. [Default Value: 1]
-- (void)setOptionalUpperBound:(AKControl *)upperBound;
+/// @param upperBound Maximum range limit. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalUpperBound:(AKParameter *)upperBound;
 
 
 

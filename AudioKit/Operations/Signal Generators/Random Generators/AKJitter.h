@@ -2,7 +2,7 @@
 //  AKJitter.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,12 +17,12 @@ This can be used to make more natural and “analog-sounding” some static, dul
 
 @interface AKJitter : AKControl
 /// Instantiates the jitter with all values
-/// @param amplitude Amplitude of jitter deviation [Default Value: 1]
-/// @param minimumFrequency Minimum speed of random frequency variations (expressed in Hz) [Default Value: 0]
-/// @param maximumFrequency Maximum speed of random frequency variations (expressed in Hz) [Default Value: 60]
-- (instancetype)initWithAmplitude:(AKControl *)amplitude
-                 minimumFrequency:(AKControl *)minimumFrequency
-                 maximumFrequency:(AKControl *)maximumFrequency;
+/// @param amplitude Amplitude of jitter deviation Updated at Control-rate. [Default Value: 1]
+/// @param minimumFrequency Minimum speed of random frequency variations (expressed in Hz) Updated at Control-rate. [Default Value: 0]
+/// @param maximumFrequency Maximum speed of random frequency variations (expressed in Hz) Updated at Control-rate. [Default Value: 60]
+- (instancetype)initWithAmplitude:(AKParameter *)amplitude
+                 minimumFrequency:(AKParameter *)minimumFrequency
+                 maximumFrequency:(AKParameter *)maximumFrequency;
 
 /// Instantiates the jitter with default values
 - (instancetype)init;
@@ -32,25 +32,25 @@ This can be used to make more natural and “analog-sounding” some static, dul
 
 
 /// Amplitude of jitter deviation [Default Value: 1]
-@property AKControl *amplitude;
+@property AKParameter *amplitude;
 
 /// Set an optional amplitude
-/// @param amplitude Amplitude of jitter deviation [Default Value: 1]
-- (void)setOptionalAmplitude:(AKControl *)amplitude;
+/// @param amplitude Amplitude of jitter deviation Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Minimum speed of random frequency variations (expressed in Hz) [Default Value: 0]
-@property AKControl *minimumFrequency;
+@property AKParameter *minimumFrequency;
 
 /// Set an optional minimum frequency
-/// @param minimumFrequency Minimum speed of random frequency variations (expressed in Hz) [Default Value: 0]
-- (void)setOptionalMinimumFrequency:(AKControl *)minimumFrequency;
+/// @param minimumFrequency Minimum speed of random frequency variations (expressed in Hz) Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalMinimumFrequency:(AKParameter *)minimumFrequency;
 
 /// Maximum speed of random frequency variations (expressed in Hz) [Default Value: 60]
-@property AKControl *maximumFrequency;
+@property AKParameter *maximumFrequency;
 
 /// Set an optional maximum frequency
-/// @param maximumFrequency Maximum speed of random frequency variations (expressed in Hz) [Default Value: 60]
-- (void)setOptionalMaximumFrequency:(AKControl *)maximumFrequency;
+/// @param maximumFrequency Maximum speed of random frequency variations (expressed in Hz) Updated at Control-rate. [Default Value: 60]
+- (void)setOptionalMaximumFrequency:(AKParameter *)maximumFrequency;
 
 
 
