@@ -2,24 +2,40 @@
 //  AKTrackedAmplitude.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/12/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated from scripts by Aurelius Prochazka on 12/22/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
+#import "AKControl.h"
 #import "AKParameter+Operation.h"
-#import "AKAudio.h"
 
-/** Determines the root-mean-square amplitude of an audio signal.
- 
- Determines the root-mean-square amplitude of an audio signal. 
- It low-pass filters the actual value, to average in the manner of a VU meter.
- 
+/** One line title / summary for the operation.Determines the root-mean-square amplitude of an audio signal.
+
+ Determines the root-mean-square amplitude of an audio signal. It low-pass filters the actual value, to average in the manner of a VU meter. This unit is not a signal modifier, but functions rather as a signal power-gauge. It uses an internal low-pass filter to make the response smoother. The halfPowerPoint can be used to control this smoothing. The higher the value, the "snappier" the measurement.
  */
 
 @interface AKTrackedAmplitude : AKControl
+/// Instantiates the tracked amplitude with all values
+/// @param audioSource Input audio signal to track. [Default Value: ]
+/// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. [Default Value: 10]
+- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+                     halfPowerPoint:(AKConstant *)halfPowerPoint;
 
-/// Initialize the tracked amplitude.
-/// @param audioSource Input signal.
+/// Instantiates the tracked amplitude with default values
+/// @param audioSource Input audio signal to track.
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+
+/// Instantiates the tracked amplitude with default values
+/// @param audioSource Input audio signal to track.
++ (instancetype)controlWithAudioSource:(AKAudio *)audioSource;
+
+/// Half-power point (in Hz) of a special internal low-pass filter. [Default Value: 10]
+@property AKConstant *halfPowerPoint;
+
+/// Set an optional half power point
+/// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. [Default Value: 10]
+- (void)setOptionalHalfPowerPoint:(AKConstant *)halfPowerPoint;
+
+
 
 @end
