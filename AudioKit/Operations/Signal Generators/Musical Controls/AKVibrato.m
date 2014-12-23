@@ -2,7 +2,7 @@
 //  AKVibrato.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibrato:
@@ -15,14 +15,14 @@
 @implementation AKVibrato
 
 - (instancetype)initWithVibratoShapeTable:(AKFTable *)vibratoShapeTable
-                         averageFrequency:(AKControl *)averageFrequency
-                      frequencyRandomness:(AKControl *)frequencyRandomness
-               minimumFrequencyRandomness:(AKControl *)minimumFrequencyRandomness
-               maximumFrequencyRandomness:(AKControl *)maximumFrequencyRandomness
-                         averageAmplitude:(AKControl *)averageAmplitude
-                       amplitudeDeviation:(AKControl *)amplitudeDeviation
-               minimumAmplitudeRandomness:(AKControl *)minimumAmplitudeRandomness
-               maximumAmplitudeRandomness:(AKControl *)maximumAmplitudeRandomness
+                         averageFrequency:(AKParameter *)averageFrequency
+                      frequencyRandomness:(AKParameter *)frequencyRandomness
+               minimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness
+               maximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness
+                         averageAmplitude:(AKParameter *)averageAmplitude
+                       amplitudeDeviation:(AKParameter *)amplitudeDeviation
+               minimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness
+               maximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness
                                     phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
@@ -69,28 +69,28 @@
 - (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
 }
-- (void)setOptionalAverageFrequency:(AKControl *)averageFrequency {
+- (void)setOptionalAverageFrequency:(AKParameter *)averageFrequency {
     _averageFrequency = averageFrequency;
 }
-- (void)setOptionalFrequencyRandomness:(AKControl *)frequencyRandomness {
+- (void)setOptionalFrequencyRandomness:(AKParameter *)frequencyRandomness {
     _frequencyRandomness = frequencyRandomness;
 }
-- (void)setOptionalMinimumFrequencyRandomness:(AKControl *)minimumFrequencyRandomness {
+- (void)setOptionalMinimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness {
     _minimumFrequencyRandomness = minimumFrequencyRandomness;
 }
-- (void)setOptionalMaximumFrequencyRandomness:(AKControl *)maximumFrequencyRandomness {
+- (void)setOptionalMaximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness {
     _maximumFrequencyRandomness = maximumFrequencyRandomness;
 }
-- (void)setOptionalAverageAmplitude:(AKControl *)averageAmplitude {
+- (void)setOptionalAverageAmplitude:(AKParameter *)averageAmplitude {
     _averageAmplitude = averageAmplitude;
 }
-- (void)setOptionalAmplitudeDeviation:(AKControl *)amplitudeDeviation {
+- (void)setOptionalAmplitudeDeviation:(AKParameter *)amplitudeDeviation {
     _amplitudeDeviation = amplitudeDeviation;
 }
-- (void)setOptionalMinimumAmplitudeRandomness:(AKControl *)minimumAmplitudeRandomness {
+- (void)setOptionalMinimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness {
     _minimumAmplitudeRandomness = minimumAmplitudeRandomness;
 }
-- (void)setOptionalMaximumAmplitudeRandomness:(AKControl *)maximumAmplitudeRandomness {
+- (void)setOptionalMaximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness {
     _maximumAmplitudeRandomness = maximumAmplitudeRandomness;
 }
 - (void)setOptionalPhase:(AKConstant *)phase {
@@ -99,7 +99,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ vibrato %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ vibrato AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), %@, %@",
             self,
             _averageAmplitude,
             _averageFrequency,
