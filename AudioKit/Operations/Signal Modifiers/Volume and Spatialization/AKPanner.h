@@ -2,7 +2,7 @@
 //  AKPanner.h
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -19,17 +19,17 @@
 /// @param audioSource Source signal. [Default Value: ]
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                                 pan:(AKParameter *)pan
                           panMethod:(AKPanMethod)panMethod;
 
 /// Instantiates the panner with default values
 /// @param audioSource Source signal.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the panner with default values
 /// @param audioSource Source signal.
-+ (instancetype)stereoaudioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource;
 
 /// From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 @property AKParameter *pan;
