@@ -2,7 +2,7 @@
 //  AKHighPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,23 +17,24 @@
 @interface AKHighPassFilter : AKAudio
 /// Instantiates the high pass filter with all values
 /// @param audioSource The audio to be filtered [Default Value: ]
-/// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    cutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 4000]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    cutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Instantiates the high pass filter with default values
 /// @param audioSource The audio to be filtered
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the high pass filter with default values
 /// @param audioSource The audio to be filtered
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
-@property AKControl *cutoffFrequency;
+@property AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
-/// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 4000]
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 
 

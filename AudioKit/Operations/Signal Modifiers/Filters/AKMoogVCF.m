@@ -2,7 +2,7 @@
 //  AKMoogVCF.m
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's moogvcf2:
@@ -14,10 +14,10 @@
 
 @implementation AKMoogVCF
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                     cutoffFrequency:(AKParameter *)cutoffFrequency
                           resonance:(AKParameter *)resonance
 {
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -42,7 +42,7 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKMoogVCF alloc] initWithAudioSource:audioSource];
 }
@@ -56,7 +56,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ moogvcf2 %@, %@, %@",
+            @"%@ moogvcf2 AKAudio(%@), %@, %@",
             self,
             _audioSource,
             _cutoffFrequency,

@@ -2,7 +2,7 @@
 //  AKMoogLadder.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,31 +17,33 @@
 @interface AKMoogLadder : AKAudio
 /// Instantiates the moog ladder with all values
 /// @param audioSource Input Signal [Default Value: ]
-/// @param cutoffFrequency Filter cutoff frequency [Default Value: 100]
-/// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    cutoffFrequency:(AKControl *)cutoffFrequency
-                          resonance:(AKControl *)resonance;
+/// @param cutoffFrequency Filter cutoff frequency Updated at Control-rate. [Default Value: 100]
+/// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. Updated at Control-rate. [Default Value: 0.5]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
+                          resonance:(AKParameter *)resonance;
 
 /// Instantiates the moog ladder with default values
 /// @param audioSource Input Signal
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the moog ladder with default values
 /// @param audioSource Input Signal
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+
 /// Filter cutoff frequency [Default Value: 100]
-@property AKControl *cutoffFrequency;
+@property AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
-/// @param cutoffFrequency Filter cutoff frequency [Default Value: 100]
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency Filter cutoff frequency Updated at Control-rate. [Default Value: 100]
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
+
 /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5]
-@property AKControl *resonance;
+@property AKParameter *resonance;
 
 /// Set an optional resonance
-/// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5]
-- (void)setOptionalResonance:(AKControl *)resonance;
+/// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. Updated at Control-rate. [Default Value: 0.5]
+- (void)setOptionalResonance:(AKParameter *)resonance;
 
 
 
