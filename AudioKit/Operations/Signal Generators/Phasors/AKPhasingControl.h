@@ -2,7 +2,7 @@
 //  AKPhasingControl.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -18,9 +18,9 @@ Note that phasor is a special kind of integrator, accumulating phase increments 
 
 @interface AKPhasingControl : AKControl
 /// Instantiates the phasing control with all values
-/// @param frequency Frequency in cycles per second. [Default Value: 1]
+/// @param frequency Frequency in cycles per second. Updated at Control-rate. [Default Value: 1]
 /// @param phase Initial phase, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-- (instancetype)initWithFrequency:(AKControl *)frequency
+- (instancetype)initWithFrequency:(AKParameter *)frequency
                             phase:(AKConstant *)phase;
 
 /// Instantiates the phasing control with default values
@@ -31,11 +31,11 @@ Note that phasor is a special kind of integrator, accumulating phase increments 
 
 
 /// Frequency in cycles per second. [Default Value: 1]
-@property AKControl *frequency;
+@property AKParameter *frequency;
 
 /// Set an optional frequency
-/// @param frequency Frequency in cycles per second. [Default Value: 1]
-- (void)setOptionalFrequency:(AKControl *)frequency;
+/// @param frequency Frequency in cycles per second. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Initial phase, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
 @property AKConstant *phase;
