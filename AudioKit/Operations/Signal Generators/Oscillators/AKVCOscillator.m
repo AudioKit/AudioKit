@@ -13,16 +13,16 @@
 
 @implementation AKVCOscillator
 {
-    AKControl *kcps;
-    AKControl *kamp;
+    AKParameter *kcps;
+    AKParameter *kamp;
     AKConstant *imode;
     AKControl *kpw;
     AKControl *kphs;
     AKConstant *inyx;
 }
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                        amplitude:(AKControl *)amplitude
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -54,7 +54,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ vco2 %@, %@, %@, %@, %@, %@",
+            @"%@ vco2 AKControl(%@), AKControl(%@), %@, %@, %@, %@",
             self, kamp, kcps, imode, kpw, kphs, inyx];
 }
 

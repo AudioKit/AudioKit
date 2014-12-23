@@ -19,8 +19,8 @@
 /// Instantiates the VC Oscillator
 /// @param frequency Frequency in Hz
 /// @param amplitude Amplitude scale. In the case of a imode waveform value of a pulse waveform, the actual output level can be a lot higher than this value.
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                        amplitude:(AKControl *)amplitude;
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude;
 
 /// Set an optional waveform type
 /// @param waveformType Choose from various waveform types.
