@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillatingControl.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
@@ -13,50 +13,50 @@
 #import "AKManager.h"
 
 @implementation AKLowFrequencyOscillatingControl
+{
+    AKLowFrequencyOscillatorType _type;
+}
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                             type:(AKLowFrequencyOscillatorType)type
-                        amplitude:(AKControl *)amplitude
+- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
+                   frequency:(AKParameter *)frequency
+                   amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _frequency = frequency;
         _type = type;
+        _frequency = frequency;
         _amplitude = amplitude;
     }
     return self;
 }
 
-- (instancetype)init
+- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
 {
     self = [super initWithString:[self operationName]];
     if (self) {
+        _type = type;
         // Default Values
         _frequency = akp(110);    
-        _type = AKLowFrequencyOscillatorTypeSine;    
         _amplitude = akp(1);    
     }
     return self;
 }
 
-+ (instancetype)control
++ (instancetype)controlWithType:(AKLowFrequencyOscillatorType)type
 {
-    return [[AKLowFrequencyOscillatingControl alloc] init];
+    return [[AKLowFrequencyOscillatingControl alloc] initWithType:type];
 }
 
-- (void)setOptionalFrequency:(AKControl *)frequency {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-- (void)setOptionalType:(AKLowFrequencyOscillatorType)type {
-    _type = type;
-}
-- (void)setOptionalAmplitude:(AKControl *)amplitude {
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ lfo %@, %@, %@",
+            @"%@ lfo AKControl(%@), AKControl(%@), %@",
             self,
             _amplitude,
             _frequency,
