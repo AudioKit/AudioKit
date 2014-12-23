@@ -2,7 +2,7 @@
 //  AKPortamento.h
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,25 +16,25 @@
 
 @interface AKPortamento : AKControl
 /// Instantiates the portamento with all values
-/// @param controlSource The input signal at control-rate. [Default Value: ]
-/// @param halfTime Half-time of the function in seconds. [Default Value: 1]
-- (instancetype)initWithControlSource:(AKControl *)controlSource
-                             halfTime:(AKControl *)halfTime;
+/// @param controlSource The input signal at control-rate. Updated at Control-rate. [Default Value: ]
+/// @param halfTime Half-time of the function in seconds. Updated at Control-rate. [Default Value: 1]
+- (instancetype)initWithControlSource:(AKParameter *)controlSource
+                             halfTime:(AKParameter *)halfTime;
 
 /// Instantiates the portamento with default values
 /// @param controlSource The input signal at control-rate.
-- (instancetype)initWithControlSource:(AKControl *)controlSource;
+- (instancetype)initWithControlSource:(AKParameter *)controlSource;
 
 /// Instantiates the portamento with default values
 /// @param controlSource The input signal at control-rate.
-+ (instancetype)controlWithControlSource:(AKControl *)controlSource;
++ (instancetype)controlWithControlSource:(AKParameter *)controlSource;
 
 /// Half-time of the function in seconds. [Default Value: 1]
-@property AKControl *halfTime;
+@property AKParameter *halfTime;
 
 /// Set an optional half time
-/// @param halfTime Half-time of the function in seconds. [Default Value: 1]
-- (void)setOptionalHalfTime:(AKControl *)halfTime;
+/// @param halfTime Half-time of the function in seconds. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalHalfTime:(AKParameter *)halfTime;
 
 
 

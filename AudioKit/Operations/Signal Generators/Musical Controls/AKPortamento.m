@@ -2,7 +2,7 @@
 //  AKPortamento.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's portk:
@@ -14,11 +14,11 @@
 
 @implementation AKPortamento
 {
-    AKControl * _controlSource;
+    AKParameter * _controlSource;
 }
 
-- (instancetype)initWithControlSource:(AKControl *)controlSource
-                             halfTime:(AKControl *)halfTime
+- (instancetype)initWithControlSource:(AKParameter *)controlSource
+                             halfTime:(AKParameter *)halfTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (instancetype)initWithControlSource:(AKControl *)controlSource
+- (instancetype)initWithControlSource:(AKParameter *)controlSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -39,18 +39,18 @@
     return self;
 }
 
-+ (instancetype)controlWithControlSource:(AKControl *)controlSource
++ (instancetype)controlWithControlSource:(AKParameter *)controlSource
 {
     return [[AKPortamento alloc] initWithControlSource:controlSource];
 }
 
-- (void)setOptionalHalfTime:(AKControl *)halfTime {
+- (void)setOptionalHalfTime:(AKParameter *)halfTime {
     _halfTime = halfTime;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ portk %@, %@",
+            @"%@ portk AKControl(%@), AKControl(%@)",
             self,
             _controlSource,
             _halfTime];
