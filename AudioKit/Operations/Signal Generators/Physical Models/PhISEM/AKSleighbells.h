@@ -2,7 +2,7 @@
 //  AKSleighbells.h
 //  AudioKit
 //
-//  Auto-generated on 12/15/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -33,30 +33,35 @@
 /// Instantiates the sleighbells with default values
 + (instancetype)audio;
 
+
 /// The intensity of the bell sound. [Default Value: 32]
 @property AKConstant *intensity;
 
 /// Set an optional intensity
 /// @param intensity The intensity of the bell sound. [Default Value: 32]
 - (void)setOptionalIntensity:(AKConstant *)intensity;
+
 /// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.2]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
 /// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.2]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
+
 /// The main resonant frequency. [Default Value: 2500]
 @property AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2500]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
+
 /// The first resonant frequency. [Default Value: 5300]
 @property AKConstant *firstResonantFrequency;
 
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 5300]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
+
 /// The second resonant frequency. [Default Value: 6500]
 @property AKConstant *secondResonantFrequency;
 

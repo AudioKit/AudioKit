@@ -2,7 +2,7 @@
 //  AKBowedString.m
 //  AudioKit
 //
-//  Auto-generated on 11/30/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wgbow:
@@ -14,12 +14,12 @@
 
 @implementation AKBowedString
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                         pressure:(AKControl *)pressure
-                         position:(AKControl *)position
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                         pressure:(AKParameter *)pressure
+                         position:(AKParameter *)position
                 vibratoShapeTable:(AKFTable *)vibratoShapeTable
-                 vibratoFrequency:(AKControl *)vibratoFrequency
-                 vibratoAmplitude:(AKControl *)vibratoAmplitude
+                 vibratoFrequency:(AKParameter *)vibratoFrequency
+                 vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  minimumFrequency:(AKConstant *)minimumFrequency
 {
     self = [super initWithString:[self operationName]];
@@ -31,7 +31,6 @@
         _vibratoFrequency = vibratoFrequency;
         _vibratoAmplitude = vibratoAmplitude;
         _minimumFrequency = minimumFrequency;
-        
     }
     return self;
 }
@@ -40,16 +39,15 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _frequency = akp(110);
-        _pressure = akp(3);
-        _position = akp(0.127236);
+        _frequency = akp(110);    
+        _pressure = akp(3);    
+        _position = akp(0.127236);    
         _vibratoShapeTable = [AKManager standardSineTable];
         
-        _vibratoFrequency = akp(0);
-        _vibratoAmplitude = akp(0);
-        _minimumFrequency = akp(0);
+        _vibratoFrequency = akp(0);    
+        _vibratoAmplitude = akp(0);    
+        _minimumFrequency = akp(0);    
     }
     return self;
 }
@@ -59,39 +57,33 @@
     return [[AKBowedString alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKControl *)frequency {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-
-- (void)setOptionalPressure:(AKControl *)pressure {
+- (void)setOptionalPressure:(AKParameter *)pressure {
     _pressure = pressure;
 }
-
-- (void)setOptionalPosition:(AKControl *)position {
+- (void)setOptionalPosition:(AKParameter *)position {
     _position = position;
 }
-
 - (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
 }
-
-- (void)setOptionalVibratoFrequency:(AKControl *)vibratoFrequency {
+- (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
     _vibratoFrequency = vibratoFrequency;
 }
-
-- (void)setOptionalVibratoAmplitude:(AKControl *)vibratoAmplitude {
+- (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude {
     _vibratoAmplitude = vibratoAmplitude;
 }
-
 - (void)setOptionalMinimumFrequency:(AKConstant *)minimumFrequency {
     _minimumFrequency = minimumFrequency;
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values
-    AKConstant *_amplitude = akp(1);
+    // Constant Values  
+    AKConstant *_amplitude = akp(1);        
     return [NSString stringWithFormat:
-            @"%@ wgbow %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ wgbow AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@), %@, %@",
             self,
             _amplitude,
             _frequency,
@@ -102,6 +94,5 @@
             _vibratoShapeTable,
             _minimumFrequency];
 }
-
 
 @end

@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.m
 //  AudioKit
 //
-//  Auto-generated on 11/30/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wguide1:
@@ -14,13 +14,13 @@
 
 @implementation AKSimpleWaveGuideModel
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                           frequency:(AKParameter *)frequency
-                             cutoff:(AKControl *)cutoff
-                           feedback:(AKControl *)feedback
+                             cutoff:(AKParameter *)cutoff
+                           feedback:(AKParameter *)feedback
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -28,26 +28,24 @@
         _frequency = frequency;
         _cutoff = cutoff;
         _feedback = feedback;
-        
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _audioSource = audioSource;
-        
         // Default Values
-        _frequency = akp(440);
-        _cutoff = akp(3000);
-        _feedback = akp(0);
+        _frequency = akp(440);    
+        _cutoff = akp(3000);    
+        _feedback = akp(0.8);    
     }
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKSimpleWaveGuideModel alloc] initWithAudioSource:audioSource];
 }
@@ -55,24 +53,21 @@
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-
-- (void)setOptionalCutoff:(AKControl *)cutoff {
+- (void)setOptionalCutoff:(AKParameter *)cutoff {
     _cutoff = cutoff;
 }
-
-- (void)setOptionalFeedback:(AKControl *)feedback {
+- (void)setOptionalFeedback:(AKParameter *)feedback {
     _feedback = feedback;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ wguide1 %@, %@, %@, %@",
+            @"%@ wguide1 AKAudio(%@), %@, AKControl(%@), AKControl(%@)",
             self,
             _audioSource,
             _frequency,
             _cutoff,
             _feedback];
 }
-
 
 @end

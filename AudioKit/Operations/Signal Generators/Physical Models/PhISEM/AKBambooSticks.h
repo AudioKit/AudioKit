@@ -2,7 +2,7 @@
 //  AKBambooSticks.h
 //  AudioKit
 //
-//  Auto-generated on 12/15/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -31,24 +31,28 @@
 /// Instantiates the bamboo sticks with default values
 + (instancetype)audio;
 
+
 /// The number of bamboo sticks. [Default Value: 2]
 @property AKConstant *count;
 
 /// Set an optional count
 /// @param count The number of bamboo sticks. [Default Value: 2]
 - (void)setOptionalCount:(AKConstant *)count;
+
 /// The main resonant frequency. [Default Value: 2800]
 @property AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2800]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
+
 /// The first resonant frequency. [Default Value: 2240]
 @property AKConstant *firstResonantFrequency;
 
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 2240]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
+
 /// The second resonant frequency. [Default Value: 3360]
 @property AKConstant *secondResonantFrequency;
 
