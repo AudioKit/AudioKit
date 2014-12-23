@@ -16,11 +16,11 @@ class Instrument : AKInstrument {
         super.init()
         
         let operation = AKLowFrequencyOscillatingControl()
-        operation.frequency = 1.ak;
+        operation.frequency = 2.ak
+        operation.amplitude = 20.ak
         connect(operation)
         
-        let audio = AKOscillator()
-        audio.frequency = 440.ak.plus(operation.scaledBy(100.ak))
+        let audio = AKVCOscillator(frequency: operation.plus(440.ak), amplitude: akp(1))
         connect(audio)
         
         connect(AKAudioOutput(audioSource:audio))
