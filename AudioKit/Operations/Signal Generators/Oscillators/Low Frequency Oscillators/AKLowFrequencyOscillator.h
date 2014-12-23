@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillator.h
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,12 +16,12 @@
 
 @interface AKLowFrequencyOscillator : AKAudio
 /// Instantiates the low frequency oscillator with all values
-/// @param frequency Frequency of the note. [Default Value: 110]
 /// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down). [Default Value: AKLowFrequencyOscillatorTypeSine]
+/// @param frequency Frequency of the note. [Default Value: 110]
 /// @param amplitude Amplitude of output. [Default Value: 1]
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                             type:(AKLowFrequencyOscillatorType)type
-                        amplitude:(AKControl *)amplitude;
+- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
+                   frequency:(AKParameter *)frequency
+                   amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the low frequency oscillator with default values
 - (instancetype)init;
@@ -30,13 +30,6 @@
 + (instancetype)audio;
 
 
-/// Frequency of the note. [Default Value: 110]
-@property AKControl *frequency;
-
-/// Set an optional frequency
-/// @param frequency Frequency of the note. [Default Value: 110]
-- (void)setOptionalFrequency:(AKControl *)frequency;
-
 /// Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down). [Default Value: AKLowFrequencyOscillatorTypeSine]
 @property AKLowFrequencyOscillatorType type;
 
@@ -44,12 +37,19 @@
 /// @param type Waveform of the oscillator, can be sine, triangle, square (bipolar), square (unipolar), saw-tooth, saw-tooth (down). [Default Value: AKLowFrequencyOscillatorTypeSine]
 - (void)setOptionalType:(AKLowFrequencyOscillatorType)type;
 
+/// Frequency of the note. [Default Value: 110]
+@property AKParameter *frequency;
+
+/// Set an optional frequency
+/// @param frequency Frequency of the note. [Default Value: 110]
+- (void)setOptionalFrequency:(AKParameter *)frequency;
+
 /// Amplitude of output. [Default Value: 1]
-@property AKControl *amplitude;
+@property AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of output. [Default Value: 1]
-- (void)setOptionalAmplitude:(AKControl *)amplitude;
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 
 
