@@ -2,7 +2,7 @@
 //  AKTrackedAmplitude.h
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -18,16 +18,16 @@
 /// Instantiates the tracked amplitude with all values
 /// @param audioSource Input audio signal to track. [Default Value: ]
 /// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. [Default Value: 10]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                      halfPowerPoint:(AKConstant *)halfPowerPoint;
 
 /// Instantiates the tracked amplitude with default values
 /// @param audioSource Input audio signal to track.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the tracked amplitude with default values
 /// @param audioSource Input audio signal to track.
-+ (instancetype)controlWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)controlWithAudioSource:(AKParameter *)audioSource;
 
 /// Half-power point (in Hz) of a special internal low-pass filter. [Default Value: 10]
 @property AKConstant *halfPowerPoint;
