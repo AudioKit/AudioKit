@@ -2,9 +2,9 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/28/14.
+//  Auto-generated on 11/28/14.
 //  Modified by Aurelius Prochazka on 11/28/14 to include excitation signal.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
