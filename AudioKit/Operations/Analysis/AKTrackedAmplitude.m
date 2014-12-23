@@ -2,7 +2,7 @@
 //  AKTrackedAmplitude.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's rms:
@@ -14,10 +14,10 @@
 
 @implementation AKTrackedAmplitude
 {
-    AKAudio * _audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                      halfPowerPoint:(AKConstant *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -39,7 +39,7 @@
     return self;
 }
 
-+ (instancetype)controlWithAudioSource:(AKAudio *)audioSource
++ (instancetype)controlWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKTrackedAmplitude alloc] initWithAudioSource:audioSource];
 }
@@ -50,7 +50,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ rms %@, %@",
+            @"%@ rms AKAudio(%@), %@",
             self,
             _audioSource,
             _halfPowerPoint];
