@@ -2,7 +2,7 @@
 //  AKBalance.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's balance:
@@ -14,12 +14,12 @@
 
 @implementation AKBalance
 {
-    AKAudio *_audioSource;
-    AKAudio *_comparatorAudioSource;
+    AKParameter * _audioSource;
+    AKParameter * _comparatorAudioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-              comparatorAudioSource:(AKAudio *)comparatorAudioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+              comparatorAudioSource:(AKParameter *)comparatorAudioSource
                      halfPowerPoint:(AKConstant *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
@@ -31,8 +31,8 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-              comparatorAudioSource:(AKAudio *)comparatorAudioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+              comparatorAudioSource:(AKParameter *)comparatorAudioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -44,8 +44,8 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
-              comparatorAudioSource:(AKAudio *)comparatorAudioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
+              comparatorAudioSource:(AKParameter *)comparatorAudioSource
 {
     return [[AKBalance alloc] initWithAudioSource:audioSource
               comparatorAudioSource:comparatorAudioSource];
@@ -57,7 +57,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ balance %@, %@, %@",
+            @"%@ balance AKAudio(%@), AKAudio(%@), %@",
             self,
             _audioSource,
             _comparatorAudioSource,
