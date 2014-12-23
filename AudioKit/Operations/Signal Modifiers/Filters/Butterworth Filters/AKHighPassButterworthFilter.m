@@ -2,7 +2,7 @@
 //  AKHighPassButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/20/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's butterhp:
@@ -14,11 +14,11 @@
 
 @implementation AKHighPassButterworthFilter
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    cutoffFrequency:(AKControl *)cutoffFrequency
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -39,18 +39,18 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKHighPassButterworthFilter alloc] initWithAudioSource:audioSource];
 }
 
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency {
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ butterhp %@, %@",
+            @"%@ butterhp AKAudio(%@), AKControl(%@)",
             self,
             _audioSource,
             _cutoffFrequency];
