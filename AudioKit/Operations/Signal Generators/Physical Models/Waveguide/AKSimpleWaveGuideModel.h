@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.h
 //  AudioKit
 //
-//  Auto-generated on 11/30/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -10,33 +10,28 @@
 #import "AKParameter+Operation.h"
 
 /** A simple waveguide model consisting of one delay-line and one first-order lowpass filter.
- 
+
  This is the most elemental waveguide model, consisting of one delay-line and one first-order lowpass filter.
  */
 
 @interface AKSimpleWaveGuideModel : AKAudio
-
 /// Instantiates the simple wave guide model with all values
-/// @param audioSource The excitation noise.
-/// @param frequency The inverse of delay time.
-/// @param cutoff Filter cut-off frequency in Hz
-/// @param feedback Feedback factor usually between 0 and 1
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+/// @param audioSource The excitation noise. [Default Value: ]
+/// @param frequency The inverse of delay time. [Default Value: 440]
+/// @param cutoff Filter cut-off frequency in Hz Updated at Control-rate. [Default Value: 3000]
+/// @param feedback Feedback factor usually between 0 and 1 Updated at Control-rate. [Default Value: 0.8]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                           frequency:(AKParameter *)frequency
-                             cutoff:(AKControl *)cutoff
-                           feedback:(AKControl *)feedback;
+                             cutoff:(AKParameter *)cutoff
+                           feedback:(AKParameter *)feedback;
 
 /// Instantiates the simple wave guide model with default values
 /// @param audioSource The excitation noise.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
-
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the simple wave guide model with default values
 /// @param audioSource The excitation noise.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
-
-
-
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
 
 /// The inverse of delay time. [Default Value: 440]
 @property AKParameter *frequency;
@@ -45,21 +40,20 @@
 /// @param frequency The inverse of delay time. [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
-
 /// Filter cut-off frequency in Hz [Default Value: 3000]
-@property AKControl *cutoff;
+@property AKParameter *cutoff;
 
 /// Set an optional cutoff
-/// @param cutoff Filter cut-off frequency in Hz [Default Value: 3000]
-- (void)setOptionalCutoff:(AKControl *)cutoff;
-
+/// @param cutoff Filter cut-off frequency in Hz Updated at Control-rate. [Default Value: 3000]
+- (void)setOptionalCutoff:(AKParameter *)cutoff;
 
 /// Feedback factor usually between 0 and 1 [Default Value: 0.8]
-@property AKControl *feedback;
+@property AKParameter *feedback;
 
 /// Set an optional feedback
-/// @param feedback Feedback factor usually between 0 and 1 [Default Value: 0.8]
-- (void)setOptionalFeedback:(AKControl *)feedback;
+/// @param feedback Feedback factor usually between 0 and 1 Updated at Control-rate. [Default Value: 0.8]
+- (void)setOptionalFeedback:(AKParameter *)feedback;
+
 
 
 @end

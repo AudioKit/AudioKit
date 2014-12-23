@@ -2,7 +2,7 @@
 //  AKTambourine.m
 //  AudioKit
 //
-//  Auto-generated on 12/15/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's tambourine:
@@ -72,7 +72,7 @@
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
     return [NSString stringWithFormat:
-            @"%@ tambourine %@, %@, %@, (1 - %@) * 0.7, %@, %@, %@, %@",
+            @"%@ tambourine AKControl(%@), %@, %@, (1 - %@) * 0.7, %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,

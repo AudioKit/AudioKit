@@ -2,7 +2,7 @@
 //  AKStruckMetalBar.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's barmodel:
@@ -22,7 +22,7 @@
                       strikeWidth:(AKConstant *)strikeWidth
             leftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition
            rightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition
-                        scanSpeed:(AKControl *)scanSpeed
+                        scanSpeed:(AKParameter *)scanSpeed
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -86,13 +86,13 @@
 - (void)setOptionalRightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition {
     _rightBoundaryCondition = rightBoundaryCondition;
 }
-- (void)setOptionalScanSpeed:(AKControl *)scanSpeed {
+- (void)setOptionalScanSpeed:(AKParameter *)scanSpeed {
     _scanSpeed = scanSpeed;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ barmodel %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ barmodel AKControl(%@), AKControl(%@), %@, %@, AKControl(%@), %@, %@, %@, %@",
             self,
             akpi(_leftBoundaryCondition),
             akpi(_rightBoundaryCondition),

@@ -2,7 +2,7 @@
 //  AKStick.h
 //  AudioKit
 //
-//  Auto-generated on 12/15/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -27,12 +27,14 @@
 /// Instantiates the stick with default values
 + (instancetype)audio;
 
+
 /// The intensity of the stick sound. [Default Value: 30]
 @property AKConstant *intensity;
 
 /// Set an optional intensity
 /// @param intensity The intensity of the stick sound. [Default Value: 30]
 - (void)setOptionalIntensity:(AKConstant *)intensity;
+
 /// This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
 @property AKConstant *dampingFactor;
 

@@ -2,7 +2,7 @@
 //  AKPluckedString.m
 //  AudioKit
 //
-//  Auto-generated on 11/28/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's repluck:
@@ -14,15 +14,15 @@
 
 @implementation AKPluckedString
 {
-    AKAudio *_excitationSignal;
+    AKParameter * _excitationSignal;
 }
 
-- (instancetype)initWithExcitationSignal:(AKAudio *)excitationSignal
+- (instancetype)initWithExcitationSignal:(AKParameter *)excitationSignal
                                frequency:(AKConstant *)frequency
                            pluckPosition:(AKConstant *)pluckPosition
-                          samplePosition:(AKControl *)samplePosition
-                   reflectionCoefficient:(AKControl *)reflectionCoefficient
-                               amplitude:(AKControl *)amplitude
+                          samplePosition:(AKParameter *)samplePosition
+                   reflectionCoefficient:(AKParameter *)reflectionCoefficient
+                               amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -32,28 +32,26 @@
         _samplePosition = samplePosition;
         _reflectionCoefficient = reflectionCoefficient;
         _amplitude = amplitude;
-        
     }
     return self;
 }
 
-- (instancetype)initWithExcitationSignal:(AKAudio *)excitationSignal
+- (instancetype)initWithExcitationSignal:(AKParameter *)excitationSignal
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _excitationSignal = excitationSignal;
-        
         // Default Values
-        _frequency = akp(440);
-        _pluckPosition = akp(0.01);
-        _samplePosition = akp(0.1);
-        _reflectionCoefficient = akp(0.1);
-        _amplitude = akp(1.0);
+        _frequency = akp(440);    
+        _pluckPosition = akp(0.01);    
+        _samplePosition = akp(0.1);    
+        _reflectionCoefficient = akp(0.1);    
+        _amplitude = akp(1.0);    
     }
     return self;
 }
 
-+ (instancetype)audioWithExcitationSignal:(AKAudio *)excitationSignal
++ (instancetype)audioWithExcitationSignal:(AKParameter *)excitationSignal
 {
     return [[AKPluckedString alloc] initWithExcitationSignal:excitationSignal];
 }
@@ -61,26 +59,22 @@
 - (void)setOptionalFrequency:(AKConstant *)frequency {
     _frequency = frequency;
 }
-
 - (void)setOptionalPluckPosition:(AKConstant *)pluckPosition {
     _pluckPosition = pluckPosition;
 }
-
-- (void)setOptionalSamplePosition:(AKControl *)samplePosition {
+- (void)setOptionalSamplePosition:(AKParameter *)samplePosition {
     _samplePosition = samplePosition;
 }
-
-- (void)setOptionalReflectionCoefficient:(AKControl *)reflectionCoefficient {
+- (void)setOptionalReflectionCoefficient:(AKParameter *)reflectionCoefficient {
     _reflectionCoefficient = reflectionCoefficient;
 }
-
-- (void)setOptionalAmplitude:(AKControl *)amplitude {
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ repluck %@, %@, %@, %@, %@, %@",
+            @"%@ repluck %@, AKControl(%@), %@, AKControl(%@), AKControl(%@), AKAudio(%@)",
             self,
             _pluckPosition,
             _amplitude,
@@ -89,6 +83,5 @@
             _reflectionCoefficient,
             _excitationSignal];
 }
-
 
 @end
