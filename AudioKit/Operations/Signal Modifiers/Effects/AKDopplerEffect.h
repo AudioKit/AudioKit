@@ -2,7 +2,7 @@
 //  AKDopplerEffect.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,32 +17,32 @@
 @interface AKDopplerEffect : AKAudio
 /// Instantiates the doppler effect with all values
 /// @param audioSource Input signal at the sound source. [Default Value: ]
-/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: ]
-/// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
+/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: ]
+/// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 /// @param smoothingFilterUpdateRate Rate of updating the position smoothing filter, in cycles/second. [Default Value: 6]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                     sourcePosition:(AKControl *)sourcePosition
-                        micPosition:(AKControl *)micPosition
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                     sourcePosition:(AKParameter *)sourcePosition
+                        micPosition:(AKParameter *)micPosition
           smoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate;
 
 /// Instantiates the doppler effect with default values
 /// @param audioSource Input signal at the sound source.
 /// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                     sourcePosition:(AKControl *)sourcePosition;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                     sourcePosition:(AKParameter *)sourcePosition;
 
 /// Instantiates the doppler effect with default values
 /// @param audioSource Input signal at the sound source.
 /// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
-                      sourcePosition:(AKControl *)sourcePosition;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
+                      sourcePosition:(AKParameter *)sourcePosition;
 
 /// Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
-@property AKControl *micPosition;
+@property AKParameter *micPosition;
 
 /// Set an optional mic position
-/// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
-- (void)setOptionalMicPosition:(AKControl *)micPosition;
+/// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalMicPosition:(AKParameter *)micPosition;
 
 /// Rate of updating the position smoothing filter, in cycles/second. [Default Value: 6]
 @property AKConstant *smoothingFilterUpdateRate;

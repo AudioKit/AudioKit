@@ -2,7 +2,7 @@
 //  AKFlanger.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's flanger:
@@ -14,13 +14,13 @@
 
 @implementation AKFlanger
 {
-    AKAudio *_audioSource;
-    AKAudio *_delayTime;
+    AKParameter * _audioSource;
+    AKParameter * _delayTime;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKAudio *)delayTime
-                           feedback:(AKControl *)feedback
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                          delayTime:(AKParameter *)delayTime
+                           feedback:(AKParameter *)feedback
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -31,8 +31,8 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKAudio *)delayTime
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                          delayTime:(AKParameter *)delayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -44,20 +44,20 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKAudio *)delayTime
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
+                          delayTime:(AKParameter *)delayTime
 {
     return [[AKFlanger alloc] initWithAudioSource:audioSource
                           delayTime:delayTime];
 }
 
-- (void)setOptionalFeedback:(AKControl *)feedback {
+- (void)setOptionalFeedback:(AKParameter *)feedback {
     _feedback = feedback;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ flanger %@, %@, %@",
+            @"%@ flanger AKAudio(%@), AKAudio(%@), AKControl(%@)",
             self,
             _audioSource,
             _delayTime,
