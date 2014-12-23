@@ -2,7 +2,7 @@
 //  AKParallelCombLowPassFilterReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's nreverb:
@@ -14,12 +14,12 @@
 
 @implementation AKParallelCombLowPassFilterReverb
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                           duration:(AKControl *)duration
-           highFrequencyDiffusivity:(AKControl *)highFrequencyDiffusivity
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                           duration:(AKParameter *)duration
+           highFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -42,21 +42,21 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKParallelCombLowPassFilterReverb alloc] initWithAudioSource:audioSource];
 }
 
-- (void)setOptionalDuration:(AKControl *)duration {
+- (void)setOptionalDuration:(AKParameter *)duration {
     _duration = duration;
 }
-- (void)setOptionalHighFrequencyDiffusivity:(AKControl *)highFrequencyDiffusivity {
+- (void)setOptionalHighFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity {
     _highFrequencyDiffusivity = highFrequencyDiffusivity;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ nreverb %@, %@, %@",
+            @"%@ nreverb AKAudio(%@), AKControl(%@), AKControl(%@)",
             self,
             _audioSource,
             _duration,

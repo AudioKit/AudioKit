@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's alpass:
@@ -14,11 +14,11 @@
 
 @implementation AKFlatFrequencyResponseReverb
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                  reverberationTime:(AKControl *)reverberationTime
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                  reverberationTime:(AKParameter *)reverberationTime
                            loopTime:(AKConstant *)loopTime
 {
     self = [super initWithString:[self operationName]];
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -42,12 +42,12 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKFlatFrequencyResponseReverb alloc] initWithAudioSource:audioSource];
 }
 
-- (void)setOptionalReverberationTime:(AKControl *)reverberationTime {
+- (void)setOptionalReverberationTime:(AKParameter *)reverberationTime {
     _reverberationTime = reverberationTime;
 }
 - (void)setOptionalLoopTime:(AKConstant *)loopTime {
@@ -56,7 +56,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ alpass %@, %@, %@",
+            @"%@ alpass AKAudio(%@), AKControl(%@), %@",
             self,
             _audioSource,
             _reverberationTime,
