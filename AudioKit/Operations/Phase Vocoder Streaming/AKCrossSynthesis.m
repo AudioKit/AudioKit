@@ -2,8 +2,8 @@
 //  AKCrossSynthesis.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 3/29/13.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated on 3/29/13.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pvscross:
 //  http://www.csounds.com/manual/html/pvscross.html

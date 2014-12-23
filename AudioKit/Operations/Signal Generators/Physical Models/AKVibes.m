@@ -2,9 +2,9 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
+//  Auto-generated on 11/30/14.
 //  Customized by Aurelius Prochazka on 11/30/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibes:
 //  http://www.csounds.com/manual/html/vibes.html

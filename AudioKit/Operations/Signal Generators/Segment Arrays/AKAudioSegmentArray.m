@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Adam Boulanger on 6/7/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2012 Adam Boulanger. All rights reserved.
 //
 //  Implementation of Csound's linsegr and expsegr:
 //  http://www.csounds.com/manual/html/linsegr.html

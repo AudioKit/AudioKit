@@ -2,8 +2,8 @@
 //  AKInterpolatedRandomNumberPulse.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/21/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated on 12/21/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's randi:
 //  http://www.csounds.com/manual/html/randi.html

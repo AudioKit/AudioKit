@@ -2,8 +2,8 @@
 //  AKHighPassFilter.h
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/19/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated on 12/19/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"

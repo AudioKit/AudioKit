@@ -2,8 +2,8 @@
 //  AKBandPassButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/20/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated on 12/20/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's butterbp:
 //  http://www.csounds.com/manual/html/butterbp.html

@@ -2,9 +2,9 @@
 //  AKHilbertTransformer.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/30/12.
+//  Auto-generated on 12/30/12.
 //  Modified by Aurelius Prochazka on 12/30/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's hilbert:
 //  http://www.csounds.com/manual/html/hilbert.html

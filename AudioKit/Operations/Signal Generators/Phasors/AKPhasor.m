@@ -2,8 +2,8 @@
 //  AKPhasor.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 12/3/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated on 12/3/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's phasor:
 //  http://www.csounds.com/manual/html/phasor.html

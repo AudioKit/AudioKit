@@ -2,8 +2,8 @@
 //  AKCompressor.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/25/12.
-//  Copyright (c) 2012 Hear For Yourself. All rights reserved.
+//  Auto-generated on 11/25/12.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's compress:
 //  http://www.csounds.com/manual/html/compress.html

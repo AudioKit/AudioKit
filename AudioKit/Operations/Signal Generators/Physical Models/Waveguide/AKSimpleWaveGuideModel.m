@@ -2,8 +2,8 @@
 //  AKSimpleWaveGuideModel.m
 //  AudioKit
 //
-//  Auto-generated from scripts by Aurelius Prochazka on 11/30/14.
-//  Copyright (c) 2014 Hear For Yourself. All rights reserved.
+//  Auto-generated on 11/30/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wguide1:
 //  http://www.csounds.com/manual/html/wguide1.html

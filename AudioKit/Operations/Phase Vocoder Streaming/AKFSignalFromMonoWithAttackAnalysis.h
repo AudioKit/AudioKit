@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Adam Boulanger on 2/13/13.
-//  Copyright (c) 2013 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2013 Adam Boulanger. All rights reserved.
 //
 
 #import "AKParameter+Operation.h"
