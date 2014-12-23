@@ -2,7 +2,7 @@
 //  AKVariableDelay.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vdelay3:
@@ -14,12 +14,12 @@
 
 @implementation AKVariableDelay
 {
-    AKAudio *_audioSource;
-    AKAudio *_delayTime;
+    AKParameter * _audioSource;
+    AKParameter * _delayTime;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKAudio *)delayTime
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                          delayTime:(AKParameter *)delayTime
                    maximumDelayTime:(AKConstant *)maximumDelayTime
 {
     self = [super initWithString:[self operationName]];
@@ -31,8 +31,8 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKAudio *)delayTime
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                          delayTime:(AKParameter *)delayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -44,8 +44,8 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKAudio *)delayTime
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
+                          delayTime:(AKParameter *)delayTime
 {
     return [[AKVariableDelay alloc] initWithAudioSource:audioSource
                           delayTime:delayTime];
@@ -57,7 +57,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ vdelay3 %@, %@, %@",
+            @"%@ vdelay3 AKAudio(%@), AKAudio(%@), %@",
             self,
             _audioSource,
             _delayTime,
