@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.h
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,25 +17,27 @@
 @interface AKFlatFrequencyResponseReverb : AKAudio
 /// Instantiates the flat frequency response reverb with all values
 /// @param audioSource The input signal to be reverberated. [Default Value: ]
-/// @param reverberationTime The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 3]
+/// @param reverberationTime The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. Updated at Control-rate. [Default Value: 3]
 /// @param loopTime The loop time in seconds, which determines the “echo density” of the reverberation. [Default Value: 0.1]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                  reverberationTime:(AKControl *)reverberationTime
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                  reverberationTime:(AKParameter *)reverberationTime
                            loopTime:(AKConstant *)loopTime;
 
 /// Instantiates the flat frequency response reverb with default values
 /// @param audioSource The input signal to be reverberated.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the flat frequency response reverb with default values
 /// @param audioSource The input signal to be reverberated.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+
 /// The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 3]
-@property AKControl *reverberationTime;
+@property AKParameter *reverberationTime;
 
 /// Set an optional reverberation time
-/// @param reverberationTime The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 3]
-- (void)setOptionalReverberationTime:(AKControl *)reverberationTime;
+/// @param reverberationTime The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. Updated at Control-rate. [Default Value: 3]
+- (void)setOptionalReverberationTime:(AKParameter *)reverberationTime;
+
 /// The loop time in seconds, which determines the “echo density” of the reverberation. [Default Value: 0.1]
 @property AKConstant *loopTime;
 

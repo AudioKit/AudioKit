@@ -2,7 +2,7 @@
 //  AKBallWithinTheBoxReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's babo:
@@ -14,16 +14,16 @@
 
 @implementation AKBallWithinTheBoxReverb
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                   lengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
                   lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge
                   lengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge
-                          xLocation:(AKControl *)xLocation
-                          yLocation:(AKControl *)yLocation
-                          zLocation:(AKControl *)zLocation
+                          xLocation:(AKParameter *)xLocation
+                          yLocation:(AKParameter *)yLocation
+                          zLocation:(AKParameter *)zLocation
                           diffusion:(AKConstant *)diffusion
 {
     self = [super initWithString:[self operationName]];
@@ -40,7 +40,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -52,12 +52,12 @@
         _xLocation = akp(6);    
         _yLocation = akp(4);    
         _zLocation = akp(3);    
-        _diffusion = akp(1);
+        _diffusion = akp(1);    
     }
     return self;
 }
 
-+ (instancetype)stereoaudioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKBallWithinTheBoxReverb alloc] initWithAudioSource:audioSource];
 }
@@ -71,13 +71,13 @@
 - (void)setOptionalLengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge {
     _lengthOfZAxisEdge = lengthOfZAxisEdge;
 }
-- (void)setOptionalXLocation:(AKControl *)xLocation {
+- (void)setOptionalXLocation:(AKParameter *)xLocation {
     _xLocation = xLocation;
 }
-- (void)setOptionalYLocation:(AKControl *)yLocation {
+- (void)setOptionalYLocation:(AKParameter *)yLocation {
     _yLocation = yLocation;
 }
-- (void)setOptionalZLocation:(AKControl *)zLocation {
+- (void)setOptionalZLocation:(AKParameter *)zLocation {
     _zLocation = zLocation;
 }
 - (void)setOptionalDiffusion:(AKConstant *)diffusion {
@@ -86,7 +86,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ babo %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ babo AKAudio(%@), AKControl(%@), AKControl(%@), AKControl(%@), %@, %@, %@, %@",
             self,
             _audioSource,
             _xLocation,

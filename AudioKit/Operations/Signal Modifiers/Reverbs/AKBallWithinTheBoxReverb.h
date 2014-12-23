@@ -2,7 +2,7 @@
 //  AKBallWithinTheBoxReverb.h
 //  AudioKit
 //
-//  Auto-generated on 12/19/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -20,62 +20,69 @@
 /// @param lengthOfXAxisEdge Length of x-axis edge of the box in meters. [Default Value: 14.39]
 /// @param lengthOfYAxisEdge Length of y-axis edge of the box in meters. [Default Value: 11.86]
 /// @param lengthOfZAxisEdge Length of z-axis edge of the box in meters. [Default Value: 10]
-/// @param xLocation The virtual x-coordinate of the source of sound (the input signal). [Default Value: 6]
-/// @param yLocation The virtual y-coordinate of the source of sound (the input signal). [Default Value: 4]
-/// @param zLocation The virtual z-coordinate of the source of sound (the input signal). [Default Value: 3]
+/// @param xLocation The virtual x-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 6]
+/// @param yLocation The virtual y-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 4]
+/// @param zLocation The virtual z-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 3]
 /// @param diffusion Coefficient of diffusion at the walls, which regulates the amount of diffusion (0-1, where 0 = no diffusion, 1 = maximum diffusion, default= 1) [Default Value: 1]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                   lengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
                   lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge
                   lengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge
-                          xLocation:(AKControl *)xLocation
-                          yLocation:(AKControl *)yLocation
-                          zLocation:(AKControl *)zLocation
+                          xLocation:(AKParameter *)xLocation
+                          yLocation:(AKParameter *)yLocation
+                          zLocation:(AKParameter *)zLocation
                           diffusion:(AKConstant *)diffusion;
 
 /// Instantiates the ball within the box reverb with default values
 /// @param audioSource The input signal
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the ball within the box reverb with default values
 /// @param audioSource The input signal
-+ (instancetype)stereoaudioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource;
+
 /// Length of x-axis edge of the box in meters. [Default Value: 14.39]
 @property AKConstant *lengthOfXAxisEdge;
 
 /// Set an optional length of x axis edge
 /// @param lengthOfXAxisEdge Length of x-axis edge of the box in meters. [Default Value: 14.39]
 - (void)setOptionalLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge;
+
 /// Length of y-axis edge of the box in meters. [Default Value: 11.86]
 @property AKConstant *lengthOfYAxisEdge;
 
 /// Set an optional length of y axis edge
 /// @param lengthOfYAxisEdge Length of y-axis edge of the box in meters. [Default Value: 11.86]
 - (void)setOptionalLengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge;
+
 /// Length of z-axis edge of the box in meters. [Default Value: 10]
 @property AKConstant *lengthOfZAxisEdge;
 
 /// Set an optional length of z axis edge
 /// @param lengthOfZAxisEdge Length of z-axis edge of the box in meters. [Default Value: 10]
 - (void)setOptionalLengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge;
+
 /// The virtual x-coordinate of the source of sound (the input signal). [Default Value: 6]
-@property AKControl *xLocation;
+@property AKParameter *xLocation;
 
 /// Set an optional x location
-/// @param xLocation The virtual x-coordinate of the source of sound (the input signal). [Default Value: 6]
-- (void)setOptionalXLocation:(AKControl *)xLocation;
+/// @param xLocation The virtual x-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 6]
+- (void)setOptionalXLocation:(AKParameter *)xLocation;
+
 /// The virtual y-coordinate of the source of sound (the input signal). [Default Value: 4]
-@property AKControl *yLocation;
+@property AKParameter *yLocation;
 
 /// Set an optional y location
-/// @param yLocation The virtual y-coordinate of the source of sound (the input signal). [Default Value: 4]
-- (void)setOptionalYLocation:(AKControl *)yLocation;
+/// @param yLocation The virtual y-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 4]
+- (void)setOptionalYLocation:(AKParameter *)yLocation;
+
 /// The virtual z-coordinate of the source of sound (the input signal). [Default Value: 3]
-@property AKControl *zLocation;
+@property AKParameter *zLocation;
 
 /// Set an optional z location
-/// @param zLocation The virtual z-coordinate of the source of sound (the input signal). [Default Value: 3]
-- (void)setOptionalZLocation:(AKControl *)zLocation;
+/// @param zLocation The virtual z-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 3]
+- (void)setOptionalZLocation:(AKParameter *)zLocation;
+
 /// Coefficient of diffusion at the walls, which regulates the amount of diffusion (0-1, where 0 = no diffusion, 1 = maximum diffusion, default= 1) [Default Value: 1]
 @property AKConstant *diffusion;
 
