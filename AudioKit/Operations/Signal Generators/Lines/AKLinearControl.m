@@ -2,7 +2,7 @@
 //  AKLinearControl.m
 //  AudioKit
 //
-//  Auto-generated on 12/14/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's line:
@@ -31,7 +31,6 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
         _firstPoint = akp(0);    
         _secondPoint = akp(1);    
