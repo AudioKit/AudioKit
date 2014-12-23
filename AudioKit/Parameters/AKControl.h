@@ -7,6 +7,7 @@
 //
 
 #import "AKParameter.h"
+#import "AKAudio.h"
 
 /** These are parameters that can change at control rate
  */
