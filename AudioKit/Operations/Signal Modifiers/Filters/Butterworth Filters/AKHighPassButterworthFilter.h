@@ -2,7 +2,7 @@
 //  AKHighPassButterworthFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/20/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,23 +17,24 @@
 @interface AKHighPassButterworthFilter : AKAudio
 /// Instantiates the high pass butterworth filter with all values
 /// @param audioSource Input signal to be filtered. [Default Value: ]
-/// @param cutoffFrequency Cutoff frequency for each of the filters. [Default Value: 500]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    cutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency Cutoff frequency for each of the filters. Updated at Control-rate. [Default Value: 500]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    cutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Instantiates the high pass butterworth filter with default values
 /// @param audioSource Input signal to be filtered.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the high pass butterworth filter with default values
 /// @param audioSource Input signal to be filtered.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+
 /// Cutoff frequency for each of the filters. [Default Value: 500]
-@property AKControl *cutoffFrequency;
+@property AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
-/// @param cutoffFrequency Cutoff frequency for each of the filters. [Default Value: 500]
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency Cutoff frequency for each of the filters. Updated at Control-rate. [Default Value: 500]
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 
 

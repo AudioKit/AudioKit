@@ -2,7 +2,7 @@
 //  AKVariableFrequencyResponseBandPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,33 +17,33 @@
 @interface AKVariableFrequencyResponseBandPassFilter : AKAudio
 /// Instantiates the variable frequency response band pass filter with all values
 /// @param audioSource The input signal to be filtered. [Default Value: ]
-/// @param cutoffFrequency Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
-/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    cutoffFrequency:(AKControl *)cutoffFrequency
-                          bandwidth:(AKControl *)bandwidth;
+/// @param cutoffFrequency Cutoff or resonant frequency of the filter, measured in Hz. Updated at Control-rate. [Default Value: 1000]
+/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). Updated at Control-rate. [Default Value: 10]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
+                          bandwidth:(AKParameter *)bandwidth;
 
 /// Instantiates the variable frequency response band pass filter with default values
 /// @param audioSource The input signal to be filtered.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the variable frequency response band pass filter with default values
 /// @param audioSource The input signal to be filtered.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
 
 /// Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
-@property AKControl *cutoffFrequency;
+@property AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
-/// @param cutoffFrequency Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency Cutoff or resonant frequency of the filter, measured in Hz. Updated at Control-rate. [Default Value: 1000]
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-@property AKControl *bandwidth;
+@property AKParameter *bandwidth;
 
 /// Set an optional bandwidth
-/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-- (void)setOptionalBandwidth:(AKControl *)bandwidth;
+/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). Updated at Control-rate. [Default Value: 10]
+- (void)setOptionalBandwidth:(AKParameter *)bandwidth;
 
 
 
