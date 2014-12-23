@@ -2,7 +2,7 @@
 //  AKDCBlock.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's dcblock:
@@ -14,10 +14,10 @@
 
 @implementation AKDCBlock
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                                gain:(AKConstant *)gain
 {
     self = [super initWithString:[self operationName]];
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -39,7 +39,7 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKDCBlock alloc] initWithAudioSource:audioSource];
 }
@@ -50,7 +50,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ dcblock %@, %@",
+            @"%@ dcblock AKAudio(%@), %@",
             self,
             _audioSource,
             _gain];

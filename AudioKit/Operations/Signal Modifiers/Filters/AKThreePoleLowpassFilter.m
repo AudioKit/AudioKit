@@ -2,7 +2,7 @@
 //  AKThreePoleLowpassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lpf18:
@@ -14,13 +14,13 @@
 
 @implementation AKThreePoleLowpassFilter
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                         distortion:(AKControl *)distortion
-                    cutoffFrequency:(AKControl *)cutoffFrequency
-                          resonance:(AKControl *)resonance
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                         distortion:(AKParameter *)distortion
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
+                          resonance:(AKParameter *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -32,7 +32,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -45,24 +45,24 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKThreePoleLowpassFilter alloc] initWithAudioSource:audioSource];
 }
 
-- (void)setOptionalDistortion:(AKControl *)distortion {
+- (void)setOptionalDistortion:(AKParameter *)distortion {
     _distortion = distortion;
 }
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency {
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
 }
-- (void)setOptionalResonance:(AKControl *)resonance {
+- (void)setOptionalResonance:(AKParameter *)resonance {
     _resonance = resonance;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ lpf18 %@, %@, %@, %@",
+            @"%@ lpf18 AKAudio(%@), AKControl(%@), AKControl(%@), AKControl(%@)",
             self,
             _audioSource,
             _cutoffFrequency,

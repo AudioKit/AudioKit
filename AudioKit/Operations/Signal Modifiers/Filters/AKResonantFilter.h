@@ -2,7 +2,7 @@
 //  AKResonantFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,31 +17,33 @@
 @interface AKResonantFilter : AKAudio
 /// Instantiates the resonant filter with all values
 /// @param audioSource The input audio stream. [Default Value: ]
-/// @param centerFrequency Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
-/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    centerFrequency:(AKControl *)centerFrequency
-                          bandwidth:(AKControl *)bandwidth;
+/// @param centerFrequency Center frequency of the filter, or frequency position of the peak response. Updated at Control-rate. [Default Value: 1000]
+/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). Updated at Control-rate. [Default Value: 10]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    centerFrequency:(AKParameter *)centerFrequency
+                          bandwidth:(AKParameter *)bandwidth;
 
 /// Instantiates the resonant filter with default values
 /// @param audioSource The input audio stream.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the resonant filter with default values
 /// @param audioSource The input audio stream.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+
 /// Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
-@property AKControl *centerFrequency;
+@property AKParameter *centerFrequency;
 
 /// Set an optional center frequency
-/// @param centerFrequency Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
-- (void)setOptionalCenterFrequency:(AKControl *)centerFrequency;
+/// @param centerFrequency Center frequency of the filter, or frequency position of the peak response. Updated at Control-rate. [Default Value: 1000]
+- (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency;
+
 /// Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-@property AKControl *bandwidth;
+@property AKParameter *bandwidth;
 
 /// Set an optional bandwidth
-/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-- (void)setOptionalBandwidth:(AKControl *)bandwidth;
+/// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). Updated at Control-rate. [Default Value: 10]
+- (void)setOptionalBandwidth:(AKParameter *)bandwidth;
 
 
 

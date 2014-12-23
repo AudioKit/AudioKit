@@ -2,7 +2,7 @@
 //  AKLowPassControlFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's tonek:
@@ -14,11 +14,11 @@
 
 @implementation AKLowPassControlFilter
 {
-    AKControl * _sourceControl;
+    AKParameter * _sourceControl;
 }
 
-- (instancetype)initWithSourceControl:(AKControl *)sourceControl
-                       halfPowerPoint:(AKControl *)halfPowerPoint
+- (instancetype)initWithSourceControl:(AKParameter *)sourceControl
+                       halfPowerPoint:(AKParameter *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -28,7 +28,7 @@
     return self;
 }
 
-- (instancetype)initWithSourceControl:(AKControl *)sourceControl
+- (instancetype)initWithSourceControl:(AKParameter *)sourceControl
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -39,18 +39,18 @@
     return self;
 }
 
-+ (instancetype)controlWithSourceControl:(AKControl *)sourceControl
++ (instancetype)controlWithSourceControl:(AKParameter *)sourceControl
 {
     return [[AKLowPassControlFilter alloc] initWithSourceControl:sourceControl];
 }
 
-- (void)setOptionalHalfPowerPoint:(AKControl *)halfPowerPoint {
+- (void)setOptionalHalfPowerPoint:(AKParameter *)halfPowerPoint {
     _halfPowerPoint = halfPowerPoint;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ tonek %@, %@",
+            @"%@ tonek AKControl(%@), AKControl(%@)",
             self,
             _sourceControl,
             _halfPowerPoint];

@@ -2,7 +2,7 @@
 //  AKMoogLadder.m
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's moogladder:
@@ -14,12 +14,12 @@
 
 @implementation AKMoogLadder
 {
-    AKAudio *_audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                    cutoffFrequency:(AKControl *)cutoffFrequency
-                          resonance:(AKControl *)resonance
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
+                          resonance:(AKParameter *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -30,33 +30,33 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _cutoffFrequency = akp(9000);
+        _cutoffFrequency = akp(100);    
         _resonance = akp(0.5);    
     }
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKMoogLadder alloc] initWithAudioSource:audioSource];
 }
 
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency {
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
 }
-- (void)setOptionalResonance:(AKControl *)resonance {
+- (void)setOptionalResonance:(AKParameter *)resonance {
     _resonance = resonance;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ moogladder %@, %@, %@",
+            @"%@ moogladder AKAudio(%@), AKControl(%@), AKControl(%@)",
             self,
             _audioSource,
             _cutoffFrequency,

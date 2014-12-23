@@ -2,7 +2,7 @@
 //  AKDCBlock.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -18,16 +18,17 @@
 /// Instantiates the dc block with all values
 /// @param audioSource Input audio signal. [Default Value: ]
 /// @param gain The gain of the filter, which defaults to 0.99. [Default Value: 0.99]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                                gain:(AKConstant *)gain;
 
 /// Instantiates the dc block with default values
 /// @param audioSource Input audio signal.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the dc block with default values
 /// @param audioSource Input audio signal.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+
 /// The gain of the filter, which defaults to 0.99. [Default Value: 0.99]
 @property AKConstant *gain;
 

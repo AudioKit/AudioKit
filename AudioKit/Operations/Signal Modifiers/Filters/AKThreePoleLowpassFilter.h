@@ -2,7 +2,7 @@
 //  AKThreePoleLowpassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,42 +17,42 @@
 @interface AKThreePoleLowpassFilter : AKAudio
 /// Instantiates the three pole lowpass filter with all values
 /// @param audioSource Signal that will be modified. [Default Value: ]
-/// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. [Default Value: 0.5]
-/// @param cutoffFrequency The filter cutoff frequency in Hz. [Default Value: 1500]
-/// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. [Default Value: 0.5]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                         distortion:(AKControl *)distortion
-                    cutoffFrequency:(AKControl *)cutoffFrequency
-                          resonance:(AKControl *)resonance;
+/// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. Updated at Control-rate. [Default Value: 0.5]
+/// @param cutoffFrequency The filter cutoff frequency in Hz. Updated at Control-rate. [Default Value: 1500]
+/// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. Updated at Control-rate. [Default Value: 0.5]
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+                         distortion:(AKParameter *)distortion
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
+                          resonance:(AKParameter *)resonance;
 
 /// Instantiates the three pole lowpass filter with default values
 /// @param audioSource Signal that will be modified.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 /// Instantiates the three pole lowpass filter with default values
 /// @param audioSource Signal that will be modified.
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
 
 /// Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. [Default Value: 0.5]
-@property AKControl *distortion;
+@property AKParameter *distortion;
 
 /// Set an optional distortion
-/// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. [Default Value: 0.5]
-- (void)setOptionalDistortion:(AKControl *)distortion;
+/// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. Updated at Control-rate. [Default Value: 0.5]
+- (void)setOptionalDistortion:(AKParameter *)distortion;
 
 /// The filter cutoff frequency in Hz. [Default Value: 1500]
-@property AKControl *cutoffFrequency;
+@property AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
-/// @param cutoffFrequency The filter cutoff frequency in Hz. [Default Value: 1500]
-- (void)setOptionalCutoffFrequency:(AKControl *)cutoffFrequency;
+/// @param cutoffFrequency The filter cutoff frequency in Hz. Updated at Control-rate. [Default Value: 1500]
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. [Default Value: 0.5]
-@property AKControl *resonance;
+@property AKParameter *resonance;
 
 /// Set an optional resonance
-/// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. [Default Value: 0.5]
-- (void)setOptionalResonance:(AKControl *)resonance;
+/// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. Updated at Control-rate. [Default Value: 0.5]
+- (void)setOptionalResonance:(AKParameter *)resonance;
 
 
 
