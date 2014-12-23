@@ -2,7 +2,7 @@
 //  AKPanner.m
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pan2:
@@ -14,10 +14,10 @@
 
 @implementation AKPanner
 {
-    AKAudio * _audioSource;
+    AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
                                 pan:(AKParameter *)pan
                           panMethod:(AKPanMethod)panMethod
 {
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -42,7 +42,7 @@
     return self;
 }
 
-+ (instancetype)stereoaudioWithAudioSource:(AKAudio *)audioSource
++ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKPanner alloc] initWithAudioSource:audioSource];
 }
@@ -56,7 +56,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ pan2 %@, 0.5 * (%@+1), %@",
+            @"%@ pan2 AKAudio(%@), 0.5 * (%@+1), %@",
             self,
             _audioSource,
             _pan,
