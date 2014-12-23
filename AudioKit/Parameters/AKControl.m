@@ -10,7 +10,6 @@
 
 @implementation AKControl
 
-
 - (instancetype)initWithString:(NSString *)aString
 {
     self = [super init];

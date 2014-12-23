@@ -6,14 +6,11 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKParameter.h"
 #import "AKAudio.h"
 
 /** These are parameters that can change at control rate
  */
-@interface AKControl : AKParameter
-
-
+@interface AKControl : AKAudio
 
 /// Converts pitch to frequency
 - (instancetype)toCPS;
