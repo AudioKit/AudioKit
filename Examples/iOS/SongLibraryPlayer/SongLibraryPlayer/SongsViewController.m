@@ -3,7 +3,7 @@
 //  SongLibraryPlayer
 //
 //  Created by Aurelius Prochazka on 12/19/13.
-//  Copyright (c) 2013 Hear For Yourself. All rights reserved.
+//  Copyright (c) 2013 Aurelius Prochazka. All rights reserved.
 //
 
 #import "SongsViewController.h"
