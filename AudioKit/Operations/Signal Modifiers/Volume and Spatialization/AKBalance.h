@@ -2,7 +2,7 @@
 //  AKBalance.h
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -19,20 +19,22 @@
 /// @param audioSource Input audio signal [Default Value: ]
 /// @param comparatorAudioSource The comparator signal [Default Value: ]
 /// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. The default value is 10. [Default Value: 10]
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-              comparatorAudioSource:(AKAudio *)comparatorAudioSource
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+              comparatorAudioSource:(AKParameter *)comparatorAudioSource
                      halfPowerPoint:(AKConstant *)halfPowerPoint;
 
 /// Instantiates the balance with default values
 /// @param audioSource Input audio signal
 /// @param comparatorAudioSource The comparator signal
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-              comparatorAudioSource:(AKAudio *)comparatorAudioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+              comparatorAudioSource:(AKParameter *)comparatorAudioSource;
 
 /// Instantiates the balance with default values
 /// @param audioSource Input audio signal
 /// @param comparatorAudioSource The comparator signal
-+ (instancetype)audioWithAudioSource:(AKAudio *)audioSource               comparatorAudioSource:(AKAudio *)comparatorAudioSource;
++ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
+               comparatorAudioSource:(AKParameter *)comparatorAudioSource;
+
 /// Half-power point (in Hz) of a special internal low-pass filter. The default value is 10. [Default Value: 10]
 @property AKConstant *halfPowerPoint;
 
