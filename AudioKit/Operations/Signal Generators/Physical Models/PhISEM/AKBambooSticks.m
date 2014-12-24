@@ -67,7 +67,7 @@
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_dampingFactor = akp(0);        
     return [NSString stringWithFormat:
-            @"%@ bamboo AKControl(%@), %@, %@, %@, %@, %@, %@, %@",
+            @"%@ bamboo %@, %@, %@, %@, %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,
