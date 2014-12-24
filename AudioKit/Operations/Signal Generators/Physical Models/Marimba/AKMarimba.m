@@ -2,8 +2,8 @@
 //  AKMarimba.m
 //  AudioKit
 //
-//  Auto-generated on 11/30/14.
-//  Customized by Aurelius Prochazka on 11/30/14.
+//  Auto-generated on 12/23/14.
+//  Customized by Aurelius Prochazka on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's marimba:
@@ -16,18 +16,20 @@
 
 @implementation AKMarimba
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
                 vibratoShapeTable:(AKFTable *)vibratoShapeTable
-                 vibratoFrequency:(AKControl *)vibratoFrequency
-                 vibratoAmplitude:(AKControl *)vibratoAmplitude
+                 vibratoFrequency:(AKParameter *)vibratoFrequency
+                 vibratoAmplitude:(AKParameter *)vibratoAmplitude
            doubleStrikePercentage:(AKConstant *)doubleStrikePercentage
            tripleStrikePercentage:(AKConstant *)tripleStrikePercentage
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _frequency = frequency;
+        _amplitude = amplitude;
         _stickHardness = stickHardness;
         _strikePosition = strikePosition;
         _vibratoShapeTable = vibratoShapeTable;
@@ -35,7 +37,6 @@
         _vibratoAmplitude = vibratoAmplitude;
         _doubleStrikePercentage = doubleStrikePercentage;
         _tripleStrikePercentage = tripleStrikePercentage;
-        
     }
     return self;
 }
@@ -44,17 +45,17 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _frequency = akp(220);
-        _stickHardness = akp(0.5);
-        _strikePosition = akp(0.5);
+        _frequency = akp(220);    
+        _amplitude = akp(1);    
+        _stickHardness = akp(0.5);    
+        _strikePosition = akp(0.5);    
         _vibratoShapeTable = [AKManager standardSineTable];
         
-        _vibratoFrequency = akp(0);
-        _vibratoAmplitude = akp(0);
-        _doubleStrikePercentage = akp(40);
-        _tripleStrikePercentage = akp(20);
+        _vibratoFrequency = akp(0);    
+        _vibratoAmplitude = akp(0);    
+        _doubleStrikePercentage = akp(40);    
+        _tripleStrikePercentage = akp(20);    
     }
     return self;
 }
@@ -64,42 +65,38 @@
     return [[AKMarimba alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKControl *)frequency {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
 - (void)setOptionalStickHardness:(AKConstant *)stickHardness {
     _stickHardness = stickHardness;
 }
-
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
     _strikePosition = strikePosition;
 }
-
 - (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
 }
-
-- (void)setOptionalVibratoFrequency:(AKControl *)vibratoFrequency {
+- (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
     _vibratoFrequency = vibratoFrequency;
 }
-
-- (void)setOptionalVibratoAmplitude:(AKControl *)vibratoAmplitude {
+- (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude {
     _vibratoAmplitude = vibratoAmplitude;
 }
-
 - (void)setOptionalDoubleStrikePercentage:(AKConstant *)doubleStrikePercentage {
     _doubleStrikePercentage = doubleStrikePercentage;
 }
-
 - (void)setOptionalTripleStrikePercentage:(AKConstant *)tripleStrikePercentage {
     _tripleStrikePercentage = tripleStrikePercentage;
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values
+    // Constant Values  
     AKConstant *_maximumDuration = akp(1);
-    AKConstant *_amplitude = akp(1);
+    
     
     NSString *file;
     if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
@@ -114,7 +111,7 @@
     
     return [NSString stringWithFormat:
             @"%@\n"
-            @"%@ marimba %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ marimba AKControl(%@), AKControl(%@), %@, %@, %@, AKControl(%@), AKControl(%@), %@, %@, %@, %@",
             [_strikeImpulseTable stringForCSD],
             self,
             _amplitude,
@@ -129,6 +126,5 @@
             _doubleStrikePercentage,
             _tripleStrikePercentage];
 }
-
 
 @end
