@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillatingControl.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
@@ -13,9 +13,6 @@
 #import "AKManager.h"
 
 @implementation AKLowFrequencyOscillatingControl
-{
-    AKLowFrequencyOscillatorType _type;
-}
 
 - (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
                    frequency:(AKParameter *)frequency
@@ -30,23 +27,26 @@
     return self;
 }
 
-- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
+- (instancetype)init
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _type = type;
         // Default Values
+        _type = AKLowFrequencyOscillatorTypeSine;    
         _frequency = akp(110);    
         _amplitude = akp(1);    
     }
     return self;
 }
 
-+ (instancetype)controlWithType:(AKLowFrequencyOscillatorType)type
++ (instancetype)control
 {
-    return [[AKLowFrequencyOscillatingControl alloc] initWithType:type];
+    return [[AKLowFrequencyOscillatingControl alloc] init];
 }
 
+- (void)setOptionalType:(AKLowFrequencyOscillatorType)type {
+    _type = type;
+}
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
