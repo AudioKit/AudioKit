@@ -72,7 +72,7 @@
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
     return [NSString stringWithFormat:
-            @"%@ tambourine AKControl(%@), %@, %@, (1 - %@) * 0.7, %@, %@, %@, %@",
+            @"%@ tambourine %@, %@, %@, (1 - %@) * 0.7, %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,

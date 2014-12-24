@@ -72,7 +72,7 @@
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     return [NSString stringWithFormat:
-            @"%@ sleighbells AKControl(%@), %@, %@, (1 - %@) * 0.25, %@, %@, %@, %@",
+            @"%@ sleighbells %@, %@, %@, (1 - %@) * 0.25, %@, %@, %@, %@",
             self,
             _amplitude,
             _maximumDuration,
