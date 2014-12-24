@@ -2,8 +2,7 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated on 11/30/14.
-//  Customized by Aurelius Prochazka on 11/30/14.
+//  Auto-generated on 12/23/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibes:
@@ -11,26 +10,28 @@
 //
 
 #import "AKVibes.h"
-#import "AKFoundation.h"
+#import "AKManager.h"
+#import "AKSoundFileTable.h"
 
 @implementation AKVibes
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
                 tremoloShapeTable:(AKFTable *)tremoloShapeTable
-                 tremoloFrequency:(AKControl *)tremoloFrequency
-                 tremoloAmplitude:(AKControl *)tremoloAmplitude
+                 tremoloFrequency:(AKParameter *)tremoloFrequency
+                 tremoloAmplitude:(AKParameter *)tremoloAmplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _frequency = frequency;
+        _amplitude = amplitude;
         _stickHardness = stickHardness;
         _strikePosition = strikePosition;
         _tremoloShapeTable = tremoloShapeTable;
         _tremoloFrequency = tremoloFrequency;
         _tremoloAmplitude = tremoloAmplitude;
-        
     }
     return self;
 }
@@ -39,15 +40,15 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _frequency = akp(220);
-        _stickHardness = akp(0.1);
-        _strikePosition = akp(0.1);
+        _frequency = akp(440);    
+        _amplitude = akp(1.0);    
+        _stickHardness = akp(0.5);    
+        _strikePosition = akp(0.2);    
         _tremoloShapeTable = [AKManager standardSineTable];
         
-        _tremoloFrequency = akp(0);
-        _tremoloAmplitude = akp(0);
+        _tremoloFrequency = akp(0);    
+        _tremoloAmplitude = akp(0);    
     }
     return self;
 }
@@ -57,35 +58,29 @@
     return [[AKVibes alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKControl *)frequency {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
 - (void)setOptionalStickHardness:(AKConstant *)stickHardness {
     _stickHardness = stickHardness;
 }
-
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
     _strikePosition = strikePosition;
 }
-
 - (void)setOptionalTremoloShapeTable:(AKFTable *)tremoloShapeTable {
     _tremoloShapeTable = tremoloShapeTable;
 }
-
-- (void)setOptionalTremoloFrequency:(AKControl *)tremoloFrequency {
+- (void)setOptionalTremoloFrequency:(AKParameter *)tremoloFrequency {
     _tremoloFrequency = tremoloFrequency;
 }
-
-- (void)setOptionalTremoloAmplitude:(AKControl *)tremoloAmplitude {
+- (void)setOptionalTremoloAmplitude:(AKParameter *)tremoloAmplitude {
     _tremoloAmplitude = tremoloAmplitude;
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values
-    AKConstant *_amplitude = akp(1.0);
-    AKConstant *_maximumDuration = akp(1);
-
     NSString *file;
     if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
         file = [[AKManager sharedManager] fullPathToAudioKit];
@@ -96,10 +91,14 @@
     NSLog(@"file %@", file);
     AKSoundFileTable *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
-    
+
+    AKSoundFileTable *fileTable;
+    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+            
+    AKConstant *_maximumDuration = akp(1);        
     return [NSString stringWithFormat:
             @"%@\n"
-            @"%@ vibes %@, %@, %@, %@, %@, %@, %@, %@, %@",
+            @"%@ vibes AKControl(%@), AKControl(%@), %@, %@, %@, AKControl(%@), AKControl(%@), %@, %@",
             [_strikeImpulseTable stringForCSD],
             self,
             _amplitude,
@@ -112,6 +111,5 @@
             _tremoloShapeTable,
             _maximumDuration];
 }
-
 
 @end
