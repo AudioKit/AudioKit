@@ -14,10 +14,8 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let oscil = AKOscillator(
-            FTable: AKManager.standardSineTable,
-            frequency: 1.ak,
-            amplitude: 1.ak)
+        let oscil = AKOscillator()
+        oscil.frequency = 1.ak
         connect(oscil)
 
         let operation = AKPluckedString(excitationSignal: oscil)
