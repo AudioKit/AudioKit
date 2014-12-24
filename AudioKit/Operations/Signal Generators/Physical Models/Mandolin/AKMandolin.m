@@ -2,8 +2,8 @@
 //  AKMandolin.m
 //  AudioKit
 //
-//  Auto-generated on 12/10/14.
-//  Customized by Aurelius Prochazka on 12/10/14.
+//  Auto-generated on 12/24/14.
+//  Customized by Aurelius Prochazka on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mandol:
@@ -16,20 +16,21 @@
 
 @implementation AKMandolin
 
-- (instancetype)initWithFrequency:(AKControl *)frequency
-                         bodySize:(AKControl *)bodySize
-             pairedStringDetuning:(AKControl *)pairedStringDetuning
-                    pluckPosition:(AKControl *)pluckPosition
-                         loopGain:(AKControl *)loopGain
+- (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
+                         bodySize:(AKParameter *)bodySize
+             pairedStringDetuning:(AKParameter *)pairedStringDetuning
+                    pluckPosition:(AKParameter *)pluckPosition
+                         loopGain:(AKParameter *)loopGain
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _frequency = frequency;
+        _amplitude = amplitude;
         _bodySize = bodySize;
         _pairedStringDetuning = pairedStringDetuning;
         _pluckPosition = pluckPosition;
         _loopGain = loopGain;
-        
     }
     return self;
 }
@@ -38,13 +39,13 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        
         // Default Values
-        _frequency = akp(220);
-        _bodySize = akp(0.5);
-        _pairedStringDetuning = akp(1);
-        _pluckPosition = akp(0.4);
-        _loopGain = akp(0.99);
+        _frequency = akp(220);    
+        _amplitude = akp(1);    
+        _bodySize = akp(0.5);    
+        _pairedStringDetuning = akp(1);    
+        _pluckPosition = akp(0.4);    
+        _loopGain = akp(0.99);    
     }
     return self;
 }
@@ -54,29 +55,26 @@
     return [[AKMandolin alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKControl *)frequency {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-
-- (void)setOptionalBodySize:(AKControl *)bodySize {
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
+- (void)setOptionalBodySize:(AKParameter *)bodySize {
     _bodySize = bodySize;
 }
-
-- (void)setOptionalPairedStringDetuning:(AKControl *)pairedStringDetuning {
+- (void)setOptionalPairedStringDetuning:(AKParameter *)pairedStringDetuning {
     _pairedStringDetuning = pairedStringDetuning;
 }
-
-- (void)setOptionalPluckPosition:(AKControl *)pluckPosition {
+- (void)setOptionalPluckPosition:(AKParameter *)pluckPosition {
     _pluckPosition = pluckPosition;
 }
-
-- (void)setOptionalLoopGain:(AKControl *)loopGain {
+- (void)setOptionalLoopGain:(AKParameter *)loopGain {
     _loopGain = loopGain;
 }
+
 - (NSString *)stringForCSD {
-    // Constant Values
-    AKConstant *_amplitude = akp(1);
-    
     NSString *file;
     if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
         file = [[AKManager sharedManager] fullPathToAudioKit];
@@ -89,7 +87,7 @@
     
     return [NSString stringWithFormat:
             @"%@\n"
-            @"%@ mandol %@, %@, %@, %@, %@, 2 - (2 * %@), %@",
+            @"%@ mandol AKControl(%@), AKControl(%@), %@, AKControl(%@), AKControl(%@), AKControl(2 * (1 - %@)), %@",
             [_strikeImpulseTable stringForCSD],
             self,
             _amplitude,
@@ -100,6 +98,5 @@
             _bodySize,
             _strikeImpulseTable];
 }
-
 
 @end
