@@ -2,7 +2,7 @@
 //  AKEqualizerFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's eqfil:
@@ -62,12 +62,11 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ eqfil AKAudio(%@), AKControl(%@), AKControl(%@), AKControl(%@), AKControl(%@)",
+            @"%@ eqfil AKAudio(%@), AKControl(%@), AKControl(%@), AKControl(%@)",
             self,
             _audioSource,
             _centerFrequency,
             _bandwidth,
-            _gain,
             _gain];
 }
 
