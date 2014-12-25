@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -81,17 +81,17 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-    
+
     [csdString appendFormat:@"%@ foscili ", self];
-    
+
     [csdString appendFormat:@"%@, ", _amplitude];
     
     if ([_baseFrequency isKindOfClass:[AKControl class]] ) {
         [csdString appendFormat:@"%@, ", _baseFrequency];
     } else {
-       [csdString appendFormat:@"AKControl(%@), ", _baseFrequency];
+        [csdString appendFormat:@"AKControl(%@), ", _baseFrequency];
     }
-    
+
     [csdString appendFormat:@"%@, ", _carrierMultiplier];
     
     [csdString appendFormat:@"%@, ", _modulatingMultiplier];
@@ -101,7 +101,7 @@
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _modulationIndex];
     }
-    
+
     [csdString appendFormat:@"%@, ", _fTable];
     
     [csdString appendFormat:@"%@", _phase];
