@@ -2,7 +2,7 @@
 //  AKBambooSticks.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's bamboo:
@@ -34,10 +34,10 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _count = akp(2);    
-        _mainResonantFrequency = akp(2800);    
-        _firstResonantFrequency = akp(2240);    
-        _secondResonantFrequency = akp(3360);    
+        _count = akp(2);
+        _mainResonantFrequency = akp(2800);
+        _firstResonantFrequency = akp(2240);
+        _secondResonantFrequency = akp(3360);
     }
     return self;
 }
@@ -66,17 +66,30 @@
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_dampingFactor = akp(0);        
-    return [NSString stringWithFormat:
-            @"%@ bamboo %@, %@, %@, %@, %@, %@, %@, %@",
-            self,
-            _amplitude,
-            _maximumDuration,
-            _count,
-            _dampingFactor,
-            _energyReturn,
-            _mainResonantFrequency,
-            _firstResonantFrequency,
-            _secondResonantFrequency];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ bamboo ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    [csdString appendFormat:@"%@, ", _maximumDuration];
+    
+    [csdString appendFormat:@"%@, ", _count];
+    
+    [csdString appendFormat:@"%@, ", _dampingFactor];
+    
+    [csdString appendFormat:@"%@, ", _energyReturn];
+    
+    [csdString appendFormat:@"%@, ", _mainResonantFrequency];
+    
+    [csdString appendFormat:@"%@, ", _firstResonantFrequency];
+    
+    [csdString appendFormat:@"%@", _secondResonantFrequency];
+    return csdString;
 }
 
 @end

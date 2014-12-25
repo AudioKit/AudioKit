@@ -2,7 +2,7 @@
 //  AKMandolin.h
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -20,13 +20,13 @@
 /// @param amplitude Amplitude of note. Updated at Control-rate. [Default Value: 1]
 /// @param bodySize The size of the body of the mandolin. Range 0 (small) to 1 (large). Updated at Control-rate. [Default Value: 0.5]
 /// @param pairedStringDetuning The proportional detuning between the two strings. Suggested range 0.9 to 1. Updated at Control-rate. [Default Value: 1]
-/// @param pluckPosition The pluck position, in range 0 to 1. Updated at Control-rate. [Default Value: 0.4]
+/// @param pluckPosition The pluck position, in range 0 to 1. [Default Value: 0.4]
 /// @param loopGain The loop gain of the model, in the range 0.97 to 1. Updated at Control-rate. [Default Value: 0.99]
 - (instancetype)initWithFrequency:(AKParameter *)frequency
                         amplitude:(AKParameter *)amplitude
                          bodySize:(AKParameter *)bodySize
              pairedStringDetuning:(AKParameter *)pairedStringDetuning
-                    pluckPosition:(AKParameter *)pluckPosition
+                    pluckPosition:(AKConstant *)pluckPosition
                          loopGain:(AKParameter *)loopGain;
 
 /// Instantiates the mandolin with default values
@@ -65,11 +65,11 @@
 - (void)setOptionalPairedStringDetuning:(AKParameter *)pairedStringDetuning;
 
 /// The pluck position, in range 0 to 1. [Default Value: 0.4]
-@property AKParameter *pluckPosition;
+@property AKConstant *pluckPosition;
 
 /// Set an optional pluck position
-/// @param pluckPosition The pluck position, in range 0 to 1. Updated at Control-rate. [Default Value: 0.4]
-- (void)setOptionalPluckPosition:(AKParameter *)pluckPosition;
+/// @param pluckPosition The pluck position, in range 0 to 1. [Default Value: 0.4]
+- (void)setOptionalPluckPosition:(AKConstant *)pluckPosition;
 
 /// The loop gain of the model, in the range 0.97 to 1. [Default Value: 0.99]
 @property AKParameter *loopGain;

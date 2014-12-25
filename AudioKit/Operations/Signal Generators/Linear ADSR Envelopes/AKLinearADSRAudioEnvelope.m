@@ -2,11 +2,11 @@
 //  AKLinearADSRAudioEnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's adsr:
-//  http://www.csounds.com/manual/html/adsr.html
+//  Implementation of Csound's xadsr:
+//  http://www.csounds.com/manual/html/xadsr.html
 //
 
 #import "AKLinearADSRAudioEnvelope.h"
@@ -36,11 +36,11 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _attackDuration = akp(0.1);    
-        _decayDuration = akp(0.1);    
-        _sustainLevel = akp(0.5);    
-        _releaseDuration = akp(1);    
-        _delay = akp(0);    
+        _attackDuration = akp(0.1);
+        _decayDuration = akp(0.1);
+        _sustainLevel = akp(0.5);
+        _releaseDuration = akp(1);
+        _delay = akp(0);
     }
     return self;
 }
@@ -67,14 +67,20 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ adsr %@, %@, %@, %@, %@",
-            self,
-            _attackDuration,
-            _decayDuration,
-            _sustainLevel,
-            _releaseDuration,
-            _delay];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ xadsr ", self];
+
+    [csdString appendFormat:@"%@, ", _attackDuration];
+    
+    [csdString appendFormat:@"%@, ", _decayDuration];
+    
+    [csdString appendFormat:@"%@, ", _sustainLevel];
+    
+    [csdString appendFormat:@"%@, ", _releaseDuration];
+    
+    [csdString appendFormat:@"%@", _delay];
+    return csdString;
 }
 
 @end
