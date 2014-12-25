@@ -2,7 +2,7 @@
 //  AKVCOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vco2:
@@ -38,12 +38,12 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _waveformType = AKVCOscillatorWaveformTypeSawtooth;    
-        _bandwidth = akp(0.5);    
-        _frequency = akp(440);    
-        _amplitude = akp(1);    
-        _pulseWidth = akp(0);    
-        _phase = akp(0);    
+        _waveformType = AKVCOscillatorWaveformTypeSawtooth;
+        _bandwidth = akp(0.5);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        _pulseWidth = akp(0);
+        _phase = akp(0);
     }
     return self;
 }
@@ -73,15 +73,38 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ vco2 AKControl(%@), AKControl(%@), %@, AKControl(%@), AKControl(%@), %@",
-            self,
-            _amplitude,
-            _frequency,
-            akpi(_waveformType),
-            _pulseWidth,
-            _phase,
-            _bandwidth];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ vco2 ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    if ([_frequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _frequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+    }
+
+    [csdString appendFormat:@"%@, ", akpi(_waveformType)];
+    
+    if ([_pulseWidth isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _pulseWidth];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _pulseWidth];
+    }
+
+    if ([_phase isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _phase];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _phase];
+    }
+
+    [csdString appendFormat:@"%@", _bandwidth];
+    return csdString;
 }
 
 @end
