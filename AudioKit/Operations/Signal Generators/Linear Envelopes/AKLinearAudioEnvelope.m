@@ -2,40 +2,72 @@
 //  AKLinearAudioEnvelope.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 5/17/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/24/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//
+//  Implementation of Csound's linen:
+//  http://www.csounds.com/manual/html/linen.html
 //
 
 #import "AKLinearAudioEnvelope.h"
+#import "AKManager.h"
 
 @implementation AKLinearAudioEnvelope
-{
-    AKParameter *amp;
-    AKConstant *rise;
-    AKConstant *dur;
-    AKConstant *decay;
-}
 
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
-                   totalDuration:(AKConstant *)totalDuration
                        decayTime:(AKConstant *)decayTime
+                   totalDuration:(AKConstant *)totalDuration
                        amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        amp     = amplitude;
-        rise    = riseTime;
-        dur     = totalDuration;
-        decay   = decayTime;
+        _riseTime = riseTime;
+        _decayTime = decayTime;
+        _totalDuration = totalDuration;
+        _amplitude = amplitude;
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _riseTime = akp(0.33);    
+        _decayTime = akp(0.33);    
+        _totalDuration = akp(1);    
+        _amplitude = akp(1);    
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKLinearAudioEnvelope alloc] init];
+}
+
+- (void)setOptionalRiseTime:(AKConstant *)riseTime {
+    _riseTime = riseTime;
+}
+- (void)setOptionalDecayTime:(AKConstant *)decayTime {
+    _decayTime = decayTime;
+}
+- (void)setOptionalTotalDuration:(AKConstant *)totalDuration {
+    _totalDuration = totalDuration;
+}
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ linen %@, %@, %@, %@",
-            self, amp, rise, dur, decay];
+            @"%@ linen AKControl(%@), %@, %@, %@",
+            self,
+            _amplitude,
+            _riseTime,
+            _totalDuration,
+            _decayTime];
 }
 
 @end
