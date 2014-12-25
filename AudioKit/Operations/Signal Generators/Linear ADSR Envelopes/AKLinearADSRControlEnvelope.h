@@ -2,34 +2,73 @@
 //  AKLinearADSRControlEnvelope.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/31/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/24/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKControl.h"
 #import "AKParameter+Operation.h"
 
 /** Calculates the classical ADSR envelope using linear segments.
- 
+
  The envelope generated is the range 0 to 1 and may need to be scaled further, depending on the amplitude required. The length of the sustain is calculated from the length of the note. This means this operation is not suitable for use with MIDI events.
  */
 
 @interface AKLinearADSRControlEnvelope : AKControl
-
-/// Instantiates the linear adsr control envelope
-/// @param attackDuration Duration of attack phase
-/// @param decayDuration Duration of decay
-/// @param sustainLevel Level for sustain phase
-/// @param releaseDuration Duration of release phase
+/// Instantiates the linear adsr control envelope with all values
+/// @param attackDuration Duration of attack phase in seconds [Default Value: 0.1]
+/// @param decayDuration Duration of decay in seconds [Default Value: 0.1]
+/// @param sustainLevel Level for sustain phase [Default Value: 0.5]
+/// @param releaseDuration Duration of release phase in seconds. [Default Value: 1]
+/// @param delay Period of zero before the envelope starts [Default Value: 0]
 - (instancetype)initWithAttackDuration:(AKConstant *)attackDuration
                          decayDuration:(AKConstant *)decayDuration
                           sustainLevel:(AKConstant *)sustainLevel
-                       releaseDuration:(AKConstant *)releaseDuration;
+                       releaseDuration:(AKConstant *)releaseDuration
+                                 delay:(AKConstant *)delay;
 
+/// Instantiates the linear adsr control envelope with default values
+- (instancetype)init;
+
+/// Instantiates the linear adsr control envelope with default values
++ (instancetype)control;
+
+
+/// Duration of attack phase in seconds [Default Value: 0.1]
+@property AKConstant *attackDuration;
+
+/// Set an optional attack duration
+/// @param attackDuration Duration of attack phase in seconds [Default Value: 0.1]
+- (void)setOptionalAttackDuration:(AKConstant *)attackDuration;
+
+/// Duration of decay in seconds [Default Value: 0.1]
+@property AKConstant *decayDuration;
+
+/// Set an optional decay duration
+/// @param decayDuration Duration of decay in seconds [Default Value: 0.1]
+- (void)setOptionalDecayDuration:(AKConstant *)decayDuration;
+
+/// Level for sustain phase [Default Value: 0.5]
+@property AKConstant *sustainLevel;
+
+/// Set an optional sustain level
+/// @param sustainLevel Level for sustain phase [Default Value: 0.5]
+- (void)setOptionalSustainLevel:(AKConstant *)sustainLevel;
+
+/// Duration of release phase in seconds. [Default Value: 1]
+@property AKConstant *releaseDuration;
+
+/// Set an optional release duration
+/// @param releaseDuration Duration of release phase in seconds. [Default Value: 1]
+- (void)setOptionalReleaseDuration:(AKConstant *)releaseDuration;
+
+/// Period of zero before the envelope starts [Default Value: 0]
+@property AKConstant *delay;
 
 /// Set an optional delay
-/// @param delay Period of zero before the envelope starts
+/// @param delay Period of zero before the envelope starts [Default Value: 0]
 - (void)setOptionalDelay:(AKConstant *)delay;
+
 
 
 @end
