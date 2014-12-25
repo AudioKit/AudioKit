@@ -2,48 +2,79 @@
 //  AKLinearADSRAudioEnvelope.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/31/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/24/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's adsr:
 //  http://www.csounds.com/manual/html/adsr.html
 //
 
 #import "AKLinearADSRAudioEnvelope.h"
+#import "AKManager.h"
 
 @implementation AKLinearADSRAudioEnvelope
-{
-    AKConstant *iatt;
-    AKConstant *idec;
-    AKConstant *islev;
-    AKConstant *irel;
-    AKConstant *idel;
-}
 
 - (instancetype)initWithAttackDuration:(AKConstant *)attackDuration
                          decayDuration:(AKConstant *)decayDuration
                           sustainLevel:(AKConstant *)sustainLevel
                        releaseDuration:(AKConstant *)releaseDuration
+                                 delay:(AKConstant *)delay
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        iatt = attackDuration;
-        idec = decayDuration;
-        islev = sustainLevel;
-        irel = releaseDuration;
-        idel = akp(0);
+        _attackDuration = attackDuration;
+        _decayDuration = decayDuration;
+        _sustainLevel = sustainLevel;
+        _releaseDuration = releaseDuration;
+        _delay = delay;
     }
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _attackDuration = akp(0.1);    
+        _decayDuration = akp(0.1);    
+        _sustainLevel = akp(0.5);    
+        _releaseDuration = akp(1);    
+        _delay = akp(0);    
+    }
+    return self;
+}
+
++ (instancetype)audio
+{
+    return [[AKLinearADSRAudioEnvelope alloc] init];
+}
+
+- (void)setOptionalAttackDuration:(AKConstant *)attackDuration {
+    _attackDuration = attackDuration;
+}
+- (void)setOptionalDecayDuration:(AKConstant *)decayDuration {
+    _decayDuration = decayDuration;
+}
+- (void)setOptionalSustainLevel:(AKConstant *)sustainLevel {
+    _sustainLevel = sustainLevel;
+}
+- (void)setOptionalReleaseDuration:(AKConstant *)releaseDuration {
+    _releaseDuration = releaseDuration;
+}
 - (void)setOptionalDelay:(AKConstant *)delay {
-	idel = delay;
+    _delay = delay;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ adsr %@, %@, %@, %@, %@",
-            self, iatt, idec, islev, irel, idel];
+            self,
+            _attackDuration,
+            _decayDuration,
+            _sustainLevel,
+            _releaseDuration,
+            _delay];
 }
 
 @end
