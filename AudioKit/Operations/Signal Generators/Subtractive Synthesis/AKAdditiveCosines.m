@@ -2,7 +2,7 @@
 //  AKAdditiveCosines.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's gbuzz:
@@ -44,12 +44,12 @@
     if (self) {
         _cosineTable = cosineTable;
         // Default Values
-        _harmonicsCount = akp(10);    
-        _firstHarmonicIndex = akp(1);    
-        _partialMultiplier = akp(1);    
-        _fundamentalFrequency = akp(220);    
-        _amplitude = akp(1);    
-        _phase = akp(0);    
+        _harmonicsCount = akp(10);
+        _firstHarmonicIndex = akp(1);
+        _partialMultiplier = akp(1);
+        _fundamentalFrequency = akp(220);
+        _amplitude = akp(1);
+        _phase = akp(0);
     }
     return self;
 }
@@ -79,16 +79,36 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ gbuzz %@, %@, AKControl(%@), AKControl(%@), AKControl(%@), %@, %@",
-            self,
-            _amplitude,
-            _fundamentalFrequency,
-            _harmonicsCount,
-            _firstHarmonicIndex,
-            _partialMultiplier,
-            _cosineTable,
-            _phase];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ gbuzz ", self];
+
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    [csdString appendFormat:@"%@, ", _fundamentalFrequency];
+    
+    if ([_harmonicsCount isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _harmonicsCount];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _harmonicsCount];
+    }
+
+    if ([_firstHarmonicIndex isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _firstHarmonicIndex];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _firstHarmonicIndex];
+    }
+
+    if ([_partialMultiplier isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _partialMultiplier];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _partialMultiplier];
+    }
+
+    [csdString appendFormat:@"%@, ", _cosineTable];
+    
+    [csdString appendFormat:@"%@", _phase];
+    return csdString;
 }
 
 @end

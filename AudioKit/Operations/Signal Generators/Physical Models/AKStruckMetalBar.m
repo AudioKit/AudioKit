@@ -2,7 +2,7 @@
 //  AKStruckMetalBar.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's barmodel:
@@ -44,15 +44,15 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _decayTime = akp(2.0);    
-        _dimensionlessStiffness = akp(100);    
-        _highFrequencyLoss = akp(0.001);    
-        _strikePosition = akp(0.2);    
-        _strikeVelocity = akp(800);    
-        _strikeWidth = akp(0.2);    
-        _leftBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;    
-        _rightBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;    
-        _scanSpeed = akp(0.23);    
+        _decayTime = akp(2.0);
+        _dimensionlessStiffness = akp(100);
+        _highFrequencyLoss = akp(0.001);
+        _strikePosition = akp(0.2);
+        _strikeVelocity = akp(800);
+        _strikeWidth = akp(0.2);
+        _leftBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;
+        _rightBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;
+        _scanSpeed = akp(0.23);
     }
     return self;
 }
@@ -91,18 +91,32 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ barmodel AKControl(%@), AKControl(%@), %@, %@, AKControl(%@), %@, %@, %@, %@",
-            self,
-            akpi(_leftBoundaryCondition),
-            akpi(_rightBoundaryCondition),
-            _dimensionlessStiffness,
-            _highFrequencyLoss,
-            _scanSpeed,
-            _decayTime,
-            _strikePosition,
-            _strikeVelocity,
-            _strikeWidth];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ barmodel ", self];
+
+    [csdString appendFormat:@"%@, ", akpi(_leftBoundaryCondition)];
+    
+    [csdString appendFormat:@"%@, ", akpi(_rightBoundaryCondition)];
+    
+    [csdString appendFormat:@"%@, ", _dimensionlessStiffness];
+    
+    [csdString appendFormat:@"%@, ", _highFrequencyLoss];
+    
+    if ([_scanSpeed isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _scanSpeed];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _scanSpeed];
+    }
+
+    [csdString appendFormat:@"%@, ", _decayTime];
+    
+    [csdString appendFormat:@"%@, ", _strikePosition];
+    
+    [csdString appendFormat:@"%@, ", _strikeVelocity];
+    
+    [csdString appendFormat:@"%@", _strikeWidth];
+    return csdString;
 }
 
 @end

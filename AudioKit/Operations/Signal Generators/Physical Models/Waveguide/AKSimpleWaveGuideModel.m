@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wguide1:
@@ -38,9 +38,9 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _frequency = akp(440);    
-        _cutoff = akp(3000);    
-        _feedback = akp(0.8);    
+        _frequency = akp(440);
+        _cutoff = akp(3000);
+        _feedback = akp(0.8);
     }
     return self;
 }
@@ -61,13 +61,30 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ wguide1 AKAudio(%@), %@, AKControl(%@), AKControl(%@)",
-            self,
-            _audioSource,
-            _frequency,
-            _cutoff,
-            _feedback];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ wguide1 ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    [csdString appendFormat:@"%@, ", _frequency];
+    
+    if ([_cutoff isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _cutoff];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _cutoff];
+    }
+
+    if ([_feedback isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _feedback];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _feedback];
+    }
+return csdString;
 }
 
 @end

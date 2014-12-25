@@ -2,7 +2,7 @@
 //  AKDroplet.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's dripwater:
@@ -38,12 +38,12 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _intensity = akp(10);    
-        _dampingFactor = akp(0.1);    
-        _energyReturn = akp(0.5);    
-        _mainResonantFrequency = akp(450);    
-        _firstResonantFrequency = akp(600);    
-        _secondResonantFrequency = akp(750);    
+        _intensity = akp(10);
+        _dampingFactor = akp(0.1);
+        _energyReturn = akp(0.5);
+        _mainResonantFrequency = akp(450);
+        _firstResonantFrequency = akp(600);
+        _secondResonantFrequency = akp(750);
     }
     return self;
 }
@@ -76,17 +76,30 @@
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_amplitude = akp(1);        
-    return [NSString stringWithFormat:
-            @"%@ dripwater AKControl(%@), %@, %@, (1 - %@), %@, %@, %@, %@",
-            self,
-            _amplitude,
-            _maximumDuration,
-            _intensity,
-            _dampingFactor,
-            _energyReturn,
-            _mainResonantFrequency,
-            _firstResonantFrequency,
-            _secondResonantFrequency];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ dripwater ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    [csdString appendFormat:@"%@, ", _maximumDuration];
+    
+    [csdString appendFormat:@"%@, ", _intensity];
+    
+    [csdString appendFormat:@"(1 - %@), ", _dampingFactor];
+    
+    [csdString appendFormat:@"%@, ", _energyReturn];
+    
+    [csdString appendFormat:@"%@, ", _mainResonantFrequency];
+    
+    [csdString appendFormat:@"%@, ", _firstResonantFrequency];
+    
+    [csdString appendFormat:@"%@", _secondResonantFrequency];
+    return csdString;
 }
 
 @end

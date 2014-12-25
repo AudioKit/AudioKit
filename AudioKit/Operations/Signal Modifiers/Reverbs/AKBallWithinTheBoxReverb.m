@@ -2,7 +2,7 @@
 //  AKBallWithinTheBoxReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's babo:
@@ -46,13 +46,13 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _lengthOfXAxisEdge = akp(14.39);    
-        _lengthOfYAxisEdge = akp(11.86);    
-        _lengthOfZAxisEdge = akp(10);    
-        _xLocation = akp(6);    
-        _yLocation = akp(4);    
-        _zLocation = akp(3);    
-        _diffusion = akp(1);    
+        _lengthOfXAxisEdge = akp(14.39);
+        _lengthOfYAxisEdge = akp(11.86);
+        _lengthOfZAxisEdge = akp(10);
+        _xLocation = akp(6);
+        _yLocation = akp(4);
+        _zLocation = akp(3);
+        _diffusion = akp(1);
     }
     return self;
 }
@@ -85,17 +85,42 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ babo AKAudio(%@), AKControl(%@), AKControl(%@), AKControl(%@), %@, %@, %@, %@",
-            self,
-            _audioSource,
-            _xLocation,
-            _yLocation,
-            _zLocation,
-            _lengthOfXAxisEdge,
-            _lengthOfYAxisEdge,
-            _lengthOfZAxisEdge,
-            _diffusion];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ babo ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_xLocation isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _xLocation];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _xLocation];
+    }
+
+    if ([_yLocation isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _yLocation];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _yLocation];
+    }
+
+    if ([_zLocation isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _zLocation];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _zLocation];
+    }
+
+    [csdString appendFormat:@"%@, ", _lengthOfXAxisEdge];
+    
+    [csdString appendFormat:@"%@, ", _lengthOfYAxisEdge];
+    
+    [csdString appendFormat:@"%@, ", _lengthOfZAxisEdge];
+    
+    [csdString appendFormat:@"%@", _diffusion];
+    return csdString;
 }
 
 @end

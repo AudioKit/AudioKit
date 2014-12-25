@@ -2,7 +2,7 @@
 //  AKBalance.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's balance:
@@ -39,7 +39,7 @@
         _audioSource = audioSource;
         _comparatorAudioSource = comparatorAudioSource;
         // Default Values
-        _halfPowerPoint = akp(10);    
+        _halfPowerPoint = akp(10);
     }
     return self;
 }
@@ -56,12 +56,24 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ balance AKAudio(%@), AKAudio(%@), %@",
-            self,
-            _audioSource,
-            _comparatorAudioSource,
-            _halfPowerPoint];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ balance ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_comparatorAudioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _comparatorAudioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _comparatorAudioSource];
+    }
+
+    [csdString appendFormat:@"%@", _halfPowerPoint];
+    return csdString;
 }
 
 @end

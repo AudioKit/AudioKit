@@ -2,7 +2,7 @@
 //  AKDCBlock.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's dcblock:
@@ -34,7 +34,7 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _gain = akp(0.99);    
+        _gain = akp(0.99);
     }
     return self;
 }
@@ -49,11 +49,18 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ dcblock AKAudio(%@), %@",
-            self,
-            _audioSource,
-            _gain];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ dcblock ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    [csdString appendFormat:@"%@", _gain];
+    return csdString;
 }
 
 @end

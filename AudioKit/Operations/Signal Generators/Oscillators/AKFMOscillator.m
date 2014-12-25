@@ -41,13 +41,13 @@
     if (self) {
         // Default Values
         _fTable = [AKManager standardSineTable];
-        
-        _baseFrequency = akp(440);    
-        _carrierMultiplier = akp(1);    
-        _modulatingMultiplier = akp(1);    
-        _modulationIndex = akp(1);    
-        _amplitude = akp(0.5);    
-        _phase = akp(0);    
+    
+        _baseFrequency = akp(440);
+        _carrierMultiplier = akp(1);
+        _modulatingMultiplier = akp(1);
+        _modulationIndex = akp(1);
+        _amplitude = akp(0.5);
+        _phase = akp(0);
     }
     return self;
 }

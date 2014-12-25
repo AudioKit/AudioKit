@@ -2,7 +2,7 @@
 //  AKLowPassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's tone:
@@ -34,7 +34,7 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _halfPowerPoint = akp(1000);    
+        _halfPowerPoint = akp(1000);
     }
     return self;
 }
@@ -49,11 +49,22 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ tone AKAudio(%@), AKControl(%@)",
-            self,
-            _audioSource,
-            _halfPowerPoint];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ tone ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_halfPowerPoint isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _halfPowerPoint];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _halfPowerPoint];
+    }
+return csdString;
 }
 
 @end

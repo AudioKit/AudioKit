@@ -2,7 +2,7 @@
 //  AKVariableDelay.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vdelay3:
@@ -39,7 +39,7 @@
         _audioSource = audioSource;
         _delayTime = delayTime;
         // Default Values
-        _maximumDelayTime = akp(2000);    
+        _maximumDelayTime = akp(2000);
     }
     return self;
 }
@@ -56,12 +56,24 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ vdelay3 AKAudio(%@), AKAudio(%@), %@",
-            self,
-            _audioSource,
-            _delayTime,
-            _maximumDelayTime];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ vdelay3 ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_delayTime isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _delayTime];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _delayTime];
+    }
+
+    [csdString appendFormat:@"%@", _maximumDelayTime];
+    return csdString;
 }
 
 @end

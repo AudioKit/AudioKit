@@ -2,7 +2,7 @@
 //  AKRandomControl.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's random:
@@ -30,8 +30,8 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _lowerBound = akp(0);    
-        _upperBound = akp(1);    
+        _lowerBound = akp(0);
+        _upperBound = akp(1);
     }
     return self;
 }
@@ -49,11 +49,22 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ random AKControl(%@), AKControl(%@)",
-            self,
-            _lowerBound,
-            _upperBound];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ random ", self];
+
+    if ([_lowerBound isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _lowerBound];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _lowerBound];
+    }
+
+    if ([_upperBound isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _upperBound];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _upperBound];
+    }
+return csdString;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  AKSandPaper.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's sandpaper:
@@ -30,8 +30,8 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _intensity = akp(128);    
-        _dampingFactor = akp(0.9);    
+        _intensity = akp(128);
+        _dampingFactor = akp(0.9);
     }
     return self;
 }
@@ -53,14 +53,20 @@
     AKConstant *_amplitude = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
-    return [NSString stringWithFormat:
-            @"%@ sandpaper %@, %@, %@, (1 - %@), %@",
-            self,
-            _amplitude,
-            _maximumDuration,
-            _intensity,
-            _dampingFactor,
-            _energyReturn];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ sandpaper ", self];
+
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    [csdString appendFormat:@"%@, ", _maximumDuration];
+    
+    [csdString appendFormat:@"%@, ", _intensity];
+    
+    [csdString appendFormat:@"(1 - %@), ", _dampingFactor];
+    
+    [csdString appendFormat:@"%@", _energyReturn];
+    return csdString;
 }
 
 @end

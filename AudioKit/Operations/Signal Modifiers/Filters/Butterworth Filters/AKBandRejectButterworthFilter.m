@@ -2,7 +2,7 @@
 //  AKBandRejectButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's butterbr:
@@ -36,8 +36,8 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _centerFrequency = akp(3000);    
-        _bandwidth = akp(2000);    
+        _centerFrequency = akp(3000);
+        _bandwidth = akp(2000);
     }
     return self;
 }
@@ -55,12 +55,28 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ butterbr AKAudio(%@), AKControl(%@), AKControl(%@)",
-            self,
-            _audioSource,
-            _centerFrequency,
-            _bandwidth];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ butterbr ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_centerFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _centerFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _centerFrequency];
+    }
+
+    if ([_bandwidth isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _bandwidth];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _bandwidth];
+    }
+return csdString;
 }
 
 @end
