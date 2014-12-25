@@ -1,35 +1,65 @@
 //
 //  AKLinearControlEnvelope.h
-//  City Sounds
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/12/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/24/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKControl.h"
 #import "AKParameter+Operation.h"
 
-/** Applies a straight line rise and decay pattern to an input amp signal.
- 
- Rise modifications are applied for the first irise seconds, and decay from time
- totalDuration - decayTime. If these periods are separated in time there will be
- a steady state during which amp will be unmodified. If linen rise and decay
- periods overlap then both modifications will be in effect for that time. If the
- overall duration is exceeded in performance, the final decay will continue on in
- the same direction, going negative.
+/** One line title / summary for the operation.
+
+ More detailed description from http://www.csounds.com/manual/html/
  */
 
 @interface AKLinearControlEnvelope : AKControl
-
-/// Creates a straight line rise and decay patter to an input signal.
-/// @param riseTime      Rise time in seconds. A zero or negative value signifies no rise modification.
-/// @param totalDuration Overall duration in seconds. A zero or negative value will cause initialization to be skipped.
-/// @param decayTime     Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay.
-/// @param amplitude     Amplitude to rise to and decay from.
+/// Instantiates the linear control envelope with all values
+/// @param riseTime Rise time in seconds. A zero or negative value signifies no rise modification. [Default Value: 0.33]
+/// @param decayTime Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay. [Default Value: 0.33]
+/// @param totalDuration Overall duration in seconds. [Default Value: 1]
+/// @param amplitude mplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
-                   totalDuration:(AKConstant *)totalDuration
                        decayTime:(AKConstant *)decayTime
-                       amplitude:(AKControl  *)amplitude;
+                   totalDuration:(AKConstant *)totalDuration
+                       amplitude:(AKParameter *)amplitude;
+
+/// Instantiates the linear control envelope with default values
+- (instancetype)init;
+
+/// Instantiates the linear control envelope with default values
++ (instancetype)control;
+
+
+/// Rise time in seconds. A zero or negative value signifies no rise modification. [Default Value: 0.33]
+@property AKConstant *riseTime;
+
+/// Set an optional rise time
+/// @param riseTime Rise time in seconds. A zero or negative value signifies no rise modification. [Default Value: 0.33]
+- (void)setOptionalRiseTime:(AKConstant *)riseTime;
+
+/// Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay. [Default Value: 0.33]
+@property AKConstant *decayTime;
+
+/// Set an optional decay time
+/// @param decayTime Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay. [Default Value: 0.33]
+- (void)setOptionalDecayTime:(AKConstant *)decayTime;
+
+/// Overall duration in seconds. [Default Value: 1]
+@property AKConstant *totalDuration;
+
+/// Set an optional total duration
+/// @param totalDuration Overall duration in seconds. [Default Value: 1]
+- (void)setOptionalTotalDuration:(AKConstant *)totalDuration;
+
+/// mplitude to rise to and decay from. [Default Value: 1]
+@property AKParameter *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude mplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
+
 
 
 @end
