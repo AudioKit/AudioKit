@@ -2,7 +2,7 @@
 //  AKDopplerEffect.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's doppler:
@@ -41,8 +41,8 @@
         _audioSource = audioSource;
         _sourcePosition = sourcePosition;
         // Default Values
-        _micPosition = akp(0);    
-        _smoothingFilterUpdateRate = akp(6);    
+        _micPosition = akp(0);
+        _smoothingFilterUpdateRate = akp(6);
     }
     return self;
 }
@@ -64,14 +64,32 @@
 - (NSString *)stringForCSD {
     // Constant Values  
     AKConstant *_soundSpeed = akp(340.29);        
-    return [NSString stringWithFormat:
-            @"%@ doppler AKAudio(%@), AKControl(%@), AKControl(%@), %@, %@",
-            self,
-            _audioSource,
-            _sourcePosition,
-            _micPosition,
-            _soundSpeed,
-            _smoothingFilterUpdateRate];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ doppler ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_sourcePosition isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _sourcePosition];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _sourcePosition];
+    }
+
+    if ([_micPosition isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _micPosition];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _micPosition];
+    }
+
+    [csdString appendFormat:@"%@, ", _soundSpeed];
+    
+    [csdString appendFormat:@"%@", _smoothingFilterUpdateRate];
+    return csdString;
 }
 
 @end

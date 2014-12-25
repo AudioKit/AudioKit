@@ -2,7 +2,7 @@
 //  AKPhasor.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's phasor:
@@ -30,8 +30,8 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _frequency = akp(440);    
-        _phase = akp(0);    
+        _frequency = akp(440);
+        _phase = akp(0);
     }
     return self;
 }
@@ -49,11 +49,14 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ phasor %@, %@",
-            self,
-            _frequency,
-            _phase];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ phasor ", self];
+
+    [csdString appendFormat:@"%@, ", _frequency];
+    
+    [csdString appendFormat:@"%@", _phase];
+    return csdString;
 }
 
 @end

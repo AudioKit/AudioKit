@@ -2,7 +2,7 @@
 //  AKVariableFrequencyResponseBandPassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's resonz:
@@ -36,8 +36,8 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _cutoffFrequency = akp(1000);    
-        _bandwidth = akp(10);    
+        _cutoffFrequency = akp(1000);
+        _bandwidth = akp(10);
     }
     return self;
 }
@@ -55,12 +55,28 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ resonz AKAudio(%@), AKControl(%@), AKControl(%@)",
-            self,
-            _audioSource,
-            _cutoffFrequency,
-            _bandwidth];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ resonz ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_cutoffFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _cutoffFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
+    }
+
+    if ([_bandwidth isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _bandwidth];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _bandwidth];
+    }
+return csdString;
 }
 
 @end

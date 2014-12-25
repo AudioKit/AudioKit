@@ -2,7 +2,7 @@
 //  AKJitter.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's jitter:
@@ -32,9 +32,9 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _amplitude = akp(1);    
-        _minimumFrequency = akp(0);    
-        _maximumFrequency = akp(60);    
+        _amplitude = akp(1);
+        _minimumFrequency = akp(0);
+        _maximumFrequency = akp(60);
     }
     return self;
 }
@@ -55,12 +55,28 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ jitter AKControl(%@), AKControl(%@), AKControl(%@)",
-            self,
-            _amplitude,
-            _minimumFrequency,
-            _maximumFrequency];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ jitter ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    if ([_minimumFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _minimumFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _minimumFrequency];
+    }
+
+    if ([_maximumFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _maximumFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _maximumFrequency];
+    }
+return csdString;
 }
 
 @end

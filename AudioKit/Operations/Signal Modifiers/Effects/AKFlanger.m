@@ -2,7 +2,7 @@
 //  AKFlanger.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's flanger:
@@ -39,7 +39,7 @@
         _audioSource = audioSource;
         _delayTime = delayTime;
         // Default Values
-        _feedback = akp(0);    
+        _feedback = akp(0);
     }
     return self;
 }
@@ -56,12 +56,28 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ flanger AKAudio(%@), AKAudio(%@), AKControl(%@)",
-            self,
-            _audioSource,
-            _delayTime,
-            _feedback];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ flanger ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_delayTime isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _delayTime];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _delayTime];
+    }
+
+    if ([_feedback isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _feedback];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _feedback];
+    }
+return csdString;
 }
 
 @end

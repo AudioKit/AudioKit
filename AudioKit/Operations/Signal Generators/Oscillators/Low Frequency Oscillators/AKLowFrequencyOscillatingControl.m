@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillatingControl.m
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
@@ -32,9 +32,9 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _type = AKLowFrequencyOscillatorTypeSine;    
-        _frequency = akp(110);    
-        _amplitude = akp(1);    
+        _type = AKLowFrequencyOscillatorTypeSine;
+        _frequency = akp(110);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -55,12 +55,24 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ lfo AKControl(%@), AKControl(%@), %@",
-            self,
-            _amplitude,
-            _frequency,
-            akpi(_type)];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ lfo ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    if ([_frequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _frequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+    }
+
+    [csdString appendFormat:@"%@", akpi(_type)];
+    return csdString;
 }
 
 @end

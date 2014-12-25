@@ -2,7 +2,7 @@
 //  AKPluckedString.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's repluck:
@@ -42,11 +42,11 @@
     if (self) {
         _excitationSignal = excitationSignal;
         // Default Values
-        _frequency = akp(440);    
-        _pluckPosition = akp(0.01);    
-        _samplePosition = akp(0.1);    
-        _reflectionCoefficient = akp(0.1);    
-        _amplitude = akp(1.0);    
+        _frequency = akp(440);
+        _pluckPosition = akp(0.01);
+        _samplePosition = akp(0.1);
+        _reflectionCoefficient = akp(0.1);
+        _amplitude = akp(1.0);
     }
     return self;
 }
@@ -73,15 +73,38 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ repluck %@, AKControl(%@), %@, AKControl(%@), AKControl(%@), AKAudio(%@)",
-            self,
-            _pluckPosition,
-            _amplitude,
-            _frequency,
-            _samplePosition,
-            _reflectionCoefficient,
-            _excitationSignal];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ repluck ", self];
+
+    [csdString appendFormat:@"%@, ", _pluckPosition];
+    
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    [csdString appendFormat:@"%@, ", _frequency];
+    
+    if ([_samplePosition isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _samplePosition];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _samplePosition];
+    }
+
+    if ([_reflectionCoefficient isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _reflectionCoefficient];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _reflectionCoefficient];
+    }
+
+    if ([_excitationSignal isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@", _excitationSignal];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@)", _excitationSignal];
+    }
+return csdString;
 }
 
 @end

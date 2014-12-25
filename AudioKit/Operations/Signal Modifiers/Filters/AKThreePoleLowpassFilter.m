@@ -2,7 +2,7 @@
 //  AKThreePoleLowpassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lpf18:
@@ -38,9 +38,9 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _distortion = akp(0.5);    
-        _cutoffFrequency = akp(1500);    
-        _resonance = akp(0.5);    
+        _distortion = akp(0.5);
+        _cutoffFrequency = akp(1500);
+        _resonance = akp(0.5);
     }
     return self;
 }
@@ -61,13 +61,34 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ lpf18 AKAudio(%@), AKControl(%@), AKControl(%@), AKControl(%@)",
-            self,
-            _audioSource,
-            _cutoffFrequency,
-            _resonance,
-            _distortion];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ lpf18 ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_cutoffFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _cutoffFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
+    }
+
+    if ([_resonance isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _resonance];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _resonance];
+    }
+
+    if ([_distortion isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@", _distortion];
+    } else {
+        [csdString appendFormat:@"AKControl(%@)", _distortion];
+    }
+return csdString;
 }
 
 @end

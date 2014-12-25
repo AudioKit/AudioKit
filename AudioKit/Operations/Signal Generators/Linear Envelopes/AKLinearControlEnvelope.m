@@ -2,7 +2,7 @@
 //  AKLinearControlEnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's linen:
@@ -34,10 +34,10 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _riseTime = akp(0.33);    
-        _decayTime = akp(0.33);    
-        _totalDuration = akp(1);    
-        _amplitude = akp(1);    
+        _riseTime = akp(0.33);
+        _decayTime = akp(0.33);
+        _totalDuration = akp(1);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -61,13 +61,22 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ linen AKControl(%@), %@, %@, %@",
-            self,
-            _amplitude,
-            _riseTime,
-            _totalDuration,
-            _decayTime];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ linen ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    [csdString appendFormat:@"%@, ", _riseTime];
+    
+    [csdString appendFormat:@"%@, ", _totalDuration];
+    
+    [csdString appendFormat:@"%@", _decayTime];
+    return csdString;
 }
 
 @end
