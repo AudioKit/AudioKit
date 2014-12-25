@@ -80,16 +80,32 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ foscili %@, AKControl(%@), %@, %@, AKControl(%@), %@, %@",
-            self,
-            _amplitude,
-            _baseFrequency,
-            _carrierMultiplier,
-            _modulatingMultiplier,
-            _modulationIndex,
-            _fTable,
-            _phase];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+    
+    [csdString appendFormat:@"%@ foscili ", self];
+    
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    if ([_baseFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _baseFrequency];
+    } else {
+       [csdString appendFormat:@"AKControl(%@), ", _baseFrequency];
+    }
+    
+    [csdString appendFormat:@"%@, ", _carrierMultiplier];
+    
+    [csdString appendFormat:@"%@, ", _modulatingMultiplier];
+    
+    if ([_modulationIndex isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _modulationIndex];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _modulationIndex];
+    }
+    
+    [csdString appendFormat:@"%@, ", _fTable];
+    
+    [csdString appendFormat:@"%@", _phase];
+    return csdString;
 }
 
 @end
