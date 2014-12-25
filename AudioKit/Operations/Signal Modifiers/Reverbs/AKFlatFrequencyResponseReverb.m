@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's alpass:
@@ -36,8 +36,8 @@
     if (self) {
         _audioSource = audioSource;
         // Default Values
-        _reverberationTime = akp(3);    
-        _loopTime = akp(0.1);    
+        _reverberationTime = akp(3);
+        _loopTime = akp(0.1);
     }
     return self;
 }
@@ -55,12 +55,24 @@
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ alpass AKAudio(%@), AKControl(%@), %@",
-            self,
-            _audioSource,
-            _reverberationTime,
-            _loopTime];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ alpass ", self];
+
+    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _audioSource];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+    }
+
+    if ([_reverberationTime isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _reverberationTime];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _reverberationTime];
+    }
+
+    [csdString appendFormat:@"%@", _loopTime];
+    return csdString;
 }
 
 @end
