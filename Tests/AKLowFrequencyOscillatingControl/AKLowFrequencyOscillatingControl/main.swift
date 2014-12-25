@@ -20,7 +20,8 @@ class Instrument : AKInstrument {
         operation.amplitude = 20.ak
         connect(operation)
         
-        let audio = AKVCOscillator(frequency: operation.plus(440.ak), amplitude: akp(1))
+        let audio = AKVCOscillator()
+        audio.frequency = operation.plus(440.ak)
         connect(audio)
         
         connect(AKAudioOutput(audioSource:audio))
