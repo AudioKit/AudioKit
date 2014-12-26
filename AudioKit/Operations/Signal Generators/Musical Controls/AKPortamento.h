@@ -16,18 +16,18 @@
 
 @interface AKPortamento : AKControl
 /// Instantiates the portamento with all values
-/// @param controlSource The input signal at control-rate. Updated at Control-rate. [Default Value: ]
+/// @param input The input signal at control-rate. Updated at Control-rate. [Default Value: ]
 /// @param halfTime Half-time of the function in seconds. Updated at Control-rate. [Default Value: 1]
-- (instancetype)initWithControlSource:(AKParameter *)controlSource
-                             halfTime:(AKParameter *)halfTime;
+- (instancetype)initWithInput:(AKParameter *)input
+                     halfTime:(AKParameter *)halfTime;
 
 /// Instantiates the portamento with default values
-/// @param controlSource The input signal at control-rate.
-- (instancetype)initWithControlSource:(AKParameter *)controlSource;
+/// @param input The input signal at control-rate.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the portamento with default values
-/// @param controlSource The input signal at control-rate.
-+ (instancetype)controlWithControlSource:(AKParameter *)controlSource;
+/// @param input The input signal at control-rate.
++ (instancetype)controlWithInput:(AKParameter *)input;
 
 /// Half-time of the function in seconds. [Default Value: 1]
 @property AKParameter *halfTime;

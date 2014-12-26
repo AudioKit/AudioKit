@@ -16,18 +16,18 @@
 
 @interface AKHighPassFilter : AKAudio
 /// Instantiates the high pass filter with all values
-/// @param audioSource The audio to be filtered [Default Value: ]
+/// @param input The input signal to be filtered [Default Value: ]
 /// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 4000]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    cutoffFrequency:(AKParameter *)cutoffFrequency;
+- (instancetype)initWithInput:(AKParameter *)input
+              cutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Instantiates the high pass filter with default values
-/// @param audioSource The audio to be filtered
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input The input signal to be filtered
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass filter with default values
-/// @param audioSource The audio to be filtered
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input The input signal to be filtered
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
 @property AKParameter *cutoffFrequency;

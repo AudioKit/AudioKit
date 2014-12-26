@@ -14,34 +14,34 @@
 
 @implementation AKPortamento
 {
-    AKParameter * _controlSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithControlSource:(AKParameter *)controlSource
-                             halfTime:(AKParameter *)halfTime
+- (instancetype)initWithInput:(AKParameter *)input
+                     halfTime:(AKParameter *)halfTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _controlSource = controlSource;
+        _input = input;
         _halfTime = halfTime;
     }
     return self;
 }
 
-- (instancetype)initWithControlSource:(AKParameter *)controlSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _controlSource = controlSource;
+        _input = input;
         // Default Values
         _halfTime = akp(1);
     }
     return self;
 }
 
-+ (instancetype)controlWithControlSource:(AKParameter *)controlSource
++ (instancetype)controlWithInput:(AKParameter *)input
 {
-    return [[AKPortamento alloc] initWithControlSource:controlSource];
+    return [[AKPortamento alloc] initWithInput:input];
 }
 
 - (void)setOptionalHalfTime:(AKParameter *)halfTime {
@@ -53,10 +53,10 @@
 
     [csdString appendFormat:@"%@ portk ", self];
 
-    if ([_controlSource isKindOfClass:[AKControl class]] ) {
-        [csdString appendFormat:@"%@, ", _controlSource];
+    if ([_input isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _controlSource];
+        [csdString appendFormat:@"AKControl(%@), ", _input];
     }
 
     if ([_halfTime isKindOfClass:[AKControl class]] ) {

@@ -14,7 +14,7 @@
 
 @implementation AKVibrato
 
-- (instancetype)initWithVibratoShapeTable:(AKFTable *)vibratoShapeTable
+- (instancetype)initWithVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
                          averageFrequency:(AKParameter *)averageFrequency
                       frequencyRandomness:(AKParameter *)frequencyRandomness
                minimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness
@@ -66,7 +66,7 @@
     return [[AKVibrato alloc] init];
 }
 
-- (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable {
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
 }
 - (void)setOptionalAverageFrequency:(AKParameter *)averageFrequency {

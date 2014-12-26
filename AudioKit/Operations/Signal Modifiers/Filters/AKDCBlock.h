@@ -16,18 +16,18 @@
 
 @interface AKDCBlock : AKAudio
 /// Instantiates the dc block with all values
-/// @param audioSource Input audio signal. [Default Value: ]
+/// @param input Input audio signal. [Default Value: ]
 /// @param gain The gain of the filter, which defaults to 0.99. [Default Value: 0.99]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                               gain:(AKConstant *)gain;
+- (instancetype)initWithInput:(AKParameter *)input
+                         gain:(AKConstant *)gain;
 
 /// Instantiates the dc block with default values
-/// @param audioSource Input audio signal.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input audio signal.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the dc block with default values
-/// @param audioSource Input audio signal.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input audio signal.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// The gain of the filter, which defaults to 0.99. [Default Value: 0.99]
 @property AKConstant *gain;

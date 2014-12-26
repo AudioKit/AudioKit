@@ -26,7 +26,7 @@
 /// @param minimumAmplitudeRandomness Minimum frequency of random amplitude deviation segments in Hz Updated at Control-rate. [Default Value: 0]
 /// @param maximumAmplitudeRandomness Maximum frequency of random amplitude deviation segments in Hz Updated at Control-rate. [Default Value: 0]
 /// @param phase Initial phase of table, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-- (instancetype)initWithVibratoShapeTable:(AKFTable *)vibratoShapeTable
+- (instancetype)initWithVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
                          averageFrequency:(AKParameter *)averageFrequency
                       frequencyRandomness:(AKParameter *)frequencyRandomness
                minimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness
@@ -45,11 +45,11 @@
 
 
 /// Vibrato table. It normally contains a sine or a triangle wave. [Default Value: sine]
-@property AKFTable *vibratoShapeTable;
+@property AKFunctionTable *vibratoShapeTable;
 
 /// Set an optional vibrato shape table
 /// @param vibratoShapeTable Vibrato table. It normally contains a sine or a triangle wave. [Default Value: sine]
-- (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable;
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable;
 
 /// Average frequency value of vibrato in Hz [Default Value: 2]
 @property AKParameter *averageFrequency;

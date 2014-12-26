@@ -26,7 +26,7 @@
 - (instancetype)initWithFrequency:(AKParameter *)frequency
                          pressure:(AKParameter *)pressure
                          position:(AKParameter *)position
-                vibratoShapeTable:(AKFTable *)vibratoShapeTable
+                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  minimumFrequency:(AKConstant *)minimumFrequency;
@@ -60,11 +60,11 @@
 - (void)setOptionalPosition:(AKParameter *)position;
 
 /// Table shape of vibrato, usually a sine table. [Default Value: sine]
-@property AKFTable *vibratoShapeTable;
+@property AKFunctionTable *vibratoShapeTable;
 
 /// Set an optional vibrato shape table
 /// @param vibratoShapeTable Table shape of vibrato, usually a sine table. [Default Value: sine]
-- (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable;
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable;
 
 /// Frequency of vibrato in Hertz. Suggested range is 0 to 12. [Default Value: 0]
 @property AKParameter *vibratoFrequency;

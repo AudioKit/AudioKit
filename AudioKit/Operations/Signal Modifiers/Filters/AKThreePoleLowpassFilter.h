@@ -16,22 +16,22 @@
 
 @interface AKThreePoleLowpassFilter : AKAudio
 /// Instantiates the three pole lowpass filter with all values
-/// @param audioSource Signal that will be modified. [Default Value: ]
+/// @param input Signal that will be modified. [Default Value: ]
 /// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. Updated at Control-rate. [Default Value: 0.5]
 /// @param cutoffFrequency The filter cutoff frequency in Hz. Updated at Control-rate. [Default Value: 1500]
 /// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. Updated at Control-rate. [Default Value: 0.5]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                         distortion:(AKParameter *)distortion
-                    cutoffFrequency:(AKParameter *)cutoffFrequency
-                          resonance:(AKParameter *)resonance;
+- (instancetype)initWithInput:(AKParameter *)input
+                   distortion:(AKParameter *)distortion
+              cutoffFrequency:(AKParameter *)cutoffFrequency
+                    resonance:(AKParameter *)resonance;
 
 /// Instantiates the three pole lowpass filter with default values
-/// @param audioSource Signal that will be modified.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Signal that will be modified.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the three pole lowpass filter with default values
-/// @param audioSource Signal that will be modified.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Signal that will be modified.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. [Default Value: 0.5]
 @property AKParameter *distortion;

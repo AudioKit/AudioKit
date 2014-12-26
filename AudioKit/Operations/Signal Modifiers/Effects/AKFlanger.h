@@ -16,24 +16,24 @@
 
 @interface AKFlanger : AKAudio
 /// Instantiates the flanger with all values
-/// @param audioSource Input signal. [Default Value: ]
+/// @param input Input signal. [Default Value: ]
 /// @param delayTime Delay in seconds [Default Value: ]
 /// @param feedback Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed) Updated at Control-rate. [Default Value: 0]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                          delayTime:(AKParameter *)delayTime
-                           feedback:(AKParameter *)feedback;
+- (instancetype)initWithInput:(AKParameter *)input
+                    delayTime:(AKParameter *)delayTime
+                     feedback:(AKParameter *)feedback;
 
 /// Instantiates the flanger with default values
-/// @param audioSource Input signal.
+/// @param input Input signal.
 /// @param delayTime Delay in seconds
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                          delayTime:(AKParameter *)delayTime;
+- (instancetype)initWithInput:(AKParameter *)input
+                    delayTime:(AKParameter *)delayTime;
 
 /// Instantiates the flanger with default values
-/// @param audioSource Input signal.
+/// @param input Input signal.
 /// @param delayTime Delay in seconds
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
-                           delayTime:(AKParameter *)delayTime;
++ (instancetype)audioWithInput:(AKParameter *)input
+                     delayTime:(AKParameter *)delayTime;
 
 /// Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed) [Default Value: 0]
 @property AKParameter *feedback;

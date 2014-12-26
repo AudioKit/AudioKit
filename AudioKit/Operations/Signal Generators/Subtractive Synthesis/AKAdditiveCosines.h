@@ -23,7 +23,7 @@
 /// @param fundamentalFrequency The fundamental frequency which can be modulated at any rate. [Default Value: 220]
 /// @param amplitude The total amplitude of the output of all the cosines. [Default Value: 1]
 /// @param phase Initial phase of the fundamental frequency, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-- (instancetype)initWithCosineTable:(AKFTable *)cosineTable
+- (instancetype)initWithCosineTable:(AKFunctionTable *)cosineTable
                      harmonicsCount:(AKParameter *)harmonicsCount
                  firstHarmonicIndex:(AKParameter *)firstHarmonicIndex
                   partialMultiplier:(AKParameter *)partialMultiplier
@@ -33,11 +33,11 @@
 
 /// Instantiates the additive cosines with default values
 /// @param cosineTable A cosine table with at least 8192 points is recommended.
-- (instancetype)initWithCosineTable:(AKFTable *)cosineTable;
+- (instancetype)initWithCosineTable:(AKFunctionTable *)cosineTable;
 
 /// Instantiates the additive cosines with default values
 /// @param cosineTable A cosine table with at least 8192 points is recommended.
-+ (instancetype)audioWithCosineTable:(AKFTable *)cosineTable;
++ (instancetype)audioWithCosineTable:(AKFunctionTable *)cosineTable;
 
 /// Total number of harmonics requested. [Default Value: 10]
 @property AKParameter *harmonicsCount;

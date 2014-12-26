@@ -14,17 +14,17 @@
 
 @implementation AKEqualizerFilter
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    centerFrequency:(AKParameter *)centerFrequency
-                          bandwidth:(AKParameter *)bandwidth
-                               gain:(AKParameter *)gain
+- (instancetype)initWithInput:(AKParameter *)input
+              centerFrequency:(AKParameter *)centerFrequency
+                    bandwidth:(AKParameter *)bandwidth
+                         gain:(AKParameter *)gain
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _centerFrequency = centerFrequency;
         _bandwidth = bandwidth;
         _gain = gain;
@@ -32,11 +32,11 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _centerFrequency = akp(1000);
         _bandwidth = akp(100);
@@ -45,9 +45,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKEqualizerFilter alloc] initWithAudioSource:audioSource];
+    return [[AKEqualizerFilter alloc] initWithInput:input];
 }
 
 - (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency {
@@ -65,10 +65,10 @@
 
     [csdString appendFormat:@"%@ eqfil ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_centerFrequency isKindOfClass:[AKControl class]] ) {

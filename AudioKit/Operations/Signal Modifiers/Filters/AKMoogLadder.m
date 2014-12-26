@@ -14,27 +14,27 @@
 
 @implementation AKMoogLadder
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    cutoffFrequency:(AKParameter *)cutoffFrequency
-                          resonance:(AKParameter *)resonance
+- (instancetype)initWithInput:(AKParameter *)input
+              cutoffFrequency:(AKParameter *)cutoffFrequency
+                    resonance:(AKParameter *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _cutoffFrequency = cutoffFrequency;
         _resonance = resonance;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _cutoffFrequency = akp(100);
         _resonance = akp(0.5);
@@ -42,9 +42,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKMoogLadder alloc] initWithAudioSource:audioSource];
+    return [[AKMoogLadder alloc] initWithInput:input];
 }
 
 - (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
@@ -59,10 +59,10 @@
 
     [csdString appendFormat:@"%@ moogladder ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_cutoffFrequency isKindOfClass:[AKControl class]] ) {

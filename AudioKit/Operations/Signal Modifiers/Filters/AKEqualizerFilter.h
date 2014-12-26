@@ -17,22 +17,22 @@ The amplitude response for this filter will be flat (=1) for gain=1. With gain b
 
 @interface AKEqualizerFilter : AKAudio
 /// Instantiates the equalizer filter with all values
-/// @param audioSource Input signal. [Default Value: ]
+/// @param input Input signal. [Default Value: ]
 /// @param centerFrequency Filter center frequency in Hz. Updated at Control-rate. [Default Value: 1000]
 /// @param bandwidth Peak/notch bandwidth in Hz. Updated at Control-rate. [Default Value: 100]
 /// @param gain Peak/notch gain. Updated at Control-rate. [Default Value: 10]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    centerFrequency:(AKParameter *)centerFrequency
-                          bandwidth:(AKParameter *)bandwidth
-                               gain:(AKParameter *)gain;
+- (instancetype)initWithInput:(AKParameter *)input
+              centerFrequency:(AKParameter *)centerFrequency
+                    bandwidth:(AKParameter *)bandwidth
+                         gain:(AKParameter *)gain;
 
 /// Instantiates the equalizer filter with default values
-/// @param audioSource Input signal.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the equalizer filter with default values
-/// @param audioSource Input signal.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Filter center frequency in Hz. [Default Value: 1000]
 @property AKParameter *centerFrequency;

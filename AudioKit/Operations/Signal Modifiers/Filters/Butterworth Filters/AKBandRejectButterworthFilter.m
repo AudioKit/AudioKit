@@ -14,27 +14,27 @@
 
 @implementation AKBandRejectButterworthFilter
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    centerFrequency:(AKParameter *)centerFrequency
-                          bandwidth:(AKParameter *)bandwidth
+- (instancetype)initWithInput:(AKParameter *)input
+              centerFrequency:(AKParameter *)centerFrequency
+                    bandwidth:(AKParameter *)bandwidth
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _centerFrequency = centerFrequency;
         _bandwidth = bandwidth;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _centerFrequency = akp(3000);
         _bandwidth = akp(2000);
@@ -42,9 +42,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKBandRejectButterworthFilter alloc] initWithAudioSource:audioSource];
+    return [[AKBandRejectButterworthFilter alloc] initWithInput:input];
 }
 
 - (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency {
@@ -59,10 +59,10 @@
 
     [csdString appendFormat:@"%@ butterbr ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_centerFrequency isKindOfClass:[AKControl class]] ) {

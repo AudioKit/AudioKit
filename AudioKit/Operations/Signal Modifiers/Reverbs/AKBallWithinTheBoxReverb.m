@@ -14,21 +14,21 @@
 
 @implementation AKBallWithinTheBoxReverb
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                  lengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
-                  lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge
-                  lengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge
-                          xLocation:(AKParameter *)xLocation
-                          yLocation:(AKParameter *)yLocation
-                          zLocation:(AKParameter *)zLocation
-                          diffusion:(AKConstant *)diffusion
+- (instancetype)initWithInput:(AKParameter *)input
+            lengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge
+            lengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge
+            lengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge
+                    xLocation:(AKParameter *)xLocation
+                    yLocation:(AKParameter *)yLocation
+                    zLocation:(AKParameter *)zLocation
+                    diffusion:(AKConstant *)diffusion
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _lengthOfXAxisEdge = lengthOfXAxisEdge;
         _lengthOfYAxisEdge = lengthOfYAxisEdge;
         _lengthOfZAxisEdge = lengthOfZAxisEdge;
@@ -40,11 +40,11 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _lengthOfXAxisEdge = akp(14.39);
         _lengthOfYAxisEdge = akp(11.86);
@@ -57,9 +57,9 @@
     return self;
 }
 
-+ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)stereoaudioWithInput:(AKParameter *)input
 {
-    return [[AKBallWithinTheBoxReverb alloc] initWithAudioSource:audioSource];
+    return [[AKBallWithinTheBoxReverb alloc] initWithInput:input];
 }
 
 - (void)setOptionalLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge {
@@ -89,10 +89,10 @@
 
     [csdString appendFormat:@"%@ babo ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_xLocation isKindOfClass:[AKControl class]] ) {

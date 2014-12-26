@@ -14,29 +14,29 @@
 
 @implementation AKBalance
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
     AKParameter * _comparatorAudioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-              comparatorAudioSource:(AKParameter *)comparatorAudioSource
-                     halfPowerPoint:(AKConstant *)halfPowerPoint
+- (instancetype)initWithInput:(AKParameter *)input
+        comparatorAudioSource:(AKParameter *)comparatorAudioSource
+               halfPowerPoint:(AKConstant *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _comparatorAudioSource = comparatorAudioSource;
         _halfPowerPoint = halfPowerPoint;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-              comparatorAudioSource:(AKParameter *)comparatorAudioSource
+- (instancetype)initWithInput:(AKParameter *)input
+        comparatorAudioSource:(AKParameter *)comparatorAudioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _comparatorAudioSource = comparatorAudioSource;
         // Default Values
         _halfPowerPoint = akp(10);
@@ -44,11 +44,11 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
-              comparatorAudioSource:(AKParameter *)comparatorAudioSource
++ (instancetype)audioWithInput:(AKParameter *)input
+        comparatorAudioSource:(AKParameter *)comparatorAudioSource
 {
-    return [[AKBalance alloc] initWithAudioSource:audioSource
-              comparatorAudioSource:comparatorAudioSource];
+    return [[AKBalance alloc] initWithInput:input
+        comparatorAudioSource:comparatorAudioSource];
 }
 
 - (void)setOptionalHalfPowerPoint:(AKConstant *)halfPowerPoint {
@@ -60,10 +60,10 @@
 
     [csdString appendFormat:@"%@ balance ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_comparatorAudioSource isKindOfClass:[AKAudio class]] ) {

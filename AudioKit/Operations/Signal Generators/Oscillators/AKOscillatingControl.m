@@ -14,14 +14,14 @@
 
 @implementation AKOscillatingControl
 
-- (instancetype)initWithFTable:(AKFTable *)fTable
-                     frequency:(AKParameter *)frequency
-                     amplitude:(AKParameter *)amplitude
-                         phase:(AKConstant *)phase
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                            frequency:(AKParameter *)frequency
+                            amplitude:(AKParameter *)amplitude
+                                phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _fTable = fTable;
+        _functionTable = functionTable;
         _frequency = frequency;
         _amplitude = amplitude;
         _phase = phase;
@@ -34,7 +34,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _fTable = [AKManager standardSineTable];
+        _functionTable = [AKManager standardSineTable];
     
         _frequency = akp(1);
         _amplitude = akp(1);
@@ -48,8 +48,8 @@
     return [[AKOscillatingControl alloc] init];
 }
 
-- (void)setOptionalFTable:(AKFTable *)fTable {
-    _fTable = fTable;
+- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
+    _functionTable = functionTable;
 }
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
@@ -78,7 +78,7 @@
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
-    [csdString appendFormat:@"%@, ", _fTable];
+    [csdString appendFormat:@"%@, ", _functionTable];
     
     [csdString appendFormat:@"%@", _phase];
     return csdString;

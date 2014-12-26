@@ -57,7 +57,6 @@
 
 
 - (instancetype)initWithStereoAudioSource:(AKStereoAudio *)audioSource
-                  audioSourceRightChannel:(AKParameter *)audioSourceRightChannel
                                  feedback:(AKParameter *)feedback
                           cutoffFrequency:(AKParameter *)cutoffFrequency
 {

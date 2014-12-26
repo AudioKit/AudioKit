@@ -67,12 +67,12 @@
 }
 
 - (NSString *)stringForCSD {
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
     // Constant Values  
     AKConstant *_amplitude = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
-    NSMutableString *csdString = [[NSMutableString alloc] init];
-
     [csdString appendFormat:@"%@ tambourine ", self];
 
     if ([_amplitude isKindOfClass:[AKControl class]] ) {

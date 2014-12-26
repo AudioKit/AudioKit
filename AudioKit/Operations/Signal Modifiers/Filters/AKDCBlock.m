@@ -14,34 +14,34 @@
 
 @implementation AKDCBlock
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                               gain:(AKConstant *)gain
+- (instancetype)initWithInput:(AKParameter *)input
+                         gain:(AKConstant *)gain
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _gain = gain;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _gain = akp(0.99);
     }
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKDCBlock alloc] initWithAudioSource:audioSource];
+    return [[AKDCBlock alloc] initWithInput:input];
 }
 
 - (void)setOptionalGain:(AKConstant *)gain {
@@ -53,10 +53,10 @@
 
     [csdString appendFormat:@"%@ dcblock ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     [csdString appendFormat:@"%@", _gain];

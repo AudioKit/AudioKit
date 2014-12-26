@@ -17,7 +17,7 @@
 - (instancetype)initWithFrequency:(AKParameter *)frequency
                          pressure:(AKParameter *)pressure
                          position:(AKParameter *)position
-                vibratoShapeTable:(AKFTable *)vibratoShapeTable
+                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  minimumFrequency:(AKConstant *)minimumFrequency
@@ -66,7 +66,7 @@
 - (void)setOptionalPosition:(AKParameter *)position {
     _position = position;
 }
-- (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable {
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
 }
 - (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
@@ -80,10 +80,10 @@
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values  
-    AKConstant *_amplitude = akp(1);        
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    // Constant Values  
+    AKConstant *_amplitude = akp(1);        
     [csdString appendFormat:@"%@ wgbow ", self];
 
     if ([_amplitude isKindOfClass:[AKControl class]] ) {

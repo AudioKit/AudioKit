@@ -16,20 +16,20 @@
 
 @interface AKBandRejectButterworthFilter : AKAudio
 /// Instantiates the band reject butterworth filter with all values
-/// @param audioSource Input signal to be filtered. [Default Value: ]
+/// @param input Input signal to be filtered. [Default Value: ]
 /// @param centerFrequency Center frequency for each of the filters. Updated at Control-rate. [Default Value: 3000]
 /// @param bandwidth Bandwidth of the band-reject filters. Updated at Control-rate. [Default Value: 2000]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    centerFrequency:(AKParameter *)centerFrequency
-                          bandwidth:(AKParameter *)bandwidth;
+- (instancetype)initWithInput:(AKParameter *)input
+              centerFrequency:(AKParameter *)centerFrequency
+                    bandwidth:(AKParameter *)bandwidth;
 
 /// Instantiates the band reject butterworth filter with default values
-/// @param audioSource Input signal to be filtered.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal to be filtered.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the band reject butterworth filter with default values
-/// @param audioSource Input signal to be filtered.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal to be filtered.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Center frequency for each of the filters. [Default Value: 3000]
 @property AKParameter *centerFrequency;

@@ -16,14 +16,14 @@
 
 @interface AKOscillatingControl : AKControl
 /// Instantiates the oscillating control with all values
-/// @param fTable Requires a wrap-around guard point [Default Value: sine]
+/// @param functionTable Requires a wrap-around guard point [Default Value: sine]
 /// @param frequency Frequency in cycles per second Updated at Control-rate. [Default Value: 1]
 /// @param amplitude Amplitude of the output Updated at Control-rate. [Default Value: 1]
 /// @param phase Initial phase of sampling, expressed as a fraction of a cycle (0 to 1). A negative value will cause phase initialization to be skipped. The default value is 0. [Default Value: 0]
-- (instancetype)initWithFTable:(AKFTable *)fTable
-                     frequency:(AKParameter *)frequency
-                     amplitude:(AKParameter *)amplitude
-                         phase:(AKConstant *)phase;
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                            frequency:(AKParameter *)frequency
+                            amplitude:(AKParameter *)amplitude
+                                phase:(AKConstant *)phase;
 
 /// Instantiates the oscillating control with default values
 - (instancetype)init;
@@ -33,11 +33,11 @@
 
 
 /// Requires a wrap-around guard point [Default Value: sine]
-@property AKFTable *fTable;
+@property AKFunctionTable *functionTable;
 
-/// Set an optional f table
-/// @param fTable Requires a wrap-around guard point [Default Value: sine]
-- (void)setOptionalFTable:(AKFTable *)fTable;
+/// Set an optional function table
+/// @param functionTable Requires a wrap-around guard point [Default Value: sine]
+- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable;
 
 /// Frequency in cycles per second [Default Value: 1]
 @property AKParameter *frequency;
