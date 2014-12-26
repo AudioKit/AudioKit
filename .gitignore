@@ -1,16 +1,16 @@
 # xcode noise
-build/ 
-*.pyc 
-*~.nib/ 
-*.pbxuser 
-*.perspective 
-*.perspectivev3 
+build/
+*.pyc
+*~.nib/
+*.pbxuser
+*.perspective
+*.perspectivev3
 *.xcuserstate
 *.xccheckout
 project.xcworkspace/
 xcuserdata/
 
-# Place to put output file from scripts once you're done with them 
+# Place to put output file from scripts once you're done with them
 scripts/junk
 
 # old skool
@@ -19,3 +19,5 @@ scripts/junk
 # osx noise
 .DS_Store
 profile
+
+xcodebuild
