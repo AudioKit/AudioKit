@@ -40,6 +40,6 @@
 /// @param pairingArray The second array, must be equal in size.
 - (AKArray *)pairWith:(AKArray *)pairingArray;
 
-- (id)fTableString;
+- (id)functionTableString;
 
 @end

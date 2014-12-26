@@ -51,7 +51,7 @@
     return [s componentsJoinedByString:@", "]; 
 }
 
-- (id)fTableString
+- (id)functionTableString
 {
     NSMutableArray *s = [[NSMutableArray alloc] init];
     for (AKConstant *value in _constants) {

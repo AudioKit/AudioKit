@@ -33,7 +33,7 @@ static int currentID = 1;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        _fTables = [[NSMutableSet alloc] init];
+        _functionTables = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""];
     }
     return self;
@@ -78,14 +78,14 @@ static int currentID = 1;
 #  pragma mark - F Tables
 // -----------------------------------------------------------------------------
 
-- (void)addFTable:(AKFTable *)newFTable
+- (void)addFunctionTable:(AKFunctionTable *)newFunctionTable
 {
-    [_fTables addObject:newFTable];
+    [_functionTables addObject:newFunctionTable];
 }
 
-- (void)addDynamicFTable:(AKFTable *)newFTable
+- (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable
 {
-    [innerCSDRepresentation appendString:[newFTable stringForCSD]];
+    [innerCSDRepresentation appendString:[newFunctionTable stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 

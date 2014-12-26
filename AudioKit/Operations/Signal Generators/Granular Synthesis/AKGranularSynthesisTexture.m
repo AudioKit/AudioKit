@@ -25,8 +25,8 @@
     BOOL useRandomGrainOffset;
 }
 
-- (instancetype)initWithGrainFTable:(AKConstant *)grainFTable
-                       windowFTable:(AKConstant *)windowFTable
+- (instancetype)initWithGrainFunctionTable:(AKConstant *)grainFunctionTable
+                       windowFunctionTable:(AKConstant *)windowFunctionTable
                maximumGrainDuration:(AKConstant *)maximumGrainDuration
                averageGrainDuration:(AKControl *)averageGrainDuration
           maximumFrequencyDeviation:(AKControl *)maximumFrequencyDeviation
@@ -37,8 +37,8 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        igfn = grainFTable;
-        iwfn = windowFTable;
+        igfn = grainFunctionTable;
+        iwfn = windowFunctionTable;
         imgdur = maximumGrainDuration;
         kgdur = averageGrainDuration;
         kpitchoff = maximumFrequencyDeviation;
