@@ -2,8 +2,7 @@
 //  AKMarimba.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
-//  Customized by Aurelius Prochazka on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's marimba:
@@ -12,7 +11,6 @@
 
 #import "AKMarimba.h"
 #import "AKManager.h"
-#import "AKSoundFileTable.h"
 
 @implementation AKMarimba
 
@@ -20,7 +18,7 @@
                         amplitude:(AKParameter *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                vibratoShapeTable:(AKFTable *)vibratoShapeTable
+                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
            doubleStrikePercentage:(AKConstant *)doubleStrikePercentage
@@ -46,16 +44,16 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _frequency = akp(220);    
-        _amplitude = akp(1);    
-        _stickHardness = akp(0.5);    
-        _strikePosition = akp(0.5);    
+        _frequency = akp(220);
+        _amplitude = akp(1);
+        _stickHardness = akp(0.5);
+        _strikePosition = akp(0.5);
         _vibratoShapeTable = [AKManager standardSineTable];
-        
-        _vibratoFrequency = akp(0);    
-        _vibratoAmplitude = akp(0);    
-        _doubleStrikePercentage = akp(40);    
-        _tripleStrikePercentage = akp(20);    
+    
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _doubleStrikePercentage = akp(40);
+        _tripleStrikePercentage = akp(20);
     }
     return self;
 }
@@ -77,7 +75,7 @@
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
     _strikePosition = strikePosition;
 }
-- (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable {
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
 }
 - (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
@@ -94,37 +92,64 @@
 }
 
 - (NSString *)stringForCSD {
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
     // Constant Values  
-    AKConstant *_maximumDuration = akp(1);
-    
-    
     NSString *file;
+    AKSoundFileTable *fileTable;
+    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+
     if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
         file = [[AKManager sharedManager] fullPathToAudioKit];
-        file = [file stringByAppendingPathComponent:@"AudioKit/Operations/Signal Generators/Physical Models/Marimba/marmstk1.wav"];
+        file = [file stringByAppendingPathComponent:@"AudioKit/Libraries/Sound Files/marmstk1.wav"];
     } else {
         file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
     }
-    NSLog(@"file %@", file);
     AKSoundFileTable *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+    [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
+            
+    AKConstant *_maximumDuration = akp(1);        
+    [csdString appendFormat:@"%@ marimba ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    if ([_frequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _frequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+    }
+
+    [csdString appendFormat:@"%@, ", _stickHardness];
     
-    return [NSString stringWithFormat:
-            @"%@\n"
-            @"%@ marimba AKControl(%@), AKControl(%@), %@, %@, %@, AKControl(%@), AKControl(%@), %@, %@, %@, %@",
-            [_strikeImpulseTable stringForCSD],
-            self,
-            _amplitude,
-            _frequency,
-            _stickHardness,
-            _strikePosition,
-            _strikeImpulseTable,
-            _vibratoFrequency,
-            _vibratoAmplitude,
-            _vibratoShapeTable,
-            _maximumDuration,
-            _doubleStrikePercentage,
-            _tripleStrikePercentage];
+    [csdString appendFormat:@"%@, ", _strikePosition];
+    
+    [csdString appendFormat:@"%@, ", _strikeImpulseTable];
+    
+    if ([_vibratoFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _vibratoFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
+    }
+
+    if ([_vibratoAmplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _vibratoAmplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
+    }
+
+    [csdString appendFormat:@"%@, ", _vibratoShapeTable];
+    
+    [csdString appendFormat:@"%@, ", _maximumDuration];
+    
+    [csdString appendFormat:@"%@, ", _doubleStrikePercentage];
+    
+    [csdString appendFormat:@"%@", _tripleStrikePercentage];
+    return csdString;
 }
 
 @end

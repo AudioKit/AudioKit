@@ -2,8 +2,7 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
-//  Customized by Aurelius Prochazka on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibes:
@@ -12,7 +11,6 @@
 
 #import "AKVibes.h"
 #import "AKManager.h"
-#import "AKSoundFileTable.h"
 
 @implementation AKVibes
 
@@ -20,7 +18,7 @@
                         amplitude:(AKParameter *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                tremoloShapeTable:(AKFTable *)tremoloShapeTable
+                tremoloShapeTable:(AKFunctionTable *)tremoloShapeTable
                  tremoloFrequency:(AKParameter *)tremoloFrequency
                  tremoloAmplitude:(AKParameter *)tremoloAmplitude
 {
@@ -42,14 +40,14 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _frequency = akp(440);    
-        _amplitude = akp(1.0);    
-        _stickHardness = akp(0.5);    
-        _strikePosition = akp(0.2);    
+        _frequency = akp(440);
+        _amplitude = akp(1.0);
+        _stickHardness = akp(0.5);
+        _strikePosition = akp(0.2);
         _tremoloShapeTable = [AKManager standardSineTable];
-        
-        _tremoloFrequency = akp(0);    
-        _tremoloAmplitude = akp(0);    
+    
+        _tremoloFrequency = akp(0);
+        _tremoloAmplitude = akp(0);
     }
     return self;
 }
@@ -71,7 +69,7 @@
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
     _strikePosition = strikePosition;
 }
-- (void)setOptionalTremoloShapeTable:(AKFTable *)tremoloShapeTable {
+- (void)setOptionalTremoloShapeTable:(AKFunctionTable *)tremoloShapeTable {
     _tremoloShapeTable = tremoloShapeTable;
 }
 - (void)setOptionalTremoloFrequency:(AKParameter *)tremoloFrequency {
@@ -82,35 +80,60 @@
 }
 
 - (NSString *)stringForCSD {
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    // Constant Values  
     NSString *file;
+    AKSoundFileTable *fileTable;
+    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+
     if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
         file = [[AKManager sharedManager] fullPathToAudioKit];
-        file = [file stringByAppendingPathComponent:@"AudioKit/Operations/Signal Generators/Physical Models/Marimba/marmstk1.wav"];
+        file = [file stringByAppendingPathComponent:@"AudioKit/Libraries/Sound Files/marmstk1.wav"];
     } else {
         file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
     }
-    NSLog(@"file %@", file);
     AKSoundFileTable *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
-
-    AKSoundFileTable *fileTable;
-    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+    [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
             
     AKConstant *_maximumDuration = akp(1);        
-    return [NSString stringWithFormat:
-            @"%@\n"
-            @"%@ vibes AKControl(%@), AKControl(%@), %@, %@, %@, AKControl(%@), AKControl(%@), %@, %@",
-            [_strikeImpulseTable stringForCSD],
-            self,
-            _amplitude,
-            _frequency,
-            _stickHardness,
-            _strikePosition,
-            _strikeImpulseTable,
-            _tremoloFrequency,
-            _tremoloAmplitude,
-            _tremoloShapeTable,
-            _maximumDuration];
+    [csdString appendFormat:@"%@ vibes ", self];
+
+    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _amplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+    }
+
+    if ([_frequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _frequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+    }
+
+    [csdString appendFormat:@"%@, ", _stickHardness];
+    
+    [csdString appendFormat:@"%@, ", _strikePosition];
+    
+    [csdString appendFormat:@"%@, ", _strikeImpulseTable];
+    
+    if ([_tremoloFrequency isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _tremoloFrequency];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _tremoloFrequency];
+    }
+
+    if ([_tremoloAmplitude isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _tremoloAmplitude];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _tremoloAmplitude];
+    }
+
+    [csdString appendFormat:@"%@, ", _tremoloShapeTable];
+    
+    [csdString appendFormat:@"%@", _maximumDuration];
+    return csdString;
 }
 
 @end
