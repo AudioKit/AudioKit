@@ -31,7 +31,7 @@ class Processor : AKInstrument {
      init(audioSource: AKAudio) {
         super.init()
 
-        let operation = AKFlatFrequencyResponseReverb(audioSource: audioSource)
+        let operation = AKFlatFrequencyResponseReverb(input: audioSource)
 
         connect(operation)
 

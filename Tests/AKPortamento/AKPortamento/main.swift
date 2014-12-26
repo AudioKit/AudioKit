@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
         frequencyShifter.frequency = 0.25.ak
         connect(frequencyShifter)
 
-        let operation = AKPortamento(controlSource: frequencyShifter)
+        let operation = AKPortamento(input: frequencyShifter)
         connect(operation)
         
         let sine = AKOscillator()

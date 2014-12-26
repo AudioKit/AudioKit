@@ -32,7 +32,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let operation = AKBallWithinTheBoxReverb(audioSource: audioSource)
+        let operation = AKBallWithinTheBoxReverb(input: audioSource)
         
         connect(operation)
         

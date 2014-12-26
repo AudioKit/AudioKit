@@ -33,7 +33,7 @@ class Processor : AKInstrument {
         let line = AKLinearControl(firstPoint: 5000.ak, secondPoint: 0.ak, durationBetweenPoints: 11.ak)
         connect(line)
         
-        let operation = AKHighPassButterworthFilter(audioSource: audioSource)
+        let operation = AKHighPassButterworthFilter(input: audioSource)
         operation.cutoffFrequency = line
         connect(operation)
         

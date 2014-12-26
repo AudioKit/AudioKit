@@ -36,7 +36,7 @@ class Processor : AKInstrument {
         let line2 = AKLinearControl(firstPoint: 25.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
         connect(line2)
 
-        let operation = AKBandPassButterworthFilter(audioSource: audioSource)
+        let operation = AKBandPassButterworthFilter(input: audioSource)
         operation.centerFrequency = line
         operation.bandwidth = line2
         connect(operation)

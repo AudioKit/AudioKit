@@ -33,7 +33,7 @@ class Processor : AKInstrument {
         let line = AKLine(firstPoint: 100.ak, secondPoint: 2000.ak, durationBetweenPoints: 11.ak)
         connect(line)
         
-        let operation = AKVariableDelay(audioSource: audioSource, delayTime: line)
+        let operation = AKVariableDelay(input: audioSource, delayTime: line)
         connect(operation)
         
         let mix = AKMixedAudio(signal1: audioSource, signal2: operation, balance: 0.5.ak)

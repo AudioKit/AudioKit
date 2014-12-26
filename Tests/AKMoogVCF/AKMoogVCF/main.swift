@@ -35,7 +35,7 @@ class Processor : AKInstrument {
         let line = AKLine(firstPoint: 200.ak, secondPoint: 4000.ak, durationBetweenPoints: 11.ak)
         connect(line)
         
-        let operation = AKMoogVCF(audioSource: audioSource)
+        let operation = AKMoogVCF(input: audioSource)
         operation.cutoffFrequency = line
         connect(operation)
         
