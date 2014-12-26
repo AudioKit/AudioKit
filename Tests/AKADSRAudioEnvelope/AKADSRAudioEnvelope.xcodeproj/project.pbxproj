@@ -452,7 +452,7 @@
 		C47913D81A29352F00D9807B /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C47913D91A29352F00D9807B /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C47913DA1A29352F00D9807B /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
-		C4A396AF1A213BEA00E8FB4D /* AKVariableDelay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AKVariableDelay; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4A396AF1A213BEA00E8FB4D /* AKADSRAudioEnvelope */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AKADSRAudioEnvelope; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A396B21A213BEA00E8FB4D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C4A398D51A213EC600E8FB4D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1095,7 +1095,7 @@
 			isa = PBXGroup;
 			children = (
 				C47912681A29352F00D9807B /* AudioKit */,
-				C4A396B11A213BEA00E8FB4D /* AKVariableDelay */,
+				C4A396B11A213BEA00E8FB4D /* AKADSRAudioEnvelope */,
 				C4A396B01A213BEA00E8FB4D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1103,26 +1103,26 @@
 		C4A396B01A213BEA00E8FB4D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4A396AF1A213BEA00E8FB4D /* AKVariableDelay */,
+				C4A396AF1A213BEA00E8FB4D /* AKADSRAudioEnvelope */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C4A396B11A213BEA00E8FB4D /* AKVariableDelay */ = {
+		C4A396B11A213BEA00E8FB4D /* AKADSRAudioEnvelope */ = {
 			isa = PBXGroup;
 			children = (
 				C4A396B21A213BEA00E8FB4D /* main.swift */,
 				C4A398D51A213EC600E8FB4D /* Bridging-Header.h */,
 			);
-			path = AKVariableDelay;
+			path = AKADSRAudioEnvelope;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4A396AE1A213BEA00E8FB4D /* AKVariableDelay */ = {
+		C4A396AE1A213BEA00E8FB4D /* AKADSRAudioEnvelope */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKVariableDelay" */;
+			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKADSRAudioEnvelope" */;
 			buildPhases = (
 				C4A396AB1A213BEA00E8FB4D /* Sources */,
 				C4A396AC1A213BEA00E8FB4D /* Frameworks */,
@@ -1132,9 +1132,9 @@
 			);
 			dependencies = (
 			);
-			name = AKVariableDelay;
-			productName = AKVariableDelay;
-			productReference = C4A396AF1A213BEA00E8FB4D /* AKVariableDelay */;
+			name = AKADSRAudioEnvelope;
+			productName = AKADSRAudioEnvelope;
+			productReference = C4A396AF1A213BEA00E8FB4D /* AKADSRAudioEnvelope */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -1151,7 +1151,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKVariableDelay" */;
+			buildConfigurationList = C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKADSRAudioEnvelope" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1163,7 +1163,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C4A396AE1A213BEA00E8FB4D /* AKVariableDelay */,
+				C4A396AE1A213BEA00E8FB4D /* AKADSRAudioEnvelope */,
 			);
 		};
 /* End PBXProject section */
@@ -1410,7 +1410,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKVariableDelay/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKADSRAudioEnvelope/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1429,14 +1429,14 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKVariableDelay/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AKADSRAudioEnvelope/Bridging-Header.h";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKVariableDelay" */ = {
+		C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AKADSRAudioEnvelope" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B41A213BEA00E8FB4D /* Debug */,
@@ -1445,7 +1445,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKVariableDelay" */ = {
+		C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AKADSRAudioEnvelope" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B71A213BEA00E8FB4D /* Debug */,
