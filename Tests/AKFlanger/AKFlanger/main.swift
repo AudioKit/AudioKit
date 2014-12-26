@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/21/14.
-//  Customized by Nick Arner on 12/21/14.
+//  Customized by Nick Arner on 12/26/14.
 //
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
@@ -16,12 +16,16 @@ class Instrument : AKInstrument {
     
     override init() {
         super.init()
+        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
         
-        let source = AKFMOscillator()
-        connect(source)
-    
+        let audio = AKFileInput(filename: filename)
+        connect(audio)
+        
+        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        connect(mono)
+        
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:source)
+        assignOutput(auxilliaryOutput, to:mono)
     }
 }
 
@@ -30,14 +34,14 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line1 = AKLine(firstPoint: 0.ak, secondPoint: 0.08.ak, durationBetweenPoints: 11.ak)
-        connect(line1)
+        let delayTime = AKLine(firstPoint: 0.ak, secondPoint: 0.1.ak, durationBetweenPoints: 11.ak)
+        connect(delayTime)
         
-        let line2 = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
-        connect(line2)
+        let feedback = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        connect(feedback)
 
-        let operation = AKFlanger(input: audioSource, delayTime:line1)
-        operation.feedback = line2
+        let operation = AKFlanger(input: audioSource, delayTime:delayTime)
+        operation.feedback = feedback
         connect(operation)
         
         let mix = AKMixedAudio(signal1: audioSource, signal2: operation, balance: 0.5.ak)
