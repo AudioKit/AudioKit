@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/19/14.
-//  Customized by Nick Arner on 12/19/14.
+//  Customized by Nick Arner on 12/26/14.
 //
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
@@ -34,11 +34,11 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line = AKLinearControl(firstPoint: 1.ak, secondPoint: 4000.ak, durationBetweenPoints: 11.ak)
-        connect(line)
+        let cutoffFrequency = AKLinearControl(firstPoint: 1.ak, secondPoint: 4000.ak, durationBetweenPoints: 11.ak)
+        connect(cutoffFrequency)
         
         let operation = AKHighPassFilter(input: audioSource)
-        operation.cutoffFrequency = line
+        operation.cutoffFrequency = cutoffFrequency
         connect(operation)
         
         connect(AKAudioOutput(audioSource:operation))
