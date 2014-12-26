@@ -37,7 +37,7 @@
 
         AKReverb *reverb;
         reverb = [[AKReverb alloc] initWithStereoAudioSource:fileIn
-                                               feedbackLevel:_reverbAmount
+                                                    feedback:_reverbAmount
                                              cutoffFrequency:akp(12000)];
         [self connect:reverb];
 

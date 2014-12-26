@@ -34,9 +34,10 @@
         [self connect:oscil];
         
         AKReverb *reverb;
-        reverb = [[AKReverb alloc] initWithAudioSource:oscil
-                                         feedbackLevel:akp(0.85)
-                                       cutoffFrequency:akp(12000)];
+        reverb = [[AKReverb alloc] initWithAudioSourceLeftChannel:oscil
+                                          audioSourceRightChannel:oscil
+                                                         feedback:akp(0.85)
+                                                  cutoffFrequency:akp(12000)];
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================

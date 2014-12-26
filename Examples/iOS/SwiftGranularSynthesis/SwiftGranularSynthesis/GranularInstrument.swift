@@ -37,8 +37,8 @@ class GranularSynth: AKInstrument
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", fileTable.length()))
         
-        let grainTexture =  AKGranularSynthesisTexture (grainFTable: fileTable,
-                                                        windowFTable: hamming,
+        let grainTexture =  AKGranularSynthesisTexture (grainFunctionTable: fileTable,
+                                                        windowFunctionTable: hamming,
                                                         maximumGrainDuration: 0.05.ak,
                                                         averageGrainDuration: averageGrainDuration,
                                                         maximumFrequencyDeviation: granularFrequencyDeviation,

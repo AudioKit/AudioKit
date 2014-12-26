@@ -26,10 +26,10 @@
         // INSTRUMENT DEFINITION ===============================================
         
         AKSineTable *sineTable = [[AKSineTable alloc] init];
-        [self addFTable:sineTable];
+        [self addFunctionTable:sineTable];
         
         AKFMOscillator *fmOscillator;
-        fmOscillator = [[AKFMOscillator alloc] initWithFTable:sineTable
+        fmOscillator = [[AKFMOscillator alloc] initWithFunctionTable:sineTable
                                                 baseFrequency:note.frequency
                                             carrierMultiplier:[_toneColor scaledBy:akp(20)]
                                          modulatingMultiplier:[_toneColor scaledBy:akp(12)]

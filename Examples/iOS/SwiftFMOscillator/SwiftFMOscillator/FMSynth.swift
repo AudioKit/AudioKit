@@ -28,10 +28,10 @@ class FMSynth: AKInstrument {
         addProperty(modulationIndex)
         
         let sine = AKSineTable()
-        addFTable(sine)
+        addFunctionTable(sine)
 
         let fmOscillator = AKFMOscillator(
-            FTable: sine,
+            functionTable: sine,
             baseFrequency: frequency,
             carrierMultiplier: carrierMultiplier,
             modulatingMultiplier: modulatingMultiplier,
