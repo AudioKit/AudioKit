@@ -3,7 +3,6 @@
 //  AudioKit
 //
 //  Auto-generated on 12/25/14.
-//  Customized by Aurelius Prochazka on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mandol:
@@ -12,7 +11,6 @@
 
 #import "AKMandolin.h"
 #import "AKManager.h"
-#import "AKSoundFileTable.h"
 
 @implementation AKMandolin
 
@@ -77,17 +75,21 @@
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    // Constant Values  
     NSString *file;
+    AKSoundFileTable *fileTable;
+    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+
     if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
         file = [[AKManager sharedManager] fullPathToAudioKit];
-        file = [file stringByAppendingPathComponent:@"AudioKit/Operations/Signal Generators/Physical Models/Mandolin/mandpluk.aif"];
+        file = [file stringByAppendingPathComponent:@"AudioKit/Libraries/Sound Files/mandpluk.aif"];
     } else {
         file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
     }
     AKSoundFileTable *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
     [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
-    
+            
     [csdString appendFormat:@"%@ mandol ", self];
 
     if ([_amplitude isKindOfClass:[AKControl class]] ) {

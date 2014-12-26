@@ -2,7 +2,7 @@
 //  AKMarimba.h
 //  AudioKit
 //
-//  Auto-generated on 12/23/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -29,7 +29,7 @@
                         amplitude:(AKParameter *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                vibratoShapeTable:(AKFTable *)vibratoShapeTable
+                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
            doubleStrikePercentage:(AKConstant *)doubleStrikePercentage
@@ -71,11 +71,11 @@
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition;
 
 /// Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
-@property AKFTable *vibratoShapeTable;
+@property AKFunctionTable *vibratoShapeTable;
 
 /// Set an optional vibrato shape table
 /// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
-- (void)setOptionalVibratoShapeTable:(AKFTable *)vibratoShapeTable;
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable;
 
 /// Frequency of vibrato in Hertz. Suggested range is 0 to 12 [Default Value: 0]
 @property AKParameter *vibratoFrequency;
