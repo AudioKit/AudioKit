@@ -15,15 +15,15 @@
 @interface AKTableValueControl : AKControl
 
 /// Initialize the opcode as an audio operation.
-/// @param fTable Function table read the data from.
+/// @param functionTable Function table read the data from.
 /// @param index  Indexing Parameter.
-- (instancetype)initWithFTable:(AKConstant *)fTable
-                       atIndex:(AKControl *)index;
+- (instancetype)initWithFunctionTable:(AKConstant *)functionTable
+                              atIndex:(AKControl *)index;
 
 /// Normalize data to a maximum of 1.
 - (void)normalize;
 
-/// Wrap around the fTable data for out of range indices.
+/// Wrap around the functionTable data for out of range indices.
 - (void)wrap;
 
 /// Set the offset amount.

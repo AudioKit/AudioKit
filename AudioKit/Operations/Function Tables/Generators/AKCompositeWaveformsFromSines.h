@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Adam Boulanger. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
 /** Generates composite waveforms made up of weighted sums of sinusoids.
  */
 
-@interface AKCompositeWaveformsFromSines : AKFTable
+@interface AKCompositeWaveformsFromSines : AKFunctionTable
 
 /// Instantiates a composite waveform of weighted sinusoids from separate arrays describing parital properties.  Arrays must be equal in length.
 /// @param tableSize    Number of points in the table. Must be a power of 2 or power-of-2 plus 1.

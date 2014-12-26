@@ -13,13 +13,13 @@
 - (instancetype)init;
 {
     AKArray *params = [AKArray arrayFromConstants: akpi(1), nil];
-    return [self initWithType:AKFTableTypeSines size:4096 parameters:params];
+    return [self initWithType:AKFunctionTableTypeSines size:4096 parameters:params];
 }
 
 - (instancetype)initWithSize:(int)size
             partialStrengths:(AKArray *)partialStrengthsArray
 {
-    return [self initWithType:AKFTableTypeSines
+    return [self initWithType:AKFunctionTableTypeSines
                          size:size
                    parameters:partialStrengthsArray];
 }

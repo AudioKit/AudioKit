@@ -34,7 +34,7 @@
         }
         [parameters setConstants:temp];
     }
-    return [self initWithType:AKFTableTypeCompositeWaveformsFromSines
+    return [self initWithType:AKFunctionTableTypeCompositeWaveformsFromSines
                          size:tableSize
                    parameters:parameters];
 }

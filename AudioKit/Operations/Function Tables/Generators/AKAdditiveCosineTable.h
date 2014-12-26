@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
 /** Generates an additive set of cosine partials
 
  This table generates an additive set of cosine partials, in the manner of the AKAdditiveCosines operation
  */
 
-@interface AKAdditiveCosineTable : AKFTable
+@interface AKAdditiveCosineTable : AKFunctionTable
 
 /// Instantiates the additive cosine table with all values defined
 /// @param size Number of points in the table.

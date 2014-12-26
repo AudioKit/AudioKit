@@ -17,12 +17,12 @@
     BOOL wrapData;
 }
 
-- (instancetype)initWithFTable:(AKConstant *)fTable
-                       atIndex:(AKControl *)index
+- (instancetype)initWithFunctionTable:(AKConstant *)functionTable
+                              atIndex:(AKControl *)index
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifn  = fTable;
+        ifn  = functionTable;
         normalizeResult = NO;
         ixoff = akpi(0);
         wrapData = NO;

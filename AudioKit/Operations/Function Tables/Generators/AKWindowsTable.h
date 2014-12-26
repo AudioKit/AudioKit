@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Adam Boulanger. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 #import "AKTypes.h"
 
 /** Generates functions of different windows. These windows are usually used for
@@ -25,7 +25,7 @@
  9. Sync
  
  */
-@interface AKWindowsTable : AKFTable
+@interface AKWindowsTable : AKFunctionTable
 
 /// Instantiates the window function table.
 /// @param windowType Type of window to generate.

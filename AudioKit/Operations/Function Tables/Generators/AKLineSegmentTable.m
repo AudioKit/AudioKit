@@ -15,7 +15,7 @@
 - (instancetype)initWithSize:(int)tableSize
             valueLengthPairs:(AKArray *)valueLengthPairs
 {
-    return [self initWithType:AKFTableTypeStraightLines
+    return [self initWithType:AKFunctionTableTypeStraightLines
                          size:tableSize
                    parameters:valueLengthPairs];
 }
@@ -32,7 +32,7 @@
 - (instancetype)initWithSize:(int)tableSize
                  breakpoints:(AKArray *)breakpoints;
 {
-    return [self initWithType:AKFTableTypeStraightLinesFromBreakpoints
+    return [self initWithType:AKFunctionTableTypeStraightLinesFromBreakpoints
                          size:tableSize
                    parameters:breakpoints];
 }

@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
 /** Generates tables of different random distributions.
  */
 
-@interface AKRandomDistributionTable : AKFTable
+@interface AKRandomDistributionTable : AKFunctionTable
 
 /// Create a random distribution table
 /// @param distributionType Type of distribution to use (note that Beta and Weibull use their own init methods).

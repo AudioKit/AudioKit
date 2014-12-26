@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
 /** Generates composite waveforms made up of weighted sums of simple sinusoids.
  */
-@interface AKSineTable : AKFTable
+@interface AKSineTable : AKFunctionTable
 
 /// Creates a pure sine table with a default size of 4096.
 - (instancetype)init;

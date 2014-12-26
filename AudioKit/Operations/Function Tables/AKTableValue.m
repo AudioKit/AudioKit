@@ -1,32 +1,32 @@
 //
-//  AKTableValueConstant.m
+//  AKTableValue.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/11/12.
+//  Created by Aurelius Prochazka on 7/2/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKTableValueConstant.h"
+#import "AKTableValue.h"
 
-@implementation AKTableValueConstant
+@implementation AKTableValue
 {
     AKConstant  *ifn;
-    AKParameter *indx;
+    AKAudio *andx;
     AKParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
 }
 
-- (instancetype)initWithFTable:(AKConstant *)fTable
-                       atIndex:(AKConstant *)index
+- (instancetype)initWithFunctionTable:(AKConstant *)functionTable
+                              atIndex:(AKAudio *)index
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifn  = fTable;
+        ifn  = functionTable;
         normalizeResult = NO;
         ixoff = akpi(0);
         wrapData = NO;
-        indx = index;
+        andx = index;
     }
     return self;
     
@@ -50,7 +50,7 @@
     int iwrap = wrapData ? 0:1;
     return [NSString stringWithFormat:
             @"%@ tablei %@, %@, %i, %@, %i",
-            self, indx, ifn, ixmode, ixoff, iwrap];
+            self, andx, ifn, ixmode, ixoff, iwrap];
 }
 
 @end

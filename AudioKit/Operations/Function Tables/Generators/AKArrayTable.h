@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
 /** Constructs a function table out of an NSArray.  If size is unspecififed,
  the array count is used, otherwise if isze is greater than the array count, 
  the rest of the table will be filled with zeroes.
  */
 
-@interface AKArrayTable : AKFTable
+@interface AKArrayTable : AKFunctionTable
 
 /// Create a function table from a parameter array
 /// @param parameterArray The array to be stored in the function table.
