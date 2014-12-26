@@ -22,7 +22,7 @@
 
 /// Instantiates the mp3 file input with default values
 /// @param filename Input MP3 Filename.
-+ (instancetype)stereoaudioWithFilename:(AKConstant *)filename;
++ (instancetype)stereoAudioWithFilename:(AKConstant *)filename;
 
 
 
