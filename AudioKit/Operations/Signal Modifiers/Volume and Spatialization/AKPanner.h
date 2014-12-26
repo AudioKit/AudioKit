@@ -16,20 +16,20 @@
 
 @interface AKPanner : AKStereoAudio
 /// Instantiates the panner with all values
-/// @param audioSource Source signal. [Default Value: ]
+/// @param input Source signal. [Default Value: ]
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                                pan:(AKParameter *)pan
-                          panMethod:(AKPanMethod)panMethod;
+- (instancetype)initWithInput:(AKParameter *)input
+                          pan:(AKParameter *)pan
+                    panMethod:(AKPanMethod)panMethod;
 
 /// Instantiates the panner with default values
-/// @param audioSource Source signal.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Source signal.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the panner with default values
-/// @param audioSource Source signal.
-+ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Source signal.
++ (instancetype)stereoaudioWithInput:(AKParameter *)input;
 
 /// From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 @property AKParameter *pan;

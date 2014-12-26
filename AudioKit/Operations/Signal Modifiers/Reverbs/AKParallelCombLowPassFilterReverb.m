@@ -14,27 +14,27 @@
 
 @implementation AKParallelCombLowPassFilterReverb
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                           duration:(AKParameter *)duration
-           highFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity
+- (instancetype)initWithInput:(AKParameter *)input
+                     duration:(AKParameter *)duration
+     highFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _duration = duration;
         _highFrequencyDiffusivity = highFrequencyDiffusivity;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _duration = akp(3);
         _highFrequencyDiffusivity = akp(0.5);
@@ -42,9 +42,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKParallelCombLowPassFilterReverb alloc] initWithAudioSource:audioSource];
+    return [[AKParallelCombLowPassFilterReverb alloc] initWithInput:input];
 }
 
 - (void)setOptionalDuration:(AKParameter *)duration {
@@ -59,10 +59,10 @@
 
     [csdString appendFormat:@"%@ nreverb ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_duration isKindOfClass:[AKControl class]] ) {

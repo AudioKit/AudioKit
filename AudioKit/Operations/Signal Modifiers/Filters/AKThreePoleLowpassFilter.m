@@ -14,17 +14,17 @@
 
 @implementation AKThreePoleLowpassFilter
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                         distortion:(AKParameter *)distortion
-                    cutoffFrequency:(AKParameter *)cutoffFrequency
-                          resonance:(AKParameter *)resonance
+- (instancetype)initWithInput:(AKParameter *)input
+                   distortion:(AKParameter *)distortion
+              cutoffFrequency:(AKParameter *)cutoffFrequency
+                    resonance:(AKParameter *)resonance
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _distortion = distortion;
         _cutoffFrequency = cutoffFrequency;
         _resonance = resonance;
@@ -32,11 +32,11 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _distortion = akp(0.5);
         _cutoffFrequency = akp(1500);
@@ -45,9 +45,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKThreePoleLowpassFilter alloc] initWithAudioSource:audioSource];
+    return [[AKThreePoleLowpassFilter alloc] initWithInput:input];
 }
 
 - (void)setOptionalDistortion:(AKParameter *)distortion {
@@ -65,10 +65,10 @@
 
     [csdString appendFormat:@"%@ lpf18 ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_cutoffFrequency isKindOfClass:[AKControl class]] ) {

@@ -16,20 +16,20 @@
 
 @interface AKParallelCombLowPassFilterReverb : AKAudio
 /// Instantiates the parallel comb low pass filter reverb with all values
-/// @param audioSource Audio signal to be reverberated. [Default Value: ]
+/// @param input Audio signal to be reverberated. [Default Value: ]
 /// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 3]
 /// @param highFrequencyDiffusivity A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster than lower ones. Updated at Control-rate. [Default Value: 0.5]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                           duration:(AKParameter *)duration
-           highFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity;
+- (instancetype)initWithInput:(AKParameter *)input
+                     duration:(AKParameter *)duration
+     highFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity;
 
 /// Instantiates the parallel comb low pass filter reverb with default values
-/// @param audioSource Audio signal to be reverberated.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Audio signal to be reverberated.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the parallel comb low pass filter reverb with default values
-/// @param audioSource Audio signal to be reverberated.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Audio signal to be reverberated.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Length of reverbation in seconds. [Default Value: 3]
 @property AKParameter *duration;

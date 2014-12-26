@@ -1,5 +1,5 @@
 //
-//  AKFTableLooper.m
+//  AKFunctionTableLooper.m
 //  AudioKit
 //
 //  Auto-generated on 11/4/12.
@@ -9,11 +9,11 @@
 //  http://www.csounds.com/manual/html/flooper.html
 //
 
-#import "AKFTableLooper.h"
+#import "AKFunctionTableLooper.h"
 
-@implementation AKFTableLooper
+@implementation AKFunctionTableLooper
 {
-    AKFTable *ifn;
+    AKFunctionTable *ifn;
     AKConstant *istart;
     AKConstant *idur;
     AKConstant *ifad;
@@ -21,16 +21,16 @@
     AKControl *kamp;
 }
 
-- (instancetype)initWithFTable:(AKFTable *)fTable
-              startingPosition:(AKConstant *)startingPosition
-                  loopDuration:(AKConstant *)loopDuration
-             crossfadeDuration:(AKConstant *)crossfadeDuration
-            transpositionRatio:(AKControl *)transpositionRatio
-                     amplitude:(AKControl *)amplitude
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                     startingPosition:(AKConstant *)startingPosition
+                         loopDuration:(AKConstant *)loopDuration
+                    crossfadeDuration:(AKConstant *)crossfadeDuration
+                   transpositionRatio:(AKControl *)transpositionRatio
+                            amplitude:(AKControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifn = fTable;
+        ifn = functionTable;
         istart = startingPosition;
         idur = loopDuration;
         ifad = crossfadeDuration;

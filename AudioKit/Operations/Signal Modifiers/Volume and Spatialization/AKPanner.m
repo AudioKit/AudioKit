@@ -14,27 +14,27 @@
 
 @implementation AKPanner
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                                pan:(AKParameter *)pan
-                          panMethod:(AKPanMethod)panMethod
+- (instancetype)initWithInput:(AKParameter *)input
+                          pan:(AKParameter *)pan
+                    panMethod:(AKPanMethod)panMethod
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _pan = pan;
         _panMethod = panMethod;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _pan = akp(0);
         _panMethod = AKPanMethodEqualPower;
@@ -42,9 +42,9 @@
     return self;
 }
 
-+ (instancetype)stereoaudioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)stereoaudioWithInput:(AKParameter *)input
 {
-    return [[AKPanner alloc] initWithAudioSource:audioSource];
+    return [[AKPanner alloc] initWithInput:input];
 }
 
 - (void)setOptionalPan:(AKParameter *)pan {
@@ -59,10 +59,10 @@
 
     [csdString appendFormat:@"%@ pan2 ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     [csdString appendFormat:@"0.5 * (%@+1), ", _pan];

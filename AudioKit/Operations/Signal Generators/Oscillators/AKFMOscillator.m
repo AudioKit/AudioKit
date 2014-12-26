@@ -14,17 +14,17 @@
 
 @implementation AKFMOscillator
 
-- (instancetype)initWithFTable:(AKFTable *)fTable
-                 baseFrequency:(AKParameter *)baseFrequency
-             carrierMultiplier:(AKParameter *)carrierMultiplier
-          modulatingMultiplier:(AKParameter *)modulatingMultiplier
-               modulationIndex:(AKParameter *)modulationIndex
-                     amplitude:(AKParameter *)amplitude
-                         phase:(AKConstant *)phase
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                        baseFrequency:(AKParameter *)baseFrequency
+                    carrierMultiplier:(AKParameter *)carrierMultiplier
+                 modulatingMultiplier:(AKParameter *)modulatingMultiplier
+                      modulationIndex:(AKParameter *)modulationIndex
+                            amplitude:(AKParameter *)amplitude
+                                phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _fTable = fTable;
+        _functionTable = functionTable;
         _baseFrequency = baseFrequency;
         _carrierMultiplier = carrierMultiplier;
         _modulatingMultiplier = modulatingMultiplier;
@@ -40,7 +40,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _fTable = [AKManager standardSineTable];
+        _functionTable = [AKManager standardSineTable];
     
         _baseFrequency = akp(440);
         _carrierMultiplier = akp(1);
@@ -57,8 +57,8 @@
     return [[AKFMOscillator alloc] init];
 }
 
-- (void)setOptionalFTable:(AKFTable *)fTable {
-    _fTable = fTable;
+- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
+    _functionTable = functionTable;
 }
 - (void)setOptionalBaseFrequency:(AKParameter *)baseFrequency {
     _baseFrequency = baseFrequency;
@@ -102,7 +102,7 @@
         [csdString appendFormat:@"AKControl(%@), ", _modulationIndex];
     }
 
-    [csdString appendFormat:@"%@, ", _fTable];
+    [csdString appendFormat:@"%@, ", _functionTable];
     
     [csdString appendFormat:@"%@", _phase];
     return csdString;

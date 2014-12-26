@@ -49,11 +49,11 @@
 }
 
 - (NSString *)stringForCSD {
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_amplitude = akp(1);        
-    NSMutableString *csdString = [[NSMutableString alloc] init];
-
     [csdString appendFormat:@"%@ cabasa ", self];
 
     [csdString appendFormat:@"%@, ", _amplitude];

@@ -14,18 +14,18 @@
 
 @implementation AKDopplerEffect
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
     AKParameter * _sourcePosition;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                     sourcePosition:(AKParameter *)sourcePosition
-                        micPosition:(AKParameter *)micPosition
-          smoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate
+- (instancetype)initWithInput:(AKParameter *)input
+               sourcePosition:(AKParameter *)sourcePosition
+                  micPosition:(AKParameter *)micPosition
+    smoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _sourcePosition = sourcePosition;
         _micPosition = micPosition;
         _smoothingFilterUpdateRate = smoothingFilterUpdateRate;
@@ -33,12 +33,12 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                     sourcePosition:(AKParameter *)sourcePosition
+- (instancetype)initWithInput:(AKParameter *)input
+               sourcePosition:(AKParameter *)sourcePosition
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _sourcePosition = sourcePosition;
         // Default Values
         _micPosition = akp(0);
@@ -47,11 +47,11 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
-                     sourcePosition:(AKParameter *)sourcePosition
++ (instancetype)audioWithInput:(AKParameter *)input
+               sourcePosition:(AKParameter *)sourcePosition
 {
-    return [[AKDopplerEffect alloc] initWithAudioSource:audioSource
-                     sourcePosition:sourcePosition];
+    return [[AKDopplerEffect alloc] initWithInput:input
+               sourcePosition:sourcePosition];
 }
 
 - (void)setOptionalMicPosition:(AKParameter *)micPosition {
@@ -62,16 +62,16 @@
 }
 
 - (NSString *)stringForCSD {
-    // Constant Values  
-    AKConstant *_soundSpeed = akp(340.29);        
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    // Constant Values  
+    AKConstant *_soundSpeed = akp(340.29);        
     [csdString appendFormat:@"%@ doppler ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_sourcePosition isKindOfClass:[AKControl class]] ) {

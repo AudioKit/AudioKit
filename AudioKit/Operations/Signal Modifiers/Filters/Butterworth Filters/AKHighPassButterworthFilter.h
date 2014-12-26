@@ -16,18 +16,18 @@
 
 @interface AKHighPassButterworthFilter : AKAudio
 /// Instantiates the high pass butterworth filter with all values
-/// @param audioSource Input signal to be filtered. [Default Value: ]
+/// @param input Input signal to be filtered. [Default Value: ]
 /// @param cutoffFrequency Cutoff frequency for each of the filters. Updated at Control-rate. [Default Value: 500]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    cutoffFrequency:(AKParameter *)cutoffFrequency;
+- (instancetype)initWithInput:(AKParameter *)input
+              cutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Instantiates the high pass butterworth filter with default values
-/// @param audioSource Input signal to be filtered.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal to be filtered.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass butterworth filter with default values
-/// @param audioSource Input signal to be filtered.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal to be filtered.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Cutoff frequency for each of the filters. [Default Value: 500]
 @property AKParameter *cutoffFrequency;

@@ -55,13 +55,13 @@
 }
 
 - (NSString *)stringForCSD {
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
     // Constant Values  
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1.0);        
     AKConstant *_amplitude = akp(1.0);        
     AKConstant *_dampingFactor = akp(0);        
-    NSMutableString *csdString = [[NSMutableString alloc] init];
-
     [csdString appendFormat:@"%@ guiro ", self];
 
     if ([_amplitude isKindOfClass:[AKControl class]] ) {

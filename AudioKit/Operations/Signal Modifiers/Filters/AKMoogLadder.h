@@ -16,20 +16,20 @@
 
 @interface AKMoogLadder : AKAudio
 /// Instantiates the moog ladder with all values
-/// @param audioSource Input Signal [Default Value: ]
+/// @param input Input signal [Default Value: ]
 /// @param cutoffFrequency Filter cutoff frequency Updated at Control-rate. [Default Value: 100]
 /// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. Updated at Control-rate. [Default Value: 0.5]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    cutoffFrequency:(AKParameter *)cutoffFrequency
-                          resonance:(AKParameter *)resonance;
+- (instancetype)initWithInput:(AKParameter *)input
+              cutoffFrequency:(AKParameter *)cutoffFrequency
+                    resonance:(AKParameter *)resonance;
 
 /// Instantiates the moog ladder with default values
-/// @param audioSource Input Signal
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the moog ladder with default values
-/// @param audioSource Input Signal
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Filter cutoff frequency [Default Value: 100]
 @property AKParameter *cutoffFrequency;

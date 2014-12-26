@@ -16,20 +16,20 @@
 
 @interface AKFlatFrequencyResponseReverb : AKAudio
 /// Instantiates the flat frequency response reverb with all values
-/// @param audioSource The input signal to be reverberated. [Default Value: ]
+/// @param input The input signal to be reverberated. [Default Value: ]
 /// @param reverberationTime The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. Updated at Control-rate. [Default Value: 3]
 /// @param loopTime The loop time in seconds, which determines the “echo density” of the reverberation. [Default Value: 0.1]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                  reverberationTime:(AKParameter *)reverberationTime
-                           loopTime:(AKConstant *)loopTime;
+- (instancetype)initWithInput:(AKParameter *)input
+            reverberationTime:(AKParameter *)reverberationTime
+                     loopTime:(AKConstant *)loopTime;
 
 /// Instantiates the flat frequency response reverb with default values
-/// @param audioSource The input signal to be reverberated.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input The input signal to be reverberated.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the flat frequency response reverb with default values
-/// @param audioSource The input signal to be reverberated.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input The input signal to be reverberated.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// The time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 3]
 @property AKParameter *reverberationTime;

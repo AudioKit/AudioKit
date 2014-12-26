@@ -16,20 +16,20 @@
 
 @interface AKMoogVCF : AKAudio
 /// Instantiates the moog vcf with all values
-/// @param audioSource Input signal. [Default Value: ]
+/// @param input Input signal. [Default Value: ]
 /// @param cutoffFrequency Filter cut-off frequency in Hz. [Default Value: 1000]
 /// @param resonance Amount of resonance. Self-oscillation occurs when this is approximately one. [Default Value: 0.5]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    cutoffFrequency:(AKParameter *)cutoffFrequency
-                          resonance:(AKParameter *)resonance;
+- (instancetype)initWithInput:(AKParameter *)input
+              cutoffFrequency:(AKParameter *)cutoffFrequency
+                    resonance:(AKParameter *)resonance;
 
 /// Instantiates the moog vcf with default values
-/// @param audioSource Input signal.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the moog vcf with default values
-/// @param audioSource Input signal.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input Input signal.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// Filter cut-off frequency in Hz. [Default Value: 1000]
 @property AKParameter *cutoffFrequency;

@@ -14,27 +14,27 @@
 
 @implementation AKFlatFrequencyResponseReverb
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                  reverberationTime:(AKParameter *)reverberationTime
-                           loopTime:(AKConstant *)loopTime
+- (instancetype)initWithInput:(AKParameter *)input
+            reverberationTime:(AKParameter *)reverberationTime
+                     loopTime:(AKConstant *)loopTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _reverberationTime = reverberationTime;
         _loopTime = loopTime;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _reverberationTime = akp(3);
         _loopTime = akp(0.1);
@@ -42,9 +42,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKFlatFrequencyResponseReverb alloc] initWithAudioSource:audioSource];
+    return [[AKFlatFrequencyResponseReverb alloc] initWithInput:input];
 }
 
 - (void)setOptionalReverberationTime:(AKParameter *)reverberationTime {
@@ -59,10 +59,10 @@
 
     [csdString appendFormat:@"%@ alpass ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_reverberationTime isKindOfClass:[AKControl class]] ) {

@@ -16,20 +16,20 @@
 
 @interface AKFMOscillator : AKAudio
 /// Instantiates the fm oscillator with all values
-/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: sine]
+/// @param functionTable Function table to use.  Requires a wrap-around guard point. [Default Value: sine]
 /// @param baseFrequency In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. Updated at Control-rate. [Default Value: 440]
 /// @param carrierMultiplier This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1]
 /// @param modulationIndex This multiplied by the modulating frequency gives the modulation amplitude. Updated at Control-rate. [Default Value: 1]
 /// @param amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
-/// @param phase Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-- (instancetype)initWithFTable:(AKFTable *)fTable
-                 baseFrequency:(AKParameter *)baseFrequency
-             carrierMultiplier:(AKParameter *)carrierMultiplier
-          modulatingMultiplier:(AKParameter *)modulatingMultiplier
-               modulationIndex:(AKParameter *)modulationIndex
-                     amplitude:(AKParameter *)amplitude
-                         phase:(AKConstant *)phase;
+/// @param phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                        baseFrequency:(AKParameter *)baseFrequency
+                    carrierMultiplier:(AKParameter *)carrierMultiplier
+                 modulatingMultiplier:(AKParameter *)modulatingMultiplier
+                      modulationIndex:(AKParameter *)modulationIndex
+                            amplitude:(AKParameter *)amplitude
+                                phase:(AKConstant *)phase;
 
 /// Instantiates the fm oscillator with default values
 - (instancetype)init;
@@ -38,12 +38,12 @@
 + (instancetype)audio;
 
 
-/// fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: sine]
-@property AKFTable *fTable;
+/// Function table to use.  Requires a wrap-around guard point. [Default Value: sine]
+@property AKFunctionTable *functionTable;
 
-/// Set an optional f table
-/// @param fTable fTable, Function table to use.  Requires a wrap-around guard point. [Default Value: sine]
-- (void)setOptionalFTable:(AKFTable *)fTable;
+/// Set an optional function table
+/// @param functionTable Function table to use.  Requires a wrap-around guard point. [Default Value: sine]
+- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable;
 
 /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440]
 @property AKParameter *baseFrequency;
@@ -80,11 +80,11 @@
 /// @param amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
-/// Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
+/// Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
 @property AKConstant *phase;
 
 /// Set an optional phase
-/// @param phase Initial phase of waveform in fTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
+/// @param phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
 - (void)setOptionalPhase:(AKConstant *)phase;
 
 
