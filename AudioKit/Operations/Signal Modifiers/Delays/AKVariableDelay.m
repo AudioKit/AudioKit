@@ -14,29 +14,29 @@
 
 @implementation AKVariableDelay
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
     AKParameter * _delayTime;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                          delayTime:(AKParameter *)delayTime
-                   maximumDelayTime:(AKConstant *)maximumDelayTime
+- (instancetype)initWithInput:(AKParameter *)input
+                    delayTime:(AKParameter *)delayTime
+             maximumDelayTime:(AKConstant *)maximumDelayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _delayTime = delayTime;
         _maximumDelayTime = maximumDelayTime;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                          delayTime:(AKParameter *)delayTime
+- (instancetype)initWithInput:(AKParameter *)input
+                    delayTime:(AKParameter *)delayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _delayTime = delayTime;
         // Default Values
         _maximumDelayTime = akp(2000);
@@ -44,11 +44,11 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
-                          delayTime:(AKParameter *)delayTime
++ (instancetype)audioWithInput:(AKParameter *)input
+                    delayTime:(AKParameter *)delayTime
 {
-    return [[AKVariableDelay alloc] initWithAudioSource:audioSource
-                          delayTime:delayTime];
+    return [[AKVariableDelay alloc] initWithInput:input
+                    delayTime:delayTime];
 }
 
 - (void)setOptionalMaximumDelayTime:(AKConstant *)maximumDelayTime {
@@ -60,10 +60,10 @@
 
     [csdString appendFormat:@"%@ vdelay3 ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_delayTime isKindOfClass:[AKAudio class]] ) {
