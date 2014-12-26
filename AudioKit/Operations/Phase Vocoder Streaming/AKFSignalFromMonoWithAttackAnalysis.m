@@ -10,7 +10,7 @@
 
 @implementation AKFSignalFromMonoWithAttackAnalysis
 {
-    AKFTable *fTable;
+    AKFunctionTable *functionTable;
     
     AKControl *timeScale;
     AKControl *ampScale;
@@ -27,7 +27,7 @@
 }
 
 
-- (instancetype)initWithSoundFile:(AKFTable *)soundFileSource
+- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFileSource
                  timeScalingRatio:(AKControl *)timeScalingRatio
                        pitchRatio:(AKControl *)pitchRatio
 {
@@ -43,7 +43,7 @@
              onsetDecibelThreshold:akpi(1)];
 }
 
-- (instancetype)initWithSoundFile:(AKFTable *)soundFileSource
+- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFileSource
                        timeScaler:(AKControl *)timeScaler
                   amplitudeScaler:(AKControl *)amplitudeScaler
                       pitchScaler:(AKControl *)pitchScaler
@@ -56,7 +56,7 @@
 {
     self = [super initWithString:[self operationName]];
     if( self) {
-        fTable = soundFileSource;
+        functionTable = soundFileSource;
         iFFTSize = fftSize;
         iOverlap = overlap;
         iOffset = tableReadOffset;
@@ -77,7 +77,7 @@
 {
     return[NSString stringWithFormat:
            @"%@ pvstanal %@, %@, %@, %@, %@, %@, %@, %@, %@, %@",
-           self, timeScale, ampScale, pchScale, fTable, attFlag,
+           self, timeScale, ampScale, pchScale, functionTable, attFlag,
            wrapFlag, iOffset, iFFTSize, iOverlap, dbThresh
            ];
 }

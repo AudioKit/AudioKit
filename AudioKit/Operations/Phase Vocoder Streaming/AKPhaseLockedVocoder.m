@@ -21,14 +21,14 @@
     AKConstant *idecim;
 }
 
-- (instancetype)initWithSourceFTable:(AKControl *)sourceFTable
+- (instancetype)initWithFunctionTable:(AKControl *)functionTable
                                 time:(AKAudio *)time
                          scaledPitch:(AKControl *)scaledPitch
                            amplitude:(AKControl *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ktab = sourceFTable;
+        ktab = functionTable;
         atimpt = time;
         kpitch = scaledPitch;
         kamp = amplitude;

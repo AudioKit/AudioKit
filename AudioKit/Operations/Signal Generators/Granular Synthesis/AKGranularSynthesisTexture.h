@@ -17,8 +17,8 @@
 @interface AKGranularSynthesisTexture : AKAudio
 
 /// Instantiates the ranular synthesis texture
-/// @param grainFTable The grain waveform. This can be just a sine wave or a sampled sound.
-/// @param windowFTable The amplitude envelope used for the grains.
+/// @param grainFunctionTable The grain waveform. This can be just a sine wave or a sampled sound.
+/// @param windowFunctionTable The amplitude envelope used for the grains.
 /// @param maximumGrainDuration Maximum grain duration in seconds.
 /// @param averageGrainDuration Average grain duration in seconds.
 /// @param maximumFrequencyDeviation Maximum pitch deviation from grainFrequency in Hz.
@@ -26,8 +26,8 @@
 /// @param maximumAmplitudeDeviation Maximum amplitude deviation from `amplitude`. If it is set to zero then there is no random amplitude for each grain.
 /// @param grainAmplitude Amplitude of each grain.
 /// @param grainDensity Density of grains measured in grains per second. If this is constant then the output is synchronous granular synthesis. If grainDensity has a random element (like added noise), then the result is more like asynchronous granular synthesis.
-- (instancetype)initWithGrainFTable:(AKConstant *)grainFTable
-                       windowFTable:(AKConstant *)windowFTable
+- (instancetype)initWithGrainFunctionTable:(AKConstant *)grainFunctionTable
+                       windowFunctionTable:(AKConstant *)windowFunctionTable
                maximumGrainDuration:(AKConstant *)maximumGrainDuration
                averageGrainDuration:(AKControl *)averageGrainDuration
           maximumFrequencyDeviation:(AKControl *)maximumFrequencyDeviation
