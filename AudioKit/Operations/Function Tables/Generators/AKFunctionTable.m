@@ -1,20 +1,20 @@
 //
-//  AKFTable.m
+//  AKFunctionTable.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 4/12/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
-@implementation AKFTable
+@implementation AKFunctionTable
 {
-    AKFTableType igen;
+    AKFunctionTableType igen;
     AKConstant *output;
 }
 
-- (instancetype)initWithType:(AKFTableType)fTableType
+- (instancetype)initWithType:(AKFunctionTableType)functionTableType
                         size:(int)tableSize
                   parameters:(AKArray *)parameters;
 {
@@ -22,17 +22,17 @@
     if (self) {
         output = [AKConstant globalParameterWithString:[self functionName]];
         _size = tableSize;
-        igen = fTableType;
+        igen = functionTableType;
         _parameters = parameters;
         _isNormalized = NO;
     }
     return self;
 }
 
-- (instancetype)initWithType:(AKFTableType)fTableType
+- (instancetype)initWithType:(AKFunctionTableType)functionTableType
                   parameters:(AKArray *)parameters;
 {
-    return [self initWithType:fTableType size:0 parameters:parameters];
+    return [self initWithType:functionTableType size:0 parameters:parameters];
 }
 
 - (NSString *)functionName
@@ -62,7 +62,7 @@
     return text;
 }
 
-- (NSString *)fTableStringForCSD
+- (NSString *)functionTableStringForCSD
 {
     if (_isNormalized) {
         igen = abs(igen);

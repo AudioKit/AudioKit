@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFTable.h"
+#import "AKFunctionTable.h"
 
 /** Transfers data from a soundfile into a function table.
 
@@ -37,7 +37,7 @@
  
 */
 
-@interface AKSoundFileTable : AKFTable
+@interface AKSoundFileTable : AKFunctionTable
 
 /// Store file with a filename
 /// @param filename Audio file to load.  Most types are supported.

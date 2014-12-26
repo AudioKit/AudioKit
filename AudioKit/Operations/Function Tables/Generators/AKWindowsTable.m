@@ -14,7 +14,7 @@
                      maximum:(float)maximum
                         size:(int)tableSize;
 {
-    return [self initWithType:AKFTableTypeWindows
+    return [self initWithType:AKFunctionTableTypeWindows
                          size:tableSize
                    parameters:[AKArray arrayFromConstants:
                                akpi(windowType),akp(maximum), nil]];
@@ -33,7 +33,7 @@
                                       maximum:(float)maximum
                                          size:(int)tableSize;
 {
-    return [self initWithType:AKFTableTypeWindows
+    return [self initWithType:AKFunctionTableTypeWindows
                          size:tableSize
                    parameters:[AKArray arrayFromConstants:
                                akpi(AKWindowTableTypeGaussian),
@@ -45,7 +45,7 @@
                                    maximum:(float)maximum
                                       size:(int)tableSize
 {
-    return [self initWithType:AKFTableTypeWindows
+    return [self initWithType:AKFunctionTableTypeWindows
                          size:tableSize
                    parameters:[AKArray arrayFromConstants:
                                akpi(AKWindowTableTypeKaiser),

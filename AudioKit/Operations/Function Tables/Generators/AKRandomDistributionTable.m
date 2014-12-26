@@ -20,7 +20,7 @@
                     size:(int)size
                    level:(float)level;
 {
-    return [self initWithType:AKFTableTypeRandomDistributions
+    return [self initWithType:AKFunctionTableTypeRandomDistributions
                          size:size
                    parameters:[AKArray arrayFromConstants:
                                akpi(distributionType), akp(level), nil]];
@@ -31,7 +31,7 @@
                                   sigma:(float)sigma;
 {
     int distributionType = 10;
-    return [self initWithType:AKFTableTypeRandomDistributions
+    return [self initWithType:AKFunctionTableTypeRandomDistributions
                          size:size
                    parameters:[AKArray arrayFromConstants:
                                akpi(distributionType), level, akp(sigma), nil]];
@@ -43,7 +43,7 @@
                                 beta:(float)beta;
 {
     int distributionType = 9;
-    return [self initWithType:AKFTableTypeRandomDistributions
+    return [self initWithType:AKFunctionTableTypeRandomDistributions
                          size:size
                    parameters:[AKArray arrayFromConstants:
                                akpi(distributionType), level, akp(alpha), akp(beta), nil]];
