@@ -51,13 +51,13 @@
       location = "container:"
       name = "OS X Examples">
       <FileRef
-         location = "group:Examples/OSX/MacSwiftConvolution/MacSwiftConvolution.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Examples/OSX/ContinuousControl/ContinuousControl.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/OSX/Convolution/Convolution.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Examples/OSX/MacSwiftConvolution/MacSwiftConvolution.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Examples/OSX/PlayAudioFile/PlayAudioFile.xcodeproj">
