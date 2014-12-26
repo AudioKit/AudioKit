@@ -41,16 +41,16 @@
         // INSTRUMENT DEFINITION ===============================================
         
         AKSineTable *sineTable = [[AKSineTable alloc] init];
-        [self addFTable:sineTable];
+        [self addFunctionTable:sineTable];
         
         AKFMOscillator *fmOscil;
-        fmOscil = [[AKFMOscillator alloc] initWithFTable:sineTable
-                                           baseFrequency:_frequency
-                                       carrierMultiplier:akp(1)
-                                    modulatingMultiplier:_modulation
-                                         modulationIndex:_modIndex
-                                               amplitude:_amplitude
-                                                   phase:akp(0)];
+        fmOscil = [[AKFMOscillator alloc] initWithFunctionTable:sineTable
+                                                  baseFrequency:_frequency
+                                              carrierMultiplier:akp(1)
+                                           modulatingMultiplier:_modulation
+                                                modulationIndex:_modIndex
+                                                      amplitude:_amplitude
+                                                          phase:akp(0)];
         [self connect:fmOscil];
         
         // AUDIO OUTPUT ========================================================

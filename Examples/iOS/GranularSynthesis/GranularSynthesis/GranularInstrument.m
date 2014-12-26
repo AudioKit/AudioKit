@@ -47,27 +47,27 @@
         AKSoundFileTable *fileTable;
         fileTable = [[AKSoundFileTable alloc] initWithFilename:file
                                                      tableSize:16384];
-        [self addFTable:fileTable];
+        [self addFunctionTable:fileTable];
         
-        AKFTable *hamming;
+        AKFunctionTable *hamming;
         hamming = [[AKWindowsTable alloc] initWithType:AKWindowTableTypeHamming
                                                   size:512 ];
-        [self addFTable:hamming];
+        [self addFunctionTable:hamming];
         
         AKConstant *baseFrequency;
         NSString *frequencyMathString = [NSString stringWithFormat:@"44100 / %@", [fileTable length]];
         baseFrequency = [[AKConstant alloc] initWithExpression:frequencyMathString];
         
         AKGranularSynthesisTexture *grainTexture;
-        grainTexture = [[AKGranularSynthesisTexture alloc] initWithGrainFTable:fileTable
-                                                                  windowFTable:hamming
-                                                          maximumGrainDuration:akp(0.05)
-                                                          averageGrainDuration:_averageGrainDuration
-                                                     maximumFrequencyDeviation:_granularFrequencyDeviation
-                                                                grainFrequency:baseFrequency
-                                                     maximumAmplitudeDeviation:akp(0.5)
-                                                                grainAmplitude:_granularAmplitude
-                                                                  grainDensity:_grainDensity];
+        grainTexture = [[AKGranularSynthesisTexture alloc] initWithGrainFunctionTable:fileTable
+                                                                  windowFunctionTable:hamming
+                                                                 maximumGrainDuration:akp(0.05)
+                                                                 averageGrainDuration:_averageGrainDuration
+                                                            maximumFrequencyDeviation:_granularFrequencyDeviation
+                                                                       grainFrequency:baseFrequency
+                                                            maximumAmplitudeDeviation:akp(0.5)
+                                                                       grainAmplitude:_granularAmplitude
+                                                                         grainDensity:_grainDensity];
         [self connect:grainTexture];
         
         // AUDIO OUTPUT ========================================================
