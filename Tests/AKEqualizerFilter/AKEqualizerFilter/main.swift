@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/19/14.
-//  Customized by Nick Arner on 12/19/14.
+//  Customized by Nick Arner on 12/26/14.
 //
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
@@ -17,7 +17,6 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-        //let filename = "CsoundLib64.framework/Sounds/808loop.wav"
         
         let audio = AKFileInput(filename: filename)
         connect(audio)

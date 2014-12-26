@@ -15,14 +15,16 @@ class Instrument : AKInstrument {
     
     override init() {
         super.init()
-
-        let operation = AKSleighbells()
-
-        connect(operation)
-  
+        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+        
+        let audio = AKFileInput(filename: filename)
+        connect(audio)
+        
+        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        connect(mono)
         
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:operation)
+        assignOutput(auxilliaryOutput, to:mono)
     }
 }
 
@@ -31,8 +33,12 @@ class Processor : AKInstrument {
      init(audioSource: AKAudio) {
         super.init()
 
+        let reverberationTime = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        connect(reverberationTime)
+        
         let operation = AKFlatFrequencyResponseReverb(input: audioSource)
-
+        operation.reverberationTime = reverberationTime
+        
         connect(operation)
 
         connect(AKAudioOutput(audioSource:operation))
@@ -48,8 +54,7 @@ AKManager.sharedManager().isLogging = true
 AKOrchestra.testForDuration(10)
 
 processor.play()
-instrument.playNote(AKNote(), afterDelay: 0.5)
-
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

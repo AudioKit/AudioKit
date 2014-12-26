@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's alpass:
@@ -36,7 +36,7 @@
     if (self) {
         _input = input;
         // Default Values
-        _reverberationTime = akp(3);
+        _reverberationTime = akp(0.5);
         _loopTime = akp(0.1);
     }
     return self;
