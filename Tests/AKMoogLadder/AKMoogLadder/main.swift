@@ -36,7 +36,7 @@ class Processor : AKInstrument {
         let line2 = AKLinearControl(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
         connect(line2)
         
-        let operation = AKMoogLadder(audioSource: audioSource)
+        let operation = AKMoogLadder(input: audioSource)
         operation.resonance = line1
         operation.cutoffFrequency = line2
         connect(operation)

@@ -25,7 +25,7 @@ class Instrument : AKInstrument {
         let pan = AKOscillatingControl()
         connect(pan)
 
-        let operation = AKPanner(audioSource: oscillator)
+        let operation = AKPanner(input: oscillator)
         operation.pan = pan
         connect(operation)
 

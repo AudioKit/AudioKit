@@ -37,7 +37,7 @@ class Processor : AKInstrument {
         let synth = AKFMOscillator()
         connect(synth)
         
-        let operation = AKBalance(audioSource: synth, comparatorAudioSource: audioSource)
+        let operation = AKBalance(input: synth, comparatorAudioSource: audioSource)
         connect(operation)
         
         connect(AKAudioOutput(audioSource:operation))

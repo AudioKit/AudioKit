@@ -30,7 +30,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let operation = AKDCBlock(audioSource: audioSource)
+        let operation = AKDCBlock(input: audioSource)
         connect(operation)
         
         connect(AKAudioOutput(audioSource:operation))

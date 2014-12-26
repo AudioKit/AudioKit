@@ -36,7 +36,7 @@ class Processor : AKInstrument {
         let line2 = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(line2)
 
-        let operation = AKFlanger(audioSource: audioSource, delayTime:line1)
+        let operation = AKFlanger(input: audioSource, delayTime:line1)
         operation.feedback = line2
         connect(operation)
         

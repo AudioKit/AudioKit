@@ -39,7 +39,7 @@ class Processor : AKInstrument {
         let line3 = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(line3)
 
-        let operation = AKThreePoleLowpassFilter(audioSource: audioSource)
+        let operation = AKThreePoleLowpassFilter(input: audioSource)
         operation.distortion = line1
         operation.cutoffFrequency = line2
         operation.resonance = line3

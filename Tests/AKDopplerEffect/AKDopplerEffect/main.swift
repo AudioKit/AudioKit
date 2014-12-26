@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
         connect(position)
         
         let operation = AKDopplerEffect(
-            audioSource: sine,
+            input: sine,
             sourcePosition: position.scaledBy(100.ak).plus(100.ak)
         )
         connect(operation)

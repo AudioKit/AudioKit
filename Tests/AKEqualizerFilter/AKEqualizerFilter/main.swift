@@ -33,7 +33,7 @@ class Processor : AKInstrument {
         let line = AKLinearControl(firstPoint: 200.ak, secondPoint: 1500.ak, durationBetweenPoints: 11.ak)
         connect(line)
         
-        let operation = AKEqualizerFilter(audioSource: audioSource)
+        let operation = AKEqualizerFilter(input: audioSource)
         operation.centerFrequency = line
         connect(operation)
         

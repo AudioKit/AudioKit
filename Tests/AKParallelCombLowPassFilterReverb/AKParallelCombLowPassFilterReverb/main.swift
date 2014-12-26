@@ -32,7 +32,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let operation = AKParallelCombLowPassFilterReverb(audioSource: audioSource)
+        let operation = AKParallelCombLowPassFilterReverb(input: audioSource)
         
         connect(operation)
         
