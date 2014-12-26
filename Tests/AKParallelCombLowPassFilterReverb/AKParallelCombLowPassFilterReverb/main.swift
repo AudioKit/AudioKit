@@ -34,6 +34,9 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
+        
+        
+        
         let reverbTime = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(reverbTime)
 
