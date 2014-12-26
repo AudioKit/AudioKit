@@ -181,7 +181,6 @@ static AKManager *_sharedManager = nil;
         _midi = [[AKMidi alloc] init];
         
         _standardSineTable = [[AKSineTable alloc] init];
-        _fullPathToAudioKit = nil;
     }
     return self;
 }   

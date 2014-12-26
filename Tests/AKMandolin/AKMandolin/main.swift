@@ -36,7 +36,6 @@ class Note: AKNote {
 }
 
 // Set Up
-AKManager.sharedManager().fullPathToAudioKit = "/Users/aure/Developer/AudioKit/"
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true

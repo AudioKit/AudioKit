@@ -76,16 +76,11 @@
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     // Constant Values  
-    NSString *file;
-    AKSoundFileTable *fileTable;
-    fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
-
-    if ([[[AKManager sharedManager] fullPathToAudioKit] isKindOfClass:[NSString class]]) {
-        file = [[AKManager sharedManager] fullPathToAudioKit];
-        file = [file stringByAppendingPathComponent:@"AudioKit/Libraries/Sound Files/mandpluk.aif"];
-    } else {
-        file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
+    NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
+    if (!file) {
+        file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
     }
+
     AKSoundFileTable *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
     [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
