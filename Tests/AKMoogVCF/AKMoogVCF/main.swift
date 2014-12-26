@@ -35,11 +35,11 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line = AKLine(firstPoint: 200.ak, secondPoint: 6000.ak, durationBetweenPoints: 11.ak)
-        connect(line)
+        let cutoffFrequency = AKLine(firstPoint: 200.ak, secondPoint: 6000.ak, durationBetweenPoints: 11.ak)
+        connect(cutoffFrequency)
         
         let operation = AKMoogVCF(input: audioSource)
-        operation.cutoffFrequency = line
+        operation.cutoffFrequency = cutoffFrequency
         connect(operation)
         
         connect(AKAudioOutput(audioSource:operation))
