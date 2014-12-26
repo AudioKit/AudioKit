@@ -2,7 +2,7 @@
 //  AKFoundation.h
 //  AudioKit
 //
-//  Auto-generated on 8/3/14.
+//  Auto-generated on 12/25/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -11,15 +11,15 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKTypes.h" 
+#import "AKTypes.h"
 
 #import "AKManager.h"
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
-#import "AKPhrase.h"
 #import "AKSequence.h"
 #import "AKEvent.h"
 #import "AKNote.h"
+#import "AKPhrase.h"
 
 #import "AKParameter.h"
 #import "AKAudio.h"
@@ -30,18 +30,6 @@
 
 #import "AKSampler.h"
 
-// Ftables
-
-#import "AKAdditiveCosineTable.h"
-#import "AKArrayTable.h"
-#import "AKCompositeWaveformsFromSines.h"
-#import "AKExponentialCurvesTable.h"
-#import "AKFTable.h"
-#import "AKLineSegmentTable.h"
-#import "AKRandomDistributionTable.h"
-#import "AKSineTable.h"
-#import "AKSoundFileTable.h"
-#import "AKWindowsTable.h"
 
 // Operations
 #import "AKParameter+Operation.h"
@@ -51,6 +39,23 @@
 #import "AKTrackedAmplitudeFromFSignal.h"
 #import "AKTrackedFrequency.h"
 #import "AKTrackedFrequencyFromFSignal.h"
+
+// Operations - Function Tables
+#import "AKTableValue.h"
+#import "AKTableValueConstant.h"
+#import "AKTableValueControl.h"
+
+// Operations - Function Tables - Generators
+#import "AKAdditiveCosineTable.h"
+#import "AKArrayTable.h"
+#import "AKCompositeWaveformsFromSines.h"
+#import "AKExponentialCurvesTable.h"
+#import "AKFunctionTable.h"
+#import "AKLineSegmentTable.h"
+#import "AKRandomDistributionTable.h"
+#import "AKSineTable.h"
+#import "AKSoundFileTable.h"
+#import "AKWindowsTable.h"
 
 // Operations - Mathematical Operations
 #import "AKAssignment.h"
@@ -68,11 +73,6 @@
 #import "AKProduct.h"
 #import "AKSum.h"
 
-// Operations - Mathematical Operations - Table Value
-#import "AKTableValue.h"
-#import "AKTableValueConstant.h"
-#import "AKTableValueControl.h"
-
 // Operations - Phase Vocoder Streaming
 #import "AKAudioFromFSignal.h"
 #import "AKCrossSynthesis.h"
@@ -86,21 +86,25 @@
 
 // Operations - Signal Generators
 
+// Operations - Signal Generators - Envelopes
+#import "AKADSRAudioEnvelope.h"
+#import "AKADSRControlEnvelope.h"
+#import "AKLinearADSRAudioEnvelope.h"
+#import "AKLinearADSRControlEnvelope.h"
+#import "AKLinearAudioEnvelope.h"
+#import "AKLinearControlEnvelope.h"
+
 // Operations - Signal Generators - Granular Synthesis
 #import "AKGranularSynthesisTexture.h"
 #import "AKSinusoidBursts.h"
 
-// Operations - Signal Generators - Linear ADSR Envelopes
-#import "AKLinearADSRAudioEnvelope.h"
-#import "AKLinearADSRControlEnvelope.h"
-
-// Operations - Signal Generators - Linear Envelopes
-#import "AKLinearAudioEnvelope.h"
-#import "AKLinearControlEnvelope.h"
-
 // Operations - Signal Generators - Lines
 #import "AKLine.h"
 #import "AKLinearControl.h"
+
+// Operations - Signal Generators - Musical Controls
+#import "AKPortamento.h"
+#import "AKVibrato.h"
 
 // Operations - Signal Generators - Oscillators
 #import "AKFMOscillator.h"
@@ -117,15 +121,11 @@
 #import "AKPhasor.h"
 
 // Operations - Signal Generators - Physical Models
+#import "AKMandolin.h"
+#import "AKMarimba.h"
 #import "AKPluckedString.h"
 #import "AKStruckMetalBar.h"
 #import "AKVibes.h"
-
-// Operations - Signal Generators - Physical Models - Mandolin
-#import "AKMandolin.h"
-
-// Operations - Signal Generators - Physical Models - Marimba
-#import "AKMarimba.h"
 
 // Operations - Signal Generators - Physical Models - PhISEM
 #import "AKBambooSticks.h"
@@ -161,8 +161,8 @@
 // Operations - Signal Input and Output
 #import "AKAudioInput.h"
 #import "AKAudioOutput.h"
-#import "AKFTableLooper.h"
 #import "AKFileInput.h"
+#import "AKFunctionTableLooper.h"
 #import "AKMonoFileInput.h"
 
 // Operations - Signal Input and Output - Looping Oscillators
@@ -183,8 +183,6 @@
 #import "AKCompressor.h"
 #import "AKDopplerEffect.h"
 #import "AKFlanger.h"
-#import "AKPortamento.h"
-#import "AKVibrato.h"
 
 // Operations - Signal Modifiers - Filters
 #import "AKCombFilter.h"
@@ -192,7 +190,6 @@
 #import "AKEqualizerFilter.h"
 #import "AKHighPassFilter.h"
 #import "AKHilbertTransformer.h"
-#import "AKLowPassControlFilter.h"
 #import "AKLowPassFilter.h"
 #import "AKMoogLadder.h"
 #import "AKMoogVCF.h"
@@ -218,5 +215,6 @@
 // Operations - Signal Modifiers - Volume and Spatialization
 #import "AKBalance.h"
 #import "AKPanner.h"
+
 
 #endif
