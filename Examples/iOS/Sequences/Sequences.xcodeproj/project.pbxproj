@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C427066C1A4D2F6400734A80 /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C427066B1A4D2F6400734A80 /* AKMP3FileInput.m */; };
 		C427F5201A4CE40C00734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F51C1A4CE40C00734A80 /* 808loop.wav */; };
 		C427F5211A4CE40C00734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F51D1A4CE40C00734A80 /* mandpluk.aif */; };
 		C427F5221A4CE40C00734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F51E1A4CE40C00734A80 /* marmstk1.wav */; };
@@ -165,6 +166,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C427066A1A4D2F6400734A80 /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
+		C427066B1A4D2F6400734A80 /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
 		C427F51C1A4CE40C00734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427F51D1A4CE40C00734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F51E1A4CE40C00734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
@@ -877,6 +880,8 @@
 				C427F5E81A4CE42000734A80 /* AKFunctionTableLooper.m */,
 				C427F5E91A4CE42000734A80 /* AKMonoFileInput.h */,
 				C427F5EA1A4CE42000734A80 /* AKMonoFileInput.m */,
+				C427066A1A4D2F6400734A80 /* AKMP3FileInput.h */,
+				C427066B1A4D2F6400734A80 /* AKMP3FileInput.m */,
 				C427F5EB1A4CE42000734A80 /* Looping Oscillators */,
 			);
 			path = "Signal Input and Output";
@@ -1398,6 +1403,7 @@
 				C427F66E1A4CE42000734A80 /* AKMarimba.m in Sources */,
 				C427F67C1A4CE42000734A80 /* AKBeatenPlate.m in Sources */,
 				C439830A19627B910076F005 /* AppDelegate.m in Sources */,
+				C427066C1A4D2F6400734A80 /* AKMP3FileInput.m in Sources */,
 				C427F6581A4CE42000734A80 /* AKWarp.m in Sources */,
 				C427F68A1A4CE42000734A80 /* AKFunctionTableLooper.m in Sources */,
 				C427F69C1A4CE42000734A80 /* AKMoogVCF.m in Sources */,

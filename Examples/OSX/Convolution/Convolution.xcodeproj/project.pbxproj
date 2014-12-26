@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41FB1861A4D303F0093645A /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB1851A4D303F0093645A /* AKMP3FileInput.m */; };
 		C42700171A4CE61300734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42700131A4CE61200734A80 /* 808loop.wav */; };
 		C42700181A4CE61300734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C42700141A4CE61200734A80 /* mandpluk.aif */; };
 		C42700191A4CE61300734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42700151A4CE61200734A80 /* marmstk1.wav */; };
@@ -180,6 +181,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C41FB1841A4D303F0093645A /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
+		C41FB1851A4D303F0093645A /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
 		C42700131A4CE61200734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C42700141A4CE61200734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C42700151A4CE61200734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
@@ -866,6 +869,8 @@
 				C42700DF1A4CE61B00734A80 /* AKFunctionTableLooper.m */,
 				C42700E01A4CE61B00734A80 /* AKMonoFileInput.h */,
 				C42700E11A4CE61B00734A80 /* AKMonoFileInput.m */,
+				C41FB1841A4D303F0093645A /* AKMP3FileInput.h */,
+				C41FB1851A4D303F0093645A /* AKMP3FileInput.m */,
 				C42700E21A4CE61B00734A80 /* Looping Oscillators */,
 			);
 			path = "Signal Input and Output";
@@ -1376,6 +1381,7 @@
 				C42701651A4CE61B00734A80 /* AKMarimba.m in Sources */,
 				C42701731A4CE61B00734A80 /* AKBeatenPlate.m in Sources */,
 				C4BDF10B1A32BD4200454915 /* AKStereoAudio.m in Sources */,
+				C41FB1861A4D303F0093645A /* AKMP3FileInput.m in Sources */,
 				C427014F1A4CE61B00734A80 /* AKWarp.m in Sources */,
 				C42701811A4CE61B00734A80 /* AKFunctionTableLooper.m in Sources */,
 				C42701931A4CE61B00734A80 /* AKMoogVCF.m in Sources */,

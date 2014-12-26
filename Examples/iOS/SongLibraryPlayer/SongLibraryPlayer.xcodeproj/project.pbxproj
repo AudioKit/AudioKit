@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C41ECC571867CB830024B88D /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C41ECC561867CB820024B88D /* AudioFilePlayer.m */; };
+		C427066F1A4D2F7700734A80 /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C427066E1A4D2F7700734A80 /* AKMP3FileInput.m */; };
 		C427F6B11A4CE45100734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F6AD1A4CE45100734A80 /* 808loop.wav */; };
 		C427F6B21A4CE45100734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F6AE1A4CE45100734A80 /* mandpluk.aif */; };
 		C427F6B31A4CE45100734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F6AF1A4CE45100734A80 /* marmstk1.wav */; };
@@ -172,6 +173,8 @@
 		C41B89BA1A4805E1002C7355 /* AKTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKTypes.h; sourceTree = "<group>"; };
 		C41ECC551867CB820024B88D /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
 		C41ECC561867CB820024B88D /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
+		C427066D1A4D2F7700734A80 /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
+		C427066E1A4D2F7700734A80 /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
 		C427F6AD1A4CE45100734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427F6AE1A4CE45100734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F6AF1A4CE45100734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
@@ -889,6 +892,8 @@
 				C427F7791A4CE45800734A80 /* AKFunctionTableLooper.m */,
 				C427F77A1A4CE45800734A80 /* AKMonoFileInput.h */,
 				C427F77B1A4CE45800734A80 /* AKMonoFileInput.m */,
+				C427066D1A4D2F7700734A80 /* AKMP3FileInput.h */,
+				C427066E1A4D2F7700734A80 /* AKMP3FileInput.m */,
 				C427F77C1A4CE45800734A80 /* Looping Oscillators */,
 			);
 			path = "Signal Input and Output";
@@ -1414,6 +1419,7 @@
 				C427F7E71A4CE45800734A80 /* AKScaledFSignal.m in Sources */,
 				C427F80F1A4CE45800734A80 /* AKSimpleWaveGuideModel.m in Sources */,
 				C4C3074F1A09F856005AF737 /* AKNote.m in Sources */,
+				C427066F1A4D2F7700734A80 /* AKMP3FileInput.m in Sources */,
 				C427F8251A4CE45800734A80 /* AKFlanger.m in Sources */,
 				C427F8051A4CE45800734A80 /* AKCrunch.m in Sources */,
 				C427F82B1A4CE45800734A80 /* AKLowPassFilter.m in Sources */,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C42706721A4D2F8800734A80 /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C42706711A4D2F8800734A80 /* AKMP3FileInput.m */; };
 		C427F8421A4CE4A700734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F83E1A4CE4A700734A80 /* 808loop.wav */; };
 		C427F8431A4CE4A700734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F83F1A4CE4A700734A80 /* mandpluk.aif */; };
 		C427F8441A4CE4A700734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F8401A4CE4A700734A80 /* marmstk1.wav */; };
@@ -165,6 +166,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C42706701A4D2F8800734A80 /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
+		C42706711A4D2F8800734A80 /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
 		C427F83E1A4CE4A700734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427F83F1A4CE4A700734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F8401A4CE4A700734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
@@ -873,6 +876,8 @@
 				C427F90A1A4CE4B900734A80 /* AKFunctionTableLooper.m */,
 				C427F90B1A4CE4B900734A80 /* AKMonoFileInput.h */,
 				C427F90C1A4CE4B900734A80 /* AKMonoFileInput.m */,
+				C42706701A4D2F8800734A80 /* AKMP3FileInput.h */,
+				C42706711A4D2F8800734A80 /* AKMP3FileInput.m */,
 				C427F90D1A4CE4B900734A80 /* Looping Oscillators */,
 			);
 			path = "Signal Input and Output";
@@ -1348,6 +1353,7 @@
 				C427F98C1A4CE4B900734A80 /* AKLowFrequencyOscillator.m in Sources */,
 				C427F9621A4CE4B900734A80 /* AKFunctionTable.m in Sources */,
 				C427F98E1A4CE4B900734A80 /* AKPhasor.m in Sources */,
+				C42706721A4D2F8800734A80 /* AKMP3FileInput.m in Sources */,
 				C427F98F1A4CE4B900734A80 /* AKMandolin.m in Sources */,
 				C427F9C21A4CE4B900734A80 /* AKBandPassButterworthFilter.m in Sources */,
 				E4E58F2319E412C6009D3169 /* ViewController.swift in Sources */,
