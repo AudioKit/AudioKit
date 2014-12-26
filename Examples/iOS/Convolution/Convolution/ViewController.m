@@ -19,6 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[AKManager sharedManager] setIsLogging:YES];
     
     conv = [[ConvolutionInstrument alloc] init];
     [AKOrchestra addInstrument:conv];

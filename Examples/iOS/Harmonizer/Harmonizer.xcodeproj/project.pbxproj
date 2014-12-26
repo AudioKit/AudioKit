@@ -14,6 +14,7 @@
 		C407D5711969D75D00322F25 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C407D5701969D75D00322F25 /* ViewController.m */; };
 		C407D5731969D75D00322F25 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C407D5721969D75D00322F25 /* Images.xcassets */; };
 		C407D7941969D83C00322F25 /* HarmonizerInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C407D7931969D83C00322F25 /* HarmonizerInstrument.m */; };
+		C42706631A4D2F2500734A80 /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C42706621A4D2F2500734A80 /* AKMP3FileInput.m */; };
 		C427F06D1A4CE06100734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F0691A4CE06100734A80 /* 808loop.wav */; };
 		C427F06E1A4CE06100734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F06A1A4CE06100734A80 /* mandpluk.aif */; };
 		C427F06F1A4CE06100734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F06B1A4CE06100734A80 /* marmstk1.wav */; };
@@ -177,6 +178,8 @@
 		C407D5721969D75D00322F25 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C407D7921969D83C00322F25 /* HarmonizerInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HarmonizerInstrument.h; path = Instruments/HarmonizerInstrument.h; sourceTree = "<group>"; };
 		C407D7931969D83C00322F25 /* HarmonizerInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HarmonizerInstrument.m; path = Instruments/HarmonizerInstrument.m; sourceTree = "<group>"; };
+		C42706611A4D2F2500734A80 /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
+		C42706621A4D2F2500734A80 /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
 		C427F0691A4CE06100734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427F06A1A4CE06100734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F06B1A4CE06100734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
@@ -918,6 +921,8 @@
 				C427F1351A4CE07700734A80 /* AKFunctionTableLooper.m */,
 				C427F1361A4CE07700734A80 /* AKMonoFileInput.h */,
 				C427F1371A4CE07700734A80 /* AKMonoFileInput.m */,
+				C42706611A4D2F2500734A80 /* AKMP3FileInput.h */,
+				C42706621A4D2F2500734A80 /* AKMP3FileInput.m */,
 				C427F1381A4CE07700734A80 /* Looping Oscillators */,
 			);
 			path = "Signal Input and Output";
@@ -1328,6 +1333,7 @@
 				C427F1B71A4CE07700734A80 /* AKLowFrequencyOscillator.m in Sources */,
 				C427F18D1A4CE07700734A80 /* AKFunctionTable.m in Sources */,
 				C427F1B91A4CE07700734A80 /* AKPhasor.m in Sources */,
+				C42706631A4D2F2500734A80 /* AKMP3FileInput.m in Sources */,
 				C427F1BA1A4CE07700734A80 /* AKMandolin.m in Sources */,
 				C427F1ED1A4CE07700734A80 /* AKBandPassButterworthFilter.m in Sources */,
 				C4C301391A09F777005AF737 /* AKMidi.m in Sources */,

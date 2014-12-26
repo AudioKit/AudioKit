@@ -19,7 +19,6 @@
 #import "AKSequence.h"
 #import "AKEvent.h"
 #import "AKNote.h"
-#import "AKPhrase.h"
 
 #import "AKParameter.h"
 #import "AKAudio.h"
@@ -163,6 +162,7 @@
 #import "AKAudioOutput.h"
 #import "AKFileInput.h"
 #import "AKFunctionTableLooper.h"
+#import "AKMP3FileInput.h"
 #import "AKMonoFileInput.h"
 
 // Operations - Signal Input and Output - Looping Oscillators
