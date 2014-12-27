@@ -1248,7 +1248,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = "Hear For Yourself";
+				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					E481E8A819DF54F8004BDD9E = {
 						CreatedOnToolsVersion = 6.0.1;

@@ -1253,7 +1253,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Hear For Yourself";
+				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C48E4616199212FD00B3C1F8 = {
 						DevelopmentTeam = T9KEX275FG;
