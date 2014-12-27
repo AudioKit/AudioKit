@@ -12,18 +12,31 @@
  */
 @interface AKWeightedSumOfSinusoids : AKFunctionTable
 
-/// Creates a pure sine wave with a default size of 4096.
+
+/// Creates a weighted sum with no elements and default size of 4096.
 - (instancetype)init;
+
+/// Creates a pure sine wave with a default size of 4096.
+- (instancetype)initStandardSineWave;
 
 /// Creates a pure sine wave with a default size of 4096.
 + (instancetype)pureSineWave;
 
-/// Creates a sine table with an array of partial strengths
-/// @param size             Number of points in the table. Must be a power of 2 or power-of-2 plus 1.
-/// @param partialStrengthsArray Relative strengths of the fixed harmonic partial numbers 1,2,3, etc. Partials not required should be given a strength of zero.
-- (instancetype)initWithSize:(int)size
-            partialStrengths:(AKArray *)partialStrengthsArray;
+/// Add a sinusoid.  Partials may be in any order.
+/// @partialNumber Partial number (relative to a fundamental that would occupy size locations per cycle) of sinusod. Must be positive, but need not be a whole number, i.e., non-harmonic partials are permitted.
+/// @partialStrength Relative strength of the partial, since the composite waveform may be rescaled later. Negative values are permitted and imply a 180 degree phase shift.
+- (void)addSinusoidWithPartialNumber:(float)partialNumber
+                            strength:(float)partialStrength;
 
+/// Add a sinusoid.  Partials may be in any order.
+/// @partialNumber Partial number (relative to a fundamental that would occupy size locations per cycle) of sinusod. Must be positive, but need not be a whole number, i.e., non-harmonic partials are permitted.
+/// @strength Relative strength of the partial, since the composite waveform may be rescaled later. Negative values are permitted and imply a 180 degree phase shift.
+/// @phase Initial phase of the partial, expressed in degrees.
+/// @dcOffset DC offset of partial., e This is applied after strength scaling, i.e. a value of 2 will lift a 2-strength sinusoid from range [-2,2] to range [0,4] (before later rescaling).
+- (void)addSinusoidWithPartialNumber:(int)partialNumber
+                            strength:(float)strength
+                               phase:(float)phase
+                            dcOffset:(float)dcOffset;
 
 
 @end
