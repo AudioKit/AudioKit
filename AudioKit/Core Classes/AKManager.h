@@ -43,9 +43,6 @@
 /// @param duration Time for the orchestra to play in seconds
 - (void)runOrchestraForDuration:(int)duration;
 
-/// Test AudioKit by playing the first instrument for ten seconds
-- (void)runTestOrchestra;
-
 /// Stop AudioKit from making any more sound.
 - (void)stop;
 
