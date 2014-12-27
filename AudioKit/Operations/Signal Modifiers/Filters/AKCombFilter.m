@@ -2,45 +2,77 @@
 //  AKCombFilter.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 8/13/14
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//
+//  Implementation of Csound's comb:
+//  http://www.csounds.com/manual/html/comb.html
 //
 
 #import "AKCombFilter.h"
+#import "AKManager.h"
 
 @implementation AKCombFilter
 {
-    AKAudio *asig;
-    AKControl *krvt;
-    AKConstant *iskip;
-    AKConstant *ilpt;
-    AKConstant *insmps;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                         reverbTime:(AKControl *)reverbTime
-                           loopTime:(AKConstant *)loopTime
+- (instancetype)initWithInput:(AKParameter *)input
+               reverbDuration:(AKParameter *)reverbDuration
+                 loopDuration:(AKConstant *)loopDuration
 {
     self = [super initWithString:[self operationName]];
-    if(self) {
-        asig = audioSource;
-        krvt = reverbTime;
-        ilpt = loopTime;
-        iskip = akp(0);
+    if (self) {
+        _input = input;
+        _reverbDuration = reverbDuration;
+        _loopDuration = loopDuration;
     }
     return self;
-    
 }
 
-- (void)setOptionalRetainFeedbackFlag:(BOOL)isFeedbackRetained
+- (instancetype)initWithInput:(AKParameter *)input
 {
-    iskip = akp(isFeedbackRetained);
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _reverbDuration = akp(1);
+        _loopDuration = akp(0.1);
+    }
+    return self;
+}
+
++ (instancetype)audioWithInput:(AKParameter *)input
+{
+    return [[AKCombFilter alloc] initWithInput:input];
+}
+
+- (void)setOptionalReverbDuration:(AKParameter *)reverbDuration {
+    _reverbDuration = reverbDuration;
+}
+- (void)setOptionalLoopDuration:(AKConstant *)loopDuration {
+    _loopDuration = loopDuration;
 }
 
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ comb %@, %@, %@, %@",
-            self, asig, krvt, ilpt, iskip];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ comb ", self];
+
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
+    }
+
+    if ([_reverbDuration isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _reverbDuration];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _reverbDuration];
+    }
+
+    [csdString appendFormat:@"%@", _loopDuration];
+    return csdString;
 }
 
 @end
