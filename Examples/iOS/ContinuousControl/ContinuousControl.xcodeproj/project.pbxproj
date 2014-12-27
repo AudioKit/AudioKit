@@ -20,7 +20,6 @@
 		C427ECD01A4CCEE800734A80 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBCB1A4CCEE700734A80 /* AKTableValueControl.m */; };
 		C427ECD11A4CCEE800734A80 /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBCE1A4CCEE700734A80 /* AKAdditiveCosineTable.m */; };
 		C427ECD21A4CCEE800734A80 /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBD01A4CCEE700734A80 /* AKArrayTable.m */; };
-		C427ECD31A4CCEE800734A80 /* AKCompositeWaveformsFromSines.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBD21A4CCEE700734A80 /* AKCompositeWaveformsFromSines.m */; };
 		C427ECD51A4CCEE800734A80 /* AKFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBD61A4CCEE700734A80 /* AKFunctionTable.m */; };
 		C427ECD71A4CCEE800734A80 /* AKRandomDistributionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBDA1A4CCEE700734A80 /* AKRandomDistributionTable.m */; };
 		C427ECD81A4CCEE800734A80 /* AKWeightedSumOfSinusoids.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EBDC1A4CCEE700734A80 /* AKWeightedSumOfSinusoids.m */; };
@@ -190,8 +189,6 @@
 		C427EBCE1A4CCEE700734A80 /* AKAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosineTable.m; sourceTree = "<group>"; };
 		C427EBCF1A4CCEE700734A80 /* AKArrayTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArrayTable.h; sourceTree = "<group>"; };
 		C427EBD01A4CCEE700734A80 /* AKArrayTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKArrayTable.m; sourceTree = "<group>"; };
-		C427EBD11A4CCEE700734A80 /* AKCompositeWaveformsFromSines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCompositeWaveformsFromSines.h; sourceTree = "<group>"; };
-		C427EBD21A4CCEE700734A80 /* AKCompositeWaveformsFromSines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCompositeWaveformsFromSines.m; sourceTree = "<group>"; };
 		C427EBD51A4CCEE700734A80 /* AKFunctionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFunctionTable.h; sourceTree = "<group>"; };
 		C427EBD61A4CCEE700734A80 /* AKFunctionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFunctionTable.m; sourceTree = "<group>"; };
 		C427EBD91A4CCEE700734A80 /* AKRandomDistributionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRandomDistributionTable.h; sourceTree = "<group>"; };
@@ -561,8 +558,6 @@
 				C427EBCE1A4CCEE700734A80 /* AKAdditiveCosineTable.m */,
 				C427EBCF1A4CCEE700734A80 /* AKArrayTable.h */,
 				C427EBD01A4CCEE700734A80 /* AKArrayTable.m */,
-				C427EBD11A4CCEE700734A80 /* AKCompositeWaveformsFromSines.h */,
-				C427EBD21A4CCEE700734A80 /* AKCompositeWaveformsFromSines.m */,
 				C41FB3AA1A4E6D0C0093645A /* AKExponentialCurves.h */,
 				C41FB3AB1A4E6D0C0093645A /* AKExponentialCurves.m */,
 				C427EBD51A4CCEE700734A80 /* AKFunctionTable.h */,
@@ -1355,7 +1350,6 @@
 				C427ECEE1A4CCEE800734A80 /* AKADSRAudioEnvelope.m in Sources */,
 				C427ECCF1A4CCEE800734A80 /* AKTableValueConstant.m in Sources */,
 				C427ED071A4CCEE800734A80 /* AKBambooSticks.m in Sources */,
-				C427ECD31A4CCEE800734A80 /* AKCompositeWaveformsFromSines.m in Sources */,
 				C427ED3C1A4CCEE800734A80 /* AKFlatFrequencyResponseReverb.m in Sources */,
 				C427ECE41A4CCEE800734A80 /* AKSum.m in Sources */,
 				C427ECCD1A4CCEE800734A80 /* AKTrackedFrequencyFromFSignal.m in Sources */,

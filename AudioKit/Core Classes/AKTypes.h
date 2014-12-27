@@ -108,9 +108,8 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
     AKFunctionTableTypeArray=2,
-    AKFunctionTableTypeWeightedSumOfSinusoids=10,
     AKFunctionTableTypeAdditiveCosines=11,
-    AKFunctionTableTypeCompositeWaveformsFromSines=19,
+    AKFunctionTableTypeWeightedSumOfSinusoids=19,
     AKFunctionTableTypeWindows=20,
     AKFunctionTableTypeRandomDistributions=21,
     AKFunctionTableTypeExponentialCurves=25,
