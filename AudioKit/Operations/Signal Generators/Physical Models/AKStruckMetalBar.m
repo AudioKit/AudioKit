@@ -2,7 +2,7 @@
 //  AKStruckMetalBar.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's barmodel:
@@ -103,7 +103,7 @@
     
     [csdString appendFormat:@"%@, ", _highFrequencyLoss];
     
-    if ([_scanSpeed isKindOfClass:[AKControl class]] ) {
+    if ([_scanSpeed class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _scanSpeed];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _scanSpeed];

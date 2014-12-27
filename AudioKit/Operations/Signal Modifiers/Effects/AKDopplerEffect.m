@@ -2,7 +2,7 @@
 //  AKDopplerEffect.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's doppler:
@@ -68,19 +68,19 @@
     AKConstant *_soundSpeed = akp(340.29);        
     [csdString appendFormat:@"%@ doppler ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_sourcePosition isKindOfClass:[AKControl class]] ) {
+    if ([_sourcePosition class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _sourcePosition];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _sourcePosition];
     }
 
-    if ([_micPosition isKindOfClass:[AKControl class]] ) {
+    if ([_micPosition class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _micPosition];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _micPosition];

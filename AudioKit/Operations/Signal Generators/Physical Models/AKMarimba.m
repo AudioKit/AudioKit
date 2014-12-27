@@ -2,7 +2,7 @@
 //  AKMarimba.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's marimba:
@@ -107,13 +107,13 @@
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ marimba ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    if ([_frequency isKindOfClass:[AKControl class]] ) {
+    if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
@@ -125,13 +125,13 @@
     
     [csdString appendFormat:@"%@, ", _strikeImpulseTable];
     
-    if ([_vibratoFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_vibratoFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _vibratoFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
     }
 
-    if ([_vibratoAmplitude isKindOfClass:[AKControl class]] ) {
+    if ([_vibratoAmplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _vibratoAmplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];

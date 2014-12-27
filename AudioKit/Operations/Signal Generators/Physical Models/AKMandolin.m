@@ -87,13 +87,13 @@
             
     [csdString appendFormat:@"%@ mandol ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    if ([_frequency isKindOfClass:[AKControl class]] ) {
+    if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
@@ -101,19 +101,19 @@
 
     [csdString appendFormat:@"%@, ", _pluckPosition];
     
-    if ([_pairedStringDetuning isKindOfClass:[AKControl class]] ) {
+    if ([_pairedStringDetuning class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _pairedStringDetuning];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _pairedStringDetuning];
     }
 
-    if ([_loopGain isKindOfClass:[AKControl class]] ) {
+    if ([_loopGain class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _loopGain];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _loopGain];
     }
 
-    if ([_bodySize isKindOfClass:[AKControl class]] ) {
+    if ([_bodySize class] == [AKControl class]) {
         [csdString appendFormat:@"2 * (1 - %@), ", _bodySize];
     } else {
         [csdString appendFormat:@"AKControl(2 * (1 - %@)), ", _bodySize];

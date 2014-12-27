@@ -80,7 +80,7 @@
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ tambourine ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];

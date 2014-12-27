@@ -2,7 +2,7 @@
 //  AKVariableFrequencyResponseBandPassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's resonz:
@@ -59,19 +59,19 @@
 
     [csdString appendFormat:@"%@ resonz ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+    if ([_audioSource class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _audioSource];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
     }
 
-    if ([_cutoffFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_cutoffFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _cutoffFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
     }
 
-    if ([_bandwidth isKindOfClass:[AKControl class]] ) {
+    if ([_bandwidth class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _bandwidth];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _bandwidth];

@@ -2,7 +2,7 @@
 //  AKPluckedString.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's repluck:
@@ -79,7 +79,7 @@
 
     [csdString appendFormat:@"%@, ", _pluckPosition];
     
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
@@ -87,19 +87,19 @@
 
     [csdString appendFormat:@"%@, ", _frequency];
     
-    if ([_samplePosition isKindOfClass:[AKControl class]] ) {
+    if ([_samplePosition class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _samplePosition];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _samplePosition];
     }
 
-    if ([_reflectionCoefficient isKindOfClass:[AKControl class]] ) {
+    if ([_reflectionCoefficient class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _reflectionCoefficient];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _reflectionCoefficient];
     }
 
-    if ([_excitationSignal isKindOfClass:[AKAudio class]] ) {
+    if ([_excitationSignal class] == [AKAudio class]) {
         [csdString appendFormat:@"%@", _excitationSignal];
     } else {
         [csdString appendFormat:@"AKAudio(%@)", _excitationSignal];

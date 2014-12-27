@@ -2,7 +2,7 @@
 //  AKJitter.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's jitter:
@@ -59,19 +59,19 @@
 
     [csdString appendFormat:@"%@ jitter ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    if ([_minimumFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_minimumFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _minimumFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _minimumFrequency];
     }
 
-    if ([_maximumFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_maximumFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _maximumFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _maximumFrequency];

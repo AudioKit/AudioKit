@@ -83,7 +83,7 @@
 
     [csdString appendFormat:@"%@ wguide2 ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
@@ -93,25 +93,25 @@
     
     [csdString appendFormat:@"%@, ", _frequency2];
     
-    if ([_cutoffFrequency1 isKindOfClass:[AKControl class]] ) {
+    if ([_cutoffFrequency1 class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _cutoffFrequency1];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency1];
     }
 
-    if ([_cutoffFrequency2 isKindOfClass:[AKControl class]] ) {
+    if ([_cutoffFrequency2 class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _cutoffFrequency2];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency2];
     }
 
-    if ([_feedback1 isKindOfClass:[AKControl class]] ) {
+    if ([_feedback1 class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _feedback1];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _feedback1];
     }
 
-    if ([_feedback2 isKindOfClass:[AKControl class]] ) {
+    if ([_feedback2 class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _feedback2];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _feedback2];
