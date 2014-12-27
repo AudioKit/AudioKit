@@ -3,6 +3,8 @@
 //  AudioKit
 //
 //  Auto-generated on 11/28/14.
+//  Customized by Nick Arner on 12/26/14. 
+//
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -15,14 +17,15 @@ class Instrument : AKInstrument {
 
         let operation = AKSekere()
         connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:operation .scaledBy(30.ak)))
     }
 }
 
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.test()
+AKOrchestra.testForDuration(2)
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")
