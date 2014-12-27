@@ -33,11 +33,11 @@ class Processor : AKInstrument {
      init(audioSource: AKAudio) {
         super.init()
 
-        let reverberationTime = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
-        connect(reverberationTime)
+        let reverbDuration = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        connect(reverbDuration)
         
         let operation = AKFlatFrequencyResponseReverb(input: audioSource)
-        operation.reverberationTime = reverberationTime
+        operation.reverbDuration = reverbDuration
         
         connect(operation)
 
