@@ -35,8 +35,6 @@
 - (void)addValue:(AKConstant *)nextSegmentTargetValue
    afterDuration:(AKConstant *)nextSegmentDuration;
 
-/// @name Optional Assignments
-
 /// Adds a release segment.
 /// @param finalValue      Last value to reach, typically zero.
 /// @param releaseDuration Length of time in seconds to get to finalValue.
