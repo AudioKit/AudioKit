@@ -11,7 +11,7 @@
 
 /** Generate control signal consisting of linear segments delimited by two or more specified points.
  
- Generate control signal consisting of linear segments delimited by two or more specified points. The entire envelope is looped at a rate defined byt frequency. Each parameter can be varied as controls.
+ Generate control signal consisting of linear segments delimited by two or more specified points. The entire envelope is looped at a rate defined by frequency. Each parameter can be varied as controls.
  */
 
 @interface AKControlSegmentArrayLoop : AKControl
