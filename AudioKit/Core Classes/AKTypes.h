@@ -108,49 +108,14 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
     AKFunctionTableTypeArray=2,
-    AKFunctionTableTypeExponentialCurves=5,
-    AKFunctionTableTypeStraightLines=7,
     AKFunctionTableTypeWeightedSumOfSinusoids=10,
     AKFunctionTableTypeAdditiveCosines=11,
     AKFunctionTableTypeCompositeWaveformsFromSines=19,
     AKFunctionTableTypeWindows=20,
     AKFunctionTableTypeRandomDistributions=21,
-    AKFunctionTableTypeExponentialCurvesFromBreakpoints=25,
-    AKFunctionTableTypeStraightLinesFromBreakpoints=27,
+    AKFunctionTableTypeExponentialCurves=25,
+    AKFunctionTableTypeStraightLines=27,
 };
-
-// Unsupported Generating Routines
-typedef enum
-{
-    kFunctionTableTypePolynomial=3,
-    kFunctionTableTypeNormalizingFunction=4,
-    kFunctionTableTypeCubicPolynomials=6,
-    kFunctionTableTypeCubicSpline=8,
-    kFunctionTableTypeSinesWithThreeParameters=9,
-    kFunctionTableTypeBessels=12,
-    kFunctionTableTypeChebyshevs1st=13,
-    kFunctionTableTypeChebysehvs2nt=14,
-    kFunctionTableTypeTwoPolynomials=15,
-    kFunctionTableTypeStartToEndCurves=16,
-    kFunctionTableTypeStepFunctions=17,
-    kFunctionTableTypeCompositeWaveforms=18,
-    kFunctionTableTypeTextFile=23,
-    kFunctionTableTypeScaledFunctionTable=24,
-    kFunctionTableTypeTimeTaggedTrajectory=28,
-    kFunctionTableTypeHarmonicPartials=30,
-    kFunctionTableTypeTableMixer=31,
-    kFunctionTableTypeTableMixerWithInterpolation=32,
-    kFunctionTableTypeSineMixerUsingFFT=33,
-    kFunctionTableTypeSineMixerUsingOscil=34,
-    kFunctionTableTypeRandomFromHistogram=40,
-    kFunctionTableTypeRandomPairs=41,
-    kFunctionTableTypeRandomDistributionOfRanges=42,
-    kFunctionTableTypePVOCEX=43,
-    kFunctionTableTypeMP3File=49,
-    kFunctionTableTypeMicrotuningScale=51,
-    kFunctionTableTypeMultichannel=52
-} CurrentlyUnsupported;
-
 
 
 #endif

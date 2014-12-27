@@ -16,7 +16,7 @@
 
 - (instancetype)initWithType:(AKFunctionTableType)functionTableType
                         size:(int)tableSize
-                  parameters:(AKArray *)parameters;
+                  parameters:(AKArray *)parameters
 {
     self = [super init];
     if (self) {
@@ -30,8 +30,14 @@
 }
 
 - (instancetype)initWithType:(AKFunctionTableType)functionTableType
-                  parameters:(AKArray *)parameters;
+                  parameters:(AKArray *)parameters
 {
+    return [self initWithType:functionTableType size:0 parameters:parameters];
+}
+
+- (instancetype)initWithType:(AKFunctionTableType)functionTableType
+{
+    AKArray *parameters = [[AKArray alloc] init];
     return [self initWithType:functionTableType size:0 parameters:parameters];
 }
 
@@ -42,27 +48,8 @@
     return functionName;
 }
 
-
-// Csound Prototype: ifno ftgentmp ip1, ip2dummy, isize, igen, iarga, iargb, ...
+// Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD
-{
-    if (_isNormalized) {
-        igen = abs(igen);
-    } else {
-        igen = -abs(igen);
-    }
-    NSString *text;
-    if (_parameters == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@",
-                output, _size, akpi(igen)];
-    } else {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@, %@",
-                output, _size, akpi(igen), [_parameters parameterString]];
-    }
-    return text;
-}
-
-- (NSString *)functionTableStringForCSD
 {
     if (_isNormalized) {
         igen = abs(igen);

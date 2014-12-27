@@ -1,5 +1,5 @@
 //
-//  AKLineSegments.h
+//  AKExponentialCurves.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
@@ -8,11 +8,13 @@
 
 #import "AKFunctionTable.h"
 
-/** Construct functions from segments of straight lines
-*/
-@interface AKLineSegments : AKFunctionTable
+/** Constructs functions from segments of exponential curves.
+ 
+ Ordinate values, in odd-numbered parts of the array, must be nonzero and must be alike in sign.
+ */
+@interface AKExponentialCurves : AKFunctionTable
 
-/// Start the line segments at a specific value
+/// Start the exponential curves at a specific value
 /// @param value Initial value of the the first line segment
 - (instancetype)initWithValue:(float)value;
 
@@ -25,5 +27,4 @@
 /// @param value The value at the given index
 /// @param numberOfElements The index at which the value will be set
 - (void)appendValue:(float)value afterNumberOfElements:(int)numberOfElements;
-
 @end

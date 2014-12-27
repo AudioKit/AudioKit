@@ -1,24 +1,24 @@
 //
-//  AKLineSegments.m
+//  AKExponentialCurves.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKLineSegments.h" 
+#import "AKExponentialCurves.h"
 
-@interface AKLineSegments ()
+@interface AKExponentialCurves ()
 {
     NSMutableArray *points;
 }
 @end
 
-@implementation AKLineSegments
+@implementation AKExponentialCurves
 
 - (instancetype)initWithValue:(float)value
 {
-    self = [super initWithType:AKFunctionTableTypeStraightLines];
+    self = [super initWithType:AKFunctionTableTypeExponentialCurves];
     if (self) {
         points = [[NSMutableArray alloc] init];
         [points addObject:@[@0, [NSNumber numberWithFloat:value]]];
@@ -50,7 +50,7 @@
     return [NSString stringWithFormat:@"%@ ftgen 0, 0, %@, -%lu, %@",
             self,
             @4096,
-            (unsigned long)AKFunctionTableTypeStraightLines,
+            (unsigned long)AKFunctionTableTypeExponentialCurves,
             [flattenedPoints componentsJoinedByString:@", "]];
 }
 
