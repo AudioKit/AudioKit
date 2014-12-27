@@ -22,7 +22,7 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(1)
 
 instrument.play()
 
