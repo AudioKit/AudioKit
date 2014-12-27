@@ -2,7 +2,7 @@
 //  AKBowedString.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wgbow:
@@ -15,6 +15,7 @@
 @implementation AKBowedString
 
 - (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
                          pressure:(AKParameter *)pressure
                          position:(AKParameter *)position
                 vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
@@ -25,6 +26,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         _frequency = frequency;
+        _amplitude = amplitude;
         _pressure = pressure;
         _position = position;
         _vibratoShapeTable = vibratoShapeTable;
@@ -41,6 +43,7 @@
     if (self) {
         // Default Values
         _frequency = akp(110);
+        _amplitude = akp(1);
         _pressure = akp(3);
         _position = akp(0.127236);
         _vibratoShapeTable = [AKManager standardSineWave];
@@ -59,6 +62,9 @@
 
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
+}
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
 }
 - (void)setOptionalPressure:(AKParameter *)pressure {
     _pressure = pressure;
@@ -82,8 +88,6 @@
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    // Constant Values  
-    AKConstant *_amplitude = akp(1);        
     [csdString appendFormat:@"%@ wgbow ", self];
 
     if ([_amplitude isKindOfClass:[AKControl class]] ) {

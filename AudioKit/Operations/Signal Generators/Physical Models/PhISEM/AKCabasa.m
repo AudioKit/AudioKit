@@ -2,7 +2,7 @@
 //  AKCabasa.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's cabasa:
@@ -16,11 +16,13 @@
 
 - (instancetype)initWithCount:(AKConstant *)count
                 dampingFactor:(AKConstant *)dampingFactor
+                    amplitude:(AKConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _count = count;
         _dampingFactor = dampingFactor;
+        _amplitude = amplitude;
     }
     return self;
 }
@@ -32,6 +34,7 @@
         // Default Values
         _count = akp(100);
         _dampingFactor = akp(0.14);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -47,13 +50,15 @@
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    _amplitude = amplitude;
+}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
-    AKConstant *_amplitude = akp(1);        
     [csdString appendFormat:@"%@ cabasa ", self];
 
     [csdString appendFormat:@"%@, ", _amplitude];

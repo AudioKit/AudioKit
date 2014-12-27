@@ -2,7 +2,7 @@
 //  AKDroplet.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's dripwater:
@@ -20,6 +20,7 @@
             mainResonantFrequency:(AKConstant *)mainResonantFrequency
            firstResonantFrequency:(AKConstant *)firstResonantFrequency
           secondResonantFrequency:(AKConstant *)secondResonantFrequency
+                        amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -29,6 +30,7 @@
         _mainResonantFrequency = mainResonantFrequency;
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
+        _amplitude = amplitude;
     }
     return self;
 }
@@ -44,6 +46,7 @@
         _mainResonantFrequency = akp(450);
         _firstResonantFrequency = akp(600);
         _secondResonantFrequency = akp(750);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -71,13 +74,15 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
-    AKConstant *_amplitude = akp(1);        
     [csdString appendFormat:@"%@ dripwater ", self];
 
     if ([_amplitude isKindOfClass:[AKControl class]] ) {

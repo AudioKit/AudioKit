@@ -2,7 +2,7 @@
 //  AKTambourine.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -21,11 +21,13 @@
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2300]
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 5600]
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 8100]
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1]
 - (instancetype)initWithIntensity:(AKConstant *)intensity
                     dampingFactor:(AKConstant *)dampingFactor
             mainResonantFrequency:(AKConstant *)mainResonantFrequency
            firstResonantFrequency:(AKConstant *)firstResonantFrequency
-          secondResonantFrequency:(AKConstant *)secondResonantFrequency;
+          secondResonantFrequency:(AKConstant *)secondResonantFrequency
+                        amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the tambourine with default values
 - (instancetype)init;
@@ -68,6 +70,13 @@
 /// Set an optional second resonant frequency
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 8100]
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
+
+/// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
+@property AKParameter *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 
 

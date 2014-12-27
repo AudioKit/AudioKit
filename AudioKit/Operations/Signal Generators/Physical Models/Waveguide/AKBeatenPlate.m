@@ -2,7 +2,7 @@
 //  AKBeatenPlate.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wguide2:
@@ -14,20 +14,20 @@
 
 @implementation AKBeatenPlate
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                         frequency1:(AKParameter *)frequency1
-                         frequency2:(AKParameter *)frequency2
-                   cutoffFrequency1:(AKParameter *)cutoffFrequency1
-                   cutoffFrequency2:(AKParameter *)cutoffFrequency2
-                          feedback1:(AKParameter *)feedback1
-                          feedback2:(AKParameter *)feedback2
+- (instancetype)initWithInput:(AKParameter *)input
+                   frequency1:(AKParameter *)frequency1
+                   frequency2:(AKParameter *)frequency2
+             cutoffFrequency1:(AKParameter *)cutoffFrequency1
+             cutoffFrequency2:(AKParameter *)cutoffFrequency2
+                    feedback1:(AKParameter *)feedback1
+                    feedback2:(AKParameter *)feedback2
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _frequency1 = frequency1;
         _frequency2 = frequency2;
         _cutoffFrequency1 = cutoffFrequency1;
@@ -38,11 +38,11 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _frequency1 = akp(5000);
         _frequency2 = akp(2000);
@@ -54,9 +54,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKBeatenPlate alloc] initWithAudioSource:audioSource];
+    return [[AKBeatenPlate alloc] initWithInput:input];
 }
 
 - (void)setOptionalFrequency1:(AKParameter *)frequency1 {
@@ -83,10 +83,10 @@
 
     [csdString appendFormat:@"%@ wguide2 ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     [csdString appendFormat:@"%@, ", _frequency1];

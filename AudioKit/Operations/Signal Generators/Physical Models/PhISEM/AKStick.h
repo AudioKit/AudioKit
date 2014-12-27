@@ -2,7 +2,7 @@
 //  AKStick.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -18,8 +18,10 @@
 /// Instantiates the stick with all values
 /// @param intensity The intensity of the stick sound. [Default Value: 30]
 /// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
+/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation. [Default Value: 1]
 - (instancetype)initWithIntensity:(AKConstant *)intensity
-                    dampingFactor:(AKConstant *)dampingFactor;
+                    dampingFactor:(AKConstant *)dampingFactor
+                        amplitude:(AKConstant *)amplitude;
 
 /// Instantiates the stick with default values
 - (instancetype)init;
@@ -41,6 +43,13 @@
 /// Set an optional damping factor
 /// @param dampingFactor This value ranges from 0 to 1, but seems to be most stable at values under 1. [Default Value: 0.3]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
+
+/// Amplitude of output. As these instruments are stochastic this is only a approximation. [Default Value: 1]
+@property AKConstant *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKConstant *)amplitude;
 
 
 

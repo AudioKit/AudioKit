@@ -2,7 +2,7 @@
 //  AKCrunch.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's crunch:
@@ -16,11 +16,13 @@
 
 - (instancetype)initWithIntensity:(AKConstant *)intensity
                     dampingFactor:(AKConstant *)dampingFactor
+                        amplitude:(AKConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _intensity = intensity;
         _dampingFactor = dampingFactor;
+        _amplitude = amplitude;
     }
     return self;
 }
@@ -32,6 +34,7 @@
         // Default Values
         _intensity = akp(100);
         _dampingFactor = akp(0.1);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -47,6 +50,9 @@
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
 }
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    _amplitude = amplitude;
+}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
@@ -54,7 +60,6 @@
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_energyReturn = akp(0);        
-    AKConstant *_amplitude = akp(1);        
     [csdString appendFormat:@"%@ crunch ", self];
 
     [csdString appendFormat:@"%@, ", _amplitude];

@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,22 +16,22 @@
 
 @interface AKSimpleWaveGuideModel : AKAudio
 /// Instantiates the simple wave guide model with all values
-/// @param audioSource The excitation noise. [Default Value: ]
+/// @param input The excitation noise. [Default Value: ]
 /// @param frequency The inverse of delay time. [Default Value: 440]
 /// @param cutoff Filter cut-off frequency in Hz Updated at Control-rate. [Default Value: 3000]
 /// @param feedback Feedback factor usually between 0 and 1 Updated at Control-rate. [Default Value: 0.8]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                          frequency:(AKParameter *)frequency
-                             cutoff:(AKParameter *)cutoff
-                           feedback:(AKParameter *)feedback;
+- (instancetype)initWithInput:(AKParameter *)input
+                    frequency:(AKParameter *)frequency
+                       cutoff:(AKParameter *)cutoff
+                     feedback:(AKParameter *)feedback;
 
 /// Instantiates the simple wave guide model with default values
-/// @param audioSource The excitation noise.
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input The excitation noise.
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the simple wave guide model with default values
-/// @param audioSource The excitation noise.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
+/// @param input The excitation noise.
++ (instancetype)audioWithInput:(AKParameter *)input;
 
 /// The inverse of delay time. [Default Value: 440]
 @property AKParameter *frequency;
