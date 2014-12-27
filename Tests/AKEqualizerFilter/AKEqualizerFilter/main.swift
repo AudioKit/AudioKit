@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/19/14.
-//  Customized by Nick Arner on 12/19/14.
+//  Customized by Nick Arner on 12/26/14.
 //
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
@@ -16,12 +16,16 @@ class Instrument : AKInstrument {
     
     override init() {
         super.init()
+        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
         
-        let operation = AKSleighbells()
-        connect(operation)
+        let audio = AKFileInput(filename: filename)
+        connect(audio)
+        
+        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        connect(mono)
         
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:operation)
+        assignOutput(auxilliaryOutput, to:mono)
     }
 }
 
@@ -30,14 +34,22 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line = AKLinearControl(firstPoint: 200.ak, secondPoint: 1500.ak, durationBetweenPoints: 11.ak)
-        connect(line)
+        let frequencyLine = AKLinearControl(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: 11.ak)
+        connect(frequencyLine)
+        
+        let bandWidthLine = AKLinearControl(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        connect(bandWidthLine)
         
         let operation = AKEqualizerFilter(input: audioSource)
-        operation.centerFrequency = line
+        operation.centerFrequency = frequencyLine
+        operation.bandwidth = bandWidthLine
+        operation.gain = 100.ak
         connect(operation)
         
-        connect(AKAudioOutput(audioSource:operation))
+        let output = AKBalance(input: operation, comparatorAudioSource: audioSource)
+        connect(output)
+        
+        connect(AKAudioOutput(audioSource:output))
     }
 }
 
@@ -50,23 +62,7 @@ AKManager.sharedManager().isLogging = true
 AKOrchestra.testForDuration(10)
 
 processor.play()
-let note1 = AKNote()
-// specify properties and create more notes here
-
-let phrase = AKPhrase()
-phrase.addNote(note1, atTime:1.0)
-phrase.addNote(note1, atTime:1.25)
-phrase.addNote(note1, atTime:1.5)
-phrase.addNote(note1, atTime:2.0)
-phrase.addNote(note1, atTime:2.25)
-phrase.addNote(note1, atTime:2.5)
-phrase.addNote(note1, atTime:3.0)
-phrase.addNote(note1, atTime:3.25)
-phrase.addNote(note1, atTime:3.5)
-phrase.addNote(note1, atTime:3.875)
-phrase.addNote(note1, atTime:4.0)
-
-instrument.playPhrase(phrase)
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

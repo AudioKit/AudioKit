@@ -2,7 +2,7 @@
 //  AKParallelCombLowPassFilterReverb.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 @interface AKParallelCombLowPassFilterReverb : AKAudio
 /// Instantiates the parallel comb low pass filter reverb with all values
 /// @param input Audio signal to be reverberated. [Default Value: ]
-/// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 3]
+/// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 1]
 /// @param highFrequencyDiffusivity A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster than lower ones. Updated at Control-rate. [Default Value: 0.5]
 - (instancetype)initWithInput:(AKParameter *)input
                      duration:(AKParameter *)duration
@@ -31,11 +31,11 @@
 /// @param input Audio signal to be reverberated.
 + (instancetype)audioWithInput:(AKParameter *)input;
 
-/// Length of reverbation in seconds. [Default Value: 3]
+/// Length of reverbation in seconds. [Default Value: 1]
 @property AKParameter *duration;
 
 /// Set an optional duration
-/// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 3]
+/// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalDuration:(AKParameter *)duration;
 
 /// A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster than lower ones. [Default Value: 0.5]

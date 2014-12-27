@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/21/14.
-//  Customized by Nick Arner on 12/21/14.
+//  Customized by Nick Arner on 12/26/14.
 //
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
@@ -30,15 +30,15 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
         
-        let line1 = AKLinearControl(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
-        connect(line1)
+        let centerFrequency = AKLinearControl(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
+        connect(centerFrequency)
         
-        let line2 = AKLinearControl(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
-        connect(line2)
+        let bandwidth = AKLinearControl(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        connect(bandwidth)
         
         let operation = AKResonantFilter(audioSource: audioSource)
-        operation.centerFrequency = line1
-        operation.bandwidth = line2
+        operation.centerFrequency = centerFrequency
+        operation.bandwidth = bandwidth
         connect(operation)
         
         let balance = AKBalance(input: operation, comparatorAudioSource: audioSource)
