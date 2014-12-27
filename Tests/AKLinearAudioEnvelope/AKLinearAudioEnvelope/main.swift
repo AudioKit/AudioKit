@@ -29,7 +29,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(2)
 
 let note1 = AKNote()
 note1.duration.setValue(1)
