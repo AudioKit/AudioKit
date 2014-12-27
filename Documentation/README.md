@@ -19,8 +19,8 @@ Follow their instruction to install, which was basically to:
 After installation, use this command from within the AudioKit Xcode folder to run documentation generator.
 
     appledoc --project-name "AudioKit" \
-    --project-company "Hear For Yourself" \
-    --company-id com.hearforyourself \
+    --project-company "AudioKit" \
+    --company-id io.AudioKit \
     --no-repeat-first-par \
     --output ~/AppleDoc \
     .
