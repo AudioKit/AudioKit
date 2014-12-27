@@ -47,7 +47,6 @@
 // Operations - Function Tables - Generators
 #import "AKAdditiveCosineTable.h"
 #import "AKArrayTable.h"
-#import "AKCompositeWaveformsFromSines.h"
 #import "AKExponentialCurves.h"
 #import "AKFunctionTable.h"
 #import "AKLineSegments.h"
