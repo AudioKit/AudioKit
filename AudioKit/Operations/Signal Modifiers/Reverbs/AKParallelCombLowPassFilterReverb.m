@@ -2,7 +2,7 @@
 //  AKParallelCombLowPassFilterReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's nreverb:
@@ -36,7 +36,7 @@
     if (self) {
         _input = input;
         // Default Values
-        _duration = akp(3);
+        _duration = akp(1);
         _highFrequencyDiffusivity = akp(0.5);
     }
     return self;

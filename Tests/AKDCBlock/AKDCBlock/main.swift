@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/21/14.
-//  Customized by Nick Arner on 12/21/14.
+//  Customized by Nick Arner on 12/26/14.
 //
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
@@ -16,12 +16,16 @@ class Instrument : AKInstrument {
     
     override init() {
         super.init()
+        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
         
-        let operation = AKOscillator()
-        connect(operation)
+        let audio = AKFileInput(filename: filename)
+        connect(audio)
+        
+        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        connect(mono)
         
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:operation)
+        assignOutput(auxilliaryOutput, to:mono)
     }
 }
 
