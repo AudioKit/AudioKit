@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 12/30/12.
-//  Modified by Aurelius Prochazka on 12/30/12.
+//  Customized by Aurelius Prochazka on 12/30/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
