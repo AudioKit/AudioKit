@@ -1252,7 +1252,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = h4y;
+				ORGANIZATIONNAME = AudioKit;
 			};
 			buildConfigurationList = C4398092196275C80076F005 /* Build configuration list for PBXProject "ContinuousControl" */;
 			compatibilityVersion = "Xcode 3.2";
