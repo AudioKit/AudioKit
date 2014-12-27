@@ -1267,7 +1267,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Hear For Yourself";
+				ORGANIZATIONNAME = AudioKit;
 			};
 			buildConfigurationList = C4398C7619628CBC0076F005 /* Build configuration list for PBXProject "Convolution" */;
 			compatibilityVersion = "Xcode 3.2";

@@ -1220,7 +1220,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Hear For Yourself";
+				ORGANIZATIONNAME = AudioKit;
 			};
 			buildConfigurationList = C4E9DB57198F70F500F261DA /* Build configuration list for PBXProject "PlayAudioFile" */;
 			compatibilityVersion = "Xcode 3.2";

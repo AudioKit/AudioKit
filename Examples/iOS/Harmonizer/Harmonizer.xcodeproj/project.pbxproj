@@ -1245,7 +1245,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Hear For Yourself";
+				ORGANIZATIONNAME = AudioKit;
 			};
 			buildConfigurationList = C407D54F1969D75D00322F25 /* Build configuration list for PBXProject "Harmonizer" */;
 			compatibilityVersion = "Xcode 3.2";
