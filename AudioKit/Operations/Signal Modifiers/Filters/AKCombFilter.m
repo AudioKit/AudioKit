@@ -59,13 +59,13 @@
 
     [csdString appendFormat:@"%@ comb ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_reverbDuration isKindOfClass:[AKControl class]] ) {
+    if ([_reverbDuration class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _reverbDuration];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _reverbDuration];

@@ -2,7 +2,7 @@
 //  AKResonantFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's reson:
@@ -59,19 +59,19 @@
 
     [csdString appendFormat:@"%@ reson ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+    if ([_audioSource class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _audioSource];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
     }
 
-    if ([_centerFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_centerFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _centerFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _centerFrequency];
     }
 
-    if ([_bandwidth isKindOfClass:[AKControl class]] ) {
+    if ([_bandwidth class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _bandwidth];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _bandwidth];

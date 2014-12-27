@@ -2,7 +2,7 @@
 //  AKTrackedAmplitude.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's rms:
@@ -53,7 +53,7 @@
 
     [csdString appendFormat:@"%@ rms ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
+    if ([_audioSource class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _audioSource];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _audioSource];

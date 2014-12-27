@@ -2,7 +2,7 @@
 //  AKParallelCombLowPassFilterReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/26/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's nreverb:
@@ -59,19 +59,19 @@
 
     [csdString appendFormat:@"%@ nreverb ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_duration isKindOfClass:[AKControl class]] ) {
+    if ([_duration class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _duration];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _duration];
     }
 
-    if ([_highFrequencyDiffusivity isKindOfClass:[AKControl class]] ) {
+    if ([_highFrequencyDiffusivity class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _highFrequencyDiffusivity];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _highFrequencyDiffusivity];

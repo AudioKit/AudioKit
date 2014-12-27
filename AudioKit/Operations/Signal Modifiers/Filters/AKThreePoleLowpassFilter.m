@@ -2,7 +2,7 @@
 //  AKThreePoleLowpassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lpf18:
@@ -65,25 +65,25 @@
 
     [csdString appendFormat:@"%@ lpf18 ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_cutoffFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_cutoffFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _cutoffFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
     }
 
-    if ([_resonance isKindOfClass:[AKControl class]] ) {
+    if ([_resonance class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _resonance];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _resonance];
     }
 
-    if ([_distortion isKindOfClass:[AKControl class]] ) {
+    if ([_distortion class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _distortion];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _distortion];

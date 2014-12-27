@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -86,7 +86,7 @@
 
     [csdString appendFormat:@"%@, ", _amplitude];
     
-    if ([_baseFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_baseFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _baseFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _baseFrequency];
@@ -96,7 +96,7 @@
     
     [csdString appendFormat:@"%@, ", _modulatingMultiplier];
     
-    if ([_modulationIndex isKindOfClass:[AKControl class]] ) {
+    if ([_modulationIndex class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _modulationIndex];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _modulationIndex];

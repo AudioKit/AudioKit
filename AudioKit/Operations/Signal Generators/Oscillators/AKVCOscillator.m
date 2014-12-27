@@ -2,7 +2,7 @@
 //  AKVCOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vco2:
@@ -77,13 +77,13 @@
 
     [csdString appendFormat:@"%@ vco2 ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    if ([_frequency isKindOfClass:[AKControl class]] ) {
+    if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
@@ -91,13 +91,13 @@
 
     [csdString appendFormat:@"%@, ", akpi(_waveformType)];
     
-    if ([_pulseWidth isKindOfClass:[AKControl class]] ) {
+    if ([_pulseWidth class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _pulseWidth];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _pulseWidth];
     }
 
-    if ([_phase isKindOfClass:[AKControl class]] ) {
+    if ([_phase class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _phase];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _phase];

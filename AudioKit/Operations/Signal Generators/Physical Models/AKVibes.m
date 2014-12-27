@@ -2,7 +2,7 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibes:
@@ -95,13 +95,13 @@
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ vibes ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    if ([_frequency isKindOfClass:[AKControl class]] ) {
+    if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
@@ -113,13 +113,13 @@
     
     [csdString appendFormat:@"%@, ", _strikeImpulseTable];
     
-    if ([_tremoloFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_tremoloFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _tremoloFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _tremoloFrequency];
     }
 
-    if ([_tremoloAmplitude isKindOfClass:[AKControl class]] ) {
+    if ([_tremoloAmplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _tremoloAmplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _tremoloAmplitude];

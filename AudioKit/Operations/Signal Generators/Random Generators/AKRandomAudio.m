@@ -2,7 +2,7 @@
 //  AKRandomAudio.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's random:
@@ -53,13 +53,13 @@
 
     [csdString appendFormat:@"%@ random ", self];
 
-    if ([_lowerBound isKindOfClass:[AKControl class]] ) {
+    if ([_lowerBound class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _lowerBound];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _lowerBound];
     }
 
-    if ([_upperBound isKindOfClass:[AKControl class]] ) {
+    if ([_upperBound class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _upperBound];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _upperBound];

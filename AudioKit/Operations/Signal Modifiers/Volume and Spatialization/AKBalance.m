@@ -2,7 +2,7 @@
 //  AKBalance.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's balance:
@@ -60,13 +60,13 @@
 
     [csdString appendFormat:@"%@ balance ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_comparatorAudioSource isKindOfClass:[AKAudio class]] ) {
+    if ([_comparatorAudioSource class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _comparatorAudioSource];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _comparatorAudioSource];

@@ -2,7 +2,7 @@
 //  AKVibrato.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibrato:
@@ -102,49 +102,49 @@
 
     [csdString appendFormat:@"%@ vibrato ", self];
 
-    if ([_averageAmplitude isKindOfClass:[AKControl class]] ) {
+    if ([_averageAmplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _averageAmplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _averageAmplitude];
     }
 
-    if ([_averageFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_averageFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _averageFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _averageFrequency];
     }
 
-    if ([_amplitudeDeviation isKindOfClass:[AKControl class]] ) {
+    if ([_amplitudeDeviation class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitudeDeviation];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitudeDeviation];
     }
 
-    if ([_frequencyRandomness isKindOfClass:[AKControl class]] ) {
+    if ([_frequencyRandomness class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequencyRandomness];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequencyRandomness];
     }
 
-    if ([_minimumAmplitudeRandomness isKindOfClass:[AKControl class]] ) {
+    if ([_minimumAmplitudeRandomness class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _minimumAmplitudeRandomness];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _minimumAmplitudeRandomness];
     }
 
-    if ([_maximumAmplitudeRandomness isKindOfClass:[AKControl class]] ) {
+    if ([_maximumAmplitudeRandomness class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _maximumAmplitudeRandomness];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _maximumAmplitudeRandomness];
     }
 
-    if ([_minimumFrequencyRandomness isKindOfClass:[AKControl class]] ) {
+    if ([_minimumFrequencyRandomness class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _minimumFrequencyRandomness];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _minimumFrequencyRandomness];
     }
 
-    if ([_maximumFrequencyRandomness isKindOfClass:[AKControl class]] ) {
+    if ([_maximumFrequencyRandomness class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _maximumFrequencyRandomness];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _maximumFrequencyRandomness];

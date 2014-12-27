@@ -2,7 +2,7 @@
 //  AKBallWithinTheBoxReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's babo:
@@ -89,25 +89,25 @@
 
     [csdString appendFormat:@"%@ babo ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_xLocation isKindOfClass:[AKControl class]] ) {
+    if ([_xLocation class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _xLocation];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _xLocation];
     }
 
-    if ([_yLocation isKindOfClass:[AKControl class]] ) {
+    if ([_yLocation class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _yLocation];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _yLocation];
     }
 
-    if ([_zLocation isKindOfClass:[AKControl class]] ) {
+    if ([_zLocation class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _zLocation];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _zLocation];

@@ -60,13 +60,13 @@
 
     [csdString appendFormat:@"%@ vdelay3 ", self];
 
-    if ([_input isKindOfClass:[AKAudio class]] ) {
+    if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_delayTime isKindOfClass:[AKAudio class]] ) {
+    if ([_delayTime class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _delayTime];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _delayTime];

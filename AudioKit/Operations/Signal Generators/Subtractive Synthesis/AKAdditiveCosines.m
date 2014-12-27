@@ -2,7 +2,7 @@
 //  AKAdditiveCosines.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's gbuzz:
@@ -87,19 +87,19 @@
     
     [csdString appendFormat:@"%@, ", _fundamentalFrequency];
     
-    if ([_harmonicsCount isKindOfClass:[AKControl class]] ) {
+    if ([_harmonicsCount class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _harmonicsCount];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _harmonicsCount];
     }
 
-    if ([_firstHarmonicIndex isKindOfClass:[AKControl class]] ) {
+    if ([_firstHarmonicIndex class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _firstHarmonicIndex];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _firstHarmonicIndex];
     }
 
-    if ([_partialMultiplier isKindOfClass:[AKControl class]] ) {
+    if ([_partialMultiplier class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _partialMultiplier];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _partialMultiplier];

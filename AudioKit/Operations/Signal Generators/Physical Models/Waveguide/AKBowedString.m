@@ -90,37 +90,37 @@
 
     [csdString appendFormat:@"%@ wgbow ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    if ([_frequency isKindOfClass:[AKControl class]] ) {
+    if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
-    if ([_pressure isKindOfClass:[AKControl class]] ) {
+    if ([_pressure class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _pressure];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _pressure];
     }
 
-    if ([_position isKindOfClass:[AKControl class]] ) {
+    if ([_position class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _position];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _position];
     }
 
-    if ([_vibratoFrequency isKindOfClass:[AKControl class]] ) {
+    if ([_vibratoFrequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _vibratoFrequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
     }
 
-    if ([_vibratoAmplitude isKindOfClass:[AKControl class]] ) {
+    if ([_vibratoAmplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _vibratoAmplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];

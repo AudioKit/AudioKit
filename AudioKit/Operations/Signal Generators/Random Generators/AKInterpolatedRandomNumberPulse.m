@@ -2,7 +2,7 @@
 //  AKInterpolatedRandomNumberPulse.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's randi:
@@ -53,13 +53,13 @@
 
     [csdString appendFormat:@"%@ randi ", self];
 
-    if ([_upperBound isKindOfClass:[AKControl class]] ) {
+    if ([_upperBound class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _upperBound];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _upperBound];
     }
 
-    if ([_frequency isKindOfClass:[AKControl class]] ) {
+    if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _frequency];

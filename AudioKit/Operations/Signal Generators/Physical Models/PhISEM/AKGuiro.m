@@ -69,7 +69,7 @@
     AKConstant *_dampingFactor = akp(0);        
     [csdString appendFormat:@"%@ guiro ", self];
 
-    if ([_amplitude isKindOfClass:[AKControl class]] ) {
+    if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
