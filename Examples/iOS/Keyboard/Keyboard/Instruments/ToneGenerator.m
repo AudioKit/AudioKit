@@ -25,7 +25,7 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        AKSineTable *sineTable = [[AKSineTable alloc] init];
+        AKWeightedSumOfSinusoids *sineTable = [[AKWeightedSumOfSinusoids alloc] init];
         [self addFunctionTable:sineTable];
         
         AKFMOscillator *fmOscillator;

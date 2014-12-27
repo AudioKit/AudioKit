@@ -52,8 +52,8 @@
 #import "AKFunctionTable.h"
 #import "AKLineSegmentTable.h"
 #import "AKRandomDistributionTable.h"
-#import "AKSineTable.h"
-#import "AKSoundFileTable.h"
+#import "AKWeightedSumOfSinusoids.h"
+#import "AKSoundFile.h"
 #import "AKWindowsTable.h"
 
 // Operations - Mathematical Operations

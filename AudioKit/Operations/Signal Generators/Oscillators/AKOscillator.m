@@ -34,7 +34,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _functionTable = [AKManager standardSineTable];
+        _functionTable = [AKManager standardSineWave];
     
         _frequency = akp(440);
         _amplitude = akp(1);

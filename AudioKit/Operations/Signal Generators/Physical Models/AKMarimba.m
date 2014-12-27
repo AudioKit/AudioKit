@@ -48,7 +48,7 @@
         _amplitude = akp(1);
         _stickHardness = akp(0.5);
         _strikePosition = akp(0.5);
-        _vibratoShapeTable = [AKManager standardSineTable];
+        _vibratoShapeTable = [AKManager standardSineWave];
     
         _vibratoFrequency = akp(0);
         _vibratoAmplitude = akp(0);
@@ -100,8 +100,8 @@
         file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
     }
 
-    AKSoundFileTable *_strikeImpulseTable;
-    _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+    AKSoundFile *_strikeImpulseTable;
+    _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
     [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
             
     AKConstant *_maximumDuration = akp(1);        

@@ -44,7 +44,7 @@
         _amplitude = akp(1.0);
         _stickHardness = akp(0.5);
         _strikePosition = akp(0.2);
-        _tremoloShapeTable = [AKManager standardSineTable];
+        _tremoloShapeTable = [AKManager standardSineWave];
     
         _tremoloFrequency = akp(0);
         _tremoloAmplitude = akp(0);
@@ -88,8 +88,8 @@
         file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
     }
 
-    AKSoundFileTable *_strikeImpulseTable;
-    _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+    AKSoundFile *_strikeImpulseTable;
+    _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
     [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
             
     AKConstant *_maximumDuration = akp(1);        

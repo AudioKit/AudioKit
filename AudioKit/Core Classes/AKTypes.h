@@ -110,7 +110,7 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
     AKFunctionTableTypeArray=2,
     AKFunctionTableTypeExponentialCurves=5,
     AKFunctionTableTypeStraightLines=7,
-    AKFunctionTableTypeSines=10,
+    AKFunctionTableTypeWeightedSumOfSinusoids=10,
     AKFunctionTableTypeAdditiveCosines=11,
     AKFunctionTableTypeCompositeWaveformsFromSines=19,
     AKFunctionTableTypeWindows=20,

@@ -10,7 +10,7 @@
 
 @implementation AKSinusoidBursts
 {
-    AKSineTable *iFnA;
+    AKWeightedSumOfSinusoids *iFnA;
     AKFunctionTable *iFnB;
     AKConstant *iOlaps;
     AKConstant *iTotDur;
@@ -24,7 +24,7 @@
     AKParameter *xForm;
 }
 
-- (instancetype)initWithSineTable:(AKSineTable *)sineburstSynthesisTable
+- (instancetype)initWithSineWave:(AKWeightedSumOfSinusoids *)sineburstSynthesisTable
                    riseShapeTable:(AKFunctionTable *)riseShapeTable
                          overlaps:(AKConstant *)numberOfOverlaps
                         totalTime:(AKConstant *)totalTime

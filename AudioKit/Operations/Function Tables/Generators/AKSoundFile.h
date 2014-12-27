@@ -1,5 +1,5 @@
 //
-//  AKSoundFileTable.h
+//  AKSoundFile.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/16/12.
@@ -20,24 +20,10 @@
  
  *Important:* Reading stops at end-of-file or when the table is full. 
  Table locations not filled will contain zeros.
- 
- @warning *Unsupported Functions* 
- 
- `skiptime` -- begin reading at skiptime seconds into the file.
- 
- `channel` -- channel number to read in. 0 denotes read all channels.
- 
- `format` -- specifies the audio data-file format:
- 
-    1 - 8-bit signed character    4 - 16-bit short integers 
-    2 - 8-bit A-law bytes         5 - 32-bit long integers 
-    3 - 8-bit U-law bytes         6 - 32-bit floats
- 
- If `format` = 0 the sample format is taken from the soundfile header, or by default from the CSound -o command-line flag.
- 
+
 */
 
-@interface AKSoundFileTable : AKFunctionTable
+@interface AKSoundFile : AKFunctionTable
 
 /// Store file with a filename
 /// @param filename Audio file to load.  Most types are supported.
