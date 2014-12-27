@@ -9,18 +9,18 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-                
+
         let operation = AKPhasingControl()
         connect(operation)
-        
+
         let source = AKPhasor()
         source.frequency = operation.scaledBy(3000.ak)
-        
+
         connect(source)
-        
+
         connect(AKAudioOutput(audioSource:source))
     }
 }
@@ -28,7 +28,9 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
+
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

@@ -11,28 +11,28 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     var auxilliaryOutput = AKAudio()
-    
+
     override init() {
         super.init()
-        
+
         let operation = AKPhasor()
         connect(operation)
-        
+
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:operation)
     }
 }
 
 class Processor : AKInstrument {
-    
+
     init(audioSource: AKAudio) {
         super.init()
-        
+
         let distortion = AKLinearControl(firstPoint: 0.1.ak, secondPoint: 0.9.ak, durationBetweenPoints: 11.ak)
         connect(distortion)
-        
+
         let cutoffFrequency = AKLinearControl(firstPoint: 300.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
         connect(cutoffFrequency)
 
@@ -44,7 +44,7 @@ class Processor : AKInstrument {
         operation.cutoffFrequency = cutoffFrequency
         operation.resonance = resonance
         connect(operation)
-        
+
         connect(AKAudioOutput(audioSource:operation))
     }
 }
@@ -55,8 +55,10 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
+
 processor.play()
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

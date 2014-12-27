@@ -9,13 +9,13 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let cosineTable = AKAdditiveCosineTable()
         connect(cosineTable)
-        
+
         let operation = AKAdditiveCosines(
             cosineTable: cosineTable
         )
@@ -27,7 +27,7 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
 
 instrument.play()
 
