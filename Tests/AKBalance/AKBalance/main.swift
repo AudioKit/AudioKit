@@ -11,35 +11,35 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     var auxilliaryOutput = AKAudio()
-    
+
     override init() {
         super.init()
-        
+
         let amplitude = AKOscillatingControl()
         connect(amplitude)
-        
+
         let oscillator = AKOscillator()
         oscillator.amplitude = amplitude
         connect(oscillator)
-        
+
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:oscillator)
     }
 }
 
 class Processor : AKInstrument {
-    
+
     init(audioSource: AKAudio) {
         super.init()
-        
+
         let synth = AKFMOscillator()
         connect(synth)
-        
+
         let operation = AKBalance(input: synth, comparatorAudioSource: audioSource)
         connect(operation)
-        
+
         connect(AKAudioOutput(audioSource:operation))
     }
 }
@@ -50,8 +50,9 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
 processor.play()
+instrument.play()
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

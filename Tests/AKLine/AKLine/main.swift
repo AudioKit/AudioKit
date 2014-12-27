@@ -15,11 +15,11 @@ class Instrument : AKInstrument {
 
         let operation = AKLine()
         connect(operation)
-        
+
         let oscillator = AKOscillator()
         oscillator.frequency = operation.scaledBy(100.ak)
         connect(oscillator)
-        
+
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
@@ -27,7 +27,7 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.test()
+AKOrchestra.testForDuration(10)
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

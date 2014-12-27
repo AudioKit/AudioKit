@@ -53,6 +53,7 @@
 
 + (void)testForDuration:(int)duration
 {
+    [[AKManager sharedManager] setIsLogging:YES];
     if (![[AKManager sharedManager] isRunning]) {
         [[AKManager sharedManager] runOrchestraForDuration:duration];
     }
