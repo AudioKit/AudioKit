@@ -29,13 +29,9 @@
 /// Start the orchestra
 + (void)start;
 
-/// Test the orchestra
-+ (void)test;
-
 /// Test the orchestra for a specified time
 /// @param duration Testing run time in seconds
 + (void)testForDuration:(int)duration;
-
 
 /// Add an instrument to the orchestra
 /// @param instrument Instrument to add to the orchestra

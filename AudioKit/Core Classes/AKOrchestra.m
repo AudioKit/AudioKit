@@ -51,13 +51,6 @@
     }
 }
 
-+ (void)test
-{
-    if (![[AKManager sharedManager] isRunning]) {
-        [[AKManager sharedManager] runTestOrchestra];
-    }
-}
-
 + (void)testForDuration:(int)duration
 {
     if (![[AKManager sharedManager] isRunning]) {

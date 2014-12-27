@@ -13,7 +13,6 @@
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
-    NSString *testTemplateString;
     
     CsoundObj *csound;
     int totalRunDuration;
@@ -135,45 +134,6 @@ static AKManager *_sharedManager = nil;
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
-        testTemplateString = @""
-        "<CsoundSynthesizer>\n\n"
-        "<CsOptions>\n\%@\n</CsOptions>\n\n"
-        "<CsInstruments>\n\n"
-        "opcode AKControl, k, a\n"
-        "aval xin\n"
-        "xout downsamp(aval)\n"
-        "endop\n"
-        "\n"
-        "opcode AKControl, k, k\n"
-        "kval xin\n"
-        "koutput = kval\n"
-        "xout koutput\n"
-        "endop\n"
-        "\n"
-        "opcode AKAudio, a, k\n"
-        "kval xin\n"
-        "xout upsamp(kval)\n"
-        "endop\n"
-        "\n"
-        "opcode AKAudio, a, a\n"
-        "aval xin\n"
-        "aoutput = aval\n"
-        "xout aoutput\n"
-        "endop\n"
-        "\n"
-        "\n\%@\n\n"
-        "; Deactivates a complete instrument\n"
-        "instr DeactivateInstrument\n"
-        "turnoff2 p4, 0, 1\n"
-        "endin\n\n"
-        "; Event End or Note Off\n"
-        "instr DeactivateNote\n"
-        "turnoff2 p4, 4, 1\n"
-        "endin\n\n"
-        "</CsInstruments>\n\n"
-        "<CsScore>\ni1 0.5 10\n</CsScore>\n\n"
-        "</CsoundSynthesizer>\n";
-        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
@@ -214,16 +174,6 @@ static AKManager *_sharedManager = nil;
                   error:nil];
 }
 
-- (void)writeCSDFileForTestOrchestra:(AKOrchestra *)orchestra
-{
-    NSString *newCSD = [NSString stringWithFormat:testTemplateString, options, [orchestra stringForCSD]];
-    
-    [newCSD writeToFile:csdFile
-             atomically:YES
-               encoding:NSStringEncodingConversionAllowLossy
-                  error:nil];
-}
-
 - (void)runOrchestra
 {
     if(_isRunning) {
@@ -257,36 +207,6 @@ static AKManager *_sharedManager = nil;
 {
     totalRunDuration = duration;
     [self runOrchestra];
-}
-
-- (void)runTestOrchestra
-{
-    _isLogging = YES;
-    if(_isRunning) {
-        if (_isLogging) NSLog(@"Csound instance already active.");
-        [self stop];
-    }
-    [self writeCSDFileForTestOrchestra:_orchestra];
-    [self updateBindingsWithProperties:_orchestra];
-    [csound play:csdFile];
-
-    if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
-    
-    // Clean up the IDs for next time
-    //[AKParameter resetID]; //Should work but generating lots of out of bounds errors
-    [AKInstrument resetID];
-    [AKNote resetID];
-    
-    // Pause to allow Csound to start, warn if nothing happens after 1 second
-    int cycles = 0;
-    while(!_isRunning) {
-        cycles++;
-        if (cycles > 100) {
-            if (_isLogging) NSLog(@"Csound has not started in 1 second." );
-            break;
-        }
-        [NSThread sleepForTimeInterval:0.01];
-    }
 }
 
 // -----------------------------------------------------------------------------
