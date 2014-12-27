@@ -179,7 +179,7 @@ static AKManager *_sharedManager = nil;
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
         _midi = [[AKMidi alloc] init];
         
-        _standardSineWave = [[AKWeightedSumOfSinusoids alloc] init];
+        _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
     }
     return self;
 }   
