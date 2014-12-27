@@ -27,7 +27,7 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration()
+AKOrchestra.testForDuration(10)
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")
