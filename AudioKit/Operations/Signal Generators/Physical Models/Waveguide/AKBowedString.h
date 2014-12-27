@@ -2,7 +2,7 @@
 //  AKBowedString.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,6 +17,7 @@
 @interface AKBowedString : AKAudio
 /// Instantiates the bowed string with all values
 /// @param frequency Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set. Updated at Control-rate. [Default Value: 110]
+/// @param amplitude Amplitude of the note played. Updated at Control-rate. [Default Value: 1]
 /// @param pressure Parameter controlling the pressure of the bow on the string. Values should be about 3. The useful range is approximately 1 to 5. Updated at Control-rate. [Default Value: 3]
 /// @param position Position of the bow along the string. Usual playing is about 0.127236. The suggested range is 0.025 to 0.23. Updated at Control-rate. [Default Value: 0.127236]
 /// @param vibratoShapeTable Table shape of vibrato, usually a sine table. [Default Value: sine]
@@ -24,6 +25,7 @@
 /// @param vibratoAmplitude Amplitude of the vibrato. Updated at Control-rate. [Default Value: 0]
 /// @param minimumFrequency Lowest frequency at which the instrument will play.  [Default Value: 0]
 - (instancetype)initWithFrequency:(AKParameter *)frequency
+                        amplitude:(AKParameter *)amplitude
                          pressure:(AKParameter *)pressure
                          position:(AKParameter *)position
                 vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
@@ -44,6 +46,13 @@
 /// Set an optional frequency
 /// @param frequency Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set. Updated at Control-rate. [Default Value: 110]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
+
+/// Amplitude of the note played. [Default Value: 1]
+@property AKParameter *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude Amplitude of the note played. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Parameter controlling the pressure of the bow on the string. Values should be about 3. The useful range is approximately 1 to 5. [Default Value: 3]
 @property AKParameter *pressure;

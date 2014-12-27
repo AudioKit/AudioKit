@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wguide1:
@@ -14,17 +14,17 @@
 
 @implementation AKSimpleWaveGuideModel
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                          frequency:(AKParameter *)frequency
-                             cutoff:(AKParameter *)cutoff
-                           feedback:(AKParameter *)feedback
+- (instancetype)initWithInput:(AKParameter *)input
+                    frequency:(AKParameter *)frequency
+                       cutoff:(AKParameter *)cutoff
+                     feedback:(AKParameter *)feedback
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _frequency = frequency;
         _cutoff = cutoff;
         _feedback = feedback;
@@ -32,11 +32,11 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _frequency = akp(440);
         _cutoff = akp(3000);
@@ -45,9 +45,9 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)audioWithInput:(AKParameter *)input
 {
-    return [[AKSimpleWaveGuideModel alloc] initWithAudioSource:audioSource];
+    return [[AKSimpleWaveGuideModel alloc] initWithInput:input];
 }
 
 - (void)setOptionalFrequency:(AKParameter *)frequency {
@@ -65,10 +65,10 @@
 
     [csdString appendFormat:@"%@ wguide1 ", self];
 
-    if ([_audioSource isKindOfClass:[AKAudio class]] ) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    if ([_input isKindOfClass:[AKAudio class]] ) {
+        [csdString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     [csdString appendFormat:@"%@, ", _frequency];

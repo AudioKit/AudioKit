@@ -2,7 +2,7 @@
 //  AKTambourine.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's tambourine:
@@ -19,6 +19,7 @@
             mainResonantFrequency:(AKConstant *)mainResonantFrequency
            firstResonantFrequency:(AKConstant *)firstResonantFrequency
           secondResonantFrequency:(AKConstant *)secondResonantFrequency
+                        amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -27,6 +28,7 @@
         _mainResonantFrequency = mainResonantFrequency;
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
+        _amplitude = amplitude;
     }
     return self;
 }
@@ -41,6 +43,7 @@
         _mainResonantFrequency = akp(2300);
         _firstResonantFrequency = akp(5600);
         _secondResonantFrequency = akp(8100);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -65,12 +68,14 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     // Constant Values  
-    AKConstant *_amplitude = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ tambourine ", self];

@@ -2,7 +2,7 @@
 //  AKMandolin.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mandol:
@@ -14,18 +14,18 @@
 
 @implementation AKMandolin
 
-- (instancetype)initWithFrequency:(AKParameter *)frequency
-                        amplitude:(AKParameter *)amplitude
-                         bodySize:(AKParameter *)bodySize
-             pairedStringDetuning:(AKParameter *)pairedStringDetuning
-                    pluckPosition:(AKConstant *)pluckPosition
-                         loopGain:(AKParameter *)loopGain
+- (instancetype)initWithBodySize:(AKParameter *)bodySize
+                       frequency:(AKParameter *)frequency
+                       amplitude:(AKParameter *)amplitude
+            pairedStringDetuning:(AKParameter *)pairedStringDetuning
+                   pluckPosition:(AKConstant *)pluckPosition
+                        loopGain:(AKParameter *)loopGain
 {
     self = [super initWithString:[self operationName]];
     if (self) {
+        _bodySize = bodySize;
         _frequency = frequency;
         _amplitude = amplitude;
-        _bodySize = bodySize;
         _pairedStringDetuning = pairedStringDetuning;
         _pluckPosition = pluckPosition;
         _loopGain = loopGain;
@@ -38,9 +38,9 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
+        _bodySize = akp(0.5);
         _frequency = akp(220);
         _amplitude = akp(1);
-        _bodySize = akp(0.5);
         _pairedStringDetuning = akp(1);
         _pluckPosition = akp(0.4);
         _loopGain = akp(0.99);
@@ -53,14 +53,14 @@
     return [[AKMandolin alloc] init];
 }
 
+- (void)setOptionalBodySize:(AKParameter *)bodySize {
+    _bodySize = bodySize;
+}
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
-}
-- (void)setOptionalBodySize:(AKParameter *)bodySize {
-    _bodySize = bodySize;
 }
 - (void)setOptionalPairedStringDetuning:(AKParameter *)pairedStringDetuning {
     _pairedStringDetuning = pairedStringDetuning;

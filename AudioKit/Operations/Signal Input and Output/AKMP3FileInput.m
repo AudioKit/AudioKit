@@ -3,6 +3,8 @@
 //  AudioKit
 //
 //  Auto-generated on 12/25/14.
+//  Customized by Aurelius Prochazka on 12/25/14.
+//
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mp3in:

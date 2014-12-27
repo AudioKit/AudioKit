@@ -2,7 +2,7 @@
 //  AKGuiro.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -19,9 +19,11 @@
 /// @param count The number of beads/teeth/bells/timbrels/etc. [Default Value: 128]
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2500]
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 4000]
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1.0]
 - (instancetype)initWithCount:(AKConstant *)count
         mainResonantFrequency:(AKConstant *)mainResonantFrequency
-       firstResonantFrequency:(AKConstant *)firstResonantFrequency;
+       firstResonantFrequency:(AKConstant *)firstResonantFrequency
+                    amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the guiro with default values
 - (instancetype)init;
@@ -50,6 +52,13 @@
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 4000]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
+
+/// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1.0]
+@property AKParameter *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1.0]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 
 
