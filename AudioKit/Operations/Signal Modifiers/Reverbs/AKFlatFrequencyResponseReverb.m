@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.m
 //  AudioKit
 //
-//  Auto-generated on 12/26/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's alpass:
@@ -18,14 +18,14 @@
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
-            reverberationTime:(AKParameter *)reverberationTime
-                     loopTime:(AKConstant *)loopTime
+               reverbDuration:(AKParameter *)reverbDuration
+                 loopDuration:(AKConstant *)loopDuration
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _input = input;
-        _reverberationTime = reverberationTime;
-        _loopTime = loopTime;
+        _reverbDuration = reverbDuration;
+        _loopDuration = loopDuration;
     }
     return self;
 }
@@ -36,8 +36,8 @@
     if (self) {
         _input = input;
         // Default Values
-        _reverberationTime = akp(0.5);
-        _loopTime = akp(0.1);
+        _reverbDuration = akp(0.5);
+        _loopDuration = akp(0.1);
     }
     return self;
 }
@@ -47,11 +47,11 @@
     return [[AKFlatFrequencyResponseReverb alloc] initWithInput:input];
 }
 
-- (void)setOptionalReverberationTime:(AKParameter *)reverberationTime {
-    _reverberationTime = reverberationTime;
+- (void)setOptionalReverbDuration:(AKParameter *)reverbDuration {
+    _reverbDuration = reverbDuration;
 }
-- (void)setOptionalLoopTime:(AKConstant *)loopTime {
-    _loopTime = loopTime;
+- (void)setOptionalLoopDuration:(AKConstant *)loopDuration {
+    _loopDuration = loopDuration;
 }
 
 - (NSString *)stringForCSD {
@@ -65,13 +65,13 @@
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_reverberationTime isKindOfClass:[AKControl class]] ) {
-        [csdString appendFormat:@"%@, ", _reverberationTime];
+    if ([_reverbDuration isKindOfClass:[AKControl class]] ) {
+        [csdString appendFormat:@"%@, ", _reverbDuration];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _reverberationTime];
+        [csdString appendFormat:@"AKControl(%@), ", _reverbDuration];
     }
 
-    [csdString appendFormat:@"%@", _loopTime];
+    [csdString appendFormat:@"%@", _loopDuration];
     return csdString;
 }
 
