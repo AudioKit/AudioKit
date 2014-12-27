@@ -13,11 +13,11 @@
     AKParameter *amp;
     AKParameter *freqMultiplier;
     AKConstant *baseFrequency;
-    AKSoundFileTable *soundFileTable;
+    AKSoundFile *soundFileTable;
     AKLoopingOscillatorType imod1;
 }
 
-- (instancetype)initWithSoundFileTable:(AKSoundFileTable *) fileTable {
+- (instancetype)initWithSoundFileTable:(AKSoundFile *) fileTable {
     return [self initWithSoundFileTable:fileTable
                     frequencyMultiplier:akpi(1)
                               amplitude:akpi(1)
@@ -25,7 +25,7 @@
     
 }
 
-- (instancetype)initWithSoundFileTable:(AKSoundFileTable *) fileTable
+- (instancetype)initWithSoundFileTable:(AKSoundFile *) fileTable
                              amplitude:(AKParameter *)amplitude
 {
     return [self initWithSoundFileTable:fileTable
@@ -34,7 +34,7 @@
                                    type:AKLoopingOscillatorTypeNormal];
 }
 
-- (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
+- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
                    frequencyMultiplier:(AKControl *)frequencyMultiplier
                              amplitude:(AKParameter *)amplitude
 {
@@ -45,7 +45,7 @@
 }
 
 
-- (instancetype)initWithSoundFileTable:(AKSoundFileTable *)fileTable
+- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
                    frequencyMultiplier:(AKControl *)frequencyMultiplier
                              amplitude:(AKParameter *)amplitude
                                   type:(AKLoopingOscillatorType)type

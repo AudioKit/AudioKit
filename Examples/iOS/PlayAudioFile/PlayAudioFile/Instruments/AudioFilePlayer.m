@@ -22,8 +22,8 @@
         
         NSString *file;
         file = [[NSBundle mainBundle] pathForResource:@"blaster" ofType:@"aiff"];
-        AKSoundFileTable *fileTable;
-        fileTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        AKSoundFile *fileTable;
+        fileTable = [[AKSoundFile alloc] initWithFilename:file];
         [self connect:fileTable];
         
         AKLoopingOscillator *oscil;

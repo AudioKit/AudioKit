@@ -55,8 +55,8 @@ static AKManager *_sharedManager = nil;
     return nil;
 }
 
-+ (AKSineTable *)standardSineTable {
-    return [[AKManager sharedManager] standardSineTable];
++ (AKWeightedSumOfSinusoids *)standardSineWave {
+    return [[AKManager sharedManager] standardSineWave];
 }
 
 + (id)alloc {
@@ -180,7 +180,7 @@ static AKManager *_sharedManager = nil;
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
         _midi = [[AKMidi alloc] init];
         
-        _standardSineTable = [[AKSineTable alloc] init];
+        _standardSineWave = [[AKWeightedSumOfSinusoids alloc] init];
     }
     return self;
 }   

@@ -46,7 +46,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _vibratoShapeTable = [AKManager standardSineTable];
+        _vibratoShapeTable = [AKManager standardSineWave];
     
         _averageFrequency = akp(2);
         _frequencyRandomness = akp(0);

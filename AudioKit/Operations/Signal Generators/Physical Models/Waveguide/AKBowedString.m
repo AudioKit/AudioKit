@@ -43,7 +43,7 @@
         _frequency = akp(110);
         _pressure = akp(3);
         _position = akp(0.127236);
-        _vibratoShapeTable = [AKManager standardSineTable];
+        _vibratoShapeTable = [AKManager standardSineWave];
     
         _vibratoFrequency = akp(0);
         _vibratoAmplitude = akp(0);

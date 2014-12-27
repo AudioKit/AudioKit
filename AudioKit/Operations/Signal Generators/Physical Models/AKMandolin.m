@@ -81,8 +81,8 @@
         file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
     }
 
-    AKSoundFileTable *_strikeImpulseTable;
-    _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+    AKSoundFile *_strikeImpulseTable;
+    _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
     [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
             
     [csdString appendFormat:@"%@ mandol ", self];

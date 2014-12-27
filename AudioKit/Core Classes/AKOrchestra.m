@@ -91,7 +91,7 @@
     [s appendString:@"\n"];
     
     [s appendString:@";=== GLOBAL F-TABLES ===\n"];
-    [s appendString:[[AKManager standardSineTable] functionTableStringForCSD]];
+    [s appendString:[[AKManager standardSineWave] functionTableStringForCSD]];
     [s appendString:@"\n"];
     for ( AKInstrument *i in _instruments) {
         for (AKFunctionTable *functionTable in [i functionTables]) {

@@ -1,15 +1,15 @@
 //
-//  AKSoundFileTable.m
+//  AKSoundFile.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/16/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKSoundFileTable.h"
+#import "AKSoundFile.h"
 #import "AKArray.h"
 
-@implementation AKSoundFileTable
+@implementation AKSoundFile
 
 - (instancetype)initWithFilename:(NSString *)filename
 {

@@ -29,7 +29,7 @@ class GranularSynth: AKInstrument
         
         let file = String (NSBundle .mainBundle() .pathForResource("PianoBassDrumLoop", ofType: "wav")!)
 
-        let fileTable = AKSoundFileTable (filename: file, tableSize: 16384)
+        let fileTable = AKSoundFile (filename: file, tableSize: 16384)
         connect(fileTable)
 
         let hamming = AKWindowsTable (type: AKWindowTableType.Hamming, size: 512)

@@ -27,7 +27,7 @@ class FMSynth: AKInstrument {
         addProperty(modulatingMultiplier)
         addProperty(modulationIndex)
         
-        let sine = AKSineTable()
+        let sine = AKWeightedSumOfSinusoids()
         addFunctionTable(sine)
 
         let fmOscillator = AKFMOscillator(

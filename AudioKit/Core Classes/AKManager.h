@@ -11,7 +11,7 @@
 #import "AKEvent.h"
 #import "AKMidi.h"
 #import "AKSequence.h"
-#import "AKSineTable.h"
+#import "AKWeightedSumOfSinusoids.h"
 
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
@@ -30,8 +30,8 @@
 @property (readonly) AKMidi *midi;
 
 /// Common table required by many applications
-@property AKSineTable *standardSineTable;
-+ (AKSineTable *)standardSineTable;
+@property AKWeightedSumOfSinusoids *standardSineWave;
++ (AKWeightedSumOfSinusoids *)standardSineWave;
 
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedManager;
