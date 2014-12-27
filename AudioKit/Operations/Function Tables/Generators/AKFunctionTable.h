@@ -26,6 +26,9 @@
 /// The size of the FunctionTable
 @property int size;
 
+/// The name of the function
+- (NSString *)functionName;
+
 /// Creates a function table at the most basic level.
 /// @param functionTableType  One of the supported GeneratingRoutines.
 /// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
@@ -40,12 +43,13 @@
 - (instancetype)initWithType:(AKFunctionTableType)functionTableType
                   parameters:(AKArray *)parameters;
 
+
+/// Creates a function table without specifying a size or parameters.
+/// @param functionTableType  One of the supported GeneratingRoutines.
+- (instancetype)initWithType:(AKFunctionTableType)functionTableType;
+
 // The textual representation of the dynamic function table for Csound
 - (NSString *)stringForCSD;
-
-// The textual representation of the global function table for Csound
-- (NSString *)functionTableStringForCSD;
-
 
 /// Returns an ftlen() wrapped around the output of this function table.
 - (AKConstant *)length;

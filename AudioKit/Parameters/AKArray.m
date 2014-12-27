@@ -51,15 +51,6 @@
     return [s componentsJoinedByString:@", "]; 
 }
 
-- (id)functionTableString
-{
-    NSMutableArray *s = [[NSMutableArray alloc] init];
-    for (AKConstant *value in _constants) {
-        [s addObject:[value parameterString]];
-    }
-    return [s componentsJoinedByString:@" "]; 
-}
-
 - (void)addConstant:(AKConstant *)constant
 {
     [_constants addObject:constant];
