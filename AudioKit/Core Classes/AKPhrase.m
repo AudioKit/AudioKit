@@ -3,7 +3,7 @@
 //  ContinuousControl
 //
 //  Created by Aurelius Prochazka on 12/12/14.
-//  Copyright (c) 2014 h4y. All rights reserved.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKPhrase.h"
@@ -15,7 +15,7 @@
 }
 @end
 
-@implementation AKPhrase 
+@implementation AKPhrase
 
 - (instancetype)init
 {
@@ -24,7 +24,7 @@
         timeNotePairs = [[NSMutableArray alloc] init];
     }
     return self;
-    
+
 }
 
 - (void)addNote:(AKNote *)note
