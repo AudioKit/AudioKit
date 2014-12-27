@@ -17,7 +17,7 @@ class Instrument : AKInstrument {
         connect(source)
 
         let operation = AKSimpleWaveGuideModel(
-            audioSource: source
+            input: source
         )
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
