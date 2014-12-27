@@ -14,13 +14,6 @@
  By default, the table will not be normalized,
  but it maybe normalized by setting the isNormalized property to YES.
 
- Currently supported function table types are
-
- - Sound File (AKSoundFileTable)
- - Exponential Curves (AKExponentialCurvesTable)
- - Sines (AKSineTable)
- - Windows (AKWindowsTable)
-
  */
 @interface AKFunctionTable : AKConstant
 
