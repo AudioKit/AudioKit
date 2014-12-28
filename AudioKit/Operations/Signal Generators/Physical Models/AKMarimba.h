@@ -2,7 +2,7 @@
 //  AKMarimba.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 @interface AKMarimba : AKAudio
 /// Instantiates the marimba with all values
 /// @param frequency Frequency of note played. Updated at Control-rate. [Default Value: 220]
-/// @param amplitude Amplitude of note. Updated at Control-rate. [Default Value: 1]
+/// @param amplitude Amplitude of note. [Default Value: 1]
 /// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
 /// @param strikePosition Where the block is hit, in the range 0 to 1. [Default Value: 0.5]
 /// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
@@ -26,7 +26,7 @@
 /// @param doubleStrikePercentage Percentage of double strikes. Default is 40%. [Default Value: 40]
 /// @param tripleStrikePercentage Percentage of triple strikes. Default is 20%. [Default Value: 20]
 - (instancetype)initWithFrequency:(AKParameter *)frequency
-                        amplitude:(AKParameter *)amplitude
+                        amplitude:(AKConstant *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
                 vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
@@ -50,11 +50,11 @@
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Amplitude of note. [Default Value: 1]
-@property AKParameter *amplitude;
+@property AKConstant *amplitude;
 
 /// Set an optional amplitude
-/// @param amplitude Amplitude of note. Updated at Control-rate. [Default Value: 1]
-- (void)setOptionalAmplitude:(AKParameter *)amplitude;
+/// @param amplitude Amplitude of note. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKConstant *)amplitude;
 
 /// The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
 @property AKConstant *stickHardness;

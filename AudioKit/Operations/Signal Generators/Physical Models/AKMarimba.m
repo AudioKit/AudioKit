@@ -15,7 +15,7 @@
 @implementation AKMarimba
 
 - (instancetype)initWithFrequency:(AKParameter *)frequency
-                        amplitude:(AKParameter *)amplitude
+                        amplitude:(AKConstant *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
                 vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
@@ -66,7 +66,7 @@
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
     _amplitude = amplitude;
 }
 - (void)setOptionalStickHardness:(AKConstant *)stickHardness {
@@ -107,12 +107,8 @@
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ marimba ", self];
 
-    if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
-    } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
-    }
-
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
     if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {

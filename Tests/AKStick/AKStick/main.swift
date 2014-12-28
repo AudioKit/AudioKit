@@ -14,6 +14,9 @@ class Instrument : AKInstrument {
         super.init()
 
         let operation = AKStick()
+        operation.intensity = 10.ak
+        operation.dampingFactor = 0.9.ak
+        operation.amplitude = 2.ak
         connect(operation)
         connect(AKAudioOutput(audioSource:operation))
     }
