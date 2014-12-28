@@ -1,72 +1,86 @@
 //
-//  AKLoopingOscillator.m
+//  AKMonoSoundFileLooper.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/16/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/28/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//
+//  Implementation of Csound's loscil3:
+//  http://www.csounds.com/manual/html/loscil3.html
 //
 
-#import "AKLoopingOscillator.h"
+#import "AKMonoSoundFileLooper.h"
+#import "AKManager.h"
 
-@implementation AKLoopingOscillator
+@implementation AKMonoSoundFileLooper
 {
-    AKParameter *amp;
-    AKParameter *freqMultiplier;
-    AKConstant *baseFrequency;
-    AKSoundFile *soundFileTable;
-    AKLoopingOscillatorType imod1;
+    AKFunctionTable * _soundFile;
 }
 
-- (instancetype)initWithSoundFileTable:(AKSoundFile *) fileTable {
-    return [self initWithSoundFileTable:fileTable
-                    frequencyMultiplier:akpi(1)
-                              amplitude:akpi(1)
-                                   type:AKLoopingOscillatorTypeNormal];
-    
-}
-
-- (instancetype)initWithSoundFileTable:(AKSoundFile *) fileTable
-                             amplitude:(AKParameter *)amplitude
-{
-    return [self initWithSoundFileTable:fileTable
-                    frequencyMultiplier:akpi(1)
-                              amplitude:amplitude
-                                   type:AKLoopingOscillatorTypeNormal];
-}
-
-- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
-                   frequencyMultiplier:(AKControl *)frequencyMultiplier
-                             amplitude:(AKParameter *)amplitude
-{
-    return [self initWithSoundFileTable:fileTable
-                    frequencyMultiplier:frequencyMultiplier
-                              amplitude:amplitude
-                                   type:AKLoopingOscillatorTypeNormal];
-}
-
-
-- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
-                   frequencyMultiplier:(AKControl *)frequencyMultiplier
-                             amplitude:(AKParameter *)amplitude
-                                  type:(AKLoopingOscillatorType)type
+- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
+                   frequencyRatio:(AKParameter *)frequencyRatio
+                        amplitude:(AKParameter *)amplitude
+                         loopMode:(AKSoundFileLooperMode)loopMode
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        soundFileTable = fileTable;
-        amp = amplitude;
-        freqMultiplier = frequencyMultiplier;
-        baseFrequency = akpi(1);
-        imod1 = type;
+        _soundFile = soundFile;
+        _frequencyRatio = frequencyRatio;
+        _amplitude = amplitude;
+        _loopMode = loopMode;
     }
     return self;
 }
 
-// Csound Prototype:
-// ar1 (,ar2) loscil3 xamp, kcps, ifn (, ibas, imod1, ibeg1, iend1, imod2, ibeg2, iend2)
+- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _soundFile = soundFile;
+        // Default Values
+        _frequencyRatio = akp(1);
+        _amplitude = akp(1);
+        _loopMode = AKSoundFileLooperModeNormal;
+    }
+    return self;
+}
+
++ (instancetype)audioWithSoundFile:(AKFunctionTable *)soundFile
+{
+    return [[AKMonoSoundFileLooper alloc] initWithSoundFile:soundFile];
+}
+
+- (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio {
+    _frequencyRatio = frequencyRatio;
+}
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+}
+- (void)setOptionalLoopMode:(AKSoundFileLooperMode)loopMode {
+    _loopMode = loopMode;
+}
+
 - (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ loscil3 %@, %@, %@, %@, %@",
-            self, amp, freqMultiplier, soundFileTable, baseFrequency, akpi(imod1)];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    // Constant Values  
+    AKConstant *_baseFrequency = akp(1);        
+    [csdString appendFormat:@"%@ loscil3 ", self];
+
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    if ([_frequencyRatio class] == [AKControl class]) {
+        [csdString appendFormat:@"%@, ", _frequencyRatio];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _frequencyRatio];
+    }
+
+    [csdString appendFormat:@"%@, ", _soundFile];
+    
+    [csdString appendFormat:@"%@, ", _baseFrequency];
+    
+    [csdString appendFormat:@"%@", akpi(_loopMode)];
+    return csdString;
 }
 
 @end
