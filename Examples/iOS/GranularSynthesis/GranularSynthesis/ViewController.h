@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.h
 //  GranularSynthTest
 //
@@ -10,14 +10,13 @@
 
 @interface ViewController : UIViewController
 
-
+@property (strong, nonatomic) IBOutlet UISlider *averageGrainDurationSlider;
 - (IBAction)averageGrainDurationControl:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UISlider *grainDensitySlider;
 - (IBAction)grainDensityControl:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UISlider *freqDevSlider;
 - (IBAction)freqDevControl:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UISlider *amplitudeSlider;
 - (IBAction)amplitudeControl:(id)sender;
-
 
 @end

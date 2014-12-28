@@ -17,23 +17,10 @@
     if (self)
     {
         // INPUTS AND CONTROLS =================================================
-        _averageGrainDuration   = [[AKInstrumentProperty alloc] initWithValue:0.05
-                                                                      minimum:0.001
-                                                                      maximum:0.05];
-        
-        _grainDensity   = [[AKInstrumentProperty alloc] initWithValue:25
-                                                              minimum:0
-                                                              maximum:2000];
-        
-        
-        _granularFrequencyDeviation   = [[AKInstrumentProperty alloc] initWithValue:1500
-                                                                            minimum:1
-                                                                            maximum:3000];
-        
-        
-        _granularAmplitude   = [[AKInstrumentProperty alloc] initWithValue:1
-                                                                   minimum:0
-                                                                   maximum:2];
+        _averageGrainDuration       = [[AKInstrumentProperty alloc] initWithValue:0.25 minimum:0.1  maximum:0.4];
+        _grainDensity               = [[AKInstrumentProperty alloc] initWithValue:300  minimum:10   maximum:600];
+        _granularFrequencyDeviation = [[AKInstrumentProperty alloc] initWithValue:0.05 minimum:0    maximum:0.1];
+        _granularAmplitude          = [[AKInstrumentProperty alloc] initWithValue:0.1  minimum:0.01 maximum:0.2];
         
         [self addProperty:_averageGrainDuration];
         [self addProperty:_grainDensity];
@@ -61,13 +48,14 @@
         AKGranularSynthesisTexture *grainTexture;
         grainTexture = [[AKGranularSynthesisTexture alloc] initWithGrainFunctionTable:fileTable
                                                                   windowFunctionTable:hamming
-                                                                 maximumGrainDuration:akp(0.05)
+                                                                 maximumGrainDuration:akp(0.5)
                                                                  averageGrainDuration:_averageGrainDuration
                                                             maximumFrequencyDeviation:_granularFrequencyDeviation
                                                                        grainFrequency:baseFrequency
-                                                            maximumAmplitudeDeviation:akp(0.5)
+                                                            maximumAmplitudeDeviation:akp(0.1)
                                                                        grainAmplitude:_granularAmplitude
-                                                                         grainDensity:_grainDensity];
+                                                                         grainDensity:_grainDensity
+                                                                 useRandomGrainOffset:YES];
         [self connect:grainTexture];
         
         // AUDIO OUTPUT ========================================================

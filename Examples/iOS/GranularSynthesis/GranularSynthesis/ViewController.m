@@ -31,12 +31,21 @@
     granularInstrument = [[GranularInstrument alloc] init];
     [AKOrchestra addInstrument:granularInstrument];
     [AKOrchestra start];
+    
+    [self updateSliders];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updateSliders {
+    [AKTools setSlider:self.averageGrainDurationSlider withProperty:granularInstrument.averageGrainDuration];
+    [AKTools setSlider:self.grainDensitySlider         withProperty:granularInstrument.grainDensity];
+    [AKTools setSlider:self.freqDevSlider              withProperty:granularInstrument.granularFrequencyDeviation];
+    [AKTools setSlider:self.amplitudeSlider            withProperty:granularInstrument.granularAmplitude];
 }
 
 - (IBAction)toggleGranularInstrument:(id)sender
@@ -53,33 +62,21 @@
 - (IBAction)averageGrainDurationControl:(id)sender
 {
     [AKTools setProperty:granularInstrument.averageGrainDuration withSlider:(UISlider *)sender];
-    UISlider *slider = (UISlider *)sender;
-    NSLog(@"Duration value is: %f", slider.value);
-    
 }
 
 - (IBAction)grainDensityControl:(id)sender
 {
     [AKTools setProperty:granularInstrument.grainDensity withSlider:(UISlider *)sender];
-    UISlider *slider = (UISlider *)sender;
-    NSLog(@"Density value is: %f", slider.value);
-
 }
 
 - (IBAction)freqDevControl:(id)sender
 {
     [AKTools setProperty:granularInstrument.granularFrequencyDeviation withSlider:(UISlider *)sender];
-    UISlider *slider = (UISlider *)sender;
-    NSLog(@"Frequency Deviation value is: %f", slider.value);
-
 }
 
 - (IBAction)amplitudeControl:(id)sender
 {
     [AKTools setProperty:granularInstrument.granularAmplitude withSlider:(UISlider *)sender];
-    UISlider *slider = (UISlider *)sender;
-    NSLog(@"Amplitude value is: %f", slider.value);
-
 }
 
 @end
