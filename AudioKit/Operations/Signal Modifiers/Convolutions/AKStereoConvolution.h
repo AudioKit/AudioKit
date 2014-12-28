@@ -1,22 +1,34 @@
 //
-//  AKStereoConvolution.h
+//  AKConvolution.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/27/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/27/14.
+//  Customized by Aurelius Prochazka on 12/27/14.
+//
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKStereoAudio.h"
 #import "AKParameter+Operation.h"
 
-/**  Convolution based on a uniformly partitioned overlap-save algorithm.
+/** Convolution based on a uniformly partitioned overlap-save algorithm.
+ 
  
  */
-@interface AKStereoConvolution : AKStereoAudio
 
-/// Create a convolution
-/// @param audioSource             Audio input to the convolution
-/// @param impulseResponseFilename Impulse response file. Multichannel files are supported, the file must have the same sample-rate as the orchestra.  Keep in mind that longer files require more calculation time [and probably larger partition sizes and more latency]. At current processor speeds, files longer than a few seconds may not render in real-time.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                impulseResponseFile:(NSString *)impulseResponseFilename;
+@interface AKStereoConvolution : AKStereoAudio
+/// Instantiates the convolution with all values
+/// @param input Input to the convolution, usually audio. [Default Value: ]
+/// @param impulseResponseFilename File contain the impulse response audio.  Usually a very short impulse sound. [Default Value: ]
+- (instancetype)initWithInput:(AKParameter *)input
+      impulseResponseFilename:(NSString *)impulseResponseFilename;
+
+/// Instantiates the convolution with default values
+/// @param input Input to the convolution, usually audio.
+/// @param impulseResponseFilename File contain the impulse response audio.  Usually a very short impulse sound.
++ (instancetype)stereoAudioWithInput:(AKParameter *)input
+       impulseResponseFilename:(NSString *)impulseResponseFilename;
+
+
+
 @end
