@@ -17,6 +17,7 @@
 		C41FB5861A4E97A20093645A /* AKSoundFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB57B1A4E97A20093645A /* AKSoundFile.m */; };
 		C41FB5871A4E97A20093645A /* AKWeightedSumOfSinusoids.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB57D1A4E97A20093645A /* AKWeightedSumOfSinusoids.m */; };
 		C41FB5881A4E97A20093645A /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB57F1A4E97A20093645A /* AKWindowsTable.m */; };
+		C41FB7E61A4FA1420093645A /* AKMultitapDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7E51A4FA1420093645A /* AKMultitapDelay.m */; };
 		C427043B1A4CE67B00734A80 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C427032D1A4CE67A00734A80 /* AKParameter+Operation.m */; };
 		C427043C1A4CE67B00734A80 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C42703301A4CE67A00734A80 /* AKTrackedAmplitude.m */; };
 		C427043D1A4CE67B00734A80 /* AKTrackedAmplitudeFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C42703321A4CE67A00734A80 /* AKTrackedAmplitudeFromFSignal.m */; };
@@ -200,6 +201,8 @@
 		C41FB57D1A4E97A20093645A /* AKWeightedSumOfSinusoids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWeightedSumOfSinusoids.m; sourceTree = "<group>"; };
 		C41FB57E1A4E97A20093645A /* AKWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWindowsTable.h; sourceTree = "<group>"; };
 		C41FB57F1A4E97A20093645A /* AKWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWindowsTable.m; sourceTree = "<group>"; };
+		C41FB7E41A4FA1420093645A /* AKMultitapDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMultitapDelay.h; sourceTree = "<group>"; };
+		C41FB7E51A4FA1420093645A /* AKMultitapDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultitapDelay.m; sourceTree = "<group>"; };
 		C427032C1A4CE67A00734A80 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
 		C427032D1A4CE67A00734A80 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
 		C427032F1A4CE67A00734A80 /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
@@ -901,6 +904,8 @@
 			children = (
 				C42703FE1A4CE67B00734A80 /* AKDelay.h */,
 				C42703FF1A4CE67B00734A80 /* AKDelay.m */,
+				C41FB7E41A4FA1420093645A /* AKMultitapDelay.h */,
+				C41FB7E51A4FA1420093645A /* AKMultitapDelay.m */,
 				C42704001A4CE67B00734A80 /* AKVariableDelay.h */,
 				C42704011A4CE67B00734A80 /* AKVariableDelay.m */,
 			);
@@ -1288,6 +1293,7 @@
 				C41FB5861A4E97A20093645A /* AKSoundFile.m in Sources */,
 				C42704A91A4CE67B00734A80 /* AKHighPassButterworthFilter.m in Sources */,
 				C4BDECF71A32BCC300454915 /* AKArray.m in Sources */,
+				C41FB7E61A4FA1420093645A /* AKMultitapDelay.m in Sources */,
 				C427048D1A4CE67B00734A80 /* AKAdditiveCosines.m in Sources */,
 				C42704701A4CE67B00734A80 /* AKLowFrequencyOscillatingControl.m in Sources */,
 				C4BDEC841A32BCC300454915 /* AKTools.m in Sources */,

@@ -50,7 +50,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(4)
 processor.play()
 instrument.play()
 
