@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+        let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
         
         let soundFile = AKSoundFile(filename: filename)
         connect(soundFile)
