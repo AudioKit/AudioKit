@@ -18,7 +18,7 @@
         mainResonantFrequency:(AKConstant *)mainResonantFrequency
        firstResonantFrequency:(AKConstant *)firstResonantFrequency
       secondResonantFrequency:(AKConstant *)secondResonantFrequency
-                    amplitude:(AKParameter *)amplitude
+                    amplitude:(AKConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -62,7 +62,7 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
     _amplitude = amplitude;
 }
 
@@ -75,12 +75,8 @@
     AKConstant *_dampingFactor = akp(0);        
     [csdString appendFormat:@"%@ bamboo ", self];
 
-    if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
-    } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
-    }
-
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
     [csdString appendFormat:@"%@, ", _maximumDuration];
     
     [csdString appendFormat:@"%@, ", _count];

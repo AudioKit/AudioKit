@@ -19,6 +19,7 @@
             mainResonantFrequency:(AKConstant *)mainResonantFrequency
            firstResonantFrequency:(AKConstant *)firstResonantFrequency
           secondResonantFrequency:(AKConstant *)secondResonantFrequency
+                        amplitude:(AKConstant *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -27,6 +28,7 @@
         _mainResonantFrequency = mainResonantFrequency;
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
+        _amplitude = amplitude;
     }
     return self;
 }
@@ -41,6 +43,7 @@
         _mainResonantFrequency = akp(2500);
         _firstResonantFrequency = akp(5300);
         _secondResonantFrequency = akp(6500);
+        _amplitude = akp(1);
     }
     return self;
 }
@@ -65,22 +68,20 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
     _secondResonantFrequency = secondResonantFrequency;
 }
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    _amplitude = amplitude;
+}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     // Constant Values  
-    AKConstant *_amplitude = akp(1);        
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     [csdString appendFormat:@"%@ sleighbells ", self];
 
-    if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
-    } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
-    }
-
+    [csdString appendFormat:@"%@, ", _amplitude];
+    
     [csdString appendFormat:@"%@, ", _maximumDuration];
     
     [csdString appendFormat:@"%@, ", _intensity];

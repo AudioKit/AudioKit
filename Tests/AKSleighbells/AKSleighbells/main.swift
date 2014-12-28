@@ -59,7 +59,7 @@ class Note: AKNote {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(5)
 
 let note1 = Note()
 // specify properties and create more notes here

@@ -2,7 +2,7 @@
 //  AKSleighbells.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -21,11 +21,13 @@
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2500]
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 5300]
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 6500]
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
 - (instancetype)initWithIntensity:(AKConstant *)intensity
                     dampingFactor:(AKConstant *)dampingFactor
             mainResonantFrequency:(AKConstant *)mainResonantFrequency
            firstResonantFrequency:(AKConstant *)firstResonantFrequency
-          secondResonantFrequency:(AKConstant *)secondResonantFrequency;
+          secondResonantFrequency:(AKConstant *)secondResonantFrequency
+                        amplitude:(AKConstant *)amplitude;
 
 /// Instantiates the sleighbells with default values
 - (instancetype)init;
@@ -68,6 +70,13 @@
 /// Set an optional second resonant frequency
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 6500]
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
+
+/// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
+@property AKConstant *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKConstant *)amplitude;
 
 
 

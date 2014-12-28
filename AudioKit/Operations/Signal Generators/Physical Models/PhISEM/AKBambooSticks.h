@@ -20,12 +20,12 @@
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2800]
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 2240]
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 3360]
-/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1]
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
 - (instancetype)initWithCount:(AKConstant *)count
         mainResonantFrequency:(AKConstant *)mainResonantFrequency
        firstResonantFrequency:(AKConstant *)firstResonantFrequency
       secondResonantFrequency:(AKConstant *)secondResonantFrequency
-                    amplitude:(AKParameter *)amplitude;
+                    amplitude:(AKConstant *)amplitude;
 
 /// Instantiates the bamboo sticks with default values
 - (instancetype)init;
@@ -63,11 +63,11 @@
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
 
 /// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
-@property AKParameter *amplitude;
+@property AKConstant *amplitude;
 
 /// Set an optional amplitude
-/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1]
-- (void)setOptionalAmplitude:(AKParameter *)amplitude;
+/// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKConstant *)amplitude;
 
 
 
