@@ -2,35 +2,57 @@
 //  AKConvolution.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/27/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/27/14.
+//  Customized by Aurelius Prochazka on 12/27/14.
+//
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//
+//  Implementation of Csound's pconvolve:
+//  http://www.csounds.com/manual/html/pconvolve.html
 //
 
 #import "AKConvolution.h"
+#import "AKManager.h"
 
 @implementation AKConvolution
 {
-    AKAudio *aIn;
-    NSString *iFilCod;
+    AKParameter * _input;
+    NSString * _impulseResponseFilename;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                impulseResponseFile:(NSString *)impulseResponseFilename
+- (instancetype)initWithInput:(AKParameter *)input
+      impulseResponseFilename:(NSString *)impulseResponseFilename
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        aIn     = audioSource;
-        iFilCod = impulseResponseFilename;
+        _input = input;
+        _impulseResponseFilename = impulseResponseFilename;
     }
     return self;
 }
 
-// Csound prototype: ar1 [, ar2] [, ar3] [, ar4] pconvolve ain, ifilcod [, ipartitionsize, ichannel]
-- (NSString *)stringForCSD
++ (instancetype)audioWithInput:(AKParameter *)input
+      impulseResponseFilename:(NSString *)impulseResponseFilename
 {
-    return [NSString stringWithFormat:
-            @"%@ pconvolve %@, \"%@\"",
-            self, aIn, iFilCod];
+    return [[AKConvolution alloc] initWithInput:input
+      impulseResponseFilename:impulseResponseFilename];
+}
+
+
+- (NSString *)stringForCSD {
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ pconvolve ", self];
+
+    if ([_input class] == [AKAudio class]) {
+        [csdString appendFormat:@"%@, ", _input];
+    } else {
+        [csdString appendFormat:@"AKAudio(%@), ", _input];
+    }
+
+    [csdString appendFormat:@"\"%@\"", _impulseResponseFilename];
+    
+    return csdString;
 }
 
 @end
