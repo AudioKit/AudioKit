@@ -22,11 +22,8 @@ class ToneGenerator: AKInstrument {
         let note = ToneGeneratorNote()
         addNoteProperty(note.frequency)
         
-        let sine = AKSineTable()
-        addFTable(sine)
-        
         let fmOscillator = AKFMOscillator(
-            FTable: sine,
+            functionTable: AKManager.standardSineWave(),
             baseFrequency: note.frequency,
             carrierMultiplier: toneColor.scaledBy(20.ak),
             modulatingMultiplier: toneColor.scaledBy(12.ak),

@@ -37,14 +37,14 @@
         NSString *well = [[NSBundle mainBundle] pathForResource:@"Stairwell" ofType:@"wav"];
         
         AKConvolution *dishConv;
-        dishConv  = [[AKConvolution alloc] initWithAudioSource:loop.leftOutput
-                                           impulseResponseFile:dish];
+        dishConv  = [[AKConvolution alloc] initWithInput:loop.leftOutput
+                                 impulseResponseFilename:dish];
         [self connect:dishConv];
         
         
         AKConvolution *wellConv;
-        wellConv  = [[AKConvolution alloc] initWithAudioSource:loop.rightOutput
-                                           impulseResponseFile:well];
+        wellConv  = [[AKConvolution alloc] initWithInput:loop.rightOutput
+                                 impulseResponseFilename:well];
         [self connect:wellConv];
         
         
