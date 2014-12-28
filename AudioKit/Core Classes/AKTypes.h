@@ -18,12 +18,19 @@ typedef NS_OPTIONS(NSUInteger, AKLowFrequencyOscillatorType)
     AKLowFrequencyOscillatorTypeSawTooth = 4,
     AKLowFrequencyOscillatorTypeDownSawTooth = 5
 };
-
-typedef NS_OPTIONS(NSUInteger, AKLoopingOscillatorType)
+typedef NS_OPTIONS(NSUInteger, AKSoundFileLooperMode)
 {
-    AKLoopingOscillatorTypeNoLoop=0,
-    AKLoopingOscillatorTypeNormal=1,
-    AKLoopingOscillatorTypeForwardAndBack=2
+    AKSoundFileLooperModeNoLoop=0,
+    AKSoundFileLooperModeNormal=1,
+    AKSoundFileLooperModeForwardAndBack=2
+};
+
+
+typedef NS_OPTIONS(NSUInteger, AKFunctionTableLooperMode)
+{
+    AKFunctionTableLooperModeNormal=0,
+    AKFunctionTableLooperModeBackward=1,
+    AKFunctionTableLooperModeForwardAndBack=2
 };
 
 typedef NS_OPTIONS(NSUInteger, AKPanMethod)
