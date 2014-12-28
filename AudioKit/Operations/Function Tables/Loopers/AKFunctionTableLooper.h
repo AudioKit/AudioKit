@@ -2,32 +2,85 @@
 //  AKFunctionTableLooper.h
 //  AudioKit
 //
-//  Auto-generated on 11/4/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/28/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
 /** Function-table-based crossfading looper.
- 
- This opcode reads audio from a function table and plays it back in a loop with user-defined start time, duration and crossfade time. It also allows the pitch of the loop to be controlled, including reversed playback. It accepts non-power-of-two tables, such as deferred-allocation GEN01 tables.
+
+ This opcode implements a crossfading looper with variable loop parameters and three looping modes. It accepts non-power-of-two tables for its source sounds, such as AKSoundFile Tables.
  */
 
 @interface AKFunctionTableLooper : AKAudio
-
-/// Instantiates the f table looper
-/// @param functionTable comment
-/// @param startingPosition Loop start position in seconds
-/// @param loopDuration Loop duration in seconds
-/// @param crossfadeDuration Crossfade duration in seconds
-/// @param transpositionRatio Pitch control, negative values play the loop in reverse.
-/// @param amplitude Amplitude of loop
+/// Instantiates the function table looper with all values
+/// @param functionTable Sound source function table, generally an AKSoundFile. [Default Value: ]
+/// @param startTime Loop start point in seconds. Updated at Control-rate. [Default Value: 0]
+/// @param endTime Playback end position in seconds.  Defaults to end of function table(0). Updated at Control-rate. [Default Value: 0]
+/// @param transpositionRatio Pitch control by way of transposition ratio. Updated at Control-rate. [Default Value: 1]
+/// @param amplitude Amplitude of loop. Updated at Control-rate. [Default Value: 1]
+/// @param crossfadeDuration crossfade length in seconds, updated once per loop cycle and limited to loop length. Updated at Control-rate. [Default Value: 0]
+/// @param loopMode Loop modes are forward, backward, and back and forth. [Default Value: AKFunctionTableLooperModeNormal]
 - (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-              startingPosition:(AKConstant *)startingPosition
-                  loopDuration:(AKConstant *)loopDuration
-             crossfadeDuration:(AKConstant *)crossfadeDuration
-            transpositionRatio:(AKControl *)transpositionRatio
-                     amplitude:(AKControl *)amplitude;
+                            startTime:(AKParameter *)startTime
+                              endTime:(AKParameter *)endTime
+                   transpositionRatio:(AKParameter *)transpositionRatio
+                            amplitude:(AKParameter *)amplitude
+                    crossfadeDuration:(AKParameter *)crossfadeDuration
+                             loopMode:(AKFunctionTableLooperMode)loopMode;
+
+/// Instantiates the function table looper with default values
+/// @param functionTable Sound source function table, generally an AKSoundFile.
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable;
+
+/// Instantiates the function table looper with default values
+/// @param functionTable Sound source function table, generally an AKSoundFile.
++ (instancetype)audioWithFunctionTable:(AKFunctionTable *)functionTable;
+
+/// Loop start point in seconds. [Default Value: 0]
+@property AKParameter *startTime;
+
+/// Set an optional start time
+/// @param startTime Loop start point in seconds. Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalStartTime:(AKParameter *)startTime;
+
+/// Playback end position in seconds.  Defaults to end of function table(0). [Default Value: 0]
+@property AKParameter *endTime;
+
+/// Set an optional end time
+/// @param endTime Playback end position in seconds.  Defaults to end of function table(0). Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalEndTime:(AKParameter *)endTime;
+
+/// Pitch control by way of transposition ratio. [Default Value: 1]
+@property AKParameter *transpositionRatio;
+
+/// Set an optional transposition ratio
+/// @param transpositionRatio Pitch control by way of transposition ratio. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalTranspositionRatio:(AKParameter *)transpositionRatio;
+
+/// Amplitude of loop. [Default Value: 1]
+@property AKParameter *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude Amplitude of loop. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
+
+/// crossfade length in seconds, updated once per loop cycle and limited to loop length. [Default Value: 0]
+@property AKParameter *crossfadeDuration;
+
+/// Set an optional crossfade duration
+/// @param crossfadeDuration crossfade length in seconds, updated once per loop cycle and limited to loop length. Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalCrossfadeDuration:(AKParameter *)crossfadeDuration;
+
+/// Loop modes are forward, backward, and back and forth. [Default Value: AKFunctionTableLooperModeNormal]
+@property AKFunctionTableLooperMode loopMode;
+
+/// Set an optional loop mode
+/// @param loopMode Loop modes are forward, backward, and back and forth. [Default Value: AKFunctionTableLooperModeNormal]
+- (void)setOptionalLoopMode:(AKFunctionTableLooperMode)loopMode;
+
+
 
 @end
