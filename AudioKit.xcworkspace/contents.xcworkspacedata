@@ -44,6 +44,9 @@
          location = "group:Examples/iOS/SwiftHarmonizer/SwiftHarmonizer.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Examples/iOS/SwiftKeyboard/SwiftKeyboard.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Examples/iOS/TouchRegions/TouchRegions.xcodeproj">
       </FileRef>
    </Group>

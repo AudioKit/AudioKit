@@ -45,7 +45,7 @@
         NSString *file = [[NSBundle mainBundle] pathForResource:@"PianoBassDrumLoop"
                                                          ofType:@"wav"];
         AKSoundFile *fileTable;
-        fileTable = [[AKSoundFible alloc] initWithFilename:file];
+        fileTable = [[AKSoundFile alloc] initWithFilename:file];
         fileTable.size = 16384;
         [self addFunctionTable:fileTable];
         

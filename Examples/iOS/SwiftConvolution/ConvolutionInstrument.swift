@@ -27,10 +27,10 @@ class ConvolutionInstrument: AKInstrument
         let dish = String(NSBundle.mainBundle().pathForResource("dish", ofType: "wav")!)
         let well = String(NSBundle.mainBundle().pathForResource("Stairwell", ofType: "wav")!)
         
-        let dishConv = AKConvolution(audioSource: loop.leftOutput, impulseResponseFile: dish)
+        let dishConv = AKConvolution(input: loop.leftOutput, impulseResponseFilename: dish)
         connect(dishConv)
 
-        let wellConv = AKConvolution(audioSource: loop.rightOutput, impulseResponseFile: well)
+        let wellConv = AKConvolution(input: loop.rightOutput, impulseResponseFilename: well)
         connect(wellConv)
 
         let balance = AKMixedAudio(signal1: dishConv, signal2: wellConv, balance: dishWellBalance)
