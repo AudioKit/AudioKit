@@ -24,7 +24,7 @@
     AKParameter *xForm;
 }
 
-- (instancetype)initWithSineWave:(AKWeightedSumOfSinusoids *)sineburstSynthesisTable
+- (instancetype)initWithSineTable:(AKWeightedSumOfSinusoids *)sineburstSynthesisTable
                    riseShapeTable:(AKFunctionTable *)riseShapeTable
                          overlaps:(AKConstant *)numberOfOverlaps
                         totalTime:(AKConstant *)totalTime
