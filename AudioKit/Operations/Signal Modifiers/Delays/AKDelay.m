@@ -15,17 +15,17 @@
 
 @implementation AKDelay
 {
-    AKAudio *asig;
+    AKParameter *asig;
     AKControl *kFeedback;
     AKConstant *idlt;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKConstant *)delayTime
+- (instancetype)initWithInput:(AKParameter *)input
+                    delayTime:(AKConstant *)delayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = audioSource;
+        asig = input;
         idlt = delayTime;
         kFeedback = akp(0);
     }
