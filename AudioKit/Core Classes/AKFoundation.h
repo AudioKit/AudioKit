@@ -55,6 +55,11 @@
 #import "AKSoundFile.h"
 #import "AKWindowsTable.h"
 
+// Operations - Function Tables - Loopers
+#import "AKFunctionTableLooper.h"
+#import "AKMonoSoundFileLooper.h"
+#import "AKStereoSoundFileLooper.h"
+
 // Operations - Mathematical Operations
 #import "AKAssignment.h"
 #import "AKScaledControl.h"
@@ -160,13 +165,8 @@
 #import "AKAudioInput.h"
 #import "AKAudioOutput.h"
 #import "AKFileInput.h"
-#import "AKFunctionTableLooper.h"
 #import "AKMP3FileInput.h"
 #import "AKMonoFileInput.h"
-
-// Operations - Signal Input and Output - Looping Oscillators
-#import "AKLoopingOscillator.h"
-#import "AKLoopingStereoOscillator.h"
 
 // Operations - Signal Modifiers
 

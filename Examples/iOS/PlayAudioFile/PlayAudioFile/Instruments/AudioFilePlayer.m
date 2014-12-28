@@ -26,16 +26,15 @@
         fileTable = [[AKSoundFile alloc] initWithFilename:file];
         [self connect:fileTable];
         
-        AKLoopingOscillator *oscil;
-        oscil = [[AKLoopingOscillator alloc] initWithSoundFileTable:fileTable
-                                                frequencyMultiplier:note.speed
-                                                          amplitude:akp(0.5)
-                                                               type:AKLoopingOscillatorTypeNoLoop];
-        [self connect:oscil];
+        AKMonoSoundFileLooper *looper;
+        looper = [AKMonoSoundFileLooper audioWithSoundFile:fileTable];
+        looper.frequencyRatio = note.speed;
+        looper.loopMode = AKSoundFileLooperModeNoLoop;
+        [self connect:looper];
         
         AKReverb *reverb;
-        reverb = [[AKReverb alloc] initWithAudioSourceLeftChannel:oscil
-                                          audioSourceRightChannel:oscil
+        reverb = [[AKReverb alloc] initWithAudioSourceLeftChannel:looper
+                                          audioSourceRightChannel:looper
                                                          feedback:akp(0.85)
                                                   cutoffFrequency:akp(12000)];
         [self connect:reverb];
