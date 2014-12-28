@@ -1,60 +1,59 @@
 //
-//  AKLoopingStereoOscillator.h
+//  AKStereoSoundFileLooper.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/12/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 12/28/14.
+//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKStereoAudio.h"
 #import "AKParameter+Operation.h"
-#import "AKSoundFile.h"
 
-/** Read sampled stereo sound from a table, with
- optional sustain and release looping, using cubic interpolation.
- 
- @warning *Not fully implemented yet:* Currently no
- optional parameters are implemented.
+/** Read sampled sound from a table using cubic interpolation.
+
+ Read sampled sound (stereo) from a table, with optional sustain and release looping, using cubic interpolation.
  */
 
-@interface AKLoopingStereoOscillator : AKStereoAudio
+@interface AKStereoSoundFileLooper : AKStereoAudio
+/// Instantiates the stereo sound file looper with all values
+/// @param soundFile The sound file function table. [Default Value: ]
+/// @param frequencyRatio The frequency ratio. Updated at Control-rate. [Default Value: 1]
+/// @param amplitude The amplitude of the output [Default Value: 1]
+/// @param loopMode Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
+- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
+                   frequencyRatio:(AKParameter *)frequencyRatio
+                        amplitude:(AKParameter *)amplitude
+                         loopMode:(AKSoundFileLooperMode)loopMode;
 
-/// Simplest initialization with a given file.
-/// @param fileTable Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
-- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable;
+/// Instantiates the stereo sound file looper with default values
+/// @param soundFile The sound file function table.
+- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile;
 
-/// Initialization with a given file and amplitude
-/// @param fileTable Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
-/// @param amplitude Output of the signal in relation to the 0dB full scale amplitude.
-- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
-                             amplitude:(AKParameter *)amplitude;
+/// Instantiates the stereo sound file looper with default values
+/// @param soundFile The sound file function table.
++ (instancetype)stereoAudioWithSoundFile:(AKFunctionTable *)soundFile;
 
-/// Initialization with a given file and amplitude and scale the frequency.
-/// @param fileTable           Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
-/// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
-/// @param frequencyMultiplier Relative to a base frequency of 1.
-- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
-                   frequencyMultiplier:(AKControl *)frequencyMultiplier
-                             amplitude:(AKParameter *)amplitude;
+/// The frequency ratio. [Default Value: 1]
+@property AKParameter *frequencyRatio;
 
-/// Initialization with a given file and amplitude and scale the frequency.
-/// @param fileTable           Typically sampled sound segment with prescribed looping points. The source file may be mono or stereo.
-/// @param frequencyMultiplier Relative to a base frequency of 1.
-/// @param amplitude           Output of the signal in relation to the 0dB full scale amplitude.
-/// @param type                Behavior of the loop, no loop, normal, or forward and back
-- (instancetype)initWithSoundFileTable:(AKSoundFile *)fileTable
-                   frequencyMultiplier:(AKControl *)frequencyMultiplier
-                             amplitude:(AKParameter *)amplitude
-                                  type:(AKLoopingOscillatorType)type;
+/// Set an optional frequency ratio
+/// @param frequencyRatio The frequency ratio. Updated at Control-rate. [Default Value: 1]
+- (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio;
 
-/// Set start and finish loop points
-/// @param startingSample        Starting point of loop segment in samples.
-/// @param endingSample          Endpoing of loop in samples.
-/// @param releaseStartingSample Release loop startpoint in samples.
-/// @param releaseEndingSample   Release loop endpoing in samples.
--(void)setLoopPointStart:(int)startingSample
-                     end:(int)endingSample
-            releaseStart:(int)releaseStartingSample
-              releaseEnd:(int)releaseEndingSample;
+/// The amplitude of the output [Default Value: 1]
+@property AKParameter *amplitude;
+
+/// Set an optional amplitude
+/// @param amplitude The amplitude of the output [Default Value: 1]
+- (void)setOptionalAmplitude:(AKParameter *)amplitude;
+
+/// Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
+@property AKSoundFileLooperMode loopMode;
+
+/// Set an optional loop mode
+/// @param loopMode Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
+- (void)setOptionalLoopMode:(AKSoundFileLooperMode)loopMode;
+
+
 
 @end
