@@ -11,10 +11,10 @@
 //  http://www.csounds.com/manual/html/pconvolve.html
 //
 
-#import "AKConvolution.h"
+#import "AKStereoConvolution.h"
 #import "AKManager.h"
 
-@implementation AKConvolution
+@implementation AKStereoConvolution
 {
     AKParameter * _input;
     NSString * _impulseResponseFilename;
@@ -31,11 +31,11 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
-       impulseResponseFilename:(NSString *)impulseResponseFilename
++ (instancetype)stereoAudioWithInput:(AKParameter *)input
+             impulseResponseFilename:(NSString *)impulseResponseFilename
 {
-    return [[AKConvolution alloc] initWithInput:input
-                        impulseResponseFilename:impulseResponseFilename];
+    return [[AKStereoConvolution alloc] initWithInput:input
+                              impulseResponseFilename:impulseResponseFilename];
 }
 
 
