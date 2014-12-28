@@ -18,6 +18,7 @@
 		C41FB3C61A4E8F6C0093645A /* AKSoundFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB3BB1A4E8F6C0093645A /* AKSoundFile.m */; };
 		C41FB3C71A4E8F6C0093645A /* AKWeightedSumOfSinusoids.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB3BD1A4E8F6C0093645A /* AKWeightedSumOfSinusoids.m */; };
 		C41FB3C81A4E8F6C0093645A /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB3BF1A4E8F6C0093645A /* AKWindowsTable.m */; };
+		C41FB7B01A4F9C850093645A /* AKMultitapDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7AF1A4F9C850093645A /* AKMultitapDelay.m */; };
 		C427EB8D1A4CB1DA00734A80 /* AKTableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB731A4CB1DA00734A80 /* AKTableValue.m */; };
 		C427EB8E1A4CB1DA00734A80 /* AKTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB751A4CB1DA00734A80 /* AKTableValueConstant.m */; };
 		C427EB8F1A4CB1DA00734A80 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB771A4CB1DA00734A80 /* AKTableValueControl.m */; };
@@ -189,6 +190,8 @@
 		C41FB3BD1A4E8F6C0093645A /* AKWeightedSumOfSinusoids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWeightedSumOfSinusoids.m; sourceTree = "<group>"; };
 		C41FB3BE1A4E8F6C0093645A /* AKWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWindowsTable.h; sourceTree = "<group>"; };
 		C41FB3BF1A4E8F6C0093645A /* AKWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWindowsTable.m; sourceTree = "<group>"; };
+		C41FB7AE1A4F9C850093645A /* AKMultitapDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMultitapDelay.h; sourceTree = "<group>"; };
+		C41FB7AF1A4F9C850093645A /* AKMultitapDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultitapDelay.m; sourceTree = "<group>"; };
 		C427EB721A4CB1DA00734A80 /* AKTableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValue.h; sourceTree = "<group>"; };
 		C427EB731A4CB1DA00734A80 /* AKTableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValue.m; sourceTree = "<group>"; };
 		C427EB741A4CB1DA00734A80 /* AKTableValueConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueConstant.h; sourceTree = "<group>"; };
@@ -957,6 +960,8 @@
 			children = (
 				C47913731A29352F00D9807B /* AKDelay.h */,
 				C47913741A29352F00D9807B /* AKDelay.m */,
+				C41FB7AE1A4F9C850093645A /* AKMultitapDelay.h */,
+				C41FB7AF1A4F9C850093645A /* AKMultitapDelay.m */,
 				C47913751A29352F00D9807B /* AKVariableDelay.h */,
 				C47913761A29352F00D9807B /* AKVariableDelay.m */,
 			);
@@ -1206,6 +1211,7 @@
 				C479143A1A29352F00D9807B /* AKLoopingStereoOscillator.m in Sources */,
 				C427EB8F1A4CB1DA00734A80 /* AKTableValueControl.m in Sources */,
 				C47913F11A29352F00D9807B /* AKAssignment.m in Sources */,
+				C41FB7B01A4F9C850093645A /* AKMultitapDelay.m in Sources */,
 				C427EBA61A4CB40D00734A80 /* AKLinearControlEnvelope.m in Sources */,
 				C47914541A29352F00D9807B /* AKFlatFrequencyResponseReverb.m in Sources */,
 				C479140F1A29352F00D9807B /* AKPortamento.m in Sources */,

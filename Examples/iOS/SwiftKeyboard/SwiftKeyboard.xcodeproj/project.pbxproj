@@ -155,6 +155,7 @@
 		C41FB7A81A4F93530093645A /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB70E1A4F93530093645A /* AKStereoAudio.m */; };
 		C41FB7A91A4F93530093645A /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7111A4F93530093645A /* AKInstrumentProperty.m */; };
 		C41FB7AA1A4F93530093645A /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7131A4F93530093645A /* AKNoteProperty.m */; };
+		C41FB7D71A4FA0FC0093645A /* AKMultitapDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7D61A4FA0FC0093645A /* AKMultitapDelay.m */; };
 		C4881C431A296A7D00E46B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4881C421A296A7D00E46B03 /* AppDelegate.swift */; };
 		C4881C451A296A7D00E46B03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4881C441A296A7D00E46B03 /* ViewController.swift */; };
 		C4881C481A296A7D00E46B03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4881C461A296A7D00E46B03 /* Main.storyboard */; };
@@ -482,6 +483,8 @@
 		C41FB7111A4F93530093645A /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C41FB7121A4F93530093645A /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41FB7131A4F93530093645A /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
+		C41FB7D51A4FA0FC0093645A /* AKMultitapDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMultitapDelay.h; sourceTree = "<group>"; };
+		C41FB7D61A4FA0FC0093645A /* AKMultitapDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultitapDelay.m; sourceTree = "<group>"; };
 		C4881C3D1A296A7D00E46B03 /* SwiftKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4881C411A296A7D00E46B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4881C421A296A7D00E46B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1038,6 +1041,8 @@
 			children = (
 				C41FB6C31A4F93530093645A /* AKDelay.h */,
 				C41FB6C41A4F93530093645A /* AKDelay.m */,
+				C41FB7D51A4FA0FC0093645A /* AKMultitapDelay.h */,
+				C41FB7D61A4FA0FC0093645A /* AKMultitapDelay.m */,
 				C41FB6C51A4F93530093645A /* AKVariableDelay.h */,
 				C41FB6C61A4F93530093645A /* AKVariableDelay.m */,
 			);
@@ -1309,6 +1314,7 @@
 				C41FB71D1A4F93530093645A /* AKTools.m in Sources */,
 				C41FB7AA1A4F93530093645A /* AKNoteProperty.m in Sources */,
 				C41FB7401A4F93530093645A /* AKMinControl.m in Sources */,
+				C41FB7D71A4FA0FC0093645A /* AKMultitapDelay.m in Sources */,
 				C41FB7611A4F93530093645A /* AKPhasor.m in Sources */,
 				C41FB7971A4F93530093645A /* AKBandRejectButterworthFilter.m in Sources */,
 				C41FB7431A4F93530093645A /* AKProduct.m in Sources */,
