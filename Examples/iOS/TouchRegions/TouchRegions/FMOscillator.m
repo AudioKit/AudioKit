@@ -27,11 +27,8 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        AKWeightedSumOfSinusoids *sineTable = [[AKWeightedSumOfSinusoids alloc] init];
-        [self addFunctionTable:sineTable];
-        
         AKFMOscillator *fmOscillator;
-        fmOscillator = [[AKFMOscillator alloc] initWithFunctionTable:sineTable
+        fmOscillator = [[AKFMOscillator alloc] initWithFunctionTable:[AKManager standardSineWave]
                                                        baseFrequency:_frequency
                                                    carrierMultiplier:_carrierMultiplier
                                                 modulatingMultiplier:_modulatingMultiplier
