@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -21,8 +20,8 @@
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="raygun.png" translatesAutoresizingMaskIntoConstraints="NO" id="h6D-2x-pRN">
                                 <rect key="frame" x="16" y="20" width="568" height="560"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chn-Fu-Ee7">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chn-Fu-Ee7">
+                                <rect key="frame" x="0.0" y="-16" width="600" height="600"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -35,7 +34,11 @@
                         <constraints>
                             <constraint firstItem="h6D-2x-pRN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="7wi-p9-Lcn"/>
                             <constraint firstItem="h6D-2x-pRN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="AeE-NU-Ite"/>
+                            <constraint firstItem="chn-Fu-Ee7" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" id="JFC-zb-hsF"/>
+                            <constraint firstItem="chn-Fu-Ee7" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="Qru-Rq-biS"/>
+                            <constraint firstAttribute="centerY" secondItem="chn-Fu-Ee7" secondAttribute="centerY" constant="16" id="RuD-fo-BQd"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="h6D-2x-pRN" secondAttribute="bottom" constant="20" id="Wzj-n6-Udf"/>
+                            <constraint firstAttribute="centerX" secondItem="chn-Fu-Ee7" secondAttribute="centerX" id="ZU5-NA-z48"/>
                             <constraint firstItem="h6D-2x-pRN" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="oGM-H2-npT"/>
                         </constraints>
                     </view>
@@ -43,7 +46,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <customObject id="INq-gk-eDj" customClass="AudioFileConductor"/>
             </objects>
-            <point key="canvasLocation" x="571.875" y="408.80281690140845"/>
+            <point key="canvasLocation" x="571" y="408"/>
         </scene>
     </scenes>
     <resources>
