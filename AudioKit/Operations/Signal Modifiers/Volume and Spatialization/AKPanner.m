@@ -42,7 +42,7 @@
     return self;
 }
 
-+ (instancetype)stereoaudioWithInput:(AKParameter *)input
++ (instancetype)stereoAudioWithInput:(AKParameter *)input
 {
     return [[AKPanner alloc] initWithInput:input];
 }

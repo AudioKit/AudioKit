@@ -57,7 +57,7 @@
     return self;
 }
 
-+ (instancetype)stereoaudioWithInput:(AKParameter *)input
++ (instancetype)stereoAudioWithInput:(AKParameter *)input
 {
     return [[AKBallWithinTheBoxReverb alloc] initWithInput:input];
 }

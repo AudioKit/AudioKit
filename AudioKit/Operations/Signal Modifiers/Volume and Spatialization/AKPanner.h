@@ -2,7 +2,7 @@
 //  AKPanner.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -29,7 +29,7 @@
 
 /// Instantiates the panner with default values
 /// @param input Source signal.
-+ (instancetype)stereoaudioWithInput:(AKParameter *)input;
++ (instancetype)stereoAudioWithInput:(AKParameter *)input;
 
 /// From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 @property AKParameter *pan;
