@@ -2,7 +2,7 @@
 //  AKGranularSynthesisTexture.m
 //  AudioKit
 //
-//  Auto-generated on 8/3/14.
+//  Auto-generated on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's grain:
@@ -10,56 +10,130 @@
 //
 
 #import "AKGranularSynthesisTexture.h"
+#import "AKManager.h"
 
 @implementation AKGranularSynthesisTexture
 {
-    AKConstant *igfn;
-    AKConstant *iwfn;
-    AKConstant *imgdur;
-    AKControl *kgdur;
-    AKControl *kpitchoff;
-    AKParameter *xpitch;
-    AKControl *kampoff;
-    AKParameter *xamp;
-    AKParameter *xdens;
-    BOOL useRandomGrainOffset;
+    AKConstant * _grainFunctionTable;
+    AKConstant * _windowFunctionTable;
 }
 
 - (instancetype)initWithGrainFunctionTable:(AKConstant *)grainFunctionTable
                        windowFunctionTable:(AKConstant *)windowFunctionTable
-               maximumGrainDuration:(AKConstant *)maximumGrainDuration
-               averageGrainDuration:(AKControl *)averageGrainDuration
-          maximumFrequencyDeviation:(AKControl *)maximumFrequencyDeviation
-                     grainFrequency:(AKParameter *)grainFrequency
-          maximumAmplitudeDeviation:(AKControl *)maximumAmplitudeDeviation
-                     grainAmplitude:(AKParameter *)grainAmplitude
-                       grainDensity:(AKParameter *)grainDensity
+                      maximumGrainDuration:(AKConstant *)maximumGrainDuration
+                      averageGrainDuration:(AKParameter *)averageGrainDuration
+                 maximumFrequencyDeviation:(AKParameter *)maximumFrequencyDeviation
+                            grainFrequency:(AKParameter *)grainFrequency
+                 maximumAmplitudeDeviation:(AKParameter *)maximumAmplitudeDeviation
+                            grainAmplitude:(AKParameter *)grainAmplitude
+                              grainDensity:(AKParameter *)grainDensity
+                      useRandomGrainOffset:(BOOL)useRandomGrainOffset
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        igfn = grainFunctionTable;
-        iwfn = windowFunctionTable;
-        imgdur = maximumGrainDuration;
-        kgdur = averageGrainDuration;
-        kpitchoff = maximumFrequencyDeviation;
-        xpitch = grainFrequency;
-        kampoff = maximumAmplitudeDeviation;
-        xamp = grainAmplitude;
-        xdens = grainDensity;
-        useRandomGrainOffset = YES;
+        _grainFunctionTable = grainFunctionTable;
+        _windowFunctionTable = windowFunctionTable;
+        _maximumGrainDuration = maximumGrainDuration;
+        _averageGrainDuration = averageGrainDuration;
+        _maximumFrequencyDeviation = maximumFrequencyDeviation;
+        _grainFrequency = grainFrequency;
+        _maximumAmplitudeDeviation = maximumAmplitudeDeviation;
+        _grainAmplitude = grainAmplitude;
+        _grainDensity = grainDensity;
+        _useRandomGrainOffset = useRandomGrainOffset;
     }
     return self;
 }
 
-- (void)setOptionalUseRandomGrainOffset:(BOOL)useRandomOffset {
-    useRandomGrainOffset = useRandomOffset;
+- (instancetype)initWithGrainFunctionTable:(AKConstant *)grainFunctionTable
+                       windowFunctionTable:(AKConstant *)windowFunctionTable
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _grainFunctionTable = grainFunctionTable;
+        _windowFunctionTable = windowFunctionTable;
+        // Default Values
+        _maximumGrainDuration = akp(0.5);
+        _averageGrainDuration = akp(0.4);
+        _maximumFrequencyDeviation = akp(0.5);
+        _grainFrequency = akp(0.8);
+        _maximumAmplitudeDeviation = akp(0.1);
+        _grainAmplitude = akp(0.01);
+        _grainDensity = akp(500);
+        _useRandomGrainOffset = true;
+    }
+    return self;
+}
+
++ (instancetype)audioWithGrainFunctionTable:(AKConstant *)grainFunctionTable
+                       windowFunctionTable:(AKConstant *)windowFunctionTable
+{
+    return [[AKGranularSynthesisTexture alloc] initWithGrainFunctionTable:grainFunctionTable
+                       windowFunctionTable:windowFunctionTable];
+}
+
+- (void)setOptionalMaximumGrainDuration:(AKConstant *)maximumGrainDuration {
+    _maximumGrainDuration = maximumGrainDuration;
+}
+- (void)setOptionalAverageGrainDuration:(AKParameter *)averageGrainDuration {
+    _averageGrainDuration = averageGrainDuration;
+}
+- (void)setOptionalMaximumFrequencyDeviation:(AKParameter *)maximumFrequencyDeviation {
+    _maximumFrequencyDeviation = maximumFrequencyDeviation;
+}
+- (void)setOptionalGrainFrequency:(AKParameter *)grainFrequency {
+    _grainFrequency = grainFrequency;
+}
+- (void)setOptionalMaximumAmplitudeDeviation:(AKParameter *)maximumAmplitudeDeviation {
+    _maximumAmplitudeDeviation = maximumAmplitudeDeviation;
+}
+- (void)setOptionalGrainAmplitude:(AKParameter *)grainAmplitude {
+    _grainAmplitude = grainAmplitude;
+}
+- (void)setOptionalGrainDensity:(AKParameter *)grainDensity {
+    _grainDensity = grainDensity;
+}
+- (void)setOptionalUseRandomGrainOffset:(BOOL)useRandomGrainOffset {
+    _useRandomGrainOffset = useRandomGrainOffset;
 }
 
 - (NSString *)stringForCSD {
-    int igrnd = useRandomGrainOffset ? 1 : 0;
-    return [NSString stringWithFormat:
-            @"%@ grain %@, %@, %@, %@, %@, %@, %@, %@, %@, %d",
-            self, xamp, xpitch, xdens, kampoff, kpitchoff, kgdur, igfn, iwfn, imgdur, igrnd];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ grain ", self];
+
+    [csdString appendFormat:@"%@, ", _grainAmplitude];
+    
+    [csdString appendFormat:@"%@, ", _grainFrequency];
+    
+    [csdString appendFormat:@"%@, ", _grainDensity];
+    
+    if ([_maximumAmplitudeDeviation class] == [AKControl class]) {
+        [csdString appendFormat:@"%@, ", _maximumAmplitudeDeviation];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _maximumAmplitudeDeviation];
+    }
+
+    if ([_maximumFrequencyDeviation class] == [AKControl class]) {
+        [csdString appendFormat:@"%@, ", _maximumFrequencyDeviation];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _maximumFrequencyDeviation];
+    }
+
+    if ([_averageGrainDuration class] == [AKControl class]) {
+        [csdString appendFormat:@"%@, ", _averageGrainDuration];
+    } else {
+        [csdString appendFormat:@"AKControl(%@), ", _averageGrainDuration];
+    }
+
+    [csdString appendFormat:@"%@, ", _grainFunctionTable];
+    
+    [csdString appendFormat:@"%@, ", _windowFunctionTable];
+    
+    [csdString appendFormat:@"%@, ", _maximumGrainDuration];
+    
+    [csdString appendFormat:@"%@", akpi(_useRandomGrainOffset)];
+    return csdString;
 }
 
 @end
