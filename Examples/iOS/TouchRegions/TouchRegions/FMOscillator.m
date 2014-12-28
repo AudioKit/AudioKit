@@ -19,11 +19,13 @@
         _carrierMultiplier    = [[AKInstrumentProperty alloc] initWithValue:1.0 minimum:0.0 maximum:2.0];
         _modulatingMultiplier = [[AKInstrumentProperty alloc] initWithValue:1.0 minimum:0.0 maximum:2.0];
         _modulationIndex      = [[AKInstrumentProperty alloc] initWithValue:15  minimum:0   maximum:30];
+        _amplitude            = [[AKInstrumentProperty alloc] initWithValue:0.0 minimum:0   maximum:0.2];
         
         [self addProperty:_frequency];
         [self addProperty:_carrierMultiplier];
         [self addProperty:_modulatingMultiplier];
         [self addProperty:_modulationIndex];
+        [self addProperty:_amplitude];
         
         // INSTRUMENT DEFINITION ===============================================
         
@@ -33,7 +35,7 @@
                                                    carrierMultiplier:_carrierMultiplier
                                                 modulatingMultiplier:_modulatingMultiplier
                                                      modulationIndex:_modulationIndex
-                                                           amplitude:akp(0.2)
+                                                           amplitude:_amplitude
                                                                phase:akp(0)];
         [self connect:fmOscillator];
         

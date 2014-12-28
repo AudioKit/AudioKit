@@ -15,5 +15,5 @@
 @property (nonatomic, strong) AKInstrumentProperty *carrierMultiplier;
 @property (nonatomic, strong) AKInstrumentProperty *modulatingMultiplier;
 @property (nonatomic, strong) AKInstrumentProperty *modulationIndex;
-
+@property (nonatomic, strong) AKInstrumentProperty *amplitude;
 @end

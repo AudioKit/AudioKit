@@ -39,6 +39,7 @@
     fm = [[FMOscillator alloc] init];
     [AKOrchestra addInstrument:fm];
     [AKOrchestra start];
+    fm.amplitude.value = fm.amplitude.minimum;
     [fm play];
     leftTouchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-350, -350, 50, 50) ];
     leftTouchImageView.image = [UIImage imageNamed:@"circle.png"];
@@ -66,6 +67,7 @@
     if ([keyPath isEqualToString:@"horizontalPercentage"]) {
         float newValue = [[change objectForKey:@"new"] floatValue];
         if (object == self.leftView) {
+            fm.amplitude.value = fm.amplitude.maximum;
             fm.frequency.value  = newValue * (fm.frequency.maximum - fm.frequency.minimum) + fm.frequency.minimum;
             self.frequencyLabel.text = [NSString stringWithFormat:@"%0.2f", fm.frequency.value];
             leftTouchImageView.center = CGPointMake(newValue * middle, leftTouchImageView.center.y);
