@@ -11,7 +11,7 @@
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
-/** Simple audio delay
+/** Simple delay
  
  Delays an input signal by some time interval.
  */
@@ -21,8 +21,8 @@
 /// Instantiates the delay
 /// @param audioSource Audio signal
 /// @param delayTime Requested delay time in seconds.
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                          delayTime:(AKConstant *)delayTime;
+- (instancetype)initWithInput:(AKParameter *)input
+                    delayTime:(AKConstant *)delayTime;
 
 - (void)setOptionalFeedback:(AKControl *)feedback;
 @end
