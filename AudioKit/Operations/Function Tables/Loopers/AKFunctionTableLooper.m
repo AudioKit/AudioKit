@@ -94,9 +94,9 @@
     }
 
     if ([_transpositionRatio class] == [AKControl class]) {
-        [csdString appendFormat:@"2*%@, ", _transpositionRatio];
+        [csdString appendFormat:@"%@, ", _transpositionRatio];
     } else {
-        [csdString appendFormat:@"AKControl(2*%@), ", _transpositionRatio];
+        [csdString appendFormat:@"AKControl(%@), ", _transpositionRatio];
     }
 
     if ([_startTime class] == [AKControl class]) {
