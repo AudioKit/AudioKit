@@ -63,6 +63,9 @@
 // Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD
 {
+    if (sinusoids.count == 0) {
+        [self addSinusoidWithPartialNumber:1 strength:1];
+    }
     NSMutableArray *flattenedSinusoids = [[NSMutableArray alloc] init];
     for (NSArray *sinusoid in sinusoids) {
         [flattenedSinusoids addObject:[sinusoid componentsJoinedByString:@", "]];
