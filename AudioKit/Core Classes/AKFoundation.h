@@ -176,6 +176,7 @@
 
 // Operations - Signal Modifiers - Delays
 #import "AKDelay.h"
+#import "AKMultitapDelay.h"
 #import "AKVariableDelay.h"
 
 // Operations - Signal Modifiers - Effects
