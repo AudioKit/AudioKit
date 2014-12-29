@@ -1,18 +1,18 @@
 //
-//  AKLinearAudioEnvelope.m
+//  AKLinearEnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's linen:
 //  http://www.csounds.com/manual/html/linen.html
 //
 
-#import "AKLinearAudioEnvelope.h"
+#import "AKLinearEnvelope.h"
 #import "AKManager.h"
 
-@implementation AKLinearAudioEnvelope
+@implementation AKLinearEnvelope
 
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
                        decayTime:(AKConstant *)decayTime
@@ -44,7 +44,7 @@
 
 + (instancetype)audio
 {
-    return [[AKLinearAudioEnvelope alloc] init];
+    return [[AKLinearEnvelope alloc] init];
 }
 
 - (void)setOptionalRiseTime:(AKConstant *)riseTime {
