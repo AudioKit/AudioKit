@@ -32,6 +32,7 @@
     
     [AKTools setSlider:amplitudeSlider  withProperty:conductor.tweakableInstrument.amplitude];
     [AKTools setSlider:modulationSlider withProperty:conductor.tweakableInstrument.modulation];
+    [AKTools setSlider:modIndexSlider   withProperty:conductor.tweakableInstrument.modIndex];
     
     [conductor.tweakableInstrument.modIndex addObserver:self
                                              forKeyPath:@"value"
