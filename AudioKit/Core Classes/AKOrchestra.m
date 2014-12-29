@@ -85,7 +85,9 @@
     [s appendString:@"\n"];
     
     [s appendString:@";=== GLOBAL F-TABLES ===\n"];
-    [s appendString:[[AKManager standardSineWave] stringForCSD]];
+    if ([[AKManager sharedManager] numberOfSineWaveReferences] > 0) {
+        [s appendString:[[AKManager standardSineWave] stringForCSD]];
+    }
     [s appendString:@"\n"];
     for ( AKInstrument *i in _instruments) {
         for (AKFunctionTable *functionTable in [i functionTables]) {

@@ -54,6 +54,11 @@ static AKManager *_sharedManager = nil;
     return nil;
 }
 
+- (AKWeightedSumOfSinusoids *)standardSineWave {
+    _numberOfSineWaveReferences++;
+    return _standardSineWave;
+}
+
 + (AKWeightedSumOfSinusoids *)standardSineWave {
     return [[AKManager sharedManager] standardSineWave];
 }
@@ -84,6 +89,8 @@ static AKManager *_sharedManager = nil;
         _isLogging = NO;
         
         totalRunDuration = 10000000;
+        _numberOfSineWaveReferences = 0;
+        _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
         
         _orchestra = [[AKOrchestra alloc] init];
         
@@ -138,8 +145,6 @@ static AKManager *_sharedManager = nil;
         NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
         _midi = [[AKMidi alloc] init];
-        
-        _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
     }
     return self;
 }   
