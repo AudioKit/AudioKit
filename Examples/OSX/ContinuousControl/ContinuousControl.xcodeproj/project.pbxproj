@@ -7,131 +7,123 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C41FB1831A4D302F0093645A /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB1821A4D302F0093645A /* AKMP3FileInput.m */; };
-		C41FB52C1A4E978B0093645A /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB51B1A4E978B0093645A /* AKAdditiveCosineTable.m */; };
-		C41FB52D1A4E978B0093645A /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB51D1A4E978B0093645A /* AKArrayTable.m */; };
-		C41FB52E1A4E978B0093645A /* AKExponentialCurves.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB51F1A4E978B0093645A /* AKExponentialCurves.m */; };
-		C41FB52F1A4E978B0093645A /* AKFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5211A4E978B0093645A /* AKFunctionTable.m */; };
-		C41FB5301A4E978B0093645A /* AKLineSegments.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5231A4E978B0093645A /* AKLineSegments.m */; };
-		C41FB5311A4E978B0093645A /* AKRandomDistributionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5251A4E978B0093645A /* AKRandomDistributionTable.m */; };
-		C41FB5321A4E978B0093645A /* AKSoundFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5271A4E978B0093645A /* AKSoundFile.m */; };
-		C41FB5331A4E978B0093645A /* AKWeightedSumOfSinusoids.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5291A4E978B0093645A /* AKWeightedSumOfSinusoids.m */; };
-		C41FB5341A4E978B0093645A /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB52B1A4E978B0093645A /* AKWindowsTable.m */; };
-		C41FB7DD1A4FA11A0093645A /* AKMultitapDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7DC1A4FA11A0093645A /* AKMultitapDelay.m */; };
-		C41FB87D1A50139C0093645A /* AKFunctionTableLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB8781A50139C0093645A /* AKFunctionTableLooper.m */; };
-		C41FB87E1A50139C0093645A /* AKMonoSoundFileLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB87A1A50139C0093645A /* AKMonoSoundFileLooper.m */; };
-		C41FB87F1A50139C0093645A /* AKStereoSoundFileLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB87C1A50139C0093645A /* AKStereoSoundFileLooper.m */; };
-		C42700001A4CE5DB00734A80 /* AKLowPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF741A4CE5DB00734A80 /* AKLowPassFilter.m */; };
-		C42700011A4CE5DB00734A80 /* AKMoogLadder.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF761A4CE5DB00734A80 /* AKMoogLadder.m */; };
-		C42700021A4CE5DB00734A80 /* AKMoogVCF.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF781A4CE5DB00734A80 /* AKMoogVCF.m */; };
-		C42700031A4CE5DB00734A80 /* AKResonantFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF7A1A4CE5DB00734A80 /* AKResonantFilter.m */; };
-		C42700041A4CE5DB00734A80 /* AKThreePoleLowpassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF7C1A4CE5DB00734A80 /* AKThreePoleLowpassFilter.m */; };
-		C42700051A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF7E1A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.m */; };
-		C42700061A4CE5DB00734A80 /* AKBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF811A4CE5DB00734A80 /* AKBandPassButterworthFilter.m */; };
-		C42700071A4CE5DB00734A80 /* AKBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF831A4CE5DB00734A80 /* AKBandRejectButterworthFilter.m */; };
-		C42700081A4CE5DB00734A80 /* AKHighPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF851A4CE5DB00734A80 /* AKHighPassButterworthFilter.m */; };
-		C42700091A4CE5DB00734A80 /* AKLowPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF871A4CE5DB00734A80 /* AKLowPassButterworthFilter.m */; };
-		C427000A1A4CE5DB00734A80 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF8A1A4CE5DB00734A80 /* AKDeclick.m */; };
-		C427000B1A4CE5DB00734A80 /* declick.udo in Resources */ = {isa = PBXBuildFile; fileRef = C427FF8B1A4CE5DB00734A80 /* declick.udo */; };
-		C427000C1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF8E1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.m */; };
-		C427000D1A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF901A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.m */; };
-		C427000E1A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF921A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.m */; };
-		C427000F1A4CE5DB00734A80 /* AKReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF941A4CE5DB00734A80 /* AKReverb.m */; };
-		C42700101A4CE5DB00734A80 /* AKBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF971A4CE5DB00734A80 /* AKBalance.m */; };
-		C42700111A4CE5DB00734A80 /* AKPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF991A4CE5DB00734A80 /* AKPanner.m */; };
 		C427FE861A4CE5C800734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FE821A4CE5C800734A80 /* 808loop.wav */; };
 		C427FE871A4CE5C800734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427FE831A4CE5C800734A80 /* mandpluk.aif */; };
 		C427FE881A4CE5C800734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FE841A4CE5C800734A80 /* marmstk1.wav */; };
 		C427FE891A4CE5C800734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FE851A4CE5C800734A80 /* PianoBassDrumLoop.wav */; };
-		C427FF9A1A4CE5DB00734A80 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE8C1A4CE5DA00734A80 /* AKParameter+Operation.m */; };
-		C427FF9B1A4CE5DB00734A80 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE8F1A4CE5DA00734A80 /* AKTrackedAmplitude.m */; };
-		C427FF9C1A4CE5DB00734A80 /* AKTrackedAmplitudeFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE911A4CE5DA00734A80 /* AKTrackedAmplitudeFromFSignal.m */; };
-		C427FF9D1A4CE5DB00734A80 /* AKTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE931A4CE5DA00734A80 /* AKTrackedFrequency.m */; };
-		C427FF9E1A4CE5DB00734A80 /* AKTrackedFrequencyFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE951A4CE5DA00734A80 /* AKTrackedFrequencyFromFSignal.m */; };
-		C427FF9F1A4CE5DB00734A80 /* AKTableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE981A4CE5DA00734A80 /* AKTableValue.m */; };
-		C427FFA01A4CE5DB00734A80 /* AKTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE9A1A4CE5DA00734A80 /* AKTableValueConstant.m */; };
-		C427FFA11A4CE5DB00734A80 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FE9C1A4CE5DA00734A80 /* AKTableValueControl.m */; };
-		C427FFAC1A4CE5DB00734A80 /* AKAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEB41A4CE5DA00734A80 /* AKAssignment.m */; };
-		C427FFAD1A4CE5DB00734A80 /* AKScaledControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEB61A4CE5DA00734A80 /* AKScaledControl.m */; };
-		C427FFAE1A4CE5DB00734A80 /* AKMaxAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEB91A4CE5DA00734A80 /* AKMaxAudio.m */; };
-		C427FFAF1A4CE5DB00734A80 /* AKMaxControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEBB1A4CE5DA00734A80 /* AKMaxControl.m */; };
-		C427FFB01A4CE5DB00734A80 /* AKMinAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEBD1A4CE5DB00734A80 /* AKMinAudio.m */; };
-		C427FFB11A4CE5DB00734A80 /* AKMinControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEBF1A4CE5DB00734A80 /* AKMinControl.m */; };
-		C427FFB21A4CE5DB00734A80 /* AKMixedAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEC21A4CE5DB00734A80 /* AKMixedAudio.m */; };
-		C427FFB31A4CE5DB00734A80 /* AKMixedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEC41A4CE5DB00734A80 /* AKMixedControl.m */; };
-		C427FFB41A4CE5DB00734A80 /* AKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEC61A4CE5DB00734A80 /* AKProduct.m */; };
-		C427FFB51A4CE5DB00734A80 /* AKSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEC81A4CE5DB00734A80 /* AKSum.m */; };
-		C427FFB61A4CE5DB00734A80 /* AKAudioFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FECB1A4CE5DB00734A80 /* AKAudioFromFSignal.m */; };
-		C427FFB71A4CE5DB00734A80 /* AKCrossSynthesis.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FECD1A4CE5DB00734A80 /* AKCrossSynthesis.m */; };
-		C427FFB81A4CE5DB00734A80 /* AKFSignalFromMonoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FECF1A4CE5DB00734A80 /* AKFSignalFromMonoAudio.m */; };
-		C427FFB91A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FED11A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.m */; };
-		C427FFBA1A4CE5DB00734A80 /* AKFSignalMix.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FED31A4CE5DB00734A80 /* AKFSignalMix.m */; };
-		C427FFBB1A4CE5DB00734A80 /* AKPhaseLockedVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FED51A4CE5DB00734A80 /* AKPhaseLockedVocoder.m */; };
-		C427FFBC1A4CE5DB00734A80 /* AKScaledFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FED71A4CE5DB00734A80 /* AKScaledFSignal.m */; };
-		C427FFBD1A4CE5DB00734A80 /* AKSpectralVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FED91A4CE5DB00734A80 /* AKSpectralVocoder.m */; };
-		C427FFBE1A4CE5DB00734A80 /* AKWarp.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEDB1A4CE5DB00734A80 /* AKWarp.m */; };
-		C427FFBF1A4CE5DB00734A80 /* AKADSRAudioEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEDF1A4CE5DB00734A80 /* AKADSRAudioEnvelope.m */; };
-		C427FFC01A4CE5DB00734A80 /* AKADSRControlEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEE11A4CE5DB00734A80 /* AKADSRControlEnvelope.m */; };
-		C427FFC11A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEE31A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.m */; };
-		C427FFC21A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEE51A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.m */; };
-		C427FFC31A4CE5DB00734A80 /* AKLinearAudioEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEE71A4CE5DB00734A80 /* AKLinearAudioEnvelope.m */; };
-		C427FFC41A4CE5DB00734A80 /* AKLinearControlEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEE91A4CE5DB00734A80 /* AKLinearControlEnvelope.m */; };
-		C427FFC51A4CE5DB00734A80 /* AKGranularSynthesisTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEEC1A4CE5DB00734A80 /* AKGranularSynthesisTexture.m */; };
-		C427FFC61A4CE5DB00734A80 /* AKSinusoidBursts.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEEE1A4CE5DB00734A80 /* AKSinusoidBursts.m */; };
-		C427FFC71A4CE5DB00734A80 /* AKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEF11A4CE5DB00734A80 /* AKLine.m */; };
-		C427FFC81A4CE5DB00734A80 /* AKLinearControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEF31A4CE5DB00734A80 /* AKLinearControl.m */; };
-		C427FFC91A4CE5DB00734A80 /* AKPortamento.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEF61A4CE5DB00734A80 /* AKPortamento.m */; };
-		C427FFCA1A4CE5DB00734A80 /* AKVibrato.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEF81A4CE5DB00734A80 /* AKVibrato.m */; };
-		C427FFCB1A4CE5DB00734A80 /* AKFMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEFB1A4CE5DB00734A80 /* AKFMOscillator.m */; };
-		C427FFCC1A4CE5DB00734A80 /* AKOscillatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEFD1A4CE5DB00734A80 /* AKOscillatingControl.m */; };
-		C427FFCD1A4CE5DB00734A80 /* AKOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FEFF1A4CE5DB00734A80 /* AKOscillator.m */; };
-		C427FFCE1A4CE5DB00734A80 /* AKVCOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF011A4CE5DB00734A80 /* AKVCOscillator.m */; };
-		C427FFCF1A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF041A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.m */; };
-		C427FFD01A4CE5DB00734A80 /* AKLowFrequencyOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF061A4CE5DB00734A80 /* AKLowFrequencyOscillator.m */; };
-		C427FFD11A4CE5DB00734A80 /* AKPhasingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF091A4CE5DB00734A80 /* AKPhasingControl.m */; };
-		C427FFD21A4CE5DB00734A80 /* AKPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF0B1A4CE5DB00734A80 /* AKPhasor.m */; };
-		C427FFD31A4CE5DB00734A80 /* AKMandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF0E1A4CE5DB00734A80 /* AKMandolin.m */; };
-		C427FFD41A4CE5DB00734A80 /* AKMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF101A4CE5DB00734A80 /* AKMarimba.m */; };
-		C427FFD51A4CE5DB00734A80 /* AKPluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF121A4CE5DB00734A80 /* AKPluckedString.m */; };
-		C427FFD61A4CE5DB00734A80 /* AKStruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF141A4CE5DB00734A80 /* AKStruckMetalBar.m */; };
-		C427FFD71A4CE5DB00734A80 /* AKVibes.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF161A4CE5DB00734A80 /* AKVibes.m */; };
-		C427FFD81A4CE5DB00734A80 /* AKBambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF191A4CE5DB00734A80 /* AKBambooSticks.m */; };
-		C427FFD91A4CE5DB00734A80 /* AKCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF1B1A4CE5DB00734A80 /* AKCabasa.m */; };
-		C427FFDA1A4CE5DB00734A80 /* AKCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF1D1A4CE5DB00734A80 /* AKCrunch.m */; };
-		C427FFDB1A4CE5DB00734A80 /* AKDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF1F1A4CE5DB00734A80 /* AKDroplet.m */; };
-		C427FFDC1A4CE5DB00734A80 /* AKGuiro.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF211A4CE5DB00734A80 /* AKGuiro.m */; };
-		C427FFDD1A4CE5DB00734A80 /* AKSandPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF231A4CE5DB00734A80 /* AKSandPaper.m */; };
-		C427FFDE1A4CE5DB00734A80 /* AKSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF251A4CE5DB00734A80 /* AKSekere.m */; };
-		C427FFDF1A4CE5DB00734A80 /* AKSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF271A4CE5DB00734A80 /* AKSleighbells.m */; };
-		C427FFE01A4CE5DB00734A80 /* AKStick.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF291A4CE5DB00734A80 /* AKStick.m */; };
-		C427FFE11A4CE5DB00734A80 /* AKTambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF2B1A4CE5DB00734A80 /* AKTambourine.m */; };
-		C427FFE21A4CE5DB00734A80 /* AKBeatenPlate.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF2E1A4CE5DB00734A80 /* AKBeatenPlate.m */; };
-		C427FFE31A4CE5DB00734A80 /* AKBowedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF301A4CE5DB00734A80 /* AKBowedString.m */; };
-		C427FFE41A4CE5DB00734A80 /* AKSimpleWaveGuideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF321A4CE5DB00734A80 /* AKSimpleWaveGuideModel.m */; };
-		C427FFE51A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF351A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.m */; };
-		C427FFE61A4CE5DB00734A80 /* AKJitter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF371A4CE5DB00734A80 /* AKJitter.m */; };
-		C427FFE71A4CE5DB00734A80 /* AKRandomAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF391A4CE5DB00734A80 /* AKRandomAudio.m */; };
-		C427FFE81A4CE5DB00734A80 /* AKRandomControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF3B1A4CE5DB00734A80 /* AKRandomControl.m */; };
-		C427FFE91A4CE5DB00734A80 /* AKAudioSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF3E1A4CE5DB00734A80 /* AKAudioSegmentArray.m */; };
-		C427FFEA1A4CE5DB00734A80 /* AKControlSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF401A4CE5DB00734A80 /* AKControlSegmentArray.m */; };
-		C427FFEB1A4CE5DB00734A80 /* AKControlSegmentArrayLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF421A4CE5DB00734A80 /* AKControlSegmentArrayLoop.m */; };
-		C427FFEC1A4CE5DB00734A80 /* AKAdditiveCosines.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF451A4CE5DB00734A80 /* AKAdditiveCosines.m */; };
-		C427FFED1A4CE5DB00734A80 /* AKAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF481A4CE5DB00734A80 /* AKAudioInput.m */; };
-		C427FFEE1A4CE5DB00734A80 /* AKAudioOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF4A1A4CE5DB00734A80 /* AKAudioOutput.m */; };
-		C427FFEF1A4CE5DB00734A80 /* AKFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF4C1A4CE5DB00734A80 /* AKFileInput.m */; };
-		C427FFF11A4CE5DB00734A80 /* AKMonoFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF501A4CE5DB00734A80 /* AKMonoFileInput.m */; };
-		C427FFF41A4CE5DB00734A80 /* AKConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF591A4CE5DB00734A80 /* AKConvolution.m */; };
-		C427FFF51A4CE5DB00734A80 /* AKStereoConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF5B1A4CE5DB00734A80 /* AKStereoConvolution.m */; };
-		C427FFF61A4CE5DB00734A80 /* AKDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF5E1A4CE5DB00734A80 /* AKDelay.m */; };
-		C427FFF71A4CE5DB00734A80 /* AKVariableDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF601A4CE5DB00734A80 /* AKVariableDelay.m */; };
-		C427FFF81A4CE5DB00734A80 /* AKCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF631A4CE5DB00734A80 /* AKCompressor.m */; };
-		C427FFF91A4CE5DB00734A80 /* AKDopplerEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF651A4CE5DB00734A80 /* AKDopplerEffect.m */; };
-		C427FFFA1A4CE5DB00734A80 /* AKFlanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF671A4CE5DB00734A80 /* AKFlanger.m */; };
-		C427FFFB1A4CE5DB00734A80 /* AKCombFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF6A1A4CE5DB00734A80 /* AKCombFilter.m */; };
-		C427FFFC1A4CE5DB00734A80 /* AKDCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF6C1A4CE5DB00734A80 /* AKDCBlock.m */; };
-		C427FFFD1A4CE5DB00734A80 /* AKEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF6E1A4CE5DB00734A80 /* AKEqualizerFilter.m */; };
-		C427FFFE1A4CE5DB00734A80 /* AKHighPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF701A4CE5DB00734A80 /* AKHighPassFilter.m */; };
-		C427FFFF1A4CE5DB00734A80 /* AKHilbertTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C427FF721A4CE5DB00734A80 /* AKHilbertTransformer.m */; };
+		C480CE9F1A514E350092E3D3 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDA21A514E350092E3D3 /* AKParameter+Operation.m */; };
+		C480CEA01A514E350092E3D3 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDA51A514E350092E3D3 /* AKTrackedAmplitude.m */; };
+		C480CEA11A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDA71A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.m */; };
+		C480CEA21A514E350092E3D3 /* AKTrackedFrequency.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDA91A514E350092E3D3 /* AKTrackedFrequency.m */; };
+		C480CEA31A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDAB1A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.m */; };
+		C480CEA41A514E350092E3D3 /* AKTableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDAE1A514E350092E3D3 /* AKTableValue.m */; };
+		C480CEA51A514E350092E3D3 /* AKTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDB01A514E350092E3D3 /* AKTableValueConstant.m */; };
+		C480CEA61A514E350092E3D3 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDB21A514E350092E3D3 /* AKTableValueControl.m */; };
+		C480CEA71A514E350092E3D3 /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDB51A514E350092E3D3 /* AKAdditiveCosineTable.m */; };
+		C480CEA81A514E350092E3D3 /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDB71A514E350092E3D3 /* AKArrayTable.m */; };
+		C480CEA91A514E350092E3D3 /* AKExponentialCurves.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDB91A514E350092E3D3 /* AKExponentialCurves.m */; };
+		C480CEAA1A514E350092E3D3 /* AKFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDBB1A514E350092E3D3 /* AKFunctionTable.m */; };
+		C480CEAB1A514E350092E3D3 /* AKLineSegments.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDBD1A514E350092E3D3 /* AKLineSegments.m */; };
+		C480CEAC1A514E350092E3D3 /* AKRandomDistributionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDBF1A514E350092E3D3 /* AKRandomDistributionTable.m */; };
+		C480CEAD1A514E350092E3D3 /* AKSoundFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDC11A514E350092E3D3 /* AKSoundFile.m */; };
+		C480CEAE1A514E350092E3D3 /* AKWeightedSumOfSinusoids.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDC31A514E350092E3D3 /* AKWeightedSumOfSinusoids.m */; };
+		C480CEAF1A514E350092E3D3 /* AKWindowsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDC51A514E350092E3D3 /* AKWindowsTable.m */; };
+		C480CEB01A514E350092E3D3 /* AKFunctionTableLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDC81A514E350092E3D3 /* AKFunctionTableLooper.m */; };
+		C480CEB11A514E350092E3D3 /* AKMonoSoundFileLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDCA1A514E350092E3D3 /* AKMonoSoundFileLooper.m */; };
+		C480CEB21A514E350092E3D3 /* AKStereoSoundFileLooper.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDCC1A514E350092E3D3 /* AKStereoSoundFileLooper.m */; };
+		C480CEB31A514E350092E3D3 /* AKAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDCF1A514E350092E3D3 /* AKAssignment.m */; };
+		C480CEB41A514E350092E3D3 /* AKScaledControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDD11A514E350092E3D3 /* AKScaledControl.m */; };
+		C480CEB51A514E350092E3D3 /* AKMaxAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDD41A514E350092E3D3 /* AKMaxAudio.m */; };
+		C480CEB61A514E350092E3D3 /* AKMaxControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDD61A514E350092E3D3 /* AKMaxControl.m */; };
+		C480CEB71A514E350092E3D3 /* AKMinAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDD81A514E350092E3D3 /* AKMinAudio.m */; };
+		C480CEB81A514E350092E3D3 /* AKMinControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDDA1A514E350092E3D3 /* AKMinControl.m */; };
+		C480CEB91A514E350092E3D3 /* AKMixedAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDDD1A514E350092E3D3 /* AKMixedAudio.m */; };
+		C480CEBA1A514E350092E3D3 /* AKMixedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDDF1A514E350092E3D3 /* AKMixedControl.m */; };
+		C480CEBB1A514E350092E3D3 /* AKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDE11A514E350092E3D3 /* AKProduct.m */; };
+		C480CEBC1A514E350092E3D3 /* AKSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDE31A514E350092E3D3 /* AKSum.m */; };
+		C480CEBD1A514E350092E3D3 /* AKAudioFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDE61A514E350092E3D3 /* AKAudioFromFSignal.m */; };
+		C480CEBE1A514E350092E3D3 /* AKCrossSynthesis.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDE81A514E350092E3D3 /* AKCrossSynthesis.m */; };
+		C480CEBF1A514E350092E3D3 /* AKFSignalFromMonoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDEA1A514E350092E3D3 /* AKFSignalFromMonoAudio.m */; };
+		C480CEC01A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDEC1A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.m */; };
+		C480CEC11A514E350092E3D3 /* AKFSignalMix.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDEE1A514E350092E3D3 /* AKFSignalMix.m */; };
+		C480CEC21A514E350092E3D3 /* AKPhaseLockedVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDF01A514E350092E3D3 /* AKPhaseLockedVocoder.m */; };
+		C480CEC31A514E350092E3D3 /* AKScaledFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDF21A514E350092E3D3 /* AKScaledFSignal.m */; };
+		C480CEC41A514E350092E3D3 /* AKSpectralVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDF41A514E350092E3D3 /* AKSpectralVocoder.m */; };
+		C480CEC51A514E350092E3D3 /* AKWarp.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDF61A514E350092E3D3 /* AKWarp.m */; };
+		C480CEC61A514E350092E3D3 /* AKADSREnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDFA1A514E350092E3D3 /* AKADSREnvelope.m */; };
+		C480CEC71A514E350092E3D3 /* AKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDFC1A514E350092E3D3 /* AKLine.m */; };
+		C480CEC81A514E350092E3D3 /* AKLinearADSREnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CDFE1A514E350092E3D3 /* AKLinearADSREnvelope.m */; };
+		C480CEC91A514E350092E3D3 /* AKLinearEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE001A514E350092E3D3 /* AKLinearEnvelope.m */; };
+		C480CECA1A514E350092E3D3 /* AKGranularSynthesisTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE031A514E350092E3D3 /* AKGranularSynthesisTexture.m */; };
+		C480CECB1A514E350092E3D3 /* AKSinusoidBursts.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE051A514E350092E3D3 /* AKSinusoidBursts.m */; };
+		C480CECC1A514E350092E3D3 /* AKPortamento.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE081A514E350092E3D3 /* AKPortamento.m */; };
+		C480CECD1A514E350092E3D3 /* AKVibrato.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE0A1A514E350092E3D3 /* AKVibrato.m */; };
+		C480CECE1A514E350092E3D3 /* AKFMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE0D1A514E350092E3D3 /* AKFMOscillator.m */; };
+		C480CECF1A514E350092E3D3 /* AKLowFrequencyOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE0F1A514E350092E3D3 /* AKLowFrequencyOscillator.m */; };
+		C480CED01A514E350092E3D3 /* AKOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE111A514E350092E3D3 /* AKOscillator.m */; };
+		C480CED11A514E350092E3D3 /* AKPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE131A514E350092E3D3 /* AKPhasor.m */; };
+		C480CED21A514E350092E3D3 /* AKVCOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE151A514E350092E3D3 /* AKVCOscillator.m */; };
+		C480CED31A514E350092E3D3 /* AKMandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE181A514E350092E3D3 /* AKMandolin.m */; };
+		C480CED41A514E350092E3D3 /* AKMarimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE1A1A514E350092E3D3 /* AKMarimba.m */; };
+		C480CED51A514E350092E3D3 /* AKPluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE1C1A514E350092E3D3 /* AKPluckedString.m */; };
+		C480CED61A514E350092E3D3 /* AKStruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE1E1A514E350092E3D3 /* AKStruckMetalBar.m */; };
+		C480CED71A514E350092E3D3 /* AKVibes.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE201A514E350092E3D3 /* AKVibes.m */; };
+		C480CED81A514E350092E3D3 /* AKBambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE231A514E350092E3D3 /* AKBambooSticks.m */; };
+		C480CED91A514E350092E3D3 /* AKCabasa.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE251A514E350092E3D3 /* AKCabasa.m */; };
+		C480CEDA1A514E350092E3D3 /* AKCrunch.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE271A514E350092E3D3 /* AKCrunch.m */; };
+		C480CEDB1A514E350092E3D3 /* AKDroplet.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE291A514E350092E3D3 /* AKDroplet.m */; };
+		C480CEDC1A514E350092E3D3 /* AKGuiro.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE2B1A514E350092E3D3 /* AKGuiro.m */; };
+		C480CEDD1A514E350092E3D3 /* AKSandPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE2D1A514E350092E3D3 /* AKSandPaper.m */; };
+		C480CEDE1A514E350092E3D3 /* AKSekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE2F1A514E350092E3D3 /* AKSekere.m */; };
+		C480CEDF1A514E350092E3D3 /* AKSleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE311A514E350092E3D3 /* AKSleighbells.m */; };
+		C480CEE01A514E350092E3D3 /* AKStick.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE331A514E350092E3D3 /* AKStick.m */; };
+		C480CEE11A514E350092E3D3 /* AKTambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE351A514E350092E3D3 /* AKTambourine.m */; };
+		C480CEE21A514E350092E3D3 /* AKBeatenPlate.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE381A514E350092E3D3 /* AKBeatenPlate.m */; };
+		C480CEE31A514E350092E3D3 /* AKBowedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE3A1A514E350092E3D3 /* AKBowedString.m */; };
+		C480CEE41A514E350092E3D3 /* AKSimpleWaveGuideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE3C1A514E350092E3D3 /* AKSimpleWaveGuideModel.m */; };
+		C480CEE51A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE3F1A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.m */; };
+		C480CEE61A514E350092E3D3 /* AKJitter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE411A514E350092E3D3 /* AKJitter.m */; };
+		C480CEE71A514E350092E3D3 /* AKRandomNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE431A514E350092E3D3 /* AKRandomNumbers.m */; };
+		C480CEE81A514E350092E3D3 /* AKAudioSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE461A514E350092E3D3 /* AKAudioSegmentArray.m */; };
+		C480CEE91A514E350092E3D3 /* AKControlSegmentArray.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE481A514E350092E3D3 /* AKControlSegmentArray.m */; };
+		C480CEEA1A514E350092E3D3 /* AKControlSegmentArrayLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE4A1A514E350092E3D3 /* AKControlSegmentArrayLoop.m */; };
+		C480CEEB1A514E350092E3D3 /* AKAdditiveCosines.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE4D1A514E350092E3D3 /* AKAdditiveCosines.m */; };
+		C480CEEC1A514E350092E3D3 /* AKAudioInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE501A514E350092E3D3 /* AKAudioInput.m */; };
+		C480CEED1A514E350092E3D3 /* AKAudioOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE521A514E350092E3D3 /* AKAudioOutput.m */; };
+		C480CEEE1A514E350092E3D3 /* AKFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE541A514E350092E3D3 /* AKFileInput.m */; };
+		C480CEEF1A514E350092E3D3 /* AKMonoFileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE561A514E350092E3D3 /* AKMonoFileInput.m */; };
+		C480CEF01A514E350092E3D3 /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE581A514E350092E3D3 /* AKMP3FileInput.m */; };
+		C480CEF11A514E350092E3D3 /* AKConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE5C1A514E350092E3D3 /* AKConvolution.m */; };
+		C480CEF21A514E350092E3D3 /* AKStereoConvolution.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE5E1A514E350092E3D3 /* AKStereoConvolution.m */; };
+		C480CEF31A514E350092E3D3 /* AKDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE611A514E350092E3D3 /* AKDelay.m */; };
+		C480CEF41A514E350092E3D3 /* AKMultitapDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE631A514E350092E3D3 /* AKMultitapDelay.m */; };
+		C480CEF51A514E350092E3D3 /* AKVariableDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE651A514E350092E3D3 /* AKVariableDelay.m */; };
+		C480CEF61A514E350092E3D3 /* AKCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE681A514E350092E3D3 /* AKCompressor.m */; };
+		C480CEF71A514E350092E3D3 /* AKDopplerEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE6A1A514E350092E3D3 /* AKDopplerEffect.m */; };
+		C480CEF81A514E350092E3D3 /* AKFlanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE6C1A514E350092E3D3 /* AKFlanger.m */; };
+		C480CEF91A514E350092E3D3 /* AKCombFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE6F1A514E350092E3D3 /* AKCombFilter.m */; };
+		C480CEFA1A514E350092E3D3 /* AKDCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE711A514E350092E3D3 /* AKDCBlock.m */; };
+		C480CEFB1A514E350092E3D3 /* AKEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE731A514E350092E3D3 /* AKEqualizerFilter.m */; };
+		C480CEFC1A514E350092E3D3 /* AKHighPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE751A514E350092E3D3 /* AKHighPassFilter.m */; };
+		C480CEFD1A514E350092E3D3 /* AKHilbertTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE771A514E350092E3D3 /* AKHilbertTransformer.m */; };
+		C480CEFE1A514E350092E3D3 /* AKLowPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE791A514E350092E3D3 /* AKLowPassFilter.m */; };
+		C480CEFF1A514E350092E3D3 /* AKMoogLadder.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE7B1A514E350092E3D3 /* AKMoogLadder.m */; };
+		C480CF001A514E350092E3D3 /* AKMoogVCF.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE7D1A514E350092E3D3 /* AKMoogVCF.m */; };
+		C480CF011A514E350092E3D3 /* AKResonantFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE7F1A514E350092E3D3 /* AKResonantFilter.m */; };
+		C480CF021A514E350092E3D3 /* AKThreePoleLowpassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE811A514E350092E3D3 /* AKThreePoleLowpassFilter.m */; };
+		C480CF031A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE831A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.m */; };
+		C480CF041A514E350092E3D3 /* AKBandPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE861A514E350092E3D3 /* AKBandPassButterworthFilter.m */; };
+		C480CF051A514E350092E3D3 /* AKBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE881A514E350092E3D3 /* AKBandRejectButterworthFilter.m */; };
+		C480CF061A514E350092E3D3 /* AKHighPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE8A1A514E350092E3D3 /* AKHighPassButterworthFilter.m */; };
+		C480CF071A514E350092E3D3 /* AKLowPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE8C1A514E350092E3D3 /* AKLowPassButterworthFilter.m */; };
+		C480CF081A514E350092E3D3 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE8F1A514E350092E3D3 /* AKDeclick.m */; };
+		C480CF091A514E350092E3D3 /* declick.udo in Resources */ = {isa = PBXBuildFile; fileRef = C480CE901A514E350092E3D3 /* declick.udo */; };
+		C480CF0A1A514E350092E3D3 /* AKBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE931A514E350092E3D3 /* AKBallWithinTheBoxReverb.m */; };
+		C480CF0B1A514E350092E3D3 /* AKFlatFrequencyResponseReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE951A514E350092E3D3 /* AKFlatFrequencyResponseReverb.m */; };
+		C480CF0C1A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE971A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.m */; };
+		C480CF0D1A514E350092E3D3 /* AKReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE991A514E350092E3D3 /* AKReverb.m */; };
+		C480CF0E1A514E350092E3D3 /* AKBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE9C1A514E350092E3D3 /* AKBalance.m */; };
+		C480CF0F1A514E350092E3D3 /* AKPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CE9E1A514E350092E3D3 /* AKPanner.m */; };
 		C489BEA51A3B926500129C7E /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = C489BEA41A3B926500129C7E /* AKPhrase.m */; };
 		C4BA00DF198F08C900BE4F61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4BA00DD198F08C900BE4F61 /* InfoPlist.strings */; };
 		C4BA00E1198F08C900BE4F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA00E0198F08C900BE4F61 /* main.m */; };
@@ -180,251 +172,235 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C41FB1811A4D302F0093645A /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
-		C41FB1821A4D302F0093645A /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
-		C41FB51A1A4E978B0093645A /* AKAdditiveCosineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosineTable.h; sourceTree = "<group>"; };
-		C41FB51B1A4E978B0093645A /* AKAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosineTable.m; sourceTree = "<group>"; };
-		C41FB51C1A4E978B0093645A /* AKArrayTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArrayTable.h; sourceTree = "<group>"; };
-		C41FB51D1A4E978B0093645A /* AKArrayTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKArrayTable.m; sourceTree = "<group>"; };
-		C41FB51E1A4E978B0093645A /* AKExponentialCurves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKExponentialCurves.h; sourceTree = "<group>"; };
-		C41FB51F1A4E978B0093645A /* AKExponentialCurves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKExponentialCurves.m; sourceTree = "<group>"; };
-		C41FB5201A4E978B0093645A /* AKFunctionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFunctionTable.h; sourceTree = "<group>"; };
-		C41FB5211A4E978B0093645A /* AKFunctionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFunctionTable.m; sourceTree = "<group>"; };
-		C41FB5221A4E978B0093645A /* AKLineSegments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLineSegments.h; sourceTree = "<group>"; };
-		C41FB5231A4E978B0093645A /* AKLineSegments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLineSegments.m; sourceTree = "<group>"; };
-		C41FB5241A4E978B0093645A /* AKRandomDistributionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRandomDistributionTable.h; sourceTree = "<group>"; };
-		C41FB5251A4E978B0093645A /* AKRandomDistributionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomDistributionTable.m; sourceTree = "<group>"; };
-		C41FB5261A4E978B0093645A /* AKSoundFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSoundFile.h; sourceTree = "<group>"; };
-		C41FB5271A4E978B0093645A /* AKSoundFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSoundFile.m; sourceTree = "<group>"; };
-		C41FB5281A4E978B0093645A /* AKWeightedSumOfSinusoids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWeightedSumOfSinusoids.h; sourceTree = "<group>"; };
-		C41FB5291A4E978B0093645A /* AKWeightedSumOfSinusoids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWeightedSumOfSinusoids.m; sourceTree = "<group>"; };
-		C41FB52A1A4E978B0093645A /* AKWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWindowsTable.h; sourceTree = "<group>"; };
-		C41FB52B1A4E978B0093645A /* AKWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWindowsTable.m; sourceTree = "<group>"; };
-		C41FB7DB1A4FA11A0093645A /* AKMultitapDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMultitapDelay.h; sourceTree = "<group>"; };
-		C41FB7DC1A4FA11A0093645A /* AKMultitapDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultitapDelay.m; sourceTree = "<group>"; };
-		C41FB8771A50139C0093645A /* AKFunctionTableLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFunctionTableLooper.h; sourceTree = "<group>"; };
-		C41FB8781A50139C0093645A /* AKFunctionTableLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFunctionTableLooper.m; sourceTree = "<group>"; };
-		C41FB8791A50139C0093645A /* AKMonoSoundFileLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMonoSoundFileLooper.h; sourceTree = "<group>"; };
-		C41FB87A1A50139C0093645A /* AKMonoSoundFileLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoSoundFileLooper.m; sourceTree = "<group>"; };
-		C41FB87B1A50139C0093645A /* AKStereoSoundFileLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStereoSoundFileLooper.h; sourceTree = "<group>"; };
-		C41FB87C1A50139C0093645A /* AKStereoSoundFileLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoSoundFileLooper.m; sourceTree = "<group>"; };
 		C427FE821A4CE5C800734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427FE831A4CE5C800734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427FE841A4CE5C800734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C427FE851A4CE5C800734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
-		C427FE8B1A4CE5DA00734A80 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
-		C427FE8C1A4CE5DA00734A80 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
-		C427FE8E1A4CE5DA00734A80 /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
-		C427FE8F1A4CE5DA00734A80 /* AKTrackedAmplitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedAmplitude.m; sourceTree = "<group>"; };
-		C427FE901A4CE5DA00734A80 /* AKTrackedAmplitudeFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitudeFromFSignal.h; sourceTree = "<group>"; };
-		C427FE911A4CE5DA00734A80 /* AKTrackedAmplitudeFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedAmplitudeFromFSignal.m; sourceTree = "<group>"; };
-		C427FE921A4CE5DA00734A80 /* AKTrackedFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedFrequency.h; sourceTree = "<group>"; };
-		C427FE931A4CE5DA00734A80 /* AKTrackedFrequency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedFrequency.m; sourceTree = "<group>"; };
-		C427FE941A4CE5DA00734A80 /* AKTrackedFrequencyFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedFrequencyFromFSignal.h; sourceTree = "<group>"; };
-		C427FE951A4CE5DA00734A80 /* AKTrackedFrequencyFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedFrequencyFromFSignal.m; sourceTree = "<group>"; };
-		C427FE971A4CE5DA00734A80 /* AKTableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValue.h; sourceTree = "<group>"; };
-		C427FE981A4CE5DA00734A80 /* AKTableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValue.m; sourceTree = "<group>"; };
-		C427FE991A4CE5DA00734A80 /* AKTableValueConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueConstant.h; sourceTree = "<group>"; };
-		C427FE9A1A4CE5DA00734A80 /* AKTableValueConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueConstant.m; sourceTree = "<group>"; };
-		C427FE9B1A4CE5DA00734A80 /* AKTableValueControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueControl.h; sourceTree = "<group>"; };
-		C427FE9C1A4CE5DA00734A80 /* AKTableValueControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueControl.m; sourceTree = "<group>"; };
-		C427FEB31A4CE5DA00734A80 /* AKAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAssignment.h; sourceTree = "<group>"; };
-		C427FEB41A4CE5DA00734A80 /* AKAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAssignment.m; sourceTree = "<group>"; };
-		C427FEB51A4CE5DA00734A80 /* AKScaledControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKScaledControl.h; sourceTree = "<group>"; };
-		C427FEB61A4CE5DA00734A80 /* AKScaledControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKScaledControl.m; sourceTree = "<group>"; };
-		C427FEB81A4CE5DA00734A80 /* AKMaxAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMaxAudio.h; sourceTree = "<group>"; };
-		C427FEB91A4CE5DA00734A80 /* AKMaxAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMaxAudio.m; sourceTree = "<group>"; };
-		C427FEBA1A4CE5DA00734A80 /* AKMaxControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMaxControl.h; sourceTree = "<group>"; };
-		C427FEBB1A4CE5DA00734A80 /* AKMaxControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMaxControl.m; sourceTree = "<group>"; };
-		C427FEBC1A4CE5DA00734A80 /* AKMinAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMinAudio.h; sourceTree = "<group>"; };
-		C427FEBD1A4CE5DB00734A80 /* AKMinAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMinAudio.m; sourceTree = "<group>"; };
-		C427FEBE1A4CE5DB00734A80 /* AKMinControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMinControl.h; sourceTree = "<group>"; };
-		C427FEBF1A4CE5DB00734A80 /* AKMinControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMinControl.m; sourceTree = "<group>"; };
-		C427FEC11A4CE5DB00734A80 /* AKMixedAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMixedAudio.h; sourceTree = "<group>"; };
-		C427FEC21A4CE5DB00734A80 /* AKMixedAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMixedAudio.m; sourceTree = "<group>"; };
-		C427FEC31A4CE5DB00734A80 /* AKMixedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMixedControl.h; sourceTree = "<group>"; };
-		C427FEC41A4CE5DB00734A80 /* AKMixedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMixedControl.m; sourceTree = "<group>"; };
-		C427FEC51A4CE5DB00734A80 /* AKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKProduct.h; sourceTree = "<group>"; };
-		C427FEC61A4CE5DB00734A80 /* AKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKProduct.m; sourceTree = "<group>"; };
-		C427FEC71A4CE5DB00734A80 /* AKSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSum.h; sourceTree = "<group>"; };
-		C427FEC81A4CE5DB00734A80 /* AKSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSum.m; sourceTree = "<group>"; };
-		C427FECA1A4CE5DB00734A80 /* AKAudioFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioFromFSignal.h; sourceTree = "<group>"; };
-		C427FECB1A4CE5DB00734A80 /* AKAudioFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioFromFSignal.m; sourceTree = "<group>"; };
-		C427FECC1A4CE5DB00734A80 /* AKCrossSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrossSynthesis.h; sourceTree = "<group>"; };
-		C427FECD1A4CE5DB00734A80 /* AKCrossSynthesis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCrossSynthesis.m; sourceTree = "<group>"; };
-		C427FECE1A4CE5DB00734A80 /* AKFSignalFromMonoAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFSignalFromMonoAudio.h; sourceTree = "<group>"; };
-		C427FECF1A4CE5DB00734A80 /* AKFSignalFromMonoAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFSignalFromMonoAudio.m; sourceTree = "<group>"; };
-		C427FED01A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFSignalFromMonoWithAttackAnalysis.h; sourceTree = "<group>"; };
-		C427FED11A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFSignalFromMonoWithAttackAnalysis.m; sourceTree = "<group>"; };
-		C427FED21A4CE5DB00734A80 /* AKFSignalMix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFSignalMix.h; sourceTree = "<group>"; };
-		C427FED31A4CE5DB00734A80 /* AKFSignalMix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFSignalMix.m; sourceTree = "<group>"; };
-		C427FED41A4CE5DB00734A80 /* AKPhaseLockedVocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseLockedVocoder.h; sourceTree = "<group>"; };
-		C427FED51A4CE5DB00734A80 /* AKPhaseLockedVocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhaseLockedVocoder.m; sourceTree = "<group>"; };
-		C427FED61A4CE5DB00734A80 /* AKScaledFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKScaledFSignal.h; sourceTree = "<group>"; };
-		C427FED71A4CE5DB00734A80 /* AKScaledFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKScaledFSignal.m; sourceTree = "<group>"; };
-		C427FED81A4CE5DB00734A80 /* AKSpectralVocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSpectralVocoder.h; sourceTree = "<group>"; };
-		C427FED91A4CE5DB00734A80 /* AKSpectralVocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSpectralVocoder.m; sourceTree = "<group>"; };
-		C427FEDA1A4CE5DB00734A80 /* AKWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWarp.h; sourceTree = "<group>"; };
-		C427FEDB1A4CE5DB00734A80 /* AKWarp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWarp.m; sourceTree = "<group>"; };
-		C427FEDE1A4CE5DB00734A80 /* AKADSRAudioEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKADSRAudioEnvelope.h; sourceTree = "<group>"; };
-		C427FEDF1A4CE5DB00734A80 /* AKADSRAudioEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKADSRAudioEnvelope.m; sourceTree = "<group>"; };
-		C427FEE01A4CE5DB00734A80 /* AKADSRControlEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKADSRControlEnvelope.h; sourceTree = "<group>"; };
-		C427FEE11A4CE5DB00734A80 /* AKADSRControlEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKADSRControlEnvelope.m; sourceTree = "<group>"; };
-		C427FEE21A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearADSRAudioEnvelope.h; sourceTree = "<group>"; };
-		C427FEE31A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearADSRAudioEnvelope.m; sourceTree = "<group>"; };
-		C427FEE41A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearADSRControlEnvelope.h; sourceTree = "<group>"; };
-		C427FEE51A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearADSRControlEnvelope.m; sourceTree = "<group>"; };
-		C427FEE61A4CE5DB00734A80 /* AKLinearAudioEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearAudioEnvelope.h; sourceTree = "<group>"; };
-		C427FEE71A4CE5DB00734A80 /* AKLinearAudioEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearAudioEnvelope.m; sourceTree = "<group>"; };
-		C427FEE81A4CE5DB00734A80 /* AKLinearControlEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearControlEnvelope.h; sourceTree = "<group>"; };
-		C427FEE91A4CE5DB00734A80 /* AKLinearControlEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearControlEnvelope.m; sourceTree = "<group>"; };
-		C427FEEB1A4CE5DB00734A80 /* AKGranularSynthesisTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKGranularSynthesisTexture.h; sourceTree = "<group>"; };
-		C427FEEC1A4CE5DB00734A80 /* AKGranularSynthesisTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKGranularSynthesisTexture.m; sourceTree = "<group>"; };
-		C427FEED1A4CE5DB00734A80 /* AKSinusoidBursts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSinusoidBursts.h; sourceTree = "<group>"; };
-		C427FEEE1A4CE5DB00734A80 /* AKSinusoidBursts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSinusoidBursts.m; sourceTree = "<group>"; };
-		C427FEF01A4CE5DB00734A80 /* AKLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLine.h; sourceTree = "<group>"; };
-		C427FEF11A4CE5DB00734A80 /* AKLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLine.m; sourceTree = "<group>"; };
-		C427FEF21A4CE5DB00734A80 /* AKLinearControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearControl.h; sourceTree = "<group>"; };
-		C427FEF31A4CE5DB00734A80 /* AKLinearControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearControl.m; sourceTree = "<group>"; };
-		C427FEF51A4CE5DB00734A80 /* AKPortamento.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPortamento.h; sourceTree = "<group>"; };
-		C427FEF61A4CE5DB00734A80 /* AKPortamento.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPortamento.m; sourceTree = "<group>"; };
-		C427FEF71A4CE5DB00734A80 /* AKVibrato.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVibrato.h; sourceTree = "<group>"; };
-		C427FEF81A4CE5DB00734A80 /* AKVibrato.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibrato.m; sourceTree = "<group>"; };
-		C427FEFA1A4CE5DB00734A80 /* AKFMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFMOscillator.h; sourceTree = "<group>"; };
-		C427FEFB1A4CE5DB00734A80 /* AKFMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFMOscillator.m; sourceTree = "<group>"; };
-		C427FEFC1A4CE5DB00734A80 /* AKOscillatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillatingControl.h; sourceTree = "<group>"; };
-		C427FEFD1A4CE5DB00734A80 /* AKOscillatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOscillatingControl.m; sourceTree = "<group>"; };
-		C427FEFE1A4CE5DB00734A80 /* AKOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillator.h; sourceTree = "<group>"; };
-		C427FEFF1A4CE5DB00734A80 /* AKOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOscillator.m; sourceTree = "<group>"; };
-		C427FF001A4CE5DB00734A80 /* AKVCOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVCOscillator.h; sourceTree = "<group>"; };
-		C427FF011A4CE5DB00734A80 /* AKVCOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVCOscillator.m; sourceTree = "<group>"; };
-		C427FF031A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowFrequencyOscillatingControl.h; sourceTree = "<group>"; };
-		C427FF041A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowFrequencyOscillatingControl.m; sourceTree = "<group>"; };
-		C427FF051A4CE5DB00734A80 /* AKLowFrequencyOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowFrequencyOscillator.h; sourceTree = "<group>"; };
-		C427FF061A4CE5DB00734A80 /* AKLowFrequencyOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowFrequencyOscillator.m; sourceTree = "<group>"; };
-		C427FF081A4CE5DB00734A80 /* AKPhasingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhasingControl.h; sourceTree = "<group>"; };
-		C427FF091A4CE5DB00734A80 /* AKPhasingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhasingControl.m; sourceTree = "<group>"; };
-		C427FF0A1A4CE5DB00734A80 /* AKPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhasor.h; sourceTree = "<group>"; };
-		C427FF0B1A4CE5DB00734A80 /* AKPhasor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhasor.m; sourceTree = "<group>"; };
-		C427FF0D1A4CE5DB00734A80 /* AKMandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMandolin.h; sourceTree = "<group>"; };
-		C427FF0E1A4CE5DB00734A80 /* AKMandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMandolin.m; sourceTree = "<group>"; };
-		C427FF0F1A4CE5DB00734A80 /* AKMarimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMarimba.h; sourceTree = "<group>"; };
-		C427FF101A4CE5DB00734A80 /* AKMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMarimba.m; sourceTree = "<group>"; };
-		C427FF111A4CE5DB00734A80 /* AKPluckedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPluckedString.h; sourceTree = "<group>"; };
-		C427FF121A4CE5DB00734A80 /* AKPluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPluckedString.m; sourceTree = "<group>"; };
-		C427FF131A4CE5DB00734A80 /* AKStruckMetalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStruckMetalBar.h; sourceTree = "<group>"; };
-		C427FF141A4CE5DB00734A80 /* AKStruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStruckMetalBar.m; sourceTree = "<group>"; };
-		C427FF151A4CE5DB00734A80 /* AKVibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVibes.h; sourceTree = "<group>"; };
-		C427FF161A4CE5DB00734A80 /* AKVibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibes.m; sourceTree = "<group>"; };
-		C427FF181A4CE5DB00734A80 /* AKBambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBambooSticks.h; sourceTree = "<group>"; };
-		C427FF191A4CE5DB00734A80 /* AKBambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBambooSticks.m; sourceTree = "<group>"; };
-		C427FF1A1A4CE5DB00734A80 /* AKCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCabasa.h; sourceTree = "<group>"; };
-		C427FF1B1A4CE5DB00734A80 /* AKCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCabasa.m; sourceTree = "<group>"; };
-		C427FF1C1A4CE5DB00734A80 /* AKCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrunch.h; sourceTree = "<group>"; };
-		C427FF1D1A4CE5DB00734A80 /* AKCrunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCrunch.m; sourceTree = "<group>"; };
-		C427FF1E1A4CE5DB00734A80 /* AKDroplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDroplet.h; sourceTree = "<group>"; };
-		C427FF1F1A4CE5DB00734A80 /* AKDroplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDroplet.m; sourceTree = "<group>"; };
-		C427FF201A4CE5DB00734A80 /* AKGuiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKGuiro.h; sourceTree = "<group>"; };
-		C427FF211A4CE5DB00734A80 /* AKGuiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKGuiro.m; sourceTree = "<group>"; };
-		C427FF221A4CE5DB00734A80 /* AKSandPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSandPaper.h; sourceTree = "<group>"; };
-		C427FF231A4CE5DB00734A80 /* AKSandPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSandPaper.m; sourceTree = "<group>"; };
-		C427FF241A4CE5DB00734A80 /* AKSekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSekere.h; sourceTree = "<group>"; };
-		C427FF251A4CE5DB00734A80 /* AKSekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSekere.m; sourceTree = "<group>"; };
-		C427FF261A4CE5DB00734A80 /* AKSleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSleighbells.h; sourceTree = "<group>"; };
-		C427FF271A4CE5DB00734A80 /* AKSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSleighbells.m; sourceTree = "<group>"; };
-		C427FF281A4CE5DB00734A80 /* AKStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStick.h; sourceTree = "<group>"; };
-		C427FF291A4CE5DB00734A80 /* AKStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStick.m; sourceTree = "<group>"; };
-		C427FF2A1A4CE5DB00734A80 /* AKTambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTambourine.h; sourceTree = "<group>"; };
-		C427FF2B1A4CE5DB00734A80 /* AKTambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTambourine.m; sourceTree = "<group>"; };
-		C427FF2D1A4CE5DB00734A80 /* AKBeatenPlate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBeatenPlate.h; sourceTree = "<group>"; };
-		C427FF2E1A4CE5DB00734A80 /* AKBeatenPlate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBeatenPlate.m; sourceTree = "<group>"; };
-		C427FF2F1A4CE5DB00734A80 /* AKBowedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBowedString.h; sourceTree = "<group>"; };
-		C427FF301A4CE5DB00734A80 /* AKBowedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBowedString.m; sourceTree = "<group>"; };
-		C427FF311A4CE5DB00734A80 /* AKSimpleWaveGuideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSimpleWaveGuideModel.h; sourceTree = "<group>"; };
-		C427FF321A4CE5DB00734A80 /* AKSimpleWaveGuideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSimpleWaveGuideModel.m; sourceTree = "<group>"; };
-		C427FF341A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInterpolatedRandomNumberPulse.h; sourceTree = "<group>"; };
-		C427FF351A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInterpolatedRandomNumberPulse.m; sourceTree = "<group>"; };
-		C427FF361A4CE5DB00734A80 /* AKJitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKJitter.h; sourceTree = "<group>"; };
-		C427FF371A4CE5DB00734A80 /* AKJitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKJitter.m; sourceTree = "<group>"; };
-		C427FF381A4CE5DB00734A80 /* AKRandomAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRandomAudio.h; sourceTree = "<group>"; };
-		C427FF391A4CE5DB00734A80 /* AKRandomAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomAudio.m; sourceTree = "<group>"; };
-		C427FF3A1A4CE5DB00734A80 /* AKRandomControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRandomControl.h; sourceTree = "<group>"; };
-		C427FF3B1A4CE5DB00734A80 /* AKRandomControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomControl.m; sourceTree = "<group>"; };
-		C427FF3D1A4CE5DB00734A80 /* AKAudioSegmentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioSegmentArray.h; sourceTree = "<group>"; };
-		C427FF3E1A4CE5DB00734A80 /* AKAudioSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioSegmentArray.m; sourceTree = "<group>"; };
-		C427FF3F1A4CE5DB00734A80 /* AKControlSegmentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKControlSegmentArray.h; sourceTree = "<group>"; };
-		C427FF401A4CE5DB00734A80 /* AKControlSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKControlSegmentArray.m; sourceTree = "<group>"; };
-		C427FF411A4CE5DB00734A80 /* AKControlSegmentArrayLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKControlSegmentArrayLoop.h; sourceTree = "<group>"; };
-		C427FF421A4CE5DB00734A80 /* AKControlSegmentArrayLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKControlSegmentArrayLoop.m; sourceTree = "<group>"; };
-		C427FF441A4CE5DB00734A80 /* AKAdditiveCosines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosines.h; sourceTree = "<group>"; };
-		C427FF451A4CE5DB00734A80 /* AKAdditiveCosines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosines.m; sourceTree = "<group>"; };
-		C427FF471A4CE5DB00734A80 /* AKAudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioInput.h; sourceTree = "<group>"; };
-		C427FF481A4CE5DB00734A80 /* AKAudioInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioInput.m; sourceTree = "<group>"; };
-		C427FF491A4CE5DB00734A80 /* AKAudioOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutput.h; sourceTree = "<group>"; };
-		C427FF4A1A4CE5DB00734A80 /* AKAudioOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutput.m; sourceTree = "<group>"; };
-		C427FF4B1A4CE5DB00734A80 /* AKFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFileInput.h; sourceTree = "<group>"; };
-		C427FF4C1A4CE5DB00734A80 /* AKFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFileInput.m; sourceTree = "<group>"; };
-		C427FF4F1A4CE5DB00734A80 /* AKMonoFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMonoFileInput.h; sourceTree = "<group>"; };
-		C427FF501A4CE5DB00734A80 /* AKMonoFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoFileInput.m; sourceTree = "<group>"; };
-		C427FF581A4CE5DB00734A80 /* AKConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKConvolution.h; sourceTree = "<group>"; };
-		C427FF591A4CE5DB00734A80 /* AKConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKConvolution.m; sourceTree = "<group>"; };
-		C427FF5A1A4CE5DB00734A80 /* AKStereoConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStereoConvolution.h; sourceTree = "<group>"; };
-		C427FF5B1A4CE5DB00734A80 /* AKStereoConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoConvolution.m; sourceTree = "<group>"; };
-		C427FF5D1A4CE5DB00734A80 /* AKDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDelay.h; sourceTree = "<group>"; };
-		C427FF5E1A4CE5DB00734A80 /* AKDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDelay.m; sourceTree = "<group>"; };
-		C427FF5F1A4CE5DB00734A80 /* AKVariableDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableDelay.h; sourceTree = "<group>"; };
-		C427FF601A4CE5DB00734A80 /* AKVariableDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVariableDelay.m; sourceTree = "<group>"; };
-		C427FF621A4CE5DB00734A80 /* AKCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCompressor.h; sourceTree = "<group>"; };
-		C427FF631A4CE5DB00734A80 /* AKCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCompressor.m; sourceTree = "<group>"; };
-		C427FF641A4CE5DB00734A80 /* AKDopplerEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDopplerEffect.h; sourceTree = "<group>"; };
-		C427FF651A4CE5DB00734A80 /* AKDopplerEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDopplerEffect.m; sourceTree = "<group>"; };
-		C427FF661A4CE5DB00734A80 /* AKFlanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlanger.h; sourceTree = "<group>"; };
-		C427FF671A4CE5DB00734A80 /* AKFlanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlanger.m; sourceTree = "<group>"; };
-		C427FF691A4CE5DB00734A80 /* AKCombFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilter.h; sourceTree = "<group>"; };
-		C427FF6A1A4CE5DB00734A80 /* AKCombFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCombFilter.m; sourceTree = "<group>"; };
-		C427FF6B1A4CE5DB00734A80 /* AKDCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDCBlock.h; sourceTree = "<group>"; };
-		C427FF6C1A4CE5DB00734A80 /* AKDCBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDCBlock.m; sourceTree = "<group>"; };
-		C427FF6D1A4CE5DB00734A80 /* AKEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEqualizerFilter.h; sourceTree = "<group>"; };
-		C427FF6E1A4CE5DB00734A80 /* AKEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEqualizerFilter.m; sourceTree = "<group>"; };
-		C427FF6F1A4CE5DB00734A80 /* AKHighPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighPassFilter.h; sourceTree = "<group>"; };
-		C427FF701A4CE5DB00734A80 /* AKHighPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighPassFilter.m; sourceTree = "<group>"; };
-		C427FF711A4CE5DB00734A80 /* AKHilbertTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHilbertTransformer.h; sourceTree = "<group>"; };
-		C427FF721A4CE5DB00734A80 /* AKHilbertTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHilbertTransformer.m; sourceTree = "<group>"; };
-		C427FF731A4CE5DB00734A80 /* AKLowPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowPassFilter.h; sourceTree = "<group>"; };
-		C427FF741A4CE5DB00734A80 /* AKLowPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowPassFilter.m; sourceTree = "<group>"; };
-		C427FF751A4CE5DB00734A80 /* AKMoogLadder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMoogLadder.h; sourceTree = "<group>"; };
-		C427FF761A4CE5DB00734A80 /* AKMoogLadder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMoogLadder.m; sourceTree = "<group>"; };
-		C427FF771A4CE5DB00734A80 /* AKMoogVCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMoogVCF.h; sourceTree = "<group>"; };
-		C427FF781A4CE5DB00734A80 /* AKMoogVCF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMoogVCF.m; sourceTree = "<group>"; };
-		C427FF791A4CE5DB00734A80 /* AKResonantFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKResonantFilter.h; sourceTree = "<group>"; };
-		C427FF7A1A4CE5DB00734A80 /* AKResonantFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKResonantFilter.m; sourceTree = "<group>"; };
-		C427FF7B1A4CE5DB00734A80 /* AKThreePoleLowpassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKThreePoleLowpassFilter.h; sourceTree = "<group>"; };
-		C427FF7C1A4CE5DB00734A80 /* AKThreePoleLowpassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKThreePoleLowpassFilter.m; sourceTree = "<group>"; };
-		C427FF7D1A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableFrequencyResponseBandPassFilter.h; sourceTree = "<group>"; };
-		C427FF7E1A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVariableFrequencyResponseBandPassFilter.m; sourceTree = "<group>"; };
-		C427FF801A4CE5DB00734A80 /* AKBandPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBandPassButterworthFilter.h; sourceTree = "<group>"; };
-		C427FF811A4CE5DB00734A80 /* AKBandPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBandPassButterworthFilter.m; sourceTree = "<group>"; };
-		C427FF821A4CE5DB00734A80 /* AKBandRejectButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBandRejectButterworthFilter.h; sourceTree = "<group>"; };
-		C427FF831A4CE5DB00734A80 /* AKBandRejectButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBandRejectButterworthFilter.m; sourceTree = "<group>"; };
-		C427FF841A4CE5DB00734A80 /* AKHighPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighPassButterworthFilter.h; sourceTree = "<group>"; };
-		C427FF851A4CE5DB00734A80 /* AKHighPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighPassButterworthFilter.m; sourceTree = "<group>"; };
-		C427FF861A4CE5DB00734A80 /* AKLowPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowPassButterworthFilter.h; sourceTree = "<group>"; };
-		C427FF871A4CE5DB00734A80 /* AKLowPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowPassButterworthFilter.m; sourceTree = "<group>"; };
-		C427FF891A4CE5DB00734A80 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
-		C427FF8A1A4CE5DB00734A80 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
-		C427FF8B1A4CE5DB00734A80 /* declick.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = declick.udo; sourceTree = "<group>"; };
-		C427FF8D1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBallWithinTheBoxReverb.h; sourceTree = "<group>"; };
-		C427FF8E1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
-		C427FF8F1A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlatFrequencyResponseReverb.h; sourceTree = "<group>"; };
-		C427FF901A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlatFrequencyResponseReverb.m; sourceTree = "<group>"; };
-		C427FF911A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKParallelCombLowPassFilterReverb.h; sourceTree = "<group>"; };
-		C427FF921A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKParallelCombLowPassFilterReverb.m; sourceTree = "<group>"; };
-		C427FF931A4CE5DB00734A80 /* AKReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKReverb.h; sourceTree = "<group>"; };
-		C427FF941A4CE5DB00734A80 /* AKReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKReverb.m; sourceTree = "<group>"; };
-		C427FF961A4CE5DB00734A80 /* AKBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBalance.h; sourceTree = "<group>"; };
-		C427FF971A4CE5DB00734A80 /* AKBalance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBalance.m; sourceTree = "<group>"; };
-		C427FF981A4CE5DB00734A80 /* AKPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPanner.h; sourceTree = "<group>"; };
-		C427FF991A4CE5DB00734A80 /* AKPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPanner.m; sourceTree = "<group>"; };
+		C480CDA11A514E350092E3D3 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
+		C480CDA21A514E350092E3D3 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
+		C480CDA41A514E350092E3D3 /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
+		C480CDA51A514E350092E3D3 /* AKTrackedAmplitude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedAmplitude.m; sourceTree = "<group>"; };
+		C480CDA61A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitudeFromFSignal.h; sourceTree = "<group>"; };
+		C480CDA71A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedAmplitudeFromFSignal.m; sourceTree = "<group>"; };
+		C480CDA81A514E350092E3D3 /* AKTrackedFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedFrequency.h; sourceTree = "<group>"; };
+		C480CDA91A514E350092E3D3 /* AKTrackedFrequency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedFrequency.m; sourceTree = "<group>"; };
+		C480CDAA1A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedFrequencyFromFSignal.h; sourceTree = "<group>"; };
+		C480CDAB1A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTrackedFrequencyFromFSignal.m; sourceTree = "<group>"; };
+		C480CDAD1A514E350092E3D3 /* AKTableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValue.h; sourceTree = "<group>"; };
+		C480CDAE1A514E350092E3D3 /* AKTableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValue.m; sourceTree = "<group>"; };
+		C480CDAF1A514E350092E3D3 /* AKTableValueConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueConstant.h; sourceTree = "<group>"; };
+		C480CDB01A514E350092E3D3 /* AKTableValueConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueConstant.m; sourceTree = "<group>"; };
+		C480CDB11A514E350092E3D3 /* AKTableValueControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueControl.h; sourceTree = "<group>"; };
+		C480CDB21A514E350092E3D3 /* AKTableValueControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueControl.m; sourceTree = "<group>"; };
+		C480CDB41A514E350092E3D3 /* AKAdditiveCosineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosineTable.h; sourceTree = "<group>"; };
+		C480CDB51A514E350092E3D3 /* AKAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosineTable.m; sourceTree = "<group>"; };
+		C480CDB61A514E350092E3D3 /* AKArrayTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArrayTable.h; sourceTree = "<group>"; };
+		C480CDB71A514E350092E3D3 /* AKArrayTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKArrayTable.m; sourceTree = "<group>"; };
+		C480CDB81A514E350092E3D3 /* AKExponentialCurves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKExponentialCurves.h; sourceTree = "<group>"; };
+		C480CDB91A514E350092E3D3 /* AKExponentialCurves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKExponentialCurves.m; sourceTree = "<group>"; };
+		C480CDBA1A514E350092E3D3 /* AKFunctionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFunctionTable.h; sourceTree = "<group>"; };
+		C480CDBB1A514E350092E3D3 /* AKFunctionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFunctionTable.m; sourceTree = "<group>"; };
+		C480CDBC1A514E350092E3D3 /* AKLineSegments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLineSegments.h; sourceTree = "<group>"; };
+		C480CDBD1A514E350092E3D3 /* AKLineSegments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLineSegments.m; sourceTree = "<group>"; };
+		C480CDBE1A514E350092E3D3 /* AKRandomDistributionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRandomDistributionTable.h; sourceTree = "<group>"; };
+		C480CDBF1A514E350092E3D3 /* AKRandomDistributionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomDistributionTable.m; sourceTree = "<group>"; };
+		C480CDC01A514E350092E3D3 /* AKSoundFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSoundFile.h; sourceTree = "<group>"; };
+		C480CDC11A514E350092E3D3 /* AKSoundFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSoundFile.m; sourceTree = "<group>"; };
+		C480CDC21A514E350092E3D3 /* AKWeightedSumOfSinusoids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWeightedSumOfSinusoids.h; sourceTree = "<group>"; };
+		C480CDC31A514E350092E3D3 /* AKWeightedSumOfSinusoids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWeightedSumOfSinusoids.m; sourceTree = "<group>"; };
+		C480CDC41A514E350092E3D3 /* AKWindowsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWindowsTable.h; sourceTree = "<group>"; };
+		C480CDC51A514E350092E3D3 /* AKWindowsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWindowsTable.m; sourceTree = "<group>"; };
+		C480CDC71A514E350092E3D3 /* AKFunctionTableLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFunctionTableLooper.h; sourceTree = "<group>"; };
+		C480CDC81A514E350092E3D3 /* AKFunctionTableLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFunctionTableLooper.m; sourceTree = "<group>"; };
+		C480CDC91A514E350092E3D3 /* AKMonoSoundFileLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMonoSoundFileLooper.h; sourceTree = "<group>"; };
+		C480CDCA1A514E350092E3D3 /* AKMonoSoundFileLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoSoundFileLooper.m; sourceTree = "<group>"; };
+		C480CDCB1A514E350092E3D3 /* AKStereoSoundFileLooper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStereoSoundFileLooper.h; sourceTree = "<group>"; };
+		C480CDCC1A514E350092E3D3 /* AKStereoSoundFileLooper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoSoundFileLooper.m; sourceTree = "<group>"; };
+		C480CDCE1A514E350092E3D3 /* AKAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAssignment.h; sourceTree = "<group>"; };
+		C480CDCF1A514E350092E3D3 /* AKAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAssignment.m; sourceTree = "<group>"; };
+		C480CDD01A514E350092E3D3 /* AKScaledControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKScaledControl.h; sourceTree = "<group>"; };
+		C480CDD11A514E350092E3D3 /* AKScaledControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKScaledControl.m; sourceTree = "<group>"; };
+		C480CDD31A514E350092E3D3 /* AKMaxAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMaxAudio.h; sourceTree = "<group>"; };
+		C480CDD41A514E350092E3D3 /* AKMaxAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMaxAudio.m; sourceTree = "<group>"; };
+		C480CDD51A514E350092E3D3 /* AKMaxControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMaxControl.h; sourceTree = "<group>"; };
+		C480CDD61A514E350092E3D3 /* AKMaxControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMaxControl.m; sourceTree = "<group>"; };
+		C480CDD71A514E350092E3D3 /* AKMinAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMinAudio.h; sourceTree = "<group>"; };
+		C480CDD81A514E350092E3D3 /* AKMinAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMinAudio.m; sourceTree = "<group>"; };
+		C480CDD91A514E350092E3D3 /* AKMinControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMinControl.h; sourceTree = "<group>"; };
+		C480CDDA1A514E350092E3D3 /* AKMinControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMinControl.m; sourceTree = "<group>"; };
+		C480CDDC1A514E350092E3D3 /* AKMixedAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMixedAudio.h; sourceTree = "<group>"; };
+		C480CDDD1A514E350092E3D3 /* AKMixedAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMixedAudio.m; sourceTree = "<group>"; };
+		C480CDDE1A514E350092E3D3 /* AKMixedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMixedControl.h; sourceTree = "<group>"; };
+		C480CDDF1A514E350092E3D3 /* AKMixedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMixedControl.m; sourceTree = "<group>"; };
+		C480CDE01A514E350092E3D3 /* AKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKProduct.h; sourceTree = "<group>"; };
+		C480CDE11A514E350092E3D3 /* AKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKProduct.m; sourceTree = "<group>"; };
+		C480CDE21A514E350092E3D3 /* AKSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSum.h; sourceTree = "<group>"; };
+		C480CDE31A514E350092E3D3 /* AKSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSum.m; sourceTree = "<group>"; };
+		C480CDE51A514E350092E3D3 /* AKAudioFromFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioFromFSignal.h; sourceTree = "<group>"; };
+		C480CDE61A514E350092E3D3 /* AKAudioFromFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioFromFSignal.m; sourceTree = "<group>"; };
+		C480CDE71A514E350092E3D3 /* AKCrossSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrossSynthesis.h; sourceTree = "<group>"; };
+		C480CDE81A514E350092E3D3 /* AKCrossSynthesis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCrossSynthesis.m; sourceTree = "<group>"; };
+		C480CDE91A514E350092E3D3 /* AKFSignalFromMonoAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFSignalFromMonoAudio.h; sourceTree = "<group>"; };
+		C480CDEA1A514E350092E3D3 /* AKFSignalFromMonoAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFSignalFromMonoAudio.m; sourceTree = "<group>"; };
+		C480CDEB1A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFSignalFromMonoWithAttackAnalysis.h; sourceTree = "<group>"; };
+		C480CDEC1A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFSignalFromMonoWithAttackAnalysis.m; sourceTree = "<group>"; };
+		C480CDED1A514E350092E3D3 /* AKFSignalMix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFSignalMix.h; sourceTree = "<group>"; };
+		C480CDEE1A514E350092E3D3 /* AKFSignalMix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFSignalMix.m; sourceTree = "<group>"; };
+		C480CDEF1A514E350092E3D3 /* AKPhaseLockedVocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseLockedVocoder.h; sourceTree = "<group>"; };
+		C480CDF01A514E350092E3D3 /* AKPhaseLockedVocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhaseLockedVocoder.m; sourceTree = "<group>"; };
+		C480CDF11A514E350092E3D3 /* AKScaledFSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKScaledFSignal.h; sourceTree = "<group>"; };
+		C480CDF21A514E350092E3D3 /* AKScaledFSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKScaledFSignal.m; sourceTree = "<group>"; };
+		C480CDF31A514E350092E3D3 /* AKSpectralVocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSpectralVocoder.h; sourceTree = "<group>"; };
+		C480CDF41A514E350092E3D3 /* AKSpectralVocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSpectralVocoder.m; sourceTree = "<group>"; };
+		C480CDF51A514E350092E3D3 /* AKWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWarp.h; sourceTree = "<group>"; };
+		C480CDF61A514E350092E3D3 /* AKWarp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWarp.m; sourceTree = "<group>"; };
+		C480CDF91A514E350092E3D3 /* AKADSREnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKADSREnvelope.h; sourceTree = "<group>"; };
+		C480CDFA1A514E350092E3D3 /* AKADSREnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKADSREnvelope.m; sourceTree = "<group>"; };
+		C480CDFB1A514E350092E3D3 /* AKLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLine.h; sourceTree = "<group>"; };
+		C480CDFC1A514E350092E3D3 /* AKLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLine.m; sourceTree = "<group>"; };
+		C480CDFD1A514E350092E3D3 /* AKLinearADSREnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearADSREnvelope.h; sourceTree = "<group>"; };
+		C480CDFE1A514E350092E3D3 /* AKLinearADSREnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearADSREnvelope.m; sourceTree = "<group>"; };
+		C480CDFF1A514E350092E3D3 /* AKLinearEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLinearEnvelope.h; sourceTree = "<group>"; };
+		C480CE001A514E350092E3D3 /* AKLinearEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLinearEnvelope.m; sourceTree = "<group>"; };
+		C480CE021A514E350092E3D3 /* AKGranularSynthesisTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKGranularSynthesisTexture.h; sourceTree = "<group>"; };
+		C480CE031A514E350092E3D3 /* AKGranularSynthesisTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKGranularSynthesisTexture.m; sourceTree = "<group>"; };
+		C480CE041A514E350092E3D3 /* AKSinusoidBursts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSinusoidBursts.h; sourceTree = "<group>"; };
+		C480CE051A514E350092E3D3 /* AKSinusoidBursts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSinusoidBursts.m; sourceTree = "<group>"; };
+		C480CE071A514E350092E3D3 /* AKPortamento.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPortamento.h; sourceTree = "<group>"; };
+		C480CE081A514E350092E3D3 /* AKPortamento.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPortamento.m; sourceTree = "<group>"; };
+		C480CE091A514E350092E3D3 /* AKVibrato.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVibrato.h; sourceTree = "<group>"; };
+		C480CE0A1A514E350092E3D3 /* AKVibrato.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibrato.m; sourceTree = "<group>"; };
+		C480CE0C1A514E350092E3D3 /* AKFMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFMOscillator.h; sourceTree = "<group>"; };
+		C480CE0D1A514E350092E3D3 /* AKFMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFMOscillator.m; sourceTree = "<group>"; };
+		C480CE0E1A514E350092E3D3 /* AKLowFrequencyOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowFrequencyOscillator.h; sourceTree = "<group>"; };
+		C480CE0F1A514E350092E3D3 /* AKLowFrequencyOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowFrequencyOscillator.m; sourceTree = "<group>"; };
+		C480CE101A514E350092E3D3 /* AKOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillator.h; sourceTree = "<group>"; };
+		C480CE111A514E350092E3D3 /* AKOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOscillator.m; sourceTree = "<group>"; };
+		C480CE121A514E350092E3D3 /* AKPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhasor.h; sourceTree = "<group>"; };
+		C480CE131A514E350092E3D3 /* AKPhasor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhasor.m; sourceTree = "<group>"; };
+		C480CE141A514E350092E3D3 /* AKVCOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVCOscillator.h; sourceTree = "<group>"; };
+		C480CE151A514E350092E3D3 /* AKVCOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVCOscillator.m; sourceTree = "<group>"; };
+		C480CE171A514E350092E3D3 /* AKMandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMandolin.h; sourceTree = "<group>"; };
+		C480CE181A514E350092E3D3 /* AKMandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMandolin.m; sourceTree = "<group>"; };
+		C480CE191A514E350092E3D3 /* AKMarimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMarimba.h; sourceTree = "<group>"; };
+		C480CE1A1A514E350092E3D3 /* AKMarimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMarimba.m; sourceTree = "<group>"; };
+		C480CE1B1A514E350092E3D3 /* AKPluckedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPluckedString.h; sourceTree = "<group>"; };
+		C480CE1C1A514E350092E3D3 /* AKPluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPluckedString.m; sourceTree = "<group>"; };
+		C480CE1D1A514E350092E3D3 /* AKStruckMetalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStruckMetalBar.h; sourceTree = "<group>"; };
+		C480CE1E1A514E350092E3D3 /* AKStruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStruckMetalBar.m; sourceTree = "<group>"; };
+		C480CE1F1A514E350092E3D3 /* AKVibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVibes.h; sourceTree = "<group>"; };
+		C480CE201A514E350092E3D3 /* AKVibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibes.m; sourceTree = "<group>"; };
+		C480CE221A514E350092E3D3 /* AKBambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBambooSticks.h; sourceTree = "<group>"; };
+		C480CE231A514E350092E3D3 /* AKBambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBambooSticks.m; sourceTree = "<group>"; };
+		C480CE241A514E350092E3D3 /* AKCabasa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCabasa.h; sourceTree = "<group>"; };
+		C480CE251A514E350092E3D3 /* AKCabasa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCabasa.m; sourceTree = "<group>"; };
+		C480CE261A514E350092E3D3 /* AKCrunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrunch.h; sourceTree = "<group>"; };
+		C480CE271A514E350092E3D3 /* AKCrunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCrunch.m; sourceTree = "<group>"; };
+		C480CE281A514E350092E3D3 /* AKDroplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDroplet.h; sourceTree = "<group>"; };
+		C480CE291A514E350092E3D3 /* AKDroplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDroplet.m; sourceTree = "<group>"; };
+		C480CE2A1A514E350092E3D3 /* AKGuiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKGuiro.h; sourceTree = "<group>"; };
+		C480CE2B1A514E350092E3D3 /* AKGuiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKGuiro.m; sourceTree = "<group>"; };
+		C480CE2C1A514E350092E3D3 /* AKSandPaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSandPaper.h; sourceTree = "<group>"; };
+		C480CE2D1A514E350092E3D3 /* AKSandPaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSandPaper.m; sourceTree = "<group>"; };
+		C480CE2E1A514E350092E3D3 /* AKSekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSekere.h; sourceTree = "<group>"; };
+		C480CE2F1A514E350092E3D3 /* AKSekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSekere.m; sourceTree = "<group>"; };
+		C480CE301A514E350092E3D3 /* AKSleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSleighbells.h; sourceTree = "<group>"; };
+		C480CE311A514E350092E3D3 /* AKSleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSleighbells.m; sourceTree = "<group>"; };
+		C480CE321A514E350092E3D3 /* AKStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStick.h; sourceTree = "<group>"; };
+		C480CE331A514E350092E3D3 /* AKStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStick.m; sourceTree = "<group>"; };
+		C480CE341A514E350092E3D3 /* AKTambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTambourine.h; sourceTree = "<group>"; };
+		C480CE351A514E350092E3D3 /* AKTambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTambourine.m; sourceTree = "<group>"; };
+		C480CE371A514E350092E3D3 /* AKBeatenPlate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBeatenPlate.h; sourceTree = "<group>"; };
+		C480CE381A514E350092E3D3 /* AKBeatenPlate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBeatenPlate.m; sourceTree = "<group>"; };
+		C480CE391A514E350092E3D3 /* AKBowedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBowedString.h; sourceTree = "<group>"; };
+		C480CE3A1A514E350092E3D3 /* AKBowedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBowedString.m; sourceTree = "<group>"; };
+		C480CE3B1A514E350092E3D3 /* AKSimpleWaveGuideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSimpleWaveGuideModel.h; sourceTree = "<group>"; };
+		C480CE3C1A514E350092E3D3 /* AKSimpleWaveGuideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSimpleWaveGuideModel.m; sourceTree = "<group>"; };
+		C480CE3E1A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInterpolatedRandomNumberPulse.h; sourceTree = "<group>"; };
+		C480CE3F1A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInterpolatedRandomNumberPulse.m; sourceTree = "<group>"; };
+		C480CE401A514E350092E3D3 /* AKJitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKJitter.h; sourceTree = "<group>"; };
+		C480CE411A514E350092E3D3 /* AKJitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKJitter.m; sourceTree = "<group>"; };
+		C480CE421A514E350092E3D3 /* AKRandomNumbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRandomNumbers.h; sourceTree = "<group>"; };
+		C480CE431A514E350092E3D3 /* AKRandomNumbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomNumbers.m; sourceTree = "<group>"; };
+		C480CE451A514E350092E3D3 /* AKAudioSegmentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioSegmentArray.h; sourceTree = "<group>"; };
+		C480CE461A514E350092E3D3 /* AKAudioSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioSegmentArray.m; sourceTree = "<group>"; };
+		C480CE471A514E350092E3D3 /* AKControlSegmentArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKControlSegmentArray.h; sourceTree = "<group>"; };
+		C480CE481A514E350092E3D3 /* AKControlSegmentArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKControlSegmentArray.m; sourceTree = "<group>"; };
+		C480CE491A514E350092E3D3 /* AKControlSegmentArrayLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKControlSegmentArrayLoop.h; sourceTree = "<group>"; };
+		C480CE4A1A514E350092E3D3 /* AKControlSegmentArrayLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKControlSegmentArrayLoop.m; sourceTree = "<group>"; };
+		C480CE4C1A514E350092E3D3 /* AKAdditiveCosines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosines.h; sourceTree = "<group>"; };
+		C480CE4D1A514E350092E3D3 /* AKAdditiveCosines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosines.m; sourceTree = "<group>"; };
+		C480CE4F1A514E350092E3D3 /* AKAudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioInput.h; sourceTree = "<group>"; };
+		C480CE501A514E350092E3D3 /* AKAudioInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioInput.m; sourceTree = "<group>"; };
+		C480CE511A514E350092E3D3 /* AKAudioOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutput.h; sourceTree = "<group>"; };
+		C480CE521A514E350092E3D3 /* AKAudioOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutput.m; sourceTree = "<group>"; };
+		C480CE531A514E350092E3D3 /* AKFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFileInput.h; sourceTree = "<group>"; };
+		C480CE541A514E350092E3D3 /* AKFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFileInput.m; sourceTree = "<group>"; };
+		C480CE551A514E350092E3D3 /* AKMonoFileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMonoFileInput.h; sourceTree = "<group>"; };
+		C480CE561A514E350092E3D3 /* AKMonoFileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoFileInput.m; sourceTree = "<group>"; };
+		C480CE571A514E350092E3D3 /* AKMP3FileInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMP3FileInput.h; sourceTree = "<group>"; };
+		C480CE581A514E350092E3D3 /* AKMP3FileInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMP3FileInput.m; sourceTree = "<group>"; };
+		C480CE5B1A514E350092E3D3 /* AKConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKConvolution.h; sourceTree = "<group>"; };
+		C480CE5C1A514E350092E3D3 /* AKConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKConvolution.m; sourceTree = "<group>"; };
+		C480CE5D1A514E350092E3D3 /* AKStereoConvolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStereoConvolution.h; sourceTree = "<group>"; };
+		C480CE5E1A514E350092E3D3 /* AKStereoConvolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoConvolution.m; sourceTree = "<group>"; };
+		C480CE601A514E350092E3D3 /* AKDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDelay.h; sourceTree = "<group>"; };
+		C480CE611A514E350092E3D3 /* AKDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDelay.m; sourceTree = "<group>"; };
+		C480CE621A514E350092E3D3 /* AKMultitapDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMultitapDelay.h; sourceTree = "<group>"; };
+		C480CE631A514E350092E3D3 /* AKMultitapDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultitapDelay.m; sourceTree = "<group>"; };
+		C480CE641A514E350092E3D3 /* AKVariableDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableDelay.h; sourceTree = "<group>"; };
+		C480CE651A514E350092E3D3 /* AKVariableDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVariableDelay.m; sourceTree = "<group>"; };
+		C480CE671A514E350092E3D3 /* AKCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCompressor.h; sourceTree = "<group>"; };
+		C480CE681A514E350092E3D3 /* AKCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCompressor.m; sourceTree = "<group>"; };
+		C480CE691A514E350092E3D3 /* AKDopplerEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDopplerEffect.h; sourceTree = "<group>"; };
+		C480CE6A1A514E350092E3D3 /* AKDopplerEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDopplerEffect.m; sourceTree = "<group>"; };
+		C480CE6B1A514E350092E3D3 /* AKFlanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlanger.h; sourceTree = "<group>"; };
+		C480CE6C1A514E350092E3D3 /* AKFlanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlanger.m; sourceTree = "<group>"; };
+		C480CE6E1A514E350092E3D3 /* AKCombFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilter.h; sourceTree = "<group>"; };
+		C480CE6F1A514E350092E3D3 /* AKCombFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCombFilter.m; sourceTree = "<group>"; };
+		C480CE701A514E350092E3D3 /* AKDCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDCBlock.h; sourceTree = "<group>"; };
+		C480CE711A514E350092E3D3 /* AKDCBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDCBlock.m; sourceTree = "<group>"; };
+		C480CE721A514E350092E3D3 /* AKEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEqualizerFilter.h; sourceTree = "<group>"; };
+		C480CE731A514E350092E3D3 /* AKEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEqualizerFilter.m; sourceTree = "<group>"; };
+		C480CE741A514E350092E3D3 /* AKHighPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighPassFilter.h; sourceTree = "<group>"; };
+		C480CE751A514E350092E3D3 /* AKHighPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighPassFilter.m; sourceTree = "<group>"; };
+		C480CE761A514E350092E3D3 /* AKHilbertTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHilbertTransformer.h; sourceTree = "<group>"; };
+		C480CE771A514E350092E3D3 /* AKHilbertTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHilbertTransformer.m; sourceTree = "<group>"; };
+		C480CE781A514E350092E3D3 /* AKLowPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowPassFilter.h; sourceTree = "<group>"; };
+		C480CE791A514E350092E3D3 /* AKLowPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowPassFilter.m; sourceTree = "<group>"; };
+		C480CE7A1A514E350092E3D3 /* AKMoogLadder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMoogLadder.h; sourceTree = "<group>"; };
+		C480CE7B1A514E350092E3D3 /* AKMoogLadder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMoogLadder.m; sourceTree = "<group>"; };
+		C480CE7C1A514E350092E3D3 /* AKMoogVCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMoogVCF.h; sourceTree = "<group>"; };
+		C480CE7D1A514E350092E3D3 /* AKMoogVCF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMoogVCF.m; sourceTree = "<group>"; };
+		C480CE7E1A514E350092E3D3 /* AKResonantFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKResonantFilter.h; sourceTree = "<group>"; };
+		C480CE7F1A514E350092E3D3 /* AKResonantFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKResonantFilter.m; sourceTree = "<group>"; };
+		C480CE801A514E350092E3D3 /* AKThreePoleLowpassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKThreePoleLowpassFilter.h; sourceTree = "<group>"; };
+		C480CE811A514E350092E3D3 /* AKThreePoleLowpassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKThreePoleLowpassFilter.m; sourceTree = "<group>"; };
+		C480CE821A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableFrequencyResponseBandPassFilter.h; sourceTree = "<group>"; };
+		C480CE831A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVariableFrequencyResponseBandPassFilter.m; sourceTree = "<group>"; };
+		C480CE851A514E350092E3D3 /* AKBandPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBandPassButterworthFilter.h; sourceTree = "<group>"; };
+		C480CE861A514E350092E3D3 /* AKBandPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBandPassButterworthFilter.m; sourceTree = "<group>"; };
+		C480CE871A514E350092E3D3 /* AKBandRejectButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBandRejectButterworthFilter.h; sourceTree = "<group>"; };
+		C480CE881A514E350092E3D3 /* AKBandRejectButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBandRejectButterworthFilter.m; sourceTree = "<group>"; };
+		C480CE891A514E350092E3D3 /* AKHighPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighPassButterworthFilter.h; sourceTree = "<group>"; };
+		C480CE8A1A514E350092E3D3 /* AKHighPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighPassButterworthFilter.m; sourceTree = "<group>"; };
+		C480CE8B1A514E350092E3D3 /* AKLowPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowPassButterworthFilter.h; sourceTree = "<group>"; };
+		C480CE8C1A514E350092E3D3 /* AKLowPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowPassButterworthFilter.m; sourceTree = "<group>"; };
+		C480CE8E1A514E350092E3D3 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
+		C480CE8F1A514E350092E3D3 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
+		C480CE901A514E350092E3D3 /* declick.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = declick.udo; sourceTree = "<group>"; };
+		C480CE921A514E350092E3D3 /* AKBallWithinTheBoxReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBallWithinTheBoxReverb.h; sourceTree = "<group>"; };
+		C480CE931A514E350092E3D3 /* AKBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
+		C480CE941A514E350092E3D3 /* AKFlatFrequencyResponseReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlatFrequencyResponseReverb.h; sourceTree = "<group>"; };
+		C480CE951A514E350092E3D3 /* AKFlatFrequencyResponseReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlatFrequencyResponseReverb.m; sourceTree = "<group>"; };
+		C480CE961A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKParallelCombLowPassFilterReverb.h; sourceTree = "<group>"; };
+		C480CE971A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKParallelCombLowPassFilterReverb.m; sourceTree = "<group>"; };
+		C480CE981A514E350092E3D3 /* AKReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKReverb.h; sourceTree = "<group>"; };
+		C480CE991A514E350092E3D3 /* AKReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKReverb.m; sourceTree = "<group>"; };
+		C480CE9B1A514E350092E3D3 /* AKBalance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBalance.h; sourceTree = "<group>"; };
+		C480CE9C1A514E350092E3D3 /* AKBalance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBalance.m; sourceTree = "<group>"; };
+		C480CE9D1A514E350092E3D3 /* AKPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPanner.h; sourceTree = "<group>"; };
+		C480CE9E1A514E350092E3D3 /* AKPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPanner.m; sourceTree = "<group>"; };
 		C489BEA31A3B926500129C7E /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
 		C489BEA41A3B926500129C7E /* AKPhrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhrase.m; sourceTree = "<group>"; };
 		C4BA00D1198F08C900BE4F61 /* ContinuousControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContinuousControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -501,44 +477,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C41FB5191A4E978B0093645A /* Generators */ = {
-			isa = PBXGroup;
-			children = (
-				C41FB51A1A4E978B0093645A /* AKAdditiveCosineTable.h */,
-				C41FB51B1A4E978B0093645A /* AKAdditiveCosineTable.m */,
-				C41FB51C1A4E978B0093645A /* AKArrayTable.h */,
-				C41FB51D1A4E978B0093645A /* AKArrayTable.m */,
-				C41FB51E1A4E978B0093645A /* AKExponentialCurves.h */,
-				C41FB51F1A4E978B0093645A /* AKExponentialCurves.m */,
-				C41FB5201A4E978B0093645A /* AKFunctionTable.h */,
-				C41FB5211A4E978B0093645A /* AKFunctionTable.m */,
-				C41FB5221A4E978B0093645A /* AKLineSegments.h */,
-				C41FB5231A4E978B0093645A /* AKLineSegments.m */,
-				C41FB5241A4E978B0093645A /* AKRandomDistributionTable.h */,
-				C41FB5251A4E978B0093645A /* AKRandomDistributionTable.m */,
-				C41FB5261A4E978B0093645A /* AKSoundFile.h */,
-				C41FB5271A4E978B0093645A /* AKSoundFile.m */,
-				C41FB5281A4E978B0093645A /* AKWeightedSumOfSinusoids.h */,
-				C41FB5291A4E978B0093645A /* AKWeightedSumOfSinusoids.m */,
-				C41FB52A1A4E978B0093645A /* AKWindowsTable.h */,
-				C41FB52B1A4E978B0093645A /* AKWindowsTable.m */,
-			);
-			path = Generators;
-			sourceTree = "<group>";
-		};
-		C41FB8761A50139C0093645A /* Loopers */ = {
-			isa = PBXGroup;
-			children = (
-				C41FB8771A50139C0093645A /* AKFunctionTableLooper.h */,
-				C41FB8781A50139C0093645A /* AKFunctionTableLooper.m */,
-				C41FB8791A50139C0093645A /* AKMonoSoundFileLooper.h */,
-				C41FB87A1A50139C0093645A /* AKMonoSoundFileLooper.m */,
-				C41FB87B1A50139C0093645A /* AKStereoSoundFileLooper.h */,
-				C41FB87C1A50139C0093645A /* AKStereoSoundFileLooper.m */,
-			);
-			path = Loopers;
-			sourceTree = "<group>";
-		};
 		C427FE811A4CE5C800734A80 /* Sound Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,468 +488,466 @@
 			path = "Sound Files";
 			sourceTree = "<group>";
 		};
-		C427FE8A1A4CE5DA00734A80 /* Operations */ = {
+		C480CDA01A514E350092E3D3 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				C427FE8B1A4CE5DA00734A80 /* AKParameter+Operation.h */,
-				C427FE8C1A4CE5DA00734A80 /* AKParameter+Operation.m */,
-				C427FE8D1A4CE5DA00734A80 /* Analysis */,
-				C427FE961A4CE5DA00734A80 /* Function Tables */,
-				C427FEB21A4CE5DA00734A80 /* Mathematical Operations */,
-				C427FEC91A4CE5DB00734A80 /* Phase Vocoder Streaming */,
-				C427FEDC1A4CE5DB00734A80 /* Signal Generators */,
-				C427FF461A4CE5DB00734A80 /* Signal Input and Output */,
-				C427FF561A4CE5DB00734A80 /* Signal Modifiers */,
+				C480CDA11A514E350092E3D3 /* AKParameter+Operation.h */,
+				C480CDA21A514E350092E3D3 /* AKParameter+Operation.m */,
+				C480CDA31A514E350092E3D3 /* Analysis */,
+				C480CDAC1A514E350092E3D3 /* Function Tables */,
+				C480CDCD1A514E350092E3D3 /* Mathematical Operations */,
+				C480CDE41A514E350092E3D3 /* Phase Vocoder Streaming */,
+				C480CDF71A514E350092E3D3 /* Signal Generators */,
+				C480CE4E1A514E350092E3D3 /* Signal Input and Output */,
+				C480CE591A514E350092E3D3 /* Signal Modifiers */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
 		};
-		C427FE8D1A4CE5DA00734A80 /* Analysis */ = {
+		C480CDA31A514E350092E3D3 /* Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				C427FE8E1A4CE5DA00734A80 /* AKTrackedAmplitude.h */,
-				C427FE8F1A4CE5DA00734A80 /* AKTrackedAmplitude.m */,
-				C427FE901A4CE5DA00734A80 /* AKTrackedAmplitudeFromFSignal.h */,
-				C427FE911A4CE5DA00734A80 /* AKTrackedAmplitudeFromFSignal.m */,
-				C427FE921A4CE5DA00734A80 /* AKTrackedFrequency.h */,
-				C427FE931A4CE5DA00734A80 /* AKTrackedFrequency.m */,
-				C427FE941A4CE5DA00734A80 /* AKTrackedFrequencyFromFSignal.h */,
-				C427FE951A4CE5DA00734A80 /* AKTrackedFrequencyFromFSignal.m */,
+				C480CDA41A514E350092E3D3 /* AKTrackedAmplitude.h */,
+				C480CDA51A514E350092E3D3 /* AKTrackedAmplitude.m */,
+				C480CDA61A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.h */,
+				C480CDA71A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.m */,
+				C480CDA81A514E350092E3D3 /* AKTrackedFrequency.h */,
+				C480CDA91A514E350092E3D3 /* AKTrackedFrequency.m */,
+				C480CDAA1A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.h */,
+				C480CDAB1A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.m */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
 		};
-		C427FE961A4CE5DA00734A80 /* Function Tables */ = {
+		C480CDAC1A514E350092E3D3 /* Function Tables */ = {
 			isa = PBXGroup;
 			children = (
-				C427FE971A4CE5DA00734A80 /* AKTableValue.h */,
-				C427FE981A4CE5DA00734A80 /* AKTableValue.m */,
-				C427FE991A4CE5DA00734A80 /* AKTableValueConstant.h */,
-				C427FE9A1A4CE5DA00734A80 /* AKTableValueConstant.m */,
-				C427FE9B1A4CE5DA00734A80 /* AKTableValueControl.h */,
-				C427FE9C1A4CE5DA00734A80 /* AKTableValueControl.m */,
-				C41FB5191A4E978B0093645A /* Generators */,
-				C41FB8761A50139C0093645A /* Loopers */,
+				C480CDAD1A514E350092E3D3 /* AKTableValue.h */,
+				C480CDAE1A514E350092E3D3 /* AKTableValue.m */,
+				C480CDAF1A514E350092E3D3 /* AKTableValueConstant.h */,
+				C480CDB01A514E350092E3D3 /* AKTableValueConstant.m */,
+				C480CDB11A514E350092E3D3 /* AKTableValueControl.h */,
+				C480CDB21A514E350092E3D3 /* AKTableValueControl.m */,
+				C480CDB31A514E350092E3D3 /* Generators */,
+				C480CDC61A514E350092E3D3 /* Loopers */,
 			);
 			path = "Function Tables";
 			sourceTree = "<group>";
 		};
-		C427FEB21A4CE5DA00734A80 /* Mathematical Operations */ = {
+		C480CDB31A514E350092E3D3 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEB31A4CE5DA00734A80 /* AKAssignment.h */,
-				C427FEB41A4CE5DA00734A80 /* AKAssignment.m */,
-				C427FEB51A4CE5DA00734A80 /* AKScaledControl.h */,
-				C427FEB61A4CE5DA00734A80 /* AKScaledControl.m */,
-				C427FEB71A4CE5DA00734A80 /* Mininum and Maximum */,
-				C427FEC01A4CE5DB00734A80 /* Mixing */,
+				C480CDB41A514E350092E3D3 /* AKAdditiveCosineTable.h */,
+				C480CDB51A514E350092E3D3 /* AKAdditiveCosineTable.m */,
+				C480CDB61A514E350092E3D3 /* AKArrayTable.h */,
+				C480CDB71A514E350092E3D3 /* AKArrayTable.m */,
+				C480CDB81A514E350092E3D3 /* AKExponentialCurves.h */,
+				C480CDB91A514E350092E3D3 /* AKExponentialCurves.m */,
+				C480CDBA1A514E350092E3D3 /* AKFunctionTable.h */,
+				C480CDBB1A514E350092E3D3 /* AKFunctionTable.m */,
+				C480CDBC1A514E350092E3D3 /* AKLineSegments.h */,
+				C480CDBD1A514E350092E3D3 /* AKLineSegments.m */,
+				C480CDBE1A514E350092E3D3 /* AKRandomDistributionTable.h */,
+				C480CDBF1A514E350092E3D3 /* AKRandomDistributionTable.m */,
+				C480CDC01A514E350092E3D3 /* AKSoundFile.h */,
+				C480CDC11A514E350092E3D3 /* AKSoundFile.m */,
+				C480CDC21A514E350092E3D3 /* AKWeightedSumOfSinusoids.h */,
+				C480CDC31A514E350092E3D3 /* AKWeightedSumOfSinusoids.m */,
+				C480CDC41A514E350092E3D3 /* AKWindowsTable.h */,
+				C480CDC51A514E350092E3D3 /* AKWindowsTable.m */,
+			);
+			path = Generators;
+			sourceTree = "<group>";
+		};
+		C480CDC61A514E350092E3D3 /* Loopers */ = {
+			isa = PBXGroup;
+			children = (
+				C480CDC71A514E350092E3D3 /* AKFunctionTableLooper.h */,
+				C480CDC81A514E350092E3D3 /* AKFunctionTableLooper.m */,
+				C480CDC91A514E350092E3D3 /* AKMonoSoundFileLooper.h */,
+				C480CDCA1A514E350092E3D3 /* AKMonoSoundFileLooper.m */,
+				C480CDCB1A514E350092E3D3 /* AKStereoSoundFileLooper.h */,
+				C480CDCC1A514E350092E3D3 /* AKStereoSoundFileLooper.m */,
+			);
+			path = Loopers;
+			sourceTree = "<group>";
+		};
+		C480CDCD1A514E350092E3D3 /* Mathematical Operations */ = {
+			isa = PBXGroup;
+			children = (
+				C480CDCE1A514E350092E3D3 /* AKAssignment.h */,
+				C480CDCF1A514E350092E3D3 /* AKAssignment.m */,
+				C480CDD01A514E350092E3D3 /* AKScaledControl.h */,
+				C480CDD11A514E350092E3D3 /* AKScaledControl.m */,
+				C480CDD21A514E350092E3D3 /* Mininum and Maximum */,
+				C480CDDB1A514E350092E3D3 /* Mixing */,
 			);
 			path = "Mathematical Operations";
 			sourceTree = "<group>";
 		};
-		C427FEB71A4CE5DA00734A80 /* Mininum and Maximum */ = {
+		C480CDD21A514E350092E3D3 /* Mininum and Maximum */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEB81A4CE5DA00734A80 /* AKMaxAudio.h */,
-				C427FEB91A4CE5DA00734A80 /* AKMaxAudio.m */,
-				C427FEBA1A4CE5DA00734A80 /* AKMaxControl.h */,
-				C427FEBB1A4CE5DA00734A80 /* AKMaxControl.m */,
-				C427FEBC1A4CE5DA00734A80 /* AKMinAudio.h */,
-				C427FEBD1A4CE5DB00734A80 /* AKMinAudio.m */,
-				C427FEBE1A4CE5DB00734A80 /* AKMinControl.h */,
-				C427FEBF1A4CE5DB00734A80 /* AKMinControl.m */,
+				C480CDD31A514E350092E3D3 /* AKMaxAudio.h */,
+				C480CDD41A514E350092E3D3 /* AKMaxAudio.m */,
+				C480CDD51A514E350092E3D3 /* AKMaxControl.h */,
+				C480CDD61A514E350092E3D3 /* AKMaxControl.m */,
+				C480CDD71A514E350092E3D3 /* AKMinAudio.h */,
+				C480CDD81A514E350092E3D3 /* AKMinAudio.m */,
+				C480CDD91A514E350092E3D3 /* AKMinControl.h */,
+				C480CDDA1A514E350092E3D3 /* AKMinControl.m */,
 			);
 			path = "Mininum and Maximum";
 			sourceTree = "<group>";
 		};
-		C427FEC01A4CE5DB00734A80 /* Mixing */ = {
+		C480CDDB1A514E350092E3D3 /* Mixing */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEC11A4CE5DB00734A80 /* AKMixedAudio.h */,
-				C427FEC21A4CE5DB00734A80 /* AKMixedAudio.m */,
-				C427FEC31A4CE5DB00734A80 /* AKMixedControl.h */,
-				C427FEC41A4CE5DB00734A80 /* AKMixedControl.m */,
-				C427FEC51A4CE5DB00734A80 /* AKProduct.h */,
-				C427FEC61A4CE5DB00734A80 /* AKProduct.m */,
-				C427FEC71A4CE5DB00734A80 /* AKSum.h */,
-				C427FEC81A4CE5DB00734A80 /* AKSum.m */,
+				C480CDDC1A514E350092E3D3 /* AKMixedAudio.h */,
+				C480CDDD1A514E350092E3D3 /* AKMixedAudio.m */,
+				C480CDDE1A514E350092E3D3 /* AKMixedControl.h */,
+				C480CDDF1A514E350092E3D3 /* AKMixedControl.m */,
+				C480CDE01A514E350092E3D3 /* AKProduct.h */,
+				C480CDE11A514E350092E3D3 /* AKProduct.m */,
+				C480CDE21A514E350092E3D3 /* AKSum.h */,
+				C480CDE31A514E350092E3D3 /* AKSum.m */,
 			);
 			path = Mixing;
 			sourceTree = "<group>";
 		};
-		C427FEC91A4CE5DB00734A80 /* Phase Vocoder Streaming */ = {
+		C480CDE41A514E350092E3D3 /* Phase Vocoder Streaming */ = {
 			isa = PBXGroup;
 			children = (
-				C427FECA1A4CE5DB00734A80 /* AKAudioFromFSignal.h */,
-				C427FECB1A4CE5DB00734A80 /* AKAudioFromFSignal.m */,
-				C427FECC1A4CE5DB00734A80 /* AKCrossSynthesis.h */,
-				C427FECD1A4CE5DB00734A80 /* AKCrossSynthesis.m */,
-				C427FECE1A4CE5DB00734A80 /* AKFSignalFromMonoAudio.h */,
-				C427FECF1A4CE5DB00734A80 /* AKFSignalFromMonoAudio.m */,
-				C427FED01A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.h */,
-				C427FED11A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.m */,
-				C427FED21A4CE5DB00734A80 /* AKFSignalMix.h */,
-				C427FED31A4CE5DB00734A80 /* AKFSignalMix.m */,
-				C427FED41A4CE5DB00734A80 /* AKPhaseLockedVocoder.h */,
-				C427FED51A4CE5DB00734A80 /* AKPhaseLockedVocoder.m */,
-				C427FED61A4CE5DB00734A80 /* AKScaledFSignal.h */,
-				C427FED71A4CE5DB00734A80 /* AKScaledFSignal.m */,
-				C427FED81A4CE5DB00734A80 /* AKSpectralVocoder.h */,
-				C427FED91A4CE5DB00734A80 /* AKSpectralVocoder.m */,
-				C427FEDA1A4CE5DB00734A80 /* AKWarp.h */,
-				C427FEDB1A4CE5DB00734A80 /* AKWarp.m */,
+				C480CDE51A514E350092E3D3 /* AKAudioFromFSignal.h */,
+				C480CDE61A514E350092E3D3 /* AKAudioFromFSignal.m */,
+				C480CDE71A514E350092E3D3 /* AKCrossSynthesis.h */,
+				C480CDE81A514E350092E3D3 /* AKCrossSynthesis.m */,
+				C480CDE91A514E350092E3D3 /* AKFSignalFromMonoAudio.h */,
+				C480CDEA1A514E350092E3D3 /* AKFSignalFromMonoAudio.m */,
+				C480CDEB1A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.h */,
+				C480CDEC1A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.m */,
+				C480CDED1A514E350092E3D3 /* AKFSignalMix.h */,
+				C480CDEE1A514E350092E3D3 /* AKFSignalMix.m */,
+				C480CDEF1A514E350092E3D3 /* AKPhaseLockedVocoder.h */,
+				C480CDF01A514E350092E3D3 /* AKPhaseLockedVocoder.m */,
+				C480CDF11A514E350092E3D3 /* AKScaledFSignal.h */,
+				C480CDF21A514E350092E3D3 /* AKScaledFSignal.m */,
+				C480CDF31A514E350092E3D3 /* AKSpectralVocoder.h */,
+				C480CDF41A514E350092E3D3 /* AKSpectralVocoder.m */,
+				C480CDF51A514E350092E3D3 /* AKWarp.h */,
+				C480CDF61A514E350092E3D3 /* AKWarp.m */,
 			);
 			path = "Phase Vocoder Streaming";
 			sourceTree = "<group>";
 		};
-		C427FEDC1A4CE5DB00734A80 /* Signal Generators */ = {
+		C480CDF71A514E350092E3D3 /* Signal Generators */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEDD1A4CE5DB00734A80 /* Envelopes */,
-				C427FEEA1A4CE5DB00734A80 /* Granular Synthesis */,
-				C427FEEF1A4CE5DB00734A80 /* Lines */,
-				C427FEF41A4CE5DB00734A80 /* Musical Controls */,
-				C427FEF91A4CE5DB00734A80 /* Oscillators */,
-				C427FF071A4CE5DB00734A80 /* Phasors */,
-				C427FF0C1A4CE5DB00734A80 /* Physical Models */,
-				C427FF331A4CE5DB00734A80 /* Random Generators */,
-				C427FF3C1A4CE5DB00734A80 /* Segment Arrays */,
-				C427FF431A4CE5DB00734A80 /* Subtractive Synthesis */,
+				C480CDF81A514E350092E3D3 /* Envelopes */,
+				C480CE011A514E350092E3D3 /* Granular Synthesis */,
+				C480CE061A514E350092E3D3 /* Musical Controls */,
+				C480CE0B1A514E350092E3D3 /* Oscillators */,
+				C480CE161A514E350092E3D3 /* Physical Models */,
+				C480CE3D1A514E350092E3D3 /* Random Generators */,
+				C480CE441A514E350092E3D3 /* Segment Arrays */,
+				C480CE4B1A514E350092E3D3 /* Subtractive Synthesis */,
 			);
 			path = "Signal Generators";
 			sourceTree = "<group>";
 		};
-		C427FEDD1A4CE5DB00734A80 /* Envelopes */ = {
+		C480CDF81A514E350092E3D3 /* Envelopes */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEDE1A4CE5DB00734A80 /* AKADSRAudioEnvelope.h */,
-				C427FEDF1A4CE5DB00734A80 /* AKADSRAudioEnvelope.m */,
-				C427FEE01A4CE5DB00734A80 /* AKADSRControlEnvelope.h */,
-				C427FEE11A4CE5DB00734A80 /* AKADSRControlEnvelope.m */,
-				C427FEE21A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.h */,
-				C427FEE31A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.m */,
-				C427FEE41A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.h */,
-				C427FEE51A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.m */,
-				C427FEE61A4CE5DB00734A80 /* AKLinearAudioEnvelope.h */,
-				C427FEE71A4CE5DB00734A80 /* AKLinearAudioEnvelope.m */,
-				C427FEE81A4CE5DB00734A80 /* AKLinearControlEnvelope.h */,
-				C427FEE91A4CE5DB00734A80 /* AKLinearControlEnvelope.m */,
+				C480CDF91A514E350092E3D3 /* AKADSREnvelope.h */,
+				C480CDFA1A514E350092E3D3 /* AKADSREnvelope.m */,
+				C480CDFB1A514E350092E3D3 /* AKLine.h */,
+				C480CDFC1A514E350092E3D3 /* AKLine.m */,
+				C480CDFD1A514E350092E3D3 /* AKLinearADSREnvelope.h */,
+				C480CDFE1A514E350092E3D3 /* AKLinearADSREnvelope.m */,
+				C480CDFF1A514E350092E3D3 /* AKLinearEnvelope.h */,
+				C480CE001A514E350092E3D3 /* AKLinearEnvelope.m */,
 			);
 			path = Envelopes;
 			sourceTree = "<group>";
 		};
-		C427FEEA1A4CE5DB00734A80 /* Granular Synthesis */ = {
+		C480CE011A514E350092E3D3 /* Granular Synthesis */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEEB1A4CE5DB00734A80 /* AKGranularSynthesisTexture.h */,
-				C427FEEC1A4CE5DB00734A80 /* AKGranularSynthesisTexture.m */,
-				C427FEED1A4CE5DB00734A80 /* AKSinusoidBursts.h */,
-				C427FEEE1A4CE5DB00734A80 /* AKSinusoidBursts.m */,
+				C480CE021A514E350092E3D3 /* AKGranularSynthesisTexture.h */,
+				C480CE031A514E350092E3D3 /* AKGranularSynthesisTexture.m */,
+				C480CE041A514E350092E3D3 /* AKSinusoidBursts.h */,
+				C480CE051A514E350092E3D3 /* AKSinusoidBursts.m */,
 			);
 			path = "Granular Synthesis";
 			sourceTree = "<group>";
 		};
-		C427FEEF1A4CE5DB00734A80 /* Lines */ = {
+		C480CE061A514E350092E3D3 /* Musical Controls */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEF01A4CE5DB00734A80 /* AKLine.h */,
-				C427FEF11A4CE5DB00734A80 /* AKLine.m */,
-				C427FEF21A4CE5DB00734A80 /* AKLinearControl.h */,
-				C427FEF31A4CE5DB00734A80 /* AKLinearControl.m */,
-			);
-			path = Lines;
-			sourceTree = "<group>";
-		};
-		C427FEF41A4CE5DB00734A80 /* Musical Controls */ = {
-			isa = PBXGroup;
-			children = (
-				C427FEF51A4CE5DB00734A80 /* AKPortamento.h */,
-				C427FEF61A4CE5DB00734A80 /* AKPortamento.m */,
-				C427FEF71A4CE5DB00734A80 /* AKVibrato.h */,
-				C427FEF81A4CE5DB00734A80 /* AKVibrato.m */,
+				C480CE071A514E350092E3D3 /* AKPortamento.h */,
+				C480CE081A514E350092E3D3 /* AKPortamento.m */,
+				C480CE091A514E350092E3D3 /* AKVibrato.h */,
+				C480CE0A1A514E350092E3D3 /* AKVibrato.m */,
 			);
 			path = "Musical Controls";
 			sourceTree = "<group>";
 		};
-		C427FEF91A4CE5DB00734A80 /* Oscillators */ = {
+		C480CE0B1A514E350092E3D3 /* Oscillators */ = {
 			isa = PBXGroup;
 			children = (
-				C427FEFA1A4CE5DB00734A80 /* AKFMOscillator.h */,
-				C427FEFB1A4CE5DB00734A80 /* AKFMOscillator.m */,
-				C427FEFC1A4CE5DB00734A80 /* AKOscillatingControl.h */,
-				C427FEFD1A4CE5DB00734A80 /* AKOscillatingControl.m */,
-				C427FEFE1A4CE5DB00734A80 /* AKOscillator.h */,
-				C427FEFF1A4CE5DB00734A80 /* AKOscillator.m */,
-				C427FF001A4CE5DB00734A80 /* AKVCOscillator.h */,
-				C427FF011A4CE5DB00734A80 /* AKVCOscillator.m */,
-				C427FF021A4CE5DB00734A80 /* Low Frequency Oscillators */,
+				C480CE0C1A514E350092E3D3 /* AKFMOscillator.h */,
+				C480CE0D1A514E350092E3D3 /* AKFMOscillator.m */,
+				C480CE0E1A514E350092E3D3 /* AKLowFrequencyOscillator.h */,
+				C480CE0F1A514E350092E3D3 /* AKLowFrequencyOscillator.m */,
+				C480CE101A514E350092E3D3 /* AKOscillator.h */,
+				C480CE111A514E350092E3D3 /* AKOscillator.m */,
+				C480CE121A514E350092E3D3 /* AKPhasor.h */,
+				C480CE131A514E350092E3D3 /* AKPhasor.m */,
+				C480CE141A514E350092E3D3 /* AKVCOscillator.h */,
+				C480CE151A514E350092E3D3 /* AKVCOscillator.m */,
 			);
 			path = Oscillators;
 			sourceTree = "<group>";
 		};
-		C427FF021A4CE5DB00734A80 /* Low Frequency Oscillators */ = {
+		C480CE161A514E350092E3D3 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF031A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.h */,
-				C427FF041A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.m */,
-				C427FF051A4CE5DB00734A80 /* AKLowFrequencyOscillator.h */,
-				C427FF061A4CE5DB00734A80 /* AKLowFrequencyOscillator.m */,
-			);
-			path = "Low Frequency Oscillators";
-			sourceTree = "<group>";
-		};
-		C427FF071A4CE5DB00734A80 /* Phasors */ = {
-			isa = PBXGroup;
-			children = (
-				C427FF081A4CE5DB00734A80 /* AKPhasingControl.h */,
-				C427FF091A4CE5DB00734A80 /* AKPhasingControl.m */,
-				C427FF0A1A4CE5DB00734A80 /* AKPhasor.h */,
-				C427FF0B1A4CE5DB00734A80 /* AKPhasor.m */,
-			);
-			path = Phasors;
-			sourceTree = "<group>";
-		};
-		C427FF0C1A4CE5DB00734A80 /* Physical Models */ = {
-			isa = PBXGroup;
-			children = (
-				C427FF0D1A4CE5DB00734A80 /* AKMandolin.h */,
-				C427FF0E1A4CE5DB00734A80 /* AKMandolin.m */,
-				C427FF0F1A4CE5DB00734A80 /* AKMarimba.h */,
-				C427FF101A4CE5DB00734A80 /* AKMarimba.m */,
-				C427FF111A4CE5DB00734A80 /* AKPluckedString.h */,
-				C427FF121A4CE5DB00734A80 /* AKPluckedString.m */,
-				C427FF131A4CE5DB00734A80 /* AKStruckMetalBar.h */,
-				C427FF141A4CE5DB00734A80 /* AKStruckMetalBar.m */,
-				C427FF151A4CE5DB00734A80 /* AKVibes.h */,
-				C427FF161A4CE5DB00734A80 /* AKVibes.m */,
-				C427FF171A4CE5DB00734A80 /* PhISEM */,
-				C427FF2C1A4CE5DB00734A80 /* Waveguide */,
+				C480CE171A514E350092E3D3 /* AKMandolin.h */,
+				C480CE181A514E350092E3D3 /* AKMandolin.m */,
+				C480CE191A514E350092E3D3 /* AKMarimba.h */,
+				C480CE1A1A514E350092E3D3 /* AKMarimba.m */,
+				C480CE1B1A514E350092E3D3 /* AKPluckedString.h */,
+				C480CE1C1A514E350092E3D3 /* AKPluckedString.m */,
+				C480CE1D1A514E350092E3D3 /* AKStruckMetalBar.h */,
+				C480CE1E1A514E350092E3D3 /* AKStruckMetalBar.m */,
+				C480CE1F1A514E350092E3D3 /* AKVibes.h */,
+				C480CE201A514E350092E3D3 /* AKVibes.m */,
+				C480CE211A514E350092E3D3 /* PhISEM */,
+				C480CE361A514E350092E3D3 /* Waveguide */,
 			);
 			path = "Physical Models";
 			sourceTree = "<group>";
 		};
-		C427FF171A4CE5DB00734A80 /* PhISEM */ = {
+		C480CE211A514E350092E3D3 /* PhISEM */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF181A4CE5DB00734A80 /* AKBambooSticks.h */,
-				C427FF191A4CE5DB00734A80 /* AKBambooSticks.m */,
-				C427FF1A1A4CE5DB00734A80 /* AKCabasa.h */,
-				C427FF1B1A4CE5DB00734A80 /* AKCabasa.m */,
-				C427FF1C1A4CE5DB00734A80 /* AKCrunch.h */,
-				C427FF1D1A4CE5DB00734A80 /* AKCrunch.m */,
-				C427FF1E1A4CE5DB00734A80 /* AKDroplet.h */,
-				C427FF1F1A4CE5DB00734A80 /* AKDroplet.m */,
-				C427FF201A4CE5DB00734A80 /* AKGuiro.h */,
-				C427FF211A4CE5DB00734A80 /* AKGuiro.m */,
-				C427FF221A4CE5DB00734A80 /* AKSandPaper.h */,
-				C427FF231A4CE5DB00734A80 /* AKSandPaper.m */,
-				C427FF241A4CE5DB00734A80 /* AKSekere.h */,
-				C427FF251A4CE5DB00734A80 /* AKSekere.m */,
-				C427FF261A4CE5DB00734A80 /* AKSleighbells.h */,
-				C427FF271A4CE5DB00734A80 /* AKSleighbells.m */,
-				C427FF281A4CE5DB00734A80 /* AKStick.h */,
-				C427FF291A4CE5DB00734A80 /* AKStick.m */,
-				C427FF2A1A4CE5DB00734A80 /* AKTambourine.h */,
-				C427FF2B1A4CE5DB00734A80 /* AKTambourine.m */,
+				C480CE221A514E350092E3D3 /* AKBambooSticks.h */,
+				C480CE231A514E350092E3D3 /* AKBambooSticks.m */,
+				C480CE241A514E350092E3D3 /* AKCabasa.h */,
+				C480CE251A514E350092E3D3 /* AKCabasa.m */,
+				C480CE261A514E350092E3D3 /* AKCrunch.h */,
+				C480CE271A514E350092E3D3 /* AKCrunch.m */,
+				C480CE281A514E350092E3D3 /* AKDroplet.h */,
+				C480CE291A514E350092E3D3 /* AKDroplet.m */,
+				C480CE2A1A514E350092E3D3 /* AKGuiro.h */,
+				C480CE2B1A514E350092E3D3 /* AKGuiro.m */,
+				C480CE2C1A514E350092E3D3 /* AKSandPaper.h */,
+				C480CE2D1A514E350092E3D3 /* AKSandPaper.m */,
+				C480CE2E1A514E350092E3D3 /* AKSekere.h */,
+				C480CE2F1A514E350092E3D3 /* AKSekere.m */,
+				C480CE301A514E350092E3D3 /* AKSleighbells.h */,
+				C480CE311A514E350092E3D3 /* AKSleighbells.m */,
+				C480CE321A514E350092E3D3 /* AKStick.h */,
+				C480CE331A514E350092E3D3 /* AKStick.m */,
+				C480CE341A514E350092E3D3 /* AKTambourine.h */,
+				C480CE351A514E350092E3D3 /* AKTambourine.m */,
 			);
 			path = PhISEM;
 			sourceTree = "<group>";
 		};
-		C427FF2C1A4CE5DB00734A80 /* Waveguide */ = {
+		C480CE361A514E350092E3D3 /* Waveguide */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF2D1A4CE5DB00734A80 /* AKBeatenPlate.h */,
-				C427FF2E1A4CE5DB00734A80 /* AKBeatenPlate.m */,
-				C427FF2F1A4CE5DB00734A80 /* AKBowedString.h */,
-				C427FF301A4CE5DB00734A80 /* AKBowedString.m */,
-				C427FF311A4CE5DB00734A80 /* AKSimpleWaveGuideModel.h */,
-				C427FF321A4CE5DB00734A80 /* AKSimpleWaveGuideModel.m */,
+				C480CE371A514E350092E3D3 /* AKBeatenPlate.h */,
+				C480CE381A514E350092E3D3 /* AKBeatenPlate.m */,
+				C480CE391A514E350092E3D3 /* AKBowedString.h */,
+				C480CE3A1A514E350092E3D3 /* AKBowedString.m */,
+				C480CE3B1A514E350092E3D3 /* AKSimpleWaveGuideModel.h */,
+				C480CE3C1A514E350092E3D3 /* AKSimpleWaveGuideModel.m */,
 			);
 			path = Waveguide;
 			sourceTree = "<group>";
 		};
-		C427FF331A4CE5DB00734A80 /* Random Generators */ = {
+		C480CE3D1A514E350092E3D3 /* Random Generators */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF341A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.h */,
-				C427FF351A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.m */,
-				C427FF361A4CE5DB00734A80 /* AKJitter.h */,
-				C427FF371A4CE5DB00734A80 /* AKJitter.m */,
-				C427FF381A4CE5DB00734A80 /* AKRandomAudio.h */,
-				C427FF391A4CE5DB00734A80 /* AKRandomAudio.m */,
-				C427FF3A1A4CE5DB00734A80 /* AKRandomControl.h */,
-				C427FF3B1A4CE5DB00734A80 /* AKRandomControl.m */,
+				C480CE3E1A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.h */,
+				C480CE3F1A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.m */,
+				C480CE401A514E350092E3D3 /* AKJitter.h */,
+				C480CE411A514E350092E3D3 /* AKJitter.m */,
+				C480CE421A514E350092E3D3 /* AKRandomNumbers.h */,
+				C480CE431A514E350092E3D3 /* AKRandomNumbers.m */,
 			);
 			path = "Random Generators";
 			sourceTree = "<group>";
 		};
-		C427FF3C1A4CE5DB00734A80 /* Segment Arrays */ = {
+		C480CE441A514E350092E3D3 /* Segment Arrays */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF3D1A4CE5DB00734A80 /* AKAudioSegmentArray.h */,
-				C427FF3E1A4CE5DB00734A80 /* AKAudioSegmentArray.m */,
-				C427FF3F1A4CE5DB00734A80 /* AKControlSegmentArray.h */,
-				C427FF401A4CE5DB00734A80 /* AKControlSegmentArray.m */,
-				C427FF411A4CE5DB00734A80 /* AKControlSegmentArrayLoop.h */,
-				C427FF421A4CE5DB00734A80 /* AKControlSegmentArrayLoop.m */,
+				C480CE451A514E350092E3D3 /* AKAudioSegmentArray.h */,
+				C480CE461A514E350092E3D3 /* AKAudioSegmentArray.m */,
+				C480CE471A514E350092E3D3 /* AKControlSegmentArray.h */,
+				C480CE481A514E350092E3D3 /* AKControlSegmentArray.m */,
+				C480CE491A514E350092E3D3 /* AKControlSegmentArrayLoop.h */,
+				C480CE4A1A514E350092E3D3 /* AKControlSegmentArrayLoop.m */,
 			);
 			path = "Segment Arrays";
 			sourceTree = "<group>";
 		};
-		C427FF431A4CE5DB00734A80 /* Subtractive Synthesis */ = {
+		C480CE4B1A514E350092E3D3 /* Subtractive Synthesis */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF441A4CE5DB00734A80 /* AKAdditiveCosines.h */,
-				C427FF451A4CE5DB00734A80 /* AKAdditiveCosines.m */,
+				C480CE4C1A514E350092E3D3 /* AKAdditiveCosines.h */,
+				C480CE4D1A514E350092E3D3 /* AKAdditiveCosines.m */,
 			);
 			path = "Subtractive Synthesis";
 			sourceTree = "<group>";
 		};
-		C427FF461A4CE5DB00734A80 /* Signal Input and Output */ = {
+		C480CE4E1A514E350092E3D3 /* Signal Input and Output */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF471A4CE5DB00734A80 /* AKAudioInput.h */,
-				C427FF481A4CE5DB00734A80 /* AKAudioInput.m */,
-				C427FF491A4CE5DB00734A80 /* AKAudioOutput.h */,
-				C427FF4A1A4CE5DB00734A80 /* AKAudioOutput.m */,
-				C427FF4B1A4CE5DB00734A80 /* AKFileInput.h */,
-				C427FF4C1A4CE5DB00734A80 /* AKFileInput.m */,
-				C427FF4F1A4CE5DB00734A80 /* AKMonoFileInput.h */,
-				C427FF501A4CE5DB00734A80 /* AKMonoFileInput.m */,
-				C41FB1811A4D302F0093645A /* AKMP3FileInput.h */,
-				C41FB1821A4D302F0093645A /* AKMP3FileInput.m */,
+				C480CE4F1A514E350092E3D3 /* AKAudioInput.h */,
+				C480CE501A514E350092E3D3 /* AKAudioInput.m */,
+				C480CE511A514E350092E3D3 /* AKAudioOutput.h */,
+				C480CE521A514E350092E3D3 /* AKAudioOutput.m */,
+				C480CE531A514E350092E3D3 /* AKFileInput.h */,
+				C480CE541A514E350092E3D3 /* AKFileInput.m */,
+				C480CE551A514E350092E3D3 /* AKMonoFileInput.h */,
+				C480CE561A514E350092E3D3 /* AKMonoFileInput.m */,
+				C480CE571A514E350092E3D3 /* AKMP3FileInput.h */,
+				C480CE581A514E350092E3D3 /* AKMP3FileInput.m */,
 			);
 			path = "Signal Input and Output";
 			sourceTree = "<group>";
 		};
-		C427FF561A4CE5DB00734A80 /* Signal Modifiers */ = {
+		C480CE591A514E350092E3D3 /* Signal Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF571A4CE5DB00734A80 /* Convolutions */,
-				C427FF5C1A4CE5DB00734A80 /* Delays */,
-				C427FF611A4CE5DB00734A80 /* Effects */,
-				C427FF681A4CE5DB00734A80 /* Filters */,
-				C427FF8C1A4CE5DB00734A80 /* Reverbs */,
-				C427FF951A4CE5DB00734A80 /* Volume and Spatialization */,
+				C480CE5A1A514E350092E3D3 /* Convolutions */,
+				C480CE5F1A514E350092E3D3 /* Delays */,
+				C480CE661A514E350092E3D3 /* Effects */,
+				C480CE6D1A514E350092E3D3 /* Filters */,
+				C480CE911A514E350092E3D3 /* Reverbs */,
+				C480CE9A1A514E350092E3D3 /* Volume and Spatialization */,
 			);
 			path = "Signal Modifiers";
 			sourceTree = "<group>";
 		};
-		C427FF571A4CE5DB00734A80 /* Convolutions */ = {
+		C480CE5A1A514E350092E3D3 /* Convolutions */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF581A4CE5DB00734A80 /* AKConvolution.h */,
-				C427FF591A4CE5DB00734A80 /* AKConvolution.m */,
-				C427FF5A1A4CE5DB00734A80 /* AKStereoConvolution.h */,
-				C427FF5B1A4CE5DB00734A80 /* AKStereoConvolution.m */,
+				C480CE5B1A514E350092E3D3 /* AKConvolution.h */,
+				C480CE5C1A514E350092E3D3 /* AKConvolution.m */,
+				C480CE5D1A514E350092E3D3 /* AKStereoConvolution.h */,
+				C480CE5E1A514E350092E3D3 /* AKStereoConvolution.m */,
 			);
 			path = Convolutions;
 			sourceTree = "<group>";
 		};
-		C427FF5C1A4CE5DB00734A80 /* Delays */ = {
+		C480CE5F1A514E350092E3D3 /* Delays */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF5D1A4CE5DB00734A80 /* AKDelay.h */,
-				C427FF5E1A4CE5DB00734A80 /* AKDelay.m */,
-				C41FB7DB1A4FA11A0093645A /* AKMultitapDelay.h */,
-				C41FB7DC1A4FA11A0093645A /* AKMultitapDelay.m */,
-				C427FF5F1A4CE5DB00734A80 /* AKVariableDelay.h */,
-				C427FF601A4CE5DB00734A80 /* AKVariableDelay.m */,
+				C480CE601A514E350092E3D3 /* AKDelay.h */,
+				C480CE611A514E350092E3D3 /* AKDelay.m */,
+				C480CE621A514E350092E3D3 /* AKMultitapDelay.h */,
+				C480CE631A514E350092E3D3 /* AKMultitapDelay.m */,
+				C480CE641A514E350092E3D3 /* AKVariableDelay.h */,
+				C480CE651A514E350092E3D3 /* AKVariableDelay.m */,
 			);
 			path = Delays;
 			sourceTree = "<group>";
 		};
-		C427FF611A4CE5DB00734A80 /* Effects */ = {
+		C480CE661A514E350092E3D3 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF621A4CE5DB00734A80 /* AKCompressor.h */,
-				C427FF631A4CE5DB00734A80 /* AKCompressor.m */,
-				C427FF641A4CE5DB00734A80 /* AKDopplerEffect.h */,
-				C427FF651A4CE5DB00734A80 /* AKDopplerEffect.m */,
-				C427FF661A4CE5DB00734A80 /* AKFlanger.h */,
-				C427FF671A4CE5DB00734A80 /* AKFlanger.m */,
+				C480CE671A514E350092E3D3 /* AKCompressor.h */,
+				C480CE681A514E350092E3D3 /* AKCompressor.m */,
+				C480CE691A514E350092E3D3 /* AKDopplerEffect.h */,
+				C480CE6A1A514E350092E3D3 /* AKDopplerEffect.m */,
+				C480CE6B1A514E350092E3D3 /* AKFlanger.h */,
+				C480CE6C1A514E350092E3D3 /* AKFlanger.m */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
 		};
-		C427FF681A4CE5DB00734A80 /* Filters */ = {
+		C480CE6D1A514E350092E3D3 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF691A4CE5DB00734A80 /* AKCombFilter.h */,
-				C427FF6A1A4CE5DB00734A80 /* AKCombFilter.m */,
-				C427FF6B1A4CE5DB00734A80 /* AKDCBlock.h */,
-				C427FF6C1A4CE5DB00734A80 /* AKDCBlock.m */,
-				C427FF6D1A4CE5DB00734A80 /* AKEqualizerFilter.h */,
-				C427FF6E1A4CE5DB00734A80 /* AKEqualizerFilter.m */,
-				C427FF6F1A4CE5DB00734A80 /* AKHighPassFilter.h */,
-				C427FF701A4CE5DB00734A80 /* AKHighPassFilter.m */,
-				C427FF711A4CE5DB00734A80 /* AKHilbertTransformer.h */,
-				C427FF721A4CE5DB00734A80 /* AKHilbertTransformer.m */,
-				C427FF731A4CE5DB00734A80 /* AKLowPassFilter.h */,
-				C427FF741A4CE5DB00734A80 /* AKLowPassFilter.m */,
-				C427FF751A4CE5DB00734A80 /* AKMoogLadder.h */,
-				C427FF761A4CE5DB00734A80 /* AKMoogLadder.m */,
-				C427FF771A4CE5DB00734A80 /* AKMoogVCF.h */,
-				C427FF781A4CE5DB00734A80 /* AKMoogVCF.m */,
-				C427FF791A4CE5DB00734A80 /* AKResonantFilter.h */,
-				C427FF7A1A4CE5DB00734A80 /* AKResonantFilter.m */,
-				C427FF7B1A4CE5DB00734A80 /* AKThreePoleLowpassFilter.h */,
-				C427FF7C1A4CE5DB00734A80 /* AKThreePoleLowpassFilter.m */,
-				C427FF7D1A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.h */,
-				C427FF7E1A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.m */,
-				C427FF7F1A4CE5DB00734A80 /* Butterworth Filters */,
-				C427FF881A4CE5DB00734A80 /* declick */,
+				C480CE6E1A514E350092E3D3 /* AKCombFilter.h */,
+				C480CE6F1A514E350092E3D3 /* AKCombFilter.m */,
+				C480CE701A514E350092E3D3 /* AKDCBlock.h */,
+				C480CE711A514E350092E3D3 /* AKDCBlock.m */,
+				C480CE721A514E350092E3D3 /* AKEqualizerFilter.h */,
+				C480CE731A514E350092E3D3 /* AKEqualizerFilter.m */,
+				C480CE741A514E350092E3D3 /* AKHighPassFilter.h */,
+				C480CE751A514E350092E3D3 /* AKHighPassFilter.m */,
+				C480CE761A514E350092E3D3 /* AKHilbertTransformer.h */,
+				C480CE771A514E350092E3D3 /* AKHilbertTransformer.m */,
+				C480CE781A514E350092E3D3 /* AKLowPassFilter.h */,
+				C480CE791A514E350092E3D3 /* AKLowPassFilter.m */,
+				C480CE7A1A514E350092E3D3 /* AKMoogLadder.h */,
+				C480CE7B1A514E350092E3D3 /* AKMoogLadder.m */,
+				C480CE7C1A514E350092E3D3 /* AKMoogVCF.h */,
+				C480CE7D1A514E350092E3D3 /* AKMoogVCF.m */,
+				C480CE7E1A514E350092E3D3 /* AKResonantFilter.h */,
+				C480CE7F1A514E350092E3D3 /* AKResonantFilter.m */,
+				C480CE801A514E350092E3D3 /* AKThreePoleLowpassFilter.h */,
+				C480CE811A514E350092E3D3 /* AKThreePoleLowpassFilter.m */,
+				C480CE821A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.h */,
+				C480CE831A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.m */,
+				C480CE841A514E350092E3D3 /* Butterworth Filters */,
+				C480CE8D1A514E350092E3D3 /* declick */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
 		};
-		C427FF7F1A4CE5DB00734A80 /* Butterworth Filters */ = {
+		C480CE841A514E350092E3D3 /* Butterworth Filters */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF801A4CE5DB00734A80 /* AKBandPassButterworthFilter.h */,
-				C427FF811A4CE5DB00734A80 /* AKBandPassButterworthFilter.m */,
-				C427FF821A4CE5DB00734A80 /* AKBandRejectButterworthFilter.h */,
-				C427FF831A4CE5DB00734A80 /* AKBandRejectButterworthFilter.m */,
-				C427FF841A4CE5DB00734A80 /* AKHighPassButterworthFilter.h */,
-				C427FF851A4CE5DB00734A80 /* AKHighPassButterworthFilter.m */,
-				C427FF861A4CE5DB00734A80 /* AKLowPassButterworthFilter.h */,
-				C427FF871A4CE5DB00734A80 /* AKLowPassButterworthFilter.m */,
+				C480CE851A514E350092E3D3 /* AKBandPassButterworthFilter.h */,
+				C480CE861A514E350092E3D3 /* AKBandPassButterworthFilter.m */,
+				C480CE871A514E350092E3D3 /* AKBandRejectButterworthFilter.h */,
+				C480CE881A514E350092E3D3 /* AKBandRejectButterworthFilter.m */,
+				C480CE891A514E350092E3D3 /* AKHighPassButterworthFilter.h */,
+				C480CE8A1A514E350092E3D3 /* AKHighPassButterworthFilter.m */,
+				C480CE8B1A514E350092E3D3 /* AKLowPassButterworthFilter.h */,
+				C480CE8C1A514E350092E3D3 /* AKLowPassButterworthFilter.m */,
 			);
 			path = "Butterworth Filters";
 			sourceTree = "<group>";
 		};
-		C427FF881A4CE5DB00734A80 /* declick */ = {
+		C480CE8D1A514E350092E3D3 /* declick */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF891A4CE5DB00734A80 /* AKDeclick.h */,
-				C427FF8A1A4CE5DB00734A80 /* AKDeclick.m */,
-				C427FF8B1A4CE5DB00734A80 /* declick.udo */,
+				C480CE8E1A514E350092E3D3 /* AKDeclick.h */,
+				C480CE8F1A514E350092E3D3 /* AKDeclick.m */,
+				C480CE901A514E350092E3D3 /* declick.udo */,
 			);
 			path = declick;
 			sourceTree = "<group>";
 		};
-		C427FF8C1A4CE5DB00734A80 /* Reverbs */ = {
+		C480CE911A514E350092E3D3 /* Reverbs */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF8D1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.h */,
-				C427FF8E1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.m */,
-				C427FF8F1A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.h */,
-				C427FF901A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.m */,
-				C427FF911A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.h */,
-				C427FF921A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.m */,
-				C427FF931A4CE5DB00734A80 /* AKReverb.h */,
-				C427FF941A4CE5DB00734A80 /* AKReverb.m */,
+				C480CE921A514E350092E3D3 /* AKBallWithinTheBoxReverb.h */,
+				C480CE931A514E350092E3D3 /* AKBallWithinTheBoxReverb.m */,
+				C480CE941A514E350092E3D3 /* AKFlatFrequencyResponseReverb.h */,
+				C480CE951A514E350092E3D3 /* AKFlatFrequencyResponseReverb.m */,
+				C480CE961A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.h */,
+				C480CE971A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.m */,
+				C480CE981A514E350092E3D3 /* AKReverb.h */,
+				C480CE991A514E350092E3D3 /* AKReverb.m */,
 			);
 			path = Reverbs;
 			sourceTree = "<group>";
 		};
-		C427FF951A4CE5DB00734A80 /* Volume and Spatialization */ = {
+		C480CE9A1A514E350092E3D3 /* Volume and Spatialization */ = {
 			isa = PBXGroup;
 			children = (
-				C427FF961A4CE5DB00734A80 /* AKBalance.h */,
-				C427FF971A4CE5DB00734A80 /* AKBalance.m */,
-				C427FF981A4CE5DB00734A80 /* AKPanner.h */,
-				C427FF991A4CE5DB00734A80 /* AKPanner.m */,
+				C480CE9B1A514E350092E3D3 /* AKBalance.h */,
+				C480CE9C1A514E350092E3D3 /* AKBalance.m */,
+				C480CE9D1A514E350092E3D3 /* AKPanner.h */,
+				C480CE9E1A514E350092E3D3 /* AKPanner.m */,
 			);
 			path = "Volume and Spatialization";
 			sourceTree = "<group>";
@@ -1075,7 +1011,7 @@
 			children = (
 				C4BDF11B1A32BDAF00454915 /* Core Classes */,
 				C4BDF12E1A32BDAF00454915 /* Libraries */,
-				C427FE8A1A4CE5DA00734A80 /* Operations */,
+				C480CDA01A514E350092E3D3 /* Operations */,
 				C4BDF25E1A32BDAF00454915 /* Parameters */,
 				C4BDF2871A32BDAF00454915 /* Utilities */,
 			);
@@ -1244,7 +1180,7 @@
 				C4BA00DF198F08C900BE4F61 /* InfoPlist.strings in Resources */,
 				C4BA00ED198F08C900BE4F61 /* Images.xcassets in Resources */,
 				C4BA00E5198F08C900BE4F61 /* Credits.rtf in Resources */,
-				C427000B1A4CE5DB00734A80 /* declick.udo in Resources */,
+				C480CF091A514E350092E3D3 /* declick.udo in Resources */,
 				C427FE881A4CE5C800734A80 /* marmstk1.wav in Resources */,
 				C4BA00EB198F08C900BE4F61 /* MainMenu.xib in Resources */,
 			);
@@ -1273,152 +1209,144 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C427FFB41A4CE5DB00734A80 /* AKProduct.m in Sources */,
 				C4BDF31E1A32BDAF00454915 /* AKNoteProperty.m in Sources */,
-				C427FFFE1A4CE5DB00734A80 /* AKHighPassFilter.m in Sources */,
-				C42700051A4CE5DB00734A80 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
-				C41FB5321A4E978B0093645A /* AKSoundFile.m in Sources */,
-				C42700081A4CE5DB00734A80 /* AKHighPassButterworthFilter.m in Sources */,
+				C480CED71A514E350092E3D3 /* AKVibes.m in Sources */,
+				C480CEFA1A514E350092E3D3 /* AKDCBlock.m in Sources */,
+				C480CEE51A514E350092E3D3 /* AKInterpolatedRandomNumberPulse.m in Sources */,
+				C480CEF01A514E350092E3D3 /* AKMP3FileInput.m in Sources */,
+				C480CEDA1A514E350092E3D3 /* AKCrunch.m in Sources */,
+				C480CF051A514E350092E3D3 /* AKBandRejectButterworthFilter.m in Sources */,
 				C4BDF30C1A32BDAF00454915 /* AKArray.m in Sources */,
-				C41FB7DD1A4FA11A0093645A /* AKMultitapDelay.m in Sources */,
-				C427FFEC1A4CE5DB00734A80 /* AKAdditiveCosines.m in Sources */,
-				C427FFCF1A4CE5DB00734A80 /* AKLowFrequencyOscillatingControl.m in Sources */,
+				C480CEBD1A514E350092E3D3 /* AKAudioFromFSignal.m in Sources */,
+				C480CEF31A514E350092E3D3 /* AKDelay.m in Sources */,
+				C480CF071A514E350092E3D3 /* AKLowPassButterworthFilter.m in Sources */,
+				C480CEAA1A514E350092E3D3 /* AKFunctionTable.m in Sources */,
+				C480CEF71A514E350092E3D3 /* AKDopplerEffect.m in Sources */,
+				C480CEEA1A514E350092E3D3 /* AKControlSegmentArrayLoop.m in Sources */,
+				C480CEC21A514E350092E3D3 /* AKPhaseLockedVocoder.m in Sources */,
+				C480CF0F1A514E350092E3D3 /* AKPanner.m in Sources */,
+				C480CEBC1A514E350092E3D3 /* AKSum.m in Sources */,
+				C480CECA1A514E350092E3D3 /* AKGranularSynthesisTexture.m in Sources */,
+				C480CEF21A514E350092E3D3 /* AKStereoConvolution.m in Sources */,
+				C480CEAC1A514E350092E3D3 /* AKRandomDistributionTable.m in Sources */,
+				C480CECE1A514E350092E3D3 /* AKFMOscillator.m in Sources */,
+				C480CED61A514E350092E3D3 /* AKStruckMetalBar.m in Sources */,
 				C4BDF2991A32BDAF00454915 /* AKTools.m in Sources */,
-				C427FFC81A4CE5DB00734A80 /* AKLinearControl.m in Sources */,
-				C427FFAD1A4CE5DB00734A80 /* AKScaledControl.m in Sources */,
-				C427FFCA1A4CE5DB00734A80 /* AKVibrato.m in Sources */,
-				C427FFE41A4CE5DB00734A80 /* AKSimpleWaveGuideModel.m in Sources */,
-				C427FFE01A4CE5DB00734A80 /* AKStick.m in Sources */,
 				C489BEA51A3B926500129C7E /* AKPhrase.m in Sources */,
-				C427FFC51A4CE5DB00734A80 /* AKGranularSynthesisTexture.m in Sources */,
-				C427FFBD1A4CE5DB00734A80 /* AKSpectralVocoder.m in Sources */,
-				C427FFBA1A4CE5DB00734A80 /* AKFSignalMix.m in Sources */,
-				C427FF9E1A4CE5DB00734A80 /* AKTrackedFrequencyFromFSignal.m in Sources */,
-				C427FFAC1A4CE5DB00734A80 /* AKAssignment.m in Sources */,
-				C427FFE71A4CE5DB00734A80 /* AKRandomAudio.m in Sources */,
+				C480CEA31A514E350092E3D3 /* AKTrackedFrequencyFromFSignal.m in Sources */,
+				C480CEE21A514E350092E3D3 /* AKBeatenPlate.m in Sources */,
+				C480CEC41A514E350092E3D3 /* AKSpectralVocoder.m in Sources */,
+				C480CEDD1A514E350092E3D3 /* AKSandPaper.m in Sources */,
 				C4BDF2931A32BDAF00454915 /* AKSequence.m in Sources */,
-				C427FFEE1A4CE5DB00734A80 /* AKAudioOutput.m in Sources */,
-				C427FFD11A4CE5DB00734A80 /* AKPhasingControl.m in Sources */,
-				C427FFD81A4CE5DB00734A80 /* AKBambooSticks.m in Sources */,
 				C4BA171B198F14A400BE4F61 /* TweakableInstrument.m in Sources */,
+				C480CEB01A514E350092E3D3 /* AKFunctionTableLooper.m in Sources */,
+				C480CEDF1A514E350092E3D3 /* AKSleighbells.m in Sources */,
+				C480CEE61A514E350092E3D3 /* AKJitter.m in Sources */,
 				C4BDF28C1A32BDAF00454915 /* AKEvent.m in Sources */,
-				C41FB87D1A50139C0093645A /* AKFunctionTableLooper.m in Sources */,
-				C427FFFF1A4CE5DB00734A80 /* AKHilbertTransformer.m in Sources */,
-				C427FFA11A4CE5DB00734A80 /* AKTableValueControl.m in Sources */,
-				C427FFB81A4CE5DB00734A80 /* AKFSignalFromMonoAudio.m in Sources */,
-				C427FFAF1A4CE5DB00734A80 /* AKMaxControl.m in Sources */,
-				C427000F1A4CE5DB00734A80 /* AKReverb.m in Sources */,
-				C427FFC21A4CE5DB00734A80 /* AKLinearADSRControlEnvelope.m in Sources */,
+				C480CEA61A514E350092E3D3 /* AKTableValueControl.m in Sources */,
+				C480CEC51A514E350092E3D3 /* AKWarp.m in Sources */,
+				C480CEC61A514E350092E3D3 /* AKADSREnvelope.m in Sources */,
 				C4BDF28F1A32BDAF00454915 /* AKMidi.m in Sources */,
-				C427FFB51A4CE5DB00734A80 /* AKSum.m in Sources */,
-				C427000E1A4CE5DB00734A80 /* AKParallelCombLowPassFilterReverb.m in Sources */,
+				C480CEE41A514E350092E3D3 /* AKSimpleWaveGuideModel.m in Sources */,
+				C480CED11A514E350092E3D3 /* AKPhasor.m in Sources */,
+				C480CED21A514E350092E3D3 /* AKVCOscillator.m in Sources */,
+				C480CF0B1A514E350092E3D3 /* AKFlatFrequencyResponseReverb.m in Sources */,
+				C480CEBE1A514E350092E3D3 /* AKCrossSynthesis.m in Sources */,
 				C4BA00E8198F08C900BE4F61 /* AppDelegate.m in Sources */,
-				C427FFC31A4CE5DB00734A80 /* AKLinearAudioEnvelope.m in Sources */,
+				C480CEAE1A514E350092E3D3 /* AKWeightedSumOfSinusoids.m in Sources */,
 				C4BDF30D1A32BDAF00454915 /* AKAudio.m in Sources */,
-				C42700101A4CE5DB00734A80 /* AKBalance.m in Sources */,
-				C41FB1831A4D302F0093645A /* AKMP3FileInput.m in Sources */,
-				C427FFD41A4CE5DB00734A80 /* AKMarimba.m in Sources */,
-				C427FFCD1A4CE5DB00734A80 /* AKOscillator.m in Sources */,
-				C427FFE11A4CE5DB00734A80 /* AKTambourine.m in Sources */,
-				C427FFD51A4CE5DB00734A80 /* AKPluckedString.m in Sources */,
-				C427FFBF1A4CE5DB00734A80 /* AKADSRAudioEnvelope.m in Sources */,
-				C427FFF81A4CE5DB00734A80 /* AKCompressor.m in Sources */,
-				C427FFDF1A4CE5DB00734A80 /* AKSleighbells.m in Sources */,
+				C480CEF61A514E350092E3D3 /* AKCompressor.m in Sources */,
+				C480CEA81A514E350092E3D3 /* AKArrayTable.m in Sources */,
 				C4BDF2921A32BDAF00454915 /* AKSampler.m in Sources */,
-				C42700071A4CE5DB00734A80 /* AKBandRejectButterworthFilter.m in Sources */,
-				C42700061A4CE5DB00734A80 /* AKBandPassButterworthFilter.m in Sources */,
-				C427FFBE1A4CE5DB00734A80 /* AKWarp.m in Sources */,
-				C427FF9D1A4CE5DB00734A80 /* AKTrackedFrequency.m in Sources */,
+				C480CEA21A514E350092E3D3 /* AKTrackedFrequency.m in Sources */,
 				C4BDF3101A32BDAF00454915 /* AKFSignal.m in Sources */,
-				C427FFBB1A4CE5DB00734A80 /* AKPhaseLockedVocoder.m in Sources */,
-				C427FFF41A4CE5DB00734A80 /* AKConvolution.m in Sources */,
-				C427FFE91A4CE5DB00734A80 /* AKAudioSegmentArray.m in Sources */,
-				C41FB5311A4E978B0093645A /* AKRandomDistributionTable.m in Sources */,
-				C427FFF91A4CE5DB00734A80 /* AKDopplerEffect.m in Sources */,
-				C41FB52F1A4E978B0093645A /* AKFunctionTable.m in Sources */,
-				C41FB5331A4E978B0093645A /* AKWeightedSumOfSinusoids.m in Sources */,
 				C4BDF3111A32BDAF00454915 /* AKParameter.m in Sources */,
-				C427FFF11A4CE5DB00734A80 /* AKMonoFileInput.m in Sources */,
-				C427FFF71A4CE5DB00734A80 /* AKVariableDelay.m in Sources */,
+				C480CEFB1A514E350092E3D3 /* AKEqualizerFilter.m in Sources */,
+				C480CEB41A514E350092E3D3 /* AKScaledControl.m in Sources */,
+				C480CF0C1A514E350092E3D3 /* AKParallelCombLowPassFilterReverb.m in Sources */,
 				C4E9E024199051E300F261DA /* ContinuousControlConductor.m in Sources */,
-				C427FFDA1A4CE5DB00734A80 /* AKCrunch.m in Sources */,
-				C427FFC41A4CE5DB00734A80 /* AKLinearControlEnvelope.m in Sources */,
-				C41FB87F1A50139C0093645A /* AKStereoSoundFileLooper.m in Sources */,
-				C427FFFB1A4CE5DB00734A80 /* AKCombFilter.m in Sources */,
-				C427FF9B1A4CE5DB00734A80 /* AKTrackedAmplitude.m in Sources */,
-				C427FFB71A4CE5DB00734A80 /* AKCrossSynthesis.m in Sources */,
-				C42700031A4CE5DB00734A80 /* AKResonantFilter.m in Sources */,
-				C427FFEB1A4CE5DB00734A80 /* AKControlSegmentArrayLoop.m in Sources */,
-				C42700111A4CE5DB00734A80 /* AKPanner.m in Sources */,
-				C41FB52C1A4E978B0093645A /* AKAdditiveCosineTable.m in Sources */,
-				C427FFE81A4CE5DB00734A80 /* AKRandomControl.m in Sources */,
-				C427FFDE1A4CE5DB00734A80 /* AKSekere.m in Sources */,
-				C41FB52E1A4E978B0093645A /* AKExponentialCurves.m in Sources */,
-				C427000A1A4CE5DB00734A80 /* AKDeclick.m in Sources */,
-				C427FFB31A4CE5DB00734A80 /* AKMixedControl.m in Sources */,
-				C427FFEA1A4CE5DB00734A80 /* AKControlSegmentArray.m in Sources */,
-				C427FFD01A4CE5DB00734A80 /* AKLowFrequencyOscillator.m in Sources */,
-				C427FFCC1A4CE5DB00734A80 /* AKOscillatingControl.m in Sources */,
+				C480CEA01A514E350092E3D3 /* AKTrackedAmplitude.m in Sources */,
+				C480CEAD1A514E350092E3D3 /* AKSoundFile.m in Sources */,
+				C480CEB31A514E350092E3D3 /* AKAssignment.m in Sources */,
+				C480CEB61A514E350092E3D3 /* AKMaxControl.m in Sources */,
+				C480CEF81A514E350092E3D3 /* AKFlanger.m in Sources */,
+				C480CEB11A514E350092E3D3 /* AKMonoSoundFileLooper.m in Sources */,
 				C4BDF3201A32BDAF00454915 /* LevelMeter.m in Sources */,
+				C480CEF91A514E350092E3D3 /* AKCombFilter.m in Sources */,
+				C480CEEE1A514E350092E3D3 /* AKFileInput.m in Sources */,
+				C480CEDE1A514E350092E3D3 /* AKSekere.m in Sources */,
+				C480CEC81A514E350092E3D3 /* AKLinearADSREnvelope.m in Sources */,
+				C480CF061A514E350092E3D3 /* AKHighPassButterworthFilter.m in Sources */,
+				C480CEDB1A514E350092E3D3 /* AKDroplet.m in Sources */,
+				C480CEB71A514E350092E3D3 /* AKMinAudio.m in Sources */,
+				C480CEC91A514E350092E3D3 /* AKLinearEnvelope.m in Sources */,
+				C480CED41A514E350092E3D3 /* AKMarimba.m in Sources */,
 				C4BDF2911A32BDAF00454915 /* AKOrchestra.m in Sources */,
-				C427FFCE1A4CE5DB00734A80 /* AKVCOscillator.m in Sources */,
-				C427FFEF1A4CE5DB00734A80 /* AKFileInput.m in Sources */,
 				C4BDF28D1A32BDAF00454915 /* AKInstrument.m in Sources */,
-				C427FFBC1A4CE5DB00734A80 /* AKScaledFSignal.m in Sources */,
-				C427FFB21A4CE5DB00734A80 /* AKMixedAudio.m in Sources */,
-				C427000C1A4CE5DB00734A80 /* AKBallWithinTheBoxReverb.m in Sources */,
-				C427FFC71A4CE5DB00734A80 /* AKLine.m in Sources */,
-				C427FFB01A4CE5DB00734A80 /* AKMinAudio.m in Sources */,
-				C427FFD91A4CE5DB00734A80 /* AKCabasa.m in Sources */,
-				C41FB52D1A4E978B0093645A /* AKArrayTable.m in Sources */,
-				C427FFF51A4CE5DB00734A80 /* AKStereoConvolution.m in Sources */,
 				C4BDF28E1A32BDAF00454915 /* AKManager.m in Sources */,
 				C4BDF29B1A32BDAF00454915 /* CsoundObj.m in Sources */,
-				C427000D1A4CE5DB00734A80 /* AKFlatFrequencyResponseReverb.m in Sources */,
+				C480CF081A514E350092E3D3 /* AKDeclick.m in Sources */,
+				C480CEFC1A514E350092E3D3 /* AKHighPassFilter.m in Sources */,
 				C4BA00E1198F08C900BE4F61 /* main.m in Sources */,
-				C427FFB91A4CE5DB00734A80 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */,
-				C427FFE21A4CE5DB00734A80 /* AKBeatenPlate.m in Sources */,
-				C427FFC61A4CE5DB00734A80 /* AKSinusoidBursts.m in Sources */,
-				C42700001A4CE5DB00734A80 /* AKLowPassFilter.m in Sources */,
-				C427FFB61A4CE5DB00734A80 /* AKAudioFromFSignal.m in Sources */,
+				C480CEEB1A514E350092E3D3 /* AKAdditiveCosines.m in Sources */,
 				C4BDF3121A32BDAF00454915 /* AKStereoAudio.m in Sources */,
-				C427FFCB1A4CE5DB00734A80 /* AKFMOscillator.m in Sources */,
-				C427FFAE1A4CE5DB00734A80 /* AKMaxAudio.m in Sources */,
-				C427FFFC1A4CE5DB00734A80 /* AKDCBlock.m in Sources */,
-				C427FFED1A4CE5DB00734A80 /* AKAudioInput.m in Sources */,
+				C480CEE31A514E350092E3D3 /* AKBowedString.m in Sources */,
+				C480CECC1A514E350092E3D3 /* AKPortamento.m in Sources */,
 				C4BDF2901A32BDAF00454915 /* AKNote.m in Sources */,
+				C480CEC31A514E350092E3D3 /* AKScaledFSignal.m in Sources */,
+				C480CEF41A514E350092E3D3 /* AKMultitapDelay.m in Sources */,
+				C480CED91A514E350092E3D3 /* AKCabasa.m in Sources */,
 				C4BDF30F1A32BDAF00454915 /* AKControl.m in Sources */,
-				C427FFE31A4CE5DB00734A80 /* AKBowedString.m in Sources */,
-				C427FFD61A4CE5DB00734A80 /* AKStruckMetalBar.m in Sources */,
-				C427FFC91A4CE5DB00734A80 /* AKPortamento.m in Sources */,
-				C427FFF61A4CE5DB00734A80 /* AKDelay.m in Sources */,
-				C427FF9F1A4CE5DB00734A80 /* AKTableValue.m in Sources */,
-				C427FF9C1A4CE5DB00734A80 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
-				C427FFA01A4CE5DB00734A80 /* AKTableValueConstant.m in Sources */,
-				C427FFC01A4CE5DB00734A80 /* AKADSRControlEnvelope.m in Sources */,
-				C427FFE51A4CE5DB00734A80 /* AKInterpolatedRandomNumberPulse.m in Sources */,
-				C42700091A4CE5DB00734A80 /* AKLowPassButterworthFilter.m in Sources */,
-				C41FB5301A4E978B0093645A /* AKLineSegments.m in Sources */,
-				C427FFB11A4CE5DB00734A80 /* AKMinControl.m in Sources */,
-				C427FFD21A4CE5DB00734A80 /* AKPhasor.m in Sources */,
-				C427FFD31A4CE5DB00734A80 /* AKMandolin.m in Sources */,
-				C427FFD71A4CE5DB00734A80 /* AKVibes.m in Sources */,
-				C42700011A4CE5DB00734A80 /* AKMoogLadder.m in Sources */,
-				C42700021A4CE5DB00734A80 /* AKMoogVCF.m in Sources */,
-				C427FF9A1A4CE5DB00734A80 /* AKParameter+Operation.m in Sources */,
-				C41FB5341A4E978B0093645A /* AKWindowsTable.m in Sources */,
+				C480CEE01A514E350092E3D3 /* AKStick.m in Sources */,
+				C480CEF11A514E350092E3D3 /* AKConvolution.m in Sources */,
+				C480CF0A1A514E350092E3D3 /* AKBallWithinTheBoxReverb.m in Sources */,
+				C480CEE11A514E350092E3D3 /* AKTambourine.m in Sources */,
+				C480CEED1A514E350092E3D3 /* AKAudioOutput.m in Sources */,
+				C480CEC01A514E350092E3D3 /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */,
+				C480CEE71A514E350092E3D3 /* AKRandomNumbers.m in Sources */,
+				C480CF011A514E350092E3D3 /* AKResonantFilter.m in Sources */,
+				C480CF021A514E350092E3D3 /* AKThreePoleLowpassFilter.m in Sources */,
+				C480CEEF1A514E350092E3D3 /* AKMonoFileInput.m in Sources */,
+				C480CED31A514E350092E3D3 /* AKMandolin.m in Sources */,
+				C480CEAB1A514E350092E3D3 /* AKLineSegments.m in Sources */,
+				C480CEFF1A514E350092E3D3 /* AKMoogLadder.m in Sources */,
+				C480CEDC1A514E350092E3D3 /* AKGuiro.m in Sources */,
+				C480CEA91A514E350092E3D3 /* AKExponentialCurves.m in Sources */,
+				C480CECB1A514E350092E3D3 /* AKSinusoidBursts.m in Sources */,
+				C480CF0D1A514E350092E3D3 /* AKReverb.m in Sources */,
+				C480CF041A514E350092E3D3 /* AKBandPassButterworthFilter.m in Sources */,
+				C480CEE81A514E350092E3D3 /* AKAudioSegmentArray.m in Sources */,
+				C480CEEC1A514E350092E3D3 /* AKAudioInput.m in Sources */,
+				C480CEA41A514E350092E3D3 /* AKTableValue.m in Sources */,
+				C480CEE91A514E350092E3D3 /* AKControlSegmentArray.m in Sources */,
+				C480CEA11A514E350092E3D3 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
+				C480CED01A514E350092E3D3 /* AKOscillator.m in Sources */,
+				C480CED81A514E350092E3D3 /* AKBambooSticks.m in Sources */,
+				C480CF031A514E350092E3D3 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
+				C480CEA51A514E350092E3D3 /* AKTableValueConstant.m in Sources */,
+				C480CE9F1A514E350092E3D3 /* AKParameter+Operation.m in Sources */,
+				C480CEC71A514E350092E3D3 /* AKLine.m in Sources */,
 				C4BDF31F1A32BDAF00454915 /* AKAudioAnalyzer.m in Sources */,
-				C427FFDC1A4CE5DB00734A80 /* AKGuiro.m in Sources */,
-				C427FFFD1A4CE5DB00734A80 /* AKEqualizerFilter.m in Sources */,
-				C427FFDB1A4CE5DB00734A80 /* AKDroplet.m in Sources */,
-				C427FFC11A4CE5DB00734A80 /* AKLinearADSRAudioEnvelope.m in Sources */,
+				C480CECF1A514E350092E3D3 /* AKLowFrequencyOscillator.m in Sources */,
+				C480CEFE1A514E350092E3D3 /* AKLowPassFilter.m in Sources */,
+				C480CF001A514E350092E3D3 /* AKMoogVCF.m in Sources */,
+				C480CEBA1A514E350092E3D3 /* AKMixedControl.m in Sources */,
+				C480CEA71A514E350092E3D3 /* AKAdditiveCosineTable.m in Sources */,
+				C480CEFD1A514E350092E3D3 /* AKHilbertTransformer.m in Sources */,
+				C480CEB81A514E350092E3D3 /* AKMinControl.m in Sources */,
+				C480CED51A514E350092E3D3 /* AKPluckedString.m in Sources */,
+				C480CEB21A514E350092E3D3 /* AKStereoSoundFileLooper.m in Sources */,
+				C480CEB51A514E350092E3D3 /* AKMaxAudio.m in Sources */,
+				C480CEB91A514E350092E3D3 /* AKMixedAudio.m in Sources */,
+				C480CECD1A514E350092E3D3 /* AKVibrato.m in Sources */,
 				C4BDF30E1A32BDAF00454915 /* AKConstant.m in Sources */,
-				C427FFDD1A4CE5DB00734A80 /* AKSandPaper.m in Sources */,
-				C427FFE61A4CE5DB00734A80 /* AKJitter.m in Sources */,
-				C42700041A4CE5DB00734A80 /* AKThreePoleLowpassFilter.m in Sources */,
-				C427FFFA1A4CE5DB00734A80 /* AKFlanger.m in Sources */,
+				C480CEF51A514E350092E3D3 /* AKVariableDelay.m in Sources */,
+				C480CEAF1A514E350092E3D3 /* AKWindowsTable.m in Sources */,
+				C480CEBB1A514E350092E3D3 /* AKProduct.m in Sources */,
+				C480CEC11A514E350092E3D3 /* AKFSignalMix.m in Sources */,
 				C4BDF31D1A32BDAF00454915 /* AKInstrumentProperty.m in Sources */,
-				C41FB87E1A50139C0093645A /* AKMonoSoundFileLooper.m in Sources */,
+				C480CEBF1A514E350092E3D3 /* AKFSignalFromMonoAudio.m in Sources */,
+				C480CF0E1A514E350092E3D3 /* AKBalance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
