@@ -1,18 +1,18 @@
 //
-//  AKRandomAudio.m
+//  AKRandomNumbers.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's random:
 //  http://www.csounds.com/manual/html/random.html
 //
 
-#import "AKRandomAudio.h"
+#import "AKRandomNumbers.h"
 #import "AKManager.h"
 
-@implementation AKRandomAudio
+@implementation AKRandomNumbers
 
 - (instancetype)initWithLowerBound:(AKParameter *)lowerBound
                         upperBound:(AKParameter *)upperBound
@@ -38,7 +38,7 @@
 
 + (instancetype)audio
 {
-    return [[AKRandomAudio alloc] init];
+    return [[AKRandomNumbers alloc] init];
 }
 
 - (void)setOptionalLowerBound:(AKParameter *)lowerBound {
