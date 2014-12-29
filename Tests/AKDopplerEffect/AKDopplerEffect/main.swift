@@ -20,20 +20,24 @@ class Instrument : AKInstrument {
         position.frequency = 0.5.ak
         connect(position)
 
-        let operation = AKDopplerEffect(
-            input: sine,
-            sourcePosition: position.scaledBy(100.ak).plus(100.ak)
+        let dopplerEffect = AKDopplerEffect(input: sine)
+        dopplerEffect.sourcePosition = position.scaledBy(50.ak).plus(100.ak)
+        connect(dopplerEffect)
+        
+        enableParameterLog(
+            "Source Position = ",
+            parameter: dopplerEffect.sourcePosition,
+            frequency:0.1
         )
-        connect(operation)
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:dopplerEffect))
     }
 }
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(5)
 
 instrument.play()
 

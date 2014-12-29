@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,14 +34,20 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let feedbackLine = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 10.ak)
+        let feedbackLine = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
         connect(feedbackLine)
 
-        let operation = AKDelay(input: audioSource, delayTime: 0.1.ak)
-        operation.feedback = feedbackLine
-        connect(operation)
+        let delay = AKDelay(input: audioSource, delayTime: 0.1.ak)
+        delay.feedback = feedbackLine
+        connect(delay)
+        
+        enableParameterLog(
+            "Feedback = ",
+            parameter: delay.feedback,
+            frequency:0.1
+        )
 
-        let mix = AKMixedAudio(signal1: audioSource, signal2: operation, balance: 0.5.ak)
+        let mix = AKMixedAudio(signal1: audioSource, signal2: delay, balance: 0.5.ak)
         connect(mix)
 
         connect(AKAudioOutput(audioSource:mix))
@@ -51,7 +59,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()

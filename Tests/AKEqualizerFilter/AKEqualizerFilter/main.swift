@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -35,16 +37,28 @@ class Processor : AKInstrument {
         let frequencyLine = AKLine(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: 11.ak)
         connect(frequencyLine)
 
-        let bandWidthLine = AKLine(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        let bandWidthLine = AKLine(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: testDuration.ak)
         connect(bandWidthLine)
 
-        let operation = AKEqualizerFilter(input: audioSource)
-        operation.centerFrequency = frequencyLine
-        operation.bandwidth = bandWidthLine
-        operation.gain = 100.ak
-        connect(operation)
+        let equalizerFilter = AKEqualizerFilter(input: audioSource)
+        equalizerFilter.centerFrequency = frequencyLine
+        equalizerFilter.bandwidth = bandWidthLine
+        equalizerFilter.gain = 100.ak
+        connect(equalizerFilter)
+        
+        enableParameterLog(
+            "Center Frequency = ",
+            parameter: equalizerFilter.centerFrequency,
+            frequency:0.1
+        )
+        
+        enableParameterLog(
+            "Bandwidth = ",
+            parameter: equalizerFilter.bandwidth,
+            frequency:1.0
+        )
 
-        let output = AKBalance(input: operation, comparatorAudioSource: audioSource)
+        let output = AKBalance(input: equalizerFilter, comparatorAudioSource: audioSource)
         connect(output)
 
         connect(AKAudioOutput(audioSource:output))
