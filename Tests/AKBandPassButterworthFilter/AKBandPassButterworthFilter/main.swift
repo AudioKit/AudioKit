@@ -2,13 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/20/14.
-//  Customized by Nick Arner on 12/26/14.
-//
+//  Created by Nick Arner and Aurelius Prochazka on 12/28/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 20.0
 
 class Instrument : AKInstrument {
     
@@ -41,14 +41,14 @@ class Processor : AKInstrument {
         let centerFrequency = AKLinearControl(
             firstPoint: 0.ak,
             secondPoint: 10000.ak,
-            durationBetweenPoints: 20.ak
+            durationBetweenPoints: testDuration.ak
         )
         connect(centerFrequency)
 
         let bandwidth = AKLinearControl(
             firstPoint: 2000.ak,
             secondPoint: 20.ak,
-            durationBetweenPoints: 20.ak
+            durationBetweenPoints: testDuration.ak
         )
         connect(bandwidth)
 
@@ -78,7 +78,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(20)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()

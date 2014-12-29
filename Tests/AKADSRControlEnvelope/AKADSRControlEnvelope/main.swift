@@ -2,31 +2,29 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
-//  Customized by Aurelius Prochazka on 12/24/14.
+//  Created by Aurelius Prochazka on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let adsr = AKADSRControlEnvelope()
         connect(adsr)
         enableParameterLog("ADSR value = ", parameter: adsr, frequency:0.02)
-        
+
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr
         connect(oscillator)
-        
+
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 

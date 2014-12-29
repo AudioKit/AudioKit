@@ -2,8 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/24/14.
-//  Customized by Aurelius Prochazka on 12/24/14 (Yes, Christmas Eve!)
+//  Created by Aurelius Prochazka on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,7 +15,7 @@ class Instrument : AKInstrument {
 
         let operation = AKLinearADSRAudioEnvelope()
         connect(operation)
-        
+
         let oscillator = AKOscillator()
         oscillator.amplitude = operation
         connect(oscillator)
@@ -25,10 +24,9 @@ class Instrument : AKInstrument {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(15)
 
 let note1 = AKNote()

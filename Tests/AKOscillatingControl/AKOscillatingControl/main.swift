@@ -2,9 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
-//  Customized by Aurelius Prochazka on 12/21/14.
-//
+//  Created by Aurelius Prochazka on 12/21/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,7 +15,7 @@ class Instrument : AKInstrument {
 
         let operation = AKOscillatingControl()
         connect(operation)
-        
+
         let audio = AKOscillator()
         audio.frequency = 440.ak.plus(100.ak.scaledBy(operation))
         connect(audio)
@@ -26,10 +24,9 @@ class Instrument : AKInstrument {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(10)
 
 instrument.play()

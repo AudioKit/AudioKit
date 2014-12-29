@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/1/14.
+//  Created by Aurelius Prochazka on 12/1/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let frequencyLine = AKLine(firstPoint: 10.ak, secondPoint: 880.ak, durationBetweenPoints: 11.ak)
         connect(frequencyLine)
 
@@ -21,10 +21,10 @@ class Instrument : AKInstrument {
 
         let modulatingMultiplierLine = AKLine(firstPoint: 0.ak, secondPoint: 2.ak, durationBetweenPoints: 11.ak)
         connect(modulatingMultiplierLine)
-        
+
         let indexLine = AKLine(firstPoint: 0.ak, secondPoint: 30.ak, durationBetweenPoints: 11.ak)
         connect(indexLine)
-        
+
         let operation = AKFMOscillator()
         operation.baseFrequency = frequencyLine
         operation.carrierMultiplier = carrierMultiplierLine
@@ -35,7 +35,6 @@ class Instrument : AKInstrument {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(10)
