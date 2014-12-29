@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/2/14.
+//  Created by Aurelius Prochazka on 12/2/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -19,7 +19,6 @@ class Instrument : AKInstrument {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(10)

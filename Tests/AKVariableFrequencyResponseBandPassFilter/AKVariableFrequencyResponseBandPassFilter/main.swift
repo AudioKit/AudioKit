@@ -2,9 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
-//  Customized by Nick Arner on 12/22/14.
-//
+//  Created by Nick Arner and Aurelius Prochazka on 12/22/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -48,12 +46,11 @@ class Processor : AKInstrument {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(10)
 
 processor.play()

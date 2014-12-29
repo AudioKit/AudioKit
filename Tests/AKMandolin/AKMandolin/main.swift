@@ -2,8 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 11/30/14.
-//  Customized by Aurelius Prochazka on 11/30/14.
+//  Created by Aurelius Prochazka on 11/30/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -35,10 +34,9 @@ class Note: AKNote {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(4)
 
 let note1 = Note(frequency: 440)

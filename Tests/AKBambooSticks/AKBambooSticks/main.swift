@@ -2,9 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 11/29/14.
-//  Customized by Nick Arner on 12/26/14.
-//
+//  Created by Nick Arner and Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,7 +15,7 @@ class Instrument : AKInstrument {
 
         let bambooSticks = AKBambooSticks()
         connect(bambooSticks)
-        
+
         connect(AKAudioOutput(audioSource:bambooSticks))
     }
 }

@@ -2,9 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
-//  Customized by Aurelius Prochazka on 12/21/14.
-//
+//  Created by Aurelius Prochazka on 12/21/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -18,10 +16,10 @@ class Instrument : AKInstrument {
         let note = Note()
         addNoteProperty(note.pan)
         addNoteProperty(note.panMethod)
-        
+
         let oscillator = AKOscillator()
         connect(oscillator)
-        
+
         let pan = AKOscillatingControl()
         connect(pan)
 
@@ -46,10 +44,9 @@ class Note: AKNote {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(10)
 
 let note1 = Note()

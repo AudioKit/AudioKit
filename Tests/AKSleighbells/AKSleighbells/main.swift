@@ -2,25 +2,24 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/17/14.
-//  Customized by Aurelius Prochazka on 12/17/14.  (Added notes.)
+//  Created by Aurelius Prochazka on 12/17/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = Note()
         addNoteProperty(note.intensity)
         addNoteProperty(note.dampingFactor)
         addNoteProperty(note.mainResonantFrequency)
         addNoteProperty(note.firstResonantFrequency)
         addNoteProperty(note.secondResonantFrequency)
-        
+
         let operation = AKSleighbells()
         operation.intensity = note.intensity
         operation.dampingFactor = note.dampingFactor
@@ -28,7 +27,7 @@ class Instrument : AKInstrument {
         operation.firstResonantFrequency = note.firstResonantFrequency
         operation.secondResonantFrequency = note.secondResonantFrequency
         connect(operation)
-        
+
         connect(AKAudioOutput(audioSource:operation))
     }
 }
@@ -39,7 +38,7 @@ class Note: AKNote {
     var mainResonantFrequency = AKNoteProperty()
     var firstResonantFrequency = AKNoteProperty()
     var secondResonantFrequency = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(intensity)
@@ -55,10 +54,9 @@ class Note: AKNote {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(5)
 
 let note1 = Note()

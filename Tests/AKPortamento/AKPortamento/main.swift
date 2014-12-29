@@ -2,9 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/22/14.
-//  Customized by Nick Arner on 12/22/14.
-//
+//  Created by Nick Arner and Aurelius Prochazka on 12/22/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -14,7 +12,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let frequencyShifter = AKLowFrequencyOscillatingControl()
         frequencyShifter.type = AKLowFrequencyOscillatorType.BipolarSquare
         frequencyShifter.amplitude = 100.ak;
@@ -23,7 +21,7 @@ class Instrument : AKInstrument {
 
         let operation = AKPortamento(input: frequencyShifter)
         connect(operation)
-        
+
         let sine = AKOscillator()
         sine.frequency  = operation.plus(880.ak)
         connect(sine)
@@ -34,10 +32,9 @@ class Instrument : AKInstrument {
 
 
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(10)
 
 instrument.play()

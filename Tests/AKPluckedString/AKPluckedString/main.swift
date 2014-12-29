@@ -2,8 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 11/28/14.
-//  Modified by Aurelius Prochazka on 11/28/14 to include excitation signal.
+//  Created by Aurelius Prochazka on 11/28/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -26,7 +25,6 @@ class Instrument : AKInstrument {
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(2)

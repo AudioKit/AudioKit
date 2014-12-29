@@ -2,9 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/21/14.
-//  Customized by Nick Arner on 12/21/14.
-//
+//  Created by Nick Arner and Aurelius Prochazka on 12/21/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
