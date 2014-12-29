@@ -14,11 +14,12 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let operation = AKADSRControlEnvelope()
-        connect(operation)
+        let adsr = AKADSRControlEnvelope()
+        connect(adsr)
+        enableParameterLog("ADSR value = ", parameter: adsr, frequency:0.02)
         
         let oscillator = AKOscillator()
-        oscillator.amplitude = operation
+        oscillator.amplitude = adsr
         connect(oscillator)
         
         connect(AKAudioOutput(audioSource:oscillator))
@@ -28,7 +29,7 @@ class Instrument : AKInstrument {
 // Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(10)
 
 let note1 = AKNote()
