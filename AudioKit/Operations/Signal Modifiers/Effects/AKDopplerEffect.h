@@ -2,7 +2,7 @@
 //  AKDopplerEffect.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 @interface AKDopplerEffect : AKAudio
 /// Instantiates the doppler effect with all values
 /// @param input Input signal at the sound source. [Default Value: ]
-/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: ]
+/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 /// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 /// @param smoothingFilterUpdateRate Rate of updating the position smoothing filter, in cycles/second. [Default Value: 6]
 - (instancetype)initWithInput:(AKParameter *)input
@@ -27,15 +27,18 @@
 
 /// Instantiates the doppler effect with default values
 /// @param input Input signal at the sound source.
-/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound.
-- (instancetype)initWithInput:(AKParameter *)input
-               sourcePosition:(AKParameter *)sourcePosition;
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the doppler effect with default values
 /// @param input Input signal at the sound source.
-/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound.
-+ (instancetype)audioWithInput:(AKParameter *)input
-                sourcePosition:(AKParameter *)sourcePosition;
++ (instancetype)audioWithInput:(AKParameter *)input;
+
+/// Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
+@property AKParameter *sourcePosition;
+
+/// Set an optional source position
+/// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
+- (void)setOptionalSourcePosition:(AKParameter *)sourcePosition;
 
 /// Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
 @property AKParameter *micPosition;

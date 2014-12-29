@@ -2,7 +2,7 @@
 //  AKDopplerEffect.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's doppler:
@@ -15,7 +15,6 @@
 @implementation AKDopplerEffect
 {
     AKParameter * _input;
-    AKParameter * _sourcePosition;
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
@@ -34,13 +33,12 @@
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
-               sourcePosition:(AKParameter *)sourcePosition
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _input = input;
-        _sourcePosition = sourcePosition;
         // Default Values
+        _sourcePosition = akp(0);
         _micPosition = akp(0);
         _smoothingFilterUpdateRate = akp(6);
     }
@@ -48,12 +46,13 @@
 }
 
 + (instancetype)audioWithInput:(AKParameter *)input
-               sourcePosition:(AKParameter *)sourcePosition
 {
-    return [[AKDopplerEffect alloc] initWithInput:input
-               sourcePosition:sourcePosition];
+    return [[AKDopplerEffect alloc] initWithInput:input];
 }
 
+- (void)setOptionalSourcePosition:(AKParameter *)sourcePosition {
+    _sourcePosition = sourcePosition;
+}
 - (void)setOptionalMicPosition:(AKParameter *)micPosition {
     _micPosition = micPosition;
 }
