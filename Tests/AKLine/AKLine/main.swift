@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Auto-generated on 12/14/14.
+//  Created by Aurelius Prochazka on 12/28/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -13,18 +13,18 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKLine()
-        connect(operation)
+        let line = AKLine()
+        connect(line)
+        enableParameterLog("line value = ", parameter: line, frequency:0.5)
 
         let oscillator = AKOscillator()
-        oscillator.frequency = operation.scaledBy(100.ak)
+        oscillator.frequency = line.scaledBy(100.ak)
         connect(oscillator)
 
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(10)

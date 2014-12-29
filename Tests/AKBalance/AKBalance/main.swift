@@ -37,20 +37,21 @@ class Processor : AKInstrument {
         let synth = AKFMOscillator()
         connect(synth)
 
-        let operation = AKBalance(input: synth, comparatorAudioSource: audioSource)
-        connect(operation)
+        let balanced = AKBalance(input: synth, comparatorAudioSource: audioSource)
+        connect(balanced)
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:balanced))
     }
 }
 
-// Set Up
 let instrument = Instrument()
 let processor = Processor(audioSource: instrument.auxilliaryOutput)
+
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
-AKManager.sharedManager().isLogging = true
+
 AKOrchestra.testForDuration(4)
+
 processor.play()
 instrument.play()
 

@@ -40,12 +40,23 @@ class Processor : AKInstrument {
         let bandwidth = AKLinearControl(firstPoint: 100.ak, secondPoint: 2000.ak, durationBetweenPoints: 11.ak)
         connect(bandwidth)
         
-        let operation = AKBandRejectButterworthFilter(input: audioSource)
-        operation.centerFrequency = centerFrequency
-        operation.bandwidth = bandwidth
-        connect(operation)
+        let bandRejectFilter = AKBandRejectButterworthFilter(input: audioSource)
+        bandRejectFilter.centerFrequency = centerFrequency
+        bandRejectFilter.bandwidth = bandwidth
+        connect(bandRejectFilter)
         
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Center Frequency = ",
+            parameter: bandRejectFilter.centerFrequency,
+            frequency:0.1
+        )
+        enableParameterLog(
+            "Bandwidth = ",
+            parameter: bandRejectFilter.bandwidth,
+            frequency:1
+        )
+        
+        connect(AKAudioOutput(audioSource:bandRejectFilter))
     }
 }
 
