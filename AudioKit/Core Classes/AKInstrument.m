@@ -18,6 +18,7 @@
     int _myID;
 }
 
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
@@ -147,6 +148,18 @@ static int currentID = 1;
          [NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
     }
 }
+
+
+- (void)enableParameterLog:(NSString *)message
+                 parameter:(AKParameter *)parameter
+                 frequency:(float)frequency
+
+{
+    [innerCSDRepresentation appendFormat:
+     @"\nprintks \"%@ %%f\", %f, AKControl(%@)\n",
+     message, frequency, parameter];
+}
+
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation

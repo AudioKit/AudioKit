@@ -100,6 +100,14 @@
 /// @param parameterToReset Parameter whose value will be reset to zero.
 - (void)resetParameter:(AKParameter *)parameterToReset;
 
+/// Log parameter values at a given frequency with a message.
+/// @param message   Message to print first. Usually something like "myParameter = "
+/// @param parameter The parameter to log the float value of
+/// @param frequency How often to print out the log, in Hz
+- (void)enableParameterLog:(NSString *)message
+                 parameter:(AKParameter *)parameter
+                 frequency:(float)frequency;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
@@ -139,6 +147,7 @@
 
 /// Stop all notes created by the instrument
 - (void)stop;
+
 
 
 @end
