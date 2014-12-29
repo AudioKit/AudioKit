@@ -12,10 +12,15 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
+        let oscillatingControl = AKOscillator()
+        oscillatingControl.frequency = 2.ak
+        connect(oscillatingControl)
 
-        let operation = AKOscillator()
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        let oscillator = AKOscillator()
+        oscillator.frequency = oscillatingControl.scaledBy(110.ak).plus(440.ak)
+        connect(oscillator)
+        connect(AKAudioOutput(audioSource:oscillator))
     }
 }
 

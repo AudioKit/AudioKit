@@ -38,7 +38,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let reverbDuration = AKLinearControl(
+        let reverbDuration = AKLine(
             firstPoint: 0.ak,
             secondPoint: 3.ak,
             durationBetweenPoints: testDuration.ak)

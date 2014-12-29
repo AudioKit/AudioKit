@@ -28,13 +28,13 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let distortion = AKLinearControl(firstPoint: 0.1.ak, secondPoint: 0.9.ak, durationBetweenPoints: 11.ak)
+        let distortion = AKLine(firstPoint: 0.1.ak, secondPoint: 0.9.ak, durationBetweenPoints: 11.ak)
         connect(distortion)
 
-        let cutoffFrequency = AKLinearControl(firstPoint: 300.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 300.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
         connect(cutoffFrequency)
 
-        let resonance = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let resonance = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(resonance)
 
         let operation = AKThreePoleLowpassFilter(input: audioSource)

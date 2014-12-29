@@ -31,10 +31,10 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let feedback = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let feedback = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(feedback)
 
-        let cutoffFrequency = AKLinearControl(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
         connect(cutoffFrequency)
 
         let operation = AKReverb(audioSourceLeftChannel: audioSource, audioSourceRightChannel: audioSource)

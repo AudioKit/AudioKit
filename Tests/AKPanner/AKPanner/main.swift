@@ -20,7 +20,8 @@ class Instrument : AKInstrument {
         let oscillator = AKOscillator()
         connect(oscillator)
 
-        let pan = AKOscillatingControl()
+        let pan = AKOscillator()
+        pan.frequency = 1.ak
         connect(pan)
 
         let operation = AKPanner(input: oscillator)

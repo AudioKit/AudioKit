@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
         let sine = AKOscillator()
         connect(sine)
 
-        let position = AKOscillatingControl()
+        let position = AKOscillator()
         position.frequency = 0.5.ak
         connect(position)
 

@@ -13,10 +13,10 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let pulseWidthLine = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 10.ak)
+        let pulseWidthLine = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 10.ak)
         connect(pulseWidthLine)
 
-        let frequencyLine = AKLinearControl(firstPoint: 110.ak, secondPoint: 880.ak, durationBetweenPoints: 10.ak)
+        let frequencyLine = AKLine(firstPoint: 110.ak, secondPoint: 880.ak, durationBetweenPoints: 10.ak)
         connect(frequencyLine)
 
 

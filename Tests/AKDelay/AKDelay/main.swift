@@ -32,7 +32,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let feedbackLine = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 10.ak)
+        let feedbackLine = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 10.ak)
         connect(feedbackLine)
 
         let operation = AKDelay(input: audioSource, delayTime: 0.1.ak)

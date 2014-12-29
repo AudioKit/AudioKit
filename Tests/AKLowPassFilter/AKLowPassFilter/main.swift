@@ -28,7 +28,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let halfPower = AKLowFrequencyOscillatingControl()
+        let halfPower = AKLowFrequencyOscillator()
         halfPower.frequency = 0.5.ak
         connect(halfPower)
 

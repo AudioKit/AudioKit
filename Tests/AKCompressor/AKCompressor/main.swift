@@ -32,10 +32,10 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let compressionRatio = AKLinearControl(firstPoint: 0.5.ak, secondPoint: 2.ak, durationBetweenPoints: 11.ak)
+        let compressionRatio = AKLine(firstPoint: 0.5.ak, secondPoint: 2.ak, durationBetweenPoints: 11.ak)
         connect(compressionRatio)
 
-        let attackTime = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let attackTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(attackTime)
 
         let operation = AKCompressor(input: audioSource, controllingInput: audioSource)

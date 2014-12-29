@@ -35,7 +35,7 @@ class Processor : AKInstrument {
 
 
 
-        let reverbTime = AKLinearControl(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let reverbTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(reverbTime)
 
         let operation = AKParallelCombLowPassFilterReverb(input: audioSource)

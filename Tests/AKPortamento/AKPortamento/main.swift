@@ -13,7 +13,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let frequencyShifter = AKLowFrequencyOscillatingControl()
+        let frequencyShifter = AKLowFrequencyOscillator()
         frequencyShifter.type = AKLowFrequencyOscillatorType.BipolarSquare
         frequencyShifter.amplitude = 100.ak;
         frequencyShifter.frequency = 0.25.ak
