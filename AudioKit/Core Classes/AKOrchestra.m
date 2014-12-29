@@ -51,7 +51,7 @@
     }
 }
 
-+ (void)testForDuration:(int)duration
++ (void)testForDuration:(float)duration
 {
     [[AKManager sharedManager] setIsLogging:YES];
     if (![[AKManager sharedManager] isRunning]) {
