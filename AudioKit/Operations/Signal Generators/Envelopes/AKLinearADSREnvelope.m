@@ -1,18 +1,18 @@
 //
-//  AKLinearADSRAudioEnvelope.m
+//  AKLinearADSREnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's xadsr:
 //  http://www.csounds.com/manual/html/xadsr.html
 //
 
-#import "AKLinearADSRAudioEnvelope.h"
+#import "AKLinearADSREnvelope.h"
 #import "AKManager.h"
 
-@implementation AKLinearADSRAudioEnvelope
+@implementation AKLinearADSREnvelope
 
 - (instancetype)initWithAttackDuration:(AKConstant *)attackDuration
                          decayDuration:(AKConstant *)decayDuration
@@ -47,7 +47,7 @@
 
 + (instancetype)audio
 {
-    return [[AKLinearADSRAudioEnvelope alloc] init];
+    return [[AKLinearADSREnvelope alloc] init];
 }
 
 - (void)setOptionalAttackDuration:(AKConstant *)attackDuration {
