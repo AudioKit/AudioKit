@@ -2,7 +2,7 @@
 //  AKFoundation.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -51,8 +51,8 @@
 #import "AKFunctionTable.h"
 #import "AKLineSegments.h"
 #import "AKRandomDistributionTable.h"
-#import "AKWeightedSumOfSinusoids.h"
 #import "AKSoundFile.h"
+#import "AKWeightedSumOfSinusoids.h"
 #import "AKWindowsTable.h"
 
 // Operations - Function Tables - Loopers
@@ -90,20 +90,14 @@
 // Operations - Signal Generators
 
 // Operations - Signal Generators - Envelopes
-#import "AKADSRAudioEnvelope.h"
-#import "AKADSRControlEnvelope.h"
-#import "AKLinearADSRAudioEnvelope.h"
-#import "AKLinearADSRControlEnvelope.h"
-#import "AKLinearAudioEnvelope.h"
-#import "AKLinearControlEnvelope.h"
+#import "AKADSREnvelope.h"
+#import "AKLine.h"
+#import "AKLinearADSREnvelope.h"
+#import "AKLinearEnvelope.h"
 
 // Operations - Signal Generators - Granular Synthesis
 #import "AKGranularSynthesisTexture.h"
 #import "AKSinusoidBursts.h"
-
-// Operations - Signal Generators - Lines
-#import "AKLine.h"
-#import "AKLinearControl.h"
 
 // Operations - Signal Generators - Musical Controls
 #import "AKPortamento.h"
@@ -111,17 +105,10 @@
 
 // Operations - Signal Generators - Oscillators
 #import "AKFMOscillator.h"
-#import "AKOscillatingControl.h"
-#import "AKOscillator.h"
-#import "AKVCOscillator.h"
-
-// Operations - Signal Generators - Oscillators - Low Frequency Oscillators
-#import "AKLowFrequencyOscillatingControl.h"
 #import "AKLowFrequencyOscillator.h"
-
-// Operations - Signal Generators - Phasors
-#import "AKPhasingControl.h"
+#import "AKOscillator.h"
 #import "AKPhasor.h"
+#import "AKVCOscillator.h"
 
 // Operations - Signal Generators - Physical Models
 #import "AKMandolin.h"
@@ -150,8 +137,7 @@
 // Operations - Signal Generators - Random Generators
 #import "AKInterpolatedRandomNumberPulse.h"
 #import "AKJitter.h"
-#import "AKRandomAudio.h"
-#import "AKRandomControl.h"
+#import "AKRandomNumbers.h"
 
 // Operations - Signal Generators - Segment Arrays
 #import "AKAudioSegmentArray.h"
