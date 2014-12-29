@@ -2,7 +2,7 @@
 //  AKLowFrequencyOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
