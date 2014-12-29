@@ -11,6 +11,11 @@
 
 @implementation ContinuousControlConductor
 {
+    AKSequence *frequencySequence;
+    AKSequence *modulationIndexSequence;
+    AKEvent *randomizeFrequency;
+    AKEvent *randomizeModulationIndex;
+    
     NSTimer *frequencyTimer;
     NSTimer *modIndexTimer;
 }
@@ -19,6 +24,21 @@
 {
     self = [super init];
     if (self) {
+        frequencySequence = [[AKSequence alloc] init];
+        modulationIndexSequence = [[AKSequence alloc] init];
+        
+        randomizeFrequency = [[AKEvent alloc] initWithBlock:^{
+            [self.tweakableInstrument.frequency randomize];
+            [frequencySequence addEvent:randomizeFrequency afterDuration:3.0];
+        }];
+        randomizeModulationIndex = [[AKEvent alloc] initWithBlock:^{
+            [self.tweakableInstrument.modIndex randomize];
+            [modulationIndexSequence addEvent:randomizeModulationIndex afterDuration:0.2];
+        }];
+        
+        [frequencySequence addEvent:randomizeFrequency atTime:3.0];
+        [modulationIndexSequence addEvent:randomizeModulationIndex atTime:0.2];
+
         self.tweakableInstrument = [[TweakableInstrument alloc] init];
         [AKOrchestra addInstrument:_tweakableInstrument];
         [AKOrchestra start];
@@ -26,51 +46,21 @@
     return self;
 }
 
-- (id)schedule:(SEL)selector
-    afterDelay:(float)delayTime;
-{
-    return [NSTimer scheduledTimerWithTimeInterval:delayTime
-                                            target:self
-                                          selector:selector
-                                          userInfo:nil
-                                           repeats:YES];
-}
-
 - (void)start
 {
     [self.tweakableInstrument play];
     [self.tweakableInstrument.frequency randomize];
-
-    if (frequencyTimer) {
-        return;
-    } else {
-        frequencyTimer = [self schedule:@selector(randomizeFrequency:) afterDelay:3.0f];
-        modIndexTimer  = [self schedule:@selector(randomizeModIndex:)  afterDelay:0.2f];
-#if TARGET_OS_IPHONE
-#elif TARGET_OS_MAC
-        [[NSRunLoop currentRunLoop] addTimer:frequencyTimer forMode:NSEventTrackingRunLoopMode];
-        [[NSRunLoop currentRunLoop] addTimer:modIndexTimer  forMode:NSEventTrackingRunLoopMode];
-#endif
-    }
+    [frequencySequence play];
+    [modulationIndexSequence play];
 }
 
 - (void)stop
 {
     [self.tweakableInstrument stop];
-    [frequencyTimer invalidate];
-    frequencyTimer = nil;
-    [modIndexTimer invalidate];
-    modIndexTimer = nil;
+    [frequencySequence stop];
+    [modulationIndexSequence stop];
 }
 
-- (void)randomizeFrequency:(NSTimer *)timer
-{
-    [self.tweakableInstrument.frequency randomize];
-}
 
-- (void)randomizeModIndex:(NSTimer *)timer
-{
-    [self.tweakableInstrument.modIndex randomize];
-}
 
 @end
