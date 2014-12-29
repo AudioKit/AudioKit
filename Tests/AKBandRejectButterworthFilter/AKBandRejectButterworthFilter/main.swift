@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,10 +34,10 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let centerFrequency = AKLinearControl(firstPoint: 10000.ak, secondPoint: 0.ak, durationBetweenPoints: 11.ak)
+        let centerFrequency = AKLine(firstPoint: 10000.ak, secondPoint: 0.ak, durationBetweenPoints: testDuration.ak)
         connect(centerFrequency)
 
-        let bandwidth = AKLinearControl(firstPoint: 100.ak, secondPoint: 2000.ak, durationBetweenPoints: 11.ak)
+        let bandwidth = AKLine(firstPoint: 100.ak, secondPoint: 2000.ak, durationBetweenPoints: testDuration.ak)
         connect(bandwidth)
 
         let bandRejectFilter = AKBandRejectButterworthFilter(input: audioSource)
@@ -64,7 +66,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()
