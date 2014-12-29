@@ -31,7 +31,7 @@
 
 /// Test the orchestra for a specified time
 /// @param duration Testing run time in seconds
-+ (void)testForDuration:(int)duration;
++ (void)testForDuration:(float)duration;
 
 /// Add an instrument to the orchestra
 /// @param instrument Instrument to add to the orchestra
