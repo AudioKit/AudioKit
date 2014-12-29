@@ -38,21 +38,21 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let xLocation = AKLinearControl(
+        let xLocation = AKLine(
             firstPoint: 1.ak,
             secondPoint: 6.ak,
             durationBetweenPoints: testDuration.ak
         )
         connect(xLocation)
 
-        let yLocation = AKLinearControl(
+        let yLocation = AKLine(
             firstPoint: 1.ak,
             secondPoint: 4.ak,
             durationBetweenPoints: testDuration.ak
         )
         connect(yLocation)
 
-        let zLocation = AKLinearControl(
+        let zLocation = AKLine(
             firstPoint: 1.ak,
             secondPoint: 3.ak,
             durationBetweenPoints: testDuration.ak

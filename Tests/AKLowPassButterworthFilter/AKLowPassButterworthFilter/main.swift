@@ -32,7 +32,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let cutoffFrequency = AKLinearControl(firstPoint: 1000.ak, secondPoint: 0.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 1000.ak, secondPoint: 0.ak, durationBetweenPoints: 11.ak)
         connect(cutoffFrequency)
 
         let operation = AKLowPassButterworthFilter(input: audioSource)

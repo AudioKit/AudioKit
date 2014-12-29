@@ -12,10 +12,15 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
+        let phasingControl = AKPhasor()
+        phasingControl.frequency = 5.ak
+        connect(phasingControl)
 
-        let operation = AKPhasor()
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        let phasor = AKPhasor()
+        phasor.frequency = phasingControl.scaledBy(880.ak)
+        connect(phasor)
+        connect(AKAudioOutput(audioSource:phasor))
     }
 }
 

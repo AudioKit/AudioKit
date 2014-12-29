@@ -28,10 +28,10 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let line1 = AKLinearControl(firstPoint: 0.1.ak, secondPoint: 1.0.ak, durationBetweenPoints: 11.ak)
+        let line1 = AKLine(firstPoint: 0.1.ak, secondPoint: 1.0.ak, durationBetweenPoints: 11.ak)
         connect(line1)
 
-        let line2 = AKLinearControl(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
+        let line2 = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
         connect(line2)
 
         let operation = AKMoogLadder(input: audioSource)

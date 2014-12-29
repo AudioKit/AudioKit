@@ -15,7 +15,8 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let amplitude = AKOscillatingControl()
+        let amplitude = AKOscillator()
+        amplitude.frequency = 1.ak
         connect(amplitude)
 
         let oscillator = AKOscillator()

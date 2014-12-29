@@ -32,10 +32,10 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let frequencyLine = AKLinearControl(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: 11.ak)
+        let frequencyLine = AKLine(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: 11.ak)
         connect(frequencyLine)
 
-        let bandWidthLine = AKLinearControl(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        let bandWidthLine = AKLine(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
         connect(bandWidthLine)
 
         let operation = AKEqualizerFilter(input: audioSource)
