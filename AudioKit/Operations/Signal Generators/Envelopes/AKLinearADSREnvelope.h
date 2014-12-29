@@ -1,12 +1,12 @@
 //
-//  AKLinearADSRControlEnvelope.h
+//  AKLinearADSREnvelope.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKControl.h"
+#import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
 /** Calculates the classical ADSR envelope using linear segments.
@@ -14,8 +14,8 @@
  The envelope generated is the range 0 to 1 and may need to be scaled further, depending on the amplitude required. The length of the sustain is calculated from the length of the note. This means this operation is not suitable for use with MIDI events.
  */
 
-@interface AKLinearADSRControlEnvelope : AKControl
-/// Instantiates the linear adsr control envelope with all values
+@interface AKLinearADSREnvelope : AKAudio
+/// Instantiates the linear adsr envelope with all values
 /// @param attackDuration Duration of attack phase in seconds [Default Value: 0.1]
 /// @param decayDuration Duration of decay in seconds [Default Value: 0.1]
 /// @param sustainLevel Level for sustain phase [Default Value: 0.5]
@@ -27,11 +27,11 @@
                        releaseDuration:(AKConstant *)releaseDuration
                                  delay:(AKConstant *)delay;
 
-/// Instantiates the linear adsr control envelope with default values
+/// Instantiates the linear adsr envelope with default values
 - (instancetype)init;
 
-/// Instantiates the linear adsr control envelope with default values
-+ (instancetype)control;
+/// Instantiates the linear adsr envelope with default values
++ (instancetype)audio;
 
 
 /// Duration of attack phase in seconds [Default Value: 0.1]

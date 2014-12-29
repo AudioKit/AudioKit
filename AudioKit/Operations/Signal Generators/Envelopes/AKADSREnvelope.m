@@ -1,18 +1,18 @@
 //
-//  AKADSRControlEnvelope.m
+//  AKADSREnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
+//  Auto-generated on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's xadsr:
 //  http://www.csounds.com/manual/html/xadsr.html
 //
 
-#import "AKADSRControlEnvelope.h"
+#import "AKADSREnvelope.h"
 #import "AKManager.h"
 
-@implementation AKADSRControlEnvelope
+@implementation AKADSREnvelope
 
 - (instancetype)initWithAttackDuration:(AKConstant *)attackDuration
                          decayDuration:(AKConstant *)decayDuration
@@ -45,9 +45,9 @@
     return self;
 }
 
-+ (instancetype)control
++ (instancetype)audio
 {
-    return [[AKADSRControlEnvelope alloc] init];
+    return [[AKADSREnvelope alloc] init];
 }
 
 - (void)setOptionalAttackDuration:(AKConstant *)attackDuration {
