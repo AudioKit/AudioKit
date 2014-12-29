@@ -30,8 +30,9 @@
 @property (readonly) AKMidi *midi;
 
 /// Common table required by many applications
-@property AKWeightedSumOfSinusoids *standardSineWave;
+@property (nonatomic) AKWeightedSumOfSinusoids *standardSineWave;
 + (AKWeightedSumOfSinusoids *)standardSineWave;
+@property int numberOfSineWaveReferences;
 
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedManager;
