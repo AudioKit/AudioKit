@@ -41,12 +41,10 @@
                                   cepstrumCoefficients:nil];
         [self connect:fsig3];
         
-        AKFSignalMix *fsig4;
-        fsig4 = [[AKFSignalMix alloc] initWithInput1:fsig2 input2:fsig3];
+        AKFSignalMix *fsig4 = [[AKFSignalMix alloc] initWithInput1:fsig2 input2:fsig3];
         [self connect:fsig4];
         
-        AKAudioFromFSignal *a1;
-        a1 = [[AKAudioFromFSignal alloc] initWithSource:fsig4];
+        AKAudioFromFSignal *a1 = [[AKAudioFromFSignal alloc] initWithSource:fsig4];
         [self connect:a1];
         
         

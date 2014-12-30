@@ -21,7 +21,8 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
@@ -35,7 +36,8 @@
     [fx play];
 }
 
-- (IBAction)keyPressed:(id)sender {
+- (IBAction)keyPressed:(id)sender
+{
     NSArray *frequencies = @[@440, @466.16, @493.88, @523.25, @554.37, @587.33, @622.25, @659.26, @698.46, @739.99, @783.99, @830.61, @880];
     UILabel *key = (UILabel *)sender;
     NSInteger index = [key tag];
@@ -47,7 +49,8 @@
     [currentNotes setObject:note forKey:[NSNumber numberWithInt:(int)index]];
 }
 
-- (IBAction)keyReleased:(id)sender {
+- (IBAction)keyReleased:(id)sender
+{
     UILabel *key = (UILabel *)sender;
     NSInteger index = [key tag];
     if ((index == 1) || (index == 3) || (index == 6) || (index == 8) || (index == 10)) {
@@ -60,13 +63,13 @@
     [currentNotes removeObjectForKey:sender];
 }
 
-
-
-- (IBAction)reverbSliderValueChanged:(id)sender {
+- (IBAction)reverbSliderValueChanged:(id)sender
+{
     fx.reverb.value = [(UISlider *)sender value];
 }
 
-- (IBAction)toneColorSliderValueChanged:(id)sender {
+- (IBAction)toneColorSliderValueChanged:(id)sender
+{
     toneGenerator.toneColor.value = [(UISlider *)sender value];
 }
 

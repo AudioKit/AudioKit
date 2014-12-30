@@ -50,12 +50,14 @@
     [conductor stop];
 }
 
-- (IBAction)scaleAmplitude:(id)sender {
+- (IBAction)scaleAmplitude:(id)sender
+{
     [AKTools setProperty:conductor.tweakableInstrument.amplitude withSlider:(NSSlider *)sender];
     [AKTools setTextField:amplitudeLabel withProperty:conductor.tweakableInstrument.amplitude];
 }
 
-- (IBAction)scaleModulation:(id)sender {
+- (IBAction)scaleModulation:(id)sender
+{
     [AKTools setProperty:conductor.tweakableInstrument.modulation withSlider:(NSSlider *)sender];
     [AKTools setTextField:modulationLabel withProperty:conductor.tweakableInstrument.modulation];
 }

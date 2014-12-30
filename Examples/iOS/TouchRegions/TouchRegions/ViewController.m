@@ -31,8 +31,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self.leftView addObserver:self forKeyPath:@"horizontalPercentage"  options:NSKeyValueObservingOptionNew context:Nil];
-    [self.leftView addObserver:self forKeyPath:@"verticalPercentage"    options:NSKeyValueObservingOptionNew context:Nil];
+    [self.leftView addObserver:self  forKeyPath:@"horizontalPercentage" options:NSKeyValueObservingOptionNew context:Nil];
+    [self.leftView addObserver:self  forKeyPath:@"verticalPercentage"   options:NSKeyValueObservingOptionNew context:Nil];
     [self.rightView addObserver:self forKeyPath:@"horizontalPercentage" options:NSKeyValueObservingOptionNew context:Nil];
     [self.rightView addObserver:self forKeyPath:@"verticalPercentage"   options:NSKeyValueObservingOptionNew context:Nil];
     

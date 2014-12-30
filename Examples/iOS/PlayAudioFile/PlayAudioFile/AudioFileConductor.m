@@ -27,7 +27,8 @@
     return self;
 }
 
-- (IBAction)touchPlayButton:(id)sender {
+- (IBAction)touchPlayButton:(id)sender
+{
     AudioFilePlayerNote *note = [[AudioFilePlayerNote alloc] init];
     [note.speed randomize];
     note.duration.value = 4.0; //seconds maximum
