@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 11.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,14 +34,20 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let cutoffFrequency = AKLine(firstPoint: 1.ak, secondPoint: 4000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 1.ak, secondPoint: 4000.ak, durationBetweenPoints: testDuration.ak)
         connect(cutoffFrequency)
 
-        let operation = AKHighPassFilter(input: audioSource)
-        operation.cutoffFrequency = cutoffFrequency
-        connect(operation)
+        let highPassFilter = AKHighPassFilter(input: audioSource)
+        highPassFilter.cutoffFrequency = cutoffFrequency
+        connect(highPassFilter)
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: highPassFilter.cutoffFrequency,
+            frequency:0.1
+        )
+        
+        connect(AKAudioOutput(audioSource:highPassFilter))
     }
 }
 
