@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -19,7 +21,10 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         connect(audio)
 
-        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        let mono = AKMixedAudio(
+            signal1: audio.leftOutput,
+            signal2: audio.rightOutput,
+            balance: 0.5.ak)
         connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
@@ -33,14 +38,24 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let cutoffFrequency = AKLine(firstPoint: 200.ak, secondPoint: 6000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(
+            firstPoint: 200.ak,
+            secondPoint: 6000.ak,
+            durationBetweenPoints: testDuration.ak
+        )
         connect(cutoffFrequency)
 
-        let operation = AKMoogVCF(input: audioSource)
-        operation.cutoffFrequency = cutoffFrequency
-        connect(operation)
+        let moogVCF = AKMoogVCF(input: audioSource)
+        moogVCF.cutoffFrequency = cutoffFrequency
+        connect(moogVCF)
+        
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: moogVCF.cutoffFrequency,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:moogVCF))
     }
 }
 
@@ -49,7 +64,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()
