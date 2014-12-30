@@ -45,13 +45,13 @@ class Processor : AKInstrument {
         connect(balance)
 
         enableParameterLog(
-            "Cutoff Frequency = ",
+            "Center Frequency = ",
             parameter: resonantFilter.centerFrequency,
             frequency:0.1
         )
         
         enableParameterLog(
-            "Cutoff Frequency = ",
+            "Bandwidth = ",
             parameter: resonantFilter.bandwidth,
             frequency:0.1
         )

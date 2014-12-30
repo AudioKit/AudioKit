@@ -45,7 +45,7 @@ class Processor : AKInstrument {
         connect(reverb)
         
         enableParameterLog(
-            "Cutoff Frequency = ",
+            "Feedback = ",
             parameter: reverb.feedback,
             frequency:0.1
         )
