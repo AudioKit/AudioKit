@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,19 +34,31 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let compressionRatio = AKLine(firstPoint: 0.5.ak, secondPoint: 2.ak, durationBetweenPoints: 11.ak)
+        let compressionRatio = AKLine(firstPoint: 0.5.ak, secondPoint: 2.ak, durationBetweenPoints: testDuration.ak)
         connect(compressionRatio)
 
-        let attackTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let attackTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
         connect(attackTime)
 
-        let operation = AKCompressor(input: audioSource, controllingInput: audioSource)
-        operation.compressionRatio = compressionRatio
-        operation.attackTime = attackTime
-        connect(operation)
+        let compressor = AKCompressor(input: audioSource, controllingInput: audioSource)
+        compressor.compressionRatio = compressionRatio
+        compressor.attackTime = attackTime
+        connect(compressor)
 
-        let output = AKBalance(input: operation, comparatorAudioSource: audioSource)
+        let output = AKBalance(input: compressor, comparatorAudioSource: audioSource)
         connect(output)
+        
+        enableParameterLog(
+            "Compression Ratio = ",
+            parameter: compressor.compressionRatio,
+            frequency:0.1
+        )
+        
+        enableParameterLog(
+            "Attack Time = ",
+            parameter: compressor.attackTime,
+            frequency:0.1
+        )
 
         connect(AKAudioOutput(audioSource:output))
     }
