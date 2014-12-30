@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -28,19 +30,31 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let centerFrequency = AKLine(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
+        let centerFrequency = AKLine(firstPoint: 220.ak, secondPoint: 3000.ak, durationBetweenPoints: testDuration.ak)
         connect(centerFrequency)
 
-        let bandwidth = AKLine(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        let bandwidth = AKLine(firstPoint: 10.ak, secondPoint: 100.ak, durationBetweenPoints: testDuration.ak)
         connect(bandwidth)
 
-        let operation = AKResonantFilter(audioSource: audioSource)
-        operation.centerFrequency = centerFrequency
-        operation.bandwidth = bandwidth
-        connect(operation)
+        let resonantFilter = AKResonantFilter(audioSource: audioSource)
+        resonantFilter.centerFrequency = centerFrequency
+        resonantFilter.bandwidth = bandwidth
+        connect(resonantFilter)
 
-        let balance = AKBalance(input: operation, comparatorAudioSource: audioSource)
+        let balance = AKBalance(input: resonantFilter, comparatorAudioSource: audioSource)
         connect(balance)
+
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: resonantFilter.centerFrequency,
+            frequency:0.1
+        )
+        
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: resonantFilter.bandwidth,
+            frequency:0.1
+        )
 
         connect(AKAudioOutput(audioSource:balance))
     }
