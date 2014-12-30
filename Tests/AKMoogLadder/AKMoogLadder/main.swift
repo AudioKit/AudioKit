@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -28,18 +30,28 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let line1 = AKLine(firstPoint: 0.1.ak, secondPoint: 1.0.ak, durationBetweenPoints: 11.ak)
-        connect(line1)
+        let resonance = AKLine(firstPoint: 0.1.ak, secondPoint: 1.0.ak, durationBetweenPoints: testDuration.ak)
+        connect(resonance)
 
-        let line2 = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
-        connect(line2)
+        let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: testDuration.ak)
+        connect(cutoffFrequency)
 
-        let operation = AKMoogLadder(input: audioSource)
-        operation.resonance = line1
-        operation.cutoffFrequency = line2
-        connect(operation)
+        let moogLadder = AKMoogLadder(input: audioSource)
+        moogLadder.resonance = resonance
+        moogLadder.cutoffFrequency = cutoffFrequency
+        connect(moogLadder)
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Resonance = ",
+            parameter: moogLadder.resonance,
+            frequency:0.1)
+        
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: moogLadder.cutoffFrequency,
+            frequency:0.1)
+        
+        connect(AKAudioOutput(audioSource:moogLadder))
     }
 }
 
