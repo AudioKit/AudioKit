@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,18 +34,21 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-
-
-
-        let reverbTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let reverbTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
         connect(reverbTime)
 
-        let operation = AKParallelCombLowPassFilterReverb(input: audioSource)
-        operation.duration = reverbTime
+        let paralleltCombLowPassFilterReverb = AKParallelCombLowPassFilterReverb(input: audioSource)
+        paralleltCombLowPassFilterReverb.duration = reverbTime
 
-        connect(operation)
+        connect(paralleltCombLowPassFilterReverb)
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Duration = ",
+            parameter: paralleltCombLowPassFilterReverb.duration,
+            frequency:0.1
+        )
+
+        connect(AKAudioOutput(audioSource:paralleltCombLowPassFilterReverb))
     }
 }
 
