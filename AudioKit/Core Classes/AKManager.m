@@ -96,8 +96,8 @@ static AKManager *_sharedManager = nil;
         
 //        "-+rtmidi=null    ; Disable the use of any realtime midi plugin\n"
 //        "-+rtaudio=null   ; Disable the use of any realtime audio plugin\n"
+//        "-+msg_color=0    ; Disable message attributes\n"
         options = @"-o dac           ; Write sound to the host audio output\n"
-                   "-+msg_color=0    ; Disable message attributes\n"
                    "--expression-opt ; Enable expression optimizations\n"
                    "-m0              ; Print raw amplitudes\n"
                    "-i adc           ; Request sound from the host audio input device";
