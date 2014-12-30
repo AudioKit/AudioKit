@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,15 +34,21 @@ class Processor : AKInstrument {
      init(audioSource: AKAudio) {
         super.init()
 
-        let reverbDuration = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let reverbDuration = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
         connect(reverbDuration)
 
-        let operation = AKFlatFrequencyResponseReverb(input: audioSource)
-        operation.reverbDuration = reverbDuration
+        let flatFrequencyResponseReverb = AKFlatFrequencyResponseReverb(input: audioSource)
+        flatFrequencyResponseReverb.reverbDuration = reverbDuration
 
-        connect(operation)
+        connect(flatFrequencyResponseReverb)
+        
+        enableParameterLog(
+            "Reverb Duration = ",
+            parameter: flatFrequencyResponseReverb.reverbDuration,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:flatFrequencyResponseReverb))
     }
 }
 
