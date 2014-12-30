@@ -60,7 +60,7 @@
         
         // AUDIO OUTPUT ========================================================
         
-        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:(grainTexture)];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:grainTexture];
         [self connect:audio];
     }
     return self;

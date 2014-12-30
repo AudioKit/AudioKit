@@ -41,11 +41,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)updateSliders {
-    [AKTools setSlider:self.averageGrainDurationSlider withProperty:granularInstrument.averageGrainDuration];
-    [AKTools setSlider:self.grainDensitySlider         withProperty:granularInstrument.grainDensity];
-    [AKTools setSlider:self.freqDevSlider              withProperty:granularInstrument.granularFrequencyDeviation];
-    [AKTools setSlider:self.amplitudeSlider            withProperty:granularInstrument.granularAmplitude];
+- (void)updateSliders
+{
+    [AKTools setSlider:self.averageGrainDurationSlider
+          withProperty:granularInstrument.averageGrainDuration];
+    [AKTools setSlider:self.grainDensitySlider
+          withProperty:granularInstrument.grainDensity];
+    [AKTools setSlider:self.freqDevSlider
+          withProperty:granularInstrument.granularFrequencyDeviation];
+    [AKTools setSlider:self.amplitudeSlider
+          withProperty:granularInstrument.granularAmplitude];
 }
 
 - (IBAction)toggleGranularInstrument:(id)sender
@@ -61,22 +66,26 @@
 
 - (IBAction)averageGrainDurationControl:(id)sender
 {
-    [AKTools setProperty:granularInstrument.averageGrainDuration withSlider:(UISlider *)sender];
+    [AKTools setProperty:granularInstrument.averageGrainDuration
+              withSlider:(UISlider *)sender];
 }
 
 - (IBAction)grainDensityControl:(id)sender
 {
-    [AKTools setProperty:granularInstrument.grainDensity withSlider:(UISlider *)sender];
+    [AKTools setProperty:granularInstrument.grainDensity
+              withSlider:(UISlider *)sender];
 }
 
 - (IBAction)freqDevControl:(id)sender
 {
-    [AKTools setProperty:granularInstrument.granularFrequencyDeviation withSlider:(UISlider *)sender];
+    [AKTools setProperty:granularInstrument.granularFrequencyDeviation
+              withSlider:(UISlider *)sender];
 }
 
 - (IBAction)amplitudeControl:(id)sender
 {
-    [AKTools setProperty:granularInstrument.granularAmplitude withSlider:(UISlider *)sender];
+    [AKTools setProperty:granularInstrument.granularAmplitude
+              withSlider:(UISlider *)sender];
 }
 
 @end

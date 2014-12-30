@@ -61,6 +61,4 @@
     [modulationIndexSequence stop];
 }
 
-
-
 @end
