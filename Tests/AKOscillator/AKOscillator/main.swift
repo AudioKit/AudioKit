@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -21,12 +23,18 @@ class Instrument : AKInstrument {
         oscillator.frequency = oscillatingControl.scaledBy(110.ak).plus(440.ak)
         connect(oscillator)
         connect(AKAudioOutput(audioSource:oscillator))
+        
+        enableParameterLog(
+            "Frequency = ",
+            parameter: oscillator.frequency,
+            frequency:0.1
+        )
     }
 }
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 
