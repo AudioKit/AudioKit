@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -34,15 +36,27 @@ class Processor : AKInstrument {
         let feedback = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
         connect(feedback)
 
-        let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: testDuration.ak)
         connect(cutoffFrequency)
 
-        let operation = AKReverb(audioSourceLeftChannel: audioSource, audioSourceRightChannel: audioSource)
-        operation.feedback = 0.95.ak
-        operation.cutoffFrequency = cutoffFrequency
-        connect(operation)
+        let reverb = AKReverb(audioSourceLeftChannel: audioSource, audioSourceRightChannel: audioSource)
+        reverb.feedback = 0.95.ak
+        reverb.cutoffFrequency = cutoffFrequency
+        connect(reverb)
+        
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: reverb.feedback,
+            frequency:0.1
+        )
+        
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: reverb.cutoffFrequency,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(stereoAudioSource:operation))
+        connect(AKAudioOutput(stereoAudioSource:reverb))
     }
 }
 
