@@ -41,9 +41,9 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: lowPassFilter.halfPowerPoint,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         connect(AKAudioOutput(audioSource:lowPassFilter))
     }
 }

@@ -17,24 +17,24 @@ class Instrument : AKInstrument {
         let note = CabasaNote()
         addNoteProperty(note.count)
         addNoteProperty(note.dampingFactor)
-        
+
         let cabasa = AKCabasa()
         cabasa.count = note.count
         cabasa.dampingFactor = note.dampingFactor
         connect(cabasa)
-        
+
         enableParameterLog(
             "Count = ",
             parameter: cabasa.count,
-            frequency:2
+            timeInterval:2
         )
-        
+
         enableParameterLog(
             "Damping Factor = ",
             parameter: cabasa.dampingFactor,
-            frequency:2
+            timeInterval:2
         )
-        
+
         connect(AKAudioOutput(audioSource:cabasa))
     }
 }
@@ -42,13 +42,13 @@ class Instrument : AKInstrument {
 class CabasaNote: AKNote {
     var count = AKNoteProperty()
     var dampingFactor = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(count)
         addProperty(dampingFactor)
     }
-    
+
     convenience init(count: Int, dampingFactor: Float) {
         self.init()
         self.count.setValue(Float(count))

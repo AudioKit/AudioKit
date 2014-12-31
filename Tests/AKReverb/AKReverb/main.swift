@@ -43,17 +43,17 @@ class Processor : AKInstrument {
         reverb.feedback = 0.95.ak
         reverb.cutoffFrequency = cutoffFrequency
         connect(reverb)
-        
+
         enableParameterLog(
             "Feedback = ",
             parameter: reverb.feedback,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: reverb.cutoffFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(stereoAudioSource:reverb))

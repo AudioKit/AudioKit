@@ -46,11 +46,11 @@ class Processor : AKInstrument {
 
         let mix = AKMixedAudio(signal1: audioSource, signal2: flanger, balance: 0.5.ak)
         connect(mix)
-        
+
         enableParameterLog(
             "Feedback = ",
             parameter: flanger.feedback,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:mix))

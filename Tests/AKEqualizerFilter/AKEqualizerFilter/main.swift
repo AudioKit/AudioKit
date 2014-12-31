@@ -45,17 +45,17 @@ class Processor : AKInstrument {
         equalizerFilter.bandwidth = bandWidthLine
         equalizerFilter.gain = 100.ak
         connect(equalizerFilter)
-        
+
         enableParameterLog(
             "Center Frequency = ",
             parameter: equalizerFilter.centerFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Bandwidth = ",
             parameter: equalizerFilter.bandwidth,
-            frequency:1.0
+            timeInterval:1.0
         )
 
         let output = AKBalance(input: equalizerFilter, comparatorAudioSource: audioSource)

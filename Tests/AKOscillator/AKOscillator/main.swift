@@ -14,7 +14,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let oscillatingControl = AKOscillator()
         oscillatingControl.frequency = 2.ak
         connect(oscillatingControl)
@@ -23,11 +23,11 @@ class Instrument : AKInstrument {
         oscillator.frequency = oscillatingControl.scaledBy(110.ak).plus(440.ak)
         connect(oscillator)
         connect(AKAudioOutput(audioSource:oscillator))
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: oscillator.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
     }
 }

@@ -41,11 +41,11 @@ class Processor : AKInstrument {
         flatFrequencyResponseReverb.reverbDuration = reverbDuration
 
         connect(flatFrequencyResponseReverb)
-        
+
         enableParameterLog(
             "Reverb Duration = ",
             parameter: flatFrequencyResponseReverb.reverbDuration,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:flatFrequencyResponseReverb))

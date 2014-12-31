@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
 
         let line = AKLine()
         connect(line)
-        enableParameterLog("line value = ", parameter: line, frequency:0.5)
+        enableParameterLog("line value = ", parameter: line, timeInterval:0.5)
 
         let oscillator = AKOscillator()
         oscillator.frequency = line.scaledBy(100.ak)

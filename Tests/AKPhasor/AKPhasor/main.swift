@@ -14,7 +14,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let phasingControl = AKPhasor()
         phasingControl.frequency = 5.ak
         connect(phasingControl)
@@ -23,11 +23,11 @@ class Instrument : AKInstrument {
         phasor.frequency = phasingControl.scaledBy(880.ak)
         connect(phasor)
         connect(AKAudioOutput(audioSource:phasor))
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: phasor.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
     }
 }

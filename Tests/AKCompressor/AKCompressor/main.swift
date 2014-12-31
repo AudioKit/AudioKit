@@ -47,17 +47,17 @@ class Processor : AKInstrument {
 
         let output = AKBalance(input: compressor, comparatorAudioSource: audioSource)
         connect(output)
-        
+
         enableParameterLog(
             "Compression Ratio = ",
             parameter: compressor.compressionRatio,
-            frequency:0.2
+            timeInterval:0.2
         )
-        
+
         enableParameterLog(
             "Attack Time = ",
             parameter: compressor.attackTime,
-            frequency:0.2
+            timeInterval:0.2
         )
 
         connect(AKAudioOutput(audioSource:output))

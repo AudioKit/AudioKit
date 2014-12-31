@@ -40,11 +40,11 @@ class Processor : AKInstrument {
         let delay = AKDelay(input: audioSource, delayTime: 0.1.ak)
         delay.feedback = feedbackLine
         connect(delay)
-        
+
         enableParameterLog(
             "Feedback = ",
             parameter: delay.feedback,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         let mix = AKMixedAudio(signal1: audioSource, signal2: delay, balance: 0.5.ak)

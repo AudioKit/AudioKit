@@ -18,16 +18,16 @@ class Instrument : AKInstrument {
         let crunch = AKCrunch()
         connect(crunch)
         connect(AKAudioOutput(audioSource:crunch))
-        
+
         enableParameterLog(
             "Count = ",
             parameter: crunch.intensity,
-            frequency:1
+            timeInterval:1
         )
         enableParameterLog(
             "Damping Factor = ",
             parameter: crunch.dampingFactor,
-            frequency:1
+            timeInterval:1
         )
     }
 }

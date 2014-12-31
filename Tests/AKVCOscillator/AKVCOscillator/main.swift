@@ -31,16 +31,16 @@ class Instrument : AKInstrument {
         enableParameterLog(
             "Pulse Width = ",
             parameter: vcOscillator.pulseWidth,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: vcOscillator.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
-        
+
+
         connect(AKAudioOutput(audioSource:vcOscillator))
     }
 }

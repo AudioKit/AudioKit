@@ -103,10 +103,10 @@
 /// Log parameter values at a given frequency with a message.
 /// @param message   Message to print first. Usually something like "myParameter = "
 /// @param parameter The parameter to log the float value of
-/// @param frequency How often to print out the log, in Hz
+/// @param timeInterval Time in seconds between printouts.
 - (void)enableParameterLog:(NSString *)message
                  parameter:(AKParameter *)parameter
-                 frequency:(float)frequency;
+              timeInterval:(float)timeInterval;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
