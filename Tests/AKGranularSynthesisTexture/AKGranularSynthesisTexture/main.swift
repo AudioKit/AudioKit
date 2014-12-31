@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -36,18 +38,49 @@ class Instrument : AKInstrument {
         let maximumFrequencyDeviationLine = AKLine(firstPoint: 0.ak, secondPoint: 0.1.ak, durationBetweenPoints: 10.ak)
         connect(maximumFrequencyDeviationLine)
 
-        let operation = AKGranularSynthesisTexture(
+        let granularSynthesisTexture = AKGranularSynthesisTexture(
             grainFunctionTable: soundfile,
             windowFunctionTable: hamming
         )
-        operation.grainFrequency = baseFrequency
-        operation.grainDensity = grainDensityLine
-        operation.averageGrainDuration = grainDurationLine
-        operation.maximumFrequencyDeviation = maximumFrequencyDeviationLine
-        operation.grainAmplitude = grainAmplitudeLine
-        connect(operation)
+        granularSynthesisTexture.grainFrequency = baseFrequency
+        granularSynthesisTexture.grainDensity = grainDensityLine
+        granularSynthesisTexture.averageGrainDuration = grainDurationLine
+        granularSynthesisTexture.maximumFrequencyDeviation = maximumFrequencyDeviationLine
+        granularSynthesisTexture.grainAmplitude = grainAmplitudeLine
+        connect(granularSynthesisTexture)
+        
+        enableParameterLog(
+            "Grain Frequency = ",
+            parameter: granularSynthesisTexture.grainFrequency,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Grain Density = ",
+            parameter: granularSynthesisTexture.grainDensity,
+            frequency:0.1
+        )
+
+        enableParameterLog(
+            "Average Grain Duration = ",
+            parameter: granularSynthesisTexture.averageGrainDuration,
+            frequency:0.1
+        )
+
+        enableParameterLog(
+            "Maximum Frequency Deviation = ",
+            parameter: granularSynthesisTexture.maximumFrequencyDeviation,
+            frequency:0.1
+        )
+
+        enableParameterLog(
+            "Grain Amplitude  = ",
+            parameter: granularSynthesisTexture.grainAmplitude,
+            frequency:0.1
+        )
+
+
+        connect(AKAudioOutput(audioSource:granularSynthesisTexture))
     }
 }
 

@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -28,22 +30,40 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let distortion = AKLine(firstPoint: 0.1.ak, secondPoint: 0.9.ak, durationBetweenPoints: 11.ak)
+        let distortion = AKLine(firstPoint: 0.1.ak, secondPoint: 0.9.ak, durationBetweenPoints: testDuration.ak)
         connect(distortion)
 
-        let cutoffFrequency = AKLine(firstPoint: 300.ak, secondPoint: 3000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 300.ak, secondPoint: 3000.ak, durationBetweenPoints: testDuration.ak)
         connect(cutoffFrequency)
 
-        let resonance = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 11.ak)
+        let resonance = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
         connect(resonance)
 
-        let operation = AKThreePoleLowpassFilter(input: audioSource)
-        operation.distortion = distortion
-        operation.cutoffFrequency = cutoffFrequency
-        operation.resonance = resonance
-        connect(operation)
+        let threePoleLowpassFilter = AKThreePoleLowpassFilter(input: audioSource)
+        threePoleLowpassFilter.distortion = distortion
+        threePoleLowpassFilter.cutoffFrequency = cutoffFrequency
+        threePoleLowpassFilter.resonance = resonance
+        connect(threePoleLowpassFilter)
+        
+        enableParameterLog(
+            "Distortion = ",
+            parameter: threePoleLowpassFilter.distortion,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: threePoleLowpassFilter.cutoffFrequency,
+            frequency:0.1
+        )
+        
+        enableParameterLog(
+            "Resonance = ",
+            parameter: threePoleLowpassFilter.resonance,
+            frequency:0.1
+        )
+        
+        connect(AKAudioOutput(audioSource:threePoleLowpassFilter))
     }
 }
 
@@ -52,7 +72,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()

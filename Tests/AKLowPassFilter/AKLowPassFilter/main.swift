@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,11 +34,17 @@ class Processor : AKInstrument {
         halfPower.frequency = 0.5.ak
         connect(halfPower)
 
-        let operation = AKLowPassFilter(audioSource: audioSource)
-        operation.halfPowerPoint = halfPower.scaledBy(500.ak).plus(500.ak)
-        connect(operation)
+        let lowPassFilter = AKLowPassFilter(audioSource: audioSource)
+        lowPassFilter.halfPowerPoint = halfPower.scaledBy(500.ak).plus(500.ak)
+        connect(lowPassFilter)
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: lowPassFilter.halfPowerPoint,
+            frequency:0.1
+        )
+        
+        connect(AKAudioOutput(audioSource:lowPassFilter))
     }
 }
 
@@ -45,7 +53,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()

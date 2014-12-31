@@ -2,25 +2,33 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/21/14.
+//  Created by Nick Arner and Aurelius Prochazka on 12/21/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
     override init() {
         super.init()
 
-        let operation = AKVibrato()
-        operation.averageAmplitude = 20.ak
-        connect(operation)
+        let vibrato = AKVibrato()
+        vibrato.averageAmplitude = 20.ak
+        connect(vibrato)
 
         let sine = AKOscillator()
-        sine.frequency = 440.ak.plus(operation)
+        sine.frequency = 440.ak.plus(vibrato)
         connect(sine)
-
+        
+        enableParameterLog(
+            "Frequency = ",
+            parameter: sine.frequency,
+            frequency:0.1
+        )
+        
         connect(AKAudioOutput(audioSource:sine))
     }
 }
@@ -29,7 +37,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 
