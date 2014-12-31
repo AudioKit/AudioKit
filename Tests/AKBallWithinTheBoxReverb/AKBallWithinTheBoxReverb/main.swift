@@ -59,16 +59,34 @@ class Processor : AKInstrument {
         )
         connect(zLocation)
 
-        let operation = AKBallWithinTheBoxReverb(input: audioSource)
-        operation.xLocation = xLocation
-        operation.yLocation = yLocation
-        operation.zLocation = zLocation
-        operation.diffusion = 0.0.ak
-        connect(operation)
+        let ballWithinTheBoxReverb = AKBallWithinTheBoxReverb(input: audioSource)
+        ballWithinTheBoxReverb.xLocation = xLocation
+        ballWithinTheBoxReverb.yLocation = yLocation
+        ballWithinTheBoxReverb.zLocation = zLocation
+        ballWithinTheBoxReverb.diffusion = 0.0.ak
+        connect(ballWithinTheBoxReverb)
 
+        enableParameterLog(
+            "X Location = ",
+            parameter: ballWithinTheBoxReverb.xLocation,
+            frequency:0.3
+        )
+        
+        enableParameterLog(
+            "Y Location = ",
+            parameter: ballWithinTheBoxReverb.yLocation,
+            frequency:0.3
+        )
+        
+        enableParameterLog(
+            "Z Location = ",
+            parameter: ballWithinTheBoxReverb.zLocation,
+            frequency:0.3
+        )
+        
         let mix = AKMixedAudio(
             signal1: audioSource,
-            signal2: operation.leftOutput,
+            signal2: ballWithinTheBoxReverb.leftOutput,
             balance: 0.1.ak
         )
         connect(mix)
