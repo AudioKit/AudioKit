@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 11.0
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
@@ -26,12 +26,13 @@ class Instrument : AKInstrument {
         enableParameterLog(
             "Count = ",
             parameter: cabasa.count,
-            frequency:1
+            frequency:2
         )
+        
         enableParameterLog(
             "Damping Factor = ",
             parameter: cabasa.dampingFactor,
-            frequency:1
+            frequency:2
         )
         
         connect(AKAudioOutput(audioSource:cabasa))
