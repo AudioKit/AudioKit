@@ -47,13 +47,13 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Center Frequency = ",
             parameter: resonantFilter.centerFrequency,
-            timeInterval:0.1
+            timeInterval:0.2
         )
 
         enableParameterLog(
             "Bandwidth = ",
             parameter: resonantFilter.bandwidth,
-            timeInterval:0.1
+            timeInterval:0.2
         )
 
         connect(AKAudioOutput(audioSource:balance))
