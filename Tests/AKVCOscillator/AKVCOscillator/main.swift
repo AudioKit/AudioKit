@@ -2,11 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/24/14.
+//  Created by Nick Arner and Aurelius Prochazka on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
@@ -20,13 +22,26 @@ class Instrument : AKInstrument {
         connect(frequencyLine)
 
 
-        let operation = AKVCOscillator()
-        operation.waveformType = AKVCOscillatorWaveformType.SquarePWM
-        operation.pulseWidth = pulseWidthLine
-        operation.frequency = frequencyLine
-        connect(operation)
+        let vcOscillator = AKVCOscillator()
+        vcOscillator.waveformType = AKVCOscillatorWaveformType.SquarePWM
+        vcOscillator.pulseWidth = pulseWidthLine
+        vcOscillator.frequency = frequencyLine
+        connect(vcOscillator)
 
-        connect(AKAudioOutput(audioSource:operation))
+        enableParameterLog(
+            "Pulse Width = ",
+            parameter: vcOscillator.pulseWidth,
+            frequency:0.1
+        )
+        
+        enableParameterLog(
+            "Frequency = ",
+            parameter: vcOscillator.frequency,
+            frequency:0.1
+        )
+        
+        
+        connect(AKAudioOutput(audioSource:vcOscillator))
     }
 }
 
@@ -34,7 +49,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 
