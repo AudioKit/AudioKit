@@ -2,11 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/28/14.
+//  Created by Nick Arner and Aurelius Prochazka on 12/28/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
@@ -18,15 +20,21 @@ class Instrument : AKInstrument {
         let soundFile = AKSoundFile(filename: filename)
         connect(soundFile)
 
-        let speed = AKLine(firstPoint: 10.ak, secondPoint: 0.2.ak, durationBetweenPoints: 10.ak)
+        let speed = AKLine(firstPoint: 10.ak, secondPoint: 0.2.ak, durationBetweenPoints: testDuration.ak)
         connect(speed)
 
-        let operation = AKMonoSoundFileLooper(soundFile: soundFile)
-        operation.frequencyRatio = speed
-        operation.loopMode = AKSoundFileLooperMode.Normal
-        connect(operation)
+        let monoSoundFileLooper = AKMonoSoundFileLooper(soundFile: soundFile)
+        monoSoundFileLooper.frequencyRatio = speed
+        monoSoundFileLooper.loopMode = AKSoundFileLooperMode.Normal
+        connect(monoSoundFileLooper)
+        
+        enableParameterLog(
+            "Speed = ",
+            parameter: monoSoundFileLooper.frequencyRatio,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:monoSoundFileLooper))
     }
 }
 
@@ -34,7 +42,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 

@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 11.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
@@ -32,14 +34,20 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let cutoffFrequency = AKLine(firstPoint: 0.ak, secondPoint: 5000.ak, durationBetweenPoints: 11.ak)
+        let cutoffFrequency = AKLine(firstPoint: 0.ak, secondPoint: 5000.ak, durationBetweenPoints: testDuration.ak)
         connect(cutoffFrequency)
 
-        let operation = AKHighPassButterworthFilter(input: audioSource)
-        operation.cutoffFrequency = cutoffFrequency
-        connect(operation)
+        let line = AKHighPassButterworthFilter(input: audioSource)
+        line.cutoffFrequency = cutoffFrequency
+        connect(line)
+        
+        enableParameterLog(
+            "Cutoff Frequency = ",
+            parameter: line.cutoffFrequency,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:line))
     }
 }
 
@@ -48,7 +56,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()

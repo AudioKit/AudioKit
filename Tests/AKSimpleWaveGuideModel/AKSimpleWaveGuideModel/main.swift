@@ -2,11 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/30/14.
+//  Created by Nick Arner and Aurelius Prochazka on 11/30/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
@@ -26,7 +28,7 @@ class Instrument : AKInstrument {
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 

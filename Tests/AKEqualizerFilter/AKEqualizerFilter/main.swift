@@ -34,7 +34,7 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let frequencyLine = AKLine(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: 11.ak)
+        let frequencyLine = AKLine(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: testDuration.ak)
         connect(frequencyLine)
 
         let bandWidthLine = AKLine(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: testDuration.ak)
@@ -70,7 +70,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()
