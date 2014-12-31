@@ -51,13 +51,13 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Compression Ratio = ",
             parameter: compressor.compressionRatio,
-            frequency:0.1
+            frequency:0.2
         )
         
         enableParameterLog(
             "Attack Time = ",
             parameter: compressor.attackTime,
-            frequency:0.1
+            frequency:0.2
         )
 
         connect(AKAudioOutput(audioSource:output))
