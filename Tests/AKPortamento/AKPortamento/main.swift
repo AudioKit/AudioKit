@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -19,13 +21,19 @@ class Instrument : AKInstrument {
         frequencyShifter.frequency = 0.25.ak
         connect(frequencyShifter)
 
-        let operation = AKPortamento(input: frequencyShifter)
-        connect(operation)
+        let portamento = AKPortamento(input: frequencyShifter)
+        connect(portamento)
 
         let sine = AKOscillator()
-        sine.frequency  = operation.plus(880.ak)
+        sine.frequency  = portamento.plus(880.ak)
         connect(sine)
-
+        
+        enableParameterLog(
+            "Frequency = ",
+            parameter: sine.frequency,
+            frequency:0.1
+        )
+        
         connect(AKAudioOutput(audioSource:sine))
     }
 }
@@ -35,7 +43,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 
