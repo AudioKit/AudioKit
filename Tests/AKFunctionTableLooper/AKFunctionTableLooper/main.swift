@@ -2,11 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/28/14.
+//  Created by Nick Arner and Aurelius Prochazka on 12/28/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
@@ -18,16 +20,22 @@ class Instrument : AKInstrument {
         let soundFile = AKSoundFile(filename: filename)
         connect(soundFile)
 
-        let speed = AKLine(firstPoint: 3.ak, secondPoint: 0.5.ak, durationBetweenPoints: 10.ak)
+        let speed = AKLine(firstPoint: 3.ak, secondPoint: 0.5.ak, durationBetweenPoints: testDuration.ak)
         connect(speed)
 
-        let operation = AKFunctionTableLooper(functionTable: soundFile)
-        operation.endTime = 9.6.ak
-        operation.transpositionRatio = speed
-        operation.loopMode = AKFunctionTableLooperMode.ForwardAndBack
-        connect(operation)
+        let functionTableLooper = AKFunctionTableLooper(functionTable: soundFile)
+        functionTableLooper.endTime = 9.6.ak
+        functionTableLooper.transpositionRatio = speed
+        functionTableLooper.loopMode = AKFunctionTableLooperMode.ForwardAndBack
+        connect(functionTableLooper)
+        
+        enableParameterLog(
+            "Transposition Ratio = ",
+            parameter: functionTableLooper.transpositionRatio,
+            frequency:0.1
+        )
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:functionTableLooper))
     }
 }
 
@@ -35,7 +43,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 
