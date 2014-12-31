@@ -44,13 +44,13 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Resonance = ",
             parameter: moogLadder.resonance,
-            timeInterval:0.1
+            timeInterval:0.2
         )
 
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: moogLadder.cutoffFrequency,
-            timeInterval:0.1
+            timeInterval:0.2
         )
 
         connect(AKAudioOutput(audioSource:moogLadder))
