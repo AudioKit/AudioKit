@@ -48,12 +48,12 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Center Frequency = ",
             parameter: bandRejectFilter.centerFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
         enableParameterLog(
             "Bandwidth = ",
             parameter: bandRejectFilter.bandwidth,
-            frequency:1
+            timeInterval:1
         )
 
         connect(AKAudioOutput(audioSource:bandRejectFilter))

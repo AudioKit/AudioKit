@@ -28,11 +28,11 @@ class Instrument : AKInstrument {
         functionTableLooper.transpositionRatio = speed
         functionTableLooper.loopMode = AKFunctionTableLooperMode.ForwardAndBack
         connect(functionTableLooper)
-        
+
         enableParameterLog(
             "Transposition Ratio = ",
             parameter: functionTableLooper.transpositionRatio,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:functionTableLooper))

@@ -69,21 +69,21 @@ class Processor : AKInstrument {
         enableParameterLog(
             "X Location = ",
             parameter: ballWithinTheBoxReverb.xLocation,
-            frequency:0.3
+            timeInterval:0.3
         )
-        
+
         enableParameterLog(
             "Y Location = ",
             parameter: ballWithinTheBoxReverb.yLocation,
-            frequency:0.3
+            timeInterval:0.3
         )
-        
+
         enableParameterLog(
             "Z Location = ",
             parameter: ballWithinTheBoxReverb.zLocation,
-            frequency:0.3
+            timeInterval:0.3
         )
-        
+
         let mix = AKMixedAudio(
             signal1: audioSource,
             signal2: ballWithinTheBoxReverb.leftOutput,

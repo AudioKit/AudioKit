@@ -9,18 +9,18 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let adsr = AKADSREnvelope()
         connect(adsr)
-        enableParameterLog("ADSR value = ", parameter: adsr, frequency:0.02)
-        
+        enableParameterLog("ADSR value = ", parameter: adsr, timeInterval:0.02)
+
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr
         connect(oscillator)
-        
+
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }

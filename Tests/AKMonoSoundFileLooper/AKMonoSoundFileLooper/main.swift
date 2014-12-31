@@ -27,11 +27,11 @@ class Instrument : AKInstrument {
         monoSoundFileLooper.frequencyRatio = speed
         monoSoundFileLooper.loopMode = AKSoundFileLooperMode.Normal
         connect(monoSoundFileLooper)
-        
+
         enableParameterLog(
             "Speed = ",
             parameter: monoSoundFileLooper.frequencyRatio,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:monoSoundFileLooper))

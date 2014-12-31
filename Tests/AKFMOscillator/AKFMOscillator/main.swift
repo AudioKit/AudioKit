@@ -32,31 +32,31 @@ class Instrument : AKInstrument {
         fmOscillator.carrierMultiplier = carrierMultiplierLine
         fmOscillator.modulatingMultiplier = modulatingMultiplierLine
         fmOscillator.modulationIndex = indexLine
-        
+
         enableParameterLog(
             "Base Frequency = ",
             parameter: fmOscillator.baseFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Carrier Multiplier = ",
             parameter: fmOscillator.carrierMultiplier,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Modulating Multiplier = ",
             parameter: fmOscillator.modulatingMultiplier,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Modulation Index = ",
             parameter: fmOscillator.modulationIndex,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         connect(fmOscillator)
         connect(AKAudioOutput(audioSource:fmOscillator))
     }

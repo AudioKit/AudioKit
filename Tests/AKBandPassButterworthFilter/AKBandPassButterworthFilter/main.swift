@@ -60,12 +60,12 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Center Frequency = ",
             parameter: bandPassFilter.centerFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
         enableParameterLog(
             "Bandwidth = ",
             parameter: bandPassFilter.bandwidth,
-            frequency:1
+            timeInterval:1
         )
 
         connect(AKAudioOutput(audioSource:bandPassFilter))

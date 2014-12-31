@@ -27,13 +27,13 @@ class Instrument : AKInstrument {
         let sine = AKOscillator()
         sine.frequency  = portamento.plus(880.ak)
         connect(sine)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: sine.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         connect(AKAudioOutput(audioSource:sine))
     }
 }

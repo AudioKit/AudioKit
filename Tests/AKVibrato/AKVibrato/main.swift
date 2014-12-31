@@ -22,13 +22,13 @@ class Instrument : AKInstrument {
         let sine = AKOscillator()
         sine.frequency = 440.ak.plus(vibrato)
         connect(sine)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: sine.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         connect(AKAudioOutput(audioSource:sine))
     }
 }

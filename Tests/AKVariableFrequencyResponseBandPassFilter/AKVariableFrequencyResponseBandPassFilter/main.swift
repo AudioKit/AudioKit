@@ -43,17 +43,17 @@ class Processor : AKInstrument {
 
         let balance = AKBalance(input: variableFrequencyResponseBandPassFilter, comparatorAudioSource: audioSource)
         connect(balance)
-        
+
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: variableFrequencyResponseBandPassFilter.cutoffFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Bandwidth = ",
             parameter: variableFrequencyResponseBandPassFilter.bandwidth,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:balance))

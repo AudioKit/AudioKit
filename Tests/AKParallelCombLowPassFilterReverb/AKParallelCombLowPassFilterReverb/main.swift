@@ -45,7 +45,7 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Duration = ",
             parameter: paralleltCombLowPassFilterReverb.duration,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:paralleltCombLowPassFilterReverb))

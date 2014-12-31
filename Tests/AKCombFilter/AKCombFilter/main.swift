@@ -51,7 +51,7 @@ class Processor : AKInstrument {
         enableParameterLog(
             "Reverb Duration = ",
             parameter: combFilter.reverbDuration,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:combFilter))

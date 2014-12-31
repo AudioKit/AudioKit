@@ -27,13 +27,13 @@ class Instrument : AKInstrument {
         stereoSoundFileLooper.frequencyRatio = speed
         stereoSoundFileLooper.loopMode = AKSoundFileLooperMode.ForwardAndBack
         connect(stereoSoundFileLooper)
-        
+
         enableParameterLog(
             "Speed = ",
             parameter: stereoSoundFileLooper.frequencyRatio,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         connect(AKAudioOutput(stereoAudioSource:stereoSoundFileLooper))
     }
 }

@@ -48,11 +48,11 @@ class Processor : AKInstrument {
         let moogVCF = AKMoogVCF(input: audioSource)
         moogVCF.cutoffFrequency = cutoffFrequency
         connect(moogVCF)
-        
+
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: moogVCF.cutoffFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:moogVCF))

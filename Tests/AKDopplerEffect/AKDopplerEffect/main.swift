@@ -23,11 +23,11 @@ class Instrument : AKInstrument {
         let dopplerEffect = AKDopplerEffect(input: sine)
         dopplerEffect.sourcePosition = position.scaledBy(50.ak).plus(100.ak)
         connect(dopplerEffect)
-        
+
         enableParameterLog(
             "Source Position = ",
             parameter: dopplerEffect.sourcePosition,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:dopplerEffect))

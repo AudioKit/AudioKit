@@ -26,11 +26,11 @@ class Instrument : AKInstrument {
         lowFrequencyOscillator.type = AKLowFrequencyOscillatorType.Triangle
         lowFrequencyOscillator.frequency = control.plus(110.ak)
         connect(lowFrequencyOscillator)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: lowFrequencyOscillator.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:lowFrequencyOscillator))

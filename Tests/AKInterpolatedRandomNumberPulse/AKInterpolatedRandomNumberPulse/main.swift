@@ -22,11 +22,11 @@ class Instrument : AKInstrument {
         let audio = AKOscillator()
         audio.frequency = interpolatedRandomNumberPulse.scaledBy(4000.ak)
         connect(audio)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: audio.frequency,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:audio))

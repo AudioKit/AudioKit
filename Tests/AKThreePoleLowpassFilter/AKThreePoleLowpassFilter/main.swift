@@ -44,25 +44,25 @@ class Processor : AKInstrument {
         threePoleLowpassFilter.cutoffFrequency = cutoffFrequency
         threePoleLowpassFilter.resonance = resonance
         connect(threePoleLowpassFilter)
-        
+
         enableParameterLog(
             "Distortion = ",
             parameter: threePoleLowpassFilter.distortion,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: threePoleLowpassFilter.cutoffFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         enableParameterLog(
             "Resonance = ",
             parameter: threePoleLowpassFilter.resonance,
-            frequency:0.1
+            timeInterval:0.1
         )
-        
+
         connect(AKAudioOutput(audioSource:threePoleLowpassFilter))
     }
 }

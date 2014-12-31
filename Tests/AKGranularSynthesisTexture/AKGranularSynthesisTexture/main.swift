@@ -48,35 +48,35 @@ class Instrument : AKInstrument {
         granularSynthesisTexture.maximumFrequencyDeviation = maximumFrequencyDeviationLine
         granularSynthesisTexture.grainAmplitude = grainAmplitudeLine
         connect(granularSynthesisTexture)
-        
+
         enableParameterLog(
             "Grain Frequency = ",
             parameter: granularSynthesisTexture.grainFrequency,
-            frequency:0.2
+            timeInterval:0.2
         )
 
         enableParameterLog(
             "Grain Density = ",
             parameter: granularSynthesisTexture.grainDensity,
-            frequency:0.2
+            timeInterval:0.2
         )
 
         enableParameterLog(
             "Average Grain Duration = ",
             parameter: granularSynthesisTexture.averageGrainDuration,
-            frequency:0.2
+            timeInterval:0.2
         )
 
         enableParameterLog(
             "Maximum Frequency Deviation = ",
             parameter: granularSynthesisTexture.maximumFrequencyDeviation,
-            frequency:0.2
+            timeInterval:0.2
         )
 
         enableParameterLog(
             "Grain Amplitude  = ",
             parameter: granularSynthesisTexture.grainAmplitude,
-            frequency:0.2
+            timeInterval:0.2
         )
 
 

@@ -40,11 +40,11 @@ class Processor : AKInstrument {
         let lowPassButterworthFilter = AKLowPassButterworthFilter(input: audioSource)
         lowPassButterworthFilter.cutoffFrequency = cutoffFrequency
         connect(lowPassButterworthFilter)
-        
+
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: lowPassButterworthFilter.cutoffFrequency,
-            frequency:0.1
+            timeInterval:0.1
         )
 
         connect(AKAudioOutput(audioSource:lowPassButterworthFilter))

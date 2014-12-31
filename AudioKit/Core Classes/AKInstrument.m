@@ -152,12 +152,11 @@ static int currentID = 1;
 
 - (void)enableParameterLog:(NSString *)message
                  parameter:(AKParameter *)parameter
-                 frequency:(float)frequency
-
+              timeInterval:(float)timeInterval
 {
     [innerCSDRepresentation appendFormat:
      @"\nprintks \"%@ %%f\", %f, AKControl(%@)\n",
-     message, frequency, parameter];
+     message, timeInterval, parameter];
 }
 
 
