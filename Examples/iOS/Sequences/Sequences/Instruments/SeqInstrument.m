@@ -30,8 +30,7 @@
                                                    carrierMultiplier:akp(2)
                                                 modulatingMultiplier:_modulation
                                                      modulationIndex:akp(15)
-                                                           amplitude:akp(0.2)
-                                                               phase:akp(0)];
+                                                           amplitude:akp(0.2)];
         [self connect:fmOscillator];
         
         

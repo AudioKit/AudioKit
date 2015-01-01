@@ -33,8 +33,7 @@ class FMSynth: AKInstrument {
             carrierMultiplier: carrierMultiplier,
             modulatingMultiplier: modulatingMultiplier,
             modulationIndex: modulationIndex,
-            amplitude: amplitude,
-            phase: 0.ak
+            amplitude: amplitude
         )
         connect(fmOscillator)
         connect(AKAudioOutput(audioSource: fmOscillator))
