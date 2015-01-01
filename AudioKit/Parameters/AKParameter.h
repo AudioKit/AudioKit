@@ -116,9 +116,13 @@
 #  pragma mark - Helper Functions
 // -----------------------------------------------------------------------------
 
-/// Helper function to create a new AKParameter combined with the original
+/// Helper function to create a new AKParameter added to the additional parameter
 /// @param additionalParameter The additional parameter (should be of the same type)
 - (instancetype)plus:(AKParameter *)additionalParameter;
+
+/// Helper function to create a new AKParameter subtracted from the additional parameter
+/// @param subtractedParameter The subtracted parameter (should be of the same type)
+- (instancetype)minus:(AKParameter *)subtractedParameter;
 
 /// Helper function to create a new AKParameter with the output scaled by another parameter
 /// @param scalingFactor The scaling factor should be multiplied by
