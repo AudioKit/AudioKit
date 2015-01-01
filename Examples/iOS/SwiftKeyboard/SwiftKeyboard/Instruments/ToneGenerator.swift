@@ -23,14 +23,12 @@ class ToneGenerator: AKInstrument {
         addNoteProperty(note.frequency)
         addNoteProperty(note.releasing)
     
-        let fmOscillator = AKFMOscillator(
-            functionTable: AKManager.standardSineWave(),
-            baseFrequency: note.frequency,
-            carrierMultiplier: toneColor.scaledBy(20.ak),
-            modulatingMultiplier: toneColor.scaledBy(12.ak),
-            modulationIndex: toneColor.scaledBy(15.ak),
-            amplitude: 0.15.ak,
-            phase: 0.ak)
+        let fmOscillator = AKFMOscillator()
+        fmOscillator.baseFrequency = note.frequency
+        fmOscillator.carrierMultiplier = toneColor.scaledBy(20.ak)
+        fmOscillator.modulatingMultiplier = toneColor.scaledBy(12.ak)
+        fmOscillator.modulationIndex = toneColor.scaledBy(15.ak)
+        fmOscillator.amplitude = 0.15.ak
         connect(fmOscillator)
         
         let portamento = AKPortamento(input: note.releasing)

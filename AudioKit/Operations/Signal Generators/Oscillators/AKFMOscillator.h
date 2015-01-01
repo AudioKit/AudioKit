@@ -2,8 +2,8 @@
 //  AKFMOscillator.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -22,14 +22,12 @@
 /// @param modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1]
 /// @param modulationIndex This multiplied by the modulating frequency gives the modulation amplitude. Updated at Control-rate. [Default Value: 1]
 /// @param amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
-/// @param phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
 - (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
                         baseFrequency:(AKParameter *)baseFrequency
                     carrierMultiplier:(AKParameter *)carrierMultiplier
                  modulatingMultiplier:(AKParameter *)modulatingMultiplier
                       modulationIndex:(AKParameter *)modulationIndex
-                            amplitude:(AKParameter *)amplitude
-                                phase:(AKConstant *)phase;
+                            amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the fm oscillator with default values
 - (instancetype)init;
@@ -79,13 +77,6 @@
 /// Set an optional amplitude
 /// @param amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
-
-/// Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-@property AKConstant *phase;
-
-/// Set an optional phase
-/// @param phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-- (void)setOptionalPhase:(AKConstant *)phase;
 
 
 
