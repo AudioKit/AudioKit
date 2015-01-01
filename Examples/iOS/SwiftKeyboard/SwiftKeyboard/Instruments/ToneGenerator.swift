@@ -21,25 +21,18 @@ class ToneGenerator: AKInstrument {
         // Note Properties
         let note = ToneGeneratorNote()
         addNoteProperty(note.frequency)
-        addNoteProperty(note.releasing)
+        addNoteProperty(note.amplitude)
     
         let fmOscillator = AKFMOscillator()
         fmOscillator.baseFrequency = note.frequency
         fmOscillator.carrierMultiplier = toneColor.scaledBy(20.ak)
         fmOscillator.modulatingMultiplier = toneColor.scaledBy(12.ak)
         fmOscillator.modulationIndex = toneColor.scaledBy(15.ak)
-        fmOscillator.amplitude = 0.15.ak
+        fmOscillator.amplitude = note.amplitude.scaledBy(0.15.ak)
         connect(fmOscillator)
         
-        let portamento = AKPortamento(input: note.releasing)
-        portamento.halfTime = 0.25.ak
-        connect(portamento)
-        
-        let gain = AKAssignment(input: fmOscillator.scaledBy(1.0.ak.minus(portamento)))
-        connect(gain)
-        
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to: gain)
+        assignOutput(auxilliaryOutput, to: fmOscillator)
     }
 }
 
@@ -47,11 +40,11 @@ class ToneGeneratorNote: AKNote {
     
     // Note Properties
     var frequency = AKNoteProperty(minimum: 440, maximum: 880)
-    var releasing = AKNoteProperty(minimum: 0, maximum: 1)
+    var amplitude = AKNoteProperty(minimum: 0, maximum: 1)
     override init() {
         super.init()
         addProperty(frequency)
-        addProperty(releasing)
-        releasing.value = 0.0
+        addProperty(amplitude)
+        amplitude.value = 1.0
     }
 }
