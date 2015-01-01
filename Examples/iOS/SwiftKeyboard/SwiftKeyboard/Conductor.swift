@@ -16,7 +16,6 @@ class Conductor {
         AKOrchestra.addInstrument(toneGenerator)
         fx = EffectsProcessor(audioSource: toneGenerator.auxilliaryOutput)
         AKOrchestra.addInstrument(fx)
-        AKManager.sharedManager().isLogging = true
         AKOrchestra.start()
         fx.play()
     }
@@ -37,13 +36,17 @@ class Conductor {
     func release(key: Int) {
         let noteToRelease = currentNotes[key]
         var releaseSequence = AKSequence()
+        
+        let decreaseVolumeEvent = AKEvent { () -> Void in
+            noteToRelease.amplitude.value = noteToRelease.amplitude.value * 0.9
+        }
 
-        releaseSequence.addEvent(AKEvent(block: { () -> Void in
-            noteToRelease.releasing.value = 1.0
-        }))
+        for i in 1...100 {
+            releaseSequence.addEvent(decreaseVolumeEvent, afterDuration: 0.05)
+        }
         releaseSequence.addEvent(AKEvent(block: { () -> Void in
             noteToRelease.stop()
-        }), afterDuration: 2)
+        }), afterDuration: 0.01)
         releaseSequence.play()
     }
 
