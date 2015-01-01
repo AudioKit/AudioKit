@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -24,11 +26,17 @@ class Instrument : AKInstrument {
         pan.frequency = 1.ak
         connect(pan)
 
-        let operation = AKPanner(input: oscillator)
-        operation.pan = pan
-        connect(operation)
+        let panner = AKPanner(input: oscillator)
+        panner.pan = pan
+        connect(panner)
+        
+        enableParameterLog(
+            "Pan = ",
+            parameter: panner.pan,
+            timeInterval:0.1
+        )
 
-        connect(AKAudioOutput(stereoAudioSource:operation))
+        connect(AKAudioOutput(stereoAudioSource:panner))
     }
 }
 
@@ -48,7 +56,7 @@ class Note: AKNote {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 let note1 = Note()
 // specify properties and create more notes here
