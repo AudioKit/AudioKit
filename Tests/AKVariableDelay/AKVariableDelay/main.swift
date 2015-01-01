@@ -40,21 +40,22 @@ class Processor : AKInstrument {
         let delayTime = AKLine(
             firstPoint: 0.ak,
             secondPoint: 0.1.ak,
-            durationBetweenPoints: testDuration.ak)
+            durationBetweenPoints: testDuration.ak
+        )
         connect(delayTime)
 
         let variableDelay = AKVariableDelay(input: audioSource)
         variableDelay.delayTime = delayTime
         connect(variableDelay)
+
+        let mix = AKMixedAudio(signal1: audioSource, signal2: variableDelay, balance: 0.5.ak)
+        connect(mix)
         
         enableParameterLog(
             "Delay Time = ",
             parameter: variableDelay.delayTime,
-            timeInterval: 0.1
+            timeInterval:0.1
         )
-
-        let mix = AKMixedAudio(signal1: audioSource, signal2: variableDelay, balance: 0.5.ak)
-        connect(mix)
 
         connect(AKAudioOutput(audioSource:mix))
     }

@@ -2,11 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/29/14.
+//  Created by Aurelius Prochazka and Nick Arner on 12/29/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
@@ -20,7 +22,7 @@ class Instrument : AKInstrument {
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr
         connect(oscillator)
-
+        
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
@@ -28,7 +30,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 let note1 = AKNote()
 note1.duration.setValue(1.5)

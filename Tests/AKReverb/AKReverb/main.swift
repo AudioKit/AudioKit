@@ -2,7 +2,7 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/24/14.
+//  Created by Aurelius Prochazka and Nick Arner on 12/24/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
@@ -33,14 +33,14 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let feedback = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
+        let feedback = AKLine(firstPoint: 0.5.ak, secondPoint: 0.9.ak, durationBetweenPoints: testDuration.ak)
         connect(feedback)
 
         let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: testDuration.ak)
         connect(cutoffFrequency)
 
         let reverb = AKReverb(audioSourceLeftChannel: audioSource, audioSourceRightChannel: audioSource)
-        reverb.feedback = 0.95.ak
+        reverb.feedback = feedback
         reverb.cutoffFrequency = cutoffFrequency
         connect(reverb)
 
@@ -55,8 +55,14 @@ class Processor : AKInstrument {
             parameter: reverb.cutoffFrequency,
             timeInterval:0.1
         )
+        
+        let leftMix = AKMixedAudio(signal1: audioSource, signal2: reverb.leftOutput, balance: 0.5.ak)
+        connect(leftMix)
+        
+        let rightMix = AKMixedAudio(signal1: audioSource, signal2: reverb.rightOutput, balance: 0.5.ak)
+        connect(rightMix)
 
-        connect(AKAudioOutput(stereoAudioSource:reverb))
+        connect(AKAudioOutput(leftAudio: leftMix, rightAudio: rightMix))
     }
 }
 

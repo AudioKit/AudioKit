@@ -2,23 +2,32 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/21/14.
+//  Created by Aurelius Prochazka and Nick Arner on 12/21/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
     override init() {
         super.init()
 
-        let operation = AKJitter()
-        connect(operation)
+        let jitter = AKJitter()
+        jitter.amplitude = 3000.ak
+        connect(jitter)
 
         let sine = AKOscillator()
-        sine.frequency = operation.scaledBy(3000.ak)
+        sine.frequency = jitter
         connect(sine)
+
+        enableParameterLog(
+            "Jitter = ",
+            parameter: jitter,
+            timeInterval:0.1
+        )
 
         connect(AKAudioOutput(audioSource:sine))
     }
@@ -27,7 +36,7 @@ class Instrument : AKInstrument {
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 
