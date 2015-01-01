@@ -2,11 +2,13 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/27/14.
+//  Created by Nick Arner and Aurelius Prochazka on 12/27/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+
+let testDuration: Float = 11.0
 
 class Instrument : AKInstrument {
 
@@ -32,16 +34,16 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let operation = AKMultitapDelay(
+        let multiTapDelay = AKMultitapDelay(
             input: audioSource,
             firstEchoTime:  1.ak,
             firstEchoGain: 0.5.ak
         )
-        operation.addEchoAtTime(1.5.ak, gain: 0.25.ak)
+        multiTapDelay.addEchoAtTime(1.5.ak, gain: 0.25.ak)
 
-        connect(operation)
+        connect(multiTapDelay)
 
-        let mix = AKMixedAudio(signal1: audioSource, signal2: operation, balance: 0.5.ak)
+        let mix = AKMixedAudio(signal1: audioSource, signal2: multiTapDelay, balance: 0.5.ak)
         connect(mix)
 
         connect(AKAudioOutput(audioSource:mix))
@@ -53,7 +55,7 @@ let processor = Processor(audioSource: instrument.auxilliaryOutput)
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.play()
