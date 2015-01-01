@@ -17,67 +17,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-Xz-NAf" userLabel="Record View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB4-h5-Zlp">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
-                                        <state key="normal" title="Record">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="startRecording:" destination="vXZ-lx-hvc" eventType="touchDown" id="O3H-Ha-QQ4"/>
-                                            <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="7O5-Fn-19Q"/>
-                                            <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ody-ts-DRJ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="GB4-h5-Zlp" secondAttribute="centerX" id="B6i-KI-SlV"/>
-                                    <constraint firstItem="GB4-h5-Zlp" firstAttribute="height" secondItem="Plg-Xz-NAf" secondAttribute="height" id="ihe-xc-UnU"/>
-                                    <constraint firstItem="GB4-h5-Zlp" firstAttribute="width" secondItem="Plg-Xz-NAf" secondAttribute="width" id="n3H-7X-DjY"/>
-                                    <constraint firstAttribute="centerY" secondItem="GB4-h5-Zlp" secondAttribute="centerY" id="s12-66-RKC"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1OZ-5P-cpF" userLabel="Play View">
-                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDK-h9-cK3">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
-                                        <state key="normal" title="Play">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="startPlaying:" destination="vXZ-lx-hvc" eventType="touchDown" id="7sZ-PW-GbN"/>
-                                            <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1SN-Ug-Wur"/>
-                                            <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="CYq-fE-6wN"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="pDK-h9-cK3" secondAttribute="centerY" id="702-rO-dPz"/>
-                                    <constraint firstAttribute="centerX" secondItem="pDK-h9-cK3" secondAttribute="centerX" id="TSs-1Y-1YM"/>
-                                    <constraint firstItem="pDK-h9-cK3" firstAttribute="height" secondItem="1OZ-5P-cpF" secondAttribute="height" id="bAh-TB-dos"/>
-                                    <constraint firstItem="pDK-h9-cK3" firstAttribute="width" secondItem="1OZ-5P-cpF" secondAttribute="width" id="h5z-j9-au0"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB4-h5-Zlp">
+                                <rect key="frame" x="0.0" y="28" width="600" height="285"/>
+                                <color key="backgroundColor" red="1" green="0.096448487979999997" blue="0.0060041529970000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startRecording:" destination="vXZ-lx-hvc" eventType="touchDown" id="O3H-Ha-QQ4"/>
+                                    <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="7O5-Fn-19Q"/>
+                                    <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ody-ts-DRJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDK-h9-cK3">
+                                <rect key="frame" x="0.0" y="313" width="600" height="287"/>
+                                <color key="backgroundColor" red="0.0097406406529999996" green="0.71086275580000002" blue="0.1231240827" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startPlaying:" destination="vXZ-lx-hvc" eventType="touchDown" id="7sZ-PW-GbN"/>
+                                    <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1SN-Ug-Wur"/>
+                                    <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="CYq-fE-6wN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="GAq-KG-qRq"/>
-                            <constraint firstAttribute="centerX" secondItem="1OZ-5P-cpF" secondAttribute="centerX" id="Kav-0C-c2h"/>
-                            <constraint firstItem="Plg-Xz-NAf" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.25" id="Xa1-0e-Mj7"/>
-                            <constraint firstAttribute="centerX" secondItem="Plg-Xz-NAf" secondAttribute="centerX" id="cqI-84-1Ac"/>
-                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="jLk-kc-aS6"/>
-                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.75" id="ky2-ON-bvH"/>
-                            <constraint firstAttribute="width" secondItem="Plg-Xz-NAf" secondAttribute="width" id="tOK-lF-pX7"/>
-                            <constraint firstItem="Plg-Xz-NAf" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="xM3-FU-ZBr"/>
+                            <constraint firstAttribute="centerY" secondItem="GB4-h5-Zlp" secondAttribute="centerY" id="7xu-rP-Y2v"/>
+                            <constraint firstItem="pDK-h9-cK3" firstAttribute="top" secondItem="GB4-h5-Zlp" secondAttribute="bottom" id="9TB-61-Nvs"/>
+                            <constraint firstItem="GB4-h5-Zlp" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" constant="-15" id="Ikr-A3-d1T"/>
+                            <constraint firstAttribute="centerX" secondItem="pDK-h9-cK3" secondAttribute="centerX" id="Qbc-jB-tSk"/>
+                            <constraint firstAttribute="width" secondItem="pDK-h9-cK3" secondAttribute="width" id="Vts-BO-UzL"/>
+                            <constraint firstAttribute="centerX" secondItem="GB4-h5-Zlp" secondAttribute="centerX" id="bd1-IS-nS5"/>
+                            <constraint firstItem="GB4-h5-Zlp" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="gSm-Vc-XtN"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="pDK-h9-cK3" secondAttribute="bottom" id="pUI-E9-fyN"/>
+                            <constraint firstItem="GB4-h5-Zlp" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="tvT-XY-157"/>
                         </constraints>
                     </view>
                 </viewController>
