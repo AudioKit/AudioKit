@@ -34,6 +34,19 @@ class Conductor {
         noteToStop.stop()
     }
 
+    func release(key: Int) {
+        let noteToRelease = currentNotes[key]
+        var releaseSequence = AKSequence()
+
+        releaseSequence.addEvent(AKEvent(block: { () -> Void in
+            noteToRelease.releasing.value = 1.0
+        }))
+        releaseSequence.addEvent(AKEvent(block: { () -> Void in
+            noteToRelease.stop()
+        }), afterDuration: 2)
+        releaseSequence.play()
+    }
+
     func setReverbFeedbackLevel(feedbackLevel: Float) {
         fx.feedbackLevel.value = feedbackLevel
     }

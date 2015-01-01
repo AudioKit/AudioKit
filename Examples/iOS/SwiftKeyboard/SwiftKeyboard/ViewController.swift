@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         } else {
             key.backgroundColor = UIColor.whiteColor()
         }
-        conductor.stop(index)
+        conductor.release(index)
 
     }
     @IBAction func reverbSliderValueChanged(sender: UISlider) {
