@@ -8,13 +8,15 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     var auxilliaryOutput = AKAudio()
 
     override init() {
         super.init()
-        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
+        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
 
         let audio = AKFileInput(filename: filename)
         connect(audio)
@@ -32,14 +34,21 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let delayTime = AKLine(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: 11.ak)
+        let delayTime = AKLine(firstPoint: 0.ak, secondPoint: 0.1.ak, durationBetweenPoints: testDuration.ak)
         connect(delayTime)
 
-        let operation = AKVariableDelay(input: audioSource, delayTime: delayTime)
-        connect(operation)
+        let variableDelay = AKVariableDelay(input: audioSource)
+        variableDelay.delayTime = delayTime
+        connect(variableDelay)
 
-        let mix = AKMixedAudio(signal1: audioSource, signal2: operation, balance: 0.5.ak)
+        let mix = AKMixedAudio(signal1: audioSource, signal2: variableDelay, balance: 0.5.ak)
         connect(mix)
+        
+        enableParameterLog(
+            "Delay Time = ",
+            parameter: variableDelay.delayTime,
+            timeInterval:0.1
+        )
 
         connect(AKAudioOutput(audioSource:mix))
     }
