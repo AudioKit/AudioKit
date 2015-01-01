@@ -16,7 +16,6 @@ class Conductor {
         AKOrchestra.addInstrument(toneGenerator)
         fx = EffectsProcessor(audioSource: toneGenerator.auxilliaryOutput)
         AKOrchestra.addInstrument(fx)
-        AKManager.sharedManager().isLogging = true
         AKOrchestra.start()
         fx.play()
     }
@@ -32,6 +31,21 @@ class Conductor {
     func stop(key: Int) {
         let noteToStop = currentNotes[key]
         noteToStop.stop()
+    }
+
+    func release(key: Int) {
+        let noteToRelease = currentNotes[key]
+        
+        var releaseSequence = AKSequence()
+        
+        let decreaseVolumeEvent = AKEvent{noteToRelease.amplitude.value *= 0.95}
+
+        for i in 1...100 {
+            releaseSequence.addEvent(decreaseVolumeEvent, afterDuration: 0.02)
+        }
+        releaseSequence.addEvent(AKEvent{noteToRelease.stop()}, afterDuration: 0.01)
+        
+        releaseSequence.play()
     }
 
     func setReverbFeedbackLevel(feedbackLevel: Float) {

@@ -2,8 +2,8 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
 //  http://www.csounds.com/manual/html/foscili.html
@@ -20,7 +20,6 @@
                  modulatingMultiplier:(AKParameter *)modulatingMultiplier
                       modulationIndex:(AKParameter *)modulationIndex
                             amplitude:(AKParameter *)amplitude
-                                phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -30,7 +29,6 @@
         _modulatingMultiplier = modulatingMultiplier;
         _modulationIndex = modulationIndex;
         _amplitude = amplitude;
-        _phase = phase;
     }
     return self;
 }
@@ -47,7 +45,6 @@
         _modulatingMultiplier = akp(1);
         _modulationIndex = akp(1);
         _amplitude = akp(0.5);
-        _phase = akp(0);
     }
     return self;
 }
@@ -75,13 +72,12 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
-- (void)setOptionalPhase:(AKConstant *)phase {
-    _phase = phase;
-}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    // Constant Values  
+    AKConstant *_phase = akp(-1);        
     [csdString appendFormat:@"%@ foscili ", self];
 
     [csdString appendFormat:@"%@, ", _amplitude];

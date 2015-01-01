@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -18,67 +18,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-Xz-NAf" userLabel="Record View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB4-h5-Zlp">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
-                                        <state key="normal" title="Record">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="startRecording:" destination="vXZ-lx-hvc" eventType="touchDown" id="68Y-3i-q3L"/>
-                                            <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="OQq-FL-Hch"/>
-                                            <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="aYW-55-ESa"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="GB4-h5-Zlp" secondAttribute="centerX" id="B6i-KI-SlV"/>
-                                    <constraint firstItem="GB4-h5-Zlp" firstAttribute="height" secondItem="Plg-Xz-NAf" secondAttribute="height" id="ihe-xc-UnU"/>
-                                    <constraint firstItem="GB4-h5-Zlp" firstAttribute="width" secondItem="Plg-Xz-NAf" secondAttribute="width" id="n3H-7X-DjY"/>
-                                    <constraint firstAttribute="centerY" secondItem="GB4-h5-Zlp" secondAttribute="centerY" id="s12-66-RKC"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1OZ-5P-cpF" userLabel="Play View">
-                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDK-h9-cK3">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
-                                        <state key="normal" title="Play">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="startPlaying:" destination="vXZ-lx-hvc" eventType="touchDown" id="c5Z-3G-Twl"/>
-                                            <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="Hen-Wo-YuF"/>
-                                            <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mky-iN-HRa"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="pDK-h9-cK3" secondAttribute="centerY" id="702-rO-dPz"/>
-                                    <constraint firstAttribute="centerX" secondItem="pDK-h9-cK3" secondAttribute="centerX" id="TSs-1Y-1YM"/>
-                                    <constraint firstItem="pDK-h9-cK3" firstAttribute="height" secondItem="1OZ-5P-cpF" secondAttribute="height" id="bAh-TB-dos"/>
-                                    <constraint firstItem="pDK-h9-cK3" firstAttribute="width" secondItem="1OZ-5P-cpF" secondAttribute="width" id="h5z-j9-au0"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GB4-h5-Zlp">
+                                <rect key="frame" x="0.0" y="20" width="600" height="285"/>
+                                <color key="backgroundColor" red="1" green="0.096448487979999997" blue="0.0060041529970000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startRecording:" destination="vXZ-lx-hvc" eventType="touchDown" id="68Y-3i-q3L"/>
+                                    <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="OQq-FL-Hch"/>
+                                    <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="aYW-55-ESa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDK-h9-cK3">
+                                <rect key="frame" x="0.0" y="305" width="600" height="300"/>
+                                <color key="backgroundColor" red="0.0097406406529999996" green="0.71086275580000002" blue="0.1231240827" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startPlaying:" destination="vXZ-lx-hvc" eventType="touchDown" id="c5Z-3G-Twl"/>
+                                    <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="Hen-Wo-YuF"/>
+                                    <action selector="stopPlaying:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mky-iN-HRa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="GAq-KG-qRq"/>
-                            <constraint firstAttribute="centerX" secondItem="1OZ-5P-cpF" secondAttribute="centerX" id="Kav-0C-c2h"/>
-                            <constraint firstItem="Plg-Xz-NAf" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.25" id="Xa1-0e-Mj7"/>
-                            <constraint firstAttribute="centerX" secondItem="Plg-Xz-NAf" secondAttribute="centerX" id="cqI-84-1Ac"/>
-                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="jLk-kc-aS6"/>
-                            <constraint firstItem="1OZ-5P-cpF" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.75" id="ky2-ON-bvH"/>
-                            <constraint firstAttribute="width" secondItem="Plg-Xz-NAf" secondAttribute="width" id="tOK-lF-pX7"/>
-                            <constraint firstItem="Plg-Xz-NAf" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="xM3-FU-ZBr"/>
+                            <constraint firstItem="GB4-h5-Zlp" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="14Q-Mv-hwK"/>
+                            <constraint firstItem="GB4-h5-Zlp" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="80E-rZ-u5U"/>
+                            <constraint firstItem="GB4-h5-Zlp" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" constant="-15" id="EPd-cw-2lc"/>
+                            <constraint firstAttribute="centerX" secondItem="pDK-h9-cK3" secondAttribute="centerX" id="SAX-T2-YCB"/>
+                            <constraint firstAttribute="width" secondItem="pDK-h9-cK3" secondAttribute="width" id="TY3-Bv-anH"/>
+                            <constraint firstItem="pDK-h9-cK3" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="he3-vx-C9B"/>
+                            <constraint firstItem="pDK-h9-cK3" firstAttribute="top" secondItem="GB4-h5-Zlp" secondAttribute="bottom" id="jXN-wW-kCx"/>
+                            <constraint firstAttribute="centerX" secondItem="GB4-h5-Zlp" secondAttribute="centerX" id="u25-5J-KUY"/>
                         </constraints>
                     </view>
                 </viewController>
