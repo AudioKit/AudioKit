@@ -35,18 +35,16 @@ class Conductor {
 
     func release(key: Int) {
         let noteToRelease = currentNotes[key]
+        
         var releaseSequence = AKSequence()
         
-        let decreaseVolumeEvent = AKEvent { () -> Void in
-            noteToRelease.amplitude.value = noteToRelease.amplitude.value * 0.9
-        }
+        let decreaseVolumeEvent = AKEvent{noteToRelease.amplitude.value *= 0.95}
 
         for i in 1...100 {
-            releaseSequence.addEvent(decreaseVolumeEvent, afterDuration: 0.05)
+            releaseSequence.addEvent(decreaseVolumeEvent, afterDuration: 0.02)
         }
-        releaseSequence.addEvent(AKEvent(block: { () -> Void in
-            noteToRelease.stop()
-        }), afterDuration: 0.01)
+        releaseSequence.addEvent(AKEvent{noteToRelease.stop()}, afterDuration: 0.01)
+        
         releaseSequence.play()
     }
 
