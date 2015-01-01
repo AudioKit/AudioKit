@@ -151,6 +151,13 @@ static int currentID = 1;
     return new;
 }
 
+- (instancetype)minus:(AKParameter *)subtractedParameter
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"((%@) - (%@))", self, subtractedParameter]];
+    return new;
+}
+
 - (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
     AKParameter *new = [[AKParameter alloc] init];

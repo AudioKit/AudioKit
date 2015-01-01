@@ -21,7 +21,10 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         connect(audio)
 
-        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        let mono = AKMixedAudio(
+            signal1: audio.leftOutput,
+            signal2: audio.rightOutput,
+            balance: testDuration.ak)
         connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
@@ -34,7 +37,11 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let delayTime = AKLine(firstPoint: 0.ak, secondPoint: 0.1.ak, durationBetweenPoints: testDuration.ak)
+        let delayTime = AKLine(
+            firstPoint: 0.ak,
+            secondPoint: 0.1.ak,
+            durationBetweenPoints: testDuration.ak
+        )
         connect(delayTime)
 
         let variableDelay = AKVariableDelay(input: audioSource)

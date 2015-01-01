@@ -2,8 +2,8 @@
 //  AKOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 12/29/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's oscili:
 //  http://www.csounds.com/manual/html/oscili.html
@@ -17,14 +17,12 @@
 - (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
                             frequency:(AKParameter *)frequency
                             amplitude:(AKParameter *)amplitude
-                                phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _functionTable = functionTable;
         _frequency = frequency;
         _amplitude = amplitude;
-        _phase = phase;
     }
     return self;
 }
@@ -38,7 +36,6 @@
     
         _frequency = akp(440);
         _amplitude = akp(1);
-        _phase = akp(0);
     }
     return self;
 }
@@ -57,13 +54,12 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
-- (void)setOptionalPhase:(AKConstant *)phase {
-    _phase = phase;
-}
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    // Constant Values  
+    AKConstant *_phase = akp(-1);        
     [csdString appendFormat:@"%@ oscili ", self];
 
     [csdString appendFormat:@"%@, ", _amplitude];
