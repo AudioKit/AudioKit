@@ -2,7 +2,7 @@
 //  AKVariableDelay.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
+//  Auto-generated on 12/31/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vdelay3:
@@ -15,7 +15,6 @@
 @implementation AKVariableDelay
 {
     AKParameter * _input;
-    AKParameter * _delayTime;
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
@@ -32,25 +31,25 @@
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
-                    delayTime:(AKParameter *)delayTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _input = input;
-        _delayTime = delayTime;
         // Default Values
-        _maximumDelayTime = akp(50);
+        _delayTime = akp(0);
+        _maximumDelayTime = akp(5);
     }
     return self;
 }
 
 + (instancetype)audioWithInput:(AKParameter *)input
-                    delayTime:(AKParameter *)delayTime
 {
-    return [[AKVariableDelay alloc] initWithInput:input
-                    delayTime:delayTime];
+    return [[AKVariableDelay alloc] initWithInput:input];
 }
 
+- (void)setOptionalDelayTime:(AKParameter *)delayTime {
+    _delayTime = delayTime;
+}
 - (void)setOptionalMaximumDelayTime:(AKConstant *)maximumDelayTime {
     _maximumDelayTime = maximumDelayTime;
 }
@@ -67,12 +66,12 @@
     }
 
     if ([_delayTime class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _delayTime];
+        [csdString appendFormat:@"(1000 * %@), ", _delayTime];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _delayTime];
+        [csdString appendFormat:@"AKAudio((1000 * %@)), ", _delayTime];
     }
 
-    [csdString appendFormat:@"%@", _maximumDelayTime];
+    [csdString appendFormat:@"(1000 * %@)", _maximumDelayTime];
     return csdString;
 }
 
