@@ -2,8 +2,8 @@
 //  AKMarimba.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's marimba:
 //  http://www.csounds.com/manual/html/marimba.html
@@ -46,7 +46,7 @@
         // Default Values
         _frequency = akp(220);
         _amplitude = akp(1);
-        _stickHardness = akp(0.5);
+        _stickHardness = akp(0);
         _strikePosition = akp(0.5);
         _vibratoShapeTable = [AKManager standardSineWave];
     
@@ -115,7 +115,7 @@
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
-    [csdString appendFormat:@"%@, ", _stickHardness];
+    [csdString appendFormat:@"(4.8-2*%@), ", _stickHardness];
     
     [csdString appendFormat:@"%@, ", _strikePosition];
     
