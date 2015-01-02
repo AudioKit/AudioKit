@@ -2,8 +2,8 @@
 //  AKMarimba.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -18,7 +18,7 @@
 /// Instantiates the marimba with all values
 /// @param frequency Frequency of note played. Updated at Control-rate. [Default Value: 220]
 /// @param amplitude Amplitude of note. [Default Value: 1]
-/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
+/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0]
 /// @param strikePosition Where the block is hit, in the range 0 to 1. [Default Value: 0.5]
 /// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12 Updated at Control-rate. [Default Value: 0]
@@ -56,11 +56,11 @@
 /// @param amplitude Amplitude of note. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKConstant *)amplitude;
 
-/// The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
+/// The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0]
 @property AKConstant *stickHardness;
 
 /// Set an optional stick hardness
-/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
+/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0]
 - (void)setOptionalStickHardness:(AKConstant *)stickHardness;
 
 /// Where the block is hit, in the range 0 to 1. [Default Value: 0.5]
