@@ -2,8 +2,8 @@
 //  AKSandPaper.m
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's sandpaper:
 //  http://www.csounds.com/manual/html/sandpaper.html
@@ -31,7 +31,7 @@
     if (self) {
         // Default Values
         _intensity = akp(128);
-        _dampingFactor = akp(0.9);
+        _dampingFactor = akp(0.1);
     }
     return self;
 }
