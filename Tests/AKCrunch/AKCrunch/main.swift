@@ -8,19 +8,24 @@
 
 import Foundation
 
-let testDuration: Float = 2.0
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
     override init() {
         super.init()
 
+        let note = CrunchNote()
+        addNoteProperty(note.intensity)
+        addNoteProperty(note.dampingFactor)
+        
         let crunch = AKCrunch()
+        crunch.intensity = note.intensity
+        crunch.dampingFactor = note.dampingFactor
         connect(crunch)
-        connect(AKAudioOutput(audioSource:crunch))
 
         enableParameterLog(
-            "Count = ",
+            "Intensity = ",
             parameter: crunch.intensity,
             timeInterval:1
         )
@@ -29,13 +34,39 @@ class Instrument : AKInstrument {
             parameter: crunch.dampingFactor,
             timeInterval:1
         )
+        connect(AKAudioOutput(audioSource:crunch))
+    }
+}
+
+class CrunchNote: AKNote {
+    var intensity = AKNoteProperty()
+    var dampingFactor = AKNoteProperty()
+    
+    override init() {
+        super.init()
+        addProperty(intensity)
+        addProperty(dampingFactor)
+    }
+    
+    convenience init(intensity: Int, dampingFactor: Float) {
+        self.init()
+        self.intensity.setValue(Float(intensity))
+        self.dampingFactor.setValue(dampingFactor)
     }
 }
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(testDuration)
-instrument.play()
+let phrase = AKPhrase()
+
+for i in 1...10 {
+    let note = CrunchNote(intensity: 40+i*20, dampingFactor: 1.1-Float(i)/10.0)
+    note.duration.setValue(1.0)
+    phrase.addNote(note, atTime: Float(i-1))
+}
+
+instrument.playPhrase(phrase)
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

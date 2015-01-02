@@ -2,33 +2,71 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Nick Arner and Aurelius Prochazka on 11/30/14.
+//  Created by Nick Arner and Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
 
-let testDuration: Float = 2.0
+let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-
+    
     override init() {
         super.init()
+        
+        let note = StickNote()
+        addNoteProperty(note.intensity)
+        addNoteProperty(note.dampingFactor)
+        
+        let stick = AKStick()
+        stick.intensity = note.intensity
+        stick.dampingFactor = note.dampingFactor
+        connect(stick)
+        
+        enableParameterLog(
+            "Intensity = ",
+            parameter: stick.intensity,
+            timeInterval:1
+        )
+        enableParameterLog(
+            "Damping Factor = ",
+            parameter: stick.dampingFactor,
+            timeInterval:1
+        )
+        connect(AKAudioOutput(audioSource:stick))
+    }
+}
 
-        let operation = AKStick()
-        operation.intensity = 10.ak
-        operation.dampingFactor = 0.9.ak
-        operation.amplitude = 2.ak
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+class StickNote: AKNote {
+    var intensity = AKNoteProperty()
+    var dampingFactor = AKNoteProperty()
+    
+    override init() {
+        super.init()
+        addProperty(intensity)
+        addProperty(dampingFactor)
+    }
+    
+    convenience init(intensity: Int, dampingFactor: Float) {
+        self.init()
+        self.intensity.setValue(Float(intensity))
+        self.dampingFactor.setValue(dampingFactor)
     }
 }
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(testDuration)
+let phrase = AKPhrase()
 
-instrument.play()
+for i in 1...20 {
+    let note = StickNote(intensity: i*20, dampingFactor: 1.05-Float(i)/20.0)
+    note.duration.setValue(0.5)
+    phrase.addNote(note, atTime: Float(i-1)*0.5)
+}
+
+instrument.playPhrase(phrase)
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

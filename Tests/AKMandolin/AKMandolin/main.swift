@@ -15,10 +15,17 @@ class Instrument : AKInstrument {
 
         let note = Note()
         addNoteProperty(note.frequency)
-        let operation = AKMandolin()
-        operation.frequency = note.frequency
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        let mandolin = AKMandolin()
+        mandolin.frequency = note.frequency
+        connect(mandolin)
+        
+        enableParameterLog(
+            "Frequency = ",
+            parameter: mandolin.frequency,
+            timeInterval:2
+        )
+ 
+        connect(AKAudioOutput(audioSource:mandolin))
     }
 }
 
@@ -40,8 +47,11 @@ AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(4)
 
 let note1 = Note(frequency: 440)
+note1.duration.setValue(1.0)
 let note2 = Note(frequency: 550)
+note2.duration.setValue(1.0)
 let note3 = Note(frequency: 660)
+note3.duration.setValue(1.0)
 
 let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
