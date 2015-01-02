@@ -2,8 +2,8 @@
 //  AKStick.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's stix:
 //  http://www.csounds.com/manual/html/stix.html
@@ -68,7 +68,7 @@
     
     [csdString appendFormat:@"%@, ", _intensity];
     
-    [csdString appendFormat:@"%@, ", _dampingFactor];
+    [csdString appendFormat:@"(1 - %@), ", _dampingFactor];
     
     [csdString appendFormat:@"%@", _energyReturn];
     return csdString;
