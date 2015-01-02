@@ -8,21 +8,56 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: Float = 11.0
 
 class Instrument : AKInstrument {
-
+    
     override init() {
         super.init()
-
-        let source = AKTambourine()
-        connect(source)
-
-        let operation = AKSimpleWaveGuideModel(
-            input: source
+        
+        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
+        
+        let audio = AKFileInput(filename: filename)
+        connect(audio)
+        
+        
+        let simpleWaveGuideModel = AKSimpleWaveGuideModel(
+            input: audio.leftOutput
         )
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        
+        let cutoffLine = AKLine(firstPoint: 1000.ak, secondPoint: 5000.ak, durationBetweenPoints: testDuration.ak)
+        connect(cutoffLine)
+        
+        let frequencyLine = AKLine(firstPoint: 12.ak, secondPoint: 1000.ak, durationBetweenPoints: testDuration.ak)
+        connect(frequencyLine)
+        
+        let feedbackLine = AKLine(firstPoint: 0.ak, secondPoint: 0.8.ak, durationBetweenPoints: testDuration.ak)
+        connect(feedbackLine)
+        
+        simpleWaveGuideModel.cutoff = cutoffLine
+        simpleWaveGuideModel.frequency = frequencyLine
+        simpleWaveGuideModel.feedback = feedbackLine
+        connect(simpleWaveGuideModel)
+        
+        enableParameterLog(
+            "Cutoff = ",
+            parameter: simpleWaveGuideModel.cutoff,
+            timeInterval:0.1
+        )
+
+        enableParameterLog(
+            "Frequency = ",
+            parameter: simpleWaveGuideModel.frequency,
+            timeInterval:0.1
+        )
+
+        enableParameterLog(
+            "Feedback = ",
+            parameter: simpleWaveGuideModel.feedback,
+            timeInterval:0.1
+        )
+
+        connect(AKAudioOutput(audioSource:simpleWaveGuideModel))
     }
 }
 
