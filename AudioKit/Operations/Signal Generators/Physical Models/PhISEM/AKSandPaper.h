@@ -2,8 +2,8 @@
 //  AKSandPaper.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/1/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -17,7 +17,7 @@
 @interface AKSandPaper : AKAudio
 /// Instantiates the sand paper with all values
 /// @param intensity The intensity of the sandpaper sound [Default Value: 128]
-/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.9]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (instancetype)initWithIntensity:(AKConstant *)intensity
                     dampingFactor:(AKConstant *)dampingFactor;
 
@@ -35,11 +35,11 @@
 /// @param intensity The intensity of the sandpaper sound [Default Value: 128]
 - (void)setOptionalIntensity:(AKConstant *)intensity;
 
-/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.9]
+/// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 @property AKConstant *dampingFactor;
 
 /// Set an optional damping factor
-/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.9]
+/// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 
