@@ -43,13 +43,13 @@ typedef NS_OPTIONS(NSUInteger, AKPanMethod)
 
 typedef NS_OPTIONS(NSUInteger, AKVCOscillatorWaveformType)
 {
-    AKVCOscillatorWaveformTypeSawtooth  = 16,
-    AKVCOscillatorWaveformTypeSquarePWM = 18,
-    AKVCOscillatorWaveformTypeTriangleWithRamp = 20,
-    AKVCOscillatorWaveformTypePulseUnnormalized = 22,
-    AKVCOscillatorWaveformTypeIntegratedSawtooth = 24,
-    AKVCOscillatorWaveformTypeSquareNoPWM = 26,
-    AKVCOscillatorWaveformTypeTriangleNoRamp = 28
+    AKVCOscillatorWaveformTypeSawtooth  =  0,
+    AKVCOscillatorWaveformTypeSquarePWM = 2,
+    AKVCOscillatorWaveformTypeTriangleWithRamp = 4,
+    AKVCOscillatorWaveformTypePulseUnnormalized = 6,
+    AKVCOscillatorWaveformTypeIntegratedSawtooth = 8,
+    AKVCOscillatorWaveformTypeSquareNoPWM = 10,
+    AKVCOscillatorWaveformTypeTriangleNoRamp = 12
 };
 
 typedef NS_OPTIONS(NSUInteger, AKFSignalFromMonoAudioWindowType)
