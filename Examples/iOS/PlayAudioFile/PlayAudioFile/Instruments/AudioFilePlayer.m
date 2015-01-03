@@ -27,16 +27,14 @@
         [self connect:fileTable];
         
         AKMonoSoundFileLooper *looper;
-        looper = [AKMonoSoundFileLooper audioWithSoundFile:fileTable];
+        looper = [AKMonoSoundFileLooper looperWithSoundFile:fileTable];
         looper.frequencyRatio = note.speed;
         looper.loopMode = AKSoundFileLooperModeNoLoop;
         [self connect:looper];
         
         AKReverb *reverb;
-        reverb = [[AKReverb alloc] initWithAudioSourceLeftChannel:looper
-                                          audioSourceRightChannel:looper
-                                                         feedback:akp(0.85)
-                                                  cutoffFrequency:akp(12000)];
+        reverb = [AKReverb reverbWithInput:looper];
+        reverb.feedback.value = 0.85;
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
