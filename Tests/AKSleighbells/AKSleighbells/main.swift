@@ -20,15 +20,15 @@ class Instrument : AKInstrument {
         addNoteProperty(note.firstResonantFrequency)
         addNoteProperty(note.secondResonantFrequency)
 
-        let operation = AKSleighbells()
-        operation.intensity = note.intensity
-        operation.dampingFactor = note.dampingFactor
-        operation.mainResonantFrequency = note.mainResonantFrequency
-        operation.firstResonantFrequency = note.firstResonantFrequency
-        operation.secondResonantFrequency = note.secondResonantFrequency
-        connect(operation)
+        let sleighbells = AKSleighbells()
+        sleighbells.intensity = note.intensity
+        sleighbells.dampingFactor = note.dampingFactor
+        sleighbells.mainResonantFrequency = note.mainResonantFrequency
+        sleighbells.firstResonantFrequency = note.firstResonantFrequency
+        sleighbells.secondResonantFrequency = note.secondResonantFrequency
+        connect(sleighbells)
 
-        connect(AKAudioOutput(audioSource:operation))
+        connect(AKAudioOutput(audioSource:sleighbells))
     }
 }
 

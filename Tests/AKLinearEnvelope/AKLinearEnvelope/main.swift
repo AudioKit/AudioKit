@@ -13,11 +13,11 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKLinearEnvelope()
-        connect(operation)
+        let envelope = AKLinearEnvelope()
+        connect(envelope)
 
         let oscillator = AKOscillator()
-        oscillator.amplitude = operation
+        oscillator.amplitude = envelope
         connect(oscillator)
 
         connect(AKAudioOutput(audioSource:oscillator))

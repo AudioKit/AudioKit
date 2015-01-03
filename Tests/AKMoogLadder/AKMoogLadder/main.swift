@@ -17,11 +17,11 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKPhasor()
-        connect(operation)
+        let phasor = AKPhasor()
+        connect(phasor)
 
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:operation)
+        assignOutput(auxilliaryOutput, to:phasor)
     }
 }
 
