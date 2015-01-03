@@ -16,10 +16,10 @@ class Instrument : AKInstrument {
         let source = AKStick()
         connect(source)
 
-        let operation = AKBeatenPlate(input: source .scaledBy(10.ak))
+        let beatenPlate = AKBeatenPlate(input: source.scaledBy(10.ak))
 
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        connect(beatenPlate)
+        connect(AKAudioOutput(audioSource:beatenPlate))
     }
 }
 

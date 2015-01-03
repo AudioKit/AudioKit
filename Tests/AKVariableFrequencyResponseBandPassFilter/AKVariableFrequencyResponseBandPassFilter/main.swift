@@ -17,11 +17,11 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKFMOscillator()
-        connect(operation)
+        let oscillator = AKFMOscillator()
+        connect(operatoscillatorion)
 
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:operation)
+        assignOutput(auxilliaryOutput, to:oscillator)
     }
 }
 

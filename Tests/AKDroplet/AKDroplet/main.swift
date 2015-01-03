@@ -13,9 +13,9 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let operation = AKDroplet()
-        connect(operation)
-        connect(AKAudioOutput(audioSource:operation))
+        let droplet = AKDroplet()
+        connect(droplet)
+        connect(AKAudioOutput(audioSource:droplet))
     }
 }
 
