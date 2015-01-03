@@ -40,7 +40,7 @@ More information regarding scanned synthesis can be found at http://dafx12.york.
 - (instancetype)init;
 
 /// Instantiates the struck metal bar with default values
-+ (instancetype)audio;
++ (instancetype)strike;
 
 
 /// 30 db decay time in seconds. [Default Value: 2.0]
