@@ -20,8 +20,7 @@ class EffectsProcessor: AKInstrument {
 
         // Instrument Definition
         let reverb = AKReverb(
-            audioSourceLeftChannel: audioSource,
-            audioSourceRightChannel: audioSource,
+            input: audioSource,
             feedback: feedbackLevel,
             cutoffFrequency: 4000.ak
         )
