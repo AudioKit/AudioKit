@@ -25,7 +25,7 @@
                                 <rect key="frame" x="300" y="0.0" width="300" height="600"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="440" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lad-tl-cew">
-                                        <rect key="frame" x="80" y="89" width="200" height="38.5"/>
+                                        <rect key="frame" x="80" y="89" width="200" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="CVT-cF-8hF"/>
                                         </constraints>
@@ -37,7 +37,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carrierMultiplier:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-gE-7k9">
-                                        <rect key="frame" x="-152" y="140" width="224" height="38.5"/>
+                                        <rect key="frame" x="-152" y="140" width="224" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTe-jM-YAV">
-                                        <rect key="frame" x="80" y="140" width="200" height="38.5"/>
+                                        <rect key="frame" x="80" y="140" width="200" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="ceh-u2-r7Y"/>
                                         </constraints>
@@ -58,7 +58,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="modulatingMultiplier:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyx-6O-bLQ">
-                                        <rect key="frame" x="-220" y="200" width="292" height="38.5"/>
+                                        <rect key="frame" x="-220" y="200" width="292" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzm-p2-XSz">
-                                        <rect key="frame" x="80" y="200" width="200" height="38.5"/>
+                                        <rect key="frame" x="80" y="200" width="200" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="h9N-dc-r1Q"/>
                                         </constraints>
@@ -79,7 +79,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="modulationIndex:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNj-pM-6LS">
-                                        <rect key="frame" x="-170" y="250" width="242" height="38.5"/>
+                                        <rect key="frame" x="-170" y="250" width="242" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -88,7 +88,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ma-wH-KT7">
-                                        <rect key="frame" x="80" y="250" width="200" height="38.5"/>
+                                        <rect key="frame" x="80" y="250" width="200" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="lhK-7c-ChI"/>
                                         </constraints>
@@ -99,8 +99,8 @@
                                             <rect key="frame" x="52" y="230" width="181" height="39"/>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="                  AKFMOscillator audioWithTable: sine  " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9v-ja-Kmj" userLabel="opcode line1">
-                                        <rect key="frame" x="-405" y="42" width="685" height="39"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="                  AKFMOscillator oscillatorWithTable: sine  " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9v-ja-Kmj" userLabel="opcode line1">
+                                        <rect key="frame" x="-453" y="42" width="733" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -109,7 +109,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="frequency:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnK-Ae-3dD">
-                                        <rect key="frame" x="-73" y="89" width="147" height="38.5"/>
+                                        <rect key="frame" x="-73" y="89" width="147" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
