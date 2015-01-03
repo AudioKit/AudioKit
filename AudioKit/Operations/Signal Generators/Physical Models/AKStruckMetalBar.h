@@ -12,6 +12,7 @@
 /** Creates a tone similar to a struck metal bar.
 
  Audio output is a tone similar to a struck metal bar, using a physical model developed from solving the partial differential equation. There are controls over the boundary conditions as well as the bar characteristics.
+More information regarding scanned synthesis can be found at http://dafx12.york.ac.uk/papers/dafx12_submission_18.pdf and http://www.billverplank.com/ScannedSynthesis.PDF
  */
 
 @interface AKStruckMetalBar : AKAudio
@@ -39,7 +40,7 @@
 - (instancetype)init;
 
 /// Instantiates the struck metal bar with default values
-+ (instancetype)strike;
++ (instancetype)audio;
 
 
 /// 30 db decay time in seconds. [Default Value: 2.0]
