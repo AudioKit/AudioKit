@@ -18,7 +18,7 @@ class Instrument : AKInstrument {
         super.init()
 
         let oscillator = AKFMOscillator()
-        connect(operatoscillatorion)
+        connect(oscillator)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:oscillator)
