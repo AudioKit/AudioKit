@@ -46,16 +46,14 @@
         baseFrequency = [[AKConstant alloc] initWithExpression:frequencyMathString];
         
         AKGranularSynthesisTexture *grainTexture;
-        grainTexture = [[AKGranularSynthesisTexture alloc] initWithGrainFunctionTable:fileTable
-                                                                  windowFunctionTable:hamming
-                                                                 maximumGrainDuration:akp(0.5)
-                                                                 averageGrainDuration:_averageGrainDuration
-                                                            maximumFrequencyDeviation:_granularFrequencyDeviation
-                                                                       grainFrequency:baseFrequency
-                                                            maximumAmplitudeDeviation:akp(0.1)
-                                                                       grainAmplitude:_granularAmplitude
-                                                                         grainDensity:_grainDensity
-                                                                 useRandomGrainOffset:YES];
+        grainTexture = [AKGranularSynthesisTexture textureWithGrainFunctionTable:fileTable
+                                                             windowFunctionTable:hamming];
+        grainTexture.averageGrainDuration = _averageGrainDuration;
+        grainTexture.maximumFrequencyDeviation = _granularFrequencyDeviation;
+        grainTexture.grainFrequency = baseFrequency;
+        grainTexture.grainAmplitude = _granularAmplitude;
+        grainTexture.grainDensity = _grainDensity;
+        
         [self connect:grainTexture];
         
         // AUDIO OUTPUT ========================================================

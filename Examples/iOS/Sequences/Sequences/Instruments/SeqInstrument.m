@@ -24,18 +24,15 @@
         [self addProperty:_modulation];
         
         // INSTRUMENT DEFINITION ===============================================        
-        AKFMOscillator *fmOscillator;
-        fmOscillator = [[AKFMOscillator alloc] initWithFunctionTable:[AKManager standardSineWave]
-                                                       baseFrequency:note.frequency
-                                                   carrierMultiplier:akp(2)
-                                                modulatingMultiplier:_modulation
-                                                     modulationIndex:akp(15)
-                                                           amplitude:akp(0.2)];
+        AKFMOscillator *fmOscillator = [AKFMOscillator oscillator];
+        fmOscillator.baseFrequency = note.frequency;
+        fmOscillator.carrierMultiplier.value = 2;
+        fmOscillator.modulatingMultiplier = _modulation;
+        fmOscillator.modulationIndex.value = 15;
+        fmOscillator.amplitude.value = 0.2;
         [self connect:fmOscillator];
         
-        
         // AUDIO OUTPUT ========================================================
-        
         AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscillator];
         [self connect:audio];
     }
