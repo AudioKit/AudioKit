@@ -2,8 +2,8 @@
 //  AKMandolin.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -33,7 +33,7 @@
 - (instancetype)init;
 
 /// Instantiates the mandolin with default values
-+ (instancetype)audio;
++ (instancetype)mandolin;
 
 
 /// The size of the body of the mandolin. Range 0 (small) to 1 (large). [Default Value: 0.5]

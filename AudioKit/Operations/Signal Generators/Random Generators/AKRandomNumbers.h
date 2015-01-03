@@ -2,8 +2,8 @@
 //  AKRandomNumbers.h
 //  AudioKit
 //
-//  Auto-generated on 12/29/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -25,7 +25,7 @@
 - (instancetype)init;
 
 /// Instantiates the random numbers with default values
-+ (instancetype)audio;
++ (instancetype)numbers;
 
 
 /// Minimum range limit. [Default Value: 0]

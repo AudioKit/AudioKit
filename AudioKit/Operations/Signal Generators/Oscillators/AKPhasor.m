@@ -2,8 +2,8 @@
 //  AKPhasor.m
 //  AudioKit
 //
-//  Auto-generated on 12/29/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's phasor:
 //  http://www.csounds.com/manual/html/phasor.html
@@ -36,7 +36,7 @@
     return self;
 }
 
-+ (instancetype)audio
++ (instancetype)phasor
 {
     return [[AKPhasor alloc] init];
 }

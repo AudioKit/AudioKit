@@ -2,8 +2,8 @@
 //  AKThreePoleLowpassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -31,7 +31,7 @@
 
 /// Instantiates the three pole lowpass filter with default values
 /// @param input Signal that will be modified.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. [Default Value: 0.5]
 @property AKParameter *distortion;

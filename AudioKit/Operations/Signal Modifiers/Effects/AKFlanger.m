@@ -2,8 +2,8 @@
 //  AKFlanger.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's flanger:
 //  http://www.csounds.com/manual/html/flanger.html
@@ -44,11 +44,11 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
-                    delayTime:(AKParameter *)delayTime
++ (instancetype)effectWithInput:(AKParameter *)input
+                      delayTime:(AKParameter *)delayTime
 {
     return [[AKFlanger alloc] initWithInput:input
-                    delayTime:delayTime];
+                                  delayTime:delayTime];
 }
 
 - (void)setOptionalFeedback:(AKParameter *)feedback {
@@ -57,27 +57,27 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ flanger ", self];
-
+    
     if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
-
+    
     if ([_delayTime class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _delayTime];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _delayTime];
     }
-
+    
     if ([_feedback class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _feedback];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _feedback];
     }
-return csdString;
+    return csdString;
 }
 
 @end

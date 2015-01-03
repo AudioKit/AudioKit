@@ -31,8 +31,8 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
-      impulseResponseFilename:(NSString *)impulseResponseFilename
++ (instancetype)convolutionWithInput:(AKParameter *)input
+             impulseResponseFilename:(NSString *)impulseResponseFilename
 {
     return [[AKConvolution alloc] initWithInput:input
       impulseResponseFilename:impulseResponseFilename];

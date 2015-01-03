@@ -31,7 +31,7 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithInput:(AKParameter *)input
++ (instancetype)convolutionWithInput:(AKParameter *)input
              impulseResponseFilename:(NSString *)impulseResponseFilename
 {
     return [[AKStereoConvolution alloc] initWithInput:input

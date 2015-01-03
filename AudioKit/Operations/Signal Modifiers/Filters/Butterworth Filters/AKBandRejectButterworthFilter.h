@@ -2,8 +2,8 @@
 //  AKBandRejectButterworthFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -29,7 +29,7 @@
 
 /// Instantiates the band reject butterworth filter with default values
 /// @param input Input signal to be filtered.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Center frequency for each of the filters. [Default Value: 3000]
 @property AKParameter *centerFrequency;

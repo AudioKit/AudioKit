@@ -2,8 +2,8 @@
 //  AKStereoSoundFileLooper.m
 //  AudioKit
 //
-//  Auto-generated on 12/28/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's loscil3:
 //  http://www.csounds.com/manual/html/loscil3.html
@@ -45,7 +45,7 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithSoundFile:(AKFunctionTable *)soundFile
++ (instancetype)looperWithSoundFile:(AKFunctionTable *)soundFile
 {
     return [[AKStereoSoundFileLooper alloc] initWithSoundFile:soundFile];
 }

@@ -2,8 +2,8 @@
 //  AKGranularSynthesisTexture.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's grain:
 //  http://www.csounds.com/manual/html/grain.html
@@ -65,11 +65,11 @@
     return self;
 }
 
-+ (instancetype)audioWithGrainFunctionTable:(AKConstant *)grainFunctionTable
-                       windowFunctionTable:(AKConstant *)windowFunctionTable
++ (instancetype)textureWithGrainFunctionTable:(AKConstant *)grainFunctionTable
+                          windowFunctionTable:(AKConstant *)windowFunctionTable
 {
     return [[AKGranularSynthesisTexture alloc] initWithGrainFunctionTable:grainFunctionTable
-                       windowFunctionTable:windowFunctionTable];
+                                                      windowFunctionTable:windowFunctionTable];
 }
 
 - (void)setOptionalMaximumGrainDuration:(AKConstant *)maximumGrainDuration {
@@ -99,9 +99,9 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ grain ", self];
-
+    
     [csdString appendFormat:@"%@, ", _grainAmplitude];
     
     [csdString appendFormat:@"%@, ", _grainFrequency];
@@ -113,19 +113,19 @@
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _maximumAmplitudeDeviation];
     }
-
+    
     if ([_maximumFrequencyDeviation class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _maximumFrequencyDeviation];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _maximumFrequencyDeviation];
     }
-
+    
     if ([_averageGrainDuration class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _averageGrainDuration];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _averageGrainDuration];
     }
-
+    
     [csdString appendFormat:@"%@, ", _grainFunctionTable];
     
     [csdString appendFormat:@"%@, ", _windowFunctionTable];

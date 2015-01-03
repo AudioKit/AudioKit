@@ -2,7 +2,7 @@
 //  AKSandPaper.h
 //  AudioKit
 //
-//  Auto-generated on 1/1/15.
+//  Auto-generated on 1/3/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -25,7 +25,7 @@
 - (instancetype)init;
 
 /// Instantiates the sand paper with default values
-+ (instancetype)audio;
++ (instancetype)sandPaper;
 
 
 /// The intensity of the sandpaper sound [Default Value: 128]

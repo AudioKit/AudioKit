@@ -2,8 +2,8 @@
 //  AKFlatFrequencyResponseReverb.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -29,7 +29,7 @@
 
 /// Instantiates the flat frequency response reverb with default values
 /// @param input The input signal to be reverberated.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)reverbWithInput:(AKParameter *)input;
 
 /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 0.5]
 @property AKParameter *reverbDuration;

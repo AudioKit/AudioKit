@@ -2,8 +2,8 @@
 //  AKVariableFrequencyResponseBandPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -29,7 +29,7 @@
 
 /// Instantiates the variable frequency response band pass filter with default values
 /// @param audioSource The input signal to be filtered.
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource;
++ (instancetype)filterWithAudioSource:(AKParameter *)audioSource;
 
 /// Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
 @property AKParameter *cutoffFrequency;

@@ -31,7 +31,7 @@
 - (instancetype)init;
 
 /// Instantiates the vc oscillator with default values
-+ (instancetype)audio;
++ (instancetype)oscillator;
 
 
 /// Choose from various waveform types. [Default Value: AKVCOscillatorWaveformTypeSawtooth]

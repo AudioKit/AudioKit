@@ -2,8 +2,8 @@
 //  AKHighPassButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's butterhp:
 //  http://www.csounds.com/manual/html/butterhp.html
@@ -39,7 +39,7 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
++ (instancetype)filterWithInput:(AKParameter *)input
 {
     return [[AKHighPassButterworthFilter alloc] initWithInput:input];
 }

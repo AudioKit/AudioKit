@@ -46,7 +46,7 @@
     return self;
 }
 
-+ (instancetype)audio
++ (instancetype)oscillator
 {
     return [[AKVCOscillator alloc] init];
 }

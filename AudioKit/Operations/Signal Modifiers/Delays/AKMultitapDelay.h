@@ -29,7 +29,7 @@
 /// @param input Input signal to be delayed.
 /// @param firstEchoTime Time in seconds to delay the firsted delayed playback.
 /// @param firstEchoGain The relative amplitude of the first echo.
-+ (instancetype)audioWithInput:(AKParameter *)input
++ (instancetype)delayWithInput:(AKParameter *)input
                  firstEchoTime:(AKConstant *)firstEchoTime
                  firstEchoGain:(AKConstant *)firstEchoGain;
 

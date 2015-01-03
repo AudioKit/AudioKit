@@ -2,8 +2,8 @@
 //  AKMonoSoundFileLooper.h
 //  AudioKit
 //
-//  Auto-generated on 12/28/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -31,7 +31,7 @@
 
 /// Instantiates the mono sound file looper with default values
 /// @param soundFile The sound file function table.
-+ (instancetype)audioWithSoundFile:(AKFunctionTable *)soundFile;
++ (instancetype)looperWithSoundFile:(AKFunctionTable *)soundFile;
 
 /// The frequency ratio. [Default Value: 1]
 @property AKParameter *frequencyRatio;

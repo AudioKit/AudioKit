@@ -33,7 +33,7 @@
 /// Instantiates the delay with default values
 /// @param input Input signal, usually audio.
 /// @param delayTime Requested delay time in seconds.
-+ (instancetype)audioWithInput:(AKParameter *)input
++ (instancetype)delayWithInput:(AKParameter *)input
                      delayTime:(AKConstant *)delayTime;
 
 /// How much of the signal is sent back into the delay line.  Usually values range from 0-1. [Default Value: 0.0]

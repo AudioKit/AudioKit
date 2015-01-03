@@ -2,7 +2,7 @@
 //  AKOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 1/1/15.
+//  Auto-generated on 1/3/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's oscili:
@@ -40,7 +40,7 @@
     return self;
 }
 
-+ (instancetype)audio
++ (instancetype)oscillator
 {
     return [[AKOscillator alloc] init];
 }

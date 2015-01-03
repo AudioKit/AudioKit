@@ -2,8 +2,8 @@
 //  AKLowPassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's tone:
 //  http://www.csounds.com/manual/html/tone.html
@@ -39,7 +39,7 @@
     return self;
 }
 
-+ (instancetype)audioWithAudioSource:(AKParameter *)audioSource
++ (instancetype)filterWithAudioSource:(AKParameter *)audioSource
 {
     return [[AKLowPassFilter alloc] initWithAudioSource:audioSource];
 }

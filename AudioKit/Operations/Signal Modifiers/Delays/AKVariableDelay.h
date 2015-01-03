@@ -2,8 +2,8 @@
 //  AKVariableDelay.h
 //  AudioKit
 //
-//  Auto-generated on 12/31/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -29,7 +29,7 @@
 
 /// Instantiates the variable delay with default values
 /// @param input Input signal.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)delayWithInput:(AKParameter *)input;
 
 /// Current value of delay in seconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise. [Default Value: 0]
 @property AKParameter *delayTime;

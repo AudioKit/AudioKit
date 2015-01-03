@@ -2,8 +2,8 @@
 //  AKFunctionTableLooper.h
 //  AudioKit
 //
-//  Auto-generated on 12/28/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -37,7 +37,7 @@
 
 /// Instantiates the function table looper with default values
 /// @param functionTable Sound source function table, generally an AKSoundFile.
-+ (instancetype)audioWithFunctionTable:(AKFunctionTable *)functionTable;
++ (instancetype)looperWithFunctionTable:(AKFunctionTable *)functionTable;
 
 /// Loop start point in seconds. [Default Value: 0]
 @property AKParameter *startTime;
