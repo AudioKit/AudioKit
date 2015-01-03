@@ -39,7 +39,7 @@ class Processor : AKInstrument {
         let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: testDuration.ak)
         connect(cutoffFrequency)
 
-        let reverb = AKReverb(audioSourceLeftChannel: audioSource, audioSourceRightChannel: audioSource)
+        let reverb = AKReverb(input:audioSource)
         reverb.feedback = feedback
         reverb.cutoffFrequency = cutoffFrequency
         connect(reverb)
