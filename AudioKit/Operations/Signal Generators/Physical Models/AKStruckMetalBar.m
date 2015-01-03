@@ -57,7 +57,7 @@
     return self;
 }
 
-+ (instancetype)audio
++ (instancetype)strike
 {
     return [[AKStruckMetalBar alloc] init];
 }
