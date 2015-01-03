@@ -9,6 +9,6 @@
 #import "AKFoundation.h"
 
 @interface AudioFilePlayer : AKInstrument
-@property (nonatomic, strong) AKInstrumentProperty *reverbAmount;
+@property (nonatomic, strong) AKInstrumentProperty *reverbFeedback;
 @property (nonatomic, strong) AKInstrumentProperty *mix;
 @end
