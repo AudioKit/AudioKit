@@ -47,7 +47,6 @@
         
         [self connect:fmOscillator];
         
-
         // AUDIO OUTPUT ========================================================
         
         AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:fmOscillator];
