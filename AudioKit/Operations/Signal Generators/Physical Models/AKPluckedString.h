@@ -2,8 +2,8 @@
 //  AKPluckedString.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -35,7 +35,7 @@
 
 /// Instantiates the plucked string with default values
 /// @param excitationSignal A signal which excites the string.
-+ (instancetype)audioWithExcitationSignal:(AKParameter *)excitationSignal;
++ (instancetype)pluckWithExcitationSignal:(AKParameter *)excitationSignal;
 
 /// Frequency of the string [Default Value: 440]
 @property AKConstant *frequency;

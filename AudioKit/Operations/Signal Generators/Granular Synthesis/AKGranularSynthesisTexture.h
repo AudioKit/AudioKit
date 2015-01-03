@@ -2,8 +2,8 @@
 //  AKGranularSynthesisTexture.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -46,8 +46,8 @@
 /// Instantiates the granular synthesis texture with default values
 /// @param grainFunctionTable The grain waveform. This can be just a sine wave or a sampled sound.
 /// @param windowFunctionTable The amplitude envelope used for the grains.
-+ (instancetype)audioWithGrainFunctionTable:(AKConstant *)grainFunctionTable
-                        windowFunctionTable:(AKConstant *)windowFunctionTable;
++ (instancetype)textureWithGrainFunctionTable:(AKConstant *)grainFunctionTable
+                          windowFunctionTable:(AKConstant *)windowFunctionTable;
 
 /// Maximum grain duration in seconds. [Default Value: 0.5]
 @property AKConstant *maximumGrainDuration;

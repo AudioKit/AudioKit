@@ -2,8 +2,8 @@
 //  AKEqualizerFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -32,7 +32,7 @@ The amplitude response for this filter will be flat (=1) for gain=1. With gain b
 
 /// Instantiates the equalizer filter with default values
 /// @param input Input signal.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Filter center frequency in Hz. [Default Value: 1000]
 @property AKParameter *centerFrequency;

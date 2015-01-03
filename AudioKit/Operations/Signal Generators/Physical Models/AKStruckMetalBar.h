@@ -2,8 +2,8 @@
 //  AKStruckMetalBar.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -39,7 +39,7 @@
 - (instancetype)init;
 
 /// Instantiates the struck metal bar with default values
-+ (instancetype)audio;
++ (instancetype)strike;
 
 
 /// 30 db decay time in seconds. [Default Value: 2.0]

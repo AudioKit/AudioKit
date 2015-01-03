@@ -2,8 +2,8 @@
 //  AKHighPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -27,7 +27,7 @@
 
 /// Instantiates the high pass filter with default values
 /// @param input The input signal to be filtered
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
 @property AKParameter *cutoffFrequency;

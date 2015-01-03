@@ -2,8 +2,8 @@
 //  AKBeatenPlate.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -37,7 +37,7 @@
 
 /// Instantiates the beaten plate with default values
 /// @param input The excitation noise.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)beatenPlateWithInput:(AKParameter *)input;
 
 /// The inverse of delay time for the first of two parallel delay lines. [Default Value: 5000]
 @property AKParameter *frequency1;

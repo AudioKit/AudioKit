@@ -2,8 +2,8 @@
 //  AKCompressor.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's compress:
 //  http://www.csounds.com/manual/html/compress.html
@@ -62,11 +62,11 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
-             controllingInput:(AKParameter *)controllingInput
++ (instancetype)compressorWithInput:(AKParameter *)input
+                   controllingInput:(AKParameter *)controllingInput
 {
     return [[AKCompressor alloc] initWithInput:input
-             controllingInput:controllingInput];
+                              controllingInput:controllingInput];
 }
 
 - (void)setOptionalThreshold:(AKParameter *)threshold {
@@ -93,57 +93,57 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ compress ", self];
-
+    
     if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
-
+    
     if ([_controllingInput class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _controllingInput];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _controllingInput];
     }
-
+    
     if ([_threshold class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _threshold];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _threshold];
     }
-
+    
     if ([_lowKnee class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _lowKnee];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _lowKnee];
     }
-
+    
     if ([_highKnee class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _highKnee];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _highKnee];
     }
-
+    
     if ([_compressionRatio class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _compressionRatio];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _compressionRatio];
     }
-
+    
     if ([_attackTime class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _attackTime];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _attackTime];
     }
-
+    
     if ([_releaseTime class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _releaseTime];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _releaseTime];
     }
-
+    
     [csdString appendFormat:@"%@", _lookAheadTime];
     return csdString;
 }

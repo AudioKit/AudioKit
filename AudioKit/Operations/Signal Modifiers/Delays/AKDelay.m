@@ -45,7 +45,7 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
++ (instancetype)delayWithInput:(AKParameter *)input
                     delayTime:(AKConstant *)delayTime
 {
     return [[AKDelay alloc] initWithInput:input

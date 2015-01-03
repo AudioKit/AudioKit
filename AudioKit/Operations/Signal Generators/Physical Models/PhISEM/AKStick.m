@@ -2,7 +2,7 @@
 //  AKStick.m
 //  AudioKit
 //
-//  Auto-generated on 1/1/15.
+//  Auto-generated on 1/3/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's stix:
@@ -39,7 +39,7 @@
     return self;
 }
 
-+ (instancetype)audio
++ (instancetype)stick
 {
     return [[AKStick alloc] init];
 }

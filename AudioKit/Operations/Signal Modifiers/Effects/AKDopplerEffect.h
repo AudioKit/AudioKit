@@ -2,8 +2,8 @@
 //  AKDopplerEffect.h
 //  AudioKit
 //
-//  Auto-generated on 12/29/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -31,7 +31,7 @@
 
 /// Instantiates the doppler effect with default values
 /// @param input Input signal at the sound source.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)effectWithInput:(AKParameter *)input;
 
 /// Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
 @property AKParameter *sourcePosition;

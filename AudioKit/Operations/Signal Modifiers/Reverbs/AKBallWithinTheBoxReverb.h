@@ -2,8 +2,8 @@
 //  AKBallWithinTheBoxReverb.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKStereoAudio.h"
@@ -39,7 +39,7 @@
 
 /// Instantiates the ball within the box reverb with default values
 /// @param input The input audio signal.
-+ (instancetype)stereoAudioWithInput:(AKParameter *)input;
++ (instancetype)reverbWithInput:(AKParameter *)input;
 
 /// Length of x-axis edge of the box in meters. [Default Value: 14.39]
 @property AKConstant *lengthOfXAxisEdge;

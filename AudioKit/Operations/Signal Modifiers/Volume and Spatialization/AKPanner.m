@@ -2,8 +2,8 @@
 //  AKPanner.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pan2:
 //  http://www.csounds.com/manual/html/pan2.html
@@ -42,7 +42,7 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithInput:(AKParameter *)input
++ (instancetype)pannerWithInput:(AKParameter *)input
 {
     return [[AKPanner alloc] initWithInput:input];
 }

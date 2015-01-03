@@ -2,8 +2,8 @@
 //  AKVariableDelay.m
 //  AudioKit
 //
-//  Auto-generated on 12/31/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vdelay3:
 //  http://www.csounds.com/manual/html/vdelay3.html
@@ -42,7 +42,7 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
++ (instancetype)delayWithInput:(AKParameter *)input
 {
     return [[AKVariableDelay alloc] initWithInput:input];
 }

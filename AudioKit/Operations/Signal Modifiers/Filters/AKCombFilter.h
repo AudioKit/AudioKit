@@ -2,8 +2,8 @@
 //  AKCombFilter.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -29,7 +29,7 @@
 
 /// Instantiates the comb filter with default values
 /// @param input Input signal, usually audio.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
 
 /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. [Default Value: 1]
 @property AKParameter *reverbDuration;

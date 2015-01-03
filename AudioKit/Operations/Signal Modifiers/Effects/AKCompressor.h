@@ -2,8 +2,8 @@
 //  AKCompressor.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -46,8 +46,8 @@ The running envelope is next converted to decibels, then passed through a mappin
 /// Instantiates the compressor with default values
 /// @param input The input signal that will be compressed.
 /// @param controllingInput The signal that defines the compression.
-+ (instancetype)audioWithInput:(AKParameter *)input
-              controllingInput:(AKParameter *)controllingInput;
++ (instancetype)compressorWithInput:(AKParameter *)input
+                   controllingInput:(AKParameter *)controllingInput;
 
 /// Sets the lowest decibel level that will be allowed through. Normally 0 or less, but if higher the threshold will begin removing low-level signal energy such as background noise. [Default Value: 0]
 @property AKParameter *threshold;

@@ -2,8 +2,8 @@
 //  AKSimpleWaveGuideModel.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -31,7 +31,7 @@
 
 /// Instantiates the simple wave guide model with default values
 /// @param input The excitation noise.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)modelWithInput:(AKParameter *)input;
 
 /// The inverse of delay time. [Default Value: 440]
 @property AKParameter *frequency;

@@ -26,7 +26,7 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithInput:(AKParameter *)input
++ (instancetype)filterWithInput:(AKParameter *)input
 {
     return [[AKHilbertTransformer alloc] initWithInput:input];
 }

@@ -2,8 +2,8 @@
 //  AKParallelCombLowPassFilterReverb.h
 //  AudioKit
 //
-//  Auto-generated on 12/26/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -29,7 +29,7 @@
 
 /// Instantiates the parallel comb low pass filter reverb with default values
 /// @param input Audio signal to be reverberated.
-+ (instancetype)audioWithInput:(AKParameter *)input;
++ (instancetype)reverbWithInput:(AKParameter *)input;
 
 /// Length of reverbation in seconds. [Default Value: 1]
 @property AKParameter *duration;

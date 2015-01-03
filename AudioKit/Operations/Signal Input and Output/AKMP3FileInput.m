@@ -28,7 +28,7 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithFilename:(AKConstant *)filename
++ (instancetype)mp3WithFilename:(AKConstant *)filename
 {
     return [[AKMP3FileInput alloc] initWithFilename:filename];
 }

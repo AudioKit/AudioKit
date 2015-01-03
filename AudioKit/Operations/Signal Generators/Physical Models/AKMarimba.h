@@ -2,7 +2,7 @@
 //  AKMarimba.h
 //  AudioKit
 //
-//  Auto-generated on 1/1/15.
+//  Auto-generated on 1/3/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -39,7 +39,7 @@
 - (instancetype)init;
 
 /// Instantiates the marimba with default values
-+ (instancetype)audio;
++ (instancetype)marimba;
 
 
 /// Frequency of note played. [Default Value: 220]

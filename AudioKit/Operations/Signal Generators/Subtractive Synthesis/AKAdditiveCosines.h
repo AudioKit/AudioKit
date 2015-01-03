@@ -2,8 +2,8 @@
 //  AKAdditiveCosines.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -37,7 +37,7 @@
 
 /// Instantiates the additive cosines with default values
 /// @param cosineTable A cosine table with at least 8192 points is recommended.
-+ (instancetype)audioWithCosineTable:(AKFunctionTable *)cosineTable;
++ (instancetype)cosinesWithCosineTable:(AKFunctionTable *)cosineTable;
 
 /// Total number of harmonics requested. [Default Value: 10]
 @property AKParameter *harmonicsCount;

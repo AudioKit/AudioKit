@@ -2,8 +2,8 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibes:
 //  http://www.csounds.com/manual/html/vibes.html
@@ -52,7 +52,7 @@
     return self;
 }
 
-+ (instancetype)audio
++ (instancetype)vibes
 {
     return [[AKVibes alloc] init];
 }

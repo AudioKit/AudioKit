@@ -26,7 +26,7 @@ Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does
 
 /// Instantiates the hilbert transformer with default values
 /// @param input The input audio Signal
-+ (instancetype)stereoAudioWithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Helper functions to pull apart the stereo audio output appropriately.
 - (AKAudio *)realPart;

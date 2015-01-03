@@ -26,8 +26,8 @@
 /// Instantiates the convolution with default values
 /// @param input Input to the convolution, usually audio.
 /// @param impulseResponseFilename File contain the impulse response audio.  Usually a very short impulse sound.
-+ (instancetype)stereoAudioWithInput:(AKParameter *)input
-       impulseResponseFilename:(NSString *)impulseResponseFilename;
++ (instancetype)convolutionWithInput:(AKParameter *)input
+             impulseResponseFilename:(NSString *)impulseResponseFilename;
 
 
 

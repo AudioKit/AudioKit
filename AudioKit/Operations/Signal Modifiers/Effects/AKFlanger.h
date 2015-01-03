@@ -2,8 +2,8 @@
 //  AKFlanger.h
 //  AudioKit
 //
-//  Auto-generated on 12/25/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 1/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -32,8 +32,8 @@
 /// Instantiates the flanger with default values
 /// @param input Input signal.
 /// @param delayTime Delay in seconds
-+ (instancetype)audioWithInput:(AKParameter *)input
-                     delayTime:(AKParameter *)delayTime;
++ (instancetype)effectWithInput:(AKParameter *)input
+                      delayTime:(AKParameter *)delayTime;
 
 /// Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed) [Default Value: 0]
 @property AKParameter *feedback;

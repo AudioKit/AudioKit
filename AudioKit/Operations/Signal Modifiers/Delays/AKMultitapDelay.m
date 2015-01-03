@@ -39,13 +39,13 @@
     return self;
 }
 
-+ (instancetype)audioWithInput:(AKParameter *)input
-                firstEchoTime:(AKConstant *)firstEchoTime
-                firstEchoGain:(AKConstant *)firstEchoGain
++ (instancetype)delayWithInput:(AKParameter *)input
+                 firstEchoTime:(AKConstant *)firstEchoTime
+                 firstEchoGain:(AKConstant *)firstEchoGain
 {
     return [[AKMultitapDelay alloc] initWithInput:input
-                firstEchoTime:firstEchoTime
-                firstEchoGain:firstEchoGain];
+                                    firstEchoTime:firstEchoTime
+                                    firstEchoGain:firstEchoGain];
 }
 
 - (void)addEchoAtTime:(AKConstant *)time gain:(AKConstant *)gain
@@ -57,9 +57,9 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ multitap ", self];
-
+    
     if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
@@ -70,7 +70,7 @@
     for (NSArray *timeAndGain in timesAndGains) {
         [flattenedTimesAndGains addObject:[timeAndGain componentsJoinedByString:@", "]];
     }
-
+    
     [csdString appendFormat:@"%@", [flattenedTimesAndGains componentsJoinedByString:@", "]];
     
     return csdString;
