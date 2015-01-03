@@ -19,28 +19,26 @@
     AKParameter * _audioSourceRightChannel;
 }
 
-- (instancetype)initWithAudioSourceLeftChannel:(AKParameter *)audioSourceLeftChannel
-                       audioSourceRightChannel:(AKParameter *)audioSourceRightChannel
-                                      feedback:(AKParameter *)feedback
-                               cutoffFrequency:(AKParameter *)cutoffFrequency
+- (instancetype)initWithInput:(AKParameter *)input
+                     feedback:(AKParameter *)feedback
+              cutoffFrequency:(AKParameter *)cutoffFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSourceLeftChannel = audioSourceLeftChannel;
-        _audioSourceRightChannel = audioSourceRightChannel;
+        _audioSourceLeftChannel = input;
+        _audioSourceRightChannel = input;
         _feedback = feedback;
         _cutoffFrequency = cutoffFrequency;
     }
     return self;
 }
 
-- (instancetype)initWithAudioSourceLeftChannel:(AKParameter *)audioSourceLeftChannel
-                       audioSourceRightChannel:(AKParameter *)audioSourceRightChannel
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSourceLeftChannel = audioSourceLeftChannel;
-        _audioSourceRightChannel = audioSourceRightChannel;
+        _audioSourceLeftChannel = input;
+        _audioSourceRightChannel = input;
         // Default Values
         _feedback = akp(0.6);    
         _cutoffFrequency = akp(4000);    
@@ -48,34 +46,32 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithAudioSourceLeftChannel:(AKParameter *)audioSourceLeftChannel
-                              audioSourceRightChannel:(AKParameter *)audioSourceRightChannel
++ (instancetype)reverbWithInput:(AKParameter *)input
 {
-    return [[AKReverb alloc] initWithAudioSourceLeftChannel:audioSourceLeftChannel
-                             audioSourceRightChannel:audioSourceRightChannel];
+    return [[AKReverb alloc] initWithInput:input];
 }
 
 
-- (instancetype)initWithStereoAudioSource:(AKStereoAudio *)audioSource
-                                 feedback:(AKParameter *)feedback
-                          cutoffFrequency:(AKParameter *)cutoffFrequency
+- (instancetype)initWithStereoInput:(AKStereoAudio *)input
+                           feedback:(AKParameter *)feedback
+                    cutoffFrequency:(AKParameter *)cutoffFrequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSourceLeftChannel = audioSource.leftOutput;
-        _audioSourceRightChannel = audioSource.rightOutput;
+        _audioSourceLeftChannel = input.leftOutput;
+        _audioSourceRightChannel = input.rightOutput;
         _feedback = feedback;
         _cutoffFrequency = cutoffFrequency;
     }
     return self;
 }
 
-- (instancetype)initWithStereoAudioSource:(AKStereoAudio *)audioSource
+- (instancetype)initWithStereoInput:(AKStereoAudio *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSourceLeftChannel = audioSource.leftOutput;
-        _audioSourceRightChannel = audioSource.rightOutput;
+        _audioSourceLeftChannel = input.leftOutput;
+        _audioSourceRightChannel = input.rightOutput;
         // Default Values
         _feedback = akp(0.6);
         _cutoffFrequency = akp(4000);
@@ -83,10 +79,9 @@
     return self;
 }
 
-+ (instancetype)stereoAudioWithStereoAudioSource:(AKStereoAudio *)audioSource
++ (instancetype)reverbWithStereoInput:(AKStereoAudio *)input
 {
-    return [[AKReverb alloc] initWithAudioSourceLeftChannel:audioSource.leftOutput
-                                    audioSourceRightChannel:audioSource.rightOutput];
+    return [[AKReverb alloc] initWithStereoInput:input];
 }
 
 
