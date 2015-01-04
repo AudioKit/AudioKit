@@ -13,7 +13,7 @@ class HarmonizerInstrument: AKInstrument {
     override init() {
         super.init()
         
-        let microphone: AKAudioInput = AKAudioInput ()
+        let microphone: AKAudioInput = AKAudioInput()
         connect (microphone)
         
         let microphoneFFT = AKFSignalFromMonoAudio(
@@ -21,8 +21,8 @@ class HarmonizerInstrument: AKInstrument {
             fftSize: 2048.ak,
             overlap: 256.ak,
             windowType: AKFSignalFromMonoAudioWindowType.VonHann,
-            windowFilterSize: 2048.ak)
-        
+            windowFilterSize: 2048.ak
+        )
         connect(microphoneFFT)
         
         let scaledFFT = AKScaledFSignal(
@@ -33,16 +33,7 @@ class HarmonizerInstrument: AKInstrument {
             cepstrumCoefficients: nil
         )
         connect(scaledFFT)
-        
-//        let fsig3 = AKScaledFSignal(
-//            input: microphoneFFT,
-//            frequencyRatio: 2.ak,
-//            formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
-//            amplitudeRatio: nil,
-//            cepstrumCoefficients: nil
-//        )
-//        connect (fsig3)
-        
+    
         let mixedFFT = AKFSignalMix(input1: microphoneFFT, input2: scaledFFT)
         connect(mixedFFT)
         
