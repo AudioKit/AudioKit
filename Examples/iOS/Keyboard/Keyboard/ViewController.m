@@ -9,13 +9,13 @@
 #import "ViewController.h"
 
 #import "AKFoundation.h"
-#import "ToneGenerator.h"
-#import "EffectsProcessor.h"
+#import "Conductor.h"
+
 
 @interface ViewController () {
-    ToneGenerator *toneGenerator;
-    EffectsProcessor *fx;
-    NSMutableDictionary *currentNotes;
+
+
+    Conductor *conductor;
 }
 @end
 
@@ -25,28 +25,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    toneGenerator = [[ToneGenerator alloc] init];
-    fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
-    currentNotes = [NSMutableDictionary dictionary];
-    
-    [AKOrchestra addInstrument:toneGenerator];
-    [AKOrchestra addInstrument:fx];
-    [AKOrchestra start];
-    [fx play];
+    conductor = [[Conductor alloc] init];
 }
 
 - (IBAction)keyPressed:(id)sender
 {
-    NSArray *frequencies = @[@440, @466.16, @493.88, @523.25, @554.37, @587.33, @622.25, @659.26, @698.46, @739.99, @783.99, @830.61, @880];
     UILabel *key = (UILabel *)sender;
     NSInteger index = [key tag];
     [key setBackgroundColor:[UIColor redColor]];
-    float frequency = [[frequencies objectAtIndex:index] floatValue];
-    
-    ToneGeneratorNote *note = [[ToneGeneratorNote alloc] initWithFrequency:frequency];
-    [toneGenerator playNote:note];
-    [currentNotes setObject:note forKey:[NSNumber numberWithInt:(int)index]];
+    [conductor play:index];
 }
 
 - (IBAction)keyReleased:(id)sender
@@ -58,19 +45,17 @@
     } else {
         [key setBackgroundColor:[UIColor whiteColor]];
     }
-    ToneGeneratorNote *noteToStop = [currentNotes objectForKey:[NSNumber numberWithInt:(int)index]];
-    [noteToStop stop];
-    [currentNotes removeObjectForKey:sender];
+    [conductor release:index];
 }
 
 - (IBAction)reverbSliderValueChanged:(id)sender
 {
-    fx.reverb.value = [(UISlider *)sender value];
+    [conductor setReverbFeedbackLevel:[(UISlider *)sender value]];
 }
 
 - (IBAction)toneColorSliderValueChanged:(id)sender
 {
-    toneGenerator.toneColor.value = [(UISlider *)sender value];
+    [conductor setToneColor:[(UISlider *)sender value]];
 }
 
 @end

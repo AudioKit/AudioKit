@@ -23,6 +23,7 @@
 @interface ToneGeneratorNote : AKNote
 
 @property (nonatomic, strong) AKNoteProperty *frequency;
+@property (nonatomic, strong) AKNoteProperty *amplitude;
 
 - (instancetype)initWithFrequency:(float)frequency;
 

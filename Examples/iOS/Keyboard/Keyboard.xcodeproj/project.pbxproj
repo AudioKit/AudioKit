@@ -155,6 +155,7 @@
 		C49E7B221A043FD700BA5791 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49E7B201A043FD700BA5791 /* LaunchScreen.xib */; };
 		C49E7D411A04472D00BA5791 /* EffectsProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C49E7D3E1A04472D00BA5791 /* EffectsProcessor.m */; };
 		C49E7D421A04472D00BA5791 /* ToneGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C49E7D401A04472D00BA5791 /* ToneGenerator.m */; };
+		C4C8E01D1A5912B100B768A7 /* Conductor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8E01C1A5912B100B768A7 /* Conductor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -473,6 +474,8 @@
 		C49E7D3F1A04472D00BA5791 /* ToneGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToneGenerator.h; sourceTree = "<group>"; };
 		C49E7D401A04472D00BA5791 /* ToneGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToneGenerator.m; sourceTree = "<group>"; };
 		C4C280431A48239B00C0558B /* AKTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKTypes.h; sourceTree = "<group>"; };
+		C4C8E01B1A5912B100B768A7 /* Conductor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conductor.h; sourceTree = "<group>"; };
+		C4C8E01C1A5912B100B768A7 /* Conductor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conductor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1137,6 +1140,8 @@
 		C49E7B101A043FD700BA5791 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8E01B1A5912B100B768A7 /* Conductor.h */,
+				C4C8E01C1A5912B100B768A7 /* Conductor.m */,
 				C49E7D3C1A04472D00BA5791 /* Instruments */,
 				C49E7B151A043FD700BA5791 /* AppDelegate.h */,
 				C49E7B161A043FD700BA5791 /* AppDelegate.m */,
@@ -1308,6 +1313,7 @@
 				C480BF031A514BEC0092E3D3 /* AKSandPaper.m in Sources */,
 				C480BEE91A514BEC0092E3D3 /* AKScaledFSignal.m in Sources */,
 				C480BF1F1A514BEC0092E3D3 /* AKFlanger.m in Sources */,
+				C4C8E01D1A5912B100B768A7 /* Conductor.m in Sources */,
 				C49E7D421A04472D00BA5791 /* ToneGenerator.m in Sources */,
 				C480BECA1A514BEC0092E3D3 /* AKTableValue.m in Sources */,
 				C480BF201A514BEC0092E3D3 /* AKCombFilter.m in Sources */,
