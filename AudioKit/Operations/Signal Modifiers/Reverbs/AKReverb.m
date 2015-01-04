@@ -94,7 +94,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ reverbsc AKAudio(%@), AKAudio(%@), AKControl(%@), AKControl(%@)",
+            @"%@ reverbsc AKAudio(%@), AKAudio(%@), AKControl(%@), AKControl(%@), 0, 0, tival()",
             self,
             _audioSourceLeftChannel,
             _audioSourceRightChannel,
