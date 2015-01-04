@@ -57,6 +57,8 @@ class Processor : AKInstrument {
         )
 
         connect(AKAudioOutput(audioSource:bandRejectFilter))
+
+        resetParameter(audioSource)
     }
 }
 

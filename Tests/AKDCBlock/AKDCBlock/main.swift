@@ -38,6 +38,8 @@ class Processor : AKInstrument {
         connect(dcBlock)
 
         connect(AKAudioOutput(audioSource:dcBlock))
+
+        resetParameter(audioSource)
     }
 }
 

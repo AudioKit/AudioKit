@@ -50,7 +50,7 @@ class Processor : AKInstrument {
 
         let mix = AKMixedAudio(signal1: audioSource, signal2: variableDelay, balance: 0.5.ak)
         connect(mix)
-        
+
         enableParameterLog(
             "Delay Time = ",
             parameter: variableDelay.delayTime,
@@ -58,6 +58,8 @@ class Processor : AKInstrument {
         )
 
         connect(AKAudioOutput(audioSource:mix))
+
+        resetParameter(audioSource)
     }
 }
 
