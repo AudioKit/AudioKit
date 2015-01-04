@@ -31,6 +31,10 @@
     }
     return self;
 }
++ (AKSequence *)sequence
+{
+    return [[self alloc] init];
+}
 
 - (void)addEvent:(AKEvent *)event 
 {

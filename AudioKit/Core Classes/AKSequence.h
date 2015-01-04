@@ -19,6 +19,9 @@
 /// The start times for all the events in the sequence.
 @property (nonatomic, strong) NSMutableArray *times;
 
+/// Class-level initializer for empty sequence
++ (AKSequence *)sequence;
+
 /// Trigger playback of the sequence.
 - (void)play;
 
