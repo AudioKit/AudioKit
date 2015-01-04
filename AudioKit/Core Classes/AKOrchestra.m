@@ -9,6 +9,7 @@
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
 #import "AKManager.h"
+#import "AKStereoAudio.h"
 
 @implementation AKOrchestra
 {
@@ -36,13 +37,9 @@
 }
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Collections
+#  pragma mark - Starting and Testing
 // -----------------------------------------------------------------------------
 
-+ (void)addInstrument:(AKInstrument *)instrument
-{
-    [[[AKManager sharedManager] orchestra] addInstrument:instrument];
-}
 
 + (void)start
 {
@@ -59,7 +56,17 @@
     }
 }
 
-- (void)addInstrument:(AKInstrument *)newInstrument {
+// -----------------------------------------------------------------------------
+#  pragma mark - Collections
+// -----------------------------------------------------------------------------
+
++ (void)addInstrument:(AKInstrument *)instrument
+{
+    [[[AKManager sharedManager] orchestra] addInstrument:instrument];
+}
+
+- (void)addInstrument:(AKInstrument *)newInstrument
+{
     [_instruments addObject:newInstrument];
     [newInstrument joinOrchestra:self];
 }
@@ -84,22 +91,34 @@
                      samplesPerControlPeriod]];
     [s appendString:@"\n"];
     
-    [s appendString:@";=== GLOBAL F-TABLES ===\n"];
+    [s appendString:@";=== GLOBAL PARAMETERS ===\n"];
     if ([[AKManager sharedManager] numberOfSineWaveReferences] > 0) {
         [s appendString:[[AKManager standardSineWave] stringForCSD]];
     }
     [s appendString:@"\n"];
     for ( AKInstrument *i in _instruments) {
-        for (AKFunctionTable *functionTable in [i functionTables]) {
+        for (AKFunctionTable *functionTable in i.functionTables) {
             [s appendString:[functionTable stringForCSD]];
             [s appendString:@"\n"];
         } 
     }
+    for ( AKInstrument *i in _instruments) {
+        for (AKParameter *globalParameter in i.globalParameters) {
+            [s appendString:@"\n"];
+            if ([globalParameter class] == [AKStereoAudio class]) {
+                [s appendString:[NSString stringWithFormat:@"%@ init 0, 0\n", globalParameter]];
+            } else {
+                [s appendString:[NSString stringWithFormat:@"%@ init 0\n", globalParameter]];
+            }
+            [s appendString:@"\n"];
+        }
+    }
     [s appendString:@"\n"];
+    
     
     [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
     for ( AKInstrument *i in _instruments) {
-        for (AKParameter *udo in [i userDefinedOperations]) {
+        for (AKParameter *udo in i.userDefinedOperations) {
             NSString *newUDOFile = [udo udoFile];
             for (AKParameter *udo in udoFiles) {
                 if ([newUDOFile isEqualToString:[udo udoFile]]) {
@@ -115,7 +134,6 @@
         [s appendString:@"\n"];
         [s appendString:[AKManager stringFromFile:[udo udoFile]]];
         [s appendString:@"\n"];
-
     }
     [s appendString:@"\n"];
 

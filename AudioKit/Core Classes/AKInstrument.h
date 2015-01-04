@@ -79,6 +79,8 @@
  instrument blocks. */
 @property (nonatomic, strong) NSMutableSet *userDefinedOperations;
 
+@property (nonatomic, strong) NSMutableSet *globalParameters;
+
 /// Adds the operation to the AKInstrument.
 /// @param newOperation New operation to add to the instrument.
 - (void)connect:(AKParameter *)newOperation;
