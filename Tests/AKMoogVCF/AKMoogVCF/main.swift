@@ -56,6 +56,8 @@ class Processor : AKInstrument {
         )
 
         connect(AKAudioOutput(audioSource:moogVCF))
+
+        resetParameter(audioSource)
     }
 }
 

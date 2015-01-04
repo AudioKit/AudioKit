@@ -49,6 +49,8 @@ class Processor : AKInstrument {
         )
 
         connect(AKAudioOutput(audioSource:paralleltCombLowPassFilterReverb))
+
+        resetParameter(audioSource)
     }
 }
 

@@ -55,14 +55,16 @@ class Processor : AKInstrument {
             parameter: reverb.cutoffFrequency,
             timeInterval:0.1
         )
-        
+
         let leftMix = AKMixedAudio(signal1: audioSource, signal2: reverb.leftOutput, balance: 0.5.ak)
         connect(leftMix)
-        
+
         let rightMix = AKMixedAudio(signal1: audioSource, signal2: reverb.rightOutput, balance: 0.5.ak)
         connect(rightMix)
 
         connect(AKAudioOutput(leftAudio: leftMix, rightAudio: rightMix))
+
+        resetParameter(audioSource)
     }
 }
 

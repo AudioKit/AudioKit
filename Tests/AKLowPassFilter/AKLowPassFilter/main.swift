@@ -45,6 +45,8 @@ class Processor : AKInstrument {
         )
 
         connect(AKAudioOutput(audioSource:lowPassFilter))
+
+        resetParameter(audioSource)
     }
 }
 

@@ -55,6 +55,8 @@ class Processor : AKInstrument {
         )
 
         connect(AKAudioOutput(audioSource:combFilter))
+
+        resetParameter(audioSource)
     }
 }
 

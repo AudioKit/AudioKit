@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: Float = 4.0
 
 class Instrument : AKInstrument {
 
@@ -92,6 +92,8 @@ class Processor : AKInstrument {
         connect(mix)
 
         connect(AKAudioOutput(audioSource:mix))
+        
+        resetParameter(audioSource)
     }
 }
 

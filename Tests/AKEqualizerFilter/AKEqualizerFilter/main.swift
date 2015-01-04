@@ -62,6 +62,8 @@ class Processor : AKInstrument {
         connect(output)
 
         connect(AKAudioOutput(audioSource:output))
+
+        resetParameter(audioSource)
     }
 }
 
