@@ -24,7 +24,6 @@
         [self addProperty:_toneColor];
         
         // INSTRUMENT DEFINITION ===============================================
-        
         AKFMOscillator *fmOscillator = [AKFMOscillator oscillator];
         fmOscillator.baseFrequency = note.frequency;
         fmOscillator.carrierMultiplier = [_toneColor scaledBy:akp(20)];
