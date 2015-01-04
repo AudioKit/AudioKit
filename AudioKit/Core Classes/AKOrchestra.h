@@ -12,6 +12,7 @@
 @class AKUserDefinedOperation;
 @class AKEvent;
 @class AKSequence;
+@class AKParameter;
 
 /** AKOrchestra is an AKInstrument collection that can be run by the AKManager.
  */

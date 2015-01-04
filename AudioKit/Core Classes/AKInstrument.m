@@ -35,6 +35,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
         _functionTables = [[NSMutableSet alloc] init];
+        _globalParameters = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""];
     }
     return self;
@@ -115,22 +116,24 @@ static int currentID = 1;
 
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input
 {
+    [_globalParameters addObject:output];
+    
     if ([output class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
         AKStereoAudio *stereoOutput = (AKStereoAudio *)output;
         AKStereoAudio *stereoInput  = (AKStereoAudio *)input;
         
         AKAssignment *auxLeftOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.leftOutput
-                                                                           input:stereoInput.leftOutput];
+                                                                           input:[stereoInput.leftOutput plus:stereoOutput.leftOutput]];
         [self connect:auxLeftOutputAssign];
 
         AKAssignment *auxRightOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.rightOutput
-                                                                           input:stereoInput.rightOutput];
+                                                                           input:[stereoInput.rightOutput plus:stereoOutput.rightOutput]];
         [self connect:auxRightOutputAssign];
 
     
     } else {
         AKAssignment *auxOutputAssign = [[AKAssignment alloc] initWithOutput:output
-                                                                       input:input];
+                                                                       input:[input plus:output]];
         [self connect:auxOutputAssign];
     }
 }
