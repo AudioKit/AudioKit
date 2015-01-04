@@ -9,6 +9,7 @@
 #ifndef AKTypes_h
 #define AKTypes_h
 
+/// Low frequency oscillator waveforms
 typedef NS_OPTIONS(NSUInteger, AKLowFrequencyOscillatorType)
 {
     AKLowFrequencyOscillatorTypeSine = 0,
@@ -18,6 +19,8 @@ typedef NS_OPTIONS(NSUInteger, AKLowFrequencyOscillatorType)
     AKLowFrequencyOscillatorTypeSawTooth = 4,
     AKLowFrequencyOscillatorTypeDownSawTooth = 5
 };
+
+/// Sound file looper direction
 typedef NS_OPTIONS(NSUInteger, AKSoundFileLooperMode)
 {
     AKSoundFileLooperModeNoLoop=0,
@@ -25,7 +28,7 @@ typedef NS_OPTIONS(NSUInteger, AKSoundFileLooperMode)
     AKSoundFileLooperModeForwardAndBack=2
 };
 
-
+/// Function table looper direction
 typedef NS_OPTIONS(NSUInteger, AKFunctionTableLooperMode)
 {
     AKFunctionTableLooperModeNormal=0,
@@ -33,6 +36,7 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableLooperMode)
     AKFunctionTableLooperModeForwardAndBack=2
 };
 
+/// Different ways of panning between left and right
 typedef NS_OPTIONS(NSUInteger, AKPanMethod)
 {
     AKPanMethodEqualPower = 0,
@@ -41,6 +45,7 @@ typedef NS_OPTIONS(NSUInteger, AKPanMethod)
     AKPanMethodAltEqualPower = 3,
 };
 
+/// Various waveforms offered by the AKVCOscillator
 typedef NS_OPTIONS(NSUInteger, AKVCOscillatorWaveformType)
 {
     AKVCOscillatorWaveformTypeSawtooth  =  0,
@@ -52,6 +57,7 @@ typedef NS_OPTIONS(NSUInteger, AKVCOscillatorWaveformType)
     AKVCOscillatorWaveformTypeTriangleNoRamp = 12
 };
 
+/// Window types for converting audio into the frequency domain
 typedef NS_OPTIONS(NSUInteger, AKFSignalFromMonoAudioWindowType)
 {
     AKFSignalFromMonoAudioWindowTypeHamming=0,
@@ -59,6 +65,7 @@ typedef NS_OPTIONS(NSUInteger, AKFSignalFromMonoAudioWindowType)
     
 };
 
+/// Formant retain methods when scaling in the frequency domain
 typedef NS_OPTIONS(NSUInteger, AKScaledFSignalFormantRetainMethod)
 {
     AKScaledFSignalFormantRetainMethodNone=0,
@@ -66,6 +73,7 @@ typedef NS_OPTIONS(NSUInteger, AKScaledFSignalFormantRetainMethod)
     AKScaledFSignalFormantRetainMethodTrueEnvelope=2,
 };
 
+/// Boundary conditions for ends of the struck metal bar physical model
 typedef NS_OPTIONS(NSUInteger, AKStruckMetalBarBoundaryCondition)
 {
     AKStruckMetalBarBoundaryConditionClamped=1,
@@ -73,6 +81,7 @@ typedef NS_OPTIONS(NSUInteger, AKStruckMetalBarBoundaryCondition)
     AKStruckMetalBarBoundaryConditionFree=3,
 };
 
+/// Random numbers are created within a distribution cover defined by this type
 typedef NS_OPTIONS(NSUInteger, AKRandomDistributionType)
 {
     AKRandomDistributionTypeUniform=1,
@@ -86,6 +95,7 @@ typedef NS_OPTIONS(NSUInteger, AKRandomDistributionType)
     AKRandomDistributionTypePoisson=11
 };
 
+/// Various types of window function tables
 typedef NS_OPTIONS(NSUInteger, AKWindowTableType)
 {
     AKWindowTableTypeHamming=1,
@@ -99,6 +109,7 @@ typedef NS_OPTIONS(NSUInteger, AKWindowTableType)
     AKWindowTableTypeSync=9
 };
 
+/// MIDI note on/off, control and system exclusive constants
 typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
 {
     AKMidiConstantNoteOff = 8,
@@ -111,6 +122,7 @@ typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
     AKMidiConstantSysex = 240
 };
 
+/// Types of function tables currently supported in AudioKit
 typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
