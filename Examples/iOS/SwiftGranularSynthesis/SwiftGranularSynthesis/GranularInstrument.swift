@@ -28,28 +28,27 @@ class GranularSynth: AKInstrument
         addProperty(granularAmplitude)
         
         let file = String (NSBundle .mainBundle() .pathForResource("PianoBassDrumLoop", ofType: "wav")!)
-
+        
         let fileTable = AKSoundFile (filename: file)
         fileTable.size = 16384
         connect(fileTable)
-
+        
         let hamming = AKWindowsTable (type: AKWindowTableType.Hamming, size: 512)
         connect(hamming)
-
+        
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", fileTable.length()))
         
-        let grainTexture =  AKGranularSynthesisTexture (grainFunctionTable: fileTable,
-                                                        windowFunctionTable: hamming,
-                                                        maximumGrainDuration: 0.5.ak,
-                                                        averageGrainDuration: averageGrainDuration,
-                                                        maximumFrequencyDeviation: granularFrequencyDeviation,
-                                                        grainFrequency: baseFrequency,
-                                                        maximumAmplitudeDeviation: 0.1.ak,
-                                                        grainAmplitude: granularAmplitude,
-                                                        grainDensity: grainDensity,
-                                                        useRandomGrainOffset: true)
-        
+        let grainTexture =  AKGranularSynthesisTexture (
+            grainFunctionTable: fileTable,
+            windowFunctionTable: hamming
+        )
+        grainTexture.averageGrainDuration = averageGrainDuration
+        grainTexture.maximumFrequencyDeviation = granularFrequencyDeviation
+        grainTexture.grainFrequency = baseFrequency
+        grainTexture.grainAmplitude = granularAmplitude
+        grainTexture.grainDensity = grainDensity
         connect(grainTexture)
+        
         connect(AKAudioOutput(audioSource: grainTexture))
     }
 }

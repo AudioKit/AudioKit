@@ -16,42 +16,33 @@
     if (self) {
         AKAudioInput *microphone = [[AKAudioInput alloc] init];
         [self connect:microphone];
-                
-        AKFSignalFromMonoAudio *fsig1;
-        fsig1 = [[AKFSignalFromMonoAudio alloc] initWithAudioSource:microphone
-                                                            fftSize:akpi(2048)
-                                                            overlap:akpi(256)
-                                                         windowType:AKFSignalFromMonoAudioWindowTypeVonHann
-                                                   windowFilterSize:akpi(2048)];
-        [self connect:fsig1];
         
-        AKScaledFSignal *fsig2;
-        fsig2 = [[AKScaledFSignal alloc] initWithInput:fsig1
-                                        frequencyRatio:akp(2.0)
-                                   formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
-                                        amplitudeRatio:nil
-                                  cepstrumCoefficients:nil];
-        [self connect:fsig2];
+        AKFSignalFromMonoAudio *microphoneFFT;
+        microphoneFFT = [[AKFSignalFromMonoAudio alloc] initWithAudioSource:microphone
+                                                                    fftSize:akpi(2048)
+                                                                    overlap:akpi(256)
+                                                                 windowType:AKFSignalFromMonoAudioWindowTypeVonHann
+                                                           windowFilterSize:akpi(2048)];
+        [self connect:microphoneFFT];
         
-        AKScaledFSignal *fsig3;
-        fsig3 = [[AKScaledFSignal alloc] initWithInput:fsig1
-                                        frequencyRatio:akp(2.0)
-                                   formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
-                                        amplitudeRatio:nil
-                                  cepstrumCoefficients:nil];
-        [self connect:fsig3];
+        AKScaledFSignal *scaledFFT;
+        scaledFFT = [[AKScaledFSignal alloc] initWithInput:microphoneFFT
+                                            frequencyRatio:akp(2.0)
+                                       formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
+                                            amplitudeRatio:nil
+                                      cepstrumCoefficients:nil];
+        [self connect:scaledFFT];
         
-        AKFSignalMix *fsig4 = [[AKFSignalMix alloc] initWithInput1:fsig2 input2:fsig3];
-        [self connect:fsig4];
+        AKFSignalMix *mixedFFT = [[AKFSignalMix alloc] initWithInput1:microphoneFFT input2:scaledFFT];
+        [self connect:mixedFFT];
         
-        AKAudioFromFSignal *a1 = [[AKAudioFromFSignal alloc] initWithSource:fsig4];
-        [self connect:a1];
+        AKAudioFromFSignal *audioOutput = [[AKAudioFromFSignal alloc] initWithSource:mixedFFT];
+        [self connect:audioOutput];
         
         
         // AUDIO OUTPUT ========================================================
-        AKAudio *a2 = [a1 scaledBy:akp(3)];
-        AKAudioOutput *out = [[AKAudioOutput alloc] initWithAudioSource:a2];
-        [self connect:out];
+        AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:audioOutput];
+        [self connect:output];
     }
     return self;
 }

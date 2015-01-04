@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -19,9 +19,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7w-gm-qcM">
-                                <rect key="frame" x="223" y="128" width="154" height="45"/>
+                                <rect key="frame" x="204" y="122" width="193" height="57"/>
+                                <color key="backgroundColor" red="0.0" green="0.35015009930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="19" minY="12" maxX="20" maxY="12"/>
                                 <state key="normal" title="Note Phrase">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -29,9 +33,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y82-Tx-bTq">
-                                <rect key="frame" x="166" y="308" width="269" height="45"/>
+                                <rect key="frame" x="146" y="302" width="308" height="57"/>
+                                <color key="backgroundColor" red="0.0" green="0.35015009930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="19" minY="12" maxX="20" maxY="12"/>
                                 <state key="normal" title="Instrument Properties">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -45,7 +53,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Note duration:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Y7J-us-qY0">
-                                <rect key="frame" x="95" y="410" width="110" height="21"/>
+                                <rect key="frame" x="30" y="440" width="110" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -60,16 +68,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4t-yN-uke">
-                                <rect key="frame" x="203" y="218" width="195" height="45"/>
+                                <rect key="frame" x="183" y="212" width="234" height="57"/>
+                                <color key="backgroundColor" red="0.0" green="0.35015009930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="19" minY="12" maxX="20" maxY="12"/>
                                 <state key="normal" title="Note Properties">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="playSequenceOfNoteProperties:" destination="vXZ-lx-hvc" eventType="touchDown" id="CCb-6t-Uem"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPh-GZ-UTx">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.125" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPh-GZ-UTx">
+                                <rect key="frame" x="518" y="440" width="52" height="20"/>
                                 <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -84,18 +97,26 @@
                             <constraint firstItem="q4t-yN-uke" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.4" id="2fC-oC-88Q"/>
                             <constraint firstAttribute="centerX" secondItem="q4t-yN-uke" secondAttribute="centerX" id="4U2-WJ-zfS"/>
                             <constraint firstItem="b9s-GD-3bS" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.1" id="4ln-PH-cLt"/>
-                            <constraint firstItem="Y7J-us-qY0" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="trailing" multiplier="0.25" id="55R-0U-ff2"/>
-                            <constraint firstItem="zPh-GZ-UTx" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.7" id="9rH-jM-UBt"/>
+                            <constraint firstItem="Y7J-us-qY0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="trailing" multiplier="0.2" id="55R-0U-ff2"/>
+                            <constraint firstItem="zPh-GZ-UTx" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.75" id="9rH-jM-UBt"/>
                             <constraint firstItem="f7w-gm-qcM" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.25" id="BaR-tK-WzB"/>
                             <constraint firstAttribute="centerX" secondItem="f7w-gm-qcM" secondAttribute="centerX" id="HYT-CH-Xxu"/>
                             <constraint firstAttribute="centerX" secondItem="tQu-OE-ikg" secondAttribute="centerX" id="NTg-ax-ijZ"/>
+                            <constraint firstItem="tQu-OE-ikg" firstAttribute="trailing" secondItem="zPh-GZ-UTx" secondAttribute="trailing" id="Qnh-6V-nPh"/>
+                            <constraint firstItem="tQu-OE-ikg" firstAttribute="leading" secondItem="Y7J-us-qY0" secondAttribute="leading" id="RMf-NI-ywL"/>
                             <constraint firstAttribute="centerX" secondItem="b9s-GD-3bS" secondAttribute="centerX" id="Z0U-OU-w7Q"/>
-                            <constraint firstItem="zPh-GZ-UTx" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="trailing" multiplier="0.6" id="bAg-Uf-Rpk"/>
-                            <constraint firstItem="Y7J-us-qY0" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.7" id="caq-HC-sNd"/>
+                            <constraint firstItem="zPh-GZ-UTx" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" multiplier="0.8" id="bAg-Uf-Rpk"/>
+                            <constraint firstItem="Y7J-us-qY0" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.75" id="caq-HC-sNd"/>
                             <constraint firstItem="tQu-OE-ikg" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="0.9" id="sgQ-I8-1vZ"/>
                             <constraint firstItem="tQu-OE-ikg" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.85" id="uGc-yb-xxh"/>
                             <constraint firstAttribute="centerX" secondItem="Y82-Tx-bTq" secondAttribute="centerX" id="vO3-cl-9sj"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="55R-0U-ff2"/>
+                                <exclude reference="bAg-Uf-Rpk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="durationSlider" destination="tQu-OE-ikg" id="sjV-xa-SiW"/>

@@ -16,38 +16,38 @@ class HarmonizerInstrument: AKInstrument {
         let microphone: AKAudioInput = AKAudioInput ()
         connect (microphone)
         
-        let fsig1 = AKFSignalFromMonoAudio(
+        let microphoneFFT = AKFSignalFromMonoAudio(
             audioSource: microphone,
             fftSize: 2048.ak,
             overlap: 256.ak,
             windowType: AKFSignalFromMonoAudioWindowType.VonHann,
             windowFilterSize: 2048.ak)
         
-        connect(fsig1)
+        connect(microphoneFFT)
         
-        let fsig2 = AKScaledFSignal(
-            input: fsig1,
+        let scaledFFT = AKScaledFSignal(
+            input: microphoneFFT,
             frequencyRatio: 2.ak,
             formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
             amplitudeRatio: nil,
             cepstrumCoefficients: nil
         )
-        connect(fsig2)
+        connect(scaledFFT)
         
-        let fsig3 = AKScaledFSignal(
-            input: fsig1,
-            frequencyRatio: 2.ak,
-            formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
-            amplitudeRatio: nil,
-            cepstrumCoefficients: nil
-        )
-        connect (fsig3)
+//        let fsig3 = AKScaledFSignal(
+//            input: microphoneFFT,
+//            frequencyRatio: 2.ak,
+//            formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
+//            amplitudeRatio: nil,
+//            cepstrumCoefficients: nil
+//        )
+//        connect (fsig3)
         
-        let fsig4 = AKFSignalMix(input1: fsig2, input2: fsig3)
-        connect(fsig4)
+        let mixedFFT = AKFSignalMix(input1: microphoneFFT, input2: scaledFFT)
+        connect(mixedFFT)
         
-        let a1 = AKAudioFromFSignal(source: fsig4)
-        connect(a1)
-        connect(AKAudioOutput(audioSource: a1))
+        let audioOutput = AKAudioFromFSignal(source: mixedFFT)
+        connect(audioOutput)
+        connect(AKAudioOutput(audioSource: audioOutput))
     }
 }
