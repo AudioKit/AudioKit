@@ -37,7 +37,7 @@
 }
 - (IBAction)changeReverbAmount:(id)sender {
     SharedStore *global = [SharedStore globals];
-    global.audioFilePlayer.reverbAmount.value = [(UISlider *)sender value];
+    global.audioFilePlayer.reverbFeedback.value = [(UISlider *)sender value];
 }
 - (IBAction)changeMix:(id)sender {
     SharedStore *global = [SharedStore globals];
