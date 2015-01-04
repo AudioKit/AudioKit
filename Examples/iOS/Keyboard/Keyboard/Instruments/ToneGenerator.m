@@ -25,13 +25,12 @@
         
         // INSTRUMENT DEFINITION ===============================================
         
-        AKFMOscillator *fmOscillator;
-        fmOscillator = [[AKFMOscillator alloc] initWithFunctionTable:[AKManager standardSineWave]
-                                                baseFrequency:note.frequency
-                                            carrierMultiplier:[_toneColor scaledBy:akp(20)]
-                                         modulatingMultiplier:[_toneColor scaledBy:akp(12)]
-                                              modulationIndex:[_toneColor scaledBy:akp(15)]
-                                                    amplitude:akp(0.15)];
+        AKFMOscillator *fmOscillator = [AKFMOscillator oscillator];
+        fmOscillator.baseFrequency = note.frequency;
+        fmOscillator.carrierMultiplier = [_toneColor scaledBy:akp(20)];
+        fmOscillator.modulatingMultiplier = [_toneColor scaledBy:akp(12)];
+        fmOscillator.modulationIndex = [_toneColor scaledBy:akp(12)];
+        fmOscillator.amplitude = akp(0.15);
         [self connect:fmOscillator];
         
         AKDeclick *declick;
