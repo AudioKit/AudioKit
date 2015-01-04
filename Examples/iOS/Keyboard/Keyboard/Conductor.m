@@ -29,7 +29,6 @@
         // Create and add instruments to the orchestra
         toneGenerator = [[ToneGenerator alloc] init];
         fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
-        [[AKManager sharedManager] setIsLogging:YES];
         [AKOrchestra addInstrument:toneGenerator];
         [AKOrchestra addInstrument:fx];
         
