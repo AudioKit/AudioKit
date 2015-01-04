@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in *
+for i in AK*
   do
     echo "Building " $i
     cd $i

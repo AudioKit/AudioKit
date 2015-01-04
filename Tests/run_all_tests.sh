@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in *
+for i in AK*
   do
     cd $i/build/Release
     ./$i
