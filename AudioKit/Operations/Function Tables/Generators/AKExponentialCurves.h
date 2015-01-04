@@ -14,6 +14,9 @@
  */
 @interface AKExponentialCurves : AKFunctionTable
 
+/// Size of the table (default 4096)
+@property int size;
+
 /// Start the exponential curves at a specific value
 /// @param value Initial value of the the first line segment
 - (instancetype)initWithValue:(float)value;

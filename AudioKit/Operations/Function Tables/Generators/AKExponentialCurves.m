@@ -22,6 +22,7 @@
     if (self) {
         points = [[NSMutableArray alloc] init];
         [points addObject:@[@0, [NSNumber numberWithFloat:value]]];
+        self.size = 4096;
     }
     return self;
 }
@@ -43,13 +44,24 @@
 // Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD
 {
-    NSMutableArray *flattenedPoints = [[NSMutableArray alloc] init];
+    int maximumIndex = (int)[[points lastObject] objectAtIndex:0];
+    float scalingFactor = (float)self.size/(float)maximumIndex;
+    
+    NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
     for (NSArray *point in points) {
+        int index = (int)[point objectAtIndex:0];
+        int newIndex = (int) ((float)index * scalingFactor);
+        [scaledPoints addObject:@[[NSNumber numberWithInt:newIndex],
+                                  [point objectAtIndex:1]]];
+    }
+    
+    NSMutableArray *flattenedPoints = [[NSMutableArray alloc] init];
+    for (NSArray *point in scaledPoints) {
         [flattenedPoints addObject:[point componentsJoinedByString:@", "]];
     }
-    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %@, -%lu, %@",
+    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %d, -%lu, %@",
             self,
-            @4096,
+            self.size,
             (unsigned long)AKFunctionTableTypeExponentialCurves,
             [flattenedPoints componentsJoinedByString:@", "]];
 }
