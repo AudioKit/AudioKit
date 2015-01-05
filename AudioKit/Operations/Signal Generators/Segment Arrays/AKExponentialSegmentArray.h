@@ -8,6 +8,8 @@
 
 #import "AKParameter+Operation.h"
 
+/** Trace a series of exponential segments between specified points.
+ */
 @interface AKExponentialSegmentArray : AKParameter
 
 /// Creates the exponential segment array and populates it with the minimum information.
