@@ -18,12 +18,12 @@
 
 /// Instantiates the control segment array loop
 /// @param frequency Repeat rate in Hz or fraction of Hz.
-/// @param startValue Initial value at time zero.
+/// @param initialValue Initial value at time zero.
 - (instancetype)initWithFrequency:(AKParameter *)frequency
                      initialValue:(AKParameter *)initialValue;
 
 /// Adds another segment.
-/// @param nextSegmentTargetValue Value after nextSegmentDuration seconds.
+/// @param value Value after nextSegmentDuration seconds.
 /// @param duration Dimensionless duration - sum all durations will be rescaled to the period given by the inverse of the frequency of the loop
 - (void)addValue:(AKParameter *)value
    afterDuration:(AKParameter *)duration;
