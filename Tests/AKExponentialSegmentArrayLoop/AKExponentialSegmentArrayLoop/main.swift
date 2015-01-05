@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let segmentLoop = AKLinearSegmentArrayLoop(
+        let segmentLoop = AKExponentialSegmentArrayLoop(
             frequency: 1.ak,
             initialValue: 440.ak
         )
