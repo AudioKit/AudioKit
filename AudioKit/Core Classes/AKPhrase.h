@@ -15,6 +15,15 @@
  */
 @interface AKPhrase : NSObject
 
+/// Number of notes in the phrase
+@property (readonly) int count;
+
+/// Length of the phrase in seconds
+@property (readonly) float duration;
+
+/// Remove all notes
+- (void)reset;
+
 /// Add a note to the beginning of the phrase
 /// @param note Note to be added at time zero
 - (void)addNote:(AKNote *)note;
