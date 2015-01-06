@@ -147,6 +147,15 @@
 - (void)playPhrase:(AKPhrase *)phrase;
 
 
+/// Repeat a note phrase
+/// @param phrase The note phrase that will be played.
+- (void)repeatPhrase:(AKPhrase *)phrase;
+
+/// Repeat a note phrase periodically
+/// @param phrase The note phrase that will be played.
+/// @param duration The period between playbacks
+- (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration;
+
 /// Stop all notes created by the instrument
 - (void)stop;
 

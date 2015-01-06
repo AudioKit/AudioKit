@@ -236,6 +236,27 @@ static int currentID = 1;
     [phrase playUsingInstrument:self];
 }
 
+- (void)repeatPhrase:(AKPhrase *)phrase
+{
+    [self repeatPhrase:phrase duration:phrase.duration];
+}
+
+- (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration
+{
+    AKSequence *repeater = [[AKSequence alloc] init];
+    AKEvent *playPhrase = [[AKEvent alloc] initWithBlock:^{
+        [phrase playUsingInstrument:self];
+    }];
+    AKEvent *repeat = [[AKEvent alloc] initWithBlock:^{
+        if (phrase.count > 0) [self repeatPhrase:phrase duration:duration];
+    }];
+    
+    [repeater addEvent:playPhrase];
+    [repeater addEvent:repeat atTime:duration];
+    [repeater play];
+}
+
+
 
 - (void)stop
 {

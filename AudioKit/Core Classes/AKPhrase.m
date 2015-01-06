@@ -27,6 +27,23 @@
 
 }
 
+- (int)count
+{
+    return (int)[timeNotePairs count];
+}
+
+- (float)duration
+{
+    float lastTime = [[[timeNotePairs lastObject] objectAtIndex:0] floatValue];
+    AKNote *lastNote = [[timeNotePairs lastObject] objectAtIndex:1];
+    return lastTime + lastNote.duration.value;
+}
+
+- (void)reset
+{
+    timeNotePairs = [[NSMutableArray alloc] init];
+}
+
 - (void)addNote:(AKNote *)note
 {
     [timeNotePairs addObject:@[@0, note]];
