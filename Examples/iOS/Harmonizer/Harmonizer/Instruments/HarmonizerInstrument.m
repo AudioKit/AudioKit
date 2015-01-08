@@ -29,7 +29,7 @@
         scaledFFT = [[AKScaledFSignal alloc] initWithInput:microphoneFFT
                                             frequencyRatio:akp(2.0)
                                        formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
-                                            amplitudeRatio:nil
+                                            amplitudeRatio:akp(2.0)
                                       cepstrumCoefficients:nil];
         [self connect:scaledFFT];
         
