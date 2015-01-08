@@ -104,13 +104,6 @@
 - (void)stop
 {
     isPlaying = NO;
-    for (AKEvent *event in _events) {
-        if (event.note) {
-            [event.note stop];
-            [timer invalidate];
-            timer = nil;
-        }
-    }
 }
 
 
