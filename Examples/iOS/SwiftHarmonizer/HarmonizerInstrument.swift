@@ -29,7 +29,7 @@ class HarmonizerInstrument: AKInstrument {
             input: microphoneFFT,
             frequencyRatio: 2.ak,
             formantRetainMethod: AKScaledFSignalFormantRetainMethod.LifteredCepstrum,
-            amplitudeRatio: nil,
+            amplitudeRatio: 2.ak,
             cepstrumCoefficients: nil
         )
         connect(scaledFFT)
