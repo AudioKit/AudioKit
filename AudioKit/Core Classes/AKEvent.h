@@ -20,9 +20,6 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-/// Optional note to play at the time of the event
-@property (nonatomic, strong) AKNote *note;
-
 /// Create an event from the code block given
 /// @param aBlock Code to run when the event is started
 - (instancetype)initWithBlock:(void (^)())aBlock;
