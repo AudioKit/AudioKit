@@ -30,6 +30,9 @@
 /// Start the orchestra
 + (void)start;
 
+/// Reset the orchestra with no instruments.
++ (void)reset;
+
 /// Test the orchestra for a specified time
 /// @param duration Testing run time in seconds
 + (void)testForDuration:(float)duration;

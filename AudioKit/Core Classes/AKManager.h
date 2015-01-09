@@ -44,6 +44,9 @@
 /// @param duration Time for the orchestra to play in seconds
 - (void)runOrchestraForDuration:(int)duration;
 
+/// Erase all instruments from the orchestra
+- (void)resetOrchestra;
+
 /// Stop AudioKit from making any more sound.
 - (void)stop;
 

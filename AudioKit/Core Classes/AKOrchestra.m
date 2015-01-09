@@ -48,6 +48,12 @@
     }
 }
 
++ (void)reset
+{
+    [[AKManager sharedManager] resetOrchestra];
+}
+
+
 + (void)testForDuration:(float)duration
 {
     [[AKManager sharedManager] setIsLogging:YES];
