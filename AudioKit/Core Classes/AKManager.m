@@ -214,6 +214,11 @@ static AKManager *_sharedManager = nil;
     [self runOrchestra];
 }
 
+- (void)resetOrchestra
+{
+    _orchestra = [[AKOrchestra alloc] init];
+}
+
 // -----------------------------------------------------------------------------
 #  pragma mark Audio Input from Hardware
 // -----------------------------------------------------------------------------
