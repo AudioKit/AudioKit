@@ -27,10 +27,18 @@
           toMaximum:(float)toMaximum;
 
 + (float)scaleLogValue:(float)logValue
-        fromMinimum:(float)fromMinimum
-        fromMaximum:(float)fromMaximum
-          toMinimum:(float)toMinimum
-          toMaximum:(float)toMaximum;
+           fromMinimum:(float)fromMinimum
+           fromMaximum:(float)fromMaximum
+             toMinimum:(float)toMinimum
+             toMaximum:(float)toMaximum;
+
+/// Scales the property with a scaling factor between 0 and 1. 0->minimum, 1->maximum
++ (void)scaleProperty:(id)property
+    withScalingFactor:(float)scalingFactor;
+
+/// Scales the property with a scaling factor between 0 and 1. 0->maximum, 1->minimum
++ (void)scaleProperty:(id)property
+withInverseScalingFactor:(float)scalingFactor;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - General UI

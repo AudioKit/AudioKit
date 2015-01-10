@@ -42,6 +42,34 @@
     return toMinimum + percentage * width;
 }
 
++ (void)scaleProperty:(id)property withScalingFactor:(float)scalingFactor
+{
+    if ([property isKindOfClass:[AKInstrumentProperty class]])
+    {
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        p.value = p.minimum + scalingFactor * (p.maximum - p.minimum);
+    }
+    else if ([property isKindOfClass:[AKNoteProperty class]])
+    {
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        p.value = p.minimum + scalingFactor * (p.maximum - p.minimum);
+    }
+}
+
++ (void)scaleProperty:(id)property withInverseScalingFactor:(float)scalingFactor
+{
+    if ([property isKindOfClass:[AKInstrumentProperty class]])
+    {
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        p.value = p.maximum - scalingFactor * (p.maximum - p.minimum);
+    }
+    else if ([property isKindOfClass:[AKNoteProperty class]])
+    {
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        p.value = p.maximum - scalingFactor * (p.maximum - p.minimum);
+    }
+}
+
 // -----------------------------------------------------------------------------
 #  pragma mark - General UI
 // -----------------------------------------------------------------------------
