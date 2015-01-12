@@ -121,9 +121,6 @@
                                                selector:@selector(playNextEventInSequence:) 
                                                userInfo:nil 
                                                 repeats:NO];
-        AKEvent *event = _events[index];
-        [[AKManager sharedManager] triggerEvent:event];
-        index++;
 #if TARGET_OS_IPHONE
 #elif TARGET_OS_MAC
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
@@ -133,6 +130,9 @@
         [timer invalidate];
         timer = nil;
     }
+    AKEvent *event = _events[index];
+    [[AKManager sharedManager] triggerEvent:event];
+    index++;
 }
 
 
