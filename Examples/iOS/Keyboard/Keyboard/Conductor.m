@@ -60,7 +60,7 @@
         [releaseSequence addEvent:decreaseVolume afterDuration:0.02];
     }
     AKEvent *stop = [[AKEvent alloc] initWithBlock:^{
-        [noteToRelease stop];;
+        [noteToRelease stop];
     }];
     [releaseSequence addEvent:stop afterDuration:0.01];
     
