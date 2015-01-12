@@ -12,7 +12,6 @@
 
 @implementation AKSequence
 {
-    NSTimer *timer;
     BOOL isPlaying;
     unsigned int index;
 }
@@ -36,12 +35,12 @@
     return [[self alloc] init];
 }
 
-- (void)addEvent:(AKEvent *)event 
+- (void)addEvent:(AKEvent *)event
 {
     [self addEvent:event afterDuration:0.0f];
 }
 
-- (void)addEvent:(AKEvent *)event 
+- (void)addEvent:(AKEvent *)event
           atTime:(float)timeSinceStart
 {
     NSNumber *time = [NSNumber numberWithFloat:timeSinceStart];
@@ -64,7 +63,7 @@
     }
 }
 
-- (void)addEvent:(AKEvent *)event 
+- (void)addEvent:(AKEvent *)event
    afterDuration:(float)timeSinceLastEventStarted
 {
     [_events addObject:event];
@@ -84,16 +83,12 @@
 {
     index = 0;
     isPlaying = YES;
+    
     // Delay playback until first event is set to start.
-    timer = [NSTimer scheduledTimerWithTimeInterval:[_times[0] floatValue]
-                                             target:self
-                                           selector:@selector(playNextEventInSequence:)
-                                           userInfo:nil
-                                            repeats:NO];
-#if TARGET_OS_IPHONE
-#elif TARGET_OS_MAC
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-#endif
+    [self performSelector:@selector(playNextEventInSequence)
+               withObject:nil
+               afterDelay:[_times[0] floatValue]
+                  inModes:@[NSRunLoopCommonModes]];
 }
 
 - (void)pause
@@ -108,27 +103,15 @@
 
 
 // Cue up the next event to be triggered.
-- (void)playNextEventInSequence:(NSTimer *)aTimer
+- (void)playNextEventInSequence
 {
-
-
     if (index < [_times count]-1 && isPlaying) {
-        float timeUntilNextEvent = [_times[index+1] floatValue] -
-                                   [_times[index]   floatValue];
+        float timeUntilNextEvent = [_times[index+1] floatValue] - [_times[index] floatValue];
         
-        timer = [NSTimer scheduledTimerWithTimeInterval:timeUntilNextEvent
-                                                 target:self 
-                                               selector:@selector(playNextEventInSequence:) 
-                                               userInfo:nil 
-                                                repeats:NO];
-#if TARGET_OS_IPHONE
-#elif TARGET_OS_MAC
-        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-#endif
-
-    } else {
-        [timer invalidate];
-        timer = nil;
+        [self performSelector:@selector(playNextEventInSequence)
+                   withObject:nil
+                   afterDelay:timeUntilNextEvent
+                      inModes:@[NSRunLoopCommonModes]];
     }
     AKEvent *event = _events[index];
     [[AKManager sharedManager] triggerEvent:event];
