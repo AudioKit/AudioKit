@@ -72,7 +72,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 - (void)sendScore:(NSString *)score
 {
     if (mCsData.cs != NULL) {
-        csoundReadScore(mCsData.cs, (char*)[score cStringUsingEncoding:NSASCIIStringEncoding]);
+        csoundInputMessage(mCsData.cs, (char*)[score cStringUsingEncoding:NSASCIIStringEncoding]);
     }
 }
 
