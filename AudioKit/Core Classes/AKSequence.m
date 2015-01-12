@@ -110,8 +110,7 @@
 // Cue up the next event to be triggered.
 - (void)playNextEventInSequence:(NSTimer *)aTimer
 {
-    AKEvent *event = _events[index];
-    [[AKManager sharedManager] triggerEvent:event];
+
 
     if (index < [_times count]-1 && isPlaying) {
         float timeUntilNextEvent = [_times[index+1] floatValue] -
@@ -122,6 +121,8 @@
                                                selector:@selector(playNextEventInSequence:) 
                                                userInfo:nil 
                                                 repeats:NO];
+        AKEvent *event = _events[index];
+        [[AKManager sharedManager] triggerEvent:event];
         index++;
 #if TARGET_OS_IPHONE
 #elif TARGET_OS_MAC
