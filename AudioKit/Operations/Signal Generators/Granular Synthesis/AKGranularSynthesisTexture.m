@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka on 1/12/15, reversing random offset logic.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's grain:
@@ -132,7 +133,7 @@
     
     [csdString appendFormat:@"%@, ", _maximumGrainDuration];
     
-    [csdString appendFormat:@"%@", akpi(_useRandomGrainOffset)];
+    [csdString appendFormat:@"%@", akpi(!_useRandomGrainOffset)];
     return csdString;
 }
 
