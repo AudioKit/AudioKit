@@ -16,20 +16,25 @@ class Instrument : AKInstrument {
         super.init()
         
         let note = Note()
+        
         addNoteProperty(note.frequency)
+        let filename = "CsoundLib64.framework/Sounds/marmstk1.wav"
         
-        let oscil = AKOscillator()
-        oscil.frequency = 1.ak
-        connect(oscil)
+        let functionTable = AKSoundFile(filename: filename)
+        addFunctionTable(functionTable)
         
-        let pluckedString = AKPluckedString(excitationSignal: oscil)
+        let excitation = AKMonoSoundFileLooper(soundFile: functionTable)
+        excitation.loopMode = AKSoundFileLooperMode.NoLoop
+        connect(excitation)
+        
+        let pluckedString = AKPluckedString(excitationSignal: excitation)
         pluckedString.frequency = note.frequency
         connect(pluckedString)
         
         enableParameterLog(
             "Frequency = ",
             parameter: pluckedString.frequency,
-            timeInterval:2
+            timeInterval:20
         )
         
         connect(AKAudioOutput(audioSource:pluckedString))
@@ -54,11 +59,11 @@ AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(testDuration)
 
 let note1 = Note(frequency: 440)
-note1.duration.setValue(2.0)
+note1.duration.setValue(6.0)
 let note2 = Note(frequency: 550)
-note2.duration.setValue(2.0)
+note2.duration.setValue(6.0)
 let note3 = Note(frequency: 660)
-note3.duration.setValue(2.0)
+note3.duration.setValue(6.0)
 
 let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
