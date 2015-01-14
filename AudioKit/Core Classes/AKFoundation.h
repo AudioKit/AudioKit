@@ -132,6 +132,7 @@
 // Operations - Signal Generators - Physical Models - Waveguide
 #import "AKBeatenPlate.h"
 #import "AKBowedString.h"
+#import "AKFlute.h"
 #import "AKSimpleWaveGuideModel.h"
 
 // Operations - Signal Generators - Random Generators

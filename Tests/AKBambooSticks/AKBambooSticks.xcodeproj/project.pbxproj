@@ -27,6 +27,7 @@
 		C427EB8F1A4CB1DA00734A80 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB771A4CB1DA00734A80 /* AKTableValueControl.m */; };
 		C462E36E1A32719E00F80B56 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
 		C462E36F1A32733D00F80B56 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
+		C47508BF1A6653E9000B05D3 /* AKFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = C47508BE1A6653E9000B05D3 /* AKFlute.m */; };
 		C47913DD1A29352F00D9807B /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912701A29352F00D9807B /* AKEvent.m */; };
 		C47913DE1A29352F00D9807B /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912731A29352F00D9807B /* AKInstrument.m */; };
 		C47913DF1A29352F00D9807B /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C47912751A29352F00D9807B /* AKManager.m */; };
@@ -200,6 +201,8 @@
 		C427EBB71A4CC42E00734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427EBB81A4CC42E00734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C462E36D1A32719E00F80B56 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib64.framework; sourceTree = "<group>"; };
+		C47508BD1A6653E9000B05D3 /* AKFlute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlute.h; sourceTree = "<group>"; };
+		C47508BE1A6653E9000B05D3 /* AKFlute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlute.m; sourceTree = "<group>"; };
 		C479126F1A29352F00D9807B /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C47912701A29352F00D9807B /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C47912711A29352F00D9807B /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -990,6 +993,8 @@
 		C480B7B71A51484C0092E3D3 /* Waveguide */ = {
 			isa = PBXGroup;
 			children = (
+				C47508BD1A6653E9000B05D3 /* AKFlute.h */,
+				C47508BE1A6653E9000B05D3 /* AKFlute.m */,
 				C480B7B81A51484C0092E3D3 /* AKBeatenPlate.h */,
 				C480B7B91A51484C0092E3D3 /* AKBeatenPlate.m */,
 				C480B7BA1A51484C0092E3D3 /* AKBowedString.h */,
@@ -1239,6 +1244,7 @@
 				C480B7DE1A51484C0092E3D3 /* AKMandolin.m in Sources */,
 				C47914011A29352F00D9807B /* AKFSignalFromMonoWithAttackAnalysis.m in Sources */,
 				C480B7E81A51484C0092E3D3 /* AKSandPaper.m in Sources */,
+				C47508BF1A6653E9000B05D3 /* AKFlute.m in Sources */,
 				C41FB3C51A4E8F6C0093645A /* AKRandomDistributionTable.m in Sources */,
 				C480B7ED1A51484C0092E3D3 /* AKBeatenPlate.m in Sources */,
 				C47914501A29352F00D9807B /* AKHighPassButterworthFilter.m in Sources */,
