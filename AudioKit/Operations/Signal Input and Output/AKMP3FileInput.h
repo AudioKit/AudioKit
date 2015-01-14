@@ -20,11 +20,11 @@
 
 /// Instantiates the mp3 file input with default values
 /// @param filename Input MP3 Filename.
-- (instancetype)initWithFilename:(AKConstant *)filename;
+- (instancetype)initWithFilename:(NSString *)filename;
 
 /// Instantiates the mp3 file input with default values
 /// @param filename Input MP3 Filename.
-+ (instancetype)mp3WithFilename:(AKConstant *)filename;
++ (instancetype)mp3WithFilename:(NSString *)filename;
 
 
 
