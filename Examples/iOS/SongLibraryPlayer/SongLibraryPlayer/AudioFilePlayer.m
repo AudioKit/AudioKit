@@ -36,7 +36,7 @@
         [self connect:fileIn];
         
         AKReverb *reverb;
-        reverb = [[AKReverb alloc] initWithInput:fileIn];
+        reverb = [[AKReverb alloc] initWithStereoInput:fileIn];
         reverb.feedback = _reverbFeedback;
         [self connect:reverb];
         

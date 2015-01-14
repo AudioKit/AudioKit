@@ -12,6 +12,7 @@
 		C427FCF71A4CE59900734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FCF31A4CE59900734A80 /* marmstk1.wav */; };
 		C427FCF81A4CE59900734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FCF41A4CE59900734A80 /* PianoBassDrumLoop.wav */; };
 		C4461A291994A37D0073E819 /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4461A281994A37D0073E819 /* FMOscillator.m */; };
+		C47508E91A665988000B05D3 /* AKFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = C47508E81A665988000B05D3 /* AKFlute.m */; };
 		C47888871A1AADF100A80367 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = C47888861A1AADF100A80367 /* circle.png */; };
 		C480CBBF1A514E090092E3D3 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CAC21A514E080092E3D3 /* AKParameter+Operation.m */; };
 		C480CBC01A514E090092E3D3 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C480CAC51A514E080092E3D3 /* AKTrackedAmplitude.m */; };
@@ -166,6 +167,8 @@
 		C427FCF41A4CE59900734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
 		C4461A271994A37D0073E819 /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillator.h; sourceTree = "<group>"; };
 		C4461A281994A37D0073E819 /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
+		C47508E71A665988000B05D3 /* AKFlute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlute.h; sourceTree = "<group>"; };
+		C47508E81A665988000B05D3 /* AKFlute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlute.m; sourceTree = "<group>"; };
 		C47888861A1AADF100A80367 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		C480CAC11A514E080092E3D3 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
 		C480CAC21A514E080092E3D3 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
@@ -779,6 +782,8 @@
 				C480CB581A514E090092E3D3 /* AKBeatenPlate.m */,
 				C480CB591A514E090092E3D3 /* AKBowedString.h */,
 				C480CB5A1A514E090092E3D3 /* AKBowedString.m */,
+				C47508E71A665988000B05D3 /* AKFlute.h */,
+				C47508E81A665988000B05D3 /* AKFlute.m */,
 				C480CB5B1A514E090092E3D3 /* AKSimpleWaveGuideModel.h */,
 				C480CB5C1A514E090092E3D3 /* AKSimpleWaveGuideModel.m */,
 			);
@@ -1337,6 +1342,7 @@
 				C480CBD01A514E090092E3D3 /* AKFunctionTableLooper.m in Sources */,
 				C4C313F71A09FAD2005AF737 /* AKArray.m in Sources */,
 				C4C313791A09FAD2005AF737 /* AKNote.m in Sources */,
+				C47508E91A665988000B05D3 /* AKFlute.m in Sources */,
 				C480CBF61A514E090092E3D3 /* AKStruckMetalBar.m in Sources */,
 				C480CBC71A514E090092E3D3 /* AKAdditiveCosineTable.m in Sources */,
 				C48E462B199212FE00B3C1F8 /* AppDelegate.m in Sources */,

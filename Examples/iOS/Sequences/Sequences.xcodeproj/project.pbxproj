@@ -18,6 +18,7 @@
 		C439831319627B910076F005 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C439831219627B910076F005 /* ViewController.m */; };
 		C439831519627B910076F005 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C439831419627B910076F005 /* Images.xcassets */; };
 		C439854B19627C4A0076F005 /* SeqInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C439854A19627C4A0076F005 /* SeqInstrument.m */; };
+		C47508D41A6658E9000B05D3 /* AKFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = C47508D31A6658E9000B05D3 /* AKFlute.m */; };
 		C480C1AB1A514C040092E3D3 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C480C0AC1A514C030092E3D3 /* AKParameter+Operation.m */; };
 		C480C1AC1A514C040092E3D3 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C480C0AF1A514C030092E3D3 /* AKTrackedAmplitude.m */; };
 		C480C1AD1A514C040092E3D3 /* AKTrackedAmplitudeFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C480C0B11A514C030092E3D3 /* AKTrackedAmplitudeFromFSignal.m */; };
@@ -176,6 +177,8 @@
 		C439831419627B910076F005 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C439854919627C4A0076F005 /* SeqInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqInstrument.h; sourceTree = "<group>"; };
 		C439854A19627C4A0076F005 /* SeqInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeqInstrument.m; sourceTree = "<group>"; };
+		C47508D21A6658E9000B05D3 /* AKFlute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlute.h; sourceTree = "<group>"; };
+		C47508D31A6658E9000B05D3 /* AKFlute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlute.m; sourceTree = "<group>"; };
 		C480C0AB1A514C030092E3D3 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
 		C480C0AC1A514C030092E3D3 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
 		C480C0AE1A514C030092E3D3 /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
@@ -831,6 +834,8 @@
 				C480C1421A514C030092E3D3 /* AKBeatenPlate.m */,
 				C480C1431A514C030092E3D3 /* AKBowedString.h */,
 				C480C1441A514C030092E3D3 /* AKBowedString.m */,
+				C47508D21A6658E9000B05D3 /* AKFlute.h */,
+				C47508D31A6658E9000B05D3 /* AKFlute.m */,
 				C480C1451A514C030092E3D3 /* AKSimpleWaveGuideModel.h */,
 				C480C1461A514C030092E3D3 /* AKSimpleWaveGuideModel.m */,
 			);
@@ -1336,6 +1341,7 @@
 				C489BE771A3B811400129C7E /* AKPhrase.m in Sources */,
 				C480C2011A514C040092E3D3 /* AKMultitapDelay.m in Sources */,
 				C480C1C31A514C040092E3D3 /* AKMinAudio.m in Sources */,
+				C47508D41A6658E9000B05D3 /* AKFlute.m in Sources */,
 				C480C1B81A514C040092E3D3 /* AKRandomDistributionTable.m in Sources */,
 				C480C1CA1A514C040092E3D3 /* AKCrossSynthesis.m in Sources */,
 				C480C1FE1A514C040092E3D3 /* AKConvolution.m in Sources */,
