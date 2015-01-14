@@ -12,6 +12,7 @@
 		C427F6B21A4CE45100734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F6AE1A4CE45100734A80 /* mandpluk.aif */; };
 		C427F6B31A4CE45100734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F6AF1A4CE45100734A80 /* marmstk1.wav */; };
 		C427F6B41A4CE45100734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F6B01A4CE45100734A80 /* PianoBassDrumLoop.wav */; };
+		C47508D71A665905000B05D3 /* AKFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = C47508D61A665905000B05D3 /* AKFlute.m */; };
 		C480C31E1A514C0F0092E3D3 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = C480C21F1A514C0F0092E3D3 /* AKParameter+Operation.m */; };
 		C480C31F1A514C0F0092E3D3 /* AKTrackedAmplitude.m in Sources */ = {isa = PBXBuildFile; fileRef = C480C2221A514C0F0092E3D3 /* AKTrackedAmplitude.m */; };
 		C480C3201A514C0F0092E3D3 /* AKTrackedAmplitudeFromFSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C480C2241A514C0F0092E3D3 /* AKTrackedAmplitudeFromFSignal.m */; };
@@ -170,6 +171,8 @@
 		C427F6AE1A4CE45100734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F6AF1A4CE45100734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C427F6B01A4CE45100734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
+		C47508D51A665905000B05D3 /* AKFlute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlute.h; sourceTree = "<group>"; };
+		C47508D61A665905000B05D3 /* AKFlute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFlute.m; sourceTree = "<group>"; };
 		C480C21E1A514C0F0092E3D3 /* AKParameter+Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKParameter+Operation.h"; sourceTree = "<group>"; };
 		C480C21F1A514C0F0092E3D3 /* AKParameter+Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKParameter+Operation.m"; sourceTree = "<group>"; };
 		C480C2211A514C0F0092E3D3 /* AKTrackedAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTrackedAmplitude.h; sourceTree = "<group>"; };
@@ -789,6 +792,8 @@
 				C480C2B51A514C0F0092E3D3 /* AKBeatenPlate.m */,
 				C480C2B61A514C0F0092E3D3 /* AKBowedString.h */,
 				C480C2B71A514C0F0092E3D3 /* AKBowedString.m */,
+				C47508D51A665905000B05D3 /* AKFlute.h */,
+				C47508D61A665905000B05D3 /* AKFlute.m */,
 				C480C2B81A514C0F0092E3D3 /* AKSimpleWaveGuideModel.h */,
 				C480C2B91A514C0F0092E3D3 /* AKSimpleWaveGuideModel.m */,
 			);
@@ -1318,6 +1323,7 @@
 				C480C37F1A514C0F0092E3D3 /* AKMoogLadder.m in Sources */,
 				C480C3271A514C0F0092E3D3 /* AKArrayTable.m in Sources */,
 				C480C3331A514C0F0092E3D3 /* AKScaledControl.m in Sources */,
+				C47508D71A665905000B05D3 /* AKFlute.m in Sources */,
 				C480C3281A514C0F0092E3D3 /* AKExponentialCurves.m in Sources */,
 				C480C3861A514C0F0092E3D3 /* AKHighPassButterworthFilter.m in Sources */,
 				E49521F21A5A3278009A6D57 /* AKLinearSegmentArrayLoop.m in Sources */,
