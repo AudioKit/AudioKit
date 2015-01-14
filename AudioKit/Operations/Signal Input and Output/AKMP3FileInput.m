@@ -16,10 +16,10 @@
 
 @implementation AKMP3FileInput
 {
-    AKConstant * _filename;
+    NSString *_filename;
 }
 
-- (instancetype)initWithFilename:(AKConstant *)filename
+- (instancetype)initWithFilename:(NSString *)filename
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -28,7 +28,7 @@
     return self;
 }
 
-+ (instancetype)mp3WithFilename:(AKConstant *)filename
++ (instancetype)mp3WithFilename:(NSString *)filename
 {
     return [[AKMP3FileInput alloc] initWithFilename:filename];
 }
