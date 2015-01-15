@@ -14,6 +14,7 @@
 @interface SongViewController () {
     NSString *exportPath;
     SharedStore *global;
+    BOOL isReadyToPlay;
 }
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UIImageView *albumImageView;
@@ -40,6 +41,7 @@
 	// Do any additional setup after loading the view.
     MPMediaItemArtwork *artwork = [global.currentSong valueForProperty:MPMediaItemPropertyArtwork];
     self.albumImageView.image = [artwork imageWithSize:self.view.bounds.size];
+    isReadyToPlay = YES;
     if (global.isPlaying) {
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
     } else {
@@ -64,19 +66,26 @@
 
 - (void)loadSong {
     global = [SharedStore globals];
+    if (!isReadyToPlay) {
+        NSLog(@"Not Ready");
+        return;
+    }
     if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath] == NO) {
         NSLog(@"File does not exist.");
         return;
     }
     // Create the orchestra and instruments
-    global.audioFilePlayer = [[AudioFilePlayer alloc] init];
+    if (!global.audioFilePlayer) global.audioFilePlayer = [[AudioFilePlayer alloc] init];
+    [[AKManager sharedManager] stop];
+    [AKOrchestra reset];
     [AKOrchestra addInstrument:global.audioFilePlayer];
+    [[AKManager sharedManager] setIsLogging:YES];
     [AKOrchestra start];
 }
 
 
 -(void) exportSong:(MPMediaItem *)song {
-    
+    isReadyToPlay = NO;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
     exportPath = [NSString stringWithFormat:@"%@/exported.wav", documentsDirectory];
@@ -177,6 +186,7 @@
                  [assetWriterInput markAsFinished];
                  [assetWriter finishWritingWithCompletionHandler:^{
                      //[self loadSong];
+                     isReadyToPlay = YES;
                  }];
                  [assetReader cancelReading];
                  break;
