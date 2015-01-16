@@ -46,7 +46,8 @@
 
 
 /// Update a note property with a specific value at a specific time
-/// @param note Note to be stopped
+/// @param noteProperty Note property to change the value of
+/// @param value Value of the note property
 /// @param time Time the note will be stopped
 - (void)updateNoteProperty:(AKNoteProperty *)noteProperty
                  withValue:(float)value
