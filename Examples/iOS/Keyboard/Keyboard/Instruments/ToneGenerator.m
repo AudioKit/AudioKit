@@ -23,14 +23,19 @@
                                                           minimum:0.1
                                                           maximum:1.0];
         [self addProperty:_toneColor];
+    
         
         // INSTRUMENT DEFINITION ===============================================
+        
+        AKLinearADSREnvelope  *adsr = [AKLinearADSREnvelope envelope];
+        [self connect:adsr];
+        
         AKFMOscillator *fmOscillator = [AKFMOscillator oscillator];
         fmOscillator.baseFrequency = note.frequency;
         fmOscillator.carrierMultiplier = [_toneColor scaledBy:akp(20)];
         fmOscillator.modulatingMultiplier = [_toneColor scaledBy:akp(12)];
         fmOscillator.modulationIndex = [_toneColor scaledBy:akp(12)];
-        fmOscillator.amplitude = [note.amplitude scaledBy:akp(0.15)];
+        fmOscillator.amplitude = [adsr scaledBy:akp(0.15)];
         [self connect:fmOscillator];
         
         // EXTERNAL OUTPUTS ====================================================
