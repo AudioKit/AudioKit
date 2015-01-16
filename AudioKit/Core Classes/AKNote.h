@@ -57,6 +57,9 @@
 /// @param newProperty New property to add to the note's set of properties
 - (void) addProperty:(AKNoteProperty *)newProperty;
 
+/// Refine playback of the note.
+- (void)updateProperties;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Playback Controls
 // -----------------------------------------------------------------------------
@@ -68,11 +71,12 @@
 /// @param delay Time to wait before beginning note playback.
 - (void)playAfterDelay:(float)delay;
 
-/// Refine playback of the note.
-- (void)updateProperties;
-
 /// Stop playback of the note.
 - (void)stop;
+
+/// Stop playback of the note after a delay.
+/// @param delay Time to wait before stopping note playback.
+- (void)stopAfterDelay:(float)delay;
 
 // Returns the playback scoreline to the CSD File.
 - (NSString *)stringForCSD;
