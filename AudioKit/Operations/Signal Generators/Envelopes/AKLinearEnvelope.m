@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka on 1/15/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's linen:
@@ -12,7 +13,9 @@
 #import "AKLinearEnvelope.h"
 #import "AKManager.h"
 
-@implementation AKLinearEnvelope
+@implementation AKLinearEnvelope {
+    BOOL _decayNoteAfterStop;
+}
 
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
                        decayTime:(AKConstant *)decayTime
@@ -60,10 +63,19 @@
     _amplitude = amplitude;
 }
 
+- (void)decayOnlyOnRelease:(BOOL)decayOnRelease
+{
+    _decayNoteAfterStop = decayOnRelease;
+}
+
 - (NSString *)stringForCSD {
+    
+    NSString *opcode = @"linen";
+    if (_decayNoteAfterStop) opcode = @"linenr";
+    
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    [csdString appendFormat:@"%@ linen ", self];
+    [csdString appendFormat:@"%@ %@ ", self, opcode];
 
     if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
