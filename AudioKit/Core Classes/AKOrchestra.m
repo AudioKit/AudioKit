@@ -32,8 +32,9 @@
         _zeroDBFullScaleValue = 1.0f;
         udoFiles = [[NSMutableSet alloc] init];
         _instruments = [[NSMutableArray alloc] init];
+        _functionTables = [[NSMutableSet alloc] init];
     }
-    return self; 
+    return self;
 }
 
 // -----------------------------------------------------------------------------
@@ -102,6 +103,10 @@
         [s appendString:[[AKManager standardSineWave] stringForCSD]];
     }
     [s appendString:@"\n"];
+    for (AKFunctionTable *functionTable in _functionTables) {
+        [s appendString:[functionTable stringForCSD]];
+        [s appendString:@"\n"];
+    }
     for ( AKInstrument *i in _instruments) {
         for (AKFunctionTable *functionTable in i.functionTables) {
             [s appendString:[functionTable stringForCSD]];
