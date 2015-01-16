@@ -69,7 +69,7 @@
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    [csdString appendFormat:@"%@ xadsr ", self];
+    [csdString appendFormat:@"%@ mxadsr ", self];
 
     [csdString appendFormat:@"%@, ", _attackDuration];
     
