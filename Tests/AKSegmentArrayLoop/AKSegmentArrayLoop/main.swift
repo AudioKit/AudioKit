@@ -8,29 +8,26 @@
 
 import Foundation
 
-let testDuration: Float = 10
+let testDuration: Float = 10;
 
 class Instrument : AKInstrument {
     
     override init() {
         super.init()
         
-        let segments = AKExponentialSegmentArray(
-            initialValue: 440.ak,
-            targetValue: 660.ak,
-            afterDuration: 2.ak
+        let segmentLoop = AKSegmentArrayLoop(
+            frequency: 1.ak,
+            initialValue: 440.ak
         )
-        segments.addValue(550.ak, afterDuration: 0.ak)
-        segments.addValue(550.ak, afterDuration: 1.ak)
-        segments.addValue(880.ak, afterDuration: 0.ak)
-        segments.addValue(220.ak, afterDuration: 6.ak)
-        segments.addValue(220.ak, afterDuration: 1.ak)
-        connect(segments)
+        segmentLoop.addValue(550.ak, afterDuration: 1.ak, concavity: (-5).ak)
+        segmentLoop.addValue(330.ak, afterDuration: 2.ak, concavity: 0.ak)
+        segmentLoop.addValue(440.ak, afterDuration: 1.ak, concavity: 5.ak)
+        connect(segmentLoop)
         
-        enableParameterLog("segment value = ", parameter: segments, timeInterval: 0.1)
+        enableParameterLog("segment value = ", parameter: segmentLoop, timeInterval: 0.1)
         
         let oscillator = AKOscillator()
-        oscillator.frequency = segments
+        oscillator.frequency = segmentLoop
         connect(oscillator)
         
         let output = AKAudioOutput(audioSource: oscillator)
@@ -38,6 +35,8 @@ class Instrument : AKInstrument {
     }
 }
 
+
+// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true
