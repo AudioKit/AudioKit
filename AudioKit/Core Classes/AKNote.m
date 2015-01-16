@@ -115,6 +115,11 @@ static int currentID = 1;
     [[AKManager sharedManager] stopNote:self];
     isPlaying = NO;
 }
+- (void)stopAfterDelay:(float)delay
+{
+    playbackDelay = delay;
+    [self stop];
+}
 
 - (NSString *)stringForCSD;
 {
