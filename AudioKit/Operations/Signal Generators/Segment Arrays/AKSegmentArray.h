@@ -18,7 +18,7 @@
 /// @param initialValue Starting value.
 /// @param targetValue Value after time given by duration.
 /// @param duration Duration in seconds of first segment.
-/// @param Concavity greater than zero is an initially slower change and less than zero is a quicker intial change.  Use zero for a linear change.
+/// @param concavity A value greater than zero is an initially slower change and less than zero is a quicker intial change.  Use zero for a linear change.
 - (instancetype)initWithInitialValue:(AKConstant *)initialValue
                          targetValue:(AKConstant *)targetValue
                        afterDuration:(AKConstant *)duration
@@ -28,7 +28,7 @@
 /// Adds another segment.
 /// @param value Value after time given by duration.
 /// @param duration Duration in seconds.
-/// @param Concavity greater than zero is an initially slower change and less than zero is a quicker intial change.  Use zero for a linear change.
+/// @param concavity A value greater than zero is an initially slower change and less than zero is a quicker intial change.  Use zero for a linear change.
 - (void)addValue:(AKConstant *)value
    afterDuration:(AKConstant *)duration
        concavity:(AKConstant *)concavity;
@@ -36,7 +36,7 @@
 /// Creates a release segment.
 /// @param value Value after time given by duration.
 /// @param duration Duration in seconds.
-/// @param Concavity greater than zero is an initially slower change and less than zero is a quicker intial change.  Use zero for a linear change.
+/// @param concavity A value greater than zero is an initially slower change and less than zero is a quicker intial change.  Use zero for a linear change.
 - (void)releaseToValue:(AKConstant *)value
          afterDuration:(AKConstant *)duration
              concavity:(AKConstant *)concavity;
