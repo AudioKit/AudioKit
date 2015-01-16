@@ -25,6 +25,12 @@
 /// Internal reference number
 @property (assign) int pValue;
 
+
+/// Set the value at a future time
+/// @param floatValue The value that will be set
+/// @param time The delay time after which the value will be set.
+- (void)setValue:(float)floatValue afterDelay:(float)time;
+
 + (instancetype)duration;
 
 @end
