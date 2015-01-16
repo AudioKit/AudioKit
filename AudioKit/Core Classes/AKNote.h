@@ -60,6 +60,9 @@
 /// Refine playback of the note.
 - (void)updateProperties;
 
+/// Refine playback of the note at some point in the future.
+- (void)updatePropertiesAfterDelay:(float)time;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Playback Controls
 // -----------------------------------------------------------------------------
