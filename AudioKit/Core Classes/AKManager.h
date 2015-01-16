@@ -54,6 +54,12 @@
 /// @param event AKEvent to be triggered
 - (void)triggerEvent:(AKEvent *)event;
 
+/// Allow batching of events with a start batch command
+- (void)startBatch;
+
+/// Send all batched events at once when a batch is ended
+- (void)endBatch;
+
 /// Stop all notes of an instrument
 /// @param instrument The instrument that needs to be turned off.
 - (void)stopInstrument:(AKInstrument *)instrument;
