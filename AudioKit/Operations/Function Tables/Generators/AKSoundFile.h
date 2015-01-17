@@ -19,6 +19,14 @@
 /// @param filename Audio file to load.  Most types are supported.
 - (instancetype)initWithFilename:(NSString *)filename;
 
+/// Store mono file from the left channel of a file
+/// @param filename Audio file to load.  Most types are supported.
+- (instancetype)initAsMonoFromLeftChannelOfStereoFile:(NSString *)filename;
+
+/// Store mono file from the right channel of a file
+/// @param filename Audio file to load.  Most types are supported.
+- (instancetype)initAsMonoFromRightChannelOfStereoFile:(NSString *)filename;
+
 /// Returns the string to retrieve the number of channels of a sound file table
 - (AKConstant *)channels;
 
