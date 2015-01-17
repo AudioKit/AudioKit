@@ -73,6 +73,12 @@ static int currentID = 1;
     }
 }
 
+- (void)updatePropertiesAfterDelay:(float)time
+{
+    playbackDelay = time;
+    [self updateProperties];
+}
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Properties and Property Management
 // -----------------------------------------------------------------------------
@@ -115,6 +121,11 @@ static int currentID = 1;
     [[AKManager sharedManager] stopNote:self];
     isPlaying = NO;
 }
+- (void)stopAfterDelay:(float)delay
+{
+    playbackDelay = delay;
+    [self stop];
+}
 
 - (NSString *)stringForCSD;
 {
@@ -133,7 +144,5 @@ static int currentID = 1;
     NSString *scoreLine = [NSString stringWithFormat:@"i -%0.5f %f 0.1", eventNumber, playbackDelay];
     return [NSString stringWithFormat:@"%@",scoreLine];
 }
-
-
 
 @end

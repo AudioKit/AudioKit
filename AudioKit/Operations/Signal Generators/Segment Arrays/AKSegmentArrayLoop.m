@@ -1,17 +1,17 @@
 //
-//  AKLinearSegmentArrayLoop.m
+//  AKSegmentArrayLoop.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/14/15
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's loopseg:
-//  http://www.csounds.com/manual/html/loopseg.html
+//  Implementation of Csound's looptseg:
+//  http://www.csounds.com/manual/html/looptseg.html
 //
 
-#import "AKLinearSegmentArrayLoop.h"
+#import "AKSegmentArrayLoop.h"
 
-@implementation AKLinearSegmentArrayLoop
+@implementation AKSegmentArrayLoop
 {
     AKParameter *loopFrequency;
     NSMutableArray *segments;
@@ -31,14 +31,16 @@
 
 - (void)addValue:(AKParameter *)value
    afterDuration:(AKParameter *)duration
+       concavity:(AKParameter *)concavity
 {
+    [segments addObject:concavity];
     [segments addObject:duration];
     [segments addObject:value];
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ loopseg %@, 0, 0, %@",
+            @"%@ looptseg %@, 0, 0, %@",
             self,
             loopFrequency,
             [segments componentsJoinedByString:@", "]];

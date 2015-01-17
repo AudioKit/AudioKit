@@ -142,10 +142,18 @@
 /// @param delay The amount of time to wait until playing the note
 - (void)playNote:(AKNote *)note afterDelay:(float)delay;
 
+/// Stop the given note
+/// @param note The note that will be stopped.
+- (void)stopNote:(AKNote *)note;
+
+/// Stop the given note after a delay
+/// @param note The note that will be stopped.
+/// @param delay The amount of time to wait until stopping the note
+- (void)stopNote:(AKNote *)note afterDelay:(float)delay;
+
 /// Play the given note phrase
 /// @param phrase The note phrase that will be played.
 - (void)playPhrase:(AKPhrase *)phrase;
-
 
 /// Repeat a note phrase
 /// @param phrase The note phrase that will be played.

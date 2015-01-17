@@ -10,6 +10,7 @@
 
 @class AKNote;
 @class AKInstrument;
+@class AKNoteProperty;
 
 /** A collection of notes and start times that can be played by an instrument.
  */
@@ -32,6 +33,25 @@
 /// @param note Note to be added
 /// @param time Time the note will be played
 - (void)addNote:(AKNote *)note atTime:(float)time;
+
+/// Add a note to the phrase at a specific time
+/// @param note Note to be added
+/// @param time Time the note will be played
+- (void)startNote:(AKNote *)note atTime:(float)time;
+
+/// Stop a note in the phrase at a specific time
+/// @param note Note to be stopped
+/// @param time Time the note will be stopped
+- (void)stopNote:(AKNote *)note atTime:(float)time;
+
+
+/// Update a note property with a specific value at a specific time
+/// @param noteProperty Note property to change the value of
+/// @param value Value of the note property
+/// @param time Time the note will be stopped
+- (void)updateNoteProperty:(AKNoteProperty *)noteProperty
+                 withValue:(float)value
+                    atTime:(float)time;
 
 /// Play the phrase
 /// @param instrument Instrument that will play the notes in the phrase

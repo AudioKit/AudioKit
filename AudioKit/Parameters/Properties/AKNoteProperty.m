@@ -32,6 +32,12 @@
     [_note updateProperties];
 }
 
+- (void)setValue:(float)floatValue afterDelay:(float)time
+{
+    [super setValue:floatValue];
+    [_note updatePropertiesAfterDelay:time];
+}
+
 + (instancetype)duration
 {
     AKNoteProperty *dur = [[self alloc] initWithMinimum:-2 maximum:1000000];
