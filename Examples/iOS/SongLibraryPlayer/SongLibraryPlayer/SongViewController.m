@@ -41,7 +41,7 @@
 	// Do any additional setup after loading the view.
     MPMediaItemArtwork *artwork = [global.currentSong valueForProperty:MPMediaItemPropertyArtwork];
     self.albumImageView.image = [artwork imageWithSize:self.view.bounds.size];
-    isReadyToPlay = YES;
+    isReadyToPlay = NO;
     if (global.isPlaying) {
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
     } else {
@@ -50,6 +50,10 @@
 }
 
 - (IBAction)play:(id)sender {
+    if (!isReadyToPlay) {
+        NSLog(@"Not Ready");
+        return;
+    }
     global = [SharedStore globals];
     if ([[(UIButton *)sender titleLabel].text isEqualToString:@"Play"]) {
         [self loadSong];
@@ -66,10 +70,6 @@
 
 - (void)loadSong {
     global = [SharedStore globals];
-    if (!isReadyToPlay) {
-        NSLog(@"Not Ready");
-        return;
-    }
     if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath] == NO) {
         NSLog(@"File does not exist.");
         return;
