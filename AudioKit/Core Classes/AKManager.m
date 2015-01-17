@@ -13,6 +13,8 @@
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
+    NSString *batchInstructions;
+    BOOL isBatching;
     
     CsoundObj *csound;
     int totalRunDuration;
@@ -91,6 +93,9 @@ static AKManager *_sharedManager = nil;
         totalRunDuration = 10000000;
         _numberOfSineWaveReferences = 0;
         _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
+        
+        batchInstructions = [[NSString alloc] init];
+        isBatching = NO;
         
         _orchestra = [[AKOrchestra alloc] init];
         
@@ -275,22 +280,51 @@ static AKManager *_sharedManager = nil;
     [event runBlock];
 }
 
+- (void)startBatch
+{
+    isBatching = YES;
+}
+
+- (void)endBatch
+{
+    [csound sendScore:batchInstructions];
+    batchInstructions = @"";
+    isBatching = NO;
+}
+
 - (void)stopInstrument:(AKInstrument *)instrument
 {
     if (_isLogging) NSLog(@"Stopping Instrument with '%@'", [instrument stopStringForCSD]);
-    [csound sendScore:[instrument stopStringForCSD]];
+    if (isBatching) {
+        batchInstructions = [batchInstructions stringByAppendingString:[instrument stopStringForCSD]];
+        batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
+    } else {
+        [csound sendScore:[instrument stopStringForCSD]];
+    }    
 }
 
 - (void)stopNote:(AKNote *)note
 {
     if (_isLogging) NSLog(@"Stopping Note with %@", [note stopStringForCSD]);
-    [csound sendScore:[note stopStringForCSD]];
+    
+    if (isBatching) {
+        batchInstructions = [batchInstructions stringByAppendingString:[note stopStringForCSD]];
+        batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
+    } else {
+        [csound sendScore:[note stopStringForCSD]];
+    }
 }
 
 - (void)updateNote:(AKNote *)note
 {
     if (_isLogging) NSLog(@"updating Note with %@", [note stringForCSD]);
-    [csound sendScore:[note stringForCSD]];
+    
+    if (isBatching) {
+        batchInstructions = [batchInstructions stringByAppendingString:[note stringForCSD]];
+        batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
+    } else {
+        [csound sendScore:[note stringForCSD]];
+    }
 }
 
 - (void)updateBindingsWithProperties:(AKOrchestra *)orchestra

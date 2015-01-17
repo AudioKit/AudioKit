@@ -141,10 +141,8 @@
 #import "AKRandomNumbers.h"
 
 // Operations - Signal Generators - Segment Arrays
-#import "AKExponentialSegmentArray.h"
-#import "AKExponentialSegmentArrayLoop.h"
-#import "AKLinearSegmentArray.h"
-#import "AKLinearSegmentArrayLoop.h"
+#import "AKSegmentArray.h"
+#import "AKSegmentArrayLoop.h"
 
 // Operations - Signal Generators - Subtractive Synthesis
 #import "AKAdditiveCosines.h"

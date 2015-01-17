@@ -51,20 +51,7 @@
 {
     ToneGeneratorNote *noteToRelease = [currentNotes objectForKey:[NSNumber numberWithInt:(int)key]];
     
-    AKSequence *releaseSequence = [AKSequence sequence];
-
-    AKEvent *decreaseVolume = [[AKEvent alloc] initWithBlock:^{
-        noteToRelease.amplitude.value *= 0.95;
-    }];
-    for (int i=0; i<100; i++) {
-        [releaseSequence addEvent:decreaseVolume afterDuration:0.02];
-    }
-    AKEvent *stop = [[AKEvent alloc] initWithBlock:^{
-        [noteToRelease stop];
-    }];
-    [releaseSequence addEvent:stop afterDuration:0.01];
-    
-    [releaseSequence play];
+    [noteToRelease stop];
     
     [currentNotes removeObjectForKey:[NSNumber numberWithInt:(int)key]];
 }

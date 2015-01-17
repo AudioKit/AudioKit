@@ -102,7 +102,7 @@
 
     AKSoundFile *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
-    [csdString appendFormat:@"%@\n", [_strikeImpulseTable stringForCSD]];
+    [[[[AKManager sharedManager] orchestra] functionTables] addObject:_strikeImpulseTable];
             
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ marimba ", self];

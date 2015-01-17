@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka on 1/15/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -53,13 +54,15 @@
 /// @param totalDuration Overall duration in seconds. [Default Value: 1]
 - (void)setOptionalTotalDuration:(AKConstant *)totalDuration;
 
-/// mplitude to rise to and decay from. [Default Value: 1]
+/// Amplitude to rise to and decay from. [Default Value: 1]
 @property AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude mplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
+/// Set decay to only occur when the note is explicitly released by a "stop" command
+- (void)decayOnlyOnRelease:(BOOL)decayOnRelease;
 
 
 @end
