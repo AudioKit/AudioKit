@@ -33,6 +33,9 @@
         global.currentSong = song;
         [self exportSong:song];
     }
+    else{ // the same song again.
+        isReadyToPlay = YES;
+    }
 }
 
 - (void)viewDidLoad
@@ -41,7 +44,7 @@
 	// Do any additional setup after loading the view.
     MPMediaItemArtwork *artwork = [global.currentSong valueForProperty:MPMediaItemPropertyArtwork];
     self.albumImageView.image = [artwork imageWithSize:self.view.bounds.size];
-    isReadyToPlay = NO;
+
     if (global.isPlaying) {
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
     } else {
