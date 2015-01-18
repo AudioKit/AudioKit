@@ -41,6 +41,21 @@
     [segments addObject:value];
 }
 
+- (instancetype)initWithInitialValue:(AKConstant *)initialValue
+                         targetValue:(AKConstant *)targetValue
+                       afterDuration:(AKConstant *)duration
+{
+    return [self initWithInitialValue:initialValue
+                          targetValue:targetValue
+                        afterDuration:duration
+                            concavity:akp(1)];
+}
+
+- (void)addValue:(AKConstant *)value afterDuration:(AKConstant *)duration
+{
+    [self addValue:value afterDuration:duration concavity:akp(1)];
+}
+
 - (void)releaseToValue:(AKConstant *)value
          afterDuration:(AKConstant *)duration
              concavity:(AKConstant *)concavity
