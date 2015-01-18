@@ -112,6 +112,12 @@
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;
 
+/// Set the current value to an integer by subtracting away everything after the decimal point
+- (void)floor;
+
+/// Set current value equal to the nearest integer
+- (void)round;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Helper Functions
 // -----------------------------------------------------------------------------
