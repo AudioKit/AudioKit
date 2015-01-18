@@ -133,11 +133,23 @@ static int currentID = 1;
     self.value = self.initialValue;
 }
 
-- (void)randomize;
+- (void)randomize
 {
     float width = self.maximum - self.minimum;
-    [self setValue:(((float) arc4random() / RAND_MAX) * width) + self.minimum];
+    float random = ((float)arc4random() / 0x100000000);
+    [self setValue:((random * width) + self.minimum)];
 }
+
+- (void)floor
+{
+    [self setValue:floorf(self.value)];
+}
+
+- (void)round
+{
+    [self setValue:roundf(self.value)];
+}
+
 
 
 // -----------------------------------------------------------------------------

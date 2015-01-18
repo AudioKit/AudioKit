@@ -32,7 +32,6 @@
                           stringByAppendingPathExtension:@"wav"];
         
         AKFileInput *fileIn = [[AKFileInput alloc] initWithFilename:file];
-        
         [self connect:fileIn];
         
         AKReverb *reverb;
