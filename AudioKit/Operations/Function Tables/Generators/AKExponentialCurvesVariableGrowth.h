@@ -22,11 +22,12 @@
 /// Add a junction point
 /// @param value The value at the given index
 /// @param index The index at which the value will be set
-- (void)addValue:(float)value atIndex:(int)index;
+/// @param growthFactor The growth factor, positive or negative (decay) within range [-10,10] 0 being a straight line
+- (void)addValue:(float)value atIndex:(int)index growthFactor:(int)growthFactor;
 
 /// Add a junction point
 /// @param value The value at the given index
-/// @param value The growth factor, positive or negative (decay) within range [-10,10] 0 being a straight line
+/// @param growthFactor the amount of positive or negative (decay) within range [-10,10] 0 being a straight line
 /// @param numberOfElements The index at which the value will be set
 -(void)appendValue:(float)value
 afterNumberOfElements:(int)numberOfElements
