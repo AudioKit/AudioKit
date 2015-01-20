@@ -48,6 +48,7 @@
 #import "AKAdditiveCosineTable.h"
 #import "AKArrayTable.h"
 #import "AKExponentialCurves.h"
+#import "AKExponentialCurvesVariableGrowth.h"
 #import "AKFunctionTable.h"
 #import "AKLineSegments.h"
 #import "AKRandomDistributionTable.h"

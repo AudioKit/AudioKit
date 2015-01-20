@@ -8,7 +8,8 @@
 
 #import "AKFunctionTable.h"
 
-/** Constructs concatenated power functions with variable rates of growth or decay.
+/** Constructs concatenated power functions with control over second order derivative.
+ Positive growth factor yields a positive second order derivative (concave up) curve.  Negative growth factor will yield a negative second order derivative (concave down) curve.
  */
 @interface AKExponentialCurvesVariableGrowth : AKFunctionTable
 
@@ -22,12 +23,12 @@
 /// Add a junction point
 /// @param value The value at the given index
 /// @param index The index at which the value will be set
-/// @param growthFactor The growth factor, positive or negative (decay) within range [-10,10] 0 being a straight line
+/// @param growthFactor The growth factor, positive or negative concave within range [-10,10] 0 being a straight line
 - (void)addValue:(float)value atIndex:(int)index growthFactor:(int)growthFactor;
 
 /// Add a junction point
 /// @param value The value at the given index
-/// @param growthFactor the amount of positive or negative (decay) within range [-10,10] 0 being a straight line
+/// @param growthFactor the amount of positive or negative concave within range [-10,10] 0 being a straight line
 /// @param numberOfElements The index at which the value will be set
 -(void)appendValue:(float)value
 afterNumberOfElements:(int)numberOfElements
