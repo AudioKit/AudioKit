@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41D52881A6E2EE000324F08 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D52851A6E2EE000324F08 /* AKAudioAnalyzer.m */; };
+		C41D52891A6E2EE000324F08 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D52871A6E2EE000324F08 /* LevelMeter.m */; };
 		C427EED11A4CDD0500734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427EECF1A4CDD0500734A80 /* mandpluk.aif */; };
 		C427EED21A4CDD0500734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427EED01A4CDD0500734A80 /* marmstk1.wav */; };
 		C427F0611A4CDFD900734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F0601A4CDFD900734A80 /* 808loop.wav */; };
@@ -159,6 +161,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C41D52841A6E2EE000324F08 /* AKAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioAnalyzer.h; sourceTree = "<group>"; };
+		C41D52851A6E2EE000324F08 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
+		C41D52861A6E2EE000324F08 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
+		C41D52871A6E2EE000324F08 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C427EECF1A4CDD0500734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427EED01A4CDD0500734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C427F0601A4CDFD900734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
@@ -490,6 +496,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C41D52831A6E2EE000324F08 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C41D52841A6E2EE000324F08 /* AKAudioAnalyzer.h */,
+				C41D52851A6E2EE000324F08 /* AKAudioAnalyzer.m */,
+				C41D52861A6E2EE000324F08 /* LevelMeter.h */,
+				C41D52871A6E2EE000324F08 /* LevelMeter.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		C427EECE1A4CDD0500734A80 /* Sound Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +587,7 @@
 				C478C1EF1A09F50600705D4E /* Libraries */,
 				C480B96B1A514BCA0092E3D3 /* Operations */,
 				C478C31F1A09F50600705D4E /* Parameters */,
+				C41D52831A6E2EE000324F08 /* Utilities */,
 			);
 			name = AudioKit;
 			path = ../../../AudioKit;
@@ -1316,6 +1334,7 @@
 				C489BE811A3B916500129C7E /* AKPhrase.m in Sources */,
 				C480BABB1A514BCA0092E3D3 /* AKAudioOutput.m in Sources */,
 				C480BAC31A514BCA0092E3D3 /* AKVariableDelay.m in Sources */,
+				C41D52891A6E2EE000324F08 /* LevelMeter.m in Sources */,
 				C480BAC81A514BCA0092E3D3 /* AKDCBlock.m in Sources */,
 				C480BAC11A514BCA0092E3D3 /* AKDelay.m in Sources */,
 				C480BA791A514BCA0092E3D3 /* AKRandomDistributionTable.m in Sources */,
@@ -1340,6 +1359,7 @@
 				C480BA871A514BCA0092E3D3 /* AKMixedControl.m in Sources */,
 				C480BAA31A514BCA0092E3D3 /* AKStruckMetalBar.m in Sources */,
 				C480BAB21A514BCA0092E3D3 /* AKInterpolatedRandomNumberPulse.m in Sources */,
+				C41D52881A6E2EE000324F08 /* AKAudioAnalyzer.m in Sources */,
 				C480BAAC1A514BCA0092E3D3 /* AKSleighbells.m in Sources */,
 				C47509131A6900EF000B05D3 /* AKSegmentArrayLoop.m in Sources */,
 				C480BA9A1A514BCA0092E3D3 /* AKVibrato.m in Sources */,
