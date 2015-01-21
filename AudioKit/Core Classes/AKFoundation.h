@@ -109,6 +109,7 @@
 #import "AKLowFrequencyOscillator.h"
 #import "AKOscillator.h"
 #import "AKPhasor.h"
+#import "AKPhasorControl.h"
 #import "AKVCOscillator.h"
 
 // Operations - Signal Generators - Physical Models
