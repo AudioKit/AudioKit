@@ -13,4 +13,6 @@
 @property (nonatomic, strong) AKInstrumentProperty *dishWellBalance;
 @property (nonatomic, strong) AKInstrumentProperty *dryWetBalance;
 
+@property (readonly) AKAudio *auxilliaryOutput;
+
 @end

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -24,7 +25,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G2J-ay-QfW">
-                                <rect key="frame" x="510" y="166" width="30" height="21"/>
+                                <rect key="frame" x="510.5" y="166.5" width="29.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -33,7 +34,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dish" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="VpG-5u-zpi">
-                                <rect key="frame" x="60" y="346" width="34" height="21"/>
+                                <rect key="frame" x="60" y="286.5" width="34" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -42,7 +43,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stairwell" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="aQS-E0-d3W">
-                                <rect key="frame" x="474" y="346" width="66" height="21"/>
+                                <rect key="frame" x="474.5" y="286.5" width="65.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -51,7 +52,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dry" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-72-4gN">
-                                <rect key="frame" x="60" y="166" width="27" height="21"/>
+                                <rect key="frame" x="60" y="166.5" width="26.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -84,11 +85,23 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PMf-LV-pSb">
-                                <rect key="frame" x="58" y="375" width="484" height="31"/>
+                                <rect key="frame" x="58" y="315" width="484" height="31"/>
                                 <connections>
                                     <action selector="changeDishWell:" destination="vXZ-lx-hvc" eventType="valueChanged" id="wHS-HD-BHf"/>
                                 </connections>
                             </slider>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgx-ov-zKy" customClass="LevelMeter">
+                                <rect key="frame" x="16" y="499" width="568" height="93"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="93" id="tQa-6h-QZk"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="tQa-6h-QZk"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -101,14 +114,18 @@
                             <constraint firstItem="GEp-sy-RMd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="GGp-dC-dwN"/>
                             <constraint firstItem="0d2-Na-l9s" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="0.8" id="HUw-E7-ovA"/>
                             <constraint firstItem="GEp-sy-RMd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Hbv-Wg-5XA"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="cgx-ov-zKy" secondAttribute="bottom" constant="8" id="L1v-M1-Hrx"/>
                             <constraint firstItem="PMf-LV-pSb" firstAttribute="top" secondItem="VpG-5u-zpi" secondAttribute="bottom" constant="8" id="Leg-ww-cCx"/>
                             <constraint firstItem="PMf-LV-pSb" firstAttribute="top" secondItem="aQS-E0-d3W" secondAttribute="bottom" constant="8" id="MDq-u7-GLC"/>
                             <constraint firstAttribute="centerX" secondItem="PMf-LV-pSb" secondAttribute="centerX" id="MKF-u0-KiX"/>
+                            <constraint firstItem="cgx-ov-zKy" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="MTf-YW-9Qc"/>
+                            <constraint firstItem="cgx-ov-zKy" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="VWD-3f-3XF"/>
                             <constraint firstItem="NGj-g0-Ezs" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Zzd-JH-Kgb"/>
                             <constraint firstItem="PMf-LV-pSb" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="0.8" id="bD3-HO-lav"/>
+                            <constraint firstItem="cgx-ov-zKy" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.25" id="eFE-UR-b7J"/>
                             <constraint firstItem="GEp-sy-RMd" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.15" id="feK-CP-tho"/>
                             <constraint firstItem="0d2-Na-l9s" firstAttribute="top" secondItem="G2J-ay-QfW" secondAttribute="bottom" constant="8" id="gfb-Nw-IAL"/>
-                            <constraint firstItem="PMf-LV-pSb" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.65" id="hJe-dE-RFO"/>
+                            <constraint firstItem="PMf-LV-pSb" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.55" id="hJe-dE-RFO"/>
                             <constraint firstItem="NGj-g0-Ezs" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.15" id="mWU-Z6-0F1"/>
                             <constraint firstItem="0d2-Na-l9s" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="bottom" multiplier="0.35" id="n16-gW-oVZ"/>
                             <constraint firstItem="GEp-sy-RMd" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="0.5" id="pwF-vD-L4b"/>
@@ -116,10 +133,13 @@
                             <constraint firstAttribute="centerX" secondItem="0d2-Na-l9s" secondAttribute="centerX" id="vSU-1Z-FaX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="levelMeter" destination="cgx-ov-zKy" id="rxX-Kg-m0n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="315" y="408.80281690140845"/>
+            <point key="canvasLocation" x="315" y="408"/>
         </scene>
     </scenes>
 </document>
