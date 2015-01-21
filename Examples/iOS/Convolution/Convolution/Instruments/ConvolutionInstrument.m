@@ -19,13 +19,13 @@
         _dishWellBalance = [[AKInstrumentProperty alloc] initWithValue:0
                                                                minimum:0
                                                                maximum:1.0];
-        _dryWetBalance   = [[AKInstrumentProperty alloc] initWithValue:0
-                                                               minimum:0
-                                                               maximum:0.1];
-        
         [self addProperty:_dishWellBalance];
-        [self addProperty:_dryWetBalance];
         
+        _dryWetBalance = [[AKInstrumentProperty alloc] initWithValue:0
+                                                             minimum:0
+                                                             maximum:0.1];
+        [self addProperty:_dryWetBalance];
+                
         // INSTRUMENT DEFINITION ===============================================
         
         NSString *file;
@@ -65,6 +65,12 @@
         
         AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:dryWet];
         [self connect:audio];
+        
+        // EXTERNAL OUTPUTS ====================================================
+        // After your instrument is set up, define outputs available to others
+        _auxilliaryOutput = [AKAudio globalParameter];
+        [self assignOutput:_auxilliaryOutput to:dryWet];
+        
     }
     return self;
 }
