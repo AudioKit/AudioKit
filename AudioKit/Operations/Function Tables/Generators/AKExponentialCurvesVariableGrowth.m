@@ -11,6 +11,7 @@
 @interface AKExponentialCurvesVariableGrowth ()
 {
     NSMutableArray *points;
+    NSNumber *initialValue;
 }
 @end
 
@@ -21,7 +22,7 @@
     self = [super initWithType:AKFunctionTableTypeExponentialCurvesVariableGrowth];
     if(self) {
         points = [[NSMutableArray alloc] init];
-        [points addObject:@[@0, [NSNumber numberWithFloat:value]]];
+        initialValue = [NSNumber numberWithFloat:value];
         self.size = 4096;
     }
     return self;
@@ -34,20 +35,16 @@
                         [NSNumber numberWithFloat:value]]];
 }
 
--(void)appendValue:(float)value
-    afterNumberOfElements:(int)numberOfElements
-             concavity:(int)concavity
-{
-    NSArray *lastPoint = [points lastObject];
-    int lastIndex = [[lastPoint objectAtIndex:0] intValue];
-    int index = lastIndex + numberOfElements;
-    [self addValue:value atIndex:index concavity:concavity];
-}
-
 //Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD
 {
-    int maximumIndex = (int)[[points lastObject] objectAtIndex:0];
+    
+    int maximumIndex = 0;
+    for (NSArray *point in points) {
+        int index = (int)[point objectAtIndex:0];
+        maximumIndex = maximumIndex + index;
+    }
+    
     float scalingFactor = (float)self.size/(float)maximumIndex;
     
     NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
@@ -55,7 +52,8 @@
         int index = (int)[point objectAtIndex:0];
         int newIndex = (int)((float)index * scalingFactor);
         [scaledPoints addObject:@[[NSNumber numberWithInt:newIndex],
-                                  [point objectAtIndex:1]]];
+                                  [point objectAtIndex:1],
+                                  [point objectAtIndex:2]]];
     }
     
     NSMutableArray *flattenedPoints = [[NSMutableArray alloc] init];
@@ -63,10 +61,11 @@
         [flattenedPoints addObject:[point componentsJoinedByString:@", "]];
     }
     
-    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %d, -%lu, %@",
+    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %d, -%lu, %@, %@",
             self,
             self.size,
             (unsigned long)AKFunctionTableTypeExponentialCurvesVariableGrowth,
+            initialValue,
             [flattenedPoints componentsJoinedByString:@", "]];
 }
 

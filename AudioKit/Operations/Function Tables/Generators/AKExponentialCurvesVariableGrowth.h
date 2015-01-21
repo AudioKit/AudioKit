@@ -26,12 +26,4 @@
 /// @param concavity Concave within a range [-10,10] 0 being a straight line, -10 being highly convex (concave up), +10 being highly concave (concave down).
 - (void)addValue:(float)value atIndex:(int)index concavity:(int)concavity;
 
-/// Add a junction point
-/// @param value The value at the given index
-/// @param concavity Concave within a range [-10,10] 0 being a straight line, -10 being highly convex (concave up), +10 being highly concave (concave down).
-/// @param numberOfElements The index at which the value will be set
--(void)appendValue:(float)value
-afterNumberOfElements:(int)numberOfElements
-      concavity:(int)concavity;
-
 @end
