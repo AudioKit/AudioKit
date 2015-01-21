@@ -9,7 +9,7 @@
 #import "AKFunctionTable.h"
 
 /** Constructs concatenated power functions with control over second order derivative.
- Positive growth factor yields a positive second order derivative (concave up) curve.  Negative growth factor will yield a negative second order derivative (concave down) curve.
+ Positive concavity yields a negative second order derivative (concave down) curve.  Negative concavity will yield a positive second order derivative (concave down) curve.
  */
 @interface AKExponentialCurvesVariableGrowth : AKFunctionTable
 
@@ -23,15 +23,15 @@
 /// Add a junction point
 /// @param value The value at the given index
 /// @param index The index at which the value will be set
-/// @param growthFactor The growth factor, positive or negative concave within range [-10,10] 0 being a straight line
-- (void)addValue:(float)value atIndex:(int)index growthFactor:(int)growthFactor;
+/// @param concavity Concave within a range [-10,10] 0 being a straight line, -10 being highly convex (concave up), +10 being highly concave (concave down).
+- (void)addValue:(float)value atIndex:(int)index concavity:(int)concavity;
 
 /// Add a junction point
 /// @param value The value at the given index
-/// @param growthFactor the amount of positive or negative concave within range [-10,10] 0 being a straight line
+/// @param concavity Concave within a range [-10,10] 0 being a straight line, -10 being highly convex (concave up), +10 being highly concave (concave down).
 /// @param numberOfElements The index at which the value will be set
 -(void)appendValue:(float)value
 afterNumberOfElements:(int)numberOfElements
-      growthFactor:(int)growthFactor;
+      concavity:(int)concavity;
 
 @end

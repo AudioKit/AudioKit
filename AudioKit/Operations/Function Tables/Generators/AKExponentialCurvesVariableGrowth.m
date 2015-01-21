@@ -27,21 +27,21 @@
     return self;
 }
 
-- (void)addValue:(float)value atIndex:(int)index growthFactor:(int)growthFactor
+- (void)addValue:(float)value atIndex:(int)index concavity:(int)concavity
 {
     [points addObject:@[[NSNumber numberWithInt:index],
-                        [NSNumber numberWithInt:growthFactor],
+                        [NSNumber numberWithInt:concavity],
                         [NSNumber numberWithFloat:value]]];
 }
 
 -(void)appendValue:(float)value
     afterNumberOfElements:(int)numberOfElements
-             growthFactor:(int)growthFactor
+             concavity:(int)concavity
 {
     NSArray *lastPoint = [points lastObject];
     int lastIndex = [[lastPoint objectAtIndex:0] intValue];
     int index = lastIndex + numberOfElements;
-    [self addValue:value atIndex:index growthFactor:growthFactor];
+    [self addValue:value atIndex:index concavity:concavity];
 }
 
 //Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
