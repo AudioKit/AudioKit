@@ -105,16 +105,16 @@
 // Cue up the next event to be triggered.
 - (void)playNextEventInSequence
 {
+    AKEvent *event = _events[index];
+    [[AKManager sharedManager] triggerEvent:event];
+    
     if (index < [_times count]-1 && isPlaying) {
         float timeUntilNextEvent = [_times[index+1] floatValue] - [_times[index] floatValue];
-        
         [self performSelector:@selector(playNextEventInSequence)
                    withObject:nil
                    afterDelay:timeUntilNextEvent
                       inModes:@[NSRunLoopCommonModes]];
     }
-    AKEvent *event = _events[index];
-    [[AKManager sharedManager] triggerEvent:event];
     index++;
 }
 
