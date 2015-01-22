@@ -49,7 +49,7 @@
     int ixmode = normalizeResult ? 0:1;
     int iwrap = wrapData ? 0:1;
     return [NSString stringWithFormat:
-            @"%@ tablei %@, %@, %i, %@, %i",
+            @"%@ tablei AKControl(%@), %@, %i, %@, %i",
             self, kndx, ifn, ixmode, ixoff, iwrap];
 }
 
