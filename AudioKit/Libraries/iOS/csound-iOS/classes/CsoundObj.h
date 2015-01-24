@@ -33,6 +33,7 @@ typedef struct csdata_ {
     long bufframes;
     int ret;
     int nchnls;
+    int nsmps;
     int nchnls_i;
     bool running;
     bool shouldRecord;
@@ -137,7 +138,3 @@ typedef struct {
 - (void)handleInterruption:(NSNotification *)notification;
 
 @end
-
-
-
-
