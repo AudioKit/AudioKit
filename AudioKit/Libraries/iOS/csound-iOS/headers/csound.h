@@ -1689,6 +1689,17 @@ extern "C" {
      */
     PUBLIC int csoundGetTable(CSOUND *, MYFLT **tablePtr, int tableNum);
 
+    /**
+     * Stores pointer to the arguments used to generate 
+     * function table 'tableNum' in *argsPtr,
+     * and returns the number of arguments used.
+     * If the table does not exist, *argsPtr is set to NULL and
+     * -1 is returned.
+     * NB: the argument list starts with the GEN number and is followed by
+     * its parameters. eg. f 1 0 1024 10 1 0.5  yields the list {10.0,1.0,0.5}
+     */
+    PUBLIC int csoundGetTableArgs(CSOUND *csound, MYFLT **argsPtr, int tableNum);
+
     /** @}*/
     /** @defgroup TABLEDISPLAY Function table display
      *
@@ -2192,38 +2203,43 @@ extern "C" {
 
  /**
   * Read from circular buffer
-  * void *circular_buffer - pointer to an existing circular buffer
-  * void *out - preallocated buffer with at least items number of elements, where
+  * @param csound This value is currently ignored.
+  * @param circular_buffer pointer to an existing circular buffer
+  * @param out preallocated buffer with at least items number of elements, where
   *              buffer contents will be read into
-  * int items - number of samples to be read
-  * returns the actual number of items read (0 <= n <= items)
+  * @param items number of samples to be read
+  * @returns the actual number of items read (0 <= n <= items)
   */
   PUBLIC int csoundReadCircularBuffer(CSOUND *csound, void *circular_buffer,
                                       void *out, int items);
 
   /**
    * Read from circular buffer without removing them from the buffer.
-   * void *circular_buffer - pointer to an existing circular buffer
-   * void *out - preallocated buffer with at least items number of elements, where
+   * @param circular_buffer pointer to an existing circular buffer
+   * @param out preallocated buffer with at least items number of elements, where
    *              buffer contents will be read into
-   * int items - number of samples to be read
-   * returns the actual number of items read (0 <= n <= items)
+   * @param items number of samples to be read
+   * @returns the actual number of items read (0 <= n <= items)
    */
-   PUBLIC int csoundPeekCircularBuffer(CSOUND *csound, void *circular_buffer,
-                                       void *out, int items);
+  PUBLIC int csoundPeekCircularBuffer(CSOUND *csound, void *circular_buffer,
+                                      void *out, int items);
 
  /**
   * Write to circular buffer
-  * void *circular_buffer - pointer to an existing circular buffer
-  * void *inp - buffer with at least items number of elements to be written into
+  * @param csound This value is currently ignored.
+  * @param p pointer to an existing circular buffer
+  * @param inp buffer with at least items number of elements to be written into
   *              circular buffer
-  * int items - number of samples to be read
-  * returns the actual number of samples written (0 <= n <= items)
+  * @param items number of samples to write
+  * @returns the actual number of items written (0 <= n <= items)
   */
   PUBLIC int csoundWriteCircularBuffer(CSOUND *csound, void *p,
                                        const void *inp, int items);
   /**
-   * Empty circular buffer of any remaining data.
+   * Empty circular buffer of any remaining data. This function should only be
+   * used if there is no reader actively getting data from the buffer.
+   * @param csound This value is currently ignored.
+   * @param p pointer to an existing circular buffer
    */
   PUBLIC void csoundFlushCircularBuffer(CSOUND *csound, void *p);
 
