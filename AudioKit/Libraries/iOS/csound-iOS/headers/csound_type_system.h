@@ -46,6 +46,13 @@ extern "C" {
         struct cstype** unionTypes;
     } CS_TYPE;
 
+    typedef struct csvarmem {
+        CS_TYPE* varType;
+        MYFLT value;
+    } CS_VAR_MEM;
+    
+#define CS_VAR_TYPE_OFFSET (sizeof(CS_VAR_MEM) - sizeof(MYFLT))
+    
     typedef struct csvariable {
         char* varName;
         CS_TYPE* varType;
@@ -59,9 +66,10 @@ extern "C" {
         CS_TYPE* subType;
         void (*updateMemBlockSize)(void*, struct csvariable*);
         void (*initializeVariableMemory)(struct csvariable*, MYFLT*);
-        void *memBlock;
+        CS_VAR_MEM *memBlock;
     } CS_VARIABLE;
 
+    
 //    typedef struct cstypeinstance {
 //        CS_TYPE* varType;
 //        CS_VARIABLE* (*createVariable)(void*, void*);
@@ -100,6 +108,7 @@ extern "C" {
         CS_VARIABLE* tail;
         int poolSize;
         struct csvarpool* parent;
+        int varCount;
     } CS_VAR_POOL;
 
     PUBLIC CS_VAR_POOL* csoundCreateVarPool(CSOUND* csound);

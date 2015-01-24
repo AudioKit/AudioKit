@@ -340,58 +340,58 @@ OSStatus  Csound_Render(void *inRefCon,
     float coef = (float) INT_MAX / csoundGet0dBFS(cdata->cs);
     CSOUND *cs = cdata->cs;
     
-    int i,j,k;
-    int slices = inNumberFrames/csoundGetKsmps(cs);
+    int k;
+    int frame;
+    int nsmps = cdata->nsmps;
+    int insmps = nsmps;
     int ksmps = csoundGetKsmps(cs);
     MYFLT *spin = csoundGetSpin(cs);
     MYFLT *spout = csoundGetSpout(cs);
     SInt32 *buffer;
     
     AudioUnitRender(*cdata->aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
-    
     NSMutableArray* cache = cdata->valuesCache;
     
-    for(i=0; i < slices; i++){
+    
+    for(frame=0;frame < inNumberFrames;frame++){
         
-        for (int i = 0; i < cache.count; i++) {
-            id<CsoundBinding> binding = [cache objectAtIndex:i];
-            if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                [binding updateValuesToCsound];
-            }
-        }
-        
-        /* performance */
         if(cdata->useAudioInput) {
             for (k = 0; k < nchnls; k++){
                 buffer = (SInt32 *) ioData->mBuffers[k].mData;
-                for(j=0; j < ksmps; j++){
-                    spin[j*nchnls+k] =(1./coef)*buffer[j+i*ksmps];
-                }
+                spin[insmps++] =(1./coef)*buffer[frame];
             }
-        }
-        if(!ret) {
-            ret = csoundPerformKsmps(cdata->cs);
-        } else {
-            cdata->running = false;
         }
         
         for (k = 0; k < nchnls; k++) {
             buffer = (SInt32 *) ioData->mBuffers[k].mData;
             if (cdata->shouldMute == false) {
-                for(j=0; j < ksmps; j++){
-                    buffer[j+i*ksmps] = (SInt32) lrintf(spout[j*nchnls+k]*coef) ;
-                }
+                buffer[frame] = (SInt32) lrintf(spout[nsmps++]*coef) ;
             } else {
-                memset(buffer, 0, sizeof(SInt32) * inNumberFrames);
+                buffer[frame] = 0;
             }
         }
         
-        for (int i = 0; i < cache.count; i++) {
-            id<CsoundBinding> binding = [cache objectAtIndex:i];
-            if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                [binding updateValuesFromCsound];
+        if(nsmps == ksmps*nchnls){
+            for (int i = 0; i < cache.count; i++) {
+                id<CsoundBinding> binding = [cache objectAtIndex:i];
+                if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                    [binding updateValuesToCsound];
+                }
             }
+            if(!ret) {
+                ret = csoundPerformKsmps(cdata->cs);
+            } else {
+                cdata->running = false;
+            }
+            for (int i = 0; i < cache.count; i++) {
+                id<CsoundBinding> binding = [cache objectAtIndex:i];
+                if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                    [binding updateValuesFromCsound];
+                }
+            }
+            insmps = nsmps = 0;
         }
+        
     }
     
     // Write to file.
@@ -402,6 +402,7 @@ OSStatus  Csound_Render(void *inRefCon,
         }
     }
     
+    cdata->nsmps = nsmps;
     cdata->ret = ret;
     return 0;
 }
@@ -454,6 +455,7 @@ OSStatus  Csound_Render(void *inRefCon,
         char *argv[2] = { "csound", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 2, argv);
         mCsData.running = true;
+        mCsData.nsmps = 0;
         
         if(!ret) {
             
