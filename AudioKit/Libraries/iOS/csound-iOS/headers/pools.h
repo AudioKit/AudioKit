@@ -4,7 +4,7 @@
 #define POOL_SIZE 256
 
 typedef struct myflt_pool {
-    MYFLT* values;
+    CS_VAR_MEM* values;
     int max;
     int count;
 } MYFLT_POOL;

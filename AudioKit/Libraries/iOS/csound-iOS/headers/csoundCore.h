@@ -39,6 +39,7 @@
 #include "csound.h"
 #include "cscore.h"
 #include "csound_data_structures.h"
+#include "csound_standard_types.h"
 #include "pools.h"
 
 #ifdef __cplusplus
@@ -82,16 +83,9 @@ typedef struct {
 //#define OUTOCOUNT   ORTXT.outoffs->count
 #define INOCOUNT    ORTXT.inArgCount
 #define OUTOCOUNT   ORTXT.outArgCount
-#define XINCODE     ORTXT.xincod
-#  define XINARG1   (p->XINCODE & 1)
-#  define XINARG2   (p->XINCODE & 2)
-#  define XINARG3   (p->XINCODE & 4)
-#  define XINARG4   (p->XINCODE & 8)
-#  define XINARG5   (p->XINCODE &16)
-#define XOUTCODE    ORTXT.xoutcod
-//#define XSTRCODE    ORTXT.xincod_str
-//#define XOUTSTRCODE ORTXT.xoutcod_str
-
+#define IS_ASIG_ARG(x) (csoundGetTypeForArg(x) == &CS_VAR_TYPE_A)
+#define IS_STR_ARG(x) (csoundGetTypeForArg(x) == &CS_VAR_TYPE_S)
+    
 #define CURTIME (((double)csound->icurTime)/((double)csound->esr))
 #define CURTIME_inc (((double)csound->ksmps)/((double)csound->esr))
 
@@ -225,10 +219,10 @@ typedef struct {
   } ARGLST;
 
   typedef struct arg {
-          int type;
-          void* argPtr;
-          int index;
-          struct arg* next;
+    int type;
+    void* argPtr;
+    int index;
+    struct arg* next;
   } ARG;
 //  typedef struct argoffs {
 //    int     count;
@@ -273,10 +267,6 @@ typedef struct {
     unsigned int inArgCount;
     ARG     *outArgs;
     unsigned int outArgCount;
-    int     xincod;         /* Rate switch for multi-rate opcode functions */
-    int     xoutcod;        /* output rate switch (IV - Sep 1 2002) */
-    int     xincod_str;     /* Type switch for string arguments */
-    int     xoutcod_str;
     char    intype;         /* Type of first input argument (g,k,a,w etc) */
     char    pftype;         /* Type of output argument (k,a etc) */
   } TEXT;
@@ -523,10 +513,10 @@ typedef struct {
     MYFLT  *lclbas;  /* base for variable memory pool */
     char   *strarg;       /* string argument */
     /* Copy of required p-field values for quick access */
-    MYFLT   p0;
-    MYFLT   p1;
-    MYFLT   p2;
-    MYFLT   p3;
+    CS_VAR_MEM  p0;
+    CS_VAR_MEM  p1;
+    CS_VAR_MEM  p2;
+    CS_VAR_MEM  p3;
   } INSDS;
 
 #define CS_KSMPS     (p->h.insdshead->ksmps)
@@ -625,6 +615,10 @@ typedef struct {
     int32    nchanls;
     /** table number */
     int32    fno;
+    /** args  */
+    MYFLT args[PMAX - 4];
+    /** arg count */
+    int argcnt;
     /** GEN01 parameters */
     GEN01ARGS gen01args;
     /** table data (flen + 1 MYFLT values) */
@@ -976,13 +970,10 @@ typedef struct NAME__ {
     /**@}*/
     /** @name Arguments to opcodes */
     /**@{ */
+    CS_TYPE *(*GetTypeForArg)(void *p);
     int (*GetInputArgCnt)(void *p);
-    unsigned long (*GetInputArgAMask)(void *p);
-    unsigned long (*GetInputArgSMask)(void *p);
     char *(*GetInputArgName)(void *p, int n);
     int (*GetOutputArgCnt)(void *p);
-    unsigned long (*GetOutputArgAMask)(void *p);
-    unsigned long (*GetOutputArgSMask)(void *p);
     char *(*GetOutputArgName)(void *p, int n);
     char *(*GetString)(CSOUND *, MYFLT);
     int32 (*strarg2insno)(CSOUND *, void *p, int is_string);
@@ -1260,7 +1251,11 @@ typedef struct NAME__ {
     int (*OpenLibrary)(void **library, const char *libraryPath);
     int (*CloseLibrary)(void *library);
     void *(*GetLibrarySymbol)(void *library, const char *procedureName);
+#ifndef __MACH__
+    char *(*LocalizeString)(const char *) __attribute__ ((format_arg (1)));
+#else
     char *(*LocalizeString)(const char *);
+#endif
     char *(*strtok_r)(char*, char*, char**);
     double (*strtod)(char*, char**);
     int (*sprintf)(char *str, const char *format, ...);
@@ -1678,6 +1673,7 @@ typedef struct NAME__ {
     MYFLT         _system_sr;
     void*         csdebug_data; /* debugger data */
     int (*kperf)(CSOUND *); /* kperf function pointer, to switch between debug and nodebug function */
+    int           score_parser;
     /*struct CSOUND_ **self;*/
     /**@}*/
 #endif  /* __BUILDING_LIBCSOUND */

@@ -104,51 +104,27 @@
     CSLANGUAGE_COLUMBIAN
 } cslanguage_t;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+  void init_getstring(void*);
+  char *csoundLocalizeString(const char *s)
+     __attribute__ ((format (printf, 1,0)));
+  PUBLIC char* cs_strtok_r(char* str, char* sep, char** lasts);
+  PUBLIC double cs_strtod(char* nptr, char** endptr);
+  PUBLIC int cs_sprintf(char *str, const char *format, ...);
+  PUBLIC int cs_sscanf(char *str, const char *format, ...);
+#ifdef __cplusplus
+}
+#endif
+
 
 #ifdef GNU_GETTEXT
-#ifdef __cplusplus
-extern "C" {
-#endif
-#include <libintl.h>
-  char *csoundLocalizeString(const char *s)
-     __attribute__ ((format (printf, 1,0)));
-  /* This could be gettext but this indirection helps debugging */
-#define Str(x) csoundLocalizeString(x)
-  void init_getstring(void*);
-  PUBLIC char* cs_strtok_r(char* str, char* sep, char** lasts);
-  PUBLIC double cs_strtod(char* nptr, char** endptr);
-  PUBLIC int cs_sprintf(char *str, const char *format, ...);
-  PUBLIC int cs_sscanf(char *str, const char *format, ...);
-#ifdef __cplusplus
-}
-#endif
-
+# define Str(x) csoundLocalizeString(x)
 #else
-#ifdef __cplusplus
-extern "C" {
+# define Str(x)  (x)
 #endif
 
-#ifdef __BUILDING_LIBCSOUND
-
-  char *csoundLocalizeString(const char *s)
-     __attribute__ ((format (printf, 1,0)));
-/* Deal with localisation of mesages */
-
-#define Str(x)  (x)
-
-  void init_getstring(void*);
-  PUBLIC char* cs_strtok_r(char* str, char* sep, char** lasts);
-  PUBLIC double cs_strtod(char* nptr, char** endptr);
-  PUBLIC int cs_sprintf(char *str, const char *format, ...);
-  PUBLIC int cs_sscanf(char *str, const char *format, ...);
-#endif  /* __BUILDING_LIBCSOUND */
-
-#ifdef __cplusplus
-}
-#endif
-void init_getstring(void*);
-
-#endif
 #define Str_noop(x) x
 
 
