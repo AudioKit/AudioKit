@@ -14,7 +14,6 @@
 @implementation AKFileInput
 {
     NSString *ifilcod;
-    AKControl *kpitch;
 }
 
 - (instancetype)initWithFilename:(NSString *)fileName;
@@ -22,7 +21,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         ifilcod = fileName;
-        kpitch = akp(1);
+        _speed = akp(1);
     }
     return self; 
 }
@@ -33,18 +32,20 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         ifilcod = fileName;
-        kpitch = speed;
+        _speed = speed;
     }
     return self;
 }
 
-// Csound Prototype:
-// a1[, a2[, ... aN]] diskin2 ifilcod, kpitch[, iskiptim [, iwrap[, iformat [, iwsize[, ibufsize[, iskipinit]]]]]]
+- (void)setOptionalSpeed:(AKParameter *)speed {
+    _speed = speed;
+}
+
 - (NSString *)stringForCSD
 {
     return [NSString stringWithFormat:
-            @"%@ diskin2 \"%@\", %@, 0, 1",
-            self, ifilcod, kpitch];
+            @"%@ diskin2 \"%@\", AKControl(%@), 0, 1",
+            self, ifilcod, _speed];
 }
 
 
