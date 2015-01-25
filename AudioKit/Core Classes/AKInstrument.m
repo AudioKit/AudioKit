@@ -77,7 +77,7 @@ static int currentID = 1;
 
 
 // -----------------------------------------------------------------------------
-#  pragma mark - F Tables
+#  pragma mark - Function Tables
 // -----------------------------------------------------------------------------
 
 - (void)addFunctionTable:(AKFunctionTable *)newFunctionTable
