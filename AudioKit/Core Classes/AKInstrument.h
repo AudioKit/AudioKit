@@ -56,7 +56,7 @@
 
 
 // -----------------------------------------------------------------------------
-#  pragma mark - F Tables
+#  pragma mark - Function Tables
 // -----------------------------------------------------------------------------
 
 /** All FunctionTables that are required by the instrument are stored here and declared
