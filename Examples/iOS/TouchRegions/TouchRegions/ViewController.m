@@ -69,13 +69,13 @@
         if (object == self.leftView) {
             fm.amplitude.value = fm.amplitude.maximum;
             fm.frequency.value  = newValue * (fm.frequency.maximum - fm.frequency.minimum) + fm.frequency.minimum;
-            self.frequencyLabel.text = [NSString stringWithFormat:@"%0.2f", fm.frequency.value];
+            self.frequencyLabel.text = [NSString stringWithFormat:@"fm.baseFrequency = %0.2f", fm.frequency.value];
             leftTouchImageView.center = CGPointMake(newValue * middle, leftTouchImageView.center.y);
             //NSLog(@"%f", newValue*400);
         }
         if (object == self.rightView) {
             fm.modulatingMultiplier.value  = newValue * (fm.modulatingMultiplier.maximum - fm.modulatingMultiplier.minimum) + fm.modulatingMultiplier.minimum;
-            self.modulatingMultiplierLabel.text = [NSString stringWithFormat:@"%0.6f", fm.modulatingMultiplier.value];
+            self.modulatingMultiplierLabel.text = [NSString stringWithFormat:@"fm.modulatingMultiplier = %0.6f", fm.modulatingMultiplier.value];
             rightTouchImageView.center = CGPointMake(newValue * middle + middle, rightTouchImageView.center.y);
         }
     } else if ([keyPath isEqualToString:@"verticalPercentage"]) {
@@ -83,12 +83,12 @@
         if (object == self.leftView) {
             
             fm.carrierMultiplier.value  = newValue * (fm.carrierMultiplier.maximum - fm.carrierMultiplier.minimum) + fm.carrierMultiplier.minimum;
-            self.carrierMultiplierLabel.text = [NSString stringWithFormat:@"%0.6f", fm.carrierMultiplier.value];
+            self.carrierMultiplierLabel.text = [NSString stringWithFormat:@"fm.carrierMultiplier = %0.6f", fm.carrierMultiplier.value];
             leftTouchImageView.center = CGPointMake(leftTouchImageView.center.x, newValue*height);
         }
         if (object == self.rightView) {
             fm.modulationIndex.value  = newValue * (fm.modulationIndex.maximum - fm.modulationIndex.minimum) + fm.modulationIndex.minimum;
-            self.modulationIndexLabel.text = [NSString stringWithFormat:@"%0.4f", fm.modulationIndex.value];
+            self.modulationIndexLabel.text = [NSString stringWithFormat:@"fm.modulationIndex = %0.4f", fm.modulationIndex.value];
             rightTouchImageView.center = CGPointMake(rightTouchImageView.center.x, newValue*height);
         }
     } else {
