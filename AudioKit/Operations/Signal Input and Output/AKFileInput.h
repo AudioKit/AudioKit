@@ -31,4 +31,8 @@
 /// @param speed Speed of the playback relative to 1 [Default Value: 1]
 - (void)setOptionalSpeed:(AKParameter *)speed;
 
+/// Normalize the output
+/// @param maximumAmplitude The maximum amplitude will be normalized to this amount.
+- (void)normalizeTo:(float)maximumAmplitude;
+
 @end
