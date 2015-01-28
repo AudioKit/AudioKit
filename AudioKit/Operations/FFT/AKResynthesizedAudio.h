@@ -1,5 +1,5 @@
 //
-//  AKAudioFromFSignal.h
+//  AKResynthesizedAudio.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
@@ -13,10 +13,10 @@
 /** Resynthesise phase vocoder data (f-signal) using a FFT overlap-add.
  */
 
-@interface AKAudioFromFSignal : AKAudio
+@interface AKResynthesizedAudio : AKAudio
 
 /// Create audio from an f-signal
 /// @param source Input f-signal
-- (instancetype)initWithSource:(AKFSignal *)source;
+- (instancetype)initWithSignal:(AKFSignal *)source;
 
 @end

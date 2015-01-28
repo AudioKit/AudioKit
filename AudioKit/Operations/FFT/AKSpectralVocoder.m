@@ -20,15 +20,15 @@
     AKControl *kcoefs;
 }
 
-- (instancetype)initWithAmplitudeFSignal:(AKFSignal *)amplitudeFSignal
-            excitationFrequenciesFSignal:(AKFSignal *)excitationFrequenciesFSignal
-                                   depth:(AKControl *)depth
-                                    gain:(AKControl *)gain
+- (instancetype)initWithAmplitude:(AKFSignal *)amplitude
+            excitationFrequencies:(AKFSignal *)excitationFrequencies
+                            depth:(AKControl *)depth
+                             gain:(AKControl *)gain
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        famp = amplitudeFSignal;
-        fexc = excitationFrequenciesFSignal;
+        famp = amplitude;
+        fexc = excitationFrequencies;
         kdepth = depth;
         kgain = gain;
         kcoefs = akp(80);
@@ -36,8 +36,8 @@
     return self;
 }
 
-- (void)setOptionalCoefs:(AKControl *)coefs {
-	kcoefs = coefs;
+- (void)setOptionalCoefficents:(AKControl *)coefs {
+    kcoefs = coefs;
 }
 
 - (NSString *)stringForCSD {

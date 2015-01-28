@@ -77,15 +77,15 @@
 #import "AKSum.h"
 
 // Operations - Phase Vocoder Streaming
-#import "AKAudioFromFSignal.h"
-#import "AKCrossSynthesis.h"
-#import "AKFSignalFromMonoAudio.h"
-#import "AKFSignalFromMonoWithAttackAnalysis.h"
-#import "AKFSignalMix.h"
+#import "AKCrossSynthesizedFFT.h"
+#import "AKFFT.h"
+#import "AKFFTProcessor.h"
+#import "AKMixedFFT.h"
 #import "AKPhaseLockedVocoder.h"
-#import "AKScaledFSignal.h"
+#import "AKResynthesizedAudio.h"
+#import "AKScaledFFT.h"
 #import "AKSpectralVocoder.h"
-#import "AKWarp.h"
+#import "AKWarpedFFT.h"
 
 // Operations - Signal Generators
 

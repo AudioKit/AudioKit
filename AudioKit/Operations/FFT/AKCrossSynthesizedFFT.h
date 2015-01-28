@@ -1,5 +1,5 @@
 //
-//  AKCrossSynthesis.h
+//  AKCrossSynthesizedFFT.h
 //  AudioKit
 //
 //  Auto-generated on 3/29/13.
@@ -14,7 +14,7 @@
  Used to perform cross-synthesis on real-time audio input.
  */
 
-@interface AKCrossSynthesis : AKFSignal
+@interface AKCrossSynthesizedFFT : AKFSignal
 
 /// Instantiates the cross synthesis
 /// @param signal1 First F-Signal

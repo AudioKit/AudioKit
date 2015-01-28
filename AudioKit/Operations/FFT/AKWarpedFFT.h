@@ -1,5 +1,5 @@
 //
-//  AKWarp.h
+//  AKWarpedFFT.h
 //  AudioKit
 //
 //  Auto-generated on 3/29/13.
@@ -14,16 +14,15 @@
  Warp the spectral envelope of a PVS signal by means of shifting and scaling.
  */
 
-@interface AKWarp : AKFSignal
+@interface AKWarpedFFT : AKFSignal
 
 /// Instantiates the warp
 /// @param sourceSignal Input Stream
 /// @param scalingRatio Spectral envelope scaling ratio. Values > 1 stretch the envelope and < 1 compress it.
 /// @param shift Spectral envelope shift, values > 0 shift the envelope linearly upwards and values < 1 shift it downwards.
-- (instancetype)initWithSourceSignal:(AKFSignal *)sourceSignal
-                        scalingRatio:(AKControl *)scalingRatio
-                               shift:(AKControl *)shift;
-
+- (instancetype)initWithInput:(AKFSignal *)sourceSignal
+                 scalingRatio:(AKControl *)scalingRatio
+                        shift:(AKControl *)shift;
 
 /// Set an optional low frequency
 /// @param lowFrequency Lowest frequency shifted, defaults to zero.

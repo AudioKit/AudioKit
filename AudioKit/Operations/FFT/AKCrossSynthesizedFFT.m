@@ -1,5 +1,5 @@
 //
-//  AKCrossSynthesis.m
+//  AKCrossSynthesizedFFT.m
 //  AudioKit
 //
 //  Auto-generated on 3/29/13.
@@ -9,9 +9,9 @@
 //  http://www.csounds.com/manual/html/pvscross.html
 //
 
-#import "AKCrossSynthesis.h"
+#import "AKCrossSynthesizedFFT.h"
 
-@implementation AKCrossSynthesis
+@implementation AKCrossSynthesizedFFT
 {
     AKFSignal *fsrc;
     AKFSignal *fdest;

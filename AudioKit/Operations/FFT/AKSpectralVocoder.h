@@ -17,19 +17,19 @@
 @interface AKSpectralVocoder : AKFSignal
 
 /// Instantiates the spectral vocoder
-/// @param amplitudeFSignal Input phase vocoder stream from which the amplitudes will be extracted.
-/// @param excitationFrequenciesFSignal Input phase vocoder stream from which the frequencies will be taken.
+/// @param amplitude Input phase vocoder stream from which the amplitudes will be extracted.
+/// @param excitationFrequencies Input phase vocoder stream from which the frequencies will be taken.
 /// @param depth Depth of effect, affecting how much of the frequencies will be taken from the second fsig: 0, the output is amplitudeFSignal, 1 the output is the amplitudeFSignal amplitudes and excitationFrequenciesFSignal frequencies.
 /// @param gain Boost or attenuation applied to the output
-- (instancetype)initWithAmplitudeFSignal:(AKFSignal *)amplitudeFSignal
-            excitationFrequenciesFSignal:(AKFSignal *)excitationFrequenciesFSignal
-                                   depth:(AKControl *)depth
-                                    gain:(AKControl *)gain;
+- (instancetype)initWithAmplitude:(AKFSignal *)amplitude
+            excitationFrequencies:(AKFSignal *)excitationFrequencies
+                            depth:(AKControl *)depth
+                             gain:(AKControl *)gain;
 
 
 /// Set an optional coefs
 /// @param coefs Number of cepstrum coefs used in spectral envelope estimation (defaults to 80).
-- (void)setOptionalCoefs:(AKControl *)coefs;
+- (void)setOptionalCoefficents:(AKControl *)coefs;
 
 
 @end

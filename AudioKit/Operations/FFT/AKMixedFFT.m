@@ -1,26 +1,26 @@
 //
-//  AKFSignalMix.m
+//  AKMixedFFT.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFSignalMix.h"
+#import "AKMixedFFT.h"
 
-@implementation AKFSignalMix
+@implementation AKMixedFFT
 {
     AKFSignal *fSigIn1;
     AKFSignal *fSigIn2;
 }
 
-- (instancetype)initWithInput1:(AKFSignal *)input1
-                        input2:(AKFSignal *)input2;
+- (instancetype)initWithSignal1:(AKFSignal *)signal1
+                        signal2:(AKFSignal *)signal2;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        fSigIn1 = input1;
-        fSigIn2 = input2;
+        fSigIn1 = signal1;
+        fSigIn2 = signal2;
     }
     return self;
 }
