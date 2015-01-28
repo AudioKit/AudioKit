@@ -21,7 +21,8 @@ class Instrument : AKInstrument {
         soundfile.size = 16384
         connect(soundfile)
 
-        let hamming = AKWindowsTable (type: AKWindowTableType.Hamming, size: 512)
+        let hamming = AKWindow(type: AKWindowTableType.Hamming)
+        hamming.size = 512;
         connect(hamming)
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", soundfile.length()))

@@ -37,8 +37,8 @@
         [self addFunctionTable:fileTable];
         
         AKFunctionTable *hamming;
-        hamming = [[AKWindowsTable alloc] initWithType:AKWindowTableTypeHamming
-                                                  size:512 ];
+        hamming = [[AKWindow alloc] initWithType:AKWindowTableTypeHamming];
+        hamming.size = 512;
         [self addFunctionTable:hamming];
         
         AKConstant *baseFrequency;

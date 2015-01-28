@@ -22,6 +22,7 @@
     self = [super initWithType:AKFunctionTableTypeWeightedSumOfSinusoids];
     if (self) {
         sinusoids = [[NSMutableArray alloc] init];
+        self.size = 4096;
     }
     return self;
 }
@@ -70,9 +71,9 @@
     for (NSArray *sinusoid in sinusoids) {
         [flattenedSinusoids addObject:[sinusoid componentsJoinedByString:@", "]];
     }
-    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %@, -%lu, %@",
+    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %d, -%lu, %@",
             self,
-            @4096,
+            self.size,
             (unsigned long)AKFunctionTableTypeWeightedSumOfSinusoids,
             [flattenedSinusoids componentsJoinedByString:@", "]];
 }

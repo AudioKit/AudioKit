@@ -27,18 +27,19 @@ class GranularSynth: AKInstrument
         addProperty(granularFrequencyDeviation)
         addProperty(granularAmplitude)
         
-        let file = String (NSBundle .mainBundle() .pathForResource("PianoBassDrumLoop", ofType: "wav")!)
+        let file = String (NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")!)
         
-        let fileTable = AKSoundFile (filename: file)
+        let fileTable = AKSoundFile(filename: file)
         fileTable.size = 16384
         connect(fileTable)
         
-        let hamming = AKWindowsTable (type: AKWindowTableType.Hamming, size: 512)
+        let hamming = AKWindow(type: AKWindowTableType.Hamming)
+        hamming.size = 512;
         connect(hamming)
         
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", fileTable.length()))
         
-        let grainTexture =  AKGranularSynthesisTexture (
+        let grainTexture =  AKGranularSynthesisTexture(
             grainFunctionTable: fileTable,
             windowFunctionTable: hamming
         )
