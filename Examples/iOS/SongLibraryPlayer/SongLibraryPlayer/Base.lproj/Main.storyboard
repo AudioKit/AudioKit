@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uhT-uF-ipq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uhT-uF-ipq">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -149,8 +149,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-TF-zI9">
-                                <rect key="frame" x="443" y="445" width="141" height="147"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-TF-zI9">
+                                <rect key="frame" x="284" y="414" width="300" height="178"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Tweak">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -159,11 +159,14 @@
                                     <segue destination="g9G-CX-rGa" kind="show" id="IUd-HF-Xnp"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="igd-RJ-QBC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="igd-RJ-QBC">
                                 <rect key="frame" x="140" y="91" width="320" height="323"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="suZ-Kz-kJ2"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0p-yW-cJc">
-                                <rect key="frame" x="16" y="445" width="137" height="147"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0p-yW-cJc">
+                                <rect key="frame" x="16" y="414" width="300" height="178"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -177,6 +180,7 @@
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="igd-RJ-QBC" secondAttribute="centerY" constant="47.5" id="4Xf-gH-Ae7"/>
                             <constraint firstItem="8ZE-8p-gMo" firstAttribute="top" secondItem="ypp-TF-zI9" secondAttribute="bottom" constant="8" id="4cV-Qx-PKh"/>
+                            <constraint firstItem="igd-RJ-QBC" firstAttribute="top" secondItem="sUw-zA-IIG" secondAttribute="bottom" constant="27" id="7kO-2u-X6d"/>
                             <constraint firstItem="8ZE-8p-gMo" firstAttribute="top" secondItem="B0p-yW-cJc" secondAttribute="bottom" constant="8" id="8ZH-ci-w8D"/>
                             <constraint firstAttribute="centerX" secondItem="igd-RJ-QBC" secondAttribute="centerX" id="Nyd-rl-SKq"/>
                             <constraint firstItem="ypp-TF-zI9" firstAttribute="trailing" secondItem="BGE-m7-iyx" secondAttribute="trailingMargin" id="T85-VT-hUR"/>

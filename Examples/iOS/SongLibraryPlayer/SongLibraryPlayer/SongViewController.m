@@ -31,10 +31,12 @@
         global.isPlaying = NO;
         _song = song;
         global.currentSong = song;
+        _playButton.hidden = YES;
         [self exportSong:song];
     }
     else{ // the same song again.
         isReadyToPlay = YES;
+        _playButton.hidden = NO;
     }
 }
 
@@ -47,6 +49,7 @@
 
     if (global.isPlaying) {
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
+        _playButton.hidden = NO;
     } else {
         [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
     }
@@ -62,6 +65,7 @@
         [self loadSong];
         [global.audioFilePlayer play];
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
+        _playButton.hidden = NO;
         global.isPlaying = YES;
     } else {
         [global.audioFilePlayer stop];
@@ -77,6 +81,7 @@
         NSLog(@"File does not exist.");
         return;
     }
+    _playButton.hidden = NO;
     // Create the orchestra and instruments
     if (!global.audioFilePlayer) global.audioFilePlayer = [[AudioFilePlayer alloc] init];
     [[AKManager sharedManager] stop];
@@ -190,6 +195,7 @@
                  [assetWriter finishWritingWithCompletionHandler:^{
                      //[self loadSong];
                      isReadyToPlay = YES;
+                     _playButton.hidden = NO;
                  }];
                  [assetReader cancelReading];
                  break;
