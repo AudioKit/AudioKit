@@ -13,16 +13,19 @@
 
 @implementation AKFileInput
 {
-    NSString *ifilcod;
-    AKControl *kpitch;
+    NSString *_filename;
+    BOOL isNormalized;
+    float normalization;
 }
 
 - (instancetype)initWithFilename:(NSString *)fileName;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifilcod = fileName;
-        kpitch = akp(1);
+        _filename = fileName;
+        _speed = akp(1);
+        isNormalized = NO;
+        normalization = 1;
     }
     return self; 
 }
@@ -32,19 +35,41 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifilcod = fileName;
-        kpitch = speed;
+        _filename = fileName;
+        _speed = speed;
     }
     return self;
 }
 
-// Csound Prototype:
-// a1[, a2[, ... aN]] diskin2 ifilcod, kpitch[, iskiptim [, iwrap[, iformat [, iwsize[, ibufsize[, iskipinit]]]]]]
+- (void)setOptionalSpeed:(AKParameter *)speed {
+    _speed = speed;
+}
+
+- (void)normalizeTo:(float)maximumAmplitude {
+    isNormalized = YES;
+    normalization = maximumAmplitude;
+}
+
+
 - (NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:
-            @"%@ diskin2 \"%@\", %@, 0, 1",
-            self, ifilcod, kpitch];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+    
+    // Determine the maximum file amplitude
+    if (isNormalized) [csdString appendFormat:@"ipeak filepeak \"%@\"\n", _filename];
+
+    [csdString appendFormat:
+     @"%@ diskin2 \"%@\", AKControl(%@), 0, 1\n",
+     self, _filename, _speed];
+    
+    // Normalize the output
+    if (isNormalized) {
+        [csdString appendFormat:@"%@ = %f * %@ / ipeak\n",
+         self.leftOutput, normalization, self.leftOutput];
+        [csdString appendFormat:@"%@ = %f * %@ / ipeak",
+         self.rightOutput, normalization, self.rightOutput];
+    }
+    return csdString;
 }
 
 
