@@ -53,7 +53,7 @@
 #import "AKRandomDistributionTable.h"
 #import "AKSoundFile.h"
 #import "AKWeightedSumOfSinusoids.h"
-#import "AKWindowsTable.h"
+#import "AKWindow.h"
 
 // Operations - Function Tables - Loopers
 #import "AKFunctionTableLooper.h"
