@@ -1,5 +1,5 @@
 //
-//  AKScaledFSignal.h
+//  AKScaledFFT.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
@@ -17,13 +17,13 @@
  which might not be suited to realtime use.
  */
 
-@interface AKScaledFSignal : AKFSignal
+@interface AKScaledFFT : AKFSignal
 
 /// Create a frequency-scaled phase vocoder stream from another stream
 /// @param input          Source f-signal
 /// @param frequencyRatio Scaling ratio.
-- (instancetype)initWithInput:(AKFSignal *)input
-               frequencyRatio:(AKControl *)frequencyRatio;
+- (instancetype)initWithSignal:(AKFSignal *)input
+                frequencyRatio:(AKControl *)frequencyRatio;
 
 /// Create a frequency-scaled phase vocoder stream from another stream
 /// @param input                        Source f-signal.
@@ -31,11 +31,11 @@
 /// @param formantRetainMethod          Method by which to attempt to keep input signal formants.
 /// @param amplitudeRatio               Amplitude scaling ratio (default 1.0 equals no change)
 /// @param numberOfCepstrumCoefficients Number of coefficients to use in formant preservation (defaults ot 80).
-- (instancetype)initWithInput:(AKFSignal *)input
-               frequencyRatio:(AKControl *)frequencyRatio
-          formantRetainMethod:(AKScaledFSignalFormantRetainMethod)formantRetainMethod
-               amplitudeRatio:(AKControl *)amplitudeRatio
-         cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
+- (instancetype)initWithSignal:(AKFSignal *)input
+                frequencyRatio:(AKControl *)frequencyRatio
+           formantRetainMethod:(AKScaledFFTFormantRetainMethod)formantRetainMethod
+                amplitudeRatio:(AKControl *)amplitudeRatio
+          cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
 
 
 @end

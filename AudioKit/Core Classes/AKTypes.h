@@ -48,7 +48,7 @@ typedef NS_OPTIONS(NSUInteger, AKPanMethod)
 /// Various waveforms offered by the AKVCOscillator
 typedef NS_OPTIONS(NSUInteger, AKVCOscillatorWaveformType)
 {
-    AKVCOscillatorWaveformTypeSawtooth  =  0,
+    AKVCOscillatorWaveformTypeSawtooth = 0,
     AKVCOscillatorWaveformTypeSquarePWM = 2,
     AKVCOscillatorWaveformTypeTriangleWithRamp = 4,
     AKVCOscillatorWaveformTypePulseUnnormalized = 6,
@@ -58,19 +58,19 @@ typedef NS_OPTIONS(NSUInteger, AKVCOscillatorWaveformType)
 };
 
 /// Window types for converting audio into the frequency domain
-typedef NS_OPTIONS(NSUInteger, AKFSignalFromMonoAudioWindowType)
+typedef NS_OPTIONS(NSUInteger, AKFFTWindowType)
 {
-    AKFSignalFromMonoAudioWindowTypeHamming=0,
-    AKFSignalFromMonoAudioWindowTypeVonHann=1,
+    AKFFTWindowTypeHamming = 0,
+    AKFFTWindowTypeVonHann = 1,
     
 };
 
 /// Formant retain methods when scaling in the frequency domain
-typedef NS_OPTIONS(NSUInteger, AKScaledFSignalFormantRetainMethod)
+typedef NS_OPTIONS(NSUInteger, AKScaledFFTFormantRetainMethod)
 {
-    AKScaledFSignalFormantRetainMethodNone=0,
-    AKScaledFSignalFormantRetainMethodLifteredCepstrum=1,
-    AKScaledFSignalFormantRetainMethodTrueEnvelope=2,
+    AKScaledFFTFormantRetainMethodNone = 0,
+    AKScaledFFTFormantRetainMethodLifteredCepstrum = 1,
+    AKScaledFFTFormantRetainMethodTrueEnvelope = 2,
 };
 
 /// Boundary conditions for ends of the struck metal bar physical model

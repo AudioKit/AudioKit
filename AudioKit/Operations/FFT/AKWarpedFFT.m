@@ -1,5 +1,5 @@
 //
-//  AKWarp.m
+//  AKWarpedFFT.m
 //  AudioKit
 //
 //  Auto-generated on 3/29/13.
@@ -9,9 +9,9 @@
 //  http://www.csounds.com/manual/html/pvswarp.html
 //
 
-#import "AKWarp.h"
+#import "AKWarpedFFT.h"
 
-@implementation AKWarp
+@implementation AKWarpedFFT
 {
     AKFSignal *fsigin;
     AKControl *kscal;
@@ -22,9 +22,9 @@
     AKControl *kcoefs;
 }
 
-- (instancetype)initWithSourceSignal:(AKFSignal *)sourceSignal
-                        scalingRatio:(AKControl *)scalingRatio
-                               shift:(AKControl *)shift
+- (instancetype)initWithInput:(AKFSignal *)sourceSignal
+                 scalingRatio:(AKControl *)scalingRatio
+                        shift:(AKControl *)shift
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -40,19 +40,19 @@
 }
 
 - (void)setOptionalLowFrequency:(AKControl *)lowFrequency {
-	klowest = lowFrequency;
+    klowest = lowFrequency;
 }
 
 - (void)setOptionalExtractionMethod:(AKControl *)extractionMethod {
-	kmeth = extractionMethod;
+    kmeth = extractionMethod;
 }
 
 - (void)setOptionalGain:(AKControl *)gain {
-	kgain = gain;
+    kgain = gain;
 }
 
 - (void)setOptionalNumberOfCoefficients:(AKControl *)numberOfCoefficients {
-	kcoefs = numberOfCoefficients;
+    kcoefs = numberOfCoefficients;
 }
 
 - (NSString *)stringForCSD {

@@ -17,26 +17,26 @@
         AKAudioInput *microphone = [[AKAudioInput alloc] init];
         [self connect:microphone];
         
-        AKFSignalFromMonoAudio *microphoneFFT;
-        microphoneFFT = [[AKFSignalFromMonoAudio alloc] initWithAudioSource:microphone
-                                                                    fftSize:akpi(2048)
-                                                                    overlap:akpi(256)
-                                                                 windowType:AKFSignalFromMonoAudioWindowTypeVonHann
-                                                           windowFilterSize:akpi(2048)];
+        AKFFT *microphoneFFT;
+        microphoneFFT = [[AKFFT alloc] initWithInput:microphone
+                                             fftSize:akpi(2048)
+                                             overlap:akpi(256)
+                                          windowType:AKFFTWindowTypeVonHann
+                                    windowFilterSize:akpi(2048)];
         [self connect:microphoneFFT];
         
-        AKScaledFSignal *scaledFFT;
-        scaledFFT = [[AKScaledFSignal alloc] initWithInput:microphoneFFT
-                                            frequencyRatio:akp(2.0)
-                                       formantRetainMethod:AKScaledFSignalFormantRetainMethodLifteredCepstrum
-                                            amplitudeRatio:akp(2.0)
-                                      cepstrumCoefficients:nil];
+        AKScaledFFT *scaledFFT;
+        scaledFFT = [[AKScaledFFT alloc] initWithSignal:microphoneFFT
+                                         frequencyRatio:akp(2.0)
+                                    formantRetainMethod:AKScaledFFTFormantRetainMethodLifteredCepstrum
+                                         amplitudeRatio:akp(2.0)
+                                   cepstrumCoefficients:nil];
         [self connect:scaledFFT];
         
-        AKFSignalMix *mixedFFT = [[AKFSignalMix alloc] initWithInput1:microphoneFFT input2:scaledFFT];
+        AKMixedFFT *mixedFFT = [[AKMixedFFT alloc] initWithSignal1:microphoneFFT signal2:scaledFFT];
         [self connect:mixedFFT];
         
-        AKAudioFromFSignal *audioOutput = [[AKAudioFromFSignal alloc] initWithSource:mixedFFT];
+        AKResynthesizedAudio *audioOutput = [[AKResynthesizedAudio alloc] initWithSignal:mixedFFT];
         [self connect:audioOutput];
         
         

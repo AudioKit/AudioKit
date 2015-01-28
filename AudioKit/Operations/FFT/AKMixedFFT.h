@@ -1,5 +1,5 @@
 //
-//  AKFSignalMix.h
+//  AKMixedFFT.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
@@ -13,13 +13,12 @@
  components of two pvoc streams into a single mixed stream.
  */
 
-@interface AKFSignalMix : AKFSignal
+@interface AKMixedFFT : AKFSignal
 
 /// Create a mixture of two f-signal.
-/// @param input1 The first f-signal.
-/// @param input2 The second f-signal.
-- (instancetype)initWithInput1:(AKFSignal *)input1
-                        input2:(AKFSignal *)input2;
-
+/// @param signal1 The first f-signal.
+/// @param signal2 The second f-signal.
+- (instancetype)initWithSignal1:(AKFSignal *)signal1
+                        signal2:(AKFSignal *)signal2;
 
 @end

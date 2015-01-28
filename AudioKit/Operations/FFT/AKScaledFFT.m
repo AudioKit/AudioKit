@@ -1,14 +1,14 @@
 //
-//  AKScaledFSignal.m
+//  AKScaledFFT.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/22/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKScaledFSignal.h"
+#import "AKScaledFFT.h"
 
-@implementation AKScaledFSignal
+@implementation AKScaledFFT
 {
     AKFSignal *fSigIn;
     AKControl *kScal;
@@ -17,11 +17,11 @@
     AKControl *kCoefs;
 }
 
-- (instancetype)initWithInput:(AKFSignal *)input
-               frequencyRatio:(AKControl *)frequencyRatio
-          formantRetainMethod:(AKScaledFSignalFormantRetainMethod)formantRetainMethod
-               amplitudeRatio:(AKControl *)amplitudeRatio
-         cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
+- (instancetype)initWithSignal:(AKFSignal *)input
+                frequencyRatio:(AKControl *)frequencyRatio
+           formantRetainMethod:(AKScaledFFTFormantRetainMethod)formantRetainMethod
+                amplitudeRatio:(AKControl *)amplitudeRatio
+          cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
 
 {
     self = [super initWithString:[self operationName]];
@@ -45,14 +45,14 @@
     return self;
 }
 
-- (instancetype)initWithInput:(AKFSignal *)input
-               frequencyRatio:(AKControl *)frequencyRatio
+- (instancetype)initWithSignal:(AKFSignal *)input
+                frequencyRatio:(AKControl *)frequencyRatio
 {
-    return [self initWithInput:input
-                frequencyRatio:frequencyRatio
-           formantRetainMethod:AKScaledFSignalFormantRetainMethodNone
-                amplitudeRatio:nil
-          cepstrumCoefficients:nil];
+    return [self initWithSignal:input
+                 frequencyRatio:frequencyRatio
+            formantRetainMethod:AKScaledFFTFormantRetainMethodNone
+                 amplitudeRatio:nil
+           cepstrumCoefficients:nil];
 }
 
 
