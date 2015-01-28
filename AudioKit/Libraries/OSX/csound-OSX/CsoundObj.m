@@ -437,7 +437,6 @@ OSStatus  Csound_Render(void *inRefCon,
         CSOUND *cs;
         
         cs = csoundCreate(NULL);
-        
         csoundSetMessageCallback(cs, messageCallback);
         csoundSetHostData(cs, (__bridge void *)(self));
         
@@ -446,7 +445,7 @@ OSStatus  Csound_Render(void *inRefCon,
         //    }
         
         char *argv[5] = { "csound", "-+ignore_csopts=0",
-            "-+rtaudio=coreaudio", "-b256", (char*)[csdFilePath
+            "-+rtaudio=portaudio", "-b256", (char*)[csdFilePath
                                                     cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 5, argv);
         mCsData.running = true;
