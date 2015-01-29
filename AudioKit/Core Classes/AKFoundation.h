@@ -97,6 +97,7 @@
 
 // Operations - Signal Generators - Granular Synthesis
 #import "AKGranularSynthesisTexture.h"
+#import "AKGranularSynthesizer.h"
 #import "AKSinusoidBursts.h"
 
 // Operations - Signal Generators - Musical Controls
