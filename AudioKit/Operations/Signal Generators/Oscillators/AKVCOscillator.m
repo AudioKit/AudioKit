@@ -15,7 +15,15 @@
 
 @implementation AKVCOscillator
 
-- (instancetype)initWithWaveformType:(AKVCOscillatorWaveformType)waveformType
++ (AKConstant *)waveformTypeForSawtooth           { return akp(0);  }
++ (AKConstant *)waveformTypeForSquareWithPWM      { return akp(2);  }
++ (AKConstant *)waveformTypeForTriangleWithRamp   { return akp(4);  }
++ (AKConstant *)waveformTypeForUnnormalizedPulse  { return akp(6);  }
++ (AKConstant *)waveformTypeForIntegratedSawtooth { return akp(8);  }
++ (AKConstant *)waveformTypeForSquare             { return akp(10); }
++ (AKConstant *)waveformTypeForTriangle           { return akp(12); }
+
+- (instancetype)initWithWaveformType:(AKConstant *)waveformType
                            bandwidth:(AKConstant *)bandwidth
                           pulseWidth:(AKParameter *)pulseWidth
                            frequency:(AKParameter *)frequency
@@ -37,7 +45,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _waveformType = AKVCOscillatorWaveformTypeSawtooth;
+        _waveformType = [AKVCOscillator waveformTypeForSawtooth];
         _bandwidth = akp(0.5);
         _pulseWidth = akp(0);
         _frequency = akp(440);
@@ -51,7 +59,7 @@
     return [[AKVCOscillator alloc] init];
 }
 
-- (void)setOptionalWaveformType:(AKVCOscillatorWaveformType)waveformType {
+- (void)setOptionalWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
 }
 - (void)setOptionalBandwidth:(AKConstant *)bandwidth {
@@ -86,7 +94,7 @@
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
-    [csdString appendFormat:@"tival()+%@, ", akpi(_waveformType)];
+    [csdString appendFormat:@"tival()+%@, ", _waveformType];
     
     if ([_pulseWidth class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _pulseWidth];

@@ -45,18 +45,6 @@ typedef NS_OPTIONS(NSUInteger, AKPanMethod)
     AKPanMethodAltEqualPower = 3,
 };
 
-/// Various waveforms offered by the AKVCOscillator
-typedef NS_OPTIONS(NSUInteger, AKVCOscillatorWaveformType)
-{
-    AKVCOscillatorWaveformTypeSawtooth = 0,
-    AKVCOscillatorWaveformTypeSquarePWM = 2,
-    AKVCOscillatorWaveformTypeTriangleWithRamp = 4,
-    AKVCOscillatorWaveformTypePulseUnnormalized = 6,
-    AKVCOscillatorWaveformTypeIntegratedSawtooth = 8,
-    AKVCOscillatorWaveformTypeSquareNoPWM = 10,
-    AKVCOscillatorWaveformTypeTriangleNoRamp = 12
-};
-
 /// Window types for converting audio into the frequency domain
 typedef NS_OPTIONS(NSUInteger, AKFFTWindowType)
 {

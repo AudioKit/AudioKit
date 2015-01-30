@@ -38,6 +38,7 @@
 {
     self = [super init];
     if (self) {
+        self.value = value;
         self.parameterString = [NSString stringWithFormat:@"%g", value];
     }
     return self;
@@ -47,6 +48,7 @@
 {
     self = [super init];
     if (self) {
+        self.value = [number floatValue];
         self.parameterString = [NSString stringWithFormat:@"%@", number];
     }
     return self;
@@ -54,6 +56,7 @@
 
 - (instancetype)initWithValue:(NSNumber *)value
 {
+    self.value = [value floatValue];
     return [self initWithNumber:value];
 }
 
@@ -61,6 +64,7 @@
 {
     self = [super init];
     if (self) {
+        self.value = (float)value;
         self.parameterString = [NSString stringWithFormat:@"%d", value];
     }
     return self;
