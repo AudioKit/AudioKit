@@ -29,9 +29,6 @@
          location = "group:Examples/iOS/Sequences/Sequences.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Examples/iOS/SongLibraryPlayer/SongLibraryPlayer.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Examples/iOS/SwiftConvolution/SwiftConvolution.xcodeproj">
       </FileRef>
       <FileRef
