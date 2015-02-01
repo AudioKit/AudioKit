@@ -1,18 +1,18 @@
 //
-//  AKProduct.m
+//  AKMultipleInputMathOperation.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/9/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
-//
-//  Implementation of Csound's product:
-//  http://www.csounds.com/manual/html/product.html
+//  Created by Aurelius Prochazka on 2/1/15.
+//  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
+#import "AKMultipleInputMathOperation.h"
 
-#import "AKProduct.h"
+@interface AKMultipleInputMathOperation()
+@property NSArray *inputs;
+@end
 
-@implementation AKProduct
+@implementation AKMultipleInputMathOperation
 
 - (instancetype)init {
     return [super initWithString:[self operationName]];
@@ -20,6 +20,7 @@
 
 - (instancetype)initWithOperands:(AKParameter *)firstOperand,... {
     self = [super initWithString:[self operationName]];
+    
     if (self) {
         NSMutableArray *inputs = [[NSMutableArray alloc] init];
         AKParameter *eachInput;
@@ -53,17 +54,5 @@
 }
 
 
-
-- (NSString *)stringForCSD
-{
-    NSMutableArray *paramterStrings = [NSMutableArray array];
-    
-    for (AKParameter *param in self.inputs) {
-        [paramterStrings addObject:[NSString stringWithFormat:@"AKAudio(%@)", param.parameterString]];
-    }
-    NSString *inputsCombined = [paramterStrings componentsJoinedByString:@", "];
-    
-    return [NSString stringWithFormat:@"%@ product %@",self, inputsCombined];
-}
 
 @end
