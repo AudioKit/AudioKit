@@ -12,7 +12,7 @@
 /** Multiplies any number of audio signals.
  */
 
-@interface AKProduct : AKParameter
+@interface AKProduct : AKAudio
 
 @property NSArray *inputs;
 
