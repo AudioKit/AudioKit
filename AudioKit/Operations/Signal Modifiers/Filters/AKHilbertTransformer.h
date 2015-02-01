@@ -29,9 +29,9 @@ Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Helper functions to pull apart the stereo audio output appropriately.
-- (AKAudio *)realPart;
-- (AKAudio *)imaginaryPart;
-- (AKAudio *)sineOutput;
-- (AKAudio *)cosineOutput;
+- (AKParameter *)realPart;
+- (AKParameter *)imaginaryPart;
+- (AKParameter *)sineOutput;
+- (AKParameter *)cosineOutput;
 
 @end
