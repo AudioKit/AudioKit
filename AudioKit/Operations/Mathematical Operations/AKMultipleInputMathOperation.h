@@ -8,9 +8,9 @@
 
 #import "AKParameter+Operation.h"
 
-@interface AKMultipleInputMathOperation : AKParameter {
-    NSArray *_inputs;
-}
+@interface AKMultipleInputMathOperation : AKParameter
+
+@property NSArray *inputs;
 
 /// Create a new signal as a sum of given signals.
 /// @param firstInput At least one input is required

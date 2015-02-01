@@ -26,16 +26,9 @@ extension Double {
     var ak: AKConstant {return AKConstant(value: self)}
 }
 
-extension AKSum {
-    convenience init(operands: AKParameter...) {
+extension AKMultipleInputMathOperation {
+    convenience init(inputs: AKParameter...) {
         self.init()
-        self.inputs = operands
-    }
-}
-
-extension AKProduct {
-    convenience init(operands: AKParameter...) {
-        self.init()
-        self.inputs = operands
+        self.inputs = inputs
     }
 }
