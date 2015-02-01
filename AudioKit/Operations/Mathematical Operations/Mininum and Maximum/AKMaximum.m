@@ -1,5 +1,5 @@
 //
-//  AKMaxControl.m
+//  AKMaximum.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/22/12.
@@ -9,26 +9,26 @@
 //  http://www.csounds.com/manual/html/max.html
 //
 
-#import "AKMaxControl.h"
+#import "AKMaximum.h"
 
-@implementation AKMaxControl
+@implementation AKMaximum
 {
-    AKArray *kins;
+    AKArray *ains;
 }
 
-- (instancetype)initWithControls:(AKArray *)inputControls;
+- (instancetype)initWithInputs:(AKArray *)inputAudioSources;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        kins = inputControls;
+        ains = inputAudioSources;
     }
     return self;
 }
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ max %@",
-            self, kins];
+            @"%@ max AKAudio(%@)",
+            self, ains];
 }
 
 @end

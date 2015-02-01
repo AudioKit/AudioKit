@@ -1,22 +1,22 @@
 //
-//  AKMaxAudio.m
+//  AKMinimum.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/22/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's max:
-//  http://www.csounds.com/manual/html/max.html
+//  Implementation of Csound's min:
+//  http://www.csounds.com/manual/html/min.html
 //
 
-#import "AKMaxAudio.h"
+#import "AKMinimum.h"
 
-@implementation AKMaxAudio
+@implementation AKMinimum
 {
     AKArray *ains;
 }
 
-- (instancetype)initWithAudioSources:(AKArray *)inputAudioSources;
+- (instancetype)initWithInputs:(AKArray *)inputAudioSources;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -27,7 +27,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ max %@",
+            @"%@ min AKAudio(%@)",
             self, ains];
 }
 
