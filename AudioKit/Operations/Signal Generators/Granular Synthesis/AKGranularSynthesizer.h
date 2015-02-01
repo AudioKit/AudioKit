@@ -22,7 +22,7 @@
 /// @param windowWaveform Function table containing window waveform. [Default Value: AKWindowTypeHamming]
 /// @param duration Grain duration in seconds. It also controls the duration of already active grains (actually the speed at which the window function is read). Updated at Control-rate. [Default Value: 0.2]
 /// @param density Number of grains per second. Updated at Control-rate. [Default Value: 200]
-/// @param maximumOverlappingGrains The maximum number of overlapping grains. [Default Value: 40]
+/// @param maximumOverlappingGrains The maximum number of overlapping grains. [Default Value: 200]
 /// @param frequencyVariation Random bipolar variation in grain frequency in Hz. Updated at Control-rate. [Default Value: 0]
 /// @param frequencyVariationDistribution This value controls the distribution of grain frequency variation. If this is positive, the random distribution (x is in the range -1 to 1) isabs(x) ^ ((1 / parameter) - 1)  For negative parameter values, it is (1 - abs(x)) ^ ((-1 / parameter) - 1) Setting this parameter to -1, 0, or 1 will result in uniform distribution (this is also faster to calculate).  Updated at Control-rate. [Default Value: 0]
 /// @param phase Grain phase. This is the location in the grain waveform table, expressed as a fraction (between 0 to 1) of the table length. Updated at Control-rate. [Default Value: 0.5]
@@ -73,11 +73,11 @@
 /// @param density Number of grains per second. Updated at Control-rate. [Default Value: 200]
 - (void)setOptionalDensity:(AKParameter *)density;
 
-/// The maximum number of overlapping grains. [Default Value: 40]
+/// The maximum number of overlapping grains. [Default Value: 200]
 @property AKConstant *maximumOverlappingGrains;
 
 /// Set an optional maximum overlapping grains
-/// @param maximumOverlappingGrains The maximum number of overlapping grains. [Default Value: 40]
+/// @param maximumOverlappingGrains The maximum number of overlapping grains. [Default Value: 200]
 - (void)setOptionalMaximumOverlappingGrains:(AKConstant *)maximumOverlappingGrains;
 
 /// Random bipolar variation in grain frequency in Hz. [Default Value: 0]
