@@ -1,5 +1,5 @@
 //
-//  AKMaxAudio.h
+//  AKMaximum.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/22/12.
@@ -14,10 +14,10 @@
  Takes any number of audio signals and outputs an audio signal that is the maximum of all of the inputs.
  */
 
-@interface AKMaxAudio : AKAudio
+@interface AKMaximum : AKAudio
 
 /// Finds the maximum audio signal from an array of sources
 /// @param inputAudioSources Array of audio sources
-- (instancetype)initWithAudioSources:(AKArray *)inputAudioSources;
+- (instancetype)initWithInputs:(AKArray *)inputAudioSources;
 
 @end
