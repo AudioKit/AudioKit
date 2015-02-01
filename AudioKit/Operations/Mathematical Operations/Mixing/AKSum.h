@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-
+#import "AKMultipleInputMathOperation.h"
 /** Sums any number of a-rate signals.
 */
 
