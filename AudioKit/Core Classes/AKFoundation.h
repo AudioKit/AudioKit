@@ -62,14 +62,11 @@
 
 // Operations - Mathematical Operations
 #import "AKAssignment.h"
-#import "AKScaledControl.h"
-
-#import "AKMultipleInputMathOperation.h"
 #import "AKMaximum.h"
 #import "AKMinimum.h"
-
-// Operations - Mathematical Operations - Mixing
+#import "AKMultipleInputMathOperation.h"
 #import "AKProduct.h"
+#import "AKScaledControl.h"
 #import "AKSum.h"
 
 // Operations - Phase Vocoder Streaming
