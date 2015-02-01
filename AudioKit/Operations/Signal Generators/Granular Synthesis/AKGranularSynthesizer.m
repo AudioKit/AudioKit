@@ -58,7 +58,7 @@
         _windowWaveform = [[AKWindow alloc] initWithType:AKWindowTableTypeHamming];
         _duration = akp(0.2);
         _density = akp(200);
-        _maximumOverlappingGrains = akp(40);
+        _maximumOverlappingGrains = akp(200);
         _frequencyVariation = akp(0);
         _frequencyVariationDistribution = akp(0);
         _phase = akp(0.5);
