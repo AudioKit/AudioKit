@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         connect(audio)
 
-        let mono = AKMixedAudio(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        let mono = AKMix(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
         connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
@@ -56,10 +56,10 @@ class Processor : AKInstrument {
             timeInterval:0.1
         )
 
-        let leftMix = AKMixedAudio(signal1: audioSource, signal2: reverb.leftOutput, balance: 0.5.ak)
+        let leftMix = AKMix(signal1: audioSource, signal2: reverb.leftOutput, balance: 0.5.ak)
         connect(leftMix)
 
-        let rightMix = AKMixedAudio(signal1: audioSource, signal2: reverb.rightOutput, balance: 0.5.ak)
+        let rightMix = AKMix(signal1: audioSource, signal2: reverb.rightOutput, balance: 0.5.ak)
         connect(rightMix)
 
         connect(AKAudioOutput(leftAudio: leftMix, rightAudio: rightMix))

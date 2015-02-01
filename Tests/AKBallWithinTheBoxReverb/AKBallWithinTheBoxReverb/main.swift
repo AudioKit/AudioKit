@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         connect(audio)
 
-        let mono = AKMixedAudio(
+        let mono = AKMix(
             signal1: audio.leftOutput,
             signal2: audio.rightOutput,
             balance: 0.5.ak
@@ -84,7 +84,7 @@ class Processor : AKInstrument {
             timeInterval:0.3
         )
 
-        let mix = AKMixedAudio(
+        let mix = AKMix(
             signal1: audioSource,
             signal2: ballWithinTheBoxReverb.leftOutput,
             balance: 0.1.ak
@@ -92,7 +92,7 @@ class Processor : AKInstrument {
         connect(mix)
 
         connect(AKAudioOutput(audioSource:mix))
-        
+
         resetParameter(audioSource)
     }
 }
