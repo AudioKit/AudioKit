@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/22/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's min:
 //  http://www.csounds.com/manual/html/min.html
@@ -12,23 +12,17 @@
 #import "AKMinimum.h"
 
 @implementation AKMinimum
-{
-    AKArray *ains;
-}
 
-- (instancetype)initWithInputs:(AKArray *)inputAudioSources;
+- (NSString *)stringForCSD
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        ains = inputAudioSources;
+    NSMutableArray *paramterStrings = [NSMutableArray array];
+    
+    for (AKParameter *param in _inputs) {
+        [paramterStrings addObject:[NSString stringWithFormat:@"AKAudio(%@)", param.parameterString]];
     }
-    return self;
-}
-
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ min AKAudio(%@)",
-            self, ains];
+    NSString *inputsCombined = [paramterStrings componentsJoinedByString:@", "];
+    
+    return [NSString stringWithFormat:@"%@ min %@",self, inputsCombined];
 }
 
 @end

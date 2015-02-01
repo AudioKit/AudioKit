@@ -64,11 +64,11 @@
 #import "AKAssignment.h"
 #import "AKScaledControl.h"
 
+#import "AKMultipleInputMathOperation.h"
 #import "AKMaximum.h"
 #import "AKMinimum.h"
 
 // Operations - Mathematical Operations - Mixing
-#import "AKMix.h"
 #import "AKProduct.h"
 #import "AKSum.h"
 
@@ -196,6 +196,7 @@
 
 // Operations - Signal Modifiers - Volume and Spatialization
 #import "AKBalance.h"
+#import "AKMix.h"
 #import "AKPanner.h"
 
 

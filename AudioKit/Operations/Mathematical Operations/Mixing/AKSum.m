@@ -12,9 +12,13 @@
 
 - (NSString *)stringForCSD
 {
-    NSString *inputsCombined = [[self.inputs valueForKey:@"parameterString"] componentsJoinedByString:@", "];
+    NSMutableArray *paramterStrings = [NSMutableArray array];
     
-    return [NSString stringWithFormat:@"%@ sum %@", self, inputsCombined];
+    for (AKParameter *param in _inputs) {
+        [paramterStrings addObject:[NSString stringWithFormat:@"AKAudio(%@)", param.parameterString]];
+    }
+    NSString *inputsCombined = [paramterStrings componentsJoinedByString:@", "];
+    
+    return [NSString stringWithFormat:@"%@ sum %@",self, inputsCombined];
 }
-
 @end

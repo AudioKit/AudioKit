@@ -8,18 +8,20 @@
 
 #import "AKParameter+Operation.h"
 
-@interface AKMultipleInputMathOperation : AKParameter
+@interface AKMultipleInputMathOperation : AKParameter {
+    NSArray *_inputs;
+}
 
 /// Create a new signal as a sum of given signals.
-/// @param firstOperand At least one input is required
+/// @param firstInput At least one input is required
 /// @param ...          End the list with a nil.
-- (instancetype)initWithOperands:(AKParameter *)firstOperand,...;
+- (instancetype)initWithInputs:(AKParameter *)firstInput,...;
 
 
 /// Create a new signal as a sum of exactly two given signals.
-/// @param firstOperand First signal to be summed.
-/// @param secondOperand Second Signal to be summed.
-- (instancetype)initWithFirstOperand:(AKParameter *)firstOperand
-                       secondOperand:(AKParameter *)secondOperand;
+/// @param firstInput First signal to be summed.
+/// @param secondInput Second Signal to be summed.
+- (instancetype)initWithFirstInput:(AKParameter *)firstInput
+                       secondInput:(AKParameter *)secondInput;
 
 @end

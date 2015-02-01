@@ -8,9 +8,6 @@
 
 #import "AKMultipleInputMathOperation.h"
 
-@interface AKMultipleInputMathOperation()
-@property NSArray *inputs;
-@end
 
 @implementation AKMultipleInputMathOperation
 
@@ -18,37 +15,37 @@
     return [super initWithString:[self operationName]];
 }
 
-- (instancetype)initWithOperands:(AKParameter *)firstOperand,... {
+- (instancetype)initWithInputs:(AKParameter *)firstInput,... {
     self = [super initWithString:[self operationName]];
     
     if (self) {
         NSMutableArray *inputs = [[NSMutableArray alloc] init];
         AKParameter *eachInput;
         va_list argumentList;
-        if (firstOperand) // The first argument isn't part of the varargs list,
+        if (firstInput) // The first argument isn't part of the varargs list,
         {                                   // so we'll handle it separately.
-            [inputs addObject: firstOperand];
-            va_start(argumentList, firstOperand); // Start scanning for arguments after firstObject.
+            [inputs addObject: firstInput];
+            va_start(argumentList, firstInput); // Start scanning for arguments after firstObject.
             while ((eachInput = va_arg(argumentList, id))) // As many times as we can get an argument of type "id"
                 [inputs addObject: eachInput]; // that isn't nil, add it to self's contents.
             va_end(argumentList);
         }
-        self.inputs = inputs;
+        _inputs = inputs;
     }
     return self;
 }
 
 
-- (instancetype)initWithFirstOperand:(AKParameter *)firstOperand
-                       secondOperand:(AKParameter *)secondOperand;
+- (instancetype)initWithFirstInput:(AKParameter *)firstInput
+                       secondInput:(AKParameter *)secondInput;
 {
     self = [super initWithString:[self operationName]];
     
     if (self) {
         NSMutableArray *inputs = [[NSMutableArray alloc] init];
-        [inputs addObject:firstOperand];
-        [inputs addObject:secondOperand];
-        self.inputs = inputs;
+        [inputs addObject:firstInput];
+        [inputs addObject:secondInput];
+        _inputs = inputs;
     }
     return self;
 }
