@@ -71,8 +71,7 @@
 #import "AKMinControl.h"
 
 // Operations - Mathematical Operations - Mixing
-#import "AKMixedAudio.h"
-#import "AKMixedControl.h"
+#import "AKMix.h"
 #import "AKProduct.h"
 #import "AKSum.h"
 
