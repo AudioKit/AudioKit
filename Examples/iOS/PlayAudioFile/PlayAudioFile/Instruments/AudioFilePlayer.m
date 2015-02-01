@@ -19,12 +19,11 @@
         [self addNoteProperty:note.speed];
         
         // INSTRUMENT DEFINITION ===============================================
-        
         NSString *file;
         file = [[NSBundle mainBundle] pathForResource:@"blaster" ofType:@"aiff"];
         AKSoundFile *fileTable;
         fileTable = [[AKSoundFile alloc] initWithFilename:file];
-        [self connect:fileTable];
+        [self addFunctionTable:fileTable];
         
         AKMonoSoundFileLooper *looper;
         looper = [AKMonoSoundFileLooper looperWithSoundFile:fileTable];
@@ -38,7 +37,6 @@
         [self connect:reverb];
         
         // AUDIO OUTPUT ========================================================
-        
         AKAudioOutput *audio;
         audio = [[AKAudioOutput alloc] initWithStereoAudioSource:reverb];
         [self connect:audio];
