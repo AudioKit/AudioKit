@@ -17,7 +17,7 @@
 {
     NSMutableArray *paramterStrings = [NSMutableArray array];
     
-    for (AKParameter *param in _inputs) {
+    for (AKParameter *param in self.inputs) {
         [paramterStrings addObject:[NSString stringWithFormat:@"AKAudio(%@)", param.parameterString]];
     }
     NSString *inputsCombined = [paramterStrings componentsJoinedByString:@", "];
