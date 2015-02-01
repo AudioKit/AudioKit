@@ -13,7 +13,12 @@
     AKStereoAudio *aStereoOutput;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithInput:(AKParameter *)source
+{
+    return [self initWithLeftAudio:source rightAudio:source];
+}
+
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource
 {
     return [self initWithLeftAudio:audioSource rightAudio:audioSource];
 }
@@ -26,8 +31,8 @@
     return self;
 }
 
-- (instancetype)initWithLeftAudio:(AKAudio *)leftAudio
-                       rightAudio:(AKAudio *)rightAudio
+- (instancetype)initWithLeftAudio:(AKParameter *)leftAudio
+                       rightAudio:(AKParameter *)rightAudio
 {
     self = [super initWithString:[self operationName]];
     if (self) {
