@@ -31,16 +31,16 @@
     return [[AKHilbertTransformer alloc] initWithInput:input];
 }
 
-- (AKAudio *)realPart {
+- (AKParameter *)realPart {
     return self.leftOutput;
 }
-- (AKAudio *)imaginaryPart {
+- (AKParameter *)imaginaryPart {
     return self.rightOutput;
 }
-- (AKAudio *)sineOutput {
+- (AKParameter *)sineOutput {
     return self.leftOutput;
 }
-- (AKAudio *)cosineOutput{
+- (AKParameter *)cosineOutput{
     return self.rightOutput;
 }
 
