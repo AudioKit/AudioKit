@@ -33,10 +33,10 @@ class ConvolutionInstrument: AKInstrument
         let wellConv = AKConvolution(input: loop.rightOutput, impulseResponseFilename: well)
         connect(wellConv)
 
-        let balance = AKMixedAudio(signal1: dishConv, signal2: wellConv, balance: dishWellBalance)
+        let balance = AKMix(signal1: dishConv, signal2: wellConv, balance: dishWellBalance)
         connect(balance)
         
-        let dryWet = AKMixedAudio(signal1: loop.leftOutput, signal2: balance, balance: dryWetBalance)
+        let dryWet = AKMix(signal1: loop.leftOutput, signal2: balance, balance: dryWetBalance)
         connect(dryWet)
     
         connect(AKAudioOutput(audioSource: dryWet))

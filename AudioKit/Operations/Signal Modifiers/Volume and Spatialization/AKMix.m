@@ -1,5 +1,5 @@
 //
-//  AKMixedAudio.m
+//  AKMix.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/28/12.
@@ -9,20 +9,20 @@
 //  http://www.csounds.com/manual/html/ntrpol.html
 //
 
-#import "AKMixedAudio.h"
+#import "AKMix.h"
 
-@implementation AKMixedAudio
+@implementation AKMix
 {
-    AKAudio *in1;
-    AKAudio *in2;
+    AKParameter *in1;
+    AKParameter *in2;
     AKConstant *min;
     AKConstant *max;
-    AKControl *current;
+    AKParameter *current;
 }
 
-- (instancetype)initWithSignal1:(AKAudio *)signal1
-                        signal2:(AKAudio *)signal2
-                        balance:(AKControl *)balancePoint;
+- (instancetype)initWithSignal1:(AKParameter *)signal1
+                        signal2:(AKParameter *)signal2
+                        balance:(AKParameter *)balancePoint;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -45,7 +45,7 @@
 
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
-            @"%@ ntrpol %@, %@, %@, %@, %@",
+            @"%@ ntrpol AKAudio(%@), AKAudio(%@), AKControl(%@), %@, %@",
             self, in1, in2, current, min, max];
 }
 

@@ -25,7 +25,7 @@
                                                              minimum:0
                                                              maximum:0.1];
         [self addProperty:_dryWetBalance];
-                
+        
         // INSTRUMENT DEFINITION ===============================================
         
         NSString *file;
@@ -48,17 +48,17 @@
         [self connect:wellConv];
         
         
-        AKMixedAudio *balance;
-        balance = [[AKMixedAudio alloc] initWithSignal1:dishConv
-                                                signal2:wellConv
-                                                balance:_dishWellBalance];
+        AKMix *balance;
+        balance = [[AKMix alloc] initWithSignal1:dishConv
+                                         signal2:wellConv
+                                         balance:_dishWellBalance];
         [self connect:balance];
         
         
-        AKMixedAudio *dryWet;
-        dryWet = [[AKMixedAudio alloc] initWithSignal1:loop.leftOutput
-                                               signal2:balance
-                                               balance:_dryWetBalance];
+        AKMix *dryWet;
+        dryWet = [[AKMix alloc] initWithSignal1:loop.leftOutput
+                                        signal2:balance
+                                        balance:_dryWetBalance];
         [self connect:dryWet];
         
         // AUDIO OUTPUT ========================================================
