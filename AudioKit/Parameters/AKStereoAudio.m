@@ -10,8 +10,8 @@
 
 @implementation AKStereoAudio
 {
-    AKAudio *aOutL;
-    AKAudio *aOutR;
+    AKParameter *aOutL;
+    AKParameter *aOutR;
     int _myID;
 }
 
@@ -25,7 +25,7 @@ static int currentID = 1;
     currentID = 1;
 }
 
-+ (AKStereoAudio *)stereoFromMono:(AKAudio *)mono
++ (AKStereoAudio *)stereoFromMono:(AKParameter *)mono
 {
     return [[AKStereoAudio alloc] initWithLeftAudio:mono rightAudio:mono];
 }
@@ -52,8 +52,8 @@ static int currentID = 1;
     return self;
 }
 
-- (instancetype)initWithLeftAudio:(AKAudio *)leftAudio
-                       rightAudio:(AKAudio *)rightAudio
+- (instancetype)initWithLeftAudio:(AKParameter *)leftAudio
+                       rightAudio:(AKParameter *)rightAudio
 {
     self = [self init];
     if (self) {
@@ -86,8 +86,8 @@ static int currentID = 1;
 
 - (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
-    AKAudio *left   = [aOutL scaledBy:scalingFactor];
-    AKAudio *right  = [aOutR scaledBy:scalingFactor];
+    AKParameter *left   = [aOutL scaledBy:scalingFactor];
+    AKParameter *right  = [aOutR scaledBy:scalingFactor];
     return [[AKStereoAudio alloc] initWithLeftAudio:left rightAudio:right];
 }
 

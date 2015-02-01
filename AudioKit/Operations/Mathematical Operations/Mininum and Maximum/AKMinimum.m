@@ -1,18 +1,17 @@
 //
-//  AKProduct.m
+//  AKMinimum.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/9/12.
+//  Created by Aurelius Prochazka on 12/22/12.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's product:
-//  http://www.csounds.com/manual/html/product.html
+//  Implementation of Csound's min:
+//  http://www.csounds.com/manual/html/min.html
 //
 
+#import "AKMinimum.h"
 
-#import "AKProduct.h"
-
-@implementation AKProduct
+@implementation AKMinimum
 
 - (NSString *)stringForCSD
 {
@@ -23,7 +22,7 @@
     }
     NSString *inputsCombined = [paramterStrings componentsJoinedByString:@", "];
     
-    return [NSString stringWithFormat:@"%@ product %@",self, inputsCombined];
+    return [NSString stringWithFormat:@"%@ min %@",self, inputsCombined];
 }
 
 @end

@@ -14,22 +14,22 @@
 @interface AKStereoAudio : AKParameter
 
 /// The output to the left channel.
-@property (nonatomic, strong) AKAudio *leftOutput;
+@property (nonatomic, strong) AKParameter *leftOutput;
 /// The output to the right channel.
-@property (nonatomic, strong) AKAudio *rightOutput;
+@property (nonatomic, strong) AKParameter *rightOutput;
 
 /// Create an audio pair from left and right inputs
 /// @param leftAudio  Left channel input
 /// @param rightAudio Rigt channel input
-- (instancetype)initWithLeftAudio:(AKAudio *)leftAudio
-                       rightAudio:(AKAudio *)rightAudio;
+- (instancetype)initWithLeftAudio:(AKParameter *)leftAudio
+                       rightAudio:(AKParameter *)rightAudio;
 
 /// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
 + (void)resetID;
 
 /// Quick and dirty way to get a stereo signal from a mono.
 /// @param mono Regular mono audio source.
-+ (AKStereoAudio *)stereoFromMono:(AKAudio *)mono;
++ (AKStereoAudio *)stereoFromMono:(AKParameter *)mono;
 
 /// Create a parameter available to all instruments in the orchestra.
 + (instancetype)globalParameter;
