@@ -16,14 +16,14 @@ class Instrument : AKInstrument {
         super.init()
 
         let control = AKLowFrequencyOscillator()
-        control.type = AKLowFrequencyOscillatorType.SawTooth
+        control.waveformType = AKLowFrequencyOscillator.waveformTypeForSawtooth()
         control.amplitude = 100.ak
         control.frequency = 2.ak
         connect(control)
 
 
         let lowFrequencyOscillator = AKLowFrequencyOscillator()
-        lowFrequencyOscillator.type = AKLowFrequencyOscillatorType.Triangle
+        lowFrequencyOscillator.waveformType = AKLowFrequencyOscillator.waveformTypeForTriangle()
         lowFrequencyOscillator.frequency = control.plus(110.ak)
         connect(lowFrequencyOscillator)
 

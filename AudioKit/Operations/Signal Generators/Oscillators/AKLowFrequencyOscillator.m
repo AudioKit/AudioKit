@@ -14,13 +14,20 @@
 
 @implementation AKLowFrequencyOscillator
 
-- (instancetype)initWithType:(AKLowFrequencyOscillatorType)type
-                   frequency:(AKParameter *)frequency
-                   amplitude:(AKParameter *)amplitude
++ (AKConstant *)waveformTypeForSine           { return akp(0); }
++ (AKConstant *)waveformTypeForTriangle       { return akp(1); }
++ (AKConstant *)waveformTypeForBipolarSquare  { return akp(2); }
++ (AKConstant *)waveformTypeForUnipolarSquare { return akp(3); }
++ (AKConstant *)waveformTypeForSawtooth       { return akp(4); }
++ (AKConstant *)waveformTypeForDownSawtooth   { return akp(5); }
+
+- (instancetype)initWithWaveformType:(AKConstant *)waveFormType
+                           frequency:(AKParameter *)frequency
+                           amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _type = type;
+        _waveformType = waveFormType;
         _frequency = frequency;
         _amplitude = amplitude;
     }
@@ -32,7 +39,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _type = AKLowFrequencyOscillatorTypeSine;
+        _waveformType = [AKLowFrequencyOscillator waveformTypeForSine];
         _frequency = akp(110);
         _amplitude = akp(1);
     }
@@ -44,8 +51,8 @@
     return [[AKLowFrequencyOscillator alloc] init];
 }
 
-- (void)setOptionalType:(AKLowFrequencyOscillatorType)type {
-    _type = type;
+- (void)setOptionalWaveformType:(AKConstant *)waveformType {
+    _waveformType = waveformType;
 }
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     _frequency = frequency;
@@ -56,22 +63,22 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ lfo ", self];
-
+    
     if ([_amplitude class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _amplitude];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _amplitude];
     }
-
+    
     if ([_frequency class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _frequency];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _frequency];
     }
-
-    [csdString appendFormat:@"%@", akpi(_type)];
+    
+    [csdString appendFormat:@"%@", _waveformType];
     return csdString;
 }
 
