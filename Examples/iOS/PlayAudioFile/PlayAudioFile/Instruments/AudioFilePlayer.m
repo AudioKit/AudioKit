@@ -28,7 +28,7 @@
         AKMonoSoundFileLooper *looper;
         looper = [AKMonoSoundFileLooper looperWithSoundFile:fileTable];
         looper.frequencyRatio = note.speed;
-        looper.loopMode = AKSoundFileLooperModeNoLoop;
+        looper.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
         [self connect:looper];
         
         AKReverb *reverb;
