@@ -11,6 +11,7 @@
 		C427F3901A4CE39900734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F38C1A4CE39900734A80 /* mandpluk.aif */; };
 		C427F3911A4CE39900734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F38D1A4CE39900734A80 /* marmstk1.wav */; };
 		C427F3921A4CE39900734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F38E1A4CE39900734A80 /* PianoBassDrumLoop.wav */; };
+		C42F20A51A80179A0011BC44 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C42F20A41A80179A0011BC44 /* AudioKit.plist */; };
 		C4397E3D19626F300076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4397E3B19626F300076F005 /* InfoPlist.strings */; };
 		C4397E3F19626F300076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397E3E19626F300076F005 /* main.m */; };
 		C4397E4319626F300076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4397E4219626F300076F005 /* AppDelegate.m */; };
@@ -163,6 +164,7 @@
 		C427F38C1A4CE39900734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F38D1A4CE39900734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C427F38E1A4CE39900734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
+		C42F20A41A80179A0011BC44 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4397E2F19626F300076F005 /* PlayAudioFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayAudioFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4397E3A19626F300076F005 /* PlayAudioFile-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlayAudioFile-Info.plist"; sourceTree = "<group>"; };
 		C4397E3C19626F300076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1058,6 +1060,7 @@
 				C4C301DD1A09F7B9005AF737 /* AKSequence.h */,
 				C4C301DE1A09F7B9005AF737 /* AKSequence.m */,
 				C4C280441A48241300C0558B /* AKTypes.h */,
+				C42F20A41A80179A0011BC44 /* AudioKit.plist */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -1219,6 +1222,7 @@
 			files = (
 				C439808C196273980076F005 /* blaster.aiff in Resources */,
 				C480C0A31A514BF80092E3D3 /* declick.udo in Resources */,
+				C42F20A51A80179A0011BC44 /* AudioKit.plist in Resources */,
 				C4C3034B1A09F7BA005AF737 /* LICENSE.TXT in Resources */,
 				C4397E4E19626F300076F005 /* Images.xcassets in Resources */,
 				C427F3911A4CE39900734A80 /* marmstk1.wav in Resources */,

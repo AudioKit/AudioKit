@@ -83,12 +83,25 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
+        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        
+        // Default Values
+        NSString *audioOutput = @"dac";
+        NSString *audioInput  = @"adc";
+        
+        if (dict) {
+            audioOutput = [dict objectForKey:@"Audio Output"];
+            audioInput  = [dict objectForKey:@"Audio Input"];
+        }
+        
         csound = [[CsoundObj alloc] init];
         [csound addListener:self];
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         
         _isRunning = NO;
-        _isLogging = NO;
+        _isLogging = [[dict objectForKey:@"Enable Logging By Default"] boolValue];
         
         totalRunDuration = 10000000;
         _numberOfSineWaveReferences = 0;
@@ -98,15 +111,15 @@ static AKManager *_sharedManager = nil;
         isBatching = NO;
         
         _orchestra = [[AKOrchestra alloc] init];
-        
-//        "-+rtmidi=null    ; Disable the use of any realtime midi plugin\n"
-//        "-+rtaudio=null   ; Disable the use of any realtime audio plugin\n"
-//        "-+msg_color=0    ; Disable message attributes\n"
-        options = @"-o dac           ; Write sound to the host audio output\n"
+
+        options = [NSString stringWithFormat:
+                   @"-o %@           ; Write sound to the host audio output\n"
                    "--expression-opt ; Enable expression optimizations\n"
                    "-m0              ; Print raw amplitudes\n"
-                   "-i adc           ; Request sound from the host audio input device";
-        
+                   "-i %@            ; Request sound from the host audio input device",
+                   audioOutput,
+                   audioInput];
+
         templateString = @""
         "<CsoundSynthesizer>\n\n"
         "<CsOptions>\n\%@\n</CsOptions>\n\n"

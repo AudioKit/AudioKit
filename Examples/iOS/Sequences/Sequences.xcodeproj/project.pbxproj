@@ -11,6 +11,7 @@
 		C427F5211A4CE40C00734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F51D1A4CE40C00734A80 /* mandpluk.aif */; };
 		C427F5221A4CE40C00734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F51E1A4CE40C00734A80 /* marmstk1.wav */; };
 		C427F5231A4CE40C00734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F51F1A4CE40C00734A80 /* PianoBassDrumLoop.wav */; };
+		C42F209B1A800D9C0011BC44 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C42F209A1A800D9C0011BC44 /* AudioKit.plist */; };
 		C439830419627B910076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C439830219627B910076F005 /* InfoPlist.strings */; };
 		C439830619627B910076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C439830519627B910076F005 /* main.m */; };
 		C439830A19627B910076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C439830919627B910076F005 /* AppDelegate.m */; };
@@ -161,6 +162,7 @@
 		C427F51D1A4CE40C00734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F51E1A4CE40C00734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C427F51F1A4CE40C00734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
+		C42F209A1A800D9C0011BC44 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C43982F619627B910076F005 /* Sequences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sequences.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C439830119627B910076F005 /* Sequences-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sequences-Info.plist"; sourceTree = "<group>"; };
 		C439830319627B910076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1044,6 +1046,7 @@
 				C4C303E41A09F826005AF737 /* AKSequence.h */,
 				C4C303E51A09F826005AF737 /* AKSequence.m */,
 				C4C280451A48244E00C0558B /* AKTypes.h */,
+				C42F209A1A800D9C0011BC44 /* AudioKit.plist */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -1211,6 +1214,7 @@
 				C439830D19627B910076F005 /* Main.storyboard in Resources */,
 				C480C2161A514C040092E3D3 /* declick.udo in Resources */,
 				C427F5221A4CE40C00734A80 /* marmstk1.wav in Resources */,
+				C42F209B1A800D9C0011BC44 /* AudioKit.plist in Resources */,
 				C439830419627B910076F005 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
