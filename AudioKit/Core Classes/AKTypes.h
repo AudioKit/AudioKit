@@ -41,14 +41,6 @@ typedef NS_OPTIONS(NSUInteger, AKScaledFFTFormantRetainMethod)
     AKScaledFFTFormantRetainMethodTrueEnvelope = 2,
 };
 
-/// Boundary conditions for ends of the struck metal bar physical model
-typedef NS_OPTIONS(NSUInteger, AKStruckMetalBarBoundaryCondition)
-{
-    AKStruckMetalBarBoundaryConditionClamped=1,
-    AKStruckMetalBarBoundaryConditionPivoting=2,
-    AKStruckMetalBarBoundaryConditionFree=3,
-};
-
 /// Random numbers are created within a distribution cover defined by this type
 typedef NS_OPTIONS(NSUInteger, AKRandomDistributionType)
 {

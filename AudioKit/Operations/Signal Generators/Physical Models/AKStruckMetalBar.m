@@ -14,14 +14,18 @@
 
 @implementation AKStruckMetalBar
 
++ (AKConstant *)boundaryConditionClamped  { return akp(1); }
++ (AKConstant *)boundaryConditionPivoting { return akp(2); }
++ (AKConstant *)boundaryConditionFree     { return akp(3); }
+
 - (instancetype)initWithDecayTime:(AKConstant *)decayTime
            dimensionlessStiffness:(AKConstant *)dimensionlessStiffness
                 highFrequencyLoss:(AKConstant *)highFrequencyLoss
                    strikePosition:(AKConstant *)strikePosition
                    strikeVelocity:(AKConstant *)strikeVelocity
                       strikeWidth:(AKConstant *)strikeWidth
-            leftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition
-           rightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition
+            leftBoundaryCondition:(AKConstant *)leftBoundaryCondition
+           rightBoundaryCondition:(AKConstant *)rightBoundaryCondition
                         scanSpeed:(AKParameter *)scanSpeed
 {
     self = [super initWithString:[self operationName]];
@@ -50,8 +54,8 @@
         _strikePosition = akp(0.2);
         _strikeVelocity = akp(800);
         _strikeWidth = akp(0.2);
-        _leftBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;
-        _rightBoundaryCondition = AKStruckMetalBarBoundaryConditionClamped;
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
         _scanSpeed = akp(0.23);
     }
     return self;
@@ -80,10 +84,10 @@
 - (void)setOptionalStrikeWidth:(AKConstant *)strikeWidth {
     _strikeWidth = strikeWidth;
 }
-- (void)setOptionalLeftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition {
+- (void)setOptionalLeftBoundaryCondition:(AKConstant *)leftBoundaryCondition {
     _leftBoundaryCondition = leftBoundaryCondition;
 }
-- (void)setOptionalRightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition {
+- (void)setOptionalRightBoundaryCondition:(AKConstant *)rightBoundaryCondition {
     _rightBoundaryCondition = rightBoundaryCondition;
 }
 - (void)setOptionalScanSpeed:(AKParameter *)scanSpeed {
@@ -95,9 +99,9 @@
 
     [csdString appendFormat:@"%@ barmodel ", self];
 
-    [csdString appendFormat:@"%@, ", akpi(_leftBoundaryCondition)];
+    [csdString appendFormat:@"%@, ", _leftBoundaryCondition];
     
-    [csdString appendFormat:@"%@, ", akpi(_rightBoundaryCondition)];
+    [csdString appendFormat:@"%@, ", _rightBoundaryCondition];
     
     [csdString appendFormat:@"%@, ", _dimensionlessStiffness];
     
