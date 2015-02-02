@@ -84,11 +84,11 @@
         AKEvent *update= [[AKEvent alloc] initWithBlock:^{
             instrument.modulation.value = 3.0 - pow(2.0f,(float)i/12);
         }];
-        [sequence addEvent:update atTime:duration*(i+13)];
+        [sequence addEvent:update atTime:duration*(i+12)];
     }
 
     AKEvent *stopNote = [[AKEvent alloc] initWithBlock:^{[note stop];}];
-    [sequence addEvent:stopNote atTime:duration*(13)];
+    [sequence addEvent:stopNote atTime:duration*(25)];
 
     [instrument playNote:note];
     [sequence play];
