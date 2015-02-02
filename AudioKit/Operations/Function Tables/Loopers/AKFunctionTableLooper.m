@@ -17,13 +17,17 @@
     AKFunctionTable * _functionTable;
 }
 
++ (AKConstant *)loopRepeats                      { return akp(0); }
++ (AKConstant *)loopPlaysBackwards               { return akp(1); }
++ (AKConstant *)loopPlaysForwardAndThenBackwards { return akp(2); }
+
 - (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
                             startTime:(AKParameter *)startTime
                               endTime:(AKParameter *)endTime
                    transpositionRatio:(AKParameter *)transpositionRatio
                             amplitude:(AKParameter *)amplitude
                     crossfadeDuration:(AKParameter *)crossfadeDuration
-                             loopMode:(AKFunctionTableLooperMode)loopMode
+                             loopMode:(AKConstant *)loopMode
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -49,7 +53,7 @@
         _transpositionRatio = akp(1);
         _amplitude = akp(1);
         _crossfadeDuration = akp(0);
-        _loopMode = AKFunctionTableLooperModeNormal;
+        _loopMode = [AKFunctionTableLooper loopRepeats];
     }
     return self;
 }
@@ -74,7 +78,7 @@
 - (void)setOptionalCrossfadeDuration:(AKParameter *)crossfadeDuration {
     _crossfadeDuration = crossfadeDuration;
 }
-- (void)setOptionalLoopMode:(AKFunctionTableLooperMode)loopMode {
+- (void)setOptionalLoopMode:(AKConstant *)loopMode {
     _loopMode = loopMode;
 }
 
@@ -121,7 +125,7 @@
     
     [csdString appendFormat:@"%@, ", _initialStartTime];
     
-    [csdString appendFormat:@"%@, ", akpi(_loopMode)];
+    [csdString appendFormat:@"%@, ", _loopMode];
     
     [csdString appendFormat:@"%@, ", _crossfadeEnvelopeShapeTable];
     

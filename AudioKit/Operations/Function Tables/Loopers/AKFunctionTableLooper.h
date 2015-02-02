@@ -15,6 +15,12 @@
  */
 
 @interface AKFunctionTableLooper : AKAudio
+
+///Type Helpers
++ (AKConstant *)loopRepeats;
++ (AKConstant *)loopPlaysBackwards;
++ (AKConstant *)loopPlaysForwardAndThenBackwards;
+
 /// Instantiates the function table looper with all values
 /// @param functionTable Sound source function table, generally an AKSoundFile. [Default Value: ]
 /// @param startTime Loop start point in seconds. Updated at Control-rate. [Default Value: 0]
@@ -29,7 +35,7 @@
                    transpositionRatio:(AKParameter *)transpositionRatio
                             amplitude:(AKParameter *)amplitude
                     crossfadeDuration:(AKParameter *)crossfadeDuration
-                             loopMode:(AKFunctionTableLooperMode)loopMode;
+                             loopMode:(AKConstant *)loopMode;
 
 /// Instantiates the function table looper with default values
 /// @param functionTable Sound source function table, generally an AKSoundFile.
@@ -75,11 +81,11 @@
 - (void)setOptionalCrossfadeDuration:(AKParameter *)crossfadeDuration;
 
 /// Loop modes are forward, backward, and back and forth. [Default Value: AKFunctionTableLooperModeNormal]
-@property AKFunctionTableLooperMode loopMode;
+@property AKConstant *loopMode;
 
 /// Set an optional loop mode
 /// @param loopMode Loop modes are forward, backward, and back and forth. [Default Value: AKFunctionTableLooperModeNormal]
-- (void)setOptionalLoopMode:(AKFunctionTableLooperMode)loopMode;
+- (void)setOptionalLoopMode:(AKConstant *)loopMode;
 
 
 

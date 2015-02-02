@@ -26,7 +26,7 @@ class Instrument : AKInstrument {
         let functionTableLooper = AKFunctionTableLooper(functionTable: soundFile)
         functionTableLooper.endTime = 9.6.ak
         functionTableLooper.transpositionRatio = speed
-        functionTableLooper.loopMode = AKFunctionTableLooperMode.ForwardAndBack
+        functionTableLooper.loopMode = AKFunctionTableLooper.loopPlaysForwardAndThenBackwards()
         connect(functionTableLooper)
 
         enableParameterLog(
