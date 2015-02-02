@@ -25,7 +25,7 @@ class Instrument : AKInstrument {
 
         let stereoSoundFileLooper = AKStereoSoundFileLooper(soundFile: soundFile)
         stereoSoundFileLooper.frequencyRatio = speed
-        stereoSoundFileLooper.loopMode = AKSoundFileLooperMode.ForwardAndBack
+        stereoSoundFileLooper.loopMode = AKStereoSoundFileLooper.loopPlaysForwardAndThenBackwards()
         connect(stereoSoundFileLooper)
 
         enableParameterLog(
