@@ -61,12 +61,13 @@
 
 - (void)updateValuesToCsound
 {
-    *channelPtr = self.value;
+    if (isCacheDirty) *channelPtr = self.value;
 }
+
 - (void)updateValuesFromCsound
 {
     if ((isCacheDirty) && (*channelPtr == self.value)) isCacheDirty = NO;
-    if (*channelPtr) self.value = *channelPtr;
+    if ((!isCacheDirty) && (*channelPtr)) self.value = *channelPtr;
 }
 
 @end
