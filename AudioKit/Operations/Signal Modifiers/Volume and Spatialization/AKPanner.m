@@ -17,9 +17,14 @@
     AKParameter * _input;
 }
 
++ (AKConstant *)panMethodForEqualPower          { return akp(0); }
++ (AKConstant *)panMethodForSquareRoot          { return akp(1); }
++ (AKConstant *)panMethodForLinear              { return akp(2); }
++ (AKConstant *)panMethodForEqualPowerAlternate { return akp(3); }
+
 - (instancetype)initWithInput:(AKParameter *)input
                           pan:(AKParameter *)pan
-                    panMethod:(AKPanMethod)panMethod
+                    panMethod:(AKConstant *)panMethod
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -37,7 +42,7 @@
         _input = input;
         // Default Values
         _pan = akp(0);
-        _panMethod = AKPanMethodEqualPower;
+        _panMethod = [AKPanner panMethodForEqualPower];
     }
     return self;
 }
@@ -50,7 +55,7 @@
 - (void)setOptionalPan:(AKParameter *)pan {
     _pan = pan;
 }
-- (void)setOptionalPanMethod:(AKPanMethod)panMethod {
+- (void)setOptionalPanMethod:(AKConstant *)panMethod {
     _panMethod = panMethod;
 }
 
@@ -67,7 +72,7 @@
 
     [csdString appendFormat:@"0.5 * (%@+1), ", _pan];
     
-    [csdString appendFormat:@"%@", akpi(_panMethod)];
+    [csdString appendFormat:@"%@", _panMethod];
     return csdString;
 }
 

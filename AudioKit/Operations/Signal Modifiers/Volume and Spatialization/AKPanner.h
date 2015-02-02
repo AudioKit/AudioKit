@@ -15,13 +15,20 @@
  */
 
 @interface AKPanner : AKStereoAudio
+
+///Type Helpers
++ (AKConstant *)panMethodForEqualPower;
++ (AKConstant *)panMethodForSquareRoot;
++ (AKConstant *)panMethodForLinear;
++ (AKConstant *)panMethodForEqualPowerAlternate;
+
 /// Instantiates the panner with all values
 /// @param input Source signal. [Default Value: ]
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
 - (instancetype)initWithInput:(AKParameter *)input
                           pan:(AKParameter *)pan
-                    panMethod:(AKPanMethod)panMethod;
+                    panMethod:(AKConstant *)panMethod;
 
 /// Instantiates the panner with default values
 /// @param input Source signal.
@@ -39,11 +46,11 @@
 - (void)setOptionalPan:(AKParameter *)pan;
 
 /// AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
-@property AKPanMethod panMethod;
+@property AKConstant *panMethod;
 
 /// Set an optional pan method
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
-- (void)setOptionalPanMethod:(AKPanMethod)panMethod;
+- (void)setOptionalPanMethod:(AKConstant *)panMethod;
 
 
 
