@@ -9,14 +9,6 @@
 #ifndef AKTypes_h
 #define AKTypes_h
 
-/// Function table looper direction
-typedef NS_OPTIONS(NSUInteger, AKFunctionTableLooperMode)
-{
-    AKFunctionTableLooperModeNormal=0,
-    AKFunctionTableLooperModeBackward=1,
-    AKFunctionTableLooperModeForwardAndBack=2
-};
-
 /// Window types for converting audio into the frequency domain
 typedef NS_OPTIONS(NSUInteger, AKFFTWindowType)
 {
