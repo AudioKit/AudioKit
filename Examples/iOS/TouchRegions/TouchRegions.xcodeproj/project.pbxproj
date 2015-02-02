@@ -11,6 +11,7 @@
 		C427FCF61A4CE59900734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427FCF21A4CE59900734A80 /* mandpluk.aif */; };
 		C427FCF71A4CE59900734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FCF31A4CE59900734A80 /* marmstk1.wav */; };
 		C427FCF81A4CE59900734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427FCF41A4CE59900734A80 /* PianoBassDrumLoop.wav */; };
+		C42F20B11A8017F80011BC44 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C42F20B01A8017F80011BC44 /* AudioKit.plist */; };
 		C4461A291994A37D0073E819 /* FMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4461A281994A37D0073E819 /* FMOscillator.m */; };
 		C46B26D31A78862500328AF3 /* AKCrossSynthesizedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B26C21A78862500328AF3 /* AKCrossSynthesizedFFT.m */; };
 		C46B26D41A78862500328AF3 /* AKFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B26C41A78862500328AF3 /* AKFFT.m */; };
@@ -162,6 +163,7 @@
 		C427FCF21A4CE59900734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427FCF31A4CE59900734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
 		C427FCF41A4CE59900734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
+		C42F20B01A8017F80011BC44 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4461A271994A37D0073E819 /* FMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillator.h; sourceTree = "<group>"; };
 		C4461A281994A37D0073E819 /* FMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillator.m; sourceTree = "<group>"; };
 		C46B26C11A78862500328AF3 /* AKCrossSynthesizedFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrossSynthesizedFFT.h; sourceTree = "<group>"; };
@@ -1039,6 +1041,7 @@
 				C4C312151A09FAD2005AF737 /* AKSequence.h */,
 				C4C312161A09FAD2005AF737 /* AKSequence.m */,
 				C4C2804B1A4826F100C0558B /* AKTypes.h */,
+				C42F20B01A8017F80011BC44 /* AudioKit.plist */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42F20B11A8017F80011BC44 /* AudioKit.plist in Resources */,
 				C427FCF71A4CE59900734A80 /* marmstk1.wav in Resources */,
 				C48E4631199212FE00B3C1F8 /* Main.storyboard in Resources */,
 				C427FCF51A4CE59900734A80 /* 808loop.wav in Resources */,

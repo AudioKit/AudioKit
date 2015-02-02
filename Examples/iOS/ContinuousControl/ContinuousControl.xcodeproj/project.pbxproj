@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C427ED441A4CCEFE00734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427ED421A4CCEFE00734A80 /* mandpluk.aif */; };
 		C427ED451A4CCEFE00734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427ED431A4CCEFE00734A80 /* marmstk1.wav */; };
+		C42F20971A800A600011BC44 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C42F20961A800A600011BC44 /* AudioKit.plist */; };
 		C43980A5196275C80076F005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C43980A3196275C80076F005 /* InfoPlist.strings */; };
 		C43980A7196275C80076F005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980A6196275C80076F005 /* main.m */; };
 		C43980AB196275C80076F005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C43980AA196275C80076F005 /* AppDelegate.m */; };
@@ -157,6 +158,7 @@
 /* Begin PBXFileReference section */
 		C427ED421A4CCEFE00734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427ED431A4CCEFE00734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
+		C42F20961A800A600011BC44 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4398097196275C80076F005 /* ContinuousControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContinuousControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43980A2196275C80076F005 /* ContinuousControl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContinuousControl-Info.plist"; sourceTree = "<group>"; };
 		C43980A4196275C80076F005 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 		C46E66511A08AFFE00E5D389 /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C42F20961A800A600011BC44 /* AudioKit.plist */,
 				C46E66521A08AFFE00E5D389 /* AKEvent.h */,
 				C46E66531A08AFFE00E5D389 /* AKEvent.m */,
 				C46E66541A08AFFE00E5D389 /* AKFoundation.h */,
@@ -1199,6 +1202,7 @@
 			files = (
 				C427ED451A4CCEFE00734A80 /* marmstk1.wav in Resources */,
 				C43980B6196275C80076F005 /* Images.xcassets in Resources */,
+				C42F20971A800A600011BC44 /* AudioKit.plist in Resources */,
 				C46E688E1A08B52400E5D389 /* LICENSE.TXT in Resources */,
 				C43980AE196275C80076F005 /* Main.storyboard in Resources */,
 				C427ED441A4CCEFE00734A80 /* mandpluk.aif in Resources */,

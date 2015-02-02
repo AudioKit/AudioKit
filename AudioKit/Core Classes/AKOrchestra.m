@@ -26,10 +26,22 @@
 {
     self = [super init];
     if (self) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
+        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        
+        // Default Values (for tests that don't load the AudioKit.plist)
         sampleRate = 44100;
         samplesPerControlPeriod = 64;
         _numberOfChannels = 2;
         _zeroDBFullScaleValue = 1.0f;
+
+        if (dict) {
+            sampleRate = [[dict objectForKey:@"Sample Rate"] intValue];
+            samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
+            _numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
+            _zeroDBFullScaleValue = [[dict objectForKey:@"Number Of Channels"] floatValue];
+        }
+        
         udoFiles = [[NSMutableSet alloc] init];
         _instruments = [[NSMutableArray alloc] init];
         _functionTables = [[NSMutableSet alloc] init];

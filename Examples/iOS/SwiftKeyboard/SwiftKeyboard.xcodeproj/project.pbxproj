@@ -35,6 +35,7 @@
 		C41FB7A81A4F93530093645A /* AKStereoAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB70E1A4F93530093645A /* AKStereoAudio.m */; };
 		C41FB7A91A4F93530093645A /* AKInstrumentProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7111A4F93530093645A /* AKInstrumentProperty.m */; };
 		C41FB7AA1A4F93530093645A /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB7131A4F93530093645A /* AKNoteProperty.m */; };
+		C42F20AF1A8017E90011BC44 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C42F20AE1A8017E90011BC44 /* AudioKit.plist */; };
 		C46B26B71A78861800328AF3 /* AKCrossSynthesizedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B26A61A78861800328AF3 /* AKCrossSynthesizedFFT.m */; };
 		C46B26B81A78861800328AF3 /* AKFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B26A81A78861800328AF3 /* AKFFT.m */; };
 		C46B26B91A78861800328AF3 /* AKFFTProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B26AA1A78861800328AF3 /* AKFFTProcessor.m */; };
@@ -235,6 +236,7 @@
 		C41FB7111A4F93530093645A /* AKInstrumentProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentProperty.m; sourceTree = "<group>"; };
 		C41FB7121A4F93530093645A /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		C41FB7131A4F93530093645A /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
+		C42F20AE1A8017E90011BC44 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C46B26A51A78861800328AF3 /* AKCrossSynthesizedFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrossSynthesizedFFT.h; sourceTree = "<group>"; };
 		C46B26A61A78861800328AF3 /* AKCrossSynthesizedFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCrossSynthesizedFFT.m; sourceTree = "<group>"; };
 		C46B26A71A78861800328AF3 /* AKFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFFT.h; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				C41FB5B81A4F93530093645A /* AKSequence.h */,
 				C41FB5B91A4F93530093645A /* AKSequence.m */,
 				C41FB5BA1A4F93530093645A /* AKTypes.h */,
+				C42F20AE1A8017E90011BC44 /* AudioKit.plist */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -1212,6 +1215,7 @@
 				C4881C4A1A296A7D00E46B03 /* Images.xcassets in Resources */,
 				C480CAB91A514DFC0092E3D3 /* declick.udo in Resources */,
 				C41FB7261A4F93530093645A /* mandpluk.aif in Resources */,
+				C42F20AF1A8017E90011BC44 /* AudioKit.plist in Resources */,
 				C41FB7251A4F93530093645A /* 808loop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
