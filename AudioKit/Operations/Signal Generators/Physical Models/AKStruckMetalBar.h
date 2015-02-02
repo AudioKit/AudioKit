@@ -15,7 +15,21 @@
 More information regarding scanned synthesis can be found at http://dafx12.york.ac.uk/papers/dafx12_submission_18.pdf and http://www.billverplank.com/ScannedSynthesis.PDF
  */
 
+/// Boundary conditions for ends of the struck metal bar physical model
+//typedef NS_OPTIONS(NSUInteger, AKStruckMetalBarBoundaryCondition)
+//{
+//    AKStruckMetalBarBoundaryConditionClamped=1,
+//    AKStruckMetalBarBoundaryConditionPivoting=2,
+//    AKStruckMetalBarBoundaryConditionFree=3,
+//};
+
 @interface AKStruckMetalBar : AKAudio
+
+// TypeHelpers
++ (AKConstant *)boundaryConditionClamped;
++ (AKConstant *)boundaryConditionPivoting;
++ (AKConstant *)boundaryConditionFree;
+
 /// Instantiates the struck metal bar with all values
 /// @param decayTime 30 db decay time in seconds. [Default Value: 2.0]
 /// @param dimensionlessStiffness Dimensionless stiffness parameter. If this parameter is negative then the initialization is skipped and the previous state of the bar is continued. [Default Value: 100]
@@ -32,8 +46,8 @@ More information regarding scanned synthesis can be found at http://dafx12.york.
                    strikePosition:(AKConstant *)strikePosition
                    strikeVelocity:(AKConstant *)strikeVelocity
                       strikeWidth:(AKConstant *)strikeWidth
-            leftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition
-           rightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition
+            leftBoundaryCondition:(AKConstant *)leftBoundaryCondition
+           rightBoundaryCondition:(AKConstant *)rightBoundaryCondition
                         scanSpeed:(AKParameter *)scanSpeed;
 
 /// Instantiates the struck metal bar with default values
@@ -86,18 +100,18 @@ More information regarding scanned synthesis can be found at http://dafx12.york.
 - (void)setOptionalStrikeWidth:(AKConstant *)strikeWidth;
 
 /// Boundary condition at left end of bar. [Default Value: AKStruckMetalBarBoundaryConditionClamped]
-@property AKStruckMetalBarBoundaryCondition leftBoundaryCondition;
+@property AKConstant *leftBoundaryCondition;
 
 /// Set an optional left boundary condition
 /// @param leftBoundaryCondition Boundary condition at left end of bar. [Default Value: AKStruckMetalBarBoundaryConditionClamped]
-- (void)setOptionalLeftBoundaryCondition:(AKStruckMetalBarBoundaryCondition)leftBoundaryCondition;
+- (void)setOptionalLeftBoundaryCondition:(AKConstant *)leftBoundaryCondition;
 
 /// Boundary condition at right end of bar. [Default Value: AKStruckMetalBarBoundaryConditionClamped]
-@property AKStruckMetalBarBoundaryCondition rightBoundaryCondition;
+@property AKConstant *rightBoundaryCondition;
 
 /// Set an optional right boundary condition
 /// @param rightBoundaryCondition Boundary condition at right end of bar. [Default Value: AKStruckMetalBarBoundaryConditionClamped]
-- (void)setOptionalRightBoundaryCondition:(AKStruckMetalBarBoundaryCondition)rightBoundaryCondition;
+- (void)setOptionalRightBoundaryCondition:(AKConstant *)rightBoundaryCondition;
 
 /// Speed of scanning the output location. [Default Value: 0.23]
 @property AKParameter *scanSpeed;
