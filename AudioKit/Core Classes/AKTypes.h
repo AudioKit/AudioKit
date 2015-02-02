@@ -25,15 +25,6 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableLooperMode)
     AKFunctionTableLooperModeForwardAndBack=2
 };
 
-/// Different ways of panning between left and right
-typedef NS_OPTIONS(NSUInteger, AKPanMethod)
-{
-    AKPanMethodEqualPower = 0,
-    AKPanMethodSquareRoot = 1,
-    AKPanMethodLinear = 2,
-    AKPanMethodAltEqualPower = 3,
-};
-
 /// Window types for converting audio into the frequency domain
 typedef NS_OPTIONS(NSUInteger, AKFFTWindowType)
 {
