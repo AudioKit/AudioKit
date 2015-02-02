@@ -9,17 +9,6 @@
 #ifndef AKTypes_h
 #define AKTypes_h
 
-/// Low frequency oscillator waveforms
-typedef NS_OPTIONS(NSUInteger, AKLowFrequencyOscillatorType)
-{
-    AKLowFrequencyOscillatorTypeSine = 0,
-    AKLowFrequencyOscillatorTypeTriangle = 1,
-    AKLowFrequencyOscillatorTypeBipolarSquare = 2,
-    AKLowFrequencyOscillatorTypeUnipolarSquare = 3,
-    AKLowFrequencyOscillatorTypeSawTooth = 4,
-    AKLowFrequencyOscillatorTypeDownSawTooth = 5
-};
-
 /// Sound file looper direction
 typedef NS_OPTIONS(NSUInteger, AKSoundFileLooperMode)
 {
