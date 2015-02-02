@@ -17,10 +17,14 @@
     AKFunctionTable * _soundFile;
 }
 
++ (AKConstant *)loopPlaysOnce                    { return akp(0); }
++ (AKConstant *)loopRepeats                      { return akp(1); }
++ (AKConstant *)loopPlaysForwardAndThenBackwards { return akp(2); }
+
 - (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
                    frequencyRatio:(AKParameter *)frequencyRatio
                         amplitude:(AKParameter *)amplitude
-                         loopMode:(AKSoundFileLooperMode)loopMode
+                         loopMode:(AKConstant *)loopMode
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -40,7 +44,7 @@
         // Default Values
         _frequencyRatio = akp(1);
         _amplitude = akp(1);
-        _loopMode = AKSoundFileLooperModeNormal;
+        _loopMode = [AKMonoSoundFileLooper loopRepeats];
     }
     return self;
 }
@@ -56,7 +60,7 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
-- (void)setOptionalLoopMode:(AKSoundFileLooperMode)loopMode {
+- (void)setOptionalLoopMode:(AKConstant *)loopMode {
     _loopMode = loopMode;
 }
 
@@ -79,7 +83,7 @@
     
     [csdString appendFormat:@"%@, ", _baseFrequency];
     
-    [csdString appendFormat:@"%@", akpi(_loopMode)];
+    [csdString appendFormat:@"%@", _loopMode];
     return csdString;
 }
 

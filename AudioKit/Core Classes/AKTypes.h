@@ -9,14 +9,6 @@
 #ifndef AKTypes_h
 #define AKTypes_h
 
-/// Sound file looper direction
-typedef NS_OPTIONS(NSUInteger, AKSoundFileLooperMode)
-{
-    AKSoundFileLooperModeNoLoop=0,
-    AKSoundFileLooperModeNormal=1,
-    AKSoundFileLooperModeForwardAndBack=2
-};
-
 /// Function table looper direction
 typedef NS_OPTIONS(NSUInteger, AKFunctionTableLooperMode)
 {

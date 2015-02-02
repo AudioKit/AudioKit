@@ -25,7 +25,6 @@ class Instrument : AKInstrument {
 
         let monoSoundFileLooper = AKMonoSoundFileLooper(soundFile: soundFile)
         monoSoundFileLooper.frequencyRatio = speed
-        monoSoundFileLooper.loopMode = AKSoundFileLooperMode.Normal
         connect(monoSoundFileLooper)
 
         enableParameterLog(

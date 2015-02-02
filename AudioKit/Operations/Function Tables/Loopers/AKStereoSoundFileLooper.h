@@ -15,6 +15,12 @@
  */
 
 @interface AKStereoSoundFileLooper : AKStereoAudio
+
+///Type Helpers
++ (AKConstant *)loopPlaysOnce;
++ (AKConstant *)loopRepeats;
++ (AKConstant *)loopPlaysForwardAndThenBackwards;
+
 /// Instantiates the stereo sound file looper with all values
 /// @param soundFile The sound file function table. [Default Value: ]
 /// @param frequencyRatio The frequency ratio. Updated at Control-rate. [Default Value: 1]
@@ -23,7 +29,7 @@
 - (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
                    frequencyRatio:(AKParameter *)frequencyRatio
                         amplitude:(AKParameter *)amplitude
-                         loopMode:(AKSoundFileLooperMode)loopMode;
+                         loopMode:(AKConstant *)loopMode;
 
 /// Instantiates the stereo sound file looper with default values
 /// @param soundFile The sound file function table.
@@ -48,11 +54,11 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
-@property AKSoundFileLooperMode loopMode;
+@property AKConstant *loopMode;
 
 /// Set an optional loop mode
 /// @param loopMode Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
-- (void)setOptionalLoopMode:(AKSoundFileLooperMode)loopMode;
+- (void)setOptionalLoopMode:(AKConstant *)loopMode;
 
 
 
