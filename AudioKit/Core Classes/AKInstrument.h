@@ -167,6 +167,4 @@
 /// Stop all notes created by the instrument
 - (void)stop;
 
-
-
 @end

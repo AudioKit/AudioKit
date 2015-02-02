@@ -43,6 +43,7 @@
         [AKOrchestra addInstrument:_tweakableInstrument];
         [AKOrchestra start];
     }
+    
     return self;
 }
 

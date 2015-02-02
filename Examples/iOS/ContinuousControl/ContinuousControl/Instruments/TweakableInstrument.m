@@ -53,6 +53,7 @@
         [self connect:audio];
         
     }
+    
     return self;
 }
 
