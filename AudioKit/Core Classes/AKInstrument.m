@@ -97,16 +97,11 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
+    [_userDefinedOperations addObject:newOperation];
     [innerCSDRepresentation appendString:[newOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)addUDO:(AKParameter *)newUserDefinedOperation
-{
-    [_userDefinedOperations addObject:newUserDefinedOperation];
-    [innerCSDRepresentation appendString:[newUserDefinedOperation stringForCSD]];
-    [innerCSDRepresentation appendString:@"\n"];
-}
 
 - (void)addString:(NSString *)newString
 {
