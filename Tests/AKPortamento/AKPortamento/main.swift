@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
         super.init()
 
         let frequencyShifter = AKLowFrequencyOscillator()
-        frequencyShifter.type = AKLowFrequencyOscillatorType.BipolarSquare
+        frequencyShifter.waveformType = AKLowFrequencyOscillator.waveformTypeForBipolarSquare()
         frequencyShifter.amplitude = 100.ak;
         frequencyShifter.frequency = 0.25.ak
         connect(frequencyShifter)
