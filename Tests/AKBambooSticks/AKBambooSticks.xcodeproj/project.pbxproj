@@ -24,6 +24,8 @@
 		C427EB8D1A4CB1DA00734A80 /* AKTableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB731A4CB1DA00734A80 /* AKTableValue.m */; };
 		C427EB8E1A4CB1DA00734A80 /* AKTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB751A4CB1DA00734A80 /* AKTableValueConstant.m */; };
 		C427EB8F1A4CB1DA00734A80 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C427EB771A4CB1DA00734A80 /* AKTableValueControl.m */; };
+		C42F22EE1A80A34C0011BC44 /* AKDecimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C42F22EB1A80A34C0011BC44 /* AKDecimator.m */; };
+		C42F22EF1A80A34C0011BC44 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C42F22ED1A80A34C0011BC44 /* AKDeclick.m */; };
 		C431235B1A7EE4B4004B5D5A /* AKAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = C431234E1A7EE4B4004B5D5A /* AKAssignment.m */; };
 		C431235C1A7EE4B4004B5D5A /* AKMaximum.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123501A7EE4B4004B5D5A /* AKMaximum.m */; };
 		C431235D1A7EE4B4004B5D5A /* AKMinimum.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123521A7EE4B4004B5D5A /* AKMinimum.m */; };
@@ -81,7 +83,6 @@
 		C479144F1A29352F00D9807B /* AKBandRejectButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C479139B1A29352F00D9807B /* AKBandRejectButterworthFilter.m */; };
 		C47914501A29352F00D9807B /* AKHighPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C479139D1A29352F00D9807B /* AKHighPassButterworthFilter.m */; };
 		C47914511A29352F00D9807B /* AKLowPassButterworthFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C479139F1A29352F00D9807B /* AKLowPassButterworthFilter.m */; };
-		C47914521A29352F00D9807B /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913A21A29352F00D9807B /* AKDeclick.m */; };
 		C47914531A29352F00D9807B /* AKBallWithinTheBoxReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913A61A29352F00D9807B /* AKBallWithinTheBoxReverb.m */; };
 		C47914541A29352F00D9807B /* AKFlatFrequencyResponseReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913A81A29352F00D9807B /* AKFlatFrequencyResponseReverb.m */; };
 		C47914551A29352F00D9807B /* AKParallelCombLowPassFilterReverb.m in Sources */ = {isa = PBXBuildFile; fileRef = C47913AA1A29352F00D9807B /* AKParallelCombLowPassFilterReverb.m */; };
@@ -186,6 +187,10 @@
 		C427EB771A4CB1DA00734A80 /* AKTableValueControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueControl.m; sourceTree = "<group>"; };
 		C427EBB71A4CC42E00734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427EBB81A4CC42E00734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
+		C42F22EA1A80A34C0011BC44 /* AKDecimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDecimator.h; sourceTree = "<group>"; };
+		C42F22EB1A80A34C0011BC44 /* AKDecimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDecimator.m; sourceTree = "<group>"; };
+		C42F22EC1A80A34C0011BC44 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
+		C42F22ED1A80A34C0011BC44 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
 		C431234D1A7EE4B4004B5D5A /* AKAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAssignment.h; sourceTree = "<group>"; };
 		C431234E1A7EE4B4004B5D5A /* AKAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAssignment.m; sourceTree = "<group>"; };
 		C431234F1A7EE4B4004B5D5A /* AKMaximum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMaximum.h; sourceTree = "<group>"; };
@@ -316,9 +321,6 @@
 		C479139D1A29352F00D9807B /* AKHighPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighPassButterworthFilter.m; sourceTree = "<group>"; };
 		C479139E1A29352F00D9807B /* AKLowPassButterworthFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowPassButterworthFilter.h; sourceTree = "<group>"; };
 		C479139F1A29352F00D9807B /* AKLowPassButterworthFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLowPassButterworthFilter.m; sourceTree = "<group>"; };
-		C47913A11A29352F00D9807B /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
-		C47913A21A29352F00D9807B /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
-		C47913A31A29352F00D9807B /* declick.udo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = declick.udo; sourceTree = "<group>"; };
 		C47913A51A29352F00D9807B /* AKBallWithinTheBoxReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBallWithinTheBoxReverb.h; sourceTree = "<group>"; };
 		C47913A61A29352F00D9807B /* AKBallWithinTheBoxReverb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBallWithinTheBoxReverb.m; sourceTree = "<group>"; };
 		C47913A71A29352F00D9807B /* AKFlatFrequencyResponseReverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlatFrequencyResponseReverb.h; sourceTree = "<group>"; };
@@ -727,6 +729,10 @@
 				C47913801A29352F00D9807B /* AKCombFilter.m */,
 				C47913811A29352F00D9807B /* AKDCBlock.h */,
 				C47913821A29352F00D9807B /* AKDCBlock.m */,
+				C42F22EA1A80A34C0011BC44 /* AKDecimator.h */,
+				C42F22EB1A80A34C0011BC44 /* AKDecimator.m */,
+				C42F22EC1A80A34C0011BC44 /* AKDeclick.h */,
+				C42F22ED1A80A34C0011BC44 /* AKDeclick.m */,
 				C47913831A29352F00D9807B /* AKEqualizerFilter.h */,
 				C47913841A29352F00D9807B /* AKEqualizerFilter.m */,
 				C47913851A29352F00D9807B /* AKHighPassFilter.h */,
@@ -746,7 +752,6 @@
 				C47913951A29352F00D9807B /* AKVariableFrequencyResponseBandPassFilter.h */,
 				C47913961A29352F00D9807B /* AKVariableFrequencyResponseBandPassFilter.m */,
 				C47913971A29352F00D9807B /* Butterworth Filters */,
-				C47913A01A29352F00D9807B /* declick */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -764,16 +769,6 @@
 				C479139F1A29352F00D9807B /* AKLowPassButterworthFilter.m */,
 			);
 			path = "Butterworth Filters";
-			sourceTree = "<group>";
-		};
-		C47913A01A29352F00D9807B /* declick */ = {
-			isa = PBXGroup;
-			children = (
-				C47913A11A29352F00D9807B /* AKDeclick.h */,
-				C47913A21A29352F00D9807B /* AKDeclick.m */,
-				C47913A31A29352F00D9807B /* declick.udo */,
-			);
-			path = declick;
 			sourceTree = "<group>";
 		};
 		C47913A41A29352F00D9807B /* Reverbs */ = {
@@ -1155,6 +1150,7 @@
 				C480B7E31A51484C0092E3D3 /* AKBambooSticks.m in Sources */,
 				C47913DF1A29352F00D9807B /* AKManager.m in Sources */,
 				C480B7E91A51484C0092E3D3 /* AKSekere.m in Sources */,
+				C42F22EF1A80A34C0011BC44 /* AKDeclick.m in Sources */,
 				C46B27C11A7A185500328AF3 /* AKGranularSynthesizer.m in Sources */,
 				C41FB3C41A4E8F6C0093645A /* AKLineSegments.m in Sources */,
 				C479145D1A29352F00D9807B /* AKFSignal.m in Sources */,
@@ -1201,7 +1197,7 @@
 				C47913DE1A29352F00D9807B /* AKInstrument.m in Sources */,
 				C479144B1A29352F00D9807B /* AKResonantFilter.m in Sources */,
 				C480B7DA1A51484C0092E3D3 /* AKLowFrequencyOscillator.m in Sources */,
-				C47914521A29352F00D9807B /* AKDeclick.m in Sources */,
+				C42F22EE1A80A34C0011BC44 /* AKDecimator.m in Sources */,
 				C47914431A29352F00D9807B /* AKDCBlock.m in Sources */,
 				C480B7F71A51484C0092E3D3 /* AKAdditiveCosines.m in Sources */,
 				C41FB7F11A4FFFCE0093645A /* AKFunctionTableLooper.m in Sources */,
