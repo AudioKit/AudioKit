@@ -167,6 +167,8 @@
 // Operations - Signal Modifiers - Filters
 #import "AKCombFilter.h"
 #import "AKDCBlock.h"
+#import "AKDecimator.h"
+#import "AKDeclick.h"
 #import "AKEqualizerFilter.h"
 #import "AKHighPassFilter.h"
 #import "AKHilbertTransformer.h"
@@ -182,9 +184,6 @@
 #import "AKBandRejectButterworthFilter.h"
 #import "AKHighPassButterworthFilter.h"
 #import "AKLowPassButterworthFilter.h"
-
-// Operations - Signal Modifiers - Filters - declick
-#import "AKDeclick.h"
 
 // Operations - Signal Modifiers - Reverbs
 #import "AKBallWithinTheBoxReverb.h"
