@@ -23,6 +23,6 @@
 - (NSString *)stringForCSD;
 
 // The text of the User Defined Opcode
-- (NSString *)udoFile;
+- (NSString *)udoString;
 
 @end
