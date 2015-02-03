@@ -27,15 +27,15 @@ class EffectsProcessor: AKInstrument {
         connect(reverb)
         
         let leftMix = AKMix(
-            signal1: reverb.leftOutput,
-            signal2: audioSource,
+            input1: reverb.leftOutput,
+            input2: audioSource,
             balance: 0.5.ak
         )
         connect(leftMix)
 
         let rightMix = AKMix(
-            signal1: reverb.rightOutput,
-            signal2: audioSource,
+            input1: reverb.rightOutput,
+            input2: audioSource,
             balance: 0.5.ak
         )
         connect(rightMix)

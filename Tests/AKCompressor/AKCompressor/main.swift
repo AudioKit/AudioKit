@@ -21,7 +21,10 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         connect(audio)
 
-        let mono = AKMix(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        let mono = AKMix(
+            input1: audio.leftOutput,
+            input2: audio.rightOutput,
+            balance: 0.5.ak)
         connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()

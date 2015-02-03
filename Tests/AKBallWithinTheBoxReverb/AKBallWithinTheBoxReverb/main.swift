@@ -22,8 +22,8 @@ class Instrument : AKInstrument {
         connect(audio)
 
         let mono = AKMix(
-            signal1: audio.leftOutput,
-            signal2: audio.rightOutput,
+            input1: audio.leftOutput,
+            input2: audio.rightOutput,
             balance: 0.5.ak
         )
         connect(mono)
@@ -85,8 +85,8 @@ class Processor : AKInstrument {
         )
 
         let mix = AKMix(
-            signal1: audioSource,
-            signal2: ballWithinTheBoxReverb.leftOutput,
+            input1: audioSource,
+            input2: ballWithinTheBoxReverb.leftOutput,
             balance: 0.1.ak
         )
         connect(mix)

@@ -27,13 +27,13 @@
         reverb.feedback = _reverb;
         [self connect:reverb];
         
-        AKMix *leftMix = [[AKMix alloc] initWithSignal1:reverb.leftOutput
-                                                signal2:audioSource
+        AKMix *leftMix = [[AKMix alloc] initWithInput1:reverb.leftOutput
+                                                input2:audioSource
                                                 balance:akp(0.5)];
         [self connect:leftMix];
         
-        AKMix *rightMix = [[AKMix alloc] initWithSignal1:reverb.rightOutput
-                                                 signal2:audioSource
+        AKMix *rightMix = [[AKMix alloc] initWithInput1:reverb.rightOutput
+                                                 input2:audioSource
                                                  balance:akp(0.5)];
         [self connect:rightMix];
         
