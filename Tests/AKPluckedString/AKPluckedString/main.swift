@@ -24,7 +24,7 @@ class Instrument : AKInstrument {
         addFunctionTable(functionTable)
         
         let excitation = AKMonoSoundFileLooper(soundFile: functionTable)
-        excitation.loopMode = AKSoundFileLooperMode.NoLoop
+        excitation.loopMode = AKMonoSoundFileLooper.loopPlaysOnce()
         connect(excitation)
         
         let pluckedString = AKPluckedString(excitationSignal: excitation)
