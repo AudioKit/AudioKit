@@ -142,20 +142,20 @@
     [s appendString:@";=== USER-DEFINED OPCODES ===\n"];
     for ( AKInstrument *i in _instruments) {
         for (AKParameter *udo in i.userDefinedOperations) {
-            NSString *newUDOFile = [udo udoFile];
+            NSString *newUDOString = [udo udoString];
             for (AKParameter *udo in udoFiles) {
-                if ([newUDOFile isEqualToString:[udo udoFile]]) {
-                    newUDOFile  = @"";
+                if ([newUDOString isEqualToString:[udo udoString]]) {
+                    newUDOString  = @"";
                 }
             }
-            if (![newUDOFile isEqualToString:@""]) {
+            if (![newUDOString isEqualToString:@""]) {
                 [udoFiles addObject:udo];
             }
         }
     }
     for (AKParameter *udo in udoFiles) {
         [s appendString:@"\n"];
-        [s appendString:[AKManager stringFromFile:[udo udoFile]]];
+        [s appendString:[udo udoString]];
         [s appendString:@"\n"];
     }
     [s appendString:@"\n"];

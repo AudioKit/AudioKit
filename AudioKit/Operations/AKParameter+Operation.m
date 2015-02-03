@@ -23,10 +23,10 @@
     return @"Undefined";
 }
 
-- (NSString *)udoFile
+- (NSString *)udoString
 {
     //Override in subclass
-    return @"Undefined";
+    return @"";
 }
 
 @end

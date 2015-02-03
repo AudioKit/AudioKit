@@ -18,6 +18,6 @@
 
 /// Instantiates the declick
 /// @param audioSource Audio to declick
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithInput:(AKAudio *)audioSource;
 
 @end

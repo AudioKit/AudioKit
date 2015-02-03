@@ -16,7 +16,7 @@
     AKAudio *ain;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithInput:(AKAudio *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -33,6 +33,15 @@
 
 - (NSString *) udoFile {
     return [[NSBundle mainBundle] pathForResource: @"declick" ofType: @"udo"];
+}
+
+- (NSString *)udoString {
+    return @"\n"
+    "opcode declick, a, a\n"
+    "ain     xin\n"
+    "aenv    linseg 0, 0.02, 1, p3 - 0.05, 1, 0.02, 0, 0.01, 0\n"
+    "xout ain * aenv         ; apply envelope and write output\n"
+    "endop\n";
 }
 
 
