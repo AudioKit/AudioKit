@@ -85,10 +85,6 @@
 /// @param newOperation New operation to add to the instrument.
 - (void)connect:(AKParameter *)newOperation;
 
-/// Adds the User-Defined Operation to the instrument (and the opcode defintion .udo file)
-/// @param newUserDefinedOperation New UDO to add to the instrument.
-- (void)addUDO:(AKParameter *)newUserDefinedOperation;
-
 /// Adds any string to the output file, useful for testing and commenting.
 /// @param newString New string to add to the instrument definition.
 - (void)addString:(NSString *)newString;
