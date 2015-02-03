@@ -14,20 +14,20 @@
 
 @interface AKMix : AKAudio
 
-/// Create a weighted mean of two signals using a balance point.
-/// @param signal1 First signal
-/// @param signal2 Second signal
-/// @param balancePoint A number from 0 (all signal 1) to 1 (all signal 2).
-- (instancetype)initWithSignal1:(AKParameter *)signal1
-                        signal2:(AKParameter *)signal2
+/// Create a weighted mean of two inputs using a balance point.
+/// @param input1 First input
+/// @param input2 Second input
+/// @param balancePoint A number from 0 (all input 1) to 1 (all input 2).
+- (instancetype)initWithInput1:(AKParameter *)input1
+                        input2:(AKParameter *)input2
                         balance:(AKParameter *)balancePoint;
 
 /// Set the minimum balance point.
-/// @param minimumBalancePoint The value for which the balance point would indicate all signal 1.
+/// @param minimumBalancePoint The value for which the balance point would indicate all input 1.
 - (void)setMinimumBalancePoint:(AKConstant *)minimumBalancePoint;
 
 /// Set the maximum balance point.
-/// @param maximumBalancePoint The value for which the balance point would indicate all
+/// @param maximumBalancePoint The value for which the balance point would indicate all input 2.
 - (void)setMaximumBalancePoint:(AKConstant *)maximumBalancePoint;
 
 @end

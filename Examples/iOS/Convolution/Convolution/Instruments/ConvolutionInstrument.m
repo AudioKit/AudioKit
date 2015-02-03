@@ -49,16 +49,16 @@
         
         
         AKMix *balance;
-        balance = [[AKMix alloc] initWithSignal1:dishConv
-                                         signal2:wellConv
-                                         balance:_dishWellBalance];
+        balance = [[AKMix alloc] initWithInput1:dishConv
+                                         input2:wellConv
+                                        balance:_dishWellBalance];
         [self connect:balance];
         
         
         AKMix *dryWet;
-        dryWet = [[AKMix alloc] initWithSignal1:loop.leftOutput
-                                        signal2:balance
-                                        balance:_dryWetBalance];
+        dryWet = [[AKMix alloc] initWithInput1:loop.leftOutput
+                                        input2:balance
+                                       balance:_dryWetBalance];
         [self connect:dryWet];
         
         // AUDIO OUTPUT ========================================================

@@ -22,8 +22,8 @@ class Instrument : AKInstrument {
         connect(audio)
 
         let mono = AKMix(
-            signal1: audio.leftOutput,
-            signal2: audio.rightOutput,
+            input1: audio.leftOutput,
+            input2: audio.rightOutput,
             balance: testDuration.ak)
         connect(mono)
 
@@ -48,7 +48,7 @@ class Processor : AKInstrument {
         variableDelay.delayTime = delayTime
         connect(variableDelay)
 
-        let mix = AKMix(signal1: audioSource, signal2: variableDelay, balance: 0.5.ak)
+        let mix = AKMix(input1: audioSource, input2: variableDelay, balance: 0.5.ak)
         connect(mix)
 
         enableParameterLog(

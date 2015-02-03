@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         connect(audio)
 
-        let mono = AKMix(signal1: audio.leftOutput, signal2: audio.rightOutput, balance: 0.5.ak)
+        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
         connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
@@ -44,7 +44,7 @@ class Processor : AKInstrument {
         flanger.feedback = feedback
         connect(flanger)
 
-        let mix = AKMix(signal1: audioSource, signal2: flanger, balance: 0.5.ak)
+        let mix = AKMix(input1: audioSource, input2: flanger, balance: 0.5.ak)
         connect(mix)
 
         enableParameterLog(

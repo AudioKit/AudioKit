@@ -18,7 +18,11 @@ class Instrument : AKInstrument {
         let note = Note()
         addNoteProperty(note.frequency)
         
-        let adsr = AKLinearEnvelope(riseTime: 0.2.ak, decayTime: 0.2.ak, totalDuration: 0.5.ak, amplitude: 0.25.ak)
+        let adsr = AKLinearEnvelope(
+            riseTime: 0.2.ak,
+            decayTime: 0.2.ak,
+            totalDuration: 0.5.ak,
+            amplitude: 0.25.ak)
         connect(adsr)
         
         let bowedString = AKBowedString()

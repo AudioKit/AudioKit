@@ -20,8 +20,8 @@
     AKParameter *current;
 }
 
-- (instancetype)initWithSignal1:(AKParameter *)signal1
-                        signal2:(AKParameter *)signal2
+- (instancetype)initWithInput1:(AKParameter *)input1
+                        input2:(AKParameter *)input2
                         balance:(AKParameter *)balancePoint;
 {
     self = [super initWithString:[self operationName]];
@@ -29,8 +29,8 @@
         min = akp(0.0);
         max = akp(1.0);
         current = balancePoint;
-        in1 = signal1;
-        in2 = signal2;
+        in1 = input1;
+        in2 = input2;
     }
     return self;
 }
