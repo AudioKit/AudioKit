@@ -17,7 +17,7 @@
     AKConstant *iWinType;
 }
 
-- (instancetype)initWithInput:(AKAudio *)audioSource
+- (instancetype)initWithInput:(AKParameter *)audioSource
                       fftSize:(AKConstant *)fftSize
                       overlap:(AKConstant *)overlap
                    windowType:(AKFFTWindowType)windowType
@@ -38,7 +38,7 @@
 - (NSString *)stringForCSD
 {
     return[NSString stringWithFormat:
-           @"%@ pvsanal %@, %@, %@, %@, %@",
+           @"%@ pvsanal AKAudio(%@), %@, %@, %@, %@",
            self, aIn, iFFTSize, iOverlap, iWinSize, iWinType];
 }
 
