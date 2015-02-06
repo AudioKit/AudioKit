@@ -180,25 +180,24 @@ static int currentID = 1;
     return new;
 }
 
-- (instancetype)floor;
-{
+- (instancetype)mathWithOperation:(NSString *)operation{
     AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"floor(%@)", _parameterString]];
+    [new setParameterString:[NSString stringWithFormat:@"%@(%@)", operation, _parameterString]];
     return new;
 }
 
-- (instancetype)round;
-{
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"round(%@)", _parameterString]];
-    return new;
+- (instancetype)floor          { return [self mathWithOperation:@"floor"]; }
+- (instancetype)round          { return [self mathWithOperation:@"round"]; }
+- (instancetype)fractionalPart { return [self mathWithOperation:@"frac"];  }
+
+- (instancetype)absoluteValue  { return [self mathWithOperation:@"abs"];   }
+- (instancetype)log            { return [self mathWithOperation:@"log"];   }
+- (instancetype)log10          { return [self mathWithOperation:@"log10"]; }
+- (instancetype)squareRoot     { return [self mathWithOperation:@"sqrt"];  }
+
+- (instancetype)amplitudeFromFullScaleDecibel {
+    return [self mathWithOperation:@"ampdbfs"];
 }
 
-- (instancetype)amplitudeFromFullScaleDecibel;
-{
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
-    return new;
-}
 
 @end
