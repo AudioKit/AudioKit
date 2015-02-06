@@ -140,17 +140,6 @@ static int currentID = 1;
     [self setValue:((random * width) + self.minimum)];
 }
 
-- (void)floor
-{
-    [self setValue:floorf(self.value)];
-}
-
-- (void)round
-{
-    [self setValue:roundf(self.value)];
-}
-
-
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Helper Functions
@@ -191,12 +180,25 @@ static int currentID = 1;
     return new;
 }
 
+- (instancetype)floor;
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"floor(%@)", _parameterString]];
+    return new;
+}
+
+- (instancetype)round;
+{
+    AKParameter *new = [[AKParameter alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"round(%@)", _parameterString]];
+    return new;
+}
+
 - (instancetype)amplitudeFromFullScaleDecibel;
 {
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"ampdbfs(%@)", _parameterString]];
     return new;
 }
-
 
 @end
