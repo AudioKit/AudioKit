@@ -20,7 +20,6 @@
 {
     conv = [[ConvolutionInstrument alloc] init];
     [AKOrchestra addInstrument:conv];
-    [AKOrchestra start];
 }
 
 - (IBAction)start:(id)sender {

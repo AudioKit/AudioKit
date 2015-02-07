@@ -42,7 +42,6 @@
     
     granularInstrument = [[GranularInstrument alloc] init];
     [AKOrchestra addInstrument:granularInstrument];
-    [AKOrchestra start];
     
     [self updateSliders];
 }

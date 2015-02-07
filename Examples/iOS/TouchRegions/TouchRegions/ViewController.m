@@ -38,7 +38,7 @@
     
     fm = [[FMOscillator alloc] init];
     [AKOrchestra addInstrument:fm];
-    [AKOrchestra start];
+
     fm.amplitude.value = fm.amplitude.minimum;
     [fm play];
     leftTouchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-350, -350, 50, 50) ];

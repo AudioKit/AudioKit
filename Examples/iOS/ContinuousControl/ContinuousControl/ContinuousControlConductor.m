@@ -41,7 +41,6 @@
 
         self.tweakableInstrument = [[TweakableInstrument alloc] init];
         [AKOrchestra addInstrument:_tweakableInstrument];
-        [AKOrchestra start];
     }
     
     return self;

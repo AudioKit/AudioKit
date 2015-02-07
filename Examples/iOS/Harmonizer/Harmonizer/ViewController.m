@@ -26,7 +26,6 @@
     sampler = [[AKSampler alloc] init];
     harmonizer = [[HarmonizerInstrument alloc] init];
     [AKOrchestra addInstrument:harmonizer];
-    [AKOrchestra start];
 }
 
 - (IBAction)startRecording:(id)sender {
