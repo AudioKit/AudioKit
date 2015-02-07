@@ -21,6 +21,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    [[AKManager sharedManager] enableAudioInput];
+    
     sampler = [[AKSampler alloc] init];
     harmonizer = [[HarmonizerInstrument alloc] init];
     [AKOrchestra addInstrument:harmonizer];

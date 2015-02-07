@@ -201,8 +201,6 @@ static AKManager *_sharedManager = nil;
 
 - (void)runOrchestra
 {
-    [self enableAudioInput];
-
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
