@@ -87,7 +87,6 @@
 - (void)addInstrument:(AKInstrument *)newInstrument
 {
     [_instruments addObject:newInstrument];
-    [newInstrument joinOrchestra:self];
 }
 
 // -----------------------------------------------------------------------------
