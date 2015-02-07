@@ -191,7 +191,8 @@ static int currentID = 1;
 
 - (NSString *)stopStringForCSD
 {
-    return [NSString stringWithFormat:@"i \"DeactivateInstrument\" 0 0.1 %i\n", _myID ];
+    int deactivatingInstrument = 1000;
+    return [NSString stringWithFormat:@"i %d 0 0.1 %i\n", deactivatingInstrument, _myID ];
 }
 
 

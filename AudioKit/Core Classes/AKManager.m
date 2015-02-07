@@ -148,11 +148,11 @@ static AKManager *_sharedManager = nil;
         "\n"
         "\%@\n\n"
         "; Deactivates a complete instrument\n"
-        "instr DeactivateInstrument\n"
+        "instr 1000\n"
         "turnoff2 p4, 0, 1\n"
         "endin\n\n"
         "; Event End or Note Off\n"
-        "instr DeactivateNote\n"
+        "instr 1001\n"
         "turnoff2 p4, 4, 1\n"
         "endin\n\n"
         "</CsInstruments>\n\n"
@@ -307,7 +307,7 @@ static AKManager *_sharedManager = nil;
 
 - (void)stopInstrument:(AKInstrument *)instrument
 {
-    if (_isLogging) NSLog(@"Stopping Instrument with '%@'", [instrument stopStringForCSD]);
+    if (_isLogging) NSLog(@"Stopping Instrument %d", [instrument instrumentNumber]);
     if (isBatching) {
         batchInstructions = [batchInstructions stringByAppendingString:[instrument stopStringForCSD]];
         batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
