@@ -7,7 +7,8 @@
 //
 
 #import "AKManager.h"
-#import "CsoundObj.h"
+
+#import "AKStereoAudio.h" // Used for replace instrument which should be refactored
 
 @interface AKManager () <CsoundObjListener> {
     NSString *options;
@@ -97,6 +98,7 @@ static AKManager *_sharedManager = nil;
         }
         
         csound = [[CsoundObj alloc] init];
+        _engine= csound; 
         [csound addListener:self];
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         

@@ -13,9 +13,13 @@
 #import "AKSequence.h"
 #import "AKWeightedSumOfSinusoids.h"
 
+#import "CsoundObj.h"
+
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
 @interface AKManager : NSObject
+
+@property CsoundObj *engine;
 
 /// Determines whether or not AudioKit is available to send events to.
 @property (readonly) BOOL isRunning;
