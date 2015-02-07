@@ -46,7 +46,7 @@
 
 /// Adds an instrument to orchestra and informs the instrument which orchestra it now belongs to.
 /// @param newInstrument Instrument that will be added to the orchestra.
-- (void)addInstrument:(AKInstrument *)newInstrument;
+- (void)addInstrument:(AKInstrument *)instrument;
 
 // @returns The complete CSD File representation for the orchestra including UDOs and instruments.
 - (NSString *)stringForCSD;
