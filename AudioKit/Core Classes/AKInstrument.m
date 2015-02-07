@@ -57,7 +57,8 @@ static int currentID = 1;
 
 - (void) addProperty:(AKInstrumentProperty *)newProperty
 {
-    [_properties addObject:newProperty];
+    NSString *name = [NSString stringWithFormat:@"%@Property", [self uniqueName]];
+    [self addProperty:newProperty withName:name];
 }
 
 - (void) addProperty:(AKInstrumentProperty *)newProperty
