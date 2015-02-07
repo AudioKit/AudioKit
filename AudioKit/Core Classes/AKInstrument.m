@@ -32,9 +32,9 @@ static int currentID = 1;
         _myID = currentID++;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
-        _userDefinedOperations = [[NSMutableSet alloc] init];
         _functionTables = [[NSMutableSet alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
+        _userDefinedOperations = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""];
     }
     return self;
@@ -97,7 +97,8 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-    [_userDefinedOperations addObject:newOperation];
+    
+    [_userDefinedOperations addObject:[newOperation udoString]];
     [innerCSDRepresentation appendString:[newOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }

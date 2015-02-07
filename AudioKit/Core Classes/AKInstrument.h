@@ -75,10 +75,9 @@
 #  pragma mark - Operations
 // -----------------------------------------------------------------------------
 
-/** All UDOs that are required by the instrument are stored here and declared before any
- instrument blocks. */
 @property (nonatomic, strong) NSMutableSet *userDefinedOperations;
 
+/// Globally accessible parameters used for cross-instrument communication
 @property (nonatomic, strong) NSMutableSet *globalParameters;
 
 /// Adds the operation to the AKInstrument.

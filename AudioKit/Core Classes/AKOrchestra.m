@@ -26,6 +26,10 @@
 {
     self = [super init];
     if (self) {
+        
+        _userDefinedOperations = [[NSMutableSet alloc] init];
+        _functionTables = [[NSMutableSet alloc] init];
+        
         NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
         NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
         
@@ -51,7 +55,6 @@
 #  pragma mark - Starting and Testing
 // -----------------------------------------------------------------------------
 
-
 + (void)start
 {
     if (![[AKManager sharedManager] isRunning]) {
@@ -72,7 +75,6 @@
         [[AKManager sharedManager] runOrchestraForDuration:duration];
     }
 }
-
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
@@ -97,6 +99,7 @@
     
     if ([[AKManager sharedManager] numberOfSineWaveReferences] > 0) {
         [instrumentString appendString:[[AKManager standardSineWave] stringForCSD]];
+        [instrumentString appendString:@"\n"];
     }
     
     for (AKFunctionTable *functionTable in instrument.functionTables) {
@@ -112,12 +115,28 @@
         }
         [instrumentString appendString:@"\n"];
     }
-    [instrumentString appendString:@"\n"];
+
+    // Skip UDOs we already included somewhere
+    for (NSString *udo in instrument.userDefinedOperations) {
+        if ([[[[AKManager sharedManager] orchestra] userDefinedOperations] containsObject:udo]) {
+            [instrument.userDefinedOperations removeObject:udo];
+        }
+    }
+    if (instrument.userDefinedOperations.count > 0) {
+        [instrumentString appendString:@"\n;--- User-defined operations ---\n"];
+        for (NSString *udo in instrument.userDefinedOperations) {
+            [instrumentString appendFormat:@"%@\n", udo];
+            [[[[AKManager sharedManager] orchestra] userDefinedOperations] addObject:udo];
+        }
+    }
     
     [instrumentString appendFormat:@"instr %i\n", [instrument instrumentNumber]];
     [instrumentString appendString:[NSString stringWithFormat:@"%@\n",[instrument stringForCSD]]];
     [instrumentString appendString:@"endin\n"];
-    NSLog(@"%@", instrumentString);
+    
+    if ([[AKManager sharedManager] isLogging]) {
+        NSLog(@"%@", instrumentString);
+    }
     
     [[[AKManager sharedManager] engine] updateOrchestra:instrumentString];
     
