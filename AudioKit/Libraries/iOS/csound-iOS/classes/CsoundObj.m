@@ -310,6 +310,20 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     return data;
 }
 
+- (NSData *)getInSamples
+{
+    if (!mCsData.running) {
+        return nil;
+    }
+    CSOUND *csound = [self getCsound];
+    float *spout = csoundGetSpin(csound);
+    int nchnls = csoundGetNchnls(csound);
+    int ksmps = csoundGetKsmps(csound);
+    NSData* data = [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
+    return data;
+}
+
+
 - (int)getNumChannels
 {
     if (!mCsData.running) {

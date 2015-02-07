@@ -132,6 +132,8 @@ typedef struct {
                    channelType:(controlChannelType)channelType;
 
 - (NSData *)getOutSamples;
+- (NSData *)getInSamples;
+
 - (int)getNumChannels;
 - (int)getKsmps;
 
