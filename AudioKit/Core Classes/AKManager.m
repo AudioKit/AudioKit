@@ -206,7 +206,6 @@ static AKManager *_sharedManager = nil;
         [self stop];
     }
     [self writeCSDFileForOrchestra:_orchestra];
-    [self updateBindingsWithProperties:_orchestra];
     
     [csound play:csdFile];
     if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
@@ -334,16 +333,6 @@ static AKManager *_sharedManager = nil;
         batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
     } else {
         [csound sendScore:[note stringForCSD]];
-    }
-}
-
-- (void)updateBindingsWithProperties:(AKOrchestra *)orchestra
-{
-    NSArray *arr = [NSArray arrayWithArray:[orchestra instruments]];
-    for (AKInstrument *instrument in arr ) {
-        for (AKInstrumentProperty *c in [instrument properties]) {
-            [csound addBinding:(AKInstrumentProperty<CsoundBinding> *)c];
-        }
     }
 }
 
