@@ -110,11 +110,6 @@
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
 
-/// Sets the orchestra as internal variable so that when the instrument is asked to play,
-/// it sends the event to the appropriate orchestra.
-/// @param orchestraToJoin Orchestra to which the instrument belongs.
-- (void)joinOrchestra:(AKOrchestra *)orchestraToJoin;
-
 // The textual respresentation of the instrument in CSD form.
 - (NSString *)stringForCSD;
 

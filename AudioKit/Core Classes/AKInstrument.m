@@ -13,7 +13,6 @@
 
 @implementation AKInstrument
 {
-    AKOrchestra *orchestra;
     NSMutableString *innerCSDRepresentation;
     int _myID;
 }
@@ -161,11 +160,6 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
-
-- (void)joinOrchestra:(AKOrchestra *)orchestraToJoin
-{
-    orchestra = orchestraToJoin;
-}
 
 - (NSString *)stringForCSD
 {
