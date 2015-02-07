@@ -169,6 +169,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 - (void)addBinding:(id<CsoundBinding>)binding
 {
     if (binding != nil) {
+        [binding setup:self];
         [_bindings addObject:binding];
     }
 }
@@ -177,14 +178,6 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 {
     if (binding != nil && [_bindings containsObject:binding]) {
         [_bindings removeObject:binding];
-    }
-}
-
-- (void)setupBindings
-{
-    for (int i = 0; i < _bindings.count; i++) {
-        id<CsoundBinding> binding = [_bindings objectAtIndex:i];
-        [binding setup:self];
     }
 }
 
@@ -433,7 +426,6 @@ OSStatus  Csound_Render(void *inRefCon,
             (char*)[[paths objectAtIndex:0] cStringUsingEncoding:NSASCIIStringEncoding], "-o", (char*)[[paths objectAtIndex:1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 4, argv);
         
-        [self setupBindings];
         [self notifyListenersOfStartup];
         
         [self updateAllValuesToCsound];
@@ -482,8 +474,6 @@ OSStatus  Csound_Render(void *inRefCon,
             mCsData.useAudioInput = _useAudioInput;
             AudioStreamBasicDescription format;
             OSStatus err;
-            
-            [self setupBindings];
             
             /* Audio Session handler */
             AVAudioSession* session = [AVAudioSession sharedInstance];
