@@ -80,6 +80,10 @@
 
 + (void)addInstrument:(AKInstrument *)instrument
 {
+    [AKOrchestra start];
+    while (![[AKManager sharedManager] isRunning]) {
+        // do nothing
+    }
     [[[AKManager sharedManager] orchestra] addInstrument:instrument];
 }
 

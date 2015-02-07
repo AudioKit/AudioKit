@@ -22,7 +22,6 @@
         // Create the orchestra and instruments
         audioFilePlayer = [[AudioFilePlayer alloc] init];
         [AKOrchestra addInstrument:audioFilePlayer];
-        [AKOrchestra start];
     }
     return self;
 }

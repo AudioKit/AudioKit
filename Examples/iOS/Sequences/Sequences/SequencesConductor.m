@@ -22,7 +22,6 @@
     if (self) {
         instrument = [[SeqInstrument alloc] init];
         [AKOrchestra addInstrument:instrument];
-        [AKOrchestra start];
     }
     return self;
 }

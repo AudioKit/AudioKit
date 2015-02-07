@@ -31,9 +31,6 @@
         fx = [[EffectsProcessor alloc] initWithAudioSource:toneGenerator.auxilliaryOutput];
         [AKOrchestra addInstrument:toneGenerator];
         [AKOrchestra addInstrument:fx];
-        
-        [AKOrchestra start];
-        
         [fx play];
     }
     return self;
