@@ -7,7 +7,6 @@
 //
 
 #import "AKAudioInput.h"
-#import "AKFoundation.h"
 
 @implementation AKAudioInput
 
@@ -17,7 +16,6 @@
 }
 
 - (NSString *)stringForCSD {
-    [[AKManager sharedManager] enableAudioInput];
     return [NSString stringWithFormat:@"%@, aUnused ins", self];
 }
 
