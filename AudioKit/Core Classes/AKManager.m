@@ -209,11 +209,6 @@ static AKManager *_sharedManager = nil;
     [csound play:csdFile];
     if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
     
-    // Clean up the IDs for next time
-    //[AKParameter resetID]; //Should work but generating lots of out of bounds errors
-    [AKInstrument resetID];
-    [AKNote resetID];
-    
     // Pause to allow Csound to start, warn if nothing happens after 1 second
     int cycles = 0;
     while(!_isRunning) {
