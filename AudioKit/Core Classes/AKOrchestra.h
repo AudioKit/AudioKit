@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @class AKInstrument;
-@class AKUserDefinedOperation;
 @class AKEvent;
 @class AKSequence;
 @class AKParameter;
@@ -18,14 +17,15 @@
  */
 @interface AKOrchestra : NSObject
 
+/** All UDOs that are required by the instrument are stored here and declared before any
+ instrument blocks. */
+@property (nonatomic, strong) NSMutableSet *userDefinedOperations;
+
 /// Determines the value from which to scale all other amplitudes
 @property (nonatomic, assign) float zeroDBFullScaleValue;
 
 /// The number of channels, ie. mono=1, stereo=2, hexaphonic=6.  Can affect both output and input.
 @property (readonly) int numberOfChannels;
-
-/// All the instruments in the orchestra, in order they need to be created.
-@property (nonatomic, strong) NSMutableArray *instruments;
 
 /// Global function tables not added by a specific instrument
 @property (nonatomic, strong) NSMutableSet *functionTables;
@@ -48,7 +48,7 @@
 /// @param instrument Instrument that will be added to the orchestra.
 - (void)addInstrument:(AKInstrument *)instrument;
 
-// @returns The complete CSD File representation for the orchestra including UDOs and instruments.
+// @returns The initial CSD File representation for the orchestra including UDOs.
 - (NSString *)stringForCSD;
 
 @end

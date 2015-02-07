@@ -56,27 +56,28 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
+    
     [csdString appendFormat:@"%@ decimator ", self];
-
+    
     if ([_input class] == [AKAudio class]) {
         [csdString appendFormat:@"%@, ", _input];
     } else {
         [csdString appendFormat:@"AKAudio(%@), ", _input];
     }
-
+    
     if ([_bitDepth class] == [AKControl class]) {
         [csdString appendFormat:@"%@, ", _bitDepth];
     } else {
         [csdString appendFormat:@"AKControl(%@), ", _bitDepth];
     }
-
+    
     if ([_sampleRate class] == [AKControl class]) {
         [csdString appendFormat:@"%@", _sampleRate];
     } else {
         [csdString appendFormat:@"AKControl(%@)", _sampleRate];
     }
-return csdString;
+    return csdString;
 }
 
 - (NSString *)udoString {
