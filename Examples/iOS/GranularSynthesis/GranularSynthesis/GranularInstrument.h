@@ -10,10 +10,12 @@
 
 @interface GranularInstrument : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *averageGrainDuration;
-@property (nonatomic, strong) AKInstrumentProperty *grainDensity;
-@property (nonatomic, strong) AKInstrumentProperty *granularFrequencyDeviation;
-@property (nonatomic, strong) AKInstrumentProperty *granularAmplitude;
+@property (nonatomic, strong) AKInstrumentProperty *mix;
+@property (nonatomic, strong) AKInstrumentProperty *frequency;
+@property (nonatomic, strong) AKInstrumentProperty *duration;
+@property (nonatomic, strong) AKInstrumentProperty *density;
+@property (nonatomic, strong) AKInstrumentProperty *frequencyVariation;
+@property (nonatomic, strong) AKInstrumentProperty *frequencyVariationDistribution;
 
 @end
 
