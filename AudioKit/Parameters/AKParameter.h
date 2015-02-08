@@ -112,12 +112,6 @@
 /// Randomize the current value between the minimum and maximum values
 - (void)randomize;
 
-/// Set the current value to an integer by subtracting away everything after the decimal point
-- (void)floor;
-
-/// Set current value equal to the nearest integer
-- (void)round;
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Helper Functions
 // -----------------------------------------------------------------------------
@@ -140,6 +134,27 @@
 
 /// Helper function to return one-over-this-parameter
 - (instancetype)inverse;
+
+/// Helper function to create an integer
+- (instancetype)floor;
+
+/// Helper function to create an integer
+- (instancetype)round;
+
+/// Helper function to return fractional part
+- (instancetype)fractionalPart;
+
+/// Helper function to return absolute value
+- (instancetype)absoluteValue;
+
+/// Helper function to return natural log
+- (instancetype)log;
+
+/// Helper function to return log base 10
+- (instancetype)log10;
+
+/// Helper function to return square root
+- (instancetype)squareRoot;
 
 /// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
 - (instancetype)amplitudeFromFullScaleDecibel;
