@@ -10,11 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var toggleSwitchClicked: UISwitch!
-    @IBOutlet var averageGrainDurationControl : UISlider!
-    @IBOutlet var grainDensityControl : UISlider!
-    @IBOutlet var freqDevControl : UISlider!
-    @IBOutlet var amplitudeControl : UISlider!
+    @IBOutlet var toggleSwitch: UISwitch!
+    @IBOutlet var mixSlider : UISlider!
+    @IBOutlet var frequencySlider : UISlider!
+    @IBOutlet var durationSlider : UISlider!
+    @IBOutlet var densitySlider : UISlider!
+    @IBOutlet var frequencyVariationSlider : UISlider!
+    @IBOutlet var frequencyVariationDistributionSlider : UISlider!
     
     let granularSynth = GranularSynth();
     
@@ -35,31 +37,42 @@ class ViewController: UIViewController {
     
     func updateSliders()->Void
     {
-        AKTools.setSlider(averageGrainDurationControl, withProperty: granularSynth.averageGrainDuration)
-        AKTools.setSlider(grainDensityControl, withProperty: granularSynth.grainDensity)
-        AKTools.setSlider(freqDevControl, withProperty: granularSynth.granularFrequencyDeviation)
-        AKTools.setSlider(amplitudeControl, withProperty: granularSynth.granularAmplitude)
+        AKTools.setSlider(mixSlider, withProperty: granularSynth.mix)
+        AKTools.setSlider(frequencySlider, withProperty: granularSynth.frequency)
+        AKTools.setSlider(durationSlider,  withProperty: granularSynth.duration)
+        AKTools.setSlider(densitySlider,   withProperty: granularSynth.density)
+        AKTools.setSlider(frequencyVariationSlider, withProperty: granularSynth.frequencyVariation)
+        AKTools.setSlider(frequencyVariationDistributionSlider, withProperty: granularSynth.frequencyVariationDistribution)
     }
     
     
     @IBAction func toggleGranularInstrument(sender: AnyObject) {
-        toggleSwitchClicked.on ?  granularSynth.play() : granularSynth.stop()
+        toggleSwitch.on ?  granularSynth.play() : granularSynth.stop()
+    }
+    
+    @IBAction func mixChanged(sender: UISlider) {
+        AKTools.setProperty(granularSynth.mix, withSlider:sender)
+    }
+    
+    @IBAction func frequencyChanged(sender: UISlider) {
+        AKTools.setProperty(granularSynth.frequency, withSlider:sender)
+    }
+    
+    @IBAction func durationChanged(sender: UISlider) {
+        AKTools.setProperty(granularSynth.duration, withSlider:sender)
+    }
+    
+    @IBAction func denistyChanged(sender: UISlider) {
+        AKTools.setProperty(granularSynth.density, withSlider:sender)
+    }
+
+    @IBAction func frequencyVariationChanged(sender: UISlider) {
+        AKTools.setProperty(granularSynth.frequencyVariation, withSlider:sender)
+    }
+    
+    @IBAction func frequencyVariationDistributionChanged(sender: UISlider) {
+        AKTools.setProperty(granularSynth.frequencyVariationDistribution, withSlider:sender)
     }
     
 
-    @IBAction func averageGrainDurationControl(sender: AnyObject) {
-        AKTools.setProperty(granularSynth.averageGrainDuration, withSlider: sender as UISlider)
-    }
-    
-    @IBAction func grainDensityControl(sender: AnyObject) {
-        AKTools.setProperty(granularSynth.grainDensity, withSlider: sender as UISlider)
-    }
-    
-    @IBAction func freqDevControl(sender: AnyObject) {
-        AKTools.setProperty(granularSynth.granularFrequencyDeviation, withSlider: sender as UISlider)
-    }
-    
-    @IBAction func amplitudeControl(sender: AnyObject) {
-        AKTools.setProperty(granularSynth.granularAmplitude, withSlider: sender as UISlider)
-    }
 }

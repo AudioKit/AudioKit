@@ -17,48 +17,79 @@
     if (self)
     {
         // INPUTS AND CONTROLS =================================================
-        _averageGrainDuration       = [[AKInstrumentProperty alloc] initWithValue:0.25 minimum:0.1  maximum:0.4];
-        _grainDensity               = [[AKInstrumentProperty alloc] initWithValue:300  minimum:10   maximum:600];
-        _granularFrequencyDeviation = [[AKInstrumentProperty alloc] initWithValue:0.05 minimum:0    maximum:0.1];
-        _granularAmplitude          = [[AKInstrumentProperty alloc] initWithValue:0.1  minimum:0.01 maximum:0.2];
+        _mix = [[AKInstrumentProperty alloc] initWithValue:0.5
+                                                   minimum:0
+                                                   maximum:1];
         
-        [self addProperty:_averageGrainDuration];
-        [self addProperty:_grainDensity];
-        [self addProperty:_granularFrequencyDeviation];
-        [self addProperty:_granularAmplitude];
+        _frequency = [[AKInstrumentProperty alloc] initWithValue:0.2
+                                                         minimum:0.01
+                                                         maximum:10];
+        
+        _duration = [[AKInstrumentProperty alloc] initWithValue:10
+                                                        minimum:0.1
+                                                        maximum:20];
+        
+        _density = [[AKInstrumentProperty alloc] initWithValue:1
+                                                       minimum:0.1
+                                                       maximum:2];
+        
+        _frequencyVariation = [[AKInstrumentProperty alloc] initWithValue:10
+                                                                  minimum:0.1
+                                                                  maximum:  20];
+        
+        _frequencyVariationDistribution = [[AKInstrumentProperty alloc] initWithValue:10
+                                                                              minimum:0.1
+                                                                              maximum:20];
+        
+        [self addProperty:_mix];
+        [self addProperty:_frequency];
+        [self addProperty:_duration];
+        [self addProperty:_density];
+        [self addProperty:_frequencyVariation];
+        [self addProperty:_frequencyVariationDistribution];
         
         // INSTRUMENT DEFINITION ===============================================
         
         NSString *file = [[NSBundle mainBundle] pathForResource:@"PianoBassDrumLoop"
                                                          ofType:@"wav"];
-        AKSoundFile *fileTable;
-        fileTable = [[AKSoundFile alloc] initWithFilename:file];
-        fileTable.size = 16384;
-        [self addFunctionTable:fileTable];
+        AKSoundFile *soundFile;
+        soundFile = [[AKSoundFile alloc] initWithFilename:file];
+        soundFile.size = 16384;
+        [self addFunctionTable:soundFile];
         
-        AKFunctionTable *hamming;
-        hamming = [[AKWindow alloc] initWithType:AKWindowTableTypeHamming];
-        hamming.size = 512;
-        [self addFunctionTable:hamming];
+        AKGranularSynthesizer *synth;
+        synth = [[AKGranularSynthesizer alloc] initWithGrainWaveform:soundFile
+                                                           frequency:_frequency];
+        synth.duration = _duration;
+        synth.density = _density;
+        synth.frequencyVariation = _frequencyVariation;
+        synth.frequencyVariationDistribution = _frequencyVariationDistribution;
+        [self connect:synth];
         
-        AKConstant *baseFrequency;
-        NSString *frequencyMathString = [NSString stringWithFormat:@"44100 / %@", [fileTable length]];
-        baseFrequency = [[AKConstant alloc] initWithExpression:frequencyMathString];
+        NSString *file2 = [[NSBundle mainBundle] pathForResource:@"808loop"
+                                                         ofType:@"wav"];
+        AKSoundFile *soundFile2;
+        soundFile2 = [[AKSoundFile alloc] initWithFilename:file2];
+        soundFile2.size = 16384;
+        [self addFunctionTable:soundFile2];
         
-        AKGranularSynthesisTexture *grainTexture;
-        grainTexture = [AKGranularSynthesisTexture textureWithGrainFunctionTable:fileTable
-                                                             windowFunctionTable:hamming];
-        grainTexture.averageGrainDuration = _averageGrainDuration;
-        grainTexture.maximumFrequencyDeviation = _granularFrequencyDeviation;
-        grainTexture.grainFrequency = baseFrequency;
-        grainTexture.grainAmplitude = _granularAmplitude;
-        grainTexture.grainDensity = _grainDensity;
+        AKGranularSynthesizer *synth2;
+        synth2 = [[AKGranularSynthesizer alloc] initWithGrainWaveform:soundFile2
+                                                           frequency:_frequency];
+        synth2.duration = _duration;
+        synth2.density = _density;
+        synth2.frequencyVariation = _frequencyVariation;
+        synth2.frequencyVariationDistribution = _frequencyVariationDistribution;
+        [self connect:synth2];
         
-        [self connect:grainTexture];
+        AKMix *mixer = [[AKMix alloc] initWithInput1:synth
+                                              input2:synth2
+                                             balance:_mix];
+        [self connect:mixer];
         
         // AUDIO OUTPUT ========================================================
         
-        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:grainTexture];
+        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:[mixer scaledBy:akp(0.5)]];
         [self connect:audio];
     }
     return self;
