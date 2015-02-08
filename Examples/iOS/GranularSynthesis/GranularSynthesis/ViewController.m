@@ -19,17 +19,12 @@
     BOOL isGranularInstrumentPlaying;
 }
 
-@property (strong, nonatomic) IBOutlet UISlider *averageGrainDurationSlider;
-- (IBAction)averageGrainDurationControl:(id)sender;
-
-@property (strong, nonatomic) IBOutlet UISlider *grainDensitySlider;
-- (IBAction)grainDensityControl:(id)sender;
-
-@property (strong, nonatomic) IBOutlet UISlider *freqDevSlider;
-- (IBAction)freqDevControl:(id)sender;
-
-@property (strong, nonatomic) IBOutlet UISlider *amplitudeSlider;
-- (IBAction)amplitudeControl:(id)sender;
+@property (strong, nonatomic) IBOutlet UISlider *mixSlider;
+@property (strong, nonatomic) IBOutlet UISlider *frequencySlider;
+@property (strong, nonatomic) IBOutlet UISlider *durationSlider;
+@property (strong, nonatomic) IBOutlet UISlider *densitySlider;
+@property (strong, nonatomic) IBOutlet UISlider *frequencyVariationSlider;
+@property (strong, nonatomic) IBOutlet UISlider *frequencyVariationDistributionSlider;
 
 @end
 
@@ -43,7 +38,6 @@
     granularInstrument = [[GranularInstrument alloc] init];
     [AKOrchestra addInstrument:granularInstrument];
     [AKOrchestra start];
-    
     [self updateSliders];
 }
 
@@ -55,14 +49,18 @@
 
 - (void)updateSliders
 {
-    [AKTools setSlider:self.averageGrainDurationSlider
-          withProperty:granularInstrument.averageGrainDuration];
-    [AKTools setSlider:self.grainDensitySlider
-          withProperty:granularInstrument.grainDensity];
-    [AKTools setSlider:self.freqDevSlider
-          withProperty:granularInstrument.granularFrequencyDeviation];
-    [AKTools setSlider:self.amplitudeSlider
-          withProperty:granularInstrument.granularAmplitude];
+    [AKTools setSlider:self.mixSlider
+          withProperty:granularInstrument.mix];
+    [AKTools setSlider:self.frequencySlider
+          withProperty:granularInstrument.frequency];
+    [AKTools setSlider:self.durationSlider
+          withProperty:granularInstrument.duration];
+    [AKTools setSlider:self.densitySlider
+          withProperty:granularInstrument.density];
+    [AKTools setSlider:self.frequencyVariationSlider
+          withProperty:granularInstrument.frequencyVariation];
+    [AKTools setSlider:self.frequencyVariationDistributionSlider
+          withProperty:granularInstrument.frequencyVariationDistribution];
 }
 
 - (IBAction)toggleGranularInstrument:(id)sender
@@ -76,28 +74,28 @@
     }
 }
 
-- (IBAction)averageGrainDurationControl:(id)sender
-{
-    [AKTools setProperty:granularInstrument.averageGrainDuration
-              withSlider:(UISlider *)sender];
+- (IBAction)mixChanged:(UISlider *)sender {
+    [AKTools setProperty:granularInstrument.mix withSlider:sender];
 }
 
-- (IBAction)grainDensityControl:(id)sender
-{
-    [AKTools setProperty:granularInstrument.grainDensity
-              withSlider:(UISlider *)sender];
+- (IBAction)frequencyChanged:(UISlider *)sender {
+    [AKTools setProperty:granularInstrument.frequency withSlider:sender];
 }
 
-- (IBAction)freqDevControl:(id)sender
-{
-    [AKTools setProperty:granularInstrument.granularFrequencyDeviation
-              withSlider:(UISlider *)sender];
+- (IBAction)durationChanged:(UISlider *)sender {
+    [AKTools setProperty:granularInstrument.duration withSlider:sender];
 }
 
-- (IBAction)amplitudeControl:(id)sender
-{
-    [AKTools setProperty:granularInstrument.granularAmplitude
-              withSlider:(UISlider *)sender];
+- (IBAction)denistyChanged:(UISlider *)sender {
+    [AKTools setProperty:granularInstrument.density withSlider:sender];
+}
+
+- (IBAction)frequencyVariationChanged:(UISlider *)sender {
+    [AKTools setProperty:granularInstrument.frequencyVariation withSlider:sender];
+}
+
+- (IBAction)frequencyVariationDistributionChanged:(UISlider *)sender {
+    [AKTools setProperty:granularInstrument.frequencyVariationDistribution withSlider:sender];
 }
 
 @end

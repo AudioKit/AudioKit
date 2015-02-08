@@ -14,6 +14,7 @@
 		C427F0661A4CE01300734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F0641A4CE01300734A80 /* 808loop.wav */; };
 		C427F0671A4CE01300734A80 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F0651A4CE01300734A80 /* PianoBassDrumLoop.wav */; };
 		C42F209F1A8017700011BC44 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C42F209E1A8017700011BC44 /* AudioKit.plist */; };
+		C448A0C01A872DEB005DF13D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C448A0BF1A872DEB005DF13D /* Main.storyboard */; };
 		C46B25BB1A78857500328AF3 /* AKCrossSynthesizedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B25AA1A78857500328AF3 /* AKCrossSynthesizedFFT.m */; };
 		C46B25BC1A78857500328AF3 /* AKFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B25AC1A78857500328AF3 /* AKFFT.m */; };
 		C46B25BD1A78857500328AF3 /* AKFFTProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C46B25AE1A78857500328AF3 /* AKFFTProcessor.m */; };
@@ -143,7 +144,6 @@
 		E481E8BA19DF54F8004BDD9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E481E8B919DF54F8004BDD9E /* Images.xcassets */; };
 		E481EADC19DF5557004BDD9E /* GranularInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = E481EADB19DF5557004BDD9E /* GranularInstrument.m */; };
 		E481EAE019DF55B1004BDD9E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E481EADF19DF55B1004BDD9E /* ViewController.m */; };
-		E481EAE319DF55BE004BDD9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481EAE119DF55BE004BDD9E /* Main.storyboard */; };
 		E4C00DEB1A7EEB3D00FD7CA2 /* AKAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C00DDE1A7EEB3D00FD7CA2 /* AKAssignment.m */; };
 		E4C00DEC1A7EEB3D00FD7CA2 /* AKMaximum.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C00DE01A7EEB3D00FD7CA2 /* AKMaximum.m */; };
 		E4C00DED1A7EEB3D00FD7CA2 /* AKMinimum.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C00DE21A7EEB3D00FD7CA2 /* AKMinimum.m */; };
@@ -165,6 +165,7 @@
 		C427F0641A4CE01300734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427F0651A4CE01300734A80 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
 		C42F209E1A8017700011BC44 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
+		C448A0BF1A872DEB005DF13D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C46B25A91A78857500328AF3 /* AKCrossSynthesizedFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCrossSynthesizedFFT.h; sourceTree = "<group>"; };
 		C46B25AA1A78857500328AF3 /* AKCrossSynthesizedFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCrossSynthesizedFFT.m; sourceTree = "<group>"; };
 		C46B25AB1A78857500328AF3 /* AKFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFFT.h; sourceTree = "<group>"; };
@@ -449,7 +450,6 @@
 		E481EADB19DF5557004BDD9E /* GranularInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GranularInstrument.m; sourceTree = "<group>"; };
 		E481EADE19DF55B1004BDD9E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E481EADF19DF55B1004BDD9E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E481EAE119DF55BE004BDD9E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E4C00DDD1A7EEB3D00FD7CA2 /* AKAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAssignment.h; sourceTree = "<group>"; };
 		E4C00DDE1A7EEB3D00FD7CA2 /* AKAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAssignment.m; sourceTree = "<group>"; };
 		E4C00DDF1A7EEB3D00FD7CA2 /* AKMaximum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMaximum.h; sourceTree = "<group>"; };
@@ -1111,7 +1111,7 @@
 				E481EADD19DF5560004BDD9E /* Instruments */,
 				E481EADE19DF55B1004BDD9E /* ViewController.h */,
 				E481EADF19DF55B1004BDD9E /* ViewController.m */,
-				E481EAE119DF55BE004BDD9E /* Main.storyboard */,
+				C448A0BF1A872DEB005DF13D /* Main.storyboard */,
 				E481E8B919DF54F8004BDD9E /* Images.xcassets */,
 				E481E8AC19DF54F8004BDD9E /* Supporting Files */,
 			);
@@ -1198,9 +1198,9 @@
 				C427EED71A4CDD3500734A80 /* marmstk1.wav in Resources */,
 				C427F0661A4CE01300734A80 /* 808loop.wav in Resources */,
 				C478C55D1A09F57800705D4E /* LICENSE.TXT in Resources */,
+				C448A0C01A872DEB005DF13D /* Main.storyboard in Resources */,
 				C427EED61A4CDD3500734A80 /* mandpluk.aif in Resources */,
 				C42F209F1A8017700011BC44 /* AudioKit.plist in Resources */,
-				E481EAE319DF55BE004BDD9E /* Main.storyboard in Resources */,
 				E481E8BA19DF54F8004BDD9E /* Images.xcassets in Resources */,
 				C427F0671A4CE01300734A80 /* PianoBassDrumLoop.wav in Resources */,
 			);
