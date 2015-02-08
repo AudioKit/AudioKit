@@ -39,6 +39,7 @@ class Processor : AKInstrument {
         let variableFrequencyResponseBandPassFilter = AKVariableFrequencyResponseBandPassFilter(audioSource: audioSource)
         variableFrequencyResponseBandPassFilter.cutoffFrequency = cutoffFrequency
         variableFrequencyResponseBandPassFilter.bandwidth = bandwidth
+        variableFrequencyResponseBandPassFilter.scalingFactor = AKVariableFrequencyResponseBandPassFilter.scalingFactorPeak()
         connect(variableFrequencyResponseBandPassFilter)
 
         let balance = AKBalance(input: variableFrequencyResponseBandPassFilter, comparatorAudioSource: audioSource)
