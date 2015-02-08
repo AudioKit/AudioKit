@@ -57,10 +57,10 @@ class BambooNote: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-AKOrchestra.testForDuration(testDuration)
 
 let phrase = AKPhrase()
 

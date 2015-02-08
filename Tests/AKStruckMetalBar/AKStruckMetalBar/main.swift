@@ -11,19 +11,19 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = StruckMetalBarNote()
         addNoteProperty(note.strikePosition)
         addNoteProperty(note.strikeWidth)
-        
+
         let struckMetalBar = AKStruckMetalBar()
         struckMetalBar.strikePosition = note.strikePosition
         struckMetalBar.strikeWidth = note.strikeWidth
         connect(struckMetalBar)
-        
+
         enableParameterLog(
             "Strike Position = ",
             parameter: struckMetalBar.strikePosition,
@@ -41,14 +41,14 @@ class Instrument : AKInstrument {
 class StruckMetalBarNote: AKNote {
     var strikePosition = AKNoteProperty()
     var strikeWidth = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(strikePosition)
         addProperty(strikeWidth)
     }
-    
-    
+
+
     convenience init(strikePostion: Float, strikeWidth: Float) {
         self.init()
         self.strikePosition.setValue(strikePostion)
@@ -56,9 +56,11 @@ class StruckMetalBarNote: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(testDuration)
+
 let phrase = AKPhrase()
 
 for i in 1...10 {

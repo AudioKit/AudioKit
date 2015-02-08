@@ -19,9 +19,10 @@ class Instrument : AKInstrument {
     }
 }
 
+AKOrchestra.testForDuration(10)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(10)
 
 let phrase = AKPhrase()
 for index in 1...40 {

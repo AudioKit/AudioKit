@@ -18,13 +18,13 @@ class Instrument : AKInstrument {
         let mandolin = AKMandolin()
         mandolin.frequency = note.frequency
         connect(mandolin)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: mandolin.frequency,
             timeInterval:2
         )
- 
+
         connect(AKAudioOutput(audioSource:mandolin))
     }
 }
@@ -41,10 +41,10 @@ class Note: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(4)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-AKOrchestra.testForDuration(4)
 
 let note1 = Note(frequency: 440)
 note1.duration.setValue(1.0)

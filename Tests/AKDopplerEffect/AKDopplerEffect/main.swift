@@ -34,10 +34,10 @@ class Instrument : AKInstrument {
     }
 }
 
+AKOrchestra.testForDuration(5)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-AKOrchestra.testForDuration(5)
 
 instrument.play()
 

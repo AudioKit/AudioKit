@@ -33,10 +33,11 @@ class Note: AKNote {
     }
 }
 
-let instrument = Instrument()
-AKOrchestra.addInstrument(instrument)
 
 AKOrchestra.testForDuration(4)
+
+let instrument = Instrument()
+AKOrchestra.addInstrument(instrument)
 
 let note1 = Note(frequency: 440)
 let note2 = Note(frequency: 550)

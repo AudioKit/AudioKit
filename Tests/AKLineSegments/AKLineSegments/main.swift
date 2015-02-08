@@ -18,7 +18,7 @@ class Instrument : AKInstrument {
         lineSegments.addValue(0, atIndex: 4)
         lineSegments.size = 8192
         addFunctionTable(lineSegments)
-        
+
         let exponentialCurves = AKExponentialCurves(value: 0.1)
         exponentialCurves.addValue(1, atIndex: 1  )
         exponentialCurves.appendValue(0.1, afterNumberOfElements: 1)
@@ -27,13 +27,14 @@ class Instrument : AKInstrument {
         exponentialCurves.size = 16384
         addFunctionTable(exponentialCurves)
     }
-    
+
 }
+
+AKOrchestra.testForDuration(10)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(10)
 
 instrument.play()
 

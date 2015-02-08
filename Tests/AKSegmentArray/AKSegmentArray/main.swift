@@ -11,10 +11,10 @@ import Foundation
 let testDuration: Float = 10
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let segments = AKSegmentArray(
             initialValue: 440.ak,
             targetValue: 660.ak,
@@ -27,22 +27,22 @@ class Instrument : AKInstrument {
         segments.addValue(220.ak, afterDuration: 6.ak, concavity:(-5).ak)
         segments.addValue(220.ak, afterDuration: 1.ak, concavity:0.ak)
         connect(segments)
-        
+
         enableParameterLog("segment value = ", parameter: segments, timeInterval: 0.1)
-        
+
         let oscillator = AKOscillator()
         oscillator.frequency = segments
         connect(oscillator)
-        
+
         let output = AKAudioOutput(audioSource: oscillator)
         connect(output)
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 

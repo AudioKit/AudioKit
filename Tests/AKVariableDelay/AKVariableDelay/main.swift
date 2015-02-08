@@ -63,12 +63,13 @@ class Processor : AKInstrument {
     }
 }
 
+AKOrchestra.testForDuration(10)
+
 let instrument = Instrument()
 let processor = Processor(audioSource: instrument.auxilliaryOutput)
+
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
-
-AKOrchestra.testForDuration(10)
 
 processor.play()
 instrument.play()

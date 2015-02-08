@@ -29,7 +29,7 @@ class Instrument : AKInstrument {
         let panner = AKPanner(input: oscillator)
         panner.pan = pan
         connect(panner)
-        
+
         enableParameterLog(
             "Pan = ",
             parameter: panner.pan,
@@ -53,17 +53,15 @@ class Note: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(testDuration)
-
 let note1 = Note()
-// specify properties and create more notes here
 
 let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
-// add more phrase notes here
 
 instrument.playPhrase(phrase)
 

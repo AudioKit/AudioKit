@@ -14,26 +14,26 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let frequencyLine = AKLine(
             firstPoint: 110.ak,
             secondPoint: 880.ak,
             durationBetweenPoints: testDuration.ak
         )
         connect(frequencyLine)
-        
+
         let frequencyLineDeviation = AKOscillator()
         frequencyLineDeviation.frequency = 1.ak
         frequencyLineDeviation.amplitude = 30.ak
         connect(frequencyLineDeviation)
-        
+
         let toneGenerator = AKOscillator()
         toneGenerator.frequency = frequencyLine.plus(frequencyLineDeviation)
         connect(toneGenerator)
-        
+
         let output = AKAudioOutput(audioSource: toneGenerator)
         connect(output)
-        
+
         let tracker = AKTrackedFrequency(
             audioSource: toneGenerator,
             sampleSize: 512.ak
@@ -54,12 +54,10 @@ class Instrument : AKInstrument {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
 
-// Set Up
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(testDuration)
 
 instrument.play()
 

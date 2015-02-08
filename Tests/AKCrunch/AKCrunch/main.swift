@@ -55,9 +55,11 @@ class CrunchNote: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(testDuration)
+
 let phrase = AKPhrase()
 
 for i in 1...10 {

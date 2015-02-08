@@ -11,32 +11,32 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = Note()
-        
+
         addNoteProperty(note.frequency)
         let filename = "CsoundLib64.framework/Sounds/marmstk1.wav"
-        
+
         let functionTable = AKSoundFile(filename: filename)
         addFunctionTable(functionTable)
-        
+
         let excitation = AKMonoSoundFileLooper(soundFile: functionTable)
         excitation.loopMode = AKMonoSoundFileLooper.loopPlaysOnce()
         connect(excitation)
-        
+
         let pluckedString = AKPluckedString(excitationSignal: excitation)
         pluckedString.frequency = note.frequency
         connect(pluckedString)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: pluckedString.frequency,
             timeInterval:20
         )
-        
+
         connect(AKAudioOutput(audioSource:pluckedString))
     }
 }
@@ -53,10 +53,10 @@ class Note: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-AKOrchestra.testForDuration(testDuration)
 
 let note1 = Note(frequency: 440)
 note1.duration.setValue(6.0)
