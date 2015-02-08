@@ -169,7 +169,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
 - (void)addBinding:(id<CsoundBinding>)binding
 {
     if (binding != nil) {
-        [binding setup:self];
+        if (mCsData.running) [binding setup:self];
         [_bindings addObject:binding];
     }
 }
