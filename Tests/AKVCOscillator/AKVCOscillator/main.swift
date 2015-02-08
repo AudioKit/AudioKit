@@ -14,7 +14,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let note = VCONote()
         addNoteProperty(note.waveformType)
 
@@ -38,24 +38,23 @@ class Instrument : AKInstrument {
 
 class VCONote: AKNote {
     var waveformType = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(waveformType)
     }
-    
+
     convenience init(waveformType: AKConstant) {
         self.init()
         self.waveformType.setValue(waveformType.value())
     }
 }
 
-
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(testDuration)
 let note1 = VCONote(waveformType: AKVCOscillator.waveformTypeForSquare())
 let note2 = VCONote(waveformType: AKVCOscillator.waveformTypeForSawtooth())
 let note3 = VCONote(waveformType: AKVCOscillator.waveformTypeForSquareWithPWM())

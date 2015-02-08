@@ -34,18 +34,18 @@ class Note: AKNote {
         addProperty(frequency)
         self.frequency.setValue(440)
     }
-    
+
     convenience init(frequency startingFrequency: Float) {
         self.init()
         frequency.setValue(startingFrequency)
     }
 }
 
-// Set Up
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(testDuration)
 
 let note1 = Note(frequency: 440)
 note1.duration.setValue(0.5)

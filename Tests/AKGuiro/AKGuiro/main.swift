@@ -18,18 +18,18 @@ class Instrument : AKInstrument {
         let note = GuiroNote()
         addNoteProperty(note.count)
         addNoteProperty(note.mainResonantFrequency)
-        
+
         let guiro = AKGuiro()
         guiro.count = note.count
         guiro.mainResonantFrequency = note.mainResonantFrequency
         connect(guiro)
-        
+
         enableParameterLog(
             "Count = ",
             parameter: guiro.count,
             timeInterval:2
         )
-        
+
         enableParameterLog(
             "Main Resonant Frequency = ",
             parameter: guiro.mainResonantFrequency,
@@ -42,13 +42,13 @@ class Instrument : AKInstrument {
 class GuiroNote: AKNote {
     var count = AKNoteProperty()
     var mainResonantFrequency = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(count)
         addProperty(mainResonantFrequency)
     }
-    
+
     convenience init(count: Int, mainResonantFrequency: Float) {
         self.init()
         self.count.setValue(Float(count))
@@ -56,9 +56,11 @@ class GuiroNote: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(testDuration)
+
 let phrase = AKPhrase()
 
 for i in 1...10 {

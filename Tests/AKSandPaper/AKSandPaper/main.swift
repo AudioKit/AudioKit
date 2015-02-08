@@ -11,19 +11,19 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = SandPaperNote()
         addNoteProperty(note.intensity)
         addNoteProperty(note.dampingFactor)
-        
+
         let sandPaper = AKSandPaper()
         sandPaper.intensity = note.intensity
         sandPaper.dampingFactor = note.dampingFactor
         connect(sandPaper)
-        
+
         enableParameterLog(
             "Intensity = ",
             parameter: sandPaper.intensity,
@@ -41,13 +41,13 @@ class Instrument : AKInstrument {
 class SandPaperNote: AKNote {
     var intensity = AKNoteProperty()
     var dampingFactor = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(intensity)
         addProperty(dampingFactor)
     }
-    
+
     convenience init(intensity: Int, dampingFactor: Float) {
         self.init()
         self.intensity.setValue(Float(intensity))
@@ -55,9 +55,11 @@ class SandPaperNote: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(testDuration)
+
 let phrase = AKPhrase()
 
 for i in 1...10 {

@@ -54,10 +54,10 @@ class Note: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(testDuration)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-AKOrchestra.testForDuration(testDuration)
 
 let note1 = Note(frequency: 440)
 note1.duration.setValue(0.50)

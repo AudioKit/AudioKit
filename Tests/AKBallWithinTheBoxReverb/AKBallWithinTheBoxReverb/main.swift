@@ -96,14 +96,13 @@ class Processor : AKInstrument {
         resetParameter(audioSource)
     }
 }
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 let processor = Processor(audioSource: instrument.auxilliaryOutput)
 
 AKOrchestra.addInstrument(instrument)
 AKOrchestra.addInstrument(processor)
-
-AKOrchestra.testForDuration(testDuration)
 
 processor.play()
 instrument.playNote(AKNote(), afterDelay: 0.5)

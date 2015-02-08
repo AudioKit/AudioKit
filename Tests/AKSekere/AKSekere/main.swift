@@ -14,7 +14,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let note = SekereNote()
         addNoteProperty(note.count)
         addNoteProperty(note.dampingFactor)
@@ -23,19 +23,19 @@ class Instrument : AKInstrument {
         sekere.count = note.count
         sekere.dampingFactor = note.dampingFactor
         connect(sekere)
-        
+
         enableParameterLog(
             "Count = ",
             parameter: sekere.count,
             timeInterval:2
         )
-        
+
         enableParameterLog(
             "Damping Factor = ",
             parameter: sekere.dampingFactor,
             timeInterval:2
         )
-        
+
         connect(AKAudioOutput(audioSource:sekere .scaledBy(30.ak)))
     }
 }
@@ -43,13 +43,13 @@ class Instrument : AKInstrument {
 class SekereNote: AKNote {
     var count = AKNoteProperty()
     var dampingFactor = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(count)
         addProperty(dampingFactor)
     }
-    
+
     convenience init(count: Int, dampingFactor: Float) {
         self.init()
         self.count.setValue(Float(count))
@@ -57,11 +57,10 @@ class SekereNote: AKNote {
     }
 }
 
-
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKOrchestra.testForDuration(testDuration)
 
 let phrase = AKPhrase()
 

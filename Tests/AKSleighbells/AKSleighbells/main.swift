@@ -54,13 +54,12 @@ class Note: AKNote {
     }
 }
 
+AKOrchestra.testForDuration(5)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-AKOrchestra.testForDuration(5)
-
 let note1 = Note()
-// specify properties and create more notes here
 
 let phrase = AKPhrase()
 phrase.addNote(note1, atTime:1.0)

@@ -32,11 +32,10 @@ class Note: AKNote {
     }
 }
 
-// Set Up
+AKOrchestra.testForDuration(10)
+
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
-AKOrchestra.testForDuration(10)
 
 while(AKManager.sharedManager().isRunning) {} //do nothing
 println("Test complete!")

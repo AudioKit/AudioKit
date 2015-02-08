@@ -26,11 +26,10 @@ class Instrument : AKInstrument {
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-AKOrchestra.testForDuration(testDuration)
 
 let note1 = AKNote()
 let note2 = AKNote()
