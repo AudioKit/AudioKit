@@ -163,6 +163,14 @@
                                _zeroDBFullScaleValue,
                                samplesPerControlPeriod]];
     [initialFile appendString:@"\n"];
+    if ([[AKManager sharedManager] numberOfSineWaveReferences] > 0) {
+        [initialFile appendString:[[AKManager standardSineWave] stringForCSD]];
+    }
+    [initialFile appendString:@"\n"];
+    for (AKFunctionTable *functionTable in _functionTables) {
+        [initialFile appendString:[functionTable stringForCSD]];
+        [initialFile appendString:@"\n"];
+    }
     return initialFile;
 }
 
