@@ -12,14 +12,22 @@
 {
     AKFunctionTableType igen;
     AKConstant *output;
+    int _myFunctionNumber;
 }
 
+static int currentID = 1000;
++ (void)resetID { currentID = 1000; }
+
+- (int)number {
+    return _myFunctionNumber;
+}
 - (instancetype)initWithType:(AKFunctionTableType)functionTableType
                         size:(int)tableSize
                   parameters:(AKArray *)parameters
 {
     self = [super init];
     if (self) {
+         _myFunctionNumber = currentID++;
         output = [AKConstant globalParameterWithString:[self functionName]];
         _size = tableSize;
         igen = functionTableType;
@@ -58,11 +66,11 @@
     }
     NSString *text;
     if (_parameters == nil) {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@",
-                output, _size, akpi(igen)];
+        text = [NSString stringWithFormat:@"%@ ftgen %d, 0, %i, %@",
+                output, [self number], _size, akpi(igen)];
     } else {
-        text = [NSString stringWithFormat:@"%@ ftgen 0, 0, %i, %@, %@",
-                output, _size, akpi(igen), [_parameters parameterString]];
+        text = [NSString stringWithFormat:@"%@ ftgen %d, 0, %i, %@, %@",
+                output, [self number], _size, akpi(igen), [_parameters parameterString]];
     }
     return text;
 }

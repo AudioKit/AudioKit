@@ -44,8 +44,9 @@
     float modifier = self.standardDeviation;
     if (self.windowType == AKWindowTableTypeKaiser) modifier = self.kaiserOpenness;
     
-    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %d, -%lu, %d, %f, %f",
+    return [NSString stringWithFormat:@"%@ ftgen %d, 0, %d, -%lu, %d, %f, %f",
             self,
+            [self number],
             self.size,
             (unsigned long)AKFunctionTableTypeWindow,
             (int)self.windowType,
