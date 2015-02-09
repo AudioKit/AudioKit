@@ -26,6 +26,9 @@
 /// The size of the FunctionTable
 @property int size;
 
+/// The number of the function table
+- (int)number;
+
 /// The name of the function
 - (NSString *)functionName;
 

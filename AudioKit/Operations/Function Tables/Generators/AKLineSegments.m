@@ -59,8 +59,9 @@
     for (NSArray *point in scaledPoints) {
         [flattenedPoints addObject:[point componentsJoinedByString:@", "]];
     }
-    return [NSString stringWithFormat:@"%@ ftgen 0, 0, %d, -%lu, %@",
+    return [NSString stringWithFormat:@"%@ ftgen %d, 0, %d, -%lu, %@",
             self,
+            [self number],
             self.size,
             (unsigned long)AKFunctionTableTypeStraightLines,
             [flattenedPoints componentsJoinedByString:@", "]];
