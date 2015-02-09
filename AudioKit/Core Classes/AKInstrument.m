@@ -40,6 +40,21 @@ static int currentID = 1;
     return self;
 }
 
+- (instancetype)initWithNumber:(int)instrumentNumber
+{
+    self = [super init];
+    if (self) {
+        _myID = instrumentNumber;
+        _properties = [[NSMutableArray alloc] init];
+        _noteProperties = [[NSMutableArray alloc] init];
+        _functionTables = [[NSMutableSet alloc] init];
+        _globalParameters = [[NSMutableSet alloc] init];
+        _userDefinedOperations = [[NSMutableSet alloc] init];
+        innerCSDRepresentation = [NSMutableString stringWithString:@""];
+    }
+    return self;
+}
+
 - (int)instrumentNumber
 {
     return _myID;
