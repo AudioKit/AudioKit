@@ -24,6 +24,8 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
+- (instancetype)initWithNumber:(int)instrumentNumber;
+
 /// Unique instrument number
 - (int)instrumentNumber;
 
