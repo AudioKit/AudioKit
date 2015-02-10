@@ -27,9 +27,6 @@
 /// The number of channels, ie. mono=1, stereo=2, hexaphonic=6.  Can affect both output and input.
 @property (readonly) int numberOfChannels;
 
-/// Global function tables not added by a specific instrument
-@property (nonatomic, strong) NSMutableSet *functionTables;
-
 /// Start the orchestra
 + (void)start;
 

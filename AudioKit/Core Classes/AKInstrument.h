@@ -61,12 +61,8 @@
 #  pragma mark - Function Tables
 // -----------------------------------------------------------------------------
 
-/** All FunctionTables that are required by the instrument are stored here and declared
- once in the F-Statement section. */
-@property (nonatomic, strong) NSMutableSet *functionTables;
-
 /// Adds the function table to the Orchestra, so it is only processed once.
-/// @param newFunctionTable New function table to add to the instrument.
+/// @param newFunctionTable New function table to add to the orchestra.
 - (void)addFunctionTable:(AKFunctionTable *)newFunctionTable;
 
 /// Adds the function table to the AKInstrument dynamically, processed for each note.
