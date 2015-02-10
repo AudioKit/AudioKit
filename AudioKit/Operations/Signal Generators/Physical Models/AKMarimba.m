@@ -102,8 +102,9 @@
 
     AKSoundFile *_strikeImpulseTable;
     _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
-    [[[[AKManager sharedManager] orchestra] functionTables] addObject:_strikeImpulseTable];
-            
+    AKInstrument *temp = [[AKInstrument alloc] init];
+    [temp addFunctionTable:_strikeImpulseTable];
+    
     AKConstant *_maximumDuration = akp(1);        
     [csdString appendFormat:@"%@ marimba ", self];
 

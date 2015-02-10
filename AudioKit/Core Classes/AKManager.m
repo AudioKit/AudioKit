@@ -57,8 +57,13 @@ static AKManager *_sharedManager = nil;
     return nil;
 }
 
-- (AKWeightedSumOfSinusoids *)standardSineWave {
+- (AKWeightedSumOfSinusoids *)standardSineWave
+{
+    if (_numberOfSineWaveReferences == 0) {
+        [[[AKInstrument alloc] init] addFunctionTable:_standardSineWave]; // AOP
+    }
     _numberOfSineWaveReferences++;
+
     return _standardSineWave;
 }
 

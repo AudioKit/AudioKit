@@ -28,7 +28,6 @@
     if (self) {
         
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        _functionTables = [[NSMutableSet alloc] init];
         
         NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
         NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -97,15 +96,6 @@
 
     [instrumentString appendString:@";--- Global Parameters ---\n"];
     
-    if ([[AKManager sharedManager] numberOfSineWaveReferences] > 0) {
-        [instrumentString appendString:[[AKManager standardSineWave] stringForCSD]];
-        [instrumentString appendString:@"\n"];
-    }
-    
-    for (AKFunctionTable *functionTable in instrument.functionTables) {
-        [instrumentString appendString:[functionTable stringForCSD]];
-        [instrumentString appendString:@"\n"];
-    }
     for (AKParameter *globalParameter in instrument.globalParameters) {
         [instrumentString appendString:@"\n"];
         if ([globalParameter class] == [AKStereoAudio class]) {
@@ -162,17 +152,7 @@
                                sampleRate,
                                _zeroDBFullScaleValue,
                                samplesPerControlPeriod]];
-    [initialFile appendString:@"\n"];
-    if ([[AKManager sharedManager] numberOfSineWaveReferences] > 0) {
-        [initialFile appendString:[[AKManager standardSineWave] stringForCSD]];
-    }
-    [initialFile appendString:@"\n"];
-    for (AKFunctionTable *functionTable in _functionTables) {
-        [initialFile appendString:[functionTable stringForCSD]];
-        [initialFile appendString:@"\n"];
-    }
     return initialFile;
 }
-
 
 @end

@@ -29,10 +29,15 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
+        // Since instruments can add function tables upon initialization,
+        // Start the orchestra immediately
+        [AKOrchestra start];
+        while (![[AKManager sharedManager] isRunning]) {
+            // do nothing
+        }        
         _myID = currentID++;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
-        _functionTables = [[NSMutableSet alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""];
@@ -44,10 +49,15 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
+        // Since instruments can add function tables upon initialization,
+        // Start the orchestra immediately
+        [AKOrchestra start];
+        while (![[AKManager sharedManager] isRunning]) {
+            // do nothing
+        }
         _myID = instrumentNumber;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
-        _functionTables = [[NSMutableSet alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
         innerCSDRepresentation = [NSMutableString stringWithString:@""];
@@ -97,7 +107,11 @@ static int currentID = 1;
 
 - (void)addFunctionTable:(AKFunctionTable *)newFunctionTable
 {
-    [_functionTables addObject:newFunctionTable];
+    if ([[AKManager sharedManager] isLogging]) {
+        NSLog(@"%@", [newFunctionTable stringForCSD]);
+    }
+    
+    [[[AKManager sharedManager] engine] updateOrchestra:[newFunctionTable stringForCSD]];
 }
 
 - (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable

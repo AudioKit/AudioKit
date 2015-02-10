@@ -104,7 +104,9 @@
 }
 
 - (NSString *)stringForCSD {
-    [[[[AKManager sharedManager] orchestra] functionTables] addObject:_windowWaveform];
+    AKInstrument *temp = [[AKInstrument alloc] init];
+    [temp addFunctionTable:_windowWaveform]; //AOP
+
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     // Constant Values  
