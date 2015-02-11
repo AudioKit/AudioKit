@@ -107,5 +107,6 @@ AKOrchestra.addInstrument(processor)
 processor.play()
 instrument.playNote(AKNote(), afterDelay: 0.5)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

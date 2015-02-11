@@ -40,11 +40,11 @@
 // -----------------------------------------------------------------------------
 
 /// Array of instrument properties available for the instrument.
-@property (nonatomic, strong) NSMutableArray *properties;
+@property NSMutableArray *properties;
 
 
 /// Array of note properties available to events.
-@property (nonatomic, strong) NSMutableArray *noteProperties;
+@property NSMutableArray *noteProperties;
 
 /// After an AKProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
@@ -73,10 +73,11 @@
 #  pragma mark - Operations
 // -----------------------------------------------------------------------------
 
-@property (nonatomic, strong) NSMutableSet *userDefinedOperations;
+/// All UDOs that are required by the instrument are stored here and declared before the instrument block.
+@property NSMutableSet *userDefinedOperations;
 
 /// Globally accessible parameters used for cross-instrument communication
-@property (nonatomic, strong) NSMutableSet *globalParameters;
+@property NSMutableSet *globalParameters;
 
 /// Adds the operation to the AKInstrument.
 /// @param newOperation New operation to add to the instrument.

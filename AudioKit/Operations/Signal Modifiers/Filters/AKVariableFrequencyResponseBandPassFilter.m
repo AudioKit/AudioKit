@@ -2,7 +2,7 @@
 //  AKVariableFrequencyResponseBandPassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/8/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's resonz:
@@ -17,15 +17,21 @@
     AKParameter * _audioSource;
 }
 
++ (AKConstant *)scalingFactorNone { return akp(0); }
++ (AKConstant *)scalingFactorPeak { return akp(1); }
++ (AKConstant *)scalingFactorRMS  { return akp(2); }
+
 - (instancetype)initWithAudioSource:(AKParameter *)audioSource
                     cutoffFrequency:(AKParameter *)cutoffFrequency
                           bandwidth:(AKParameter *)bandwidth
+                      scalingFactor:(AKConstant *)scalingFactor
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _audioSource = audioSource;
         _cutoffFrequency = cutoffFrequency;
         _bandwidth = bandwidth;
+        _scalingFactor = scalingFactor;
     }
     return self;
 }
@@ -38,6 +44,7 @@
         // Default Values
         _cutoffFrequency = akp(1000);
         _bandwidth = akp(10);
+        _scalingFactor = akp(0);
     }
     return self;
 }
@@ -52,6 +59,9 @@
 }
 - (void)setOptionalBandwidth:(AKParameter *)bandwidth {
     _bandwidth = bandwidth;
+}
+- (void)setOptionalScalingFactor:(AKConstant *)scalingFactor {
+    _scalingFactor = scalingFactor;
 }
 
 - (NSString *)stringForCSD {
@@ -72,11 +82,13 @@
     }
 
     if ([_bandwidth class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _bandwidth];
+        [csdString appendFormat:@"%@, ", _bandwidth];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _bandwidth];
+        [csdString appendFormat:@"AKControl(%@), ", _bandwidth];
     }
-return csdString;
+
+    [csdString appendFormat:@"%@", _scalingFactor];
+    return csdString;
 }
 
 @end

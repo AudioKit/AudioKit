@@ -10,7 +10,7 @@
 
 @interface ToneGenerator : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *toneColor;
+@property AKInstrumentProperty *toneColor;
 
 @property (readonly) AKAudio *auxilliaryOutput;
 
@@ -22,8 +22,8 @@
 
 @interface ToneGeneratorNote : AKNote
 
-@property (nonatomic, strong) AKNoteProperty *frequency;
-@property (nonatomic, strong) AKNoteProperty *amplitude;
+@property AKNoteProperty *frequency;
+@property AKNoteProperty *amplitude;
 
 - (instancetype)initWithFrequency:(float)frequency;
 

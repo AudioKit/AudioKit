@@ -17,7 +17,7 @@
 
 @interface AudioFilePlayerNote : AKNote
 
-@property (nonatomic, strong) AKNoteProperty *speed;
+@property AKNoteProperty *speed;
 - (instancetype)initWithSpeed:(float)speed;
 
 @end

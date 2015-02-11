@@ -38,5 +38,6 @@ AKManager.sharedManager().isLogging = true
 
 instrument.play()
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

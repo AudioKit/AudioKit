@@ -22,7 +22,7 @@ class Instrument : AKInstrument {
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr
         connect(oscillator)
-        
+
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
@@ -42,5 +42,6 @@ note2.duration.setValue(5.0)
 phrase.addNote(note2, atTime:3.5)
 instrument.playPhrase(phrase)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

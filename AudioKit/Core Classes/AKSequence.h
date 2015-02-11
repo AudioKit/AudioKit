@@ -14,10 +14,10 @@
 @interface AKSequence : NSObject
 
 /// The array of events contained in the sequence.
-@property (nonatomic, strong) NSMutableArray *events;
+@property NSMutableArray *events;
 
 /// The start times for all the events in the sequence.
-@property (nonatomic, strong) NSMutableArray *times;
+@property NSMutableArray *times;
 
 /// Class-level initializer for empty sequence
 + (AKSequence *)sequence;

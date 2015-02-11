@@ -17,10 +17,10 @@
 @interface AKNoteProperty : AKConstant 
 
 /// Optional pretty name for properties useful for debugging.
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic) NSString *name;
 
 /// Note this property belongs to
-@property (nonatomic, strong) AKNote *note;
+@property AKNote *note;
 
 /// Internal reference number
 @property (assign) int pValue;
