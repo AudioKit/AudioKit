@@ -11,21 +11,21 @@ import Foundation
 let testDuration: Float = 11.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = TambourineNote()
         addNoteProperty(note.intensity)
         addNoteProperty(note.dampingFactor)
         addNoteProperty(note.mainResonantFrequency)
-        
+
         let tambourine = AKTambourine()
         tambourine.intensity = note.intensity
         tambourine.dampingFactor = note.dampingFactor
         tambourine.mainResonantFrequency = note.mainResonantFrequency
         connect(tambourine)
-        
+
         enableParameterLog(
             "Intensity = ",
             parameter: tambourine.intensity,
@@ -49,14 +49,14 @@ class TambourineNote: AKNote {
     var intensity = AKNoteProperty()
     var dampingFactor = AKNoteProperty()
     var mainResonantFrequency = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(intensity)
         addProperty(dampingFactor)
         addProperty(mainResonantFrequency)
     }
-    
+
     convenience init(intensity: Int, dampingFactor: Float, mainResonantFrequency: Float) {
         self.init()
         self.intensity.setValue(Float(intensity))
@@ -82,5 +82,6 @@ for i in 1...20 {
 
 instrument.playPhrase(phrase)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

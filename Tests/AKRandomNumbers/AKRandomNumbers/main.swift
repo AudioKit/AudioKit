@@ -9,17 +9,17 @@
 import Foundation
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let randomWidth = AKRandomNumbers()
         connect(randomWidth)
-        
+
         let oscillator = AKOscillator()
         oscillator.frequency = 440.ak.plus(randomWidth.scaledBy(100.ak))
         connect(oscillator)
-        
+
         connect(AKAudioOutput(audioSource:oscillator))
     }
 }
@@ -30,6 +30,7 @@ AKOrchestra.addInstrument(instrument)
 AKOrchestra.testForDuration(2)
 instrument.play()
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")
 

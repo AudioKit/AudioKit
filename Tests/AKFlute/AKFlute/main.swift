@@ -34,7 +34,7 @@ class Note: AKNote {
         addProperty(frequency)
         self.frequency.setValue(440)
     }
-    
+
     convenience init(frequency startingFrequency: Float) {
         self.init()
         frequency.setValue(startingFrequency)
@@ -63,5 +63,6 @@ phrase.addNote(note2, atTime:2.0)
 instrument.playPhrase(phrase)
 
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")
