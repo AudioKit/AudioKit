@@ -10,9 +10,9 @@
 
 @interface TweakableInstrument : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *amplitude;
-@property (nonatomic, strong) AKInstrumentProperty *frequency;
-@property (nonatomic, strong) AKInstrumentProperty *modulation;
-@property (nonatomic, strong) AKInstrumentProperty *modIndex;
+@property AKInstrumentProperty *amplitude;
+@property AKInstrumentProperty *frequency;
+@property AKInstrumentProperty *modulation;
+@property AKInstrumentProperty *modIndex;
 
 @end

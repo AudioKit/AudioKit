@@ -14,9 +14,9 @@
 @interface AKStereoAudio : AKParameter
 
 /// The output to the left channel.
-@property (nonatomic, strong) AKParameter *leftOutput;
+@property AKParameter *leftOutput;
 /// The output to the right channel.
-@property (nonatomic, strong) AKParameter *rightOutput;
+@property AKParameter *rightOutput;
 
 /// Create an audio pair from left and right inputs
 /// @param leftAudio  Left channel input

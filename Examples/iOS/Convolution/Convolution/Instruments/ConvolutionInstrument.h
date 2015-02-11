@@ -10,8 +10,8 @@
 
 @interface ConvolutionInstrument : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *dishWellBalance;
-@property (nonatomic, strong) AKInstrumentProperty *dryWetBalance;
+@property AKInstrumentProperty *dishWellBalance;
+@property AKInstrumentProperty *dryWetBalance;
 
 @property (readonly) AKAudio *auxilliaryOutput;
 

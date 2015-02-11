@@ -38,11 +38,11 @@
 // -----------------------------------------------------------------------------
 
 /// Array of instrument properties available for the instrument.
-@property (nonatomic, strong) NSMutableArray *properties;
+@property NSMutableArray *properties;
 
 
 /// Array of note properties available to events.
-@property (nonatomic, strong) NSMutableArray *noteProperties;
+@property NSMutableArray *noteProperties;
 
 /// After an AKProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
@@ -61,7 +61,7 @@
 
 /** All FunctionTables that are required by the instrument are stored here and declared
  once in the F-Statement section. */
-@property (nonatomic, strong) NSMutableSet *functionTables;
+@property NSMutableSet *functionTables;
 
 /// Adds the function table to the Orchestra, so it is only processed once.
 /// @param newFunctionTable New function table to add to the instrument.
@@ -77,9 +77,9 @@
 
 /** All UDOs that are required by the instrument are stored here and declared before any
  instrument blocks. */
-@property (nonatomic, strong) NSMutableSet *userDefinedOperations;
+@property NSMutableSet *userDefinedOperations;
 
-@property (nonatomic, strong) NSMutableSet *globalParameters;
+@property NSMutableSet *globalParameters;
 
 /// Adds the operation to the AKInstrument.
 /// @param newOperation New operation to add to the instrument.

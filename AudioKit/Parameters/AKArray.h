@@ -19,7 +19,7 @@
 - (NSString *)parameterString;
 
 /// The array of parameters stored.
-@property (nonatomic, strong) NSMutableArray *constants;
+@property NSMutableArray *constants;
 
 - (void)addConstant:(AKConstant *)constant;
 

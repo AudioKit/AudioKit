@@ -16,7 +16,7 @@
 @interface AKMidi : NSObject
 
 /// A set of all listeners "subscribed" to MIDI Messages.
-@property (nonatomic, strong) NSMutableSet *listeners;
+@property NSMutableSet *listeners;
 
 /// Add listener to a list of notified listeners
 /// @param listener Object that implements the AKMidiListener protocol
