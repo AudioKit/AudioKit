@@ -33,7 +33,7 @@
 // -----------------------------------------------------------------------------
 
 // The CSD Text representation of the parameter's name
-@property (nonatomic, strong) NSString *parameterString;
+@property NSString *parameterString;
 
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the output file.

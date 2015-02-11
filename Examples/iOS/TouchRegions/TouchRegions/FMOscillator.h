@@ -11,9 +11,9 @@
 
 @interface FMOscillator : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *frequency;
-@property (nonatomic, strong) AKInstrumentProperty *carrierMultiplier;
-@property (nonatomic, strong) AKInstrumentProperty *modulatingMultiplier;
-@property (nonatomic, strong) AKInstrumentProperty *modulationIndex;
-@property (nonatomic, strong) AKInstrumentProperty *amplitude;
+@property AKInstrumentProperty *frequency;
+@property AKInstrumentProperty *carrierMultiplier;
+@property AKInstrumentProperty *modulatingMultiplier;
+@property AKInstrumentProperty *modulationIndex;
+@property AKInstrumentProperty *amplitude;
 @end

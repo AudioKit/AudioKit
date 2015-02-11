@@ -14,7 +14,7 @@
 @interface AKInstrumentProperty : AKControl
 
 /// Optional pretty name for properties useful for debugging.
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic) NSString *name;
 
 // String with the appropriate chnget statement for the CSD File
 - (NSString *)stringForCSDGetValue;

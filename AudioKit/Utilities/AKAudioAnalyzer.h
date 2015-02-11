@@ -10,9 +10,8 @@
 
 @interface AKAudioAnalyzer : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *trackedFrequency;
-
-@property (nonatomic, strong) AKInstrumentProperty *trackedAmplitude;
+@property AKInstrumentProperty *trackedFrequency;
+@property AKInstrumentProperty *trackedAmplitude;
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource;
 

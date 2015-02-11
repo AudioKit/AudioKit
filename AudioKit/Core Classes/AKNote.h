@@ -39,13 +39,13 @@
 // -----------------------------------------------------------------------------
 
 /// Instrument this note belongs to
-@property (nonatomic, strong) AKInstrument *instrument;
+@property (nonatomic) AKInstrument *instrument;
 
 /// Duration of this note (for finite notes with length defined)
-@property (nonatomic, strong) AKNoteProperty *duration;
+@property AKNoteProperty *duration;
 
 /// Set of properties of the note
-@property (nonatomic, strong) NSMutableDictionary *properties;
+@property NSMutableDictionary *properties;
 
 /// Adds the property to the list of available properties of the note
 /// @param newProperty New property to add to the note's set of properties

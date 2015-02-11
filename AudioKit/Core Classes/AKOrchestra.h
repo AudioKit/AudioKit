@@ -25,10 +25,10 @@
 @property (readonly) int numberOfChannels;
 
 /// All the instruments in the orchestra, in order they need to be created.
-@property (nonatomic, strong) NSMutableArray *instruments;
+@property NSMutableArray *instruments;
 
 /// Global function tables not added by a specific instrument
-@property (nonatomic, strong) NSMutableSet *functionTables;
+@property NSMutableSet *functionTables;
 
 /// Start the orchestra
 + (void)start;
