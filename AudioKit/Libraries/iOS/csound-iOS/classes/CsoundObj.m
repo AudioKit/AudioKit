@@ -317,13 +317,12 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
         return nil;
     }
     CSOUND *csound = [self getCsound];
-    float *spout = csoundGetSpin(csound);
+    float *spin = csoundGetSpin(csound);
     int nchnls = csoundGetNchnls(csound);
     int ksmps = csoundGetKsmps(csound);
-    NSData* data = [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
+    NSData* data = [NSData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
     return data;
 }
-
 
 - (int)getNumChannels
 {
