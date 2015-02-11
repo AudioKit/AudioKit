@@ -18,18 +18,18 @@ class Instrument : AKInstrument {
         let note = BambooNote()
         addNoteProperty(note.count)
         addNoteProperty(note.mainResonantFrequency)
-        
+
         let bambooSticks = AKBambooSticks()
         bambooSticks.count = note.count
         bambooSticks.mainResonantFrequency = note.mainResonantFrequency
         connect(bambooSticks)
-        
+
         enableParameterLog(
             "Count = ",
             parameter: bambooSticks.count,
             timeInterval:2
         )
-        
+
         enableParameterLog(
             "Main Resonant Frequency = ",
             parameter: bambooSticks.mainResonantFrequency,
@@ -43,13 +43,13 @@ class Instrument : AKInstrument {
 class BambooNote: AKNote {
     var count = AKNoteProperty()
     var mainResonantFrequency = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(count)
         addProperty(mainResonantFrequency)
     }
-    
+
     convenience init(count: Int, mainResonantFrequency: Float) {
         self.init()
         self.count.setValue(Float(count))
@@ -72,5 +72,6 @@ for i in 1...10 {
 
 instrument.playPhrase(phrase)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

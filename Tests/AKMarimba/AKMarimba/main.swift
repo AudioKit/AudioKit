@@ -11,10 +11,10 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = Note()
         addNoteProperty(note.frequency)
 
@@ -22,13 +22,13 @@ class Instrument : AKInstrument {
 
         marimba.frequency = note.frequency
         connect(marimba)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: marimba.frequency,
             timeInterval:2
         )
-        
+
         connect(AKAudioOutput(audioSource:marimba))
     }
 }
@@ -66,5 +66,6 @@ phrase.addNote(note2, atTime:2.0)
 instrument.playPhrase(phrase)
 
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

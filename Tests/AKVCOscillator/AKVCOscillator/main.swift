@@ -14,7 +14,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let note = VCONote()
         addNoteProperty(note.waveformType)
 
@@ -38,12 +38,12 @@ class Instrument : AKInstrument {
 
 class VCONote: AKNote {
     var waveformType = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(waveformType)
     }
-    
+
     convenience init(waveformType: AKConstant) {
         self.init()
         self.waveformType.setValue(waveformType.value())
@@ -71,5 +71,6 @@ instrument.playNote(note2, afterDelay: 2.0)
 instrument.playNote(note3, afterDelay: 4.0)
 instrument.playNote(note4, afterDelay: 6.0)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

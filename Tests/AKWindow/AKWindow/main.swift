@@ -38,5 +38,6 @@ AKOrchestra.addInstrument(instrument)
 AKManager.sharedManager().isLogging = true
 AKOrchestra.testForDuration(10)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

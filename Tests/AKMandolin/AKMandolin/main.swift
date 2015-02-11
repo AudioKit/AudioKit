@@ -18,13 +18,13 @@ class Instrument : AKInstrument {
         let mandolin = AKMandolin()
         mandolin.frequency = note.frequency
         connect(mandolin)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: mandolin.frequency,
             timeInterval:2
         )
- 
+
         connect(AKAudioOutput(audioSource:mandolin))
     }
 }
@@ -62,5 +62,6 @@ phrase.addNote(note2, atTime:2.0)
 instrument.playPhrase(phrase)
 
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

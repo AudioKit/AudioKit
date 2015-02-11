@@ -11,33 +11,33 @@ import Foundation
 let testDuration: Float = 4.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let note = Note()
         addNoteProperty(note.frequency)
-        
+
         let adsr = AKLinearEnvelope(
             riseTime: 0.2.ak,
             decayTime: 0.2.ak,
             totalDuration: 0.5.ak,
             amplitude: 0.25.ak)
         connect(adsr)
-        
+
         let bowedString = AKBowedString()
         bowedString.frequency = note.frequency
         bowedString.vibratoFrequency = 4.ak
         bowedString.vibratoAmplitude = 0.01.ak
         bowedString.amplitude = adsr
         connect(bowedString)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: bowedString.frequency,
             timeInterval:2
         )
-        
+
         connect(AKAudioOutput(audioSource:bowedString))
     }
 }
@@ -75,5 +75,6 @@ phrase.addNote(note2, atTime:2.0)
 instrument.playPhrase(phrase)
 
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")
