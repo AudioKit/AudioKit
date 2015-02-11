@@ -76,5 +76,6 @@ phrase.addNote(note1, atTime:4.0)
 
 instrument.playPhrase(phrase)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

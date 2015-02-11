@@ -39,6 +39,7 @@ class Processor : AKInstrument {
         let variableFrequencyResponseBandPassFilter = AKVariableFrequencyResponseBandPassFilter(audioSource: audioSource)
         variableFrequencyResponseBandPassFilter.cutoffFrequency = cutoffFrequency
         variableFrequencyResponseBandPassFilter.bandwidth = bandwidth
+        variableFrequencyResponseBandPassFilter.scalingFactor = AKVariableFrequencyResponseBandPassFilter.scalingFactorPeak()
         connect(variableFrequencyResponseBandPassFilter)
 
         let balance = AKBalance(input: variableFrequencyResponseBandPassFilter, comparatorAudioSource: audioSource)
@@ -73,5 +74,6 @@ AKOrchestra.addInstrument(processor)
 processor.play()
 instrument.play()
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

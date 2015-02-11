@@ -10,7 +10,7 @@
 #import "TweakableInstrument.h"
 
 @interface ContinuousControlConductor : NSObject
-@property (nonatomic, strong) TweakableInstrument *tweakableInstrument;
+@property TweakableInstrument *tweakableInstrument;
 
 - (void)start;
 - (void)stop;

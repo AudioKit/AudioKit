@@ -18,7 +18,7 @@ class Instrument : AKInstrument {
         let note = CrunchNote()
         addNoteProperty(note.intensity)
         addNoteProperty(note.dampingFactor)
-        
+
         let crunch = AKCrunch()
         crunch.intensity = note.intensity
         crunch.dampingFactor = note.dampingFactor
@@ -41,13 +41,13 @@ class Instrument : AKInstrument {
 class CrunchNote: AKNote {
     var intensity = AKNoteProperty()
     var dampingFactor = AKNoteProperty()
-    
+
     override init() {
         super.init()
         addProperty(intensity)
         addProperty(dampingFactor)
     }
-    
+
     convenience init(intensity: Int, dampingFactor: Float) {
         self.init()
         self.intensity.setValue(Float(intensity))
@@ -70,5 +70,6 @@ for i in 1...10 {
 
 instrument.playPhrase(phrase)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

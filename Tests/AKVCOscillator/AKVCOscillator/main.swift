@@ -70,5 +70,6 @@ instrument.playNote(note2, afterDelay: 2.0)
 instrument.playNote(note3, afterDelay: 4.0)
 instrument.playNote(note4, afterDelay: 6.0)
 
-while(AKManager.sharedManager().isRunning) {} //do nothing
+let manager = AKManager.sharedManager()
+while(manager.isRunning) {} //do nothing
 println("Test complete!")

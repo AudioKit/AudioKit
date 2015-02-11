@@ -10,7 +10,7 @@
 
 @interface SeqInstrument : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *modulation;
+@property AKInstrumentProperty *modulation;
 
 @end
 
@@ -20,7 +20,7 @@
 
 @interface SeqInstrumentNote : AKNote
 
-@property (nonatomic, strong) AKNoteProperty *frequency;
+@property AKNoteProperty *frequency;
 
 - (instancetype)initWithFrequency:(float)frequency;
 
