@@ -132,6 +132,7 @@
 // Operations - Signal Generators - Random Generators
 #import "AKInterpolatedRandomNumberPulse.h"
 #import "AKJitter.h"
+#import "AKNoise.h"
 #import "AKRandomNumbers.h"
 
 // Operations - Signal Generators - Segment Arrays
