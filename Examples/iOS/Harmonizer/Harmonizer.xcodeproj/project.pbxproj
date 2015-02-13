@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C402E21A1A80B014008E38F2 /* AKDecimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E2171A80B014008E38F2 /* AKDecimator.m */; };
 		C402E21B1A80B014008E38F2 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E2191A80B014008E38F2 /* AKDeclick.m */; };
+		C40536C81A8DED6B005F69AF /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = C40536C71A8DED6B005F69AF /* AKNoise.m */; };
 		C407D5621969D75D00322F25 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C407D5601969D75D00322F25 /* InfoPlist.strings */; };
 		C407D5641969D75D00322F25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C407D5631969D75D00322F25 /* main.m */; };
 		C407D5681969D75D00322F25 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C407D5671969D75D00322F25 /* AppDelegate.m */; };
@@ -161,6 +162,8 @@
 		C402E2171A80B014008E38F2 /* AKDecimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDecimator.m; sourceTree = "<group>"; };
 		C402E2181A80B014008E38F2 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
 		C402E2191A80B014008E38F2 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
+		C40536C61A8DED6B005F69AF /* AKNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoise.h; sourceTree = "<group>"; };
+		C40536C71A8DED6B005F69AF /* AKNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoise.m; sourceTree = "<group>"; };
 		C407D5541969D75D00322F25 /* Harmonizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmonizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C407D55F1969D75D00322F25 /* Harmonizer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Harmonizer-Info.plist"; sourceTree = "<group>"; };
 		C407D5611969D75D00322F25 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -810,6 +813,8 @@
 				C480BCF01A514BDE0092E3D3 /* AKInterpolatedRandomNumberPulse.m */,
 				C480BCF11A514BDE0092E3D3 /* AKJitter.h */,
 				C480BCF21A514BDE0092E3D3 /* AKJitter.m */,
+				C40536C61A8DED6B005F69AF /* AKNoise.h */,
+				C40536C71A8DED6B005F69AF /* AKNoise.m */,
 				C480BCF51A514BDE0092E3D3 /* AKRandomNumbers.h */,
 				C480BCF61A514BDE0092E3D3 /* AKRandomNumbers.m */,
 			);
@@ -1216,6 +1221,7 @@
 				C480BDB41A514BDE0092E3D3 /* AKMoogVCF.m in Sources */,
 				C480BD591A514BDE0092E3D3 /* AKTableValueControl.m in Sources */,
 				C480BD841A514BDE0092E3D3 /* AKPhasor.m in Sources */,
+				C40536C81A8DED6B005F69AF /* AKNoise.m in Sources */,
 				C480BDA01A514BDE0092E3D3 /* AKAudioInput.m in Sources */,
 				C480BDAC1A514BDE0092E3D3 /* AKFlanger.m in Sources */,
 				C480BD961A514BDE0092E3D3 /* AKBowedString.m in Sources */,

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C402E2261A80B04D008E38F2 /* AKDecimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E2231A80B04D008E38F2 /* AKDecimator.m */; };
 		C402E2271A80B04D008E38F2 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E2251A80B04D008E38F2 /* AKDeclick.m */; };
+		C40536CE1A8DEDB1005F69AF /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = C40536CD1A8DEDB1005F69AF /* AKNoise.m */; };
 		C427F38F1A4CE39900734A80 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F38B1A4CE39900734A80 /* 808loop.wav */; };
 		C427F3901A4CE39900734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427F38C1A4CE39900734A80 /* mandpluk.aif */; };
 		C427F3911A4CE39900734A80 /* marmstk1.wav in Resources */ = {isa = PBXBuildFile; fileRef = C427F38D1A4CE39900734A80 /* marmstk1.wav */; };
@@ -164,6 +165,8 @@
 		C402E2231A80B04D008E38F2 /* AKDecimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDecimator.m; sourceTree = "<group>"; };
 		C402E2241A80B04D008E38F2 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
 		C402E2251A80B04D008E38F2 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
+		C40536CC1A8DEDB1005F69AF /* AKNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoise.h; sourceTree = "<group>"; };
+		C40536CD1A8DEDB1005F69AF /* AKNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoise.m; sourceTree = "<group>"; };
 		C427F38B1A4CE39900734A80 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
 		C427F38C1A4CE39900734A80 /* mandpluk.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.aif; sourceTree = "<group>"; };
 		C427F38D1A4CE39900734A80 /* marmstk1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = marmstk1.wav; sourceTree = "<group>"; };
@@ -837,6 +840,8 @@
 				C480BFD61A514BF80092E3D3 /* AKInterpolatedRandomNumberPulse.m */,
 				C480BFD71A514BF80092E3D3 /* AKJitter.h */,
 				C480BFD81A514BF80092E3D3 /* AKJitter.m */,
+				C40536CC1A8DEDB1005F69AF /* AKNoise.h */,
+				C40536CD1A8DEDB1005F69AF /* AKNoise.m */,
 				C480BFDB1A514BF80092E3D3 /* AKRandomNumbers.h */,
 				C480BFDC1A514BF80092E3D3 /* AKRandomNumbers.m */,
 			);
@@ -1305,6 +1310,7 @@
 				E4C00E3D1A7EEC0800FD7CA2 /* AKMaximum.m in Sources */,
 				C4C303BF1A09F7BA005AF737 /* AKArray.m in Sources */,
 				C4C303411A09F7BA005AF737 /* AKNote.m in Sources */,
+				C40536CE1A8DEDB1005F69AF /* AKNoise.m in Sources */,
 				C480C06F1A514BF80092E3D3 /* AKStruckMetalBar.m in Sources */,
 				C480C0961A514BF80092E3D3 /* AKHighPassFilter.m in Sources */,
 				C480C0401A514BF80092E3D3 /* AKAdditiveCosineTable.m in Sources */,

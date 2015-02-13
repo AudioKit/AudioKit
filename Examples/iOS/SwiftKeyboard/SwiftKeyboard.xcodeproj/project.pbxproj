@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C402E24A1A80B0D5008E38F2 /* AKDecimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E2471A80B0D5008E38F2 /* AKDecimator.m */; };
 		C402E24B1A80B0D5008E38F2 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E2491A80B0D5008E38F2 /* AKDeclick.m */; };
+		C40536E01A8DEE23005F69AF /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = C40536DF1A8DEE23005F69AF /* AKNoise.m */; };
 		C41FB7141A4F93530093645A /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5A71A4F93530093645A /* AKEvent.m */; };
 		C41FB7151A4F93530093645A /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5AA1A4F93530093645A /* AKInstrument.m */; };
 		C41FB7161A4F93530093645A /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB5AC1A4F93530093645A /* AKManager.m */; };
@@ -163,6 +164,8 @@
 		C402E2471A80B0D5008E38F2 /* AKDecimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDecimator.m; sourceTree = "<group>"; };
 		C402E2481A80B0D5008E38F2 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
 		C402E2491A80B0D5008E38F2 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
+		C40536DE1A8DEE23005F69AF /* AKNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoise.h; sourceTree = "<group>"; };
+		C40536DF1A8DEE23005F69AF /* AKNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoise.m; sourceTree = "<group>"; };
 		C41FB5A61A4F93530093645A /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C41FB5A71A4F93530093645A /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C41FB5A81A4F93530093645A /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -919,6 +922,8 @@
 				C480C9EF1A514DFC0092E3D3 /* AKInterpolatedRandomNumberPulse.m */,
 				C480C9F01A514DFC0092E3D3 /* AKJitter.h */,
 				C480C9F11A514DFC0092E3D3 /* AKJitter.m */,
+				C40536DE1A8DEE23005F69AF /* AKNoise.h */,
+				C40536DF1A8DEE23005F69AF /* AKNoise.m */,
 				C480C9F21A514DFC0092E3D3 /* AKRandomNumbers.h */,
 				C480C9F31A514DFC0092E3D3 /* AKRandomNumbers.m */,
 			);
@@ -1220,6 +1225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40536E01A8DEE23005F69AF /* AKNoise.m in Sources */,
 				C41FB7151A4F93530093645A /* AKInstrument.m in Sources */,
 				C480CA871A514DFC0092E3D3 /* AKVibes.m in Sources */,
 				C46B27A71A78B18300328AF3 /* AKWindow.m in Sources */,
