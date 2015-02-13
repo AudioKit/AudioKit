@@ -39,6 +39,17 @@
 #import "AKTrackedFrequency.h"
 #import "AKTrackedFrequencyFromFSignal.h"
 
+// Operations - FFT
+#import "AKCrossSynthesizedFFT.h"
+#import "AKFFT.h"
+#import "AKFFTProcessor.h"
+#import "AKMixedFFT.h"
+#import "AKPhaseLockedVocoder.h"
+#import "AKResynthesizedAudio.h"
+#import "AKScaledFFT.h"
+#import "AKSpectralVocoder.h"
+#import "AKWarpedFFT.h"
+
 // Operations - Function Tables
 #import "AKTableValue.h"
 #import "AKTableValueConstant.h"
@@ -68,17 +79,6 @@
 #import "AKProduct.h"
 #import "AKScaledControl.h"
 #import "AKSum.h"
-
-// Operations - Phase Vocoder Streaming
-#import "AKCrossSynthesizedFFT.h"
-#import "AKFFT.h"
-#import "AKFFTProcessor.h"
-#import "AKMixedFFT.h"
-#import "AKPhaseLockedVocoder.h"
-#import "AKResynthesizedAudio.h"
-#import "AKScaledFFT.h"
-#import "AKSpectralVocoder.h"
-#import "AKWarpedFFT.h"
 
 // Operations - Signal Generators
 
