@@ -344,9 +344,15 @@ static AKManager *_sharedManager = nil;
 #  pragma mark - Useful tables
 // -----------------------------------------------------------------------------
 
+
+
 - (AKWeightedSumOfSinusoids *)standardSineWave
 {
+    if (_numberOfSineWaveReferences == 0) {
+        [[[AKInstrument alloc] init] addFunctionTable:_standardSineWave]; // AOP
+    }
     _numberOfSineWaveReferences++;
+    
     return _standardSineWave;
 }
 
@@ -356,7 +362,11 @@ static AKManager *_sharedManager = nil;
 
 - (AKLineSegments *)standardTriangleWave
 {
+    if (_numberOfTriangleWaveReferences == 0) {
+        [[[AKInstrument alloc] init] addFunctionTable:_standardTriangleWave]; // AOP
+    }
     _numberOfTriangleWaveReferences++;
+    
     return _standardTriangleWave;
 }
 
@@ -366,7 +376,11 @@ static AKManager *_sharedManager = nil;
 
 - (AKLineSegments *)standardSquareWave
 {
+    if (_numberOfSquareWaveReferences == 0) {
+        [[[AKInstrument alloc] init] addFunctionTable:_standardSquareWave]; // AOP
+    }
     _numberOfSquareWaveReferences++;
+    
     return _standardSquareWave;
 }
 
@@ -376,7 +390,11 @@ static AKManager *_sharedManager = nil;
 
 - (AKLineSegments *)standardSawtoothWave
 {
+    if (_numberOfSawtoothWaveReferences == 0) {
+        [[[AKInstrument alloc] init] addFunctionTable:_standardSawtoothWave]; // AOP
+    }
     _numberOfSawtoothWaveReferences++;
+    
     return _standardSawtoothWave;
 }
 
@@ -386,7 +404,11 @@ static AKManager *_sharedManager = nil;
 
 - (AKLineSegments *)standardReverseSawtoothWave
 {
+    if (_numberOfReverseSawtoothWaveReferences == 0) {
+        [[[AKInstrument alloc] init] addFunctionTable:_standardReverseSawtoothWave]; // AOP
+    }
     _numberOfReverseSawtoothWaveReferences++;
+    
     return _standardReverseSawtoothWave;
 }
 
