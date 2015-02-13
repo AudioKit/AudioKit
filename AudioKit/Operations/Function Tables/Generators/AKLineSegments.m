@@ -16,6 +16,59 @@
 
 @implementation AKLineSegments
 
+- (instancetype)initSquareWave {
+    self = [self initWithValue:1];
+    if (self) {
+        [self addValue:1 atIndex:self.size/2];
+        [self addValue:-1 atIndex:self.size/2];
+        [self addValue:-1 atIndex:self.size];
+    }
+    return self;
+}
+
++ (instancetype)squareWave {
+    return [[self alloc] initSquareWave];
+}
+
+- (instancetype)initTriangleWave {
+    self = [self initWithValue:0];
+    if (self) {
+        [self addValue:1 atIndex:self.size/4];
+        [self addValue:-1 atIndex:(self.size*3)/4];
+        [self addValue:0 atIndex:self.size];
+    }
+    return self;
+}
+
++ (instancetype)triangleWave {
+    return [[self alloc] initTriangleWave];
+}
+
+- (instancetype)initSawtoothWave {
+    self = [self initWithValue:-1];
+    if (self) {
+        [self addValue:1 atIndex:self.size];
+    }
+    return self;
+}
+
++ (instancetype)sawtoothWave {
+    return [[self alloc] initSawtoothWave];
+    
+}
+
+- (instancetype)initReverseSawtoothWave {
+    self = [self initWithValue:1];
+    if (self) {
+        [self addValue:-1 atIndex:self.size];
+    }
+    return self;
+}
+
++ (instancetype)reverseSawtoothWave {
+    return [[self alloc] initReverseSawtoothWave];
+}
+
 - (instancetype)initWithValue:(float)value
 {
     self = [super initWithType:AKFunctionTableTypeStraightLines];

@@ -56,15 +56,6 @@ static AKManager *_sharedManager = nil;
     return nil;
 }
 
-- (AKWeightedSumOfSinusoids *)standardSineWave {
-    _numberOfSineWaveReferences++;
-    return _standardSineWave;
-}
-
-+ (AKWeightedSumOfSinusoids *)standardSineWave {
-    return [[AKManager sharedManager] standardSineWave];
-}
-
 + (id)alloc {
     @synchronized([AKManager class]) {
         NSAssert(_sharedManager == nil, @"Attempted to allocate a 2nd AKManager");
@@ -104,8 +95,21 @@ static AKManager *_sharedManager = nil;
         _isLogging = [[dict objectForKey:@"Enable Logging By Default"] boolValue];
         
         totalRunDuration = 10000000;
+        
         _numberOfSineWaveReferences = 0;
         _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
+        
+        _numberOfTriangleWaveReferences = 0;
+        _standardTriangleWave = [AKLineSegments triangleWave];
+        
+        _numberOfSquareWaveReferences = 0;
+        _standardSquareWave = [AKLineSegments squareWave];
+        
+        _numberOfSawtoothWaveReferences = 0;
+        _standardSawtoothWave = [AKLineSegments sawtoothWave];
+        
+        _numberOfReverseSawtoothWaveReferences = 0;
+        _standardReverseSawtoothWave = [AKLineSegments reverseSawtoothWave];
         
         batchInstructions = [[NSString alloc] init];
         isBatching = NO;
@@ -348,6 +352,60 @@ static AKManager *_sharedManager = nil;
             [csound addBinding:(AKInstrumentProperty<CsoundBinding> *)c];
         }
     }
+}
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Useful tables
+// -----------------------------------------------------------------------------
+
+- (AKWeightedSumOfSinusoids *)standardSineWave
+{
+    _numberOfSineWaveReferences++;
+    return _standardSineWave;
+}
+
++ (AKWeightedSumOfSinusoids *)standardSineWave {
+    return [[AKManager sharedManager] standardSineWave];
+}
+
+- (AKLineSegments *)standardTriangleWave
+{
+    _numberOfTriangleWaveReferences++;
+    return _standardTriangleWave;
+}
+
++ (AKLineSegments *)standardTriangleWave {
+    return [[AKManager sharedManager] standardTriangleWave];
+}
+
+- (AKLineSegments *)standardSquareWave
+{
+    _numberOfSquareWaveReferences++;
+    return _standardSquareWave;
+}
+
++ (AKLineSegments *)standardSquareWave {
+    return [[AKManager sharedManager] standardSquareWave];
+}
+
+- (AKLineSegments *)standardSawtoothWave
+{
+    _numberOfSawtoothWaveReferences++;
+    return _standardSawtoothWave;
+}
+
++ (AKLineSegments *)standardSawtoothWave {
+    return [[AKManager sharedManager] standardSawtoothWave];
+}
+
+- (AKLineSegments *)standardReverseSawtoothWave
+{
+    _numberOfReverseSawtoothWaveReferences++;
+    return _standardReverseSawtoothWave;
+}
+
++ (AKLineSegments *)standardReverseSawtoothWave {
+    return [[AKManager sharedManager] standardReverseSawtoothWave];
 }
 
 // -----------------------------------------------------------------------------
