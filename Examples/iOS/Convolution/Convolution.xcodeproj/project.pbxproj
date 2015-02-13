@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C402E20E1A80AFEF008E38F2 /* AKDecimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E20B1A80AFEF008E38F2 /* AKDecimator.m */; };
 		C402E20F1A80AFEF008E38F2 /* AKDeclick.m in Sources */ = {isa = PBXBuildFile; fileRef = C402E20D1A80AFEF008E38F2 /* AKDeclick.m */; };
+		C40536C21A8DED4B005F69AF /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = C40536C11A8DED4B005F69AF /* AKNoise.m */; };
 		C41D52881A6E2EE000324F08 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D52851A6E2EE000324F08 /* AKAudioAnalyzer.m */; };
 		C41D52891A6E2EE000324F08 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D52871A6E2EE000324F08 /* LevelMeter.m */; };
 		C427EED11A4CDD0500734A80 /* mandpluk.aif in Resources */ = {isa = PBXBuildFile; fileRef = C427EECF1A4CDD0500734A80 /* mandpluk.aif */; };
@@ -165,6 +166,8 @@
 		C402E20B1A80AFEF008E38F2 /* AKDecimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDecimator.m; sourceTree = "<group>"; };
 		C402E20C1A80AFEF008E38F2 /* AKDeclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDeclick.h; sourceTree = "<group>"; };
 		C402E20D1A80AFEF008E38F2 /* AKDeclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDeclick.m; sourceTree = "<group>"; };
+		C40536C01A8DED4B005F69AF /* AKNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoise.h; sourceTree = "<group>"; };
+		C40536C11A8DED4B005F69AF /* AKNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoise.m; sourceTree = "<group>"; };
 		C41D52841A6E2EE000324F08 /* AKAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioAnalyzer.h; sourceTree = "<group>"; };
 		C41D52851A6E2EE000324F08 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
 		C41D52861A6E2EE000324F08 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
@@ -994,6 +997,8 @@
 				C480BA0A1A514BCA0092E3D3 /* AKInterpolatedRandomNumberPulse.m */,
 				C480BA0B1A514BCA0092E3D3 /* AKJitter.h */,
 				C480BA0C1A514BCA0092E3D3 /* AKJitter.m */,
+				C40536C01A8DED4B005F69AF /* AKNoise.h */,
+				C40536C11A8DED4B005F69AF /* AKNoise.m */,
 				C480BA0F1A514BCA0092E3D3 /* AKRandomNumbers.h */,
 				C480BA101A514BCA0092E3D3 /* AKRandomNumbers.m */,
 			);
@@ -1248,6 +1253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40536C21A8DED4B005F69AF /* AKNoise.m in Sources */,
 				C480BAAB1A514BCA0092E3D3 /* AKSekere.m in Sources */,
 				C480BAB51A514BCA0092E3D3 /* AKRandomNumbers.m in Sources */,
 				C480BADA1A514BCA0092E3D3 /* AKParallelCombLowPassFilterReverb.m in Sources */,
