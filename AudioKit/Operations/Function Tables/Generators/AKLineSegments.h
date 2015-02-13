@@ -15,6 +15,30 @@
 /// Size of the table (default 4096)
 @property int size;
 
+/// Creates a square waveform with a default size of 4096.
+- (instancetype)initSquareWave;
+
+/// Creates a square waveform with a default size of 4096.
++ (instancetype)squareWave;
+
+/// Creates a triangle waveform with a default size of 4096.
+- (instancetype)initTriangleWave;
+
+/// Creates a triangle waveform with a default size of 4096.
++ (instancetype)triangleWave;
+
+/// Creates a sawtooth waveform with a default size of 4096.
+- (instancetype)initSawtoothWave;
+
+/// Creates a sawtooth waveform with a default size of 4096.
++ (instancetype)sawtoothWave;
+
+/// Creates a reverse sawtooth waveform with a default size of 4096.
+- (instancetype)initReverseSawtoothWave;
+
+/// Creates a reverse sawtooth waveform with a default size of 4096.
++ (instancetype)reverseSawtoothWave;
+
 /// Start the line segments at a specific value
 /// @param value Initial value of the the first line segment
 - (instancetype)initWithValue:(float)value;

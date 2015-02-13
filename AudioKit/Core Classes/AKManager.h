@@ -12,6 +12,7 @@
 #import "AKMidi.h"
 #import "AKSequence.h"
 #import "AKWeightedSumOfSinusoids.h"
+#import "AKLineSegments.h"
 
 #import "CsoundObj.h"
 
@@ -32,11 +33,6 @@
 
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
-
-/// Common table required by many applications
-@property (nonatomic) AKWeightedSumOfSinusoids *standardSineWave;
-+ (AKWeightedSumOfSinusoids *)standardSineWave;
-@property int numberOfSineWaveReferences;
 
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedManager;
@@ -94,5 +90,28 @@
 
 /// Disable MIDI
 - (void)disableMidi;
+
+// Common tables required by many applications
+
+@property (nonatomic) AKWeightedSumOfSinusoids *standardSineWave;
++ (AKWeightedSumOfSinusoids *)standardSineWave;
+@property int numberOfSineWaveReferences;
+
+@property (nonatomic) AKLineSegments *standardTriangleWave;
++ (AKLineSegments *)standardTriangleWave;
+@property int numberOfTriangleWaveReferences;
+
+@property (nonatomic) AKLineSegments *standardSquareWave;
++ (AKLineSegments *)standardSquareWave;
+@property int numberOfSquareWaveReferences;
+
+@property (nonatomic) AKLineSegments *standardSawtoothWave;
++ (AKLineSegments *)standardSawtoothWave;
+@property int numberOfSawtoothWaveReferences;
+
+@property (nonatomic) AKLineSegments *standardReverseSawtoothWave;
++ (AKLineSegments *)standardReverseSawtoothWave;
+@property int numberOfReverseSawtoothWaveReferences;
+
 
 @end
