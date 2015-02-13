@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40536BC1A8DE8BF005F69AF /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = C40536BB1A8DE8BF005F69AF /* AKNoise.m */; };
 		C4152BAF1A3AEB7600ABF83C /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = C4152BAE1A3AEB7600ABF83C /* AKPhrase.m */; };
 		C41FB1921A4D30EC0093645A /* AKMP3FileInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB1911A4D30EC0093645A /* AKMP3FileInput.m */; };
 		C41FB3C01A4E8F6C0093645A /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB3AF1A4E8F6C0093645A /* AKAdditiveCosineTable.m */; };
@@ -150,6 +151,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C40536BA1A8DE8BF005F69AF /* AKNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoise.h; sourceTree = "<group>"; };
+		C40536BB1A8DE8BF005F69AF /* AKNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoise.m; sourceTree = "<group>"; };
 		C4152BAD1A3AEB7600ABF83C /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
 		C4152BAE1A3AEB7600ABF83C /* AKPhrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhrase.m; sourceTree = "<group>"; };
 		C41B89B91A47F6E5002C7355 /* AKTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKTypes.h; sourceTree = "<group>"; };
@@ -971,6 +974,8 @@
 				C480B7C01A51484C0092E3D3 /* AKInterpolatedRandomNumberPulse.m */,
 				C480B7C11A51484C0092E3D3 /* AKJitter.h */,
 				C480B7C21A51484C0092E3D3 /* AKJitter.m */,
+				C40536BA1A8DE8BF005F69AF /* AKNoise.h */,
+				C40536BB1A8DE8BF005F69AF /* AKNoise.m */,
 				C480B7C51A51484C0092E3D3 /* AKRandomNumbers.h */,
 				C480B7C61A51484C0092E3D3 /* AKRandomNumbers.m */,
 			);
@@ -1203,6 +1208,7 @@
 				C41FB7F11A4FFFCE0093645A /* AKFunctionTableLooper.m in Sources */,
 				C479145B1A29352F00D9807B /* AKConstant.m in Sources */,
 				C479146A1A29352F00D9807B /* AKInstrumentProperty.m in Sources */,
+				C40536BC1A8DE8BF005F69AF /* AKNoise.m in Sources */,
 				C480B7D51A51484C0092E3D3 /* AKGranularSynthesisTexture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
