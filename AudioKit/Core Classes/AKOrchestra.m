@@ -115,6 +115,22 @@
         [s appendString:[[AKManager standardSineWave] stringForCSD]];
     }
     [s appendString:@"\n"];
+    if ([[AKManager sharedManager] numberOfTriangleWaveReferences] > 0) {
+        [s appendString:[[AKManager standardTriangleWave] stringForCSD]];
+    }
+    [s appendString:@"\n"];
+    if ([[AKManager sharedManager] numberOfSquareWaveReferences ] > 0) {
+        [s appendString:[[AKManager standardSquareWave] stringForCSD]];
+    }
+    [s appendString:@"\n"];
+    if ([[AKManager sharedManager] numberOfSawtoothWaveReferences] > 0) {
+        [s appendString:[[AKManager standardSawtoothWave] stringForCSD]];
+    }
+    [s appendString:@"\n"];
+    if ([[AKManager sharedManager] numberOfReverseSawtoothWaveReferences] > 0) {
+        [s appendString:[[AKManager standardReverseSawtoothWave] stringForCSD]];
+    }
+    [s appendString:@"\n"];
     for (AKFunctionTable *functionTable in _functionTables) {
         [s appendString:[functionTable stringForCSD]];
         [s appendString:@"\n"];
