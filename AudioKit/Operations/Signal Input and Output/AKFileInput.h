@@ -21,8 +21,10 @@
 /// Create a file input.
 /// @param fileName Location of the file on disk.
 /// @param speed Speed of the playback relative to 1 [Default Value: 1]
+/// @param startTime Time in second to start the playback (useful for pause/resume)
 - (instancetype)initWithFilename:(NSString *)fileName
-                           speed:(AKControl *)speed;
+                           speed:(AKParameter *)speed
+                       startTime:(AKConstant *)startTime;
 
 /// Speed of the playback relative to 1 [Default Value: 1]
 @property AKParameter *speed;
@@ -30,6 +32,13 @@
 /// Set an optional speed
 /// @param speed Speed of the playback relative to 1 [Default Value: 1]
 - (void)setOptionalSpeed:(AKParameter *)speed;
+
+/// Set the start time (useful for pause/resume
+@property AKConstant *startTime;
+
+/// Set an optional speed
+/// @param startTime Time in second to start the playback (useful for pause/resume)
+- (void)setOptionalStartTime:(AKConstant *)startTime;
 
 /// Normalize the output
 /// @param maximumAmplitude The maximum amplitude will be normalized to this amount.

@@ -24,25 +24,31 @@
     if (self) {
         _filename = fileName;
         _speed = akp(1);
+        _startTime = akp(0);
         isNormalized = NO;
         normalization = 1;
     }
-    return self; 
+    return self;
 }
 
 - (instancetype)initWithFilename:(NSString *)fileName
-                           speed:(AKControl *)speed
+                           speed:(AKParameter *)speed
+                       startTime:(AKConstant *)startTime
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _filename = fileName;
         _speed = speed;
+        _startTime = startTime;
     }
     return self;
 }
 
 - (void)setOptionalSpeed:(AKParameter *)speed {
     _speed = speed;
+}
+- (void)setOptionalStartTime:(AKConstant *)startTime {
+    _startTime = startTime;
 }
 
 - (void)normalizeTo:(float)maximumAmplitude {
@@ -57,10 +63,10 @@
     
     // Determine the maximum file amplitude
     if (isNormalized) [csdString appendFormat:@"ipeak filepeak \"%@\"\n", _filename];
-
+    
     [csdString appendFormat:
-     @"%@ diskin2 \"%@\", AKControl(%@), 0, 1\n",
-     self, _filename, _speed];
+     @"%@ diskin2 \"%@\", AKControl(%@), %@, 1\n",
+     self, _filename, _speed, _startTime];
     
     // Normalize the output
     if (isNormalized) {
