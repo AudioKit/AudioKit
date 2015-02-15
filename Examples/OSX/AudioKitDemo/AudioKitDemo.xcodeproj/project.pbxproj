@@ -1507,7 +1507,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/AudioKit/AudioKit/Libraries/OSX/csound-OSX",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1522,7 +1522,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/aure/Developer/AudioKit/AudioKit/Libraries/OSX/csound-OSX",
+					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
 				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
