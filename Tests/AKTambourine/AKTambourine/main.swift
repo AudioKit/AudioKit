@@ -74,7 +74,7 @@ for i in 1...20 {
     let note = TambourineNote(
         intensity: 25+i*20,
         dampingFactor: 1.05-Float(i)/20.0,
-        mainResonantFrequency: 1000 + Float(i)
+        mainResonantFrequency: 200*Float(i)
     )
     note.duration.setValue(0.5)
     phrase.addNote(note, atTime: Float(i-1)*0.5)
