@@ -16,9 +16,15 @@
 
 @interface AKFunctionTableLooper : AKAudio
 
-///Type Helpers
+//Type Helpers
+
+/// Loop plays foward and repeats from the beginning forever
 + (AKConstant *)loopRepeats;
+
+/// Loop plays backwards repeating from the end when it gets back to the start
 + (AKConstant *)loopPlaysBackwards;
+
+/// Loop first plays forward and then when it reaches the end it plays backwards and then repeats
 + (AKConstant *)loopPlaysForwardAndThenBackwards;
 
 /// Instantiates the function table looper with all values

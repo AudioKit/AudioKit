@@ -16,13 +16,27 @@
 
 @interface AKVCOscillator : AKAudio
 
-///Type Helpers
+//Type Helpers
+
+/// Sawtooth waveform
 + (AKConstant *)waveformTypeForSawtooth;
+
+/// Square waveform with Pulse-width modulation
 + (AKConstant *)waveformTypeForSquareWithPWM;
+
+/// Triangle waveform with ramp
 + (AKConstant *)waveformTypeForTriangleWithRamp;
+
+/// Unnormalized pulse waveform
 + (AKConstant *)waveformTypeForUnnormalizedPulse;
+
+/// Integrated sawtooth waveform
 + (AKConstant *)waveformTypeForIntegratedSawtooth;
+
+/// Square waveform (without PWM)
 + (AKConstant *)waveformTypeForSquare;
+
+/// Triangle waveform
 + (AKConstant *)waveformTypeForTriangle;
 
 /// Instantiates the vc oscillator with all values
