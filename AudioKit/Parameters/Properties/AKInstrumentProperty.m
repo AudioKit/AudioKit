@@ -12,7 +12,7 @@
 @interface AKInstrumentProperty() <CsoundBinding>
 {
     MYFLT *channelPtr;
-    BOOL isCacheDirty;
+    BOOL sentToCsound;
 }
 @end
 
@@ -23,7 +23,6 @@
     self = [super init];
     if (self) {
         [self setName:@"Property"];
-        isCacheDirty = NO;
     }
     return self;
 }
@@ -46,7 +45,7 @@
 
 - (void)setValue:(float)newValue {
     [super setValue:newValue];
-    isCacheDirty = YES;
+    sentToCsound = NO;
 }
 
 // -----------------------------------------------------------------------------
@@ -57,18 +56,26 @@
 {
     channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",self] channelType:CSOUND_CONTROL_CHANNEL];
     *channelPtr = self.value;
+    sentToCsound = YES;
 }
 
 - (void)updateValuesToCsound
 {
-    if (isCacheDirty) *channelPtr = self.value;
+    if (!sentToCsound)  {
+        *channelPtr = self.value;
+        sentToCsound = YES;
+    }
 }
 
 - (void)updateValuesFromCsound
 {
-    if (!isCacheDirty) self.value = *channelPtr;
-    if ((isCacheDirty) && (*channelPtr == self.value)) isCacheDirty = NO;
-
+    if (sentToCsound) {
+        self.value = *channelPtr;
+    }
+    
+    if ((!sentToCsound) && (*channelPtr == self.value)) {
+        sentToCsound = YES;
+    }
 }
 
 @end
