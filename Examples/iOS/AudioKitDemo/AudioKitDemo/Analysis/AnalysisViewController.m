@@ -1,0 +1,105 @@
+//
+//  AnalysisViewController.m
+//  AudioKitDemo
+//
+//  Created by Aurelius Prochazka on 2/14/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
+//
+
+#import "AnalysisViewController.h"
+#import "AKFoundation.h"
+#import "VocalInput.h"
+#import "AKAudioAnalyzer.h"
+
+@implementation AnalysisViewController
+{
+    VocalInput *microphone;
+    AKAudioAnalyzer *analyzer;
+    
+    IBOutlet UILabel *frequencyLabel;
+    IBOutlet UILabel *amplitudeLabel;
+    IBOutlet UILabel *noteNameWithSharpsLabel;
+    IBOutlet UILabel *noteNameWithFlatsLabel;
+    
+    NSArray *noteFrequencies;
+    NSArray *noteNamesWithSharps;
+    NSArray *noteNamesWithFlats;
+    
+    AKSequence *analysisSequence;
+    AKEvent *updateAnalysis;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    noteFrequencies = @[@16.35,@17.32,@18.35,@19.45,@20.6,@21.83,@23.12,@24.5,@25.96,@27.5,@29.14,@30.87];
+    noteNamesWithSharps = @[@"C", @"C♯",@"D",@"D♯",@"E",@"F",@"F♯",@"G",@"G♯",@"A",@"A♯",@"B"];
+    noteNamesWithFlats  = @[@"C", @"D♭",@"D",@"E♭",@"E",@"F",@"G♭",@"G",@"A♭",@"A",@"B♭",@"B"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    microphone = [[VocalInput alloc] init];
+    [AKOrchestra addInstrument:microphone];
+    analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
+    [AKOrchestra addInstrument:analyzer];
+    [AKOrchestra start];
+    [analyzer play];
+    [microphone play];
+    
+    analysisSequence = [AKSequence sequence];
+    updateAnalysis = [[AKEvent alloc] initWithBlock:^{
+        [self performSelectorOnMainThread:@selector(updateUI) withObject:self waitUntilDone:NO];
+        [analysisSequence addEvent:updateAnalysis afterDuration:0.1];
+    }];
+    [analysisSequence addEvent:updateAnalysis];
+    [analysisSequence play];
+}
+
+- (void)viewWillDisappear:(BOOL)animated   {
+    [super viewWillDisappear:animated];
+    [AKOrchestra reset];
+    [[AKManager sharedManager] stop];
+}
+
+
+- (void)updateUI {
+    
+    if (analyzer.trackedAmplitude.value > 0.1) {
+        frequencyLabel.text = [NSString stringWithFormat:@"%0.1f", analyzer.trackedFrequency.value];
+        
+        float frequency = analyzer.trackedFrequency.value;
+        while (frequency > [noteFrequencies.lastObject floatValue]) {
+            frequency = frequency / 2.0;
+        }
+        while (frequency < [noteFrequencies.firstObject floatValue]) {
+            frequency = frequency * 2.0;
+        }
+        
+        float minDistance = 10000;
+        int index =  0;
+        for (int i = 0; i < noteFrequencies.count; i++) {
+            float distance = fabs([noteFrequencies[i] floatValue] - frequency);
+            if (distance < minDistance) {
+                index = i;
+                minDistance = distance;
+            }
+        }
+        int octave = (int)log2f(analyzer.trackedFrequency.value / frequency);
+        NSString *noteName = [NSString stringWithFormat:@"%@%d", noteNamesWithSharps[index], octave];
+        noteNameWithSharpsLabel.text = noteName;
+        noteName = [NSString stringWithFormat:@"%@%d", noteNamesWithFlats[index], octave];
+        noteNameWithFlatsLabel.text = noteName;
+        
+        [frequencyLabel setNeedsDisplay];
+        [amplitudeLabel setNeedsDisplay];
+        [noteNameWithSharpsLabel setNeedsDisplay];
+        [noteNameWithFlatsLabel setNeedsDisplay];
+    }
+    amplitudeLabel.text = [NSString stringWithFormat:@"%0.2f", analyzer.trackedAmplitude.value];
+
+}
+
+@end
