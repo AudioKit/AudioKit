@@ -16,12 +16,24 @@
 
 @interface AKLowFrequencyOscillator : AKAudio
 
-///Type Helpers
+//Type Helpers
+
+/// Sine Waveform
 + (AKConstant *)waveformTypeForSine;
+
+/// Triangle waveform
 + (AKConstant *)waveformTypeForTriangle;
+
+/// Bipolar square waveform
 + (AKConstant *)waveformTypeForBipolarSquare;
+
+/// Unipolar Square waveform
 + (AKConstant *)waveformTypeForUnipolarSquare;
+
+/// Sawtooth waveform
 + (AKConstant *)waveformTypeForSawtooth;
+
+/// Reverse sawtooth waveform
 + (AKConstant *)waveformTypeForDownSawtooth;
 
 /// Instantiates the low frequency oscillator with all values

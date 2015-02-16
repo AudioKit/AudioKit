@@ -16,9 +16,15 @@
 
 @interface AKStereoSoundFileLooper : AKStereoAudio
 
-///Type Helpers
+// Type Helpers
+
+/// Loop does not repeat
 + (AKConstant *)loopPlaysOnce;
+
+/// Loop repeats indefinitely
 + (AKConstant *)loopRepeats;
+
+/// Loop first plays forward, then plays backwards, and then repeats
 + (AKConstant *)loopPlaysForwardAndThenBackwards;
 
 /// Instantiates the stereo sound file looper with all values

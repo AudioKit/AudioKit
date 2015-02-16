@@ -9,11 +9,12 @@
 #import "AKEvent.h"
 #import "AKManager.h"
 
-typedef void (^MyBlockType)();
+/// Define a block type helper
+typedef void (^AKBlockType)();
 
 @implementation AKEvent
 {
-    MyBlockType block;
+    AKBlockType block;
 }
 
 // -----------------------------------------------------------------------------
