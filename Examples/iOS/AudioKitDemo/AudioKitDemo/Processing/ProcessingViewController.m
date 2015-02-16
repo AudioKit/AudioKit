@@ -39,8 +39,6 @@
     conv = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
     [AKOrchestra addInstrument:conv];
     
-    
-    [[AKManager sharedManager] setIsLogging:YES];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:conv.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
     
