@@ -61,6 +61,7 @@
 - (void)updateProperties;
 
 /// Refine playback of the note at some point in the future.
+/// @param time Amount of time in seconds to wait before setting properties
 - (void)updatePropertiesAfterDelay:(float)time;
 
 // -----------------------------------------------------------------------------

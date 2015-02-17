@@ -8,8 +8,10 @@
 
 #import "AKParameter+Operation.h"
 
+/// Helper function to deal with product, sum, minimum, and maximum.
 @interface AKMultipleInputMathOperation : AKParameter
 
+/// Array of inputs or operands to the function
 @property NSArray *inputs;
 
 /// Create a new signal as a sum of given signals.

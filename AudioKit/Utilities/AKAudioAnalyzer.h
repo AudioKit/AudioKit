@@ -13,6 +13,6 @@
 @property AKInstrumentProperty *trackedFrequency;
 @property AKInstrumentProperty *trackedAmplitude;
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
 
 @end

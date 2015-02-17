@@ -62,6 +62,7 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Set decay to only occur when the note is explicitly released by a "stop" command
+/// @param decayOnRelease Boolean flag to not start decay phase until a stop command is issued
 - (void)decayOnlyOnRelease:(BOOL)decayOnRelease;
 
 
