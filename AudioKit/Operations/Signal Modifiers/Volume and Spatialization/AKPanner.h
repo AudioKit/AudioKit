@@ -16,10 +16,18 @@
 
 @interface AKPanner : AKStereoAudio
 
-///Type Helpers
+// Type Helpers
+
+/// Maintains equal power during panning
 + (AKConstant *)panMethodForEqualPower;
+
+/// Square root method for determining pan output
 + (AKConstant *)panMethodForSquareRoot;
+
+/// Straight linear variation in the panning
 + (AKConstant *)panMethodForLinear;
+
+/// Another equal power method
 + (AKConstant *)panMethodForEqualPowerAlternate;
 
 /// Instantiates the panner with all values

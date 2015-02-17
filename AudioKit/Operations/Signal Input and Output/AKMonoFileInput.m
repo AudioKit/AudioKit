@@ -13,26 +13,51 @@
 
 @implementation AKMonoFileInput
 {
-    NSString *ifilcod;
+    NSString *_filename;
 }
 
 - (instancetype)initWithFilename:(NSString *)fileName;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ifilcod = fileName;
+        _filename = fileName;
+        _speed = akp(1);
+        _startTime = akp(0);
     }
     return self;
 }
 
-// Csound Prototype:
-// a1[, a2[, ... aN]] diskin ifilcod, kpitch[, iskiptim [, iwrap[, iformat [, iwsize[, ibufsize[, iskipinit]]]]]]
+- (instancetype)initWithFilename:(NSString *)fileName
+                           speed:(AKParameter *)speed
+                       startTime:(AKConstant *)startTime
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _filename = fileName;
+        _speed = speed;
+        _startTime = startTime;
+    }
+    return self;
+}
+
+- (void)setOptionalSpeed:(AKParameter *)speed {
+    _speed = speed;
+}
+- (void)setOptionalStartTime:(AKConstant *)startTime {
+    _startTime = startTime;
+}
+
 - (NSString *)stringForCSD
 {
-    return [NSString stringWithFormat:
-            @"%@ diskin \"%@\", 1, 0, 1",
-            self, ifilcod];
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+    
+    [csdString appendFormat:
+     @"%@ diskin \"%@\", AKControl(%@), %@, 1\n",
+     self, _filename, _speed, _startTime];
+
+    return csdString;
 }
+
 
 
 @end

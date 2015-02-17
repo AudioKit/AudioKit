@@ -1,10 +1,10 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'AudioKit'
-    spec.version                  = '1.2-01'
+    spec.version                  = '1.3'
     spec.authors                  = { 'Aurelius Prochazka' => 'audiokit@audiokit.io' }
     spec.license                  = { :type => 'LGPL' }
     spec.homepage                 = 'http://audiokit.io/'
-    spec.source                   = { :git => 'https://github.com/audiokit/AudioKit.git', :tag => 'v1.2-01-04-2015' }
+    spec.source                   = { :git => 'https://github.com/audiokit/AudioKit.git', :tag => 'v1.3-02-16-2015' }
     spec.summary                  = 'Open-source audio synthesis, processing, & analysis platform.'
 
     spec.source_files             = 'AudioKit/Core Classes/**/*.{h,m}',
