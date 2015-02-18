@@ -2,7 +2,8 @@
 //  AKMonoSoundFileLooper.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
+//  Customized by Aurelius Prochazka to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's loscil3:
@@ -64,27 +65,47 @@
     _loopMode = loopMode;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"loscil3:a("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ loscil3 ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_baseFrequency = akp(1);        
-    [csdString appendFormat:@"%@ loscil3 ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
     if ([_frequencyRatio class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequencyRatio];
+        [inputsString appendFormat:@"%@, ", _frequencyRatio];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequencyRatio];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequencyRatio];
     }
 
-    [csdString appendFormat:@"%@, ", _soundFile];
+    [inputsString appendFormat:@"%@, ", _soundFile];
     
-    [csdString appendFormat:@"%@, ", _baseFrequency];
+    [inputsString appendFormat:@"%@, ", _baseFrequency];
     
-    [csdString appendFormat:@"%@", _loopMode];
-    return csdString;
+    [inputsString appendFormat:@"%@", _loopMode];
+    return inputsString;
 }
 
 @end
