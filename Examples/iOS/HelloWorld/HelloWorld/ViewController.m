@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     // STEP 3 : Define the instrument as a simple oscillator
-    instrument = [[AKInstrument alloc] init];
+    instrument = [AKInstrument instrument];
     AKOscillator *oscillator = [AKOscillator oscillator];
     [instrument connect:oscillator];
     AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:oscillator];

@@ -45,6 +45,17 @@ static int currentID = 1;
     return self;
 }
 
++ (instancetype)instrument
+{
+    return [[AKInstrument alloc] init];
+}
+
++ (instancetype)instrumentWithNumber:(int)instrumentNumber
+{
+    return [[AKInstrument alloc] initWithNumber:instrumentNumber];
+}
+
+
 - (instancetype)initWithNumber:(int)instrumentNumber
 {
     self = [super init];
