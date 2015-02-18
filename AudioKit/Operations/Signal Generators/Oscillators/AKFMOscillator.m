@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -73,35 +73,55 @@
     _amplitude = amplitude;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"foscili("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ foscili ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_phase = akp(-1);        
-    [csdString appendFormat:@"%@ foscili ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
     if ([_baseFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _baseFrequency];
+        [inputsString appendFormat:@"%@, ", _baseFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _baseFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _baseFrequency];
     }
 
-    [csdString appendFormat:@"%@, ", _carrierMultiplier];
+    [inputsString appendFormat:@"%@, ", _carrierMultiplier];
     
-    [csdString appendFormat:@"%@, ", _modulatingMultiplier];
+    [inputsString appendFormat:@"%@, ", _modulatingMultiplier];
     
     if ([_modulationIndex class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _modulationIndex];
+        [inputsString appendFormat:@"%@, ", _modulationIndex];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _modulationIndex];
+        [inputsString appendFormat:@"AKControl(%@), ", _modulationIndex];
     }
 
-    [csdString appendFormat:@"%@, ", _functionTable];
+    [inputsString appendFormat:@"%@, ", _functionTable];
     
-    [csdString appendFormat:@"%@", _phase];
-    return csdString;
+    [inputsString appendFormat:@"%@", _phase];
+    return inputsString;
 }
 
 @end
