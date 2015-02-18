@@ -92,6 +92,11 @@
 /// @param newOperation New operation to add to the instrument.
 - (void)connect:(AKParameter *)newOperation;
 
+/// Sets a parameter to be the audio output of the AKInstrument.  Equivalent to declaring and connect AKAudioOutput.
+/// @param audio Operation output that you want to be played.
+- (void)setAudioOutput:(AKParameter *)audio;
+
+
 /// Adds any string to the output file, useful for testing and commenting.
 /// @param newString New string to add to the instrument definition.
 - (void)addString:(NSString *)newString;

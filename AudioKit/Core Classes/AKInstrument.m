@@ -10,6 +10,7 @@
 #import "AKManager.h"
 #import "AKAssignment.h"
 #import "AKStereoAudio.h"
+#import "AKAudioOutput.h"
 
 @implementation AKInstrument
 {
@@ -142,6 +143,15 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:[newOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];
 }
+- (void)setAudioOutput:(AKParameter *)audio
+{
+    if (!audio.connected) {
+        [self connect:audio];
+    }
+    AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:audio];
+    [self connect:output];
+}
+
 
 
 - (void)addString:(NSString *)newString
