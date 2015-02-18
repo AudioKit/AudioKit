@@ -2,7 +2,8 @@
 //  AKLowFrequencyOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
+//  Customized by Aurelius Prochazka on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
@@ -60,26 +61,45 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
 }
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
 
-- (NSString *)stringForCSD {
+    [inlineCSDString appendString:@"lfo("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
-    
+
     [csdString appendFormat:@"%@ lfo ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
     
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
-    
+
     if ([_frequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequency];
+        [inputsString appendFormat:@"%@, ", _frequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequency];
     }
-    
-    [csdString appendFormat:@"%@", _waveformType];
-    return csdString;
+
+    [inputsString appendFormat:@"%@", _waveformType];
+    return inputsString;
 }
 
 @end
