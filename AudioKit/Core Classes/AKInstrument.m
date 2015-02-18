@@ -139,6 +139,7 @@ static int currentID = 1;
 - (void)connect:(AKParameter *)newOperation
 {
     
+    newOperation.connected = YES;
     [_userDefinedOperations addObject:[newOperation udoString]];
     [innerCSDRepresentation appendString:[newOperation stringForCSD]];
     [innerCSDRepresentation appendString:@"\n"];

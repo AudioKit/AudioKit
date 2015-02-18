@@ -17,6 +17,12 @@
     return basename;
 }
 
+- (NSString *)inlineStringForCSD
+{
+    //Override in subclass
+    return self.parameterString;
+}
+
 - (NSString *)stringForCSD
 {
     //Override in subclass
@@ -27,6 +33,15 @@
 {
     //Override in subclass
     return @"";
+}
+
+- (NSString *)description
+{
+    if (self.connected) {
+        return self.parameterString;
+    } else {
+        return [self inlineStringForCSD];
+    }
 }
 
 @end

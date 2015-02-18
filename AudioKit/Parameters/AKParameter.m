@@ -20,6 +20,7 @@ static int currentID = 1;
 {
     self = [super init];
     _myID = currentID++;
+    _connected = NO;
     return self;
 }
 
