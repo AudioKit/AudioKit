@@ -2,8 +2,8 @@
 //  AKVCOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 1/2/15.
-//  Customized by Aurelius Prochazka on 1/2/15 to add tival() to waveformtype
+//  Auto-generated on 2/18/15.
+//  Customized by Aurelius Prochazka  to add tival() to waveformtype and class helpers for waveform type
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vco2:
@@ -75,41 +75,61 @@
     _amplitude = amplitude;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"vco2("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ vco2 ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_phase = akp(0);        
-    [csdString appendFormat:@"%@ vco2 ", self];
-
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
     if ([_frequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequency];
+        [inputsString appendFormat:@"%@, ", _frequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
-    [csdString appendFormat:@"tival()+%@, ", _waveformType];
+    [inputsString appendFormat:@"tival()+%@, ", _waveformType];
     
     if ([_pulseWidth class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _pulseWidth];
+        [inputsString appendFormat:@"%@, ", _pulseWidth];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _pulseWidth];
+        [inputsString appendFormat:@"AKControl(%@), ", _pulseWidth];
     }
 
     if ([_phase class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _phase];
+        [inputsString appendFormat:@"%@, ", _phase];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _phase];
+        [inputsString appendFormat:@"AKControl(%@), ", _phase];
     }
 
-    [csdString appendFormat:@"%@", _bandwidth];
-    return csdString;
+    [inputsString appendFormat:@"%@", _bandwidth];
+    return inputsString;
 }
 
 @end
