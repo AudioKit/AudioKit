@@ -17,19 +17,13 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
+    [super viewDidLoad];    
     // STEP 3 : Define the instrument as a simple oscillator
     instrument = [AKInstrument instrument];
-    AKOscillator *oscillator = [AKOscillator oscillator];
-    [instrument connect:oscillator];
-    AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:oscillator];
-    [instrument connect:output];
+    [instrument setAudioOutput:[AKOscillator oscillator]];
     
-    // STEP 4 : Add the instrument to the orchestra and start the orchestra
+    // STEP 4 : Add the instrument to the orchestra
     [AKOrchestra addInstrument:instrument];
-    [AKOrchestra start];
 }
 
 // STEP 5 : React to a button press on the Storyboard UI by
