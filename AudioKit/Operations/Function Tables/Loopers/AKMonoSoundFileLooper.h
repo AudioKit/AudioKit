@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
