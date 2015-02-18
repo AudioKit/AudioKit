@@ -24,6 +24,15 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
+/// Instantiates a new instrument
++ (instancetype)instrument;
+
+/// Instantiates a new instrument at a given instrument number
+/// @param instrumentNumber Unique number to assign this instrument, useful when overwriting an instrument
++ (instancetype)instrumentWithNumber:(int)instrumentNumber;
+
+/// Instantiates a new instrument at a given instrument number
+/// @param instrumentNumber Unique number to assign this instrument, useful when overwriting an instrument
 - (instancetype)initWithNumber:(int)instrumentNumber;
 
 /// Unique instrument number
