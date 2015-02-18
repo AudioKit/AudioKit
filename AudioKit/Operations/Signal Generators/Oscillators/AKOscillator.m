@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka on 2/17/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's oscili:
@@ -55,21 +56,44 @@
     _amplitude = amplitude;
 }
 
-- (NSString *)stringForCSD {
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+    
+    [inlineCSDString appendString:@"oscili("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
-    // Constant Values  
-    AKConstant *_phase = akp(-1);        
+    
     [csdString appendFormat:@"%@ oscili ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
-    
-    [csdString appendFormat:@"%@, ", _frequency];
-    
-    [csdString appendFormat:@"%@, ", _functionTable];
-    
-    [csdString appendFormat:@"%@", _phase];
+    [csdString appendString:[self inputsString]];
     return csdString;
 }
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+    
+    // Constant Values
+    AKConstant *_phase = akp(-1);
+    
+    [inputsString appendFormat:@"%@, ", _amplitude];
+    
+    [inputsString appendFormat:@"%@, ", _frequency];
+    
+    [inputsString appendFormat:@"%@, ", _functionTable];
+    
+    [inputsString appendFormat:@"%@", _phase];
+    
+    return inputsString;
+}
+
 
 @end
