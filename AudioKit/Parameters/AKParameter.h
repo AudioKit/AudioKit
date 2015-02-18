@@ -35,6 +35,8 @@
 // The CSD Text representation of the parameter's name
 @property NSString *parameterString;
 
+@property BOOL connected;
+
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the output file.
 + (instancetype)parameterWithString:(NSString *)name;
