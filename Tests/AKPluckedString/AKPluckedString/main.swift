@@ -25,11 +25,9 @@ class Instrument : AKInstrument {
 
         let excitation = AKMonoSoundFileLooper(soundFile: functionTable)
         excitation.loopMode = AKMonoSoundFileLooper.loopPlaysOnce()
-        connect(excitation)
 
         let pluckedString = AKPluckedString(excitationSignal: excitation)
         pluckedString.frequency = note.frequency
-        connect(pluckedString)
 
         enableParameterLog(
             "Frequency = ",
@@ -37,7 +35,7 @@ class Instrument : AKInstrument {
             timeInterval:20
         )
 
-        connect(AKAudioOutput(audioSource:pluckedString))
+        setAudioOutput(pluckedString)
     }
 }
 
