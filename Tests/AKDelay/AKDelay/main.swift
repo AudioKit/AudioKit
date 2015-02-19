@@ -19,10 +19,7 @@ class Instrument : AKInstrument {
         let filename = "CsoundLib64.framework/Sounds/808loop.wav"
 
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-
+        let mono = AKMix(monoAudioFromStereoInput: audio)
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }
@@ -34,23 +31,24 @@ class Processor : AKInstrument {
         super.init()
 
         let feedbackLine = AKLine(
-            firstPoint: 0.ak,
+            firstPoint:  0.ak,
             secondPoint: 1.ak,
             durationBetweenPoints: testDuration.ak
         )
-
-        let delay = AKDelay(input: audioSource, delayTime: 0.1.ak)
-        delay.feedback = feedbackLine
-        connect(delay)
-
+        
+        let delay = AKDelay(
+            input: audioSource,
+            delayTime: 0.1.ak,
+            feedback:feedbackLine
+        )
+        
         enableParameterLog(
             "Feedback = ",
-            parameter: delay.feedback,
+            parameter: feedbackLine,
             timeInterval:0.1
         )
 
         let mix = AKMix(input1: audioSource, input2: delay, balance: 0.5.ak)
-
         setAudioOutput(mix)
 
         resetParameter(audioSource)

@@ -2,9 +2,9 @@
 //  AKDelay.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Customized by Aurelius Prochazka on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/18/15.
+//  Customized by Aurelius Prochazka to add akdelay udo.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's delay:
 //  http://www.csounds.com/manual/html/delay.html
@@ -28,7 +28,8 @@
         _input = input;
         _delayTime = delayTime;
         _feedback = feedback;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _delayTime = delayTime;
         // Default Values
         _feedback = akp(0.0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -52,25 +54,72 @@
                     delayTime:delayTime];
 }
 
-- (void)setOptionalFeedback:(AKParameter *)feedback {
+- (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalFeedback:(AKParameter *)feedback {
+    [self setFeedback:feedback];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _delayTime, _feedback];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"akdelay("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    [csdString appendFormat:@"%@ init 0\n", self];
-    
-    [csdString appendFormat:@"%@ delay ", self];
+    [csdString appendFormat:@"%@ akdelay ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
-    if ([_feedback class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@ + (%@*%@), ", _input, self, _feedback];
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
+    if ([_input class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@ + (%@*%@)), ", _input, self, _feedback];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    [csdString appendFormat:@"%@", _delayTime];
-    return csdString;
+    if ([_feedback class] == [AKControl class]) {
+        [inputsString appendFormat:@"%@, ", _feedback];
+    } else {
+        [inputsString appendFormat:@"AKControl(%@), ", _feedback];
+    }
+
+    [inputsString appendFormat:@"%@", _delayTime];
+    return inputsString;
+}
+
+- (NSString *)udoString
+{
+    return @"\n"
+    "opcode  akdelay, a, aki\n"
+    "aIn, kFeedback, iTime xin\n"
+    "aOut init 0\n"
+    "aOut delay aIn + (aOut*kFeedback), iTime\n"
+    "xout      aOut\n"
+    "endop\n";
 }
 
 @end
