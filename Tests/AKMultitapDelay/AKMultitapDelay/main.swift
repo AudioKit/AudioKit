@@ -16,13 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+
         let filename = "CsoundLib64.framework/Sounds/808loop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -41,12 +38,12 @@ class Processor : AKInstrument {
         )
         multiTapDelay.addEchoAtTime(1.5.ak, gain: 0.25.ak)
 
-        connect(multiTapDelay)
-
-        let mix = AKMix(input1: audioSource, input2: multiTapDelay, balance: 0.5.ak)
-        connect(mix)
-
-        connect(AKAudioOutput(audioSource:mix))
+        let mix = AKMix(
+            input1: audioSource,
+            input2: multiTapDelay,
+            balance: 0.5.ak
+        )
+        setAudioOutput(mix)
 
         resetParameter(audioSource)
     }
