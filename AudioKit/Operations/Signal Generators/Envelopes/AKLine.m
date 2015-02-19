@@ -23,6 +23,8 @@
         _firstPoint = firstPoint;
         _secondPoint = secondPoint;
         _durationBetweenPoints = durationBetweenPoints;
+        self.state = @"connectable";
+        self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
     }
     return self;
 }
@@ -35,6 +37,8 @@
         _firstPoint = akp(0);
         _secondPoint = akp(1);
         _durationBetweenPoints = akp(1);
+        self.state = @"connectable";
+        self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
     }
     return self;
 }
