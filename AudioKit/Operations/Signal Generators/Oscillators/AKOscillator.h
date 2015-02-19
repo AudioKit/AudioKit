@@ -2,7 +2,7 @@
 //  AKOscillator.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -31,21 +31,21 @@
 
 
 /// Requires a wrap-around guard point [Default Value: sine]
-@property AKFunctionTable *functionTable;
+@property (nonatomic) AKFunctionTable *functionTable;
 
 /// Set an optional function table
 /// @param functionTable Requires a wrap-around guard point [Default Value: sine]
 - (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable;
 
 /// Frequency in cycles per second [Default Value: 440]
-@property AKParameter *frequency;
+@property (nonatomic) AKParameter *frequency;
 
 /// Set an optional frequency
 /// @param frequency Frequency in cycles per second [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Amplitude of the output [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of the output [Default Value: 1]
