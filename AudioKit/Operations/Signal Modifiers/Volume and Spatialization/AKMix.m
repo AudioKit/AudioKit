@@ -43,10 +43,60 @@
     max = maximumBalancePoint;
 }
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ ntrpol AKAudio(%@), AKAudio(%@), AKControl(%@), %@, %@",
-            self, in1, in2, current, min, max];
+//- (NSString *)stringForCSD {
+//    return [NSString stringWithFormat:
+//            @"%@ ntrpol AKAudio(%@), AKAudio(%@), AKControl(%@), %@, %@",
+//            self, in1, in2, current, min, max];
+//}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+    
+    [inlineCSDString appendString:@"ntrpol("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+    
+    return inlineCSDString;
 }
+
+
+- (NSString *)stringForCSD
+{
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+    
+    [csdString appendFormat:@"%@ ntrpol ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+    
+    
+    if ([in1 class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", in1];
+    } else {
+        [inputsString appendFormat:@"AKAudio(%@), ", in1];
+    }
+
+    if ([in2 class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", in2];
+    } else {
+        [inputsString appendFormat:@"AKAudio(%@), ", in2];
+    }
+    
+    if ([current class] == [AKControl class]) {
+        [inputsString appendFormat:@"%@, ", current];
+    } else {
+        [inputsString appendFormat:@"AKControl(%@), ", current];
+    }
+    
+    [inputsString appendFormat:@"%@, ", min];
+    
+    [inputsString appendFormat:@"%@", max];
+    return inputsString;
+}
+
 
 @end
