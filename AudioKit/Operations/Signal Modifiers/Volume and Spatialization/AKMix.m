@@ -11,6 +11,10 @@
 
 #import "AKMix.h"
 
+@interface AKMix ()
+@property NSString *state;
+@end
+
 @implementation AKMix
 {
     AKParameter *in1;
@@ -31,6 +35,23 @@
         current = balancePoint;
         in1 = input1;
         in2 = input2;
+        self.state = @"connectable";
+        self.dependencies = @[in1, in2, current, min, max];
+    }
+    return self;
+}
+
+- (instancetype)initMonoAudioFromStereoInput:(AKStereoAudio *)stereoInput
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        min = akp(0.0);
+        max = akp(1.0);
+        current = akp(0.5);
+        in1 = stereoInput.leftOutput;
+        in2 = stereoInput.rightOutput;
+        self.state = @"connectable";
+        self.dependencies = @[stereoInput];
     }
     return self;
 }
@@ -42,12 +63,6 @@
 - (void)setMaximumBalancePoint:(AKConstant *)maximumBalancePoint {
     max = maximumBalancePoint;
 }
-
-//- (NSString *)stringForCSD {
-//    return [NSString stringWithFormat:
-//            @"%@ ntrpol AKAudio(%@), AKAudio(%@), AKControl(%@), %@, %@",
-//            self, in1, in2, current, min, max];
-//}
 
 - (NSString *)inlineStringForCSD
 {

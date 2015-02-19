@@ -8,6 +8,7 @@
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
+#import "AKStereoAudio.h"
 
 /** Calculates the weighted mean value of two input signals.
  */
@@ -21,6 +22,10 @@
 - (instancetype)initWithInput1:(AKParameter *)input1
                         input2:(AKParameter *)input2
                         balance:(AKParameter *)balancePoint;
+
+/// Create a mono audio from equal part of the left and right of a stereo input
+/// @param stereoInput Stereo audio source to be mixed down to mono
+- (instancetype)initMonoAudioFromStereoInput:(AKStereoAudio *)stereoInput;
 
 /// Set the minimum balance point.
 /// @param minimumBalancePoint The value for which the balance point would indicate all input 1.
