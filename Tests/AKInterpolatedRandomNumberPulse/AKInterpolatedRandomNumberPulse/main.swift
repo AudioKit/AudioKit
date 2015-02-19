@@ -17,7 +17,6 @@ class Instrument : AKInstrument {
 
         let interpolatedRandomNumberPulse = AKInterpolatedRandomNumberPulse()
         interpolatedRandomNumberPulse.frequency = 3.ak
-        connect(interpolatedRandomNumberPulse)
 
         let oscillator = AKOscillator()
         oscillator.frequency = interpolatedRandomNumberPulse.scaledBy(4000.ak)

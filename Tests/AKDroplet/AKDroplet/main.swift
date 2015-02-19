@@ -12,10 +12,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-
-        let droplet = AKDroplet()
-        connect(droplet)
-        connect(AKAudioOutput(audioSource:droplet))
+        setAudioOutput(AKDroplet())
     }
 }
 
@@ -25,9 +22,9 @@ let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
 let phrase = AKPhrase()
-for index in 1...40 {
+for index in 1...100 {
     let note = AKNote()
-    let time = Float(index) / 4.0
+    let time = Float(index) / 10.0
     phrase.addNote(note, atTime:time)
 }
 instrument.playPhrase(phrase)
