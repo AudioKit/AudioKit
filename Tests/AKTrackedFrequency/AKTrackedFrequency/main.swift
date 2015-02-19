@@ -20,25 +20,19 @@ class Instrument : AKInstrument {
             secondPoint: 880.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(frequencyLine)
 
         let frequencyLineDeviation = AKOscillator()
         frequencyLineDeviation.frequency = 1.ak
         frequencyLineDeviation.amplitude = 30.ak
-        connect(frequencyLineDeviation)
 
         let toneGenerator = AKOscillator()
         toneGenerator.frequency = frequencyLine.plus(frequencyLineDeviation)
-        connect(toneGenerator)
-
-        let output = AKAudioOutput(audioSource: toneGenerator)
-        connect(output)
+        setAudioOutput(toneGenerator)
 
         let tracker = AKTrackedFrequency(
             audioSource: toneGenerator,
             sampleSize: 512.ak
         )
-        connect(tracker)
 
         enableParameterLog(
             "Actual frequency =  ",

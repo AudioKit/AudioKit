@@ -23,6 +23,8 @@
         asig = audioSource;
         ihopsize = hopSize;
         ipeaks = akp(20);
+        self.state = @"connectable";
+        self.dependencies = @[audioSource];
     }
     return self;
 }

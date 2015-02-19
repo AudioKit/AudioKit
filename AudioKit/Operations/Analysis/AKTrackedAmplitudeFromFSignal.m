@@ -21,6 +21,8 @@
     if (self) {
         asig = fSignalSource;
         iampThresh = amplitudeThreshold;
+        self.state = @"connectable";
+        self.dependencies = @[fSignalSource];
     }
     return self;
 }
