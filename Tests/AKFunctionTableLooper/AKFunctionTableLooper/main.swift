@@ -18,24 +18,25 @@ class Instrument : AKInstrument {
         let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
 
         let soundFile = AKSoundFile(filename: filename)
-        connect(soundFile)
+        addFunctionTable(soundFile)
 
-        let speed = AKLine(firstPoint: 3.ak, secondPoint: 0.5.ak, durationBetweenPoints: testDuration.ak)
-        connect(speed)
+        let speed = AKLine(
+            firstPoint:  3.ak,
+            secondPoint: 0.5.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let functionTableLooper = AKFunctionTableLooper(functionTable: soundFile)
         functionTableLooper.endTime = 9.6.ak
         functionTableLooper.transpositionRatio = speed
         functionTableLooper.loopMode = AKFunctionTableLooper.loopPlaysForwardAndThenBackwards()
-        connect(functionTableLooper)
 
         enableParameterLog(
             "Transposition Ratio = ",
             parameter: functionTableLooper.transpositionRatio,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:functionTableLooper))
+        setAudioOutput(functionTableLooper)
     }
 }
 
