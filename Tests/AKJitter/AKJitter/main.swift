@@ -17,19 +17,16 @@ class Instrument : AKInstrument {
 
         let jitter = AKJitter()
         jitter.amplitude = 3000.ak
-        connect(jitter)
 
         let sine = AKOscillator()
         sine.frequency = jitter
-        connect(sine)
 
         enableParameterLog(
             "Jitter = ",
             parameter: jitter,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:sine))
+        setAudioOutput(sine)
     }
 }
 
