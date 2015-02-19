@@ -7,6 +7,8 @@
 //
 
 #import "AKParameter.h"
+#import "AKSum.h"
+#import "AKProduct.h"
 
 @implementation AKParameter
 
@@ -149,25 +151,24 @@ static int currentID = 1;
 
 - (instancetype)plus:(AKParameter *)additionalParameter
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) + (%@))", self, additionalParameter]];
-    return new;
+    AKSum *sum = [[AKSum alloc] initWithFirstInput:self secondInput:additionalParameter];
+    return sum;
 }
 
 - (instancetype)minus:(AKParameter *)subtractedParameter
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) - (%@))", self, subtractedParameter]];
-    return new;
+#warning "Need a better subtraction"
+    AKSum *difference = [[AKSum alloc] initWithFirstInput:self secondInput:subtractedParameter];
+    return difference;
 }
 
 - (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) * (%@))", self, scalingFactor]];
-    return new;
+    AKProduct *product = [[AKProduct alloc] initWithFirstInput:self secondInput:scalingFactor];
+    return product;
 }
 
+#warning "Need a better division"
 - (instancetype)dividedBy:(AKParameter *)divisor
 {
     AKParameter *new = [[AKParameter alloc] init];
@@ -175,6 +176,7 @@ static int currentID = 1;
     return new;
 }
 
+#warning "Need a better inverse"
 - (instancetype)inverse
 {
     AKParameter *new = [[AKParameter alloc] init];
@@ -182,6 +184,7 @@ static int currentID = 1;
     return new;
 }
 
+#warning "Need all of these to be truly functional"
 - (instancetype)mathWithOperation:(NSString *)operation{
     AKParameter *new = [[AKParameter alloc] init];
     [new setParameterString:[NSString stringWithFormat:@"%@(%@)", operation, _parameterString]];
