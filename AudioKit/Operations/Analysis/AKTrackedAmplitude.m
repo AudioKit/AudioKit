@@ -24,6 +24,8 @@
     if (self) {
         _audioSource = audioSource;
         _halfPowerPoint = halfPowerPoint;
+        self.state = @"connectable";
+        self.dependencies = @[audioSource];
     }
     return self;
 }
@@ -35,6 +37,8 @@
         _audioSource = audioSource;
         // Default Values
         _halfPowerPoint = akp(10);
+        self.state = @"connectable";
+        self.dependencies = @[audioSource];
     }
     return self;
 }
