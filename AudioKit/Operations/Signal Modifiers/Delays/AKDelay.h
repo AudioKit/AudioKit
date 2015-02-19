@@ -2,9 +2,8 @@
 //  AKDelay.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Customized by Aurelius Prochazka on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/18/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
@@ -17,8 +16,8 @@
 
 @interface AKDelay : AKAudio
 /// Instantiates the delay with all values
-/// @param input Input signal, usually audio. [Default Value: ]
-/// @param delayTime Requested delay time in seconds. [Default Value: ]
+/// @param input Input signal, usually audio.
+/// @param delayTime Requested delay time in seconds.
 /// @param feedback How much of the signal is sent back into the delay line.  Usually values range from 0-1. Updated at Control-rate. [Default Value: 0.0]
 - (instancetype)initWithInput:(AKParameter *)input
                     delayTime:(AKConstant *)delayTime
