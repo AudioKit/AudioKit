@@ -24,9 +24,8 @@ class Instrument : AKInstrument {
         let mono = AKMix(
             input1: audio.leftOutput,
             input2: audio.rightOutput,
-            balance: 0.5.ak)
-        connect(mono)
-
+            balance: 0.5.ak
+        )
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }
@@ -37,19 +36,23 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let compressionRatio = AKLine(firstPoint: 0.5.ak, secondPoint: 2.ak, durationBetweenPoints: testDuration.ak)
-        connect(compressionRatio)
+        let compressionRatio = AKLine(
+            firstPoint:  0.5.ak,
+            secondPoint: 2.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let attackTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
-        connect(attackTime)
+        let attackTime = AKLine(
+            firstPoint:  0.ak,
+            secondPoint: 1.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let compressor = AKCompressor(input: audioSource, controllingInput: audioSource)
         compressor.compressionRatio = compressionRatio
         compressor.attackTime = attackTime
-        connect(compressor)
 
-        let output = AKBalance(input: compressor, comparatorAudioSource: audioSource)
-        connect(output)
+        let balance = AKBalance(input: compressor, comparatorAudioSource: audioSource)
 
         enableParameterLog(
             "Compression Ratio = ",
@@ -62,8 +65,7 @@ class Processor : AKInstrument {
             parameter: compressor.attackTime,
             timeInterval:0.2
         )
-
-        connect(AKAudioOutput(audioSource:output))
+        setAudioOutput(balance)
 
         resetParameter(audioSource)
     }
