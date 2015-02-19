@@ -24,14 +24,12 @@ class Instrument : AKInstrument {
             totalDuration: 0.5.ak,
             amplitude: 0.25.ak
         )
-        connect(envelope)
 
         let bowedString = AKBowedString()
         bowedString.frequency = note.frequency
         bowedString.vibratoFrequency = 4.ak
         bowedString.vibratoAmplitude = 0.01.ak
         bowedString.amplitude = envelope
-        connect(bowedString)
 
         enableParameterLog(
             "Frequency = ",

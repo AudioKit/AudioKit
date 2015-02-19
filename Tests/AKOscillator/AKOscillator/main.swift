@@ -17,12 +17,10 @@ class Instrument : AKInstrument {
 
         let oscillatingControl = AKOscillator()
         oscillatingControl.frequency = 2.ak
-        connect(oscillatingControl)
 
         let oscillator = AKOscillator()
         oscillator.frequency = oscillatingControl.scaledBy(110.ak).plus(440.ak)
-        connect(oscillator)
-        connect(AKAudioOutput(audioSource:oscillator))
+        setAudioOutput(oscillator)
 
         enableParameterLog(
             "Frequency = ",
