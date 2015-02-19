@@ -22,16 +22,12 @@ class Instrument : AKInstrument {
         segmentLoop.addValue(550.ak, afterDuration: 1.ak, concavity: (-5).ak)
         segmentLoop.addValue(330.ak, afterDuration: 2.ak, concavity: 0.ak)
         segmentLoop.addValue(440.ak, afterDuration: 1.ak, concavity: 5.ak)
-        connect(segmentLoop)
 
         enableParameterLog("segment value = ", parameter: segmentLoop, timeInterval: 0.1)
 
         let oscillator = AKOscillator()
         oscillator.frequency = segmentLoop
-        connect(oscillator)
-
-        let output = AKAudioOutput(audioSource: oscillator)
-        connect(output)
+        setAudioOutput(oscillator)
     }
 }
 

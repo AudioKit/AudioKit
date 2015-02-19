@@ -2,8 +2,8 @@
 //  AKVCOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
-//  Customized by Aurelius Prochazka  to add tival() to waveformtype and class helpers for waveform type
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka to add tival() to waveformtype and class helpers for waveform type
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vco2:
@@ -36,7 +36,8 @@
         _pulseWidth = pulseWidth;
         _frequency = frequency;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -50,6 +51,7 @@
         _pulseWidth = akp(0);
         _frequency = akp(440);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -59,20 +61,56 @@
     return [[AKVCOscillator alloc] init];
 }
 
-- (void)setOptionalWaveformType:(AKConstant *)waveformType {
+- (void)setWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
+    [self setUpConnections];
 }
-- (void)setOptionalBandwidth:(AKConstant *)bandwidth {
+
+- (void)setOptionalWaveformType:(AKConstant *)waveformType {
+    [self setWaveformType:waveformType];
+}
+
+- (void)setBandwidth:(AKConstant *)bandwidth {
     _bandwidth = bandwidth;
+    [self setUpConnections];
 }
-- (void)setOptionalPulseWidth:(AKParameter *)pulseWidth {
+
+- (void)setOptionalBandwidth:(AKConstant *)bandwidth {
+    [self setBandwidth:bandwidth];
+}
+
+- (void)setPulseWidth:(AKParameter *)pulseWidth {
     _pulseWidth = pulseWidth;
+    [self setUpConnections];
 }
-- (void)setOptionalFrequency:(AKParameter *)frequency {
+
+- (void)setOptionalPulseWidth:(AKParameter *)pulseWidth {
+    [self setPulseWidth:pulseWidth];
+}
+
+- (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_waveformType, _bandwidth, _pulseWidth, _frequency, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD

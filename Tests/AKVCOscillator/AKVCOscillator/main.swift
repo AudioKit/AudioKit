@@ -19,19 +19,13 @@ class Instrument : AKInstrument {
         addNoteProperty(note.waveformType)
 
         let pulseWidthLine = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: 10.ak)
-        connect(pulseWidthLine)
-
         let frequencyLine = AKLine(firstPoint: 110.ak, secondPoint: 880.ak, durationBetweenPoints: 10.ak)
-        connect(frequencyLine)
-
 
         let vcOscillator = AKVCOscillator()
         vcOscillator.waveformType = note.waveformType
         vcOscillator.pulseWidth = pulseWidthLine
         vcOscillator.frequency = frequencyLine
-        connect(vcOscillator)
-
-        connect(AKAudioOutput(audioSource:vcOscillator))
+        setAudioOutput(vcOscillator)
     }
 }
 
