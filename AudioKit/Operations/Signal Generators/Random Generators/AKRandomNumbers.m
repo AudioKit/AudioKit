@@ -2,7 +2,7 @@
 //  AKRandomNumbers.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's random:
@@ -21,7 +21,8 @@
     if (self) {
         _lowerBound = lowerBound;
         _upperBound = upperBound;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -32,6 +33,7 @@
         // Default Values
         _lowerBound = akp(0);
         _upperBound = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -41,30 +43,68 @@
     return [[AKRandomNumbers alloc] init];
 }
 
-- (void)setOptionalLowerBound:(AKParameter *)lowerBound {
+- (void)setLowerBound:(AKParameter *)lowerBound {
     _lowerBound = lowerBound;
-}
-- (void)setOptionalUpperBound:(AKParameter *)upperBound {
-    _upperBound = upperBound;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalLowerBound:(AKParameter *)lowerBound {
+    [self setLowerBound:lowerBound];
+}
+
+- (void)setUpperBound:(AKParameter *)upperBound {
+    _upperBound = upperBound;
+    [self setUpConnections];
+}
+
+- (void)setOptionalUpperBound:(AKParameter *)upperBound {
+    [self setUpperBound:upperBound];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_lowerBound, _upperBound];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"random("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ random ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_lowerBound class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _lowerBound];
+        [inputsString appendFormat:@"%@, ", _lowerBound];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _lowerBound];
+        [inputsString appendFormat:@"AKControl(%@), ", _lowerBound];
     }
 
     if ([_upperBound class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _upperBound];
+        [inputsString appendFormat:@"%@", _upperBound];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _upperBound];
+        [inputsString appendFormat:@"AKControl(%@)", _upperBound];
     }
-return csdString;
+return inputsString;
 }
 
 @end

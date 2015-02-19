@@ -25,6 +25,8 @@
         loopFrequency = frequency;
         segments = [[NSMutableArray alloc] init];
         [segments addObject:initialValue];
+        self.state = @"connectable";
+        self.dependencies = @[loopFrequency, initialValue];
     }
     return self;
 }
@@ -36,8 +38,10 @@
     [segments addObject:concavity];
     [segments addObject:duration];
     [segments addObject:value];
+    self.dependencies = [self.dependencies arrayByAddingObjectsFromArray:@[concavity, duration, value]];
 }
 
+#warning This doesn't handle a-rate, it should be downsampled to control-rate
 - (NSString *)stringForCSD {
     return [NSString stringWithFormat:
             @"%@ looptseg %@, 0, 0, %@",

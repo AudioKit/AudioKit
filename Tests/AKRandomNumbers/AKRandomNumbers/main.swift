@@ -8,23 +8,22 @@
 
 import Foundation
 
+let testDuration: Float = 10
 class Instrument : AKInstrument {
 
     override init() {
         super.init()
 
+        let line = AKLine(firstPoint: 200.ak, secondPoint: 1000.ak, durationBetweenPoints: testDuration.ak)
         let randomWidth = AKRandomNumbers()
-        connect(randomWidth)
 
         let oscillator = AKOscillator()
-        oscillator.frequency = 440.ak.plus(randomWidth.scaledBy(100.ak))
-        connect(oscillator)
-
-        connect(AKAudioOutput(audioSource:oscillator))
+        oscillator.frequency = 440.ak.plus(randomWidth.scaledBy(line))
+        setAudioOutput(oscillator)
     }
 }
 
-AKOrchestra.testForDuration(2)
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)

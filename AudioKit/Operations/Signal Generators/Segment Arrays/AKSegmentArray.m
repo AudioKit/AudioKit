@@ -27,6 +27,7 @@
         segments = [[NSMutableArray alloc] init];
         releaseSegment = [NSArray array];
         [self addValue:targetValue afterDuration:duration concavity:concavity];
+        self.state = @"connectable";
     }
     
     return self;

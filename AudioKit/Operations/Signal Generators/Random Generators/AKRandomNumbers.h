@@ -2,7 +2,7 @@
 //  AKRandomNumbers.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -29,14 +29,14 @@
 
 
 /// Minimum range limit. [Default Value: 0]
-@property AKParameter *lowerBound;
+@property (nonatomic) AKParameter *lowerBound;
 
 /// Set an optional lower bound
 /// @param lowerBound Minimum range limit. Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalLowerBound:(AKParameter *)lowerBound;
 
 /// Maximum range limit. [Default Value: 1]
-@property AKParameter *upperBound;
+@property (nonatomic) AKParameter *upperBound;
 
 /// Set an optional upper bound
 /// @param upperBound Maximum range limit. Updated at Control-rate. [Default Value: 1]
