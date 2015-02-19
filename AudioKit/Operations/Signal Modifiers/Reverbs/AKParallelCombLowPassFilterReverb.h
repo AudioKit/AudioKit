@@ -2,7 +2,7 @@
 //  AKParallelCombLowPassFilterReverb.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)reverbWithInput:(AKParameter *)input;
 
 /// Length of reverbation in seconds. [Default Value: 1]
-@property AKParameter *duration;
+@property (nonatomic) AKParameter *duration;
 
 /// Set an optional duration
 /// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalDuration:(AKParameter *)duration;
 
 /// A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster than lower ones. [Default Value: 0.5]
-@property AKParameter *highFrequencyDiffusivity;
+@property (nonatomic) AKParameter *highFrequencyDiffusivity;
 
 /// Set an optional high frequency diffusivity
 /// @param highFrequencyDiffusivity A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster than lower ones. Updated at Control-rate. [Default Value: 0.5]
