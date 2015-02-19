@@ -19,22 +19,18 @@ class Instrument : AKInstrument {
         frequencyShifter.waveformType = AKLowFrequencyOscillator.waveformTypeForBipolarSquare()
         frequencyShifter.amplitude = 100.ak;
         frequencyShifter.frequency = 0.25.ak
-        connect(frequencyShifter)
 
         let portamento = AKPortamento(input: frequencyShifter)
-        connect(portamento)
 
         let sine = AKOscillator()
         sine.frequency  = portamento.plus(880.ak)
-        connect(sine)
-
+        setAudioOutput(sine)
+        
         enableParameterLog(
             "Frequency = ",
             parameter: sine.frequency,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:sine))
     }
 }
 

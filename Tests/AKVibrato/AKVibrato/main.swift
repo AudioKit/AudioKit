@@ -17,19 +17,16 @@ class Instrument : AKInstrument {
 
         let vibrato = AKVibrato()
         vibrato.averageAmplitude = 20.ak
-        connect(vibrato)
 
         let sine = AKOscillator()
         sine.frequency = 440.ak.plus(vibrato)
-        connect(sine)
+        setAudioOutput(sine)
 
         enableParameterLog(
             "Frequency = ",
             parameter: sine.frequency,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:sine))
     }
 }
 

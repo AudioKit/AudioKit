@@ -2,7 +2,7 @@
 //  AKPortamento.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's portk:
@@ -24,7 +24,8 @@
     if (self) {
         _input = input;
         _halfTime = halfTime;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _input = input;
         // Default Values
         _halfTime = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,27 +46,59 @@
     return [[AKPortamento alloc] initWithInput:input];
 }
 
-- (void)setOptionalHalfTime:(AKParameter *)halfTime {
+- (void)setHalfTime:(AKParameter *)halfTime {
     _halfTime = halfTime;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalHalfTime:(AKParameter *)halfTime {
+    [self setHalfTime:halfTime];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _halfTime];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"portk("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ portk ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _input];
+        [inputsString appendFormat:@"AKControl(%@), ", _input];
     }
 
     if ([_halfTime class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _halfTime];
+        [inputsString appendFormat:@"%@", _halfTime];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _halfTime];
+        [inputsString appendFormat:@"AKControl(%@)", _halfTime];
     }
-return csdString;
+return inputsString;
 }
 
 @end
