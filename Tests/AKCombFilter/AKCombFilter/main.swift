@@ -26,7 +26,6 @@ class Instrument : AKInstrument {
             input2: audio.rightOutput,
             balance: 0.5.ak
         )
-        connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -41,20 +40,18 @@ class Processor : AKInstrument {
         let reverbDuration = AKLine(
             firstPoint: 0.ak,
             secondPoint: 3.ak,
-            durationBetweenPoints: testDuration.ak)
-        connect(reverbDuration)
+            durationBetweenPoints: testDuration.ak
+        )
 
         let combFilter = AKCombFilter(input: audioSource)
         combFilter.reverbDuration = reverbDuration
-        connect(combFilter)
 
         enableParameterLog(
             "Reverb Duration = ",
             parameter: combFilter.reverbDuration,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:combFilter))
+        setAudioOutput(combFilter)
 
         resetParameter(audioSource)
     }

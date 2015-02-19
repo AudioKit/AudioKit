@@ -2,7 +2,7 @@
 //  AKCombFilter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's comb:
@@ -54,25 +54,45 @@
     _loopDuration = loopDuration;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"comb("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ comb ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_reverbDuration class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _reverbDuration];
+        [inputsString appendFormat:@"%@, ", _reverbDuration];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _reverbDuration];
+        [inputsString appendFormat:@"AKControl(%@), ", _reverbDuration];
     }
 
-    [csdString appendFormat:@"%@", _loopDuration];
-    return csdString;
+    [inputsString appendFormat:@"%@", _loopDuration];
+    return inputsString;
 }
 
 @end
