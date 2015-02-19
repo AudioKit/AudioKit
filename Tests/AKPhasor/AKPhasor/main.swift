@@ -17,12 +17,10 @@ class Instrument : AKInstrument {
 
         let phasingControl = AKPhasor()
         phasingControl.frequency = 5.ak
-        connect(phasingControl)
 
         let phasor = AKPhasor()
         phasor.frequency = phasingControl.scaledBy(880.ak)
-        connect(phasor)
-        connect(AKAudioOutput(audioSource:phasor))
+        setAudioOutput(phasor)
 
         enableParameterLog(
             "Frequency = ",

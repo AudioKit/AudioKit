@@ -2,7 +2,7 @@
 //  AKPhasor.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -31,14 +31,14 @@ Note that phasor is a special kind of integrator, accumulating phase increments 
 
 
 /// Frequency in cycles per second. [Default Value: 440]
-@property AKParameter *frequency;
+@property (nonatomic) AKParameter *frequency;
 
 /// Set an optional frequency
 /// @param frequency Frequency in cycles per second. [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Initial phase, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-@property AKConstant *phase;
+@property (nonatomic) AKConstant *phase;
 
 /// Set an optional phase
 /// @param phase Initial phase, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
