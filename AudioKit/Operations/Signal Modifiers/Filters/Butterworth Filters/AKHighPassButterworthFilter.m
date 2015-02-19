@@ -2,7 +2,7 @@
 //  AKHighPassButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's butterhp:
@@ -24,7 +24,8 @@
     if (self) {
         _input = input;
         _cutoffFrequency = cutoffFrequency;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _input = input;
         // Default Values
         _cutoffFrequency = akp(500);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,27 +46,59 @@
     return [[AKHighPassButterworthFilter alloc] initWithInput:input];
 }
 
-- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
+- (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
+    [self setCutoffFrequency:cutoffFrequency];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _cutoffFrequency];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"butterhp("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ butterhp ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_cutoffFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _cutoffFrequency];
+        [inputsString appendFormat:@"%@", _cutoffFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _cutoffFrequency];
+        [inputsString appendFormat:@"AKControl(%@)", _cutoffFrequency];
     }
-return csdString;
+return inputsString;
 }
 
 @end
