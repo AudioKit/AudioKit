@@ -2,7 +2,8 @@
 //  AKPanner.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazk to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -47,14 +48,14 @@
 + (instancetype)pannerWithInput:(AKParameter *)input;
 
 /// From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
-@property AKParameter *pan;
+@property (nonatomic) AKParameter *pan;
 
 /// Set an optional pan
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 - (void)setOptionalPan:(AKParameter *)pan;
 
 /// AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
-@property AKConstant *panMethod;
+@property (nonatomic) AKConstant *panMethod;
 
 /// Set an optional pan method
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]

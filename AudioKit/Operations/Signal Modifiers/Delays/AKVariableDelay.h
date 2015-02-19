@@ -2,7 +2,7 @@
 //  AKVariableDelay.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)delayWithInput:(AKParameter *)input;
 
 /// Current value of delay in seconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise. [Default Value: 0]
-@property AKParameter *delayTime;
+@property (nonatomic) AKParameter *delayTime;
 
 /// Set an optional delay time
 /// @param delayTime Current value of delay in seconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise. [Default Value: 0]
 - (void)setOptionalDelayTime:(AKParameter *)delayTime;
 
 /// Maximum value of delay in seconds. [Default Value: 5]
-@property AKConstant *maximumDelayTime;
+@property (nonatomic) AKConstant *maximumDelayTime;
 
 /// Set an optional maximum delay time
 /// @param maximumDelayTime Maximum value of delay in seconds. [Default Value: 5]

@@ -2,7 +2,8 @@
 //  AKStereoSoundFileLooper.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's loscil3:
@@ -21,7 +22,6 @@
 + (AKConstant *)loopRepeats                      { return akp(1); }
 + (AKConstant *)loopPlaysForwardAndThenBackwards { return akp(2); }
 
-
 - (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
                    frequencyRatio:(AKParameter *)frequencyRatio
                         amplitude:(AKParameter *)amplitude
@@ -33,7 +33,8 @@
         _frequencyRatio = frequencyRatio;
         _amplitude = amplitude;
         _loopMode = loopMode;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -46,6 +47,7 @@
         _frequencyRatio = akp(1);
         _amplitude = akp(1);
         _loopMode = [AKStereoSoundFileLooper loopRepeats];
+        [self setUpConnections];
     }
     return self;
 }
@@ -55,37 +57,81 @@
     return [[AKStereoSoundFileLooper alloc] initWithSoundFile:soundFile];
 }
 
-- (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio {
+- (void)setFrequencyRatio:(AKParameter *)frequencyRatio {
     _frequencyRatio = frequencyRatio;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
-}
-- (void)setOptionalLoopMode:(AKConstant *)loopMode {
-    _loopMode = loopMode;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio {
+    [self setFrequencyRatio:frequencyRatio];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setLoopMode:(AKConstant *)loopMode {
+    _loopMode = loopMode;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLoopMode:(AKConstant *)loopMode {
+    [self setLoopMode:loopMode];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_soundFile, _frequencyRatio, _amplitude, _loopMode];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"loscil3("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ loscil3 ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_baseFrequency = akp(1);        
-    [csdString appendFormat:@"%@ loscil3 ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
+    
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
     if ([_frequencyRatio class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequencyRatio];
+        [inputsString appendFormat:@"%@, ", _frequencyRatio];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequencyRatio];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequencyRatio];
     }
 
-    [csdString appendFormat:@"%@, ", _soundFile];
+    [inputsString appendFormat:@"%@, ", _soundFile];
     
-    [csdString appendFormat:@"%@, ", _baseFrequency];
+    [inputsString appendFormat:@"%@, ", _baseFrequency];
     
-    [csdString appendFormat:@"%@", _loopMode];
-    return csdString;
+    [inputsString appendFormat:@"%@", _loopMode];
+    return inputsString;
 }
 
 @end
