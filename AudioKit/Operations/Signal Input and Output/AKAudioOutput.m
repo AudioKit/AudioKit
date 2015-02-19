@@ -27,6 +27,8 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         aStereoOutput = stereoAudio;
+        self.state = @"connectable";
+        self.dependencies = @[stereoAudio];
     }
     return self;
 }
@@ -38,6 +40,8 @@
     if (self) {
         aStereoOutput = [[AKStereoAudio alloc] initWithLeftAudio:leftAudio
                                                       rightAudio:rightAudio];
+        self.state = @"connectable";
+        self.dependencies = @[leftAudio, rightAudio];
     }
     return self; 
 }
