@@ -2,7 +2,7 @@
 //  AKMandolin.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's mandol:
@@ -29,7 +29,8 @@
         _pairedStringDetuning = pairedStringDetuning;
         _pluckPosition = pluckPosition;
         _loopGain = loopGain;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -44,6 +45,7 @@
         _pairedStringDetuning = akp(1);
         _pluckPosition = akp(0.4);
         _loopGain = akp(0.99);
+        [self setUpConnections];
     }
     return self;
 }
@@ -53,27 +55,90 @@
     return [[AKMandolin alloc] init];
 }
 
-- (void)setOptionalBodySize:(AKParameter *)bodySize {
+- (void)setBodySize:(AKParameter *)bodySize {
     _bodySize = bodySize;
-}
-- (void)setOptionalFrequency:(AKParameter *)frequency {
-    _frequency = frequency;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
-}
-- (void)setOptionalPairedStringDetuning:(AKParameter *)pairedStringDetuning {
-    _pairedStringDetuning = pairedStringDetuning;
-}
-- (void)setOptionalPluckPosition:(AKConstant *)pluckPosition {
-    _pluckPosition = pluckPosition;
-}
-- (void)setOptionalLoopGain:(AKParameter *)loopGain {
-    _loopGain = loopGain;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalBodySize:(AKParameter *)bodySize {
+    [self setBodySize:bodySize];
+}
+
+- (void)setFrequency:(AKParameter *)frequency {
+    _frequency = frequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setPairedStringDetuning:(AKParameter *)pairedStringDetuning {
+    _pairedStringDetuning = pairedStringDetuning;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPairedStringDetuning:(AKParameter *)pairedStringDetuning {
+    [self setPairedStringDetuning:pairedStringDetuning];
+}
+
+- (void)setPluckPosition:(AKConstant *)pluckPosition {
+    _pluckPosition = pluckPosition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPluckPosition:(AKConstant *)pluckPosition {
+    [self setPluckPosition:pluckPosition];
+}
+
+- (void)setLoopGain:(AKParameter *)loopGain {
+    _loopGain = loopGain;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLoopGain:(AKParameter *)loopGain {
+    [self setLoopGain:loopGain];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_bodySize, _frequency, _amplitude, _pairedStringDetuning, _pluckPosition, _loopGain];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"mandol("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ mandol ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
@@ -86,42 +151,41 @@
     AKInstrument *temp = [[AKInstrument alloc] init];
     [temp addFunctionTable:_strikeImpulseTable]; //AOP
     
-    [csdString appendFormat:@"%@ mandol ", self];
-
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
     if ([_frequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequency];
+        [inputsString appendFormat:@"%@, ", _frequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
-    [csdString appendFormat:@"%@, ", _pluckPosition];
+    [inputsString appendFormat:@"%@, ", _pluckPosition];
     
     if ([_pairedStringDetuning class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _pairedStringDetuning];
+        [inputsString appendFormat:@"%@, ", _pairedStringDetuning];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _pairedStringDetuning];
+        [inputsString appendFormat:@"AKControl(%@), ", _pairedStringDetuning];
     }
 
     if ([_loopGain class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _loopGain];
+        [inputsString appendFormat:@"%@, ", _loopGain];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _loopGain];
+        [inputsString appendFormat:@"AKControl(%@), ", _loopGain];
     }
 
     if ([_bodySize class] == [AKControl class]) {
-        [csdString appendFormat:@"2 * (1 - %@), ", _bodySize];
+        [inputsString appendFormat:@"2 * (1 - %@), ", _bodySize];
     } else {
-        [csdString appendFormat:@"AKControl(2 * (1 - %@)), ", _bodySize];
+        [inputsString appendFormat:@"AKControl(2 * (1 - %@)), ", _bodySize];
     }
 
-    [csdString appendFormat:@"%@", _strikeImpulseTable];
-    return csdString;
+    [inputsString appendFormat:@"%@", _strikeImpulseTable];
+    return inputsString;
 }
 
 @end
