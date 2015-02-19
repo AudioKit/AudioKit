@@ -2,7 +2,7 @@
 //  AKVibrato.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibrato:
@@ -37,7 +37,8 @@
         _minimumAmplitudeRandomness = minimumAmplitudeRandomness;
         _maximumAmplitudeRandomness = maximumAmplitudeRandomness;
         _phase = phase;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -57,6 +58,7 @@
         _minimumAmplitudeRandomness = akp(0);
         _maximumAmplitudeRandomness = akp(0);
         _phase = akp(0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -66,94 +68,180 @@
     return [[AKVibrato alloc] init];
 }
 
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
+- (void)setVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
     _vibratoShapeTable = vibratoShapeTable;
-}
-- (void)setOptionalAverageFrequency:(AKParameter *)averageFrequency {
-    _averageFrequency = averageFrequency;
-}
-- (void)setOptionalFrequencyRandomness:(AKParameter *)frequencyRandomness {
-    _frequencyRandomness = frequencyRandomness;
-}
-- (void)setOptionalMinimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness {
-    _minimumFrequencyRandomness = minimumFrequencyRandomness;
-}
-- (void)setOptionalMaximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness {
-    _maximumFrequencyRandomness = maximumFrequencyRandomness;
-}
-- (void)setOptionalAverageAmplitude:(AKParameter *)averageAmplitude {
-    _averageAmplitude = averageAmplitude;
-}
-- (void)setOptionalAmplitudeDeviation:(AKParameter *)amplitudeDeviation {
-    _amplitudeDeviation = amplitudeDeviation;
-}
-- (void)setOptionalMinimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness {
-    _minimumAmplitudeRandomness = minimumAmplitudeRandomness;
-}
-- (void)setOptionalMaximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness {
-    _maximumAmplitudeRandomness = maximumAmplitudeRandomness;
-}
-- (void)setOptionalPhase:(AKConstant *)phase {
-    _phase = phase;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
+    [self setVibratoShapeTable:vibratoShapeTable];
+}
+
+- (void)setAverageFrequency:(AKParameter *)averageFrequency {
+    _averageFrequency = averageFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAverageFrequency:(AKParameter *)averageFrequency {
+    [self setAverageFrequency:averageFrequency];
+}
+
+- (void)setFrequencyRandomness:(AKParameter *)frequencyRandomness {
+    _frequencyRandomness = frequencyRandomness;
+    [self setUpConnections];
+}
+
+- (void)setOptionalFrequencyRandomness:(AKParameter *)frequencyRandomness {
+    [self setFrequencyRandomness:frequencyRandomness];
+}
+
+- (void)setMinimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness {
+    _minimumFrequencyRandomness = minimumFrequencyRandomness;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMinimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness {
+    [self setMinimumFrequencyRandomness:minimumFrequencyRandomness];
+}
+
+- (void)setMaximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness {
+    _maximumFrequencyRandomness = maximumFrequencyRandomness;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMaximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness {
+    [self setMaximumFrequencyRandomness:maximumFrequencyRandomness];
+}
+
+- (void)setAverageAmplitude:(AKParameter *)averageAmplitude {
+    _averageAmplitude = averageAmplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAverageAmplitude:(AKParameter *)averageAmplitude {
+    [self setAverageAmplitude:averageAmplitude];
+}
+
+- (void)setAmplitudeDeviation:(AKParameter *)amplitudeDeviation {
+    _amplitudeDeviation = amplitudeDeviation;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitudeDeviation:(AKParameter *)amplitudeDeviation {
+    [self setAmplitudeDeviation:amplitudeDeviation];
+}
+
+- (void)setMinimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness {
+    _minimumAmplitudeRandomness = minimumAmplitudeRandomness;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMinimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness {
+    [self setMinimumAmplitudeRandomness:minimumAmplitudeRandomness];
+}
+
+- (void)setMaximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness {
+    _maximumAmplitudeRandomness = maximumAmplitudeRandomness;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMaximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness {
+    [self setMaximumAmplitudeRandomness:maximumAmplitudeRandomness];
+}
+
+- (void)setPhase:(AKConstant *)phase {
+    _phase = phase;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPhase:(AKConstant *)phase {
+    [self setPhase:phase];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_vibratoShapeTable, _averageFrequency, _frequencyRandomness, _minimumFrequencyRandomness, _maximumFrequencyRandomness, _averageAmplitude, _amplitudeDeviation, _minimumAmplitudeRandomness, _maximumAmplitudeRandomness, _phase];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"vibrato("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ vibrato ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_averageAmplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _averageAmplitude];
+        [inputsString appendFormat:@"%@, ", _averageAmplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _averageAmplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _averageAmplitude];
     }
 
     if ([_averageFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _averageFrequency];
+        [inputsString appendFormat:@"%@, ", _averageFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _averageFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _averageFrequency];
     }
 
     if ([_amplitudeDeviation class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitudeDeviation];
+        [inputsString appendFormat:@"%@, ", _amplitudeDeviation];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitudeDeviation];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitudeDeviation];
     }
 
     if ([_frequencyRandomness class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequencyRandomness];
+        [inputsString appendFormat:@"%@, ", _frequencyRandomness];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequencyRandomness];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequencyRandomness];
     }
 
     if ([_minimumAmplitudeRandomness class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _minimumAmplitudeRandomness];
+        [inputsString appendFormat:@"%@, ", _minimumAmplitudeRandomness];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _minimumAmplitudeRandomness];
+        [inputsString appendFormat:@"AKControl(%@), ", _minimumAmplitudeRandomness];
     }
 
     if ([_maximumAmplitudeRandomness class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _maximumAmplitudeRandomness];
+        [inputsString appendFormat:@"%@, ", _maximumAmplitudeRandomness];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _maximumAmplitudeRandomness];
+        [inputsString appendFormat:@"AKControl(%@), ", _maximumAmplitudeRandomness];
     }
 
     if ([_minimumFrequencyRandomness class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _minimumFrequencyRandomness];
+        [inputsString appendFormat:@"%@, ", _minimumFrequencyRandomness];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _minimumFrequencyRandomness];
+        [inputsString appendFormat:@"AKControl(%@), ", _minimumFrequencyRandomness];
     }
 
     if ([_maximumFrequencyRandomness class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _maximumFrequencyRandomness];
+        [inputsString appendFormat:@"%@, ", _maximumFrequencyRandomness];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _maximumFrequencyRandomness];
+        [inputsString appendFormat:@"AKControl(%@), ", _maximumFrequencyRandomness];
     }
 
-    [csdString appendFormat:@"%@, ", _vibratoShapeTable];
+    [inputsString appendFormat:@"%@, ", _vibratoShapeTable];
     
-    [csdString appendFormat:@"%@", _phase];
-    return csdString;
+    [inputsString appendFormat:@"%@", _phase];
+    return inputsString;
 }
 
 @end

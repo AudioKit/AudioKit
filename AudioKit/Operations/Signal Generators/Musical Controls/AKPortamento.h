@@ -2,7 +2,7 @@
 //  AKPortamento.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -30,7 +30,7 @@
 + (instancetype)portamentoWithInput:(AKParameter *)input;
 
 /// Half-time of the function in seconds. [Default Value: 1]
-@property AKParameter *halfTime;
+@property (nonatomic) AKParameter *halfTime;
 
 /// Set an optional half time
 /// @param halfTime Half-time of the function in seconds. Updated at Control-rate. [Default Value: 1]

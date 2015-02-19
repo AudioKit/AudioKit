@@ -2,7 +2,7 @@
 //  AKVibrato.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -45,70 +45,70 @@
 
 
 /// Vibrato table. It normally contains a sine or a triangle wave. [Default Value: sine]
-@property AKFunctionTable *vibratoShapeTable;
+@property (nonatomic) AKFunctionTable *vibratoShapeTable;
 
 /// Set an optional vibrato shape table
 /// @param vibratoShapeTable Vibrato table. It normally contains a sine or a triangle wave. [Default Value: sine]
 - (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable;
 
 /// Average frequency value of vibrato in Hz [Default Value: 2]
-@property AKParameter *averageFrequency;
+@property (nonatomic) AKParameter *averageFrequency;
 
 /// Set an optional average frequency
 /// @param averageFrequency Average frequency value of vibrato in Hz Updated at Control-rate. [Default Value: 2]
 - (void)setOptionalAverageFrequency:(AKParameter *)averageFrequency;
 
 /// Amount of random frequency deviation [Default Value: 0]
-@property AKParameter *frequencyRandomness;
+@property (nonatomic) AKParameter *frequencyRandomness;
 
 /// Set an optional frequency randomness
 /// @param frequencyRandomness Amount of random frequency deviation Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalFrequencyRandomness:(AKParameter *)frequencyRandomness;
 
 /// Minimum frequency of random frequency deviation segments in Hz [Default Value: 0]
-@property AKParameter *minimumFrequencyRandomness;
+@property (nonatomic) AKParameter *minimumFrequencyRandomness;
 
 /// Set an optional minimum frequency randomness
 /// @param minimumFrequencyRandomness Minimum frequency of random frequency deviation segments in Hz Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalMinimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness;
 
 /// Maximum frequency of random frequency deviation segments in Hz [Default Value: 60]
-@property AKParameter *maximumFrequencyRandomness;
+@property (nonatomic) AKParameter *maximumFrequencyRandomness;
 
 /// Set an optional maximum frequency randomness
 /// @param maximumFrequencyRandomness Maximum frequency of random frequency deviation segments in Hz Updated at Control-rate. [Default Value: 60]
 - (void)setOptionalMaximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness;
 
 /// Average amplitude value of vibrato. [Default Value: 1]
-@property AKParameter *averageAmplitude;
+@property (nonatomic) AKParameter *averageAmplitude;
 
 /// Set an optional average amplitude
 /// @param averageAmplitude Average amplitude value of vibrato. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalAverageAmplitude:(AKParameter *)averageAmplitude;
 
 /// Amount of random amplitude deviation, [Default Value: 0]
-@property AKParameter *amplitudeDeviation;
+@property (nonatomic) AKParameter *amplitudeDeviation;
 
 /// Set an optional amplitude deviation
 /// @param amplitudeDeviation Amount of random amplitude deviation, Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalAmplitudeDeviation:(AKParameter *)amplitudeDeviation;
 
 /// Minimum frequency of random amplitude deviation segments in Hz [Default Value: 0]
-@property AKParameter *minimumAmplitudeRandomness;
+@property (nonatomic) AKParameter *minimumAmplitudeRandomness;
 
 /// Set an optional minimum amplitude randomness
 /// @param minimumAmplitudeRandomness Minimum frequency of random amplitude deviation segments in Hz Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalMinimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness;
 
 /// Maximum frequency of random amplitude deviation segments in Hz [Default Value: 0]
-@property AKParameter *maximumAmplitudeRandomness;
+@property (nonatomic) AKParameter *maximumAmplitudeRandomness;
 
 /// Set an optional maximum amplitude randomness
 /// @param maximumAmplitudeRandomness Maximum frequency of random amplitude deviation segments in Hz Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalMaximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness;
 
 /// Initial phase of table, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-@property AKConstant *phase;
+@property (nonatomic) AKConstant *phase;
 
 /// Set an optional phase
 /// @param phase Initial phase of table, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
