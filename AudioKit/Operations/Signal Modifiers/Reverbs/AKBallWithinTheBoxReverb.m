@@ -2,7 +2,7 @@
 //  AKBallWithinTheBoxReverb.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's babo:
@@ -84,43 +84,63 @@
     _diffusion = diffusion;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"babo("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ babo ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_xLocation class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _xLocation];
+        [inputsString appendFormat:@"%@, ", _xLocation];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _xLocation];
+        [inputsString appendFormat:@"AKControl(%@), ", _xLocation];
     }
 
     if ([_yLocation class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _yLocation];
+        [inputsString appendFormat:@"%@, ", _yLocation];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _yLocation];
+        [inputsString appendFormat:@"AKControl(%@), ", _yLocation];
     }
 
     if ([_zLocation class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _zLocation];
+        [inputsString appendFormat:@"%@, ", _zLocation];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _zLocation];
+        [inputsString appendFormat:@"AKControl(%@), ", _zLocation];
     }
 
-    [csdString appendFormat:@"%@, ", _lengthOfXAxisEdge];
+    [inputsString appendFormat:@"%@, ", _lengthOfXAxisEdge];
     
-    [csdString appendFormat:@"%@, ", _lengthOfYAxisEdge];
+    [inputsString appendFormat:@"%@, ", _lengthOfYAxisEdge];
     
-    [csdString appendFormat:@"%@, ", _lengthOfZAxisEdge];
+    [inputsString appendFormat:@"%@, ", _lengthOfZAxisEdge];
     
-    [csdString appendFormat:@"%@", _diffusion];
-    return csdString;
+    [inputsString appendFormat:@"%@", _diffusion];
+    return inputsString;
 }
 
 @end
