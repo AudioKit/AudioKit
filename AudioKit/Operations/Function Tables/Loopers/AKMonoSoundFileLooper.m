@@ -2,7 +2,7 @@
 //  AKMonoSoundFileLooper.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 2/19/15.
 //  Customized by Aurelius Prochazka to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
@@ -33,7 +33,8 @@
         _frequencyRatio = frequencyRatio;
         _amplitude = amplitude;
         _loopMode = loopMode;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -46,6 +47,7 @@
         _frequencyRatio = akp(1);
         _amplitude = akp(1);
         _loopMode = [AKMonoSoundFileLooper loopRepeats];
+        [self setUpConnections];
     }
     return self;
 }
@@ -55,14 +57,38 @@
     return [[AKMonoSoundFileLooper alloc] initWithSoundFile:soundFile];
 }
 
-- (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio {
+- (void)setFrequencyRatio:(AKParameter *)frequencyRatio {
     _frequencyRatio = frequencyRatio;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+
+- (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio {
+    [self setFrequencyRatio:frequencyRatio];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
 }
-- (void)setOptionalLoopMode:(AKConstant *)loopMode {
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setLoopMode:(AKConstant *)loopMode {
     _loopMode = loopMode;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLoopMode:(AKConstant *)loopMode {
+    [self setLoopMode:loopMode];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_soundFile, _frequencyRatio, _amplitude, _loopMode];
 }
 
 - (NSString *)inlineStringForCSD

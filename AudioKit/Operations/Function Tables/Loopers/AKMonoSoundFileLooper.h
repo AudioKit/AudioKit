@@ -2,7 +2,7 @@
 //  AKMonoSoundFileLooper.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Customized by Aurelius Prochazka to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
@@ -41,21 +41,21 @@
 + (instancetype)looperWithSoundFile:(AKFunctionTable *)soundFile;
 
 /// The frequency ratio. [Default Value: 1]
-@property AKParameter *frequencyRatio;
+@property (nonatomic) AKParameter *frequencyRatio;
 
 /// Set an optional frequency ratio
 /// @param frequencyRatio The frequency ratio. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio;
 
 /// The amplitude of the output [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude The amplitude of the output [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
-@property AKConstant *loopMode;
+@property (nonatomic) AKConstant *loopMode;
 
 /// Set an optional loop mode
 /// @param loopMode Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]

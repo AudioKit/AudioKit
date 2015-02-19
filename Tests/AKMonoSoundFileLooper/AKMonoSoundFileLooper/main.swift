@@ -16,24 +16,24 @@ class Instrument : AKInstrument {
         super.init()
 
         let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
-
         let soundFile = AKSoundFile(filename: filename)
-        connect(soundFile)
+        addFunctionTable(soundFile)
 
-        let speed = AKLine(firstPoint: 10.ak, secondPoint: 0.2.ak, durationBetweenPoints: testDuration.ak)
-        connect(speed)
+        let speed = AKLine(
+            firstPoint: 10.ak,
+            secondPoint: 0.2.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let monoSoundFileLooper = AKMonoSoundFileLooper(soundFile: soundFile)
         monoSoundFileLooper.frequencyRatio = speed
-        connect(monoSoundFileLooper)
-
+        setAudioOutput(monoSoundFileLooper)
+        
         enableParameterLog(
             "Speed = ",
             parameter: monoSoundFileLooper.frequencyRatio,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:monoSoundFileLooper))
     }
 }
 
