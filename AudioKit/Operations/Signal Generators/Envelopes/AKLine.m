@@ -2,7 +2,7 @@
 //  AKLine.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's line:
@@ -54,17 +54,37 @@
     _durationBetweenPoints = durationBetweenPoints;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"line("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ line ", self];
-
-    [csdString appendFormat:@"%@, ", _firstPoint];
-    
-    [csdString appendFormat:@"%@, ", _durationBetweenPoints];
-    
-    [csdString appendFormat:@"%@", _secondPoint];
+    [csdString appendString:[self inputsString]];
     return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
+    [inputsString appendFormat:@"%@, ", _firstPoint];
+    
+    [inputsString appendFormat:@"%@, ", _durationBetweenPoints];
+    
+    [inputsString appendFormat:@"%@", _secondPoint];
+    return inputsString;
 }
 
 @end
