@@ -2,7 +2,7 @@
 //  AKCabasa.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's cabasa:
@@ -54,21 +54,41 @@
     _amplitude = amplitude;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"cabasa("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ cabasa ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
-    [csdString appendFormat:@"%@ cabasa ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _maximumDuration];
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _count];
+    [inputsString appendFormat:@"%@, ", _maximumDuration];
     
-    [csdString appendFormat:@"(1 - 0.5*%@)", _dampingFactor];
-    return csdString;
+    [inputsString appendFormat:@"%@, ", _count];
+    
+    [inputsString appendFormat:@"(1 - 0.5*%@)", _dampingFactor];
+    return inputsString;
 }
 
 @end
