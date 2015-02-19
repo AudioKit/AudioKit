@@ -23,7 +23,8 @@
         _count = count;
         _dampingFactor = dampingFactor;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _count = akp(100);
         _dampingFactor = akp(0.14);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,14 +46,38 @@
     return [[AKCabasa alloc] init];
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
+- (void)setCount:(AKConstant *)count {
     _count = count;
+    [self setUpConnections];
 }
-- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
+
+- (void)setOptionalCount:(AKConstant *)count {
+    [self setCount:count];
+}
+
+- (void)setDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+
+- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
+    [self setDampingFactor:dampingFactor];
+}
+
+- (void)setAmplitude:(AKConstant *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_count, _dampingFactor, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD

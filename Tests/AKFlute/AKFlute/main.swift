@@ -20,9 +20,8 @@ class Instrument : AKInstrument {
 
         let flute = AKFlute()
         flute.frequency = note.frequency
-        connect(flute)
-
-        connect(AKAudioOutput(audioSource:flute))
+        
+        setAudioOutput(flute)
     }
 }
 

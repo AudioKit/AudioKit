@@ -23,7 +23,8 @@
         _intensity = intensity;
         _dampingFactor = dampingFactor;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _intensity = akp(100);
         _dampingFactor = akp(0.1);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,14 +46,38 @@
     return [[AKCrunch alloc] init];
 }
 
-- (void)setOptionalIntensity:(AKConstant *)intensity {
+- (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
+    [self setUpConnections];
 }
-- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
+
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    [self setIntensity:intensity];
+}
+
+- (void)setDampingFactor:(AKConstant *)dampingFactor {
     _dampingFactor = dampingFactor;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+
+- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
+    [self setDampingFactor:dampingFactor];
+}
+
+- (void)setAmplitude:(AKConstant *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_intensity, _dampingFactor, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD

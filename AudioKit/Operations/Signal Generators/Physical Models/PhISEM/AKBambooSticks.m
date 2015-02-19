@@ -2,7 +2,7 @@
 //  AKBambooSticks.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's bamboo:
@@ -27,7 +27,8 @@
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _firstResonantFrequency = akp(2240);
         _secondResonantFrequency = akp(3360);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,47 +52,103 @@
     return [[AKBambooSticks alloc] init];
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
+- (void)setCount:(AKConstant *)count {
     _count = count;
-}
-- (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-    _mainResonantFrequency = mainResonantFrequency;
-}
-- (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-    _firstResonantFrequency = firstResonantFrequency;
-}
-- (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
-    _secondResonantFrequency = secondResonantFrequency;
-}
-- (void)setOptionalAmplitude:(AKConstant *)amplitude {
-    _amplitude = amplitude;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalCount:(AKConstant *)count {
+    [self setCount:count];
+}
+
+- (void)setMainResonantFrequency:(AKConstant *)mainResonantFrequency {
+    _mainResonantFrequency = mainResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
+    [self setMainResonantFrequency:mainResonantFrequency];
+}
+
+- (void)setFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
+    _firstResonantFrequency = firstResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
+    [self setFirstResonantFrequency:firstResonantFrequency];
+}
+
+- (void)setSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
+    _secondResonantFrequency = secondResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
+    [self setSecondResonantFrequency:secondResonantFrequency];
+}
+
+- (void)setAmplitude:(AKConstant *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_count, _mainResonantFrequency, _firstResonantFrequency, _secondResonantFrequency, _amplitude];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"bamboo("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ bamboo ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_dampingFactor = akp(0);        
-    [csdString appendFormat:@"%@ bamboo ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _maximumDuration];
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _count];
+    [inputsString appendFormat:@"%@, ", _maximumDuration];
     
-    [csdString appendFormat:@"%@, ", _dampingFactor];
+    [inputsString appendFormat:@"%@, ", _count];
     
-    [csdString appendFormat:@"%@, ", _energyReturn];
+    [inputsString appendFormat:@"%@, ", _dampingFactor];
     
-    [csdString appendFormat:@"%@, ", _mainResonantFrequency];
+    [inputsString appendFormat:@"%@, ", _energyReturn];
     
-    [csdString appendFormat:@"%@, ", _firstResonantFrequency];
+    [inputsString appendFormat:@"%@, ", _mainResonantFrequency];
     
-    [csdString appendFormat:@"%@", _secondResonantFrequency];
-    return csdString;
+    [inputsString appendFormat:@"%@, ", _firstResonantFrequency];
+    
+    [inputsString appendFormat:@"%@", _secondResonantFrequency];
+    return inputsString;
 }
 
 @end

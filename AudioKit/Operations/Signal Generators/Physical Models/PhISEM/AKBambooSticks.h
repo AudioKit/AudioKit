@@ -2,7 +2,7 @@
 //  AKBambooSticks.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -35,35 +35,35 @@
 
 
 /// The number of bamboo sticks. [Default Value: 2]
-@property AKConstant *count;
+@property (nonatomic) AKConstant *count;
 
 /// Set an optional count
 /// @param count The number of bamboo sticks. [Default Value: 2]
 - (void)setOptionalCount:(AKConstant *)count;
 
 /// The main resonant frequency. [Default Value: 2800]
-@property AKConstant *mainResonantFrequency;
+@property (nonatomic) AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2800]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
 
 /// The first resonant frequency. [Default Value: 2240]
-@property AKConstant *firstResonantFrequency;
+@property (nonatomic) AKConstant *firstResonantFrequency;
 
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 2240]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
 
 /// The second resonant frequency. [Default Value: 3360]
-@property AKConstant *secondResonantFrequency;
+@property (nonatomic) AKConstant *secondResonantFrequency;
 
 /// Set an optional second resonant frequency
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 3360]
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
 
 /// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
-@property AKConstant *amplitude;
+@property (nonatomic) AKConstant *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]

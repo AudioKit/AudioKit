@@ -2,7 +2,7 @@
 //  AKDroplet.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's dripwater:
@@ -31,7 +31,8 @@
         _firstResonantFrequency = firstResonantFrequency;
         _secondResonantFrequency = secondResonantFrequency;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -47,6 +48,7 @@
         _firstResonantFrequency = akp(600);
         _secondResonantFrequency = akp(750);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -56,55 +58,123 @@
     return [[AKDroplet alloc] init];
 }
 
-- (void)setOptionalIntensity:(AKConstant *)intensity {
+- (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
-}
-- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-    _dampingFactor = dampingFactor;
-}
-- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
-    _energyReturn = energyReturn;
-}
-- (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-    _mainResonantFrequency = mainResonantFrequency;
-}
-- (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-    _firstResonantFrequency = firstResonantFrequency;
-}
-- (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
-    _secondResonantFrequency = secondResonantFrequency;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    [self setIntensity:intensity];
+}
+
+- (void)setDampingFactor:(AKConstant *)dampingFactor {
+    _dampingFactor = dampingFactor;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
+    [self setDampingFactor:dampingFactor];
+}
+
+- (void)setEnergyReturn:(AKConstant *)energyReturn {
+    _energyReturn = energyReturn;
+    [self setUpConnections];
+}
+
+- (void)setOptionalEnergyReturn:(AKConstant *)energyReturn {
+    [self setEnergyReturn:energyReturn];
+}
+
+- (void)setMainResonantFrequency:(AKConstant *)mainResonantFrequency {
+    _mainResonantFrequency = mainResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
+    [self setMainResonantFrequency:mainResonantFrequency];
+}
+
+- (void)setFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
+    _firstResonantFrequency = firstResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
+    [self setFirstResonantFrequency:firstResonantFrequency];
+}
+
+- (void)setSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
+    _secondResonantFrequency = secondResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency {
+    [self setSecondResonantFrequency:secondResonantFrequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_intensity, _dampingFactor, _energyReturn, _mainResonantFrequency, _firstResonantFrequency, _secondResonantFrequency, _amplitude];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"dripwater("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ dripwater ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
-    [csdString appendFormat:@"%@ dripwater ", self];
-
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    [csdString appendFormat:@"%@, ", _maximumDuration];
+    [inputsString appendFormat:@"%@, ", _maximumDuration];
     
-    [csdString appendFormat:@"%@, ", _intensity];
+    [inputsString appendFormat:@"%@, ", _intensity];
     
-    [csdString appendFormat:@"(1 - %@), ", _dampingFactor];
+    [inputsString appendFormat:@"(1 - %@), ", _dampingFactor];
     
-    [csdString appendFormat:@"%@, ", _energyReturn];
+    [inputsString appendFormat:@"%@, ", _energyReturn];
     
-    [csdString appendFormat:@"%@, ", _mainResonantFrequency];
+    [inputsString appendFormat:@"%@, ", _mainResonantFrequency];
     
-    [csdString appendFormat:@"%@, ", _firstResonantFrequency];
+    [inputsString appendFormat:@"%@, ", _firstResonantFrequency];
     
-    [csdString appendFormat:@"%@", _secondResonantFrequency];
-    return csdString;
+    [inputsString appendFormat:@"%@", _secondResonantFrequency];
+    return inputsString;
 }
 
 @end

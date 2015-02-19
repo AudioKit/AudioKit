@@ -2,7 +2,7 @@
 //  AKDroplet.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -39,49 +39,49 @@
 
 
 /// The intensity of the dripping sound. [Default Value: 10]
-@property AKConstant *intensity;
+@property (nonatomic) AKConstant *intensity;
 
 /// Set an optional intensity
 /// @param intensity The intensity of the dripping sound. [Default Value: 10]
 - (void)setOptionalIntensity:(AKConstant *)intensity;
 
 /// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
-@property AKConstant *dampingFactor;
+@property (nonatomic) AKConstant *dampingFactor;
 
 /// Set an optional damping factor
 /// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.1]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 /// Amount of energy to add back into the system. The value should be in range 0 to 1. [Default Value: 0.5]
-@property AKConstant *energyReturn;
+@property (nonatomic) AKConstant *energyReturn;
 
 /// Set an optional energy return
 /// @param energyReturn Amount of energy to add back into the system. The value should be in range 0 to 1. [Default Value: 0.5]
 - (void)setOptionalEnergyReturn:(AKConstant *)energyReturn;
 
 /// The main resonant frequency. [Default Value: 450]
-@property AKConstant *mainResonantFrequency;
+@property (nonatomic) AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 450]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
 
 /// The first resonant frequency. [Default Value: 600]
-@property AKConstant *firstResonantFrequency;
+@property (nonatomic) AKConstant *firstResonantFrequency;
 
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 600]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
 
 /// The second resonant frequency. [Default Value: 750]
-@property AKConstant *secondResonantFrequency;
+@property (nonatomic) AKConstant *secondResonantFrequency;
 
 /// Set an optional second resonant frequency
 /// @param secondResonantFrequency The second resonant frequency. [Default Value: 750]
 - (void)setOptionalSecondResonantFrequency:(AKConstant *)secondResonantFrequency;
 
 /// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1]

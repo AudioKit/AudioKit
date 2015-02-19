@@ -18,19 +18,19 @@ class Instrument : AKInstrument {
         let note = Note()
         addNoteProperty(note.frequency)
 
-        let adsr = AKLinearEnvelope(
+        let envelope = AKLinearEnvelope(
             riseTime: 0.2.ak,
             decayTime: 0.2.ak,
             totalDuration: 0.5.ak,
             amplitude: 0.25.ak
         )
-        connect(adsr)
+        connect(envelope)
 
         let bowedString = AKBowedString()
         bowedString.frequency = note.frequency
         bowedString.vibratoFrequency = 4.ak
         bowedString.vibratoAmplitude = 0.01.ak
-        bowedString.amplitude = adsr
+        bowedString.amplitude = envelope
         connect(bowedString)
 
         enableParameterLog(

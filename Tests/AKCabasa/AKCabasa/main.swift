@@ -24,7 +24,7 @@ class Instrument : AKInstrument {
 
         enableParameterLog(
             "Count = ",
-            parameter: cabasa.count,
+            parameter: cabasa.count,    
             timeInterval:2
         )
 
