@@ -2,7 +2,7 @@
 //  AKThreePoleLowpassFilter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lpf18:
@@ -28,7 +28,8 @@
         _distortion = distortion;
         _cutoffFrequency = cutoffFrequency;
         _resonance = resonance;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _distortion = akp(0.5);
         _cutoffFrequency = akp(1500);
         _resonance = akp(0.5);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,45 +52,89 @@
     return [[AKThreePoleLowpassFilter alloc] initWithInput:input];
 }
 
-- (void)setOptionalDistortion:(AKParameter *)distortion {
+- (void)setDistortion:(AKParameter *)distortion {
     _distortion = distortion;
-}
-- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
-    _cutoffFrequency = cutoffFrequency;
-}
-- (void)setOptionalResonance:(AKParameter *)resonance {
-    _resonance = resonance;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalDistortion:(AKParameter *)distortion {
+    [self setDistortion:distortion];
+}
+
+- (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
+    _cutoffFrequency = cutoffFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
+    [self setCutoffFrequency:cutoffFrequency];
+}
+
+- (void)setResonance:(AKParameter *)resonance {
+    _resonance = resonance;
+    [self setUpConnections];
+}
+
+- (void)setOptionalResonance:(AKParameter *)resonance {
+    [self setResonance:resonance];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _distortion, _cutoffFrequency, _resonance];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"lpf18("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ lpf18 ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_cutoffFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _cutoffFrequency];
+        [inputsString appendFormat:@"%@, ", _cutoffFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
     }
 
     if ([_resonance class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _resonance];
+        [inputsString appendFormat:@"%@, ", _resonance];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _resonance];
+        [inputsString appendFormat:@"AKControl(%@), ", _resonance];
     }
 
     if ([_distortion class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _distortion];
+        [inputsString appendFormat:@"%@", _distortion];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _distortion];
+        [inputsString appendFormat:@"AKControl(%@)", _distortion];
     }
-return csdString;
+return inputsString;
 }
 
 @end

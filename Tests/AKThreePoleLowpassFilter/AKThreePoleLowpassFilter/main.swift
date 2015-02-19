@@ -18,8 +18,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let phasor = AKPhasor()
-        connect(phasor)
-
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:phasor)
     }
@@ -31,19 +29,16 @@ class Processor : AKInstrument {
         super.init()
 
         let distortion = AKLine(firstPoint: 0.1.ak, secondPoint: 0.9.ak, durationBetweenPoints: testDuration.ak)
-        connect(distortion)
 
         let cutoffFrequency = AKLine(firstPoint: 300.ak, secondPoint: 3000.ak, durationBetweenPoints: testDuration.ak)
-        connect(cutoffFrequency)
 
         let resonance = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
-        connect(resonance)
 
         let threePoleLowpassFilter = AKThreePoleLowpassFilter(input: audioSource)
         threePoleLowpassFilter.distortion = distortion
         threePoleLowpassFilter.cutoffFrequency = cutoffFrequency
         threePoleLowpassFilter.resonance = resonance
-        connect(threePoleLowpassFilter)
+        setAudioOutput(threePoleLowpassFilter)
 
         enableParameterLog(
             "Distortion = ",
@@ -62,8 +57,6 @@ class Processor : AKInstrument {
             parameter: threePoleLowpassFilter.resonance,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:threePoleLowpassFilter))
 
         resetParameter(audioSource)
     }
