@@ -19,13 +19,10 @@ class Instrument : AKInstrument {
         control.waveformType = AKLowFrequencyOscillator.waveformTypeForSawtooth()
         control.amplitude = 100.ak
         control.frequency = 2.ak
-        connect(control)
-
 
         let lowFrequencyOscillator = AKLowFrequencyOscillator()
         lowFrequencyOscillator.waveformType = AKLowFrequencyOscillator.waveformTypeForTriangle()
         lowFrequencyOscillator.frequency = control.plus(110.ak)
-        connect(lowFrequencyOscillator)
 
         enableParameterLog(
             "Frequency = ",
@@ -33,7 +30,7 @@ class Instrument : AKInstrument {
             timeInterval:0.1
         )
 
-        connect(AKAudioOutput(audioSource:lowFrequencyOscillator))
+        setAudioOutput(lowFrequencyOscillator)
     }
 }
 
