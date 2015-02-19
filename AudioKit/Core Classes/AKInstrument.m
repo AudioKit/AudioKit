@@ -138,15 +138,22 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-    
-    newOperation.connected = YES;
-    [_userDefinedOperations addObject:[newOperation udoString]];
-    [innerCSDRepresentation appendString:[newOperation stringForCSD]];
-    [innerCSDRepresentation appendString:@"\n"];
+    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
+    if ([newOperation.state isEqualToString:@"connectable"]) {
+        
+        for (AKParameter *dependency in newOperation.dependencies) {
+            [self connect:dependency];
+        }
+        [_userDefinedOperations addObject:[newOperation udoString]];
+        [innerCSDRepresentation appendString:[newOperation stringForCSD]];
+        [innerCSDRepresentation appendString:@"\n"];
+        newOperation.state  = @"connected";
+    }
 }
+
 - (void)setAudioOutput:(AKParameter *)audio
 {
-    if (!audio.connected) {
+    if ([audio.state isEqualToString:@"connectable"]) {
         [self connect:audio];
     }
     AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:audio];
@@ -164,6 +171,10 @@ static int currentID = 1;
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input
 {
     [_globalParameters addObject:output];
+    
+    if ([input.state isEqualToString:@"connectable"]) {
+        [self connect:input];
+    }
     
     if ([output class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
         AKStereoAudio *stereoOutput = (AKStereoAudio *)output;
@@ -204,7 +215,7 @@ static int currentID = 1;
                  parameter:(AKParameter *)parameter
               timeInterval:(float)timeInterval
 {
-    if (!parameter.connected && ![parameter isKindOfClass:[AKNoteProperty class]]) {
+    if ([parameter.state isEqualToString:@"connectable"]) {
         [self connect:parameter];
     }
     [innerCSDRepresentation appendFormat:
