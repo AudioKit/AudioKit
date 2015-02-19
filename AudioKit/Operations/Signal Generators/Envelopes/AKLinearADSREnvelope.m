@@ -2,11 +2,11 @@
 //  AKLinearADSREnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's xadsr:
-//  http://www.csounds.com/manual/html/xadsr.html
+//  Implementation of Csound's madsr:
+//  http://www.csounds.com/manual/html/madsr.html
 //
 
 #import "AKLinearADSREnvelope.h"
@@ -27,7 +27,8 @@
         _sustainLevel = sustainLevel;
         _releaseDuration = releaseDuration;
         _delay = delay;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _sustainLevel = akp(0.5);
         _releaseDuration = akp(1);
         _delay = akp(0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,37 +52,93 @@
     return [[AKLinearADSREnvelope alloc] init];
 }
 
-- (void)setOptionalAttackDuration:(AKConstant *)attackDuration {
+- (void)setAttackDuration:(AKConstant *)attackDuration {
     _attackDuration = attackDuration;
-}
-- (void)setOptionalDecayDuration:(AKConstant *)decayDuration {
-    _decayDuration = decayDuration;
-}
-- (void)setOptionalSustainLevel:(AKConstant *)sustainLevel {
-    _sustainLevel = sustainLevel;
-}
-- (void)setOptionalReleaseDuration:(AKConstant *)releaseDuration {
-    _releaseDuration = releaseDuration;
-}
-- (void)setOptionalDelay:(AKConstant *)delay {
-    _delay = delay;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalAttackDuration:(AKConstant *)attackDuration {
+    [self setAttackDuration:attackDuration];
+}
+
+- (void)setDecayDuration:(AKConstant *)decayDuration {
+    _decayDuration = decayDuration;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDecayDuration:(AKConstant *)decayDuration {
+    [self setDecayDuration:decayDuration];
+}
+
+- (void)setSustainLevel:(AKConstant *)sustainLevel {
+    _sustainLevel = sustainLevel;
+    [self setUpConnections];
+}
+
+- (void)setOptionalSustainLevel:(AKConstant *)sustainLevel {
+    [self setSustainLevel:sustainLevel];
+}
+
+- (void)setReleaseDuration:(AKConstant *)releaseDuration {
+    _releaseDuration = releaseDuration;
+    [self setUpConnections];
+}
+
+- (void)setOptionalReleaseDuration:(AKConstant *)releaseDuration {
+    [self setReleaseDuration:releaseDuration];
+}
+
+- (void)setDelay:(AKConstant *)delay {
+    _delay = delay;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDelay:(AKConstant *)delay {
+    [self setDelay:delay];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_attackDuration, _decayDuration, _sustainLevel, _releaseDuration, _delay];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"madsr("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ madsr ", self];
-
-    [csdString appendFormat:@"%@, ", _attackDuration];
-    
-    [csdString appendFormat:@"%@, ", _decayDuration];
-    
-    [csdString appendFormat:@"%@, ", _sustainLevel];
-    
-    [csdString appendFormat:@"%@, ", _releaseDuration];
-    
-    [csdString appendFormat:@"%@", _delay];
+    [csdString appendString:[self inputsString]];
     return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
+    [inputsString appendFormat:@"%@, ", _attackDuration];
+    
+    [inputsString appendFormat:@"%@, ", _decayDuration];
+    
+    [inputsString appendFormat:@"%@, ", _sustainLevel];
+    
+    [inputsString appendFormat:@"%@, ", _releaseDuration];
+    
+    [inputsString appendFormat:@"%@", _delay];
+    return inputsString;
 }
 
 @end
