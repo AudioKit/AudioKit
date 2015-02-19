@@ -18,8 +18,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let phasor = AKPhasor()
-        connect(phasor)
-
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:phasor)
     }
@@ -30,17 +28,23 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let resonance = AKLine(firstPoint: 0.1.ak, secondPoint: 1.0.ak, durationBetweenPoints: testDuration.ak)
-        connect(resonance)
+        let resonance = AKLine(
+            firstPoint:  0.1.ak,
+            secondPoint: 1.0.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: testDuration.ak)
-        connect(cutoffFrequency)
+        let cutoffFrequency = AKLine(
+            firstPoint: 100.ak,
+            secondPoint: 10000.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let moogLadder = AKMoogLadder(input: audioSource)
         moogLadder.resonance = resonance
         moogLadder.cutoffFrequency = cutoffFrequency
-        connect(moogLadder)
-
+        
+        setAudioOutput(moogLadder)
         enableParameterLog(
             "Resonance = ",
             parameter: moogLadder.resonance,
@@ -52,8 +56,6 @@ class Processor : AKInstrument {
             parameter: moogLadder.cutoffFrequency,
             timeInterval:0.2
         )
-
-        connect(AKAudioOutput(audioSource:moogLadder))
 
         resetParameter(audioSource)
     }

@@ -2,7 +2,7 @@
 //  AKMoogVCF.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Filter cut-off frequency in Hz. [Default Value: 1000]
-@property AKParameter *cutoffFrequency;
+@property (nonatomic) AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
 /// @param cutoffFrequency Filter cut-off frequency in Hz. [Default Value: 1000]
 - (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Amount of resonance. Self-oscillation occurs when this is approximately one. [Default Value: 0.5]
-@property AKParameter *resonance;
+@property (nonatomic) AKParameter *resonance;
 
 /// Set an optional resonance
 /// @param resonance Amount of resonance. Self-oscillation occurs when this is approximately one. [Default Value: 0.5]

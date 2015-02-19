@@ -2,7 +2,7 @@
 //  AKMoogLadder.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's moogladder:
@@ -26,7 +26,8 @@
         _input = input;
         _cutoffFrequency = cutoffFrequency;
         _resonance = resonance;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -38,6 +39,7 @@
         // Default Values
         _cutoffFrequency = akp(100);
         _resonance = akp(0.5);
+        [self setUpConnections];
     }
     return self;
 }
@@ -47,36 +49,74 @@
     return [[AKMoogLadder alloc] initWithInput:input];
 }
 
-- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
+- (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
-}
-- (void)setOptionalResonance:(AKParameter *)resonance {
-    _resonance = resonance;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency {
+    [self setCutoffFrequency:cutoffFrequency];
+}
+
+- (void)setResonance:(AKParameter *)resonance {
+    _resonance = resonance;
+    [self setUpConnections];
+}
+
+- (void)setOptionalResonance:(AKParameter *)resonance {
+    [self setResonance:resonance];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _cutoffFrequency, _resonance];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"moogladder("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ moogladder ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_cutoffFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _cutoffFrequency];
+        [inputsString appendFormat:@"%@, ", _cutoffFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _cutoffFrequency];
     }
 
     if ([_resonance class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _resonance];
+        [inputsString appendFormat:@"%@", _resonance];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _resonance];
+        [inputsString appendFormat:@"AKControl(%@)", _resonance];
     }
-return csdString;
+return inputsString;
 }
 
 @end
