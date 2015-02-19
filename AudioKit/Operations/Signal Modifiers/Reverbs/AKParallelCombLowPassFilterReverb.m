@@ -2,7 +2,7 @@
 //  AKParallelCombLowPassFilterReverb.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's nreverb:
@@ -26,7 +26,8 @@
         _input = input;
         _duration = duration;
         _highFrequencyDiffusivity = highFrequencyDiffusivity;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -38,6 +39,7 @@
         // Default Values
         _duration = akp(1);
         _highFrequencyDiffusivity = akp(0.5);
+        [self setUpConnections];
     }
     return self;
 }
@@ -47,36 +49,74 @@
     return [[AKParallelCombLowPassFilterReverb alloc] initWithInput:input];
 }
 
-- (void)setOptionalDuration:(AKParameter *)duration {
+- (void)setDuration:(AKParameter *)duration {
     _duration = duration;
-}
-- (void)setOptionalHighFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity {
-    _highFrequencyDiffusivity = highFrequencyDiffusivity;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalDuration:(AKParameter *)duration {
+    [self setDuration:duration];
+}
+
+- (void)setHighFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity {
+    _highFrequencyDiffusivity = highFrequencyDiffusivity;
+    [self setUpConnections];
+}
+
+- (void)setOptionalHighFrequencyDiffusivity:(AKParameter *)highFrequencyDiffusivity {
+    [self setHighFrequencyDiffusivity:highFrequencyDiffusivity];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _duration, _highFrequencyDiffusivity];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"nreverb("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ nreverb ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_duration class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _duration];
+        [inputsString appendFormat:@"%@, ", _duration];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _duration];
+        [inputsString appendFormat:@"AKControl(%@), ", _duration];
     }
 
     if ([_highFrequencyDiffusivity class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _highFrequencyDiffusivity];
+        [inputsString appendFormat:@"%@", _highFrequencyDiffusivity];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _highFrequencyDiffusivity];
+        [inputsString appendFormat:@"AKControl(%@)", _highFrequencyDiffusivity];
     }
-return csdString;
+return inputsString;
 }
 
 @end

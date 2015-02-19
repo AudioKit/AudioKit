@@ -12,38 +12,39 @@ let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
 
-    var auxilliaryOutput = AKAudio()
+    var auxilliaryOutput = AKStereoAudio()
 
     override init() {
         super.init()
+        
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
 
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
-
-        auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:mono)
+        auxilliaryOutput = AKStereoAudio.globalParameter()
+        assignOutput(auxilliaryOutput, to:audio)
     }
 }
 class Processor : AKInstrument {
 
-    init(audioSource: AKAudio) {
+    init(audioSource: AKStereoAudio) {
         super.init()
 
-        let feedback = AKLine(firstPoint: 0.5.ak, secondPoint: 0.9.ak, durationBetweenPoints: testDuration.ak)
-        connect(feedback)
+        let feedback = AKLine(
+            firstPoint:  0.5.ak,
+            secondPoint: 1.0.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let cutoffFrequency = AKLine(firstPoint: 100.ak, secondPoint: 10000.ak, durationBetweenPoints: testDuration.ak)
-        connect(cutoffFrequency)
+        let cutoffFrequency = AKLine(
+            firstPoint:    100.ak,
+            secondPoint: 10000.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let reverb = AKReverb(input:audioSource)
+        let reverb = AKReverb(stereoInput:audioSource)
         reverb.feedback = feedback
         reverb.cutoffFrequency = cutoffFrequency
         connect(reverb)
-
         enableParameterLog(
             "Feedback = ",
             parameter: reverb.feedback,
@@ -56,12 +57,9 @@ class Processor : AKInstrument {
             timeInterval:0.1
         )
 
-        let leftMix = AKMix(input1: audioSource, input2: reverb.leftOutput, balance: 0.5.ak)
-        connect(leftMix)
-
-        let rightMix = AKMix(input1: audioSource, input2: reverb.rightOutput, balance: 0.5.ak)
-        connect(rightMix)
-
+        let leftMix = AKMix(input1: audioSource.leftOutput, input2: reverb.leftOutput, balance: 0.5.ak)
+        let rightMix = AKMix(input1: audioSource.rightOutput, input2: reverb.rightOutput, balance: 0.5.ak)
+        
         connect(AKAudioOutput(leftAudio: leftMix, rightAudio: rightMix))
 
         resetParameter(audioSource)

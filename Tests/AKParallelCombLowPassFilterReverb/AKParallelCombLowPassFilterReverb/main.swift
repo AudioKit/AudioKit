@@ -16,13 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -35,20 +32,16 @@ class Processor : AKInstrument {
         super.init()
 
         let reverbTime = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
-        connect(reverbTime)
 
-        let paralleltCombLowPassFilterReverb = AKParallelCombLowPassFilterReverb(input: audioSource)
-        paralleltCombLowPassFilterReverb.duration = reverbTime
-
-        connect(paralleltCombLowPassFilterReverb)
-
+        let parallelCombLowPassFilterReverb = AKParallelCombLowPassFilterReverb(input: audioSource)
+        parallelCombLowPassFilterReverb.duration = reverbTime
+        setAudioOutput(parallelCombLowPassFilterReverb)
+        
         enableParameterLog(
             "Duration = ",
-            parameter: paralleltCombLowPassFilterReverb.duration,
+            parameter: parallelCombLowPassFilterReverb.duration,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:paralleltCombLowPassFilterReverb))
 
         resetParameter(audioSource)
     }
