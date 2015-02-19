@@ -22,7 +22,7 @@ class Instrument : AKInstrument {
         let struckMetalBar = AKStruckMetalBar()
         struckMetalBar.strikePosition = note.strikePosition
         struckMetalBar.strikeWidth = note.strikeWidth
-        connect(struckMetalBar)
+        setAudioOutput(struckMetalBar)
 
         enableParameterLog(
             "Strike Position = ",
@@ -34,7 +34,6 @@ class Instrument : AKInstrument {
             parameter: struckMetalBar.strikeWidth,
             timeInterval:1
         )
-        connect(AKAudioOutput(audioSource:struckMetalBar))
     }
 }
 

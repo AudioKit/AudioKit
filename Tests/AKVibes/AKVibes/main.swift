@@ -14,10 +14,10 @@ class Instrument : AKInstrument {
         super.init()
         let note = Note()
         addNoteProperty(note.frequency)
+        
         let vibes = AKVibes()
         vibes.frequency = note.frequency
-        connect(vibes)
-        connect(AKAudioOutput(audioSource:vibes))
+        setAudioOutput(vibes)
     }
 }
 

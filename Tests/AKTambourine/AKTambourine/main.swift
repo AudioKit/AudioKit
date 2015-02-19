@@ -24,7 +24,7 @@ class Instrument : AKInstrument {
         tambourine.intensity = note.intensity
         tambourine.dampingFactor = note.dampingFactor
         tambourine.mainResonantFrequency = note.mainResonantFrequency
-        connect(tambourine)
+        setAudioOutput(tambourine)
 
         enableParameterLog(
             "Intensity = ",
@@ -41,7 +41,6 @@ class Instrument : AKInstrument {
             parameter: tambourine.mainResonantFrequency,
             timeInterval:1
         )
-        connect(AKAudioOutput(audioSource:tambourine))
     }
 }
 

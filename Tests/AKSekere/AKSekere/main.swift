@@ -22,7 +22,7 @@ class Instrument : AKInstrument {
         let sekere = AKSekere()
         sekere.count = note.count
         sekere.dampingFactor = note.dampingFactor
-        connect(sekere)
+        setAudioOutput(sekere)
 
         enableParameterLog(
             "Count = ",
@@ -35,8 +35,6 @@ class Instrument : AKInstrument {
             parameter: sekere.dampingFactor,
             timeInterval:2
         )
-
-        connect(AKAudioOutput(audioSource:sekere .scaledBy(30.ak)))
     }
 }
 

@@ -22,8 +22,8 @@ class Instrument : AKInstrument {
         let sandPaper = AKSandPaper()
         sandPaper.intensity = note.intensity
         sandPaper.dampingFactor = note.dampingFactor
-        connect(sandPaper)
-
+        setAudioOutput(sandPaper)
+        
         enableParameterLog(
             "Intensity = ",
             parameter: sandPaper.intensity,
@@ -34,7 +34,6 @@ class Instrument : AKInstrument {
             parameter: sandPaper.dampingFactor,
             timeInterval:1
         )
-        connect(AKAudioOutput(audioSource:sandPaper))
     }
 }
 
