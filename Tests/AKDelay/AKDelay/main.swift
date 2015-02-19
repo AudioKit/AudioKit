@@ -22,7 +22,6 @@ class Instrument : AKInstrument {
         connect(audio)
 
         let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -34,8 +33,11 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let feedbackLine = AKLine(firstPoint: 0.ak, secondPoint: 1.ak, durationBetweenPoints: testDuration.ak)
-        connect(feedbackLine)
+        let feedbackLine = AKLine(
+            firstPoint: 0.ak,
+            secondPoint: 1.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let delay = AKDelay(input: audioSource, delayTime: 0.1.ak)
         delay.feedback = feedbackLine
@@ -48,9 +50,8 @@ class Processor : AKInstrument {
         )
 
         let mix = AKMix(input1: audioSource, input2: delay, balance: 0.5.ak)
-        connect(mix)
 
-        connect(AKAudioOutput(audioSource:mix))
+        setAudioOutput(mix)
 
         resetParameter(audioSource)
     }
