@@ -19,6 +19,8 @@
 /// The name of the class with the AK prefix.
 - (NSString *)operationName;
 
+//- (NSString *)state;
+
 // The opcode line for inclusion in instruments without giving it a name.
 - (NSString *)inlineStringForCSD;
 
