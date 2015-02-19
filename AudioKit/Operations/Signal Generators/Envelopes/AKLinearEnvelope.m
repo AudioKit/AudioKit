@@ -28,7 +28,8 @@
         _decayTime = decayTime;
         _totalDuration = totalDuration;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _decayTime = akp(0.33);
         _totalDuration = akp(1);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,17 +52,46 @@
     return [[AKLinearEnvelope alloc] init];
 }
 
-- (void)setOptionalRiseTime:(AKConstant *)riseTime {
+- (void)setRiseTime:(AKConstant *)riseTime {
     _riseTime = riseTime;
+    [self setUpConnections];
 }
-- (void)setOptionalDecayTime:(AKConstant *)decayTime {
+
+- (void)setOptionalRiseTime:(AKConstant *)riseTime {
+    [self setRiseTime:riseTime];
+}
+
+- (void)setDecayTime:(AKConstant *)decayTime {
     _decayTime = decayTime;
+    [self setUpConnections];
 }
-- (void)setOptionalTotalDuration:(AKConstant *)totalDuration {
+
+- (void)setOptionalDecayTime:(AKConstant *)decayTime {
+    [self setDecayTime:decayTime];
+}
+
+- (void)setTotalDuration:(AKConstant *)totalDuration {
     _totalDuration = totalDuration;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+
+- (void)setOptionalTotalDuration:(AKConstant *)totalDuration {
+    [self setTotalDuration:totalDuration];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_riseTime, _decayTime, _totalDuration, _amplitude];
 }
 
 - (void)decayOnlyOnRelease:(BOOL)decayOnRelease
@@ -74,7 +105,7 @@
 
     NSString *opcode = @"linen";
     if (_decayNoteAfterStop) opcode = @"linenr";
-
+    
     [inlineCSDString appendFormat:@"%@(", opcode];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
@@ -86,7 +117,6 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
     
     NSString *opcode = @"linen";
     if (_decayNoteAfterStop) opcode = @"linenr";
