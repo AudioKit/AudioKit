@@ -19,25 +19,18 @@ class Instrument : AKInstrument {
 
         let soundfile = AKSoundFile (filename: filename)
         soundfile.size = 16384
-        connect(soundfile)
+        addFunctionTable(soundfile)
 
         let hamming = AKWindow(type: AKWindowTableType.Hamming)
         hamming.size = 512;
-        connect(hamming)
+        addFunctionTable(hamming)
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", soundfile.length()))
 
-        let grainDensityLine = AKLine(firstPoint: 600.ak, secondPoint: 10.ak, durationBetweenPoints: 10.ak)
-        connect(grainDensityLine)
-
-        let grainDurationLine = AKLine(firstPoint: 0.4.ak, secondPoint: 0.1.ak, durationBetweenPoints: 10.ak)
-        connect(grainDurationLine)
-
+        let grainDensityLine  =  AKLine(firstPoint: 600.ak, secondPoint: 10.ak,  durationBetweenPoints: 10.ak)
+        let grainDurationLine =  AKLine(firstPoint: 0.4.ak, secondPoint: 0.1.ak, durationBetweenPoints: 10.ak)
         let grainAmplitudeLine = AKLine(firstPoint: 0.2.ak, secondPoint: 0.5.ak, durationBetweenPoints: 10.ak)
-        connect(grainAmplitudeLine)
-
         let maximumFrequencyDeviationLine = AKLine(firstPoint: 0.ak, secondPoint: 0.1.ak, durationBetweenPoints: 10.ak)
-        connect(maximumFrequencyDeviationLine)
 
         let granularSynthesisTexture = AKGranularSynthesisTexture(
             grainFunctionTable: soundfile,
@@ -48,7 +41,6 @@ class Instrument : AKInstrument {
         granularSynthesisTexture.averageGrainDuration = grainDurationLine
         granularSynthesisTexture.maximumFrequencyDeviation = maximumFrequencyDeviationLine
         granularSynthesisTexture.grainAmplitude = grainAmplitudeLine
-        connect(granularSynthesisTexture)
 
         enableParameterLog(
             "Grain Frequency = ",
@@ -80,8 +72,7 @@ class Instrument : AKInstrument {
             timeInterval:0.2
         )
 
-
-        connect(AKAudioOutput(audioSource:granularSynthesisTexture))
+        setAudioOutput(granularSynthesisTexture)
     }
 }
 
