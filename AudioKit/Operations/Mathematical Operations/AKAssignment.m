@@ -21,6 +21,8 @@
     if (self) {
         lhs = output;
         rhs = input;
+        self.state = @"connectable";
+        self.dependencies = @[rhs];
     }
     return self; 
 }
@@ -31,6 +33,9 @@
     if (self) {
         lhs = [AKParameter parameterWithString:[self operationName]];
         rhs = input;
+        self.state = @"connectable";
+        self.dependencies = @[rhs];
+
     }
     return self;
 }
