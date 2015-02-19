@@ -36,7 +36,8 @@
         _yLocation = yLocation;
         _zLocation = zLocation;
         _diffusion = diffusion;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -53,6 +54,7 @@
         _yLocation = akp(4);
         _zLocation = akp(3);
         _diffusion = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -62,26 +64,74 @@
     return [[AKBallWithinTheBoxReverb alloc] initWithInput:input];
 }
 
-- (void)setOptionalLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge {
+- (void)setLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge {
     _lengthOfXAxisEdge = lengthOfXAxisEdge;
+    [self setUpConnections];
 }
-- (void)setOptionalLengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge {
+
+- (void)setOptionalLengthOfXAxisEdge:(AKConstant *)lengthOfXAxisEdge {
+    [self setLengthOfXAxisEdge:lengthOfXAxisEdge];
+}
+
+- (void)setLengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge {
     _lengthOfYAxisEdge = lengthOfYAxisEdge;
+    [self setUpConnections];
 }
-- (void)setOptionalLengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge {
+
+- (void)setOptionalLengthOfYAxisEdge:(AKConstant *)lengthOfYAxisEdge {
+    [self setLengthOfYAxisEdge:lengthOfYAxisEdge];
+}
+
+- (void)setLengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge {
     _lengthOfZAxisEdge = lengthOfZAxisEdge;
+    [self setUpConnections];
 }
-- (void)setOptionalXLocation:(AKParameter *)xLocation {
+
+- (void)setOptionalLengthOfZAxisEdge:(AKConstant *)lengthOfZAxisEdge {
+    [self setLengthOfZAxisEdge:lengthOfZAxisEdge];
+}
+
+- (void)setXLocation:(AKParameter *)xLocation {
     _xLocation = xLocation;
+    [self setUpConnections];
 }
-- (void)setOptionalYLocation:(AKParameter *)yLocation {
+
+- (void)setOptionalXLocation:(AKParameter *)xLocation {
+    [self setXLocation:xLocation];
+}
+
+- (void)setYLocation:(AKParameter *)yLocation {
     _yLocation = yLocation;
+    [self setUpConnections];
 }
-- (void)setOptionalZLocation:(AKParameter *)zLocation {
+
+- (void)setOptionalYLocation:(AKParameter *)yLocation {
+    [self setYLocation:yLocation];
+}
+
+- (void)setZLocation:(AKParameter *)zLocation {
     _zLocation = zLocation;
+    [self setUpConnections];
 }
-- (void)setOptionalDiffusion:(AKConstant *)diffusion {
+
+- (void)setOptionalZLocation:(AKParameter *)zLocation {
+    [self setZLocation:zLocation];
+}
+
+- (void)setDiffusion:(AKConstant *)diffusion {
     _diffusion = diffusion;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDiffusion:(AKConstant *)diffusion {
+    [self setDiffusion:diffusion];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _lengthOfXAxisEdge, _lengthOfYAxisEdge, _lengthOfZAxisEdge, _xLocation, _yLocation, _zLocation, _diffusion];
 }
 
 - (NSString *)inlineStringForCSD

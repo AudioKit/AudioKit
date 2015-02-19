@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's alpass:
@@ -26,7 +26,8 @@
         _input = input;
         _reverbDuration = reverbDuration;
         _loopDuration = loopDuration;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -38,6 +39,7 @@
         // Default Values
         _reverbDuration = akp(0.5);
         _loopDuration = akp(0.1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -47,32 +49,70 @@
     return [[AKFlatFrequencyResponseReverb alloc] initWithInput:input];
 }
 
-- (void)setOptionalReverbDuration:(AKParameter *)reverbDuration {
+- (void)setReverbDuration:(AKParameter *)reverbDuration {
     _reverbDuration = reverbDuration;
-}
-- (void)setOptionalLoopDuration:(AKConstant *)loopDuration {
-    _loopDuration = loopDuration;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalReverbDuration:(AKParameter *)reverbDuration {
+    [self setReverbDuration:reverbDuration];
+}
+
+- (void)setLoopDuration:(AKConstant *)loopDuration {
+    _loopDuration = loopDuration;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLoopDuration:(AKConstant *)loopDuration {
+    [self setLoopDuration:loopDuration];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _reverbDuration, _loopDuration];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"alpass("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ alpass ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_reverbDuration class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _reverbDuration];
+        [inputsString appendFormat:@"%@, ", _reverbDuration];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _reverbDuration];
+        [inputsString appendFormat:@"AKControl(%@), ", _reverbDuration];
     }
 
-    [csdString appendFormat:@"%@", _loopDuration];
-    return csdString;
+    [inputsString appendFormat:@"%@", _loopDuration];
+    return inputsString;
 }
 
 @end
