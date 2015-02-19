@@ -16,16 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(
-            input1: audio.leftOutput,
-            input2: audio.rightOutput,
-            balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -43,19 +37,16 @@ class Processor : AKInstrument {
             secondPoint: 6000.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(cutoffFrequency)
 
         let moogVCF = AKMoogVCF(input: audioSource)
         moogVCF.cutoffFrequency = cutoffFrequency
-        connect(moogVCF)
+        setAudioOutput(moogVCF)
 
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: moogVCF.cutoffFrequency,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:moogVCF))
 
         resetParameter(audioSource)
     }

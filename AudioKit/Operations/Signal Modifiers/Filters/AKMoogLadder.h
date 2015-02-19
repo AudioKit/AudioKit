@@ -2,7 +2,7 @@
 //  AKMoogLadder.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Filter cutoff frequency [Default Value: 100]
-@property AKParameter *cutoffFrequency;
+@property (nonatomic) AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
 /// @param cutoffFrequency Filter cutoff frequency Updated at Control-rate. [Default Value: 100]
 - (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5]
-@property AKParameter *resonance;
+@property (nonatomic) AKParameter *resonance;
 
 /// Set an optional resonance
 /// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. Updated at Control-rate. [Default Value: 0.5]
