@@ -22,7 +22,7 @@ class Instrument : AKInstrument {
         let stick = AKStick()
         stick.intensity = note.intensity
         stick.dampingFactor = note.dampingFactor
-        connect(stick)
+        setAudioOutput(stick)
 
         enableParameterLog(
             "Intensity = ",
@@ -34,7 +34,6 @@ class Instrument : AKInstrument {
             parameter: stick.dampingFactor,
             timeInterval:1
         )
-        connect(AKAudioOutput(audioSource:stick))
     }
 }
 

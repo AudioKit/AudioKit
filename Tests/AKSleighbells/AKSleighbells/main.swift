@@ -26,9 +26,7 @@ class Instrument : AKInstrument {
         sleighbells.mainResonantFrequency = note.mainResonantFrequency
         sleighbells.firstResonantFrequency = note.firstResonantFrequency
         sleighbells.secondResonantFrequency = note.secondResonantFrequency
-        connect(sleighbells)
-
-        connect(AKAudioOutput(audioSource:sleighbells))
+        setAudioOutput(sleighbells)
     }
 }
 

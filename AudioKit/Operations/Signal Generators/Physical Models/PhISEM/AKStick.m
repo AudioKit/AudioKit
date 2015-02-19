@@ -2,7 +2,7 @@
 //  AKStick.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's stix:
@@ -23,7 +23,8 @@
         _intensity = intensity;
         _dampingFactor = dampingFactor;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _intensity = akp(30);
         _dampingFactor = akp(0.3);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,34 +46,78 @@
     return [[AKStick alloc] init];
 }
 
-- (void)setOptionalIntensity:(AKConstant *)intensity {
+- (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
-}
-- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
-    _dampingFactor = dampingFactor;
-}
-- (void)setOptionalAmplitude:(AKConstant *)amplitude {
-    _amplitude = amplitude;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalIntensity:(AKConstant *)intensity {
+    [self setIntensity:intensity];
+}
+
+- (void)setDampingFactor:(AKConstant *)dampingFactor {
+    _dampingFactor = dampingFactor;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDampingFactor:(AKConstant *)dampingFactor {
+    [self setDampingFactor:dampingFactor];
+}
+
+- (void)setAmplitude:(AKConstant *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKConstant *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_intensity, _dampingFactor, _amplitude];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"stix("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ stix ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
-    [csdString appendFormat:@"%@ stix ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _maximumDuration];
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _intensity];
+    [inputsString appendFormat:@"%@, ", _maximumDuration];
     
-    [csdString appendFormat:@"(1 - %@), ", _dampingFactor];
+    [inputsString appendFormat:@"%@, ", _intensity];
     
-    [csdString appendFormat:@"%@", _energyReturn];
-    return csdString;
+    [inputsString appendFormat:@"(1 - %@), ", _dampingFactor];
+    
+    [inputsString appendFormat:@"%@", _energyReturn];
+    return inputsString;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wguide1:
@@ -28,7 +28,8 @@
         _frequency = frequency;
         _cutoff = cutoff;
         _feedback = feedback;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _frequency = akp(440);
         _cutoff = akp(3000);
         _feedback = akp(0.8);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,41 +52,85 @@
     return [[AKSimpleWaveGuideModel alloc] initWithInput:input];
 }
 
-- (void)setOptionalFrequency:(AKParameter *)frequency {
+- (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
-}
-- (void)setOptionalCutoff:(AKParameter *)cutoff {
-    _cutoff = cutoff;
-}
-- (void)setOptionalFeedback:(AKParameter *)feedback {
-    _feedback = feedback;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setCutoff:(AKParameter *)cutoff {
+    _cutoff = cutoff;
+    [self setUpConnections];
+}
+
+- (void)setOptionalCutoff:(AKParameter *)cutoff {
+    [self setCutoff:cutoff];
+}
+
+- (void)setFeedback:(AKParameter *)feedback {
+    _feedback = feedback;
+    [self setUpConnections];
+}
+
+- (void)setOptionalFeedback:(AKParameter *)feedback {
+    [self setFeedback:feedback];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _frequency, _cutoff, _feedback];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"wguide1("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ wguide1 ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    [csdString appendFormat:@"%@, ", _frequency];
+    [inputsString appendFormat:@"%@, ", _frequency];
     
     if ([_cutoff class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _cutoff];
+        [inputsString appendFormat:@"%@, ", _cutoff];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _cutoff];
+        [inputsString appendFormat:@"AKControl(%@), ", _cutoff];
     }
 
     if ([_feedback class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _feedback];
+        [inputsString appendFormat:@"%@", _feedback];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _feedback];
+        [inputsString appendFormat:@"AKControl(%@)", _feedback];
     }
-return csdString;
+return inputsString;
 }
 
 @end

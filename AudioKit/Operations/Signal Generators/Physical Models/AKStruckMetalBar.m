@@ -2,7 +2,8 @@
 //  AKStruckMetalBar.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka to add boundary condition helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's barmodel:
@@ -39,7 +40,8 @@
         _leftBoundaryCondition = leftBoundaryCondition;
         _rightBoundaryCondition = rightBoundaryCondition;
         _scanSpeed = scanSpeed;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -57,6 +59,7 @@
         _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
         _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
         _scanSpeed = akp(0.23);
+        [self setUpConnections];
     }
     return self;
 }
@@ -66,61 +69,141 @@
     return [[AKStruckMetalBar alloc] init];
 }
 
-- (void)setOptionalDecayTime:(AKConstant *)decayTime {
+- (void)setDecayTime:(AKConstant *)decayTime {
     _decayTime = decayTime;
-}
-- (void)setOptionalDimensionlessStiffness:(AKConstant *)dimensionlessStiffness {
-    _dimensionlessStiffness = dimensionlessStiffness;
-}
-- (void)setOptionalHighFrequencyLoss:(AKConstant *)highFrequencyLoss {
-    _highFrequencyLoss = highFrequencyLoss;
-}
-- (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
-    _strikePosition = strikePosition;
-}
-- (void)setOptionalStrikeVelocity:(AKConstant *)strikeVelocity {
-    _strikeVelocity = strikeVelocity;
-}
-- (void)setOptionalStrikeWidth:(AKConstant *)strikeWidth {
-    _strikeWidth = strikeWidth;
-}
-- (void)setOptionalLeftBoundaryCondition:(AKConstant *)leftBoundaryCondition {
-    _leftBoundaryCondition = leftBoundaryCondition;
-}
-- (void)setOptionalRightBoundaryCondition:(AKConstant *)rightBoundaryCondition {
-    _rightBoundaryCondition = rightBoundaryCondition;
-}
-- (void)setOptionalScanSpeed:(AKParameter *)scanSpeed {
-    _scanSpeed = scanSpeed;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalDecayTime:(AKConstant *)decayTime {
+    [self setDecayTime:decayTime];
+}
+
+- (void)setDimensionlessStiffness:(AKConstant *)dimensionlessStiffness {
+    _dimensionlessStiffness = dimensionlessStiffness;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDimensionlessStiffness:(AKConstant *)dimensionlessStiffness {
+    [self setDimensionlessStiffness:dimensionlessStiffness];
+}
+
+- (void)setHighFrequencyLoss:(AKConstant *)highFrequencyLoss {
+    _highFrequencyLoss = highFrequencyLoss;
+    [self setUpConnections];
+}
+
+- (void)setOptionalHighFrequencyLoss:(AKConstant *)highFrequencyLoss {
+    [self setHighFrequencyLoss:highFrequencyLoss];
+}
+
+- (void)setStrikePosition:(AKConstant *)strikePosition {
+    _strikePosition = strikePosition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalStrikePosition:(AKConstant *)strikePosition {
+    [self setStrikePosition:strikePosition];
+}
+
+- (void)setStrikeVelocity:(AKConstant *)strikeVelocity {
+    _strikeVelocity = strikeVelocity;
+    [self setUpConnections];
+}
+
+- (void)setOptionalStrikeVelocity:(AKConstant *)strikeVelocity {
+    [self setStrikeVelocity:strikeVelocity];
+}
+
+- (void)setStrikeWidth:(AKConstant *)strikeWidth {
+    _strikeWidth = strikeWidth;
+    [self setUpConnections];
+}
+
+- (void)setOptionalStrikeWidth:(AKConstant *)strikeWidth {
+    [self setStrikeWidth:strikeWidth];
+}
+
+- (void)setLeftBoundaryCondition:(AKConstant *)leftBoundaryCondition {
+    _leftBoundaryCondition = leftBoundaryCondition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLeftBoundaryCondition:(AKConstant *)leftBoundaryCondition {
+    [self setLeftBoundaryCondition:leftBoundaryCondition];
+}
+
+- (void)setRightBoundaryCondition:(AKConstant *)rightBoundaryCondition {
+    _rightBoundaryCondition = rightBoundaryCondition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalRightBoundaryCondition:(AKConstant *)rightBoundaryCondition {
+    [self setRightBoundaryCondition:rightBoundaryCondition];
+}
+
+- (void)setScanSpeed:(AKParameter *)scanSpeed {
+    _scanSpeed = scanSpeed;
+    [self setUpConnections];
+}
+
+- (void)setOptionalScanSpeed:(AKParameter *)scanSpeed {
+    [self setScanSpeed:scanSpeed];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_decayTime, _dimensionlessStiffness, _highFrequencyLoss, _strikePosition, _strikeVelocity, _strikeWidth, _leftBoundaryCondition, _rightBoundaryCondition, _scanSpeed];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"barmodel("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ barmodel ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
-    [csdString appendFormat:@"%@, ", _leftBoundaryCondition];
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
     
-    [csdString appendFormat:@"%@, ", _rightBoundaryCondition];
+    [inputsString appendFormat:@"%@, ", _leftBoundaryCondition];
     
-    [csdString appendFormat:@"%@, ", _dimensionlessStiffness];
+    [inputsString appendFormat:@"%@, ", _rightBoundaryCondition];
     
-    [csdString appendFormat:@"%@, ", _highFrequencyLoss];
+    [inputsString appendFormat:@"%@, ", _dimensionlessStiffness];
+    
+    [inputsString appendFormat:@"%@, ", _highFrequencyLoss];
     
     if ([_scanSpeed class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _scanSpeed];
+        [inputsString appendFormat:@"%@, ", _scanSpeed];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _scanSpeed];
+        [inputsString appendFormat:@"AKControl(%@), ", _scanSpeed];
     }
 
-    [csdString appendFormat:@"%@, ", _decayTime];
+    [inputsString appendFormat:@"%@, ", _decayTime];
     
-    [csdString appendFormat:@"%@, ", _strikePosition];
+    [inputsString appendFormat:@"%@, ", _strikePosition];
     
-    [csdString appendFormat:@"%@, ", _strikeVelocity];
+    [inputsString appendFormat:@"%@, ", _strikeVelocity];
     
-    [csdString appendFormat:@"%@", _strikeWidth];
-    return csdString;
+    [inputsString appendFormat:@"%@", _strikeWidth];
+    return inputsString;
 }
 
 @end

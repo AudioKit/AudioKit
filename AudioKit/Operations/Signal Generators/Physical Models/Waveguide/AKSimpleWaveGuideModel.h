@@ -2,7 +2,7 @@
 //  AKSimpleWaveGuideModel.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -34,21 +34,21 @@
 + (instancetype)modelWithInput:(AKParameter *)input;
 
 /// The inverse of delay time. [Default Value: 440]
-@property AKParameter *frequency;
+@property (nonatomic) AKParameter *frequency;
 
 /// Set an optional frequency
 /// @param frequency The inverse of delay time. [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Filter cut-off frequency in Hz [Default Value: 3000]
-@property AKParameter *cutoff;
+@property (nonatomic) AKParameter *cutoff;
 
 /// Set an optional cutoff
 /// @param cutoff Filter cut-off frequency in Hz Updated at Control-rate. [Default Value: 3000]
 - (void)setOptionalCutoff:(AKParameter *)cutoff;
 
 /// Feedback factor usually between 0 and 1 [Default Value: 0.8]
-@property AKParameter *feedback;
+@property (nonatomic) AKParameter *feedback;
 
 /// Set an optional feedback
 /// @param feedback Feedback factor usually between 0 and 1 Updated at Control-rate. [Default Value: 0.8]
