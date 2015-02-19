@@ -24,9 +24,8 @@ class Instrument : AKInstrument {
         let mono = AKMix(
             input1: audio.leftOutput,
             input2: audio.rightOutput,
-            balance: 0.5.ak)
-        connect(mono)
-
+            balance: 0.5.ak
+        )
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }
@@ -38,10 +37,7 @@ class Processor : AKInstrument {
         super.init()
 
         let dcBlock = AKDCBlock(input: audioSource)
-        connect(dcBlock)
-
-        connect(AKAudioOutput(audioSource:dcBlock))
-
+        setAudioOutput(dcBlock)
         resetParameter(audioSource)
     }
 }
