@@ -24,7 +24,7 @@
         _secondPoint = secondPoint;
         _durationBetweenPoints = durationBetweenPoints;
         [self setUpConnections];
-    }
+}
     return self;
 }
 
@@ -73,6 +73,13 @@
     [self setDurationBetweenPoints:durationBetweenPoints];
 }
 
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
+}
+
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
@@ -104,12 +111,6 @@
     
     [inputsString appendFormat:@"%@", _secondPoint];
     return inputsString;
-}
-
-- (void)setUpConnections
-{
-    self.state = @"connectable";
-    self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
 }
 
 @end
