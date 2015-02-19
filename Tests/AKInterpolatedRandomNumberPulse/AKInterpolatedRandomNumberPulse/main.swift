@@ -19,17 +19,15 @@ class Instrument : AKInstrument {
         interpolatedRandomNumberPulse.frequency = 3.ak
         connect(interpolatedRandomNumberPulse)
 
-        let audio = AKOscillator()
-        audio.frequency = interpolatedRandomNumberPulse.scaledBy(4000.ak)
-        connect(audio)
+        let oscillator = AKOscillator()
+        oscillator.frequency = interpolatedRandomNumberPulse.scaledBy(4000.ak)
 
         enableParameterLog(
             "Frequency = ",
-            parameter: audio.frequency,
+            parameter: oscillator.frequency,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:audio))
+        setAudioOutput(oscillator)
     }
 }
 
