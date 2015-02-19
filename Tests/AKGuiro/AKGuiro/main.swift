@@ -22,7 +22,6 @@ class Instrument : AKInstrument {
         let guiro = AKGuiro()
         guiro.count = note.count
         guiro.mainResonantFrequency = note.mainResonantFrequency
-        connect(guiro)
 
         enableParameterLog(
             "Count = ",
@@ -35,7 +34,8 @@ class Instrument : AKInstrument {
             parameter: guiro.mainResonantFrequency,
             timeInterval:2
         )
-        connect(AKAudioOutput(audioSource:guiro))
+        
+        setAudioOutput(guiro)
     }
 }
 

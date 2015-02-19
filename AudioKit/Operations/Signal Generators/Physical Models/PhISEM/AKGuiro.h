@@ -2,7 +2,7 @@
 //  AKGuiro.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -33,28 +33,28 @@
 
 
 /// The number of beads/teeth/bells/timbrels/etc. [Default Value: 128]
-@property AKConstant *count;
+@property (nonatomic) AKConstant *count;
 
 /// Set an optional count
 /// @param count The number of beads/teeth/bells/timbrels/etc. [Default Value: 128]
 - (void)setOptionalCount:(AKConstant *)count;
 
 /// The main resonant frequency. [Default Value: 2500]
-@property AKConstant *mainResonantFrequency;
+@property (nonatomic) AKConstant *mainResonantFrequency;
 
 /// Set an optional main resonant frequency
 /// @param mainResonantFrequency The main resonant frequency. [Default Value: 2500]
 - (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency;
 
 /// The first resonant frequency. [Default Value: 4000]
-@property AKConstant *firstResonantFrequency;
+@property (nonatomic) AKConstant *firstResonantFrequency;
 
 /// Set an optional first resonant frequency
 /// @param firstResonantFrequency The first resonant frequency. [Default Value: 4000]
 - (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency;
 
 /// Amplitude of output. Since these instruments are stochastic this is only an approximation. [Default Value: 1.0]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of output. Since these instruments are stochastic this is only an approximation. Updated at Control-rate. [Default Value: 1.0]
