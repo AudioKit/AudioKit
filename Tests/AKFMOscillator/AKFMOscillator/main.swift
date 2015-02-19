@@ -15,17 +15,29 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let frequencyLine = AKLine(firstPoint: 10.ak, secondPoint: 880.ak, durationBetweenPoints: testDuration.ak)
-        connect(frequencyLine)
+        let frequencyLine = AKLine(
+            firstPoint:   10.ak,
+            secondPoint: 880.ak,
+            durationBetweenPoints: testDuration.ak
+        )
+        
+        let carrierMultiplierLine = AKLine(
+            firstPoint:  2.ak,
+            secondPoint: 0.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let carrierMultiplierLine = AKLine(firstPoint: 2.ak, secondPoint: 0.ak, durationBetweenPoints: testDuration.ak)
-        connect(carrierMultiplierLine)
+        let modulatingMultiplierLine = AKLine(
+            firstPoint:  0.ak,
+            secondPoint: 2.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let modulatingMultiplierLine = AKLine(firstPoint: 0.ak, secondPoint: 2.ak, durationBetweenPoints: testDuration.ak)
-        connect(modulatingMultiplierLine)
-
-        let indexLine = AKLine(firstPoint: 0.ak, secondPoint: 30.ak, durationBetweenPoints: testDuration.ak)
-        connect(indexLine)
+        let indexLine = AKLine(
+            firstPoint:   0.ak,
+            secondPoint: 30.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let fmOscillator = AKFMOscillator()
         fmOscillator.baseFrequency = frequencyLine
@@ -57,8 +69,7 @@ class Instrument : AKInstrument {
             timeInterval:0.1
         )
 
-        connect(fmOscillator)
-        connect(AKAudioOutput(audioSource:fmOscillator))
+        setAudioOutput(fmOscillator)
     }
 }
 
