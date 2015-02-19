@@ -204,6 +204,9 @@ static int currentID = 1;
                  parameter:(AKParameter *)parameter
               timeInterval:(float)timeInterval
 {
+    if (!parameter.connected && ![parameter isKindOfClass:[AKNoteProperty class]]) {
+        [self connect:parameter];
+    }
     [innerCSDRepresentation appendFormat:
      @"\nprintks \"%@ %%f\", %f, AKControl(%@)\n",
      message, timeInterval, parameter];
