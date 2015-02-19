@@ -26,7 +26,6 @@ class Instrument : AKInstrument {
             input2: audio.rightOutput,
             balance: 0.5.ak
         )
-        connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -43,32 +42,29 @@ class Processor : AKInstrument {
             secondPoint: 10000.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(centerFrequency)
 
         let bandwidth = AKLine(
             firstPoint: 2000.ak,
             secondPoint: 20.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(bandwidth)
-
-        let bandPassFilter = AKBandPassButterworthFilter(input: audioSource)
-        bandPassFilter.centerFrequency = centerFrequency
-        bandPassFilter.bandwidth = bandwidth
-        connect(bandPassFilter)
 
         enableParameterLog(
             "Center Frequency = ",
-            parameter: bandPassFilter.centerFrequency,
+            parameter: centerFrequency,
             timeInterval:0.1
         )
         enableParameterLog(
             "Bandwidth = ",
-            parameter: bandPassFilter.bandwidth,
+            parameter: bandwidth,
             timeInterval:1
         )
 
-        connect(AKAudioOutput(audioSource:bandPassFilter))
+        let bandPassFilter = AKBandPassButterworthFilter(input: audioSource)
+        bandPassFilter.centerFrequency = centerFrequency
+        bandPassFilter.bandwidth = bandwidth
+
+        setAudioOutput(bandPassFilter)
 
         resetParameter(audioSource)
     }

@@ -22,7 +22,6 @@ class Instrument : AKInstrument {
         let bambooSticks = AKBambooSticks()
         bambooSticks.count = note.count
         bambooSticks.mainResonantFrequency = note.mainResonantFrequency
-        connect(bambooSticks)
 
         enableParameterLog(
             "Count = ",
@@ -36,7 +35,7 @@ class Instrument : AKInstrument {
             timeInterval:2
         )
 
-        connect(AKAudioOutput(audioSource:bambooSticks))
+        setAudioOutput(bambooSticks)
     }
 }
 

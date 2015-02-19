@@ -22,7 +22,8 @@ class Instrument : AKInstrument {
             riseTime: 0.2.ak,
             decayTime: 0.2.ak,
             totalDuration: 0.5.ak,
-            amplitude: 0.25.ak)
+            amplitude: 0.25.ak
+        )
         connect(adsr)
 
         let bowedString = AKBowedString()
@@ -37,8 +38,7 @@ class Instrument : AKInstrument {
             parameter: bowedString.frequency,
             timeInterval:2
         )
-
-        connect(AKAudioOutput(audioSource:bowedString))
+        setAudioOutput(bowedString)
     }
 }
 

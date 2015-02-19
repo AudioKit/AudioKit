@@ -16,14 +16,12 @@ class Instrument : AKInstrument {
         super.init()
 
         let adsr = AKADSREnvelope()
-        connect(adsr)
         enableParameterLog("ADSR value = ", parameter: adsr, timeInterval:0.02)
 
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr
-        connect(oscillator)
-
-        connect(AKAudioOutput(audioSource:oscillator))
+        
+        setAudioOutput(oscillator)
     }
 }
 AKOrchestra.testForDuration(testDuration)
