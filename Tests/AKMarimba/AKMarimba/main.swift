@@ -19,17 +19,14 @@ class Instrument : AKInstrument {
         addNoteProperty(note.frequency)
 
         let marimba = AKMarimba()
-
         marimba.frequency = note.frequency
-        connect(marimba)
+        setAudioOutput(marimba)
 
         enableParameterLog(
             "Frequency = ",
             parameter: marimba.frequency,
             timeInterval:2
         )
-
-        connect(AKAudioOutput(audioSource:marimba))
     }
 }
 

@@ -17,7 +17,7 @@ class Instrument : AKInstrument {
         addNoteProperty(note.frequency)
         let mandolin = AKMandolin()
         mandolin.frequency = note.frequency
-        connect(mandolin)
+        setAudioOutput(mandolin)
 
         enableParameterLog(
             "Frequency = ",
@@ -25,7 +25,6 @@ class Instrument : AKInstrument {
             timeInterval:2
         )
 
-        connect(AKAudioOutput(audioSource:mandolin))
     }
 }
 
