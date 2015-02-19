@@ -2,7 +2,7 @@
 //  AKJitter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,21 +32,21 @@ This can be used to make more natural and “analog-sounding” some static, dul
 
 
 /// Amplitude of jitter deviation [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of jitter deviation Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Minimum speed of random frequency variations (expressed in Hz) [Default Value: 0]
-@property AKParameter *minimumFrequency;
+@property (nonatomic) AKParameter *minimumFrequency;
 
 /// Set an optional minimum frequency
 /// @param minimumFrequency Minimum speed of random frequency variations (expressed in Hz) Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalMinimumFrequency:(AKParameter *)minimumFrequency;
 
 /// Maximum speed of random frequency variations (expressed in Hz) [Default Value: 60]
-@property AKParameter *maximumFrequency;
+@property (nonatomic) AKParameter *maximumFrequency;
 
 /// Set an optional maximum frequency
 /// @param maximumFrequency Maximum speed of random frequency variations (expressed in Hz) Updated at Control-rate. [Default Value: 60]

@@ -2,7 +2,7 @@
 //  AKJitter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's jitter:
@@ -23,7 +23,8 @@
         _amplitude = amplitude;
         _minimumFrequency = minimumFrequency;
         _maximumFrequency = maximumFrequency;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _amplitude = akp(1);
         _minimumFrequency = akp(0);
         _maximumFrequency = akp(60);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,39 +46,83 @@
     return [[AKJitter alloc] init];
 }
 
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
-}
-- (void)setOptionalMinimumFrequency:(AKParameter *)minimumFrequency {
-    _minimumFrequency = minimumFrequency;
-}
-- (void)setOptionalMaximumFrequency:(AKParameter *)maximumFrequency {
-    _maximumFrequency = maximumFrequency;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setMinimumFrequency:(AKParameter *)minimumFrequency {
+    _minimumFrequency = minimumFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMinimumFrequency:(AKParameter *)minimumFrequency {
+    [self setMinimumFrequency:minimumFrequency];
+}
+
+- (void)setMaximumFrequency:(AKParameter *)maximumFrequency {
+    _maximumFrequency = maximumFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMaximumFrequency:(AKParameter *)maximumFrequency {
+    [self setMaximumFrequency:maximumFrequency];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_amplitude, _minimumFrequency, _maximumFrequency];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"jitter("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ jitter ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
     if ([_minimumFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _minimumFrequency];
+        [inputsString appendFormat:@"%@, ", _minimumFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _minimumFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _minimumFrequency];
     }
 
     if ([_maximumFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _maximumFrequency];
+        [inputsString appendFormat:@"%@", _maximumFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _maximumFrequency];
+        [inputsString appendFormat:@"AKControl(%@)", _maximumFrequency];
     }
-return csdString;
+return inputsString;
 }
 
 @end
