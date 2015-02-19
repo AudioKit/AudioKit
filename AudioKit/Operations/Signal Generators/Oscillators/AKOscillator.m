@@ -23,7 +23,8 @@
         _functionTable = functionTable;
         _frequency = frequency;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -36,6 +37,7 @@
     
         _frequency = akp(440);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -45,14 +47,38 @@
     return [[AKOscillator alloc] init];
 }
 
-- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
+- (void)setFunctionTable:(AKFunctionTable *)functionTable {
     _functionTable = functionTable;
+    [self setUpConnections];
 }
-- (void)setOptionalFrequency:(AKParameter *)frequency {
+
+- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
+    [self setFunctionTable:functionTable];
+}
+
+- (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_functionTable, _frequency, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD
