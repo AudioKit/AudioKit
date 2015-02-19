@@ -14,23 +14,18 @@ class Instrument : AKInstrument {
         super.init()
 
         let sine = AKOscillator()
-        connect(sine)
-
         let position = AKOscillator()
         position.frequency = 0.5.ak
-        connect(position)
 
         let dopplerEffect = AKDopplerEffect(input: sine)
         dopplerEffect.sourcePosition = position.scaledBy(50.ak).plus(100.ak)
-        connect(dopplerEffect)
 
         enableParameterLog(
             "Source Position = ",
             parameter: dopplerEffect.sourcePosition,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:dopplerEffect))
+        setAudioOutput(dopplerEffect)
     }
 }
 

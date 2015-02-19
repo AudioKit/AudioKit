@@ -2,7 +2,7 @@
 //  AKDopplerEffect.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -34,21 +34,21 @@
 + (instancetype)effectWithInput:(AKParameter *)input;
 
 /// Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
-@property AKParameter *sourcePosition;
+@property (nonatomic) AKParameter *sourcePosition;
 
 /// Set an optional source position
 /// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalSourcePosition:(AKParameter *)sourcePosition;
 
 /// Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. [Default Value: 0]
-@property AKParameter *micPosition;
+@property (nonatomic) AKParameter *micPosition;
 
 /// Set an optional mic position
 /// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalMicPosition:(AKParameter *)micPosition;
 
 /// Rate of updating the position smoothing filter, in cycles/second. [Default Value: 6]
-@property AKConstant *smoothingFilterUpdateRate;
+@property (nonatomic) AKConstant *smoothingFilterUpdateRate;
 
 /// Set an optional smoothing filter update rate
 /// @param smoothingFilterUpdateRate Rate of updating the position smoothing filter, in cycles/second. [Default Value: 6]

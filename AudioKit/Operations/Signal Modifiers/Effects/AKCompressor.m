@@ -39,7 +39,8 @@
         _attackTime = attackTime;
         _releaseTime = releaseTime;
         _lookAheadTime = lookAheadTime;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -58,6 +59,7 @@
         _attackTime = akp(0.1);
         _releaseTime = akp(1);
         _lookAheadTime = akp(0.05);
+        [self setUpConnections];
     }
     return self;
 }
@@ -69,26 +71,74 @@
                   controllingInput:controllingInput];
 }
 
-- (void)setOptionalThreshold:(AKParameter *)threshold {
+- (void)setThreshold:(AKParameter *)threshold {
     _threshold = threshold;
+    [self setUpConnections];
 }
-- (void)setOptionalLowKnee:(AKParameter *)lowKnee {
+
+- (void)setOptionalThreshold:(AKParameter *)threshold {
+    [self setThreshold:threshold];
+}
+
+- (void)setLowKnee:(AKParameter *)lowKnee {
     _lowKnee = lowKnee;
+    [self setUpConnections];
 }
-- (void)setOptionalHighKnee:(AKParameter *)highKnee {
+
+- (void)setOptionalLowKnee:(AKParameter *)lowKnee {
+    [self setLowKnee:lowKnee];
+}
+
+- (void)setHighKnee:(AKParameter *)highKnee {
     _highKnee = highKnee;
+    [self setUpConnections];
 }
-- (void)setOptionalCompressionRatio:(AKParameter *)compressionRatio {
+
+- (void)setOptionalHighKnee:(AKParameter *)highKnee {
+    [self setHighKnee:highKnee];
+}
+
+- (void)setCompressionRatio:(AKParameter *)compressionRatio {
     _compressionRatio = compressionRatio;
+    [self setUpConnections];
 }
-- (void)setOptionalAttackTime:(AKParameter *)attackTime {
+
+- (void)setOptionalCompressionRatio:(AKParameter *)compressionRatio {
+    [self setCompressionRatio:compressionRatio];
+}
+
+- (void)setAttackTime:(AKParameter *)attackTime {
     _attackTime = attackTime;
+    [self setUpConnections];
 }
-- (void)setOptionalReleaseTime:(AKParameter *)releaseTime {
+
+- (void)setOptionalAttackTime:(AKParameter *)attackTime {
+    [self setAttackTime:attackTime];
+}
+
+- (void)setReleaseTime:(AKParameter *)releaseTime {
     _releaseTime = releaseTime;
+    [self setUpConnections];
 }
-- (void)setOptionalLookAheadTime:(AKConstant *)lookAheadTime {
+
+- (void)setOptionalReleaseTime:(AKParameter *)releaseTime {
+    [self setReleaseTime:releaseTime];
+}
+
+- (void)setLookAheadTime:(AKConstant *)lookAheadTime {
     _lookAheadTime = lookAheadTime;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLookAheadTime:(AKConstant *)lookAheadTime {
+    [self setLookAheadTime:lookAheadTime];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _controllingInput, _threshold, _lowKnee, _highKnee, _compressionRatio, _attackTime, _releaseTime, _lookAheadTime];
 }
 
 - (NSString *)inlineStringForCSD

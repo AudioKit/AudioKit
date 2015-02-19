@@ -2,7 +2,7 @@
 //  AKDopplerEffect.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's doppler:
@@ -28,7 +28,8 @@
         _sourcePosition = sourcePosition;
         _micPosition = micPosition;
         _smoothingFilterUpdateRate = smoothingFilterUpdateRate;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _sourcePosition = akp(0);
         _micPosition = akp(0);
         _smoothingFilterUpdateRate = akp(6);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,45 +52,89 @@
     return [[AKDopplerEffect alloc] initWithInput:input];
 }
 
-- (void)setOptionalSourcePosition:(AKParameter *)sourcePosition {
+- (void)setSourcePosition:(AKParameter *)sourcePosition {
     _sourcePosition = sourcePosition;
-}
-- (void)setOptionalMicPosition:(AKParameter *)micPosition {
-    _micPosition = micPosition;
-}
-- (void)setOptionalSmoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate {
-    _smoothingFilterUpdateRate = smoothingFilterUpdateRate;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalSourcePosition:(AKParameter *)sourcePosition {
+    [self setSourcePosition:sourcePosition];
+}
+
+- (void)setMicPosition:(AKParameter *)micPosition {
+    _micPosition = micPosition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMicPosition:(AKParameter *)micPosition {
+    [self setMicPosition:micPosition];
+}
+
+- (void)setSmoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate {
+    _smoothingFilterUpdateRate = smoothingFilterUpdateRate;
+    [self setUpConnections];
+}
+
+- (void)setOptionalSmoothingFilterUpdateRate:(AKConstant *)smoothingFilterUpdateRate {
+    [self setSmoothingFilterUpdateRate:smoothingFilterUpdateRate];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _sourcePosition, _micPosition, _smoothingFilterUpdateRate];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"doppler("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ doppler ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_soundSpeed = akp(340.29);        
-    [csdString appendFormat:@"%@ doppler ", self];
-
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_sourcePosition class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _sourcePosition];
+        [inputsString appendFormat:@"%@, ", _sourcePosition];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _sourcePosition];
+        [inputsString appendFormat:@"AKControl(%@), ", _sourcePosition];
     }
 
     if ([_micPosition class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _micPosition];
+        [inputsString appendFormat:@"%@, ", _micPosition];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _micPosition];
+        [inputsString appendFormat:@"AKControl(%@), ", _micPosition];
     }
 
-    [csdString appendFormat:@"%@, ", _soundSpeed];
+    [inputsString appendFormat:@"%@, ", _soundSpeed];
     
-    [csdString appendFormat:@"%@", _smoothingFilterUpdateRate];
-    return csdString;
+    [inputsString appendFormat:@"%@", _smoothingFilterUpdateRate];
+    return inputsString;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  AKFlanger.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -36,7 +36,7 @@
                       delayTime:(AKParameter *)delayTime;
 
 /// Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed) [Default Value: 0]
-@property AKParameter *feedback;
+@property (nonatomic) AKParameter *feedback;
 
 /// Set an optional feedback
 /// @param feedback Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed) Updated at Control-rate. [Default Value: 0]
