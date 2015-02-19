@@ -2,7 +2,7 @@
 //  AKHighPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -30,7 +30,7 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
-@property AKParameter *cutoffFrequency;
+@property (nonatomic) AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
 /// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 4000]

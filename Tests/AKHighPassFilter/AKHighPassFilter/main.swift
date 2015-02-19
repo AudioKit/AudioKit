@@ -16,13 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -35,22 +32,21 @@ class Processor : AKInstrument {
         super.init()
 
         let cutoffFrequency = AKLine(
-            firstPoint: 1.ak,
+            firstPoint:     1.ak,
             secondPoint: 4000.ak,
-            durationBetweenPoints: testDuration.ak)
-        connect(cutoffFrequency)
+            durationBetweenPoints: testDuration.ak
+        )
 
         let highPassFilter = AKHighPassFilter(input: audioSource)
         highPassFilter.cutoffFrequency = cutoffFrequency
-        connect(highPassFilter)
 
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: highPassFilter.cutoffFrequency,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:highPassFilter))
+        
+        setAudioOutput(highPassFilter)
 
         resetParameter(audioSource)
     }
