@@ -12,16 +12,14 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-
+        
         let line = AKLine()
-        connect(line)
+        line.secondPoint = 100.ak
         enableParameterLog("line value = ", parameter: line, timeInterval:0.5)
 
         let oscillator = AKOscillator()
-        oscillator.frequency = line.scaledBy(100.ak)
-        connect(oscillator)
-
-        connect(AKAudioOutput(audioSource:oscillator))
+        oscillator.frequency = line
+        setAudioOutput(oscillator)
     }
 }
 
