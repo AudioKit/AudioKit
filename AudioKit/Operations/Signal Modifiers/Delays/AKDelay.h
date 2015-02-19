@@ -36,7 +36,7 @@
                      delayTime:(AKConstant *)delayTime;
 
 /// How much of the signal is sent back into the delay line.  Usually values range from 0-1. [Default Value: 0.0]
-@property AKParameter *feedback;
+@property (nonatomic) AKParameter *feedback;
 
 /// Set an optional feedback
 /// @param feedback How much of the signal is sent back into the delay line.  Usually values range from 0-1. Updated at Control-rate. [Default Value: 0.0]
