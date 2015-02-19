@@ -30,11 +30,10 @@ class Instrument : AKInstrument {
 
 }
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(5)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-AKManager.sharedManager().isLogging = true
 
 instrument.play()
 

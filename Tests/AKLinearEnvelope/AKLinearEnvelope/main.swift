@@ -14,13 +14,12 @@ class Instrument : AKInstrument {
         super.init()
 
         let envelope = AKLinearEnvelope()
-        connect(envelope)
+        enableParameterLog("Envelope value = ", parameter: envelope, timeInterval:0.02)
 
         let oscillator = AKOscillator()
         oscillator.amplitude = envelope
-        connect(oscillator)
 
-        connect(AKAudioOutput(audioSource:oscillator))
+        setAudioOutput(oscillator)
     }
 }
 
@@ -31,11 +30,9 @@ AKOrchestra.addInstrument(instrument)
 
 let note1 = AKNote()
 note1.duration.setValue(1)
-// specify properties and create more notes here
 
 let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
-// add more phrase notes here
 
 instrument.playPhrase(phrase)
 
