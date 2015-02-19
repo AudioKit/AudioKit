@@ -2,7 +2,7 @@
 //  AKFlute.m
 //  AudioKit
 //
-//  Auto-generated on 1/13/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wgflute:
@@ -39,7 +39,8 @@
         _vibratoShape = vibratoShape;
         _vibratoAmplitude = vibratoAmplitude;
         _vibratoFrequency = vibratoFrequency;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -60,6 +61,7 @@
     
         _vibratoAmplitude = akp(0);
         _vibratoFrequency = akp(0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -69,95 +71,187 @@
     return [[AKFlute alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKParameter *)frequency {
+- (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
-}
-- (void)setOptionalAttackTime:(AKConstant *)attackTime {
-    _attackTime = attackTime;
-}
-- (void)setOptionalReleaseTime:(AKConstant *)releaseTime {
-    _releaseTime = releaseTime;
-}
-- (void)setOptionalAirJetPressure:(AKParameter *)airJetPressure {
-    _airJetPressure = airJetPressure;
-}
-- (void)setOptionalJetrf:(AKConstant *)jetrf {
-    _jetrf = jetrf;
-}
-- (void)setOptionalEndrf:(AKConstant *)endrf {
-    _endrf = endrf;
-}
-- (void)setOptionalNoiseAmplitude:(AKParameter *)noiseAmplitude {
-    _noiseAmplitude = noiseAmplitude;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
-}
-- (void)setOptionalVibratoShape:(AKFunctionTable *)vibratoShape {
-    _vibratoShape = vibratoShape;
-}
-- (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude {
-    _vibratoAmplitude = vibratoAmplitude;
-}
-- (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
-    _vibratoFrequency = vibratoFrequency;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setAttackTime:(AKConstant *)attackTime {
+    _attackTime = attackTime;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAttackTime:(AKConstant *)attackTime {
+    [self setAttackTime:attackTime];
+}
+
+- (void)setReleaseTime:(AKConstant *)releaseTime {
+    _releaseTime = releaseTime;
+    [self setUpConnections];
+}
+
+- (void)setOptionalReleaseTime:(AKConstant *)releaseTime {
+    [self setReleaseTime:releaseTime];
+}
+
+- (void)setAirJetPressure:(AKParameter *)airJetPressure {
+    _airJetPressure = airJetPressure;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAirJetPressure:(AKParameter *)airJetPressure {
+    [self setAirJetPressure:airJetPressure];
+}
+
+- (void)setJetrf:(AKConstant *)jetrf {
+    _jetrf = jetrf;
+    [self setUpConnections];
+}
+
+- (void)setOptionalJetrf:(AKConstant *)jetrf {
+    [self setJetrf:jetrf];
+}
+
+- (void)setEndrf:(AKConstant *)endrf {
+    _endrf = endrf;
+    [self setUpConnections];
+}
+
+- (void)setOptionalEndrf:(AKConstant *)endrf {
+    [self setEndrf:endrf];
+}
+
+- (void)setNoiseAmplitude:(AKParameter *)noiseAmplitude {
+    _noiseAmplitude = noiseAmplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalNoiseAmplitude:(AKParameter *)noiseAmplitude {
+    [self setNoiseAmplitude:noiseAmplitude];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setVibratoShape:(AKFunctionTable *)vibratoShape {
+    _vibratoShape = vibratoShape;
+    [self setUpConnections];
+}
+
+- (void)setOptionalVibratoShape:(AKFunctionTable *)vibratoShape {
+    [self setVibratoShape:vibratoShape];
+}
+
+- (void)setVibratoAmplitude:(AKParameter *)vibratoAmplitude {
+    _vibratoAmplitude = vibratoAmplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude {
+    [self setVibratoAmplitude:vibratoAmplitude];
+}
+
+- (void)setVibratoFrequency:(AKParameter *)vibratoFrequency {
+    _vibratoFrequency = vibratoFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
+    [self setVibratoFrequency:vibratoFrequency];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_frequency, _attackTime, _releaseTime, _airJetPressure, _jetrf, _endrf, _noiseAmplitude, _amplitude, _vibratoShape, _vibratoAmplitude, _vibratoFrequency];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"wgflute("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ wgflute ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_initializationParameter = akp(0);        
-    [csdString appendFormat:@"%@ wgflute ", self];
-
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
     if ([_frequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequency];
+        [inputsString appendFormat:@"%@, ", _frequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
     if ([_airJetPressure class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _airJetPressure];
+        [inputsString appendFormat:@"%@, ", _airJetPressure];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _airJetPressure];
+        [inputsString appendFormat:@"AKControl(%@), ", _airJetPressure];
     }
 
-    [csdString appendFormat:@"%@, ", _attackTime];
+    [inputsString appendFormat:@"%@, ", _attackTime];
     
-    [csdString appendFormat:@"%@, ", _releaseTime];
+    [inputsString appendFormat:@"%@, ", _releaseTime];
     
     if ([_noiseAmplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _noiseAmplitude];
+        [inputsString appendFormat:@"%@, ", _noiseAmplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _noiseAmplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _noiseAmplitude];
     }
 
     if ([_vibratoFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _vibratoFrequency];
+        [inputsString appendFormat:@"%@, ", _vibratoFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
     }
 
     if ([_vibratoAmplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _vibratoAmplitude];
+        [inputsString appendFormat:@"%@, ", _vibratoAmplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
     }
 
-    [csdString appendFormat:@"%@, ", _vibratoShape];
+    [inputsString appendFormat:@"%@, ", _vibratoShape];
     
-    [csdString appendFormat:@"%@, ", _initializationParameter];
+    [inputsString appendFormat:@"%@, ", _initializationParameter];
     
-    [csdString appendFormat:@"%@, ", _jetrf];
+    [inputsString appendFormat:@"%@, ", _jetrf];
     
-    [csdString appendFormat:@"%@", _endrf];
-    return csdString;
+    [inputsString appendFormat:@"%@", _endrf];
+    return inputsString;
 }
 
 @end

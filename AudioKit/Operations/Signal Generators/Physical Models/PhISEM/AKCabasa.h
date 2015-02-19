@@ -2,7 +2,7 @@
 //  AKCabasa.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -31,21 +31,21 @@
 
 
 /// The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
-@property AKConstant *count;
+@property (nonatomic) AKConstant *count;
 
 /// Set an optional count
 /// @param count The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
 - (void)setOptionalCount:(AKConstant *)count;
 
 /// Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.14]
-@property AKConstant *dampingFactor;
+@property (nonatomic) AKConstant *dampingFactor;
 
 /// Set an optional damping factor
 /// @param dampingFactor Damping factor where 0 is no damping and 1 is fully damped. [Default Value: 0.14]
 - (void)setOptionalDampingFactor:(AKConstant *)dampingFactor;
 
 /// Amplitude of output. As these instruments are stochastic this is only a approximation. [Default Value: 1]
-@property AKConstant *amplitude;
+@property (nonatomic) AKConstant *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of output. As these instruments are stochastic this is only a approximation. [Default Value: 1]

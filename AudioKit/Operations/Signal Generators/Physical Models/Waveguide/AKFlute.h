@@ -2,7 +2,7 @@
 //  AKFlute.h
 //  AudioKit
 //
-//  Auto-generated on 1/13/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -47,77 +47,77 @@
 
 
 /// Frequency of the note. [Default Value: 440]
-@property AKParameter *frequency;
+@property (nonatomic) AKParameter *frequency;
 
 /// Set an optional frequency
 /// @param frequency Frequency of the note. Updated at Control-rate. [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Time in seconds to reach full blowing pressure. [Default Value: 0.1]
-@property AKConstant *attackTime;
+@property (nonatomic) AKConstant *attackTime;
 
 /// Set an optional attack time
 /// @param attackTime Time in seconds to reach full blowing pressure. [Default Value: 0.1]
 - (void)setOptionalAttackTime:(AKConstant *)attackTime;
 
 /// Time in seconds taken to stop blowing. [Default Value: 0.1]
-@property AKConstant *releaseTime;
+@property (nonatomic) AKConstant *releaseTime;
 
 /// Set an optional release time
 /// @param releaseTime Time in seconds taken to stop blowing. [Default Value: 0.1]
 - (void)setOptionalReleaseTime:(AKConstant *)releaseTime;
 
 /// a parameter controlling the air jet. Values should be positive, and the useful range is approximately 0.08 to 0.56. [Default Value: 0.2]
-@property AKParameter *airJetPressure;
+@property (nonatomic) AKParameter *airJetPressure;
 
 /// Set an optional air jet pressure
 /// @param airJetPressure a parameter controlling the air jet. Values should be positive, and the useful range is approximately 0.08 to 0.56. Updated at Control-rate. [Default Value: 0.2]
 - (void)setOptionalAirJetPressure:(AKParameter *)airJetPressure;
 
 /// Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
-@property AKConstant *jetrf;
+@property (nonatomic) AKConstant *jetrf;
 
 /// Set an optional jetrf
 /// @param jetrf Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
 - (void)setOptionalJetrf:(AKConstant *)jetrf;
 
 /// Reflection coefficient of the breath jet. [Default Value: 0.5]
-@property AKConstant *endrf;
+@property (nonatomic) AKConstant *endrf;
 
 /// Set an optional endrf
 /// @param endrf Reflection coefficient of the breath jet. [Default Value: 0.5]
 - (void)setOptionalEndrf:(AKConstant *)endrf;
 
 /// Amplitude of the noise component, about 0 to 0.5 [Default Value: 0.15]
-@property AKParameter *noiseAmplitude;
+@property (nonatomic) AKParameter *noiseAmplitude;
 
 /// Set an optional noise amplitude
 /// @param noiseAmplitude Amplitude of the noise component, about 0 to 0.5 Updated at Control-rate. [Default Value: 0.15]
 - (void)setOptionalNoiseAmplitude:(AKParameter *)noiseAmplitude;
 
 /// Amplitude of the note, up to but not including 1. [Default Value: 0.5]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of the note, up to but not including 1. Updated at Control-rate. [Default Value: 0.5]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Function table defining the shape of the vibrato. [Default Value: sine]
-@property AKFunctionTable *vibratoShape;
+@property (nonatomic) AKFunctionTable *vibratoShape;
 
 /// Set an optional vibrato shape
 /// @param vibratoShape Function table defining the shape of the vibrato. [Default Value: sine]
 - (void)setOptionalVibratoShape:(AKFunctionTable *)vibratoShape;
 
 /// Amplitude of the vibrato. [Default Value: 0]
-@property AKParameter *vibratoAmplitude;
+@property (nonatomic) AKParameter *vibratoAmplitude;
 
 /// Set an optional vibrato amplitude
 /// @param vibratoAmplitude Amplitude of the vibrato. Updated at Control-rate. [Default Value: 0]
 - (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude;
 
 /// Frequency of vibrato in Hertz. Suggested range is 0 to 12 [Default Value: 0]
-@property AKParameter *vibratoFrequency;
+@property (nonatomic) AKParameter *vibratoFrequency;
 
 /// Set an optional vibrato frequency
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12 Updated at Control-rate. [Default Value: 0]

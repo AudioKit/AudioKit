@@ -2,7 +2,7 @@
 //  AKBowedString.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wgbow:
@@ -33,7 +33,8 @@
         _vibratoFrequency = vibratoFrequency;
         _vibratoAmplitude = vibratoAmplitude;
         _minimumFrequency = minimumFrequency;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -51,6 +52,7 @@
         _vibratoFrequency = akp(0);
         _vibratoAmplitude = akp(0);
         _minimumFrequency = akp(0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -60,76 +62,150 @@
     return [[AKBowedString alloc] init];
 }
 
-- (void)setOptionalFrequency:(AKParameter *)frequency {
+- (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
-}
-- (void)setOptionalPressure:(AKParameter *)pressure {
-    _pressure = pressure;
-}
-- (void)setOptionalPosition:(AKParameter *)position {
-    _position = position;
-}
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    _vibratoShapeTable = vibratoShapeTable;
-}
-- (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
-    _vibratoFrequency = vibratoFrequency;
-}
-- (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude {
-    _vibratoAmplitude = vibratoAmplitude;
-}
-- (void)setOptionalMinimumFrequency:(AKConstant *)minimumFrequency {
-    _minimumFrequency = minimumFrequency;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+- (void)setPressure:(AKParameter *)pressure {
+    _pressure = pressure;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPressure:(AKParameter *)pressure {
+    [self setPressure:pressure];
+}
+
+- (void)setPosition:(AKParameter *)position {
+    _position = position;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPosition:(AKParameter *)position {
+    [self setPosition:position];
+}
+
+- (void)setVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
+    _vibratoShapeTable = vibratoShapeTable;
+    [self setUpConnections];
+}
+
+- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
+    [self setVibratoShapeTable:vibratoShapeTable];
+}
+
+- (void)setVibratoFrequency:(AKParameter *)vibratoFrequency {
+    _vibratoFrequency = vibratoFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalVibratoFrequency:(AKParameter *)vibratoFrequency {
+    [self setVibratoFrequency:vibratoFrequency];
+}
+
+- (void)setVibratoAmplitude:(AKParameter *)vibratoAmplitude {
+    _vibratoAmplitude = vibratoAmplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalVibratoAmplitude:(AKParameter *)vibratoAmplitude {
+    [self setVibratoAmplitude:vibratoAmplitude];
+}
+
+- (void)setMinimumFrequency:(AKConstant *)minimumFrequency {
+    _minimumFrequency = minimumFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMinimumFrequency:(AKConstant *)minimumFrequency {
+    [self setMinimumFrequency:minimumFrequency];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_frequency, _amplitude, _pressure, _position, _vibratoShapeTable, _vibratoFrequency, _vibratoAmplitude, _minimumFrequency];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"wgbow("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ wgbow ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
     if ([_frequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _frequency];
+        [inputsString appendFormat:@"%@, ", _frequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _frequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _frequency];
     }
 
     if ([_pressure class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _pressure];
+        [inputsString appendFormat:@"%@, ", _pressure];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _pressure];
+        [inputsString appendFormat:@"AKControl(%@), ", _pressure];
     }
 
     if ([_position class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _position];
+        [inputsString appendFormat:@"%@, ", _position];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _position];
+        [inputsString appendFormat:@"AKControl(%@), ", _position];
     }
 
     if ([_vibratoFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _vibratoFrequency];
+        [inputsString appendFormat:@"%@, ", _vibratoFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _vibratoFrequency];
     }
 
     if ([_vibratoAmplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _vibratoAmplitude];
+        [inputsString appendFormat:@"%@, ", _vibratoAmplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
     }
 
-    [csdString appendFormat:@"%@, ", _vibratoShapeTable];
+    [inputsString appendFormat:@"%@, ", _vibratoShapeTable];
     
-    [csdString appendFormat:@"%@", _minimumFrequency];
-    return csdString;
+    [inputsString appendFormat:@"%@", _minimumFrequency];
+    return inputsString;
 }
 
 @end
