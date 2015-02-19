@@ -2,7 +2,8 @@
 //  AKPanner.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazk to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pan2:
@@ -31,7 +32,8 @@
         _input = input;
         _pan = pan;
         _panMethod = panMethod;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -43,6 +45,7 @@
         // Default Values
         _pan = akp(0);
         _panMethod = [AKPanner panMethodForEqualPower];
+        [self setUpConnections];
     }
     return self;
 }
@@ -52,28 +55,66 @@
     return [[AKPanner alloc] initWithInput:input];
 }
 
-- (void)setOptionalPan:(AKParameter *)pan {
+- (void)setPan:(AKParameter *)pan {
     _pan = pan;
-}
-- (void)setOptionalPanMethod:(AKConstant *)panMethod {
-    _panMethod = panMethod;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalPan:(AKParameter *)pan {
+    [self setPan:pan];
+}
+
+- (void)setPanMethod:(AKConstant *)panMethod {
+    _panMethod = panMethod;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPanMethod:(AKConstant *)panMethod {
+    [self setPanMethod:panMethod];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _pan, _panMethod];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"pan2("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ pan2 ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    [csdString appendFormat:@"0.5 * (%@+1), ", _pan];
+    [inputsString appendFormat:@"0.5 * (%@+1), ", _pan];
     
-    [csdString appendFormat:@"%@", _panMethod];
-    return csdString;
+    [inputsString appendFormat:@"%@", _panMethod];
+    return inputsString;
 }
 
 @end

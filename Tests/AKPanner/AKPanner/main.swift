@@ -20,23 +20,18 @@ class Instrument : AKInstrument {
         addNoteProperty(note.panMethod)
 
         let oscillator = AKOscillator()
-        connect(oscillator)
-
         let pan = AKOscillator()
         pan.frequency = 1.ak
-        connect(pan)
 
         let panner = AKPanner(input: oscillator)
         panner.pan = pan
-        connect(panner)
+        setAudioOutput(panner)
 
         enableParameterLog(
             "Pan = ",
             parameter: panner.pan,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(stereoAudioSource:panner))
     }
 }
 

@@ -16,16 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
         let filename = "CsoundLib64.framework/Sounds/808loop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(
-            input1: audio.leftOutput,
-            input2: audio.rightOutput,
-            balance: testDuration.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -42,14 +36,12 @@ class Processor : AKInstrument {
             secondPoint: 0.1.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(delayTime)
 
         let variableDelay = AKVariableDelay(input: audioSource)
         variableDelay.delayTime = delayTime
-        connect(variableDelay)
 
         let mix = AKMix(input1: audioSource, input2: variableDelay, balance: 0.5.ak)
-        connect(mix)
+        setAudioOutput(mix)
 
         enableParameterLog(
             "Delay Time = ",
@@ -57,13 +49,11 @@ class Processor : AKInstrument {
             timeInterval:0.1
         )
 
-        connect(AKAudioOutput(audioSource:mix))
-
         resetParameter(audioSource)
     }
 }
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 let processor = Processor(audioSource: instrument.auxilliaryOutput)
