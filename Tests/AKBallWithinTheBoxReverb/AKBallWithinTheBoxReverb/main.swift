@@ -26,7 +26,6 @@ class Instrument : AKInstrument {
             input2: audio.rightOutput,
             balance: 0.5.ak
         )
-        connect(mono)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -43,21 +42,22 @@ class Processor : AKInstrument {
             secondPoint: 6.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(xLocation)
 
         let yLocation = AKLine(
             firstPoint: 1.ak,
             secondPoint: 4.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(yLocation)
 
         let zLocation = AKLine(
             firstPoint: 1.ak,
             secondPoint: 3.ak,
             durationBetweenPoints: testDuration.ak
         )
-        connect(zLocation)
+        
+        enableParameterLog("X Location = ", parameter: xLocation, timeInterval:0.3)
+        enableParameterLog("Y Location = ", parameter: yLocation, timeInterval:0.3)
+        enableParameterLog("Z Location = ", parameter: zLocation, timeInterval:0.3)
 
         let ballWithinTheBoxReverb = AKBallWithinTheBoxReverb(input: audioSource)
         ballWithinTheBoxReverb.xLocation = xLocation
@@ -66,32 +66,13 @@ class Processor : AKInstrument {
         ballWithinTheBoxReverb.diffusion = 0.0.ak
         connect(ballWithinTheBoxReverb)
 
-        enableParameterLog(
-            "X Location = ",
-            parameter: ballWithinTheBoxReverb.xLocation,
-            timeInterval:0.3
-        )
-
-        enableParameterLog(
-            "Y Location = ",
-            parameter: ballWithinTheBoxReverb.yLocation,
-            timeInterval:0.3
-        )
-
-        enableParameterLog(
-            "Z Location = ",
-            parameter: ballWithinTheBoxReverb.zLocation,
-            timeInterval:0.3
-        )
-
         let mix = AKMix(
             input1: audioSource,
             input2: ballWithinTheBoxReverb.leftOutput,
             balance: 0.1.ak
         )
-        connect(mix)
 
-        connect(AKAudioOutput(audioSource:mix))
+        setAudioOutput(mix)
 
         resetParameter(audioSource)
     }
