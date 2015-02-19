@@ -2,11 +2,11 @@
 //  AKADSREnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's xadsr:
-//  http://www.csounds.com/manual/html/xadsr.html
+//  Implementation of Csound's mxadsr:
+//  http://www.csounds.com/manual/html/mxadsr.html
 //
 
 #import "AKADSREnvelope.h"
@@ -66,21 +66,41 @@
     _delay = delay;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"mxadsr("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ mxadsr ", self];
-
-    [csdString appendFormat:@"%@, ", _attackDuration];
-    
-    [csdString appendFormat:@"%@, ", _decayDuration];
-    
-    [csdString appendFormat:@"%@, ", _sustainLevel];
-    
-    [csdString appendFormat:@"%@, ", _releaseDuration];
-    
-    [csdString appendFormat:@"%@", _delay];
+    [csdString appendString:[self inputsString]];
     return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
+    [inputsString appendFormat:@"%@, ", _attackDuration];
+    
+    [inputsString appendFormat:@"%@, ", _decayDuration];
+    
+    [inputsString appendFormat:@"%@, ", _sustainLevel];
+    
+    [inputsString appendFormat:@"%@, ", _releaseDuration];
+    
+    [inputsString appendFormat:@"%@", _delay];
+    return inputsString;
 }
 
 @end
