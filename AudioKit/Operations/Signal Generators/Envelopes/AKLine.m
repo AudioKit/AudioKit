@@ -23,8 +23,7 @@
         _firstPoint = firstPoint;
         _secondPoint = secondPoint;
         _durationBetweenPoints = durationBetweenPoints;
-        self.state = @"connectable";
-        self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
+        [self setUpConnections];
     }
     return self;
 }
@@ -37,8 +36,7 @@
         _firstPoint = akp(0);
         _secondPoint = akp(1);
         _durationBetweenPoints = akp(1);
-        self.state = @"connectable";
-        self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
+        [self setUpConnections];
     }
     return self;
 }
@@ -48,14 +46,31 @@
     return [[AKLine alloc] init];
 }
 
-- (void)setOptionalFirstPoint:(AKConstant *)firstPoint {
+- (void)setFirstPoint:(AKConstant *)firstPoint {
     _firstPoint = firstPoint;
+    [self setUpConnections];
 }
-- (void)setOptionalSecondPoint:(AKConstant *)secondPoint {
+
+- (void)setOptionalFirstPoint:(AKConstant *)firstPoint {
+    [self setFirstPoint:firstPoint];
+}
+
+- (void)setSecondPoint:(AKConstant *)secondPoint {
     _secondPoint = secondPoint;
+    [self setUpConnections];
 }
-- (void)setOptionalDurationBetweenPoints:(AKConstant *)durationBetweenPoints {
+
+- (void)setOptionalSecondPoint:(AKConstant *)secondPoint {
+    [self setSecondPoint:secondPoint];
+}
+
+- (void)setDurationBetweenPoints:(AKConstant *)durationBetweenPoints {
     _durationBetweenPoints = durationBetweenPoints;
+    [self setUpConnections];
+}
+
+- (void)setOptionalDurationBetweenPoints:(AKConstant *)durationBetweenPoints {
+    [self setDurationBetweenPoints:durationBetweenPoints];
 }
 
 - (NSString *)inlineStringForCSD
@@ -89,6 +104,12 @@
     
     [inputsString appendFormat:@"%@", _secondPoint];
     return inputsString;
+}
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_firstPoint, _secondPoint, _durationBetweenPoints];
 }
 
 @end

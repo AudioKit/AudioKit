@@ -31,21 +31,21 @@
 
 
 /// Value to start the line from. [Default Value: 0]
-@property AKConstant *firstPoint;
+@property (nonatomic) AKConstant *firstPoint;
 
 /// Set an optional first point
 /// @param firstPoint Value to start the line from. [Default Value: 0]
 - (void)setOptionalFirstPoint:(AKConstant *)firstPoint;
 
 /// Value to end the line at. [Default Value: 1]
-@property AKConstant *secondPoint;
+@property (nonatomic) AKConstant *secondPoint;
 
 /// Set an optional second point
 /// @param secondPoint Value to end the line at. [Default Value: 1]
 - (void)setOptionalSecondPoint:(AKConstant *)secondPoint;
 
 /// Duration in seconds between the defining points. [Default Value: 1]
-@property AKConstant *durationBetweenPoints;
+@property (nonatomic) AKConstant *durationBetweenPoints;
 
 /// Set an optional duration between points
 /// @param durationBetweenPoints Duration in seconds between the defining points. [Default Value: 1]
