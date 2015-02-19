@@ -2,7 +2,7 @@
 //  AKGuiro.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's guiro:
@@ -25,7 +25,8 @@
         _mainResonantFrequency = mainResonantFrequency;
         _firstResonantFrequency = firstResonantFrequency;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -38,6 +39,7 @@
         _mainResonantFrequency = akp(2500);
         _firstResonantFrequency = akp(4000);
         _amplitude = akp(1.0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -47,46 +49,96 @@
     return [[AKGuiro alloc] init];
 }
 
-- (void)setOptionalCount:(AKConstant *)count {
+- (void)setCount:(AKConstant *)count {
     _count = count;
-}
-- (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
-    _mainResonantFrequency = mainResonantFrequency;
-}
-- (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
-    _firstResonantFrequency = firstResonantFrequency;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalCount:(AKConstant *)count {
+    [self setCount:count];
+}
+
+- (void)setMainResonantFrequency:(AKConstant *)mainResonantFrequency {
+    _mainResonantFrequency = mainResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalMainResonantFrequency:(AKConstant *)mainResonantFrequency {
+    [self setMainResonantFrequency:mainResonantFrequency];
+}
+
+- (void)setFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
+    _firstResonantFrequency = firstResonantFrequency;
+    [self setUpConnections];
+}
+
+- (void)setOptionalFirstResonantFrequency:(AKConstant *)firstResonantFrequency {
+    [self setFirstResonantFrequency:firstResonantFrequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_count, _mainResonantFrequency, _firstResonantFrequency, _amplitude];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"guiro("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ guiro ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1.0);        
     AKConstant *_dampingFactor = akp(0);        
-    [csdString appendFormat:@"%@ guiro ", self];
-
+    
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    [csdString appendFormat:@"%@, ", _maximumDuration];
+    [inputsString appendFormat:@"%@, ", _maximumDuration];
     
-    [csdString appendFormat:@"%@, ", _count];
+    [inputsString appendFormat:@"%@, ", _count];
     
-    [csdString appendFormat:@"%@, ", _dampingFactor];
+    [inputsString appendFormat:@"%@, ", _dampingFactor];
     
-    [csdString appendFormat:@"%@, ", _energyReturn];
+    [inputsString appendFormat:@"%@, ", _energyReturn];
     
-    [csdString appendFormat:@"%@, ", _mainResonantFrequency];
+    [inputsString appendFormat:@"%@, ", _mainResonantFrequency];
     
-    [csdString appendFormat:@"%@", _firstResonantFrequency];
-    return csdString;
+    [inputsString appendFormat:@"%@", _firstResonantFrequency];
+    return inputsString;
 }
 
 @end
