@@ -2,7 +2,7 @@
 //  AKEqualizerFilter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -35,21 +35,21 @@ The amplitude response for this filter will be flat (=1) for gain=1. With gain b
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Filter center frequency in Hz. [Default Value: 1000]
-@property AKParameter *centerFrequency;
+@property (nonatomic) AKParameter *centerFrequency;
 
 /// Set an optional center frequency
 /// @param centerFrequency Filter center frequency in Hz. Updated at Control-rate. [Default Value: 1000]
 - (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency;
 
 /// Peak/notch bandwidth in Hz. [Default Value: 100]
-@property AKParameter *bandwidth;
+@property (nonatomic) AKParameter *bandwidth;
 
 /// Set an optional bandwidth
 /// @param bandwidth Peak/notch bandwidth in Hz. Updated at Control-rate. [Default Value: 100]
 - (void)setOptionalBandwidth:(AKParameter *)bandwidth;
 
 /// Peak/notch gain. [Default Value: 10]
-@property AKParameter *gain;
+@property (nonatomic) AKParameter *gain;
 
 /// Set an optional gain
 /// @param gain Peak/notch gain. Updated at Control-rate. [Default Value: 10]

@@ -2,7 +2,7 @@
 //  AKEqualizerFilter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's eqfil:
@@ -28,7 +28,8 @@
         _centerFrequency = centerFrequency;
         _bandwidth = bandwidth;
         _gain = gain;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -41,6 +42,7 @@
         _centerFrequency = akp(1000);
         _bandwidth = akp(100);
         _gain = akp(10);
+        [self setUpConnections];
     }
     return self;
 }
@@ -50,45 +52,89 @@
     return [[AKEqualizerFilter alloc] initWithInput:input];
 }
 
-- (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency {
+- (void)setCenterFrequency:(AKParameter *)centerFrequency {
     _centerFrequency = centerFrequency;
-}
-- (void)setOptionalBandwidth:(AKParameter *)bandwidth {
-    _bandwidth = bandwidth;
-}
-- (void)setOptionalGain:(AKParameter *)gain {
-    _gain = gain;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency {
+    [self setCenterFrequency:centerFrequency];
+}
+
+- (void)setBandwidth:(AKParameter *)bandwidth {
+    _bandwidth = bandwidth;
+    [self setUpConnections];
+}
+
+- (void)setOptionalBandwidth:(AKParameter *)bandwidth {
+    [self setBandwidth:bandwidth];
+}
+
+- (void)setGain:(AKParameter *)gain {
+    _gain = gain;
+    [self setUpConnections];
+}
+
+- (void)setOptionalGain:(AKParameter *)gain {
+    [self setGain:gain];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _centerFrequency, _bandwidth, _gain];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"eqfil("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ eqfil ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_centerFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _centerFrequency];
+        [inputsString appendFormat:@"%@, ", _centerFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _centerFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _centerFrequency];
     }
 
     if ([_bandwidth class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _bandwidth];
+        [inputsString appendFormat:@"%@, ", _bandwidth];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _bandwidth];
+        [inputsString appendFormat:@"AKControl(%@), ", _bandwidth];
     }
 
     if ([_gain class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _gain];
+        [inputsString appendFormat:@"%@", _gain];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _gain];
+        [inputsString appendFormat:@"AKControl(%@)", _gain];
     }
-return csdString;
+return inputsString;
 }
 
 @end

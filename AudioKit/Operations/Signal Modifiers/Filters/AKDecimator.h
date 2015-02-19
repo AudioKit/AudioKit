@@ -2,7 +2,7 @@
 //  AKDecimator.h
 //  AudioKit
 //
-//  Auto-generated on 2/2/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)WithInput:(AKParameter *)input;
 
 /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. [Default Value: 24]
-@property AKParameter *bitDepth;
+@property (nonatomic) AKParameter *bitDepth;
 
 /// Set an optional bit depth
 /// @param bitDepth The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. Updated at Control-rate. [Default Value: 24]
 - (void)setOptionalBitDepth:(AKParameter *)bitDepth;
 
 /// The sample rate of signal output. Non-integer values are OK. [Default Value: 44100]
-@property AKParameter *sampleRate;
+@property (nonatomic) AKParameter *sampleRate;
 
 /// Set an optional sample rate
 /// @param sampleRate The sample rate of signal output. Non-integer values are OK. Updated at Control-rate. [Default Value: 44100]

@@ -26,7 +26,8 @@
         _input = input;
         _reverbDuration = reverbDuration;
         _loopDuration = loopDuration;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -38,6 +39,7 @@
         // Default Values
         _reverbDuration = akp(1);
         _loopDuration = akp(0.1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -47,11 +49,29 @@
     return [[AKCombFilter alloc] initWithInput:input];
 }
 
-- (void)setOptionalReverbDuration:(AKParameter *)reverbDuration {
+- (void)setReverbDuration:(AKParameter *)reverbDuration {
     _reverbDuration = reverbDuration;
+    [self setUpConnections];
 }
-- (void)setOptionalLoopDuration:(AKConstant *)loopDuration {
+
+- (void)setOptionalReverbDuration:(AKParameter *)reverbDuration {
+    [self setReverbDuration:reverbDuration];
+}
+
+- (void)setLoopDuration:(AKConstant *)loopDuration {
     _loopDuration = loopDuration;
+    [self setUpConnections];
+}
+
+- (void)setOptionalLoopDuration:(AKConstant *)loopDuration {
+    [self setLoopDuration:loopDuration];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _reverbDuration, _loopDuration];
 }
 
 - (NSString *)inlineStringForCSD

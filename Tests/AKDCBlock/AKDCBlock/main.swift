@@ -16,16 +16,11 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
-        let mono = AKMix(
-            input1: audio.leftOutput,
-            input2: audio.rightOutput,
-            balance: 0.5.ak
-        )
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }

@@ -2,7 +2,7 @@
 //  AKDCBlock.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -30,7 +30,7 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// The gain of the filter, which defaults to 0.99. [Default Value: 0.99]
-@property AKConstant *gain;
+@property (nonatomic) AKConstant *gain;
 
 /// Set an optional gain
 /// @param gain The gain of the filter, which defaults to 0.99. [Default Value: 0.99]

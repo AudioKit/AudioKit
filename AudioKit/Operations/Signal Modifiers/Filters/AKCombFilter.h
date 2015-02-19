@@ -2,7 +2,7 @@
 //  AKCombFilter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. [Default Value: 1]
-@property AKParameter *reverbDuration;
+@property (nonatomic) AKParameter *reverbDuration;
 
 /// Set an optional reverb duration
 /// @param reverbDuration The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalReverbDuration:(AKParameter *)reverbDuration;
 
 /// Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
-@property AKConstant *loopDuration;
+@property (nonatomic) AKConstant *loopDuration;
 
 /// Set an optional loop duration
 /// @param loopDuration Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]

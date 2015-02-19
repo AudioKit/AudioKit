@@ -24,7 +24,8 @@
     if (self) {
         _input = input;
         _gain = gain;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -35,6 +36,7 @@
         _input = input;
         // Default Values
         _gain = akp(0.99);
+        [self setUpConnections];
     }
     return self;
 }
@@ -44,8 +46,20 @@
     return [[AKDCBlock alloc] initWithInput:input];
 }
 
-- (void)setOptionalGain:(AKConstant *)gain {
+- (void)setGain:(AKConstant *)gain {
     _gain = gain;
+    [self setUpConnections];
+}
+
+- (void)setOptionalGain:(AKConstant *)gain {
+    [self setGain:gain];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _gain];
 }
 
 - (NSString *)inlineStringForCSD
