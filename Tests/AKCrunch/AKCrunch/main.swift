@@ -22,7 +22,6 @@ class Instrument : AKInstrument {
         let crunch = AKCrunch()
         crunch.intensity = note.intensity
         crunch.dampingFactor = note.dampingFactor
-        connect(crunch)
 
         enableParameterLog(
             "Intensity = ",
@@ -34,7 +33,7 @@ class Instrument : AKInstrument {
             parameter: crunch.dampingFactor,
             timeInterval:1
         )
-        connect(AKAudioOutput(audioSource:crunch))
+        setAudioOutput(crunch)
     }
 }
 

@@ -2,7 +2,7 @@
 //  AKCrunch.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's crunch:
@@ -54,24 +54,44 @@
     _amplitude = amplitude;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"crunch("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ crunch ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
     AKConstant *_maximumDuration = akp(1);        
     AKConstant *_energyReturn = akp(0);        
-    [csdString appendFormat:@"%@ crunch ", self];
-
-    [csdString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _maximumDuration];
+    [inputsString appendFormat:@"%@, ", _amplitude];
     
-    [csdString appendFormat:@"%@, ", _intensity];
+    [inputsString appendFormat:@"%@, ", _maximumDuration];
     
-    [csdString appendFormat:@"(1 - %@), ", _dampingFactor];
+    [inputsString appendFormat:@"%@, ", _intensity];
     
-    [csdString appendFormat:@"%@", _energyReturn];
-    return csdString;
+    [inputsString appendFormat:@"(1 - %@), ", _dampingFactor];
+    
+    [inputsString appendFormat:@"%@", _energyReturn];
+    return inputsString;
 }
 
 @end
