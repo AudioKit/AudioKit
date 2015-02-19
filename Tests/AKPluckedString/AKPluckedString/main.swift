@@ -16,10 +16,9 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = Note()
-
         addNoteProperty(note.frequency)
+        
         let filename = "CsoundLib64.framework/Sounds/marmstk1.wav"
-
         let functionTable = AKSoundFile(filename: filename)
         addFunctionTable(functionTable)
 

@@ -21,7 +21,6 @@ class Instrument : AKInstrument {
         let cabasa = AKCabasa()
         cabasa.count = note.count
         cabasa.dampingFactor = note.dampingFactor
-        connect(cabasa)
 
         enableParameterLog(
             "Count = ",
@@ -34,8 +33,7 @@ class Instrument : AKInstrument {
             parameter: cabasa.dampingFactor,
             timeInterval:2
         )
-
-        connect(AKAudioOutput(audioSource:cabasa))
+        setAudioOutput(cabasa)
     }
 }
 

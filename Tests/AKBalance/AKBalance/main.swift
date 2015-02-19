@@ -19,11 +19,9 @@ class Instrument : AKInstrument {
 
         let amplitude = AKOscillator()
         amplitude.frequency = 1.ak
-        connect(amplitude)
 
         let oscillator = AKOscillator()
         oscillator.amplitude = amplitude
-        connect(oscillator)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:oscillator)
@@ -36,12 +34,8 @@ class Processor : AKInstrument {
         super.init()
 
         let synth = AKFMOscillator()
-        connect(synth)
-
         let balanced = AKBalance(input: synth, comparatorAudioSource: audioSource)
-        connect(balanced)
-
-        connect(AKAudioOutput(audioSource:balanced))
+        setAudioOutput(balanced)
 
         resetParameter(audioSource)
     }

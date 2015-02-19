@@ -24,9 +24,8 @@ class Instrument : AKInstrument {
         let mono = AKMix(
             input1: audio.leftOutput,
             input2: audio.rightOutput,
-            balance: 0.5.ak)
-        connect(mono)
-
+            balance: 0.5.ak
+        )
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }
@@ -37,29 +36,26 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let centerFrequency = AKLine(firstPoint: 10000.ak, secondPoint: 0.ak, durationBetweenPoints: testDuration.ak)
-        connect(centerFrequency)
+        let centerFrequency = AKLine(
+            firstPoint:  10000.ak,
+            secondPoint: 0.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let bandwidth = AKLine(firstPoint: 100.ak, secondPoint: 2000.ak, durationBetweenPoints: testDuration.ak)
-        connect(bandwidth)
+        let bandwidth = AKLine(
+            firstPoint:   100.ak,
+            secondPoint: 2000.ak,
+            durationBetweenPoints: testDuration.ak
+        )
+
+        enableParameterLog("Center Frequency = ", parameter: centerFrequency, timeInterval:0.1)
+        enableParameterLog("Bandwidth = ", parameter: bandwidth, timeInterval:1)
 
         let bandRejectFilter = AKBandRejectButterworthFilter(input: audioSource)
         bandRejectFilter.centerFrequency = centerFrequency
         bandRejectFilter.bandwidth = bandwidth
-        connect(bandRejectFilter)
 
-        enableParameterLog(
-            "Center Frequency = ",
-            parameter: bandRejectFilter.centerFrequency,
-            timeInterval:0.1
-        )
-        enableParameterLog(
-            "Bandwidth = ",
-            parameter: bandRejectFilter.bandwidth,
-            timeInterval:1
-        )
-
-        connect(AKAudioOutput(audioSource:bandRejectFilter))
+        setAudioOutput(bandRejectFilter)
 
         resetParameter(audioSource)
     }
