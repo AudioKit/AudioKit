@@ -27,7 +27,7 @@
                        startTime:(AKConstant *)startTime;
 
 /// Speed of the playback relative to 1 [Default Value: 1]
-@property AKParameter *speed;
+@property (nonatomic) AKParameter *speed;
 
 /// Set an optional speed
 /// @param speed Speed of the playback relative to 1 [Default Value: 1]

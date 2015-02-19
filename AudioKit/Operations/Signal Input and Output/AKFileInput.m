@@ -27,6 +27,7 @@
         _startTime = akp(0);
         isNormalized = NO;
         normalization = 1;
+        [self setUpConnections];
     }
     return self;
 }
@@ -40,13 +41,21 @@
         _filename = fileName;
         _speed = speed;
         _startTime = startTime;
+        [self setUpConnections];
     }
     return self;
 }
 
-- (void)setOptionalSpeed:(AKParameter *)speed {
+- (void)setSpeed:(AKParameter *)speed {
     _speed = speed;
+    [self setUpConnections];
+    
 }
+
+- (void)setOptionalSpeed:(AKParameter *)speed {
+    [self setSpeed:speed];
+}
+
 - (void)setOptionalStartTime:(AKConstant *)startTime {
     _startTime = startTime;
 }
@@ -54,6 +63,12 @@
 - (void)normalizeTo:(float)maximumAmplitude {
     isNormalized = YES;
     normalization = maximumAmplitude;
+}
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_speed];
 }
 
 
