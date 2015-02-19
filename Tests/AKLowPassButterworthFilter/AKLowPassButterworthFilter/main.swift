@@ -16,13 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+        
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -34,20 +31,22 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let cutoffFrequency = AKLine(firstPoint: 1000.ak, secondPoint: 0.ak, durationBetweenPoints: testDuration.ak)
-        connect(cutoffFrequency)
+        let cutoffFrequency = AKLine(
+            firstPoint: 1000.ak,
+            secondPoint:   0.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let lowPassButterworthFilter = AKLowPassButterworthFilter(input: audioSource)
         lowPassButterworthFilter.cutoffFrequency = cutoffFrequency
-        connect(lowPassButterworthFilter)
 
         enableParameterLog(
             "Cutoff Frequency = ",
             parameter: lowPassButterworthFilter.cutoffFrequency,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:lowPassButterworthFilter))
+        
+        setAudioOutput(lowPassButterworthFilter)
 
         resetParameter(audioSource)
     }

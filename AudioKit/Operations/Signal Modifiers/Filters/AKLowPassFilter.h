@@ -2,7 +2,7 @@
 //  AKLowPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -30,7 +30,7 @@
 + (instancetype)filterWithAudioSource:(AKParameter *)audioSource;
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000]
-@property AKParameter *halfPowerPoint;
+@property (nonatomic) AKParameter *halfPowerPoint;
 
 /// Set an optional half power point
 /// @param halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 1000]

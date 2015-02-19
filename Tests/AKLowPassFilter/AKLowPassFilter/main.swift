@@ -18,8 +18,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let source = AKOscillator()
-        connect(source)
-
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:source)
     }
@@ -32,11 +30,9 @@ class Processor : AKInstrument {
 
         let halfPower = AKLowFrequencyOscillator()
         halfPower.frequency = 0.5.ak
-        connect(halfPower)
 
         let lowPassFilter = AKLowPassFilter(audioSource: audioSource)
         lowPassFilter.halfPowerPoint = halfPower.scaledBy(500.ak).plus(500.ak)
-        connect(lowPassFilter)
 
         enableParameterLog(
             "Cutoff Frequency = ",
@@ -44,7 +40,7 @@ class Processor : AKInstrument {
             timeInterval:0.1
         )
 
-        connect(AKAudioOutput(audioSource:lowPassFilter))
+        setAudioOutput(lowPassFilter)
 
         resetParameter(audioSource)
     }
