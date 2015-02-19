@@ -2,7 +2,7 @@
 //  AKADSREnvelope.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -35,35 +35,35 @@
 
 
 /// Duration of attack phase in seconds [Default Value: 0.1]
-@property AKConstant *attackDuration;
+@property (nonatomic) AKConstant *attackDuration;
 
 /// Set an optional attack duration
 /// @param attackDuration Duration of attack phase in seconds [Default Value: 0.1]
 - (void)setOptionalAttackDuration:(AKConstant *)attackDuration;
 
 /// Duration of decay in seconds [Default Value: 0.1]
-@property AKConstant *decayDuration;
+@property (nonatomic) AKConstant *decayDuration;
 
 /// Set an optional decay duration
 /// @param decayDuration Duration of decay in seconds [Default Value: 0.1]
 - (void)setOptionalDecayDuration:(AKConstant *)decayDuration;
 
 /// Level for sustain phase [Default Value: 0.5]
-@property AKConstant *sustainLevel;
+@property (nonatomic) AKConstant *sustainLevel;
 
 /// Set an optional sustain level
 /// @param sustainLevel Level for sustain phase [Default Value: 0.5]
 - (void)setOptionalSustainLevel:(AKConstant *)sustainLevel;
 
 /// Duration of release phase in seconds. [Default Value: 1]
-@property AKConstant *releaseDuration;
+@property (nonatomic) AKConstant *releaseDuration;
 
 /// Set an optional release duration
 /// @param releaseDuration Duration of release phase in seconds. [Default Value: 1]
 - (void)setOptionalReleaseDuration:(AKConstant *)releaseDuration;
 
 /// Period of zero before the envelope starts [Default Value: 0]
-@property AKConstant *delay;
+@property (nonatomic) AKConstant *delay;
 
 /// Set an optional delay
 /// @param delay Period of zero before the envelope starts [Default Value: 0]
