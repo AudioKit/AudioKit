@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -29,7 +29,8 @@
         _modulatingMultiplier = modulatingMultiplier;
         _modulationIndex = modulationIndex;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -45,6 +46,7 @@
         _modulatingMultiplier = akp(1);
         _modulationIndex = akp(1);
         _amplitude = akp(0.5);
+        [self setUpConnections];
     }
     return self;
 }
@@ -54,23 +56,65 @@
     return [[AKFMOscillator alloc] init];
 }
 
-- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
+- (void)setFunctionTable:(AKFunctionTable *)functionTable {
     _functionTable = functionTable;
+    [self setUpConnections];
 }
-- (void)setOptionalBaseFrequency:(AKParameter *)baseFrequency {
+
+- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
+    [self setFunctionTable:functionTable];
+}
+
+- (void)setBaseFrequency:(AKParameter *)baseFrequency {
     _baseFrequency = baseFrequency;
+    [self setUpConnections];
 }
-- (void)setOptionalCarrierMultiplier:(AKParameter *)carrierMultiplier {
+
+- (void)setOptionalBaseFrequency:(AKParameter *)baseFrequency {
+    [self setBaseFrequency:baseFrequency];
+}
+
+- (void)setCarrierMultiplier:(AKParameter *)carrierMultiplier {
     _carrierMultiplier = carrierMultiplier;
+    [self setUpConnections];
 }
-- (void)setOptionalModulatingMultiplier:(AKParameter *)modulatingMultiplier {
+
+- (void)setOptionalCarrierMultiplier:(AKParameter *)carrierMultiplier {
+    [self setCarrierMultiplier:carrierMultiplier];
+}
+
+- (void)setModulatingMultiplier:(AKParameter *)modulatingMultiplier {
     _modulatingMultiplier = modulatingMultiplier;
+    [self setUpConnections];
 }
-- (void)setOptionalModulationIndex:(AKParameter *)modulationIndex {
+
+- (void)setOptionalModulatingMultiplier:(AKParameter *)modulatingMultiplier {
+    [self setModulatingMultiplier:modulatingMultiplier];
+}
+
+- (void)setModulationIndex:(AKParameter *)modulationIndex {
     _modulationIndex = modulationIndex;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+
+- (void)setOptionalModulationIndex:(AKParameter *)modulationIndex {
+    [self setModulationIndex:modulationIndex];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_functionTable, _baseFrequency, _carrierMultiplier, _modulatingMultiplier, _modulationIndex, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD
