@@ -35,13 +35,4 @@
     return @"";
 }
 
-- (NSString *)description
-{
-    if (self.connected) {
-        return self.parameterString;
-    } else {
-        return [self inlineStringForCSD];
-    }
-}
-
 @end
