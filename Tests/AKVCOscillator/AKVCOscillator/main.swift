@@ -26,6 +26,24 @@ class Instrument : AKInstrument {
         vcOscillator.pulseWidth = pulseWidthLine
         vcOscillator.frequency = frequencyLine
         setAudioOutput(vcOscillator)
+        
+        enableParameterLog(
+            "\n\n\nWaveform Type = ",
+            parameter: note.waveformType,
+            timeInterval:10
+        )
+        
+        enableParameterLog(
+            "Frequency = ",
+            parameter: frequencyLine,
+            timeInterval:0.2
+        )
+        
+        enableParameterLog(
+            "Pulse Width = ",
+            parameter: pulseWidthLine,
+            timeInterval:0.2
+        )
     }
 }
 
