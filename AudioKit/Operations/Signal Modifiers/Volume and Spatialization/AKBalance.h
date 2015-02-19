@@ -2,7 +2,7 @@
 //  AKBalance.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -36,7 +36,7 @@
            comparatorAudioSource:(AKParameter *)comparatorAudioSource;
 
 /// Half-power point (in Hz) of a special internal low-pass filter. The default value is 10. [Default Value: 10]
-@property AKConstant *halfPowerPoint;
+@property (nonatomic) AKConstant *halfPowerPoint;
 
 /// Set an optional half power point
 /// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. The default value is 10. [Default Value: 10]

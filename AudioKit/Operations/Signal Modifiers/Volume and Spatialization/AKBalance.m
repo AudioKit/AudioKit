@@ -2,7 +2,7 @@
 //  AKBalance.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's balance:
@@ -27,7 +27,8 @@
         _input = input;
         _comparatorAudioSource = comparatorAudioSource;
         _halfPowerPoint = halfPowerPoint;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -40,6 +41,7 @@
         _comparatorAudioSource = comparatorAudioSource;
         // Default Values
         _halfPowerPoint = akp(10);
+        [self setUpConnections];
     }
     return self;
 }
@@ -51,29 +53,61 @@
           comparatorAudioSource:comparatorAudioSource];
 }
 
-- (void)setOptionalHalfPowerPoint:(AKConstant *)halfPowerPoint {
+- (void)setHalfPowerPoint:(AKConstant *)halfPowerPoint {
     _halfPowerPoint = halfPowerPoint;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalHalfPowerPoint:(AKConstant *)halfPowerPoint {
+    [self setHalfPowerPoint:halfPowerPoint];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _comparatorAudioSource, _halfPowerPoint];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"balance("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ balance ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_comparatorAudioSource class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _comparatorAudioSource];
+        [inputsString appendFormat:@"%@, ", _comparatorAudioSource];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _comparatorAudioSource];
+        [inputsString appendFormat:@"AKAudio(%@), ", _comparatorAudioSource];
     }
 
-    [csdString appendFormat:@"%@", _halfPowerPoint];
-    return csdString;
+    [inputsString appendFormat:@"%@", _halfPowerPoint];
+    return inputsString;
 }
 
 @end
