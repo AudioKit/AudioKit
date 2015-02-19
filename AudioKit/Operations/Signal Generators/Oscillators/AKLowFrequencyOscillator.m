@@ -2,8 +2,8 @@
 //  AKLowFrequencyOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
-//  Customized by Aurelius Prochazka on 2/18/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka adding type helpers and more
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's lfo:
@@ -26,12 +26,14 @@
                            frequency:(AKParameter *)frequency
                            amplitude:(AKParameter *)amplitude
 {
+
     self = [super initWithString:[self operationName]];
     if (self) {
         _waveformType = waveFormType;
         _frequency = frequency;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -43,6 +45,7 @@
         _waveformType = [AKLowFrequencyOscillator waveformTypeForSine];
         _frequency = akp(110);
         _amplitude = akp(1);
+        [self setUpConnections];
     }
     return self;
 }
@@ -52,15 +55,36 @@
     return [[AKLowFrequencyOscillator alloc] init];
 }
 
+
 - (void)setOptionalWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
 }
-- (void)setOptionalFrequency:(AKParameter *)frequency {
+
+- (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
+    [self setUpConnections];
 }
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
     _amplitude = amplitude;
+    [self setUpConnections];
 }
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_waveformType, _frequency, _amplitude];
+}
+
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];

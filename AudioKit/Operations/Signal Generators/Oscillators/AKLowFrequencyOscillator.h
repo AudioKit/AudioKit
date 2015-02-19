@@ -2,7 +2,8 @@
 //  AKLowFrequencyOscillator.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka adding type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -10,8 +11,6 @@
 #import "AKParameter+Operation.h"
 
 /** A low frequency oscillator of various shapes.
- 
- More detailed description from http://www.csounds.com/manual/html/
  */
 
 @interface AKLowFrequencyOscillator : AKAudio
@@ -59,14 +58,14 @@
 - (void)setOptionalWaveformType:(AKConstant *)waveformType;
 
 /// Frequency of the note. [Default Value: 110]
-@property AKParameter *frequency;
+@property (nonatomic) AKParameter *frequency;
 
 /// Set an optional frequency
 /// @param frequency Frequency of the note. Updated at Control-rate. [Default Value: 110]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 /// Amplitude of output. [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of output. Updated at Control-rate. [Default Value: 1]
