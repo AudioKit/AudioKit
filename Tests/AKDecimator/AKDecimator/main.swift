@@ -16,29 +16,24 @@ class Instrument : AKInstrument {
         super.init()
 
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         let bitDepth = AKLine(
             firstPoint: 24.ak,
             secondPoint: 18.ak,
-            durationBetweenPoints: testDuration.ak)
-        connect(bitDepth)
+            durationBetweenPoints: testDuration.ak
+        )
 
         let sampleRate = AKLine(
             firstPoint: 5000.ak,
             secondPoint: 1000.ak,
-            durationBetweenPoints: testDuration.ak)
-        connect(sampleRate)
+            durationBetweenPoints: testDuration.ak
+        )
 
         let decimator = AKDecimator(input: mono)
         decimator.bitDepth = bitDepth
         decimator.sampleRate = sampleRate
-        connect(decimator)
 
         enableParameterLog(
             "Bit Depth = ",
@@ -51,8 +46,7 @@ class Instrument : AKInstrument {
             parameter: decimator.sampleRate,
             timeInterval:0.1
         )
-
-        connect(AKAudioOutput(audioSource:decimator))
+        setAudioOutput(decimator)
     }
 }
 

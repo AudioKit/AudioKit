@@ -16,13 +16,10 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-
         let audio = AKFileInput(filename: filename)
-        connect(audio)
-
-        let mono = AKMix(input1: audio.leftOutput, input2: audio.rightOutput, balance: 0.5.ak)
-        connect(mono)
+        let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
@@ -34,17 +31,22 @@ class Processor : AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        let frequencyLine = AKLine(firstPoint: 200.ak, secondPoint: 2500.ak, durationBetweenPoints: testDuration.ak)
-        connect(frequencyLine)
+        let frequencyLine = AKLine(
+            firstPoint:   200.ak,
+            secondPoint: 2500.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
-        let bandWidthLine = AKLine(firstPoint: 1.ak, secondPoint: 100.ak, durationBetweenPoints: testDuration.ak)
-        connect(bandWidthLine)
+        let bandWidthLine = AKLine(
+            firstPoint:    1.ak,
+            secondPoint: 100.ak,
+            durationBetweenPoints: testDuration.ak
+        )
 
         let equalizerFilter = AKEqualizerFilter(input: audioSource)
         equalizerFilter.centerFrequency = frequencyLine
         equalizerFilter.bandwidth = bandWidthLine
         equalizerFilter.gain = 100.ak
-        connect(equalizerFilter)
 
         enableParameterLog(
             "Center Frequency = ",
@@ -59,9 +61,7 @@ class Processor : AKInstrument {
         )
 
         let output = AKBalance(input: equalizerFilter, comparatorAudioSource: audioSource)
-        connect(output)
-
-        connect(AKAudioOutput(audioSource:output))
+        setAudioOutput(output)
 
         resetParameter(audioSource)
     }

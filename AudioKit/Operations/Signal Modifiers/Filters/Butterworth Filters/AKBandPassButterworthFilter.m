@@ -2,7 +2,7 @@
 //  AKBandPassButterworthFilter.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's butterbp:
@@ -26,7 +26,8 @@
         _input = input;
         _centerFrequency = centerFrequency;
         _bandwidth = bandwidth;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -38,6 +39,7 @@
         // Default Values
         _centerFrequency = akp(2000);
         _bandwidth = akp(100);
+        [self setUpConnections];
     }
     return self;
 }
@@ -47,36 +49,74 @@
     return [[AKBandPassButterworthFilter alloc] initWithInput:input];
 }
 
-- (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency {
+- (void)setCenterFrequency:(AKParameter *)centerFrequency {
     _centerFrequency = centerFrequency;
-}
-- (void)setOptionalBandwidth:(AKParameter *)bandwidth {
-    _bandwidth = bandwidth;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency {
+    [self setCenterFrequency:centerFrequency];
+}
+
+- (void)setBandwidth:(AKParameter *)bandwidth {
+    _bandwidth = bandwidth;
+    [self setUpConnections];
+}
+
+- (void)setOptionalBandwidth:(AKParameter *)bandwidth {
+    [self setBandwidth:bandwidth];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _centerFrequency, _bandwidth];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"butterbp("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ butterbp ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_centerFrequency class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _centerFrequency];
+        [inputsString appendFormat:@"%@, ", _centerFrequency];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _centerFrequency];
+        [inputsString appendFormat:@"AKControl(%@), ", _centerFrequency];
     }
 
     if ([_bandwidth class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _bandwidth];
+        [inputsString appendFormat:@"%@", _bandwidth];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _bandwidth];
+        [inputsString appendFormat:@"AKControl(%@)", _bandwidth];
     }
-return csdString;
+return inputsString;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  AKBandPassButterworthFilter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Center frequency for each of the filters. [Default Value: 2000]
-@property AKParameter *centerFrequency;
+@property (nonatomic) AKParameter *centerFrequency;
 
 /// Set an optional center frequency
 /// @param centerFrequency Center frequency for each of the filters. Updated at Control-rate. [Default Value: 2000]
 - (void)setOptionalCenterFrequency:(AKParameter *)centerFrequency;
 
 /// Bandwidth of the band-pass filters. [Default Value: 100]
-@property AKParameter *bandwidth;
+@property (nonatomic) AKParameter *bandwidth;
 
 /// Set an optional bandwidth
 /// @param bandwidth Bandwidth of the band-pass filters. Updated at Control-rate. [Default Value: 100]
