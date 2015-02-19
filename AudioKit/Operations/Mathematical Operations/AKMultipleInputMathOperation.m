@@ -31,6 +31,8 @@
             va_end(argumentList);
         }
         _inputs = inputs;
+        self.state = @"connectable";
+        self.dependencies = [NSArray arrayWithArray:_inputs ];
     }
     return self;
 }
@@ -46,6 +48,9 @@
         [inputs addObject:firstInput];
         [inputs addObject:secondInput];
         _inputs = inputs;
+        self.state = @"connectable";
+        self.dependencies = [NSArray arrayWithArray:_inputs ];
+
     }
     return self;
 }
