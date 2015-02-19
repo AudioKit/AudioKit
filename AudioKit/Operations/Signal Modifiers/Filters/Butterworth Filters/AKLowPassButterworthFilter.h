@@ -2,7 +2,7 @@
 //  AKLowPassButterworthFilter.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -30,7 +30,7 @@
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Cutoff frequency for each of the filters. [Default Value: 1000]
-@property AKParameter *cutoffFrequency;
+@property (nonatomic) AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
 /// @param cutoffFrequency Cutoff frequency for each of the filters. Updated at Control-rate. [Default Value: 1000]
