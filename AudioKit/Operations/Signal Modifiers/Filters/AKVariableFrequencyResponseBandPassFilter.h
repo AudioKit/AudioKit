@@ -2,8 +2,8 @@
 //  AKVariableFrequencyResponseBandPassFilter.h
 //  AudioKit
 //
-//  Auto-generated on 2/8/15.
-//  Customized by Aurelius Prochazka on 2/8/15.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka to add type helpers
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -47,26 +47,25 @@
 + (instancetype)filterWithAudioSource:(AKParameter *)audioSource;
 
 /// Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
-@property AKParameter *cutoffFrequency;
+@property (nonatomic) AKParameter *cutoffFrequency;
 
 /// Set an optional cutoff frequency
 /// @param cutoffFrequency Cutoff or resonant frequency of the filter, measured in Hz. Updated at Control-rate. [Default Value: 1000]
 - (void)setOptionalCutoffFrequency:(AKParameter *)cutoffFrequency;
 
 /// Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
-@property AKParameter *bandwidth;
+@property (nonatomic) AKParameter *bandwidth;
 
 /// Set an optional bandwidth
 /// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). Updated at Control-rate. [Default Value: 10]
 - (void)setOptionalBandwidth:(AKParameter *)bandwidth;
 
 /// There are three scaling factors possible, 'None' (Default, 0), 'Peak' or 1, and 'RMS' or 2.  All are accessibly through class function 'scalingFactor...'   'Peak' signifies a peak response factor of 1, i.e. all frequencies other than the cutoffFrequency are attenuated in accordance with the (normalized) response curve. 'RMS' raises the response factor so that its overall RMS value equals 1. This intended equalization of input and output power assumes all frequencies are physically present; hence it is most applicable to white noise.   [Default Value: 0]
-@property AKConstant *scalingFactor;
+@property (nonatomic) AKConstant *scalingFactor;
 
 /// Set an optional scaling factor
 /// @param scalingFactor There are three scaling factors possible, 'None' (Default, 0), 'Peak' or 1, and 'RMS' or 2.  All are accessibly through class function 'scalingFactor...'   'Peak' signifies a peak response factor of 1, i.e. all frequencies other than the cutoffFrequency are attenuated in accordance with the (normalized) response curve. 'RMS' raises the response factor so that its overall RMS value equals 1. This intended equalization of input and output power assumes all frequencies are physically present; hence it is most applicable to white noise.   [Default Value: 0]
 - (void)setOptionalScalingFactor:(AKConstant *)scalingFactor;
-
 
 
 @end
