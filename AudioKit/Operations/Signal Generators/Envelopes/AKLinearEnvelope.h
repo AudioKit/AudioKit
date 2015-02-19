@@ -2,8 +2,8 @@
 //  AKLinearEnvelope.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
-//  Customized by Aurelius Prochazka on 1/15/15.
+//  Auto-generated on 2/18/15.
+//  Customized by Aurelius Prochazka to add decayOnlyOnRelease
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -20,7 +20,7 @@
 /// @param riseTime Rise time in seconds. A zero or negative value signifies no rise modification. [Default Value: 0.33]
 /// @param decayTime Decay time in seconds. Zero means no decay. If it is greater than the total duration, it will cause a truncated decay. [Default Value: 0.33]
 /// @param totalDuration Overall duration in seconds. [Default Value: 1]
-/// @param amplitude mplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
+/// @param amplitude Amplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
                        decayTime:(AKConstant *)decayTime
                    totalDuration:(AKConstant *)totalDuration
@@ -58,7 +58,7 @@
 @property AKParameter *amplitude;
 
 /// Set an optional amplitude
-/// @param amplitude mplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
+/// @param amplitude Amplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Set decay to only occur when the note is explicitly released by a "stop" command
