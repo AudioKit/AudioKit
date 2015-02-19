@@ -2,7 +2,7 @@
 //  AKFlatFrequencyResponseReverb.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -32,14 +32,14 @@
 + (instancetype)reverbWithInput:(AKParameter *)input;
 
 /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 0.5]
-@property AKParameter *reverbDuration;
+@property (nonatomic) AKParameter *reverbDuration;
 
 /// Set an optional reverb duration
 /// @param reverbDuration The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. Updated at Control-rate. [Default Value: 0.5]
 - (void)setOptionalReverbDuration:(AKParameter *)reverbDuration;
 
 /// The loop duration in seconds, which determines the “echo density” of the reverberation. [Default Value: 0.1]
-@property AKConstant *loopDuration;
+@property (nonatomic) AKConstant *loopDuration;
 
 /// Set an optional loop duration
 /// @param loopDuration The loop duration in seconds, which determines the “echo density” of the reverberation. [Default Value: 0.1]
