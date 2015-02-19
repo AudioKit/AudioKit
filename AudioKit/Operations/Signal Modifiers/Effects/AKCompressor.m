@@ -2,7 +2,7 @@
 //  AKCompressor.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's compress:
@@ -63,10 +63,10 @@
 }
 
 + (instancetype)compressorWithInput:(AKParameter *)input
-                   controllingInput:(AKParameter *)controllingInput
+                  controllingInput:(AKParameter *)controllingInput
 {
     return [[AKCompressor alloc] initWithInput:input
-                              controllingInput:controllingInput];
+                  controllingInput:controllingInput];
 }
 
 - (void)setOptionalThreshold:(AKParameter *)threshold {
@@ -91,61 +91,81 @@
     _lookAheadTime = lookAheadTime;
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"compress("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
-    
+
     [csdString appendFormat:@"%@ compress ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
     
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
-    
+
     if ([_controllingInput class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _controllingInput];
+        [inputsString appendFormat:@"%@, ", _controllingInput];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _controllingInput];
+        [inputsString appendFormat:@"AKAudio(%@), ", _controllingInput];
     }
-    
+
     if ([_threshold class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _threshold];
+        [inputsString appendFormat:@"%@, ", _threshold];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _threshold];
+        [inputsString appendFormat:@"AKControl(%@), ", _threshold];
     }
-    
+
     if ([_lowKnee class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _lowKnee];
+        [inputsString appendFormat:@"%@, ", _lowKnee];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _lowKnee];
+        [inputsString appendFormat:@"AKControl(%@), ", _lowKnee];
     }
-    
+
     if ([_highKnee class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _highKnee];
+        [inputsString appendFormat:@"%@, ", _highKnee];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _highKnee];
+        [inputsString appendFormat:@"AKControl(%@), ", _highKnee];
     }
-    
+
     if ([_compressionRatio class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _compressionRatio];
+        [inputsString appendFormat:@"%@, ", _compressionRatio];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _compressionRatio];
+        [inputsString appendFormat:@"AKControl(%@), ", _compressionRatio];
     }
-    
+
     if ([_attackTime class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _attackTime];
+        [inputsString appendFormat:@"%@, ", _attackTime];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _attackTime];
+        [inputsString appendFormat:@"AKControl(%@), ", _attackTime];
     }
-    
+
     if ([_releaseTime class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _releaseTime];
+        [inputsString appendFormat:@"%@, ", _releaseTime];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _releaseTime];
+        [inputsString appendFormat:@"AKControl(%@), ", _releaseTime];
     }
-    
-    [csdString appendFormat:@"%@", _lookAheadTime];
-    return csdString;
+
+    [inputsString appendFormat:@"%@", _lookAheadTime];
+    return inputsString;
 }
 
 @end
