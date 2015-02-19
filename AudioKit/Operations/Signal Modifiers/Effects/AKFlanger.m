@@ -2,7 +2,7 @@
 //  AKFlanger.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/18/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's flanger:
@@ -27,7 +27,8 @@
         _input = input;
         _delayTime = delayTime;
         _feedback = feedback;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -40,44 +41,77 @@
         _delayTime = delayTime;
         // Default Values
         _feedback = akp(0);
+        [self setUpConnections];
     }
     return self;
 }
 
 + (instancetype)effectWithInput:(AKParameter *)input
-                      delayTime:(AKParameter *)delayTime
+                     delayTime:(AKParameter *)delayTime
 {
     return [[AKFlanger alloc] initWithInput:input
-                                  delayTime:delayTime];
+                     delayTime:delayTime];
+}
+
+- (void)setFeedback:(AKParameter *)feedback {
+    _feedback = feedback;
+    [self setUpConnections];
 }
 
 - (void)setOptionalFeedback:(AKParameter *)feedback {
-    _feedback = feedback;
+    [self setFeedback:feedback];
 }
 
-- (NSString *)stringForCSD {
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _delayTime, _feedback];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"flanger("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
-    
+
     [csdString appendFormat:@"%@ flanger ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
     
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
-    
+
     if ([_delayTime class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _delayTime];
+        [inputsString appendFormat:@"%@, ", _delayTime];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _delayTime];
+        [inputsString appendFormat:@"AKAudio(%@), ", _delayTime];
     }
-    
+
     if ([_feedback class] == [AKControl class]) {
-        [csdString appendFormat:@"%@", _feedback];
+        [inputsString appendFormat:@"%@", _feedback];
     } else {
-        [csdString appendFormat:@"AKControl(%@)", _feedback];
+        [inputsString appendFormat:@"AKControl(%@)", _feedback];
     }
-    return csdString;
+return inputsString;
 }
 
 @end
