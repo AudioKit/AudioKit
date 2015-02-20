@@ -98,19 +98,10 @@ static AKManager *_sharedManager = nil;
         
         totalRunDuration = 10000000;
         
-        _numberOfSineWaveReferences = 0;
         _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
-        
-        _numberOfTriangleWaveReferences = 0;
         _standardTriangleWave = [AKLineSegments triangleWave];
-        
-        _numberOfSquareWaveReferences = 0;
         _standardSquareWave = [AKLineSegments squareWave];
-        
-        _numberOfSawtoothWaveReferences = 0;
         _standardSawtoothWave = [AKLineSegments sawtoothWave];
-        
-        _numberOfReverseSawtoothWaveReferences = 0;
         _standardReverseSawtoothWave = [AKLineSegments reverseSawtoothWave];
         
         batchInstructions = [[NSString alloc] init];
@@ -235,11 +226,6 @@ static AKManager *_sharedManager = nil;
 - (void)resetOrchestra
 {
     _orchestra = [[AKOrchestra alloc] init];
-    _numberOfSineWaveReferences = 0;
-    _numberOfTriangleWaveReferences = 0;
-    _numberOfSquareWaveReferences = 0;
-    _numberOfSawtoothWaveReferences = 0;
-    _numberOfReverseSawtoothWaveReferences = 0;
 }
 
 // -----------------------------------------------------------------------------
@@ -349,72 +335,20 @@ static AKManager *_sharedManager = nil;
 #  pragma mark - Useful tables
 // -----------------------------------------------------------------------------
 
-
-
-- (AKWeightedSumOfSinusoids *)standardSineWave
-{
-    if (_numberOfSineWaveReferences == 0) {
-        [[[AKInstrument alloc] init] addFunctionTable:_standardSineWave]; // AOP
-    }
-    _numberOfSineWaveReferences++;
-    
-    return _standardSineWave;
-}
-
 + (AKWeightedSumOfSinusoids *)standardSineWave {
     return [[AKManager sharedManager] standardSineWave];
-}
-
-- (AKLineSegments *)standardTriangleWave
-{
-    if (_numberOfTriangleWaveReferences == 0) {
-        [[[AKInstrument alloc] init] addFunctionTable:_standardTriangleWave]; // AOP
-    }
-    _numberOfTriangleWaveReferences++;
-    
-    return _standardTriangleWave;
 }
 
 + (AKLineSegments *)standardTriangleWave {
     return [[AKManager sharedManager] standardTriangleWave];
 }
 
-- (AKLineSegments *)standardSquareWave
-{
-    if (_numberOfSquareWaveReferences == 0) {
-        [[[AKInstrument alloc] init] addFunctionTable:_standardSquareWave]; // AOP
-    }
-    _numberOfSquareWaveReferences++;
-    
-    return _standardSquareWave;
-}
-
 + (AKLineSegments *)standardSquareWave {
     return [[AKManager sharedManager] standardSquareWave];
 }
 
-- (AKLineSegments *)standardSawtoothWave
-{
-    if (_numberOfSawtoothWaveReferences == 0) {
-        [[[AKInstrument alloc] init] addFunctionTable:_standardSawtoothWave]; // AOP
-    }
-    _numberOfSawtoothWaveReferences++;
-    
-    return _standardSawtoothWave;
-}
-
 + (AKLineSegments *)standardSawtoothWave {
     return [[AKManager sharedManager] standardSawtoothWave];
-}
-
-- (AKLineSegments *)standardReverseSawtoothWave
-{
-    if (_numberOfReverseSawtoothWaveReferences == 0) {
-        [[[AKInstrument alloc] init] addFunctionTable:_standardReverseSawtoothWave]; // AOP
-    }
-    _numberOfReverseSawtoothWaveReferences++;
-    
-    return _standardReverseSawtoothWave;
 }
 
 + (AKLineSegments *)standardReverseSawtoothWave {
