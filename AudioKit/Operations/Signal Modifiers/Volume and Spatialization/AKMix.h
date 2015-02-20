@@ -23,7 +23,7 @@
                         input2:(AKParameter *)input2
                         balance:(AKParameter *)balancePoint;
 
-/// Create a mono audio from equal part of the left and right of a stereo input
+/// Create a mono audio from equal parts of the left and right channels of a stereo input
 /// @param stereoInput Stereo audio source to be mixed down to mono
 - (instancetype)initMonoAudioFromStereoInput:(AKStereoAudio *)stereoInput;
 
