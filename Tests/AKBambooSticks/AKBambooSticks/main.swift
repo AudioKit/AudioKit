@@ -16,9 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = BambooNote()
-        addNoteProperty(note.count)
-        addNoteProperty(note.mainResonantFrequency)
-
         let bambooSticks = AKBambooSticks()
         bambooSticks.count = note.count
         bambooSticks.mainResonantFrequency = note.mainResonantFrequency

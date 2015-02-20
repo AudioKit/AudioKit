@@ -15,10 +15,6 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let note = Note()
-        addNoteProperty(note.pan)
-        addNoteProperty(note.panMethod)
-
         let oscillator = AKOscillator()
         let pan = AKOscillator()
         pan.frequency = 1.ak
@@ -35,30 +31,11 @@ class Instrument : AKInstrument {
     }
 }
 
-class Note: AKNote {
-    var pan = AKNoteProperty()
-    var panMethod = AKNoteProperty()
-
-    override init() {
-        super.init()
-        addProperty(pan)
-        self.pan.setValue(0)
-        addProperty(panMethod)
-        self.panMethod.setValue(0)
-    }
-}
-
 AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
-
-let note1 = Note()
-
-let phrase = AKPhrase()
-phrase.addNote(note1, atTime:0.5)
-
-instrument.playPhrase(phrase)
+instrument.play()
 
 let manager = AKManager.sharedManager()
 while(manager.isRunning) {} //do nothing

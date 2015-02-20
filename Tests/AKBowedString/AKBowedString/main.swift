@@ -16,7 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = Note()
-        addNoteProperty(note.frequency)
 
         let envelope = AKLinearEnvelope(
             riseTime: 0.2.ak,

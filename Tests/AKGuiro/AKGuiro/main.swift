@@ -16,26 +16,22 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = GuiroNote()
-        addNoteProperty(note.count)
-        addNoteProperty(note.mainResonantFrequency)
-
         let guiro = AKGuiro()
         guiro.count = note.count
         guiro.mainResonantFrequency = note.mainResonantFrequency
-
+        setAudioOutput(guiro)
+        
         enableParameterLog(
             "Count = ",
             parameter: guiro.count,
-            timeInterval:2
+            timeInterval: 2
         )
 
         enableParameterLog(
             "Main Resonant Frequency = ",
             parameter: guiro.mainResonantFrequency,
-            timeInterval:2
+            timeInterval: 2
         )
-        
-        setAudioOutput(guiro)
     }
 }
 

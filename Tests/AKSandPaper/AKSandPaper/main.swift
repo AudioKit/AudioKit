@@ -16,9 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = SandPaperNote()
-        addNoteProperty(note.intensity)
-        addNoteProperty(note.dampingFactor)
-
         let sandPaper = AKSandPaper()
         sandPaper.intensity = note.intensity
         sandPaper.dampingFactor = note.dampingFactor

@@ -16,8 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = Note()
-        addNoteProperty(note.frequency)
-
         let marimba = AKMarimba()
         marimba.frequency = note.frequency
         setAudioOutput(marimba)

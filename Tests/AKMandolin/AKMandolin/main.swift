@@ -14,7 +14,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = Note()
-        addNoteProperty(note.frequency)
         let mandolin = AKMandolin()
         mandolin.frequency = note.frequency
         setAudioOutput(mandolin)
@@ -24,7 +23,6 @@ class Instrument : AKInstrument {
             parameter: mandolin.frequency,
             timeInterval:2
         )
-
     }
 }
 

@@ -16,9 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = SekereNote()
-        addNoteProperty(note.count)
-        addNoteProperty(note.dampingFactor)
-
         let sekere = AKSekere()
         sekere.count = note.count
         sekere.dampingFactor = note.dampingFactor
