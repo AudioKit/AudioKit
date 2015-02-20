@@ -49,13 +49,15 @@
 
 /// Adds the property to the list of available properties of the note
 /// @param newProperty New property to add to the note's set of properties
-/// @param name        Human readable name for the of the property
-- (void) addProperty:(AKNoteProperty *)newProperty
-            withName:(NSString *)name;
+- (void)addProperty:(AKNoteProperty *)newProperty;
 
-/// Adds the property to the list of available properties of the note
-/// @param newProperty New property to add to the note's set of properties
-- (void) addProperty:(AKNoteProperty *)newProperty;
+/// Helper function to create a property with the usually values and add it to the note
+/// @param value   Current value of the note property
+/// @param minimum Minimum value
+/// @param maximum Maximum value
+- (AKNoteProperty *)createPropertyWithValue:(float)value
+                                    minimum:(float)minimum
+                                    maximum:(float)maximum;
 
 /// Refine playback of the note.
 - (void)updateProperties;
