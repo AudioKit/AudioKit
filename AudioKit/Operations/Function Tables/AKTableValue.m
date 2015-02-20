@@ -27,6 +27,8 @@
         ixoff = akpi(0);
         wrapData = NO;
         andx = index;
+        self.state = @"connectable";
+        self.dependencies = @[ifn, index];
     }
     return self;
     
