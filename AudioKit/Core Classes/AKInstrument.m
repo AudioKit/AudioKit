@@ -138,7 +138,6 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
     if ([newOperation.state isEqualToString:@"connectable"]) {
         
         for (AKParameter *dependency in newOperation.dependencies) {

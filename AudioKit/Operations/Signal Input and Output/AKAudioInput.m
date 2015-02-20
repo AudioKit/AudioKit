@@ -12,6 +12,7 @@
 
 - (instancetype)init {
     self = [super initWithString:[self operationName]];
+    self.state = @"connectable";
     return self; 
 }
 

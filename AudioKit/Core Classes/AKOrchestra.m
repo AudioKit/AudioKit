@@ -81,6 +81,8 @@
 
 + (void)addInstrument:(AKInstrument *)instrument
 {
+    [[AKManager sharedManager] enableAudioInput];
+
     [AKOrchestra start];
     while (![[AKManager sharedManager] isRunning]) {
         // do nothing
