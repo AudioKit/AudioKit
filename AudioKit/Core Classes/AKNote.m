@@ -97,6 +97,13 @@ static int currentID = 1;
 {
     [self addProperty:newProperty withName:[newProperty description]];
 }
+- (AKNoteProperty *)createPropertyWithValue:(float)value
+                                    minimum:(float)minimum
+                                    maximum:(float)maximum
+{
+    return [[AKNoteProperty alloc] initWithValue:value minimum:minimum maximum:maximum];
+}
+
 
 
 // -----------------------------------------------------------------------------
