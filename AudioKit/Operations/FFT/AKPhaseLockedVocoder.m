@@ -34,6 +34,9 @@
         kamp = amplitude;
         ifftsize = akp(2048);
         idecim = akp(4);
+        self.state = @"connectable";
+        self.dependencies = @[ktab, atimpt, kpitch, kamp];
+
     }
     return self;
 }

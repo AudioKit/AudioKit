@@ -35,6 +35,9 @@
         kmeth = akp(1);
         kgain = akp(1);
         kcoefs = akp(80);
+        self.state = @"connectable";
+        self.dependencies = @[fsigin, kscal, kshift];
+
     }
     return self;
 }

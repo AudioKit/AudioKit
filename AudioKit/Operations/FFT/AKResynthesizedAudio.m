@@ -19,6 +19,8 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         fSrc = source;
+        self.state = @"connectable";
+        self.dependencies = @[source];
     }
     return self; 
 }
