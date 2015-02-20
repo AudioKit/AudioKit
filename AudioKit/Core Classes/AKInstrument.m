@@ -162,7 +162,12 @@ static int currentID = 1;
             newOperation.state  = @"connected";
         }
         if ([newOperation isKindOfClass:[AKFunctionTable class]]) {
-            [self addDynamicFunctionTable:(AKFunctionTable *)newOperation];
+            NSLog(@"dependencies: %lu", (unsigned long)newOperation.dependencies.count);
+            if (newOperation.dependencies.count > 0) {
+                [self addDynamicFunctionTable:(AKFunctionTable *)newOperation];
+            } else {
+                [self addFunctionTable:(AKFunctionTable *)newOperation];
+            }
             newOperation.state  = @"connected";
         }
     }
