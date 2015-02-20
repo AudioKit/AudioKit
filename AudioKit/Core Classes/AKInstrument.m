@@ -138,7 +138,7 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
+//    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
     if ([newOperation.state isEqualToString:@"connected"]) {
         return;
     }
@@ -180,7 +180,20 @@ static int currentID = 1;
     [self connect:output];
 }
 
+- (void)setAudioOutputWithLeftAudio:(AKParameter *)leftInput rightAudio:(AKParameter *)rightInput;
+{
+    [self connect:leftInput];
+    [self connect:rightInput];
+    AKAudioOutput *output = [[AKAudioOutput alloc] initWithLeftAudio:leftInput rightAudio:rightInput];
+    [self connect:output];
+}
 
+- (void)setStereoAudioOutput:(AKStereoAudio *)stereo;
+{
+    [self connect:stereo];
+    AKAudioOutput *output = [[AKAudioOutput alloc] initWithStereoAudioSource:stereo];
+    [self connect:output];
+}
 
 - (void)addString:(NSString *)newString
 {

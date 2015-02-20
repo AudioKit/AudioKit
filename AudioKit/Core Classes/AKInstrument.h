@@ -10,6 +10,7 @@
 #import "AKOrchestra.h"
 #import "AKParameter+Operation.h"
 #import "AKAudio.h"
+#import "AKStereoAudio.h"
 #import "AKPhrase.h"
 #import "AKNote.h"
 #import "AKNoteProperty.h"
@@ -95,6 +96,14 @@
 /// Sets a parameter to be the audio output of the AKInstrument.  Equivalent to declaring and connect AKAudioOutput.
 /// @param audio Operation output that you want to be played.
 - (void)setAudioOutput:(AKParameter *)audio;
+
+/// Sets a parameter to be the audio output of the AKInstrument.  Equivalent to declaring and connect AKAudioOutput.
+/// @param audio Operation output that you want to be played.
+- (void)setAudioOutputWithLeftAudio:(AKParameter *)leftInput rightAudio:(AKParameter *)rightInput;
+
+/// Sets a parameter to be the audio output of the AKInstrument.  Equivalent to declaring and connect AKAudioOutput.
+/// @param stereo Stereo Operation output that you want to be played.
+- (void)setStereoAudioOutput:(AKStereoAudio *)stereo;
 
 
 /// Adds any string to the output file, useful for testing and commenting.
