@@ -2,10 +2,9 @@
 //  AKConvolution.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Customized by Aurelius Prochazka on 12/27/14.
-//
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka to simplify the interface.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
