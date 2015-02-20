@@ -2,7 +2,7 @@
 //  AKPluckedString.m
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/19/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's repluck:
@@ -32,7 +32,8 @@
         _samplePosition = samplePosition;
         _reflectionCoefficient = reflectionCoefficient;
         _amplitude = amplitude;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
@@ -47,6 +48,7 @@
         _samplePosition = akp(0.1);
         _reflectionCoefficient = akp(0.1);
         _amplitude = akp(1.0);
+        [self setUpConnections];
     }
     return self;
 }
@@ -56,55 +58,111 @@
     return [[AKPluckedString alloc] initWithExcitationSignal:excitationSignal];
 }
 
-- (void)setOptionalFrequency:(AKConstant *)frequency {
+
+- (void)setFrequency:(AKConstant *)frequency {
     _frequency = frequency;
-}
-- (void)setOptionalPluckPosition:(AKConstant *)pluckPosition {
-    _pluckPosition = pluckPosition;
-}
-- (void)setOptionalSamplePosition:(AKParameter *)samplePosition {
-    _samplePosition = samplePosition;
-}
-- (void)setOptionalReflectionCoefficient:(AKParameter *)reflectionCoefficient {
-    _reflectionCoefficient = reflectionCoefficient;
-}
-- (void)setOptionalAmplitude:(AKParameter *)amplitude {
-    _amplitude = amplitude;
+    [self setUpConnections];
 }
 
-- (NSString *)stringForCSD {
+- (void)setOptionalFrequency:(AKConstant *)frequency {
+    [self setFrequency:frequency];
+}
+
+- (void)setPluckPosition:(AKConstant *)pluckPosition {
+    _pluckPosition = pluckPosition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalPluckPosition:(AKConstant *)pluckPosition {
+    [self setPluckPosition:pluckPosition];
+}
+
+- (void)setSamplePosition:(AKParameter *)samplePosition {
+    _samplePosition = samplePosition;
+    [self setUpConnections];
+}
+
+- (void)setOptionalSamplePosition:(AKParameter *)samplePosition {
+    [self setSamplePosition:samplePosition];
+}
+
+- (void)setReflectionCoefficient:(AKParameter *)reflectionCoefficient {
+    _reflectionCoefficient = reflectionCoefficient;
+    [self setUpConnections];
+}
+
+- (void)setOptionalReflectionCoefficient:(AKParameter *)reflectionCoefficient {
+    [self setReflectionCoefficient:reflectionCoefficient];
+}
+
+- (void)setAmplitude:(AKParameter *)amplitude {
+    _amplitude = amplitude;
+    [self setUpConnections];
+}
+
+- (void)setOptionalAmplitude:(AKParameter *)amplitude {
+    [self setAmplitude:amplitude];
+}
+
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_excitationSignal, _frequency, _pluckPosition, _samplePosition, _reflectionCoefficient, _amplitude];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"repluck("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
     [csdString appendFormat:@"%@ repluck ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
-    [csdString appendFormat:@"%@, ", _pluckPosition];
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    [inputsString appendFormat:@"%@, ", _pluckPosition];
     
     if ([_amplitude class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _amplitude];
+        [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _amplitude];
+        [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
 
-    [csdString appendFormat:@"%@, ", _frequency];
+    [inputsString appendFormat:@"%@, ", _frequency];
     
     if ([_samplePosition class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _samplePosition];
+        [inputsString appendFormat:@"%@, ", _samplePosition];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _samplePosition];
+        [inputsString appendFormat:@"AKControl(%@), ", _samplePosition];
     }
 
     if ([_reflectionCoefficient class] == [AKControl class]) {
-        [csdString appendFormat:@"%@, ", _reflectionCoefficient];
+        [inputsString appendFormat:@"%@, ", _reflectionCoefficient];
     } else {
-        [csdString appendFormat:@"AKControl(%@), ", _reflectionCoefficient];
+        [inputsString appendFormat:@"AKControl(%@), ", _reflectionCoefficient];
     }
 
     if ([_excitationSignal class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@", _excitationSignal];
+        [inputsString appendFormat:@"%@", _excitationSignal];
     } else {
-        [csdString appendFormat:@"AKAudio(%@)", _excitationSignal];
+        [inputsString appendFormat:@"AKAudio(%@)", _excitationSignal];
     }
-return csdString;
+return inputsString;
 }
 
 @end
