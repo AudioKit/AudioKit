@@ -14,7 +14,6 @@
 {
     self = [super init];
     if (self) {
-        // Note Properties
         TambourineNote *note = [[TambourineNote alloc] init];
         AKTambourine *tambourine = [AKTambourine tambourine];
         tambourine.intensity = note.intensity;
@@ -41,7 +40,6 @@
 
         _dampingFactor = [[AKNoteProperty alloc] initWithValue:0 minimum:0 maximum:1];
         [self addProperty:_dampingFactor];
-
 
         // Optionally set a default note duration
         self.duration.value = 1.0;
