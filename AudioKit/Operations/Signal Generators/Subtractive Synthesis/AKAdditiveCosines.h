@@ -2,7 +2,7 @@
 //  AKAdditiveCosines.h
 //  AudioKit
 //
-//  Auto-generated on 1/3/15.
+//  Auto-generated on 2/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -40,42 +40,42 @@
 + (instancetype)cosinesWithCosineTable:(AKFunctionTable *)cosineTable;
 
 /// Total number of harmonics requested. [Default Value: 10]
-@property AKParameter *harmonicsCount;
+@property (nonatomic) AKParameter *harmonicsCount;
 
 /// Set an optional harmonics count
 /// @param harmonicsCount Total number of harmonics requested. Updated at Control-rate. [Default Value: 10]
 - (void)setOptionalHarmonicsCount:(AKParameter *)harmonicsCount;
 
 /// The lowest harmonic present. [Default Value: 1]
-@property AKParameter *firstHarmonicIndex;
+@property (nonatomic) AKParameter *firstHarmonicIndex;
 
 /// Set an optional first harmonic index
 /// @param firstHarmonicIndex The lowest harmonic present. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalFirstHarmonicIndex:(AKParameter *)firstHarmonicIndex;
 
 /// The multiplier in the series of amplitude coefficients. [Default Value: 1]
-@property AKParameter *partialMultiplier;
+@property (nonatomic) AKParameter *partialMultiplier;
 
 /// Set an optional partial multiplier
 /// @param partialMultiplier The multiplier in the series of amplitude coefficients. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalPartialMultiplier:(AKParameter *)partialMultiplier;
 
 /// The fundamental frequency which can be modulated at any rate. [Default Value: 220]
-@property AKParameter *fundamentalFrequency;
+@property (nonatomic) AKParameter *fundamentalFrequency;
 
 /// Set an optional fundamental frequency
 /// @param fundamentalFrequency The fundamental frequency which can be modulated at any rate. [Default Value: 220]
 - (void)setOptionalFundamentalFrequency:(AKParameter *)fundamentalFrequency;
 
 /// The total amplitude of the output of all the cosines. [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude The total amplitude of the output of all the cosines. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Initial phase of the fundamental frequency, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-@property AKConstant *phase;
+@property (nonatomic) AKConstant *phase;
 
 /// Set an optional phase
 /// @param phase Initial phase of the fundamental frequency, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]

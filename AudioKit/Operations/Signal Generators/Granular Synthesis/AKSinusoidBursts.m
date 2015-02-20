@@ -51,6 +51,8 @@
         xAmp = peakAmplitude;
         xFund = fundamentalFrequency;
         xForm = formantFrequency;
+        self.state = @"connectable";
+        self.dependencies = @[iFnA, iFnB, iOlaps, iTotDur, kOct, kBand, kRis, kDur, kDec, xAmp, xFund, xForm];
     }
     return self;
 }
