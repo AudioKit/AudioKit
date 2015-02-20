@@ -33,32 +33,22 @@
         AKConvolution *dishConv;
         dishConv = [[AKConvolution alloc] initWithInput:input
                                       impulseResponseFilename:dish];
-        [self connect:dishConv];
-        
         
         AKConvolution *wellConv;
         wellConv  = [[AKConvolution alloc] initWithInput:input
                                        impulseResponseFilename:well];
-        [self connect:wellConv];
-        
         
         AKMix *balance;
         balance = [[AKMix alloc] initWithInput1:dishConv
                                              input2:wellConv
                                             balance:_dishWellBalance];
-        [self connect:balance];
-        
         
         AKMix *dryWet;
         dryWet = [[AKMix alloc] initWithInput1:input
                                         input2:balance
                                        balance:_dryWetBalance];
-        [self connect:dryWet];
         
-        // AUDIO OUTPUT ========================================================
-        
-        AKAudioOutput *audio = [[AKAudioOutput alloc] initWithAudioSource:dryWet];
-        [self connect:audio];
+        [self setAudioOutput:dryWet];
         
         // EXTERNAL OUTPUTS ====================================================
         // After your instrument is set up, define outputs available to others
