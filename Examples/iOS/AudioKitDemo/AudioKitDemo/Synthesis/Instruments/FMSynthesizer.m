@@ -44,13 +44,8 @@
 {
     self = [super init];
     if (self) {
-        _frequency = [[AKNoteProperty alloc] initWithValue:440 minimum:100 maximum:20000];
-        [self addProperty:_frequency];
-
-        _color = [[AKNoteProperty alloc] initWithValue:0.0 minimum:0 maximum:1];
-        [self addProperty:_color];
-
-        // Optionally set a default note duration
+        _frequency = [self createPropertyWithValue:440 minimum:100 maximum:20000];
+        _color     = [self createPropertyWithValue:0.0 minimum:0   maximum:1];
         self.duration.value = 1.0;
     }
     return self;

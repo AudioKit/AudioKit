@@ -39,11 +39,9 @@
         
         AKFileInput *fileIn1 = [[AKFileInput alloc] initWithFilename:file1];
         fileIn1.speed = _speed;
-        [self connect:fileIn1];
         
         AKFileInput *fileIn2 = [[AKFileInput alloc] initWithFilename:file2];
         fileIn2.speed = _speed;
-        [self connect:fileIn2];
         
         AKMix *fileInLeft = [[AKMix alloc] initWithInput1:fileIn1.leftOutput
                                                    input2:fileIn2.leftOutput

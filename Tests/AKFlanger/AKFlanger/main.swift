@@ -22,7 +22,7 @@ class Instrument : AKInstrument {
         let mono = AKMix(monoAudioFromStereoInput: audio)
 
         auxilliaryOutput = AKAudio.globalParameter()
-        assignOutput(auxilliaryOutput, to:mono)
+        appendOutput(auxilliaryOutput, withInput: mono)
     }
 }
 
