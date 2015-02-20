@@ -49,7 +49,6 @@
 - (void)setSpeed:(AKParameter *)speed {
     _speed = speed;
     [self setUpConnections];
-    
 }
 
 - (void)setOptionalSpeed:(AKParameter *)speed {
@@ -68,9 +67,8 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_speed];
+    self.dependencies = @[_speed, _startTime];
 }
-
 
 - (NSString *)stringForCSD
 {
@@ -92,6 +90,5 @@
     }
     return csdString;
 }
-
 
 @end
