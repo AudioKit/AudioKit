@@ -22,7 +22,7 @@
         lhs = output;
         rhs = input;
         self.state = @"connectable";
-        self.dependencies = @[rhs];
+        self.dependencies = @[lhs, rhs];
     }
     return self; 
 }
