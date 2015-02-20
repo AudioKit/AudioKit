@@ -138,6 +138,11 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
+    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
+    if ([newOperation.state isEqualToString:@"connected"]) {
+        return;
+    }
+    
     if ([newOperation.state isEqualToString:@"connectable"]) {
         
         for (AKParameter *dependency in newOperation.dependencies) {
@@ -147,14 +152,25 @@ static int currentID = 1;
         [innerCSDRepresentation appendString:[newOperation stringForCSD]];
         [innerCSDRepresentation appendString:@"\n"];
         newOperation.state  = @"connected";
+    } else {
+        if ([newOperation isKindOfClass:[AKInstrumentProperty class]]) {
+            [self addProperty:(AKInstrumentProperty *)newOperation];
+            newOperation.state  = @"connected";
+        }
+        if ([newOperation isKindOfClass:[AKNoteProperty class]]) {
+            [self addNoteProperty:(AKNoteProperty *)newOperation];
+            newOperation.state  = @"connected";
+        }
+        if ([newOperation isKindOfClass:[AKFunctionTable class]]) {
+            [self addDynamicFunctionTable:(AKFunctionTable *)newOperation];
+            newOperation.state  = @"connected";
+        }
     }
 }
 
 - (void)setAudioOutput:(AKParameter *)audio
 {
-    if ([audio.state isEqualToString:@"connectable"]) {
-        [self connect:audio];
-    }
+    [self connect:audio];
     AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:audio];
     [self connect:output];
 }
@@ -171,9 +187,7 @@ static int currentID = 1;
 {
     [_globalParameters addObject:output];
     
-    if ([input.state isEqualToString:@"connectable"]) {
-        [self connect:input];
-    }
+    [self connect:input];
     
     if ([output class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
         AKStereoAudio *stereoOutput = (AKStereoAudio *)output;
@@ -214,9 +228,7 @@ static int currentID = 1;
                  parameter:(AKParameter *)parameter
               timeInterval:(float)timeInterval
 {
-    if ([parameter.state isEqualToString:@"connectable"]) {
-        [self connect:parameter];
-    }
+    [self connect:parameter];
     [innerCSDRepresentation appendFormat:
      @"\nprintks \"%@ %%f\", %f, AKControl(%@)\n",
      message, timeInterval, parameter];

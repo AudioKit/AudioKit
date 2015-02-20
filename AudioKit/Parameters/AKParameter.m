@@ -22,7 +22,7 @@ static int currentID = 1;
 {
     self = [super init];
     _myID = currentID++;
-    _state = @"unconnectable";
+    _state = @"unconnected";
     _dependencies = @[];
     return self;
 }
