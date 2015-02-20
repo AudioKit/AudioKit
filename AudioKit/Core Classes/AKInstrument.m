@@ -35,7 +35,7 @@ static int currentID = 1;
         [AKOrchestra start];
         while (![[AKManager sharedManager] isRunning]) {
             // do nothing
-        }        
+        }
         _myID = currentID++;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
@@ -138,7 +138,7 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-//    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
+    //    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
     if ([newOperation.state isEqualToString:@"connected"]) {
         return;
     }
@@ -201,7 +201,7 @@ static int currentID = 1;
     [innerCSDRepresentation appendString:@"\n"];
 }
 
-- (void)assignOutput:(AKParameter *)output to:(AKParameter *)input
+- (void)appendOutput:(AKParameter *)output withInput:(AKParameter *)input
 {
     [_globalParameters addObject:output];
     
@@ -214,15 +214,44 @@ static int currentID = 1;
         AKAssignment *auxLeftOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.leftOutput
                                                                            input:[stereoInput.leftOutput plus:stereoOutput.leftOutput]];
         [self connect:auxLeftOutputAssign];
-
+        
         AKAssignment *auxRightOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.rightOutput
-                                                                           input:[stereoInput.rightOutput plus:stereoOutput.rightOutput]];
+                                                                            input:[stereoInput.rightOutput plus:stereoOutput.rightOutput]];
         [self connect:auxRightOutputAssign];
-
-    
+        
+        
     } else {
         AKAssignment *auxOutputAssign = [[AKAssignment alloc] initWithOutput:output
                                                                        input:[input plus:output]];
+        [self connect:auxOutputAssign];
+    }
+}
+
+- (void)assignOutput:(AKParameter *)output to:(AKParameter *)input
+{
+    [self appendOutput:output withInput:input];
+}
+
+- (void)setParameter:(AKParameter *)parameter to:(AKParameter *)input
+{
+    [self connect:input];
+    
+    if ([parameter class] == [AKStereoAudio class] && [input respondsToSelector:@selector(leftOutput)]) {
+        AKStereoAudio *stereoOutput = (AKStereoAudio *)parameter;
+        AKStereoAudio *stereoInput  = (AKStereoAudio *)input;
+        
+        AKAssignment *auxLeftOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.leftOutput
+                                                                           input:stereoInput.leftOutput];
+        [self connect:auxLeftOutputAssign];
+        
+        AKAssignment *auxRightOutputAssign = [[AKAssignment alloc] initWithOutput:stereoOutput.rightOutput
+                                                                            input:stereoInput.rightOutput];
+        [self connect:auxRightOutputAssign];
+        
+        
+    } else {
+        AKAssignment *auxOutputAssign = [[AKAssignment alloc] initWithOutput:parameter
+                                                                       input:input];
         [self connect:auxOutputAssign];
     }
 }
