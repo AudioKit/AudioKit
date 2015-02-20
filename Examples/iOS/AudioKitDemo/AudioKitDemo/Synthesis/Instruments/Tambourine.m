@@ -16,9 +16,6 @@
     if (self) {
         // Note Properties
         TambourineNote *note = [[TambourineNote alloc] init];
-        [self addNoteProperty:note.intensity];
-        [self addNoteProperty:note.dampingFactor];
-
         AKTambourine *tambourine = [AKTambourine tambourine];
         tambourine.intensity = note.intensity;
         tambourine.dampingFactor = note.dampingFactor;

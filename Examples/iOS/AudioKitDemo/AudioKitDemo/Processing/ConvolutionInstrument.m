@@ -19,12 +19,10 @@
         _dishWellBalance = [[AKInstrumentProperty alloc] initWithValue:0
                                                                minimum:0
                                                                maximum:1.0];
-        [self addProperty:_dishWellBalance];
         
         _dryWetBalance = [[AKInstrumentProperty alloc] initWithValue:0
                                                              minimum:0
                                                              maximum:0.1];
-        [self addProperty:_dryWetBalance];
         
         // INSTRUMENT DEFINITION ===============================================
         NSString *dish = [[NSBundle mainBundle] pathForResource:@"dish" ofType:@"wav"];

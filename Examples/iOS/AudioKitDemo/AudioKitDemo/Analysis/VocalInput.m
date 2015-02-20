@@ -15,7 +15,6 @@
     self = [super init];
     if (self) {
         AKAudioInput *microphone = [[AKAudioInput alloc] init];
-        [self connect:microphone];
         _auxilliaryOutput = [AKAudio globalParameter];
         [self assignOutput:_auxilliaryOutput to:microphone];
     }
