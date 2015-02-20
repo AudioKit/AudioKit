@@ -44,22 +44,29 @@ class Processor : AKInstrument {
         let reverb = AKReverb(stereoInput:audioSource)
         reverb.feedback = feedback
         reverb.cutoffFrequency = cutoffFrequency
-        connect(reverb)
+        
         enableParameterLog(
             "Feedback = ",
-            parameter: reverb.feedback,
+            parameter: feedback,
             timeInterval:0.1
         )
 
         enableParameterLog(
             "Cutoff Frequency = ",
-            parameter: reverb.cutoffFrequency,
+            parameter: cutoffFrequency,
             timeInterval:0.1
         )
 
-        let leftMix = AKMix(input1: audioSource.leftOutput, input2: reverb.leftOutput, balance: 0.5.ak)
-        let rightMix = AKMix(input1: audioSource.rightOutput, input2: reverb.rightOutput, balance: 0.5.ak)
-        
+        let leftMix = AKMix(
+            input1: audioSource.leftOutput,
+            input2: reverb.leftOutput,
+            balance: 0.5.ak
+        )
+        let rightMix = AKMix(
+            input1: audioSource.rightOutput,
+            input2: reverb.rightOutput,
+            balance: 0.5.ak
+        )
         connect(AKAudioOutput(leftAudio: leftMix, rightAudio: rightMix))
 
         resetParameter(audioSource)
