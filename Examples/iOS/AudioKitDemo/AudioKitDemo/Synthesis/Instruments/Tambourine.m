@@ -22,10 +22,7 @@
         AKTambourine *tambourine = [AKTambourine tambourine];
         tambourine.intensity = note.intensity;
         tambourine.dampingFactor = note.dampingFactor;
-        [self connect:tambourine];
-
-        AKAudioOutput *out = [[AKAudioOutput alloc] initWithAudioSource:tambourine];
-        [self connect:out];
+        [self setAudioOutput:tambourine];
     }
     return self;
 }

@@ -24,7 +24,6 @@
                                                                      sustainLevel:akp(0.5)
                                                                   releaseDuration:akp(0.3)
                                                                             delay:akp(0)];
-        [self connect:envelope];
         
         // Instrument Definition
         AKFMOscillator *oscillator = [AKFMOscillator oscillator];
@@ -33,10 +32,7 @@
         oscillator.modulatingMultiplier = [note.color scaledBy:akp(3)];
         oscillator.modulationIndex      = [note.color scaledBy:akp(10)];
         oscillator.amplitude = [envelope scaledBy:akp(0.25)];
-        [self connect:oscillator];
-        
-        AKAudioOutput *out = [[AKAudioOutput alloc] initWithAudioSource:oscillator];
-        [self connect:out];
+        [self setAudioOutput:oscillator];
     }
     return self;
 }
