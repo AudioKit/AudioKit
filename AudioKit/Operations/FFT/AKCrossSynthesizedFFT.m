@@ -30,6 +30,9 @@
         fdest = signal2;
         kamp1 = amplitude1;
         kamp2 = amplitude2;
+        self.state = @"connectable";
+        self.dependencies = @[fsrc, fdest, kamp1, kamp2];
+
     }
     return self;
 }

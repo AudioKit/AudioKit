@@ -32,6 +32,9 @@
         kdepth = depth;
         kgain = gain;
         kcoefs = akp(80);
+        self.state = @"connectable";
+        self.dependencies = @[famp, fexc, kdepth, kgain];
+
     }
     return self;
 }

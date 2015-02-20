@@ -31,6 +31,10 @@
         iOverlap = overlap;
         iWinType = akpi(windowType);
         iWinSize = windowSize;
+        
+        self.state = @"connectable";
+        self.dependencies = @[aIn];
+
     }
     return self;
 }

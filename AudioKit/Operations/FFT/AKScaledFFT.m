@@ -40,7 +40,8 @@
         fSigIn = input;
         kScal = frequencyRatio;
         kKeepForm = [AKConstant constantWithInt:formantRetainMethod];
-        
+        self.state = @"connectable";
+        self.dependencies = @[fSigIn, kScal, kGain, kCoefs];
     }
     return self;
 }

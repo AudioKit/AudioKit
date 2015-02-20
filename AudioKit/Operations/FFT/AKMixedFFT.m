@@ -21,6 +21,9 @@
     if (self) {
         fSigIn1 = signal1;
         fSigIn2 = signal2;
+        self.state = @"connectable";
+        self.dependencies = @[fSigIn1, fSigIn2];
+
     }
     return self;
 }
