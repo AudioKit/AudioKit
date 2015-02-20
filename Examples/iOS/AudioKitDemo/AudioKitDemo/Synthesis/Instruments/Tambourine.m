@@ -35,13 +35,8 @@
 {
     self = [super init];
     if (self) {
-        _intensity = [[AKNoteProperty alloc] initWithValue:20.0 minimum:0 maximum:1000];
-        [self addProperty:_intensity];
-
-        _dampingFactor = [[AKNoteProperty alloc] initWithValue:0 minimum:0 maximum:1];
-        [self addProperty:_dampingFactor];
-
-        // Optionally set a default note duration
+        _intensity     = [self createPropertyWithValue:20.0 minimum:0 maximum:1000];
+        _dampingFactor = [self createPropertyWithValue:0    minimum:0 maximum:1];
         self.duration.value = 1.0;
     }
     return self;
