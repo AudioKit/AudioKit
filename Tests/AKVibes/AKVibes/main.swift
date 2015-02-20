@@ -12,9 +12,8 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
+
         let note = Note()
-        addNoteProperty(note.frequency)
-        
         let vibes = AKVibes()
         vibes.frequency = note.frequency
         setAudioOutput(vibes)

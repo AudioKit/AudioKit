@@ -16,11 +16,8 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = Note()
-        addNoteProperty(note.frequency)
-
         let flute = AKFlute()
         flute.frequency = note.frequency
-        
         setAudioOutput(flute)
     }
 }

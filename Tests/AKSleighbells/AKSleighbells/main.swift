@@ -14,12 +14,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = Note()
-        addNoteProperty(note.intensity)
-        addNoteProperty(note.dampingFactor)
-        addNoteProperty(note.mainResonantFrequency)
-        addNoteProperty(note.firstResonantFrequency)
-        addNoteProperty(note.secondResonantFrequency)
-
         let sleighbells = AKSleighbells()
         sleighbells.intensity = note.intensity
         sleighbells.dampingFactor = note.dampingFactor

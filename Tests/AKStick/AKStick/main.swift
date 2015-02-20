@@ -16,9 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = StickNote()
-        addNoteProperty(note.intensity)
-        addNoteProperty(note.dampingFactor)
-
         let stick = AKStick()
         stick.intensity = note.intensity
         stick.dampingFactor = note.dampingFactor

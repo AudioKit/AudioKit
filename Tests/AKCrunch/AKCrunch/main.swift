@@ -16,9 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = CrunchNote()
-        addNoteProperty(note.intensity)
-        addNoteProperty(note.dampingFactor)
-
         let crunch = AKCrunch()
         crunch.intensity = note.intensity
         crunch.dampingFactor = note.dampingFactor

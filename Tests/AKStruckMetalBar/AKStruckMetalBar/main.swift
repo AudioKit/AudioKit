@@ -16,9 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = StruckMetalBarNote()
-        addNoteProperty(note.strikePosition)
-        addNoteProperty(note.strikeWidth)
-
         let struckMetalBar = AKStruckMetalBar()
         struckMetalBar.strikePosition = note.strikePosition
         struckMetalBar.strikeWidth = note.strikeWidth

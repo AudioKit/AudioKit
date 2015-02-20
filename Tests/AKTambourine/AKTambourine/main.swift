@@ -16,10 +16,6 @@ class Instrument : AKInstrument {
         super.init()
 
         let note = TambourineNote()
-        addNoteProperty(note.intensity)
-        addNoteProperty(note.dampingFactor)
-        addNoteProperty(note.mainResonantFrequency)
-
         let tambourine = AKTambourine()
         tambourine.intensity = note.intensity
         tambourine.dampingFactor = note.dampingFactor

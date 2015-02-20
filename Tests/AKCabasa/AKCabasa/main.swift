@@ -14,10 +14,8 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        let note = CabasaNote()
-        addNoteProperty(note.count)
-        addNoteProperty(note.dampingFactor)
 
+        let note = CabasaNote()
         let cabasa = AKCabasa()
         cabasa.count = note.count
         cabasa.dampingFactor = note.dampingFactor
