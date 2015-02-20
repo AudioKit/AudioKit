@@ -10,13 +10,8 @@
 
 @implementation AKStereoAudio
 {
-    AKParameter *aOutL;
-    AKParameter *aOutR;
     int _myID;
 }
-
-@synthesize leftOutput=aOutL;
-@synthesize rightOutput=aOutR;
 
 static int currentID = 1;
 
@@ -25,9 +20,23 @@ static int currentID = 1;
     currentID = 1;
 }
 
-+ (AKStereoAudio *)stereoFromMono:(AKParameter *)mono
++ (instancetype)stereoFromMono:(AKParameter *)mono
 {
     return [[AKStereoAudio alloc] initWithLeftAudio:mono rightAudio:mono];
+}
+
+- (AKParameter *)leftOutput
+{
+    _leftOutput.state = @"connectable";
+    _leftOutput.dependencies = @[self];
+    return _leftOutput;
+}
+
+- (AKParameter *)rightOutput
+{
+    _rightOutput.state = @"connectable";
+    _rightOutput.dependencies = @[self];
+    return _rightOutput;
 }
 
 - (instancetype)init
@@ -35,8 +44,8 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        aOutL  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%i", _myID]];
-        aOutR  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%i",_myID]];
+        _leftOutput  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%i", _myID]];
+        _rightOutput = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%i",_myID]];
     }
     return self;
 }
@@ -46,8 +55,8 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        aOutL  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%@%i",  name, _myID]];
-        aOutR  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%@%i", name, _myID]];
+        _leftOutput  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%@%i",  name, _myID]];
+        _rightOutput = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%@%i", name, _myID]];
     }
     return self;
 }
@@ -57,8 +66,8 @@ static int currentID = 1;
 {
     self = [self init];
     if (self) {
-        aOutL = leftAudio;
-        aOutR = rightAudio;
+        _leftOutput  = leftAudio;
+        _rightOutput = rightAudio;
     }
     return self;
 }
@@ -68,8 +77,8 @@ static int currentID = 1;
     self = [super init];
     if (self) {
         _myID = currentID++;
-        aOutL  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Left%i",name, _myID]];
-        aOutR  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Right%i",name,_myID]];
+        _leftOutput  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Left%i",name, _myID]];
+        _rightOutput = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Right%i",name,_myID]];
     }
     return self;
 }
@@ -86,14 +95,14 @@ static int currentID = 1;
 
 - (instancetype)scaledBy:(AKParameter *)scalingFactor
 {
-    AKParameter *left   = [aOutL scaledBy:scalingFactor];
-    AKParameter *right  = [aOutR scaledBy:scalingFactor];
+    AKParameter *left  = [_leftOutput scaledBy:scalingFactor];
+    AKParameter *right = [_rightOutput scaledBy:scalingFactor];
     return [[AKStereoAudio alloc] initWithLeftAudio:left rightAudio:right];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@, %@", aOutL, aOutR];
+    return [NSString stringWithFormat:@"%@, %@", _leftOutput, _rightOutput];
 }
 @end
 
