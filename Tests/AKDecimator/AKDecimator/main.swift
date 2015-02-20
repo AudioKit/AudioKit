@@ -34,7 +34,8 @@ class Instrument : AKInstrument {
         let decimator = AKDecimator(input: mono)
         decimator.bitDepth = bitDepth
         decimator.sampleRate = sampleRate
-
+        setAudioOutput(decimator)
+        
         enableParameterLog(
             "Bit Depth = ",
             parameter: decimator.bitDepth,
@@ -46,7 +47,6 @@ class Instrument : AKInstrument {
             parameter: decimator.sampleRate,
             timeInterval:0.1
         )
-        setAudioOutput(decimator)
     }
 }
 
