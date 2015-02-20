@@ -19,11 +19,9 @@ class Instrument : AKInstrument {
 
         let soundfile = AKSoundFile (filename: filename)
         soundfile.size = 16384
-        addFunctionTable(soundfile)
 
         let hamming = AKWindow(type: AKWindowTableType.Hamming)
         hamming.size = 512;
-        addFunctionTable(hamming)
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", soundfile.length()))
 
@@ -41,12 +39,6 @@ class Instrument : AKInstrument {
         granularSynthesisTexture.averageGrainDuration = grainDurationLine
         granularSynthesisTexture.maximumFrequencyDeviation = maximumFrequencyDeviationLine
         granularSynthesisTexture.grainAmplitude = grainAmplitudeLine
-
-        enableParameterLog(
-            "Grain Frequency = ",
-            parameter: granularSynthesisTexture.grainFrequency,
-            timeInterval:0.2
-        )
 
         enableParameterLog(
             "Grain Density = ",

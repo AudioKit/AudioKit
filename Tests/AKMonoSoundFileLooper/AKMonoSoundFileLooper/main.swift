@@ -17,7 +17,6 @@ class Instrument : AKInstrument {
 
         let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
         let soundFile = AKSoundFile(filename: filename)
-        addFunctionTable(soundFile)
 
         let speed = AKLine(
             firstPoint: 10.ak,

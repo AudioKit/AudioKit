@@ -17,8 +17,6 @@ class Instrument : AKInstrument {
         
         let filename = "CsoundLib64.framework/Sounds/marmstk1.wav"
         let functionTable = AKSoundFile(filename: filename)
-        addFunctionTable(functionTable)
-
         let excitation = AKMonoSoundFileLooper(soundFile: functionTable)
         excitation.loopMode = AKMonoSoundFileLooper.loopPlaysOnce()
 
