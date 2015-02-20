@@ -95,23 +95,18 @@
 
 @property (nonatomic) AKWeightedSumOfSinusoids *standardSineWave;
 + (AKWeightedSumOfSinusoids *)standardSineWave;
-@property int numberOfSineWaveReferences;
 
 @property (nonatomic) AKLineSegments *standardTriangleWave;
 + (AKLineSegments *)standardTriangleWave;
-@property int numberOfTriangleWaveReferences;
 
 @property (nonatomic) AKLineSegments *standardSquareWave;
 + (AKLineSegments *)standardSquareWave;
-@property int numberOfSquareWaveReferences;
 
 @property (nonatomic) AKLineSegments *standardSawtoothWave;
 + (AKLineSegments *)standardSawtoothWave;
-@property int numberOfSawtoothWaveReferences;
 
 @property (nonatomic) AKLineSegments *standardReverseSawtoothWave;
 + (AKLineSegments *)standardReverseSawtoothWave;
-@property int numberOfReverseSawtoothWaveReferences;
 
 
 @end
