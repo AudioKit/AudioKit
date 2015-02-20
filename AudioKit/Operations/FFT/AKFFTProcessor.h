@@ -2,7 +2,7 @@
 //  AKFFTProcessor.h
 //  AudioKit
 //
-//  Auto-generated on 1/27/15.
+//  Auto-generated on 2/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -43,49 +43,49 @@ This operation will also scale pitch, independently of frequency, using a transp
 + (instancetype)WithFunctionTable:(AKParameter *)functionTable;
 
 /// Grain frequency scaling (1=normal pitch, < 1 lower, > 1 higher; negative, backwards) [Default Value: 1]
-@property AKParameter *frequencyRatio;
+@property (nonatomic) AKParameter *frequencyRatio;
 
 /// Set an optional frequency ratio
 /// @param frequencyRatio Grain frequency scaling (1=normal pitch, < 1 lower, > 1 higher; negative, backwards) Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalFrequencyRatio:(AKParameter *)frequencyRatio;
 
 /// Time Scaling ratio, < 1 stretches, > 1 contracts. [Default Value: 1]
-@property AKParameter *timeRatio;
+@property (nonatomic) AKParameter *timeRatio;
 
 /// Set an optional time ratio
 /// @param timeRatio Time Scaling ratio, < 1 stretches, > 1 contracts. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalTimeRatio:(AKParameter *)timeRatio;
 
 /// Amplitude of the output. [Default Value: 1]
-@property AKParameter *amplitude;
+@property (nonatomic) AKParameter *amplitude;
 
 /// Set an optional amplitude
 /// @param amplitude Amplitude of the output. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Startup read offset into table, in seconds. [Default Value: 0]
-@property AKConstant *functionTableOffset;
+@property (nonatomic) AKConstant *functionTableOffset;
 
 /// Set an optional function table offset
 /// @param functionTableOffset Startup read offset into table, in seconds. [Default Value: 0]
 - (void)setOptionalFunctionTableOffset:(AKConstant *)functionTableOffset;
 
 /// FFT size- must be a factor of 2. [Default Value: 2048]
-@property AKConstant *sizeOfFFT;
+@property (nonatomic) AKConstant *sizeOfFFT;
 
 /// Set an optional size of fft
 /// @param sizeOfFFT FFT size- must be a factor of 2. [Default Value: 2048]
 - (void)setOptionalSizeOfFFT:(AKConstant *)sizeOfFFT;
 
 /// Size of hop [Default Value: 512]
-@property AKConstant *hopSize;
+@property (nonatomic) AKConstant *hopSize;
 
 /// Set an optional hop size
 /// @param hopSize Size of hop [Default Value: 512]
 - (void)setOptionalHopSize:(AKConstant *)hopSize;
 
 /// Threshold for onset detection, based on dB power spectrum ratio between two successive windows. A detected ratio above it will cancel timescaling momentarily, to avoid smearing (defaults to 1). By default anything more than a 1 dB inter-frame power difference will be detected as an onset. [Default Value: 1]
-@property AKConstant *dbthresh;
+@property (nonatomic) AKConstant *dbthresh;
 
 /// Set an optional dbthresh
 /// @param dbthresh Threshold for onset detection, based on dB power spectrum ratio between two successive windows. A detected ratio above it will cancel timescaling momentarily, to avoid smearing (defaults to 1). By default anything more than a 1 dB inter-frame power difference will be detected as an onset. [Default Value: 1]
