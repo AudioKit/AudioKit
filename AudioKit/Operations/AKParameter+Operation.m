@@ -26,7 +26,7 @@
 - (NSString *)stringForCSD
 {
     //Override in subclass
-    return @"Undefined";
+    return @"";
 }
 
 - (NSString *)udoString
