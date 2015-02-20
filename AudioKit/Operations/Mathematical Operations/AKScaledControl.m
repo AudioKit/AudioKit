@@ -24,6 +24,8 @@
         kin  = inputControl;
         kmax = maximumOutput;
         kmin = minimumOutput;
+        self.state = @"connectable";
+        self.dependencies = @[minimumOutput, maximumOutput];
     }
     return self;
 }
