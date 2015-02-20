@@ -59,8 +59,6 @@
 /// After an AKProperty is created, it must be added to the instrument.
 /// @param newProperty New property to add to the instrument.
 - (void) addProperty:(AKInstrumentProperty *)newProperty;
-- (void) addProperty:(AKInstrumentProperty *)newProperty
-            withName:(NSString *)name;
 
 /// After an AKNoteProperty is created, it must be added to the instrument.
 /// @param newNoteProperty New note property instrument needs to be aware of.
@@ -105,15 +103,24 @@
 /// @param stereo Stereo Operation output that you want to be played.
 - (void)setStereoAudioOutput:(AKStereoAudio *)stereo;
 
-
 /// Adds any string to the output file, useful for testing and commenting.
 /// @param newString New string to add to the instrument definition.
 - (void)addString:(NSString *)newString;
 
-/// Shortcut for the AKAssignment operation for setting a parameter equal to another.
+/// Appending a value to an output, usually a globally accessibly audio stream
+/// @param output Parameter being set.
+/// @param input  Parameter being read.
+- (void)appendOutput:(AKParameter *)output withInput:(AKParameter *)input;
+
+/// Deprecated function, please use appendOutput:withInput:
 /// @param output Parameter being set.
 /// @param input  Parameter being read.
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input;
+
+/// Explicitly set the output of one paramter to another, useful for tracking
+/// @param parameter Output or overwritten parameter
+/// @param input     Input parameter
+- (void)setParameter:(AKParameter *)parameter to:(AKParameter *)input;
 
 /// Shortcut for setting a parameter's value to zero.
 /// @param parameterToReset Parameter whose value will be reset to zero.
