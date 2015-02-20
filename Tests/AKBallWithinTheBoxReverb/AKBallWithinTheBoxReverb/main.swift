@@ -57,11 +57,10 @@ class Processor : AKInstrument {
         ballWithinTheBoxReverb.yLocation = yLocation
         ballWithinTheBoxReverb.zLocation = zLocation
         ballWithinTheBoxReverb.diffusion = 0.0.ak
-        connect(ballWithinTheBoxReverb)
 
         let mix = AKMix(
             input1: audioSource,
-            input2: ballWithinTheBoxReverb.leftOutput,
+            input2: AKMix(monoAudioFromStereoInput: ballWithinTheBoxReverb),
             balance: 0.1.ak
         )
 
