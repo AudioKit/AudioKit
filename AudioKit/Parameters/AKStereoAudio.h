@@ -14,9 +14,9 @@
 @interface AKStereoAudio : AKParameter
 
 /// The output to the left channel.
-@property AKParameter *leftOutput;
+@property (nonatomic) AKParameter *leftOutput;
 /// The output to the right channel.
-@property AKParameter *rightOutput;
+@property (nonatomic) AKParameter *rightOutput;
 
 /// Create an audio pair from left and right inputs
 /// @param leftAudio  Left channel input
@@ -29,7 +29,7 @@
 
 /// Quick and dirty way to get a stereo signal from a mono.
 /// @param mono Regular mono audio source.
-+ (AKStereoAudio *)stereoFromMono:(AKParameter *)mono;
++ (instancetype)stereoFromMono:(AKParameter *)mono;
 
 /// Create a parameter available to all instruments in the orchestra.
 + (instancetype)globalParameter;
