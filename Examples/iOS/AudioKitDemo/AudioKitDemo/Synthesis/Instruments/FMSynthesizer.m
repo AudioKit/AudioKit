@@ -14,18 +14,13 @@
 {
     self = [super init];
     if (self) {
-        // Note Properties
-        FMSynthesizerNote *note = [[FMSynthesizerNote alloc] init];
-        [self addNoteProperty:note.frequency];
-        [self addNoteProperty:note.color];
-
         AKADSREnvelope *envelope = [[AKADSREnvelope alloc] initWithAttackDuration:akp(0.1)
                                                                     decayDuration:akp(0.1)
                                                                      sustainLevel:akp(0.5)
                                                                   releaseDuration:akp(0.3)
                                                                             delay:akp(0)];
         
-        // Instrument Definition
+        FMSynthesizerNote *note = [[FMSynthesizerNote alloc] init];
         AKFMOscillator *oscillator = [AKFMOscillator oscillator];
         oscillator.baseFrequency = note.frequency;
         oscillator.carrierMultiplier    = [note.color scaledBy:akp(2)];
