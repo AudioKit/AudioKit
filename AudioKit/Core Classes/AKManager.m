@@ -235,6 +235,11 @@ static AKManager *_sharedManager = nil;
 - (void)resetOrchestra
 {
     _orchestra = [[AKOrchestra alloc] init];
+    _numberOfSineWaveReferences = 0;
+    _numberOfTriangleWaveReferences = 0;
+    _numberOfSquareWaveReferences = 0;
+    _numberOfSawtoothWaveReferences = 0;
+    _numberOfReverseSawtoothWaveReferences = 0;
 }
 
 // -----------------------------------------------------------------------------
