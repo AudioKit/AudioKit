@@ -16,16 +16,14 @@ class Instrument : AKInstrument {
         super.init()
 
         let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
-
         let soundFile = AKSoundFile(filename: filename)
-        addFunctionTable(soundFile)
 
         let speed = AKLine(
             firstPoint:  3.ak,
             secondPoint: 0.5.ak,
             durationBetweenPoints: testDuration.ak
         )
-
+        
         let functionTableLooper = AKFunctionTableLooper(functionTable: soundFile)
         functionTableLooper.endTime = 9.6.ak
         functionTableLooper.transpositionRatio = speed

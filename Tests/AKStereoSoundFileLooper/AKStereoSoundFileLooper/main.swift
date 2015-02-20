@@ -17,13 +17,13 @@ class Instrument : AKInstrument {
 
         let filename = "CsoundLib64.framework/Sounds/808loop.wav"
         let soundFile = AKSoundFile(filename: filename)
-        addFunctionTable(soundFile)
-
-        let speed = AKLine(firstPoint: 4.ak, secondPoint: 0.2.ak, durationBetweenPoints: testDuration.ak)
-
         let stereoSoundFileLooper = AKStereoSoundFileLooper(soundFile: soundFile)
+        
+        let speed = AKLine(firstPoint: 4.ak, secondPoint: 0.2.ak, durationBetweenPoints: testDuration.ak)
         stereoSoundFileLooper.frequencyRatio = speed
+        
         stereoSoundFileLooper.loopMode = AKStereoSoundFileLooper.loopPlaysForwardAndThenBackwards()
+        
         setAudioOutput(stereoSoundFileLooper)
 
         enableParameterLog(

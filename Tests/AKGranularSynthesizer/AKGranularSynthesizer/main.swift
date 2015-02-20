@@ -19,7 +19,6 @@ class Instrument : AKInstrument {
 
         let soundFile = AKSoundFile(filename: filename)
         soundFile.size = 16384
-        addFunctionTable(soundFile)
 
         let frequencyLine = AKLine(
             firstPoint:  0.1.ak,
