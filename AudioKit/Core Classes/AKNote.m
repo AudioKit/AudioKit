@@ -83,7 +83,6 @@ static int currentID = 1;
 #  pragma mark - Properties and Property Management
 // -----------------------------------------------------------------------------
 
-
 - (void) addProperty:(AKNoteProperty *)newProperty
             withName:(NSString *)name
 {

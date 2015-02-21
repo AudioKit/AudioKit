@@ -22,13 +22,13 @@
         
         FMSynthesizerNote *note = [[FMSynthesizerNote alloc] init];
         AKFMOscillator *oscillator = [AKFMOscillator oscillator];
-        oscillator.baseFrequency = note.frequency;
+        oscillator.baseFrequency        = note.frequency;
         oscillator.carrierMultiplier    = [note.color scaledBy:akp(2)];
         oscillator.modulatingMultiplier = [note.color scaledBy:akp(3)];
         oscillator.modulationIndex      = [note.color scaledBy:akp(10)];
-        oscillator.amplitude = [envelope scaledBy:akp(0.25)];
+        oscillator.amplitude            = [envelope scaledBy:akp(0.25)];
         [self setAudioOutput:oscillator];
-    }
+}
     return self;
 }
 @end
