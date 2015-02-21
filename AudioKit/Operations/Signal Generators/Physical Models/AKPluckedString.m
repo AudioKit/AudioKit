@@ -2,7 +2,7 @@
 //  AKPluckedString.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 2/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's repluck:
@@ -11,53 +11,70 @@
 
 #import "AKPluckedString.h"
 #import "AKManager.h"
+#import "AKMonoSoundFileLooper.h"
 
-@implementation AKPluckedString
-{
-    AKParameter * _excitationSignal;
+@implementation AKPluckedString {
+    AKMonoSoundFileLooper *_excitationSignal;
 }
 
-- (instancetype)initWithExcitationSignal:(AKParameter *)excitationSignal
-                               frequency:(AKConstant *)frequency
-                           pluckPosition:(AKConstant *)pluckPosition
-                          samplePosition:(AKParameter *)samplePosition
-                   reflectionCoefficient:(AKParameter *)reflectionCoefficient
-                               amplitude:(AKParameter *)amplitude
+- (instancetype)initWithFrequency:(AKConstant *)frequency
+                    pluckPosition:(AKConstant *)pluckPosition
+                   samplePosition:(AKParameter *)samplePosition
+            reflectionCoefficient:(AKParameter *)reflectionCoefficient
+                        amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _excitationSignal = excitationSignal;
         _frequency = frequency;
         _pluckPosition = pluckPosition;
         _samplePosition = samplePosition;
         _reflectionCoefficient = reflectionCoefficient;
         _amplitude = amplitude;
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
+        }
+        
+        AKSoundFile *_strikeImpulseTable;
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
+        _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
+
         [self setUpConnections];
 }
     return self;
 }
 
-- (instancetype)initWithExcitationSignal:(AKParameter *)excitationSignal
+- (instancetype)init
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _excitationSignal = excitationSignal;
         // Default Values
         _frequency = akp(440);
         _pluckPosition = akp(0.01);
         _samplePosition = akp(0.1);
         _reflectionCoefficient = akp(0.1);
         _amplitude = akp(1.0);
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
+        }
+        
+        AKSoundFile *_strikeImpulseTable;
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
+        _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
         [self setUpConnections];
     }
     return self;
 }
 
-+ (instancetype)pluckWithExcitationSignal:(AKParameter *)excitationSignal
++ (instancetype)pluck
 {
-    return [[AKPluckedString alloc] initWithExcitationSignal:excitationSignal];
+    return [[AKPluckedString alloc] init];
 }
-
 
 - (void)setFrequency:(AKConstant *)frequency {
     _frequency = frequency;
@@ -108,7 +125,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_excitationSignal, _frequency, _pluckPosition, _samplePosition, _reflectionCoefficient, _amplitude];
+    self.dependencies = @[_frequency, _pluckPosition, _samplePosition, _reflectionCoefficient, _amplitude, _excitationSignal];
 }
 
 - (NSString *)inlineStringForCSD
@@ -162,7 +179,7 @@
     } else {
         [inputsString appendFormat:@"AKAudio(%@)", _excitationSignal];
     }
-return inputsString;
+    return inputsString;
 }
 
 @end

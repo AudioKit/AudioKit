@@ -2,7 +2,7 @@
 //  AKPluckedString.h
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 2/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -16,26 +16,23 @@
 
 @interface AKPluckedString : AKAudio
 /// Instantiates the plucked string with all values
-/// @param excitationSignal A signal which excites the string. [Default Value: ]
 /// @param frequency Frequency of the string [Default Value: 440]
 /// @param pluckPosition The point of pluck as a fraction of the way up the string (0 to 1). A pluck point of zero means no initial pluck. [Default Value: 0.01]
 /// @param samplePosition Proportion of the way along the string to sample the output. Updated at Control-rate. [Default Value: 0.1]
 /// @param reflectionCoefficient The coefficient of reflection, indicating the lossiness and the rate of decay. It must be strictly between 0 and 1 (it will complain about both 0 and 1). Updated at Control-rate. [Default Value: 0.1]
 /// @param amplitude Amplitude of note. Updated at Control-rate. [Default Value: 1.0]
-- (instancetype)initWithExcitationSignal:(AKParameter *)excitationSignal
-                               frequency:(AKConstant *)frequency
-                           pluckPosition:(AKConstant *)pluckPosition
-                          samplePosition:(AKParameter *)samplePosition
-                   reflectionCoefficient:(AKParameter *)reflectionCoefficient
-                               amplitude:(AKParameter *)amplitude;
+- (instancetype)initWithFrequency:(AKConstant *)frequency
+                    pluckPosition:(AKConstant *)pluckPosition
+                   samplePosition:(AKParameter *)samplePosition
+            reflectionCoefficient:(AKParameter *)reflectionCoefficient
+                        amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the plucked string with default values
-/// @param excitationSignal A signal which excites the string.
-- (instancetype)initWithExcitationSignal:(AKParameter *)excitationSignal;
+- (instancetype)init;
 
 /// Instantiates the plucked string with default values
-/// @param excitationSignal A signal which excites the string.
-+ (instancetype)pluckWithExcitationSignal:(AKParameter *)excitationSignal;
++ (instancetype)pluck;
+
 
 /// Frequency of the string [Default Value: 440]
 @property (nonatomic) AKConstant *frequency;
