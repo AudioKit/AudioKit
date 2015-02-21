@@ -1,11 +1,10 @@
 //
-//  AKConvolution.m
+//  AKStereoConvolution.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Customized by Aurelius Prochazka on 12/27/14.
-//
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/20/15.
+//  Customized by Aurelius Prochazka to simplify the interface.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pconvolve:
 //  http://www.csounds.com/manual/html/pconvolve.html
@@ -16,8 +15,8 @@
 
 @implementation AKStereoConvolution
 {
-    AKParameter * _input;
-    NSString * _impulseResponseFilename;
+    AKParameter *_input;
+    NSString *_impulseResponseFilename;
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
@@ -27,32 +26,56 @@
     if (self) {
         _input = input;
         _impulseResponseFilename = impulseResponseFilename;
-    }
+        [self setUpConnections];
+}
     return self;
 }
 
 + (instancetype)convolutionWithInput:(AKParameter *)input
-             impulseResponseFilename:(NSString *)impulseResponseFilename
+            impulseResponseFilename:(NSString *)impulseResponseFilename
 {
     return [[AKStereoConvolution alloc] initWithInput:input
-                              impulseResponseFilename:impulseResponseFilename];
+            impulseResponseFilename:impulseResponseFilename];
+}
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"pconvolve("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
 }
 
 
-- (NSString *)stringForCSD {
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
-    
+
     [csdString appendFormat:@"%@ pconvolve ", self];
-    
-    if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _input];
-    } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _input];
-    }
-    
-    [csdString appendFormat:@"\"%@\"", _impulseResponseFilename];
-    
+    [csdString appendString:[self inputsString]];
     return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    if ([_input class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", _input];
+    } else {
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
+    }
+
+    [inputsString appendFormat:@"\"%@\"", _impulseResponseFilename];
+    return inputsString;
 }
 
 @end
