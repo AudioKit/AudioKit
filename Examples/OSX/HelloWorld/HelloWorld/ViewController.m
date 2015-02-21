@@ -20,19 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // Do any additional setup after loading the view.
-    
     // STEP 3 : Define the instrument as a simple oscillator
-    instrument = [[AKInstrument alloc] init];
-    AKOscillator *oscillator = [AKOscillator oscillator];
-    [instrument connect:oscillator];
-    AKAudioOutput *output = [[AKAudioOutput alloc] initWithAudioSource:oscillator];
-    [instrument connect:output];
+    instrument = [AKInstrument instrument];
+    [instrument setAudioOutput:[AKOscillator oscillator]];
     
-    // STEP 4 : Add the instrument to the orchestra and start the orchestra
+    // STEP 4 : Add the instrument to the orchestra
     [AKOrchestra addInstrument:instrument];
-    [AKOrchestra start];
     
 }
 
