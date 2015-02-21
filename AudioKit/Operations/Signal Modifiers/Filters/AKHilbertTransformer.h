@@ -2,13 +2,11 @@
 //  AKHilbertTransformer.h
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Customized by Aurelius Prochazka on 12/27/14.
-//
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/20/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKStereoAudio.h"
+#import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
 /** An IIR implementation of a Hilbert transformer.
@@ -19,19 +17,19 @@ Internally, AKHilbertTransformer is based on two parallel 6th-order allpass filt
 Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does not have a linear phase response. However, the IIR structure used in AKHilbertTransformer is far more efficient to compute, and the nonlinear phase response can be used in the creation of interesting audio effects, as in the second example below.
  */
 
-@interface AKHilbertTransformer : AKStereoAudio
+@interface AKHilbertTransformer : AKAudio
 /// Instantiates the hilbert transformer with all values
 /// @param input The input audio Signal [Default Value: ]
-- (instancetype)initWithInput:(AKParameter *)input;
+/// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: ]
+- (instancetype)initWithInput:(AKParameter *)input
+                    frequency:(AKParameter *)frequency;
 
 /// Instantiates the hilbert transformer with default values
 /// @param input The input audio Signal
-+ (instancetype)filterWithInput:(AKParameter *)input;
+/// @param frequency The frequency shifter frequency.
++ (instancetype)filterWithInput:(AKParameter *)input
+                      frequency:(AKParameter *)frequency;
 
-/// Helper functions to pull apart the stereo audio output appropriately.
-- (AKParameter *)realPart;
-- (AKParameter *)imaginaryPart;
-- (AKParameter *)sineOutput;
-- (AKParameter *)cosineOutput;
+
 
 @end

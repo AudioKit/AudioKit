@@ -2,8 +2,8 @@
 //  AKHilbertTransformer.m
 //  AudioKit
 //
-//  Auto-generated on 12/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/20/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's hilbert:
 //  http://www.csounds.com/manual/html/hilbert.html
@@ -15,46 +15,86 @@
 @implementation AKHilbertTransformer
 {
     AKParameter * _input;
+    AKParameter * _frequency;
 }
 
 - (instancetype)initWithInput:(AKParameter *)input
+                    frequency:(AKParameter *)frequency
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _input = input;
-    }
+        _frequency = frequency;
+        [self setUpConnections];
+}
     return self;
 }
 
 + (instancetype)filterWithInput:(AKParameter *)input
+                     frequency:(AKParameter *)frequency
 {
-    return [[AKHilbertTransformer alloc] initWithInput:input];
+    return [[AKHilbertTransformer alloc] initWithInput:input
+                     frequency:frequency];
 }
 
-- (AKParameter *)realPart {
-    return self.leftOutput;
-}
-- (AKParameter *)imaginaryPart {
-    return self.rightOutput;
-}
-- (AKParameter *)sineOutput {
-    return self.leftOutput;
-}
-- (AKParameter *)cosineOutput{
-    return self.rightOutput;
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input, _frequency, [AKManager standardSineWave]];
 }
 
-- (NSString *)stringForCSD {
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"akHilbertTransformer("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    [csdString appendFormat:@"%@ hilbert ", self];
+    [csdString appendFormat:@"%@ akHilbertTransformer ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
 
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
     if ([_input class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@", _input];
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@)", _input];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
-return csdString;
+
+    if ([_frequency class] == [AKControl class]) {
+        [inputsString appendFormat:@"%@", _frequency];
+    } else {
+        [inputsString appendFormat:@"AKAudio(%@)", _frequency];
+    }
+return inputsString;
+}
+
+- (NSString *)udoString {
+    return [NSString stringWithFormat:@"\n"
+            "opcode akHilbertTransformer, a, aa\n"
+            "ain, aFreq     xin\n"
+            "areal, aimag hilbert ain\n"
+            "asin oscili 1, aFreq, %@\n"
+            "acos oscili 1, aFreq, %@, .25\n"
+            "amod1 = areal * acos\n"
+            "amod2 = aimag * asin\n"
+            "aupshift = (amod1 + amod2) * 0.7\n"
+            "xout aupshift\n"
+            "endop\n", [AKManager standardSineWave], [AKManager standardSineWave]];
 }
 
 @end
