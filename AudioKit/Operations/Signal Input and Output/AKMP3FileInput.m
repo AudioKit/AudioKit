@@ -24,6 +24,20 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         _filename = filename;
+        _startTime = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+- (instancetype)initWithFilename:(NSString *)filename
+                       startTime:(AKConstant *)startTime
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _filename = filename;
+        _startTime = startTime;
+        [self setUpConnections];
     }
     return self;
 }
@@ -33,12 +47,28 @@
     return [[AKMP3FileInput alloc] initWithFilename:filename];
 }
 
+- (void)setStartTime:(AKConstant *)startTime {
+    _startTime = startTime;
+    [self setUpConnections];
+}
+
+- (void)setOptionalStartTime:(AKConstant *)startTime {
+    [self setStartTime:startTime];
+}
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_startTime];
+}
+
+
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ mp3in ", self];
-
+    
     [csdString appendFormat:@"\"%@\"", _filename];
     return csdString;
 }

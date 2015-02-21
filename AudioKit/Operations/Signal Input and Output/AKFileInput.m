@@ -55,8 +55,13 @@
     [self setSpeed:speed];
 }
 
-- (void)setOptionalStartTime:(AKConstant *)startTime {
+- (void)setStartTime:(AKConstant *)startTime {
     _startTime = startTime;
+    [self setUpConnections];
+}
+
+- (void)setOptionalStartTime:(AKConstant *)startTime {
+    [self setStartTime:startTime];
 }
 
 - (void)normalizeTo:(float)maximumAmplitude {

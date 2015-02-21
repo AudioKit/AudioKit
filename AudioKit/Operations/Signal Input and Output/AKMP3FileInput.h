@@ -12,8 +12,6 @@
 #import "AKParameter+Operation.h"
 
 /** Reads stereo audio data from an external MP3 file.
-
- Implementation of http://www.csounds.com/manual/html/mp3in.html
  */
 
 @interface AKMP3FileInput : AKStereoAudio
@@ -26,6 +24,17 @@
 /// @param filename Input MP3 Filename.
 + (instancetype)mp3WithFilename:(NSString *)filename;
 
+/// Instantiates the mp3 file input with default values
+/// @param filename Input MP3 Filename.
+/// @param startTime Time in second to start the playback (useful for pause/resume) [Default: 0]
+- (instancetype)initWithFilename:(NSString *)filename
+                       startTime:(AKConstant *)startTime;
 
+/// Set the start time (useful for pause/resume
+@property (nonatomic) AKConstant *startTime;
+
+/// Set an optional start time
+/// @param startTime Time in second to start the playback (useful for pause/resume)
+- (void)setOptionalStartTime:(AKConstant *)startTime;
 
 @end
