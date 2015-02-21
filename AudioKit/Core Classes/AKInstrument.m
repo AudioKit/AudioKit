@@ -105,6 +105,15 @@ static int currentID = 1;
     [newProperty setName:name];
 }
 
+- (AKInstrumentProperty *)createPropertyWithValue:(float)value
+                                          minimum:(float)minimum
+                                          maximum:(float)maximum
+{
+    AKInstrumentProperty *property = [[AKInstrumentProperty alloc] initWithValue:value minimum:minimum maximum:maximum];
+    [self addProperty:property];
+    return property;
+}
+
 
 - (void)addNoteProperty:(AKNoteProperty *)newNoteProperty
 {
