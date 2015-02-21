@@ -77,7 +77,6 @@
 #import "AKMinimum.h"
 #import "AKMultipleInputMathOperation.h"
 #import "AKProduct.h"
-#import "AKScaledControl.h"
 #import "AKSum.h"
 
 // Operations - Signal Generators
