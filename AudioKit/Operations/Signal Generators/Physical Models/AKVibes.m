@@ -12,7 +12,9 @@
 #import "AKVibes.h"
 #import "AKManager.h"
 
-@implementation AKVibes
+@implementation AKVibes {
+    AKSoundFile *_strikeImpulseTable;
+}
 
 - (instancetype)initWithFrequency:(AKParameter *)frequency
                         amplitude:(AKParameter *)amplitude
@@ -31,6 +33,15 @@
         _tremoloShapeTable = tremoloShapeTable;
         _tremoloFrequency = tremoloFrequency;
         _tremoloAmplitude = tremoloAmplitude;
+        
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
+        }
+        
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        
         [self setUpConnections];
 }
     return self;
@@ -49,6 +60,15 @@
     
         _tremoloFrequency = akp(0);
         _tremoloAmplitude = akp(0);
+        
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
+        }
+        
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        
         [self setUpConnections];
     }
     return self;
@@ -126,7 +146,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _tremoloShapeTable, _tremoloFrequency, _tremoloAmplitude];
+    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _tremoloShapeTable, _tremoloFrequency, _tremoloAmplitude, _strikeImpulseTable];
 }
 
 - (NSString *)inlineStringForCSD
@@ -152,17 +172,6 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
-    // Constant Values  
-    NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
-    if (!file) {
-        file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-    }
-
-    AKSoundFile *_strikeImpulseTable;
-    _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
-    AKInstrument *temp = [[AKInstrument alloc] init];
-    [temp addFunctionTable:_strikeImpulseTable]; //AOP
     
     AKConstant *_maximumDuration = akp(1);        
     

@@ -12,7 +12,9 @@
 #import "AKMarimba.h"
 #import "AKManager.h"
 
-@implementation AKMarimba
+@implementation AKMarimba {
+    AKSoundFile *_strikeImpulseTable;
+}
 
 - (instancetype)initWithFrequency:(AKParameter *)frequency
                         amplitude:(AKConstant *)amplitude
@@ -35,6 +37,15 @@
         _vibratoAmplitude = vibratoAmplitude;
         _doubleStrikePercentage = doubleStrikePercentage;
         _tripleStrikePercentage = tripleStrikePercentage;
+        
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
+        }
+        
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        
         [self setUpConnections];
 }
     return self;
@@ -55,6 +66,15 @@
         _vibratoAmplitude = akp(0);
         _doubleStrikePercentage = akp(40);
         _tripleStrikePercentage = akp(20);
+        
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
+        }
+        
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        
         [self setUpConnections];
     }
     return self;
@@ -150,7 +170,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _vibratoShapeTable, _vibratoFrequency, _vibratoAmplitude, _doubleStrikePercentage, _tripleStrikePercentage];
+    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _vibratoShapeTable, _vibratoFrequency, _vibratoAmplitude, _doubleStrikePercentage, _tripleStrikePercentage, _strikeImpulseTable];
 }
 
 - (NSString *)inlineStringForCSD
@@ -176,17 +196,6 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
-    // Constant Values  
-    NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
-    if (!file) {
-        file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-    }
-
-    AKSoundFile *_strikeImpulseTable;
-    _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
-    AKInstrument *temp = [[AKInstrument alloc] init];
-    [temp addFunctionTable:_strikeImpulseTable];
             
     AKConstant *_maximumDuration = akp(1);        
     
