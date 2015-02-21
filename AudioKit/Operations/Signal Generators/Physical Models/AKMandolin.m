@@ -12,7 +12,9 @@
 #import "AKMandolin.h"
 #import "AKManager.h"
 
-@implementation AKMandolin
+@implementation AKMandolin {
+    AKSoundFile *_strikeImpulseTable;
+}
 
 - (instancetype)initWithBodySize:(AKParameter *)bodySize
                        frequency:(AKParameter *)frequency
@@ -29,6 +31,14 @@
         _pairedStringDetuning = pairedStringDetuning;
         _pluckPosition = pluckPosition;
         _loopGain = loopGain;
+        
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
+        }
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        
         [self setUpConnections];
 }
     return self;
@@ -45,6 +55,14 @@
         _pairedStringDetuning = akp(1);
         _pluckPosition = akp(0.4);
         _loopGain = akp(0.99);
+        
+        // Constant Values
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
+        if (!file) {
+            file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
+        }
+        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        
         [self setUpConnections];
     }
     return self;
@@ -113,7 +131,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_bodySize, _frequency, _amplitude, _pairedStringDetuning, _pluckPosition, _loopGain];
+    self.dependencies = @[_bodySize, _frequency, _amplitude, _pairedStringDetuning, _pluckPosition, _loopGain, _strikeImpulseTable];
 }
 
 - (NSString *)inlineStringForCSD
@@ -139,18 +157,6 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
-    // Constant Values  
-    NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
-    if (!file) {
-        file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
-    }
-
-    AKSoundFile *_strikeImpulseTable;
-    _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
-    AKInstrument *temp = [[AKInstrument alloc] init];
-    [temp addFunctionTable:_strikeImpulseTable]; //AOP
-    
     
     if ([_amplitude class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _amplitude];

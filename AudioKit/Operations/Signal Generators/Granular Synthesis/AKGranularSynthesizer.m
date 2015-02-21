@@ -188,9 +188,6 @@
 }
 
 - (NSString *)inputsString {
-    
-    AKInstrument *temp = [[AKInstrument alloc] init];
-    [temp addFunctionTable:_windowWaveform]; //AOP
 
     NSMutableString *inputsString = [[NSMutableString alloc] init];
 
