@@ -28,13 +28,10 @@ AKOrchestra.testForDuration(2)
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
-let note1 = AKNote()
-note1.duration.setValue(1)
+let note = AKNote()
+note.duration.setValue(1)
 
-let phrase = AKPhrase()
-phrase.addNote(note1, atTime:0.5)
-
-instrument.playPhrase(phrase)
+instrument.playNote(note)
 
 let manager = AKManager.sharedManager()
 while(manager.isRunning) {} //do nothing
