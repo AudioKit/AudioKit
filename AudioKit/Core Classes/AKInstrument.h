@@ -19,7 +19,7 @@
 
 /** Manages functions that most AK instruments need to have.*/
 
-@interface AKInstrument : NSObject 
+@interface AKInstrument : NSObject
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization
@@ -56,11 +56,19 @@
 /// Array of note properties available to events.
 @property NSMutableArray *noteProperties;
 
-/// After an AKProperty is created, it must be added to the instrument.
+/// Add an instrument property explicity (normally this happens automatically)
 /// @param newProperty New property to add to the instrument.
 - (void) addProperty:(AKInstrumentProperty *)newProperty;
 
-/// After an AKNoteProperty is created, it must be added to the instrument.
+/// Helper function to create a property with the usually values and add it to the instrument
+/// @param value   Current value of the note property
+/// @param minimum Minimum value
+/// @param maximum Maximum value
+- (AKInstrumentProperty *)createPropertyWithValue:(float)value
+                                          minimum:(float)minimum
+                                          maximum:(float)maximum;
+
+/// Add a note property to the instrumnet explicitly (normally happens automatically)
 /// @param newNoteProperty New note property instrument needs to be aware of.
 - (void)addNoteProperty:(AKNoteProperty *)newNoteProperty;
 
