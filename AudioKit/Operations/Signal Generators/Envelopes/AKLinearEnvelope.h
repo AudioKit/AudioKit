@@ -3,7 +3,6 @@
 //  AudioKit
 //
 //  Auto-generated on 2/18/15.
-//  Customized by Aurelius Prochazka to add decayOnlyOnRelease
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -60,10 +59,5 @@
 /// Set an optional amplitude
 /// @param amplitude Amplitude to rise to and decay from. Updated at Control-rate. [Default Value: 1]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
-
-/// Set decay to only occur when the note is explicitly released by a "stop" command
-/// @param decayOnRelease Boolean flag to not start decay phase until a stop command is issued
-- (void)decayOnlyOnRelease:(BOOL)decayOnRelease;
-
 
 @end

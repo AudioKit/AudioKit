@@ -3,7 +3,6 @@
 //  AudioKit
 //
 //  Auto-generated on 2/18/15.
-//  Customized by Aurelius Prochazka to add decayOnlyOnRelease
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's linen:
@@ -13,9 +12,7 @@
 #import "AKLinearEnvelope.h"
 #import "AKManager.h"
 
-@implementation AKLinearEnvelope {
-    BOOL _decayNoteAfterStop;
-}
+@implementation AKLinearEnvelope
 
 - (instancetype)initWithRiseTime:(AKConstant *)riseTime
                        decayTime:(AKConstant *)decayTime
@@ -94,19 +91,11 @@
     self.dependencies = @[_riseTime, _decayTime, _totalDuration, _amplitude];
 }
 
-- (void)decayOnlyOnRelease:(BOOL)decayOnRelease
-{
-    _decayNoteAfterStop = decayOnRelease;
-}
-
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-
-    NSString *opcode = @"linen";
-    if (_decayNoteAfterStop) opcode = @"linenr";
     
-    [inlineCSDString appendFormat:@"%@(", opcode];
+    [inlineCSDString appendString:@"linen("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
 
@@ -117,11 +106,8 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-    
-    NSString *opcode = @"linen";
-    if (_decayNoteAfterStop) opcode = @"linenr";
 
-    [csdString appendFormat:@"%@ %@ ", self, opcode];
+    [csdString appendFormat:@"%@ linen @ ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
 }
