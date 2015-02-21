@@ -226,6 +226,11 @@ static AKManager *_sharedManager = nil;
 - (void)resetOrchestra
 {
     _orchestra = [[AKOrchestra alloc] init];
+    _standardSineWave.state            = @"unnconnected";
+    _standardTriangleWave.state        = @"unnconnected";
+    _standardSquareWave.state          = @"unnconnected";
+    _standardSawtoothWave.state        = @"unnconnected";
+    _standardReverseSawtoothWave.state = @"unnconnected";
 }
 
 // -----------------------------------------------------------------------------
