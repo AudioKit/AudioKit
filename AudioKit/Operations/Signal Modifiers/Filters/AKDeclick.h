@@ -2,22 +2,23 @@
 //  AKDeclick.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/1/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/20/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
-/** Removes clicks from signal start and end
- 
- Given a signal, declick will apply an envelope to ensure there is no clicking at the start or end of the sound.
+/** Declick operation to prevent clicks at the stop of the input signal
  */
 
 @interface AKDeclick : AKAudio
+/// Instantiates the declick with all values
+/// @param input Input audio signal to be declicked [Default Value: ]
+- (instancetype)initWithInput:(AKParameter *)input;
 
-/// Instantiates the declick
-/// @param audioSource Audio to declick
-- (instancetype)initWithInput:(AKAudio *)audioSource;
+/// Instantiates the declick with default values
+/// @param input Input audio signal to be declicked
++ (instancetype)WithInput:(AKParameter *)input;
 
 @end
