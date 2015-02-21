@@ -15,13 +15,8 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let filename = "CsoundLib64.framework/Sounds/marmstk1.wav"
-        let functionTable = AKSoundFile(filename: filename)
-        let excitation = AKMonoSoundFileLooper(soundFile: functionTable)
-        excitation.loopMode = AKMonoSoundFileLooper.loopPlaysOnce()
-
         let note = Note()
-        let pluckedString = AKPluckedString(excitationSignal: excitation)
+        let pluckedString = AKPluckedString()
         pluckedString.frequency = note.frequency
         setAudioOutput(pluckedString)
 
