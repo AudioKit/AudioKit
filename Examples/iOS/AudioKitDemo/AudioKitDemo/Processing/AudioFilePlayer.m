@@ -15,21 +15,12 @@
     self = [super init];
     if (self) {
         
-        // INSTRUMENT BASED CONTROL ============================================
-        _speed = [[AKInstrumentProperty alloc] initWithValue:1
-                                                     minimum:-2
-                                                     maximum:2];
+        // Instrument Control
+        _speed     = [self createPropertyWithValue:1 minimum:-2 maximum:2];
+        _scaling   = [self createPropertyWithValue:1 minimum:0  maximum:3];
+        _sampleMix = [self createPropertyWithValue:0 minimum:0  maximum:1];
         
-        _scaling = [[AKInstrumentProperty alloc] initWithValue:1
-                                                       minimum:0.0
-                                                       maximum:3.0];
-        
-        _sampleMix = [[AKInstrumentProperty alloc] initWithValue:0
-                                                         minimum:0
-                                                         maximum:1];
-        
-        // INSTRUMENT DEFINITION ===============================================
-
+        // Instrument Definition
         NSString *file1;
         file1 = [[NSBundle mainBundle] pathForResource:@"PianoBassDrumLoop" ofType:@"wav"];
 

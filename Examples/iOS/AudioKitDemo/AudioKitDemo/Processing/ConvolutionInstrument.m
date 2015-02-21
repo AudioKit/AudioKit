@@ -15,44 +15,30 @@
     self = [super init];
     if (self) {
         
-        // INPUTS AND CONTROLS =================================================
-        _dishWellBalance = [[AKInstrumentProperty alloc] initWithValue:0
-                                                               minimum:0
-                                                               maximum:1.0];
+        // Controls
+        _dishWellBalance = [self createPropertyWithValue:0 minimum:0 maximum:1];
+        _dryWetBalance   = [self createPropertyWithValue:0 minimum:0 maximum:0.1];
         
-        _dryWetBalance = [[AKInstrumentProperty alloc] initWithValue:0
-                                                             minimum:0
-                                                             maximum:0.1];
-        
-        // INSTRUMENT DEFINITION ===============================================
-        NSString *dish = [[NSBundle mainBundle] pathForResource:@"dish" ofType:@"wav"];
+        // Instrument definition
+        NSString *dish = [[NSBundle mainBundle] pathForResource:@"dish"      ofType:@"wav"];
         NSString *well = [[NSBundle mainBundle] pathForResource:@"Stairwell" ofType:@"wav"];
         
-        AKConvolution *dishConv;
-        dishConv = [[AKConvolution alloc] initWithInput:input
-                                      impulseResponseFilename:dish];
+        AKConvolution *dishConv = [[AKConvolution alloc] initWithInput:input
+                                               impulseResponseFilename:dish];
         
-        AKConvolution *wellConv;
-        wellConv  = [[AKConvolution alloc] initWithInput:input
-                                       impulseResponseFilename:well];
+        AKConvolution *wellConv = [[AKConvolution alloc] initWithInput:input
+                                               impulseResponseFilename:well];
         
-        AKMix *balance;
-        balance = [[AKMix alloc] initWithInput1:dishConv
-                                             input2:wellConv
-                                            balance:_dishWellBalance];
+        AKMix *balance = [[AKMix alloc] initWithInput1:dishConv
+                                                input2:wellConv
+                                               balance:_dishWellBalance];
         
-        AKMix *dryWet;
-        dryWet = [[AKMix alloc] initWithInput1:input
-                                        input2:balance
-                                       balance:_dryWetBalance];
+        AKMix *dryWet = [[AKMix alloc] initWithInput1:input
+                                               input2:balance
+                                              balance:_dryWetBalance];
         
         [self setAudioOutput:dryWet];
-        
-        // EXTERNAL OUTPUTS ====================================================
-        // After your instrument is set up, define outputs available to others
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:dryWet];
-        
+
         [self resetParameter:input];
         
     }
