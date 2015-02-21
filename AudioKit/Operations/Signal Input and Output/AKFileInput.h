@@ -34,9 +34,9 @@
 - (void)setOptionalSpeed:(AKParameter *)speed;
 
 /// Set the start time (useful for pause/resume
-@property AKConstant *startTime;
+@property (nonatomic) AKConstant *startTime;
 
-/// Set an optional speed
+/// Set an optional start time
 /// @param startTime Time in second to start the playback (useful for pause/resume)
 - (void)setOptionalStartTime:(AKConstant *)startTime;
 
