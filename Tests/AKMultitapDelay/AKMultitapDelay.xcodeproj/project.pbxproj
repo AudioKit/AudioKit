@@ -32,7 +32,6 @@
 		C431235D1A7EE4B4004B5D5A /* AKMinimum.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123521A7EE4B4004B5D5A /* AKMinimum.m */; };
 		C431235E1A7EE4B4004B5D5A /* AKMultipleInputMathOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123541A7EE4B4004B5D5A /* AKMultipleInputMathOperation.m */; };
 		C431235F1A7EE4B4004B5D5A /* AKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123561A7EE4B4004B5D5A /* AKProduct.m */; };
-		C43123601A7EE4B4004B5D5A /* AKScaledControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123581A7EE4B4004B5D5A /* AKScaledControl.m */; };
 		C43123611A7EE4B4004B5D5A /* AKSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C431235A1A7EE4B4004B5D5A /* AKSum.m */; };
 		C43123641A7EE4CF004B5D5A /* AKMix.m in Sources */ = {isa = PBXBuildFile; fileRef = C43123631A7EE4CF004B5D5A /* AKMix.m */; };
 		C462E36E1A32719E00F80B56 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C462E36D1A32719E00F80B56 /* CsoundLib64.framework */; };
@@ -204,8 +203,6 @@
 		C43123541A7EE4B4004B5D5A /* AKMultipleInputMathOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultipleInputMathOperation.m; sourceTree = "<group>"; };
 		C43123551A7EE4B4004B5D5A /* AKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKProduct.h; sourceTree = "<group>"; };
 		C43123561A7EE4B4004B5D5A /* AKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKProduct.m; sourceTree = "<group>"; };
-		C43123571A7EE4B4004B5D5A /* AKScaledControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKScaledControl.h; sourceTree = "<group>"; };
-		C43123581A7EE4B4004B5D5A /* AKScaledControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKScaledControl.m; sourceTree = "<group>"; };
 		C43123591A7EE4B4004B5D5A /* AKSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSum.h; sourceTree = "<group>"; };
 		C431235A1A7EE4B4004B5D5A /* AKSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSum.m; sourceTree = "<group>"; };
 		C43123621A7EE4CF004B5D5A /* AKMix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMix.h; sourceTree = "<group>"; };
@@ -650,8 +647,6 @@
 				C43123541A7EE4B4004B5D5A /* AKMultipleInputMathOperation.m */,
 				C43123551A7EE4B4004B5D5A /* AKProduct.h */,
 				C43123561A7EE4B4004B5D5A /* AKProduct.m */,
-				C43123571A7EE4B4004B5D5A /* AKScaledControl.h */,
-				C43123581A7EE4B4004B5D5A /* AKScaledControl.m */,
 				C43123591A7EE4B4004B5D5A /* AKSum.h */,
 				C431235A1A7EE4B4004B5D5A /* AKSum.m */,
 			);
@@ -1118,7 +1113,6 @@
 				C480B7E51A51484C0092E3D3 /* AKCrunch.m in Sources */,
 				C47913ED1A29352F00D9807B /* AKTrackedAmplitude.m in Sources */,
 				C47913EE1A29352F00D9807B /* AKTrackedAmplitudeFromFSignal.m in Sources */,
-				C43123601A7EE4B4004B5D5A /* AKScaledControl.m in Sources */,
 				C480B7D31A51484C0092E3D3 /* AKLinearADSREnvelope.m in Sources */,
 				C47914561A29352F00D9807B /* AKReverb.m in Sources */,
 				C47914551A29352F00D9807B /* AKParallelCombLowPassFilterReverb.m in Sources */,
