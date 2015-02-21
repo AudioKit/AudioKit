@@ -2,37 +2,74 @@
 //  AKDeclick.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/1/12.
-//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
+//  Auto-generated on 2/20/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's declick:
 //  http://www.csounds.com/manual/html/declick.html
 //
 
 #import "AKDeclick.h"
+#import "AKManager.h"
 
 @implementation AKDeclick
 {
-    AKAudio *ain;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithInput:(AKAudio *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        ain = audioSource;
-    }
+        _input = input;
+        [self setUpConnections];
+}
     return self;
 }
 
-- (NSString *)stringForCSD {
-    return [NSString stringWithFormat:
-            @"%@ declick %@",
-            self, ain];
++ (instancetype)WithInput:(AKParameter *)input
+{
+    return [[AKDeclick alloc] initWithInput:input];
 }
 
-- (NSString *) udoFile {
-    return [[NSBundle mainBundle] pathForResource: @"declick" ofType: @"udo"];
+
+- (void)setUpConnections
+{
+    self.state = @"connectable";
+    self.dependencies = @[_input];
+}
+
+- (NSString *)inlineStringForCSD
+{
+    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
+
+    [inlineCSDString appendString:@"declick("];
+    [inlineCSDString appendString:[self inputsString]];
+    [inlineCSDString appendString:@")"];
+
+    return inlineCSDString;
+}
+
+
+- (NSString *)stringForCSD
+{
+    NSMutableString *csdString = [[NSMutableString alloc] init];
+
+    [csdString appendFormat:@"%@ declick ", self];
+    [csdString appendString:[self inputsString]];
+    return csdString;
+}
+
+- (NSString *)inputsString {
+    NSMutableString *inputsString = [[NSMutableString alloc] init];
+
+    
+    if ([_input class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@", _input];
+    } else {
+        [inputsString appendFormat:@"AKAudio(%@)", _input];
+    }
+return inputsString;
 }
 
 - (NSString *)udoString {
