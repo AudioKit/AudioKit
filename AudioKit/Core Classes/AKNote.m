@@ -101,7 +101,9 @@ static int currentID = 1;
                                     minimum:(float)minimum
                                     maximum:(float)maximum
 {
-    return [[AKNoteProperty alloc] initWithValue:value minimum:minimum maximum:maximum];
+    AKNoteProperty *property = [[AKNoteProperty alloc] initWithValue:value minimum:minimum maximum:maximum];
+    [self addProperty:property];
+    return property;
 }
 
 
