@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 2/19/15.
+//  Customized by Aurelius Prochazka to skip initialization on held notes with tival()
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wgflute:
@@ -246,7 +247,7 @@
 
     [inputsString appendFormat:@"%@, ", _vibratoShape];
     
-    [inputsString appendFormat:@"%@, ", _initializationParameter];
+    [inputsString appendFormat:@"%@-tival(), ", _initializationParameter];
     
     [inputsString appendFormat:@"%@, ", _jetrf];
     
