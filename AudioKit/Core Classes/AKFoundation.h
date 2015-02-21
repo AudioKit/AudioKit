@@ -73,6 +73,8 @@
 
 // Operations - Mathematical Operations
 #import "AKAssignment.h"
+#import "AKDifference.h"
+#import "AKInverse.h"
 #import "AKMaximum.h"
 #import "AKMinimum.h"
 #import "AKMultipleInputMathOperation.h"

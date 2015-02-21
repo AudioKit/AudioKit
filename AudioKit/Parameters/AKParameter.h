@@ -124,8 +124,8 @@
 - (instancetype)plus:(AKParameter *)additionalParameter;
 
 /// Helper function to create a new AKParameter subtracted from the additional parameter
-/// @param subtractedParameter The subtracted parameter (should be of the same type)
-- (instancetype)minus:(AKParameter *)subtractedParameter;
+/// @param subtrahend The subtracted parameter (should be of the same type)
+- (instancetype)minus:(AKParameter *)subtrahend;
 
 /// Helper function to create a new AKParameter with the output scaled by another parameter
 /// @param scalingFactor The scaling factor should be multiplied by

@@ -8,7 +8,10 @@
 
 #import "AKParameter.h"
 #import "AKSum.h"
+#import "AKDifference.h"
 #import "AKProduct.h"
+#import "AKInverse.h"
+#import "AKSingleInputMathOperation.h"
 
 @implementation AKParameter
 
@@ -155,10 +158,9 @@ static int currentID = 1;
     return sum;
 }
 
-- (instancetype)minus:(AKParameter *)subtractedParameter
+- (instancetype)minus:(AKParameter *)subtrahend
 {
-#warning "Need a better subtraction"
-    AKSum *difference = [[AKSum alloc] initWithFirstInput:self secondInput:subtractedParameter];
+    AKDifference *difference = [[AKDifference alloc] initWithInput:self minus:subtrahend];
     return difference;
 }
 
@@ -168,27 +170,23 @@ static int currentID = 1;
     return product;
 }
 
-#warning "Need a better division"
 - (instancetype)dividedBy:(AKParameter *)divisor
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"((%@) / (%@))", self, divisor]];
-    return new;
+    AKProduct *quotient = [[AKProduct alloc] initWithFirstInput:self secondInput:divisor.inverse];
+    return quotient;
 }
 
-#warning "Need a better inverse"
 - (instancetype)inverse
 {
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"(1/(%@))", self]];
-    return new;
+    AKInverse *inverse = [[AKInverse alloc] initWIthInput:self];
+    return inverse;
 }
 
-#warning "Need all of these to be truly functional"
-- (instancetype)mathWithOperation:(NSString *)operation{
-    AKParameter *new = [[AKParameter alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"%@(%@)", operation, _parameterString]];
-    return new;
+- (instancetype)mathWithOperation:(NSString *)operation
+{
+    AKSingleInputMathOperation *output;
+    output = [[AKSingleInputMathOperation alloc] initWithFunctionString:operation input:self];
+    return output;
 }
 
 - (instancetype)floor          { return [self mathWithOperation:@"floor"]; }
