@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40591221A983BAC0099C23C /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C40591201A983BAC0099C23C /* dish.wav */; };
+		C40591231A983BAC0099C23C /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C40591211A983BAC0099C23C /* Stairwell.wav */; };
 		C4BACD0C1A8FFC3100736291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD0B1A8FFC3100736291 /* main.m */; };
 		C4BACD0F1A8FFC3100736291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD0E1A8FFC3100736291 /* AppDelegate.m */; };
 		C4BACD181A8FFC3100736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BACD161A8FFC3100736291 /* Main.storyboard */; };
@@ -66,7 +68,6 @@
 		C4BACED61A90057500736291 /* AKMinimum.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDD01A90057500736291 /* AKMinimum.m */; };
 		C4BACED71A90057500736291 /* AKMultipleInputMathOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDD21A90057500736291 /* AKMultipleInputMathOperation.m */; };
 		C4BACED81A90057500736291 /* AKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDD41A90057500736291 /* AKProduct.m */; };
-		C4BACED91A90057500736291 /* AKScaledControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDD61A90057500736291 /* AKScaledControl.m */; };
 		C4BACEDA1A90057500736291 /* AKSum.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDD81A90057500736291 /* AKSum.m */; };
 		C4BACEDB1A90057500736291 /* AKADSREnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDDC1A90057500736291 /* AKADSREnvelope.m */; };
 		C4BACEDC1A90057500736291 /* AKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACDDE1A90057500736291 /* AKLine.m */; };
@@ -159,8 +160,6 @@
 		C4BACF381A90603A00736291 /* SynthesisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF371A90603A00736291 /* SynthesisViewController.m */; };
 		C4BACF3F1A90606300736291 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF3A1A90606300736291 /* AudioFilePlayer.m */; };
 		C4BACF401A90606300736291 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */; };
-		C4BACF411A90606300736291 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BACF3D1A90606300736291 /* dish.wav */; };
-		C4BACF421A90606300736291 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4BACF3E1A90606300736291 /* Stairwell.wav */; };
 		C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF451A9060A100736291 /* AnalysisViewController.m */; };
 		C4BACF4D1A90649200736291 /* VocalInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF4C1A90649200736291 /* VocalInput.m */; };
 		C4BACF511A9182BD00736291 /* Tambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF501A9182BD00736291 /* Tambourine.m */; };
@@ -168,6 +167,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C40591201A983BAC0099C23C /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
+		C40591211A983BAC0099C23C /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
 		C4BACD061A8FFC3100736291 /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BACD0A1A8FFC3100736291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4BACD0B1A8FFC3100736291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -305,8 +306,6 @@
 		C4BACDD21A90057500736291 /* AKMultipleInputMathOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultipleInputMathOperation.m; sourceTree = "<group>"; };
 		C4BACDD31A90057500736291 /* AKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKProduct.h; sourceTree = "<group>"; };
 		C4BACDD41A90057500736291 /* AKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKProduct.m; sourceTree = "<group>"; };
-		C4BACDD51A90057500736291 /* AKScaledControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKScaledControl.h; sourceTree = "<group>"; };
-		C4BACDD61A90057500736291 /* AKScaledControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKScaledControl.m; sourceTree = "<group>"; };
 		C4BACDD71A90057500736291 /* AKSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSum.h; sourceTree = "<group>"; };
 		C4BACDD81A90057500736291 /* AKSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSum.m; sourceTree = "<group>"; };
 		C4BACDDB1A90057500736291 /* AKADSREnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKADSREnvelope.h; sourceTree = "<group>"; };
@@ -491,8 +490,6 @@
 		C4BACF3A1A90606300736291 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFilePlayer.m; path = AudioKitDemo/Processing/AudioFilePlayer.m; sourceTree = "<group>"; };
 		C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = AudioKitDemo/Processing/ConvolutionInstrument.h; sourceTree = "<group>"; };
 		C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = AudioKitDemo/Processing/ConvolutionInstrument.m; sourceTree = "<group>"; };
-		C4BACF3D1A90606300736291 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dish.wav; path = AudioKitDemo/Processing/dish.wav; sourceTree = "<group>"; };
-		C4BACF3E1A90606300736291 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Stairwell.wav; path = AudioKitDemo/Processing/Stairwell.wav; sourceTree = "<group>"; };
 		C4BACF441A9060A100736291 /* AnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisViewController.h; path = Analysis/AnalysisViewController.h; sourceTree = "<group>"; };
 		C4BACF451A9060A100736291 /* AnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisViewController.m; path = Analysis/AnalysisViewController.m; sourceTree = "<group>"; };
 		C4BACF4B1A90649200736291 /* VocalInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VocalInput.h; path = Analysis/VocalInput.h; sourceTree = "<group>"; };
@@ -565,8 +562,6 @@
 				C4BACF3A1A90606300736291 /* AudioFilePlayer.m */,
 				C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */,
 				C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */,
-				C4BACF3D1A90606300736291 /* dish.wav */,
-				C4BACF3E1A90606300736291 /* Stairwell.wav */,
 				C4BACD321A9002BE00736291 /* ProcessingViewController.h */,
 				C4BACD331A9002BE00736291 /* ProcessingViewController.m */,
 			);
@@ -701,6 +696,8 @@
 			isa = PBXGroup;
 			children = (
 				C4BACD841A90057500736291 /* 808loop.wav */,
+				C40591201A983BAC0099C23C /* dish.wav */,
+				C40591211A983BAC0099C23C /* Stairwell.wav */,
 				C4BACD851A90057500736291 /* mandpluk.aif */,
 				C4BACD861A90057500736291 /* marmstk1.wav */,
 				C4BACD871A90057500736291 /* PianoBassDrumLoop.wav */,
@@ -830,8 +827,6 @@
 				C4BACDD21A90057500736291 /* AKMultipleInputMathOperation.m */,
 				C4BACDD31A90057500736291 /* AKProduct.h */,
 				C4BACDD41A90057500736291 /* AKProduct.m */,
-				C4BACDD51A90057500736291 /* AKScaledControl.h */,
-				C4BACDD61A90057500736291 /* AKScaledControl.m */,
 				C4BACDD71A90057500736291 /* AKSum.h */,
 				C4BACDD81A90057500736291 /* AKSum.m */,
 			);
@@ -1282,8 +1277,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4BACF411A90606300736291 /* dish.wav in Resources */,
-				C4BACF421A90606300736291 /* Stairwell.wav in Resources */,
+				C40591221A983BAC0099C23C /* dish.wav in Resources */,
+				C40591231A983BAC0099C23C /* Stairwell.wav in Resources */,
 				C4BACEB31A90057500736291 /* mandpluk.aif in Resources */,
 				C4BACEB21A90057500736291 /* 808loop.wav in Resources */,
 				C4BACD181A8FFC3100736291 /* Main.storyboard in Resources */,
@@ -1322,7 +1317,6 @@
 				C4BACF081A90057500736291 /* AKConvolution.m in Sources */,
 				C4BACEA01A90057500736291 /* AKEvent.m in Sources */,
 				C4BACEE61A90057500736291 /* AKOscillator.m in Sources */,
-				C4BACED91A90057500736291 /* AKScaledControl.m in Sources */,
 				C4BACF3F1A90606300736291 /* AudioFilePlayer.m in Sources */,
 				C4BACF2E1A90057500736291 /* AKStereoAudio.m in Sources */,
 				C4BACEC31A90057500736291 /* AKSpectralVocoder.m in Sources */,
@@ -1600,6 +1594,7 @@
 				C4BACD2E1A8FFC3200736291 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
