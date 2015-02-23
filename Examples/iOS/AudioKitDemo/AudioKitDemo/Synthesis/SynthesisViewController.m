@@ -14,9 +14,8 @@
 
 @implementation SynthesisViewController
 {
-    IBOutlet UIPickerView *synthesizerPickerView;
-    NSArray *pickerData;
-    IBOutlet UIView *topTouchView;
+    IBOutlet UIView *fmSynthesizerTouchView;
+    IBOutlet UIView *tambourineTouchView;
     
     Tambourine *tambourine;
     FMSynthesizer *fmSynthesizer;
@@ -42,9 +41,9 @@
 
 - (IBAction)tapTambourine:(UITapGestureRecognizer *)sender {
 
-    CGPoint touchPoint = [sender locationInView:topTouchView];
-    float scaledX = touchPoint.x / topTouchView.bounds.size.width;
-    float scaledY = 1.0 - touchPoint.y / topTouchView.bounds.size.height;
+    CGPoint touchPoint = [sender locationInView:tambourineTouchView];
+    float scaledX = touchPoint.x / tambourineTouchView.bounds.size.width;
+    float scaledY = 1.0 - touchPoint.y / tambourineTouchView.bounds.size.height;
     
     float intensity = scaledY*4000 + 20;
     float dampingFactor = scaledX / 2.0;
@@ -56,9 +55,9 @@
 
 - (IBAction)tapFMOscillator:(UITapGestureRecognizer *)sender {
     
-    CGPoint touchPoint = [sender locationInView:topTouchView];
-    float scaledX = touchPoint.x / topTouchView.bounds.size.width;
-    float scaledY = 1.0 - touchPoint.y / topTouchView.bounds.size.height;
+    CGPoint touchPoint = [sender locationInView:fmSynthesizerTouchView];
+    float scaledX = touchPoint.x / fmSynthesizerTouchView.bounds.size.width;
+    float scaledY = 1.0 - touchPoint.y / fmSynthesizerTouchView.bounds.size.height;
     
     float frequency = scaledY*4000 + 20;
     float color = scaledX;
