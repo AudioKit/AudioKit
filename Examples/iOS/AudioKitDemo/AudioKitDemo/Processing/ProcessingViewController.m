@@ -37,7 +37,6 @@
     conv = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
     [AKOrchestra addInstrument:conv];
     
-    [AKOrchestra start];
     pitchToMaintain = 1.0;
 }
 
