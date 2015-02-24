@@ -37,7 +37,7 @@
         samplesPerControlPeriod = 64;
         _numberOfChannels = 2;
         _zeroDBFullScaleValue = 1.0f;
-
+        
         if (dict) {
             sampleRate = [[dict objectForKey:@"Sample Rate"] intValue];
             samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
@@ -82,7 +82,7 @@
 + (void)addInstrument:(AKInstrument *)instrument
 {
     [[AKManager sharedManager] enableAudioInput];
-
+    
     [AKOrchestra start];
     while (![[AKManager sharedManager] isRunning]) {
         // do nothing
@@ -95,7 +95,7 @@
     NSMutableString *instrumentString = [NSMutableString string];
     
     [instrumentString appendString:[NSString stringWithFormat:@"\n\n;=== %@ ===\n\n", [instrument uniqueName] ]];
-
+    
     [instrumentString appendString:@";--- Global Parameters ---\n"];
     
     for (AKParameter *globalParameter in instrument.globalParameters) {
@@ -107,7 +107,7 @@
         }
         [instrumentString appendString:@"\n"];
     }
-
+    
     if (instrument.userDefinedOperations.count > 0) {
         [instrumentString appendString:@"\n;--- User-defined operations ---\n"];
         for (NSString *udo in instrument.userDefinedOperations) {
@@ -133,24 +133,19 @@
         //[instrumentProperty setup:[[AKManager sharedManager] engine]];
         [[[AKManager sharedManager] engine] addBinding:(AKInstrumentProperty<CsoundBinding> *)instrumentProperty];
     }
-
 }
 
 - (NSString *) stringForCSD
 {
-    NSMutableString *initialFile = [NSMutableString stringWithString:@""];
-    
-    [initialFile appendString:@";=== HEADER ===\n"];
-    [initialFile appendString:[NSString stringWithFormat:
-                               @"nchnls = %d \n"
-                               @"sr     = %d \n"
-                               @"0dbfs  = %g \n"
-                               @"ksmps  = %d \n",
-                               _numberOfChannels,
-                               sampleRate,
-                               _zeroDBFullScaleValue,
-                               samplesPerControlPeriod]];
-    return initialFile;
+    return [NSString stringWithFormat:
+            @"nchnls = %d \n"
+            @"sr     = %d \n"
+            @"0dbfs  = %g \n"
+            @"ksmps  = %d \n",
+            _numberOfChannels,
+            sampleRate,
+            _zeroDBFullScaleValue,
+            samplesPerControlPeriod];
 }
 
 @end
