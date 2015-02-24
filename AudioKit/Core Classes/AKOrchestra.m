@@ -39,7 +39,7 @@
             sampleRate = [[dict objectForKey:@"Sample Rate"] intValue];
             samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
             _numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
-            _zeroDBFullScaleValue = [[dict objectForKey:@"Number Of Channels"] floatValue];
+            _zeroDBFullScaleValue = [[dict objectForKey:@"Zero dB Full Scale Value"] floatValue];
         }
         
         udoFiles = [[NSMutableSet alloc] init];
