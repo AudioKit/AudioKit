@@ -95,7 +95,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
-                        <outlet property="topTouchView" destination="eF6-mp-Am6" id="uPi-W4-UdI"/>
+                        <outlet property="fmSynthesizerTouchView" destination="drm-p8-ykz" id="CZ2-xY-nDC"/>
+                        <outlet property="tambourineTouchView" destination="eF6-mp-Am6" id="1ce-Z4-Jl3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
