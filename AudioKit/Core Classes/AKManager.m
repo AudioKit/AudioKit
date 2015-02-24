@@ -98,10 +98,10 @@ static AKManager *_sharedManager = nil;
         
         totalRunDuration = 10000000;
         
-        _standardSineWave = [AKWeightedSumOfSinusoids pureSineWave];
-        _standardTriangleWave = [AKLineSegments triangleWave];
-        _standardSquareWave = [AKLineSegments squareWave];
-        _standardSawtoothWave = [AKLineSegments sawtoothWave];
+        _standardSineWave            = [AKWeightedSumOfSinusoids pureSineWave];
+        _standardTriangleWave        = [AKLineSegments triangleWave];
+        _standardSquareWave          = [AKLineSegments squareWave];
+        _standardSawtoothWave        = [AKLineSegments sawtoothWave];
         _standardReverseSawtoothWave = [AKLineSegments reverseSawtoothWave];
         
         batchInstructions = [[NSString alloc] init];
@@ -120,13 +120,13 @@ static AKManager *_sharedManager = nil;
         "<CsoundSynthesizer>\n\n"
         "<CsOptions>\n\%@\n</CsOptions>\n\n"
         "<CsInstruments>\n\n"
-        "opcode AKControl, k, a \n" "aval xin\n" "xout downsamp(aval)\n"             "endop\n\n"
-        "opcode AKAudio,   a, k \n" "kval xin\n" "xout upsamp(kval)\n"               "endop\n\n"
-        "opcode AKAudio,   a, a \n" "aval xin\n" "aoutput = aval\n" "xout aoutput\n" "endop\n\n"
-        "opcode AKControl, k, k \n" "kval xin\n" "koutput = kval\n" "xout koutput\n" "endop\n\n"
-        "\%@\n\n"
-        "; Deactivates a complete instrument \n" "instr DeactivateInstrument\n" "turnoff2 p4, 0, 1\n" "endin\n\n"
-        "; Event End or Note Off \n"             "instr DeactivateNote\n"       "turnoff2 p4, 4, 1\n" "endin\n\n"
+        "\%@\n"
+        "opcode AKControl, k, a \n ain xin \n xout downsamp(ain)       \n endop\n"
+        "opcode AKAudio,   a, k \n kin xin \n xout upsamp(kin)         \n endop\n"
+        "opcode AKAudio,   a, a \n ain xin \n aout = ain \n xout aout  \n endop\n"
+        "opcode AKControl, k, k \n kin xin \n kout = kin \n xout kout  \n endop\n"
+        "instr 1000 ; Turn off all notes    \n turnoff2 p4, 0, 1 \n endin \n"
+        "instr 1001 ; Event end or note off \n turnoff2 p4, 4, 1 \n endin \n"
         "</CsInstruments>\n\n"
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
@@ -161,7 +161,9 @@ static AKManager *_sharedManager = nil;
 
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
 {
-    NSString *newCSD = [NSString stringWithFormat:templateString, options, [orchestra stringForCSD], totalRunDuration];
+    NSString *newCSD = [NSString stringWithFormat:
+                        templateString,
+                        options, [orchestra stringForCSD], totalRunDuration];
 
     [newCSD writeToFile:csdFile 
              atomically:YES  
@@ -284,7 +286,8 @@ static AKManager *_sharedManager = nil;
         batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
     } else {
         [csound sendScore:[instrument stopStringForCSD]];
-    }    
+    }
+    NSLog(@"%@", [instrument stopStringForCSD]);
 }
 
 - (void)stopNote:(AKNote *)note
