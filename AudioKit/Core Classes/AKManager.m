@@ -44,8 +44,8 @@ static AKManager *_sharedManager = nil;
         if (name) {
             // This is an app that will contain the framework
             NSString *rawWavesDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/RawWaves", name];
-            NSString *opcodeDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/Opcodes64", name];
-            csoundSetGlobalEnv("OPCODE6DIR64", [opcodeDir cStringUsingEncoding:NSUTF8StringEncoding]);
+            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/Opcodes64", name];
+            csoundSetGlobalEnv("OPCODE6DIR64", [opcodeDir   cStringUsingEncoding:NSUTF8StringEncoding]);
             csoundSetGlobalEnv("RAWWAVE_PATH", [rawWavesDir cStringUsingEncoding:NSUTF8StringEncoding]);
         } else {
             // This is a command-line program that sits beside the framework
@@ -114,44 +114,19 @@ static AKManager *_sharedManager = nil;
                    "--expression-opt ; Enable expression optimizations\n"
                    "-m0              ; Print raw amplitudes\n"
                    "-i %@            ; Request sound from the host audio input device",
-                   audioOutput,
-                   audioInput];
-
+                   audioOutput, audioInput];
+        
         templateString = @""
         "<CsoundSynthesizer>\n\n"
         "<CsOptions>\n\%@\n</CsOptions>\n\n"
         "<CsInstruments>\n\n"
-        "opcode AKControl, k, a\n"
-        "aval xin\n"
-        "xout downsamp(aval)\n"
-        "endop\n"
-        "\n"
-        "opcode AKControl, k, k\n"
-        "kval xin\n"
-        "koutput = kval\n"
-        "xout koutput\n"
-        "endop\n"
-        "\n"
-        "opcode AKAudio, a, k\n"
-        "kval xin\n"
-        "xout upsamp(kval)\n"
-        "endop\n"
-        "\n"
-        "opcode AKAudio, a, a\n"
-        "aval xin\n"
-        "aoutput = aval\n"
-        "xout aoutput\n"
-        "endop\n"
-        "\n"
+        "opcode AKControl, k, a \n" "aval xin\n" "xout downsamp(aval)\n"             "endop\n\n"
+        "opcode AKAudio,   a, k \n" "kval xin\n" "xout upsamp(kval)\n"               "endop\n\n"
+        "opcode AKAudio,   a, a \n" "aval xin\n" "aoutput = aval\n" "xout aoutput\n" "endop\n\n"
+        "opcode AKControl, k, k \n" "kval xin\n" "koutput = kval\n" "xout koutput\n" "endop\n\n"
         "\%@\n\n"
-        "; Deactivates a complete instrument\n"
-        "instr 1000\n"
-        "turnoff2 p4, 0, 1\n"
-        "endin\n\n"
-        "; Event End or Note Off\n"
-        "instr 1001\n"
-        "turnoff2 p4, 4, 1\n"
-        "endin\n\n"
+        "; Deactivates a complete instrument \n" "instr DeactivateInstrument\n" "turnoff2 p4, 0, 1\n" "endin\n\n"
+        "; Event End or Note Off \n"             "instr DeactivateNote\n"       "turnoff2 p4, 4, 1\n" "endin\n\n"
         "</CsInstruments>\n\n"
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
