@@ -12,9 +12,6 @@
 #import "AKTools.h"
 #import "ConvolutionInstrument.h"
 #import "AudioFilePlayer.h"
-#import "AKAudioAnalyzer.h"
-
-
 
 @implementation ProcessingViewController
 {
@@ -26,10 +23,6 @@
     
     ConvolutionInstrument *conv;
     AudioFilePlayer *audioFilePlayer;
-    
-    AKAudioAnalyzer *analyzer;
-    AKSequence *continuouslyUpdateLevelMeter;
-    AKEvent *updateLevelMeter;
 }
 
 - (void)viewDidAppear {
@@ -40,11 +33,7 @@
     conv = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
     [AKOrchestra addInstrument:conv];
     
-    analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:conv.auxilliaryOutput];
-    [AKOrchestra addInstrument:analyzer];
-    
     [AKOrchestra start];
-    [analyzer play];
     pitchToMaintain = 1.0;
 }
 
