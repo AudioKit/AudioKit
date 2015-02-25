@@ -59,7 +59,7 @@ void InterruptionListener(void *inClientData, UInt32 inInterruption);
         _bindings = [[NSMutableArray alloc] init];
         listeners = [[NSMutableArray alloc] init];
         _midiInEnabled = NO;
-        _useAudioInput = NO;
+        _useAudioInput = YES;
     }
     
     return self;
