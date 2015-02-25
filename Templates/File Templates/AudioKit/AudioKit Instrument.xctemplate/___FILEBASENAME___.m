@@ -16,21 +16,16 @@
     if (self) {
         // Note Properties
         ___FILEBASENAMEASIDENTIFIER___Note *note = [[___FILEBASENAMEASIDENTIFIER___Note alloc] init];
-        [self addNoteProperty:note.frequency];
-        [self addNoteProperty:note.amplitude];
 
         // Instrument Properties
         _pan = [[AKInstrumentProperty alloc] initWithValue:1.0 minimum:0.0 maximum:1.0];
-        [self addProperty:_pan];
 
         // Instrument Definition
-        AKFMOscillator *oscillator = [AKFMOscillator audio];
+        AKFMOscillator *oscillator = [AKFMOscillator oscillator];
         oscillator.baseFrequency = note.frequency;
         oscillator.amplitude = note.amplitude;
-        [self connect:oscillator];
 
         AKPanner *panner = [[AKPanner alloc] initWithAudioSource:oscillator pan:_pan];
-        [self connect:panner];
 
         // Output to global effects processing
         _auxilliaryOutput = [AKStereoAudio globalParameter];
@@ -51,11 +46,8 @@
 {
     self = [super init];
     if (self) {
-        _frequency = [[AKNoteProperty alloc] initWithValue:440 minimum:100 maximum:20000];
-        [self addProperty:_frequency];
-
-        _amplitude = [[AKNoteProperty alloc] initWithValue:0.0 minimum:0 maximum:1];
-        [self addProperty:_amplitude];
+        _frequency = [self createPropertyWithValue:440 minimum:100 maximum:20000];
+        _amplitude = [self createPropertyWithValue:0 minimum:0 maximum:1];
 
         // Optionally set a default note duration
         self.duration.value = 1.0;

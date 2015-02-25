@@ -14,18 +14,13 @@ class ___FILEBASENAME___: AKInstrument {
     init(audioSource: AKAudio) {
         super.init()
 
-        // Instrument Properties
-        addProperty(feedbackLevel)
-
         // Instrument Definition
         let reverb = AKReverb(
             audioSource: audioSource,
             feedbackLevel: feedbackLevel,
             cutoffFrequency: 4000.ak
         )
-        connect(reverb)
-
-        connect(AKAudioOutput(stereoAudioSource: reverb))
+        setStereoAudioOutput(reverb)
 
         resetParameter(audioSource)
     }

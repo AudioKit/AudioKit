@@ -18,21 +18,16 @@ class ___FILEBASENAME___: AKInstrument {
         super.init()
 
         // Instrument Properties
-        addProperty(pan)
 
         // Note Properties
         let note = ___FILEBASENAME___Note()
-        addNoteProperty(note.frequency)
-        addNoteProperty(note.amplitude)
 
         // Instrument Definition
         let oscillator = AKFMOscillator();
         oscillator.baseFrequency = note.frequency;
         oscillator.amplitude = note.amplitude;
-        connect(oscillator);
 
         let panner = AKPanner(audioSource: oscillator, pan: pan)
-        connect(panner)
 
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:panner)

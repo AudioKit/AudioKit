@@ -18,8 +18,6 @@ class ___FILEBASENAME___ {
         // fx = EffectsProcessor(audioSource: toneGenerator.auxilliaryOutput)
         // AKOrchestra.addInstrument(fx)
 
-        AKOrchestra.start()
-
         // Start processors
         // fx.play()
     }

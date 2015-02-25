@@ -19,12 +19,9 @@
     self = [super init];
     if (self) {
         // Create and add instruments to the orchestra
-        //instrument = [[Instrument alloc] init];
-        //[AKOrchestra addInstrument:instrument];
-
-        // Start the orchestra
-        [AKOrchestra start];
-    }
+        instrument = [Instrument instrument];
+        [AKOrchestra addInstrument:instrument];
+   }
     return self;
 }
 
