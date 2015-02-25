@@ -8,7 +8,7 @@
 
 @interface ___FILEBASENAMEASIDENTIFIER___ : AKInstrument
 
-@property (nonatomic, strong) AKInstrumentProperty *reverb;
+@property (nonatomic) AKInstrumentProperty *reverb;
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource;
 
