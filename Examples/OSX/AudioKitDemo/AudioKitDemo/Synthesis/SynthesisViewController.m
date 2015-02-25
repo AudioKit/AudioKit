@@ -28,8 +28,6 @@
     
     fmSynthesizer = [[FMSynthesizer alloc] init];
     [AKOrchestra addInstrument:fmSynthesizer];
-    
-    [AKOrchestra start];
 }
 
 - (void)viewWillDisappear {
