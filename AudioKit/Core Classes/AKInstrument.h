@@ -160,6 +160,9 @@
 /// For instruments that do not create note instances, play the instrument with infinite duration.
 - (void)play;
 
+/// Equivalent to "play" but reads better for instruments that do not play notes, such as processors.
+- (void)start;
+
 /// Play the given note
 /// @param note The note that will be played.
 - (void)playNote:(AKNote *)note;
