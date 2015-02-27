@@ -35,16 +35,16 @@
     noteFrequencies = @[@16.35,@17.32,@18.35,@19.45,@20.6,@21.83,@23.12,@24.5,@25.96,@27.5,@29.14,@30.87];
     noteNamesWithSharps = @[@"C", @"C♯",@"D",@"D♯",@"E",@"F",@"F♯",@"G",@"G♯",@"A",@"A♯",@"B"];
     noteNamesWithFlats  = @[@"C", @"D♭",@"D",@"E♭",@"E",@"F",@"G♭",@"G",@"A♭",@"A",@"B♭",@"B"];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     microphone = [[VocalInput alloc] init];
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [analyzer start];
     [microphone start];
     
@@ -57,12 +57,11 @@
     [analysisSequence play];
 }
 
-- (void)viewWillDisappear:(BOOL)animated   {
-    [super viewWillDisappear:animated];
-    [AKOrchestra reset];
-    [[AKManager sharedManager] stop];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [analyzer stop];
+    [microphone stop];
 }
-
 
 - (void)updateUI {
     

@@ -29,21 +29,19 @@
     AKEvent *updateLevelMeter;
 }
 
-- (void)viewDidAppear:(BOOL)animated    {
-    [super viewDidAppear:animated];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
     
     convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
     [AKOrchestra addInstrument:convolver];
-    
     pitchToMaintain = 1.0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated   {
     [super viewWillDisappear:animated];
-    [AKOrchestra reset];
-    [[AKManager sharedManager] stop];
+    [self stop:self];
 }
 
 
