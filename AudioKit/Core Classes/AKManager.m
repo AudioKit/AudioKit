@@ -287,7 +287,7 @@ static AKManager *_sharedManager = nil;
     } else {
         [csound sendScore:[instrument stopStringForCSD]];
     }
-    NSLog(@"%@", [instrument stopStringForCSD]);
+    if (_isLogging) NSLog(@"%@", [instrument stopStringForCSD]);
 }
 
 - (void)stopNote:(AKNote *)note
