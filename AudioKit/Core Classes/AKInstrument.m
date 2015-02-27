@@ -16,6 +16,7 @@
 @implementation AKInstrument
 {
     NSMutableArray *innerCSDOperations;
+    NSMutableSet *connectedOperations;
     int _myID;
 }
 
@@ -42,7 +43,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        innerCSDOperations = [NSMutableArray array];
+        connectedOperations = [NSMutableSet set];
     }
     return self;
 }
@@ -73,7 +74,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        innerCSDOperations = [NSMutableArray array];
+        connectedOperations = [NSMutableSet set];
     }
     return self;
 }
@@ -138,7 +139,7 @@ static int currentID = 1;
 
 - (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable
 {
-    [innerCSDOperations addObject:newFunctionTable];
+    [self connect:newFunctionTable];
 }
 
 // -----------------------------------------------------------------------------
@@ -147,15 +148,28 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-    //    NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
+    [connectedOperations addObject:newOperation];
+}
+
+- (void)internallyConnect:(AKParameter *)newOperation
+{
+    if ([[AKManager sharedManager] isLogging]) {
+        NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
+    }
+    
+    if ([newOperation.state isEqualToString:@"connecting"]) {
+        [NSException raise:@"Cyclical Reference" format:@"Parameter: %@ is cyclically dependent on itself", newOperation];
+    }
+    
     if ([newOperation.state isEqualToString:@"connected"]) {
         return;
     }
     
     if ([newOperation.state isEqualToString:@"connectable"]) {
+        newOperation.state = @"connecting";
         
         for (AKParameter *dependency in newOperation.dependencies) {
-            [self connect:dependency];
+            [self internallyConnect:dependency];
         }
         [_userDefinedOperations addObject:[newOperation udoString]];
         [innerCSDOperations addObject:newOperation];
@@ -170,7 +184,6 @@ static int currentID = 1;
             newOperation.state  = @"connected";
         }
         if ([newOperation isKindOfClass:[AKFunctionTable class]]) {
-            NSLog(@"dependencies: %lu", (unsigned long)newOperation.dependencies.count);
             if (newOperation.dependencies.count > 0) {
                 [self addDynamicFunctionTable:(AKFunctionTable *)newOperation];
             } else {
@@ -178,6 +191,25 @@ static int currentID = 1;
             }
             newOperation.state  = @"connected";
         }
+    }
+}
+
+
+- (void)reconnectAll
+{
+    innerCSDOperations = [NSMutableArray array];
+    for (AKParameter *parameter in connectedOperations) {
+        parameter.state = @"connectable";
+        [self internallyConnect:parameter];
+    }
+    
+    NSArray *copy = [innerCSDOperations copy];
+    NSInteger index = [copy count] - 1;
+    for (id object in [copy reverseObjectEnumerator]) {
+        if ([innerCSDOperations indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
+            [innerCSDOperations removeObjectAtIndex:index];
+        }
+        index--;
     }
 }
 
@@ -263,12 +295,12 @@ static int currentID = 1;
     if ([parameterToReset class] == [AKStereoAudio class]) {
         AKStereoAudio *stereoParameterToReset = (AKStereoAudio *)parameterToReset;
         AKAssignment *leftAssignment = [[AKAssignment alloc] initWithOutput:stereoParameterToReset.leftOutput input:akp(0)];
-        [innerCSDOperations addObject:leftAssignment];
+        [self connect:leftAssignment];
          AKAssignment *rightAssignment = [[AKAssignment alloc] initWithOutput:stereoParameterToReset.rightOutput input:akp(0)];
-        [innerCSDOperations addObject:rightAssignment];
+        [self connect:rightAssignment];
     } else {
         AKAssignment *assignment = [[AKAssignment alloc] initWithOutput:parameterToReset input:akp(0)];
-        [innerCSDOperations addObject:assignment];
+        [self connect:assignment];
     }
 }
 
@@ -286,10 +318,13 @@ static int currentID = 1;
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
-
 - (NSString *)stringForCSD
 {
     NSMutableString *text = [NSMutableString stringWithString:@""];
+    
+    // Make sure that all dependencies have been connected
+    // (can happen if the programmer prematurely connects an operation)
+    [self reconnectAll];
     
     if ([_properties count] + [_noteProperties count] > 0 ) {
         [text appendString:@"\n;---- Inputs: Note Properties ----\n"];
