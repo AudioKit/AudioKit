@@ -16,6 +16,7 @@
     int sampleRate;
     int samplesPerControlPeriod;
     NSMutableSet *udoFiles;
+    CsoundObj *csound;
 }
 
 // -----------------------------------------------------------------------------
@@ -46,6 +47,7 @@
         }
         
         udoFiles = [[NSMutableSet alloc] init];
+        csound = [[AKManager sharedManager] engine];
     }
     return self;
 }
@@ -126,12 +128,11 @@
         NSLog(@"%@", instrumentString);
     }
     
-    [[[AKManager sharedManager] engine] updateOrchestra:instrumentString];
+    [csound updateOrchestra:instrumentString];
     
     // Update Bindings
     for (AKInstrumentProperty *instrumentProperty in [instrument properties]) {
-        //[instrumentProperty setup:[[AKManager sharedManager] engine]];
-        [[[AKManager sharedManager] engine] addBinding:(AKInstrumentProperty<CsoundBinding> *)instrumentProperty];
+        [csound addBinding:(AKInstrumentProperty<CsoundBinding> *)instrumentProperty];
     }
 }
 
