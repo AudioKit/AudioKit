@@ -25,8 +25,8 @@
     AudioFilePlayer *audioFilePlayer;
 }
 
-- (void)viewDidAppear {
-    [super viewDidAppear];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
     
@@ -37,9 +37,7 @@
 }
 
 - (void)viewWillDisappear {
-    [super viewWillDisappear];
-    [AKOrchestra reset];
-    [[AKManager sharedManager] stop];
+    [self stop:self];
 }
 
 

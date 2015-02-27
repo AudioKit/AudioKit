@@ -21,19 +21,13 @@
     FMSynthesizer *fmSynthesizer;
 }
 
-- (void)viewDidAppear {
-    [super viewDidAppear];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     tambourine = [[Tambourine alloc] init];
     [AKOrchestra addInstrument:tambourine];
     
     fmSynthesizer = [[FMSynthesizer alloc] init];
     [AKOrchestra addInstrument:fmSynthesizer];
-}
-
-- (void)viewWillDisappear {
-    [super viewWillDisappear];
-    [AKOrchestra reset];
-    [[AKManager sharedManager] stop];
 }
 
 - (IBAction)tapTambourine:(NSClickGestureRecognizer *)sender

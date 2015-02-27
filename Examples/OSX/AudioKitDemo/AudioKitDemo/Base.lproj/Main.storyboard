@@ -1150,7 +1150,6 @@
                             <constraint firstAttribute="trailing" secondItem="kFF-Fa-NcQ" secondAttribute="trailing" constant="20" id="Y1t-lz-Mop"/>
                             <constraint firstAttribute="trailing" secondItem="oOU-GL-cGe" secondAttribute="trailing" constant="20" id="b0w-lJ-gam"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="centerY" secondItem="K2f-py-8jU" secondAttribute="centerY" id="g9q-Vz-5hg"/>
-                            <constraint firstAttribute="centerX" secondItem="2AQ-7V-Ee8" secondAttribute="centerX" constant="-0.5" id="kQn-pQ-vRn"/>
                             <constraint firstItem="oOU-GL-cGe" firstAttribute="centerY" secondItem="bOf-cW-uIp" secondAttribute="centerY" id="npJ-1T-sQT"/>
                             <constraint firstItem="2AQ-7V-Ee8" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" id="sfH-NF-ESC"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="22" id="spN-Nd-xJV"/>
