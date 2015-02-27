@@ -21,6 +21,7 @@
 		C47546B51A9BD266006151DE /* Tambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C47546B21A9BD266006151DE /* Tambourine.m */; };
 		C47546B61A9BD266006151DE /* FMSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47546B41A9BD266006151DE /* FMSynthesizer.m */; };
 		C47546BA1A9BDA11006151DE /* TouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C47546B91A9BDA11006151DE /* TouchView.m */; };
+		C48AFCB81AA060B90090EE88 /* AKLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C48AFCB71AA060B90090EE88 /* AKLog.m */; };
 		C4CE09E81A9D32490020B04D /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CE08821A9D32490020B04D /* AKEvent.m */; };
 		C4CE09E91A9D32490020B04D /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CE08851A9D32490020B04D /* AKInstrument.m */; };
 		C4CE09EA1A9D32490020B04D /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CE08871A9D32490020B04D /* AKManager.m */; };
@@ -208,6 +209,8 @@
 		C47546B41A9BD266006151DE /* FMSynthesizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSynthesizer.m; path = ../../../iOS/AudioKitDemo/AudioKitDemo/Synthesis/Instruments/FMSynthesizer.m; sourceTree = "<group>"; };
 		C47546B81A9BDA11006151DE /* TouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchView.h; path = Synthesis/TouchView.h; sourceTree = "<group>"; };
 		C47546B91A9BDA11006151DE /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchView.m; path = Synthesis/TouchView.m; sourceTree = "<group>"; };
+		C48AFCB61AA060B90090EE88 /* AKLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLog.h; sourceTree = "<group>"; };
+		C48AFCB71AA060B90090EE88 /* AKLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLog.m; sourceTree = "<group>"; };
 		C4CE08811A9D32490020B04D /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		C4CE08821A9D32490020B04D /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		C4CE08831A9D32490020B04D /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
@@ -1000,6 +1003,8 @@
 				C4CE09801A9D32490020B04D /* AKAudioOutput.m */,
 				C4CE09811A9D32490020B04D /* AKFileInput.h */,
 				C4CE09821A9D32490020B04D /* AKFileInput.m */,
+				C48AFCB61AA060B90090EE88 /* AKLog.h */,
+				C48AFCB71AA060B90090EE88 /* AKLog.m */,
 				C4CE09831A9D32490020B04D /* AKMonoFileInput.h */,
 				C4CE09841A9D32490020B04D /* AKMonoFileInput.m */,
 				C4CE09851A9D32490020B04D /* AKMP3FileInput.h */,
@@ -1291,6 +1296,7 @@
 				C4CE0A071A9D324A0020B04D /* AKFFT.m in Sources */,
 				C4CE0A161A9D324A0020B04D /* AKLineSegments.m in Sources */,
 				C4CE0A541A9D324A0020B04D /* AKConvolution.m in Sources */,
+				C48AFCB81AA060B90090EE88 /* AKLog.m in Sources */,
 				C4CE0A0F1A9D324A0020B04D /* AKTableValue.m in Sources */,
 				C4CE0A651A9D324A0020B04D /* AKMoogVCF.m in Sources */,
 				C4CE0A271A9D324A0020B04D /* AKADSREnvelope.m in Sources */,

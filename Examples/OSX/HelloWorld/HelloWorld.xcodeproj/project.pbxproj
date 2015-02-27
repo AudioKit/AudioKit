@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C48AFCBE1AA060D00090EE88 /* AKLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C48AFCBD1AA060D00090EE88 /* AKLog.m */; };
 		C4BACA201A8FDEDC00736291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACA1F1A8FDEDC00736291 /* AppDelegate.m */; };
 		C4BACA221A8FDEDC00736291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACA211A8FDEDC00736291 /* main.m */; };
 		C4BACA251A8FDEDC00736291 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACA241A8FDEDC00736291 /* ViewController.m */; };
@@ -172,6 +173,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C48AFCBC1AA060D00090EE88 /* AKLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLog.h; sourceTree = "<group>"; };
+		C48AFCBD1AA060D00090EE88 /* AKLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLog.m; sourceTree = "<group>"; };
 		C4BACA191A8FDEDC00736291 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BACA1D1A8FDEDC00736291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4BACA1E1A8FDEDC00736291 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -914,6 +917,8 @@
 				C4CE0D801A9D33ED0020B04D /* AKAudioOutput.m */,
 				C4CE0D811A9D33ED0020B04D /* AKFileInput.h */,
 				C4CE0D821A9D33ED0020B04D /* AKFileInput.m */,
+				C48AFCBC1AA060D00090EE88 /* AKLog.h */,
+				C48AFCBD1AA060D00090EE88 /* AKLog.m */,
 				C4CE0D831A9D33ED0020B04D /* AKMonoFileInput.h */,
 				C4CE0D841A9D33ED0020B04D /* AKMonoFileInput.m */,
 				C4CE0D851A9D33ED0020B04D /* AKMP3FileInput.h */,
@@ -1211,6 +1216,7 @@
 				C4CE0E2F1A9D33ED0020B04D /* AKVibrato.m in Sources */,
 				C4CE0E381A9D33ED0020B04D /* AKStruckMetalBar.m in Sources */,
 				C4CE0E151A9D33ED0020B04D /* AKFunctionTable.m in Sources */,
+				C48AFCBE1AA060D00090EE88 /* AKLog.m in Sources */,
 				C4CE0E291A9D33ED0020B04D /* AKLinearADSREnvelope.m in Sources */,
 				C4CE0E171A9D33ED0020B04D /* AKRandomDistributionTable.m in Sources */,
 				C4CE0DF71A9D33ED0020B04D /* AKTools.m in Sources */,
