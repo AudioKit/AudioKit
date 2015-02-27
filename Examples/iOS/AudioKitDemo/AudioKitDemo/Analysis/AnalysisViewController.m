@@ -45,8 +45,8 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
-    [analyzer play];
-    [microphone play];
+    [analyzer start];
+    [microphone start];
     
     analysisSequence = [AKSequence sequence];
     updateAnalysis = [[AKEvent alloc] initWithBlock:^{
