@@ -204,12 +204,6 @@ static int currentID = 1;
     [self connect:output];
 }
 
-- (void)addString:(NSString *)newString
-{
-    [innerCSDRepresentation appendString:newString];
-    [innerCSDRepresentation appendString:@"\n"];
-}
-
 - (void)appendOutput:(AKParameter *)output withInput:(AKParameter *)input
 {
     [_globalParameters addObject:output];
