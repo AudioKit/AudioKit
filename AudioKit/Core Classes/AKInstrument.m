@@ -343,6 +343,10 @@ static int currentID = 1;
     [note play];
 }
 
+- (void)start {
+    [self play];
+}
+
 - (void)playNote:(AKNote *)note
 {
     note.instrument = self;
