@@ -16,7 +16,7 @@
 @implementation AKInstrument
 {
     NSMutableArray *innerCSDOperations;
-    NSMutableSet *connectedOperations;
+    NSMutableArray *connectedOperations;
     int _myID;
 }
 
@@ -43,7 +43,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        connectedOperations = [NSMutableSet set];
+        connectedOperations = [NSMutableArray array];
     }
     return self;
 }
@@ -74,7 +74,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        connectedOperations = [NSMutableSet set];
+        connectedOperations = [NSMutableArray array];
     }
     return self;
 }
@@ -148,7 +148,9 @@ static int currentID = 1;
 
 - (void)connect:(AKParameter *)newOperation
 {
-    [connectedOperations addObject:newOperation];
+    if (![connectedOperations containsObject:newOperation]) {
+        [connectedOperations addObject:newOperation];
+    }
 }
 
 - (void)internallyConnect:(AKParameter *)newOperation
