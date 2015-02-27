@@ -21,21 +21,15 @@
     FMSynthesizer *fmSynthesizer;
 }
 
-- (void)viewDidAppear:(BOOL)animated    {
-    [super viewDidAppear:animated];
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     tambourine = [[Tambourine alloc] init];
     [AKOrchestra addInstrument:tambourine];
 
     fmSynthesizer = [[FMSynthesizer alloc] init];
     [AKOrchestra addInstrument:fmSynthesizer];
 }
-
-- (void)viewWillDisappear:(BOOL)animated   {
-    [super viewWillDisappear:animated];
-    [AKOrchestra reset];
-    [[AKManager sharedManager] stop];
-}
-
 
 - (IBAction)tapTambourine:(UITapGestureRecognizer *)sender {
 
