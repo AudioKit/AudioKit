@@ -22,7 +22,7 @@
     
     float pitchToMaintain;
     
-    ConvolutionInstrument *conv;
+    ConvolutionInstrument *convolver;
     AudioFilePlayer *audioFilePlayer;
     
     AKSequence *continuouslyUpdateLevelMeter;
@@ -34,8 +34,8 @@
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
     
-    conv = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
-    [AKOrchestra addInstrument:conv];
+    convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
+    [AKOrchestra addInstrument:convolver];
     
     pitchToMaintain = 1.0;
 }
@@ -48,21 +48,21 @@
 
 
 - (IBAction)start:(id)sender {
-    [conv play];
+    [convolver start];
     [audioFilePlayer play];
 }
 
 - (IBAction)stop:(id)sender {
     [audioFilePlayer stop];
-    [conv stop];
+    [convolver stop];
 }
 
 - (IBAction)wetnessChanged:(UISlider *)sender {
-    [AKTools setProperty:conv.dryWetBalance withSlider:sender];
+    [AKTools setProperty:convolver.dryWetBalance withSlider:sender];
 }
 
 - (IBAction)impulseResponseChanged:(UISlider *)sender {
-    [AKTools setProperty:conv.dishWellBalance withSlider:sender];
+    [AKTools setProperty:convolver.dishWellBalance withSlider:sender];
 }
 - (IBAction)speedChanged:(UISlider *)sender
 {
