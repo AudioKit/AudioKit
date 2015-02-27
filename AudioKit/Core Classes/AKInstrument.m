@@ -11,10 +11,11 @@
 #import "AKAssignment.h"
 #import "AKStereoAudio.h"
 #import "AKAudioOutput.h"
+#import "AKLog.h"
 
 @implementation AKInstrument
 {
-    NSMutableString *innerCSDRepresentation;
+    NSMutableArray *innerCSDOperations;
     int _myID;
 }
 
@@ -41,7 +42,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        innerCSDRepresentation = [NSMutableString stringWithString:@""];
+        innerCSDOperations = [NSMutableArray array];
     }
     return self;
 }
@@ -72,7 +73,7 @@ static int currentID = 1;
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
         _userDefinedOperations = [[NSMutableSet alloc] init];
-        innerCSDRepresentation = [NSMutableString stringWithString:@""];
+        innerCSDOperations = [NSMutableArray array];
     }
     return self;
 }
@@ -137,8 +138,7 @@ static int currentID = 1;
 
 - (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable
 {
-    [innerCSDRepresentation appendString:[newFunctionTable stringForCSD]];
-    [innerCSDRepresentation appendString:@"\n"];
+    [innerCSDOperations addObject:newFunctionTable];
 }
 
 // -----------------------------------------------------------------------------
@@ -158,8 +158,7 @@ static int currentID = 1;
             [self connect:dependency];
         }
         [_userDefinedOperations addObject:[newOperation udoString]];
-        [innerCSDRepresentation appendString:[newOperation stringForCSD]];
-        [innerCSDRepresentation appendString:@"\n"];
+        [innerCSDOperations addObject:newOperation];
         newOperation.state  = @"connected";
     } else {
         if ([newOperation isKindOfClass:[AKInstrumentProperty class]]) {
@@ -263,13 +262,13 @@ static int currentID = 1;
 {
     if ([parameterToReset class] == [AKStereoAudio class]) {
         AKStereoAudio *stereoParameterToReset = (AKStereoAudio *)parameterToReset;
-        [innerCSDRepresentation appendString:
-         [NSString stringWithFormat:@"%@ = 0\n", stereoParameterToReset.leftOutput]];
-        [innerCSDRepresentation appendString:
-         [NSString stringWithFormat:@"%@ = 0\n", stereoParameterToReset.rightOutput]];
+        AKAssignment *leftAssignment = [[AKAssignment alloc] initWithOutput:stereoParameterToReset.leftOutput input:akp(0)];
+        [innerCSDOperations addObject:leftAssignment];
+         AKAssignment *rightAssignment = [[AKAssignment alloc] initWithOutput:stereoParameterToReset.rightOutput input:akp(0)];
+        [innerCSDOperations addObject:rightAssignment];
     } else {
-        [innerCSDRepresentation appendString:
-         [NSString stringWithFormat:@"%@ = 0\n", parameterToReset]];
+        AKAssignment *assignment = [[AKAssignment alloc] initWithOutput:parameterToReset input:akp(0)];
+        [innerCSDOperations addObject:assignment];
     }
 }
 
@@ -278,10 +277,9 @@ static int currentID = 1;
                  parameter:(AKParameter *)parameter
               timeInterval:(float)timeInterval
 {
-    [self connect:parameter];
-    [innerCSDRepresentation appendFormat:
-     @"\nprintks \"%@ %%f\", %f, AKControl(%@)\n",
-     message, timeInterval, parameter];
+    [self connect:[[AKLog alloc] initWithMessage:message
+                                       parameter:parameter
+                                    timeInterval:timeInterval]];
 }
 
 
@@ -306,7 +304,12 @@ static int currentID = 1;
         [text appendString:@"\n;---- Opcodes ----\n"];
     }
     
-    [text appendString:innerCSDRepresentation];
+    if ([innerCSDOperations count] > 0) {
+        for (AKParameter *object in innerCSDOperations) {
+            [text appendString:[object stringForCSD]];
+            [text appendString:@"\n"];
+        }
+    }
     
     if ([_properties count] > 0) {
         [text appendString:@"\n;---- Outputs ----\n"];
