@@ -52,8 +52,6 @@
 
 // Operations - Function Tables
 #import "AKTableValue.h"
-#import "AKTableValueConstant.h"
-#import "AKTableValueControl.h"
 
 // Operations - Function Tables - Generators
 #import "AKAdditiveCosineTable.h"
