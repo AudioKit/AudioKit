@@ -38,6 +38,6 @@
 }
 
 - (NSString *)description {
-    return @"";
+    return @"log";
 }
 @end
