@@ -111,10 +111,6 @@
 /// @param stereo Stereo Operation output that you want to be played.
 - (void)setStereoAudioOutput:(AKStereoAudio *)stereo;
 
-/// Adds any string to the output file, useful for testing and commenting.
-/// @param newString New string to add to the instrument definition.
-- (void)addString:(NSString *)newString;
-
 /// Appending a value to an output, usually a globally accessibly audio stream
 /// @param output Parameter being set.
 /// @param input  Parameter being read.
