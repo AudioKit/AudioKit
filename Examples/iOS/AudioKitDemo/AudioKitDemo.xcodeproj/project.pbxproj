@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C48AFCB51AA041E80090EE88 /* AKLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C48AFCB41AA041E80090EE88 /* AKLog.m */; };
 		C4BACD0C1A8FFC3100736291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD0B1A8FFC3100736291 /* main.m */; };
 		C4BACD0F1A8FFC3100736291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD0E1A8FFC3100736291 /* AppDelegate.m */; };
 		C4BACD181A8FFC3100736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BACD161A8FFC3100736291 /* Main.storyboard */; };
@@ -170,6 +171,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C48AFCB31AA041E80090EE88 /* AKLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLog.h; sourceTree = "<group>"; };
+		C48AFCB41AA041E80090EE88 /* AKLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLog.m; sourceTree = "<group>"; };
 		C4BACD061A8FFC3100736291 /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BACD0A1A8FFC3100736291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4BACD0B1A8FFC3100736291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -529,8 +532,6 @@
 				C4BACF3A1A90606300736291 /* AudioFilePlayer.m */,
 				C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */,
 				C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */,
-				C4BACF3D1A90606300736291 /* dish.wav */,
-				C4BACF3E1A90606300736291 /* Stairwell.wav */,
 			);
 			name = Instruments;
 			sourceTree = "<group>";
@@ -1066,6 +1067,8 @@
 				C4CE05801A9D1A3E0020B04D /* AKAudioOutput.m */,
 				C4CE05811A9D1A3E0020B04D /* AKFileInput.h */,
 				C4CE05821A9D1A3E0020B04D /* AKFileInput.m */,
+				C48AFCB31AA041E80090EE88 /* AKLog.h */,
+				C48AFCB41AA041E80090EE88 /* AKLog.m */,
 				C4CE05831A9D1A3E0020B04D /* AKMonoFileInput.h */,
 				C4CE05841A9D1A3E0020B04D /* AKMonoFileInput.m */,
 				C4CE05851A9D1A3E0020B04D /* AKMP3FileInput.h */,
@@ -1371,6 +1374,7 @@
 				C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */,
 				C4CE06091A9D1A3F0020B04D /* AKMixedFFT.m in Sources */,
 				C4CE06211A9D1A3F0020B04D /* AKMaximum.m in Sources */,
+				C48AFCB51AA041E80090EE88 /* AKLog.m in Sources */,
 				C4CE06771A9D1A3F0020B04D /* AKControl.m in Sources */,
 				C4CE063D1A9D1A3F0020B04D /* AKDroplet.m in Sources */,
 				C4CE06341A9D1A3F0020B04D /* AKVCOscillator.m in Sources */,
