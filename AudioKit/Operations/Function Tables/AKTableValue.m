@@ -10,15 +10,15 @@
 
 @implementation AKTableValue
 {
-    AKConstant  *ifn;
-    AKAudio *andx;
+    AKFunctionTable *ifn;
+    AKParameter *andx;
     AKParameter *ixoff;
     BOOL normalizeResult;
     BOOL wrapData;
 }
 
-- (instancetype)initWithFunctionTable:(AKConstant *)functionTable
-                              atIndex:(AKAudio *)index
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                              atIndex:(AKParameter *)index
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -34,10 +34,6 @@
     
 }
 
-- (void)normalize {
-    normalizeResult = YES;
-}
-
 - (void)wrap {
     wrapData = YES;
 }
@@ -51,7 +47,7 @@
     int ixmode = normalizeResult ? 0:1;
     int iwrap = wrapData ? 0:1;
     return [NSString stringWithFormat:
-            @"%@ tablei %@, %@, %i, %@, %i",
+            @"%@ tablei AKAudio(%@), %@, %i, %@, %i",
             self, andx, ifn, ixmode, ixoff, iwrap];
 }
 
