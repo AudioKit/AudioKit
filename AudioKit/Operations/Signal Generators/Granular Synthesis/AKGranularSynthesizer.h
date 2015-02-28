@@ -9,7 +9,7 @@
 
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
-#import "AKWindow.h"
+#import "AKWindowTable.h"
 
 /** Generate granular synthesis textures with user control.
 
@@ -31,7 +31,7 @@
 /// @param prpow Distribution of random phase variation. Updated at Control-rate. [Default Value: 0]
 - (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
                             frequency:(AKParameter *)frequency
-                       windowWaveform:(AKWindow *)windowWaveform
+                       windowWaveform:(AKWindowTable *)windowWaveform
                              duration:(AKParameter *)duration
                               density:(AKParameter *)density
              maximumOverlappingGrains:(AKConstant *)maximumOverlappingGrains
@@ -54,11 +54,11 @@
                         frequency:(AKParameter *)frequency;
 
 /// Function table containing window waveform. [Default Value: AKWindowTypeHamming]
-@property (nonatomic) AKWindow *windowWaveform;
+@property (nonatomic) AKWindowTable *windowWaveform;
 
 /// Set an optional window waveform
 /// @param windowWaveform Function table containing window waveform. [Default Value: AKWindowTypeHamming]
-- (void)setOptionalWindowWaveform:(AKWindow *)windowWaveform;
+- (void)setOptionalWindowWaveform:(AKWindowTable *)windowWaveform;
 
 /// Grain duration in seconds. It also controls the duration of already active grains (actually the speed at which the window function is read). [Default Value: 0.2]
 @property (nonatomic) AKParameter *duration;

@@ -1,21 +1,21 @@
 //
-//  AKWeightedSumOfSinusoids.m
+//  AKFourierSeriesTable.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/6/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKWeightedSumOfSinusoids.h"
+#import "AKFourierSeriesTable.h"
 
-@interface AKWeightedSumOfSinusoids ()
+@interface AKFourierSeriesTable ()
 {
     NSMutableArray *sinusoids;
 }
 @end
 
 
-@implementation AKWeightedSumOfSinusoids
+@implementation AKFourierSeriesTable
 
 - (instancetype)init;
 {

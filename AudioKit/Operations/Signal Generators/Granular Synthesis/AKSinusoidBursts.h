@@ -9,7 +9,7 @@
 #import "AKAudio.h"
 #import "AKParameter+Operation.h"
 
-#import "AKWeightedSumOfSinusoids.h"
+#import "AKFourierSeriesTable.h"
 
 /** Produces sinusoid bursts useful for formant and granular synthesis.
  */
@@ -29,7 +29,7 @@
 /// @param peakAmplitude           Peak amplitude of each sineburst, observed at the true end of its rise pattern. The rise may exceed this value given a large bandwidth (say, Q < 10) and/or when the bursts are overlapping.
 /// @param fundamentalFrequency    Fundamental frequency (in Hertz) of the impulses that create new sinebursts.
 /// @param formantFrequency        Freq of the sinusoid burst induced by each fundamental frequency impulse. This frequency can be fixed for each burst or can vary continuously.
-- (instancetype)initWithSineTable:(AKWeightedSumOfSinusoids *)sineburstSynthesisTable
+- (instancetype)initWithSineTable:(AKFourierSeriesTable *)sineburstSynthesisTable
                    riseShapeTable:(AKFunctionTable *)riseShapeTable
                          overlaps:(AKConstant *)numberOfOverlaps
                         totalTime:(AKConstant *)totalTime

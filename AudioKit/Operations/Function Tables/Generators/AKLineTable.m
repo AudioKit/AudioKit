@@ -1,20 +1,20 @@
 //
-//  AKLineSegments.m
+//  AKLineTable.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKLineSegments.h" 
+#import "AKLineTable.h"
 
-@interface AKLineSegments ()
+@interface AKLineTable ()
 {
     NSMutableArray *points;
 }
 @end
 
-@implementation AKLineSegments
+@implementation AKLineTable
 
 - (instancetype)initSquareWave {
     self = [self initWithValue:1];

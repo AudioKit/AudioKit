@@ -1,5 +1,5 @@
 //
-//  AKWindow.h
+//  AKWindowTable.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/27/15.
@@ -9,7 +9,7 @@
 #import "AKFunctionTable.h"
 
 /// Function tables for different window shapes. These windows are usually used for spectrum analysis or for grain envelopes.
-@interface AKWindow : AKFunctionTable
+@interface AKWindowTable : AKFunctionTable
 
 /// Create a window function table
 /// @param windowType Type of window to create.

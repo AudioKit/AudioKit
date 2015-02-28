@@ -98,11 +98,11 @@ static AKManager *_sharedManager = nil;
         
         totalRunDuration = 10000000;
         
-        _standardSineWave            = [AKWeightedSumOfSinusoids pureSineWave];
-        _standardTriangleWave        = [AKLineSegments triangleWave];
-        _standardSquareWave          = [AKLineSegments squareWave];
-        _standardSawtoothWave        = [AKLineSegments sawtoothWave];
-        _standardReverseSawtoothWave = [AKLineSegments reverseSawtoothWave];
+        _standardSineWave            = [AKFourierSeriesTable pureSineWave];
+        _standardTriangleWave        = [AKLineTable triangleWave];
+        _standardSquareWave          = [AKLineTable squareWave];
+        _standardSawtoothWave        = [AKLineTable sawtoothWave];
+        _standardReverseSawtoothWave = [AKLineTable reverseSawtoothWave];
         
         batchInstructions = [[NSString alloc] init];
         isBatching = NO;
@@ -318,23 +318,23 @@ static AKManager *_sharedManager = nil;
 #  pragma mark - Useful tables
 // -----------------------------------------------------------------------------
 
-+ (AKWeightedSumOfSinusoids *)standardSineWave {
++ (AKFourierSeriesTable *)standardSineWave {
     return [[AKManager sharedManager] standardSineWave];
 }
 
-+ (AKLineSegments *)standardTriangleWave {
++ (AKLineTable *)standardTriangleWave {
     return [[AKManager sharedManager] standardTriangleWave];
 }
 
-+ (AKLineSegments *)standardSquareWave {
++ (AKLineTable *)standardSquareWave {
     return [[AKManager sharedManager] standardSquareWave];
 }
 
-+ (AKLineSegments *)standardSawtoothWave {
++ (AKLineTable *)standardSawtoothWave {
     return [[AKManager sharedManager] standardSawtoothWave];
 }
 
-+ (AKLineSegments *)standardReverseSawtoothWave {
++ (AKLineTable *)standardReverseSawtoothWave {
     return [[AKManager sharedManager] standardReverseSawtoothWave];
 }
 

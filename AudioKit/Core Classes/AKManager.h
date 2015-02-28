@@ -11,8 +11,8 @@
 #import "AKEvent.h"
 #import "AKMidi.h"
 #import "AKSequence.h"
-#import "AKWeightedSumOfSinusoids.h"
-#import "AKLineSegments.h"
+#import "AKFourierSeriesTable.h"
+#import "AKLineTable.h"
 
 #import "CsoundObj.h"
 
@@ -93,20 +93,20 @@
 
 // Common tables required by many applications
 
-@property (nonatomic) AKWeightedSumOfSinusoids *standardSineWave;
-+ (AKWeightedSumOfSinusoids *)standardSineWave;
+@property (nonatomic) AKFourierSeriesTable *standardSineWave;
++ (AKFourierSeriesTable *)standardSineWave;
 
-@property (nonatomic) AKLineSegments *standardTriangleWave;
-+ (AKLineSegments *)standardTriangleWave;
+@property (nonatomic) AKLineTable *standardTriangleWave;
++ (AKLineTable *)standardTriangleWave;
 
-@property (nonatomic) AKLineSegments *standardSquareWave;
-+ (AKLineSegments *)standardSquareWave;
+@property (nonatomic) AKLineTable *standardSquareWave;
++ (AKLineTable *)standardSquareWave;
 
-@property (nonatomic) AKLineSegments *standardSawtoothWave;
-+ (AKLineSegments *)standardSawtoothWave;
+@property (nonatomic) AKLineTable *standardSawtoothWave;
++ (AKLineTable *)standardSawtoothWave;
 
-@property (nonatomic) AKLineSegments *standardReverseSawtoothWave;
-+ (AKLineSegments *)standardReverseSawtoothWave;
+@property (nonatomic) AKLineTable *standardReverseSawtoothWave;
++ (AKLineTable *)standardReverseSawtoothWave;
 
 
 @end

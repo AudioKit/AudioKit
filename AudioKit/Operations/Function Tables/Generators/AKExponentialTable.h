@@ -1,5 +1,5 @@
 //
-//  AKExponentialCurves.h
+//  AKExponentialTable.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
@@ -12,7 +12,7 @@
  
  Ordinate values, in odd-numbered parts of the array, must be nonzero and must be alike in sign.
  */
-@interface AKExponentialCurves : AKFunctionTable
+@interface AKExponentialTable : AKFunctionTable
 
 /// Size of the table (default 4096)
 @property int size;
