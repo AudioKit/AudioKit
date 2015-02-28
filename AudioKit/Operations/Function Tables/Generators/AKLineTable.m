@@ -96,6 +96,9 @@
 // Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
 - (NSString *)stringForCSD
 {
+    [points sortUsingComparator:^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
+        return [obj1[0] compare: obj2[0]];
+    }];
     int maximumIndex = [[[points lastObject] objectAtIndex:0] intValue];
     float scalingFactor = (float)self.size/(float)maximumIndex;
     NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
