@@ -17,11 +17,9 @@
 /// Initialize the opcode as an audio operation.
 /// @param functionTable Function table read the data from.
 /// @param index  Indexing Parameter.
-- (instancetype)initWithFunctionTable:(AKConstant *)functionTable
-                              atIndex:(AKAudio *)index;
+- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+                              atIndex:(AKParameter *)index;
 
-/// Normalize data to a maximum of 1.
-- (void)normalize;
 
 /// Wrap around the functionTable data for out of range indices.
 - (void)wrap;

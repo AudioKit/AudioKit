@@ -54,7 +54,6 @@
 
 + (instancetype)sawtoothWave {
     return [[self alloc] initSawtoothWave];
-    
 }
 
 - (instancetype)initReverseSawtoothWave {
