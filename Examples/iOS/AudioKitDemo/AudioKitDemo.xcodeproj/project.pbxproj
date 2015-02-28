@@ -516,6 +516,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C42DC32C1A9C61920041B644 /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				C4BACF391A90606300736291 /* AudioFilePlayer.h */,
+				C4BACF3A1A90606300736291 /* AudioFilePlayer.m */,
+				C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */,
+				C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */,
+				C4BACF3D1A90606300736291 /* dish.wav */,
+				C4BACF3E1A90606300736291 /* Stairwell.wav */,
+			);
+			name = Instruments;
+			sourceTree = "<group>";
+		};
 		C4BACCFD1A8FFC3100736291 = {
 			isa = PBXGroup;
 			children = (
@@ -561,12 +574,7 @@
 		C4BACD351A9002CA00736291 /* Processing */ = {
 			isa = PBXGroup;
 			children = (
-				C4BACF391A90606300736291 /* AudioFilePlayer.h */,
-				C4BACF3A1A90606300736291 /* AudioFilePlayer.m */,
-				C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */,
-				C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */,
-				C4BACF3D1A90606300736291 /* dish.wav */,
-				C4BACF3E1A90606300736291 /* Stairwell.wav */,
+				C42DC32C1A9C61920041B644 /* Instruments */,
 				C4BACD321A9002BE00736291 /* ProcessingViewController.h */,
 				C4BACD331A9002BE00736291 /* ProcessingViewController.m */,
 			);
@@ -1600,6 +1608,7 @@
 				C4BACD2E1A8FFC3200736291 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

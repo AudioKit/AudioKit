@@ -2,7 +2,7 @@
 //  SynthesisViewController.m
 //  AudioKitDemo
 //
-//  Created by Aurelius Prochazka on 2/14/15.
+//  Created by Aurelius Prochazka on 2/23/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -14,33 +14,32 @@
 
 @implementation SynthesisViewController
 {
-    IBOutlet UIView *fmSynthesizerTouchView;
-    IBOutlet UIView *tambourineTouchView;
+    IBOutlet NSView *fmSynthesizerTouchView;
+    IBOutlet NSView *tambourineTouchView;
     
     Tambourine *tambourine;
     FMSynthesizer *fmSynthesizer;
 }
 
-- (void)viewDidAppear:(BOOL)animated    {
-    [super viewDidAppear:animated];
+- (void)viewDidAppear {
+    [super viewDidAppear];
     tambourine = [[Tambourine alloc] init];
     [AKOrchestra addInstrument:tambourine];
-
+    
     fmSynthesizer = [[FMSynthesizer alloc] init];
     [AKOrchestra addInstrument:fmSynthesizer];
     
     [AKOrchestra start];
 }
 
-- (void)viewWillDisappear:(BOOL)animated   {
-    [super viewWillDisappear:animated];
+- (void)viewWillDisappear {
+    [super viewWillDisappear];
     [AKOrchestra reset];
     [[AKManager sharedManager] stop];
 }
 
-
-- (IBAction)tapTambourine:(UITapGestureRecognizer *)sender {
-
+- (IBAction)tapTambourine:(NSClickGestureRecognizer *)sender
+{
     CGPoint touchPoint = [sender locationInView:tambourineTouchView];
     float scaledX = touchPoint.x / tambourineTouchView.bounds.size.width;
     float scaledY = 1.0 - touchPoint.y / tambourineTouchView.bounds.size.height;
@@ -53,7 +52,7 @@
 }
 
 
-- (IBAction)tapFMOscillator:(UITapGestureRecognizer *)sender {
+- (IBAction)tapFMOscillator:(NSClickGestureRecognizer *)sender {
     
     CGPoint touchPoint = [sender locationInView:fmSynthesizerTouchView];
     float scaledX = touchPoint.x / fmSynthesizerTouchView.bounds.size.width;
