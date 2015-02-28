@@ -9,26 +9,19 @@
 import Foundation
 
 class Instrument : AKInstrument {
-
+    
     override init() {
         super.init()
-
-        let hamming = AKWindow(type: AKWindowTableType.Hamming)
+        
+        let hamming = AKWindowTable(type: AKWindowTableType.Hamming)
         addFunctionTable(hamming)
-
-        let gaussian = AKWindow(type: AKWindowTableType.Gaussian)
+        
+        let gaussian = AKWindowTable(type: AKWindowTableType.Gaussian)
         addFunctionTable(gaussian)
-
-        let kaiser = AKWindow(type: AKWindowTableType.Kaiser)
+        
+        let kaiser = AKWindowTable(type: AKWindowTableType.Kaiser)
         addFunctionTable(kaiser)
-
-    }
-}
-
-class Note: AKNote {
-
-    override init() {
-        super.init()
+        
     }
 }
 
