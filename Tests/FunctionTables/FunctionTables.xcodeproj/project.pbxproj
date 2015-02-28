@@ -35,8 +35,6 @@
 		C48A011D1AA10FF50090EE88 /* AKSpectralVocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A00001AA10FF50090EE88 /* AKSpectralVocoder.m */; };
 		C48A011E1AA10FF50090EE88 /* AKWarpedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A00021AA10FF50090EE88 /* AKWarpedFFT.m */; };
 		C48A011F1AA10FF50090EE88 /* AKTableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A00051AA10FF50090EE88 /* AKTableValue.m */; };
-		C48A01201AA10FF50090EE88 /* AKTableValueConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A00071AA10FF50090EE88 /* AKTableValueConstant.m */; };
-		C48A01211AA10FF50090EE88 /* AKTableValueControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A00091AA10FF50090EE88 /* AKTableValueControl.m */; };
 		C48A01221AA10FF50090EE88 /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A000C1AA10FF50090EE88 /* AKAdditiveCosineTable.m */; };
 		C48A01231AA10FF50090EE88 /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A000E1AA10FF50090EE88 /* AKArrayTable.m */; };
 		C48A01241AA10FF50090EE88 /* AKExponentialCurves.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A00101AA10FF50090EE88 /* AKExponentialCurves.m */; };
@@ -168,10 +166,6 @@
 		C48A00021AA10FF50090EE88 /* AKWarpedFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKWarpedFFT.m; sourceTree = "<group>"; };
 		C48A00041AA10FF50090EE88 /* AKTableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValue.h; sourceTree = "<group>"; };
 		C48A00051AA10FF50090EE88 /* AKTableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValue.m; sourceTree = "<group>"; };
-		C48A00061AA10FF50090EE88 /* AKTableValueConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueConstant.h; sourceTree = "<group>"; };
-		C48A00071AA10FF50090EE88 /* AKTableValueConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueConstant.m; sourceTree = "<group>"; };
-		C48A00081AA10FF50090EE88 /* AKTableValueControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTableValueControl.h; sourceTree = "<group>"; };
-		C48A00091AA10FF50090EE88 /* AKTableValueControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableValueControl.m; sourceTree = "<group>"; };
 		C48A000B1AA10FF50090EE88 /* AKAdditiveCosineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosineTable.h; sourceTree = "<group>"; };
 		C48A000C1AA10FF50090EE88 /* AKAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosineTable.m; sourceTree = "<group>"; };
 		C48A000D1AA10FF50090EE88 /* AKArrayTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArrayTable.h; sourceTree = "<group>"; };
@@ -473,10 +467,6 @@
 			children = (
 				C48A00041AA10FF50090EE88 /* AKTableValue.h */,
 				C48A00051AA10FF50090EE88 /* AKTableValue.m */,
-				C48A00061AA10FF50090EE88 /* AKTableValueConstant.h */,
-				C48A00071AA10FF50090EE88 /* AKTableValueConstant.m */,
-				C48A00081AA10FF50090EE88 /* AKTableValueControl.h */,
-				C48A00091AA10FF50090EE88 /* AKTableValueControl.m */,
 				C48A000A1AA10FF50090EE88 /* Generators */,
 				C48A001D1AA10FF50090EE88 /* Loopers */,
 			);
@@ -1153,7 +1143,6 @@
 				C48A01651AA10FF50090EE88 /* AKConvolution.m in Sources */,
 				C48A015F1AA10FF50090EE88 /* AKAudioInput.m in Sources */,
 				C48A013B1AA10FF50090EE88 /* AKGranularSynthesisTexture.m in Sources */,
-				C48A01211AA10FF50090EE88 /* AKTableValueControl.m in Sources */,
 				C48A018B1AA10FF50090EE88 /* AKStereoAudio.m in Sources */,
 				C48A011F1AA10FF50090EE88 /* AKTableValue.m in Sources */,
 				C48A01581AA10FF50090EE88 /* AKInterpolatedRandomNumberPulse.m in Sources */,
@@ -1174,7 +1163,6 @@
 				C48A01421AA10FF50090EE88 /* AKOscillator.m in Sources */,
 				C48A016C1AA10FF50090EE88 /* AKFlanger.m in Sources */,
 				C48A01221AA10FF50090EE88 /* AKAdditiveCosineTable.m in Sources */,
-				C48A01201AA10FF50090EE88 /* AKTableValueConstant.m in Sources */,
 				C48A01711AA10FF50090EE88 /* AKEqualizerFilter.m in Sources */,
 				C48A01511AA10FF50090EE88 /* AKSleighbells.m in Sources */,
 				C48A015B1AA10FF50090EE88 /* AKRandomNumbers.m in Sources */,
