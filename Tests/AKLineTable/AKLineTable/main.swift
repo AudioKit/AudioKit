@@ -36,6 +36,7 @@ class Instrument : AKInstrument {
         lineTable.addValue(1, atIndex: 1)
         lineTable.appendValue(-1, afterNumberOfElements: 2)
         lineTable.addValue(0, atIndex: 8)
+        lineTable.addValue(1, atIndex: 7)
         lineTable.size = 8192
         addFunctionTable(lineTable)
     }
