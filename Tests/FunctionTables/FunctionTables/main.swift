@@ -22,12 +22,23 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        presentFunctionTable(AKManager.standardSineWave(),            label: "Standard Sine Wave")
-        presentFunctionTable(AKManager.standardSquareWave(),          label: "Standard Square Wave")
-        presentFunctionTable(AKManager.standardTriangleWave(),        label: "Standard Triangle Wave")
-        presentFunctionTable(AKManager.standardSawtoothWave(),        label: "Standard Sawtooth Wave")
-        presentFunctionTable(AKManager.standardReverseSawtoothWave(), label: "Standard Reverse Sawtooth Wave")
-
+        let sine = AKManager.standardSineWave()
+        presentFunctionTable(sine, label: "Standard Sine Wave")
+        
+        let square = AKManager.standardSquareWave()
+        presentFunctionTable(square, label: "Standard Square Wave")
+        
+        let triangle = AKManager.standardTriangleWave()
+        presentFunctionTable(triangle, label: "Standard Triangle Wave")
+        
+        let sawtooth = AKManager.standardSawtoothWave()
+        presentFunctionTable(sawtooth, label: "Standard Sawtooth Wave")
+        
+        let htootwas = AKManager.standardReverseSawtoothWave()
+        presentFunctionTable(htootwas, label: "Standard Reverse Sawtooth Wave")
+        
+        let midpoint = AKTableValue(functionTable: sawtooth, atIndex: akp(0.5))
+        enableParameterLog("Middle point: ", parameter: midpoint, timeInterval: 100)
     }
 }
 
