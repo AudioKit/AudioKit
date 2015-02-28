@@ -135,6 +135,7 @@ static int currentID = 1;
     }
     
     [[[AKManager sharedManager] engine] updateOrchestra:[newFunctionTable stringForCSD]];
+    newFunctionTable.state = @"connected";
 }
 
 - (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable
@@ -155,10 +156,6 @@ static int currentID = 1;
 
 - (void)internallyConnect:(AKParameter *)newOperation
 {
-    if ([[AKManager sharedManager] isLogging]) {
-        NSLog(@"Connecting %@ which is %@", newOperation, newOperation.state);
-    }
-    
     if ([newOperation.state isEqualToString:@"connecting"]) {
         [NSException raise:@"Cyclical Reference" format:@"Parameter: %@ is cyclically dependent on itself", newOperation];
     }
