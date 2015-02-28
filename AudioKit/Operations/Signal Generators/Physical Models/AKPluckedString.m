@@ -36,8 +36,8 @@
             file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
         }
         
-        AKSoundFile *_strikeImpulseTable;
-        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        AKSoundFileTable *_strikeImpulseTable;
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
         _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
 
@@ -62,8 +62,8 @@
             file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
         }
         
-        AKSoundFile *_strikeImpulseTable;
-        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        AKSoundFileTable *_strikeImpulseTable;
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
         _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
         [self setUpConnections];

@@ -1,5 +1,5 @@
 //
-//  AKWeightedSumOfSinusoids.h
+//  AKFourierSeriesTable.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/6/12.
@@ -10,7 +10,7 @@
 
 /** Generates composite waveforms made up of weighted sums of simple sinusoids.
  */
-@interface AKWeightedSumOfSinusoids : AKFunctionTable
+@interface AKFourierSeriesTable : AKFunctionTable
 
 
 /// Creates a weighted sum with no elements and default size of 4096.

@@ -56,13 +56,13 @@
 // Operations - Function Tables - Generators
 #import "AKAdditiveCosineTable.h"
 #import "AKArrayTable.h"
-#import "AKExponentialCurves.h"
+#import "AKExponentialTable.h"
 #import "AKFunctionTable.h"
-#import "AKLineSegments.h"
+#import "AKLineTable.h"
 #import "AKRandomDistributionTable.h"
-#import "AKSoundFile.h"
-#import "AKWeightedSumOfSinusoids.h"
-#import "AKWindow.h"
+#import "AKSoundFileTable.h"
+#import "AKFourierSeriesTable.h"
+#import "AKWindowTable.h"
 
 // Operations - Function Tables - Loopers
 #import "AKFunctionTableLooper.h"

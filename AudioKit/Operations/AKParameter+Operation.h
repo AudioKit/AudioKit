@@ -10,7 +10,7 @@
 #import "AKArray.h"
 #import "AKFunctionTable.h"
 #import "AKTypes.h"
-#import "AKSoundFile.h"
+#import "AKSoundFileTable.h"
 
 /** This category allows for operations to simply be considered as parameters to other operations.
  */

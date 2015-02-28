@@ -1,18 +1,18 @@
 //
-//  AKWindow.m
+//  AKWindowTable.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/27/15.
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-#import "AKWindow.h"
+#import "AKWindowTable.h"
 
-@interface AKWindow()
+@interface AKWindowTable()
 @property AKWindowTableType windowType;
 @end
 
-@implementation AKWindow
+@implementation AKWindowTable
 
 - (instancetype)initWithType:(AKWindowTableType)windowType
 {

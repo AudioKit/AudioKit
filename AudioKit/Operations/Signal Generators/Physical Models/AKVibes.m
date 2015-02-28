@@ -13,7 +13,7 @@
 #import "AKManager.h"
 
 @implementation AKVibes {
-    AKSoundFile *_strikeImpulseTable;
+    AKSoundFileTable *_strikeImpulseTable;
 }
 
 - (instancetype)initWithFrequency:(AKParameter *)frequency
@@ -40,7 +40,7 @@
             file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
         }
         
-        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
         [self setUpConnections];
 }
@@ -67,7 +67,7 @@
             file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
         }
         
-        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
         [self setUpConnections];
     }

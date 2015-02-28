@@ -1,5 +1,5 @@
 //
-//  AKLineSegments.h
+//  AKLineTable.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
@@ -10,7 +10,7 @@
 
 /** Construct functions from segments of straight lines
 */
-@interface AKLineSegments : AKFunctionTable
+@interface AKLineTable : AKFunctionTable
 
 /// Size of the table (default 4096)
 @property int size;

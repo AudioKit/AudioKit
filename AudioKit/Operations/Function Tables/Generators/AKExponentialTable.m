@@ -1,20 +1,20 @@
 //
-//  AKExponentialCurves.m
+//  AKExponentialTable.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKExponentialCurves.h"
+#import "AKExponentialTable.h"
 
-@interface AKExponentialCurves ()
+@interface AKExponentialTable ()
 {
     NSMutableArray *points;
 }
 @end
 
-@implementation AKExponentialCurves
+@implementation AKExponentialTable
 
 - (instancetype)initWithValue:(float)value
 {

@@ -13,7 +13,7 @@
 #import "AKManager.h"
 
 @implementation AKMandolin {
-    AKSoundFile *_strikeImpulseTable;
+    AKSoundFileTable *_strikeImpulseTable;
 }
 
 - (instancetype)initWithBodySize:(AKParameter *)bodySize
@@ -37,7 +37,7 @@
         if (!file) {
             file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
         }
-        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
         [self setUpConnections];
 }
@@ -61,7 +61,7 @@
         if (!file) {
             file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
         }
-        _strikeImpulseTable = [[AKSoundFile alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
         [self setUpConnections];
     }

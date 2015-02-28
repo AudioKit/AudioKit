@@ -21,7 +21,7 @@
 
 - (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
                             frequency:(AKParameter *)frequency
-                       windowWaveform:(AKWindow *)windowWaveform
+                       windowWaveform:(AKWindowTable *)windowWaveform
                              duration:(AKParameter *)duration
                               density:(AKParameter *)density
              maximumOverlappingGrains:(AKConstant *)maximumOverlappingGrains
@@ -57,7 +57,7 @@
         _grainWaveform = grainWaveform;
         _frequency = frequency;
         // Default Values
-        _windowWaveform = [[AKWindow alloc] initWithType:AKWindowTableTypeHamming];
+        _windowWaveform = [[AKWindowTable alloc] initWithType:AKWindowTableTypeHamming];
         _duration = akp(0.2);
         _density = akp(200);
         _maximumOverlappingGrains = akp(200);
@@ -78,12 +78,12 @@
                        frequency:frequency];
 }
 
-- (void)setWindowWaveform:(AKWindow *)windowWaveform {
+- (void)setWindowWaveform:(AKWindowTable *)windowWaveform {
     _windowWaveform = windowWaveform;
     [self setUpConnections];
 }
 
-- (void)setOptionalWindowWaveform:(AKWindow *)windowWaveform {
+- (void)setOptionalWindowWaveform:(AKWindowTable *)windowWaveform {
     [self setWindowWaveform:windowWaveform];
 }
 

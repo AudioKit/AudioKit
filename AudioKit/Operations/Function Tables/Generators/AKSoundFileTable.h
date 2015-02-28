@@ -1,5 +1,5 @@
 //
-//  AKSoundFile.h
+//  AKSoundFileTable.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/16/12.
@@ -13,7 +13,7 @@
  File types supported are given here: http://www.mega-nerd.com/libsndfile/
 */
 
-@interface AKSoundFile : AKFunctionTable
+@interface AKSoundFileTable : AKFunctionTable
 
 /// Store file with a filename
 /// @param filename Audio file to load.  Most types are supported.
