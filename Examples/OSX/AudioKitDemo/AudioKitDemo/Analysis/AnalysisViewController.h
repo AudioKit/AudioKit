@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  AnalysisViewController.h
 //  AudioKitDemo
 //
 //  Created by Aurelius Prochazka on 2/23/15.
@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
-
+@interface AnalysisViewController : NSViewController
 
 @end
-
