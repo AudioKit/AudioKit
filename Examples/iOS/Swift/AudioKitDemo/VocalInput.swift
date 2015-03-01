@@ -6,4 +6,15 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-import Foundation
+class VocalInput: AKInstrument{
+    
+    override init() {
+        super.init()
+        
+        let microphone = AKAudioInput()
+        connect(microphone)
+        let auxilliaryOutput = AKAudio.globalParameter()
+        assignOutput(auxilliaryOutput, to: microphone)
+    }
+}
+
