@@ -153,7 +153,21 @@
 		E4CC76BD1AA29B6C007E90B8 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC76271AA29B6C007E90B8 /* AKNoteProperty.m */; };
 		E4CC76BE1AA29B6C007E90B8 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC762A1AA29B6C007E90B8 /* AKAudioAnalyzer.m */; };
 		E4CC76BF1AA29B6C007E90B8 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC762C1AA29B6C007E90B8 /* LevelMeter.m */; };
+		E4D74B6C1AA2A0230055B338 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4CC750D1AA29B6B007E90B8 /* CsoundLib64.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E4D74B6B1AA2A0130055B338 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E4D74B6C1AA2A0230055B338 /* CsoundLib64.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E4CC74A81AA29B2D007E90B8 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1079,6 +1093,8 @@
 				E4CC74A41AA29B2D007E90B8 /* Sources */,
 				E4CC74A51AA29B2D007E90B8 /* Frameworks */,
 				E4CC74A61AA29B2D007E90B8 /* Resources */,
+				E4D74B6B1AA2A0130055B338 /* CopyFiles */,
+				E4D74B6D1AA2A02C0055B338 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1137,6 +1153,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E4D74B6D1AA2A02C0055B338 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib64.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib64.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib64\"\nfor TARGET in ${TARGETS} ; do\nLIBFILE=${LIBPATH}/${TARGET}\nTARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\nNEWTARGETID=${NEWLIBPATH}/${TARGET}\ninstall_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\ninstall_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\ndone";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E4CC74A41AA29B2D007E90B8 /* Sources */ = {
@@ -1381,17 +1413,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/nicholasarner/Development/H4Y/AudioKit/AudioKit/Libraries/OSX/csound-OSX",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/nicholasarner/Development/H4Y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1400,17 +1427,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/nicholasarner/Development/H4Y/AudioKit/AudioKit/Libraries/OSX/csound-OSX",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/nicholasarner/Development/H4Y/AudioKit/AudioKit/Libraries/iOS/csound-iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
