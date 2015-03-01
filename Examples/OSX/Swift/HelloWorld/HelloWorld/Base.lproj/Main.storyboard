@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6198" systemVersion="14A297b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6198"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -10,11 +11,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="HelloWorld" id="1Xt-HY-uBw">
+                            <menuItem title="AudioKitHelloWorld" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="HelloWorld" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="AudioKitHelloWorld" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About HelloWorld" id="5kV-Vb-QxS">
+                                        <menuItem title="About AudioKitHelloWorld" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -28,7 +29,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide HelloWorld" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide AudioKitHelloWorld" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -46,7 +47,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit HelloWorld" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit AudioKitHelloWorld" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -627,7 +628,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="HelloWorld Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="AudioKitHelloWorld Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -641,12 +642,12 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
-        <!--Window Controller - Window-->
+        <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
@@ -667,15 +668,45 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="357"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ch7-tf-bPi">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="357"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AudioKitMan" id="Bpp-XH-GDd"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sFs-O1-yJD">
+                                <rect key="frame" x="96" y="22" width="288" height="56"/>
+                                <buttonCell key="cell" type="smallSquare" title="Play Sine Wave at 440Hz" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qPZ-vb-3Dv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="systemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleSound:" target="XfG-lQ-9wD" id="K4w-dB-7e2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Ch7-tf-bPi" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1T5-Pg-7jd"/>
+                            <constraint firstAttribute="trailing" secondItem="Ch7-tf-bPi" secondAttribute="trailing" id="2RP-bQ-YpM"/>
+                            <constraint firstItem="Ch7-tf-bPi" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="4rP-YD-8RG"/>
+                            <constraint firstItem="sFs-O1-yJD" firstAttribute="top" secondItem="Ch7-tf-bPi" secondAttribute="bottom" constant="-77" id="AiC-DK-ZhF"/>
+                            <constraint firstItem="sFs-O1-yJD" firstAttribute="width" secondItem="Ch7-tf-bPi" secondAttribute="width" multiplier="0.6" id="Djx-ag-iPF"/>
+                            <constraint firstItem="sFs-O1-yJD" firstAttribute="centerX" secondItem="Ch7-tf-bPi" secondAttribute="centerX" id="QGX-qy-nGh"/>
+                            <constraint firstAttribute="bottom" secondItem="Ch7-tf-bPi" secondAttribute="bottom" id="QU2-Sq-X6i"/>
+                            <constraint firstItem="sFs-O1-yJD" firstAttribute="height" secondItem="Ch7-tf-bPi" secondAttribute="height" multiplier="0.15" id="Ypn-lH-4jS"/>
+                            <constraint firstAttribute="centerY" secondItem="Ch7-tf-bPi" secondAttribute="centerY" id="j0T-ez-t3X"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="707.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AudioKitMan" width="357" height="357"/>
+    </resources>
 </document>

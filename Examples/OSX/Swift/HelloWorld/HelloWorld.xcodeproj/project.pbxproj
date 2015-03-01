@@ -476,9 +476,7 @@
 		E4CC74AA1AA29B2D007E90B8 /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
-				E4CC74AD1AA29B2D007E90B8 /* AppDelegate.swift */,
 				E4CC74AF1AA29B2D007E90B8 /* ViewController.swift */,
-				E4CC74B11AA29B2D007E90B8 /* Images.xcassets */,
 				E4CC74B31AA29B2D007E90B8 /* Main.storyboard */,
 				E4CC74AB1AA29B2D007E90B8 /* Supporting Files */,
 			);
@@ -488,6 +486,8 @@
 		E4CC74AB1AA29B2D007E90B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E4CC74B11AA29B2D007E90B8 /* Images.xcassets */,
+				E4CC74AD1AA29B2D007E90B8 /* AppDelegate.swift */,
 				E4CC74AC1AA29B2D007E90B8 /* Info.plist */,
 			);
 			name = "Supporting Files";
