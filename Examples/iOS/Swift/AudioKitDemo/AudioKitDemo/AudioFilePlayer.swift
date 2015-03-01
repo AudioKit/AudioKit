@@ -7,7 +7,7 @@
 //
 
 
-class ConvolutionInstrument: AKInstrument {
+class AudioFilePlayer: AKInstrument {
     
     // INSTRUMENT BASED CONTROL ============================================
     var speed       = AKInstrumentProperty(value: 1, minimum: -2, maximum: -2)
