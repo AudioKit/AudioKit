@@ -14,7 +14,7 @@
 
 @implementation AKOscillator
 
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+- (instancetype)initWithFunctionTable:(AKTable *)functionTable
                             frequency:(AKParameter *)frequency
                             amplitude:(AKParameter *)amplitude
 {
@@ -47,7 +47,7 @@
     return [[AKOscillator alloc] init];
 }
 
-- (void)setFunctionTable:(AKFunctionTable *)functionTable {
+- (void)setFunctionTable:(AKTable *)functionTable {
     _functionTable = functionTable;
     [self setUpConnections];
 }
@@ -78,7 +78,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_functionTable, _frequency, _amplitude];
+    self.dependencies = @[_frequency, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD
@@ -112,7 +112,7 @@
     
     [inputsString appendFormat:@"%@, ", _frequency];
     
-    [inputsString appendFormat:@"%@, ", _functionTable];
+    [inputsString appendFormat:@"%d, ", _functionTable.number];
     
     [inputsString appendFormat:@"%@", _phase];
     return inputsString;

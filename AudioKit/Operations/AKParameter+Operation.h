@@ -7,6 +7,7 @@
 //
 
 #import "AKParameter.h"
+#import "AKTable.h"
 #import "AKArray.h"
 #import "AKFunctionTable.h"
 #import "AKTypes.h"
