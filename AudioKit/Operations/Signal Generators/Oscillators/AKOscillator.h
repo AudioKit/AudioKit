@@ -10,7 +10,7 @@
 #import "AKParameter+Operation.h"
 
 /** A simple oscillator with linear interpolation.
-
+ 
  Reads from the function table sequentially and repeatedly at given frequency. Linear interpolation is applied for table look up from internal phase values.
  */
 
@@ -19,9 +19,9 @@
 /// @param functionTable Requires a wrap-around guard point [Default Value: sine]
 /// @param frequency Frequency in cycles per second [Default Value: 440]
 /// @param amplitude Amplitude of the output [Default Value: 1]
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-                            frequency:(AKParameter *)frequency
-                            amplitude:(AKParameter *)amplitude;
+- (instancetype)initWithWaveform:(AKTable *)table
+                       frequency:(AKParameter *)frequency
+                       amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the oscillator with default values
 - (instancetype)init;
@@ -31,11 +31,11 @@
 
 
 /// Requires a wrap-around guard point [Default Value: sine]
-@property (nonatomic) AKFunctionTable *functionTable;
+@property (nonatomic) AKTable *table;
 
 /// Set an optional function table
 /// @param functionTable Requires a wrap-around guard point [Default Value: sine]
-- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable;
+- (void)setOptionalTable:(AKTable  *)table;
 
 /// Frequency in cycles per second [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
