@@ -2,7 +2,7 @@
 //  AKOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's oscili:
@@ -14,13 +14,13 @@
 
 @implementation AKOscillator
 
-- (instancetype)initWithFunctionTable:(AKTable *)functionTable
-                            frequency:(AKParameter *)frequency
-                            amplitude:(AKParameter *)amplitude
+- (instancetype)initWithWaveform:(AKTable *)waveform
+                       frequency:(AKParameter *)frequency
+                       amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _functionTable = functionTable;
+        _waveform = waveform;
         _frequency = frequency;
         _amplitude = amplitude;
         [self setUpConnections];
@@ -33,7 +33,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _functionTable = [AKManager standardSineWave];
+        _waveform = [AKTable standardSineWave];
     
         _frequency = akp(440);
         _amplitude = akp(1);
@@ -47,13 +47,13 @@
     return [[AKOscillator alloc] init];
 }
 
-- (void)setFunctionTable:(AKTable *)functionTable {
-    _functionTable = functionTable;
+- (void)setWaveform:(AKTable *)waveform {
+    _waveform = waveform;
     [self setUpConnections];
 }
 
-- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
-    [self setFunctionTable:functionTable];
+- (void)setOptionalWaveform:(AKTable *)waveform {
+    [self setWaveform:waveform];
 }
 
 - (void)setFrequency:(AKParameter *)frequency {
@@ -112,7 +112,7 @@
     
     [inputsString appendFormat:@"%@, ", _frequency];
     
-    [inputsString appendFormat:@"%d, ", _functionTable.number];
+    [inputsString appendFormat:@"%@, ", _waveform];
     
     [inputsString appendFormat:@"%@", _phase];
     return inputsString;
