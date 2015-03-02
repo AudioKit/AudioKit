@@ -29,8 +29,10 @@
 
 #import "AKSampler.h"
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Operations
+// -----------------------------------------------------------------------------
 
-// Operations
 #import "AKParameter+Operation.h"
 
 // Operations - Analysis
@@ -50,25 +52,6 @@
 #import "AKSpectralVocoder.h"
 #import "AKWarpedFFT.h"
 
-// Operations - Function Tables
-#import "AKTableValue.h"
-
-// Operations - Function Tables - Generators
-#import "AKAdditiveCosineTable.h"
-#import "AKArrayTable.h"
-#import "AKExponentialTable.h"
-#import "AKFunctionTable.h"
-#import "AKLineTable.h"
-#import "AKRandomDistributionTable.h"
-#import "AKSoundFileTable.h"
-#import "AKFourierSeriesTable.h"
-#import "AKWindowTable.h"
-
-// Operations - Function Tables - Loopers
-#import "AKFunctionTableLooper.h"
-#import "AKMonoSoundFileLooper.h"
-#import "AKStereoSoundFileLooper.h"
-
 // Operations - Mathematical Operations
 #import "AKAssignment.h"
 #import "AKDifference.h"
@@ -77,7 +60,9 @@
 #import "AKMinimum.h"
 #import "AKMultipleInputMathOperation.h"
 #import "AKProduct.h"
+#import "AKSingleInputMathOperation.h"
 #import "AKSum.h"
+#import "AKTableValue.h"
 
 // Operations - Signal Generators
 
@@ -91,6 +76,11 @@
 #import "AKGranularSynthesisTexture.h"
 #import "AKGranularSynthesizer.h"
 #import "AKSinusoidBursts.h"
+
+// Operations - Signal Generators - Loopers
+#import "AKFunctionTableLooper.h"
+#import "AKMonoSoundFileLooper.h"
+#import "AKStereoSoundFileLooper.h"
 
 // Operations - Signal Generators - Musical Controls
 #import "AKPortamento.h"
@@ -197,5 +187,21 @@
 #import "AKMix.h"
 #import "AKPanner.h"
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Tables
+// -----------------------------------------------------------------------------
+
+#import "AKFunctionTable.h"
+#import "AKTable.h"
+
+// Tables - Generators
+#import "AKAdditiveCosineTable.h"
+#import "AKArrayTable.h"
+#import "AKExponentialTable.h"
+#import "AKFourierSeriesTable.h"
+#import "AKLineTable.h"
+#import "AKRandomDistributionTable.h"
+#import "AKSoundFileTable.h"
+#import "AKWindowTable.h"
 
 #endif
