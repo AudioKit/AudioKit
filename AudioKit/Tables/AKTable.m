@@ -27,7 +27,6 @@ static int currentID = 1000;
         table = malloc(_size *sizeof(MYFLT));
         csoundObj = [[AKManager sharedManager] engine];
         cs = [csoundObj getCsound];
-        NSLog(@"ftable %@", [self orchestraString]);
         [csoundObj updateOrchestra:[self orchestraString]];
     }
     return self;
@@ -64,9 +63,23 @@ static int currentID = 1000;
     }
 }
 
++ (instancetype)standardSineWave
+{
+    AKTable *standarSineWave = [[AKTable alloc] init];
+    [standarSineWave populateTableWithFractionalWidthFunction:^(float x) {
+        return sinf(M_PI*2*x);
+    }];
+    return standarSineWave;
+}
+
 - (NSString *)orchestraString
 {
-    return [NSString stringWithFormat:@"giTable ftgen %d, 0, %d, 9, 0, 0", _number, _size];
+    return [NSString stringWithFormat:@"giTable%d ftgen %d, 0, %d, 2, 0", _number, _number, _size];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%d", _number];
 }
 
 @end
