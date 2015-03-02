@@ -35,4 +35,6 @@
 - (void)populateTableWithIndexFunction:(float (^)(int))function;
 
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function;
+
++ (instancetype)standardSineWave;
 @end
