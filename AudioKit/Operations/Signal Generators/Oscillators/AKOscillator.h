@@ -2,7 +2,7 @@
 //  AKOscillator.h
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -10,16 +10,16 @@
 #import "AKParameter+Operation.h"
 
 /** A simple oscillator with linear interpolation.
- 
+
  Reads from the function table sequentially and repeatedly at given frequency. Linear interpolation is applied for table look up from internal phase values.
  */
 
 @interface AKOscillator : AKAudio
 /// Instantiates the oscillator with all values
-/// @param functionTable Requires a wrap-around guard point [Default Value: sine]
+/// @param waveform Requires a wrap-around guard point [Default Value: sine]
 /// @param frequency Frequency in cycles per second [Default Value: 440]
 /// @param amplitude Amplitude of the output [Default Value: 1]
-- (instancetype)initWithWaveform:(AKTable *)table
+- (instancetype)initWithWaveform:(AKTable *)waveform
                        frequency:(AKParameter *)frequency
                        amplitude:(AKParameter *)amplitude;
 
@@ -31,11 +31,11 @@
 
 
 /// Requires a wrap-around guard point [Default Value: sine]
-@property (nonatomic) AKTable *table;
+@property (nonatomic) AKTable *waveform;
 
-/// Set an optional function table
-/// @param functionTable Requires a wrap-around guard point [Default Value: sine]
-- (void)setOptionalTable:(AKTable  *)table;
+/// Set an optional waveform
+/// @param waveform Requires a wrap-around guard point [Default Value: sine]
+- (void)setOptionalWaveform:(AKTable *)waveform;
 
 /// Frequency in cycles per second [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
