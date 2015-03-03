@@ -56,7 +56,6 @@ typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
 typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
-    AKFunctionTableTypeAdditiveCosines=11,
     AKFunctionTableTypeRandomDistributions=21,
 };
 

@@ -1,44 +1,31 @@
 //
-//  AKAdditiveCosineTable.h
+//  AKHarmonicCosineTableGenerator.h
 //  AudioKit
 //
 //  Auto-generated on 12/14/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFunctionTable.h"
+#import "AKTableGenerator.h"
 
 /** Generates an additive set of cosine partials
-
+ 
  This table generates an additive set of cosine partials, in the manner of the AKAdditiveCosines operation
  */
 
-@interface AKAdditiveCosineTable : AKFunctionTable
+@interface AKHarmonicCosineTableGenerator : AKTableGenerator
 
 /// Instantiates the additive cosine table with all values defined
 /// @param size Number of points in the table.
 /// @param numberOfHarmonics Number of harmonics in the partial series.
 /// @param lowestHarmonic Lowest harmonic partial present. Can be positive, zero or negative. The set of partials can begin at any partial number and proceeds upwards; if this is negative, all partials below zero will reflect in zero to produce positive partials without phase change (since cosine is an even function), and will add constructively to any positive partials in the set.
 /// @param partialMultiplier Multiplier in an amplitude coefficient series.  This is a power series: if the lhth partial has a strength coefficient of A the (lowestHarmonic + n)th partial will have a coefficient of A * r^n, i.e. strength values trace an exponential curve. May be positive, zero or negative, and is not restricted to integers.
-- (instancetype)initWithSize:(int)size
-           numberOfHarmonics:(int)numberOfHarmonics
-              lowestHarmonic:(int)lowestHarmonic
-           partialMultiplier:(float)partialMultiplier;
-
+- (instancetype)initWithNumberOfHarmonics:(int)numberOfHarmonics
+                           lowestHarmonic:(int)lowestHarmonic
+                        partialMultiplier:(float)partialMultiplier;
 
 /// Instantiates the additive cosine table with default values
 - (instancetype)init;
-
-
-
-
-/// Number of points in the table. [Default Value: 16384]
-
-
-/// Set an optional size
-/// @param size Number of points in the table. [Default Value: 16384]
-- (void)setOptionalSize:(int)size;
-
 
 /// Number of harmonics in the partial series. [Default Value: 1]
 @property int numberOfHarmonics;

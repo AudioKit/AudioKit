@@ -195,7 +195,7 @@
 #import "AKTable.h"
 
 // Tables - Generators
-#import "AKAdditiveCosineTable.h"
+#import "AKHarmonicCosineTableGenerator.h"
 #import "AKExponentialTableGenerator.h"
 #import "AKFourierSeriesTableGenerator.h"
 #import "AKLineTableGenerator.h"
