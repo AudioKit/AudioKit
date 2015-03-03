@@ -2,7 +2,7 @@
 //  AKFMOscillator.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's foscili:
@@ -14,16 +14,16 @@
 
 @implementation AKFMOscillator
 
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-                        baseFrequency:(AKParameter *)baseFrequency
-                    carrierMultiplier:(AKParameter *)carrierMultiplier
-                 modulatingMultiplier:(AKParameter *)modulatingMultiplier
-                      modulationIndex:(AKParameter *)modulationIndex
-                            amplitude:(AKParameter *)amplitude
+- (instancetype)initWithWaveform:(AKTable *)waveform
+                   baseFrequency:(AKParameter *)baseFrequency
+               carrierMultiplier:(AKParameter *)carrierMultiplier
+            modulatingMultiplier:(AKParameter *)modulatingMultiplier
+                 modulationIndex:(AKParameter *)modulationIndex
+                       amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _functionTable = functionTable;
+        _waveform = waveform;
         _baseFrequency = baseFrequency;
         _carrierMultiplier = carrierMultiplier;
         _modulatingMultiplier = modulatingMultiplier;
@@ -39,7 +39,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _functionTable = [AKManager standardSineWave];
+        _waveform = [AKTable standardSineWave];
     
         _baseFrequency = akp(440);
         _carrierMultiplier = akp(1);
@@ -56,13 +56,13 @@
     return [[AKFMOscillator alloc] init];
 }
 
-- (void)setFunctionTable:(AKFunctionTable *)functionTable {
-    _functionTable = functionTable;
+- (void)setWaveform:(AKTable *)waveform {
+    _waveform = waveform;
     [self setUpConnections];
 }
 
-- (void)setOptionalFunctionTable:(AKFunctionTable *)functionTable {
-    [self setFunctionTable:functionTable];
+- (void)setOptionalWaveform:(AKTable *)waveform {
+    [self setWaveform:waveform];
 }
 
 - (void)setBaseFrequency:(AKParameter *)baseFrequency {
@@ -114,7 +114,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_functionTable, _baseFrequency, _carrierMultiplier, _modulatingMultiplier, _modulationIndex, _amplitude];
+    self.dependencies = @[_baseFrequency, _carrierMultiplier, _modulatingMultiplier, _modulationIndex, _amplitude];
 }
 
 - (NSString *)inlineStringForCSD
@@ -162,7 +162,7 @@
         [inputsString appendFormat:@"AKControl(%@), ", _modulationIndex];
     }
 
-    [inputsString appendFormat:@"%@, ", _functionTable];
+    [inputsString appendFormat:@"%@, ", _waveform];
     
     [inputsString appendFormat:@"%@", _phase];
     return inputsString;
