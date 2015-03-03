@@ -15,105 +15,86 @@
 
 @implementation AKTableValue
 {
-    AKFunctionTable * _functionTable;
+    AKTable * _table;
     AKParameter * _index;
     AKConstant *_useFractionalWidth;
 }
 
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-                              atIndex:(AKParameter *)index
-                           withOffset:(AKConstant *)offset
-                   usingWrappingIndex:(BOOL)useWrappingIndex
+- (instancetype)initWithTable:(AKTable *)table
+                      atIndex:(AKParameter *)index
+                   withOffset:(AKConstant *)offset
+           usingWrappingIndex:(BOOL)useWrappingIndex
+           useFractionalWidth:(BOOL)useFractionalWidth
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _functionTable = functionTable;
+        _table = table;
         _index = index;
         _offset = offset;
         _useWrappingIndex = useWrappingIndex;
-        _useFractionalWidth = akp(NO);
+        _useFractionalWidth = akp(useFractionalWidth);
         [self setUpConnections];
     }
     return self;
 }
 
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-                              atIndex:(AKParameter *)index
+
+- (instancetype)initWithTable:(AKTable *)table
+                      atIndex:(AKParameter *)index
+                   withOffset:(AKConstant *)offset
+           usingWrappingIndex:(BOOL)useWrappingIndex
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _functionTable = functionTable;
-        _index = index;
-        // Default Values
-        _offset = akp(0);
-        _useWrappingIndex = NO;
-        _useFractionalWidth = akp(NO);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithTable:table
+                       atIndex:index
+                    withOffset:offset
+            usingWrappingIndex:useWrappingIndex
+            useFractionalWidth:NO];
 }
 
-+ (instancetype)valueOfFunctionTable:(AKFunctionTable *)functionTable
-                             atIndex:(AKParameter *)index
+- (instancetype)initWithTable:(AKTable *)table
+       atFractionOfTotalWidth:(AKParameter *)fractionalIndex
+                   withOffset:(AKConstant *)offset
+           usingWrappingIndex:(BOOL)useWrappingIndex
 {
-    return [[AKTableValue alloc] initWithFunctionTable:functionTable
-                                               atIndex:index];
+    return [self initWithTable:table
+                       atIndex:fractionalIndex
+                    withOffset:offset
+            usingWrappingIndex:useWrappingIndex
+            useFractionalWidth:YES];
 }
 
-
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-               atFractionOfTotalWidth:(AKParameter *)fractionalIndex
-                           withOffset:(AKConstant *)offset
-                   usingWrappingIndex:(BOOL)useWrappingIndex
+- (instancetype)initWithTable:(AKTable *)table
+                      atIndex:(AKParameter *)index
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _functionTable = functionTable;
-        _index = fractionalIndex;
-        _offset = offset;
-        _useWrappingIndex = useWrappingIndex;
-        _useFractionalWidth = akp(YES);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithTable:table
+                       atIndex:index
+                    withOffset:akp(0)
+            usingWrappingIndex:NO
+            useFractionalWidth:NO];
 }
 
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-               atFractionOfTotalWidth:(AKParameter *)fractionalIndex
-{
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _functionTable = functionTable;
-        _index = fractionalIndex;
-        // Default Values
-        _offset = akp(0);
-        _useWrappingIndex = NO;
-        _useFractionalWidth = akp(YES);
-        [self setUpConnections];
-    }
-    return self;
-}
 - (instancetype)initWithTable:(AKTable *)table
        atFractionOfTotalWidth:(AKParameter *)fractionalIndex
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _functionTable = table;
-        _index = fractionalIndex;
-        // Default Values
-        _offset = akp(0);
-        _useWrappingIndex = NO;
-        _useFractionalWidth = akp(YES);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithTable:table
+                       atIndex:fractionalIndex
+                    withOffset:akp(0)
+            usingWrappingIndex:NO
+            useFractionalWidth:YES];
 }
 
-+ (instancetype)valueOfFunctionTable:(AKFunctionTable *)functionTable
-              atFractionOfTotalWidth:(AKParameter *)fractionalIndex;
++ (instancetype)valueOfTable:(AKTable *)table
+                     atIndex:(AKParameter *)index
 {
-    return [[AKTableValue alloc] initWithFunctionTable:functionTable
-                                atFractionOfTotalWidth:fractionalIndex];
+    return [[AKTableValue alloc] initWithTable:table
+                                       atIndex:index];
+}
+
++ (instancetype)valueOfTable:(AKTable *)table
+      atFractionOfTotalWidth:(AKParameter *)fractionalIndex;
+{
+    return [[AKTableValue alloc] initWithTable:table
+                        atFractionOfTotalWidth:fractionalIndex];
 }
 
 - (void)setOffset:(AKConstant *)offset {
@@ -129,7 +110,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_functionTable, _index, _offset];
+    self.dependencies = @[_index, _offset];
 }
 
 - (NSString *)inlineStringForCSD
@@ -165,7 +146,7 @@
         [inputsString appendFormat:@"AKAudio(%@), ", _index];
     }
     
-    [inputsString appendFormat:@"%@, ", _functionTable];
+    [inputsString appendFormat:@"%@, ", _table];
     
     [inputsString appendFormat:@"%@, ", _useFractionalWidth];
     
