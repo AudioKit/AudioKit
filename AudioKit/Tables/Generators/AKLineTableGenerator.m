@@ -1,27 +1,23 @@
 //
-//  AKLineTable.m
+//  AKLineTableGenerator.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKLineTable.h"
+#import "AKLineTableGenerator.h"
 
-@interface AKLineTable ()
-{
+@implementation AKLineTableGenerator {
     NSMutableArray *points;
 }
-@end
-
-@implementation AKLineTable
 
 - (instancetype)initSquareWave {
     self = [self initWithValue:1];
     if (self) {
-        [self addValue:1 atIndex:self.size/2];
-        [self addValue:-1 atIndex:self.size/2];
-        [self addValue:-1 atIndex:self.size];
+        [self addValue:1 atIndex:1];
+        [self addValue:-1 atIndex:1];
+        [self addValue:-1 atIndex:2];
     }
     return self;
 }
@@ -33,9 +29,9 @@
 - (instancetype)initTriangleWave {
     self = [self initWithValue:0];
     if (self) {
-        [self addValue:1 atIndex:self.size/4];
-        [self addValue:-1 atIndex:(self.size*3)/4];
-        [self addValue:0 atIndex:self.size];
+        [self addValue:1 atIndex:1];
+        [self addValue:-1 atIndex:3];
+        [self addValue:0 atIndex:4];
     }
     return self;
 }
@@ -47,7 +43,7 @@
 - (instancetype)initSawtoothWave {
     self = [self initWithValue:-1];
     if (self) {
-        [self addValue:1 atIndex:self.size];
+        [self addValue:1 atIndex:1];
     }
     return self;
 }
@@ -59,7 +55,7 @@
 - (instancetype)initReverseSawtoothWave {
     self = [self initWithValue:1];
     if (self) {
-        [self addValue:-1 atIndex:self.size];
+        [self addValue:-1 atIndex:1];
     }
     return self;
 }
@@ -68,13 +64,16 @@
     return [[self alloc] initReverseSawtoothWave];
 }
 
+- (int)generationRoutineNumber {
+    return -27;
+}
+
 - (instancetype)initWithValue:(float)value
 {
-    self = [super initWithType:AKFunctionTableTypeStraightLines];
+    self = [super init];
     if (self) {
         points = [[NSMutableArray alloc] init];
         [points addObject:@[@0, [NSNumber numberWithFloat:value]]];
-        self.size = 4096;
     }
     return self;
 }
@@ -93,14 +92,13 @@
     [self addValue:value atIndex:index];
 }
 
-// Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
-- (NSString *)stringForCSD
+- (NSArray *)parametersWithSize:(int)size
 {
     [points sortUsingComparator:^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
         return [obj1[0] compare: obj2[0]];
     }];
     int maximumIndex = [[[points lastObject] objectAtIndex:0] intValue];
-    float scalingFactor = (float)self.size/(float)maximumIndex;
+    float scalingFactor = (float)size/(float)maximumIndex;
     NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
     for (NSArray *point in points) {
         int index = [[point objectAtIndex:0] intValue];
@@ -113,12 +111,7 @@
     for (NSArray *point in scaledPoints) {
         [flattenedPoints addObject:[point componentsJoinedByString:@", "]];
     }
-    return [NSString stringWithFormat:@"%@ ftgen %d, 0, %d, -%lu, %@",
-            self,
-            [self number],
-            self.size,
-            (unsigned long)AKFunctionTableTypeStraightLines,
-            [flattenedPoints componentsJoinedByString:@", "]];
+    return [flattenedPoints copy];
 }
 
 @end

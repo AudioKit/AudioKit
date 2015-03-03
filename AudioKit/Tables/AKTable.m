@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKTable.h"
-#import "AKManager.h"
+#import "AKFoundation.h"
 
 @implementation AKTable {
     MYFLT *table;
@@ -118,6 +117,22 @@ static int currentID = 2000;
         }
     }];
     return standardSquareWave;
+}
+
++ (instancetype)standardTriangleWave {
+    AKTable *standardTriangleWave = [[AKTable alloc] init];
+    [standardTriangleWave populateTableWithGenerator:[AKLineTableGenerator triangleWave]];
+    return standardTriangleWave;
+}
++ (instancetype)standardSawtoothWave {
+    AKTable *standardSawtoothWave = [[AKTable alloc] init];
+    [standardSawtoothWave populateTableWithGenerator:[AKLineTableGenerator sawtoothWave]];
+    return standardSawtoothWave;
+}
++ (instancetype)standardReverseSawtoothWave {
+    AKTable *standardReverseSawtoothWave = [[AKTable alloc] init];
+    [standardReverseSawtoothWave populateTableWithGenerator:[AKLineTableGenerator reverseSawtoothWave]];
+    return standardReverseSawtoothWave;
 }
 
 - (NSString *)orchestraString

@@ -13,24 +13,14 @@ let testDuration: Float = 10
 
 class Instrument : AKInstrument {
     
-    func presentFunctionTable(functionTable:AKFunctionTable, label:String) {
-        NSLog("\n\n%@", label)
-    }
-    
     override init() {
         super.init()
         
-        let sine   = AKTable.standardSineWave()
-        let square = AKTable.standardSquareWave()
-        
-        let triangle = AKManager.standardTriangleWave()
-        presentFunctionTable(triangle, label: "Standard Triangle Wave")
-        
-        let sawtooth = AKManager.standardSawtoothWave()
-        presentFunctionTable(sawtooth, label: "Standard Sawtooth Wave")
-        
-        let htootwas = AKManager.standardReverseSawtoothWave()
-        presentFunctionTable(htootwas, label: "Standard Reverse Sawtooth Wave")
+        let sine     = AKTable.standardSineWave()
+        let square   = AKTable.standardSquareWave()
+        let triangle = AKTable.standardTriangleWave()
+        let sawtooth = AKTable.standardSawtoothWave()
+        let htootwas = AKTable.standardReverseSawtoothWave()
         
         var point: AKParameter
         
@@ -54,12 +44,13 @@ class Instrument : AKInstrument {
 //        point = AKTableValue(functionTable: triangle, atFractionOfTotalWidth: akp(0.75))
 //        enableParameterLog("Triangle wave value at 0.75 expect -1 = ", parameter: point, timeInterval: 100)
         
-        let lineSegments = AKLineTable(value: 0.0)
+        let lineSegments = AKLineTableGenerator(value: 0.0)
         lineSegments.addValue(1, atIndex: 1)
         lineSegments.appendValue(-1, afterNumberOfElements: 2)
         lineSegments.addValue(0, atIndex: 4)
-        lineSegments.size = 8192
-        connect(lineSegments)
+        
+        let lineTable = AKTable(size: 16384)
+        lineTable.populateTableWithGenerator(lineSegments)
         
         let generator = AKExponentialTableGenerator(value: 0.1)
         generator.addValue(1, atIndex: 1  )

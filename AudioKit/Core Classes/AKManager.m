@@ -97,12 +97,7 @@ static AKManager *_sharedManager = nil;
         _isLogging = [[dict objectForKey:@"Enable Logging By Default"] boolValue];
         
         totalRunDuration = 10000000;
-        
-        _standardTriangleWave        = [AKLineTable triangleWave];
-        _standardSquareWave          = [AKLineTable squareWave];
-        _standardSawtoothWave        = [AKLineTable sawtoothWave];
-        _standardReverseSawtoothWave = [AKLineTable reverseSawtoothWave];
-        
+
         batchInstructions = [[NSString alloc] init];
         isBatching = NO;
         
@@ -202,10 +197,6 @@ static AKManager *_sharedManager = nil;
 - (void)resetOrchestra
 {
     _orchestra = [[AKOrchestra alloc] init];
-    _standardTriangleWave.state        = @"unnconnected";
-    _standardSquareWave.state          = @"unnconnected";
-    _standardSawtoothWave.state        = @"unnconnected";
-    _standardReverseSawtoothWave.state = @"unnconnected";
 }
 
 // -----------------------------------------------------------------------------
@@ -310,26 +301,6 @@ static AKManager *_sharedManager = nil;
     } else {
         [csound sendScore:[note stringForCSD]];
     }
-}
-
-// -----------------------------------------------------------------------------
-#  pragma mark - Useful tables
-// -----------------------------------------------------------------------------
-
-+ (AKLineTable *)standardTriangleWave {
-    return [[AKManager sharedManager] standardTriangleWave];
-}
-
-+ (AKLineTable *)standardSquareWave {
-    return [[AKManager sharedManager] standardSquareWave];
-}
-
-+ (AKLineTable *)standardSawtoothWave {
-    return [[AKManager sharedManager] standardSawtoothWave];
-}
-
-+ (AKLineTable *)standardReverseSawtoothWave {
-    return [[AKManager sharedManager] standardReverseSawtoothWave];
 }
 
 // -----------------------------------------------------------------------------

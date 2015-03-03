@@ -12,7 +12,6 @@
 #import "AKMidi.h"
 #import "AKSequence.h"
 #import "AKFourierSeriesTable.h"
-#import "AKLineTable.h"
 
 #import "CsoundObj.h"
 
@@ -93,17 +92,7 @@
 
 // Common tables required by many applications
 
-@property (nonatomic) AKLineTable *standardTriangleWave;
-+ (AKLineTable *)standardTriangleWave;
 
-@property (nonatomic) AKLineTable *standardSquareWave;
-+ (AKLineTable *)standardSquareWave;
-
-@property (nonatomic) AKLineTable *standardSawtoothWave;
-+ (AKLineTable *)standardSawtoothWave;
-
-@property (nonatomic) AKLineTable *standardReverseSawtoothWave;
-+ (AKLineTable *)standardReverseSawtoothWave;
 
 
 @end

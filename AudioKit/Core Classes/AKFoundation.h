@@ -198,7 +198,7 @@
 #import "AKAdditiveCosineTable.h"
 #import "AKExponentialTableGenerator.h"
 #import "AKFourierSeriesTable.h"
-#import "AKLineTable.h"
+#import "AKLineTableGenerator.h"
 #import "AKRandomDistributionTable.h"
 #import "AKSoundFileTable.h"
 #import "AKWindowTable.h"
