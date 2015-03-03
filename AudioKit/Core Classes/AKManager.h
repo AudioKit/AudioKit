@@ -11,7 +11,7 @@
 #import "AKEvent.h"
 #import "AKMidi.h"
 #import "AKSequence.h"
-#import "AKFourierSeriesTable.h"
+#import "AKTable.h"
 
 #import "CsoundObj.h"
 

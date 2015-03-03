@@ -71,7 +71,6 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
     AKFunctionTableTypeAdditiveCosines=11,
-    AKFunctionTableTypeWeightedSumOfSinusoids=19,
     AKFunctionTableTypeWindow=20,
     AKFunctionTableTypeRandomDistributions=21,
 };

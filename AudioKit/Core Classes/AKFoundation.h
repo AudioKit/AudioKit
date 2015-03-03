@@ -197,7 +197,7 @@
 // Tables - Generators
 #import "AKAdditiveCosineTable.h"
 #import "AKExponentialTableGenerator.h"
-#import "AKFourierSeriesTable.h"
+#import "AKFourierSeriesTableGenerator.h"
 #import "AKLineTableGenerator.h"
 #import "AKRandomDistributionTable.h"
 #import "AKSoundFileTable.h"

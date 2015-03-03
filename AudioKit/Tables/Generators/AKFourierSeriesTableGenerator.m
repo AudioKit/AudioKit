@@ -1,45 +1,28 @@
 //
-//  AKFourierSeriesTable.m
+//  AKFourierSeriesTableGenerator.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/6/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFourierSeriesTable.h"
+#import "AKFourierSeriesTableGenerator.h"
 
-@interface AKFourierSeriesTable ()
-{
+@implementation AKFourierSeriesTableGenerator {
     NSMutableArray *sinusoids;
 }
-@end
 
-
-@implementation AKFourierSeriesTable
+- (int)generationRoutineNumber {
+    return -19;
+}
 
 - (instancetype)init;
 {
-    self = [super initWithType:AKFunctionTableTypeWeightedSumOfSinusoids];
+    self = [super init];
     if (self) {
         sinusoids = [[NSMutableArray alloc] init];
-        self.size = 4096;
     }
     return self;
-}
-
-- (instancetype)initStandardSineWave
-{
-    self = [self init];
-    if (self) {
-        [self addSinusoidWithPartialNumber:1 strength:1];
-    }
-    return self;
-}
-
-
-+ (instancetype)pureSineWave
-{
-    return [[self alloc] initStandardSineWave];
 }
 
 - (void)addSinusoidWithPartialNumber:(float)partialNumber
@@ -61,8 +44,7 @@
     
 }
 
-// Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
-- (NSString *)stringForCSD
+- (NSArray *)parametersWithSize:(int)size
 {
     if (sinusoids.count == 0) {
         [self addSinusoidWithPartialNumber:1 strength:1];
@@ -71,12 +53,7 @@
     for (NSArray *sinusoid in sinusoids) {
         [flattenedSinusoids addObject:[sinusoid componentsJoinedByString:@", "]];
     }
-    return [NSString stringWithFormat:@"%@ ftgen %d, 0, %d, -%lu, %@",
-            self,
-            [self number],
-            self.size,
-            (unsigned long)AKFunctionTableTypeWeightedSumOfSinusoids,
-            [flattenedSinusoids componentsJoinedByString:@", "]];
+    return [flattenedSinusoids copy];
 }
 
 @end
