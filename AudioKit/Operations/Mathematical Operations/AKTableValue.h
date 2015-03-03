@@ -51,7 +51,8 @@
 /// @param fractionalIndex Index at which to look up the value (from 0-1).
 - (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
                atFractionOfTotalWidth:(AKParameter *)fractionalIndex;
-
+- (instancetype)initWithTable:(AKTable *)table
+       atFractionOfTotalWidth:(AKParameter *)fractionalIndex;
 
 /// Instantiates the table value with default values
 /// @param functionTable Function table to be inspected.
