@@ -66,6 +66,16 @@ class Instrument : AKInstrument {
         enableParameterLog("expect 0 = ", parameter: value1, timeInterval: 100)
         let value2 = AKTableValue(table: newArrayTable, atIndex: 1.ak)
         enableParameterLog("expect 255 = ", parameter: value2, timeInterval: 100)
+        
+        let hamming = AKTable(size: 4096)
+        hamming.populateTableWithGenerator(AKWindowTableGenerator.hammingWindow())
+        
+        let gaussian = AKTable(size: 4096)
+        gaussian.populateTableWithGenerator(AKWindowTableGenerator.gaussianWindow())
+        
+        let kaiser = AKTable(size: 4096)
+        kaiser.populateTableWithGenerator(AKWindowTableGenerator.kaiserWindow())
+        
     }
 }
 
