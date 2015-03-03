@@ -11,7 +11,7 @@
 
 /** A simple oscillator with linear interpolation.
 
- Reads from the function table sequentially and repeatedly at given frequency. Linear interpolation is applied for table look up from internal phase values.
+ Reads from the waveform sequentially and repeatedly at given frequency. Linear interpolation is applied for table look up from internal phase values.
  */
 
 @interface AKOscillator : AKAudio
