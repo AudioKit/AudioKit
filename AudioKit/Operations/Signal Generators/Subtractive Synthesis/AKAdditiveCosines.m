@@ -14,10 +14,10 @@
 
 @implementation AKAdditiveCosines
 {
-    AKFunctionTable * _cosineTable;
+    AKTable *_cosineTable;
 }
 
-- (instancetype)initWithCosineTable:(AKFunctionTable *)cosineTable
+- (instancetype)initWithCosineTable:(AKTable *)cosineTable
                      harmonicsCount:(AKParameter *)harmonicsCount
                  firstHarmonicIndex:(AKParameter *)firstHarmonicIndex
                   partialMultiplier:(AKParameter *)partialMultiplier
@@ -39,7 +39,7 @@
     return self;
 }
 
-- (instancetype)initWithCosineTable:(AKFunctionTable *)cosineTable
+- (instancetype)initWithCosineTable:(AKTable *)cosineTable
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -56,7 +56,7 @@
     return self;
 }
 
-+ (instancetype)cosinesWithCosineTable:(AKFunctionTable *)cosineTable
++ (instancetype)cosinesWithCosineTable:(AKTable *)cosineTable
 {
     return [[AKAdditiveCosines alloc] initWithCosineTable:cosineTable];
 }
