@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFunctionTable.h"
+#import "AKTable.h"
 
-/** Transfers data from a soundfile into a function table.
+/** Transfers data from a soundfile into a table.
 
  File types supported are given here: http://www.mega-nerd.com/libsndfile/
 */
 
-@interface AKSoundFileTable : AKFunctionTable
+@interface AKSoundFileTable : AKTable
 
 /// Store file with a filename
 /// @param filename Audio file to load.  Most types are supported.
