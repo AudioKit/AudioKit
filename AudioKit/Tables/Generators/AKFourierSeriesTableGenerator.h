@@ -1,26 +1,20 @@
 //
-//  AKFourierSeriesTable.h
+//  AKFourierSeriesTableGenerator.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 6/6/12.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFunctionTable.h"
+#import "AKTableGenerator.h"
 
 /** Generates composite waveforms made up of weighted sums of simple sinusoids.
  */
-@interface AKFourierSeriesTable : AKFunctionTable
+@interface AKFourierSeriesTableGenerator : AKTableGenerator
 
 
-/// Creates a weighted sum with no elements and default size of 4096.
+/// Creates a Fourier Series with no elements.
 - (instancetype)init;
-
-/// Creates a pure sine wave with a default size of 4096.
-- (instancetype)initStandardSineWave;
-
-/// Creates a pure sine wave with a default size of 4096.
-+ (instancetype)pureSineWave;
 
 /// Add a sinusoid.  Partials may be in any order.
 /// @param partialNumber Partial number (relative to a fundamental that would occupy size locations per cycle) of sinusod. Must be positive, but need not be a whole number, i.e., non-harmonic partials are permitted.
