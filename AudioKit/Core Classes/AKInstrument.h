@@ -73,17 +73,6 @@
 - (void)addNoteProperty:(AKNoteProperty *)newNoteProperty;
 
 
-// -----------------------------------------------------------------------------
-#  pragma mark - Function Tables
-// -----------------------------------------------------------------------------
-
-/// Adds the function table to the Orchestra, so it is only processed once.
-/// @param newFunctionTable New function table to add to the orchestra.
-- (void)addFunctionTable:(AKFunctionTable *)newFunctionTable;
-
-/// Adds the function table to the AKInstrument dynamically, processed for each note.
-/// @param newFunctionTable New function table to add to the instrument.
-- (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Operations
