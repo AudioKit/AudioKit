@@ -2,9 +2,10 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 2/20/15.
+//  Created by Aurelius Prochazka on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
+
 
 import Foundation
 
@@ -20,11 +21,8 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
         
-        let sine = AKManager.standardSineWave()
-        presentFunctionTable(sine, label: "Standard Sine Wave")
-        
-        let square = AKManager.standardSquareWave()
-        presentFunctionTable(square, label: "Standard Square Wave")
+        let sine   = AKTable.standardSineWave()
+        let square = AKTable.standardSquareWave()
         
         let triangle = AKManager.standardTriangleWave()
         presentFunctionTable(triangle, label: "Standard Triangle Wave")
@@ -36,11 +34,18 @@ class Instrument : AKInstrument {
         presentFunctionTable(htootwas, label: "Standard Reverse Sawtooth Wave")
         
         var point: AKParameter
-    
+        
         // Test Table values at specific points
-        point = AKTableValue(functionTable: square, atFractionOfTotalWidth: akp(0.25))
+        point = AKTableValue(table: sine, atFractionOfTotalWidth: akp(0.25))
+        enableParameterLog("Sine wave value at 0.25 expect 1 = ", parameter: point, timeInterval: 100)
+        point = AKTableValue(table: sine, atFractionOfTotalWidth: akp(0.5))
+        enableParameterLog("Sine wave value at 0.5 expect 0 = ", parameter: point, timeInterval: 100)
+        point = AKTableValue(table: sine, atFractionOfTotalWidth: akp(0.75))
+        enableParameterLog("Sine wave value at 0.75 expect -1 = ", parameter: point, timeInterval: 100)
+        
+        point = AKTableValue(table: square, atFractionOfTotalWidth: akp(0.25))
         enableParameterLog("Square wave value at 0.25 expect 1 = ", parameter: point, timeInterval: 100)
-        point = AKTableValue(functionTable: square, atFractionOfTotalWidth: akp(0.75))
+        point = AKTableValue(table: square, atFractionOfTotalWidth: akp(0.75))
         enableParameterLog("Square wave value at 0.75 expect -1 = ", parameter: point, timeInterval: 100)
         
         point = AKTableValue(functionTable: triangle, atFractionOfTotalWidth: akp(0.25))
