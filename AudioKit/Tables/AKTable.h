@@ -43,5 +43,9 @@
 
 + (instancetype)standardSineWave;
 + (instancetype)standardSquareWave;
++ (instancetype)standardTriangleWave;
++ (instancetype)standardSawtoothWave;
++ (instancetype)standardReverseSawtoothWave;
+
 - (NSString *)state;
 @end

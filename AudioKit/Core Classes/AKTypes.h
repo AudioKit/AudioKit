@@ -74,7 +74,6 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
     AKFunctionTableTypeWeightedSumOfSinusoids=19,
     AKFunctionTableTypeWindow=20,
     AKFunctionTableTypeRandomDistributions=21,
-    AKFunctionTableTypeStraightLines=27,
 };
 
 

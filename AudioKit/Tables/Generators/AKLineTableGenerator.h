@@ -1,19 +1,16 @@
 //
-//  AKLineTable.h
+//  AKLineTableGenerator/h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/14.
 //  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFunctionTable.h"
+#import "AKTableGenerator.h"
 
 /** Construct functions from segments of straight lines
 */
-@interface AKLineTable : AKFunctionTable
-
-/// Size of the table (default 4096)
-@property int size;
+@interface AKLineTableGenerator : AKTableGenerator
 
 /// Creates a square waveform with a default size of 4096.
 - (instancetype)initSquareWave;
