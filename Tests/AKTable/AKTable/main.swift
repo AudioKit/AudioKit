@@ -76,6 +76,8 @@ class Instrument : AKInstrument {
         let kaiser = AKTable(size: 4096)
         kaiser.populateTableWithGenerator(AKWindowTableGenerator.kaiserWindow())
         
+        let cosine = AKTable(size: 16384)
+        cosine.populateTableWithGenerator(AKHarmonicCosineTableGenerator(numberOfHarmonics: 10, lowestHarmonic: 1, partialMultiplier: 0.7))
     }
 }
 
