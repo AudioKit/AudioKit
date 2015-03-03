@@ -32,6 +32,8 @@
 /// @param size Number of elements in the table
 - (instancetype)initWithSize:(int)size;
 
+- (instancetype)initWithArray:(NSArray *)array;
+
 /// Creates an empty table with the default size (number of elements).
 + (instancetype)table;
 

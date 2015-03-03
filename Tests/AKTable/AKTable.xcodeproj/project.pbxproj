@@ -137,7 +137,6 @@
 		C46FB6BC1AA477C400FF1548 /* AKFunctionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB6201AA477C400FF1548 /* AKFunctionTable.m */; };
 		C46FB6BD1AA477C400FF1548 /* AKTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB6221AA477C400FF1548 /* AKTable.m */; };
 		C46FB6BE1AA477C400FF1548 /* AKAdditiveCosineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB6251AA477C400FF1548 /* AKAdditiveCosineTable.m */; };
-		C46FB6BF1AA477C400FF1548 /* AKArrayTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB6271AA477C400FF1548 /* AKArrayTable.m */; };
 		C46FB6C11AA477C400FF1548 /* AKFourierSeriesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB62B1AA477C400FF1548 /* AKFourierSeriesTable.m */; };
 		C46FB6C21AA477C400FF1548 /* AKLineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB62D1AA477C400FF1548 /* AKLineTable.m */; };
 		C46FB6C31AA477C400FF1548 /* AKRandomDistributionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C46FB62F1AA477C400FF1548 /* AKRandomDistributionTable.m */; };
@@ -431,8 +430,6 @@
 		C46FB6221AA477C400FF1548 /* AKTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTable.m; sourceTree = "<group>"; };
 		C46FB6241AA477C400FF1548 /* AKAdditiveCosineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosineTable.h; sourceTree = "<group>"; };
 		C46FB6251AA477C400FF1548 /* AKAdditiveCosineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosineTable.m; sourceTree = "<group>"; };
-		C46FB6261AA477C400FF1548 /* AKArrayTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKArrayTable.h; sourceTree = "<group>"; };
-		C46FB6271AA477C400FF1548 /* AKArrayTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKArrayTable.m; sourceTree = "<group>"; };
 		C46FB62A1AA477C400FF1548 /* AKFourierSeriesTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFourierSeriesTable.h; sourceTree = "<group>"; };
 		C46FB62B1AA477C400FF1548 /* AKFourierSeriesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFourierSeriesTable.m; sourceTree = "<group>"; };
 		C46FB62C1AA477C400FF1548 /* AKLineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLineTable.h; sourceTree = "<group>"; };
@@ -1025,8 +1022,6 @@
 				C4A9773F1AA5743B006F7522 /* AKTableGenerator.m */,
 				C46FB6241AA477C400FF1548 /* AKAdditiveCosineTable.h */,
 				C46FB6251AA477C400FF1548 /* AKAdditiveCosineTable.m */,
-				C46FB6261AA477C400FF1548 /* AKArrayTable.h */,
-				C46FB6271AA477C400FF1548 /* AKArrayTable.m */,
 				C46FB62A1AA477C400FF1548 /* AKFourierSeriesTable.h */,
 				C46FB62B1AA477C400FF1548 /* AKFourierSeriesTable.m */,
 				C46FB62C1AA477C400FF1548 /* AKLineTable.h */,
@@ -1253,7 +1248,6 @@
 				C46FB6551AA477C400FF1548 /* AKScaledFFT.m in Sources */,
 				C46FB6B31AA477C400FF1548 /* AKArray.m in Sources */,
 				C46FB6561AA477C400FF1548 /* AKSpectralVocoder.m in Sources */,
-				C46FB6BF1AA477C400FF1548 /* AKArrayTable.m in Sources */,
 				C46FB6AF1AA477C400FF1548 /* AKReverb.m in Sources */,
 				C46FB6511AA477C400FF1548 /* AKFFTProcessor.m in Sources */,
 				C46FB6831AA477C400FF1548 /* AKBowedString.m in Sources */,
