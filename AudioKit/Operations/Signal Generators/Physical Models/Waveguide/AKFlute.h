@@ -2,7 +2,7 @@
 //  AKFlute.h
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -35,7 +35,7 @@
                             endrf:(AKConstant *)endrf
                    noiseAmplitude:(AKParameter *)noiseAmplitude
                         amplitude:(AKParameter *)amplitude
-                     vibratoShape:(AKFunctionTable *)vibratoShape
+                     vibratoShape:(AKTable *)vibratoShape
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  vibratoFrequency:(AKParameter *)vibratoFrequency;
 
@@ -103,11 +103,11 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 /// Function table defining the shape of the vibrato. [Default Value: sine]
-@property (nonatomic) AKFunctionTable *vibratoShape;
+@property (nonatomic) AKTable *vibratoShape;
 
 /// Set an optional vibrato shape
 /// @param vibratoShape Function table defining the shape of the vibrato. [Default Value: sine]
-- (void)setOptionalVibratoShape:(AKFunctionTable *)vibratoShape;
+- (void)setOptionalVibratoShape:(AKTable *)vibratoShape;
 
 /// Amplitude of the vibrato. [Default Value: 0]
 @property (nonatomic) AKParameter *vibratoAmplitude;

@@ -2,7 +2,7 @@
 //  AKBowedString.h
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -20,7 +20,7 @@
 /// @param amplitude Amplitude of the note played. Updated at Control-rate. [Default Value: 1]
 /// @param pressure Parameter controlling the pressure of the bow on the string. Values should be about 3. The useful range is approximately 1 to 5. Updated at Control-rate. [Default Value: 3]
 /// @param position Position of the bow along the string. Usual playing is about 0.127236. The suggested range is 0.025 to 0.23. Updated at Control-rate. [Default Value: 0.127236]
-/// @param vibratoShapeTable Table shape of vibrato, usually a sine table. [Default Value: sine]
+/// @param vibratoShape Table shape of vibrato, usually a sine table. [Default Value: sine]
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12. Updated at Control-rate. [Default Value: 0]
 /// @param vibratoAmplitude Amplitude of the vibrato. Updated at Control-rate. [Default Value: 0]
 /// @param minimumFrequency Lowest frequency at which the instrument will play.  [Default Value: 0]
@@ -28,7 +28,7 @@
                         amplitude:(AKParameter *)amplitude
                          pressure:(AKParameter *)pressure
                          position:(AKParameter *)position
-                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
+                     vibratoShape:(AKTable *)vibratoShape
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  minimumFrequency:(AKConstant *)minimumFrequency;
@@ -69,11 +69,11 @@
 - (void)setOptionalPosition:(AKParameter *)position;
 
 /// Table shape of vibrato, usually a sine table. [Default Value: sine]
-@property (nonatomic) AKFunctionTable *vibratoShapeTable;
+@property (nonatomic) AKTable *vibratoShape;
 
-/// Set an optional vibrato shape table
-/// @param vibratoShapeTable Table shape of vibrato, usually a sine table. [Default Value: sine]
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable;
+/// Set an optional vibrato shape
+/// @param vibratoShape Table shape of vibrato, usually a sine table. [Default Value: sine]
+- (void)setOptionalVibratoShape:(AKTable *)vibratoShape;
 
 /// Frequency of vibrato in Hertz. Suggested range is 0 to 12. [Default Value: 0]
 @property (nonatomic) AKParameter *vibratoFrequency;

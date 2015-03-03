@@ -2,7 +2,7 @@
 //  AKBowedString.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's wgbow:
@@ -18,7 +18,7 @@
                         amplitude:(AKParameter *)amplitude
                          pressure:(AKParameter *)pressure
                          position:(AKParameter *)position
-                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
+                     vibratoShape:(AKTable *)vibratoShape
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  minimumFrequency:(AKConstant *)minimumFrequency
@@ -29,7 +29,7 @@
         _amplitude = amplitude;
         _pressure = pressure;
         _position = position;
-        _vibratoShapeTable = vibratoShapeTable;
+        _vibratoShape = vibratoShape;
         _vibratoFrequency = vibratoFrequency;
         _vibratoAmplitude = vibratoAmplitude;
         _minimumFrequency = minimumFrequency;
@@ -47,7 +47,7 @@
         _amplitude = akp(1);
         _pressure = akp(3);
         _position = akp(0.127236);
-        _vibratoShapeTable = [AKManager standardSineWave];
+        _vibratoShape = [AKTable standardSineWave];
     
         _vibratoFrequency = akp(0);
         _vibratoAmplitude = akp(0);
@@ -98,13 +98,13 @@
     [self setPosition:position];
 }
 
-- (void)setVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    _vibratoShapeTable = vibratoShapeTable;
+- (void)setVibratoShape:(AKTable *)vibratoShape {
+    _vibratoShape = vibratoShape;
     [self setUpConnections];
 }
 
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    [self setVibratoShapeTable:vibratoShapeTable];
+- (void)setOptionalVibratoShape:(AKTable *)vibratoShape {
+    [self setVibratoShape:vibratoShape];
 }
 
 - (void)setVibratoFrequency:(AKParameter *)vibratoFrequency {
@@ -138,7 +138,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _amplitude, _pressure, _position, _vibratoShapeTable, _vibratoFrequency, _vibratoAmplitude, _minimumFrequency];
+    self.dependencies = @[_frequency, _amplitude, _pressure, _position, _vibratoFrequency, _vibratoAmplitude, _minimumFrequency];
 }
 
 - (NSString *)inlineStringForCSD
@@ -202,7 +202,7 @@
         [inputsString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
     }
 
-    [inputsString appendFormat:@"%@, ", _vibratoShapeTable];
+    [inputsString appendFormat:@"%@, ", _vibratoShape];
     
     [inputsString appendFormat:@"%@", _minimumFrequency];
     return inputsString;

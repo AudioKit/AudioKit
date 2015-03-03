@@ -2,7 +2,7 @@
 //  AKFlute.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Customized by Aurelius Prochazka to skip initialization on held notes with tival()
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
@@ -23,7 +23,7 @@
                             endrf:(AKConstant *)endrf
                    noiseAmplitude:(AKParameter *)noiseAmplitude
                         amplitude:(AKParameter *)amplitude
-                     vibratoShape:(AKFunctionTable *)vibratoShape
+                     vibratoShape:(AKTable *)vibratoShape
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
                  vibratoFrequency:(AKParameter *)vibratoFrequency
 {
@@ -58,7 +58,7 @@
         _endrf = akp(0.5);
         _noiseAmplitude = akp(0.15);
         _amplitude = akp(0.5);
-        _vibratoShape = [AKManager standardSineWave];
+        _vibratoShape = [AKTable standardSineWave];
     
         _vibratoAmplitude = akp(0);
         _vibratoFrequency = akp(0);
@@ -144,12 +144,12 @@
     [self setAmplitude:amplitude];
 }
 
-- (void)setVibratoShape:(AKFunctionTable *)vibratoShape {
+- (void)setVibratoShape:(AKTable *)vibratoShape {
     _vibratoShape = vibratoShape;
     [self setUpConnections];
 }
 
-- (void)setOptionalVibratoShape:(AKFunctionTable *)vibratoShape {
+- (void)setOptionalVibratoShape:(AKTable *)vibratoShape {
     [self setVibratoShape:vibratoShape];
 }
 
@@ -175,7 +175,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _attackTime, _releaseTime, _airJetPressure, _jetrf, _endrf, _noiseAmplitude, _amplitude, _vibratoShape, _vibratoAmplitude, _vibratoFrequency];
+    self.dependencies = @[_frequency, _attackTime, _releaseTime, _airJetPressure, _jetrf, _endrf, _noiseAmplitude, _amplitude, _vibratoAmplitude, _vibratoFrequency];
 }
 
 - (NSString *)inlineStringForCSD
