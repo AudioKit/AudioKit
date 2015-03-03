@@ -8,13 +8,9 @@
 
 #import "AKExponentialTableGenerator.h"
 
-
-@interface AKExponentialTableGenerator () {
+@implementation AKExponentialTableGenerator {
     NSMutableArray *points;
 }
-@end
-
-@implementation AKExponentialTableGenerator
 
 - (int)generationRoutineNumber {
     return -25;

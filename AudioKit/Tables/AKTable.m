@@ -32,7 +32,7 @@ static int currentID = 2000;
 }
 
 - (instancetype)init {
-    return [self initWithSize:4096];
+    return [self initWithSize:16384];
 }
 
 + (instancetype)table {
