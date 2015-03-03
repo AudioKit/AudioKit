@@ -2,7 +2,7 @@
 //  AKMarimba.h
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -20,7 +20,7 @@
 /// @param amplitude Amplitude of note. [Default Value: 1]
 /// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0]
 /// @param strikePosition Where the block is hit, in the range 0 to 1. [Default Value: 0.5]
-/// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
+/// @param vibratoShape Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12 Updated at Control-rate. [Default Value: 0]
 /// @param vibratoAmplitude Amplitude of the vibrato Updated at Control-rate. [Default Value: 0]
 /// @param doubleStrikePercentage Percentage of double strikes. Default is 40%. [Default Value: 40]
@@ -29,7 +29,7 @@
                         amplitude:(AKConstant *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
+                     vibratoShape:(AKTable *)vibratoShape
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
            doubleStrikePercentage:(AKConstant *)doubleStrikePercentage
@@ -71,11 +71,11 @@
 - (void)setOptionalStrikePosition:(AKConstant *)strikePosition;
 
 /// Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
-@property (nonatomic) AKFunctionTable *vibratoShapeTable;
+@property (nonatomic) AKTable *vibratoShape;
 
-/// Set an optional vibrato shape table
-/// @param vibratoShapeTable Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable;
+/// Set an optional vibrato shape
+/// @param vibratoShape Shape of vibrato, usually a sine table, created by a function [Default Value: sine]
+- (void)setOptionalVibratoShape:(AKTable *)vibratoShape;
 
 /// Frequency of vibrato in Hertz. Suggested range is 0 to 12 [Default Value: 0]
 @property (nonatomic) AKParameter *vibratoFrequency;

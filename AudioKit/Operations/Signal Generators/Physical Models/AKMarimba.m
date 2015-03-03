@@ -2,7 +2,7 @@
 //  AKMarimba.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's marimba:
@@ -20,7 +20,7 @@
                         amplitude:(AKConstant *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                vibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
+                     vibratoShape:(AKTable *)vibratoShape
                  vibratoFrequency:(AKParameter *)vibratoFrequency
                  vibratoAmplitude:(AKParameter *)vibratoAmplitude
            doubleStrikePercentage:(AKConstant *)doubleStrikePercentage
@@ -32,7 +32,7 @@
         _amplitude = amplitude;
         _stickHardness = stickHardness;
         _strikePosition = strikePosition;
-        _vibratoShapeTable = vibratoShapeTable;
+        _vibratoShape = vibratoShape;
         _vibratoFrequency = vibratoFrequency;
         _vibratoAmplitude = vibratoAmplitude;
         _doubleStrikePercentage = doubleStrikePercentage;
@@ -60,7 +60,7 @@
         _amplitude = akp(1);
         _stickHardness = akp(0);
         _strikePosition = akp(0.5);
-        _vibratoShapeTable = [AKManager standardSineWave];
+        _vibratoShape = [AKTable standardSineWave];
     
         _vibratoFrequency = akp(0);
         _vibratoAmplitude = akp(0);
@@ -121,13 +121,13 @@
     [self setStrikePosition:strikePosition];
 }
 
-- (void)setVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    _vibratoShapeTable = vibratoShapeTable;
+- (void)setVibratoShape:(AKTable *)vibratoShape {
+    _vibratoShape = vibratoShape;
     [self setUpConnections];
 }
 
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    [self setVibratoShapeTable:vibratoShapeTable];
+- (void)setOptionalVibratoShape:(AKTable *)vibratoShape {
+    [self setVibratoShape:vibratoShape];
 }
 
 - (void)setVibratoFrequency:(AKParameter *)vibratoFrequency {
@@ -170,7 +170,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _vibratoShapeTable, _vibratoFrequency, _vibratoAmplitude, _doubleStrikePercentage, _tripleStrikePercentage, _strikeImpulseTable];
+    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _vibratoFrequency, _vibratoAmplitude, _doubleStrikePercentage, _tripleStrikePercentage];
 }
 
 - (NSString *)inlineStringForCSD
@@ -196,7 +196,7 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-            
+
     AKConstant *_maximumDuration = akp(1);        
     
     [inputsString appendFormat:@"%@, ", _amplitude];
@@ -225,7 +225,7 @@
         [inputsString appendFormat:@"AKControl(%@), ", _vibratoAmplitude];
     }
 
-    [inputsString appendFormat:@"%@, ", _vibratoShapeTable];
+    [inputsString appendFormat:@"%@, ", _vibratoShape];
     
     [inputsString appendFormat:@"%@, ", _maximumDuration];
     
