@@ -10,7 +10,7 @@
 
 @implementation AKFunctionTable
 {
-    AKFunctionTableType igen;
+    int igen;
     AKConstant *output;
     int _myFunctionNumber;
 }
@@ -21,9 +21,9 @@ static int currentID = 1000;
 - (int)number {
     return _myFunctionNumber;
 }
-- (instancetype)initWithType:(AKFunctionTableType)functionTableType
+- (instancetype)initWithType:(int)functionTableType
                         size:(int)tableSize
-                  parameters:(AKArray *)parameters
+                  parameters:(NSArray *)parameters
 {
     self = [super init];
     if (self) {
@@ -37,17 +37,6 @@ static int currentID = 1000;
     return self;
 }
 
-- (instancetype)initWithType:(AKFunctionTableType)functionTableType
-                  parameters:(AKArray *)parameters
-{
-    return [self initWithType:functionTableType size:0 parameters:parameters];
-}
-
-- (instancetype)initWithType:(AKFunctionTableType)functionTableType
-{
-    AKArray *parameters = [[AKArray alloc] init];
-    return [self initWithType:functionTableType size:0 parameters:parameters];
-}
 
 - (NSString *)functionName
 {
@@ -70,7 +59,7 @@ static int currentID = 1000;
                 output, [self number], _size, akpi(igen)];
     } else {
         text = [NSString stringWithFormat:@"%@ ftgen %d, 0, %i, %@, %@",
-                output, [self number], _size, akpi(igen), [_parameters parameterString]];
+                output, [self number], _size, akpi(igen), [_parameters componentsJoinedByString:@", "]];
     }
     return text;
 }
