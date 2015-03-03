@@ -25,19 +25,7 @@ typedef NS_OPTIONS(NSUInteger, AKScaledFFTFormantRetainMethod)
     AKScaledFFTFormantRetainMethodTrueEnvelope = 2,
 };
 
-/// Random numbers are created within a distribution cover defined by this type
-typedef NS_OPTIONS(NSUInteger, AKRandomDistributionType)
-{
-    AKRandomDistributionTypeUniform=1,
-    AKRandomDistributionTypeLinear=2,
-    AKRandomDistributionTypeTriangular=3,
-    AKRandomDistributionTypeExponential=4,
-    AKRandomDistributionTypeBiexponential=5,
-    AKRandomDistributionTypeGaussian=6,
-    AKRandomDistributionTypeCauchy=7,
-    AKRandomDistributionTypePositiveCauchy=8,
-    AKRandomDistributionTypePoisson=11
-};
+
 
 /// MIDI note on/off, control and system exclusive constants
 typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
@@ -56,7 +44,6 @@ typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
 typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
-    AKFunctionTableTypeRandomDistributions=21,
 };
 
 

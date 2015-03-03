@@ -78,6 +78,9 @@ class Instrument : AKInstrument {
         
         let cosine = AKTable(size: 16384)
         cosine.populateTableWithGenerator(AKHarmonicCosineTableGenerator(numberOfHarmonics: 10, lowestHarmonic: 1, partialMultiplier: 0.7))
+        
+        let random = AKTable()
+        random.populateTableWithGenerator(AKRandomDistributionTableGenerator.gaussianDistribution())
     }
 }
 
