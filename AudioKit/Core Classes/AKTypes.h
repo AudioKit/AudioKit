@@ -70,12 +70,10 @@ typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
 typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
-    AKFunctionTableTypeArray=2,
     AKFunctionTableTypeAdditiveCosines=11,
     AKFunctionTableTypeWeightedSumOfSinusoids=19,
     AKFunctionTableTypeWindow=20,
     AKFunctionTableTypeRandomDistributions=21,
-    AKFunctionTableTypeExponentialCurves=25,
     AKFunctionTableTypeStraightLines=27,
 };
 

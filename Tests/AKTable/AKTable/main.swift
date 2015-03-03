@@ -69,6 +69,12 @@ class Instrument : AKInstrument {
         
         let newExponentialTable = AKTable(size: 16384)
         newExponentialTable.populateTableWithGenerator(generator)
+        
+        let newArrayTable = AKTable(array: [0, 255])
+        let value1 = AKTableValue(table: newArrayTable, atIndex: 0.ak)
+        enableParameterLog("expect 0 = ", parameter: value1, timeInterval: 100)
+        let value2 = AKTableValue(table: newArrayTable, atIndex: 1.ak)
+        enableParameterLog("expect 255 = ", parameter: value2, timeInterval: 100)
     }
 }
 

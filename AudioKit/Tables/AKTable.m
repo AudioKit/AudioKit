@@ -40,6 +40,30 @@ static int currentID = 2000;
     return [[AKTable alloc] init];
 }
 
+- (instancetype)initWithArray:(NSArray *)array {
+    self = [super init];
+    if (self) {
+        _number = currentID++;
+        _size = (int)[array count];
+        table = malloc(_size *sizeof(MYFLT));
+        csoundObj = [[AKManager sharedManager] engine];
+        cs = [csoundObj getCsound];
+        [csoundObj updateOrchestra:[self orchestraString]];
+        
+        
+        while (csoundTableLength(cs, _number) != _size) {
+            // do nothing
+        }
+        csoundGetTable(cs, &table, _number);
+        for (int i = 0; i < _size; i++) {
+            MYFLT value = (MYFLT)[array[i] floatValue];
+            NSLog(@"%@ %f %f", array[i], [array[i] floatValue], value);
+            table[i] = value;
+        }
+    }
+    return self;
+}
+
 - (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator
 {
     NSString *parameters = [[tableGenerator parametersWithSize:self.size] componentsJoinedByString:@", "];
@@ -47,7 +71,7 @@ static int currentID = 2000;
     NSString *orchString = [NSString stringWithFormat:
                             @"giTable%d ftgen %d, 0, %d, %d, %@",
                             _number, _number, _size, [tableGenerator generationRoutineNumber], parameters];
-    NSLog(orchString);
+    NSLog(@"%@",orchString);
     [csoundObj updateOrchestra:orchString];
 }
 
