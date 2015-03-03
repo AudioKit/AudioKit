@@ -2,7 +2,7 @@
 //  AKVibes.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibes:
@@ -20,7 +20,7 @@
                         amplitude:(AKParameter *)amplitude
                     stickHardness:(AKConstant *)stickHardness
                    strikePosition:(AKConstant *)strikePosition
-                tremoloShapeTable:(AKFunctionTable *)tremoloShapeTable
+                     tremoloShape:(AKTable *)tremoloShape
                  tremoloFrequency:(AKParameter *)tremoloFrequency
                  tremoloAmplitude:(AKParameter *)tremoloAmplitude
 {
@@ -30,7 +30,7 @@
         _amplitude = amplitude;
         _stickHardness = stickHardness;
         _strikePosition = strikePosition;
-        _tremoloShapeTable = tremoloShapeTable;
+        _tremoloShape = tremoloShape;
         _tremoloFrequency = tremoloFrequency;
         _tremoloAmplitude = tremoloAmplitude;
         
@@ -56,7 +56,7 @@
         _amplitude = akp(1.0);
         _stickHardness = akp(0.5);
         _strikePosition = akp(0.2);
-        _tremoloShapeTable = [AKManager standardSineWave];
+        _tremoloShape = [AKTable standardSineWave];
     
         _tremoloFrequency = akp(0);
         _tremoloAmplitude = akp(0);
@@ -115,13 +115,13 @@
     [self setStrikePosition:strikePosition];
 }
 
-- (void)setTremoloShapeTable:(AKFunctionTable *)tremoloShapeTable {
-    _tremoloShapeTable = tremoloShapeTable;
+- (void)setTremoloShape:(AKTable *)tremoloShape {
+    _tremoloShape = tremoloShape;
     [self setUpConnections];
 }
 
-- (void)setOptionalTremoloShapeTable:(AKFunctionTable *)tremoloShapeTable {
-    [self setTremoloShapeTable:tremoloShapeTable];
+- (void)setOptionalTremoloShape:(AKTable *)tremoloShape {
+    [self setTremoloShape:tremoloShape];
 }
 
 - (void)setTremoloFrequency:(AKParameter *)tremoloFrequency {
@@ -146,7 +146,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _tremoloShapeTable, _tremoloFrequency, _tremoloAmplitude, _strikeImpulseTable];
+    self.dependencies = @[_frequency, _amplitude, _stickHardness, _strikePosition, _tremoloFrequency, _tremoloAmplitude];
 }
 
 - (NSString *)inlineStringForCSD
@@ -205,7 +205,7 @@
         [inputsString appendFormat:@"AKControl(%@), ", _tremoloAmplitude];
     }
 
-    [inputsString appendFormat:@"%@, ", _tremoloShapeTable];
+    [inputsString appendFormat:@"%@, ", _tremoloShape];
     
     [inputsString appendFormat:@"%@", _maximumDuration];
     return inputsString;
