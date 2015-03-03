@@ -6,9 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKArray.h"
-#import "AKTypes.h"
-
+#import "AKConstant.h"
 /** Generic AK Function Table definiton.
 
  By default, the table will not be normalized,
@@ -21,7 +19,7 @@
 @property (nonatomic,assign) BOOL isNormalized;
 
 /// The parameters list which can be assigned by subclasses
-@property AKArray *parameters;
+@property NSArray *parameters;
 
 /// The size of the FunctionTable
 @property int size;
@@ -36,20 +34,10 @@
 /// @param functionTableType  One of the supported GeneratingRoutines.
 /// @param tableSize          Size of the table, or 0 if deferred calculation is desired.
 /// @param parameters         An array of parameters that define the function table.
-- (instancetype)initWithType:(AKFunctionTableType)functionTableType
+- (instancetype)initWithType:(int)functionTableType
                         size:(int)tableSize
-                  parameters:(AKArray *)parameters;
+                  parameters:(NSArray *)parameters;
 
-/// Creates a function table without specifying a size, deferring that calculation.
-/// @param functionTableType  One of the supported GeneratingRoutines.
-/// @param parameters         An array of parameters that define the function table.
-- (instancetype)initWithType:(AKFunctionTableType)functionTableType
-                  parameters:(AKArray *)parameters;
-
-
-/// Creates a function table without specifying a size or parameters.
-/// @param functionTableType  One of the supported GeneratingRoutines.
-- (instancetype)initWithType:(AKFunctionTableType)functionTableType;
 
 // The textual representation of the dynamic function table for Csound
 - (NSString *)stringForCSD;

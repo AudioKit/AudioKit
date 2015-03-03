@@ -40,11 +40,5 @@ typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
     AKMidiConstantSysex = 240
 };
 
-/// Types of function tables currently supported in AudioKit
-typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
-{
-    AKFunctionTableTypeSoundFile = 1,
-};
-
 
 #endif

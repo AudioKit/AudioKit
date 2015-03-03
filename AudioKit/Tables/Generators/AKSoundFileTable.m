@@ -7,32 +7,28 @@
 //
 
 #import "AKSoundFileTable.h"
-#import "AKArray.h"
 
 @implementation AKSoundFileTable
 
 - (instancetype)initWithFilename:(NSString *)filename
 {
-    AKArray *parameters = [AKArray arrayFromConstants:
-                                 akpfn(filename), akp(0), akp(0), akp(0), nil];
-    return [super initWithType:AKFunctionTableTypeSoundFile
-                   parameters:parameters];
+    filename = [NSString stringWithFormat:@"\"%@\"", filename];
+    NSArray *parameters = @[filename, @0, @0, @0];
+    return [super initWithType:1 size:0 parameters:parameters];
 }
 
 - (instancetype)initAsMonoFromLeftChannelOfStereoFile:(NSString *)filename
 {
-    AKArray *parameters = [AKArray arrayFromConstants:
-                           akpfn(filename), akp(0), akp(0), akp(1), nil];
-    return [super initWithType:AKFunctionTableTypeSoundFile
-                    parameters:parameters];
+    filename = [NSString stringWithFormat:@"\"%@\"", filename];
+    NSArray *parameters = @[filename, @0, @0, @1];
+    return [super initWithType:1 size:0 parameters:parameters];
 }
 
 - (instancetype)initAsMonoFromRightChannelOfStereoFile:(NSString *)filename
 {
-    AKArray *parameters = [AKArray arrayFromConstants:
-                           akpfn(filename), akp(0), akp(0), akp(2), nil];
-    return [super initWithType:AKFunctionTableTypeSoundFile
-                    parameters:parameters];
+    filename = [NSString stringWithFormat:@"\"%@\"", filename];
+    NSArray *parameters = @[filename, @0, @0, @2];
+    return [super initWithType:1 size:0 parameters:parameters];
 }
 
 
