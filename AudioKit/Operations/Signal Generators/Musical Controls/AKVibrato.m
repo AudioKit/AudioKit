@@ -2,7 +2,7 @@
 //  AKVibrato.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's vibrato:
@@ -14,20 +14,20 @@
 
 @implementation AKVibrato
 
-- (instancetype)initWithVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable
-                         averageFrequency:(AKParameter *)averageFrequency
-                      frequencyRandomness:(AKParameter *)frequencyRandomness
-               minimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness
-               maximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness
-                         averageAmplitude:(AKParameter *)averageAmplitude
-                       amplitudeDeviation:(AKParameter *)amplitudeDeviation
-               minimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness
-               maximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness
-                                    phase:(AKConstant *)phase
+- (instancetype)initWithShape:(AKTable *)shape
+             averageFrequency:(AKParameter *)averageFrequency
+          frequencyRandomness:(AKParameter *)frequencyRandomness
+   minimumFrequencyRandomness:(AKParameter *)minimumFrequencyRandomness
+   maximumFrequencyRandomness:(AKParameter *)maximumFrequencyRandomness
+             averageAmplitude:(AKParameter *)averageAmplitude
+           amplitudeDeviation:(AKParameter *)amplitudeDeviation
+   minimumAmplitudeRandomness:(AKParameter *)minimumAmplitudeRandomness
+   maximumAmplitudeRandomness:(AKParameter *)maximumAmplitudeRandomness
+                        phase:(AKConstant *)phase
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _vibratoShapeTable = vibratoShapeTable;
+        _shape = shape;
         _averageFrequency = averageFrequency;
         _frequencyRandomness = frequencyRandomness;
         _minimumFrequencyRandomness = minimumFrequencyRandomness;
@@ -47,7 +47,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _vibratoShapeTable = [AKManager standardSineWave];
+        _shape = [AKTable standardSineWave];
     
         _averageFrequency = akp(2);
         _frequencyRandomness = akp(0);
@@ -68,13 +68,13 @@
     return [[AKVibrato alloc] init];
 }
 
-- (void)setVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    _vibratoShapeTable = vibratoShapeTable;
+- (void)setShape:(AKTable *)shape {
+    _shape = shape;
     [self setUpConnections];
 }
 
-- (void)setOptionalVibratoShapeTable:(AKFunctionTable *)vibratoShapeTable {
-    [self setVibratoShapeTable:vibratoShapeTable];
+- (void)setOptionalShape:(AKTable *)shape {
+    [self setShape:shape];
 }
 
 - (void)setAverageFrequency:(AKParameter *)averageFrequency {
@@ -162,7 +162,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_vibratoShapeTable, _averageFrequency, _frequencyRandomness, _minimumFrequencyRandomness, _maximumFrequencyRandomness, _averageAmplitude, _amplitudeDeviation, _minimumAmplitudeRandomness, _maximumAmplitudeRandomness, _phase];
+    self.dependencies = @[_averageFrequency, _frequencyRandomness, _minimumFrequencyRandomness, _maximumFrequencyRandomness, _averageAmplitude, _amplitudeDeviation, _minimumAmplitudeRandomness, _maximumAmplitudeRandomness, _phase];
 }
 
 - (NSString *)inlineStringForCSD
@@ -238,7 +238,7 @@
         [inputsString appendFormat:@"AKControl(%@), ", _maximumFrequencyRandomness];
     }
 
-    [inputsString appendFormat:@"%@, ", _vibratoShapeTable];
+    [inputsString appendFormat:@"%@, ", _shape];
     
     [inputsString appendFormat:@"%@", _phase];
     return inputsString;
