@@ -11,7 +11,7 @@
 @implementation AKSinusoidBursts
 {
     AKTable *iFnA;
-    AKFunctionTable *iFnB;
+    AKTable *iFnB;
     AKConstant *iOlaps;
     AKConstant *iTotDur;
     AKControl *kOct;
@@ -25,7 +25,7 @@
 }
 
 - (instancetype)initWithSineTable:(AKTable *)sineburstSynthesisTable
-                   riseShapeTable:(AKFunctionTable *)riseShapeTable
+                   riseShapeTable:(AKTable *)riseShapeTable
                          overlaps:(AKConstant *)numberOfOverlaps
                         totalTime:(AKConstant *)totalTime
                   octavationIndex:(AKControl *)octavationIndex

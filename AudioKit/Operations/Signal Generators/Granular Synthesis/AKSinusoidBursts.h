@@ -28,7 +28,7 @@
 /// @param fundamentalFrequency    Fundamental frequency (in Hertz) of the impulses that create new sinebursts.
 /// @param formantFrequency        Freq of the sinusoid burst induced by each fundamental frequency impulse. This frequency can be fixed for each burst or can vary continuously.
 - (instancetype)initWithSineTable:(AKTable *)sineburstSynthesisTable
-                   riseShapeTable:(AKFunctionTable *)riseShapeTable
+                   riseShapeTable:(AKTable *)riseShapeTable
                          overlaps:(AKConstant *)numberOfOverlaps
                         totalTime:(AKConstant *)totalTime
                   octavationIndex:(AKControl *)octavationIndex
