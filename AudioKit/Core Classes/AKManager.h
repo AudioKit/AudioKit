@@ -93,9 +93,6 @@
 
 // Common tables required by many applications
 
-@property (nonatomic) AKFourierSeriesTable *standardSineWave;
-+ (AKFourierSeriesTable *)standardSineWave;
-
 @property (nonatomic) AKLineTable *standardTriangleWave;
 + (AKLineTable *)standardTriangleWave;
 

@@ -98,7 +98,6 @@ static AKManager *_sharedManager = nil;
         
         totalRunDuration = 10000000;
         
-        _standardSineWave            = [AKFourierSeriesTable pureSineWave];
         _standardTriangleWave        = [AKLineTable triangleWave];
         _standardSquareWave          = [AKLineTable squareWave];
         _standardSawtoothWave        = [AKLineTable sawtoothWave];
@@ -203,7 +202,6 @@ static AKManager *_sharedManager = nil;
 - (void)resetOrchestra
 {
     _orchestra = [[AKOrchestra alloc] init];
-    _standardSineWave.state            = @"unnconnected";
     _standardTriangleWave.state        = @"unnconnected";
     _standardSquareWave.state          = @"unnconnected";
     _standardSawtoothWave.state        = @"unnconnected";
@@ -317,10 +315,6 @@ static AKManager *_sharedManager = nil;
 // -----------------------------------------------------------------------------
 #  pragma mark - Useful tables
 // -----------------------------------------------------------------------------
-
-+ (AKFourierSeriesTable *)standardSineWave {
-    return [[AKManager sharedManager] standardSineWave];
-}
 
 + (AKLineTable *)standardTriangleWave {
     return [[AKManager sharedManager] standardTriangleWave];
