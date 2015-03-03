@@ -1,6 +1,6 @@
 //
 //  AKTable.m
-//  OscillatorPlayground
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/1/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
@@ -15,8 +15,8 @@
     CSOUND *cs;
 }
 
-static int currentID = 1000;
-+ (void)resetID { currentID = 1000; }
+static int currentID = 2000;
++ (void)resetID { currentID = 2000; }
 
 - (instancetype)initWithSize:(int)tableSize
 {
@@ -38,6 +38,17 @@ static int currentID = 1000;
 
 + (instancetype)table {
     return [[AKTable alloc] init];
+}
+
+- (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator
+{
+    NSString *parameters = [[tableGenerator parametersWithSize:self.size] componentsJoinedByString:@", "];
+    
+    NSString *orchString = [NSString stringWithFormat:
+                            @"giTable%d ftgen %d, 0, %d, %d, %@",
+                            _number, _number, _size, [tableGenerator generationRoutineNumber], parameters];
+    NSLog(orchString);
+    [csoundObj updateOrchestra:orchString];
 }
 
 - (void)populateTableWithIndexFunction:(float (^)(int))function
