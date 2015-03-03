@@ -1,8 +1,8 @@
 //
-//  AKFunctionTableLooper.m
+//  AKTableLooper.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 3/3/15.
 //  Customized by Aurelius Prochazka to include types as class methods
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
@@ -10,30 +10,29 @@
 //  http://www.csounds.com/manual/html/flooper2.html
 //
 
-#import "AKFunctionTableLooper.h"
+#import "AKTableLooper.h"
 #import "AKManager.h"
 
-@implementation AKFunctionTableLooper
+@implementation AKTableLooper
 {
-    AKFunctionTable * _functionTable;
+    AKTable * _table;
 }
 
 + (AKConstant *)loopRepeats                      { return akp(0); }
 + (AKConstant *)loopPlaysBackwards               { return akp(1); }
 + (AKConstant *)loopPlaysForwardAndThenBackwards { return akp(2); }
 
-
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
-                            startTime:(AKParameter *)startTime
-                              endTime:(AKParameter *)endTime
-                   transpositionRatio:(AKParameter *)transpositionRatio
-                            amplitude:(AKParameter *)amplitude
-                    crossfadeDuration:(AKParameter *)crossfadeDuration
-                             loopMode:(AKConstant *)loopMode
+- (instancetype)initWithTable:(AKTable *)table
+                    startTime:(AKParameter *)startTime
+                      endTime:(AKParameter *)endTime
+           transpositionRatio:(AKParameter *)transpositionRatio
+                    amplitude:(AKParameter *)amplitude
+            crossfadeDuration:(AKParameter *)crossfadeDuration
+                     loopMode:(AKConstant *)loopMode
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _functionTable = functionTable;
+        _table = table;
         _startTime = startTime;
         _endTime = endTime;
         _transpositionRatio = transpositionRatio;
@@ -41,30 +40,30 @@
         _crossfadeDuration = crossfadeDuration;
         _loopMode = loopMode;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
-- (instancetype)initWithFunctionTable:(AKFunctionTable *)functionTable
+- (instancetype)initWithTable:(AKTable *)table
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _functionTable = functionTable;
+        _table = table;
         // Default Values
         _startTime = akp(0);
         _endTime = akp(0);
         _transpositionRatio = akp(1);
         _amplitude = akp(1);
         _crossfadeDuration = akp(0);
-        _loopMode = [AKFunctionTableLooper loopRepeats];
+        _loopMode = [AKTableLooper loopRepeats];
         [self setUpConnections];
     }
     return self;
 }
 
-+ (instancetype)looperWithFunctionTable:(AKFunctionTable *)functionTable
++ (instancetype)looperWithTable:(AKTable *)table
 {
-    return [[AKFunctionTableLooper alloc] initWithFunctionTable:functionTable];
+    return [[AKTableLooper alloc] initWithTable:table];
 }
 
 - (void)setStartTime:(AKParameter *)startTime {
@@ -125,17 +124,17 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_functionTable, _startTime, _endTime, _transpositionRatio, _amplitude, _crossfadeDuration, _loopMode];
+    self.dependencies = @[_startTime, _endTime, _transpositionRatio, _amplitude, _crossfadeDuration, _loopMode];
 }
 
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-
+    
     [inlineCSDString appendString:@"flooper2("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
-
+    
     return inlineCSDString;
 }
 
@@ -143,7 +142,7 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ flooper2 ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
@@ -151,49 +150,49 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
-    // Constant Values  
-    AKConstant *_crossfadeEnvelopeShapeTable = akp(0);        
-    AKConstant *_initialStartTime = akp(0);        
-    AKConstant *_skipInitialization = akp(0);        
+    
+    // Constant Values
+    AKConstant *_crossfadeEnvelope = akp(0);
+    AKConstant *_initialStartTime = akp(0);
+    AKConstant *_skipInitialization = akp(0);
     
     if ([_amplitude class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _amplitude];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _amplitude];
     }
-
+    
     if ([_transpositionRatio class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _transpositionRatio];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _transpositionRatio];
     }
-
+    
     if ([_startTime class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _startTime];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _startTime];
     }
-
+    
     if ([_endTime class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _endTime];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _endTime];
     }
-
+    
     if ([_crossfadeDuration class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _crossfadeDuration];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _crossfadeDuration];
     }
-
-    [inputsString appendFormat:@"%@, ", _functionTable];
+    
+    [inputsString appendFormat:@"%@, ", _table];
     
     [inputsString appendFormat:@"%@, ", _initialStartTime];
     
     [inputsString appendFormat:@"%@, ", _loopMode];
     
-    [inputsString appendFormat:@"%@, ", _crossfadeEnvelopeShapeTable];
+    [inputsString appendFormat:@"%@, ", _crossfadeEnvelope];
     
     [inputsString appendFormat:@"%@", _skipInitialization];
     return inputsString;
