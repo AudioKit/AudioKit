@@ -15,25 +15,28 @@ class FMSynthesizer: AKInstrument{
         var note = FMSynthesizerNote()
         addNoteProperty(note.frequency)
         addNoteProperty(note.color)
-     
+        
         let envelope = AKADSREnvelope(
-            attackDuration: 0.1.ak,
-            decayDuration: 0.1.ak,
-            sustainLevel: 0.5.ak,
+            attackDuration:  0.1.ak,
+            decayDuration:   0.1.ak,
+            sustainLevel:    0.5.ak,
             releaseDuration: 0.3.ak,
             delay: 0.ak
         )
         connect(envelope)
         
         var oscillator = AKFMOscillator()
-        oscillator.baseFrequency     = note.frequency
-        oscillator.carrierMultiplier = note.color.scaledBy(2.ak)
-        oscillator.modulationIndex   = note.color.scaledBy(3.ak)
-        oscillator.amplitude         = note.color.scaledBy(10.ak)
+        oscillator.baseFrequency        = note.frequency
+        oscillator.carrierMultiplier    = note.color.scaledBy(2.ak)
+        oscillator.modulatingMultiplier = note.color.scaledBy(3.ak)
+        oscillator.modulationIndex      = note.color.scaledBy(10.ak)
+        oscillator.amplitude            = envelope.scaledBy(0.25.ak)
+
         connect(oscillator)
         
         let out = AKAudioOutput(input: oscillator)
         connect(out)
+        
     }
 }
 
