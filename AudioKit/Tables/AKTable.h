@@ -1,12 +1,13 @@
 //
 //  AKTable.h
-//  OscillatorPlayground
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/1/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "AKTableGenerator.h"
 
 /** All purpose array of float values.  Often used for waveforms and 
  lookup tables at the time of note creation/initialization.
@@ -24,6 +25,8 @@
 
 /// Creates an empty table with the default size (number of elements).
 - (instancetype)init;
+
+- (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator;
 
 /// Creates an empty table with the given number of elements.
 /// @param size Number of elements in the table
