@@ -43,7 +43,7 @@ class TambourineNote: AKNote {
         duration.value = (1.0)
     }
     
-    convenience init(intensity:Float, dampingFactor:Float){
+    convenience init(intensity:Float, dampingFactor:Float) {
         self.init()
         
         self.intensity.value = intensity
