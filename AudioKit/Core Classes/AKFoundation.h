@@ -199,7 +199,7 @@
 #import "AKExponentialTableGenerator.h"
 #import "AKFourierSeriesTableGenerator.h"
 #import "AKLineTableGenerator.h"
-#import "AKRandomDistributionTable.h"
+#import "AKRandomDistributionTableGenerator.h"
 #import "AKSoundFileTable.h"
 #import "AKWindowTableGenerator.h"
 
