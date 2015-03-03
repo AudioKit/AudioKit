@@ -93,6 +93,21 @@
     }
     return self;
 }
+- (instancetype)initWithTable:(AKTable *)table
+       atFractionOfTotalWidth:(AKParameter *)fractionalIndex
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _functionTable = table;
+        _index = fractionalIndex;
+        // Default Values
+        _offset = akp(0);
+        _useWrappingIndex = NO;
+        _useFractionalWidth = akp(YES);
+        [self setUpConnections];
+    }
+    return self;
+}
 
 + (instancetype)valueOfFunctionTable:(AKFunctionTable *)functionTable
               atFractionOfTotalWidth:(AKParameter *)fractionalIndex;
