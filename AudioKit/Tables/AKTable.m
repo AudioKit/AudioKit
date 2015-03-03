@@ -95,4 +95,10 @@ static int currentID = 1000;
     return [NSString stringWithFormat:@"%d", _number];
 }
 
+#warning Temporary and unnecessary
+- (NSString *)state
+{
+    return @"connected";
+}
+
 @end
