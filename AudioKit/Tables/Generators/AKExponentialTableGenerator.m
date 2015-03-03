@@ -1,28 +1,31 @@
 //
-//  AKExponentialTable.m
+//  AKExponentialTableGenerator.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/26/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka on 3/2/15.
+//  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-#import "AKExponentialTable.h"
+#import "AKExponentialTableGenerator.h"
 
-@interface AKExponentialTable ()
-{
+
+@interface AKExponentialTableGenerator () {
     NSMutableArray *points;
 }
 @end
 
-@implementation AKExponentialTable
+@implementation AKExponentialTableGenerator
+
+- (int)generationRoutineNumber {
+    return -25;
+}
 
 - (instancetype)initWithValue:(float)value
 {
-    self = [super initWithType:AKFunctionTableTypeExponentialCurves];
+    self = [super init];
     if (self) {
         points = [[NSMutableArray alloc] init];
         [points addObject:@[@0, [NSNumber numberWithFloat:value]]];
-        self.size = 4096;
     }
     return self;
 }
@@ -41,15 +44,14 @@
     [self addValue:value atIndex:index];
 }
 
-// Csound Prototype: ifno ftgen ip1, ip2dummy, isize, igen, iarga, iargb, ...
-- (NSString *)stringForCSD
+- (NSArray *)parametersWithSize:(int)size
 {
     [points sortUsingComparator:^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
         return [obj1[0] compare: obj2[0]];
     }];
     
     int maximumIndex = (int)[[points lastObject] objectAtIndex:0];
-    float scalingFactor = (float)self.size/(float)maximumIndex;
+    float scalingFactor = (float)size/(float)maximumIndex;
     
     NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
     for (NSArray *point in points) {
@@ -63,12 +65,7 @@
     for (NSArray *point in scaledPoints) {
         [flattenedPoints addObject:[point componentsJoinedByString:@", "]];
     }
-    return [NSString stringWithFormat:@"%@ ftgen %d, 0, %d, -%lu, %@",
-            self,
-            [self number],
-            self.size,
-            (unsigned long)AKFunctionTableTypeExponentialCurves,
-            [flattenedPoints componentsJoinedByString:@", "]];
+    return [flattenedPoints copy];
 }
 
 @end
