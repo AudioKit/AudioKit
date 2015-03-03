@@ -72,6 +72,19 @@ static int currentID = 1000;
     return standarSineWave;
 }
 
++ (instancetype)standardSquareWave
+{
+    AKTable *standardSquareWave = [[AKTable alloc] init];
+    [standardSquareWave populateTableWithFractionalWidthFunction:^(float x) {
+        if (x < 0.5) {
+            return 1.0f;
+        } else {
+            return -1.0f;
+        }
+    }];
+    return standardSquareWave;
+}
+
 - (NSString *)orchestraString
 {
     return [NSString stringWithFormat:@"giTable%d ftgen %d, 0, %d, 2, 0", _number, _number, _size];

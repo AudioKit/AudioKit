@@ -37,4 +37,5 @@
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function;
 
 + (instancetype)standardSineWave;
++ (instancetype)standardSquareWave;
 @end
