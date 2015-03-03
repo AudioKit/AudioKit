@@ -12,6 +12,7 @@
 
 #import "AKGranularSynthesizer.h"
 #import "AKManager.h"
+#import "AKWindowTableGenerator.h"
 
 @implementation AKGranularSynthesizer
 {
@@ -21,7 +22,7 @@
 
 - (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
                             frequency:(AKParameter *)frequency
-                       windowWaveform:(AKWindowTable *)windowWaveform
+                       windowWaveform:(AKTable *)windowWaveform
                              duration:(AKParameter *)duration
                               density:(AKParameter *)density
              maximumOverlappingGrains:(AKConstant *)maximumOverlappingGrains
@@ -57,7 +58,8 @@
         _grainWaveform = grainWaveform;
         _frequency = frequency;
         // Default Values
-        _windowWaveform = [[AKWindowTable alloc] initWithType:AKWindowTableTypeHamming];
+        _windowWaveform = [[AKTable alloc] initWithSize:4096];
+        [_windowWaveform populateTableWithGenerator:[AKWindowTableGenerator hanningWindow]];
         _duration = akp(0.2);
         _density = akp(200);
         _maximumOverlappingGrains = akp(200);
@@ -78,12 +80,12 @@
                        frequency:frequency];
 }
 
-- (void)setWindowWaveform:(AKWindowTable *)windowWaveform {
+- (void)setWindowWaveform:(AKTable *)windowWaveform {
     _windowWaveform = windowWaveform;
     [self setUpConnections];
 }
 
-- (void)setOptionalWindowWaveform:(AKWindowTable *)windowWaveform {
+- (void)setOptionalWindowWaveform:(AKTable *)windowWaveform {
     [self setWindowWaveform:windowWaveform];
 }
 
@@ -163,7 +165,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_grainWaveform, _frequency, _windowWaveform, _duration, _density, _maximumOverlappingGrains, _frequencyVariation, _frequencyVariationDistribution, _phase, _startPhaseVariation, _prpow];
+    self.dependencies = @[_grainWaveform, _frequency, _duration, _density, _maximumOverlappingGrains, _frequencyVariation, _frequencyVariationDistribution, _phase, _startPhaseVariation, _prpow];
 }
 
 - (NSString *)inlineStringForCSD

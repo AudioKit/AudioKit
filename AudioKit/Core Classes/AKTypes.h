@@ -39,20 +39,6 @@ typedef NS_OPTIONS(NSUInteger, AKRandomDistributionType)
     AKRandomDistributionTypePoisson=11
 };
 
-/// Various types of window function tables
-typedef NS_OPTIONS(NSUInteger, AKWindowTableType)
-{
-    AKWindowTableTypeHamming=1,
-    AKWindowTableTypeHanning=2,
-    AKWindowTableTypeBartlettTriangle=3,
-    AKWindowTableTypeBlackmanThreeTerm=4,
-    AKWindowTableTypeBlackmanHarrisFourTerm=5,
-    AKWindowTableTypeGaussian=6,
-    AKWindowTableTypeKaiser=7,
-    AKWindowTableTypeRectangle=8,
-    AKWindowTableTypeSync=9
-};
-
 /// MIDI note on/off, control and system exclusive constants
 typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
 {
@@ -71,7 +57,6 @@ typedef NS_OPTIONS(NSUInteger, AKFunctionTableType)
 {
     AKFunctionTableTypeSoundFile = 1,
     AKFunctionTableTypeAdditiveCosines=11,
-    AKFunctionTableTypeWindow=20,
     AKFunctionTableTypeRandomDistributions=21,
 };
 

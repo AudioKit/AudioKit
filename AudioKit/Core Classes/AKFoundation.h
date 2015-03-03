@@ -201,6 +201,6 @@
 #import "AKLineTableGenerator.h"
 #import "AKRandomDistributionTable.h"
 #import "AKSoundFileTable.h"
-#import "AKWindowTable.h"
+#import "AKWindowTableGenerator.h"
 
 #endif
