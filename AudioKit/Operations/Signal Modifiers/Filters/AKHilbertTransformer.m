@@ -2,11 +2,11 @@
 //  AKHilbertTransformer.m
 //  AudioKit
 //
-//  Auto-generated on 2/20/15.
+//  Auto-generated on 3/2/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
-//  Implementation of Csound's hilbert:
-//  http://www.csounds.com/manual/html/hilbert.html
+//  Implementation of Csound's akHilbertTransformer:
+//  http://www.csounds.com/manual/html/akHilbertTransformer.html
 //
 
 #import "AKHilbertTransformer.h"
@@ -41,7 +41,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_input, _frequency, [AKManager standardSineWave]];
+    self.dependencies = @[_input, _frequency];
 }
 
 - (NSString *)inlineStringForCSD
@@ -78,7 +78,7 @@
     if ([_frequency class] == [AKControl class]) {
         [inputsString appendFormat:@"%@", _frequency];
     } else {
-        [inputsString appendFormat:@"AKAudio(%@)", _frequency];
+        [inputsString appendFormat:@"AKControl(%@)", _frequency];
     }
 return inputsString;
 }
@@ -94,7 +94,7 @@ return inputsString;
             "amod2 = aimag * asin\n"
             "aupshift = (amod1 + amod2) * 0.7\n"
             "xout aupshift\n"
-            "endop\n", [AKManager standardSineWave], [AKManager standardSineWave]];
+            "endop\n", [AKTable standardSineWave], [AKTable standardSineWave]];
 }
 
 @end
