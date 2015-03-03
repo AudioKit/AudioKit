@@ -16,25 +16,25 @@
 
 @implementation AKGranularSynthesisTexture
 {
-    AKConstant * _grainFunctionTable;
-    AKConstant * _windowFunctionTable;
+    AKConstant * _grainTable;
+    AKConstant * _windowTable;
 }
 
-- (instancetype)initWithGrainFunctionTable:(AKConstant *)grainFunctionTable
-                       windowFunctionTable:(AKConstant *)windowFunctionTable
-                      maximumGrainDuration:(AKConstant *)maximumGrainDuration
-                      averageGrainDuration:(AKParameter *)averageGrainDuration
-                 maximumFrequencyDeviation:(AKParameter *)maximumFrequencyDeviation
-                            grainFrequency:(AKParameter *)grainFrequency
-                 maximumAmplitudeDeviation:(AKParameter *)maximumAmplitudeDeviation
-                            grainAmplitude:(AKParameter *)grainAmplitude
-                              grainDensity:(AKParameter *)grainDensity
-                      useRandomGrainOffset:(BOOL)useRandomGrainOffset
+- (instancetype)initWithGrainTable:(AKConstant *)grainTable
+                       windowTable:(AKConstant *)windowTable
+              maximumGrainDuration:(AKConstant *)maximumGrainDuration
+              averageGrainDuration:(AKParameter *)averageGrainDuration
+         maximumFrequencyDeviation:(AKParameter *)maximumFrequencyDeviation
+                    grainFrequency:(AKParameter *)grainFrequency
+         maximumAmplitudeDeviation:(AKParameter *)maximumAmplitudeDeviation
+                    grainAmplitude:(AKParameter *)grainAmplitude
+                      grainDensity:(AKParameter *)grainDensity
+              useRandomGrainOffset:(BOOL)useRandomGrainOffset
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _grainFunctionTable = grainFunctionTable;
-        _windowFunctionTable = windowFunctionTable;
+        _grainTable = grainTable;
+        _windowTable = windowTable;
         _maximumGrainDuration = maximumGrainDuration;
         _averageGrainDuration = averageGrainDuration;
         _maximumFrequencyDeviation = maximumFrequencyDeviation;
@@ -44,17 +44,17 @@
         _grainDensity = grainDensity;
         _useRandomGrainOffset = useRandomGrainOffset;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
-- (instancetype)initWithGrainFunctionTable:(AKConstant *)grainFunctionTable
-                       windowFunctionTable:(AKConstant *)windowFunctionTable
+- (instancetype)initWithGrainTable:(AKConstant *)grainTable
+                       windowTable:(AKConstant *)windowTable
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _grainFunctionTable = grainFunctionTable;
-        _windowFunctionTable = windowFunctionTable;
+        _grainTable = grainTable;
+        _windowTable = windowTable;
         // Default Values
         _maximumGrainDuration = akp(0.5);
         _averageGrainDuration = akp(0.4);
@@ -69,11 +69,11 @@
     return self;
 }
 
-+ (instancetype)textureWithGrainFunctionTable:(AKConstant *)grainFunctionTable
-                         windowFunctionTable:(AKConstant *)windowFunctionTable
++ (instancetype)textureWithGrainTable:(AKConstant *)grainTable
+                          windowTable:(AKConstant *)windowTable
 {
-    return [[AKGranularSynthesisTexture alloc] initWithGrainFunctionTable:grainFunctionTable
-                         windowFunctionTable:windowFunctionTable];
+    return [[AKGranularSynthesisTexture alloc] initWithGrainTable:grainTable
+                                                      windowTable:windowTable];
 }
 
 - (void)setMaximumGrainDuration:(AKConstant *)maximumGrainDuration {
@@ -152,17 +152,17 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_grainFunctionTable, _windowFunctionTable, _maximumGrainDuration, _averageGrainDuration, _maximumFrequencyDeviation, _grainFrequency, _maximumAmplitudeDeviation, _grainAmplitude, _grainDensity];
+    self.dependencies = @[_grainTable, _windowTable, _maximumGrainDuration, _averageGrainDuration, _maximumFrequencyDeviation, _grainFrequency, _maximumAmplitudeDeviation, _grainAmplitude, _grainDensity];
 }
 
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-
+    
     [inlineCSDString appendString:@"grain("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
-
+    
     return inlineCSDString;
 }
 
@@ -170,7 +170,7 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ grain ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
@@ -178,7 +178,7 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
+    
     
     [inputsString appendFormat:@"%@, ", _grainAmplitude];
     
@@ -191,22 +191,22 @@
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _maximumAmplitudeDeviation];
     }
-
+    
     if ([_maximumFrequencyDeviation class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _maximumFrequencyDeviation];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _maximumFrequencyDeviation];
     }
-
+    
     if ([_averageGrainDuration class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _averageGrainDuration];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _averageGrainDuration];
     }
-
-    [inputsString appendFormat:@"%@, ", _grainFunctionTable];
     
-    [inputsString appendFormat:@"%@, ", _windowFunctionTable];
+    [inputsString appendFormat:@"%@, ", _grainTable];
+    
+    [inputsString appendFormat:@"%@, ", _windowTable];
     
     [inputsString appendFormat:@"%@, ", _maximumGrainDuration];
     

@@ -24,7 +24,7 @@
 /// @param endrf Reflection coefficient of the breath jet. [Default Value: 0.5]
 /// @param noiseAmplitude Amplitude of the noise component, about 0 to 0.5 Updated at Control-rate. [Default Value: 0.15]
 /// @param amplitude Amplitude of the note, up to but not including 1. Updated at Control-rate. [Default Value: 0.5]
-/// @param vibratoShape Function table defining the shape of the vibrato. [Default Value: sine]
+/// @param vibratoShape Table defining the shape of the vibrato. [Default Value: sine]
 /// @param vibratoAmplitude Amplitude of the vibrato. Updated at Control-rate. [Default Value: 0]
 /// @param vibratoFrequency Frequency of vibrato in Hertz. Suggested range is 0 to 12 Updated at Control-rate. [Default Value: 0]
 - (instancetype)initWithFrequency:(AKParameter *)frequency
@@ -102,11 +102,11 @@
 /// @param amplitude Amplitude of the note, up to but not including 1. Updated at Control-rate. [Default Value: 0.5]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
-/// Function table defining the shape of the vibrato. [Default Value: sine]
+/// Table defining the shape of the vibrato. [Default Value: sine]
 @property (nonatomic) AKTable *vibratoShape;
 
 /// Set an optional vibrato shape
-/// @param vibratoShape Function table defining the shape of the vibrato. [Default Value: sine]
+/// @param vibratoShape Table defining the shape of the vibrato. [Default Value: sine]
 - (void)setOptionalVibratoShape:(AKTable *)vibratoShape;
 
 /// Amplitude of the vibrato. [Default Value: 0]

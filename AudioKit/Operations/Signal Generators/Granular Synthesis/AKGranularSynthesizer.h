@@ -17,9 +17,9 @@
 
 @interface AKGranularSynthesizer : AKAudio
 /// Instantiates the granular synthesizer with all values
-/// @param grainWaveform Function table contain grain waveform. Updated at Control-rate. [Default Value: ]
+/// @param grainWaveform Table contain grain waveform. Updated at Control-rate. [Default Value: ]
 /// @param frequency Grain frequency in Hz Updated at Control-rate. [Default Value: ]
-/// @param windowWaveform Function table containing window waveform. [Default Value: AKWindowTypeHamming]
+/// @param windowWaveform Table containing window waveform. [Default Value: AKWindowTypeHamming]
 /// @param duration Grain duration in seconds. It also controls the duration of already active grains (actually the speed at which the window function is read). Updated at Control-rate. [Default Value: 0.2]
 /// @param density Number of grains per second. Updated at Control-rate. [Default Value: 200]
 /// @param maximumOverlappingGrains The maximum number of overlapping grains. [Default Value: 200]
@@ -41,22 +41,22 @@
                                 prpow:(AKParameter *)prpow;
 
 /// Instantiates the granular synthesizer with default values
-/// @param grainWaveform Function table contain grain waveform.
+/// @param grainWaveform Table contain grain waveform.
 /// @param frequency Grain frequency in Hz
 - (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
                             frequency:(AKParameter *)frequency;
 
 /// Instantiates the granular synthesizer with default values
-/// @param grainWaveform Function table contain grain waveform.
+/// @param grainWaveform Table contain grain waveform.
 /// @param frequency Grain frequency in Hz
 + (instancetype)WithGrainWaveform:(AKParameter *)grainWaveform
                         frequency:(AKParameter *)frequency;
 
-/// Function table containing window waveform. [Default Value: AKWindowTypeHamming]
+/// Table containing window waveform. [Default Value: AKWindowTypeHamming]
 @property (nonatomic) AKTable *windowWaveform;
 
 /// Set an optional window waveform
-/// @param windowWaveform Function table containing window waveform. [Default Value: AKWindowTypeHamming]
+/// @param windowWaveform Table containing window waveform. [Default Value: AKWindowTypeHamming]
 - (void)setOptionalWindowWaveform:(AKTable *)windowWaveform;
 
 /// Grain duration in seconds. It also controls the duration of already active grains (actually the speed at which the window function is read). [Default Value: 0.2]

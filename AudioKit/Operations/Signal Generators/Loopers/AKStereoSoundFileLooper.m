@@ -15,14 +15,14 @@
 
 @implementation AKStereoSoundFileLooper
 {
-    AKFunctionTable * _soundFile;
+    AKTable * _soundFile;
 }
 
 + (AKConstant *)loopPlaysOnce                    { return akp(0); }
 + (AKConstant *)loopRepeats                      { return akp(1); }
 + (AKConstant *)loopPlaysForwardAndThenBackwards { return akp(2); }
 
-- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
+- (instancetype)initWithSoundFile:(AKTable *)soundFile
                    frequencyRatio:(AKParameter *)frequencyRatio
                         amplitude:(AKParameter *)amplitude
                          loopMode:(AKConstant *)loopMode
@@ -38,7 +38,7 @@
     return self;
 }
 
-- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
+- (instancetype)initWithSoundFile:(AKTable *)soundFile
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -52,7 +52,7 @@
     return self;
 }
 
-+ (instancetype)looperWithSoundFile:(AKFunctionTable *)soundFile
++ (instancetype)looperWithSoundFile:(AKTable *)soundFile
 {
     return [[AKStereoSoundFileLooper alloc] initWithSoundFile:soundFile];
 }
@@ -88,7 +88,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_soundFile, _frequencyRatio, _amplitude, _loopMode];
+    self.dependencies = @[_frequencyRatio, _amplitude, _loopMode];
 }
 
 - (NSString *)inlineStringForCSD

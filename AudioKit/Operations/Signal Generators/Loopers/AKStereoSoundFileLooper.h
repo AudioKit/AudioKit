@@ -29,22 +29,22 @@
 + (AKConstant *)loopPlaysForwardAndThenBackwards;
 
 /// Instantiates the stereo sound file looper with all values
-/// @param soundFile The sound file function table. [Default Value: ]
+/// @param soundFile The sound file table. [Default Value: ]
 /// @param frequencyRatio The frequency ratio. Updated at Control-rate. [Default Value: 1]
 /// @param amplitude The amplitude of the output [Default Value: 1]
 /// @param loopMode Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]
-- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile
+- (instancetype)initWithSoundFile:(AKTable *)soundFile
                    frequencyRatio:(AKParameter *)frequencyRatio
                         amplitude:(AKParameter *)amplitude
                          loopMode:(AKConstant *)loopMode;
 
 /// Instantiates the stereo sound file looper with default values
-/// @param soundFile The sound file function table.
-- (instancetype)initWithSoundFile:(AKFunctionTable *)soundFile;
+/// @param soundFile The sound file table.
+- (instancetype)initWithSoundFile:(AKTable *)soundFile;
 
 /// Instantiates the stereo sound file looper with default values
-/// @param soundFile The sound file function table.
-+ (instancetype)looperWithSoundFile:(AKFunctionTable *)soundFile;
+/// @param soundFile The sound file table.
++ (instancetype)looperWithSoundFile:(AKTable *)soundFile;
 
 /// The frequency ratio. [Default Value: 1]
 @property (nonatomic) AKParameter *frequencyRatio;
