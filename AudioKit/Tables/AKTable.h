@@ -38,4 +38,5 @@
 
 + (instancetype)standardSineWave;
 + (instancetype)standardSquareWave;
+- (NSString *)state;
 @end
