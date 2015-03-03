@@ -9,7 +9,7 @@
 #import "AKTableGenerator.h"
 
 
-/// Function tables for different window shapes. These windows are usually used for spectrum analysis or for grain envelopes.
+/// Tables for different window shapes. These windows are usually used for spectrum analysis or for grain envelopes.
 @interface AKWindowTableGenerator : AKTableGenerator
 
 // Create Hamming Window
