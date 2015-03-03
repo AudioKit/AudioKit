@@ -145,10 +145,11 @@ static int currentID = 2000;
     return [NSString stringWithFormat:@"%d", _number];
 }
 
-#warning Temporary and unnecessary
-- (NSString *)state
+- (AKConstant *)length
 {
-    return @"connected";
+    AKConstant *new = [[AKConstant alloc] init];
+    [new setParameterString:[NSString stringWithFormat:@"ftlen(%d)", _number]];
+    return new;
 }
 
 @end
