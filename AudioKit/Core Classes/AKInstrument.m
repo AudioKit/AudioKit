@@ -125,25 +125,6 @@ static int currentID = 1;
 
 
 // -----------------------------------------------------------------------------
-#  pragma mark - Function Tables
-// -----------------------------------------------------------------------------
-
-- (void)addFunctionTable:(AKFunctionTable *)newFunctionTable
-{
-    if ([[AKManager sharedManager] isLogging]) {
-        NSLog(@"%@", [newFunctionTable stringForCSD]);
-    }
-    
-    [[[AKManager sharedManager] engine] updateOrchestra:[newFunctionTable stringForCSD]];
-    newFunctionTable.state = @"connected";
-}
-
-- (void)addDynamicFunctionTable:(AKFunctionTable *)newFunctionTable
-{
-    [self connect:newFunctionTable];
-}
-
-// -----------------------------------------------------------------------------
 #  pragma mark - Operations
 // -----------------------------------------------------------------------------
 
@@ -180,14 +161,6 @@ static int currentID = 1;
         }
         if ([newOperation isKindOfClass:[AKNoteProperty class]]) {
             [self addNoteProperty:(AKNoteProperty *)newOperation];
-            newOperation.state  = @"connected";
-        }
-        if ([newOperation isKindOfClass:[AKFunctionTable class]]) {
-            if (newOperation.dependencies.count > 0) {
-                [self addDynamicFunctionTable:(AKFunctionTable *)newOperation];
-            } else {
-                [self addFunctionTable:(AKFunctionTable *)newOperation];
-            }
             newOperation.state  = @"connected";
         }
     }
