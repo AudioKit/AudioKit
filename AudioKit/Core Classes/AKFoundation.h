@@ -78,7 +78,7 @@
 #import "AKSinusoidBursts.h"
 
 // Operations - Signal Generators - Loopers
-#import "AKFunctionTableLooper.h"
+#import "AKTableLooper.h"
 #import "AKMonoSoundFileLooper.h"
 #import "AKStereoSoundFileLooper.h"
 
@@ -191,7 +191,7 @@
 #  pragma mark - Tables
 // -----------------------------------------------------------------------------
 
-#import "AKFunctionTable.h"
+#import "AKSoundFileTable.h"
 #import "AKTable.h"
 
 // Tables - Generators
@@ -200,7 +200,7 @@
 #import "AKFourierSeriesTableGenerator.h"
 #import "AKLineTableGenerator.h"
 #import "AKRandomDistributionTableGenerator.h"
-#import "AKSoundFileTable.h"
+
 #import "AKWindowTableGenerator.h"
 
 #endif

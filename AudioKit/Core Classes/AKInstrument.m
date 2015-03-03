@@ -32,7 +32,7 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
-        // Since instruments can add function tables upon initialization,
+        // Since instruments can add tables upon initialization,
         // Start the orchestra immediately
         [AKOrchestra start];
         while (![[AKManager sharedManager] isRunning]) {
@@ -63,7 +63,7 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
-        // Since instruments can add function tables upon initialization,
+        // Since instruments can add tables upon initialization,
         // Start the orchestra immediately
         [AKOrchestra start];
         while (![[AKManager sharedManager] isRunning]) {
