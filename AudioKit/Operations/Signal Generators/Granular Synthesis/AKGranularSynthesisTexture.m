@@ -20,8 +20,8 @@
     AKConstant * _windowTable;
 }
 
-- (instancetype)initWithGrainTable:(AKConstant *)grainTable
-                       windowTable:(AKConstant *)windowTable
+- (instancetype)initWithGrainTable:(AKTable *)grainTable
+                       windowTable:(AKTable *)windowTable
               maximumGrainDuration:(AKConstant *)maximumGrainDuration
               averageGrainDuration:(AKParameter *)averageGrainDuration
          maximumFrequencyDeviation:(AKParameter *)maximumFrequencyDeviation
@@ -48,8 +48,8 @@
     return self;
 }
 
-- (instancetype)initWithGrainTable:(AKConstant *)grainTable
-                       windowTable:(AKConstant *)windowTable
+- (instancetype)initWithGrainTable:(AKTable *)grainTable
+                       windowTable:(AKTable *)windowTable
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -69,8 +69,8 @@
     return self;
 }
 
-+ (instancetype)textureWithGrainTable:(AKConstant *)grainTable
-                          windowTable:(AKConstant *)windowTable
++ (instancetype)textureWithGrainTable:(AKTable *)grainTable
+                          windowTable:(AKTable *)windowTable
 {
     return [[AKGranularSynthesisTexture alloc] initWithGrainTable:grainTable
                                                       windowTable:windowTable];
@@ -152,7 +152,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_grainTable, _windowTable, _maximumGrainDuration, _averageGrainDuration, _maximumFrequencyDeviation, _grainFrequency, _maximumAmplitudeDeviation, _grainAmplitude, _grainDensity];
+    self.dependencies = @[_maximumGrainDuration, _averageGrainDuration, _maximumFrequencyDeviation, _grainFrequency, _maximumAmplitudeDeviation, _grainAmplitude, _grainDensity];
 }
 
 - (NSString *)inlineStringForCSD

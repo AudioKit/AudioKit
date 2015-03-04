@@ -17,11 +17,10 @@ class Instrument : AKInstrument {
 
         let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
 
-        let soundfile = AKSoundFile (filename: filename)
-        soundfile.size = 16384
+        let soundfile = AKSoundFileTable(filename: filename, size:16384)
 
-        let hamming = AKWindow(type: AKWindowTableType.Hamming)
-        hamming.size = 512;
+        let hamming = AKTable(size: 512)
+        hamming.populateTableWithGenerator(AKWindowTableGenerator.hammingWindow())
 
         let baseFrequency = AKConstant(expression: String(format: "44100 / %@", soundfile.length()))
 
@@ -31,8 +30,8 @@ class Instrument : AKInstrument {
         let maximumFrequencyDeviationLine = AKLine(firstPoint: 0.ak, secondPoint: 0.1.ak, durationBetweenPoints: 10.ak)
 
         let granularSynthesisTexture = AKGranularSynthesisTexture(
-            grainFunctionTable: soundfile,
-            windowFunctionTable: hamming
+            grainTable: soundfile,
+            windowTable: hamming
         )
         granularSynthesisTexture.grainFrequency = baseFrequency
         granularSynthesisTexture.grainDensity = grainDensityLine

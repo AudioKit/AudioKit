@@ -28,7 +28,7 @@
 /// @param phase Grain phase. This is the location in the grain waveform table, expressed as a fraction (between 0 to 1) of the table length. Updated at Control-rate. [Default Value: 0.5]
 /// @param startPhaseVariation Random variation (bipolar) in start phase Updated at Control-rate. [Default Value: 0.5]
 /// @param prpow Distribution of random phase variation. Updated at Control-rate. [Default Value: 0]
-- (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
+- (instancetype)initWithGrainWaveform:(AKTable *)grainWaveform
                             frequency:(AKParameter *)frequency
                        windowWaveform:(AKTable *)windowWaveform
                              duration:(AKParameter *)duration
@@ -43,13 +43,13 @@
 /// Instantiates the granular synthesizer with default values
 /// @param grainWaveform Table contain grain waveform.
 /// @param frequency Grain frequency in Hz
-- (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
+- (instancetype)initWithGrainWaveform:(AKTable *)grainWaveform
                             frequency:(AKParameter *)frequency;
 
 /// Instantiates the granular synthesizer with default values
 /// @param grainWaveform Table contain grain waveform.
 /// @param frequency Grain frequency in Hz
-+ (instancetype)WithGrainWaveform:(AKParameter *)grainWaveform
++ (instancetype)WithGrainWaveform:(AKTable *)grainWaveform
                         frequency:(AKParameter *)frequency;
 
 /// Table containing window waveform. [Default Value: AKWindowTypeHamming]
