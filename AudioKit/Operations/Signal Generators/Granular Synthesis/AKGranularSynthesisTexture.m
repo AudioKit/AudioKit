@@ -16,8 +16,8 @@
 
 @implementation AKGranularSynthesisTexture
 {
-    AKConstant * _grainTable;
-    AKConstant * _windowTable;
+    AKTable * _grainTable;
+    AKTable * _windowTable;
 }
 
 - (instancetype)initWithGrainTable:(AKTable *)grainTable

@@ -46,11 +46,11 @@
         _startPhaseVariation = startPhaseVariation;
         _prpow = prpow;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
-- (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
+- (instancetype)initWithGrainWaveform:(AKTable *)grainWaveform
                             frequency:(AKParameter *)frequency
 {
     self = [super initWithString:[self operationName]];
@@ -73,11 +73,11 @@
     return self;
 }
 
-+ (instancetype)WithGrainWaveform:(AKParameter *)grainWaveform
-                       frequency:(AKParameter *)frequency
++ (instancetype)WithGrainWaveform:(AKTable *)grainWaveform
+                        frequency:(AKParameter *)frequency
 {
     return [[AKGranularSynthesizer alloc] initWithGrainWaveform:grainWaveform
-                       frequency:frequency];
+                                                      frequency:frequency];
 }
 
 - (void)setWindowWaveform:(AKTable *)windowWaveform {
@@ -171,11 +171,11 @@
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-
+    
     [inlineCSDString appendString:@"grain3("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
-
+    
     return inlineCSDString;
 }
 
@@ -183,56 +183,56 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ grain3 ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
 }
 
 - (NSString *)inputsString {
-
+    
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
-    // Constant Values  
-    AKConstant *_mode = akp(0);        
-    AKConstant *_seed = akp(0);        
+    
+    // Constant Values
+    AKConstant *_mode = akp(0);
+    AKConstant *_seed = akp(0);
     
     if ([_frequency class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _frequency];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _frequency];
     }
-
+    
     if ([_phase class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _phase];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _phase];
     }
-
+    
     if ([_frequencyVariation class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _frequencyVariation];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _frequencyVariation];
     }
-
+    
     if ([_startPhaseVariation class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _startPhaseVariation];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _startPhaseVariation];
     }
-
+    
     if ([_duration class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _duration];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _duration];
     }
-
+    
     if ([_density class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _density];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _density];
     }
-
+    
     [inputsString appendFormat:@"%@, ", _maximumOverlappingGrains];
     
     if ([_grainWaveform class] == [AKControl class]) {
@@ -240,7 +240,7 @@
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _grainWaveform];
     }
-
+    
     [inputsString appendFormat:@"%@, ", _windowWaveform];
     
     if ([_frequencyVariationDistribution class] == [AKControl class]) {
@@ -248,13 +248,13 @@
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _frequencyVariationDistribution];
     }
-
+    
     if ([_prpow class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _prpow];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _prpow];
     }
-
+    
     [inputsString appendFormat:@"%@, ", _seed];
     
     [inputsString appendFormat:@"%@", _mode];
