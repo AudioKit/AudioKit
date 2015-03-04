@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
         super.init()
 
         let filename = "CsoundLib64.framework/Sounds/808loop.wav"
-        let soundFile = AKSoundFile(filename: filename)
+        let soundFile = AKSoundFileTable(filename: filename)
         let stereoSoundFileLooper = AKStereoSoundFileLooper(soundFile: soundFile)
         
         let speed = AKLine(firstPoint: 4.ak, secondPoint: 0.2.ak, durationBetweenPoints: testDuration.ak)
