@@ -17,15 +17,13 @@ class Instrument : AKInstrument {
 
         let filename = "CsoundLib64.framework/Sounds/808loop.wav"
 
-        let soundFile = AKSoundFile(filename: filename)
-        soundFile.size = 16384
+        let soundFile = AKSoundFileTable(filename: filename, size: 16384)
 
         let frequencyLine = AKLine(
             firstPoint:  0.1.ak,
             secondPoint: 0.2.ak,
             durationBetweenPoints: testDuration.ak
         )
-
         let synth = AKGranularSynthesizer(
             grainWaveform: soundFile,
             frequency: frequencyLine

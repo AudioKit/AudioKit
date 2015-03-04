@@ -16,11 +16,11 @@
 
 @implementation AKGranularSynthesizer
 {
-    AKParameter * _grainWaveform;
+    AKTable * _grainWaveform;
     AKParameter * _frequency;
 }
 
-- (instancetype)initWithGrainWaveform:(AKParameter *)grainWaveform
+- (instancetype)initWithGrainWaveform:(AKTable *)grainWaveform
                             frequency:(AKParameter *)frequency
                        windowWaveform:(AKTable *)windowWaveform
                              duration:(AKParameter *)duration
@@ -165,7 +165,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_grainWaveform, _frequency, _duration, _density, _maximumOverlappingGrains, _frequencyVariation, _frequencyVariationDistribution, _phase, _startPhaseVariation, _prpow];
+    self.dependencies = @[_frequency, _duration, _density, _maximumOverlappingGrains, _frequencyVariation, _frequencyVariationDistribution, _phase, _startPhaseVariation, _prpow];
 }
 
 - (NSString *)inlineStringForCSD

@@ -26,8 +26,8 @@
 /// @param grainAmplitude Amplitude of each grain. [Default Value: 0.01]
 /// @param grainDensity Density of grains measured in grains per second. If this is constant then the output is synchronous granular synthesis. If grainDensity has a random element (like added noise), then the result is more like asynchronous granular synthesis. [Default Value: 500]
 /// @param useRandomGrainOffset Whether or not to set the grains to start at the initial position or a random position [Default Value: true]
-- (instancetype)initWithGrainTable:(AKConstant *)grainTable
-                       windowTable:(AKConstant *)windowTable
+- (instancetype)initWithGrainTable:(AKTable *)grainTable
+                       windowTable:(AKTable *)windowTable
               maximumGrainDuration:(AKConstant *)maximumGrainDuration
               averageGrainDuration:(AKParameter *)averageGrainDuration
          maximumFrequencyDeviation:(AKParameter *)maximumFrequencyDeviation
@@ -40,14 +40,14 @@
 /// Instantiates the granular synthesis texture with default values
 /// @param grainTable The grain waveform. This can be just a sine wave or a sampled sound.
 /// @param windowTable The amplitude envelope used for the grains.
-- (instancetype)initWithGrainTable:(AKConstant *)grainTable
-                       windowTable:(AKConstant *)windowTable;
+- (instancetype)initWithGrainTable:(AKTable *)grainTable
+                       windowTable:(AKTable *)windowTable;
 
 /// Instantiates the granular synthesis texture with default values
 /// @param grainTable The grain waveform. This can be just a sine wave or a sampled sound.
 /// @param windowTable The amplitude envelope used for the grains.
-+ (instancetype)textureWithGrainTable:(AKConstant *)grainTable
-                          windowTable:(AKConstant *)windowTable;
++ (instancetype)textureWithGrainTable:(AKTable *)grainTable
+                          windowTable:(AKTable *)windowTable;
 
 /// Maximum grain duration in seconds. [Default Value: 0.5]
 @property (nonatomic) AKConstant *maximumGrainDuration;
