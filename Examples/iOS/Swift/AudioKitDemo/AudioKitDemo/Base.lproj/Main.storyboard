@@ -391,7 +391,7 @@
         <!--Analysis-->
         <scene sceneID="aQY-eb-ozn">
             <objects>
-                <viewController id="K54-1r-bYN" customClass="AnalysisViewController" sceneMemberID="viewController">
+                <viewController id="K54-1r-bYN" customClass="AnalysisViewController" customModule="AudioKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PnI-cr-leL"/>
                         <viewControllerLayoutGuide type="bottom" id="3F9-k0-2X5"/>
