@@ -1511,7 +1511,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
-					"/Users/aure/Developer/AudioKit/AudioKit/Libraries/OSX/csound-OSX",
 				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1531,7 +1530,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Libraries/OSX/csound-OSX/",
-					"/Users/aure/Developer/AudioKit/AudioKit/Libraries/OSX/csound-OSX",
 				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
