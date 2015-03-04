@@ -2,8 +2,8 @@
 //  main.swift
 //  AudioKit
 //
-//  Created by Nick Arner and Aurelius Prochazka on 12/28/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka on 3/3/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
@@ -11,30 +11,29 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-
+    
     override init() {
         super.init()
-
+        
         let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
-        let soundFile = AKSoundFile(filename: filename)
-
+        let soundFile = AKSoundFileTable(filename: filename)
         let speed = AKLine(
             firstPoint:  3.ak,
             secondPoint: 0.5.ak,
             durationBetweenPoints: testDuration.ak
         )
         
-        let functionTableLooper = AKFunctionTableLooper(functionTable: soundFile)
-        functionTableLooper.endTime = 9.6.ak
-        functionTableLooper.transpositionRatio = speed
-        functionTableLooper.loopMode = AKFunctionTableLooper.loopPlaysForwardAndThenBackwards()
-
+        let tableLooper = AKTableLooper(table: soundFile)
+        tableLooper.endTime = 9.6.ak
+        tableLooper.transpositionRatio = speed
+        tableLooper.loopMode = AKTableLooper.loopPlaysForwardAndThenBackwards()
+        
         enableParameterLog(
             "Transposition Ratio = ",
-            parameter: functionTableLooper.transpositionRatio,
+            parameter: tableLooper.transpositionRatio,
             timeInterval:0.1
         )
-        setAudioOutput(functionTableLooper)
+        setAudioOutput(tableLooper)
     }
 }
 
