@@ -11,49 +11,36 @@
 
 @implementation AKSoundFileTable
 
-- (instancetype)initWithFilename:(NSString *)filename
+
+- (instancetype)initWithFilename:(NSString *)filename size:(int)size channel:(NSNumber *)channel
 {
     self = [super initWithSize:0];
     if (self) {
         filename = [NSString stringWithFormat:@"\"%@\"", filename];
-        NSArray *parameters = @[filename, @0, @0, @0];
+        NSArray *parameters = @[filename, @0, @0, channel];
         NSString *parameterString = [parameters componentsJoinedByString:@", "];
-        NSString *orchString = [NSString stringWithFormat:@"giSoundFileTable%d ftgen %d, 0, 0, 1, %@",
-                                self.number, self.number, parameterString];
+        NSString *orchString = [NSString stringWithFormat:@"giSoundFileTable%d ftgen %d, 0, %d, 1, %@",
+                                self.number, self.number, size, parameterString];
         NSLog(@"%@",orchString);
         [[[AKManager sharedManager] engine] updateOrchestra:orchString];
     }
     return self;
 }
 
-- (instancetype)initAsMonoFromLeftChannelOfStereoFile:(NSString *)filename
-{
-    self = [super initWithSize:0];
-    if (self) {
-        filename = [NSString stringWithFormat:@"\"%@\"", filename];
-        NSArray *parameters = @[filename, @0, @0, @1];
-        NSString *parameterString = [parameters componentsJoinedByString:@", "];
-        NSString *orchString = [NSString stringWithFormat:@"giSoundFileTable%d ftgen %d, 0, 0, 1, %@",
-                                self.number, self.number, parameterString];
-        NSLog(@"%@",orchString);
-        [[[AKManager sharedManager] engine] updateOrchestra:orchString];
-    }
-    return self;
+- (instancetype)initWithFilename:(NSString *)filename size:(int)size {
+    return [self initWithFilename:filename size:size channel:@0];
 }
 
-- (instancetype)initAsMonoFromRightChannelOfStereoFile:(NSString *)filename
-{
-    self = [super initWithSize:0];
-    if (self) {
-        filename = [NSString stringWithFormat:@"\"%@\"", filename];
-        NSArray *parameters = @[filename, @0, @0, @2];
-        NSString *parameterString = [parameters componentsJoinedByString:@", "];
-        NSString *orchString = [NSString stringWithFormat:@"giSoundFileTable%d ftgen %d, 0, 0, 1, %@",
-                                self.number, self.number, parameterString];
-        NSLog(@"%@",orchString);
-        [[[AKManager sharedManager] engine] updateOrchestra:orchString];
-    }
-    return self;
+- (instancetype)initWithFilename:(NSString *)filename {
+    return [self initWithFilename:filename size:0 channel:@0];
+}
+
+- (instancetype)initAsMonoFromLeftChannelOfStereoFile:(NSString *)filename {
+    return [self initWithFilename:filename size:0 channel:@1];
+}
+
+- (instancetype)initAsMonoFromRightChannelOfStereoFile:(NSString *)filename {
+    return [self initWithFilename:filename size:0 channel:@2];
 }
 
 

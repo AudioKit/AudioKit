@@ -19,6 +19,11 @@
 /// @param filename Audio file to load.  Most types are supported.
 - (instancetype)initWithFilename:(NSString *)filename;
 
+/// Store file with a filename
+/// @param filename Audio file to load.  Most types are supported.
+/// @param size Size of the table
+- (instancetype)initWithFilename:(NSString *)filename size:(int)size;
+
 /// Store mono file from the left channel of a file
 /// @param filename Audio file to load.  Most types are supported.
 - (instancetype)initAsMonoFromLeftChannelOfStereoFile:(NSString *)filename;
