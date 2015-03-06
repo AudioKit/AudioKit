@@ -25,6 +25,7 @@
 
 #import <AudioToolbox/ExtendedAudioFile.h>
 #import <AudioUnit/AudioUnit.h>
+#import <Foundation/Foundation.h>
 
 #import "csound.h"
 
