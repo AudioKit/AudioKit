@@ -22,21 +22,36 @@
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
-- (void)drawWithColor:(UIColor *)color lineWidth:(float)width
+#if TARGET_OS_IPHONE
+#define AKColor UIColor
+#elif TARGET_OS_MAC
+#define AKColor NSColor
+#endif
+
+- (void)drawWithColor:(AKColor *)color lineWidth:(float)width
 {
     // Draw waveform
+#if TARGET_OS_IPHONE
     UIBezierPath *waveformPath = [UIBezierPath bezierPath];
+#elif TARGET_OS_MAC
+    NSBezierPath *waveformPath = [NSBezierPath bezierPath];
+#endif
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     for (int i = 0; i < sampleSize/2; i++) {
         y = CLAMP(samples[i*2], -1.0f, 1.0f);
         y = self.bounds.size.height * (y + 1.0) / 2.0;
-
+        
         if (i == 0) {
             [waveformPath moveToPoint:CGPointMake(x, y)];
         } else {
+#if TARGET_OS_IPHONE
             [waveformPath addLineToPoint:CGPointMake(x, y)];
+#elif TARGET_OS_MAC
+            [waveformPath lineToPoint:CGPointMake(x, y)];
+#endif
+            
         }
         x += (self.frame.size.width / (sampleSize/2));
     };
@@ -47,7 +62,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self drawWithColor:[UIColor yellowColor] lineWidth:4.0];
+    [self drawWithColor:[AKColor yellowColor] lineWidth:4.0];
 }
 
 // -----------------------------------------------------------------------------
@@ -72,8 +87,16 @@
 {
     inSamples = [cs getInSamples];
     samples = (MYFLT *)[inSamples bytes];
-    [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    
 }
 
+- (void)updateUI {
+#if TARGET_OS_IPHONE
+    [self setNeedsDisplay];
+#elif TARGET_OS_MAC
+    [self setNeedsDisplay:YES];
+#endif
+}
 
 @end
