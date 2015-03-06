@@ -25,6 +25,7 @@
 
 #import <AudioToolbox/ExtendedAudioFile.h>
 #import <AudioUnit/AudioUnit.h>
+#import <Foundation/Foundation.h>
 
 #import "CsoundLib64.framework/Headers/csound.h"
 
@@ -129,6 +130,7 @@ typedef struct {
                    channelType:(controlChannelType)channelType;
 
 - (NSData *)getOutSamples;
+- (NSData *)getInSamples;
 - (int)getNumChannels;
 - (int)getKsmps;
 
