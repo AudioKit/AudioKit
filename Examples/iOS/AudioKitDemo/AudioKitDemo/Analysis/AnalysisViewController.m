@@ -10,6 +10,7 @@
 #import "AKFoundation.h"
 #import "VocalInput.h"
 #import "AKAudioAnalyzer.h"
+#import "AKAudioInputView.h"
 
 @implementation AnalysisViewController
 {
@@ -25,6 +26,7 @@
     NSArray *noteNamesWithSharps;
     NSArray *noteNamesWithFlats;
     
+    IBOutlet AKAudioInputView *audioInputView;
     AKSequence *analysisSequence;
     AKEvent *updateAnalysis;
 }
@@ -40,6 +42,7 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
+    [[[AKManager sharedManager] engine] addBinding:audioInputView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -53,6 +56,7 @@
         [self performSelectorOnMainThread:@selector(updateUI) withObject:self waitUntilDone:NO];
         [analysisSequence addEvent:updateAnalysis afterDuration:0.1];
     }];
+    
     [analysisSequence addEvent:updateAnalysis];
     [analysisSequence play];
 }

@@ -474,6 +474,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opY-5n-qO2" customClass="AKAudioInputView">
+                                <rect key="frame" x="16" y="310" width="568" height="226"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -488,10 +492,13 @@
                             <constraint firstItem="xtQ-zt-2Ph" firstAttribute="leading" secondItem="eFn-8d-mbv" secondAttribute="trailing" id="Cy2-gq-DLz"/>
                             <constraint firstItem="YHv-cP-GZq" firstAttribute="width" secondItem="xtQ-zt-2Ph" secondAttribute="width" id="FkG-Mp-UnY"/>
                             <constraint firstItem="RBR-OJ-FZo" firstAttribute="top" secondItem="eFn-8d-mbv" secondAttribute="bottom" constant="8" id="Flz-0C-gc8"/>
+                            <constraint firstItem="opY-5n-qO2" firstAttribute="leading" secondItem="aca-gB-lV4" secondAttribute="leadingMargin" id="GgO-Yy-NAQ"/>
+                            <constraint firstItem="opY-5n-qO2" firstAttribute="trailing" secondItem="aca-gB-lV4" secondAttribute="trailingMargin" id="H3v-hF-Fdo"/>
                             <constraint firstItem="eFn-8d-mbv" firstAttribute="leading" secondItem="aca-gB-lV4" secondAttribute="leadingMargin" id="K1l-V3-8ho"/>
                             <constraint firstItem="eFn-8d-mbv" firstAttribute="top" secondItem="Mqy-It-w4G" secondAttribute="bottom" constant="8" id="NDL-4O-Gx5"/>
                             <constraint firstItem="RBR-OJ-FZo" firstAttribute="width" secondItem="4fh-ce-pmE" secondAttribute="width" id="NUb-Zf-VSx"/>
                             <constraint firstItem="Mqy-It-w4G" firstAttribute="height" secondItem="Tpt-7S-82v" secondAttribute="height" id="PSh-UA-Wiw"/>
+                            <constraint firstItem="3F9-k0-2X5" firstAttribute="top" secondItem="opY-5n-qO2" secondAttribute="bottom" constant="15" id="R12-fX-ZRJ"/>
                             <constraint firstItem="YHv-cP-GZq" firstAttribute="width" secondItem="rv0-ls-RZn" secondAttribute="width" id="SGL-dv-Yzo"/>
                             <constraint firstItem="YHv-cP-GZq" firstAttribute="leading" secondItem="RBR-OJ-FZo" secondAttribute="trailing" id="Tpj-T6-mvv"/>
                             <constraint firstItem="rv0-ls-RZn" firstAttribute="centerY" secondItem="4fh-ce-pmE" secondAttribute="centerY" id="UTh-WU-Tts"/>
@@ -509,12 +516,14 @@
                             <constraint firstItem="Mqy-It-w4G" firstAttribute="centerY" secondItem="Tpt-7S-82v" secondAttribute="centerY" constant="0.5" id="oU0-YX-J8d"/>
                             <constraint firstItem="YHv-cP-GZq" firstAttribute="width" secondItem="xtQ-zt-2Ph" secondAttribute="width" id="qIM-qf-9zM"/>
                             <constraint firstAttribute="centerY" secondItem="Mqy-It-w4G" secondAttribute="centerY" multiplier="1.7" id="tBT-Gd-maO"/>
+                            <constraint firstItem="opY-5n-qO2" firstAttribute="top" secondItem="4fh-ce-pmE" secondAttribute="bottom" constant="8" id="uFG-Ua-pTN"/>
                             <constraint firstItem="xtQ-zt-2Ph" firstAttribute="width" secondItem="Tpt-7S-82v" secondAttribute="width" id="xu0-oh-NgP"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analysis" image="A" id="diZ-aE-0GI"/>
                     <connections>
                         <outlet property="amplitudeLabel" destination="xtQ-zt-2Ph" id="cBl-UV-UEG"/>
+                        <outlet property="audioInputView" destination="opY-5n-qO2" id="d5K-xf-VDW"/>
                         <outlet property="frequencyLabel" destination="Tpt-7S-82v" id="avn-Oh-Nhy"/>
                         <outlet property="noteNameWithFlatsLabel" destination="rv0-ls-RZn" id="lc2-iT-vbV"/>
                         <outlet property="noteNameWithSharpsLabel" destination="YHv-cP-GZq" id="bta-BF-G4X"/>
