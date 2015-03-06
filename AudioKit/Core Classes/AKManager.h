@@ -12,6 +12,7 @@
 #import "AKMidi.h"
 #import "AKSequence.h"
 #import "AKTable.h"
+#import "AKAudioInputView.h"
 
 #import "CsoundObj.h"
 
@@ -90,9 +91,8 @@
 /// Disable MIDI
 - (void)disableMidi;
 
-// Common tables required by many applications
-
-
+/// Utilities
++ (void)addAudioInputView:(AKAudioInputView *)audioInputView;
 
 
 @end
