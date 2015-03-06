@@ -42,7 +42,7 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
-    [[[AKManager sharedManager] engine] addBinding:audioInputView];
+    [AKManager addAudioInputView:audioInputView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
