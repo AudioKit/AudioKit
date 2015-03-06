@@ -326,4 +326,9 @@ static AKManager *_sharedManager = nil;
     _isRunning  = NO;
 }
 
++ (void)addAudioInputView:(AKAudioInputView *)audioInputView
+{
+    [[[self sharedManager] engine] addBinding:audioInputView];
+}
+
 @end
