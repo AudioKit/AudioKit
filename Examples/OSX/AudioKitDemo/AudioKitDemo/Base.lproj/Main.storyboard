@@ -1136,11 +1136,16 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="N5K-lO-MdV" customClass="AKAudioInputView">
+                                <rect key="frame" x="20" y="20" width="410" height="112"/>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="2AQ-7V-Ee8" firstAttribute="top" secondItem="hLv-No-NSa" secondAttribute="top" constant="20" id="431-NH-Txn"/>
                             <constraint firstAttribute="trailing" secondItem="Qgd-vk-BAx" secondAttribute="trailing" constant="20" id="49b-Ee-Kdg"/>
                             <constraint firstItem="Qgd-vk-BAx" firstAttribute="centerY" secondItem="POL-Hj-ypn" secondAttribute="centerY" id="4Dw-Qn-pxh"/>
+                            <constraint firstItem="N5K-lO-MdV" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="20" id="Crc-ju-Uto"/>
+                            <constraint firstAttribute="bottom" secondItem="N5K-lO-MdV" secondAttribute="bottom" constant="20" id="ErL-09-mue"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="top" secondItem="2AQ-7V-Ee8" secondAttribute="bottom" constant="18" id="IbG-qB-g3U"/>
                             <constraint firstItem="H4c-IN-PPX" firstAttribute="centerY" secondItem="kFF-Fa-NcQ" secondAttribute="centerY" id="LOu-1e-9ta"/>
                             <constraint firstItem="H4c-IN-PPX" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="20" id="NHT-LQ-rHy"/>
@@ -1149,7 +1154,9 @@
                             <constraint firstItem="bOf-cW-uIp" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="20" id="Xf5-72-UhB"/>
                             <constraint firstAttribute="trailing" secondItem="kFF-Fa-NcQ" secondAttribute="trailing" constant="20" id="Y1t-lz-Mop"/>
                             <constraint firstAttribute="trailing" secondItem="oOU-GL-cGe" secondAttribute="trailing" constant="20" id="b0w-lJ-gam"/>
+                            <constraint firstAttribute="trailing" secondItem="N5K-lO-MdV" secondAttribute="trailing" constant="20" id="cGl-Bh-9Qe"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="centerY" secondItem="K2f-py-8jU" secondAttribute="centerY" id="g9q-Vz-5hg"/>
+                            <constraint firstItem="N5K-lO-MdV" firstAttribute="top" secondItem="H4c-IN-PPX" secondAttribute="bottom" constant="8" id="nad-Vb-Nhm"/>
                             <constraint firstItem="oOU-GL-cGe" firstAttribute="centerY" secondItem="bOf-cW-uIp" secondAttribute="centerY" id="npJ-1T-sQT"/>
                             <constraint firstItem="2AQ-7V-Ee8" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" id="sfH-NF-ESC"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="22" id="spN-Nd-xJV"/>
@@ -1161,6 +1168,7 @@
                     </view>
                     <connections>
                         <outlet property="amplitudeLabel" destination="Qgd-vk-BAx" id="VTk-Xk-6TH"/>
+                        <outlet property="audioInputView" destination="N5K-lO-MdV" id="W5z-VA-A2a"/>
                         <outlet property="frequencyLabel" destination="K2f-py-8jU" id="5oM-Jm-M5T"/>
                         <outlet property="noteNameWithFlatsLabel" destination="kFF-Fa-NcQ" id="4rA-t3-gso"/>
                         <outlet property="noteNameWithSharpsLabel" destination="oOU-GL-cGe" id="8vT-2W-S4L"/>
