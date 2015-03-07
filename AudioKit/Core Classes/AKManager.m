@@ -331,4 +331,9 @@ static AKManager *_sharedManager = nil;
     [[[self sharedManager] engine] addBinding:audioInputView];
 }
 
++ (void)addInstrumentPropertyView:(AKInstrumentPropertyView *)instrumentPropertyView
+{
+    [[[self sharedManager] engine] addBinding:instrumentPropertyView];
+}
+
 @end
