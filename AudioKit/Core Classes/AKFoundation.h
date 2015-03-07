@@ -167,6 +167,7 @@
 #import "AKMoogLadder.h"
 #import "AKMoogVCF.h"
 #import "AKResonantFilter.h"
+#import "AKStringResonator.h"
 #import "AKThreePoleLowpassFilter.h"
 #import "AKVariableFrequencyResponseBandPassFilter.h"
 
