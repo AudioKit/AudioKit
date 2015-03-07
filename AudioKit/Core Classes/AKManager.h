@@ -13,6 +13,7 @@
 #import "AKSequence.h"
 #import "AKTable.h"
 #import "AKAudioInputView.h"
+#import "AKInstrumentPropertyView.h"
 
 #import "CsoundObj.h"
 
@@ -93,6 +94,6 @@
 
 /// Utilities
 + (void)addAudioInputView:(AKAudioInputView *)audioInputView;
-
++ (void)addInstrumentPropertyView:(AKInstrumentPropertyView *)instrumentPropertyView;
 
 @end
