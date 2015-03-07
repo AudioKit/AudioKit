@@ -11,6 +11,8 @@
 #import "VocalInput.h"
 #import "AKAudioAnalyzer.h"
 #import "AKAudioInputView.h"
+#import "AKInstrumentPropertyView.h"
+#import "AKFloatPlot.h"
 
 @implementation AnalysisViewController
 {
@@ -19,14 +21,17 @@
     
     IBOutlet UILabel *frequencyLabel;
     IBOutlet UILabel *amplitudeLabel;
-    IBOutlet UILabel *noteNameWithSharpsLabel;
-    IBOutlet UILabel *noteNameWithFlatsLabel;
+    IBOutlet UILabel *noteNameLabel;
     
     NSArray *noteFrequencies;
     NSArray *noteNamesWithSharps;
     NSArray *noteNamesWithFlats;
     
     IBOutlet AKAudioInputView *audioInputView;
+    IBOutlet AKInstrumentPropertyView *amplitudeView;
+    IBOutlet AKInstrumentPropertyView *frequencyView;
+    AKInstrumentProperty *normalizedFrequency;
+    IBOutlet AKFloatPlot *normalizedFrequencyView;
     AKSequence *analysisSequence;
     AKEvent *updateAnalysis;
 }
@@ -43,6 +48,16 @@
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
     [AKManager addAudioInputView:audioInputView];
+    amplitudeView.property = analyzer.trackedAmplitude;
+    
+    normalizedFrequency = [[AKInstrumentProperty alloc] initWithValue:0.0 minimum:16.35 maximum:30.87];
+    frequencyView.property = analyzer.trackedFrequency;
+    frequencyView.plottedValue = normalizedFrequency;
+    [AKManager addInstrumentPropertyView:amplitudeView];
+    [AKManager addInstrumentPropertyView:frequencyView];
+    
+    normalizedFrequencyView.minimum = 15;
+    normalizedFrequencyView.maximum = 32;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -79,7 +94,8 @@
         while (frequency < [noteFrequencies.firstObject floatValue]) {
             frequency = frequency * 2.0;
         }
-        
+        normalizedFrequency.value = frequency;
+        [normalizedFrequencyView updateWithValue:frequency];
         float minDistance = 10000;
         int index =  0;
         for (int i = 0; i < noteFrequencies.count; i++) {
@@ -90,15 +106,12 @@
             }
         }
         int octave = (int)log2f(analyzer.trackedFrequency.value / frequency);
-        NSString *noteName = [NSString stringWithFormat:@"%@%d", noteNamesWithSharps[index], octave];
-        noteNameWithSharpsLabel.text = noteName;
-        noteName = [NSString stringWithFormat:@"%@%d", noteNamesWithFlats[index], octave];
-        noteNameWithFlatsLabel.text = noteName;
+        NSString *noteName = [NSString stringWithFormat:@"%@%d / %@%d", noteNamesWithSharps[index], octave, noteNamesWithFlats[index], octave];
+        noteNameLabel.text = noteName;
         
         [frequencyLabel setNeedsDisplay];
         [amplitudeLabel setNeedsDisplay];
-        [noteNameWithSharpsLabel setNeedsDisplay];
-        [noteNameWithFlatsLabel setNeedsDisplay];
+        [noteNameLabel setNeedsDisplay];
     }
     amplitudeLabel.text = [NSString stringWithFormat:@"%0.2f", analyzer.trackedAmplitude.value];
 
