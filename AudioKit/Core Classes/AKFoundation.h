@@ -11,8 +11,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKTypes.h"
-
 #import "AKManager.h"
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
@@ -26,8 +24,6 @@
 #import "AKInstrumentProperty.h"
 #import "AKConstant.h"
 #import "AKNoteProperty.h"
-
-#import "AKSampler.h"
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Operations
