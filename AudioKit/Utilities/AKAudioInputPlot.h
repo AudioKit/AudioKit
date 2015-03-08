@@ -1,5 +1,5 @@
 //
-//  AKAudioInputView.h
+//  AKAudioInputPlot.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 2/6/15.
@@ -10,10 +10,10 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
-@interface AKAudioInputView : UIView <CsoundBinding>
+@interface AKAudioInputPlot : UIView <CsoundBinding>
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
-@interface AKAudioInputView : NSView <CsoundBinding>
+@interface AKAudioInputPlot : NSView <CsoundBinding>
 #endif
 
 @end

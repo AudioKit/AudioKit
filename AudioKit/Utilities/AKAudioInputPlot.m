@@ -1,15 +1,15 @@
 //
-//  AKAudioInputView.m
+//  AKAudioInputPlot.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 2/6/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKAudioInputView.h"
+#import "AKAudioInputPlot.h"
 #import "AKFoundation.h"
 
-@interface AKAudioInputView()
+@interface AKAudioInputPlot()
 {
     NSData *inSamples;
     MYFLT *samples;
@@ -18,7 +18,7 @@
 }
 @end
 
-@implementation AKAudioInputView
+@implementation AKAudioInputPlot
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
