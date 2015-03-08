@@ -19,11 +19,11 @@
 + (instancetype)hammingWindow;
 
 
-/// Create Hanning Window
-- (instancetype)initHanningWindow;
+/// Create Hann Window
+- (instancetype)initHannWindow;
 
-/// Create Hanning Window
-+ (instancetype)hanningWindow;
+/// Create Hann Window
++ (instancetype)hannWindow;
 
 /// Create Bartlett (triangle) Window
 - (instancetype)initBartlettTriangleWindow;

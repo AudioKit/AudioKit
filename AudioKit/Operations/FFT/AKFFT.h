@@ -15,6 +15,14 @@
 
 @interface AKFFT : AKFSignal
 
+//Type Helpers
+
+/// Hamming Window
++ (AKConstant *)hammingWindow;
+
+/// Hann Window
++ (AKConstant *)hannWindow;
+
 /// Create a phase vocoder stream or f-signal from a mono audio source.
 /// @param audioSource  Audio to use to generate the f-signal.
 /// @param fftSize      The FFT size in samples. Need not be a power of two (though these are especially efficient), but must be even. Odd numbers are rounded up internally. fftSize determines the number of analysis bins in the output, as fftSize/2 + 1. For example, where fftSize = 1024, fsig will contain 513 analysis bins, ordered linearly from the fundamental to Nyquist. The fundamental of analysis (which in principle gives the lowest resolvable frequency) is determined as sample rate/fftSize. Thus, for the example just given and assuming sr = 44100, the fundamental of analysis is 43.07Hz. In practice, due to the phase-preserving nature of the phase vocoder, the frequency of any bin can deviate bilaterally, so that DC components are recorded. Given a strongly pitched signal, frequencies in adjacent bins can bunch very closely together, around partials in the source, and the lowest bins may even have negative frequencies.
@@ -24,7 +32,7 @@
 - (instancetype)initWithInput:(AKParameter *)audioSource
                       fftSize:(AKConstant *)fftSize
                       overlap:(AKConstant *)overlap
-                   windowType:(AKFFTWindowType)windowType
+                   windowType:(AKConstant *)windowType
              windowFilterSize:(AKConstant *)windowSize;
 
 @end

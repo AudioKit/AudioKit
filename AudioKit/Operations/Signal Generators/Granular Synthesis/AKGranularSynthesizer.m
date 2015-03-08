@@ -59,7 +59,7 @@
         _frequency = frequency;
         // Default Values
         _windowWaveform = [[AKTable alloc] initWithSize:4096];
-        [_windowWaveform populateTableWithGenerator:[AKWindowTableGenerator hanningWindow]];
+        [_windowWaveform populateTableWithGenerator:[AKWindowTableGenerator hannWindow]];
         _duration = akp(0.2);
         _density = akp(200);
         _maximumOverlappingGrains = akp(200);
