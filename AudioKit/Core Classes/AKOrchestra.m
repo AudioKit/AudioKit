@@ -110,6 +110,7 @@
         [instrumentString appendString:@"\n"];
     }
     
+    NSString *stringForCSD = [instrument stringForCSD];
     if (instrument.userDefinedOperations.count > 0) {
         [instrumentString appendString:@"\n;--- User-defined operations ---\n"];
         for (NSString *udo in instrument.userDefinedOperations) {
@@ -121,7 +122,7 @@
     }
     
     [instrumentString appendFormat:@"instr %i\n", [instrument instrumentNumber]];
-    [instrumentString appendString:[NSString stringWithFormat:@"%@\n",[instrument stringForCSD]]];
+    [instrumentString appendString:[NSString stringWithFormat:@"%@\n", stringForCSD]];
     [instrumentString appendString:@"endin\n"];
     
     if ([[AKManager sharedManager] isLogging]) {
