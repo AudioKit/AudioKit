@@ -458,15 +458,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opY-5n-qO2" customClass="AKAudioInputView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opY-5n-qO2" customClass="AKAudioInputPlot">
                                 <rect key="frame" x="16" y="201" width="382" height="105"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEa-6t-zGZ" customClass="AKInstrumentPropertyView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEa-6t-zGZ" customClass="AKInstrumentPropertyPlot">
                                 <rect key="frame" x="17" y="322" width="382" height="105"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSL-kY-NV3" customClass="AKInstrumentPropertyView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSL-kY-NV3" customClass="AKInstrumentPropertyPlot">
                                 <rect key="frame" x="16" y="443" width="382" height="105"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
@@ -532,11 +532,11 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="amplitudeLabel" destination="xtQ-zt-2Ph" id="cBl-UV-UEG"/>
-                        <outlet property="amplitudeView" destination="gEa-6t-zGZ" id="l8P-kd-itc"/>
-                        <outlet property="audioInputView" destination="opY-5n-qO2" id="A9w-UA-2gd"/>
+                        <outlet property="amplitudePlot" destination="gEa-6t-zGZ" id="6r6-QZ-Apb"/>
                         <outlet property="frequencyLabel" destination="Tpt-7S-82v" id="avn-Oh-Nhy"/>
-                        <outlet property="frequencyView" destination="aSL-kY-NV3" id="WOs-rd-Gbf"/>
-                        <outlet property="normalizedFrequencyView" destination="qq4-SV-7R1" id="Qf7-Z8-vgO"/>
+                        <outlet property="frequencyPlot" destination="aSL-kY-NV3" id="Ziv-if-kfS"/>
+                        <outlet property="inputPlot" destination="opY-5n-qO2" id="8yV-Ea-ONy"/>
+                        <outlet property="normalizedFrequencyPlot" destination="qq4-SV-7R1" id="REy-o0-Zck"/>
                         <outlet property="noteNameLabel" destination="YHv-cP-GZq" id="Lki-ps-bPl"/>
                     </connections>
                 </viewController>

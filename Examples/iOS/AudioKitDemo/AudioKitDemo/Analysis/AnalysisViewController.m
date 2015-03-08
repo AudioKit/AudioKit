@@ -10,8 +10,8 @@
 #import "AKFoundation.h"
 #import "VocalInput.h"
 #import "AKAudioAnalyzer.h"
-#import "AKAudioInputView.h"
-#import "AKInstrumentPropertyView.h"
+#import "AKAudioInputPlot.h"
+#import "AKInstrumentPropertyPlot.h"
 #import "AKFloatPlot.h"
 
 @implementation AnalysisViewController
@@ -27,11 +27,11 @@
     NSArray *noteNamesWithSharps;
     NSArray *noteNamesWithFlats;
     
-    IBOutlet AKAudioInputView *audioInputView;
-    IBOutlet AKInstrumentPropertyView *amplitudeView;
-    IBOutlet AKInstrumentPropertyView *frequencyView;
+    IBOutlet AKAudioInputPlot *inputPlot;
+    IBOutlet AKInstrumentPropertyPlot *amplitudePlot;
+    IBOutlet AKInstrumentPropertyPlot *frequencyPlot;
     AKInstrumentProperty *normalizedFrequency;
-    IBOutlet AKFloatPlot *normalizedFrequencyView;
+    IBOutlet AKFloatPlot *normalizedFrequencyPlot;
     AKSequence *analysisSequence;
     AKEvent *updateAnalysis;
 }
@@ -47,17 +47,17 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
-    [AKManager addBinding:audioInputView];
-    amplitudeView.property = analyzer.trackedAmplitude;
+    [AKManager addBinding:inputPlot];
+    amplitudePlot.property = analyzer.trackedAmplitude;
     
     normalizedFrequency = [[AKInstrumentProperty alloc] initWithValue:0.0 minimum:16.35 maximum:30.87];
-    frequencyView.property = analyzer.trackedFrequency;
-    frequencyView.plottedValue = normalizedFrequency;
-    [AKManager addBinding:amplitudeView];
-    [AKManager addBinding:frequencyView];
+    frequencyPlot.property = analyzer.trackedFrequency;
+    frequencyPlot.plottedValue = normalizedFrequency;
+    [AKManager addBinding:amplitudePlot];
+    [AKManager addBinding:frequencyPlot];
     
-    normalizedFrequencyView.minimum = 15;
-    normalizedFrequencyView.maximum = 32;
+    normalizedFrequencyPlot.minimum = 15;
+    normalizedFrequencyPlot.maximum = 32;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -95,7 +95,7 @@
             frequency = frequency * 2.0;
         }
         normalizedFrequency.value = frequency;
-        [normalizedFrequencyView updateWithValue:frequency];
+        [normalizedFrequencyPlot updateWithValue:frequency];
         float minDistance = 10000;
         int index =  0;
         for (int i = 0; i < noteFrequencies.count; i++) {
