@@ -8,7 +8,6 @@
 
 #import "AKParameter.h"
 #import "AKTable.h"
-#import "AKTypes.h"
 #import "AKSoundFileTable.h"
 
 /** This category allows for operations to simply be considered as parameters to other operations.

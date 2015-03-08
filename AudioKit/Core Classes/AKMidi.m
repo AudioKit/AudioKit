@@ -8,7 +8,6 @@
 
 #import "AKMidi.h"
 #import <CoreMIDI/CoreMIDI.h>
-#import "AKTypes.h"
 
 #pragma mark  Utility Function
 
