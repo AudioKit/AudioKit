@@ -10,6 +10,8 @@
 #import "AKFoundation.h"
 #import "VocalInput.h"
 #import "AKAudioAnalyzer.h"
+#import "AKAudioInputPlot.h"
+#import "AKFloatPlot.h"
 
 @implementation AnalysisViewController
 {
@@ -24,7 +26,7 @@
     NSArray *noteFrequencies;
     NSArray *noteNamesWithSharps;
     NSArray *noteNamesWithFlats;
-    IBOutlet AKAudioInputView *audioInputView;
+    IBOutlet AKAudioInputPlot *inputPlot;
     
     AKSequence *analysisSequence;
     AKEvent *updateAnalysis;
@@ -41,9 +43,9 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
-    [audioInputView setWantsLayer:YES];
-    [audioInputView.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
-    [AKManager addAudioInputView:audioInputView];
+    [inputPlot setWantsLayer:YES];
+    [inputPlot.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
+    [AKManager addBinding:inputPlot];
 }
 
 - (void)viewDidAppear
