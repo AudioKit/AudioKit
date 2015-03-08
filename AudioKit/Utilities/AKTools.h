@@ -2,13 +2,18 @@
 //  AKTools.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 7/27/14.
-//  Copyright (c) 2014 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka on 7/3/12.
+//  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
 #import "AKManager.h"
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#elif TARGET_OS_MAC
+#import <AppKit/AppKit.h>
+#endif
 
 /// A suite of useful methods for working with AudioKit
 @interface AKTools : NSObject
@@ -46,16 +51,40 @@
              toMinimum:(float)toMinimum
              toMaximum:(float)toMaximum;
 
+/// Scales the property with a scaling factor between 0 and 1. 0->minimum, 1->maximum
+/// @param property An AKInstrumentProperty or AKNoteProperty to be scaled
+/// @param scalingFactor Scaling factor between 0 and 1. 0->minimum, 1->maximum
++ (void)scaleProperty:(id)property
+    withScalingFactor:(float)scalingFactor;
+
+/// Scales the property with a scaling factor between 0 and 1. 0->maximum, 1->minimum
+/// @param property An AKInstrumentProperty or AKNoteProperty to be scaled
+/// @param scalingFactor Scaling factor between 0 and 1. 0->maximum, 1->minimum
++ (void)scaleProperty:(id)property
+withInverseScalingFactor:(float)scalingFactor;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - General UI
 // -----------------------------------------------------------------------------
+
+#if TARGET_OS_IPHONE
+#define AKSlider UISlider
+#elif TARGET_OS_MAC
+#define AKSlider NSSlider
+#endif
+
+#if TARGET_OS_IPHONE
+#define AKTextField UITextField
+#elif TARGET_OS_MAC
+#define AKTextField NSTextField
+#endif
 
 /// Reposition a slider's value and range
 /// @param slider The slider to set up
 /// @param value Current value of the slider
 /// @param minimum Lower bound of the slider
 /// @param maximum Upper bound of the slider
-+ (void)setSlider:(NSSlider *)slider
++ (void)setSlider:(AKSlider *)slider
         withValue:(float)value
           minimum:(float)minimum
           maximum:(float)maximum;
@@ -64,7 +93,7 @@
 /// @param slider The slider to get the value from
 /// @param minimum Lower bound of the output
 /// @param maximum Upper bound of the output
-+ (float)scaleValueFromSlider:(NSSlider *)slider
++ (float)scaleValueFromSlider:(AKSlider *)slider
                       minimum:(float)minimum
                       maximum:(float)maximum;
 
@@ -72,7 +101,7 @@
 /// @param slider The slider to get the value from
 /// @param minimum Lower bound of the output
 /// @param maximum Upper bound of the output
-+ (float)scaleLogValueFromSlider:(NSSlider *)slider
++ (float)scaleLogValueFromSlider:(AKSlider *)slider
                          minimum:(float)minimum
                          maximum:(float)maximum;
 
@@ -83,17 +112,30 @@
 /// Set a slider with an AKInstrumentProperty or AKNoteProperty
 /// @param slider The slider to set up
 /// @param property The AKInstrumentProperty or AKNoteProperty to use to set up the slider
-+ (void)setSlider:(NSSlider *)slider withProperty:(id)property;
++ (void)setSlider:(AKSlider *)slider withProperty:(id)property;
 
 /// Set an AKInstrumentProperty or AKNoteProperty from a slider
 /// @param property The AKInstrumentProperty or AKNoteProperty to set with the slider
 /// @param slider The slider to use
-+ (void)setProperty:(id)property withSlider:(NSSlider *)slider;
++ (void)setProperty:(id)property withSlider:(AKSlider *)slider;
 
 /// Populate a text field with the value from AKInstrumentProperty or AKNoteProperty
 /// @param textfield The text field to set up
 /// @param property The AKInstrumentProperty or AKNoteProperty to use to set up the slider
-+ (void)setTextField:(NSTextField *)textfield withProperty:(id)property;
++ (void)setTextField:(AKTextField *)textfield withProperty:(id)property;
+
+
+#if TARGET_OS_IPHONE
+/// Set a progress view with an AKInstrumentProperty or AKNoteProperty
+/// @param progressView The progress view to set up
+/// @param property The AKInstrumentProperty or AKNoteProperty to use to set up the slider
++ (void)setProgressView:(UIProgressView *)progressView withProperty:(id)property;
+
+/// Populate a label with the value from AKInstrumentProperty or AKNoteProperty
+/// @param label The label to set up
+/// @param property The AKInstrumentProperty or AKNoteProperty to use to set up the slider
++ (void)setLabel:(UILabel *)label withProperty:(id)property;
+#endif
 
 // -----------------------------------------------------------------------------
 #  pragma mark - MIDI
