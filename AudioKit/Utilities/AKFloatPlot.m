@@ -8,8 +8,6 @@
 
 #import "AKFloatPlot.h"
 
-
-
 @implementation AKFloatPlot
 {
     float *history;
@@ -42,11 +40,21 @@
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
+#if TARGET_OS_IPHONE
+#define AKColor UIColor
+#elif TARGET_OS_MAC
+#define AKColor NSColor
+#endif
 
-- (void)drawWithColor:(UIColor *)color width:(float)width
+- (void)drawWithColor:(AKColor *)color width:(float)width
 {
     // Draw waveform
+#if TARGET_OS_IPHONE
     UIBezierPath *wavePath = [UIBezierPath bezierPath];
+#elif TARGET_OS_MAC
+    NSBezierPath *wavePath = [NSBezierPath bezierPath];
+#endif
+    
     
     CGFloat yScale  =  self.bounds.size.height / (_maximum - _minimum);
     
@@ -62,7 +70,11 @@
         if (i == index) {
             [wavePath moveToPoint:CGPointMake(x, y)];
         } else {
+#if TARGET_OS_IPHONE
             [wavePath addLineToPoint:CGPointMake(x, y)];
+#elif TARGET_OS_MAC
+            [wavePath lineToPoint:CGPointMake(x, y)];
+#endif
         }
         x += deltaX;
     };
@@ -74,7 +86,7 @@
 
 - (void)drawRect:(CGRect)rect {
     
-    [self drawWithColor:[UIColor blueColor] width:4.0];
+    [self drawWithColor:[AKColor blueColor] width:4.0];
 }
 
 - (void)updateWithValue:(float)value {
