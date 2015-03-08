@@ -28,15 +28,15 @@
     return [[self alloc] initHammingWindow];
 }
 
-- (instancetype)initHanningWindow
+- (instancetype)initHannWindow
 {
     self = [super init];
     if (self) type = 2;
     return self;
 }
 
-+ (instancetype)hanningWindow {
-    return [[self alloc] initHanningWindow];
++ (instancetype)hannWindow {
+    return [[self alloc] initHannWindow];
 }
 
 - (instancetype)initBartlettTriangleWindow

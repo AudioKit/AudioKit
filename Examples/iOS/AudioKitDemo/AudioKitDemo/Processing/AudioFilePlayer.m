@@ -46,14 +46,14 @@
         leftF = [[AKFFT alloc] initWithInput:[fileInLeft scaledBy:akp(0.25)]
                                      fftSize:akp(1024)
                                      overlap:akp(256)
-                                  windowType:AKFFTWindowTypeHamming
+                                  windowType:[AKFFT hammingWindow]
                             windowFilterSize:akp(1024)];
         
         AKFFT *rightF;
         rightF = [[AKFFT alloc] initWithInput:[fileInRight scaledBy:akp(0.25)]
                                       fftSize:akp(1024)
                                       overlap:akp(256)
-                                   windowType:AKFFTWindowTypeHamming
+                                   windowType:[AKFFT hammingWindow]
                              windowFilterSize:akp(1024)];
         
         AKScaledFFT *scaledLeftF;
