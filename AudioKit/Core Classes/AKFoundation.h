@@ -11,19 +11,39 @@
 
 #import <Foundation/Foundation.h>
 
+# pragma mark - Core Classes
 #import "AKManager.h"
 #import "AKOrchestra.h"
-#import "AKInstrument.h"
-#import "AKSequence.h"
-#import "AKEvent.h"
-#import "AKNote.h"
 
+# pragma mark - Instruments
+#import "AKInstrument.h"
+#import "AKInstrumentProperty.h"
+
+#pragma mark - Notes
+#import "AKNote.h"
+#import "AKNoteProperty.h"
+
+# pragma mark - Parameters
 #import "AKParameter.h"
 #import "AKAudio.h"
 #import "AKControl.h"
-#import "AKInstrumentProperty.h"
 #import "AKConstant.h"
-#import "AKNoteProperty.h"
+
+# pragma mark - Sequencing
+#import "AKEvent.h"
+#import "AKSequence.h"
+
+#  pragma mark - Tables
+#import "AKSoundFileTable.h"
+#import "AKTable.h"
+
+# pragma mark Table Generators
+#import "AKHarmonicCosineTableGenerator.h"
+#import "AKExponentialTableGenerator.h"
+#import "AKFourierSeriesTableGenerator.h"
+#import "AKLineTableGenerator.h"
+#import "AKRandomDistributionTableGenerator.h"
+#import "AKWindowTableGenerator.h"
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Operations
@@ -48,7 +68,7 @@
 #import "AKSpectralVocoder.h"
 #import "AKWarpedFFT.h"
 
-// Operations - Mathematical Operations
+// Operations - Math
 #import "AKAssignment.h"
 #import "AKDifference.h"
 #import "AKInverse.h"
@@ -74,9 +94,9 @@
 #import "AKSinusoidBursts.h"
 
 // Operations - Signal Generators - Loopers
-#import "AKTableLooper.h"
 #import "AKMonoSoundFileLooper.h"
 #import "AKStereoSoundFileLooper.h"
+#import "AKTableLooper.h"
 
 // Operations - Signal Generators - Musical Controls
 #import "AKPortamento.h"
@@ -183,21 +203,5 @@
 #import "AKBalance.h"
 #import "AKMix.h"
 #import "AKPanner.h"
-
-// -----------------------------------------------------------------------------
-#  pragma mark - Tables
-// -----------------------------------------------------------------------------
-
-#import "AKSoundFileTable.h"
-#import "AKTable.h"
-
-// Tables - Generators
-#import "AKHarmonicCosineTableGenerator.h"
-#import "AKExponentialTableGenerator.h"
-#import "AKFourierSeriesTableGenerator.h"
-#import "AKLineTableGenerator.h"
-#import "AKRandomDistributionTableGenerator.h"
-
-#import "AKWindowTableGenerator.h"
 
 #endif
