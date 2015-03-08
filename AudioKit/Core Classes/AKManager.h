@@ -81,7 +81,11 @@
 /// Disable AudioInput
 - (void)disableAudioInput;
 
+//// Stop recording
 - (void)stopRecording;
+
+/// Start recording to a given URL
+/// @param url URL to save the recording at
 - (void)startRecordingToURL:(NSURL *)url;
 
 /// Enable MIDI
