@@ -326,14 +326,9 @@ static AKManager *_sharedManager = nil;
     _isRunning  = NO;
 }
 
-+ (void)addAudioInputView:(AKAudioInputView *)audioInputView
++ (void)addBinding:(id)binding
 {
-    [[[self sharedManager] engine] addBinding:audioInputView];
-}
-
-+ (void)addInstrumentPropertyView:(AKInstrumentPropertyView *)instrumentPropertyView
-{
-    [[[self sharedManager] engine] addBinding:instrumentPropertyView];
+    [[[self sharedManager] engine] addBinding:binding];
 }
 
 @end

@@ -12,8 +12,6 @@
 #import "AKMidi.h"
 #import "AKSequence.h"
 #import "AKTable.h"
-#import "AKAudioInputView.h"
-#import "AKInstrumentPropertyView.h"
 
 #import "CsoundObj.h"
 
@@ -93,7 +91,6 @@
 - (void)disableMidi;
 
 /// Utilities
-+ (void)addAudioInputView:(AKAudioInputView *)audioInputView;
-+ (void)addInstrumentPropertyView:(AKInstrumentPropertyView *)instrumentPropertyView;
++ (void)addBinding:(id)binding;
 
 @end
