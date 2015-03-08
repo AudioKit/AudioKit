@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
+
+
 #import "AKTools.h"
 
 @implementation AKTools
@@ -74,19 +76,76 @@
 #  pragma mark - General UI
 // -----------------------------------------------------------------------------
 
-+ (void)setSlider:(UISlider *)slider
+
+#if TARGET_OS_IPHONE
+#define AKSlider UISlider
+#elif TARGET_OS_MAC
+#define AKSlider NSSlider
+#endif
+
+#if TARGET_OS_IPHONE
+#define AKTextField UITextField
+#elif TARGET_OS_MAC
+#define AKTextField NSTextField
+#endif
+
+#if TARGET_OS_IPHONE
+#define val value
+#elif TARGET_OS_MAC
+#define val doubleValue
+#endif
+
+#if TARGET_OS_IPHONE
+#define max maximumValue
+#elif TARGET_OS_MAC
+#define max maxValue
+#endif
+
+#if TARGET_OS_IPHONE
+#define min minimumValue
+#elif TARGET_OS_MAC
+#define min minValue
+#endif
+
+#if TARGET_OS_IPHONE
+#define text text
+#elif TARGET_OS_MAC
+#define text stringValue
+#endif
+
++ (void)setSlider:(AKSlider *)slider
         withValue:(float)value
           minimum:(float)minimum
           maximum:(float)maximum
 {
     float percentage = (value-minimum)/(maximum - minimum);
-    float width = slider.maximumValue - slider.minimumValue;
-    float sliderValue = slider.minimumValue + percentage * width;
+    float width = slider.max - slider.min;
+    float sliderValue = slider.min + percentage * width;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [slider setValue:sliderValue];
+        slider.val = sliderValue;
     });
 }
 
++ (float)scaleValueFromSlider:(AKSlider *)slider
+                      minimum:(float)minimum
+                      maximum:(float)maximum
+{
+    float width = slider.max - slider.min;
+    float percentage = (slider.val - slider.min) / width;
+    return minimum + percentage * (maximum - minimum);
+}
+
++ (float)scaleLogValueFromSlider:(AKSlider *)slider
+                         minimum:(float)minimum
+                         maximum:(float)maximum
+{
+    float width = slider.max - slider.min;
+    float percentage = (log(maximum) - log(minimum)) / width;
+    
+    return expf( log(minimum) + percentage * (slider.val - slider.min) );
+}
+
+#if TARGET_OS_IPHONE
 + (void)setProgressView:(UIProgressView *)progressView
               withValue:(float)value
                 minimum:(float)minimum
@@ -97,32 +156,13 @@
         [progressView setProgress:percentage];
     });
 }
-
-+ (float)scaleValueFromSlider:(UISlider *)slider
-                      minimum:(float)minimum
-                      maximum:(float)maximum
-{
-    float width = slider.maximumValue - slider.minimumValue;
-    float percentage = (slider.value - slider.minimumValue) / width;
-    return minimum + percentage * (maximum - minimum);
-}
-
-+ (float)scaleLogValueFromSlider:(UISlider *)slider
-                         minimum:(float)minimum
-                         maximum:(float)maximum
-{
-    float width = slider.maximumValue - slider.minimumValue;
-    float percentage = (log(maximum) - log(minimum)) / width;
-    
-    return expf( log( minimum) + percentage * ( [slider value] - [slider minimumValue]) );
-}
+#endif
 
 // -----------------------------------------------------------------------------
 #  pragma mark - UI For Properties
 // -----------------------------------------------------------------------------
 
-
-+ (void)setSlider:(UISlider *)slider withProperty:(id)property
++ (void)setSlider:(AKSlider *)slider withProperty:(id)property
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
@@ -134,9 +174,41 @@
         AKNoteProperty *p = (AKNoteProperty *)property;
         [self setSlider:slider withValue:p.value minimum:p.minimum maximum:p.maximum];
     }
-    
 }
 
++ (void)setProperty:(id)property withSlider:(AKSlider *)slider
+{
+    if ([property isKindOfClass:[AKInstrumentProperty class]])
+    {
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
+    }
+    else if ([property isKindOfClass:[AKNoteProperty class]])
+    {
+        AKNoteProperty *p =(AKNoteProperty *)property;
+        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
+    }
+}
+
++ (void)setTextField:(AKTextField *)textfield withProperty:(id)property
+{
+    if ([property isKindOfClass:[AKInstrumentProperty class]])
+    {
+        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textfield.text = [NSString stringWithFormat:@"%g", p.value];
+        });
+    }
+    else if ([property isKindOfClass:[AKNoteProperty class]])
+    {
+        AKNoteProperty *p = (AKNoteProperty *)property;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textfield.text = [NSString stringWithFormat:@"%g", p.value];
+        });
+    }
+}
+
+#if TARGET_OS_IPHONE
 + (void)setProgressView:(UIProgressView *)progressView withProperty:(id)property
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
@@ -148,39 +220,6 @@
     {
         AKNoteProperty *p =(AKNoteProperty *)property;
         [self setProgressView:progressView withValue:p.value minimum:p.minimum maximum:p.maximum];
-    }
-    
-}
-
-+ (void)setProperty:(id)property withSlider:(UISlider *)slider
-{
-    if ([property isKindOfClass:[AKInstrumentProperty class]])
-    {
-        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
-        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
-    }
-    else if ([property isKindOfClass:[AKNoteProperty class]])
-    {
-        AKNoteProperty *p =(AKNoteProperty *)property;
-        p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
-    }
-}
-
-+ (void)setTextField:(UITextField *)textfield withProperty:(id)property
-{
-    if ([property isKindOfClass:[AKInstrumentProperty class]])
-    {
-        AKInstrumentProperty *p = (AKInstrumentProperty *)property;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            textfield.text = [NSString stringWithFormat:@"%g", p.value];
-        });
-    }
-    else if ([property isKindOfClass:[AKNoteProperty class]])
-    {
-        AKNoteProperty *p = (AKNoteProperty *)property;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            textfield.text = [NSString stringWithFormat:@"%g", p.value];
-        });
     }
 }
 
@@ -201,7 +240,7 @@
         });
     }
 }
-
+#endif
 
 // -----------------------------------------------------------------------------
 #  pragma mark - MIDI
@@ -221,7 +260,5 @@
                   toMinimum:minimum
                   toMaximum:maximum];
 }
-
-
 
 @end
