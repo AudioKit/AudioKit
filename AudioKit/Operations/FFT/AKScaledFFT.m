@@ -17,9 +17,13 @@
     AKControl *kCoefs;
 }
 
++ (AKConstant *)noFormantRetainMethod               { return akp(0);  }
++ (AKConstant *)lifteredCepstrumFormantRetainMethod { return akp(1);  }
++ (AKConstant *)trueEnvelopeFormantRetainMethod     { return akp(2);  }
+
 - (instancetype)initWithSignal:(AKFSignal *)input
                 frequencyRatio:(AKControl *)frequencyRatio
-           formantRetainMethod:(AKScaledFFTFormantRetainMethod)formantRetainMethod
+           formantRetainMethod:(AKControl *)formantRetainMethod
                 amplitudeRatio:(AKControl *)amplitudeRatio
           cepstrumCoefficients:(AKControl *)numberOfCepstrumCoefficients;
 
@@ -39,7 +43,7 @@
         }
         fSigIn = input;
         kScal = frequencyRatio;
-        kKeepForm = [AKConstant constantWithInt:formantRetainMethod];
+        kKeepForm = formantRetainMethod;
         self.state = @"connectable";
         self.dependencies = @[fSigIn, kScal, kGain, kCoefs];
     }
@@ -51,7 +55,7 @@
 {
     return [self initWithSignal:input
                  frequencyRatio:frequencyRatio
-            formantRetainMethod:AKScaledFFTFormantRetainMethodNone
+            formantRetainMethod:[AKScaledFFT noFormantRetainMethod]
                  amplitudeRatio:nil
            cepstrumCoefficients:nil];
 }
