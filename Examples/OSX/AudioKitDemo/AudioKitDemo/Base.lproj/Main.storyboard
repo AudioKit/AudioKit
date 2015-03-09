@@ -1136,7 +1136,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="N5K-lO-MdV" customClass="AKAudioInputView">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="N5K-lO-MdV" customClass="AKAudioInputPlot">
                                 <rect key="frame" x="20" y="20" width="410" height="112"/>
                             </customView>
                         </subviews>
@@ -1168,8 +1168,8 @@
                     </view>
                     <connections>
                         <outlet property="amplitudeLabel" destination="Qgd-vk-BAx" id="VTk-Xk-6TH"/>
-                        <outlet property="audioInputView" destination="N5K-lO-MdV" id="W5z-VA-A2a"/>
                         <outlet property="frequencyLabel" destination="K2f-py-8jU" id="5oM-Jm-M5T"/>
+                        <outlet property="inputPlot" destination="N5K-lO-MdV" id="xA4-df-kAJ"/>
                         <outlet property="noteNameWithFlatsLabel" destination="kFF-Fa-NcQ" id="4rA-t3-gso"/>
                         <outlet property="noteNameWithSharpsLabel" destination="oOU-GL-cGe" id="8vT-2W-S4L"/>
                     </connections>
