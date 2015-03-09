@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-import UIKit
 
 class SynthesisViewController: UIViewController {
     
@@ -67,5 +66,4 @@ class SynthesisViewController: UIViewController {
         fmSynthesizer.playNote(note)
         
     }
-    
 }
