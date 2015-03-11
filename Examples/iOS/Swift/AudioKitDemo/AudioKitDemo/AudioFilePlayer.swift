@@ -9,6 +9,8 @@
 
 class AudioFilePlayer: AKInstrument {
     
+    var auxilliaryOutput = AKAudio()
+
     // INSTRUMENT BASED CONTROL ============================================
     var speed       = AKInstrumentProperty(value: 1, minimum: -2, maximum: -2)
     var scaling     = AKInstrumentProperty(value: 1, minimum: 0.0, maximum: 3.0)
@@ -76,7 +78,7 @@ class AudioFilePlayer: AKInstrument {
         var mono = AKMix(input1: scaledLeft, input2: scaledRight, balance: 0.5.ak)
         
         // Output to global effects processing
-        let auxilliaryOutput = AKAudio.globalParameter()
+        auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to: mono)
     }
 }
