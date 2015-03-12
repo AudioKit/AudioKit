@@ -59,7 +59,7 @@
     float scaledX = touchPoint.x / fmSynthesizerTouchView.bounds.size.width;
     float scaledY = 1.0 - touchPoint.y / fmSynthesizerTouchView.bounds.size.height;
     
-    float frequency = scaledY*4000 + 20;
+    float frequency = scaledY*400;
     float color = scaledX;
     FMSynthesizerNote *note = [[FMSynthesizerNote alloc] initWithFrequency:frequency color:color];
     [fmSynthesizer playNote:note];
