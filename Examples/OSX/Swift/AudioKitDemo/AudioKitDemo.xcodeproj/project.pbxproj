@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC0D51AB245DB00689511 /* AppDelegate.swift */; };
-		E42CC0D81AB245DB00689511 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC0D71AB245DB00689511 /* ViewController.swift */; };
 		E42CC0DA1AB245DB00689511 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E42CC0D91AB245DB00689511 /* Images.xcassets */; };
 		E42CC0DD1AB245DB00689511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42CC0DB1AB245DB00689511 /* Main.storyboard */; };
 		E42CC2551AB2463100689511 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E42CC0F51AB2463100689511 /* AKEvent.m */; };
@@ -164,7 +163,6 @@
 		E42CC0D01AB245DB00689511 /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42CC0D41AB245DB00689511 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E42CC0D51AB245DB00689511 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E42CC0D71AB245DB00689511 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E42CC0D91AB245DB00689511 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E42CC0DC1AB245DB00689511 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E42CC0F41AB2463100689511 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -491,9 +489,6 @@
 				E42CC3021AB248D200689511 /* Stairwell.wav */,
 				E42CC3031AB248D200689511 /* dish.wav */,
 				E42CC2FC1AB2488E00689511 /* VocalInput.swift */,
-				E42CC0D51AB245DB00689511 /* AppDelegate.swift */,
-				E42CC0D71AB245DB00689511 /* ViewController.swift */,
-				E42CC0D91AB245DB00689511 /* Images.xcassets */,
 				E42CC0DB1AB245DB00689511 /* Main.storyboard */,
 				E42CC0D31AB245DB00689511 /* Supporting Files */,
 			);
@@ -503,6 +498,8 @@
 		E42CC0D31AB245DB00689511 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E42CC0D51AB245DB00689511 /* AppDelegate.swift */,
+				E42CC0D91AB245DB00689511 /* Images.xcassets */,
 				E42CC0D41AB245DB00689511 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -1254,7 +1251,6 @@
 				E42CC2D51AB2463200689511 /* AKLowPassButterworthFilter.m in Sources */,
 				E42CC2D81AB2463200689511 /* AKParallelCombLowPassFilterReverb.m in Sources */,
 				E42CC2D21AB2463200689511 /* AKBandPassButterworthFilter.m in Sources */,
-				E42CC0D81AB245DB00689511 /* ViewController.swift in Sources */,
 				E42CC2E71AB2463200689511 /* LevelMeter.m in Sources */,
 				E42CC26C1AB2463200689511 /* AKParameter+Operation.m in Sources */,
 				E42CC2E11AB2463200689511 /* AKFSignal.m in Sources */,
