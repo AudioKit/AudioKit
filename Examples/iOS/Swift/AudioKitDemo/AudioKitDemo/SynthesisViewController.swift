@@ -64,6 +64,5 @@ class SynthesisViewController: UIViewController {
         
         let note = FMSynthesizerNote(frequency: frequency, color: color)
         fmSynthesizer.playNote(note)
-        
     }
 }
