@@ -10,10 +10,10 @@
 #import <KZPlayground/KZPPlayground.h>
 
 #import "AKFoundation.h"
-#import "AKAudioOutputView.h"
+#import "AKStereoOutputPlot.h"
 #import "AKAudioOutputAmplitudeView.h"
 #import "AKAudioOutputSpectralView.h"
-#import "AKAudioInputView.h"
+#import "AKAudioInputPlot.h"
 #import "AKInstrumentPropertyView.h"
 #import "AKFFTView.h"
 #import "AKRollingWaveformView.h"
@@ -28,7 +28,7 @@
 
 #define AKPlaygroundButton(__label__, __block__) KZPAction(__label__, ^{ __block__ });
 
-#define AKPlaygroundTableView(__table__)  KZPShow([[AKTableView alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:__table__]);
+#define AKPlaygroundTablePlot(__table__)  KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:__table__]);
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
@@ -41,7 +41,7 @@
 - (void)toggleView:(UIView *)view;
 
 - (void)addAudioInputView;
-- (void)addAudioOutputView;
+- (void)addStereoAudioOutputPlot;
 - (void)addFFTView;
 - (void)addRollingWaveformView;
 

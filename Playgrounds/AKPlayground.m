@@ -12,11 +12,11 @@
 {
     CsoundObj *cs;
     
-    AKAudioOutputView *audioOutputView;
     AKAudioOutputAmplitudeView *audioOutputAmplitudeView;
     AKFFTView *fftView;
-    AKAudioInputView  *audioInputView;
     AKRollingWaveformView *rollingWaveformView;
+    AKStereoOutputPlot *stereoPlot;
+    AKAudioInputPlot  *inputPlot;
 }
 
 - (void)makeSection:(NSString *)title
@@ -52,20 +52,20 @@
 }
 - (void)addAudioInputView
 {
-    audioInputView = [[AKAudioInputView alloc] init];
-    [audioInputView setBackgroundColor:[UIColor colorWithRed:0.000 green:0.000 blue:0.502 alpha:1.000]];
-    [cs addBinding:audioInputView];
-    [self toggleView:audioInputView];
-    KZPAction(@"Microphone",   ^{ [self toggleView:audioInputView ]; });
+    inputPlot = [[AKAudioInputPlot alloc] init];
+    [inputPlot setBackgroundColor:[UIColor colorWithRed:0.000 green:0.000 blue:0.502 alpha:1.000]];
+    [cs addBinding:inputPlot];
+    [self toggleView:inputPlot];
+    KZPAction(@"Microphone",   ^{ [self toggleView:inputPlot ]; });
 }
 
-- (void)addAudioOutputView
+- (void)addStereoAudioOutputPlot
 {
-    audioOutputView = [[AKAudioOutputView alloc] init];
-    [audioOutputView setBackgroundColor:[UIColor blackColor]];
-    [cs addBinding:audioOutputView];
-    [self toggleView:audioOutputView];
-    KZPAction(@"Audio Output", ^{ [self toggleView:audioOutputView]; });
+    stereoPlot = [[AKStereoOutputPlot alloc] init];
+    [stereoPlot setBackgroundColor:[UIColor blackColor]];
+    [cs addBinding:stereoPlot];
+    [self toggleView:stereoPlot];
+    KZPAction(@"Stereo Output", ^{ [self toggleView:stereoPlot]; });
 }
 
 - (void)addFFTView
