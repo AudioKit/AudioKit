@@ -157,6 +157,7 @@
 		E42CC3011AB248AF00689511 /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */; };
 		E42CC3041AB248D200689511 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = E42CC3021AB248D200689511 /* Stairwell.wav */; };
 		E42CC3051AB248D200689511 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = E42CC3031AB248D200689511 /* dish.wav */; };
+		E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -450,6 +451,7 @@
 		E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayer.swift; sourceTree = "<group>"; };
 		E42CC3021AB248D200689511 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
 		E42CC3031AB248D200689511 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
+		E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +491,7 @@
 				E42CC3021AB248D200689511 /* Stairwell.wav */,
 				E42CC3031AB248D200689511 /* dish.wav */,
 				E42CC2FC1AB2488E00689511 /* VocalInput.swift */,
+				E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */,
 				E42CC0DB1AB245DB00689511 /* Main.storyboard */,
 				E42CC0D31AB245DB00689511 /* Supporting Files */,
 			);
@@ -1228,6 +1231,7 @@
 				E42CC2851AB2463200689511 /* AKWindow.m in Sources */,
 				E42CC2701AB2463200689511 /* AKTrackedFrequencyFromFSignal.m in Sources */,
 				E42CC25C1AB2463100689511 /* AKSampler.m in Sources */,
+				E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */,
 				E42CC2861AB2463200689511 /* AKFunctionTableLooper.m in Sources */,
 				E42CC2AB1AB2463200689511 /* AKStick.m in Sources */,
 				E42CC2A61AB2463200689511 /* AKDroplet.m in Sources */,
@@ -1450,6 +1454,7 @@
 				E42CC0EE1AB245DB00689511 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
