@@ -351,6 +351,11 @@ static int currentID = 1;
     [self play];
 }
 
+- (void)restart {
+    [self stop];
+    [self playNote:[[AKNote alloc] init] afterDelay:0.1];
+}
+
 - (void)playNote:(AKNote *)note
 {
     note.instrument = self;

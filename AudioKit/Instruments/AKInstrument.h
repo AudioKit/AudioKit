@@ -148,6 +148,9 @@
 /// Equivalent to "play" but reads better for instruments that do not play notes, such as processors.
 - (void)start;
 
+/// Restart an instrument after a pause
+- (void)restart;
+
 /// Play the given note
 /// @param note The note that will be played.
 - (void)playNote:(AKNote *)note;
