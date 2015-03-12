@@ -26,7 +26,7 @@ class AudioFilePlayer: AKInstrument {
         addProperty(sampleMix)
         
         let file1 = String(NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")!)
-        let file2 = String(NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")!)
+        let file2 = String(NSBundle.mainBundle().pathForResource("808loop", ofType: "wav")!)
         
         let fileIn1 = AKFileInput(filename: file1)
         fileIn1.speed = speed;
@@ -58,7 +58,6 @@ class AudioFilePlayer: AKInstrument {
             windowFilterSize: (1024.ak)
         )
         connect(leftR)
-
         
         var scaledLeftF = AKScaledFFT(
             signal: leftF,
@@ -73,9 +72,12 @@ class AudioFilePlayer: AKInstrument {
         connect(scaledLeftR)
 
         var scaledLeft  = AKResynthesizedAudio(signal: scaledLeftF)
+        connect(scaledLeft)
         var scaledRight = AKResynthesizedAudio(signal: scaledLeftR)
+        connect(scaledRight)
         
         var mono = AKMix(input1: scaledLeft, input2: scaledRight, balance: 0.5.ak)
+        connect(mono)
         
         // Output to global effects processing
         auxilliaryOutput = AKAudio.globalParameter()
