@@ -153,6 +153,7 @@
 		E42CC2E51AB2463200689511 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E42CC24F1AB2463100689511 /* AKNoteProperty.m */; };
 		E42CC2E61AB2463200689511 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2521AB2463100689511 /* AKAudioAnalyzer.m */; };
 		E42CC2E71AB2463200689511 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2541AB2463100689511 /* LevelMeter.m */; };
+		E42CC2FD1AB2488E00689511 /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FC1AB2488E00689511 /* VocalInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -442,6 +443,7 @@
 		E42CC2521AB2463100689511 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
 		E42CC2531AB2463100689511 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		E42CC2541AB2463100689511 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
+		E42CC2FC1AB2488E00689511 /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalInput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -476,6 +478,7 @@
 		E42CC0D21AB245DB00689511 /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E42CC2FC1AB2488E00689511 /* VocalInput.swift */,
 				E42CC0D51AB245DB00689511 /* AppDelegate.swift */,
 				E42CC0D71AB245DB00689511 /* ViewController.swift */,
 				E42CC0D91AB245DB00689511 /* Images.xcassets */,
@@ -1257,6 +1260,7 @@
 				E42CC2C11AB2463200689511 /* AKVariableDelay.m in Sources */,
 				E42CC2D11AB2463200689511 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
 				E42CC2561AB2463100689511 /* AKInstrument.m in Sources */,
+				E42CC2FD1AB2488E00689511 /* VocalInput.swift in Sources */,
 				E42CC2DA1AB2463200689511 /* AKBalance.m in Sources */,
 				E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */,
 				E42CC2D01AB2463200689511 /* AKThreePoleLowpassFilter.m in Sources */,
