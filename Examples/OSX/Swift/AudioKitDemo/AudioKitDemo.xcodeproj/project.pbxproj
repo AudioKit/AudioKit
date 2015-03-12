@@ -156,6 +156,8 @@
 		E42CC2FD1AB2488E00689511 /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FC1AB2488E00689511 /* VocalInput.swift */; };
 		E42CC3001AB248AF00689511 /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FE1AB248AF00689511 /* ConvolutionInstrument.swift */; };
 		E42CC3011AB248AF00689511 /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */; };
+		E42CC3041AB248D200689511 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = E42CC3021AB248D200689511 /* Stairwell.wav */; };
+		E42CC3051AB248D200689511 /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = E42CC3031AB248D200689511 /* dish.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -448,6 +450,8 @@
 		E42CC2FC1AB2488E00689511 /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalInput.swift; sourceTree = "<group>"; };
 		E42CC2FE1AB248AF00689511 /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvolutionInstrument.swift; sourceTree = "<group>"; };
 		E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayer.swift; sourceTree = "<group>"; };
+		E42CC3021AB248D200689511 /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Stairwell.wav; sourceTree = "<group>"; };
+		E42CC3031AB248D200689511 /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dish.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,6 +488,8 @@
 			children = (
 				E42CC2FE1AB248AF00689511 /* ConvolutionInstrument.swift */,
 				E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */,
+				E42CC3021AB248D200689511 /* Stairwell.wav */,
+				E42CC3031AB248D200689511 /* dish.wav */,
 				E42CC2FC1AB2488E00689511 /* VocalInput.swift */,
 				E42CC0D51AB245DB00689511 /* AppDelegate.swift */,
 				E42CC0D71AB245DB00689511 /* ViewController.swift */,
@@ -1135,11 +1141,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E42CC3041AB248D200689511 /* Stairwell.wav in Resources */,
 				E42CC2691AB2463200689511 /* marmstk1.wav in Resources */,
 				E42CC0DA1AB245DB00689511 /* Images.xcassets in Resources */,
 				E42CC26A1AB2463200689511 /* PianoBassDrumLoop.wav in Resources */,
 				E42CC0DD1AB245DB00689511 /* Main.storyboard in Resources */,
 				E42CC25E1AB2463100689511 /* AudioKit.plist in Resources */,
+				E42CC3051AB248D200689511 /* dish.wav in Resources */,
 				E42CC2681AB2463200689511 /* mandpluk.aif in Resources */,
 				E42CC2671AB2463200689511 /* 808loop.wav in Resources */,
 			);
