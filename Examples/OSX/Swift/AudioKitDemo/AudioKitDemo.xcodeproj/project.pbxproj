@@ -154,6 +154,8 @@
 		E42CC2E61AB2463200689511 /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2521AB2463100689511 /* AKAudioAnalyzer.m */; };
 		E42CC2E71AB2463200689511 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2541AB2463100689511 /* LevelMeter.m */; };
 		E42CC2FD1AB2488E00689511 /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FC1AB2488E00689511 /* VocalInput.swift */; };
+		E42CC3001AB248AF00689511 /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FE1AB248AF00689511 /* ConvolutionInstrument.swift */; };
+		E42CC3011AB248AF00689511 /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -444,6 +446,8 @@
 		E42CC2531AB2463100689511 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		E42CC2541AB2463100689511 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		E42CC2FC1AB2488E00689511 /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalInput.swift; sourceTree = "<group>"; };
+		E42CC2FE1AB248AF00689511 /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvolutionInstrument.swift; sourceTree = "<group>"; };
+		E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,6 +482,8 @@
 		E42CC0D21AB245DB00689511 /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E42CC2FE1AB248AF00689511 /* ConvolutionInstrument.swift */,
+				E42CC2FF1AB248AF00689511 /* AudioFilePlayer.swift */,
 				E42CC2FC1AB2488E00689511 /* VocalInput.swift */,
 				E42CC0D51AB245DB00689511 /* AppDelegate.swift */,
 				E42CC0D71AB245DB00689511 /* ViewController.swift */,
@@ -1162,6 +1168,7 @@
 				E42CC2E51AB2463200689511 /* AKNoteProperty.m in Sources */,
 				E42CC2811AB2463200689511 /* AKLineSegments.m in Sources */,
 				E42CC2CD1AB2463200689511 /* AKMoogLadder.m in Sources */,
+				E42CC3011AB248AF00689511 /* AudioFilePlayer.swift in Sources */,
 				E42CC2DE1AB2463200689511 /* AKAudio.m in Sources */,
 				E42CC2751AB2463200689511 /* AKPhaseLockedVocoder.m in Sources */,
 				E42CC2A41AB2463200689511 /* AKCabasa.m in Sources */,
@@ -1265,6 +1272,7 @@
 				E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */,
 				E42CC2D01AB2463200689511 /* AKThreePoleLowpassFilter.m in Sources */,
 				E42CC2A81AB2463200689511 /* AKSandPaper.m in Sources */,
+				E42CC3001AB248AF00689511 /* ConvolutionInstrument.swift in Sources */,
 				E42CC28F1AB2463200689511 /* AKSum.m in Sources */,
 				E42CC2571AB2463100689511 /* AKManager.m in Sources */,
 				E42CC2741AB2463200689511 /* AKMixedFFT.m in Sources */,
