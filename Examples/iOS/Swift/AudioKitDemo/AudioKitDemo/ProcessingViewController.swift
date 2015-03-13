@@ -18,24 +18,15 @@ class ProcessingViewController: UIViewController {
     let conv: ConvolutionInstrument
     let audioFilePlayer = AudioFilePlayer()
     
-    let analyzer = AKAudioAnalyzer()
-    let continuouslyUpdateLevelMeter = AKSequence()
-    let updateLevelMeter = AKEvent()
     
     override init() {
         conv = ConvolutionInstrument(input: audioFilePlayer.auxilliaryOutput)
-        analyzer = AKAudioAnalyzer(audioSource: audioFilePlayer.auxilliaryOutput)
-        continuouslyUpdateLevelMeter = AKSequence()
-        updateLevelMeter = AKEvent()
         pitchToMaintain = 1.0
         super.init()
     }
     
     required init(coder aDecoder: NSCoder) {
         conv = ConvolutionInstrument(input: audioFilePlayer.auxilliaryOutput)
-        analyzer = AKAudioAnalyzer(audioSource: audioFilePlayer.auxilliaryOutput)
-        continuouslyUpdateLevelMeter = AKSequence()
-        updateLevelMeter = AKEvent()
         pitchToMaintain = 1.0
         super.init(coder: aDecoder)
     }
@@ -43,9 +34,8 @@ class ProcessingViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        AKOrchestra.addInstrument(conv)
         AKOrchestra.addInstrument(audioFilePlayer)
-        AKOrchestra.addInstrument(analyzer)
+        AKOrchestra.addInstrument(conv)
         AKOrchestra.start()
     }
     
