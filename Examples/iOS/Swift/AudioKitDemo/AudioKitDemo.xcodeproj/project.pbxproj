@@ -527,10 +527,10 @@
 		E41A207A1AA36E120044F08B /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E41A20811AA36E120044F08B /* Main.storyboard */,
 				E4AA886A1AA3724F001894CC /* Synthesis */,
 				E4AA88721AA372BD001894CC /* Processing */,
 				E4AA88771AA37309001894CC /* Analysis */,
-				E41A20811AA36E120044F08B /* Main.storyboard */,
 				E41A207B1AA36E120044F08B /* Supporting Files */,
 			);
 			path = AudioKitDemo;
