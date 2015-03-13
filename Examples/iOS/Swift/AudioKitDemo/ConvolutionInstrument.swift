@@ -25,22 +25,15 @@ class ConvolutionInstrument: AKInstrument
         let well = String(NSBundle.mainBundle().pathForResource("Stairwell", ofType: "wav")!)
         
         let dishConv = AKConvolution(input: input, impulseResponseFilename: dish)
-        connect(dishConv)
         
         let wellConv = AKConvolution(input: input, impulseResponseFilename: well)
-        connect(wellConv)
         
         let balance = AKMix(input1: dishConv, input2: wellConv, balance: dishWellBalance)
-        connect(balance)
         
         let dryWet = AKMix(input1: input, input2: balance, balance: dryWetBalance)
-        connect(dryWet)
-        
-        connect(AKAudioOutput(audioSource: dryWet))
         
         // AUDIO OUTPUT ========================================================
-        var audio = AKAudioOutput(audioSource: dryWet)
-        connect(audio)
+        setAudioOutput(dryWet)
         
         // EXTERNAL OUTPUTS ====================================================
         let auxilliaryOutput = AKAudio.globalParameter()

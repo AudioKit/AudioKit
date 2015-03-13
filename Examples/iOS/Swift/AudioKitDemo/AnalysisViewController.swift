@@ -40,7 +40,6 @@ class AnalysisViewController: UIViewController {
         
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
-        AKOrchestra.start()
         analyzer.play()
         microphone.play()
         
@@ -52,13 +51,6 @@ class AnalysisViewController: UIViewController {
         })
         analysisSequence.addEvent(updateAnalysis)
         analysisSequence.play()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        AKOrchestra.reset()
-        AKManager.sharedManager().stop()
     }
     
     func updateUI() {
