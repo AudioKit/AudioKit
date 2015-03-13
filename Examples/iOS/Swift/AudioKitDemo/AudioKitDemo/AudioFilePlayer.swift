@@ -30,11 +30,9 @@ class AudioFilePlayer: AKInstrument {
         
         let fileIn1 = AKFileInput(filename: file1)
         fileIn1.speed = speed;
-        connect(fileIn1)
         
         let fileIn2 = AKFileInput(filename: file2)
         fileIn2.speed = speed;
-        connect(fileIn2)
 
         var fileInLeft  = AKMix(input1: fileIn1.leftOutput,  input2: fileIn2.leftOutput, balance: sampleMix)
         var fileInRight = AKMix(input1: fileIn1.rightOutput, input2: fileIn2.rightOutput, balance: sampleMix)
@@ -43,7 +41,7 @@ class AudioFilePlayer: AKInstrument {
             input: fileInLeft.scaledBy(0.25.ak),
             fftSize: 1024.ak,
             overlap: 256.ak,
-            windowType: AKWindowTableGenerator.hammingWindow(),
+            windowType: AKFFT.hammingWindow(),
             windowFilterSize: 1024.ak
         )
         
@@ -51,7 +49,7 @@ class AudioFilePlayer: AKInstrument {
             input: fileInRight.scaledBy(0.25.ak),
             fftSize: 1024.ak,
             overlap: 256.ak,
-            windowType: AKWindowTableGenerator.hammingWindow(),
+            windowType: AKFFT.hammingWindow(),
             windowFilterSize: 1024.ak
         )
         
@@ -66,12 +64,9 @@ class AudioFilePlayer: AKInstrument {
         )
 
         var scaledLeft  = AKResynthesizedAudio(signal: scaledLeftF)
-        connect(scaledLeft)
         var scaledRight = AKResynthesizedAudio(signal: scaledLeftR)
-        connect(scaledRight)
         
         var mono = AKMix(input1: scaledLeft, input2: scaledRight, balance: 0.5.ak)
-        connect(mono)
         
         // Output to global effects processing
         auxilliaryOutput = AKAudio.globalParameter()
