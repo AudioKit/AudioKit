@@ -14,7 +14,6 @@ class VocalInput: AKInstrument{
         super.init()
         
         let microphone = AKAudioInput()
-        connect(microphone)
         assignOutput(auxilliaryOutput, to: microphone)
     }
 }

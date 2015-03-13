@@ -11,18 +11,13 @@ class Tambourine : AKInstrument {
     override init() {
         super.init()
         
-        // Note Properties
         var note = TambourineNote()
-        addNoteProperty(note.intensity)
-        addNoteProperty(note.dampingFactor)
         
         let tambourine = AKTambourine()
         tambourine.intensity = note.intensity
         tambourine.dampingFactor = note.dampingFactor
-        connect(tambourine)
         
-        let out = AKAudioOutput(input: tambourine)
-        connect(out)
+        setAudioOutput(tambourine)
     }
 }
 

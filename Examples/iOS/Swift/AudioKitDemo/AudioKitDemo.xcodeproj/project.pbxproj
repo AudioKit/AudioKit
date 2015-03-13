@@ -171,8 +171,6 @@
 		E4AA88711AA372AE001894CC /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88701AA372AE001894CC /* ProcessingViewController.swift */; };
 		E4AA88741AA372F4001894CC /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88731AA372F4001894CC /* VocalInput.swift */; };
 		E4AA88761AA37300001894CC /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88751AA37300001894CC /* AnalysisViewController.swift */; };
-		E4AA88791AA3B8F9001894CC /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4AA88781AA3B8F9001894CC /* dish.wav */; };
-		E4AA887B1AA3B8FF001894CC /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4AA887A1AA3B8FF001894CC /* Stairwell.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -511,8 +509,6 @@
 		E4AA88701AA372AE001894CC /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
 		E4AA88731AA372F4001894CC /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalInput.swift; sourceTree = "<group>"; };
 		E4AA88751AA37300001894CC /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
-		E4AA88781AA3B8F9001894CC /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dish.wav; path = ../../../AudioKitDemo/AudioKitDemo/Processing/dish.wav; sourceTree = "<group>"; };
-		E4AA887A1AA3B8FF001894CC /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Stairwell.wav; path = ../../../AudioKitDemo/AudioKitDemo/Processing/Stairwell.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1248,8 +1244,6 @@
 			children = (
 				E4AA886D1AA37292001894CC /* ConvolutionInstrument.swift */,
 				E4AA886B1AA37281001894CC /* AudioFilePlayer.swift */,
-				E4AA887A1AA3B8FF001894CC /* Stairwell.wav */,
-				E4AA88781AA3B8F9001894CC /* dish.wav */,
 			);
 			name = Instruments;
 			sourceTree = "<group>";
@@ -1330,10 +1324,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4AA88791AA3B8F9001894CC /* dish.wav in Resources */,
 				C4ED17641AB2BB2300366020 /* 808loop.wav in Resources */,
 				C4ED17661AB2BB2300366020 /* mandpluk.aif in Resources */,
-				E4AA887B1AA3B8FF001894CC /* Stairwell.wav in Resources */,
 				C4ED174B1AB2BB2300366020 /* LICENSE.TXT in Resources */,
 				C4ED17671AB2BB2300366020 /* marmstk1.wav in Resources */,
 				C4ED16D21AB2BB2300366020 /* AudioKit.plist in Resources */,
@@ -1622,8 +1614,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/iOS/libs,
+					"$(SRCROOT)/../../../../AudioKit/Platforms/iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1641,8 +1632,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../../AudioKit/Libraries/iOS/csound-iOS/libs",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/iOS/libs,
+					"$(SRCROOT)/../../../../AudioKit/Platforms/iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
