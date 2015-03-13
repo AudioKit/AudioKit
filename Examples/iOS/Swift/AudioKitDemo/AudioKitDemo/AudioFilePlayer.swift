@@ -37,39 +37,33 @@ class AudioFilePlayer: AKInstrument {
         connect(fileIn2)
 
         var fileInLeft  = AKMix(input1: fileIn1.leftOutput,  input2: fileIn2.leftOutput, balance: sampleMix)
-        connect(fileInLeft)
         var fileInRight = AKMix(input1: fileIn1.rightOutput, input2: fileIn2.rightOutput, balance: sampleMix)
-        connect(fileInRight)
 
         var leftF = AKFFT(
             input: fileInLeft.scaledBy(0.25.ak),
-            fftSize: (1024.ak),
-            overlap: (256.ak),
-            windowType: AKFFTWindowType.Hamming,
-            windowFilterSize: (1024.ak)
+            fftSize: 1024.ak,
+            overlap: 256.ak,
+            windowType: AKWindowTableGenerator.hammingWindow(),
+            windowFilterSize: 1024.ak
         )
-        connect(leftF)
         
         var leftR = AKFFT(
             input: fileInRight.scaledBy(0.25.ak),
-            fftSize: (1024.ak),
-            overlap: (256.ak),
-            windowType: AKFFTWindowType.Hamming,
-            windowFilterSize: (1024.ak)
+            fftSize: 1024.ak,
+            overlap: 256.ak,
+            windowType: AKWindowTableGenerator.hammingWindow(),
+            windowFilterSize: 1024.ak
         )
-        connect(leftR)
         
         var scaledLeftF = AKScaledFFT(
             signal: leftF,
             frequencyRatio: scaling
         )
-        connect(scaledLeftF)
         
         var scaledLeftR = AKScaledFFT(
             signal: leftR,
             frequencyRatio: scaling
         )
-        connect(scaledLeftR)
 
         var scaledLeft  = AKResynthesizedAudio(signal: scaledLeftF)
         connect(scaledLeft)
