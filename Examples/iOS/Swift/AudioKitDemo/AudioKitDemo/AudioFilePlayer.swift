@@ -43,19 +43,19 @@ class AudioFilePlayer: AKInstrument {
 
         var leftF = AKFFT(
             input: fileInLeft.scaledBy(0.25.ak),
-            fftSize: (1024.ak),
-            overlap: (256.ak),
+            fftSize: 1024.ak,
+            overlap: 256.ak,
             windowType: AKFFTWindowType.Hamming,
-            windowFilterSize: (1024.ak)
+            windowFilterSize: 1024.ak
         )
         connect(leftF)
         
         var leftR = AKFFT(
             input: fileInRight.scaledBy(0.25.ak),
-            fftSize: (1024.ak),
-            overlap: (256.ak),
+            fftSize: 1024.ak,
+            overlap: 256.ak,
             windowType: AKFFTWindowType.Hamming,
-            windowFilterSize: (1024.ak)
+            windowFilterSize: 1024.ak
         )
         connect(leftR)
         
