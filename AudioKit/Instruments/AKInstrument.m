@@ -86,7 +86,8 @@ static int currentID = 1;
 
 - (NSString *)uniqueName
 {
-    return [NSString stringWithFormat:@"%@%i", [self class], _myID];
+    NSString *className = [[[self class] description] stringByReplacingOccurrencesOfString:@"." withString:@""];
+    return [NSString stringWithFormat:@"%@%i", className, _myID];
 }
 
 // -----------------------------------------------------------------------------
