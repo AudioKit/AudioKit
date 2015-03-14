@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E41A207E1AA36E120044F08B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A207D1AA36E120044F08B /* AppDelegate.swift */; };
-		E41A20801AA36E120044F08B /* SynthesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A207F1AA36E120044F08B /* SynthesisViewController.swift */; };
 		E41A20831AA36E120044F08B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E41A20811AA36E120044F08B /* Main.storyboard */; };
 		E41A20851AA36E120044F08B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41A20841AA36E120044F08B /* Images.xcassets */; };
 		E41A20881AA36E120044F08B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E41A20861AA36E120044F08B /* LaunchScreen.xib */; };
@@ -156,13 +155,14 @@
 		E41A22901AA36E3D0044F08B /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E41A21FA1AA36E3D0044F08B /* AKNoteProperty.m */; };
 		E41A22911AA36E3D0044F08B /* AKAudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = E41A21FD1AA36E3D0044F08B /* AKAudioAnalyzer.m */; };
 		E41A22921AA36E3D0044F08B /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = E41A21FF1AA36E3D0044F08B /* LevelMeter.m */; };
-		E4AA88661AA37214001894CC /* Tambourine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88651AA37214001894CC /* Tambourine.swift */; };
-		E4AA88681AA3722A001894CC /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88671AA3722A001894CC /* FMSynthesizer.swift */; };
-		E4AA886C1AA37281001894CC /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA886B1AA37281001894CC /* AudioFilePlayer.swift */; };
-		E4AA886E1AA37292001894CC /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA886D1AA37292001894CC /* ConvolutionInstrument.swift */; };
-		E4AA88711AA372AE001894CC /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88701AA372AE001894CC /* ProcessingViewController.swift */; };
-		E4AA88741AA372F4001894CC /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88731AA372F4001894CC /* VocalInput.swift */; };
-		E4AA88761AA37300001894CC /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA88751AA37300001894CC /* AnalysisViewController.swift */; };
+		E43516A01AB3ACC200109B4A /* Tambourine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435169F1AB3ACC200109B4A /* Tambourine.swift */; };
+		E43516A21AB3ACCF00109B4A /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */; };
+		E43516A41AB3ACD600109B4A /* SynthesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */; };
+		E43516A61AB3ACE000109B4A /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */; };
+		E43516A81AB3ACE600109B4A /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */; };
+		E43516AA1AB3ACEB00109B4A /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */; };
+		E43516AC1AB3ACF400109B4A /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */; };
+		E43516AE1AB3ACFD00109B4A /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516AD1AB3ACFD00109B4A /* VocalInput.swift */; };
 		E4AA88791AA3B8F9001894CC /* dish.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4AA88781AA3B8F9001894CC /* dish.wav */; };
 		E4AA887B1AA3B8FF001894CC /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = E4AA887A1AA3B8FF001894CC /* Stairwell.wav */; };
 /* End PBXBuildFile section */
@@ -171,7 +171,6 @@
 		E41A20781AA36E120044F08B /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41A207C1AA36E120044F08B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E41A207D1AA36E120044F08B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E41A207F1AA36E120044F08B /* SynthesisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesisViewController.swift; sourceTree = "<group>"; };
 		E41A20821AA36E120044F08B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E41A20841AA36E120044F08B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E41A20871AA36E120044F08B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -483,13 +482,14 @@
 		E41A21FD1AA36E3D0044F08B /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
 		E41A21FE1AA36E3D0044F08B /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		E41A21FF1AA36E3D0044F08B /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
-		E4AA88651AA37214001894CC /* Tambourine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tambourine.swift; sourceTree = "<group>"; };
-		E4AA88671AA3722A001894CC /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMSynthesizer.swift; sourceTree = "<group>"; };
-		E4AA886B1AA37281001894CC /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFilePlayer.swift; sourceTree = "<group>"; };
-		E4AA886D1AA37292001894CC /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = ../ConvolutionInstrument.swift; sourceTree = "<group>"; };
-		E4AA88701AA372AE001894CC /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
-		E4AA88731AA372F4001894CC /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocalInput.swift; sourceTree = "<group>"; };
-		E4AA88751AA37300001894CC /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
+		E435169F1AB3ACC200109B4A /* Tambourine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tambourine.swift; path = Synthesis/Tambourine.swift; sourceTree = "<group>"; };
+		E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FMSynthesizer.swift; path = Synthesis/FMSynthesizer.swift; sourceTree = "<group>"; };
+		E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynthesisViewController.swift; path = Synthesis/SynthesisViewController.swift; sourceTree = "<group>"; };
+		E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = Processing/ConvolutionInstrument.swift; sourceTree = "<group>"; };
+		E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioFilePlayer.swift; path = Processing/AudioFilePlayer.swift; sourceTree = "<group>"; };
+		E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProcessingViewController.swift; path = Processing/ProcessingViewController.swift; sourceTree = "<group>"; };
+		E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalysisViewController.swift; path = AudioKitDemo/Analysis/AnalysisViewController.swift; sourceTree = "<group>"; };
+		E43516AD1AB3ACFD00109B4A /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VocalInput.swift; path = AudioKitDemo/Analysis/VocalInput.swift; sourceTree = "<group>"; };
 		E4AA88781AA3B8F9001894CC /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dish.wav; path = ../../../AudioKitDemo/AudioKitDemo/Processing/dish.wav; sourceTree = "<group>"; };
 		E4AA887A1AA3B8FF001894CC /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Stairwell.wav; path = ../../../AudioKitDemo/AudioKitDemo/Processing/Stairwell.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -527,10 +527,10 @@
 		E41A207A1AA36E120044F08B /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E41A20811AA36E120044F08B /* Main.storyboard */,
 				E4AA886A1AA3724F001894CC /* Synthesis */,
 				E4AA88721AA372BD001894CC /* Processing */,
 				E4AA88771AA37309001894CC /* Analysis */,
-				E41A20811AA36E120044F08B /* Main.storyboard */,
 				E41A207B1AA36E120044F08B /* Supporting Files */,
 			);
 			path = AudioKitDemo;
@@ -1178,8 +1178,8 @@
 		E4AA88691AA37240001894CC /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				E4AA88651AA37214001894CC /* Tambourine.swift */,
-				E4AA88671AA3722A001894CC /* FMSynthesizer.swift */,
+				E435169F1AB3ACC200109B4A /* Tambourine.swift */,
+				E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */,
 			);
 			name = Instruments;
 			sourceTree = "<group>";
@@ -1188,7 +1188,7 @@
 			isa = PBXGroup;
 			children = (
 				E4AA88691AA37240001894CC /* Instruments */,
-				E41A207F1AA36E120044F08B /* SynthesisViewController.swift */,
+				E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */,
 			);
 			name = Synthesis;
 			sourceTree = "<group>";
@@ -1196,8 +1196,8 @@
 		E4AA886F1AA3729D001894CC /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				E4AA886D1AA37292001894CC /* ConvolutionInstrument.swift */,
-				E4AA886B1AA37281001894CC /* AudioFilePlayer.swift */,
+				E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */,
+				E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */,
 				E4AA887A1AA3B8FF001894CC /* Stairwell.wav */,
 				E4AA88781AA3B8F9001894CC /* dish.wav */,
 			);
@@ -1208,7 +1208,7 @@
 			isa = PBXGroup;
 			children = (
 				E4AA886F1AA3729D001894CC /* Instruments */,
-				E4AA88701AA372AE001894CC /* ProcessingViewController.swift */,
+				E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */,
 			);
 			name = Processing;
 			sourceTree = "<group>";
@@ -1216,8 +1216,8 @@
 		E4AA88771AA37309001894CC /* Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				E4AA88731AA372F4001894CC /* VocalInput.swift */,
-				E4AA88751AA37300001894CC /* AnalysisViewController.swift */,
+				E43516AD1AB3ACFD00109B4A /* VocalInput.swift */,
+				E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */,
 			);
 			name = Analysis;
 			path = ..;
@@ -1317,7 +1317,6 @@
 				E41A22901AA36E3D0044F08B /* AKNoteProperty.m in Sources */,
 				E41A222C1AA36E3D0044F08B /* AKLineSegments.m in Sources */,
 				E41A22781AA36E3D0044F08B /* AKMoogLadder.m in Sources */,
-				E4AA886C1AA37281001894CC /* AudioFilePlayer.swift in Sources */,
 				E41A22891AA36E3D0044F08B /* AKAudio.m in Sources */,
 				E41A22201AA36E3D0044F08B /* AKPhaseLockedVocoder.m in Sources */,
 				E41A224F1AA36E3D0044F08B /* AKCabasa.m in Sources */,
@@ -1331,7 +1330,6 @@
 				E41A224B1AA36E3D0044F08B /* AKPluckedString.m in Sources */,
 				E41A22161AA36E3D0044F08B /* AudioKit.swift in Sources */,
 				E41A22431AA36E3D0044F08B /* AKVibrato.m in Sources */,
-				E4AA88661AA37214001894CC /* Tambourine.swift in Sources */,
 				E41A224E1AA36E3D0044F08B /* AKBambooSticks.m in Sources */,
 				E41A228A1AA36E3D0044F08B /* AKConstant.m in Sources */,
 				E41A22341AA36E3D0044F08B /* AKAssignment.m in Sources */,
@@ -1339,12 +1337,14 @@
 				E41A22211AA36E3D0044F08B /* AKResynthesizedAudio.m in Sources */,
 				E41A22481AA36E3D0044F08B /* AKVCOscillator.m in Sources */,
 				E41A22551AA36E3D0044F08B /* AKSleighbells.m in Sources */,
+				E43516AC1AB3ACF400109B4A /* AnalysisViewController.swift in Sources */,
 				E41A22181AA36E3D0044F08B /* AKTrackedAmplitude.m in Sources */,
 				E41A222F1AA36E3D0044F08B /* AKWeightedSumOfSinusoids.m in Sources */,
 				E41A22461AA36E3D0044F08B /* AKOscillator.m in Sources */,
 				E41A22191AA36E3D0044F08B /* AKTrackedAmplitudeFromFSignal.m in Sources */,
 				E41A22661AA36E3D0044F08B /* AKMonoFileInput.m in Sources */,
 				E41A226D1AA36E3D0044F08B /* AKCompressor.m in Sources */,
+				E43516A61AB3ACE000109B4A /* ConvolutionInstrument.swift in Sources */,
 				E41A226A1AA36E3D0044F08B /* AKDelay.m in Sources */,
 				E41A222B1AA36E3D0044F08B /* AKFunctionTable.m in Sources */,
 				E41A22351AA36E3D0044F08B /* AKMaximum.m in Sources */,
@@ -1359,7 +1359,6 @@
 				E41A22371AA36E3D0044F08B /* AKMultipleInputMathOperation.m in Sources */,
 				E41A22651AA36E3D0044F08B /* AKFileInput.m in Sources */,
 				E41A22231AA36E3D0044F08B /* AKSpectralVocoder.m in Sources */,
-				E4AA88711AA372AE001894CC /* ProcessingViewController.swift in Sources */,
 				E41A22291AA36E3D0044F08B /* AKArrayTable.m in Sources */,
 				E41A22771AA36E3D0044F08B /* AKLowPassFilter.m in Sources */,
 				E41A22701AA36E3D0044F08B /* AKCombFilter.m in Sources */,
@@ -1367,25 +1366,27 @@
 				E41A22571AA36E3D0044F08B /* AKTambourine.m in Sources */,
 				E41A22391AA36E3D0044F08B /* AKScaledControl.m in Sources */,
 				E41A22871AA36E3D0044F08B /* AKPanner.m in Sources */,
+				E43516A41AB3ACD600109B4A /* SynthesisViewController.swift in Sources */,
 				E41A220B1AA36E3D0044F08B /* CsoundObj.m in Sources */,
 				E41A22251AA36E3D0044F08B /* AKTableValue.m in Sources */,
 				E41A228E1AA36E3D0044F08B /* AKStereoAudio.m in Sources */,
 				E41A22761AA36E3D0044F08B /* AKHilbertTransformer.m in Sources */,
 				E41A22301AA36E3D0044F08B /* AKWindow.m in Sources */,
-				E4AA88681AA3722A001894CC /* FMSynthesizer.swift in Sources */,
 				E41A221B1AA36E3D0044F08B /* AKTrackedFrequencyFromFSignal.m in Sources */,
 				E41A22071AA36E3D0044F08B /* AKSampler.m in Sources */,
 				E41A22311AA36E3D0044F08B /* AKFunctionTableLooper.m in Sources */,
 				E41A22561AA36E3D0044F08B /* AKStick.m in Sources */,
 				E41A22511AA36E3D0044F08B /* AKDroplet.m in Sources */,
 				E41A22751AA36E3D0044F08B /* AKHighPassFilter.m in Sources */,
+				E43516A81AB3ACE600109B4A /* AudioFilePlayer.swift in Sources */,
 				E41A22061AA36E3D0044F08B /* AKPhrase.m in Sources */,
 				E41A225F1AA36E3D0044F08B /* AKRandomNumbers.m in Sources */,
 				E41A22881AA36E3D0044F08B /* AKArray.m in Sources */,
 				E41A228F1AA36E3D0044F08B /* AKInstrumentProperty.m in Sources */,
 				E41A22731AA36E3D0044F08B /* AKDeclick.m in Sources */,
+				E43516A01AB3ACC200109B4A /* Tambourine.swift in Sources */,
 				E41A227E1AA36E3D0044F08B /* AKBandRejectButterworthFilter.m in Sources */,
-				E4AA88761AA37300001894CC /* AnalysisViewController.swift in Sources */,
+				E43516AE1AB3ACFD00109B4A /* VocalInput.swift in Sources */,
 				E41A221A1AA36E3D0044F08B /* AKTrackedFrequency.m in Sources */,
 				E41A22361AA36E3D0044F08B /* AKMinimum.m in Sources */,
 				E41A223B1AA36E3D0044F08B /* AKADSREnvelope.m in Sources */,
@@ -1398,12 +1399,11 @@
 				E41A22611AA36E3D0044F08B /* AKSegmentArrayLoop.m in Sources */,
 				E41A22801AA36E3D0044F08B /* AKLowPassButterworthFilter.m in Sources */,
 				E41A22831AA36E3D0044F08B /* AKParallelCombLowPassFilterReverb.m in Sources */,
-				E4AA886E1AA37292001894CC /* ConvolutionInstrument.swift in Sources */,
 				E41A227D1AA36E3D0044F08B /* AKBandPassButterworthFilter.m in Sources */,
-				E41A20801AA36E120044F08B /* SynthesisViewController.swift in Sources */,
 				E41A22921AA36E3D0044F08B /* LevelMeter.m in Sources */,
 				E41A22171AA36E3D0044F08B /* AKParameter+Operation.m in Sources */,
 				E41A228C1AA36E3D0044F08B /* AKFSignal.m in Sources */,
+				E43516A21AB3ACCF00109B4A /* FMSynthesizer.swift in Sources */,
 				E41A22001AA36E3D0044F08B /* AKEvent.m in Sources */,
 				E41A22221AA36E3D0044F08B /* AKScaledFFT.m in Sources */,
 				E41A222D1AA36E3D0044F08B /* AKRandomDistributionTable.m in Sources */,
@@ -1420,6 +1420,7 @@
 				E41A224C1AA36E3D0044F08B /* AKStruckMetalBar.m in Sources */,
 				E41A226C1AA36E3D0044F08B /* AKVariableDelay.m in Sources */,
 				E41A227C1AA36E3D0044F08B /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
+				E43516AA1AB3ACEB00109B4A /* ProcessingViewController.swift in Sources */,
 				E41A22011AA36E3D0044F08B /* AKInstrument.m in Sources */,
 				E41A22851AA36E3D0044F08B /* AKBalance.m in Sources */,
 				E41A207E1AA36E120044F08B /* AppDelegate.swift in Sources */,
@@ -1430,7 +1431,6 @@
 				E41A221F1AA36E3D0044F08B /* AKMixedFFT.m in Sources */,
 				E41A22681AA36E3D0044F08B /* AKConvolution.m in Sources */,
 				E41A22711AA36E3D0044F08B /* AKDCBlock.m in Sources */,
-				E4AA88741AA372F4001894CC /* VocalInput.swift in Sources */,
 				E41A22401AA36E3D0044F08B /* AKGranularSynthesizer.m in Sources */,
 				E41A223C1AA36E3D0044F08B /* AKLine.m in Sources */,
 				E41A222A1AA36E3D0044F08B /* AKExponentialCurves.m in Sources */,
