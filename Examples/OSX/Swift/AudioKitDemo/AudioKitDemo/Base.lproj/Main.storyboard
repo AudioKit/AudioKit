@@ -668,7 +668,7 @@
         <!--Tab View Controller-->
         <scene sceneID="Jl1-Cr-5gC">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="57a-dY-yUd" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="1" id="57a-dY-yUd" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="PKl-aE-53L"/>
                         <tabViewItem identifier="" id="tdJ-78-PUY"/>
@@ -698,7 +698,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="381"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fy2-UN-i7O" customClass="TouchView">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fy2-UN-i7O" customClass="TouchView" customModule="AudioKitDemo" customModuleProvider="target">
                                 <rect key="frame" x="1" y="147" width="450" height="96"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0fU-cX-cuB">
@@ -718,7 +718,7 @@
                                     </clickGestureRecognizer>
                                 </gestureRecognizers>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UO7-C5-zJQ" customClass="TouchView">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UO7-C5-zJQ" customClass="TouchView" customModule="AudioKitDemo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="265" width="450" height="96"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fbW-J0-vRW">
