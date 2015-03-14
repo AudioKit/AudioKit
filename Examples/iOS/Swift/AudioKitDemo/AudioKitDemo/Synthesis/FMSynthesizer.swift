@@ -54,7 +54,7 @@ class FMSynthesizerNote: AKNote {
         addProperty(color)
         
         // Optionally set a default note duration
-        duration.value = (1.0)
+        duration.value = 1.0
     }
     
     convenience init(frequency:Float, color:Float){
