@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -693,7 +693,7 @@
         <!--Synthesis-->
         <scene sceneID="wEj-8J-eZh">
             <objects>
-                <viewController title="Synthesis" id="old-N4-VP4" customClass="SynthesisViewController" sceneMemberID="viewController">
+                <viewController title="Synthesis" id="old-N4-VP4" customClass="SynthesisViewController" customModule="AudioKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="i3O-D8-DQe">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="381"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -711,7 +711,7 @@
                                     </textField>
                                 </subviews>
                                 <gestureRecognizers>
-                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="ZTa-IW-Z1R">
+                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="ZTa-IW-Z1R">
                                         <connections>
                                             <action selector="tapTambourine:" target="old-N4-VP4" id="Hxr-El-uff"/>
                                         </connections>
@@ -734,7 +734,7 @@
                                     <constraint firstAttribute="width" secondItem="UO7-C5-zJQ" secondAttribute="height" multiplier="75:16" id="cam-uQ-qOA"/>
                                 </constraints>
                                 <gestureRecognizers>
-                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="57o-2M-hH6">
+                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="57o-2M-hH6">
                                         <connections>
                                             <action selector="tapFMOscillator:" target="old-N4-VP4" id="A1Z-5Z-2q1"/>
                                         </connections>
@@ -764,7 +764,7 @@
         <!--Processing-->
         <scene sceneID="ybL-HI-qaU">
             <objects>
-                <viewController title="Processing" id="XQA-pb-uB0" customClass="ProcessingViewController" sceneMemberID="viewController">
+                <viewController title="Processing" id="XQA-pb-uB0" customClass="ProcessingViewController" customModule="AudioKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="V9s-XV-aJ6">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="473"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1044,7 +1044,7 @@
         <!--Analysis-->
         <scene sceneID="i04-EE-sHj">
             <objects>
-                <viewController title="Analysis" id="dpA-Dr-ofG" customClass="AnalysisViewController" sceneMemberID="viewController">
+                <viewController title="Analysis" id="dpA-Dr-ofG" customClass="AnalysisViewController" customModule="AudioKitDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="hLv-No-NSa">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1173,4 +1173,3 @@
         </scene>
     </scenes>
 </document>
-
