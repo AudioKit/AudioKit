@@ -11,16 +11,12 @@
 
 #import "AKFoundation.h"
 #import "AKStereoOutputPlot.h"
-#import "AKAudioOutputAmplitudeView.h"
-#import "AKAudioOutputSpectralView.h"
 #import "AKAudioInputPlot.h"
-#import "AKInstrumentPropertyView.h"
-#import "AKFFTView.h"
-#import "AKRollingWaveformView.h"
-#import "AKTableView.h"
+#import "AKInstrumentPropertyPlot.h"
+#import "AKFFTPlot.h"
+#import "AKTablePlot.h"
+//#import "AKRollingWaveformView.h"
 
-#import <EZAudio/EZAudio.h>
-#import <Accelerate/Accelerate.h>
 
 #define AKPlaygroundSlider(__name__, __property__) KZPAdjustValue(__name__, __property__.minimum, __property__.maximum).defaultValue(__property__.value); KZPAnimate(^{ __property__.value = __name__; });
 
@@ -40,9 +36,9 @@
 - (void)makeSection:(NSString *)title;
 - (void)toggleView:(UIView *)view;
 
-- (void)addAudioInputView;
+- (void)addAudioInputPlot;
 - (void)addStereoAudioOutputPlot;
-- (void)addFFTView;
-- (void)addRollingWaveformView;
+- (void)addFFTPlot;
+//- (void)addRollingWaveformView;
 
 @end
