@@ -41,13 +41,16 @@
     self.dependencies = [self.dependencies arrayByAddingObjectsFromArray:@[concavity, duration, value]];
 }
 
-#warning This doesn't handle a-rate, it should be downsampled to control-rate
 - (NSString *)stringForCSD {
+    NSMutableArray *convertedSegments = [NSMutableArray array];
+    for (AKParameter *parameter in segments) {
+        [convertedSegments addObject:[NSString stringWithFormat:@"AKControl(%@)", parameter]];
+    }
     return [NSString stringWithFormat:
             @"%@ looptseg %@, 0, 0, %@",
             self,
             loopFrequency,
-            [segments componentsJoinedByString:@", "]];
+            [convertedSegments componentsJoinedByString:@", "]];
 }
 
 @end
