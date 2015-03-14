@@ -12,11 +12,11 @@
 {
     CsoundObj *cs;
     
-    AKAudioOutputAmplitudeView *audioOutputAmplitudeView;
-    AKFFTView *fftView;
-    AKRollingWaveformView *rollingWaveformView;
+    AKFFTPlot *fftPlot;
     AKStereoOutputPlot *stereoPlot;
     AKAudioInputPlot  *inputPlot;
+//    AKAudioOutputAmplitudeView *audioOutputAmplitudeView;
+//    AKRollingWaveformView *rollingWaveformView;
 }
 
 - (void)makeSection:(NSString *)title
@@ -50,7 +50,7 @@
     [_shownViews containsObject:view] ? [_shownViews removeObject:view] : [_shownViews addObject:view];
     [self placeViews];
 }
-- (void)addAudioInputView
+- (void)addAudioInputPlot
 {
     inputPlot = [[AKAudioInputPlot alloc] init];
     [inputPlot setBackgroundColor:[UIColor colorWithRed:0.000 green:0.000 blue:0.502 alpha:1.000]];
@@ -68,24 +68,24 @@
     KZPAction(@"Stereo Output", ^{ [self toggleView:stereoPlot]; });
 }
 
-- (void)addFFTView
+- (void)addFFTPlot
 {
-    fftView = [[AKFFTView alloc] init];
-    [fftView setBackgroundColor:[UIColor blackColor]];
-    [cs addBinding:fftView];
-    [self toggleView:fftView];
-    KZPAction(@"Audio Output FFT", ^{ [self toggleView:fftView]; });
+    fftPlot = [[AKFFTPlot alloc] init];
+    [fftPlot setBackgroundColor:[UIColor blackColor]];
+    [cs addBinding:fftPlot];
+    [self toggleView:fftPlot];
+    KZPAction(@"Audio Output FFT", ^{ [self toggleView:fftPlot]; });
 }
 
-- (void)addRollingWaveformView
-{
-    rollingWaveformView = [[AKRollingWaveformView alloc] init];
-    NSLog(@"setting to green");
-    [rollingWaveformView setBackgroundColor:[UIColor greenColor]];
-    [cs addBinding:rollingWaveformView];
-    [self toggleView:rollingWaveformView];
-    KZPAction(@"Rolling", ^{ [self toggleView:rollingWaveformView]; });
-}
+//- (void)addRollingWaveformView
+//{
+//    rollingWaveformView = [[AKRollingWaveformView alloc] init];
+//    NSLog(@"setting to green");
+//    [rollingWaveformView setBackgroundColor:[UIColor greenColor]];
+//    [cs addBinding:rollingWaveformView];
+//    [self toggleView:rollingWaveformView];
+//    KZPAction(@"Rolling", ^{ [self toggleView:rollingWaveformView]; });
+//}
 
 - (void)setup
 {
