@@ -1151,7 +1151,7 @@
 		E4CC74A01AA29B2D007E90B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					E4CC74A71AA29B2D007E90B8 = {
