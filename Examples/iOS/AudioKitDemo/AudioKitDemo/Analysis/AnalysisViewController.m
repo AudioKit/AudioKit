@@ -8,6 +8,7 @@
 
 #import "AnalysisViewController.h"
 #import "AKFoundation.h"
+#import "LevelMeter.h"
 #import "VocalInput.h"
 #import "AKAudioAnalyzer.h"
 
@@ -20,6 +21,7 @@
     IBOutlet UILabel *amplitudeLabel;
     IBOutlet UILabel *noteNameWithSharpsLabel;
     IBOutlet UILabel *noteNameWithFlatsLabel;
+    IBOutlet LevelMeter *levelMeter;
     
     NSArray *noteFrequencies;
     NSArray *noteNamesWithSharps;
@@ -66,7 +68,6 @@
 
 
 - (void)updateUI {
-    
     if (analyzer.trackedAmplitude.value > 0.1) {
         frequencyLabel.text = [NSString stringWithFormat:@"%0.1f", analyzer.trackedFrequency.value];
         
@@ -99,7 +100,7 @@
         [noteNameWithFlatsLabel setNeedsDisplay];
     }
     amplitudeLabel.text = [NSString stringWithFormat:@"%0.2f", analyzer.trackedAmplitude.value];
-
+    levelMeter.level = analyzer.trackedAmplitude.value;
 }
 
 @end
