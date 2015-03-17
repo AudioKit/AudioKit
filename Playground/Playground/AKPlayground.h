@@ -15,6 +15,7 @@
 #import "AKInstrumentPropertyPlot.h"
 #import "AKFFTPlot.h"
 #import "AKTablePlot.h"
+#import "AKFloatPlot.h"
 //#import "AKRollingWaveformView.h"
 
 
@@ -39,6 +40,8 @@
 - (void)addAudioInputPlot;
 - (void)addStereoAudioOutputPlot;
 - (void)addFFTPlot;
+- (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label;
+- (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label;
 //- (void)addRollingWaveformView;
 
 @end

@@ -44,12 +44,14 @@
         }
     }
 }
+
 - (void)toggleView:(UIView *)view
 {
     if (![_views containsObject:view]) [_views addObject:view];
     [_shownViews containsObject:view] ? [_shownViews removeObject:view] : [_shownViews addObject:view];
     [self placeViews];
 }
+
 - (void)addAudioInputPlot
 {
     inputPlot = [[AKAudioInputPlot alloc] init];
@@ -66,6 +68,23 @@
     [cs addBinding:stereoPlot];
     [self toggleView:stereoPlot];
     KZPAction(@"Stereo Output", ^{ [self toggleView:stereoPlot]; });
+}
+
+- (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label
+{
+    AKInstrumentPropertyPlot *plot = [[AKInstrumentPropertyPlot alloc] init];
+    plot.property = property;
+    [plot setBackgroundColor:[UIColor blackColor]];
+    [cs addBinding:plot];
+    [self toggleView:plot];
+    KZPAction(label, ^{ [self toggleView:plot]; });
+}
+
+
+- (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label
+{
+    [self toggleView:plot];
+    KZPAction(label, ^{ [self toggleView:plot]; });
 }
 
 - (void)addFFTPlot
