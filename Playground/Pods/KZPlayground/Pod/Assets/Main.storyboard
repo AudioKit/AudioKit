@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rg0-KV-zcY">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Playground View Controller-->
+        <scene sceneID="icR-5G-T82">
+            <objects>
+                <viewController id="Rg0-KV-zcY" customClass="KZPPlaygroundViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XTv-V2-TzB"/>
+                        <viewControllerLayoutGuide type="bottom" id="HY5-88-AZc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZZW-8b-B39">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJV-BR-ErW" userLabel="Left Container">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="3bh-4m-r6S"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="era-k8-Vln" kind="embed" id="mis-eS-aPs"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-3u-U0W" userLabel="Right Container">
+                                <rect key="frame" x="240" y="0.0" width="360" height="600"/>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yJV-BR-ErW" firstAttribute="bottom" secondItem="HY5-88-AZc" secondAttribute="top" id="AJE-pr-7Py"/>
+                            <constraint firstItem="X3m-3u-U0W" firstAttribute="bottom" secondItem="HY5-88-AZc" secondAttribute="top" id="CHq-to-XBK"/>
+                            <constraint firstAttribute="centerY" secondItem="yJV-BR-ErW" secondAttribute="centerY" id="GPu-t6-W27"/>
+                            <constraint firstItem="X3m-3u-U0W" firstAttribute="top" secondItem="ZZW-8b-B39" secondAttribute="top" id="Mx6-7i-d4L"/>
+                            <constraint firstItem="yJV-BR-ErW" firstAttribute="leading" secondItem="ZZW-8b-B39" secondAttribute="leading" id="X4T-zb-oDu"/>
+                            <constraint firstAttribute="trailing" secondItem="X3m-3u-U0W" secondAttribute="trailing" id="ciq-FH-zUO"/>
+                            <constraint firstItem="yJV-BR-ErW" firstAttribute="top" secondItem="X3m-3u-U0W" secondAttribute="top" id="yJD-9q-HfS"/>
+                            <constraint firstItem="X3m-3u-U0W" firstAttribute="leading" secondItem="yJV-BR-ErW" secondAttribute="trailing" id="zY0-1R-PDx"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yJD-9q-HfS"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="leadingTimelineConstraint" destination="X4T-zb-oDu" id="5vd-Zi-IP7"/>
+                        <outlet property="timelineContainerView" destination="yJV-BR-ErW" id="mgB-eq-BhX"/>
+                        <outlet property="worksheetContainerView" destination="X3m-3u-U0W" id="1fC-uF-jpP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b2s-aZ-IC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1702" y="680"/>
+        </scene>
+        <!--Timeline View Controller-->
+        <scene sceneID="NuX-hi-zHu">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="era-k8-Vln" customClass="KZPTimelineViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZOF-Kz-hA0"/>
+                        <viewControllerLayoutGuide type="bottom" id="0HL-rE-jTl"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="brc-pH-e5b">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBW-Et-gm1">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3A-6A-AW1">
+                                <rect key="frame" x="0.0" y="21" width="240" height="580"/>
+                                <color key="backgroundColor" red="0.86265093088150024" green="0.86279934644699097" blue="0.86264157295227051" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="d3A-6A-AW1" firstAttribute="bottom" secondItem="0HL-rE-jTl" secondAttribute="top" id="8lU-IX-c9R"/>
+                            <constraint firstItem="zBW-Et-gm1" firstAttribute="top" secondItem="ZOF-Kz-hA0" secondAttribute="bottom" id="Ag9-dP-BHN"/>
+                            <constraint firstAttribute="trailing" secondItem="zBW-Et-gm1" secondAttribute="trailing" id="JTY-7h-ypO"/>
+                            <constraint firstAttribute="trailing" secondItem="d3A-6A-AW1" secondAttribute="trailing" id="Rdh-Xb-uzZ"/>
+                            <constraint firstItem="zBW-Et-gm1" firstAttribute="leading" secondItem="brc-pH-e5b" secondAttribute="leading" id="oze-CJ-eYU"/>
+                            <constraint firstItem="d3A-6A-AW1" firstAttribute="leading" secondItem="brc-pH-e5b" secondAttribute="leading" id="re9-H8-IwU"/>
+                            <constraint firstItem="d3A-6A-AW1" firstAttribute="top" secondItem="zBW-Et-gm1" secondAttribute="bottom" id="xpP-5P-cBw"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="scrollView" destination="d3A-6A-AW1" id="CZY-20-k5x"/>
+                        <outlet property="tickLabel" destination="zBW-Et-gm1" id="Elv-dE-VTq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ibS-ck-nrt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1502" y="1411"/>
+        </scene>
+        <!--Assets-->
+        <scene sceneID="3Jn-Tc-yC1">
+            <objects>
+                <collectionViewController storyboardIdentifier="KZPImagePickerCollectionViewController" id="Xuc-8m-E2g" customClass="KZPImagePickerCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ZX6-vg-JBD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nv7-Zr-rxJ" customClass="NHBalancedFlowLayout">
+                            <size key="itemSize" width="144" height="144"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="Xuc-8m-E2g" id="rZM-6A-Vbx"/>
+                            <outlet property="delegate" destination="Xuc-8m-E2g" id="mBX-fM-ZQL"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Assets" id="Jfn-wI-Oaa">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="373-aC-tfq">
+                            <connections>
+                                <action selector="cancel:" destination="Xuc-8m-E2g" id="7YT-AS-AeS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tUH-OI-H1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Item" id="fLv-To-HWM"/>
+            </objects>
+            <point key="canvasLocation" x="2279" y="1842"/>
+        </scene>
+    </scenes>
+</document>
