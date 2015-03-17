@@ -12,7 +12,7 @@ class AudioFilePlayer: AKInstrument {
     var auxilliaryOutput = AKAudio()
 
     // INSTRUMENT BASED CONTROL ============================================
-    var speed       = AKInstrumentProperty(value: 1, minimum: -2, maximum: -2)
+    var speed       = AKInstrumentProperty(value: 1, minimum: -2, maximum: 2)
     var scaling     = AKInstrumentProperty(value: 1, minimum: 0.0, maximum: 3.0)
     var sampleMix   = AKInstrumentProperty(value: 0, minimum: 0, maximum: 1)
     

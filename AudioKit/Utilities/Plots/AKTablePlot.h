@@ -17,8 +17,7 @@
 #endif
 
 
-- (instancetype)initWithFrame:(CGRect)frame
-                table:(AKTable *)table;
+- (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)newtable;
 @property AKTable *table;
 
 @end

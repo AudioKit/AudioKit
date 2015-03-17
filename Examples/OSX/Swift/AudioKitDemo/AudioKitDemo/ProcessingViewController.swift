@@ -7,82 +7,83 @@
 //
 
 
-class ProcessingViewController: UIViewController {
+class ProcessingViewController: NSViewController {
     
-    @IBOutlet var sourceSegmentedControl: UISegmentedControl!
-    @IBOutlet var maintainPitchSwitch: UISwitch!
-    @IBOutlet var pitchSlider: UISlider!
+    @IBOutlet var sourceSegmentedControl: NSSegmentedControl!
+    @IBOutlet var maintainPitchSwitch: NSButton!
+    @IBOutlet var pitchSlider: NSSlider!
     
     var pitchToMaintain:Float
     
     let conv: ConvolutionInstrument
     let audioFilePlayer = AudioFilePlayer()
     
-    let continuouslyUpdateLevelMeter = AKSequence()
-    let updateLevelMeter = AKEvent()
     
     override init() {
         conv = ConvolutionInstrument(input: audioFilePlayer.auxilliaryOutput)
-        continuouslyUpdateLevelMeter = AKSequence()
-        updateLevelMeter = AKEvent()
         pitchToMaintain = 1.0
         super.init()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         conv = ConvolutionInstrument(input: audioFilePlayer.auxilliaryOutput)
         pitchToMaintain = 1.0
         super.init(coder: aDecoder)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewDidAppear() {
+        super.viewDidAppear()
         AKOrchestra.addInstrument(audioFilePlayer)
         AKOrchestra.addInstrument(conv)
+        AKOrchestra.start()
     }
     
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        AKOrchestra.reset()
+        AKManager.sharedManager().stop()
+    }
     
-    @IBAction func start(sender:UIButton) {
+    @IBAction func start(sender:NSButton) {
         conv.play()
         audioFilePlayer.play()
     }
     
-    @IBAction func stop(sender:UIButton) {
+    @IBAction func stop(sender:NSButton) {
         conv.stop()
         audioFilePlayer.stop()
     }
     
-    @IBAction func wetnessChanged(sender:UISlider) {
+    @IBAction func wetnessChanged(sender:NSSlider) {
         AKTools.setProperty(conv.dryWetBalance, withSlider: sender)
     }
     
-    @IBAction func impulseResponseChanged(sender:UISlider) {
+    @IBAction func impulseResponseChanged(sender:NSSlider) {
         AKTools.setProperty(conv.dishWellBalance, withSlider: sender)
     }
     
-    @IBAction func speedChanged(sender:UISlider) {
+    @IBAction func speedChanged(sender:NSSlider) {
         AKTools.setProperty(audioFilePlayer.speed, withSlider: sender)
-        if (maintainPitchSwitch.on && fabs(audioFilePlayer.speed.value) > 1.0) {
-            audioFilePlayer.scaling.value = pitchToMaintain / fabs(audioFilePlayer.speed.value)
+        if (maintainPitchSwitch.state == 1 && fabs(audioFilePlayer.speed.floatValue) > 0.1) {
+            audioFilePlayer.scaling.floatValue = pitchToMaintain / fabs(audioFilePlayer.speed.floatValue)
             AKTools.setSlider(pitchSlider, withProperty: audioFilePlayer.scaling)
         }
     }
     
-    @IBAction func pitchChanged(sender:UISlider) {
+    @IBAction func pitchChanged(sender:NSSlider) {
         AKTools.setProperty(audioFilePlayer.scaling, withSlider: sender)
     }
     
-    @IBAction func togglePitchMaintenance(sender:UISwitch) {
-        if sender.on {
+    @IBAction func togglePitchMaintenance(sender:NSButton) {
+        if sender.state == 1 {
             pitchSlider.enabled = false
-            pitchToMaintain = fabs(audioFilePlayer.speed.value) * audioFilePlayer.scaling.value
+            pitchToMaintain = fabs(audioFilePlayer.speed.floatValue) * audioFilePlayer.scaling.floatValue
         } else {
             pitchSlider.enabled = true
         }
     }
     
-    @IBAction func fileChanged(sender:UISegmentedControl) {
-        audioFilePlayer.sampleMix.value = Float(sender.selectedSegmentIndex)
+    @IBAction func fileChanged(sender:NSSegmentedControl) {
+        audioFilePlayer.sampleMix.floatValue = Float(sender.selectedSegment)
     }
 }

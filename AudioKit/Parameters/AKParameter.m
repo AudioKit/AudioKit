@@ -147,7 +147,13 @@ static int currentID = 1;
     [self setValue:((random * width) + self.minimum)];
 }
 
+- (float)floatValue {
+    return _value;
+}
 
+- (void)setFloatValue:(float)floatValue {
+    self.value = floatValue;
+}
 // -----------------------------------------------------------------------------
 #  pragma mark - Helper Functions
 // -----------------------------------------------------------------------------

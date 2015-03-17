@@ -70,6 +70,9 @@
 /// Current value of the parameter.
 @property (nonatomic, assign) float value;
 
+/// Alternative to "value", works better on OSX.
+@property (nonatomic, assign) float floatValue;
+
 /// Start value for initialization.
 @property (nonatomic, assign) float initialValue;
 
