@@ -13,6 +13,8 @@ class FMSynthesizer: AKInstrument{
         
         // Note Properties
         var note = FMSynthesizerNote()
+        addNoteProperty(note.frequency)
+        addNoteProperty(note.color)
         
         let envelope = AKADSREnvelope(
             attackDuration:  0.1.ak,
@@ -21,6 +23,7 @@ class FMSynthesizer: AKInstrument{
             releaseDuration: 0.3.ak,
             delay: 0.ak
         )
+        connect(envelope)
         
         var oscillator = AKFMOscillator()
         oscillator.baseFrequency        = note.frequency
@@ -29,8 +32,11 @@ class FMSynthesizer: AKInstrument{
         oscillator.modulationIndex      = note.color.scaledBy(10.ak)
         oscillator.amplitude            = envelope.scaledBy(0.25.ak)
 
+        connect(oscillator)
         
-        setAudioOutput(oscillator)
+        let out = AKAudioOutput(input: oscillator)
+        connect(out)
+        
     }
 }
 
@@ -48,13 +54,13 @@ class FMSynthesizerNote: AKNote {
         addProperty(color)
         
         // Optionally set a default note duration
-        duration.value = (1.0)
+        duration.setValue(1.0)
     }
     
     convenience init(frequency:Float, color:Float){
         self.init()
         
-        self.frequency.value = frequency
-        self.color.value = color
+        self.frequency.setValue(frequency)
+        self.color.setValue(color)
     }
 }
