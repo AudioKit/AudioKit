@@ -1,0 +1,1 @@
+PODS_PLAYGROUND_RSSWIZZLE_OTHER_LDFLAGS = -framework "Foundation"
