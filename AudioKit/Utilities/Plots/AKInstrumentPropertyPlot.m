@@ -27,6 +27,7 @@
     }
     return self;
 }
+
 - (id)initWithProperty:(AKInstrumentProperty *)property;
 {
     self = [self init];
@@ -65,15 +66,18 @@
         
         y = self.bounds.size.height - (history[i % historySize] - yMin) * yScale;
         y = CLAMP(y, 0.0, self.bounds.size.height);
-        
-        if (i == index) {
-            [waveformPath moveToPoint:CGPointMake(x, y)];
+        if (x != x || y != y) {
+            NSLog(@"Something is not a number");
         } else {
+            if (i == index) {
+                [waveformPath moveToPoint:CGPointMake(x, y)];
+            } else {
 #if TARGET_OS_IPHONE
-            [waveformPath addLineToPoint:CGPointMake(x, y)];
+                [waveformPath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
-            [waveformPath lineToPoint:CGPointMake(x, y)];
+                [waveformPath lineToPoint:CGPointMake(x, y)];
 #endif
+            }
         }
         x += deltaX;
     };
@@ -113,7 +117,6 @@
         historySize = 512;
         history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
     }
-
 }
 
 - (void)updateUI {

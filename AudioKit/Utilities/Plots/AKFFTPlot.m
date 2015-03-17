@@ -32,6 +32,8 @@
 
 @implementation AKFFTPlot
 
+#if TARGET_OS_IPHONE
+
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
 - (void)drawHistoryWithColor:(UIColor *)color width:(float)width
@@ -180,10 +182,9 @@
     
     // Get the FFT data
     [self updateFFTWithBufferSize:sampleSize withAudioData:samples];
-    
-    
-    
 }
 
+#elif TARGET_OS_MAC
+#endif
 
 @end
