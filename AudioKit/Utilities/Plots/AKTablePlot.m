@@ -8,6 +8,7 @@
 
 #import "AKTablePlot.h"
 #import "AKManager.h"
+#import "CsoundObj.h"
 
 @implementation AKTablePlot
 {
@@ -17,9 +18,11 @@
     MYFLT *displayData;
     int fTableNumber;
 }
+    #if TARGET_OS_IPHONE
 
 - (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)newtable
 {
+    
     self = [super initWithFrame:frame];
     if (self) {
         fTableNumber = newtable.number;
@@ -61,6 +64,7 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
+
     CGContextSetRGBFillColor(context, 0, 0, 0, 1);
     CGContextFillRect(context, rect);
     
@@ -84,5 +88,9 @@
     CGPathRelease(fill_path);
 
 }
+
+
+#elif TARGET_OS_MAC
+#endif
 
 @end

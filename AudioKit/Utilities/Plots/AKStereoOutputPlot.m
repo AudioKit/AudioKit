@@ -1,5 +1,5 @@
 //
-//  AKAudioOutputPlot.m
+//  AKStereoOutputPlot.m
 //  AudioKIt
 //
 //  Created by Aurelius Prochazka on 2/5/15.
@@ -25,11 +25,21 @@
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
-- (void)drawChannel:(int)channel offset:(float)offset color:(UIColor *)color width:(float)width
+#if TARGET_OS_IPHONE
+#define AKColor UIColor
+#elif TARGET_OS_MAC
+#define AKColor NSColor
+#endif
+
+- (void)drawChannel:(int)channel offset:(float)offset color:(AKColor *)color width:(float)width
 {
     int plotPoints = sampleSize / 2;
     // Draw waveform
+#if TARGET_OS_IPHONE
     UIBezierPath *wavePath = [UIBezierPath bezierPath];
+#elif TARGET_OS_MAC
+    NSBezierPath *wavePath = [NSBezierPath bezierPath];
+#endif
     
     CGFloat yOffset = self.bounds.size.height * offset;
     CGFloat yScale  = self.bounds.size.height / 4;
@@ -44,7 +54,11 @@
         if (i == 0) {
             [wavePath moveToPoint:CGPointMake(x, y)];
         } else {
+#if TARGET_OS_IPHONE
             [wavePath addLineToPoint:CGPointMake(x, y)];
+#elif TARGET_OS_MAC
+            [wavePath lineToPoint:CGPointMake(x, y)];
+#endif
         }
         x += deltaX;
     };
@@ -55,8 +69,8 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self drawChannel:0 offset:0.25 color:[UIColor greenColor] width:4.0];
-    [self drawChannel:1 offset:0.75 color:[UIColor redColor]   width:4.0];
+    [self drawChannel:0 offset:0.25 color:[AKColor greenColor] width:4.0];
+    [self drawChannel:1 offset:0.75 color:[AKColor redColor]   width:4.0];
 }
 
 // -----------------------------------------------------------------------------

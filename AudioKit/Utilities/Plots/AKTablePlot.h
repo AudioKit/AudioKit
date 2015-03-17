@@ -6,12 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "AKTable.h"
 
-#import "CsoundObj.h"
-
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
 @interface AKTablePlot : UIView
+#elif TARGET_OS_MAC
+#import <Cocoa/Cocoa.h>
+@interface AKTablePlot : NSView
+#endif
+
 
 - (instancetype)initWithFrame:(CGRect)frame
                 table:(AKTable *)table;
