@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4ED20651AB8E2A700366020 /* TouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ED20641AB8E2A700366020 /* TouchView.swift */; };
 		E4006CCC1AB24D1700375B5B /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4006CCB1AB24D1700375B5B /* ProcessingViewController.swift */; };
 		E4006CCE1AB24D1C00375B5B /* SynthesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4006CCD1AB24D1C00375B5B /* SynthesisViewController.swift */; };
 		E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC0D51AB245DB00689511 /* AppDelegate.swift */; };
@@ -163,7 +164,6 @@
 		E43516C11AB3B6EE00109B4A /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = E43516C01AB3B6EE00109B4A /* Stairwell.wav */; };
 		E43516C41AB3B74600109B4A /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E42CC1351AB2463100689511 /* CsoundLib64.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */; };
-		E485DF391AB3BBDE00E9CC6A /* TouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E485DF381AB3BBDE00E9CC6A /* TouchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -180,6 +180,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C4ED20641AB8E2A700366020 /* TouchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchView.swift; sourceTree = "<group>"; };
 		E4006CCB1AB24D1700375B5B /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
 		E4006CCD1AB24D1C00375B5B /* SynthesisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthesisViewController.swift; sourceTree = "<group>"; };
 		E42CC0D01AB245DB00689511 /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -476,7 +477,6 @@
 		E43516BE1AB3B6E500109B4A /* dish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dish.wav; path = ../../../../iOS/AudioKitDemo/AudioKitDemo/Processing/dish.wav; sourceTree = "<group>"; };
 		E43516C01AB3B6EE00109B4A /* Stairwell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Stairwell.wav; path = ../../../../iOS/AudioKitDemo/AudioKitDemo/Processing/Stairwell.wav; sourceTree = "<group>"; };
 		E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
-		E485DF381AB3BBDE00E9CC6A /* TouchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchView.swift; path = ../../../../../AudioKit/TouchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,7 +515,7 @@
 		E4006CD61AB24D9E00375B5B /* Synthesis */ = {
 			isa = PBXGroup;
 			children = (
-				E485DF381AB3BBDE00E9CC6A /* TouchView.swift */,
+				C4ED20641AB8E2A700366020 /* TouchView.swift */,
 				E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */,
 				E43516BB1AB3B0B400109B4A /* Tambourine.swift */,
 				E4006CCD1AB24D1C00375B5B /* SynthesisViewController.swift */,
@@ -1275,7 +1275,7 @@
 				E42CC2841AB2463200689511 /* AKWeightedSumOfSinusoids.m in Sources */,
 				E42CC29B1AB2463200689511 /* AKOscillator.m in Sources */,
 				E42CC26E1AB2463200689511 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
-				E485DF391AB3BBDE00E9CC6A /* TouchView.swift in Sources */,
+				C4ED20651AB8E2A700366020 /* TouchView.swift in Sources */,
 				E43516BA1AB3B0AC00109B4A /* FMSynthesizer.swift in Sources */,
 				E42CC2BB1AB2463200689511 /* AKMonoFileInput.m in Sources */,
 				E42CC2C21AB2463200689511 /* AKCompressor.m in Sources */,
