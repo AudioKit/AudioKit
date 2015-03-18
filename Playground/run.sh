@@ -10,6 +10,7 @@ options=(
     "Table"
     "Processing"
     "Microphone Analysis"
+    "VC Oscillator"
 )
 select opt in "${options[@]}"
 do
@@ -36,6 +37,10 @@ do
             ;;
         "Microphone Analysis")
             NEWPLAYGROUND="MicrophoneAnalysisPlayground.m"
+            break
+            ;;
+        "VC Oscillator")
+            NEWPLAYGROUND="VCOscillatorPlayground.m"
             break
             ;;
         *) echo invalid option;;

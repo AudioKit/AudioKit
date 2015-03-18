@@ -23,6 +23,9 @@
          location = "group:ProcessingPlayground.m">
       </FileRef>
       <FileRef
+         location = "group:VCOscillatorPlayground.m">
+      </FileRef>
+      <FileRef
          location = "group:SynthesisPlayground.m">
       </FileRef>
    </Group>
