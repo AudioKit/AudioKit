@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -474,11 +474,28 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myO-1P-Otl" customClass="LevelMeter">
+                                <rect key="frame" x="0.0" y="485" width="600" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="coj-pC-FMe"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="numLights">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="vertical" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YHv-cP-GZq" firstAttribute="centerY" secondItem="RBR-OJ-FZo" secondAttribute="centerY" id="0gb-67-HDk"/>
                             <constraint firstItem="RBR-OJ-FZo" firstAttribute="centerY" secondItem="YHv-cP-GZq" secondAttribute="centerY" id="2Tf-0E-3vX"/>
+                            <constraint firstItem="myO-1P-Otl" firstAttribute="width" secondItem="aca-gB-lV4" secondAttribute="width" id="2d6-3h-18V"/>
                             <constraint firstItem="eFn-8d-mbv" firstAttribute="height" secondItem="xtQ-zt-2Ph" secondAttribute="height" id="3JR-5i-8G6"/>
                             <constraint firstItem="4fh-ce-pmE" firstAttribute="top" secondItem="RBR-OJ-FZo" secondAttribute="bottom" constant="8" id="3WG-hk-6CL"/>
                             <constraint firstItem="4fh-ce-pmE" firstAttribute="leading" secondItem="aca-gB-lV4" secondAttribute="leadingMargin" id="4Zd-mq-8BT"/>
@@ -500,22 +517,31 @@
                             <constraint firstItem="Mqy-It-w4G" firstAttribute="leading" secondItem="aca-gB-lV4" secondAttribute="leadingMargin" id="Xzw-lt-Evk"/>
                             <constraint firstAttribute="centerX" secondItem="nLX-pU-8pe" secondAttribute="centerX" constant="-0.5" id="ZjQ-9N-9W7"/>
                             <constraint firstItem="4fh-ce-pmE" firstAttribute="centerY" secondItem="rv0-ls-RZn" secondAttribute="centerY" id="aZc-fR-sCL"/>
+                            <constraint firstItem="myO-1P-Otl" firstAttribute="top" secondItem="aca-gB-lV4" secondAttribute="top" constant="471" id="buI-eM-jh4"/>
                             <constraint firstItem="nLX-pU-8pe" firstAttribute="width" secondItem="aca-gB-lV4" secondAttribute="width" id="cGi-lI-TXW"/>
                             <constraint firstItem="RBR-OJ-FZo" firstAttribute="height" secondItem="YHv-cP-GZq" secondAttribute="height" id="du0-P0-wOp"/>
                             <constraint firstItem="RBR-OJ-FZo" firstAttribute="leading" secondItem="aca-gB-lV4" secondAttribute="leadingMargin" id="fEi-Jf-ly4"/>
+                            <constraint firstItem="3F9-k0-2X5" firstAttribute="top" secondItem="myO-1P-Otl" secondAttribute="bottom" constant="16" id="iom-WE-ho5"/>
                             <constraint firstItem="rv0-ls-RZn" firstAttribute="leading" secondItem="4fh-ce-pmE" secondAttribute="trailing" id="jpN-w2-kAp"/>
                             <constraint firstItem="nLX-pU-8pe" firstAttribute="centerY" secondItem="aca-gB-lV4" secondAttribute="centerY" multiplier="0.2" id="kH7-Cu-cn9"/>
+                            <constraint firstAttribute="centerX" secondItem="myO-1P-Otl" secondAttribute="centerX" id="mcv-Xz-eSE"/>
                             <constraint firstItem="eFn-8d-mbv" firstAttribute="centerY" secondItem="xtQ-zt-2Ph" secondAttribute="centerY" id="nfY-GX-Bkp"/>
                             <constraint firstItem="Mqy-It-w4G" firstAttribute="centerY" secondItem="Tpt-7S-82v" secondAttribute="centerY" constant="0.5" id="oU0-YX-J8d"/>
                             <constraint firstItem="YHv-cP-GZq" firstAttribute="width" secondItem="xtQ-zt-2Ph" secondAttribute="width" id="qIM-qf-9zM"/>
                             <constraint firstAttribute="centerY" secondItem="Mqy-It-w4G" secondAttribute="centerY" multiplier="1.7" id="tBT-Gd-maO"/>
                             <constraint firstItem="xtQ-zt-2Ph" firstAttribute="width" secondItem="Tpt-7S-82v" secondAttribute="width" id="xu0-oh-NgP"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="buI-eM-jh4"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analysis" image="A" id="diZ-aE-0GI"/>
                     <connections>
                         <outlet property="amplitudeLabel" destination="xtQ-zt-2Ph" id="cBl-UV-UEG"/>
                         <outlet property="frequencyLabel" destination="Tpt-7S-82v" id="avn-Oh-Nhy"/>
+                        <outlet property="levelMeter" destination="myO-1P-Otl" id="uU6-oR-IOc"/>
                         <outlet property="noteNameWithFlatsLabel" destination="rv0-ls-RZn" id="lc2-iT-vbV"/>
                         <outlet property="noteNameWithSharpsLabel" destination="YHv-cP-GZq" id="bta-BF-G4X"/>
                     </connections>
