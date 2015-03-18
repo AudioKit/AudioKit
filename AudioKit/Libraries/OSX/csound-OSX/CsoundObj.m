@@ -445,7 +445,7 @@ OSStatus  Csound_Render(void *inRefCon,
         //    }
         
         char *argv[5] = { "csound", "-+ignore_csopts=0",
-            "-+rtaudio=coreaudio", "-b256", (char*)[csdFilePath
+            "-+rtaudio=coreaudio -i=adc0 -o=dac0", "-b256", (char*)[csdFilePath
                                                     cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 5, argv);
         mCsData.running = true;
