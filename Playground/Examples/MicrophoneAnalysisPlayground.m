@@ -15,9 +15,9 @@
 
 @implementation VocalInput
 
-- (instancetype)initWithNumber:(int)instrumentNumber
+- (instancetype)init
 {
-    self = [super initWithNumber:instrumentNumber];
+    self = [super init];
     if (self) {
         AKAudioInput *microphone = [[AKAudioInput alloc] init];
         _auxilliaryOutput = [AKAudio globalParameter];
@@ -38,20 +38,19 @@
 - (void)run
 {
     [super run];
-    [self addAudioInputView];
+    [self addAudioInputPlot];
     
-    VocalInput *mic = [[VocalInput alloc] initWithNumber:1];
+    VocalInput *mic = [[VocalInput alloc] init];
     [AKOrchestra addInstrument:mic];
     AKAudioAnalyzer *analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:mic.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
     [analyzer play];
     [mic play];
-
-//    [self addPropertyView:analyzer.trackedAmplitude];
-//    [self addAudioInputView];
-//    [self addAudioOutputView];
-//    [self addFFTView];
-//    [self addRollingWaveformView];
+    [self addPlotForInstrumentProperty:analyzer.trackedAmplitude withLabel:@"Amplitude"];
+    [self addPlotForInstrumentProperty:analyzer.trackedFrequency withLabel:@"Frequency"];
+    
+    //    [self addFFTView];
+    //    [self addRollingWaveformView];
     
 }
 
