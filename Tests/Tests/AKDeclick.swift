@@ -11,7 +11,7 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument1 : AKInstrument {
-    
+
     override init() {
         super.init()
         let oscillator = AKOscillator()
@@ -20,10 +20,10 @@ class Instrument1 : AKInstrument {
 }
 
 class Instrument2 : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let oscillator = AKOscillator()
         let declick = AKDeclick(input: oscillator)
         setAudioOutput(declick)
@@ -38,7 +38,7 @@ AKOrchestra.addInstrument(instrument1)
 AKOrchestra.addInstrument(instrument2)
 
 let note = AKNote()
-note.duration.setValue(0.4)
+note.duration.value = 0.4
 
 NSLog("Play 10 notes first without declicking")
 

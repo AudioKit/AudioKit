@@ -34,15 +34,15 @@ class Note: AKNote {
     override init() {
         super.init()
         addProperty(intensity)
-        self.intensity.setValue(32)
+        self.intensity.value = 32
         addProperty(dampingFactor)
-        self.dampingFactor.setValue(0.2)
+        self.dampingFactor.value = 0.2
         addProperty(mainResonantFrequency)
-        self.mainResonantFrequency.setValue(2500)
+        self.mainResonantFrequency.value = 2500
         addProperty(firstResonantFrequency)
-        self.firstResonantFrequency.setValue(5300)
+        self.firstResonantFrequency.value = 5300
         addProperty(secondResonantFrequency)
-        self.secondResonantFrequency.setValue(6500)
+        self.secondResonantFrequency.value = 6500
     }
 }
 

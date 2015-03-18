@@ -28,7 +28,7 @@ class Note: AKNote {
     }
     convenience init(frequency startingFrequency: Float) {
         self.init()
-        frequency.setValue(startingFrequency)
+        frequency.value = startingFrequency
     }
 }
 

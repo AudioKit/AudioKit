@@ -29,7 +29,7 @@ let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
 let note = AKNote()
-note.duration.setValue(1)
+note.duration.value = 1
 
 instrument.playNote(note)
 

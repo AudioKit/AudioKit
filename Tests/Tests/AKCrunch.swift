@@ -46,8 +46,8 @@ class CrunchNote: AKNote {
 
     convenience init(intensity: Int, dampingFactor: Float) {
         self.init()
-        self.intensity.setValue(Float(intensity))
-        self.dampingFactor.setValue(dampingFactor)
+        self.intensity.value = Float(intensity)
+        self.dampingFactor.value = dampingFactor
     }
 }
 
@@ -60,7 +60,7 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = CrunchNote(intensity: 40+i*20, dampingFactor: 1.1-Float(i)/10.0)
-    note.duration.setValue(1.0)
+    note.duration.value = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 
