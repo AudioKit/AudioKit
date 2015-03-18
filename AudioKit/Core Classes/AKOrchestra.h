@@ -41,6 +41,10 @@
 /// @param instrument Instrument to add to the orchestra
 + (void)addInstrument:(AKInstrument *)instrument;
 
+/// Replace an instrument with the new parameters
+/// @param instrument Instrument to respecify in the orchestra
++ (void)updateInstrument:(AKInstrument *)instrument;
+
 /// Adds an instrument to orchestra and informs the instrument which orchestra it now belongs to.
 /// @param instrument Instrument that will be added to the orchestra.
 - (void)addInstrument:(AKInstrument *)instrument;

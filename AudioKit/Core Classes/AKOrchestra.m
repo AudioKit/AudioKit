@@ -92,6 +92,11 @@
     [[[AKManager sharedManager] orchestra] addInstrument:instrument];
 }
 
++ (void)updateInstrument:(AKInstrument *)instrument
+{
+    [self addInstrument:instrument];
+}
+
 - (void)addInstrument:(AKInstrument *)instrument
 {
     NSMutableString *instrumentString = [NSMutableString string];
