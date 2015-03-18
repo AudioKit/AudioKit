@@ -74,6 +74,17 @@ static int currentID = 2000;
     [csoundObj updateOrchestra:orchString];
 }
 
+- (void)operateOnTableWithFunction:(float (^)(float))function
+{
+    while (csoundTableLength(cs, _number) != _size) {
+        // do nothing
+    }
+    csoundGetTable(cs, &table, _number);
+    for (int i = 0; i < _size; i++) {
+        table[i] = function(table[i]);
+    }
+}
+
 - (void)populateTableWithIndexFunction:(float (^)(int))function
 {
     while (csoundTableLength(cs, _number) != _size) {
@@ -97,6 +108,35 @@ static int currentID = 2000;
     }
 }
 
+- (void)scaleBy:(float)scalingFactor
+{
+    [self operateOnTableWithFunction:^(float y) {
+        return y*scalingFactor;
+    }];
+}
+
+- (void)normalize
+{
+    while (csoundTableLength(cs, _number) != _size) {
+        // do nothing
+    }
+    csoundGetTable(cs, &table, _number);
+    float max = 0.0;
+    for (int i = 0; i < _size; i++) {
+        max = MAX(max, fabsf(table[i]));
+    }
+    if (max > 0.0) {
+        [self scaleBy:1.0/max];
+    }
+}
+
+- (void)absoluteValue
+{
+    [self operateOnTableWithFunction:^(float y) {
+        return fabsf(y);
+    }];
+}
+
 + (instancetype)standardSineWave
 {
     AKTable *standarSineWave = [[AKTable alloc] init];
@@ -109,13 +149,14 @@ static int currentID = 2000;
 + (instancetype)standardSquareWave
 {
     AKTable *standardSquareWave = [[AKTable alloc] init];
-    [standardSquareWave populateTableWithFractionalWidthFunction:^(float x) {
-        if (x < 0.5) {
-            return 1.0f;
-        } else {
-            return -1.0f;
-        }
-    }];
+    [standardSquareWave populateTableWithGenerator:[AKLineTableGenerator squareWave]];
+//    [standardSquareWave populateTableWithFractionalWidthFunction:^(float x) {
+//        if (x < 0.5) {
+//            return 1.0f;
+//        } else {
+//            return -1.0f;
+//        }
+//    }];
     return standardSquareWave;
 }
 
