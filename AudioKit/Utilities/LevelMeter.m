@@ -46,12 +46,21 @@
  
  */
 
-#if TARGET_OS_IPHONE
-
 #import "LevelMeter.h"
 
+#if TARGET_OS_IPHONE
 
-@implementation LevelMeter
+@implementation LevelMeter {
+    NSUInteger					_numLights;
+    CGFloat						_level, _peakLevel;
+    //	LevelMeterColorThreshold	*_colorThresholds;
+    NSUInteger					_numColorThresholds;
+    BOOL						_vertical;
+    BOOL						_variableLightIntensity;
+    UIColor						*_bgColor, *_borderColor;
+    CGFloat                     _scaleFactor;
+}
+
 
 - (void)_performInit
 {
