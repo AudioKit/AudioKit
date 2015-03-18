@@ -38,9 +38,27 @@
 /// Creates an empty table with the default size (number of elements).
 + (instancetype)table;
 
+/// Run a mathematical function on each value of the function table
+/// @param function Function to run on each table value
+- (void)operateOnTableWithFunction:(float (^)(float))function;
+
+/// Populate the table with given function on integer elements
+/// @param function Function to applied to each index element
 - (void)populateTableWithIndexFunction:(float (^)(int))function;
 
+/// Populate a table based on a float value from zero to one.
+/// @param function Function to be applied to a value that varies from 0 to 1.
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function;
+
+/// Scale table by a constant scaling factor
+/// @param scalingFactor Amount by which to scale each element of the table
+- (void)scaleBy:(float)scalingFactor;
+
+/// Create a table in which the maximum absolute value is 1 by scaling the whole table appropriately.
+- (void)normalize;
+
+/// Return absolute value of the table
+- (void)absoluteValue;
 
 + (instancetype)standardSineWave;
 + (instancetype)standardSquareWave;
