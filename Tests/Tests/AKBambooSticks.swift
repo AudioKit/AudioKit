@@ -48,8 +48,8 @@ class BambooNote: AKNote {
 
     convenience init(count: Int, mainResonantFrequency: Float) {
         self.init()
-        self.count.setValue(Float(count))
-        self.mainResonantFrequency.setValue(mainResonantFrequency)
+        self.count.value = Float(count)
+        self.mainResonantFrequency.value = mainResonantFrequency
     }
 }
 
@@ -62,7 +62,7 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = BambooNote(count: i, mainResonantFrequency: 1000+Float(i)*300)
-    note.duration.setValue(1.0)
+    note.duration.value = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 

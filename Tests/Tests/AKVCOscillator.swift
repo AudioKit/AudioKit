@@ -24,19 +24,19 @@ class Instrument : AKInstrument {
         vcOscillator.pulseWidth = pulseWidthLine
         vcOscillator.frequency = frequencyLine
         setAudioOutput(vcOscillator)
-        
+
         enableParameterLog(
             "\n\n\nWaveform Type = ",
             parameter: note.waveformType,
             timeInterval:10
         )
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: frequencyLine,
             timeInterval:0.2
         )
-        
+
         enableParameterLog(
             "Pulse Width = ",
             parameter: pulseWidthLine,
@@ -56,7 +56,7 @@ class VCONote: AKNote {
 
     convenience init(waveformType: AKConstant) {
         self.init()
-        self.waveformType.setValue(waveformType.value())
+        self.waveformType.value = waveformType.value
     }
 }
 
@@ -70,10 +70,10 @@ let note2 = VCONote(waveformType: AKVCOscillator.waveformTypeForSawtooth())
 let note3 = VCONote(waveformType: AKVCOscillator.waveformTypeForSquareWithPWM())
 let note4 = VCONote(waveformType: AKVCOscillator.waveformTypeForTriangleWithRamp())
 
-note1.duration.setValue(2.0)
-note2.duration.setValue(2.0)
-note3.duration.setValue(2.0)
-note4.duration.setValue(2.0)
+note1.duration.value = 2.0
+note2.duration.value = 2.0
+note3.duration.value = 2.0
+note4.duration.value = 2.0
 
 instrument.playNote(note1)
 instrument.playNote(note2, afterDelay: 2.0)

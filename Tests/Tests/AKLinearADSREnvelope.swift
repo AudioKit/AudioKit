@@ -37,7 +37,7 @@ let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
 phrase.stopNote(note1, atTime: 2.5)
 
-note2.duration.setValue(5.0)
+note2.duration.value = 5.0
 phrase.addNote(note2, atTime:3.5)
 instrument.playPhrase(phrase)
 

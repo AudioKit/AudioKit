@@ -20,7 +20,7 @@ class Instrument : AKInstrument {
         guiro.count = note.count
         guiro.mainResonantFrequency = note.mainResonantFrequency
         setAudioOutput(guiro)
-        
+
         enableParameterLog(
             "Count = ",
             parameter: guiro.count,
@@ -47,8 +47,8 @@ class GuiroNote: AKNote {
 
     convenience init(count: Int, mainResonantFrequency: Float) {
         self.init()
-        self.count.setValue(Float(count))
-        self.mainResonantFrequency.setValue(mainResonantFrequency)
+        self.count.value = Float(count)
+        self.mainResonantFrequency.value = mainResonantFrequency
     }
 }
 
@@ -61,7 +61,7 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = GuiroNote(count: i*20, mainResonantFrequency: 1000+Float(i)*500)
-    note.duration.setValue(1.0)
+    note.duration.value = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 
