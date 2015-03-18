@@ -3,7 +3,14 @@ source ~/.bash_profile
 
 # This is where we do the interactive stuff
 PS3='Please enter your choice: '
-options=("Current" "Default (Empty)" "Synthesis" "Processing" "Microphone Analysis")
+options=(
+    "Current"
+    "Default (Empty)"
+    "Synthesis"
+    "Table"
+    "Processing"
+    "Microphone Analysis"
+)
 select opt in "${options[@]}"
 do
     case $opt in
@@ -17,6 +24,10 @@ do
             ;;
         "Synthesis")
             NEWPLAYGROUND="SynthesisPlayground.m"
+            break
+            ;;
+        "Table")
+            NEWPLAYGROUND="TablePlayground.m"
             break
             ;;
         "Processing")
