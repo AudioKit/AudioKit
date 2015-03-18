@@ -47,6 +47,7 @@
  
  */
 
+#import <TargetConditionals.h>
 
 #if TARGET_OS_IPHONE
 
@@ -56,38 +57,30 @@
 #define LEVELMETER_CLAMP(min,x,max) (x < min ? min : (x > max ? max : x))
 #endif
 
-@interface LevelMeter : UIView {
-	NSUInteger					_numLights;
-	CGFloat						_level, _peakLevel;
-    //	LevelMeterColorThreshold	*_colorThresholds;
-	NSUInteger					_numColorThresholds;
-	BOOL						_vertical;
-	BOOL						_variableLightIntensity;
-	UIColor						*_bgColor, *_borderColor;
-    CGFloat                     _scaleFactor;
-}
+IB_DESIGNABLE
+@interface LevelMeter : UIView
 
 // The current level, from 0 - 1
-@property						CGFloat level;
+@property						IBInspectable CGFloat level;
 
 // Optional peak level, will be drawn if > 0
-@property						CGFloat peakLevel;
+@property						IBInspectable CGFloat peakLevel;
 
 // The number of lights to show, or 0 to show a continuous bar
-@property						NSUInteger numLights;
+@property						IBInspectable NSUInteger numLights;
 
 // Whether the view is oriented V or H. This is initially automatically set based on the
 // aspect ratio of the view.
-@property(getter=isVertical)	BOOL vertical;
+@property(getter=isVertical)	IBInspectable BOOL vertical;
 
 // Whether to use variable intensity lights. Has no effect if numLights == 0.
-@property						BOOL variableLightIntensity;
+@property						IBInspectable BOOL variableLightIntensity;
 
 // The background color of the lights
-@property(retain)				UIColor *bgColor;
+@property(retain)				IBInspectable UIColor *bgColor;
 
 // The border color of the lights
-@property(retain)				UIColor *borderColor;
+@property(retain)				IBInspectable UIColor *borderColor;
 
 
 @end
