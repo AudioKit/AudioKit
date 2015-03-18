@@ -7,4 +7,23 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:Examples"
+      name = "Examples">
+      <FileRef
+         location = "group:DefaultPlayground.m">
+      </FileRef>
+      <FileRef
+         location = "group:MicrophoneAnalysisPlayground.m">
+      </FileRef>
+      <FileRef
+         location = "group:TablePlayground.m">
+      </FileRef>
+      <FileRef
+         location = "group:ProcessingPlayground.m">
+      </FileRef>
+      <FileRef
+         location = "group:SynthesisPlayground.m">
+      </FileRef>
+   </Group>
 </Workspace>
