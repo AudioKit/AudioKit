@@ -146,6 +146,7 @@
 		C4BACA251A8FDEDC00736291 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACA241A8FDEDC00736291 /* ViewController.m */; };
 		C4BACA271A8FDEDC00736291 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BACA261A8FDEDC00736291 /* Images.xcassets */; };
 		C4BACA2A1A8FDEDC00736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BACA281A8FDEDC00736291 /* Main.storyboard */; };
+		C4FE76AC1ABB71EE001641B7 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C43F565F1AB140A0005E437A /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -155,6 +156,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C4FE76AC1ABB71EE001641B7 /* CsoundLib64.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
