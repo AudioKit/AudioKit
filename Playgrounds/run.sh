@@ -47,9 +47,9 @@ do
     esac
 done
 if [ $NEWPLAYGROUND != "Playground.m" ]; then
-  cp Examples/$NEWPLAYGROUND Playground/Playground.m
+  cp Examples/$NEWPLAYGROUND AudioKitPlayground/AudioKitPlayground/Playground.m
 fi
 echo "Starting Playground, Press Control-c when finished."
-open Playground.xcworkspace
+open AudioKitPlayground/AudioKitPlayground.xcworkspace
 
 kicker -sql 0.05 Playground 2>/dev/null
