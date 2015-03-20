@@ -20,7 +20,7 @@
 
 - (instancetype)init
 {
-    self = [super initWithNumber:1];
+    self = [super init];
     if (self) {
         _frequency = [[AKInstrumentProperty alloc] initWithValue:323.0*2 minimum:0.0 maximum:2000.0];
         Note *note = [[Note alloc] init];
@@ -72,7 +72,7 @@
     Instrument *instrument = [[Instrument alloc] init];
     [AKOrchestra addInstrument:instrument];
     
-    AKPlaygroundSlider(Frequency, instrument.frequency);
+    AKPlaygroundPropertySlider(Frequency, instrument.frequency);
     
     Note *note = [[Note alloc] init];
     
