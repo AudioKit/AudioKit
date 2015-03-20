@@ -293,7 +293,7 @@ static AKManager *_sharedManager = nil;
 
 - (void)updateNote:(AKNote *)note
 {
-    if (_isLogging) NSLog(@"updating Note with %@", [note stringForCSD]);
+    if (_isLogging) NSLog(@"Updating Note: %@", [note stringForCSD]);
     
     if (isBatching) {
         batchInstructions = [batchInstructions stringByAppendingString:[note stringForCSD]];
