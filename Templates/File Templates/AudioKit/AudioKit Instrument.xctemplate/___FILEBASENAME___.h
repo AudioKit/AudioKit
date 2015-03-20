@@ -11,10 +11,11 @@
 @interface ___FILEBASENAMEASIDENTIFIER___ : AKInstrument
 
 // Instrument Properties
-@property AKInstrumentProperty *pan;
+@property AKInstrumentProperty *amplitude;
 
-// Audio outlet for global effects processing
-@property (readonly) AKStereoAudio *auxilliaryOutput;
+// Audio outlet for global effects processing (choose mono or stereo accordingly)
+@property (readonly) AKAudio *auxilliaryOutput;
+//@property (readonly) AKStereoAudio *auxilliaryOutput;
 
 @end
 
