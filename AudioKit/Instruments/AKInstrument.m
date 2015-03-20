@@ -61,20 +61,9 @@ static int currentID = 1;
 
 - (instancetype)initWithNumber:(int)instrumentNumber
 {
-    self = [super init];
+    self = [self init];
     if (self) {
-        // Since instruments can add tables upon initialization,
-        // Start the orchestra immediately
-        [AKOrchestra start];
-        while (![[AKManager sharedManager] isRunning]) {
-            // do nothing
-        }
         _myID = instrumentNumber;
-        _properties = [[NSMutableArray alloc] init];
-        _noteProperties = [[NSMutableArray alloc] init];
-        _globalParameters = [[NSMutableSet alloc] init];
-        _userDefinedOperations = [[NSMutableSet alloc] init];
-        connectedOperations = [NSMutableArray array];
     }
     return self;
 }
