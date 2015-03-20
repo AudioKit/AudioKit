@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A6C0E747EDE883C2E9F648E6 /* libPods-AudioKitPlayground.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A9D9CF323B312CF4DBE0CC /* libPods-AudioKitPlayground.a */; };
+		C41D6B671ABBA89200F97BC5 /* Tambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D6B661ABBA89200F97BC5 /* Tambourine.m */; };
 		C4FE74761AB9FB58001641B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74751AB9FB58001641B7 /* main.m */; };
 		C4FE74791AB9FB58001641B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74781AB9FB58001641B7 /* AppDelegate.m */; };
 		C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4FE74801AB9FB58001641B7 /* Images.xcassets */; };
@@ -171,6 +172,8 @@
 /* Begin PBXFileReference section */
 		21A9D9CF323B312CF4DBE0CC /* libPods-AudioKitPlayground.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6970C0F281C53F4CC291CAAB /* Pods-AudioKitPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioKitPlayground.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioKitPlayground/Pods-AudioKitPlayground.debug.xcconfig"; sourceTree = "<group>"; };
+		C41D6B651ABBA89200F97BC5 /* Tambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tambourine.h; sourceTree = "<group>"; };
+		C41D6B661ABBA89200F97BC5 /* Tambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tambourine.m; sourceTree = "<group>"; };
 		C4FE74701AB9FB58001641B7 /* AudioKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4FE74741AB9FB58001641B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4FE74751AB9FB58001641B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -530,6 +533,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C41D6B641ABBA89200F97BC5 /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				C41D6B651ABBA89200F97BC5 /* Tambourine.h */,
+				C41D6B661ABBA89200F97BC5 /* Tambourine.m */,
+			);
+			path = Instruments;
+			sourceTree = "<group>";
+		};
 		C4FE74671AB9FB58001641B7 = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +564,7 @@
 		C4FE74721AB9FB58001641B7 /* AudioKitPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				C4FE749B1ABA4CF6001641B7 /* Playground.h */,
 				C4FE749C1ABA4CF6001641B7 /* Playground.m */,
 				C4FE74731AB9FB58001641B7 /* Supporting Files */,
 			);
@@ -563,7 +576,6 @@
 			children = (
 				C4FE74991ABA4CF6001641B7 /* AKPlayground.h */,
 				C4FE749A1ABA4CF6001641B7 /* AKPlayground.m */,
-				C4FE749B1ABA4CF6001641B7 /* Playground.h */,
 				C4FE74771AB9FB58001641B7 /* AppDelegate.h */,
 				C4FE74781AB9FB58001641B7 /* AppDelegate.m */,
 				C4FE74801AB9FB58001641B7 /* Images.xcassets */,
@@ -1194,6 +1206,7 @@
 				C4FE75FA1ABA4FCE001641B7 /* AKTools.m */,
 				C4FE75FB1ABA4FCE001641B7 /* LevelMeter.h */,
 				C4FE75FC1ABA4FCE001641B7 /* LevelMeter.m */,
+				C41D6B641ABBA89200F97BC5 /* Instruments */,
 				C4FE75FD1ABA4FCE001641B7 /* Plots */,
 				C4FE760A1ABA4FCE001641B7 /* Sound Files */,
 			);
@@ -1416,6 +1429,7 @@
 				C4FE76321ABA4FCE001641B7 /* AKLine.m in Sources */,
 				C4FE769A1ABA4FCE001641B7 /* AKTableGenerator.m in Sources */,
 				C4FE766F1ABA4FCE001641B7 /* AKHighPassFilter.m in Sources */,
+				C41D6B671ABBA89200F97BC5 /* Tambourine.m in Sources */,
 				C4FE76661ABA4FCE001641B7 /* AKVariableDelay.m in Sources */,
 				C4FE76211ABA4FCE001641B7 /* AKMixedFFT.m in Sources */,
 				C4FE764B1ABA4FCE001641B7 /* AKGuiro.m in Sources */,
