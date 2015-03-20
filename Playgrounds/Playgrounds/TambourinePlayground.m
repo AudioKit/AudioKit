@@ -28,6 +28,8 @@
     note = [[TambourineNote alloc] init];
     AKPlaygroundButton(@"Play Once", [tambourine playNote:note];);
     
+    AKPlaygroundPropertySlider(volume, tambourine.amplitude);
+    
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
     
