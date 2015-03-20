@@ -182,6 +182,9 @@
 /// @param duration The period between playbacks
 - (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration;
 
+/// Stop repeating the phrase
+- (void)stopPhrase;
+
 /// Stop all notes created by the instrument
 - (void)stop;
 

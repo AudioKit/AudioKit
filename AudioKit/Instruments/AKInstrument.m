@@ -18,6 +18,8 @@
     NSMutableArray *innerCSDOperations;
     NSMutableArray *connectedOperations;
     int _myID;
+    
+    AKSequence *repeater;
 }
 
 
@@ -382,7 +384,7 @@ static int currentID = 1;
 
 - (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration
 {
-    AKSequence *repeater = [[AKSequence alloc] init];
+    repeater = [[AKSequence alloc] init];
     AKEvent *playPhrase = [[AKEvent alloc] initWithBlock:^{
         [phrase playUsingInstrument:self];
     }];
@@ -395,6 +397,10 @@ static int currentID = 1;
     [repeater play];
 }
 
+- (void)stopPhrase
+{
+    [repeater reset];
+}
 
 
 - (void)stop
