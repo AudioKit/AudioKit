@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		A6C0E747EDE883C2E9F648E6 /* libPods-AudioKitPlayground.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A9D9CF323B312CF4DBE0CC /* libPods-AudioKitPlayground.a */; };
 		C41D6B671ABBA89200F97BC5 /* Tambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C41D6B661ABBA89200F97BC5 /* Tambourine.m */; };
+		C4A2C3871ABCABB600EB48AE /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A2C3861ABCABB600EB48AE /* FMOscillatorInstrument.m */; };
+		C4A2C3901ABCC34400EB48AE /* ReverbProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A2C38F1ABCC34400EB48AE /* ReverbProcessor.m */; };
+		C4A2C3931ABCC40700EB48AE /* Amplifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A2C3921ABCC40700EB48AE /* Amplifier.m */; };
+		C4A2C3961ABCCCE300EB48AE /* StereoAmplifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A2C3951ABCCCE300EB48AE /* StereoAmplifier.m */; };
 		C4FE74761AB9FB58001641B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74751AB9FB58001641B7 /* main.m */; };
 		C4FE74791AB9FB58001641B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74781AB9FB58001641B7 /* AppDelegate.m */; };
 		C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4FE74801AB9FB58001641B7 /* Images.xcassets */; };
@@ -174,6 +178,14 @@
 		6970C0F281C53F4CC291CAAB /* Pods-AudioKitPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioKitPlayground.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioKitPlayground/Pods-AudioKitPlayground.debug.xcconfig"; sourceTree = "<group>"; };
 		C41D6B651ABBA89200F97BC5 /* Tambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tambourine.h; sourceTree = "<group>"; };
 		C41D6B661ABBA89200F97BC5 /* Tambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tambourine.m; sourceTree = "<group>"; };
+		C4A2C3851ABCABB600EB48AE /* FMOscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMOscillatorInstrument.h; sourceTree = "<group>"; };
+		C4A2C3861ABCABB600EB48AE /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
+		C4A2C38E1ABCC34400EB48AE /* ReverbProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReverbProcessor.h; sourceTree = "<group>"; };
+		C4A2C38F1ABCC34400EB48AE /* ReverbProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbProcessor.m; sourceTree = "<group>"; };
+		C4A2C3911ABCC40700EB48AE /* Amplifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Amplifier.h; sourceTree = "<group>"; };
+		C4A2C3921ABCC40700EB48AE /* Amplifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Amplifier.m; sourceTree = "<group>"; };
+		C4A2C3941ABCCCE300EB48AE /* StereoAmplifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StereoAmplifier.h; sourceTree = "<group>"; };
+		C4A2C3951ABCCCE300EB48AE /* StereoAmplifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StereoAmplifier.m; sourceTree = "<group>"; };
 		C4FE74701AB9FB58001641B7 /* AudioKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4FE74741AB9FB58001641B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4FE74751AB9FB58001641B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -536,6 +548,14 @@
 		C41D6B641ABBA89200F97BC5 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
+				C4A2C3911ABCC40700EB48AE /* Amplifier.h */,
+				C4A2C3921ABCC40700EB48AE /* Amplifier.m */,
+				C4A2C3851ABCABB600EB48AE /* FMOscillatorInstrument.h */,
+				C4A2C3861ABCABB600EB48AE /* FMOscillatorInstrument.m */,
+				C4A2C38E1ABCC34400EB48AE /* ReverbProcessor.h */,
+				C4A2C38F1ABCC34400EB48AE /* ReverbProcessor.m */,
+				C4A2C3941ABCCCE300EB48AE /* StereoAmplifier.h */,
+				C4A2C3951ABCCCE300EB48AE /* StereoAmplifier.m */,
 				C41D6B651ABBA89200F97BC5 /* Tambourine.h */,
 				C41D6B661ABBA89200F97BC5 /* Tambourine.m */,
 			);
@@ -1384,6 +1404,7 @@
 				C4FE76391ABA4FCE001641B7 /* AKStereoSoundFileLooper.m in Sources */,
 				C4FE76921ABA4FCE001641B7 /* AKSequence.m in Sources */,
 				C4FE76531ABA4FCE001641B7 /* AKFlute.m in Sources */,
+				C4A2C3871ABCABB600EB48AE /* FMOscillatorInstrument.m in Sources */,
 				C4FE74791AB9FB58001641B7 /* AppDelegate.m in Sources */,
 				C4FE763D1ABA4FCE001641B7 /* AKFMOscillator.m in Sources */,
 				C4FE76401ABA4FCE001641B7 /* AKPhasor.m in Sources */,
@@ -1402,6 +1423,7 @@
 				C4FE76681ABA4FCE001641B7 /* AKDopplerEffect.m in Sources */,
 				C4FE76A11ABA4FCE001641B7 /* AKFFTPlot.m in Sources */,
 				C4FE764A1ABA4FCE001641B7 /* AKDroplet.m in Sources */,
+				C4A2C3901ABCC34400EB48AE /* ReverbProcessor.m in Sources */,
 				C4FE76341ABA4FCE001641B7 /* AKLinearEnvelope.m in Sources */,
 				C4FE76421ABA4FCE001641B7 /* AKMandolin.m in Sources */,
 				C4FE765A1ABA4FCE001641B7 /* AKSegmentArrayLoop.m in Sources */,
@@ -1486,10 +1508,12 @@
 				C4FE762E1ABA4FCE001641B7 /* AKSingleInputMathOperation.m in Sources */,
 				C4FE76571ABA4FCE001641B7 /* AKNoise.m in Sources */,
 				C4FE766E1ABA4FCE001641B7 /* AKEqualizerFilter.m in Sources */,
+				C4A2C3961ABCCCE300EB48AE /* StereoAmplifier.m in Sources */,
 				C4FE76781ABA4FCE001641B7 /* AKBandPassButterworthFilter.m in Sources */,
 				C4FE765C1ABA4FCE001641B7 /* AKAudioInput.m in Sources */,
 				C4FE76A41ABA4FCE001641B7 /* AKStereoOutputPlot.m in Sources */,
 				C4FE766C1ABA4FCE001641B7 /* AKDecimator.m in Sources */,
+				C4A2C3931ABCC40700EB48AE /* Amplifier.m in Sources */,
 				C4FE761C1ABA4FCE001641B7 /* AKTrackedFrequency.m in Sources */,
 				C4FE76691ABA4FCE001641B7 /* AKFlanger.m in Sources */,
 				C4FE76201ABA4FCE001641B7 /* AKFFTProcessor.m in Sources */,
