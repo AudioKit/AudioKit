@@ -22,6 +22,9 @@
 /// Length of the phrase in seconds
 @property (readonly) float duration;
 
+/// Class-level initializer for empty phrase
++ (AKPhrase *)phrase;
+
 /// Remove all notes
 - (void)reset;
 
