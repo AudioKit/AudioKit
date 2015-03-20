@@ -1,14 +1,13 @@
 #!/bin/bash
 source ~/.bash_profile
+NEWPLAYGROUND=""
 
-# This is where we do the interactive stuff
 PS3='Enter your choice: '
 options=(
     "Run Current Playground"
     "Run Empty Playground"
     "Choose Playground from List"
 )
-NEWPLAYGROUND=""
 select opt in "${options[@]}"
 do
     case $opt in
