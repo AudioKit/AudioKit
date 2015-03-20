@@ -9,14 +9,14 @@
 #import "AKFoundation.h"
 
 @interface Tambourine : AKInstrument
+@property AKInstrumentProperty *amplitude;
 @end
 
 @interface TambourineNote : AKNote
 
 // Note properties
-@property AKNoteProperty *intensity;
 @property AKNoteProperty *dampingFactor;
-
-- (instancetype)initWithIntensity:(float)intensity dampingFactor:(float)dampingFactor;
-
+@property AKNoteProperty *mainResonantFrequency;
+@property AKNoteProperty *firstResonantFrequency;
+@property AKNoteProperty *secondResonantFrequency;
 @end
