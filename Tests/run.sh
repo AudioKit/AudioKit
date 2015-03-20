@@ -1,7 +1,19 @@
 #!/bin/bash
 if [ ${#@} == 0 ]; then
-    echo "Usage: $0 AKTestName"
-    exit
+  echo "**** Since no test was provided, we'll run all built tests. ****"
+  cd AudioKitTest/build/Release/
+  for i in built/*
+    do
+      name=${i/built\//}
+      echo ""
+      echo ""
+      echo "======================================"
+      echo " $name "
+      echo "======================================"
+      echo ""
+      ./$i
+    done
+  exit
 fi
 cp $1 AudioKitTest/AudioKitTest/main.swift
 cd AudioKitTest
