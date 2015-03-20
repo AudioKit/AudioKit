@@ -31,6 +31,9 @@
 /// Stop playback of the sequence, stopping all the notes in the sequence.
 - (void)stop;
 
+/// Removes all events from the sequence
+- (void)reset;
+
 /// Add event In next available spot
 /// @param event Event to be added either at the beginning, or at the same time as the last event
 - (void)addEvent:(AKEvent *)event;
