@@ -44,4 +44,9 @@
 - (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label;
 //- (void)addRollingWaveformView;
 
+- (void)addRepeatSliderForInstrument:(AKInstrument *)instrument
+                              phrase:(AKPhrase *)phrase
+                    minimumFrequency:(float)minFrequency
+                    maximumFrequency:(float)maxFrequency;
+
 @end

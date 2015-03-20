@@ -22,7 +22,7 @@
 - (void)makeSection:(NSString *)title
 {
     KZPShow(@" ");
-    NSString *starredTitle = [NSString stringWithFormat:@"▶︎ %@ ◀︎", title];
+    NSString *starredTitle = [NSString stringWithFormat:@"%@︎", title];
     KZPShow(starredTitle);
 }
 
@@ -105,6 +105,18 @@
 //    [self toggleView:rollingWaveformView];
 //    KZPAction(@"Rolling", ^{ [self toggleView:rollingWaveformView]; });
 //}
+
+- (void)addRepeatSliderForInstrument:(AKInstrument *)instrument
+                              phrase:(AKPhrase *)phrase
+                    minimumFrequency:(float)minFrequency
+                    maximumFrequency:(float)maxFrequency
+{
+    KZPValueAdjustComponent *component = KZPAdjust(@"", minFrequency, maxFrequency, ^(float frequency) {
+        [instrument stopPhrase];
+        [instrument repeatPhrase:phrase duration:1.0/frequency];
+    });
+    [component.valueSlider setContinuous:NO];
+}
 
 - (void)setup
 {
