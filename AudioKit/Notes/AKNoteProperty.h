@@ -25,6 +25,8 @@
 /// Internal reference number
 @property (assign) int pValue;
 
+@property BOOL isContinuous;
+
 /// Set the value at a future time
 /// @param floatValue The value that will be set
 /// @param time The delay time after which the value will be set.

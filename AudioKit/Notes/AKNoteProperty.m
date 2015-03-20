@@ -17,6 +17,7 @@
     if (self) {
         _pValue = 0;
         [self setName:@"NoteProperty"];
+        _isContinuous = YES;
     }
     return self;
 }
@@ -29,13 +30,13 @@
 - (void)setValue:(float)newValue
 {
     [super setValue:newValue];
-    [_note updateProperties];
+    if (_isContinuous) [_note updateProperties];
 }
 
 - (void)setValue:(float)floatValue afterDelay:(float)time
 {
     [super setValue:floatValue];
-    [_note updatePropertiesAfterDelay:time];
+    if (_isContinuous) [_note updatePropertiesAfterDelay:time];
 }
 
 + (instancetype)duration
