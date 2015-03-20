@@ -1,4 +1,4 @@
-   recipe :ruby
+recipe :ruby
 Kicker::Recipes::Ruby.runner_bin = 'bacon -q'
 
 process do |potential_files|

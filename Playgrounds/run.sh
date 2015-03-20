@@ -2,54 +2,50 @@
 source ~/.bash_profile
 
 # This is where we do the interactive stuff
-PS3='Please enter your choice: '
+PS3='Enter your choice: '
 options=(
-    "Current"
-    "Default (Empty)"
-    "Synthesis"
-    "Table"
-    "Processing"
-    "Microphone Analysis"
-    "VC Oscillator"
+    "Run Current Playground"
+    "Run Empty Playground"
+    "Choose Playground from List"
 )
+NEWPLAYGROUND=""
 select opt in "${options[@]}"
 do
     case $opt in
-        "Current")
-            NEWPLAYGROUND="Playground.m"
+        "Run Current Playground")
             break
             ;;
-        "Default (Empty)")
+        "Run Empty Playground")
             NEWPLAYGROUND="DefaultPlayground.m"
             break
             ;;
-        "Synthesis")
-            NEWPLAYGROUND="SynthesisPlayground.m"
-            break
-            ;;
-        "Table")
-            NEWPLAYGROUND="TablePlayground.m"
-            break
-            ;;
-        "Processing")
-            NEWPLAYGROUND="ProcessingPlayground.m"
-            break
-            ;;
-        "Microphone Analysis")
-            NEWPLAYGROUND="MicrophoneAnalysisPlayground.m"
-            break
-            ;;
-        "VC Oscillator")
-            NEWPLAYGROUND="VCOscillatorPlayground.m"
+        "Choose Playground from List")
+            NEWPLAYGROUND="New"
             break
             ;;
         *) echo invalid option;;
     esac
 done
-if [ $NEWPLAYGROUND != "Playground.m" ]; then
-  cp Examples/$NEWPLAYGROUND AudioKitPlayground/AudioKitPlayground/Playground.m
+
+if [ $NEWPLAYGROUND == "New" ]; then
+    PS3='\nEnter the number of the playground you want: '
+    options=($(ls Examples))
+    select opt in "${options[@]/Playground.m/}"
+    do
+        NEWPLAYGROUND=$opt"Playground.m"
+        break
+    done
 fi
+
 echo "Starting Playground, Press Control-c when finished."
+kicker -sql 0.05 AudioKitPlayground/AudioKitPlayground ../AudioKit 2>/dev/null &
 open AudioKitPlayground/AudioKitPlayground.xcworkspace
 
-kicker -sql 0.05 Playground 2>/dev/null
+if [ $NEWPLAYGROUND != "" ]; then
+  echo "Pausing for two seconds to allow the kicker to start."
+  sleep 2
+  echo "Copying the requested playground."
+  cp Examples/$NEWPLAYGROUND AudioKitPlayground/AudioKitPlayground/Playground.m
+fi
+
+wait
