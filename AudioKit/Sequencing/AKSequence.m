@@ -101,12 +101,21 @@
     isPlaying = NO;
 }
 
+- (void)reset
+{
+    [_events removeAllObjects];
+    [_times  removeAllObjects];
+    isPlaying = NO;
+}
+
 
 // Cue up the next event to be triggered.
 - (void)playNextEventInSequence
 {
-    AKEvent *event = _events[index];
-    [[AKManager sharedManager] triggerEvent:event];
+    if (isPlaying) {
+        AKEvent *event = _events[index];
+        [[AKManager sharedManager] triggerEvent:event];
+    }
     
     if (index < [_times count]-1 && isPlaying) {
         float timeUntilNextEvent = [_times[index+1] floatValue] - [_times[index] floatValue];
