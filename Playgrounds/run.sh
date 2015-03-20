@@ -29,7 +29,7 @@ done
 
 if [ $NEWPLAYGROUND == "New" ]; then
     PS3='\nEnter the number of the playground you want: '
-    options=($(ls Examples))
+    options=($(ls Playgrounds))
     select opt in "${options[@]/Playground.m/}"
     do
         NEWPLAYGROUND=$opt"Playground.m"
@@ -45,7 +45,7 @@ if [ $NEWPLAYGROUND != "" ]; then
   echo "Pausing for two seconds to allow the kicker to start."
   sleep 2
   echo "Copying the requested playground."
-  cp Examples/$NEWPLAYGROUND AudioKitPlayground/AudioKitPlayground/Playground.m
+  cp Playgrounds/$NEWPLAYGROUND AudioKitPlayground/AudioKitPlayground/Playground.m
 fi
 
 wait
