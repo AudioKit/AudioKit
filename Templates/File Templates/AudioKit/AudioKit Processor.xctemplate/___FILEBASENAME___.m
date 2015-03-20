@@ -16,13 +16,11 @@
     if (self) {
 
         // Instrument Properties
-        _reverb  = [[AKInstrumentProperty alloc] initWithValue:0.0
-                                                       minimum:0.0
-                                                       maximum:1.0];
+        _feedback = [self createPropertyWithValue:0.0 minimum:0.0 maximum:1.0];
 
         // Instrument Definition
         AKReverb *reverb = [[AKReverb alloc] initWithAudioSource:audioSource
-                                                   feedbackLevel:_reverb
+                                                   feedbackLevel:_feedback
                                                  cutoffFrequency:akp(4000)];
 
         // Audio Output

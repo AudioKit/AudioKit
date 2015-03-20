@@ -9,7 +9,7 @@
 class ___FILEBASENAME___: AKInstrument {
 
     // Instrument Properties
-    var feedbackLevel  = AKInstrumentProperty(value: 0.0, minimum: 0.0, maximum: 1.0)
+    var feedback  = AKInstrumentProperty(value: 0.0, minimum: 0.0, maximum: 1.0)
 
     init(audioSource: AKAudio) {
         super.init()
@@ -17,7 +17,7 @@ class ___FILEBASENAME___: AKInstrument {
         // Instrument Definition
         let reverb = AKReverb(
             audioSource: audioSource,
-            feedbackLevel: feedbackLevel,
+            feedbackLevel: feedback,
             cutoffFrequency: 4000.ak
         )
         setStereoAudioOutput(reverb)
