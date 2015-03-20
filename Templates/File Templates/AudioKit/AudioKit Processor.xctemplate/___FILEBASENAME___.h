@@ -6,9 +6,11 @@
 //___COPYRIGHT___
 //
 
+#import "AKFoundation.h"
+
 @interface ___FILEBASENAMEASIDENTIFIER___ : AKInstrument
 
-@property (nonatomic) AKInstrumentProperty *reverb;
+@property (nonatomic) AKInstrumentProperty *feedback;
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource;
 
