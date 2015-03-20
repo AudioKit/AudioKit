@@ -30,6 +30,7 @@
     }
     return self;
 }
+
 + (AKSequence *)sequence
 {
     return [[self alloc] init];

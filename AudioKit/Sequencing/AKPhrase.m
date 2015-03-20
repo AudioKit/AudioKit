@@ -29,6 +29,11 @@
     return self;
 }
 
++ (AKPhrase *)phrase
+{
+    return [[self alloc] init];
+}
+
 - (int)count
 {
     return
