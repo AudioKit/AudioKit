@@ -19,7 +19,7 @@
 //#import "AKRollingWaveformView.h"
 
 
-#define AKPlaygroundSlider(__name__, __property__) KZPAdjustValue(__name__, __property__.minimum, __property__.maximum).defaultValue(__property__.value); KZPAnimate(^{ __property__.value = __name__; });
+#define AKPlaygroundPropertySlider(__name__, __property__) KZPAdjustValue(__name__, __property__.minimum, __property__.maximum).defaultValue(__property__.value); KZPAnimate(^{ __property__.value = __name__; });
 
 #define AKPlaygroundSliderOverride(__name__, __property__, __value__, __min__, __max__) KZPAdjustValue(__name__, __min__, __max__).defaultValue(__value__); KZPAnimate(^{ __property__.value = __name__; });
 
