@@ -1,5 +1,5 @@
 //
-//  Mandolin.h
+//  Marimba.h
 //  AudioKit
 //
 //  Created by Nicholas Arner on 3/20/15.
@@ -8,12 +8,12 @@
 
 #import "AKFoundation.h"
 
-@interface Mandolin : AKInstrument
+@interface Marimba : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
-@property AKInstrumentProperty *bodySize;
-@property AKInstrumentProperty *pairedStringDetuning;
+@property AKInstrumentProperty *vibratoAmplitude;
+@property AKInstrumentProperty *vibratoFrequency;
 
 
 // Audio outlet for global effects processing (choose mono or stereo accordingly)
@@ -22,11 +22,13 @@
 
 @end
 
-@interface MandolinNote : AKNote
+@interface MarimbaNote : AKNote
 
 // Note properties
 @property AKNoteProperty *frequency;
-@property AKNoteProperty *pluckPosition;
+@property AKNoteProperty *stickHardness;
+@property AKNoteProperty *strikePosition;
 @property AKNoteProperty *amplitude;
+
 
 @end
