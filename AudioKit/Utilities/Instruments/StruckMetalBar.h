@@ -30,7 +30,7 @@
 @property AKNoteProperty *strikeWidth;
 //@property AKNoteProperty *leftBoundaryCondition;
 //@property AKNoteProperty *rightBoundaryCondition;
-//@property AKNoteProperty *scanSpeed;
+@property AKNoteProperty *scanSpeed;
 
 
 @end
