@@ -176,6 +176,9 @@
 		E4E2BAAE1ABCF7660079BD50 /* Marimba.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAAD1ABCF7660079BD50 /* Marimba.m */; };
 		E4E2BAB41ABDAF450079BD50 /* PluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB31ABDAF450079BD50 /* PluckedString.m */; };
 		E4E2BAB71ABDB5240079BD50 /* Stick.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB61ABDB5240079BD50 /* Stick.m */; };
+		E4E2BABA1ABDB9240079BD50 /* BambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */; };
+		E4E2BABD1ABDBBC60079BD50 /* Sleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */; };
+		E4E2BAC01ABDBDF70079BD50 /* StruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -535,6 +538,12 @@
 		E4E2BAB31ABDAF450079BD50 /* PluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluckedString.m; sourceTree = "<group>"; };
 		E4E2BAB51ABDB5240079BD50 /* Stick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stick.h; sourceTree = "<group>"; };
 		E4E2BAB61ABDB5240079BD50 /* Stick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stick.m; sourceTree = "<group>"; };
+		E4E2BAB81ABDB9240079BD50 /* BambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BambooSticks.h; sourceTree = "<group>"; };
+		E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BambooSticks.m; sourceTree = "<group>"; };
+		E4E2BABB1ABDBBC60079BD50 /* Sleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sleighbells.h; sourceTree = "<group>"; };
+		E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sleighbells.m; sourceTree = "<group>"; };
+		E4E2BABE1ABDBDF70079BD50 /* StruckMetalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StruckMetalBar.h; sourceTree = "<group>"; };
+		E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StruckMetalBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -565,6 +574,10 @@
 			children = (
 				C4A2C3911ABCC40700EB48AE /* Amplifier.h */,
 				C4A2C3921ABCC40700EB48AE /* Amplifier.m */,
+				E4E2BAB81ABDB9240079BD50 /* BambooSticks.h */,
+				E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */,
+				E4E2BABE1ABDBDF70079BD50 /* StruckMetalBar.h */,
+				E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */,
 				C4A2C3851ABCABB600EB48AE /* FMOscillatorInstrument.h */,
 				C4A2C3861ABCABB600EB48AE /* FMOscillatorInstrument.m */,
 				C4A2C38E1ABCC34400EB48AE /* ReverbProcessor.h */,
@@ -583,6 +596,8 @@
 				E4E2BAB31ABDAF450079BD50 /* PluckedString.m */,
 				E4E2BAB51ABDB5240079BD50 /* Stick.h */,
 				E4E2BAB61ABDB5240079BD50 /* Stick.m */,
+				E4E2BABB1ABDBBC60079BD50 /* Sleighbells.h */,
+				E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1440,6 +1455,7 @@
 				C4FE749D1ABA4CF6001641B7 /* AKPlayground.m in Sources */,
 				C4FE76621ABA4FCE001641B7 /* AKConvolution.m in Sources */,
 				C4FE76281ABA4FCE001641B7 /* AKDifference.m in Sources */,
+				E4E2BABD1ABDBBC60079BD50 /* Sleighbells.m in Sources */,
 				C4FE76871ABA4FCE001641B7 /* AKParameter.m in Sources */,
 				C4FE762F1ABA4FCE001641B7 /* AKSum.m in Sources */,
 				C4FE76891ABA4FCE001641B7 /* CsoundObj.m in Sources */,
@@ -1472,6 +1488,7 @@
 				C4FE76521ABA4FCE001641B7 /* AKBowedString.m in Sources */,
 				C4FE76291ABA4FCE001641B7 /* AKInverse.m in Sources */,
 				E4E2BAB41ABDAF450079BD50 /* PluckedString.m in Sources */,
+				E4E2BABA1ABDB9240079BD50 /* BambooSticks.m in Sources */,
 				C4FE767B1ABA4FCE001641B7 /* AKLowPassButterworthFilter.m in Sources */,
 				C4FE76801ABA4FCE001641B7 /* AKBalance.m in Sources */,
 				C4FE76321ABA4FCE001641B7 /* AKLine.m in Sources */,
@@ -1491,6 +1508,7 @@
 				C4FE76171ABA4FCE001641B7 /* AKNote.m in Sources */,
 				C4FE761B1ABA4FCE001641B7 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
 				C4FE74761AB9FB58001641B7 /* main.m in Sources */,
+				E4E2BAC01ABDBDF70079BD50 /* StruckMetalBar.m in Sources */,
 				C4FE76381ABA4FCE001641B7 /* AKMonoSoundFileLooper.m in Sources */,
 				C4FE769B1ABA4FCE001641B7 /* AKWindowTableGenerator.m in Sources */,
 				C4FE76741ABA4FCE001641B7 /* AKResonantFilter.m in Sources */,
