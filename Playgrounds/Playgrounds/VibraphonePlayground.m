@@ -2,16 +2,16 @@
 //  VibraphonePlayground.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 3/15/15.
+//  Created by Nick Arner on 3/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 #import "Playground.h"
-#import "Vibraphone.h"
+#import "Marimba.h"
 
 @implementation Playground {
-    Vibraphone *vibraphone;
-    VibraphoneNote *note;
+    Marimba *marimba;
+    MarimbaNote *note;
 }
 
 - (void) setup
@@ -23,26 +23,27 @@
 - (void)run
 {
     [super run];
-    vibraphone = [[Vibraphone alloc] init];
-    [AKOrchestra addInstrument:vibraphone];
+    marimba = [[Marimba alloc] init];
+    [AKOrchestra addInstrument:marimba];
     
     [self addStereoAudioOutputPlot];
-    note = [[VibraphoneNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [vibraphone playNote:note];);
+    note = [[MarimbaNote alloc] init];
+    AKPlaygroundButton(@"Play Once", [marimba playNote:note];);
     
-    AKPlaygroundPropertySlider(volume, vibraphone.amplitude);
+    AKPlaygroundPropertySlider(volume, marimba.amplitude);
+    AKPlaygroundPropertySlider(vibratoFreq, marimba.vibratoFrequency);
+    AKPlaygroundPropertySlider(vibratoAmp, marimba.vibratoAmplitude);
     
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
     
-    
     [self makeSection:@"Repeat Frequency"];
-    [self addRepeatSliderForInstrument:vibraphone
+    [self addRepeatSliderForInstrument:marimba
                                 phrase:phrase
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
     
-    AKPlaygroundButton(@"Stop Loop",  [vibraphone stopPhrase];);
+    AKPlaygroundButton(@"Stop Loop",  [marimba stopPhrase];);
     
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.frequency);

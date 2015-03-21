@@ -2,7 +2,7 @@
 //  StruckMetalBarPlayground.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 3/15/15.
+//  Created by Nick Arner on 3/21/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
