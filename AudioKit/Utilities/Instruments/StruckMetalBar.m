@@ -34,7 +34,6 @@
 
         // Output to global effects processing (choose mono or stereo accordingly)
         _auxilliaryOutput = [AKAudio globalParameter];
-        //_auxilliaryOutput = [AKStereoAudio globalParameter];
         [self assignOutput:_auxilliaryOutput to:struckMetalBar];
     }
     return self;
@@ -44,7 +43,6 @@
 // -----------------------------------------------------------------------------
 #  pragma mark - StruckMetalBar Note
 // -----------------------------------------------------------------------------
-
 
 @implementation StruckMetalBarNote
 
@@ -66,7 +64,6 @@
         _strikeWidth.isContinuous = NO;
         _scanSpeed = [self createPropertyWithValue:0.23 minimum:0 maximum:0.9];
         _scanSpeed.isContinuous = NO;
-
 
         // Optionally set a default note duration
         self.duration.value = 1.0;

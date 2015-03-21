@@ -30,7 +30,6 @@
 
         // Output to global effects processing (choose mono or stereo accordingly)
         _auxilliaryOutput = [AKAudio globalParameter];
-        //_auxilliaryOutput = [AKStereoAudio globalParameter];
         [self assignOutput:_auxilliaryOutput to:sekere];
     }
     return self;
