@@ -173,6 +173,7 @@
 		C4FE76AB1ABA4FCE001641B7 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4FE76101ABA4FCE001641B7 /* Stairwell.wav */; };
 		E4E2BAA71ABCDEE60079BD50 /* Vibraphone.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */; };
 		E4E2BAAA1ABCE8290079BD50 /* Mandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA91ABCE8290079BD50 /* Mandolin.m */; };
+		E4E2BAAE1ABCF7660079BD50 /* Marimba.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAAD1ABCF7660079BD50 /* Marimba.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -526,6 +527,8 @@
 		E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vibraphone.m; sourceTree = "<group>"; };
 		E4E2BAA81ABCE8290079BD50 /* Mandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mandolin.h; sourceTree = "<group>"; };
 		E4E2BAA91ABCE8290079BD50 /* Mandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mandolin.m; sourceTree = "<group>"; };
+		E4E2BAAC1ABCF7660079BD50 /* Marimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marimba.h; sourceTree = "<group>"; };
+		E4E2BAAD1ABCF7660079BD50 /* Marimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marimba.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -568,6 +571,8 @@
 				E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */,
 				E4E2BAA81ABCE8290079BD50 /* Mandolin.h */,
 				E4E2BAA91ABCE8290079BD50 /* Mandolin.m */,
+				E4E2BAAC1ABCF7660079BD50 /* Marimba.h */,
+				E4E2BAAD1ABCF7660079BD50 /* Marimba.m */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1526,6 +1531,7 @@
 				C4FE76A41ABA4FCE001641B7 /* AKStereoOutputPlot.m in Sources */,
 				C4FE766C1ABA4FCE001641B7 /* AKDecimator.m in Sources */,
 				C4A2C3931ABCC40700EB48AE /* Amplifier.m in Sources */,
+				E4E2BAAE1ABCF7660079BD50 /* Marimba.m in Sources */,
 				C4FE761C1ABA4FCE001641B7 /* AKTrackedFrequency.m in Sources */,
 				C4FE76691ABA4FCE001641B7 /* AKFlanger.m in Sources */,
 				C4FE76201ABA4FCE001641B7 /* AKFFTProcessor.m in Sources */,

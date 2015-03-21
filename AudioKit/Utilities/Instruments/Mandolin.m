@@ -1,6 +1,6 @@
 //
 //  Mandolin.m
-//  AudioKitPlayground
+//  AudioKit
 //
 //  Created by Nicholas Arner on 3/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
