@@ -574,30 +574,13 @@
 			children = (
 				C4A2C3911ABCC40700EB48AE /* Amplifier.h */,
 				C4A2C3921ABCC40700EB48AE /* Amplifier.m */,
-				E4E2BAB81ABDB9240079BD50 /* BambooSticks.h */,
-				E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */,
-				E4E2BABE1ABDBDF70079BD50 /* StruckMetalBar.h */,
-				E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */,
+				E4E2BAC11ABE00990079BD50 /* Physical Models */,
 				C4A2C3851ABCABB600EB48AE /* FMOscillatorInstrument.h */,
 				C4A2C3861ABCABB600EB48AE /* FMOscillatorInstrument.m */,
 				C4A2C38E1ABCC34400EB48AE /* ReverbProcessor.h */,
 				C4A2C38F1ABCC34400EB48AE /* ReverbProcessor.m */,
 				C4A2C3941ABCCCE300EB48AE /* StereoAmplifier.h */,
 				C4A2C3951ABCCCE300EB48AE /* StereoAmplifier.m */,
-				C41D6B651ABBA89200F97BC5 /* Tambourine.h */,
-				C41D6B661ABBA89200F97BC5 /* Tambourine.m */,
-				E4E2BAA51ABCDEE60079BD50 /* Vibraphone.h */,
-				E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */,
-				E4E2BAA81ABCE8290079BD50 /* Mandolin.h */,
-				E4E2BAA91ABCE8290079BD50 /* Mandolin.m */,
-				E4E2BAAC1ABCF7660079BD50 /* Marimba.h */,
-				E4E2BAAD1ABCF7660079BD50 /* Marimba.m */,
-				E4E2BAB21ABDAF450079BD50 /* PluckedString.h */,
-				E4E2BAB31ABDAF450079BD50 /* PluckedString.m */,
-				E4E2BAB51ABDB5240079BD50 /* Stick.h */,
-				E4E2BAB61ABDB5240079BD50 /* Stick.m */,
-				E4E2BABB1ABDBBC60079BD50 /* Sleighbells.h */,
-				E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1303,6 +1286,39 @@
 				C4FE76101ABA4FCE001641B7 /* Stairwell.wav */,
 			);
 			path = "Sound Files";
+			sourceTree = "<group>";
+		};
+		E4E2BAC11ABE00990079BD50 /* Physical Models */ = {
+			isa = PBXGroup;
+			children = (
+				E4E2BAA81ABCE8290079BD50 /* Mandolin.h */,
+				E4E2BAA91ABCE8290079BD50 /* Mandolin.m */,
+				E4E2BAAC1ABCF7660079BD50 /* Marimba.h */,
+				E4E2BAAD1ABCF7660079BD50 /* Marimba.m */,
+				E4E2BAB21ABDAF450079BD50 /* PluckedString.h */,
+				E4E2BAB31ABDAF450079BD50 /* PluckedString.m */,
+				E4E2BABE1ABDBDF70079BD50 /* StruckMetalBar.h */,
+				E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */,
+				E4E2BAA51ABCDEE60079BD50 /* Vibraphone.h */,
+				E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */,
+				E4E2BAC21ABE00FC0079BD50 /* Phisem */,
+			);
+			name = "Physical Models";
+			sourceTree = "<group>";
+		};
+		E4E2BAC21ABE00FC0079BD50 /* Phisem */ = {
+			isa = PBXGroup;
+			children = (
+				E4E2BAB81ABDB9240079BD50 /* BambooSticks.h */,
+				E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */,
+				E4E2BABB1ABDBBC60079BD50 /* Sleighbells.h */,
+				E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */,
+				E4E2BAB51ABDB5240079BD50 /* Stick.h */,
+				E4E2BAB61ABDB5240079BD50 /* Stick.m */,
+				C41D6B651ABBA89200F97BC5 /* Tambourine.h */,
+				C41D6B661ABBA89200F97BC5 /* Tambourine.m */,
+			);
+			name = Phisem;
 			sourceTree = "<group>";
 		};
 		F966D54CBFB9571EFA73012F /* Frameworks */ = {
