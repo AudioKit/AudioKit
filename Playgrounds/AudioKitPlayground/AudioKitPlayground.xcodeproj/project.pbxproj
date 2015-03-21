@@ -172,6 +172,7 @@
 		C4FE76AA1ABA4FCE001641B7 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4FE760F1ABA4FCE001641B7 /* PianoBassDrumLoop.wav */; };
 		C4FE76AB1ABA4FCE001641B7 /* Stairwell.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4FE76101ABA4FCE001641B7 /* Stairwell.wav */; };
 		E4E2BAA71ABCDEE60079BD50 /* Vibraphone.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */; };
+		E4E2BAAA1ABCE8290079BD50 /* Mandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA91ABCE8290079BD50 /* Mandolin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -523,6 +524,8 @@
 		E0B3481AC539415D957B1BA4 /* Pods-AudioKitPlayground.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioKitPlayground.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioKitPlayground/Pods-AudioKitPlayground.release.xcconfig"; sourceTree = "<group>"; };
 		E4E2BAA51ABCDEE60079BD50 /* Vibraphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vibraphone.h; sourceTree = "<group>"; };
 		E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vibraphone.m; sourceTree = "<group>"; };
+		E4E2BAA81ABCE8290079BD50 /* Mandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mandolin.h; sourceTree = "<group>"; };
+		E4E2BAA91ABCE8290079BD50 /* Mandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mandolin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,6 +566,8 @@
 				C41D6B661ABBA89200F97BC5 /* Tambourine.m */,
 				E4E2BAA51ABCDEE60079BD50 /* Vibraphone.h */,
 				E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */,
+				E4E2BAA81ABCE8290079BD50 /* Mandolin.h */,
+				E4E2BAA91ABCE8290079BD50 /* Mandolin.m */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1492,6 +1497,7 @@
 				C4FE76351ABA4FCE001641B7 /* AKGranularSynthesisTexture.m in Sources */,
 				C4FE76471ABA4FCE001641B7 /* AKBambooSticks.m in Sources */,
 				C4FE765B1ABA4FCE001641B7 /* AKAdditiveCosines.m in Sources */,
+				E4E2BAAA1ABCE8290079BD50 /* Mandolin.m in Sources */,
 				C4FE76491ABA4FCE001641B7 /* AKCrunch.m in Sources */,
 				C4FE764C1ABA4FCE001641B7 /* AKSandPaper.m in Sources */,
 				C4FE763B1ABA4FCE001641B7 /* AKPortamento.m in Sources */,
