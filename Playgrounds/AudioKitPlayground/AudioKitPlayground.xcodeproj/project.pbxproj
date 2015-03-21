@@ -174,6 +174,7 @@
 		E4E2BAA71ABCDEE60079BD50 /* Vibraphone.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA61ABCDEE60079BD50 /* Vibraphone.m */; };
 		E4E2BAAA1ABCE8290079BD50 /* Mandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA91ABCE8290079BD50 /* Mandolin.m */; };
 		E4E2BAAE1ABCF7660079BD50 /* Marimba.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAAD1ABCF7660079BD50 /* Marimba.m */; };
+		E4E2BAB41ABDAF450079BD50 /* PluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB31ABDAF450079BD50 /* PluckedString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -529,6 +530,8 @@
 		E4E2BAA91ABCE8290079BD50 /* Mandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mandolin.m; sourceTree = "<group>"; };
 		E4E2BAAC1ABCF7660079BD50 /* Marimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marimba.h; sourceTree = "<group>"; };
 		E4E2BAAD1ABCF7660079BD50 /* Marimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marimba.m; sourceTree = "<group>"; };
+		E4E2BAB21ABDAF450079BD50 /* PluckedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluckedString.h; sourceTree = "<group>"; };
+		E4E2BAB31ABDAF450079BD50 /* PluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluckedString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -573,6 +576,8 @@
 				E4E2BAA91ABCE8290079BD50 /* Mandolin.m */,
 				E4E2BAAC1ABCF7660079BD50 /* Marimba.h */,
 				E4E2BAAD1ABCF7660079BD50 /* Marimba.m */,
+				E4E2BAB21ABDAF450079BD50 /* PluckedString.h */,
+				E4E2BAB31ABDAF450079BD50 /* PluckedString.m */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1461,6 +1466,7 @@
 				C4FE76481ABA4FCE001641B7 /* AKCabasa.m in Sources */,
 				C4FE76521ABA4FCE001641B7 /* AKBowedString.m in Sources */,
 				C4FE76291ABA4FCE001641B7 /* AKInverse.m in Sources */,
+				E4E2BAB41ABDAF450079BD50 /* PluckedString.m in Sources */,
 				C4FE767B1ABA4FCE001641B7 /* AKLowPassButterworthFilter.m in Sources */,
 				C4FE76801ABA4FCE001641B7 /* AKBalance.m in Sources */,
 				C4FE76321ABA4FCE001641B7 /* AKLine.m in Sources */,
