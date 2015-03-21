@@ -28,6 +28,7 @@
         struckMetalBar.strikePosition = note.strikePosition;
         struckMetalBar.strikeVelocity = note.strikeVelocity;
         struckMetalBar.strikeWidth = note.strikeWidth;
+        struckMetalBar.scanSpeed = note.scanSpeed;
 
         [self setAudioOutput:[struckMetalBar scaledBy:_amplitude]];
 
@@ -63,6 +64,9 @@
         _strikeVelocity.isContinuous = NO;
         _strikeWidth = [self createPropertyWithValue:0.2 minimum:0 maximum:0.9];
         _strikeWidth.isContinuous = NO;
+        _scanSpeed = [self createPropertyWithValue:0.23 minimum:0 maximum:0.9];
+        _scanSpeed.isContinuous = NO;
+
 
         // Optionally set a default note duration
         self.duration.value = 1.0;
