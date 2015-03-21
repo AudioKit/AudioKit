@@ -15,7 +15,6 @@
 
 // Audio outlet for global effects processing (choose mono or stereo accordingly)
 @property (readonly) AKAudio *auxilliaryOutput;
-//@property (readonly) AKStereoAudio *auxilliaryOutput;
 
 @end
 

@@ -17,40 +17,37 @@
 - (void) setup
 {
     [super setup];
-
+    bambooSticks = [[BambooSticks alloc] init];
+    [AKOrchestra addInstrument:bambooSticks];
 }
-
 
 - (void)run
 {
     [super run];
-    bambooSticks = [[BambooSticks alloc] init];
-    [AKOrchestra addInstrument:bambooSticks];
-    
     [self addStereoAudioOutputPlot];
+
     note = [[BambooSticksNote alloc] init];
     AKPlaygroundButton(@"Play Once", [bambooSticks playNote:note];);
-    
+
     AKPlaygroundPropertySlider(volume, bambooSticks.amplitude);
-    
+
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-    
-    
+
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:bambooSticks
                                 phrase:phrase
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
-    
+
     AKPlaygroundButton(@"Stop Loop",  [bambooSticks stopPhrase];);
-    
+
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(intensity, note.count);
+    AKPlaygroundPropertySlider(count,       note.count);
     AKPlaygroundPropertySlider(mainResFreq, note.mainResonantFrequency);
-    AKPlaygroundPropertySlider(firstResFreq, note.firstResonantFrequency);
-    AKPlaygroundPropertySlider(secondResFreq, note.secondResonantFrequency);
-    AKPlaygroundPropertySlider(amplitude, note.amplitude);
+    AKPlaygroundPropertySlider(resFreq1,    note.firstResonantFrequency);
+    AKPlaygroundPropertySlider(resFreq2,    note.secondResonantFrequency);
+    AKPlaygroundPropertySlider(amplitude,   note.amplitude);
 }
 
 @end
