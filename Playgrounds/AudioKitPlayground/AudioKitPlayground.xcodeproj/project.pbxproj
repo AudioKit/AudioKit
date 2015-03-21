@@ -179,6 +179,7 @@
 		E4E2BABA1ABDB9240079BD50 /* BambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */; };
 		E4E2BABD1ABDBBC60079BD50 /* Sleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */; };
 		E4E2BAC01ABDBDF70079BD50 /* StruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */; };
+		E4E2BAC51ABE01EA0079BD50 /* Sekere.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAC41ABE01EA0079BD50 /* Sekere.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -544,6 +545,8 @@
 		E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sleighbells.m; sourceTree = "<group>"; };
 		E4E2BABE1ABDBDF70079BD50 /* StruckMetalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StruckMetalBar.h; sourceTree = "<group>"; };
 		E4E2BABF1ABDBDF70079BD50 /* StruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StruckMetalBar.m; sourceTree = "<group>"; };
+		E4E2BAC31ABE01EA0079BD50 /* Sekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sekere.h; path = "../../Operations/Signal Generators/Physical Models/PhISEM/Sekere.h"; sourceTree = "<group>"; };
+		E4E2BAC41ABE01EA0079BD50 /* Sekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sekere.m; path = "../../Operations/Signal Generators/Physical Models/PhISEM/Sekere.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1311,6 +1314,8 @@
 			children = (
 				E4E2BAB81ABDB9240079BD50 /* BambooSticks.h */,
 				E4E2BAB91ABDB9240079BD50 /* BambooSticks.m */,
+				E4E2BAC31ABE01EA0079BD50 /* Sekere.h */,
+				E4E2BAC41ABE01EA0079BD50 /* Sekere.m */,
 				E4E2BABB1ABDBBC60079BD50 /* Sleighbells.h */,
 				E4E2BABC1ABDBBC60079BD50 /* Sleighbells.m */,
 				E4E2BAB51ABDB5240079BD50 /* Stick.h */,
@@ -1539,6 +1544,7 @@
 				C4FE76221ABA4FCE001641B7 /* AKPhaseLockedVocoder.m in Sources */,
 				C4FE76151ABA4FCE001641B7 /* AKInstrument.m in Sources */,
 				C4FE762B1ABA4FCE001641B7 /* AKMinimum.m in Sources */,
+				E4E2BAC51ABE01EA0079BD50 /* Sekere.m in Sources */,
 				C4FE762D1ABA4FCE001641B7 /* AKProduct.m in Sources */,
 				C4FE762C1ABA4FCE001641B7 /* AKMultipleInputMathOperation.m in Sources */,
 				C4FE76331ABA4FCE001641B7 /* AKLinearADSREnvelope.m in Sources */,
