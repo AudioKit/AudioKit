@@ -131,7 +131,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_bodySize, _frequency, _amplitude, _pairedStringDetuning, _pluckPosition, _loopGain, _strikeImpulseTable];
+    self.dependencies = @[_bodySize, _frequency, _amplitude, _pairedStringDetuning, _pluckPosition, _loopGain];
 }
 
 - (NSString *)inlineStringForCSD
