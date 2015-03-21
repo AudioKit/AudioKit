@@ -49,8 +49,12 @@
     self = [super init];
     if (self) {
         _count = [self createPropertyWithValue:64 minimum:32 maximum:200];
+        _count.isContinuous = NO;
         _dampingFactor = [self createPropertyWithValue:0.1 minimum:0 maximum:1];
+        _dampingFactor.isContinuous = NO;
         _amplitude = [self createPropertyWithValue:1 minimum:0 maximum:1];
+        _amplitude.isContinuous = NO;
+
 
         // Optionally set a default note duration
         self.duration.value = 1.0;
