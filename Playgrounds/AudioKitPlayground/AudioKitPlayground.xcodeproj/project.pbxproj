@@ -175,6 +175,7 @@
 		E4E2BAAA1ABCE8290079BD50 /* Mandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAA91ABCE8290079BD50 /* Mandolin.m */; };
 		E4E2BAAE1ABCF7660079BD50 /* Marimba.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAAD1ABCF7660079BD50 /* Marimba.m */; };
 		E4E2BAB41ABDAF450079BD50 /* PluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB31ABDAF450079BD50 /* PluckedString.m */; };
+		E4E2BAB71ABDB5240079BD50 /* Stick.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E2BAB61ABDB5240079BD50 /* Stick.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -532,6 +533,8 @@
 		E4E2BAAD1ABCF7660079BD50 /* Marimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marimba.m; sourceTree = "<group>"; };
 		E4E2BAB21ABDAF450079BD50 /* PluckedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluckedString.h; sourceTree = "<group>"; };
 		E4E2BAB31ABDAF450079BD50 /* PluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluckedString.m; sourceTree = "<group>"; };
+		E4E2BAB51ABDB5240079BD50 /* Stick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stick.h; sourceTree = "<group>"; };
+		E4E2BAB61ABDB5240079BD50 /* Stick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stick.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -578,6 +581,8 @@
 				E4E2BAAD1ABCF7660079BD50 /* Marimba.m */,
 				E4E2BAB21ABDAF450079BD50 /* PluckedString.h */,
 				E4E2BAB31ABDAF450079BD50 /* PluckedString.m */,
+				E4E2BAB51ABDB5240079BD50 /* Stick.h */,
+				E4E2BAB61ABDB5240079BD50 /* Stick.m */,
 			);
 			path = Instruments;
 			sourceTree = "<group>";
@@ -1525,6 +1530,7 @@
 				C4FE76371ABA4FCE001641B7 /* AKSinusoidBursts.m in Sources */,
 				C4FE76111ABA4FCE001641B7 /* AKManager.m in Sources */,
 				C4FE76A01ABA4FCE001641B7 /* AKAudioInputPlot.m in Sources */,
+				E4E2BAB71ABDB5240079BD50 /* Stick.m in Sources */,
 				C4FE76671ABA4FCE001641B7 /* AKCompressor.m in Sources */,
 				C4FE76551ABA4FCE001641B7 /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				C4FE762E1ABA4FCE001641B7 /* AKSingleInputMathOperation.m in Sources */,
