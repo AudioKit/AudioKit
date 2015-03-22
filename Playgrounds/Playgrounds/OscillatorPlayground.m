@@ -1,5 +1,5 @@
 //
-//  SynthesisPlayground.m
+//  OscillatorPlayground.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/11/15.
@@ -35,10 +35,13 @@
 
     [instrument restart];
 
-    AKPlaygroundButton(@"Play", [instrument play];);
-    AKPlaygroundButton(@"Stop", [instrument stop];);
+    [self addButtonWithTitle:@"Play" block:^{
+        [instrument play];
+    }];
 
-
+    [self addButtonWithTitle:@"Stop" block:^{
+        [instrument stop];
+    }];
 }
 
 @end

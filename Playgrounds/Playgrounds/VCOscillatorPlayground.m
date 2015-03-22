@@ -35,7 +35,6 @@
 }
 @end
 
-
 @implementation Note
 
 - (instancetype)init
@@ -76,27 +75,29 @@
 
     Note *note = [[Note alloc] init];
 
-    AKPlaygroundButton(@"Play Triangle Wave",
-                       note.waveformType.value = [[AKVCOscillator waveformTypeForTriangle] value];
-                       [instrument playNote:note];
-                       );
-    AKPlaygroundButton(@"Play Triangle WithRamp",
-                       note.waveformType.value = [[AKVCOscillator waveformTypeForTriangleWithRamp] value];
-                       [instrument playNote:note];
-                       );
-    AKPlaygroundButton(@"Play Sawtooth Wave",
-                       note.waveformType.value = [[AKVCOscillator waveformTypeForSawtooth] value];
-                       [instrument playNote:note];
-                       );
-    AKPlaygroundButton(@"Play Square with PWM",
-                       note.waveformType.value = [[AKVCOscillator waveformTypeForSquareWithPWM] value];
-                       [instrument playNote:note];
-                       );
-    AKPlaygroundButton(@"Play Integrated",
-                       note.waveformType.value = [[AKVCOscillator waveformTypeForIntegratedSawtooth] value];
-                       [instrument playNote:note];
-                       );
-    AKPlaygroundButton(@"Stop", [instrument stop];);
+    [self addButtonWithTitle:@"Play Triangle Wave" block:^{
+        note.waveformType.value = [[AKVCOscillator waveformTypeForTriangle] value];
+        [instrument playNote:note];
+    }];
+    [self addButtonWithTitle:@"Play Triangle WithRamp" block:^{
+        note.waveformType.value = [[AKVCOscillator waveformTypeForTriangleWithRamp] value];
+        [instrument playNote:note];
+    }];
+    [self addButtonWithTitle:@"Play Sawtooth Wave" block:^{
+        note.waveformType.value = [[AKVCOscillator waveformTypeForSawtooth] value];
+        [instrument playNote:note];
+    }];
+    [self addButtonWithTitle:@"Play Square with PWM" block:^{
+        note.waveformType.value = [[AKVCOscillator waveformTypeForSquareWithPWM] value];
+        [instrument playNote:note];
+    }];
+    [self addButtonWithTitle:@"Play Integrated" block:^{
+        note.waveformType.value = [[AKVCOscillator waveformTypeForIntegratedSawtooth] value];
+        [instrument playNote:note];
+    }];
+    [self addButtonWithTitle:@"Stop" block:^{
+        [instrument stop];
+    }];
 }
 
 @end

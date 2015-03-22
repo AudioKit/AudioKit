@@ -24,24 +24,25 @@
 - (void)run
 {
     [super run];
-    
+    [self addAudioOutputPlot];
+
     oscillator = [[FMOscillatorInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:oscillator];
-    
-    
+
     float duration = 0.1;
-    
-    AKPlaygroundButton(@"Play Phrase Once",
-                       [oscillator playPhrase:[self phraseWithDuration:duration]];
-                       );
-    
-    AKPlaygroundButton(@"Loop Phrase",
-                       [oscillator repeatPhrase:[self phraseWithDuration:duration]];
-                       );
-    AKPlaygroundButton(@"Stop Looping Phrase",
-                       [phrase reset];
-                       [oscillator stopPhrase];
-                       );
+
+    [self addButtonWithTitle:@"Play Phrase Once" block:^{
+        [oscillator playPhrase:[self phraseWithDuration:duration]];
+    }];
+
+    [self addButtonWithTitle:@"Loop Phrase" block:^{
+        [oscillator repeatPhrase:[self phraseWithDuration:duration]];
+    }];
+
+    [self addButtonWithTitle:@"Stop Looping Phrase" block:^{
+        [phrase reset];
+        [oscillator stopPhrase];
+    }];
 }
 
 
