@@ -66,34 +66,58 @@
 }
 
 
+- (void)addPlot:(UIView *)plot title:(NSString *)title {
+    [plot setBackgroundColor:[UIColor blackColor]];
+    [self addLabel:title toView:plot];
+    [AKManager addBinding:plot];
+    [self toggleView:plot];
+}
+
+- (void)addToggleWithTitle:(NSString *)title selector:(SEL)selector
+{
+    KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    label.text = title;
+    [timelineViewController addView:label];
+    UISwitch *toggleSwitch = [[UISwitch alloc] init];
+    [toggleSwitch setOn:YES];
+    [toggleSwitch addTarget:self action:selector forControlEvents:UIControlEventValueChanged];
+    [timelineViewController addView:toggleSwitch];
+}
+
+
+- (void)toggleAudioInputPlot:(UISwitch *)sender {
+    [self toggleView:inputPlot];
+}
+
 - (void)addAudioInputPlot
 {
     inputPlot = [[AKAudioInputPlot alloc] init];
+    [self addPlot:inputPlot title:@"Audio Input"];
     [inputPlot setBackgroundColor:[UIColor colorWithRed:0.000 green:0.000 blue:0.502 alpha:1.000]];
-    [cs addBinding:inputPlot];
-    [self addLabel:@"Microphone" toView:inputPlot];
-    [self toggleView:inputPlot];
-    KZPAction(@"Microphone",   ^{ [self toggleView:inputPlot ]; });
+    [self addToggleWithTitle:@"Audio Input Plot" selector:@selector(toggleAudioInputPlot:)];
 }
 
-- (void)addStereoAudioOutputPlot
+- (void)toggleStereoOutputPlot:(UISwitch *)sender {
+    [self toggleView:stereoPlot];
+}
+
+- (void)addStereoOutputPlot
 {
     stereoPlot = [[AKStereoOutputPlot alloc] init];
-    [stereoPlot setBackgroundColor:[UIColor blackColor]];
-    [cs addBinding:stereoPlot];
-    [self addLabel:@"Stereo Output" toView:stereoPlot];
-    [self toggleView:stereoPlot];
-    KZPAction(@"Stereo Output", ^{ [self toggleView:stereoPlot]; });
+    [self addPlot:stereoPlot title:@"Stereo Output"];
+    [self addToggleWithTitle:@"Stereo Output Plot" selector:@selector(toggleStereoOutputPlot:)];
+}
+
+- (void)toggleAudioOutputPlot:(UISwitch *)sender {
+    [self toggleView:audioPlot];
 }
 
 - (void)addAudioOutputPlot
 {
     audioPlot = [[AKAudioOutputPlot alloc] init];
-    [audioPlot setBackgroundColor:[UIColor blackColor]];
-    [cs addBinding:audioPlot];
-    [self addLabel:@"Audio Output" toView:audioPlot];
-    [self toggleView:audioPlot];
-    KZPAction(@"Audio Output", ^{ [self toggleView:audioPlot]; });
+    [self addPlot:audioPlot title:@"Audio Output"];
+    [self addToggleWithTitle:@"Audio Output Plot" selector:@selector(toggleAudioOutputPlot:)];
 }
 
 - (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label
@@ -106,6 +130,7 @@
     [self toggleView:plot];
     KZPAction(label, ^{ [self toggleView:plot]; });
 }
+
 
 
 - (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label
