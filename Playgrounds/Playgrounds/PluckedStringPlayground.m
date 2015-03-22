@@ -28,7 +28,10 @@
 
     [self addAudioOutputPlot];
     note = [[PluckedStringNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [pluckedString playNote:note];);
+
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [pluckedString playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, pluckedString.amplitude);
 
@@ -42,7 +45,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [pluckedString stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [pluckedString stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.frequency);

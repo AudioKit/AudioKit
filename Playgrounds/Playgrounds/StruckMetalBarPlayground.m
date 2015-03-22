@@ -28,7 +28,10 @@
 
     [self addAudioOutputPlot];
     note = [[StruckMetalBarNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [struckMetalBar playNote:note];);
+
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [struckMetalBar playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, struckMetalBar.amplitude);
 
@@ -42,7 +45,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [struckMetalBar stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [struckMetalBar stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.dimensionlessStiffness);

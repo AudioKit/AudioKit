@@ -147,6 +147,11 @@
     [component.valueSlider setContinuous:NO];
 }
 
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())aBlock
+{
+    KZPAction(title, aBlock);
+}
+
 - (void)setup
 {
     [AKOrchestra start];

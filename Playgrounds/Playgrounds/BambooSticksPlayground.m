@@ -27,7 +27,9 @@
     [self addAudioOutputPlot];
 
     note = [[BambooSticksNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [bambooSticks playNote:note];);
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [bambooSticks playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, bambooSticks.amplitude);
 
@@ -40,7 +42,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [bambooSticks stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [bambooSticks stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(count,       note.count);
