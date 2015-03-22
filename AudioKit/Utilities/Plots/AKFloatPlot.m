@@ -17,7 +17,6 @@
 
 - (id)init
 {
-    NSLog(@"initializing");
     self = [super init];
     if (self) {
         index = 0;

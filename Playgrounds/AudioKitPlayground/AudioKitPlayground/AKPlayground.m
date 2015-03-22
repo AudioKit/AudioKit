@@ -52,11 +52,25 @@
     [self placeViews];
 }
 
+
+- (void)addLabel:(NSString *)labelText toView:(UIView *)view
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    
+    [label setTextColor:[UIColor whiteColor]];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
+    label.text = labelText;
+    [view addSubview:label];
+}
+
+
 - (void)addAudioInputPlot
 {
     inputPlot = [[AKAudioInputPlot alloc] init];
     [inputPlot setBackgroundColor:[UIColor colorWithRed:0.000 green:0.000 blue:0.502 alpha:1.000]];
     [cs addBinding:inputPlot];
+    [self addLabel:@"Microphone" toView:inputPlot];
     [self toggleView:inputPlot];
     KZPAction(@"Microphone",   ^{ [self toggleView:inputPlot ]; });
 }
@@ -66,6 +80,7 @@
     stereoPlot = [[AKStereoOutputPlot alloc] init];
     [stereoPlot setBackgroundColor:[UIColor blackColor]];
     [cs addBinding:stereoPlot];
+    [self addLabel:@"Audio Output" toView:stereoPlot];
     [self toggleView:stereoPlot];
     KZPAction(@"Stereo Output", ^{ [self toggleView:stereoPlot]; });
 }
@@ -76,6 +91,7 @@
     plot.property = property;
     [plot setBackgroundColor:[UIColor blackColor]];
     [cs addBinding:plot];
+    [self addLabel:label toView:plot];
     [self toggleView:plot];
     KZPAction(label, ^{ [self toggleView:plot]; });
 }
@@ -83,6 +99,7 @@
 
 - (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label
 {
+    [self addLabel:label toView:plot];
     [self toggleView:plot];
     KZPAction(label, ^{ [self toggleView:plot]; });
 }
@@ -92,6 +109,7 @@
     fftPlot = [[AKFFTPlot alloc] init];
     [fftPlot setBackgroundColor:[UIColor blackColor]];
     [cs addBinding:fftPlot];
+    [self addLabel:@"Audio Output FFT" toView:fftPlot];
     [self toggleView:fftPlot];
     KZPAction(@"Audio Output FFT", ^{ [self toggleView:fftPlot]; });
 }
