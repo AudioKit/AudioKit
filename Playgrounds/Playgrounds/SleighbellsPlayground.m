@@ -24,7 +24,7 @@
 - (void)run
 {
     [super run];
-    [self addStereoAudioOutputPlot];
+    [self addAudioOutputPlot];
 
     note = [[SleighbellsNote alloc] init];
     AKPlaygroundButton(@"Play Once", [sleighBells playNote:note];);

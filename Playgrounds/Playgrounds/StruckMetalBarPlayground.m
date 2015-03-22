@@ -25,25 +25,25 @@
     [super run];
     struckMetalBar = [[StruckMetalBar alloc] init];
     [AKOrchestra addInstrument:struckMetalBar];
-    
-    [self addStereoAudioOutputPlot];
+
+    [self addAudioOutputPlot];
     note = [[StruckMetalBarNote alloc] init];
     AKPlaygroundButton(@"Play Once", [struckMetalBar playNote:note];);
-    
+
     AKPlaygroundPropertySlider(volume, struckMetalBar.amplitude);
-    
+
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-    
-    
+
+
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:struckMetalBar
                                 phrase:phrase
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
-    
+
     AKPlaygroundButton(@"Stop Loop",  [struckMetalBar stopPhrase];);
-    
+
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.dimensionlessStiffness);
     AKPlaygroundPropertySlider(hfLoss, note.highFrequencyLoss);

@@ -11,6 +11,7 @@
 
 #import "AKFoundation.h"
 #import "AKStereoOutputPlot.h"
+#import "AKAudioOutputPlot.h"
 #import "AKAudioInputPlot.h"
 #import "AKInstrumentPropertyPlot.h"
 #import "AKFFTPlot.h"
@@ -38,6 +39,7 @@
 - (void)toggleView:(UIView *)view;
 
 - (void)addAudioInputPlot;
+- (void)addAudioOutputPlot;
 - (void)addStereoAudioOutputPlot;
 - (void)addFFTPlot;
 - (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label;

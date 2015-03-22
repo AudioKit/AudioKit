@@ -24,24 +24,24 @@
 - (void)run
 {
     [super run];
-    [self addStereoAudioOutputPlot];
+    [self addAudioOutputPlot];
     note = [[TambourineNote alloc] init];
     AKPlaygroundButton(@"Play Once", [tambourine playNote:note];);
-    
+
     AKPlaygroundPropertySlider(volume, tambourine.amplitude);
-    
+
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-    
-    
+
+
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:tambourine
                                 phrase:phrase
-                      minimumFrequency:1.0f
+                      minimumFrequency:0.0f
                       maximumFrequency:25.0f];
-    
+
     AKPlaygroundButton(@"Stop Loop",  [tambourine stopPhrase];);
-    
+
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(dampingFactor, note.dampingFactor);
     AKPlaygroundPropertySlider(resFreqMain,   note.mainResonantFrequency);

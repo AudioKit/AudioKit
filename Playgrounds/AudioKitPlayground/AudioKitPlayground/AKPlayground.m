@@ -14,6 +14,7 @@
     
     AKFFTPlot *fftPlot;
     AKStereoOutputPlot *stereoPlot;
+    AKAudioOutputPlot *audioPlot;
     AKAudioInputPlot  *inputPlot;
 //    AKAudioOutputAmplitudeView *audioOutputAmplitudeView;
 //    AKRollingWaveformView *rollingWaveformView;
@@ -80,9 +81,19 @@
     stereoPlot = [[AKStereoOutputPlot alloc] init];
     [stereoPlot setBackgroundColor:[UIColor blackColor]];
     [cs addBinding:stereoPlot];
-    [self addLabel:@"Audio Output" toView:stereoPlot];
+    [self addLabel:@"Stereo Output" toView:stereoPlot];
     [self toggleView:stereoPlot];
     KZPAction(@"Stereo Output", ^{ [self toggleView:stereoPlot]; });
+}
+
+- (void)addAudioOutputPlot
+{
+    audioPlot = [[AKAudioOutputPlot alloc] init];
+    [audioPlot setBackgroundColor:[UIColor blackColor]];
+    [cs addBinding:audioPlot];
+    [self addLabel:@"Audio Output" toView:audioPlot];
+    [self toggleView:audioPlot];
+    KZPAction(@"Audio Output", ^{ [self toggleView:audioPlot]; });
 }
 
 - (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label
