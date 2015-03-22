@@ -67,15 +67,15 @@
 - (void)run
 {
     [super run];
-    [self addStereoAudioOutputPlot];
-    
+    [self addAudioOutputPlot];
+
     Instrument *instrument = [[Instrument alloc] init];
     [AKOrchestra addInstrument:instrument];
-    
+
     AKPlaygroundPropertySlider(Frequency, instrument.frequency);
-    
+
     Note *note = [[Note alloc] init];
-    
+
     AKPlaygroundButton(@"Play Triangle Wave",
                        note.waveformType.value = [[AKVCOscillator waveformTypeForTriangle] value];
                        [instrument playNote:note];

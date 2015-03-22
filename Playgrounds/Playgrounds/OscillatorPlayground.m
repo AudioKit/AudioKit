@@ -18,8 +18,8 @@
 - (void)run
 {
     [super run];
-    
-    [self addStereoAudioOutputPlot];
+
+    [self addAudioOutputPlot];
     AKInstrument *instrument = [[AKInstrument alloc] initWithNumber:1];
 
     AKOscillator *oscillator = [AKOscillator oscillator];
@@ -30,14 +30,14 @@
     oscillator.frequency =  [baseFrequency plus:vibrato];
     oscillator.amplitude = akp(0.5);
     [instrument setAudioOutput:oscillator];
-    
+
     [AKOrchestra addInstrument:instrument];
-    
+
     [instrument restart];
 
     AKPlaygroundButton(@"Play", [instrument play];);
     AKPlaygroundButton(@"Stop", [instrument stop];);
-    
+
 
 }
 

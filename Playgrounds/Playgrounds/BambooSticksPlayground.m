@@ -24,7 +24,7 @@
 - (void)run
 {
     [super run];
-    [self addStereoAudioOutputPlot];
+    [self addAudioOutputPlot];
 
     note = [[BambooSticksNote alloc] init];
     AKPlaygroundButton(@"Play Once", [bambooSticks playNote:note];);

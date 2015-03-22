@@ -25,25 +25,25 @@
     [super run];
     pluckedString = [[PluckedString alloc] init];
     [AKOrchestra addInstrument:pluckedString];
-    
-    [self addStereoAudioOutputPlot];
+
+    [self addAudioOutputPlot];
     note = [[PluckedStringNote alloc] init];
     AKPlaygroundButton(@"Play Once", [pluckedString playNote:note];);
-    
+
     AKPlaygroundPropertySlider(volume, pluckedString.amplitude);
-    
+
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-    
-    
+
+
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:pluckedString
                                 phrase:phrase
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
-    
+
     AKPlaygroundButton(@"Stop Loop",  [pluckedString stopPhrase];);
-    
+
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.frequency);
     AKPlaygroundPropertySlider(pluckPosition, note.pluckPosition);
