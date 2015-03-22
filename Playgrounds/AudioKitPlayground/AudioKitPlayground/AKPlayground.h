@@ -41,7 +41,7 @@
 
 - (void)addAudioInputPlot;
 - (void)addAudioOutputPlot;
-- (void)addStereoAudioOutputPlot;
+- (void)addStereoOutputPlot;
 - (void)addFFTPlot;
 - (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label;
 - (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label;
