@@ -7,11 +7,11 @@
 //
 
 #import "Playground.h"
-#import "Marimba.h"
+#import "Vibraphone.h"
 
 @implementation Playground {
-    Marimba *marimba;
-    MarimbaNote *note;
+    Vibraphone *vibraphone;
+    VibraphoneNote *note;
 }
 
 - (void) setup
@@ -23,27 +23,32 @@
 - (void)run
 {
     [super run];
-    marimba = [[Marimba alloc] init];
-    [AKOrchestra addInstrument:marimba];
+    vibraphone = [[Vibraphone alloc] init];
+    [AKOrchestra addInstrument:vibraphone];
 
     [self addAudioOutputPlot];
-    note = [[MarimbaNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [marimba playNote:note];);
+    note = [[VibraphoneNote alloc] init];
 
-    AKPlaygroundPropertySlider(volume, marimba.amplitude);
-    AKPlaygroundPropertySlider(vibratoFreq, marimba.vibratoFrequency);
-    AKPlaygroundPropertySlider(vibratoAmp, marimba.vibratoAmplitude);
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [vibraphone playNote:note];
+    }];
+
+    AKPlaygroundPropertySlider(volume, vibraphone.amplitude);
+    AKPlaygroundPropertySlider(vibratoFreq, vibraphone.vibratoFrequency);
+    AKPlaygroundPropertySlider(vibratoAmp, vibraphone.vibratoAmplitude);
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
 
     [self makeSection:@"Repeat Frequency"];
-    [self addRepeatSliderForInstrument:marimba
+    [self addRepeatSliderForInstrument:vibraphone
                                 phrase:phrase
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [marimba stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [vibraphone stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.frequency);
