@@ -27,8 +27,8 @@
 @property AKNoteProperty *strikePosition;
 @property AKNoteProperty *strikeVelocity;
 @property AKNoteProperty *strikeWidth;
-//@property AKNoteProperty *leftBoundaryCondition;
-//@property AKNoteProperty *rightBoundaryCondition;
+@property AKNoteProperty *leftBoundaryCondition;
+@property AKNoteProperty *rightBoundaryCondition;
 @property AKNoteProperty *scanSpeed;
 
 
