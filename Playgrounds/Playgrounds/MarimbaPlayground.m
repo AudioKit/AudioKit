@@ -28,7 +28,10 @@
 
     [self addAudioOutputPlot];
     note = [[MarimbaNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [marimba playNote:note];);
+
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [marimba playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, marimba.amplitude);
     AKPlaygroundPropertySlider(vibratoFreq, marimba.vibratoFrequency);
@@ -43,7 +46,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [marimba stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [marimba stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.frequency);

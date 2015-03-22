@@ -28,7 +28,10 @@
 
     [self addAudioOutputPlot];
     note = [[MandolinNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [mandolin playNote:note];);
+
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [mandolin playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, mandolin.amplitude);
     AKPlaygroundPropertySlider(bodySize, mandolin.bodySize);
@@ -44,7 +47,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [mandolin stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [mandolin stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(frequency, note.frequency);

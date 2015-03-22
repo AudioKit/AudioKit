@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+
 #import <UIKit/UIKit.h>
 #import <KZPlayground/KZPPlayground.h>
+#import <KZPTimelineViewController.h>
 
 #import "AKFoundation.h"
 #import "AKStereoOutputPlot.h"
@@ -23,8 +26,6 @@
 #define AKPlaygroundPropertySlider(__name__, __property__) KZPAdjustValue(__name__, __property__.minimum, __property__.maximum).defaultValue(__property__.value); KZPAnimate(^{ __property__.value = __name__; });
 
 #define AKPlaygroundSliderOverride(__name__, __property__, __value__, __min__, __max__) KZPAdjustValue(__name__, __min__, __max__).defaultValue(__value__); KZPAnimate(^{ __property__.value = __name__; });
-
-#define AKPlaygroundButton(__label__, __block__) KZPAction(__label__, ^{ __block__ });
 
 #define AKPlaygroundTablePlot(__table__)  KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:__table__]);
 
@@ -51,4 +52,5 @@
                     minimumFrequency:(float)minFrequency
                     maximumFrequency:(float)maxFrequency;
 
+- (void)addButtonWithTitle:(NSString *)title block:(void (^)())aBlock;
 @end

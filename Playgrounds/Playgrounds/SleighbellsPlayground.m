@@ -27,7 +27,10 @@
     [self addAudioOutputPlot];
 
     note = [[SleighbellsNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [sleighBells playNote:note];);
+
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [sleighBells playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, sleighBells.amplitude);
 
@@ -40,7 +43,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [sleighBells stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [sleighBells stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(intensity,   note.intensity);

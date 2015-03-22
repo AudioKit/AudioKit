@@ -26,13 +26,15 @@
     [super run];
     [self addAudioOutputPlot];
     note = [[TambourineNote alloc] init];
-    AKPlaygroundButton(@"Play Once", [tambourine playNote:note];);
+
+    [self addButtonWithTitle:@"Play Once" block:^{
+        [tambourine playNote:note];
+    }];
 
     AKPlaygroundPropertySlider(volume, tambourine.amplitude);
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-
 
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:tambourine
@@ -40,7 +42,9 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    AKPlaygroundButton(@"Stop Loop",  [tambourine stopPhrase];);
+    [self addButtonWithTitle:@"Stop Loop" block:^{
+        [tambourine stopPhrase];
+    }];
 
     [self makeSection:@"Parameters"];
     AKPlaygroundPropertySlider(dampingFactor, note.dampingFactor);
