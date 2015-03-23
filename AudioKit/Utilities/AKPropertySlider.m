@@ -1,5 +1,5 @@
 //
-//  AKNotePropertySLider.m
+//  AKPropertySLider.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/22/15.
