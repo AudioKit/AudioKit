@@ -27,12 +27,12 @@
     if ([_property isKindOfClass:[AKInstrumentProperty class]])
     {
         AKInstrumentProperty *p = (AKInstrumentProperty *)_property;
-        self.text = [NSString stringWithFormat:@"%f", p.value];
+        self.text = [NSString stringWithFormat:@"%g", p.value];
     }
     else if ([_property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)_property;
-        self.text = [NSString stringWithFormat:@"%f", p.value];
+        self.text = [NSString stringWithFormat:@"%g", p.value];
     }
     
     [super setNeedsDisplay];
