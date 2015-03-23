@@ -1464,7 +1464,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../../AudioKit/Platforms/iOS/libs",
-					"$(SRCROOT)/../../../../AudioKit/Libraries/iOS/csound-iOS/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
