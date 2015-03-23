@@ -18,8 +18,9 @@
     AKStereoOutputPlot *stereoPlot;
     AKAudioOutputPlot *audioPlot;
     AKAudioInputPlot  *inputPlot;
-//    AKAudioOutputAmplitudeView *audioOutputAmplitudeView;
-//    AKRollingWaveformView *rollingWaveformView;
+    
+    NSMutableArray *views;
+    NSMutableArray *shownViews;
 }
 
 - (void)makeSection:(NSString *)title
@@ -33,11 +34,11 @@
 {
     float fullWidth  = self.worksheetView.bounds.size.width;
     float fullHeight = self.worksheetView.bounds.size.height;
-    NSUInteger shownCount = [_shownViews count];
+    NSUInteger shownCount = [shownViews count];
 
     int i = 0;
-    for (UIView *view in _views) {
-        if ([_shownViews containsObject:view]) {
+    for (UIView *view in views) {
+        if ([shownViews containsObject:view]) {
             [view setFrame:CGRectMake(0, 0, fullWidth, fullHeight/shownCount)];
             view.center = CGPointMake(self.worksheetView.center.x, self.worksheetView.center.y / shownCount * (2 * i + 1));
             [self.worksheetView addSubview:view];
@@ -50,8 +51,8 @@
 
 - (void)toggleView:(UIView *)view
 {
-    if (![_views containsObject:view]) [_views addObject:view];
-    [_shownViews containsObject:view] ? [_shownViews removeObject:view] : [_shownViews addObject:view];
+    if (![views containsObject:view]) [views addObject:view];
+    [shownViews containsObject:view] ? [shownViews removeObject:view] : [shownViews addObject:view];
     [self placeViews];
 }
 
@@ -140,25 +141,21 @@
     KZPAction(label, ^{ [self toggleView:plot]; });
 }
 
+- (void)addTablePlot:(AKTable *)table {
+   KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:table]);
+}
+
+- (void)toggleFFTPlot:(UISwitch *)sender {
+    [self toggleView:fftPlot];
+}
+
 - (void)addFFTPlot
 {
     fftPlot = [[AKFFTPlot alloc] init];
-    [fftPlot setBackgroundColor:[UIColor blackColor]];
-    [cs addBinding:fftPlot];
-    [self addLabel:@"Audio Output FFT" toView:fftPlot];
-    [self toggleView:fftPlot];
-    KZPAction(@"Audio Output FFT", ^{ [self toggleView:fftPlot]; });
+    [self addPlot:fftPlot title:@"Audio Output FFT"];
+    [self addToggleWithTitle:@"Audio FFT Plot" selector:@selector(toggleFFTPlot:)];
 }
 
-//- (void)addRollingWaveformView
-//{
-//    rollingWaveformView = [[AKRollingWaveformView alloc] init];
-//    NSLog(@"setting to green");
-//    [rollingWaveformView setBackgroundColor:[UIColor greenColor]];
-//    [cs addBinding:rollingWaveformView];
-//    [self toggleView:rollingWaveformView];
-//    KZPAction(@"Rolling", ^{ [self toggleView:rollingWaveformView]; });
-//}
 
 - (void)addRepeatSliderForInstrument:(AKInstrument *)instrument
                               phrase:(AKPhrase *)phrase
@@ -199,8 +196,8 @@
 {
     [AKOrchestra start];
     
-    _views = [[NSMutableArray alloc] init];
-    _shownViews = [[NSMutableArray alloc] init];
+    views = [[NSMutableArray alloc] init];
+    shownViews = [[NSMutableArray alloc] init];
     
     AKManager *manager = [AKManager sharedManager];
     [manager enableAudioInput];
@@ -208,8 +205,8 @@
 }
 
 - (void)run {
-    [_views removeAllObjects];
-    [_shownViews removeAllObjects];
+    [views removeAllObjects];
+    [shownViews removeAllObjects];
     [self placeViews];
 }
 

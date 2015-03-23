@@ -26,7 +26,7 @@
     [AKOrchestra addInstrument:instrument];
 
     AKTable *sine = [AKTable standardSineWave];
-    AKPlaygroundTablePlot(sine);
+    [self addTablePlot:sine];
 
     [self addButtonWithTitle:@"Play Sine" block:^{
         oscillator.waveform = sine;
@@ -35,7 +35,7 @@
     }];
 
     AKTable *sawtooth = [AKTable standardSawtoothWave];
-    AKPlaygroundTablePlot(sawtooth);
+    [self addTablePlot:sawtooth];
 
     [self addButtonWithTitle:@"Play Sawtooth" block:^{
         oscillator.waveform = sawtooth;
@@ -44,7 +44,7 @@
     }];
 
     AKTable *triangle = [AKTable standardTriangleWave];
-    AKPlaygroundTablePlot(triangle);
+    [self addTablePlot:triangle];
 
     [self addButtonWithTitle:@"Play Triangle" block:^{
         oscillator.waveform = triangle;
@@ -53,7 +53,7 @@
     }];
 
     AKTable *square = [AKTable standardSquareWave];
-    AKPlaygroundTablePlot(square);
+    [self addTablePlot:square];
 
     [self addButtonWithTitle:@"Play Square" block:^{
         oscillator.waveform = square;
@@ -68,7 +68,7 @@
     }
     [sawToothFromSines populateTableWithGenerator:sawSine];
 
-    AKPlaygroundTablePlot(sawToothFromSines);
+    [self addTablePlot:sawToothFromSines];
 
     [self addButtonWithTitle:@"Play This" block:^{
         oscillator.waveform = sawToothFromSines;
