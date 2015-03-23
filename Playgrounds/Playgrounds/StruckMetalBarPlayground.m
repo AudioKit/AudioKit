@@ -33,7 +33,7 @@
         [struckMetalBar playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, struckMetalBar.amplitude);
+    [self addSliderForProperty:struckMetalBar.amplitude title:@"Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
@@ -50,13 +50,13 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(frequency, note.dimensionlessStiffness);
-    AKPlaygroundPropertySlider(hfLoss, note.highFrequencyLoss);
-    AKPlaygroundPropertySlider(strikePosition, note.strikePosition);
-    AKPlaygroundPropertySlider(strikeVelocity, note.strikeVelocity);
-    AKPlaygroundPropertySlider(strikeWidth, note.strikeWidth);
-    AKPlaygroundPropertySlider(scanSpeed, note.scanSpeed);
 
+    [self addSliderForProperty:note.dimensionlessStiffness title:@"Stiffness"];
+    [self addSliderForProperty:note.highFrequencyLoss      title:@"High Freq. Loss"];
+    [self addSliderForProperty:note.strikePosition         title:@"Strike Position"];
+    [self addSliderForProperty:note.strikeVelocity         title:@"Strike Velocity"];
+    [self addSliderForProperty:note.strikeWidth            title:@"Strike Width"];
+    [self addSliderForProperty:note.scanSpeed              title:@"Scan Speed"];
 }
 
 @end

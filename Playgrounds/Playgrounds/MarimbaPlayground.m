@@ -33,9 +33,9 @@
         [marimba playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, marimba.amplitude);
-    AKPlaygroundPropertySlider(vibratoFreq, marimba.vibratoFrequency);
-    AKPlaygroundPropertySlider(vibratoAmp, marimba.vibratoAmplitude);
+    [self addSliderForProperty:marimba.amplitude        title:@"Amplitude"];
+    [self addSliderForProperty:marimba.vibratoFrequency title:@"Vibrato Frequency"];
+    [self addSliderForProperty:marimba.vibratoAmplitude title:@"Vibrato Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
@@ -51,10 +51,11 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(frequency, note.frequency);
-    AKPlaygroundPropertySlider(stickHardness, note.stickHardness);
-    AKPlaygroundPropertySlider(strikePosition, note.strikePosition);
-    AKPlaygroundPropertySlider(amplitude, note.amplitude);
+
+    [self addSliderForProperty:note.frequency      title:@"Frequency"];
+    [self addSliderForProperty:note.stickHardness  title:@"Stick Hardness"];
+    [self addSliderForProperty:note.strikePosition title:@"Strike Position"];
+    [self addSliderForProperty:note.amplitude      title:@"Amplitude"];
 }
 
 @end

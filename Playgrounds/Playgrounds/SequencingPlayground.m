@@ -45,8 +45,6 @@
     }];
 }
 
-
-
 - (AKPhrase *)phraseWithDuration:(float)duration
 {
     [phrase reset];

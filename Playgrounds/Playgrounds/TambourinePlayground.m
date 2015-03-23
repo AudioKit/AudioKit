@@ -31,7 +31,7 @@
         [tambourine playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, tambourine.amplitude);
+    [self addSliderForProperty:tambourine.amplitude title:@"Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
@@ -47,10 +47,12 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(dampingFactor, note.dampingFactor);
-    AKPlaygroundPropertySlider(resFreqMain,   note.mainResonantFrequency);
-    AKPlaygroundPropertySlider(resFreq1,      note.firstResonantFrequency);
-    AKPlaygroundPropertySlider(resFreq2,      note.secondResonantFrequency);
+
+    [self addSliderForProperty:note.dampingFactor           title:@"Damping Factor"];
+    [self addSliderForProperty:note.mainResonantFrequency   title:@"Main Resonant Freq."];
+    [self addSliderForProperty:note.firstResonantFrequency  title:@"1st Resonant Freq."];
+    [self addSliderForProperty:note.secondResonantFrequency title:@"2nd Resonant Freq."];
+}
 }
 
 @end

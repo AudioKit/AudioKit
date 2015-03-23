@@ -33,11 +33,10 @@
         [pluckedString playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, pluckedString.amplitude);
+    [self addSliderForProperty:pluckedString.amplitude title:@"Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-
 
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:pluckedString
@@ -50,11 +49,12 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(frequency, note.frequency);
-    AKPlaygroundPropertySlider(pluckPosition, note.pluckPosition);
-    AKPlaygroundPropertySlider(samplePosition, note.samplePosition);
-    AKPlaygroundPropertySlider(reflectionCoeff, note.reflectionCoefficient);
-    AKPlaygroundPropertySlider(amplitude, note.amplitude);
+
+    [self addSliderForProperty:note.frequency             title:@"Frequency"];
+    [self addSliderForProperty:note.pluckPosition         title:@"Pluck Position"];
+    [self addSliderForProperty:note.samplePosition        title:@"Sample Position"];
+    [self addSliderForProperty:note.reflectionCoefficient title:@"Palm Muting"];
+    [self addSliderForProperty:note.amplitude             title:@"Amplitude"];
 }
 
 @end
