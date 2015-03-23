@@ -23,6 +23,7 @@
 		C452EFE81ABE6996003670A4 /* ReverbProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C452EFD81ABE6996003670A4 /* ReverbProcessor.m */; };
 		C452EFE91ABE6996003670A4 /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C452EFDB1ABE6996003670A4 /* FMOscillatorInstrument.m */; };
 		C452EFEC1ABEB317003670A4 /* AKAudioOutputPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452EFEB1ABEB317003670A4 /* AKAudioOutputPlot.m */; };
+		C452EFFB1ABF9EE1003670A4 /* AKPropertySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C452EFFA1ABF9EE1003670A4 /* AKPropertySlider.m */; };
 		C4FE74761AB9FB58001641B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74751AB9FB58001641B7 /* main.m */; };
 		C4FE74791AB9FB58001641B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74781AB9FB58001641B7 /* AppDelegate.m */; };
 		C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4FE74801AB9FB58001641B7 /* Images.xcassets */; };
@@ -215,6 +216,8 @@
 		C452EFDB1ABE6996003670A4 /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
 		C452EFEA1ABEB317003670A4 /* AKAudioOutputPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutputPlot.h; sourceTree = "<group>"; };
 		C452EFEB1ABEB317003670A4 /* AKAudioOutputPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutputPlot.m; sourceTree = "<group>"; };
+		C452EFF91ABF9EE1003670A4 /* AKPropertySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPropertySlider.h; sourceTree = "<group>"; };
+		C452EFFA1ABF9EE1003670A4 /* AKPropertySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPropertySlider.m; sourceTree = "<group>"; };
 		C4FE74701AB9FB58001641B7 /* AudioKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4FE74741AB9FB58001641B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4FE74751AB9FB58001641B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1303,6 +1306,8 @@
 		C4FE75F41ABA4FCE001641B7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C452EFF91ABF9EE1003670A4 /* AKPropertySlider.h */,
+				C452EFFA1ABF9EE1003670A4 /* AKPropertySlider.m */,
 				C4FE75F71ABA4FCE001641B7 /* AKSampler.h */,
 				C4FE75F81ABA4FCE001641B7 /* AKSampler.m */,
 				C4FE75F91ABA4FCE001641B7 /* AKTools.h */,
@@ -1610,6 +1615,7 @@
 				C452EFE71ABE6996003670A4 /* Vibraphone.m in Sources */,
 				C4FE76691ABA4FCE001641B7 /* AKFlanger.m in Sources */,
 				C4FE76201ABA4FCE001641B7 /* AKFFTProcessor.m in Sources */,
+				C452EFFB1ABF9EE1003670A4 /* AKPropertySlider.m in Sources */,
 				C4FE76161ABA4FCE001641B7 /* AKInstrumentProperty.m in Sources */,
 				C4FE761A1ABA4FCE001641B7 /* AKTrackedAmplitude.m in Sources */,
 				C4FE769E1ABA4FCE001641B7 /* AKTools.m in Sources */,
