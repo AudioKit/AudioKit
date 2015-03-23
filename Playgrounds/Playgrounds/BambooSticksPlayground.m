@@ -27,9 +27,7 @@
     [self addAudioOutputPlot];
 
     note = [[BambooSticksNote alloc] init];
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [bambooSticks playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [bambooSticks playNote:note]; }];
 
     [self addSliderForProperty:bambooSticks.amplitude title:@"Volume"];
 
@@ -42,9 +40,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [bambooSticks stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [bambooSticks stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
     [self addSliderForProperty:note.count                   title:@"Count"];

@@ -29,9 +29,7 @@
     [self addAudioOutputPlot];
     note = [[StruckMetalBarNote alloc] init];
 
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [struckMetalBar playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [struckMetalBar playNote:note]; }];
 
     [self addSliderForProperty:struckMetalBar.amplitude title:@"Amplitude"];
 
@@ -45,9 +43,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [struckMetalBar stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [struckMetalBar stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
 

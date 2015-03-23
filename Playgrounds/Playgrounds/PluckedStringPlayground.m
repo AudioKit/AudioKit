@@ -29,9 +29,7 @@
     [self addAudioOutputPlot];
     note = [[PluckedStringNote alloc] init];
 
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [pluckedString playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [pluckedString playNote:note]; }];
 
     [self addSliderForProperty:pluckedString.amplitude title:@"Amplitude"];
 
@@ -44,9 +42,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [pluckedString stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [pluckedString stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
 
