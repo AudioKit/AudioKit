@@ -18,13 +18,14 @@
     MYFLT *displayData;
     int fTableNumber;
 }
-    #if TARGET_OS_IPHONE
+
 
 - (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)newtable
 {
-    
+   
     self = [super initWithFrame:frame];
     if (self) {
+        #if TARGET_OS_IPHONE
         fTableNumber = newtable.number;
         CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
         while (csoundTableLength(cs, fTableNumber) < 0) {
@@ -55,12 +56,16 @@
             }
             
             [self setNeedsDisplay];
+
         }
+#elif TARGET_OS_MAC
+#endif
         
     }
     return self;
 }
 
+ #if TARGET_OS_IPHONE
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
