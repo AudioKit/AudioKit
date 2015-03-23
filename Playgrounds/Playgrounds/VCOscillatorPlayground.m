@@ -71,7 +71,7 @@
     Instrument *instrument = [[Instrument alloc] init];
     [AKOrchestra addInstrument:instrument];
 
-    AKPlaygroundPropertySlider(Frequency, instrument.frequency);
+    [self addSliderForProperty:instrument.frequency title:@"Frequency"];
 
     Note *note = [[Note alloc] init];
 

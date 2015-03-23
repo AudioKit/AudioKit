@@ -31,7 +31,7 @@
         [bambooSticks playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, bambooSticks.amplitude);
+    [self addSliderForProperty:bambooSticks.amplitude title:@"Volume"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
@@ -47,11 +47,11 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(count,       note.count);
-    AKPlaygroundPropertySlider(mainResFreq, note.mainResonantFrequency);
-    AKPlaygroundPropertySlider(resFreq1,    note.firstResonantFrequency);
-    AKPlaygroundPropertySlider(resFreq2,    note.secondResonantFrequency);
-    AKPlaygroundPropertySlider(amplitude,   note.amplitude);
+    [self addSliderForProperty:note.count                   title:@"Count"];
+    [self addSliderForProperty:note.mainResonantFrequency   title:@"Main Resonant Freq."];
+    [self addSliderForProperty:note.firstResonantFrequency  title:@"1st Resonant Freq."];
+    [self addSliderForProperty:note.secondResonantFrequency title:@"2nd Resonant Freq."];
+    [self addSliderForProperty:note.amplitude               title:@"Amplitude"];
 }
 
 @end

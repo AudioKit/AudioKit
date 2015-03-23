@@ -7,6 +7,8 @@
 //
 
 #import "AKPlayground.h"
+#import "AKPropertySlider.h"
+#import "AKPropertyLabel.h"
 
 @implementation AKPlayground
 {
@@ -131,8 +133,6 @@
     KZPAction(label, ^{ [self toggleView:plot]; });
 }
 
-
-
 - (void)addFloatPlot:(AKFloatPlot *)plot withLabel:(NSString *)label
 {
     [self addLabel:label toView:plot];
@@ -175,6 +175,24 @@
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())aBlock
 {
     KZPAction(title, aBlock);
+}
+
+
+- (void)addSliderForProperty:(id)property title:(NSString *)title
+{
+    KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    label.text = title;
+    [timelineViewController addView:label];
+    
+    AKPropertyLabel *valueLabel = [[AKPropertyLabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    valueLabel.property = property;
+    [timelineViewController addView:valueLabel];
+    
+    AKPropertySlider *slider = [[AKPropertySlider alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    slider.property = property;
+    [timelineViewController addView:slider];
 }
 
 - (void)setup

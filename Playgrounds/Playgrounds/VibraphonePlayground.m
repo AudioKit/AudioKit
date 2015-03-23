@@ -33,9 +33,9 @@
         [vibraphone playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, vibraphone.amplitude);
-    AKPlaygroundPropertySlider(vibratoFreq, vibraphone.vibratoFrequency);
-    AKPlaygroundPropertySlider(vibratoAmp, vibraphone.vibratoAmplitude);
+    [self addSliderForProperty:vibraphone.amplitude        title:@"Amplitude"];
+    [self addSliderForProperty:vibraphone.vibratoFrequency title:@"Vibrato Frequency"];
+    [self addSliderForProperty:vibraphone.vibratoAmplitude title:@"Vibrato Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
@@ -51,10 +51,11 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(frequency, note.frequency);
-    AKPlaygroundPropertySlider(stickHardness, note.stickHardness);
-    AKPlaygroundPropertySlider(strikePosition, note.strikePosition);
-    AKPlaygroundPropertySlider(amplitude, note.amplitude);
+
+    [self addSliderForProperty:note.frequency      title:@"Frequency"];
+    [self addSliderForProperty:note.stickHardness  title:@"Stick Hardness"];
+    [self addSliderForProperty:note.strikePosition title:@"Strike Position"];
+    [self addSliderForProperty:note.amplitude      title:@"Amplitude"];
 }
 
 @end

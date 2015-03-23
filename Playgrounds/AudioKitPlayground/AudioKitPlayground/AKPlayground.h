@@ -22,11 +22,6 @@
 #import "AKFloatPlot.h"
 //#import "AKRollingWaveformView.h"
 
-
-#define AKPlaygroundPropertySlider(__name__, __property__) KZPAdjustValue(__name__, __property__.minimum, __property__.maximum).defaultValue(__property__.value); KZPAnimate(^{ __property__.value = __name__; });
-
-#define AKPlaygroundSliderOverride(__name__, __property__, __value__, __min__, __max__) KZPAdjustValue(__name__, __min__, __max__).defaultValue(__value__); KZPAnimate(^{ __property__.value = __name__; });
-
 #define AKPlaygroundTablePlot(__table__)  KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:__table__]);
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
@@ -53,4 +48,5 @@
                     maximumFrequency:(float)maxFrequency;
 
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())aBlock;
+- (void)addSliderForProperty:(id)property title:(NSString *)title;
 @end

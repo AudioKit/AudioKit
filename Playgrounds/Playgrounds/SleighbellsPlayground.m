@@ -32,10 +32,9 @@
         [sleighBells playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, sleighBells.amplitude);
+    [self addSliderForProperty:sleighBells.amplitude title:@"Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
-
 
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:sleighBells
@@ -48,12 +47,13 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(intensity,   note.intensity);
-    AKPlaygroundPropertySlider(damping,     note.dampingFactor);
-    AKPlaygroundPropertySlider(mainResFreq, note.mainResonantFrequency);
-    AKPlaygroundPropertySlider(resFreq1,    note.firstResonantFrequency);
-    AKPlaygroundPropertySlider(resFreq2,    note.secondResonantFrequency);
-    AKPlaygroundPropertySlider(amplitude,   note.amplitude);
+
+    [self addSliderForProperty:note.intensity               title:@"Intensity"];
+    [self addSliderForProperty:note.dampingFactor           title:@"Damping Factor"];
+    [self addSliderForProperty:note.mainResonantFrequency   title:@"Main Resonant Freq."];
+    [self addSliderForProperty:note.firstResonantFrequency  title:@"1st Resonant Freq."];
+    [self addSliderForProperty:note.secondResonantFrequency title:@"2nd Resonant Freq."];
+    [self addSliderForProperty:note.amplitude               title:@"Amplitude"];
 }
 
 @end

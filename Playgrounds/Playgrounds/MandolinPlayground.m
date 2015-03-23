@@ -33,13 +33,12 @@
         [mandolin playNote:note];
     }];
 
-    AKPlaygroundPropertySlider(volume, mandolin.amplitude);
-    AKPlaygroundPropertySlider(bodySize, mandolin.bodySize);
-    AKPlaygroundPropertySlider(detuning, mandolin.pairedStringDetuning);
+    [self addSliderForProperty:mandolin.amplitude            title:@"Amplitude"];
+    [self addSliderForProperty:mandolin.bodySize             title:@"Body Size"];
+    [self addSliderForProperty:mandolin.pairedStringDetuning title:@"Detuning"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-
 
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:mandolin
@@ -52,9 +51,10 @@
     }];
 
     [self makeSection:@"Parameters"];
-    AKPlaygroundPropertySlider(frequency, note.frequency);
-    AKPlaygroundPropertySlider(pluckPosition, note.pluckPosition);
-    AKPlaygroundPropertySlider(amplitude, note.amplitude);
+
+    [self addSliderForProperty:note.frequency     title:@"Frequency"];
+    [self addSliderForProperty:note.pluckPosition title:@"Pluck Position"];
+    [self addSliderForProperty:note.amplitude     title:@"Amplitude"];
 }
 
 @end
