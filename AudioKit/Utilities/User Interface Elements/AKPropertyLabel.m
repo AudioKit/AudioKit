@@ -7,6 +7,7 @@
 //
 
 #import "AKPropertyLabel.h"
+#import "AKFoundation.h"
 
 @implementation AKPropertyLabel
 
@@ -21,6 +22,13 @@
 {
     [self setNeedsDisplay];
 };
+
+
+#if TARGET_OS_IPHONE
+#define text text
+#elif TARGET_OS_MAC
+#define text stringValue
+#endif
 
 - (void)setNeedsDisplay
 {
