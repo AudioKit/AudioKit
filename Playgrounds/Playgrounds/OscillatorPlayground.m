@@ -35,13 +35,8 @@
 
     [instrument restart];
 
-    [self addButtonWithTitle:@"Play" block:^{
-        [instrument play];
-    }];
-
-    [self addButtonWithTitle:@"Stop" block:^{
-        [instrument stop];
-    }];
+    [self addButtonWithTitle:@"Play" block:^{ [instrument play]; }];
+    [self addButtonWithTitle:@"Stop" block:^{ [instrument stop]; }];
 }
 
 @end

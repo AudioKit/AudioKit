@@ -29,9 +29,7 @@
     [self addAudioOutputPlot];
     note = [[MandolinNote alloc] init];
 
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [mandolin playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [mandolin playNote:note]; }];
 
     [self addSliderForProperty:mandolin.amplitude            title:@"Amplitude"];
     [self addSliderForProperty:mandolin.bodySize             title:@"Body Size"];
@@ -46,9 +44,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [mandolin stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [mandolin stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
 

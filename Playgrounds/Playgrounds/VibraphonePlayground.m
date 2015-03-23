@@ -29,13 +29,9 @@
     [self addAudioOutputPlot];
     note = [[VibraphoneNote alloc] init];
 
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [vibraphone playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [vibraphone playNote:note]; }];
 
-    [self addSliderForProperty:vibraphone.amplitude        title:@"Amplitude"];
-    [self addSliderForProperty:vibraphone.vibratoFrequency title:@"Vibrato Frequency"];
-    [self addSliderForProperty:vibraphone.vibratoAmplitude title:@"Vibrato Amplitude"];
+    [self addSliderForProperty:vibraphone.amplitude title:@"Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
@@ -46,9 +42,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [vibraphone stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [vibraphone stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
 

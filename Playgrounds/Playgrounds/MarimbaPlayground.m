@@ -29,9 +29,7 @@
     [self addAudioOutputPlot];
     note = [[MarimbaNote alloc] init];
 
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [marimba playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [marimba playNote:note]; }];
 
     [self addSliderForProperty:marimba.amplitude        title:@"Amplitude"];
     [self addSliderForProperty:marimba.vibratoFrequency title:@"Vibrato Frequency"];
@@ -46,9 +44,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [marimba stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [marimba stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
 

@@ -28,9 +28,7 @@
 
     note = [[SleighbellsNote alloc] init];
 
-    [self addButtonWithTitle:@"Play Once" block:^{
-        [sleighBells playNote:note];
-    }];
+    [self addButtonWithTitle:@"Play Once" block:^{ [sleighBells playNote:note]; }];
 
     [self addSliderForProperty:sleighBells.amplitude title:@"Amplitude"];
 
@@ -42,9 +40,7 @@
                       minimumFrequency:0.0f
                       maximumFrequency:25.0f];
 
-    [self addButtonWithTitle:@"Stop Loop" block:^{
-        [sleighBells stopPhrase];
-    }];
+    [self addButtonWithTitle:@"Stop Loop" block:^{ [sleighBells stopPhrase]; }];
 
     [self makeSection:@"Parameters"];
 
