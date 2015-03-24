@@ -13,6 +13,10 @@ This folder contains information about automatically generating Xcode documentat
 
 For most users, the documentation you really want: installation instructions, tutorials, examples, and more can be found here: [http://audiokit.io/](http://audiokit.io/)
 
+Examples
+--------
+Included with AudioKit are two examples (HelloWorld and AudioKitDemo) written in two languages (Objective-C and Swift) for two operating systems (iOS and OSX).  So, there are eight projects for each permutation.  The Hello World project is a great starting point and is written up at [here](http://audiokit.io/examples/HelloWorld/).  In Hello World, only one file is used to create a sine oscillator playing at 440Hz.  The AudioKitDemo is quite a big more complex, combining three apps into one to demostrate audio synthesis, processing, and analysis techniques.
+
 Playgrounds
 -----------
 Here is where the main AudioKitPlayground project is kept and from here you can run a shell script to start the playground from a set of template playgrounds.  Refer to the README within this folder for more instructions.
