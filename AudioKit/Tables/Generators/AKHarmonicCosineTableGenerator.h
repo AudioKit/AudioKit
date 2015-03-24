@@ -16,7 +16,6 @@
 @interface AKHarmonicCosineTableGenerator : AKTableGenerator
 
 /// Instantiates the additive cosine table with all values defined
-/// @param size Number of points in the table.
 /// @param numberOfHarmonics Number of harmonics in the partial series.
 /// @param lowestHarmonic Lowest harmonic partial present. Can be positive, zero or negative. The set of partials can begin at any partial number and proceeds upwards; if this is negative, all partials below zero will reflect in zero to produce positive partials without phase change (since cosine is an even function), and will add constructively to any positive partials in the set.
 /// @param partialMultiplier Multiplier in an amplitude coefficient series.  This is a power series: if the lhth partial has a strength coefficient of A the (lowestHarmonic + n)th partial will have a coefficient of A * r^n, i.e. strength values trace an exponential curve. May be positive, zero or negative, and is not restricted to integers.

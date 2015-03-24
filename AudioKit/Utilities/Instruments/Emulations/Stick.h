@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the stick physical model
 @interface Stick : AKInstrument
 
 // Instrument Properties

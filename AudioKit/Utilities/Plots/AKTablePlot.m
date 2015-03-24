@@ -20,13 +20,13 @@
 }
 
 
-- (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)newtable
+- (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)table
 {
    
     self = [super initWithFrame:frame];
     if (self) {
         #if TARGET_OS_IPHONE
-        fTableNumber = newtable.number;
+        fTableNumber = table.number;
         CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
         while (csoundTableLength(cs, fTableNumber) < 0) {
             // do nothing

@@ -19,8 +19,11 @@ More information regarding scanned synthesis can be found at http://dafx12.york.
 @interface AKStruckMetalBar : AKAudio
 
 // TypeHelpers
+/// Clamped boundary condition
 + (AKConstant *)boundaryConditionClamped;
+/// Pivoting boundary condition
 + (AKConstant *)boundaryConditionPivoting;
+/// Free boundary condition (only to be used when other side is clamped)
 + (AKConstant *)boundaryConditionFree;
 
 /// Instantiates the struck metal bar with all values

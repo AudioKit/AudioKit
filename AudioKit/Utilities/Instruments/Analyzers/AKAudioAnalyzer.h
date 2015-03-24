@@ -8,6 +8,7 @@
 
 #import "AKInstrument.h"
 
+/// An instrument that has two properties that detect the amplitude and frequency of an audio source signal.
 @interface AKAudioAnalyzer : AKInstrument
 
 @property AKInstrumentProperty *trackedFrequency;

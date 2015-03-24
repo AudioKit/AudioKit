@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument for the Voltage-controlled oscillator operation
 @interface VCOscillatorInstrument : AKInstrument
 @property AKInstrumentProperty *amplitude;
 @end

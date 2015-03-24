@@ -8,6 +8,7 @@
 
 #import "AKParameter+Operation.h"
 
+/// A base-class for operations that only require one input
 @interface AKSingleInputMathOperation : AKParameter
 
 /// Generic operation with one input///

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AKTableGenerator.h"
 
+/// A table generator that creates a series of exponential curve segments
 @interface AKExponentialTableGenerator : AKTableGenerator
 
 /// Start the exponential curves at a specific value

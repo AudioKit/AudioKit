@@ -165,6 +165,7 @@
 		C45266841AC08A53009C8F4A /* ReverbProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C45266721AC08A53009C8F4A /* ReverbProcessor.m */; };
 		C45266851AC08A53009C8F4A /* FMOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C45266751AC08A53009C8F4A /* FMOscillatorInstrument.m */; };
 		C45266861AC08A53009C8F4A /* VCOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C45266771AC08A53009C8F4A /* VCOscillatorInstrument.m */; };
+		C45266891AC1234A009C8F4A /* AKAudioOutputPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C45266881AC1234A009C8F4A /* AKAudioOutputPlot.m */; };
 		C4BACD0C1A8FFC3100736291 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD0B1A8FFC3100736291 /* main.m */; };
 		C4BACD0F1A8FFC3100736291 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD0E1A8FFC3100736291 /* AppDelegate.m */; };
 		C4BACD181A8FFC3100736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BACD161A8FFC3100736291 /* Main.storyboard */; };
@@ -521,6 +522,8 @@
 		C45266751AC08A53009C8F4A /* FMOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMOscillatorInstrument.m; sourceTree = "<group>"; };
 		C45266761AC08A53009C8F4A /* VCOscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCOscillatorInstrument.h; sourceTree = "<group>"; };
 		C45266771AC08A53009C8F4A /* VCOscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCOscillatorInstrument.m; sourceTree = "<group>"; };
+		C45266871AC1234A009C8F4A /* AKAudioOutputPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutputPlot.h; sourceTree = "<group>"; };
+		C45266881AC1234A009C8F4A /* AKAudioOutputPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutputPlot.m; sourceTree = "<group>"; };
 		C4BACD061A8FFC3100736291 /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BACD0A1A8FFC3100736291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4BACD0B1A8FFC3100736291 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1384,6 +1387,8 @@
 			children = (
 				C4ED1DE01AB7FEFE00366020 /* AKAudioInputPlot.h */,
 				C4ED1DE11AB7FEFE00366020 /* AKAudioInputPlot.m */,
+				C45266871AC1234A009C8F4A /* AKAudioOutputPlot.h */,
+				C45266881AC1234A009C8F4A /* AKAudioOutputPlot.m */,
 				C4ED1DE21AB7FEFE00366020 /* AKFFTPlot.h */,
 				C4ED1DE31AB7FEFE00366020 /* AKFFTPlot.m */,
 				C4ED1DE41AB7FEFE00366020 /* AKFloatPlot.h */,
@@ -1610,6 +1615,7 @@
 				C43F54AC1AB14045005E437A /* AKProduct.m in Sources */,
 				C4ED1DF11AB7FEFE00366020 /* AKTablePlot.m in Sources */,
 				C43F54C81AB14045005E437A /* AKCrunch.m in Sources */,
+				C45266891AC1234A009C8F4A /* AKAudioOutputPlot.m in Sources */,
 				C43F54C91AB14045005E437A /* AKDroplet.m in Sources */,
 				C4BACD0C1A8FFC3100736291 /* main.m in Sources */,
 				C43F54A21AB14045005E437A /* AKResynthesizedAudio.m in Sources */,

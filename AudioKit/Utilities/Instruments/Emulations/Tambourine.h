@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the tambourine physical model
 @interface Tambourine : AKInstrument
 @property AKInstrumentProperty *amplitude;
 @end

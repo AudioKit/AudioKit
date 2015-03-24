@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the mandolin physical model
 @interface Mandolin : AKInstrument
 
 // Instrument Properties
@@ -16,9 +17,8 @@
 @property AKInstrumentProperty *pairedStringDetuning;
 
 
-// Audio outlet for global effects processing (choose mono or stereo accordingly)
+// Audio outlet for global effects processing
 @property (readonly) AKAudio *auxilliaryOutput;
-//@property (readonly) AKStereoAudio *auxilliaryOutput;
 
 @end
 

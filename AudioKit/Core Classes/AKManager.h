@@ -95,6 +95,7 @@
 - (void)disableMidi;
 
 /// Utilities
+/// @param binding The object that will be added to Csound's binding list
 + (void)addBinding:(id)binding;
 
 @end

@@ -10,9 +10,11 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+/// Plots the floating point value given a minimum and maximum
 @interface AKFloatPlot : UIView
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
+/// Plots the floating point value given a minimum and maximum
 @interface AKFloatPlot : NSView
 #endif
 
