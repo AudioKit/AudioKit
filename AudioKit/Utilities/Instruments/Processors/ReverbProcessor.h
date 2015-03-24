@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// A reverb processor and end point (outputs to the DAC)
 @interface ReverbProcessor : AKInstrument
 
 @property (nonatomic) AKInstrumentProperty *feedback;

@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the bamboo sticks physical model
 @interface BambooSticks : AKInstrument
 
 // Instrument Properties

@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the vibraphone physical model
 @interface Vibraphone : AKInstrument
 
 // Instrument Properties

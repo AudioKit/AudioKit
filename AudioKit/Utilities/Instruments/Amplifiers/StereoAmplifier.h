@@ -8,6 +8,9 @@
 
 #import "AKFoundation.h"
 
+/** A stereo amplification system with amplitude control.  
+ This instrument is intended to be used as the last instrument in a processing chain.
+ */
 @interface StereoAmplifier : AKInstrument
 
 @property (nonatomic) AKInstrumentProperty *amplitude;

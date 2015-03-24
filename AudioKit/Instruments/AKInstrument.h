@@ -93,7 +93,8 @@
 - (void)setAudioOutput:(AKParameter *)audio;
 
 /// Sets a parameter to be the audio output of the AKInstrument.  Equivalent to declaring and connect AKAudioOutput.
-/// @param audio Operation output that you want to be played.
+/// @param leftInput  Operation's output to send to the left channel
+/// @param rightInput Operation's output to send to the right channel
 - (void)setAudioOutputWithLeftAudio:(AKParameter *)leftInput rightAudio:(AKParameter *)rightInput;
 
 /// Sets a parameter to be the audio output of the AKInstrument.  Equivalent to declaring and connect AKAudioOutput.

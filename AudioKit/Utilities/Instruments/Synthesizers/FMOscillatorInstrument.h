@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// A synth that uses FM Synthesis to generate sounds, with frequency and amplitude defined
 @interface FMOscillatorInstrument : AKInstrument
 
 // Instrument Properties

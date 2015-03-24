@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the plucked string physical model
 @interface PluckedString : AKInstrument
 
 // Instrument Properties

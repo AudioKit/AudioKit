@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the sleighbells physical model
 @interface Sleighbells : AKInstrument
 
 // Instrument Properties

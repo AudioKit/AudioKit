@@ -8,6 +8,7 @@
 
 #import "AKFoundation.h"
 
+/// An instrument that wraps the struck metal bar physical model
 @interface StruckMetalBar : AKInstrument
 
 // Instrument Properties

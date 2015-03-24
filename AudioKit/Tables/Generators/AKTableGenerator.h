@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+/** A base-class for all the table generators in AudioKit
+ */
 @interface AKTableGenerator : NSObject
 
 /// Generation Routine Number
