@@ -10,9 +10,11 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+/// Ties a label to the value of a property
 @interface AKPropertyLabel : UILabel
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
+/// Ties a label to the value of a property
 @interface AKPropertyLabel : NSTextField
 #endif
 
