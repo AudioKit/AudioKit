@@ -58,6 +58,7 @@
 #endif
 
 IB_DESIGNABLE
+/// A level meter that can be drawn from any property
 @interface LevelMeter : UIView
 
 // The current level, from 0 - 1
