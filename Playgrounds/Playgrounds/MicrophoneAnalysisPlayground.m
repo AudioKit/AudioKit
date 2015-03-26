@@ -38,9 +38,8 @@
 - (void)run
 {
     [super run];
-    [self addAudioInputPlot];
 
-    VocalInput *mic = [[VocalInput alloc] init];
+    VocalInput *mic = [[VocalInput alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mic];
     AKAudioAnalyzer *analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:mic.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
@@ -49,8 +48,9 @@
     [self addPlotForInstrumentProperty:analyzer.trackedAmplitude withLabel:@"Amplitude"];
     [self addPlotForInstrumentProperty:analyzer.trackedFrequency withLabel:@"Frequency"];
 
-    //    [self addFFTView];
-    //    [self addRollingWaveformView];
+    [self addAudioInputRollingWaveformPlot];
+    [self addAudioInputPlot];
+    [self addAudioInputFFTPlot];
 }
 
 @end

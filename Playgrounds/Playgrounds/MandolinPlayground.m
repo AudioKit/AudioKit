@@ -17,16 +17,14 @@
 - (void) setup
 {
     [super setup];
-
+    mandolin = [[Mandolin alloc] init];
+    [AKOrchestra addInstrument:mandolin];
 }
 
 - (void)run
 {
     [super run];
-    mandolin = [[Mandolin alloc] init];
-    [AKOrchestra addInstrument:mandolin];
 
-    [self addAudioOutputPlot];
     note = [[MandolinNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [mandolin playNote:note]; }];
@@ -51,6 +49,10 @@
     [self addSliderForProperty:note.frequency     title:@"Frequency"];
     [self addSliderForProperty:note.pluckPosition title:@"Pluck Position"];
     [self addSliderForProperty:note.amplitude     title:@"Amplitude"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

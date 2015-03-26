@@ -18,15 +18,13 @@
 {
     [super setup];
 
+    marimba = [[Marimba alloc] init];
+    [AKOrchestra addInstrument:marimba];
 }
 
 - (void)run
 {
     [super run];
-    marimba = [[Marimba alloc] init];
-    [AKOrchestra addInstrument:marimba];
-
-    [self addAudioOutputPlot];
     note = [[MarimbaNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [marimba playNote:note]; }];
@@ -52,6 +50,10 @@
     [self addSliderForProperty:note.stickHardness  title:@"Stick Hardness"];
     [self addSliderForProperty:note.strikePosition title:@"Strike Position"];
     [self addSliderForProperty:note.amplitude      title:@"Amplitude"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

@@ -17,6 +17,7 @@
 - (void) setup
 {
     [super setup];
+
     sleighBells = [[Sleighbells alloc] init];
     [AKOrchestra addInstrument:sleighBells];
 }
@@ -24,7 +25,6 @@
 - (void)run
 {
     [super run];
-    [self addAudioOutputPlot];
 
     note = [[SleighbellsNote alloc] init];
 
@@ -50,6 +50,10 @@
     [self addSliderForProperty:note.firstResonantFrequency  title:@"1st Resonant Freq."];
     [self addSliderForProperty:note.secondResonantFrequency title:@"2nd Resonant Freq."];
     [self addSliderForProperty:note.amplitude               title:@"Amplitude"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

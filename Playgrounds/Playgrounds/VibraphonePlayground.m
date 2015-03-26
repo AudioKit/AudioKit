@@ -17,16 +17,15 @@
 - (void) setup
 {
     [super setup];
+    vibraphone = [[Vibraphone alloc] init];
+    [AKOrchestra addInstrument:vibraphone];
 
 }
 
 - (void)run
 {
     [super run];
-    vibraphone = [[Vibraphone alloc] init];
-    [AKOrchestra addInstrument:vibraphone];
 
-    [self addAudioOutputPlot];
     note = [[VibraphoneNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [vibraphone playNote:note]; }];
@@ -50,6 +49,10 @@
     [self addSliderForProperty:note.stickHardness  title:@"Stick Hardness"];
     [self addSliderForProperty:note.strikePosition title:@"Strike Position"];
     [self addSliderForProperty:note.amplitude      title:@"Amplitude"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

@@ -17,16 +17,14 @@
 - (void) setup
 {
     [super setup];
-
+    struckMetalBar = [[StruckMetalBar alloc] init];
+    [AKOrchestra addInstrument:struckMetalBar];
 }
 
 - (void)run
 {
     [super run];
-    struckMetalBar = [[StruckMetalBar alloc] init];
-    [AKOrchestra addInstrument:struckMetalBar];
 
-    [self addAudioOutputPlot];
     note = [[StruckMetalBarNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [struckMetalBar playNote:note]; }];
@@ -53,6 +51,10 @@
     [self addSliderForProperty:note.strikeVelocity         title:@"Strike Velocity"];
     [self addSliderForProperty:note.strikeWidth            title:@"Strike Width"];
     [self addSliderForProperty:note.scanSpeed              title:@"Scan Speed"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end
