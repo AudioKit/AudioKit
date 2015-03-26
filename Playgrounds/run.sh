@@ -37,7 +37,7 @@ if [ $NEWPLAYGROUND == "New" ]; then
 fi
 
 echo "Starting Playground, Press Control-c when finished."
-kicker -sql 0.05 AudioKitPlayground/AudioKitPlayground ../AudioKit 2>/dev/null &
+kicker -sql 0.05 AudioKitPlayground/AudioKitPlayground 2>/dev/null &
 open AudioKitPlayground/AudioKitPlayground.xcworkspace
 
 if [ $NEWPLAYGROUND != "" ]; then
