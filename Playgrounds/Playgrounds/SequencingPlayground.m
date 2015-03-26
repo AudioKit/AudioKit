@@ -24,7 +24,6 @@
 - (void)run
 {
     [super run];
-    [self addAudioOutputPlot];
 
     oscillator = [[FMOscillatorInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:oscillator];
@@ -43,6 +42,10 @@
         [phrase reset];
         [oscillator stopPhrase];
     }];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 - (AKPhrase *)phraseWithDuration:(float)duration

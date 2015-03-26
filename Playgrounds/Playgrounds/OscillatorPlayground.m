@@ -19,7 +19,6 @@
 {
     [super run];
 
-    [self addAudioOutputPlot];
     AKInstrument *instrument = [[AKInstrument alloc] initWithNumber:1];
 
     AKOscillator *oscillator = [AKOscillator oscillator];
@@ -37,6 +36,10 @@
 
     [self addButtonWithTitle:@"Play" block:^{ [instrument play]; }];
     [self addButtonWithTitle:@"Stop" block:^{ [instrument stop]; }];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

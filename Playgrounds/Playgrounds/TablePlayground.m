@@ -18,7 +18,6 @@
 - (void)run
 {
     [super run];
-    [self addAudioOutputPlot];
 
     AKInstrument *instrument = [[AKInstrument alloc] initWithNumber:1];
     AKOscillator *oscillator = [AKOscillator oscillator];
@@ -75,6 +74,10 @@
         [AKOrchestra updateInstrument:instrument];
         [instrument playForDuration:1.0];
     }];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

@@ -23,7 +23,7 @@
 - (void)run
 {
     [super run];
-    [self addAudioOutputPlot];
+
     VCOscillatorNote *note = [[VCOscillatorNote alloc] init];
 
     [self addSliderForProperty:vcoInstrument.amplitude title:@"Amplitude"];
@@ -45,6 +45,10 @@
     [self addButtonWithTitle:@"Stop" block:^{
         [vcoInstrument stop];
     }];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

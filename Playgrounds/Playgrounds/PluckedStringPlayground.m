@@ -17,16 +17,14 @@
 - (void) setup
 {
     [super setup];
-
+    pluckedString = [[PluckedString alloc] init];
+    [AKOrchestra addInstrument:pluckedString];
 }
 
 - (void)run
 {
     [super run];
-    pluckedString = [[PluckedString alloc] init];
-    [AKOrchestra addInstrument:pluckedString];
 
-    [self addAudioOutputPlot];
     note = [[PluckedStringNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [pluckedString playNote:note]; }];
@@ -51,6 +49,10 @@
     [self addSliderForProperty:note.samplePosition        title:@"Sample Position"];
     [self addSliderForProperty:note.reflectionCoefficient title:@"Palm Muting"];
     [self addSliderForProperty:note.amplitude             title:@"Amplitude"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end

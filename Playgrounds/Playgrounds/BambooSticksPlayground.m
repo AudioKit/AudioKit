@@ -24,7 +24,6 @@
 - (void)run
 {
     [super run];
-    [self addAudioOutputPlot];
 
     note = [[BambooSticksNote alloc] init];
     [self addButtonWithTitle:@"Play Once" block:^{ [bambooSticks playNote:note]; }];
@@ -48,6 +47,10 @@
     [self addSliderForProperty:note.firstResonantFrequency  title:@"1st Resonant Freq."];
     [self addSliderForProperty:note.secondResonantFrequency title:@"2nd Resonant Freq."];
     [self addSliderForProperty:note.amplitude               title:@"Amplitude"];
+
+    [self addAudioOutputRollingWaveformPlot];
+    [self addAudioOutputPlot];
+    [self addAudioOutputFFTPlot];
 }
 
 @end
