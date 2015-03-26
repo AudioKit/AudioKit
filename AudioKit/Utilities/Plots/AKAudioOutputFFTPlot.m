@@ -142,9 +142,32 @@
 
 
 
+
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
 // -----------------------------------------------------------------------------
+
+
+- (void)updateValuesFromCsound
+{
+    outSamples = [cs getOutSamples];
+    samples = (MYFLT *)[outSamples bytes];
+    
+    //[self updateFFTWithBufferSize:sampleSize withAudioData:samples];
+    
+    // Setup the FFT if it's not already setup
+    if( !_isFFTSetup ){
+        [self createFFTWithBufferSize:sampleSize withAudioData:samples];
+        _isFFTSetup = YES;
+    }
+    
+    // Get the FFT data
+    [self updateFFTWithBufferSize:sampleSize withAudioData:samples];
+}
+
+#elif TARGET_OS_MAC
+#endif
+
 
 - (void)setup:(CsoundObj *)csoundObj
 {
@@ -167,24 +190,6 @@
     }
 }
 
-- (void)updateValuesFromCsound
-{
-    outSamples = [cs getOutSamples];
-    samples = (MYFLT *)[outSamples bytes];
-    
-    //[self updateFFTWithBufferSize:sampleSize withAudioData:samples];
-    
-    // Setup the FFT if it's not already setup
-    if( !_isFFTSetup ){
-        [self createFFTWithBufferSize:sampleSize withAudioData:samples];
-        _isFFTSetup = YES;
-    }
-    
-    // Get the FFT data
-    [self updateFFTWithBufferSize:sampleSize withAudioData:samples];
-}
 
-#elif TARGET_OS_MAC
-#endif
 
 @end
