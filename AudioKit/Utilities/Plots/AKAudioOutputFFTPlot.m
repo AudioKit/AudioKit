@@ -1,16 +1,16 @@
 //
-//  AKFFTPlot.m
+//  AKAudioOutputFFTPlot.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 2/8/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKFFTPlot.h"
+#import "AKAudioOutputFFTPlot.h"
 #import "AKFoundation.h"
 #import <Accelerate/Accelerate.h>
 
-@interface AKFFTPlot()
+@interface AKAudioOutputFFTPlot()
 {
     NSData *outSamples;
     MYFLT *samples;
@@ -30,7 +30,7 @@
 }
 @end
 
-@implementation AKFFTPlot
+@implementation AKAudioOutputFFTPlot
 
 #if TARGET_OS_IPHONE
 
