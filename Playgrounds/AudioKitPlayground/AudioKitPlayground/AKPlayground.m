@@ -14,10 +14,13 @@
 {
     CsoundObj *cs;
     
-    AKFFTPlot *fftPlot;
+    AKAudioInputFFTPlot *inputFFTPlot;
+    AKAudioOutputFFTPlot *outputFFTPlot;
     AKStereoOutputPlot *stereoPlot;
     AKAudioOutputPlot *audioPlot;
     AKAudioInputPlot  *inputPlot;
+    AKAudioInputRollingWaveformPlot *rollingInputPlot;
+    AKAudioOutputRollingWaveformPlot *rollingOutputPlot;
     
     NSMutableArray *views;
     NSMutableArray *shownViews;
@@ -123,11 +126,33 @@
     [self addToggleWithTitle:@"Audio Output Plot" selector:@selector(toggleAudioOutputPlot:)];
 }
 
+- (void)toggleAudioInputRollingWaveformPlot:(UISwitch *)sender {
+    [self toggleView:rollingInputPlot];
+}
+
+- (void)addAudioInputRollingWaveformPlot
+{
+    rollingInputPlot = [[AKAudioInputRollingWaveformPlot alloc] init];
+    [self addPlot:rollingInputPlot title:@"Rolling Input"];
+    [self addToggleWithTitle:@"Rolling Input Plot" selector:@selector(toggleAudioInputRollingWaveformPlot:)];
+}
+
+- (void)toggleAudioOutputRollingWaveformPlot:(UISwitch *)sender {
+    [self toggleView:rollingOutputPlot];
+}
+
+- (void)addAudioOutputRollingWaveformPlot
+{
+    rollingOutputPlot = [[AKAudioOutputRollingWaveformPlot alloc] init];
+    [self addPlot:rollingOutputPlot title:@"Rolling Output"];
+    [self addToggleWithTitle:@"Rolling Output Plot" selector:@selector(toggleAudioOutputRollingWaveformPlot:)];
+}
+
 - (void)addPlotForInstrumentProperty:(AKInstrumentProperty *)property withLabel:(NSString *)label
 {
     AKInstrumentPropertyPlot *plot = [[AKInstrumentPropertyPlot alloc] init];
     plot.property = property;
-    [plot setBackgroundColor:[UIColor blackColor]];
+    [plot setBackgroundColor:[UIColor colorWithWhite:0.15 alpha:1.000]];
     [cs addBinding:plot];
     [self addLabel:label toView:plot];
     [self toggleView:plot];
@@ -145,15 +170,26 @@
    KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:table]);
 }
 
-- (void)toggleFFTPlot:(UISwitch *)sender {
-    [self toggleView:fftPlot];
+- (void)toggleAudioOutputFFTPlot:(UISwitch *)sender {
+    [self toggleView:outputFFTPlot];
 }
 
-- (void)addFFTPlot
+- (void)addAudioOutputFFTPlot
 {
-    fftPlot = [[AKFFTPlot alloc] init];
-    [self addPlot:fftPlot title:@"Audio Output FFT"];
-    [self addToggleWithTitle:@"Audio FFT Plot" selector:@selector(toggleFFTPlot:)];
+    outputFFTPlot = [[AKAudioOutputFFTPlot alloc] init];
+    [self addPlot:outputFFTPlot title:@"Audio Output FFT"];
+    [self addToggleWithTitle:@"Ouput FFT Plot" selector:@selector(toggleAudioOutputFFTPlot:)];
+}
+
+- (void)toggleAudioInputFFTPlot:(UISwitch *)sender {
+    [self toggleView:inputFFTPlot];
+}
+
+- (void)addAudioInputFFTPlot
+{
+    inputFFTPlot = [[AKAudioInputFFTPlot alloc] init];
+    [self addPlot:inputFFTPlot title:@"Audio Input FFT"];
+    [self addToggleWithTitle:@"Input FFT Plot" selector:@selector(toggleAudioInputFFTPlot:)];
 }
 
 
@@ -179,15 +215,15 @@
 {
     KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     label.text = title;
     [timelineViewController addView:label];
     
-    AKPropertyLabel *valueLabel = [[AKPropertyLabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    AKPropertyLabel *valueLabel = [[AKPropertyLabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     valueLabel.property = property;
     [timelineViewController addView:valueLabel];
     
-    AKPropertySlider *slider = [[AKPropertySlider alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    AKPropertySlider *slider = [[AKPropertySlider alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     slider.property = property;
     [timelineViewController addView:slider];
 }
