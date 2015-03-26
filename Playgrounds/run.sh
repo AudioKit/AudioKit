@@ -27,7 +27,8 @@ do
 done
 
 if [ $NEWPLAYGROUND == "New" ]; then
-    PS3='\nEnter the number of the playground you want: '
+    echo ""
+    PS3='Enter the number of the playground you want: '
     options=($(ls Playgrounds))
     select opt in "${options[@]/Playground.m/}"
     do
