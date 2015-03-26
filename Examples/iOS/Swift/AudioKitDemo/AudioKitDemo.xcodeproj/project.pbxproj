@@ -155,7 +155,6 @@
 		C452F32F1ABFEF23003670A4 /* VCOscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F2751ABFEF23003670A4 /* VCOscillatorInstrument.m */; };
 		C452F3301ABFEF23003670A4 /* AKAudioInputPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F2781ABFEF23003670A4 /* AKAudioInputPlot.m */; };
 		C452F3311ABFEF23003670A4 /* AKAudioOutputPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F27A1ABFEF23003670A4 /* AKAudioOutputPlot.m */; };
-		C452F3321ABFEF23003670A4 /* AKFFTPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F27C1ABFEF23003670A4 /* AKFFTPlot.m */; };
 		C452F3331ABFEF23003670A4 /* AKFloatPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F27E1ABFEF23003670A4 /* AKFloatPlot.m */; };
 		C452F3341ABFEF23003670A4 /* AKInstrumentPropertyPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F2801ABFEF23003670A4 /* AKInstrumentPropertyPlot.m */; };
 		C452F3351ABFEF23003670A4 /* AKStereoOutputPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F2821ABFEF23003670A4 /* AKStereoOutputPlot.m */; };
@@ -503,8 +502,6 @@
 		C452F2781ABFEF23003670A4 /* AKAudioInputPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioInputPlot.m; sourceTree = "<group>"; };
 		C452F2791ABFEF23003670A4 /* AKAudioOutputPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutputPlot.h; sourceTree = "<group>"; };
 		C452F27A1ABFEF23003670A4 /* AKAudioOutputPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutputPlot.m; sourceTree = "<group>"; };
-		C452F27B1ABFEF23003670A4 /* AKFFTPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFFTPlot.h; sourceTree = "<group>"; };
-		C452F27C1ABFEF23003670A4 /* AKFFTPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFFTPlot.m; sourceTree = "<group>"; };
 		C452F27D1ABFEF23003670A4 /* AKFloatPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFloatPlot.h; sourceTree = "<group>"; };
 		C452F27E1ABFEF23003670A4 /* AKFloatPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFloatPlot.m; sourceTree = "<group>"; };
 		C452F27F1ABFEF23003670A4 /* AKInstrumentPropertyPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInstrumentPropertyPlot.h; sourceTree = "<group>"; };
@@ -1247,8 +1244,6 @@
 				C452F2781ABFEF23003670A4 /* AKAudioInputPlot.m */,
 				C452F2791ABFEF23003670A4 /* AKAudioOutputPlot.h */,
 				C452F27A1ABFEF23003670A4 /* AKAudioOutputPlot.m */,
-				C452F27B1ABFEF23003670A4 /* AKFFTPlot.h */,
-				C452F27C1ABFEF23003670A4 /* AKFFTPlot.m */,
 				C452F27D1ABFEF23003670A4 /* AKFloatPlot.h */,
 				C452F27E1ABFEF23003670A4 /* AKFloatPlot.m */,
 				C452F27F1ABFEF23003670A4 /* AKInstrumentPropertyPlot.h */,
@@ -1600,7 +1595,6 @@
 				C452F30B1ABFEF23003670A4 /* AKStereoAudio.m in Sources */,
 				C452F2C61ABFEF23003670A4 /* AKPluckedString.m in Sources */,
 				C452F2FA1ABFEF23003670A4 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
-				C452F3321ABFEF23003670A4 /* AKFFTPlot.m in Sources */,
 				C452F2E61ABFEF23003670A4 /* AKStereoConvolution.m in Sources */,
 				C452F2F41ABFEF23003670A4 /* AKLowPassFilter.m in Sources */,
 				C452F31B1ABFEF23003670A4 /* AKLineTableGenerator.m in Sources */,
