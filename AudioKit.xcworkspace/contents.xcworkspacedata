@@ -7,21 +7,49 @@
    <Group
       location = "container:"
       name = "iOS Examples">
-      <FileRef
-         location = "group:Examples/iOS/HelloWorld/HelloWorld.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj">
-      </FileRef>
+      <Group
+         location = "container:"
+         name = "Objective-C">
+         <FileRef
+            location = "group:Examples/iOS/HelloWorld/HelloWorld.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "Swift">
+         <FileRef
+            location = "group:Examples/iOS/Swift/HelloWorld/HelloWorld.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/iOS/Swift/AudioKitDemo/AudioKitDemo.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"
       name = "OS X Examples">
-      <FileRef
-         location = "group:Examples/OSX/HelloWorld/HelloWorld.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj">
-      </FileRef>
+      <Group
+         location = "container:"
+         name = "Objective-C">
+         <FileRef
+            location = "group:Examples/OSX/HelloWorld/HelloWorld.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "Swift">
+         <FileRef
+            location = "group:Examples/OSX/Swift/HelloWorld/HelloWorld.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/OSX/Swift/AudioKitDemo/AudioKitDemo.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>
