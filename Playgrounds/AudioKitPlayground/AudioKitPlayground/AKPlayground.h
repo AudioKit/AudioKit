@@ -17,9 +17,12 @@
 #import "AKAudioOutputPlot.h"
 #import "AKAudioInputPlot.h"
 #import "AKInstrumentPropertyPlot.h"
-#import "AKFFTPlot.h"
+#import "AKAudioInputFFTPlot.h"
+#import "AKAudioOutputFFTPlot.h"
 #import "AKTablePlot.h"
 #import "AKFloatPlot.h"
+#import "AKAudioInputRollingWaveformPlot.h"
+#import "AKAudioOutputRollingWaveformPlot.h"
 
 @interface AKPlayground : KZPPlayground
 
@@ -40,8 +43,11 @@
 /// Add a stereo audio plot with the left channel on top and right on the bottom
 - (void)addStereoOutputPlot;
 
+/// Add a FFT of the audio input
+- (void)addAudioInputFFTPlot;
+
 /// Add a FFT of the audio output
-- (void)addFFTPlot;
+- (void)addAudioOutputFFTPlot;
 
 /// Add a plot of a given instrument property
 /// @param property Instrument property to be plotted
@@ -57,7 +63,11 @@
 /// @param table Table to be plotted
 - (void)addTablePlot:(AKTable *)table;
 
-//- (void)addRollingWaveformView;
+/// Add a plot of the input rolling waveform
+- (void)addAudioInputRollingWaveformPlot;
+
+/// Add a plot of the output rolling waveform
+- (void)addAudioOutputRollingWaveformPlot;
 
 /// Add a button to the timeline that executes the given code
 /// @param title  Title of the button
