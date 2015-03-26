@@ -82,7 +82,7 @@
 - (void)addToggleWithTitle:(NSString *)title selector:(SEL)selector
 {
     KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     label.text = title;
     [timelineViewController addView:label];
     UISwitch *toggleSwitch = [[UISwitch alloc] init];
