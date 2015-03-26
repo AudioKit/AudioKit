@@ -292,7 +292,7 @@
     return rightMin + (valueScaled * rightSpan);
 }
 
-+(float)RMS:(float *)buffer
++(float)RMS:(MYFLT *)buffer
      length:(int)bufferSize {
     float sum = 0.0;
     for(int i = 0; i < bufferSize; i++)
@@ -309,7 +309,7 @@
 +(void)updateScrollHistory:(float **)scrollHistory
                 withLength:(int)scrollHistoryLength
                    atIndex:(int*)index
-                withBuffer:(float *)buffer
+                withBuffer:(MYFLT *)buffer
             withBufferSize:(int)bufferSize
       isResolutionChanging:(BOOL*)isChanging {
     

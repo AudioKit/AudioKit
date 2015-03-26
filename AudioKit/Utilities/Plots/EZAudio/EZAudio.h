@@ -195,7 +195,7 @@
  @param 	bufferSize 	The size of the float buffer
  @return	The root mean squared of the buffer
  */
-+(float)RMS:(float*)buffer
++(float)RMS:(MYFLT*)buffer
      length:(int)bufferSize;
 
 /**
