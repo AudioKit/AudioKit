@@ -58,7 +58,7 @@
     NSMutableString *csdString = [[NSMutableString alloc] init];
     
     [csdString appendFormat:@"%@ mp3in ", self];
-    [csdString appendFormat:@"\"%@\"", _filename];
+    [csdString appendString:[self inputsString]];
     return csdString;
 }
 
