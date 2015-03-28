@@ -83,7 +83,19 @@
 
 + (void)addInstrument:(AKInstrument *)instrument
 {
-    [[AKManager sharedManager] enableAudioInput];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
+    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+    
+    // Default Value
+    BOOL enableAudioInput = YES;
+    
+    if (dict) {
+        enableAudioInput = [[dict objectForKey:@"Enable Audio Input By Default"] boolValue];
+    }
+    
+    if (enableAudioInput) {
+        [[AKManager sharedManager] enableAudioInput];
+    }
     
     [AKOrchestra start];
     while (![[AKManager sharedManager] isRunning]) {

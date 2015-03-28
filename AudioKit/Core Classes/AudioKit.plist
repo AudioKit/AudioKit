@@ -12,9 +12,11 @@
 	<integer>64</integer>
 	<key>Number Of Channels</key>
 	<integer>2</integer>
-	<key>Enable Logging By Default</key>
-	<false/>
 	<key>Zero dB Full Scale Value</key>
 	<integer>1</integer>
+	<key>Enable Logging By Default</key>
+	<false/>
+	<key>Enable Audio Input By Default</key>
+	<true/>
 </dict>
 </plist>
