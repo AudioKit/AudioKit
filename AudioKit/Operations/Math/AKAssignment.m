@@ -31,7 +31,7 @@
     self = [super initWithString:[self operationName]];
     
     if (self) {
-        lhs = [AKParameter parameterWithString:[self operationName]];
+        lhs = self;
         rhs = input;
         self.state = @"connectable";
         self.dependencies = @[rhs];
