@@ -95,6 +95,8 @@
     
     if (enableAudioInput) {
         [[AKManager sharedManager] enableAudioInput];
+    }else{
+        [[AKManager sharedManager] disableAudioInput];
     }
     
     [AKOrchestra start];
