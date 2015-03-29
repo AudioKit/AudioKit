@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
                                     'AudioKit/Parameters/**/*.{h,m}',
                                     'AudioKit/Sequencing/**/*.{h,m}',
                                     'AudioKit/Tables/**/*.{h,m}',
-                                    'AudioKit/Utilities/**/*.{h,m}'
+                                    'AudioKit/Utilities/**/*.{h,m,c}'
 
     spec.osx.deployment_target    = '10.10'
     spec.osx.frameworks           = 'CsoundLib64'
