@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Ales Tsurko. All rights reserved.
 //
 
+// Converts midi note number to ratio (speed)
 extension Float {
     var midiratio: Float {return pow(2, self * 0.083333333333)}
 }
