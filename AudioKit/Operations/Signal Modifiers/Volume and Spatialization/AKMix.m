@@ -20,8 +20,6 @@
     AKParameter *current;
 }
 
-@dynamic state;
-
 - (instancetype)initWithInput1:(AKParameter *)input1
                         input2:(AKParameter *)input2
                         balance:(AKParameter *)balancePoint;
