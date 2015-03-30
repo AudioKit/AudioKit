@@ -11,10 +11,6 @@
 
 #import "AKMix.h"
 
-@interface AKMix ()
-@property NSString *state;
-@end
-
 @implementation AKMix
 {
     AKParameter *in1;
@@ -23,6 +19,8 @@
     AKConstant *max;
     AKParameter *current;
 }
+
+@dynamic state;
 
 - (instancetype)initWithInput1:(AKParameter *)input1
                         input2:(AKParameter *)input2
