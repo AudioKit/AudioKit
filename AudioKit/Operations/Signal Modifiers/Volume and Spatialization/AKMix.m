@@ -11,10 +11,6 @@
 
 #import "AKMix.h"
 
-@interface AKMix ()
-@property NSString *state;
-@end
-
 @implementation AKMix
 {
     AKParameter *in1;
