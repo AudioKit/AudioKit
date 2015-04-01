@@ -125,7 +125,7 @@
  @param sampleRate The desired sample rate
  @return A new AudioStreamBasicDescription with the specified format.
  */
-+(AudioStreamBasicDescription)stereoFloatNonInterleavedFormatWithSampleRate:(float)sameRate;
++(AudioStreamBasicDescription)stereoFloatNonInterleavedFormatWithSampleRate:(float)sampleRate;
 
 ///-----------------------------------------------------------
 /// @name AudioStreamBasicDescription Utilities
