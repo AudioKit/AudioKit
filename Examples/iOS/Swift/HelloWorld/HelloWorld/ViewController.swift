@@ -19,12 +19,10 @@ class ViewController: UIViewController {
         
         // STEP 2 : Define the instrument as a simple oscillator
         let oscillator = AKOscillator()
-        instrument.connect(oscillator)
-        instrument.connect(AKAudioOutput(audioSource: oscillator))
+        instrument.setAudioOutput(oscillator)
 
         // STEP 3 : Add the instrument to the orchestra and start the orchestra
         AKOrchestra.addInstrument(instrument)
-        AKOrchestra.start()
     }
 
     // STEP 4 : React to a button press on the Storyboard UI by
