@@ -83,7 +83,7 @@
     if (isNormalized) [csdString appendFormat:@"ipeak filepeak \"%@\"\n", _filename];
     
     [csdString appendFormat:
-     @"%@ diskin2 \"%@\", AKControl(%@), %@, 1\n",
+     @"%@ diskin2 \"%@\", AKControl(%@), %@, 0\n",
      self, _filename, _speed, _startTime];
     
     // Normalize the output
