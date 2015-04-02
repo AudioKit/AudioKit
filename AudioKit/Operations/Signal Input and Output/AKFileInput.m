@@ -25,6 +25,7 @@
         _filename = fileName;
         _speed = akp(1);
         _startTime = akp(0);
+        _loop = NO;
         isNormalized = NO;
         normalization = 1;
         [self setUpConnections];
@@ -35,12 +36,14 @@
 - (instancetype)initWithFilename:(NSString *)fileName
                            speed:(AKParameter *)speed
                        startTime:(AKConstant *)startTime
+                            loop:(BOOL)loop
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _filename = fileName;
         _speed = speed;
         _startTime = startTime;
+        _loop = loop;
         [self setUpConnections];
     }
     return self;
@@ -64,6 +67,11 @@
     [self setStartTime:startTime];
 }
 
+- (void)setOptionalLoop:(BOOL)loop
+{
+    _loop = loop;
+}
+
 - (void)normalizeTo:(float)maximumAmplitude {
     isNormalized = YES;
     normalization = maximumAmplitude;
@@ -83,8 +91,8 @@
     if (isNormalized) [csdString appendFormat:@"ipeak filepeak \"%@\"\n", _filename];
     
     [csdString appendFormat:
-     @"%@ diskin2 \"%@\", AKControl(%@), %@, 0\n",
-     self, _filename, _speed, _startTime];
+     @"%@ diskin2 \"%@\", AKControl(%@), %@, %d\n",
+     self, _filename, _speed, _startTime, _loop];
     
     // Normalize the output
     if (isNormalized) {
