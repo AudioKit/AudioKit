@@ -30,9 +30,11 @@
         
         AKFileInput *fileIn1 = [[AKFileInput alloc] initWithFilename:file1];
         fileIn1.speed = _speed;
+        fileIn1.loop = YES;
         
         AKFileInput *fileIn2 = [[AKFileInput alloc] initWithFilename:file2];
         fileIn2.speed = _speed;
+        fileIn2.loop = YES;
         
         AKMix *fileInLeft = [[AKMix alloc] initWithInput1:fileIn1.leftOutput
                                                    input2:fileIn2.leftOutput
