@@ -11,15 +11,17 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 /// Plots the floating point value given a minimum and maximum
+IB_DESIGNABLE
 @interface AKFloatPlot : UIView
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
 /// Plots the floating point value given a minimum and maximum
+IB_DESIGNABLE
 @interface AKFloatPlot : NSView
 #endif
 
-@property float minimum;
-@property float maximum;
+@property IBInspectable float minimum;
+@property IBInspectable float maximum;
 
 - (instancetype)initWithMinimum:(float)minimum maximum:(float)maximum;
 

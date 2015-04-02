@@ -25,7 +25,7 @@
    
     self = [super initWithFrame:frame];
     if (self) {
-        #if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
         fTableNumber = table.number;
         CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
         while (csoundTableLength(cs, fTableNumber) < 0) {

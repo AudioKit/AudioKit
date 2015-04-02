@@ -9,7 +9,7 @@
 #import "AKAudioOutputPlot.h"
 #import "AKFoundation.h"
 
-@interface AKAudioOutputPlot()
+@interface AKAudioOutputPlot() <CsoundBinding>
 {
     NSData *outSamples;
     MYFLT *samples;

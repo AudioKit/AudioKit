@@ -9,6 +9,10 @@
 #import "AKInstrumentPropertyPlot.h"
 #import "AKFoundation.h"
 
+@interface AKInstrumentPropertyPlot () <CsoundBinding>
+
+@end
+
 @implementation AKInstrumentPropertyPlot
 {
     MYFLT *history;
