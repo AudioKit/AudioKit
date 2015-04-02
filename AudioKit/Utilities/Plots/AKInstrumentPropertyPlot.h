@@ -12,11 +12,13 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 /// Plot of the given instrument property
-@interface AKInstrumentPropertyPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKInstrumentPropertyPlot : UIView
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
 /// Plot of the given instrument property
-@interface AKInstrumentPropertyPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKInstrumentPropertyPlot : NSView
 #endif
 
 @property AKInstrumentProperty *property;

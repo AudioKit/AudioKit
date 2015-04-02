@@ -11,11 +11,13 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 /// Plots the incoming audio source signal, usually the microphone
-@interface AKAudioInputPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioInputPlot : UIView
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
 /// Plots the incoming audio source signal, usually the microphone
-@interface AKAudioInputPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioInputPlot : NSView
 #endif
 
 @end

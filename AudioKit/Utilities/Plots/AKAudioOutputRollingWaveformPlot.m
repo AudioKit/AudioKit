@@ -10,7 +10,7 @@
 #import "AKFoundation.h"
 #import "EZAudioPlot.h"
 
-@interface AKAudioOutputRollingWaveformPlot()
+@interface AKAudioOutputRollingWaveformPlot() <CsoundBinding>
 {
     // AudioKit sound data
     NSData *outSamples;

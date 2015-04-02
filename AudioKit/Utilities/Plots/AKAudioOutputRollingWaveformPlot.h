@@ -11,11 +11,13 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 /// A Rolling Waveform for of the audio output
-@interface AKAudioOutputRollingWaveformPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputRollingWaveformPlot : UIView
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
 /// A Rolling Waveform for of the audio output
-@interface AKAudioOutputRollingWaveformPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputRollingWaveformPlot : NSView
 #endif
 
 @end

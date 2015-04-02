@@ -10,7 +10,7 @@
 #import "AKFoundation.h"
 #import <Accelerate/Accelerate.h>
 
-@interface AKAudioOutputFFTPlot()
+@interface AKAudioOutputFFTPlot() <CsoundBinding>
 {
     NSData *outSamples;
     MYFLT *samples;

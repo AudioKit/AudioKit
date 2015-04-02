@@ -9,7 +9,7 @@
 #import "AKStereoOutputPlot.h"
 #import "AKFoundation.h"
 
-@interface AKStereoOutputPlot()
+@interface AKStereoOutputPlot() <CsoundBinding>
 {
     NSData *outSamples;
     MYFLT *samples;

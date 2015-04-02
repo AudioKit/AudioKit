@@ -13,10 +13,12 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 /// Plots the FFT of the audio input
-@interface AKAudioInputFFTPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioInputFFTPlot : UIView
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
 /// Plots the FFT of the audio input
+IB_DESIGNABLE
 @interface AKAudioInputFFTPlot : NSView
 #endif
 
