@@ -15,6 +15,7 @@
 
 @interface AKPlotView : UIView
 
+- (void)updateUI;
 @end
 
 #define AKColor UIColor
@@ -24,6 +25,7 @@
 
 @interface AKPlotView : NSView
 
+- (void)updateUI;
 @end
 
 #define AKColor NSColor
