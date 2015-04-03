@@ -7,20 +7,25 @@
 //
 
 #import "AKInstrumentProperty.h"
-#import "CsoundObj.h"
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 /// Plot of the given instrument property
-@interface AKInstrumentPropertyPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKInstrumentPropertyPlot : UIView
+@property IBInspectable UIColor *lineColor;
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// Plot of the given instrument property
-@interface AKInstrumentPropertyPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKInstrumentPropertyPlot : NSView
+@property IBInspectable NSColor *lineColor;
 #endif
 
 @property AKInstrumentProperty *property;
 @property AKInstrumentProperty *plottedValue;
+
+@property IBInspectable CGFloat lineWidth;
 
 - (instancetype)initWithProperty:(AKInstrumentProperty *)property;
 

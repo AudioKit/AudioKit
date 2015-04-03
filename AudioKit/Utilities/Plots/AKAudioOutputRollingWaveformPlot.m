@@ -9,8 +9,9 @@
 #import "AKAudioOutputRollingWaveformPlot.h"
 #import "AKFoundation.h"
 #import "EZAudioPlot.h"
+#import "CsoundObj.h"
 
-@interface AKAudioOutputRollingWaveformPlot()
+@interface AKAudioOutputRollingWaveformPlot() <CsoundBinding>
 {
     // AudioKit sound data
     NSData *outSamples;
@@ -31,6 +32,15 @@
 #define AKColor NSColor
 #endif
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _plotColor = [AKColor yellowColor];
+    }
+    return self;
+}
+
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
 // -----------------------------------------------------------------------------
@@ -50,10 +60,18 @@
     audioPlot.backgroundColor = [AKColor blackColor];
     [self addSubview:audioPlot];
     
-    audioPlot.color = [AKColor yellowColor];
+    audioPlot.color = self.plotColor;
     audioPlot.shouldFill   = YES;
     audioPlot.shouldMirror = YES;
     [audioPlot setRollingHistoryLength:4096];
+}
+
+- (void)setPlotColor:(AKColor *)plotColor
+{
+    _plotColor = plotColor;
+    dispatch_async(dispatch_get_main_queue(),^{
+        audioPlot.color = plotColor;
+    });
 }
 
 - (void)updateValuesFromCsound
@@ -66,7 +84,6 @@
         audioPlot.frame = self.frame;
         [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     
-        audioPlot.backgroundColor = [AKColor blackColor];
         [audioPlot updateBuffer:samples withBufferSize:sampleSize];
     });
 }

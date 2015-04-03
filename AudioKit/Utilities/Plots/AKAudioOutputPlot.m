@@ -8,8 +8,9 @@
 
 #import "AKAudioOutputPlot.h"
 #import "AKFoundation.h"
+#import "CsoundObj.h"
 
-@interface AKAudioOutputPlot()
+@interface AKAudioOutputPlot() <CsoundBinding>
 {
     NSData *outSamples;
     MYFLT *samples;
@@ -31,7 +32,17 @@
 #define AKColor NSColor
 #endif
 
-- (void)drawWithColor:(AKColor *)color lineWidth:(float)width
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _lineWidth = 4.0f;
+        _lineColor = [AKColor greenColor];
+    }
+    return self;
+}
+
+- (void)drawWithColor:(AKColor *)color lineWidth:(CGFloat)width
 {
     int plotPoints = sampleSize / 2;
     // Draw waveform
@@ -71,7 +82,7 @@
 //        y = self.bounds.size.height * (y + 1.0) / 2.0;
 
 - (void)drawRect:(CGRect)rect {
-    [self drawWithColor:[AKColor greenColor] lineWidth:4.0];
+    [self drawWithColor:self.lineColor lineWidth:self.lineWidth];
 }
 
 // -----------------------------------------------------------------------------

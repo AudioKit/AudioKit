@@ -6,16 +6,20 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "CsoundObj.h"
-
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 /// Plots the incoming audio source signal, usually the microphone
-@interface AKAudioInputPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioInputPlot : UIView
+@property IBInspectable UIColor *lineColor;
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// Plots the incoming audio source signal, usually the microphone
-@interface AKAudioInputPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioInputPlot : NSView
+@property IBInspectable NSColor *lineColor;
 #endif
+
+@property IBInspectable CGFloat lineWidth;
 
 @end
