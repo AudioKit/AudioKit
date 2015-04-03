@@ -8,6 +8,7 @@
 
 #import "AKAudioOutputFFTPlot.h"
 #import "AKFoundation.h"
+#import "CsoundObj.h"
 #import <Accelerate/Accelerate.h>
 
 @interface AKAudioOutputFFTPlot() <CsoundBinding>
@@ -36,7 +37,17 @@
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
-- (void)drawHistoryWithColor:(UIColor *)color width:(float)width
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _lineWidth = 1.0f;
+        _lineColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
+- (void)drawHistoryWithColor:(UIColor *)color width:(CGFloat)width
 {
     // Draw waveform
     UIBezierPath *wavePath = [UIBezierPath bezierPath];
@@ -79,7 +90,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self drawHistoryWithColor:[UIColor whiteColor] width:1.0];
+    [self drawHistoryWithColor:self.lineColor width:self.lineWidth];
     
 }
 

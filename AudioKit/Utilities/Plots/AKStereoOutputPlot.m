@@ -8,6 +8,7 @@
 
 #import "AKStereoOutputPlot.h"
 #import "AKFoundation.h"
+#import "CsoundObj.h"
 
 @interface AKStereoOutputPlot() <CsoundBinding>
 {
@@ -31,7 +32,18 @@
 #define AKColor NSColor
 #endif
 
-- (void)drawChannel:(int)channel offset:(float)offset color:(AKColor *)color width:(float)width
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _lineWidth = 4.0f;
+        _leftLineColor = [AKColor greenColor];
+        _rightLineColor = [AKColor redColor];
+    }
+    return self;
+}
+
+- (void)drawChannel:(int)channel offset:(float)offset color:(AKColor *)color width:(CGFloat)width
 {
     int plotPoints = sampleSize / 2;
     // Draw waveform
@@ -69,8 +81,8 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self drawChannel:0 offset:0.25 color:[AKColor greenColor] width:4.0];
-    [self drawChannel:1 offset:0.75 color:[AKColor redColor]   width:4.0];
+    [self drawChannel:0 offset:0.25 color:self.leftLineColor    width:self.lineWidth];
+    [self drawChannel:1 offset:0.75 color:self.rightLineColor   width:self.lineWidth];
 }
 
 // -----------------------------------------------------------------------------
