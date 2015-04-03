@@ -81,8 +81,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    int samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
+    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
+    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
     samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
 }
