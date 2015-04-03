@@ -47,14 +47,11 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
-    [AKManager addBinding:inputPlot];
     amplitudePlot.property = analyzer.trackedAmplitude;
     
     normalizedFrequency = [[AKInstrumentProperty alloc] initWithValue:0.0 minimum:16.35 maximum:30.87];
     frequencyPlot.property = analyzer.trackedFrequency;
     frequencyPlot.plottedValue = normalizedFrequency;
-    [AKManager addBinding:amplitudePlot];
-    [AKManager addBinding:frequencyPlot];
     
     normalizedFrequencyPlot.minimum = 15;
     normalizedFrequencyPlot.maximum = 32;

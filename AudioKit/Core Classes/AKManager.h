@@ -98,4 +98,7 @@
 /// @param binding The object that will be added to Csound's binding list
 + (void)addBinding:(id)binding;
 
+/// @param binding The object that will be removed from Csound's binding list
++ (void)removeBinding:(id)binding;
+
 @end

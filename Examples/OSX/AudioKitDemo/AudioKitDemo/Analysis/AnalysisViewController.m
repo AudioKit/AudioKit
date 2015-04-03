@@ -45,7 +45,6 @@
     [AKOrchestra addInstrument:analyzer];
     [inputPlot setWantsLayer:YES];
     [inputPlot.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
-    [AKManager addBinding:inputPlot];
 }
 
 - (void)viewDidAppear

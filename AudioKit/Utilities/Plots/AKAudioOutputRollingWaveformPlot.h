@@ -6,20 +6,15 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-@import Foundation;
+#import "AKPlotView.h"
+
+/// A Rolling Waveform for of the audio output
+IB_DESIGNABLE
+@interface AKAudioOutputRollingWaveformPlot : AKPlotView
 
 #if TARGET_OS_IPHONE
-@import UIKit;
-
-/// A Rolling Waveform for of the audio output
-IB_DESIGNABLE
-@interface AKAudioOutputRollingWaveformPlot : UIView
 @property (nonatomic) IBInspectable UIColor *plotColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// A Rolling Waveform for of the audio output
-IB_DESIGNABLE
-@interface AKAudioOutputRollingWaveformPlot : NSView
+#else
 @property (nonatomic) IBInspectable NSColor *plotColor;
 #endif
 

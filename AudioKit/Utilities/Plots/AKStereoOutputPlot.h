@@ -6,19 +6,15 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-@import Foundation;
+#import "AKPlotView.h"
 
-#if TARGET_OS_IPHONE
-@import UIKit;
 /// Plot the raw samples of the audio output to the DAC as left and right signals
 IB_DESIGNABLE
-@interface AKStereoOutputPlot : UIView
+@interface AKStereoOutputPlot : AKPlotView
+
+#if TARGET_OS_IPHONE
 @property IBInspectable UIColor *leftLineColor, *rightLineColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plot the raw samples of the audio output to the DAC as keft and right signals
-IB_DESIGNABLE
-@interface AKStereoOutputPlot : NSView
+#else
 @property IBInspectable NSColor *leftLineColor, *rightLineColor;
 #endif
 
