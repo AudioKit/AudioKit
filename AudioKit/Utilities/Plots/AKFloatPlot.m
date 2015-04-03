@@ -8,6 +8,12 @@
 
 #import "AKFloatPlot.h"
 
+#if TARGET_OS_IPHONE
+#define AKColor UIColor
+#elif TARGET_OS_MAC
+#define AKColor NSColor
+#endif
+
 @implementation AKFloatPlot
 {
     float *history;
@@ -15,13 +21,15 @@
     int index;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
         index = 0;
         historySize = 64;
         history = (float *)malloc(historySize * sizeof(float));
+        _lineWidth = 4.0f;
+        _lineColor = [AKColor blueColor];
     }
     return self;
 }
@@ -39,13 +47,7 @@
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
-
-- (void)drawWithColor:(AKColor *)color width:(float)width
+- (void)drawWithColor:(AKColor *)color width:(CGFloat)width
 {
     // Draw waveform
 #if TARGET_OS_IPHONE
@@ -85,7 +87,7 @@
 
 - (void)drawRect:(CGRect)rect {
     
-    [self drawWithColor:[AKColor blueColor] width:4.0];
+    [self drawWithColor:self.lineColor width:self.lineWidth];
 }
 
 - (void)updateWithValue:(float)value {

@@ -9,12 +9,14 @@
 #import "AKTable.h"
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 /// Plots the values of the given table
+IB_DESIGNABLE
 @interface AKTablePlot : UIView
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// Plots the values of the given table
+IB_DESIGNABLE
 @interface AKTablePlot : NSView
 #endif
 
@@ -22,6 +24,7 @@
 /// @param frame Bounding frame for the plot
 /// @param table Table to plot
 - (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)table;
+
 @property AKTable *table;
 
 @end

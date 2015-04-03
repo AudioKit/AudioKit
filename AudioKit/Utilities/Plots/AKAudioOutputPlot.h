@@ -6,16 +6,22 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "CsoundObj.h"
+@import Foundation;
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 /// Plot the raw samples of the audio output to the DAC
-@interface AKAudioOutputPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputPlot : UIView
+@property IBInspectable UIColor *lineColor;
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// Plot the raw samples of the audio output to the DAC
-@interface AKAudioOutputPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputPlot : NSView
+@property IBInspectable NSColor *lineColor;
 #endif
+
+@property IBInspectable CGFloat lineWidth;
 
 @end

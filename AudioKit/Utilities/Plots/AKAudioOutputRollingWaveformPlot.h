@@ -6,16 +6,21 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "CsoundObj.h"
+@import Foundation;
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 /// A Rolling Waveform for of the audio output
-@interface AKAudioOutputRollingWaveformPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputRollingWaveformPlot : UIView
+@property (nonatomic) IBInspectable UIColor *plotColor;
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// A Rolling Waveform for of the audio output
-@interface AKAudioOutputRollingWaveformPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputRollingWaveformPlot : NSView
+@property (nonatomic) IBInspectable NSColor *plotColor;
 #endif
 
 @end

@@ -6,20 +6,26 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 /// Plots the floating point value given a minimum and maximum
+IB_DESIGNABLE
 @interface AKFloatPlot : UIView
+@property IBInspectable UIColor *lineColor;
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// Plots the floating point value given a minimum and maximum
+IB_DESIGNABLE
 @interface AKFloatPlot : NSView
+@property IBInspectable NSColor *lineColor;
 #endif
 
-@property float minimum;
-@property float maximum;
+@property IBInspectable float minimum;
+@property IBInspectable float maximum;
+
+@property IBInspectable CGFloat lineWidth;
 
 - (instancetype)initWithMinimum:(float)minimum maximum:(float)maximum;
 

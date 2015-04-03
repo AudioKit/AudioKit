@@ -5,11 +5,11 @@
 //  Created by Aurelius Prochazka on 2/6/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
-
+#import "CsoundObj.h"
 #import "AKAudioInputPlot.h"
 #import "AKFoundation.h"
 
-@interface AKAudioInputPlot()
+@interface AKAudioInputPlot() <CsoundBinding>
 {
     NSData *inSamples;
     MYFLT *samples;
@@ -28,7 +28,17 @@
 #define AKColor NSColor
 #endif
 
-- (void)drawWithColor:(AKColor *)color lineWidth:(float)width
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _lineWidth = 4.0f;
+        _lineColor = [AKColor yellowColor];
+    }
+    return self;
+}
+
+- (void)drawWithColor:(AKColor *)color lineWidth:(CGFloat)width
 {
     // Draw waveform
 #if TARGET_OS_IPHONE
@@ -62,7 +72,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self drawWithColor:[AKColor yellowColor] lineWidth:4.0];
+    [self drawWithColor:self.lineColor lineWidth:self.lineWidth];
 }
 
 // -----------------------------------------------------------------------------

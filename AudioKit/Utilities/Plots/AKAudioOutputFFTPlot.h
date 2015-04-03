@@ -6,18 +6,22 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "CsoundObj.h"
-#import <Accelerate/Accelerate.h>
-
+@import Foundation;
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+@import UIKit;
 /// Plots the FFT of the audio output
-@interface AKAudioOutputFFTPlot : UIView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputFFTPlot : UIView
+@property IBInspectable UIColor *lineColor;
 #elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 /// Plots the FFT of the audio output
-@interface AKAudioOutputFFTPlot : NSView <CsoundBinding>
+IB_DESIGNABLE
+@interface AKAudioOutputFFTPlot : NSView
+@property IBInspectable NSColor *lineColor;
 #endif
+
+@property IBInspectable CGFloat lineWidth;
 
 @end

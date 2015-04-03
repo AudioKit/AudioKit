@@ -8,6 +8,17 @@
 
 #import "AKInstrumentPropertyPlot.h"
 #import "AKFoundation.h"
+#import "CsoundObj.h"
+
+@interface AKInstrumentPropertyPlot () <CsoundBinding>
+
+@end
+
+#if TARGET_OS_IPHONE
+#define AKColor UIColor
+#elif TARGET_OS_MAC
+#define AKColor NSColor
+#endif
 
 @implementation AKInstrumentPropertyPlot
 {
@@ -16,18 +27,20 @@
     int index;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
         index = 0;
         historySize = 512;
         history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
+        _lineWidth = 4.0f;
+        _lineColor = [AKColor blueColor];
     }
     return self;
 }
 
-- (id)initWithProperty:(AKInstrumentProperty *)property;
+- (instancetype)initWithProperty:(AKInstrumentProperty *)property;
 {
     self = [self init];
     if (self) {
@@ -37,13 +50,6 @@
 }
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
-
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
 
 - (void)drawWithColor:(AKColor *)color width:(float)width
 {
@@ -87,7 +93,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [self drawWithColor:[AKColor blueColor] width:4.0];
+    [self drawWithColor:self.lineColor width:self.lineWidth];
 }
 
 // -----------------------------------------------------------------------------
