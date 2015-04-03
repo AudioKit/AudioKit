@@ -49,8 +49,6 @@
     free(history);
 }
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
 - (void)drawWithColor:(AKColor *)color width:(CGFloat)width
 {
     // Draw waveform
@@ -70,7 +68,7 @@
     for (int i = index; i < index+historySize; i++) {
         
         y = self.bounds.size.height - (history[i % historySize] - _minimum) * yScale;
-        y = CLAMP(y, 0.0, self.bounds.size.height);
+        y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         
         if (i == index) {
             [wavePath moveToPoint:CGPointMake(x, y)];

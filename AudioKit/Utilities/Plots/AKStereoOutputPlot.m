@@ -22,8 +22,6 @@
 
 @implementation AKStereoOutputPlot
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
 - (void)defaultValues
 {
     _lineWidth = 4.0f;
@@ -49,7 +47,7 @@
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     for (int i = 0; i < plotPoints; i++) {
-        y = CLAMP(y, -1.0f, 1.0f);
+        y = AK_CLAMP(y, -1.0f, 1.0f);
         y = samples[(i * 2) + channel] * yScale + yOffset;
         if (i == 0) {
             [wavePath moveToPoint:CGPointMake(x, y)];

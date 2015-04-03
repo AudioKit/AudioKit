@@ -53,8 +53,6 @@
     free(history);
 }
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
 - (void)drawWithColor:(AKColor *)color width:(float)width
 {
     // Draw waveform
@@ -74,7 +72,7 @@
     for (int i = index; i < index+historySize; i++) {
         
         y = self.bounds.size.height - (history[i % historySize] - yMin) * yScale;
-        y = CLAMP(y, 0.0, self.bounds.size.height);
+        y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         if (x != x || y != y) {
             NSLog(@"Something is not a number");
         } else {
