@@ -12,6 +12,10 @@
 IB_DESIGNABLE
 @interface AKAudioInputRollingWaveformPlot : AKPlotView
 
-@property (nonatomic) IBInspectable AKColor *plotColor;
+#if TARGET_OS_IPHONE
+@property (nonatomic) IBInspectable UIColor *plotColor;
+#else
+@property (nonatomic) IBInspectable NSColor *plotColor;
+#endif
 
 @end

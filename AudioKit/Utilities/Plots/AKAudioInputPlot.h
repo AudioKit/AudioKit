@@ -12,7 +12,12 @@
 IB_DESIGNABLE
 @interface AKAudioInputPlot : AKPlotView
 
-@property IBInspectable AKColor *lineColor;
+// Can't simply use AKColor here as Xcode fails to interpret it correctly in IB
+#if TARGET_OS_IPHONE
+@property IBInspectable UIColor *lineColor;
+#else
+@property IBInspectable NSColor *lineColor;
+#endif
 @property IBInspectable CGFloat lineWidth;
 
 @end

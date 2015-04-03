@@ -12,7 +12,12 @@
 IB_DESIGNABLE
 @interface AKStereoOutputPlot : AKPlotView
 
-@property IBInspectable AKColor *leftLineColor, *rightLineColor;
+#if TARGET_OS_IPHONE
+@property IBInspectable UIColor *leftLineColor, *rightLineColor;
+#else
+@property IBInspectable NSColor *leftLineColor, *rightLineColor;
+#endif
+
 @property IBInspectable CGFloat lineWidth;
 
 @end
