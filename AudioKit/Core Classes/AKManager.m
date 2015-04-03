@@ -331,4 +331,9 @@ static AKManager *_sharedManager = nil;
     [[[self sharedManager] engine] addBinding:binding];
 }
 
++ (void)removeBinding:(id)binding
+{
+    [[[self sharedManager] engine] removeBinding:binding];
+}
+
 @end
