@@ -6,22 +6,13 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-@import Foundation;
+#import "AKPlotView.h"
 
-#if TARGET_OS_IPHONE
-@import UIKit;
 /// Plots the FFT of the audio input
 IB_DESIGNABLE
-@interface AKAudioInputFFTPlot : UIView
-@property IBInspectable UIColor *lineColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plots the FFT of the audio input
-IB_DESIGNABLE
-@interface AKAudioInputFFTPlot : NSView
-@property IBInspectable NSColor *lineColor;
-#endif
+@interface AKAudioInputFFTPlot : AKPlotView
 
+@property IBInspectable AKColor *lineColor;
 @property IBInspectable CGFloat lineWidth;
 
 @end

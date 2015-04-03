@@ -7,18 +7,11 @@
 //
 
 #import "AKTable.h"
+#import "AKPlotView.h"
 
-#if TARGET_OS_IPHONE
-@import UIKit;
 /// Plots the values of the given table
 IB_DESIGNABLE
-@interface AKTablePlot : UIView
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plots the values of the given table
-IB_DESIGNABLE
-@interface AKTablePlot : NSView
-#endif
+@interface AKTablePlot : AKPlotView
 
 /// Creates the table plot
 /// @param frame Bounding frame for the plot

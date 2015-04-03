@@ -7,20 +7,13 @@
 //
 
 #import "AKInstrumentProperty.h"
+#import "AKPlotView.h"
 
-#if TARGET_OS_IPHONE
-@import UIKit;
 /// Plot of the given instrument property
 IB_DESIGNABLE
-@interface AKInstrumentPropertyPlot : UIView
-@property IBInspectable UIColor *lineColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plot of the given instrument property
-IB_DESIGNABLE
-@interface AKInstrumentPropertyPlot : NSView
-@property IBInspectable NSColor *lineColor;
-#endif
+@interface AKInstrumentPropertyPlot : AKPlotView
+
+@property IBInspectable AKColor *lineColor;
 
 @property AKInstrumentProperty *property;
 @property AKInstrumentProperty *plottedValue;

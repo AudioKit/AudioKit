@@ -16,27 +16,19 @@
     int sampleSize;
     CsoundObj *cs;
 }
+
 @end
 
 @implementation AKAudioInputPlot
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
-
-- (instancetype)initWithFrame:(CGRect)frame
+- (void) defaultValues
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        _lineWidth = 4.0f;
-        _lineColor = [AKColor yellowColor];
-    }
-    return self;
+    _lineWidth = 4.0f;
+    _lineColor = [AKColor yellowColor];
 }
+
 
 - (void)drawWithColor:(AKColor *)color lineWidth:(CGFloat)width
 {
@@ -86,8 +78,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    int samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
+    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
+    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     
     sampleSize = numberOfChannels * samplesPerControlPeriod;
     samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));

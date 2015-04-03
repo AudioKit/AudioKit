@@ -28,25 +28,26 @@
     FFTSetup      _FFTSetup;
     BOOL          _isFFTSetup;
     vDSP_Length   _log2n;
-
 }
 @end
 
 @implementation AKAudioInputFFTPlot
 
+- (void)defaultValues
+{
+    _lineWidth = 1.0f;
+    _lineColor = [AKColor whiteColor];
+}
+
+- (void)dealloc
+{
+    free(history);
+    // free(samples); // Might not be safe
+}
+
 #if TARGET_OS_IPHONE
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _lineWidth = 1.0f;
-        _lineColor = [UIColor whiteColor];
-    }
-    return self;
-}
 
 - (void)drawHistoryWithColor:(UIColor *)color width:(CGFloat)width
 {
@@ -95,7 +96,10 @@
     
 }
 
--(void)createFFTWithBufferSize:(float)bufferSize withAudioData:(float*)data {
+#elif TARGET_OS_MAC
+#endif
+
+-(void)createFFTWithBufferSize:(float)bufferSize withAudioData:(MYFLT*)data {
     
     // Setup the length
     _log2n = log2f(bufferSize);
@@ -119,7 +123,7 @@
     
 }
 
--(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(float*)data {
+-(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(MYFLT*)data {
     
     // For an FFT, numSamples must be a power of 2, i.e. is always even
     int nOver2 = bufferSize/2;
@@ -152,8 +156,6 @@
     [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
 }
 
-
-
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
 // -----------------------------------------------------------------------------
@@ -165,8 +167,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    int samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
+    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
+    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
     samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
     
@@ -195,8 +197,5 @@
     // Get the FFT data
     [self updateFFTWithBufferSize:sampleSize withAudioData:samples];
 }
-
-#elif TARGET_OS_MAC
-#endif
 
 @end

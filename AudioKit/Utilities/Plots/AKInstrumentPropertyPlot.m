@@ -14,12 +14,6 @@
 
 @end
 
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
-
 @implementation AKInstrumentPropertyPlot
 {
     MYFLT *history;
@@ -27,15 +21,20 @@
     int index;
 }
 
+- (void)defaultValues
+{
+    index = 0;
+    historySize = 512;
+    history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
+    _lineWidth = 4.0f;
+    _lineColor = [AKColor blueColor];
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        index = 0;
-        historySize = 512;
-        history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
-        _lineWidth = 4.0f;
-        _lineColor = [AKColor blueColor];
+        [self defaultValues];
     }
     return self;
 }
@@ -47,6 +46,11 @@
         _property = property;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    free(history);
 }
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
