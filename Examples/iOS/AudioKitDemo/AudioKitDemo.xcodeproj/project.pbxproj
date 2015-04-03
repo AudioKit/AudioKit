@@ -184,6 +184,16 @@
 		C4ED1DEF1AB7FEFE00366020 /* AKInstrumentPropertyPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1DE71AB7FEFE00366020 /* AKInstrumentPropertyPlot.m */; };
 		C4ED1DF01AB7FEFE00366020 /* AKStereoOutputPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1DE91AB7FEFE00366020 /* AKStereoOutputPlot.m */; };
 		C4ED1DF11AB7FEFE00366020 /* AKTablePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1DEB1AB7FEFE00366020 /* AKTablePlot.m */; };
+		EA2F5F711ACE406E00F1BCFB /* AKPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F701ACE406E00F1BCFB /* AKPlotView.m */; };
+		EA2F5F841ACE74AA00F1BCFB /* AKAudioInputFFTPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F731ACE74AA00F1BCFB /* AKAudioInputFFTPlot.m */; };
+		EA2F5F851ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F751ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.m */; };
+		EA2F5F861ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F771ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.m */; };
+		EA2F5F871ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F791ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.m */; };
+		EA2F5F881ACE74AA00F1BCFB /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F7C1ACE74AA00F1BCFB /* AEFloatConverter.m */; };
+		EA2F5F891ACE74AA00F1BCFB /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F7E1ACE74AA00F1BCFB /* EZAudio.m */; };
+		EA2F5F8A1ACE74AA00F1BCFB /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F801ACE74AA00F1BCFB /* EZAudioPlot.m */; };
+		EA2F5F8B1ACE74AA00F1BCFB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = EA2F5F811ACE74AA00F1BCFB /* LICENSE */; };
+		EA2F5F8C1ACE74AA00F1BCFB /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = EA2F5F821ACE74AA00F1BCFB /* TPCircularBuffer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -557,6 +567,25 @@
 		C4ED1DE91AB7FEFE00366020 /* AKStereoOutputPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoOutputPlot.m; sourceTree = "<group>"; };
 		C4ED1DEA1AB7FEFE00366020 /* AKTablePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTablePlot.h; sourceTree = "<group>"; };
 		C4ED1DEB1AB7FEFE00366020 /* AKTablePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTablePlot.m; sourceTree = "<group>"; };
+		EA2F5F6F1ACE406E00F1BCFB /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
+		EA2F5F701ACE406E00F1BCFB /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
+		EA2F5F721ACE74AA00F1BCFB /* AKAudioInputFFTPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioInputFFTPlot.h; sourceTree = "<group>"; };
+		EA2F5F731ACE74AA00F1BCFB /* AKAudioInputFFTPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioInputFFTPlot.m; sourceTree = "<group>"; };
+		EA2F5F741ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioInputRollingWaveformPlot.h; sourceTree = "<group>"; };
+		EA2F5F751ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioInputRollingWaveformPlot.m; sourceTree = "<group>"; };
+		EA2F5F761ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutputFFTPlot.h; sourceTree = "<group>"; };
+		EA2F5F771ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutputFFTPlot.m; sourceTree = "<group>"; };
+		EA2F5F781ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutputRollingWaveformPlot.h; sourceTree = "<group>"; };
+		EA2F5F791ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutputRollingWaveformPlot.m; sourceTree = "<group>"; };
+		EA2F5F7B1ACE74AA00F1BCFB /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
+		EA2F5F7C1ACE74AA00F1BCFB /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
+		EA2F5F7D1ACE74AA00F1BCFB /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
+		EA2F5F7E1ACE74AA00F1BCFB /* EZAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudio.m; sourceTree = "<group>"; };
+		EA2F5F7F1ACE74AA00F1BCFB /* EZAudioPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioPlot.h; sourceTree = "<group>"; };
+		EA2F5F801ACE74AA00F1BCFB /* EZAudioPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlot.m; sourceTree = "<group>"; };
+		EA2F5F811ACE74AA00F1BCFB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		EA2F5F821ACE74AA00F1BCFB /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		EA2F5F831ACE74AA00F1BCFB /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1382,10 +1411,20 @@
 		C4ED1DDF1AB7FEFE00366020 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				EA2F5F6F1ACE406E00F1BCFB /* AKPlotView.h */,
+				EA2F5F701ACE406E00F1BCFB /* AKPlotView.m */,
 				C4ED1DE01AB7FEFE00366020 /* AKAudioInputPlot.h */,
 				C4ED1DE11AB7FEFE00366020 /* AKAudioInputPlot.m */,
 				C45266871AC1234A009C8F4A /* AKAudioOutputPlot.h */,
 				C45266881AC1234A009C8F4A /* AKAudioOutputPlot.m */,
+				EA2F5F721ACE74AA00F1BCFB /* AKAudioInputFFTPlot.h */,
+				EA2F5F731ACE74AA00F1BCFB /* AKAudioInputFFTPlot.m */,
+				EA2F5F741ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.h */,
+				EA2F5F751ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.m */,
+				EA2F5F761ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.h */,
+				EA2F5F771ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.m */,
+				EA2F5F781ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.h */,
+				EA2F5F791ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.m */,
 				C4ED1DE41AB7FEFE00366020 /* AKFloatPlot.h */,
 				C4ED1DE51AB7FEFE00366020 /* AKFloatPlot.m */,
 				C4ED1DE61AB7FEFE00366020 /* AKInstrumentPropertyPlot.h */,
@@ -1394,8 +1433,25 @@
 				C4ED1DE91AB7FEFE00366020 /* AKStereoOutputPlot.m */,
 				C4ED1DEA1AB7FEFE00366020 /* AKTablePlot.h */,
 				C4ED1DEB1AB7FEFE00366020 /* AKTablePlot.m */,
+				EA2F5F7A1ACE74AA00F1BCFB /* EZAudio */,
 			);
 			path = Plots;
+			sourceTree = "<group>";
+		};
+		EA2F5F7A1ACE74AA00F1BCFB /* EZAudio */ = {
+			isa = PBXGroup;
+			children = (
+				EA2F5F7B1ACE74AA00F1BCFB /* AEFloatConverter.h */,
+				EA2F5F7C1ACE74AA00F1BCFB /* AEFloatConverter.m */,
+				EA2F5F7D1ACE74AA00F1BCFB /* EZAudio.h */,
+				EA2F5F7E1ACE74AA00F1BCFB /* EZAudio.m */,
+				EA2F5F7F1ACE74AA00F1BCFB /* EZAudioPlot.h */,
+				EA2F5F801ACE74AA00F1BCFB /* EZAudioPlot.m */,
+				EA2F5F811ACE74AA00F1BCFB /* LICENSE */,
+				EA2F5F821ACE74AA00F1BCFB /* TPCircularBuffer.c */,
+				EA2F5F831ACE74AA00F1BCFB /* TPCircularBuffer.h */,
+			);
+			path = EZAudio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1461,6 +1517,7 @@
 				C43F55241AB14045005E437A /* 808loop.wav in Resources */,
 				C43F55271AB14045005E437A /* marmstk1.wav in Resources */,
 				C4BACD1D1A8FFC3200736291 /* LaunchScreen.xib in Resources */,
+				EA2F5F8B1ACE74AA00F1BCFB /* LICENSE in Resources */,
 				C43F550B1AB14045005E437A /* LICENSE.TXT in Resources */,
 				C43F54921AB14045005E437A /* AudioKit.plist in Resources */,
 				C43F55281AB14045005E437A /* PianoBassDrumLoop.wav in Resources */,
@@ -1488,9 +1545,11 @@
 				C43F54D11AB14045005E437A /* AKBowedString.m in Sources */,
 				C43F54F81AB14045005E437A /* AKBandRejectButterworthFilter.m in Sources */,
 				C43F54971AB14045005E437A /* AKNoteProperty.m in Sources */,
+				EA2F5F891ACE74AA00F1BCFB /* EZAudio.m in Sources */,
 				C4BACF401A90606300736291 /* ConvolutionInstrument.m in Sources */,
 				C43F54BF1AB14045005E437A /* AKPhasor.m in Sources */,
 				C43F54951AB14045005E437A /* AKInstrumentProperty.m in Sources */,
+				EA2F5F881ACE74AA00F1BCFB /* AEFloatConverter.m in Sources */,
 				C43F54E51AB14045005E437A /* AKVariableDelay.m in Sources */,
 				C43F54B01AB14045005E437A /* AKADSREnvelope.m in Sources */,
 				C43F54E11AB14045005E437A /* AKConvolution.m in Sources */,
@@ -1537,6 +1596,7 @@
 				C43F54B31AB14045005E437A /* AKLinearEnvelope.m in Sources */,
 				C43F54F01AB14045005E437A /* AKLowPassFilter.m in Sources */,
 				C43F54D71AB14045005E437A /* AKRandomNumbers.m in Sources */,
+				EA2F5F711ACE406E00F1BCFB /* AKPlotView.m in Sources */,
 				C4BACF3F1A90606300736291 /* AudioFilePlayer.m in Sources */,
 				C43F54A61AB14045005E437A /* AKAssignment.m in Sources */,
 				C43F54EE1AB14045005E437A /* AKHighPassFilter.m in Sources */,
@@ -1554,8 +1614,10 @@
 				C45266831AC08A53009C8F4A /* Vibraphone.m in Sources */,
 				C43F54D91AB14045005E437A /* AKSegmentArrayLoop.m in Sources */,
 				C43F54F61AB14045005E437A /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
+				EA2F5F861ACE74AA00F1BCFB /* AKAudioOutputFFTPlot.m in Sources */,
 				C43F54AE1AB14045005E437A /* AKSum.m in Sources */,
 				C43F55171AB14045005E437A /* AKLineTableGenerator.m in Sources */,
+				EA2F5F851ACE74AA00F1BCFB /* AKAudioInputRollingWaveformPlot.m in Sources */,
 				C43F55041AB14045005E437A /* AKControl.m in Sources */,
 				C43F55161AB14045005E437A /* AKHarmonicCosineTableGenerator.m in Sources */,
 				C43F54FF1AB14045005E437A /* AKBalance.m in Sources */,
@@ -1564,6 +1626,7 @@
 				C45266781AC08A53009C8F4A /* Amplifier.m in Sources */,
 				C43F55111AB14045005E437A /* AKSequence.m in Sources */,
 				C43F54B11AB14045005E437A /* AKLine.m in Sources */,
+				EA2F5F8C1ACE74AA00F1BCFB /* TPCircularBuffer.c in Sources */,
 				C43F54901AB14045005E437A /* AKManager.m in Sources */,
 				C43F55191AB14045005E437A /* AKTableGenerator.m in Sources */,
 				C43F54E91AB14045005E437A /* AKCombFilter.m in Sources */,
@@ -1571,9 +1634,11 @@
 				C43F54B51AB14045005E437A /* AKGranularSynthesizer.m in Sources */,
 				C43F54E81AB14045005E437A /* AKFlanger.m in Sources */,
 				C43F549D1AB14045005E437A /* AKCrossSynthesizedFFT.m in Sources */,
+				EA2F5F8A1ACE74AA00F1BCFB /* EZAudioPlot.m in Sources */,
 				C43F54A01AB14045005E437A /* AKMixedFFT.m in Sources */,
 				C43F55031AB14045005E437A /* AKConstant.m in Sources */,
 				C43F55181AB14045005E437A /* AKRandomDistributionTableGenerator.m in Sources */,
+				EA2F5F841ACE74AA00F1BCFB /* AKAudioInputFFTPlot.m in Sources */,
 				C4ED1DEE1AB7FEFE00366020 /* AKFloatPlot.m in Sources */,
 				C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */,
 				C43F54DA1AB14045005E437A /* AKAdditiveCosines.m in Sources */,
@@ -1609,6 +1674,7 @@
 				C43F54AC1AB14045005E437A /* AKProduct.m in Sources */,
 				C4ED1DF11AB7FEFE00366020 /* AKTablePlot.m in Sources */,
 				C43F54C81AB14045005E437A /* AKCrunch.m in Sources */,
+				EA2F5F871ACE74AA00F1BCFB /* AKAudioOutputRollingWaveformPlot.m in Sources */,
 				C45266891AC1234A009C8F4A /* AKAudioOutputPlot.m in Sources */,
 				C43F54C91AB14045005E437A /* AKDroplet.m in Sources */,
 				C4BACD0C1A8FFC3100736291 /* main.m in Sources */,

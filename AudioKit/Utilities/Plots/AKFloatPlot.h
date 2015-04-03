@@ -6,19 +6,15 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-@import Foundation;
+#import "AKPlotView.h"
+
+/// Plots the floating point value given a minimum and maximum
+IB_DESIGNABLE
+@interface AKFloatPlot : AKPlotView
 
 #if TARGET_OS_IPHONE
-@import UIKit;
-/// Plots the floating point value given a minimum and maximum
-IB_DESIGNABLE
-@interface AKFloatPlot : UIView
 @property IBInspectable UIColor *lineColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plots the floating point value given a minimum and maximum
-IB_DESIGNABLE
-@interface AKFloatPlot : NSView
+#else
 @property IBInspectable NSColor *lineColor;
 #endif
 

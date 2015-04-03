@@ -33,19 +33,21 @@
 
 @implementation AKAudioOutputFFTPlot
 
+- (void)defaultValues
+{
+    _lineWidth = 1.0f;
+    _lineColor = [AKColor whiteColor];
+}
+
+- (void)dealloc
+{
+    // free(samples); // Might not be safe
+    free(history);
+}
+
 #if TARGET_OS_IPHONE
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _lineWidth = 1.0f;
-        _lineColor = [UIColor whiteColor];
-    }
-    return self;
-}
 
 - (void)drawHistoryWithColor:(UIColor *)color width:(CGFloat)width
 {
@@ -162,7 +164,7 @@
 - (void)updateValuesFromCsound
 {
     outSamples = [cs getOutSamples];
-    samples = (MYFLT *)[outSamples bytes];
+    samples = (MYFLT *)[outSamples bytes]; // FIXME: Very likely we're leaking memory here
     
     //[self updateFFTWithBufferSize:sampleSize withAudioData:samples];
     
@@ -187,8 +189,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    int samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
+    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
+    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
     samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
     

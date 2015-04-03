@@ -6,20 +6,18 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
+#import "AKPlotView.h"
+
+/// Plots the incoming audio source signal, usually the microphone
+IB_DESIGNABLE
+@interface AKAudioInputPlot : AKPlotView
+
+// Can't simply use AKColor here as Xcode fails to interpret it correctly in IB
 #if TARGET_OS_IPHONE
-@import UIKit;
-/// Plots the incoming audio source signal, usually the microphone
-IB_DESIGNABLE
-@interface AKAudioInputPlot : UIView
 @property IBInspectable UIColor *lineColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plots the incoming audio source signal, usually the microphone
-IB_DESIGNABLE
-@interface AKAudioInputPlot : NSView
+#else
 @property IBInspectable NSColor *lineColor;
 #endif
-
 @property IBInspectable CGFloat lineWidth;
 
 @end

@@ -26,19 +26,9 @@
 
 @implementation AKAudioInputRollingWaveformPlot
 
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
-
-- (instancetype)initWithFrame:(CGRect)frame
+- (void)defaultValues
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        _plotColor = [AKColor yellowColor];
-    }
-    return self;
+    _plotColor = [AKColor yellowColor];
 }
 
 
@@ -52,8 +42,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    int samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
+    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
+    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
     samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
     
@@ -78,7 +68,7 @@
 - (void)updateValuesFromCsound
 {
     outSamples = [cs getInSamples];
-    samples = (MYFLT *)[outSamples bytes];
+    samples = (MYFLT *)[outSamples bytes]; // FIXME: Memory leak, overwriting malloc()
     
     dispatch_async(dispatch_get_main_queue(),^{
         audioPlot.bounds = self.bounds;

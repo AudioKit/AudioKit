@@ -6,22 +6,17 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-@import Foundation;
+#import "AKPlotView.h"
+
+/// Plot the raw samples of the audio output to the DAC
+IB_DESIGNABLE
+@interface AKAudioOutputPlot : AKPlotView
 
 #if TARGET_OS_IPHONE
-@import UIKit;
-/// Plot the raw samples of the audio output to the DAC
-IB_DESIGNABLE
-@interface AKAudioOutputPlot : UIView
 @property IBInspectable UIColor *lineColor;
-#elif TARGET_OS_MAC
-@import Cocoa;
-/// Plot the raw samples of the audio output to the DAC
-IB_DESIGNABLE
-@interface AKAudioOutputPlot : NSView
+#else
 @property IBInspectable NSColor *lineColor;
 #endif
-
 @property IBInspectable CGFloat lineWidth;
 
 @end

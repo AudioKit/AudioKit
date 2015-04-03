@@ -8,12 +8,6 @@
 
 #import "AKFloatPlot.h"
 
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
-
 @implementation AKFloatPlot
 {
     float *history;
@@ -21,21 +15,26 @@
     int index;
 }
 
+- (void)defaultValues
+{
+    index = 0;
+    historySize = 64;
+    history = (float *)malloc(historySize * sizeof(float));
+    _lineWidth = 4.0f;
+    _lineColor = [AKColor blueColor];
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        index = 0;
-        historySize = 64;
-        history = (float *)malloc(historySize * sizeof(float));
-        _lineWidth = 4.0f;
-        _lineColor = [AKColor blueColor];
+        [self defaultValues];
     }
     return self;
 }
 
 - (instancetype)initWithMinimum:(float)minimum
-                      maximum:(float)maximum;
+                        maximum:(float)maximum
 {
     self = [self init];
     if (self) {
@@ -43,6 +42,11 @@
         _maximum = maximum;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    free(history);
 }
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))

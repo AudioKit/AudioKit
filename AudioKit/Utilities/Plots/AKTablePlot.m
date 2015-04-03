@@ -25,7 +25,6 @@
    
     self = [super initWithFrame:frame];
     if (self) {
-#if TARGET_OS_IPHONE
         fTableNumber = table.number;
         CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
         while (csoundTableLength(cs, fTableNumber) < 0) {
@@ -55,17 +54,24 @@
                 displayData[i] = (-(tableValues[index]/max) * middle * scalingFactor) + middle;
             }
             
+#if TARGET_OS_IPHONE
             [self setNeedsDisplay];
-
-        }
 #elif TARGET_OS_MAC
+            [self setNeedsDisplay:YES];
 #endif
+        }
         
     }
     return self;
 }
 
- #if TARGET_OS_IPHONE
+- (void)dealloc
+{
+    free(displayData);
+    free(tableValues);
+}
+
+#if TARGET_OS_IPHONE
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -96,6 +102,7 @@
 
 
 #elif TARGET_OS_MAC
+// TODO
 #endif
 
 @end

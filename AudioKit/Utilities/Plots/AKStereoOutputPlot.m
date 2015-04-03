@@ -15,8 +15,6 @@
     NSData *outSamples;
     MYFLT *samples;
     int sampleSize;
-    MYFLT *history;
-    int historySize;
     int index;
     CsoundObj *cs;
 }
@@ -26,21 +24,11 @@
 
 #define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
-#if TARGET_OS_IPHONE
-#define AKColor UIColor
-#elif TARGET_OS_MAC
-#define AKColor NSColor
-#endif
-
-- (instancetype)initWithFrame:(CGRect)frame
+- (void)defaultValues
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        _lineWidth = 4.0f;
-        _leftLineColor = [AKColor greenColor];
-        _rightLineColor = [AKColor redColor];
-    }
-    return self;
+    _lineWidth = 4.0f;
+    _leftLineColor = [AKColor greenColor];
+    _rightLineColor = [AKColor redColor];
 }
 
 - (void)drawChannel:(int)channel offset:(float)offset color:(AKColor *)color width:(CGFloat)width
@@ -104,7 +92,7 @@
 - (void)updateValuesFromCsound
 {
     outSamples = [cs getOutSamples];
-    samples = (MYFLT *)[outSamples bytes];
+    samples = (MYFLT *)[outSamples bytes]; // FIXME: Probably memory leak
 
     [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
 
