@@ -21,8 +21,6 @@
 
 @implementation AKAudioInputPlot
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
 - (void) defaultValues
 {
     _lineWidth = 4.0f;
@@ -42,7 +40,7 @@
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     for (int i = 0; i < sampleSize/2; i++) {
-        y = CLAMP(samples[i*2], -1.0f, 1.0f);
+        y = AK_CLAMP(samples[i*2], -1.0f, 1.0f);
         y = self.bounds.size.height * (y + 1.0) / 2.0;
         
         if (i == 0) {

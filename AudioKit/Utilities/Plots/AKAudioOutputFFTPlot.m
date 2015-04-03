@@ -47,8 +47,6 @@
 
 #if TARGET_OS_IPHONE
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
 - (void)drawHistoryWithColor:(UIColor *)color width:(CGFloat)width
 {
     // Draw waveform
@@ -78,7 +76,7 @@
     [wavePath addLineToPoint:CGPointMake(x, y2)];
     for (int i = 0; i < historySize/2; i++) {
         y = yOffset - (history[i] * yScale);
-        y = CLAMP(y, 0.0, self.bounds.size.height);
+        y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         //NSLog(@"%index:d value:%f x:%f y:%f y2:%f", i%historySize, history[i % historySize], x, y, y2 );
         
         [wavePath addLineToPoint:CGPointMake(x, y)];

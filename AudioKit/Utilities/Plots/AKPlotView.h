@@ -29,3 +29,6 @@
 #define AKColor NSColor
 
 #endif
+
+// Commonly used macro in the plot classes
+#define AK_CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
