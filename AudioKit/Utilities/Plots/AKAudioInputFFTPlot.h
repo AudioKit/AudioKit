@@ -12,7 +12,11 @@
 IB_DESIGNABLE
 @interface AKAudioInputFFTPlot : AKPlotView
 
-@property IBInspectable AKColor *lineColor;
+#if TARGET_OS_IPHONE
+@property IBInspectable UIColor *lineColor;
+#else
+@property IBInspectable NSColor *lineColor;
+#endif
 @property IBInspectable CGFloat lineWidth;
 
 @end
