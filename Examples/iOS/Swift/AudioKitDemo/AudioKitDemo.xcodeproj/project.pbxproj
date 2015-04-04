@@ -525,6 +525,7 @@
 		C452F2921ABFEF23003670A4 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C48174C91ACF563F00D4FAA2 /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
 		C48174CA1ACF563F00D4FAA2 /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
+		C48177461AD087C200D4FAA2 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		E41A20781AA36E120044F08B /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41A207C1AA36E120044F08B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E41A207D1AA36E120044F08B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1319,6 +1320,7 @@
 		E41A207B1AA36E120044F08B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C48177461AD087C200D4FAA2 /* Bridging-Header.h */,
 				E41A20841AA36E120044F08B /* Images.xcassets */,
 				E41A20861AA36E120044F08B /* LaunchScreen.xib */,
 				E41A207D1AA36E120044F08B /* AppDelegate.swift */,
