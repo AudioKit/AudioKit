@@ -25,8 +25,7 @@
     ConvolutionInstrument *convolver;
     AudioFilePlayer *audioFilePlayer;
     
-    AKSequence *continuouslyUpdateLevelMeter;
-    AKEvent *updateLevelMeter;
+    BOOL isPlaying;
 }
 
 - (void)viewDidLoad {
@@ -37,6 +36,7 @@
     convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
     [AKOrchestra addInstrument:convolver];
     pitchToMaintain = 1.0;
+    isPlaying = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated   {
@@ -46,13 +46,20 @@
 
 
 - (IBAction)start:(id)sender {
-    [convolver start];
-    [audioFilePlayer play];
+    if (!isPlaying) {
+        [convolver start];
+        [audioFilePlayer play];
+        isPlaying = YES;
+    }
 }
 
 - (IBAction)stop:(id)sender {
-    [audioFilePlayer stop];
-    [convolver stop];
+    if (isPlaying) {
+        [audioFilePlayer stop];
+        [convolver stop];
+        isPlaying = NO;
+    }
+
 }
 
 - (IBAction)wetnessChanged:(UISlider *)sender {
