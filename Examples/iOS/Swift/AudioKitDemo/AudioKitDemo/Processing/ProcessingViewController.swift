@@ -13,6 +13,8 @@ class ProcessingViewController: UIViewController {
     @IBOutlet var maintainPitchSwitch: UISwitch!
     @IBOutlet var pitchSlider: UISlider!
     
+    var isPlaying = false
+    
     var pitchToMaintain:Float
     
     let conv: ConvolutionInstrument
@@ -39,13 +41,19 @@ class ProcessingViewController: UIViewController {
     
     
     @IBAction func start(sender:UIButton) {
-        conv.play()
-        audioFilePlayer.play()
+        if (!isPlaying) {
+            conv.play()
+            audioFilePlayer.play()
+            isPlaying = true
+        }
     }
     
     @IBAction func stop(sender:UIButton) {
-        conv.stop()
-        audioFilePlayer.stop()
+        if (isPlaying) {
+            conv.stop()
+            audioFilePlayer.stop()
+            isPlaying = false
+        }
     }
     
     @IBAction func wetnessChanged(sender:UISlider) {
