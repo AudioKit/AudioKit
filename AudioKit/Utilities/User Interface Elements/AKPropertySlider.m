@@ -47,26 +47,29 @@
         self.val = p.value;
         _property = p;
     }
+#if TARGET_OS_IPHONE
+    [self addTarget:self action:@selector(changed:) forControlEvents:UIControlEventValueChanged];
+#define min minimumValue
+#elif TARGET_OS_MAC
+    [self setAction:@selector(changed:)];
+    [self setTarget:self];
+#endif
+    
 }
 
-#if TARGET_OS_IPHONE
--(BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+- (void)changed:(id)sender
+{
     if ([_property isKindOfClass:[AKInstrumentProperty class]])
     {
         AKInstrumentProperty *p = (AKInstrumentProperty *)_property;
-        p.value = self.value;
+        p.value = self.val;
     }
     else if ([_property isKindOfClass:[AKNoteProperty class]])
     {
         AKNoteProperty *p = (AKNoteProperty *)_property;
-        p.value = self.value;
+        p.value = self.val;
     }
-    return [super continueTrackingWithTouch:touch withEvent:event];
+    
 }
-#elif TARGET_OS_MAC
-
-// TODO
-
-#endif
 
 @end
