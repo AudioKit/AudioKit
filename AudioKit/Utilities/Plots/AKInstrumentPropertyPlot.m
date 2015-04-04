@@ -26,6 +26,7 @@
     index = 0;
     historySize = 512;
     history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
+    bzero(history, historySize * sizeof(MYFLT));
     _lineWidth = 4.0f;
     _lineColor = [AKColor blueColor];
 }
@@ -56,11 +57,7 @@
 - (void)drawWithColor:(AKColor *)color width:(float)width
 {
     // Draw waveform
-#if TARGET_OS_IPHONE
-    UIBezierPath *waveformPath = [UIBezierPath bezierPath];
-#elif TARGET_OS_MAC
-    NSBezierPath *waveformPath = [NSBezierPath bezierPath];
-#endif
+    AKBezierPath *waveformPath = [AKBezierPath bezierPath];
     
     CGFloat yMin = self.property.minimum;
     CGFloat yScale  =  self.bounds.size.height / (self.property.maximum - self.property.minimum);
@@ -111,19 +108,14 @@
 
 - (void)updateValuesFromCsound
 {
-    if (history) {
-        if (_plottedValue) {
-            _property = _plottedValue;
-        }
-        history[index] = self.property.value;
-        index++;
-        if (index >= historySize) index = 0;
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-    } else {
-        index = 0;
-        historySize = 512;
-        history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
+    if (_plottedValue) {
+        _property = _plottedValue;
     }
+    history[index] = self.property.value;
+    index++;
+    if (index >= historySize)
+        index = 0;
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 @end

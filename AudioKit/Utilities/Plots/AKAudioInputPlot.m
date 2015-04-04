@@ -12,7 +12,6 @@
 @interface AKAudioInputPlot() <CsoundBinding>
 {
     NSData *inSamples;
-    MYFLT *samples;
     int sampleSize;
     CsoundObj *cs;
 }
@@ -31,31 +30,29 @@
 - (void)drawWithColor:(AKColor *)color lineWidth:(CGFloat)width
 {
     // Draw waveform
-#if TARGET_OS_IPHONE
-    UIBezierPath *waveformPath = [UIBezierPath bezierPath];
-#elif TARGET_OS_MAC
-    NSBezierPath *waveformPath = [NSBezierPath bezierPath];
-#endif
-    
-    CGFloat x = 0.0f;
-    CGFloat y = 0.0f;
-    for (int i = 0; i < sampleSize/2; i++) {
-        y = AK_CLAMP(samples[i*2], -1.0f, 1.0f);
-        y = self.bounds.size.height * (y + 1.0) / 2.0;
+    AKBezierPath *waveformPath = [AKBezierPath bezierPath];
+    @synchronized(self) {
+        const MYFLT *samples = (const MYFLT *)inSamples.bytes;
         
-        if (i == 0) {
-            [waveformPath moveToPoint:CGPointMake(x, y)];
-        } else {
-#if TARGET_OS_IPHONE
-            [waveformPath addLineToPoint:CGPointMake(x, y)];
-#elif TARGET_OS_MAC
-            [waveformPath lineToPoint:CGPointMake(x, y)];
-#endif
+        CGFloat x = 0.0f;
+        CGFloat y = 0.0f;
+        for (int i = 0; i < sampleSize/2; i++) {
+            y = AK_CLAMP(samples[i*2], -1.0f, 1.0f);
+            y = self.bounds.size.height * (y + 1.0) / 2.0;
             
-        }
-        x += (self.frame.size.width / (sampleSize/2));
-    };
-    
+            if (i == 0) {
+                [waveformPath moveToPoint:CGPointMake(x, y)];
+            } else {
+#if TARGET_OS_IPHONE
+                [waveformPath addLineToPoint:CGPointMake(x, y)];
+#elif TARGET_OS_MAC
+                [waveformPath lineToPoint:CGPointMake(x, y)];
+#endif
+                
+            }
+            x += (self.frame.size.width / (sampleSize/2));
+        };
+    }
     [waveformPath setLineWidth:width];
     [color setStroke];
     [waveformPath stroke];
@@ -80,15 +77,18 @@
     int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     
     sampleSize = numberOfChannels * samplesPerControlPeriod;
-    samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
+    
+    void *samples = malloc(sampleSize * sizeof(MYFLT));
+    bzero(samples, sampleSize * sizeof(MYFLT));
+    inSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
 }
 
 - (void)updateValuesFromCsound
 {
-    inSamples = [cs getInSamples];
-    samples = (MYFLT *)[inSamples bytes];
+    @synchronized(self) {
+        inSamples = [cs getInSamples];
+    }
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-    
 }
 
 @end

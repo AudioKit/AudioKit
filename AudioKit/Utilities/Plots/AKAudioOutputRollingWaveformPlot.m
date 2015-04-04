@@ -15,7 +15,6 @@
 {
     // AudioKit sound data
     NSData *outSamples;
-    MYFLT *samples;
     int sampleSize;
     
     CsoundObj *cs;
@@ -44,7 +43,10 @@
     int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
     int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
-    samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
+
+    void *samples = malloc(sampleSize * sizeof(MYFLT));
+    bzero(samples, sampleSize * sizeof(MYFLT));
+    outSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize*sizeof(MYFLT)];
     
     audioPlot = [[EZAudioPlot alloc] initWithFrame:self.frame];
     audioPlot.backgroundColor = [AKColor blackColor];
@@ -67,14 +69,13 @@
 - (void)updateValuesFromCsound
 {
     outSamples = [cs getOutSamples];
-    samples = (MYFLT *)[outSamples bytes]; // FIXME: Very likely leaking memory
     
     dispatch_async(dispatch_get_main_queue(),^{
         audioPlot.bounds = self.bounds;
         audioPlot.frame = self.frame;
         [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     
-        [audioPlot updateBuffer:samples withBufferSize:sampleSize];
+        [audioPlot updateBuffer:(MYFLT *)outSamples.bytes withBufferSize:sampleSize];
     });
 }
 

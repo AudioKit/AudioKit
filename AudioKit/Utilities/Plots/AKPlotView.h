@@ -19,6 +19,7 @@
 @end
 
 #define AKColor UIColor
+#define AKBezierPath UIBezierPath
 
 #elif TARGET_OS_MAC
 @import Cocoa;
@@ -29,6 +30,7 @@
 @end
 
 #define AKColor NSColor
+#define AKBezierPath NSBezierPath
 
 #endif
 

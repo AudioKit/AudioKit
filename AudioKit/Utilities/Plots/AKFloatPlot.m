@@ -20,6 +20,7 @@
     index = 0;
     historySize = 64;
     history = (float *)malloc(historySize * sizeof(float));
+    bzero(history, historySize * sizeof(float));
     _lineWidth = 4.0f;
     _lineColor = [AKColor blueColor];
 }
@@ -52,12 +53,7 @@
 - (void)drawWithColor:(AKColor *)color width:(CGFloat)width
 {
     // Draw waveform
-#if TARGET_OS_IPHONE
-    UIBezierPath *wavePath = [UIBezierPath bezierPath];
-#elif TARGET_OS_MAC
-    NSBezierPath *wavePath = [NSBezierPath bezierPath];
-#endif
-    
+    AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
     CGFloat yScale  =  self.bounds.size.height / (_maximum - _minimum);
     
@@ -93,22 +89,11 @@
 }
 
 - (void)updateWithValue:(float)value {
-    if (history) {
-        history[index] = value;
-        index++;
-        if (index >= historySize) index = 0;
-    } else {
+    history[index] = value;
+    index++;
+    if (index >= historySize)
         index = 0;
-        historySize = 64;
-        history = (float *)malloc(historySize * sizeof(float));
-    }
-
-#if TARGET_OS_IPHONE
-    [self setNeedsDisplay];
-#elif TARGET_OS_MAC
-    [self setNeedsDisplay:YES];
-#endif
-    
+    [self updateUI];
 }
 
 @end
