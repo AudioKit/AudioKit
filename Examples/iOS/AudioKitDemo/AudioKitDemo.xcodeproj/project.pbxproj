@@ -586,6 +586,7 @@
 		EA2F5F811ACE74AA00F1BCFB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EA2F5F821ACE74AA00F1BCFB /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		EA2F5F831ACE74AA00F1BCFB /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		EA398BBA1ACFD2C30056C94C /* AKPlots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlots.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1411,6 +1412,7 @@
 		C4ED1DDF1AB7FEFE00366020 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				EA398BBA1ACFD2C30056C94C /* AKPlots.h */,
 				EA2F5F6F1ACE406E00F1BCFB /* AKPlotView.h */,
 				EA2F5F701ACE406E00F1BCFB /* AKPlotView.m */,
 				C4ED1DE01AB7FEFE00366020 /* AKAudioInputPlot.h */,
