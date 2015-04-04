@@ -23,6 +23,8 @@
     
     ConvolutionInstrument *convolver;
     AudioFilePlayer *audioFilePlayer;
+    
+    BOOL isPlaying;
 }
 
 - (void)viewDidLoad {
@@ -34,6 +36,7 @@
     [AKOrchestra addInstrument:convolver];
     
     pitchToMaintain = 1.0;
+    isPlaying = NO;
 }
 
 - (void)viewWillDisappear {
@@ -42,13 +45,19 @@
 
 
 - (IBAction)start:(id)sender {
-    [convolver start];
-    [audioFilePlayer play];
+    if (!isPlaying) {
+        [convolver start];
+        [audioFilePlayer play];
+        isPlaying = YES;
+    }
 }
 
 - (IBAction)stop:(id)sender {
-    [audioFilePlayer stop];
-    [convolver stop];
+    if (isPlaying) {
+        [audioFilePlayer stop];
+        [convolver stop];
+        isPlaying = NO;
+    }
 }
 
 - (IBAction)wetnessChanged:(NSSlider *)sender {

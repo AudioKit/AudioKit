@@ -168,6 +168,7 @@
 		C452F33D1ABFEF23003670A4 /* AKPropertyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F28E1ABFEF23003670A4 /* AKPropertyLabel.m */; };
 		C452F33E1ABFEF23003670A4 /* AKPropertySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F2901ABFEF23003670A4 /* AKPropertySlider.m */; };
 		C452F33F1ABFEF23003670A4 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F2921ABFEF23003670A4 /* LevelMeter.m */; };
+		C48174CB1ACF563F00D4FAA2 /* AKPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C48174CA1ACF563F00D4FAA2 /* AKPlotView.m */; };
 		E41A207E1AA36E120044F08B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A207D1AA36E120044F08B /* AppDelegate.swift */; };
 		E41A20831AA36E120044F08B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E41A20811AA36E120044F08B /* Main.storyboard */; };
 		E41A20851AA36E120044F08B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41A20841AA36E120044F08B /* Images.xcassets */; };
@@ -522,6 +523,8 @@
 		C452F2901ABFEF23003670A4 /* AKPropertySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPropertySlider.m; sourceTree = "<group>"; };
 		C452F2911ABFEF23003670A4 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		C452F2921ABFEF23003670A4 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
+		C48174C91ACF563F00D4FAA2 /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
+		C48174CA1ACF563F00D4FAA2 /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
 		E41A20781AA36E120044F08B /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41A207C1AA36E120044F08B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E41A207D1AA36E120044F08B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1240,6 +1243,8 @@
 		C452F2761ABFEF23003670A4 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C48174C91ACF563F00D4FAA2 /* AKPlotView.h */,
+				C48174CA1ACF563F00D4FAA2 /* AKPlotView.m */,
 				C452F2771ABFEF23003670A4 /* AKAudioInputPlot.h */,
 				C452F2781ABFEF23003670A4 /* AKAudioInputPlot.m */,
 				C452F2791ABFEF23003670A4 /* AKAudioOutputPlot.h */,
@@ -1551,6 +1556,7 @@
 				C452F3021ABFEF23003670A4 /* AKReverb.m in Sources */,
 				C452F3361ABFEF23003670A4 /* AKTablePlot.m in Sources */,
 				C452F30A1ABFEF23003670A4 /* AKParameter.m in Sources */,
+				C48174CB1ACF563F00D4FAA2 /* AKPlotView.m in Sources */,
 				C452F2DD1ABFEF23003670A4 /* AKSegmentArrayLoop.m in Sources */,
 				C452F31A1ABFEF23003670A4 /* AKHarmonicCosineTableGenerator.m in Sources */,
 				C452F2AB1ABFEF23003670A4 /* AKInverse.m in Sources */,

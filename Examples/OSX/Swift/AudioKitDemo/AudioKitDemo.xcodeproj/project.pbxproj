@@ -24,6 +24,7 @@
 		C452F0EA1ABFEDBE003670A4 /* AKPropertyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0D61ABFEDBE003670A4 /* AKPropertyLabel.m */; };
 		C452F0EB1ABFEDBE003670A4 /* AKPropertySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0D81ABFEDBE003670A4 /* AKPropertySlider.m */; };
 		C452F0EC1ABFEDBE003670A4 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0DA1ABFEDBE003670A4 /* LevelMeter.m */; };
+		C48174CE1ACF570F00D4FAA2 /* AKPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C48174CD1ACF570F00D4FAA2 /* AKPlotView.m */; };
 		C4ED1FC51AB8E08200366020 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1E561AB8E08100366020 /* AKManager.m */; };
 		C4ED1FC61AB8E08200366020 /* AKOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1E581AB8E08100366020 /* AKOrchestra.m */; };
 		C4ED1FC71AB8E08200366020 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4ED1E591AB8E08100366020 /* AudioKit.plist */; };
@@ -235,6 +236,8 @@
 		C452F0D81ABFEDBE003670A4 /* AKPropertySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPropertySlider.m; sourceTree = "<group>"; };
 		C452F0D91ABFEDBE003670A4 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
 		C452F0DA1ABFEDBE003670A4 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
+		C48174CC1ACF570F00D4FAA2 /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
+		C48174CD1ACF570F00D4FAA2 /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
 		C4ED1E541AB8E08100366020 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
 		C4ED1E551AB8E08100366020 /* AKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKManager.h; sourceTree = "<group>"; };
 		C4ED1E561AB8E08100366020 /* AKManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKManager.m; sourceTree = "<group>"; };
@@ -1225,6 +1228,8 @@
 		C4ED1FB11AB8E08200366020 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C48174CC1ACF570F00D4FAA2 /* AKPlotView.h */,
+				C48174CD1ACF570F00D4FAA2 /* AKPlotView.m */,
 				C4ED1FB21AB8E08200366020 /* AKAudioInputPlot.h */,
 				C4ED1FB31AB8E08200366020 /* AKAudioInputPlot.m */,
 				C4ED1FB61AB8E08200366020 /* AKFloatPlot.h */,
@@ -1549,6 +1554,7 @@
 				C452F0EA1ABFEDBE003670A4 /* AKPropertyLabel.m in Sources */,
 				E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */,
 				C4ED20211AB8E08200366020 /* AKDeclick.m in Sources */,
+				C48174CE1ACF570F00D4FAA2 /* AKPlotView.m in Sources */,
 				C452F0E21ABFEDBE003670A4 /* Sleighbells.m in Sources */,
 				C4ED20571AB8E08200366020 /* AKFloatPlot.m in Sources */,
 				C4ED1FE11AB8E08200366020 /* AKProduct.m in Sources */,
