@@ -84,8 +84,8 @@ static AKManager *_sharedManager = nil;
         NSString *audioInput  = @"adc";
         
         if (dict) {
-            audioOutput = [dict objectForKey:@"Audio Output"];
-            audioInput  = [dict objectForKey:@"Audio Input"];
+            audioOutput = dict[@"Audio Output"];
+            audioInput  = dict[@"Audio Input"];
         }
         
         csound = [[CsoundObj alloc] init];
@@ -94,7 +94,7 @@ static AKManager *_sharedManager = nil;
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         
         _isRunning = NO;
-        _isLogging = [[dict objectForKey:@"Enable Logging By Default"] boolValue];
+        _isLogging = [dict[@"Enable Logging By Default"] boolValue];
         
         totalRunDuration = 10000000;
 

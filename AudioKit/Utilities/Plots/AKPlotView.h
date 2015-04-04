@@ -15,17 +15,24 @@
 
 @interface AKPlotView : UIView
 
+- (void)updateUI;
 @end
 
 #define AKColor UIColor
+#define AKBezierPath UIBezierPath
 
 #elif TARGET_OS_MAC
 @import Cocoa;
 
 @interface AKPlotView : NSView
 
+- (void)updateUI;
 @end
 
 #define AKColor NSColor
+#define AKBezierPath NSBezierPath
 
 #endif
+
+// Commonly used macro in the plot classes
+#define AK_CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))

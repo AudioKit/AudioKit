@@ -53,12 +53,7 @@
                 int index = (int)(percent * tableLength);
                 displayData[i] = (-(tableValues[index]/max) * middle * scalingFactor) + middle;
             }
-            
-#if TARGET_OS_IPHONE
-            [self setNeedsDisplay];
-#elif TARGET_OS_MAC
-            [self setNeedsDisplay:YES];
-#endif
+            [self updateUI];
         }
         
     }

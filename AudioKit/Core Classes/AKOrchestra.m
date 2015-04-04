@@ -40,10 +40,10 @@
         _zeroDBFullScaleValue = 1.0f;
         
         if (dict) {
-            sampleRate = [[dict objectForKey:@"Sample Rate"] intValue];
-            samplesPerControlPeriod = [[dict objectForKey:@"Samples Per Control Period"] intValue];
-            _numberOfChannels = [[dict objectForKey:@"Number Of Channels"] intValue];
-            _zeroDBFullScaleValue = [[dict objectForKey:@"Zero dB Full Scale Value"] floatValue];
+            sampleRate = [dict[@"Sample Rate"] intValue];
+            samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
+            _numberOfChannels = [dict[@"Number Of Channels"] intValue];
+            _zeroDBFullScaleValue = [dict[@"Zero dB Full Scale Value"] floatValue];
         }
         
         udoFiles = [[NSMutableSet alloc] init];
@@ -90,7 +90,7 @@
     BOOL enableAudioInput = YES;
     
     if (dict) {
-        enableAudioInput = [[dict objectForKey:@"Enable Audio Input By Default"] boolValue];
+        enableAudioInput = [dict[@"Enable Audio Input By Default"] boolValue];
     }
     
     if (enableAudioInput) {

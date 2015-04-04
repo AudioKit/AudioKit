@@ -26,6 +26,7 @@
     index = 0;
     historySize = 512;
     history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
+    bzero(history, historySize * sizeof(MYFLT));
     _lineWidth = 4.0f;
     _lineColor = [AKColor blueColor];
 }
@@ -53,16 +54,10 @@
     free(history);
 }
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
 - (void)drawWithColor:(AKColor *)color width:(float)width
 {
     // Draw waveform
-#if TARGET_OS_IPHONE
-    UIBezierPath *waveformPath = [UIBezierPath bezierPath];
-#elif TARGET_OS_MAC
-    NSBezierPath *waveformPath = [NSBezierPath bezierPath];
-#endif
+    AKBezierPath *waveformPath = [AKBezierPath bezierPath];
     
     CGFloat yMin = self.property.minimum;
     CGFloat yScale  =  self.bounds.size.height / (self.property.maximum - self.property.minimum);
@@ -74,7 +69,7 @@
     for (int i = index; i < index+historySize; i++) {
         
         y = self.bounds.size.height - (history[i % historySize] - yMin) * yScale;
-        y = CLAMP(y, 0.0, self.bounds.size.height);
+        y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         if (x != x || y != y) {
             NSLog(@"Something is not a number");
         } else {
@@ -113,27 +108,14 @@
 
 - (void)updateValuesFromCsound
 {
-    if (history) {
-        if (_plottedValue) {
-            _property = _plottedValue;
-        }
-        history[index] = self.property.value;
-        index++;
-        if (index >= historySize) index = 0;
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-    } else {
-        index = 0;
-        historySize = 512;
-        history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
+    if (_plottedValue) {
+        _property = _plottedValue;
     }
-}
-
-- (void)updateUI {
-#if TARGET_OS_IPHONE
-    [self setNeedsDisplay];
-#elif TARGET_OS_MAC
-    [self setNeedsDisplay:YES];
-#endif
+    history[index] = self.property.value;
+    index++;
+    if (index >= historySize)
+        index = 0;
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 @end

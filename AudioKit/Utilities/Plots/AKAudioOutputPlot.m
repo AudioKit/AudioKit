@@ -13,18 +13,13 @@
 @interface AKAudioOutputPlot() <CsoundBinding>
 {
     NSData *outSamples;
-    MYFLT *samples;
     int sampleSize;
-    MYFLT *history;
-    int historySize;
     int index;
     CsoundObj *cs;
 }
 @end
 
 @implementation AKAudioOutputPlot
-
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
 - (void)defaultValues
 {
@@ -36,11 +31,7 @@
 {
     int plotPoints = sampleSize / 2;
     // Draw waveform
-#if TARGET_OS_IPHONE
-    UIBezierPath *wavePath = [UIBezierPath bezierPath];
-#elif TARGET_OS_MAC
-    NSBezierPath *wavePath = [NSBezierPath bezierPath];
-#endif
+    AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
     CGFloat yScale  = self.bounds.size.height / 2;
     
@@ -48,27 +39,31 @@
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
-    for (int i = 0; i < plotPoints; i++) {
-        y = CLAMP(y, -1.0f, 1.0f);
-        y = (samples[(i * 2)]+1.0) * yScale;
-        if (i == 0) {
-            [wavePath moveToPoint:CGPointMake(x, y)];
-        } else {
+    
+    @synchronized(self) {
+        const MYFLT *samples = (const MYFLT *)outSamples.bytes;
+        for (int i = 0; i < plotPoints; i++) {
+            y = AK_CLAMP(y, -1.0f, 1.0f);
+            y = (samples[(i * 2)]+1.0) * yScale;
+            if (i == 0) {
+                [wavePath moveToPoint:CGPointMake(x, y)];
+            } else {
 #if TARGET_OS_IPHONE
-            [wavePath addLineToPoint:CGPointMake(x, y)];
+                [wavePath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
-            [wavePath lineToPoint:CGPointMake(x, y)];
+                [wavePath lineToPoint:CGPointMake(x, y)];
 #endif
-        }
-        x += deltaX;
-    };
+            }
+            x += deltaX;
+        };
+    }
     
     [wavePath setLineWidth:width];
     [color setStroke];
     [wavePath stroke];
 }
 
-//        y = CLAMP(samples[i*2], -1.0f, 1.0f);
+//        y = AK_CLAMP(samples[i*2], -1.0f, 1.0f);
 //        y = self.bounds.size.height * (y + 1.0) / 2.0;
 
 - (void)drawRect:(CGRect)rect {
@@ -88,16 +83,19 @@
     int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
     int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
-    samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
+
+    void *samples = malloc(sampleSize * sizeof(MYFLT));
+    bzero(samples, sampleSize * sizeof(MYFLT));
+    outSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
 }
 
 - (void)updateValuesFromCsound
 {
-    outSamples = [cs getOutSamples];
-    samples = (MYFLT *)[outSamples bytes]; // FIXME: Memory leak
+    @synchronized(self) {
+        outSamples = [cs getOutSamples];
+    }
 
-    [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
-
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 

@@ -33,6 +33,14 @@
     }
 }
 
+- (void)updateUI {
+#if TARGET_OS_IPHONE
+    [self setNeedsDisplay];
+#elif TARGET_OS_MAC
+    [self setNeedsDisplay:YES];
+#endif
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

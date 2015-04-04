@@ -63,6 +63,10 @@ static int currentID = 2000;
     return self;
 }
 
+- (void)dealloc {
+    free(table);
+}
+
 - (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator
 {
     NSString *parameters = [[tableGenerator parametersWithSize:self.size] componentsJoinedByString:@", "];
