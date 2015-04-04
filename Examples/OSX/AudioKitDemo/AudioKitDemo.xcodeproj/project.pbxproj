@@ -583,6 +583,7 @@
 		C47546B91A9BDA11006151DE /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchView.m; path = Synthesis/TouchView.m; sourceTree = "<group>"; };
 		EA2F5F8D1ACE839C00F1BCFB /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
 		EA2F5F8E1ACE839C00F1BCFB /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
+		EA398BBB1ACFD3910056C94C /* AKPlots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlots.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -600,6 +601,7 @@
 		C404E3D31AC3843C00979876 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				EA398BBB1ACFD3910056C94C /* AKPlots.h */,
 				EA2F5F8D1ACE839C00F1BCFB /* AKPlotView.m */,
 				EA2F5F8E1ACE839C00F1BCFB /* AKPlotView.h */,
 				C404E3D41AC3843C00979876 /* AKAudioInputFFTPlot.h */,
