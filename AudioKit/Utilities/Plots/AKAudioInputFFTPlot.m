@@ -14,8 +14,7 @@
 
 @interface AKAudioInputFFTPlot() <CsoundBinding>
 {
-    NSData *outSamples;
-    MYFLT *samples;
+    NSMutableData *outSamples;
     int sampleSize;
     MYFLT *history;
     int historySize;
@@ -26,7 +25,6 @@
     // FFT Stuff
     COMPLEX_SPLIT _A;
     FFTSetup      _FFTSetup;
-    BOOL          _isFFTSetup;
     vDSP_Length   _log2n;
 }
 @end
@@ -42,7 +40,8 @@
 - (void)dealloc
 {
     free(history);
-    // free(samples); // Might not be safe
+    free(_A.realp);
+    free(_A.imagp);
 }
 
 #if TARGET_OS_IPHONE
@@ -91,13 +90,13 @@
 
 - (void)drawRect:(CGRect)rect {
     [self drawHistoryWithColor:self.lineColor width:self.lineWidth];
-    
 }
 
 #elif TARGET_OS_MAC
 #endif
 
--(void)createFFTWithBufferSize:(float)bufferSize withAudioData:(MYFLT*)data {
+-(void)createFFTWithBufferSize:(float)bufferSize {
+    MYFLT *data = (MYFLT *)outSamples.mutableBytes;
     
     // Setup the length
     _log2n = log2f(bufferSize);
@@ -121,8 +120,9 @@
     
 }
 
--(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(MYFLT*)data {
-    
+-(void)updateFFTWithBufferSize:(float)bufferSize {
+    const MYFLT *data = (const MYFLT *)outSamples.bytes;
+
     // For an FFT, numSamples must be a power of 2, i.e. is always even
     int nOver2 = bufferSize/2;
     
@@ -151,7 +151,7 @@
     }
     
     // Update the frequency domain plot
-    [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 // -----------------------------------------------------------------------------
@@ -168,32 +168,25 @@
     int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
     int numberOfChannels = [dict[@"Number Of Channels"] intValue];
     sampleSize = numberOfChannels * samplesPerControlPeriod;
-    samples = (MYFLT *)malloc(sampleSize * sizeof(MYFLT));
-    
+
+    void *samples = malloc(sampleSize * sizeof(MYFLT));
+    bzero(samples, sampleSize * sizeof(MYFLT));
+    outSamples = [NSMutableData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
+
     historySize = 128;
     
     history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
-    index = 0;
-    for (int i = 0; i < historySize; i++) {
-        history[index] = 0;
-    }
+    bzero(history, historySize * sizeof(MYFLT));
+    
+    [self createFFTWithBufferSize:sampleSize];
 }
 
 - (void)updateValuesFromCsound
 {
-    outSamples = [cs getInSamples];
-    samples = (MYFLT *)[outSamples bytes];
-    
-    //[self updateFFTWithBufferSize:sampleSize withAudioData:samples];
-    
-    // Setup the FFT if it's not already setup
-    if( !_isFFTSetup ){
-        [self createFFTWithBufferSize:sampleSize withAudioData:samples];
-        _isFFTSetup = YES;
-    }
+    outSamples = [NSMutableData dataWithData:[cs getInSamples]];
     
     // Get the FFT data
-    [self updateFFTWithBufferSize:sampleSize withAudioData:samples];
+    [self updateFFTWithBufferSize:sampleSize];
 }
 
 @end
