@@ -11,7 +11,10 @@ class ProcessingViewController: UIViewController {
     
     @IBOutlet var sourceSegmentedControl: UISegmentedControl!
     @IBOutlet var maintainPitchSwitch: UISwitch!
-    @IBOutlet var pitchSlider: UISlider!
+    @IBOutlet var speedSlider: AKPropertySlider!
+    @IBOutlet var pitchSlider: AKPropertySlider!
+    @IBOutlet var dishWellSlider: AKPropertySlider!
+    @IBOutlet var dryWetSlider: AKPropertySlider!
     
     var isPlaying = false
     
@@ -37,6 +40,10 @@ class ProcessingViewController: UIViewController {
         
         AKOrchestra.addInstrument(audioFilePlayer)
         AKOrchestra.addInstrument(conv)
+        
+        dryWetSlider.property = conv.dryWetBalance
+        dishWellSlider.property = conv.dishWellBalance
+        pitchSlider.property = audioFilePlayer.scaling
     }
     
     
@@ -56,13 +63,6 @@ class ProcessingViewController: UIViewController {
         }
     }
     
-    @IBAction func wetnessChanged(sender:UISlider) {
-        AKTools.setProperty(conv.dryWetBalance, withSlider: sender)
-    }
-    
-    @IBAction func impulseResponseChanged(sender:UISlider) {
-        AKTools.setProperty(conv.dishWellBalance, withSlider: sender)
-    }
     
     @IBAction func speedChanged(sender:UISlider) {
         AKTools.setProperty(audioFilePlayer.speed, withSlider: sender)
@@ -72,9 +72,6 @@ class ProcessingViewController: UIViewController {
         }
     }
     
-    @IBAction func pitchChanged(sender:UISlider) {
-        AKTools.setProperty(audioFilePlayer.scaling, withSlider: sender)
-    }
     
     @IBAction func togglePitchMaintenance(sender:UISwitch) {
         if sender.on {

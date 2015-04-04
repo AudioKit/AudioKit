@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -141,11 +141,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sug-eB-ocK">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sug-eB-ocK" customClass="AKPropertySlider">
                                 <rect key="frame" x="28" y="495" width="544" height="31"/>
-                                <connections>
-                                    <action selector="wetnessChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="IXE-pW-MV5"/>
-                                </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d6X-yd-ZWW">
                                 <rect key="frame" x="540" y="466" width="30" height="21"/>
@@ -225,11 +222,8 @@
                                     <action selector="start:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="7UD-5I-xXB"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gV-x8-nYO">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gV-x8-nYO" customClass="AKPropertySlider">
                                 <rect key="frame" x="28" y="405" width="544" height="31"/>
-                                <connections>
-                                    <action selector="impulseResponseChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="sXs-Ye-7Ko"/>
-                                </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="g1k-aG-Wgo">
                                 <rect key="frame" x="276" y="166" width="51" height="21"/>
@@ -258,7 +252,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 </variation>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.75" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-xW-fgk">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.75" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-xW-fgk" customClass="AKPropertySlider">
                                 <rect key="frame" x="29" y="195" width="544" height="31"/>
                                 <connections>
                                     <action selector="speedChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="V9K-XE-HrJ"/>
@@ -291,11 +285,8 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 </variation>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.33333000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-Ct-diT">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.33333000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-Ct-diT" customClass="AKPropertySlider">
                                 <rect key="frame" x="27" y="315" width="544" height="31"/>
-                                <connections>
-                                    <action selector="pitchChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="W7P-ML-07L"/>
-                                </connections>
                             </slider>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Frm-9j-Vic" userLabel="Pitch Preserve Switch">
                                 <rect key="frame" x="275" y="244" width="51" height="31"/>
@@ -379,9 +370,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Processing" image="P" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="dishWellSlider" destination="1gV-x8-nYO" id="iff-8G-z9x"/>
+                        <outlet property="dryWetSlider" destination="Sug-eB-ocK" id="K4M-7T-PzI"/>
                         <outlet property="maintainPitchSwitch" destination="Frm-9j-Vic" id="h18-V5-9QI"/>
-                        <outlet property="pitchSlider" destination="hlK-Ct-diT" id="1b2-a2-ubV"/>
+                        <outlet property="pitchSlider" destination="hlK-Ct-diT" id="Dxr-l0-7RJ"/>
                         <outlet property="sourceSegmentedControl" destination="QVJ-9n-cWO" id="Ihu-hC-Jj8"/>
+                        <outlet property="speedSlider" destination="1BG-xW-fgk" id="K05-bM-QVK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
