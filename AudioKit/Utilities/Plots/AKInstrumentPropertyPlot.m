@@ -29,6 +29,7 @@
     bzero(history, historySize * sizeof(MYFLT));
     _lineWidth = 4.0f;
     _lineColor = [AKColor blueColor];
+    _connectPoints = YES;
 }
 
 - (instancetype)init
@@ -54,7 +55,7 @@
     free(history);
 }
 
-- (void)drawWithColor:(AKColor *)color width:(float)width
+- (void)drawRect:(CGRect)rect 
 {
     // Draw waveform
     AKBezierPath *waveformPath = [AKBezierPath bezierPath];
@@ -76,24 +77,34 @@
             if (i == index) {
                 [waveformPath moveToPoint:CGPointMake(x, y)];
             } else {
+
 #if TARGET_OS_IPHONE
-                [waveformPath addLineToPoint:CGPointMake(x, y)];
+                if (_connectPoints) {
+                    [waveformPath addLineToPoint:CGPointMake(x, y)];
+                } else {
+                    AKBezierPath *circle = [AKBezierPath bezierPath];
+                    [circle moveToPoint:CGPointMake(x, y)];
+                    [circle addArcWithCenter:CGPointMake(x, y) radius:_lineWidth/2.0 startAngle:0 endAngle:2*M_PI clockwise:YES];
+                    [circle setLineWidth:_lineWidth/2.0];
+                    [_lineColor setStroke];
+                    [circle stroke];
+                }
+                
 #elif TARGET_OS_MAC
-                [waveformPath lineToPoint:CGPointMake(x, y)];
+                if (_connectPoints) {
+                    [waveformPath lineToPoint:CGPointMake(x, y)];
+                }
 #endif
             }
         }
         x += deltaX;
     };
     
-    [waveformPath setLineWidth:width];
-    [color setStroke];
+    [waveformPath setLineWidth:_lineWidth];
+    [_lineColor setStroke];
     [waveformPath stroke];
 }
 
-- (void)drawRect:(CGRect)rect {
-    [self drawWithColor:self.lineColor width:self.lineWidth];
-}
 
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
