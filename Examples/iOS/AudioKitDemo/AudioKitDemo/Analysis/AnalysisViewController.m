@@ -92,6 +92,8 @@
             frequency = frequency * 2.0;
         }
         normalizedFrequency.value = frequency;
+        float hue = (frequency - [noteFrequencies.firstObject floatValue]) / ([noteFrequencies.lastObject floatValue] - [noteFrequencies.firstObject floatValue]);
+        frequencyPlot.lineColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
         [normalizedFrequencyPlot updateWithValue:frequency];
         float minDistance = 10000;
         int index =  0;
