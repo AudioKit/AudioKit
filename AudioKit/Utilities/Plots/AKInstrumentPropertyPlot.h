@@ -18,6 +18,7 @@ IB_DESIGNABLE
 #else
 @property IBInspectable NSColor *lineColor;
 #endif
+@property IBInspectable BOOL connectPoints;
 @property AKInstrumentProperty *property;
 @property AKInstrumentProperty *plottedValue;
 
