@@ -34,6 +34,7 @@
 		C452F00A1ABFC07C003670A4 /* AKPropertySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0061ABFC07C003670A4 /* AKPropertySlider.m */; };
 		C452F00B1ABFC07C003670A4 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0081ABFC07C003670A4 /* LevelMeter.m */; };
 		C4570D2D1AC35FBA0077A59E /* AKAudioOutputRollingWaveformPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C4570D2C1AC35FBA0077A59E /* AKAudioOutputRollingWaveformPlot.m */; };
+		C49D3C921AD120B3000CBBCC /* AKPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3C911AD120B3000CBBCC /* AKPlotView.m */; };
 		C4FE74761AB9FB58001641B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74751AB9FB58001641B7 /* main.m */; };
 		C4FE74791AB9FB58001641B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74781AB9FB58001641B7 /* AppDelegate.m */; };
 		C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4FE74801AB9FB58001641B7 /* Images.xcassets */; };
@@ -247,6 +248,9 @@
 		C452F0081ABFC07C003670A4 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C4570D2B1AC35FBA0077A59E /* AKAudioOutputRollingWaveformPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioOutputRollingWaveformPlot.h; sourceTree = "<group>"; };
 		C4570D2C1AC35FBA0077A59E /* AKAudioOutputRollingWaveformPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioOutputRollingWaveformPlot.m; sourceTree = "<group>"; };
+		C49D3C8F1AD120B3000CBBCC /* AKPlots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlots.h; sourceTree = "<group>"; };
+		C49D3C901AD120B3000CBBCC /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
+		C49D3C911AD120B3000CBBCC /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
 		C4FE74701AB9FB58001641B7 /* AudioKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4FE74741AB9FB58001641B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4FE74751AB9FB58001641B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1378,6 +1382,9 @@
 		C4FE75FD1ABA4FCE001641B7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C49D3C8F1AD120B3000CBBCC /* AKPlots.h */,
+				C49D3C901AD120B3000CBBCC /* AKPlotView.h */,
+				C49D3C911AD120B3000CBBCC /* AKPlotView.m */,
 				C404E3D01AC3743C00979876 /* AKAudioInputFFTPlot.h */,
 				C404E3D11AC3743C00979876 /* AKAudioInputFFTPlot.m */,
 				C4FE75FE1ABA4FCE001641B7 /* AKAudioInputPlot.h */,
@@ -1543,6 +1550,7 @@
 				C452EFE81ABE6996003670A4 /* ReverbProcessor.m in Sources */,
 				C4FE767A1ABA4FCE001641B7 /* AKHighPassButterworthFilter.m in Sources */,
 				C4FE76761ABA4FCE001641B7 /* AKThreePoleLowpassFilter.m in Sources */,
+				C49D3C921AD120B3000CBBCC /* AKPlotView.m in Sources */,
 				C4FE76611ABA4FCE001641B7 /* AKMP3FileInput.m in Sources */,
 				C4FE76721ABA4FCE001641B7 /* AKMoogLadder.m in Sources */,
 				C4FE76511ABA4FCE001641B7 /* AKBeatenPlate.m in Sources */,
