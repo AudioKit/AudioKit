@@ -141,7 +141,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sug-eB-ocK">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sug-eB-ocK" customClass="AKPropertySlider">
                                 <rect key="frame" x="28" y="495" width="544" height="31"/>
                                 <connections>
                                     <action selector="wetnessChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="IXE-pW-MV5"/>
@@ -225,7 +225,7 @@
                                     <action selector="start:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="7UD-5I-xXB"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gV-x8-nYO">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gV-x8-nYO" customClass="AKPropertySlider">
                                 <rect key="frame" x="28" y="405" width="544" height="31"/>
                                 <connections>
                                     <action selector="impulseResponseChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="sXs-Ye-7Ko"/>
@@ -291,7 +291,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 </variation>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.33333000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-Ct-diT">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.33333000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-Ct-diT" customClass="AKPropertySlider">
                                 <rect key="frame" x="27" y="315" width="544" height="31"/>
                                 <connections>
                                     <action selector="pitchChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="W7P-ML-07L"/>
