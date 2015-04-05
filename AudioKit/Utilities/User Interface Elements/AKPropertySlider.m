@@ -8,6 +8,7 @@
 
 #import "AKPropertySlider.h"
 #import "AKFoundation.h"
+#import "AKTools.h"
 
 @implementation AKPropertySlider
 
@@ -47,6 +48,9 @@
         self.val = p.value;
         _property = p;
     }
+    
+    [property addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:Nil];
+    
 #if TARGET_OS_IPHONE
     [self addTarget:self action:@selector(changed:) forControlEvents:UIControlEventValueChanged];
 #define min minimumValue
@@ -68,6 +72,19 @@
     {
         AKNoteProperty *p = (AKNoteProperty *)_property;
         p.value = self.val;
+    }
+    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"value"]) {
+        [AKTools setSlider:self withProperty:_property];
+    } else {
+        [NSException raise:@"Unexpected Keypath" format:@"%@", keyPath];
     }
     
 }

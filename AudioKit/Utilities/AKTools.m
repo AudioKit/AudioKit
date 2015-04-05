@@ -124,6 +124,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         slider.val = sliderValue;
     });
+    [slider setNeedsDisplay];
 }
 
 + (float)scaleValueFromSlider:(AKSlider *)slider
