@@ -27,7 +27,7 @@
     _lineColor = [AKColor greenColor];
 }
 
-- (void)drawWithColor:(AKColor *)color lineWidth:(CGFloat)width
+- (void)drawRect:(CGRect)rect
 {
     int plotPoints = sampleSize / 2;
     // Draw waveform
@@ -58,17 +58,13 @@
         };
     }
     
-    [wavePath setLineWidth:width];
-    [color setStroke];
+    [wavePath setLineWidth:self.lineWidth];
+    [self.lineColor setStroke];
     [wavePath stroke];
 }
 
 //        y = AK_CLAMP(samples[i*2], -1.0f, 1.0f);
 //        y = self.bounds.size.height * (y + 1.0) / 2.0;
-
-- (void)drawRect:(CGRect)rect {
-    [self drawWithColor:self.lineColor lineWidth:self.lineWidth];
-}
 
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding

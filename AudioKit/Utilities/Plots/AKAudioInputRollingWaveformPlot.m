@@ -14,7 +14,7 @@
 @interface AKAudioInputRollingWaveformPlot() <CsoundBinding>
 {
     // AudioKit sound data
-    NSData *outSamples;
+    NSMutableData *inSamples;
     int sampleSize;
     
     CsoundObj *cs;
@@ -28,8 +28,27 @@
 - (void)defaultValues
 {
     _plotColor = [AKColor yellowColor];
+
+    audioPlot = [[EZAudioPlot alloc] initWithFrame:self.frame];
+    audioPlot.bounds = self.bounds;
+    audioPlot.frame = self.frame;
+    [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    audioPlot.backgroundColor = [AKColor blackColor];
+    
+    audioPlot.color = _plotColor;
+    audioPlot.shouldFill   = YES;
+    audioPlot.shouldMirror = YES;
+    [audioPlot setRollingHistoryLength:4096];
+    [self addSubview:audioPlot];
 }
 
+- (void)setPlotColor:(AKColor *)plotColor
+{
+    _plotColor = plotColor;
+    dispatch_async(dispatch_get_main_queue(),^{
+        audioPlot.color = plotColor;
+    });
+}
 
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
@@ -47,36 +66,19 @@
     
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));
-    outSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
-    
-    audioPlot = [[EZAudioPlot alloc] initWithFrame:self.frame];
-    audioPlot.backgroundColor = [AKColor blackColor];
-    [self addSubview:audioPlot];
-    
-    audioPlot.color = self.plotColor;
-    audioPlot.shouldFill   = YES;
-    audioPlot.shouldMirror = YES;
-    [audioPlot setRollingHistoryLength:4096];
-}
-
-- (void)setPlotColor:(AKColor *)plotColor
-{
-    _plotColor = plotColor;
-    dispatch_async(dispatch_get_main_queue(),^{
-        audioPlot.color = plotColor;
-    });
+    inSamples = [NSMutableData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
 }
 
 - (void)updateValuesFromCsound
 {
-    outSamples = [cs getInSamples];
+    @synchronized(self) {
+        inSamples = [cs getMutableInSamples];
+    }
     
     dispatch_async(dispatch_get_main_queue(),^{
-        audioPlot.bounds = self.bounds;
-        audioPlot.frame = self.frame;
-        [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    
-        [audioPlot updateBuffer:(MYFLT *)outSamples.bytes withBufferSize:sampleSize];
+        @synchronized(self) {
+            [audioPlot updateBuffer:(MYFLT *)inSamples.mutableBytes withBufferSize:sampleSize];
+        }
     });
 }
 

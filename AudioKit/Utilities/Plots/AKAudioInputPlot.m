@@ -27,7 +27,7 @@
 }
 
 
-- (void)drawWithColor:(AKColor *)color lineWidth:(CGFloat)width
+- (void)drawRect:(CGRect)rect
 {
     // Draw waveform
     AKBezierPath *waveformPath = [AKBezierPath bezierPath];
@@ -53,13 +53,9 @@
             x += (self.frame.size.width / (sampleSize/2));
         };
     }
-    [waveformPath setLineWidth:width];
-    [color setStroke];
+    [waveformPath setLineWidth:self.lineWidth];
+    [self.lineColor setStroke];
     [waveformPath stroke];
-}
-
-- (void)drawRect:(CGRect)rect {
-    [self drawWithColor:self.lineColor lineWidth:self.lineWidth];
 }
 
 // -----------------------------------------------------------------------------
