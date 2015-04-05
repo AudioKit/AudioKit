@@ -14,7 +14,7 @@
 
 @interface AKAudioInputFFTPlot() <CsoundBinding>
 {
-    NSMutableData *outSamples;
+    NSMutableData *inSamples;
     int sampleSize;
     MYFLT *history;
     int historySize;
@@ -46,7 +46,7 @@
 
 #if TARGET_OS_IPHONE
 
-- (void)drawHistoryWithColor:(UIColor *)color width:(CGFloat)width
+- (void)drawRect:(CGRect)rect
 {
     // Draw waveform
     UIBezierPath *wavePath = [UIBezierPath bezierPath];
@@ -83,20 +83,17 @@
         x += deltaX;
     };
     
-    [wavePath setLineWidth:width];
-    [color setStroke];
+    [wavePath setLineWidth:self.lineWidth];
+    [self.lineColor setStroke];
     [wavePath stroke];
 }
 
-- (void)drawRect:(CGRect)rect {
-    [self drawHistoryWithColor:self.lineColor width:self.lineWidth];
-}
-
 #elif TARGET_OS_MAC
+// TODO
 #endif
 
 -(void)createFFTWithBufferSize:(float)bufferSize {
-    MYFLT *data = (MYFLT *)outSamples.mutableBytes;
+    MYFLT *data = (MYFLT *)inSamples.mutableBytes;
     
     // Setup the length
     _log2n = log2f(bufferSize);
@@ -121,7 +118,7 @@
 }
 
 -(void)updateFFTWithBufferSize:(float)bufferSize {
-    const MYFLT *data = (const MYFLT *)outSamples.bytes;
+    const MYFLT *data = (const MYFLT *)inSamples.bytes;
 
     // For an FFT, numSamples must be a power of 2, i.e. is always even
     int nOver2 = bufferSize/2;
@@ -171,7 +168,7 @@
 
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));
-    outSamples = [NSMutableData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
+    inSamples = [NSMutableData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
 
     historySize = 128;
     
@@ -183,7 +180,7 @@
 
 - (void)updateValuesFromCsound
 {
-    outSamples = [NSMutableData dataWithData:[cs getInSamples]];
+    inSamples = [cs getMutableInSamples];
     
     // Get the FFT data
     [self updateFFTWithBufferSize:sampleSize];

@@ -50,7 +50,7 @@
     free(history);
 }
 
-- (void)drawWithColor:(AKColor *)color width:(CGFloat)width
+- (void)drawRect:(CGRect)rect
 {
     // Draw waveform
     AKBezierPath *wavePath = [AKBezierPath bezierPath];
@@ -78,14 +78,9 @@
         x += deltaX;
     };
     
-    [wavePath setLineWidth:width];
-    [color setStroke];
+    [wavePath setLineWidth:self.lineWidth];
+    [self.lineColor setStroke];
     [wavePath stroke];
-}
-
-- (void)drawRect:(CGRect)rect {
-    
-    [self drawWithColor:self.lineColor width:self.lineWidth];
 }
 
 - (void)updateWithValue:(float)value {

@@ -45,7 +45,7 @@
 
 #if TARGET_OS_IPHONE
 
-- (void)drawHistoryWithColor:(UIColor *)color width:(CGFloat)width
+- (void)drawRect:(CGRect)rect
 {
     // Draw waveform
     UIBezierPath *wavePath = [UIBezierPath bezierPath];
@@ -82,13 +82,9 @@
         x += deltaX;
     };
     
-    [wavePath setLineWidth:width];
-    [color setStroke];
+    [wavePath setLineWidth:self.lineWidth];
+    [self.lineColor setStroke];
     [wavePath stroke];
-}
-
-- (void)drawRect:(CGRect)rect {
-    [self drawHistoryWithColor:self.lineColor width:self.lineWidth];
 }
 
 #elif TARGET_OS_MAC
@@ -163,7 +159,7 @@
 
 - (void)updateValuesFromCsound
 {
-    outSamples = [NSMutableData dataWithData:[cs getOutSamples]];
+    outSamples = [cs getMutableOutSamples];
     
     // Get the FFT data
     [self updateFFTWithBufferSize:sampleSize];

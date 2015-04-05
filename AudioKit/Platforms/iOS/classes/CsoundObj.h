@@ -132,8 +132,13 @@ typedef struct {
 - (MYFLT *)getOutputChannelPtr:(NSString *)channelName
                    channelType:(controlChannelType)channelType;
 
+// Read-only samples
 - (NSData *)getOutSamples;
 - (NSData *)getInSamples;
+
+// Writable alternatives
+- (NSMutableData *)getMutableInSamples;
+- (NSMutableData *)getMutableOutSamples;
 
 - (int)getNumChannels;
 - (int)getKsmps;
