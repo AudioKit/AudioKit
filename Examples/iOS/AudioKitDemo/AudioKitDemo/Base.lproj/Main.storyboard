@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -142,9 +142,6 @@
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sug-eB-ocK" customClass="AKPropertySlider">
                                 <rect key="frame" x="28" y="495" width="544" height="31"/>
-                                <connections>
-                                    <action selector="wetnessChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="IXE-pW-MV5"/>
-                                </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d6X-yd-ZWW">
                                 <rect key="frame" x="540" y="466" width="30" height="21"/>
@@ -226,9 +223,6 @@
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gV-x8-nYO" customClass="AKPropertySlider">
                                 <rect key="frame" x="28" y="405" width="544" height="31"/>
-                                <connections>
-                                    <action selector="impulseResponseChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="sXs-Ye-7Ko"/>
-                                </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="g1k-aG-Wgo">
                                 <rect key="frame" x="276" y="166" width="51" height="21"/>
@@ -257,7 +251,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 </variation>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.75" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-xW-fgk">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.75" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1BG-xW-fgk" customClass="AKPropertySlider">
                                 <rect key="frame" x="29" y="195" width="544" height="31"/>
                                 <connections>
                                     <action selector="speedChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="V9K-XE-HrJ"/>
@@ -292,9 +286,6 @@
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.33333000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-Ct-diT" customClass="AKPropertySlider">
                                 <rect key="frame" x="27" y="315" width="544" height="31"/>
-                                <connections>
-                                    <action selector="pitchChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="W7P-ML-07L"/>
-                                </connections>
                             </slider>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Frm-9j-Vic">
                                 <rect key="frame" x="275" y="244" width="51" height="31"/>
@@ -378,9 +369,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Processing" image="P" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="dishWellSlider" destination="1gV-x8-nYO" id="e4Z-JS-8mZ"/>
+                        <outlet property="dryWetSlider" destination="Sug-eB-ocK" id="TrH-dw-zaa"/>
                         <outlet property="maintainPitchSwitch" destination="Frm-9j-Vic" id="z2k-67-fiw"/>
-                        <outlet property="pitchSlider" destination="hlK-Ct-diT" id="1b2-a2-ubV"/>
+                        <outlet property="pitchSlider" destination="hlK-Ct-diT" id="TBu-b1-h46"/>
                         <outlet property="sourceSegmentedControl" destination="QVJ-9n-cWO" id="Ihu-hC-Jj8"/>
+                        <outlet property="speedSlider" destination="1BG-xW-fgk" id="yiJ-jS-FSS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -552,7 +546,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQM-e0-xhR" customClass="AKAudioInputRollingWaveformPlot">
-                                        <rect key="frame" x="20" y="893" width="384" height="100"/>
+                                        <rect key="frame" x="20" y="893" width="374" height="100"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="plotColor">
@@ -563,21 +557,19 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="nLX-pU-8pe" firstAttribute="leading" secondItem="HeR-OL-vc2" secondAttribute="leading" id="1yC-ia-Pmg"/>
-                                    <constraint firstItem="JQM-e0-xhR" firstAttribute="trailing" secondItem="opY-5n-qO2" secondAttribute="trailing" constant="10" id="25b-zm-ihG"/>
+                                    <constraint firstItem="JQM-e0-xhR" firstAttribute="trailing" secondItem="opY-5n-qO2" secondAttribute="trailing" id="25b-zm-ihG"/>
                                     <constraint firstItem="RBR-OJ-FZo" firstAttribute="leading" secondItem="51w-TT-UpA" secondAttribute="leading" id="33U-KS-OnS"/>
-                                    <constraint firstAttribute="bottom" secondItem="qq4-SV-7R1" secondAttribute="bottom" constant="220" id="3eg-xe-XkB"/>
                                     <constraint firstItem="RmN-65-Hyj" firstAttribute="top" secondItem="qq4-SV-7R1" secondAttribute="bottom" constant="10" id="4DT-bR-ZhM"/>
                                     <constraint firstItem="Mqy-It-w4G" firstAttribute="leading" secondItem="HeR-OL-vc2" secondAttribute="leading" constant="20" id="4xB-gq-yLU"/>
                                     <constraint firstItem="Mqy-It-w4G" firstAttribute="bottom" secondItem="eFn-8d-mbv" secondAttribute="top" constant="-10" id="6BB-TK-Q3E"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="leading" secondItem="qq4-SV-7R1" secondAttribute="leading" id="6wS-Qt-CiW"/>
-                                    <constraint firstItem="l4H-RM-6J2" firstAttribute="top" secondItem="LlJ-qh-p7e" secondAttribute="bottom" constant="8" id="70L-uT-xbn"/>
                                     <constraint firstItem="Tpt-7S-82v" firstAttribute="trailing" secondItem="nLX-pU-8pe" secondAttribute="trailing" constant="-20" id="9UL-Ut-wOY"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="height" secondItem="LlJ-qh-p7e" secondAttribute="height" id="9UR-IP-wTU"/>
+                                    <constraint firstAttribute="trailing" secondItem="nLX-pU-8pe" secondAttribute="trailing" id="BL3-tP-9lA"/>
                                     <constraint firstItem="l4H-RM-6J2" firstAttribute="bottom" secondItem="JQM-e0-xhR" secondAttribute="top" constant="-10" id="Bfa-0I-9WM"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="trailing" secondItem="gEa-6t-zGZ" secondAttribute="trailing" id="Fst-rj-Dic"/>
                                     <constraint firstItem="lr1-e6-b7A" firstAttribute="bottom" secondItem="qq4-SV-7R1" secondAttribute="top" constant="-10" id="HFD-e8-1aF"/>
                                     <constraint firstItem="Tpt-7S-82v" firstAttribute="trailing" secondItem="xtQ-zt-2Ph" secondAttribute="trailing" id="IO2-hl-M7Y"/>
-                                    <constraint firstAttribute="bottom" secondItem="LlJ-qh-p7e" secondAttribute="bottom" constant="79" id="KiJ-v4-lFm"/>
                                     <constraint firstItem="JQM-e0-xhR" firstAttribute="leading" secondItem="opY-5n-qO2" secondAttribute="leading" id="KmB-51-Lvc"/>
                                     <constraint firstItem="LlJ-qh-p7e" firstAttribute="top" secondItem="RmN-65-Hyj" secondAttribute="bottom" constant="10" id="LpA-cJ-d3P"/>
                                     <constraint firstItem="YHv-cP-GZq" firstAttribute="trailing" secondItem="opY-5n-qO2" secondAttribute="trailing" id="LsF-3T-bKd"/>
@@ -587,7 +579,6 @@
                                     <constraint firstItem="eFn-8d-mbv" firstAttribute="leading" secondItem="RBR-OJ-FZo" secondAttribute="leading" id="P5q-UX-oYA"/>
                                     <constraint firstItem="aSL-kY-NV3" firstAttribute="leading" secondItem="lr1-e6-b7A" secondAttribute="leading" id="QXJ-iM-Qko"/>
                                     <constraint firstItem="Dlr-oT-qsS" firstAttribute="bottom" secondItem="gEa-6t-zGZ" secondAttribute="top" constant="-10" id="QXW-6J-qOf"/>
-                                    <constraint firstItem="NnL-Z0-WZf" firstAttribute="top" secondItem="aSL-kY-NV3" secondAttribute="bottom" constant="429" id="RZ3-rL-bb6"/>
                                     <constraint firstItem="JQM-e0-xhR" firstAttribute="height" secondItem="opY-5n-qO2" secondAttribute="height" id="S8Z-49-pUH"/>
                                     <constraint firstItem="aSL-kY-NV3" firstAttribute="height" secondItem="opY-5n-qO2" secondAttribute="height" id="Uf0-8y-PZK"/>
                                     <constraint firstItem="nLX-pU-8pe" firstAttribute="top" secondItem="HeR-OL-vc2" secondAttribute="top" id="Vwj-oH-Apq"/>
@@ -603,7 +594,6 @@
                                     <constraint firstItem="xtQ-zt-2Ph" firstAttribute="trailing" secondItem="YHv-cP-GZq" secondAttribute="trailing" id="k1P-9W-o0q"/>
                                     <constraint firstItem="eFn-8d-mbv" firstAttribute="leading" secondItem="Mqy-It-w4G" secondAttribute="leading" id="kaK-We-EQT"/>
                                     <constraint firstItem="LlJ-qh-p7e" firstAttribute="leading" secondItem="l4H-RM-6J2" secondAttribute="leading" id="kkW-Zc-Iyz"/>
-                                    <constraint firstAttribute="trailing" secondItem="JQM-e0-xhR" secondAttribute="trailing" constant="10" id="mym-ij-ucu"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="trailing" secondItem="qq4-SV-7R1" secondAttribute="trailing" id="nAh-xw-5eC"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="height" secondItem="gEa-6t-zGZ" secondAttribute="height" id="omA-Or-NXG"/>
                                     <constraint firstItem="eFn-8d-mbv" firstAttribute="bottom" secondItem="RBR-OJ-FZo" secondAttribute="top" constant="-10" id="phf-Aq-eIy"/>
@@ -612,22 +602,12 @@
                                     <constraint firstItem="aSL-kY-NV3" firstAttribute="trailing" secondItem="opY-5n-qO2" secondAttribute="trailing" id="u9I-Qe-MZc"/>
                                     <constraint firstItem="NnL-Z0-WZf" firstAttribute="bottom" secondItem="aSL-kY-NV3" secondAttribute="top" constant="-10" id="uHg-HI-A2J"/>
                                     <constraint firstItem="nLX-pU-8pe" firstAttribute="bottom" secondItem="Mqy-It-w4G" secondAttribute="top" constant="-10" id="uJ0-GD-p51"/>
-                                    <constraint firstItem="JQM-e0-xhR" firstAttribute="top" secondItem="l4H-RM-6J2" secondAttribute="bottom" constant="10" id="uWu-ax-qL7"/>
                                     <constraint firstItem="NnL-Z0-WZf" firstAttribute="leading" secondItem="gEa-6t-zGZ" secondAttribute="leading" constant="2" id="vRs-kk-Wi2"/>
                                     <constraint firstItem="qq4-SV-7R1" firstAttribute="leading" secondItem="RmN-65-Hyj" secondAttribute="leading" id="x4N-rc-d34"/>
                                     <constraint firstItem="Dlr-oT-qsS" firstAttribute="leading" secondItem="opY-5n-qO2" secondAttribute="leading" id="xv1-o3-Z2d"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="height" secondItem="qq4-SV-7R1" secondAttribute="height" id="ysJ-r0-DQF"/>
                                     <constraint firstItem="opY-5n-qO2" firstAttribute="leading" secondItem="LlJ-qh-p7e" secondAttribute="leading" id="zxi-iA-3up"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="RZ3-rL-bb6"/>
-                                        <exclude reference="3eg-xe-XkB"/>
-                                        <exclude reference="KiJ-v4-lFm"/>
-                                        <exclude reference="70L-uT-xbn"/>
-                                        <exclude reference="uWu-ax-qL7"/>
-                                    </mask>
-                                </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
