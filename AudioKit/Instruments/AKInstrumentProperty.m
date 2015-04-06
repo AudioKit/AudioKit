@@ -70,7 +70,9 @@
 - (void)updateValuesFromCsound
 {
     if (sentToCsound) {
-        self.value = *channelPtr;
+        if (self.value != *channelPtr) {
+            self.value = *channelPtr;
+        }
     }
     
     if ((!sentToCsound) && (*channelPtr == self.value)) {
