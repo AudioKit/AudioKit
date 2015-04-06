@@ -24,6 +24,8 @@
     
     NSMutableArray *views;
     NSMutableArray *shownViews;
+    
+    KZPTimelineViewController *timelineViewController;
 }
 
 - (void)makeSection:(NSString *)title
@@ -75,13 +77,11 @@
 - (void)addPlot:(UIView *)plot title:(NSString *)title {
     [plot setBackgroundColor:[UIColor blackColor]];
     [self addLabel:title toView:plot];
-    [AKManager addBinding:plot];
     [self toggleView:plot];
 }
 
 - (void)addToggleWithTitle:(NSString *)title selector:(SEL)selector
 {
-    KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     label.text = title;
     [timelineViewController addView:label];
@@ -153,7 +153,6 @@
     AKInstrumentPropertyPlot *plot = [[AKInstrumentPropertyPlot alloc] init];
     plot.property = property;
     [plot setBackgroundColor:[UIColor colorWithWhite:0.15 alpha:1.000]];
-    [cs addBinding:plot];
     [self addLabel:label toView:plot];
     [self toggleView:plot];
     KZPAction(label, ^{ [self toggleView:plot]; });
@@ -213,12 +212,10 @@
 
 - (void)addSliderForProperty:(id)property title:(NSString *)title
 {
-    KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
-    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     label.text = title;
     [timelineViewController addView:label];
-    
+
     AKPropertyLabel *valueLabel = [[AKPropertyLabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     valueLabel.property = property;
     [timelineViewController addView:valueLabel];
@@ -238,6 +235,7 @@
     AKManager *manager = [AKManager sharedManager];
     [manager enableAudioInput];
     cs = manager.engine;
+    timelineViewController = [KZPTimelineViewController sharedInstance];
 }
 
 - (void)run {
