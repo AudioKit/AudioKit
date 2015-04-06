@@ -15,7 +15,7 @@
 - (void)setProperty:(id)property
 {
     _property = property;
-    [self.property addObserver:self forKeyPath:@"value" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+    [self.property addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context
