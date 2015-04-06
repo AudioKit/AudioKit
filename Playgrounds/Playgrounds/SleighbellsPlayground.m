@@ -33,6 +33,7 @@
     [self addSliderForProperty:sleighBells.amplitude title:@"Amplitude"];
 
     AKPhrase *phrase = [[AKPhrase alloc] init];
+    [phrase addNote:note];
 
     [self makeSection:@"Repeat Frequency"];
     [self addRepeatSliderForInstrument:sleighBells
