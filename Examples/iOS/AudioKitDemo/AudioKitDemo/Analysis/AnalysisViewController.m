@@ -10,7 +10,6 @@
 #import "AKFoundation.h"
 #import "Microphone.h"
 #import "AKAudioAnalyzer.h"
-#import "AKAudioInputPlot.h"
 #import "AKInstrumentPropertyPlot.h"
 #import "AKFloatPlot.h"
 
@@ -27,7 +26,6 @@
     NSArray *noteNamesWithSharps;
     NSArray *noteNamesWithFlats;
     
-    IBOutlet AKAudioInputPlot *inputPlot;
     IBOutlet AKInstrumentPropertyPlot *amplitudePlot;
     IBOutlet AKInstrumentPropertyPlot *frequencyPlot;
     AKInstrumentProperty *normalizedFrequency;
