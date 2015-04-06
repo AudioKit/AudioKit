@@ -50,6 +50,13 @@
     });
 }
 
+- (void)drawRect:(CGRect)rect
+{
+    @synchronized(self) {
+        [audioPlot updateBuffer:(MYFLT *)inSamples.mutableBytes withBufferSize:sampleSize];
+    }
+}
+
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
 // -----------------------------------------------------------------------------
@@ -74,12 +81,7 @@
     @synchronized(self) {
         inSamples = [cs getMutableInSamples];
     }
-    
-    dispatch_async(dispatch_get_main_queue(),^{
-        @synchronized(self) {
-            [audioPlot updateBuffer:(MYFLT *)inSamples.mutableBytes withBufferSize:sampleSize];
-        }
-    });
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 
