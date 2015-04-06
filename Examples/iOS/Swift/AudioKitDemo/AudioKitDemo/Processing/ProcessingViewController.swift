@@ -41,9 +41,11 @@ class ProcessingViewController: UIViewController {
         AKOrchestra.addInstrument(audioFilePlayer)
         AKOrchestra.addInstrument(conv)
         
-        dryWetSlider.property = conv.dryWetBalance
-        dishWellSlider.property = conv.dishWellBalance
+        speedSlider.property = audioFilePlayer.speed
         pitchSlider.property = audioFilePlayer.scaling
+        dryWetSlider.property   = conv.dryWetBalance
+        dishWellSlider.property = conv.dishWellBalance
+        
     }
     
     
@@ -63,12 +65,9 @@ class ProcessingViewController: UIViewController {
         }
     }
     
-    
     @IBAction func speedChanged(sender:UISlider) {
-        AKTools.setProperty(audioFilePlayer.speed, withSlider: sender)
         if (maintainPitchSwitch.on && fabs(audioFilePlayer.speed.value) > 0.1) {
             audioFilePlayer.scaling.value = pitchToMaintain / fabs(audioFilePlayer.speed.value)
-            AKTools.setSlider(pitchSlider, withProperty: audioFilePlayer.scaling)
         }
     }
     
