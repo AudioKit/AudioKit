@@ -129,17 +129,15 @@
     NSRect frame = self.bounds;
 #endif
     
+      // Set the background color
+      [self.backgroundColor set];
 #if TARGET_OS_IPHONE
-    // Set the background color
-    [self.backgroundColor set];
-    UIRectFill(frame);
-    // Set the waveform line color
-    [self.plotColor set];
+      UIRectFill(frame);
 #elif TARGET_OS_MAC
-    [self.backgroundColor set];
-    NSRectFill(frame);
-    [self.plotColor set];
+      NSRectFill(frame);
 #endif
+      // Set the waveform line color
+      [self.plotColor set];
     
     if(plotLength > 0) {
       
