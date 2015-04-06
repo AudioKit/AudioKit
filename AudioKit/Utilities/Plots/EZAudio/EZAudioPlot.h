@@ -44,20 +44,11 @@
  
  */
 
-#import <Foundation/Foundation.h>
 #import "AKFoundation.h"
+#import "AKPlotView.h"
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-@interface EZAudioPlot : UIView
-#elif TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
-@interface EZAudioPlot : NSView
-#endif
-{
-    CGPoint *plotData;
-    UInt32   plotLength;
-}
+IB_DESIGNABLE
+@interface EZAudioPlot : AKPlotView
 
 #pragma mark - Adjust Resolution
 ///-----------------------------------------------------------
@@ -88,29 +79,36 @@
               length:(int)length;
 
 
-
-@property (nonatomic,strong) id backgroundColor;
+#if TARGET_OS_IPHONE
+@property (nonatomic,strong) IBInspectable UIColor *backgroundColor;
+#else
+@property (nonatomic,strong) IBInspectable NSColor *backgroundColor;
+#endif
 
 /**
  The default color of the plot's data (i.e. waveform, y-axis values). For iOS the color is specified as a UIColor while for OSX the color is an NSColor. The default value on both platforms is red.
  */
-@property (nonatomic,strong) id color;
+#if TARGET_OS_IPHONE
+@property (nonatomic,strong) IBInspectable UIColor *plotColor;
+#else
+@property (nonatomic,strong) IBInspectable NSColor *plotColor;
+#endif
 
 /**
  The plot's gain value, which controls the scale of the y-axis values. The default value of the gain is 1.0f and should always be greater than 0.0f.
  */
-@property (nonatomic,assign,setter=setGain:) float gain;
+@property (nonatomic,assign,setter=setGain:) IBInspectable float gain;
 
 
 /**
  A boolean indicating whether or not to fill in the graph. A value of YES will make a filled graph (filling in the space between the x-axis and the y-value), while a value of NO will create a stroked graph (connecting the points along the y-axis).
  */
-@property (nonatomic,assign,setter=setShouldFill:) BOOL shouldFill;
+@property (nonatomic,assign,setter=setShouldFill:) IBInspectable BOOL shouldFill;
 
 /**
  A boolean indicating whether the graph should be rotated along the x-axis to give a mirrored reflection. This is typical for audio plots to produce the classic waveform look. A value of YES will produce a mirrored reflection of the y-values about the x-axis, while a value of NO will only plot the y-values.
  */
-@property (nonatomic,assign,setter=setShouldMirror:) BOOL shouldMirror;
+@property (nonatomic,assign,setter=setShouldMirror:) IBInspectable BOOL shouldMirror;
 
 #pragma mark - Get Samples
 ///-----------------------------------------------------------

@@ -14,7 +14,7 @@
 @import UIKit;
 
 @interface AKPlotView : UIView
-
+- (void)defaultValues;
 - (void)updateUI;
 @end
 
@@ -25,7 +25,7 @@
 @import Cocoa;
 
 @interface AKPlotView : NSView
-
+- (void)defaultValues;
 - (void)updateUI;
 @end
 

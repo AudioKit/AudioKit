@@ -8,7 +8,6 @@
 
 #import "AKAudioInputRollingWaveformPlot.h"
 #import "AKFoundation.h"
-#import "EZAudioPlot.h"
 #import "CsoundObj.h"
 
 @interface AKAudioInputRollingWaveformPlot() <CsoundBinding>
@@ -18,8 +17,6 @@
     int sampleSize;
     
     CsoundObj *cs;
-    
-    EZAudioPlot *audioPlot;
 }
 @end
 
@@ -27,40 +24,19 @@
 
 - (void)defaultValues
 {
-    _plotColor = [AKColor yellowColor];
+    [super defaultValues];
 
-    audioPlot = [[EZAudioPlot alloc] initWithFrame:self.frame];
-    audioPlot.backgroundColor = [AKColor blackColor];
-    audioPlot.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-
-    audioPlot.color = _plotColor;
-    audioPlot.shouldFill   = YES;
-    audioPlot.shouldMirror = YES;
-    [audioPlot setRollingHistoryLength:4096];
-    [self addSubview:audioPlot];
+    [self setRollingHistoryLength:2048];
 }
 
-- (void)setPlotColor:(AKColor *)plotColor
-{
-    _plotColor = plotColor;
-    dispatch_async(dispatch_get_main_queue(),^{
-        audioPlot.color = plotColor;
-    });
-}
 
-- (void)layoutSubviews
-{
-    audioPlot.bounds = self.bounds;
-    audioPlot.frame = self.frame;
-    [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    [super layoutSubviews];
-}
 
 - (void)drawRect:(CGRect)rect
 {
     @synchronized(self) {
-        [audioPlot updateBuffer:(MYFLT *)inSamples.mutableBytes withBufferSize:sampleSize];
+        [self updateBuffer:(MYFLT *)inSamples.mutableBytes withBufferSize:sampleSize];
     }
+    [super drawRect:rect];
 }
 
 // -----------------------------------------------------------------------------
