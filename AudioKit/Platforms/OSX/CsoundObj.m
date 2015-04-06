@@ -306,8 +306,19 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     MYFLT *spout = csoundGetSpout(csound);
     int nchnls = csoundGetNchnls(csound);
     int ksmps = csoundGetKsmps(csound);
-    NSData* data = [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
-    return data;
+    return [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
+}
+
+- (NSMutableData *)getMutableOutSamples
+{
+    if (!mCsData.running) {
+        return nil;
+    }
+    CSOUND *csound = [self getCsound];
+    float *spout = csoundGetSpout(csound);
+    int nchnls = csoundGetNchnls(csound);
+    int ksmps = csoundGetKsmps(csound);
+    return [NSMutableData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
 }
 
 - (NSData *)getInSamples
@@ -319,8 +330,19 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     MYFLT *spin = csoundGetSpin(csound);
     int nchnls = csoundGetNchnls(csound);
     int ksmps = csoundGetKsmps(csound);
-    NSData* data = [NSData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
-    return data;
+    return [NSData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
+}
+
+- (NSMutableData *)getMutableInSamples
+{
+    if (!mCsData.running) {
+        return nil;
+    }
+    CSOUND *csound = [self getCsound];
+    float *spin = csoundGetSpin(csound);
+    int nchnls = csoundGetNchnls(csound);
+    int ksmps = csoundGetKsmps(csound);
+    return [NSMutableData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
 }
 
 - (int)getNumChannels
@@ -363,44 +385,45 @@ OSStatus  Csound_Render(void *inRefCon,
     NSMutableArray* cache = cdata->valuesCache;
     
     for(i=0; i < slices; i++){
-        
-        for (int i = 0; i < cache.count; i++) {
-            id<CsoundBinding> binding = [cache objectAtIndex:i];
-            if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                [binding updateValuesToCsound];
-            }
-        }
-        
-        /* performance */
-        if(cdata->useAudioInput) {
-            for (k = 0; k < nchnls; k++){
-                buffer = (Float32 *) ioData->mBuffers[k].mData;
-                for(j=0; j < ksmps; j++){
-                    spin[j*nchnls+k] = buffer[j+i*ksmps];
+        @autoreleasepool {
+            for (int i = 0; i < cache.count; i++) {
+                id<CsoundBinding> binding = [cache objectAtIndex:i];
+                if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                    [binding updateValuesToCsound];
                 }
             }
-        }
-        if(!ret) {
-            ret = csoundPerformKsmps(cdata->cs);
-        } else {
-            cdata->running = false;
-        }
-        
-        for (k = 0; k < nchnls; k++) {
-            buffer = (Float32 *) ioData->mBuffers[k].mData;
-            if (cdata->shouldMute == false) {
-                for(j=0; j < ksmps; j++){
-                    buffer[j+i*ksmps] = (Float32) spout[j*nchnls+k];
+            
+            /* performance */
+            if(cdata->useAudioInput) {
+                for (k = 0; k < nchnls; k++){
+                    buffer = (Float32 *) ioData->mBuffers[k].mData;
+                    for(j=0; j < ksmps; j++){
+                        spin[j*nchnls+k] = buffer[j+i*ksmps];
+                    }
                 }
+            }
+            if(!ret) {
+                ret = csoundPerformKsmps(cdata->cs);
             } else {
-                memset(buffer, 0, sizeof(Float32) * inNumberFrames);
+                cdata->running = false;
             }
-        }
-        
-        for (int i = 0; i < cache.count; i++) {
-            id<CsoundBinding> binding = [cache objectAtIndex:i];
-            if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                [binding updateValuesFromCsound];
+            
+            for (k = 0; k < nchnls; k++) {
+                buffer = (Float32 *) ioData->mBuffers[k].mData;
+                if (cdata->shouldMute == false) {
+                    for(j=0; j < ksmps; j++){
+                        buffer[j+i*ksmps] = (Float32) spout[j*nchnls+k];
+                    }
+                } else {
+                    memset(buffer, 0, sizeof(Float32) * inNumberFrames);
+                }
+            }
+            
+            for (int i = 0; i < cache.count; i++) {
+                id<CsoundBinding> binding = [cache objectAtIndex:i];
+                if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                    [binding updateValuesFromCsound];
+                }
             }
         }
     }
@@ -530,8 +553,6 @@ OSStatus  Csound_Render(void *inRefCon,
         
         [self cleanupBindings];
         [self notifyListenersOfCompletion];
-        
-        
     }
 }
 @end
