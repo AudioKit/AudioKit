@@ -42,6 +42,22 @@
     [self addSubview:audioPlot];
 }
 
+- (void)setPlotColor:(AKColor *)plotColor
+{
+    _plotColor = plotColor;
+    dispatch_async(dispatch_get_main_queue(),^{
+        audioPlot.color = plotColor;
+    });
+}
+
+
+- (void)drawRect:(CGRect)rect
+{
+    @synchronized(self) {
+        [audioPlot updateBuffer:(MYFLT *)outSamples.mutableBytes withBufferSize:sampleSize];
+    }
+}
+
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
 // -----------------------------------------------------------------------------
@@ -61,25 +77,13 @@
     outSamples = [NSMutableData dataWithBytesNoCopy:samples length:sampleSize*sizeof(MYFLT)];
 }
 
-- (void)setPlotColor:(AKColor *)plotColor
-{
-    _plotColor = plotColor;
-    dispatch_async(dispatch_get_main_queue(),^{
-        audioPlot.color = plotColor;
-    });
-}
-
 - (void)updateValuesFromCsound
 {
     @synchronized(self) {
         outSamples = [cs getMutableOutSamples];
     }
     
-    dispatch_async(dispatch_get_main_queue(),^{
-        @synchronized(self) {
-            [audioPlot updateBuffer:(MYFLT *)outSamples.mutableBytes withBufferSize:sampleSize];
-        }
-    });
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 
