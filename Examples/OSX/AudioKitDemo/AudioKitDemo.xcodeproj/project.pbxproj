@@ -26,7 +26,6 @@
 		C42DC3341A9C61DF0041B644 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC32E1A9C61DF0041B644 /* AudioFilePlayer.m */; };
 		C42DC3351A9C61DF0041B644 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC3301A9C61DF0041B644 /* ConvolutionInstrument.m */; };
 		C42DC33B1A9C652E0041B644 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC3391A9C652E0041B644 /* AnalysisViewController.m */; };
-		C42DC3401A9C65460041B644 /* VocalInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC33F1A9C65460041B644 /* VocalInput.m */; };
 		C452F0521ABFC346003670A4 /* AKSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F00E1ABFC346003670A4 /* AKSampler.m */; };
 		C452F0531ABFC346003670A4 /* AKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0101ABFC346003670A4 /* AKTools.m */; };
 		C452F0541ABFC346003670A4 /* Amplifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0141ABFC346003670A4 /* Amplifier.m */; };
@@ -250,8 +249,6 @@
 		C42DC3301A9C61DF0041B644 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = AudioKitDemo/Processing/ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C42DC3381A9C652E0041B644 /* AnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisViewController.h; path = Analysis/AnalysisViewController.h; sourceTree = "<group>"; };
 		C42DC3391A9C652E0041B644 /* AnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisViewController.m; path = Analysis/AnalysisViewController.m; sourceTree = "<group>"; };
-		C42DC33E1A9C65460041B644 /* VocalInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VocalInput.h; path = ../../../iOS/AudioKitDemo/AudioKitDemo/Analysis/VocalInput.h; sourceTree = "<group>"; };
-		C42DC33F1A9C65460041B644 /* VocalInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VocalInput.m; path = ../../../iOS/AudioKitDemo/AudioKitDemo/Analysis/VocalInput.m; sourceTree = "<group>"; };
 		C452F00D1ABFC346003670A4 /* AKSampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler.h; sourceTree = "<group>"; };
 		C452F00E1ABFC346003670A4 /* AKSampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSampler.m; sourceTree = "<group>"; };
 		C452F00F1ABFC346003670A4 /* AKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTools.h; sourceTree = "<group>"; };
@@ -670,8 +667,6 @@
 		C42DC33D1A9C65330041B644 /* Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				C42DC33E1A9C65460041B644 /* VocalInput.h */,
-				C42DC33F1A9C65460041B644 /* VocalInput.m */,
 				C42DC3381A9C652E0041B644 /* AnalysisViewController.h */,
 				C42DC3391A9C652E0041B644 /* AnalysisViewController.m */,
 			);
@@ -1551,7 +1546,6 @@
 				C4624C5F1AAC36B800555883 /* AKMixedFFT.m in Sources */,
 				C4624CAA1AAC36B800555883 /* AKDecimator.m in Sources */,
 				C4624CB41AAC36B800555883 /* AKThreePoleLowpassFilter.m in Sources */,
-				C42DC3401A9C65460041B644 /* VocalInput.m in Sources */,
 				C4624C9A1AAC36B800555883 /* AKAudioInput.m in Sources */,
 				C42DC3351A9C61DF0041B644 /* ConvolutionInstrument.m in Sources */,
 				C4624CD81AAC36B900555883 /* AKTableGenerator.m in Sources */,
