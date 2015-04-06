@@ -10,11 +10,14 @@ class AnalysisViewController: UIViewController {
     
     @IBOutlet var frequencyLabel: UILabel!
     @IBOutlet var amplitudeLabel: UILabel!
-    @IBOutlet var noteNameWithSharpsLabel: UILabel!
-    @IBOutlet var noteNameWithFlatsLabel: UILabel!
+    @IBOutlet var noteNameLabel: UILabel!
+    @IBOutlet var amplitudePlot: AKInstrumentPropertyPlot!
+    @IBOutlet var frequencyPlot: AKInstrumentPropertyPlot!
+    var normalizedFrequency = AKInstrumentProperty(value: 0, minimum: 16.35, maximum: 30.87)
+    @IBOutlet var normalizedFrequencyPlot: AKFloatPlot!
     
     let analyzer: AKAudioAnalyzer
-    let microphone: VocalInput
+    let microphone: Microphone
 
     let noteFrequencies = [16.35,17.32,18.35,19.45,20.6,21.83,23.12,24.5,25.96,27.5,29.14,30.87]
     let noteNamesWithSharps = ["C", "C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
@@ -24,13 +27,13 @@ class AnalysisViewController: UIViewController {
     let updateAnalysis = AKEvent()
     
     override init() {
-        microphone = VocalInput()
+        microphone = Microphone()
         analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
         super.init()
     }
     
     required init(coder aDecoder: NSCoder) {
-        microphone = VocalInput()
+        microphone = Microphone()
         analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
         super.init(coder: aDecoder)
     }
@@ -51,6 +54,11 @@ class AnalysisViewController: UIViewController {
         })
         analysisSequence.addEvent(updateAnalysis)
         analysisSequence.play()
+        
+        amplitudePlot.property = analyzer.trackedAmplitude
+        frequencyPlot.property = analyzer.trackedFrequency
+        normalizedFrequencyPlot.minimum = 15
+        normalizedFrequencyPlot.maximum = 32
     }
     
     func updateUI() {
@@ -64,6 +72,10 @@ class AnalysisViewController: UIViewController {
             while (frequency < Float(noteFrequencies[0])) {
                 frequency = frequency * 2.0
             }
+            
+            normalizedFrequency.value = frequency
+            normalizedFrequencyPlot.updateWithValue(frequency)
+            
             var minDistance: Float = 10000.0
             var index = 0
             
@@ -77,10 +89,8 @@ class AnalysisViewController: UIViewController {
             }
 
             var octave = Int(log2f(analyzer.trackedFrequency.value / frequency))
-            var noteName = String(format: "%@%d", noteNamesWithSharps[index], octave)
-            noteNameWithSharpsLabel.text = noteName
-            noteName = String(format: "%@%d", noteNamesWithFlats[index], octave)
-            noteNameWithFlatsLabel.text = noteName
+            var noteName = String(format: "%@%d", noteNamesWithSharps[index], octave, noteNamesWithFlats[index], octave)
+            noteNameLabel.text = noteName
         }
         amplitudeLabel.text = String(format: "%0.2f", analyzer.trackedAmplitude.value)
     }
