@@ -24,117 +24,78 @@
 //  THE SOFTWARE.
 
 #import "EZAudioPlot.h"
-
 #import "EZAudio.h"
+
 @interface EZAudioPlot () {
 //  BOOL             _hasData;
 //  TPCircularBuffer _historyBuffer;
 
-  // Rolling History
-  float   *_scrollHistory;
-  int     _scrollHistoryIndex;
-  UInt32  _scrollHistoryLength;
-  BOOL    _changingHistorySize;
+    CGPoint *plotData;
+    UInt32   plotLength;
+    
+    // Rolling History
+    float   *_scrollHistory;
+    int     _scrollHistoryIndex;
+    UInt32  _scrollHistoryLength;
+    BOOL    _changingHistorySize;
 }
 @end
 
 @implementation EZAudioPlot
 
 #pragma mark - Initialization
--(id)init {
-  self = [super init];
-  if(self){
-    [self initPlot];
-  }
-  return self;
-}
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-  self = [super initWithCoder:aDecoder];
-  if(self){
-    [self initPlot];
-  }
-  return self;
-}
-
-#if TARGET_OS_IPHONE
--(id)initWithFrame:(CGRect)frameRect {
-#elif TARGET_OS_MAC
--(id)initWithFrame:(NSRect)frameRect {
-#endif
-  self = [super initWithFrame:frameRect];
-  if(self){
-    [self initPlot];
-  }
-  return self;
-}
-  
--(void)initPlot {
-#if TARGET_OS_IPHONE
-  self.backgroundColor = [UIColor blackColor];
-  self.color           = [UIColor colorWithHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
-#elif TARGET_OS_MAC
-  self.backgroundColor = [NSColor blackColor];
-  self.color           = [NSColor colorWithCalibratedHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
-#endif
-  self.gain            = 1.0;
-  self.shouldMirror    = NO;
-  self.shouldFill      = NO;
-  plotData             = NULL;
-  _scrollHistory       = NULL;
-  _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
+-(void)defaultValues {
+    _backgroundColor = [AKColor blackColor];
+    _plotColor       = [AKColor yellowColor];
+    _gain            = 1.0;
+    _shouldMirror    = YES;
+    _shouldFill      = YES;
+    plotData             = NULL;
+    _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
+    _scrollHistory       = malloc(_scrollHistoryLength * sizeof(float));
 }
   
 #pragma mark - Setters
--(void)setBackgroundColor:(id)backgroundColor {
+-(void)setBackgroundColor:(AKColor *)backgroundColor {
   _backgroundColor = backgroundColor;
-  [self _refreshDisplay];
+  [self updateUI];
 }
   
--(void)setColor:(id)color {
-  _color = color;
-  [self _refreshDisplay];
+-(void)setPlotColor:(AKColor *)color {
+  _plotColor = color;
+  [self updateUI];
 }
   
 -(void)setGain:(float)gain {
   _gain = gain;
-  [self _refreshDisplay];
+  [self updateUI];
 }
 
 -(void)setShouldFill:(BOOL)shouldFill {
   _shouldFill = shouldFill;
-  [self _refreshDisplay];
+  [self updateUI];
 }
 
 -(void)setShouldMirror:(BOOL)shouldMirror {
   _shouldMirror = shouldMirror;
-  [self _refreshDisplay];
+  [self updateUI];
 }
-  
--(void)_refreshDisplay {
-#if TARGET_OS_IPHONE
-  [self setNeedsDisplay];
-#elif TARGET_OS_MAC
-  [self setNeedsDisplay:YES];
-#endif
-}
-  
+
 #pragma mark - Get Data
 -(void)setSampleData:(float *)data
               length:(int)length {
-  if( plotData != nil ){
+
     free(plotData);
-  }
-  
-  plotData   = (CGPoint *)calloc(sizeof(CGPoint),length);
-  plotLength = length;
-  
-  for(int i = 0; i < length; i++) {
-    data[i]     = i == 0 ? 0 : data[i];
-    plotData[i] = CGPointMake(i,data[i] * _gain);
-  }
+    plotData   = (CGPoint *)calloc(sizeof(CGPoint),length);
+    plotLength = length;
     
-  [self _refreshDisplay];
+    for(int i = 0; i < length; i++) {
+        data[i]     = i == 0 ? 0 : data[i];
+        plotData[i] = CGPointMake(i,data[i] * _gain);
+    }
+    
+    [self updateUI];
 }
   
 #pragma mark - Update
@@ -150,7 +111,7 @@
     
     //
     [self setSampleData:_scrollHistory
-                 length:(_scrollHistoryLength)];
+                 length:_scrollHistoryLength];
 }
     
 #if TARGET_OS_IPHONE
@@ -170,14 +131,14 @@
     
 #if TARGET_OS_IPHONE
     // Set the background color
-    [(UIColor*)self.backgroundColor set];
+    [self.backgroundColor set];
     UIRectFill(frame);
     // Set the waveform line color
-    [(UIColor*)self.color set];
+    [self.plotColor set];
 #elif TARGET_OS_MAC
-    [(NSColor*)self.backgroundColor set];
+    [self.backgroundColor set];
     NSRectFill(frame);
-    [(NSColor*)self.color set];
+    [self.plotColor set];
 #endif
     
     if(plotLength > 0) {
@@ -261,9 +222,7 @@
 }
     
 -(void)dealloc {
-  if( plotData ){
     free(plotData);
-  }
 }
 
 @end

@@ -6,16 +6,10 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKPlotView.h"
+#import "EZAudioPlot.h"
 
 /// A Rolling Waveform for of the audio input
 IB_DESIGNABLE
-@interface AKAudioInputRollingWaveformPlot : AKPlotView
-
-#if TARGET_OS_IPHONE
-@property (nonatomic) IBInspectable UIColor *plotColor;
-#else
-@property (nonatomic) IBInspectable NSColor *plotColor;
-#endif
+@interface AKAudioInputRollingWaveformPlot : EZAudioPlot
 
 @end
