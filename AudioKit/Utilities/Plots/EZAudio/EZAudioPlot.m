@@ -31,7 +31,6 @@
 //  TPCircularBuffer _historyBuffer;
 
   // Rolling History
-  BOOL    _setMaxLength;
   float   *_scrollHistory;
   int     _scrollHistoryIndex;
   UInt32  _scrollHistoryLength;
@@ -151,9 +150,7 @@
     
     //
     [self setSampleData:_scrollHistory
-                 length:(!_setMaxLength?kEZAudioPlotMaxHistoryBufferLength:_scrollHistoryLength)];
-    _setMaxLength = YES;
-    
+                 length:(_scrollHistoryLength)];
 }
     
 #if TARGET_OS_IPHONE
