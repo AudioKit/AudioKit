@@ -9,6 +9,7 @@
 #import "ProcessingViewController.h"
 #import "AKFoundation.h"
 #import "AKTools.h"
+#import "AKPropertySlider.h"
 #import "ConvolutionInstrument.h"
 #import "AudioFilePlayer.h"
 
@@ -18,7 +19,10 @@
 {
     IBOutlet UISegmentedControl *sourceSegmentedControl;
     IBOutlet UISwitch *maintainPitchSwitch;
-    IBOutlet UISlider *pitchSlider;
+    IBOutlet AKPropertySlider *speedSlider;
+    IBOutlet AKPropertySlider *pitchSlider;
+    IBOutlet AKPropertySlider *dishWellSlider;
+    IBOutlet AKPropertySlider *dryWetSlider;
     
     float pitchToMaintain;
     
@@ -37,6 +41,12 @@
     [AKOrchestra addInstrument:convolver];
     pitchToMaintain = 1.0;
     isPlaying = NO;
+    
+    speedSlider.property    = audioFilePlayer.speed;
+    pitchSlider.property    = audioFilePlayer.scaling;
+    dishWellSlider.property = convolver.dishWellBalance;
+    dryWetSlider.property   = convolver.dryWetBalance;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated   {
@@ -62,24 +72,14 @@
 
 }
 
-- (IBAction)wetnessChanged:(UISlider *)sender {
-    [AKTools setProperty:convolver.dryWetBalance withSlider:sender];
-}
 
-- (IBAction)impulseResponseChanged:(UISlider *)sender {
-    [AKTools setProperty:convolver.dishWellBalance withSlider:sender];
-}
 - (IBAction)speedChanged:(UISlider *)sender
 {
-    [AKTools setProperty:audioFilePlayer.speed withSlider:sender];
     if (maintainPitchSwitch.isOn && fabs(audioFilePlayer.speed.value) > 0.1) {
         audioFilePlayer.scaling.value =  pitchToMaintain / fabs(audioFilePlayer.speed.value);
-        [AKTools setSlider:pitchSlider withProperty:audioFilePlayer.scaling];
     }
 }
-- (IBAction)pitchChanged:sender {
-    [AKTools setProperty:audioFilePlayer.scaling withSlider:sender];
-}
+
 - (IBAction)togglePitchMaintenance:(UISwitch *)sender {
     if (sender.isOn) {
         [pitchSlider setEnabled:NO];
