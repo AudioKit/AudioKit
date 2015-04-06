@@ -61,19 +61,9 @@
     
 }
 
-- (void)changed:(id)sender
+- (void)changed:(AKPropertySlider *)sender
 {
-    if ([_property isKindOfClass:[AKInstrumentProperty class]])
-    {
-        AKInstrumentProperty *p = (AKInstrumentProperty *)_property;
-        p.value = self.val;
-    }
-    else if ([_property isKindOfClass:[AKNoteProperty class]])
-    {
-        AKNoteProperty *p = (AKNoteProperty *)_property;
-        p.value = self.val;
-    }
-    
+    [AKTools setProperty:_property withSlider:sender];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
