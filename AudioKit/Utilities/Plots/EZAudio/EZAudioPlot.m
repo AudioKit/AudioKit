@@ -27,9 +27,9 @@
 #import "EZAudio.h"
 
 @interface EZAudioPlot () {
-//  BOOL             _hasData;
-//  TPCircularBuffer _historyBuffer;
-
+    //  BOOL             _hasData;
+    //  TPCircularBuffer _historyBuffer;
+    
     CGPoint *plotData;
     UInt32   plotLength;
     
@@ -45,7 +45,7 @@
 
 #pragma mark - Initialization
 
--(void)defaultValues {
+- (void)defaultValues {
     _backgroundColor = [AKColor blackColor];
     _plotColor       = [AKColor yellowColor];
     _gain            = 1.0;
@@ -55,37 +55,37 @@
     _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
     _scrollHistory       = malloc(_scrollHistoryLength * sizeof(float));
 }
-  
+
 #pragma mark - Setters
--(void)setBackgroundColor:(AKColor *)backgroundColor {
-  _backgroundColor = backgroundColor;
-  [self updateUI];
-}
-  
--(void)setPlotColor:(AKColor *)color {
-  _plotColor = color;
-  [self updateUI];
-}
-  
--(void)setGain:(float)gain {
-  _gain = gain;
-  [self updateUI];
+- (void)setBackgroundColor:(AKColor *)backgroundColor {
+    _backgroundColor = backgroundColor;
+    [self updateUI];
 }
 
--(void)setShouldFill:(BOOL)shouldFill {
-  _shouldFill = shouldFill;
-  [self updateUI];
+- (void)setPlotColor:(AKColor *)color {
+    _plotColor = color;
+    [self updateUI];
 }
 
--(void)setShouldMirror:(BOOL)shouldMirror {
-  _shouldMirror = shouldMirror;
-  [self updateUI];
+- (void)setGain:(float)gain {
+    _gain = gain;
+    [self updateUI];
+}
+
+- (void)setShouldFill:(BOOL)shouldFill {
+    _shouldFill = shouldFill;
+    [self updateUI];
+}
+
+- (void)setShouldMirror:(BOOL)shouldMirror {
+    _shouldMirror = shouldMirror;
+    [self updateUI];
 }
 
 #pragma mark - Get Data
--(void)setSampleData:(float *)data
+- (void)setSampleData:(float *)data
               length:(int)length {
-
+    
     free(plotData);
     plotData   = (CGPoint *)calloc(sizeof(CGPoint),length);
     plotLength = length;
@@ -97,9 +97,9 @@
     
     [self updateUI];
 }
-  
+
 #pragma mark - Update
--(void)updateBuffer:(MYFLT *)buffer withBufferSize:(UInt32)bufferSize {
+- (void)updateBuffer:(MYFLT *)buffer withBufferSize:(UInt32)bufferSize {
     
     // Update the scroll history datasource
     [EZAudio updateScrollHistory:&_scrollHistory
@@ -113,78 +113,75 @@
     [self setSampleData:_scrollHistory
                  length:_scrollHistoryLength];
 }
-    
-#if TARGET_OS_IPHONE
+
 - (void)drawRect:(CGRect)rect
 {
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
-  CGContextSaveGState(ctx);
-  CGRect frame = self.bounds;
+#if TARGET_OS_IPHONE
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(ctx);
+    CGRect frame = self.bounds;
 #elif TARGET_OS_MAC
-  - (void)drawRect:(NSRect)dirtyRect
-  {
     [[NSGraphicsContext currentContext] saveGraphicsState];
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
     NSRect frame = self.bounds;
 #endif
     
-      // Set the background color
-      [self.backgroundColor set];
+    // Set the background color
+    [self.backgroundColor set];
 #if TARGET_OS_IPHONE
-      UIRectFill(frame);
+    UIRectFill(frame);
 #elif TARGET_OS_MAC
-      NSRectFill(frame);
+    NSRectFill(frame);
 #endif
-      // Set the waveform line color
-      [self.plotColor set];
+    // Set the waveform line color
+    [self.plotColor set];
     
     if(plotLength > 0) {
-      
-      plotData[plotLength-1] = CGPointMake(plotLength-1,0.0f);
-      
-      CGMutablePathRef halfPath = CGPathCreateMutable();
-      CGPathAddLines(halfPath,
-                     NULL,
-                     plotData,
-                     plotLength);
-      CGMutablePathRef path = CGPathCreateMutable();
-      
-      double xscale = (frame.size.width) / (float)plotLength;
-      double halfHeight = floor( frame.size.height / 2.0 );
-      
-      // iOS drawing origin is flipped by default so make sure we account for that
-      int deviceOriginFlipped = 1;
+        
+        plotData[plotLength-1] = CGPointMake(plotLength-1,0.0f);
+        
+        CGMutablePathRef halfPath = CGPathCreateMutable();
+        CGPathAddLines(halfPath,
+                       NULL,
+                       plotData,
+                       plotLength);
+        CGMutablePathRef path = CGPathCreateMutable();
+        
+        double xscale = (frame.size.width) / (float)plotLength;
+        double halfHeight = floor( frame.size.height / 2.0 );
+        
+        // iOS drawing origin is flipped by default so make sure we account for that
 #if TARGET_OS_IPHONE
-      deviceOriginFlipped = -1;
+        int deviceOriginFlipped = -1;
 #elif TARGET_OS_MAC
-      deviceOriginFlipped = 1;
+        int deviceOriginFlipped = 1;
 #endif
-      
-      CGAffineTransform xf = CGAffineTransformIdentity;
-      xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y );
-      xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
-      CGPathAddPath( path, &xf, halfPath );
-      
-      if( self.shouldMirror ){
-        xf = CGAffineTransformIdentity;
-        xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y);
-        xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*(halfHeight));
+        
+        CGAffineTransform xf = CGAffineTransformIdentity;
+        xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y );
+        xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
         CGPathAddPath( path, &xf, halfPath );
-      }
-      CGPathRelease( halfPath );
-      
-      // Now, path contains the full waveform path.
-      CGContextAddPath(ctx, path);
-      
-      // Make this color customizable
-      if( self.shouldFill ){
-        CGContextFillPath(ctx);
-      }
-      else {
-        CGContextStrokePath(ctx);
-      }
-      CGPathRelease(path);
+        
+        if( self.shouldMirror ){
+            xf = CGAffineTransformIdentity;
+            xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y);
+            xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*(halfHeight));
+            CGPathAddPath( path, &xf, halfPath );
+        }
+        CGPathRelease( halfPath );
+        
+        // Now, path contains the full waveform path.
+        CGContextAddPath(ctx, path);
+        
+        // Make this color customizable
+        if( self.shouldFill ){
+            CGContextFillPath(ctx);
+        }
+        else {
+            CGContextStrokePath(ctx);
+        }
+        CGPathRelease(path);
     }
     
 #if TARGET_OS_IPHONE
@@ -193,33 +190,33 @@
     [[NSGraphicsContext currentContext] restoreGraphicsState];
 #endif
 }
-  
+
 #pragma mark - Adjust Resolution
--(int)setRollingHistoryLength:(int)historyLength {
-  historyLength = MIN(historyLength,kEZAudioPlotMaxHistoryBufferLength);
-  size_t floatByteSize = sizeof(float);
-  _changingHistorySize = YES;
-  if( _scrollHistoryLength != historyLength ){
-    _scrollHistoryLength = historyLength;
-  }
-  _scrollHistory = realloc(_scrollHistory,_scrollHistoryLength*floatByteSize);
-  if( _scrollHistoryIndex < _scrollHistoryLength ){
-    memset(&_scrollHistory[_scrollHistoryIndex],
-           0,
-           (_scrollHistoryLength-_scrollHistoryIndex)*floatByteSize);
-  }
-  else {
-    _scrollHistoryIndex = _scrollHistoryLength;
-  }
-  _changingHistorySize = NO;
-  return historyLength;
+- (int)setRollingHistoryLength:(int)historyLength
+{
+    historyLength = MIN(historyLength,kEZAudioPlotMaxHistoryBufferLength);
+    size_t floatByteSize = sizeof(float);
+    _changingHistorySize = YES;
+    if( _scrollHistoryLength != historyLength ){
+        _scrollHistoryLength = historyLength;
+    }
+    _scrollHistory = realloc(_scrollHistory,_scrollHistoryLength*floatByteSize);
+    if( _scrollHistoryIndex < _scrollHistoryLength ){
+        bzero(&_scrollHistory[_scrollHistoryIndex],
+              (_scrollHistoryLength-_scrollHistoryIndex)*floatByteSize);
+    }
+    else {
+        _scrollHistoryIndex = _scrollHistoryLength;
+    }
+    _changingHistorySize = NO;
+    return historyLength;
 }
 
--(int)rollingHistoryLength {
-  return _scrollHistoryLength;
+- (int)rollingHistoryLength {
+    return _scrollHistoryLength;
 }
-    
--(void)dealloc {
+
+- (void)dealloc {
     free(plotData);
 }
 
