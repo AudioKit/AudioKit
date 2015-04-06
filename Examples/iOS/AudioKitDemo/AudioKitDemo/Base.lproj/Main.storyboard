@@ -627,7 +627,6 @@
                         <outlet property="amplitudePlot" destination="gEa-6t-zGZ" id="6r6-QZ-Apb"/>
                         <outlet property="frequencyLabel" destination="Tpt-7S-82v" id="avn-Oh-Nhy"/>
                         <outlet property="frequencyPlot" destination="aSL-kY-NV3" id="Ziv-if-kfS"/>
-                        <outlet property="inputPlot" destination="opY-5n-qO2" id="8yV-Ea-ONy"/>
                         <outlet property="normalizedFrequencyPlot" destination="qq4-SV-7R1" id="REy-o0-Zck"/>
                         <outlet property="noteNameLabel" destination="YHv-cP-GZq" id="Lki-ps-bPl"/>
                     </connections>
