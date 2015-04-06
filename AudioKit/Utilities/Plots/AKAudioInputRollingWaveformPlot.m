@@ -30,11 +30,9 @@
     _plotColor = [AKColor yellowColor];
 
     audioPlot = [[EZAudioPlot alloc] initWithFrame:self.frame];
-    audioPlot.bounds = self.bounds;
-    audioPlot.frame = self.frame;
-    [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     audioPlot.backgroundColor = [AKColor blackColor];
-    
+    audioPlot.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+
     audioPlot.color = _plotColor;
     audioPlot.shouldFill   = YES;
     audioPlot.shouldMirror = YES;
@@ -48,6 +46,14 @@
     dispatch_async(dispatch_get_main_queue(),^{
         audioPlot.color = plotColor;
     });
+}
+
+- (void)layoutSubviews
+{
+    audioPlot.bounds = self.bounds;
+    audioPlot.frame = self.frame;
+    [audioPlot setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [super layoutSubviews];
 }
 
 - (void)drawRect:(CGRect)rect
