@@ -197,6 +197,7 @@
                     minimumFrequency:(float)minFrequency
                     maximumFrequency:(float)maxFrequency
 {
+    [instrument stopPhrase];
     KZPValueAdjustComponent *component = KZPAdjust(@"", minFrequency, maxFrequency, ^(float frequency) {
         [instrument stopPhrase];
         [instrument repeatPhrase:phrase duration:1.0/frequency];

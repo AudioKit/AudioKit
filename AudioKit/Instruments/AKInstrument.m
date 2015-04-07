@@ -385,6 +385,7 @@ static int currentID = 1;
 - (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration
 {
     repeater = [[AKSequence alloc] init];
+    [[[AKManager sharedManager] sequences] setObject:repeater forKey:@"repeater"];
     AKEvent *playPhrase = [[AKEvent alloc] initWithBlock:^{
         [phrase playUsingInstrument:self];
     }];
@@ -400,6 +401,13 @@ static int currentID = 1;
 - (void)stopPhrase
 {
     [repeater reset];
+    
+    // This is for playgrounds
+    if ([[[[AKManager sharedManager] sequences] objectForKey:@"repeater"] isKindOfClass:[AKSequence class]]) {
+        AKSequence *repeater2 = [[[AKManager sharedManager] sequences] objectForKey:@"repeater"];
+        [repeater2 reset];
+    }
+
 }
 
 
