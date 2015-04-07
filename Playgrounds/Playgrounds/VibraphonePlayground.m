@@ -15,7 +15,7 @@
 {
     [super run];
 
-    Vibraphone *vibraphone = [[Vibraphone alloc] init];
+    Vibraphone *vibraphone = [[Vibraphone alloc] initWithNumber:1];
     [AKOrchestra addInstrument:vibraphone];
 
     VibraphoneNote *note = [[VibraphoneNote alloc] init];

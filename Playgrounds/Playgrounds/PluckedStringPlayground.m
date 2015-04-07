@@ -15,7 +15,7 @@
 {
     [super run];
 
-    PluckedString *pluckedString = [[PluckedString alloc] init];
+    PluckedString *pluckedString = [[PluckedString alloc] initWithNumber:1];
     [AKOrchestra addInstrument:pluckedString];
 
     PluckedStringNote *note = [[PluckedStringNote alloc] init];
