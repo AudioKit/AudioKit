@@ -8,14 +8,14 @@
 
 #import "AnalysisViewController.h"
 #import "AKFoundation.h"
-#import "VocalInput.h"
+#import "Microphone.h"
 #import "AKAudioAnalyzer.h"
 #import "AKAudioInputPlot.h"
 #import "AKFloatPlot.h"
 
 @implementation AnalysisViewController
 {
-    VocalInput *microphone;
+    Microphone *microphone;
     AKAudioAnalyzer *analyzer;
     
     IBOutlet NSTextField *frequencyLabel;
@@ -39,7 +39,7 @@
     noteNamesWithSharps = @[@"C", @"C♯",@"D",@"D♯",@"E",@"F",@"F♯",@"G",@"G♯",@"A",@"A♯",@"B"];
     noteNamesWithFlats  = @[@"C", @"D♭",@"D",@"E♭",@"E",@"F",@"G♭",@"G",@"A♭",@"A",@"B♭",@"B"];
     
-    microphone = [[VocalInput alloc] init];
+    microphone = [[Microphone alloc] init];
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
