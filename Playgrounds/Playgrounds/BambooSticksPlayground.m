@@ -9,23 +9,16 @@
 #import "Playground.h"
 #import "BambooSticks.h"
 
-@implementation Playground {
-    BambooSticks *bambooSticks;
-    BambooSticksNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-    bambooSticks = [[BambooSticks alloc] init];
-    [AKOrchestra addInstrument:bambooSticks];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    note = [[BambooSticksNote alloc] init];
+    BambooSticks *bambooSticks = [[BambooSticks alloc] init];
+    [AKOrchestra addInstrument:bambooSticks];
+
+    BambooSticksNote *note = [[BambooSticksNote alloc] init];
     [self addButtonWithTitle:@"Play Once" block:^{ [bambooSticks playNote:note]; }];
 
     [self addSliderForProperty:bambooSticks.amplitude title:@"Volume"];

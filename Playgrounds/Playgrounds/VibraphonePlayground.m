@@ -9,24 +9,16 @@
 #import "Playground.h"
 #import "Vibraphone.h"
 
-@implementation Playground {
-    Vibraphone *vibraphone;
-    VibraphoneNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-    vibraphone = [[Vibraphone alloc] init];
-    [AKOrchestra addInstrument:vibraphone];
-
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    note = [[VibraphoneNote alloc] init];
+    Vibraphone *vibraphone = [[Vibraphone alloc] init];
+    [AKOrchestra addInstrument:vibraphone];
+
+    VibraphoneNote *note = [[VibraphoneNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [vibraphone playNote:note]; }];
 

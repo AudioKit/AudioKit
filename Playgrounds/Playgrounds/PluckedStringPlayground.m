@@ -9,23 +9,16 @@
 #import "Playground.h"
 #import "PluckedString.h"
 
-@implementation Playground {
-    PluckedString *pluckedString;
-    PluckedStringNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-    pluckedString = [[PluckedString alloc] init];
-    [AKOrchestra addInstrument:pluckedString];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    note = [[PluckedStringNote alloc] init];
+    PluckedString *pluckedString = [[PluckedString alloc] init];
+    [AKOrchestra addInstrument:pluckedString];
+
+    PluckedStringNote *note = [[PluckedStringNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [pluckedString playNote:note]; }];
 

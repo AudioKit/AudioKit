@@ -9,23 +9,16 @@
 #import "Playground.h"
 #import "Mandolin.h"
 
-@implementation Playground {
-    Mandolin *mandolin;
-    MandolinNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-    mandolin = [[Mandolin alloc] init];
-    [AKOrchestra addInstrument:mandolin];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    note = [[MandolinNote alloc] init];
+    Mandolin *mandolin = [[Mandolin alloc] init];
+    [AKOrchestra addInstrument:mandolin];
+
+    MandolinNote *note = [[MandolinNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [mandolin playNote:note]; }];
 

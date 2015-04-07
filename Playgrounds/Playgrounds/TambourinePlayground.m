@@ -9,23 +9,16 @@
 #import "Playground.h"
 #import "Tambourine.h"
 
-@implementation Playground {
-    Tambourine *tambourine;
-    TambourineNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-    tambourine = [[Tambourine alloc] init];
-    [AKOrchestra addInstrument:tambourine];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    note = [[TambourineNote alloc] init];
+    Tambourine * tambourine = [[Tambourine alloc] init];
+    [AKOrchestra addInstrument:tambourine];
+
+    TambourineNote *note = [[TambourineNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [tambourine playNote:note]; }];
 

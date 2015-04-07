@@ -9,23 +9,16 @@
 #import "Playground.h"
 #import "Marimba.h"
 
-@implementation Playground {
-    Marimba *marimba;
-    MarimbaNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-
-    marimba = [[Marimba alloc] init];
-    [AKOrchestra addInstrument:marimba];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
-    note = [[MarimbaNote alloc] init];
+
+    Marimba *marimba = [[Marimba alloc] init];
+    [AKOrchestra addInstrument:marimba];
+
+    MarimbaNote *note = [[MarimbaNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [marimba playNote:note]; }];
 
