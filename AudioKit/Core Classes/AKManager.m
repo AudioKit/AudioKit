@@ -129,6 +129,7 @@ static AKManager *_sharedManager = nil;
         NSString *documentsDirectory = paths[0];
         csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
         _midi = [[AKMidi alloc] init];
+        _sequences = [NSMutableDictionary dictionary];
     }
     return self;
 }   

@@ -33,6 +33,9 @@
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
 
+/// A dictionary of named sequences
+@property NSMutableDictionary *sequences;
+
 /// @returns the shared instance of AKManager
 + (AKManager *)sharedManager;
 
