@@ -1,0 +1,54 @@
+{
+  "name": "AudioKit",
+  "version": "2.0",
+  "authors": {
+    "Aurelius Prochazka": "audiokit@audiokit.io"
+  },
+  "license": {
+    "type": "LGPL"
+  },
+  "homepage": "http://audiokit.io/",
+  "source": {
+    "git": "https://github.com/audiokit/AudioKit.git",
+    "tag": "v2.0-03-26-2015"
+  },
+  "summary": "Open-source audio synthesis, processing, & analysis platform.",
+  "source_files": [
+    "AudioKit/Core Classes/**/*.{h,m}",
+    "AudioKit/Instruments/**/*.{h,m}",
+    "AudioKit/Notes/**/*.{h,m}",
+    "AudioKit/Operations/**/*.{h,m}",
+    "AudioKit/Parameters/**/*.{h,m}",
+    "AudioKit/Sequencing/**/*.{h,m}",
+    "AudioKit/Tables/**/*.{h,m}",
+    "AudioKit/Utilities/**/*.{h,m,c}"
+  ],
+  "dependencies": {
+    "TPCircularBuffer": [
+      "~> 0.0.1"
+    ]
+  },
+  "platforms": {
+    "osx": "10.10",
+    "ios": "8.0"
+  },
+  "osx": {
+    "frameworks": "CsoundLib64",
+    "vendored_frameworks": "AudioKit/Platforms/OSX/CsoundLib64.framework",
+    "source_files": "AudioKit/Platforms/OSX/*.{h,m}"
+  },
+  "ios": {
+    "libraries": [
+      "csound",
+      "sndfile"
+    ],
+    "vendored_libraries": [
+      "AudioKit/Platforms/iOS/libs/libcsound.a",
+      "AudioKit/Platforms/iOS/libs/libsndfile.a"
+    ],
+    "source_files": [
+      "AudioKit/Platforms/iOS/classes/*.{h,m}",
+      "AudioKit/Platforms/iOS/headers/*.{h,hpp}"
+    ]
+  }
+}
