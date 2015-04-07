@@ -15,7 +15,7 @@
 {
     [super run];
 
-    StruckMetalBar *struckMetalBar = [[StruckMetalBar alloc] init];
+    StruckMetalBar *struckMetalBar = [[StruckMetalBar alloc] initWithNumber:1];
     [AKOrchestra addInstrument:struckMetalBar];
 
     StruckMetalBarNote *note = [[StruckMetalBarNote alloc] init];

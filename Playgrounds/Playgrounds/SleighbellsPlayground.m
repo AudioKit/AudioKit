@@ -15,7 +15,7 @@
 {
     [super run];
 
-    Sleighbells *sleighBells = [[Sleighbells alloc] init];
+    Sleighbells *sleighBells = [[Sleighbells alloc] initWithNumber:1];
     [AKOrchestra addInstrument:sleighBells];
 
     SleighbellsNote *note = [[SleighbellsNote alloc] init];

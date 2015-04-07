@@ -15,7 +15,7 @@
 {
     [super run];
 
-    BambooSticks *bambooSticks = [[BambooSticks alloc] init];
+    BambooSticks *bambooSticks = [[BambooSticks alloc] initWithNumber:1];
     [AKOrchestra addInstrument:bambooSticks];
 
     BambooSticksNote *note = [[BambooSticksNote alloc] init];

@@ -15,7 +15,7 @@
 {
     [super run];
 
-    Marimba *marimba = [[Marimba alloc] init];
+    Marimba *marimba = [[Marimba alloc] initWithNumber:1];
     [AKOrchestra addInstrument:marimba];
 
     MarimbaNote *note = [[MarimbaNote alloc] init];

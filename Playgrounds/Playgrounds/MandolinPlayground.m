@@ -15,7 +15,7 @@
 {
     [super run];
 
-    Mandolin *mandolin = [[Mandolin alloc] init];
+    Mandolin *mandolin = [[Mandolin alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mandolin];
 
     MandolinNote *note = [[MandolinNote alloc] init];

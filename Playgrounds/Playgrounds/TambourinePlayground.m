@@ -15,7 +15,7 @@
 {
     [super run];
 
-    Tambourine * tambourine = [[Tambourine alloc] init];
+    Tambourine * tambourine = [[Tambourine alloc] initWithNumber:1];
     [AKOrchestra addInstrument:tambourine];
 
     TambourineNote *note = [[TambourineNote alloc] init];

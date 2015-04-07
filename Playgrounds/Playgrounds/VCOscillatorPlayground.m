@@ -15,7 +15,7 @@
 {
     [super run];
 
-    VCOscillatorInstrument *vcoInstrument = [[VCOscillatorInstrument alloc] init];
+    VCOscillatorInstrument *vcoInstrument = [[VCOscillatorInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:vcoInstrument];
 
     VCOscillatorNote *note = [[VCOscillatorNote alloc] init];
