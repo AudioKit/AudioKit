@@ -9,26 +9,19 @@
 #import "Playground.h"
 #import "VCOscillatorInstrument.h"
 
-@implementation Playground {
-    VCOscillatorInstrument *vcoInstrument;
-}
-
-- (void) setup
-{
-    [super setup];
-    vcoInstrument = [[VCOscillatorInstrument alloc] init];
-    [AKOrchestra addInstrument:vcoInstrument];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
+    VCOscillatorInstrument *vcoInstrument = [[VCOscillatorInstrument alloc] init];
+    [AKOrchestra addInstrument:vcoInstrument];
+
     VCOscillatorNote *note = [[VCOscillatorNote alloc] init];
 
     [self addSliderForProperty:vcoInstrument.amplitude title:@"Amplitude"];
     [self addSliderForProperty:note.frequency title:@"Frequency"];
-
 
     [self addButtonWithTitle:@"Play Triangle Wave" block:^{
         note.waveformType.value = [[AKVCOscillator waveformTypeForTriangle] value];

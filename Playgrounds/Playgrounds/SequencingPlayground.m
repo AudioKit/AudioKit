@@ -9,23 +9,15 @@
 #import "Playground.h"
 #import "FMOscillatorInstrument.h"
 
-@implementation Playground {
-    FMOscillatorInstrument *oscillator;
-    AKPhrase *phrase;
-}
-
-
-- (void) setup
-{
-    [super setup];
-    phrase = [AKPhrase phrase];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    oscillator = [[FMOscillatorInstrument alloc] initWithNumber:1];
+    AKPhrase *phrase = [AKPhrase phrase];
+
+    FMOscillatorInstrument *oscillator = [[FMOscillatorInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:oscillator];
 
     float duration = 0.1;

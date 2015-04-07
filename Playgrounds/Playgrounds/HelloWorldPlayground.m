@@ -10,11 +10,6 @@
 
 @implementation Playground
 
-- (void) setup
-{
-    [super setup];
-}
-
 // This is the Hello World playground developed on http://audiokit.io/playgrounds/
 // Go to the web site for a screencast of this being created
 

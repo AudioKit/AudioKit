@@ -9,24 +9,16 @@
 #import "Playground.h"
 #import "Sleighbells.h"
 
-@implementation Playground {
-    Sleighbells *sleighBells;
-    SleighbellsNote *note;
-}
-
-- (void) setup
-{
-    [super setup];
-
-    sleighBells = [[Sleighbells alloc] init];
-    [AKOrchestra addInstrument:sleighBells];
-}
+@implementation Playground
 
 - (void)run
 {
     [super run];
 
-    note = [[SleighbellsNote alloc] init];
+    Sleighbells *sleighBells = [[Sleighbells alloc] init];
+    [AKOrchestra addInstrument:sleighBells];
+
+    SleighbellsNote *note = [[SleighbellsNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [sleighBells playNote:note]; }];
 
