@@ -33,19 +33,12 @@ class ProcessingViewController: NSViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         AKOrchestra.addInstrument(audioFilePlayer)
         AKOrchestra.addInstrument(conv)
-        AKOrchestra.start()
     }
-    
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-        AKOrchestra.reset()
-        AKManager.sharedManager().stop()
-    }
-    
+
     @IBAction func start(sender:NSButton) {
         if (!isPlaying) {
             conv.play()

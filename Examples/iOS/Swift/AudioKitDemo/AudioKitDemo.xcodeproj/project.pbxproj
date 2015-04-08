@@ -179,11 +179,19 @@
 		C49D3CCA1AD260CE000CBBCC /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CB91AD260CE000CBBCC /* EZAudioPlot.m */; };
 		C49D3CCB1AD260CE000CBBCC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C49D3CBA1AD260CE000CBBCC /* LICENSE */; };
 		C49D3CCC1AD260CE000CBBCC /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CBB1AD260CE000CBBCC /* TPCircularBuffer.c */; };
+		C49D3CEA1AD4ACCE000CBBCC /* BambooSticks.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CD91AD4ACCE000CBBCC /* BambooSticks.m */; };
+		C49D3CEB1AD4ACCE000CBBCC /* Mandolin.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CDB1AD4ACCE000CBBCC /* Mandolin.m */; };
+		C49D3CEC1AD4ACCE000CBBCC /* Marimba.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CDD1AD4ACCE000CBBCC /* Marimba.m */; };
+		C49D3CED1AD4ACCE000CBBCC /* PluckedString.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CDF1AD4ACCE000CBBCC /* PluckedString.m */; };
+		C49D3CEE1AD4ACCE000CBBCC /* Sleighbells.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CE11AD4ACCE000CBBCC /* Sleighbells.m */; };
+		C49D3CEF1AD4ACCE000CBBCC /* Stick.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CE31AD4ACCE000CBBCC /* Stick.m */; };
+		C49D3CF01AD4ACCE000CBBCC /* StruckMetalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CE51AD4ACCE000CBBCC /* StruckMetalBar.m */; };
+		C49D3CF11AD4ACCE000CBBCC /* Tambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CE71AD4ACCE000CBBCC /* Tambourine.m */; };
+		C49D3CF21AD4ACCE000CBBCC /* Vibraphone.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CE91AD4ACCE000CBBCC /* Vibraphone.m */; };
 		E41A207E1AA36E120044F08B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A207D1AA36E120044F08B /* AppDelegate.swift */; };
 		E41A20831AA36E120044F08B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E41A20811AA36E120044F08B /* Main.storyboard */; };
 		E41A20851AA36E120044F08B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41A20841AA36E120044F08B /* Images.xcassets */; };
 		E41A20881AA36E120044F08B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E41A20861AA36E120044F08B /* LaunchScreen.xib */; };
-		E43516A01AB3ACC200109B4A /* Tambourine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E435169F1AB3ACC200109B4A /* Tambourine.swift */; };
 		E43516A21AB3ACCF00109B4A /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */; };
 		E43516A41AB3ACD600109B4A /* SynthesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */; };
 		E43516A61AB3ACE000109B4A /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */; };
@@ -555,13 +563,30 @@
 		C49D3CBA1AD260CE000CBBCC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C49D3CBB1AD260CE000CBBCC /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		C49D3CBC1AD260CE000CBBCC /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		C49D3CD81AD4ACCE000CBBCC /* BambooSticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BambooSticks.h; sourceTree = "<group>"; };
+		C49D3CD91AD4ACCE000CBBCC /* BambooSticks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BambooSticks.m; sourceTree = "<group>"; };
+		C49D3CDA1AD4ACCE000CBBCC /* Mandolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mandolin.h; sourceTree = "<group>"; };
+		C49D3CDB1AD4ACCE000CBBCC /* Mandolin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mandolin.m; sourceTree = "<group>"; };
+		C49D3CDC1AD4ACCE000CBBCC /* Marimba.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marimba.h; sourceTree = "<group>"; };
+		C49D3CDD1AD4ACCE000CBBCC /* Marimba.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marimba.m; sourceTree = "<group>"; };
+		C49D3CDE1AD4ACCE000CBBCC /* PluckedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluckedString.h; sourceTree = "<group>"; };
+		C49D3CDF1AD4ACCE000CBBCC /* PluckedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluckedString.m; sourceTree = "<group>"; };
+		C49D3CE01AD4ACCE000CBBCC /* Sleighbells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sleighbells.h; sourceTree = "<group>"; };
+		C49D3CE11AD4ACCE000CBBCC /* Sleighbells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sleighbells.m; sourceTree = "<group>"; };
+		C49D3CE21AD4ACCE000CBBCC /* Stick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stick.h; sourceTree = "<group>"; };
+		C49D3CE31AD4ACCE000CBBCC /* Stick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stick.m; sourceTree = "<group>"; };
+		C49D3CE41AD4ACCE000CBBCC /* StruckMetalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StruckMetalBar.h; sourceTree = "<group>"; };
+		C49D3CE51AD4ACCE000CBBCC /* StruckMetalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StruckMetalBar.m; sourceTree = "<group>"; };
+		C49D3CE61AD4ACCE000CBBCC /* Tambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tambourine.h; sourceTree = "<group>"; };
+		C49D3CE71AD4ACCE000CBBCC /* Tambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tambourine.m; sourceTree = "<group>"; };
+		C49D3CE81AD4ACCE000CBBCC /* Vibraphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vibraphone.h; sourceTree = "<group>"; };
+		C49D3CE91AD4ACCE000CBBCC /* Vibraphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vibraphone.m; sourceTree = "<group>"; };
 		E41A20781AA36E120044F08B /* AudioKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41A207C1AA36E120044F08B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E41A207D1AA36E120044F08B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E41A20821AA36E120044F08B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E41A20841AA36E120044F08B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E41A20871AA36E120044F08B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E435169F1AB3ACC200109B4A /* Tambourine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tambourine.swift; path = Synthesis/Tambourine.swift; sourceTree = "<group>"; };
 		E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FMSynthesizer.swift; path = Synthesis/FMSynthesizer.swift; sourceTree = "<group>"; };
 		E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynthesisViewController.swift; path = Synthesis/SynthesisViewController.swift; sourceTree = "<group>"; };
 		E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = Processing/ConvolutionInstrument.swift; sourceTree = "<group>"; };
@@ -1223,6 +1248,7 @@
 			children = (
 				C452F2531ABFEF23003670A4 /* Amplifiers */,
 				C452F2581ABFEF23003670A4 /* Analyzers */,
+				C49D3CD71AD4ACCE000CBBCC /* Emulations */,
 				C49D3C971AD25FAD000CBBCC /* Microphone */,
 				C452F26E1ABFEF23003670A4 /* Processors */,
 				C452F2711ABFEF23003670A4 /* Synthesizers */,
@@ -1352,6 +1378,31 @@
 			path = EZAudio;
 			sourceTree = "<group>";
 		};
+		C49D3CD71AD4ACCE000CBBCC /* Emulations */ = {
+			isa = PBXGroup;
+			children = (
+				C49D3CD81AD4ACCE000CBBCC /* BambooSticks.h */,
+				C49D3CD91AD4ACCE000CBBCC /* BambooSticks.m */,
+				C49D3CDA1AD4ACCE000CBBCC /* Mandolin.h */,
+				C49D3CDB1AD4ACCE000CBBCC /* Mandolin.m */,
+				C49D3CDC1AD4ACCE000CBBCC /* Marimba.h */,
+				C49D3CDD1AD4ACCE000CBBCC /* Marimba.m */,
+				C49D3CDE1AD4ACCE000CBBCC /* PluckedString.h */,
+				C49D3CDF1AD4ACCE000CBBCC /* PluckedString.m */,
+				C49D3CE01AD4ACCE000CBBCC /* Sleighbells.h */,
+				C49D3CE11AD4ACCE000CBBCC /* Sleighbells.m */,
+				C49D3CE21AD4ACCE000CBBCC /* Stick.h */,
+				C49D3CE31AD4ACCE000CBBCC /* Stick.m */,
+				C49D3CE41AD4ACCE000CBBCC /* StruckMetalBar.h */,
+				C49D3CE51AD4ACCE000CBBCC /* StruckMetalBar.m */,
+				C49D3CE61AD4ACCE000CBBCC /* Tambourine.h */,
+				C49D3CE71AD4ACCE000CBBCC /* Tambourine.m */,
+				C49D3CE81AD4ACCE000CBBCC /* Vibraphone.h */,
+				C49D3CE91AD4ACCE000CBBCC /* Vibraphone.m */,
+			);
+			path = Emulations;
+			sourceTree = "<group>";
+		};
 		E41A206F1AA36E120044F08B = {
 			isa = PBXGroup;
 			children = (
@@ -1396,7 +1447,6 @@
 		E4AA88691AA37240001894CC /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				E435169F1AB3ACC200109B4A /* Tambourine.swift */,
 				E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */,
 			);
 			name = Instruments;
@@ -1532,11 +1582,14 @@
 				C452F2F51ABFEF23003670A4 /* AKMoogLadder.m in Sources */,
 				C452F2CD1ABFEF23003670A4 /* AKGuiro.m in Sources */,
 				C452F31F1ABFEF23003670A4 /* AKSampler.m in Sources */,
+				C49D3CF21AD4ACCE000CBBCC /* Vibraphone.m in Sources */,
 				C452F3191ABFEF23003670A4 /* AKFourierSeriesTableGenerator.m in Sources */,
 				C452F2CB1ABFEF23003670A4 /* AKCrunch.m in Sources */,
+				C49D3CEA1AD4ACCE000CBBCC /* BambooSticks.m in Sources */,
 				C452F3001ABFEF23003670A4 /* AKFlatFrequencyResponseReverb.m in Sources */,
 				C452F2C11ABFEF23003670A4 /* AKOscillator.m in Sources */,
 				C452F3011ABFEF23003670A4 /* AKParallelCombLowPassFilterReverb.m in Sources */,
+				C49D3CF01AD4ACCE000CBBCC /* StruckMetalBar.m in Sources */,
 				C452F2C51ABFEF23003670A4 /* AKMarimba.m in Sources */,
 				C452F2F71ABFEF23003670A4 /* AKResonantFilter.m in Sources */,
 				C452F2EA1ABFEF23003670A4 /* AKCompressor.m in Sources */,
@@ -1546,6 +1599,7 @@
 				C452F2D31ABFEF23003670A4 /* Sekere.m in Sources */,
 				C452F2BE1ABFEF23003670A4 /* AKVibrato.m in Sources */,
 				C452F2B71ABFEF23003670A4 /* AKGranularSynthesisTexture.m in Sources */,
+				C49D3CEF1AD4ACCE000CBBCC /* Stick.m in Sources */,
 				C452F29E1ABFEF23003670A4 /* AKTrackedFrequency.m in Sources */,
 				C452F2C21ABFEF23003670A4 /* AKPhasor.m in Sources */,
 				C452F2DA1ABFEF23003670A4 /* AKNoise.m in Sources */,
@@ -1609,6 +1663,7 @@
 				C452F3091ABFEF23003670A4 /* AKFSignal.m in Sources */,
 				C452F2E41ABFEF23003670A4 /* AKMP3FileInput.m in Sources */,
 				C452F29B1ABFEF23003670A4 /* AKParameter+Operation.m in Sources */,
+				C49D3CED1AD4ACCE000CBBCC /* PluckedString.m in Sources */,
 				C452F2E71ABFEF23003670A4 /* AKDelay.m in Sources */,
 				C452F2D41ABFEF23003670A4 /* AKBeatenPlate.m in Sources */,
 				C452F2EF1ABFEF23003670A4 /* AKDecimator.m in Sources */,
@@ -1631,12 +1686,14 @@
 				C452F30A1ABFEF23003670A4 /* AKParameter.m in Sources */,
 				C452F2DD1ABFEF23003670A4 /* AKSegmentArrayLoop.m in Sources */,
 				C452F31A1ABFEF23003670A4 /* AKHarmonicCosineTableGenerator.m in Sources */,
+				C49D3CEE1AD4ACCE000CBBCC /* Sleighbells.m in Sources */,
 				C452F2AB1ABFEF23003670A4 /* AKInverse.m in Sources */,
 				C49D3CC31AD260CE000CBBCC /* AKFloatPlot.m in Sources */,
-				E43516A01AB3ACC200109B4A /* Tambourine.swift in Sources */,
 				C452F2931ABFEF23003670A4 /* AKManager.m in Sources */,
 				C452F2E11ABFEF23003670A4 /* AKFileInput.m in Sources */,
+				C49D3CEB1AD4ACCE000CBBCC /* Mandolin.m in Sources */,
 				C452F33F1ABFEF23003670A4 /* LevelMeter.m in Sources */,
+				C49D3CF11AD4ACCE000CBBCC /* Tambourine.m in Sources */,
 				C452F3231ABFEF23003670A4 /* AKAudioAnalyzer.m in Sources */,
 				C452F31D1ABFEF23003670A4 /* AKTableGenerator.m in Sources */,
 				C49D3CBF1AD260CE000CBBCC /* AKAudioInputRollingWaveformPlot.m in Sources */,
@@ -1658,6 +1715,7 @@
 				C452F2B31ABFEF23003670A4 /* AKADSREnvelope.m in Sources */,
 				C452F2A61ABFEF23003670A4 /* AKScaledFFT.m in Sources */,
 				C452F29F1ABFEF23003670A4 /* AKTrackedFrequencyFromFSignal.m in Sources */,
+				C49D3CEC1AD4ACCE000CBBCC /* Marimba.m in Sources */,
 				C452F2BC1ABFEF23003670A4 /* AKTableLooper.m in Sources */,
 				C452F2D21ABFEF23003670A4 /* AKTambourine.m in Sources */,
 				C452F2D51ABFEF23003670A4 /* AKBowedString.m in Sources */,

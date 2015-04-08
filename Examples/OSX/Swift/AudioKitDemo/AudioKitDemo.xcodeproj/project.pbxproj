@@ -25,6 +25,8 @@
 		C452F0EB1ABFEDBE003670A4 /* AKPropertySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0D81ABFEDBE003670A4 /* AKPropertySlider.m */; };
 		C452F0EC1ABFEDBE003670A4 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = C452F0DA1ABFEDBE003670A4 /* LevelMeter.m */; };
 		C48174CE1ACF570F00D4FAA2 /* AKPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C48174CD1ACF570F00D4FAA2 /* AKPlotView.m */; };
+		C49D3CF51AD4AD3A000CBBCC /* Tambourine.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CF41AD4AD3A000CBBCC /* Tambourine.m */; };
+		C49D3CF91AD4AD43000CBBCC /* Microphone.m in Sources */ = {isa = PBXBuildFile; fileRef = C49D3CF81AD4AD43000CBBCC /* Microphone.m */; };
 		C4ED1FC51AB8E08200366020 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1E561AB8E08100366020 /* AKManager.m */; };
 		C4ED1FC61AB8E08200366020 /* AKOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ED1E581AB8E08100366020 /* AKOrchestra.m */; };
 		C4ED1FC71AB8E08200366020 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4ED1E591AB8E08100366020 /* AudioKit.plist */; };
@@ -180,11 +182,9 @@
 		E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC0D51AB245DB00689511 /* AppDelegate.swift */; };
 		E42CC0DA1AB245DB00689511 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E42CC0D91AB245DB00689511 /* Images.xcassets */; };
 		E42CC0DD1AB245DB00689511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42CC0DB1AB245DB00689511 /* Main.storyboard */; };
-		E43516B01AB3ADCA00109B4A /* VocalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516AF1AB3ADCA00109B4A /* VocalInput.swift */; };
 		E43516B31AB3ADE100109B4A /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B11AB3ADE100109B4A /* AudioFilePlayer.swift */; };
 		E43516B41AB3ADE100109B4A /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B21AB3ADE100109B4A /* ConvolutionInstrument.swift */; };
 		E43516BA1AB3B0AC00109B4A /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */; };
-		E43516BC1AB3B0B400109B4A /* Tambourine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516BB1AB3B0B400109B4A /* Tambourine.swift */; };
 		E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -238,6 +238,10 @@
 		C452F0DA1ABFEDBE003670A4 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		C48174CC1ACF570F00D4FAA2 /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
 		C48174CD1ACF570F00D4FAA2 /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
+		C49D3CF31AD4AD3A000CBBCC /* Tambourine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tambourine.h; sourceTree = "<group>"; };
+		C49D3CF41AD4AD3A000CBBCC /* Tambourine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tambourine.m; sourceTree = "<group>"; };
+		C49D3CF71AD4AD43000CBBCC /* Microphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Microphone.h; sourceTree = "<group>"; };
+		C49D3CF81AD4AD43000CBBCC /* Microphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Microphone.m; sourceTree = "<group>"; };
 		C4ED1E541AB8E08100366020 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
 		C4ED1E551AB8E08100366020 /* AKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKManager.h; sourceTree = "<group>"; };
 		C4ED1E561AB8E08100366020 /* AKManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKManager.m; sourceTree = "<group>"; };
@@ -535,11 +539,9 @@
 		E42CC0D51AB245DB00689511 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E42CC0D91AB245DB00689511 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E42CC0DC1AB245DB00689511 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E43516AF1AB3ADCA00109B4A /* VocalInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VocalInput.swift; path = ../../../../iOS/Swift/AudioKitDemo/AudioKitDemo/Analysis/VocalInput.swift; sourceTree = "<group>"; };
 		E43516B11AB3ADE100109B4A /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioFilePlayer.swift; path = ../../../../iOS/Swift/AudioKitDemo/AudioKitDemo/Processing/AudioFilePlayer.swift; sourceTree = "<group>"; };
 		E43516B21AB3ADE100109B4A /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = ../../../../iOS/Swift/AudioKitDemo/AudioKitDemo/Processing/ConvolutionInstrument.swift; sourceTree = "<group>"; };
 		E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMSynthesizer.swift; sourceTree = "<group>"; };
-		E43516BB1AB3B0B400109B4A /* Tambourine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tambourine.swift; sourceTree = "<group>"; };
 		E43516BD1AB3B1F600109B4A /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -562,6 +564,7 @@
 				C452F0B11ABFEDBE003670A4 /* Amplifiers */,
 				C452F0B61ABFEDBE003670A4 /* Analyzers */,
 				C452F0B91ABFEDBE003670A4 /* Emulations */,
+				C49D3CF61AD4AD43000CBBCC /* Microphone */,
 				C452F0CC1ABFEDBE003670A4 /* Processors */,
 				C452F0CF1ABFEDBE003670A4 /* Synthesizers */,
 			);
@@ -605,6 +608,8 @@
 				C452F0C51ABFEDBE003670A4 /* Stick.m */,
 				C452F0C61ABFEDBE003670A4 /* StruckMetalBar.h */,
 				C452F0C71ABFEDBE003670A4 /* StruckMetalBar.m */,
+				C49D3CF31AD4AD3A000CBBCC /* Tambourine.h */,
+				C49D3CF41AD4AD3A000CBBCC /* Tambourine.m */,
 				C452F0CA1ABFEDBE003670A4 /* Vibraphone.h */,
 				C452F0CB1ABFEDBE003670A4 /* Vibraphone.m */,
 			);
@@ -642,6 +647,15 @@
 				C452F0DA1ABFEDBE003670A4 /* LevelMeter.m */,
 			);
 			path = "User Interface Elements";
+			sourceTree = "<group>";
+		};
+		C49D3CF61AD4AD43000CBBCC /* Microphone */ = {
+			isa = PBXGroup;
+			children = (
+				C49D3CF71AD4AD43000CBBCC /* Microphone.h */,
+				C49D3CF81AD4AD43000CBBCC /* Microphone.m */,
+			);
+			path = Microphone;
 			sourceTree = "<group>";
 		};
 		C4ED1E521AB8E08100366020 /* AudioKit */ = {
@@ -1261,7 +1275,6 @@
 			isa = PBXGroup;
 			children = (
 				E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */,
-				E43516AF1AB3ADCA00109B4A /* VocalInput.swift */,
 			);
 			name = "Analysis ";
 			sourceTree = "<group>";
@@ -1281,7 +1294,6 @@
 			children = (
 				C4ED20611AB8E0FB00366020 /* TouchView.swift */,
 				E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */,
-				E43516BB1AB3B0B400109B4A /* Tambourine.swift */,
 				E4006CCD1AB24D1C00375B5B /* SynthesisViewController.swift */,
 			);
 			name = Synthesis;
@@ -1432,7 +1444,6 @@
 				C4ED20061AB8E08200366020 /* AKBowedString.m in Sources */,
 				C4ED202D1AB8E08200366020 /* AKBandRejectButterworthFilter.m in Sources */,
 				C4ED1FCC1AB8E08200366020 /* AKNoteProperty.m in Sources */,
-				E43516BC1AB3B0B400109B4A /* Tambourine.swift in Sources */,
 				C4ED1FF41AB8E08200366020 /* AKPhasor.m in Sources */,
 				C4ED1FCA1AB8E08200366020 /* AKInstrumentProperty.m in Sources */,
 				C4ED201A1AB8E08200366020 /* AKVariableDelay.m in Sources */,
@@ -1457,6 +1468,7 @@
 				C4ED20591AB8E08200366020 /* AKStereoOutputPlot.m in Sources */,
 				C4ED1FF61AB8E08200366020 /* AKMandolin.m in Sources */,
 				C4ED20071AB8E08200366020 /* AKFlute.m in Sources */,
+				C49D3CF51AD4AD3A000CBBCC /* Tambourine.m in Sources */,
 				C4ED20221AB8E08200366020 /* AKEqualizerFilter.m in Sources */,
 				C4ED1FC81AB8E08200366020 /* AKMidi.m in Sources */,
 				C4ED1FDA1AB8E08200366020 /* AKWarpedFFT.m in Sources */,
@@ -1541,7 +1553,6 @@
 				C4ED1FF71AB8E08200366020 /* AKMarimba.m in Sources */,
 				E4006CCE1AB24D1C00375B5B /* SynthesisViewController.swift in Sources */,
 				C4ED20021AB8E08200366020 /* AKSleighbells.m in Sources */,
-				E43516B01AB3ADCA00109B4A /* VocalInput.swift in Sources */,
 				C4ED202C1AB8E08200366020 /* AKBandPassButterworthFilter.m in Sources */,
 				C4ED20181AB8E08200366020 /* AKDelay.m in Sources */,
 				C452F0E01ABFEDBE003670A4 /* Marimba.m in Sources */,
@@ -1563,6 +1574,7 @@
 				E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */,
 				C4ED1FD71AB8E08200366020 /* AKResynthesizedAudio.m in Sources */,
 				C4ED1FDF1AB8E08200366020 /* AKMinimum.m in Sources */,
+				C49D3CF91AD4AD43000CBBCC /* Microphone.m in Sources */,
 				C4ED20301AB8E08200366020 /* AKBallWithinTheBoxReverb.m in Sources */,
 				C4ED20291AB8E08200366020 /* AKStringResonator.m in Sources */,
 				C4ED1FF91AB8E08200366020 /* AKStruckMetalBar.m in Sources */,
