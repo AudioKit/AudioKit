@@ -28,7 +28,6 @@ class FMSynthesizer: AKInstrument{
         oscillator.modulatingMultiplier = note.color.scaledBy(3.ak)
         oscillator.modulationIndex      = note.color.scaledBy(10.ak)
         oscillator.amplitude            = envelope.scaledBy(0.25.ak)
-
         
         setAudioOutput(oscillator)
     }

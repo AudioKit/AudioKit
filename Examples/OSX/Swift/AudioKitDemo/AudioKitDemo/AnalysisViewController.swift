@@ -14,7 +14,7 @@ class AnalysisViewController: NSViewController {
     @IBOutlet var noteNameWithFlatsLabel: NSTextField!
     
     let analyzer: AKAudioAnalyzer
-    let microphone: VocalInput
+    let microphone: Microphone
 
     let noteFrequencies = [16.35,17.32,18.35,19.45,20.6,21.83,23.12,24.5,25.96,27.5,29.14,30.87]
     let noteNamesWithSharps = ["C", "C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
@@ -24,23 +24,22 @@ class AnalysisViewController: NSViewController {
     let updateAnalysis = AKEvent()
     
     override init() {
-        microphone = VocalInput()
+        microphone = Microphone()
         analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        microphone = VocalInput()
+        microphone = Microphone()
         analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
         super.init(coder: aDecoder)
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
-        AKOrchestra.start()
         analyzer.play()
         microphone.play()
         
@@ -52,13 +51,6 @@ class AnalysisViewController: NSViewController {
         })
         analysisSequence.addEvent(updateAnalysis)
         analysisSequence.play()
-    }
-    
-    override func viewWillDisappear() {
-        super.viewDidDisappear()
-        
-        AKOrchestra.reset()
-        AKManager.sharedManager().stop()
     }
     
     func updateUI() {
