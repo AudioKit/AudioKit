@@ -13,42 +13,31 @@ class AnalysisViewController: NSViewController {
     @IBOutlet var noteNameWithSharpsLabel: NSTextField!
     @IBOutlet var noteNameWithFlatsLabel: NSTextField!
     
-    let analyzer: AKAudioAnalyzer
-    let microphone: Microphone
+    var analyzer: AKAudioAnalyzer!
+    let microphone = Microphone()
 
     let noteFrequencies = [16.35,17.32,18.35,19.45,20.6,21.83,23.12,24.5,25.96,27.5,29.14,30.87]
     let noteNamesWithSharps = ["C", "C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
     let noteNamesWithFlats = ["C", "D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"]
     
     let analysisSequence = AKSequence()
-    let updateAnalysis = AKEvent()
-    
-    override init() {
-        microphone = Microphone()
-        analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        microphone = Microphone()
-        analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
-        super.init(coder: aDecoder)
-    }
+    var updateAnalysis: AKEvent?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
+
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
         analyzer.play()
         microphone.play()
         
         let analysisSequence = AKSequence()
-        var updateAnalysis = AKEvent()
-        updateAnalysis = AKEvent(block: {
+        updateAnalysis = AKEvent {
             self.updateUI()
-            analysisSequence.addEvent(updateAnalysis, afterDuration: 0.1)
-        })
+            analysisSequence.addEvent(self.updateAnalysis, afterDuration: 0.1)
+        }
         analysisSequence.addEvent(updateAnalysis)
         analysisSequence.play()
     }
