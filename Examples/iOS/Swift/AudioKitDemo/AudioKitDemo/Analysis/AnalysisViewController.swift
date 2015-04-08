@@ -38,8 +38,8 @@ class AnalysisViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad(animated: Bool) {
-        super.viewDidLoad(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
