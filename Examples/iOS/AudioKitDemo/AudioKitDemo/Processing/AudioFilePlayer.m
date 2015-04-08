@@ -22,10 +22,10 @@
         
         // Instrument Definition
         NSString *file1;
-        file1 = [[NSBundle mainBundle] pathForResource:@"PianoBassDrumLoop" ofType:@"wav"];
+        file1 = [[NSBundle mainBundle] pathForResource:@"PianoBassDrumLoop" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
 
         NSString *file2;
-        file2 = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav"];
+        file2 = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
         
         
         AKFileInput *fileIn1 = [[AKFileInput alloc] initWithFilename:file1];

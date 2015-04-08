@@ -21,8 +21,8 @@ class ConvolutionInstrument: AKInstrument
         addProperty(dishWellBalance)
         addProperty(dryWetBalance)
         
-        let dish = String(NSBundle.mainBundle().pathForResource("dish", ofType: "wav")!)
-        let well = String(NSBundle.mainBundle().pathForResource("Stairwell", ofType: "wav")!)
+        let dish = String(NSBundle.mainBundle().pathForResource("dish", ofType: "wav", inDirectory: "AKSoundFiles.bundle/Sounds")!)
+        let well = String(NSBundle.mainBundle().pathForResource("Stairwell", ofType: "wav", inDirectory: "AKSoundFiles.bundle/Sounds")!)
         
         let dishConv = AKConvolution(input: input, impulseResponseFilename: dish)
         
