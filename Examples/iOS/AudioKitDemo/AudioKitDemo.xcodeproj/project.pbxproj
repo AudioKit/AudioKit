@@ -22,6 +22,7 @@
 		EA8E97281AD3D15C0057E979 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97271AD3D15C0057E979 /* AVFoundation.framework */; };
 		EA8E972B1AD3D1D50057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E972A1AD3D1D50057E979 /* AudioKit.plist */; };
 		EA8E972D1AD3D2C40057E979 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E972C1AD3D2C40057E979 /* Accelerate.framework */; };
+		EAB29D6C1AD5121B000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		EA8E97271AD3D15C0057E979 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA8E972A1AD3D1D50057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = "<group>"; };
 		EA8E972C1AD3D2C40057E979 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				EA8E972A1AD3D1D50057E979 /* AudioKit.plist */,
+				EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */,
 				C4BACD161A8FFC3100736291 /* Main.storyboard */,
 				C4BACF431A90608000736291 /* Synthesis */,
 				C4BACD351A9002CA00736291 /* Processing */,
@@ -282,6 +285,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAB29D6C1AD5121B000EA118 /* AKSoundFiles.bundle in Resources */,
 				C4BACD181A8FFC3100736291 /* Main.storyboard in Resources */,
 				C4BACD1D1A8FFC3200736291 /* LaunchScreen.xib in Resources */,
 				EA8E972B1AD3D1D50057E979 /* AudioKit.plist in Resources */,
