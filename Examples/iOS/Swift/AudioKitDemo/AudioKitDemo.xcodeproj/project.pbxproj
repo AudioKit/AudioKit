@@ -17,6 +17,7 @@
 		E43516A81AB3ACE600109B4A /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */; };
 		E43516AA1AB3ACEB00109B4A /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */; };
 		E43516AC1AB3ACF400109B4A /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */; };
+		EA8E97391AD4D0CB0057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E97381AD4D0CB0057E979 /* AudioKit.plist */; };
 		EABF23E61AD4B6A70008F3B7 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23E11AD4B6980008F3B7 /* libAudioKit iOS.a */; };
 		EABF23E81AD4B6B50008F3B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23E71AD4B6B50008F3B7 /* AVFoundation.framework */; };
 		EABF23EB1AD4B7480008F3B7 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABF23EA1AD4B7480008F3B7 /* AudioKit.swift */; };
@@ -60,6 +61,7 @@
 		E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioFilePlayer.swift; path = Processing/AudioFilePlayer.swift; sourceTree = "<group>"; };
 		E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProcessingViewController.swift; path = Processing/ProcessingViewController.swift; sourceTree = "<group>"; };
 		E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalysisViewController.swift; path = AudioKitDemo/Analysis/AnalysisViewController.swift; sourceTree = "<group>"; };
+		EA8E97381AD4D0CB0057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 		EABF23D31AD4B6350008F3B7 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		EABF23E71AD4B6B50008F3B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EABF23EA1AD4B7480008F3B7 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = SOURCE_ROOT; };
@@ -99,6 +101,7 @@
 		E41A207A1AA36E120044F08B /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EA8E97381AD4D0CB0057E979 /* AudioKit.plist */,
 				E41A20811AA36E120044F08B /* Main.storyboard */,
 				E4AA886A1AA3724F001894CC /* Synthesis */,
 				E4AA88721AA372BD001894CC /* Processing */,
@@ -265,6 +268,7 @@
 			files = (
 				E41A20831AA36E120044F08B /* Main.storyboard in Resources */,
 				E41A20881AA36E120044F08B /* LaunchScreen.xib in Resources */,
+				EA8E97391AD4D0CB0057E979 /* AudioKit.plist in Resources */,
 				E41A20851AA36E120044F08B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

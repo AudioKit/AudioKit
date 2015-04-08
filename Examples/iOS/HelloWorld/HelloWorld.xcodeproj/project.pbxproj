@@ -13,6 +13,7 @@
 		C4BAC8001A8FD91500736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BAC7FE1A8FD91500736291 /* Main.storyboard */; };
 		C4BAC8021A8FD91500736291 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BAC8011A8FD91500736291 /* Images.xcassets */; };
 		C4BAC8051A8FD91500736291 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BAC8031A8FD91500736291 /* LaunchScreen.xib */; };
+		EA8E97311AD4CFFF0057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E97301AD4CFFF0057E979 /* AudioKit.plist */; };
 		EABF23AC1AD4AA420008F3B7 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23A41AD4A9EB0008F3B7 /* libAudioKit iOS.a */; };
 		EABF23AE1AD4AA500008F3B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23AD1AD4AA500008F3B7 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		C4BAC7FF1A8FD91500736291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BAC8011A8FD91500736291 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C4BAC8041A8FD91500736291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		EA8E97301AD4CFFF0057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 		EABF239E1AD4A9EB0008F3B7 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EABF23AD1AD4AA500008F3B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -92,6 +94,7 @@
 			children = (
 				C4BAC7FC1A8FD91500736291 /* ViewController.m */,
 				C4BAC7FE1A8FD91500736291 /* Main.storyboard */,
+				EA8E97301AD4CFFF0057E979 /* AudioKit.plist */,
 				C4BAC7F41A8FD91500736291 /* Supporting Files */,
 			);
 			path = HelloWorld;
@@ -211,6 +214,7 @@
 			files = (
 				C4BAC8001A8FD91500736291 /* Main.storyboard in Resources */,
 				C4BAC8051A8FD91500736291 /* LaunchScreen.xib in Resources */,
+				EA8E97311AD4CFFF0057E979 /* AudioKit.plist in Resources */,
 				C4BAC8021A8FD91500736291 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
