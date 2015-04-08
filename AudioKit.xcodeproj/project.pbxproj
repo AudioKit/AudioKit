@@ -344,6 +344,9 @@
 		EA8E97131AD3CA4C0057E979 /* AKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A31AD3C6850057E979 /* AKNote.m */; };
 		EA8E97141AD3CA4C0057E979 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A51AD3C6850057E979 /* AKNoteProperty.m */; };
 		EA8E97151AD3CA6A0057E979 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E95931AD3C6850057E979 /* CsoundLib64.framework */; };
+		EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = EA95E9EF1AD5EC50007FC41F /* AKSettings.h */; };
+		EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
+		EA95E9F31AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -739,6 +742,8 @@
 		EA8E95A51AD3C6850057E979 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		EA8E96591AD3C6FC0057E979 /* libAudioKit OS X.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit OS X.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8E971A1AD3CF000057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = AudioKit/AKSoundFiles.bundle; sourceTree = SOURCE_ROOT; };
+		EA95E9EF1AD5EC50007FC41F /* AKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSettings.h; sourceTree = "<group>"; };
+		EA95E9F01AD5EC50007FC41F /* AKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -802,6 +807,8 @@
 				EA8E93F31AD3C6840057E979 /* AKFoundation.h */,
 				EA8E93F41AD3C6840057E979 /* AKManager.h */,
 				EA8E93F51AD3C6840057E979 /* AKManager.m */,
+				EA95E9EF1AD5EC50007FC41F /* AKSettings.h */,
+				EA95E9F01AD5EC50007FC41F /* AKSettings.m */,
 				EA8E93F61AD3C6840057E979 /* AKOrchestra.h */,
 				EA8E93F71AD3C6840057E979 /* AKOrchestra.m */,
 				EA8E93F91AD3C6840057E979 /* MIDI */,
@@ -1596,6 +1603,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,6 +1737,7 @@
 				EA8E96371AD3C6850057E979 /* AKLowPassFilter.m in Sources */,
 				EA8E96461AD3C6850057E979 /* AKBalance.m in Sources */,
 				EA8E95A81AD3C6850057E979 /* AKMidi.m in Sources */,
+				EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */,
 				EA8E95DB1AD3C6850057E979 /* AKRandomDistributionTableGenerator.m in Sources */,
 				EA8E96331AD3C6850057E979 /* AKDeclick.m in Sources */,
 				EA8E962E1AD3C6850057E979 /* AKDopplerEffect.m in Sources */,
@@ -1919,6 +1928,7 @@
 				EA8E96FF1AD3CA4C0057E979 /* AKMoogVCF.m in Sources */,
 				EA8E97001AD3CA4C0057E979 /* AKResonantFilter.m in Sources */,
 				EA8E97011AD3CA4C0057E979 /* AKStringResonator.m in Sources */,
+				EA95E9F31AD5EC50007FC41F /* AKSettings.m in Sources */,
 				EA8E97021AD3CA4C0057E979 /* AKThreePoleLowpassFilter.m in Sources */,
 				EA8E97031AD3CA4C0057E979 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
 				EA8E97041AD3CA4C0057E979 /* AKBandPassButterworthFilter.m in Sources */,
