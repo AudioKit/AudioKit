@@ -18,28 +18,11 @@ class SynthesisViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the vFMSynthesizeriew, typically from a nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
         AKOrchestra.addInstrument(tambourine)
         AKOrchestra.addInstrument(fmSynthesizer)
-        
-        AKOrchestra.start()
     }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        AKOrchestra.reset()
-        AKManager.sharedManager().stop()
-    }
-    
+
+
     @IBAction func tapTambourine(sender: UITapGestureRecognizer) {
         
         let touchPoint = sender.locationInView(tambourineTouchView)

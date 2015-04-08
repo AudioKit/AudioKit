@@ -10,6 +10,7 @@
 #import "AKAudioAnalyzer.h"
 #import "AKPropertySlider.h"
 #import "Microphone.h"
+#import "Tambourine.h"
 
 #import "AKAudioInputPlot.h"
 #import "AKAudioOutputPlot.h"

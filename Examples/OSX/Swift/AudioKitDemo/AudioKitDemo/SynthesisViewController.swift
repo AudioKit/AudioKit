@@ -17,21 +17,9 @@ class SynthesisViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the vFMSynthesizeriew, typically from a nib.
-    }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        
+
         AKOrchestra.addInstrument(tambourine)
         AKOrchestra.addInstrument(fmSynthesizer)
-        AKOrchestra.start()
-    }
-    
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-        AKOrchestra.reset()
-        AKManager.sharedManager().stop()
     }
     
     @IBAction func tapTambourine(sender: NSClickGestureRecognizer) {
