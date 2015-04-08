@@ -8,6 +8,7 @@
 
 #import "AKAudioInputFFTPlot.h"
 #import "AKFoundation.h"
+#import "AKSettings.h"
 #import "CsoundObj.h"
 
 #import <Accelerate/Accelerate.h>
@@ -15,7 +16,7 @@
 @interface AKAudioInputFFTPlot() <CsoundBinding>
 {
     NSMutableData *inSamples;
-    int sampleSize;
+    UInt32 sampleSize;
     MYFLT *history;
     int historySize;
     int index;
@@ -159,12 +160,7 @@
 {
     cs = csoundObj;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
-    sampleSize = numberOfChannels * samplesPerControlPeriod;
+    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
 
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));
