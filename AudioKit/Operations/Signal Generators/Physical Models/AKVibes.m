@@ -35,7 +35,7 @@
         _tremoloAmplitude = tremoloAmplitude;
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
         if (!file) {
             file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
         }
@@ -62,7 +62,7 @@
         _tremoloAmplitude = akp(0);
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
         if (!file) {
             file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
         }
