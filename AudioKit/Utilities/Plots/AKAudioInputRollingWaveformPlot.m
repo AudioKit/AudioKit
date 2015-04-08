@@ -8,13 +8,14 @@
 
 #import "AKAudioInputRollingWaveformPlot.h"
 #import "AKFoundation.h"
+#import "AKSettings.h"
 #import "CsoundObj.h"
 
 @interface AKAudioInputRollingWaveformPlot() <CsoundBinding>
 {
     // AudioKit sound data
     NSMutableData *inSamples;
-    int sampleSize;
+    UInt32 sampleSize;
     
     CsoundObj *cs;
 }
@@ -46,12 +47,8 @@
 - (void)setup:(CsoundObj *)csoundObj
 {
     cs = csoundObj;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
-    sampleSize = numberOfChannels * samplesPerControlPeriod;
+
+    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));

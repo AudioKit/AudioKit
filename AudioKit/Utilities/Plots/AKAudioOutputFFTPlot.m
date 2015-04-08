@@ -8,13 +8,14 @@
 
 #import "AKAudioOutputFFTPlot.h"
 #import "AKFoundation.h"
+#import "AKSettings.h"
 #import "CsoundObj.h"
 #import <Accelerate/Accelerate.h>
 
 @interface AKAudioOutputFFTPlot() <CsoundBinding>
 {
     NSMutableData *outSamples;
-    int sampleSize;
+    UInt32 sampleSize;
     MYFLT *history;
     int historySize;
     int index;
@@ -88,6 +89,7 @@
 }
 
 #elif TARGET_OS_MAC
+// TODO
 #endif
 
 -(void)createFFTWithBufferSize:(float)bufferSize {
@@ -170,12 +172,7 @@
 {
     cs = csoundObj;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
-    sampleSize = numberOfChannels * samplesPerControlPeriod;
+    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));
