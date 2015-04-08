@@ -302,7 +302,6 @@
 				C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */,
 				C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */,
 				C4BACD0F1A8FFC3100736291 /* AppDelegate.m in Sources */,
-				C4BACF511A9182BD00736291 /* Tambourine.m in Sources */,
 				C4BACD0C1A8FFC3100736291 /* main.m in Sources */,
 				C4BACF381A90603A00736291 /* SynthesisViewController.m in Sources */,
 			);
@@ -429,6 +428,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Platforms/iOS/libs",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -444,6 +444,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../../AudioKit/Platforms/iOS/libs",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
