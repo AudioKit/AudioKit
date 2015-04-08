@@ -62,7 +62,7 @@
 		E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalysisViewController.swift; path = AudioKitDemo/Analysis/AnalysisViewController.swift; sourceTree = "<group>"; };
 		EABF23D31AD4B6350008F3B7 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		EABF23E71AD4B6B50008F3B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EABF23EA1AD4B7480008F3B7 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = "<group>"; };
+		EABF23EA1AD4B7480008F3B7 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +99,6 @@
 		E41A207A1AA36E120044F08B /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
-				EABF23EA1AD4B7480008F3B7 /* AudioKit.swift */,
 				E41A20811AA36E120044F08B /* Main.storyboard */,
 				E4AA886A1AA3724F001894CC /* Synthesis */,
 				E4AA88721AA372BD001894CC /* Processing */,
@@ -115,6 +114,7 @@
 				C48177461AD087C200D4FAA2 /* Bridging-Header.h */,
 				E41A20841AA36E120044F08B /* Images.xcassets */,
 				E41A20861AA36E120044F08B /* LaunchScreen.xib */,
+				EABF23EA1AD4B7480008F3B7 /* AudioKit.swift */,
 				E41A207D1AA36E120044F08B /* AppDelegate.swift */,
 				E41A207C1AA36E120044F08B /* Info.plist */,
 			);
