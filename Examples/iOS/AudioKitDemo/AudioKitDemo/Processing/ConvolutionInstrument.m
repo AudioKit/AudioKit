@@ -20,8 +20,8 @@
         _dryWetBalance   = [self createPropertyWithValue:0 minimum:0 maximum:0.1];
         
         // Instrument definition
-        NSString *dish = [[NSBundle mainBundle] pathForResource:@"dish"      ofType:@"wav"];
-        NSString *well = [[NSBundle mainBundle] pathForResource:@"Stairwell" ofType:@"wav"];
+        NSString *dish = [[NSBundle mainBundle] pathForResource:@"dish"      ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
+        NSString *well = [[NSBundle mainBundle] pathForResource:@"Stairwell" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
         
         AKConvolution *dishConv = [[AKConvolution alloc] initWithInput:input
                                                impulseResponseFilename:dish];

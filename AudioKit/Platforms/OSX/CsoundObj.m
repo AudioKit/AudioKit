@@ -315,7 +315,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
         return nil;
     }
     CSOUND *csound = [self getCsound];
-    float *spout = csoundGetSpout(csound);
+    MYFLT *spout = csoundGetSpout(csound);
     int nchnls = csoundGetNchnls(csound);
     int ksmps = csoundGetKsmps(csound);
     return [NSMutableData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
@@ -339,7 +339,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
         return nil;
     }
     CSOUND *csound = [self getCsound];
-    float *spin = csoundGetSpin(csound);
+    MYFLT *spin = csoundGetSpin(csound);
     int nchnls = csoundGetNchnls(csound);
     int ksmps = csoundGetKsmps(csound);
     return [NSMutableData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
