@@ -35,9 +35,9 @@ class ProcessingViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad(animated: Bool) {
-        super.viewDidLoad(animated)
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
         AKOrchestra.addInstrument(audioFilePlayer)
         AKOrchestra.addInstrument(conv)
         
