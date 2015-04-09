@@ -30,7 +30,7 @@
 #define min minValue
 #endif
 
-- (void)setProperty:(id)property
+- (void)setProperty:(AKParameter *)property
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
     {
@@ -49,11 +49,10 @@
         _property = p;
     }
     
-    [property addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:Nil];
+    [property addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:nil];
     
 #if TARGET_OS_IPHONE
     [self addTarget:self action:@selector(changed:) forControlEvents:UIControlEventValueChanged];
-#define min minimumValue
 #elif TARGET_OS_MAC
     [self setAction:@selector(changed:)];
     [self setTarget:self];
