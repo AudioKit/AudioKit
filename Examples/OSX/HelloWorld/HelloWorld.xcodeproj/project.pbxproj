@@ -12,7 +12,6 @@
 		C4BACA251A8FDEDC00736291 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACA241A8FDEDC00736291 /* ViewController.m */; };
 		C4BACA271A8FDEDC00736291 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BACA261A8FDEDC00736291 /* Images.xcassets */; };
 		C4BACA2A1A8FDEDC00736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BACA281A8FDEDC00736291 /* Main.storyboard */; };
-		EA8E97431AD4D1880057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E97421AD4D1880057E979 /* AudioKit.plist */; };
 		EABF23CB1AD4B0190008F3B7 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23C81AD4AFFB0008F3B7 /* libAudioKit OS X.a */; };
 		EABF23CD1AD4B0200008F3B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23CC1AD4B0200008F3B7 /* AVFoundation.framework */; };
 		EABF23D01AD4B0940008F3B7 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23CF1AD4B0940008F3B7 /* CsoundLib64.framework */; };
@@ -66,7 +65,6 @@
 		C4BACA241A8FDEDC00736291 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C4BACA261A8FDEDC00736291 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C4BACA291A8FDEDC00736291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		EA8E97421AD4D1880057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 		EABF23C01AD4AFFB0008F3B7 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EABF23CC1AD4B0200008F3B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EABF23CF1AD4B0940008F3B7 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib64.framework; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 		C4BACA1B1A8FDEDC00736291 /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E97421AD4D1880057E979 /* AudioKit.plist */,
 				C4BACA241A8FDEDC00736291 /* ViewController.m */,
 				C4BACA281A8FDEDC00736291 /* Main.storyboard */,
 				C4BACA1C1A8FDEDC00736291 /* Supporting Files */,
@@ -231,7 +228,6 @@
 			files = (
 				C4BACA271A8FDEDC00736291 /* Images.xcassets in Resources */,
 				C4BACA2A1A8FDEDC00736291 /* Main.storyboard in Resources */,
-				EA8E97431AD4D1880057E979 /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
