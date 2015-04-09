@@ -9,7 +9,6 @@
 * In the **Build Settings** tab for your target :
 	* Look for the **Other Linker Flags** setting, and set it to `-ObjC`
 	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.
-* Drag and drop the `AudioKit.plist` file from the **Resources** group in the AudioKit project to your own project. You may want to make sure you have your own copy if you intend to change any of the settings in that file.
 
 ## Swift Projects
 * From within the AudioKit subproject in your project, open the `AudioKit > Platforms > Swift` group, and drag and drop at least `AudioKit.swift` to your project. You may also add any of the extensions to your project if you'd like to use them.
@@ -22,3 +21,4 @@
 ## Optional Steps
 Some of the built-in instruments require the use of some sound files, grouped in the `AKSoundFiles.bundle` in the **Resources** group in AudioKit. You may drag this bundle to your own project to have them included.
 
+Similarly, you may want to drag and drop the `AudioKit.plist` file from the **Resources** group if you intend to change any of the settings in that file.
