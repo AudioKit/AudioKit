@@ -20,7 +20,6 @@
 		C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF531A91BB7100736291 /* FMSynthesizer.m */; };
 		EA8E97261AD3D0BB0057E979 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97211AD3D06D0057E979 /* libAudioKit iOS.a */; };
 		EA8E97281AD3D15C0057E979 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97271AD3D15C0057E979 /* AVFoundation.framework */; };
-		EA8E972B1AD3D1D50057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E972A1AD3D1D50057E979 /* AudioKit.plist */; };
 		EA8E972D1AD3D2C40057E979 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E972C1AD3D2C40057E979 /* Accelerate.framework */; };
 		EAB29D6C1AD5121B000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */; };
 /* End PBXBuildFile section */
@@ -72,7 +71,6 @@
 		C4BACF531A91BB7100736291 /* FMSynthesizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSynthesizer.m; path = Synthesis/Instruments/FMSynthesizer.m; sourceTree = "<group>"; };
 		EA8E971B1AD3D06D0057E979 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA8E97271AD3D15C0057E979 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EA8E972A1AD3D1D50057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = "<group>"; };
 		EA8E972C1AD3D2C40057E979 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,8 +121,6 @@
 		C4BACD081A8FFC3100736291 /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E972A1AD3D1D50057E979 /* AudioKit.plist */,
-				EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */,
 				C4BACD161A8FFC3100736291 /* Main.storyboard */,
 				C4BACF431A90608000736291 /* Synthesis */,
 				C4BACD351A9002CA00736291 /* Processing */,
@@ -137,6 +133,7 @@
 		C4BACD091A8FFC3100736291 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */,
 				C4BACD0D1A8FFC3100736291 /* AppDelegate.h */,
 				C4BACD0E1A8FFC3100736291 /* AppDelegate.m */,
 				C4BACD191A8FFC3100736291 /* Images.xcassets */,
@@ -288,7 +285,6 @@
 				EAB29D6C1AD5121B000EA118 /* AKSoundFiles.bundle in Resources */,
 				C4BACD181A8FFC3100736291 /* Main.storyboard in Resources */,
 				C4BACD1D1A8FFC3200736291 /* LaunchScreen.xib in Resources */,
-				EA8E972B1AD3D1D50057E979 /* AudioKit.plist in Resources */,
 				C4BACD1A1A8FFC3100736291 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

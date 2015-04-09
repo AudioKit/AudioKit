@@ -16,7 +16,6 @@
 		C4FE749E1ABA4CF6001641B7 /* Playground.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE749C1ABA4CF6001641B7 /* Playground.m */; };
 		EA8E97581AD4D72F0057E979 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97531AD4D7100057E979 /* libAudioKit iOS.a */; };
 		EA8E975A1AD4D7340057E979 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97591AD4D7340057E979 /* AVFoundation.framework */; };
-		EA8E975C1AD4D7580057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E975B1AD4D7580057E979 /* AudioKit.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		E0B3481AC539415D957B1BA4 /* Pods-AudioKitPlayground.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioKitPlayground.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioKitPlayground/Pods-AudioKitPlayground.release.xcconfig"; sourceTree = "<group>"; };
 		EA8E974D1AD4D7100057E979 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA8E97591AD4D7340057E979 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EA8E975B1AD4D7580057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +116,6 @@
 		C4FE74731AB9FB58001641B7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E975B1AD4D7580057E979 /* AudioKit.plist */,
 				C4FE74991ABA4CF6001641B7 /* AKPlayground.h */,
 				C4FE749A1ABA4CF6001641B7 /* AKPlayground.m */,
 				C4FE74771AB9FB58001641B7 /* AppDelegate.h */,
@@ -234,7 +231,6 @@
 			files = (
 				C4FE74841AB9FB58001641B7 /* LaunchScreen.xib in Resources */,
 				C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */,
-				EA8E975C1AD4D7580057E979 /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

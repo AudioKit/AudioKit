@@ -15,7 +15,6 @@
 		EA5D42291AD4BD9B00BEA03A /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EA5D421C1AD4BD6000BEA03A /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA5D422A1AD4BDA900BEA03A /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42261AD4BD6700BEA03A /* libAudioKit OS X.a */; };
 		EA5D422C1AD4BDAE00BEA03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D422B1AD4BDAE00BEA03A /* AVFoundation.framework */; };
-		EA8E974B1AD4D2160057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E974A1AD4D2160057E979 /* AudioKit.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +65,6 @@
 		EA5D421E1AD4BD6700BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D422B1AD4BDAE00BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA5D422E1AD4BE0A00BEA03A /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		EA8E974A1AD4D2160057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +104,6 @@
 			children = (
 				E4CC74AF1AA29B2D007E90B8 /* ViewController.swift */,
 				E4CC74B31AA29B2D007E90B8 /* Main.storyboard */,
-				EA8E974A1AD4D2160057E979 /* AudioKit.plist */,
 				E4CC74AB1AA29B2D007E90B8 /* Supporting Files */,
 			);
 			path = HelloWorld;
@@ -226,7 +223,6 @@
 			files = (
 				E4CC74B21AA29B2D007E90B8 /* Images.xcassets in Resources */,
 				E4CC74B51AA29B2D007E90B8 /* Main.storyboard in Resources */,
-				EA8E974B1AD4D2160057E979 /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

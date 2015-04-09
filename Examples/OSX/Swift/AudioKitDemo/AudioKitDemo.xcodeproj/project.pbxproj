@@ -22,7 +22,6 @@
 		EA5D423C1AD4BED600BEA03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */; };
 		EA5D42421AD4BF6A00BEA03A /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */; };
 		EA5D42431AD4BFA100BEA03A /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EA5D422F1AD4BEA200BEA03A /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EA8E97471AD4D1C50057E979 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8E97461AD4D1C50057E979 /* AudioKit.plist */; };
 		EAB29D771AD51D79000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +80,6 @@
 		EA5D42311AD4BEA800BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = SOURCE_ROOT; };
-		EA8E97461AD4D1C50057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "../../../../AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 		EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,8 +150,6 @@
 				E4006CD01AB24D4F00375B5B /* Processing */,
 				E4006CCF1AB24D3100375B5B /* Analysis  */,
 				E42CC0DB1AB245DB00689511 /* Main.storyboard */,
-				EA8E97461AD4D1C50057E979 /* AudioKit.plist */,
-				EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */,
 				E42CC0D31AB245DB00689511 /* Supporting Files */,
 			);
 			path = AudioKitDemo;
@@ -165,6 +161,7 @@
 				E43516BD1AB3B1F600109B4A /* Bridging-Header.h */,
 				EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */,
 				E42CC0D51AB245DB00689511 /* AppDelegate.swift */,
+				EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */,
 				E42CC0D91AB245DB00689511 /* Images.xcassets */,
 				E42CC0D41AB245DB00689511 /* Info.plist */,
 			);
@@ -274,7 +271,6 @@
 			files = (
 				E42CC0DA1AB245DB00689511 /* Images.xcassets in Resources */,
 				E42CC0DD1AB245DB00689511 /* Main.storyboard in Resources */,
-				EA8E97471AD4D1C50057E979 /* AudioKit.plist in Resources */,
 				EAB29D771AD51D79000EA118 /* AKSoundFiles.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
