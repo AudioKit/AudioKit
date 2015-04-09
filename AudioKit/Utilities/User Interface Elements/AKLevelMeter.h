@@ -51,15 +51,33 @@
 
 #if TARGET_OS_IPHONE
 
-#import <UIKit/UIKit.h>
-
-#ifndef LEVELMETER_CLAMP
-#define LEVELMETER_CLAMP(min,x,max) (x < min ? min : (x > max ? max : x))
-#endif
+@import UIKit;
 
 IB_DESIGNABLE
 /// A level meter that can be drawn from any property
-@interface LevelMeter : UIView
+@interface AKLevelMeter : UIView
+
+// The background color of the lights
+@property(retain)				IBInspectable UIColor *bgColor;
+
+// The border color of the lights
+@property(retain)				IBInspectable UIColor *borderColor;
+
+#elif TARGET_OS_MAC
+
+@import Cocoa;
+
+IB_DESIGNABLE
+/// A level meter that can be drawn from any property
+@interface AKLevelMeter : NSView
+
+// The background color of the lights
+@property(retain)				IBInspectable NSColor *bgColor;
+
+// The border color of the lights
+@property(retain)				IBInspectable NSColor *borderColor;
+
+#endif
 
 // The current level, from 0 - 1
 @property						IBInspectable CGFloat level;
@@ -77,16 +95,7 @@ IB_DESIGNABLE
 // Whether to use variable intensity lights. Has no effect if numLights == 0.
 @property						IBInspectable BOOL variableLightIntensity;
 
-// The background color of the lights
-@property(retain)				IBInspectable UIColor *bgColor;
-
-// The border color of the lights
-@property(retain)				IBInspectable UIColor *borderColor;
-
 
 @end
 
 
-#elif TARGET_OS_MAC
-
-#endif
