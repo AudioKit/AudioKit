@@ -12,7 +12,7 @@
 @implementation AKPropertyLabel
 
 
-- (void)setProperty:(id)property
+- (void)setProperty:(AKParameter *)property
 {
     _property = property;
     [self.property addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:NULL];
