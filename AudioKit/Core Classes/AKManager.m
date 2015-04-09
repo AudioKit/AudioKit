@@ -7,6 +7,7 @@
 //
 
 #import "AKManager.h"
+#import "AKSettings.h"
 
 #import "AKStereoAudio.h" // Used for replace instrument which should be refactored
 
@@ -75,26 +76,14 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-        
-        // Default Values
-        NSString *audioOutput = @"dac";
-        NSString *audioInput  = @"adc";
-        
-        if (dict) {
-            audioOutput = dict[@"Audio Output"];
-            audioInput  = dict[@"Audio Input"];
-        }
-        
         csound = [[CsoundObj alloc] init];
+        
         _engine= csound; 
         [csound addListener:self];
         [csound setMessageCallback:@selector(messageCallback:) withListener:self];
         
         _isRunning = NO;
-        _isLogging = [dict[@"Enable Logging By Default"] boolValue];
+        _isLogging = AKSettings.settings.loggingEnabled;
         
         totalRunDuration = 10000000;
 
@@ -108,7 +97,7 @@ static AKManager *_sharedManager = nil;
                    "--expression-opt ; Enable expression optimizations\n"
                    "-m0              ; Print raw amplitudes\n"
                    "-i %@            ; Request sound from the host audio input device",
-                   audioOutput, audioInput];
+                   AKSettings.settings.audioOutput, AKSettings.settings.audioInput];
         
         templateString = @""
         "<CsoundSynthesizer>\n\n"

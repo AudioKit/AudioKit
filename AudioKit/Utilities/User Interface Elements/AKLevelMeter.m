@@ -46,18 +46,17 @@
  
  */
 
-#import "LevelMeter.h"
+#import "AKLevelMeter.h"
+#import "AKPlotView.h"
 
-#if TARGET_OS_IPHONE
-
-@implementation LevelMeter {
+@implementation AKLevelMeter {
     NSUInteger					_numLights;
     CGFloat						_level, _peakLevel;
     //	LevelMeterColorThreshold	*_colorThresholds;
     NSUInteger					_numColorThresholds;
     BOOL						_vertical;
     BOOL						_variableLightIntensity;
-    UIColor						*_bgColor, *_borderColor;
+    AKColor						*_bgColor, *_borderColor;
     CGFloat                     _scaleFactor;
 }
 
@@ -68,8 +67,8 @@
 	_numLights = 0;
 	_numColorThresholds = 3;
 	_variableLightIntensity = YES;
-	_bgColor = [[UIColor alloc] initWithRed:0. green:0. blue:0. alpha:0];
-	_borderColor = [[UIColor alloc] initWithRed:0. green:0. blue:0. alpha:0.6];
+	_bgColor = [AKColor colorWithRed:0. green:0. blue:0. alpha:0];
+	_borderColor = [AKColor colorWithRed:0. green:0. blue:0. alpha:0.6];
 	_vertical = ([self frame].size.width < [self frame].size.height) ? YES : NO;
 }
 
@@ -91,6 +90,7 @@
 	return self;
 }
 
+#if TARGET_OS_IPHONE
 
 - (void)drawRect:(CGRect)rect
 {
@@ -178,7 +178,7 @@
 				lightIntensity = 1.;
 			} else {
 				lightIntensity = (_level - lightMinVal) / (lightMaxVal - lightMinVal);
-				lightIntensity = LEVELMETER_CLAMP(0., lightIntensity, 1.);
+				lightIntensity = AK_CLAMP(0., lightIntensity, 1.);
 				if ((!_variableLightIntensity) && (lightIntensity > 0.)) lightIntensity = 1.;
 			}
             
@@ -220,6 +220,9 @@
 	
 	CGColorSpaceRelease(cs);
 }
+#elif TARGET_OS_MAC
+// TODO
+#endif
 
 
 - (CGFloat)level { return _level; }
@@ -234,6 +237,3 @@
 
 @end
 
-#elif TARGET_OS_MAC
-
-#endif

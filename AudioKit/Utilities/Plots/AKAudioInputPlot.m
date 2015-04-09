@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 #import "CsoundObj.h"
-#import "AKAudioInputPlot.h"
 #import "AKFoundation.h"
+#import "AKSettings.h"
+#import "AKAudioInputPlot.h"
 
 @interface AKAudioInputPlot() <CsoundBinding>
 {
     NSData *inSamples;
-    int sampleSize;
+    UInt32 sampleSize;
     CsoundObj *cs;
 }
 
@@ -66,13 +67,7 @@
 {
     cs = csoundObj;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
-    
-    sampleSize = numberOfChannels * samplesPerControlPeriod;
+    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));
