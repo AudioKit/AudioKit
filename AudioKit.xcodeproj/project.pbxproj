@@ -790,13 +790,13 @@
 			children = (
 				EA8E93F21AD3C6840057E979 /* Core Classes */,
 				EA8E93FD1AD3C6840057E979 /* Instruments */,
-				EA8E94021AD3C6840057E979 /* Parameters */,
-				EA8E940F1AD3C6840057E979 /* Utilities */,
-				EA8E946B1AD3C6840057E979 /* Tables */,
+				EA8E95A11AD3C6850057E979 /* Notes */,
 				EA8E947F1AD3C6840057E979 /* Operations */,
+				EA8E94021AD3C6840057E979 /* Parameters */,
 				EA8E956E1AD3C6850057E979 /* Platforms */,
 				EA8E959A1AD3C6850057E979 /* Sequencing */,
-				EA8E95A11AD3C6850057E979 /* Notes */,
+				EA8E946B1AD3C6840057E979 /* Tables */,
+				EA8E940F1AD3C6840057E979 /* Utilities */,
 			);
 			path = AudioKit;
 			sourceTree = "<group>";
