@@ -39,9 +39,6 @@ OSStatus  Csound_Render(void *inRefCon,
 
 @interface CsoundObj ()
 {
-    id  _mMessageListener;
-
-    // Csound data
     CSOUND *_cs;
     long _bufframes;
     int _ret;
