@@ -16,7 +16,7 @@
 {
     [super run];
 
-    Microphone *mic = [[VocalInput alloc] initWithNumber:1];
+    Microphone *mic = [[Microphone alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mic];
     AKAudioAnalyzer *analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:mic.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
