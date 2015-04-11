@@ -527,7 +527,7 @@ OSStatus  Csound_Render(void *inRefCon,
         csoundSetMessageCallback(cs, messageCallback);
         csoundSetHostData(cs, (__bridge void *)self);
         
-        if (_midiInEnabled) {
+        if (self.midiInEnabled) {
 //            [CsoundMIDI setMidiInCallbacks:cs];
         }
         
@@ -703,8 +703,7 @@ OSStatus  Csound_Render(void *inRefCon,
         }
         
         while (!_ret && self.running) {
-            for (int i = 0; i < _bindings.count; i++) {
-                id<CsoundBinding> binding = [_bindings objectAtIndex:i];
+            for (id<CsoundBinding> binding in self.bindings) {
                 if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
                     [binding updateValuesToCsound];
                 }
@@ -724,8 +723,7 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
             }
             
-            for (int i = 0; i < _bindings.count; i++) {
-                id<CsoundBinding> binding = [_bindings objectAtIndex:i];
+            for (id<CsoundBinding> binding in self.bindings) {
                 if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
                     [binding updateValuesFromCsound];
                 }
