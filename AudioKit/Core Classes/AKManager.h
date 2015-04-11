@@ -19,7 +19,7 @@
  */
 @interface AKManager : NSObject
 
-@property CsoundObj *engine;
+@property (readonly) CsoundObj *engine;
 
 /// Determines whether or not AudioKit is available to send events to.
 @property (readonly) BOOL isRunning;

@@ -4,7 +4,7 @@
  
  Copyright (C) 2014 Steven Yi, Victor Lazzarini, Aurelius Prochazka
  
- This file is part of Csound for iOS.
+ This file is part of Csound for iOS and OS X.
  
  The Csound for iOS Library is free software; you can redistribute it
  and/or modify it under the terms of the GNU Lesser General Public
@@ -23,43 +23,20 @@
  
  */
 
-#import <AudioToolbox/ExtendedAudioFile.h>
-#import <AudioUnit/AudioUnit.h>
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import AudioToolbox;
+@import AudioUnit;
 
 #import "csound.h"
 
-typedef struct csdata_ {
-    CSOUND *cs;
-    long bufframes;
-    int ret;
-    int nchnls;
-    int nsmps;
-    int nchnls_i;
-    bool running;
-    bool shouldRecord;
-    bool shouldMute;
-    bool useAudioInput;
-    ExtAudioFileRef file;
-    AudioUnit *aunit;
-    __unsafe_unretained NSMutableArray *valuesCache;
-} csdata;
-
-typedef struct {
-    CSOUND *cs;
-    int attr;
-    const char *format;
-    va_list valist;
-} Message;
-
 // -----------------------------------------------------------------------------
-#  pragma mark - Protocols (Bindings and Listeners)
+#  pragma mark - Protocols (Bindings, Listeners and Message Delegate)
 // -----------------------------------------------------------------------------
 
 @class CsoundObj;
 
 @protocol CsoundBinding <NSObject>
-- (void)setup:(CsoundObj *)csoundObj;
+- (void)setup:(CsoundObj * __nonnull)csoundObj;
 @optional
 - (void)cleanup;
 - (void)updateValuesFromCsound;
@@ -68,8 +45,12 @@ typedef struct {
 
 @protocol CsoundObjListener <NSObject>
 @optional
-- (void)csoundObjStarted:(CsoundObj *)csoundObj;
-- (void)csoundObjCompleted:(CsoundObj *)csoundObj;
+- (void)csoundObjStarted:(CsoundObj * __nonnull)csoundObj;
+- (void)csoundObjCompleted:(CsoundObj * __nonnull)csoundObj;
+@end
+
+@protocol CsoundMsgDelegate <NSObject>
+- (void)messageReceivedFrom:(CsoundObj * __nonnull)csoundObj attr:(int)attr message:(NSString * __nonnull)msg;
 @end
 
 // -----------------------------------------------------------------------------
@@ -78,14 +59,14 @@ typedef struct {
 
 @interface CsoundObj : NSObject
 
-@property (nonatomic, strong) NSURL *outputURL;
+@property (nonatomic, strong, nullable) NSURL *outputURL;
 @property (assign) BOOL midiInEnabled;
 @property (assign) BOOL useAudioInput;
 
-- (void)sendScore:(NSString *)score;
+- (void)sendScore:(NSString * __nonnull)score;
 
-- (void)play:(NSString *)csdFilePath;
-- (void)updateOrchestra:(NSString *)orchestraString;
+- (void)play:(NSString * __nonnull)csdFilePath;
+- (void)updateOrchestra:(NSString * __nonnull)orchestraString;
 - (void)stop;
 - (void)mute;
 - (void)unmute;
@@ -94,9 +75,9 @@ typedef struct {
 #  pragma mark - Recording
 // -----------------------------------------------------------------------------
 
-- (void)record:(NSString *)csdFilePath toURL:(NSURL *)outputURL;
-- (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile;
-- (void)recordToURL:(NSURL *)outputURL;
+- (void)record:(NSString * __nonnull)csdFilePath toURL:(NSURL * __nonnull)outputURL;
+- (void)record:(NSString * __nonnull)csdFilePath toFile:(NSString * __nonnull)outputFile;
+- (void)recordToURL:(NSURL * __nonnull)outputURL;
 - (void)stopRecording;
 
 
@@ -104,45 +85,41 @@ typedef struct {
 #  pragma mark - Binding
 // -----------------------------------------------------------------------------
 
-@property (nonatomic, strong) NSMutableArray *bindings;
-- (void)addBinding:(id<CsoundBinding>)binding;
-- (void)removeBinding:(id<CsoundBinding>)binding;
+@property (nonatomic, strong, nonnull) NSMutableArray *bindings;
+- (void)addBinding:(__nonnull id<CsoundBinding>)binding;
+- (void)removeBinding:(__nonnull id<CsoundBinding>)binding;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Listeners and Messages
 // -----------------------------------------------------------------------------
 
-@property (assign) SEL messageCallbackSelector;
-- (void)addListener:(id<CsoundObjListener>)listener;
-- (void)setMessageCallback:(SEL)method withListener:(id)listener;
-- (void)performMessageCallback:(NSValue *)infoObj;
+- (void)addListener:(__nonnull id<CsoundObjListener>)listener;
 
+@property (weak, nullable) id<CsoundMsgDelegate> messageDelegate;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Internals / Advanced Methods
 // -----------------------------------------------------------------------------
 
-- (CSOUND *)getCsound;
-- (AudioUnit *)getAudioUnit;
+@property (nonatomic,readonly,nonnull,getter=getCsound) CSOUND *csound;
+
+@property (readonly,nonatomic, getter=getNumChannels) int numChannels;
+@property (readonly,nonatomic, getter=getKsmps)       int ksmps;
+
 
 // get input or output that maps to a channel name and type, where type is
 // CSOUND_AUDIO_CHANNEL, CSOUND_CONTROL_CHANNEL, etc.
-- (MYFLT *)getInputChannelPtr:(NSString *)channelName
-                  channelType:(controlChannelType)channelType;
-- (MYFLT *)getOutputChannelPtr:(NSString *)channelName
-                   channelType:(controlChannelType)channelType;
+- (MYFLT * __nullable)getInputChannelPtr:(NSString * __nonnull)channelName
+                             channelType:(controlChannelType)channelType;
+- (MYFLT * __nullable)getOutputChannelPtr:(NSString * __nonnull)channelName
+                              channelType:(controlChannelType)channelType;
 
 // Read-only samples
-- (NSData *)getOutSamples;
-- (NSData *)getInSamples;
+- (NSData * __nonnull)getOutSamples;
+- (NSData * __nonnull)getInSamples;
 
 // Writable alternatives
-- (NSMutableData *)getMutableInSamples;
-- (NSMutableData *)getMutableOutSamples;
-
-- (int)getNumChannels;
-- (int)getKsmps;
-
-- (void)handleInterruption:(NSNotification *)notification;
+- (NSMutableData * __nonnull)getMutableInSamples;
+- (NSMutableData * __nonnull)getMutableOutSamples;
 
 @end
