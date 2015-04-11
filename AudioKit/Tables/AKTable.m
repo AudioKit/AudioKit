@@ -80,8 +80,9 @@ static int currentID = 2000;
 
 - (void)operateOnTableWithFunction:(float (^)(float))function
 {
-    while (csoundTableLength(cs, _number) != _size) {
+    if (csoundTableLength(cs, _number) != _size) {
         // do nothing
+        return;
     }
     csoundGetTable(cs, &table, _number);
     for (int i = 0; i < _size; i++) {
@@ -91,8 +92,9 @@ static int currentID = 2000;
 
 - (void)populateTableWithIndexFunction:(float (^)(int))function
 {
-    while (csoundTableLength(cs, _number) != _size) {
+    if (csoundTableLength(cs, _number) != _size) {
         // do nothing
+        return;
     }
     csoundGetTable(cs, &table, _number);
     for (int i = 0; i < _size; i++) {
@@ -102,8 +104,9 @@ static int currentID = 2000;
 
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function
 {
-    while (csoundTableLength(cs, _number) != _size) {
+    if (csoundTableLength(cs, _number) != _size) {
         // do nothing
+        return;
     }
     csoundGetTable(cs, &table, _number);
     for (int i = 0; i < _size; i++) {
@@ -121,8 +124,8 @@ static int currentID = 2000;
 
 - (void)normalize
 {
-    while (csoundTableLength(cs, _number) != _size) {
-        // do nothing
+    if (csoundTableLength(cs, _number) != _size) {
+        return;
     }
     csoundGetTable(cs, &table, _number);
     float max = 0.0;
