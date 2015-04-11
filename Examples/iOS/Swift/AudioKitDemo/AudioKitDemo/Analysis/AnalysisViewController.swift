@@ -48,14 +48,7 @@ class AnalysisViewController: UIViewController {
         analyzer.start()
         microphone.start()
         
-        let analysisSequence = AKSequence()
-        let updateAnalysis = AKEvent {
-            self.updateUI()
-            analysisSequence.addEvent(self.updateAnalysis, afterDuration: 0.1)
-        }
-        analysisSequence.addEvent(updateAnalysis)
-        analysisSequence.play()
-
+        let timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateUI"), userInfo: nil, repeats: true)
     }
     
     func updateUI() {
