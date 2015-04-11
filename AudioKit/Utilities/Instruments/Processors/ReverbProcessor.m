@@ -16,7 +16,7 @@
     if (self) {
 
         // Instrument Properties
-        _feedback = [self createPropertyWithValue:0.0 minimum:0.0 maximum:1.0];
+        _feedback = [self createPropertyWithValue:0.5 minimum:0.0 maximum:1.0];
 
         // Instrument Definition
         AKReverb *reverb = [AKReverb reverbWithInput:audioSource];
