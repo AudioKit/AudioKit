@@ -347,33 +347,6 @@
 		EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 		EA95E9F31AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 		EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365601ADB414400AA6551 /* CsoundLib.framework */; };
-		EAF365831ADB5EE400AA6551 /* cfgvar.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365681ADB5EE400AA6551 /* cfgvar.h */; };
-		EAF365841ADB5EE400AA6551 /* CppSound.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF365691ADB5EE400AA6551 /* CppSound.hpp */; };
-		EAF365851ADB5EE400AA6551 /* cs_par_structs.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3656A1ADB5EE400AA6551 /* cs_par_structs.h */; };
-		EAF365861ADB5EE400AA6551 /* cscore.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3656B1ADB5EE400AA6551 /* cscore.h */; };
-		EAF365871ADB5EE400AA6551 /* csdebug.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3656C1ADB5EE400AA6551 /* csdebug.h */; };
-		EAF365881ADB5EE400AA6551 /* csdl.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3656D1ADB5EE400AA6551 /* csdl.h */; };
-		EAF365891ADB5EE400AA6551 /* csound.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3656E1ADB5EE400AA6551 /* csound.h */; };
-		EAF3658A1ADB5EE400AA6551 /* csound.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF3656F1ADB5EE400AA6551 /* csound.hpp */; };
-		EAF3658B1ADB5EE400AA6551 /* csound_data_structures.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365701ADB5EE400AA6551 /* csound_data_structures.h */; };
-		EAF3658C1ADB5EE400AA6551 /* csound_standard_types.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365711ADB5EE400AA6551 /* csound_standard_types.h */; };
-		EAF3658D1ADB5EE400AA6551 /* csound_type_system.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365721ADB5EE400AA6551 /* csound_type_system.h */; };
-		EAF3658E1ADB5EE400AA6551 /* csoundCore.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365731ADB5EE400AA6551 /* csoundCore.h */; };
-		EAF3658F1ADB5EE400AA6551 /* CsoundFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF365741ADB5EE400AA6551 /* CsoundFile.hpp */; };
-		EAF365901ADB5EE400AA6551 /* csPerfThread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF365751ADB5EE400AA6551 /* csPerfThread.hpp */; };
-		EAF365911ADB5EE400AA6551 /* cwindow.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365761ADB5EE400AA6551 /* cwindow.h */; };
-		EAF365921ADB5EE400AA6551 /* filebuilding.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365771ADB5EE400AA6551 /* filebuilding.h */; };
-		EAF365931ADB5EE400AA6551 /* float-version.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365781ADB5EE400AA6551 /* float-version.h */; };
-		EAF365941ADB5EE400AA6551 /* interlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365791ADB5EE400AA6551 /* interlocks.h */; };
-		EAF365951ADB5EE400AA6551 /* msg_attr.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3657A1ADB5EE400AA6551 /* msg_attr.h */; };
-		EAF365961ADB5EE400AA6551 /* OpcodeBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF3657B1ADB5EE400AA6551 /* OpcodeBase.hpp */; };
-		EAF365971ADB5EE400AA6551 /* pools.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3657C1ADB5EE400AA6551 /* pools.h */; };
-		EAF365981ADB5EE400AA6551 /* pstream.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3657D1ADB5EE400AA6551 /* pstream.h */; };
-		EAF365991ADB5EE400AA6551 /* pvfileio.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3657E1ADB5EE400AA6551 /* pvfileio.h */; };
-		EAF3659A1ADB5EE400AA6551 /* soundio.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF3657F1ADB5EE400AA6551 /* soundio.h */; };
-		EAF3659B1ADB5EE400AA6551 /* sysdep.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365801ADB5EE400AA6551 /* sysdep.h */; };
-		EAF3659C1ADB5EE400AA6551 /* text.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365811ADB5EE400AA6551 /* text.h */; };
-		EAF3659D1ADB5EE400AA6551 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF365821ADB5EE400AA6551 /* version.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1629,34 +1602,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAF3659B1ADB5EE400AA6551 /* sysdep.h in Headers */,
-				EAF3658C1ADB5EE400AA6551 /* csound_standard_types.h in Headers */,
-				EAF365871ADB5EE400AA6551 /* csdebug.h in Headers */,
-				EAF365881ADB5EE400AA6551 /* csdl.h in Headers */,
-				EAF365891ADB5EE400AA6551 /* csound.h in Headers */,
-				EAF365901ADB5EE400AA6551 /* csPerfThread.hpp in Headers */,
-				EAF3658E1ADB5EE400AA6551 /* csoundCore.h in Headers */,
-				EAF365991ADB5EE400AA6551 /* pvfileio.h in Headers */,
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
-				EAF365941ADB5EE400AA6551 /* interlocks.h in Headers */,
-				EAF365921ADB5EE400AA6551 /* filebuilding.h in Headers */,
-				EAF365851ADB5EE400AA6551 /* cs_par_structs.h in Headers */,
-				EAF365861ADB5EE400AA6551 /* cscore.h in Headers */,
-				EAF365931ADB5EE400AA6551 /* float-version.h in Headers */,
-				EAF3658F1ADB5EE400AA6551 /* CsoundFile.hpp in Headers */,
-				EAF365911ADB5EE400AA6551 /* cwindow.h in Headers */,
-				EAF3658B1ADB5EE400AA6551 /* csound_data_structures.h in Headers */,
-				EAF3658A1ADB5EE400AA6551 /* csound.hpp in Headers */,
-				EAF365971ADB5EE400AA6551 /* pools.h in Headers */,
-				EAF365961ADB5EE400AA6551 /* OpcodeBase.hpp in Headers */,
-				EAF365831ADB5EE400AA6551 /* cfgvar.h in Headers */,
-				EAF3659D1ADB5EE400AA6551 /* version.h in Headers */,
-				EAF3659C1ADB5EE400AA6551 /* text.h in Headers */,
-				EAF365951ADB5EE400AA6551 /* msg_attr.h in Headers */,
-				EAF365981ADB5EE400AA6551 /* pstream.h in Headers */,
-				EAF3659A1ADB5EE400AA6551 /* soundio.h in Headers */,
-				EAF365841ADB5EE400AA6551 /* CppSound.hpp in Headers */,
-				EAF3658D1ADB5EE400AA6551 /* csound_type_system.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
