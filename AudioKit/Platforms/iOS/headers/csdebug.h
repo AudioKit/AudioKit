@@ -157,13 +157,16 @@ typedef void (*breakpoint_cb_t) (CSOUND *, debug_bkpt_info_t *, void *userdata);
 
 typedef struct csdebug_data_s {
     void *bkpt_buffer; /* for passing breakpoints to the running engine */
-    void *cmd_buffer; /* for passing commands to the running engine */
+    void *cmd_buffer;     /* for passing commands to the running engine */
     debug_status_t status;
-    bkpt_node_t *bkpt_anchor; /* linked list for breakpoints */
+    bkpt_node_t *bkpt_anchor;            /* linked list for breakpoints */
+    bkpt_node_t *cur_bkpt;   /* current breakpoint where we are stopped */
     breakpoint_cb_t bkpt_cb;
     void *cb_data;
-    void *debug_instr_ptr; /* != NULL when stopped at a breakpoint. Holds INSDS * */
-    void *debug_opcode_ptr; /* != NULL when stopped at a line breakpoint. Holds OPDS * */
+    void *debug_instr_ptr;      /* != NULL when stopped at a breakpoint.
+                                   Holds INSDS * */
+    void *debug_opcode_ptr; /* != NULL when stopped at a line breakpoint.
+                               Holds OPDS * */
 } csdebug_data_t;
 
 /** Intialize debugger facilities
@@ -186,9 +189,12 @@ PUBLIC void csoundDebuggerClean(CSOUND *csound);
 
 /** Set a breakpoint on a particular line
  *
- * @param csound A Csound instance
- * @param line The line on which to set a breakpoint
- * @param instr When set to 0, the line number refers to the line number in the score. When a number is given, it should refer to an instrument that has been compiled on the fly using csoundParseOrc().
+ * @param csound A Csound instance @param line The line on which to
+ * set a breakpoint
+ * @param instr When set to 0, the line number refers
+ * to the line number in the score. When a number is given, it should
+ * refer to an instrument that has been compiled on the fly using
+ * csoundParseOrc().
  * @param skip number of control blocks to skip
  *
 */
@@ -242,7 +248,8 @@ PUBLIC void csoundClearBreakpoints(CSOUND *csound);
  * @param userdata pointer to user data that will be passed to the callback
  * function
  */
-PUBLIC void csoundSetBreakpointCallback(CSOUND *csound, breakpoint_cb_t bkpt_cb, void *userdata);
+PUBLIC void csoundSetBreakpointCallback(CSOUND *csound,
+                                        breakpoint_cb_t bkpt_cb, void *userdata);
 
 /* Not implemented yet, so not exposed in the API
 PUBLIC void csoundDebugStepOver(CSOUND *csound);
@@ -251,8 +258,8 @@ PUBLIC void csoundDebugStepInto(CSOUND *csound);
 
 /** Continue execution and break at next instrument instance
  *
- * Call this function to continue execution but automatically stop at next instrument
- * instance.
+ * Call this function to continue execution but automatically stop at
+ * next instrument instance.
  */
 PUBLIC void csoundDebugNext(CSOUND *csound);
 

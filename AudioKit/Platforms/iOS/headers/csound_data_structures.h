@@ -103,7 +103,7 @@ PUBLIC void cs_hash_table_remove(CSOUND* csound,
 
 /** Merges in all items from the the source table into the target
  table.  Entries with identical keys from the source table will
- replace entries in the target table. */
+ replace entries in the target table. Note: wipes out source table. */
 PUBLIC void cs_hash_table_merge(CSOUND* csound,
                                 CS_HASH_TABLE* target, CS_HASH_TABLE* source);
 
