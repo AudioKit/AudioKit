@@ -44,13 +44,13 @@ static AKManager *_sharedManager = nil;
         if (name) {
             // This is an app that will contain the framework
             NSString *rawWavesDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/RawWaves", name];
-            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/Opcodes64", name];
-            csoundSetGlobalEnv("OPCODE6DIR64", [opcodeDir   cStringUsingEncoding:NSUTF8StringEncoding]);
+            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/Opcodes", name];
+            csoundSetGlobalEnv("OPCODE6DIR", [opcodeDir   cStringUsingEncoding:NSUTF8StringEncoding]);
             csoundSetGlobalEnv("RAWWAVE_PATH", [rawWavesDir cStringUsingEncoding:NSUTF8StringEncoding]);
         } else {
             // This is a command-line program that sits beside the framework
             csoundSetGlobalEnv("RAWWAVE_PATH", "CsoundLib.framework/Resources/RawWaves");
-            csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib.framework/Resources/Opcodes64");
+            csoundSetGlobalEnv("OPCODE6DIR", "CsoundLib.framework/Resources/Opcodes");
         }
         return _sharedManager;
     }
