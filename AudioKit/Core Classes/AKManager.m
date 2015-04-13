@@ -112,9 +112,8 @@ static AKManager *_sharedManager = nil;
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = paths[0];
-        csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        csdFile = [NSString stringWithFormat:@"%@/.new.csd", paths[0]];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
     }
@@ -146,11 +145,14 @@ static AKManager *_sharedManager = nil;
     NSString *newCSD = [NSString stringWithFormat:
                         templateString,
                         options, [orchestra stringForCSD], totalRunDuration];
-
-    [newCSD writeToFile:csdFile 
-             atomically:YES  
-               encoding:NSStringEncodingConversionAllowLossy 
-                  error:nil];
+    NSError *err;
+    
+    if ([newCSD writeToFile:csdFile
+                 atomically:YES
+                   encoding:NSStringEncodingConversionAllowLossy
+                      error:&err] == NO) {
+        NSLog(@"Failed to write CSD file: %@", err);
+    }
 }
 
 - (void)runOrchestra
