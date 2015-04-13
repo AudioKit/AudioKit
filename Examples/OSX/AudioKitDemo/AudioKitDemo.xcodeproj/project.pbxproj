@@ -21,9 +21,9 @@
 		C47546BA1A9BDA11006151DE /* TouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C47546B91A9BDA11006151DE /* TouchView.m */; };
 		EA5D42151AD4BBFD00BEA03A /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42121AD4BBDD00BEA03A /* libAudioKit OS X.a */; };
 		EA5D42171AD4BC0100BEA03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42161AD4BC0100BEA03A /* AVFoundation.framework */; };
-		EA5D421A1AD4BC3200BEA03A /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42191AD4BC3200BEA03A /* CsoundLib64.framework */; };
-		EA5D421B1AD4BC4A00BEA03A /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EA5D42191AD4BC3200BEA03A /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAB29D731AD51CC8000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */; };
+		EAF365651ADB591400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365641ADB591400AA6551 /* CsoundLib.framework */; };
+		EAF365661ADB5AA700AA6551 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EAF365641ADB591400AA6551 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +57,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA5D421B1AD4BC4A00BEA03A /* CsoundLib64.framework in CopyFiles */,
+				EAF365661ADB5AA700AA6551 /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,8 +89,8 @@
 		C47546B91A9BDA11006151DE /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchView.m; path = Synthesis/TouchView.m; sourceTree = "<group>"; };
 		EA5D420A1AD4BBDD00BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D42161AD4BC0100BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EA5D42191AD4BC3200BEA03A /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib64.framework; sourceTree = SOURCE_ROOT; };
 		EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EAF365641ADB591400AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF365651ADB591400AA6551 /* CsoundLib.framework in Frameworks */,
 				EA5D42171AD4BC0100BEA03A /* AVFoundation.framework in Frameworks */,
-				EA5D421A1AD4BC3200BEA03A /* CsoundLib64.framework in Frameworks */,
 				EA5D42151AD4BBFD00BEA03A /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,7 +216,7 @@
 		EA5D42181AD4BC1500BEA03A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA5D42191AD4BC3200BEA03A /* CsoundLib64.framework */,
+				EAF365641ADB591400AA6551 /* CsoundLib.framework */,
 				EA5D42161AD4BC0100BEA03A /* AVFoundation.framework */,
 			);
 			name = Frameworks;
@@ -325,7 +325,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib64.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib64.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib64\"\nfor TARGET in ${TARGETS} ; do\nLIBFILE=${LIBPATH}/${TARGET}\nTARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\nNEWTARGETID=${NEWLIBPATH}/${TARGET}\ninstall_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\ninstall_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\ninstall_name_tool -change CsoundLib64.framework/Versions/6.0/CsoundLib64 @executable_path/../Frameworks/CsoundLib64.framework/Versions/6.0/CsoundLib64 $TARGET_BUILD_DIR/$EXECUTABLE_PATH\ndone";
+			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib\"\nfor TARGET in ${TARGETS} ; do\n    LIBFILE=${LIBPATH}/${TARGET}\n    TARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\n    NEWTARGETID=${NEWLIBPATH}/${TARGET}\n    install_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\n    install_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\n    install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
