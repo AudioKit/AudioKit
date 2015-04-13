@@ -156,7 +156,7 @@ public:
   virtual void SetOutput(char *name, char *type, char *format){
     csoundSetOutput(csound, name, type, format);
   }
-  virtual void SetInput(char *name, char *type){
+  virtual void SetInput(char *name){
     csoundSetInput(csound, name);
   }
   virtual void SetMIDIInput(char *name){
@@ -840,7 +840,7 @@ public:
     #else
     pydata = NULL;
     #endif
-    
+
   }
   Csound(void *hostData)
   {

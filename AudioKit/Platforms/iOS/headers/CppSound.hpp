@@ -20,6 +20,7 @@
 #ifndef CSND_CPPSOUND_H
 #define CSND_CPPSOUND_H
 
+#include "float-version.h"
 #ifndef __MYFLT_DEF
 #define __MYFLT_DEF
 #ifdef USE_DOUBLE
@@ -30,7 +31,7 @@
 #endif
 
 #ifdef SWIG
-%module csnd
+%module csnd6
 %include "std_string.i"
 %include "std_vector.i"
 %apply std::vector<double> *INPUT { std::vector<double> const & };
@@ -77,7 +78,7 @@ public:
   virtual std::string getOutputSoundfileName() const;
   virtual int perform(int argc, char **argv);
   virtual int perform();
-  virtual int performKsmps(bool absolute);
+  virtual int performKsmps();
   virtual void cleanup();
   virtual void inputMessage(const char *istatement);
   virtual void write(const char *text);

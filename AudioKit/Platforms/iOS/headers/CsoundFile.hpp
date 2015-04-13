@@ -20,18 +20,20 @@
 #ifndef CSOUNDFILE_H
 #define CSOUNDFILE_H
 
+#if 0
 #undef MYFLT
 #ifdef USE_DOUBLE
 #define MYFLT double
 #else
 #define MYFLT float
 #endif
+#endif
 
 #if defined(_MSC_VER) && !defined(__GNUC__)
 #pragma warning(disable: 4786)
 #endif
 #ifdef SWIG
-%module csnd
+%module csnd6
 %include "std_string.i"
 %include "std_vector.i"
 #if !defined(SWIGLUA)
@@ -51,15 +53,18 @@
 #include <sstream>
 #include <stdlib.h>
 
-#if defined(WIN32)
-#define PUBLIC __declspec(dllexport)
-#include <io.h>
-#elif defined(__GNUC__) && !defined(__MACH__)
-#if !defined(PUBLIC)
-#define PUBLIC __attribute__ ( (visibility("default")) )
-#endif
+#ifndef PUBLIC
+#if (defined(WIN32) || defined(_WIN32)) && !defined(SWIG)
+#  define PUBLIC        __declspec(dllexport)
+#elif defined(__GNUC__) && (__GNUC__ >= 4) /* && !defined(__MACH__) */
+#  define PUBLIC        __attribute__ ( (visibility("default")) )
 #else
-#define PUBLIC
+#  define PUBLIC
+#endif
+#endif
+
+#if defined(WIN32)
+#include <io.h>
 #endif
 #endif
 

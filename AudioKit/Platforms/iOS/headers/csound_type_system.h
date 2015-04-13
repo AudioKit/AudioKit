@@ -44,20 +44,21 @@ extern "C" {
         struct csvariable* (*createVariable)(void*, void*);
         void (*copyValue)(void* csound, void* dest, void* src);
         struct cstype** unionTypes;
+        void (*freeVariableMemory)(void* csound, void* varMem);
     } CS_TYPE;
 
     typedef struct csvarmem {
         CS_TYPE* varType;
         MYFLT value;
     } CS_VAR_MEM;
-    
+
 #define CS_VAR_TYPE_OFFSET (sizeof(CS_VAR_MEM) - sizeof(MYFLT))
-    
+
     typedef struct csvariable {
         char* varName;
         CS_TYPE* varType;
         int memBlockSize; /* Must be a multiple of sizeof(MYFLT), as
-                             Csound uses MYFLT* and pointer arithmetic 
+                             Csound uses MYFLT* and pointer arithmetic
                              to assign var locations */
         int memBlockIndex;
         int dimensions;  // used by arrays
@@ -69,7 +70,7 @@ extern "C" {
         CS_VAR_MEM *memBlock;
     } CS_VARIABLE;
 
-    
+
 //    typedef struct cstypeinstance {
 //        CS_TYPE* varType;
 //        CS_VARIABLE* (*createVariable)(void*, void*);
@@ -109,6 +110,7 @@ extern "C" {
         int poolSize;
         struct csvarpool* parent;
         int varCount;
+        int synthArgCount;
     } CS_VAR_POOL;
 
     PUBLIC CS_VAR_POOL* csoundCreateVarPool(CSOUND* csound);

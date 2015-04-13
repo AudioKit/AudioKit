@@ -25,6 +25,10 @@
 
 #ifndef CSOUND_TEXT_H
 #define CSOUND_TEXT_H
+#ifndef __GNUC__
+#  define  __attribute__(x)  /*NOTHING*/
+#endif
+
 
 /* list of languages */
 
