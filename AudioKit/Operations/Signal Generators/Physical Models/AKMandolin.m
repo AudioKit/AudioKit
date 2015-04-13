@@ -34,9 +34,8 @@
         
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
-        }
+        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
+
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
         [self setUpConnections];
@@ -58,9 +57,8 @@
         
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
-        }
+        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
+
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
         [self setUpConnections];
