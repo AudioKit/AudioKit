@@ -343,10 +343,10 @@
 		EA8E97121AD3CA4C0057E979 /* AKSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A01AD3C6850057E979 /* AKSequence.m */; };
 		EA8E97131AD3CA4C0057E979 /* AKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A31AD3C6850057E979 /* AKNote.m */; };
 		EA8E97141AD3CA4C0057E979 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A51AD3C6850057E979 /* AKNoteProperty.m */; };
-		EA8E97151AD3CA6A0057E979 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E95931AD3C6850057E979 /* CsoundLib64.framework */; };
 		EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = EA95E9EF1AD5EC50007FC41F /* AKSettings.h */; };
 		EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 		EA95E9F31AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
+		EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365601ADB414400AA6551 /* CsoundLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -725,7 +725,6 @@
 		EA8E958F1AD3C6850057E979 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
 		EA8E95901AD3C6850057E979 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		EA8E95911AD3C6850057E979 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
-		EA8E95931AD3C6850057E979 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib64.framework; sourceTree = "<group>"; };
 		EA8E95971AD3C6850057E979 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		EA8E95991AD3C6850057E979 /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
 		EA8E959B1AD3C6850057E979 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -742,6 +741,7 @@
 		EA8E971A1AD3CF000057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = AudioKit/AKSoundFiles.bundle; sourceTree = SOURCE_ROOT; };
 		EA95E9EF1AD5EC50007FC41F /* AKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSettings.h; sourceTree = "<group>"; };
 		EA95E9F01AD5EC50007FC41F /* AKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSettings.m; sourceTree = "<group>"; };
+		EAF365601ADB414400AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -758,7 +758,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA8E97151AD3CA6A0057E979 /* CsoundLib64.framework in Frameworks */,
+				EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1537,7 +1537,7 @@
 		EA8E95921AD3C6850057E979 /* OSX */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E95931AD3C6850057E979 /* CsoundLib64.framework */,
+				EAF365601ADB414400AA6551 /* CsoundLib.framework */,
 			);
 			path = OSX;
 			sourceTree = "<group>";
