@@ -43,14 +43,14 @@ static AKManager *_sharedManager = nil;
         NSString *name = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
         if (name) {
             // This is an app that will contain the framework
-            NSString *rawWavesDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/RawWaves", name];
-            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/Opcodes64", name];
+            NSString *rawWavesDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/RawWaves", name];
+            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/Opcodes64", name];
             csoundSetGlobalEnv("OPCODE6DIR64", [opcodeDir   cStringUsingEncoding:NSUTF8StringEncoding]);
             csoundSetGlobalEnv("RAWWAVE_PATH", [rawWavesDir cStringUsingEncoding:NSUTF8StringEncoding]);
         } else {
             // This is a command-line program that sits beside the framework
-            csoundSetGlobalEnv("RAWWAVE_PATH", "CsoundLib64.framework/Resources/RawWaves");
-            csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib64.framework/Resources/Opcodes64");
+            csoundSetGlobalEnv("RAWWAVE_PATH", "CsoundLib.framework/Resources/RawWaves");
+            csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib.framework/Resources/Opcodes64");
         }
         return _sharedManager;
     }
