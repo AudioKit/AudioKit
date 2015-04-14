@@ -127,7 +127,7 @@ OSStatus  Csound_Render(void *inRefCon,
     self.shouldRecord = NO;
     
     [self performSelectorInBackground:@selector(runCsoundToDisk:)
-                           withObject:[NSArray arrayWithObjects:csdFilePath, outputFile, nil]];
+                           withObject:@[csdFilePath, outputFile]];
 }
 
 - (void)recordToURL:(NSURL *)outputURL_
