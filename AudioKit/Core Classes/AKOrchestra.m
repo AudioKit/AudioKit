@@ -140,14 +140,14 @@
 - (NSString *) stringForCSD
 {
     return [NSString stringWithFormat:
-            @"nchnls = %d \n"
-            @"sr     = %d \n"
+            @"nchnls = %@ \n"
+            @"sr     = %@ \n"
             @"0dbfs  = %g \n"
-            @"ksmps  = %d \n",
-            _numberOfChannels,
-            _sampleRate,
+            @"ksmps  = %@ \n",
+            @(_numberOfChannels),
+            @(_sampleRate),
             _zeroDBFullScaleValue,
-            _samplesPerControlPeriod];
+            @(_samplesPerControlPeriod)];
 }
 
 @end
