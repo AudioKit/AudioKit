@@ -113,12 +113,18 @@ static AKManager *_sharedManager = nil;
         "</CsoundSynthesizer>\n";
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        csdFile = [NSString stringWithFormat:@"%@/.new.csd", paths[0]];
+        csdFile = [NSString stringWithFormat:@"%@/AudioKit.csd", paths[0]];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
     }
     return self;
-}   
+}
+
+// FIXME: Ironically, since we have a singleton this will likely never get called
+- (void)dealloc
+{
+    [[NSFileManager defaultManager] removeItemAtPath:csdFile error:nil];
+}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Handling CSD Files
