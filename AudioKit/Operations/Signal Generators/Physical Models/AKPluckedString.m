@@ -32,9 +32,7 @@
         _amplitude = amplitude;
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-        }
+        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
         
         AKSoundFileTable *_strikeImpulseTable;
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
@@ -58,9 +56,7 @@
         _amplitude = akp(1.0);
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-        }
+        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
         
         AKSoundFileTable *_strikeImpulseTable;
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];

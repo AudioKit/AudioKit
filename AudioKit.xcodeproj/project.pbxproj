@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA08B5701AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
+		EA08B5711AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA8E95A61AD3C6850057E979 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E93F51AD3C6840057E979 /* AKManager.m */; };
 		EA8E95A71AD3C6850057E979 /* AKOrchestra.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E93F71AD3C6840057E979 /* AKOrchestra.m */; };
 		EA8E95A81AD3C6850057E979 /* AKMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E93FB1AD3C6840057E979 /* AKMidi.m */; };
@@ -170,7 +172,6 @@
 		EA8E96461AD3C6850057E979 /* AKBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95691AD3C6850057E979 /* AKBalance.m */; };
 		EA8E96471AD3C6850057E979 /* AKMix.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E956B1AD3C6850057E979 /* AKMix.m */; };
 		EA8E96481AD3C6850057E979 /* AKPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E956D1AD3C6850057E979 /* AKPanner.m */; };
-		EA8E96491AD3C6850057E979 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95721AD3C6850057E979 /* CsoundObj.m */; };
 		EA8E964A1AD3C6850057E979 /* libcsound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E958F1AD3C6850057E979 /* libcsound.a */; };
 		EA8E964B1AD3C6850057E979 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E95901AD3C6850057E979 /* libsndfile.a */; };
 		EA8E96501AD3C6850057E979 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E959C1AD3C6850057E979 /* AKEvent.m */; };
@@ -337,16 +338,15 @@
 		EA8E970C1AD3CA4C0057E979 /* AKBalance.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95691AD3C6850057E979 /* AKBalance.m */; };
 		EA8E970D1AD3CA4C0057E979 /* AKMix.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E956B1AD3C6850057E979 /* AKMix.m */; };
 		EA8E970E1AD3CA4C0057E979 /* AKPanner.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E956D1AD3C6850057E979 /* AKPanner.m */; };
-		EA8E970F1AD3CA4C0057E979 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95951AD3C6850057E979 /* CsoundObj.m */; };
 		EA8E97101AD3CA4C0057E979 /* AKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E959C1AD3C6850057E979 /* AKEvent.m */; };
 		EA8E97111AD3CA4C0057E979 /* AKPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E959E1AD3C6850057E979 /* AKPhrase.m */; };
 		EA8E97121AD3CA4C0057E979 /* AKSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A01AD3C6850057E979 /* AKSequence.m */; };
 		EA8E97131AD3CA4C0057E979 /* AKNote.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A31AD3C6850057E979 /* AKNote.m */; };
 		EA8E97141AD3CA4C0057E979 /* AKNoteProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95A51AD3C6850057E979 /* AKNoteProperty.m */; };
-		EA8E97151AD3CA6A0057E979 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E95931AD3C6850057E979 /* CsoundLib64.framework */; };
 		EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = EA95E9EF1AD5EC50007FC41F /* AKSettings.h */; };
 		EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 		EA95E9F31AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
+		EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365601ADB414400AA6551 /* CsoundLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -362,6 +362,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EA08B56D1AD8985F00949FD5 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
+		EA08B56E1AD8985F00949FD5 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA8E93D81AD3C5240057E979 /* libAudioKit iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8E93F31AD3C6840057E979 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
 		EA8E93F41AD3C6840057E979 /* AKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKManager.h; sourceTree = "<group>"; };
@@ -694,40 +696,9 @@
 		EA8E956B1AD3C6850057E979 /* AKMix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMix.m; sourceTree = "<group>"; };
 		EA8E956C1AD3C6850057E979 /* AKPanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPanner.h; sourceTree = "<group>"; };
 		EA8E956D1AD3C6850057E979 /* AKPanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPanner.m; sourceTree = "<group>"; };
-		EA8E95711AD3C6850057E979 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
-		EA8E95721AD3C6850057E979 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
-		EA8E95741AD3C6850057E979 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
-		EA8E95751AD3C6850057E979 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
-		EA8E95761AD3C6850057E979 /* cs_par_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_par_structs.h; sourceTree = "<group>"; };
-		EA8E95771AD3C6850057E979 /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cscore.h; sourceTree = "<group>"; };
-		EA8E95781AD3C6850057E979 /* csdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdebug.h; sourceTree = "<group>"; };
-		EA8E95791AD3C6850057E979 /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdl.h; sourceTree = "<group>"; };
-		EA8E957A1AD3C6850057E979 /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound.h; sourceTree = "<group>"; };
-		EA8E957B1AD3C6850057E979 /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound.hpp; sourceTree = "<group>"; };
-		EA8E957C1AD3C6850057E979 /* csound_data_structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_data_structures.h; sourceTree = "<group>"; };
-		EA8E957D1AD3C6850057E979 /* csound_standard_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_standard_types.h; sourceTree = "<group>"; };
-		EA8E957E1AD3C6850057E979 /* csound_type_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_type_system.h; sourceTree = "<group>"; };
-		EA8E957F1AD3C6850057E979 /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csoundCore.h; sourceTree = "<group>"; };
-		EA8E95801AD3C6850057E979 /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CsoundFile.hpp; sourceTree = "<group>"; };
-		EA8E95811AD3C6850057E979 /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwindow.h; sourceTree = "<group>"; };
-		EA8E95821AD3C6850057E979 /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filebuilding.h; sourceTree = "<group>"; };
-		EA8E95831AD3C6850057E979 /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "float-version.h"; sourceTree = "<group>"; };
-		EA8E95841AD3C6850057E979 /* interlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interlocks.h; sourceTree = "<group>"; };
-		EA8E95851AD3C6850057E979 /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_attr.h; sourceTree = "<group>"; };
-		EA8E95861AD3C6850057E979 /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpcodeBase.hpp; sourceTree = "<group>"; };
-		EA8E95871AD3C6850057E979 /* pools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pools.h; sourceTree = "<group>"; };
-		EA8E95881AD3C6850057E979 /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstream.h; sourceTree = "<group>"; };
-		EA8E95891AD3C6850057E979 /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pvfileio.h; sourceTree = "<group>"; };
-		EA8E958A1AD3C6850057E979 /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundio.h; sourceTree = "<group>"; };
-		EA8E958B1AD3C6850057E979 /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
-		EA8E958C1AD3C6850057E979 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
-		EA8E958D1AD3C6850057E979 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		EA8E958F1AD3C6850057E979 /* libcsound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcsound.a; sourceTree = "<group>"; };
 		EA8E95901AD3C6850057E979 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		EA8E95911AD3C6850057E979 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
-		EA8E95931AD3C6850057E979 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib64.framework; sourceTree = "<group>"; };
-		EA8E95941AD3C6850057E979 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
-		EA8E95951AD3C6850057E979 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA8E95971AD3C6850057E979 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		EA8E95991AD3C6850057E979 /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
 		EA8E959B1AD3C6850057E979 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
@@ -744,6 +715,34 @@
 		EA8E971A1AD3CF000057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = AudioKit/AKSoundFiles.bundle; sourceTree = SOURCE_ROOT; };
 		EA95E9EF1AD5EC50007FC41F /* AKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSettings.h; sourceTree = "<group>"; };
 		EA95E9F01AD5EC50007FC41F /* AKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSettings.m; sourceTree = "<group>"; };
+		EAF365601ADB414400AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib.framework; sourceTree = "<group>"; };
+		EAF365681ADB5EE400AA6551 /* cfgvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfgvar.h; sourceTree = "<group>"; };
+		EAF365691ADB5EE400AA6551 /* CppSound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CppSound.hpp; sourceTree = "<group>"; };
+		EAF3656A1ADB5EE400AA6551 /* cs_par_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_par_structs.h; sourceTree = "<group>"; };
+		EAF3656B1ADB5EE400AA6551 /* cscore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cscore.h; sourceTree = "<group>"; };
+		EAF3656C1ADB5EE400AA6551 /* csdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdebug.h; sourceTree = "<group>"; };
+		EAF3656D1ADB5EE400AA6551 /* csdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csdl.h; sourceTree = "<group>"; };
+		EAF3656E1ADB5EE400AA6551 /* csound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound.h; sourceTree = "<group>"; };
+		EAF3656F1ADB5EE400AA6551 /* csound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csound.hpp; sourceTree = "<group>"; };
+		EAF365701ADB5EE400AA6551 /* csound_data_structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_data_structures.h; sourceTree = "<group>"; };
+		EAF365711ADB5EE400AA6551 /* csound_standard_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_standard_types.h; sourceTree = "<group>"; };
+		EAF365721ADB5EE400AA6551 /* csound_type_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csound_type_system.h; sourceTree = "<group>"; };
+		EAF365731ADB5EE400AA6551 /* csoundCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csoundCore.h; sourceTree = "<group>"; };
+		EAF365741ADB5EE400AA6551 /* CsoundFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CsoundFile.hpp; sourceTree = "<group>"; };
+		EAF365751ADB5EE400AA6551 /* csPerfThread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csPerfThread.hpp; sourceTree = "<group>"; };
+		EAF365761ADB5EE400AA6551 /* cwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwindow.h; sourceTree = "<group>"; };
+		EAF365771ADB5EE400AA6551 /* filebuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filebuilding.h; sourceTree = "<group>"; };
+		EAF365781ADB5EE400AA6551 /* float-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "float-version.h"; sourceTree = "<group>"; };
+		EAF365791ADB5EE400AA6551 /* interlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interlocks.h; sourceTree = "<group>"; };
+		EAF3657A1ADB5EE400AA6551 /* msg_attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_attr.h; sourceTree = "<group>"; };
+		EAF3657B1ADB5EE400AA6551 /* OpcodeBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OpcodeBase.hpp; sourceTree = "<group>"; };
+		EAF3657C1ADB5EE400AA6551 /* pools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pools.h; sourceTree = "<group>"; };
+		EAF3657D1ADB5EE400AA6551 /* pstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstream.h; sourceTree = "<group>"; };
+		EAF3657E1ADB5EE400AA6551 /* pvfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pvfileio.h; sourceTree = "<group>"; };
+		EAF3657F1ADB5EE400AA6551 /* soundio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundio.h; sourceTree = "<group>"; };
+		EAF365801ADB5EE400AA6551 /* sysdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
+		EAF365811ADB5EE400AA6551 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
+		EAF365821ADB5EE400AA6551 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -760,13 +759,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA8E97151AD3CA6A0057E979 /* CsoundLib64.framework in Frameworks */,
+				EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA08B56C1AD8985F00949FD5 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EAF365671ADB5EE400AA6551 /* Csound Headers */,
+				EA08B56D1AD8985F00949FD5 /* CsoundObj.h */,
+				EA08B56E1AD8985F00949FD5 /* CsoundObj.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		EA8E93CF1AD3C5240057E979 = {
 			isa = PBXGroup;
 			children = (
@@ -1466,6 +1475,7 @@
 		EA8E956E1AD3C6850057E979 /* Platforms */ = {
 			isa = PBXGroup;
 			children = (
+				EA08B56C1AD8985F00949FD5 /* Common */,
 				EA8E956F1AD3C6850057E979 /* iOS */,
 				EA8E95921AD3C6850057E979 /* OSX */,
 				EA8E95961AD3C6850057E979 /* Swift */,
@@ -1476,54 +1486,10 @@
 		EA8E956F1AD3C6850057E979 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E95701AD3C6850057E979 /* classes */,
-				EA8E95731AD3C6850057E979 /* headers */,
 				EA8E958E1AD3C6850057E979 /* libs */,
 				EA8E95911AD3C6850057E979 /* LICENSE.TXT */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		EA8E95701AD3C6850057E979 /* classes */ = {
-			isa = PBXGroup;
-			children = (
-				EA8E95711AD3C6850057E979 /* CsoundObj.h */,
-				EA8E95721AD3C6850057E979 /* CsoundObj.m */,
-			);
-			path = classes;
-			sourceTree = "<group>";
-		};
-		EA8E95731AD3C6850057E979 /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				EA8E95741AD3C6850057E979 /* cfgvar.h */,
-				EA8E95751AD3C6850057E979 /* CppSound.hpp */,
-				EA8E95761AD3C6850057E979 /* cs_par_structs.h */,
-				EA8E95771AD3C6850057E979 /* cscore.h */,
-				EA8E95781AD3C6850057E979 /* csdebug.h */,
-				EA8E95791AD3C6850057E979 /* csdl.h */,
-				EA8E957A1AD3C6850057E979 /* csound.h */,
-				EA8E957B1AD3C6850057E979 /* csound.hpp */,
-				EA8E957C1AD3C6850057E979 /* csound_data_structures.h */,
-				EA8E957D1AD3C6850057E979 /* csound_standard_types.h */,
-				EA8E957E1AD3C6850057E979 /* csound_type_system.h */,
-				EA8E957F1AD3C6850057E979 /* csoundCore.h */,
-				EA8E95801AD3C6850057E979 /* CsoundFile.hpp */,
-				EA8E95811AD3C6850057E979 /* cwindow.h */,
-				EA8E95821AD3C6850057E979 /* filebuilding.h */,
-				EA8E95831AD3C6850057E979 /* float-version.h */,
-				EA8E95841AD3C6850057E979 /* interlocks.h */,
-				EA8E95851AD3C6850057E979 /* msg_attr.h */,
-				EA8E95861AD3C6850057E979 /* OpcodeBase.hpp */,
-				EA8E95871AD3C6850057E979 /* pools.h */,
-				EA8E95881AD3C6850057E979 /* pstream.h */,
-				EA8E95891AD3C6850057E979 /* pvfileio.h */,
-				EA8E958A1AD3C6850057E979 /* soundio.h */,
-				EA8E958B1AD3C6850057E979 /* sysdep.h */,
-				EA8E958C1AD3C6850057E979 /* text.h */,
-				EA8E958D1AD3C6850057E979 /* version.h */,
-			);
-			path = headers;
 			sourceTree = "<group>";
 		};
 		EA8E958E1AD3C6850057E979 /* libs */ = {
@@ -1538,9 +1504,7 @@
 		EA8E95921AD3C6850057E979 /* OSX */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E95931AD3C6850057E979 /* CsoundLib64.framework */,
-				EA8E95941AD3C6850057E979 /* CsoundObj.h */,
-				EA8E95951AD3C6850057E979 /* CsoundObj.m */,
+				EAF365601ADB414400AA6551 /* CsoundLib.framework */,
 			);
 			path = OSX;
 			sourceTree = "<group>";
@@ -1595,6 +1559,41 @@
 			name = Resources;
 			path = AudioKit/Notes;
 			sourceTree = SOURCE_ROOT;
+		};
+		EAF365671ADB5EE400AA6551 /* Csound Headers */ = {
+			isa = PBXGroup;
+			children = (
+				EAF365681ADB5EE400AA6551 /* cfgvar.h */,
+				EAF365691ADB5EE400AA6551 /* CppSound.hpp */,
+				EAF3656A1ADB5EE400AA6551 /* cs_par_structs.h */,
+				EAF3656B1ADB5EE400AA6551 /* cscore.h */,
+				EAF3656C1ADB5EE400AA6551 /* csdebug.h */,
+				EAF3656D1ADB5EE400AA6551 /* csdl.h */,
+				EAF3656E1ADB5EE400AA6551 /* csound.h */,
+				EAF3656F1ADB5EE400AA6551 /* csound.hpp */,
+				EAF365701ADB5EE400AA6551 /* csound_data_structures.h */,
+				EAF365711ADB5EE400AA6551 /* csound_standard_types.h */,
+				EAF365721ADB5EE400AA6551 /* csound_type_system.h */,
+				EAF365731ADB5EE400AA6551 /* csoundCore.h */,
+				EAF365741ADB5EE400AA6551 /* CsoundFile.hpp */,
+				EAF365751ADB5EE400AA6551 /* csPerfThread.hpp */,
+				EAF365761ADB5EE400AA6551 /* cwindow.h */,
+				EAF365771ADB5EE400AA6551 /* filebuilding.h */,
+				EAF365781ADB5EE400AA6551 /* float-version.h */,
+				EAF365791ADB5EE400AA6551 /* interlocks.h */,
+				EAF3657A1ADB5EE400AA6551 /* msg_attr.h */,
+				EAF3657B1ADB5EE400AA6551 /* OpcodeBase.hpp */,
+				EAF3657C1ADB5EE400AA6551 /* pools.h */,
+				EAF3657D1ADB5EE400AA6551 /* pstream.h */,
+				EAF3657E1ADB5EE400AA6551 /* pvfileio.h */,
+				EAF3657F1ADB5EE400AA6551 /* soundio.h */,
+				EAF365801ADB5EE400AA6551 /* sysdep.h */,
+				EAF365811ADB5EE400AA6551 /* text.h */,
+				EAF365821ADB5EE400AA6551 /* version.h */,
+			);
+			name = "Csound Headers";
+			path = csound;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -1716,6 +1715,7 @@
 				EA8E96001AD3C6850057E979 /* AKPortamento.m in Sources */,
 				EA8E96021AD3C6850057E979 /* AKFMOscillator.m in Sources */,
 				EA8E95E01AD3C6850057E979 /* AKTrackedAmplitudeFromFSignal.m in Sources */,
+				EA08B5701AD8985F00949FD5 /* CsoundObj.m in Sources */,
 				EA8E96471AD3C6850057E979 /* AKMix.m in Sources */,
 				EA8E95E81AD3C6850057E979 /* AKResynthesizedAudio.m in Sources */,
 				EA8E95BC1AD3C6850057E979 /* StruckMetalBar.m in Sources */,
@@ -1844,7 +1844,6 @@
 				EA8E96171AD3C6850057E979 /* AKBeatenPlate.m in Sources */,
 				EA8E96011AD3C6850057E979 /* AKVibrato.m in Sources */,
 				EA8E95CC1AD3C6850057E979 /* AKStereoOutputPlot.m in Sources */,
-				EA8E96491AD3C6850057E979 /* CsoundObj.m in Sources */,
 				EA8E95BF1AD3C6850057E979 /* Microphone.m in Sources */,
 				EA8E95A71AD3C6850057E979 /* AKOrchestra.m in Sources */,
 				EA8E95E41AD3C6850057E979 /* AKFFT.m in Sources */,
@@ -1942,7 +1941,6 @@
 				EA8E970C1AD3CA4C0057E979 /* AKBalance.m in Sources */,
 				EA8E970D1AD3CA4C0057E979 /* AKMix.m in Sources */,
 				EA8E970E1AD3CA4C0057E979 /* AKPanner.m in Sources */,
-				EA8E970F1AD3CA4C0057E979 /* CsoundObj.m in Sources */,
 				EA8E97101AD3CA4C0057E979 /* AKEvent.m in Sources */,
 				EA8E97111AD3CA4C0057E979 /* AKPhrase.m in Sources */,
 				EA8E97121AD3CA4C0057E979 /* AKSequence.m in Sources */,
@@ -1972,6 +1970,7 @@
 				EA8E96BD1AD3C9B20057E979 /* AKSingleInputMathOperation.m in Sources */,
 				EA8E96BE1AD3C9B20057E979 /* AKSum.m in Sources */,
 				EA8E96BF1AD3C9B20057E979 /* AKTableValue.m in Sources */,
+				EA08B5711AD8985F00949FD5 /* CsoundObj.m in Sources */,
 				EA8E96A01AD3C9580057E979 /* AKTable.m in Sources */,
 				EA8E96941AD3C92B0057E979 /* AKInstrumentPropertyPlot.m in Sources */,
 				EA8E967F1AD3C89F0057E979 /* AKAudioAnalyzer.m in Sources */,

@@ -36,9 +36,7 @@
         
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-        }
+        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
         
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
@@ -63,9 +61,7 @@
         
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-        }
+        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
         
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         
