@@ -2,13 +2,12 @@
 
 ## Common Steps
 * Drag and drop the `AudioKit.xcodeproj` file inside your own project in Xcode.
-* In your project settings in Xcode, go to the **Build Phases** tab for your target. 
+* In your project settings in Xcode, go to the **Build Phases** tab for your target.
 	* Add a new **Target Dependency**. Pick either the iOS or OS X library under AudioKit.
-	* Expand the **Link Binary With Libraries** section, and add the same library from the previous step.
-	* Also add the **AVFoundation** system library.
+	* Expand the **Link Binary With Libraries** section, and add the same library from the previous step (now with a ".a" extension).
 * In the **Build Settings** tab for your target :
 	* Look for the **Other Linker Flags** setting, and set it to `-ObjC`
-	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.
+	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../../AudioKit/AudioKit`.
 
 ## Swift Projects
 * From within the AudioKit subproject in your project, open the `AudioKit > Platforms > Swift` group, and drag and drop at least `AudioKit.swift` to your project. You may also add any of the extensions to your project if you'd like to use them.
