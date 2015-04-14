@@ -12,6 +12,7 @@
 		C4534E0F1ADCD3FB00291E93 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4534E111ADCD42900291E93 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4534E101ADCD42900291E93 /* AudioKit.swift */; };
 		C4A396B31A213BEA00E8FB4D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A396B21A213BEA00E8FB4D /* main.swift */; };
+		EAF365C61ADCEEE300AA6551 /* AKSoundFiles.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +44,9 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolderSpec = 7;
 			files = (
+				EAF365C61ADCEEE300AA6551 /* AKSoundFiles.bundle in CopyFiles */,
 				C4534E0F1ADCD3FB00291E93 /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,10 +88,10 @@
 		C4A396A61A213BEA00E8FB4D = {
 			isa = PBXGroup;
 			children = (
-				C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */,
 				C4534E011ADCD33900291E93 /* AudioKit.xcodeproj */,
 				C4A396B11A213BEA00E8FB4D /* AudioKitTest */,
 				C4A396B01A213BEA00E8FB4D /* Products */,
+				EAF365C01ADCEAAD00AA6551 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +114,14 @@
 			path = AudioKitTest;
 			sourceTree = "<group>";
 		};
+		EAF365C01ADCEAAD00AA6551 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -120,8 +130,9 @@
 			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AudioKitTest" */;
 			buildPhases = (
 				C4A396AB1A213BEA00E8FB4D /* Sources */,
-				C4A396AC1A213BEA00E8FB4D /* Frameworks */,
+				EAF365C11ADCED8200AA6551 /* Resources */,
 				C4A396AD1A213BEA00E8FB4D /* CopyFiles */,
+				C4A396AC1A213BEA00E8FB4D /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,6 +197,16 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EAF365C11ADCED8200AA6551 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4A396AB1A213BEA00E8FB4D /* Sources */ = {
@@ -290,7 +311,6 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 					"$(SRCROOT)/../../AudioKit/Platforms/OSX/",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -311,7 +331,6 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 					"$(SRCROOT)/../../AudioKit/Platforms/OSX/",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
