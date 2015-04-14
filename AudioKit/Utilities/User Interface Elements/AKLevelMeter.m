@@ -90,15 +90,19 @@
 	return self;
 }
 
-#if TARGET_OS_IPHONE
-
 - (void)drawRect:(CGRect)rect
 {
 	CGColorSpaceRef cs = NULL;
 	CGContextRef cxt = NULL;
 	CGRect bds;
 	
+#if TARGET_OS_IPHONE
 	cxt = UIGraphicsGetCurrentContext();
+#elif TARGET_OS_MAC // FIXME: Might have to worry about flipped coordinates below
+    NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
+    cxt = (CGContextRef) [nsGraphicsContext graphicsPort];
+#endif
+    
 	cs = CGColorSpaceCreateDeviceRGB();
 	
 	if (_vertical)
@@ -136,7 +140,7 @@
 									 bds.size.width,
 									 (bds.size.height) * (val - currentTop)
 									 );
-			UIColor *lightColor = [[UIColor alloc] initWithRed:0. green:1. blue:0. alpha:1.];
+			AKColor *lightColor = [AKColor colorWithRed:0. green:1. blue:0. alpha:1.];
             [lightColor set];
 			CGContextFillRect(cxt, rect);
             
@@ -170,9 +174,9 @@
 			CGFloat lightMaxVal = (CGFloat)(light_i + 1) / (CGFloat)_numLights;
 			CGFloat lightIntensity;
 			CGRect lightRect;
-			UIColor *lightColor;
+			AKColor *lightColor;
 			
-            lightColor = [UIColor greenColor];
+            lightColor = [AKColor greenColor];
 			if (light_i == peakLight)
 			{
 				lightIntensity = 1.;
@@ -220,9 +224,7 @@
 	
 	CGColorSpaceRelease(cs);
 }
-#elif TARGET_OS_MAC
-// TODO
-#endif
+
 
 
 - (CGFloat)level { return _level; }
