@@ -181,40 +181,61 @@ OSStatus  Csound_Render(void *inRefCon,
 - (void)addBinding:(id<CsoundBinding>)binding
 {
     if (binding != nil) {
-        if (self.running)
-            [binding setup:self];
-        [self.bindings addObject:binding];
+        @synchronized(self.bindings) {
+            if (self.running)
+                [binding setup:self];
+            [self.bindings addObject:binding];
+        }
     }
 }
 
 - (void)removeBinding:(id<CsoundBinding>)binding
 {
     if (binding != nil) {
-        [self.bindings removeObject:binding];
+        @synchronized(self.bindings) {
+            [self.bindings removeObject:binding];
+        }
     }
 }
 
 - (void)setupBindings
 {
-    for (id<CsoundBinding> binding in self.bindings) {
-        [binding setup:self];
+    @synchronized(self.bindings) {
+        for (id<CsoundBinding> binding in self.bindings) {
+            [binding setup:self];
+        }
     }
 }
 
 - (void)cleanupBindings
 {
-    for (id<CsoundBinding> binding in self.bindings) {
-        if ([binding respondsToSelector:@selector(cleanup)]) {
-            [binding cleanup];
+    @synchronized(self.bindings) {
+        for (id<CsoundBinding> binding in self.bindings) {
+            if ([binding respondsToSelector:@selector(cleanup)]) {
+                [binding cleanup];
+            }
         }
     }
 }
 
 - (void)updateAllValuesToCsound
 {
-    for (id<CsoundBinding> binding in self.bindings) {
-        if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-            [binding updateValuesToCsound];
+    @synchronized(self.bindings) {
+        for (id<CsoundBinding> binding in self.bindings) {
+            if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                [binding updateValuesToCsound];
+            }
+        }
+    }
+}
+
+- (void)updateAllValuesFromCsound
+{
+    @synchronized(self.bindings) {
+        for (id<CsoundBinding> binding in self.bindings) {
+            if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                [binding updateValuesFromCsound];
+            }
         }
     }
 }
@@ -224,22 +245,28 @@ OSStatus  Csound_Render(void *inRefCon,
 // -----------------------------------------------------------------------------
 
 - (void)addListener:(id<CsoundObjListener>)listener {
-    [self.listeners addObject:listener];
+    @synchronized(self.listeners) {
+        [self.listeners addObject:listener];
+    }
 }
 
 - (void)notifyListenersOfStartup
 {
-    for (id<CsoundObjListener> listener in self.listeners) {
-        if ([listener respondsToSelector:@selector(csoundObjStarted:)]) {
-            [listener csoundObjStarted:self];
+    @synchronized(self.listeners) {
+        for (id<CsoundObjListener> listener in self.listeners) {
+            if ([listener respondsToSelector:@selector(csoundObjStarted:)]) {
+                [listener csoundObjStarted:self];
+            }
         }
     }
 }
 - (void)notifyListenersOfCompletion
 {
-    for (id<CsoundObjListener> listener in self.listeners) {
-        if ([listener respondsToSelector:@selector(csoundObjCompleted:)]) {
-            [listener csoundObjCompleted:self];
+    @synchronized(self.listeners) {
+        for (id<CsoundObjListener> listener in self.listeners) {
+            if ([listener respondsToSelector:@selector(csoundObjCompleted:)]) {
+                [listener csoundObjCompleted:self];
+            }
         }
     }
 }
@@ -703,11 +730,7 @@ OSStatus  Csound_Render(void *inRefCon,
         }
         
         while (!_ret && self.running) {
-            for (id<CsoundBinding> binding in self.bindings) {
-                if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                    [binding updateValuesToCsound];
-                }
-            }
+            [self updateAllValuesToCsound];
             
             _ret = csoundPerformKsmps(_cs);
             
@@ -721,13 +744,9 @@ OSStatus  Csound_Render(void *inRefCon,
                 if (err != noErr) {
                     NSLog(@"***Error writing to file: %@", @(err));
                 }
+ 
             }
-            
-            for (id<CsoundBinding> binding in self.bindings) {
-                if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                    [binding updateValuesFromCsound];
-                }
-            }
+            [self updateAllValuesFromCsound];
         }
     }
     

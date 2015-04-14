@@ -306,7 +306,7 @@ static AKManager *_sharedManager = nil;
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
     if (_isLogging)
-        NSLog(@"Received Csound Message: %@", msg);
+        NSLog(@"Csound Message (%d): %@", attr, msg);
 }
 
 
