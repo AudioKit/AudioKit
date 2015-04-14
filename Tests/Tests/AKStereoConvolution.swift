@@ -21,7 +21,7 @@ class Instrument : AKInstrument {
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
 
-        let stereoImpulse = "CsoundLib64.framework/Sounds/shortpianohits.aif"
+        let stereoImpulse = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/shortpianohits.aif"
 
         let dishConvolution  = AKStereoConvolution(
             input: mono.scaledBy(0.5.ak),
