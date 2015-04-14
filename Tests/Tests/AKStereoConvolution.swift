@@ -17,11 +17,11 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
+        let filename = "AKSoundFiles.bundle/Sounds/808loop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
 
-        let stereoImpulse = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/shortpianohits.aif"
+        let stereoImpulse = "AKSoundFiles.bundle/Sounds/shortpianohits.aif"
 
         let dishConvolution  = AKStereoConvolution(
             input: mono.scaledBy(0.5.ak),

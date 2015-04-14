@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
+        let filename = "AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
 
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio);

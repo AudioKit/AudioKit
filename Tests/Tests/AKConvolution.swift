@@ -17,7 +17,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
+        let filename = "AKSoundFiles.bundle/Sounds/808loop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
 
@@ -36,8 +36,8 @@ class Processor : AKInstrument {
             secondPoint: 1.ak,
             durationBetweenPoints: testDuration.ak
         )
-        let dishFilename      = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/dish.wav"
-        let stairwellFilename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/Stairwell.wav"
+        let dishFilename      = "AKSoundFiles.bundle/Sounds/dish.wav"
+        let stairwellFilename = "AKSoundFiles.bundle/Sounds/Stairwell.wav"
 
         let dishConvolution      = AKConvolution(input: audioSource, impulseResponseFilename: dishFilename)
         let stairwellConvolution = AKConvolution(input: audioSource, impulseResponseFilename: stairwellFilename)
