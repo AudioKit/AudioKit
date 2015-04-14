@@ -45,12 +45,10 @@
     free(_A.imagp);
 }
 
-#if TARGET_OS_IPHONE
-
 - (void)drawRect:(CGRect)rect
 {
     // Draw waveform
-    UIBezierPath *wavePath = [UIBezierPath bezierPath];
+    AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
     CGFloat yOffset = self.bounds.size.height;
     
@@ -73,25 +71,28 @@
     CGFloat y = 0.0f;
     CGFloat y2 = 0.0f;
     [wavePath moveToPoint:CGPointMake(x, y)];
+#if TARGET_OS_IPHONE
     [wavePath addLineToPoint:CGPointMake(x, y2)];
+#elif TARGET_OS_MAC
+    [wavePath lineToPoint:CGPointMake(x, y2)];
+#endif
     for (int i = 0; i < historySize/2; i++) {
         y = yOffset - (history[i] * yScale);
         y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         //NSLog(@"%index:d value:%f x:%f y:%f y2:%f", i%historySize, history[i % historySize], x, y, y2 );
         
+#if TARGET_OS_IPHONE
         [wavePath addLineToPoint:CGPointMake(x, y)];
-        
+#elif TARGET_OS_MAC
+        [wavePath lineToPoint:CGPointMake(x, y)];
+#endif
         x += deltaX;
-    };
+    }
     
     [wavePath setLineWidth:self.lineWidth];
     [self.lineColor setStroke];
     [wavePath stroke];
 }
-
-#elif TARGET_OS_MAC
-// TODO
-#endif
 
 -(void)createFFTWithBufferSize:(float)bufferSize {
     MYFLT *data = (MYFLT *)outSamples.mutableBytes;
