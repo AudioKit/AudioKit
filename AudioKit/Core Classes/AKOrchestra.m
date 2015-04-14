@@ -59,6 +59,21 @@
 + (void)start
 {
     if (![[AKManager sharedManager] isRunning]) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
+        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        
+        // Default Value
+        BOOL enableAudioInput = YES;
+        
+        if (dict) {
+            enableAudioInput = [dict[@"Enable Audio Input By Default"] boolValue];
+        }
+        
+        if (enableAudioInput) {
+            [[AKManager sharedManager] enableAudioInput];
+        }else{
+            [[AKManager sharedManager] disableAudioInput];
+        }
         [[AKManager sharedManager] runOrchestra];
     }
 }
@@ -83,22 +98,6 @@
 
 + (void)addInstrument:(AKInstrument *)instrument
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    // Default Value
-    BOOL enableAudioInput = YES;
-    
-    if (dict) {
-        enableAudioInput = [dict[@"Enable Audio Input By Default"] boolValue];
-    }
-    
-    if (enableAudioInput) {
-        [[AKManager sharedManager] enableAudioInput];
-    }else{
-        [[AKManager sharedManager] disableAudioInput];
-    }
-    
     [AKOrchestra start];
     while (![[AKManager sharedManager] isRunning]) {
         // do nothing
