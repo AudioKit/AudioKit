@@ -44,7 +44,7 @@
     @synchronized(self) {
         const MYFLT *samples = (const MYFLT *)outSamples.bytes;
         for (int i = 0; i < plotPoints; i++) {
-            y = AK_CLAMP(y, -1.0f, 1.0f);
+//            y = AK_CLAMP(y, -1.0f, 1.0f);
             y = (samples[(i * 2)]+1.0) * yScale;
             if (i == 0) {
                 [wavePath moveToPoint:CGPointMake(x, y)];
