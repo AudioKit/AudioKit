@@ -17,13 +17,26 @@
 static int currentID = 2000;
 + (void)resetID { currentID = 2000; }
 
+// Prevent memory leaks and copy table safely
+- (BOOL)_getTable
+{
+    MYFLT *ptr;
+    int len = csoundGetTable(cs, &ptr, _number);
+    if (len > 0) {
+        table = realloc(table, len * sizeof(MYFLT));
+        memcpy(table, ptr, len * sizeof(MYFLT));
+        return YES;
+    }
+    return NO;
+}
+
 - (instancetype)initWithSize:(int)tableSize
 {
     self = [super init];
     if (self) {
         _number = currentID++;
         _size = tableSize;
-        table = malloc(_size *sizeof(MYFLT));
+        table = malloc(_size * sizeof(MYFLT));
         csoundObj = [[AKManager sharedManager] engine];
         cs = [csoundObj getCsound];
         [csoundObj updateOrchestra:[self orchestraString]];
@@ -53,11 +66,12 @@ static int currentID = 2000;
         while (csoundTableLength(cs, _number) != _size) {
             // do nothing
         }
-        csoundGetTable(cs, &table, _number);
-        for (int i = 0; i < _size; i++) {
-            MYFLT value = (MYFLT)[array[i] floatValue];
-            NSLog(@"%@ %f %f", array[i], [array[i] floatValue], value);
-            table[i] = value;
+        if ([self _getTable]) {
+            for (int i = 0; i < _size; i++) {
+                MYFLT value = (MYFLT)[array[i] floatValue];
+                NSLog(@"%@ %f %f", array[i], [array[i] floatValue], value);
+                table[i] = value;
+            }
         }
     }
     return self;
@@ -84,9 +98,10 @@ static int currentID = 2000;
         // do nothing
         return;
     }
-    csoundGetTable(cs, &table, _number);
-    for (int i = 0; i < _size; i++) {
-        table[i] = function(table[i]);
+    if ([self _getTable]) {
+        for (int i = 0; i < _size; i++) {
+            table[i] = function(table[i]);
+        }
     }
 }
 
@@ -96,9 +111,10 @@ static int currentID = 2000;
         // do nothing
         return;
     }
-    csoundGetTable(cs, &table, _number);
-    for (int i = 0; i < _size; i++) {
-        table[i] = function(i);
+    if ([self _getTable]) {
+        for (int i = 0; i < _size; i++) {
+            table[i] = function(i);
+        }
     }
 }
 
@@ -108,10 +124,11 @@ static int currentID = 2000;
         // do nothing
         return;
     }
-    csoundGetTable(cs, &table, _number);
-    for (int i = 0; i < _size; i++) {
-        float x = (float) i / _size;
-        table[i] = function(x);
+    if ([self _getTable]) {
+        for (int i = 0; i < _size; i++) {
+            float x = (float) i / _size;
+            table[i] = function(x);
+        }
     }
 }
 
@@ -127,13 +144,14 @@ static int currentID = 2000;
     if (csoundTableLength(cs, _number) != _size) {
         return;
     }
-    csoundGetTable(cs, &table, _number);
-    float max = 0.0;
-    for (int i = 0; i < _size; i++) {
-        max = MAX(max, fabsf(table[i]));
-    }
-    if (max > 0.0) {
-        [self scaleBy:1.0/max];
+    if ([self _getTable]) {
+        float max = 0.0;
+        for (int i = 0; i < _size; i++) {
+            max = MAX(max, fabsf(table[i]));
+        }
+        if (max > 0.0) {
+            [self scaleBy:1.0/max];
+        }
     }
 }
 
