@@ -50,6 +50,12 @@
 + (void)start
 {
     if (![[AKManager sharedManager] isRunning]) {
+        if (AKSettings.settings.audioInputEnabled) {
+            [[AKManager sharedManager] enableAudioInput];
+        }else{
+            [[AKManager sharedManager] disableAudioInput];
+        }
+        
         [[AKManager sharedManager] runOrchestra];
     }
 }
@@ -74,12 +80,6 @@
 
 + (void)addInstrument:(AKInstrument *)instrument
 {
-    if (AKSettings.settings.audioInputEnabled) {
-        [[AKManager sharedManager] enableAudioInput];
-    }else{
-        [[AKManager sharedManager] disableAudioInput];
-    }
-    
     [AKOrchestra start];
     while (![[AKManager sharedManager] isRunning]) {
         // do nothing
