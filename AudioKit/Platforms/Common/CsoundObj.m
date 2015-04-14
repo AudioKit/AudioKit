@@ -3,7 +3,8 @@
  CsoundObj.m:
  
  Copyright (C) 2014 Steven Yi, Victor Lazzarini, Aurelius Prochazka
- 
+ Copyright (C) 2015 Stephane Peter
+
  This file is part of Csound for iOS and OS X.
  
  The Csound for iOS Library is free software; you can redistribute it
