@@ -33,6 +33,7 @@ static AKSettings *_settings = nil;
         _numberOfChannels = 2;
         _zeroDBFullScaleValue = 1.0;
         _loggingEnabled = NO;
+        _messagesEnabled = NO;
         _audioInputEnabled = YES;
         
         // Try to load from AudioKit.plist if found
@@ -55,6 +56,8 @@ static AKSettings *_settings = nil;
                 _loggingEnabled = [dict[@"Enable Logging By Default"] boolValue];
             if (dict[@"Enable Audio Input By Default"])
                 _audioInputEnabled = [dict[@"Enable Audio Input By Default"] boolValue];
+            if (dict[@"Prefix Csound Messages"])
+                _messagesEnabled = [dict[@"Prefix Csound Messages"] boolValue];
         }
     }
     return self;
