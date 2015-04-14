@@ -11,14 +11,13 @@
 
 #import "AKStereoAudio.h" // Used for replace instrument which should be refactored
 
-@interface AKManager () <CsoundObjListener> {
+@interface AKManager () <CsoundObjListener, CsoundMsgDelegate> {
     NSString *options;
     NSString *csdFile;
     NSString *templateString;
     NSString *batchInstructions;
     BOOL isBatching;
     
-    CsoundObj *csound;
     int totalRunDuration;
 }
 
@@ -38,20 +37,20 @@ static AKManager *_sharedManager = nil;
 
 + (AKManager *)sharedManager
 {
-    @synchronized([AKManager class]) 
+    @synchronized(self)
     {
         if(!_sharedManager) _sharedManager = [[self alloc] init];
         NSString *name = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
         if (name) {
             // This is an app that will contain the framework
-            NSString *rawWavesDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/RawWaves", name];
-            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib64.framework/Resources/Opcodes64", name];
-            csoundSetGlobalEnv("OPCODE6DIR64", [opcodeDir   cStringUsingEncoding:NSUTF8StringEncoding]);
+            NSString *rawWavesDir = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/RawWaves", name];
+            NSString *opcodeDir   = [NSString stringWithFormat:@"%@.app/Contents/Frameworks/CsoundLib.framework/Resources/Opcodes", name];
+            csoundSetGlobalEnv("OPCODE6DIR", [opcodeDir   cStringUsingEncoding:NSUTF8StringEncoding]);
             csoundSetGlobalEnv("RAWWAVE_PATH", [rawWavesDir cStringUsingEncoding:NSUTF8StringEncoding]);
         } else {
             // This is a command-line program that sits beside the framework
-            csoundSetGlobalEnv("RAWWAVE_PATH", "CsoundLib64.framework/Resources/RawWaves");
-            csoundSetGlobalEnv("OPCODE6DIR64", "CsoundLib64.framework/Resources/Opcodes64");
+            csoundSetGlobalEnv("RAWWAVE_PATH", "CsoundLib.framework/Resources/RawWaves");
+            csoundSetGlobalEnv("OPCODE6DIR", "CsoundLib.framework/Resources/Opcodes");
         }
         return _sharedManager;
     }
@@ -59,7 +58,7 @@ static AKManager *_sharedManager = nil;
 }
 
 + (id)alloc {
-    @synchronized([AKManager class]) {
+    @synchronized(self) {
         NSAssert(_sharedManager == nil, @"Attempted to allocate a 2nd AKManager");
         _sharedManager = [super alloc];
         return _sharedManager;
@@ -76,11 +75,10 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        csound = [[CsoundObj alloc] init];
+        _engine = [[CsoundObj alloc] init];
         
-        _engine= csound; 
-        [csound addListener:self];
-        [csound setMessageCallback:@selector(messageCallback:) withListener:self];
+        [_engine addListener:self];
+        _engine.messageDelegate = self;
         
         _isRunning = NO;
         _isLogging = AKSettings.settings.loggingEnabled;
@@ -114,14 +112,19 @@ static AKManager *_sharedManager = nil;
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = paths[0];
-        csdFile = [NSString stringWithFormat:@"%@/.new.csd", documentsDirectory];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        csdFile = [NSString stringWithFormat:@"%@/AudioKit.csd", paths[0]];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
     }
     return self;
-}   
+}
+
+// FIXME: Ironically, since we have a singleton this will likely never get called
+- (void)dealloc
+{
+    [[NSFileManager defaultManager] removeItemAtPath:csdFile error:nil];
+}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Handling CSD Files
@@ -135,7 +138,7 @@ static AKManager *_sharedManager = nil;
     }
     NSString *file = [[NSBundle mainBundle] pathForResource:filename
                                                      ofType:@"csd"];  
-    [csound play:file];
+    [self.engine play:file];
     if (_isLogging) NSLog(@"Starting %@ \n\n%@\n",filename, [AKManager stringFromFile:file]);
     while(!_isRunning) {
         if (_isLogging) NSLog(@"Waiting for Csound to startup completely.");
@@ -148,11 +151,14 @@ static AKManager *_sharedManager = nil;
     NSString *newCSD = [NSString stringWithFormat:
                         templateString,
                         options, [orchestra stringForCSD], totalRunDuration];
-
-    [newCSD writeToFile:csdFile 
-             atomically:YES  
-               encoding:NSStringEncodingConversionAllowLossy 
-                  error:nil];
+    NSError *err;
+    
+    if ([newCSD writeToFile:csdFile
+                 atomically:YES
+                   encoding:NSStringEncodingConversionAllowLossy
+                      error:&err] == NO) {
+        NSLog(@"Failed to write CSD file: %@", err);
+    }
 }
 
 - (void)runOrchestra
@@ -163,7 +169,7 @@ static AKManager *_sharedManager = nil;
     }
     [self writeCSDFileForOrchestra:_orchestra];
     
-    [csound play:csdFile];
+    [self.engine play:csdFile];
     if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
     
     // Pause to allow Csound to start, warn if nothing happens after 1 second
@@ -195,12 +201,12 @@ static AKManager *_sharedManager = nil;
 
 /// Enable Audio Input
 - (void)enableAudioInput {
-    [csound setUseAudioInput:YES];
+    [self.engine setUseAudioInput:YES];
 }
 
 /// Disable AudioInput
 - (void)disableAudioInput {
-    [csound setUseAudioInput:NO];    
+    [self.engine setUseAudioInput:NO];
 }
 
 // -----------------------------------------------------------------------------
@@ -208,11 +214,11 @@ static AKManager *_sharedManager = nil;
 // -----------------------------------------------------------------------------
 
 - (void)stopRecording {
-    [csound stopRecording];
+    [self.engine stopRecording];
 }
 
 - (void)startRecordingToURL:(NSURL *)url {
-    [csound recordToURL:url];
+    [self.engine recordToURL:url];
 }
 
 // -----------------------------------------------------------------------------
@@ -236,7 +242,7 @@ static AKManager *_sharedManager = nil;
 - (void)stop 
 {
     if (_isLogging) NSLog(@"Stopping Csound");
-    [csound stop];
+    [self.engine stop];
     while(_isRunning) {} // Do nothing
 }
 
@@ -252,7 +258,7 @@ static AKManager *_sharedManager = nil;
 
 - (void)endBatch
 {
-    [csound sendScore:batchInstructions];
+    [self.engine sendScore:batchInstructions];
     batchInstructions = @"";
     isBatching = NO;
 }
@@ -264,7 +270,7 @@ static AKManager *_sharedManager = nil;
         batchInstructions = [batchInstructions stringByAppendingString:[instrument stopStringForCSD]];
         batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
     } else {
-        [csound sendScore:[instrument stopStringForCSD]];
+        [self.engine sendScore:[instrument stopStringForCSD]];
     }
     if (_isLogging) NSLog(@"%@", [instrument stopStringForCSD]);
 }
@@ -277,7 +283,7 @@ static AKManager *_sharedManager = nil;
         batchInstructions = [batchInstructions stringByAppendingString:[note stopStringForCSD]];
         batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
     } else {
-        [csound sendScore:[note stopStringForCSD]];
+        [self.engine sendScore:[note stopStringForCSD]];
     }
 }
 
@@ -289,7 +295,7 @@ static AKManager *_sharedManager = nil;
         batchInstructions = [batchInstructions stringByAppendingString:[note stringForCSD]];
         batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
     } else {
-        [csound sendScore:[note stringForCSD]];
+        [self.engine sendScore:[note stringForCSD]];
     }
 }
 
@@ -297,14 +303,12 @@ static AKManager *_sharedManager = nil;
 #  pragma mark - Csound Callbacks
 // -----------------------------------------------------------------------------
 
-- (void)messageCallback:(NSValue *)infoObj
+- (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
-	Message info;
-	[infoObj getValue:&info];
-	char message[1024];
-	vsnprintf(message, 1024, info.format, info.valist);
-	if (_isLogging) NSLog(@"%s", message);
+    if (_isLogging)
+        NSLog(@"Csound Message (%d): %@", attr, msg);
 }
+
 
 - (void)csoundObjStarted:(CsoundObj *)csoundObj {
     if (_isLogging) NSLog(@"Csound Started.");

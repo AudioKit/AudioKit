@@ -14,8 +14,8 @@
 		C4BACA2A1A8FDEDC00736291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BACA281A8FDEDC00736291 /* Main.storyboard */; };
 		EABF23CB1AD4B0190008F3B7 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23C81AD4AFFB0008F3B7 /* libAudioKit OS X.a */; };
 		EABF23CD1AD4B0200008F3B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23CC1AD4B0200008F3B7 /* AVFoundation.framework */; };
-		EABF23D01AD4B0940008F3B7 /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABF23CF1AD4B0940008F3B7 /* CsoundLib64.framework */; };
-		EABF23D21AD4B57C0008F3B7 /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EABF23CF1AD4B0940008F3B7 /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EAF365A41ADBBCE000AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365A31ADBBCE000AA6551 /* CsoundLib.framework */; };
+		EAF365A51ADBBCF600AA6551 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EAF365A31ADBBCE000AA6551 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EABF23D21AD4B57C0008F3B7 /* CsoundLib64.framework in CopyFiles */,
+				EAF365A51ADBBCF600AA6551 /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +67,7 @@
 		C4BACA291A8FDEDC00736291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EABF23C01AD4AFFB0008F3B7 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EABF23CC1AD4B0200008F3B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EABF23CF1AD4B0940008F3B7 /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib64.framework; sourceTree = "<group>"; };
+		EAF365A31ADBBCE000AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF365A41ADBBCE000AA6551 /* CsoundLib.framework in Frameworks */,
 				EABF23CD1AD4B0200008F3B7 /* AVFoundation.framework in Frameworks */,
-				EABF23D01AD4B0940008F3B7 /* CsoundLib64.framework in Frameworks */,
 				EABF23CB1AD4B0190008F3B7 /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +137,7 @@
 		EABF23CE1AD4B0270008F3B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EABF23CF1AD4B0940008F3B7 /* CsoundLib64.framework */,
+				EAF365A31ADBBCE000AA6551 /* CsoundLib.framework */,
 				EABF23CC1AD4B0200008F3B7 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
@@ -245,7 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib64.framework/Versions/6.0/CsoundLib64 @executable_path/../Frameworks/CsoundLib64.framework/Versions/6.0/CsoundLib64 $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
 		};
 /* End PBXShellScriptBuildPhase section */
 
