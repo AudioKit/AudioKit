@@ -16,8 +16,8 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
-        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
+
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
         let audio = AKFileInput(filename: filename)
 
         auxilliaryOutput = AKStereoAudio.globalParameter()
@@ -44,7 +44,7 @@ class Processor : AKInstrument {
         let reverb = AKReverb(stereoInput:audioSource)
         reverb.feedback = feedback
         reverb.cutoffFrequency = cutoffFrequency
-        
+
         enableParameterLog(
             "Feedback = ",
             parameter: feedback,

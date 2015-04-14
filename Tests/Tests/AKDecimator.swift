@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
 
@@ -35,7 +35,7 @@ class Instrument : AKInstrument {
         decimator.bitDepth = bitDepth
         decimator.sampleRate = sampleRate
         setAudioOutput(decimator)
-        
+
         enableParameterLog(
             "Bit Depth = ",
             parameter: decimator.bitDepth,

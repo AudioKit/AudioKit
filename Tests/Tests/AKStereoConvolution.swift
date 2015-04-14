@@ -11,18 +11,18 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     var auxilliaryOutput = AKAudio()
-    
+
     override init() {
         super.init()
-        
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
-        
+
         let stereoImpulse = "CsoundLib64.framework/Sounds/shortpianohits.aif"
-        
+
         let dishConvolution  = AKStereoConvolution(
             input: mono.scaledBy(0.5.ak),
             impulseResponseFilename: stereoImpulse

@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
 
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
@@ -35,13 +35,13 @@ class Processor : AKInstrument {
             secondPoint: 1.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         let delay = AKDelay(
             input: audioSource,
             delayTime: 0.1.ak,
             feedback:feedbackLine
         )
-        
+
         enableParameterLog(
             "Feedback = ",
             parameter: feedbackLine,

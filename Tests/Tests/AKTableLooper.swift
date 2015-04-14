@@ -11,23 +11,23 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
-        let filename = "CsoundLib64.framework/Sounds/mandpluk.aif"
+
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/mandpluk.aif"
         let soundFile = AKSoundFileTable(filename: filename)
         let speed = AKLine(
             firstPoint:  3.ak,
             secondPoint: 0.5.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         let tableLooper = AKTableLooper(table: soundFile)
         tableLooper.endTime = 9.6.ak
         tableLooper.transpositionRatio = speed
         tableLooper.loopMode = AKTableLooper.loopPlaysForwardAndThenBackwards()
-        
+
         enableParameterLog(
             "Transposition Ratio = ",
             parameter: tableLooper.transpositionRatio,
