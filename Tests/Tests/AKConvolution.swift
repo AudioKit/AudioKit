@@ -36,8 +36,8 @@ class Processor : AKInstrument {
             secondPoint: 1.ak,
             durationBetweenPoints: testDuration.ak
         )
-        let dishFilename      = "CsoundLib64.framework/Sounds/dish.wav"
-        let stairwellFilename = "CsoundLib64.framework/Sounds/Stairwell.wav"
+        let dishFilename      = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/dish.wav"
+        let stairwellFilename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/Stairwell.wav"
 
         let dishConvolution      = AKConvolution(input: audioSource, impulseResponseFilename: dishFilename)
         let stairwellConvolution = AKConvolution(input: audioSource, impulseResponseFilename: stairwellFilename)
