@@ -17,12 +17,12 @@
 		E43516B41AB3ADE100109B4A /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B21AB3ADE100109B4A /* ConvolutionInstrument.swift */; };
 		E43516BA1AB3B0AC00109B4A /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */; };
 		E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */; };
-		EA5D42301AD4BEA200BEA03A /* CsoundLib64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D422F1AD4BEA200BEA03A /* CsoundLib64.framework */; };
 		EA5D423A1AD4BED200BEA03A /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42391AD4BEA800BEA03A /* libAudioKit OS X.a */; };
 		EA5D423C1AD4BED600BEA03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */; };
 		EA5D42421AD4BF6A00BEA03A /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */; };
-		EA5D42431AD4BFA100BEA03A /* CsoundLib64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EA5D422F1AD4BEA200BEA03A /* CsoundLib64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAB29D771AD51D79000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */; };
+		EAF365AE1ADCB13C00AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365AD1ADCB13C00AA6551 /* CsoundLib.framework */; };
+		EAF365AF1ADCB16B00AA6551 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EAF365AD1ADCB13C00AA6551 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA5D42431AD4BFA100BEA03A /* CsoundLib64.framework in CopyFiles */,
+				EAF365AF1ADCB16B00AA6551 /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,11 +76,11 @@
 		E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMSynthesizer.swift; sourceTree = "<group>"; };
 		E43516BD1AB3B1F600109B4A /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
-		EA5D422F1AD4BEA200BEA03A /* CsoundLib64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib64.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib64.framework; sourceTree = SOURCE_ROOT; };
 		EA5D42311AD4BEA800BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = SOURCE_ROOT; };
 		EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EAF365AD1ADCB13C00AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,9 +88,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF365AE1ADCB13C00AA6551 /* CsoundLib.framework in Frameworks */,
 				EA5D423C1AD4BED600BEA03A /* AVFoundation.framework in Frameworks */,
 				EA5D423A1AD4BED200BEA03A /* libAudioKit OS X.a in Frameworks */,
-				EA5D42301AD4BEA200BEA03A /* CsoundLib64.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,8 +180,8 @@
 		EA5D423D1AD4BEF000BEA03A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAF365AD1ADCB13C00AA6551 /* CsoundLib.framework */,
 				EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */,
-				EA5D422F1AD4BEA200BEA03A /* CsoundLib64.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -289,7 +289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib64.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib64.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib64\"\nfor TARGET in ${TARGETS} ; do\nLIBFILE=${LIBPATH}/${TARGET}\nTARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\nNEWTARGETID=${NEWLIBPATH}/${TARGET}\ninstall_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\ninstall_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\ndone";
+			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib\"\nfor TARGET in ${TARGETS} ; do\n    LIBFILE=${LIBPATH}/${TARGET}\n    TARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\n    NEWTARGETID=${NEWLIBPATH}/${TARGET}\n    install_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\n    install_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
