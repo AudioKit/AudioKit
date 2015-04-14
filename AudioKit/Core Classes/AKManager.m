@@ -305,8 +305,13 @@ static AKManager *_sharedManager = nil;
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
-    if (_isLogging)
-        NSLog(@"Csound Message (%d): %@", attr, msg);
+    if (_isLogging) {
+        if (AKSettings.settings.messagesEnabled) {
+            NSLog(@"Csound(%d): %@", attr, msg);
+        } else {
+            NSLog(@"%@", msg);
+        }
+    }
 }
 
 
