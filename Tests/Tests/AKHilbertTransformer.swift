@@ -11,37 +11,37 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     var auxilliaryOutput = AKAudio()
-    
+
     override init() {
         super.init()
-        
-        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
+
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
-        
+
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }
 }
 
 class Processor : AKInstrument {
-    
+
     init(audioSource: AKAudio) {
         super.init()
-        
+
         let frequencyLine = AKLine(
             firstPoint:     0.ak,
             secondPoint: 2000.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         let hilbertTransformer = AKHilbertTransformer(input: audioSource, frequency: frequencyLine)
         setAudioOutput(hilbertTransformer)
-        
+
         resetParameter(audioSource)
-        
+
         enableParameterLog(
             "Center Frequency = ",
             parameter: frequencyLine,

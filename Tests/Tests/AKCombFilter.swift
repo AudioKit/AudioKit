@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
 
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)

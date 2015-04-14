@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        let filename = "CsoundLib64.framework/Sounds/808Loop.wav"
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808Loop.wav"
 
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio);
@@ -47,7 +47,7 @@ class Processor : AKInstrument {
             secondPoint: 3.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         enableParameterLog("X Location = ", parameter: xLocation, timeInterval:0.3)
         enableParameterLog("Y Location = ", parameter: yLocation, timeInterval:0.3)
         enableParameterLog("Z Location = ", parameter: zLocation, timeInterval:0.3)

@@ -11,23 +11,23 @@ import Foundation
 let testDuration: Float = 10.0
 
 class Instrument : AKInstrument {
-    
+
     var auxilliaryOutput = AKAudio()
-    
+
     override init() {
         super.init()
-        
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
-        
+
         auxilliaryOutput = AKAudio.globalParameter()
         assignOutput(auxilliaryOutput, to:mono)
     }
 }
 
 class Processor : AKInstrument {
-    
+
     init(audioSource: AKAudio) {
         super.init()
 
@@ -38,18 +38,18 @@ class Processor : AKInstrument {
         )
         let dishFilename      = "CsoundLib64.framework/Sounds/dish.wav"
         let stairwellFilename = "CsoundLib64.framework/Sounds/Stairwell.wav"
-        
+
         let dishConvolution      = AKConvolution(input: audioSource, impulseResponseFilename: dishFilename)
         let stairwellConvolution = AKConvolution(input: audioSource, impulseResponseFilename: stairwellFilename)
 
         let dishMix      = AKMix(input1: audioSource, input2: dishConvolution,      balance: 0.2.ak)
         let stairwellMix = AKMix(input1: audioSource, input2: stairwellConvolution, balance: 0.2.ak)
-        
+
         let mix  = AKMix(input1: dishMix, input2: stairwellMix, balance: mixLine)
         setAudioOutput(mix)
-        
+
         resetParameter(audioSource)
-        
+
         enableParameterLog(
             "Dish / Stairwell Mix = ",
             parameter: mixLine,

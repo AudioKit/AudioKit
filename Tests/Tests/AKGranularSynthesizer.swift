@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/808loop.wav"
 
         let soundFile = AKSoundFileTable(filename: filename, size: 16384)
 
