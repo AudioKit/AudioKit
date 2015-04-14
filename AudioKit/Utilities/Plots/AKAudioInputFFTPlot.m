@@ -11,7 +11,7 @@
 #import "AKSettings.h"
 #import "CsoundObj.h"
 
-#import <Accelerate/Accelerate.h>
+@import Accelerate;
 
 @interface AKAudioInputFFTPlot() <CsoundBinding>
 {
