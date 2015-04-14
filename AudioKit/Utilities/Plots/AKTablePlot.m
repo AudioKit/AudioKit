@@ -13,7 +13,6 @@
 @implementation AKTablePlot
 {
     CGFloat lastY;
-    MYFLT *tableValues;
     int tableLength;
     MYFLT *displayData;
     int fTableNumber;
@@ -30,26 +29,23 @@
         while (csoundTableLength(cs, fTableNumber) < 0) {
             // do nothing
         }
-        if ((tableLength = csoundTableLength(cs, fTableNumber)) > 0) {
-            tableValues = malloc(tableLength * sizeof(MYFLT));
-            csoundGetTable(cs, &tableValues, fTableNumber);
+        MYFLT *tableValues;
+        if ((tableLength = csoundGetTable(cs, &tableValues, fTableNumber)) > 0) {
             
             float scalingFactor = 0.9;
-            int width = self.frame.size.width;
-            int height = self.frame.size.height;
-            int middle = (height / 2);
+            CGFloat width = self.frame.size.width;
+            CGFloat middle = (self.frame.size.height / 2.0);
             
             displayData = malloc(sizeof(MYFLT) * width);
             
             float max = 0.00001;
             
-            for(int i = 0; i < width; i++) {
-                float percent = i / (float)(width);
-                int index = (int)(percent * tableLength);
-                if (tableValues[index] > max) max = tableValues[index];
+            for(int i = 0; i < tableLength; i++) {
+                if (tableValues[i] > max)
+                    max = tableValues[i];
             }
             for(int i = 0; i < width; i++) {
-                float percent = i / (float)(width);
+                float percent = i / width;
                 int index = (int)(percent * tableLength);
                 displayData[i] = (-(tableValues[index]/max) * middle * scalingFactor) + middle;
             }
@@ -63,14 +59,19 @@
 - (void)dealloc
 {
     free(displayData);
-    free(tableValues);
 }
 
-#if TARGET_OS_IPHONE
 - (void)drawRect:(CGRect)rect
 {
+#if TARGET_OS_IPHONE
     CGContextRef context = UIGraphicsGetCurrentContext();
-
+    CGContextSaveGState(ctx);
+#elif TARGET_OS_MAC
+    [[NSGraphicsContext currentContext] saveGraphicsState];
+    NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
+    CGContextRef context = (CGContextRef) [nsGraphicsContext graphicsPort];
+#endif
+    
     CGContextSetRGBFillColor(context, 0, 0, 0, 1);
     CGContextFillRect(context, rect);
     
@@ -92,12 +93,12 @@
     CGContextSetLineWidth(context, 4);
     CGContextDrawPath(context, kCGPathStroke);
     CGPathRelease(fill_path);
-
+#if TARGET_OS_IPHONE
+    CGContextRestoreGState(ctx);
+#elif TARGET_OS_MAC
+    [[NSGraphicsContext currentContext] restoreGraphicsState];
+#endif
 }
 
-
-#elif TARGET_OS_MAC
-// TODO
-#endif
 
 @end
