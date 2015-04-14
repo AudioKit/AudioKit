@@ -347,6 +347,10 @@
 		EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 		EA95E9F31AD5EC50007FC41F /* AKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA95E9F01AD5EC50007FC41F /* AKSettings.m */; };
 		EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365601ADB414400AA6551 /* CsoundLib.framework */; };
+		EAF365BC1ADCEA2500AA6551 /* AKInterpolatedRandomNumberPulse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95081AD3C6840057E979 /* AKInterpolatedRandomNumberPulse.m */; };
+		EAF365BD1ADCEA6400AA6551 /* AKJitter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E950A1AD3C6840057E979 /* AKJitter.m */; };
+		EAF365BE1ADCEA6F00AA6551 /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E950C1AD3C6840057E979 /* AKNoise.m */; };
+		EAF365BF1ADCEA8200AA6551 /* AKRandomNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E950E1AD3C6840057E979 /* AKRandomNumbers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1861,6 +1865,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF365BF1ADCEA8200AA6551 /* AKRandomNumbers.m in Sources */,
+				EAF365BE1ADCEA6F00AA6551 /* AKNoise.m in Sources */,
+				EAF365BD1ADCEA6400AA6551 /* AKJitter.m in Sources */,
+				EAF365BC1ADCEA2500AA6551 /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				EA8E96C01AD3CA4B0057E979 /* AKADSREnvelope.m in Sources */,
 				EA8E96C11AD3CA4B0057E979 /* AKLine.m in Sources */,
 				EA8E96C21AD3CA4B0057E979 /* AKLinearADSREnvelope.m in Sources */,
