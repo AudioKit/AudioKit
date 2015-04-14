@@ -86,10 +86,10 @@
 		C4A396A61A213BEA00E8FB4D = {
 			isa = PBXGroup;
 			children = (
-				C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */,
 				C4534E011ADCD33900291E93 /* AudioKit.xcodeproj */,
 				C4A396B11A213BEA00E8FB4D /* AudioKitTest */,
 				C4A396B01A213BEA00E8FB4D /* Products */,
+				EAF365C01ADCEAAD00AA6551 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +110,14 @@
 				C4A398D51A213EC600E8FB4D /* Bridging-Header.h */,
 			);
 			path = AudioKitTest;
+			sourceTree = "<group>";
+		};
+		EAF365C01ADCEAAD00AA6551 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,7 +298,6 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 					"$(SRCROOT)/../../AudioKit/Platforms/OSX/",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -311,7 +318,6 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 					"$(SRCROOT)/../../AudioKit/Platforms/OSX/",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
