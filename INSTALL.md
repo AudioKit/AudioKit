@@ -11,7 +11,7 @@
 
 ## Swift Projects
 * From within the AudioKit subproject in your project, open the `AudioKit > Platforms > Swift` group, and drag and drop at least `AudioKit.swift` to your project. You may also add any of the extensions to your project if you'd like to use them.
-* Add at least `AKFoundation.h` to your Swift briding header file. You may need to include some of the other header files you are using in your project if they are not covered by AKFoundation.
+* Add at least `AKFoundation.h` to your Swift bridging header file. You may need to include some of the other header files you are using in your project if they are not covered by AKFoundation.
 
 ## OS X Projects
 * From within the AudioKit subproject, open the `AudioKit > Platforms > OS X` group, then drag and drop the `CSoundLib.framework` file to your own project.
