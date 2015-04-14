@@ -34,6 +34,11 @@
         NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
         NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
         
+        // if the file is still null then we are probably in tests
+        if (!file) {
+            file = @"AKSoundFiles.bundle/Sounds/marmstk1.wav";
+        }
+        
         AKSoundFileTable *_strikeImpulseTable;
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
         _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
@@ -57,6 +62,11 @@
         // Constant Values
         NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
         NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
+        
+        // if the file is still null then we are probably in tests
+        if (!file) {
+            file = @"AKSoundFiles.bundle/Sounds/marmstk1.wav";
+        }
         
         AKSoundFileTable *_strikeImpulseTable;
         _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
