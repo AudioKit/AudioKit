@@ -18,6 +18,6 @@
 @property (nonatomic, readonly) UInt32 sampleRate, samplesPerControlPeriod;
 @property (nonatomic, readonly) UInt16 numberOfChannels;
 @property (nonatomic, readonly) float zeroDBFullScaleValue;
-@property (nonatomic, readonly) BOOL loggingEnabled, audioInputEnabled;
+@property (nonatomic, readonly) BOOL loggingEnabled, audioInputEnabled, messagesEnabled;
 
 @end
