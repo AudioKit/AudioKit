@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/mandpluk.aif"
+        let filename = "AKSoundFiles.bundle/Sounds/mandpluk.aif"
         let soundFile = AKSoundFileTable(filename: filename)
 
         let speed = AKLine(

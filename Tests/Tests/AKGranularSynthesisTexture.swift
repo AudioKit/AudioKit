@@ -15,7 +15,7 @@ class Instrument : AKInstrument {
     override init() {
         super.init()
 
-        let filename = "../../../../AudioKit/AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
+        let filename = "AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
 
         let soundfile = AKSoundFileTable(filename: filename, size:16384)
 
