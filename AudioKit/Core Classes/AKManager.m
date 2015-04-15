@@ -67,9 +67,27 @@ static AKManager *_sharedManager = nil;
 }
 
 + (NSString *)stringFromFile:(NSString *)filename {
-    return [[NSString alloc] initWithContentsOfFile:filename 
-                                           encoding:NSUTF8StringEncoding 
-                                              error:nil];
+    NSError *err;
+    NSString *str = [[NSString alloc] initWithContentsOfFile:filename
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:&err];
+    if (!str) {
+        NSLog(@"Error reading contents of file %@: %@", filename, err);
+    }
+    return str;
+}
+
++ (NSString *)pathToSoundFile:(NSString *)filename ofType:(NSString *)extension
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:extension
+                                                   inDirectory:@"AKSoundFiles.bundle/Sounds"];
+    NSAssert(path, @"Make sure to include AKSoundFiles.bundle in your project's resources! Unable to locate file: %@.%@", filename, extension);
+    
+    // If the file is still nil and we haven't aborted, then we are probably in tests
+    if (!path) {
+        path = [NSString stringWithFormat:@"AKSoundFiles.bundle/Sounds/%@.%@", filename, extension];
+    }
+    return path;
 }
 
 - (instancetype)init {
@@ -112,8 +130,7 @@ static AKManager *_sharedManager = nil;
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        csdFile = [NSString stringWithFormat:@"%@/AudioKit.csd", paths[0]];
+        csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
     }
