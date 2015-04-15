@@ -65,7 +65,7 @@
 {
 #if TARGET_OS_IPHONE
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(ctx);
+    CGContextSaveGState(context);
 #elif TARGET_OS_MAC
     [[NSGraphicsContext currentContext] saveGraphicsState];
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
@@ -94,7 +94,7 @@
     CGContextDrawPath(context, kCGPathStroke);
     CGPathRelease(fill_path);
 #if TARGET_OS_IPHONE
-    CGContextRestoreGState(ctx);
+    CGContextRestoreGState(context);
 #elif TARGET_OS_MAC
     [[NSGraphicsContext currentContext] restoreGraphicsState];
 #endif
