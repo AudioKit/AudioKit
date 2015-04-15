@@ -5,11 +5,19 @@
 //  Created by Aurelius Prochazka on 5/30/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
+#import <TargetConditionals.h>
+
+#if TARGET_OS_IPHONE
+@import UIKit;
+#elif TARGET_OS_MAC
+@import AppKit;
+#endif
 
 #import "AKManager.h"
 #import "AKSettings.h"
 
 #import "AKStereoAudio.h" // Used for replace instrument which should be refactored
+
 
 @interface AKManager () <CsoundObjListener, CsoundMsgDelegate> {
     NSString *options;
@@ -133,13 +141,28 @@ static AKManager *_sharedManager = nil;
         csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
+        
+        // Get notified when the application ends so we can a chance to do some cleanups
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_applicationWillTerminate:)
+#if TARGET_OS_IPHONE
+                                                     name:UIApplicationWillTerminateNotification
+#elif TARGET_OS_MAC
+                                                     name:NSApplicationWillTerminateNotification
+#endif
+                                                   object:nil];
     }
     return self;
 }
 
-// FIXME: Ironically, since we have a singleton this will likely never get called
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)_applicationWillTerminate:(NSNotification *)notification
+{
+    [self.engine stop];
     [[NSFileManager defaultManager] removeItemAtPath:csdFile error:nil];
 }
 
