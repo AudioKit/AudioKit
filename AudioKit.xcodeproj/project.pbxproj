@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C45552411ADEFD8A000C8D42 /* AK3DBinauralAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C455523F1ADEFD8A000C8D42 /* AK3DBinauralAudio.h */; };
+		C45552421ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
+		C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
 		EA08B5701AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA08B5711AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA8E95A61AD3C6850057E979 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E93F51AD3C6840057E979 /* AKManager.m */; };
@@ -366,6 +369,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C455523F1ADEFD8A000C8D42 /* AK3DBinauralAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AK3DBinauralAudio.h; sourceTree = "<group>"; };
+		C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudio.m; sourceTree = "<group>"; };
 		EA08B56D1AD8985F00949FD5 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		EA08B56E1AD8985F00949FD5 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA8E93D81AD3C5240057E979 /* libAudioKit iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1466,6 +1471,8 @@
 		EA8E95671AD3C6850057E979 /* Volume and Spatialization */ = {
 			isa = PBXGroup;
 			children = (
+				C455523F1ADEFD8A000C8D42 /* AK3DBinauralAudio.h */,
+				C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */,
 				EA8E95681AD3C6850057E979 /* AKBalance.h */,
 				EA8E95691AD3C6850057E979 /* AKBalance.m */,
 				EA8E956A1AD3C6850057E979 /* AKMix.h */,
@@ -1606,6 +1613,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C45552411ADEFD8A000C8D42 /* AK3DBinauralAudio.h in Headers */,
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1764,6 +1772,7 @@
 				EA8E95FE1AD3C6850057E979 /* AKStereoSoundFileLooper.m in Sources */,
 				EA8E961B1AD3C6850057E979 /* AKInterpolatedRandomNumberPulse.m in Sources */,
 				EA8E95D01AD3C6850057E979 /* EZAudioPlot.m in Sources */,
+				C45552421ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */,
 				EA8E95E91AD3C6850057E979 /* AKScaledFFT.m in Sources */,
 				EA8E95AC1AD3C6850057E979 /* AKConstant.m in Sources */,
 				EA8E95C81AD3C6850057E979 /* AKAudioOutputRollingWaveformPlot.m in Sources */,
@@ -1941,6 +1950,7 @@
 				EA8E97041AD3CA4C0057E979 /* AKBandPassButterworthFilter.m in Sources */,
 				EA8E97051AD3CA4C0057E979 /* AKBandRejectButterworthFilter.m in Sources */,
 				EA8E97061AD3CA4C0057E979 /* AKHighPassButterworthFilter.m in Sources */,
+				C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */,
 				EA8E97071AD3CA4C0057E979 /* AKLowPassButterworthFilter.m in Sources */,
 				EA8E97081AD3CA4C0057E979 /* AKBallWithinTheBoxReverb.m in Sources */,
 				EA8E97091AD3CA4C0057E979 /* AKFlatFrequencyResponseReverb.m in Sources */,
