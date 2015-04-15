@@ -200,6 +200,7 @@
 #import "AKReverb.h"
 
 // Operations - Signal Modifiers - Volume and Spatialization
+#import "AK3DBinauralAudio.h"
 #import "AKBalance.h"
 #import "AKMix.h"
 #import "AKPanner.h"
