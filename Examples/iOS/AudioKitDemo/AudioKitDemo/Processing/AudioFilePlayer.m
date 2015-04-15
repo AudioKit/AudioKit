@@ -21,12 +21,8 @@
         _sampleMix = [self createPropertyWithValue:0 minimum:0  maximum:1];
         
         // Instrument Definition
-        NSString *file1;
-        file1 = [[NSBundle mainBundle] pathForResource:@"PianoBassDrumLoop" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-
-        NSString *file2;
-        file2 = [[NSBundle mainBundle] pathForResource:@"808loop" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        
+        NSString *file1 = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+        NSString *file2 = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         
         AKFileInput *fileIn1 = [[AKFileInput alloc] initWithFilename:file1];
         fileIn1.speed = _speed;

@@ -30,18 +30,12 @@
         _samplePosition = samplePosition;
         _reflectionCoefficient = reflectionCoefficient;
         _amplitude = amplitude;
+
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
-        
-        // if the file is still null then we are probably in tests
-        if (!file) {
-            file = @"AKSoundFiles.bundle/Sounds/marmstk1.wav";
-        }
-        
-        AKSoundFileTable *_strikeImpulseTable;
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
-        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
+        NSString *file = [AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"];
+        AKSoundFileTable *strikeImpulseTable;
+        strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:strikeImpulseTable];
         _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
 
         [self setUpConnections];
@@ -59,18 +53,12 @@
         _samplePosition = akp(0.1);
         _reflectionCoefficient = akp(0.1);
         _amplitude = akp(1.0);
+
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
-        
-        // if the file is still null then we are probably in tests
-        if (!file) {
-            file = @"AKSoundFiles.bundle/Sounds/marmstk1.wav";
-        }
-        
-        AKSoundFileTable *_strikeImpulseTable;
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
-        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:_strikeImpulseTable];
+        NSString *file = [AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"];
+        AKSoundFileTable *strikeImpulseTable;
+        strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:strikeImpulseTable];
         _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
         [self setUpConnections];
     }

@@ -117,21 +117,9 @@
         [inputsString appendFormat:@"AKControl(%@), ", _elevation];
     }
     
-    NSString *leftDat = [[NSBundle mainBundle] pathForResource:@"hrtf-44100-left" ofType:@"dat" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-    NSAssert(leftDat, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
+    NSString *leftDat = [AKManager pathToSoundFile:@"hrtf-44100-left" ofType:@"dat"];
+    NSString *rightDat = [AKManager pathToSoundFile:@"hrtf-44100-right" ofType:@"dat"];
     
-    // if the file is still null then we are probably in tests
-    if (!leftDat) {
-        leftDat = @"AKSoundFiles.bundle/Sounds/hrtf-44100-left.dat";
-    }
-    
-    NSString *rightDat = [[NSBundle mainBundle] pathForResource:@"hrtf-44100-right" ofType:@"dat" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-    NSAssert(rightDat, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
-    
-    // if the file is still null then we are probably in tests
-    if (!rightDat) {
-        rightDat = @"AKSoundFiles.bundle/Sounds/hrtf-44100-right.dat";
-    }
     [inputsString appendFormat:@"\"%@\",\"%@\"", leftDat, rightDat];
     
     return inputsString;
