@@ -130,14 +130,14 @@
     return [[self alloc] initBetaDistributionWithAlpha:alpha beta:beta];
 }
 
-- (NSArray *)parametersWithSize:(int)size
+- (NSArray *)parametersWithSize:(NSUInteger)size
 {
     if (type == 9) {
-        return @[[NSNumber numberWithInt:type], [NSNumber numberWithFloat:_alpha], [NSNumber numberWithFloat:_beta]];
+        return @[@(type), @(_alpha), @(_beta)];
     } else if (type == 10) {
-        return @[[NSNumber numberWithInt:type], [NSNumber numberWithFloat:_sigma]];
+        return @[@(type), @(_sigma)];
     } else {
-        return @[[NSNumber numberWithInt:type]];
+        return @[@(type)];
     }
 }
 

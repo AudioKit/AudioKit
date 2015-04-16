@@ -40,7 +40,7 @@
     [self addValue:value atIndex:index];
 }
 
-- (NSArray *)parametersWithSize:(int)size
+- (NSArray *)parametersWithSize:(NSUInteger)size
 {
     [points sortUsingComparator:^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
         return [obj1[0] compare: obj2[0]];
