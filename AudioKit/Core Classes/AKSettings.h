@@ -12,9 +12,9 @@
 
 @interface AKSettings : NSObject
 
-+ (AKSettings *)settings;
++ (AKSettings * __nonnull)settings;
 
-@property (nonatomic, readonly) NSString *audioInput, *audioOutput;
+@property (nonatomic, readonly, nonnull) NSString *audioInput, *audioOutput;
 @property (nonatomic, readonly) UInt32 sampleRate, samplesPerControlPeriod;
 @property (nonatomic, readonly) UInt16 numberOfChannels;
 @property (nonatomic, readonly) float zeroDBFullScaleValue;

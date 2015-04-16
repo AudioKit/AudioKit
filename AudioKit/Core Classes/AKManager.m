@@ -5,11 +5,19 @@
 //  Created by Aurelius Prochazka on 5/30/12.
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
+#import <TargetConditionals.h>
+
+#if TARGET_OS_IPHONE
+@import UIKit;
+#elif TARGET_OS_MAC
+@import AppKit;
+#endif
 
 #import "AKManager.h"
 #import "AKSettings.h"
 
 #import "AKStereoAudio.h" // Used for replace instrument which should be refactored
+
 
 @interface AKManager () <CsoundObjListener, CsoundMsgDelegate> {
     NSString *options;
@@ -67,9 +75,27 @@ static AKManager *_sharedManager = nil;
 }
 
 + (NSString *)stringFromFile:(NSString *)filename {
-    return [[NSString alloc] initWithContentsOfFile:filename 
-                                           encoding:NSUTF8StringEncoding 
-                                              error:nil];
+    NSError *err;
+    NSString *str = [[NSString alloc] initWithContentsOfFile:filename
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:&err];
+    if (!str) {
+        NSLog(@"Error reading contents of file %@: %@", filename, err);
+    }
+    return str;
+}
+
++ (NSString *)pathToSoundFile:(NSString *)filename ofType:(NSString *)extension
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:extension
+                                                   inDirectory:@"AKSoundFiles.bundle/Sounds"];
+    NSAssert(path, @"Make sure to include AKSoundFiles.bundle in your project's resources! Unable to locate file: %@.%@", filename, extension);
+    
+    // If the file is still nil and we haven't aborted, then we are probably in tests
+    if (!path) {
+        path = [NSString stringWithFormat:@"AKSoundFiles.bundle/Sounds/%@.%@", filename, extension];
+    }
+    return path;
 }
 
 - (instancetype)init {
@@ -112,17 +138,31 @@ static AKManager *_sharedManager = nil;
         "<CsScore>\nf0 %d\n</CsScore>\n\n"
         "</CsoundSynthesizer>\n";
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        csdFile = [NSString stringWithFormat:@"%@/AudioKit.csd", paths[0]];
+        csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
+        
+        // Get notified when the application ends so we can a chance to do some cleanups
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_applicationWillTerminate:)
+#if TARGET_OS_IPHONE
+                                                     name:UIApplicationWillTerminateNotification
+#elif TARGET_OS_MAC
+                                                     name:NSApplicationWillTerminateNotification
+#endif
+                                                   object:nil];
     }
     return self;
 }
 
-// FIXME: Ironically, since we have a singleton this will likely never get called
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)_applicationWillTerminate:(NSNotification *)notification
+{
+    [self.engine stop];
     [[NSFileManager defaultManager] removeItemAtPath:csdFile error:nil];
 }
 

@@ -55,6 +55,8 @@ OSStatus  Csound_Render(void *inRefCon,
 @property (strong) NSMutableArray *listeners;
 @property (weak)   NSMutableArray *valuesCache;
 
+@property (strong) NSThread *thread;
+
 - (void)runCsound:(NSString *)csdFilePath;
 - (void)runCsoundToDisk:(NSArray *)paths;
 
@@ -90,7 +92,8 @@ OSStatus  Csound_Render(void *inRefCon,
 - (void)play:(NSString *)csdFilePath
 {
     self.shouldRecord = NO;
-    [self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
+    self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runCsound:) object:csdFilePath];
+    [self.thread start];
 }
 
 - (void)updateOrchestra:(NSString *)orchestraString
@@ -102,6 +105,10 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)stop {
     self.running = NO;
+    [self.thread cancel];
+    while (!self.thread.finished) {
+        [NSThread sleepForTimeInterval:0.01];
+    }
 }
 
 - (void)mute {
@@ -120,15 +127,16 @@ OSStatus  Csound_Render(void *inRefCon,
 {
     self.shouldRecord = YES;
     self.outputURL = outputURL;
-    [self performSelectorInBackground:@selector(runCsound:) withObject:csdFilePath];
+    self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runCsound:) object:csdFilePath];
+    [self.thread start];
 }
 
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
     self.shouldRecord = NO;
-    
-    [self performSelectorInBackground:@selector(runCsoundToDisk:)
-                           withObject:@[csdFilePath, outputFile]];
+    self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runCsoundToDisk:)
+                                            object:@[csdFilePath, outputFile]];
+    [self.thread start];
 }
 
 - (void)recordToURL:(NSURL *)outputURL_
