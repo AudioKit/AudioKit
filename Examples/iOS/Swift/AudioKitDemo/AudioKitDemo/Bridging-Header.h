@@ -7,9 +7,8 @@
 
 #import "AKFoundation.h"
 #import "AKTools.h"
-#import "AKAudioAnalyzer.h"
-#import "AKPropertySlider.h"
 #import "Microphone.h"
+#import "AKAudioAnalyzer.h"
 #import "Tambourine.h"
 
 #import "AKAudioInputPlot.h"

@@ -170,6 +170,7 @@
 #import "AKCompressor.h"
 #import "AKDopplerEffect.h"
 #import "AKFlanger.h"
+#import "AKRingModulator.h"
 
 // Operations - Signal Modifiers - Filters
 #import "AKCombFilter.h"
@@ -204,5 +205,9 @@
 #import "AKBalance.h"
 #import "AKMix.h"
 #import "AKPanner.h"
+
+// Utilities
+#import "AKPropertyLabel.h"
+#import "AKPropertySlider.h"
 
 #endif

@@ -117,7 +117,7 @@
         [inputsString appendFormat:@"AKControl(%@), ", _elevation];
     }
     
-    NSString *leftDat = [AKManager pathToSoundFile:@"hrtf-44100-left" ofType:@"dat"];
+    NSString *leftDat  = [AKManager pathToSoundFile:@"hrtf-44100-left"  ofType:@"dat"];
     NSString *rightDat = [AKManager pathToSoundFile:@"hrtf-44100-right" ofType:@"dat"];
     
     [inputsString appendFormat:@"\"%@\",\"%@\"", leftDat, rightDat];
