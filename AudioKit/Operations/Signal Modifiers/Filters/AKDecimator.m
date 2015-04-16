@@ -119,7 +119,6 @@
     return inputsString;
 }
 
-
 - (NSString *)udoString {
     return @"\n"
     "opcode  decimator, a, akk\n"
@@ -137,4 +136,5 @@
     "xout      a0ut\n"
     "endop\n";
 }
+
 @end
