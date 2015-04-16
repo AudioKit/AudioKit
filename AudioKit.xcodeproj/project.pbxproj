@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C45552421ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
 		C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
+		C45552481ADF152F000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
+		C45552491ADF155A000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
 		EA08B5701AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA08B5711AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA8E95A61AD3C6850057E979 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E93F51AD3C6840057E979 /* AKManager.m */; };
@@ -370,6 +372,8 @@
 /* Begin PBXFileReference section */
 		C455523F1ADEFD8A000C8D42 /* AK3DBinauralAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AK3DBinauralAudio.h; sourceTree = "<group>"; };
 		C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudio.m; sourceTree = "<group>"; };
+		C45552461ADF152F000C8D42 /* AKRingModulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRingModulator.h; sourceTree = "<group>"; };
+		C45552471ADF152F000C8D42 /* AKRingModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRingModulator.m; sourceTree = "<group>"; };
 		EA08B56D1AD8985F00949FD5 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		EA08B56E1AD8985F00949FD5 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA8E93D81AD3C5240057E979 /* libAudioKit iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1397,6 +1401,8 @@
 				EA8E95351AD3C6840057E979 /* AKDopplerEffect.m */,
 				EA8E95361AD3C6840057E979 /* AKFlanger.h */,
 				EA8E95371AD3C6840057E979 /* AKFlanger.m */,
+				C45552461ADF152F000C8D42 /* AKRingModulator.h */,
+				C45552471ADF152F000C8D42 /* AKRingModulator.m */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -1821,6 +1827,7 @@
 				EA8E96481AD3C6850057E979 /* AKPanner.m in Sources */,
 				EA8E95BB1AD3C6850057E979 /* Stick.m in Sources */,
 				EA8E95E21AD3C6850057E979 /* AKTrackedFrequencyFromFSignal.m in Sources */,
+				C45552481ADF152F000C8D42 /* AKRingModulator.m in Sources */,
 				EA8E96451AD3C6850057E979 /* AKReverb.m in Sources */,
 				EA8E96221AD3C6850057E979 /* AKAudioInput.m in Sources */,
 				EA8E96381AD3C6850057E979 /* AKMoogLadder.m in Sources */,
@@ -1999,6 +2006,7 @@
 				EA8E96861AD3C89F0057E979 /* StruckMetalBar.m in Sources */,
 				EA8E96951AD3C92B0057E979 /* AKPlotView.m in Sources */,
 				EA8E969C1AD3C94F0057E979 /* AKPropertyLabel.m in Sources */,
+				C45552491ADF155A000C8D42 /* AKRingModulator.m in Sources */,
 				EA8E969E1AD3C94F0057E979 /* AKLevelMeter.m in Sources */,
 				EA8E96911AD3C92B0057E979 /* AKAudioOutputPlot.m in Sources */,
 				EA8E96721AD3C85D0057E979 /* AKMidi.m in Sources */,
