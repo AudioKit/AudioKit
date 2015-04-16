@@ -23,6 +23,7 @@
         _filename = fileName;
         _speed = akp(1);
         _startTime = akp(0);
+        _loop = NO;
         [self setUpConnections];
     }
     return self;
@@ -31,12 +32,14 @@
 - (instancetype)initWithFilename:(NSString *)fileName
                            speed:(AKParameter *)speed
                        startTime:(AKConstant *)startTime
+                            loop:(BOOL)loop
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _filename = fileName;
         _speed = speed;
         _startTime = startTime;
+        _loop = loop;
         [self setUpConnections];
     }
     return self;
@@ -60,6 +63,10 @@
     [self setStartTime:startTime];
 }
 
+- (void)setOptionalLoop:(BOOL)loop {
+    _loop = loop;
+}
+
 - (void)setUpConnections
 {
     self.state = @"connectable";
@@ -71,8 +78,8 @@
     NSMutableString *csdString = [[NSMutableString alloc] init];
     
     [csdString appendFormat:
-     @"%@ diskin \"%@\", AKControl(%@), %@, 1\n",
-     self, _filename, _speed, _startTime];
+     @"%@ diskin \"%@\", AKControl(%@), %@, %d\n",
+     self, _filename, _speed, _startTime, _loop];
     
     return csdString;
 }

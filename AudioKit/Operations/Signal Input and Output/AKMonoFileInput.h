@@ -22,9 +22,11 @@
 /// @param fileName Location of the file on disk.
 /// @param speed Speed of the playback relative to 1 [Default Value: 1]
 /// @param startTime Time in second to start the playback (useful for pause/resume)
+/// @param loop Whether or not to loop the playback (Default Value: NO)
 - (instancetype)initWithFilename:(NSString *)fileName
                            speed:(AKParameter *)speed
-                       startTime:(AKConstant *)startTime;
+                       startTime:(AKConstant *)startTime
+                            loop:(BOOL)loop;
 
 /// Speed of the playback relative to 1 [Default Value: 1]
 @property (nonatomic) AKParameter *speed;
@@ -39,5 +41,11 @@
 /// Set an optional start time
 /// @param startTime Time in second to start the playback (useful for pause/resume)
 - (void)setOptionalStartTime:(AKConstant *)startTime;
+
+/// Whether or not to loop playback (Default Value: NO)
+@property (nonatomic) BOOL loop;
+
+/// Set whether to loop playback (Default Value: NO)
+- (void)setOptionalLoop:(BOOL)loop;
 
 @end
