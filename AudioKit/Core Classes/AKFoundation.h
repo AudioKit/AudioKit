@@ -205,4 +205,8 @@
 #import "AKMix.h"
 #import "AKPanner.h"
 
+// Utilities
+#import "AKPropertyLabel.h"
+#import "AKPropertySlider.h"
+
 #endif
