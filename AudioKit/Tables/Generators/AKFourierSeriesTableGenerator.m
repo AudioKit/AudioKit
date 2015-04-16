@@ -44,7 +44,7 @@
     
 }
 
-- (NSArray *)parametersWithSize:(int)size
+- (NSArray *)parametersWithSize:(NSUInteger)size
 {
     if (sinusoids.count == 0) {
         [self addSinusoidWithPartialNumber:1 strength:1];
