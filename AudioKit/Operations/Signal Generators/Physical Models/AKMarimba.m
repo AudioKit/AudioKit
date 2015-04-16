@@ -39,15 +39,7 @@
         _tripleStrikePercentage = tripleStrikePercentage;
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-
-        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
-        
-        // if the file is still null then we are probably in tests
-        if (!file) {
-            file = @"AKSoundFiles.bundle/Sounds/marmstk1.wav";
-        }
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
         
         [self setUpConnections];
 }
@@ -71,15 +63,8 @@
         _tripleStrikePercentage = akp(20);
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav" inDirectory:@"AKSoundFiles.bundle/Sounds"];
-        NSAssert(file, @"Make sure to include AKSoundFiles.bundle in your project's resources!");
         
-        // if the file is still null then we are probably in tests
-        if (!file) {
-            file = @"AKSoundFiles.bundle/Sounds/marmstk1.wav";
-        }
-        
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
         
         [self setUpConnections];
     }
