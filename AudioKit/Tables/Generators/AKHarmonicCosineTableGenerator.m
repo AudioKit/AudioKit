@@ -55,7 +55,7 @@
     self.partialMultiplier = partialMultiplier;
 }
 
-- (NSArray *)parametersWithSize:(int)size
+- (NSArray *)parametersWithSize:(NSUInteger)size
 {
     return @[[NSNumber numberWithInt:_numberOfHarmonics],
              [NSNumber numberWithInt:_lowestHarmonic],
