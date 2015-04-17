@@ -78,7 +78,7 @@
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
 
-    [inlineCSDString appendString:@"hrtfmove2("];
+    [inlineCSDString appendString:@"hrtfmove("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
 
@@ -90,7 +90,7 @@
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    [csdString appendFormat:@"%@ hrtfmove2 ", self];
+    [csdString appendFormat:@"%@ hrtfmove ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
 }
