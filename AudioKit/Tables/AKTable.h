@@ -16,7 +16,7 @@
 @interface AKTable : NSObject
 
 /// The number of elements in the table.  Often required to be a multiple of 2.
-@property int size;
+@property NSUInteger size;
 
 /// A reference lookup number for the table.
 @property (readonly) int number;
@@ -31,7 +31,7 @@
 
 /// Creates an empty table with the given number of elements.
 /// @param size Number of elements in the table
-- (instancetype)initWithSize:(int)size;
+- (instancetype)initWithSize:(NSUInteger)size;
 
 - (instancetype)initWithArray:(NSArray *)array;
 
