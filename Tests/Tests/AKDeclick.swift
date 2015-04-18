@@ -58,6 +58,4 @@ for index in 11...20 {
 }
 instrument2.playPhrase(phrase2)
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

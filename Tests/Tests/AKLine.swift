@@ -12,7 +12,7 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let line = AKLine()
         line.secondPoint = 100.ak
         enableParameterLog("line value = ", parameter: line, timeInterval:0.5)
@@ -30,6 +30,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

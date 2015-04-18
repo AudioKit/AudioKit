@@ -17,7 +17,7 @@ class Instrument : AKInstrument {
 
         let first = 3.ak
         let second = 0.14.ak
-        
+
         let sum        = first.plus(second)
         let difference = first.minus(second)
         let product    = first.scaledBy(second)
@@ -35,13 +35,13 @@ class Instrument : AKInstrument {
         control.frequency = 0.3.ak
         control.amplitude = 7.ak
         connect(control)
-        
+
         let oscillator = AKOscillator()
         oscillator.frequency = control.plus(14.ak).floor().scaledBy(100.ak).plus(220.ak)
         oscillator.amplitude = control.fractionalPart()
         setAudioOutput(oscillator.scaledBy(0.5.ak))
-        
-        
+
+
         enableParameterLog("Sum        expected  3.140000 = ", parameter: sum,        timeInterval: 10)
         enableParameterLog("Difference expected  2.860000 = ", parameter: difference, timeInterval: 10)
         enableParameterLog("Product    expected  0.420000 = ", parameter: product,    timeInterval: 10)
@@ -54,7 +54,7 @@ class Instrument : AKInstrument {
         enableParameterLog("Log        expected  1.098612 = ", parameter: log,        timeInterval: 10)
         enableParameterLog("Log10      expected  0.477121 = ", parameter: log10,      timeInterval: 10)
         enableParameterLog("SquareRoot expected  1.732051 = ", parameter: squareRoot, timeInterval: 10)
-        
+
     }
 }
 
@@ -65,6 +65,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

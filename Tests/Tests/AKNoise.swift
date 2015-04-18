@@ -14,13 +14,13 @@ class Instrument : AKInstrument {
 
     override init() {
         super.init()
-        
+
         let pinkBalanceLine = AKLine(
             firstPoint:  0.ak,
             secondPoint: 1.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         enableParameterLog(
             "Pink Balance = ",
             parameter: pinkBalanceLine,
@@ -32,13 +32,13 @@ class Instrument : AKInstrument {
             secondPoint: 0.99.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         enableParameterLog(
             "Beta = ",
             parameter: betaLine,
             timeInterval:0.5
         )
-        
+
         let noise = AKNoise()
         noise.pinkBalance = pinkBalanceLine
         noise.beta = betaLine
@@ -52,6 +52,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))
