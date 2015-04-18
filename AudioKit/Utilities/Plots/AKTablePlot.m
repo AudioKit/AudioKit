@@ -18,40 +18,50 @@
     int fTableNumber;
 }
 
+- (void)defaultValues
+{
+    fTableNumber = 0;
+    _lineWidth = 4.0f;
+    _lineColor = [AKColor blueColor];
+}
+
+- (void)setTable:(AKTable *)table
+{
+    fTableNumber = table.number;
+    CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
+    while (csoundTableLength(cs, fTableNumber) < 0) {
+        // do nothing
+    }
+    MYFLT *tableValues;
+    if ((tableLength = csoundGetTable(cs, &tableValues, fTableNumber)) > 0) {
+        
+        float scalingFactor = 0.9;
+        CGFloat width = self.frame.size.width;
+        CGFloat middle = (self.frame.size.height / 2.0);
+        
+        displayData = malloc(sizeof(MYFLT) * width);
+        
+        float max = 0.00001;
+        
+        for(int i = 0; i < tableLength; i++) {
+            if (tableValues[i] > max)
+                max = tableValues[i];
+        }
+        for(int i = 0; i < width; i++) {
+            float percent = i / width;
+            int index = (int)(percent * tableLength);
+            displayData[i] = (-(tableValues[index]/max) * middle * scalingFactor) + middle;
+        }
+        [self updateUI];
+    }
+}
 
 - (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)table
 {
    
     self = [super initWithFrame:frame];
     if (self) {
-        fTableNumber = table.number;
-        CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
-        while (csoundTableLength(cs, fTableNumber) < 0) {
-            // do nothing
-        }
-        MYFLT *tableValues;
-        if ((tableLength = csoundGetTable(cs, &tableValues, fTableNumber)) > 0) {
-            
-            float scalingFactor = 0.9;
-            CGFloat width = self.frame.size.width;
-            CGFloat middle = (self.frame.size.height / 2.0);
-            
-            displayData = malloc(sizeof(MYFLT) * width);
-            
-            float max = 0.00001;
-            
-            for(int i = 0; i < tableLength; i++) {
-                if (tableValues[i] > max)
-                    max = tableValues[i];
-            }
-            for(int i = 0; i < width; i++) {
-                float percent = i / width;
-                int index = (int)(percent * tableLength);
-                displayData[i] = (-(tableValues[index]/max) * middle * scalingFactor) + middle;
-            }
-            [self updateUI];
-        }
-        
+        self.table = table;
     }
     return self;
 }
@@ -63,6 +73,9 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    if (fTableNumber == 0) {
+        return;
+    }
 #if TARGET_OS_IPHONE
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
