@@ -107,6 +107,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="choices" destination="bVa-Tg-hHm" id="IKI-zw-O9L"/>
                         <outlet property="frequencyLabel" destination="4jf-qj-tXT" id="t6x-97-Cem"/>
                         <outlet property="frequencySlider" destination="p3U-SY-cI4" id="A3H-nJ-M3m"/>
                         <outlet property="tablePlot" destination="4s8-0W-pAB" id="wJM-p8-Odc"/>
