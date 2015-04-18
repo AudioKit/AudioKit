@@ -1,0 +1,3 @@
+language: objective-c
+script:
+- ./Tests/run.sh Tests/Math.swift
