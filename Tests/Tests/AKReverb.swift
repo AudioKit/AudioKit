@@ -24,6 +24,7 @@ class Instrument : AKInstrument {
         assignOutput(auxilliaryOutput, to:audio)
     }
 }
+
 class Processor : AKInstrument {
 
     init(audioSource: AKStereoAudio) {
