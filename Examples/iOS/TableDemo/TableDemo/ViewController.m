@@ -9,13 +9,15 @@
 #import "ViewController.h"
 #import "AKFoundation.h"
 #import "AKTablePlot.h"
+#import "OscillatorInstrument.h"
 
 @interface ViewController () {
-    AKInstrument *instrument;
-    AKOscillator *oscillator;
+    OscillatorInstrument *oscillatorInstrument;
     NSArray *waveforms;
     BOOL isPlaying;
     IBOutlet AKTablePlot *tablePlot;
+    IBOutlet AKPropertyLabel *frequencyLabel;
+    IBOutlet AKPropertySlider *frequencySlider;
 }
 @end
 
@@ -24,11 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    instrument = [[AKInstrument alloc] initWithNumber:1];
-    oscillator = [AKOscillator oscillator];
-    [instrument setAudioOutput:oscillator];
-    [AKOrchestra addInstrument:instrument];
+    oscillatorInstrument = [[OscillatorInstrument alloc] init];
+    [AKOrchestra addInstrument:oscillatorInstrument];
     
     isPlaying = NO;
     
@@ -41,16 +40,19 @@
                   [AKTable standardSineWave],
                   playableSquare,
                   [AKTable standardTriangleWave]];
-    tablePlot.table = waveforms[0];
+    tablePlot.table = waveforms[1];
+    
+    frequencyLabel.property  = oscillatorInstrument.frequency;
+    frequencySlider.property = oscillatorInstrument.frequency;
 }
 
 - (IBAction)play:(UIButton *)sender {
     if (isPlaying) {
-        [instrument stop];
+        [oscillatorInstrument stop];
         [sender setTitle:@"Play" forState:UIControlStateNormal];
         isPlaying = NO;
     } else {
-        [instrument play];
+        [oscillatorInstrument play];
         [sender setTitle:@"Stop" forState:UIControlStateNormal];
         isPlaying = YES;
     }
@@ -59,12 +61,13 @@
 - (IBAction)changeWaveform:(UISegmentedControl *)sender
 {
     NSUInteger index = [sender selectedSegmentIndex];
-    oscillator.waveform = waveforms[index];
+    oscillatorInstrument.oscillator.waveform = waveforms[index];
     tablePlot.table = waveforms[index];
-    [AKOrchestra updateInstrument:instrument];
+    [AKOrchestra updateInstrument:oscillatorInstrument];
     
-    if (isPlaying) [instrument restart];
+    if (isPlaying) [oscillatorInstrument restart];
 }
+
 
 
 
