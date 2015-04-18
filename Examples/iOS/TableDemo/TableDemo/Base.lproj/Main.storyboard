@@ -29,7 +29,7 @@
                                     <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WLo-TF-cKu"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bVa-Tg-hHm">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="bVa-Tg-hHm">
                                 <rect key="frame" x="16" y="84" width="568" height="29"/>
                                 <segments>
                                     <segment title="Sawtooth"/>
@@ -53,24 +53,47 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="440" minValue="0.0" maxValue="2000" translatesAutoresizingMaskIntoConstraints="NO" id="p3U-SY-cI4" customClass="AKPropertySlider">
+                                <rect key="frame" x="14" y="143" width="572" height="31"/>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ame-or-vUG">
+                                <rect key="frame" x="16" y="132" width="81" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4jf-qj-tXT" customClass="AKPropertyLabel">
+                                <rect key="frame" x="503" y="132" width="81" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4s8-0W-pAB" customClass="AKTablePlot">
-                                <rect key="frame" x="16" y="132" width="568" height="180"/>
+                                <rect key="frame" x="16" y="187" width="568" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Ame-or-vUG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0rP-Hm-Ova"/>
                             <constraint firstItem="bVa-Tg-hHm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="390-K7-w5Z"/>
                             <constraint firstItem="axu-JZ-8ed" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="8Kc-Gl-ouQ"/>
+                            <constraint firstItem="p3U-SY-cI4" firstAttribute="top" secondItem="Ame-or-vUG" secondAttribute="bottom" constant="-10" id="9gX-QM-QW1"/>
+                            <constraint firstItem="Ame-or-vUG" firstAttribute="top" secondItem="bVa-Tg-hHm" secondAttribute="bottom" constant="20" id="D5L-2B-pmA"/>
                             <constraint firstItem="JA2-dX-kyj" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DkD-qT-Y2R"/>
+                            <constraint firstItem="p3U-SY-cI4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Eax-S9-b7d"/>
                             <constraint firstItem="4s8-0W-pAB" firstAttribute="height" secondItem="axu-JZ-8ed" secondAttribute="height" id="GTS-qt-hEA"/>
+                            <constraint firstItem="4jf-qj-tXT" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Iee-2A-Twf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="axu-JZ-8ed" secondAttribute="bottom" constant="20" id="JoQ-0H-7Eb"/>
                             <constraint firstItem="JA2-dX-kyj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="KcL-gs-c3g"/>
+                            <constraint firstItem="4s8-0W-pAB" firstAttribute="top" secondItem="p3U-SY-cI4" secondAttribute="bottom" constant="14" id="Kfz-Cb-aBc"/>
                             <constraint firstItem="4s8-0W-pAB" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Mgj-IU-TRM"/>
                             <constraint firstItem="4s8-0W-pAB" firstAttribute="top" secondItem="bVa-Tg-hHm" secondAttribute="bottom" constant="20" id="TzZ-9b-LIS"/>
                             <constraint firstItem="bVa-Tg-hHm" firstAttribute="top" secondItem="JA2-dX-kyj" secondAttribute="bottom" constant="8" id="Ufd-CV-KSa"/>
                             <constraint firstItem="4s8-0W-pAB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="XgR-WK-vBl"/>
                             <constraint firstItem="axu-JZ-8ed" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aXx-oF-eWY"/>
+                            <constraint firstItem="p3U-SY-cI4" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="lbf-tS-6NM"/>
+                            <constraint firstItem="4jf-qj-tXT" firstAttribute="centerY" secondItem="Ame-or-vUG" secondAttribute="centerY" id="lx7-8r-J4p"/>
                             <constraint firstItem="axu-JZ-8ed" firstAttribute="top" secondItem="bVa-Tg-hHm" secondAttribute="bottom" constant="19" id="mTJ-eZ-Hgp"/>
                             <constraint firstItem="JA2-dX-kyj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="onl-9t-kAq"/>
                             <constraint firstItem="bVa-Tg-hHm" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="pGN-U2-G86"/>
@@ -78,11 +101,14 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="TzZ-9b-LIS"/>
                                 <exclude reference="mTJ-eZ-Hgp"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="frequencyLabel" destination="4jf-qj-tXT" id="t6x-97-Cem"/>
+                        <outlet property="frequencySlider" destination="p3U-SY-cI4" id="A3H-nJ-M3m"/>
                         <outlet property="tablePlot" destination="4s8-0W-pAB" id="wJM-p8-Odc"/>
                     </connections>
                 </viewController>

@@ -14,6 +14,7 @@
 		C49ACC1D1AE20769004331CA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49ACC1C1AE20769004331CA /* Images.xcassets */; };
 		C49ACC201AE20769004331CA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49ACC1E1AE20769004331CA /* LaunchScreen.xib */; };
 		C49ACC401AE207D1004331CA /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C49ACC3B1AE207BC004331CA /* libAudioKit iOS.a */; };
+		C49ACC4C1AE22B3D004331CA /* OscillatorInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ACC4B1AE22B3D004331CA /* OscillatorInstrument.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		C49ACC2A1AE20769004331CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49ACC2B1AE20769004331CA /* TableDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableDemoTests.m; sourceTree = "<group>"; };
 		C49ACC351AE207BC004331CA /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
+		C49ACC4A1AE22B3D004331CA /* OscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorInstrument.h; sourceTree = "<group>"; };
+		C49ACC4B1AE22B3D004331CA /* OscillatorInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorInstrument.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 				C49ACC161AE20769004331CA /* ViewController.h */,
 				C49ACC171AE20769004331CA /* ViewController.m */,
 				C49ACC191AE20769004331CA /* Main.storyboard */,
+				C49ACC4A1AE22B3D004331CA /* OscillatorInstrument.h */,
+				C49ACC4B1AE22B3D004331CA /* OscillatorInstrument.m */,
 				C49ACC1C1AE20769004331CA /* Images.xcassets */,
 				C49ACC1E1AE20769004331CA /* LaunchScreen.xib */,
 				C49ACC0F1AE20769004331CA /* Supporting Files */,
@@ -232,6 +237,7 @@
 			files = (
 				C49ACC181AE20769004331CA /* ViewController.m in Sources */,
 				C49ACC151AE20769004331CA /* AppDelegate.m in Sources */,
+				C49ACC4C1AE22B3D004331CA /* OscillatorInstrument.m in Sources */,
 				C49ACC121AE20769004331CA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
