@@ -13,16 +13,20 @@
 /** All purpose array of float values.  Often used for waveforms and 
  lookup tables at the time of note creation/initialization.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKTable : NSObject
 
 /// The number of elements in the table.  Often required to be a multiple of 2.
 @property NSUInteger size;
 
+/// All continguous values of the table, up to size.
+@property (nonatomic, readonly, nullable) float *values;
+
 /// A reference lookup number for the table.
 @property (readonly) int number;
 
 /// An entirely optional name, can be useful for debugging.
-@property NSString *name;
+@property (nullable) NSString *name;
 
 /// Creates an empty table with the default size (number of elements).
 - (instancetype)init;
@@ -33,10 +37,16 @@
 /// @param size Number of elements in the table
 - (instancetype)initWithSize:(NSUInteger)size;
 
+/// Creates a table from an array of objects.
+/// @param array An array of NSNumber instances.
 - (instancetype)initWithArray:(NSArray *)array;
 
 /// Creates an empty table with the default size (number of elements).
 + (instancetype)table;
+
+/// Access one of the values of the table
+/// @param index The index of the value, must be less than size
+- (float)valueAtIndex:(NSUInteger)index;
 
 /// Run a mathematical function on each value of the function table
 /// @param function Function to run on each table value
@@ -44,7 +54,7 @@
 
 /// Populate the table with given function on integer elements
 /// @param function Function to applied to each index element
-- (void)populateTableWithIndexFunction:(float (^)(int))function;
+- (void)populateTableWithIndexFunction:(float (^)(NSUInteger))function;
 
 /// Populate a table based on a float value from zero to one.
 /// @param function Function to be applied to a value that varies from 0 to 1.
@@ -69,4 +79,6 @@
 
 /// Returns an ftlen() wrapped around the output of this table.
 - (AKConstant *)length;
+
 @end
+NS_ASSUME_NONNULL_END
