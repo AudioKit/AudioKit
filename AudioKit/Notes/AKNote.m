@@ -58,7 +58,9 @@ static int currentID = 1;
 - (void)setInstrument:(AKInstrument *)instr
 {
     _instrument = instr;
-    [_instrument addNoteProperty:_duration];
+    if (_instrument.noteProperties.count == 0) {
+        [_instrument addNoteProperty:_duration];
+    }
 }
 
 - (instancetype)initWithInstrument:(AKInstrument *)anInstrument
