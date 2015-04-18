@@ -137,9 +137,6 @@
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
     
-    // Constant Values
-    
-    
     if ([_index class] == [AKAudio class]) {
         [inputsString appendFormat:@"%@, ", _index];
     } else {
