@@ -47,8 +47,8 @@ class GuiroNote: AKNote {
 
     convenience init(count: Int, mainResonantFrequency: Float) {
         self.init()
-        self.count.value = Float(count)
-        self.mainResonantFrequency.value = mainResonantFrequency
+        self.count.floatValue = Float(count)
+        self.mainResonantFrequency.floatValue = mainResonantFrequency
     }
 }
 
@@ -61,7 +61,7 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = GuiroNote(count: i*20, mainResonantFrequency: 1000+Float(i)*500)
-    note.duration.value = 1.0
+    note.duration.floatValue = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 

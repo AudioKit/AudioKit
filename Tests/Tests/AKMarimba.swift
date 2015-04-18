@@ -36,7 +36,7 @@ class Note: AKNote {
     }
     convenience init(frequency: Float) {
         self.init()
-        self.frequency.value = frequency
+        self.frequency.floatValue = frequency
     }
 }
 
@@ -46,11 +46,11 @@ let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
 
 let note1 = Note(frequency: 440)
-note1.duration.value = 2.0
+note1.duration.floatValue = 2.0
 let note2 = Note(frequency: 550)
-note2.duration.value = 2.0
+note2.duration.floatValue = 2.0
 let note3 = Note(frequency: 660)
-note3.duration.value = 2.0
+note3.duration.floatValue = 2.0
 
 let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)

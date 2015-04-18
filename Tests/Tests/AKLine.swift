@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 10.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -15,7 +17,7 @@ class Instrument : AKInstrument {
 
         let line = AKLine()
         line.secondPoint = 100.ak
-        enableParameterLog("line value = ", parameter: line, timeInterval:0.5)
+        enableParameterLog("line.floatValue = ", parameter: line, timeInterval:0.5)
 
         let oscillator = AKOscillator()
         oscillator.frequency = line
@@ -23,7 +25,7 @@ class Instrument : AKInstrument {
     }
 }
 
-AKOrchestra.testForDuration(10)
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)

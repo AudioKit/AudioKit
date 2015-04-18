@@ -47,8 +47,8 @@ class StruckMetalBarNote: AKNote {
 
     convenience init(strikePostion: Float, strikeWidth: Float) {
         self.init()
-        self.strikePosition.value = strikePostion
-        self.strikeWidth.value = strikeWidth
+        self.strikePosition.floatValue = strikePostion
+        self.strikeWidth.floatValue = strikeWidth
     }
 }
 
@@ -61,7 +61,7 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = StruckMetalBarNote(strikePostion: Float(i)/20.0, strikeWidth: Float(i)/50)
-    note.duration.value = 1.0
+    note.duration.floatValue = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 

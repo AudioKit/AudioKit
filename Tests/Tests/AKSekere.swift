@@ -47,8 +47,8 @@ class SekereNote: AKNote {
 
     convenience init(count: Int, dampingFactor: Float) {
         self.init()
-        self.count.value = Float(count)
-        self.dampingFactor.value = dampingFactor
+        self.count.floatValue = Float(count)
+        self.dampingFactor.floatValue = dampingFactor
     }
 }
 
@@ -61,7 +61,7 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = SekereNote(count: i*20, dampingFactor: 1.1-Float(i)/10.0)
-    note.duration.value = 1.0
+    note.duration.floatValue = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 
