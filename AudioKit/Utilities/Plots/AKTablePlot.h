@@ -25,6 +25,6 @@ IB_DESIGNABLE
 /// @param table Table to plot
 - (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)table;
 
-@property AKTable *table;
+@property (nonatomic) AKTable *table;
 
 @end
