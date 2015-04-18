@@ -46,7 +46,7 @@ class Processor : AKInstrument {
 
         let balance = AKBalance(input: resonantFilter, comparatorAudioSource: audioSource)
         setAudioOutput(balance)
-        
+
         enableParameterLog(
             "Center Frequency = ",
             parameter: resonantFilter.centerFrequency,
@@ -73,6 +73,4 @@ AKOrchestra.addInstrument(processor)
 processor.play()
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

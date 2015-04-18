@@ -41,7 +41,5 @@ note2.duration.value = 5.0
 phrase.addNote(note2, atTime:3.5)
 instrument.playPhrase(phrase)
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))
 

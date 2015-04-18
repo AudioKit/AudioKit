@@ -20,7 +20,7 @@ class Instrument : AKInstrument {
             secondPoint: 880.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         let carrierMultiplierLine = AKLine(
             firstPoint:  2.ak,
             secondPoint: 0.ak,
@@ -80,6 +80,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

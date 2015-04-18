@@ -11,28 +11,28 @@ import Foundation
 let testDuration: Float = 10
 
 class Instrument : AKInstrument {
-    
+
     override init() {
         super.init()
-        
+
         let amplitudeLineDeviation = AKOscillator()
         amplitudeLineDeviation.frequency = 0.1.ak
         amplitudeLineDeviation.amplitude = 0.5.ak
-        
+
         let toneGenerator = AKOscillator()
         toneGenerator.amplitude = amplitudeLineDeviation.plus(akp(0.5))
         setAudioOutput(toneGenerator)
-        
+
         let tracker = AKTrackedAmplitude(
             audioSource: toneGenerator
         )
-        
+
         enableParameterLog(
             "Actual amplitude =  ",
             parameter: toneGenerator.amplitude,
             timeInterval: 0.1
         )
-        
+
         enableParameterLog(
             "Tracked amplitude = ",
             parameter: tracker,
@@ -48,6 +48,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))
