@@ -154,13 +154,6 @@ static int currentID = 2000;
 {
     AKTable *standardSquareWave = [[AKTable alloc] init];
     [standardSquareWave populateTableWithGenerator:[AKLineTableGenerator squareWave]];
-//    [standardSquareWave populateTableWithFractionalWidthFunction:^(float x) {
-//        if (x < 0.5) {
-//            return 1.0f;
-//        } else {
-//            return -1.0f;
-//        }
-//    }];
     return standardSquareWave;
 }
 
