@@ -17,7 +17,7 @@ static int currentID = 2000;
 + (void)resetID { currentID = 2000; }
 
 // Returns a pointer to the table managed internally by Csound
-- (MYFLT *)_getTable
+- (MYFLT *)values
 {
     NSAssert(csoundTableLength(_cs, _number) == _size, @"Inconsistent table sizes (not %@)", @(_size));
 
@@ -58,7 +58,7 @@ static int currentID = 2000;
         _csoundObj = [[AKManager sharedManager] engine];
         _cs = [_csoundObj getCsound];
         [_csoundObj updateOrchestra:self.orchestraString];
-        MYFLT *table = [self _getTable];
+        MYFLT *table = self.values;
         
         if (table) {
             for (int i = 0; i < _size; i++) {
@@ -69,6 +69,18 @@ static int currentID = 2000;
         }
     }
     return self;
+}
+
+- (float)valueAtIndex:(NSUInteger)index
+{
+    NSAssert(index < _size, @"Index out of bounds: %@", @(index));
+    if (index < _size) {
+        MYFLT *vals = self.values;
+        if (vals) {
+            return vals[index];
+        }
+    }
+    return 0.0f;
 }
 
 - (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator
@@ -84,7 +96,7 @@ static int currentID = 2000;
 
 - (void)operateOnTableWithFunction:(float (^)(float))function
 {
-    MYFLT *table = [self _getTable];
+    MYFLT *table = self.values;
     if (table) {
         for (int i = 0; i < _size; i++) {
             table[i] = function(table[i]);
@@ -92,9 +104,9 @@ static int currentID = 2000;
     }
 }
 
-- (void)populateTableWithIndexFunction:(float (^)(int))function
+- (void)populateTableWithIndexFunction:(float (^)(NSUInteger))function
 {
-    MYFLT *table = [self _getTable];
+    MYFLT *table = self.values;
     if (table) {
         for (int i = 0; i < _size; i++) {
             table[i] = function(i);
@@ -104,7 +116,7 @@ static int currentID = 2000;
 
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function
 {
-    MYFLT *table = [self _getTable];
+    MYFLT *table = self.values;
     if (table) {
         for (int i = 0; i < _size; i++) {
             float x = (float) i / _size;
@@ -122,9 +134,9 @@ static int currentID = 2000;
 
 - (void)normalize
 {
-    MYFLT *table = [self _getTable];
+    MYFLT *table = self.values;
     if (table) {
-        float max = 0.0;
+        MYFLT max = 0.0;
         for (int i = 0; i < _size; i++) {
             max = MAX(max, fabsf(table[i]));
         }
