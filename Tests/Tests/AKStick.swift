@@ -46,8 +46,8 @@ class StickNote: AKNote {
 
     convenience init(intensity: Int, dampingFactor: Float) {
         self.init()
-        self.intensity.value = Float(intensity)
-        self.dampingFactor.value = dampingFactor
+        self.intensity.floatValue = Float(intensity)
+        self.dampingFactor.floatValue = dampingFactor
     }
 }
 
@@ -60,7 +60,7 @@ let phrase = AKPhrase()
 
 for i in 1...20 {
     let note = StickNote(intensity: i*20, dampingFactor: 1.05-Float(i)/20.0)
-    note.duration.value = 0.5
+    note.duration.floatValue = 0.5
     phrase.addNote(note, atTime: Float(i-1)*0.5)
 }
 

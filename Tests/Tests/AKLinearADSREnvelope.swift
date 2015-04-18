@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
         super.init()
 
         let adsr = AKLinearADSREnvelope()
-        enableParameterLog("ADSR value = ", parameter: adsr, timeInterval:0.02)
+        enableParameterLog("ADSR.floatValue = ", parameter: adsr, timeInterval:0.02)
 
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr
@@ -37,7 +37,7 @@ let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
 phrase.stopNote(note1, atTime: 2.5)
 
-note2.duration.value = 5.0
+note2.duration.floatValue = 5.0
 phrase.addNote(note2, atTime:3.5)
 instrument.playPhrase(phrase)
 

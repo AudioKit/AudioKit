@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: Float = 4.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -28,12 +30,12 @@ class Note: AKNote {
     }
     convenience init(frequency startingFrequency: Float) {
         self.init()
-        frequency.value = startingFrequency
+        frequency.floatValue = startingFrequency
     }
 }
 
 
-AKOrchestra.testForDuration(4)
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)

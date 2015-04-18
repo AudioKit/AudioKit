@@ -54,9 +54,9 @@ class TambourineNote: AKNote {
 
     convenience init(intensity: Int, dampingFactor: Float, mainResonantFrequency: Float) {
         self.init()
-        self.intensity.value = Float(intensity)
-        self.dampingFactor.value = dampingFactor
-        self.mainResonantFrequency.value = mainResonantFrequency
+        self.intensity.floatValue = Float(intensity)
+        self.dampingFactor.floatValue = dampingFactor
+        self.mainResonantFrequency.floatValue = mainResonantFrequency
     }
 }
 
@@ -73,7 +73,7 @@ for i in 1...20 {
         dampingFactor: 1.05-Float(i)/20.0,
         mainResonantFrequency: 200*Float(i)
     )
-    note.duration.value = 0.5
+    note.duration.floatValue = 0.5
     phrase.addNote(note, atTime: Float(i-1)*0.5)
 }
 

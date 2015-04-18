@@ -38,7 +38,7 @@ AKOrchestra.addInstrument(instrument1)
 AKOrchestra.addInstrument(instrument2)
 
 let note = AKNote()
-note.duration.value = 0.4
+note.duration.floatValue = 0.4
 
 NSLog("Play 10 notes first without declicking")
 
