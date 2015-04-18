@@ -15,6 +15,7 @@
     OscillatorInstrument *oscillatorInstrument;
     NSArray *waveforms;
     BOOL isPlaying;
+    IBOutlet UISegmentedControl *choices;
     IBOutlet AKTablePlot *tablePlot;
     IBOutlet AKPropertyLabel *frequencyLabel;
     IBOutlet AKPropertySlider *frequencySlider;
@@ -40,7 +41,9 @@
                   [AKTable standardSineWave],
                   playableSquare,
                   [AKTable standardTriangleWave]];
-    tablePlot.table = waveforms[1];
+
+    choices.selectedSegmentIndex = 1; // Sine wave by default
+    [self changeWaveform:choices];
     
     frequencyLabel.property  = oscillatorInstrument.frequency;
     frequencySlider.property = oscillatorInstrument.frequency;
@@ -60,7 +63,7 @@
 
 - (IBAction)changeWaveform:(UISegmentedControl *)sender
 {
-    NSUInteger index = [sender selectedSegmentIndex];
+    NSUInteger index = sender.selectedSegmentIndex;
     oscillatorInstrument.oscillator.waveform = waveforms[index];
     tablePlot.table = waveforms[index];
     [AKOrchestra updateInstrument:oscillatorInstrument];
