@@ -12,68 +12,52 @@
 
 @implementation AKTablePlot
 {
-    CGFloat lastY;
-    int tableLength;
-    MYFLT *displayData;
-    int fTableNumber;
+    MYFLT *_displayData;
 }
 
 - (void)defaultValues
 {
-    fTableNumber = 0;
+    _scalingFactor = 0.9f;
     _lineWidth = 4.0f;
     _lineColor = [AKColor blueColor];
 }
 
 - (void)setTable:(AKTable *)table
 {
-    fTableNumber = table.number;
-    CSOUND *cs = [[[AKManager sharedManager] engine]  getCsound];
-    while (csoundTableLength(cs, fTableNumber) < 0) {
-        // do nothing
-    }
-    MYFLT *tableValues;
-    if ((tableLength = csoundGetTable(cs, &tableValues, fTableNumber)) > 0) {
+    _table = table;
+    
+    MYFLT *tableValues = table.values;
+    if (tableValues) {
         
-        float scalingFactor = 0.9;
         CGFloat width = self.frame.size.width;
         CGFloat middle = (self.frame.size.height / 2.0);
         
-        displayData = malloc(sizeof(MYFLT) * width);
+        _displayData = realloc(_displayData, sizeof(MYFLT) * width);
         
         float max = 0.00001;
+        NSUInteger len = table.size;
         
-        for(int i = 0; i < tableLength; i++) {
+        for(int i = 0; i < len; i++) {
             if (tableValues[i] > max)
                 max = tableValues[i];
         }
         for(int i = 0; i < width; i++) {
             float percent = i / width;
-            int index = (int)(percent * tableLength);
-            displayData[i] = (-(tableValues[index]/max) * middle * scalingFactor) + middle;
+            NSUInteger index = (percent * len);
+            _displayData[i] = (-(tableValues[index]/max) * middle * self.scalingFactor) + middle;
         }
         [self updateUI];
     }
 }
 
-- (instancetype)initWithFrame:(CGRect)frame table:(AKTable *)table
-{
-   
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.table = table;
-    }
-    return self;
-}
-
 - (void)dealloc
 {
-    free(displayData);
+    free(_displayData);
 }
 
 - (void)drawRect:(CGRect)rect
 {
-    if (fTableNumber == 0) {
+    if (!self.table) {
         return;
     }
 #if TARGET_OS_IPHONE
@@ -94,12 +78,12 @@
     CGContextSetRGBFillColor(context, 255, 255, 255, 1);
     CGMutablePathRef fill_path = CGPathCreateMutable();
     CGFloat x = 0;
-    CGFloat y = displayData[0];
+    CGFloat y = _displayData[0];
     
     CGPathMoveToPoint(fill_path, &CGAffineTransformIdentity, x, y);
     
     for(int i = 1; i < width; i++) {
-        CGPathAddLineToPoint(fill_path, &CGAffineTransformIdentity, i, displayData[i]);
+        CGPathAddLineToPoint(fill_path, &CGAffineTransformIdentity, i, _displayData[i]);
     }
     CGContextAddPath(context, fill_path);
     CGContextSetAllowsAntialiasing(context, YES);
