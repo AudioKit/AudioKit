@@ -26,6 +26,7 @@
 		C4F0D1E81AE3A74F00B0005E /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4F0D1EA1AE3AAF600B0005E /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F0D1E91AE3AAF600B0005E /* AudioKit.plist */; };
 		C4F0D1EB1AE3AAF600B0005E /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F0D1E91AE3AAF600B0005E /* AudioKit.plist */; };
+		C4F0D1EE1AE3B98600B0005E /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,16 @@
 			dstSubfolderSpec = 7;
 			files = (
 				C4F0D1E81AE3A74F00B0005E /* CsoundLib.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4F0D1EC1AE3B90800B0005E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				C4F0D1EE1AE3B98600B0005E /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +230,7 @@
 				C41A77531AE3A425008ECF48 /* Sources */,
 				C41A77541AE3A425008ECF48 /* Frameworks */,
 				C41A77551AE3A425008ECF48 /* Resources */,
+				C4F0D1EC1AE3B90800B0005E /* CopyFiles */,
 			);
 			buildRules = (
 			);
