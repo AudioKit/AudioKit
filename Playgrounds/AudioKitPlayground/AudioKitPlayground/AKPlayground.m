@@ -164,7 +164,9 @@
 }
 
 - (void)addTablePlot:(AKTable *)table {
-   KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:table]);
+    AKTablePlot *tp = [[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
+    tp.table = table;
+    KZPShow(tp);
 }
 
 - (void)toggleAudioOutputFFTPlot:(UISwitch *)sender {
