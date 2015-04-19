@@ -1,4 +1,4 @@
 language: objective-c
 script:
-- cd Tests/
-- ./run.sh ./Tests/Math.swift
+- cd Tests/TestProjects/iOSObjectiveCAudioKit/
+- xcodebuild test -scheme iOSObjectiveCAudioKitTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
