@@ -17,7 +17,6 @@ extern KZPValueAdjustComponent * __attribute__((overloadable)) KZPAdjust(NSStrin
 #define KZPAdjustValue(name, from, to) __block typeof(from) name = from; KZPAdjust(@#name, from, to, ^(typeof(from) value) { name = value; })
 
 @interface KZPValueAdjustComponent : NSObject
-@property(nonatomic, weak) UISlider *valueSlider;
 @property(nonatomic, copy, readonly) void (^defaultValue)(CGFloat);
 + (KZPValueAdjustComponent*)addValueAdjustWithName:(NSString *)name fromValue:(CGFloat)from toValue:(CGFloat)to withBlock:(CGFloat (^)(CGFloat))block;
 @end
