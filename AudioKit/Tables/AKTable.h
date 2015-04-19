@@ -48,6 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param index The index of the value, must be less than size
 - (float)valueAtIndex:(NSUInteger)index;
 
+/// Access one of the values of the table
+/// @param fractionalWidth The fractional distance into the table, must be less than 1
+- (float)valueAtFractionalWidth:(float)fractionalWidth;
+
 /// Run a mathematical function on each value of the function table
 /// @param function Function to run on each table value
 - (void)operateOnTableWithFunction:(float (^)(float))function;
