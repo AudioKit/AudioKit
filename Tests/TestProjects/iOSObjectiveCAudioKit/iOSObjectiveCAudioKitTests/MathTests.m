@@ -15,7 +15,6 @@
 @end
 
 @implementation MathTests {
-    UIApplication *app;
     ViewController *vc;
     float AK_ACCURACY;
 }
