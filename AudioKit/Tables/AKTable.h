@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AKTableGenerator.h"
 #import "AKConstant.h"
+#import "AKCompatibility.h"
 
 /** All purpose array of float values.  Often used for waveforms and 
  lookup tables at the time of note creation/initialization.

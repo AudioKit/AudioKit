@@ -568,11 +568,21 @@ OSStatus  Csound_Render(void *inRefCon,
         }
         
 #if TARGET_OS_IPHONE
-        char *argv[] = { "csound", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
+        char *argv[] = { "csound",
+# ifdef TRAVIS_CI
+            "-+rtaudio=null",
+# else
+            "-+rtaudio=coreaudio",
+# endif            
+                        (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 #else
         char *argv[] = { "csound", "-+ignore_csopts=0",
-            "-+rtaudio=coreaudio", "-b256", (char*)[csdFilePath
-                                                    cStringUsingEncoding:NSASCIIStringEncoding]};
+# ifdef TRAVIS_CI
+                         "-+rtaudio=null",
+# else
+                         "-+rtaudio=coreaudio",
+# endif
+                         "-b256", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 #endif
         
         int ret = csoundCompile(cs, sizeof(argv)/sizeof(char *), argv);
