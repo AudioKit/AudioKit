@@ -10,11 +10,11 @@
 #import <XCTest/XCTest.h>
 #import "ViewController.h"
 
-@interface MathTestCase : XCTestCase
+@interface MathTests : XCTestCase
 
 @end
 
-@implementation MathTestCase {
+@implementation MathTests {
     UIApplication *app;
     ViewController *vc;
     float AK_ACCURACY;

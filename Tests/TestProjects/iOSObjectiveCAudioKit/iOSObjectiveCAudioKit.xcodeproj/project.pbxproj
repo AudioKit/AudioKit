@@ -21,7 +21,8 @@
 		C4B3A7821AE3195800F43B96 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7801AE3195800F43B96 /* AudioKit.plist */; };
 		C4B3A7861AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
-		C4B3A7891AE373C000F43B96 /* MathTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7881AE373C000F43B96 /* MathTestCase.m */; };
+		C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7881AE373C000F43B96 /* MathTests.m */; };
+		C4B3A78E1AE3863B00F43B96 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A78D1AE3863B00F43B96 /* TableTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +83,8 @@
 		C4B3A7801AE3195800F43B96 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4B3A7841AE36B8400F43B96 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
-		C4B3A7881AE373C000F43B96 /* MathTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTestCase.m; sourceTree = "<group>"; };
+		C4B3A7881AE373C000F43B96 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
+		C4B3A78D1AE3863B00F43B96 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				C4B3A7611AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m */,
-				C4B3A7881AE373C000F43B96 /* MathTestCase.m */,
+				C4B3A78D1AE3863B00F43B96 /* TableTests.m */,
+				C4B3A7881AE373C000F43B96 /* MathTests.m */,
 				C4B3A75F1AE30E6A00F43B96 /* Supporting Files */,
 			);
 			path = iOSObjectiveCAudioKitTests;
@@ -328,7 +331,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B3A7621AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m in Sources */,
-				C4B3A7891AE373C000F43B96 /* MathTestCase.m in Sources */,
+				C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */,
+				C4B3A78E1AE3863B00F43B96 /* TableTests.m in Sources */,
 				C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
