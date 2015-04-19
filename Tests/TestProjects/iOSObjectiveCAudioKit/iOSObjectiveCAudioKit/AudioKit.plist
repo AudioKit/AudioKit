@@ -17,7 +17,7 @@
 	<key>Enable Logging By Default</key>
 	<true/>
 	<key>Prefix Csound Messages</key>
-	<false/>
+	<true/>
 	<key>Enable Audio Input By Default</key>
 	<false/>
 </dict>
