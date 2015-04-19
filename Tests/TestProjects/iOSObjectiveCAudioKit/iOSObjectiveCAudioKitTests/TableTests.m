@@ -15,7 +15,6 @@
 @end
 
 @implementation TableTests {
-    UIApplication *app;
     ViewController *vc;
     float AK_ACCURACY;
 }

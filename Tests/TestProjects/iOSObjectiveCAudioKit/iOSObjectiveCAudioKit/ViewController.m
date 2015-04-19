@@ -22,9 +22,4 @@
     [AKOrchestra addInstrument:_tableTestInstrument];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end
