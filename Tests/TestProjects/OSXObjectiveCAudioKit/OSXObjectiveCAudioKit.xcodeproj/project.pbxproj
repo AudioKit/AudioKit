@@ -115,7 +115,7 @@
 				C4C811E31AE44BDB003A8B73 /* OSXObjectiveCAudioKit */,
 				C4C811F71AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests */,
 				C4C811E21AE44BDB003A8B73 /* Products */,
-				C4C812111AE44C72003A8B73 /* CsoundLib.framework */,
+				EA15CE091AE46D3D00BA279F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -188,6 +188,14 @@
 				C4C8121D1AE44F4F003A8B73 /* TableTestInstrument.m */,
 			);
 			name = "Test Instruments";
+			sourceTree = "<group>";
+		};
+		EA15CE091AE46D3D00BA279F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4C812111AE44C72003A8B73 /* CsoundLib.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,7 +384,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C4C811FC1AE44BDB003A8B73 /* Debug */ = {
+		EA15CDFF1AE46B7B00BA279F /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -393,7 +401,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -412,58 +420,21 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
-			name = Debug;
+			name = Testing;
 		};
-		C4C811FD1AE44BDB003A8B73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		C4C811FF1AE44BDB003A8B73 /* Debug */ = {
+		EA15CE001AE46B7B00BA279F /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					../../../AudioKit/Platforms/OSX,
+					"../../../AudioKit/Platforms/OSX/**",
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -472,28 +443,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
-			name = Debug;
+			name = Testing;
 		};
-		C4C812001AE44BDB003A8B73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					../../../AudioKit/Platforms/OSX,
-				);
-				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
-			};
-			name = Release;
-		};
-		C4C812021AE44BDB003A8B73 /* Debug */ = {
+		EA15CE011AE46B7B00BA279F /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -508,28 +460,12 @@
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OSXObjectiveCAudioKit.app/Contents/MacOS/OSXObjectiveCAudioKit";
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
-			name = Debug;
-		};
-		C4C812031AE44BDB003A8B73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = OSXObjectiveCAudioKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OSXObjectiveCAudioKit.app/Contents/MacOS/OSXObjectiveCAudioKit";
-				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
-			};
-			name = Release;
+			name = Testing;
 		};
 /* End XCBuildConfiguration section */
 
@@ -537,29 +473,26 @@
 		C4C811DC1AE44BDB003A8B73 /* Build configuration list for PBXProject "OSXObjectiveCAudioKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C4C811FC1AE44BDB003A8B73 /* Debug */,
-				C4C811FD1AE44BDB003A8B73 /* Release */,
+				EA15CDFF1AE46B7B00BA279F /* Testing */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Testing;
 		};
 		C4C811FE1AE44BDB003A8B73 /* Build configuration list for PBXNativeTarget "OSXObjectiveCAudioKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C4C811FF1AE44BDB003A8B73 /* Debug */,
-				C4C812001AE44BDB003A8B73 /* Release */,
+				EA15CE001AE46B7B00BA279F /* Testing */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Testing;
 		};
 		C4C812011AE44BDB003A8B73 /* Build configuration list for PBXNativeTarget "OSXObjectiveCAudioKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C4C812021AE44BDB003A8B73 /* Debug */,
-				C4C812031AE44BDB003A8B73 /* Release */,
+				EA15CE011AE46B7B00BA279F /* Testing */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Testing;
 		};
 /* End XCConfigurationList section */
 	};
