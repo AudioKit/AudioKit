@@ -19,6 +19,6 @@
 	<key>Prefix Csound Messages</key>
 	<false/>
 	<key>Enable Audio Input By Default</key>
-	<true/>
+	<false/>
 </dict>
 </plist>
