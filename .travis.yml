@@ -1,4 +1,5 @@
 language: objective-c
+env: AUDIOKIT_CI=1
 script:
 - cd Tests/TestProjects/iOSObjectiveCAudioKit/
 - xcodebuild test -scheme iOSObjectiveCAudioKitTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
