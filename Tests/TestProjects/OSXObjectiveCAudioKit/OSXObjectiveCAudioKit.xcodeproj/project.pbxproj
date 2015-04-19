@@ -497,7 +497,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
+					"../../../AudioKit/Platforms/OSX/**",
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -514,7 +514,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
+					"../../../AudioKit/Platforms/OSX/**",
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -532,7 +532,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -555,7 +554,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
