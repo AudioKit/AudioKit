@@ -32,7 +32,7 @@ extern KZPValueAdjustComponent *__attribute__((overloadable)) KZPAdjust(NSString
 
 
 @interface KZPValueAdjustComponent ()
-
+@property(nonatomic, weak) UISlider *valueSlider;
 @property(nonatomic, weak) UILabel *nameLabel;
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, copy) CGFloat (^changeBlock)(CGFloat);
