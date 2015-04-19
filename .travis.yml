@@ -1,6 +1,8 @@
 language: objective-c
+
 env:
-- AUDIOKIT_CI=1 LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
+- LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
+
 before_install: gem install xcpretty cocoapods -N
 script:
 - set -o pipefail && xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace -scheme AudioKitPlayground -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
