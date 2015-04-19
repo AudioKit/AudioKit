@@ -2,4 +2,4 @@ language: objective-c
 env: AUDIOKIT_CI=1
 script:
 - cd Tests/TestProjects/OSXObjectiveCAudioKit/
-- xcodebuild test -scheme OSXObjectiveCAudioKitTests
+- xcodebuild test -scheme OSXObjectiveCAudioKitTests | xcpretty -c
