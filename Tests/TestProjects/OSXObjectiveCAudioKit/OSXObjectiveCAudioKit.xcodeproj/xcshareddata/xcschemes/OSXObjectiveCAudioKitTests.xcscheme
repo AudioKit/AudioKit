@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C41A776C1AE3A425008ECF48"
+               BlueprintIdentifier = "C4C811F31AE44BDB003A8B73"
                BuildableName = "OSXObjectiveCAudioKitTests.xctest"
                BlueprintName = "OSXObjectiveCAudioKitTests"
                ReferencedContainer = "container:OSXObjectiveCAudioKit.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C41A776C1AE3A425008ECF48"
+               BlueprintIdentifier = "C4C811F31AE44BDB003A8B73"
                BuildableName = "OSXObjectiveCAudioKitTests.xctest"
                BlueprintName = "OSXObjectiveCAudioKitTests"
                ReferencedContainer = "container:OSXObjectiveCAudioKit.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C41A776C1AE3A425008ECF48"
+            BlueprintIdentifier = "C4C811F31AE44BDB003A8B73"
             BuildableName = "OSXObjectiveCAudioKitTests.xctest"
             BlueprintName = "OSXObjectiveCAudioKitTests"
             ReferencedContainer = "container:OSXObjectiveCAudioKit.xcodeproj">
@@ -61,7 +61,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C41A776C1AE3A425008ECF48"
+            BlueprintIdentifier = "C4C811F31AE44BDB003A8B73"
             BuildableName = "OSXObjectiveCAudioKitTests.xctest"
             BlueprintName = "OSXObjectiveCAudioKitTests"
             ReferencedContainer = "container:OSXObjectiveCAudioKit.xcodeproj">
@@ -79,7 +79,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C41A776C1AE3A425008ECF48"
+            BlueprintIdentifier = "C4C811F31AE44BDB003A8B73"
             BuildableName = "OSXObjectiveCAudioKitTests.xctest"
             BlueprintName = "OSXObjectiveCAudioKitTests"
             ReferencedContainer = "container:OSXObjectiveCAudioKit.xcodeproj">
