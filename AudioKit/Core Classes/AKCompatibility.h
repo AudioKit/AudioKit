@@ -9,6 +9,8 @@
 #ifndef AudioKit_AKCompatibility_h
 #define AudioKit_AKCompatibility_h
 
+#import <TargetConditionals.h>
+
 // Provide compatibility with Xcode < 6.3
 
 #if !__has_feature(nullability)

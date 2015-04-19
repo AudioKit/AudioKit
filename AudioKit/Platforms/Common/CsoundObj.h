@@ -28,6 +28,7 @@
 @import AudioToolbox;
 @import AudioUnit;
 
+#import "AKCompatibility.h"
 #import "csound.h"
 
 // -----------------------------------------------------------------------------
