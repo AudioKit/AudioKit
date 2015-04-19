@@ -83,6 +83,17 @@ static int currentID = 2000;
     return 0.0f;
 }
 
+- (float)valueAtFractionalWidth:(float)fractionalWidth
+{
+    NSAssert(fractionalWidth <= 1, @"Fractional width out of bounds:%f", fractionalWidth);
+    if (fractionalWidth <= 1) {
+        MYFLT *vals = self.values;
+        if (vals) {
+            return vals[(NSUInteger)(fractionalWidth * _size)];
+        }
+    }
+    return 0.0f;
+}
 - (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator
 {
     NSString *parameters = [[tableGenerator parametersWithSize:self.size] componentsJoinedByString:@", "];
