@@ -1,7 +1,5 @@
 language: objective-c
 env: AUDIOKIT_CI=1
 script:
-- cd Tests
-- ./run.sh Tests/Math.swift
-- cd TestProjects/iOSObjectiveCAudioKit/
-- xcodebuild test -scheme iOSObjectiveCAudioKitTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+- cd Tests/TestProjects/OSXObjectiveCAudioKit/
+- xcodebuild test -scheme OSXObjectiveCAudioKitTests | xcpretty
