@@ -54,7 +54,7 @@ echo "======================================"
 echo " $TEST "
 echo "======================================"
 echo ""
-xcodebuild || exit 1
+xcodebuild | xcpretty || exit 1
 cd ./build/Release/
 mkdir -p built
 execfile=$TEST

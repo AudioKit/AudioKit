@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10
+let testDuration: Float = 1
 
 class Instrument : AKInstrument {
 
