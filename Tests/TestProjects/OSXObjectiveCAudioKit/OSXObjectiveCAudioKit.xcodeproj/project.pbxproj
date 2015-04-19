@@ -11,7 +11,6 @@
 		C41A77601AE3A425008ECF48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A775F1AE3A425008ECF48 /* main.m */; };
 		C41A77631AE3A425008ECF48 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A77621AE3A425008ECF48 /* ViewController.m */; };
 		C41A77651AE3A425008ECF48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C41A77641AE3A425008ECF48 /* Images.xcassets */; };
-		C41A77681AE3A425008ECF48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41A77661AE3A425008ECF48 /* Main.storyboard */; };
 		C41A77741AE3A425008ECF48 /* OSXObjectiveCAudioKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A77731AE3A425008ECF48 /* OSXObjectiveCAudioKitTests.m */; };
 		C41A77811AE3A450008ECF48 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A777E1AE3A450008ECF48 /* MathTestInstrument.m */; };
 		C41A77821AE3A450008ECF48 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A777E1AE3A450008ECF48 /* MathTestInstrument.m */; };
@@ -89,7 +88,6 @@
 		C41A77611AE3A425008ECF48 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C41A77621AE3A425008ECF48 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C41A77641AE3A425008ECF48 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C41A77671AE3A425008ECF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C41A776D1AE3A425008ECF48 /* OSXObjectiveCAudioKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSXObjectiveCAudioKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41A77721AE3A425008ECF48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C41A77731AE3A425008ECF48 /* OSXObjectiveCAudioKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSXObjectiveCAudioKitTests.m; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 				C41A775C1AE3A425008ECF48 /* AppDelegate.h */,
 				C41A775D1AE3A425008ECF48 /* AppDelegate.m */,
 				C41A77641AE3A425008ECF48 /* Images.xcassets */,
-				C41A77661AE3A425008ECF48 /* Main.storyboard */,
 				C41A775B1AE3A425008ECF48 /* Info.plist */,
 				C41A775F1AE3A425008ECF48 /* main.m */,
 			);
@@ -328,7 +325,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C41A77651AE3A425008ECF48 /* Images.xcassets in Resources */,
-				C41A77681AE3A425008ECF48 /* Main.storyboard in Resources */,
 				C4F0D1EA1AE3AAF600B0005E /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,17 +394,6 @@
 			targetProxy = C41A779B1AE3A57B008ECF48 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		C41A77661AE3A425008ECF48 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C41A77671AE3A425008ECF48 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C41A77751AE3A425008ECF48 /* Debug */ = {
@@ -501,6 +486,7 @@
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
@@ -518,6 +504,7 @@
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
