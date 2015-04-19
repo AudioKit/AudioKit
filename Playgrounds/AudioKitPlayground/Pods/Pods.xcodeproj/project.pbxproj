@@ -1,3144 +1,1044 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>003B09C2EA0E9DD1BE3DA3E1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIViewController+XIBSupport.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Injections/UIViewController+XIBSupport.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>00953C4982324E93CF4D26DB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>035175E3EA69BED78F1FBA1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>17AB3ADC20F42B1C94F6461C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>03974E02FA6B721DF531852E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SFInjectionsNotificationsCenter.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Notifications/SFInjectionsNotificationsCenter.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>03B092D72999E0C7BA1FFCEB</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>C56F18E914A8F31C4A7269DE</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle</string>
-		</dict>
-		<key>0553483C69C7FECF9BA7690D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPImagePickerComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Images/ImagePicker/KZPImagePickerComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>05EA567C80A2407DFC63008E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BA7354E26D193C1525B458A9</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>06E69584DB66388ABDCD4C59</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A3CC915CD091D64151DE9C5B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>078325DB4CD2F51E80783D01</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPPresenterComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Presenter/KZPPresenterComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>09CD07C3A078CF75F128D393</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>06E69584DB66388ABDCD4C59</string>
-				<string>A1DB190FB7049745BB3CFF3D</string>
-				<string>1DA8B26EBFF3C38B17115035</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>0C1488B529649FC0CC1B8281</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPTimelineViewController.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Timeline/KZPTimelineViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0C551D6EC39EC0BC6412BBC3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F55E1904B30A0D7F43BE82F1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>0D47F8C2F3C3A41C7A759819</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPTimelineViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Timeline/KZPTimelineViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0EC3D02708C18B61CDFB0932</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>AEF7B6926BC7B15E26F6057C</string>
-				<string>82CA7D386EE152AC1D38D193</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>107E82947EB16251A114FB87</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>3F55F21407C6DF9BA2D9AE48</string>
-				<string>0C551D6EC39EC0BC6412BBC3</string>
-				<string>5EC03BDB0E8E330A47AB9BCF</string>
-				<string>45D39E69D648072D7BE34621</string>
-				<string>9707660167D88167E9766EB4</string>
-				<string>64B1A569196CDE06269B7C0D</string>
-				<string>C21B75D4C9E3DB792A145F43</string>
-				<string>EA72A07B0FD363DBF4C26F6C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>114902287C607E72B0086127</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPImagePickerCollectionViewController.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Images/ImagePicker/AssetBrowser/KZPImagePickerCollectionViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>11E4FEF6E74B1B9C1D9F7166</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>A876932DB7E6707259C3B83E</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-KZPlayground/Pods-AudioKitPlayground-KZPlayground-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>12288C9DD3A88EA76E4747D3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPSnapshotView.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/KZPSnapshotView.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>127C0FACB92EE2B4049C16A8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D7B2A3AD0DFDC7A6F1FF5608</string>
-				<string>48DF66C3FA63460AA2644BE8</string>
-				<string>EB7FC2D635E72CAF73318CB2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>RSSwizzle</string>
-			<key>path</key>
-			<string>RSSwizzle</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1367F23B1200654B6F53D681</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-			<key>target</key>
-			<string>262E571CAD45BAB93B366570</string>
-			<key>targetProxy</key>
-			<string>AA3E63347185B3F618B0A7A1</string>
-		</dict>
-		<key>1417F77DB55324442EAFE866</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>3520B9AAF84A9FE4B05F97E2</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-RSSwizzle/Pods-AudioKitPlayground-RSSwizzle-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>145AE3EE90B11CD06E9D611A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SFFileWatcher.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcher.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>16550AB0FBB6A337B5DB4614</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPImagePickerComponent.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Images/ImagePicker/KZPImagePickerComponent.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>17AB3ADC20F42B1C94F6461C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>466E096BDF9FCF4E6782141D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>17EBA284CC4D7F81F5626F58</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1A8DE3FAEAC50EB6362BC8EF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6091CAFFF96709F6D170A674</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1AC88521B75778785AFF12FA</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-AudioKitPlayground-KZPlayground.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1C1B58DE80371B01EA73DC66</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1C94CEAB3C7B4295445AB075</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1CAC324FE631D9F9E35D5787</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>C2C72667EE6F6A6AF07A0F14</string>
-				<string>11E4FEF6E74B1B9C1D9F7166</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>1CC966C71E8E0E71F116B644</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1DA8B26EBFF3C38B17115035</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2384BA4EA768822C41DBC0CA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1E27BC91E013D59116447C97</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-dyci</string>
-			<key>target</key>
-			<string>521B42704A367803D2628817</string>
-			<key>targetProxy</key>
-			<string>A1650AD9DB32632C75449AE1</string>
-		</dict>
-		<key>1E3DA125A492FD6529556C5B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>17EBA284CC4D7F81F5626F58</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1F00B017D8C77998EBF8F81D</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-AudioKitPlayground-NHBalancedFlowLayout.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>1F7161B9DB8018657836EEDE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>466E096BDF9FCF4E6782141D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>21FF2D5C18F41FC45F3C81A8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>466E096BDF9FCF4E6782141D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22C26EC10EC6683ED0FF5133</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F63E55DC486E59E012D8213B</string>
-				<string>50E732A678D6418D28F0B0FC</string>
-				<string>9CA982E06027403288910149</string>
-				<string>4E9CC644BE36D9686111AD65</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/Pods-AudioKitPlayground-dyci</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22ECB659DB1282240BE64CCA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>F16131B2FB40644D26104FBD</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>232ADE0D90767578BCE3CF16</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1E3DA125A492FD6529556C5B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>2384BA4EA768822C41DBC0CA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2392C25EE6A3F7D81AC12CED</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>FB0689479368104C5C53E92A</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-KZPlayground</string>
-		</dict>
-		<key>262E571CAD45BAB93B366570</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>0EC3D02708C18B61CDFB0932</string>
-			<key>buildPhases</key>
-			<array>
-				<string>09CD07C3A078CF75F128D393</string>
-				<string>CEDC3565C124728C4FF6B7EA</string>
-				<string>8CE751E0C7B283FE8943E933</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-			<key>productName</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-			<key>productReference</key>
-			<string>1F00B017D8C77998EBF8F81D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>2694BC34B476EA3A64316C6A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-KZPlayground-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>27F17419C7A2FC579DF830E9</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>AB54EB1E3E11B49736E1D4AA</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>296FA3A61C2AEA3BCF1ACD9C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/KZPComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2BCEBC978D02C98199333BFA</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E950A0308323A261A262B868</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Targets Support Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2C7EFCEE18BA2C86CB09598B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NHBalancedFlowLayout.h</string>
-			<key>path</key>
-			<string>NHBalancedFlowLayout/NHBalancedFlowLayout.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2CD3F5BEE4ADBEEE2A925A2A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>99FF1E284CEDE77286A474A3</string>
-				<string>EE1210B04E5FE85D8D137355</string>
-				<string>F6471B4805FDD19A58B87EED</string>
-				<string>F5856FA55F01BE8630D8BD77</string>
-				<string>296FA3A61C2AEA3BCF1ACD9C</string>
-				<string>5C2811F8356C67386D995E75</string>
-				<string>114902287C607E72B0086127</string>
-				<string>0553483C69C7FECF9BA7690D</string>
-				<string>16550AB0FBB6A337B5DB4614</string>
-				<string>96292BDABED1D841EEC24F52</string>
-				<string>791429E2BE36EC9380B9D0DD</string>
-				<string>8EE672F8838C4AAD4F1894DA</string>
-				<string>574F620FB242EA3DFF4A7DA5</string>
-				<string>F1E82E99F8C5BE8C4F0216DC</string>
-				<string>078325DB4CD2F51E80783D01</string>
-				<string>3DA38F881CD5911CA5922E88</string>
-				<string>EB7C6B17EAA2DAF82CBB206C</string>
-				<string>BC9E581AB95DD80E76A00E12</string>
-				<string>12288C9DD3A88EA76E4747D3</string>
-				<string>3C338DC7CFB1A2AD03A9217E</string>
-				<string>BA7354E26D193C1525B458A9</string>
-				<string>0D47F8C2F3C3A41C7A759819</string>
-				<string>0C1488B529649FC0CC1B8281</string>
-				<string>6091CAFFF96709F6D170A674</string>
-				<string>7F7A9EFC8616E89C0CBCAB51</string>
-				<string>305E6519ACCB7AA3B16803BC</string>
-				<string>885412DCB5ECA39FA14C7C5C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>KZPlayground</string>
-			<key>path</key>
-			<string>KZPlayground</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2D9964F09FC9B751F76F32F2</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>1417F77DB55324442EAFE866</string>
-				<string>9DB4FBBC371A7B6DFE458D9E</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>305E6519ACCB7AA3B16803BC</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4C8BC81FE003C790EE7EE9D6</string>
-				<string>B05EA386C99004EF4853CEA1</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>317BB54222E1919A72C463B5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3520B9AAF84A9FE4B05F97E2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3AD7F0C88976374F522D57CB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E2B2CB737C7D9513AD9625A2</string>
-				<string>F55E1904B30A0D7F43BE82F1</string>
-				<string>4E7F1D141ADCB56E1A8C0AEF</string>
-				<string>B15B71A6E26CD12BFECB539D</string>
-				<string>145AE3EE90B11CD06E9D611A</string>
-				<string>781F8FA8C2707B3901BF8A28</string>
-				<string>D89E0C2B981F7AEB0C7914D3</string>
-				<string>03974E02FA6B721DF531852E</string>
-				<string>CB8BB4B0C531E8DF5552AEFA</string>
-				<string>57ABF86EB4BDD082BCC87CBF</string>
-				<string>7F4424595F124D56E72E3C13</string>
-				<string>003B09C2EA0E9DD1BE3DA3E1</string>
-				<string>D6ED3C36140AAA9B09A72AD8</string>
-				<string>EB7831F7F3C7A0B82D4FE46A</string>
-				<string>22C26EC10EC6683ED0FF5133</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>dyci</string>
-			<key>path</key>
-			<string>dyci</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3B245A520D4C6BC837D48CF2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D89E0C2B981F7AEB0C7914D3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>3C338DC7CFB1A2AD03A9217E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPSynchronizationComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Synchronization/KZPSynchronizationComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3C72CD1914EBCAE9F2A5F577</key>
-		<dict>
-			<key>fileRef</key>
-			<string>791429E2BE36EC9380B9D0DD</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>3DA38F881CD5911CA5922E88</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPPresenterComponent.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Presenter/KZPPresenterComponent.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3DB4CF2BFB6280DB4039AF50</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>C56F18E914A8F31C4A7269DE</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle</string>
-		</dict>
-		<key>3E2BF836A94558A004FBD326</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-environment.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3F55F21407C6DF9BA2D9AE48</key>
-		<dict>
-			<key>fileRef</key>
-			<string>912F239B2052C3DEB25F9AE6</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fno-objc-arc -fno-objc-arc</string>
-			</dict>
-		</dict>
-		<key>3F8E2AC54FA8D51795448747</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3C338DC7CFB1A2AD03A9217E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>418A71FDBC2898CB2C6F03D0</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>BF051A83408049D5A54DF25B</string>
-				<string>FAA68348705D5FBCABF7B713</string>
-				<string>B3C4C5105DD243C5AAD3269A</string>
-				<string>7A26C20FB7C56B8AD6565C7E</string>
-				<string>3C72CD1914EBCAE9F2A5F577</string>
-				<string>5E6115F446EB85908F281F6E</string>
-				<string>51282D4426682361E6EE9582</string>
-				<string>E976B972C5F1FA72716C9151</string>
-				<string>05EA567C80A2407DFC63008E</string>
-				<string>FF7F605E67C0FC0EFA272759</string>
-				<string>621EEB1C378256428396D22E</string>
-				<string>DAD365E4307C59FCCAFC5FAC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>4403C849DF90F35090BA55C9</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>21FF2D5C18F41FC45F3C81A8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>445A5CB16272D8E3F04FF4C3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E2B2CB737C7D9513AD9625A2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>44F325A8A8BFA360AB3C72C1</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-AudioKitPlayground-RSSwizzle.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>45D39E69D648072D7BE34621</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B15B71A6E26CD12BFECB539D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>466E096BDF9FCF4E6782141D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>48DF66C3FA63460AA2644BE8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>RSSwizzle.m</string>
-			<key>path</key>
-			<string>RSSwizzle/RSSwizzle.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4BFCFD60FA86EBC55E50B470</key>
-		<dict>
-			<key>fileRef</key>
-			<string>574F620FB242EA3DFF4A7DA5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4C8BC81FE003C790EE7EE9D6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>name</key>
-			<string>KZPPresenterInfoViewController.xib</string>
-			<key>path</key>
-			<string>Pod/Assets/KZPPresenterInfoViewController.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4CE8D75D2FE0CD139CD549C8</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-AudioKitPlayground.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>4E7F1D141ADCB56E1A8C0AEF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SFDynamicCodeInjection.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/SFDynamicCodeInjection.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4E9CC644BE36D9686111AD65</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-dyci-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4F31EF647000388504D1E7E1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4FA89B895502B37CCF5ADFA0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8EE672F8838C4AAD4F1894DA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>50E732A678D6418D28F0B0FC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-dyci-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>51282D4426682361E6EE9582</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3DA38F881CD5911CA5922E88</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>521B42704A367803D2628817</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>C836FD2870712E7DB82A6325</string>
-			<key>buildPhases</key>
-			<array>
-				<string>107E82947EB16251A114FB87</string>
-				<string>F5E65CAADBE9531DBA13D635</string>
-				<string>7C4AC135CFA91C60F679451F</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-dyci</string>
-			<key>productName</key>
-			<string>Pods-AudioKitPlayground-dyci</string>
-			<key>productReference</key>
-			<string>5DC9EE3C554D5F57DD26B58A</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>52EF817FD7A6864349E62850</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2C7EFCEE18BA2C86CB09598B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>554C591D866355176DDC6126</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-dyci</string>
-			<key>target</key>
-			<string>521B42704A367803D2628817</string>
-			<key>targetProxy</key>
-			<string>960A3B9612D4E9588962E22A</string>
-		</dict>
-		<key>574F620FB242EA3DFF4A7DA5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPPlaygroundViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Playground/KZPPlaygroundViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>57ABF86EB4BDD082BCC87CBF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UINib+StoryBoardSupport.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Injections/UINib+StoryBoardSupport.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5C2811F8356C67386D995E75</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPImagePickerCollectionViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Images/ImagePicker/AssetBrowser/KZPImagePickerCollectionViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5C37F5415A6304114773B6B3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle</string>
-			<key>target</key>
-			<string>C56F18E914A8F31C4A7269DE</string>
-			<key>targetProxy</key>
-			<string>03B092D72999E0C7BA1FFCEB</string>
-		</dict>
-		<key>5DC9EE3C554D5F57DD26B58A</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-AudioKitPlayground-dyci.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>5E6115F446EB85908F281F6E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F1E82E99F8C5BE8C4F0216DC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5EADC13E162DEA9B4C73C36F</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>4F31EF647000388504D1E7E1</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>5EC03BDB0E8E330A47AB9BCF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9CA982E06027403288910149</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6091CAFFF96709F6D170A674</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPValueAdjustComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Controls/ValueAdjust/KZPValueAdjustComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>621EEB1C378256428396D22E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7F7A9EFC8616E89C0CBCAB51</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>64B1A569196CDE06269B7C0D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB8BB4B0C531E8DF5552AEFA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>64F539B946B4A59C0DC8764D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>name</key>
-			<string>Podfile</string>
-			<key>path</key>
-			<string>../Podfile</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-			<key>xcLanguageSpecificationIdentifier</key>
-			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>66BA0BAC06CABB138E1A8FC2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5C2811F8356C67386D995E75</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6AFFEF7A75364DB70359EDD7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6B791B5CA9855507A0DED7A8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>0D47F8C2F3C3A41C7A759819</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6D20BDB374BD3051511F63A0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>12288C9DD3A88EA76E4747D3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6ED2CEDFDF00262EC1EE4B57</key>
-		<dict>
-			<key>fileRef</key>
-			<string>466E096BDF9FCF4E6782141D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7129E5639FC851D0922FA98B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>078325DB4CD2F51E80783D01</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>726ABA5AB7581E98086250E8</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-			<key>target</key>
-			<string>262E571CAD45BAB93B366570</string>
-			<key>targetProxy</key>
-			<string>DAFBED43253F0F4175426FA6</string>
-		</dict>
-		<key>72D865DF16FF399B0483AB54</key>
-		<dict>
-			<key>fileRef</key>
-			<string>48DF66C3FA63460AA2644BE8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>74E9B7E3961F456B59267C76</key>
-		<dict>
-			<key>fileRef</key>
-			<string>296FA3A61C2AEA3BCF1ACD9C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>75C85E9B78C8FF2245944F99</key>
-		<dict>
-			<key>fileRef</key>
-			<string>99FF1E284CEDE77286A474A3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7651778330DF4A7340C541C2</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>64F539B946B4A59C0DC8764D</string>
-				<string>4403C849DF90F35090BA55C9</string>
-				<string>A97ECFEA4EBAE4D4C7549B24</string>
-				<string>D6F221F31BFB5C37B5FA5A59</string>
-				<string>2BCEBC978D02C98199333BFA</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>777058EB0C39E66F9334B88B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F7BA228BFC2A2B414016DBD6</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>781F8FA8C2707B3901BF8A28</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SFFileWatcher.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcher.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>791429E2BE36EC9380B9D0DD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPPlayground.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Playground/KZPPlayground.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7A26C20FB7C56B8AD6565C7E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>16550AB0FBB6A337B5DB4614</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7C4AC135CFA91C60F679451F</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>9B75040ED614EB0332963E40</string>
-				<string>445A5CB16272D8E3F04FF4C3</string>
-				<string>B98613495E899D962E722102</string>
-				<string>C02275EF1A4E2E6898FDB244</string>
-				<string>3B245A520D4C6BC837D48CF2</string>
-				<string>93551A09F1A4131EC9D0798F</string>
-				<string>EEB7DB89C83FA6ECE3523E1A</string>
-				<string>87A77C8E748A88543B81D0BC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>7F4424595F124D56E72E3C13</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UINib+StoryBoardSupport.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Injections/UINib+StoryBoardSupport.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7F7A9EFC8616E89C0CBCAB51</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPValueAdjustComponent.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Controls/ValueAdjust/KZPValueAdjustComponent.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>82325AD4F4AAB4434D4CE31B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>82CA7D386EE152AC1D38D193</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>1C1B58DE80371B01EA73DC66</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-NHBalancedFlowLayout/Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>837D94E38644FAF59C82828F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>96292BDABED1D841EEC24F52</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>84B7711D2633C94092F1FF5B</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>A40BB456C4677B4C32862794</string>
-				<string>8B7893A682EE3156E82BC0D1</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>87A77C8E748A88543B81D0BC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>003B09C2EA0E9DD1BE3DA3E1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>885412DCB5ECA39FA14C7C5C</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>AE0628FA62932E0494E0BDF4</string>
-				<string>A876932DB7E6707259C3B83E</string>
-				<string>D831F09D99C1C2CC07EFD787</string>
-				<string>2694BC34B476EA3A64316C6A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/Pods-AudioKitPlayground-KZPlayground</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8B7893A682EE3156E82BC0D1</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>RELEASE=1</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>STRIP_INSTALLED_PRODUCT</key>
-				<string>NO</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>8BD56F7F4BB1C5A790F4159F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>2C7EFCEE18BA2C86CB09598B</string>
-				<string>A3CC915CD091D64151DE9C5B</string>
-				<string>F7BA228BFC2A2B414016DBD6</string>
-				<string>B077B63333B57CE7EFDE5A6F</string>
-				<string>FDDD796D971CE56AEF94D235</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>NHBalancedFlowLayout</string>
-			<key>path</key>
-			<string>NHBalancedFlowLayout</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8CE751E0C7B283FE8943E933</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>52EF817FD7A6864349E62850</string>
-				<string>777058EB0C39E66F9334B88B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8DCAF0A3A1C7DDF4784CB872</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>A3176F999F1D8803CC9FAFA4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8EE672F8838C4AAD4F1894DA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPPlayground+Internal.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Playground/KZPPlayground+Internal.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>912F239B2052C3DEB25F9AE6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NSObject+DyCInjection.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Injections/NSObject+DyCInjection.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>93551A09F1A4131EC9D0798F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>03974E02FA6B721DF531852E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>93F1C7E89318109062BA73B6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EB7C6B17EAA2DAF82CBB206C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>960A3B9612D4E9588962E22A</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>521B42704A367803D2628817</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-dyci</string>
-		</dict>
-		<key>96292BDABED1D841EEC24F52</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPPlayground.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Playground/KZPPlayground.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9707660167D88167E9766EB4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>781F8FA8C2707B3901BF8A28</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>99FF1E284CEDE77286A474A3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPActionComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Controls/Action/KZPActionComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9B75040ED614EB0332963E40</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E89F88D2547EED886947FEB5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9CA982E06027403288910149</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-dyci-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9DB4FBBC371A7B6DFE458D9E</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>3520B9AAF84A9FE4B05F97E2</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-RSSwizzle/Pods-AudioKitPlayground-RSSwizzle-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>A1650AD9DB32632C75449AE1</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>521B42704A367803D2628817</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-dyci</string>
-		</dict>
-		<key>A1DB190FB7049745BB3CFF3D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B077B63333B57CE7EFDE5A6F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A203F945F7660AF63D16A215</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A3176F999F1D8803CC9FAFA4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D7B2A3AD0DFDC7A6F1FF5608</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A3CC915CD091D64151DE9C5B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NHBalancedFlowLayout.m</string>
-			<key>path</key>
-			<string>NHBalancedFlowLayout/NHBalancedFlowLayout.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A40BB456C4677B4C32862794</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>STRIP_INSTALLED_PRODUCT</key>
-				<string>NO</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>A65D7A458D34AFDAC8FFFD93</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>A203F945F7660AF63D16A215</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>A876932DB7E6707259C3B83E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-KZPlayground-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A97ECFEA4EBAE4D4C7549B24</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>2CD3F5BEE4ADBEEE2A925A2A</string>
-				<string>8BD56F7F4BB1C5A790F4159F</string>
-				<string>127C0FACB92EE2B4049C16A8</string>
-				<string>3AD7F0C88976374F522D57CB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>AA3E63347185B3F618B0A7A1</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>262E571CAD45BAB93B366570</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-		</dict>
-		<key>AB54EB1E3E11B49736E1D4AA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>466E096BDF9FCF4E6782141D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>ABAD33F7E160C914801C519E</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D61194A0D556A207A59AE6A2</string>
-				<string>72D865DF16FF399B0483AB54</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>AE0628FA62932E0494E0BDF4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-KZPlayground.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>AEF7B6926BC7B15E26F6057C</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>1C1B58DE80371B01EA73DC66</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-NHBalancedFlowLayout/Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B05EA386C99004EF4853CEA1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Main.storyboard</string>
-			<key>path</key>
-			<string>Pod/Assets/Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B077B63333B57CE7EFDE5A6F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NHLinearPartition.m</string>
-			<key>path</key>
-			<string>NHBalancedFlowLayout/NHLinearPartition.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B15B71A6E26CD12BFECB539D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SFDynamicCodeInjection.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/SFDynamicCodeInjection.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B3C4C5105DD243C5AAD3269A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>114902287C607E72B0086127</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B98613495E899D962E722102</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4E7F1D141ADCB56E1A8C0AEF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>BA7354E26D193C1525B458A9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPSynchronizationComponent.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Synchronization/KZPSynchronizationComponent.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BC9E581AB95DD80E76A00E12</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPPresenterInfoViewController.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Presenter/KZPPresenterInfoViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BF051A83408049D5A54DF25B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EE1210B04E5FE85D8D137355</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>BFC3A06D415C4BEE323C30ED</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>50E732A678D6418D28F0B0FC</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-dyci/Pods-AudioKitPlayground-dyci-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>C02275EF1A4E2E6898FDB244</key>
-		<dict>
-			<key>fileRef</key>
-			<string>145AE3EE90B11CD06E9D611A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>C21B75D4C9E3DB792A145F43</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7F4424595F124D56E72E3C13</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>C2C72667EE6F6A6AF07A0F14</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>A876932DB7E6707259C3B83E</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-KZPlayground/Pods-AudioKitPlayground-KZPlayground-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>C510D13D55D2A90F2536C426</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>5EADC13E162DEA9B4C73C36F</string>
-				<string>A65D7A458D34AFDAC8FFFD93</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>C56F18E914A8F31C4A7269DE</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>2D9964F09FC9B751F76F32F2</string>
-			<key>buildPhases</key>
-			<array>
-				<string>ABAD33F7E160C914801C519E</string>
-				<string>035175E3EA69BED78F1FBA1A</string>
-				<string>8DCAF0A3A1C7DDF4784CB872</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle</string>
-			<key>productName</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle</string>
-			<key>productReference</key>
-			<string>44F325A8A8BFA360AB3C72C1</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>C82CC76B109D1E88EAD8C820</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F6471B4805FDD19A58B87EED</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>C836FD2870712E7DB82A6325</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>EE5398A70A87F7F2D6CD34C1</string>
-				<string>BFC3A06D415C4BEE323C30ED</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>CB8BB4B0C531E8DF5552AEFA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SFInjectionsNotificationsCenter.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Notifications/SFInjectionsNotificationsCenter.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CEDC3565C124728C4FF6B7EA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1F7161B9DB8018657836EEDE</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D0B9DDD4F7D73549C89939EB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-RSSwizzle</string>
-			<key>target</key>
-			<string>C56F18E914A8F31C4A7269DE</string>
-			<key>targetProxy</key>
-			<string>3DB4CF2BFB6280DB4039AF50</string>
-		</dict>
-		<key>D34CBC35F5539C924FC72D4E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>0553483C69C7FECF9BA7690D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D525BCF840F390F54FD84887</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D5A9E3570F75B1903B9824D2</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>75C85E9B78C8FF2245944F99</string>
-				<string>C82CC76B109D1E88EAD8C820</string>
-				<string>74E9B7E3961F456B59267C76</string>
-				<string>66BA0BAC06CABB138E1A8FC2</string>
-				<string>D34CBC35F5539C924FC72D4E</string>
-				<string>4FA89B895502B37CCF5ADFA0</string>
-				<string>837D94E38644FAF59C82828F</string>
-				<string>4BFCFD60FA86EBC55E50B470</string>
-				<string>7129E5639FC851D0922FA98B</string>
-				<string>93F1C7E89318109062BA73B6</string>
-				<string>6D20BDB374BD3051511F63A0</string>
-				<string>3F8E2AC54FA8D51795448747</string>
-				<string>6B791B5CA9855507A0DED7A8</string>
-				<string>1A8DE3FAEAC50EB6362BC8EF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D61194A0D556A207A59AE6A2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>82325AD4F4AAB4434D4CE31B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D6ED3C36140AAA9B09A72AD8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIViewController+XIBSupport.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Injections/UIViewController+XIBSupport.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D6F221F31BFB5C37B5FA5A59</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4CE8D75D2FE0CD139CD549C8</string>
-				<string>1AC88521B75778785AFF12FA</string>
-				<string>1F00B017D8C77998EBF8F81D</string>
-				<string>44F325A8A8BFA360AB3C72C1</string>
-				<string>5DC9EE3C554D5F57DD26B58A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D7B2A3AD0DFDC7A6F1FF5608</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>RSSwizzle.h</string>
-			<key>path</key>
-			<string>RSSwizzle/RSSwizzle.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D831F09D99C1C2CC07EFD787</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-KZPlayground-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D89E0C2B981F7AEB0C7914D3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SFFileWatcherDelegate.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcherDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D907B0F02A536007AF34736C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DAD365E4307C59FCCAFC5FAC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D831F09D99C1C2CC07EFD787</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>DAFBED43253F0F4175426FA6</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>DFBAFFE76FD77A21EB6EF20D</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>262E571CAD45BAB93B366570</string>
-			<key>remoteInfo</key>
-			<string>Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-		</dict>
-		<key>DFBAFFE76FD77A21EB6EF20D</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>84B7711D2633C94092F1FF5B</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>7651778330DF4A7340C541C2</string>
-			<key>productRefGroup</key>
-			<string>D6F221F31BFB5C37B5FA5A59</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>E50E0F29BACA5841EE7BEBCD</string>
-				<string>FB0689479368104C5C53E92A</string>
-				<string>262E571CAD45BAB93B366570</string>
-				<string>C56F18E914A8F31C4A7269DE</string>
-				<string>521B42704A367803D2628817</string>
-			</array>
-		</dict>
-		<key>E2B2CB737C7D9513AD9625A2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NSSet+ClassesList.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Categories/NSSet+ClassesList.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E50E0F29BACA5841EE7BEBCD</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>C510D13D55D2A90F2536C426</string>
-			<key>buildPhases</key>
-			<array>
-				<string>232ADE0D90767578BCE3CF16</string>
-				<string>27F17419C7A2FC579DF830E9</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>F344E7291C6A521BD72DE5F1</string>
-				<string>726ABA5AB7581E98086250E8</string>
-				<string>D0B9DDD4F7D73549C89939EB</string>
-				<string>1E27BC91E013D59116447C97</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground</string>
-			<key>productName</key>
-			<string>Pods-AudioKitPlayground</string>
-			<key>productReference</key>
-			<string>4CE8D75D2FE0CD139CD549C8</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>E89F88D2547EED886947FEB5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NSObject+DyCInjection.h</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Injections/NSObject+DyCInjection.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E950A0308323A261A262B868</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D907B0F02A536007AF34736C</string>
-				<string>1CC966C71E8E0E71F116B644</string>
-				<string>17EBA284CC4D7F81F5626F58</string>
-				<string>3E2BF836A94558A004FBD326</string>
-				<string>317BB54222E1919A72C463B5</string>
-				<string>4F31EF647000388504D1E7E1</string>
-				<string>A203F945F7660AF63D16A215</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-AudioKitPlayground</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E976B972C5F1FA72716C9151</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BC9E581AB95DD80E76A00E12</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>EA72A07B0FD363DBF4C26F6C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D6ED3C36140AAA9B09A72AD8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
-		</dict>
-		<key>EB7831F7F3C7A0B82D4FE46A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E89F88D2547EED886947FEB5</string>
-				<string>912F239B2052C3DEB25F9AE6</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Injections</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EB7C6B17EAA2DAF82CBB206C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPPresenterInfoViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Presenter/KZPPresenterInfoViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EB7FC2D635E72CAF73318CB2</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6AFFEF7A75364DB70359EDD7</string>
-				<string>3520B9AAF84A9FE4B05F97E2</string>
-				<string>82325AD4F4AAB4434D4CE31B</string>
-				<string>1C94CEAB3C7B4295445AB075</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/Pods-AudioKitPlayground-RSSwizzle</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EE1210B04E5FE85D8D137355</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPActionComponent.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Controls/Action/KZPActionComponent.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EE5398A70A87F7F2D6CD34C1</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>50E732A678D6418D28F0B0FC</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-AudioKitPlayground-dyci/Pods-AudioKitPlayground-dyci-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.2</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>EEB7DB89C83FA6ECE3523E1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>57ABF86EB4BDD082BCC87CBF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F16131B2FB40644D26104FBD</key>
-		<dict>
-			<key>fileRef</key>
-			<string>466E096BDF9FCF4E6782141D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F1E82E99F8C5BE8C4F0216DC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPPlaygroundViewController.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Playground/KZPPlaygroundViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F344E7291C6A521BD72DE5F1</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-KZPlayground</string>
-			<key>target</key>
-			<string>FB0689479368104C5C53E92A</string>
-			<key>targetProxy</key>
-			<string>2392C25EE6A3F7D81AC12CED</string>
-		</dict>
-		<key>F55E1904B30A0D7F43BE82F1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NSSet+ClassesList.m</string>
-			<key>path</key>
-			<string>Dynamic Code Injection/dyci/Classes/Categories/NSSet+ClassesList.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F5856FA55F01BE8630D8BD77</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>KZPAnimatorComponent.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Animation/KZPAnimatorComponent.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F5E65CAADBE9531DBA13D635</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>6ED2CEDFDF00262EC1EE4B57</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F63E55DC486E59E012D8213B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-AudioKitPlayground-dyci.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F6471B4805FDD19A58B87EED</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>KZPAnimatorComponent.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Components/Animation/KZPAnimatorComponent.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F7BA228BFC2A2B414016DBD6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NHLinearPartition.h</string>
-			<key>path</key>
-			<string>NHBalancedFlowLayout/NHLinearPartition.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FAA68348705D5FBCABF7B713</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F5856FA55F01BE8630D8BD77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>FB0689479368104C5C53E92A</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>1CAC324FE631D9F9E35D5787</string>
-			<key>buildPhases</key>
-			<array>
-				<string>418A71FDBC2898CB2C6F03D0</string>
-				<string>22ECB659DB1282240BE64CCA</string>
-				<string>D5A9E3570F75B1903B9824D2</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>1367F23B1200654B6F53D681</string>
-				<string>5C37F5415A6304114773B6B3</string>
-				<string>554C591D866355176DDC6126</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-AudioKitPlayground-KZPlayground</string>
-			<key>productName</key>
-			<string>Pods-AudioKitPlayground-KZPlayground</string>
-			<key>productReference</key>
-			<string>1AC88521B75778785AFF12FA</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>FDDD796D971CE56AEF94D235</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>00953C4982324E93CF4D26DB</string>
-				<string>1C1B58DE80371B01EA73DC66</string>
-				<string>2384BA4EA768822C41DBC0CA</string>
-				<string>D525BCF840F390F54FD84887</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/Pods-AudioKitPlayground-NHBalancedFlowLayout</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FF7F605E67C0FC0EFA272759</key>
-		<dict>
-			<key>fileRef</key>
-			<string>0C1488B529649FC0CC1B8281</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>DFBAFFE76FD77A21EB6EF20D</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0269450C9BAD8D1DB49BDDE2 /* Pods-AudioKitPlayground-dyci-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D65286D67ED3B837B29CE4 /* Pods-AudioKitPlayground-dyci-dummy.m */; };
+		04C462AA8AE95FEDFE5F411D /* UINib+StoryBoardSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = A040AA7AC298F6649B9B0886 /* UINib+StoryBoardSupport.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		05C29E3122BA24FCB4EFA9E7 /* KZPPresenterComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = EF9ED9C43A4A5BCB8662063F /* KZPPresenterComponent.h */; };
+		14E8C9DAA57729F537B91083 /* NHBalancedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 521CBBA3CC0404B6B9F1678E /* NHBalancedFlowLayout.m */; };
+		15A1A76DDFAB66E9ABE9BC01 /* KZPPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEEB1EF554F9F0E727918D0 /* KZPPlaygroundViewController.m */; };
+		24FF969FE064F07C6A9151BD /* KZPPresenterComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7458AD37574A0E91682D5F71 /* KZPPresenterComponent.m */; };
+		2BED5D154382259A8E2B23F0 /* SFInjectionsNotificationsCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D47F4CA76B99847D192003E /* SFInjectionsNotificationsCenter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		3A12B801993BC5FB20D1E7DE /* NSSet+ClassesList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D055153A9229B7DD66F8063 /* NSSet+ClassesList.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		3F5C91937C7E8091E75A45CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC894B62AC906DE68900CFB /* Foundation.framework */; };
+		409035E28CF75B8E942ED9DB /* RSSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = A167101C73BD2CB309D50054 /* RSSwizzle.h */; };
+		49CF04A4ADA23E0752820B10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC894B62AC906DE68900CFB /* Foundation.framework */; };
+		4E1D5093C608DAD2ED5BC195 /* KZPSnapshotView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D2E39D42C04F3E7DD6DFDC1 /* KZPSnapshotView.h */; };
+		4FC18230B47BAD1D7BCE188C /* KZPImagePickerCollectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 02DA87610205017E5CF41044 /* KZPImagePickerCollectionViewController.h */; };
+		52017AF40021AEBF456D7C08 /* KZPComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = BC755C38D85122EB7C0CEA0F /* KZPComponent.h */; };
+		59DC6AE3310DF08396795F3E /* Pods-AudioKitPlayground-RSSwizzle-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A43E3A7C2BAABB194D72E65B /* Pods-AudioKitPlayground-RSSwizzle-dummy.m */; };
+		5C9DE1A8FCFE97628435EC33 /* NHLinearPartition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA7859F76E89324792E722 /* NHLinearPartition.m */; };
+		6461AD10F68814501A90A71F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC894B62AC906DE68900CFB /* Foundation.framework */; };
+		6AA2B80C0FB769A1E6B4F705 /* KZPImagePickerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B266FD91F4C0DF8D859B2A /* KZPImagePickerCollectionViewController.m */; };
+		6E1401B81431F5999568850E /* KZPValueAdjustComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5785CBF46898F56F2D58C9 /* KZPValueAdjustComponent.m */; };
+		712868A505B87851C53A3E47 /* KZPPresenterInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6476CE4073AE4F9279D7CC /* KZPPresenterInfoViewController.m */; };
+		7227A654E875E0CB607B18E5 /* KZPImagePickerComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = D7B6275A0F009D8C82B17869 /* KZPImagePickerComponent.h */; };
+		73253F375568FE5042ACFD67 /* KZPTimelineViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F49B98616B89CFA9846A527 /* KZPTimelineViewController.h */; };
+		7453B9A1C9B5D5DC8A2CF907 /* UINib+StoryBoardSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 08624D18B5FCC815802F3AC1 /* UINib+StoryBoardSupport.h */; };
+		7743E119E7BDBA12B9253F49 /* SFFileWatcherDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = B7EB5F5011DF8A3A4B04496E /* SFFileWatcherDelegate.h */; };
+		7DA6759F5E28A85AFB923727 /* NSObject+DyCInjection.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BE008FE4FDCDAD38932F846 /* NSObject+DyCInjection.h */; };
+		863425A9A6F9423EAF5B8EA6 /* RSSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF753C01EB09D1B5697495E /* RSSwizzle.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		9089265EA46628D16A307DC0 /* KZPAnimatorComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 120489B768F72B043AAEF37C /* KZPAnimatorComponent.m */; };
+		917FBB3C1C7C3DAA064786AA /* Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 19501772435E1F6B0483F5B8 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m */; };
+		9814DDE920C45278816C52D4 /* KZPAnimatorComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8CCCB6A1C0083E2F920537 /* KZPAnimatorComponent.h */; };
+		A5045D87287038048FA10CD9 /* UIViewController+XIBSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 06797C918E694028CB2EEC7E /* UIViewController+XIBSupport.h */; };
+		A558364A5B5484325AB4381D /* KZPValueAdjustComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 64246414461DF1C68B1CBD26 /* KZPValueAdjustComponent.h */; };
+		A6228CDC7F96FBF54B4750C6 /* KZPSynchronizationComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 193C6752E00AFC2623F40129 /* KZPSynchronizationComponent.h */; };
+		AB42EBE4ACF5ECAD5B9705D3 /* KZPPlayground.h in Headers */ = {isa = PBXBuildFile; fileRef = FD99A99BE6ED5F7F4A7DCF2B /* KZPPlayground.h */; };
+		ADE6B1B310D26F3640357351 /* NSObject+DyCInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A11E52AA7A21E3622D30B5F /* NSObject+DyCInjection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc"; }; };
+		B08A573AB4A0AC33552633F0 /* Pods-AudioKitPlayground-KZPlayground-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0EAA8E95E514252301D3EE /* Pods-AudioKitPlayground-KZPlayground-dummy.m */; };
+		B49C60C6DFB57566BC2BB0D0 /* KZPSynchronizationComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A02A66BFDD2B6F4303799 /* KZPSynchronizationComponent.m */; };
+		B5800312CC6C0D478A0D9C71 /* NHLinearPartition.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E58F32F669ED6F2F0F8BB7B /* NHLinearPartition.h */; };
+		BA416187281321702884EB59 /* SFFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8534CBE8993D852634841874 /* SFFileWatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		BC0274AD82659450883A9850 /* KZPPlayground.m in Sources */ = {isa = PBXBuildFile; fileRef = C348AD94A465A44AD1882489 /* KZPPlayground.m */; };
+		BF79F2BC3420B7A69EB09CE5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC894B62AC906DE68900CFB /* Foundation.framework */; };
+		C39AD34DA9F8B5B94548EC34 /* KZPPlaygroundViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF0982FD49F235AA3B90842 /* KZPPlaygroundViewController.h */; };
+		C49882729A693A2C09AAD42A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC894B62AC906DE68900CFB /* Foundation.framework */; };
+		C4E729531093869EEB64BB93 /* SFInjectionsNotificationsCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B60377D6BBC6DC658E4DF82 /* SFInjectionsNotificationsCenter.h */; };
+		CDDB07D427C22A276EC3F1CC /* KZPActionComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE744FAB004C3BB09AFE5DE /* KZPActionComponent.m */; };
+		D4D439010669E7362638B6CE /* Pods-AudioKitPlayground-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C0DCAF3ABA504DDDC78C54 /* Pods-AudioKitPlayground-dummy.m */; };
+		D6902721C6FE35902F8D9085 /* KZPImagePickerComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = A09A16A195CE4FD9BEFE30D7 /* KZPImagePickerComponent.m */; };
+		D76334069BC1E1BAA88AB82B /* KZPTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC48AEAE81631B007607903 /* KZPTimelineViewController.m */; };
+		D7A567330AB523CEF57831A8 /* KZPActionComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 864F4D2A47EB109CF728A8F0 /* KZPActionComponent.h */; };
+		D981C7E5085A3E65F44B0E89 /* NSSet+ClassesList.h in Headers */ = {isa = PBXBuildFile; fileRef = 99AC0EA72F2D5C4ED03CE892 /* NSSet+ClassesList.h */; };
+		DCA7086D7BD0D6D3D94B52D2 /* SFFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 05F0BD4C3BD5A24DD17C5E6B /* SFFileWatcher.h */; };
+		E807AFCA59F60794AFAA19C4 /* SFDynamicCodeInjection.h in Headers */ = {isa = PBXBuildFile; fileRef = F7303B1AE655E166FEC1F5EB /* SFDynamicCodeInjection.h */; };
+		EC984154A6423D82441180E9 /* UIViewController+XIBSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 373DCD3D278116E9F837FF05 /* UIViewController+XIBSupport.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		EEFC12862678CA489C689DBE /* KZPPlayground+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = D884C12CD76519891076686E /* KZPPlayground+Internal.h */; };
+		F1AC8C09B83A10C69F37EBE5 /* KZPPresenterInfoViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 96C41ACDFACBBFC43206261C /* KZPPresenterInfoViewController.h */; };
+		F2835462C0AFC49CA55A332B /* SFDynamicCodeInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 23FD0E83C0FADAEF88A1FF66 /* SFDynamicCodeInjection.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		FEAC685062D555334E9E7CE9 /* NHBalancedFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1319F3157C818B1AA54E96B7 /* NHBalancedFlowLayout.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0F83F187A0DF0A73F929F331 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D6E172C1C7E29421F89FCD00;
+			remoteInfo = "Pods-AudioKitPlayground-NHBalancedFlowLayout";
+		};
+		5C7ACB73403ECD19BD448B85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BF0726F43AB151643683832;
+			remoteInfo = "Pods-AudioKitPlayground-dyci";
+		};
+		6503951C1F11FB28AA645F42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1798A48C7EAAEB54D2B5BA0;
+			remoteInfo = "Pods-AudioKitPlayground-KZPlayground";
+		};
+		6C7827E113C6D556A8312ED9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 717723C1C23ED55750AA7F70;
+			remoteInfo = "Pods-AudioKitPlayground-RSSwizzle";
+		};
+		96B61C6AD6106D7BB27059FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BF0726F43AB151643683832;
+			remoteInfo = "Pods-AudioKitPlayground-dyci";
+		};
+		A27C3620D41A6E27FFDEC087 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D6E172C1C7E29421F89FCD00;
+			remoteInfo = "Pods-AudioKitPlayground-NHBalancedFlowLayout";
+		};
+		FB827D7CF3A0F4182F2C97DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C74744B3B6BF993D7B695781 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 717723C1C23ED55750AA7F70;
+			remoteInfo = "Pods-AudioKitPlayground-RSSwizzle";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02DA87610205017E5CF41044 /* KZPImagePickerCollectionViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPImagePickerCollectionViewController.h; path = Pod/Classes/Components/Images/ImagePicker/AssetBrowser/KZPImagePickerCollectionViewController.h; sourceTree = "<group>"; };
+		05F0BD4C3BD5A24DD17C5E6B /* SFFileWatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFFileWatcher.h; path = "Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcher.h"; sourceTree = "<group>"; };
+		06797C918E694028CB2EEC7E /* UIViewController+XIBSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+XIBSupport.h"; path = "Dynamic Code Injection/dyci/Classes/Injections/UIViewController+XIBSupport.h"; sourceTree = "<group>"; };
+		07B266FD91F4C0DF8D859B2A /* KZPImagePickerCollectionViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPImagePickerCollectionViewController.m; path = Pod/Classes/Components/Images/ImagePicker/AssetBrowser/KZPImagePickerCollectionViewController.m; sourceTree = "<group>"; };
+		08624D18B5FCC815802F3AC1 /* UINib+StoryBoardSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINib+StoryBoardSupport.h"; path = "Dynamic Code Injection/dyci/Classes/Injections/UINib+StoryBoardSupport.h"; sourceTree = "<group>"; };
+		0AC48AEAE81631B007607903 /* KZPTimelineViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPTimelineViewController.m; path = Pod/Classes/Timeline/KZPTimelineViewController.m; sourceTree = "<group>"; };
+		10BF0686547C1B1E2E4CE56A /* Pods-AudioKitPlayground-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AudioKitPlayground-environment.h"; sourceTree = "<group>"; };
+		120489B768F72B043AAEF37C /* KZPAnimatorComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPAnimatorComponent.m; path = Pod/Classes/Components/Animation/KZPAnimatorComponent.m; sourceTree = "<group>"; };
+		1319F3157C818B1AA54E96B7 /* NHBalancedFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHBalancedFlowLayout.h; path = NHBalancedFlowLayout/NHBalancedFlowLayout.h; sourceTree = "<group>"; };
+		193C6752E00AFC2623F40129 /* KZPSynchronizationComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPSynchronizationComponent.h; path = Pod/Classes/Components/Synchronization/KZPSynchronizationComponent.h; sourceTree = "<group>"; };
+		19501772435E1F6B0483F5B8 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m"; sourceTree = "<group>"; };
+		23FD0E83C0FADAEF88A1FF66 /* SFDynamicCodeInjection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFDynamicCodeInjection.m; path = "Dynamic Code Injection/dyci/Classes/SFDynamicCodeInjection.m"; sourceTree = "<group>"; };
+		2C4A02A66BFDD2B6F4303799 /* KZPSynchronizationComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPSynchronizationComponent.m; path = Pod/Classes/Components/Synchronization/KZPSynchronizationComponent.m; sourceTree = "<group>"; };
+		2E58F32F669ED6F2F0F8BB7B /* NHLinearPartition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHLinearPartition.h; path = NHBalancedFlowLayout/NHLinearPartition.h; sourceTree = "<group>"; };
+		32F296C6D5CF7FBED088BC78 /* libPods-AudioKitPlayground.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		373DCD3D278116E9F837FF05 /* UIViewController+XIBSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+XIBSupport.m"; path = "Dynamic Code Injection/dyci/Classes/Injections/UIViewController+XIBSupport.m"; sourceTree = "<group>"; };
+		375D2D4C7B5DBAD81A8383B2 /* Pods-AudioKitPlayground-NHBalancedFlowLayout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-NHBalancedFlowLayout.xcconfig"; sourceTree = "<group>"; };
+		3808FE4C24AE4834EF5FDE02 /* Pods-AudioKitPlayground-dyci-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-dyci-Private.xcconfig"; sourceTree = "<group>"; };
+		3BE008FE4FDCDAD38932F846 /* NSObject+DyCInjection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+DyCInjection.h"; path = "Dynamic Code Injection/dyci/Classes/Injections/NSObject+DyCInjection.h"; sourceTree = "<group>"; };
+		4210477ADB66E1DFDE1E1892 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch"; sourceTree = "<group>"; };
+		42A13E270F7A33647D4C2564 /* Pods-AudioKitPlayground-RSSwizzle-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AudioKitPlayground-RSSwizzle-prefix.pch"; sourceTree = "<group>"; };
+		4A11E52AA7A21E3622D30B5F /* NSObject+DyCInjection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+DyCInjection.m"; path = "Dynamic Code Injection/dyci/Classes/Injections/NSObject+DyCInjection.m"; sourceTree = "<group>"; };
+		4A6476CE4073AE4F9279D7CC /* KZPPresenterInfoViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPPresenterInfoViewController.m; path = Pod/Classes/Components/Presenter/KZPPresenterInfoViewController.m; sourceTree = "<group>"; };
+		4C8CCCB6A1C0083E2F920537 /* KZPAnimatorComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPAnimatorComponent.h; path = Pod/Classes/Components/Animation/KZPAnimatorComponent.h; sourceTree = "<group>"; };
+		4D07D374FE291BF39E0B9F81 /* libPods-AudioKitPlayground-KZPlayground.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground-KZPlayground.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EF0982FD49F235AA3B90842 /* KZPPlaygroundViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPPlaygroundViewController.h; path = Pod/Classes/Playground/KZPPlaygroundViewController.h; sourceTree = "<group>"; };
+		4F49B98616B89CFA9846A527 /* KZPTimelineViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPTimelineViewController.h; path = Pod/Classes/Timeline/KZPTimelineViewController.h; sourceTree = "<group>"; };
+		51C0DCAF3ABA504DDDC78C54 /* Pods-AudioKitPlayground-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AudioKitPlayground-dummy.m"; sourceTree = "<group>"; };
+		521CBBA3CC0404B6B9F1678E /* NHBalancedFlowLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHBalancedFlowLayout.m; path = NHBalancedFlowLayout/NHBalancedFlowLayout.m; sourceTree = "<group>"; };
+		52A32A3C192484145E95521C /* libPods-AudioKitPlayground-dyci.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground-dyci.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A4EEE03F99B4F5358653703 /* Pods-AudioKitPlayground-RSSwizzle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-RSSwizzle.xcconfig"; sourceTree = "<group>"; };
+		5AC894B62AC906DE68900CFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6291F2DF9B928E93F2228A43 /* Pods-AudioKitPlayground-KZPlayground.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-KZPlayground.xcconfig"; sourceTree = "<group>"; };
+		64246414461DF1C68B1CBD26 /* KZPValueAdjustComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPValueAdjustComponent.h; path = Pod/Classes/Components/Controls/ValueAdjust/KZPValueAdjustComponent.h; sourceTree = "<group>"; };
+		661D80EC53E8AD03E4D03887 /* Pods-AudioKitPlayground-RSSwizzle-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-RSSwizzle-Private.xcconfig"; sourceTree = "<group>"; };
+		6621EAC526CFA935E6DE4D49 /* Pods-AudioKitPlayground-dyci-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AudioKitPlayground-dyci-prefix.pch"; sourceTree = "<group>"; };
+		6CF753C01EB09D1B5697495E /* RSSwizzle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RSSwizzle.m; path = RSSwizzle/RSSwizzle.m; sourceTree = "<group>"; };
+		6FCA7859F76E89324792E722 /* NHLinearPartition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHLinearPartition.m; path = NHBalancedFlowLayout/NHLinearPartition.m; sourceTree = "<group>"; };
+		7458AD37574A0E91682D5F71 /* KZPPresenterComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPPresenterComponent.m; path = Pod/Classes/Components/Presenter/KZPPresenterComponent.m; sourceTree = "<group>"; };
+		776D36FB617F4D3278F26F28 /* KZPPresenterInfoViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = KZPPresenterInfoViewController.xib; path = Pod/Assets/KZPPresenterInfoViewController.xib; sourceTree = "<group>"; };
+		7D055153A9229B7DD66F8063 /* NSSet+ClassesList.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSSet+ClassesList.m"; path = "Dynamic Code Injection/dyci/Classes/Categories/NSSet+ClassesList.m"; sourceTree = "<group>"; };
+		7D2E39D42C04F3E7DD6DFDC1 /* KZPSnapshotView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPSnapshotView.h; path = Pod/Classes/Components/KZPSnapshotView.h; sourceTree = "<group>"; };
+		7FA52F4C7A0E851263BBA3B1 /* libPods-AudioKitPlayground-RSSwizzle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground-RSSwizzle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8534CBE8993D852634841874 /* SFFileWatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFFileWatcher.m; path = "Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcher.m"; sourceTree = "<group>"; };
+		864F4D2A47EB109CF728A8F0 /* KZPActionComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPActionComponent.h; path = Pod/Classes/Components/Controls/Action/KZPActionComponent.h; sourceTree = "<group>"; };
+		87E3C0BFDAB883D846E1832C /* Pods-AudioKitPlayground-KZPlayground-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-KZPlayground-Private.xcconfig"; sourceTree = "<group>"; };
+		8B60377D6BBC6DC658E4DF82 /* SFInjectionsNotificationsCenter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFInjectionsNotificationsCenter.h; path = "Dynamic Code Injection/dyci/Classes/Notifications/SFInjectionsNotificationsCenter.h"; sourceTree = "<group>"; };
+		8BF18C4C26FA4B30670EA9FF /* Pods-AudioKitPlayground-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AudioKitPlayground-resources.sh"; sourceTree = "<group>"; };
+		96C41ACDFACBBFC43206261C /* KZPPresenterInfoViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPPresenterInfoViewController.h; path = Pod/Classes/Components/Presenter/KZPPresenterInfoViewController.h; sourceTree = "<group>"; };
+		97D65286D67ED3B837B29CE4 /* Pods-AudioKitPlayground-dyci-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AudioKitPlayground-dyci-dummy.m"; sourceTree = "<group>"; };
+		99AC0EA72F2D5C4ED03CE892 /* NSSet+ClassesList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSSet+ClassesList.h"; path = "Dynamic Code Injection/dyci/Classes/Categories/NSSet+ClassesList.h"; sourceTree = "<group>"; };
+		9C3B44ACDD8112797BF4B40F /* Pods-AudioKitPlayground.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground.release.xcconfig"; sourceTree = "<group>"; };
+		9D47F4CA76B99847D192003E /* SFInjectionsNotificationsCenter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SFInjectionsNotificationsCenter.m; path = "Dynamic Code Injection/dyci/Classes/Notifications/SFInjectionsNotificationsCenter.m"; sourceTree = "<group>"; };
+		9D60D6046A5783D0A990ECA7 /* Pods-AudioKitPlayground-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AudioKitPlayground-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A040AA7AC298F6649B9B0886 /* UINib+StoryBoardSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINib+StoryBoardSupport.m"; path = "Dynamic Code Injection/dyci/Classes/Injections/UINib+StoryBoardSupport.m"; sourceTree = "<group>"; };
+		A09A16A195CE4FD9BEFE30D7 /* KZPImagePickerComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPImagePickerComponent.m; path = Pod/Classes/Components/Images/ImagePicker/KZPImagePickerComponent.m; sourceTree = "<group>"; };
+		A167101C73BD2CB309D50054 /* RSSwizzle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSSwizzle.h; path = RSSwizzle/RSSwizzle.h; sourceTree = "<group>"; };
+		A43E3A7C2BAABB194D72E65B /* Pods-AudioKitPlayground-RSSwizzle-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AudioKitPlayground-RSSwizzle-dummy.m"; sourceTree = "<group>"; };
+		A4A711FA4EF5D0A5392990F4 /* Pods-AudioKitPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground.debug.xcconfig"; sourceTree = "<group>"; };
+		A4F3BB57747659171B07E6CB /* Main.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Pod/Assets/Main.storyboard; sourceTree = "<group>"; };
+		A5D42C64F6400986FE5FF05F /* Pods-AudioKitPlayground-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AudioKitPlayground-acknowledgements.plist"; sourceTree = "<group>"; };
+		AC0EAA8E95E514252301D3EE /* Pods-AudioKitPlayground-KZPlayground-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AudioKitPlayground-KZPlayground-dummy.m"; sourceTree = "<group>"; };
+		AD9008EF2B0EAF17E9708241 /* Pods-AudioKitPlayground-dyci.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-dyci.xcconfig"; sourceTree = "<group>"; };
+		B368B74849D20CBF43017E23 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AudioKitPlayground-NHBalancedFlowLayout-Private.xcconfig"; sourceTree = "<group>"; };
+		B7EB5F5011DF8A3A4B04496E /* SFFileWatcherDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFFileWatcherDelegate.h; path = "Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcherDelegate.h"; sourceTree = "<group>"; };
+		BC755C38D85122EB7C0CEA0F /* KZPComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPComponent.h; path = Pod/Classes/Components/KZPComponent.h; sourceTree = "<group>"; };
+		BFE744FAB004C3BB09AFE5DE /* KZPActionComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPActionComponent.m; path = Pod/Classes/Components/Controls/Action/KZPActionComponent.m; sourceTree = "<group>"; };
+		C1417E8C046F7D11BF0049A0 /* Pods-AudioKitPlayground-KZPlayground-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AudioKitPlayground-KZPlayground-prefix.pch"; sourceTree = "<group>"; };
+		C348AD94A465A44AD1882489 /* KZPPlayground.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPPlayground.m; path = Pod/Classes/Playground/KZPPlayground.m; sourceTree = "<group>"; };
+		D7B6275A0F009D8C82B17869 /* KZPImagePickerComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPImagePickerComponent.h; path = Pod/Classes/Components/Images/ImagePicker/KZPImagePickerComponent.h; sourceTree = "<group>"; };
+		D884C12CD76519891076686E /* KZPPlayground+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "KZPPlayground+Internal.h"; path = "Pod/Classes/Playground/KZPPlayground+Internal.h"; sourceTree = "<group>"; };
+		EB5785CBF46898F56F2D58C9 /* KZPValueAdjustComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPValueAdjustComponent.m; path = Pod/Classes/Components/Controls/ValueAdjust/KZPValueAdjustComponent.m; sourceTree = "<group>"; };
+		ECEEB1EF554F9F0E727918D0 /* KZPPlaygroundViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPPlaygroundViewController.m; path = Pod/Classes/Playground/KZPPlaygroundViewController.m; sourceTree = "<group>"; };
+		ECFD65C2EA9309A5D572A368 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		EF9ED9C43A4A5BCB8662063F /* KZPPresenterComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPPresenterComponent.h; path = Pod/Classes/Components/Presenter/KZPPresenterComponent.h; sourceTree = "<group>"; };
+		F37B3E4F08663CB36D891EA1 /* libPods-AudioKitPlayground-NHBalancedFlowLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground-NHBalancedFlowLayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7303B1AE655E166FEC1F5EB /* SFDynamicCodeInjection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFDynamicCodeInjection.h; path = "Dynamic Code Injection/dyci/Classes/SFDynamicCodeInjection.h"; sourceTree = "<group>"; };
+		FD99A99BE6ED5F7F4A7DCF2B /* KZPPlayground.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPPlayground.h; path = Pod/Classes/Playground/KZPPlayground.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3540FA9BC065B465A23C32DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F5C91937C7E8091E75A45CC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		501214221123BB5C4D7189D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6461AD10F68814501A90A71F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80876092304995E35F2E7D52 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF79F2BC3420B7A69EB09CE5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B632D0194E44CF6F29A0DBA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49CF04A4ADA23E0752820B10 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE87EAFF7B18BEEFD30A89FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C49882729A693A2C09AAD42A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0438E72DD3EFD13C9351E938 /* Injections */ = {
+			isa = PBXGroup;
+			children = (
+				3BE008FE4FDCDAD38932F846 /* NSObject+DyCInjection.h */,
+				4A11E52AA7A21E3622D30B5F /* NSObject+DyCInjection.m */,
+			);
+			name = Injections;
+			sourceTree = "<group>";
+		};
+		0C1351D7F9609502F09339CE /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				375D2D4C7B5DBAD81A8383B2 /* Pods-AudioKitPlayground-NHBalancedFlowLayout.xcconfig */,
+				B368B74849D20CBF43017E23 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-Private.xcconfig */,
+				19501772435E1F6B0483F5B8 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m */,
+				4210477ADB66E1DFDE1E1892 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-AudioKitPlayground-NHBalancedFlowLayout";
+			sourceTree = "<group>";
+		};
+		4A7538A5222F6B8571BCD974 /* NHBalancedFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				1319F3157C818B1AA54E96B7 /* NHBalancedFlowLayout.h */,
+				521CBBA3CC0404B6B9F1678E /* NHBalancedFlowLayout.m */,
+				2E58F32F669ED6F2F0F8BB7B /* NHLinearPartition.h */,
+				6FCA7859F76E89324792E722 /* NHLinearPartition.m */,
+				0C1351D7F9609502F09339CE /* Support Files */,
+			);
+			path = NHBalancedFlowLayout;
+			sourceTree = "<group>";
+		};
+		4D8BAE4B2EA6CEF719F642B3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6291F2DF9B928E93F2228A43 /* Pods-AudioKitPlayground-KZPlayground.xcconfig */,
+				87E3C0BFDAB883D846E1832C /* Pods-AudioKitPlayground-KZPlayground-Private.xcconfig */,
+				AC0EAA8E95E514252301D3EE /* Pods-AudioKitPlayground-KZPlayground-dummy.m */,
+				C1417E8C046F7D11BF0049A0 /* Pods-AudioKitPlayground-KZPlayground-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-AudioKitPlayground-KZPlayground";
+			sourceTree = "<group>";
+		};
+		5A4049935CE668046B457E30 /* Pods-AudioKitPlayground */ = {
+			isa = PBXGroup;
+			children = (
+				9D60D6046A5783D0A990ECA7 /* Pods-AudioKitPlayground-acknowledgements.markdown */,
+				A5D42C64F6400986FE5FF05F /* Pods-AudioKitPlayground-acknowledgements.plist */,
+				51C0DCAF3ABA504DDDC78C54 /* Pods-AudioKitPlayground-dummy.m */,
+				10BF0686547C1B1E2E4CE56A /* Pods-AudioKitPlayground-environment.h */,
+				8BF18C4C26FA4B30670EA9FF /* Pods-AudioKitPlayground-resources.sh */,
+				A4A711FA4EF5D0A5392990F4 /* Pods-AudioKitPlayground.debug.xcconfig */,
+				9C3B44ACDD8112797BF4B40F /* Pods-AudioKitPlayground.release.xcconfig */,
+			);
+			name = "Pods-AudioKitPlayground";
+			path = "Target Support Files/Pods-AudioKitPlayground";
+			sourceTree = "<group>";
+		};
+		6E82339030DA0BC971E31EAE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9906BBD8769C3672EE54F9BC /* KZPlayground */,
+				4A7538A5222F6B8571BCD974 /* NHBalancedFlowLayout */,
+				D198E0C1CC7CF287DDDFD7ED /* RSSwizzle */,
+				C20A85637CA89D0990071003 /* dyci */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6FE6E3CFB8F8243576D57AE8 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A4049935CE668046B457E30 /* Pods-AudioKitPlayground */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7A61828BD12C65B78FD74BE6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5AC894B62AC906DE68900CFB /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		8BCFCD4CA2799940B994CAD3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				776D36FB617F4D3278F26F28 /* KZPPresenterInfoViewController.xib */,
+				A4F3BB57747659171B07E6CB /* Main.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		8DAEFDDE33ABE82D26818EFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32F296C6D5CF7FBED088BC78 /* libPods-AudioKitPlayground.a */,
+				4D07D374FE291BF39E0B9F81 /* libPods-AudioKitPlayground-KZPlayground.a */,
+				F37B3E4F08663CB36D891EA1 /* libPods-AudioKitPlayground-NHBalancedFlowLayout.a */,
+				7FA52F4C7A0E851263BBA3B1 /* libPods-AudioKitPlayground-RSSwizzle.a */,
+				52A32A3C192484145E95521C /* libPods-AudioKitPlayground-dyci.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9906BBD8769C3672EE54F9BC /* KZPlayground */ = {
+			isa = PBXGroup;
+			children = (
+				864F4D2A47EB109CF728A8F0 /* KZPActionComponent.h */,
+				BFE744FAB004C3BB09AFE5DE /* KZPActionComponent.m */,
+				4C8CCCB6A1C0083E2F920537 /* KZPAnimatorComponent.h */,
+				120489B768F72B043AAEF37C /* KZPAnimatorComponent.m */,
+				BC755C38D85122EB7C0CEA0F /* KZPComponent.h */,
+				02DA87610205017E5CF41044 /* KZPImagePickerCollectionViewController.h */,
+				07B266FD91F4C0DF8D859B2A /* KZPImagePickerCollectionViewController.m */,
+				D7B6275A0F009D8C82B17869 /* KZPImagePickerComponent.h */,
+				A09A16A195CE4FD9BEFE30D7 /* KZPImagePickerComponent.m */,
+				FD99A99BE6ED5F7F4A7DCF2B /* KZPPlayground.h */,
+				C348AD94A465A44AD1882489 /* KZPPlayground.m */,
+				D884C12CD76519891076686E /* KZPPlayground+Internal.h */,
+				4EF0982FD49F235AA3B90842 /* KZPPlaygroundViewController.h */,
+				ECEEB1EF554F9F0E727918D0 /* KZPPlaygroundViewController.m */,
+				EF9ED9C43A4A5BCB8662063F /* KZPPresenterComponent.h */,
+				7458AD37574A0E91682D5F71 /* KZPPresenterComponent.m */,
+				96C41ACDFACBBFC43206261C /* KZPPresenterInfoViewController.h */,
+				4A6476CE4073AE4F9279D7CC /* KZPPresenterInfoViewController.m */,
+				7D2E39D42C04F3E7DD6DFDC1 /* KZPSnapshotView.h */,
+				193C6752E00AFC2623F40129 /* KZPSynchronizationComponent.h */,
+				2C4A02A66BFDD2B6F4303799 /* KZPSynchronizationComponent.m */,
+				4F49B98616B89CFA9846A527 /* KZPTimelineViewController.h */,
+				0AC48AEAE81631B007607903 /* KZPTimelineViewController.m */,
+				64246414461DF1C68B1CBD26 /* KZPValueAdjustComponent.h */,
+				EB5785CBF46898F56F2D58C9 /* KZPValueAdjustComponent.m */,
+				8BCFCD4CA2799940B994CAD3 /* Resources */,
+				4D8BAE4B2EA6CEF719F642B3 /* Support Files */,
+			);
+			path = KZPlayground;
+			sourceTree = "<group>";
+		};
+		9960AB2AE1BBAA3E1E52E225 = {
+			isa = PBXGroup;
+			children = (
+				ECFD65C2EA9309A5D572A368 /* Podfile */,
+				9B2F68C299FF390F556FD777 /* Frameworks */,
+				6E82339030DA0BC971E31EAE /* Pods */,
+				8DAEFDDE33ABE82D26818EFB /* Products */,
+				6FE6E3CFB8F8243576D57AE8 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9B2F68C299FF390F556FD777 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A61828BD12C65B78FD74BE6 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B90044762F44D129966AB1F0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A4EEE03F99B4F5358653703 /* Pods-AudioKitPlayground-RSSwizzle.xcconfig */,
+				661D80EC53E8AD03E4D03887 /* Pods-AudioKitPlayground-RSSwizzle-Private.xcconfig */,
+				A43E3A7C2BAABB194D72E65B /* Pods-AudioKitPlayground-RSSwizzle-dummy.m */,
+				42A13E270F7A33647D4C2564 /* Pods-AudioKitPlayground-RSSwizzle-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-AudioKitPlayground-RSSwizzle";
+			sourceTree = "<group>";
+		};
+		C20A85637CA89D0990071003 /* dyci */ = {
+			isa = PBXGroup;
+			children = (
+				99AC0EA72F2D5C4ED03CE892 /* NSSet+ClassesList.h */,
+				7D055153A9229B7DD66F8063 /* NSSet+ClassesList.m */,
+				F7303B1AE655E166FEC1F5EB /* SFDynamicCodeInjection.h */,
+				23FD0E83C0FADAEF88A1FF66 /* SFDynamicCodeInjection.m */,
+				05F0BD4C3BD5A24DD17C5E6B /* SFFileWatcher.h */,
+				8534CBE8993D852634841874 /* SFFileWatcher.m */,
+				B7EB5F5011DF8A3A4B04496E /* SFFileWatcherDelegate.h */,
+				8B60377D6BBC6DC658E4DF82 /* SFInjectionsNotificationsCenter.h */,
+				9D47F4CA76B99847D192003E /* SFInjectionsNotificationsCenter.m */,
+				08624D18B5FCC815802F3AC1 /* UINib+StoryBoardSupport.h */,
+				A040AA7AC298F6649B9B0886 /* UINib+StoryBoardSupport.m */,
+				06797C918E694028CB2EEC7E /* UIViewController+XIBSupport.h */,
+				373DCD3D278116E9F837FF05 /* UIViewController+XIBSupport.m */,
+				0438E72DD3EFD13C9351E938 /* Injections */,
+				FE7BFEF263588946EF785B28 /* Support Files */,
+			);
+			path = dyci;
+			sourceTree = "<group>";
+		};
+		D198E0C1CC7CF287DDDFD7ED /* RSSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				A167101C73BD2CB309D50054 /* RSSwizzle.h */,
+				6CF753C01EB09D1B5697495E /* RSSwizzle.m */,
+				B90044762F44D129966AB1F0 /* Support Files */,
+			);
+			path = RSSwizzle;
+			sourceTree = "<group>";
+		};
+		FE7BFEF263588946EF785B28 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD9008EF2B0EAF17E9708241 /* Pods-AudioKitPlayground-dyci.xcconfig */,
+				3808FE4C24AE4834EF5FDE02 /* Pods-AudioKitPlayground-dyci-Private.xcconfig */,
+				97D65286D67ED3B837B29CE4 /* Pods-AudioKitPlayground-dyci-dummy.m */,
+				6621EAC526CFA935E6DE4D49 /* Pods-AudioKitPlayground-dyci-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-AudioKitPlayground-dyci";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6858468C500CE0D9089F0077 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DA6759F5E28A85AFB923727 /* NSObject+DyCInjection.h in Headers */,
+				D981C7E5085A3E65F44B0E89 /* NSSet+ClassesList.h in Headers */,
+				E807AFCA59F60794AFAA19C4 /* SFDynamicCodeInjection.h in Headers */,
+				DCA7086D7BD0D6D3D94B52D2 /* SFFileWatcher.h in Headers */,
+				7743E119E7BDBA12B9253F49 /* SFFileWatcherDelegate.h in Headers */,
+				C4E729531093869EEB64BB93 /* SFInjectionsNotificationsCenter.h in Headers */,
+				7453B9A1C9B5D5DC8A2CF907 /* UINib+StoryBoardSupport.h in Headers */,
+				A5045D87287038048FA10CD9 /* UIViewController+XIBSupport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7C29A03B7E0BEFA43A8B977A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7A567330AB523CEF57831A8 /* KZPActionComponent.h in Headers */,
+				9814DDE920C45278816C52D4 /* KZPAnimatorComponent.h in Headers */,
+				52017AF40021AEBF456D7C08 /* KZPComponent.h in Headers */,
+				4FC18230B47BAD1D7BCE188C /* KZPImagePickerCollectionViewController.h in Headers */,
+				7227A654E875E0CB607B18E5 /* KZPImagePickerComponent.h in Headers */,
+				EEFC12862678CA489C689DBE /* KZPPlayground+Internal.h in Headers */,
+				AB42EBE4ACF5ECAD5B9705D3 /* KZPPlayground.h in Headers */,
+				C39AD34DA9F8B5B94548EC34 /* KZPPlaygroundViewController.h in Headers */,
+				05C29E3122BA24FCB4EFA9E7 /* KZPPresenterComponent.h in Headers */,
+				F1AC8C09B83A10C69F37EBE5 /* KZPPresenterInfoViewController.h in Headers */,
+				4E1D5093C608DAD2ED5BC195 /* KZPSnapshotView.h in Headers */,
+				A6228CDC7F96FBF54B4750C6 /* KZPSynchronizationComponent.h in Headers */,
+				73253F375568FE5042ACFD67 /* KZPTimelineViewController.h in Headers */,
+				A558364A5B5484325AB4381D /* KZPValueAdjustComponent.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF7494181E47FCDE1A0835D5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				409035E28CF75B8E942ED9DB /* RSSwizzle.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC693009A4C1A4A2B5F9BB4C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEAC685062D555334E9E7CE9 /* NHBalancedFlowLayout.h in Headers */,
+				B5800312CC6C0D478A0D9C71 /* NHLinearPartition.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		44C5028880AC1196CB1BE721 /* Pods-AudioKitPlayground */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C50C4E45D5F14303A14BBA9C /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground" */;
+			buildPhases = (
+				222DC047DDA76348E722DED3 /* Sources */,
+				CE87EAFF7B18BEEFD30A89FE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8E10FC6B4E2B6288AB10107 /* PBXTargetDependency */,
+				2F955B19035AB636452DF215 /* PBXTargetDependency */,
+				EB7106495347F65E997F2EAB /* PBXTargetDependency */,
+				BEDBBCC0585AFF5C7AAE5E4E /* PBXTargetDependency */,
+			);
+			name = "Pods-AudioKitPlayground";
+			productName = "Pods-AudioKitPlayground";
+			productReference = 32F296C6D5CF7FBED088BC78 /* libPods-AudioKitPlayground.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		717723C1C23ED55750AA7F70 /* Pods-AudioKitPlayground-RSSwizzle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35099C8F71233A5053AF4EDE /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-RSSwizzle" */;
+			buildPhases = (
+				6700FBB6F960BACB502B3687 /* Sources */,
+				3540FA9BC065B465A23C32DB /* Frameworks */,
+				AF7494181E47FCDE1A0835D5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-AudioKitPlayground-RSSwizzle";
+			productName = "Pods-AudioKitPlayground-RSSwizzle";
+			productReference = 7FA52F4C7A0E851263BBA3B1 /* libPods-AudioKitPlayground-RSSwizzle.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8BF0726F43AB151643683832 /* Pods-AudioKitPlayground-dyci */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEE8BC20B321C38132304C55 /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-dyci" */;
+			buildPhases = (
+				B6CE6D63DDD8ABD644E09856 /* Sources */,
+				B632D0194E44CF6F29A0DBA0 /* Frameworks */,
+				6858468C500CE0D9089F0077 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-AudioKitPlayground-dyci";
+			productName = "Pods-AudioKitPlayground-dyci";
+			productReference = 52A32A3C192484145E95521C /* libPods-AudioKitPlayground-dyci.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A1798A48C7EAAEB54D2B5BA0 /* Pods-AudioKitPlayground-KZPlayground */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9470446DFB32B5A8E6594AE5 /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-KZPlayground" */;
+			buildPhases = (
+				709961CE9B514881B9C06169 /* Sources */,
+				501214221123BB5C4D7189D0 /* Frameworks */,
+				7C29A03B7E0BEFA43A8B977A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D1401EA4CB46D6DAC4314B3 /* PBXTargetDependency */,
+				B99EE39611400D1D07A15477 /* PBXTargetDependency */,
+				FF81D474E9F8553D5E86DC35 /* PBXTargetDependency */,
+			);
+			name = "Pods-AudioKitPlayground-KZPlayground";
+			productName = "Pods-AudioKitPlayground-KZPlayground";
+			productReference = 4D07D374FE291BF39E0B9F81 /* libPods-AudioKitPlayground-KZPlayground.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D6E172C1C7E29421F89FCD00 /* Pods-AudioKitPlayground-NHBalancedFlowLayout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F4A8D61BEF00D2AF2C9E933 /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-NHBalancedFlowLayout" */;
+			buildPhases = (
+				5406F9D5FC9A4BD4CFD1217F /* Sources */,
+				80876092304995E35F2E7D52 /* Frameworks */,
+				EC693009A4C1A4A2B5F9BB4C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-AudioKitPlayground-NHBalancedFlowLayout";
+			productName = "Pods-AudioKitPlayground-NHBalancedFlowLayout";
+			productReference = F37B3E4F08663CB36D891EA1 /* libPods-AudioKitPlayground-NHBalancedFlowLayout.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C74744B3B6BF993D7B695781 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = DEC5C7BAF14C852447E0345A /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9960AB2AE1BBAA3E1E52E225;
+			productRefGroup = 8DAEFDDE33ABE82D26818EFB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				44C5028880AC1196CB1BE721 /* Pods-AudioKitPlayground */,
+				A1798A48C7EAAEB54D2B5BA0 /* Pods-AudioKitPlayground-KZPlayground */,
+				D6E172C1C7E29421F89FCD00 /* Pods-AudioKitPlayground-NHBalancedFlowLayout */,
+				717723C1C23ED55750AA7F70 /* Pods-AudioKitPlayground-RSSwizzle */,
+				8BF0726F43AB151643683832 /* Pods-AudioKitPlayground-dyci */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		222DC047DDA76348E722DED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4D439010669E7362638B6CE /* Pods-AudioKitPlayground-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5406F9D5FC9A4BD4CFD1217F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14E8C9DAA57729F537B91083 /* NHBalancedFlowLayout.m in Sources */,
+				5C9DE1A8FCFE97628435EC33 /* NHLinearPartition.m in Sources */,
+				917FBB3C1C7C3DAA064786AA /* Pods-AudioKitPlayground-NHBalancedFlowLayout-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6700FBB6F960BACB502B3687 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59DC6AE3310DF08396795F3E /* Pods-AudioKitPlayground-RSSwizzle-dummy.m in Sources */,
+				863425A9A6F9423EAF5B8EA6 /* RSSwizzle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		709961CE9B514881B9C06169 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDDB07D427C22A276EC3F1CC /* KZPActionComponent.m in Sources */,
+				9089265EA46628D16A307DC0 /* KZPAnimatorComponent.m in Sources */,
+				6AA2B80C0FB769A1E6B4F705 /* KZPImagePickerCollectionViewController.m in Sources */,
+				D6902721C6FE35902F8D9085 /* KZPImagePickerComponent.m in Sources */,
+				BC0274AD82659450883A9850 /* KZPPlayground.m in Sources */,
+				15A1A76DDFAB66E9ABE9BC01 /* KZPPlaygroundViewController.m in Sources */,
+				24FF969FE064F07C6A9151BD /* KZPPresenterComponent.m in Sources */,
+				712868A505B87851C53A3E47 /* KZPPresenterInfoViewController.m in Sources */,
+				B49C60C6DFB57566BC2BB0D0 /* KZPSynchronizationComponent.m in Sources */,
+				D76334069BC1E1BAA88AB82B /* KZPTimelineViewController.m in Sources */,
+				6E1401B81431F5999568850E /* KZPValueAdjustComponent.m in Sources */,
+				B08A573AB4A0AC33552633F0 /* Pods-AudioKitPlayground-KZPlayground-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6CE6D63DDD8ABD644E09856 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADE6B1B310D26F3640357351 /* NSObject+DyCInjection.m in Sources */,
+				3A12B801993BC5FB20D1E7DE /* NSSet+ClassesList.m in Sources */,
+				0269450C9BAD8D1DB49BDDE2 /* Pods-AudioKitPlayground-dyci-dummy.m in Sources */,
+				F2835462C0AFC49CA55A332B /* SFDynamicCodeInjection.m in Sources */,
+				BA416187281321702884EB59 /* SFFileWatcher.m in Sources */,
+				2BED5D154382259A8E2B23F0 /* SFInjectionsNotificationsCenter.m in Sources */,
+				04C462AA8AE95FEDFE5F411D /* UINib+StoryBoardSupport.m in Sources */,
+				EC984154A6423D82441180E9 /* UIViewController+XIBSupport.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2F955B19035AB636452DF215 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-NHBalancedFlowLayout";
+			target = D6E172C1C7E29421F89FCD00 /* Pods-AudioKitPlayground-NHBalancedFlowLayout */;
+			targetProxy = A27C3620D41A6E27FFDEC087 /* PBXContainerItemProxy */;
+		};
+		9D1401EA4CB46D6DAC4314B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-NHBalancedFlowLayout";
+			target = D6E172C1C7E29421F89FCD00 /* Pods-AudioKitPlayground-NHBalancedFlowLayout */;
+			targetProxy = 0F83F187A0DF0A73F929F331 /* PBXContainerItemProxy */;
+		};
+		B8E10FC6B4E2B6288AB10107 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-KZPlayground";
+			target = A1798A48C7EAAEB54D2B5BA0 /* Pods-AudioKitPlayground-KZPlayground */;
+			targetProxy = 6503951C1F11FB28AA645F42 /* PBXContainerItemProxy */;
+		};
+		B99EE39611400D1D07A15477 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-RSSwizzle";
+			target = 717723C1C23ED55750AA7F70 /* Pods-AudioKitPlayground-RSSwizzle */;
+			targetProxy = 6C7827E113C6D556A8312ED9 /* PBXContainerItemProxy */;
+		};
+		BEDBBCC0585AFF5C7AAE5E4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-dyci";
+			target = 8BF0726F43AB151643683832 /* Pods-AudioKitPlayground-dyci */;
+			targetProxy = 5C7ACB73403ECD19BD448B85 /* PBXContainerItemProxy */;
+		};
+		EB7106495347F65E997F2EAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-RSSwizzle";
+			target = 717723C1C23ED55750AA7F70 /* Pods-AudioKitPlayground-RSSwizzle */;
+			targetProxy = FB827D7CF3A0F4182F2C97DA /* PBXContainerItemProxy */;
+		};
+		FF81D474E9F8553D5E86DC35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-AudioKitPlayground-dyci";
+			target = 8BF0726F43AB151643683832 /* Pods-AudioKitPlayground-dyci */;
+			targetProxy = 96B61C6AD6106D7BB27059FA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		04E284BA5360770BED27C434 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B368B74849D20CBF43017E23 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-NHBalancedFlowLayout/Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1A9E28B44B55D0C3AB4B6417 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B368B74849D20CBF43017E23 /* Pods-AudioKitPlayground-NHBalancedFlowLayout-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-NHBalancedFlowLayout/Pods-AudioKitPlayground-NHBalancedFlowLayout-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1C0B034E00689A1AD5E6F2A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87E3C0BFDAB883D846E1832C /* Pods-AudioKitPlayground-KZPlayground-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-KZPlayground/Pods-AudioKitPlayground-KZPlayground-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		208757B6041A776D15784B05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		4A967138D48EEE78954ED879 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 661D80EC53E8AD03E4D03887 /* Pods-AudioKitPlayground-RSSwizzle-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-RSSwizzle/Pods-AudioKitPlayground-RSSwizzle-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5A6F329479F05AB7F61C3602 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3808FE4C24AE4834EF5FDE02 /* Pods-AudioKitPlayground-dyci-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-dyci/Pods-AudioKitPlayground-dyci-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		77FE70BA56B7AF6699834FBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3808FE4C24AE4834EF5FDE02 /* Pods-AudioKitPlayground-dyci-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-dyci/Pods-AudioKitPlayground-dyci-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		9403D15CF8BBA2CAF0A67ADA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C3B44ACDD8112797BF4B40F /* Pods-AudioKitPlayground.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A2D9F820BD69D03EF9B8395F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4A711FA4EF5D0A5392990F4 /* Pods-AudioKitPlayground.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B85138D805DC725549D20F47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87E3C0BFDAB883D846E1832C /* Pods-AudioKitPlayground-KZPlayground-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-KZPlayground/Pods-AudioKitPlayground-KZPlayground-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CC54040047528A00121A0434 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 661D80EC53E8AD03E4D03887 /* Pods-AudioKitPlayground-RSSwizzle-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-AudioKitPlayground-RSSwizzle/Pods-AudioKitPlayground-RSSwizzle-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F2C391D814780D70AD54837E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0F4A8D61BEF00D2AF2C9E933 /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-NHBalancedFlowLayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A9E28B44B55D0C3AB4B6417 /* Debug */,
+				04E284BA5360770BED27C434 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35099C8F71233A5053AF4EDE /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-RSSwizzle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC54040047528A00121A0434 /* Debug */,
+				4A967138D48EEE78954ED879 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9470446DFB32B5A8E6594AE5 /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-KZPlayground" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B85138D805DC725549D20F47 /* Debug */,
+				1C0B034E00689A1AD5E6F2A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C50C4E45D5F14303A14BBA9C /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2D9F820BD69D03EF9B8395F /* Debug */,
+				9403D15CF8BBA2CAF0A67ADA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEE8BC20B321C38132304C55 /* Build configuration list for PBXNativeTarget "Pods-AudioKitPlayground-dyci" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A6F329479F05AB7F61C3602 /* Debug */,
+				77FE70BA56B7AF6699834FBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEC5C7BAF14C852447E0345A /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				208757B6041A776D15784B05 /* Debug */,
+				F2C391D814780D70AD54837E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C74744B3B6BF993D7B695781 /* Project object */;
+}
