@@ -28,6 +28,7 @@
 @import AudioToolbox;
 @import AudioUnit;
 
+#import "AKCompatibility.h"
 #import "csound.h"
 
 // -----------------------------------------------------------------------------
@@ -36,8 +37,9 @@
 
 @class CsoundObj;
 
+NS_ASSUME_NONNULL_BEGIN
 @protocol CsoundBinding <NSObject>
-- (void)setup:(CsoundObj * __nonnull)csoundObj;
+- (void)setup:(CsoundObj *)csoundObj;
 @optional
 - (void)cleanup;
 - (void)updateValuesFromCsound;
@@ -46,12 +48,12 @@
 
 @protocol CsoundObjListener <NSObject>
 @optional
-- (void)csoundObjStarted:(CsoundObj * __nonnull)csoundObj;
-- (void)csoundObjCompleted:(CsoundObj * __nonnull)csoundObj;
+- (void)csoundObjStarted:(CsoundObj *)csoundObj;
+- (void)csoundObjCompleted:(CsoundObj *)csoundObj;
 @end
 
 @protocol CsoundMsgDelegate <NSObject>
-- (void)messageReceivedFrom:(CsoundObj * __nonnull)csoundObj attr:(int)attr message:(NSString * __nonnull)msg;
+- (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg;
 @end
 
 // -----------------------------------------------------------------------------
@@ -64,10 +66,10 @@
 @property (assign) BOOL midiInEnabled;
 @property (assign) BOOL useAudioInput;
 
-- (void)sendScore:(NSString * __nonnull)score;
+- (void)sendScore:(NSString *)score;
 
-- (void)play:(NSString * __nonnull)csdFilePath;
-- (void)updateOrchestra:(NSString * __nonnull)orchestraString;
+- (void)play:(NSString *)csdFilePath;
+- (void)updateOrchestra:(NSString *)orchestraString;
 - (void)stop;
 - (void)mute;
 - (void)unmute;
@@ -76,9 +78,9 @@
 #  pragma mark - Recording
 // -----------------------------------------------------------------------------
 
-- (void)record:(NSString * __nonnull)csdFilePath toURL:(NSURL * __nonnull)outputURL;
-- (void)record:(NSString * __nonnull)csdFilePath toFile:(NSString * __nonnull)outputFile;
-- (void)recordToURL:(NSURL * __nonnull)outputURL;
+- (void)record:(NSString *)csdFilePath toURL:(NSURL *)outputURL;
+- (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile;
+- (void)recordToURL:(NSURL *)outputURL;
 - (void)stopRecording;
 
 
@@ -86,15 +88,15 @@
 #  pragma mark - Binding
 // -----------------------------------------------------------------------------
 
-@property (nonatomic, strong, nonnull) NSMutableArray *bindings;
-- (void)addBinding:(__nonnull id<CsoundBinding>)binding;
-- (void)removeBinding:(__nonnull id<CsoundBinding>)binding;
+@property (nonatomic, strong) NSMutableArray *bindings;
+- (void)addBinding:(id<CsoundBinding>)binding;
+- (void)removeBinding:(id<CsoundBinding>)binding;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Listeners and Messages
 // -----------------------------------------------------------------------------
 
-- (void)addListener:(__nonnull id<CsoundObjListener>)listener;
+- (void)addListener:(id<CsoundObjListener>)listener;
 
 @property (weak, nullable) id<CsoundMsgDelegate> messageDelegate;
 
@@ -102,7 +104,7 @@
 #  pragma mark - Csound Internals / Advanced Methods
 // -----------------------------------------------------------------------------
 
-@property (nonatomic,readonly,nonnull,getter=getCsound) CSOUND *csound;
+@property (nonatomic,readonly,getter=getCsound) CSOUND *csound;
 
 @property (readonly,nonatomic, getter=getNumChannels) int numChannels;
 @property (readonly,nonatomic, getter=getKsmps)       int ksmps;
@@ -110,17 +112,18 @@
 
 // get input or output that maps to a channel name and type, where type is
 // CSOUND_AUDIO_CHANNEL, CSOUND_CONTROL_CHANNEL, etc.
-- (MYFLT * __nullable)getInputChannelPtr:(NSString * __nonnull)channelName
+- (MYFLT * __nullable)getInputChannelPtr:(NSString *)channelName
                              channelType:(controlChannelType)channelType;
-- (MYFLT * __nullable)getOutputChannelPtr:(NSString * __nonnull)channelName
+- (MYFLT * __nullable)getOutputChannelPtr:(NSString *)channelName
                               channelType:(controlChannelType)channelType;
 
 // Read-only samples
-- (NSData * __nonnull)getOutSamples;
-- (NSData * __nonnull)getInSamples;
+- (NSData *)getOutSamples;
+- (NSData *)getInSamples;
 
 // Writable alternatives
-- (NSMutableData * __nonnull)getMutableInSamples;
-- (NSMutableData * __nonnull)getMutableOutSamples;
+- (NSMutableData *)getMutableInSamples;
+- (NSMutableData *)getMutableOutSamples;
 
 @end
+NS_ASSUME_NONNULL_END
