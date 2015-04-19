@@ -20,13 +20,11 @@
 		C41A778F1AE3A52B008ECF48 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A778C1AE3A52B008ECF48 /* MathTests.m */; };
 		C41A77911AE3A52B008ECF48 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C41A778D1AE3A52B008ECF48 /* TableTests.m */; };
 		C41A779D1AE3A580008ECF48 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41A779A1AE3A568008ECF48 /* libAudioKit OS X.a */; };
-		C41A77A01AE3A58F008ECF48 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41A779A1AE3A568008ECF48 /* libAudioKit OS X.a */; };
-		C41A77A31AE3A6B1008ECF48 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */; };
-		C41A77A41AE3A6B1008ECF48 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */; };
-		C4F0D1E81AE3A74F00B0005E /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C4C811C91AE3C234003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C811C81AE3C234003A8B73 /* CsoundLib.framework */; };
+		C4C811CC1AE3C23C003A8B73 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C811CB1AE3C23C003A8B73 /* AVFoundation.framework */; };
+		C4C811CD1AE3C285003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C811C81AE3C234003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4F0D1EA1AE3AAF600B0005E /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F0D1E91AE3AAF600B0005E /* AudioKit.plist */; };
 		C4F0D1EB1AE3AAF600B0005E /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F0D1E91AE3AAF600B0005E /* AudioKit.plist */; };
-		C4F0D1EE1AE3B98600B0005E /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,13 +56,6 @@
 			remoteGlobalIDString = EA8E96581AD3C6FC0057E979;
 			remoteInfo = "AudioKit OS X";
 		};
-		C41A779E1AE3A58A008ECF48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C41A77921AE3A568008ECF48 /* AudioKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EA8E96581AD3C6FC0057E979;
-			remoteInfo = "AudioKit OS X";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,9 +63,8 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 10;
 			files = (
-				C4F0D1E81AE3A74F00B0005E /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,9 +72,9 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 10;
 			files = (
-				C4F0D1EE1AE3B98600B0005E /* CsoundLib.framework in CopyFiles */,
+				C4C811CD1AE3C285003A8B73 /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +100,8 @@
 		C41A778C1AE3A52B008ECF48 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
 		C41A778D1AE3A52B008ECF48 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
 		C41A77921AE3A568008ECF48 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
-		C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
+		C4C811C81AE3C234003A8B73 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
+		C4C811CB1AE3C23C003A8B73 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4F0D1E91AE3AAF600B0005E /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C41A77A31AE3A6B1008ECF48 /* CsoundLib.framework in Frameworks */,
+				C4C811CC1AE3C23C003A8B73 /* AVFoundation.framework in Frameworks */,
+				C4C811C91AE3C234003A8B73 /* CsoundLib.framework in Frameworks */,
 				C41A779D1AE3A580008ECF48 /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,8 +120,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C41A77A41AE3A6B1008ECF48 /* CsoundLib.framework in Frameworks */,
-				C41A77A01AE3A58F008ECF48 /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +133,7 @@
 				C41A77591AE3A425008ECF48 /* OSXObjectiveCAudioKit */,
 				C41A77701AE3A425008ECF48 /* OSXObjectiveCAudioKitTests */,
 				C41A77581AE3A425008ECF48 /* Products */,
+				C4C811D11AE3C38C003A8B73 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,7 +174,6 @@
 		C41A77701AE3A425008ECF48 /* OSXObjectiveCAudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				C41A77A21AE3A6B1008ECF48 /* CsoundLib.framework */,
 				C41A77731AE3A425008ECF48 /* OSXObjectiveCAudioKitTests.m */,
 				C41A778C1AE3A52B008ECF48 /* MathTests.m */,
 				C41A778D1AE3A52B008ECF48 /* TableTests.m */,
@@ -220,6 +210,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C4C811D11AE3C38C003A8B73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4C811CB1AE3C23C003A8B73 /* AVFoundation.framework */,
+				C4C811C81AE3C234003A8B73 /* CsoundLib.framework */,
+			);
+			name = Frameworks;
+			path = OSXObjectiveCAudioKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -231,6 +231,7 @@
 				C41A77541AE3A425008ECF48 /* Frameworks */,
 				C41A77551AE3A425008ECF48 /* Resources */,
 				C4F0D1EC1AE3B90800B0005E /* CopyFiles */,
+				C4F0D1F61AE3BF5200B0005E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -254,7 +255,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C41A779F1AE3A58A008ECF48 /* PBXTargetDependency */,
 				C41A776F1AE3A425008ECF48 /* PBXTargetDependency */,
 			);
 			name = OSXObjectiveCAudioKitTests;
@@ -343,6 +343,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C4F0D1F61AE3BF5200B0005E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C41A77531AE3A425008ECF48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -381,11 +397,6 @@
 			name = "AudioKit OS X";
 			targetProxy = C41A779B1AE3A57B008ECF48 /* PBXContainerItemProxy */;
 		};
-		C41A779F1AE3A58A008ECF48 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "AudioKit OS X";
-			targetProxy = C41A779E1AE3A58A008ECF48 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -417,7 +428,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -460,7 +471,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -484,7 +495,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
+				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
@@ -498,7 +512,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
+				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
@@ -515,6 +532,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -537,6 +555,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					/Users/aure/Developer/AudioKit/AudioKit/Platforms/OSX,
 				);
 				INFOPLIST_FILE = OSXObjectiveCAudioKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
