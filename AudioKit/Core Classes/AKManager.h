@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
+#import "AKCompatibility.h"
 #import "AKInstrument.h"
 #import "AKOrchestra.h"
 #import "AKEvent.h"
