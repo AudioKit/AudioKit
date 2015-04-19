@@ -16,6 +16,9 @@
 ## OS X Projects
 * From within the AudioKit subproject, open the `AudioKit > Platforms > OS X` group, then drag and drop the `CSoundLib.framework` file to your own project.
 * In your project settings, under the **Build Phases** tab, open the **Copy Files** section and add the same `CsoundLib.framework`.
+* Add a run script phase, of type `/bin/bash` with the following script:
+
+`install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH`
 
 ## Optional Steps
 Some of the built-in instruments require the use of some sound files, grouped in the `AKSoundFiles.bundle` in the **Resources** group in AudioKit. You may drag this bundle to your own project to have them included.
