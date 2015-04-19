@@ -8,20 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "ViewController.h"
+#import "AppDelegate.h"
 
 @interface TableTests : XCTestCase
 
 @end
 
 @implementation TableTests {
-    ViewController *vc;
+    AppDelegate *vc;
     float AK_ACCURACY;
 }
 
 - (void)setUp {
     [super setUp];
-    vc = (ViewController *)[[NSApplication sharedApplication] delegate];
+    vc = (AppDelegate *)[[NSApplication sharedApplication] delegate];
     AK_ACCURACY = 0.001;
 }
 
