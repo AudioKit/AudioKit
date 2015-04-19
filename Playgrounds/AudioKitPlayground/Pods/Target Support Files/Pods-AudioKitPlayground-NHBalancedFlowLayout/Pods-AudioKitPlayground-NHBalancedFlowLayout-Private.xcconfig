@@ -1,5 +1,6 @@
 #include "Pods-AudioKitPlayground-NHBalancedFlowLayout.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/KZPlayground" "${PODS_ROOT}/Headers/Public/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/Public/RSSwizzle" "${PODS_ROOT}/Headers/Public/dyci"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/KZPlayground" "${PODS_ROOT}/Headers/Public/NHBalancedFlowLayout" "${PODS_ROOT}/Headers/Public/RSSwizzle" "${PODS_ROOT}/Headers/Public/dyci"
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES
