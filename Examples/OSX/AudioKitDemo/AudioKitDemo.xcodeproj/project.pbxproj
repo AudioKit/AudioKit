@@ -233,7 +233,7 @@
 				C475448B1A9BD0DF006151DE /* Frameworks */,
 				C475448C1A9BD0DF006151DE /* Resources */,
 				C47546AA1A9BD12F006151DE /* CopyFiles */,
-				C47546AC1A9BD13B006151DE /* ShellScript */,
+				C4F0D1F31AE3BF0400B0005E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -314,7 +314,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C47546AC1A9BD13B006151DE /* ShellScript */ = {
+		C4F0D1F31AE3BF0400B0005E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -325,7 +325,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib\"\nfor TARGET in ${TARGETS} ; do\n    LIBFILE=${LIBPATH}/${TARGET}\n    TARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\n    NEWTARGETID=${NEWLIBPATH}/${TARGET}\n    install_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\n    install_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\n    install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\ndone";
+			shellScript = "install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
 		};
 /* End PBXShellScriptBuildPhase section */
 
