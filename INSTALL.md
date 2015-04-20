@@ -10,7 +10,7 @@
 	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../../AudioKit/AudioKit`.
 
 ## Swift Projects
-* From within the AudioKit subproject in your project, open the `AudioKit > Platforms > Swift` group, and drag and drop at least `AudioKit.swift` to your project. You may also add any of the extensions to your project if you'd like to use them.
+* From within the AudioKit subproject in your project, open the `AudioKit > Platforms > Swift` group, and drag and drop `AudioKit.swift` to your project.
 * Add at least `AKFoundation.h` to your Swift bridging header file. You may need to include some of the other header files you are using in your project if they are not covered by AKFoundation.
 
 ## OS X Projects

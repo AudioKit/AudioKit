@@ -713,7 +713,6 @@
 		EA8E95901AD3C6850057E979 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
 		EA8E95911AD3C6850057E979 /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
 		EA8E95971AD3C6850057E979 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
-		EA8E95991AD3C6850057E979 /* Arithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arithmetic.swift; sourceTree = "<group>"; };
 		EA8E959B1AD3C6850057E979 /* AKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKEvent.h; sourceTree = "<group>"; };
 		EA8E959C1AD3C6850057E979 /* AKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKEvent.m; sourceTree = "<group>"; };
 		EA8E959D1AD3C6850057E979 /* AKPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhrase.h; sourceTree = "<group>"; };
@@ -1531,17 +1530,8 @@
 			isa = PBXGroup;
 			children = (
 				EA8E95971AD3C6850057E979 /* AudioKit.swift */,
-				EA8E95981AD3C6850057E979 /* Extensions */,
 			);
 			path = Swift;
-			sourceTree = "<group>";
-		};
-		EA8E95981AD3C6850057E979 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				EA8E95991AD3C6850057E979 /* Arithmetic.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EA8E959A1AD3C6850057E979 /* Sequencing */ = {
