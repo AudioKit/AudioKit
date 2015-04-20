@@ -5,6 +5,10 @@ env:
 
 before_install: gem install xcpretty cocoapods -N
 script:
+- set -o pipefail && xcodebuild -project Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj build | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/OSX/HelloWorld/HelloWorld.xcodeproj  build | xcpretty -c
 - cp Playgrounds/Playgrounds/DefaultPlayground.m Playgrounds/AudioKitPlayground/AudioKitPlayground/Playground.m
 - pod install --project-directory=Playgrounds/AudioKitPlayground
 - set -o pipefail && xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace
