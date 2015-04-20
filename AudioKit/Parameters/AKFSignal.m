@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.parameterString = [NSString stringWithFormat:@"f%@%i", aString, _myID];
+        self.parameterString = [NSString stringWithFormat:@"f%@%@", aString, @(self.parameterID)];
     }
     return self;
 }

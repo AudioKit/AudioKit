@@ -66,7 +66,7 @@
 }
 
 
-+ (void)testForDuration:(float)duration
++ (void)testForDuration:(NSTimeInterval)duration
 {
     [[AKManager sharedManager] setIsLogging:YES];
     if (![[AKManager sharedManager] isRunning]) {
@@ -118,7 +118,7 @@
         }
     }
     
-    [instrumentString appendFormat:@"instr %i\n", [instrument instrumentNumber]];
+    [instrumentString appendFormat:@"instr %@\n", @(instrument.instrumentNumber)];
     [instrumentString appendString:[NSString stringWithFormat:@"%@\n", stringForCSD]];
     [instrumentString appendString:@"endin\n"];
     

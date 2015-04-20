@@ -20,13 +20,12 @@
 
 
 @interface AKManager () <CsoundObjListener, CsoundMsgDelegate> {
-    NSString *options;
-    NSString *csdFile;
-    NSString *templateString;
-    NSString *batchInstructions;
-    BOOL isBatching;
+    NSString *_options;
+    NSString *_csdFile;
+    NSString *_batchInstructions;
+    BOOL _isBatching;
     
-    int totalRunDuration;
+    NSTimeInterval _totalRunDuration;
 }
 
 // Run Csound from a given filename
@@ -109,36 +108,21 @@ static AKManager *_sharedManager = nil;
         _isRunning = NO;
         _isLogging = AKSettings.settings.loggingEnabled;
         
-        totalRunDuration = 10000000;
+        _totalRunDuration = 10000000;
 
-        batchInstructions = [[NSString alloc] init];
-        isBatching = NO;
+        _batchInstructions = [[NSString alloc] init];
+        _isBatching = NO;
         
         _orchestra = [[AKOrchestra alloc] init];
 
-        options = [NSString stringWithFormat:
-                   @"-o %@           ; Write sound to the host audio output\n"
-                   "--expression-opt ; Enable expression optimizations\n"
-                   "-m0              ; Print raw amplitudes\n"
-                   "-i %@            ; Request sound from the host audio input device",
-                   AKSettings.settings.audioOutput, AKSettings.settings.audioInput];
+        _options = [NSString stringWithFormat:
+                    @"-o %@           ; Write sound to the host audio output\n"
+                    "--expression-opt ; Enable expression optimizations\n"
+                    "-m0              ; Print raw amplitudes\n"
+                    "-i %@            ; Request sound from the host audio input device",
+                    AKSettings.settings.audioOutput, AKSettings.settings.audioInput];
         
-        templateString = @""
-        "<CsoundSynthesizer>\n\n"
-        "<CsOptions>\n\%@\n</CsOptions>\n\n"
-        "<CsInstruments>\n\n"
-        "\%@\n"
-        "opcode AKControl, k, a \n ain xin \n xout downsamp(ain)       \n endop\n"
-        "opcode AKAudio,   a, k \n kin xin \n xout upsamp(kin)         \n endop\n"
-        "opcode AKAudio,   a, a \n ain xin \n aout = ain \n xout aout  \n endop\n"
-        "opcode AKControl, k, k \n kin xin \n kout = kin \n xout kout  \n endop\n"
-        "instr 1000 ; Turn off all notes    \n turnoff2 p4, 0, 1 \n endin \n"
-        "instr 1001 ; Event end or note off \n turnoff2 p4, 4, 1 \n endin \n"
-        "</CsInstruments>\n\n"
-        "<CsScore>\nf0 %d\n</CsScore>\n\n"
-        "</CsoundSynthesizer>\n";
-        
-        csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
+        _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
         
@@ -163,7 +147,7 @@ static AKManager *_sharedManager = nil;
 - (void)_applicationWillTerminate:(NSNotification *)notification
 {
     [self.engine stop];
-    [[NSFileManager defaultManager] removeItemAtPath:csdFile error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:_csdFile error:nil];
 }
 
 // -----------------------------------------------------------------------------
@@ -189,11 +173,23 @@ static AKManager *_sharedManager = nil;
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
 {
     NSString *newCSD = [NSString stringWithFormat:
-                        templateString,
-                        options, [orchestra stringForCSD], totalRunDuration];
+                        @"<CsoundSynthesizer>\n\n"
+                        "<CsOptions>\n\%@\n</CsOptions>\n\n"
+                        "<CsInstruments>\n\n"
+                        "\%@\n"
+                        "opcode AKControl, k, a \n ain xin \n xout downsamp(ain)       \n endop\n"
+                        "opcode AKAudio,   a, k \n kin xin \n xout upsamp(kin)         \n endop\n"
+                        "opcode AKAudio,   a, a \n ain xin \n aout = ain \n xout aout  \n endop\n"
+                        "opcode AKControl, k, k \n kin xin \n kout = kin \n xout kout  \n endop\n"
+                        "instr 1000 ; Turn off all notes    \n turnoff2 p4, 0, 1 \n endin \n"
+                        "instr 1001 ; Event end or note off \n turnoff2 p4, 4, 1 \n endin \n"
+                        "</CsInstruments>\n\n"
+                        "<CsScore>\nf0 %ld\n</CsScore>\n\n"
+                        "</CsoundSynthesizer>\n",
+                        _options, [orchestra stringForCSD], lround(_totalRunDuration)];
     NSError *err;
     
-    if ([newCSD writeToFile:csdFile
+    if ([newCSD writeToFile:_csdFile
                  atomically:YES
                    encoding:NSStringEncodingConversionAllowLossy
                       error:&err] == NO) {
@@ -209,8 +205,8 @@ static AKManager *_sharedManager = nil;
     }
     [self writeCSDFileForOrchestra:_orchestra];
     
-    [self.engine play:csdFile];
-    if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:csdFile]);
+    [self.engine play:_csdFile];
+    if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:_csdFile]);
     
     // Pause to allow Csound to start, warn if nothing happens after 1 second
     int cycles = 0;
@@ -224,9 +220,9 @@ static AKManager *_sharedManager = nil;
     }
 }
 
-- (void)runOrchestraForDuration:(int)duration
+- (void)runOrchestraForDuration:(NSTimeInterval)duration
 {
-    totalRunDuration = duration;
+    _totalRunDuration = duration;
     [self runOrchestra];
 }
 
@@ -292,22 +288,22 @@ static AKManager *_sharedManager = nil;
 
 - (void)startBatch
 {
-    isBatching = YES;
+    _isBatching = YES;
 }
 
 - (void)endBatch
 {
-    [self.engine sendScore:batchInstructions];
-    batchInstructions = @"";
-    isBatching = NO;
+    [self.engine sendScore:_batchInstructions];
+    _batchInstructions = @"";
+    _isBatching = NO;
 }
 
 - (void)stopInstrument:(AKInstrument *)instrument
 {
-    if (_isLogging) NSLog(@"Stopping Instrument %d", [instrument instrumentNumber]);
-    if (isBatching) {
-        batchInstructions = [batchInstructions stringByAppendingString:[instrument stopStringForCSD]];
-        batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
+    if (_isLogging) NSLog(@"Stopping Instrument %@", @(instrument.instrumentNumber));
+    if (_isBatching) {
+        _batchInstructions = [_batchInstructions stringByAppendingString:[instrument stopStringForCSD]];
+        _batchInstructions = [_batchInstructions stringByAppendingString:@"\n"];
     } else {
         [self.engine sendScore:[instrument stopStringForCSD]];
     }
@@ -318,9 +314,9 @@ static AKManager *_sharedManager = nil;
 {
     if (_isLogging) NSLog(@"Stopping Note with %@", [note stopStringForCSD]);
     
-    if (isBatching) {
-        batchInstructions = [batchInstructions stringByAppendingString:[note stopStringForCSD]];
-        batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
+    if (_isBatching) {
+        _batchInstructions = [_batchInstructions stringByAppendingString:[note stopStringForCSD]];
+        _batchInstructions = [_batchInstructions stringByAppendingString:@"\n"];
     } else {
         [self.engine sendScore:[note stopStringForCSD]];
     }
@@ -330,9 +326,9 @@ static AKManager *_sharedManager = nil;
 {
     if (_isLogging) NSLog(@"Updating Note: %@", [note stringForCSD]);
     
-    if (isBatching) {
-        batchInstructions = [batchInstructions stringByAppendingString:[note stringForCSD]];
-        batchInstructions = [batchInstructions stringByAppendingString:@"\n"];
+    if (_isBatching) {
+        _batchInstructions = [_batchInstructions stringByAppendingString:[note stringForCSD]];
+        _batchInstructions = [_batchInstructions stringByAppendingString:@"\n"];
     } else {
         [self.engine sendScore:[note stringForCSD]];
     }

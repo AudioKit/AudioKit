@@ -22,21 +22,26 @@
 #define akpfn(__fn__) [AKConstant constantWithFilename:__fn__]
 
 #import <Foundation/Foundation.h>
+#import "AKCompatibility.h"
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKParameter : NSObject
-{
-    int _myID;
-}
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization and String Representation
 // -----------------------------------------------------------------------------
 
-// The CSD Text representation of the parameter's name
+/// The CSD Text representation of the parameter's name.
 @property NSString *parameterString;
 
 @property NSString *state;
-@property NSArray *dependencies;
+@property NSArray  *dependencies;
+
+/// The unique ID number for the parameter.
+@property (readonly) NSUInteger parameterID;
+
+/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
++ (void)resetID;
 
 /// Helper method to avoid alloc and init each time.
 /// @param name The name of the parameter as it should appear in the output file.
@@ -52,16 +57,13 @@
 /// Allows a parameter to be created using NSString style string formatting
 /// @param format NSString style string format.
 /// @param ...    Any necessary format values to insert.
-+ (id)parameterWithFormat:(NSString *)format, ...;
++ (instancetype)parameterWithFormat:(NSString *)format, ...;
 
 - (instancetype)initWithString:(NSString *)name;
 
 /// Allows insertion of math into parameters
 /// @param expression A valid csound mathematical expression within an NSString.
 - (instancetype)initWithExpression:(NSString *)expression;
-
-/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void)resetID;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Current, Initial, Minimum, and Maximum Properties
@@ -166,3 +168,5 @@
 - (instancetype)amplitudeFromFullScaleDecibel;
 
 @end
+NS_ASSUME_NONNULL_END
+

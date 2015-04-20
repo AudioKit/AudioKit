@@ -29,7 +29,7 @@
 
 - (void)setName:(NSString *)newName
 {
-    [self setParameterString:[NSString stringWithFormat:@"k%@%i", newName, _myID]];
+    [self setParameterString:[NSString stringWithFormat:@"k%@%@", newName, @(self.parameterID)]];
 }
 
 - (NSString *)stringForCSDGetValue
