@@ -283,7 +283,6 @@ static AKManager *_sharedManager = nil;
 {
     if (_isLogging) NSLog(@"Stopping Csound");
     [self.engine stop];
-    while(_isRunning) {} // Do nothing
 }
 
 - (void)triggerEvent:(AKEvent *)event
