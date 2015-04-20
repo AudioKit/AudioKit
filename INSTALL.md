@@ -14,7 +14,7 @@
 * Add at least `AKFoundation.h` to your Swift bridging header file. You may need to include some of the other header files you are using in your project if they are not covered by AKFoundation.
 
 ## OS X Projects
-* From within the AudioKit subproject, open the `AudioKit > Platforms > OS X` group, then drag and drop the `CSoundLib.framework` file to your own project.
+* From within the AudioKit subproject, open the `AudioKit > Platforms > OS X` group, then drag and drop the `CSoundLib.framework` file to your own project.  This will automatically add a "Framework Search Paths" entry for you, but it will be an absolute reference, so if you are sharing your projects with other, you should go to **Build Settings** Tab and add an entry relative to `$(SRCROOT)` that leads to `AudioKit/Platforms/OSX`.
 * In your project settings, under the **Build Phases** tab, open the **Copy Files** section and add the same `CsoundLib.framework`.
 * Add a run script phase, of type `/bin/bash` with the following script:
 
