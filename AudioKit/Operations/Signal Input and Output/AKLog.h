@@ -18,6 +18,6 @@
 /// @param timeInterval How often to print, in seconds.
 - (instancetype)initWithMessage:(NSString *)message
                       parameter:(AKParameter *)parameter
-                   timeInterval:(float)timeInterval;
+                   timeInterval:(NSTimeInterval)timeInterval;
 @end
 

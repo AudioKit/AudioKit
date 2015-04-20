@@ -17,16 +17,61 @@
 
 static int currentID = 1;
 
++ (void) resetID {
+    @synchronized(self) {
+        currentID = 1;
+    }
+}
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Initialization and String Representation
 // -----------------------------------------------------------------------------
 
+- (void) _commonInit
+{
+    @synchronized([self class]) {
+        _parameterID = currentID++;
+    }
+    _state = @"unconnected";
+    _dependencies = @[];
+}
+
 - (instancetype)init
 {
     self = [super init];
-    _myID = currentID++;
-    _state = @"unconnected";
-    _dependencies = @[];
+    if (self) {
+        [self _commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initGlobalWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        [self _commonInit];
+        _parameterString = [NSString stringWithFormat:@"ga%@%@", name, @(_parameterID)];
+    }
+    return self;
+}
+
+- (instancetype)initWithString:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        [self _commonInit];
+        _parameterString = [NSString stringWithFormat:@"a%@%@", name, @(_parameterID)];
+    }
+    return self;
+}
+
+- (instancetype)initWithExpression:(NSString *)expression
+{
+    self = [super init];
+    if (self) {
+        [self _commonInit];
+        _parameterString = [NSString stringWithString:expression];
+    }
     return self;
 }
 
@@ -40,22 +85,12 @@ static int currentID = 1;
     return [[self alloc] initGlobalWithString:@"Global"];
 }
 
-- (instancetype)initGlobalWithString:(NSString *)name
-{
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-        _parameterString = [NSString stringWithFormat:@"ga%@%i", name, _myID];
-    }
-    return self;
-}
-
 + (instancetype)globalParameterWithString:(NSString *)name
 {
     return [[self alloc] initGlobalWithString:name];
 }
 
-+(id)parameterWithFormat:(NSString *)format, ...
++ (instancetype)parameterWithFormat:(NSString *)format, ...
 {
     va_list argumentList;
     va_start(argumentList, format);
@@ -66,29 +101,6 @@ static int currentID = 1;
 - (NSString *)description
 {
     return _parameterString;
-}
-
-- (instancetype)initWithString:(NSString *)name
-{
-    self = [super init];
-    if (self) {
-        _myID = currentID++;
-        _parameterString = [NSString stringWithFormat:@"a%@%i", name, _myID];
-    }
-    return self;
-}
-
-- (instancetype)initWithExpression:(NSString *)expression
-{
-    self = [super init];
-    if (self) {
-        _parameterString = [NSString stringWithString:expression];
-    }
-    return self;
-}
-
-+(void) resetID {
-    currentID = 1;
 }
 
 // -----------------------------------------------------------------------------

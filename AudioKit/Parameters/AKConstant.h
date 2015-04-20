@@ -26,7 +26,7 @@
 
 /// Common method to create integer parameters.  So much so that akpi() macro was created and preferred.
 /// @param value Value to set the parameter to.
-+ (instancetype)constantWithInteger:(int)value;
++ (instancetype)constantWithInteger:(NSInteger)value;
 
 /// Common method to create file locations.  So much so that akpfn() macro was created and preferred.
 /// @param filename String containing full path of file.
@@ -36,8 +36,8 @@
 /// @param control Control value to be coerced into a constant
 + (instancetype)constantWithControl:(AKControl *)control;
 
-/// Initialize the constant with a number
+/// Initialize the constant with a number object.
 /// @param value Number value of the constant
-- (instancetype)initWithValue:(NSNumber *)value;
+- (instancetype)initWithNumber:(NSNumber *)value;
 
 @end
