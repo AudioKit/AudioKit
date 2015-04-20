@@ -37,9 +37,6 @@ static int currentID = 1;
         // Since instruments can add tables upon initialization,
         // Start the orchestra immediately
         [AKOrchestra start];
-        while (![[AKManager sharedManager] isRunning]) {
-            [NSThread sleepForTimeInterval:(NSTimeInterval)0.01];
-        }
         _myID = currentID++;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
