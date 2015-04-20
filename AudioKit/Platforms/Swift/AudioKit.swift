@@ -13,17 +13,17 @@ func akp(num: Float)->AKConstant {
 }
 
 func akpi(num: Int)->AKConstant {
-    return AKConstant(value: num)
+    return AKConstant(float: Float(num))
 }
 
 extension Int {
-    var ak: AKConstant {return AKConstant(value: self)}
+    var ak: AKConstant {return AKConstant(float: Float(self))}
 }
 extension Float {
-    var ak: AKConstant {return AKConstant(value: self)}
+    var ak: AKConstant {return AKConstant(float: self)}
 }
 extension Double {
-    var ak: AKConstant {return AKConstant(value: self)}
+    var ak: AKConstant {return AKConstant(float: Float(self))}
 }
 
 extension AKMultipleInputMathOperation {

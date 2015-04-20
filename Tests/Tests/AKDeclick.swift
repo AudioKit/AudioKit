@@ -30,7 +30,7 @@ class Instrument2 : AKInstrument {
     }
 }
 
-AKOrchestra.testForDuration(testDuration)
+AKOrchestra.testForDuration(NSTimeInterval(testDuration))
 
 let instrument1 = Instrument1()
 let instrument2 = Instrument2()

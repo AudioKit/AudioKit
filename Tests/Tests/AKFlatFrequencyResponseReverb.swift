@@ -51,7 +51,7 @@ class Processor : AKInstrument {
     }
 }
 
-AKOrchestra.testForDuration(testDuration)
+AKOrchestra.testForDuration(NSTimeInterval(testDuration))
 
 let instrument = Instrument()
 let processor = Processor(audioSource: instrument.auxilliaryOutput)
