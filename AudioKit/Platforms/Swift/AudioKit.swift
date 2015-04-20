@@ -8,16 +8,24 @@
 
 import Foundation
 
-func akp(num: Float)->AKConstant {
+func akp(num: Float) -> AKConstant {
     return AKConstant(float: num)
 }
 
-func akpi(num: Int)->AKConstant {
-    return AKConstant(float: Float(num))
+func akpi(num: Int) -> AKConstant {
+    return AKConstant(integer: num)
+}
+
+func akps(str: String) -> AKConstant {
+    return AKConstant(string: str)
+}
+
+func akpfn(file: String) -> AKConstant {
+    return AKConstant(filename: file)
 }
 
 extension Int {
-    var ak: AKConstant {return AKConstant(float: Float(self))}
+    var ak: AKConstant {return AKConstant(integer: self)}
 }
 
 extension Float {
@@ -27,6 +35,7 @@ extension Float {
 
 extension Double {
     var ak: AKConstant {return AKConstant(float: Float(self))}
+    var midiratio: Double {return pow(2, self * 0.083333333333)}
 }
 
 extension AKMultipleInputMathOperation {
