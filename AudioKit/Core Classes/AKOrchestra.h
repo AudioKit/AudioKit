@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AKCompatibility.h"
 
 @class AKInstrument;
 @class AKEvent;
@@ -15,6 +16,7 @@
 
 /** AKOrchestra is an AKInstrument collection that can be run by the AKManager.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKOrchestra : NSObject
 
 /** All UDOs that are required by the instrument are stored here and declared before any
@@ -25,7 +27,7 @@
 @property (nonatomic, assign) float zeroDBFullScaleValue;
 
 /// The number of channels, ie. mono=1, stereo=2, hexaphonic=6.  Can affect both output and input.
-@property (readonly) int numberOfChannels;
+@property (readonly) UInt16 numberOfChannels;
 
 /// Start the orchestra
 + (void)start;
@@ -35,7 +37,7 @@
 
 /// Test the orchestra for a specified time
 /// @param duration Testing run time in seconds
-+ (void)testForDuration:(float)duration;
++ (void)testForDuration:(NSTimeInterval)duration;
 
 /// Add an instrument to the orchestra
 /// @param instrument Instrument to add to the orchestra
@@ -53,3 +55,4 @@
 - (NSString *)stringForCSD;
 
 @end
+NS_ASSUME_NONNULL_END

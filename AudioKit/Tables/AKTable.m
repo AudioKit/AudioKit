@@ -14,7 +14,12 @@
 }
 
 static int currentID = 2000;
-+ (void)resetID { currentID = 2000; }
+
++ (void)resetID {
+    @synchronized(self) {
+        currentID = 2000;
+    }
+}
 
 // Returns a pointer to the table managed internally by Csound
 - (MYFLT *)values
@@ -33,7 +38,9 @@ static int currentID = 2000;
 {
     self = [super init];
     if (self) {
-        _number = currentID++;
+        @synchronized([self class]) {
+            _number = currentID++;
+        }
         _size = tableSize;
         _csoundObj = [[AKManager sharedManager] engine];
         _cs = [_csoundObj getCsound];
@@ -53,7 +60,9 @@ static int currentID = 2000;
 - (instancetype)initWithArray:(NSArray *)array {
     self = [super init];
     if (self) {
-        _number = currentID++;
+        @synchronized([self class]) {
+            _number = currentID++;
+        }
         _size = [array count];
         _csoundObj = [[AKManager sharedManager] engine];
         _cs = [_csoundObj getCsound];
