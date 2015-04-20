@@ -75,10 +75,10 @@
         [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
-    if ([_frequency class] == [AKControl class]) {
+    if ([_frequency class] == [AKAudio class]) {
         [inputsString appendFormat:@"%@", _frequency];
     } else {
-        [inputsString appendFormat:@"AKControl(%@)", _frequency];
+        [inputsString appendFormat:@"AKAudio(%@)", _frequency];
     }
 return inputsString;
 }
