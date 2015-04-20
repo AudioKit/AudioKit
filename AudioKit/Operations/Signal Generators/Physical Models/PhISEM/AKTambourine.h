@@ -35,11 +35,17 @@
 /// Instantiates the tambourine with default values
 + (instancetype)tambourine;
 
-/// Instantiates the tambourine with default values
+/// Instantiates the tambourine with values for an 'open' sound
 - (instancetype)initPresetOpenTambourine;
 
-/// Instantiates the tambourine with default values
+/// Instantiates the tambourine with default for an 'open' sound
 + (instancetype)presetOpenTambourine;
+
+/// Instantiates the tambourine with values for an 'closed' sound
+- (instancetype)initPresetClosedTambourine;
+
+/// Instantiates the tambourine with default for an 'closed' sound
++ (instancetype)presetClosedTambourine;
 
 /// The intensity of the tambourine sound [Default Value: 1000]
 @property (nonatomic) AKConstant *intensity;
