@@ -76,6 +76,27 @@
     return [[AKTambourine alloc] initPresetOpenTambourine];
 }
 
+- (instancetype)initPresetClosedTambourine
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(875);
+        _dampingFactor = akp(0.55);
+        _mainResonantFrequency = akp(2500);
+        _firstResonantFrequency = akp(5600);
+        _secondResonantFrequency = akp(8100);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetClosedTambourine
+{
+    return [[AKTambourine alloc] initPresetClosedTambourine];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];
