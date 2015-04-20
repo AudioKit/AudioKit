@@ -60,7 +60,7 @@ class VCONote: AKNote {
     }
 }
 
-AKOrchestra.testForDuration(testDuration)
+AKOrchestra.testForDuration(NSTimeInterval(testDuration))
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
