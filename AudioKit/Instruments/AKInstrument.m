@@ -38,7 +38,7 @@ static int currentID = 1;
         // Start the orchestra immediately
         [AKOrchestra start];
         while (![[AKManager sharedManager] isRunning]) {
-            // do nothing
+            [NSThread sleepForTimeInterval:(NSTimeInterval)0.01];
         }
         _myID = currentID++;
         _properties = [[NSMutableArray alloc] init];

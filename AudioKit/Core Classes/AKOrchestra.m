@@ -82,7 +82,7 @@
 {
     [AKOrchestra start];
     while (![[AKManager sharedManager] isRunning]) {
-        // do nothing
+        [NSThread sleepForTimeInterval:(NSTimeInterval)0.01]; // Do nothing
     }
     [[[AKManager sharedManager] orchestra] addInstrument:instrument];
 }
