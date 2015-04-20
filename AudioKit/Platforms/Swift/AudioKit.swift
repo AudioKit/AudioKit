@@ -9,7 +9,7 @@
 import Foundation
 
 func akp(num: Float)->AKConstant {
-    return AKConstant(value: num)
+    return AKConstant(float: num)
 }
 
 func akpi(num: Int)->AKConstant {

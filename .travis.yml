@@ -9,8 +9,6 @@ script:
 - set -o pipefail && xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
 - set -o pipefail && xcodebuild -project Examples/iOS/Swift/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
 - set -o pipefail && xcodebuild -project Examples/iOS/Swift/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
-- cp Tests/Tests/AKRingModulator.swift Tests/AudioKitTest/AudioKitTest/main.swift
-- set -o pipefail && xcodebuild -project Tests/AudioKitTest/AudioKitTest.xcodeproj build | xcpretty -c
 - cp Playgrounds/Playgrounds/DefaultPlayground.m Playgrounds/AudioKitPlayground/AudioKitPlayground/Playground.m
 - pod install --project-directory=Playgrounds/AudioKitPlayground
 - set -o pipefail && xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace
@@ -18,6 +16,8 @@ script:
 - set -o pipefail && xcodebuild -scheme OSXObjectiveCAudioKitTests
   -project Tests/TestProjects/OSXObjectiveCAudioKit/OSXObjectiveCAudioKit.xcodeproj test | xcpretty -c
 - pod lib lint --quick AudioKit.podspec.json
+- cd Tests/
+- ./build_all.sh
 
 # Mac Projects use Storyboards which requires OSX Yosemite, ie 10.10, but Travis only runs 10.9 so can't really test these
 #- set -o pipefail && xcodebuild -project Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj build | xcpretty -c
