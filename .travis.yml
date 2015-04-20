@@ -9,6 +9,8 @@ script:
 - set -o pipefail && xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
 - set -o pipefail && xcodebuild -project Examples/iOS/Swift/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
 - set -o pipefail && xcodebuild -project Examples/iOS/Swift/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- cp Tests/Tests/AKRingModulator.swift Tests/AudioKitTest/AudioKitTest/main.swift
+- set -o pipefail && xcodebuild -project Tests/AudioKitTest/AudioKitTest.xcodeproj build | xcpretty -c
 - cp Playgrounds/Playgrounds/DefaultPlayground.m Playgrounds/AudioKitPlayground/AudioKitPlayground/Playground.m
 - pod install --project-directory=Playgrounds/AudioKitPlayground
 - set -o pipefail && xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace
