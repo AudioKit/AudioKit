@@ -10,7 +10,7 @@ for i in Tests/*
     echo "======================================"
     echo ""
     cd AudioKitTest
-    xcodebuild
+    xcodebuild | xcpretty
     cd ./build/Release/
     mkdir -p built
     execfile=$i
