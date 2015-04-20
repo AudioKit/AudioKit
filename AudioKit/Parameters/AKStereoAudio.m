@@ -9,16 +9,6 @@
 #import "AKStereoAudio.h"
 
 @implementation AKStereoAudio
-{
-    int _myID;
-}
-
-static int currentID = 1;
-
-+ (void)resetID
-{
-    currentID = 1;
-}
 
 + (instancetype)stereoFromMono:(AKParameter *)mono
 {
@@ -48,9 +38,8 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
-        _myID = currentID++;
-        _leftOutput  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%i", _myID]];
-        _rightOutput = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%i",_myID]];
+        _leftOutput  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%@", @(self.parameterID)]];
+        _rightOutput = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%@",@(self.parameterID)]];
     }
     return self;
 }
@@ -59,9 +48,8 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
-        _myID = currentID++;
-        _leftOutput  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%@%i",  name, _myID]];
-        _rightOutput = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%@%i", name, _myID]];
+        _leftOutput  = [AKAudio parameterWithString:[NSString stringWithFormat:@"Left%@%@",  name, @(self.parameterID)]];
+        _rightOutput = [AKAudio parameterWithString:[NSString stringWithFormat:@"Right%@%@", name, @(self.parameterID)]];
     }
     return self;
 }
@@ -83,9 +71,8 @@ static int currentID = 1;
 {
     self = [super init];
     if (self) {
-        _myID = currentID++;
-        _leftOutput  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Left%i",name, _myID]];
-        _rightOutput = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Right%i",name,_myID]];
+        _leftOutput  = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Left%@",name, @(self.parameterID)]];
+        _rightOutput = [AKAudio globalParameterWithString:[NSString stringWithFormat:@"%@Right%@",name,@(self.parameterID)]];
     }
     return self;
 }

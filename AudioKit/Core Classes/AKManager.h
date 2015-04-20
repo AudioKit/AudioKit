@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Run AudioKit using an AKOrchestra for a specific amount of time
 /// @param duration Time for the orchestra to play in seconds
-- (void)runOrchestraForDuration:(int)duration;
+- (void)runOrchestraForDuration:(NSTimeInterval)duration;
 
 /// Erase all instruments from the orchestra
 - (void)resetOrchestra;

@@ -12,11 +12,11 @@
 {
     NSString *_message;
     AKParameter *_parameter;
-    float _timeInterval;
+    NSTimeInterval _timeInterval;
 }
 - (instancetype)initWithMessage:(NSString *)message
                       parameter:(AKParameter *)parameter
-                   timeInterval:(float)timeInterval
+                   timeInterval:(NSTimeInterval)timeInterval
 {
     self = [super initWithString:[self operationName]];
     

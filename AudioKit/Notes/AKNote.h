@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
+#import "AKCompatibility.h"
 #import "AKInstrument.h"
 #import "AKNoteProperty.h"
 
@@ -15,6 +16,7 @@
  b) The note is created concurrently with other notes created by the instrument
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKNote : NSObject
 
 // -----------------------------------------------------------------------------
@@ -28,7 +30,7 @@
 /// @param anInstrument This note's instrument.
 /// @param noteDuration Length of time to play the note in seconds
 - (instancetype)initWithInstrument:(AKInstrument *)anInstrument
-                       forDuration:(float)noteDuration;
+                       forDuration:(NSTimeInterval)noteDuration;
 
 /// Creates the note associated with the given instrument
 /// @param anInstrument This note's instrument.
@@ -64,7 +66,7 @@
 
 /// Refine playback of the note at some point in the future.
 /// @param time Amount of time in seconds to wait before setting properties
-- (void)updatePropertiesAfterDelay:(float)time;
+- (void)updatePropertiesAfterDelay:(NSTimeInterval)time;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Playback Controls
@@ -74,15 +76,15 @@
 - (void)play;
 
 /// Begin playback of the note after a delay.
-/// @param delay Time to wait before beginning note playback.
-- (void)playAfterDelay:(float)delay;
+/// @param delay Time to wait in seconds before beginning note playback.
+- (void)playAfterDelay:(NSTimeInterval)delay;
 
 /// Stop playback of the note.
 - (void)stop;
 
 /// Stop playback of the note after a delay.
-/// @param delay Time to wait before stopping note playback.
-- (void)stopAfterDelay:(float)delay;
+/// @param delay Time to wait in seconds before stopping note playback.
+- (void)stopAfterDelay:(NSTimeInterval)delay;
 
 // Returns the playback scoreline to the CSD File.
 - (NSString *)stringForCSD;
@@ -91,3 +93,5 @@
 - (NSString *)stopStringForCSD;
 
 @end
+NS_ASSUME_NONNULL_END
+
