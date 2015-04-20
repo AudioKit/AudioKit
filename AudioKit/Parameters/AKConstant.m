@@ -87,6 +87,11 @@
     return [[self alloc] initWithNumber:@(value)];
 }
 
++ (instancetype)constantWithDuration:(NSTimeInterval)duration
+{
+    return [[self alloc] initWithFloat:duration];
+}
+
 + (instancetype)constantWithFilename:(NSString *)filename
 {
     return [[self alloc] initWithFilename:filename];
