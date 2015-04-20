@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument1 : AKInstrument {
 
@@ -30,7 +30,7 @@ class Instrument2 : AKInstrument {
     }
 }
 
-AKOrchestra.testForDuration(NSTimeInterval(testDuration))
+AKOrchestra.testForDuration(testDuration)
 
 let instrument1 = Instrument1()
 let instrument2 = Instrument2()
