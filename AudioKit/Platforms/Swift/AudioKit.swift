@@ -19,9 +19,11 @@ func akpi(num: Int)->AKConstant {
 extension Int {
     var ak: AKConstant {return AKConstant(float: Float(self))}
 }
+
 extension Float {
     var ak: AKConstant {return AKConstant(float: self)}
 }
+
 extension Double {
     var ak: AKConstant {return AKConstant(float: Float(self))}
 }
