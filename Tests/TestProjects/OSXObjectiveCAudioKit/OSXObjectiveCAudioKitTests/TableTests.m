@@ -29,8 +29,8 @@ static CGFloat const AK_ACCURACY = 0.001f;
     tableTestInstrument = [[TableTestInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:tableTestInstrument];
     [tableTestInstrument play];
-    [NSThread sleepForTimeInterval:0.1];
-    XCTAssertEqualWithAccuracy(tableTestInstrument.tableValue.value,  1,   AK_ACCURACY);
+    [NSThread sleepForTimeInterval:0.01];
+    XCTAssertEqualWithAccuracy(tableTestInstrument.tableValue.value,  1, AK_ACCURACY);
 }
 
 - (void)testStandardSineWave {
