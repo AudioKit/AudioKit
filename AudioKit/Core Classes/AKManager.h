@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Determines whether or not to log
 @property BOOL isLogging;
 
+/// Place to put lines of testing logs
+@property NSMutableArray *testLog;
+
 /// The default orchestra
 @property AKOrchestra *orchestra;
 
