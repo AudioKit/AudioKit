@@ -22,11 +22,11 @@
 
         // Instrument Definition
         AKSleighbells *sleighBells = [AKSleighbells sleighbells];
-        sleighBells.intensity = note.intensity;
-        sleighBells.amplitude = note.amplitude;
-        sleighBells.dampingFactor = note.dampingFactor;
-        sleighBells.mainResonantFrequency = note.mainResonantFrequency;
-        sleighBells.firstResonantFrequency = note.firstResonantFrequency;
+        sleighBells.intensity               = note.intensity;
+        sleighBells.amplitude               = note.amplitude;
+        sleighBells.dampingFactor           = note.dampingFactor;
+        sleighBells.mainResonantFrequency   = note.mainResonantFrequency;
+        sleighBells.firstResonantFrequency  = note.firstResonantFrequency;
         sleighBells.secondResonantFrequency = note.secondResonantFrequency;
         
 

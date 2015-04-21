@@ -22,11 +22,11 @@
 
         // Instrument Definition
         AKPluckedString *pluckedString = [AKPluckedString pluck];
-        pluckedString.frequency = note.frequency;
-        pluckedString.pluckPosition = note.pluckPosition;
-        pluckedString.samplePosition = note.samplePosition;
+        pluckedString.frequency             = note.frequency;
+        pluckedString.pluckPosition         = note.pluckPosition;
+        pluckedString.samplePosition        = note.samplePosition;
         pluckedString.reflectionCoefficient = note.reflectionCoefficient;
-        pluckedString.amplitude = note.amplitude;
+        pluckedString.amplitude             = note.amplitude;
 
         [self setAudioOutput:[pluckedString scaledBy:_amplitude]];
 
