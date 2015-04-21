@@ -23,6 +23,7 @@
     
     _tableTestInstrument= [[TableTestInstrument alloc] init];
     [AKOrchestra addInstrument:_tableTestInstrument];
+    [_tableTestInstrument start];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
