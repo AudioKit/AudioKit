@@ -11,13 +11,11 @@
 		C4C811EA1AE44BDB003A8B73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E91AE44BDB003A8B73 /* main.m */; };
 		C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C811EB1AE44BDB003A8B73 /* Images.xcassets */; };
 		C4C811EF1AE44BDB003A8B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */; };
-		C4C811FB1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811FA1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m */; };
 		C4C8120F1AE44C36003A8B73 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
 		C4C812121AE44C72003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		C4C812131AE44C7B003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4C812181AE44EE7003A8B73 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812161AE44EE7003A8B73 /* MathTests.m */; };
 		C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812171AE44EE7003A8B73 /* TableTests.m */; };
-		C4C812251AE4521E003A8B73 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4C812241AE4521E003A8B73 /* AudioKit.plist */; };
 		C4DB027C1AE626EE00643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
 		C4DB02821AE6271B00643340 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
 		C4DB02831AE6271B00643340 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
@@ -81,12 +79,10 @@
 		C4C811EE1AE44BDB003A8B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4C811F41AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSXObjectiveCAudioKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C811F91AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4C811FA1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSXObjectiveCAudioKitTests.m; sourceTree = "<group>"; };
 		C4C812041AE44BE7003A8B73 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C4C812111AE44C72003A8B73 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 		C4C812161AE44EE7003A8B73 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
 		C4C812171AE44EE7003A8B73 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
-		C4C812241AE4521E003A8B73 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../OSXObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
 		C4DB027A1AE626EE00643340 /* TrackedFrequencyTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackedFrequencyTestInstrument.h; path = "Test Instruments/TrackedFrequencyTestInstrument.h"; sourceTree = "<group>"; };
 		C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackedFrequencyTestInstrument.m; path = "Test Instruments/TrackedFrequencyTestInstrument.m"; sourceTree = "<group>"; };
 		C4DB027E1AE6271B00643340 /* MathTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathTestInstrument.h; path = "Test Instruments/MathTestInstrument.h"; sourceTree = "<group>"; };
@@ -161,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				C4C812201AE44F56003A8B73 /* Test Instruments */,
-				C4C811FA1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m */,
 				C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */,
 				C4C812161AE44EE7003A8B73 /* MathTests.m */,
 				C4C812171AE44EE7003A8B73 /* TableTests.m */,
@@ -173,7 +168,6 @@
 		C4C811F81AE44BDB003A8B73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C4C812241AE4521E003A8B73 /* AudioKit.plist */,
 				C4C811F91AE44BDB003A8B73 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -318,7 +312,6 @@
 			files = (
 				C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */,
 				C4C811EF1AE44BDB003A8B73 /* MainMenu.xib in Resources */,
-				C4C812251AE4521E003A8B73 /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */,
-				C4C811FB1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m in Sources */,
 				C4DB02891AE644FA00643340 /* TableTestInstrument.m in Sources */,
 				C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */,
 				C4DB028B1AE646B800643340 /* MathTestInstrument.m in Sources */,

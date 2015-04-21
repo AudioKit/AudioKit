@@ -22,7 +22,7 @@ static CGFloat const AK_ACCURACY = 0.000001f;
 
 - (void)setUp {
     [super setUp];
-    mathTestInstrument = [[MathTestInstrument alloc] init];
+    mathTestInstrument = [[MathTestInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mathTestInstrument];
     [mathTestInstrument play];
     [NSThread sleepForTimeInterval:0.1];
