@@ -10,19 +10,19 @@
 #import <XCTest/XCTest.h>
 #import "AppDelegate.h"
 
+static CGFloat const AK_ACCURACY = 0.001f;
+
 @interface TableTests : XCTestCase
 
 @end
 
 @implementation TableTests {
     AppDelegate *vc;
-    float AK_ACCURACY;
 }
 
 - (void)setUp {
     [super setUp];
     vc = (AppDelegate *)[[NSApplication sharedApplication] delegate];
-    AK_ACCURACY = 0.001;
 }
 
 - (void)testTableValueLookup {

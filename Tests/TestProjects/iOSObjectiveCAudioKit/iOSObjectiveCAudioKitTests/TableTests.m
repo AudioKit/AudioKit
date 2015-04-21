@@ -10,19 +10,19 @@
 #import <XCTest/XCTest.h>
 #import "ViewController.h"
 
+static CGFloat const AK_ACCURACY = 0.001f;
+
 @interface TableTests : XCTestCase
 
 @end
 
 @implementation TableTests {
     ViewController *vc;
-    float AK_ACCURACY;
 }
 
 - (void)setUp {
     [super setUp];
     vc = (ViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    AK_ACCURACY = 0.001;
 }
 
 - (void)testStandardSineWave {
