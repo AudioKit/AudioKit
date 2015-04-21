@@ -20,7 +20,7 @@
 
 - (void)setUp {
     [super setUp];
-    testInstrument = [[TrackedFrequencyTestInstrument alloc] init];
+    testInstrument = [[TrackedFrequencyTestInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:testInstrument];
 }
 
@@ -29,10 +29,8 @@
     [testInstrument play];
     [NSThread sleepForTimeInterval:(NSTimeInterval)1.0];
     NSMutableArray *testLog = [[AKManager sharedManager] testLog];
-    NSLog(@"TestLog %@", [testLog componentsJoinedByString:@", "]);
-    XCTAssertEqual(testLog.count, 101);
-    XCTAssertEqualWithAccuracy([testLog[2]   floatValue], 203,  1);
-    XCTAssertEqualWithAccuracy([testLog[100] floatValue], 1976, 1);
+    XCTAssertEqualWithAccuracy([testLog[2]  floatValue],  203,  1);
+    XCTAssertEqualWithAccuracy([testLog[50] floatValue], 1080, 1);
 }
 
 @end
