@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "AppDelegate.h"
+#import "TableTestInstrument.h"
 
 static CGFloat const AK_ACCURACY = 0.001f;
 
@@ -17,27 +17,30 @@ static CGFloat const AK_ACCURACY = 0.001f;
 @end
 
 @implementation TableTests {
-    AppDelegate *vc;
+    TableTestInstrument *tableTestInstrument;
 }
 
 - (void)setUp {
     [super setUp];
-    vc = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    tableTestInstrument = [[TableTestInstrument alloc] init];
+    [AKOrchestra addInstrument:tableTestInstrument];
+    [tableTestInstrument play];
 }
 
 - (void)testTableValueLookup {
-    XCTAssertEqualWithAccuracy(vc.tableTestInstrument.tableValue.value,  1,   AK_ACCURACY);
+    [NSThread sleepForTimeInterval:0.1];
+    XCTAssertEqualWithAccuracy(tableTestInstrument.tableValue.value,  1,   AK_ACCURACY);
 }
 
 - (void)testStandardSineWave {
-    AKTable *sine = vc.tableTestInstrument.sine;
+    AKTable *sine = tableTestInstrument.sine;
     for (int i = 0; i < 10; i++) {
         XCTAssertEqualWithAccuracy([sine valueAtFractionalWidth:0.1 * i], sinf(0.1 * i * 2 * M_PI), AK_ACCURACY);
     }
 }
 
 - (void)testStandardSquareWave {
-    AKTable *square = vc.tableTestInstrument.square;
+    AKTable *square = tableTestInstrument.square;
     XCTAssertEqualWithAccuracy([square valueAtFractionalWidth:0.01],  1, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([square valueAtFractionalWidth:0.49],  1, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([square valueAtFractionalWidth:0.51], -1, AK_ACCURACY);
@@ -45,7 +48,7 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testStandardTriangleWave {
-    AKTable *triangle = vc.tableTestInstrument.triangle;
+    AKTable *triangle = tableTestInstrument.triangle;
     XCTAssertEqualWithAccuracy([triangle valueAtFractionalWidth:0.0],  0,   AK_ACCURACY);
     XCTAssertEqualWithAccuracy([triangle valueAtFractionalWidth:0.1],  0.4, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([triangle valueAtFractionalWidth:0.25], 1,   AK_ACCURACY);
@@ -54,20 +57,20 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testStandardSawtoothWave {
-    AKTable *sawtooth = vc.tableTestInstrument.sawtooth;
+    AKTable *sawtooth = tableTestInstrument.sawtooth;
     for (int i = 0; i < 10; i++) {
         XCTAssertEqualWithAccuracy([sawtooth valueAtFractionalWidth:0.1 * i], -1 + 2 * (0.1 * i), AK_ACCURACY);
     }
 }
 - (void)testStandardReverseSawtoothWave {
-    AKTable *reverseSatooth = vc.tableTestInstrument.reverseSawtooth;
+    AKTable *reverseSatooth = tableTestInstrument.reverseSawtooth;
     for (int i = 0; i < 10; i++) {
         XCTAssertEqualWithAccuracy([reverseSatooth valueAtFractionalWidth:0.1 * i], 1 - 2 * (0.1 * i), AK_ACCURACY);
     }
 }
 
 - (void)testExponentialTable {
-    AKTable *exponentialTable = vc.tableTestInstrument.exponential;
+    AKTable *exponentialTable = tableTestInstrument.exponential;
     XCTAssertEqualWithAccuracy([exponentialTable valueAtFractionalWidth:0.0],  0.1, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([exponentialTable valueAtFractionalWidth:0.25], 1,   AK_ACCURACY);
     XCTAssertEqualWithAccuracy([exponentialTable valueAtFractionalWidth:0.5],  0.1, AK_ACCURACY);
@@ -82,13 +85,13 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testArrayTable {
-    AKTable *arrayTable = vc.tableTestInstrument.array;
+    AKTable *arrayTable = tableTestInstrument.array;
     XCTAssertEqual([arrayTable valueAtIndex:0], 123);
     XCTAssertEqual([arrayTable valueAtIndex:1], 456);
 }
 
 - (void)testHammingWindow {
-    AKTable *hamming = vc.tableTestInstrument.hamming;
+    AKTable *hamming = tableTestInstrument.hamming;
     XCTAssertEqualWithAccuracy([hamming valueAtFractionalWidth:0.0],  0.08, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([hamming valueAtFractionalWidth:0.25], 0.54, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([hamming valueAtFractionalWidth:0.5],  1,    AK_ACCURACY);
@@ -97,7 +100,7 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testHannWindow {
-    AKTable *hann = vc.tableTestInstrument.hann;
+    AKTable *hann = tableTestInstrument.hann;
     XCTAssertEqualWithAccuracy([hann valueAtFractionalWidth:0.0],  0.0, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([hann valueAtFractionalWidth:0.25], 0.5, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([hann valueAtFractionalWidth:0.5],  1,   AK_ACCURACY);
@@ -106,7 +109,7 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testGaussianWindow {
-    AKTable *gaussian = vc.tableTestInstrument.gaussian;
+    AKTable *gaussian = tableTestInstrument.gaussian;
     XCTAssertEqualWithAccuracy([gaussian valueAtFractionalWidth:0.0],  0.0,       AK_ACCURACY);
     XCTAssertEqualWithAccuracy([gaussian valueAtFractionalWidth:0.25], 0.011109,  AK_ACCURACY);
     XCTAssertEqualWithAccuracy([gaussian valueAtFractionalWidth:0.5],  1,         AK_ACCURACY);
@@ -115,7 +118,7 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testKaiserWindow {
-    AKTable *kaiser = vc.tableTestInstrument.kaiser;
+    AKTable *kaiser = tableTestInstrument.kaiser;
     XCTAssertEqualWithAccuracy([kaiser valueAtFractionalWidth:0.0],  0.78948,  AK_ACCURACY);
     XCTAssertEqualWithAccuracy([kaiser valueAtFractionalWidth:0.25], 0.945033, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([kaiser valueAtFractionalWidth:0.5],  1,        AK_ACCURACY);
@@ -124,7 +127,7 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testHarmonicCosine {
-    AKTable *cosine = vc.tableTestInstrument.cosine;
+    AKTable *cosine = tableTestInstrument.cosine;
     XCTAssertEqualWithAccuracy([cosine valueAtFractionalWidth:0.0],  1,         AK_ACCURACY);
     XCTAssertEqualWithAccuracy([cosine valueAtFractionalWidth:0.25], -0.149133, AK_ACCURACY);
     XCTAssertEqualWithAccuracy([cosine valueAtFractionalWidth:0.5],  -0.176471, AK_ACCURACY);
@@ -133,7 +136,7 @@ static CGFloat const AK_ACCURACY = 0.001f;
 }
 
 - (void)testRandom {
-    AKTable *random = vc.tableTestInstrument.random;
+    AKTable *random = tableTestInstrument.random;
     // How to test random, this is not good enough...
     XCTAssertNotEqualWithAccuracy([random valueAtIndex:0],[random valueAtIndex:1], AK_ACCURACY);
     XCTAssertNotEqualWithAccuracy([random valueAtIndex:1],[random valueAtIndex:2], AK_ACCURACY);
