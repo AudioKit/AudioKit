@@ -41,6 +41,12 @@
 /// Instantiates the sleighbells with quiet bells sound values
 + (instancetype)presetQuietBells;
 
+/// Instantiates the sleighbells with loud, open bells sound values
+- (instancetype)initWithPresetLoudOpenBells;
+
+/// Instantiates the sleighbells with loud, open bells sound values
++ (instancetype)presetLoudOpenBells;
+
 /// The intensity of the bell sound. [Default Value: 32]
 @property (nonatomic) AKConstant *intensity;
 

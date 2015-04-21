@@ -76,6 +76,27 @@
     return [[AKSleighbells alloc] initWithPresetQuietBells];
 }
 
+- (instancetype)initWithPresetLoudOpenBells
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(40);
+        _dampingFactor = akp(0.001);
+        _mainResonantFrequency = akp(2500);
+        _firstResonantFrequency = akp(5300);
+        _secondResonantFrequency = akp(6500);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetLoudOpenBells
+{
+    return [[AKSleighbells alloc] initWithPresetLoudOpenBells];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];
