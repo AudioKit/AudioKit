@@ -35,16 +35,16 @@
 /// Instantiates the tambourine with default values
 + (instancetype)tambourine;
 
-/// Instantiates the tambourine with values for an 'open' sound
+/// Instantiates the tambourine with values for an 'open' sound values
 - (instancetype)initPresetOpenTambourine;
 
-/// Instantiates the tambourine with default for an 'open' sound
+/// Instantiates the tambourine with default for an 'open' sound values
 + (instancetype)presetOpenTambourine;
 
-/// Instantiates the tambourine with values for an 'closed' sound
+/// Instantiates the tambourine with values for an 'closed' sound values
 - (instancetype)initPresetClosedTambourine;
 
-/// Instantiates the tambourine with default for an 'closed' sound
+/// Instantiates the tambourine with default for an 'closed' sound values
 + (instancetype)presetClosedTambourine;
 
 /// The intensity of the tambourine sound [Default Value: 1000]
