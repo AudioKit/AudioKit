@@ -46,6 +46,24 @@
     return [[AKStick alloc] init];
 }
 
+- (instancetype)initWithPresetBundleOfSticks
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(50);
+        _dampingFactor = akp(0.09);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetBundleOfSticks
+{
+    return [[AKStick alloc] initWithPresetBundleOfSticks];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];
