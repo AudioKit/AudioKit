@@ -157,9 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				C4C812201AE44F56003A8B73 /* Test Instruments */,
-				C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */,
 				C4C812161AE44EE7003A8B73 /* MathTests.m */,
 				C4C812171AE44EE7003A8B73 /* TableTests.m */,
+				C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */,
 				C4C811F81AE44BDB003A8B73 /* Supporting Files */,
 			);
 			path = OSXObjectiveCAudioKitTests;
