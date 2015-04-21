@@ -106,8 +106,9 @@ static AKManager *_sharedManager = nil;
         
         _isRunning = NO;
         _isLogging = AKSettings.settings.loggingEnabled;
+#ifdef TRAVIS_CI
         _testLog = [NSMutableArray array];
-        
+#endif
         _totalRunDuration = 10000000;
 
         _batchInstructions = [[NSString alloc] init];
@@ -340,11 +341,12 @@ static AKManager *_sharedManager = nil;
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
+#ifdef TRAVIS_CI
     if ([msg rangeOfString:@"AKTEST"].location != NSNotFound) {
         [_testLog addObject:[msg stringByReplacingOccurrencesOfString:@"AKTEST" withString:@""]];
         return;
     }
-    
+#endif
     
     if (_isLogging) {
         if (AKSettings.settings.messagesEnabled) {
