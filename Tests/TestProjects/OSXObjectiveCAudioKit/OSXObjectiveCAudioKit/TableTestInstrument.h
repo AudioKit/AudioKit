@@ -18,6 +18,20 @@
 @property AKTable *triangle;
 @property AKTable *sawtooth;
 @property AKTable *reverseSawtooth;
+
+@property AKTable *array;
+
+@property AKTable *exponential;
+
+@property AKTable *hamming;
+@property AKTable *hann;
+@property AKTable *gaussian;
+@property AKTable *kaiser;
+@property AKTable *cosine;
+@property AKTable *random;
+
+@property AKInstrumentProperty *tableValue;
+
 @end
 
 
