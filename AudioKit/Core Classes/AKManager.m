@@ -340,7 +340,7 @@ static AKManager *_sharedManager = nil;
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
-    if ([msg containsString:@"AKTEST"]) {
+    if ([msg rangeOfString:@"AKTEST"].location != NSNotFound) {
         [_testLog addObject:[msg stringByReplacingOccurrencesOfString:@"AKTEST" withString:@""]];
         return;
     }
