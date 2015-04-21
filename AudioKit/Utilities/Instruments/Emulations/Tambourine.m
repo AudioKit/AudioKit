@@ -18,10 +18,10 @@
         
         TambourineNote *note = [[TambourineNote alloc] init];
         AKTambourine *tambourine = [AKTambourine tambourine];
-        tambourine.dampingFactor = note.dampingFactor;
-        tambourine.intensity = note.intensity;
-        tambourine.mainResonantFrequency = note.mainResonantFrequency;
-        tambourine.firstResonantFrequency = note.firstResonantFrequency;
+        tambourine.dampingFactor           = note.dampingFactor;
+        tambourine.intensity               = note.intensity;
+        tambourine.mainResonantFrequency   = note.mainResonantFrequency;
+        tambourine.firstResonantFrequency  = note.firstResonantFrequency;
         tambourine.secondResonantFrequency = note.secondResonantFrequency;
         [self setAudioOutput:[tambourine scaledBy:_amplitude]];
     }
