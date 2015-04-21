@@ -14,7 +14,6 @@
 		C4C8120F1AE44C36003A8B73 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
 		C4C812121AE44C72003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		C4C812131AE44C7B003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C4C812181AE44EE7003A8B73 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812161AE44EE7003A8B73 /* MathTests.m */; };
 		C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812171AE44EE7003A8B73 /* TableTests.m */; };
 		C4DB027C1AE626EE00643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
 		C4DB02821AE6271B00643340 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
@@ -81,7 +80,6 @@
 		C4C811F91AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C812041AE44BE7003A8B73 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C4C812111AE44C72003A8B73 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
-		C4C812161AE44EE7003A8B73 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
 		C4C812171AE44EE7003A8B73 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
 		C4DB027A1AE626EE00643340 /* TrackedFrequencyTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackedFrequencyTestInstrument.h; path = "Test Instruments/TrackedFrequencyTestInstrument.h"; sourceTree = "<group>"; };
 		C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackedFrequencyTestInstrument.m; path = "Test Instruments/TrackedFrequencyTestInstrument.m"; sourceTree = "<group>"; };
@@ -135,8 +133,7 @@
 		C4C811E31AE44BDB003A8B73 /* OSXObjectiveCAudioKit */ = {
 			isa = PBXGroup;
 			children = (
-				C4C811EB1AE44BDB003A8B73 /* Images.xcassets */,
-				C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */,
+				C4C812201AE44F56003A8B73 /* Test Instruments */,
 				C4C811E41AE44BDB003A8B73 /* Supporting Files */,
 			);
 			path = OSXObjectiveCAudioKit;
@@ -145,6 +142,8 @@
 		C4C811E41AE44BDB003A8B73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C4C811EB1AE44BDB003A8B73 /* Images.xcassets */,
+				C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */,
 				C4C811E61AE44BDB003A8B73 /* AppDelegate.h */,
 				C4C811E71AE44BDB003A8B73 /* AppDelegate.m */,
 				C4C811E51AE44BDB003A8B73 /* Info.plist */,
@@ -156,8 +155,6 @@
 		C4C811F71AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				C4C812201AE44F56003A8B73 /* Test Instruments */,
-				C4C812161AE44EE7003A8B73 /* MathTests.m */,
 				C4C812171AE44EE7003A8B73 /* TableTests.m */,
 				C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */,
 				C4C811F81AE44BDB003A8B73 /* Supporting Files */,
@@ -193,7 +190,6 @@
 				C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */,
 			);
 			name = "Test Instruments";
-			path = ../OSXObjectiveCAudioKit;
 			sourceTree = "<group>";
 		};
 		EA15CE091AE46D3D00BA279F /* Frameworks */ = {
@@ -361,7 +357,6 @@
 				C4DB02891AE644FA00643340 /* TableTestInstrument.m in Sources */,
 				C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */,
 				C4DB028B1AE646B800643340 /* MathTestInstrument.m in Sources */,
-				C4C812181AE44EE7003A8B73 /* MathTests.m in Sources */,
 				C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
