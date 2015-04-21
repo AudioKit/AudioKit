@@ -10,19 +10,19 @@
 #import <XCTest/XCTest.h>
 #import "AppDelegate.h"
 
+static CGFloat const AK_ACCURACY = 0.000001f;
+
 @interface MathTests : XCTestCase
 
 @end
 
 @implementation MathTests {
     AppDelegate *vc;
-    float AK_ACCURACY;
 }
 
 - (void)setUp {
     [super setUp];
     vc = (AppDelegate *)[[NSApplication sharedApplication] delegate];
-    AK_ACCURACY = 0.000001;
 }
 
 - (void)testSum {
