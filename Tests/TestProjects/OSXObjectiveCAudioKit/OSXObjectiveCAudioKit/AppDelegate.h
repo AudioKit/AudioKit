@@ -7,8 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MathTestInstrument.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property MathTestInstrument *mathTestInstrument;
 @end
 

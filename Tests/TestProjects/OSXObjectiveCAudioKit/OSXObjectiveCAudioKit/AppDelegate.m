@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "AKFoundation.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +16,9 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    
+    _mathTestInstrument = [[MathTestInstrument alloc] init];
+    [AKOrchestra addInstrument:_mathTestInstrument];
+    [_mathTestInstrument start];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
