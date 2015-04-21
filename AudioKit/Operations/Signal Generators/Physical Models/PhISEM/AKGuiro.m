@@ -49,6 +49,25 @@
     return [[AKGuiro alloc] init];
 }
 
+- (instancetype)initPresetSmallGuiro
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _count = akp(800);
+        _mainResonantFrequency = akp(9000);
+        _firstResonantFrequency = akp(4000);
+        _amplitude = akp(1.0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSmallGuiro
+{
+    return [[AKGuiro alloc] initPresetSmallGuiro];
+}
+
 - (void)setCount:(AKConstant *)count {
     _count = count;
     [self setUpConnections];

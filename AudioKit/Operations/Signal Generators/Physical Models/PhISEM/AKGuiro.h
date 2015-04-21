@@ -31,6 +31,11 @@
 /// Instantiates the guiro with default values
 + (instancetype)guiro;
 
+/// Instantiates the guiro with small guiro-size values
+- (instancetype)initPresetSmallGuiro;
+
+/// Instantiates the guiro with small guiro-size values
++ (instancetype)presetSmallGuiro;
 
 /// The number of beads/teeth/bells/timbrels/etc. [Default Value: 128]
 @property (nonatomic) AKConstant *count;
