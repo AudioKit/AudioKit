@@ -16,11 +16,8 @@
 		C4C812121AE44C72003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		C4C812131AE44C7B003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812171AE44EE7003A8B73 /* TableTests.m */; };
-		C4DB027C1AE626EE00643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
 		C4DB02821AE6271B00643340 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
-		C4DB02831AE6271B00643340 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
 		C4DB02891AE644FA00643340 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
-		C4DB028B1AE646B800643340 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
 		C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
 		C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */; };
 /* End PBXBuildFile section */
@@ -344,8 +341,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4DB02831AE6271B00643340 /* TableTestInstrument.m in Sources */,
-				C4DB027C1AE626EE00643340 /* TrackedFrequencyTestInstrument.m in Sources */,
 				C4C811EA1AE44BDB003A8B73 /* main.m in Sources */,
 				C4DB02821AE6271B00643340 /* MathTestInstrument.m in Sources */,
 				C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */,
@@ -359,7 +354,6 @@
 				C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */,
 				C4DB02891AE644FA00643340 /* TableTestInstrument.m in Sources */,
 				C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */,
-				C4DB028B1AE646B800643340 /* MathTestInstrument.m in Sources */,
 				C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */,
 				C460067B1AE6F8120012CE6B /* MathTests.m in Sources */,
 			);
