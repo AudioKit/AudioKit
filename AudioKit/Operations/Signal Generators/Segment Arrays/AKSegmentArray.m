@@ -68,9 +68,7 @@
     NSString *opcode = @"transeg";
     if ([releaseSegment count] > 0) {
         opcode = @"transegr";
-        [segments addObject:[releaseSegment objectAtIndex:0]];
-        [segments addObject:[releaseSegment objectAtIndex:1]];
-        [segments addObject:[releaseSegment objectAtIndex:2]];
+        [segments addObjectsFromArray:@[releaseSegment[0], releaseSegment[1], releaseSegment[2]]];
     }
     return [NSString stringWithFormat:
             @"%@ %@ %@, %@",

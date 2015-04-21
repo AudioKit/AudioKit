@@ -59,8 +59,7 @@
 {
     NSURL *localDocDirURL = nil;
     if (localDocDirURL == nil) {
-        NSString *docDirPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
-                                objectAtIndex:0];
+        NSString *docDirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
         localDocDirURL = [NSURL fileURLWithPath:docDirPath];
     }
     NSString *filename = [NSString stringWithFormat:@"sampler-%@.wav", name];
