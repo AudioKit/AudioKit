@@ -55,7 +55,7 @@
         NSMutableSet * observersPerClass = [_observers objectForKey:class];
         if (!observersPerClass) {
             observersPerClass = (__bridge_transfer NSMutableSet *) CFSetCreateMutable(nil, 0, nil);
-            [_observers setObject:observersPerClass forKey:class];
+            [_observers setObject:observersPerClass forKey:(id <NSCopying>)class];
         }
         @synchronized (observersPerClass) {
             [observersPerClass addObject:observer];
