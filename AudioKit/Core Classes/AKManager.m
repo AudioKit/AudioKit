@@ -24,7 +24,6 @@
     NSString *_csdFile;
     NSString *_batchInstructions;
     BOOL _isBatching;
-    
     NSTimeInterval _totalRunDuration;
 }
 
@@ -107,6 +106,7 @@ static AKManager *_sharedManager = nil;
         
         _isRunning = NO;
         _isLogging = AKSettings.settings.loggingEnabled;
+        _testLog = [NSMutableArray array];
         
         _totalRunDuration = 10000000;
 
@@ -340,6 +340,12 @@ static AKManager *_sharedManager = nil;
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
+    if ([msg rangeOfString:@"AKTEST"].location != NSNotFound) {
+        [_testLog addObject:[msg stringByReplacingOccurrencesOfString:@"AKTEST" withString:@""]];
+        return;
+    }
+    
+    
     if (_isLogging) {
         if (AKSettings.settings.messagesEnabled) {
             NSLog(@"Csound(%d): %@", attr, msg);
