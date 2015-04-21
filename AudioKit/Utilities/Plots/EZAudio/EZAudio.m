@@ -246,7 +246,7 @@
 		errorString[6] = '\0';
 	} else
 		// no, format it as an integer
-		sprintf(errorString, "%d", (int)result);
+		snprintf(errorString, sizeof(errorString), "%d", (int)result);
 	fprintf(stderr, "Error: %s (%s)\n", operation, errorString);
 	exit(1);
 }

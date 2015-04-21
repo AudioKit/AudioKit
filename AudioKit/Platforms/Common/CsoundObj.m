@@ -171,7 +171,6 @@ OSStatus  Csound_Render(void *inRefCon,
         ExtAudioFileWriteAsync(_file, 0, NULL);
     } else {
         NSLog(@"***Not recording. Error: %@", @(err));
-        err = noErr;
     }
     
     self.shouldRecord = YES;
@@ -767,10 +766,11 @@ OSStatus  Csound_Render(void *inRefCon,
             }
             [self updateAllValuesFromCsound];
         }
-    }
-    
-    if (self.shouldRecord) {
-        ExtAudioFileDispose(_file);
+        
+        if (self.shouldRecord) {
+            free(bufferList.mBuffers[0].mData);
+            ExtAudioFileDispose(_file);
+        }
     }
     
     csoundDestroy(cs);
