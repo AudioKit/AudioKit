@@ -449,7 +449,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
+				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/**";
 			};
 			name = Testing;
 		};
@@ -471,7 +471,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OSXObjectiveCAudioKit.app/Contents/MacOS/OSXObjectiveCAudioKit";
-				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
+				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/**";
 			};
 			name = Testing;
 		};
