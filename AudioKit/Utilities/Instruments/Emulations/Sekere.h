@@ -25,5 +25,4 @@
 @property AKNoteProperty *dampingFactor;
 @property AKNoteProperty *amplitude;
 
-
 @end

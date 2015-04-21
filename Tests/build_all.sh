@@ -11,7 +11,7 @@ for i in Tests/*
     echo "======================================"
     echo ""
     cd AudioKitTest
-    xcodebuild
+    xcodebuild | xcpretty
     cd ./build/$BUILDCONF/
     mkdir -p built
     execfile=$i
