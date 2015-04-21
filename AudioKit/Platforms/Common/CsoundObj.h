@@ -53,7 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol CsoundMsgDelegate <NSObject>
-- (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg;
+- (void)messageReceivedFrom:(CsoundObj *)csoundObj
+                       attr:(int)attr
+                    message:(NSString *)msg;
 @end
 
 // -----------------------------------------------------------------------------
