@@ -29,6 +29,11 @@
 /// Instantiates the sekere with default values
 + (instancetype)sekere;
 
+/// Instantiates the sekere with large number of beads
+- (instancetype)initPresetHighBeadCountSekere;
+
+/// Instantiates the sekere with large number of beads
++ (instancetype)presetHighBeadCountSekere;
 
 /// The number of beads, teeth, bells, timbrels, etc. If zero, the default value is 64. [Default Value: 64]
 @property (nonatomic) AKConstant *count;
