@@ -870,16 +870,16 @@ OSStatus  Csound_Render(void *inRefCon,
 #if TARGET_OS_IPHONE
 - (void)handleInterruption:(NSNotification *)notification
 {
-    NSDictionary *interuptionDict = notification.userInfo;
-    NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
+    NSDictionary *interruptionDict = notification.userInfo;
+    NSUInteger interruptionType = [interruptionDict[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
     
     NSError *error;
     BOOL success;
     
     if (self.running) {
-        if (interuptionType == AVAudioSessionInterruptionTypeBegan) {
+        if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
             AudioOutputUnitStop(*_aunit);
-        } else if (interuptionType == kAudioSessionEndInterruption) {
+        } else if (interruptionType == kAudioSessionEndInterruption) {
             // make sure we are again the active session
             success = [[AVAudioSession sharedInstance] setActive:YES error:&error];
             if(success) {
