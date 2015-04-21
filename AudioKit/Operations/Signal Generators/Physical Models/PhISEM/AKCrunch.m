@@ -46,6 +46,24 @@
     return [[AKCrunch alloc] init];
 }
 
+- (instancetype)initPresetDistantCrunch
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(10000);
+        _dampingFactor = akp(0.1);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDistantCrunch
+{
+    return [[AKCrunch alloc] initPresetDistantCrunch];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];

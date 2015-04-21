@@ -29,6 +29,11 @@
 /// Instantiates the crunch with default values
 + (instancetype)crunch;
 
+/// Instantiates the crunch with values for a distant crunch
+- (instancetype)initPresetDistantCrunch;
+
+/// Instantiates the crunch with values for a distant crunch
++ (instancetype)presetDistantCrunch;
 
 /// The intensity of the crunch sound [Default Value: 100]
 @property (nonatomic) AKConstant *intensity;
