@@ -55,7 +55,7 @@ NSMutableArray *displayLinks = nil;
 
 - (void)animate:(CADisplayLink *)displayLink
 {
-  self.accumulator += displayLink.duration * fabsf(self.from - self.to) * 0.6;
+  self.accumulator += displayLink.duration * fabs(self.from - self.to) * 0.6;
   if (self.accumulator >= self.to) {
     self.accumulator = self.from;
   }
