@@ -22,11 +22,11 @@
 
         // Instrument Definition
         AKBambooSticks *bambooSticks = [AKBambooSticks sticks];
-        bambooSticks.count = note.count;
-        bambooSticks.mainResonantFrequency = note.mainResonantFrequency;
-        bambooSticks.firstResonantFrequency = note.firstResonantFrequency;
+        bambooSticks.count                   = note.count;
+        bambooSticks.mainResonantFrequency   = note.mainResonantFrequency;
+        bambooSticks.firstResonantFrequency  = note.firstResonantFrequency;
         bambooSticks.secondResonantFrequency = note.secondResonantFrequency;
-        bambooSticks.amplitude = note.amplitude;
+        bambooSticks.amplitude               = note.amplitude;
 
         [self setAudioOutput:[bambooSticks scaledBy:_amplitude]];
 

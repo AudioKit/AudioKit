@@ -24,11 +24,11 @@
 
         // Instrument Definition
         AKMandolin *mandolin = [AKMandolin mandolin];
-        mandolin.frequency = note.frequency;
-        mandolin.bodySize = _bodySize;
-        mandolin.pluckPosition = note.pluckPosition;
+        mandolin.frequency            = note.frequency;
+        mandolin.bodySize             = _bodySize;
+        mandolin.pluckPosition        = note.pluckPosition;
         mandolin.pairedStringDetuning = _pairedStringDetuning;
-        mandolin.amplitude = note.amplitude;
+        mandolin.amplitude            = note.amplitude;
 
         [self setAudioOutput:[mandolin scaledBy:_amplitude]];
 
