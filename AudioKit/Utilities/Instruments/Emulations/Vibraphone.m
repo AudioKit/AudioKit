@@ -22,9 +22,9 @@
 
         // Instrument Definition
         AKVibes *vibes = [AKVibes vibes];
-        vibes.frequency = note.frequency;
-        vibes.amplitude = note.amplitude;
-        vibes.stickHardness = note.stickHardness;
+        vibes.frequency      = note.frequency;
+        vibes.amplitude      = note.amplitude;
+        vibes.stickHardness  = note.stickHardness;
         vibes.strikePosition = note.strikePosition;
 
         [self setAudioOutput:[vibes scaledBy:_amplitude]];

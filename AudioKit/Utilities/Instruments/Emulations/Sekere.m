@@ -22,9 +22,9 @@
 
         // Instrument Definition
         AKSekere *sekere = [AKSekere sekere];
-        sekere.count = note.count;
+        sekere.count         = note.count;
         sekere.dampingFactor = note.dampingFactor;
-        sekere.amplitude = note.amplitude;
+        sekere.amplitude     = note.amplitude;
 
         [self setAudioOutput:[sekere scaledBy:_amplitude]];
 
