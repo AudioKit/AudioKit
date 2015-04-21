@@ -27,6 +27,11 @@
 /// Instantiates the sand paper with default values
 + (instancetype)sandPaper;
 
+/// Instantiates the sand paper with values for a muffled sound
+- (instancetype)initPresetMuffledSandPaper;
+
+/// Instantiates the sand paper with values for a muffled sound
++ (instancetype)presetMuffledSandPaper;
 
 /// The intensity of the sandpaper sound [Default Value: 128]
 @property (nonatomic) AKConstant *intensity;

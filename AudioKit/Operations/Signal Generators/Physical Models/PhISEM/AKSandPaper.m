@@ -43,6 +43,23 @@
     return [[AKSandPaper alloc] init];
 }
 
+- (instancetype)initPresetMuffledSandPaper
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(100000);
+        _dampingFactor = akp(.5);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMuffledSandPaper
+{
+    return [[AKSandPaper alloc] initPresetMuffledSandPaper];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];
