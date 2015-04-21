@@ -29,11 +29,17 @@
 /// Instantiates the stick with default values
 + (instancetype)stick;
 
-/// Instantiates the stick with default values
+/// Instantiates the stick with 'bundle of sticks' sound
 - (instancetype)initWithPresetBundleOfSticks;
 
-/// Instantiates the stick with default values
+/// Instantiates the stick with 'bundle of sticks' sound
 + (instancetype)presetBundleOfSticks;
+
+/// Instantiates the stick with 'thick stick' sound
+- (instancetype)initWithPresetThickStick;
+
+/// Instantiates the stick with 'thick stick' sound
++ (instancetype)presetThickStick;
 
 /// The intensity of the stick sound. [Default Value: 30]
 @property (nonatomic) AKConstant *intensity;
