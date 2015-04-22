@@ -19,7 +19,7 @@
 	<key>CSResourcesFileMapped</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>6.1</string>
+	<string>8.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
