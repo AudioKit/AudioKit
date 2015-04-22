@@ -46,6 +46,24 @@
     return [[AKCabasa alloc] init];
 }
 
+- (instancetype)initPresetMutedCabasa
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _count = akp(1000);
+        _dampingFactor = akp(0.9);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMutedCabasa
+{
+    return [[AKCabasa alloc] initPresetMutedCabasa];
+}
+
 - (void)setCount:(AKConstant *)count {
     _count = count;
     [self setUpConnections];
