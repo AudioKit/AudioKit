@@ -29,6 +29,12 @@
 /// Instantiates the cabasa with default values
 + (instancetype)cabasa;
 
+/// Instantiates the cabasa with muted values
+- (instancetype)initPresetMutedCabasa;
+
+/// Instantiates the cabasa with muted values
++ (instancetype)presetMutedCabasa;
+
 
 /// The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
 @property (nonatomic) AKConstant *count;
