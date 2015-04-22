@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>CsoundLib</string>
+	<string>libsndfile</string>
 	<key>CFBundleIdentifier</key>
-	<string>CsoundLib</string>
+	<string>libsndfile</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
