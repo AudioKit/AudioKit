@@ -19,11 +19,10 @@
 		C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF451A9060A100736291 /* AnalysisViewController.m */; };
 		C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF531A91BB7100736291 /* FMSynthesizer.m */; };
 		EA9F18941AE7A1E2009D3DA6 /* libAudioKit iOS Dynamic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18911AE7A1BD009D3DA6 /* libAudioKit iOS Dynamic.a */; };
-		EA9F18971AE7A1F5009D3DA6 /* libsndfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */; };
-		EA9F189A1AE7A2C7009D3DA6 /* libsndfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */; };
 		EA9F189B1AE7A2C7009D3DA6 /* libsndfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EA9F189C1AE7A2C7009D3DA6 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */; };
 		EA9F189D1AE7A2C7009D3DA6 /* CsoundLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA9F18CC1AE7ACCA009D3DA6 /* libsndfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */; };
+		EA9F18CD1AE7ACCA009D3DA6 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */; };
 		EAB29D6C1AD5121B000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */; };
 /* End PBXBuildFile section */
 
@@ -96,8 +95,8 @@
 		C4BACF531A91BB7100736291 /* FMSynthesizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSynthesizer.m; path = Synthesis/Instruments/FMSynthesizer.m; sourceTree = "<group>"; };
 		EA8E971B1AD3D06D0057E979 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA8E97271AD3D15C0057E979 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libsndfile.framework; path = ../../../AudioKit/Platforms/iOS/libsndfile.framework; sourceTree = "<group>"; };
-		EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/iOS/CsoundLib.framework; sourceTree = "<group>"; };
+		EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libsndfile.framework; path = ../../../AudioKit/Platforms/iOS/libsndfile.framework; sourceTree = SOURCE_ROOT; };
+		EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/iOS/CsoundLib.framework; sourceTree = SOURCE_ROOT; };
 		EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,10 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA9F189C1AE7A2C7009D3DA6 /* CsoundLib.framework in Frameworks */,
-				EA9F189A1AE7A2C7009D3DA6 /* libsndfile.framework in Frameworks */,
 				EA9F18941AE7A1E2009D3DA6 /* libAudioKit iOS Dynamic.a in Frameworks */,
-				EA9F18971AE7A1F5009D3DA6 /* libsndfile.framework in Frameworks */,
+				EA9F18CC1AE7ACCA009D3DA6 /* libsndfile.framework in Frameworks */,
+				EA9F18CD1AE7ACCA009D3DA6 /* CsoundLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,13 +473,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../AudioKit/Platforms/iOS",
+				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../AudioKit/Platforms/iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -491,13 +489,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../AudioKit/Platforms/iOS",
+				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../../../AudioKit/Platforms/iOS/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
