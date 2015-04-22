@@ -489,7 +489,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					/Users/megastep/src/AudioKit/AudioKit/Platforms/OSX,
+					../../../AudioKit/Platforms/OSX,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
