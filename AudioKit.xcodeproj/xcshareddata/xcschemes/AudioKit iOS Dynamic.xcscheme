@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA8E93D71AD3C5240057E979"
-               BuildableName = "libAudioKit iOS Static.a"
-               BlueprintName = "AudioKit iOS Static"
-               ReferencedContainer = "container:AudioKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA8E96621AD3C6FC0057E979"
-               BuildableName = "AudioKitTests.xctest"
-               BlueprintName = "AudioKitTests"
+               BlueprintIdentifier = "EAA0F4DE1AE71C8F007CD7C9"
+               BuildableName = "libAudioKit iOS Static copy.a"
+               BlueprintName = "AudioKit iOS Dynamic"
                ReferencedContainer = "container:AudioKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,26 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA8E96621AD3C6FC0057E979"
-               BuildableName = "AudioKitTests.xctest"
-               BlueprintName = "AudioKitTests"
-               ReferencedContainer = "container:AudioKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA8E93D71AD3C5240057E979"
-            BuildableName = "libAudioKit iOS Static.a"
-            BlueprintName = "AudioKit iOS Static"
-            ReferencedContainer = "container:AudioKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -75,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA8E93D71AD3C5240057E979"
-            BuildableName = "libAudioKit iOS Static.a"
-            BlueprintName = "AudioKit iOS Static"
+            BlueprintIdentifier = "EAA0F4DE1AE71C8F007CD7C9"
+            BuildableName = "libAudioKit iOS Static copy.a"
+            BlueprintName = "AudioKit iOS Dynamic"
             ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -93,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA8E93D71AD3C5240057E979"
-            BuildableName = "libAudioKit iOS Static.a"
-            BlueprintName = "AudioKit iOS Static"
+            BlueprintIdentifier = "EAA0F4DE1AE71C8F007CD7C9"
+            BuildableName = "libAudioKit iOS Static copy.a"
+            BlueprintName = "AudioKit iOS Dynamic"
             ReferencedContainer = "container:AudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
