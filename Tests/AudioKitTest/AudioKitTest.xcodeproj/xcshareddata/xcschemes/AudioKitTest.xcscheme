@@ -9,15 +9,15 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C4B3A75A1AE30E6A00F43B96"
-               BuildableName = "iOSObjectiveCAudioKitTests.xctest"
-               BlueprintName = "iOSObjectiveCAudioKitTests"
-               ReferencedContainer = "container:iOSObjectiveCAudioKit.xcodeproj">
+               BlueprintIdentifier = "C4A396AE1A213BEA00E8FB4D"
+               BuildableName = "AudioKitTest"
+               BlueprintName = "AudioKitTest"
+               ReferencedContainer = "container:AudioKitTest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,24 +28,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Testing">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C4B3A75A1AE30E6A00F43B96"
-               BuildableName = "iOSObjectiveCAudioKitTests.xctest"
-               BlueprintName = "iOSObjectiveCAudioKitTests"
-               ReferencedContainer = "container:iOSObjectiveCAudioKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C4B3A75A1AE30E6A00F43B96"
-            BuildableName = "iOSObjectiveCAudioKitTests.xctest"
-            BlueprintName = "iOSObjectiveCAudioKitTests"
-            ReferencedContainer = "container:iOSObjectiveCAudioKit.xcodeproj">
+            BlueprintIdentifier = "C4A396AE1A213BEA00E8FB4D"
+            BuildableName = "AudioKitTest"
+            BlueprintName = "AudioKitTest"
+            ReferencedContainer = "container:AudioKitTest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -58,15 +48,16 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C4B3A75A1AE30E6A00F43B96"
-            BuildableName = "iOSObjectiveCAudioKitTests.xctest"
-            BlueprintName = "iOSObjectiveCAudioKitTests"
-            ReferencedContainer = "container:iOSObjectiveCAudioKit.xcodeproj">
+            BlueprintIdentifier = "C4A396AE1A213BEA00E8FB4D"
+            BuildableName = "AudioKitTest"
+            BlueprintName = "AudioKitTest"
+            ReferencedContainer = "container:AudioKitTest.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -76,18 +67,19 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C4B3A75A1AE30E6A00F43B96"
-            BuildableName = "iOSObjectiveCAudioKitTests.xctest"
-            BlueprintName = "iOSObjectiveCAudioKitTests"
-            ReferencedContainer = "container:iOSObjectiveCAudioKit.xcodeproj">
+            BlueprintIdentifier = "C4A396AE1A213BEA00E8FB4D"
+            BuildableName = "AudioKitTest"
+            BlueprintName = "AudioKitTest"
+            ReferencedContainer = "container:AudioKitTest.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Testing">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
