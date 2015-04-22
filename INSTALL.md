@@ -1,4 +1,17 @@
 # Using the AudioKit static library in your project
+## iOS: Choose static libraries or dynamic frameworks
+Starting with AudioKit 2.1, you have the option to link with the Csound and Sndfile libraries either statically (like in previous versions) or through the use of dynamic frameworks. AudioKit is now licensed under the MIT license, allowing you to bundle it either statically or dynamically without restrictions.
+
+The choice is important as both Csound and Sndfile are licensed under the LGPL, which means that your application's source code will need to be made freely available should you choose to link statically with them. However, dynamic frameworks can only be used starting with iOS 8.
+
+In summary:
+
+*  **Static Libraries**
+	* Supports iOS 7 and above
+	* Full application needs to comply with the LGPL licensing requirements by having its source code freely available.
+* **Dynamic Frameworks**
+	* iOS 8 is required to build and use the app.
+	* No need to make the full application open-source, provided there are no further licensing restrictions; suitable for commercial applications.
 
 ## Common Steps
 * Drag and drop the `AudioKit.xcodeproj` file inside your own project in Xcode.
