@@ -523,7 +523,6 @@
 		EAA0F5891AE71C8F007CD7C9 /* AKPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E94D81AD3C6840057E979 /* AKPhasor.m */; };
 		EAA0F58A1AE71C8F007CD7C9 /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E950C1AD3C6840057E979 /* AKNoise.m */; };
 		EAA0F58B1AE71C8F007CD7C9 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E94811AD3C6840057E979 /* AKParameter+Operation.m */; };
-		EAA0F5961AE71CD1007CD7C9 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA0F5951AE71CD1007CD7C9 /* CsoundLib.framework */; };
 		EAF365611ADB414400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365601ADB414400AA6551 /* CsoundLib.framework */; };
 		EAF365BC1ADCEA2500AA6551 /* AKInterpolatedRandomNumberPulse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E95081AD3C6840057E979 /* AKInterpolatedRandomNumberPulse.m */; };
 		EAF365BD1ADCEA6400AA6551 /* AKJitter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E950A1AD3C6840057E979 /* AKJitter.m */; };
@@ -562,7 +561,7 @@
 		EA08B56D1AD8985F00949FD5 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		EA08B56E1AD8985F00949FD5 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA15CDF41AE356B500BA279F /* AKCompatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKCompatibility.h; sourceTree = "<group>"; };
-		EA8E93D81AD3C5240057E979 /* libAudioKit iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA8E93D81AD3C5240057E979 /* libAudioKit iOS Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8E93F31AD3C6840057E979 /* AKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFoundation.h; sourceTree = "<group>"; };
 		EA8E93F41AD3C6840057E979 /* AKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKManager.h; sourceTree = "<group>"; };
 		EA8E93F51AD3C6840057E979 /* AKManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKManager.m; sourceTree = "<group>"; };
@@ -910,6 +909,7 @@
 		EA8E971A1AD3CF000057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = AudioKit/AKSoundFiles.bundle; sourceTree = SOURCE_ROOT; };
 		EA95E9EF1AD5EC50007FC41F /* AKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSettings.h; sourceTree = "<group>"; };
 		EA95E9F01AD5EC50007FC41F /* AKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSettings.m; sourceTree = "<group>"; };
+		EA9F18821AE789E0009D3DA6 /* libsndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libsndfile.framework; sourceTree = "<group>"; };
 		EAA0F5941AE71C8F007CD7C9 /* libAudioKit iOS Dynamic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS Dynamic.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA0F5951AE71CD1007CD7C9 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib.framework; sourceTree = "<group>"; };
 		EAF365601ADB414400AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib.framework; sourceTree = "<group>"; };
@@ -964,7 +964,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAA0F5961AE71CD1007CD7C9 /* CsoundLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,7 +992,7 @@
 		EA8E93D91AD3C5240057E979 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E93D81AD3C5240057E979 /* libAudioKit iOS.a */,
+				EA8E93D81AD3C5240057E979 /* libAudioKit iOS Static.a */,
 				EA8E96591AD3C6FC0057E979 /* libAudioKit OS X.a */,
 				EAA0F5941AE71C8F007CD7C9 /* libAudioKit iOS Dynamic.a */,
 			);
@@ -1697,7 +1696,7 @@
 		EA8E956F1AD3C6850057E979 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				EAA0F5951AE71CD1007CD7C9 /* CsoundLib.framework */,
+				EA9F18871AE78D35009D3DA6 /* Dynamic Frameworks */,
 				EA8E958E1AD3C6850057E979 /* Static Libs */,
 				EA8E95911AD3C6850057E979 /* LICENSE.TXT */,
 			);
@@ -1764,6 +1763,15 @@
 			path = AudioKit/Notes;
 			sourceTree = SOURCE_ROOT;
 		};
+		EA9F18871AE78D35009D3DA6 /* Dynamic Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA9F18821AE789E0009D3DA6 /* libsndfile.framework */,
+				EAA0F5951AE71CD1007CD7C9 /* CsoundLib.framework */,
+			);
+			name = "Dynamic Frameworks";
+			sourceTree = "<group>";
+		};
 		EAF365671ADB5EE400AA6551 /* Csound Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,7 +1836,7 @@
 			);
 			name = "AudioKit iOS Static";
 			productName = AudioKit;
-			productReference = EA8E93D81AD3C5240057E979 /* libAudioKit iOS.a */;
+			productReference = EA8E93D81AD3C5240057E979 /* libAudioKit iOS Static.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		EA8E96581AD3C6FC0057E979 /* AudioKit OS X */ = {
