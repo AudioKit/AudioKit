@@ -33,6 +33,11 @@
 /// Instantiates the bamboo sticks with default values
 + (instancetype)sticks;
 
+/// Instantiates the bamboo sticks with large number of sticks values
+- (instancetype)initPresetLotsOfSticks;
+
+/// Instantiates the bamboo sticks with large number of sticks values
++ (instancetype)presetLotsOfSticks;
 
 /// The number of bamboo sticks. [Default Value: 2]
 @property (nonatomic) AKConstant *count;
