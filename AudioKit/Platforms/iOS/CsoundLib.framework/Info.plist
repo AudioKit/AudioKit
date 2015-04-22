@@ -14,19 +14,10 @@
 	<string>FMWK</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleSupportedPlatforms</key>
-	<array>
-		<string>iPhoneSimulator</string>
-		<string>iPhoneOS</string>
-	</array>
 	<key>CFBundleVersion</key>
 	<string></string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
-	<key>DTPlatformName</key>
-	<string>iphonesimulator</string>
-	<key>DTSDKName</key>
-	<string>iphonesimulator8.3</string>
 	<key>MinimumOSVersion</key>
 	<string>6.1</string>
 	<key>UIDeviceFamily</key>
