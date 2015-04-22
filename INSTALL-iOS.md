@@ -2,7 +2,7 @@
 ## Choose static libraries or dynamic frameworks
 Starting with AudioKit 2.1, you have the option to link with the Csound and Sndfile libraries either statically (like in previous versions) or through the use of dynamic frameworks. AudioKit itself is now licensed under the liberal MIT license, allowing you to bundle it either statically or dynamically without restrictions. AudioKit also provides you with a set of precompiled, universal dynamic frameworks for the libraries it depends on.
 
-The choice is important as both Csound and Sndfile are the basis upon which AudioKit is built and they are licensed under the terms of the LGPL, which means that your application's source code will need to be made freely available should you choose to link statically with them. In addition, dynamic frameworks can only be used starting with iOS 8.
+The choice is important as both Csound and Sndfile are the basis upon which AudioKit is built and they are licensed [under the terms of the LGPL](http://opensource.org/licenses/LGPL-2.1), which means that your application's source code will need to be made freely available should you choose to link statically with them. In addition, dynamic frameworks can only be used starting with iOS 8.
 
 In summary:
 
@@ -23,7 +23,9 @@ In summary:
 	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../../AudioKit/AudioKit`.
 
 ### Using the Static Libraries
-No further steps needed, just make sure you are indeed linking with the `libAudioKit iOS Static.a` library. Remember: your entire application is now bound by the terms of the GNU LGPL library.
+No further steps needed, just make sure you are indeed linking with the `libAudioKit iOS Static.a` library. 
+
+Remember: *your entire application is now bound by the terms of the [GNU LGPL license](http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License)*.
 
 ### Using the Dynamic Frameworks
 
