@@ -162,7 +162,7 @@
 +(void)appendBufferAndShift:(float*)buffer
              withBufferSize:(int)bufferLength
             toScrollHistory:(float*)scrollHistory
-      withScrollHistorySize:(int)scrollHistoryLength;
+      withScrollHistorySize:(NSUInteger)scrollHistoryLength;
 
 /**
  Appends a value to a history buffer and performs an internal shift to add the value to the tail and remove the 0th value.
@@ -172,7 +172,7 @@
  */
 +(void)    appendValue:(float)value
        toScrollHistory:(float*)scrollHistory
- withScrollHistorySize:(int)scrollHistoryLength;
+ withScrollHistorySize:(NSUInteger)scrollHistoryLength;
 
 /**
  Maps a value from one coordinate system into another one. Takes in the current value to map, the minimum and maximum values of the first coordinate system, and the minimum and maximum values of the second coordinate system and calculates the mapped value in the second coordinate system's constraints.
@@ -227,8 +227,8 @@
 ///-----------------------------------------------------------
 
 +(void)updateScrollHistory:(float**)scrollHistory
-                withLength:(int)scrollHistoryLength
-                   atIndex:(int*)index
+                withLength:(NSUInteger)scrollHistoryLength
+                   atIndex:(NSUInteger *)index
                 withBuffer:(const MYFLT*)buffer
             withBufferSize:(int)bufferSize
       isResolutionChanging:(BOOL*)isChanging;

@@ -30,14 +30,14 @@
     //  BOOL             _hasData;
     //  TPCircularBuffer _historyBuffer;
     
-    CGPoint *plotData;
-    UInt32   plotLength;
+    CGPoint     *_plotData;
+    NSUInteger   _plotLength;
     
     // Rolling History
-    float   *_scrollHistory;
-    int     _scrollHistoryIndex;
-    UInt32  _scrollHistoryLength;
-    BOOL    _changingHistorySize;
+    float      *_scrollHistory;
+    NSUInteger  _scrollHistoryIndex;
+    NSUInteger  _scrollHistoryLength;
+    BOOL        _changingHistorySize;
 }
 @end
 
@@ -52,9 +52,14 @@
     _shouldMirror    = YES;
     _shouldFill      = YES;
     _updateInterval  = 0.1;
-    plotData             = NULL;
+    _plotData             = NULL;
     _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
     _scrollHistory       = malloc(_scrollHistoryLength * sizeof(float));
+}
+
+- (void)dealloc {
+    free(_plotData);
+    free(_scrollHistory);
 }
 
 #pragma mark - Setters
@@ -85,14 +90,14 @@
 
 #pragma mark - Get Data
 - (void)setSampleData:(const float *)data
-               length:(int)length
+               length:(NSUInteger)length
 {
-    plotData   = realloc(plotData, sizeof(CGPoint)*length);
-    plotLength = length;
+    _plotData   = realloc(_plotData, sizeof(CGPoint)*length);
+    _plotLength = length;
     
-    plotData[0] = CGPointZero;
+    _plotData[0] = CGPointZero;
     for(int i = 1; i < length; i++) {
-        plotData[i] = CGPointMake(i,data[i] * _gain);
+        _plotData[i] = CGPointMake(i, data[i] * _gain);
     }
     
     [self updateUI];
@@ -136,16 +141,16 @@
     // Set the waveform line color
     [self.plotColor set];
     
-    if(plotLength > 0) {
+    if(_plotLength > 0) {
         CGMutablePathRef halfPath = CGPathCreateMutable();
         CGPathAddLines(halfPath,
                        NULL,
-                       plotData,
-                       plotLength);
-        CGPathAddLineToPoint(halfPath, NULL, plotData[plotLength-1].x, 0.0f);
+                       _plotData,
+                       _plotLength);
+        CGPathAddLineToPoint(halfPath, NULL, _plotData[_plotLength-1].x, 0.0f);
         CGMutablePathRef path = CGPathCreateMutable();
         
-        double xscale = (frame.size.width) / (float)plotLength;
+        double xscale = (frame.size.width) / (float)_plotLength;
         double halfHeight = floor( frame.size.height / 2.0 );
         
         // iOS drawing origin is flipped by default so make sure we account for that
@@ -189,7 +194,7 @@
 }
 
 #pragma mark - Adjust Resolution
-- (int)setRollingHistoryLength:(int)historyLength
+- (void)setRollingHistoryLength:(NSUInteger)historyLength
 {
     historyLength = MIN(historyLength,kEZAudioPlotMaxHistoryBufferLength);
     size_t floatByteSize = sizeof(float);
@@ -206,15 +211,6 @@
         _scrollHistoryIndex = _scrollHistoryLength;
     }
     _changingHistorySize = NO;
-    return historyLength;
-}
-
-- (int)rollingHistoryLength {
-    return _scrollHistoryLength;
-}
-
-- (void)dealloc {
-    free(plotData);
 }
 
 @end

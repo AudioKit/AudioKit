@@ -255,11 +255,12 @@
 +(void)appendBufferAndShift:(float*)buffer
              withBufferSize:(int)bufferLength
             toScrollHistory:(float*)scrollHistory
-      withScrollHistorySize:(int)scrollHistoryLength {
+      withScrollHistorySize:(NSUInteger)scrollHistoryLength
+{
     NSAssert(scrollHistoryLength>=bufferLength,@"Scroll history array length must be greater buffer length");
     NSAssert(scrollHistoryLength>0,@"Scroll history array length must be greater than 0");
     NSAssert(bufferLength>0,@"Buffer array length must be greater than 0");
-    int    shiftLength    = scrollHistoryLength - bufferLength;
+    NSUInteger  shiftLength    = scrollHistoryLength - bufferLength;
     size_t floatByteSize  = sizeof(float);
     size_t shiftByteSize  = shiftLength  * floatByteSize;
     size_t bufferByteSize = bufferLength * floatByteSize;
@@ -273,7 +274,8 @@
 
 +(void)    appendValue:(float)value
        toScrollHistory:(float*)scrollHistory
- withScrollHistorySize:(int)scrollHistoryLength {
+ withScrollHistorySize:(NSUInteger)scrollHistoryLength
+{
     float val[1]; val[0] = value;
     [self appendBufferAndShift:val
                 withBufferSize:1
@@ -307,11 +309,11 @@
 
 #pragma mark - Plot Utility
 +(void)updateScrollHistory:(float **)scrollHistory
-                withLength:(int)scrollHistoryLength
-                   atIndex:(int*)index
+                withLength:(NSUInteger)scrollHistoryLength
+                   atIndex:(NSUInteger *)index
                 withBuffer:(const MYFLT *)buffer
             withBufferSize:(int)bufferSize
-      isResolutionChanging:(BOOL*)isChanging {
+      isResolutionChanging:(BOOL *)isChanging {
     
     //
     size_t floatByteSize = sizeof(float);
