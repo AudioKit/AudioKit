@@ -75,7 +75,7 @@ IB_DESIGNABLE
  @param data   <#theplotData description#>
  @param length <#length description#>
  */
--(void)setSampleData:(float *)data
+-(void)setSampleData:(const float *)data
               length:(int)length;
 
 
@@ -106,6 +106,11 @@ IB_DESIGNABLE
 @property (nonatomic,assign,setter=setShouldFill:) IBInspectable BOOL shouldFill;
 
 /**
+ Minimum time between updates of the plot, in seconds (or fractions thereof).
+ */
+@property (nonatomic) IBInspectable float updateInterval;
+
+/**
  A boolean indicating whether the graph should be rotated along the x-axis to give a mirrored reflection. This is typical for audio plots to produce the classic waveform look. A value of YES will produce a mirrored reflection of the y-values about the x-axis, while a value of NO will only plot the y-values.
  */
 @property (nonatomic,assign,setter=setShouldMirror:) IBInspectable BOOL shouldMirror;
@@ -121,6 +126,6 @@ IB_DESIGNABLE
  @param bufferSize The size of the float array that will be mapped to the y-axis.
  @warning The bufferSize is expected to be the same, constant value once initial triggered. For plots using OpenGL a vertex buffer object will be allocated with a maximum buffersize of (2 * the initial given buffer size) to account for any interpolation necessary for filling in the graph. Updates use the glBufferSubData(...) function, which will crash if the buffersize exceeds the initial maximum allocated size.
  */
--(void)updateBuffer:(MYFLT *)buffer
+-(void)updateBuffer:(const MYFLT *)buffer
      withBufferSize:(UInt32)bufferSize;
 @end
