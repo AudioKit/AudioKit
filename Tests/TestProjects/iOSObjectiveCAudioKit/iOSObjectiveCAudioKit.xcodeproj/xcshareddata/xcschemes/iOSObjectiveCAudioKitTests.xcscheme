@@ -87,7 +87,7 @@
       </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Testing">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
