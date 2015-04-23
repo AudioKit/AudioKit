@@ -37,6 +37,13 @@
 			remoteGlobalIDString = EA8E96581AD3C6FC0057E979;
 			remoteInfo = "AudioKit OS X";
 		};
+		EAA0F5B71AE8430E007CD7C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4534E011ADCD33900291E93 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,7 +86,8 @@
 		C4534E021ADCD33900291E93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4534E071ADCD33900291E93 /* libAudioKit iOS.a */,
+				C4534E071ADCD33900291E93 /* libAudioKit iOS Static.a */,
+				EAA0F5B81AE8430E007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				C4534E091ADCD33900291E93 /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -133,6 +141,7 @@
 				EAF365C11ADCED8200AA6551 /* Resources */,
 				C4A396AD1A213BEA00E8FB4D /* CopyFiles */,
 				C4A396AC1A213BEA00E8FB4D /* Frameworks */,
+				EAA0F5B91AE843E7007CD7C9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -182,10 +191,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4534E071ADCD33900291E93 /* libAudioKit iOS.a */ = {
+		C4534E071ADCD33900291E93 /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Static.a";
 			remoteRef = C4534E061ADCD33900291E93 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -194,6 +203,13 @@
 			fileType = archive.ar;
 			path = "libAudioKit OS X.a";
 			remoteRef = C4534E081ADCD33900291E93 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EAA0F5B81AE8430E007CD7C9 /* libAudioKit iOS Dynamic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = EAA0F5B71AE8430E007CD7C9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -207,6 +223,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EAA0F5B91AE843E7007CD7C9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4A396AB1A213BEA00E8FB4D /* Sources */ = {
@@ -344,7 +376,7 @@
 			};
 			name = Release;
 		};
-		EAA0F4DB1AE71A24007CD7C9 /* Testing */ = {
+		EAA0F5B31AE8430E007CD7C9 /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -386,7 +418,7 @@
 			};
 			name = Testing;
 		};
-		EAA0F4DC1AE71A24007CD7C9 /* Testing */ = {
+		EAA0F5B41AE8430E007CD7C9 /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -413,7 +445,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B41A213BEA00E8FB4D /* Debug */,
-				EAA0F4DB1AE71A24007CD7C9 /* Testing */,
+				EAA0F5B31AE8430E007CD7C9 /* Testing */,
 				C4A396B51A213BEA00E8FB4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -423,7 +455,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B71A213BEA00E8FB4D /* Debug */,
-				EAA0F4DC1AE71A24007CD7C9 /* Testing */,
+				EAA0F5B41AE8430E007CD7C9 /* Testing */,
 				C4A396B81A213BEA00E8FB4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

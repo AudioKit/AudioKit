@@ -16,10 +16,13 @@
 		C4C812121AE44C72003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		C4C812131AE44C7B003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812171AE44EE7003A8B73 /* TableTests.m */; };
-		C4DB02821AE6271B00643340 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
-		C4DB02891AE644FA00643340 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
 		C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
 		C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */; };
+		EA89F55F1AE877A100858344 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
+		EA89F5631AE877AD00858344 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
+		EAA0F5AD1AE83EE3007CD7C9 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
+		EAA0F5AE1AE83F18007CD7C9 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
+		EAA0F5B01AE8400F007CD7C9 /* CsoundLib.framework in Resources */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = EA8E96581AD3C6FC0057E979;
 			remoteInfo = "AudioKit OS X";
+		};
+		EAA0F5AB1AE83EE3007CD7C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4C812041AE44BE7003A8B73 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -103,6 +113,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA0F5AE1AE83F18007CD7C9 /* CsoundLib.framework in Frameworks */,
+				EAA0F5AD1AE83EE3007CD7C9 /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +185,8 @@
 		C4C812051AE44BE7003A8B73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS.a */,
+				C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS Static.a */,
+				EAA0F5AC1AE83EE3007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -230,6 +243,7 @@
 				C4C811F01AE44BDB003A8B73 /* Sources */,
 				C4C811F11AE44BDB003A8B73 /* Frameworks */,
 				C4C811F21AE44BDB003A8B73 /* Resources */,
+				EAA0F5AF1AE83F32007CD7C9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -285,10 +299,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS.a */ = {
+		C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Static.a";
 			remoteRef = C4C812091AE44BE7003A8B73 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -297,6 +311,13 @@
 			fileType = archive.ar;
 			path = "libAudioKit OS X.a";
 			remoteRef = C4C8120B1AE44BE7003A8B73 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EAA0F5AC1AE83EE3007CD7C9 /* libAudioKit iOS Dynamic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = EAA0F5AB1AE83EE3007CD7C9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -315,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA0F5B01AE8400F007CD7C9 /* CsoundLib.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +354,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+		};
+		EAA0F5AF1AE83F32007CD7C9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TEST_HOST\ninstall_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -342,8 +377,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C811EA1AE44BDB003A8B73 /* main.m in Sources */,
-				C4DB02821AE6271B00643340 /* MathTestInstrument.m in Sources */,
 				C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */,
+				EA89F5631AE877AD00858344 /* MathTestInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,8 +386,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA89F55F1AE877A100858344 /* TableTestInstrument.m in Sources */,
 				C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */,
-				C4DB02891AE644FA00643340 /* TableTestInstrument.m in Sources */,
 				C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */,
 				C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */,
 				C460067B1AE6F8120012CE6B /* MathTests.m in Sources */,
@@ -456,6 +491,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					../../../AudioKit/Platforms/OSX,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
