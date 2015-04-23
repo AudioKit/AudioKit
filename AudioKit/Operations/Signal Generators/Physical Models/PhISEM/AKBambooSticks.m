@@ -72,6 +72,28 @@
     return [[AKBambooSticks alloc] initPresetLotsOfSticks];
 }
 
+
+- (instancetype)initPresetLowAmountOfSticks
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _count = akp(0.1);
+        _mainResonantFrequency = akp(2800);
+        _firstResonantFrequency = akp(2240);
+        _secondResonantFrequency = akp(3360);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetLowAmounOfSticks
+{
+    return [[AKBambooSticks alloc] initPresetLowAmountOfSticks];
+}
+
+
 - (void)setCount:(AKConstant *)count {
     _count = count;
     [self setUpConnections];
