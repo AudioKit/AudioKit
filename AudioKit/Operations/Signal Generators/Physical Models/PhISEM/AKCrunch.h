@@ -30,13 +30,13 @@
 + (instancetype)crunch;
 
 /// Instantiates the crunch with values for a distant crunch
-- (instancetype)initPresetDistantCrunch;
+- (instancetype)initWithPresetDistantCrunch;
 
 /// Instantiates the crunch with values for a distant crunch
 + (instancetype)presetDistantCrunch;
 
 /// Instantiates the crunch with values for a 'thud' crunch
-- (instancetype)initPresetDistantThudCrunch;
+- (instancetype)initWithPresetDistantThudCrunch;
 
 /// Instantiates the crunch with values for a 'thud' crunch
 + (instancetype)presetDistantThudCrunch;

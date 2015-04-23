@@ -55,7 +55,7 @@
     return [[AKTambourine alloc] init];
 }
 
-- (instancetype)initPresetOpenTambourine
+- (instancetype)initWithPresetOpenTambourine
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -73,10 +73,10 @@
 
 + (instancetype)presetOpenTambourine
 {
-    return [[AKTambourine alloc] initPresetOpenTambourine];
+    return [[AKTambourine alloc] initWithPresetOpenTambourine];
 }
 
-- (instancetype)initPresetClosedTambourine
+- (instancetype)initWithPresetClosedTambourine
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -94,7 +94,7 @@
 
 + (instancetype)presetClosedTambourine
 {
-    return [[AKTambourine alloc] initPresetClosedTambourine];
+    return [[AKTambourine alloc] initWithPresetClosedTambourine];
 }
 
 - (void)setIntensity:(AKConstant *)intensity {

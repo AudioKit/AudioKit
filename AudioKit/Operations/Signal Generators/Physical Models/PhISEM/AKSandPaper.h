@@ -28,7 +28,7 @@
 + (instancetype)sandPaper;
 
 /// Instantiates the sand paper with values for a muffled sound
-- (instancetype)initPresetMuffledSandPaper;
+- (instancetype)initWithPresetMuffledSandPaper;
 
 /// Instantiates the sand paper with values for a muffled sound
 + (instancetype)presetMuffledSandPaper;

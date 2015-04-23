@@ -32,7 +32,7 @@
 + (instancetype)guiro;
 
 /// Instantiates the guiro with small guiro-size values
-- (instancetype)initPresetSmallGuiro;
+- (instancetype)initWithPresetSmallGuiro;
 
 /// Instantiates the guiro with small guiro-size values
 + (instancetype)presetSmallGuiro;

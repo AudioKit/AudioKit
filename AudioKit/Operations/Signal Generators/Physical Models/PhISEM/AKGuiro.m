@@ -49,7 +49,7 @@
     return [[AKGuiro alloc] init];
 }
 
-- (instancetype)initPresetSmallGuiro
+- (instancetype)initWithPresetSmallGuiro
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -65,7 +65,7 @@
 
 + (instancetype)presetSmallGuiro
 {
-    return [[AKGuiro alloc] initPresetSmallGuiro];
+    return [[AKGuiro alloc] initWithPresetSmallGuiro];
 }
 
 - (void)setCount:(AKConstant *)count {

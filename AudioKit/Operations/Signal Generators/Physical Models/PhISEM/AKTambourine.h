@@ -36,13 +36,13 @@
 + (instancetype)tambourine;
 
 /// Instantiates the tambourine with values for an 'open' sound values
-- (instancetype)initPresetOpenTambourine;
+- (instancetype)initWithPresetOpenTambourine;
 
 /// Instantiates the tambourine with default for an 'open' sound values
 + (instancetype)presetOpenTambourine;
 
 /// Instantiates the tambourine with values for an 'closed' sound values
-- (instancetype)initPresetClosedTambourine;
+- (instancetype)initWithPresetClosedTambourine;
 
 /// Instantiates the tambourine with default for an 'closed' sound values
 + (instancetype)presetClosedTambourine;

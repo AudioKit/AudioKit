@@ -34,19 +34,19 @@
 + (instancetype)sticks;
 
 /// Instantiates the bamboo sticks with large number of sticks values
-- (instancetype)initPresetManySticks;
+- (instancetype)initWithPresetManySticks;
 
 /// Instantiates the bamboo sticks with large number of sticks values
 + (instancetype)presetManySticks;
 
 /// Instantiates the bamboo sticks with small number of sticks values
-- (instancetype)initPresetFewSticks;
+- (instancetype)initWithPresetFewSticks;
 
 /// Instantiates the bamboo sticks with small number of sticks values
 + (instancetype)presetFewSticks;
 
 /// Instantiates the bamboo sticks with low number of sticks values
-- (instancetype)initPresetLowAmountOfSticks;
+- (instancetype)initWithPresetLowAmountOfSticks;
 
 /// Instantiates the bamboo sticks with large number of sticks values
 + (instancetype)presetLowAmounOfSticks;
