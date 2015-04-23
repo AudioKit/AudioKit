@@ -56,17 +56,10 @@ IB_DESIGNABLE
 ///-----------------------------------------------------------
 
 /**
- Sets the length of the rolling history display. Can grow or shrink the display up to the maximum size specified by the kEZAudioPlotMaxHistoryBufferLength macro. Will return the actual set value, which will be either the given value if smaller than the kEZAudioPlotMaxHistoryBufferLength or kEZAudioPlotMaxHistoryBufferLength if a larger value is attempted to be set. 
- @param  historyLength The new length of the rolling history buffer.
- @return The new value equal to the historyLength or the kEZAudioPlotMaxHistoryBufferLength.
+ The length of the rolling history display. Can grow or shrink the display up to the maximum size specified by the kEZAudioPlotMaxHistoryBufferLength macro. Will return the actual set value, which will be either the given value if smaller than the kEZAudioPlotMaxHistoryBufferLength or kEZAudioPlotMaxHistoryBufferLength if a larger value is attempted to be set.
  */
--(int)setRollingHistoryLength:(int)historyLength;
 
-/**
- Provides the length of the rolling history buffer
- *  @return An int representing the length of the rolling history buffer
- */
--(int)rollingHistoryLength;
+@property (nonatomic) IBInspectable NSUInteger rollingHistoryLength;
 
 #pragma mark - Subclass Methods
 
@@ -76,7 +69,7 @@ IB_DESIGNABLE
  @param length <#length description#>
  */
 -(void)setSampleData:(const float *)data
-              length:(int)length;
+              length:(NSUInteger)length;
 
 
 #if TARGET_OS_IPHONE

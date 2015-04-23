@@ -27,8 +27,7 @@
 - (void)defaultValues
 {
     [super defaultValues];
-    
-    [self setRollingHistoryLength:2048];
+    // The plot now has a default of 1024 samples for its history (rollingHistoryLength property)
     _lastUpdate = [NSDate date];
 }
 
