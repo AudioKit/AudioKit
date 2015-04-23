@@ -37,10 +37,14 @@
 #endif
 
 - (void)updateUI {
+    if (self.hidden)
+        return;
 #if TARGET_OS_IPHONE
-    [self setNeedsDisplay];
+    if (self.alpha > 0.0f)
+        [self setNeedsDisplay];
 #elif TARGET_OS_MAC
-    [self setNeedsDisplay:YES];
+    if (self.alphaValue > 0.0f)
+        [self setNeedsDisplay:YES];
 #endif
 }
 
