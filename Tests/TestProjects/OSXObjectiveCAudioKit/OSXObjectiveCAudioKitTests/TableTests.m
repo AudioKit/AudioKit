@@ -22,12 +22,11 @@ static CGFloat const AK_ACCURACY = 0.001f;
 
 - (void)setUp {
     [super setUp];
-
+    tableTestInstrument = [[TableTestInstrument alloc] initWithNumber:1];
+    [AKOrchestra addInstrument:tableTestInstrument];
 }
 
 - (void)testTableValueLookup {
-    tableTestInstrument = [[TableTestInstrument alloc] initWithNumber:1];
-    [AKOrchestra addInstrument:tableTestInstrument];
     [tableTestInstrument play];
     [NSThread sleepForTimeInterval:0.01];
     XCTAssertEqualWithAccuracy(tableTestInstrument.tableValue.value,  1, AK_ACCURACY);
