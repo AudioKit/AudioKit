@@ -46,7 +46,7 @@
     return [[AKCabasa alloc] init];
 }
 
-- (instancetype)initPresetMutedCabasa
+- (instancetype)initWithPresetMutedCabasa
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -61,10 +61,10 @@
 
 + (instancetype)presetMutedCabasa
 {
-    return [[AKCabasa alloc] initPresetMutedCabasa];
+    return [[AKCabasa alloc] initWithPresetMutedCabasa];
 }
 
-- (instancetype)initPresetLooseCabasa
+- (instancetype)initWithPresetLooseCabasa
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -79,7 +79,7 @@
 
 + (instancetype)presetLooseCabasa
 {
-    return [[AKCabasa alloc] initPresetLooseCabasa];
+    return [[AKCabasa alloc] initWithPresetLooseCabasa];
 }
 
 - (void)setCount:(AKConstant *)count {

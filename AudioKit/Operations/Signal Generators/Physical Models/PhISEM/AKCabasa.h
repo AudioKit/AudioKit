@@ -30,13 +30,13 @@
 + (instancetype)cabasa;
 
 /// Instantiates the cabasa with muted values
-- (instancetype)initPresetMutedCabasa;
+- (instancetype)initWithPresetMutedCabasa;
 
 /// Instantiates the cabasa with loose values
 + (instancetype)presetMutedCabasa;
 
 /// Instantiates the cabasa with loose values
-- (instancetype)initPresetLooseCabasa;
+- (instancetype)initWithPresetLooseCabasa;
 
 /// Instantiates the cabasa with muted values
 + (instancetype)presetLooseCabasa;

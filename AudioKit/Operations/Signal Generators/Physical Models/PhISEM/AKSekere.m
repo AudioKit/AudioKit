@@ -46,7 +46,7 @@
     return [[AKSekere alloc] init];
 }
 
-- (instancetype)initPresetManyBeadsSekere
+- (instancetype)initWithPresetManyBeadsSekere
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -61,7 +61,7 @@
 
 + (instancetype)presetManyBeadsSekere
 {
-    return [[AKSekere alloc] init];
+    return [[AKSekere alloc] initWithPresetManyBeadsSekere];
 }
 
 - (void)setCount:(AKConstant *)count {

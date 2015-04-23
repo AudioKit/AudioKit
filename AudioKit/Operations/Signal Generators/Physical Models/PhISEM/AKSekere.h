@@ -30,7 +30,7 @@
 + (instancetype)sekere;
 
 /// Instantiates the sekere with large number of beads
-- (instancetype)initPresetManyBeadsSekere;
+- (instancetype)initWithPresetManyBeadsSekere;
 
 /// Instantiates the sekere with large number of beads
 + (instancetype)presetManyBeadsSekere;

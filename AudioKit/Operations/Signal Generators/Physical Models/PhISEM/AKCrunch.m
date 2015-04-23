@@ -61,7 +61,7 @@
 
 + (instancetype)presetDistantCrunch
 {
-    return [[AKCrunch alloc] initPresetDistantCrunch];
+    return [[AKCrunch alloc] initWithPresetDistantCrunch];
 }
 
 - (instancetype)initPresetDistantThudCrunch
@@ -79,7 +79,7 @@
 
 + (instancetype)presetDistantThudCrunch
 {
-    return [[AKCrunch alloc] initPresetDistantThudCrunch];
+    return [[AKCrunch alloc] initWithPresetDistantThudCrunch];
 }
 
 - (void)setIntensity:(AKConstant *)intensity {

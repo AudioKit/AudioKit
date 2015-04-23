@@ -57,7 +57,7 @@
 
 + (instancetype)presetMuffledSandPaper
 {
-    return [[AKSandPaper alloc] initPresetMuffledSandPaper];
+    return [[AKSandPaper alloc] initWithPresetMuffledSandPaper];
 }
 
 - (void)setIntensity:(AKConstant *)intensity {
