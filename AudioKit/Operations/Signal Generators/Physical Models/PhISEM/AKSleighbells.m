@@ -55,7 +55,7 @@
     return [[AKSleighbells alloc] init];
 }
 
-- (instancetype)initWithPresetQuietBells
+- (instancetype)initWithPresetSoftBells
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -71,12 +71,12 @@
     return self;
 }
 
-+ (instancetype)presetQuietBells
++ (instancetype)presetSoftBells
 {
-    return [[AKSleighbells alloc] initWithPresetQuietBells];
+    return [[AKSleighbells alloc] initWithPresetSoftBells];
 }
 
-- (instancetype)initWithPresetLoudOpenBells
+- (instancetype)initWithPresetOpenBells
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -92,9 +92,9 @@
     return self;
 }
 
-+ (instancetype)presetLoudOpenBells
++ (instancetype)presetOpenBells
 {
-    return [[AKSleighbells alloc] initWithPresetLoudOpenBells];
+    return [[AKSleighbells alloc] initWithPresetOpenBells];
 }
 
 - (void)setIntensity:(AKConstant *)intensity {
