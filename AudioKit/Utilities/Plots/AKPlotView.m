@@ -37,6 +37,8 @@
 #endif
 
 - (void)updateUI {
+    if (self.hidden || self.alpha == 0.0f)
+        return;
 #if TARGET_OS_IPHONE
     [self setNeedsDisplay];
 #elif TARGET_OS_MAC
