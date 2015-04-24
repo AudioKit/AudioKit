@@ -400,7 +400,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../../AudioKit/Platforms/OSX",
-					/Users/megastep/src/AudioKit/AudioKit/Platforms/OSX,
 				);
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
