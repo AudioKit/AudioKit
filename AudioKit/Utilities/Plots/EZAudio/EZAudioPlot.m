@@ -123,60 +123,65 @@
 #if TARGET_OS_IPHONE
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSaveGState(ctx);
-    CGRect frame = self.bounds;
+    CGRect bounds = self.bounds;
 #elif TARGET_OS_MAC
     [[NSGraphicsContext currentContext] saveGraphicsState];
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
-    NSRect frame = self.bounds;
+    NSRect bounds = self.bounds;
 #endif
     
     // Set the background color
     [self.backgroundColor set];
 #if TARGET_OS_IPHONE
-    UIRectFill(frame);
+    UIRectFill(bounds);
 #elif TARGET_OS_MAC
-    NSRectFill(frame);
+    NSRectFill(bounds);
 #endif
     // Set the waveform line color
     [self.plotColor set];
     
     if(_plotLength > 0) {
+        CGFloat xscale = bounds.size.width / (float)_plotLength;
+        CGFloat halfHeight = floorf(bounds.size.height / 2.0f), lastx = rect.origin.x + rect.size.width;
+
         CGMutablePathRef halfPath = CGPathCreateMutable();
-        CGPathAddLines(halfPath,
-                       NULL,
-                       _plotData,
-                       _plotLength);
+        int lastindx = 0, indx;
+        CGPathMoveToPoint(halfPath, NULL, _plotData[0].x, _plotData[0].y);
+        for(CGFloat x = rect.origin.x; x < lastx; x += 1.0f) {
+            indx = MIN(roundf(x / xscale), _plotLength-1);
+            if (indx != lastindx) {
+                CGPoint pt = _plotData[indx];
+                CGPathAddLineToPoint(halfPath, NULL, pt.x, pt.y);
+                lastindx = indx;
+            }
+        }
         CGPathAddLineToPoint(halfPath, NULL, _plotData[_plotLength-1].x, 0.0f);
-        CGMutablePathRef path = CGPathCreateMutable();
-        
-        double xscale = (frame.size.width) / (float)_plotLength;
-        double halfHeight = floor( frame.size.height / 2.0 );
         
         // iOS drawing origin is flipped by default so make sure we account for that
 #if TARGET_OS_IPHONE
-        int deviceOriginFlipped = -1;
+        const int deviceOriginFlipped = -1;
 #elif TARGET_OS_MAC
-        int deviceOriginFlipped = 1;
+        const int deviceOriginFlipped = 1;
 #endif
         
+        CGMutablePathRef path = CGPathCreateMutable();
         CGAffineTransform xf = CGAffineTransformIdentity;
-        xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y );
+        xf = CGAffineTransformTranslate( xf, bounds.origin.x , halfHeight + bounds.origin.y );
         xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
         CGPathAddPath( path, &xf, halfPath );
         
         if( self.shouldMirror ){
             xf = CGAffineTransformIdentity;
-            xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y);
-            xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*(halfHeight));
+            xf = CGAffineTransformTranslate( xf, bounds.origin.x , halfHeight + bounds.origin.y);
+            xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*halfHeight);
             CGPathAddPath( path, &xf, halfPath );
         }
-        CGPathRelease( halfPath );
+        CGPathRelease(halfPath);
         
         // Now, path contains the full waveform path.
         CGContextAddPath(ctx, path);
         
-        // Make this color customizable
         if( self.shouldFill ){
             CGContextFillPath(ctx);
         }
