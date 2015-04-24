@@ -174,9 +174,7 @@ static int currentID = 2000;
 + (instancetype)standardSineWave
 {
     AKTable *standarSineWave = [[AKTable alloc] init];
-    [standarSineWave populateTableWithFractionalWidthFunction:^(float x) {
-        return sinf(M_PI*2*x);
-    }];
+    [standarSineWave populateTableWithGenerator:[[AKFourierSeriesTableGenerator alloc] init]];
     return standarSineWave;
 }
 
