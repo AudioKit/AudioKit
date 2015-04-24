@@ -110,12 +110,20 @@
 {
     
     // Update the scroll history datasource
-    [EZAudio updateScrollHistory:&_scrollHistory
-                      withLength:_scrollHistoryLength
-                         atIndex:&_scrollHistoryIndex
-                      withBuffer:buffer
-                  withBufferSize:bufferSize
-            isResolutionChanging:_changingHistorySize];
+    BOOL scrolling = [EZAudio updateScrollHistory:&_scrollHistory
+                                       withLength:_scrollHistoryLength
+                                          atIndex:&_scrollHistoryIndex
+                                       withBuffer:buffer
+                                   withBufferSize:bufferSize
+                             isResolutionChanging:_changingHistorySize];
+
+    //NSLog(@"Scrolling = %@ idx = %@", scrolling ? @"Y" : @"N", @(_scrollHistoryIndex));
+    if (scrolling) {
+        // TODO: Slide the existing bitmap to the left to make room for the data from the new buffer
+        // Only render that new data in the bitmap
+    } else {
+        // TODO: Try to be smart about gradually filling in the bitmap until we start scrolling
+    }
     
     [self setSampleData:_scrollHistory
                  length:_scrollHistoryLength
