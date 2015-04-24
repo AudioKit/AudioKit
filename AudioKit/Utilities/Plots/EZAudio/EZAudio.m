@@ -313,19 +313,16 @@
                    atIndex:(NSUInteger *)index
                 withBuffer:(const MYFLT *)buffer
             withBufferSize:(int)bufferSize
-      isResolutionChanging:(BOOL *)isChanging {
-    
-    //
-    size_t floatByteSize = sizeof(float);
-    
+      isResolutionChanging:(BOOL)isChanging
+{
     //
     if( *scrollHistory == NULL ){
         // Create the history buffer
-        *scrollHistory = (float*)calloc(kEZAudioPlotMaxHistoryBufferLength,floatByteSize);
+        *scrollHistory = (float*)calloc(kEZAudioPlotMaxHistoryBufferLength, sizeof(float));
     }
     
     //
-    if( !*isChanging ){
+    if( !isChanging ){
         float rms = [EZAudio RMS:buffer length:bufferSize];
         if( *index < scrollHistoryLength ){
             float *hist = *scrollHistory;

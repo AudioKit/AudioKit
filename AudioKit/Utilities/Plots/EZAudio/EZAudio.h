@@ -231,7 +231,7 @@
                    atIndex:(NSUInteger *)index
                 withBuffer:(const MYFLT*)buffer
             withBufferSize:(int)bufferSize
-      isResolutionChanging:(BOOL*)isChanging;
+      isResolutionChanging:(BOOL)isChanging;
 
 #pragma mark - TPCircularBuffer Utility
 ///-----------------------------------------------------------

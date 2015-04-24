@@ -115,7 +115,7 @@
                          atIndex:&_scrollHistoryIndex
                       withBuffer:buffer
                   withBufferSize:bufferSize
-            isResolutionChanging:&_changingHistorySize];
+            isResolutionChanging:_changingHistorySize];
     
     [self setSampleData:_scrollHistory
                  length:_scrollHistoryLength
