@@ -64,12 +64,14 @@ IB_DESIGNABLE
 #pragma mark - Subclass Methods
 
 /**
- <#Description#>
- @param data   <#theplotData description#>
- @param length <#length description#>
+ Set the buffer of data to display.
+ @param data   The array of samples containing the data.
+ @param length The number of samples in the array.
+ @param update Whether to trigger an update of the view.
  */
 -(void)setSampleData:(const float *)data
-              length:(NSUInteger)length;
+              length:(NSUInteger)length
+              update:(BOOL)update;
 
 
 #if TARGET_OS_IPHONE
@@ -117,8 +119,10 @@ IB_DESIGNABLE
  Updates the plot with the new buffer data and tells the view to redraw itself. Caller will provide a float array with the values they expect to see on the y-axis. The plot will internally handle mapping the x-axis and y-axis to the current view port, any interpolation for fills effects, and mirroring.
  @param buffer     A float array of values to map to the y-axis.
  @param bufferSize The size of the float array that will be mapped to the y-axis.
+ @param update     Whether to trigger an update of the view.
  @warning The bufferSize is expected to be the same, constant value once initial triggered. For plots using OpenGL a vertex buffer object will be allocated with a maximum buffersize of (2 * the initial given buffer size) to account for any interpolation necessary for filling in the graph. Updates use the glBufferSubData(...) function, which will crash if the buffersize exceeds the initial maximum allocated size.
  */
 -(void)updateBuffer:(const MYFLT *)buffer
-     withBufferSize:(UInt32)bufferSize;
+     withBufferSize:(UInt32)bufferSize
+             update:(BOOL)update;
 @end

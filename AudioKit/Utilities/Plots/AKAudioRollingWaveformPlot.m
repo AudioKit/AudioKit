@@ -50,13 +50,12 @@
 
 - (void)updateValuesFromCsound
 {
-    [self updateBuffer:[self bufferWithCsound:_cs] withBufferSize:_sampleSize];
+    BOOL update = NO;
     if ([_lastUpdate timeIntervalSinceNow] < -self.updateInterval) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateUI];
-            _lastUpdate = [NSDate date];
-        });
+        update = YES;
+        _lastUpdate = [NSDate date];
     }
+    [self updateBuffer:[self bufferWithCsound:_cs] withBufferSize:_sampleSize update:update];
 }
 
 

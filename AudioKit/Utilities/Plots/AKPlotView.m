@@ -39,13 +39,15 @@
 - (void)updateUI {
     if (self.hidden)
         return;
+    dispatch_async(dispatch_get_main_queue(), ^{
 #if TARGET_OS_IPHONE
-    if (self.alpha > 0.0f)
-        [self setNeedsDisplay];
+        if (self.alpha > 0.0f)
+            [self setNeedsDisplay];
 #elif TARGET_OS_MAC
-    if (self.alphaValue > 0.0f)
-        [self setNeedsDisplay:YES];
+        if (self.alphaValue > 0.0f)
+            [self setNeedsDisplay:YES];
 #endif
+    });
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

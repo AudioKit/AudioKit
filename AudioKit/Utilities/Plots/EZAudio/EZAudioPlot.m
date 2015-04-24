@@ -91,6 +91,7 @@
 #pragma mark - Get Data
 - (void)setSampleData:(const float *)data
                length:(NSUInteger)length
+               update:(BOOL)update
 {
     _plotData   = realloc(_plotData, sizeof(CGPoint)*length);
     _plotLength = length;
@@ -100,11 +101,13 @@
         _plotData[i] = CGPointMake(i, data[i] * _gain);
     }
     
-    [self updateUI];
+    if (update)
+        [self updateUI];
 }
 
 #pragma mark - Update
-- (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize {
+- (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
+{
     
     // Update the scroll history datasource
     [EZAudio updateScrollHistory:&_scrollHistory
@@ -115,7 +118,8 @@
             isResolutionChanging:&_changingHistorySize];
     
     [self setSampleData:_scrollHistory
-                 length:_scrollHistoryLength];
+                 length:_scrollHistoryLength
+                 update:update];
 }
 
 - (void)drawRect:(CGRect)rect
