@@ -7,7 +7,7 @@ before_install: gem install xcpretty cocoapods -N
 podfile: Playgrounds/AudioKitPlayground/Podfile
 cache: cocoapods
 script:
-- if test `find . -name \*.pbxproj -exec grep -H /AudioKit/ {} \;|tee /tmp/found|wc -l` -gt 0; then cat /tmp/found; exit 1; fi
+- if test `find . -name \*.pbxproj -exec grep -H /Users/ {} \;|tee /tmp/found|wc -l` -gt 0; then cat /tmp/found; exit 1; fi
 - set -o pipefail && xcodebuild -scheme OSXObjectiveCAudioKitTests -project Tests/TestProjects/OSXObjectiveCAudioKit/OSXObjectiveCAudioKit.xcodeproj test | xcpretty -c
 - set -o pipefail && xcodebuild -project Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
 - set -o pipefail && xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
