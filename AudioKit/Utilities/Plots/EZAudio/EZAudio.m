@@ -308,12 +308,14 @@
 }
 
 #pragma mark - Plot Utility
-+(void)updateScrollHistory:(float **)scrollHistory
-                withLength:(NSUInteger)scrollHistoryLength
-                   atIndex:(NSUInteger *)index
-                withBuffer:(const MYFLT *)buffer
-            withBufferSize:(int)bufferSize
-      isResolutionChanging:(BOOL)isChanging
+
+// Returns YES if we're actually scrolling, NO otherwise
++ (BOOL) updateScrollHistory:(float **)scrollHistory
+                  withLength:(NSUInteger)scrollHistoryLength
+                     atIndex:(NSUInteger *)index
+                  withBuffer:(const MYFLT *)buffer
+              withBufferSize:(int)bufferSize
+        isResolutionChanging:(BOOL)isChanging
 {
     //
     if( *scrollHistory == NULL ){
@@ -328,14 +330,14 @@
             float *hist = *scrollHistory;
             hist[*index] = rms;
             (*index)++;
-        }
-        else {
+        } else {
             [EZAudio appendValue:rms
                  toScrollHistory:*scrollHistory
            withScrollHistorySize:scrollHistoryLength];
+            return YES;
         }
     }
-    
+    return NO;
 }
 
 #pragma mark - TPCircularBuffer Utility

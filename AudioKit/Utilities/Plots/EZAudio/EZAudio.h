@@ -226,7 +226,7 @@
 /// @name Plot Utility
 ///-----------------------------------------------------------
 
-+(void)updateScrollHistory:(float**)scrollHistory
++(BOOL)updateScrollHistory:(float**)scrollHistory
                 withLength:(NSUInteger)scrollHistoryLength
                    atIndex:(NSUInteger *)index
                 withBuffer:(const MYFLT*)buffer
