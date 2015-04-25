@@ -8,7 +8,6 @@
 
 #import "SynthesisViewController.h"
 #import "AKFoundation.h"
-#import "Tambourine.h"
 #import "FMSynthesizer.h"
 
 
