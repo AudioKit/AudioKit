@@ -21,7 +21,7 @@
 # if TARGET_OS_IPHONE
 - (void)didMoveToSuperview
 # elif TARGET_OS_MAC
-- (void)viewDidMoveToSuperview
+- (void)viewDidMoveToWindow
 # endif
 {
     // Some of the subclasses don't implement the CsoundBinding protocol
