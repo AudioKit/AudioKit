@@ -30,7 +30,7 @@
 #if TARGET_OS_IPHONE
     UIImage     *_plot;
 #else
-    // TODO
+    CGImageRef  _plot;
 #endif
     CGFloat     _lastPoint;
     NSUInteger  _sinceLastUpdate;
@@ -100,7 +100,6 @@
     _plotData   = realloc(_plotData, sizeof(CGFloat)*length);
     _plotLength = length;
     
-    //_plotData[0] = 0.0f;
     for(int i = 0; i < length; i++) {
         _plotData[i] = data[i] * _gain;
     }
@@ -112,16 +111,17 @@
 {
     if (!_plot) {
         // Create a blank back image
+#if TARGET_OS_IPHONE
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
         // Set the background color
         [self.backgroundColor set];
-#if TARGET_OS_IPHONE
         UIRectFill(self.bounds);
-#elif TARGET_OS_MAC
-        NSRectFill(self.bounds);
-#endif
         _plot = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
+#elif TARGET_OS_MAC
+        // TODO
+        NSRectFill(self.bounds);
+#endif
     }
     return _plot;
 }
@@ -165,10 +165,13 @@ static const int deviceOriginFlipped = 1;
 
 - (void)renderIntoBitmapAt:(NSUInteger)smp scrollBy:(NSUInteger)xoffset
 {
+#if TARGET_OS_IPHONE
     UIImage *plot = [self getPlot];
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
+#else
+    // TODO
+#endif
     CGRect bounds = self.bounds;
     // How many horizontal points per sample
     CGFloat xscale = bounds.size.width / (CGFloat)_plotLength;
@@ -176,7 +179,6 @@ static const int deviceOriginFlipped = 1;
     //NSLog(@"Rendering at %@, offset=%f", NSStringFromCGRect(rect), xoffset);
     
     [plot drawAtPoint:CGPointMake(-xscale * (CGFloat)xoffset, 0.0f)];
-    
     
     // Set the background color
     [self.backgroundColor set];
@@ -234,8 +236,12 @@ static const int deviceOriginFlipped = 1;
         }
         CGPathRelease(path);
     }
+#if TARGET_OS_IPHONE
     _plot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+#else
+    // TODO
+#endif
 }
 
 - (void)drawRect:(CGRect)rect
