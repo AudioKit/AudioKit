@@ -639,7 +639,6 @@
 		EA8E94491AD3C6840057E979 /* AKFloatPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFloatPlot.m; sourceTree = "<group>"; };
 		EA8E944A1AD3C6840057E979 /* AKInstrumentPropertyPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInstrumentPropertyPlot.h; sourceTree = "<group>"; };
 		EA8E944B1AD3C6840057E979 /* AKInstrumentPropertyPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrumentPropertyPlot.m; sourceTree = "<group>"; };
-		EA8E944C1AD3C6840057E979 /* AKPlots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlots.h; sourceTree = "<group>"; };
 		EA8E944D1AD3C6840057E979 /* AKPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlotView.h; sourceTree = "<group>"; };
 		EA8E944E1AD3C6840057E979 /* AKPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlotView.m; sourceTree = "<group>"; };
 		EA8E944F1AD3C6840057E979 /* AKStereoOutputPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStereoOutputPlot.h; sourceTree = "<group>"; };
@@ -1193,7 +1192,6 @@
 				EA8E94491AD3C6840057E979 /* AKFloatPlot.m */,
 				EA8E944A1AD3C6840057E979 /* AKInstrumentPropertyPlot.h */,
 				EA8E944B1AD3C6840057E979 /* AKInstrumentPropertyPlot.m */,
-				EA8E944C1AD3C6840057E979 /* AKPlots.h */,
 				EA8E944D1AD3C6840057E979 /* AKPlotView.h */,
 				EA8E944E1AD3C6840057E979 /* AKPlotView.m */,
 				EA8E944F1AD3C6840057E979 /* AKStereoOutputPlot.h */,
