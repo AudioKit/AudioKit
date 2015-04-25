@@ -39,7 +39,7 @@ Remember: *your entire application is now bound by the terms of the [GNU LGPL li
 for lib in CsoundLib libsndfile; do
     install_name_tool -change $lib @rpath/$lib.framework/$lib $TARGET_BUILD_DIR/$EXECUTABLE_PATH
     if ! test "$CURRENT_ARCH" = x86_64 -o "$CURRENT_ARCH" = i386; then
-        lipo -remove i386 -remove x86_64 $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib -output $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib || true
+        lipo -remove i386 -remove x86_64 $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib -output $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib 2>&1 || true
     fi
 done
 ```
