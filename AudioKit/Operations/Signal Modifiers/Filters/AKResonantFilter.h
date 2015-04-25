@@ -14,6 +14,7 @@
  This is a second-order filter defined by a center frequency which is the frequency position of the peak response, and a bandwidth which is the frequency difference between the upper and lower half-power points.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKResonantFilter : AKAudio
 /// Instantiates the resonant filter with all values
 /// @param audioSource The input audio stream. [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

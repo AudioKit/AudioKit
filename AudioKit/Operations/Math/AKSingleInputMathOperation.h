@@ -9,6 +9,7 @@
 #import "AKParameter+Operation.h"
 
 /// A base-class for operations that only require one input
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSingleInputMathOperation : AKParameter
 
 /// Generic operation with one input///
@@ -17,3 +18,4 @@
 - (instancetype)initWithFunctionString:(NSString *)function
                                  input:(AKParameter *)input;
 @end
+NS_ASSUME_NONNULL_END

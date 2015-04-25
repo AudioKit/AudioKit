@@ -14,6 +14,7 @@
  Audio output is a tone related to the striking of a metal block as found in a vibraphone. The method is a physical model developed from Perry Cook, but re-coded for Csound.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKVibes : AKAudio
 /// Instantiates the vibes with all values
 /// @param frequency Frequency of note played. Updated at Control-rate. [Default Value: 440]
@@ -90,3 +91,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

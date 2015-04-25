@@ -12,9 +12,10 @@
 
 /** Generate granular synthesis textures with user control.
 
- 
+
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKGranularSynthesizer : AKAudio
 /// Instantiates the granular synthesizer with all values
 /// @param grainWaveform Table contain grain waveform. Updated at Control-rate. [Default Value: ]
@@ -118,3 +119,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

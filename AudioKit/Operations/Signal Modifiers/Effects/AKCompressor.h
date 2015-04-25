@@ -16,6 +16,7 @@ This operation first examines the controllingAudioSource by performing envelope 
 The running envelope is next converted to decibels, then passed through a mapping function to determine what compresser action (if any) should be taken. The mapping function is defined by four decibel control values. These are given as positive values, where 0 db corresponds to an amplitude of 1, and 90 db corresponds to an amplitude of 32768.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKCompressor : AKAudio
 /// Instantiates the compressor with all values
 /// @param input The input signal that will be compressed. [Default Value: ]
@@ -101,3 +102,4 @@ The running envelope is next converted to decibels, then passed through a mappin
 
 
 @end
+NS_ASSUME_NONNULL_END

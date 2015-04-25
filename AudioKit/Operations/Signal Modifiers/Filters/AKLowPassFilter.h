@@ -14,6 +14,7 @@
  More detailed description from http://www.csounds.com/manual/html/tone.html
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLowPassFilter : AKAudio
 /// Instantiates the low pass filter with all values
 /// @param audioSource The control to be filtered [Default Value: ]
@@ -39,3 +40,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

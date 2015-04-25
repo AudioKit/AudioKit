@@ -14,6 +14,7 @@
  Audio output is a tone similar to a bowed string, using a physical model developed from Perry Cook, but recoded for Csound.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKBowedString : AKAudio
 /// Instantiates the bowed string with all values
 /// @param frequency Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set. Updated at Control-rate. [Default Value: 110]
@@ -99,3 +100,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

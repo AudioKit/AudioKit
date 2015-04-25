@@ -13,6 +13,7 @@
 /** Convolution based on a uniformly partitioned overlap-save algorithm.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKStereoConvolution : AKStereoAudio
 /// Instantiates the stereo convolution with all values
 /// @param input Input to the convolution, usually audio. [Default Value: ]
@@ -29,3 +30,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

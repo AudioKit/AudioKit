@@ -10,10 +10,11 @@
 #import "AKParameter+Operation.h"
 
 /** Performs cross-synthesis between two source F-Signals.
- 
+
  Used to perform cross-synthesis on real-time audio input.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKCrossSynthesizedFFT : AKFSignal
 
 /// Instantiates the cross synthesis
@@ -27,3 +28,4 @@
                      amplitude2:(AKControl *)amplitude2;
 
 @end
+NS_ASSUME_NONNULL_END
