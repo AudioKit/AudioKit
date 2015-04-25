@@ -16,7 +16,7 @@
 
 ## Swift Projects
 * From within the AudioKit subproject in your project, open the `AudioKit > Platforms > Swift` group, and drag and drop `AudioKit.swift` to your project.
-* Add at least `AKFoundation.h` to your Swift bridging header file. You may need to include some of the other header files you are using in your project if they are not covered by AKFoundation.
+* Add `AKFoundation.h` to your Swift bridging header file.
 
 ## Optional Steps
 Some of the built-in instruments require the use of some sound files, grouped in the `AKSoundFiles.bundle` in the **Resources** group in AudioKit. You may drag this bundle to your own project to have them included.
