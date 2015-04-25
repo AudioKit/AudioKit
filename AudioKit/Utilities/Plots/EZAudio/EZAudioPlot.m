@@ -32,8 +32,10 @@
 #else
     // TODO
 #endif
+    CGFloat     _lastPoint;
+    NSUInteger  _sinceLastUpdate;
     
-    CGPoint     *_plotData;
+    CGFloat     *_plotData;
     NSUInteger   _plotLength;
     
     // Rolling History
@@ -94,18 +96,14 @@
 #pragma mark - Get Data
 - (void)setSampleData:(const float *)data
                length:(NSUInteger)length
-               update:(BOOL)update
 {
-    _plotData   = realloc(_plotData, sizeof(CGPoint)*length);
+    _plotData   = realloc(_plotData, sizeof(CGFloat)*length);
     _plotLength = length;
     
-    _plotData[0] = CGPointZero;
-    for(int i = 1; i < length; i++) {
-        _plotData[i] = CGPointMake(i, data[i] * _gain);
+    //_plotData[0] = 0.0f;
+    for(int i = 0; i < length; i++) {
+        _plotData[i] = data[i] * _gain;
     }
-    
-    if (update)
-        [self updateUI];
 }
 
 #pragma mark - Update
@@ -131,7 +129,7 @@
 - (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
 {
     
-    // Update the scroll history datasource
+    // Update the scroll history datasource - this adds one entry to the sliding history
     BOOL scrolling = [EZAudio updateScrollHistory:&_scrollHistory
                                        withLength:_scrollHistoryLength
                                           atIndex:&_scrollHistoryIndex
@@ -140,73 +138,87 @@
                              isResolutionChanging:_changingHistorySize];
 
     [self setSampleData:_scrollHistory
-                 length:_scrollHistoryLength
-                 update:update];
-
-    //NSLog(@"Scrolling = %@ idx = %@", scrolling ? @"Y" : @"N", @(_scrollHistoryIndex));
-    if (scrolling) {
-        // TODO: Slide the existing bitmap to the left to make room for the data from the new buffer
-        // Only render that new data in the bitmap
-        [self renderIntoBitmap:self.bounds];
+                 length:_scrollHistoryLength];
+    
+    if (update && _sinceLastUpdate>0) {
+        if (scrolling) {
+            // Slide the existing bitmap to the left to make room for the data from the new buffer
+            [self renderIntoBitmapAt:_scrollHistoryIndex-_sinceLastUpdate scrollBy:_sinceLastUpdate];
+        } else {
+            // Try to be smart about gradually filling in the bitmap until we start scrolling
+            [self renderIntoBitmapAt:_scrollHistoryIndex scrollBy:0];
+        }
+        _sinceLastUpdate = 0;
+        [self updateUI];
     } else {
-        // TODO: Try to be smart about gradually filling in the bitmap until we start scrolling
-        [self renderIntoBitmap:self.bounds];
+        _sinceLastUpdate ++;
     }
+
 }
 
-- (void)renderIntoBitmap:(CGRect)rect
+// iOS drawing origin is flipped by default so make sure we account for that
+#if TARGET_OS_IPHONE
+static const int deviceOriginFlipped = -1;
+#elif TARGET_OS_MAC
+static const int deviceOriginFlipped = 1;
+#endif
+
+- (void)renderIntoBitmapAt:(NSUInteger)smp scrollBy:(NSUInteger)xoffset
 {
     UIImage *plot = [self getPlot];
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
 
     CGRect bounds = self.bounds;
-
-    [plot drawAtPoint:CGPointZero];
+    // How many horizontal points per sample
+    CGFloat xscale = bounds.size.width / (CGFloat)_plotLength;
+    
+    //NSLog(@"Rendering at %@, offset=%f", NSStringFromCGRect(rect), xoffset);
+    
+    [plot drawAtPoint:CGPointMake(-xscale * (CGFloat)xoffset, 0.0f)];
+    
     
     // Set the background color
     [self.backgroundColor set];
+    CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
+    //CGContextClipToRect(ctx, rect);
 #if TARGET_OS_IPHONE
     UIRectFill(rect);
 #elif TARGET_OS_MAC
     NSRectFill(rect);
 #endif
-    // Set the waveform line color
-    [self.plotColor set];
-    
     if(_plotLength > 0) {
-        CGFloat xscale = bounds.size.width / (float)_plotLength;
-        CGFloat halfHeight = floorf(bounds.size.height / 2.0f), lastx = rect.origin.x + rect.size.width;
+        CGFloat halfHeight = floorf(bounds.size.height / 2.0f);
         
         CGMutablePathRef halfPath = CGPathCreateMutable();
-        int lastindx = 0, indx;
-        CGPathMoveToPoint(halfPath, NULL, _plotData[0].x, _plotData[0].y);
-        for(CGFloat x = rect.origin.x; x < lastx; x += 1.0f) {
-            indx = MIN(roundf(x / xscale), _plotLength-1);
-            if (indx != lastindx) {
-                CGPoint pt = _plotData[indx];
-                CGPathAddLineToPoint(halfPath, NULL, pt.x, pt.y);
-                lastindx = indx;
+
+        // Set the waveform line color
+        [self.plotColor set];
+        
+        if (self.shouldFill) {
+            CGPathMoveToPoint(halfPath, NULL, smp, 0.0f);
+            for (NSUInteger i = smp; i < smp+_sinceLastUpdate && i < _plotLength; i++) {
+                CGPathAddLineToPoint(halfPath, NULL, i, _plotData[i]);
+            }
+            CGPathAddLineToPoint(halfPath, NULL, smp+_sinceLastUpdate, 0.0f);
+        } else { // Connect to the previous point
+            CGPathMoveToPoint(halfPath, NULL, smp-1, _lastPoint);
+            for (NSUInteger i = smp+1; i < smp+_sinceLastUpdate && i < _plotLength; i++) {
+                _lastPoint = _plotData[i];
+                CGPathAddLineToPoint(halfPath, NULL, i, _lastPoint);
             }
         }
-        CGPathAddLineToPoint(halfPath, NULL, _plotData[_plotLength-1].x, 0.0f);
         
-        // iOS drawing origin is flipped by default so make sure we account for that
-#if TARGET_OS_IPHONE
-        const int deviceOriginFlipped = -1;
-#elif TARGET_OS_MAC
-        const int deviceOriginFlipped = 1;
-#endif
-        
+        // Apply transforms to the path
         CGMutablePathRef path = CGPathCreateMutable();
-        CGAffineTransform xf = CGAffineTransformIdentity;
-        xf = CGAffineTransformTranslate( xf, bounds.origin.x , halfHeight + bounds.origin.y );
+        CGAffineTransform xf;
+        xf = CGAffineTransformMakeTranslation(0, halfHeight);
         xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
         CGPathAddPath( path, &xf, halfPath );
         
+        // If mirroring, add the path again with mirrored transforms
         if( self.shouldMirror ){
-            xf = CGAffineTransformIdentity;
-            xf = CGAffineTransformTranslate( xf, bounds.origin.x , halfHeight + bounds.origin.y);
+            xf = CGAffineTransformMakeTranslation(0, halfHeight);
             xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*halfHeight);
             CGPathAddPath( path, &xf, halfPath );
         }
@@ -215,10 +227,9 @@
         // Now, path contains the full waveform path.
         CGContextAddPath(ctx, path);
         
-        if( self.shouldFill ){
+        if (self.shouldFill) {
             CGContextFillPath(ctx);
-        }
-        else {
+        } else {
             CGContextStrokePath(ctx);
         }
         CGPathRelease(path);
@@ -229,12 +240,17 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    // Draw just the subset of the plot needed, cut from rect
+    if (!CGRectEqualToRect(rect, self.bounds)) {
+        CGContextClipToRect(UIGraphicsGetCurrentContext(), rect);
+    }
 #if TARGET_OS_IPHONE
-    // TODO: Draw just the subset of the plot needed, cut from rect
     [[self getPlot] drawAtPoint:CGPointZero];
 #elif TARGET_OS_MAC
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
+    
+    // TODO
 #endif
 }
 

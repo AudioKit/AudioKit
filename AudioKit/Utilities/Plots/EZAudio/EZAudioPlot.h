@@ -67,12 +67,9 @@ IB_DESIGNABLE
  Set the buffer of data to display.
  @param data   The array of samples containing the data.
  @param length The number of samples in the array.
- @param update Whether to trigger an update of the view.
  */
 -(void)setSampleData:(const float *)data
-              length:(NSUInteger)length
-              update:(BOOL)update;
-
+              length:(NSUInteger)length;
 
 #if TARGET_OS_IPHONE
 @property (nonatomic,strong) IBInspectable UIColor *backgroundColor;
