@@ -13,6 +13,7 @@
 /** Multitap delay line implementation.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMultitapDelay : AKAudio
 /// Instantiates the multitap delay
 /// @param input Input signal to be delayed. [Default Value: ]
@@ -36,3 +37,4 @@
 - (void)addEchoAtTime:(AKConstant *)time gain:(AKConstant *)gain;
 
 @end
+NS_ASSUME_NONNULL_END

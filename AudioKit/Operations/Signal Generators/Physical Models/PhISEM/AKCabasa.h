@@ -14,6 +14,7 @@
  This one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKCabasa : AKAudio
 /// Instantiates the cabasa with all values
 /// @param count The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
@@ -54,3 +55,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

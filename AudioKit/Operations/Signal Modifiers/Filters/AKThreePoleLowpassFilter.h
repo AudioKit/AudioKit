@@ -14,6 +14,7 @@
  This a digital emulation of a 3 pole (18 dB/oct.) lowpass filter capable of self-oscillation with a built-in distortion unit. It is really a 3-pole version of moogvcf, retuned, recalibrated and with some performance improvements. The tuning and feedback tables use no more than 6 adds and 6 multiplies per control rate. The distortion unit, itself, is based on a modified tanh function driven by the filter controls.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKThreePoleLowpassFilter : AKAudio
 /// Instantiates the three pole lowpass filter with all values
 /// @param input Signal that will be modified. [Default Value: ]
@@ -57,3 +58,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

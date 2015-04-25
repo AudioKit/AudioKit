@@ -14,6 +14,7 @@
  This operation outputs a version of the audio source, amplitude-modified so that its rms power is equal to that of the comparator audio source. Thus a signal that has suffered loss of power (eg., in passing through a filter bank) can be restored by matching it with, for instance, its own source. It should be noted that this modifies amplitude only; output signal is not altered in any other respect.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKBalance : AKAudio
 /// Instantiates the balance with all values
 /// @param input Input audio signal [Default Value: ]
@@ -45,3 +46,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

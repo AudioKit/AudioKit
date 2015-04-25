@@ -14,6 +14,7 @@
  More detailed description from http://www.csounds.com/manual/html/
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKAdditiveCosines : AKAudio
 /// Instantiates the additive cosines with all values
 /// @param cosineTable A cosine table with at least 8192 points is recommended. [Default Value: ]
@@ -84,3 +85,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

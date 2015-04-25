@@ -15,6 +15,7 @@
 The amplitude response for this filter will be flat (=1) for gain=1. With gain bigger than 1, there will be a peak at the center frequency, whose width is given by the bandwidth parameter, but outside this band, the response will tend towards 1. Conversely, if gain is smaller than 1, a notch will be created around the CF.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKEqualizerFilter : AKAudio
 /// Instantiates the equalizer filter with all values
 /// @param input Input signal. [Default Value: ]
@@ -58,3 +59,4 @@ The amplitude response for this filter will be flat (=1) for gain=1. With gain b
 
 
 @end
+NS_ASSUME_NONNULL_END

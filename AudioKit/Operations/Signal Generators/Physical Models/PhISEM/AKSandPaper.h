@@ -14,6 +14,7 @@
  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSandPaper : AKAudio
 /// Instantiates the sand paper with all values
 /// @param intensity The intensity of the sandpaper sound [Default Value: 128]
@@ -45,3 +46,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
