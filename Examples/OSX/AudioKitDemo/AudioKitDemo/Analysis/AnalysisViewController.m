@@ -22,7 +22,6 @@
     NSArray *noteFrequencies;
     NSArray *noteNamesWithSharps;
     NSArray *noteNamesWithFlats;
-    IBOutlet AKAudioInputPlot *inputPlot;
     
     AKSequence *analysisSequence;
     AKEvent *updateAnalysis;
@@ -39,8 +38,6 @@
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];
-    [inputPlot setWantsLayer:YES];
-    [inputPlot.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
 }
 
 - (void)viewDidAppear
