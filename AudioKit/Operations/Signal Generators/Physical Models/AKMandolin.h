@@ -14,6 +14,7 @@
  A mandolin emulation with amplitude, frequency, tuning, gain and mandolin size parameters.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMandolin : AKAudio
 /// Instantiates the mandolin with all values
 /// @param bodySize The size of the body of the mandolin. Range 0 (small) to 1 (large). Updated at Control-rate. [Default Value: 0.5]
@@ -81,3 +82,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

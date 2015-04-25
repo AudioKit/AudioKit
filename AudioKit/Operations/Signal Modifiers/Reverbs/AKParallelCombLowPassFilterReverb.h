@@ -14,6 +14,7 @@
  This is a reverberator consisting of 6 parallel comb-lowpass filters being fed into a series of 5 allpass filters.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKParallelCombLowPassFilterReverb : AKAudio
 /// Instantiates the parallel comb low pass filter reverb with all values
 /// @param input Audio signal to be reverberated. [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

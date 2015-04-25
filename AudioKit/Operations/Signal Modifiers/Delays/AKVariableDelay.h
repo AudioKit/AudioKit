@@ -11,9 +11,10 @@
 
 /** An interpolating variable time delay.
 
- 
+
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKVariableDelay : AKAudio
 /// Instantiates the variable delay with all values
 /// @param input Input signal. [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
  Rise modifications are applied for the first irise seconds, and decay from time totalDuration - decayTime. If these periods are separated in time there will be a steady state during which amp will be unmodified. If linen rise and decay periods overlap then both modifications will be in effect for that time. If the overall duration is exceeded in performance, the final decay will continue on in the same direction, going negative.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLinearEnvelope : AKAudio
 /// Instantiates the linear envelope with all values
 /// @param riseTime Rise time in seconds. A zero or negative value signifies no rise modification. [Default Value: 0.33]
@@ -61,3 +62,4 @@
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
 @end
+NS_ASSUME_NONNULL_END

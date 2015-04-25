@@ -10,10 +10,11 @@
 #import "AKParameter+Operation.h"
 
 /** Warp the spectral envelope of a PVS signal by means of shifting and scaling.
- 
+
  Warp the spectral envelope of a PVS signal by means of shifting and scaling.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKWarpedFFT : AKFSignal
 
 /// Instantiates the warp
@@ -42,3 +43,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
  These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLowPassButterworthFilter : AKAudio
 /// Instantiates the low pass butterworth filter with all values
 /// @param input Input signal to be filtered. [Default Value: ]
@@ -39,3 +40,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

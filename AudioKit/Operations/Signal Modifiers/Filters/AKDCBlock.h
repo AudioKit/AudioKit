@@ -14,6 +14,7 @@
  {"Implements the DC blocking filter"=>"Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based on work by Perry Cook."}
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKDCBlock : AKAudio
 /// Instantiates the dc block with all values
 /// @param input Input audio signal. [Default Value: ]
@@ -39,3 +40,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

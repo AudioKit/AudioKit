@@ -14,6 +14,7 @@
  Implementation is a combination of white noise with IIR Filters.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKNoise : AKAudio
 /// Instantiates the noise with all values
 /// @param amplitude Amplitude of the output. [Default Value: 1]
@@ -54,3 +55,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

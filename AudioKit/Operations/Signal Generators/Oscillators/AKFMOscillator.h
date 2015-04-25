@@ -14,6 +14,7 @@
  Classic FM Synthesis audio generation.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFMOscillator : AKAudio
 /// Instantiates the fm oscillator with all values
 /// @param waveform Waveform table to use.  Requires a wrap-around guard point. [Default Value: sine]
@@ -81,3 +82,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

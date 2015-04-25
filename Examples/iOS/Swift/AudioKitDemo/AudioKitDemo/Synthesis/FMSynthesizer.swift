@@ -29,6 +29,11 @@ class FMSynthesizer: AKInstrument{
         oscillator.modulationIndex      = note.color.scaledBy(10.ak)
         oscillator.amplitude            = envelope.scaledBy(0.25.ak)
         
+        AKManager.sharedManager().isLogging = true
+        let square = AKTable.standardSquareWave()
+        let point = AKTableValue(table: square, atFractionOfTotalWidth: akp(0.25))
+        enableParameterLog("Square wave value at 0.25 expect 1 = ", parameter: point, timeInterval: 100)
+
         setAudioOutput(oscillator)
     }
 }

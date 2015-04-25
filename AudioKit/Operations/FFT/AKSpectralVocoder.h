@@ -10,10 +10,11 @@
 #import "AKParameter+Operation.h"
 
 /** Combine the spectral envelope of one F-signal with the excitation (frequencies) of another.
- 
+
  This operation provides support for cross-synthesis of amplitudes and frequencies. It takes the amplitudes of one input F-signal and combines with frequencies from another. It is a spectral version of the well-known channel vocoder.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSpectralVocoder : AKFSignal
 
 /// Instantiates the spectral vocoder
@@ -33,3 +34,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
