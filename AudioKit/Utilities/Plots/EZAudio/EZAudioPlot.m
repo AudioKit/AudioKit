@@ -27,8 +27,11 @@
 #import "EZAudio.h"
 
 @interface EZAudioPlot () {
-    //  BOOL             _hasData;
-    //  TPCircularBuffer _historyBuffer;
+#if TARGET_OS_IPHONE
+    UIImage     *_plot;
+#else
+    // TODO
+#endif
     
     CGPoint     *_plotData;
     NSUInteger   _plotLength;
@@ -106,6 +109,25 @@
 }
 
 #pragma mark - Update
+
+- (UIImage *) getPlot
+{
+    if (!_plot) {
+        // Create a blank back image
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
+        // Set the background color
+        [self.backgroundColor set];
+#if TARGET_OS_IPHONE
+        UIRectFill(self.bounds);
+#elif TARGET_OS_MAC
+        NSRectFill(self.bounds);
+#endif
+        _plot = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return _plot;
+}
+
 - (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
 {
     
@@ -117,38 +139,37 @@
                                    withBufferSize:bufferSize
                              isResolutionChanging:_changingHistorySize];
 
+    [self setSampleData:_scrollHistory
+                 length:_scrollHistoryLength
+                 update:update];
+
     //NSLog(@"Scrolling = %@ idx = %@", scrolling ? @"Y" : @"N", @(_scrollHistoryIndex));
     if (scrolling) {
         // TODO: Slide the existing bitmap to the left to make room for the data from the new buffer
         // Only render that new data in the bitmap
+        [self renderIntoBitmap:self.bounds];
     } else {
         // TODO: Try to be smart about gradually filling in the bitmap until we start scrolling
+        [self renderIntoBitmap:self.bounds];
     }
-    
-    [self setSampleData:_scrollHistory
-                 length:_scrollHistoryLength
-                 update:update];
 }
 
-- (void)drawRect:(CGRect)rect
+- (void)renderIntoBitmap:(CGRect)rect
 {
-#if TARGET_OS_IPHONE
+    UIImage *plot = [self getPlot];
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(ctx);
+
     CGRect bounds = self.bounds;
-#elif TARGET_OS_MAC
-    [[NSGraphicsContext currentContext] saveGraphicsState];
-    NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
-    CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
-    NSRect bounds = self.bounds;
-#endif
+
+    [plot drawAtPoint:CGPointZero];
     
     // Set the background color
     [self.backgroundColor set];
 #if TARGET_OS_IPHONE
-    UIRectFill(bounds);
+    UIRectFill(rect);
 #elif TARGET_OS_MAC
-    NSRectFill(bounds);
+    NSRectFill(rect);
 #endif
     // Set the waveform line color
     [self.plotColor set];
@@ -156,7 +177,7 @@
     if(_plotLength > 0) {
         CGFloat xscale = bounds.size.width / (float)_plotLength;
         CGFloat halfHeight = floorf(bounds.size.height / 2.0f), lastx = rect.origin.x + rect.size.width;
-
+        
         CGMutablePathRef halfPath = CGPathCreateMutable();
         int lastindx = 0, indx;
         CGPathMoveToPoint(halfPath, NULL, _plotData[0].x, _plotData[0].y);
@@ -202,11 +223,18 @@
         }
         CGPathRelease(path);
     }
-    
+    _plot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+}
+
+- (void)drawRect:(CGRect)rect
+{
 #if TARGET_OS_IPHONE
-    CGContextRestoreGState(ctx);
+    // TODO: Draw just the subset of the plot needed, cut from rect
+    [[self getPlot] drawAtPoint:CGPointZero];
 #elif TARGET_OS_MAC
-    [[NSGraphicsContext currentContext] restoreGraphicsState];
+    NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
+    CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
 #endif
 }
 
