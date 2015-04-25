@@ -6,7 +6,7 @@
 	* Expand the **Link Binary With Libraries** section, and add the same library from the previous step (now with a ".a" extension).
 * In the **Build Settings** tab for your target :
 	* Look for the **Other Linker Flags** setting, and set it to `-ObjC`
-	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../../AudioKit/AudioKit`.
+	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../AudioKit/AudioKit`.
 *  From within the AudioKit subproject, open the `AudioKit > Platforms > OS X` group, then drag and drop the `CSoundLib.framework` file to your own project.  This will automatically add a "Framework Search Paths" entry for you, but it will be an absolute reference, so if you are sharing your projects with other, you should go to **Build Settings** Tab and add an entry relative to `$(SRCROOT)` that leads to `AudioKit/Platforms/OSX`.
 * In your project settings, under the **Build Phases** tab, open the **Copy Files** section and add the same `CsoundLib.framework`.
 * Add a new **Run Script** phase, of type `/bin/bash` with the following script:
