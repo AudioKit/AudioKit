@@ -9,6 +9,7 @@
 #import "AKParameter+Operation.h"
 
 /// Helper function to deal with product, sum, minimum, and maximum.
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMultipleInputMathOperation : AKParameter
 
 /// Array of inputs or operands to the function
@@ -27,3 +28,4 @@
                        secondInput:(AKParameter *)secondInput;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -15,6 +15,7 @@
  This is a second-order filter defined by a center frequency which is the frequency position of the peak response, and a bandwidth which is the frequency difference between the upper and lower half-power points.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKVariableFrequencyResponseBandPassFilter : AKAudio
 
 // Type Helpers
@@ -69,3 +70,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 /** Subtracts any number of a-rate signals.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKDifference : AKParameter
 
 /// Create a new signal as a sum of exactly two given signals.
@@ -19,3 +20,4 @@
 - (instancetype)initWithInput:(AKParameter *)minuend
                         minus:(AKParameter *)subtrahend;
 @end
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
  Reads from the waveform sequentially and repeatedly at given frequency. Linear interpolation is applied for table look up from internal phase values.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKOscillator : AKAudio
 /// Instantiates the oscillator with all values
 /// @param waveform Requires a wrap-around guard point [Default Value: sine]
@@ -54,3 +55,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

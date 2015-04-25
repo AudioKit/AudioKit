@@ -13,6 +13,7 @@
 /** Calculates the weighted mean value of two input signals.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMix : AKAudio
 
 /// Create a weighted mean of two inputs using a balance point.
@@ -36,3 +37,4 @@
 - (void)setMaximumBalancePoint:(AKConstant *)maximumBalancePoint;
 
 @end
+NS_ASSUME_NONNULL_END

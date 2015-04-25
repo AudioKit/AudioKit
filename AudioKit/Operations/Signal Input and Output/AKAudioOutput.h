@@ -10,14 +10,15 @@
 #import "AKParameter+Operation.h"
 
 /** Writes stereo audio data to an external device or stream.
- 
- Sends stereo audio samples to an accumulating output buffer 
- (created at the beginning of performance) which serves to 
- collect the output of all active instruments before the 
- sound is written to disk. There can be any number of these 
+
+ Sends stereo audio samples to an accumulating output buffer
+ (created at the beginning of performance) which serves to
+ collect the output of all active instruments before the
+ sound is written to disk. There can be any number of these
  output units in an instrument.
- 
+
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKAudioOutput : AKParameter
 
 /// Helper function to send both channels the same monoSignal
@@ -39,3 +40,4 @@
                        rightAudio:(AKParameter *)rightAudio;
 
 @end
+NS_ASSUME_NONNULL_END

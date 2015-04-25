@@ -12,6 +12,7 @@
 /** Reads stereo audio data from a file.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFileInput : AKStereoAudio
 
 /// Create a file input.
@@ -54,3 +55,4 @@
 - (void)normalizeTo:(float)maximumAmplitude;
 
 @end
+NS_ASSUME_NONNULL_END

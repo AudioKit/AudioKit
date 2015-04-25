@@ -14,6 +14,7 @@
  This emulation is based loosely on the paper “Analyzing the Moog VCF with Considerations for Digital Implementation” by Stilson and Smith (CCRMA). This version was originally coded in Csound by Josep Comajuncosas. Some modifications and conversion to C were done by Hans Mikelson and then adjusted.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMoogVCF : AKAudio
 /// Instantiates the moog vcf with all values
 /// @param input Input signal. [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
  A user can control the pluck point, the pickup point, the filter, and an additional audio signal used to excite the 'string'. Based on the Karplus-Strong algorithm.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKPluckedString : AKAudio
 /// Instantiates the plucked string with all values
 /// @param frequency Frequency of the string [Default Value: 440]
@@ -72,3 +73,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
