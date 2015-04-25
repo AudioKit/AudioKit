@@ -25,6 +25,8 @@
 
 #import "EZAudio.h"
 
+@import Accelerate;
+
 @implementation EZAudio
 
 #pragma mark - AudioBufferList Utility
@@ -296,10 +298,12 @@
 
 +(float)RMS:(const MYFLT *)buffer
      length:(int)bufferSize {
-    float sum = 0.0;
-    for(int i = 0; i < bufferSize; i++)
-        sum += buffer[i] * buffer[i];
-    return sqrtf( sum / bufferSize );
+    MYFLT *squared = calloc(bufferSize, sizeof(MYFLT));
+    vDSP_vsq(buffer, 1, squared, 1, bufferSize);
+    float mean;
+    vDSP_meanv(squared, 1, &mean, bufferSize);
+    free(squared);
+    return sqrtf(mean);
 }
 
 +(float)SGN:(float)value
