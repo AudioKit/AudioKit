@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		C4534E0C1ADCD36500291E93 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4534E091ADCD33900291E93 /* libAudioKit OS X.a */; };
 		C4534E0E1ADCD3DA00291E93 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */; };
-		C4534E0F1ADCD3FB00291E93 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4534E111ADCD42900291E93 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4534E101ADCD42900291E93 /* AudioKit.swift */; };
 		C4A396B31A213BEA00E8FB4D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A396B21A213BEA00E8FB4D /* main.swift */; };
+		C4FAE5E31AEB894B00FD71E2 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF365C61ADCEEE300AA6551 /* AKSoundFiles.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,16 @@
 			dstSubfolderSpec = 7;
 			files = (
 				EAF365C61ADCEEE300AA6551 /* AKSoundFiles.bundle in CopyFiles */,
-				C4534E0F1ADCD3FB00291E93 /* CsoundLib.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4FAE5E01AEB893400FD71E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4FAE5E31AEB894B00FD71E2 /* CsoundLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +149,7 @@
 				C4A396AB1A213BEA00E8FB4D /* Sources */,
 				EAF365C11ADCED8200AA6551 /* Resources */,
 				C4A396AD1A213BEA00E8FB4D /* CopyFiles */,
+				C4FAE5E01AEB893400FD71E2 /* CopyFiles */,
 				C4A396AC1A213BEA00E8FB4D /* Frameworks */,
 				EAA0F5B91AE843E7007CD7C9 /* ShellScript */,
 			);
@@ -235,8 +245,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
+			shellPath = /bin/bash;
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

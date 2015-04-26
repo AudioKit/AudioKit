@@ -1,5 +1,5 @@
 #!/bin/bash
-BUILDCONF=${BUILDCONF:-Debug}
+BUILDCONF=${BUILDCONF:-Testing}
 if [ ${#@} == 1 ]; then
   TEST=$1
 else
@@ -56,10 +56,12 @@ echo " $TEST "
 echo "======================================"
 echo ""
 xcodebuild | xcpretty || exit 1
+echo "./build/$BUILDCONF/"
 cd ./build/$BUILDCONF/
 mkdir -p built
 execfile=$TEST
 execfile=${execfile/Tests/}
 execfile=${execfile/.swift/}
+echo "./AudioKitTest built/$execfile"
 cp ./AudioKitTest built/$execfile
 ./built/$execfile
