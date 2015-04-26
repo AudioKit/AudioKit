@@ -21,24 +21,50 @@
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
 
     // Here we just instantiate the current sensible default
-    AKTambourine *defaultTambourine = [AKTambourine tambourine];
-    [defaultInstrument setAudioOutput:defaultTambourine];
+    AKTambourine *defaultOperation = [AKTambourine tambourine];
+    [defaultInstrument setAudioOutput:defaultOperation];
 
     // Here we instead create a new instrument based on default but with new parameters
-    AKTambourine *testTambourine = [AKTambourine tambourine];
-    testTambourine.dampingFactor = akp(0.6);
-    [testInstrument setAudioOutput:testTambourine];
+    AKTambourine *testOperation = [AKTambourine tambourine];
+    testOperation.dampingFactor = akp(0.6);
+    [testInstrument setAudioOutput:testOperation];
 
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
-//    AKTambourine *presetTambourine = [AKTambourine presetSomethingTambourine];
-//    [presetInstrument setAudioOutput:presetInstrument];
+    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
+//    AKBambooSticks *presetOperation = [AKBambooSticks presetFewSticks];
+//    AKBambooSticks *presetOperation = [AKBambooSticks presetManySticks];
+//    AKCabasa *presetOperation = [AKCabasa presetDefaultCabasa];
+//    AKCabasa *presetOperation = [AKCabasa presetLooseCabasa];
+//    AKCabasa *presetOperation = [AKCabasa presetMutedCabasa];
+//    AKCrunch *presetOperation = [AKCrunch presetDefaultCrunch];
+//    AKCrunch *presetOperation = [AKCrunch presetThudCrunch];
+//    AKCrunch *presetOperation = [AKCrunch presetDistantCrunch];
+//    AKGuiro *presetOperation = [AKGuiro presetDefaultGuiro];
+//    AKGuiro *presetOperation = [AKGuiro presetSmallGuiro];
+//    AKSandPaper *presetOperation = [AKSandPaper presetDefaultSandPaper];
+//    AKSandPaper *presetOperation = [AKSandPaper presetMuffledSandPaper];
+//    AKSekere *presetOperation = [AKSekere presetDefaultSekere];
+//    AKSekere *presetOperation = [AKSekere presetManyBeadsSekere];
+//    AKSleighbells *presetOperation = [AKSleighbells presetDefaultSleighbells];
+//    AKSleighbells *presetOperation = [AKSleighbells presetOpenBells];
+//    AKSleighbells *presetOperation = [AKSleighbells presetSoftBells];
+//    AKStick *presetOperation = [AKStick presetDefaultStick];
+//    AKStick *presetOperation = [AKStick presetThickStick];
+//    AKStick *presetOperation = [AKStick presetBundleOfSticks];
+//    AKTambourine *presetOperation = [AKTambourine presetDefaultTambourine];
+//    AKTambourine *presetOperation = [AKTambourine presetOpenTambourine];
+//    AKTambourine *presetOperation = [AKTambourine presetClosedTambourine];
+
+    
+//    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
+    [presetInstrument setAudioOutput:presetOperation];
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:presetInstrument];
     [AKOrchestra addInstrument:testInstrument];
 
     AKNote *note = [[AKNote alloc] init];
-    note.duration = akp(2.0);
+    note.duration.value = 2.0;
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
 
