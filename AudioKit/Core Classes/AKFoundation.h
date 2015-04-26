@@ -231,6 +231,9 @@
 #import "Tambourine.h"
 #import "Vibraphone.h"
 
+// Utilities - Instruments - File Players
+#import "AudioFilePlayer.h"
+
 // Utilities - Instruments - Microphone
 #import "Microphone.h"
 

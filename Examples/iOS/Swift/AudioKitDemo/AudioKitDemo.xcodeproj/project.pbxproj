@@ -14,7 +14,6 @@
 		E43516A21AB3ACCF00109B4A /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */; };
 		E43516A41AB3ACD600109B4A /* SynthesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */; };
 		E43516A61AB3ACE000109B4A /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */; };
-		E43516A81AB3ACE600109B4A /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */; };
 		E43516AA1AB3ACEB00109B4A /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */; };
 		E43516AC1AB3ACF400109B4A /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */; };
 		EA8E97601AD5102D0057E979 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA8E975F1AD5102D0057E979 /* AKSoundFiles.bundle */; };
@@ -84,7 +83,6 @@
 		E43516A11AB3ACCF00109B4A /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FMSynthesizer.swift; path = Synthesis/FMSynthesizer.swift; sourceTree = "<group>"; };
 		E43516A31AB3ACD600109B4A /* SynthesisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynthesisViewController.swift; path = Synthesis/SynthesisViewController.swift; sourceTree = "<group>"; };
 		E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = Processing/ConvolutionInstrument.swift; sourceTree = "<group>"; };
-		E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioFilePlayer.swift; path = Processing/AudioFilePlayer.swift; sourceTree = "<group>"; };
 		E43516A91AB3ACEB00109B4A /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProcessingViewController.swift; path = Processing/ProcessingViewController.swift; sourceTree = "<group>"; };
 		E43516AB1AB3ACF400109B4A /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalysisViewController.swift; path = AudioKitDemo/Analysis/AnalysisViewController.swift; sourceTree = "<group>"; };
 		EA8E975F1AD5102D0057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
@@ -175,7 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				E43516A51AB3ACE000109B4A /* ConvolutionInstrument.swift */,
-				E43516A71AB3ACE600109B4A /* AudioFilePlayer.swift */,
 			);
 			name = Instruments;
 			sourceTree = "<group>";
@@ -343,7 +340,6 @@
 				E43516A61AB3ACE000109B4A /* ConvolutionInstrument.swift in Sources */,
 				E43516A41AB3ACD600109B4A /* SynthesisViewController.swift in Sources */,
 				EABF23EB1AD4B7480008F3B7 /* AudioKit.swift in Sources */,
-				E43516A81AB3ACE600109B4A /* AudioFilePlayer.swift in Sources */,
 				E43516A21AB3ACCF00109B4A /* FMSynthesizer.swift in Sources */,
 				E43516AA1AB3ACEB00109B4A /* ProcessingViewController.swift in Sources */,
 				E41A207E1AA36E120044F08B /* AppDelegate.swift in Sources */,

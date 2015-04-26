@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -844,14 +844,14 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5Y-Wz-QXH">
-                                <rect key="frame" x="18" y="320" width="414" height="21"/>
+                                <rect key="frame" x="18" y="321" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="75" tickMarkPosition="above" sliderType="linear" id="vJi-sr-eyI"/>
                                 <connections>
                                     <action selector="speedChanged:" target="XQA-pb-uB0" id="7GN-FD-2Wf"/>
                                 </connections>
                             </slider>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="1HW-WS-aa4">
-                                <rect key="frame" x="169" y="275" width="112" height="18"/>
+                                <rect key="frame" x="169" y="276" width="112" height="18"/>
                                 <buttonCell key="cell" type="check" title="Preserve Pitch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eJb-lM-Ajm">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -861,7 +861,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zMr-pa-02I">
-                                <rect key="frame" x="113" y="235" width="225" height="17"/>
+                                <rect key="frame" x="113" y="236" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="c7t-26-a6x"/>
                                 </constraints>
@@ -872,7 +872,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u2O-rY-0pQ">
-                                <rect key="frame" x="18" y="235" width="77" height="17"/>
+                                <rect key="frame" x="18" y="236" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="yxg-dK-8hZ"/>
                                 </constraints>
@@ -883,7 +883,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZNb-ah-HBD">
-                                <rect key="frame" x="342" y="235" width="90" height="17"/>
+                                <rect key="frame" x="342" y="236" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="pF1-1S-4X3"/>
                                 </constraints>
@@ -894,14 +894,14 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kdD-z3-vlJ">
-                                <rect key="frame" x="18" y="208" width="414" height="21"/>
+                                <rect key="frame" x="18" y="210" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="33" tickMarkPosition="above" sliderType="linear" id="JXO-NN-abt"/>
                                 <connections>
                                     <action selector="pitchChanged:" target="XQA-pb-uB0" id="mCk-46-rmi"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d4U-xg-XDw">
-                                <rect key="frame" x="113" y="158" width="225" height="17"/>
+                                <rect key="frame" x="113" y="159" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="ZOv-xH-DTz"/>
                                 </constraints>
@@ -912,7 +912,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-Vc-Q2K">
-                                <rect key="frame" x="18" y="158" width="77" height="17"/>
+                                <rect key="frame" x="18" y="159" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="gvD-zc-IkY"/>
                                 </constraints>
@@ -923,7 +923,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rEh-uv-8Xv">
-                                <rect key="frame" x="342" y="158" width="90" height="17"/>
+                                <rect key="frame" x="342" y="159" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="dDm-Dg-A73"/>
                                 </constraints>
@@ -934,14 +934,14 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-Kh-JYj">
-                                <rect key="frame" x="18" y="131" width="414" height="21"/>
+                                <rect key="frame" x="18" y="133" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Hq4-Us-yYi"/>
                                 <connections>
                                     <action selector="impulseResponseChanged:" target="XQA-pb-uB0" id="dkL-9R-KZp"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-Qd-uju">
-                                <rect key="frame" x="113" y="81" width="225" height="17"/>
+                                <rect key="frame" x="113" y="82" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="4yD-hF-aZC"/>
                                 </constraints>
@@ -952,7 +952,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1b-Ox-3qt">
-                                <rect key="frame" x="18" y="81" width="77" height="17"/>
+                                <rect key="frame" x="18" y="82" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="6KW-Bt-jv7"/>
                                 </constraints>
@@ -963,7 +963,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB5-PA-9nH">
-                                <rect key="frame" x="342" y="81" width="90" height="17"/>
+                                <rect key="frame" x="342" y="82" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="caF-16-JOe"/>
                                 </constraints>
@@ -974,7 +974,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HhX-bx-q4o">
-                                <rect key="frame" x="18" y="54" width="414" height="21"/>
+                                <rect key="frame" x="18" y="56" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="aeu-7d-Jlu"/>
                                 <connections>
                                     <action selector="wetnessChanged:" target="XQA-pb-uB0" id="baX-Vz-wiU"/>

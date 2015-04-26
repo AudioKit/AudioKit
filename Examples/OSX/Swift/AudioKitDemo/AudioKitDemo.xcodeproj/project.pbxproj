@@ -13,7 +13,6 @@
 		E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42CC0D51AB245DB00689511 /* AppDelegate.swift */; };
 		E42CC0DA1AB245DB00689511 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E42CC0D91AB245DB00689511 /* Images.xcassets */; };
 		E42CC0DD1AB245DB00689511 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42CC0DB1AB245DB00689511 /* Main.storyboard */; };
-		E43516B31AB3ADE100109B4A /* AudioFilePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B11AB3ADE100109B4A /* AudioFilePlayer.swift */; };
 		E43516B41AB3ADE100109B4A /* ConvolutionInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B21AB3ADE100109B4A /* ConvolutionInstrument.swift */; };
 		E43516BA1AB3B0AC00109B4A /* FMSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */; };
 		E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44D25421AB24A7F009AE189 /* AnalysisViewController.swift */; };
@@ -78,7 +77,6 @@
 		E42CC0D51AB245DB00689511 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E42CC0D91AB245DB00689511 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E42CC0DC1AB245DB00689511 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E43516B11AB3ADE100109B4A /* AudioFilePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioFilePlayer.swift; path = ../../../../iOS/Swift/AudioKitDemo/AudioKitDemo/Processing/AudioFilePlayer.swift; sourceTree = "<group>"; };
 		E43516B21AB3ADE100109B4A /* ConvolutionInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvolutionInstrument.swift; path = ../../../../iOS/Swift/AudioKitDemo/AudioKitDemo/Processing/ConvolutionInstrument.swift; sourceTree = "<group>"; };
 		E43516B91AB3B0AC00109B4A /* FMSynthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMSynthesizer.swift; sourceTree = "<group>"; };
 		E43516BD1AB3B1F600109B4A /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 		E4006CD01AB24D4F00375B5B /* Processing */ = {
 			isa = PBXGroup;
 			children = (
-				E43516B11AB3ADE100109B4A /* AudioFilePlayer.swift */,
 				E43516B21AB3ADE100109B4A /* ConvolutionInstrument.swift */,
 				E4006CCB1AB24D1700375B5B /* ProcessingViewController.swift */,
 			);
@@ -320,7 +317,6 @@
 				E4006CCE1AB24D1C00375B5B /* SynthesisViewController.swift in Sources */,
 				E44D25431AB24A7F009AE189 /* AnalysisViewController.swift in Sources */,
 				E42CC0D61AB245DB00689511 /* AppDelegate.swift in Sources */,
-				E43516B31AB3ADE100109B4A /* AudioFilePlayer.swift in Sources */,
 				E4006CCC1AB24D1700375B5B /* ProcessingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
