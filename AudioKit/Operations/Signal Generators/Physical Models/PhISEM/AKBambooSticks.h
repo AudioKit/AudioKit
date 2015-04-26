@@ -45,12 +45,6 @@
 /// Instantiates the bamboo sticks with small number of sticks values
 + (instancetype)presetFewSticks;
 
-/// Instantiates the bamboo sticks with low number of sticks values
-- (instancetype)initWithPresetLowAmountOfSticks;
-
-/// Instantiates the bamboo sticks with large number of sticks values
-+ (instancetype)presetLowAmounOfSticks;
-
 /// The number of bamboo sticks. [Default Value: 2]
 @property (nonatomic) AKConstant *count;
 
