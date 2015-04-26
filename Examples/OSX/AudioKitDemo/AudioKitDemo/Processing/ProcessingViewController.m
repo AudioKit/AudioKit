@@ -10,7 +10,6 @@
 
 #import "AKFoundation.h"
 #import "ConvolutionInstrument.h"
-#import "AudioFilePlayer.h"
 
 @implementation ProcessingViewController
 {

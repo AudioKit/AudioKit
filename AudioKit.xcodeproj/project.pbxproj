@@ -14,6 +14,10 @@
 		C4C8125B1AE5CA03003A8B73 /* Sekere.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C812591AE5CA03003A8B73 /* Sekere.h */; };
 		C4C8125C1AE5CA03003A8B73 /* Sekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8125A1AE5CA03003A8B73 /* Sekere.m */; };
 		C4C8125D1AE5CA03003A8B73 /* Sekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8125A1AE5CA03003A8B73 /* Sekere.m */; };
+		C4FAE5F11AED6B2600FD71E2 /* AudioFilePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C4FAE5EF1AED6B2600FD71E2 /* AudioFilePlayer.h */; };
+		C4FAE5F21AED6B2600FD71E2 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FAE5F01AED6B2600FD71E2 /* AudioFilePlayer.m */; };
+		C4FAE5F31AED6B2600FD71E2 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FAE5F01AED6B2600FD71E2 /* AudioFilePlayer.m */; };
+		C4FAE5F41AED6B2600FD71E2 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FAE5F01AED6B2600FD71E2 /* AudioFilePlayer.m */; };
 		EA08B5701AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA08B5711AD8985F00949FD5 /* CsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08B56E1AD8985F00949FD5 /* CsoundObj.m */; };
 		EA8E95A61AD3C6850057E979 /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E93F51AD3C6840057E979 /* AKManager.m */; };
@@ -558,6 +562,8 @@
 		C45552471ADF152F000C8D42 /* AKRingModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRingModulator.m; sourceTree = "<group>"; };
 		C4C812591AE5CA03003A8B73 /* Sekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sekere.h; sourceTree = "<group>"; };
 		C4C8125A1AE5CA03003A8B73 /* Sekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sekere.m; sourceTree = "<group>"; };
+		C4FAE5EF1AED6B2600FD71E2 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
+		C4FAE5F01AED6B2600FD71E2 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFilePlayer.m; sourceTree = "<group>"; };
 		EA08B56D1AD8985F00949FD5 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		EA08B56E1AD8985F00949FD5 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA15CDF41AE356B500BA279F /* AKCompatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKCompatibility.h; sourceTree = "<group>"; };
@@ -969,6 +975,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4FAE5EE1AED6B2600FD71E2 /* File Players */ = {
+			isa = PBXGroup;
+			children = (
+				C4FAE5EF1AED6B2600FD71E2 /* AudioFilePlayer.h */,
+				C4FAE5F01AED6B2600FD71E2 /* AudioFilePlayer.m */,
+			);
+			path = "File Players";
+			sourceTree = "<group>";
+		};
 		EA08B56C1AD8985F00949FD5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1090,6 +1105,7 @@
 				EA8E94151AD3C6840057E979 /* Amplifiers */,
 				EA8E941A1AD3C6840057E979 /* Analyzers */,
 				EA8E941D1AD3C6840057E979 /* Emulations */,
+				C4FAE5EE1AED6B2600FD71E2 /* File Players */,
 				EA8E94301AD3C6840057E979 /* Microphone */,
 				EA8E94331AD3C6840057E979 /* Processors */,
 				EA8E94361AD3C6840057E979 /* Synthesizers */,
@@ -1814,6 +1830,7 @@
 			files = (
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 				C4C8125B1AE5CA03003A8B73 /* Sekere.h in Headers */,
+				C4FAE5F11AED6B2600FD71E2 /* AudioFilePlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1976,6 +1993,7 @@
 				EA8E963A1AD3C6850057E979 /* AKResonantFilter.m in Sources */,
 				EA8E96301AD3C6850057E979 /* AKCombFilter.m in Sources */,
 				EA8E95ED1AD3C6850057E979 /* AKDifference.m in Sources */,
+				C4FAE5F21AED6B2600FD71E2 /* AudioFilePlayer.m in Sources */,
 				EA8E95C11AD3C6850057E979 /* FMOscillatorInstrument.m in Sources */,
 				EA8E96391AD3C6850057E979 /* AKMoogVCF.m in Sources */,
 				EA8E96071AD3C6850057E979 /* AKMandolin.m in Sources */,
@@ -2155,6 +2173,7 @@
 				EA8E96F91AD3CA4C0057E979 /* AKDeclick.m in Sources */,
 				EA8E96FA1AD3CA4C0057E979 /* AKEqualizerFilter.m in Sources */,
 				EA8E96FB1AD3CA4C0057E979 /* AKHighPassFilter.m in Sources */,
+				C4FAE5F41AED6B2600FD71E2 /* AudioFilePlayer.m in Sources */,
 				EA8E96FC1AD3CA4C0057E979 /* AKHilbertTransformer.m in Sources */,
 				EA8E96FD1AD3CA4C0057E979 /* AKLowPassFilter.m in Sources */,
 				EA8E96FE1AD3CA4C0057E979 /* AKMoogLadder.m in Sources */,
@@ -2334,6 +2353,7 @@
 				EAA0F51C1AE71C8F007CD7C9 /* AKResonantFilter.m in Sources */,
 				EAA0F51D1AE71C8F007CD7C9 /* AKCombFilter.m in Sources */,
 				EAA0F51E1AE71C8F007CD7C9 /* AKDifference.m in Sources */,
+				C4FAE5F31AED6B2600FD71E2 /* AudioFilePlayer.m in Sources */,
 				EAA0F51F1AE71C8F007CD7C9 /* FMOscillatorInstrument.m in Sources */,
 				EAA0F5201AE71C8F007CD7C9 /* AKMoogVCF.m in Sources */,
 				EAA0F5211AE71C8F007CD7C9 /* AKMandolin.m in Sources */,
