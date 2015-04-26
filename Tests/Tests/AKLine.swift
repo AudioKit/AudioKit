@@ -17,7 +17,7 @@ class Instrument : AKInstrument {
 
         let line = AKLine()
         line.secondPoint = 100.ak
-        enableParameterLog("line.floatValue = ", parameter: line, timeInterval:0.5)
+        enableParameterLog("line value = ", parameter: line, timeInterval:0.5)
 
         let oscillator = AKOscillator()
         oscillator.frequency = line
