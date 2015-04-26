@@ -15,6 +15,7 @@
 Artifact-free user-defined trajectories are made possible using an interpolation algorithm based on spectral magnitude interpolation and a derived phase spectrum based on the Woodworth spherical head model. Accuracy is increased for the data set provided by extracting and applying a frequency dependent scaling factor to the phase spectra, leading to a more precise low frequency interaural time difference. Users can control head radius for the phase derivation, allowing a crude level of individualisation. The dynamic source version of the opcode uses a Short Time Fourier Transform algorithm to avoid artefacts caused by derived phase spectra changes.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AK3DBinauralAudio : AKStereoAudio
 /// Instantiates the 3 d binaural audio with all values
 /// @param input  Input/source signal. [Default Value: ]
@@ -49,3 +50,4 @@ Artifact-free user-defined trajectories are made possible using an interpolation
 
 
 @end
+NS_ASSUME_NONNULL_END

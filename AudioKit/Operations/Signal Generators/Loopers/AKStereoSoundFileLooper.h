@@ -15,6 +15,7 @@
  Read sampled sound (stereo) from a table, with optional sustain and release looping, using cubic interpolation.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKStereoSoundFileLooper : AKStereoAudio
 
 // Type Helpers
@@ -70,3 +71,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

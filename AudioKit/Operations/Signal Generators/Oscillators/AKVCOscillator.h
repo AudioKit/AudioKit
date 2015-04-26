@@ -15,6 +15,7 @@
  Different modes require different inputs so this could be a reason to break this up into separate classes, or use more custom initializers.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKVCOscillator : AKAudio
 
 //Type Helpers
@@ -97,3 +98,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

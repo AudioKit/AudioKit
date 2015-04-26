@@ -14,6 +14,7 @@
  This  is a model of beaten plate consisting of two parallel delay-lines and two first-order lowpass filters. The two feedback lines are mixed and sent to the delay again each cycle.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKBeatenPlate : AKAudio
 /// Instantiates the beaten plate with all values
 /// @param input The excitation noise. [Default Value: ]
@@ -84,3 +85,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

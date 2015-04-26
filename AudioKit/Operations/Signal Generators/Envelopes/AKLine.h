@@ -14,6 +14,7 @@
  If this value is used past the duration point, the line continues indefinitely.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLine : AKAudio
 /// Instantiates the line with all values
 /// @param firstPoint Value to start the line from. [Default Value: 0]
@@ -54,3 +55,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

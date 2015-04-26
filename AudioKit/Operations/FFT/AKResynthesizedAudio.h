@@ -13,6 +13,7 @@
 /** Resynthesise phase vocoder data (f-signal) using a FFT overlap-add.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKResynthesizedAudio : AKAudio
 
 /// Create audio from an f-signal
@@ -20,3 +21,4 @@
 - (instancetype)initWithSignal:(AKFSignal *)source;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -47,6 +47,13 @@
 			remoteGlobalIDString = EA8E96581AD3C6FC0057E979;
 			remoteInfo = "AudioKit OS X";
 		};
+		EAA0F5CD1AE845BB007CD7C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA5D42311AD4BEA800BEA03A /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -171,7 +178,8 @@
 		EA5D42321AD4BEA800BEA03A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA5D42371AD4BEA800BEA03A /* libAudioKit iOS.a */,
+				EA5D42371AD4BEA800BEA03A /* libAudioKit iOS Static.a */,
+				EAA0F5CE1AE845BB007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				EA5D42391AD4BEA800BEA03A /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -248,10 +256,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EA5D42371AD4BEA800BEA03A /* libAudioKit iOS.a */ = {
+		EA5D42371AD4BEA800BEA03A /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Static.a";
 			remoteRef = EA5D42361AD4BEA800BEA03A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -260,6 +268,13 @@
 			fileType = archive.ar;
 			path = "libAudioKit OS X.a";
 			remoteRef = EA5D42381AD4BEA800BEA03A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EAA0F5CE1AE845BB007CD7C9 /* libAudioKit iOS Dynamic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = EAA0F5CD1AE845BB007CD7C9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -289,7 +304,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\".app/Contents/Frameworks/CsoundLib.framework/Versions/6.0\"\nNEWLIBPATH=\"@loader_path/../Frameworks/CsoundLib.framework/Versions/6.0\"\n\n# space separated list of libraries\nTARGETS=\"CsoundLib\"\nfor TARGET in ${TARGETS} ; do\n    LIBFILE=${LIBPATH}/${TARGET}\n    TARGETID=`otool -DX \"${LIBPATH}/$TARGET\"`\n    NEWTARGETID=${NEWLIBPATH}/${TARGET}\n    install_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\n    install_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\ndone";
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -424,7 +439,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../../AudioKit/Platforms/OSX",
-					/Users/megastep/src/AudioKit/AudioKit/Platforms/OSX,
 				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -442,7 +456,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../../AudioKit/Platforms/OSX",
-					/Users/megastep/src/AudioKit/AudioKit/Platforms/OSX,
 				);
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

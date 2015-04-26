@@ -11,6 +11,7 @@
 /** Simply a wrapper for the equal sign
 */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKAssignment : AKParameter
 
 /// Initialization Statement with both sides
@@ -25,4 +26,5 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
 

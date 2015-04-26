@@ -24,10 +24,10 @@
         
         // Instrument Definition
         AKMarimba *marimba = [AKMarimba marimba];
-        marimba.frequency = note.frequency;
-        marimba.amplitude = note.amplitude;
-        marimba.stickHardness = note.stickHardness;
-        marimba.strikePosition = note.strikePosition;
+        marimba.frequency        = note.frequency;
+        marimba.amplitude        = note.amplitude;
+        marimba.stickHardness    = note.stickHardness;
+        marimba.strikePosition   = note.strikePosition;
         marimba.vibratoFrequency = _vibratoFrequency;
         marimba.vibratoAmplitude = _vibratoAmplitude;
     

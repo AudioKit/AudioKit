@@ -10,11 +10,12 @@
 #import "AKParameter+Operation.h"
 
 /** Phase vocoder analysis processing with onset detection/processing.
- 
+
  This operation allows for time and frequency-independent scaling. Time is advanced internally, but controlled by a tempo scaling parameter; when an onset is detected, timescaling is momentarily stopped to avoid smearing of attacks. The quality of the effect is generally improved with phase locking switched on.
  This operation will also scale pitch, independently of frequency, using a transposition factor.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFFTProcessor : AKFSignal
 /// Instantiates the fft processor with all values
 /// @param table Primary input is a table, usually a mono sound file. Updated at Control-rate. [Default Value: ]
@@ -94,3 +95,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

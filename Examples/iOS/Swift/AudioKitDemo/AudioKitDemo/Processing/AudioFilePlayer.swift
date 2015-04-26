@@ -28,11 +28,11 @@ class AudioFilePlayer: AKInstrument {
         let file1 = AKManager.pathToSoundFile("PianoBassDrumLoop", ofType: "wav")
         let file2 = AKManager.pathToSoundFile("808loop",           ofType: "wav")
         
-        let fileIn1 = AKFileInput(filename: file1)
+        let fileIn1 = AKFileInput(filename: file1!)
         fileIn1.speed = speed
         fileIn1.loop = true
         
-        let fileIn2 = AKFileInput(filename: file2)
+        let fileIn2 = AKFileInput(filename: file2!)
         fileIn2.speed = speed
         fileIn2.loop = true
 

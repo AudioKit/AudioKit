@@ -37,7 +37,7 @@
                                                input2:balance
                                               balance:_dryWetBalance];
         
-        [self setAudioOutput:dryWet];
+        [self setAudioOutput:[dryWet scaledBy:akp(3.0)]];
 
         [self resetParameter:input];
         

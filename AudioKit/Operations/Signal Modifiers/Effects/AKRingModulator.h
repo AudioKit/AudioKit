@@ -14,6 +14,7 @@
  {"This is the Julian Parker Ring Modulator digital model described here"=>"http://kunstmusik.com/2013/09/07/julian-parker-ring-modulator/"}
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKRingModulator : AKAudio
 /// Instantiates the ring modulator with all values
 /// @param input Input audio signal [Default Value: ]
@@ -30,3 +31,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -35,7 +35,7 @@
 - (void)appendValue:(float)value afterNumberOfElements:(int)numberOfElements
 {
     NSArray *lastPoint = [points lastObject];
-    int lastIndex = [[lastPoint objectAtIndex:0] intValue];
+    int lastIndex = [lastPoint[0] intValue];
     int index = lastIndex + numberOfElements;
     [self addValue:value atIndex:index];
 }
@@ -46,15 +46,14 @@
         return [obj1[0] compare: obj2[0]];
     }];
     
-    int maximumIndex = (int)[[points lastObject] objectAtIndex:0];
+    NSInteger maximumIndex = [[points lastObject][0] integerValue];
     float scalingFactor = (float)size/(float)maximumIndex;
     
     NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
     for (NSArray *point in points) {
-        int index = (int)[point objectAtIndex:0];
+        NSInteger index = [point[0] integerValue];
         int newIndex = (int) ((float)index * scalingFactor);
-        [scaledPoints addObject:@[[NSNumber numberWithInt:newIndex],
-                                  [point objectAtIndex:1]]];
+        [scaledPoints addObject:@[@(newIndex), point[1]]];
     }
     
     NSMutableArray *flattenedPoints = [[NSMutableArray alloc] init];
