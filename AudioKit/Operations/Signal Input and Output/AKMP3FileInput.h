@@ -12,6 +12,7 @@
 /** Reads stereo audio data from an external MP3 file.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMP3FileInput : AKStereoAudio
 /// Instantiates the mp3 file input with all values
 /// @param filename Input MP3 Filename. [Default Value: ]
@@ -35,3 +36,4 @@
 - (void)setOptionalStartTime:(AKConstant *)startTime;
 
 @end
+NS_ASSUME_NONNULL_END

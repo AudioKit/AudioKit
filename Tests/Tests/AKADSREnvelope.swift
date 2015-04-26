@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
         super.init()
 
         let adsr = AKADSREnvelope()
-        enableParameterLog("ADSR.floatValue = ", parameter: adsr, timeInterval:0.1)
+        enableParameterLog("ADSR value = ", parameter: adsr, timeInterval:0.1)
 
         let oscillator = AKOscillator()
         oscillator.amplitude = adsr

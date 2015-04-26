@@ -69,7 +69,7 @@ OSStatus  Csound_Render(void *inRefCon,
     self = [super init];
     if (self) {
         _shouldMute = NO;
-        _bindings = [[NSMutableArray alloc] init];
+        _bindings  = [[NSMutableArray alloc] init];
         _listeners = [[NSMutableArray alloc] init];
         _midiInEnabled = NO;
         _useAudioInput = YES;
@@ -92,7 +92,9 @@ OSStatus  Csound_Render(void *inRefCon,
 - (void)play:(NSString *)csdFilePath
 {
     self.shouldRecord = NO;
-    self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runCsound:) object:csdFilePath];
+    self.thread = [[NSThread alloc] initWithTarget:self
+                                          selector:@selector(runCsound:)
+                                            object:csdFilePath];
     [self.thread start];
 }
 
@@ -127,14 +129,17 @@ OSStatus  Csound_Render(void *inRefCon,
 {
     self.shouldRecord = YES;
     self.outputURL = outputURL;
-    self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runCsound:) object:csdFilePath];
+    self.thread = [[NSThread alloc] initWithTarget:self
+                                          selector:@selector(runCsound:)
+                                            object:csdFilePath];
     [self.thread start];
 }
 
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
     self.shouldRecord = NO;
-    self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(runCsoundToDisk:)
+    self.thread = [[NSThread alloc] initWithTarget:self
+                                          selector:@selector(runCsoundToDisk:)
                                             object:@[csdFilePath, outputFile]];
     [self.thread start];
 }
@@ -143,35 +148,48 @@ OSStatus  Csound_Render(void *inRefCon,
 {
     // Define format for the audio file.
     AudioStreamBasicDescription destFormat, clientFormat;
-    memset(&destFormat, 0, sizeof(AudioStreamBasicDescription));
+    memset(&destFormat,   0, sizeof(AudioStreamBasicDescription));
     memset(&clientFormat, 0, sizeof(AudioStreamBasicDescription));
-    destFormat.mFormatID = kAudioFormatLinearPCM;
-    destFormat.mFormatFlags = kLinearPCMFormatFlagIsPacked | kLinearPCMFormatFlagIsSignedInteger;
-    destFormat.mSampleRate = csoundGetSr(_cs);
+    destFormat.mFormatID         = kAudioFormatLinearPCM;
+    destFormat.mFormatFlags      = kLinearPCMFormatFlagIsPacked |
+                                   kLinearPCMFormatFlagIsSignedInteger;
+    destFormat.mSampleRate       = csoundGetSr(_cs);
     destFormat.mChannelsPerFrame = _nchnls;
-    destFormat.mBytesPerPacket = _nchnls * 2;
-    destFormat.mBytesPerFrame = _nchnls * 2;
-    destFormat.mBitsPerChannel = 16;
-    destFormat.mFramesPerPacket = 1;
-    
+    destFormat.mBytesPerPacket   = _nchnls * 2;
+    destFormat.mBytesPerFrame    = _nchnls * 2;
+    destFormat.mBitsPerChannel   = 16;
+    destFormat.mFramesPerPacket  = 1;
+
     // Create the audio file.
     OSStatus err = noErr;
     CFURLRef fileURL = (__bridge CFURLRef)outputURL_;
-    err = ExtAudioFileCreateWithURL(fileURL, kAudioFileWAVEType, &destFormat, NULL, kAudioFileFlags_EraseFile, &_file);
+    err = ExtAudioFileCreateWithURL(fileURL,
+                                    kAudioFileWAVEType,
+                                    &destFormat,
+                                    NULL,
+                                    kAudioFileFlags_EraseFile,
+                                    &_file);
     if (err == noErr) {
 #if TARGET_OS_IPHONE // Not on Mac?
         // Get the stream format from the AU...
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
-        AudioUnitGetProperty(*_aunit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &clientFormat, &propSize);
+        AudioUnitGetProperty(*_aunit,
+                             kAudioUnitProperty_StreamFormat,
+                             kAudioUnitScope_Input,
+                             0,
+                             &clientFormat,
+                             &propSize);
         // ...and set it as the client format for the audio file. The file will use this
         // format to perform any necessary conversions when asked to read or write.
-        ExtAudioFileSetProperty(_file, kExtAudioFileProperty_ClientDataFormat, sizeof(clientFormat), &clientFormat);
-        // Warm the file up.
+        ExtAudioFileSetProperty(_file,
+                                kExtAudioFileProperty_ClientDataFormat,
+                                sizeof(clientFormat),
+                                &clientFormat);
 #endif
+        // Warm the file up.
         ExtAudioFileWriteAsync(_file, 0, NULL);
     } else {
         NSLog(@"***Not recording. Error: %@", @(err));
-        err = noErr;
     }
     
     self.shouldRecord = YES;
@@ -288,7 +306,9 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
             char message[1024];
             vsnprintf(message, 1024, format, valist);
             
-            [obj.messageDelegate messageReceivedFrom:obj attr:attr message:[NSString stringWithUTF8String:message]];
+            [obj.messageDelegate messageReceivedFrom:obj
+                                                attr:attr
+                                             message:[NSString stringWithUTF8String:message]];
         }
     }
 }
@@ -313,18 +333,22 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     return nil;
 }
 
-- (MYFLT *)getInputChannelPtr:(NSString *)channelName channelType:(controlChannelType)channelType
+- (MYFLT *)getInputChannelPtr:(NSString *)channelName
+                  channelType:(controlChannelType)channelType
 {
     MYFLT *value;
-    csoundGetChannelPtr(_cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding],
+    csoundGetChannelPtr(_cs, &value,
+                        [channelName cStringUsingEncoding:NSASCIIStringEncoding],
                         channelType | CSOUND_INPUT_CHANNEL);
     return value;
 }
 
-- (MYFLT *)getOutputChannelPtr:(NSString *)channelName channelType:(controlChannelType)channelType
+- (MYFLT *)getOutputChannelPtr:(NSString *)channelName
+                   channelType:(controlChannelType)channelType
 {
     MYFLT *value;
-    csoundGetChannelPtr(_cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding],
+    csoundGetChannelPtr(_cs, &value,
+                        [channelName cStringUsingEncoding:NSASCIIStringEncoding],
                         channelType | CSOUND_OUTPUT_CHANNEL);
     return value;
 }
@@ -336,8 +360,8 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     }
     CSOUND *csound = self.csound;
     MYFLT *spout = csoundGetSpout(csound);
-    int nchnls = csoundGetNchnls(csound);
-    int ksmps = csoundGetKsmps(csound);
+    int nchnls   = csoundGetNchnls(csound);
+    int ksmps    = csoundGetKsmps(csound);
     return [NSData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
 }
 
@@ -348,8 +372,8 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     }
     CSOUND *csound = self.csound;
     MYFLT *spout = csoundGetSpout(csound);
-    int nchnls = csoundGetNchnls(csound);
-    int ksmps = csoundGetKsmps(csound);
+    int nchnls   = csoundGetNchnls(csound);
+    int ksmps    = csoundGetKsmps(csound);
     return [NSMutableData dataWithBytes:spout length:(nchnls * ksmps * sizeof(MYFLT))];
 }
 
@@ -360,8 +384,8 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     }
     CSOUND *csound = self.csound;
     MYFLT *spin = csoundGetSpin(csound);
-    int nchnls = csoundGetNchnls(csound);
-    int ksmps = csoundGetKsmps(csound);
+    int nchnls  = csoundGetNchnls(csound);
+    int ksmps   = csoundGetKsmps(csound);
     return [NSData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
 }
 
@@ -372,8 +396,8 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     }
     CSOUND *csound = self.csound;
     MYFLT *spin = csoundGetSpin(csound);
-    int nchnls = csoundGetNchnls(csound);
-    int ksmps = csoundGetKsmps(csound);
+    int nchnls  = csoundGetNchnls(csound);
+    int ksmps   = csoundGetKsmps(csound);
     return [NSMutableData dataWithBytes:spin length:(nchnls * ksmps * sizeof(MYFLT))];
 }
 
@@ -407,8 +431,8 @@ OSStatus  Csound_Render(void *inRefCon,
 
     int ret = obj->_ret, nchnls = obj->_nchnls;
     
-    int ksmps = csoundGetKsmps(cs);
-    MYFLT *spin = csoundGetSpin(cs);
+    int ksmps    = csoundGetKsmps(cs);
+    MYFLT *spin  = csoundGetSpin(cs);
     MYFLT *spout = csoundGetSpout(cs);
 #if TARGET_OS_IPHONE
     int k;
@@ -532,7 +556,7 @@ OSStatus  Csound_Render(void *inRefCon,
         cs = csoundCreate(NULL);
         
         char *argv[] = { "csound", (char*)[paths[0] cStringUsingEncoding:NSASCIIStringEncoding],
-                         "-o", (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
+                         "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 4, argv);
         
         [self setupBindings];
@@ -615,7 +639,8 @@ OSStatus  Csound_Render(void *inRefCon,
                                          error:&error];
             } else {
                 success = [session setCategory:AVAudioSessionCategoryPlayback
-                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker)
+                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
+                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
                                          error:&error];
             }
             
@@ -635,7 +660,13 @@ OSStatus  Csound_Render(void *inRefCon,
                                                          name:AVAudioSessionInterruptionNotification
                                                        object:session];
             
-            AudioComponentDescription cd = {kAudioUnitType_Output, kAudioUnitSubType_RemoteIO, kAudioUnitManufacturer_Apple, 0, 0};
+            AudioComponentDescription cd = {
+                kAudioUnitType_Output,
+                kAudioUnitSubType_RemoteIO,
+                kAudioUnitManufacturer_Apple,
+                0,
+                0
+            };
             AudioComponent HALOutput = AudioComponentFindNext(NULL, &cd);
             
             AudioUnit csAUHAL;
@@ -645,9 +676,19 @@ OSStatus  Csound_Render(void *inRefCon,
                 
                 _aunit = &csAUHAL;
                 UInt32 enableIO = 1;
-                AudioUnitSetProperty(csAUHAL, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Output, 0, &enableIO, sizeof(enableIO));
+                AudioUnitSetProperty(csAUHAL,
+                                     kAudioOutputUnitProperty_EnableIO,
+                                     kAudioUnitScope_Output,
+                                     0,
+                                     &enableIO,
+                                     sizeof(enableIO));
                 if (self.useAudioInput) {
-                    AudioUnitSetProperty(csAUHAL, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Input, 1, &enableIO, sizeof(enableIO));
+                    AudioUnitSetProperty(csAUHAL,
+                                         kAudioOutputUnitProperty_EnableIO,
+                                         kAudioUnitScope_Input,
+                                         1,
+                                         &enableIO,
+                                         sizeof(enableIO));
                 }
                 
                 if (enableIO) {
@@ -656,46 +697,83 @@ OSStatus  Csound_Render(void *inRefCon,
                     int elem;
                     for(elem = self.useAudioInput ? 1 : 0; elem >= 0; elem--){
                         outsize = sizeof(maxFPS);
-                        AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, elem, &maxFPS, &outsize);
-                        AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, elem, (UInt32*)&_bufframes, sizeof(UInt32));
+                        AudioUnitGetProperty(csAUHAL,
+                                             kAudioUnitProperty_MaximumFramesPerSlice,
+                                             kAudioUnitScope_Global,
+                                             elem,
+                                             &maxFPS,
+                                             &outsize);
+                        AudioUnitSetProperty(csAUHAL,
+                                             kAudioUnitProperty_MaximumFramesPerSlice,
+                                             kAudioUnitScope_Global,
+                                             elem,
+                                             (UInt32*)&_bufframes,
+                                             sizeof(UInt32));
                         outsize = sizeof(AudioStreamBasicDescription);
-                        AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, &outsize);
-                        format.mSampleRate	= csoundGetSr(cs);
-                        format.mFormatID = kAudioFormatLinearPCM;
-                        format.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked | kLinearPCMFormatFlagIsNonInterleaved;
-                        format.mBytesPerPacket = sizeof(SInt32);
-                        format.mFramesPerPacket = 1;
-                        format.mBytesPerFrame = sizeof(SInt32);
+                        AudioUnitGetProperty(csAUHAL,
+                                             kAudioUnitProperty_StreamFormat,
+                                             (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input),
+                                             elem,
+                                             &format,
+                                             &outsize);
+                        format.mSampleRate       = csoundGetSr(cs);
+                        format.mFormatID         = kAudioFormatLinearPCM;
+                        format.mFormatFlags      = kAudioFormatFlagIsSignedInteger |
+                                                   kAudioFormatFlagsNativeEndian |
+                                                   kAudioFormatFlagIsPacked |
+                                                   kLinearPCMFormatFlagIsNonInterleaved;
+                        format.mBytesPerPacket   = sizeof(SInt32);
+                        format.mFramesPerPacket  = 1;
+                        format.mBytesPerFrame    = sizeof(SInt32);
                         format.mChannelsPerFrame = _nchnls;
-                        format.mBitsPerChannel = sizeof(SInt32)*8;
-                        err = AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input), elem, &format, sizeof(AudioStreamBasicDescription));
+                        format.mBitsPerChannel   = sizeof(SInt32)*8;
+                        err = AudioUnitSetProperty(csAUHAL,
+                                                   kAudioUnitProperty_StreamFormat,
+                                                   (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input),
+                                                   elem,
+                                                   &format,
+                                                   sizeof(AudioStreamBasicDescription));
                     }
                     
                     if (self.shouldRecord) {
                         
                         // Define format for the audio file.
                         AudioStreamBasicDescription destFormat, clientFormat;
-                        memset(&destFormat, 0, sizeof(AudioStreamBasicDescription));
+                        memset(&destFormat,   0, sizeof(AudioStreamBasicDescription));
                         memset(&clientFormat, 0, sizeof(AudioStreamBasicDescription));
-                        destFormat.mFormatID = kAudioFormatLinearPCM;
-                        destFormat.mFormatFlags = kLinearPCMFormatFlagIsPacked | kLinearPCMFormatFlagIsSignedInteger;
-                        destFormat.mSampleRate = csoundGetSr(cs);
+                        destFormat.mFormatID         = kAudioFormatLinearPCM;
+                        destFormat.mFormatFlags      = kLinearPCMFormatFlagIsPacked |
+                                                       kLinearPCMFormatFlagIsSignedInteger;
+                        destFormat.mSampleRate       = csoundGetSr(cs);
                         destFormat.mChannelsPerFrame = _nchnls;
-                        destFormat.mBytesPerPacket = _nchnls * 2;
-                        destFormat.mBytesPerFrame = _nchnls * 2;
-                        destFormat.mBitsPerChannel = 16;
-                        destFormat.mFramesPerPacket = 1;
-                        
+                        destFormat.mBytesPerPacket   = _nchnls * 2;
+                        destFormat.mBytesPerFrame    = _nchnls * 2;
+                        destFormat.mBitsPerChannel   = 16;
+                        destFormat.mFramesPerPacket  = 1;
+
                         // Create the audio file.
                         CFURLRef fileURL = (__bridge CFURLRef)self.outputURL;
-                        err = ExtAudioFileCreateWithURL(fileURL, kAudioFileWAVEType, &destFormat, NULL, kAudioFileFlags_EraseFile, &_file);
+                        err = ExtAudioFileCreateWithURL(fileURL,
+                                                        kAudioFileWAVEType,
+                                                        &destFormat,
+                                                        NULL,
+                                                        kAudioFileFlags_EraseFile,
+                                                        &_file);
                         if (err == noErr) {
                             // Get the stream format from the AU...
                             UInt32 propSize = sizeof(AudioStreamBasicDescription);
-                            AudioUnitGetProperty(csAUHAL, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &clientFormat, &propSize);
+                            AudioUnitGetProperty(csAUHAL,
+                                                 kAudioUnitProperty_StreamFormat,
+                                                 kAudioUnitScope_Input,
+                                                 0,
+                                                 &clientFormat,
+                                                 &propSize);
                             // ...and set it as the client format for the audio file. The file will use this
                             // format to perform any necessary conversions when asked to read or write.
-                            ExtAudioFileSetProperty(_file, kExtAudioFileProperty_ClientDataFormat, sizeof(clientFormat), &clientFormat);
+                            ExtAudioFileSetProperty(_file,
+                                                    kExtAudioFileProperty_ClientDataFormat,
+                                                    sizeof(clientFormat),
+                                                    &clientFormat);
                             // Warm the file up.
                             ExtAudioFileWriteAsync(_file, 0, NULL);
                         } else {
@@ -708,7 +786,12 @@ OSStatus  Csound_Render(void *inRefCon,
                         AURenderCallbackStruct output;
                         output.inputProc = Csound_Render;
                         output.inputProcRefCon = (__bridge void *)self;
-                        AudioUnitSetProperty(csAUHAL, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &output, sizeof(output));
+                        AudioUnitSetProperty(csAUHAL,
+                                             kAudioUnitProperty_SetRenderCallback,
+                                             kAudioUnitScope_Input,
+                                             0,
+                                             &output,
+                                             sizeof(output));
                         AudioUnitInitialize(csAUHAL);
                         
                         err = AudioOutputUnitStart(csAUHAL);
@@ -744,8 +827,8 @@ OSStatus  Csound_Render(void *inRefCon,
         if (self.shouldRecord) {
             [self recordToURL:self.outputURL];
             bufferList.mBuffers[0].mNumberChannels = _nchnls;
-            bufferList.mBuffers[0].mDataByteSize = _nchnls * csoundGetKsmps(cs) * 2; // 16-bit PCM output
-            bufferList.mBuffers[0].mData = malloc(sizeof(short) * _nchnls * csoundGetKsmps(cs));
+            bufferList.mBuffers[0].mDataByteSize   = _nchnls * csoundGetKsmps(cs) * 2;// 16-bit PCM output
+            bufferList.mBuffers[0].mData           = malloc(sizeof(short) * _nchnls * csoundGetKsmps(cs));
         }
         
         while (!_ret && self.running) {
@@ -767,10 +850,11 @@ OSStatus  Csound_Render(void *inRefCon,
             }
             [self updateAllValuesFromCsound];
         }
-    }
-    
-    if (self.shouldRecord) {
-        ExtAudioFileDispose(_file);
+        
+        if (self.shouldRecord) {
+            free(bufferList.mBuffers[0].mData);
+            ExtAudioFileDispose(_file);
+        }
     }
     
     csoundDestroy(cs);
@@ -786,17 +870,16 @@ OSStatus  Csound_Render(void *inRefCon,
 #if TARGET_OS_IPHONE
 - (void)handleInterruption:(NSNotification *)notification
 {
-    NSDictionary *interuptionDict = notification.userInfo;
-    NSUInteger interuptionType = (NSUInteger)[interuptionDict
-                                              valueForKey:AVAudioSessionInterruptionTypeKey];
+    NSDictionary *interruptionDict = notification.userInfo;
+    NSUInteger interruptionType = [interruptionDict[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
     
     NSError *error;
     BOOL success;
     
     if (self.running) {
-        if (interuptionType == AVAudioSessionInterruptionTypeBegan) {
+        if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
             AudioOutputUnitStop(*_aunit);
-        } else if (interuptionType == kAudioSessionEndInterruption) {
+        } else if (interruptionType == kAudioSessionEndInterruption) {
             // make sure we are again the active session
             success = [[AVAudioSession sharedInstance] setActive:YES error:&error];
             if(success) {

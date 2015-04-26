@@ -10,19 +10,19 @@
 #import <XCTest/XCTest.h>
 #import "ViewController.h"
 
+static CGFloat const AK_ACCURACY = 0.000001f;
+
 @interface MathTests : XCTestCase
 
 @end
 
 @implementation MathTests {
     ViewController *vc;
-    float AK_ACCURACY;
 }
 
 - (void)setUp {
     [super setUp];
     vc = (ViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    AK_ACCURACY = 0.000001;
 }
 
 - (void)testSum {

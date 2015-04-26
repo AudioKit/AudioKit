@@ -72,7 +72,6 @@ static int currentID = 2000;
         if (table) {
             for (int i = 0; i < _size; i++) {
                 MYFLT value = (MYFLT)[array[i] floatValue];
-                NSLog(@"%@ %f %f", array[i], [array[i] floatValue], value);
                 table[i] = value;
             }
         }
@@ -110,7 +109,6 @@ static int currentID = 2000;
     NSString *orchString = [NSString stringWithFormat:
                             @"giTable%d ftgen %d, 0, %@, %d, %@",
                             _number, _number, @(_size), [tableGenerator generationRoutineNumber], parameters];
-    NSLog(@"%@",orchString);
     [_csoundObj updateOrchestra:orchString];
 }
 
@@ -176,9 +174,7 @@ static int currentID = 2000;
 + (instancetype)standardSineWave
 {
     AKTable *standarSineWave = [[AKTable alloc] init];
-    [standarSineWave populateTableWithFractionalWidthFunction:^(float x) {
-        return sinf(M_PI*2*x);
-    }];
+    [standarSineWave populateTableWithGenerator:[[AKFourierSeriesTableGenerator alloc] init]];
     return standarSineWave;
 }
 

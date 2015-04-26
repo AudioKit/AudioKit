@@ -22,9 +22,9 @@
 
         // Instrument Definition
         AKStick *stick = [AKStick stick];
-        stick.intensity = note.intensity;
+        stick.intensity     = note.intensity;
         stick.dampingFactor = note.dampingFactor;
-        stick.amplitude = note.amplitude;
+        stick.amplitude     = note.amplitude;
 
         [self setAudioOutput:[stick scaledBy:_amplitude]];
 

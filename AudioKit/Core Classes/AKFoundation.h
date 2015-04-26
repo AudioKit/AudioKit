@@ -207,6 +207,53 @@
 #import "AKPanner.h"
 
 // Utilities
+#import "AKSampler.h"
+#import "AKTools.h"
+
+// Utilities - Instruments
+
+// Utilities - Instruments - Amplifiers
+#import "Amplifier.h"
+#import "StereoAmplifier.h"
+
+// Utilities - Instruments - Analyzers
+#import "AKAudioAnalyzer.h"
+
+// Utilities - Instruments - Emulations
+#import "BambooSticks.h"
+#import "Mandolin.h"
+#import "Marimba.h"
+#import "PluckedString.h"
+#import "Sekere.h"
+#import "Sleighbells.h"
+#import "Stick.h"
+#import "StruckMetalBar.h"
+#import "Tambourine.h"
+#import "Vibraphone.h"
+
+// Utilities - Instruments - Microphone
+#import "Microphone.h"
+
+// Utilities - Instruments - Processors
+#import "ReverbProcessor.h"
+
+// Utilities - Instruments - Synthesizers
+#import "FMOscillatorInstrument.h"
+#import "VCOscillatorInstrument.h"
+
+// Utilities - Plots
+#import "AKAudioInputFFTPlot.h"
+#import "AKAudioInputPlot.h"
+#import "AKAudioOutputFFTPlot.h"
+#import "AKAudioOutputPlot.h"
+#import "AKFloatPlot.h"
+#import "AKInstrumentPropertyPlot.h"
+#import "AKPlotView.h"
+#import "AKStereoOutputPlot.h"
+#import "AKTablePlot.h"
+
+// Utilities - User Interface Elements
+#import "AKLevelMeter.h"
 #import "AKPropertyLabel.h"
 #import "AKPropertySlider.h"
 

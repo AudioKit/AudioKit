@@ -14,6 +14,7 @@
  Audio output is a tone similar to a flute, using a physical model developed from Perry Cook
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFlute : AKAudio
 /// Instantiates the flute with all values
 /// @param frequency Frequency of the note. Updated at Control-rate. [Default Value: 440]
@@ -126,3 +127,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

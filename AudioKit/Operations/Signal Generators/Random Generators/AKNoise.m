@@ -131,7 +131,8 @@ return inputsString;
     "aOut init 0\n"
     "aAmplitude, kBeta, aPink xin\n"
     "aWhiteNoise noise aAmplitude, kBeta\n"
-    "aOut = (1-aPink) * aWhiteNoise + aPink*pinkish(aWhiteNoise,1)\n"
+    "aPinkish pinkish aWhiteNoise, 1\n"
+    "aOut = (1-aPink) * aWhiteNoise + aPink*aPinkish\n"
     "xout aOut\n"
     "endop\n";
 }

@@ -27,7 +27,7 @@ class Instrument : AKInstrument {
         segments.addValue(220.ak, afterDuration: 6.ak, concavity:(-5).ak)
         segments.addValue(220.ak, afterDuration: 1.ak, concavity:0.ak)
 
-        enableParameterLog("segment.floatValue = ", parameter: segments, timeInterval: 0.1)
+        enableParameterLog("segment value = ", parameter: segments, timeInterval: 0.1)
 
         let oscillator = AKOscillator()
         oscillator.frequency = segments
