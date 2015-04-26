@@ -15,6 +15,7 @@
  Panning methods include equal power, square root, simple linear, and an alternative equal power method based on the MIDI Association Recommend Practice for GM2 RP036 (Default Pan Curve).
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKPanner : AKStereoAudio
 
 // Type Helpers
@@ -64,3 +65,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

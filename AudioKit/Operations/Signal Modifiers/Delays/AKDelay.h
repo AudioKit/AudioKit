@@ -14,6 +14,7 @@
  Delays an input signal by some time interval.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKDelay : AKAudio
 /// Instantiates the delay with all values
 /// @param input Input signal, usually audio.
@@ -45,3 +46,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

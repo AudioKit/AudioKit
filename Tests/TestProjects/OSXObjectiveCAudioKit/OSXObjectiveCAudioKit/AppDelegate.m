@@ -16,13 +16,9 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
     _mathTestInstrument = [[MathTestInstrument alloc] init];
     [AKOrchestra addInstrument:_mathTestInstrument];
     [_mathTestInstrument start];
-    
-    _tableTestInstrument= [[TableTestInstrument alloc] init];
-    [AKOrchestra addInstrument:_tableTestInstrument];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

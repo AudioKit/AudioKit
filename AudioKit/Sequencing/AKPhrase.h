@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AKCompatibility.h"
 
 @class AKNote;
 @class AKInstrument;
@@ -14,13 +15,14 @@
 
 /** A collection of notes and start times that can be played by an instrument.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKPhrase : NSObject
 
 /// Number of notes in the phrase
-@property (readonly) int count;
+@property (nonatomic, readonly) NSUInteger count;
 
 /// Length of the phrase in seconds
-@property (readonly) float duration;
+@property (nonatomic, readonly) float duration;
 
 /// Class-level initializer for empty phrase
 + (AKPhrase *)phrase;
@@ -61,3 +63,4 @@
 - (void)playUsingInstrument:(AKInstrument *)instrument;
 
 @end
+NS_ASSUME_NONNULL_END

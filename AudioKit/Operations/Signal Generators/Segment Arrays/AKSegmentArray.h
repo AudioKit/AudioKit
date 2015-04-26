@@ -10,6 +10,7 @@
 
 /** Trace a series of linear or exponential segments between specified points.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSegmentArray : AKParameter
 
 /// Creates the exponential segment array and populates it with the minimum information.
@@ -59,4 +60,5 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
 

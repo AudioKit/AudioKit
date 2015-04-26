@@ -14,6 +14,7 @@
  AKVibrato outputs a natural-sounding user-controllable vibrato. The concept is to randomly vary both frequency and amplitude of the oscillator generating the vibrato, in order to simulate the irregularities of a real vibrato. In order to have a total control of these random variations, several input arguments are present. Random variations are obtained by two separated segmented lines, the first controlling frequency deviations, the second the amplitude deviations. Average duration of each segment of each line can be shortened or enlarged by the minimum and maximum randomness arguments, and the deviation from the average amplitude and frequency values can be independently adjusted by means of randomness arguments.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKVibrato : AKControl
 /// Instantiates the vibrato with all values
 /// @param shape Vibrato shape table. It normally contains a sine or a triangle wave. [Default Value: sine]
@@ -117,3 +118,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

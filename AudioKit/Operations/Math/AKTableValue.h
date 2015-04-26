@@ -13,6 +13,7 @@
 /** Accesses table values by direct indexing with cubic interpolation.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKTableValue : AKAudio
 /// Looks up the table value at a specific index with all options.
 /// @param table Table to be inspected.
@@ -71,3 +72,4 @@
 @property BOOL useWrappingIndex;
 
 @end
+NS_ASSUME_NONNULL_END

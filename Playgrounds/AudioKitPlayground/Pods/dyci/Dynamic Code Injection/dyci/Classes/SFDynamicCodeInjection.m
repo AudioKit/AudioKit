@@ -218,8 +218,8 @@
  This one was found by searching on Github private headers
  */
 - (void)flushUIImageCache {
-#warning Fix this
-   [NSClassFromString(@"UIImage") performSelector:@selector(_flushSharedImageCache)];
+//#warning Fix this
+//   [NSClassFromString(@"UIImage") performSelector:@selector(_flushSharedImageCache)];
 
 }
 

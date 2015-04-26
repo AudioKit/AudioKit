@@ -14,6 +14,7 @@
  New random numbers are generated at a given frequency between zero and a maximum upper bound.  In between random numbers, the value of this operation is linearly interpolated between the two numbers in time.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKInterpolatedRandomNumberPulse : AKAudio
 /// Instantiates the interpolated random number pulse with all values
 /// @param upperBound Maximum maximum range limit.  Sampled values will be between 0 and this maximum [Default Value: 1]
@@ -45,3 +46,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

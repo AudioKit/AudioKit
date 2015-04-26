@@ -14,6 +14,7 @@
  The envelope generated is the range 0 to 1 and may need to be scaled further, depending on the amplitude required. The length of the sustain is calculated from the length of the note. This means this operation is not suitable for use with MIDI events.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKADSREnvelope : AKControl
 /// Instantiates the adsr envelope with all values
 /// @param attackDuration Duration of attack phase in seconds [Default Value: 0.1]
@@ -72,3 +73,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

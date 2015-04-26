@@ -87,7 +87,7 @@
 - (void)appendValue:(float)value afterNumberOfElements:(int)numberOfElements
 {
     NSArray *lastPoint = [points lastObject];
-    int lastIndex = [[lastPoint objectAtIndex:0] intValue];
+    int lastIndex = [lastPoint[0] intValue];
     int index = lastIndex + numberOfElements;
     [self addValue:value atIndex:index];
 }
@@ -97,14 +97,13 @@
     [points sortUsingComparator:^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
         return [obj1[0] compare: obj2[0]];
     }];
-    int maximumIndex = [[[points lastObject] objectAtIndex:0] intValue];
+    int maximumIndex = [[points lastObject][0] intValue];
     float scalingFactor = (float)size/(float)maximumIndex;
     NSMutableArray *scaledPoints = [[NSMutableArray alloc] init];
     for (NSArray *point in points) {
-        int index = [[point objectAtIndex:0] intValue];
+        int index = [point[0] intValue];
         int newIndex = (int) ((float)index * scalingFactor);
-        [scaledPoints addObject:@[[NSNumber numberWithInt:newIndex],
-                                  [point objectAtIndex:1]]];
+        [scaledPoints addObject:@[@(newIndex), point[1]]];
     }
     
     NSMutableArray *flattenedPoints = [[NSMutableArray alloc] init];

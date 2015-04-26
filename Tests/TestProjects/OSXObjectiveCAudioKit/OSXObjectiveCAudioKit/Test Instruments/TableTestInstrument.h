@@ -10,14 +10,8 @@
 
 @interface TableTestInstrument : AKInstrument
 
-// Instrument Properties
-@property AKInstrumentProperty *amplitude;
+@property AKInstrumentProperty *tableValue;
 
-@property AKTable *sine;
-@property AKTable *square;
-@property AKTable *triangle;
-@property AKTable *sawtooth;
-@property AKTable *reverseSawtooth;
 @end
 
 

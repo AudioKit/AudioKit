@@ -12,6 +12,7 @@
 /** Reads mono audio data from a file.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMonoFileInput : AKAudio
 
 /// Create a file input.
@@ -45,7 +46,9 @@
 /// Whether or not to loop playback (Default Value: NO)
 @property (nonatomic) BOOL loop;
 
-/// Set whether to loop playback (Default Value: NO)
+/// Set whether to loop playback
+/// @param loop Whether or not to loop the playback (Default Value: NO)
 - (void)setOptionalLoop:(BOOL)loop;
 
 @end
+NS_ASSUME_NONNULL_END

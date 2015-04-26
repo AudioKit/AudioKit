@@ -51,6 +51,7 @@
     _gain            = 1.0;
     _shouldMirror    = YES;
     _shouldFill      = YES;
+    _updateInterval  = 0.1;
     plotData             = NULL;
     _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
     _scrollHistory       = malloc(_scrollHistoryLength * sizeof(float));
@@ -83,15 +84,14 @@
 }
 
 #pragma mark - Get Data
-- (void)setSampleData:(float *)data
-              length:(int)length {
-    
-    free(plotData);
-    plotData   = (CGPoint *)calloc(sizeof(CGPoint),length);
+- (void)setSampleData:(const float *)data
+               length:(int)length
+{
+    plotData   = realloc(plotData, sizeof(CGPoint)*length);
     plotLength = length;
     
-    for(int i = 0; i < length; i++) {
-        data[i]     = i == 0 ? 0 : data[i];
+    plotData[0] = CGPointZero;
+    for(int i = 1; i < length; i++) {
         plotData[i] = CGPointMake(i,data[i] * _gain);
     }
     
@@ -99,7 +99,7 @@
 }
 
 #pragma mark - Update
-- (void)updateBuffer:(MYFLT *)buffer withBufferSize:(UInt32)bufferSize {
+- (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize {
     
     // Update the scroll history datasource
     [EZAudio updateScrollHistory:&_scrollHistory
@@ -109,7 +109,6 @@
                   withBufferSize:bufferSize
             isResolutionChanging:&_changingHistorySize];
     
-    //
     [self setSampleData:_scrollHistory
                  length:_scrollHistoryLength];
 }
@@ -138,14 +137,12 @@
     [self.plotColor set];
     
     if(plotLength > 0) {
-        
-        plotData[plotLength-1] = CGPointMake(plotLength-1,0.0f);
-        
         CGMutablePathRef halfPath = CGPathCreateMutable();
         CGPathAddLines(halfPath,
                        NULL,
                        plotData,
                        plotLength);
+        CGPathAddLineToPoint(halfPath, NULL, plotData[plotLength-1].x, 0.0f);
         CGMutablePathRef path = CGPathCreateMutable();
         
         double xscale = (frame.size.width) / (float)plotLength;

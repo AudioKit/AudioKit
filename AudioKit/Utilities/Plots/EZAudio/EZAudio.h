@@ -195,7 +195,7 @@
  @param 	bufferSize 	The size of the float buffer
  @return	The root mean squared of the buffer
  */
-+(float)RMS:(MYFLT*)buffer
++(float)RMS:(const MYFLT*)buffer
      length:(int)bufferSize;
 
 /**
@@ -229,7 +229,7 @@
 +(void)updateScrollHistory:(float**)scrollHistory
                 withLength:(int)scrollHistoryLength
                    atIndex:(int*)index
-                withBuffer:(MYFLT*)buffer
+                withBuffer:(const MYFLT*)buffer
             withBufferSize:(int)bufferSize
       isResolutionChanging:(BOOL*)isChanging;
 
@@ -248,8 +248,8 @@
 
 /**
  Initializes the circular buffer (just a wrapper around the C method)
- *  @param circularBuffer Pointer to an instance of the TPCircularBuffer
- *  @param size           The length of the TPCircularBuffer (usually 1024)
+ @param circularBuffer Pointer to an instance of the TPCircularBuffer
+ @param size           The length of the TPCircularBuffer (usually 1024)
  */
 +(void)circularBuffer:(TPCircularBuffer*)circularBuffer
              withSize:(int)size;

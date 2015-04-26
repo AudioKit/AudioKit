@@ -52,7 +52,7 @@
     return [[AKBambooSticks alloc] init];
 }
 
-- (instancetype)initPresetManySticks
+- (instancetype)initWithPresetManySticks
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -88,9 +88,9 @@
     return self;
 }
 
-+ (instancetype)presetFewfSticks
++ (instancetype)presetFewSticks
 {
-    return [[AKBambooSticks alloc] initWithPresetLowAmountOfSticks];
+    return [[AKBambooSticks alloc] initWithPresetFewSticks];
 }
 
 

@@ -16,6 +16,7 @@
 More information regarding scanned synthesis can be found at http://dafx12.york.ac.uk/papers/dafx12_submission_18.pdf and http://www.billverplank.com/ScannedSynthesis.PDF
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKStruckMetalBar : AKAudio
 
 // TypeHelpers
@@ -119,3 +120,4 @@ More information regarding scanned synthesis can be found at http://dafx12.york.
 
 
 @end
+NS_ASSUME_NONNULL_END
