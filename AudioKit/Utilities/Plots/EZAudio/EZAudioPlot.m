@@ -29,7 +29,7 @@
 @interface EZAudioPlot () {
 #if TARGET_OS_IPHONE
     UIImage     *_plot;
-#else
+#elif TARGET_OS_MAC
     CGColorSpaceRef _colorSpace;
     CGImageRef  _plot;
 #endif
@@ -66,7 +66,7 @@
 - (void)dealloc {
     free(_plotData);
     free(_scrollHistory);
-#if TARGET_OS_MAC
+#if !TARGET_OS_IPHONE
     CGColorSpaceRelease(_colorSpace);
 #endif
 }
@@ -192,7 +192,7 @@
     //NSLog(@"Rendering at %@, offset=%f", NSStringFromCGRect(rect), xoffset);
     
     // Set the background color
-    [self.backgroundColor set];
+    CGContextSetFillColorWithColor(ctx, self.backgroundColor.CGColor);
     CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
     
     //CGContextClipToRect(ctx, rect);
@@ -201,7 +201,7 @@
     UIRectFill(rect);
 #elif TARGET_OS_MAC
     CGContextDrawImage(ctx, CGRectMake(-xscale * (CGFloat)xoffset, 0.0f, self.bounds.size.width, self.bounds.size.height), plot);
-    NSRectFill(rect);
+    CGContextFillRect(ctx, rect);
 #endif
     if(_plotLength > 0) {
         CGFloat halfHeight = floorf(bounds.size.height / 2.0f);
@@ -209,7 +209,7 @@
         CGMutablePathRef halfPath = CGPathCreateMutable();
 
         // Set the waveform line color
-        [self.plotColor set];
+        CGContextSetStrokeColorWithColor(ctx, self.plotColor.CGColor);
         
         if (self.shouldFill) {
             CGPathMoveToPoint(halfPath, NULL, smp, 0.0f);
