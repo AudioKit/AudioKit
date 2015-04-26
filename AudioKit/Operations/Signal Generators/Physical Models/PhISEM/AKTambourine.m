@@ -55,6 +55,11 @@
     return [[AKTambourine alloc] init];
 }
 
++ (instancetype)presetDefaultTambourine
+{
+    return [[AKTambourine alloc] init];
+}
+
 - (instancetype)initWithPresetOpenTambourine
 {
     self = [super initWithString:[self operationName]];

@@ -12,6 +12,7 @@
 /** Produces sinusoid bursts useful for formant and granular synthesis.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSinusoidBursts : AKAudio
 
 /// Initialize the Sinusoid Bursts
@@ -41,3 +42,4 @@
                  formantFrequency:(AKParameter *)formantFrequency;
 
 @end
+NS_ASSUME_NONNULL_END

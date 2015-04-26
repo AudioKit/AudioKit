@@ -10,10 +10,11 @@
 #import "AKParameter+Operation.h"
 
 /** Generates granular synthesis textures.
- 
- 
+
+
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKGranularSynthesisTexture : AKAudio
 /// Instantiates the granular synthesis texture with all values
 /// @param grainTable The grain waveform. This can be just a sine wave or a sampled sound. [Default Value: ]
@@ -108,3 +109,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
  More detailed description from http://www.csounds.com/manual/html/random.html
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKRandomNumbers : AKAudio
 /// Instantiates the random numbers with all values
 /// @param lowerBound Minimum range limit. Updated at Control-rate. [Default Value: 0]
@@ -45,3 +46,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -10,10 +10,11 @@
 #import "AKParameter+Operation.h"
 
 /** Phase-locked vocoder processing.
- 
+
  More detailed description from http://www.csounds.com/manual/html/mincer.html
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKPhaseLockedVocoder : AKAudio
 
 /// Instantiates the phase locked vocoder
@@ -37,3 +38,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

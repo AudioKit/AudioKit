@@ -14,6 +14,7 @@
  Determines the root-mean-square amplitude of an audio signal. It low-pass filters the actual value, to average in the manner of a VU meter. This unit is not a signal modifier, but functions rather as a signal power-gauge. It uses an internal low-pass filter to make the response smoother. The halfPowerPoint can be used to control this smoothing. The higher the value, the "snappier" the measurement.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKTrackedAmplitude : AKControl
 /// Instantiates the tracked amplitude with all values
 /// @param audioSource Input audio signal to track. [Default Value: ]
@@ -39,3 +40,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

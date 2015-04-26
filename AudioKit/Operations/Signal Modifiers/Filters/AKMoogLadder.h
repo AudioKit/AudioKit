@@ -14,6 +14,7 @@
  Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli). This implementation is probably a more accurate digital representation of the original analogue filter.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMoogLadder : AKAudio
 /// Instantiates the moog ladder with all values
 /// @param input Input signal [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

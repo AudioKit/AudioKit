@@ -7,19 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C460067B1AE6F8120012CE6B /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C460067A1AE6F8120012CE6B /* MathTests.m */; };
 		C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E71AE44BDB003A8B73 /* AppDelegate.m */; };
 		C4C811EA1AE44BDB003A8B73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E91AE44BDB003A8B73 /* main.m */; };
 		C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C811EB1AE44BDB003A8B73 /* Images.xcassets */; };
 		C4C811EF1AE44BDB003A8B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */; };
-		C4C811FB1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811FA1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m */; };
 		C4C8120F1AE44C36003A8B73 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
 		C4C812121AE44C72003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		C4C812131AE44C7B003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C4C812181AE44EE7003A8B73 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812161AE44EE7003A8B73 /* MathTests.m */; };
 		C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C812171AE44EE7003A8B73 /* TableTests.m */; };
-		C4C8121E1AE44F4F003A8B73 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8121B1AE44F4F003A8B73 /* MathTestInstrument.m */; };
-		C4C8121F1AE44F4F003A8B73 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8121D1AE44F4F003A8B73 /* TableTestInstrument.m */; };
-		C4C812251AE4521E003A8B73 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4C812241AE4521E003A8B73 /* AudioKit.plist */; };
+		C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
+		C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */; };
+		EA89F55F1AE877A100858344 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
+		EA89F5631AE877AD00858344 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
+		EAA0F5AD1AE83EE3007CD7C9 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
+		EAA0F5AE1AE83F18007CD7C9 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
+		EAA0F5B01AE8400F007CD7C9 /* CsoundLib.framework in Resources */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,13 @@
 			remoteGlobalIDString = EA8E96581AD3C6FC0057E979;
 			remoteInfo = "AudioKit OS X";
 		};
+		EAA0F5AB1AE83EE3007CD7C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4C812041AE44BE7003A8B73 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +77,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C460067A1AE6F8120012CE6B /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
 		C4C811E11AE44BDB003A8B73 /* OSXObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSXObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C811E51AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C811E61AE44BDB003A8B73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -76,16 +87,16 @@
 		C4C811EE1AE44BDB003A8B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C4C811F41AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSXObjectiveCAudioKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C811F91AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4C811FA1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSXObjectiveCAudioKitTests.m; sourceTree = "<group>"; };
 		C4C812041AE44BE7003A8B73 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C4C812111AE44C72003A8B73 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
-		C4C812161AE44EE7003A8B73 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
 		C4C812171AE44EE7003A8B73 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
-		C4C8121A1AE44F4F003A8B73 /* MathTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathTestInstrument.h; sourceTree = "<group>"; };
-		C4C8121B1AE44F4F003A8B73 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTestInstrument.m; sourceTree = "<group>"; };
-		C4C8121C1AE44F4F003A8B73 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
-		C4C8121D1AE44F4F003A8B73 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
-		C4C812241AE4521E003A8B73 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
+		C4DB027A1AE626EE00643340 /* TrackedFrequencyTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrackedFrequencyTestInstrument.h; path = "Test Instruments/TrackedFrequencyTestInstrument.h"; sourceTree = "<group>"; };
+		C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrackedFrequencyTestInstrument.m; path = "Test Instruments/TrackedFrequencyTestInstrument.m"; sourceTree = "<group>"; };
+		C4DB027E1AE6271B00643340 /* MathTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathTestInstrument.h; path = "Test Instruments/MathTestInstrument.h"; sourceTree = "<group>"; };
+		C4DB027F1AE6271B00643340 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MathTestInstrument.m; path = "Test Instruments/MathTestInstrument.m"; sourceTree = "<group>"; };
+		C4DB02801AE6271B00643340 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableTestInstrument.h; path = "Test Instruments/TableTestInstrument.h"; sourceTree = "<group>"; };
+		C4DB02811AE6271B00643340 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableTestInstrument.m; path = "Test Instruments/TableTestInstrument.m"; sourceTree = "<group>"; };
+		C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackedFrequencyTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +113,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA0F5AE1AE83F18007CD7C9 /* CsoundLib.framework in Frameworks */,
+				EAA0F5AD1AE83EE3007CD7C9 /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,10 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				C4C812201AE44F56003A8B73 /* Test Instruments */,
-				C4C811E61AE44BDB003A8B73 /* AppDelegate.h */,
-				C4C811E71AE44BDB003A8B73 /* AppDelegate.m */,
-				C4C811EB1AE44BDB003A8B73 /* Images.xcassets */,
-				C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */,
 				C4C811E41AE44BDB003A8B73 /* Supporting Files */,
 			);
 			path = OSXObjectiveCAudioKit;
@@ -144,7 +153,10 @@
 		C4C811E41AE44BDB003A8B73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C4C812241AE4521E003A8B73 /* AudioKit.plist */,
+				C4C811EB1AE44BDB003A8B73 /* Images.xcassets */,
+				C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */,
+				C4C811E61AE44BDB003A8B73 /* AppDelegate.h */,
+				C4C811E71AE44BDB003A8B73 /* AppDelegate.m */,
 				C4C811E51AE44BDB003A8B73 /* Info.plist */,
 				C4C811E91AE44BDB003A8B73 /* main.m */,
 			);
@@ -154,9 +166,9 @@
 		C4C811F71AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				C4C811FA1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m */,
-				C4C812161AE44EE7003A8B73 /* MathTests.m */,
+				C460067A1AE6F8120012CE6B /* MathTests.m */,
 				C4C812171AE44EE7003A8B73 /* TableTests.m */,
+				C4DB028E1AE6CC0B00643340 /* TrackedFrequencyTests.m */,
 				C4C811F81AE44BDB003A8B73 /* Supporting Files */,
 			);
 			path = OSXObjectiveCAudioKitTests;
@@ -173,7 +185,8 @@
 		C4C812051AE44BE7003A8B73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS.a */,
+				C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS Static.a */,
+				EAA0F5AC1AE83EE3007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -182,10 +195,12 @@
 		C4C812201AE44F56003A8B73 /* Test Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C4C8121A1AE44F4F003A8B73 /* MathTestInstrument.h */,
-				C4C8121B1AE44F4F003A8B73 /* MathTestInstrument.m */,
-				C4C8121C1AE44F4F003A8B73 /* TableTestInstrument.h */,
-				C4C8121D1AE44F4F003A8B73 /* TableTestInstrument.m */,
+				C4DB027E1AE6271B00643340 /* MathTestInstrument.h */,
+				C4DB027F1AE6271B00643340 /* MathTestInstrument.m */,
+				C4DB02801AE6271B00643340 /* TableTestInstrument.h */,
+				C4DB02811AE6271B00643340 /* TableTestInstrument.m */,
+				C4DB027A1AE626EE00643340 /* TrackedFrequencyTestInstrument.h */,
+				C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */,
 			);
 			name = "Test Instruments";
 			sourceTree = "<group>";
@@ -228,6 +243,7 @@
 				C4C811F01AE44BDB003A8B73 /* Sources */,
 				C4C811F11AE44BDB003A8B73 /* Frameworks */,
 				C4C811F21AE44BDB003A8B73 /* Resources */,
+				EAA0F5AF1AE83F32007CD7C9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -283,10 +299,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS.a */ = {
+		C4C8120A1AE44BE7003A8B73 /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Static.a";
 			remoteRef = C4C812091AE44BE7003A8B73 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -295,6 +311,13 @@
 			fileType = archive.ar;
 			path = "libAudioKit OS X.a";
 			remoteRef = C4C8120B1AE44BE7003A8B73 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EAA0F5AC1AE83EE3007CD7C9 /* libAudioKit iOS Dynamic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = EAA0F5AB1AE83EE3007CD7C9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -306,7 +329,6 @@
 			files = (
 				C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */,
 				C4C811EF1AE44BDB003A8B73 /* MainMenu.xib in Resources */,
-				C4C812251AE4521E003A8B73 /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA0F5B01AE8400F007CD7C9 /* CsoundLib.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +354,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib.framework/Versions/6.0/CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+		};
+		EAA0F5AF1AE83F32007CD7C9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TEST_HOST\ninstall_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -341,9 +377,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C811EA1AE44BDB003A8B73 /* main.m in Sources */,
-				C4C8121F1AE44F4F003A8B73 /* TableTestInstrument.m in Sources */,
 				C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */,
-				C4C8121E1AE44F4F003A8B73 /* MathTestInstrument.m in Sources */,
+				EA89F5631AE877AD00858344 /* MathTestInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,9 +386,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4C811FB1AE44BDB003A8B73 /* OSXObjectiveCAudioKitTests.m in Sources */,
-				C4C812181AE44EE7003A8B73 /* MathTests.m in Sources */,
+				EA89F55F1AE877A100858344 /* TableTestInstrument.m in Sources */,
+				C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */,
+				C4DB028F1AE6CC0B00643340 /* TrackedFrequencyTests.m in Sources */,
 				C4C812191AE44EE7003A8B73 /* TableTests.m in Sources */,
+				C460067B1AE6F8120012CE6B /* MathTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +449,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"TRAVIS_CI=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -441,7 +479,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
+				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/**";
 			};
 			name = Testing;
 		};
@@ -453,6 +491,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					../../../AudioKit/Platforms/OSX,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -463,7 +502,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OSXObjectiveCAudioKit.app/Contents/MacOS/OSXObjectiveCAudioKit";
-				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
+				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/**";
 			};
 			name = Testing;
 		};

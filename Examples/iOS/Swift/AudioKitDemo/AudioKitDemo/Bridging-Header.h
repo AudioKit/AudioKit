@@ -6,18 +6,3 @@
 //
 
 #import "AKFoundation.h"
-#import "AKTools.h"
-#import "Microphone.h"
-#import "AKAudioAnalyzer.h"
-#import "Tambourine.h"
-
-#import "AKAudioInputPlot.h"
-#import "AKAudioOutputPlot.h"
-#import "AKStereoOutputPlot.h"
-#import "AKAudioInputFFTPlot.h"
-#import "AKAudioOutputFFTPlot.h"
-#import "AKAudioInputRollingWaveformPlot.h"
-#import "AKAudioOutputRollingWaveformPlot.h"
-#import "AKInstrumentPropertyPlot.h"
-#import "AKFloatPlot.h"
-#import "AKTablePlot.h"

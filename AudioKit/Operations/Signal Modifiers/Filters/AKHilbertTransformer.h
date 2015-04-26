@@ -17,6 +17,7 @@ Internally, AKHilbertTransformer is based on two parallel 6th-order allpass filt
 Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does not have a linear phase response. However, the IIR structure used in AKHilbertTransformer is far more efficient to compute, and the nonlinear phase response can be used in the creation of interesting audio effects, as in the second example below.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKHilbertTransformer : AKAudio
 /// Instantiates the hilbert transformer with all values
 /// @param input The input audio Signal [Default Value: ]
@@ -33,3 +34,4 @@ Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does
 
 
 @end
+NS_ASSUME_NONNULL_END

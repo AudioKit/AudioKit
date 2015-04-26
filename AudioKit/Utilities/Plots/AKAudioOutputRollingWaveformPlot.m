@@ -14,10 +14,10 @@
 @interface AKAudioOutputRollingWaveformPlot() <CsoundBinding>
 {
     // AudioKit sound data
-    NSMutableData *outSamples;
-    UInt32 sampleSize;
+    UInt32 _sampleSize;
+    NSDate *_lastUpdate;
     
-    CsoundObj *cs;
+    CsoundObj *_cs;
 }
 @end
 
@@ -28,15 +28,9 @@
     [super defaultValues];
     
     [self setRollingHistoryLength:2048];
+    _lastUpdate = [NSDate date];
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    @synchronized(self) {
-        [self updateBuffer:(MYFLT *)outSamples.mutableBytes withBufferSize:sampleSize];
-    }
-    [super drawRect:rect];
-}
 
 // -----------------------------------------------------------------------------
 # pragma mark - CsoundBinding
@@ -44,22 +38,21 @@
 
 - (void)setup:(CsoundObj *)csoundObj
 {
-    cs = csoundObj;
+    _cs = csoundObj;
 
-    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
-
-    void *samples = malloc(sampleSize * sizeof(MYFLT));
-    bzero(samples, sampleSize * sizeof(MYFLT));
-    outSamples = [NSMutableData dataWithBytesNoCopy:samples length:sampleSize*sizeof(MYFLT)];
+    _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
 }
 
 - (void)updateValuesFromCsound
 {
-    @synchronized(self) {
-        outSamples = [cs getMutableOutSamples];
-    }
+    [self updateBuffer:[_cs getOutSamples].bytes withBufferSize:_sampleSize];
     
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    if ([_lastUpdate timeIntervalSinceNow] < -self.updateInterval) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateUI];
+            _lastUpdate = [NSDate date];
+        });
+    }
 }
 
 

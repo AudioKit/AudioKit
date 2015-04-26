@@ -24,9 +24,9 @@ class ConvolutionInstrument: AKInstrument
         let dish = AKManager.pathToSoundFile("dish", ofType: "wav")
         let well = AKManager.pathToSoundFile("Stairwell", ofType: "wav")
         
-        let dishConv = AKConvolution(input: input, impulseResponseFilename: dish)
+        let dishConv = AKConvolution(input: input, impulseResponseFilename: dish!)
         
-        let wellConv = AKConvolution(input: input, impulseResponseFilename: well)
+        let wellConv = AKConvolution(input: input, impulseResponseFilename: well!)
         
         let balance = AKMix(input1: dishConv, input2: wellConv, balance: dishWellBalance)
         

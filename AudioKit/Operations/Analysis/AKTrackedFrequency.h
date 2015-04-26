@@ -10,7 +10,7 @@
 #import "AKAudio.h"
 
 /** Tracks the pitch of a signal.
- 
+
  Takes an input signal, splits it into hopSize blocks and using a STFT method,
  extracts an estimated pitch for its fundamental frequency as well as estimating the
  total amplitude of the signal in dB, relative to full-scale (0dB). The method
@@ -18,11 +18,12 @@
  which has to be a power-of-two, between 128 and 8192 (hopsizes between 64 and 4096).
  Smaller windows will give better time precision, but worse frequency accuracy
  (esp. in low fundamentals).
- 
+
  Based on an original algorithm by M. Puckette.
- 
+
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKTrackedFrequency : AKControl
 
 /// Initialize the tracked frequency.
@@ -36,3 +37,4 @@
 - (void)setOptionalSpectralPeaks:(AKConstant *)numberOfSpectralPeaks;
 
 @end
+NS_ASSUME_NONNULL_END

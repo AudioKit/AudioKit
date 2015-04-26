@@ -10,6 +10,7 @@
 
 /** Prints the given parameter to the console log
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLog : AKParameter
 
 /// Prints the message followed by the paramter value every timeInterval seconds
@@ -20,4 +21,5 @@
                       parameter:(AKParameter *)parameter
                    timeInterval:(NSTimeInterval)timeInterval;
 @end
+NS_ASSUME_NONNULL_END
 

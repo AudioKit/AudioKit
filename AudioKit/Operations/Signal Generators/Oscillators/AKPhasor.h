@@ -16,6 +16,7 @@ When used as the index to a table unit, this phase (multiplied by the desired ta
 Note that phasor is a special kind of integrator, accumulating phase increments that represent frequency settings.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKPhasor : AKAudio
 /// Instantiates the phasor with all values
 /// @param frequency Frequency in cycles per second. [Default Value: 440]
@@ -47,3 +48,4 @@ Note that phasor is a special kind of integrator, accumulating phase increments 
 
 
 @end
+NS_ASSUME_NONNULL_END

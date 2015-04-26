@@ -14,6 +14,7 @@
  This filter reiterates the input with an echo density determined by loop time. The attenuation rate is independent and is determined by the reverberation time (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFlatFrequencyResponseReverb : AKAudio
 /// Instantiates the flat frequency response reverb with all values
 /// @param input The input signal to be reverberated. [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

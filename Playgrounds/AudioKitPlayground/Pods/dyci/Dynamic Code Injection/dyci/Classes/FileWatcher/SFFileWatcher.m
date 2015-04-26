@@ -70,7 +70,7 @@
    });
 
    dispatch_source_set_cancel_handler(_source, ^{
-      close(fd);
+      close((int)fd);
    });
 
    dispatch_resume(_source);

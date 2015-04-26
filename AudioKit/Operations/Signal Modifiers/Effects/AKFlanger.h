@@ -14,6 +14,7 @@
  This is useful for generating choruses and flangers. The delay must be varied at audio-rate connecting delay to an oscillator output.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFlanger : AKAudio
 /// Instantiates the flanger with all values
 /// @param input Input signal. [Default Value: ]
@@ -45,3 +46,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
