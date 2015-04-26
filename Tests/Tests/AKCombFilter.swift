@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: NSTimeInterval = 20.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 

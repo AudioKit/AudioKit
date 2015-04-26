@@ -1,5 +1,5 @@
 #!/bin/bash
-BUILDCONF=${BUILDCONF:-Debug}
+BUILDCONF=${BUILDCONF:-Testing}
 for i in Tests/*
   do
     cp $i AudioKitTest/AudioKitTest/main.swift
