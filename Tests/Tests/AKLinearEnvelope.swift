@@ -16,7 +16,7 @@ class Instrument : AKInstrument {
         super.init()
 
         let envelope = AKLinearEnvelope()
-        enableParameterLog("Envelope.floatValue = ", parameter: envelope, timeInterval:0.02)
+        enableParameterLog("Envelope value = ", parameter: envelope, timeInterval:0.02)
 
         let oscillator = AKOscillator()
         oscillator.amplitude = envelope
