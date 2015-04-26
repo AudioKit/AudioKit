@@ -30,6 +30,7 @@
 #if TARGET_OS_IPHONE
     UIImage     *_plot;
 #else
+    CGColorSpaceRef _colorSpace;
     CGImageRef  _plot;
 #endif
     CGFloat     _lastPoint;
@@ -65,6 +66,9 @@
 - (void)dealloc {
     free(_plotData);
     free(_scrollHistory);
+#if TARGET_OS_MAC
+    CGColorSpaceRelease(_colorSpace);
+#endif
 }
 
 #pragma mark - Setters
@@ -107,7 +111,11 @@
 
 #pragma mark - Update
 
+#if TARGET_OS_IPHONE
 - (UIImage *) getPlot
+#else
+- (CGImageRef) getPlot
+#endif
 {
     if (!_plot) {
         // Create a blank back image
@@ -119,8 +127,15 @@
         _plot = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
 #elif TARGET_OS_MAC
-        // TODO
+        if (_colorSpace == nil)
+            _colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+        CGContextRef ctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
+                                                 8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
+        NSAssert(ctx, @"Failed to create bitmap context");
+        [self.backgroundColor set];
         NSRectFill(self.bounds);
+        _plot = CGBitmapContextCreateImage(ctx);
+        CGContextRelease(ctx);
 #endif
     }
     return _plot;
@@ -157,11 +172,6 @@
 }
 
 // iOS drawing origin is flipped by default so make sure we account for that
-#if TARGET_OS_IPHONE
-static const int deviceOriginFlipped = -1;
-#elif TARGET_OS_MAC
-static const int deviceOriginFlipped = 1;
-#endif
 
 - (void)renderIntoBitmapAt:(NSUInteger)smp scrollBy:(NSUInteger)xoffset
 {
@@ -170,7 +180,10 @@ static const int deviceOriginFlipped = 1;
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
 #else
-    // TODO
+    CGImageRef plot = [self getPlot];
+    CGContextRef ctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
+                                             8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
+    NSAssert(ctx, @"Failed to create bitmap context");
 #endif
     CGRect bounds = self.bounds;
     // How many horizontal points per sample
@@ -178,15 +191,16 @@ static const int deviceOriginFlipped = 1;
     
     //NSLog(@"Rendering at %@, offset=%f", NSStringFromCGRect(rect), xoffset);
     
-    [plot drawAtPoint:CGPointMake(-xscale * (CGFloat)xoffset, 0.0f)];
-    
     // Set the background color
     [self.backgroundColor set];
     CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
+    
     //CGContextClipToRect(ctx, rect);
 #if TARGET_OS_IPHONE
+    [plot drawAtPoint:CGPointMake(-xscale * (CGFloat)xoffset, 0.0f)];
     UIRectFill(rect);
 #elif TARGET_OS_MAC
+    CGContextDrawImage(ctx, CGRectMake(-xscale * (CGFloat)xoffset, 0.0f, self.bounds.size.width, self.bounds.size.height), plot);
     NSRectFill(rect);
 #endif
     if(_plotLength > 0) {
@@ -215,13 +229,13 @@ static const int deviceOriginFlipped = 1;
         CGMutablePathRef path = CGPathCreateMutable();
         CGAffineTransform xf;
         xf = CGAffineTransformMakeTranslation(0, halfHeight);
-        xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
+        xf = CGAffineTransformScale( xf, xscale, AK_DEVICE_ORIGIN*halfHeight );
         CGPathAddPath( path, &xf, halfPath );
         
         // If mirroring, add the path again with mirrored transforms
         if( self.shouldMirror ){
             xf = CGAffineTransformMakeTranslation(0, halfHeight);
-            xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*halfHeight);
+            xf = CGAffineTransformScale( xf, xscale, -AK_DEVICE_ORIGIN*halfHeight);
             CGPathAddPath( path, &xf, halfPath );
         }
         CGPathRelease(halfPath);
@@ -240,23 +254,27 @@ static const int deviceOriginFlipped = 1;
     _plot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 #else
-    // TODO
+    _plot = CGBitmapContextCreateImage(ctx);
+    CGContextRelease(ctx);
 #endif
 }
 
 - (void)drawRect:(CGRect)rect
 {
+#if TARGET_OS_IPHONE
     // Draw just the subset of the plot needed, cut from rect
     if (!CGRectEqualToRect(rect, self.bounds)) {
         CGContextClipToRect(UIGraphicsGetCurrentContext(), rect);
     }
-#if TARGET_OS_IPHONE
     [[self getPlot] drawAtPoint:CGPointZero];
 #elif TARGET_OS_MAC
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
-    
-    // TODO
+
+    if (!CGRectEqualToRect(rect, self.bounds)) {
+        CGContextClipToRect(ctx, rect);
+    }
+    CGContextDrawImage(ctx, self.bounds, [self getPlot]);
 #endif
 }
 
