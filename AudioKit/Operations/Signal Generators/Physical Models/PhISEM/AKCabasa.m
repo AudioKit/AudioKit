@@ -46,6 +46,11 @@
     return [[AKCabasa alloc] init];
 }
 
++ (instancetype)presetDefaultCabasa
+{
+    return [[AKCabasa alloc] init];
+}
+
 - (instancetype)initWithPresetMutedCabasa
 {
     self = [super initWithString:[self operationName]];

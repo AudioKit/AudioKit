@@ -49,6 +49,11 @@
     return [[AKGuiro alloc] init];
 }
 
++ (instancetype)presetDefaultGuiro
+{
+    return [[AKGuiro alloc] init];
+}
+
 - (instancetype)initWithPresetSmallGuiro
 {
     self = [super initWithString:[self operationName]];

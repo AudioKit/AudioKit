@@ -52,6 +52,11 @@
     return [[AKBambooSticks alloc] init];
 }
 
++ (instancetype)presetDefaultSticks
+{
+    return [[AKBambooSticks alloc] init];
+}
+
 - (instancetype)initWithPresetManySticks
 {
     self = [super initWithString:[self operationName]];

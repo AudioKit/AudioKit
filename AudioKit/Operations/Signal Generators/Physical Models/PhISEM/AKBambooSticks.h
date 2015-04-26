@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the bamboo sticks with default values
 + (instancetype)sticks;
 
+/// Instantiates the bamboo sticks with default values
++ (instancetype)presetDefaultSticks;
+
 /// Instantiates the bamboo sticks with large number of sticks values
 - (instancetype)initWithPresetManySticks;
 

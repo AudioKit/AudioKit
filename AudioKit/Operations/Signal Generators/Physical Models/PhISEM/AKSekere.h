@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the sekere with default values
 + (instancetype)sekere;
 
+/// Instantiates the sekere with default values
++ (instancetype)presetDefaultSekere;
+
 /// Instantiates the sekere with large number of beads
 - (instancetype)initWithPresetManyBeadsSekere;
 

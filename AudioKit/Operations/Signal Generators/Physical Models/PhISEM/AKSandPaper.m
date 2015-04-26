@@ -43,6 +43,11 @@
     return [[AKSandPaper alloc] init];
 }
 
++ (instancetype)presetDefaultSandPaper
+{
+    return [[AKSandPaper alloc] init];
+}
+
 - (instancetype)initWithPresetMuffledSandPaper
 {
     self = [super initWithString:[self operationName]];

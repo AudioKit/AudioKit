@@ -55,6 +55,11 @@
     return [[AKSleighbells alloc] init];
 }
 
++ (instancetype)presetDefaultSleighbells
+{
+    return [[AKSleighbells alloc] init];
+}
+
 - (instancetype)initWithPresetSoftBells
 {
     self = [super initWithString:[self operationName]];
