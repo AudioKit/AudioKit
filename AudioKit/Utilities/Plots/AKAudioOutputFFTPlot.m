@@ -50,8 +50,6 @@
     // Draw waveform
     AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
-    CGFloat yOffset = self.bounds.size.height;
-    
     //float max = 0;
     //    for (int i = 0; i < historySize; i++) {
     //        if (fabs(history[i]) > max) max = fabs(history[i]);
@@ -62,10 +60,8 @@
     //    if (max > 0) {
     //        yScale  =  self.bounds.size.height / max / 2;
     //    }
-    CGFloat yScale = 2;
-    
-    
-    CGFloat deltaX = (self.frame.size.width / (historySize/2));
+    const CGFloat yScale = 2;
+    const CGFloat deltaX = (self.frame.size.width / (historySize/2));
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
@@ -77,7 +73,11 @@
     [wavePath lineToPoint:CGPointMake(x, y2)];
 #endif
     for (int i = 0; i < historySize/2; i++) {
-        y = yOffset - (history[i] * yScale);
+#if TARGET_OS_IPHONE
+        y = self.bounds.size.height - (history[i] * yScale);
+#else
+        y = history[i] * yScale;
+#endif
         y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         //NSLog(@"%index:d value:%f x:%f y:%f y2:%f", i%historySize, history[i % historySize], x, y, y2 );
         
