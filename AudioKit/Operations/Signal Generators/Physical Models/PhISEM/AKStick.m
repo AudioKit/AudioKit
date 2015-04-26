@@ -46,6 +46,11 @@
     return [[AKStick alloc] init];
 }
 
++ (instancetype)presetDefaultStick
+{
+    return [[AKStick alloc] init];
+}
+
 - (instancetype)initWithPresetBundleOfSticks
 {
     self = [super initWithString:[self operationName]];

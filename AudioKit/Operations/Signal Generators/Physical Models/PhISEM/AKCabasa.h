@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the cabasa with default values
 + (instancetype)cabasa;
 
+/// Instantiates the cabasa with default values
++ (instancetype)presetDefaultCabasa;
+
 /// Instantiates the cabasa with muted values
 - (instancetype)initWithPresetMutedCabasa;
 

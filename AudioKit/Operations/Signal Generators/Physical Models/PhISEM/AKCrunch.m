@@ -46,6 +46,11 @@
     return [[AKCrunch alloc] init];
 }
 
++ (instancetype)presetDefaultCrunch
+{
+    return [[AKCrunch alloc] init];
+}
+
 - (instancetype)initWithPresetDistantCrunch
 {
     self = [super initWithString:[self operationName]];

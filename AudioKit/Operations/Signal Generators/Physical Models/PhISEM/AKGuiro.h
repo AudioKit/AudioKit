@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the guiro with default values
 + (instancetype)guiro;
 
+/// Instantiates the guiro with default values
++ (instancetype)presetDefaultGuiro;
+
 /// Instantiates the guiro with small guiro-size values
 - (instancetype)initWithPresetSmallGuiro;
 

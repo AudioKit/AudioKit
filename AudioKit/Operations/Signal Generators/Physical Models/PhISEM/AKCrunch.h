@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the crunch with default values
 + (instancetype)crunch;
 
+/// Instantiates the crunch with default values
++ (instancetype)presetDefaultCrunch;
+
 /// Instantiates the crunch with values for a distant crunch
 - (instancetype)initWithPresetDistantCrunch;
 

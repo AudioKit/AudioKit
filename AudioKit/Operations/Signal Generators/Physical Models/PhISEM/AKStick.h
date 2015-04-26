@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the stick with default values
 + (instancetype)stick;
 
+/// Instantiates the stick with default values
++ (instancetype)presetDefaultStick;
+
 /// Instantiates the stick with 'bundle of sticks' sound values
 - (instancetype)initWithPresetBundleOfSticks;
 

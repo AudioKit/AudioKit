@@ -46,6 +46,11 @@
     return [[AKSekere alloc] init];
 }
 
++ (instancetype)presetDefaultSekere
+{
+    return [[AKSekere alloc] init];
+}
+
 - (instancetype)initWithPresetManyBeadsSekere
 {
     self = [super initWithString:[self operationName]];
