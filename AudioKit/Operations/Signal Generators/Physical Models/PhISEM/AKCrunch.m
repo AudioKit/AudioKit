@@ -46,7 +46,7 @@
     return [[AKCrunch alloc] init];
 }
 
-- (instancetype)initPresetDistantCrunch
+- (instancetype)initWithPresetDistantCrunch
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -64,7 +64,7 @@
     return [[AKCrunch alloc] initWithPresetDistantCrunch];
 }
 
-- (instancetype)initPresetDistantThudCrunch
+- (instancetype)initWithPresetThudCrunch
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -77,9 +77,9 @@
     return self;
 }
 
-+ (instancetype)presetDistantThudCrunch
++ (instancetype)presetThudCrunch
 {
-    return [[AKCrunch alloc] initWithPresetDistantThudCrunch];
+    return [[AKCrunch alloc] initWithPresetThudCrunch];
 }
 
 - (void)setIntensity:(AKConstant *)intensity {

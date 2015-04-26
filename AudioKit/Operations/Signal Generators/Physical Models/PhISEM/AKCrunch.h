@@ -36,10 +36,10 @@
 + (instancetype)presetDistantCrunch;
 
 /// Instantiates the crunch with values for a 'thud' crunch
-- (instancetype)initWithPresetDistantThudCrunch;
+- (instancetype)initWithPresetThudCrunch;
 
 /// Instantiates the crunch with values for a 'thud' crunch
-+ (instancetype)presetDistantThudCrunch;
++ (instancetype)presetThudCrunch;
 
 /// The intensity of the crunch sound [Default Value: 100]
 @property (nonatomic) AKConstant *intensity;

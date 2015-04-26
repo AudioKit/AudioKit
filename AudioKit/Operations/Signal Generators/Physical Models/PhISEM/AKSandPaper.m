@@ -43,7 +43,7 @@
     return [[AKSandPaper alloc] init];
 }
 
-- (instancetype)initPresetMuffledSandPaper
+- (instancetype)initWithPresetMuffledSandPaper
 {
     self = [super initWithString:[self operationName]];
     if (self) {
