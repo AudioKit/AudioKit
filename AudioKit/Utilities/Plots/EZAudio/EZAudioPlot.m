@@ -32,7 +32,7 @@
     CGColorSpaceRef _colorSpace;
 #endif
     CGFloat     _lastPoint;
-    NSUInteger  _sinceLastUpdate;
+    NSUInteger  _sinceLastUpdate, _indexLastUpdate;
     
     CGFloat     *_plotData;
     NSUInteger   _plotLength;
@@ -41,7 +41,7 @@
     float      *_scrollHistory;
     NSUInteger  _scrollHistoryIndex;
     NSUInteger  _scrollHistoryLength;
-    BOOL        _changingHistorySize;
+    BOOL        _changingHistorySize, _startedScrolling;
 }
 @end
 
@@ -142,7 +142,6 @@
 
 - (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
 {
-    
     // Update the scroll history datasource - this adds one entry to the sliding history
     BOOL scrolling = [EZAudio updateScrollHistory:&_scrollHistory
                                        withLength:_scrollHistoryLength
@@ -157,10 +156,13 @@
     if (update && _sinceLastUpdate>0) {
         if (scrolling) {
             // Slide the existing bitmap to the left to make room for the data from the new buffer
-            [self renderIntoBitmapAt:_scrollHistoryIndex-_sinceLastUpdate scrollBy:_sinceLastUpdate];
+            [self renderIntoBitmapAt:_scrollHistoryIndex-_sinceLastUpdate
+                            scrollBy:_startedScrolling ? _sinceLastUpdate-1 : 0];
+            _startedScrolling = YES;
         } else {
             // Try to be smart about gradually filling in the bitmap until we start scrolling
-            [self renderIntoBitmapAt:_scrollHistoryIndex scrollBy:0];
+            [self renderIntoBitmapAt:_indexLastUpdate scrollBy:0];
+            _indexLastUpdate = _scrollHistoryIndex;
         }
         _sinceLastUpdate = 0;
         [self updateUI];
@@ -190,15 +192,14 @@
     // How many horizontal points per sample
     CGFloat xscale = bounds.size.width / (CGFloat)_plotLength;
     
-    //NSLog(@"Rendering at %@, offset=%f", NSStringFromCGRect(rect), xoffset);
-    
     //CGContextClipToRect(ctx, rect);
-    CGContextDrawLayerAtPoint(ctx, CGPointMake(-xscale * (CGFloat)xoffset, 0.0f), plot);
+    CGContextDrawLayerAtPoint(ctx, CGPointMake(ceilf(-xscale * (CGFloat)xoffset), 0.0f), plot);
     CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
 
     // Set the background color
     CGContextSetFillColorWithColor(ctx, self.backgroundColor.CGColor);
     CGContextFillRect(ctx, rect);
+    // NSLog(@"Rendering at x=%@ w =%@, offset=%@", @(rect.origin.x), @(rect.size.width), @(xoffset));
     
     if(_plotLength > 0) {
         CGFloat halfHeight = floorf(bounds.size.height / 2.0f);
