@@ -14,7 +14,6 @@
 		C4BAC8021A8FD91500736291 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BAC8011A8FD91500736291 /* Images.xcassets */; };
 		C4BAC8051A8FD91500736291 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BAC8031A8FD91500736291 /* LaunchScreen.xib */; };
 		EA9F18A91AE7A4C2009D3DA6 /* libAudioKit iOS Dynamic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18A51AE7A480009D3DA6 /* libAudioKit iOS Dynamic.a */; };
-		EA9F18AC1AE7A4DF009D3DA6 /* libsndfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18AA1AE7A4DF009D3DA6 /* libsndfile.framework */; };
 		EA9F18AE1AE7A4E8009D3DA6 /* libsndfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18AA1AE7A4DF009D3DA6 /* libsndfile.framework */; };
 		EA9F18AF1AE7A4E8009D3DA6 /* libsndfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18AA1AE7A4DF009D3DA6 /* libsndfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA9F18B01AE7A4E8009D3DA6 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18AB1AE7A4DF009D3DA6 /* CsoundLib.framework */; };
@@ -92,7 +91,6 @@
 				EA9F18B01AE7A4E8009D3DA6 /* CsoundLib.framework in Frameworks */,
 				EA9F18AE1AE7A4E8009D3DA6 /* libsndfile.framework in Frameworks */,
 				EA9F18A91AE7A4C2009D3DA6 /* libAudioKit iOS Dynamic.a in Frameworks */,
-				EA9F18AC1AE7A4DF009D3DA6 /* libsndfile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +188,7 @@
 		C4BAC7E91A8FD91500736291 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Aurelius Prochazka";
 				TargetAttributes = {
 					C4BAC7F01A8FD91500736291 = {
