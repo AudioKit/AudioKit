@@ -14,7 +14,6 @@
 		C4BACD1D1A8FFC3200736291 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4BACD1B1A8FFC3200736291 /* LaunchScreen.xib */; };
 		C4BACD341A9002BE00736291 /* ProcessingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACD331A9002BE00736291 /* ProcessingViewController.m */; };
 		C4BACF381A90603A00736291 /* SynthesisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF371A90603A00736291 /* SynthesisViewController.m */; };
-		C4BACF3F1A90606300736291 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF3A1A90606300736291 /* AudioFilePlayer.m */; };
 		C4BACF401A90606300736291 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */; };
 		C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF451A9060A100736291 /* AnalysisViewController.m */; };
 		C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BACF531A91BB7100736291 /* FMSynthesizer.m */; };
@@ -85,8 +84,6 @@
 		C4BACD331A9002BE00736291 /* ProcessingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProcessingViewController.m; path = AudioKitDemo/Processing/ProcessingViewController.m; sourceTree = "<group>"; };
 		C4BACF361A90603A00736291 /* SynthesisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesisViewController.h; path = Synthesis/SynthesisViewController.h; sourceTree = "<group>"; };
 		C4BACF371A90603A00736291 /* SynthesisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SynthesisViewController.m; path = Synthesis/SynthesisViewController.m; sourceTree = "<group>"; };
-		C4BACF391A90606300736291 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFilePlayer.h; path = AudioKitDemo/Processing/AudioFilePlayer.h; sourceTree = "<group>"; };
-		C4BACF3A1A90606300736291 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFilePlayer.m; path = AudioKitDemo/Processing/AudioFilePlayer.m; sourceTree = "<group>"; };
 		C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = AudioKitDemo/Processing/ConvolutionInstrument.h; sourceTree = "<group>"; };
 		C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = AudioKitDemo/Processing/ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C4BACF441A9060A100736291 /* AnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisViewController.h; path = Analysis/AnalysisViewController.h; sourceTree = "<group>"; };
@@ -117,8 +114,6 @@
 		C42DC32C1A9C61920041B644 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C4BACF391A90606300736291 /* AudioFilePlayer.h */,
-				C4BACF3A1A90606300736291 /* AudioFilePlayer.m */,
 				C4BACF3B1A90606300736291 /* ConvolutionInstrument.h */,
 				C4BACF3C1A90606300736291 /* ConvolutionInstrument.m */,
 			);
@@ -350,7 +345,6 @@
 			files = (
 				C4BACF401A90606300736291 /* ConvolutionInstrument.m in Sources */,
 				C4BACD341A9002BE00736291 /* ProcessingViewController.m in Sources */,
-				C4BACF3F1A90606300736291 /* AudioFilePlayer.m in Sources */,
 				C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */,
 				C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */,
 				C4BACD0F1A8FFC3100736291 /* AppDelegate.m in Sources */,

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C42DC32A1A9C61740041B644 /* ProcessingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC3291A9C61740041B644 /* ProcessingViewController.m */; };
-		C42DC3341A9C61DF0041B644 /* AudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC32E1A9C61DF0041B644 /* AudioFilePlayer.m */; };
 		C42DC3351A9C61DF0041B644 /* ConvolutionInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC3301A9C61DF0041B644 /* ConvolutionInstrument.m */; };
 		C42DC33B1A9C652E0041B644 /* AnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DC3391A9C652E0041B644 /* AnalysisViewController.m */; };
 		C47544951A9BD0DF006151DE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C47544941A9BD0DF006151DE /* AppDelegate.m */; };
@@ -73,8 +72,6 @@
 /* Begin PBXFileReference section */
 		C42DC3281A9C61740041B644 /* ProcessingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProcessingViewController.h; path = Processing/ProcessingViewController.h; sourceTree = "<group>"; };
 		C42DC3291A9C61740041B644 /* ProcessingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProcessingViewController.m; path = Processing/ProcessingViewController.m; sourceTree = "<group>"; };
-		C42DC32D1A9C61DF0041B644 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFilePlayer.h; path = AudioKitDemo/Processing/AudioFilePlayer.h; sourceTree = "<group>"; };
-		C42DC32E1A9C61DF0041B644 /* AudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFilePlayer.m; path = AudioKitDemo/Processing/AudioFilePlayer.m; sourceTree = "<group>"; };
 		C42DC32F1A9C61DF0041B644 /* ConvolutionInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvolutionInstrument.h; path = AudioKitDemo/Processing/ConvolutionInstrument.h; sourceTree = "<group>"; };
 		C42DC3301A9C61DF0041B644 /* ConvolutionInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConvolutionInstrument.m; path = AudioKitDemo/Processing/ConvolutionInstrument.m; sourceTree = "<group>"; };
 		C42DC3381A9C652E0041B644 /* AnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisViewController.h; path = Analysis/AnalysisViewController.h; sourceTree = "<group>"; };
@@ -127,8 +124,6 @@
 		C42DC3331A9C61DF0041B644 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				C42DC32D1A9C61DF0041B644 /* AudioFilePlayer.h */,
-				C42DC32E1A9C61DF0041B644 /* AudioFilePlayer.m */,
 				C42DC32F1A9C61DF0041B644 /* ConvolutionInstrument.h */,
 				C42DC3301A9C61DF0041B644 /* ConvolutionInstrument.m */,
 			);
@@ -214,7 +209,7 @@
 		EA5D420B1AD4BBDD00BEA03A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA5D42101AD4BBDD00BEA03A /* libAudioKit iOS.a */,
+				EA5D42101AD4BBDD00BEA03A /* libAudioKit iOS Static.a */,
 				EAA0F5BF1AE844D0007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				EA5D42121AD4BBDD00BEA03A /* libAudioKit OS X.a */,
 			);
@@ -292,7 +287,7 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EA5D42101AD4BBDD00BEA03A /* libAudioKit iOS.a */ = {
+		EA5D42101AD4BBDD00BEA03A /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libAudioKit iOS Static.a";
@@ -353,7 +348,6 @@
 				C42DC32A1A9C61740041B644 /* ProcessingViewController.m in Sources */,
 				C47544971A9BD0DF006151DE /* main.m in Sources */,
 				C42DC3351A9C61DF0041B644 /* ConvolutionInstrument.m in Sources */,
-				C42DC3341A9C61DF0041B644 /* AudioFilePlayer.m in Sources */,
 				C47546AF1A9BD23D006151DE /* SynthesisViewController.m in Sources */,
 				C42DC33B1A9C652E0041B644 /* AnalysisViewController.m in Sources */,
 				C47544951A9BD0DF006151DE /* AppDelegate.m in Sources */,
