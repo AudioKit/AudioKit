@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-#import "AKAudioRollingWaveformPlot.h"
 #import "AKFoundation.h"
+#import "AKAudioRollingWaveformPlot.h"
 #import "AKSettings.h"
 #import "CsoundObj.h"
 

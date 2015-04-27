@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
+#import "AKFoundation.h"
 #import "AKAudioInputRollingWaveformPlot.h"
 
 @implementation AKAudioInputRollingWaveformPlot
