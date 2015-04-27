@@ -832,23 +832,25 @@ OSStatus  Csound_Render(void *inRefCon,
         }
         
         while (!_ret && self.running) {
-            [self updateAllValuesToCsound];
-            
-            _ret = csoundPerformKsmps(_cs);
-            
-            // Write to file.
-            if (self.shouldRecord) {
-                short* data = (short*)bufferList.mBuffers[0].mData;
-                for (int i = 0; i < csoundGetKsmps(cs) * _nchnls; i++) {
-                    data[i] = (short)lrintf(spout[i] * coef);
+            @autoreleasepool {
+                [self updateAllValuesToCsound];
+                
+                _ret = csoundPerformKsmps(_cs);
+                
+                // Write to file.
+                if (self.shouldRecord) {
+                    short* data = (short*)bufferList.mBuffers[0].mData;
+                    for (int i = 0; i < csoundGetKsmps(cs) * _nchnls; i++) {
+                        data[i] = (short)lrintf(spout[i] * coef);
+                    }
+                    OSStatus err = ExtAudioFileWriteAsync(_file, csoundGetKsmps(cs), &bufferList);
+                    if (err != noErr) {
+                        NSLog(@"***Error writing to file: %@", @(err));
+                    }
+                    
                 }
-                OSStatus err = ExtAudioFileWriteAsync(_file, csoundGetKsmps(cs), &bufferList);
-                if (err != noErr) {
-                    NSLog(@"***Error writing to file: %@", @(err));
-                }
- 
+                [self updateAllValuesFromCsound];
             }
-            [self updateAllValuesFromCsound];
         }
         
         if (self.shouldRecord) {
