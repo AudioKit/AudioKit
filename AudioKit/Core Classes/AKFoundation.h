@@ -246,11 +246,11 @@
 
 // Utilities - Plots
 #import "AKAudioInputFFTPlot.h"
-#import "AKAudioInputRollingWaveformPlot.h"
 #import "AKAudioInputPlot.h"
+#import "AKAudioInputRollingWaveformPlot.h"
 #import "AKAudioOutputFFTPlot.h"
-#import "AKAudioOutputRollingWaveformPlot.h"
 #import "AKAudioOutputPlot.h"
+#import "AKAudioOutputRollingWaveformPlot.h"
 #import "AKFloatPlot.h"
 #import "AKInstrumentPropertyPlot.h"
 #import "AKPlotView.h"
