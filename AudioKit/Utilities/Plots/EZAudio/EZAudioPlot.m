@@ -204,13 +204,6 @@
         CGFloat halfHeight = floorf(bounds.size.height / 2.0f);
         
         CGMutablePathRef halfPath = CGPathCreateMutable();
-
-        // Set the waveform line color
-        if (self.shouldFill) {
-            CGContextSetFillColorWithColor(ctx, self.plotColor.CGColor);
-        } else {
-            CGContextSetStrokeColorWithColor(ctx, self.plotColor.CGColor);
-        }
         
         if (self.shouldFill) {
             CGPathMoveToPoint(halfPath, NULL, smp, 0.0f);
@@ -245,8 +238,10 @@
         CGContextAddPath(ctx, path);
         
         if (self.shouldFill) {
+            CGContextSetFillColorWithColor(ctx, self.plotColor.CGColor);
             CGContextFillPath(ctx);
         } else {
+            CGContextSetStrokeColorWithColor(ctx, self.plotColor.CGColor);
             CGContextStrokePath(ctx);
         }
         CGPathRelease(path);
