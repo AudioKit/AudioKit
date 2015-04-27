@@ -27,11 +27,9 @@
 #import "EZAudio.h"
 
 @interface EZAudioPlot () {
-#if TARGET_OS_IPHONE
-    UIImage     *_plot;
-#elif TARGET_OS_MAC
+    CGLayerRef  _plot;
+#if !TARGET_OS_IPHONE
     CGColorSpaceRef _colorSpace;
-    CGImageRef  _plot;
 #endif
     CGFloat     _lastPoint;
     NSUInteger  _sinceLastUpdate;
@@ -58,7 +56,7 @@
     _shouldMirror    = YES;
     _shouldFill      = YES;
     _updateInterval  = 0.1;
-    _plotData             = NULL;
+    _plotData            = NULL;
     _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
     _scrollHistory       = malloc(_scrollHistoryLength * sizeof(float));
 }
@@ -69,6 +67,7 @@
 #if !TARGET_OS_IPHONE
     CGColorSpaceRelease(_colorSpace);
 #endif
+    CGLayerRelease(_plot);
 }
 
 #pragma mark - Setters
@@ -111,30 +110,30 @@
 
 #pragma mark - Update
 
-#if TARGET_OS_IPHONE
-- (UIImage *) getPlot
-#else
-- (CGImageRef) getPlot
-#endif
+- (CGLayerRef) getPlot
 {
     if (!_plot) {
         // Create a blank back image
 #if TARGET_OS_IPHONE
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
-        // Set the background color
-        [self.backgroundColor set];
-        UIRectFill(self.bounds);
-        _plot = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        _plot = CGLayerCreateWithContext(UIGraphicsGetCurrentContext(), self.bounds.size, NULL);
 #elif TARGET_OS_MAC
         if (_colorSpace == nil)
             _colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
         CGContextRef ctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
                                                  8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
         NSAssert(ctx, @"Failed to create bitmap context");
-        [self.backgroundColor set];
-        NSRectFill(self.bounds);
-        _plot = CGBitmapContextCreateImage(ctx);
+        _plot = CGLayerCreateWithContext(ctx, self.bounds.size, NULL);
+#endif
+        CGContextRef layer = CGLayerGetContext(_plot);
+        
+        // Set the background color
+        CGContextSetFillColorWithColor(layer, self.backgroundColor.CGColor);
+        CGContextFillRect(layer, self.bounds);
+        
+#if TARGET_OS_IPHONE
+        UIGraphicsEndImageContext();
+#elif TARGET_OS_MAC
         CGContextRelease(ctx);
 #endif
     }
@@ -175,41 +174,43 @@
 
 - (void)renderIntoBitmapAt:(NSUInteger)smp scrollBy:(NSUInteger)xoffset
 {
+    CGLayerRef plot = [self getPlot];
 #if TARGET_OS_IPHONE
-    UIImage *plot = [self getPlot];
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGLayerRef layer = CGLayerCreateWithContext(UIGraphicsGetCurrentContext(), self.bounds.size, NULL);
 #else
-    CGImageRef plot = [self getPlot];
-    CGContextRef ctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
-                                             8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
-    NSAssert(ctx, @"Failed to create bitmap context");
+    CGContextRef bitctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
+                                                8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
+    NSAssert(bitctx, @"Failed to create bitmap context");
+    CGLayerRef layer = CGLayerCreateWithContext(bitctx, self.bounds.size, NULL);
 #endif
+    CGContextRef ctx = CGLayerGetContext(layer);
+
     CGRect bounds = self.bounds;
     // How many horizontal points per sample
     CGFloat xscale = bounds.size.width / (CGFloat)_plotLength;
     
     //NSLog(@"Rendering at %@, offset=%f", NSStringFromCGRect(rect), xoffset);
     
+    //CGContextClipToRect(ctx, rect);
+    CGContextDrawLayerAtPoint(ctx, CGPointMake(-xscale * (CGFloat)xoffset, 0.0f), plot);
+    CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
+
     // Set the background color
     CGContextSetFillColorWithColor(ctx, self.backgroundColor.CGColor);
-    CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
-    
-    //CGContextClipToRect(ctx, rect);
-#if TARGET_OS_IPHONE
-    [plot drawAtPoint:CGPointMake(-xscale * (CGFloat)xoffset, 0.0f)];
-    UIRectFill(rect);
-#elif TARGET_OS_MAC
-    CGContextDrawImage(ctx, CGRectMake(-xscale * (CGFloat)xoffset, 0.0f, self.bounds.size.width, self.bounds.size.height), plot);
     CGContextFillRect(ctx, rect);
-#endif
+    
     if(_plotLength > 0) {
         CGFloat halfHeight = floorf(bounds.size.height / 2.0f);
         
         CGMutablePathRef halfPath = CGPathCreateMutable();
 
         // Set the waveform line color
-        CGContextSetStrokeColorWithColor(ctx, self.plotColor.CGColor);
+        if (self.shouldFill) {
+            CGContextSetFillColorWithColor(ctx, self.plotColor.CGColor);
+        } else {
+            CGContextSetStrokeColorWithColor(ctx, self.plotColor.CGColor);
+        }
         
         if (self.shouldFill) {
             CGPathMoveToPoint(halfPath, NULL, smp, 0.0f);
@@ -251,31 +252,32 @@
         CGPathRelease(path);
     }
 #if TARGET_OS_IPHONE
-    _plot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 #else
-    _plot = CGBitmapContextCreateImage(ctx);
-    CGContextRelease(ctx);
+    CGContextRelease(bitctx);
 #endif
+    @synchronized(self) {
+        // Swap out the old layer for the new
+        CGLayerRelease(_plot);
+        _plot = layer;
+    }
 }
 
 - (void)drawRect:(CGRect)rect
 {
 #if TARGET_OS_IPHONE
     // Draw just the subset of the plot needed, cut from rect
-    if (!CGRectEqualToRect(rect, self.bounds)) {
-        CGContextClipToRect(UIGraphicsGetCurrentContext(), rect);
-    }
-    [[self getPlot] drawAtPoint:CGPointZero];
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
 #elif TARGET_OS_MAC
-    NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
+    NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
-
+#endif
     if (!CGRectEqualToRect(rect, self.bounds)) {
         CGContextClipToRect(ctx, rect);
     }
-    CGContextDrawImage(ctx, self.bounds, [self getPlot]);
-#endif
+    @synchronized(self) {
+        CGContextDrawLayerAtPoint(ctx, CGPointZero, [self getPlot]);
+    }
 }
 
 #pragma mark - Adjust Resolution
