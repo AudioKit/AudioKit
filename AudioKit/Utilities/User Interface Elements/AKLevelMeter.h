@@ -53,29 +53,31 @@
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 /// A level meter that can be drawn from any property
 @interface AKLevelMeter : UIView
 
 // The background color of the lights
-@property(retain)				IBInspectable UIColor *bgColor;
+@property (strong)				IBInspectable UIColor *bgColor;
 
 // The border color of the lights
-@property(retain)				IBInspectable UIColor *borderColor;
+@property (strong)				IBInspectable UIColor *borderColor;
 
 #elif TARGET_OS_MAC
 
 @import Cocoa;
 
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 /// A level meter that can be drawn from any property
 @interface AKLevelMeter : NSView
 
 // The background color of the lights
-@property(retain)				IBInspectable NSColor *bgColor;
+@property (strong)				IBInspectable NSColor *bgColor;
 
 // The border color of the lights
-@property(retain)				IBInspectable NSColor *borderColor;
+@property (strong)				IBInspectable NSColor *borderColor;
 
 #endif
 
@@ -97,5 +99,6 @@ IB_DESIGNABLE
 
 
 @end
+NS_ASSUME_NONNULL_END
 
 

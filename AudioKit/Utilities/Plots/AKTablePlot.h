@@ -10,13 +10,14 @@
 #import "AKPlotView.h"
 
 /// Plots the values of the given table
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 @interface AKTablePlot : AKPlotView
 
 #if TARGET_OS_IPHONE
-@property (nonnull) IBInspectable UIColor *lineColor;
+@property IBInspectable UIColor *lineColor;
 #else
-@property (nonnull) IBInspectable NSColor *lineColor;
+@property IBInspectable NSColor *lineColor;
 #endif
 @property IBInspectable CGFloat lineWidth;
 
@@ -26,3 +27,4 @@ IB_DESIGNABLE
 @property (nonatomic) AKTable * __nullable table;
 
 @end
+NS_ASSUME_NONNULL_END

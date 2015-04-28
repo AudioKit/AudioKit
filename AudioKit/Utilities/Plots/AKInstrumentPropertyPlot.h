@@ -10,6 +10,7 @@
 #import "AKPlotView.h"
 
 /// Plot of the given instrument property
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 @interface AKInstrumentPropertyPlot : AKPlotView
 
@@ -27,3 +28,4 @@ IB_DESIGNABLE
 - (instancetype)initWithProperty:(AKInstrumentProperty *)property;
 
 @end
+NS_ASSUME_NONNULL_END

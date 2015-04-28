@@ -10,6 +10,7 @@
 
 @class CsoundObj;
 
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 @interface AKAudioPlot : AKPlotView
 
@@ -24,3 +25,4 @@ IB_DESIGNABLE
 - (NSData *)bufferWithCsound:(CsoundObj *)cs;
 
 @end
+NS_ASSUME_NONNULL_END
