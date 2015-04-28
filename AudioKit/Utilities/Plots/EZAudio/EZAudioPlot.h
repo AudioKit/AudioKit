@@ -71,12 +71,6 @@ IB_DESIGNABLE
 -(void)setSampleData:(const float *)data
               length:(NSUInteger)length;
 
-#if TARGET_OS_IPHONE
-@property (nonatomic,strong) IBInspectable UIColor *backgroundColor;
-#else
-@property (nonatomic,strong) IBInspectable NSColor *backgroundColor;
-#endif
-
 /**
  The default color of the plot's data (i.e. waveform, y-axis values). For iOS the color is specified as a UIColor while for OSX the color is an NSColor. The default value on both platforms is red.
  */
