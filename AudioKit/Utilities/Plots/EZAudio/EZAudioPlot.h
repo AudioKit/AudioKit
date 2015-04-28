@@ -56,28 +56,20 @@ IB_DESIGNABLE
 ///-----------------------------------------------------------
 
 /**
- Sets the length of the rolling history display. Can grow or shrink the display up to the maximum size specified by the kEZAudioPlotMaxHistoryBufferLength macro. Will return the actual set value, which will be either the given value if smaller than the kEZAudioPlotMaxHistoryBufferLength or kEZAudioPlotMaxHistoryBufferLength if a larger value is attempted to be set. 
- @param  historyLength The new length of the rolling history buffer.
- @return The new value equal to the historyLength or the kEZAudioPlotMaxHistoryBufferLength.
+ The length of the rolling history display. Can grow or shrink the display up to the maximum size specified by the kEZAudioPlotMaxHistoryBufferLength macro. Will return the actual set value, which will be either the given value if smaller than the kEZAudioPlotMaxHistoryBufferLength or kEZAudioPlotMaxHistoryBufferLength if a larger value is attempted to be set.
  */
--(int)setRollingHistoryLength:(int)historyLength;
 
-/**
- Provides the length of the rolling history buffer
- *  @return An int representing the length of the rolling history buffer
- */
--(int)rollingHistoryLength;
+@property (nonatomic) IBInspectable NSUInteger rollingHistoryLength;
 
 #pragma mark - Subclass Methods
 
 /**
- <#Description#>
- @param data   <#theplotData description#>
- @param length <#length description#>
+ Set the buffer of data to display.
+ @param data   The array of samples containing the data.
+ @param length The number of samples in the array.
  */
 -(void)setSampleData:(const float *)data
-              length:(int)length;
-
+              length:(NSUInteger)length;
 
 #if TARGET_OS_IPHONE
 @property (nonatomic,strong) IBInspectable UIColor *backgroundColor;
@@ -124,8 +116,10 @@ IB_DESIGNABLE
  Updates the plot with the new buffer data and tells the view to redraw itself. Caller will provide a float array with the values they expect to see on the y-axis. The plot will internally handle mapping the x-axis and y-axis to the current view port, any interpolation for fills effects, and mirroring.
  @param buffer     A float array of values to map to the y-axis.
  @param bufferSize The size of the float array that will be mapped to the y-axis.
+ @param update     Whether to trigger an update of the view.
  @warning The bufferSize is expected to be the same, constant value once initial triggered. For plots using OpenGL a vertex buffer object will be allocated with a maximum buffersize of (2 * the initial given buffer size) to account for any interpolation necessary for filling in the graph. Updates use the glBufferSubData(...) function, which will crash if the buffersize exceeds the initial maximum allocated size.
  */
 -(void)updateBuffer:(const MYFLT *)buffer
-     withBufferSize:(UInt32)bufferSize;
+     withBufferSize:(UInt32)bufferSize
+             update:(BOOL)update;
 @end

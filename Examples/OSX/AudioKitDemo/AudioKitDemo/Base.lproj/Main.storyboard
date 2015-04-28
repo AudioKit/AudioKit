@@ -1159,6 +1159,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="DdG-cn-JMA" customClass="AKAudioInputRollingWaveformPlot">
+                                <rect key="frame" x="20" y="249" width="410" height="100"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="plotColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gain">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="2AQ-7V-Ee8" firstAttribute="top" secondItem="hLv-No-NSa" secondAttribute="top" constant="20" id="431-NH-Txn"/>
@@ -1170,17 +1184,22 @@
                             <constraint firstItem="w5y-p4-E44" firstAttribute="height" secondItem="N5K-lO-MdV" secondAttribute="height" id="EbI-Br-c78"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="top" secondItem="2AQ-7V-Ee8" secondAttribute="bottom" constant="18" id="IbG-qB-g3U"/>
                             <constraint firstItem="H4c-IN-PPX" firstAttribute="centerY" secondItem="kFF-Fa-NcQ" secondAttribute="centerY" id="LOu-1e-9ta"/>
+                            <constraint firstItem="DdG-cn-JMA" firstAttribute="top" secondItem="w5y-p4-E44" secondAttribute="bottom" constant="10" id="M22-iH-Cme"/>
                             <constraint firstItem="H4c-IN-PPX" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="20" id="NHT-LQ-rHy"/>
                             <constraint firstItem="bOf-cW-uIp" firstAttribute="top" secondItem="POL-Hj-ypn" secondAttribute="bottom" constant="8" id="Rbd-Xa-1SM"/>
                             <constraint firstItem="H4c-IN-PPX" firstAttribute="top" secondItem="bOf-cW-uIp" secondAttribute="bottom" constant="8" id="Usc-3P-mw4"/>
                             <constraint firstItem="bOf-cW-uIp" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="20" id="Xf5-72-UhB"/>
                             <constraint firstAttribute="trailing" secondItem="kFF-Fa-NcQ" secondAttribute="trailing" constant="20" id="Y1t-lz-Mop"/>
+                            <constraint firstItem="DdG-cn-JMA" firstAttribute="leading" secondItem="w5y-p4-E44" secondAttribute="leading" id="Zns-xm-WA9"/>
                             <constraint firstAttribute="trailing" secondItem="oOU-GL-cGe" secondAttribute="trailing" constant="20" id="b0w-lJ-gam"/>
                             <constraint firstAttribute="trailing" secondItem="N5K-lO-MdV" secondAttribute="trailing" constant="20" id="cGl-Bh-9Qe"/>
+                            <constraint firstItem="DdG-cn-JMA" firstAttribute="trailing" secondItem="w5y-p4-E44" secondAttribute="trailing" id="ctz-KH-fed"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="centerY" secondItem="K2f-py-8jU" secondAttribute="centerY" id="g9q-Vz-5hg"/>
                             <constraint firstItem="w5y-p4-E44" firstAttribute="leading" secondItem="N5K-lO-MdV" secondAttribute="leading" id="gNd-RB-bTB"/>
+                            <constraint firstItem="DdG-cn-JMA" firstAttribute="width" secondItem="w5y-p4-E44" secondAttribute="width" id="hre-r0-Bp5"/>
                             <constraint firstItem="N5K-lO-MdV" firstAttribute="top" secondItem="H4c-IN-PPX" secondAttribute="bottom" constant="8" id="nad-Vb-Nhm"/>
                             <constraint firstItem="oOU-GL-cGe" firstAttribute="centerY" secondItem="bOf-cW-uIp" secondAttribute="centerY" id="npJ-1T-sQT"/>
+                            <constraint firstItem="DdG-cn-JMA" firstAttribute="height" secondItem="w5y-p4-E44" secondAttribute="height" id="pfc-If-ROX"/>
                             <constraint firstItem="2AQ-7V-Ee8" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" id="sfH-NF-ESC"/>
                             <constraint firstItem="Uyf-KZ-Vhk" firstAttribute="leading" secondItem="hLv-No-NSa" secondAttribute="leading" constant="22" id="spN-Nd-xJV"/>
                             <constraint firstItem="POL-Hj-ypn" firstAttribute="top" secondItem="Uyf-KZ-Vhk" secondAttribute="bottom" constant="8" id="sph-oO-4xz"/>
