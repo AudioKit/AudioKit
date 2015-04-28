@@ -68,6 +68,12 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+#if TARGET_OS_IPHONE
+#elif TARGET_OS_MAC
+    [self.backgroundColor setFill];
+    NSRectFill(rect);
+    [super drawRect:rect];
+#endif
     [self drawChannel:0 offset:0.25 color:self.leftLineColor    width:self.lineWidth];
     [self drawChannel:1 offset:0.75 color:self.rightLineColor   width:self.lineWidth];
 }

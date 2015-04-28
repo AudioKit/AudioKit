@@ -844,14 +844,14 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5Y-Wz-QXH" customClass="AKPropertySlider">
-                                <rect key="frame" x="18" y="417" width="414" height="20"/>
+                                <rect key="frame" x="18" y="416" width="414" height="21"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="75" tickMarkPosition="above" sliderType="linear" id="vJi-sr-eyI"/>
                                 <connections>
                                     <action selector="speedChanged:" target="XQA-pb-uB0" id="7GN-FD-2Wf"/>
                                 </connections>
                             </slider>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="1HW-WS-aa4">
-                                <rect key="frame" x="169" y="372" width="112" height="18"/>
+                                <rect key="frame" x="169" y="371" width="112" height="18"/>
                                 <buttonCell key="cell" type="check" title="Preserve Pitch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eJb-lM-Ajm">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -861,7 +861,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zMr-pa-02I">
-                                <rect key="frame" x="113" y="332" width="225" height="17"/>
+                                <rect key="frame" x="113" y="331" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="c7t-26-a6x"/>
                                 </constraints>
@@ -872,7 +872,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u2O-rY-0pQ">
-                                <rect key="frame" x="18" y="332" width="77" height="17"/>
+                                <rect key="frame" x="18" y="331" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="yxg-dK-8hZ"/>
                                 </constraints>
@@ -883,7 +883,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZNb-ah-HBD">
-                                <rect key="frame" x="342" y="332" width="90" height="17"/>
+                                <rect key="frame" x="342" y="331" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="pF1-1S-4X3"/>
                                 </constraints>
@@ -894,11 +894,11 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kdD-z3-vlJ" customClass="AKPropertySlider">
-                                <rect key="frame" x="18" y="306" width="414" height="20"/>
+                                <rect key="frame" x="18" y="304" width="414" height="21"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="33" tickMarkPosition="above" sliderType="linear" id="JXO-NN-abt"/>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d4U-xg-XDw">
-                                <rect key="frame" x="113" y="255" width="225" height="17"/>
+                                <rect key="frame" x="113" y="254" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="ZOv-xH-DTz"/>
                                 </constraints>
@@ -909,7 +909,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-Vc-Q2K">
-                                <rect key="frame" x="18" y="255" width="77" height="17"/>
+                                <rect key="frame" x="18" y="254" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="gvD-zc-IkY"/>
                                 </constraints>
@@ -920,7 +920,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rEh-uv-8Xv">
-                                <rect key="frame" x="342" y="255" width="90" height="17"/>
+                                <rect key="frame" x="342" y="254" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="dDm-Dg-A73"/>
                                 </constraints>
@@ -931,11 +931,11 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-Kh-JYj" customClass="AKPropertySlider">
-                                <rect key="frame" x="18" y="229" width="414" height="20"/>
+                                <rect key="frame" x="18" y="227" width="414" height="21"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Hq4-Us-yYi"/>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-Qd-uju">
-                                <rect key="frame" x="113" y="178" width="225" height="17"/>
+                                <rect key="frame" x="113" y="177" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="4yD-hF-aZC"/>
                                 </constraints>
@@ -946,7 +946,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1b-Ox-3qt">
-                                <rect key="frame" x="18" y="178" width="77" height="17"/>
+                                <rect key="frame" x="18" y="177" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="6KW-Bt-jv7"/>
                                 </constraints>
@@ -957,7 +957,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB5-PA-9nH">
-                                <rect key="frame" x="342" y="178" width="90" height="17"/>
+                                <rect key="frame" x="342" y="177" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="caF-16-JOe"/>
                                 </constraints>
@@ -968,11 +968,11 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HhX-bx-q4o" customClass="AKPropertySlider">
-                                <rect key="frame" x="18" y="152" width="414" height="20"/>
+                                <rect key="frame" x="18" y="150" width="414" height="21"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="aeu-7d-Jlu"/>
                             </slider>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="nor-ac-lZE" customClass="AKAudioOutputRollingWaveformPlot">
-                                <rect key="frame" x="20" y="35" width="410" height="100"/>
+                                <rect key="frame" x="20" y="33" width="410" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="GPj-82-qCv"/>
                                     <constraint firstAttribute="height" constant="100" id="JVO-0Z-pTo"/>
@@ -1147,7 +1147,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
@@ -1155,16 +1155,13 @@
                                 <rect key="frame" x="20" y="359" width="410" height="100"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="0.011788656139999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="DdG-cn-JMA" customClass="AKAudioInputRollingWaveformPlot">
                                 <rect key="frame" x="20" y="249" width="410" height="100"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="plotColor">
                                         <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
