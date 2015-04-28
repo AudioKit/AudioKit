@@ -24,7 +24,7 @@
         "AudioKit/Utilities/**/*.{h,m,c}"
     ],
     "xcconfig": {
-        "OTHER_LDFLAGS": "-lObjC"
+        "OTHER_LDFLAGS": "-ObjC"
     },
     "dependencies": {
     },
