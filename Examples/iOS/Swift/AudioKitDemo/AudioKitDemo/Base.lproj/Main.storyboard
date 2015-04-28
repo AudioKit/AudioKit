@@ -542,7 +542,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gEa-6t-zGZ" userLabel="Tracked Amp Plot" customClass="AKInstrumentPropertyPlot">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEa-6t-zGZ" userLabel="Tracked Amp Plot" customClass="AKInstrumentPropertyPlot">
                                         <rect key="frame" x="20" y="331" width="374" height="100"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
