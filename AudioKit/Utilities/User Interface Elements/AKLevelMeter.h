@@ -47,7 +47,7 @@
  
  */
 
-#import <TargetConditionals.h>
+#import "AKCompatibility.h"
 
 #if TARGET_OS_IPHONE
 
