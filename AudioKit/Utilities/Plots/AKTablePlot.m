@@ -64,11 +64,14 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
 #elif TARGET_OS_MAC
+    [self.backgroundColor setFill];
+    NSRectFill(rect);
+    
     [[NSGraphicsContext currentContext] saveGraphicsState];
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef context = (CGContextRef) [nsGraphicsContext graphicsPort];
 #endif
-    
+
     CGContextSetRGBFillColor(context, 0, 0, 0, 1);
     CGContextFillRect(context, rect);
     

@@ -29,6 +29,12 @@
 @interface AKPlotView : NSView
 - (void)defaultValues;
 - (void)updateUI;
+
+#if TARGET_OS_IPHONE
+#else
+@property (nonatomic,strong) IBInspectable NSColor *backgroundColor;
+#endif
+
 @end
 
 #define AKColor NSColor
@@ -37,6 +43,7 @@
 #define AK_DEVICE_ORIGIN (1)
 
 #endif
+
 
 // Commonly used macro in the plot classes
 #define AK_CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
