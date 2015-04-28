@@ -51,7 +51,7 @@
 #pragma mark - Initialization
 
 - (void)defaultValues {
-    _backgroundColor = [AKColor blackColor];
+    self.backgroundColor = [AKColor blackColor];
     _plotColor       = [AKColor yellowColor];
     _gain            = 1.0;
     _shouldMirror    = YES;
@@ -73,7 +73,7 @@
 
 #pragma mark - Setters
 - (void)setBackgroundColor:(AKColor *)backgroundColor {
-    _backgroundColor = backgroundColor;
+    super.backgroundColor = backgroundColor;
     [self updateUI];
 }
 
@@ -266,6 +266,8 @@
     // Draw just the subset of the plot needed, cut from rect
     CGContextRef ctx = UIGraphicsGetCurrentContext();
 #elif TARGET_OS_MAC
+    [self.backgroundColor setFill];
+    NSRectFill(rect);
     NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
 #endif
