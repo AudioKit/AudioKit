@@ -36,11 +36,9 @@
 
 - (void)drawRect:(CGRect)rect
 {
-#if TARGET_OS_IPHONE
-#elif TARGET_OS_MAC
+#if !TARGET_OS_IPHONE
     [self.backgroundColor setFill];
     NSRectFill(rect);
-    [super drawRect:rect];
 #endif
     // Draw waveform
     AKBezierPath *waveformPath = [AKBezierPath bezierPath];

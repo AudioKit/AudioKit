@@ -268,7 +268,6 @@
 #elif TARGET_OS_MAC
     [self.backgroundColor setFill];
     NSRectFill(rect);
-    [super drawRect:rect];
     NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
 #endif

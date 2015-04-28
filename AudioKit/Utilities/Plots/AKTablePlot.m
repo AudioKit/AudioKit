@@ -66,7 +66,6 @@
 #elif TARGET_OS_MAC
     [self.backgroundColor setFill];
     NSRectFill(rect);
-    [super drawRect:rect];
     
     [[NSGraphicsContext currentContext] saveGraphicsState];
     NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
