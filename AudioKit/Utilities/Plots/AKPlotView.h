@@ -26,16 +26,15 @@
 #elif TARGET_OS_MAC
 @import Cocoa;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKPlotView : NSView
 - (void)defaultValues;
 - (void)updateUI;
 
-#if TARGET_OS_IPHONE
-#else
 @property (nonatomic,strong) IBInspectable NSColor *backgroundColor;
-#endif
 
 @end
+NS_ASSUME_NONNULL_END
 
 #define AKColor NSColor
 #define AKBezierPath NSBezierPath

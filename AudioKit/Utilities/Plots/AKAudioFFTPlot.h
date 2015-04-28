@@ -10,6 +10,7 @@
 
 @class CsoundObj;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKAudioFFTPlot : AKPlotView
 
 #if TARGET_OS_IPHONE
@@ -22,3 +23,4 @@
 - (NSMutableData *)bufferWithCsound:(CsoundObj *)cs;
 
 @end
+NS_ASSUME_NONNULL_END

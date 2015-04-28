@@ -50,6 +50,14 @@
     });
 }
 
+#if !TARGET_OS_IPHONE
+- (void)setBackgroundColor:(NSColor * __nonnull)backgroundColor
+{
+    _backgroundColor = backgroundColor;
+    [self updateUI];
+}
+#endif
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

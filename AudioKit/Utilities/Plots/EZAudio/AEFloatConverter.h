@@ -43,7 +43,7 @@ extern "C" {
  *
  * @param sourceFormat The audio format to use
  */
-- (id)initWithSourceFormat:(AudioStreamBasicDescription)sourceFormat;
+- (instancetype)initWithSourceFormat:(AudioStreamBasicDescription)sourceFormat;
 
 /*!
  * Convert audio to floating-point

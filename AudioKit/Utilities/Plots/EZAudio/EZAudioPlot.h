@@ -47,6 +47,7 @@
 #import "AKFoundation.h"
 #import "AKPlotView.h"
 
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 @interface EZAudioPlot : AKPlotView
 
@@ -117,3 +118,5 @@ IB_DESIGNABLE
      withBufferSize:(UInt32)bufferSize
              update:(BOOL)update;
 @end
+NS_ASSUME_NONNULL_END
+
