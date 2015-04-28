@@ -23,6 +23,9 @@
         "AudioKit/Tables/**/*.{h,m}",
         "AudioKit/Utilities/**/*.{h,m,c}"
     ],
+    "xcconfig": {
+        "OTHER_LDFLAGS": "-lObjC"
+    },
     "dependencies": {
     },
     "platforms": {
