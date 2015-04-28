@@ -9,7 +9,10 @@
 #ifndef AKFoundation_h
 #define AKFoundation_h
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
+# pragma mark - Compatibility Macros
+#import "AKCompatibility.h"
 
 # pragma mark - Core Classes
 #import "AKManager.h"
