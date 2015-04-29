@@ -141,7 +141,7 @@
     return _plot;
 }
 
-- (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
+- (void)updateBuffer:(const float *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
 {
     // Update the scroll history datasource - this adds one entry to the sliding history
     BOOL scrolling = [EZAudio updateScrollHistory:&_scrollHistory

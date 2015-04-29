@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 #import <TargetConditionals.h>
+#import "csound.h"
 
 #if TARGET_OS_IPHONE
 @import UIKit;

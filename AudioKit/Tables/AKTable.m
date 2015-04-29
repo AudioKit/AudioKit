@@ -7,6 +7,7 @@
 //
 
 #import "AKFoundation.h"
+#import "csound.h"
 
 @implementation AKTable {
     CsoundObj *_csoundObj;
@@ -22,11 +23,11 @@ static int currentID = 2000;
 }
 
 // Returns a pointer to the table managed internally by Csound
-- (MYFLT *)values
+- (float *)values
 {
     NSAssert(csoundTableLength(_cs, _number) == _size, @"Inconsistent table sizes (not %@)", @(_size));
 
-    MYFLT *ptr;
+    float *ptr;
     int len = csoundGetTable(_cs, &ptr, _number);
     if (len > 0) {
         return ptr;
@@ -67,12 +68,11 @@ static int currentID = 2000;
         _csoundObj = [[AKManager sharedManager] engine];
         _cs = [_csoundObj getCsound];
         [_csoundObj updateOrchestra:self.orchestraString];
-        MYFLT *table = self.values;
+        float *table = self.values;
         
         if (table) {
             for (int i = 0; i < _size; i++) {
-                MYFLT value = (MYFLT)[array[i] floatValue];
-                table[i] = value;
+                table[i] = [array[i] floatValue];
             }
         }
     }
@@ -83,7 +83,7 @@ static int currentID = 2000;
 {
     NSAssert(index < _size, @"Index out of bounds: %@", @(index));
     if (index < _size) {
-        MYFLT *vals = self.values;
+        float *vals = self.values;
         if (vals) {
             return vals[index];
         }
@@ -95,7 +95,7 @@ static int currentID = 2000;
 {
     NSAssert(fractionalWidth <= 1, @"Fractional width out of bounds:%f", fractionalWidth);
     if (fractionalWidth <= 1) {
-        MYFLT *vals = self.values;
+        float *vals = self.values;
         if (vals) {
             return vals[(NSUInteger)(fractionalWidth * _size)];
         }
@@ -114,7 +114,7 @@ static int currentID = 2000;
 
 - (void)operateOnTableWithFunction:(float (^)(float))function
 {
-    MYFLT *table = self.values;
+    float *table = self.values;
     if (table) {
         for (int i = 0; i < _size; i++) {
             table[i] = function(table[i]);
@@ -124,7 +124,7 @@ static int currentID = 2000;
 
 - (void)populateTableWithIndexFunction:(float (^)(NSUInteger))function
 {
-    MYFLT *table = self.values;
+    float *table = self.values;
     if (table) {
         for (int i = 0; i < _size; i++) {
             table[i] = function(i);
@@ -134,7 +134,7 @@ static int currentID = 2000;
 
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function
 {
-    MYFLT *table = self.values;
+    float *table = self.values;
     if (table) {
         for (int i = 0; i < _size; i++) {
             float x = (float) i / _size;
@@ -152,9 +152,9 @@ static int currentID = 2000;
 
 - (void)normalize
 {
-    MYFLT *table = self.values;
+    float *table = self.values;
     if (table) {
-        MYFLT max = 0.0;
+        float max = 0.0;
         for (int i = 0; i < _size; i++) {
             max = MAX(max, fabsf(table[i]));
         }

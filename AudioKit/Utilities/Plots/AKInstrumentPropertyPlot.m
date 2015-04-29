@@ -16,7 +16,7 @@
 
 @implementation AKInstrumentPropertyPlot
 {
-    MYFLT *history;
+    float *history;
     int historySize;
     int index;
 }
@@ -25,8 +25,8 @@
 {
     index = 0;
     historySize = 512;
-    history = (MYFLT *)malloc(historySize * sizeof(MYFLT));
-    bzero(history, historySize * sizeof(MYFLT));
+    history = malloc(historySize * sizeof(float));
+    bzero(history, historySize * sizeof(float));
     _lineWidth = 4.0f;
     _lineColor = [AKColor blueColor];
     _connectPoints = YES;

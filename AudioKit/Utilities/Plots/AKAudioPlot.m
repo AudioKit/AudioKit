@@ -43,7 +43,7 @@
     // Draw waveform
     AKBezierPath *waveformPath = [AKBezierPath bezierPath];
     @synchronized(self) {
-        const MYFLT *samples = (const MYFLT *)_samples.bytes;
+        const float *samples = _samples.bytes;
         
         CGFloat x = 0.0f;
         CGFloat y = 0.0f;
@@ -79,9 +79,9 @@
     
     _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
-    void *samples = malloc(_sampleSize * sizeof(MYFLT));
-    bzero(samples, _sampleSize * sizeof(MYFLT));
-    _samples = [NSData dataWithBytesNoCopy:samples length:_sampleSize * sizeof(MYFLT)];
+    void *samples = malloc(_sampleSize * sizeof(float));
+    bzero(samples, _sampleSize * sizeof(float));
+    _samples = [NSData dataWithBytesNoCopy:samples length:_sampleSize * sizeof(float)];
 }
 
 - (void)updateValuesFromCsound

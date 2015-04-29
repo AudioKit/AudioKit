@@ -29,13 +29,23 @@
 @import AudioUnit;
 
 #import "AKCompatibility.h"
-#import "csound.h"
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Protocols (Bindings, Listeners and Message Delegate)
 // -----------------------------------------------------------------------------
 
 @class CsoundObj;
+
+typedef struct CSOUND_ CSOUND;
+
+/// Equivalent type to Csound's controlChannelType
+typedef enum {
+    AKControlChannel = 1,
+    AKAudioChannel   = 2,
+    AKStringChannel  = 3,
+    AKPVSChannel     = 4,
+    AKVarChannel     = 5
+} AKControlChannelType;
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol CsoundBinding <NSObject>
@@ -106,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 #  pragma mark - Csound Internals / Advanced Methods
 // -----------------------------------------------------------------------------
 
-@property (nonatomic,readonly,getter=getCsound) CSOUND *csound;
+@property (nonatomic,readonly,getter=getCsound)       CSOUND *csound;
 
 @property (readonly,nonatomic, getter=getNumChannels) int numChannels;
 @property (readonly,nonatomic, getter=getKsmps)       int ksmps;
@@ -114,10 +124,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 // get input or output that maps to a channel name and type, where type is
 // CSOUND_AUDIO_CHANNEL, CSOUND_CONTROL_CHANNEL, etc.
-- (MYFLT * __nullable)getInputChannelPtr:(NSString *)channelName
-                             channelType:(controlChannelType)channelType;
-- (MYFLT * __nullable)getOutputChannelPtr:(NSString *)channelName
-                              channelType:(controlChannelType)channelType;
+- (float * __nullable)getInputChannelPtr:(NSString *)channelName
+                             channelType:(AKControlChannelType)channelType;
+- (float * __nullable)getOutputChannelPtr:(NSString *)channelName
+                              channelType:(AKControlChannelType)channelType;
 
 // Read-only samples
 - (NSData *)getOutSamples;

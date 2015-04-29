@@ -12,7 +12,7 @@
 
 @implementation AKTablePlot
 {
-    MYFLT *_displayData;
+    float *_displayData;
 }
 
 - (void)defaultValues
@@ -26,13 +26,13 @@
 {
     _table = table;
     
-    MYFLT *tableValues = table.values;
+    float *tableValues = table.values;
     if (tableValues) {
         
         CGFloat width = self.frame.size.width;
         CGFloat middle = (self.frame.size.height / 2.0);
         
-        _displayData = realloc(_displayData, sizeof(MYFLT) * width);
+        _displayData = realloc(_displayData, sizeof(float) * width);
         
         float max = 0.00001;
         NSUInteger len = table.size;

@@ -44,7 +44,7 @@
     CGFloat y = 0.0f;
     
     @synchronized(self) {
-        const MYFLT *samples = (const MYFLT *)outSamples.bytes;
+        const float *samples = outSamples.bytes;
         
         for (int i = 0; i < plotPoints; i++) {
             y = AK_CLAMP(y, -1.0f, 1.0f);
@@ -86,9 +86,9 @@
 
     sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
-    void *samples = malloc(sampleSize * sizeof(MYFLT));
-    bzero(samples, sampleSize * sizeof(MYFLT));
-    outSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize * sizeof(MYFLT)];
+    void *samples = malloc(sampleSize * sizeof(float));
+    bzero(samples, sampleSize * sizeof(float));
+    outSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize * sizeof(float)];
 }
 
 - (void)updateValuesFromCsound

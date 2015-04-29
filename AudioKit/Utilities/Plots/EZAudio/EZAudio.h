@@ -196,7 +196,7 @@
  @param 	bufferSize 	The size of the float buffer
  @return	The root mean squared of the buffer
  */
-+(float)RMS:(const MYFLT*)buffer
++(float)RMS:(const float*)buffer
      length:(int)bufferSize;
 
 /**
@@ -230,7 +230,7 @@
 +(BOOL)updateScrollHistory:(float**)scrollHistory
                 withLength:(NSUInteger)scrollHistoryLength
                    atIndex:(NSUInteger *)index
-                withBuffer:(const MYFLT*)buffer
+                withBuffer:(const float*)buffer
             withBufferSize:(int)bufferSize
       isResolutionChanging:(BOOL)isChanging;
 
