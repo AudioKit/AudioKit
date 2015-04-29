@@ -8,10 +8,11 @@
 
 #import "AKInstrumentProperty.h"
 #import "CsoundObj.h"
+#import "csound.h"
 
 @interface AKInstrumentProperty() <CsoundBinding>
 {
-    MYFLT *channelPtr;
+    float *channelPtr;
     BOOL sentToCsound;
 }
 @end
@@ -54,7 +55,8 @@
 
 - (void)setup:(CsoundObj*)csoundObj
 {
-    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",self] channelType:CSOUND_CONTROL_CHANNEL];
+    channelPtr = [csoundObj getInputChannelPtr:[NSString stringWithFormat:@"%@Pointer",self]
+                                   channelType:AKControlChannel];
     *channelPtr = self.value;
     sentToCsound = YES;
 }

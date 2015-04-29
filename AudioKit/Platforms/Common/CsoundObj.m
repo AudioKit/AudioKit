@@ -29,6 +29,8 @@
 #import <TargetConditionals.h>
 
 #import "CsoundObj.h"
+#import "csound.h"
+
 //#import "CsoundMIDI.h"
 
 OSStatus  Csound_Render(void *inRefCon,
@@ -334,7 +336,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 }
 
 - (MYFLT *)getInputChannelPtr:(NSString *)channelName
-                  channelType:(controlChannelType)channelType
+                  channelType:(AKControlChannelType)channelType
 {
     MYFLT *value;
     csoundGetChannelPtr(_cs, &value,
@@ -344,7 +346,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 }
 
 - (MYFLT *)getOutputChannelPtr:(NSString *)channelName
-                   channelType:(controlChannelType)channelType
+                   channelType:(AKControlChannelType)channelType
 {
     MYFLT *value;
     csoundGetChannelPtr(_cs, &value,

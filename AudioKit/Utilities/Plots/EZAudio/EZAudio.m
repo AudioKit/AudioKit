@@ -296,9 +296,9 @@
     return rightMin + (valueScaled * rightSpan);
 }
 
-+(float)RMS:(const MYFLT *)buffer
++(float)RMS:(const float *)buffer
      length:(int)bufferSize {
-    MYFLT *squared = calloc(bufferSize, sizeof(MYFLT));
+    float *squared = calloc(bufferSize, sizeof(float));
     vDSP_vsq(buffer, 1, squared, 1, bufferSize);
     float mean;
     vDSP_meanv(squared, 1, &mean, bufferSize);
@@ -317,7 +317,7 @@
 + (BOOL) updateScrollHistory:(float **)scrollHistory
                   withLength:(NSUInteger)scrollHistoryLength
                      atIndex:(NSUInteger *)index
-                  withBuffer:(const MYFLT *)buffer
+                  withBuffer:(const float *)buffer
               withBufferSize:(int)bufferSize
         isResolutionChanging:(BOOL)isChanging
 {

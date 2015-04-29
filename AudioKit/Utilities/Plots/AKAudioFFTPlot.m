@@ -17,7 +17,7 @@
 {
     NSMutableData *_samples;
     UInt32 _sampleSize;
-    MYFLT *_history;
+    float *_history;
     int _historySize;
     int _index;
     
@@ -95,7 +95,7 @@
 }
 
 -(void)createFFTWithBufferSize:(float)bufferSize {
-    MYFLT *data = (MYFLT *)_samples.mutableBytes;
+    float *data = _samples.mutableBytes;
     
     // Setup the length
     _log2n = log2f(bufferSize);
@@ -120,7 +120,7 @@
 }
 
 -(void)updateFFTWithBufferSize:(float)bufferSize {
-    const MYFLT *data = (const MYFLT *)_samples.bytes;
+    const float *data = _samples.bytes;
     
     // For an FFT, numSamples must be a power of 2, i.e. is always even
     int nOver2 = bufferSize/2;
@@ -163,14 +163,14 @@
     
     _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
-    void *samples = malloc(_sampleSize * sizeof(MYFLT));
-    bzero(samples, _sampleSize * sizeof(MYFLT));
-    _samples = [NSMutableData dataWithBytesNoCopy:samples length:_sampleSize * sizeof(MYFLT)];
+    void *samples = malloc(_sampleSize * sizeof(float));
+    bzero(samples, _sampleSize * sizeof(float));
+    _samples = [NSMutableData dataWithBytesNoCopy:samples length:_sampleSize * sizeof(float)];
     
     _historySize = 128;
     
-    _history = (MYFLT *)malloc(_historySize * sizeof(MYFLT));
-    bzero(_history, _historySize * sizeof(MYFLT));
+    _history = malloc(_historySize * sizeof(float));
+    bzero(_history, _historySize * sizeof(float));
     
     [self createFFTWithBufferSize:_sampleSize];
 }
