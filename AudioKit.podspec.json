@@ -21,7 +21,8 @@
         "AudioKit/Parameters/**/*.{h,m}",
         "AudioKit/Sequencing/**/*.{h,m}",
         "AudioKit/Tables/**/*.{h,m}",
-        "AudioKit/Utilities/**/*.{h,m,c}"
+        "AudioKit/Utilities/**/*.{h,m,c}",
+	"AudioKit/Platforms/Common/*.{h,m}"
     ],
     "xcconfig": {
         "OTHER_LDFLAGS": "-ObjC"
@@ -40,13 +41,12 @@
         "AudioKit/Parameters/**/*.h",
         "AudioKit/Sequencing/**/*.h",
         "AudioKit/Tables/**/*.h",
-        "AudioKit/Utilities/**/*.h"
+        "AudioKit/Utilities/**/*.h",
+	"AudioKit/Platforms/Common/csound/*.{h,hpp}"
     ],
     "osx": {
         "frameworks": "CsoundLib",
-        "vendored_frameworks": "AudioKit/Platforms/OSX/CsoundLib.framework",
-        "source_files": "AudioKit/Platforms/Common/*.{h,m}",
-        "public_header_files": "AudioKit/Platforms/Common/csound/*.{h,hpp}"
+        "vendored_frameworks": "AudioKit/Platforms/OSX/CsoundLib.framework"
     },
     "ios": {
         "libraries": [
@@ -56,8 +56,6 @@
         "vendored_libraries": [
             "AudioKit/Platforms/iOS/libs/libcsound.a",
             "AudioKit/Platforms/iOS/libs/libsndfile.a"
-        ],
-        "source_files": "AudioKit/Platforms/Common/*.{h,m}",
-        "public_header_files": "AudioKit/Platforms/Common/csound/*.{h,hpp}"
+        ]
     }
 }
