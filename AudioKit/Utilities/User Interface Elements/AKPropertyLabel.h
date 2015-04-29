@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "AKParameter.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -18,6 +18,6 @@
 @interface AKPropertyLabel : NSTextField
 #endif
 
-@property (nonatomic) id property;
+@property (nonatomic) AKParameter *property;
 
 @end

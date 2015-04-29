@@ -17,6 +17,6 @@
 
 /// Parameters for the generator
 /// @param size The final size of the table, useful for scaling
-- (NSArray *)parametersWithSize:(int)size;
+- (NSArray *)parametersWithSize:(NSUInteger)size;
 
 @end

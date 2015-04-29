@@ -17,7 +17,11 @@
 
 // Note properties
 @property AKNoteProperty *dampingFactor;
+@property AKNoteProperty *intensity;
 @property AKNoteProperty *mainResonantFrequency;
 @property AKNoteProperty *firstResonantFrequency;
 @property AKNoteProperty *secondResonantFrequency;
+
+- (instancetype)initWithIntensity:(float)intensity dampingFactor:(float)dampingFactor;
+
 @end

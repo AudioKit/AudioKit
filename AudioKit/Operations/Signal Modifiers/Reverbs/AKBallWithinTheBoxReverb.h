@@ -14,6 +14,7 @@
  Physical model reverberator based on the paper by Davide Rocchesso 'The Ball within the Box - a sound-processing metaphor', Computer Music Journal, Vol 19, N.4, pp.45-47, Winter 1995.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKBallWithinTheBoxReverb : AKStereoAudio
 /// Instantiates the ball within the box reverb with all values
 /// @param input The input audio signal. [Default Value: ]
@@ -93,3 +94,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

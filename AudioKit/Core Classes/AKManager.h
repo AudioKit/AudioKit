@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
+#import "AKCompatibility.h"
 #import "AKInstrument.h"
 #import "AKOrchestra.h"
 #import "AKEvent.h"
@@ -17,15 +18,21 @@
 
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKManager : NSObject
 
-@property CsoundObj *engine;
+@property (readonly) CsoundObj *engine;
 
 /// Determines whether or not AudioKit is available to send events to.
 @property (readonly) BOOL isRunning;
 
 /// Determines whether or not to log
 @property BOOL isLogging;
+
+#ifdef TRAVIS_CI
+/// Place to put lines of testing logs
+@property NSMutableArray *testLog;
+#endif
 
 /// The default orchestra
 @property AKOrchestra *orchestra;
@@ -44,7 +51,7 @@
 
 /// Run AudioKit using an AKOrchestra for a specific amount of time
 /// @param duration Time for the orchestra to play in seconds
-- (void)runOrchestraForDuration:(int)duration;
+- (void)runOrchestraForDuration:(NSTimeInterval)duration;
 
 /// Erase all instruments from the orchestra
 - (void)resetOrchestra;
@@ -76,7 +83,12 @@
 
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk
-+ (NSString *)stringFromFile:(NSString *)filename;
++ (NSString * __nullable)stringFromFile:(NSString *)filename;
+
+/// Get the path to a resource file in AKSoundFiles.bundle, may fail if not found
+/// @param filename The file name without its extension
+/// @param extension The extension for the file (i.e. @"wav", etc)
++ (NSString * __nullable)pathToSoundFile:(NSString *)filename ofType:(NSString *)extension;
 
 /// Enable Audio Input
 - (void)enableAudioInput;
@@ -97,7 +109,9 @@
 /// Disable MIDI
 - (void)disableMidi;
 
-/// Utilities
+// Utilities
+
+/// Add an object to the binding list. Should implicitly adopt the CsoundBinding protocol.
 /// @param binding The object that will be added to Csound's binding list
 + (void)addBinding:(id)binding;
 
@@ -105,3 +119,4 @@
 + (void)removeBinding:(id)binding;
 
 @end
+NS_ASSUME_NONNULL_END

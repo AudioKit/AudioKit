@@ -1,4 +1,5 @@
 #!/bin/bash
+BUILDCONF=${BUILDCONF:-Testing}
 if [ ${#@} == 1 ]; then
   TEST=$1
 else
@@ -31,7 +32,7 @@ else
           break
       done
   else
-    cd AudioKitTest/build/Release/
+    cd AudioKitTest/build/$BUILDCONF/
     for i in built/*
       do
         name=${i/built\//}
@@ -54,11 +55,13 @@ echo "======================================"
 echo " $TEST "
 echo "======================================"
 echo ""
-xcodebuild >& /dev/null
-cd ./build/Release/
+xcodebuild | xcpretty || exit 1
+echo "./build/$BUILDCONF/"
+cd ./build/$BUILDCONF/
 mkdir -p built
 execfile=$TEST
 execfile=${execfile/Tests/}
 execfile=${execfile/.swift/}
+echo "./AudioKitTest built/$execfile"
 cp ./AudioKitTest built/$execfile
 ./built/$execfile

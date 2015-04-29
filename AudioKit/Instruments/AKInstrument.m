@@ -17,8 +17,6 @@
 {
     NSMutableArray *innerCSDOperations;
     NSMutableArray *connectedOperations;
-    int _myID;
-    
     AKSequence *repeater;
 }
 
@@ -27,8 +25,13 @@
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-static int currentID = 1;
-+ (void)resetID { currentID = 1; }
+static NSUInteger currentID = 1;
+
++ (void)resetID {
+    @synchronized(self) {
+        currentID = 1;
+    }
+}
 
 - (instancetype)init
 {
@@ -37,10 +40,9 @@ static int currentID = 1;
         // Since instruments can add tables upon initialization,
         // Start the orchestra immediately
         [AKOrchestra start];
-        while (![[AKManager sharedManager] isRunning]) {
-            // do nothing
+        @synchronized([self class]) {
+            _instrumentNumber = currentID++;
         }
-        _myID = currentID++;
         _properties = [[NSMutableArray alloc] init];
         _noteProperties = [[NSMutableArray alloc] init];
         _globalParameters = [[NSMutableSet alloc] init];
@@ -55,30 +57,25 @@ static int currentID = 1;
     return [[AKInstrument alloc] init];
 }
 
-+ (instancetype)instrumentWithNumber:(int)instrumentNumber
++ (instancetype)instrumentWithNumber:(NSUInteger)instrumentNumber
 {
     return [[AKInstrument alloc] initWithNumber:instrumentNumber];
 }
 
 
-- (instancetype)initWithNumber:(int)instrumentNumber
+- (instancetype)initWithNumber:(NSUInteger)instrumentNumber
 {
     self = [self init];
     if (self) {
-        _myID = instrumentNumber;
+        _instrumentNumber = instrumentNumber;
     }
     return self;
-}
-
-- (int)instrumentNumber
-{
-    return _myID;
 }
 
 - (NSString *)uniqueName
 {
     NSString *className = [[[self class] description] stringByReplacingOccurrencesOfString:@"." withString:@""];
-    return [NSString stringWithFormat:@"%@%i", className, _myID];
+    return [NSString stringWithFormat:@"%@%@", className, @(self.instrumentNumber)];
 }
 
 // -----------------------------------------------------------------------------
@@ -271,7 +268,7 @@ static int currentID = 1;
 
 - (void)enableParameterLog:(NSString *)message
                  parameter:(AKParameter *)parameter
-              timeInterval:(float)timeInterval
+              timeInterval:(NSTimeInterval)timeInterval
 {
     [self connect:[[AKLog alloc] initWithMessage:message
                                        parameter:parameter
@@ -322,11 +319,11 @@ static int currentID = 1;
 - (NSString *)stopStringForCSD
 {
     int deactivatingInstrument = 1000;
-    return [NSString stringWithFormat:@"i %d 0 0.1 %i\n", deactivatingInstrument, _myID ];
+    return [NSString stringWithFormat:@"i %d 0 0.1 %@\n", deactivatingInstrument, @(self.instrumentNumber)];
 }
 
 
-- (void)playForDuration:(float)playDuration
+- (void)playForDuration:(NSTimeInterval)playDuration
 {
     AKNote *myNote = [[AKNote alloc] initWithInstrument:self
                                             forDuration:playDuration];
@@ -354,7 +351,7 @@ static int currentID = 1;
     [note play];
 }
 
-- (void)playNote:(AKNote *)note afterDelay:(float)delay
+- (void)playNote:(AKNote *)note afterDelay:(NSTimeInterval)delay
 {
     note.instrument = self;
     [note playAfterDelay:delay];
@@ -366,7 +363,7 @@ static int currentID = 1;
     [note stop];
 }
 
-- (void)stopNote:(AKNote *)note afterDelay:(float)delay
+- (void)stopNote:(AKNote *)note afterDelay:(NSTimeInterval)delay
 {
     note.instrument = self;
     [note stopAfterDelay:delay];
@@ -382,7 +379,7 @@ static int currentID = 1;
     [self repeatPhrase:phrase duration:phrase.duration];
 }
 
-- (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration
+- (void)repeatPhrase:(AKPhrase *)phrase duration:(NSTimeInterval)duration
 {
     repeater = [[AKSequence alloc] init];
     [[[AKManager sharedManager] sequences] setObject:repeater forKey:@"repeater"];

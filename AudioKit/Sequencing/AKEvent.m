@@ -14,7 +14,7 @@ typedef void (^AKBlockType)();
 
 @implementation AKEvent
 {
-    AKBlockType block;
+    AKBlockType _block;
 }
 
 // -----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ typedef void (^AKBlockType)();
 {
     self = [self init];
     if (self) {
-        block = aBlock;
+        _block = aBlock;
     }
     return self;
 }
@@ -36,10 +36,11 @@ typedef void (^AKBlockType)();
 
 - (void)runBlock
 {
-    if (self->block) block();
+    if (_block)
+        _block();
 }
 
-- (void)trigger;
+- (void)trigger
 {
     [[AKManager sharedManager] triggerEvent:self];
 }

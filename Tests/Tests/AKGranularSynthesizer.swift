@@ -8,14 +8,14 @@
 
 import Foundation
 
-let testDuration: Float = 20.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
     override init() {
         super.init()
 
-        let filename = "CsoundLib64.framework/Sounds/808loop.wav"
+        let filename = "AKSoundFiles.bundle/Sounds/808loop.wav"
 
         let soundFile = AKSoundFileTable(filename: filename, size: 16384)
 
@@ -45,6 +45,4 @@ AKManager.sharedManager().isLogging = true
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

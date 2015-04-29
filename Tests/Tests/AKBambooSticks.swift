@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
@@ -48,8 +48,8 @@ class BambooNote: AKNote {
 
     convenience init(count: Int, mainResonantFrequency: Float) {
         self.init()
-        self.count.value = Float(count)
-        self.mainResonantFrequency.value = mainResonantFrequency
+        self.count.floatValue = Float(count)
+        self.mainResonantFrequency.floatValue = mainResonantFrequency
     }
 }
 
@@ -62,12 +62,10 @@ let phrase = AKPhrase()
 
 for i in 1...10 {
     let note = BambooNote(count: i, mainResonantFrequency: 1000+Float(i)*300)
-    note.duration.value = 1.0
+    note.duration.floatValue = 1.0
     phrase.addNote(note, atTime: Float(i-1))
 }
 
 instrument.playPhrase(phrase)
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

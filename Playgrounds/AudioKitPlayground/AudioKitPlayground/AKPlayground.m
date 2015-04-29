@@ -7,13 +7,11 @@
 //
 
 #import "AKPlayground.h"
-#import "AKPropertySlider.h"
-#import "AKPropertyLabel.h"
 
 @implementation AKPlayground
 {
     CsoundObj *cs;
-    
+
     AKAudioInputFFTPlot *inputFFTPlot;
     AKAudioOutputFFTPlot *outputFFTPlot;
     AKStereoOutputPlot *stereoPlot;
@@ -21,10 +19,10 @@
     AKAudioInputPlot  *inputPlot;
     AKAudioInputRollingWaveformPlot *rollingInputPlot;
     AKAudioOutputRollingWaveformPlot *rollingOutputPlot;
-    
+
     NSMutableArray *views;
     NSMutableArray *shownViews;
-    
+
     KZPTimelineViewController *timelineViewController;
 }
 
@@ -65,7 +63,7 @@
 - (void)addLabel:(NSString *)labelText toView:(UIView *)view
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
-    
+
     [label setTextColor:[UIColor whiteColor]];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
@@ -166,7 +164,9 @@
 }
 
 - (void)addTablePlot:(AKTable *)table {
-   KZPShow([[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500) table:table]);
+    AKTablePlot *tp = [[AKTablePlot alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
+    tp.table = table;
+    KZPShow(tp);
 }
 
 - (void)toggleAudioOutputFFTPlot:(UISwitch *)sender {
@@ -220,7 +220,7 @@
     AKPropertyLabel *valueLabel = [[AKPropertyLabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     valueLabel.property = property;
     [timelineViewController addView:valueLabel];
-    
+
     AKPropertySlider *slider = [[AKPropertySlider alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
     slider.property = property;
     [timelineViewController addView:slider];
@@ -229,10 +229,10 @@
 - (void)setup
 {
     [AKOrchestra start];
-    
+
     views = [[NSMutableArray alloc] init];
     shownViews = [[NSMutableArray alloc] init];
-    
+
     AKManager *manager = [AKManager sharedManager];
     [manager enableAudioInput];
     cs = manager.engine;

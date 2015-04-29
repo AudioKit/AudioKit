@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "EZAudioPlot.h"
+#import "AKAudioRollingWaveformPlot.h"
 
 /// A Rolling Waveform for of the audio input
 IB_DESIGNABLE
-@interface AKAudioInputRollingWaveformPlot : EZAudioPlot
+@interface AKAudioInputRollingWaveformPlot : AKAudioRollingWaveformPlot
 
 @end

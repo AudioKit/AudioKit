@@ -33,11 +33,8 @@
         _loopGain = loopGain;
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
-        }
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"mandpluk" ofType:@"aif"]];
         
         [self setUpConnections];
 }
@@ -57,11 +54,8 @@
         _loopGain = akp(0.99);
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"mandpluk" ofType:@"aif"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/mandpluk.aif";
-        }
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"mandpluk" ofType:@"aif"]];
         
         [self setUpConnections];
     }

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AKCompatibility.h"
 #import "AKOrchestra.h"
 #import "AKParameter+Operation.h"
 #import "AKAudio.h"
@@ -15,10 +16,12 @@
 #import "AKNote.h"
 #import "AKNoteProperty.h"
 #import "AKInstrumentProperty.h"
+
 @class AKEvent;
 
 /** Manages functions that most AK instruments need to have.*/
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKInstrument : NSObject
 
 // -----------------------------------------------------------------------------
@@ -30,14 +33,11 @@
 
 /// Instantiates a new instrument at a given instrument number
 /// @param instrumentNumber Unique number to assign this instrument, useful when overwriting an instrument
-+ (instancetype)instrumentWithNumber:(int)instrumentNumber;
++ (instancetype)instrumentWithNumber:(NSUInteger)instrumentNumber;
 
 /// Instantiates a new instrument at a given instrument number
 /// @param instrumentNumber Unique number to assign this instrument, useful when overwriting an instrument
-- (instancetype)initWithNumber:(int)instrumentNumber;
-
-/// Unique instrument number
-- (int)instrumentNumber;
+- (instancetype)initWithNumber:(NSUInteger)instrumentNumber;
 
 /// A string uniquely defined by the instrument class name and a unique integer.
 - (NSString *)uniqueName;
@@ -48,6 +48,10 @@
 // -----------------------------------------------------------------------------
 #  pragma mark - Properties
 // -----------------------------------------------------------------------------
+
+/// Unique instrument number
+@property (readonly) NSUInteger instrumentNumber;
+
 
 /// Array of instrument properties available for the instrument.
 @property NSMutableArray *properties;
@@ -126,7 +130,7 @@
 /// @param timeInterval Time in seconds between printouts.
 - (void)enableParameterLog:(NSString *)message
                  parameter:(AKParameter *)parameter
-              timeInterval:(float)timeInterval;
+              timeInterval:(NSTimeInterval)timeInterval;
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
@@ -141,7 +145,7 @@
 /// Play an instrument that contains no note properties ie. uses a generic
 /// AKNote to begin playback for a specific amount of time.
 /// @param playDuration Length of time in seconds to play the instrument.
-- (void)playForDuration:(float)playDuration;
+- (void)playForDuration:(NSTimeInterval)playDuration;
 
 /// For instruments that do not create note instances, play the instrument with infinite duration.
 - (void)play;
@@ -158,8 +162,8 @@
 
 /// Play the given note after a delay
 /// @param note The note that will be played.
-/// @param delay The amount of time to wait until playing the note
-- (void)playNote:(AKNote *)note afterDelay:(float)delay;
+/// @param delay The amount of time in seconds to wait until playing the note
+- (void)playNote:(AKNote *)note afterDelay:(NSTimeInterval)delay;
 
 /// Stop the given note
 /// @param note The note that will be stopped.
@@ -167,8 +171,8 @@
 
 /// Stop the given note after a delay
 /// @param note The note that will be stopped.
-/// @param delay The amount of time to wait until stopping the note
-- (void)stopNote:(AKNote *)note afterDelay:(float)delay;
+/// @param delay The amount of time in seconds to wait until stopping the note
+- (void)stopNote:(AKNote *)note afterDelay:(NSTimeInterval)delay;
 
 /// Play the given note phrase
 /// @param phrase The note phrase that will be played.
@@ -180,8 +184,8 @@
 
 /// Repeat a note phrase periodically
 /// @param phrase The note phrase that will be played.
-/// @param duration The period between playbacks
-- (void)repeatPhrase:(AKPhrase *)phrase duration:(float)duration;
+/// @param duration The period in seconds between playbacks
+- (void)repeatPhrase:(AKPhrase *)phrase duration:(NSTimeInterval)duration;
 
 /// Stop repeating the phrase
 - (void)stopPhrase;
@@ -190,3 +194,4 @@
 - (void)stop;
 
 @end
+NS_ASSUME_NONNULL_END

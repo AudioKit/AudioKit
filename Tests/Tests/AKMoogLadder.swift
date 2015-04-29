@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
@@ -43,7 +43,7 @@ class Processor : AKInstrument {
         let moogLadder = AKMoogLadder(input: audioSource)
         moogLadder.resonance = resonance
         moogLadder.cutoffFrequency = cutoffFrequency
-        
+
         setAudioOutput(moogLadder)
         enableParameterLog(
             "Resonance = ",
@@ -72,6 +72,4 @@ AKOrchestra.addInstrument(processor)
 processor.play()
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

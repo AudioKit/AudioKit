@@ -8,10 +8,7 @@
 
 #import "ProcessingViewController.h"
 #import "AKFoundation.h"
-#import "AKTools.h"
-#import "AKPropertySlider.h"
 #import "ConvolutionInstrument.h"
-#import "AudioFilePlayer.h"
 
 
 
@@ -23,12 +20,12 @@
     IBOutlet AKPropertySlider *pitchSlider;
     IBOutlet AKPropertySlider *dishWellSlider;
     IBOutlet AKPropertySlider *dryWetSlider;
-    
+
     float pitchToMaintain;
-    
+
     ConvolutionInstrument *convolver;
     AudioFilePlayer *audioFilePlayer;
-    
+
     BOOL isPlaying;
 }
 
@@ -36,17 +33,17 @@
     [super viewDidLoad];
     audioFilePlayer = [[AudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
-    
+
     convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
     [AKOrchestra addInstrument:convolver];
     pitchToMaintain = 1.0;
     isPlaying = NO;
-    
+
     speedSlider.property    = audioFilePlayer.speed;
     pitchSlider.property    = audioFilePlayer.scaling;
     dishWellSlider.property = convolver.dishWellBalance;
     dryWetSlider.property   = convolver.dryWetBalance;
-    
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated   {
@@ -89,7 +86,7 @@
     }
 }
 - (IBAction)fileChanged:(UISegmentedControl *)sender {
-    audioFilePlayer.sampleMix.value = (float) sender.selectedSegmentIndex;    
+    audioFilePlayer.sampleMix.value = (float) sender.selectedSegmentIndex;
 }
 
 @end

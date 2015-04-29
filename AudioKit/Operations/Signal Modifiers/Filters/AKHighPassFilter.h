@@ -14,6 +14,7 @@
  A complement to the AKLowPassFilter.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKHighPassFilter : AKAudio
 /// Instantiates the high pass filter with all values
 /// @param input The input signal to be filtered [Default Value: ]
@@ -39,3 +40,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

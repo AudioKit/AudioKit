@@ -13,6 +13,7 @@
 /** A low frequency oscillator of various shapes.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLowFrequencyOscillator : AKAudio
 
 //Type Helpers
@@ -74,3 +75,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

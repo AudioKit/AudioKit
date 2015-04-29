@@ -35,12 +35,8 @@
         _tremoloAmplitude = tremoloAmplitude;
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-        }
         
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
         
         [self setUpConnections];
 }
@@ -62,12 +58,7 @@
         _tremoloAmplitude = akp(0);
         
         // Constant Values
-        NSString *file = [[NSBundle mainBundle] pathForResource:@"marmstk1" ofType:@"wav"];
-        if (!file) {
-            file = @"CsoundLib64.framework/Sounds/marmstk1.wav";
-        }
-        
-        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
         
         [self setUpConnections];
     }

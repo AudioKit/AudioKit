@@ -25,6 +25,8 @@
 
 #import "EZAudio.h"
 
+@import Accelerate;
+
 @implementation EZAudio
 
 #pragma mark - AudioBufferList Utility
@@ -246,7 +248,7 @@
 		errorString[6] = '\0';
 	} else
 		// no, format it as an integer
-		sprintf(errorString, "%d", (int)result);
+		snprintf(errorString, sizeof(errorString), "%d", (int)result);
 	fprintf(stderr, "Error: %s (%s)\n", operation, errorString);
 	exit(1);
 }
@@ -255,11 +257,12 @@
 +(void)appendBufferAndShift:(float*)buffer
              withBufferSize:(int)bufferLength
             toScrollHistory:(float*)scrollHistory
-      withScrollHistorySize:(int)scrollHistoryLength {
+      withScrollHistorySize:(NSUInteger)scrollHistoryLength
+{
     NSAssert(scrollHistoryLength>=bufferLength,@"Scroll history array length must be greater buffer length");
     NSAssert(scrollHistoryLength>0,@"Scroll history array length must be greater than 0");
     NSAssert(bufferLength>0,@"Buffer array length must be greater than 0");
-    int    shiftLength    = scrollHistoryLength - bufferLength;
+    NSUInteger  shiftLength    = scrollHistoryLength - bufferLength;
     size_t floatByteSize  = sizeof(float);
     size_t shiftByteSize  = shiftLength  * floatByteSize;
     size_t bufferByteSize = bufferLength * floatByteSize;
@@ -273,7 +276,8 @@
 
 +(void)    appendValue:(float)value
        toScrollHistory:(float*)scrollHistory
- withScrollHistorySize:(int)scrollHistoryLength {
+ withScrollHistorySize:(NSUInteger)scrollHistoryLength
+{
     float val[1]; val[0] = value;
     [self appendBufferAndShift:val
                 withBufferSize:1
@@ -292,12 +296,14 @@
     return rightMin + (valueScaled * rightSpan);
 }
 
-+(float)RMS:(MYFLT *)buffer
++(float)RMS:(const MYFLT *)buffer
      length:(int)bufferSize {
-    float sum = 0.0;
-    for(int i = 0; i < bufferSize; i++)
-        sum += buffer[i] * buffer[i];
-    return sqrtf( sum / bufferSize );
+    MYFLT *squared = calloc(bufferSize, sizeof(MYFLT));
+    vDSP_vsq(buffer, 1, squared, 1, bufferSize);
+    float mean;
+    vDSP_meanv(squared, 1, &mean, bufferSize);
+    free(squared);
+    return sqrtf(mean);
 }
 
 +(float)SGN:(float)value
@@ -306,37 +312,36 @@
 }
 
 #pragma mark - Plot Utility
-+(void)updateScrollHistory:(float **)scrollHistory
-                withLength:(int)scrollHistoryLength
-                   atIndex:(int*)index
-                withBuffer:(MYFLT *)buffer
-            withBufferSize:(int)bufferSize
-      isResolutionChanging:(BOOL*)isChanging {
-    
-    //
-    size_t floatByteSize = sizeof(float);
-    
+
+// Returns YES if we're actually scrolling, NO otherwise
++ (BOOL) updateScrollHistory:(float **)scrollHistory
+                  withLength:(NSUInteger)scrollHistoryLength
+                     atIndex:(NSUInteger *)index
+                  withBuffer:(const MYFLT *)buffer
+              withBufferSize:(int)bufferSize
+        isResolutionChanging:(BOOL)isChanging
+{
     //
     if( *scrollHistory == NULL ){
         // Create the history buffer
-        *scrollHistory = (float*)calloc(kEZAudioPlotMaxHistoryBufferLength,floatByteSize);
+        *scrollHistory = (float*)calloc(kEZAudioPlotMaxHistoryBufferLength, sizeof(float));
     }
     
     //
-    if( !*isChanging ){
+    if( !isChanging ){
         float rms = [EZAudio RMS:buffer length:bufferSize];
         if( *index < scrollHistoryLength ){
             float *hist = *scrollHistory;
             hist[*index] = rms;
             (*index)++;
-        }
-        else {
+        } else {
             [EZAudio appendValue:rms
                  toScrollHistory:*scrollHistory
            withScrollHistorySize:scrollHistoryLength];
+            return YES;
         }
     }
-    
+    return NO;
 }
 
 #pragma mark - TPCircularBuffer Utility

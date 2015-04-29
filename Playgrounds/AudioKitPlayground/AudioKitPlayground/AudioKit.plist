@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Audio Output</key>
+	<string>dac</string>
+	<key>Audio Input</key>
+	<string>adc</string>
+	<key>Sample Rate</key>
+	<real>44100</real>
+	<key>Samples Per Control Period</key>
+	<integer>64</integer>
+	<key>Number Of Channels</key>
+	<integer>2</integer>
+	<key>Zero dB Full Scale Value</key>
+	<integer>1</integer>
+	<key>Enable Logging By Default</key>
+	<true/>
+	<key>Prefix Csound Messages</key>
+	<false/>
+	<key>Enable Audio Input By Default</key>
+	<true/>
+</dict>
+</plist>

@@ -8,12 +8,13 @@
 
 #import "AKStereoOutputPlot.h"
 #import "AKFoundation.h"
+#import "AKSettings.h"
 #import "CsoundObj.h"
 
 @interface AKStereoOutputPlot() <CsoundBinding>
 {
     NSData *outSamples;
-    int sampleSize;
+    UInt32 sampleSize;
     int index;
     CsoundObj *cs;
 }
@@ -67,6 +68,10 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+#if !TARGET_OS_IPHONE
+    [self.backgroundColor setFill];
+    NSRectFill(rect);
+#endif
     [self drawChannel:0 offset:0.25 color:self.leftLineColor    width:self.lineWidth];
     [self drawChannel:1 offset:0.75 color:self.rightLineColor   width:self.lineWidth];
 }
@@ -78,12 +83,8 @@
 - (void)setup:(CsoundObj *)csoundObj
 {
     cs = csoundObj;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    int samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
-    int numberOfChannels = [dict[@"Number Of Channels"] intValue];
-    sampleSize = numberOfChannels * samplesPerControlPeriod;
+
+    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
     
     void *samples = malloc(sampleSize * sizeof(MYFLT));
     bzero(samples, sampleSize * sizeof(MYFLT));
@@ -97,7 +98,6 @@
     }
     
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-
 }
 
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
@@ -56,7 +56,7 @@ class VCONote: AKNote {
 
     convenience init(waveformType: AKConstant) {
         self.init()
-        self.waveformType.value = waveformType.value
+        self.waveformType.floatValue = waveformType.floatValue
     }
 }
 
@@ -70,16 +70,14 @@ let note2 = VCONote(waveformType: AKVCOscillator.waveformTypeForSawtooth())
 let note3 = VCONote(waveformType: AKVCOscillator.waveformTypeForSquareWithPWM())
 let note4 = VCONote(waveformType: AKVCOscillator.waveformTypeForTriangleWithRamp())
 
-note1.duration.value = 2.0
-note2.duration.value = 2.0
-note3.duration.value = 2.0
-note4.duration.value = 2.0
+note1.duration.floatValue = 2.0
+note2.duration.floatValue = 2.0
+note3.duration.floatValue = 2.0
+note4.duration.floatValue = 2.0
 
 instrument.playNote(note1)
 instrument.playNote(note2, afterDelay: 2.0)
 instrument.playNote(note3, afterDelay: 4.0)
 instrument.playNote(note4, afterDelay: 6.0)
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

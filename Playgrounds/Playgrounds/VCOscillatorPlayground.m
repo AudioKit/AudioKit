@@ -23,6 +23,11 @@
     [self addSliderForProperty:vcoInstrument.amplitude title:@"Amplitude"];
     [self addSliderForProperty:note.frequency title:@"Frequency"];
 
+    [self addButtonWithTitle:@"Play Square Wave" block:^{
+        note.waveformType.value = [[AKVCOscillator waveformTypeForSquare] value];
+        [vcoInstrument playNote:note];
+    }];
+
     [self addButtonWithTitle:@"Play Triangle Wave" block:^{
         note.waveformType.value = [[AKVCOscillator waveformTypeForTriangle] value];
         [vcoInstrument playNote:note];
@@ -39,7 +44,6 @@
         [vcoInstrument stop];
     }];
 
-    [self addAudioOutputRollingWaveformPlot];
     [self addAudioOutputPlot];
     [self addAudioOutputFFTPlot];
 }

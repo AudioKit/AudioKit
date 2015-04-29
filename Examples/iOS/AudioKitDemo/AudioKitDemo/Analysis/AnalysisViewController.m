@@ -8,10 +8,6 @@
 
 #import "AnalysisViewController.h"
 #import "AKFoundation.h"
-#import "Microphone.h"
-#import "AKAudioAnalyzer.h"
-#import "AKInstrumentPropertyPlot.h"
-#import "AKFloatPlot.h"
 
 @implementation AnalysisViewController
 {

@@ -12,10 +12,11 @@
 #import "AKParameter+Operation.h"
 
 /** Function-table-based crossfading looper.
- 
+
  This opcode implements a crossfading looper with variable loop parameters and three looping modes. It accepts non-power-of-two tables for its source sounds, such as AKSoundFile Tables.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKTableLooper : AKAudio
 
 //Type Helpers
@@ -98,3 +99,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

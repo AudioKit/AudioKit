@@ -24,7 +24,7 @@
 
 - (void)setName:(NSString *)newName
 {
-    [self setParameterString:[NSString stringWithFormat:@"i%@%i", newName, _myID]];
+    [self setParameterString:[NSString stringWithFormat:@"i%@%@", newName, @(self.parameterID)]];
 }
 
 - (void)setValue:(float)newValue

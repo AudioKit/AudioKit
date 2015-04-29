@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
@@ -36,10 +36,9 @@ let phrase = AKPhrase()
 phrase.addNote(note1, atTime:0.5)
 phrase.stopNote(note1, atTime: 2.5)
 
-note2.duration.value = 5.0
+note2.duration.floatValue = 5.0
 phrase.addNote(note2, atTime:3.5)
 instrument.playPhrase(phrase)
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))
+

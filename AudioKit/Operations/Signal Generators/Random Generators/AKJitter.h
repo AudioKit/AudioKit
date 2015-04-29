@@ -15,6 +15,7 @@
 This can be used to make more natural and “analog-sounding” some static, dull sound. For best results, it is suggested to keep its amplitude moderate.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKJitter : AKControl
 /// Instantiates the jitter with all values
 /// @param amplitude Amplitude of jitter deviation Updated at Control-rate. [Default Value: 1]
@@ -55,3 +56,4 @@ This can be used to make more natural and “analog-sounding” some static, dul
 
 
 @end
+NS_ASSUME_NONNULL_END

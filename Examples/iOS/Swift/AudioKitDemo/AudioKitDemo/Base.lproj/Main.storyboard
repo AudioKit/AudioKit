@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -542,7 +542,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gEa-6t-zGZ" userLabel="Tracked Amp Plot" customClass="AKInstrumentPropertyPlot">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEa-6t-zGZ" userLabel="Tracked Amp Plot" customClass="AKInstrumentPropertyPlot">
                                         <rect key="frame" x="20" y="331" width="374" height="100"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -624,7 +624,10 @@
                     <size key="freeformSize" width="414" height="1300"/>
                     <connections>
                         <outlet property="amplitudeLabel" destination="xtQ-zt-2Ph" id="cBl-UV-UEG"/>
+                        <outlet property="amplitudePlot" destination="gEa-6t-zGZ" id="omS-1g-QTV"/>
                         <outlet property="frequencyLabel" destination="Tpt-7S-82v" id="avn-Oh-Nhy"/>
+                        <outlet property="frequencyPlot" destination="aSL-kY-NV3" id="eJu-qR-LgJ"/>
+                        <outlet property="normalizedFrequencyPlot" destination="qq4-SV-7R1" id="a9u-c9-ntL"/>
                         <outlet property="noteNameLabel" destination="YHv-cP-GZq" id="Lki-ps-bPl"/>
                     </connections>
                 </viewController>
@@ -655,7 +658,6 @@
         <!--Synthesis-->
         <scene sceneID="kZH-Dz-2w2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ktx-6b-qVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="670-Qj-8iE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Synthesis" image="S" id="acW-dT-cKf"/>
                     <toolbarItems/>
@@ -668,6 +670,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="cnD-7C-zte"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ktx-6b-qVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>

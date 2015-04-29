@@ -18,26 +18,16 @@ class ProcessingViewController: UIViewController {
     
     var isPlaying = false
     
-    var pitchToMaintain:Float
+    var pitchToMaintain: Float = 1.0
     
-    let conv: ConvolutionInstrument
+    var conv: ConvolutionInstrument!
     let audioFilePlayer = AudioFilePlayer()
     
-    override init() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
         conv = ConvolutionInstrument(input: audioFilePlayer.auxilliaryOutput)
-        pitchToMaintain = 1.0
-        super.init()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        conv = ConvolutionInstrument(input: audioFilePlayer.auxilliaryOutput)
-        pitchToMaintain = 1.0
-        super.init(coder: aDecoder)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
+
         AKOrchestra.addInstrument(audioFilePlayer)
         AKOrchestra.addInstrument(conv)
         

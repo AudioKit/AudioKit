@@ -22,14 +22,14 @@
 
         // Instrument Definition
         AKStruckMetalBar *struckMetalBar = [AKStruckMetalBar strike];
-        struckMetalBar.decayTime = note.decayTime;
+        struckMetalBar.decayTime              = note.decayTime;
         struckMetalBar.dimensionlessStiffness = note.dimensionlessStiffness;
-        struckMetalBar.highFrequencyLoss = note.highFrequencyLoss;
-        struckMetalBar.strikePosition = note.strikePosition;
-        struckMetalBar.strikeVelocity = note.strikeVelocity;
-        struckMetalBar.strikeWidth = note.strikeWidth;
-        struckMetalBar.scanSpeed = note.scanSpeed;
-        struckMetalBar.leftBoundaryCondition = note.leftBoundaryCondition;
+        struckMetalBar.highFrequencyLoss      = note.highFrequencyLoss;
+        struckMetalBar.strikePosition         = note.strikePosition;
+        struckMetalBar.strikeVelocity         = note.strikeVelocity;
+        struckMetalBar.strikeWidth            = note.strikeWidth;
+        struckMetalBar.scanSpeed              = note.scanSpeed;
+        struckMetalBar.leftBoundaryCondition  = note.leftBoundaryCondition;
         struckMetalBar.rightBoundaryCondition = note.rightBoundaryCondition;
 
         [self setAudioOutput:[struckMetalBar scaledBy:_amplitude]];

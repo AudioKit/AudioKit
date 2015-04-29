@@ -10,6 +10,7 @@
 
 /** Prints the given parameter to the console log
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKLog : AKParameter
 
 /// Prints the message followed by the paramter value every timeInterval seconds
@@ -18,6 +19,7 @@
 /// @param timeInterval How often to print, in seconds.
 - (instancetype)initWithMessage:(NSString *)message
                       parameter:(AKParameter *)parameter
-                   timeInterval:(float)timeInterval;
+                   timeInterval:(NSTimeInterval)timeInterval;
 @end
+NS_ASSUME_NONNULL_END
 

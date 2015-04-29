@@ -115,30 +115,17 @@
 
 - (NSString *)inlineStringForCSD
 {
-    NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-    
-    [inlineCSDString appendString:@"table3("];
-    [inlineCSDString appendString:[self inputsString]];
-    [inlineCSDString appendString:@")"];
-    
-    return inlineCSDString;
+    return [NSString stringWithFormat:@"table3(%@)", [self inputsString]];
 }
 
 
 - (NSString *)stringForCSD
 {
-    NSMutableString *csdString = [[NSMutableString alloc] init];
-    
-    [csdString appendFormat:@"%@ table3 ", self];
-    [csdString appendString:[self inputsString]];
-    return csdString;
+    return [NSString stringWithFormat:@"%@ table3 %@", self, [self inputsString]];
 }
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-    
-    // Constant Values
-    
     
     if ([_index class] == [AKAudio class]) {
         [inputsString appendFormat:@"%@, ", _index];

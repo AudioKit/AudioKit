@@ -26,7 +26,7 @@ do
     esac
 done
 
-if [ $NEWPLAYGROUND == "New" ]; then
+if [ "$NEWPLAYGROUND" == "New" ]; then
     echo ""
     PS3='Enter the number of the playground you want: '
     options=($(ls Playgrounds))
@@ -41,7 +41,7 @@ echo "Starting Playground, Press Control-c when finished."
 kicker -sql 0.05 AudioKitPlayground/AudioKitPlayground 2>/dev/null &
 open AudioKitPlayground/AudioKitPlayground.xcworkspace
 
-if [ $NEWPLAYGROUND != "" ]; then
+if [ "$NEWPLAYGROUND" != "" ]; then
   echo "Pausing for two seconds to allow the kicker to start."
   sleep 2
   echo "Copying the requested playground."

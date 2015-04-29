@@ -13,52 +13,42 @@ class AnalysisViewController: UIViewController {
     @IBOutlet var noteNameLabel: UILabel!
     @IBOutlet var amplitudePlot: AKInstrumentPropertyPlot!
     @IBOutlet var frequencyPlot: AKInstrumentPropertyPlot!
-    var normalizedFrequency = AKInstrumentProperty(value: 0, minimum: 16.35, maximum: 30.87)
     @IBOutlet var normalizedFrequencyPlot: AKFloatPlot!
     
-    let analyzer: AKAudioAnalyzer
-    let microphone: Microphone
+    let microphone = Microphone()
+    var analyzer: AKAudioAnalyzer!
 
     let noteFrequencies = [16.35,17.32,18.35,19.45,20.6,21.83,23.12,24.5,25.96,27.5,29.14,30.87]
     let noteNamesWithSharps = ["C", "C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
     let noteNamesWithFlats = ["C", "D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"]
-    
+
+    var normalizedFrequency = AKInstrumentProperty(value: 0, minimum: 16.35, maximum: 30.87)
+
     let analysisSequence = AKSequence()
     let updateAnalysis = AKEvent()
     
-    override init() {
-        microphone = Microphone()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
-        super.init()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        microphone = Microphone()
-        analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
-        super.init(coder: aDecoder)
+
+        AKOrchestra.addInstrument(microphone)
+        AKOrchestra.addInstrument(analyzer)
+        
+        amplitudePlot.property = analyzer.trackedAmplitude
+        
+        frequencyPlot.property = analyzer.trackedFrequency
+        normalizedFrequencyPlot.minimum = 15
+        normalizedFrequencyPlot.maximum = 32
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        AKOrchestra.addInstrument(microphone)
-        AKOrchestra.addInstrument(analyzer)
-        analyzer.play()
-        microphone.play()
+        analyzer.start()
+        microphone.start()
         
-        let analysisSequence = AKSequence()
-        var updateAnalysis = AKEvent()
-        updateAnalysis = AKEvent(block: {
-            self.updateUI()
-            analysisSequence.addEvent(updateAnalysis, afterDuration: 0.1)
-        })
-        analysisSequence.addEvent(updateAnalysis)
-        analysisSequence.play()
-        
-        amplitudePlot.property = analyzer.trackedAmplitude
-        frequencyPlot.property = analyzer.trackedFrequency
-        normalizedFrequencyPlot.minimum = 15
-        normalizedFrequencyPlot.maximum = 32
+        let timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateUI"), userInfo: nil, repeats: true)
     }
     
     func updateUI() {

@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.parameterString = [NSString stringWithFormat:@"k%@%i", aString, _myID];
+        self.parameterString = [NSString stringWithFormat:@"k%@%@", aString, @(self.parameterID)];
     }
     return self;
 }
@@ -23,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        self.parameterString = [NSString stringWithFormat:@"gk%@%i", aString, _myID];
+        self.parameterString = [NSString stringWithFormat:@"gk%@%@", aString, @(self.parameterID)];
     }
     return self;
 }
