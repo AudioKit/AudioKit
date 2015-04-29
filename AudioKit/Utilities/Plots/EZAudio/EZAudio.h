@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "AKFoundation.h"
 
 #pragma mark - 3rd Party Utilties
 #import "AEFloatConverter.h"
@@ -162,7 +163,7 @@
 +(void)appendBufferAndShift:(float*)buffer
              withBufferSize:(int)bufferLength
             toScrollHistory:(float*)scrollHistory
-      withScrollHistorySize:(int)scrollHistoryLength;
+      withScrollHistorySize:(NSUInteger)scrollHistoryLength;
 
 /**
  Appends a value to a history buffer and performs an internal shift to add the value to the tail and remove the 0th value.
@@ -172,7 +173,7 @@
  */
 +(void)    appendValue:(float)value
        toScrollHistory:(float*)scrollHistory
- withScrollHistorySize:(int)scrollHistoryLength;
+ withScrollHistorySize:(NSUInteger)scrollHistoryLength;
 
 /**
  Maps a value from one coordinate system into another one. Takes in the current value to map, the minimum and maximum values of the first coordinate system, and the minimum and maximum values of the second coordinate system and calculates the mapped value in the second coordinate system's constraints.
@@ -195,7 +196,7 @@
  @param 	bufferSize 	The size of the float buffer
  @return	The root mean squared of the buffer
  */
-+(float)RMS:(MYFLT*)buffer
++(float)RMS:(const MYFLT*)buffer
      length:(int)bufferSize;
 
 /**
@@ -226,12 +227,12 @@
 /// @name Plot Utility
 ///-----------------------------------------------------------
 
-+(void)updateScrollHistory:(float**)scrollHistory
-                withLength:(int)scrollHistoryLength
-                   atIndex:(int*)index
-                withBuffer:(MYFLT*)buffer
++(BOOL)updateScrollHistory:(float**)scrollHistory
+                withLength:(NSUInteger)scrollHistoryLength
+                   atIndex:(NSUInteger *)index
+                withBuffer:(const MYFLT*)buffer
             withBufferSize:(int)bufferSize
-      isResolutionChanging:(BOOL*)isChanging;
+      isResolutionChanging:(BOOL)isChanging;
 
 #pragma mark - TPCircularBuffer Utility
 ///-----------------------------------------------------------
@@ -248,8 +249,8 @@
 
 /**
  Initializes the circular buffer (just a wrapper around the C method)
- *  @param circularBuffer Pointer to an instance of the TPCircularBuffer
- *  @param size           The length of the TPCircularBuffer (usually 1024)
+ @param circularBuffer Pointer to an instance of the TPCircularBuffer
+ @param size           The length of the TPCircularBuffer (usually 1024)
  */
 +(void)circularBuffer:(TPCircularBuffer*)circularBuffer
              withSize:(int)size;

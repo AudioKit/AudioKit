@@ -10,10 +10,11 @@
 #import "AKParameter+Operation.h"
 
 /** Generate control signal consisting of linear or exponential segments.
- 
+
  Generate control signal consisting of linear segments delimited by two or more specified points. The entire envelope is looped at a rate defined by frequency. Each parameter can be varied as controls.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSegmentArrayLoop : AKControl
 
 /// Instantiates the control segment array loop
@@ -31,3 +32,4 @@
        concavity:(AKParameter *)concavity;
 
 @end
+NS_ASSUME_NONNULL_END

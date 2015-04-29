@@ -14,6 +14,7 @@
  This operation implements one possible algorithm for sample rate / bit depth reduction.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKDecimator : AKAudio
 /// Instantiates the decimator with all values
 /// @param input Audio to be decimated! [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

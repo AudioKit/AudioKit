@@ -26,8 +26,9 @@
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
       "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "AKManIcon.png",
       "scale" : "3x"
     },
     {

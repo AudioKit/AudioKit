@@ -11,7 +11,7 @@
 
 /** Scale the frequency components of a pv stream, resulting in pitch shift.
  Output amplitudes can be optionally modified in order to attempt formant preservation.
- 
+
  The quality of the pitch shift will be improved with the use of a Hann window in the pvoc analysis.
  Liftered Cepstrum Formant preservation method is less intensive than the true envelope method,
  which might not be suited to realtime use.

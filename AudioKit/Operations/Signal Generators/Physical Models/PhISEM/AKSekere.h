@@ -14,6 +14,7 @@
  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSekere : AKAudio
 /// Instantiates the sekere with all values
 /// @param count The number of beads, teeth, bells, timbrels, etc. If zero, the default value is 64. [Default Value: 64]
@@ -54,3 +55,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

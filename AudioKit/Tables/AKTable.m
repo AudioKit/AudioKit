@@ -9,24 +9,42 @@
 #import "AKFoundation.h"
 
 @implementation AKTable {
-    MYFLT *table;
-    CsoundObj *csoundObj;
-    CSOUND *cs;
+    CsoundObj *_csoundObj;
+    CSOUND *_cs;
 }
 
 static int currentID = 2000;
-+ (void)resetID { currentID = 2000; }
 
-- (instancetype)initWithSize:(int)tableSize
++ (void)resetID {
+    @synchronized(self) {
+        currentID = 2000;
+    }
+}
+
+// Returns a pointer to the table managed internally by Csound
+- (MYFLT *)values
+{
+    NSAssert(csoundTableLength(_cs, _number) == _size, @"Inconsistent table sizes (not %@)", @(_size));
+
+    MYFLT *ptr;
+    int len = csoundGetTable(_cs, &ptr, _number);
+    if (len > 0) {
+        return ptr;
+    }
+    return NULL;
+}
+
+- (instancetype)initWithSize:(NSUInteger)tableSize
 {
     self = [super init];
     if (self) {
-        _number = currentID++;
+        @synchronized([self class]) {
+            _number = currentID++;
+        }
         _size = tableSize;
-        table = malloc(_size *sizeof(MYFLT));
-        csoundObj = [[AKManager sharedManager] engine];
-        cs = [csoundObj getCsound];
-        [csoundObj updateOrchestra:[self orchestraString]];
+        _csoundObj = [[AKManager sharedManager] engine];
+        _cs = [_csoundObj getCsound];
+        [_csoundObj updateOrchestra:self.orchestraString];
     }
     return self;
 }
@@ -42,73 +60,86 @@ static int currentID = 2000;
 - (instancetype)initWithArray:(NSArray *)array {
     self = [super init];
     if (self) {
-        _number = currentID++;
-        _size = (int)[array count];
-        table = malloc(_size *sizeof(MYFLT));
-        csoundObj = [[AKManager sharedManager] engine];
-        cs = [csoundObj getCsound];
-        [csoundObj updateOrchestra:[self orchestraString]];
-        
-        
-        while (csoundTableLength(cs, _number) != _size) {
-            // do nothing
+        @synchronized([self class]) {
+            _number = currentID++;
         }
-        csoundGetTable(cs, &table, _number);
-        for (int i = 0; i < _size; i++) {
-            MYFLT value = (MYFLT)[array[i] floatValue];
-            NSLog(@"%@ %f %f", array[i], [array[i] floatValue], value);
-            table[i] = value;
+        _size = [array count];
+        _csoundObj = [[AKManager sharedManager] engine];
+        _cs = [_csoundObj getCsound];
+        [_csoundObj updateOrchestra:self.orchestraString];
+        MYFLT *table = self.values;
+        
+        if (table) {
+            for (int i = 0; i < _size; i++) {
+                MYFLT value = (MYFLT)[array[i] floatValue];
+                table[i] = value;
+            }
         }
     }
     return self;
 }
 
-- (void)dealloc {
-    free(table);
+- (float)valueAtIndex:(NSUInteger)index
+{
+    NSAssert(index < _size, @"Index out of bounds: %@", @(index));
+    if (index < _size) {
+        MYFLT *vals = self.values;
+        if (vals) {
+            return vals[index];
+        }
+    }
+    return 0.0f;
 }
 
+- (float)valueAtFractionalWidth:(float)fractionalWidth
+{
+    NSAssert(fractionalWidth <= 1, @"Fractional width out of bounds:%f", fractionalWidth);
+    if (fractionalWidth <= 1) {
+        MYFLT *vals = self.values;
+        if (vals) {
+            return vals[(NSUInteger)(fractionalWidth * _size)];
+        }
+    }
+    return 0.0f;
+}
 - (void)populateTableWithGenerator:(AKTableGenerator *)tableGenerator
 {
     NSString *parameters = [[tableGenerator parametersWithSize:self.size] componentsJoinedByString:@", "];
     
     NSString *orchString = [NSString stringWithFormat:
-                            @"giTable%d ftgen %d, 0, %d, %d, %@",
-                            _number, _number, _size, [tableGenerator generationRoutineNumber], parameters];
-    NSLog(@"%@",orchString);
-    [csoundObj updateOrchestra:orchString];
+                            @"giTable%d ftgen %d, 0, %@, %d, %@",
+                            _number, _number, @(_size), [tableGenerator generationRoutineNumber], parameters];
+    [_csoundObj updateOrchestra:orchString];
 }
 
 - (void)operateOnTableWithFunction:(float (^)(float))function
 {
-    while (csoundTableLength(cs, _number) != _size) {
-        // do nothing
-    }
-    csoundGetTable(cs, &table, _number);
-    for (int i = 0; i < _size; i++) {
-        table[i] = function(table[i]);
+    MYFLT *table = self.values;
+    if (table) {
+        for (int i = 0; i < _size; i++) {
+            table[i] = function(table[i]);
+        }
     }
 }
 
-- (void)populateTableWithIndexFunction:(float (^)(int))function
+- (void)populateTableWithIndexFunction:(float (^)(NSUInteger))function
 {
-    while (csoundTableLength(cs, _number) != _size) {
-        // do nothing
-    }
-    csoundGetTable(cs, &table, _number);
-    for (int i = 0; i < _size; i++) {
-        table[i] = function(i);
+    MYFLT *table = self.values;
+    if (table) {
+        for (int i = 0; i < _size; i++) {
+            table[i] = function(i);
+        }
     }
 }
 
 - (void)populateTableWithFractionalWidthFunction:(float (^)(float))function
 {
-    while (csoundTableLength(cs, _number) != _size) {
-        // do nothing
-    }
-    csoundGetTable(cs, &table, _number);
-    for (int i = 0; i < _size; i++) {
-        float x = (float) i / _size;
-        table[i] = function(x);
+    MYFLT *table = self.values;
+    if (table) {
+        for (int i = 0; i < _size; i++) {
+            float x = (float) i / _size;
+            table[i] = function(x);
+        }
     }
 }
 
@@ -121,16 +152,15 @@ static int currentID = 2000;
 
 - (void)normalize
 {
-    while (csoundTableLength(cs, _number) != _size) {
-        // do nothing
-    }
-    csoundGetTable(cs, &table, _number);
-    float max = 0.0;
-    for (int i = 0; i < _size; i++) {
-        max = MAX(max, fabsf(table[i]));
-    }
-    if (max > 0.0) {
-        [self scaleBy:1.0/max];
+    MYFLT *table = self.values;
+    if (table) {
+        MYFLT max = 0.0;
+        for (int i = 0; i < _size; i++) {
+            max = MAX(max, fabsf(table[i]));
+        }
+        if (max > 0.0) {
+            [self scaleBy:1.0/max];
+        }
     }
 }
 
@@ -144,9 +174,7 @@ static int currentID = 2000;
 + (instancetype)standardSineWave
 {
     AKTable *standarSineWave = [[AKTable alloc] init];
-    [standarSineWave populateTableWithFractionalWidthFunction:^(float x) {
-        return sinf(M_PI*2*x);
-    }];
+    [standarSineWave populateTableWithGenerator:[[AKFourierSeriesTableGenerator alloc] init]];
     return standarSineWave;
 }
 
@@ -154,13 +182,6 @@ static int currentID = 2000;
 {
     AKTable *standardSquareWave = [[AKTable alloc] init];
     [standardSquareWave populateTableWithGenerator:[AKLineTableGenerator squareWave]];
-//    [standardSquareWave populateTableWithFractionalWidthFunction:^(float x) {
-//        if (x < 0.5) {
-//            return 1.0f;
-//        } else {
-//            return -1.0f;
-//        }
-//    }];
     return standardSquareWave;
 }
 
@@ -182,7 +203,7 @@ static int currentID = 2000;
 
 - (NSString *)orchestraString
 {
-    return [NSString stringWithFormat:@"giTable%d ftgen %d, 0, %d, 2, 0", _number, _number, _size];
+    return [NSString stringWithFormat:@"giTable%d ftgen %d, 0, %@, 2, 0", _number, _number, @(_size)];
 }
 
 - (NSString *)description
@@ -192,9 +213,9 @@ static int currentID = 2000;
 
 - (AKConstant *)length
 {
-    AKConstant *new = [[AKConstant alloc] init];
-    [new setParameterString:[NSString stringWithFormat:@"ftlen(%d)", _number]];
-    return new;
+    AKConstant *cst = [[AKConstant alloc] init];
+    [cst setParameterString:[NSString stringWithFormat:@"ftlen(%d)", _number]];
+    return cst;
 }
 
 @end

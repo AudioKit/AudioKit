@@ -23,21 +23,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#import "AKFoundation.h"
 #import "EZAudioPlot.h"
 #import "EZAudio.h"
 
 @interface EZAudioPlot () {
-    //  BOOL             _hasData;
-    //  TPCircularBuffer _historyBuffer;
+    CGLayerRef  _plot;
+#if !TARGET_OS_IPHONE
+    CGColorSpaceRef _colorSpace;
+#endif
+    CGFloat     _lastPoint;
+    NSUInteger  _sinceLastUpdate, _indexLastUpdate;
     
-    CGPoint *plotData;
-    UInt32   plotLength;
+    CGFloat     *_plotData;
+    NSUInteger   _plotLength;
     
     // Rolling History
-    float   *_scrollHistory;
-    int     _scrollHistoryIndex;
-    UInt32  _scrollHistoryLength;
-    BOOL    _changingHistorySize;
+    float      *_scrollHistory;
+    NSUInteger  _scrollHistoryIndex;
+    NSUInteger  _scrollHistoryLength;
+    BOOL        _changingHistorySize, _startedScrolling;
 }
 @end
 
@@ -46,19 +51,29 @@
 #pragma mark - Initialization
 
 - (void)defaultValues {
-    _backgroundColor = [AKColor blackColor];
+    self.backgroundColor = [AKColor blackColor];
     _plotColor       = [AKColor yellowColor];
     _gain            = 1.0;
     _shouldMirror    = YES;
     _shouldFill      = YES;
-    plotData             = NULL;
+    _updateInterval  = 0.1;
+    _plotData            = NULL;
     _scrollHistoryLength = kEZAudioPlotDefaultHistoryBufferLength;
     _scrollHistory       = malloc(_scrollHistoryLength * sizeof(float));
 }
 
+- (void)dealloc {
+    free(_plotData);
+    free(_scrollHistory);
+#if !TARGET_OS_IPHONE
+    CGColorSpaceRelease(_colorSpace);
+#endif
+    CGLayerRelease(_plot);
+}
+
 #pragma mark - Setters
 - (void)setBackgroundColor:(AKColor *)backgroundColor {
-    _backgroundColor = backgroundColor;
+    super.backgroundColor = backgroundColor;
     [self updateUI];
 }
 
@@ -83,116 +98,189 @@
 }
 
 #pragma mark - Get Data
-- (void)setSampleData:(float *)data
-              length:(int)length {
-    
-    free(plotData);
-    plotData   = (CGPoint *)calloc(sizeof(CGPoint),length);
-    plotLength = length;
+- (void)setSampleData:(const float *)data
+               length:(NSUInteger)length
+{
+    _plotData   = realloc(_plotData, sizeof(CGFloat)*length);
+    _plotLength = length;
     
     for(int i = 0; i < length; i++) {
-        data[i]     = i == 0 ? 0 : data[i];
-        plotData[i] = CGPointMake(i,data[i] * _gain);
+        _plotData[i] = data[i] * _gain;
     }
-    
-    [self updateUI];
 }
 
 #pragma mark - Update
-- (void)updateBuffer:(MYFLT *)buffer withBufferSize:(UInt32)bufferSize {
-    
-    // Update the scroll history datasource
-    [EZAudio updateScrollHistory:&_scrollHistory
-                      withLength:_scrollHistoryLength
-                         atIndex:&_scrollHistoryIndex
-                      withBuffer:buffer
-                  withBufferSize:bufferSize
-            isResolutionChanging:&_changingHistorySize];
-    
-    //
+
+- (CGLayerRef) getPlot
+{
+    if (!_plot) {
+        // Create a blank back image
+#if TARGET_OS_IPHONE
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
+        _plot = CGLayerCreateWithContext(UIGraphicsGetCurrentContext(), self.bounds.size, NULL);
+#elif TARGET_OS_MAC
+        if (_colorSpace == nil)
+            _colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+        CGContextRef ctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
+                                                 8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
+        NSAssert(ctx, @"Failed to create bitmap context");
+        _plot = CGLayerCreateWithContext(ctx, self.bounds.size, NULL);
+#endif
+        CGContextRef layer = CGLayerGetContext(_plot);
+        
+        // Set the background color
+        CGContextSetFillColorWithColor(layer, self.backgroundColor.CGColor);
+        CGContextFillRect(layer, self.bounds);
+        
+#if TARGET_OS_IPHONE
+        UIGraphicsEndImageContext();
+#elif TARGET_OS_MAC
+        CGContextRelease(ctx);
+#endif
+    }
+    return _plot;
+}
+
+- (void)updateBuffer:(const MYFLT *)buffer withBufferSize:(UInt32)bufferSize update:(BOOL)update
+{
+    // Update the scroll history datasource - this adds one entry to the sliding history
+    BOOL scrolling = [EZAudio updateScrollHistory:&_scrollHistory
+                                       withLength:_scrollHistoryLength
+                                          atIndex:&_scrollHistoryIndex
+                                       withBuffer:buffer
+                                   withBufferSize:bufferSize
+                             isResolutionChanging:_changingHistorySize];
+
     [self setSampleData:_scrollHistory
                  length:_scrollHistoryLength];
+    
+    if (update && _sinceLastUpdate>0) {
+        if (scrolling) {
+            // Slide the existing bitmap to the left to make room for the data from the new buffer
+            [self renderIntoBitmapAt:_scrollHistoryIndex-_sinceLastUpdate
+                            scrollBy:_startedScrolling ? _sinceLastUpdate-1 : 0];
+            _startedScrolling = YES;
+        } else {
+            // Try to be smart about gradually filling in the bitmap until we start scrolling
+            [self renderIntoBitmapAt:_indexLastUpdate scrollBy:0];
+            _indexLastUpdate = _scrollHistoryIndex;
+        }
+        _sinceLastUpdate = 0;
+        [self updateUI];
+    } else {
+        _sinceLastUpdate ++;
+    }
+
+}
+
+// iOS drawing origin is flipped by default so make sure we account for that
+
+- (void)renderIntoBitmapAt:(NSUInteger)smp scrollBy:(NSUInteger)xoffset
+{
+    CGLayerRef plot = [self getPlot];
+#if TARGET_OS_IPHONE
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
+    CGLayerRef layer = CGLayerCreateWithContext(UIGraphicsGetCurrentContext(), self.bounds.size, NULL);
+#else
+    CGContextRef bitctx = CGBitmapContextCreate(NULL, self.bounds.size.width, self.bounds.size.height,
+                                                8, 0, _colorSpace, kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault);
+    NSAssert(bitctx, @"Failed to create bitmap context");
+    CGLayerRef layer = CGLayerCreateWithContext(bitctx, self.bounds.size, NULL);
+#endif
+    CGContextRef ctx = CGLayerGetContext(layer);
+
+    CGRect bounds = self.bounds;
+    // How many horizontal points per sample
+    CGFloat xscale = bounds.size.width / (CGFloat)_plotLength;
+    
+    //CGContextClipToRect(ctx, rect);
+    CGContextDrawLayerAtPoint(ctx, CGPointMake(ceilf(-xscale * (CGFloat)xoffset), 0.0f), plot);
+    CGRect rect = CGRectMake(smp*xscale, 0.0f, xscale*_sinceLastUpdate, self.bounds.size.height);
+
+    // Set the background color
+    CGContextSetFillColorWithColor(ctx, self.backgroundColor.CGColor);
+    CGContextFillRect(ctx, rect);
+    // NSLog(@"Rendering at x=%@ w =%@, offset=%@", @(rect.origin.x), @(rect.size.width), @(xoffset));
+    
+    if(_plotLength > 0) {
+        CGFloat halfHeight = floorf(bounds.size.height / 2.0f);
+        
+        CGMutablePathRef halfPath = CGPathCreateMutable();
+        
+        if (self.shouldFill) {
+            CGPathMoveToPoint(halfPath, NULL, smp, 0.0f);
+            for (NSUInteger i = smp; i < smp+_sinceLastUpdate && i < _plotLength; i++) {
+                CGPathAddLineToPoint(halfPath, NULL, i, _plotData[i]);
+            }
+            CGPathAddLineToPoint(halfPath, NULL, smp+_sinceLastUpdate, 0.0f);
+        } else { // Connect to the previous point
+            CGPathMoveToPoint(halfPath, NULL, smp-1, _lastPoint);
+            for (NSUInteger i = smp+1; i < smp+_sinceLastUpdate && i < _plotLength; i++) {
+                _lastPoint = _plotData[i];
+                CGPathAddLineToPoint(halfPath, NULL, i, _lastPoint);
+            }
+        }
+        
+        // Apply transforms to the path
+        CGMutablePathRef path = CGPathCreateMutable();
+        CGAffineTransform xf;
+        xf = CGAffineTransformMakeTranslation(0, halfHeight);
+        xf = CGAffineTransformScale( xf, xscale, AK_DEVICE_ORIGIN*halfHeight );
+        CGPathAddPath( path, &xf, halfPath );
+        
+        // If mirroring, add the path again with mirrored transforms
+        if( self.shouldMirror ){
+            xf = CGAffineTransformMakeTranslation(0, halfHeight);
+            xf = CGAffineTransformScale( xf, xscale, -AK_DEVICE_ORIGIN*halfHeight);
+            CGPathAddPath( path, &xf, halfPath );
+        }
+        CGPathRelease(halfPath);
+        
+        // Now, path contains the full waveform path.
+        CGContextAddPath(ctx, path);
+        
+        if (self.shouldFill) {
+            CGContextSetFillColorWithColor(ctx, self.plotColor.CGColor);
+            CGContextFillPath(ctx);
+        } else {
+            CGContextSetStrokeColorWithColor(ctx, self.plotColor.CGColor);
+            CGContextStrokePath(ctx);
+        }
+        CGPathRelease(path);
+    }
+#if TARGET_OS_IPHONE
+    UIGraphicsEndImageContext();
+#else
+    CGContextRelease(bitctx);
+#endif
+    @synchronized(self) {
+        // Swap out the old layer for the new
+        CGLayerRelease(_plot);
+        _plot = layer;
+    }
 }
 
 - (void)drawRect:(CGRect)rect
 {
 #if TARGET_OS_IPHONE
+    // Draw just the subset of the plot needed, cut from rect
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(ctx);
-    CGRect frame = self.bounds;
 #elif TARGET_OS_MAC
-    [[NSGraphicsContext currentContext] saveGraphicsState];
-    NSGraphicsContext * nsGraphicsContext = [NSGraphicsContext currentContext];
+    [self.backgroundColor setFill];
+    NSRectFill(rect);
+    NSGraphicsContext *nsGraphicsContext = [NSGraphicsContext currentContext];
     CGContextRef ctx = (CGContextRef) [nsGraphicsContext graphicsPort];
-    NSRect frame = self.bounds;
 #endif
-    
-    // Set the background color
-    [self.backgroundColor set];
-#if TARGET_OS_IPHONE
-    UIRectFill(frame);
-#elif TARGET_OS_MAC
-    NSRectFill(frame);
-#endif
-    // Set the waveform line color
-    [self.plotColor set];
-    
-    if(plotLength > 0) {
-        
-        plotData[plotLength-1] = CGPointMake(plotLength-1,0.0f);
-        
-        CGMutablePathRef halfPath = CGPathCreateMutable();
-        CGPathAddLines(halfPath,
-                       NULL,
-                       plotData,
-                       plotLength);
-        CGMutablePathRef path = CGPathCreateMutable();
-        
-        double xscale = (frame.size.width) / (float)plotLength;
-        double halfHeight = floor( frame.size.height / 2.0 );
-        
-        // iOS drawing origin is flipped by default so make sure we account for that
-#if TARGET_OS_IPHONE
-        int deviceOriginFlipped = -1;
-#elif TARGET_OS_MAC
-        int deviceOriginFlipped = 1;
-#endif
-        
-        CGAffineTransform xf = CGAffineTransformIdentity;
-        xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y );
-        xf = CGAffineTransformScale( xf, xscale, deviceOriginFlipped*halfHeight );
-        CGPathAddPath( path, &xf, halfPath );
-        
-        if( self.shouldMirror ){
-            xf = CGAffineTransformIdentity;
-            xf = CGAffineTransformTranslate( xf, frame.origin.x , halfHeight + frame.origin.y);
-            xf = CGAffineTransformScale( xf, xscale, -deviceOriginFlipped*(halfHeight));
-            CGPathAddPath( path, &xf, halfPath );
-        }
-        CGPathRelease( halfPath );
-        
-        // Now, path contains the full waveform path.
-        CGContextAddPath(ctx, path);
-        
-        // Make this color customizable
-        if( self.shouldFill ){
-            CGContextFillPath(ctx);
-        }
-        else {
-            CGContextStrokePath(ctx);
-        }
-        CGPathRelease(path);
+    if (!CGRectEqualToRect(rect, self.bounds)) {
+        CGContextClipToRect(ctx, rect);
     }
-    
-#if TARGET_OS_IPHONE
-    CGContextRestoreGState(ctx);
-#elif TARGET_OS_MAC
-    [[NSGraphicsContext currentContext] restoreGraphicsState];
-#endif
+    @synchronized(self) {
+        CGContextDrawLayerAtPoint(ctx, CGPointZero, [self getPlot]);
+    }
 }
 
 #pragma mark - Adjust Resolution
-- (int)setRollingHistoryLength:(int)historyLength
+- (void)setRollingHistoryLength:(NSUInteger)historyLength
 {
     historyLength = MIN(historyLength,kEZAudioPlotMaxHistoryBufferLength);
     size_t floatByteSize = sizeof(float);
@@ -209,15 +297,6 @@
         _scrollHistoryIndex = _scrollHistoryLength;
     }
     _changingHistorySize = NO;
-    return historyLength;
-}
-
-- (int)rollingHistoryLength {
-    return _scrollHistoryLength;
-}
-
-- (void)dealloc {
-    free(plotData);
 }
 
 @end

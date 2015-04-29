@@ -8,7 +8,7 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
@@ -25,7 +25,7 @@ class Instrument : AKInstrument {
         let sine = AKOscillator()
         sine.frequency  = portamento.plus(880.ak)
         setAudioOutput(sine)
-        
+
         enableParameterLog(
             "Frequency = ",
             parameter: sine.frequency,
@@ -41,6 +41,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

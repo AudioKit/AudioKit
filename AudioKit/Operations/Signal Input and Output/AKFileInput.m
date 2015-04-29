@@ -67,8 +67,7 @@
     [self setStartTime:startTime];
 }
 
-- (void)setOptionalLoop:(BOOL)loop
-{
+- (void)setOptionalLoop:(BOOL)loop {
     _loop = loop;
 }
 

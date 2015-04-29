@@ -10,17 +10,11 @@
 
 @implementation AKConstant
 
-- (instancetype)init
-{
-    self = [super init];
-    return self;
-}
-
 - (instancetype)initWithString:(NSString *)name
 {
     self = [super init];
     if (self) {
-        self.parameterString = [NSString stringWithFormat:@"i%@%i", name, _myID];
+        self.parameterString = [NSString stringWithFormat:@"i%@%@", name, @(self.parameterID)];
     }
     return self;
 }
@@ -29,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        self.parameterString = [NSString stringWithFormat:@"gi%@%i", name, _myID];
+        self.parameterString = [NSString stringWithFormat:@"gi%@%@", name, @(self.parameterID)];
     }
     return self;
 }
@@ -52,12 +46,6 @@
         self.parameterString = [NSString stringWithFormat:@"%@", number];
     }
     return self;
-}
-
-- (instancetype)initWithValue:(NSNumber *)value
-{
-    self.value = [value floatValue];
-    return [self initWithNumber:value];
 }
 
 - (instancetype)initWithInt:(int)value
@@ -94,9 +82,14 @@
     return [[self alloc] initWithInt:value];
 }
 
-+ (instancetype)constantWithInteger:(int)value
++ (instancetype)constantWithInteger:(NSInteger)value
 {
-    return [[self alloc] initWithInt:value];
+    return [[self alloc] initWithNumber:@(value)];
+}
+
++ (instancetype)constantWithDuration:(NSTimeInterval)duration
+{
+    return [[self alloc] initWithFloat:duration];
 }
 
 + (instancetype)constantWithFilename:(NSString *)filename

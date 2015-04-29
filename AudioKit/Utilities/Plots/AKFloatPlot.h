@@ -9,6 +9,7 @@
 #import "AKPlotView.h"
 
 /// Plots the floating point value given a minimum and maximum
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 @interface AKFloatPlot : AKPlotView
 
@@ -28,3 +29,4 @@ IB_DESIGNABLE
 - (void)updateWithValue:(float)value;
 
 @end
+NS_ASSUME_NONNULL_END

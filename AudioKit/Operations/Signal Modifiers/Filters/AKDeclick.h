@@ -12,6 +12,7 @@
 /** Declick operation to prevent clicks at the stop of the input signal
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKDeclick : AKAudio
 /// Instantiates the declick with all values
 /// @param input Input audio signal to be declicked [Default Value: ]
@@ -22,3 +23,4 @@
 + (instancetype)WithInput:(AKParameter *)input;
 
 @end
+NS_ASSUME_NONNULL_END

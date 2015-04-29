@@ -9,14 +9,15 @@
 #import "AKOrchestra.h"
 #import "AKInstrument.h"
 #import "AKManager.h"
+#import "AKSettings.h"
 #import "AKStereoAudio.h"
 
 @implementation AKOrchestra
 {
-    int sampleRate;
-    int samplesPerControlPeriod;
-    NSMutableSet *udoFiles;
-    CsoundObj *csound;
+    UInt32 _sampleRate;
+    UInt32 _samplesPerControlPeriod;
+    NSMutableSet *_udoFiles;
+    CsoundObj *_csound;
 }
 
 // -----------------------------------------------------------------------------
@@ -30,24 +31,14 @@
         
         _userDefinedOperations = [[NSMutableSet alloc] init];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-        
         // Default Values (for tests that don't load the AudioKit.plist)
-        sampleRate = 44100;
-        samplesPerControlPeriod = 64;
-        _numberOfChannels = 2;
-        _zeroDBFullScaleValue = 1.0f;
+        _sampleRate = AKSettings.settings.sampleRate;
+        _samplesPerControlPeriod = AKSettings.settings.samplesPerControlPeriod;
+        _numberOfChannels = AKSettings.settings.numberOfChannels;
+        _zeroDBFullScaleValue = AKSettings.settings.zeroDBFullScaleValue;
         
-        if (dict) {
-            sampleRate = [dict[@"Sample Rate"] intValue];
-            samplesPerControlPeriod = [dict[@"Samples Per Control Period"] intValue];
-            _numberOfChannels = [dict[@"Number Of Channels"] intValue];
-            _zeroDBFullScaleValue = [dict[@"Zero dB Full Scale Value"] floatValue];
-        }
-        
-        udoFiles = [[NSMutableSet alloc] init];
-        csound = [[AKManager sharedManager] engine];
+        _udoFiles = [[NSMutableSet alloc] init];
+        _csound = [[AKManager sharedManager] engine];
     }
     return self;
 }
@@ -59,6 +50,12 @@
 + (void)start
 {
     if (![[AKManager sharedManager] isRunning]) {
+        if (AKSettings.settings.audioInputEnabled) {
+            [[AKManager sharedManager] enableAudioInput];
+        }else{
+            [[AKManager sharedManager] disableAudioInput];
+        }
+        
         [[AKManager sharedManager] runOrchestra];
     }
 }
@@ -69,7 +66,7 @@
 }
 
 
-+ (void)testForDuration:(float)duration
++ (void)testForDuration:(NSTimeInterval)duration
 {
     [[AKManager sharedManager] setIsLogging:YES];
     if (![[AKManager sharedManager] isRunning]) {
@@ -83,26 +80,7 @@
 
 + (void)addInstrument:(AKInstrument *)instrument
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    // Default Value
-    BOOL enableAudioInput = YES;
-    
-    if (dict) {
-        enableAudioInput = [dict[@"Enable Audio Input By Default"] boolValue];
-    }
-    
-    if (enableAudioInput) {
-        [[AKManager sharedManager] enableAudioInput];
-    }else{
-        [[AKManager sharedManager] disableAudioInput];
-    }
-    
     [AKOrchestra start];
-    while (![[AKManager sharedManager] isRunning]) {
-        // do nothing
-    }
     [[[AKManager sharedManager] orchestra] addInstrument:instrument];
 }
 
@@ -140,7 +118,7 @@
         }
     }
     
-    [instrumentString appendFormat:@"instr %i\n", [instrument instrumentNumber]];
+    [instrumentString appendFormat:@"instr %@\n", @(instrument.instrumentNumber)];
     [instrumentString appendString:[NSString stringWithFormat:@"%@\n", stringForCSD]];
     [instrumentString appendString:@"endin\n"];
     
@@ -148,25 +126,25 @@
         NSLog(@"%@", instrumentString);
     }
     
-    [csound updateOrchestra:instrumentString];
+    [_csound updateOrchestra:instrumentString];
     
     // Update Bindings
     for (AKInstrumentProperty *instrumentProperty in [instrument properties]) {
-        [csound addBinding:(AKInstrumentProperty<CsoundBinding> *)instrumentProperty];
+        [_csound addBinding:(AKInstrumentProperty<CsoundBinding> *)instrumentProperty];
     }
 }
 
 - (NSString *) stringForCSD
 {
     return [NSString stringWithFormat:
-            @"nchnls = %d \n"
-            @"sr     = %d \n"
+            @"nchnls = %@ \n"
+            @"sr     = %@ \n"
             @"0dbfs  = %g \n"
-            @"ksmps  = %d \n",
-            _numberOfChannels,
-            sampleRate,
+            @"ksmps  = %@ \n",
+            @(_numberOfChannels),
+            @(_sampleRate),
             _zeroDBFullScaleValue,
-            samplesPerControlPeriod];
+            @(_samplesPerControlPeriod)];
 }
 
 @end

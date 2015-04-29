@@ -1,16 +1,16 @@
 {
     "name": "AudioKit",
-    "version": "2.0",
+    "version": "2.1",
     "authors": {
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
     "license": {
-        "type": "LGPL"
+        "type": "MIT"
     },
     "homepage": "http://audiokit.io/",
     "source": {
         "git": "https://github.com/audiokit/AudioKit.git",
-        "tag": "v2.0-03-26-2015"
+        "tag": "v2.1-04-29-2015"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "source_files": [
@@ -21,12 +21,13 @@
         "AudioKit/Parameters/**/*.{h,m}",
         "AudioKit/Sequencing/**/*.{h,m}",
         "AudioKit/Tables/**/*.{h,m}",
-        "AudioKit/Utilities/**/*.{h,m,c}"
+        "AudioKit/Utilities/**/*.{h,m,c}",
+	"AudioKit/Platforms/Common/*.{h,m}"
     ],
+    "xcconfig": {
+        "OTHER_LDFLAGS": "-ObjC"
+    },
     "dependencies": {
-        "TPCircularBuffer": [
-            "~> 0.0.1"
-        ]
     },
     "platforms": {
         "osx": "10.10",
@@ -40,15 +41,12 @@
         "AudioKit/Parameters/**/*.h",
         "AudioKit/Sequencing/**/*.h",
         "AudioKit/Tables/**/*.h",
-        "AudioKit/Utilities/**/*.h"
+        "AudioKit/Utilities/**/*.h",
+	"AudioKit/Platforms/Common/csound/*.{h,hpp}"
     ],
     "osx": {
-        "frameworks": "CsoundLib64",
-        "vendored_frameworks": "AudioKit/Platforms/OSX/CsoundLib64.framework",
-        "source_files": "AudioKit/Platforms/OSX/*.{h,m}",
-        "public_header_files": [
-            "AudioKit/Platforms/OSX/classes/*.h"
-        ]
+        "frameworks": "CsoundLib",
+        "vendored_frameworks": "AudioKit/Platforms/OSX/CsoundLib.framework"
     },
     "ios": {
         "libraries": [
@@ -58,13 +56,6 @@
         "vendored_libraries": [
             "AudioKit/Platforms/iOS/libs/libcsound.a",
             "AudioKit/Platforms/iOS/libs/libsndfile.a"
-        ],
-        "source_files": [
-            "AudioKit/Platforms/iOS/classes/*.{h,m}",
-            "AudioKit/Platforms/iOS/headers/*.{h,hpp}"
-        ],
-        "public_header_files": [
-            "AudioKit/Platforms/iOS/classes/*.h"
         ]
     }
 }

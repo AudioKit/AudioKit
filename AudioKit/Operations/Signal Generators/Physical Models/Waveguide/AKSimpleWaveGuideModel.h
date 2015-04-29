@@ -14,6 +14,7 @@
  This is the most elemental waveguide model, consisting of one delay-line and one first-order lowpass filter.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSimpleWaveGuideModel : AKAudio
 /// Instantiates the simple wave guide model with all values
 /// @param input The excitation noise. [Default Value: ]
@@ -57,3 +58,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

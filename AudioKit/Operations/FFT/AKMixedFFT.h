@@ -13,6 +13,7 @@
  components of two pvoc streams into a single mixed stream.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMixedFFT : AKFSignal
 
 /// Create a mixture of two f-signal.
@@ -22,3 +23,4 @@
                         signal2:(AKFSignal *)signal2;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -39,7 +39,7 @@ void swizzle(Class c, SEL orig, SEL new) {
    swizzle([NSObject class], NSSelectorFromString(@"dealloc"), @selector(_swizzledDealloc));
     
    // Storyboard support
-   swizzle(NSClassFromString(@"UINib"), @selector(instantiateWithOwner:options:), @selector(_swizzledInstantiateWithOwner:options:));
+//   swizzle(NSClassFromString(@"UINib"), @selector(instantiateWithOwner:options:), @selector(_swizzledInstantiateWithOwner:options:));
 }
 
 
@@ -50,7 +50,7 @@ void swizzle(Class c, SEL orig, SEL new) {
       return NO;
    }
 
-#warning We should skip more than just NS, CF, and private classes
+//#warning We should skip more than just NS, CF, and private classes
    char const * className = object_getClassName(instance);
    
    switch (className[0]) {

@@ -58,7 +58,7 @@ static OSStatus complexInputDataProc(AudioConverterRef             inAudioConver
 @implementation AEFloatConverter
 @synthesize sourceFormat = _sourceAudioDescription;
 
--(id)initWithSourceFormat:(AudioStreamBasicDescription)sourceFormat {
+-(instancetype)initWithSourceFormat:(AudioStreamBasicDescription)sourceFormat {
     if ( !(self = [super init]) ) return nil;
 
     _floatAudioDescription.mFormatID          = kAudioFormatLinearPCM;

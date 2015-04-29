@@ -13,6 +13,7 @@
 /** Generate an f-Signal from a mono audio source using phase vocoder overlap-add synthesis.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKFFT : AKFSignal
 
 //Type Helpers
@@ -36,3 +37,4 @@
              windowFilterSize:(AKConstant *)windowSize;
 
 @end
+NS_ASSUME_NONNULL_END

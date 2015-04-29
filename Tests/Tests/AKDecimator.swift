@@ -8,14 +8,14 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
 
     override init() {
         super.init()
 
-        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
+        let filename = "AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio)
 
@@ -35,7 +35,7 @@ class Instrument : AKInstrument {
         decimator.bitDepth = bitDepth
         decimator.sampleRate = sampleRate
         setAudioOutput(decimator)
-        
+
         enableParameterLog(
             "Bit Depth = ",
             parameter: decimator.bitDepth,
@@ -57,6 +57,4 @@ AKOrchestra.addInstrument(instrument)
 
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

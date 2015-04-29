@@ -21,7 +21,7 @@
 # if TARGET_OS_IPHONE
 - (void)didMoveToSuperview
 # elif TARGET_OS_MAC
-- (void)viewDidMoveToSuperview
+- (void)viewDidMoveToWindow
 # endif
 {
     // Some of the subclasses don't implement the CsoundBinding protocol
@@ -37,12 +37,26 @@
 #endif
 
 - (void)updateUI {
+    if (self.hidden)
+        return;
+    dispatch_async(dispatch_get_main_queue(), ^{
 #if TARGET_OS_IPHONE
-    [self setNeedsDisplay];
+        if (self.alpha > 0.0f)
+            [self setNeedsDisplay];
 #elif TARGET_OS_MAC
-    [self setNeedsDisplay:YES];
+        if (self.alphaValue > 0.0f)
+            [self setNeedsDisplay:YES];
 #endif
+    });
 }
+
+#if !TARGET_OS_IPHONE
+- (void)setBackgroundColor:(NSColor * __nonnull)backgroundColor
+{
+    _backgroundColor = backgroundColor;
+    [self updateUI];
+}
+#endif
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

@@ -139,12 +139,12 @@
     return [[self alloc] initSyncWindow];
 }
 
-- (NSArray *)parametersWithSize:(int)size
+- (NSArray *)parametersWithSize:(NSUInteger)size
 {
     if (type == 6 || type == 7) {
-        return @[[NSNumber numberWithInt:type], @1, [NSNumber numberWithFloat:extra_term]];
+        return @[@(type), @1, @(extra_term)];
     } else {
-        return @[[NSNumber numberWithInt:type]];
+        return @[@(type)];
     }
 }
 

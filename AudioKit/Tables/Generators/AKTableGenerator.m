@@ -16,7 +16,7 @@
 }
 
 // Overwrite in subclass
-- (NSArray *)parametersWithSize:(int)size {
+- (NSArray *)parametersWithSize:(NSUInteger)size {
     return @[];
 }
 

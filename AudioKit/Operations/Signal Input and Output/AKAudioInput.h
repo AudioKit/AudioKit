@@ -12,6 +12,8 @@
 /** Reads monophonic audio data from an external device or stream.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKAudioInput : AKAudio
 
 @end
+NS_ASSUME_NONNULL_END

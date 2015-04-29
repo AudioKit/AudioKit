@@ -24,9 +24,6 @@
 - (instancetype)initWithLeftAudio:(AKParameter *)leftAudio
                        rightAudio:(AKParameter *)rightAudio;
 
-/// Allows the unique identifying integer to be reset so that the numbers don't increment indefinitely.
-+ (void)resetID;
-
 /// Quick and dirty way to get a stereo signal from a mono.
 /// @param mono Regular mono audio source.
 + (instancetype)stereoFromMono:(AKParameter *)mono;

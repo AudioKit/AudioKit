@@ -8,16 +8,16 @@
 
 import Foundation
 
-let testDuration: Float = 10.0
+let testDuration: NSTimeInterval = 10.0
 
 class Instrument : AKInstrument {
-    
+
     var auxilliaryOutput = AKAudio()
-    
+
     override init() {
         super.init()
-        let filename = "CsoundLib64.framework/Sounds/PianoBassDrumLoop.wav"
-        
+        let filename = "AKSoundFiles.bundle/Sounds/PianoBassDrumLoop.wav"
+
         let audio = AKFileInput(filename: filename)
         let mono = AKMix(monoAudioFromStereoInput: audio);
         auxilliaryOutput = AKAudio.globalParameter()
@@ -26,27 +26,27 @@ class Instrument : AKInstrument {
 }
 
 class Processor : AKInstrument {
-    
+
     init(audioSource: AKAudio) {
         super.init()
-        
+
         let fundamentalFrequencyLine = AKLine(
             firstPoint: 0.ak,
             secondPoint: 1000.ak,
             durationBetweenPoints: testDuration.ak
         )
-        
+
         enableParameterLog(
             "Fundamental Frequency = ",
             parameter: fundamentalFrequencyLine,
             timeInterval:0.1
         )
-        
+
         let stringResonator = AKStringResonator(input: audioSource)
         stringResonator.fundamentalFrequency = fundamentalFrequencyLine
-        
+
         setAudioOutput(stringResonator)
-        
+
         resetParameter(audioSource)
     }
 }
@@ -62,6 +62,4 @@ AKOrchestra.addInstrument(processor)
 processor.play()
 instrument.play()
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))

@@ -9,6 +9,7 @@
 #import "AKPlotView.h"
 
 /// Plot the raw samples of the audio output to the DAC as left and right signals
+NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE
 @interface AKStereoOutputPlot : AKPlotView
 
@@ -21,3 +22,4 @@ IB_DESIGNABLE
 @property IBInspectable CGFloat lineWidth;
 
 @end
+NS_ASSUME_NONNULL_END

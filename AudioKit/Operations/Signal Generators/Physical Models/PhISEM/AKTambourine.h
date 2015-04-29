@@ -14,6 +14,7 @@
  This is one of the PhISEM percussion opcodes. PhISEM (Physically Informed Stochastic Event Modeling) is an algorithmic approach for simulating collisions of multiple independent sound producing objects.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKTambourine : AKAudio
 /// Instantiates the tambourine with all values
 /// @param intensity The intensity of the tambourine sound [Default Value: 1000]
@@ -81,3 +82,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

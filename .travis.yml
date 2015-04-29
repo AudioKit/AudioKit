@@ -1,0 +1,23 @@
+language: objective-c
+
+env:
+- LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
+
+before_install: gem install xcpretty cocoapods -N
+podfile: Playgrounds/AudioKitPlayground/Podfile
+cache: cocoapods
+script:
+- if test `find . -name \*.pbxproj -exec grep -H /Users/ {} \;|tee /tmp/found|wc -l` -gt 0; then cat /tmp/found; exit 1; fi
+- set -o pipefail && xcodebuild -scheme OSXObjectiveCAudioKitTests -project Tests/TestProjects/OSXObjectiveCAudioKit/OSXObjectiveCAudioKit.xcodeproj test | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj       -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj           -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/iOS/Swift/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- set -o pipefail && xcodebuild -project Examples/iOS/Swift/HelloWorld/HelloWorld.xcodeproj     -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- cp Playgrounds/Playgrounds/DefaultPlayground.m Playgrounds/AudioKitPlayground/AudioKitPlayground/Playground.m
+- set -o pipefail && xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace -scheme AudioKitPlayground -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+- pod lib lint --quick AudioKit.podspec.json
+#- cd Tests && ./build_all.sh
+
+# Mac Projects use Storyboards which requires OSX Yosemite, ie 10.10, but Travis only runs 10.9 so can't really test these
+#- set -o pipefail && xcodebuild -project Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj build | xcpretty -c
+#- set -o pipefail && xcodebuild -project Examples/OSX/HelloWorld/HelloWorld.xcodeproj  build | xcpretty -c

@@ -14,6 +14,7 @@
  AKStringResonator passes the input asig through a network composed of comb, low-pass and all-pass filters, similar to the one used in some versions of the Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency of the “string” is controlled by the fundamentalFrequency.  This operation can be used to simulate sympathetic resonances to an input signal.
  */
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AKStringResonator : AKAudio
 /// Instantiates the string resonator with all values
 /// @param input The input audio signal. [Default Value: ]
@@ -48,3 +49,4 @@
 
 
 @end
+NS_ASSUME_NONNULL_END

@@ -23,17 +23,22 @@ static int currentID = 1;
 #  pragma mark - Initialization
 // -----------------------------------------------------------------------------
 
-+ (void)resetID { currentID = 1; }
++ (void)resetID {
+    @synchronized(self) {
+        currentID = 1;
+    }
+}
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        if (currentID > 99000) {
-            [AKNote resetID];
+        @synchronized([self class]) {
+            if (currentID > 99000) {
+                currentID = 1;
+            }
+            _myID = currentID++;
         }
-        _myID = currentID++;
-        
         isPlaying = NO;
         _duration = [AKNoteProperty duration];
         [self addProperty:_duration];
@@ -46,7 +51,7 @@ static int currentID = 1;
 }
 
 - (instancetype)initWithInstrument:(AKInstrument *)anInstrument
-                       forDuration:(float)noteDuration {
+                       forDuration:(NSTimeInterval)noteDuration {
     self = [self init];
     if (self) {
         _instrument = anInstrument;
@@ -58,7 +63,9 @@ static int currentID = 1;
 - (void)setInstrument:(AKInstrument *)instr
 {
     _instrument = instr;
-    [_instrument addNoteProperty:_duration];
+    if (_instrument.noteProperties.count == 0) {
+        [_instrument addNoteProperty:_duration];
+    }
 }
 
 - (instancetype)initWithInstrument:(AKInstrument *)anInstrument
@@ -73,7 +80,7 @@ static int currentID = 1;
     }
 }
 
-- (void)updatePropertiesAfterDelay:(float)time
+- (void)updatePropertiesAfterDelay:(NSTimeInterval)time
 {
     playbackDelay = time;
     [self updateProperties];
@@ -118,7 +125,7 @@ static int currentID = 1;
     isPlaying = YES;
 }
 
-- (void)playAfterDelay:(float)delay
+- (void)playAfterDelay:(NSTimeInterval)delay
 {
     playbackDelay = delay;
     [self play];
@@ -129,7 +136,7 @@ static int currentID = 1;
     [[AKManager sharedManager] stopNote:self];
     isPlaying = NO;
 }
-- (void)stopAfterDelay:(float)delay
+- (void)stopAfterDelay:(NSTimeInterval)delay
 {
     playbackDelay = delay;
     [self stop];

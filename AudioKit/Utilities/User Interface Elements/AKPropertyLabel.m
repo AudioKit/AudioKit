@@ -12,7 +12,7 @@
 @implementation AKPropertyLabel
 
 
-- (void)setProperty:(id)property
+- (void)setProperty:(AKParameter *)property
 {
     _property = property;
     [self.property addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:NULL];
@@ -21,7 +21,7 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context
 {
     [self setNeedsDisplay];
-};
+}
 
 
 #if TARGET_OS_IPHONE

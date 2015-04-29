@@ -8,6 +8,8 @@
 
 import Foundation
 
+let testDuration: NSTimeInterval = 4.0
+
 class Instrument : AKInstrument {
 
     override init() {
@@ -28,12 +30,12 @@ class Note: AKNote {
     }
     convenience init(frequency startingFrequency: Float) {
         self.init()
-        frequency.value = startingFrequency
+        frequency.floatValue = startingFrequency
     }
 }
 
 
-AKOrchestra.testForDuration(4)
+AKOrchestra.testForDuration(testDuration)
 
 let instrument = Instrument()
 AKOrchestra.addInstrument(instrument)
@@ -51,6 +53,4 @@ phrase.addNote(note2, atTime:2.0)
 instrument.playPhrase(phrase)
 
 
-let manager = AKManager.sharedManager()
-while(manager.isRunning) {} //do nothing
-println("Test complete!")
+NSThread.sleepForTimeInterval(NSTimeInterval(testDuration))
