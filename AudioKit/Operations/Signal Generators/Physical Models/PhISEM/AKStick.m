@@ -46,6 +46,47 @@
     return [[AKStick alloc] init];
 }
 
++ (instancetype)presetDefaultStick
+{
+    return [[AKStick alloc] init];
+}
+
+- (instancetype)initWithPresetBundleOfSticks
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(50);
+        _dampingFactor = akp(0.09);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetBundleOfSticks
+{
+    return [[AKStick alloc] initWithPresetBundleOfSticks];
+}
+
+- (instancetype)initWithPresetThickStick
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(1000);
+        _dampingFactor = akp(1);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetThickStick
+{
+    return [[AKStick alloc] initWithPresetThickStick];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];

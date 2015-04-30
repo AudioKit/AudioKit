@@ -30,6 +30,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the crunch with default values
 + (instancetype)crunch;
 
+/// Instantiates the crunch with default values
++ (instancetype)presetDefaultCrunch;
+
+/// Instantiates the crunch with values for a distant crunch
+- (instancetype)initWithPresetDistantCrunch;
+
+/// Instantiates the crunch with values for a distant crunch
++ (instancetype)presetDistantCrunch;
+
+/// Instantiates the crunch with values for a 'thud' crunch
+- (instancetype)initWithPresetThudCrunch;
+
+/// Instantiates the crunch with values for a 'thud' crunch
++ (instancetype)presetThudCrunch;
 
 /// The intensity of the crunch sound [Default Value: 100]
 @property (nonatomic) AKConstant *intensity;

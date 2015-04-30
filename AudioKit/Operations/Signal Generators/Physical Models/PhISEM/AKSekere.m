@@ -46,6 +46,29 @@
     return [[AKSekere alloc] init];
 }
 
++ (instancetype)presetDefaultSekere
+{
+    return [[AKSekere alloc] init];
+}
+
+- (instancetype)initWithPresetManyBeadsSekere
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _count = akp(10000);
+        _dampingFactor = akp(0.09);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetManyBeadsSekere
+{
+    return [[AKSekere alloc] initWithPresetManyBeadsSekere];
+}
+
 - (void)setCount:(AKConstant *)count {
     _count = count;
     [self setUpConnections];

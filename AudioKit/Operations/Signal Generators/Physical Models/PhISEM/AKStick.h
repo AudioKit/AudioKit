@@ -30,6 +30,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the stick with default values
 + (instancetype)stick;
 
+/// Instantiates the stick with default values
++ (instancetype)presetDefaultStick;
+
+/// Instantiates the stick with 'bundle of sticks' sound values
+- (instancetype)initWithPresetBundleOfSticks;
+
+/// Instantiates the stick with 'bundle of sticks' sound values
++ (instancetype)presetBundleOfSticks;
+
+/// Instantiates the stick with 'thick stick' sound values
+- (instancetype)initWithPresetThickStick;
+
+/// Instantiates the stick with 'thick stick' sound values
++ (instancetype)presetThickStick;
 
 /// The intensity of the stick sound. [Default Value: 30]
 @property (nonatomic) AKConstant *intensity;

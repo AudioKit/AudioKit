@@ -30,6 +30,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the cabasa with default values
 + (instancetype)cabasa;
 
+/// Instantiates the cabasa with default values
++ (instancetype)presetDefaultCabasa;
+
+/// Instantiates the cabasa with muted values
+- (instancetype)initWithPresetMutedCabasa;
+
+/// Instantiates the cabasa with loose values
++ (instancetype)presetMutedCabasa;
+
+/// Instantiates the cabasa with loose values
+- (instancetype)initWithPresetLooseCabasa;
+
+/// Instantiates the cabasa with muted values
++ (instancetype)presetLooseCabasa;
 
 /// The number of beads, teeth, bells, timbrels, etc. [Default Value: 100]
 @property (nonatomic) AKConstant *count;
