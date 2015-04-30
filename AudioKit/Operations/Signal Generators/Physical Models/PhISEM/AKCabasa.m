@@ -46,6 +46,47 @@
     return [[AKCabasa alloc] init];
 }
 
++ (instancetype)presetDefaultCabasa
+{
+    return [[AKCabasa alloc] init];
+}
+
+- (instancetype)initWithPresetMutedCabasa
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _count = akp(1000);
+        _dampingFactor = akp(0.9);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMutedCabasa
+{
+    return [[AKCabasa alloc] initWithPresetMutedCabasa];
+}
+
+- (instancetype)initWithPresetLooseCabasa
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _count = akp(990);
+        _dampingFactor = akp(0.2);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetLooseCabasa
+{
+    return [[AKCabasa alloc] initWithPresetLooseCabasa];
+}
+
 - (void)setCount:(AKConstant *)count {
     _count = count;
     [self setUpConnections];

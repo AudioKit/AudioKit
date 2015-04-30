@@ -30,6 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the sekere with default values
 + (instancetype)sekere;
 
+/// Instantiates the sekere with default values
++ (instancetype)presetDefaultSekere;
+
+/// Instantiates the sekere with large number of beads
+- (instancetype)initWithPresetManyBeadsSekere;
+
+/// Instantiates the sekere with large number of beads
++ (instancetype)presetManyBeadsSekere;
 
 /// The number of beads, teeth, bells, timbrels, etc. If zero, the default value is 64. [Default Value: 64]
 @property (nonatomic) AKConstant *count;

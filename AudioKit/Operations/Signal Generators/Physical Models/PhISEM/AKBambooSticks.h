@@ -34,6 +34,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the bamboo sticks with default values
 + (instancetype)sticks;
 
+/// Instantiates the bamboo sticks with default values
++ (instancetype)presetDefaultSticks;
+
+/// Instantiates the bamboo sticks with large number of sticks values
+- (instancetype)initWithPresetManySticks;
+
+/// Instantiates the bamboo sticks with large number of sticks values
++ (instancetype)presetManySticks;
+
+/// Instantiates the bamboo sticks with small number of sticks values
+- (instancetype)initWithPresetFewSticks;
+
+/// Instantiates the bamboo sticks with small number of sticks values
++ (instancetype)presetFewSticks;
 
 /// The number of bamboo sticks. [Default Value: 2]
 @property (nonatomic) AKConstant *count;

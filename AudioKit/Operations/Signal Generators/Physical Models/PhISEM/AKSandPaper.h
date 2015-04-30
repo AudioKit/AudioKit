@@ -28,6 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the sand paper with default values
 + (instancetype)sandPaper;
 
+/// Instantiates the sand paper with default values
++ (instancetype)presetDefaultSandPaper;
+
+/// Instantiates the sand paper with values for a muffled sound
+- (instancetype)initWithPresetMuffledSandPaper;
+
+/// Instantiates the sand paper with values for a muffled sound
++ (instancetype)presetMuffledSandPaper;
 
 /// The intensity of the sandpaper sound [Default Value: 128]
 @property (nonatomic) AKConstant *intensity;

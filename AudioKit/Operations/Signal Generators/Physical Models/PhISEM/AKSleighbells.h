@@ -36,6 +36,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the sleighbells with default values
 + (instancetype)sleighbells;
 
+/// Instantiates the sleighbells with default values
++ (instancetype)presetDefaultSleighbells;
+
+/// Instantiates the sleighbells with softer bells sound values
+- (instancetype)initWithPresetSoftBells;
+
+/// Instantiates the sleighbells with quiet bells sound values
++ (instancetype)presetSoftBells;
+
+/// Instantiates the sleighbells with , open bells sound values
+- (instancetype)initWithPresetOpenBells;
+
+/// Instantiates the sleighbells with loud, open bells sound values
++ (instancetype)presetOpenBells;
 
 /// The intensity of the bell sound. [Default Value: 32]
 @property (nonatomic) AKConstant *intensity;

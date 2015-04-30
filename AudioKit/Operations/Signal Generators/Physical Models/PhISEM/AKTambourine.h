@@ -36,6 +36,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the tambourine with default values
 + (instancetype)tambourine;
 
+/// Instantiates the tambourine with default values
++ (instancetype)presetDefaultTambourine;
+
+/// Instantiates the tambourine with values for an 'open' sound values
+- (instancetype)initWithPresetOpenTambourine;
+
+/// Instantiates the tambourine with default for an 'open' sound values
++ (instancetype)presetOpenTambourine;
+
+/// Instantiates the tambourine with values for an 'closed' sound values
+- (instancetype)initWithPresetClosedTambourine;
+
+/// Instantiates the tambourine with default for an 'closed' sound values
++ (instancetype)presetClosedTambourine;
 
 /// The intensity of the tambourine sound [Default Value: 1000]
 @property (nonatomic) AKConstant *intensity;

@@ -46,6 +46,47 @@
     return [[AKCrunch alloc] init];
 }
 
++ (instancetype)presetDefaultCrunch
+{
+    return [[AKCrunch alloc] init];
+}
+
+- (instancetype)initWithPresetDistantCrunch
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(10000);
+        _dampingFactor = akp(0.1);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDistantCrunch
+{
+    return [[AKCrunch alloc] initWithPresetDistantCrunch];
+}
+
+- (instancetype)initWithPresetThudCrunch
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _intensity = akp(200);
+        _dampingFactor = akp(0.5);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetThudCrunch
+{
+    return [[AKCrunch alloc] initWithPresetThudCrunch];
+}
+
 - (void)setIntensity:(AKConstant *)intensity {
     _intensity = intensity;
     [self setUpConnections];
