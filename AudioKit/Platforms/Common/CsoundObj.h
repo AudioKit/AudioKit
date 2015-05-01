@@ -39,13 +39,13 @@
 typedef struct CSOUND_ CSOUND;
 
 /// Equivalent type to Csound's controlChannelType
-typedef enum {
+typedef NS_ENUM(NSUInteger, AKControlChannelType) {
     AKControlChannel = 1,
     AKAudioChannel   = 2,
     AKStringChannel  = 3,
     AKPVSChannel     = 4,
     AKVarChannel     = 5
-} AKControlChannelType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol CsoundBinding <NSObject>
