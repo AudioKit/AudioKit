@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKInstrument.h"
+#import "AKFoundation.h"
 
 /// An instrument that has two properties that detect the amplitude and frequency of an audio source signal.
 @interface AKAudioAnalyzer : AKInstrument
