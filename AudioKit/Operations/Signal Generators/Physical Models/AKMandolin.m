@@ -67,6 +67,12 @@
     return [[AKMandolin alloc] init];
 }
 
++ (instancetype)presetDefaultMandolin
+{
+    return [[AKMandolin alloc] init];
+}
+
+
 - (void)setBodySize:(AKParameter *)bodySize {
     _bodySize = bodySize;
     [self setUpConnections];

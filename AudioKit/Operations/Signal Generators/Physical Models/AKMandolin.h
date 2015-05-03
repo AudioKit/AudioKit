@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the mandolin with default values
 + (instancetype)mandolin;
 
+/// Instantiates the mandolin with default values
++ (instancetype)presetDefaultMandolin;
+
 
 /// The size of the body of the mandolin. Range 0 (small) to 1 (large). [Default Value: 0.5]
 @property (nonatomic) AKParameter *bodySize;
