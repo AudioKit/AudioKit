@@ -7,9 +7,6 @@
 //
 
 #import "AKAudioAnalyzer.h"
-#import "AKTrackedFrequency.h"
-#import "AKTrackedAmplitude.h"
-#import "AKAssignment.h"
 
 @implementation AKAudioAnalyzer
 
