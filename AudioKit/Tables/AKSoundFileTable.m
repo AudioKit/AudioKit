@@ -14,14 +14,16 @@
 
 - (instancetype)initWithFilename:(NSString *)filename size:(int)size channel:(NSNumber *)channel
 {
-    self = [super initWithSize:0];
+    self = [super initWithSize:2];
     if (self) {
         filename = [NSString stringWithFormat:@"\"%@\"", filename];
         NSArray *parameters = @[filename, @0, @0, channel];
         NSString *parameterString = [parameters componentsJoinedByString:@", "];
         NSString *orchString = [NSString stringWithFormat:@"giSoundFileTable%d ftgen %d, 0, %d, 1, %@",
                                 self.number, self.number, size, parameterString];
-        NSLog(@"%@",orchString);
+        if ([[AKManager sharedManager] isLogging]) {
+           NSLog(@"Sound File Table: %@",orchString);
+        }
         [[[AKManager sharedManager] engine] updateOrchestra:orchString];
     }
     return self;
