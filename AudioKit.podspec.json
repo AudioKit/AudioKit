@@ -25,11 +25,6 @@
         "AudioKit/Platforms/Common/csound/*.{h,hpp}",
         "AudioKit/Platforms/Common/*.{h,m}"
     ],
-    "xcconfig": {
-        "OTHER_LDFLAGS": "-ObjC"
-    },
-    "dependencies": {
-    },
     "platforms": {
         "osx": "10.10",
         "ios": "8.0"
