@@ -14,7 +14,7 @@
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "source_files": [
-        "AudioKit/Core Classes/**/*.{h,m}",
+        "AudioKit/Core\ Classes/**/*.{h,m}",
         "AudioKit/Instruments/**/*.{h,m}",
         "AudioKit/Notes/**/*.{h,m}",
         "AudioKit/Operations/**/*.{h,m}",
@@ -25,17 +25,12 @@
         "AudioKit/Platforms/Common/csound/*.{h,hpp}",
         "AudioKit/Platforms/Common/*.{h,m}"
     ],
-    "xcconfig": {
-        "OTHER_LDFLAGS": "-ObjC"
-    },
-    "dependencies": {
-    },
     "platforms": {
         "osx": "10.10",
         "ios": "8.0"
     },
     "public_header_files": [
-        "AudioKit/Core Classes/**/*.h",
+        "AudioKit/Core\ Classes/**/*.h",
         "AudioKit/Instruments/**/*.h",
         "AudioKit/Notes/**/*.h",
         "AudioKit/Operations/**/*.h",
