@@ -56,6 +56,12 @@
     return [[AKFMOscillator alloc] init];
 }
 
++ (instancetype)presetDefaultOscillator
+{
+    return [[AKFMOscillator alloc] init];
+}
+
+
 - (void)setWaveform:(AKTable *)waveform {
     _waveform = waveform;
     [self setUpConnections];
