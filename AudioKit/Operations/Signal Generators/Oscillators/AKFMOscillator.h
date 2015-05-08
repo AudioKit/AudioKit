@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the oscillator with 'buzzer' type values
 + (instancetype)presetBuzzer;
 
+/// Instantiates the oscillator with 'spiral' type values
++ (instancetype)presetSpiral;
+
 
 /// Waveform table to use.  Requires a wrap-around guard point. [Default Value: sine]
 @property (nonatomic) AKTable *waveform;

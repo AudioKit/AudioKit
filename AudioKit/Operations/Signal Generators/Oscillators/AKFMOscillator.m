@@ -178,6 +178,29 @@
     return [[AKFMOscillator alloc] initWithPresetBuzzer];
 }
 
+- (instancetype)initWithPresetSpiral
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(5);
+        _carrierMultiplier = akp(280);
+        _modulatingMultiplier = akp(.2);
+        _modulationIndex = akp(100);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSpiral
+{
+    return [[AKFMOscillator alloc] initWithPresetSpiral];
+}
+
 - (void)setWaveform:(AKTable *)waveform {
     _waveform = waveform;
     [self setUpConnections];
