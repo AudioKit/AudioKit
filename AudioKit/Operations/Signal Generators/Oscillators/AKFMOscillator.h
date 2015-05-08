@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the oscillator with default values
 + (instancetype)presetDefaultOscillator;
 
+/// Instantiates the oscillator with 'stun-ray' type values
++ (instancetype)presetStunRay;
+
 
 /// Waveform table to use.  Requires a wrap-around guard point. [Default Value: sine]
 @property (nonatomic) AKTable *waveform;
