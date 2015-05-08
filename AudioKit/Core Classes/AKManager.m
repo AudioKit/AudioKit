@@ -239,12 +239,12 @@ static AKManager *_sharedManager = nil;
 
 /// Enable Audio Input
 - (void)enableAudioInput {
-    [self.engine setUseAudioInput:YES];
+    AKSettings.settings.audioInputEnabled = YES;
 }
 
 /// Disable AudioInput
 - (void)disableAudioInput {
-    [self.engine setUseAudioInput:NO];
+    AKSettings.settings.audioInputEnabled = NO;
 }
 
 // -----------------------------------------------------------------------------

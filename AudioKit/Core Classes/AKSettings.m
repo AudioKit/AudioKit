@@ -73,7 +73,7 @@ static AKSettings *_settings = nil;
 {
     if (audioInputEnabled != _audioInputEnabled) {
         _audioInputEnabled = audioInputEnabled;
-        [AKManager sharedManager].engine.useAudioInput = audioInputEnabled;
+        [[AKManager sharedManager].engine resetSession];
     }
 }
 
