@@ -45,13 +45,16 @@ OSStatus  Csound_Render(void *inRefCon,
 @interface CsoundObj ()
 {
     CSOUND *_cs;
-    long _bufframes;
+    UInt32 _bufframes;
     int _ret;
     int _nchnls;
     int _nsmps;
     int _nchnls_i;
     ExtAudioFileRef _file;
     AudioUnit *_aunit;
+#if TARGET_OS_IPHONE
+    AudioUnit _csAUHAL;
+#endif
 }
 
 @property BOOL running, shouldRecord, shouldMute;
@@ -450,100 +453,101 @@ OSStatus  Csound_Render(void *inRefCon,
     Float32 *buffer;
 #endif
     
-    AudioUnitRender(*obj->_aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
-    NSMutableArray* cache = obj.valuesCache;
-    
+    @synchronized(obj) {
+        AudioUnitRender(*obj->_aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
+        NSMutableArray* cache = obj.valuesCache;
+        
 #if TARGET_OS_IPHONE
-    for(frame=0;frame < inNumberFrames;frame++){
-        @autoreleasepool {
-            if(AKSettings.settings.audioInputEnabled) {
-                for (k = 0; k < nchnls; k++){
+        for(frame=0;frame < inNumberFrames;frame++){
+            @autoreleasepool {
+                if(AKSettings.settings.audioInputEnabled) {
+                    for (k = 0; k < nchnls; k++){
+                        buffer = (SInt32 *) ioData->mBuffers[k].mData;
+                        spin[insmps++] =(1./coef)*buffer[frame];
+                    }
+                }
+                
+                for (k = 0; k < nchnls; k++) {
                     buffer = (SInt32 *) ioData->mBuffers[k].mData;
-                    spin[insmps++] =(1./coef)*buffer[frame];
+                    if (obj.shouldMute == NO) {
+                        buffer[frame] = (SInt32) lrintf(spout[nsmps++]*coef) ;
+                    } else {
+                        buffer[frame] = 0;
+                    }
+                }
+                
+                if(nsmps == ksmps*nchnls){
+                    for(id<CsoundBinding> binding in cache) {
+                        if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                            [binding updateValuesToCsound];
+                        }
+                    }
+                    if(!ret) {
+                        ret = csoundPerformKsmps(cs);
+                    } else {
+                        obj.running = false;
+                    }
+                    for(id<CsoundBinding> binding in cache) {
+                        if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                            [binding updateValuesFromCsound];
+                        }
+                    }
+                    insmps = nsmps = 0;
                 }
             }
-            
-            for (k = 0; k < nchnls; k++) {
-                buffer = (SInt32 *) ioData->mBuffers[k].mData;
-                if (obj.shouldMute == NO) {
-                    buffer[frame] = (SInt32) lrintf(spout[nsmps++]*coef) ;
-                } else {
-                    buffer[frame] = 0;
-                }
-            }
-            
-            if(nsmps == ksmps*nchnls){
+        }
+#elif TARGET_OS_MAC
+        for(i=0; i < slices; i++){
+            @autoreleasepool {
                 for(id<CsoundBinding> binding in cache) {
                     if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
                         [binding updateValuesToCsound];
                     }
                 }
+                
+                /* performance */
+                if(AKSettings.settings.audioInputEnabled) {
+                    for (k = 0; k < nchnls; k++){
+                        buffer = (Float32 *) ioData->mBuffers[k].mData;
+                        for(j=0; j < ksmps; j++){
+                            spin[j*nchnls+k] = buffer[j+i*ksmps];
+                        }
+                    }
+                }
                 if(!ret) {
                     ret = csoundPerformKsmps(cs);
                 } else {
-                    obj.running = false;
+                    obj.running = NO;
                 }
+                
+                for (k = 0; k < nchnls; k++) {
+                    buffer = (Float32 *) ioData->mBuffers[k].mData;
+                    if (obj.shouldMute == NO) {
+                        for(j=0; j < ksmps; j++){
+                            buffer[j+i*ksmps] = (Float32) spout[j*nchnls+k];
+                        }
+                    } else {
+                        memset(buffer, 0, sizeof(Float32) * inNumberFrames);
+                    }
+                }
+                
                 for(id<CsoundBinding> binding in cache) {
                     if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
                         [binding updateValuesFromCsound];
                     }
                 }
-                insmps = nsmps = 0;
             }
         }
-    }
-#elif TARGET_OS_MAC
-    for(i=0; i < slices; i++){
-        @autoreleasepool {
-            for(id<CsoundBinding> binding in cache) {
-                if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                    [binding updateValuesToCsound];
-                }
-            }
-            
-            /* performance */
-            if(AKSettings.settings.audioInputEnabled) {
-                for (k = 0; k < nchnls; k++){
-                    buffer = (Float32 *) ioData->mBuffers[k].mData;
-                    for(j=0; j < ksmps; j++){
-                        spin[j*nchnls+k] = buffer[j+i*ksmps];
-                    }
-                }
-            }
-            if(!ret) {
-                ret = csoundPerformKsmps(cs);
-            } else {
-                obj.running = NO;
-            }
-            
-            for (k = 0; k < nchnls; k++) {
-                buffer = (Float32 *) ioData->mBuffers[k].mData;
-                if (obj.shouldMute == NO) {
-                    for(j=0; j < ksmps; j++){
-                        buffer[j+i*ksmps] = (Float32) spout[j*nchnls+k];
-                    }
-                } else {
-                    memset(buffer, 0, sizeof(Float32) * inNumberFrames);
-                }
-            }
-            
-            for(id<CsoundBinding> binding in cache) {
-                if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                    [binding updateValuesFromCsound];
-                }
-            }
-        }
-    }
 #endif
-    
-    // Write to file.
-    if (obj.shouldRecord) {
-        OSStatus err = ExtAudioFileWriteAsync(obj->_file, inNumberFrames, ioData);
-        if (err != noErr) {
-            NSLog(@"***Error writing to file: %@", @(err));
+        
+        // Write to file.
+        if (obj.shouldRecord) {
+            OSStatus err = ExtAudioFileWriteAsync(obj->_file, inNumberFrames, ioData);
+            if (err != noErr) {
+                NSLog(@"***Error writing to file: %@", @(err));
+            }
         }
     }
-    
 #if TARGET_OS_IPHONE
     obj->_nsmps = nsmps;
 #endif
@@ -620,189 +624,114 @@ OSStatus  Csound_Render(void *inRefCon,
             _cs = cs;
             _ret = ret;
             _nchnls = csoundGetNchnls(cs);
-            _bufframes = (csoundGetOutputBufferSize(cs))/_nchnls;
+            _bufframes = (UInt32)csoundGetOutputBufferSize(cs)/_nchnls;
             self.running = YES;
             self.valuesCache = _bindings;
             
             [self setupBindings];
             
 #if TARGET_OS_IPHONE
-            AudioStreamBasicDescription format;
-            OSStatus err;
-            NSError* error;
-            BOOL success;
-
             /* Audio Session handler */
-            AVAudioSession* session = [AVAudioSession sharedInstance];
             [self resetSession];
             
             //            success = [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
-            
-            Float32 preferredBufferSize = _bufframes / csoundGetSr(cs);
-            [session setPreferredIOBufferDuration:preferredBufferSize error:&error];
-            
-            success = [session setActive:YES error:&error];
-            if(!success) {
-                NSLog(@"***Failed to set audio session active: %@", error);
-            }
-            
+                        
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(handleInterruption:)
                                                          name:AVAudioSessionInterruptionNotification
-                                                       object:session];
+                                                       object:[AVAudioSession sharedInstance]];
             
-            AudioComponentDescription cd = {
-                kAudioUnitType_Output,
-                kAudioUnitSubType_RemoteIO,
-                kAudioUnitManufacturer_Apple,
-                0,
-                0
-            };
-            AudioComponent HALOutput = AudioComponentFindNext(NULL, &cd);
-            
-            AudioUnit csAUHAL;
-            err = AudioComponentInstanceNew(HALOutput, &csAUHAL);
-            
-            if(!err) {
-                
-                _aunit = &csAUHAL;
-                UInt32 enableIO = 1;
-                AudioUnitSetProperty(csAUHAL,
+            if(_csAUHAL) {
+                OSStatus err = noErr;
+
+                _aunit = &_csAUHAL;
+                UInt32 enableOutput = 1;
+                AudioUnitSetProperty(_csAUHAL,
                                      kAudioOutputUnitProperty_EnableIO,
                                      kAudioUnitScope_Output,
                                      0,
-                                     &enableIO,
-                                     sizeof(enableIO));
-                if (AKSettings.settings.audioInputEnabled) {
-                    AudioUnitSetProperty(csAUHAL,
-                                         kAudioOutputUnitProperty_EnableIO,
-                                         kAudioUnitScope_Input,
-                                         1,
-                                         &enableIO,
-                                         sizeof(enableIO));
-                }
-                
-                if (enableIO) {
-                    UInt32 maxFPS;
-                    UInt32 outsize;
-                    int elem;
-                    for(elem = AKSettings.settings.audioInputEnabled ? 1 : 0; elem >= 0; elem--){
-                        outsize = sizeof(maxFPS);
-                        AudioUnitGetProperty(csAUHAL,
-                                             kAudioUnitProperty_MaximumFramesPerSlice,
-                                             kAudioUnitScope_Global,
-                                             elem,
-                                             &maxFPS,
-                                             &outsize);
-                        AudioUnitSetProperty(csAUHAL,
-                                             kAudioUnitProperty_MaximumFramesPerSlice,
-                                             kAudioUnitScope_Global,
-                                             elem,
-                                             (UInt32*)&_bufframes,
-                                             sizeof(UInt32));
-                        outsize = sizeof(AudioStreamBasicDescription);
-                        AudioUnitGetProperty(csAUHAL,
-                                             kAudioUnitProperty_StreamFormat,
-                                             (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input),
-                                             elem,
-                                             &format,
-                                             &outsize);
-                        format.mSampleRate       = csoundGetSr(cs);
-                        format.mFormatID         = kAudioFormatLinearPCM;
-                        format.mFormatFlags      = kAudioFormatFlagIsSignedInteger |
-                                                   kAudioFormatFlagsNativeEndian |
-                                                   kAudioFormatFlagIsPacked |
-                                                   kLinearPCMFormatFlagIsNonInterleaved;
-                        format.mBytesPerPacket   = sizeof(SInt32);
-                        format.mFramesPerPacket  = 1;
-                        format.mBytesPerFrame    = sizeof(SInt32);
-                        format.mChannelsPerFrame = _nchnls;
-                        format.mBitsPerChannel   = sizeof(SInt32)*8;
-                        err = AudioUnitSetProperty(csAUHAL,
-                                                   kAudioUnitProperty_StreamFormat,
-                                                   (elem ? kAudioUnitScope_Output : kAudioUnitScope_Input),
-                                                   elem,
-                                                   &format,
-                                                   sizeof(AudioStreamBasicDescription));
-                    }
-                    
-                    if (self.shouldRecord) {
-                        
-                        // Define format for the audio file.
-                        AudioStreamBasicDescription destFormat, clientFormat;
-                        memset(&destFormat,   0, sizeof(AudioStreamBasicDescription));
-                        memset(&clientFormat, 0, sizeof(AudioStreamBasicDescription));
-                        destFormat.mFormatID         = kAudioFormatLinearPCM;
-                        destFormat.mFormatFlags      = kLinearPCMFormatFlagIsPacked |
-                                                       kLinearPCMFormatFlagIsSignedInteger;
-                        destFormat.mSampleRate       = csoundGetSr(cs);
-                        destFormat.mChannelsPerFrame = _nchnls;
-                        destFormat.mBytesPerPacket   = _nchnls * 2;
-                        destFormat.mBytesPerFrame    = _nchnls * 2;
-                        destFormat.mBitsPerChannel   = 16;
-                        destFormat.mFramesPerPacket  = 1;
+                                     &enableOutput,
+                                     sizeof(enableOutput));
+                [self setupAU:kAudioUnitScope_Output element:0];
 
-                        // Create the audio file.
-                        CFURLRef fileURL = (__bridge CFURLRef)self.outputURL;
-                        err = ExtAudioFileCreateWithURL(fileURL,
-                                                        kAudioFileWAVEType,
-                                                        &destFormat,
-                                                        NULL,
-                                                        kAudioFileFlags_EraseFile,
-                                                        &_file);
-                        if (err == noErr) {
-                            // Get the stream format from the AU...
-                            UInt32 propSize = sizeof(AudioStreamBasicDescription);
-                            AudioUnitGetProperty(csAUHAL,
-                                                 kAudioUnitProperty_StreamFormat,
-                                                 kAudioUnitScope_Input,
-                                                 0,
-                                                 &clientFormat,
-                                                 &propSize);
-                            // ...and set it as the client format for the audio file. The file will use this
-                            // format to perform any necessary conversions when asked to read or write.
-                            ExtAudioFileSetProperty(_file,
-                                                    kExtAudioFileProperty_ClientDataFormat,
-                                                    sizeof(clientFormat),
-                                                    &clientFormat);
-                            // Warm the file up.
-                            ExtAudioFileWriteAsync(_file, 0, NULL);
-                        } else {
-                            NSLog(@"***Not recording. Error: %@", @(err));
-                            err = noErr;
-                        }
-                    }
+                if (self.shouldRecord) {
                     
-                    if(!err) {
-                        AURenderCallbackStruct output;
-                        output.inputProc = Csound_Render;
-                        output.inputProcRefCon = (__bridge void *)self;
-                        AudioUnitSetProperty(csAUHAL,
-                                             kAudioUnitProperty_SetRenderCallback,
+                    // Define format for the audio file.
+                    AudioStreamBasicDescription destFormat, clientFormat;
+                    memset(&destFormat,   0, sizeof(AudioStreamBasicDescription));
+                    memset(&clientFormat, 0, sizeof(AudioStreamBasicDescription));
+                    destFormat.mFormatID         = kAudioFormatLinearPCM;
+                    destFormat.mFormatFlags      = kLinearPCMFormatFlagIsPacked |
+                    kLinearPCMFormatFlagIsSignedInteger;
+                    destFormat.mSampleRate       = csoundGetSr(cs);
+                    destFormat.mChannelsPerFrame = _nchnls;
+                    destFormat.mBytesPerPacket   = _nchnls * 2;
+                    destFormat.mBytesPerFrame    = _nchnls * 2;
+                    destFormat.mBitsPerChannel   = 16;
+                    destFormat.mFramesPerPacket  = 1;
+                    
+                    // Create the audio file.
+                    CFURLRef fileURL = (__bridge CFURLRef)self.outputURL;
+                    err = ExtAudioFileCreateWithURL(fileURL,
+                                                    kAudioFileWAVEType,
+                                                    &destFormat,
+                                                    NULL,
+                                                    kAudioFileFlags_EraseFile,
+                                                    &_file);
+                    if (err == noErr) {
+                        // Get the stream format from the AU...
+                        UInt32 propSize = sizeof(AudioStreamBasicDescription);
+                        AudioUnitGetProperty(_csAUHAL,
+                                             kAudioUnitProperty_StreamFormat,
                                              kAudioUnitScope_Input,
                                              0,
-                                             &output,
-                                             sizeof(output));
-                        AudioUnitInitialize(csAUHAL);
-                        
-                        err = AudioOutputUnitStart(csAUHAL);
-                        
-                        [self notifyListenersOfStartup];
-                        
-                        if(!err) {
-                            while (!_ret && self.running) {
-                                [NSThread sleepForTimeInterval:.001];
-                            }
-                        }
-                        
-                        ExtAudioFileDispose(_file);
-                        _shouldRecord = false;
-                        AudioOutputUnitStop(csAUHAL);
-                        /* free(CAInputData); */
+                                             &clientFormat,
+                                             &propSize);
+                        // ...and set it as the client format for the audio file. The file will use this
+                        // format to perform any necessary conversions when asked to read or write.
+                        ExtAudioFileSetProperty(_file,
+                                                kExtAudioFileProperty_ClientDataFormat,
+                                                sizeof(clientFormat),
+                                                &clientFormat);
+                        // Warm the file up.
+                        ExtAudioFileWriteAsync(_file, 0, NULL);
+                    } else {
+                        NSLog(@"***Not recording. Error: %@", @(err));
+                        err = noErr;
                     }
-                    AudioUnitUninitialize(csAUHAL);
-                    AudioComponentInstanceDispose(csAUHAL);
                 }
+                
+                if(err == noErr) {
+                    AURenderCallbackStruct output;
+                    output.inputProc = Csound_Render;
+                    output.inputProcRefCon = (__bridge void *)self;
+                    AudioUnitSetProperty(_csAUHAL,
+                                         kAudioUnitProperty_SetRenderCallback,
+                                         kAudioUnitScope_Input,
+                                         0,
+                                         &output,
+                                         sizeof(output));
+                    AudioUnitInitialize(_csAUHAL);
+                    
+                    err = AudioOutputUnitStart(_csAUHAL);
+                    
+                    [self notifyListenersOfStartup];
+                    
+                    if(err == noErr) {
+                        while (!_ret && self.running) {
+                            [NSThread sleepForTimeInterval:.001];
+                        }
+                    }
+                    
+                    if (_file)
+                        ExtAudioFileDispose(_file);
+                    _shouldRecord = false;
+                    AudioOutputUnitStop(_csAUHAL);
+                    /* free(CAInputData); */
+                }
+                AudioUnitUninitialize(_csAUHAL);
+                AudioComponentInstanceDispose(_csAUHAL);
+                _csAUHAL = nil;
             }
             csoundDestroy(cs);
         }
@@ -881,31 +810,116 @@ OSStatus  Csound_Render(void *inRefCon,
         }
     }
 }
+
+- (void)setupAU:(AudioUnitScope)scope element:(AudioUnitElement)elem
+{
+    AudioStreamBasicDescription format;
+    UInt32 maxFPS;
+    UInt32 outsize = sizeof(maxFPS);
+
+    AudioUnitGetProperty(_csAUHAL,
+                         kAudioUnitProperty_MaximumFramesPerSlice,
+                         kAudioUnitScope_Global,
+                         elem,
+                         &maxFPS,
+                         &outsize);
+    AudioUnitSetProperty(_csAUHAL,
+                         kAudioUnitProperty_MaximumFramesPerSlice,
+                         kAudioUnitScope_Global,
+                         elem,
+                         &_bufframes,
+                         sizeof(UInt32));
+    outsize = sizeof(AudioStreamBasicDescription);
+    AudioUnitGetProperty(_csAUHAL,
+                         kAudioUnitProperty_StreamFormat,
+                         scope,
+                         elem,
+                         &format,
+                         &outsize);
+    format.mSampleRate       = csoundGetSr(_cs);
+    format.mFormatID         = kAudioFormatLinearPCM;
+    format.mFormatFlags      = kAudioFormatFlagIsSignedInteger |
+                               kAudioFormatFlagsNativeEndian |
+                               kAudioFormatFlagIsPacked |
+                               kLinearPCMFormatFlagIsNonInterleaved;
+    format.mBytesPerPacket   = sizeof(SInt32);
+    format.mFramesPerPacket  = 1;
+    format.mBytesPerFrame    = sizeof(SInt32);
+    format.mChannelsPerFrame = _nchnls;
+    format.mBitsPerChannel   = sizeof(SInt32)*8;
+    AudioUnitSetProperty(_csAUHAL,
+                         kAudioUnitProperty_StreamFormat,
+                         scope,
+                         elem,
+                         &format,
+                         sizeof(AudioStreamBasicDescription));
+}
+
 #endif
 
 - (void)resetSession
 {
 #if TARGET_OS_IPHONE
-    NSError *error;
-    BOOL success;
-    
-    if (AKSettings.settings.audioInputEnabled) {
-        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
-                                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
-                                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
-                                                         error:&error];
-    } else if (AKSettings.settings.playbackWhileMuted) {
-        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-                                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
-                                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
-                                                         error:&error];
-    } else {
-        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient
-                                                         error:&error];
-    }
-    
-    if (!success) {
-        NSLog(@"***Failed to change audio session category: %@", error);
+    @synchronized(self) {
+        NSError *error;
+        BOOL success;
+
+        AVAudioSession* session = [AVAudioSession sharedInstance];
+        if (AKSettings.settings.audioInputEnabled) {
+            success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
+                               withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
+                                            AVAudioSessionCategoryOptionDefaultToSpeaker)
+                                     error:&error];
+        } else if (AKSettings.settings.playbackWhileMuted) {
+            success = [session setCategory:AVAudioSessionCategoryPlayback
+                               withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
+                                            AVAudioSessionCategoryOptionDefaultToSpeaker)
+                                     error:&error];
+        } else {
+            success = [session setCategory:AVAudioSessionCategoryAmbient
+                                     error:&error];
+        }
+        
+        if (!success) {
+            NSLog(@"***Failed to change audio session category: %@", error);
+        }
+        
+        Float32 preferredBufferSize = _bufframes / csoundGetSr(_cs);
+        [session setPreferredIOBufferDuration:preferredBufferSize error:&error];
+        
+        success = [session setActive:YES error:&error];
+        if(!success) {
+            NSLog(@"***Failed to set audio session active: %@", error);
+        }
+
+        // Change the AudioUnit I/O property accordingly
+        if (!_csAUHAL) {
+            AudioComponentDescription cd = {
+                kAudioUnitType_Output,
+                kAudioUnitSubType_RemoteIO,
+                kAudioUnitManufacturer_Apple,
+                0,
+                0
+            };
+            AudioComponent HALOutput = AudioComponentFindNext(NULL, &cd);
+            
+            if (HALOutput) {
+                AudioComponentInstanceNew(HALOutput, &_csAUHAL);
+            } else {
+                NSLog(@"***Failed to find a suitable audio component.");
+            }
+        }
+        
+        if (_csAUHAL) {
+            UInt32 enableInput = AKSettings.settings.audioInputEnabled;
+            AudioUnitSetProperty(_csAUHAL,
+                                 kAudioOutputUnitProperty_EnableIO,
+                                 kAudioUnitScope_Input,
+                                 1,
+                                 &enableInput,
+                                 sizeof(enableInput));
+            [self setupAU:kAudioUnitScope_Input element:1];
+        }
     }
 #endif // No effect on Mac so far
 }
