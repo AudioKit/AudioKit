@@ -16,11 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (AKSettings *)settings;
 
-@property (nonatomic, readonly) NSString *audioInput, *audioOutput;
-@property (nonatomic, readonly) UInt32 sampleRate, samplesPerControlPeriod;
-@property (nonatomic, readonly) UInt16 numberOfChannels;
-@property (nonatomic, readonly) float zeroDBFullScaleValue;
-@property (nonatomic, readonly) BOOL loggingEnabled, audioInputEnabled, messagesEnabled;
+@property (nonatomic) NSString *audioInput, *audioOutput;
+@property (nonatomic) UInt32 sampleRate, samplesPerControlPeriod;
+@property (nonatomic) UInt16 numberOfChannels;
+@property (nonatomic) float  zeroDBFullScaleValue;
+@property (nonatomic) BOOL   loggingEnabled, messagesEnabled;
+@property (nonatomic) BOOL   audioInputEnabled, playbackWhileMuted;
 
 @end
 NS_ASSUME_NONNULL_END
