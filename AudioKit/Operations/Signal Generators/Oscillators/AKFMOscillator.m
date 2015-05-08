@@ -108,7 +108,28 @@
     return [[AKFMOscillator alloc] initWithPresetWobble];
 }
 
+- (instancetype)initWithPresetFogHorn
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(25);
+        _carrierMultiplier = akp(10);
+        _modulatingMultiplier = akp(5);
+        _modulationIndex = akp(10);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
 
++ (instancetype)presetFogHorn
+{
+    return [[AKFMOscillator alloc] initWithPresetFogHorn];
+}
 
 
 - (void)setWaveform:(AKTable *)waveform {
