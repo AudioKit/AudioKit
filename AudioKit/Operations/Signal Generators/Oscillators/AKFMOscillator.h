@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the fm oscillator with default values
 + (instancetype)oscillator;
 
+/// Instantiates the oscillator with default values
++ (instancetype)presetDefaultOscillator;
+
 
 /// Waveform table to use.  Requires a wrap-around guard point. [Default Value: sine]
 @property (nonatomic) AKTable *waveform;
