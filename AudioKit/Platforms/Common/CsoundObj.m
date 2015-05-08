@@ -28,6 +28,8 @@
 
 #import <TargetConditionals.h>
 
+#import "AKSettings.h"
+
 #import "CsoundObj.h"
 #import "csound.h"
 
@@ -74,7 +76,7 @@ OSStatus  Csound_Render(void *inRefCon,
         _bindings  = [[NSMutableArray alloc] init];
         _listeners = [[NSMutableArray alloc] init];
         _midiInEnabled = NO;
-        _useAudioInput = YES;
+        _useAudioInput = AKSettings.settings.audioInputEnabled;
     }
     
     return self;
@@ -633,19 +635,7 @@ OSStatus  Csound_Render(void *inRefCon,
 
             /* Audio Session handler */
             AVAudioSession* session = [AVAudioSession sharedInstance];
-            
-            if (_useAudioInput) {
-                success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
-                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
-                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
-                                         error:&error];
-            } else {
-                success = [session setCategory:AVAudioSessionCategoryPlayback
-                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
-                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
-                                         error:&error];
-            }
-            
+            [self resetSession];
             
             //            success = [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
             
@@ -654,7 +644,7 @@ OSStatus  Csound_Render(void *inRefCon,
             
             success = [session setActive:YES error:&error];
             if(!success) {
-                // Do something here?
+                NSLog(@"***Failed to set audio session active: %@", error);
             }
             
             [[NSNotificationCenter defaultCenter] addObserver:self
@@ -892,6 +882,41 @@ OSStatus  Csound_Render(void *inRefCon,
         }
     }
 }
+
+- (void)setUseAudioInput:(BOOL)useAudioInput
+{
+    if (useAudioInput != _useAudioInput) {
+        _useAudioInput = useAudioInput;
+        [self resetSession];
+    }
+}
 #endif
+
+- (void)resetSession
+{
+#if TARGET_OS_IPHONE
+    NSError *error;
+    BOOL success;
+    
+    if (self.useAudioInput) {
+        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
+                                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
+                                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
+                                                         error:&error];
+    } else if (AKSettings.settings.playbackWhileMuted) {
+        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                                   withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
+                                                                AVAudioSessionCategoryOptionDefaultToSpeaker)
+                                                         error:&error];
+    } else {
+        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient
+                                                         error:&error];
+    }
+    
+    if (!success) {
+        NSLog(@"***Failed to change audio session category: %@", error);
+    }
+#endif // No effect on Mac so far
+}
 
 @end

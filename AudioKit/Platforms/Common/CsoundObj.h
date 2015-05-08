@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSURL *outputURL;
 @property (assign) BOOL midiInEnabled;
-@property (assign) BOOL useAudioInput;
+@property (nonatomic, assign) BOOL useAudioInput;
 
 - (void)sendScore:(NSString *)score;
 
@@ -136,6 +136,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Writable alternatives
 - (NSMutableData *)getMutableInSamples;
 - (NSMutableData *)getMutableOutSamples;
+
+// Reset the audio session, i.e. if we change audio I/O options
+- (void)resetSession;
 
 @end
 NS_ASSUME_NONNULL_END
