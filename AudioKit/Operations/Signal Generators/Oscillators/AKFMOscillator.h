@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the oscillator with 'wobble' type values
 + (instancetype)presetWobble;
 
+/// Instantiates the oscillator with 'space-wobble' type values
++ (instancetype)presetSpaceWobble;
+
 /// Instantiates the oscillator with 'foghorn' type values
 + (instancetype)presetFogHorn;
 
