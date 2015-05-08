@@ -42,6 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the oscillator with 'stun-ray' type values
 + (instancetype)presetStunRay;
 
+/// Instantiates the oscillator with 'wobble' type values
++ (instancetype)presetWobble;
+
 
 /// Waveform table to use.  Requires a wrap-around guard point. [Default Value: sine]
 @property (nonatomic) AKTable *waveform;
