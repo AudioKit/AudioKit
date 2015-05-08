@@ -15,6 +15,7 @@
 #import "AKCompatibility.h"
 
 # pragma mark - Core Classes
+#import "AKSettings.h"
 #import "AKManager.h"
 #import "AKOrchestra.h"
 

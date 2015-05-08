@@ -76,7 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSURL *outputURL;
 @property (assign) BOOL midiInEnabled;
-@property (nonatomic, assign) BOOL useAudioInput;
 
 - (void)sendScore:(NSString *)score;
 

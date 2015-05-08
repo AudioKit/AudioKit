@@ -76,7 +76,6 @@ OSStatus  Csound_Render(void *inRefCon,
         _bindings  = [[NSMutableArray alloc] init];
         _listeners = [[NSMutableArray alloc] init];
         _midiInEnabled = NO;
-        _useAudioInput = AKSettings.settings.audioInputEnabled;
     }
     
     return self;
@@ -457,7 +456,7 @@ OSStatus  Csound_Render(void *inRefCon,
 #if TARGET_OS_IPHONE
     for(frame=0;frame < inNumberFrames;frame++){
         @autoreleasepool {
-            if(obj.useAudioInput) {
+            if(AKSettings.settings.audioInputEnabled) {
                 for (k = 0; k < nchnls; k++){
                     buffer = (SInt32 *) ioData->mBuffers[k].mData;
                     spin[insmps++] =(1./coef)*buffer[frame];
@@ -503,7 +502,7 @@ OSStatus  Csound_Render(void *inRefCon,
             }
             
             /* performance */
-            if(obj.useAudioInput) {
+            if(AKSettings.settings.audioInputEnabled) {
                 for (k = 0; k < nchnls; k++){
                     buffer = (Float32 *) ioData->mBuffers[k].mData;
                     for(j=0; j < ksmps; j++){
@@ -674,7 +673,7 @@ OSStatus  Csound_Render(void *inRefCon,
                                      0,
                                      &enableIO,
                                      sizeof(enableIO));
-                if (self.useAudioInput) {
+                if (AKSettings.settings.audioInputEnabled) {
                     AudioUnitSetProperty(csAUHAL,
                                          kAudioOutputUnitProperty_EnableIO,
                                          kAudioUnitScope_Input,
@@ -687,7 +686,7 @@ OSStatus  Csound_Render(void *inRefCon,
                     UInt32 maxFPS;
                     UInt32 outsize;
                     int elem;
-                    for(elem = self.useAudioInput ? 1 : 0; elem >= 0; elem--){
+                    for(elem = AKSettings.settings.audioInputEnabled ? 1 : 0; elem >= 0; elem--){
                         outsize = sizeof(maxFPS);
                         AudioUnitGetProperty(csAUHAL,
                                              kAudioUnitProperty_MaximumFramesPerSlice,
@@ -882,14 +881,6 @@ OSStatus  Csound_Render(void *inRefCon,
         }
     }
 }
-
-- (void)setUseAudioInput:(BOOL)useAudioInput
-{
-    if (useAudioInput != _useAudioInput) {
-        _useAudioInput = useAudioInput;
-        [self resetSession];
-    }
-}
 #endif
 
 - (void)resetSession
@@ -898,7 +889,7 @@ OSStatus  Csound_Render(void *inRefCon,
     NSError *error;
     BOOL success;
     
-    if (self.useAudioInput) {
+    if (AKSettings.settings.audioInputEnabled) {
         success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
                                                    withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
                                                                 AVAudioSessionCategoryOptionDefaultToSpeaker)
