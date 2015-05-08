@@ -428,7 +428,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
                         const AudioTimeStamp *inTimeStamp,
-                        UInt32 dump,
+                        UInt32 inBusNumber,
                         UInt32 inNumberFrames,
                         AudioBufferList *ioData)
 {
@@ -458,7 +458,7 @@ OSStatus  Csound_Render(void *inRefCon,
         NSMutableArray* cache = obj.valuesCache;
         
 #if TARGET_OS_IPHONE
-        for(frame=0;frame < inNumberFrames;frame++){
+        for(frame=0; frame < inNumberFrames; frame++){
             @autoreleasepool {
                 if(AKSettings.settings.audioInputEnabled) {
                     for (k = 0; k < nchnls; k++){
@@ -632,7 +632,7 @@ OSStatus  Csound_Render(void *inRefCon,
             
 #if TARGET_OS_IPHONE
             /* Audio Session handler */
-            [self resetSession];
+            [self resetSession]; // Creates _csAUHAL
             
             //            success = [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
                         
@@ -652,7 +652,7 @@ OSStatus  Csound_Render(void *inRefCon,
                                      0,
                                      &enableOutput,
                                      sizeof(enableOutput));
-                [self setupAU:kAudioUnitScope_Output element:0];
+                [self setupAU:kAudioUnitScope_Output];
 
                 if (self.shouldRecord) {
                     
@@ -811,11 +811,12 @@ OSStatus  Csound_Render(void *inRefCon,
     }
 }
 
-- (void)setupAU:(AudioUnitScope)scope element:(AudioUnitElement)elem
+- (void)setupAU:(AudioUnitScope)scope
 {
     AudioStreamBasicDescription format;
     UInt32 maxFPS;
     UInt32 outsize = sizeof(maxFPS);
+    AudioUnitElement elem = (scope==kAudioUnitScope_Output) ? 1 : 0;
 
     AudioUnitGetProperty(_csAUHAL,
                          kAudioUnitProperty_MaximumFramesPerSlice,
@@ -828,7 +829,7 @@ OSStatus  Csound_Render(void *inRefCon,
                          kAudioUnitScope_Global,
                          elem,
                          &_bufframes,
-                         sizeof(UInt32));
+                         sizeof(_bufframes));
     outsize = sizeof(AudioStreamBasicDescription);
     AudioUnitGetProperty(_csAUHAL,
                          kAudioUnitProperty_StreamFormat,
@@ -912,13 +913,16 @@ OSStatus  Csound_Render(void *inRefCon,
         
         if (_csAUHAL) {
             UInt32 enableInput = AKSettings.settings.audioInputEnabled;
-            AudioUnitSetProperty(_csAUHAL,
-                                 kAudioOutputUnitProperty_EnableIO,
-                                 kAudioUnitScope_Input,
-                                 1,
-                                 &enableInput,
-                                 sizeof(enableInput));
-            [self setupAU:kAudioUnitScope_Input element:1];
+            if (AudioUnitSetProperty(_csAUHAL,
+                                     kAudioOutputUnitProperty_EnableIO,
+                                     kAudioUnitScope_Input,
+                                     1,
+                                     &enableInput,
+                                     sizeof(enableInput)) == noErr) {
+                [self setupAU:kAudioUnitScope_Input];
+            } else {
+                NSLog(@"***Failed to enable audio input.");
+            }
         }
     }
 #endif // No effect on Mac so far
