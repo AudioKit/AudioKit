@@ -62,6 +62,33 @@
 }
 
 
+- (instancetype)initWithPresetStunRay
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(200);
+        _carrierMultiplier = akp(90);
+        _modulatingMultiplier = akp(10);
+        _modulationIndex = akp(25);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetStunRay
+{
+    return [[AKFMOscillator alloc] initWithPresetStunRay];
+}
+
+
+
+
+
 - (void)setWaveform:(AKTable *)waveform {
     _waveform = waveform;
     [self setUpConnections];
