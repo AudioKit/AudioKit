@@ -85,6 +85,28 @@
     return [[AKFMOscillator alloc] initWithPresetStunRay];
 }
 
+- (instancetype)initWithPresetWobble
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(20);
+        _carrierMultiplier = akp(10);
+        _modulatingMultiplier = akp(.9);
+        _modulationIndex = akp(20);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetWobble
+{
+    return [[AKFMOscillator alloc] initWithPresetWobble];
+}
 
 
 
