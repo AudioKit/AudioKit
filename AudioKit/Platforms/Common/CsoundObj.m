@@ -51,9 +51,9 @@ OSStatus  Csound_Render(void *inRefCon,
     int _nsmps;
     int _nchnls_i;
     ExtAudioFileRef _file;
-    AudioUnit *_aunit;
 #if TARGET_OS_IPHONE
     AudioUnit _csAUHAL;
+    BOOL _auRunning;
 #endif
 }
 
@@ -179,7 +179,7 @@ OSStatus  Csound_Render(void *inRefCon,
 #if TARGET_OS_IPHONE // Not on Mac?
         // Get the stream format from the AU...
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
-        AudioUnitGetProperty(*_aunit,
+        AudioUnitGetProperty(_csAUHAL,
                              kAudioUnitProperty_StreamFormat,
                              kAudioUnitScope_Input,
                              0,
@@ -331,14 +331,6 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
     return nil;
 }
 
-- (AudioUnit *)getAudioUnit
-{
-    if (self.running) {
-        return _aunit;
-    }
-    return nil;
-}
-
 - (MYFLT *)getInputChannelPtr:(NSString *)channelName
                   channelType:(AKControlChannelType)channelType
 {
@@ -454,10 +446,10 @@ OSStatus  Csound_Render(void *inRefCon,
 #endif
     
     @synchronized(obj) {
-        AudioUnitRender(*obj->_aunit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
         NSMutableArray* cache = obj.valuesCache;
         
 #if TARGET_OS_IPHONE
+        AudioUnitRender(obj->_csAUHAL, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
         for(frame=0; frame < inNumberFrames; frame++){
             @autoreleasepool {
                 if(AKSettings.settings.audioInputEnabled) {
@@ -644,15 +636,17 @@ OSStatus  Csound_Render(void *inRefCon,
             if(_csAUHAL) {
                 OSStatus err = noErr;
 
-                _aunit = &_csAUHAL;
                 UInt32 enableOutput = 1;
-                AudioUnitSetProperty(_csAUHAL,
-                                     kAudioOutputUnitProperty_EnableIO,
-                                     kAudioUnitScope_Output,
-                                     0,
-                                     &enableOutput,
-                                     sizeof(enableOutput));
-                [self setupAU:kAudioUnitScope_Output];
+                if (AudioUnitSetProperty(_csAUHAL,
+                                         kAudioOutputUnitProperty_EnableIO,
+                                         kAudioUnitScope_Output,
+                                         0,
+                                         &enableOutput,
+                                         sizeof(enableOutput)) == noErr) {
+                    [self setupAU:kAudioUnitScope_Output];
+                } else {
+                    NSLog(@"***Failed to enable audio output.");
+                }
 
                 if (self.shouldRecord) {
                     
@@ -702,22 +696,11 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
                 
                 if(err == noErr) {
-                    AURenderCallbackStruct output;
-                    output.inputProc = Csound_Render;
-                    output.inputProcRefCon = (__bridge void *)self;
-                    AudioUnitSetProperty(_csAUHAL,
-                                         kAudioUnitProperty_SetRenderCallback,
-                                         kAudioUnitScope_Input,
-                                         0,
-                                         &output,
-                                         sizeof(output));
-                    AudioUnitInitialize(_csAUHAL);
                     
-                    err = AudioOutputUnitStart(_csAUHAL);
+                    if ([self startAU]) {
+                        
+                        [self notifyListenersOfStartup];
                     
-                    [self notifyListenersOfStartup];
-                    
-                    if(err == noErr) {
                         while (!_ret && self.running) {
                             [NSThread sleepForTimeInterval:.001];
                         }
@@ -726,12 +709,9 @@ OSStatus  Csound_Render(void *inRefCon,
                     if (_file)
                         ExtAudioFileDispose(_file);
                     _shouldRecord = false;
-                    AudioOutputUnitStop(_csAUHAL);
                     /* free(CAInputData); */
                 }
-                AudioUnitUninitialize(_csAUHAL);
-                AudioComponentInstanceDispose(_csAUHAL);
-                _csAUHAL = nil;
+                [self stopAU:YES];
             }
             csoundDestroy(cs);
         }
@@ -800,14 +780,56 @@ OSStatus  Csound_Render(void *inRefCon,
     
     if (self.running) {
         if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
-            AudioOutputUnitStop(*_aunit);
+            AudioOutputUnitStop(_csAUHAL);
         } else if (interruptionType == kAudioSessionEndInterruption) {
             // make sure we are again the active session
             success = [[AVAudioSession sharedInstance] setActive:YES error:&error];
             if(success) {
-                AudioOutputUnitStart(*_aunit);
+                AudioOutputUnitStart(_csAUHAL);
             }
         }
+    }
+}
+
+// Start the AudioUnit processing, returns YES on success
+- (BOOL)startAU
+{
+    AURenderCallbackStruct output;
+    output.inputProc = Csound_Render;
+    output.inputProcRefCon = (__bridge void *)self;
+    AudioUnitSetProperty(_csAUHAL,
+                         kAudioUnitProperty_SetRenderCallback,
+                         kAudioUnitScope_Input,
+                         0,
+                         &output,
+                         sizeof(output));
+    if (AudioUnitInitialize(_csAUHAL) != noErr) {
+        NSLog(@"***Failed to initialize Audio Unit.");
+        return NO;
+    }
+    
+    if (AudioOutputUnitStart(_csAUHAL) != noErr) {
+        NSLog(@"***Failed to start Audio Unit.");
+        return NO;
+    }
+    
+    _auRunning = YES;
+    return YES;
+}
+
+// Stop current AudioUnit processing, may be restarted
+- (void)stopAU:(BOOL)dispose
+{
+    if (AudioOutputUnitStop(_csAUHAL) != noErr)
+        NSLog(@"***Failed to stop Audio Unit.");
+    
+    if (AudioUnitUninitialize(_csAUHAL) != noErr)
+        NSLog(@"***Failed to unitialize Audio Unit.");
+    _auRunning = NO;
+    
+    if (dispose) {
+        AudioComponentInstanceDispose(_csAUHAL);
+        _csAUHAL = nil;
     }
 }
 
@@ -821,15 +843,17 @@ OSStatus  Csound_Render(void *inRefCon,
     AudioUnitGetProperty(_csAUHAL,
                          kAudioUnitProperty_MaximumFramesPerSlice,
                          kAudioUnitScope_Global,
-                         elem,
+                         0, // Global scope only has element 0
                          &maxFPS,
                          &outsize);
-    AudioUnitSetProperty(_csAUHAL,
-                         kAudioUnitProperty_MaximumFramesPerSlice,
-                         kAudioUnitScope_Global,
-                         elem,
-                         &_bufframes,
-                         sizeof(_bufframes));
+    if (AudioUnitSetProperty(_csAUHAL,
+                             kAudioUnitProperty_MaximumFramesPerSlice,
+                             kAudioUnitScope_Global,
+                             0,
+                             &_bufframes,
+                             sizeof(_bufframes)) != noErr) {
+        NSLog(@"***Failed to set max fps to %@.", @(_bufframes));
+    }
     outsize = sizeof(AudioStreamBasicDescription);
     AudioUnitGetProperty(_csAUHAL,
                          kAudioUnitProperty_StreamFormat,
@@ -848,12 +872,14 @@ OSStatus  Csound_Render(void *inRefCon,
     format.mBytesPerFrame    = sizeof(SInt32);
     format.mChannelsPerFrame = _nchnls;
     format.mBitsPerChannel   = sizeof(SInt32)*8;
-    AudioUnitSetProperty(_csAUHAL,
-                         kAudioUnitProperty_StreamFormat,
-                         scope,
-                         elem,
-                         &format,
-                         sizeof(AudioStreamBasicDescription));
+    if (AudioUnitSetProperty(_csAUHAL,
+                             kAudioUnitProperty_StreamFormat,
+                             scope,
+                             elem,
+                             &format,
+                             sizeof(AudioStreamBasicDescription)) != noErr) {
+        NSLog(@"***Failed to set stream format for element %@.", @(elem));
+    }
 }
 
 #endif
@@ -865,7 +891,7 @@ OSStatus  Csound_Render(void *inRefCon,
         NSError *error;
         BOOL success;
 
-        AVAudioSession* session = [AVAudioSession sharedInstance];
+        AVAudioSession *session = [AVAudioSession sharedInstance];
         if (AKSettings.settings.audioInputEnabled) {
             success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
                                withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
@@ -912,6 +938,10 @@ OSStatus  Csound_Render(void *inRefCon,
         }
         
         if (_csAUHAL) {
+            BOOL wasRunning = _auRunning;
+            
+            if (wasRunning)
+                [self stopAU:NO];
             UInt32 enableInput = AKSettings.settings.audioInputEnabled;
             if (AudioUnitSetProperty(_csAUHAL,
                                      kAudioOutputUnitProperty_EnableIO,
@@ -921,8 +951,10 @@ OSStatus  Csound_Render(void *inRefCon,
                                      sizeof(enableInput)) == noErr) {
                 [self setupAU:kAudioUnitScope_Input];
             } else {
-                NSLog(@"***Failed to enable audio input.");
+                NSLog(@"***Failed to %@ audio input.", enableInput ? @"enable" : @"disable");
             }
+            if (wasRunning)
+                [self startAU];
         }
     }
 #endif // No effect on Mac so far
