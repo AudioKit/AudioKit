@@ -13,7 +13,7 @@
 
 static AKSettings *_settings = nil;
 
-+ (AKSettings *)settings
++ (AKSettings *)shared
 {
     @synchronized(self) {
         if (_settings == nil)

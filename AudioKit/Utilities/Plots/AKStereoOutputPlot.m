@@ -84,7 +84,7 @@
 {
     cs = csoundObj;
 
-    sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
+    sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
     
     void *samples = malloc(sampleSize * sizeof(float));
     bzero(samples, sampleSize * sizeof(float));

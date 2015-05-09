@@ -106,7 +106,7 @@ static AKManager *_sharedManager = nil;
         _engine.messageDelegate = self;
         
         _isRunning = NO;
-        _isLogging = AKSettings.settings.loggingEnabled;
+        _isLogging = AKSettings.shared.loggingEnabled;
 #ifdef TRAVIS_CI
         _testLog = [NSMutableArray array];
 #endif
@@ -122,7 +122,7 @@ static AKManager *_sharedManager = nil;
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
                     "-i %@            ; Request sound from the host audio input device",
-                    AKSettings.settings.audioOutput, AKSettings.settings.audioInput];
+                    AKSettings.shared.audioOutput, AKSettings.shared.audioInput];
         
         _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
@@ -239,12 +239,12 @@ static AKManager *_sharedManager = nil;
 
 /// Enable Audio Input
 - (void)enableAudioInput {
-    AKSettings.settings.audioInputEnabled = YES;
+    AKSettings.shared.audioInputEnabled = YES;
 }
 
 /// Disable AudioInput
 - (void)disableAudioInput {
-    AKSettings.settings.audioInputEnabled = NO;
+    AKSettings.shared.audioInputEnabled = NO;
 }
 
 // -----------------------------------------------------------------------------
@@ -350,7 +350,7 @@ static AKManager *_sharedManager = nil;
 #endif
     
     if (_isLogging) {
-        if (AKSettings.settings.messagesEnabled) {
+        if (AKSettings.shared.messagesEnabled) {
             NSLog(@"Csound(%d): %@", attr, msg);
         } else {
             NSLog(@"%@", msg);
