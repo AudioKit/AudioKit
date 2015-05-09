@@ -61,10 +61,12 @@
     return [[AKVCOscillator alloc] init];
 }
 
-+ (instancetype)defaultOscillator
++ (instancetype)oscillatorSawtooth
 {
     return [[AKVCOscillator alloc] init];
 }
+
+
 
 - (void)setWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
