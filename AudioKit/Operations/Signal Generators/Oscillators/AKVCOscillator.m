@@ -61,6 +61,11 @@
     return [[AKVCOscillator alloc] init];
 }
 
++ (instancetype)defaultOscillator
+{
+    return [[AKVCOscillator alloc] init];
+}
+
 - (void)setWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
     [self setUpConnections];
