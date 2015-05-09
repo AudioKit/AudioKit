@@ -59,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the vc oscillator with default values
 + (instancetype)oscillator;
 
+/// Instantiates the vc oscillator with default values
++ (instancetype)defaultOscillator;
+
 
 /// Valid types are given by class functions starting with waveformTypeFor... [Default Value: waveformTypeForSawtooth]
 @property (nonatomic) AKConstant *waveformType;
