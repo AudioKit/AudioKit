@@ -67,6 +67,133 @@
 }
 
 
+- (instancetype)initWithSquareWithPWM
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForSquareWithPWM];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)oscillatorSquareWithPWM
+{
+    return [[AKVCOscillator alloc] initWithSquareWithPWM];
+}
+
+
+- (instancetype)initWithRampedTriangle
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForTriangleWithRamp];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)oscillatorRampedTriangle
+{
+    return [[AKVCOscillator alloc] initWithRampedTriangle];
+}
+
+
+- (instancetype)initWithUnnormalizedPulse
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForUnnormalizedPulse];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)oscillatorUnnormalizedPulse
+{
+    return [[AKVCOscillator alloc] initWithUnnormalizedPulse];
+}
+
+- (instancetype)initWithIntegratedSawtooth
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForIntegratedSawtooth];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)oscillatorIntegratedSawtooth
+{
+    return [[AKVCOscillator alloc] initWithIntegratedSawtooth];
+}
+
+- (instancetype)initWithOscillatorSquare
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForSquare];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)oscillatorSquare
+{
+    return [[AKVCOscillator alloc] initWithOscillatorSquare];
+}
+
+- (instancetype)initWithOscillatorTriangle
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForTriangle];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)oscillatorTriangle
+{
+    return [[AKVCOscillator alloc] initWithOscillatorTriangle];
+}
 
 - (void)setWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
