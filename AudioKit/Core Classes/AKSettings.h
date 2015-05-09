@@ -14,7 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKSettings : NSObject
 
-+ (AKSettings *)settings;
+/// Global singleton
++ (AKSettings *)shared;
 
 // The following properties can only be changed from the plist
 @property (nonatomic,readonly) NSString *audioInput, *audioOutput;

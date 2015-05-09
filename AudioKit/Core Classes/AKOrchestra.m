@@ -32,10 +32,10 @@
         _userDefinedOperations = [[NSMutableSet alloc] init];
         
         // Default Values (for tests that don't load the AudioKit.plist)
-        _sampleRate = AKSettings.settings.sampleRate;
-        _samplesPerControlPeriod = AKSettings.settings.samplesPerControlPeriod;
-        _numberOfChannels = AKSettings.settings.numberOfChannels;
-        _zeroDBFullScaleValue = AKSettings.settings.zeroDBFullScaleValue;
+        _sampleRate = AKSettings.shared.sampleRate;
+        _samplesPerControlPeriod = AKSettings.shared.samplesPerControlPeriod;
+        _numberOfChannels = AKSettings.shared.numberOfChannels;
+        _zeroDBFullScaleValue = AKSettings.shared.zeroDBFullScaleValue;
         
         _udoFiles = [[NSMutableSet alloc] init];
         _csound = [[AKManager sharedManager] engine];
@@ -50,12 +50,6 @@
 + (void)start
 {
     if (![[AKManager sharedManager] isRunning]) {
-        if (AKSettings.settings.audioInputEnabled) {
-            [[AKManager sharedManager] enableAudioInput];
-        }else{
-            [[AKManager sharedManager] disableAudioInput];
-        }
-        
         [[AKManager sharedManager] runOrchestra];
     }
 }

@@ -452,7 +452,7 @@ OSStatus  Csound_Render(void *inRefCon,
         AudioUnitRender(obj->_csAUHAL, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
         for(frame=0; frame < inNumberFrames; frame++){
             @autoreleasepool {
-                if(AKSettings.settings.audioInputEnabled) {
+                if(AKSettings.shared.audioInputEnabled) {
                     for (k = 0; k < nchnls; k++){
                         buffer = (SInt32 *) ioData->mBuffers[k].mData;
                         spin[insmps++] =(1./coef)*buffer[frame];
@@ -498,7 +498,7 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
                 
                 /* performance */
-                if(AKSettings.settings.audioInputEnabled) {
+                if(AKSettings.shared.audioInputEnabled) {
                     for (k = 0; k < nchnls; k++){
                         buffer = (Float32 *) ioData->mBuffers[k].mData;
                         for(j=0; j < ksmps; j++){
@@ -894,12 +894,12 @@ OSStatus  Csound_Render(void *inRefCon,
         BOOL success;
 
         AVAudioSession *session = [AVAudioSession sharedInstance];
-        if (AKSettings.settings.audioInputEnabled) {
+        if (AKSettings.shared.audioInputEnabled) {
             success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
                                withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
                                             AVAudioSessionCategoryOptionDefaultToSpeaker)
                                      error:&error];
-        } else if (AKSettings.settings.playbackWhileMuted) {
+        } else if (AKSettings.shared.playbackWhileMuted) {
             success = [session setCategory:AVAudioSessionCategoryPlayback
                                withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
                                             AVAudioSessionCategoryOptionDefaultToSpeaker)
@@ -944,7 +944,7 @@ OSStatus  Csound_Render(void *inRefCon,
             
             if (wasRunning)
                 [self stopAU:NO];
-            UInt32 enableInput = AKSettings.settings.audioInputEnabled;
+            UInt32 enableInput = AKSettings.shared.audioInputEnabled;
             if (AudioUnitSetProperty(_csAUHAL,
                                      kAudioOutputUnitProperty_EnableIO,
                                      kAudioUnitScope_Input,
