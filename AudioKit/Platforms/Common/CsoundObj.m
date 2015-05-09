@@ -733,7 +733,8 @@ OSStatus  Csound_Render(void *inRefCon,
         
         while (!_ret && self.running) {
             @autoreleasepool {
-                [self updateAllValuesToCsound];
+                if (self.running)
+                    [self updateAllValuesToCsound];
                 
                 _ret = csoundPerformKsmps(_cs);
                 
@@ -749,7 +750,8 @@ OSStatus  Csound_Render(void *inRefCon,
                     }
                     
                 }
-                [self updateAllValuesFromCsound];
+                if (self.running)
+                    [self updateAllValuesFromCsound];
             }
         }
         
