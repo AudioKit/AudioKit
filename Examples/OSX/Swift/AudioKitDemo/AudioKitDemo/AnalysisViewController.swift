@@ -26,6 +26,8 @@ class AnalysisViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AKSettings.shared().audioInputEnabled = true
+        
         analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
 
         AKOrchestra.addInstrument(microphone)
