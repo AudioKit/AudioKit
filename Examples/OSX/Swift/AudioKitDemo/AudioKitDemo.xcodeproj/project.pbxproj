@@ -84,7 +84,7 @@
 		EA5D42311AD4BEA800BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = SOURCE_ROOT; };
-		EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		EAF365AD1ADCB13C00AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
