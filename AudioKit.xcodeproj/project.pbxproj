@@ -589,7 +589,7 @@
 		EA8E93F51AD3C6840057E979 /* AKManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKManager.m; sourceTree = "<group>"; };
 		EA8E93F61AD3C6840057E979 /* AKOrchestra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOrchestra.h; sourceTree = "<group>"; };
 		EA8E93F71AD3C6840057E979 /* AKOrchestra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOrchestra.m; sourceTree = "<group>"; };
-		EA8E93F81AD3C6840057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "AudioKit/Core Classes/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
+		EA8E93F81AD3C6840057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = "AudioKit/Resources/AudioKit.plist"; sourceTree = SOURCE_ROOT; };
 		EA8E93FA1AD3C6840057E979 /* AKMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMidi.h; sourceTree = "<group>"; };
 		EA8E93FB1AD3C6840057E979 /* AKMidi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMidi.m; sourceTree = "<group>"; };
 		EA8E93FC1AD3C6840057E979 /* AKMidiListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMidiListener.h; sourceTree = "<group>"; };
@@ -927,7 +927,7 @@
 		EA8E95A41AD3C6850057E979 /* AKNoteProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKNoteProperty.h; sourceTree = "<group>"; };
 		EA8E95A51AD3C6850057E979 /* AKNoteProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKNoteProperty.m; sourceTree = "<group>"; };
 		EA8E96591AD3C6FC0057E979 /* libAudioKit OS X.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit OS X.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA8E971A1AD3CF000057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = AudioKit/AKSoundFiles.bundle; sourceTree = SOURCE_ROOT; };
+		EA8E971A1AD3CF000057E979 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = AudioKit/Resources/AKSoundFiles.bundle; sourceTree = SOURCE_ROOT; };
 		EA95E9EF1AD5EC50007FC41F /* AKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSettings.h; sourceTree = "<group>"; };
 		EA95E9F01AD5EC50007FC41F /* AKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSettings.m; sourceTree = "<group>"; };
 		EA9F18821AE789E0009D3DA6 /* libsndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libsndfile.framework; sourceTree = "<group>"; };
