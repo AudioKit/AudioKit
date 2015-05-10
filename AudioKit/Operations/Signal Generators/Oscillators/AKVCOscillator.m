@@ -61,7 +61,7 @@
     return [[AKVCOscillator alloc] init];
 }
 
-+ (instancetype)oscillatorSawtooth
++ (instancetype)presetOscillatorSawtooth
 {
     return [[AKVCOscillator alloc] init];
 }
@@ -83,7 +83,7 @@
 }
 
 
-+ (instancetype)oscillatorSquareWithPWM
++ (instancetype)presetOscillatorSquareWithPWM
 {
     return [[AKVCOscillator alloc] initWithSquareWithPWM];
 }
@@ -105,7 +105,7 @@
 }
 
 
-+ (instancetype)oscillatorRampedTriangle
++ (instancetype)presetOscillatorRampedTriangle
 {
     return [[AKVCOscillator alloc] initWithRampedTriangle];
 }
@@ -127,7 +127,7 @@
 }
 
 
-+ (instancetype)oscillatorUnnormalizedPulse
++ (instancetype)presetOscillatorUnnormalizedPulse
 {
     return [[AKVCOscillator alloc] initWithUnnormalizedPulse];
 }
@@ -148,7 +148,7 @@
 }
 
 
-+ (instancetype)oscillatorIntegratedSawtooth
++ (instancetype)presetOscillatorIntegratedSawtooth
 {
     return [[AKVCOscillator alloc] initWithIntegratedSawtooth];
 }
@@ -169,7 +169,7 @@
 }
 
 
-+ (instancetype)oscillatorSquare
++ (instancetype)presetOscillatorSquare
 {
     return [[AKVCOscillator alloc] initWithOscillatorSquare];
 }
@@ -190,7 +190,7 @@
 }
 
 
-+ (instancetype)oscillatorTriangle
++ (instancetype)presetOscillatorTriangle
 {
     return [[AKVCOscillator alloc] initWithOscillatorTriangle];
 }
