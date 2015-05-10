@@ -60,7 +60,6 @@ OSStatus  Csound_Render(void *inRefCon,
 @property BOOL running, shouldRecord, shouldMute;
 
 @property (strong) NSMutableArray *listeners;
-@property (weak)   NSMutableArray *valuesCache;
 
 @property (strong) NSThread *thread;
 
@@ -446,7 +445,6 @@ OSStatus  Csound_Render(void *inRefCon,
 #endif
     
     @synchronized(obj) {
-        NSMutableArray* cache = obj.valuesCache;
         
 #if TARGET_OS_IPHONE
         AudioUnitRender(obj->_csAUHAL, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
@@ -468,35 +466,31 @@ OSStatus  Csound_Render(void *inRefCon,
                     }
                 }
                 
-                if(nsmps == ksmps*nchnls){
-                    for(id<CsoundBinding> binding in cache) {
-                        if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                            [binding updateValuesToCsound];
+                @synchronized(obj.bindings) {
+                    if(nsmps == ksmps*nchnls){
+                        for(id<CsoundBinding> binding in obj.bindings) {
+                            if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                                [binding updateValuesToCsound];
+                            }
                         }
-                    }
-                    if(!ret) {
-                        ret = csoundPerformKsmps(cs);
-                    } else {
-                        obj.running = false;
-                    }
-                    for(id<CsoundBinding> binding in cache) {
-                        if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                            [binding updateValuesFromCsound];
+                        if(!ret) {
+                            ret = csoundPerformKsmps(cs);
+                        } else {
+                            obj.running = NO;
                         }
+                        for(id<CsoundBinding> binding in obj.bindings) {
+                            if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                                [binding updateValuesFromCsound];
+                            }
+                        }
+                        insmps = nsmps = 0;
                     }
-                    insmps = nsmps = 0;
                 }
             }
         }
 #elif TARGET_OS_MAC
         for(i=0; i < slices; i++){
             @autoreleasepool {
-                for(id<CsoundBinding> binding in cache) {
-                    if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                        [binding updateValuesToCsound];
-                    }
-                }
-                
                 /* performance */
                 if(AKSettings.shared.audioInputEnabled) {
                     for (k = 0; k < nchnls; k++){
@@ -505,11 +499,6 @@ OSStatus  Csound_Render(void *inRefCon,
                             spin[j*nchnls+k] = buffer[j+i*ksmps];
                         }
                     }
-                }
-                if(!ret) {
-                    ret = csoundPerformKsmps(cs);
-                } else {
-                    obj.running = NO;
                 }
                 
                 for (k = 0; k < nchnls; k++) {
@@ -522,10 +511,24 @@ OSStatus  Csound_Render(void *inRefCon,
                         memset(buffer, 0, sizeof(Float32) * inNumberFrames);
                     }
                 }
-                
-                for(id<CsoundBinding> binding in cache) {
-                    if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                        [binding updateValuesFromCsound];
+
+                @synchronized(obj.bindings) {
+                    for(id<CsoundBinding> binding in obj.bindings) {
+                        if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                            [binding updateValuesToCsound];
+                        }
+                    }
+                    
+                    if(!ret) {
+                        ret = csoundPerformKsmps(cs);
+                    } else {
+                        obj.running = NO;
+                    }
+                    
+                    for(id<CsoundBinding> binding in obj.bindings) {
+                        if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                            [binding updateValuesFromCsound];
+                        }
                     }
                 }
             }
@@ -618,7 +621,6 @@ OSStatus  Csound_Render(void *inRefCon,
             _nchnls = csoundGetNchnls(cs);
             _bufframes = (UInt32)csoundGetOutputBufferSize(cs)/_nchnls;
             self.running = YES;
-            self.valuesCache = _bindings;
             
             [self setupBindings];
             
