@@ -60,25 +60,25 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)oscillator;
 
 /// Instantiates the vc oscillator with a sawtooth wave
-+ (instancetype)presetOscillatorSawtooth;
++ (instancetype)presetSawtoothOscillator;
 
 /// Instantiates the vc oscillator with a pulse-modulated squarewave
-+ (instancetype)presetOscillatorSquareWithPWM;
++ (instancetype)presetSquareWithPWMOscillator;
 
 /// Instantiates the vc oscillator with a ramped triangle wave
-+ (instancetype)presetOscillatorRampedTriangle;
++ (instancetype)presetRampedTriangleOscillator;
 
 /// Instantiates the vc oscillator with an unnormalized pulse wave
-+ (instancetype)presetOscillatorUnnormalizedPulse;
++ (instancetype)presetUnnormalizedPulseOscillator;
 
 /// Instantiates the vc oscillator with an integrated sawtooth wave
-+ (instancetype)presetOscillatorIntegratedSawtooth;
++ (instancetype)presetIntegratedSawtoothOscillator;
 
 /// Instantiates the vc oscillator with a square wave
-+ (instancetype)presetOscillatorSquare;
++ (instancetype)presetSquareOscillator;
 
-/// Instantiates the vc oscillator with a sawtooth wave
-+ (instancetype)presetOscillatorTriangle;
+/// Instantiates the vc oscillator with a triangle wave
++ (instancetype)presetTriangleOscillator;
 
 
 /// Valid types are given by class functions starting with waveformTypeFor... [Default Value: waveformTypeForSawtooth]
