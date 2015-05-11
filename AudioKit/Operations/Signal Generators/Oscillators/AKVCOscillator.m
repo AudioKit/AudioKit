@@ -61,13 +61,13 @@
     return [[AKVCOscillator alloc] init];
 }
 
-+ (instancetype)presetOscillatorSawtooth
++ (instancetype)presetSawtoothOscillator
 {
     return [[AKVCOscillator alloc] init];
 }
 
 
-- (instancetype)initWithSquareWithPWM
+- (instancetype)initWithSquareWithPWMOscillator
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -83,13 +83,13 @@
 }
 
 
-+ (instancetype)presetOscillatorSquareWithPWM
++ (instancetype)presetSquareWithPWMOscillator
 {
-    return [[AKVCOscillator alloc] initWithSquareWithPWM];
+    return [[AKVCOscillator alloc] initWithSquareWithPWMOscillator];
 }
 
 
-- (instancetype)initWithRampedTriangle
+- (instancetype)initWithRampedTriangleOscillator
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -105,13 +105,13 @@
 }
 
 
-+ (instancetype)presetOscillatorRampedTriangle
++ (instancetype)presetRampedTriangleOscillator
 {
-    return [[AKVCOscillator alloc] initWithRampedTriangle];
+    return [[AKVCOscillator alloc] initWithRampedTriangleOscillator];
 }
 
 
-- (instancetype)initWithUnnormalizedPulse
+- (instancetype)initWithUnnormalizedPulseOscillator
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -127,12 +127,12 @@
 }
 
 
-+ (instancetype)presetOscillatorUnnormalizedPulse
++ (instancetype)presetUnnormalizedPulseOscillator
 {
-    return [[AKVCOscillator alloc] initWithUnnormalizedPulse];
+    return [[AKVCOscillator alloc] initWithUnnormalizedPulseOscillator];
 }
 
-- (instancetype)initWithIntegratedSawtooth
+- (instancetype)initWithIntegratedSawtoothOscillator
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -148,12 +148,12 @@
 }
 
 
-+ (instancetype)presetOscillatorIntegratedSawtooth
++ (instancetype)presetIntegratedSawtoothOscillator
 {
-    return [[AKVCOscillator alloc] initWithIntegratedSawtooth];
+    return [[AKVCOscillator alloc] initWithIntegratedSawtoothOscillator];
 }
 
-- (instancetype)initWithOscillatorSquare
+- (instancetype)initWithSquareOscillator
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -169,12 +169,12 @@
 }
 
 
-+ (instancetype)presetOscillatorSquare
++ (instancetype)presetSquareOscillator
 {
-    return [[AKVCOscillator alloc] initWithOscillatorSquare];
+    return [[AKVCOscillator alloc] initWithSquareOscillator];
 }
 
-- (instancetype)initWithOscillatorTriangle
+- (instancetype)initWithTriangleOscillator
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -190,9 +190,9 @@
 }
 
 
-+ (instancetype)presetOscillatorTriangle
++ (instancetype)presetTriangleOscillator
 {
-    return [[AKVCOscillator alloc] initWithOscillatorTriangle];
+    return [[AKVCOscillator alloc] initWithTriangleOscillator];
 }
 
 - (void)setWaveformType:(AKConstant *)waveformType {
