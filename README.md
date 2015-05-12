@@ -19,8 +19,6 @@ This folder contains the actual AudioKit toolkit classes.
 * [Tables](http://audiokit.io/tables/) - lookup tables for waveforms and other tabular data
 * [Utilities](http://audiokit.io/utilities/) - prebuilt instruments, waveform plotting classes, and UI elements
 
-This folder contains the classes that you will need to copy or reference in your project by dragging this folder into Xcode. In addition to the audio classes, there is a Utilities folder that contains non-required, but helpful classes for binding user-interface elements to audio data, including plots of audio streams and related data.
-
 Documentation
 -------------
 This folder contains information about automatically generating Xcode documentation from the AudioKit source.
