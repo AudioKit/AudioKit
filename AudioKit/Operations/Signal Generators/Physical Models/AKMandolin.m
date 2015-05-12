@@ -101,6 +101,31 @@
     return [[AKMandolin alloc] initWithPresetDetunedMandolin];
 }
 
+- (instancetype)initWithPresetSmallMandolin
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _bodySize = akp(0.01);
+        _frequency = akp(220);
+        _amplitude = akp(1);
+        _pairedStringDetuning = akp(1);
+        _pluckPosition = akp(0.4);
+        _loopGain = akp(0.99);
+        
+        // Constant Values
+        
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"mandpluk" ofType:@"aif"]];
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSmallMandolin
+{
+    return [[AKMandolin alloc] initWithPresetSmallMandolin];
+}
 
 - (void)setBodySize:(AKParameter *)bodySize {
     _bodySize = bodySize;
