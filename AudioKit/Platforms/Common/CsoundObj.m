@@ -890,6 +890,9 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)resetSession
 {
+    if (_cs == nil) // Not initialized yet
+        return;
+    
 #if TARGET_OS_IPHONE
     @synchronized(self) {
         NSError *error;
