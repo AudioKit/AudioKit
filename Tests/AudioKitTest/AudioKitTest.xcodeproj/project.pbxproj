@@ -73,7 +73,7 @@
 		C4534E011ADCD33900291E93 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 		C4534E101ADCD42900291E93 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = "<group>"; };
-		C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		C4A396AF1A213BEA00E8FB4D /* AudioKitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AudioKitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A396B21A213BEA00E8FB4D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C4A398D51A213EC600E8FB4D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };

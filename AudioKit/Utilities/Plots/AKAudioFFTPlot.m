@@ -57,6 +57,9 @@
     [self.backgroundColor setFill];
     NSRectFill(rect);
 #endif
+    if (!_historySize) // Csound not setup yet
+        return;
+    
     // Draw waveform
     AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
@@ -161,7 +164,7 @@
 {
     _cs = csoundObj;
     
-    _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
+    _sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
     
     void *samples = malloc(_sampleSize * sizeof(float));
     bzero(samples, _sampleSize * sizeof(float));
