@@ -28,10 +28,6 @@
     NSTimeInterval _totalRunDuration;
 }
 
-// Run Csound from a given filename
-// @param filename CSD file use when running Csound.
-- (void)runCSDFile:(NSString *)filename;
-
 @end
 
 @implementation AKManager
@@ -155,22 +151,6 @@ static AKManager *_sharedManager = nil;
 // -----------------------------------------------------------------------------
 #  pragma mark - Handling CSD Files
 // -----------------------------------------------------------------------------
-
-- (void)runCSDFile:(NSString *)filename 
-{
-    if(_isRunning) {
-        if (_isLogging) NSLog(@"Csound instance already active.");
-        [self stop];
-    }
-    NSString *file = [[NSBundle mainBundle] pathForResource:filename
-                                                     ofType:@"csd"];  
-    [self.engine play:file];
-    if (_isLogging) NSLog(@"Starting %@ \n\n%@\n",filename, [AKManager stringFromFile:file]);
-    while(!_isRunning) {
-        if (_isLogging) NSLog(@"Waiting for Csound to startup completely.");
-    }
-    if (_isLogging) NSLog(@"Started.");
-}
 
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
 {
