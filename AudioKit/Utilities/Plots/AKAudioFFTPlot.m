@@ -57,6 +57,9 @@
     [self.backgroundColor setFill];
     NSRectFill(rect);
 #endif
+    if (!_historySize) // Csound not setup yet
+        return;
+    
     // Draw waveform
     AKBezierPath *wavePath = [AKBezierPath bezierPath];
     

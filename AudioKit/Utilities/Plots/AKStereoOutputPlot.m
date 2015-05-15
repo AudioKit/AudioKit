@@ -13,10 +13,10 @@
 
 @interface AKStereoOutputPlot() <CsoundBinding>
 {
-    NSData *outSamples;
-    UInt32 sampleSize;
-    int index;
-    CsoundObj *cs;
+    NSData *_outSamples;
+    UInt32 _sampleSize;
+    int    _index;
+    CsoundObj *_cs;
 }
 @end
 
@@ -31,7 +31,7 @@
 
 - (void)drawChannel:(int)channel offset:(float)offset color:(AKColor *)color width:(CGFloat)width
 {
-    int plotPoints = sampleSize / 2;
+    int plotPoints = _sampleSize / 2;
     // Draw waveform
     AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
@@ -44,7 +44,7 @@
     CGFloat y = 0.0f;
     
     @synchronized(self) {
-        const float *samples = outSamples.bytes;
+        const float *samples = _outSamples.bytes;
         
         for (int i = 0; i < plotPoints; i++) {
             y = AK_CLAMP(y, -1.0f, 1.0f);
@@ -67,13 +67,16 @@
     [wavePath stroke];
 }
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
 #if !TARGET_OS_IPHONE
     [self.backgroundColor setFill];
     NSRectFill(rect);
 #endif
-    [self drawChannel:0 offset:0.25 color:self.leftLineColor    width:self.lineWidth];
-    [self drawChannel:1 offset:0.75 color:self.rightLineColor   width:self.lineWidth];
+    if (_sampleSize) { // Csound may not be setup yet
+        [self drawChannel:0 offset:0.25 color:self.leftLineColor    width:self.lineWidth];
+        [self drawChannel:1 offset:0.75 color:self.rightLineColor   width:self.lineWidth];
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -82,19 +85,19 @@
 
 - (void)setup:(CsoundObj *)csoundObj
 {
-    cs = csoundObj;
+    _cs = csoundObj;
 
-    sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
+    _sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
     
-    void *samples = malloc(sampleSize * sizeof(float));
-    bzero(samples, sampleSize * sizeof(float));
-    outSamples = [NSData dataWithBytesNoCopy:samples length:sampleSize * sizeof(float)];
+    void *samples = malloc(_sampleSize * sizeof(float));
+    bzero(samples, _sampleSize * sizeof(float));
+    _outSamples = [NSData dataWithBytesNoCopy:samples length:_sampleSize * sizeof(float)];
 }
 
 - (void)updateValuesFromCsound
 {
     @synchronized(self) {
-        outSamples = [cs getOutSamples];
+        _outSamples = [_cs getOutSamples];
     }
     
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
