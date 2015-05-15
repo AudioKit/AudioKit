@@ -550,6 +550,16 @@ OSStatus  Csound_Render(void *inRefCon,
     return 0;
 }
 
+- (void)startCsoundToDisk:(NSArray *)paths
+{
+    
+}
+
+- (void)performCsound
+{
+    
+}
+
 - (void)runCsoundToDisk:(NSArray *)paths
 {
     @autoreleasepool {
