@@ -93,7 +93,7 @@
 		C47546B91A9BDA11006151DE /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchView.m; path = Synthesis/TouchView.m; sourceTree = "<group>"; };
 		EA5D420A1AD4BBDD00BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D42161AD4BC0100BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		EAF365641ADB591400AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 

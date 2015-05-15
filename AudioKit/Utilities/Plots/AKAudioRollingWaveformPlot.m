@@ -45,7 +45,7 @@
 {
     _cs = csoundObj;
     
-    _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
+    _sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
 }
 
 - (void)updateValuesFromCsound
