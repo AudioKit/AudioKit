@@ -40,6 +40,9 @@
     [self.backgroundColor setFill];
     NSRectFill(rect);
 #endif
+    if (!_sampleSize)
+        return;
+    
     // Draw waveform
     AKBezierPath *waveformPath = [AKBezierPath bezierPath];
     @synchronized(self) {
