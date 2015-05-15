@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
+		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
 		C4B3A74B1AE30E6A00F43B96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */; };
 		C4B3A74E1AE30E6A00F43B96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74D1AE30E6A00F43B96 /* ViewController.m */; };
@@ -14,11 +16,9 @@
 		C4B3A7531AE30E6A00F43B96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7521AE30E6A00F43B96 /* Images.xcassets */; };
 		C4B3A7561AE30E6A00F43B96 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7541AE30E6A00F43B96 /* LaunchScreen.xib */; };
 		C4B3A7621AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7611AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m */; };
-		C4B3A7761AE30EA200F43B96 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */; };
-		C4B3A7791AE30F8100F43B96 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */; };
+		C4B3A7761AE30EA200F43B96 /* libAudioKit iOS Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */; };
+		C4B3A7791AE30F8100F43B96 /* libAudioKit iOS Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */; };
 		C4B3A77C1AE3101E00F43B96 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */; };
-		C4B3A7811AE3195800F43B96 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7801AE3195800F43B96 /* AudioKit.plist */; };
-		C4B3A7821AE3195800F43B96 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7801AE3195800F43B96 /* AudioKit.plist */; };
 		C4B3A7861AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7881AE373C000F43B96 /* MathTests.m */; };
@@ -26,6 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C45F404A1B05C7AC00F3FC42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4B3A76B1AE30E8800F43B96 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
+		};
 		C4B3A75C1AE30E6A00F43B96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C4B3A73A1AE30E6A00F43B96 /* Project object */;
@@ -64,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3A7471AE30E6A00F43B96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -80,7 +88,6 @@
 		C4B3A76B1AE30E8800F43B96 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C4B3A77A1AE3101E00F43B96 /* MathTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTestInstrument.m; sourceTree = "<group>"; };
-		C4B3A7801AE3195800F43B96 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4B3A7841AE36B8400F43B96 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
 		C4B3A7881AE373C000F43B96 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
@@ -92,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7791AE30F8100F43B96 /* libAudioKit iOS.a in Frameworks */,
+				C4B3A7791AE30F8100F43B96 /* libAudioKit iOS Static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7761AE30EA200F43B96 /* libAudioKit iOS.a in Frameworks */,
+				C4B3A7761AE30EA200F43B96 /* libAudioKit iOS Static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,12 +147,12 @@
 		C4B3A7451AE30E6A00F43B96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */,
 				C4B3A7491AE30E6A00F43B96 /* AppDelegate.h */,
 				C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */,
 				C4B3A74F1AE30E6A00F43B96 /* Main.storyboard */,
 				C4B3A7521AE30E6A00F43B96 /* Images.xcassets */,
 				C4B3A7541AE30E6A00F43B96 /* LaunchScreen.xib */,
-				C4B3A7801AE3195800F43B96 /* AudioKit.plist */,
 				C4B3A7461AE30E6A00F43B96 /* Info.plist */,
 				C4B3A7471AE30E6A00F43B96 /* main.m */,
 			);
@@ -174,7 +181,8 @@
 		C4B3A76C1AE30E8800F43B96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */,
+				C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */,
+				C45F404B1B05C7AC00F3FC42 /* libAudioKit iOS Dynamic.a */,
 				C4B3A7731AE30E8800F43B96 /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -275,10 +283,17 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */ = {
+		C45F404B1B05C7AC00F3FC42 /* libAudioKit iOS Dynamic.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = C45F404A1B05C7AC00F3FC42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Static.a";
 			remoteRef = C4B3A7701AE30E8800F43B96 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -298,7 +313,7 @@
 			files = (
 				C4B3A7511AE30E6A00F43B96 /* Main.storyboard in Resources */,
 				C4B3A7561AE30E6A00F43B96 /* LaunchScreen.xib in Resources */,
-				C4B3A7811AE3195800F43B96 /* AudioKit.plist in Resources */,
+				C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */,
 				C4B3A7531AE30E6A00F43B96 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,7 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7821AE3195800F43B96 /* AudioKit.plist in Resources */,
+				C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
