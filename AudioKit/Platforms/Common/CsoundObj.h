@@ -89,6 +89,9 @@ NS_ASSUME_NONNULL_BEGIN
 #  pragma mark - Recording
 // -----------------------------------------------------------------------------
 
+- (void)prepareToRecord:(NSString *)csdFilePath toFile:(NSString *)outputFile;
+- (void)performCsound;
+
 - (void)record:(NSString *)csdFilePath toURL:(NSURL *)outputURL;
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile;
 - (void)recordToURL:(NSURL *)outputURL;
