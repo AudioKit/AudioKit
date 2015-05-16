@@ -65,19 +65,23 @@
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
+    BOOL first = YES;
     for (int i = _index; i < _index+_historySize; i++) {
         
         y = self.bounds.size.height - (_history[i % _historySize] - _minimum) * yScale;
         y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         
-        if (i == _index) {
-            [wavePath moveToPoint:CGPointMake(x, y)];
-        } else {
+        if (isfinite(y)) {
+            if (first) {
+                [wavePath moveToPoint:CGPointMake(x, y)];
+                first = NO;
+            } else {
 #if TARGET_OS_IPHONE
-            [wavePath addLineToPoint:CGPointMake(x, y)];
+                [wavePath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
-            [wavePath lineToPoint:CGPointMake(x, y)];
+                [wavePath lineToPoint:CGPointMake(x, y)];
 #endif
+            }
         }
         x += deltaX;
     }
