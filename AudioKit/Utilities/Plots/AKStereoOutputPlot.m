@@ -45,18 +45,21 @@
     
     @synchronized(self) {
         const float *samples = _outSamples.bytes;
-        
+        BOOL first = YES;
         for (int i = 0; i < plotPoints; i++) {
             y = AK_CLAMP(y, -1.0f, 1.0f);
             y = samples[(i * 2) + channel] * yScale + yOffset;
-            if (i == 0) {
-                [wavePath moveToPoint:CGPointMake(x, y)];
-            } else {
+            if (isfinite(y)) {
+                if (first) {
+                    [wavePath moveToPoint:CGPointMake(x, y)];
+                    first = NO;
+                } else {
 #if TARGET_OS_IPHONE
-                [wavePath addLineToPoint:CGPointMake(x, y)];
+                    [wavePath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
-                [wavePath lineToPoint:CGPointMake(x, y)];
+                    [wavePath lineToPoint:CGPointMake(x, y)];
 #endif
+                }
             }
             x += deltaX;
         }
