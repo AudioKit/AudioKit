@@ -71,34 +71,38 @@
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
+    
+    BOOL first = YES;
     for (int i = _index; i < _index+_historySize; i++) {
         
         y = self.bounds.size.height - (_history[i % _historySize] - yMin) * yScale;
         y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         if (x != x || y != y) {
-            NSLog(@"Something is not a number");
+            if ([[AKManager sharedManager] isLogging])
+                NSLog(@"Something is not a number");
         } else {
-            if (i == _index) {
-                [waveformPath moveToPoint:CGPointMake(x, y)];
-            } else {
-                if (_connectPoints) {
+            if (_connectPoints) {
+                if (first) {
+                    [waveformPath moveToPoint:CGPointMake(x, y)];
+                    first = NO;
+                } else {
 #if TARGET_OS_IPHONE
                     [waveformPath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
                     [waveformPath lineToPoint:CGPointMake(x, y)];
 #endif
-                } else {
-                    AKBezierPath *circle = [AKBezierPath bezierPath];
-                    [circle moveToPoint:CGPointMake(x, y)];
-#if TARGET_OS_IPHONE
-                    [circle addArcWithCenter:CGPointMake(x, y) radius:_lineWidth/2.0 startAngle:0 endAngle:2*M_PI clockwise:YES];
-#elif TARGET_OS_MAC
-                    [circle appendBezierPathWithArcWithCenter:CGPointMake(x, y) radius:_lineWidth/2.0 startAngle:0 endAngle:2*M_PI clockwise:YES];
-#endif
-                    [circle setLineWidth:_lineWidth/2.0];
-                    [_lineColor setStroke];
-                    [circle stroke];
                 }
+            } else {
+                AKBezierPath *circle = [AKBezierPath bezierPath];
+                [circle moveToPoint:CGPointMake(x, y)];
+#if TARGET_OS_IPHONE
+                [circle addArcWithCenter:CGPointMake(x, y) radius:_lineWidth/2.0 startAngle:0 endAngle:2*M_PI clockwise:YES];
+#elif TARGET_OS_MAC
+                [circle appendBezierPathWithArcWithCenter:CGPointMake(x, y) radius:_lineWidth/2.0 startAngle:0 endAngle:2*M_PI clockwise:YES];
+#endif
+                [circle setLineWidth:_lineWidth/2.0];
+                [_lineColor setStroke];
+                [circle stroke];
             }
         }
         x += deltaX;
