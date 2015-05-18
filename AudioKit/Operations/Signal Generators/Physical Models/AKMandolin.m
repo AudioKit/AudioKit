@@ -73,8 +73,6 @@
 }
 
 
-
-
 - (instancetype)initWithPresetDetunedMandolin
 {
     self = [super initWithString:[self operationName]];

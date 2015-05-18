@@ -63,16 +63,31 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)presetSawtoothOscillator;
 
 /// Instantiates the vc oscillator with a pulse-modulated squarewave
+- (instancetype)initWithSquareWithPWMOscillator;
+
+/// Instantiates the vc oscillator with a pulse-modulated squarewave
 + (instancetype)presetSquareWithPWMOscillator;
+
+/// Instantiates the vc oscillator with an unnormalized pulse wave
+- (instancetype)initWithUnnormalizedPulseOscillator;
 
 /// Instantiates the vc oscillator with an unnormalized pulse wave
 + (instancetype)presetUnnormalizedPulseOscillator;
 
 /// Instantiates the vc oscillator with an integrated sawtooth wave
+- (instancetype)initWithIntegratedSawtoothOscillator;
+
+/// Instantiates the vc oscillator with an integrated sawtooth wave
 + (instancetype)presetIntegratedSawtoothOscillator;
 
 /// Instantiates the vc oscillator with a square wave
+- (instancetype)initWithSquareOscillator;
+
+/// Instantiates the vc oscillator with a square wave
 + (instancetype)presetSquareOscillator;
+
+/// Instantiates the vc oscillator with a triangle wave
+- (instancetype)initWithTriangleOscillator;
 
 /// Instantiates the vc oscillator with a triangle wave
 + (instancetype)presetTriangleOscillator;
