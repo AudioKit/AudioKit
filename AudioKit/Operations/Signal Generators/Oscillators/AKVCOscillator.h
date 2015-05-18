@@ -59,6 +59,24 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the vc oscillator with default values
 + (instancetype)oscillator;
 
+/// Instantiates the vc oscillator with a sawtooth wave
++ (instancetype)presetSawtoothOscillator;
+
+/// Instantiates the vc oscillator with a pulse-modulated squarewave
++ (instancetype)presetSquareWithPWMOscillator;
+
+/// Instantiates the vc oscillator with an unnormalized pulse wave
++ (instancetype)presetUnnormalizedPulseOscillator;
+
+/// Instantiates the vc oscillator with an integrated sawtooth wave
++ (instancetype)presetIntegratedSawtoothOscillator;
+
+/// Instantiates the vc oscillator with a square wave
++ (instancetype)presetSquareOscillator;
+
+/// Instantiates the vc oscillator with a triangle wave
++ (instancetype)presetTriangleOscillator;
+
 
 /// Valid types are given by class functions starting with waveformTypeFor... [Default Value: waveformTypeForSawtooth]
 @property (nonatomic) AKConstant *waveformType;
