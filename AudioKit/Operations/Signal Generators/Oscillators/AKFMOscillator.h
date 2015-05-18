@@ -40,19 +40,37 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)presetDefaultOscillator;
 
 /// Instantiates the oscillator with 'stun-ray' type values
+- (instancetype)initWithPresetStunRay;
+
+/// Instantiates the oscillator with 'stun-ray' type values
 + (instancetype)presetStunRay;
+
+/// Instantiates the oscillator with 'wobble' type values
+- (instancetype)initWithPresetWobble;
 
 /// Instantiates the oscillator with 'wobble' type values
 + (instancetype)presetWobble;
 
 /// Instantiates the oscillator with 'space-wobble' type values
+- (instancetype)initWithPresetSpaceWobble;
+
+/// Instantiates the oscillator with 'space-wobble' type values
 + (instancetype)presetSpaceWobble;
+
+/// Instantiates the oscillator with 'foghorn' type values
+- (instancetype)initWithPresetFogHorn;
 
 /// Instantiates the oscillator with 'foghorn' type values
 + (instancetype)presetFogHorn;
 
 /// Instantiates the oscillator with 'buzzer' type values
+- (instancetype)initWithPresetBuzzer;
+
+/// Instantiates the oscillator with 'buzzer' type values
 + (instancetype)presetBuzzer;
+
+/// Instantiates the oscillator with 'spiral' type values
+- (instancetype)initWithPresetSpiral;
 
 /// Instantiates the oscillator with 'spiral' type values
 + (instancetype)presetSpiral;
