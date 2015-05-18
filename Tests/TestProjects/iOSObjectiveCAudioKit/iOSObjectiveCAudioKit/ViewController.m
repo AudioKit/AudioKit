@@ -20,6 +20,7 @@
     
     _tableTestInstrument= [[TableTestInstrument alloc] init];
     [AKOrchestra addInstrument:_tableTestInstrument];
+    [[[AKManager sharedManager] engine] performCsound];
 }
 
 @end
