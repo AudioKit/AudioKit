@@ -61,6 +61,118 @@
     return [[AKVCOscillator alloc] init];
 }
 
++ (instancetype)presetSawtoothOscillator
+{
+    return [[AKVCOscillator alloc] init];
+}
+
+
+- (instancetype)initWithSquareWithPWMOscillator
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForSquareWithPWM];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)presetSquareWithPWMOscillator
+{
+    return [[AKVCOscillator alloc] initWithSquareWithPWMOscillator];
+}
+
+
+- (instancetype)initWithUnnormalizedPulseOscillator
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForUnnormalizedPulse];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)presetUnnormalizedPulseOscillator
+{
+    return [[AKVCOscillator alloc] initWithUnnormalizedPulseOscillator];
+}
+
+- (instancetype)initWithIntegratedSawtoothOscillator
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForIntegratedSawtooth];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)presetIntegratedSawtoothOscillator
+{
+    return [[AKVCOscillator alloc] initWithIntegratedSawtoothOscillator];
+}
+
+- (instancetype)initWithSquareOscillator
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForSquare];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)presetSquareOscillator
+{
+    return [[AKVCOscillator alloc] initWithSquareOscillator];
+}
+
+- (instancetype)initWithTriangleOscillator
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveformType = [AKVCOscillator waveformTypeForTriangle];
+        _bandwidth = akp(0.5);
+        _pulseWidth = akp(0);
+        _frequency = akp(440);
+        _amplitude = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
+
++ (instancetype)presetTriangleOscillator
+{
+    return [[AKVCOscillator alloc] initWithTriangleOscillator];
+}
+
 - (void)setWaveformType:(AKConstant *)waveformType {
     _waveformType = waveformType;
     [self setUpConnections];

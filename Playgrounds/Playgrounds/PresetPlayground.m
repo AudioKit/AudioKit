@@ -55,7 +55,21 @@
 //    AKTambourine *presetOperation = [AKTambourine presetOpenTambourine];
 //    AKTambourine *presetOperation = [AKTambourine presetClosedTambourine];
 
-    
+///// May 17th
+// AKMandolin *testOperation = [AKMandolin presetDetunedMandolin];
+// AKMandolin *presetOperation = [AKMandolin presetSmallMandolin];
+// AKFMOscillator *presetOperation = [AKFMOscillator presetStunRay];
+// AKFMOscillator *presetOperation = [AKFMOscillator presetWobble];
+// AKFMOscillator *presetOperation = [AKFMOscillator presetFogHorn];
+// AKFMOscillator *presetOperation = [AKFMOscillator presetSpaceWobble];
+// AKFMOscillator *presetOperation = [AKFMOscillator presetBuzzer];
+// AKVCOscillator *testOperation = [AKVCOscillator presetSquareOscillator];
+// AKVCOscillator *testOperation = [AKVCOscillator presetTriangleOscillator];
+// AKVCOscillator *testOperation = [AKVCOscillator presetSawtoothOscillator];
+// AKVCOscillator *testOperation = [AKVCOscillator presetSquareWithPWMOscillator];
+// AKVCOscillator *testOperation = [AKVCOscillator presetUnnormalizedPulseOscillator];
+// AKVCOscillator *testOperation = [AKVCOscillator presetIntegratedSawtoothOscillator];
+
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
 
