@@ -40,7 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)presetDefaultMandolin;
 
 /// Instantiates the mandolin with default detuned values
+- (instancetype)initWithPresetDetunedMandolin;
+
+/// Instantiates the mandolin with default detuned values
 + (instancetype)presetDetunedMandolin;
+
+/// Instantiates the mandolin with default small-bodied values
+- (instancetype)initWithPresetSmallMandolin;
 
 /// Instantiates the mandolin with default small-bodied values
 + (instancetype)presetSmallMandolin;
