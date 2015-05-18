@@ -65,9 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the vc oscillator with a pulse-modulated squarewave
 + (instancetype)presetSquareWithPWMOscillator;
 
-/// Instantiates the vc oscillator with a ramped triangle wave
-+ (instancetype)presetRampedTriangleOscillator;
-
 /// Instantiates the vc oscillator with an unnormalized pulse wave
 + (instancetype)presetUnnormalizedPulseOscillator;
 
