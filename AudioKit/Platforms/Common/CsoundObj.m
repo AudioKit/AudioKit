@@ -132,7 +132,12 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)prepareToRecord:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
-    [self startCsoundToDisk:@[csdFilePath, outputFile]];
+//    [self startCsoundToDisk:@[csdFilePath, outputFile]];
+    self.shouldRecord = NO;
+    self.thread = [[NSThread alloc] initWithTarget:self
+                                          selector:@selector(startCsoundToDisk:)
+                                            object:@[csdFilePath, outputFile]];
+    [self.thread start];
 }
 
 - (void)record:(NSString *)csdFilePath toURL:(NSURL *)outputURL
@@ -560,7 +565,7 @@ OSStatus  Csound_Render(void *inRefCon,
     _cs = csoundCreate(NULL);
 
     char *argv[] = { "csound", (char*)[paths[0] cStringUsingEncoding:NSASCIIStringEncoding],
-        "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
+                     "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
     
     int ret = csoundCompile(_cs, 4, argv);
     NSAssert(!ret, @"Csound did not compile!");

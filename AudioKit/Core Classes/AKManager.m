@@ -181,6 +181,14 @@ static AKManager *_sharedManager = nil;
 
 - (void)runOrchestra
 {
+    if (AKSettings.shared.performToDisk) {
+        _totalRunDuration = 1.0;
+        [self writeCSDFileForOrchestra:_orchestra];
+        NSString *outPath = [NSString stringWithFormat:@"%@/AudioKit-output.aiff", NSTemporaryDirectory()];
+        [self.engine prepareToRecord:_csdFile toFile:outPath];
+        return;
+    }
+    
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
@@ -195,7 +203,7 @@ static AKManager *_sharedManager = nil;
     while(!_isRunning) {
         cycles++;
         if (cycles > 100) {
-            if (_isLogging) NSLog(@"Csound has not started in 1 second." );
+            if (_isLogging) NSLog(@"Csound has not started in 1 second.");
             break;
         }
         [NSThread sleepForTimeInterval:0.01];
