@@ -89,28 +89,6 @@
 }
 
 
-- (instancetype)initWithRampedTriangleOscillator
-{
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        // Default Values
-        _waveformType = [AKVCOscillator waveformTypeForTriangleWithRamp];
-        _bandwidth = akp(0.5);
-        _pulseWidth = akp(0);
-        _frequency = akp(440);
-        _amplitude = akp(1);
-        [self setUpConnections];
-    }
-    return self;
-}
-
-
-+ (instancetype)presetRampedTriangleOscillator
-{
-    return [[AKVCOscillator alloc] initWithRampedTriangleOscillator];
-}
-
-
 - (instancetype)initWithUnnormalizedPulseOscillator
 {
     self = [super initWithString:[self operationName]];
