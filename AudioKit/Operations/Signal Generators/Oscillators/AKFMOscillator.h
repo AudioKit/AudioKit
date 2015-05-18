@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithPresetStunRay;
 
 /// Instantiates the oscillator with 'stun-ray' type values
-- (instancetype)presetStunRay;
++ (instancetype)presetStunRay;
 
 /// Instantiates the oscillator with 'wobble' type values
 - (instancetype)initWithPresetWobble;
