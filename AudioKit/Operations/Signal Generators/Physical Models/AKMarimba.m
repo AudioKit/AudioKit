@@ -111,6 +111,35 @@
     return [[AKMarimba alloc] initWithPresetGentleMarimba];
 }
 
+- (instancetype)initWithPresetDryMutedMarimba
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(220);
+        _amplitude = akp(0.5);
+        _stickHardness = akp(0.1);
+        _strikePosition = akp(12);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0.1);
+        _doubleStrikePercentage = akp(40);
+        _tripleStrikePercentage = akp(20);
+        
+        // Constant Values
+        
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDryMutedMarimba
+{
+    return [[AKMarimba alloc] initWithPresetDryMutedMarimba];
+}
 
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
