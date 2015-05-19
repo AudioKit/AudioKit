@@ -76,6 +76,11 @@
     return [[AKMarimba alloc] init];
 }
 
++ (instancetype)presetDefaultMarimba
+{
+    return [[AKMarimba alloc] init];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
