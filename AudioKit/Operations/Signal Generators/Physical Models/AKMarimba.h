@@ -45,6 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the marimba with default values
 + (instancetype)presetDefaultMarimba;
 
+/// Instantiates the marimba with 'gentle sounding' values
+- (instancetype)initWithPresetGentleMarimba;
+
+/// Instantiates the marimba with 'gentle sounding' values
++ (instancetype)presetGentleMarimba;
+
 
 /// Frequency of note played. [Default Value: 220]
 @property (nonatomic) AKParameter *frequency;
