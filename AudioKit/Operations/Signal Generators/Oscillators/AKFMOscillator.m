@@ -56,6 +56,151 @@
     return [[AKFMOscillator alloc] init];
 }
 
++ (instancetype)presetDefaultOscillator
+{
+    return [[AKFMOscillator alloc] init];
+}
+
+
+- (instancetype)initWithPresetStunRay
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(200);
+        _carrierMultiplier = akp(90);
+        _modulatingMultiplier = akp(10);
+        _modulationIndex = akp(25);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetStunRay
+{
+    return [[AKFMOscillator alloc] initWithPresetStunRay];
+}
+
+- (instancetype)initWithPresetWobble
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(20);
+        _carrierMultiplier = akp(10);
+        _modulatingMultiplier = akp(.9);
+        _modulationIndex = akp(20);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetWobble
+{
+    return [[AKFMOscillator alloc] initWithPresetWobble];
+}
+
+- (instancetype)initWithPresetSpaceWobble
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(25);
+        _carrierMultiplier = akp(25);
+        _modulatingMultiplier = akp(.5);
+        _modulationIndex = akp(100);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSpaceWobble
+{
+    return [[AKFMOscillator alloc] initWithPresetSpaceWobble];
+}
+
+
+- (instancetype)initWithPresetFogHorn
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(25);
+        _carrierMultiplier = akp(10);
+        _modulatingMultiplier = akp(5);
+        _modulationIndex = akp(10);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetFogHorn
+{
+    return [[AKFMOscillator alloc] initWithPresetFogHorn];
+}
+
+- (instancetype)initWithPresetBuzzer
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(400);
+        _carrierMultiplier = akp(28);
+        _modulatingMultiplier = akp(.5);
+        _modulationIndex = akp(100);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetBuzzer
+{
+    return [[AKFMOscillator alloc] initWithPresetBuzzer];
+}
+
+- (instancetype)initWithPresetSpiral
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _waveform = [AKTable standardSineWave];
+        
+        _baseFrequency = akp(5);
+        _carrierMultiplier = akp(280);
+        _modulatingMultiplier = akp(.2);
+        _modulationIndex = akp(100);
+        _amplitude = akp(0.5);
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSpiral
+{
+    return [[AKFMOscillator alloc] initWithPresetSpiral];
+}
+
 - (void)setWaveform:(AKTable *)waveform {
     _waveform = waveform;
     [self setUpConnections];
