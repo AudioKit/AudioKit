@@ -45,7 +45,7 @@
         _soundFile = soundFile;
         // Default Values
         _frequencyRatio = akp(1);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _loopMode = [AKMonoSoundFileLooper loopRepeats];
         [self setUpConnections];
     }

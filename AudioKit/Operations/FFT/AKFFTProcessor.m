@@ -49,7 +49,7 @@
         // Default Values
         _frequencyRatio = akp(1);
         _timeRatio = akp(1);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _tableOffset = akp(0);
         _sizeOfFFT = akp(2048);
         _hopSize = akp(512);

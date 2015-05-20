@@ -36,7 +36,7 @@
         _waveform = [AKTable standardSineWave];
     
         _frequency = akp(440);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;
