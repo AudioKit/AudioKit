@@ -52,7 +52,7 @@
     if (self) {
         // Default Values
         _frequency = akp(220);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _stickHardness = akp(0);
         _strikePosition = akp(0.5);
         _vibratoShape = [AKTable standardSineWave];

@@ -44,7 +44,7 @@
         // Default Values
         _waveformType = [AKLowFrequencyOscillator waveformTypeForSine];
         _frequency = akp(110);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;

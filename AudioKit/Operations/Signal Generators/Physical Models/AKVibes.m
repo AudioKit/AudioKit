@@ -49,7 +49,7 @@
     if (self) {
         // Default Values
         _frequency = akp(440);
-        _amplitude = akp(1.0);
+        _amplitude = akp(0.5);
         _stickHardness = akp(0.5);
         _strikePosition = akp(0.2);
         _tremoloShape = [AKTable standardSineWave];

@@ -47,7 +47,7 @@
         _mainResonantFrequency = akp(450);
         _firstResonantFrequency = akp(600);
         _secondResonantFrequency = akp(750);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;

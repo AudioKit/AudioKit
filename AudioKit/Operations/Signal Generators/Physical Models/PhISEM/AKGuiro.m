@@ -38,7 +38,7 @@
         _count = akp(128);
         _mainResonantFrequency = akp(2500);
         _firstResonantFrequency = akp(4000);
-        _amplitude = akp(1.0);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;
@@ -62,7 +62,7 @@
         _count = akp(800);
         _mainResonantFrequency = akp(9000);
         _firstResonantFrequency = akp(4000);
-        _amplitude = akp(1.0);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;
