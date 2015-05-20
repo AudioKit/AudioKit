@@ -30,7 +30,7 @@
     [testInstrument setAudioOutput:testOperation];
 
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
-    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
+//    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
 //    AKBambooSticks *presetOperation = [AKBambooSticks presetFewSticks];
 //    AKBambooSticks *presetOperation = [AKBambooSticks presetManySticks];
 //    AKCabasa *presetOperation = [AKCabasa presetDefaultCabasa];
@@ -55,7 +55,21 @@
 //    AKTambourine *presetOperation = [AKTambourine presetOpenTambourine];
 //    AKTambourine *presetOperation = [AKTambourine presetClosedTambourine];
 
-    
+///// May 17th
+//    AKMandolin *presetOperation = [AKMandolin presetDetunedMandolin];
+//    AKMandolin *presetOperation = [AKMandolin presetSmallMandolin];
+//    AKFMOscillator *presetOperation = [AKFMOscillator presetStunRay];
+//    AKFMOscillator *presetOperation = [AKFMOscillator presetWobble];
+//    AKFMOscillator *presetOperation = [AKFMOscillator presetFogHorn];
+//    AKFMOscillator *presetOperation = [AKFMOscillator presetSpaceWobble];
+//    AKFMOscillator *presetOperation = [AKFMOscillator presetBuzzer];
+//    AKVCOscillator *presetOperation = [AKVCOscillator presetSquareOscillator];
+//    AKVCOscillator *presetOperation = [AKVCOscillator presetTriangleOscillator];
+//    AKVCOscillator *presetOperation = [AKVCOscillator presetSawtoothOscillator];
+//    AKVCOscillator *presetOperation = [AKVCOscillator presetSquareWithPWMOscillator];
+//    AKVCOscillator *presetOperation = [AKVCOscillator presetUnnormalizedPulseOscillator];
+//    AKVCOscillator *presetOperation = [AKVCOscillator presetIntegratedSawtoothOscillator];
+
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
 
@@ -70,7 +84,7 @@
 
     // As you are changing the testInstrument, you probably want to hear it
     // This will play the phrase once for each save
-    [testInstrument playPhrase:phrase];
+    [presetInstrument playPhrase:phrase];
 
     [self addButtonWithTitle:@"Play Default" block:^{
         [defaultInstrument playPhrase:phrase];
