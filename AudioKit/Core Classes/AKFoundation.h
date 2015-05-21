@@ -217,8 +217,8 @@
 // Utilities - Instruments
 
 // Utilities - Instruments - Amplifiers
-#import "Amplifier.h"
-#import "StereoAmplifier.h"
+#import "AKAmplifier.h"
+#import "AKStereoAmplifier.h"
 
 // Utilities - Instruments - Analyzers
 #import "AKAudioAnalyzer.h"
@@ -236,17 +236,17 @@
 #import "Vibraphone.h"
 
 // Utilities - Instruments - File Players
-#import "AudioFilePlayer.h"
+#import "AKAudioFilePlayer.h"
 
 // Utilities - Instruments - Microphone
-#import "Microphone.h"
+#import "AKMicrophone.h"
 
 // Utilities - Instruments - Processors
-#import "ReverbProcessor.h"
+#import "AKReverbProcessor.h"
 
 // Utilities - Instruments - Synthesizers
-#import "FMOscillatorInstrument.h"
-#import "VCOscillatorInstrument.h"
+#import "AKFMOscillatorInstrument.h"
+#import "AKVCOscillatorInstrument.h"
 
 // Utilities - Plots
 #import "AKAudioInputFFTPlot.h"

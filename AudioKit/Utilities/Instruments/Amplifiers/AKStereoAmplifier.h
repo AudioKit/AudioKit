@@ -1,5 +1,5 @@
 //
-//  Amplifier.h
+//  AKStereoAmplifier.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/20/15.
@@ -8,13 +8,13 @@
 
 #import "AKFoundation.h"
 
-/** A monophonic amplification system with amplitude control.  
+/** A stereo amplification system with amplitude control.  
  This instrument is intended to be used as the last instrument in a processing chain.
  */
-@interface Amplifier : AKInstrument
+@interface AKStereoAmplifier : AKInstrument
 
 @property (nonatomic) AKInstrumentProperty *amplitude;
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithAudioSource:(AKStereoAudio *)audioSource;
 
 @end

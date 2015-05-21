@@ -1,5 +1,5 @@
 //
-//  Microphone.h
+//  AKMicrophone.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 4/4/15.
@@ -8,7 +8,7 @@
 
 #import "AKFoundation.h"
 
-@interface Microphone : AKInstrument
+@interface AKMicrophone : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;

@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "VCOscillatorInstrument.h"
+#import "AKVCOscillatorInstrument.h"
 
-@implementation VCOscillatorInstrument
+@implementation AKVCOscillatorInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         _amplitude = [[AKInstrumentProperty alloc] initWithValue:0.5 minimum:0 maximum:1];
-        VCOscillatorNote *note = [[VCOscillatorNote alloc] init];
+        AKVCOscillatorNote *note = [[AKVCOscillatorNote alloc] init];
         AKVCOscillator *vco = [AKVCOscillator oscillator];
         vco.amplitude = _amplitude;
         vco.frequency = note.frequency;
@@ -28,7 +28,7 @@
 @end
 
 
-@implementation VCOscillatorNote
+@implementation AKVCOscillatorNote
 
 - (instancetype)init
 {

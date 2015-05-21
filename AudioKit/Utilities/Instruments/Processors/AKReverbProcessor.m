@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "ReverbProcessor.h"
+#import "AKReverbProcessor.h"
 
-@implementation ReverbProcessor
+@implementation AKReverbProcessor
 
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource
 {

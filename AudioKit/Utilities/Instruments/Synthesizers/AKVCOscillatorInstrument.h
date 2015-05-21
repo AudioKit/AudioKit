@@ -1,5 +1,5 @@
 //
-//  VCOscillatorInstrument.h
+//  AKVCOscillatorInstrument.h
 //  AudioKitPlayground
 //
 //  Created by Aurelius Prochazka on 3/22/15.
@@ -9,13 +9,13 @@
 #import "AKFoundation.h"
 
 /// An instrument for the Voltage-controlled oscillator operation
-@interface VCOscillatorInstrument : AKInstrument
+@interface AKVCOscillatorInstrument : AKInstrument
 @property AKInstrumentProperty *amplitude;
 @end
 
 
 
-@interface VCOscillatorNote : AKNote
+@interface AKVCOscillatorNote : AKNote
 @property AKNoteProperty *frequency;
 @property AKNoteProperty *waveformType;
 @end

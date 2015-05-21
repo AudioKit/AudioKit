@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Microphone.h"
+#import "AKMicrophone.h"
 
-@implementation Microphone
+@implementation AKMicrophone
 
 - (instancetype)init
 {
