@@ -33,7 +33,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _pinkBalance = akp(0);
         _beta = akp(0);
         [self setUpConnections];

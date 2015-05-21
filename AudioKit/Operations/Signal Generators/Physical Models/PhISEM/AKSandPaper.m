@@ -115,7 +115,7 @@
     NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     // Constant Values  
-    AKConstant *_amplitude = akp(1);        
+    AKConstant *_amplitude = akp(0.5);        
     AKConstant *_energyReturn = akp(0);        
     AKConstant *_maximumDuration = akp(1);        
     
