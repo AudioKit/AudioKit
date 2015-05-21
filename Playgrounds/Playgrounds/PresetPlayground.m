@@ -72,10 +72,13 @@
 
 
 ///// May 20th
-        // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
-        // AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
-        // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
-        // AKMarimba *presetOperation = [AKMarimba presetLooseMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetLooseMarimba];
+    // AKPluckedString *presetOperation = [AKPluckedString presetDecayingPluckedString];
+    // AKPluckedString *presetOperation = [AKPluckedString presetRoundedPluckedString];
+    // AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
 
 
 
