@@ -62,6 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the struck metal bar with a thick, dull sound
 + (instancetype)presetThickDullMetalBar;
 
+/// Instantiates the struck metal bar with an intense strike and a long decay
+- (instancetype)initWithPresetIntenseDecayingMetalBar;
+
+/// Instantiates the struck metal bar with an intense strike and a long decay
++ (instancetype)presetIntenseDecayingMetalBar;
+
 
 /// 30 db decay time in seconds. [Default Value: 2.0]
 @property (nonatomic) AKConstant *decayTime;
