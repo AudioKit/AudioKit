@@ -75,6 +75,33 @@
     return [[AKPluckedString alloc] init];
 }
 
+- (instancetype)initWithPresetDecayingPluckedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(440);
+        _pluckPosition = akp(0.01);
+        _samplePosition = akp(0.1);
+        _reflectionCoefficient = akp(0.5);
+        _amplitude = akp(0.5);
+        
+        // Constant Values
+        NSString *file = [AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"];
+        AKSoundFileTable *strikeImpulseTable;
+        strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:file];
+        _excitationSignal = [[AKMonoSoundFileLooper alloc] initWithSoundFile:strikeImpulseTable];
+        _excitationSignal.loopMode = [AKMonoSoundFileLooper loopPlaysOnce];
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDecayingPluckedString
+{
+    return [[AKPluckedString alloc] initWithPresetDecayingPluckedString];
+}
+
 - (void)setFrequency:(AKConstant *)frequency {
     _frequency = frequency;
     [self setUpConnections];
