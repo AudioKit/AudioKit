@@ -53,6 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the struck metal bar with default values
 + (instancetype)strike;
 
+/// Instantiates the struck metal bar with default values
++ (instancetype)presetDefaultStruckMetalBar;
+
 
 /// 30 db decay time in seconds. [Default Value: 2.0]
 @property (nonatomic) AKConstant *decayTime;
