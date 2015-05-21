@@ -70,6 +70,18 @@
 //    AKVCOscillator *presetOperation = [AKVCOscillator presetUnnormalizedPulseOscillator];
 //    AKVCOscillator *presetOperation = [AKVCOscillator presetIntegratedSawtoothOscillator];
 
+
+///// May 20th
+    // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
+    // AKMarimba *presetOperation = [AKMarimba presetLooseMarimba];
+    // AKPluckedString *presetOperation = [AKPluckedString presetDecayingPluckedString];
+    // AKPluckedString *presetOperation = [AKPluckedString presetRoundedPluckedString];
+    // AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
+
+
+
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
 
