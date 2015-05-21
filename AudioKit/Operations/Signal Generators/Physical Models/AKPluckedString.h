@@ -49,6 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the plucked string with a rounded sound
 + (instancetype)presetRoundedPluckedString;
 
+/// Instantiates the plucked string with a 'snappy' sound
+- (instancetype)initWithPresetSnappyPluckedString;
+
+/// Instantiates the plucked string with a 'snappy' sound
++ (instancetype)presetSnappyPluckedString;
+
 
 /// Frequency of the string [Default Value: 440]
 @property (nonatomic) AKConstant *frequency;
