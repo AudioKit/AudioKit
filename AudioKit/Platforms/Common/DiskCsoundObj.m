@@ -70,12 +70,8 @@
 {
     self = [super init];
     if (self) {
-        _shouldMute = NO;
-//        _bindings  = [[NSMutableArray alloc] init];
-//        _listeners = [[NSMutableArray alloc] init];
         _scoMessages  = [[NSMutableArray alloc] init];
         _orcMessages = [[NSMutableArray alloc] init];
-//        _midiInEnabled = NO;
         _cs = csoundCreate(NULL);
     }
     
@@ -86,54 +82,33 @@
 #  pragma mark - CsoundObj Interface
 // -----------------------------------------------------------------------------
 
-- (void)sendScore:(NSString *)score
-{
+- (void)sendScore:(NSString *)score {
     [_scoMessages addObject:score];
 }
 
-- (void)play:(NSString *)csdFilePath
-{
-//    self.shouldRecord = NO;
-//    self.thread = [[NSThread alloc] initWithTarget:self
-//                                          selector:@selector(runCsound:)
-//                                            object:csdFilePath];
-//    [self.thread start];
+- (void)play:(NSString *)csdFilePath {
+    // Do nothing
 }
 
-- (void)updateOrchestra:(NSString *)orchestraString
-{
+- (void)updateOrchestra:(NSString *)orchestraString {
     [_orcMessages addObject:orchestraString];
 }
 
 - (void)stop {
-//    self.running = NO;
-//    [self.thread cancel];
-//    while (!self.thread.finished) {
-//        [NSThread sleepForTimeInterval:0.01];
-//    }
+    // Do nothing
 }
 
 - (void)mute {
-//    self.shouldMute = YES;
+    // Do nothing
 }
 
 - (void)unmute {
-//    self.shouldMute = NO;
+    // Do nothing
 }
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Recording
 // -----------------------------------------------------------------------------
-
-- (void)prepareToRecord:(NSString *)csdFilePath toFile:(NSString *)outputFile
-{
-    //    [self startCsoundToDisk:@[csdFilePath, outputFile]];
-    self.shouldRecord = NO;
-    self.thread = [[NSThread alloc] initWithTarget:self
-                                          selector:@selector(startCsoundToDisk:)
-                                            object:@[csdFilePath, outputFile]];
-    [self.thread start];
-}
 
 - (void)record:(NSString *)csdFilePath toURL:(NSURL *)outputURL
 {

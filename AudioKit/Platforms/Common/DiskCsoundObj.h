@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-#ifndef AudioKit_DiskCsoundObj_h
-#define AudioKit_DiskCsoundObj_h
 
 #import "CsoundObj.h"
 
@@ -15,4 +13,3 @@
 
 @end
 
-#endif
