@@ -96,7 +96,12 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        _engine = [[CsoundObj alloc] init];
+        
+        if (AKSettings.shared.performToDisk) {
+            _engine = [[DiskCsoundObj alloc] init];
+        } else {
+            _engine = [[CsoundObj alloc] init];
+        }
         
         [_engine addListener:self];
         _engine.messageDelegate = self;
