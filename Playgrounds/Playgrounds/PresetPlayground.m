@@ -82,6 +82,13 @@
 
 
 
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetThickDullMetalBar];
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetIntenseDecayingMetalBar];
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
+
+
+
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
 
