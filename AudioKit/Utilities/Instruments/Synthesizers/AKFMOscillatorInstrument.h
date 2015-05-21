@@ -1,5 +1,5 @@
 //
-//  FMOscillatorInstrument.h
+//  AKFMOscillatorInstrument.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/20/15.
@@ -9,13 +9,13 @@
 #import "AKFoundation.h"
 
 /// A synth that uses FM Synthesis to generate sounds, with frequency and amplitude defined
-@interface FMOscillatorInstrument : AKInstrument
+@interface AKFMOscillatorInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
 @end
 
-@interface FMOscillatorNote : AKNote
+@interface AKFMOscillatorNote : AKNote
 
 // Note properties
 @property AKNoteProperty *frequency;

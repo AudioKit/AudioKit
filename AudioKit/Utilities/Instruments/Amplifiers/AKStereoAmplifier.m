@@ -1,16 +1,16 @@
 //
-//  Amplifier.m
+//  StereoAmplifier.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/20/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Amplifier.h"
+#import "AKStereoAmplifier.h"
 
-@implementation Amplifier
+@implementation AKStereoAmplifier
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithAudioSource:(AKStereoAudio *)audioSource
 {
     self = [super init];
     if (self) {
@@ -19,7 +19,7 @@
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:2.0];
 
         // Audio Output
-        [self setAudioOutput:[audioSource scaledBy:_amplitude]];
+        [self setStereoAudioOutput:[audioSource scaledBy:_amplitude]];
 
         // Reset Inputs
         [self resetParameter:audioSource];

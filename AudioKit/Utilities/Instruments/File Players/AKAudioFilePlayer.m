@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Hear For Yourself. All rights reserved.
 //
 
-#import "AudioFilePlayer.h"
+#import "AKAudioFilePlayer.h"
 
-@implementation AudioFilePlayer
+@implementation AKAudioFilePlayer
 
 - (instancetype)init
 {

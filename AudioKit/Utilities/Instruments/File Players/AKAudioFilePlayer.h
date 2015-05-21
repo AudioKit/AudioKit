@@ -1,5 +1,5 @@
 //
-//  AudioFilePlayer.h
+//  AKAudioFilePlayer.h
 //  Objective-C Sound Example
 //
 //  Created by Aurelius Prochazka on 6/16/12.
@@ -8,7 +8,7 @@
 
 #import "AKFoundation.h"
 
-@interface AudioFilePlayer : AKInstrument
+@interface AKAudioFilePlayer : AKInstrument
 
 @property (readonly) AKAudio *auxilliaryOutput;
 

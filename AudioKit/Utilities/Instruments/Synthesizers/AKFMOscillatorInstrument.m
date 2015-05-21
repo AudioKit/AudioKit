@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "FMOscillatorInstrument.h"
+#import "AKFMOscillatorInstrument.h"
 
-@implementation FMOscillatorInstrument
+@implementation AKFMOscillatorInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        FMOscillatorNote *note = [[FMOscillatorNote alloc] init];
+        AKFMOscillatorNote *note = [[AKFMOscillatorNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:0.5 minimum:0.0 maximum:1.0];
@@ -36,7 +36,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation FMOscillatorNote
+@implementation AKFMOscillatorNote
 
 - (instancetype)init
 {
