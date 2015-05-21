@@ -11,6 +11,7 @@
 		C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
 		C45552481ADF152F000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
 		C45552491ADF155A000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
+		C46D6E301B0D414C00F03451 /* DiskCsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C46D6E2F1B0D414C00F03451 /* DiskCsoundObj.m */; };
 		C4C8125B1AE5CA03003A8B73 /* Sekere.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C812591AE5CA03003A8B73 /* Sekere.h */; };
 		C4C8125C1AE5CA03003A8B73 /* Sekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8125A1AE5CA03003A8B73 /* Sekere.m */; };
 		C4C8125D1AE5CA03003A8B73 /* Sekere.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8125A1AE5CA03003A8B73 /* Sekere.m */; };
@@ -570,6 +571,8 @@
 		C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudio.m; sourceTree = "<group>"; };
 		C45552461ADF152F000C8D42 /* AKRingModulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRingModulator.h; sourceTree = "<group>"; };
 		C45552471ADF152F000C8D42 /* AKRingModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRingModulator.m; sourceTree = "<group>"; };
+		C46D6E2F1B0D414C00F03451 /* DiskCsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiskCsoundObj.m; sourceTree = "<group>"; };
+		C46D6E311B0D415E00F03451 /* DiskCsoundObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiskCsoundObj.h; sourceTree = "<group>"; };
 		C4C812591AE5CA03003A8B73 /* Sekere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sekere.h; sourceTree = "<group>"; };
 		C4C8125A1AE5CA03003A8B73 /* Sekere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sekere.m; sourceTree = "<group>"; };
 		C4FAE5EF1AED6B2600FD71E2 /* AudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFilePlayer.h; sourceTree = "<group>"; };
@@ -1006,6 +1009,8 @@
 				EAF365671ADB5EE400AA6551 /* Csound Headers */,
 				EA08B56D1AD8985F00949FD5 /* CsoundObj.h */,
 				EA08B56E1AD8985F00949FD5 /* CsoundObj.m */,
+				C46D6E311B0D415E00F03451 /* DiskCsoundObj.h */,
+				C46D6E2F1B0D414C00F03451 /* DiskCsoundObj.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2054,6 +2059,7 @@
 				EA8E95F51AD3C6850057E979 /* AKTableValue.m in Sources */,
 				EA8E95B61AD3C6850057E979 /* BambooSticks.m in Sources */,
 				EA8E95FD1AD3C6850057E979 /* AKMonoSoundFileLooper.m in Sources */,
+				C46D6E301B0D414C00F03451 /* DiskCsoundObj.m in Sources */,
 				EA8E95D11AD3C6850057E979 /* TPCircularBuffer.c in Sources */,
 				EA8E95CF1AD3C6850057E979 /* EZAudio.m in Sources */,
 				EA8E96261AD3C6850057E979 /* AKMonoFileInput.m in Sources */,

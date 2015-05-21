@@ -97,6 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Disable AudioInput
 - (void)disableAudioInput;
 
+- (void)renderToDisk;
+
 //// Stop recording
 - (void)stopRecording;
 
