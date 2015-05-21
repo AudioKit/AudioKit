@@ -44,7 +44,7 @@
     if (self) {
         // Default Values
         _frequency = akp(110);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _pressure = akp(3);
         _position = akp(0.127236);
         _vibratoShape = [AKTable standardSineWave];

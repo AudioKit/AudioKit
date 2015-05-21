@@ -48,7 +48,7 @@
         // Default Values
         _bodySize = akp(0.5);
         _frequency = akp(220);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _pairedStringDetuning = akp(1);
         _pluckPosition = akp(0.4);
         _loopGain = akp(0.99);
@@ -80,7 +80,7 @@
         // Default Values
         _bodySize = akp(0.7);
         _frequency = akp(440);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _pairedStringDetuning = akp(0.9);
         _pluckPosition = akp(0.9);
         _loopGain = akp(0.99);
@@ -106,7 +106,7 @@
         // Default Values
         _bodySize = akp(0.01);
         _frequency = akp(220);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _pairedStringDetuning = akp(1);
         _pluckPosition = akp(0.4);
         _loopGain = akp(0.99);

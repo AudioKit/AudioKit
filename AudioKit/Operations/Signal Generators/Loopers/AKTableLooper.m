@@ -53,7 +53,7 @@
         _startTime = akp(0);
         _endTime = akp(0);
         _transpositionRatio = akp(1);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _crossfadeDuration = akp(0);
         _loopMode = [AKTableLooper loopRepeats];
         [self setUpConnections];
