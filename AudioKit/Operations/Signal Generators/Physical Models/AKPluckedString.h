@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the plucked string with default values
 + (instancetype)pluck;
 
+/// Instantiates the plucked string with default values
++ (instancetype)presetDefaultPluckedString;
+
 
 /// Frequency of the string [Default Value: 440]
 @property (nonatomic) AKConstant *frequency;

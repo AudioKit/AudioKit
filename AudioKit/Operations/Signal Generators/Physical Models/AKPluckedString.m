@@ -70,6 +70,11 @@
     return [[AKPluckedString alloc] init];
 }
 
++ (instancetype)presetDefaultPluckedString
+{
+    return [[AKPluckedString alloc] init];
+}
+
 - (void)setFrequency:(AKConstant *)frequency {
     _frequency = frequency;
     [self setUpConnections];
