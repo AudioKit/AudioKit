@@ -146,6 +146,29 @@
     return [[AKStruckMetalBar alloc] initWithPresetSmallHollowMetalBar];
 }
 
+- (instancetype)initWithPresetSmallTinklingMetalBar
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _decayTime = akp(0.1);
+        _dimensionlessStiffness = akp(900);
+        _highFrequencyLoss = akp(0.1);
+        _strikePosition = akp(0.2);
+        _strikeVelocity = akp(5000);
+        _strikeWidth = akp(0.9);
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
+        _scanSpeed = akp(0.23);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSmallTinklingMetalBar
+{
+    return [[AKStruckMetalBar alloc] initWithPresetSmallTinklingMetalBar];
+}
 
 - (void)setDecayTime:(AKConstant *)decayTime {
     _decayTime = decayTime;

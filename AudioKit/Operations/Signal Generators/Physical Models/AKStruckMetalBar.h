@@ -74,6 +74,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the struck metal bar with a small, hollow sound
 + (instancetype)presetSmallHollowMetalBar;
 
+/// Instantiates the struck metal bar with a small, tinkling sound
+- (instancetype)initWithPresetSmallTinklingMetalBar;
+
+/// Instantiates the struck metal bar with a small, tinkling sound
++ (instancetype)presetSmallTinklingMetalBar;
 
 /// 30 db decay time in seconds. [Default Value: 2.0]
 @property (nonatomic) AKConstant *decayTime;
