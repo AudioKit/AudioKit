@@ -184,13 +184,17 @@ static AKManager *_sharedManager = nil;
     }
 }
 
+- (void)renderToDisk
+{
+    NSString *outPath = [NSString stringWithFormat:@"%@/AudioKit-output.aiff", NSTemporaryDirectory()];
+    [self.engine record:_csdFile toFile:outPath];
+}
+
 - (void)runOrchestra
 {
     if (AKSettings.shared.performToDisk) {
-        _totalRunDuration = 1.0;
+        if (_isLogging) NSLog(@"Starting! \n\n%@\n", [AKManager stringFromFile:_csdFile]);
         [self writeCSDFileForOrchestra:_orchestra];
-        NSString *outPath = [NSString stringWithFormat:@"%@/AudioKit-output.aiff", NSTemporaryDirectory()];
-        [self.engine prepareToRecord:_csdFile toFile:outPath];
         return;
     }
     
