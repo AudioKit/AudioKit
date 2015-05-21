@@ -14,7 +14,8 @@
 #import "AKSequence.h"
 #import "AKTable.h"
 
-#import "CsoundObj.h"
+#import "DiskCsoundObj.h"
+
 
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
