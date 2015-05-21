@@ -69,6 +69,11 @@
     return [[AKStruckMetalBar alloc] init];
 }
 
++ (instancetype)presetDefaultStruckMetalBar
+{
+    return [[AKStruckMetalBar alloc] init];
+}
+
 - (void)setDecayTime:(AKConstant *)decayTime {
     _decayTime = decayTime;
     [self setUpConnections];
