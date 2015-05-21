@@ -75,6 +75,7 @@
         // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
         // AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
         // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
+        // AKMarimba *presetOperation = [AKMarimba presetLooseMarimba];
 
 
 
