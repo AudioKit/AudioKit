@@ -52,7 +52,7 @@
         _pluckPosition = akp(0.01);
         _samplePosition = akp(0.1);
         _reflectionCoefficient = akp(0.1);
-        _amplitude = akp(1.0);
+        _amplitude = akp(0.5);
 
         // Constant Values
         NSString *file = [AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"];

@@ -49,7 +49,7 @@
         _firstHarmonicIndex = akp(1);
         _partialMultiplier = akp(1);
         _fundamentalFrequency = akp(220);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _phase = akp(0);
         [self setUpConnections];
     }

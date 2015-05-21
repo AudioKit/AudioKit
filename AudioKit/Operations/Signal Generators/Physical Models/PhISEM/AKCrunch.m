@@ -35,7 +35,7 @@
         // Default Values
         _intensity = akp(100);
         _dampingFactor = akp(0.1);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;
@@ -58,7 +58,7 @@
         // Default Values
         _intensity = akp(10000);
         _dampingFactor = akp(0.1);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;
@@ -76,7 +76,7 @@
         // Default Values
         _intensity = akp(200);
         _dampingFactor = akp(0.5);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;
