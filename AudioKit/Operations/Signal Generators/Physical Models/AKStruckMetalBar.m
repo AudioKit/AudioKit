@@ -98,6 +98,29 @@
     return [[AKStruckMetalBar alloc] initWithPresetThickDullMetalBar];
 }
 
+- (instancetype)initWithPresetIntenseDecayingMetalBar
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _decayTime = akp(5.0);
+        _dimensionlessStiffness = akp(100);
+        _highFrequencyLoss = akp(0.01);
+        _strikePosition = akp(0.2);
+        _strikeVelocity = akp(10000);
+        _strikeWidth = akp(0.2);
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
+        _scanSpeed = akp(0.23);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetIntenseDecayingMetalBar
+{
+    return [[AKStruckMetalBar alloc] initWithPresetThickDullMetalBar];
+}
 
 
 - (void)setDecayTime:(AKConstant *)decayTime {
