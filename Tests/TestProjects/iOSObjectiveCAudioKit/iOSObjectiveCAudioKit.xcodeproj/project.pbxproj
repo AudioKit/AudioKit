@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
+		C48D066F1B0E59A500EFA2EA /* ReverbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C48D066E1B0E59A500EFA2EA /* ReverbTests.m */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
 		C4B3A74B1AE30E6A00F43B96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */; };
 		C4B3A74E1AE30E6A00F43B96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74D1AE30E6A00F43B96 /* ViewController.m */; };
@@ -22,7 +23,6 @@
 		C4B3A7861AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7881AE373C000F43B96 /* MathTests.m */; };
-		C4B3A78E1AE3863B00F43B96 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A78D1AE3863B00F43B96 /* TableTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
+		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../iOSObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
+		C48D066E1B0E59A500EFA2EA /* ReverbTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverbTests.m; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3A7471AE30E6A00F43B96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,7 +92,6 @@
 		C4B3A7841AE36B8400F43B96 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
 		C4B3A7881AE373C000F43B96 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
-		C4B3A78D1AE3863B00F43B96 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +147,6 @@
 		C4B3A7451AE30E6A00F43B96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */,
 				C4B3A7491AE30E6A00F43B96 /* AppDelegate.h */,
 				C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */,
 				C4B3A74F1AE30E6A00F43B96 /* Main.storyboard */,
@@ -163,8 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				C4B3A7611AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m */,
-				C4B3A78D1AE3863B00F43B96 /* TableTests.m */,
 				C4B3A7881AE373C000F43B96 /* MathTests.m */,
+				C48D066E1B0E59A500EFA2EA /* ReverbTests.m */,
 				C4B3A75F1AE30E6A00F43B96 /* Supporting Files */,
 			);
 			path = iOSObjectiveCAudioKitTests;
@@ -173,6 +172,7 @@
 		C4B3A75F1AE30E6A00F43B96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */,
 				C4B3A7601AE30E6A00F43B96 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -346,8 +346,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B3A7621AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m in Sources */,
+				C48D066F1B0E59A500EFA2EA /* ReverbTests.m in Sources */,
 				C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */,
-				C4B3A78E1AE3863B00F43B96 /* TableTests.m in Sources */,
 				C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
