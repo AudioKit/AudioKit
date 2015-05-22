@@ -96,11 +96,11 @@ static AKManager *_sharedManager = nil;
     self = [super init];
     if (self != nil) {
         
-        if (AKSettings.shared.performToDisk) {
-            _engine = [[TestCsoundObj alloc] init];
-        } else {
-            _engine = [[CsoundObj alloc] init];
-        }
+#ifdef TRAVIS_CI
+        _engine = [[TestCsoundObj alloc] init];
+#else
+        _engine = [[CsoundObj alloc] init];
+#endif
         
         [_engine addListener:self];
         _engine.messageDelegate = self;
@@ -116,15 +116,20 @@ static AKManager *_sharedManager = nil;
         _isBatching = NO;
         
         _orchestra = [[AKOrchestra alloc] init];
+        
+        NSString *inputOption = [NSString stringWithFormat:@"-i %@", AKSettings.shared.audioInput];
+#ifdef TRAVIS_CI
+        inputOption = @"";
+#endif
 
         _options = [NSString stringWithFormat:
                     @"-o %@           ; Write sound to the host audio output\n"
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
-                    "-i %@            ; Request sound from the host audio input device",
-                    AKSettings.shared.audioOutput, AKSettings.shared.audioInput];
+                    "%@\n",
+                    AKSettings.shared.audioOutput, inputOption];
         
-        _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
+        _csdFile = [NSString stringWithFormat:@"%@/AudioKit.csd", NSTemporaryDirectory()];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
         
@@ -191,12 +196,10 @@ static AKManager *_sharedManager = nil;
 
 - (void)runOrchestra
 {
-    if (AKSettings.shared.performToDisk) {
-        if (_isLogging) NSLog(@"Testing \n\n%@\n", [AKManager stringFromFile:_csdFile]);
-        [self writeCSDFileForOrchestra:_orchestra];
-        return;
-    }
-    
+# ifdef TRAVIS_CI
+    if (_isLogging) NSLog(@"Testing \n\n%@\n", [AKManager stringFromFile:_csdFile]);
+    [self writeCSDFileForOrchestra:_orchestra];
+#else
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
@@ -216,6 +219,7 @@ static AKManager *_sharedManager = nil;
         }
         [NSThread sleepForTimeInterval:0.01];
     }
+#endif
 }
 
 - (void)runOrchestraForDuration:(NSTimeInterval)duration

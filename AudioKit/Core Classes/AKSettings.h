@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 // The following properties can be changed dynamically after AudioKit has been initalized
 @property (nonatomic) BOOL loggingEnabled, messagesEnabled;
 @property (nonatomic) BOOL audioInputEnabled, playbackWhileMuted;
-@property (nonatomic) BOOL performToDisk;
 
 @end
 NS_ASSUME_NONNULL_END

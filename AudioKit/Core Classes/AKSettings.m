@@ -37,7 +37,6 @@ static AKSettings *_settings = nil;
         _messagesEnabled = NO;
         _audioInputEnabled = NO;
         _playbackWhileMuted = NO;
-        _performToDisk = NO;
         
         // Try to load from AudioKit.plist if found
         NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
@@ -63,8 +62,6 @@ static AKSettings *_settings = nil;
                 _messagesEnabled = [dict[@"Prefix Csound Messages"] boolValue];
             if (dict[@"Playback While Muted"])
                 _playbackWhileMuted = [dict[@"Playback While Muted"] boolValue];
-            if (dict[@"Perform To Disk"])
-                _performToDisk = [dict[@"Perform To Disk"] boolValue];
         }
     }
     return self;
