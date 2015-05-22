@@ -61,6 +61,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the flute with a sound resembling a large ship horn
 + (instancetype)presetShipsHornFlute;
 
+/// Instantiates the flute with a sci-fi type sound
+- (instancetype)initWithPresetSciFiNoiseFlute;
+
+/// Instantiates the flute with a sci-fi type sound
++ (instancetype)presetSciFiNoiseFlute;
+
+
 /// Frequency of the note. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
 
