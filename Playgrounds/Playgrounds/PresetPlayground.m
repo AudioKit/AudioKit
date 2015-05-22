@@ -81,6 +81,22 @@
     // AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
 
 
+///// May 21st
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetThickDullMetalBar];
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetIntenseDecayingMetalBar];
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
+    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
+
+    // AKVibes *presetOperation = [AKVibes presetTinyVibes];
+    // AKVibes *presetOperation = [AKVibes presetGentleVibes];
+
+    // AKBowedString *presetOperation = [AKBowedString presetWhistlingBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetTrainWhislteBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetCelloBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
+
+
 
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
