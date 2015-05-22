@@ -61,6 +61,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the bowed string with a cello sound
 + (instancetype)presetCelloBowedString;
 
+/// Instantiates the bowed string with a guitar feedback-esque sound
+- (instancetype)initWithPresetFeedbackBowedString;
+
+/// Instantiates the bowed string with a guitar feedback-esque sound
++ (instancetype)presetFeedbackBowedString;
+
 
 /// Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set. [Default Value: 110]
 @property (nonatomic) AKParameter *frequency;
