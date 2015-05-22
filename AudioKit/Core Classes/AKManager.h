@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The default orchestra
 @property AKOrchestra *orchestra;
 
+@property NSTimeInterval totalRunDuration;
+
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
 

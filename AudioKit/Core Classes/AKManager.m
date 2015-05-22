@@ -25,7 +25,6 @@
     NSString *_csdFile;
     NSString *_batchInstructions;
     BOOL _isBatching;
-    NSTimeInterval _totalRunDuration;
 }
 
 @end
