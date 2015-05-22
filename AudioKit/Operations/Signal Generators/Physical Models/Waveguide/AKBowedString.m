@@ -135,10 +135,35 @@
     return self;
 }
 
-+ (instancetype)presetCelloBowedString
++ (instancetype)initWithPresetFeedbacBowedString
 {
     return [[AKBowedString alloc] initWithPresetCelloBowedString];
 }
+
+- (instancetype)initWithPresetFeedbackBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(200);
+        _amplitude = akp(0.5);
+        _pressure = akp(1);
+        _position = akp(3);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetFeedbackBowedString
+{
+    return [[AKBowedString alloc] initWithPresetFeedbackBowedString];
+}
+
 
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
