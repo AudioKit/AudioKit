@@ -67,6 +67,30 @@
     return [[AKBowedString alloc] init];
 }
 
+- (instancetype)initWithPresetWhistlingBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(770);
+        _amplitude = akp(0.5);
+        _pressure = akp(10);
+        _position = akp(0.127236);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetWhistlingBowedString
+{
+    return [[AKBowedString alloc] initWithPresetWhistlingBowedString];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
