@@ -115,7 +115,7 @@
     return [[AKBowedString alloc] initWithPresetTrainWhislteBowedString];
 }
 
-- (instancetype)initWithPresetShipHornBowedString
+- (instancetype)initWithPresetFogHornBowedString
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -134,9 +134,9 @@
     return self;
 }
 
-+ (instancetype)presetShipHornBowedString
++ (instancetype)presetFogHornBowedString
 {
-    return [[AKBowedString alloc] initWithPresetShipHornBowedString];
+    return [[AKBowedString alloc] initWithPresetFogHornBowedString];
 }
 
 - (instancetype)initWithPresetCelloBowedString
@@ -158,7 +158,7 @@
     return self;
 }
 
-+ (instancetype)initWithPresetFeedbacBowedString
++ (instancetype)presetCelloBowedString
 {
     return [[AKBowedString alloc] initWithPresetCelloBowedString];
 }
