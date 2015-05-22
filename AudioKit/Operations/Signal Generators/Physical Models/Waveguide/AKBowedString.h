@@ -56,10 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)presetTrainWhislteBowedString;
 
 /// Instantiates the bowed string with a sound like a ship horn
-- (instancetype)initWithPresetShipHornBowedString;
+- (instancetype)initWithPresetFogHornBowedString;
 
 /// Instantiates the bowed string with a sound like a ship horn
-+ (instancetype)presetShipHornBowedString;
++ (instancetype)presetFogHornBowedString;
 
 /// Instantiates the bowed string with a cello sound
 - (instancetype)initWithPresetCelloBowedString;

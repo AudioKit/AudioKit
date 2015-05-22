@@ -87,8 +87,6 @@
     // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
     // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
 
-
-
     // AKVibes *presetOperation = [AKVibes presetTinyVibes];
     // AKVibes *presetOperation = [AKVibes presetGentleVibes];
 
@@ -96,7 +94,7 @@
     // AKBowedString *presetOperation = [AKBowedString presetTrainWhislteBowedString];
     // AKBowedString *presetOperation = [AKBowedString presetCelloBowedString];
     // AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
-    // AKBowedString *presetOperation = [AKBowedString presetShipHornBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
 
 
 
