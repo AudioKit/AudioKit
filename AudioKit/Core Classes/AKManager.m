@@ -98,7 +98,7 @@ static AKManager *_sharedManager = nil;
     if (self != nil) {
         
         if (AKSettings.shared.performToDisk) {
-            _engine = [[DiskCsoundObj alloc] init];
+            _engine = [[TestCsoundObj alloc] init];
         } else {
             _engine = [[CsoundObj alloc] init];
         }
@@ -193,7 +193,7 @@ static AKManager *_sharedManager = nil;
 - (void)runOrchestra
 {
     if (AKSettings.shared.performToDisk) {
-        if (_isLogging) NSLog(@"Starting! \n\n%@\n", [AKManager stringFromFile:_csdFile]);
+        if (_isLogging) NSLog(@"Testing \n\n%@\n", [AKManager stringFromFile:_csdFile]);
         [self writeCSDFileForOrchestra:_orchestra];
         return;
     }

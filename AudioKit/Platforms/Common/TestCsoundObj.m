@@ -30,13 +30,13 @@
 
 #import "AKSettings.h"
 
-#import "DiskCsoundObj.h"
+#import "TestCsoundObj.h"
 #import "csound.h"
 
 //#import "CsoundMIDI.h"
 
 
-@interface DiskCsoundObj ()
+@interface TestCsoundObj ()
 {
     CSOUND *_cs;
     UInt32 _bufframes;
@@ -64,7 +64,7 @@
 
 @end
 
-@implementation DiskCsoundObj
+@implementation TestCsoundObj
 
 - (instancetype)init
 {
@@ -91,6 +91,7 @@
 }
 
 - (void)updateOrchestra:(NSString *)orchestraString {
+    NSLog(@"QUEUEING UP %@", orchestraString);
     [_orcMessages addObject:orchestraString];
 }
 
@@ -112,11 +113,7 @@
 
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
-    self.shouldRecord = NO;
-    self.thread = [[NSThread alloc] initWithTarget:self
-                                          selector:@selector(runCsoundToDisk:)
-                                            object:@[csdFilePath, outputFile]];
-    [self.thread start];
+    [self performSelectorOnMainThread:@selector(runCsoundToDisk:) withObject:@[csdFilePath, outputFile] waitUntilDone:YES];
 }
 
 
@@ -343,10 +340,8 @@ OSStatus  Disk_Csound_Render(void *inRefCon,
 - (void)runCsoundToDisk:(NSArray *)paths
 {
     @autoreleasepool {
-        CSOUND *cs;
+        CSOUND *cs = _cs; //csoundCreate(NULL);
         
-        cs = _cs; //csoundCreate(NULL);
-//                   _cs = cs;
         char *argv[] = { "csound", (char*)[paths[0] cStringUsingEncoding:NSASCIIStringEncoding],
             "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 4, argv);
@@ -369,8 +364,8 @@ OSStatus  Disk_Csound_Render(void *inRefCon,
                 [self updateAllValuesFromCsound];
                 [self updateAllValuesToCsound];
             }
-                csoundCleanup(cs);
-                csoundDestroy(cs);
+            csoundCleanup(cs);
+            csoundDestroy(cs);
         }
         
         [self cleanupBindings];

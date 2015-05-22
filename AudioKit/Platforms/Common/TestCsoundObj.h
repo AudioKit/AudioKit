@@ -1,5 +1,5 @@
 //
-//  DiskCsoundObj.h
+//  TestCsoundObj.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 5/20/15.
@@ -9,7 +9,7 @@
 
 #import "CsoundObj.h"
 
-@interface DiskCsoundObj : CsoundObj
+@interface TestCsoundObj : CsoundObj
 
 @end
 
