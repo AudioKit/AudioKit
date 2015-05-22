@@ -70,6 +70,11 @@
     return [[AKVibes alloc] init];
 }
 
++ (instancetype)presetDefaultVibes
+{
+    return [[AKVibes alloc] init];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
