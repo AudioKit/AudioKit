@@ -22,7 +22,5 @@
 	<false/>
 	<key>Playback While Muted</key>
 	<false/>
-	<key>Perform To Disk</key>
-	<true/>
 </dict>
 </plist>
