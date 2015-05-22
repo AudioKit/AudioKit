@@ -77,6 +77,33 @@
     return [[AKFlute alloc] init];
 }
 
+- (instancetype)initWithPresetMicFeedbackFlute
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(900);
+        _attackTime = akp(0.2);
+        _releaseTime = akp(1);
+        _airJetPressure = akp(2);
+        _jetrf = akp(0.5);
+        _endrf = akp(0.8);
+        _noiseAmplitude = akp(0.1);
+        _amplitude = akp(0.5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoAmplitude = akp(0);
+        _vibratoFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMicFeedbackFlute
+{
+    return [[AKFlute alloc] initWithPresetMicFeedbackFlute];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
