@@ -62,6 +62,11 @@
     return [[AKBowedString alloc] init];
 }
 
++ (instancetype)presetDefaultBowedString
+{
+    return [[AKBowedString alloc] init];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
