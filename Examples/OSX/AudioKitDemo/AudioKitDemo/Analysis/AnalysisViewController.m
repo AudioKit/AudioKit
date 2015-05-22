@@ -11,7 +11,7 @@
 
 @implementation AnalysisViewController
 {
-    Microphone *microphone;
+    AKMicrophone *microphone;
     AKAudioAnalyzer *analyzer;
     
     IBOutlet NSTextField *frequencyLabel;
@@ -36,7 +36,7 @@
     
     AKSettings.shared.audioInputEnabled = YES;
     
-    microphone = [[Microphone alloc] init];
+    microphone = [[AKMicrophone alloc] init];
     [AKOrchestra addInstrument:microphone];
     analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:microphone.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];

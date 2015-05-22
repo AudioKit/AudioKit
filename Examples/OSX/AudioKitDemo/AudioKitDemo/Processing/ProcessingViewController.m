@@ -23,14 +23,14 @@
     float pitchToMaintain;
     
     ConvolutionInstrument *convolver;
-    AudioFilePlayer *audioFilePlayer;
+    AKAudioFilePlayer *audioFilePlayer;
     
     BOOL isPlaying;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    audioFilePlayer = [[AudioFilePlayer alloc] init];
+    audioFilePlayer = [[AKAudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
     
     convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
