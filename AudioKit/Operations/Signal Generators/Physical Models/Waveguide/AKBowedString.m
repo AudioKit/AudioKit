@@ -115,6 +115,29 @@
     return [[AKBowedString alloc] initWithPresetTrainWhislteBowedString];
 }
 
+- (instancetype)initWithPresetShipHornBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(770);
+        _amplitude = akp(0.5);
+        _pressure = akp(0);
+        _position = akp(10);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetShipHornBowedString
+{
+    return [[AKBowedString alloc] initWithPresetShipHornBowedString];
+}
 
 - (instancetype)initWithPresetCelloBowedString
 {
