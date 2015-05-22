@@ -21,7 +21,7 @@ class ProcessingViewController: UIViewController {
     var pitchToMaintain: Float = 1.0
     
     var conv: ConvolutionInstrument!
-    let audioFilePlayer = AudioFilePlayer()
+    let audioFilePlayer = AKAudioFilePlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
