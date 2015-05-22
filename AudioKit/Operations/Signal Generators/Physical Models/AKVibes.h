@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the vibes with default values
 + (instancetype)vibes;
 
+/// Instantiates the vibes with default values
++ (instancetype)presetDefaultVibes;
+
 
 /// Frequency of note played. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
