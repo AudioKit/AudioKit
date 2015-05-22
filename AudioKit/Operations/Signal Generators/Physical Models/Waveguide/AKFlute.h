@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the flute with default values
 + (instancetype)flute;
 
+/// Instantiates the flute with default values
++ (instancetype)presetDefaultFlute;
 
 /// Frequency of the note. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
