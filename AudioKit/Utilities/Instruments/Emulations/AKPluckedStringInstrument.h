@@ -9,7 +9,7 @@
 #import "AKFoundation.h"
 
 /// An instrument that wraps the plucked string physical model
-@interface PluckedString : AKInstrument
+@interface AKPluckedStringInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
@@ -20,7 +20,7 @@
 
 @end
 
-@interface PluckedStringNote : AKNote
+@interface AKPluckedStringNote : AKNote
 
 // Note properties
 @property AKNoteProperty *frequency;

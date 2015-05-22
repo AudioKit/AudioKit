@@ -9,11 +9,11 @@
 #import "AKFoundation.h"
 
 /// An instrument that wraps the tambourine physical model
-@interface Tambourine : AKInstrument
+@interface AKTambourineInstrument : AKInstrument
 @property AKInstrumentProperty *amplitude;
 @end
 
-@interface TambourineNote : AKNote
+@interface AKTambourineNote : AKNote
 
 // Note properties
 @property AKNoteProperty *dampingFactor;

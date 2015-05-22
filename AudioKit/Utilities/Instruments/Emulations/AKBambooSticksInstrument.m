@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "BambooSticks.h"
+#import "AKBambooSticksInstrument.h"
 
-@implementation BambooSticks
+@implementation AKBambooSticksInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        BambooSticksNote *note = [[BambooSticksNote alloc] init];
+        AKBambooSticksNote *note = [[AKBambooSticksNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:1.0];
@@ -43,7 +43,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation BambooSticksNote
+@implementation AKBambooSticksNote
 
 - (instancetype)init
 {

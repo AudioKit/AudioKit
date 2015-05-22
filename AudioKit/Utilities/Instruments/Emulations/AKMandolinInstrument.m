@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Mandolin.h"
+#import "AKMandolinInstrument.h"
 
-@implementation Mandolin
+@implementation AKMandolinInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        MandolinNote *note = [[MandolinNote alloc] init];
+        AKMandolinNote *note = [[AKMandolinNote alloc] init];
 
         // Instrument Properties
         _bodySize = [self createPropertyWithValue:0.5 minimum:0.0 maximum:1.0];
@@ -45,7 +45,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation MandolinNote
+@implementation AKMandolinNote
 
 - (instancetype)init
 {

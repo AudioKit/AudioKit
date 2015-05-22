@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Stick.h"
+#import "AKStickInstrument.h"
 
-@implementation Stick
+@implementation AKStickInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        StickNote *note = [[StickNote alloc] init];
+        AKStickNote *note = [[AKStickNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:1.0];
@@ -41,7 +41,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation StickNote
+@implementation AKStickNote
 
 - (instancetype)init
 {

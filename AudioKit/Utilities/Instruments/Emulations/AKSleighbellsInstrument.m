@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Sleighbells.h"
+#import "AKSleighbellsInstrument.h"
 
-@implementation Sleighbells
+@implementation AKSleighbellsInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        SleighbellsNote *note = [[SleighbellsNote alloc] init];
+        AKSleighbellsNote *note = [[AKSleighbellsNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:1.0];
@@ -45,7 +45,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation SleighbellsNote
+@implementation AKSleighbellsNote
 
 - (instancetype)init
 {

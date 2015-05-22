@@ -1,5 +1,5 @@
 //
-//  BambooSticks.h
+//  Sleighbells.h
 //  AudioKitPlayground
 //
 //  Created by Nicholas Arner on 3/21/15.
@@ -8,8 +8,8 @@
 
 #import "AKFoundation.h"
 
-/// An instrument that wraps the bamboo sticks physical model
-@interface BambooSticks : AKInstrument
+/// An instrument that wraps the sleighbells physical model
+@interface AKSleighbellsInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
@@ -19,10 +19,11 @@
 
 @end
 
-@interface BambooSticksNote : AKNote
+@interface AKSleighbellsNote : AKNote
 
 // Note properties
-@property AKNoteProperty *count;
+@property AKNoteProperty *intensity;
+@property AKNoteProperty *dampingFactor;
 @property AKNoteProperty *mainResonantFrequency;
 @property AKNoteProperty *firstResonantFrequency;
 @property AKNoteProperty *secondResonantFrequency;
