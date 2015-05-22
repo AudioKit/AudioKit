@@ -70,6 +70,66 @@
     return [[AKVibes alloc] init];
 }
 
++ (instancetype)presetDefaultVibes
+{
+    return [[AKVibes alloc] init];
+}
+
+
+- (instancetype)initWithPresetTinyVibes
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(440);
+        _amplitude = akp(0.5);
+        _stickHardness = akp(0.9);
+        _strikePosition = akp(0.1);
+        _tremoloShape = [AKTable standardSineWave];
+        
+        _tremoloFrequency = akp(0);
+        _tremoloAmplitude = akp(0);
+        
+        // Constant Values
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetTinyVibes
+{
+    return [[AKVibes alloc] initWithPresetTinyVibes];
+}
+
+- (instancetype)initWithPresetGentleVibes
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(440);
+        _amplitude = akp(0.5);
+        _stickHardness = akp(0);
+        _strikePosition = akp(0);
+        _tremoloShape = [AKTable standardSineWave];
+        
+        _tremoloFrequency = akp(0);
+        _tremoloAmplitude = akp(0);
+        
+        // Constant Values
+        _strikeImpulseTable = [[AKSoundFileTable alloc] initWithFilename:[AKManager pathToSoundFile:@"marmstk1" ofType:@"wav"]];
+        
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetGentleVibes
+{
+    return [[AKVibes alloc] initWithPresetGentleVibes];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
