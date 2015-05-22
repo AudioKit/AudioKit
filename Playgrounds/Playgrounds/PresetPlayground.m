@@ -72,31 +72,28 @@
 
 
 ///// May 20th
-    // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
-    // AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
-    // AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
-    // AKMarimba *presetOperation = [AKMarimba presetLooseMarimba];
-    // AKPluckedString *presetOperation = [AKPluckedString presetDecayingPluckedString];
-    // AKPluckedString *presetOperation = [AKPluckedString presetRoundedPluckedString];
-    // AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
+//     AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
+//     AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
+//     AKMarimba *presetOperation = [AKMarimba presetLooseMarimba];
+//     AKPluckedString *presetOperation = [AKPluckedString presetDecayingPluckedString];
+//     AKPluckedString *presetOperation = [AKPluckedString presetRoundedPluckedString];
+//     AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
 
 
 ///// May 21st
-    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetThickDullMetalBar];
-    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetIntenseDecayingMetalBar];
-    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
-    // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
+//     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetThickDullMetalBar];
+//     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetIntenseDecayingMetalBar];
+//     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
+//     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
 
-    // AKVibes *presetOperation = [AKVibes presetTinyVibes];
-    // AKVibes *presetOperation = [AKVibes presetGentleVibes];
+//     AKVibes *presetOperation = [AKVibes presetTinyVibes];
+//     AKVibes *presetOperation = [AKVibes presetGentleVibes];
 
-    // AKBowedString *presetOperation = [AKBowedString presetWhistlingBowedString];
-    // AKBowedString *presetOperation = [AKBowedString presetTrainWhislteBowedString];
-    // AKBowedString *presetOperation = [AKBowedString presetCelloBowedString];
-    // AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
-    // AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
-
-
+//     AKBowedString *presetOperation = [AKBowedString presetWhistlingBowedString];
+//     AKBowedString *presetOperation = [AKBowedString presetTrainWhislteBowedString];
+//     AKBowedString *presetOperation = [AKBowedString presetCelloBowedString];
+//     AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
+//     AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
 
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
@@ -106,7 +103,7 @@
     [AKOrchestra addInstrument:testInstrument];
 
     AKNote *note = [[AKNote alloc] init];
-    note.duration.value = 2.0;
+    note.duration.value = 4.0;
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
 

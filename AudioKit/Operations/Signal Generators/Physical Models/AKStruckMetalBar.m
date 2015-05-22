@@ -119,7 +119,7 @@
 
 + (instancetype)presetIntenseDecayingMetalBar
 {
-    return [[AKStruckMetalBar alloc] initWithPresetThickDullMetalBar];
+    return [[AKStruckMetalBar alloc] initWithPresetIntenseDecayingMetalBar];
 }
 
 - (instancetype)initWithPresetSmallHollowMetalBar
