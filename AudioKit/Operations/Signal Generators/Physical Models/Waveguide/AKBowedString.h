@@ -55,6 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the bowed string with a sound like a train whistle
 + (instancetype)presetTrainWhislteBowedString;
 
+/// Instantiates the bowed string with a cello sound
+- (instancetype)initWithPresetCelloBowedString;
+
+/// Instantiates the bowed string with a cello sound
++ (instancetype)presetCelloBowedString;
+
 
 /// Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set. [Default Value: 110]
 @property (nonatomic) AKParameter *frequency;
