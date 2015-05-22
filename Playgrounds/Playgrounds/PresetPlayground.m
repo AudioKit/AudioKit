@@ -81,11 +81,16 @@
     // AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
 
 
-
+///// May 21st
     // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetThickDullMetalBar];
     // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetIntenseDecayingMetalBar];
     // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
     // AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
+
+
+
+    // AKVibes *presetOperation = [AKVibes presetTinyVibes];
+    // AKVibes *presetOperation = [AKVibes presetGentleVibes];
 
 
 
