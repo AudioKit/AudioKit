@@ -72,6 +72,11 @@
     return [[AKFlute alloc] init];
 }
 
++ (instancetype)presetDefaultFlute
+{
+    return [[AKFlute alloc] init];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
