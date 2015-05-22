@@ -92,6 +92,12 @@
     // AKVibes *presetOperation = [AKVibes presetTinyVibes];
     // AKVibes *presetOperation = [AKVibes presetGentleVibes];
 
+    // AKBowedString *presetOperation = [AKBowedString presetWhistlingBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetTrainWhislteBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetCelloBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
+    // AKBowedString *presetOperation = [AKBowedString presetShipHornBowedString];
+
 
 
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
