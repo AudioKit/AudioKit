@@ -158,6 +158,33 @@
     return [[AKFlute alloc] initWithPresetSciFiNoiseFlute];
 }
 
+- (instancetype)initWithPresetScreamingFlute
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(10);
+        _attackTime = akp(0.1);
+        _releaseTime = akp(0);
+        _airJetPressure = akp(0.2);
+        _jetrf = akp(0.9);
+        _endrf = akp(0.6);
+        _noiseAmplitude = akp(1);
+        _amplitude = akp(0.5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoAmplitude = akp(0);
+        _vibratoFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetScreamingFlute
+{
+    return [[AKFlute alloc] initWithPresetScreamingFlute];
+}
+
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;
     [self setUpConnections];
