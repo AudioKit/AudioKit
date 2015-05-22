@@ -9,7 +9,7 @@
 #import "AKFoundation.h"
 
 /// An instrument that wraps the marimba physical model
-@interface Marimba : AKInstrument
+@interface AKMarimbaInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
@@ -23,7 +23,7 @@
 
 @end
 
-@interface MarimbaNote : AKNote
+@interface AKMarimbaNote : AKNote
 
 // Note properties
 @property AKNoteProperty *frequency;

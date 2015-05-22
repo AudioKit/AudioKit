@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "PluckedString.h"
+#import "AKPluckedStringInstrument.h"
 
-@implementation PluckedString
+@implementation AKPluckedStringInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        PluckedStringNote *note = [[PluckedStringNote alloc] init];
+        AKPluckedStringNote *note = [[AKPluckedStringNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:1.0];
@@ -44,7 +44,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation PluckedStringNote
+@implementation AKPluckedStringNote
 
 - (instancetype)init
 {

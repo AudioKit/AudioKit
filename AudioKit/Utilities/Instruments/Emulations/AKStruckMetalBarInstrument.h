@@ -9,7 +9,7 @@
 #import "AKFoundation.h"
 
 /// An instrument that wraps the struck metal bar physical model
-@interface StruckMetalBar : AKInstrument
+@interface AKStruckMetalBarInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
@@ -19,7 +19,7 @@
 
 @end
 
-@interface StruckMetalBarNote : AKNote
+@interface AKStruckMetalBarNote : AKNote
 
 // Note properties
 @property AKNoteProperty *decayTime;

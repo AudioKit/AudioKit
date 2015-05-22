@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Tambourine.h"
+#import "AKTambourineInstrument.h"
 
-@implementation Tambourine
+@implementation AKTambourineInstrument
 
 - (instancetype)init
 {
@@ -16,7 +16,7 @@
     if (self) {
         _amplitude = [self createPropertyWithValue:0.5 minimum:0.0 maximum:1.0];
         
-        TambourineNote *note = [[TambourineNote alloc] init];
+        AKTambourineNote *note = [[AKTambourineNote alloc] init];
         AKTambourine *tambourine = [AKTambourine tambourine];
         tambourine.dampingFactor           = note.dampingFactor;
         tambourine.intensity               = note.intensity;
@@ -33,7 +33,7 @@
 #  pragma mark - Tambourine Note
 // -----------------------------------------------------------------------------
 
-@implementation TambourineNote
+@implementation AKTambourineNote
 
 - (instancetype)init
 {

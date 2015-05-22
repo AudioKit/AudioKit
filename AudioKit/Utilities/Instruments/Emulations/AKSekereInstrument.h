@@ -8,7 +8,7 @@
 
 #import "AKFoundation.h"
 
-@interface Sekere : AKInstrument
+@interface AKSekereInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
@@ -18,7 +18,7 @@
 
 @end
 
-@interface SekereNote : AKNote
+@interface AKSekereNote : AKNote
 
 // Note properties
 @property AKNoteProperty *count;

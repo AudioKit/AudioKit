@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "Sekere.h"
+#import "AKSekereInstrument.h"
 
-@implementation Sekere
+@implementation AKSekereInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        SekereNote *note = [[SekereNote alloc] init];
+        AKSekereNote *note = [[AKSekereNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:1.0];
@@ -41,7 +41,7 @@
 // -----------------------------------------------------------------------------
 
 
-@implementation SekereNote
+@implementation AKSekereNote
 
 - (instancetype)init
 {

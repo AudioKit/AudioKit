@@ -224,16 +224,16 @@
 #import "AKAudioAnalyzer.h"
 
 // Utilities - Instruments - Emulations
-#import "BambooSticks.h"
-#import "Mandolin.h"
-#import "Marimba.h"
-#import "PluckedString.h"
-#import "Sekere.h"
-#import "Sleighbells.h"
-#import "Stick.h"
-#import "StruckMetalBar.h"
-#import "Tambourine.h"
-#import "Vibraphone.h"
+#import "AKBambooSticksInstrument.h"
+#import "AKMandolinInstrument.h"
+#import "AKMarimbaInstrument.h"
+#import "AKPluckedStringInstrument.h"
+#import "AKSekereInstrument.h"
+#import "AKSleighbellsInstrument.h"
+#import "AKStickInstrument.h"
+#import "AKStruckMetalBarInstrument.h"
+#import "AKTambourineInstrument.h"
+#import "AKVibraphoneInstrument.h"
 
 // Utilities - Instruments - File Players
 #import "AKAudioFilePlayer.h"

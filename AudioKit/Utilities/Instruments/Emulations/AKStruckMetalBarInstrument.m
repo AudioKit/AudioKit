@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "StruckMetalBar.h"
+#import "AKStruckMetalBarInstrument.h"
 
-@implementation StruckMetalBar
+@implementation AKStruckMetalBarInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // Note Properties
-        StruckMetalBarNote *note = [[StruckMetalBarNote alloc] init];
+        AKStruckMetalBarNote *note = [[AKStruckMetalBarNote alloc] init];
 
         // Instrument Properties
         _amplitude = [self createPropertyWithValue:1.0 minimum:0.0 maximum:1.0];
@@ -46,7 +46,7 @@
 #  pragma mark - StruckMetalBar Note
 // -----------------------------------------------------------------------------
 
-@implementation StruckMetalBarNote
+@implementation AKStruckMetalBarNote
 
 - (instancetype)init
 {

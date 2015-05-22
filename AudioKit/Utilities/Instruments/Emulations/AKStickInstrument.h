@@ -9,7 +9,7 @@
 #import "AKFoundation.h"
 
 /// An instrument that wraps the stick physical model
-@interface Stick : AKInstrument
+@interface AKStickInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
@@ -19,7 +19,7 @@
 
 @end
 
-@interface StickNote : AKNote
+@interface AKStickNote : AKNote
 
 // Note properties
 @property AKNoteProperty *intensity;

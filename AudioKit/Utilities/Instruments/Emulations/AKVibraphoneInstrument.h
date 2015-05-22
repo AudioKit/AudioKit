@@ -1,5 +1,5 @@
 //
-//  Mandolin.h
+//  Vibraphone.h
 //  AudioKit
 //
 //  Created by Nicholas Arner on 3/20/15.
@@ -8,25 +8,24 @@
 
 #import "AKFoundation.h"
 
-/// An instrument that wraps the mandolin physical model
-@interface Mandolin : AKInstrument
+/// An instrument that wraps the vibraphone physical model
+@interface AKVibraphoneInstrument : AKInstrument
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
-@property AKInstrumentProperty *bodySize;
-@property AKInstrumentProperty *pairedStringDetuning;
 
-
-// Audio outlet for global effects processing
+// Audio outlet for global effects processing (choose mono or stereo accordingly)
 @property (readonly) AKAudio *auxilliaryOutput;
 
 @end
 
-@interface MandolinNote : AKNote
+@interface AKVibraphoneNote : AKNote
 
 // Note properties
 @property AKNoteProperty *frequency;
-@property AKNoteProperty *pluckPosition;
 @property AKNoteProperty *amplitude;
+@property AKNoteProperty *stickHardness;
+@property AKNoteProperty *strikePosition;
+
 
 @end
