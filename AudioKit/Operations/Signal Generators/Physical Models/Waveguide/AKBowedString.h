@@ -40,6 +40,39 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the bowed string with default values
 + (instancetype)bowedString;
 
+/// Instantiates the bowed string with default values
++ (instancetype)presetDefaultBowedString;
+
+/// Instantiates the bowed string with a 'whistling' sound
+- (instancetype)initWithPresetWhistlingBowedString;
+
+/// Instantiates the bowed string with a 'whistling' sound
++ (instancetype)presetWhistlingBowedString;
+
+/// Instantiates the bowed string with a sound like a train whistle
+- (instancetype)initWithPresetTrainWhislteBowedString;
+
+/// Instantiates the bowed string with a sound like a train whistle
++ (instancetype)presetTrainWhislteBowedString;
+
+/// Instantiates the bowed string with a sound like a ship horn
+- (instancetype)initWithPresetFogHornBowedString;
+
+/// Instantiates the bowed string with a sound like a ship horn
++ (instancetype)presetFogHornBowedString;
+
+/// Instantiates the bowed string with a cello sound
+- (instancetype)initWithPresetCelloBowedString;
+
+/// Instantiates the bowed string with a cello sound
++ (instancetype)presetCelloBowedString;
+
+/// Instantiates the bowed string with a guitar feedback-esque sound
+- (instancetype)initWithPresetFeedbackBowedString;
+
+/// Instantiates the bowed string with a guitar feedback-esque sound
++ (instancetype)presetFeedbackBowedString;
+
 
 /// Frequency of the note played, note that this will be lowest allowable frequency unless the optional minimum frequency is set. [Default Value: 110]
 @property (nonatomic) AKParameter *frequency;
