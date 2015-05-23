@@ -1,5 +1,5 @@
 //
-//  AKDecimatorTests.m
+//  AK3DBinauralAudioTests.m
 //  iOSObjectiveCAudioKit
 //
 //  Created by Aurelius Prochazka on 5/22/15.
@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+
 #import "AKFoundation.h"
 #import "NSData+MD5.h"
 
 #define testDuration 10.0
 
-@interface TestDecimatorInstrument : AKInstrument
+@interface Test3DBinauralAudioInstrument : AKInstrument
 @end
 
-@implementation TestDecimatorInstrument
+@implementation Test3DBinauralAudioInstrument
 
 - (instancetype)init
 {
@@ -27,42 +28,39 @@
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
         
-        AKLine *bitDepth = [[AKLine alloc] initWithFirstPoint:akp(24)
-                                                  secondPoint:akp(18)
+        AKLine *azimuth = [[AKLine alloc] initWithFirstPoint:akp(0)
+                                                  secondPoint:akp(720)
                                         durationBetweenPoints:akp(testDuration)];
-        AKLine *sampleRate = [[AKLine alloc] initWithFirstPoint:akp(5000)
-                                                    secondPoint:akp(1000)
-                                          durationBetweenPoints:akp(testDuration)];
-        AKDecimator *decimator = [[AKDecimator alloc] initWithInput:mono];
-        decimator.bitDepth = bitDepth;
-        decimator.sampleRate = sampleRate;
         
-        [self setAudioOutput:decimator];
+        AK3DBinauralAudio *binauralAudio = [[AK3DBinauralAudio alloc] initWithInput:mono];
+        binauralAudio.azimuth = azimuth;
+        
+        [self setAudioOutput:binauralAudio];
     }
     return self;
 }
 
 @end
 
-@interface AKDecimatorTests : XCTestCase
+@interface AK3DBinauralAudioTests : XCTestCase
 @end
 
-@implementation AKDecimatorTests
+@implementation AK3DBinauralAudioTests
 
-- (void)testDecimator
+- (void)test3DBinauralAudio
 {
     // Set up performance
-    TestDecimatorInstrument *testInstrument = [[TestDecimatorInstrument alloc] init];
+    Test3DBinauralAudioInstrument *testInstrument = [[Test3DBinauralAudioInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
     
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Decimator.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-3DBinauralAudio.aiff", NSTemporaryDirectory()];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"a62dd414fe5ebb6e21b3099ce1287e7e");
+    XCTAssertEqualObjects([nsData MD5], @"688ffe3ec5c35833954f039e8a21aa19");
 }
 
 @end

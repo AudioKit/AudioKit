@@ -55,17 +55,20 @@
 
 @implementation AKFMOscillatorTests
 
-- (void)testFMOscillator {
+- (void)testFMOscillator
+{
+    // Set up performance
+    TestFMOscillatorInstrument *testInstrument = [[TestFMOscillatorInstrument alloc] init];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument playForDuration:testDuration];
+    
+    // Render audio output
     NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-FMOscillator.aiff", NSTemporaryDirectory()];
-    TestFMOscillatorInstrument *fm = [[TestFMOscillatorInstrument alloc] init];
-    [AKOrchestra addInstrument:fm];
-    [fm playForDuration:testDuration];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
+    
+    // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    NSLog(@"%@", [nsData MD5]);
-    XCTAssertTrue([[nsData MD5] isEqualToString:@"99becb404ef25b519470c6768ad47a84"]);
+    XCTAssertEqualObjects([nsData MD5], @"99becb404ef25b519470c6768ad47a84");
 }
-
-
 
 @end
