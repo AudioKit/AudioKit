@@ -61,6 +61,11 @@ OSStatus  Csound_Render(void *inRefCon,
 
 @property (strong) NSMutableArray *listeners;
 
+#ifdef TRAVIS_CI
+@property (strong) NSMutableArray *orcMessages;
+@property (strong) NSMutableArray *scoMessages;
+#endif
+
 @property (strong) NSThread *thread;
 
 - (void)runCsound:(NSString *)csdFilePath;
@@ -78,6 +83,11 @@ OSStatus  Csound_Render(void *inRefCon,
         _bindings  = [[NSMutableArray alloc] init];
         _listeners = [[NSMutableArray alloc] init];
         _midiInEnabled = NO;
+#ifdef TRAVIS_CI
+        _scoMessages = [[NSMutableArray alloc] init];
+        _orcMessages = [[NSMutableArray alloc] init];
+        _cs = csoundCreate(NULL);
+#endif
     }
     
     return self;
@@ -89,41 +99,61 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)sendScore:(NSString *)score
 {
+#ifdef TRAVIS_CI
+    [_scoMessages addObject:score];
+#else
     if (_cs) {
         csoundInputMessage(_cs, (const char *)[score cStringUsingEncoding:NSASCIIStringEncoding]);
     }
+#endif
 }
 
 - (void)play:(NSString *)csdFilePath
 {
+#ifdef TRAVIS_CI
+#else
     self.shouldRecord = NO;
     self.thread = [[NSThread alloc] initWithTarget:self
                                           selector:@selector(runCsound:)
                                             object:csdFilePath];
     [self.thread start];
+#endif
 }
 
 - (void)updateOrchestra:(NSString *)orchestraString
 {
+#ifdef TRAVIS_CI
+    [_orcMessages addObject:orchestraString];
+#else
     if (_cs) {
         csoundCompileOrc(_cs, (const char *)[orchestraString cStringUsingEncoding:NSASCIIStringEncoding]);
     }
+#endif
 }
 
 - (void)stop {
+#ifdef TRAVIS_CI
+#else
     self.running = NO;
     [self.thread cancel];
     while (!self.thread.finished) {
         [NSThread sleepForTimeInterval:0.01];
     }
+#endif
 }
 
 - (void)mute {
+#ifdef TRAVIS_CI
+#else
     self.shouldMute = YES;
+#endif
 }
 
 - (void)unmute {
+#ifdef TRAVIS_CI
+#else
     self.shouldMute = NO;
+#endif
 }
 
 // -----------------------------------------------------------------------------
@@ -142,11 +172,15 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
+#ifdef TRAVIS_CI
+    [self performSelectorOnMainThread:@selector(runCsoundToDisk:) withObject:@[csdFilePath, outputFile] waitUntilDone:YES];
+#else
     self.shouldRecord = NO;
     self.thread = [[NSThread alloc] initWithTarget:self
                                           selector:@selector(runCsoundToDisk:)
                                             object:@[csdFilePath, outputFile]];
     [self.thread start];
+#endif
 }
 
 - (void)recordToURL:(NSURL *)outputURL_
@@ -553,27 +587,52 @@ OSStatus  Csound_Render(void *inRefCon,
 - (void)runCsoundToDisk:(NSArray *)paths
 {
     @autoreleasepool {
+#ifdef TRAVIS_CI
+        CSOUND *cs = _cs;
+#else
         CSOUND *cs;
         
         cs = csoundCreate(NULL);
-        
+#endif
         char *argv[] = { "csound", (char*)[paths[0] cStringUsingEncoding:NSASCIIStringEncoding],
                          "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(cs, 4, argv);
         
+#ifdef TRAVIS_CI
+        for (NSString *message in _orcMessages) {
+            csoundCompileOrc(cs, [message cStringUsingEncoding:NSASCIIStringEncoding]);
+        }
+        
+        for (NSString *message in _scoMessages) {
+            csoundReadScore(cs, [message cStringUsingEncoding:NSASCIIStringEncoding]);
+        }
+#endif
         [self setupBindings];
         [self notifyListenersOfStartup];
         
         [self updateAllValuesToCsound];
         
         if(!ret) {
+#ifdef TRAVIS_CI
+            while(csoundPerformKsmps(cs) == 0) {
+                [self updateAllValuesFromCsound];
+                [self updateAllValuesToCsound];
+            }
+#else
             csoundPerform(cs);
+#endif
             csoundCleanup(cs);
             csoundDestroy(cs);
         }
         
         [self cleanupBindings];
         [self notifyListenersOfCompletion];
+#ifdef TRAVIS_CI
+        // Prepare for next test
+        _scoMessages = [[NSMutableArray alloc] init];
+        _orcMessages = [[NSMutableArray alloc] init];
+        _cs = csoundCreate(NULL);
+#endif
     }
 }
 

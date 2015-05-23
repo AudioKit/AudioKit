@@ -97,12 +97,7 @@ static AKManager *_sharedManager = nil;
     self = [super init];
     if (self != nil) {
         
-#ifdef TRAVIS_CI
-        _engine = [[TestCsoundObj alloc] init];
-#else
         _engine = [[CsoundObj alloc] init];
-#endif
-        
         [_engine addListener:self];
         _engine.messageDelegate = self;
         

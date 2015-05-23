@@ -11,9 +11,6 @@
 		C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
 		C45552481ADF152F000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
 		C45552491ADF155A000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
-		C46D6E301B0D414C00F03451 /* TestCsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C46D6E2F1B0D414C00F03451 /* TestCsoundObj.m */; };
-		C48D06721B0F241100EFA2EA /* TestCsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C46D6E2F1B0D414C00F03451 /* TestCsoundObj.m */; };
-		C48D06731B0F241400EFA2EA /* TestCsoundObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C46D6E2F1B0D414C00F03451 /* TestCsoundObj.m */; };
 		C4C8125B1AE5CA03003A8B73 /* AKSekereInstrument.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C812591AE5CA03003A8B73 /* AKSekereInstrument.h */; };
 		C4C8125C1AE5CA03003A8B73 /* AKSekereInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8125A1AE5CA03003A8B73 /* AKSekereInstrument.m */; };
 		C4C8125D1AE5CA03003A8B73 /* AKSekereInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8125A1AE5CA03003A8B73 /* AKSekereInstrument.m */; };
@@ -573,8 +570,6 @@
 		C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudio.m; sourceTree = "<group>"; };
 		C45552461ADF152F000C8D42 /* AKRingModulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRingModulator.h; sourceTree = "<group>"; };
 		C45552471ADF152F000C8D42 /* AKRingModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRingModulator.m; sourceTree = "<group>"; };
-		C46D6E2F1B0D414C00F03451 /* TestCsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCsoundObj.m; sourceTree = "<group>"; };
-		C46D6E311B0D415E00F03451 /* TestCsoundObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCsoundObj.h; sourceTree = "<group>"; };
 		C4C812591AE5CA03003A8B73 /* AKSekereInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSekereInstrument.h; sourceTree = "<group>"; };
 		C4C8125A1AE5CA03003A8B73 /* AKSekereInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSekereInstrument.m; sourceTree = "<group>"; };
 		C4FAE5EF1AED6B2600FD71E2 /* AKAudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioFilePlayer.h; sourceTree = "<group>"; };
@@ -1011,8 +1006,6 @@
 				EAF365671ADB5EE400AA6551 /* Csound Headers */,
 				EA08B56D1AD8985F00949FD5 /* CsoundObj.h */,
 				EA08B56E1AD8985F00949FD5 /* CsoundObj.m */,
-				C46D6E311B0D415E00F03451 /* TestCsoundObj.h */,
-				C46D6E2F1B0D414C00F03451 /* TestCsoundObj.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2061,7 +2054,6 @@
 				EA8E95F51AD3C6850057E979 /* AKTableValue.m in Sources */,
 				EA8E95B61AD3C6850057E979 /* AKBambooSticksInstrument.m in Sources */,
 				EA8E95FD1AD3C6850057E979 /* AKMonoSoundFileLooper.m in Sources */,
-				C46D6E301B0D414C00F03451 /* TestCsoundObj.m in Sources */,
 				EA8E95D11AD3C6850057E979 /* TPCircularBuffer.c in Sources */,
 				EA8E95CF1AD3C6850057E979 /* EZAudio.m in Sources */,
 				EA8E96261AD3C6850057E979 /* AKMonoFileInput.m in Sources */,
@@ -2306,7 +2298,6 @@
 				EA8E96851AD3C89F0057E979 /* AKStickInstrument.m in Sources */,
 				EA8E968F1AD3C92B0057E979 /* AKAudioInputRollingWaveformPlot.m in Sources */,
 				EA8E967B1AD3C8810057E979 /* AKSampler.m in Sources */,
-				C48D06731B0F241400EFA2EA /* TestCsoundObj.m in Sources */,
 				EA8E96741AD3C8660057E979 /* AKInstrumentProperty.m in Sources */,
 				EA8E96A31AD3C9640057E979 /* AKHarmonicCosineTableGenerator.m in Sources */,
 				EA8E96881AD3C89F0057E979 /* AKVibraphoneInstrument.m in Sources */,
@@ -2490,7 +2481,6 @@
 				EAA0F57B1AE71C8F007CD7C9 /* AKNote.m in Sources */,
 				EAA0F57C1AE71C8F007CD7C9 /* AKWarpedFFT.m in Sources */,
 				EAA0F57D1AE71C8F007CD7C9 /* AKSegmentArray.m in Sources */,
-				C48D06721B0F241100EFA2EA /* TestCsoundObj.m in Sources */,
 				EAA0F57E1AE71C8F007CD7C9 /* AKAudioOutput.m in Sources */,
 				EAA0F57F1AE71C8F007CD7C9 /* AKBeatenPlate.m in Sources */,
 				EAA0F5801AE71C8F007CD7C9 /* AKVibrato.m in Sources */,
