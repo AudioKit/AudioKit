@@ -95,6 +95,17 @@
 //     AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
 //     AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
 
+
+
+///// May 22nd
+    // AKFlute *presetOperation = [AKFlute presetMicFeedbackFlute];
+    // AKFlute *presetOperation = [AKFlute presetShipsHornFlute];
+    // AKFlute *presetOperation = [AKFlute presetSciFiNoiseFlute];
+    // AKFlute *presetOperation = [AKFlute presetScreamingFlute];
+
+
+
+
 //    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
 
