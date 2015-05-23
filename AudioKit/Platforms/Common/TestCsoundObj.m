@@ -70,7 +70,7 @@
 {
     self = [super init];
     if (self) {
-        _scoMessages  = [[NSMutableArray alloc] init];
+        _scoMessages = [[NSMutableArray alloc] init];
         _orcMessages = [[NSMutableArray alloc] init];
         _cs = csoundCreate(NULL);
     }
@@ -370,7 +370,9 @@ OSStatus  Disk_Csound_Render(void *inRefCon,
         
         [self cleanupBindings];
         [self notifyListenersOfCompletion];
-        _cs = NULL;
+        _scoMessages = [[NSMutableArray alloc] init];
+        _orcMessages = [[NSMutableArray alloc] init];
+        _cs = csoundCreate(NULL);
     }
 }
 

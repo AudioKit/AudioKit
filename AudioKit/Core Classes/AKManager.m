@@ -25,6 +25,7 @@
     NSString *_csdFile;
     NSString *_batchInstructions;
     BOOL _isBatching;
+    NSTimeInterval _totalRunDuration;
 }
 
 @end
@@ -188,17 +189,17 @@ static AKManager *_sharedManager = nil;
     }
 }
 
-- (void)renderToDisk
+- (void)renderToFile:(NSString *)outputPath forDuration:(NSTimeInterval)duration
 {
-    NSString *outPath = [NSString stringWithFormat:@"%@/AudioKit-output.aiff", NSTemporaryDirectory()];
-    [self.engine record:_csdFile toFile:outPath];
+    _totalRunDuration = duration;
+    [self writeCSDFileForOrchestra:_orchestra];
+    [self.engine record:_csdFile toFile:outputPath];
 }
 
 - (void)runOrchestra
 {
 # ifdef TRAVIS_CI
-    if (_isLogging) NSLog(@"Testing \n\n%@\n", [AKManager stringFromFile:_csdFile]);
-    [self writeCSDFileForOrchestra:_orchestra];
+    return;
 #else
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");

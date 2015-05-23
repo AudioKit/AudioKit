@@ -38,8 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// The default orchestra
 @property AKOrchestra *orchestra;
 
-@property NSTimeInterval totalRunDuration;
-
 /// Common midi property shared across the application
 @property (readonly) AKMidi *midi;
 
@@ -99,7 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Disable AudioInput
 - (void)disableAudioInput;
 
-- (void)renderToDisk;
+/// For testing, render to a file instead of real time
+/// @param outputPath Destination path for the output file
+/// @param duration   Total duration of the performance
+- (void)renderToFile:(NSString *)outputPath forDuration:(NSTimeInterval)duration;
 
 //// Stop recording
 - (void)stopRecording;
