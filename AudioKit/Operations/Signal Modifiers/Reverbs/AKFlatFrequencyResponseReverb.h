@@ -40,6 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The input signal to be reverberated.
 + (instancetype)defaultReverbWithInput:(AKParameter *)input;
 
+/// Instantiates the flat frequency response reverb with 'metallic' sound
+/// @param input The input signal to be reverberated.
+- (instancetype)initMetallicReverbWithInput:(AKParameter *)input;
+
+/// Instantiates the flat frequency response reverb with a 'metallic' sound
+/// @param input The input signal to be reverberated.
++ (instancetype)metallicReverbWithInput:(AKParameter *)input;
+
 
 /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 0.5]
 @property (nonatomic) AKParameter *reverbDuration;
