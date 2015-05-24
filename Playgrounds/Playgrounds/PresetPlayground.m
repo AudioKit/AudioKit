@@ -16,13 +16,20 @@
 {
     [super run];
 
+    //Set up the source file we want to use for testing
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
     AKInstrument *defaultInstrument = [AKInstrument instrumentWithNumber:1];
     AKInstrument *testInstrument    = [AKInstrument instrumentWithNumber:2];
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
 
     // Here we just instantiate the current sensible default
-    AKTambourine *defaultOperation = [AKTambourine tambourine];
+    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
     [defaultInstrument setAudioOutput:defaultOperation];
+
 
     // Here we instead create a new instrument based on default but with new parameters
 //  GENERATOR TEMPLATE
@@ -30,14 +37,11 @@
 //    testOperation.dampingFactor = akp(0.6);
 //    [testInstrument setAudioOutput:testOperation];
     
-    
 //  MODIFIER TEMPLATE
-    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
-    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
-    audio.loop = YES;
-    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
     [testInstrument setAudioOutput:testOperation];
+
+
 
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
 //    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
@@ -113,16 +117,15 @@
     // AKFlute *presetOperation = [AKFlute presetSciFiNoiseFlute];
     // AKFlute *presetOperation = [AKFlute presetScreamingFlute];
 
+    
 
-
-
-   AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
+    AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
     [presetInstrument setAudioOutput:presetOperation];
+
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
-
 
     AKNote *note = [[AKNote alloc] init];
     note.duration.value = 4.0;
