@@ -54,6 +54,27 @@
                     delayTime:delayTime];
 }
 
+- (instancetype)initDefaultDelayWithInput:(AKParameter *)input
+                    delayTime:(AKConstant *)delayTime
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        _delayTime = delayTime;
+        // Default Values
+        _feedback = akp(0.0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultDelayWithInput:(AKParameter *)input
+                     delayTime:(AKConstant *)delayTime
+{
+    return [[AKDelay alloc] initDefaultDelayWithInput:input
+                                delayTime:delayTime];
+}
+
 - (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
     [self setUpConnections];
