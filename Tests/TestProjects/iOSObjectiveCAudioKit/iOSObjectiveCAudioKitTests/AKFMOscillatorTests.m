@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         
-    
+        
         AKLine *frequencyLine = [[AKLine alloc] initWithFirstPoint:akp(10)
                                                        secondPoint:akp(880)
                                              durationBetweenPoints:akp(testDuration)];
