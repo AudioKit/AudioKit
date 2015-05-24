@@ -52,6 +52,24 @@
     return [[AKReverb alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // Default Values
+        _feedback = akp(0.6);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultReverbWithInput:(AKParameter *)input
+{
+    return [[AKReverb alloc] initDefaultReverbWithInput:input];
+}
 
 - (instancetype)initWithStereoInput:(AKStereoAudio *)input
                            feedback:(AKParameter *)feedback
@@ -86,6 +104,26 @@
 {
     return [[AKReverb alloc] initWithStereoInput:input];
 }
+
+- (instancetype)initDefaultReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input.leftOutput;
+        _rightInput = input.rightOutput;
+        // Default Values
+        _feedback = akp(0.6);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultReverbWithStereoInput:(AKStereoAudio *)input
+{
+    return [[AKReverb alloc] initDefaultReverbWithStereoInput:input];
+}
+
 - (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
     [self setUpConnections];
