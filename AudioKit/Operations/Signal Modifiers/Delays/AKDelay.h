@@ -65,6 +65,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal, usually audio.
 + (instancetype)shortAttackDelayWithInput:(AKParameter *)input;
 
+/// Instantiates the delay with a rhythmic sound
+/// @param input Input signal, usually audio.
+- (instancetype)initRhythmicDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the delay with a rhythmic sound
+/// @param input Input signal, usually audio.
++ (instancetype)rhythmicAttackDelayWithInput:(AKParameter *)input;
 
 /// How much of the signal is sent back into the delay line.  Usually values range from 0-1. [Default Value: 0.0]
 @property (nonatomic) AKParameter *feedback;

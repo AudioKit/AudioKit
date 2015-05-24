@@ -93,6 +93,24 @@
     return [[AKDelay alloc] initChoppedDelayWithInput:input];
 }
 
+- (instancetype)initRhythmicDelayWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // 'Rhythmic' Values
+        _delayTime = akp(0.3);
+        _feedback = akp(0.1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)rhythmicAttackDelayWithInput:(AKParameter *)input;
+{
+    return [[AKDelay alloc] initRhythmicDelayWithInput:input];
+}
+
 - (instancetype)initShortAttackDelayWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
