@@ -29,8 +29,8 @@
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
         
         AKLine *azimuth = [[AKLine alloc] initWithFirstPoint:akp(0)
-                                                  secondPoint:akp(720)
-                                        durationBetweenPoints:akp(testDuration)];
+                                                 secondPoint:akp(720)
+                                       durationBetweenPoints:akp(testDuration)];
         
         AK3DBinauralAudio *binauralAudio = [[AK3DBinauralAudio alloc] initWithInput:mono];
         binauralAudio.azimuth = azimuth;
