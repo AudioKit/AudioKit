@@ -18,16 +18,23 @@
 
     //Set up the source file we want to use for testing
     NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
-    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
-    audio.loop = YES;
-    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    AKFileInput *audio1 = [[AKFileInput alloc] initWithFilename:filename];
+    audio1.loop = YES;
+    AKFileInput *audio2 = [[AKFileInput alloc] initWithFilename:filename];
+    audio2.loop = YES;
+    AKFileInput *audio3 = [[AKFileInput alloc] initWithFilename:filename];
+    audio3.loop = YES;
+    
+    AKMix *mono1 = [[AKMix alloc] initMonoAudioFromStereoInput:audio1];
+    AKMix *mono2 = [[AKMix alloc] initMonoAudioFromStereoInput:audio2];
+    AKMix *mono3 = [[AKMix alloc] initMonoAudioFromStereoInput:audio3];
     
     AKInstrument *defaultInstrument = [AKInstrument instrumentWithNumber:1];
     AKInstrument *testInstrument    = [AKInstrument instrumentWithNumber:2];
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
 
     // Here we just instantiate the current sensible default
-    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
+    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono1];
     [defaultInstrument setAudioOutput:defaultOperation];
 
 
@@ -38,7 +45,7 @@
 //    [testInstrument setAudioOutput:testOperation];
     
 //  MODIFIER TEMPLATE
-    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
+    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono2];
     [testInstrument setAudioOutput:testOperation];
 
 
@@ -119,7 +126,7 @@
 
     
 
-    AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
+    AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono3];
     [presetInstrument setAudioOutput:presetOperation];
 
 
