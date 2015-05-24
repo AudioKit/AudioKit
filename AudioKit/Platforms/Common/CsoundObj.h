@@ -94,7 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)recordToURL:(NSURL *)outputURL;
 - (void)stopRecording;
 
-
 // -----------------------------------------------------------------------------
 #  pragma mark - Binding
 // -----------------------------------------------------------------------------

@@ -1,0 +1,67 @@
+//
+//  AKADSREnvelope.m
+//  iOSObjectiveCAudioKit
+//
+//  Created by Aurelius Prochazka on 5/22/15.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <XCTest/XCTest.h>
+#import "AKFoundation.h"
+#import "NSData+MD5.h"
+
+#define testDuration 10.0
+
+@interface TestADSREnvelopeInstrument : AKInstrument
+@end
+
+@implementation TestADSREnvelopeInstrument
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+        AKADSREnvelope *adsr = [AKADSREnvelope envelope];
+        AKOscillator *oscillator = [AKOscillator oscillator];
+        oscillator.amplitude = adsr;
+        
+        [self setAudioOutput:oscillator];
+    }
+    return self;
+}
+
+@end
+
+@interface AKADSREnvelopeTests : XCTestCase
+@end
+
+@implementation AKADSREnvelopeTests
+
+- (void)testADSREnvelope
+{
+    // Set up performance
+    TestADSREnvelopeInstrument *testInstrument = [[TestADSREnvelopeInstrument alloc] init];
+    [AKOrchestra addInstrument:testInstrument];
+    AKNote *note1 = [[AKNote alloc] init];
+    AKNote *note2 = [[AKNote alloc] init];
+    
+    AKPhrase *phrase = [[AKPhrase alloc] init];
+    [phrase addNote:note1 atTime:0.5];
+    [phrase stopNote:note1 atTime:2.5];
+    note2.duration.value = 5.0;
+    [phrase addNote:note2 atTime:3.5];
+    
+    [testInstrument playPhrase:phrase];
+    
+    // Render audio output
+    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-ADSREnvelope.aiff", NSTemporaryDirectory()];
+    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
+    
+    // Check output
+    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
+    XCTAssertEqualObjects([nsData MD5], @"b31c54a90230a8baed06e922d877e3a3");
+}
+
+@end
