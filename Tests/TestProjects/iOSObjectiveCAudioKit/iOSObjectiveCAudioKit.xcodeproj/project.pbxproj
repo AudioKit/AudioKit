@@ -33,7 +33,6 @@
 		C4B3A77C1AE3101E00F43B96 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */; };
 		C4B3A7861AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
-		C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7881AE373C000F43B96 /* MathTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +112,6 @@
 		C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTestInstrument.m; sourceTree = "<group>"; };
 		C4B3A7841AE36B8400F43B96 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
-		C4B3A7881AE373C000F43B96 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +181,6 @@
 		C4B3A75E1AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				C4B3A7881AE373C000F43B96 /* MathTests.m */,
 				C422F05E1B104B6A00AD3545 /* AK3DBinauralAudioTests.m */,
 				C478500F1B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m */,
 				C47850131B11AECC00217ACA /* AKBandPassButterworthFilterTests.m */,
@@ -384,7 +381,6 @@
 				C422F0691B105ADE00AD3545 /* AKVibesTests.m in Sources */,
 				C422F0581B102D2900AD3545 /* AKDecimatorTests.m in Sources */,
 				C422F0561B0FCA4800AD3545 /* AKFMOscillatorTests.m in Sources */,
-				C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */,
 				C422F05F1B104B6A00AD3545 /* AK3DBinauralAudioTests.m in Sources */,
 				C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */,
 				C47850101B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m in Sources */,
