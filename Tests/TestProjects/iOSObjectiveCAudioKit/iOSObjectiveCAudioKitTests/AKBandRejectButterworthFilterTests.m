@@ -1,5 +1,5 @@
 //
-//  AKBandPassButterworthFilterTests.m
+//  AKBandRejectButterworthFilterTests.m
 //  iOSObjectiveCAudioKit
 //
 //  Created by Aurelius Prochazka on 5/22/15.
@@ -13,10 +13,10 @@
 
 #define testDuration 10.0
 
-@interface TestBandPassButterworthFilterInstrument : AKInstrument
+@interface TestBandRejectButterworthFilterInstrument : AKInstrument
 @end
 
-@implementation TestBandPassButterworthFilterInstrument
+@implementation TestBandRejectButterworthFilterInstrument
 
 - (instancetype)init
 {
@@ -29,41 +29,41 @@
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
         
         AKLine *centerFrequency = [[AKLine alloc] initWithFirstPoint:akp(0)
-                                                         secondPoint:akp(10000)
+                                                         secondPoint:akp(1000)
                                                durationBetweenPoints:akp(testDuration)];
-        AKLine *bandwidth = [[AKLine alloc] initWithFirstPoint:akp(2000)
-                                                   secondPoint:akp(20)
+        AKLine *bandwidth = [[AKLine alloc] initWithFirstPoint:akp(100)
+                                                   secondPoint:akp(2000)
                                          durationBetweenPoints:akp(testDuration)];
-        AKBandPassButterworthFilter *bandPassButterworthFilter = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
-        bandPassButterworthFilter.centerFrequency = centerFrequency;
-        bandPassButterworthFilter.bandwidth = bandwidth;
+        AKBandRejectButterworthFilter *bandRejectButterworthFilter = [[AKBandRejectButterworthFilter alloc] initWithInput:mono];
+        bandRejectButterworthFilter.centerFrequency = centerFrequency;
+        bandRejectButterworthFilter.bandwidth = bandwidth;
         
-        [self setAudioOutput:bandPassButterworthFilter];
+        [self setAudioOutput:bandRejectButterworthFilter];
     }
     return self;
 }
 
 @end
 
-@interface AKBandPassButterworthFilterTests : XCTestCase
+@interface AKBandRejectButterworthFilterTests : XCTestCase
 @end
 
-@implementation AKBandPassButterworthFilterTests
+@implementation AKBandRejectButterworthFilterTests
 
-- (void)testBandPassButterworthFilter
+- (void)testBandRejectButterworthFilter
 {
     // Set up performance
-    TestBandPassButterworthFilterInstrument *testInstrument = [[TestBandPassButterworthFilterInstrument alloc] init];
+    TestBandRejectButterworthFilterInstrument *testInstrument = [[TestBandRejectButterworthFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
     
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-BandPassButterworthFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-BandRejectButterworthFilter.aiff", NSTemporaryDirectory()];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"9f0e6485d779a6cf4328fb3fe9fb99e1");
+    XCTAssertEqualObjects([nsData MD5], @"13a895c3df53cfc3ff8b48484dcb082c");
 }
 
 @end
