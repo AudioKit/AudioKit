@@ -126,18 +126,17 @@
 
     
 ///// May 24th
-    AKReverb *presetOperation = [[AKReverb alloc] initSmallHallReverbWithInput:mono3];
-    AKReverb *presetOperation = [[AKReverb alloc] initLargeHallReverbWithInput:mono3];
-    AKReverb *presetOperation = [[AKReverb alloc] initMuffledCanReverbWithInput:mono3];
+    // AKReverb *presetOperation = [[AKReverb alloc] initSmallHallReverbWithInput:mono3];
+    // AKReverb *presetOperation = [[AKReverb alloc] initLargeHallReverbWithInput:mono3];
+    // AKReverb *presetOperation = [[AKReverb alloc] initMuffledCanReverbWithInput:mono3];
 
 
-    AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initMetallicReverbWithInput:mono3];
-    AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initStutteringReverbWithInput:mono3];
+    // AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initMetallicReverbWithInput:mono3];
+    // AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initStutteringReverbWithInput:mono3];
 
+    // AKDelay *presetOperation = [[AKDelay alloc] initChoppedDelayWithInput:mono3 delayTime:akp(0.5)];
 
-    AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono3];
-    [presetInstrument setAudioOutput:presetOperation];
-
+  
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];

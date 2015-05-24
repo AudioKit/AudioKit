@@ -75,6 +75,27 @@
                                 delayTime:delayTime];
 }
 
+- (instancetype)initChoppedDelayWithInput:(AKParameter *)input
+                                delayTime:(AKConstant *)delayTime
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        _delayTime = delayTime;
+        // 'Chopped' Values
+        _feedback = akp(0.5);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)choppedDelayWithInput:(AKParameter *)input
+                            delayTime:(AKConstant *)delayTime
+{
+    return [[AKDelay alloc] initChoppedDelayWithInput:input
+                                            delayTime:delayTime];
+}
+
 - (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
     [self setUpConnections];
