@@ -125,7 +125,7 @@ static AKManager *_sharedManager = nil;
                     "%@\n",
                     AKSettings.shared.audioOutput, inputOption];
         
-        _csdFile = [NSString stringWithFormat:@"%@/AudioKit.csd", NSTemporaryDirectory()];
+        _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
         
