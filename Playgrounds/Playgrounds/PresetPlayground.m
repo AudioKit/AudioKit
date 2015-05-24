@@ -136,6 +136,7 @@
 
      // AKDelay *presetOperation = [[AKDelay alloc] initChoppedDelayWithInput:mono3];
      // AKDelay *presetOperation = [[AKDelay alloc] initShortAttackDelayWithInput:mono3];
+     // AKDelay *presetOperation = [[AKDelay alloc] initRhythmicDelayWithInput:mono3];
 
   
 
