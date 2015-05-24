@@ -16,6 +16,7 @@
 
 #import "CsoundObj.h"
 
+
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
 NS_ASSUME_NONNULL_BEGIN
@@ -95,6 +96,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Disable AudioInput
 - (void)disableAudioInput;
+
+/// For testing, render to a file instead of real time
+/// @param outputPath Destination path for the output file
+/// @param duration   Total duration of the performance
+- (void)renderToFile:(NSString *)outputPath forDuration:(NSTimeInterval)duration;
 
 //// Stop recording
 - (void)stopRecording;

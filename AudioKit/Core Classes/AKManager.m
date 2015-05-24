@@ -28,10 +28,6 @@
     NSTimeInterval _totalRunDuration;
 }
 
-// Run Csound from a given filename
-// @param filename CSD file use when running Csound.
-- (void)runCSDFile:(NSString *)filename;
-
 @end
 
 @implementation AKManager
@@ -100,8 +96,8 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        _engine = [[CsoundObj alloc] init];
         
+        _engine = [[CsoundObj alloc] init];
         [_engine addListener:self];
         _engine.messageDelegate = self;
         
@@ -116,13 +112,18 @@ static AKManager *_sharedManager = nil;
         _isBatching = NO;
         
         _orchestra = [[AKOrchestra alloc] init];
+        
+        NSString *inputOption = [NSString stringWithFormat:@"-i %@", AKSettings.shared.audioInput];
+#ifdef TRAVIS_CI
+        inputOption = @"";
+#endif
 
         _options = [NSString stringWithFormat:
                     @"-o %@           ; Write sound to the host audio output\n"
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
-                    "-i %@            ; Request sound from the host audio input device",
-                    AKSettings.shared.audioOutput, AKSettings.shared.audioInput];
+                    "%@\n",
+                    AKSettings.shared.audioOutput, inputOption];
         
         _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
         _midi = [[AKMidi alloc] init];
@@ -156,22 +157,6 @@ static AKManager *_sharedManager = nil;
 #  pragma mark - Handling CSD Files
 // -----------------------------------------------------------------------------
 
-- (void)runCSDFile:(NSString *)filename 
-{
-    if(_isRunning) {
-        if (_isLogging) NSLog(@"Csound instance already active.");
-        [self stop];
-    }
-    NSString *file = [[NSBundle mainBundle] pathForResource:filename
-                                                     ofType:@"csd"];  
-    [self.engine play:file];
-    if (_isLogging) NSLog(@"Starting %@ \n\n%@\n",filename, [AKManager stringFromFile:file]);
-    while(!_isRunning) {
-        if (_isLogging) NSLog(@"Waiting for Csound to startup completely.");
-    }
-    if (_isLogging) NSLog(@"Started.");
-}
-
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
 {
     NSString *newCSD = [NSString stringWithFormat:
@@ -199,8 +184,18 @@ static AKManager *_sharedManager = nil;
     }
 }
 
+- (void)renderToFile:(NSString *)outputPath forDuration:(NSTimeInterval)duration
+{
+    _totalRunDuration = duration;
+    [self writeCSDFileForOrchestra:_orchestra];
+    [self.engine record:_csdFile toFile:outputPath];
+}
+
 - (void)runOrchestra
 {
+# ifdef TRAVIS_CI
+    return;
+#else
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
@@ -215,11 +210,12 @@ static AKManager *_sharedManager = nil;
     while(!_isRunning) {
         cycles++;
         if (cycles > 100) {
-            if (_isLogging) NSLog(@"Csound has not started in 1 second." );
+            if (_isLogging) NSLog(@"Csound has not started in 1 second.");
             break;
         }
         [NSThread sleepForTimeInterval:0.01];
     }
+#endif
 }
 
 - (void)runOrchestraForDuration:(NSTimeInterval)duration
