@@ -132,28 +132,19 @@ OSStatus  Csound_Render(void *inRefCon,
 }
 
 - (void)stop {
-#ifdef TRAVIS_CI
-#else
     self.running = NO;
     [self.thread cancel];
     while (!self.thread.finished) {
         [NSThread sleepForTimeInterval:0.01];
     }
-#endif
 }
 
 - (void)mute {
-#ifdef TRAVIS_CI
-#else
     self.shouldMute = YES;
-#endif
 }
 
 - (void)unmute {
-#ifdef TRAVIS_CI
-#else
     self.shouldMute = NO;
-#endif
 }
 
 // -----------------------------------------------------------------------------
