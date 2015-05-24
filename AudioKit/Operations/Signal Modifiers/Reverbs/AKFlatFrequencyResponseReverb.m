@@ -49,6 +49,24 @@
     return [[AKFlatFrequencyResponseReverb alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultReverbWithInput:(AKParameter *)input
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _reverbDuration = akp(0.5);
+        _loopDuration = akp(0.1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultReverbWithInput:(AKParameter *)input
+{
+    return [[AKFlatFrequencyResponseReverb alloc] initDefaultReverbWithInput:input];
+}
+
 - (void)setReverbDuration:(AKParameter *)reverbDuration {
     _reverbDuration = reverbDuration;
     [self setUpConnections];
