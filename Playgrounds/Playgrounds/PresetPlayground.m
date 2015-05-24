@@ -106,7 +106,7 @@
 
 
 
-//    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
+   AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
     [presetInstrument setAudioOutput:presetOperation];
 
     [AKOrchestra addInstrument:defaultInstrument];
