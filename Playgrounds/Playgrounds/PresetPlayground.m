@@ -25,8 +25,18 @@
     [defaultInstrument setAudioOutput:defaultOperation];
 
     // Here we instead create a new instrument based on default but with new parameters
-    AKTambourine *testOperation = [AKTambourine tambourine];
-    testOperation.dampingFactor = akp(0.6);
+//  GENERATOR TEMPLATE
+//    AKTambourine *testOperation = [AKTambourine tambourine];
+//    testOperation.dampingFactor = akp(0.6);
+//    [testInstrument setAudioOutput:testOperation];
+    
+    
+//  MODIFIER TEMPLATE
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
     [testInstrument setAudioOutput:testOperation];
 
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
@@ -110,8 +120,9 @@
     [presetInstrument setAudioOutput:presetOperation];
 
     [AKOrchestra addInstrument:defaultInstrument];
-    [AKOrchestra addInstrument:presetInstrument];
     [AKOrchestra addInstrument:testInstrument];
+    [AKOrchestra addInstrument:presetInstrument];
+
 
     AKNote *note = [[AKNote alloc] init];
     note.duration.value = 4.0;
