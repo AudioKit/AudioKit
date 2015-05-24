@@ -134,7 +134,7 @@
     // AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initMetallicReverbWithInput:mono3];
     // AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initStutteringReverbWithInput:mono3];
 
-    // AKDelay *presetOperation = [[AKDelay alloc] initChoppedDelayWithInput:mono3 delayTime:akp(0.5)];
+     // AKDelay *presetOperation = [[AKDelay alloc] initChoppedDelayWithInput:mono3];
      // AKDelay *presetOperation = [[AKDelay alloc] initShortAttackDelayWithInput:mono3];
 
   
