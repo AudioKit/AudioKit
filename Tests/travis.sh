@@ -4,7 +4,7 @@ if test `find . -name \*.pbxproj -exec grep -H /Users/ {} \;|tee /tmp/found|wc -
 	exit 1
 fi
 set -o pipefail
-xcodebuild -scheme OSXObjectiveCAudioKitTests -project Tests/TestProjects/OSXObjectiveCAudioKit/OSXObjectiveCAudioKit.xcodeproj test | xcpretty -c || exit 2
+xcodebuild -scheme iOSObjectiveCAudioKitTests -project Tests/TestProjects/iOSObjectiveCAudioKit/iOSObjectiveCAudioKit.xcodeproj test | xcpretty -c || exit 2
 xcodebuild -project Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj       -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 3
 xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj           -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 4
 xcodebuild -project Examples/iOS/Swift/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 5

@@ -7,25 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C422F0521B0FC8DC00AD3545 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0511B0FC8DC00AD3545 /* NSData+MD5.m */; };
+		C422F0561B0FCA4800AD3545 /* AKFMOscillatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0551B0FCA4800AD3545 /* AKFMOscillatorTests.m */; };
+		C422F0581B102D2900AD3545 /* AKDecimatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0571B102D2900AD3545 /* AKDecimatorTests.m */; };
+		C422F05A1B10387700AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
+		C422F05B1B10389300AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
+		C422F05F1B104B6A00AD3545 /* AK3DBinauralAudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F05E1B104B6A00AD3545 /* AK3DBinauralAudioTests.m */; };
+		C422F0631B1052C700AD3545 /* AKVibratoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0621B1052C700AD3545 /* AKVibratoTests.m */; };
+		C422F0651B1055A200AD3545 /* AKADSREnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0641B1055A200AD3545 /* AKADSREnvelope.m */; };
+		C422F0671B10582A00AD3545 /* AKBalanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0661B10582A00AD3545 /* AKBalanceTests.m */; };
+		C422F0691B105ADE00AD3545 /* AKVibesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C422F0681B105ADE00AD3545 /* AKVibesTests.m */; };
+		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
+		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
+		C47850101B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C478500F1B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m */; };
+		C47850141B11AECC00217ACA /* AKBandPassButterworthFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47850131B11AECC00217ACA /* AKBandPassButterworthFilterTests.m */; };
+		C47850161B11BAF900217ACA /* AKBandRejectButterworthFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47850151B11BAF900217ACA /* AKBandRejectButterworthFilterTests.m */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
 		C4B3A74B1AE30E6A00F43B96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */; };
 		C4B3A74E1AE30E6A00F43B96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74D1AE30E6A00F43B96 /* ViewController.m */; };
 		C4B3A7511AE30E6A00F43B96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A74F1AE30E6A00F43B96 /* Main.storyboard */; };
 		C4B3A7531AE30E6A00F43B96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7521AE30E6A00F43B96 /* Images.xcassets */; };
 		C4B3A7561AE30E6A00F43B96 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7541AE30E6A00F43B96 /* LaunchScreen.xib */; };
-		C4B3A7621AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7611AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m */; };
-		C4B3A7761AE30EA200F43B96 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */; };
-		C4B3A7791AE30F8100F43B96 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */; };
+		C4B3A7761AE30EA200F43B96 /* libAudioKit iOS Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */; };
+		C4B3A7791AE30F8100F43B96 /* libAudioKit iOS Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */; };
 		C4B3A77C1AE3101E00F43B96 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */; };
-		C4B3A7811AE3195800F43B96 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7801AE3195800F43B96 /* AudioKit.plist */; };
-		C4B3A7821AE3195800F43B96 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4B3A7801AE3195800F43B96 /* AudioKit.plist */; };
 		C4B3A7861AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
-		C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7881AE373C000F43B96 /* MathTests.m */; };
-		C4B3A78E1AE3863B00F43B96 /* TableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A78D1AE3863B00F43B96 /* TableTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C45F404A1B05C7AC00F3FC42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4B3A76B1AE30E8800F43B96 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
+		};
 		C4B3A75C1AE30E6A00F43B96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C4B3A73A1AE30E6A00F43B96 /* Project object */;
@@ -64,6 +81,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C422F0501B0FC8DC00AD3545 /* NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
+		C422F0511B0FC8DC00AD3545 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
+		C422F0551B0FCA4800AD3545 /* AKFMOscillatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFMOscillatorTests.m; sourceTree = "<group>"; };
+		C422F0571B102D2900AD3545 /* AKDecimatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDecimatorTests.m; sourceTree = "<group>"; };
+		C422F0591B10387700AD3545 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		C422F05E1B104B6A00AD3545 /* AK3DBinauralAudioTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudioTests.m; sourceTree = "<group>"; };
+		C422F0621B1052C700AD3545 /* AKVibratoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibratoTests.m; sourceTree = "<group>"; };
+		C422F0641B1055A200AD3545 /* AKADSREnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKADSREnvelope.m; sourceTree = "<group>"; };
+		C422F0661B10582A00AD3545 /* AKBalanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBalanceTests.m; sourceTree = "<group>"; };
+		C422F0681B105ADE00AD3545 /* AKVibesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibesTests.m; sourceTree = "<group>"; };
+		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../iOSObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
+		C478500F1B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBallWithinTheBoxReverbTests.m; sourceTree = "<group>"; };
+		C47850131B11AECC00217ACA /* AKBandPassButterworthFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBandPassButterworthFilterTests.m; sourceTree = "<group>"; };
+		C47850151B11BAF900217ACA /* AKBandRejectButterworthFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBandRejectButterworthFilterTests.m; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3A7471AE30E6A00F43B96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,15 +107,11 @@
 		C4B3A7551AE30E6A00F43B96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C4B3A75B1AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSObjectiveCAudioKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7601AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4B3A7611AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSObjectiveCAudioKitTests.m; sourceTree = "<group>"; };
 		C4B3A76B1AE30E8800F43B96 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		C4B3A77A1AE3101E00F43B96 /* MathTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTestInstrument.m; sourceTree = "<group>"; };
-		C4B3A7801AE3195800F43B96 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C4B3A7841AE36B8400F43B96 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
-		C4B3A7881AE373C000F43B96 /* MathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTests.m; sourceTree = "<group>"; };
-		C4B3A78D1AE3863B00F43B96 /* TableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7791AE30F8100F43B96 /* libAudioKit iOS.a in Frameworks */,
+				C4B3A7791AE30F8100F43B96 /* libAudioKit iOS Static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7761AE30EA200F43B96 /* libAudioKit iOS.a in Frameworks */,
+				C4B3A7761AE30EA200F43B96 /* libAudioKit iOS Static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +172,6 @@
 				C4B3A74F1AE30E6A00F43B96 /* Main.storyboard */,
 				C4B3A7521AE30E6A00F43B96 /* Images.xcassets */,
 				C4B3A7541AE30E6A00F43B96 /* LaunchScreen.xib */,
-				C4B3A7801AE3195800F43B96 /* AudioKit.plist */,
 				C4B3A7461AE30E6A00F43B96 /* Info.plist */,
 				C4B3A7471AE30E6A00F43B96 /* main.m */,
 			);
@@ -155,9 +181,18 @@
 		C4B3A75E1AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				C4B3A7611AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m */,
-				C4B3A78D1AE3863B00F43B96 /* TableTests.m */,
-				C4B3A7881AE373C000F43B96 /* MathTests.m */,
+				C422F05E1B104B6A00AD3545 /* AK3DBinauralAudioTests.m */,
+				C478500F1B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m */,
+				C47850131B11AECC00217ACA /* AKBandPassButterworthFilterTests.m */,
+				C47850151B11BAF900217ACA /* AKBandRejectButterworthFilterTests.m */,
+				C422F0641B1055A200AD3545 /* AKADSREnvelope.m */,
+				C422F0661B10582A00AD3545 /* AKBalanceTests.m */,
+				C422F0571B102D2900AD3545 /* AKDecimatorTests.m */,
+				C422F0551B0FCA4800AD3545 /* AKFMOscillatorTests.m */,
+				C422F0681B105ADE00AD3545 /* AKVibesTests.m */,
+				C422F0621B1052C700AD3545 /* AKVibratoTests.m */,
+				C422F0501B0FC8DC00AD3545 /* NSData+MD5.h */,
+				C422F0511B0FC8DC00AD3545 /* NSData+MD5.m */,
 				C4B3A75F1AE30E6A00F43B96 /* Supporting Files */,
 			);
 			path = iOSObjectiveCAudioKitTests;
@@ -166,6 +201,8 @@
 		C4B3A75F1AE30E6A00F43B96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C422F0591B10387700AD3545 /* AKSoundFiles.bundle */,
+				C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */,
 				C4B3A7601AE30E6A00F43B96 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -174,7 +211,8 @@
 		C4B3A76C1AE30E8800F43B96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */,
+				C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */,
+				C45F404B1B05C7AC00F3FC42 /* libAudioKit iOS Dynamic.a */,
 				C4B3A7731AE30E8800F43B96 /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -275,10 +313,17 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4B3A7711AE30E8800F43B96 /* libAudioKit iOS.a */ = {
+		C45F404B1B05C7AC00F3FC42 /* libAudioKit iOS Dynamic.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = C45F404A1B05C7AC00F3FC42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4B3A7711AE30E8800F43B96 /* libAudioKit iOS Static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Static.a";
 			remoteRef = C4B3A7701AE30E8800F43B96 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -296,9 +341,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C422F05B1B10389300AD3545 /* AKSoundFiles.bundle in Resources */,
 				C4B3A7511AE30E6A00F43B96 /* Main.storyboard in Resources */,
 				C4B3A7561AE30E6A00F43B96 /* LaunchScreen.xib in Resources */,
-				C4B3A7811AE3195800F43B96 /* AudioKit.plist in Resources */,
+				C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */,
 				C4B3A7531AE30E6A00F43B96 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,7 +353,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7821AE3195800F43B96 /* AudioKit.plist in Resources */,
+				C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */,
+				C422F05A1B10387700AD3545 /* AKSoundFiles.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,10 +377,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B3A7621AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests.m in Sources */,
-				C4B3A7891AE373C000F43B96 /* MathTests.m in Sources */,
-				C4B3A78E1AE3863B00F43B96 /* TableTests.m in Sources */,
+				C422F0631B1052C700AD3545 /* AKVibratoTests.m in Sources */,
+				C422F0691B105ADE00AD3545 /* AKVibesTests.m in Sources */,
+				C422F0581B102D2900AD3545 /* AKDecimatorTests.m in Sources */,
+				C422F0561B0FCA4800AD3545 /* AKFMOscillatorTests.m in Sources */,
+				C422F05F1B104B6A00AD3545 /* AK3DBinauralAudioTests.m in Sources */,
 				C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */,
+				C47850101B11AA8E00217ACA /* AKBallWithinTheBoxReverbTests.m in Sources */,
+				C47850141B11AECC00217ACA /* AKBandPassButterworthFilterTests.m in Sources */,
+				C422F0671B10582A00AD3545 /* AKBalanceTests.m in Sources */,
+				C422F0521B0FC8DC00AD3545 /* NSData+MD5.m in Sources */,
+				C47850161B11BAF900217ACA /* AKBandRejectButterworthFilterTests.m in Sources */,
+				C422F0651B1055A200AD3545 /* AKADSREnvelope.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

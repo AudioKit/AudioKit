@@ -7,14 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AKFoundation.h"
-#import "MathTestInstrument.h"
-#import "TableTestInstrument.h"
 
 @interface ViewController : UIViewController
-
-@property MathTestInstrument *mathTestInstrument;
-@property TableTestInstrument *tableTestInstrument;
 
 @end
 
