@@ -48,6 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input for the left channel
 + (instancetype)smallHallReverbWithInput:(AKParameter *)input;
 
+/// Instantiates the reverb with 'large hall' values
+/// @param input Input to the reverberator
+- (instancetype)initLargeHallReverbWithInput:(AKParameter *)input;
+
+/// Instantiates the reverb with 'large hall' values
+/// @param input Input to the reverberator
++ (instancetype)largeHallReverbWithInput:(AKParameter *)input;
+
 /// Instantiates the reverb with 'muffled can' values
 /// @param input Audio input
 - (instancetype)initMuffledCanReverbWithInput:(AKParameter *)input;
@@ -87,6 +95,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the reverb with 'small hall' values
 /// @param input Input to the reverberator
 + (instancetype)smallHallReverbWithStereoInput:(AKStereoAudio *)input;
+
+/// Instantiates the reverb with 'large hall' values
+/// @param input Input to the reverberator
+- (instancetype)initLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
+
+/// Instantiates the reverb with 'large hall' values
+/// @param input Input to the reverberator
++ (instancetype)largeHallReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'muffled can' values
 /// @param input Input to the reverberator
