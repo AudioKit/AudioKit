@@ -96,6 +96,24 @@
                                             delayTime:delayTime];
 }
 
+- (instancetype)initShortAttackDelayWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // 'Short attack' Values
+        _delayTime = akp(0.2);
+        _feedback = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)shortAttackDelayWithInput:(AKParameter *)input
+{
+    return [[AKDelay alloc] initShortAttackDelayWithInput:input];
+}
+
 - (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
     [self setUpConnections];
