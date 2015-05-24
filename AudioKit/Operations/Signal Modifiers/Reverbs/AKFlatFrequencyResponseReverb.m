@@ -85,6 +85,24 @@
     return [[AKFlatFrequencyResponseReverb alloc] initMetallicReverbWithInput:input];
 }
 
+- (instancetype)initStutteringReverbWithInput:(AKParameter *)input
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Metallic Values
+        _reverbDuration = akp(10);
+        _loopDuration = akp(0.1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)stutteringReverbWithInput:(AKParameter *)input
+{
+    return [[AKFlatFrequencyResponseReverb alloc] initStutteringReverbWithInput:input];
+}
+
 - (void)setReverbDuration:(AKParameter *)reverbDuration {
     _reverbDuration = reverbDuration;
     [self setUpConnections];
