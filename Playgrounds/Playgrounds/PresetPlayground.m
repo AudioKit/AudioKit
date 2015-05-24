@@ -126,6 +126,11 @@
 
     
 
+    AKReverb *presetOperation = [[AKReverb alloc] initSmallHallReverbWithInput:mono3];
+    AKReverb *presetOperation = [[AKReverb alloc] initLargeHallReverbWithInput:mono3];
+    AKReverb *presetOperation = [[AKReverb alloc] initMuffledCanReverbWithInput:mono3];
+
+
     AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono3];
     [presetInstrument setAudioOutput:presetOperation];
 
