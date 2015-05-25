@@ -40,19 +40,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the low pass butterworth filter with an extremely bass heavy sound
 /// @param input Input signal to be filtered.
-- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetBassHeavyFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass butterworth filter with an extremely bass heavy sound
 /// @param input Input signal to be filtered.
-+ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
++ (instancetype)presetBassHeavyFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass butterworth filter with an mildly bassy sound
 /// @param input Input signal to be filtered.
-- (instancetype)initMildBassFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMildBassFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass butterworth filter with an mildly bassy sound
 /// @param input Input signal to be filtered.
-+ (instancetype)mildBassFilterWithInput:(AKParameter *)input;
++ (instancetype)presetMildBassFilterWithInput:(AKParameter *)input;
 
 /// Cutoff frequency for each of the filters. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;

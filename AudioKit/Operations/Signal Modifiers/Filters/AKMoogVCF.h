@@ -42,19 +42,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the moog vcf with a high-treble sound
 /// @param input Input signal.
-- (instancetype)initHighTrebleFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetHighTrebleFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the moog vcf with a high-treble sound
 /// @param input Input signal.
-+ (instancetype)highTrebleFilterWithInput:(AKParameter *)input;
++ (instancetype)presetHighTrebleFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the moog vcf with a bass-heavy sound
 /// @param input Input signal.
-- (instancetype)initFoggyBottomFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetFoggyBottomFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the moog vcf with a bass-heavy sound
 /// @param input Input signal.
-+ (instancetype)foggyBottomFilterWithInput:(AKParameter *)input;
++ (instancetype)presetFoggyBottomFilterWithInput:(AKParameter *)input;
 
 /// Filter cut-off frequency in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;

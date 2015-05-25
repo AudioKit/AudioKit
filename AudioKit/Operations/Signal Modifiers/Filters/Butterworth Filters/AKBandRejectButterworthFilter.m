@@ -67,7 +67,7 @@
     return [[AKBandRejectButterworthFilter alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initBassRejectFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetBassRejectFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,12 +80,12 @@
     return self;
 }
 
-+ (instancetype)bassRejectFilterWithInput:(AKParameter *)input;
++ (instancetype)presetBassRejectFilterWithInput:(AKParameter *)input;
 {
-    return [[AKBandRejectButterworthFilter alloc] initBassRejectFilterWithInput:input];
+    return [[AKBandRejectButterworthFilter alloc] initWithPresetBassRejectFilterWithInput:input];
 }
 
-- (instancetype)initTrebleRejectFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetTrebleRejectFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -98,9 +98,9 @@
     return self;
 }
 
-+ (instancetype)trebleRejectFilterWithInput:(AKParameter *)input;
++ (instancetype)presetTrebleRejectFilterWithInput:(AKParameter *)input;
 {
-    return [[AKBandRejectButterworthFilter alloc] initTrebleRejectFilterWithInput:input];
+    return [[AKBandRejectButterworthFilter alloc] initWithPresetTrebleRejectFilterWithInput:input];
 }
 
 

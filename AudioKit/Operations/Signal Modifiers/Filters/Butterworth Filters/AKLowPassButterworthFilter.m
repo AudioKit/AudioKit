@@ -63,7 +63,7 @@
     return [[AKLowPassButterworthFilter alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetBassHeavyFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -75,12 +75,12 @@
     return self;
 }
 
-+ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
++ (instancetype)presetBassHeavyFilterWithInput:(AKParameter *)input;
 {
-    return [[AKLowPassButterworthFilter alloc] initBassHeavyFilterWithInput:input];
+    return [[AKLowPassButterworthFilter alloc] initWithPresetBassHeavyFilterWithInput:input];
 }
 
-- (instancetype)initMildBassFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMildBassFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -92,9 +92,9 @@
     return self;
 }
 
-+ (instancetype)mildBassFilterWithInput:(AKParameter *)input;
++ (instancetype)presetMildBassFilterWithInput:(AKParameter *)input;
 {
-    return [[AKLowPassButterworthFilter alloc] initMildBassFilterWithInput:input];
+    return [[AKLowPassButterworthFilter alloc] initWithPresetMildBassFilterWithInput:input];
 }
 
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {

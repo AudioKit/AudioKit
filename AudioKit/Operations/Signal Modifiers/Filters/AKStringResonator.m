@@ -67,7 +67,7 @@
     return [[AKStringResonator alloc] initDefaultResonatorWithInput:input];
 }
 
-- (instancetype)initMachineResonatorWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMachineResonatorWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,9 +80,9 @@
     return self;
 }
 
-+ (instancetype)machineResonatorWithInput:(AKParameter *)input;
++ (instancetype)presetMachineResonatorWithInput:(AKParameter *)input;
 {
-    return [[AKStringResonator alloc] initMachineResonatorWithInput:input];
+    return [[AKStringResonator alloc] initWithPresetMachineResonatorWithInput:input];
 }
 
 - (void)setFundamentalFrequency:(AKParameter *)fundamentalFrequency {

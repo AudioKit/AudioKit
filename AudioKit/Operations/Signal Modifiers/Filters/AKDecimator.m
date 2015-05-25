@@ -67,7 +67,7 @@
     return [[AKDecimator alloc] initDefaultDecimatorWithInput:input];
 }
 
-- (instancetype)initCrunchyDecimatorWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetCrunchyDecimatorWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,12 +80,12 @@
     return self;
 }
 
-+ (instancetype)crunchyDecimatorWithInput:(AKParameter *)input;
++ (instancetype)presetCrunchyDecimatorWithInput:(AKParameter *)input;
 {
-    return [[AKDecimator alloc] initCrunchyDecimatorWithInput:input];
+    return [[AKDecimator alloc] initWithPresetCrunchyDecimatorWithInput:input];
 }
 
-- (instancetype)initVideogameDecimatorWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetVideogameDecimatorWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -98,12 +98,12 @@
     return self;
 }
 
-+ (instancetype)videogameDecimatorWithInput:(AKParameter *)input;
++ (instancetype)presetVideogameDecimatorWithInput:(AKParameter *)input;
 {
-    return [[AKDecimator alloc] initVideogameDecimatorWithInput:input];
+    return [[AKDecimator alloc] initWithPresetVideogameDecimatorWithInput:input];
 }
 
-- (instancetype)initRobotDecimatorWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetRobotDecimatorWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -116,9 +116,9 @@
     return self;
 }
 
-+ (instancetype)robotDecimatorWithInput:(AKParameter *)input;
++ (instancetype)presetRobotDecimatorWithInput:(AKParameter *)input;
 {
-    return [[AKDecimator alloc] initRobotDecimatorWithInput:input];
+    return [[AKDecimator alloc] initWithPresetRobotDecimatorWithInput:input];
 }
 
 

@@ -67,7 +67,7 @@
     return [[AKBandPassButterworthFilter alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPrestBassHeavyFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,12 +80,12 @@
     return self;
 }
 
-+ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
++ (instancetype)presetBassHeavyFilterWithInput:(AKParameter *)input;
 {
-    return [[AKBandPassButterworthFilter alloc] initBassHeavyFilterWithInput:input];
+    return [[AKBandPassButterworthFilter alloc] initWithPrestBassHeavyFilterWithInput:input];
 }
 
-- (instancetype)initTrebleHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetTrebleHeavyFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -98,9 +98,9 @@
     return self;
 }
 
-+ (instancetype)trebleHeavyFilterWithInput:(AKParameter *)input;
++ (instancetype)presetTrebleHeavyFilterWithInput:(AKParameter *)input;
 {
-    return [[AKBandPassButterworthFilter alloc] initTrebleHeavyFilterWithInput:input];
+    return [[AKBandPassButterworthFilter alloc] initWithPresetTrebleHeavyFilterWithInput:input];
 }
 
 - (void)setCenterFrequency:(AKParameter *)centerFrequency {

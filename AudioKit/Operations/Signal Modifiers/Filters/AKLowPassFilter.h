@@ -40,11 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the low pass filter with a muffled sound
 /// @param input The control to be filtered
-- (instancetype)initMuffledFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass filter with a muffled sound
 /// @param input The control to be filtered
-+ (instancetype)muffledFilterWithInput:(AKParameter *)input;
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
 
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000]

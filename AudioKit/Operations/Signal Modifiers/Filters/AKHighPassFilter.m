@@ -63,7 +63,7 @@
     return [[AKHighPassFilter alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initHighCutoffFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetHighCutoffFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -75,9 +75,9 @@
     return self;
 }
 
-+ (instancetype)highCutoffFilterWithInput:(AKParameter *)input;
++ (instancetype)presetHighCutoffFilterWithInput:(AKParameter *)input;
 {
-    return [[AKHighPassFilter alloc] initHighCutoffFilterWithInput:input];
+    return [[AKHighPassFilter alloc] initWithPresetHighCutoffFilterWithInput:input];
 }
 
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {

@@ -40,19 +40,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the high pass butterworth filter with a moderate cutoff
 /// @param input Input signal to be filtered.
-- (instancetype)initModerateFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetModerateFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass butterworth filter with a moderate cutoff
 /// @param input Input signal to be filtered.
-+ (instancetype)moderateFilterWithInput:(AKParameter *)input;
++ (instancetype)presetModerateFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass butterworth filter with an extreme cutoff
 /// @param input Input signal to be filtered.
-- (instancetype)initExtremeFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetExtremeFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass butterworth filter with extreme cutoff
 /// @param input Input signal to be filtered.
-+ (instancetype)extremeFilterWithInput:(AKParameter *)input;
++ (instancetype)presetExtremeFilterWithInput:(AKParameter *)input;
 
 
 /// Cutoff frequency for each of the filters. [Default Value: 500]
