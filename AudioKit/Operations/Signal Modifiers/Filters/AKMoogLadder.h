@@ -48,6 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal
 + (instancetype)underwaterFilterWithInput:(AKParameter *)input;
 
+/// Instantiates the moog ladder with an bass-heavy sound
+/// @param input Input signal
+- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with an bass-heavy sound
+/// @param input Input signal
++ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
+
 /// Filter cutoff frequency [Default Value: 100]
 @property (nonatomic) AKParameter *cutoffFrequency;
 
