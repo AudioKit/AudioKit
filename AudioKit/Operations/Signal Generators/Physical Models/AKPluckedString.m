@@ -51,7 +51,7 @@
         _frequency = akp(440);
         _pluckPosition = akp(0.01);
         _samplePosition = akp(0.1);
-        _reflectionCoefficient = akp(0.1);
+        _reflectionCoefficient = akp(1);
         _amplitude = akp(0.5);
 
         // Constant Values
