@@ -46,6 +46,40 @@
     return [[AKLowPassFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _halfPowerPoint = akp(1000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKLowPassFilter alloc] initDefaultFilterWithInput:input];
+}
+
+- (instancetype)initMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _halfPowerPoint = akp(100);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)muffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKLowPassFilter alloc] initMuffledFilterWithInput:input];
+}
+
 - (void)setHalfPowerPoint:(AKParameter *)halfPowerPoint {
     _halfPowerPoint = halfPowerPoint;
     [self setUpConnections];

@@ -152,7 +152,10 @@
 
     // AKMoogVCF *presetOperation = [[AKMoogVCF alloc] initHighTrebleFilterWithInput:mono3];
     // AKMoogVCF *presetOperation = [[AKMoogVCF alloc] initFoggyBottomFilterWithInput:mono3];
+
     // AKStringResonator *presetOperation = [[AKStringResonator alloc] initMachineResonatorWithInput:mono3];
+
+    // AKLowPassFilter *presetOperation = [[AKLowPassFilter alloc] initMuffledFilterWithInput:mono3];
 
 
     [AKOrchestra addInstrument:defaultInstrument];
