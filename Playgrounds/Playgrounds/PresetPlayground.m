@@ -138,6 +138,9 @@
      // AKDelay *presetOperation = [[AKDelay alloc] initShortAttackDelayWithInput:mono3];
      // AKDelay *presetOperation = [[AKDelay alloc] initRhythmicDelayWithInput:mono3];
 
+     // AKCombFilter *presetOperation = [[AKCombFilter alloc] initShufflingFilterWithInput:mono3];
+     // AKCombFilter *presetOperation = [[AKCombFilter alloc] initSpringyFilterWithInput:mono3];
+
   
 
     [AKOrchestra addInstrument:defaultInstrument];
