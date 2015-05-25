@@ -30,7 +30,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the string resonator with default values
 /// @param input The input audio signal.
-+ (instancetype)WithInput:(AKParameter *)input;
++ (instancetype)resonatorWithInput:(AKParameter *)input;
+
+/// Instantiates the string resonator with default values
+/// @param input The input audio signal.
+- (instancetype)initDefaultResonatorWithInput:(AKParameter *)input;
+
+/// Instantiates the string resonator with default values
+/// @param input The input audio signal.
++ (instancetype)defaultResonatorWithInput:(AKParameter *)input;
+
+/// Instantiates the string resonator with a machine-like sound
+/// @param input The input audio signal.
+- (instancetype)initWithPresetMachineResonatorWithInput:(AKParameter *)input;
+
+/// Instantiates the string resonator with machine-like sound
+/// @param input The input audio signal.
++ (instancetype)presetMachineResonatorWithInput:(AKParameter *)input;
+
 
 /// The fundamental frequency of the string. [Default Value: 100]
 @property (nonatomic) AKParameter *fundamentalFrequency;
