@@ -40,12 +40,12 @@
 		C4C8120F1AE44C36003A8B73 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
 		C4C812121AE44C72003A8B73 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		C4C812131AE44C7B003A8B73 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
-		EA89F55F1AE877A100858344 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
 		EA89F5631AE877AD00858344 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027F1AE6271B00643340 /* MathTestInstrument.m */; };
-		EAA0F5AD1AE83EE3007CD7C9 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C8120C1AE44BE7003A8B73 /* libAudioKit OS X.a */; };
 		EAA0F5AE1AE83F18007CD7C9 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
 		EAA0F5B01AE8400F007CD7C9 /* CsoundLib.framework in Resources */ = {isa = PBXBuildFile; fileRef = C4C812111AE44C72003A8B73 /* CsoundLib.framework */; };
+		EAEF77021B13E33B00342559 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB02811AE6271B00643340 /* TableTestInstrument.m */; };
+		EAEF77031B13E34000342559 /* TrackedFrequencyTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB027B1AE626EE00643340 /* TrackedFrequencyTestInstrument.m */; };
+		EAEF77051B13E6B900342559 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAEF77041B13E6B900342559 /* AKSoundFiles.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +145,7 @@
 		C4DB027F1AE6271B00643340 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MathTestInstrument.m; path = "Test Instruments/MathTestInstrument.m"; sourceTree = "<group>"; };
 		C4DB02801AE6271B00643340 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableTestInstrument.h; path = "Test Instruments/TableTestInstrument.h"; sourceTree = "<group>"; };
 		C4DB02811AE6271B00643340 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableTestInstrument.m; path = "Test Instruments/TableTestInstrument.m"; sourceTree = "<group>"; };
+		EAEF77041B13E6B900342559 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +163,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAA0F5AE1AE83F18007CD7C9 /* CsoundLib.framework in Frameworks */,
-				EAA0F5AD1AE83EE3007CD7C9 /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C4C811EB1AE44BDB003A8B73 /* Images.xcassets */,
+				EAEF77041B13E6B900342559 /* AKSoundFiles.bundle */,
 				C4C811ED1AE44BDB003A8B73 /* MainMenu.xib */,
 				C4C811E61AE44BDB003A8B73 /* AppDelegate.h */,
 				C4C811E71AE44BDB003A8B73 /* AppDelegate.m */,
@@ -400,6 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEF77051B13E6B900342559 /* AKSoundFiles.bundle in Resources */,
 				C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */,
 				C4C811EF1AE44BDB003A8B73 /* MainMenu.xib in Resources */,
 			);
@@ -449,7 +451,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEF77031B13E34000342559 /* TrackedFrequencyTestInstrument.m in Sources */,
 				C4C811EA1AE44BDB003A8B73 /* main.m in Sources */,
+				EAEF77021B13E33B00342559 /* TableTestInstrument.m in Sources */,
 				C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */,
 				EA89F5631AE877AD00858344 /* MathTestInstrument.m in Sources */,
 			);
@@ -470,7 +474,6 @@
 				C41408891B13D468001FD024 /* AKLowPassFilter.m in Sources */,
 				C41408771B13D468001FD024 /* AKBalanceTests.m in Sources */,
 				C41408821B13D468001FD024 /* AKDecimatorTests.m in Sources */,
-				EA89F55F1AE877A100858344 /* TableTestInstrument.m in Sources */,
 				C414087F1B13D468001FD024 /* AKConvolutionTests.m in Sources */,
 				C41408751B13D468001FD024 /* AK3DBinauralAudioTests.m in Sources */,
 				C41408761B13D468001FD024 /* AKADSREnvelope.m in Sources */,
@@ -485,7 +488,6 @@
 				C41408811B13D468001FD024 /* AKDCBlockTests.m in Sources */,
 				C414087E1B13D468001FD024 /* AKCompressorTests.m in Sources */,
 				C414087C1B13D468001FD024 /* AKCabasaTests.m in Sources */,
-				C4DB028C1AE6472200643340 /* TrackedFrequencyTestInstrument.m in Sources */,
 				C414088A1B13D468001FD024 /* AKVariableFrequencyRepsonseBandPassFilterTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

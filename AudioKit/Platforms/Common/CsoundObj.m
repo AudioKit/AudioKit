@@ -126,6 +126,8 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)stop {
     self.running = NO;
+    if (self.thread == nil)
+        return;
     [self.thread cancel];
     while (!self.thread.finished) {
         [NSThread sleepForTimeInterval:0.01];
@@ -157,10 +159,17 @@ OSStatus  Csound_Render(void *inRefCon,
 - (void)record:(NSString *)csdFilePath toFile:(NSString *)outputFile
 {
     self.shouldRecord = NO;
-    self.thread = [[NSThread alloc] initWithTarget:self
-                                          selector:@selector(runCsoundToDisk:)
-                                            object:@[csdFilePath, outputFile]];
-    [self.thread start];
+    // This is a blocking call, might as well run it from the same thread.
+    [self runCsoundToDisk:@[csdFilePath, outputFile]];
+
+    // Same thing, but in a separate thread
+//    self.thread = [[NSThread alloc] initWithTarget:self
+//                                          selector:@selector(runCsoundToDisk:)
+//                                            object:@[csdFilePath, outputFile]];
+//    [self.thread start];
+//    while (!self.thread.finished) {
+//        [NSThread sleepForTimeInterval:0.01];
+//    }
 }
 
 - (void)recordToURL:(NSURL *)outputURL_
@@ -1010,7 +1019,6 @@ OSStatus  Csound_Render(void *inRefCon,
 #ifdef TRAVIS_CI
     NSLog(@"Tearing down Csound for test...");
     [[AKManager sharedManager] cleanup];
-    csoundCleanup(_cs);
     csoundDestroy(_cs);
     _cs = nil;
 #endif
