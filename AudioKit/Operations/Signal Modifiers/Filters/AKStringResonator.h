@@ -40,6 +40,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The input audio signal.
 + (instancetype)defaultResonatorWithInput:(AKParameter *)input;
 
+/// Instantiates the string resonator with a machine-like sound
+/// @param input The input audio signal.
+- (instancetype)initMachineResonatorWithInput:(AKParameter *)input;
+
+/// Instantiates the string resonator with machine-like sound
+/// @param input The input audio signal.
++ (instancetype)machineResonatorWithInput:(AKParameter *)input;
+
+
 /// The fundamental frequency of the string. [Default Value: 100]
 @property (nonatomic) AKParameter *fundamentalFrequency;
 

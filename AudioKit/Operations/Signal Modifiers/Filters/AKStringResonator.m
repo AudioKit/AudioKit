@@ -67,6 +67,24 @@
     return [[AKStringResonator alloc] initDefaultResonatorWithInput:input];
 }
 
+- (instancetype)initMachineResonatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _fundamentalFrequency = akp(75);
+        _fdbgain = akp(0.85);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)machineResonatorWithInput:(AKParameter *)input;
+{
+    return [[AKStringResonator alloc] initMachineResonatorWithInput:input];
+}
+
 - (void)setFundamentalFrequency:(AKParameter *)fundamentalFrequency {
     _fundamentalFrequency = fundamentalFrequency;
     [self setUpConnections];
