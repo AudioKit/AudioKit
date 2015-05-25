@@ -163,6 +163,9 @@
     // AKDecimator *presetOperation = [[AKDecimator alloc] initVideogameDecimatorWithInput:mono3];
     // AKDecimator *presetOperation = [[AKDecimator alloc] initRobotDecimatorWithInput:mono3];
 
+    // AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initBassHeavyFilterWithInput:mono1];
+    // AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initTrebleHeavyFilterWithInput:mono3];
+
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
