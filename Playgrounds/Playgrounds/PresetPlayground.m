@@ -174,6 +174,9 @@
     // AKHighPassButterworthFilter *presetOperation = [[AKHighPassButterworthFilter alloc] initExtremeFilterWithInput:mono3];
     // AKHighPassButterworthFilter *presetOperation = [[AKHighPassButterworthFilter alloc] initModerateFilterWithInput:mono3];
 
+    // AKLowPassButterworthFilter *presetOperation = [[AKLowPassButterworthFilter alloc] initBassHeavyFilterWithInput:mono3];
+    // AKLowPassButterworthFilter *presetOperation = [[AKLowPassButterworthFilter alloc] initMildBassFilterWithInput:mono3];
+
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
