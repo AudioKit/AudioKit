@@ -85,6 +85,24 @@
     return [[AKCombFilter alloc] initSpringyFilterWithInput:input];
 }
 
+- (instancetype)initShufflingFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _reverbDuration = akp(2);
+        _loopDuration = akp(0.2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultShuffleFilterWithInput:(AKParameter *)input;
+{
+    return [[AKCombFilter alloc] initShufflingFilterWithInput:input];
+}
+
 - (void)setReverbDuration:(AKParameter *)reverbDuration {
     _reverbDuration = reverbDuration;
     [self setUpConnections];
