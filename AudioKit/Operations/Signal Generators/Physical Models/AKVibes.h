@@ -47,11 +47,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the vibes with a tiny, high-picthed sound
 - (instancetype)initWithPresetTinyVibes;
 
-/// Instantiates the vibes with a small, gently sound
+/// Instantiates the vibes with a small, gentle sound
 - (instancetype)initWithPresetGentleVibes;
 
-/// Instantiates the vibes with a small, gently sound
+/// Instantiates the vibes with a small, gentle sound
 + (instancetype)presetGentleVibes;
+
+/// Instantiates the vibes with a ringing sound
+- (instancetype)initWithPresetRingingVibes;
+
+/// Instantiates the vibes with a ringing sound
++ (instancetype)presetRingingVibes;
+
 
 /// Frequency of note played. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;

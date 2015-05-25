@@ -49,6 +49,60 @@
     return [[AKMoogVCF alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(1000);
+        _resonance = akp(0.5);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKMoogVCF alloc] initDefaultFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetHighTrebleFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(2000);
+        _resonance = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetHighTrebleFilterWithInput:(AKParameter *)input;
+{
+    return [[AKMoogVCF alloc] initWithPresetHighTrebleFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetFoggyBottomFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(500);
+        _resonance = akp(0.99);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetFoggyBottomFilterWithInput:(AKParameter *)input;
+{
+    return [[AKMoogVCF alloc] initWithPresetFoggyBottomFilterWithInput:input];
+}
+
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
     [self setUpConnections];
