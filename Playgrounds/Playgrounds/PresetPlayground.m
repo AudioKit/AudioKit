@@ -142,8 +142,17 @@
      // AKCombFilter *presetOperation = [[AKCombFilter alloc] initSpringyFilterWithInput:mono3];
 
   
-      // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initBassHeavyFilterWithInput:mono3];
+    // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initBassHeavyFilterWithInput:mono3];
     // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initUnderwaterFilterWithInput:mono3];
+
+
+
+
+///// May 25th
+
+    // AKMoogVCF *presetOperation = [[AKMoogVCF alloc] initHighTrebleFilterWithInput:mono3];
+    // AKMoogVCF *presetOperation = [[AKMoogVCF alloc] initFoggyBottomFilterWithInput:mono3];
+    // AKStringResonator *presetOperation = [[AKStringResonator alloc] initMachineResonatorWithInput:mono3];
 
 
     [AKOrchestra addInstrument:defaultInstrument];
