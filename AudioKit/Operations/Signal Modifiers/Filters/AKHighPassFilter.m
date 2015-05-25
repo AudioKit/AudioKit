@@ -46,6 +46,40 @@
     return [[AKHighPassFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHighPassFilter alloc] initDefaultFilterWithInput:input];
+}
+
+- (instancetype)initHighCutoffFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(10000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)highCutoffFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHighPassFilter alloc] initHighCutoffFilterWithInput:input];
+}
+
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
     [self setUpConnections];

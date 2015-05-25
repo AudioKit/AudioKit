@@ -157,6 +157,7 @@
 
     // AKLowPassFilter *presetOperation = [[AKLowPassFilter alloc] initMuffledFilterWithInput:mono3];
 
+    // AKHighPassFilter *presetOperation = [[AKHighPassFilter alloc] initHighCutoffFilterWithInput:mono3];
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
