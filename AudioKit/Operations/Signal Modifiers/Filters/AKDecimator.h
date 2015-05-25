@@ -30,7 +30,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the decimator with default values
 /// @param input Audio to be decimated!
-+ (instancetype)WithInput:(AKParameter *)input;
++ (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with default values
+/// @param input Audio to be decimated!
+- (instancetype)initDefaultDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with default values
+/// @param input Audio to be decimated!
++ (instancetype)defaultDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with a crunchy sound
+/// @param input Audio to be decimated!
+- (instancetype)initCrunchyDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with a crunchy sound
+/// @param input Audio to be decimated!
++ (instancetype)crunchyDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with a 'videogame' sound
+/// @param input Audio to be decimated!
+- (instancetype)initVideogameDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with a 'videogame' sound
+/// @param input Audio to be decimated!
++ (instancetype)videogameDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with a 'robot' sound
+/// @param input Audio to be decimated!
+- (instancetype)initRobotDecimatorWithInput:(AKParameter *)input;
+
+/// Instantiates the decimator with a 'robot' sound
+/// @param input Audio to be decimated!
++ (instancetype)robotDecimatorWithInput:(AKParameter *)input;
+
 
 /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. [Default Value: 24]
 @property (nonatomic) AKParameter *bitDepth;

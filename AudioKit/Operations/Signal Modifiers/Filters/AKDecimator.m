@@ -44,10 +44,83 @@
     return self;
 }
 
-+ (instancetype)WithInput:(AKParameter *)input
++ (instancetype)filterWithInput:(AKParameter *)input
 {
     return [[AKDecimator alloc] initWithInput:input];
 }
+
+- (instancetype)initDefaultDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(24);
+        _sampleRate = akp(44100);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initDefaultDecimatorWithInput:input];
+}
+
+- (instancetype)initCrunchyDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(20);
+        _sampleRate = akp(44100);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)crunchyDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initCrunchyDecimatorWithInput:input];
+}
+
+- (instancetype)initVideogameDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(20);
+        _sampleRate = akp(2400);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)videogameDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initVideogameDecimatorWithInput:input];
+}
+
+- (instancetype)initRobotDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(20);
+        _sampleRate = akp(1200);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)robotDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initRobotDecimatorWithInput:input];
+}
+
 
 - (void)setBitDepth:(AKParameter *)bitDepth {
     _bitDepth = bitDepth;

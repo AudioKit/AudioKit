@@ -159,6 +159,10 @@
 
     // AKHighPassFilter *presetOperation = [[AKHighPassFilter alloc] initHighCutoffFilterWithInput:mono3];
 
+    // AKDecimator *presetOperation = [[AKDecimator alloc] initCrunchyDecimatorWithInput:mono3];
+    // AKDecimator *presetOperation = [[AKDecimator alloc] initVideogameDecimatorWithInput:mono3];
+    // AKDecimator *presetOperation = [[AKDecimator alloc] initRobotDecimatorWithInput:mono3];
+
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
