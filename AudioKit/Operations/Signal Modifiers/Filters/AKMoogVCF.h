@@ -32,6 +32,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the moog vcf with default values
+/// @param input Input signal.
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with default values
+/// @param input Input signal.
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+
 /// Filter cut-off frequency in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;
 
