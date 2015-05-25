@@ -147,10 +147,15 @@ static AKManager *_sharedManager = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)_applicationWillTerminate:(NSNotification *)notification
+- (void)cleanup
 {
     [self.engine stop];
     [[NSFileManager defaultManager] removeItemAtPath:_csdFile error:nil];
+}
+
+- (void)_applicationWillTerminate:(NSNotification *)notification
+{
+    [self cleanup];
 }
 
 // -----------------------------------------------------------------------------

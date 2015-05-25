@@ -138,5 +138,12 @@ NS_ASSUME_NONNULL_BEGIN
 // Reset the audio session, i.e. if we change audio I/O options
 - (void)resetSession;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Support for unit testing
+// -----------------------------------------------------------------------------
+
+- (void)setUpForTest;
+- (void)teardownForTest;
+
 @end
 NS_ASSUME_NONNULL_END
