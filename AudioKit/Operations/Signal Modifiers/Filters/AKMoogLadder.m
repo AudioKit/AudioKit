@@ -37,7 +37,7 @@
     if (self) {
         _input = input;
         // Default Values
-        _cutoffFrequency = akp(100);
+        _cutoffFrequency = akp(1000);
         _resonance = akp(0.5);
         [self setUpConnections];
     }
@@ -49,14 +49,13 @@
     return [[AKMoogLadder alloc] initWithInput:input];
 }
 
-
 - (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         _input = input;
         // Default Values
-        _cutoffFrequency = akp(100);
+        _cutoffFrequency = akp(1000);
         _resonance = akp(0.5);
         [self setUpConnections];
     }
