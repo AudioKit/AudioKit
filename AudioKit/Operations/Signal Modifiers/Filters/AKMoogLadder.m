@@ -67,6 +67,24 @@
     return [[AKMoogLadder alloc] initDefaultFilterWithInput:input];
 }
 
+- (instancetype)initUnderwaterFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(600);
+        _resonance = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)underwaterFilterWithInput:(AKParameter *)input;
+{
+    return [[AKMoogLadder alloc] initUnderwaterFilterWithInput:input];
+}
+
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
     [self setUpConnections];
