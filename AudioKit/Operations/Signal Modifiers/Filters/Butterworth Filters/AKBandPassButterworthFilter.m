@@ -49,6 +49,60 @@
     return [[AKBandPassButterworthFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(2000);
+        _bandwidth = akp(100);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKBandPassButterworthFilter alloc] initDefaultFilterWithInput:input];
+}
+
+- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(100);
+        _bandwidth = akp(250);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
+{
+    return [[AKBandPassButterworthFilter alloc] initBassHeavyFilterWithInput:input];
+}
+
+- (instancetype)initTrebleHeavyFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(4500);
+        _bandwidth = akp(250);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)trebleHeavyFilterWithInput:(AKParameter *)input;
+{
+    return [[AKBandPassButterworthFilter alloc] initTrebleHeavyFilterWithInput:input];
+}
+
 - (void)setCenterFrequency:(AKParameter *)centerFrequency {
     _centerFrequency = centerFrequency;
     [self setUpConnections];

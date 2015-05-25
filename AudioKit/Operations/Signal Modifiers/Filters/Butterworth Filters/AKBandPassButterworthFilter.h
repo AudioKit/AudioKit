@@ -32,6 +32,31 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal to be filtered.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the band pass butterworth filter with default values
+/// @param input Input signal to be filtered.
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with default values
+/// @param input Input signal to be filtered.
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a bass heavy sound
+/// @param input Input signal to be filtered.
+- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a bass heavy sound
+/// @param input Input signal to be filtered.
++ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a treble heavy sound
+/// @param input Input signal to be filtered.
+- (instancetype)initTrebleHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a treble heavy sound
+/// @param input Input signal to be filtered.
++ (instancetype)trebleHeavyFilterWithInput:(AKParameter *)input;
+
+
 /// Center frequency for each of the filters. [Default Value: 2000]
 @property (nonatomic) AKParameter *centerFrequency;
 
