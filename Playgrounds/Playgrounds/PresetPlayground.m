@@ -169,6 +169,8 @@
     // AKBandRejectButterworthFilter *presetOperation = [[AKBandRejectButterworthFilter alloc] initBassRejectFilterWithInput:mono3];
     // AKBandRejectButterworthFilter *presetOperation = [[AKBandRejectButterworthFilter alloc] initTrebleRejectFilterWithInput:mono3];
 
+    // AKVibes *presetOperation = [[AKVibes alloc] initWithPresetRingingVibes];
+
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
