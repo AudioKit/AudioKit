@@ -32,6 +32,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the moog ladder with default values
+/// @param input Input signal
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with default values
+/// @param input Input signal
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+
 /// Filter cutoff frequency [Default Value: 100]
 @property (nonatomic) AKParameter *cutoffFrequency;
 

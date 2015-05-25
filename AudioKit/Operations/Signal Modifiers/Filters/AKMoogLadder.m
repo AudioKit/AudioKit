@@ -49,6 +49,25 @@
     return [[AKMoogLadder alloc] initWithInput:input];
 }
 
+
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(100);
+        _resonance = akp(0.5);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKMoogLadder alloc] initDefaultFilterWithInput:input];
+}
+
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
     [self setUpConnections];
