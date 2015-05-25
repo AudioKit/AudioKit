@@ -40,6 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal.
 + (instancetype)defaultFilterWithInput:(AKParameter *)input;
 
+/// Instantiates the moog vcf with a high-treble values
+/// @param input Input signal.
+- (instancetype)initHighTrebleFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with a high-treble values
+/// @param input Input signal.
++ (instancetype)highTrebleFilterWithInput:(AKParameter *)input;
+
 /// Filter cut-off frequency in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;
 
