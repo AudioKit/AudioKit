@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param samplePosition Proportion of the way along the string to sample the output. Updated at Control-rate. [Default Value: 0.1]
 - (void)setOptionalSamplePosition:(AKParameter *)samplePosition;
 
-/// The coefficient of reflection, indicating the lossiness and the rate of decay. It must be strictly between 0 and 1 (it will complain about both 0 and 1). [Default Value: 0.1]
+/// The coefficient of reflection, indicating the lossiness and the rate of decay. It should be between 0 and 1. [Default Value: 0.1]
 @property (nonatomic) AKParameter *reflectionCoefficient;
 
 /// Set an optional reflection coefficient
