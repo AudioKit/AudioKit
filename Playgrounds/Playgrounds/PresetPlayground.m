@@ -171,6 +171,10 @@
 
     // AKVibes *presetOperation = [[AKVibes alloc] initWithPresetRingingVibes];
 
+    // AKHighPassButterworthFilter *presetOperation = [[AKHighPassButterworthFilter alloc] initExtremeFilterWithInput:mono3];
+    // AKHighPassButterworthFilter *presetOperation = [[AKHighPassButterworthFilter alloc] initModerateFilterWithInput:mono3];
+
+
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
