@@ -166,6 +166,9 @@
     // AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initBassHeavyFilterWithInput:mono1];
     // AKBandPassButterworthFilter *presetOperation = [[AKBandPassButterworthFilter alloc] initTrebleHeavyFilterWithInput:mono3];
 
+    // AKBandRejectButterworthFilter *presetOperation = [[AKBandRejectButterworthFilter alloc] initBassRejectFilterWithInput:mono3];
+    // AKBandRejectButterworthFilter *presetOperation = [[AKBandRejectButterworthFilter alloc] initTrebleRejectFilterWithInput:mono3];
+
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
