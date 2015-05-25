@@ -32,6 +32,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the moog ladder with default values
+/// @param input Input signal
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with default values
+/// @param input Input signal
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with an 'underwater' sound
+/// @param input Input signal
+- (instancetype)initUnderwaterFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with an 'underwater' sound
+/// @param input Input signal
++ (instancetype)underwaterFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with an bass-heavy sound
+/// @param input Input signal
+- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog ladder with an bass-heavy sound
+/// @param input Input signal
++ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
+
 /// Filter cutoff frequency [Default Value: 100]
 @property (nonatomic) AKParameter *cutoffFrequency;
 

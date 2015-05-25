@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKVariableDelay : AKAudio
 /// Instantiates the variable delay with all values
-/// @param input Input signal. [Default Value: ]
+/// @param input Input signal. 
 /// @param delayTime Current value of delay in seconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise. [Default Value: 0]
 /// @param maximumDelayTime Maximum value of delay in seconds. [Default Value: 5]
 - (instancetype)initWithInput:(AKParameter *)input
@@ -31,6 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the variable delay with default values
 /// @param input Input signal.
 + (instancetype)delayWithInput:(AKParameter *)input;
+
+/// Instantiates the variable delay with default values
+/// @param input Input signal.
+- (instancetype)initDefaultDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the variable delay with default values
+/// @param input Input signal.
++ (instancetype)defaultDelayWithInput:(AKParameter *)input;
 
 /// Current value of delay in seconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise. [Default Value: 0]
 @property (nonatomic) AKParameter *delayTime;

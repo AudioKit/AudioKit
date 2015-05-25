@@ -54,6 +54,81 @@
                     delayTime:delayTime];
 }
 
+- (instancetype)initDefaultDelayWithInput:(AKParameter *)input
+                    delayTime:(AKConstant *)delayTime
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        _delayTime = delayTime;
+        // Default Values
+        _feedback = akp(0.0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultDelayWithInput:(AKParameter *)input
+                     delayTime:(AKConstant *)delayTime
+{
+    return [[AKDelay alloc] initDefaultDelayWithInput:input
+                                delayTime:delayTime];
+}
+
+- (instancetype)initChoppedDelayWithInput:(AKParameter *)input
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // 'Chopped' Values
+        _delayTime = akp(0.5);
+        _feedback = akp(0.5);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)choppedDelayWithInput:(AKParameter *)input
+{
+    return [[AKDelay alloc] initChoppedDelayWithInput:input];
+}
+
+- (instancetype)initRhythmicDelayWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // 'Rhythmic' Values
+        _delayTime = akp(0.3);
+        _feedback = akp(0.1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)rhythmicAttackDelayWithInput:(AKParameter *)input;
+{
+    return [[AKDelay alloc] initRhythmicDelayWithInput:input];
+}
+
+- (instancetype)initShortAttackDelayWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // 'Short attack' Values
+        _delayTime = akp(0.2);
+        _feedback = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)shortAttackDelayWithInput:(AKParameter *)input
+{
+    return [[AKDelay alloc] initShortAttackDelayWithInput:input];
+}
+
 - (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
     [self setUpConnections];
