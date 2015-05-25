@@ -48,6 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal, usually audio.
 + (instancetype)defaultSpringFilterWithInput:(AKParameter *)input;
 
+/// Instantiates the comb filter with a 'shuffling' sound
+/// @param input Input signal, usually audio.
+- (instancetype)initShufflingFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the comb filter with a 'shuffling' sound
+/// @param input Input signal, usually audio.
++ (instancetype)defaultShuffleFilterWithInput:(AKParameter *)input;
 
 /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. [Default Value: 1]
 @property (nonatomic) AKParameter *reverbDuration;
