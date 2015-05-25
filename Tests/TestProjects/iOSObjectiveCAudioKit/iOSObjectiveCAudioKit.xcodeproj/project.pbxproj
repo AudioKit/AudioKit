@@ -38,6 +38,7 @@
 		C4B3A77C1AE3101E00F43B96 /* MathTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */; };
 		C4B3A7861AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
 		C4B3A7871AE36B8400F43B96 /* TableTestInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */; };
+		EAEF76FA1B1322CB00342559 /* AKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEF76F91B1322CB00342559 /* AKTestCase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,8 @@
 		C4B3A77B1AE3101E00F43B96 /* MathTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathTestInstrument.m; sourceTree = "<group>"; };
 		C4B3A7841AE36B8400F43B96 /* TableTestInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTestInstrument.h; sourceTree = "<group>"; };
 		C4B3A7851AE36B8400F43B96 /* TableTestInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTestInstrument.m; sourceTree = "<group>"; };
+		EAEF76F91B1322CB00342559 /* AKTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTestCase.m; sourceTree = "<group>"; };
+		EAEF76FD1B13238300342559 /* AKTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKTestCase.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +194,8 @@
 		C4B3A75E1AE30E6A00F43B96 /* iOSObjectiveCAudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				EAEF76FD1B13238300342559 /* AKTestCase.h */,
+				EAEF76F91B1322CB00342559 /* AKTestCase.m */,
 				C422F05E1B104B6A00AD3545 /* AK3DBinauralAudioTests.m */,
 				C422F0641B1055A200AD3545 /* AKADSREnvelope.m */,
 				C422F0661B10582A00AD3545 /* AKBalanceTests.m */,
@@ -405,6 +410,7 @@
 				C422F0671B10582A00AD3545 /* AKBalanceTests.m in Sources */,
 				C46996F31B12F3A00026BC0B /* AKHighPassFilter.m in Sources */,
 				C422F0521B0FC8DC00AD3545 /* NSData+MD5.m in Sources */,
+				EAEF76FA1B1322CB00342559 /* AKTestCase.m in Sources */,
 				C47850161B11BAF900217ACA /* AKBandRejectButterworthFilterTests.m in Sources */,
 				C46996F81B12FA260026BC0B /* AKVariableFrequencyRepsonseBandPassFilterTests.m in Sources */,
 				C46996ED1B12F0200026BC0B /* AKHighPassButterworthFilterTests.m in Sources */,

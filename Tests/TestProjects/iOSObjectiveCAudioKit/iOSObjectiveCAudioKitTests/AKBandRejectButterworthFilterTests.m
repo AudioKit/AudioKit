@@ -6,10 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <XCTest/XCTest.h>
-#import "AKFoundation.h"
-#import "NSData+MD5.h"
+#import "AKTestCase.h"
 
 #define testDuration 10.0
 
@@ -45,7 +42,7 @@
 
 @end
 
-@interface AKBandRejectButterworthFilterTests : XCTestCase
+@interface AKBandRejectButterworthFilterTests : AKTestCase
 @end
 
 @implementation AKBandRejectButterworthFilterTests
