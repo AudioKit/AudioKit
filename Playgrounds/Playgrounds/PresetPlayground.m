@@ -142,6 +142,9 @@
      // AKCombFilter *presetOperation = [[AKCombFilter alloc] initSpringyFilterWithInput:mono3];
 
   
+      // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initBassHeavyFilterWithInput:mono3];
+    // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initUnderwaterFilterWithInput:mono3];
+
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
