@@ -63,7 +63,7 @@
     return [[AKLowPassFilter alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initMuffledFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -75,9 +75,9 @@
     return self;
 }
 
-+ (instancetype)muffledFilterWithInput:(AKParameter *)input;
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
 {
-    return [[AKLowPassFilter alloc] initMuffledFilterWithInput:input];
+    return [[AKLowPassFilter alloc] initWithPresetMuffledFilterWithInput:input];
 }
 
 - (void)setHalfPowerPoint:(AKParameter *)halfPowerPoint {

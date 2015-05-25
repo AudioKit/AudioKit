@@ -67,7 +67,7 @@
     return [[AKMoogVCF alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initHighTrebleFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetHighTrebleFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,12 +80,12 @@
     return self;
 }
 
-+ (instancetype)highTrebleFilterWithInput:(AKParameter *)input;
++ (instancetype)presetHighTrebleFilterWithInput:(AKParameter *)input;
 {
-    return [[AKMoogVCF alloc] initHighTrebleFilterWithInput:input];
+    return [[AKMoogVCF alloc] initWithPresetHighTrebleFilterWithInput:input];
 }
 
-- (instancetype)initFoggyBottomFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetFoggyBottomFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -98,9 +98,9 @@
     return self;
 }
 
-+ (instancetype)foggyBottomFilterWithInput:(AKParameter *)input;
++ (instancetype)presetFoggyBottomFilterWithInput:(AKParameter *)input;
 {
-    return [[AKMoogVCF alloc] initFoggyBottomFilterWithInput:input];
+    return [[AKMoogVCF alloc] initWithPresetFoggyBottomFilterWithInput:input];
 }
 
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {

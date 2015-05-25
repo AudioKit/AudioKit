@@ -40,11 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the high pass filter with a high cuttoff frequency
 /// @param input The input signal to be filtered
-- (instancetype)initHighCutoffFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetHighCutoffFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass filter with a high cuttoff frequency
 /// @param input The input signal to be filtered
-+ (instancetype)highCutoffFilterWithInput:(AKParameter *)input;
++ (instancetype)presetHighCutoffFilterWithInput:(AKParameter *)input;
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 4000]
 @property (nonatomic) AKParameter *cutoffFrequency;
