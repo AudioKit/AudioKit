@@ -85,6 +85,24 @@
     return [[AKMoogVCF alloc] initHighTrebleFilterWithInput:input];
 }
 
+- (instancetype)initFoggyBottomFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(500);
+        _resonance = akp(0.99);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)foggyBottomFilterWithInput:(AKParameter *)input;
+{
+    return [[AKMoogVCF alloc] initFoggyBottomFilterWithInput:input];
+}
+
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
     [self setUpConnections];
