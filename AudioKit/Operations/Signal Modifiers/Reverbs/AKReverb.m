@@ -52,6 +52,81 @@
     return [[AKReverb alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // Default Values
+        _feedback = akp(0.6);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultReverbWithInput:(AKParameter *)input
+{
+    return [[AKReverb alloc] initDefaultReverbWithInput:input];
+}
+
+- (instancetype)initSmallHallReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // 'Small Hall' Values
+        _feedback = akp(0.8);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)smallHallReverbWithInput:(AKParameter *)input
+{
+    return [[AKReverb alloc] initSmallHallReverbWithInput:input];
+}
+
+- (instancetype)initLargeHallReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // 'Large Hall' Values
+        _feedback = akp(0.9);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)largeHallReverbWithInput:(AKParameter *)input
+{
+    return [[AKReverb alloc] initLargeHallReverbWithInput:input];
+}
+
+- (instancetype)initMuffledCanReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // 'Muffled Can' Values
+        _feedback = akp(0.8);
+        _cutoffFrequency = akp(1200);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)muffledCanReverbWithInput:(AKParameter *)input;
+{
+    return [[AKReverb alloc] initMuffledCanReverbWithInput:input];
+}
 
 - (instancetype)initWithStereoInput:(AKStereoAudio *)input
                            feedback:(AKParameter *)feedback
@@ -86,6 +161,83 @@
 {
     return [[AKReverb alloc] initWithStereoInput:input];
 }
+
+- (instancetype)initDefaultReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input.leftOutput;
+        _rightInput = input.rightOutput;
+        // Default Values
+        _feedback = akp(0.6);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultReverbWithStereoInput:(AKStereoAudio *)input
+{
+    return [[AKReverb alloc] initDefaultReverbWithStereoInput:input];
+}
+
+- (instancetype)initSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // 'Small Hall' Values
+        _feedback = akp(0.8);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)smallHallReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    return [[AKReverb alloc] initSmallHallReverbWithStereoInput:input];
+}
+
+- (instancetype)initLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // 'Large Hall' Values
+        _feedback = akp(0.9);
+        _cutoffFrequency = akp(4000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)largeHallReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    return [[AKReverb alloc] initLargeHallReverbWithInput:input];
+}
+
+- (instancetype)initMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _leftInput = input;
+        _rightInput = input;
+        // 'Muffled Can' Values
+        _feedback = akp(0.8);
+        _cutoffFrequency = akp(1200);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)muffledCanReverbWithStereoInput:(AKStereoAudio *)input;
+{
+    return [[AKReverb alloc] initMuffledCanReverbWithStereoInput:input];
+}
+
 - (void)setFeedback:(AKParameter *)feedback {
     _feedback = feedback;
     [self setUpConnections];

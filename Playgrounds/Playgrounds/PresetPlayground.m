@@ -16,18 +16,39 @@
 {
     [super run];
 
+    //Set up the source file we want to use for testing
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio1 = [[AKFileInput alloc] initWithFilename:filename];
+    audio1.loop = YES;
+    AKFileInput *audio2 = [[AKFileInput alloc] initWithFilename:filename];
+    audio2.loop = YES;
+    AKFileInput *audio3 = [[AKFileInput alloc] initWithFilename:filename];
+    audio3.loop = YES;
+    
+    AKMix *mono1 = [[AKMix alloc] initMonoAudioFromStereoInput:audio1];
+    AKMix *mono2 = [[AKMix alloc] initMonoAudioFromStereoInput:audio2];
+    AKMix *mono3 = [[AKMix alloc] initMonoAudioFromStereoInput:audio3];
+    
     AKInstrument *defaultInstrument = [AKInstrument instrumentWithNumber:1];
     AKInstrument *testInstrument    = [AKInstrument instrumentWithNumber:2];
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
 
     // Here we just instantiate the current sensible default
-    AKTambourine *defaultOperation = [AKTambourine tambourine];
+    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono1];
     [defaultInstrument setAudioOutput:defaultOperation];
 
+
     // Here we instead create a new instrument based on default but with new parameters
-    AKTambourine *testOperation = [AKTambourine tambourine];
-    testOperation.dampingFactor = akp(0.6);
+//  GENERATOR TEMPLATE
+//    AKTambourine *testOperation = [AKTambourine tambourine];
+//    testOperation.dampingFactor = akp(0.6);
+//    [testInstrument setAudioOutput:testOperation];
+    
+//  MODIFIER TEMPLATE
+    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono2];
     [testInstrument setAudioOutput:testOperation];
+
+
 
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
 //    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
@@ -103,15 +124,31 @@
     // AKFlute *presetOperation = [AKFlute presetSciFiNoiseFlute];
     // AKFlute *presetOperation = [AKFlute presetScreamingFlute];
 
+    
+///// May 24th
+    // AKReverb *presetOperation = [[AKReverb alloc] initSmallHallReverbWithInput:mono3];
+    // AKReverb *presetOperation = [[AKReverb alloc] initLargeHallReverbWithInput:mono3];
+    // AKReverb *presetOperation = [[AKReverb alloc] initMuffledCanReverbWithInput:mono3];
 
 
+    // AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initMetallicReverbWithInput:mono3];
+    // AKFlatFrequencyResponseReverb *presetOperation = [[AKFlatFrequencyResponseReverb alloc] initStutteringReverbWithInput:mono3];
 
-//    AKTambourine *presetOperation = [AKTambourine presetSomethingTambourine];
-    [presetInstrument setAudioOutput:presetOperation];
+     // AKDelay *presetOperation = [[AKDelay alloc] initChoppedDelayWithInput:mono3];
+     // AKDelay *presetOperation = [[AKDelay alloc] initShortAttackDelayWithInput:mono3];
+     // AKDelay *presetOperation = [[AKDelay alloc] initRhythmicDelayWithInput:mono3];
+
+     // AKCombFilter *presetOperation = [[AKCombFilter alloc] initShufflingFilterWithInput:mono3];
+     // AKCombFilter *presetOperation = [[AKCombFilter alloc] initSpringyFilterWithInput:mono3];
+
+  
+      // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initBassHeavyFilterWithInput:mono3];
+    // AKMoogLadder *presetOperation = [[AKMoogLadder alloc] initUnderwaterFilterWithInput:mono3];
+
 
     [AKOrchestra addInstrument:defaultInstrument];
-    [AKOrchestra addInstrument:presetInstrument];
     [AKOrchestra addInstrument:testInstrument];
+    [AKOrchestra addInstrument:presetInstrument];
 
     AKNote *note = [[AKNote alloc] init];
     note.duration.value = 4.0;
