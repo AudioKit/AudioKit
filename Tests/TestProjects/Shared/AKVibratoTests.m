@@ -51,8 +51,8 @@
     
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    NSArray *validMD5s = @[@"3cd5d4aac398e56d527230436bc06358",
-                           @"983e783f2c3dcd73a1f5889495b7589b"];
+    NSArray *validMD5s = @[@"d0a4b2867e1393bb894ea9e636c930fd",
+                           @"21d2457647a5ac14a299f90524a09604"];
     XCTAssertTrue([validMD5s containsObject:[nsData MD5]]);
 }
 
