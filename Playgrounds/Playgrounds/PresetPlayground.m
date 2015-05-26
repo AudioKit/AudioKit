@@ -174,8 +174,15 @@
     // AKHighPassButterworthFilter *presetOperation = [[AKHighPassButterworthFilter alloc] initWithModerateFilterWithInput:mono3];
     
     // AKLowPassButterworthFilter *presetOperation = [[AKLowPassButterworthFilter alloc] initWithPresetBassHeavyFilterWithInput:mono3];
-     AKLowPassButterworthFilter *presetOperation = [[AKLowPassButterworthFilter alloc] initWithPresetMildBassFilterWithInput:mono3];
+     // AKLowPassButterworthFilter *presetOperation = [[AKLowPassButterworthFilter alloc] initWithPresetMildBassFilterWithInput:mono3];
     
+
+    // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetNarrowHighHzNotchFilterWithInput:mono3];
+    // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetNarrowLowHzNotchFilterWithInput:mono3];
+    // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetWideHighHzNotchFilterWithInput:mono3];
+    // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetWideLowHzNotchFilterWithInput:mono3];
+
+
     [presetInstrument setAudioOutput:presetOperation];
 
     
