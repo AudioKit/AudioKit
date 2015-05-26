@@ -177,6 +177,9 @@
      // AKLowPassButterworthFilter *presetOperation = [[AKLowPassButterworthFilter alloc] initWithPresetMildBassFilterWithInput:mono3];
     
 
+
+    ///// May 26th
+
     // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetNarrowHighHzNotchFilterWithInput:mono3];
     // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetNarrowLowHzNotchFilterWithInput:mono3];
     // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetWideHighHzNotchFilterWithInput:mono3];
