@@ -58,7 +58,7 @@
     
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"b31c54a90230a8baed06e922d877e3a3");
+    XCTAssertEqualObjects([nsData MD5], @"1ec9b44e7341e2ced1e50279da94a84e");
 }
 
 @end
