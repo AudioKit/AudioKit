@@ -34,9 +34,17 @@
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
     
     // Here we just instantiate the current sensible default
-    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono1];
-    [defaultInstrument setAudioOutput:defaultOperation];
+    // AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono1];
+    // [defaultInstrument setAudioOutput:defaultOperation];
     
+
+
+///////////AKVariableFrequencyResponseBandPassFilter BUG TEST
+    AKVariableFrequencyResponseBandPassFilter *defaultOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:mono1];
+    [defaultInstrument setAudioOutput:defaultOperation];
+
+
+
     
     // Here we instead create a new instrument based on default but with new parameters
     //  GENERATOR TEMPLATE
@@ -45,10 +53,22 @@
     //    [testInstrument setAudioOutput:testOperation];
     
     //  MODIFIER TEMPLATE
-    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono2];
+    // AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono2];
+    // [testInstrument setAudioOutput:testOperation];
+    
+    
+
+
+///////////AKVariableFrequencyResponseBandPassFilter BUG TEST
+    AKVariableFrequencyResponseBandPassFilter *testOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:mono2];
+    testOperation.cutoffFrequency = akp(1000);
+    testOperation.bandwidth = akp(10);
+    testOperation.scalingFactor = akp(1);
     [testInstrument setAudioOutput:testOperation];
-    
-    
+
+
+
+
     
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
     //    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
@@ -184,6 +204,11 @@
     // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetNarrowLowHzNotchFilterWithInput:mono3];
     // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetWideHighHzNotchFilterWithInput:mono3];
     // AKEqualizerFilter *presetOperation = [[AKEqualizerFilter alloc] initWithPresetWideLowHzNotchFilterWithInput:mono3];
+
+
+///////////AKVariableFrequencyResponseBandPassFilter BUG TEST
+    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initDefaultFilterWithInput:mono3];
+
 
 
     [presetInstrument setAudioOutput:presetOperation];
