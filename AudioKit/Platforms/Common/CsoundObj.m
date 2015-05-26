@@ -62,7 +62,7 @@ OSStatus  Csound_Render(void *inRefCon,
 
 @property (strong) NSMutableArray *listeners;
 
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
 @property (strong) NSMutableArray *orcMessages;
 @property (strong) NSMutableArray *scoMessages;
 #endif
@@ -95,7 +95,7 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)sendScore:(NSString *)score
 {
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
     [_scoMessages addObject:score];
 #else
     if (_cs) {
@@ -115,7 +115,7 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)updateOrchestra:(NSString *)orchestraString
 {
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
     [_orcMessages addObject:orchestraString];
 #else
     if (_cs) {
@@ -583,7 +583,7 @@ OSStatus  Csound_Render(void *inRefCon,
                          "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(_cs, 4, argv);
         
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
         for (NSString *message in _orcMessages) {
             csoundCompileOrc(_cs, [message cStringUsingEncoding:NSASCIIStringEncoding]);
         }
@@ -626,7 +626,7 @@ OSStatus  Csound_Render(void *inRefCon,
         
 #if TARGET_OS_IPHONE
         char *argv[] = { "csound",
-# ifdef TRAVIS_CI
+# ifdef AK_TESTING
             "-+rtaudio=null",
 # else
             "-+rtaudio=coreaudio",
@@ -634,7 +634,7 @@ OSStatus  Csound_Render(void *inRefCon,
                         (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 #else
         char *argv[] = { "csound", "-+ignore_csopts=0",
-# ifdef TRAVIS_CI
+# ifdef AK_TESTING
                          "-+rtaudio=null",
 # else
                          "-+rtaudio=coreaudio",
@@ -1005,7 +1005,7 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)setUpForTest
 {
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
     NSLog(@"Setting up Csound for test...");
     _scoMessages = [[NSMutableArray alloc] init];
     _orcMessages = [[NSMutableArray alloc] init];
@@ -1016,7 +1016,7 @@ OSStatus  Csound_Render(void *inRefCon,
 
 - (void)teardownForTest
 {
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
     NSLog(@"Tearing down Csound for test...");
     [[AKManager sharedManager] cleanup];
     csoundDestroy(_cs);
