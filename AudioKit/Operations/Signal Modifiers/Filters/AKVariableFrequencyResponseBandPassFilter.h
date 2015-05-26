@@ -47,6 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The input signal to be filtered.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the variable frequency response band pass filter with default values
+/// @param input The input signal to be filtered.
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with default values
+/// @param input The input signal to be filtered.
++ (instancetype)defaultFilterWithInput:(AKParameter *)input;
+
 /// Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;
 

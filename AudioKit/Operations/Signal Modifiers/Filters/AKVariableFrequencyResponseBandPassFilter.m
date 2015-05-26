@@ -58,6 +58,25 @@
     return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initDefaultFilterWithInput:(AKParameter *)input
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(1000);
+        _bandwidth = akp(10);
+        _scalingFactor = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)defaultFilterWithInput:(AKParameter *)input
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initDefaultFilterWithInput:input];
+}
+
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
     _cutoffFrequency = cutoffFrequency;
     [self setUpConnections];
