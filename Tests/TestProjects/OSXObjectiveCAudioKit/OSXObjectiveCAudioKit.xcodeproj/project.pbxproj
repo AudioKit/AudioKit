@@ -35,6 +35,9 @@
 		C41409041B13FBDB001FD024 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C41408EA1B13FBDB001FD024 /* NSData+MD5.m */; };
 		C414090E1B141566001FD024 /* AKVCOscillatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C414090D1B141566001FD024 /* AKVCOscillatorTests.m */; };
 		C41409121B14191F001FD024 /* AKSandPaperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C41409111B14191F001FD024 /* AKSandPaperTests.m */; };
+		C414091F1B141CA5001FD024 /* AKMandolinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C414091D1B141CA5001FD024 /* AKMandolinTests.m */; };
+		C41409201B141CA5001FD024 /* AKMarimbaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C414091E1B141CA5001FD024 /* AKMarimbaTests.m */; };
+		C41409241B141FD1001FD024 /* AKSekereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C41409231B141FD1001FD024 /* AKSekereTests.m */; };
 		C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E71AE44BDB003A8B73 /* AppDelegate.m */; };
 		C4C811EA1AE44BDB003A8B73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E91AE44BDB003A8B73 /* main.m */; };
 		C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C811EB1AE44BDB003A8B73 /* Images.xcassets */; };
@@ -132,6 +135,9 @@
 		C41408EA1B13FBDB001FD024 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+MD5.m"; path = "../../Shared/NSData+MD5.m"; sourceTree = "<group>"; };
 		C414090D1B141566001FD024 /* AKVCOscillatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKVCOscillatorTests.m; path = ../../Shared/AKVCOscillatorTests.m; sourceTree = "<group>"; };
 		C41409111B14191F001FD024 /* AKSandPaperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSandPaperTests.m; path = ../../Shared/AKSandPaperTests.m; sourceTree = "<group>"; };
+		C414091D1B141CA5001FD024 /* AKMandolinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKMandolinTests.m; path = ../../Shared/AKMandolinTests.m; sourceTree = "<group>"; };
+		C414091E1B141CA5001FD024 /* AKMarimbaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKMarimbaTests.m; path = ../../Shared/AKMarimbaTests.m; sourceTree = "<group>"; };
+		C41409231B141FD1001FD024 /* AKSekereTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSekereTests.m; path = ../../Shared/AKSekereTests.m; sourceTree = "<group>"; };
 		C4C811E11AE44BDB003A8B73 /* OSXObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSXObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C811E51AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C811E61AE44BDB003A8B73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -240,7 +246,10 @@
 				C41408E11B13FBDB001FD024 /* AKHighPassFilter.m */,
 				C41408E21B13FBDB001FD024 /* AKLowPassButterworthFilterTests.m */,
 				C41408E31B13FBDB001FD024 /* AKLowPassFilter.m */,
+				C414091D1B141CA5001FD024 /* AKMandolinTests.m */,
+				C414091E1B141CA5001FD024 /* AKMarimbaTests.m */,
 				C41409111B14191F001FD024 /* AKSandPaperTests.m */,
+				C41409231B141FD1001FD024 /* AKSekereTests.m */,
 				C41408E41B13FBDB001FD024 /* AKTestCase.h */,
 				C41408E51B13FBDB001FD024 /* AKTestCase.m */,
 				C41408E61B13FBDB001FD024 /* AKVariableFrequencyRepsonseBandPassFilterTests.m */,
@@ -472,6 +481,7 @@
 				C41409031B13FBDB001FD024 /* AKVibratoTests.m in Sources */,
 				C41408F81B13FBDB001FD024 /* AKDecimatorTests.m in Sources */,
 				C41409021B13FBDB001FD024 /* AKVibesTests.m in Sources */,
+				C41409201B141CA5001FD024 /* AKMarimbaTests.m in Sources */,
 				C41408F61B13FBDB001FD024 /* AKCrunchTests.m in Sources */,
 				C41408ED1B13FBDB001FD024 /* AKBalanceTests.m in Sources */,
 				C41409041B13FBDB001FD024 /* NSData+MD5.m in Sources */,
@@ -488,8 +498,10 @@
 				C41408F91B13FBDB001FD024 /* AKEqualizerFilterTests.m in Sources */,
 				C41409011B13FBDB001FD024 /* AKVariableFrequencyRepsonseBandPassFilterTests.m in Sources */,
 				C41409121B14191F001FD024 /* AKSandPaperTests.m in Sources */,
+				C414091F1B141CA5001FD024 /* AKMandolinTests.m in Sources */,
 				C41408FB1B13FBDB001FD024 /* AKFMOscillatorTests.m in Sources */,
 				C41408F01B13FBDB001FD024 /* AKBandRejectButterworthFilterTests.m in Sources */,
+				C41409241B141FD1001FD024 /* AKSekereTests.m in Sources */,
 				C41408F21B13FBDB001FD024 /* AKCabasaTests.m in Sources */,
 				C414090E1B141566001FD024 /* AKVCOscillatorTests.m in Sources */,
 				C41408FF1B13FBDB001FD024 /* AKLowPassFilter.m in Sources */,
