@@ -35,6 +35,47 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input signal.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the equalizer filter with default values
+/// @param input Input signal.
+- (instancetype)initDeafaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with default values
+/// @param input Input signal.
++ (instancetype)deafaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, low frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetNarrowLowHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, low frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetNarrowLowHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, high frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetNarrowHighHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, high frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetNarrowHighHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, low frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetWideHighHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, low frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetWideHighHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, high frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetWideLowHzNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, high frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetWideLowHzNotchFilterWithInput:(AKParameter *)input;
+
+
 /// Filter center frequency in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *centerFrequency;
 
