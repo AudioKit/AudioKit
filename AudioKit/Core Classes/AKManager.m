@@ -103,7 +103,7 @@ static AKManager *_sharedManager = nil;
         
         _isRunning = NO;
         _isLogging = AKSettings.shared.loggingEnabled;
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
         _testLog = [NSMutableArray array];
 #endif
         _totalRunDuration = 10000000;
@@ -114,7 +114,7 @@ static AKManager *_sharedManager = nil;
         _orchestra = [[AKOrchestra alloc] init];
         
         NSString *inputOption = [NSString stringWithFormat:@"-i %@", AKSettings.shared.audioInput];
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
         inputOption = @"";
 #endif
 
@@ -198,7 +198,7 @@ static AKManager *_sharedManager = nil;
 
 - (void)runOrchestra
 {
-# ifdef TRAVIS_CI
+#ifdef AK_TESTING
     return;
 #else
     if(_isRunning) {
@@ -343,7 +343,7 @@ static AKManager *_sharedManager = nil;
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {
-#ifdef TRAVIS_CI
+#ifdef AK_TESTING
     if ([msg rangeOfString:@"AKTEST"].location != NSNotFound) {
         [_testLog addObject:[msg stringByReplacingOccurrencesOfString:@"AKTEST" withString:@""]];
         return;
