@@ -83,7 +83,6 @@
     
     // Render audio output
     NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Sekere.aiff", NSTemporaryDirectory()];
-    outputFile = @"/Users/aure/test.aiff";
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
