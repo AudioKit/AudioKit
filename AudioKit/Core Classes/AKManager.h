@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Stop AudioKit from making any more sound.
 - (void)stop;
 
+/// Stop AudioKit and do some internal cleanups.
+- (void)cleanup;
+
 /// Triggers an AKEvent
 /// @param event AKEvent to be triggered
 - (void)triggerEvent:(AKEvent *)event;
