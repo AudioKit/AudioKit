@@ -18,17 +18,23 @@
 
     //Set up the source file we want to use for testing
     NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
-    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
-    audio.loop = YES;
+    AKFileInput *defaultInstrumentSourceStereoAudio = [[AKFileInput alloc] initWithFilename:filename];
+    defaultInstrumentSourceStereoAudio.loop = YES;
+    AKFileInput *testInstrumentSourceStereoAudio = [[AKFileInput alloc] initWithFilename:filename];
+    testInstrumentSourceStereoAudio.loop = YES;
+    AKFileInput *presetInstrumentSourceStereoAudio = [[AKFileInput alloc] initWithFilename:filename];
+    presetInstrumentSourceStereoAudio.loop = YES;
 
-    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    AKMix *defaultInstrumentSourceAudio = [[AKMix alloc] initMonoAudioFromStereoInput:defaultInstrumentSourceStereoAudio];
+    AKMix *testInstrumentSourceAudio = [[AKMix alloc] initMonoAudioFromStereoInput:testInstrumentSourceStereoAudio];
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:presetInstrumentSourceStereoAudio];
 
     AKInstrument *defaultInstrument = [AKInstrument instrumentWithNumber:1];
     AKInstrument *testInstrument    = [AKInstrument instrumentWithNumber:2];
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
 
     // Here we just instantiate the current sensible default
-    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
+    AKBandPassButterworthFilter *defaultOperation = [[AKBandPassButterworthFilter alloc] initWithInput:defaultInstrumentSourceAudio];
     [defaultInstrument setAudioOutput:defaultOperation];
 
     // Here we instead create a new instrument based on default but with new parameters
@@ -38,7 +44,7 @@
     //    [testInstrument setAudioOutput:testOperation];
 
     //  MODIFIER TEMPLATE
-    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:mono];
+    AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:testInstrumentSourceAudio];
     [testInstrument setAudioOutput:testOperation];
 
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
@@ -146,7 +152,7 @@
     //    AKDecimator *presetOperation = [AKDecimator presetVideogameDecimatorWithInput:mono];
     //    AKDecimator *presetOperation = [AKDecimator presetRobotDecimatorWithInput:mono];
     //
-    //    AKBandPassButterworthFilter *defaultOperation = [AKBandPassButterworthFilter presetBassHeavyFilterWithInput:mono];
+    //    AKBandPassButterworthFilter *defaultOperation = [AKBandPassButterworthFilter presetBassHeavyFilterWithInput:defaultInstrumentSourceAudio];
     //    AKBandPassButterworthFilter *presetOperation = [AKBandPassButterworthFilter presetTrebleHeavyFilterWithInput:mono];
     //
     //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetBassRejectFilterWithInput:mono];
@@ -158,9 +164,10 @@
     //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetModerateFilterWithInput:mono];
     //
     //    AKLowPassButterworthFilter *presetOperation = [[KLowPassButterworthFilter presetBassHeavyFilterWithInput:mono];
-     AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetMildBassFilterWithInput:mono];
+    AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetMildBassFilterWithInput:mono];
 
     [presetInstrument setAudioOutput:presetOperation];
+
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
