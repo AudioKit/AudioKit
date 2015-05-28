@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the band pass butterworth filter with a bass heavy sound
 /// @param input Input signal to be filtered.
-- (instancetype)initWithPrestBassHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetBassHeavyFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the band pass butterworth filter with a bass heavy sound
 /// @param input Input signal to be filtered.
