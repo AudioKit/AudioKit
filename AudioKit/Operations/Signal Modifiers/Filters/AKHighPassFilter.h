@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the high pass filter with default values
 /// @param input The input signal to be filtered
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass filter with default values
 /// @param input The input signal to be filtered
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass filter with a high cuttoff frequency
 /// @param input The input signal to be filtered
