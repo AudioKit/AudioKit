@@ -34,27 +34,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the comb filter with default values
 /// @param input Input signal, usually audio.
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the comb filter with default values
 /// @param input Input signal, usually audio.
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the comb filter with a 'springy' sound
 /// @param input Input signal, usually audio.
-- (instancetype)initSpringyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetSpringyFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the comb filter with a 'springy' sound
 /// @param input Input signal, usually audio.
-+ (instancetype)defaultSpringFilterWithInput:(AKParameter *)input;
++ (instancetype)presetSpringFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the comb filter with a 'shuffling' sound
 /// @param input Input signal, usually audio.
-- (instancetype)initShufflingFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetShuffleFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the comb filter with a 'shuffling' sound
 /// @param input Input signal, usually audio.
-+ (instancetype)defaultShuffleFilterWithInput:(AKParameter *)input;
++ (instancetype)presetShuffleFilterWithInput:(AKParameter *)input;
 
 /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. [Default Value: 1]
 @property (nonatomic) AKParameter *reverbDuration;

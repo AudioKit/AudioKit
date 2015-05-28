@@ -49,22 +49,14 @@
     return [[AKMoogLadder alloc] initWithInput:input];
 }
 
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _input = input;
-        // Default Values
-        _cutoffFrequency = akp(1000);
-        _resonance = akp(0.5);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithInput:input];
 }
 
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 {
-    return [[AKMoogLadder alloc] initDefaultFilterWithInput:input];
+    return [[AKMoogLadder alloc] initWithInput:input];
 }
 
 - (instancetype)initUnderwaterFilterWithInput:(AKParameter *)input;

@@ -10,7 +10,7 @@
 #import "AKParameter+Operation.h"
 
 /** Simple audio delay
-
+ 
  Delays an input signal by some time interval.
  */
 
@@ -39,14 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the delay with default values
 /// @param input Input signal, usually audio.
 /// @param delayTime Requested delay time in seconds.
-- (instancetype)initDefaultDelayWithInput:(AKParameter *)input
-                    delayTime:(AKConstant *)delayTime;
+- (instancetype)initWithPresetDefaultDelayWithInput:(AKParameter *)input
+                                          delayTime:(AKConstant *)delayTime;
 
 /// Instantiates the delay with default values
 /// @param input Input signal, usually audio.
 /// @param delayTime Requested delay time in seconds.
-+ (instancetype)defaultDelayWithInput:(AKParameter *)input
-                     delayTime:(AKConstant *)delayTime;
++ (instancetype)presetDefaultDelayWithInput:(AKParameter *)input
+                                  delayTime:(AKConstant *)delayTime;
 
 /// Instantiates the delay with 'chopped' values
 /// @param input Input signal, usually audio.
