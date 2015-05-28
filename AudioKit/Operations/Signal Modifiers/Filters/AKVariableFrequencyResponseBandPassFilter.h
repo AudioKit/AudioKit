@@ -55,6 +55,39 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The input signal to be filtered.
 + (instancetype)presetDefautFilterWithInput:(AKParameter *)input;
 
+/// Instantiates the variable frequency response band pass filter with a muffled sound
+/// @param input The input signal to be filtered.
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a muffled sound
+/// @param input The input signal to be filtered.
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a large and muffled sound
+/// @param input The input signal to be filtered.
+- (instancetype)initWithPresetLargeMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a large and muffled sound
+/// @param input The input signal to be filtered.
++ (instancetype)presetLargeMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a high treble value
+/// @param input The input signal to be filtered.
+- (instancetype)initWithPresetTreblePeakFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a high treble value
+/// @param input The input signal to be filtered.
++ (instancetype)presetTreblePeakFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a high bass value
+/// @param input The input signal to be filtered.
+- (instancetype)initWithPresetBassPeakFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the variable frequency response band pass filter with a high bass value
+/// @param input The input signal to be filtered.
++ (instancetype)presetBassPeakFilterWithInput:(AKParameter *)input;
+
+
 /// Cutoff or resonant frequency of the filter, measured in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;
 
