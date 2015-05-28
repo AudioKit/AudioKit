@@ -49,22 +49,14 @@
     return [[AKBandRejectButterworthFilter alloc] initWithInput:input];
 }
 
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _input = input;
-        // Default Values
-        _centerFrequency = akp(3000);
-        _bandwidth = akp(2000);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithInput:input];
 }
 
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input
 {
-    return [[AKBandRejectButterworthFilter alloc] initDefaultFilterWithInput:input];
+    return [[AKBandRejectButterworthFilter alloc] initWithInput:input];
 }
 
 - (instancetype)initWithPresetBassRejectFilterWithInput:(AKParameter *)input;

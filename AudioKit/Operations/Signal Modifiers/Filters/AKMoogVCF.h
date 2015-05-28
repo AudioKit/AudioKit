@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the moog vcf with default values
 /// @param input Input signal.
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the moog vcf with default values
 /// @param input Input signal.
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the moog vcf with a high-treble sound
 /// @param input Input signal.

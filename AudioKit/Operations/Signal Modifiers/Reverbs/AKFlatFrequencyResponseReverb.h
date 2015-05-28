@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the flat frequency response reverb with default values
 /// @param input The input signal to be reverberated.
-- (instancetype)initDefaultReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the flat frequency response reverb with default values
 /// @param input The input signal to be reverberated.
-+ (instancetype)defaultReverbWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the flat frequency response reverb with 'metallic' sound
 /// @param input The input signal to be reverberated.

@@ -49,22 +49,14 @@
     return [[AKDecimator alloc] initWithInput:input];
 }
 
-- (instancetype)initDefaultDecimatorWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultDecimatorWithInput:(AKParameter *)input;
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _input = input;
-        // Default Values
-        _bitDepth = akp(24);
-        _sampleRate = akp(44100);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithInput:input];
 }
 
-+ (instancetype)defaultDecimatorWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultDecimatorWithInput:(AKParameter *)input;
 {
-    return [[AKDecimator alloc] initDefaultDecimatorWithInput:input];
+    return [[AKDecimator alloc] initWithInput:input];
 }
 
 - (instancetype)initWithPresetCrunchyDecimatorWithInput:(AKParameter *)input;

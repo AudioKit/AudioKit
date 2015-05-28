@@ -44,7 +44,10 @@
 		C41409501B14DD52001FD024 /* AKGuiroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C414094F1B14DD52001FD024 /* AKGuiroTests.m */; };
 		C41409541B14DE8C001FD024 /* AKLineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C41409531B14DE8C001FD024 /* AKLineTests.m */; };
 		C414095E1B14E995001FD024 /* AKOscillatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C414095D1B14E995001FD024 /* AKOscillatorTests.m */; };
+		C455B7441B16F55900CA2F0A /* AKDeclickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C455B7431B16F55900CA2F0A /* AKDeclickTests.m */; };
+		C455B7481B179AFC00CA2F0A /* AKDelayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C455B7471B179AFC00CA2F0A /* AKDelayTests.m */; };
 		C487F84E1B14EA80000259D2 /* AKPannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C487F84D1B14EA80000259D2 /* AKPannerTests.m */; };
+		C4AA69BF1B15926A00B26D20 /* AKBambooSticksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AA69BE1B15926A00B26D20 /* AKBambooSticksTests.m */; };
 		C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E71AE44BDB003A8B73 /* AppDelegate.m */; };
 		C4C811EA1AE44BDB003A8B73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E91AE44BDB003A8B73 /* main.m */; };
 		C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C811EB1AE44BDB003A8B73 /* Images.xcassets */; };
@@ -151,7 +154,10 @@
 		C414094F1B14DD52001FD024 /* AKGuiroTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKGuiroTests.m; path = ../../Shared/AKGuiroTests.m; sourceTree = "<group>"; };
 		C41409531B14DE8C001FD024 /* AKLineTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKLineTests.m; path = ../../Shared/AKLineTests.m; sourceTree = "<group>"; };
 		C414095D1B14E995001FD024 /* AKOscillatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKOscillatorTests.m; path = ../../Shared/AKOscillatorTests.m; sourceTree = "<group>"; };
+		C455B7431B16F55900CA2F0A /* AKDeclickTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDeclickTests.m; path = ../../Shared/AKDeclickTests.m; sourceTree = "<group>"; };
+		C455B7471B179AFC00CA2F0A /* AKDelayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDelayTests.m; path = ../../Shared/AKDelayTests.m; sourceTree = "<group>"; };
 		C487F84D1B14EA80000259D2 /* AKPannerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKPannerTests.m; path = ../../Shared/AKPannerTests.m; sourceTree = "<group>"; };
+		C4AA69BE1B15926A00B26D20 /* AKBambooSticksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKBambooSticksTests.m; path = ../../Shared/AKBambooSticksTests.m; sourceTree = "<group>"; };
 		C4C811E11AE44BDB003A8B73 /* OSXObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSXObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C811E51AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C811E61AE44BDB003A8B73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -243,6 +249,7 @@
 				C41408D01B13FBDB001FD024 /* AKADSREnvelope.m */,
 				C41408D11B13FBDB001FD024 /* AKBalanceTests.m */,
 				C41408D21B13FBDB001FD024 /* AKBallWithinTheBoxReverbTests.m */,
+				C4AA69BE1B15926A00B26D20 /* AKBambooSticksTests.m */,
 				C41408D31B13FBDB001FD024 /* AKBandPassButterworthFilterTests.m */,
 				C41408D41B13FBDB001FD024 /* AKBandRejectButterworthFilterTests.m */,
 				C41408D51B13FBDB001FD024 /* AKBowedStringTests.m */,
@@ -253,6 +260,8 @@
 				C41408DA1B13FBDB001FD024 /* AKCrunchTests.m */,
 				C41408DB1B13FBDB001FD024 /* AKDCBlockTests.m */,
 				C41408DC1B13FBDB001FD024 /* AKDecimatorTests.m */,
+				C455B7431B16F55900CA2F0A /* AKDeclickTests.m */,
+				C455B7471B179AFC00CA2F0A /* AKDelayTests.m */,
 				C41408DD1B13FBDB001FD024 /* AKEqualizerFilterTests.m */,
 				C41408DE1B13FBDB001FD024 /* AKFluteTests.m */,
 				C41408DF1B13FBDB001FD024 /* AKFMOscillatorTests.m */,
@@ -505,6 +514,7 @@
 				C41409541B14DE8C001FD024 /* AKLineTests.m in Sources */,
 				C41409201B141CA5001FD024 /* AKMarimbaTests.m in Sources */,
 				C41408F61B13FBDB001FD024 /* AKCrunchTests.m in Sources */,
+				C4AA69BF1B15926A00B26D20 /* AKBambooSticksTests.m in Sources */,
 				C41408ED1B13FBDB001FD024 /* AKBalanceTests.m in Sources */,
 				C41409501B14DD52001FD024 /* AKGuiroTests.m in Sources */,
 				C414092E1B14329E001FD024 /* AKStickTests.m in Sources */,
@@ -519,10 +529,12 @@
 				C487F84E1B14EA80000259D2 /* AKPannerTests.m in Sources */,
 				C41409001B13FBDB001FD024 /* AKTestCase.m in Sources */,
 				C41408F11B13FBDB001FD024 /* AKBowedStringTests.m in Sources */,
+				C455B7481B179AFC00CA2F0A /* AKDelayTests.m in Sources */,
 				C41408F51B13FBDB001FD024 /* AKConvolutionTests.m in Sources */,
 				C41408FA1B13FBDB001FD024 /* AKFluteTests.m in Sources */,
 				C414095E1B14E995001FD024 /* AKOscillatorTests.m in Sources */,
 				C41408F91B13FBDB001FD024 /* AKEqualizerFilterTests.m in Sources */,
+				C455B7441B16F55900CA2F0A /* AKDeclickTests.m in Sources */,
 				C41409011B13FBDB001FD024 /* AKVariableFrequencyRepsonseBandPassFilterTests.m in Sources */,
 				C414093A1B143D1A001FD024 /* AKTambourineTests.m in Sources */,
 				C41409121B14191F001FD024 /* AKSandPaperTests.m in Sources */,
@@ -623,7 +635,10 @@
 				INFOPLIST_FILE = OSXObjectiveCAudioKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-headerpad_max_install_names",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/**";
 			};

@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the variable delay with default values
 /// @param input Input signal.
-- (instancetype)initDefaultDelayWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultDelayWithInput:(AKParameter *)input;
 
 /// Instantiates the variable delay with default values
 /// @param input Input signal.
-+ (instancetype)defaultDelayWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultDelayWithInput:(AKParameter *)input;
 
 /// Current value of delay in seconds. Note that linear functions have no pitch change effects. Fast changing values will cause discontinuities in the waveform resulting noise. [Default Value: 0]
 @property (nonatomic) AKParameter *delayTime;

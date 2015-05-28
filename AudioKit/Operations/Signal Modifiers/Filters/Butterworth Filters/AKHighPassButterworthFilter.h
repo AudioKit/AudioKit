@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the high pass butterworth filter with default values
 /// @param input Input signal to be filtered.
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass butterworth filter with default values
 /// @param input Input signal to be filtered.
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the high pass butterworth filter with a moderate cutoff
 /// @param input Input signal to be filtered.

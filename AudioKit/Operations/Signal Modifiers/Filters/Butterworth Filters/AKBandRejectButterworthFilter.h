@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the band reject butterworth filter with default values
 /// @param input Input signal to be filtered.
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the band reject butterworth filter with default values
 /// @param input Input signal to be filtered.
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the band reject butterworth filter with a treble-heavy sound
 /// @param input Input signal to be filtered.
