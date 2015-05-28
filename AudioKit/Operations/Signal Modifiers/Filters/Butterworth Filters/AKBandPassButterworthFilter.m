@@ -67,7 +67,7 @@
     return [[AKBandPassButterworthFilter alloc] initDefaultFilterWithInput:input];
 }
 
-- (instancetype)initWithPrestBassHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetBassHeavyFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -82,7 +82,7 @@
 
 + (instancetype)presetBassHeavyFilterWithInput:(AKParameter *)input;
 {
-    return [[AKBandPassButterworthFilter alloc] initWithPrestBassHeavyFilterWithInput:input];
+    return [[AKBandPassButterworthFilter alloc] initWithPresetBassHeavyFilterWithInput:input];
 }
 
 - (instancetype)initWithPresetTrebleHeavyFilterWithInput:(AKParameter *)input;
