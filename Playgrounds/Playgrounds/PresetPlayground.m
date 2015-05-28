@@ -116,57 +116,57 @@
     //     AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
 
     ///// May 22nd
-    // AKFlute *presetOperation = [AKFlute presetMicFeedbackFlute];
-    // AKFlute *presetOperation = [AKFlute presetShipsHornFlute];
-    // AKFlute *presetOperation = [AKFlute presetSciFiNoiseFlute];
-    // AKFlute *presetOperation = [AKFlute presetScreamingFlute];
+    //    AKFlute *presetOperation = [AKFlute presetMicFeedbackFlute];
+    //    AKFlute *presetOperation = [AKFlute presetShipsHornFlute];
+    //    AKFlute *presetOperation = [AKFlute presetSciFiNoiseFlute];
+    //    AKFlute *presetOperation = [AKFlute presetScreamingFlute];
 
 
     ///// May 24th
-    // AKReverb *presetOperation = [AKReverb presetSmallHallReverbWithInput:mono3];
-    // AKReverb *presetOperation = [AKReverb presetLargeHallReverbWithInput:mono3];
-    // AKReverb *presetOperation = [AKReverb presetMuffledCanReverbWithInput:mono3];
-
-    // AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetMetallicReverbWithInput:mono3];
-    // AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetStutteringReverbWithInput:mono3];
-
-    // AKDelay *presetOperation = [AKDelay presetChoppedDelayWithInput:mono3];
-    // AKDelay *presetOperation = [AKDelay presetShortAttackDelayWithInput:mono3];
-    // AKDelay *presetOperation = [AKDelay presetRhythmicDelayWithInput:mono3];
-
-    // AKCombFilter *presetOperation = [AKCombFilter presetShufflingFilterWithInput:mono3];
-    // AKCombFilter *presetOperation = [AKCombFilter presetSpringyFilterWithInput:mono3];
-
-
-    // AKMoogLadder *presetOperation = [AKMoogLadder presetBassHeavyFilterWithInput:mono3];
-    // AKMoogLadder *presetOperation = [AKMoogLadder presetUnderwaterFilterWithInput:mono3];
+    //    AKReverb *presetOperation = [AKReverb presetSmallHallReverbWithInput:mono3];
+    //    AKReverb *presetOperation = [AKReverb presetLargeHallReverbWithInput:mono3];
+    //    AKReverb *presetOperation = [AKReverb presetMuffledCanReverbWithInput:mono3];
+    //
+    //    AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetMetallicReverbWithInput:mono3];
+    //    AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetStutteringReverbWithInput:mono3];
+    //
+    //    AKDelay *presetOperation = [AKDelay presetChoppedDelayWithInput:mono3];
+    //    AKDelay *presetOperation = [AKDelay presetShortAttackDelayWithInput:mono3];
+    //    AKDelay *presetOperation = [AKDelay presetRhythmicDelayWithInput:mono3];
+    //
+    //    AKCombFilter *presetOperation = [AKCombFilter presetShufflingFilterWithInput:mono3];
+    //    AKCombFilter *presetOperation = [AKCombFilter presetSpringyFilterWithInput:mono3];
+    //
+    //
+    //    AKMoogLadder *presetOperation = [AKMoogLadder presetBassHeavyFilterWithInput:mono3];
+    //    AKMoogLadder *presetOperation = [AKMoogLadder presetUnderwaterFilterWithInput:mono3];
 
     ///// May 25th
-    // AKMoogVCF *presetOperation = [AKMoogVCF presetHighTrebleFilterWithInput:mono3];
-    // AKMoogVCF *presetOperation = [AKMoogVCF presetFoggyBottomFilterWithInput:mono3];
-
-    // AKStringResonator *presetOperation = [AKStringResonator presetMachineResonatorWithInput:mono3];
-
-    // AKLowPassFilter *presetOperation = [AKLowPassFilter presetMuffledFilterWithInput:mono3];
-
-    // AKHighPassFilter *presetOperation = [AKHighPassFilter presetHighCutoffFilterWithInput:mono3];
-
-    // AKDecimator *presetOperation = [AKDecimator presetCrunchyDecimatorWithInput:mono3];
-    // AKDecimator *presetOperation = [AKDecimator presetVideogameDecimatorWithInput:mono3];
-    // AKDecimator *presetOperation = [AKDecimator presetRobotDecimatorWithInput:mono3];
-
-    // AKBandPassButterworthFilter *defaultOperation = [AKBandPassButterworthFilter presetBassHeavyFilterWithInput:mono1];
-    // AKBandPassButterworthFilter *presetOperation = [AKBandPassButterworthFilter presetTrebleHeavyFilterWithInput:mono3];
-
-    // AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetBassRejectFilterWithInput:mono3];
-    // AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetTrebleRejectFilterWithInput:mono3];
-
-    // AKVibes *presetOperation = [AKVibes presetRingingVibes];
-
-    // AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetExtremeFilterWithInput:mono3];
-    // AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetModerateFilterWithInput:mono3];
-
-    // AKLowPassButterworthFilter *presetOperation = [[KLowPassButterworthFilter presetBassHeavyFilterWithInput:mono3];
+    //    AKMoogVCF *presetOperation = [AKMoogVCF presetHighTrebleFilterWithInput:mono3];
+    //    AKMoogVCF *presetOperation = [AKMoogVCF presetFoggyBottomFilterWithInput:mono3];
+    //
+    //    AKStringResonator *presetOperation = [AKStringResonator presetMachineResonatorWithInput:mono3];
+    //
+    //    AKLowPassFilter *presetOperation = [AKLowPassFilter presetMuffledFilterWithInput:mono3];
+    //
+    //    AKHighPassFilter *presetOperation = [AKHighPassFilter presetHighCutoffFilterWithInput:mono3];
+    //
+    //    AKDecimator *presetOperation = [AKDecimator presetCrunchyDecimatorWithInput:mono3];
+    //    AKDecimator *presetOperation = [AKDecimator presetVideogameDecimatorWithInput:mono3];
+    //    AKDecimator *presetOperation = [AKDecimator presetRobotDecimatorWithInput:mono3];
+    //
+    //    AKBandPassButterworthFilter *defaultOperation = [AKBandPassButterworthFilter presetBassHeavyFilterWithInput:mono1];
+    //    AKBandPassButterworthFilter *presetOperation = [AKBandPassButterworthFilter presetTrebleHeavyFilterWithInput:mono3];
+    //
+    //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetBassRejectFilterWithInput:mono3];
+    //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetTrebleRejectFilterWithInput:mono3];
+    //
+    //    AKVibes *presetOperation = [AKVibes presetRingingVibes];
+    //
+    //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetExtremeFilterWithInput:mono3];
+    //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetModerateFilterWithInput:mono3];
+    //
+    //    AKLowPassButterworthFilter *presetOperation = [[KLowPassButterworthFilter presetBassHeavyFilterWithInput:mono3];
      AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetMildBassFilterWithInput:mono3];
 
     [presetInstrument setAudioOutput:presetOperation];
