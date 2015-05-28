@@ -46,6 +46,7 @@
 		C414095B1B14E815001FD024 /* AKOscillatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C414095A1B14E815001FD024 /* AKOscillatorTests.m */; };
 		C422F05A1B10387700AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
 		C422F05B1B10389300AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
+		C455B73F1B16EF8600CA2F0A /* AKDeclickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C455B73E1B16EF8600CA2F0A /* AKDeclickTests.m */; };
 		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C4AA69BA1B15893A00B26D20 /* AKBambooSticksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AA69B91B15893A00B26D20 /* AKBambooSticksTests.m */; };
@@ -149,6 +150,7 @@
 		C41409561B14E0B9001FD024 /* AKLineTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKLineTests.m; path = ../../Shared/AKLineTests.m; sourceTree = "<group>"; };
 		C414095A1B14E815001FD024 /* AKOscillatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKOscillatorTests.m; path = ../../Shared/AKOscillatorTests.m; sourceTree = "<group>"; };
 		C422F0591B10387700AD3545 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		C455B73E1B16EF8600CA2F0A /* AKDeclickTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDeclickTests.m; path = ../../Shared/AKDeclickTests.m; sourceTree = "<group>"; };
 		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../iOSObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
 		C4AA69B91B15893A00B26D20 /* AKBambooSticksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKBambooSticksTests.m; path = ../../Shared/AKBambooSticksTests.m; sourceTree = "<group>"; };
 		C4AA69C31B1592ED00B26D20 /* AKPannerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKPannerTests.m; path = ../../Shared/AKPannerTests.m; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				C41408A01B13FBB0001FD024 /* AKConvolutionTests.m */,
 				C41408A11B13FBB0001FD024 /* AKCrunchTests.m */,
 				C41408A21B13FBB0001FD024 /* AKDCBlockTests.m */,
+				C455B73E1B16EF8600CA2F0A /* AKDeclickTests.m */,
 				C41408A31B13FBB0001FD024 /* AKDecimatorTests.m */,
 				C41408A41B13FBB0001FD024 /* AKEqualizerFilterTests.m */,
 				C41408A51B13FBB0001FD024 /* AKFluteTests.m */,
@@ -502,6 +505,7 @@
 				C41408BF1B13FBB0001FD024 /* AKDecimatorTests.m in Sources */,
 				C41408CA1B13FBB0001FD024 /* AKVibratoTests.m in Sources */,
 				C41408C31B13FBB0001FD024 /* AKHighPassButterworthFilterTests.m in Sources */,
+				C455B73F1B16EF8600CA2F0A /* AKDeclickTests.m in Sources */,
 				C41408B31B13FBB0001FD024 /* AKADSREnvelope.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
