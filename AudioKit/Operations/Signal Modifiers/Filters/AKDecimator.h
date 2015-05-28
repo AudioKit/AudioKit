@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the decimator with default values
 /// @param input Audio to be decimated!
-- (instancetype)initDefaultDecimatorWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultDecimatorWithInput:(AKParameter *)input;
 
 /// Instantiates the decimator with default values
 /// @param input Audio to be decimated!
-+ (instancetype)defaultDecimatorWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultDecimatorWithInput:(AKParameter *)input;
 
 /// Instantiates the decimator with a crunchy sound
 /// @param input Audio to be decimated!

@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the low pass butterworth filter with default values
 /// @param input Input signal to be filtered.
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass butterworth filter with default values
 /// @param input Input signal to be filtered.
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass butterworth filter with an extremely bass heavy sound
 /// @param input Input signal to be filtered.

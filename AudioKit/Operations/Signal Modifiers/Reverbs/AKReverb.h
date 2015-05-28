@@ -34,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the reverb with default values
 /// @param input Audio input
-- (instancetype)initDefaultReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with default values
 /// @param input Input for the left channel
-+ (instancetype)defaultReverbWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with 'small hall' values
 /// @param input Audio input
@@ -82,11 +82,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the reverb with default values
 /// @param input Input to the reverberator.
-- (instancetype)initDefaultReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetDefaultReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with default values
 /// @param input Input to the reverberator.
-+ (instancetype)defaultReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetDefaultReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'small hall' values
 /// @param input Input to the reverberator

@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the low pass filter with default values
 /// @param input The control to be filtered
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass filter with default values
 /// @param input The control to be filtered
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass filter with a muffled sound
 /// @param input The control to be filtered

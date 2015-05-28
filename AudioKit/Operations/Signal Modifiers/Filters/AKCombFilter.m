@@ -49,25 +49,17 @@
     return [[AKCombFilter alloc] initWithInput:input];
 }
 
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _input = input;
-        // Default Values
-        _reverbDuration = akp(1);
-        _loopDuration = akp(0.1);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithInput:input];
 }
 
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input;
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 {
-    return [[AKCombFilter alloc] initDefaultFilterWithInput:input];
+    return [[AKCombFilter alloc] initWithInput:input];
 }
 
-- (instancetype)initSpringyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetSpringyFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,12 +72,12 @@
     return self;
 }
 
-+ (instancetype)defaultSpringFilterWithInput:(AKParameter *)input;
++ (instancetype)presetSpringFilterWithInput:(AKParameter *)input;
 {
-    return [[AKCombFilter alloc] initSpringyFilterWithInput:input];
+    return [[AKCombFilter alloc] initWithPresetSpringyFilterWithInput:input];
 }
 
-- (instancetype)initShufflingFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetShuffleFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -98,9 +90,9 @@
     return self;
 }
 
-+ (instancetype)defaultShuffleFilterWithInput:(AKParameter *)input;
++ (instancetype)presetShuffleFilterWithInput:(AKParameter *)input;
 {
-    return [[AKCombFilter alloc] initShufflingFilterWithInput:input];
+    return [[AKCombFilter alloc] initWithPresetShuffleFilterWithInput:input];
 }
 
 - (void)setReverbDuration:(AKParameter *)reverbDuration {
