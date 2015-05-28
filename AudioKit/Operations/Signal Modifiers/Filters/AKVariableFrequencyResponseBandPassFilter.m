@@ -47,7 +47,7 @@
         // Default Values
         _cutoffFrequency = akp(1000);
         _bandwidth = akp(10);
-        _scalingFactor = akp(0);
+        _scalingFactor = akp(1);
         [self setUpConnections];
     }
     return self;
@@ -58,23 +58,14 @@
     return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
 }
 
-- (instancetype)initDefaultFilterWithInput:(AKParameter *)input
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
 {
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _input = input;
-        // Default Values
-        _cutoffFrequency = akp(1000);
-        _bandwidth = akp(10);
-        _scalingFactor = akp(0);
-        [self setUpConnections];
-    }
-    return self;
+    return [self initWithInput:input];
 }
 
-+ (instancetype)defaultFilterWithInput:(AKParameter *)input
++ (instancetype)presetDefautFilterWithInput:(AKParameter *)input;
 {
-    return [[AKVariableFrequencyResponseBandPassFilter alloc] initDefaultFilterWithInput:input];
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
 }
 
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
