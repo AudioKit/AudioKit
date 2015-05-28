@@ -46,7 +46,7 @@
     //  MODIFIER TEMPLATE
     AKBandPassButterworthFilter *testOperation = [[AKBandPassButterworthFilter alloc] initWithInput:testInstrumentSourceAudio];
     [testInstrument setAudioOutput:testOperation];
-
+    
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
     //    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
     //    AKBambooSticks *presetOperation = [AKBambooSticks presetFewSticks];
@@ -170,8 +170,10 @@
     //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetWideHighFrequencyNotchFilterWithInput:mono];
     AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetWideLowFrequencyNotchFilterWithInput:mono];
 
-    [presetInstrument setAudioOutput:presetOperation];
+///////////AKVariableFrequencyResponseBandPassFilter BUG TEST
+    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initDefaultFilterWithInput:mono3];
 
+    [presetInstrument setAudioOutput:presetOperation];
 
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];

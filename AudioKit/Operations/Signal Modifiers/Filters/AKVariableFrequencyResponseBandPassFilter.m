@@ -47,13 +47,23 @@
         // Default Values
         _cutoffFrequency = akp(1000);
         _bandwidth = akp(10);
-        _scalingFactor = akp(0);
+        _scalingFactor = akp(1);
         [self setUpConnections];
     }
     return self;
 }
 
 + (instancetype)filterWithInput:(AKParameter *)input
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefautFilterWithInput:(AKParameter *)input;
 {
     return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
 }
