@@ -15,41 +15,41 @@
 - (void)run
 {
     [super run];
-    
+
     //Set up the source file we want to use for testing
     NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
-    AKFileInput *defaultInstrumentSourceStereoAudio = [[AKFileInput alloc] initWithFilename:filename];
-    defaultInstrumentSourceStereoAudio.loop = YES;
-    AKFileInput *testInstrumentSourceStereoAudio = [[AKFileInput alloc] initWithFilename:filename];
-    testInstrumentSourceStereoAudio.loop = YES;
-    AKFileInput *presetInstrumentSourceStereoAudio = [[AKFileInput alloc] initWithFilename:filename];
-    presetInstrumentSourceStereoAudio.loop = YES;
-    
-    AKMix *defaultInstrumentSourceAudio = [[AKMix alloc] initMonoAudioFromStereoInput:defaultInstrumentSourceStereoAudio];
-    AKMix *testInstrumentSourceAudio = [[AKMix alloc] initMonoAudioFromStereoInput:testInstrumentSourceStereoAudio];
-    AKMix *presetInstrumentSourceAudio = [[AKMix alloc] initMonoAudioFromStereoInput:presetInstrumentSourceStereoAudio];
-    
+    AKFileInput *defaultStereo = [[AKFileInput alloc] initWithFilename:filename];
+    defaultStereo.loop = YES;
+    AKFileInput *testStereo = [[AKFileInput alloc] initWithFilename:filename];
+    testStereo.loop = YES;
+    AKFileInput *presetStereo = [[AKFileInput alloc] initWithFilename:filename];
+    presetStereo.loop = YES;
+
+    AKMix *defaultAudio = [[AKMix alloc] initMonoAudioFromStereoInput:defaultStereo];
+    AKMix *testAudio    = [[AKMix alloc] initMonoAudioFromStereoInput:testStereo];
+    AKMix *presetAudio = [[AKMix alloc] initMonoAudioFromStereoInput:presetStereo];
+
     AKInstrument *defaultInstrument = [AKInstrument instrumentWithNumber:1];
     AKInstrument *testInstrument    = [AKInstrument instrumentWithNumber:2];
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
-    
+
     // Here we just instantiate the current sensible default
-    AKVariableFrequencyResponseBandPassFilter *defaultOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:defaultInstrumentSourceAudio];
+    AKVariableFrequencyResponseBandPassFilter *defaultOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:defaultAudio];
     [defaultInstrument setAudioOutput:defaultOperation];
-    
+
     // Here we instead create a new instrument based on default but with new parameters
     //  GENERATOR TEMPLATE
     //    AKTambourine *testOperation = [AKTambourine tambourine];
     //    testOperation.dampingFactor = akp(0.6);
     //    [testInstrument setAudioOutput:testOperation];
-    
+
     //  MODIFIER TEMPLATE
-    AKVariableFrequencyResponseBandPassFilter *testOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:testInstrumentSourceAudio];
+    AKVariableFrequencyResponseBandPassFilter *testOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:testAudio   ];
     testOperation.cutoffFrequency = akp(200);
     testOperation.bandwidth = akp(1);
     testOperation.scalingFactor = akp(2);
     [testInstrument setAudioOutput:testOperation];
-    
+
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
     //    AKBambooSticks *presetOperation = [AKBambooSticks presetDefaultSticks];
     //    AKBambooSticks *presetOperation = [AKBambooSticks presetFewSticks];
@@ -75,7 +75,7 @@
     //    AKTambourine *presetOperation = [AKTambourine presetDefaultTambourine];
     //    AKTambourine *presetOperation = [AKTambourine presetOpenTambourine];
     //    AKTambourine *presetOperation = [AKTambourine presetClosedTambourine];
-    
+
     ///// May 17th
     //    AKMandolin *presetOperation = [AKMandolin presetDetunedMandolin];
     //    AKMandolin *presetOperation = [AKMandolin presetSmallMandolin];
@@ -90,8 +90,8 @@
     //    AKVCOscillator *presetOperation = [AKVCOscillator presetSquareWithPWMOscillator];
     //    AKVCOscillator *presetOperation = [AKVCOscillator presetUnnormalizedPulseOscillator];
     //    AKVCOscillator *presetOperation = [AKVCOscillator presetIntegratedSawtoothOscillator];
-    
-    
+
+
     ///// May 20th
     //     AKMarimba *presetOperation = [AKMarimba presetDryMutedMarimba];
     //     AKMarimba *presetOperation = [AKMarimba presetGentleMarimba];
@@ -99,106 +99,106 @@
     //     AKPluckedString *presetOperation = [AKPluckedString presetDecayingPluckedString];
     //     AKPluckedString *presetOperation = [AKPluckedString presetRoundedPluckedString];
     //     AKPluckedString *presetOperation = [AKPluckedString presetSnappyPluckedString];
-    
+
     ///// May 21st
     //     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetThickDullMetalBar];
     //     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetIntenseDecayingMetalBar];
     //     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallHollowMetalBar];
     //     AKStruckMetalBar *presetOperation = [AKStruckMetalBar presetSmallTinklingMetalBar];
-    
+
     //     AKVibes *presetOperation = [AKVibes presetTinyVibes];
     //     AKVibes *presetOperation = [AKVibes presetGentleVibes];
-    
+
     //     AKBowedString *presetOperation = [AKBowedString presetWhistlingBowedString];
     //     AKBowedString *presetOperation = [AKBowedString presetTrainWhislteBowedString];
     //     AKBowedString *presetOperation = [AKBowedString presetCelloBowedString];
     //     AKBowedString *presetOperation = [AKBowedString presetFeedbackBowedString];
     //     AKBowedString *presetOperation = [AKBowedString presetFogHornBowedString];
-    
+
     ///// May 22nd
     //    AKFlute *presetOperation = [AKFlute presetMicFeedbackFlute];
     //    AKFlute *presetOperation = [AKFlute presetShipsHornFlute];
     //    AKFlute *presetOperation = [AKFlute presetSciFiNoiseFlute];
     //    AKFlute *presetOperation = [AKFlute presetScreamingFlute];
-    
+
     ///// May 24th
-    //    AKReverb *presetOperation = [AKReverb presetSmallHallReverbWithInput:mono];
-    //    AKReverb *presetOperation = [AKReverb presetLargeHallReverbWithInput:mono];
-    //    AKReverb *presetOperation = [AKReverb presetMuffledCanReverbWithInput:mono];
+    //    AKReverb *presetOperation = [AKReverb presetSmallHallReverbWithInput:presetAudio];
+    //    AKReverb *presetOperation = [AKReverb presetLargeHallReverbWithInput:presetAudio];
+    //    AKReverb *presetOperation = [AKReverb presetMuffledCanReverbWithInput:presetAudio];
     //
-    //    AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetMetallicReverbWithInput:mono];
-    //    AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetStutteringReverbWithInput:mono];
+    //    AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetMetallicReverbWithInput:presetAudio];
+    //    AKFlatFrequencyResponseReverb *presetOperation = [AKFlatFrequencyResponseReverb presetStutteringReverbWithInput:presetAudio];
     //
-    //    AKDelay *presetOperation = [AKDelay presetChoppedDelayWithInput:mono];
-    //    AKDelay *presetOperation = [AKDelay presetShortAttackDelayWithInput:mono];
-    //    AKDelay *presetOperation = [AKDelay presetRhythmicDelayWithInput:mono];
+    //    AKDelay *presetOperation = [AKDelay presetChoppedDelayWithInput:presetAudio];
+    //    AKDelay *presetOperation = [AKDelay presetShortAttackDelayWithInput:presetAudio];
+    //    AKDelay *presetOperation = [AKDelay presetRhythmicDelayWithInput:presetAudio];
     //
-    //    AKCombFilter *presetOperation = [AKCombFilter presetShufflingFilterWithInput:mono];
-    //    AKCombFilter *presetOperation = [AKCombFilter presetSpringyFilterWithInput:mono];
+    //    AKCombFilter *presetOperation = [AKCombFilter presetShufflingFilterWithInput:presetAudio];
+    //    AKCombFilter *presetOperation = [AKCombFilter presetSpringyFilterWithInput:presetAudio];
     //
     //
-    //    AKMoogLadder *presetOperation = [AKMoogLadder presetBassHeavyFilterWithInput:mono];
-    //    AKMoogLadder *presetOperation = [AKMoogLadder presetUnderwaterFilterWithInput:mono];
-    
+    //    AKMoogLadder *presetOperation = [AKMoogLadder presetBassHeavyFilterWithInput:presetAudio];
+    //    AKMoogLadder *presetOperation = [AKMoogLadder presetUnderwaterFilterWithInput:presetAudio];
+
     ///// May 25th
-    //    AKMoogVCF *presetOperation = [AKMoogVCF presetHighTrebleFilterWithInput:mono];
-    //    AKMoogVCF *presetOperation = [AKMoogVCF presetFoggyBottomFilterWithInput:mono];
+    //    AKMoogVCF *presetOperation = [AKMoogVCF presetHighTrebleFilterWithInput:presetAudio];
+    //    AKMoogVCF *presetOperation = [AKMoogVCF presetFoggyBottomFilterWithInput:presetAudio];
     //
-    //    AKStringResonator *presetOperation = [AKStringResonator presetMachineResonatorWithInput:mono];
+    //    AKStringResonator *presetOperation = [AKStringResonator presetMachineResonatorWithInput:presetAudio];
     //
-    //    AKLowPassFilter *presetOperation = [AKLowPassFilter presetMuffledFilterWithInput:mono];
+    //    AKLowPassFilter *presetOperation = [AKLowPassFilter presetMuffledFilterWithInput:presetAudio];
     //
-    //    AKHighPassFilter *presetOperation = [AKHighPassFilter presetHighCutoffFilterWithInput:mono];
+    //    AKHighPassFilter *presetOperation = [AKHighPassFilter presetHighCutoffFilterWithInput:presetAudio];
     //
-    //    AKDecimator *presetOperation = [AKDecimator presetCrunchyDecimatorWithInput:mono];
-    //    AKDecimator *presetOperation = [AKDecimator presetVideogameDecimatorWithInput:mono];
-    //    AKDecimator *presetOperation = [AKDecimator presetRobotDecimatorWithInput:mono];
+    //    AKDecimator *presetOperation = [AKDecimator presetCrunchyDecimatorWithInput:presetAudio];
+    //    AKDecimator *presetOperation = [AKDecimator presetVideogameDecimatorWithInput:presetAudio];
+    //    AKDecimator *presetOperation = [AKDecimator presetRobotDecimatorWithInput:presetAudio];
     //
-    //    AKBandPassButterworthFilter *presetOperation = [AKBandPassButterworthFilter presetTrebleHeavyFilterWithInput:mono];
+    //    AKBandPassButterworthFilter *presetOperation = [AKBandPassButterworthFilter presetTrebleHeavyFilterWithInput:presetAudio];
     //
-    //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetBassRejectFilterWithInput:mono];
-    //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetTrebleRejectFilterWithInput:mono];
+    //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetBassRejectFilterWithInput:presetAudio];
+    //    AKBandRejectButterworthFilter *presetOperation = [AKBandRejectButterworthFilter presetTrebleRejectFilterWithInput:presetAudio];
     //
     //    AKVibes *presetOperation = [AKVibes presetRingingVibes];
     //
-    //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetExtremeFilterWithInput:mono];
-    //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter alloc] initWithModerateFilterWithInput:mono];
+    //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter presetExtremeFilterWithInput:presetAudio];
+    //    AKHighPassButterworthFilter *presetOperation = [AKHighPassButterworthFilter alloc] initWithModerateFilterWithInput:presetAudio];
     //
-    //    AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetBassHeavyFilterWithInput:mono];
-    //    AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetMildBassFilterWithInput:mono];
-    
+    //    AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetBassHeavyFilterWithInput:presetAudio];
+    //    AKLowPassButterworthFilter *presetOperation = [AKLowPassButterworthFilter presetMildBassFilterWithInput:presetAudio];
+
     ///// May 26th
-    //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetNarrowHighFrequencyNotchFilterWithInput:mono];
-    //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetNarrowLowFrequencyNotchFilterWithInput:mono];
-    //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetWideHighFrequencyNotchFilterWithInput:mono];
-    // AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetWideLowFrequencyNotchFilterWithInput:mono];
-    
-    
+    //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetNarrowHighFrequencyNotchFilterWithInput:presetAudio];
+    //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetNarrowLowFrequencyNotchFilterWithInput:presetAudio];
+    //    AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetWideHighFrequencyNotchFilterWithInput:presetAudio];
+    // AKEqualizerFilter *presetOperation = [AKEqualizerFilter presetWideLowFrequencyNotchFilterWithInput:presetAudio];
+
+
     ///// May 27th
-    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetMuffledFilterWithInput:presetInstrumentSourceAudio];
-    
-//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetLargeMuffledFilterWithInput:presetInstrumentSourceAudio];
-    
-//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetTreblePeakFilterWithInput:presetInstrumentSourceAudio];
+    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetMuffledFilterWithInput:presetAudio];
 
-//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetBassPeakFilterWithInput:presetInstrumentSourceAudio];
+//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetLargeMuffledFilterWithInput:presetAudio];
 
-    
+//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetTreblePeakFilterWithInput:presetAudio];
+
+//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetBassPeakFilterWithInput:presetAudio];
+
+
     [presetInstrument setAudioOutput:presetOperation];
-    
+
     [AKOrchestra addInstrument:defaultInstrument];
     [AKOrchestra addInstrument:testInstrument];
     [AKOrchestra addInstrument:presetInstrument];
-    
+
     AKNote *note = [[AKNote alloc] init];
     note.duration.value = 4.0;
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note];
-    
+
     // As you are changing the testInstrument, you probably want to hear it
     // This will play the phrase once for each save
     [presetInstrument playPhrase:phrase];
-    
+
     [self addButtonWithTitle:@"Play Default" block:^{
         [defaultInstrument playPhrase:phrase];
     }];
@@ -208,10 +208,10 @@
     [self addButtonWithTitle:@"Play Preset" block:^{
         [presetInstrument playPhrase:phrase];
     }];
-    
+
     [self addAudioOutputPlot];
     [self addAudioOutputFFTPlot];
-    
+
 }
 
 @end
