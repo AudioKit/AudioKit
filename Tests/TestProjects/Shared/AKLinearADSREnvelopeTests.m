@@ -1,5 +1,5 @@
 //
-//  AKADSREnvelope.m
+//  AKLinearADSREnvelopeTests.m
 //  iOSObjectiveCAudioKit
 //
 //  Created by Aurelius Prochazka on 5/22/15.
@@ -10,17 +10,17 @@
 
 #define testDuration 10.0
 
-@interface TestADSREnvelopeInstrument : AKInstrument
+@interface TestLinearADSREnvelopeInstrument : AKInstrument
 @end
 
-@implementation TestADSREnvelopeInstrument
+@implementation TestLinearADSREnvelopeInstrument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         
-        AKADSREnvelope *adsr = [AKADSREnvelope envelope];
+        AKLinearADSREnvelope *adsr = [AKLinearADSREnvelope envelope];
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.amplitude = adsr;
         
@@ -31,15 +31,15 @@
 
 @end
 
-@interface AKADSREnvelopeTests : AKTestCase
+@interface AKLinearADSREnvelopeTests : AKTestCase
 @end
 
-@implementation AKADSREnvelopeTests
+@implementation AKLinearADSREnvelopeTests
 
-- (void)testADSREnvelope
+- (void)testLinearADSREnvelope
 {
     // Set up performance
-    TestADSREnvelopeInstrument *testInstrument = [[TestADSREnvelopeInstrument alloc] init];
+    TestLinearADSREnvelopeInstrument *testInstrument = [[TestLinearADSREnvelopeInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     AKNote *note1 = [[AKNote alloc] init];
     AKNote *note2 = [[AKNote alloc] init];
@@ -53,13 +53,13 @@
     [testInstrument playPhrase:phrase];
     
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-ADSREnvelope.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-LinearADSREnvelope.aiff", NSTemporaryDirectory()];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    NSArray *validMD5s = @[@"b31c54a90230a8baed06e922d877e3a3",
-                           @"1ec9b44e7341e2ced1e50279da94a84e"];
+    NSArray *validMD5s = @[@"9ae6ca16e28860eb0bf4e63253f35c4f",
+                           @"d3d30e50ddd2949ed70e11923ac9294f"];
     XCTAssertTrue([validMD5s containsObject:[nsData MD5]]);
 }
 
