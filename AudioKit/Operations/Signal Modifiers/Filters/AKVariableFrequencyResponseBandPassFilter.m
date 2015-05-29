@@ -47,13 +47,101 @@
         // Default Values
         _cutoffFrequency = akp(1000);
         _bandwidth = akp(10);
-        _scalingFactor = akp(0);
+        _scalingFactor = akp(1);
         [self setUpConnections];
     }
     return self;
 }
 
 + (instancetype)filterWithInput:(AKParameter *)input
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(500);
+        _bandwidth = akp(10);
+        _scalingFactor = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetMuffledFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetLargeMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(500);
+        _bandwidth = akp(5);
+        _scalingFactor = akp(2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetLargeMuffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetLargeMuffledFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetTreblePeakFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(3000);
+        _bandwidth = akp(5);
+        _scalingFactor = akp(2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetTreblePeakFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetTreblePeakFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetBassPeakFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(200);
+        _bandwidth = akp(1);
+        _scalingFactor = akp(2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetBassPeakFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetBassPeakFilterWithInput:input];
+}
+
+
+
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefautFilterWithInput:(AKParameter *)input;
 {
     return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
 }
