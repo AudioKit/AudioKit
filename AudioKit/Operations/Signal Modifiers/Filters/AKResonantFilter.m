@@ -14,28 +14,28 @@
 
 @implementation AKResonantFilter
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    centerFrequency:(AKParameter *)centerFrequency
-                          bandwidth:(AKParameter *)bandwidth
+- (instancetype)initWithInput:(AKParameter *)input
+              centerFrequency:(AKParameter *)centerFrequency
+                    bandwidth:(AKParameter *)bandwidth
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _centerFrequency = centerFrequency;
         _bandwidth = bandwidth;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _centerFrequency = akp(1000);
         _bandwidth = akp(10);
@@ -44,9 +44,9 @@
     return self;
 }
 
-+ (instancetype)filterWithAudioSource:(AKParameter *)audioSource
++ (instancetype)filterWithInput:(AKParameter *)input
 {
-    return [[AKResonantFilter alloc] initWithAudioSource:audioSource];
+    return [[AKResonantFilter alloc] initWithInput:input];
 }
 
 - (void)setCenterFrequency:(AKParameter *)centerFrequency {
@@ -71,17 +71,17 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_audioSource, _centerFrequency, _bandwidth];
+    self.dependencies = @[_input, _centerFrequency, _bandwidth];
 }
 
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-
+    
     [inlineCSDString appendString:@"reson("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
-
+    
     return inlineCSDString;
 }
 
@@ -89,7 +89,7 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ reson ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
@@ -97,26 +97,26 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
     
-    if ([_audioSource class] == [AKAudio class]) {
-        [inputsString appendFormat:@"%@, ", _audioSource];
+    
+    if ([_input class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [inputsString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
-
+    
     if ([_centerFrequency class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _centerFrequency];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _centerFrequency];
     }
-
+    
     if ([_bandwidth class] == [AKControl class]) {
         [inputsString appendFormat:@"%@", _bandwidth];
     } else {
         [inputsString appendFormat:@"AKControl(%@)", _bandwidth];
     }
-return inputsString;
+    return inputsString;
 }
 
 @end
