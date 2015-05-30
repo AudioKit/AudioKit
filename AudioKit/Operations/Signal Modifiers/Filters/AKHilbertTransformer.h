@@ -47,6 +47,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The control to be filtered
 + (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
+/// Instantiates the low pass filter with an alien spaceship sound
+/// @param input The control to be filtered
+- (instancetype)initWithPresetAlienSpaceshipWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with an alien spaceship sound
+/// @param input The control to be filtered
++ (instancetype)presetAlienSpaceshipFilterWithInput:(AKParameter *)input;
+
+
 /// Filter cut-off frequency in Hz. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
 
