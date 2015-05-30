@@ -65,6 +65,9 @@
     return [[AKHilbertTransformer alloc] initWithInput:input];
 }
 
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
 
 - (void)setUpConnections
 {
