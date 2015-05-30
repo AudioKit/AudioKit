@@ -34,7 +34,7 @@
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
     
     // Here we just instantiate the current sensible default
-    AKThreePoleLowpassFilter *defaultOperation = [[AKThreePoleLowpassFilter alloc] initWithInput:defaultAudio];
+    AKBallWithinTheBoxReverb *defaultOperation = [[AKBallWithinTheBoxReverb alloc] initWithInput:defaultAudio];
     [defaultInstrument setAudioOutput:defaultOperation];
     
     // Here we instead create a new instrument based on default but with new parameters
@@ -44,10 +44,7 @@
     //    [testInstrument setAudioOutput:testOperation];
     
     //  MODIFIER TEMPLATE
-    AKThreePoleLowpassFilter *testOperation = [[AKThreePoleLowpassFilter alloc] initWithInput:testAudio];
-    testOperation.distortion = akp(0.9);
-    testOperation.cutoffFrequency = akp(1000);
-    testOperation.resonance = akp(1);
+    AKBallWithinTheBoxReverb *testOperation = [[AKBallWithinTheBoxReverb alloc] initWithInput:testAudio];
     [testInstrument setAudioOutput:testOperation];
     
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
@@ -191,8 +188,12 @@
     //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
     //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
     //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetDullBassWithInput:presetAudio];
-    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetScreamWithInput:presetAudio];
-
+    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetScreamWithInput:presetAudio];
+    
+    
+    //    AKBallWithinTheBoxReverb *presetOperation = [[AKBallWithinTheBoxReverb alloc] initWithPresetStutteringReverbWithInput:presetAudio];
+    AKBallWithinTheBoxReverb *presetOperation = [[AKBallWithinTheBoxReverb alloc] initWithPresetPloddingReverbWithInput:presetAudio];
+    
     [presetInstrument setAudioOutput:presetOperation];
     
     [AKOrchestra addInstrument:defaultInstrument];
