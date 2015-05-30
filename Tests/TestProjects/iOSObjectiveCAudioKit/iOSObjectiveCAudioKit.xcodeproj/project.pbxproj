@@ -76,6 +76,7 @@
 		C4C626DD1B197E4900B7AD86 /* AKVCOscillatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626A91B197E4900B7AD86 /* AKVCOscillatorTests.m */; };
 		C4C626DE1B197E4900B7AD86 /* AKVibesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626AA1B197E4900B7AD86 /* AKVibesTests.m */; };
 		C4C626DF1B197E4900B7AD86 /* AKVibratoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626AB1B197E4900B7AD86 /* AKVibratoTests.m */; };
+		C4C627501B19A3E600B7AD86 /* AKResonantFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,7 @@
 		C4C626A91B197E4900B7AD86 /* AKVCOscillatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVCOscillatorTests.m; sourceTree = "<group>"; };
 		C4C626AA1B197E4900B7AD86 /* AKVibesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibesTests.m; sourceTree = "<group>"; };
 		C4C626AB1B197E4900B7AD86 /* AKVibratoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibratoTests.m; sourceTree = "<group>"; };
+		C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKResonantFilterTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +352,7 @@
 				C4C6269B1B197E4900B7AD86 /* AKMarimbaTests.m */,
 				C4C6269C1B197E4900B7AD86 /* AKOscillatorTests.m */,
 				C4C6269D1B197E4900B7AD86 /* AKPannerTests.m */,
+				C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */,
 				C4C6269E1B197E4900B7AD86 /* AKRingModulatorTests.m */,
 				C4C6269F1B197E4900B7AD86 /* AKSandPaperTests.m */,
 				C4C626A01B197E4900B7AD86 /* AKSekereTests.m */,
@@ -518,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C626C01B197E4900B7AD86 /* AKFluteTests.m in Sources */,
+				C4C627501B19A3E600B7AD86 /* AKResonantFilterTests.m in Sources */,
 				C4C626D01B197E4900B7AD86 /* AKOscillatorTests.m in Sources */,
 				C4C626B91B197E4900B7AD86 /* AKDCBlockTests.m in Sources */,
 				C4C626B01B197E4900B7AD86 /* AKBambooSticksTests.m in Sources */,
