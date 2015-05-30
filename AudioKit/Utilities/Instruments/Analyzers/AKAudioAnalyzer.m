@@ -17,12 +17,12 @@
         _trackedAmplitude = [[AKInstrumentProperty alloc] initWithMinimum:0 maximum:1];
         
         AKTrackedFrequency *frequency;
-        frequency = [[AKTrackedFrequency alloc] initWithAudioSource:audioSource
-                                                         sampleSize:akp(2048)];
+        frequency = [[AKTrackedFrequency alloc] initWithInput:audioSource
+                                                   sampleSize:akp(2048)];
         [self setParameter:_trackedFrequency to:frequency];
-
+        
         AKTrackedAmplitude *amplitude;
-        amplitude = [[AKTrackedAmplitude alloc] initWithAudioSource:audioSource];
+        amplitude = [[AKTrackedAmplitude alloc] initWithInput:audioSource];
         [self setParameter:_trackedAmplitude to:amplitude];
         
         [self resetParameter:audioSource];

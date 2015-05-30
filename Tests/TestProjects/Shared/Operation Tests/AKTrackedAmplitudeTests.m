@@ -27,7 +27,7 @@
         AKOscillator *sine = [AKOscillator oscillator];
         sine.amplitude = [akp(0.5) plus:amplitudeDeviation];
         
-        AKTrackedAmplitude *tracker = [[AKTrackedAmplitude alloc] initWithAudioSource:sine];
+        AKTrackedAmplitude *tracker = [[AKTrackedAmplitude alloc] initWithInput:sine];
         
         AKOscillator *trackedSine = [AKOscillator oscillator];
         trackedSine.amplitude = tracker;

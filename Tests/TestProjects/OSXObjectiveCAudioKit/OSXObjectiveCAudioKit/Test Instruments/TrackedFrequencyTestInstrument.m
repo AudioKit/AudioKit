@@ -20,12 +20,12 @@
         AKLine *frequencyLine = [[AKLine alloc] initWithFirstPoint:akp(200)
                                                        secondPoint:akp(2000)
                                              durationBetweenPoints:akp(1)];
-
+        
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.frequency = frequencyLine;
-
-        AKTrackedFrequency *tracker = [[AKTrackedFrequency alloc] initWithAudioSource:oscillator
-                                                                           sampleSize:akp(512)];
+        
+        AKTrackedFrequency *tracker = [[AKTrackedFrequency alloc] initWithInput:oscillator
+                                                                     sampleSize:akp(512)];
         AKAssignment *assignment = [[AKAssignment alloc] initWithOutput:_trackedFrequency input:tracker];
         [self connect:assignment];
         [self enableParameterLog:@"AKTEST" parameter:tracker timeInterval:0.01];

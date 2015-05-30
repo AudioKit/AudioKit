@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the resonant filter with default values
-/// @param audioSource The input audio stream.
+/// @param input The input audio stream.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
 /// Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
