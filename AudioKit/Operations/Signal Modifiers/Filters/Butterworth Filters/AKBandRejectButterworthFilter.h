@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKBandRejectButterworthFilter : AKAudio
 /// Instantiates the band reject butterworth filter with all values
-/// @param input Input signal to be filtered. [Default Value: ]
+/// @param input Input signal to be filtered. 
 /// @param centerFrequency Center frequency for each of the filters. Updated at Control-rate. [Default Value: 3000]
 /// @param bandwidth Bandwidth of the band-reject filters. Updated at Control-rate. [Default Value: 2000]
 - (instancetype)initWithInput:(AKParameter *)input

@@ -20,7 +20,7 @@ Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does
 NS_ASSUME_NONNULL_BEGIN
 @interface AKHilbertTransformer : AKAudio
 // Instantiates the hilbert transformer with all values
-/// @param input The input audio Signal [Default Value: ]
+/// @param input The input audio Signal 
 /// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: 440]
 - (instancetype)initWithInput:(AKParameter *)input
                     frequency:(AKParameter *)frequency;

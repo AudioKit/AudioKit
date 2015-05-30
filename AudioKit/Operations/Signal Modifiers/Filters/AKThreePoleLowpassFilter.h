@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKThreePoleLowpassFilter : AKAudio
 /// Instantiates the three pole lowpass filter with all values
-/// @param input Signal that will be modified. [Default Value: ]
+/// @param input Signal that will be modified. 
 /// @param distortion Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. Updated at Control-rate. [Default Value: 0.5]
 /// @param cutoffFrequency The filter cutoff frequency in Hz. Updated at Control-rate. [Default Value: 1500]
 /// @param resonance Amount of resonance. Self-oscillation occurs when approximately 1. Should usually be in the range 0 to 1, however, values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. Updated at Control-rate. [Default Value: 0.5]

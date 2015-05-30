@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKResonantFilter : AKAudio
 /// Instantiates the resonant filter with all values
-/// @param input The input audio stream. [Default Value: ]
+/// @param input The input audio stream. 
 /// @param centerFrequency Center frequency of the filter, or frequency position of the peak response. Updated at Control-rate. [Default Value: 1000]
 /// @param bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). Updated at Control-rate. [Default Value: 10]
 - (instancetype)initWithInput:(AKParameter *)input

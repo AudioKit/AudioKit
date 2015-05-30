@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKHighPassButterworthFilter : AKAudio
 /// Instantiates the high pass butterworth filter with all values
-/// @param input Input signal to be filtered. [Default Value: ]
+/// @param input Input signal to be filtered. 
 /// @param cutoffFrequency Cutoff frequency for each of the filters. Updated at Control-rate. [Default Value: 500]
 - (instancetype)initWithInput:(AKParameter *)input
               cutoffFrequency:(AKParameter *)cutoffFrequency;

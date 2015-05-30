@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKAdditiveCosines : AKAudio
 /// Instantiates the additive cosines with all values
-/// @param cosineTable A cosine table with at least 8192 points is recommended. [Default Value: ]
+/// @param cosineTable A cosine table with at least 8192 points is recommended. 
 /// @param harmonicsCount Total number of harmonics requested. Updated at Control-rate. [Default Value: 10]
 /// @param firstHarmonicIndex The lowest harmonic present. Updated at Control-rate. [Default Value: 1]
 /// @param partialMultiplier The multiplier in the series of amplitude coefficients. Updated at Control-rate. [Default Value: 1]

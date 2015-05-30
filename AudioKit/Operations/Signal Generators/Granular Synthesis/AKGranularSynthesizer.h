@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKGranularSynthesizer : AKAudio
 /// Instantiates the granular synthesizer with all values
-/// @param grainWaveform Table contain grain waveform. Updated at Control-rate. [Default Value: ]
+/// @param grainWaveform Table contain grain waveform. Updated at Control-rate.
 /// @param frequency Grain frequency in Hz Updated at Control-rate. [Default Value: ]
 /// @param windowWaveform Table containing window waveform. [Default Value: AKWindowTypeHamming]
 /// @param duration Grain duration in seconds. It also controls the duration of already active grains (actually the speed at which the window function is read). Updated at Control-rate. [Default Value: 0.2]
