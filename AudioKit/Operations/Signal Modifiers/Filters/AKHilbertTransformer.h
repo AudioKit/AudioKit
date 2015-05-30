@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AKHilbertTransformer : AKAudio
 /// Instantiates the hilbert transformer with all values
 /// @param input The input audio Signal [Default Value: ]
-/// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: ]
+/// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: 440]
 - (instancetype)initWithInput:(AKParameter *)input
                     frequency:(AKParameter *)frequency;
 
@@ -31,7 +31,21 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)filterWithInput:(AKParameter *)input
                       frequency:(AKParameter *)frequency;
 
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
+- (instancetype)initWithInput:(AKParameter *)input;
 
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
++ (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
 
 @end
 NS_ASSUME_NONNULL_END

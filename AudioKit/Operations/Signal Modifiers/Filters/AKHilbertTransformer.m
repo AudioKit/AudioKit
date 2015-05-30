@@ -38,6 +38,34 @@
 }
 
 
+- (instancetype)initWithInput:(AKParameter *)input
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _frequency = akp(440);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)filterWithInput:(AKParameter *)input
+{
+    return [[AKHilbertTransformer alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHilbertTransformer alloc] initWithInput:input];
+}
+
+
 - (void)setUpConnections
 {
     self.state = @"connectable";
