@@ -42,6 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The input audio signal.
 + (instancetype)reverbWithInput:(AKParameter *)input;
 
+/// Instantiates the reverb with default values
+/// @param input Input to the reverberator.
+- (instancetype)initWithPresetDefaultReverbWithInput:(AKParameter *)input;
+
+/// Instantiates the reverb with default values
+/// @param input Input to the reverberator.
++ (instancetype)presetDefaultReverbWithInput:(AKParameter *)input;
+
 /// Length of x-axis edge of the box in meters. [Default Value: 14.39]
 @property (nonatomic) AKConstant *lengthOfXAxisEdge;
 
@@ -84,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param zLocation The virtual z-coordinate of the source of sound (the input signal). Updated at Control-rate. [Default Value: 3]
 - (void)setOptionalZLocation:(AKParameter *)zLocation;
 
-/// Coefficient of diffusion at the walls, which regulates the amount of diffusion (0-1, where 0 = no diffusion, 1 = maximum diffusion, default= 1) [Default Value: 1]
+/// Coefficient of diffusion at the walls, which regulates the amount of diffusion (0-1, where 0 = no diffusion, 1 = maximum diffusion, default = 0.9) [Default Value: 1]
 @property (nonatomic) AKConstant *diffusion;
 
 /// Set an optional diffusion

@@ -53,10 +53,20 @@
         _xLocation = akp(6);
         _yLocation = akp(4);
         _zLocation = akp(3);
-        _diffusion = akp(1);
+        _diffusion = akp(0.9);
         [self setUpConnections];
     }
     return self;
+}
+
+- (instancetype)initWithPresetDefaultReverbWithInput:(AKParameter *)input
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultReverbWithInput:(AKParameter *)input
+{
+    return [[AKBallWithinTheBoxReverb alloc] initWithInput:input];
 }
 
 + (instancetype)reverbWithInput:(AKParameter *)input
