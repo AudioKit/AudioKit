@@ -19,8 +19,8 @@ The running envelope is next converted to decibels, then passed through a mappin
 NS_ASSUME_NONNULL_BEGIN
 @interface AKCompressor : AKAudio
 /// Instantiates the compressor with all values
-/// @param input The input signal that will be compressed. [Default Value: ]
-/// @param controllingInput The signal that defines the compression. [Default Value: ]
+/// @param input The input signal that will be compressed.
+/// @param controllingInput The signal that defines the compression. 
 /// @param threshold Sets the lowest decibel level that will be allowed through. Normally 0 or less, but if higher the threshold will begin removing low-level signal energy such as background noise. Updated at Control-rate. [Default Value: 0]
 /// @param lowKnee Decibel break-point denoting where compression or expansion will begin. These set the boundaries of a soft-knee curve joining the low-amplitude 1:1 line and the higher-amplitude compression ratio line. Typical values are 48 and 60 db. If the two breakpoints are equal, a hard-knee (angled) map will result. Updated at Control-rate. [Default Value: 48]
 /// @param highKnee Decibel break-points denoting where compression or expansion will begin. These set the boundaries of a soft-knee curve joining the low-amplitude 1:1 line and the higher-amplitude compression ratio line. Typical values are 48 and 60 db. If the two breakpoints are equal, a hard-knee (angled) map will result. Updated at Control-rate. [Default Value: 60]

@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKBallWithinTheBoxReverb : AKStereoAudio
 /// Instantiates the ball within the box reverb with all values
-/// @param input The input audio signal. [Default Value: ]
+/// @param input The input audio signal. 
 /// @param lengthOfXAxisEdge Length of x-axis edge of the box in meters. [Default Value: 14.39]
 /// @param lengthOfYAxisEdge Length of y-axis edge of the box in meters. [Default Value: 11.86]
 /// @param lengthOfZAxisEdge Length of z-axis edge of the box in meters. [Default Value: 10]

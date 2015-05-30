@@ -18,7 +18,7 @@ Artifact-free user-defined trajectories are made possible using an interpolation
 NS_ASSUME_NONNULL_BEGIN
 @interface AK3DBinauralAudio : AKStereoAudio
 /// Instantiates the 3 d binaural audio with all values
-/// @param input  Input/source signal. [Default Value: ]
+/// @param input  Input/source signal. 
 /// @param azimuth Azimuth angle in degrees. Positive values represent position on the right, negative values are positions on the left. Updated at Control-rate. [Default Value: 0]
 /// @param elevation Elevation angle in degrees. Positive values represent position above horizontal, negative values are positions below horizontal (minimum: -40). Updated at Control-rate. [Default Value: 0]
 - (instancetype)initWithInput:(AKParameter *)input
