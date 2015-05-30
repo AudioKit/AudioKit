@@ -34,6 +34,38 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Signal that will be modified.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the three pole lowpass filter with default values
+/// @param input Signal that will be modified.
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with default values
+/// @param input Signal that will be modified.
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with a bright values
+/// @param input Signal that will be modified.
+- (instancetype)initWithPresetBrightFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with a bright values
+/// @param input Signal that will be modified.
++ (instancetype)presetBrightFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with a bright values
+/// @param input Signal that will be modified.
+- (instancetype)initWithPresetDullBassWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with a bright values
+/// @param input Signal that will be modified.
++ (instancetype)presetDullBassWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with a bright values
+/// @param input Signal that will be modified.
+- (instancetype)initWithPresetScreamWithInput:(AKParameter *)input;
+
+/// Instantiates the three pole lowpass filter with a bright values
+/// @param input Signal that will be modified.
++ (instancetype)presetScreamWithInput:(AKParameter *)input;
+
 /// Amount of distortion. Zero gives a clean output. kdist > 0 adds tanh() distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. Some experimentation is encouraged. [Default Value: 0.5]
 @property (nonatomic) AKParameter *distortion;
 
