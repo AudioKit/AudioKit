@@ -34,7 +34,7 @@
     AKInstrument *presetInstrument  = [AKInstrument instrumentWithNumber:3];
     
     // Here we just instantiate the current sensible default
-    AKHilbertTransformer *defaultOperation = [[AKHilbertTransformer alloc] initWithInput:defaultAudio];
+    AKThreePoleLowpassFilter *defaultOperation = [[AKThreePoleLowpassFilter alloc] initWithInput:defaultAudio];
     [defaultInstrument setAudioOutput:defaultOperation];
     
     // Here we instead create a new instrument based on default but with new parameters
@@ -44,8 +44,10 @@
     //    [testInstrument setAudioOutput:testOperation];
     
     //  MODIFIER TEMPLATE
-    AKHilbertTransformer *testOperation = [[AKHilbertTransformer alloc] initWithInput:testAudio];
-    testOperation.frequency = akp(100);
+    AKThreePoleLowpassFilter *testOperation = [[AKThreePoleLowpassFilter alloc] initWithInput:testAudio];
+    testOperation.distortion = akp(0.9);
+    testOperation.cutoffFrequency = akp(1000);
+    testOperation.resonance = akp(1);
     [testInstrument setAudioOutput:testOperation];
     
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
@@ -173,7 +175,7 @@
     
     
     ///// May 27th
-//    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetMuffledFilterWithInput:presetAudio];
+    //    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetMuffledFilterWithInput:presetAudio];
     
     //    AKVariableFrequencyResponseBandPassFilter *presetOperation = [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetLargeMuffledFilterWithInput:presetAudio];
     
@@ -184,10 +186,13 @@
     
     
     ///// May 30th
-    AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:presetAudio];
-//    AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetMosquitoWithInput:presetAudio];
+    //    AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:presetAudio];
+    //    AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetMosquitoWithInput:presetAudio];
+    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
+    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
+    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetDullBassWithInput:presetAudio];
+    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetScreamWithInput:presetAudio];
 
-    
     [presetInstrument setAudioOutput:presetOperation];
     
     [AKOrchestra addInstrument:defaultInstrument];
