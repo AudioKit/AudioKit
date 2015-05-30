@@ -50,6 +50,22 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input Input to the reverberator.
 + (instancetype)presetDefaultReverbWithInput:(AKParameter *)input;
 
+/// Instantiates the reverb with a stuttering, disjointed sound
+/// @param input Input to the reverberator.
+- (instancetype)initWithPresetStutteringReverbWithInput:(AKParameter *)input;
+
+/// Instantiates the reverb with a stuttering, disjointed sound
+/// @param input Input to the reverberator.
++ (instancetype)presetStutteringReverbWithInput:(AKParameter *)input;
+
+/// Instantiates the reverb with a slow, plodding sound
+/// @param input Input to the reverberator.
+- (instancetype)initWithPresetPloddingReverbWithInput:(AKParameter *)input;
+
+/// Instantiates the reverb with a slow, plodding sound
+/// @param input Input to the reverberator.
++ (instancetype)presetPloddingReverbWithInput:(AKParameter *)input;
+
 /// Length of x-axis edge of the box in meters. [Default Value: 14.39]
 @property (nonatomic) AKConstant *lengthOfXAxisEdge;
 
