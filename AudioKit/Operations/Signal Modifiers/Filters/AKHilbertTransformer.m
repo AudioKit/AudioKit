@@ -82,6 +82,23 @@
     return [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:input];
 }
 
+- (instancetype)initWithPresetMosquitoWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _frequency = akp(1000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMosquitoFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHilbertTransformer alloc] initWithPresetMosquitoWithInput:input];
+}
+
 
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     [self setFrequency:frequency];
