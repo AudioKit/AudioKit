@@ -55,6 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The control to be filtered
 + (instancetype)presetAlienSpaceshipFilterWithInput:(AKParameter *)input;
 
+/// Instantiates the low pass filter with an mosquito sound
+/// @param input The control to be filtered
+- (instancetype)initWithPresetMosquitoWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with an mosquito sound
+/// @param input The control to be filtered
++ (instancetype)presetMosquitoFilterWithInput:(AKParameter *)input;
+
 
 /// Filter cut-off frequency in Hz. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
