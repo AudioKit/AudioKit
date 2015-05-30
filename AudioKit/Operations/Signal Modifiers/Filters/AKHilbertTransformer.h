@@ -19,7 +19,7 @@ Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does
 
 NS_ASSUME_NONNULL_BEGIN
 @interface AKHilbertTransformer : AKAudio
-/// Instantiates the hilbert transformer with all values
+// Instantiates the hilbert transformer with all values
 /// @param input The input audio Signal [Default Value: ]
 /// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: 440]
 - (instancetype)initWithInput:(AKParameter *)input
@@ -46,6 +46,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the low pass filter with default values
 /// @param input The control to be filtered
 + (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Filter cut-off frequency in Hz. [Default Value: 440]
+@property (nonatomic) AKParameter *frequency;
+
+/// Set an optional cutoff frequency
+/// @param cutoffFrequency Filter cut-off frequency in Hz. [Default Value: 440]
+- (void)setOptionalFrequency:(AKParameter *)frequency;
 
 @end
 NS_ASSUME_NONNULL_END
