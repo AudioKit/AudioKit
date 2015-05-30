@@ -40,7 +40,7 @@ class Processor : AKInstrument {
             durationBetweenPoints: testDuration.ak
         )
 
-        let resonantFilter = AKResonantFilter(audioSource: audioSource)
+        let resonantFilter = AKResonantFilter(input: audioSource)
         resonantFilter.centerFrequency = centerFrequency
         resonantFilter.bandwidth = bandwidth
 

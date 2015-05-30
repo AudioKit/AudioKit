@@ -24,7 +24,7 @@ class Instrument : AKInstrument {
         setAudioOutput(toneGenerator)
 
         let tracker = AKTrackedAmplitude(
-            audioSource: toneGenerator
+            input: toneGenerator
         )
 
         enableParameterLog(

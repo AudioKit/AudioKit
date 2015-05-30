@@ -15,23 +15,23 @@
     AKConstant *ipeaks;
 }
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
-                         sampleSize:(AKConstant *)hopSize
+- (instancetype)initWithInput:(AKAudio *)input
+                   sampleSize:(AKConstant *)hopSize
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        asig = audioSource;
+        asig = input;
         ihopsize = hopSize;
         ipeaks = akp(20);
         self.state = @"connectable";
-        self.dependencies = @[audioSource];
+        self.dependencies = @[input];
     }
     return self;
 }
 
 - (void)setOptionalSpectralPeaks:(AKConstant *)numberOfSpectralPeaks
 {
-	ipeaks = numberOfSpectralPeaks;
+    ipeaks = numberOfSpectralPeaks;
 }
 
 - (NSString *)stringForCSD

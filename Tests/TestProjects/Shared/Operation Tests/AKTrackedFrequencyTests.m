@@ -32,8 +32,8 @@
         AKOscillator *sine = [AKOscillator oscillator];
         sine.frequency = [frequencyLine plus:frequencyDeviation];
         
-        AKTrackedFrequency *tracker = [[AKTrackedFrequency alloc] initWithAudioSource:sine
-                                                                           sampleSize:akp(512)];
+        AKTrackedFrequency *tracker = [[AKTrackedFrequency alloc] initWithInput:sine
+                                                                     sampleSize:akp(512)];
         
         AKOscillator *trackedSine = [AKOscillator oscillator];
         trackedSine.frequency = tracker;
