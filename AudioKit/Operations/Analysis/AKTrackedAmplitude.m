@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka on 5/29/15 to scale the amplitude by sqrt 2.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's rms:
@@ -58,9 +59,9 @@
     [csdString appendFormat:@"%@ rms ", self];
 
     if ([_audioSource class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+        [csdString appendFormat:@"%@*1.414, ", _audioSource];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@*1.414), ", _audioSource];
     }
 
     [csdString appendFormat:@"%@", _halfPowerPoint];
