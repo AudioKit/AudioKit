@@ -65,6 +65,24 @@
     return [[AKHilbertTransformer alloc] initWithInput:input];
 }
 
+- (instancetype)initWithPresetAlienSpaceshipWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _frequency = akp(1000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetAlienSpaceshipFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:input];
+}
+
+
 - (void)setOptionalFrequency:(AKParameter *)frequency {
     [self setFrequency:frequency];
 }
