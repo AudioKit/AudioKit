@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMoogLadder : AKAudio
 /// Instantiates the moog ladder with all values
-/// @param input Input signal [Default Value: ]
+/// @param input Input signal 
 /// @param cutoffFrequency Filter cutoff frequency Updated at Control-rate. [Default Value: 100]
 /// @param resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. Updated at Control-rate. [Default Value: 0.5]
 - (instancetype)initWithInput:(AKParameter *)input

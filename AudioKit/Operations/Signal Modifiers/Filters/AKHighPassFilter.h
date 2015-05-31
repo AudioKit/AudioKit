@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKHighPassFilter : AKAudio
 /// Instantiates the high pass filter with all values
-/// @param input The input signal to be filtered [Default Value: ]
+/// @param input The input signal to be filtered 
 /// @param cutoffFrequency The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 4000]
 - (instancetype)initWithInput:(AKParameter *)input
               cutoffFrequency:(AKParameter *)cutoffFrequency;

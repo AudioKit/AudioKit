@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKFFTProcessor : AKFSignal
 /// Instantiates the fft processor with all values
-/// @param table Primary input is a table, usually a mono sound file. Updated at Control-rate. [Default Value: ]
+/// @param table Primary input is a table, usually a mono sound file. Updated at Control-rate. 
 /// @param frequencyRatio Grain frequency scaling (1=normal pitch, < 1 lower, > 1 higher; negative, backwards) Updated at Control-rate. [Default Value: 1]
 /// @param timeRatio Time Scaling ratio, < 1 stretches, > 1 contracts. Updated at Control-rate. [Default Value: 1]
 /// @param amplitude Amplitude of the output. Updated at Control-rate. [Default Value: 1]

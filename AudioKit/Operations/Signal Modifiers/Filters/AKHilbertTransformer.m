@@ -38,6 +38,72 @@
 }
 
 
+- (instancetype)initWithInput:(AKParameter *)input
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _frequency = akp(440);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)filterWithInput:(AKParameter *)input
+{
+    return [[AKHilbertTransformer alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHilbertTransformer alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetAlienSpaceshipWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _frequency = akp(1000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetAlienSpaceshipFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:input];
+}
+
+- (instancetype)initWithPresetMosquitoWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _frequency = akp(9000);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMosquitoFilterWithInput:(AKParameter *)input;
+{
+    return [[AKHilbertTransformer alloc] initWithPresetMosquitoWithInput:input];
+}
+
+
+- (void)setOptionalFrequency:(AKParameter *)frequency {
+    [self setFrequency:frequency];
+}
+
 - (void)setUpConnections
 {
     self.state = @"connectable";

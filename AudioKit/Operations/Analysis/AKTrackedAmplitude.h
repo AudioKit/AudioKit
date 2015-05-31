@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKTrackedAmplitude : AKControl
 /// Instantiates the tracked amplitude with all values
-/// @param input Input audio signal to track. [Default Value: ]
+/// @param input Input audio signal to track. 
 /// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. [Default Value: 10]
 - (instancetype)initWithInput:(AKParameter *)input
                halfPowerPoint:(AKConstant *)halfPowerPoint;

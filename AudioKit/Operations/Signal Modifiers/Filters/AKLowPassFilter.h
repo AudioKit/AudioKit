@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKLowPassFilter : AKAudio
 /// Instantiates the low pass filter with all values
-/// @param input The control to be filtered [Default Value: ]
+/// @param input The control to be filtered 
 /// @param halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 1000]
 - (instancetype)initWithInput:(AKParameter *)input
                halfPowerPoint:(AKParameter *)halfPowerPoint;

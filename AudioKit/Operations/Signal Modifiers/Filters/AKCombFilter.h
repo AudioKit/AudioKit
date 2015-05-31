@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKCombFilter : AKAudio
 /// Instantiates the comb filter with all values
-/// @param input Input signal, usually audio. [Default Value: ]
+/// @param input Input signal, usually audio. 
 /// @param reverbDuration The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. Updated at Control-rate. [Default Value: 1]
 /// @param loopDuration Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
 - (instancetype)initWithInput:(AKParameter *)input

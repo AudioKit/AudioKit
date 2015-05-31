@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKFlanger : AKAudio
 /// Instantiates the flanger with all values
-/// @param input Input signal. [Default Value: ]
+/// @param input Input signal.
 /// @param delayTime Delay in seconds [Default Value: ]
 /// @param feedback Feedback amount (in normal tasks this should not exceed 1, even if bigger values are allowed) Updated at Control-rate. [Default Value: 0]
 - (instancetype)initWithInput:(AKParameter *)input

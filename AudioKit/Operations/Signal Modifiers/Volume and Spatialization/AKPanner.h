@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (AKConstant *)panMethodForEqualPowerAlternate;
 
 /// Instantiates the panner with all values
-/// @param input Source signal. [Default Value: ]
+/// @param input Source signal. 
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
 - (instancetype)initWithInput:(AKParameter *)input
