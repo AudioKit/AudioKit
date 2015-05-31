@@ -88,7 +88,7 @@
     if (self) {
         _input = input;
         // Default Values
-        _frequency = akp(1000);
+        _frequency = akp(9000);
         [self setUpConnections];
     }
     return self;
