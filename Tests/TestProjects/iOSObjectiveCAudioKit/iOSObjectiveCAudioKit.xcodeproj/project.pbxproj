@@ -77,6 +77,7 @@
 		C4C626DE1B197E4900B7AD86 /* AKVibesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626AA1B197E4900B7AD86 /* AKVibesTests.m */; };
 		C4C626DF1B197E4900B7AD86 /* AKVibratoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626AB1B197E4900B7AD86 /* AKVibratoTests.m */; };
 		C4C627501B19A3E600B7AD86 /* AKResonantFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */; };
+		C4C627541B19AA5E00B7AD86 /* AKReverbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C627531B19AA5E00B7AD86 /* AKReverbTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +202,7 @@
 		C4C626AA1B197E4900B7AD86 /* AKVibesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibesTests.m; sourceTree = "<group>"; };
 		C4C626AB1B197E4900B7AD86 /* AKVibratoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibratoTests.m; sourceTree = "<group>"; };
 		C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKResonantFilterTests.m; sourceTree = "<group>"; };
+		C4C627531B19AA5E00B7AD86 /* AKReverbTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKReverbTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +355,7 @@
 				C4C6269C1B197E4900B7AD86 /* AKOscillatorTests.m */,
 				C4C6269D1B197E4900B7AD86 /* AKPannerTests.m */,
 				C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */,
+				C4C627531B19AA5E00B7AD86 /* AKReverbTests.m */,
 				C4C6269E1B197E4900B7AD86 /* AKRingModulatorTests.m */,
 				C4C6269F1B197E4900B7AD86 /* AKSandPaperTests.m */,
 				C4C626A01B197E4900B7AD86 /* AKSekereTests.m */,
@@ -561,6 +564,7 @@
 				C4C626C81B197E4900B7AD86 /* AKLinearADSREnvelopeTests.m in Sources */,
 				C4C626AF1B197E4900B7AD86 /* AKBallWithinTheBoxReverbTests.m in Sources */,
 				C4C626D91B197E4900B7AD86 /* AKTrackedAmplitudeTests.m in Sources */,
+				C4C627541B19AA5E00B7AD86 /* AKReverbTests.m in Sources */,
 				C4C626D11B197E4900B7AD86 /* AKPannerTests.m in Sources */,
 				C4C626DB1B197E4900B7AD86 /* AKVariableDelayTests.m in Sources */,
 				C4C626CE1B197E4900B7AD86 /* AKMandolinTests.m in Sources */,
