@@ -17,8 +17,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKBalance : AKAudio
 /// Instantiates the balance with all values
-/// @param input Input audio signal [Default Value: ]
-/// @param comparatorAudioSource The comparator signal [Default Value: ]
+/// @param input Input audio signal
+/// @param comparatorAudioSource The comparator signal
 /// @param halfPowerPoint Half-power point (in Hz) of a special internal low-pass filter. The default value is 10. [Default Value: 10]
 - (instancetype)initWithInput:(AKParameter *)input
         comparatorAudioSource:(AKParameter *)comparatorAudioSource

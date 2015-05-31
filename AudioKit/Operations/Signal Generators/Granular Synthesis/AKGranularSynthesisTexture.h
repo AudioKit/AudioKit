@@ -17,8 +17,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKGranularSynthesisTexture : AKAudio
 /// Instantiates the granular synthesis texture with all values
-/// @param grainTable The grain waveform. This can be just a sine wave or a sampled sound. [Default Value: ]
-/// @param windowTable The amplitude envelope used for the grains. [Default Value: ]
+/// @param grainTable The grain waveform. This can be just a sine wave or a sampled sound.
+/// @param windowTable The amplitude envelope used for the grains. 
 /// @param maximumGrainDuration Maximum grain duration in seconds. [Default Value: 0.5]
 /// @param averageGrainDuration Average grain duration in seconds. Updated at Control-rate. [Default Value: 0.4]
 /// @param maximumFrequencyDeviation Maximum pitch deviation from grainFrequency in Hz. Updated at Control-rate. [Default Value: 0.5]

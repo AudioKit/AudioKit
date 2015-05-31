@@ -18,7 +18,7 @@ The amplitude response for this filter will be flat (=1) for gain=1. With gain b
 NS_ASSUME_NONNULL_BEGIN
 @interface AKEqualizerFilter : AKAudio
 /// Instantiates the equalizer filter with all values
-/// @param input Input signal. [Default Value: ]
+/// @param input Input signal. 
 /// @param centerFrequency Filter center frequency in Hz. Updated at Control-rate. [Default Value: 1000]
 /// @param bandwidth Peak/notch bandwidth in Hz. Updated at Control-rate. [Default Value: 100]
 /// @param gain Peak/notch gain. Updated at Control-rate. [Default Value: 10]

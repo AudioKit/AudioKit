@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKDCBlock : AKAudio
 /// Instantiates the dc block with all values
-/// @param input Input audio signal. [Default Value: ]
+/// @param input Input audio signal. 
 /// @param gain The gain of the filter, which defaults to 0.99. [Default Value: 0.99]
 - (instancetype)initWithInput:(AKParameter *)input
                          gain:(AKConstant *)gain;
