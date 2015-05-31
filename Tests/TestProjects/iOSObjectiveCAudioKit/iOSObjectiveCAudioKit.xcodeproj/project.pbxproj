@@ -78,6 +78,7 @@
 		C4C626DF1B197E4900B7AD86 /* AKVibratoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626AB1B197E4900B7AD86 /* AKVibratoTests.m */; };
 		C4C627501B19A3E600B7AD86 /* AKResonantFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */; };
 		C4C627541B19AA5E00B7AD86 /* AKReverbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C627531B19AA5E00B7AD86 /* AKReverbTests.m */; };
+		C4C627561B1AF0BD00B7AD86 /* AKDropletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C627551B1AF0BD00B7AD86 /* AKDropletTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,7 @@
 		C4C626AB1B197E4900B7AD86 /* AKVibratoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibratoTests.m; sourceTree = "<group>"; };
 		C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKResonantFilterTests.m; sourceTree = "<group>"; };
 		C4C627531B19AA5E00B7AD86 /* AKReverbTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKReverbTests.m; sourceTree = "<group>"; };
+		C4C627551B1AF0BD00B7AD86 /* AKDropletTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDropletTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +335,7 @@
 				C4C626861B197E4900B7AD86 /* AKDecimatorTests.m */,
 				C4C626871B197E4900B7AD86 /* AKDeclickTests.m */,
 				C4C626881B197E4900B7AD86 /* AKDelayTests.m */,
+				C4C627551B1AF0BD00B7AD86 /* AKDropletTests.m */,
 				C4C626891B197E4900B7AD86 /* AKEqualizerFilterTests.m */,
 				C4C6268A1B197E4900B7AD86 /* AKFlangerTests.m */,
 				C4C6268B1B197E4900B7AD86 /* AKFlatFrequencyResponseReverbTests.m */,
@@ -533,6 +536,7 @@
 				C4C626AE1B197E4900B7AD86 /* AKBalanceTests.m in Sources */,
 				C4C626C51B197E4900B7AD86 /* AKHilbertTransformerTests.m in Sources */,
 				C4C626BC1B197E4900B7AD86 /* AKDelayTests.m in Sources */,
+				C4C627561B1AF0BD00B7AD86 /* AKDropletTests.m in Sources */,
 				C4C626D21B197E4900B7AD86 /* AKRingModulatorTests.m in Sources */,
 				C4C626CF1B197E4900B7AD86 /* AKMarimbaTests.m in Sources */,
 				C4C626D61B197E4900B7AD86 /* AKStringResonatorTests.m in Sources */,
