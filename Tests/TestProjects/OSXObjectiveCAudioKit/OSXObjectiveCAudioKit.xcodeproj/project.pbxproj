@@ -62,6 +62,8 @@
 		C4C6274A1B197F4600B7AD86 /* AKVibesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C627161B197F4600B7AD86 /* AKVibesTests.m */; };
 		C4C6274B1B197F4600B7AD86 /* AKVibratoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C627171B197F4600B7AD86 /* AKVibratoTests.m */; };
 		C4C6274D1B19A0E400B7AD86 /* AKResonantFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6274C1B19A0E400B7AD86 /* AKResonantFilterTests.m */; };
+		C4C627591B1AF57F00B7AD86 /* AKDropletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C627581B1AF57F00B7AD86 /* AKDropletTests.m */; };
+		C4C6275D1B1AF59000B7AD86 /* AKReverbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6275C1B1AF59000B7AD86 /* AKReverbTests.m */; };
 		C4C811E81AE44BDB003A8B73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E71AE44BDB003A8B73 /* AppDelegate.m */; };
 		C4C811EA1AE44BDB003A8B73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C811E91AE44BDB003A8B73 /* main.m */; };
 		C4C811EC1AE44BDB003A8B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C811EB1AE44BDB003A8B73 /* Images.xcassets */; };
@@ -186,6 +188,8 @@
 		C4C627161B197F4600B7AD86 /* AKVibesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibesTests.m; sourceTree = "<group>"; };
 		C4C627171B197F4600B7AD86 /* AKVibratoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibratoTests.m; sourceTree = "<group>"; };
 		C4C6274C1B19A0E400B7AD86 /* AKResonantFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKResonantFilterTests.m; sourceTree = "<group>"; };
+		C4C627581B1AF57F00B7AD86 /* AKDropletTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDropletTests.m; sourceTree = "<group>"; };
+		C4C6275C1B1AF59000B7AD86 /* AKReverbTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKReverbTests.m; sourceTree = "<group>"; };
 		C4C811E11AE44BDB003A8B73 /* OSXObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSXObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C811E51AE44BDB003A8B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C811E61AE44BDB003A8B73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 				C4C626F21B197F4600B7AD86 /* AKDecimatorTests.m */,
 				C4C626F31B197F4600B7AD86 /* AKDeclickTests.m */,
 				C4C626F41B197F4600B7AD86 /* AKDelayTests.m */,
+				C4C627581B1AF57F00B7AD86 /* AKDropletTests.m */,
 				C4C626F51B197F4600B7AD86 /* AKEqualizerFilterTests.m */,
 				C4C626F61B197F4600B7AD86 /* AKFlangerTests.m */,
 				C4C626F71B197F4600B7AD86 /* AKFlatFrequencyResponseReverbTests.m */,
@@ -269,6 +274,7 @@
 				C4C627081B197F4600B7AD86 /* AKOscillatorTests.m */,
 				C4C627091B197F4600B7AD86 /* AKPannerTests.m */,
 				C4C6274C1B19A0E400B7AD86 /* AKResonantFilterTests.m */,
+				C4C6275C1B1AF59000B7AD86 /* AKReverbTests.m */,
 				C4C6270A1B197F4600B7AD86 /* AKRingModulatorTests.m */,
 				C4C6270B1B197F4600B7AD86 /* AKSandPaperTests.m */,
 				C4C6270C1B197F4600B7AD86 /* AKSekereTests.m */,
@@ -600,6 +606,7 @@
 				C4C627271B197F4600B7AD86 /* AKDeclickTests.m in Sources */,
 				C4C627251B197F4600B7AD86 /* AKDCBlockTests.m in Sources */,
 				C4C627321B197F4600B7AD86 /* AKInterpolatedRandomNumberPulseTests.m in Sources */,
+				C4C6275D1B1AF59000B7AD86 /* AKReverbTests.m in Sources */,
 				C4C6272A1B197F4600B7AD86 /* AKFlangerTests.m in Sources */,
 				C4C627311B197F4600B7AD86 /* AKHilbertTransformerTests.m in Sources */,
 				C4C627491B197F4600B7AD86 /* AKVCOscillatorTests.m in Sources */,
@@ -611,6 +618,7 @@
 				C4C627381B197F4600B7AD86 /* AKLowPassButterworthFilterTests.m in Sources */,
 				C4C627221B197F4600B7AD86 /* AKCompressorTests.m in Sources */,
 				C4C627201B197F4600B7AD86 /* AKCabasaTests.m in Sources */,
+				C4C627591B1AF57F00B7AD86 /* AKDropletTests.m in Sources */,
 				C4C627291B197F4600B7AD86 /* AKEqualizerFilterTests.m in Sources */,
 				C4C627191B197F4600B7AD86 /* AKADSREnvelopeTests.m in Sources */,
 				C4C627371B197F4600B7AD86 /* AKLowFrequencyOscillatorTests.m in Sources */,
