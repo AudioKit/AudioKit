@@ -53,11 +53,68 @@
         _xLocation = akp(6);
         _yLocation = akp(4);
         _zLocation = akp(3);
-        _diffusion = akp(1);
+        _diffusion = akp(0.9);
         [self setUpConnections];
     }
     return self;
 }
+
+- (instancetype)initWithPresetDefaultReverbWithInput:(AKParameter *)input
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultReverbWithInput:(AKParameter *)input
+{
+    return [[AKBallWithinTheBoxReverb alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetStutteringReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _lengthOfXAxisEdge = akp(80);
+        _lengthOfYAxisEdge = akp(80);
+        _lengthOfZAxisEdge = akp(80);
+        _xLocation = akp(20);
+        _yLocation = akp(20);
+        _zLocation = akp(20);
+        _diffusion = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetStutteringReverbWithInput:(AKParameter *)input;
+{
+    return [[AKBallWithinTheBoxReverb alloc] initWithPresetStutteringReverbWithInput:input];
+}
+
+- (instancetype)initWithPresetPloddingReverbWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _lengthOfXAxisEdge = akp(30);
+        _lengthOfYAxisEdge = akp(40);
+        _lengthOfZAxisEdge = akp(20);
+        _xLocation = akp(6);
+        _yLocation = akp(4);
+        _zLocation = akp(3);
+        _diffusion = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetPloddingReverbWithInput:(AKParameter *)input;
+{
+    return [[AKBallWithinTheBoxReverb alloc] initWithPresetPloddingReverbWithInput:input];
+}
+
 
 + (instancetype)reverbWithInput:(AKParameter *)input
 {

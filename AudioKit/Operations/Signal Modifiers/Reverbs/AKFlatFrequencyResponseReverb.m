@@ -59,7 +59,7 @@
     return [[AKFlatFrequencyResponseReverb alloc] initWithInput:input];
 }
 
-- (instancetype)initMetallicReverbWithInput:(AKParameter *)input
+- (instancetype)initWithPresetMetallicReverbWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -72,12 +72,12 @@
     return self;
 }
 
-+ (instancetype)metallicReverbWithInput:(AKParameter *)input
++ (instancetype)presetMetallicReverbWithInput:(AKParameter *)input;
 {
-    return [[AKFlatFrequencyResponseReverb alloc] initMetallicReverbWithInput:input];
+    return [[AKFlatFrequencyResponseReverb alloc] initWithPresetMetallicReverbWithInput:input];
 }
 
-- (instancetype)initStutteringReverbWithInput:(AKParameter *)input
+- (instancetype)initWithPresetStutteringReverbWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -90,9 +90,9 @@
     return self;
 }
 
-+ (instancetype)stutteringReverbWithInput:(AKParameter *)input
++ (instancetype)presetStutteringReverbWithInput:(AKParameter *)input;
 {
-    return [[AKFlatFrequencyResponseReverb alloc] initStutteringReverbWithInput:input];
+    return [[AKFlatFrequencyResponseReverb alloc] initWithPresetStutteringReverbWithInput:input];
 }
 
 - (void)setReverbDuration:(AKParameter *)reverbDuration {

@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMoogVCF : AKAudio
 /// Instantiates the moog vcf with all values
-/// @param input Input signal. [Default Value: ]
+/// @param input Input signal. 
 /// @param cutoffFrequency Filter cut-off frequency in Hz. [Default Value: 1000]
 /// @param resonance Amount of resonance. Self-oscillation occurs when this is approximately one. [Default Value: 0.5]
 - (instancetype)initWithInput:(AKParameter *)input

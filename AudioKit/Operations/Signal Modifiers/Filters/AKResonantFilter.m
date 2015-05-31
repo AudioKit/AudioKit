@@ -50,6 +50,70 @@
     return [[AKResonantFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKResonantFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(100);
+        _bandwidth = akp(500);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKResonantFilter alloc] initWithPresetMuffledFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetHighTrebleFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(7000);
+        _bandwidth = akp(900);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetHighTrebleFilterWithInput:(AKParameter *)input;
+{
+    return [[AKResonantFilter alloc] initWithPresetHighTrebleFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetHighBassFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(350);
+        _bandwidth = akp(50);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetHighBassFilterWithInput:(AKParameter *)input;
+{
+    return [[AKResonantFilter alloc] initWithPresetHighBassFilterWithInput:input];
+}
+
 - (void)setCenterFrequency:(AKParameter *)centerFrequency {
     _centerFrequency = centerFrequency;
     [self setUpConnections];

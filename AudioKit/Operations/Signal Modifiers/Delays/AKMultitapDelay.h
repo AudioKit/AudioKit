@@ -16,8 +16,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMultitapDelay : AKAudio
 /// Instantiates the multitap delay
-/// @param input Input signal to be delayed. [Default Value: ]
-/// @param firstEchoTime Time in seconds to delay the firsted delayed playback. [Default Value: ]
+/// @param input Input signal to be delayed.
+/// @param firstEchoTime Time in seconds to delay the firsted delayed playback.
 /// @param firstEchoGain The relative amplitude of the first echo. [Default Value: ]
 - (instancetype)initWithInput:(AKParameter *)input
                 firstEchoTime:(AKConstant *)firstEchoTime

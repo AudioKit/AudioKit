@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKBeatenPlate : AKAudio
 /// Instantiates the beaten plate with all values
-/// @param input The excitation noise. [Default Value: ]
+/// @param input The excitation noise. 
 /// @param frequency1 The inverse of delay time for the first of two parallel delay lines. [Default Value: 5000]
 /// @param frequency2 The inverse of delay time for the second of two parallel delay lines. [Default Value: 2000]
 /// @param cutoffFrequency1 The filter cutoff frequency in Hz for the first low-pass filter. Updated at Control-rate. [Default Value: 3000]

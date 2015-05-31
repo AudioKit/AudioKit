@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKParallelCombLowPassFilterReverb : AKAudio
 /// Instantiates the parallel comb low pass filter reverb with all values
-/// @param input Audio signal to be reverberated. [Default Value: ]
+/// @param input Audio signal to be reverberated. 
 /// @param duration Length of reverbation in seconds. Updated at Control-rate. [Default Value: 1]
 /// @param highFrequencyDiffusivity A value between 0 and 1.  At 0, all frequencies decay with the same speed.  At 1, high frequencies decay faster than lower ones. Updated at Control-rate. [Default Value: 0.5]
 - (instancetype)initWithInput:(AKParameter *)input
