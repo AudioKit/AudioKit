@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (AKConstant *)loopPlaysForwardAndThenBackwards;
 
 /// Instantiates the mono sound file looper with all values
-/// @param soundFile The sound file table. [Default Value: ]
+/// @param soundFile The sound file table. 
 /// @param frequencyRatio The frequency ratio. Updated at Control-rate. [Default Value: 1]
 /// @param amplitude The amplitude of the output [Default Value: 1]
 /// @param loopMode Can be no-looping, normal forward looping, or forward and backward looping. [Default Value: AKSoundFileLooperModeNormal]

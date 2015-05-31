@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKDeclick : AKAudio
 /// Instantiates the declick with all values
-/// @param input Input audio signal to be declicked [Default Value: ]
+/// @param input Input audio signal to be declicked 
 - (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the declick with default values

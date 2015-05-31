@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMP3FileInput : AKStereoAudio
 /// Instantiates the mp3 file input with all values
-/// @param filename Input MP3 Filename. [Default Value: ]
+/// @param filename Input MP3 Filename. 
 /// @param startTime Number of seconds into the file to start playback. [Default Value: 0]
 - (instancetype)initWithFilename:(NSString *)filename
                        startTime:(AKConstant *)startTime;

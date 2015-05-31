@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKPortamento : AKControl
 /// Instantiates the portamento with all values
-/// @param input The input signal at control-rate. Updated at Control-rate. [Default Value: ]
+/// @param input The input signal at control-rate. Updated at Control-rate. 
 /// @param halfTime Half-time of the function in seconds. Updated at Control-rate. [Default Value: 1]
 - (instancetype)initWithInput:(AKParameter *)input
                      halfTime:(AKParameter *)halfTime;

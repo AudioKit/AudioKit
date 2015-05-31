@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKDopplerEffect : AKAudio
 /// Instantiates the doppler effect with all values
-/// @param input Input signal at the sound source. [Default Value: ]
+/// @param input Input signal at the sound source. 
 /// @param sourcePosition Position of the source sound in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 /// @param micPosition Position of the recording microphone in meters. The distance between source and mic should not be changed faster than about 3/4 the speed of sound. Updated at Control-rate. [Default Value: 0]
 /// @param smoothingFilterUpdateRate Rate of updating the position smoothing filter, in cycles/second. [Default Value: 6]
