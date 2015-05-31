@@ -44,7 +44,9 @@
     //    [testInstrument setAudioOutput:testOperation];
     
     //  MODIFIER TEMPLATE
-    AKBallWithinTheBoxReverb *testOperation = [[AKBallWithinTheBoxReverb alloc] initWithInput:testAudio];
+    AKResonantFilter *testOperation = [[AKResonantFilter alloc] initWithInput:testAudio];
+    testOperation.centerFrequency = akp(350);
+    testOperation.bandwidth = akp(50);
     [testInstrument setAudioOutput:testOperation];
     
     // Once you create the preset, you can use it here to make sure it sounds the same as the presetInstrument
@@ -183,16 +185,21 @@
     
     
     ///// May 30th
-    //    AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:presetAudio];
-    //    AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetMosquitoWithInput:presetAudio];
-    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
-    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
-    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetDullBassWithInput:presetAudio];
-    //    AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetScreamWithInput:presetAudio];
+//        AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetAlienSpaceshipWithInput:presetAudio];
+//        AKHilbertTransformer *presetOperation = [[AKHilbertTransformer alloc] initWithPresetMosquitoWithInput:presetAudio];
+//        AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:presetAudio];
+//        AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetDullBassWithInput:presetAudio];
+//        AKThreePoleLowpassFilter *presetOperation = [[AKThreePoleLowpassFilter alloc] initWithPresetScreamWithInput:presetAudio];
+    
+//        AKBallWithinTheBoxReverb *presetOperation = [[AKBallWithinTheBoxReverb alloc] initWithPresetStutteringReverbWithInput:presetAudio];
+//        AKBallWithinTheBoxReverb *presetOperation = [[AKBallWithinTheBoxReverb alloc] initWithPresetPloddingReverbWithInput:presetAudio];
     
     
-    //    AKBallWithinTheBoxReverb *presetOperation = [[AKBallWithinTheBoxReverb alloc] initWithPresetStutteringReverbWithInput:presetAudio];
-    AKBallWithinTheBoxReverb *presetOperation = [[AKBallWithinTheBoxReverb alloc] initWithPresetPloddingReverbWithInput:presetAudio];
+    ///// May 31st
+   AKResonantFilter *presetOperation = [[AKResonantFilter alloc] initWithPresetMuffledFilterWithInput:presetAudio];
+//    AKResonantFilter *presetOperation = [[AKResonantFilter alloc] initWithPresetHighTrebleFilterWithInput:presetAudio];
+    // AKResonantFilter *presetOperation = [[AKResonantFilter alloc] initWithPresetHighBassFilterWithInput:presetAudio];
+
     
     [presetInstrument setAudioOutput:presetOperation];
     

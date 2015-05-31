@@ -32,6 +32,39 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input The input audio stream.
 + (instancetype)filterWithInput:(AKParameter *)input;
 
+/// Instantiates the resonant filter with default values
+/// @param input The input audio stream.
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with default values
+/// @param input The input audio stream.
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with a muffled sound
+/// @param input The input audio stream.
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with a muffled sound
+/// @param input The input audio stream.
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with a high-treble sound
+/// @param input The input audio stream.
+- (instancetype)initWithPresetHighTrebleFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with a high-treble sound
+/// @param input The input audio stream.
++ (instancetype)presetHighTrebleFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with a high-bass sound
+/// @param input The input audio stream.
+- (instancetype)initWithPresetHighBassFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the resonant filter with a high-bass sound
+/// @param input The input audio stream.
++ (instancetype)presetHighBassFilterWithInput:(AKParameter *)input;
+
+
 /// Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
 @property (nonatomic) AKParameter *centerFrequency;
 
