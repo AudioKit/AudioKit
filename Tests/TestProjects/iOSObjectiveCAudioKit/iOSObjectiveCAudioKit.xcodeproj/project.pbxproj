@@ -11,6 +11,8 @@
 		C41408CB1B13FBB0001FD024 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C41408B11B13FBB0001FD024 /* NSData+MD5.m */; };
 		C422F05A1B10387700AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
 		C422F05B1B10389300AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
+		C43CB84B1B1BA34F00517A34 /* AKParallelCombLowPassFilterReverbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CB84A1B1BA34F00517A34 /* AKParallelCombLowPassFilterReverbTests.m */; };
+		C43CB8501B1BA8AB00517A34 /* AKMultitapDelayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C43CB84F1B1BA8AB00517A34 /* AKMultitapDelayTests.m */; };
 		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
@@ -132,6 +134,8 @@
 		C41408B01B13FBB0001FD024 /* NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+MD5.h"; path = "../../Shared/NSData+MD5.h"; sourceTree = "<group>"; };
 		C41408B11B13FBB0001FD024 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+MD5.m"; path = "../../Shared/NSData+MD5.m"; sourceTree = "<group>"; };
 		C422F0591B10387700AD3545 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		C43CB84A1B1BA34F00517A34 /* AKParallelCombLowPassFilterReverbTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKParallelCombLowPassFilterReverbTests.m; sourceTree = "<group>"; };
+		C43CB84F1B1BA8AB00517A34 /* AKMultitapDelayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMultitapDelayTests.m; sourceTree = "<group>"; };
 		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../iOSObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -355,8 +359,10 @@
 				C4C626991B197E4900B7AD86 /* AKLowPassFilter.m */,
 				C4C6269A1B197E4900B7AD86 /* AKMandolinTests.m */,
 				C4C6269B1B197E4900B7AD86 /* AKMarimbaTests.m */,
+				C43CB84F1B1BA8AB00517A34 /* AKMultitapDelayTests.m */,
 				C4C6269C1B197E4900B7AD86 /* AKOscillatorTests.m */,
 				C4C6269D1B197E4900B7AD86 /* AKPannerTests.m */,
+				C43CB84A1B1BA34F00517A34 /* AKParallelCombLowPassFilterReverbTests.m */,
 				C4C6274F1B19A3E600B7AD86 /* AKResonantFilterTests.m */,
 				C4C627531B19AA5E00B7AD86 /* AKReverbTests.m */,
 				C4C6269E1B197E4900B7AD86 /* AKRingModulatorTests.m */,
@@ -530,6 +536,7 @@
 				C4C627501B19A3E600B7AD86 /* AKResonantFilterTests.m in Sources */,
 				C4C626D01B197E4900B7AD86 /* AKOscillatorTests.m in Sources */,
 				C4C626B91B197E4900B7AD86 /* AKDCBlockTests.m in Sources */,
+				C43CB84B1B1BA34F00517A34 /* AKParallelCombLowPassFilterReverbTests.m in Sources */,
 				C4C626B01B197E4900B7AD86 /* AKBambooSticksTests.m in Sources */,
 				C4C626D41B197E4900B7AD86 /* AKSekereTests.m in Sources */,
 				C4C626DF1B197E4900B7AD86 /* AKVibratoTests.m in Sources */,
@@ -564,6 +571,7 @@
 				C4C626BF1B197E4900B7AD86 /* AKFlatFrequencyResponseReverbTests.m in Sources */,
 				C4C626BA1B197E4900B7AD86 /* AKDecimatorTests.m in Sources */,
 				C41408CB1B13FBB0001FD024 /* NSData+MD5.m in Sources */,
+				C43CB8501B1BA8AB00517A34 /* AKMultitapDelayTests.m in Sources */,
 				C4C626C91B197E4900B7AD86 /* AKLinearEnvelopeTests.m in Sources */,
 				C4C626C81B197E4900B7AD86 /* AKLinearADSREnvelopeTests.m in Sources */,
 				C4C626AF1B197E4900B7AD86 /* AKBallWithinTheBoxReverbTests.m in Sources */,
