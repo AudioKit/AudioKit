@@ -14,4 +14,6 @@
 
 @interface AKTestCase : XCTestCase
 
+- (NSString *)outputFileWithName:(NSString *)name;
+
 @end
