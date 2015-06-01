@@ -70,21 +70,21 @@
     // Set up performance
     TestCrunchInstrument *testInstrument = [[TestCrunchInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 10; i++) {
         TestCrunchNote *note = [[TestCrunchNote alloc] initWithIntensity:40+(i+1)*20 dampingFactor:1.0-((float)i/10)];
         note.duration.value = 1.0;
         [phrase addNote:note atTime:(float)i];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Crunch.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Crunch"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"6c1e307df84b104c94a7fdc221639d01");

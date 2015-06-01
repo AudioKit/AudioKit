@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *centerFrequency = [[AKLine alloc] initWithFirstPoint:akp(200)
                                                          secondPoint:akp(2500)
                                                durationBetweenPoints:akp(testDuration)];
@@ -35,7 +35,7 @@
         equalizerFilter.centerFrequency = centerFrequency;
         equalizerFilter.bandwidth = bandwidth;
         equalizerFilter.gain = akp(100);
-        
+
         [self setAudioOutput:[equalizerFilter scaledBy:akp(0.5)]];
     }
     return self;
@@ -54,11 +54,11 @@
     TestEqualizerFilterInstrument *testInstrument = [[TestEqualizerFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-EqualizerFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"EqualizerFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"b998e955e3a7d1564aa4e1f6f9a0d925");

@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *delayTime = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                    secondPoint:akp(0.1)
                                          durationBetweenPoints:akp(testDuration)];
@@ -33,9 +33,9 @@
                                         durationBetweenPoints:akp(testDuration)];
         AKFlanger *flanger = [[AKFlanger alloc] initWithInput:mono delayTime:delayTime];
         flanger.feedback = feedback;
-        
+
         AKMix *mix = [[AKMix alloc] initWithInput1:mono input2:flanger balance:akp(0.5)];
-        
+
         [self setAudioOutput:mix];
     }
     return self;
@@ -54,11 +54,11 @@
     TestFlangerInstrument *testInstrument = [[TestFlangerInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Flanger.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Flanger"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"e0f40e2cc560c2decc6d3dbc86795df9");

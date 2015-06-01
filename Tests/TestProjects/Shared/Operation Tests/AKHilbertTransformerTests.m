@@ -19,16 +19,16 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *frequency = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                    secondPoint:akp(2000)
                                          durationBetweenPoints:akp(testDuration)];
-        
+
         AKHilbertTransformer *hilbertTransformer = [[AKHilbertTransformer alloc] initWithInput:mono
                                                                                      frequency:frequency];
         [self setAudioOutput:hilbertTransformer];
@@ -49,11 +49,11 @@
     TestHilbertTransformerInstrument *testInstrument = [[TestHilbertTransformerInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-HilbertTransformer.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"HilbertTransformer"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"9158222aee0b6e4474b18aa1eae6c603",

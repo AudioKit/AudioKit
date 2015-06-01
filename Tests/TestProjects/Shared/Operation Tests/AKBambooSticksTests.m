@@ -70,21 +70,21 @@
     // Set up performance
     TestBambooSticksInstrument *testInstrument = [[TestBambooSticksInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 10; i++) {
         TestBambooSticksNote *note = [[TestBambooSticksNote alloc] initWithCount:i mainResonantFrequency:1000+(float)i*300];
         note.duration.value = 1.0;
         [phrase addNote:note atTime:(float)i];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-BambooSticks.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"BambooSticks"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"41575c04ef0a34949edaed7f411d12d8");

@@ -19,18 +19,18 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *reverbDuration = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                          secondPoint:akp(3)
                                                durationBetweenPoints:akp(testDuration)];
         AKCombFilter *combFilter = [[AKCombFilter alloc] initWithInput:mono];
         combFilter.reverbDuration = reverbDuration;
-        
+
         [self setAudioOutput:combFilter];
     }
     return self;
@@ -49,11 +49,11 @@
     TestCombFilterInstrument *testInstrument = [[TestCombFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-CombFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"CombFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"e07aafe89f4d028ad2c29869bfce310f");

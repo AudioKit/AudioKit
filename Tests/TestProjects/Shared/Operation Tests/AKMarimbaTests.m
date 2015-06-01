@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         TestMarimbaNote *note = [[TestMarimbaNote alloc] init];
-        
+
         AKMarimba *marimba = [AKMarimba marimba];
         marimba.frequency = note.frequency;
         [self setAudioOutput:marimba];
@@ -67,24 +67,24 @@
     // Set up performance
     TestMarimbaInstrument *testInstrument = [[TestMarimbaInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     TestMarimbaNote *note1 = [[TestMarimbaNote alloc] initWithFrequency:440];
     TestMarimbaNote *note2 = [[TestMarimbaNote alloc] initWithFrequency:550];
     TestMarimbaNote *note3 = [[TestMarimbaNote alloc] initWithFrequency:660];
     note1.duration.value = note2.duration.value = note3.duration.value = 0.5;
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
     [phrase addNote:note1 atTime:0.5];
     [phrase addNote:note2 atTime:1.0];
     [phrase addNote:note3 atTime:1.5];
     [phrase addNote:note2 atTime:2.0];
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Marimba.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Marimba"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"f938d1376d60440ce271440ed3656177");

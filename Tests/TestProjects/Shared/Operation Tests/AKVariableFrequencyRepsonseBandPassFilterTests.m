@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *cutoffFrequency = [[AKLine alloc] initWithFirstPoint:akp(220)
                                                          secondPoint:akp(3000)
                                                durationBetweenPoints:akp(testDuration)];
@@ -35,7 +35,7 @@
         variableFrequencyResponseBandPassFilter.cutoffFrequency = cutoffFrequency;
         variableFrequencyResponseBandPassFilter.bandwidth = bandwidth;
         variableFrequencyResponseBandPassFilter.scalingFactor = [AKVariableFrequencyResponseBandPassFilter scalingFactorPeak];
-        
+
         [self setAudioOutput:variableFrequencyResponseBandPassFilter];
     }
     return self;
@@ -54,11 +54,11 @@
     TestVariableFrequencyRepsonseBandPassFilterInstrument *testInstrument = [[TestVariableFrequencyRepsonseBandPassFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-VariableFrequencyRepsonseBandPassFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"VariableFrequencyRepsonseBandPassFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"26f0bc7ece1c2685d8a900b27facacad");

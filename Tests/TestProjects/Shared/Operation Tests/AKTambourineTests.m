@@ -78,23 +78,23 @@
     // Set up performance
     TestTambourineInstrument *testInstrument = [[TestTambourineInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 20; i++) {
         TestTambourineNote *note = [[TestTambourineNote alloc] initWithIntensity:25+(i+1)*20
                                                                    dampingFactor:1.0-((float)i/20)
-                                                           mainResonantFrequency:200*(float)i];;
+                                                           mainResonantFrequency:200*(float)i];
         note.duration.value = 0.5;
         [phrase addNote:note atTime:(float)i*0.5];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Tambourine.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Tambourine"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"8c88f6eb00209fc63946052854d5f09c");

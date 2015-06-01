@@ -19,23 +19,23 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *reverbTime = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                     secondPoint:akp(2)
                                           durationBetweenPoints:akp(testDuration)];
         AKLine *highFrequencyDiffusivity = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                                   secondPoint:akp(1)
                                                         durationBetweenPoints:akp(testDuration)];
-        
+
         AKParallelCombLowPassFilterReverb *reverb = [[AKParallelCombLowPassFilterReverb alloc] initWithInput:mono];
         reverb.duration = reverbTime;
         reverb.highFrequencyDiffusivity = highFrequencyDiffusivity;
-        
+
         [self setAudioOutput:reverb];
     }
     return self;
@@ -54,11 +54,11 @@
     TestParallelCombLowPassFilterReverbInstrument *testInstrument = [[TestParallelCombLowPassFilterReverbInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-ParallelCombLowPassFilterReverb.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"ParallelCombLowPassFilterReverb"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"0d01938ebadf30b17460e8c0791424a2");

@@ -19,14 +19,14 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKDCBlock *dcBlock = [[AKDCBlock alloc] initWithInput:mono];
-        
+
         [self setAudioOutput:dcBlock];
     }
     return self;
@@ -45,11 +45,11 @@
     TestDCBlockInstrument *testInstrument = [[TestDCBlockInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-DCBlock.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"DCBlock"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"887a7afd611039ef810940dd39836c3e");

@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *centerFrequency = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                          secondPoint:akp(1000)
                                                durationBetweenPoints:akp(testDuration)];
@@ -34,7 +34,7 @@
         AKBandRejectButterworthFilter *bandRejectButterworthFilter = [[AKBandRejectButterworthFilter alloc] initWithInput:mono];
         bandRejectButterworthFilter.centerFrequency = centerFrequency;
         bandRejectButterworthFilter.bandwidth = bandwidth;
-        
+
         [self setAudioOutput:bandRejectButterworthFilter];
     }
     return self;
@@ -53,11 +53,11 @@
     TestBandRejectButterworthFilterInstrument *testInstrument = [[TestBandRejectButterworthFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-BandRejectButterworthFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"BandRejectButterworthFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"13a895c3df53cfc3ff8b48484dcb082c");

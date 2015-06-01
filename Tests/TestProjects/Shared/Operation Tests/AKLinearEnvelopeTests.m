@@ -19,11 +19,11 @@
 {
     self = [super init];
     if (self) {
-        
+
         AKLinearEnvelope *envelope = [AKLinearEnvelope envelope];
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.amplitude = envelope;
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -41,16 +41,16 @@
     // Set up performance
     TestLinearEnvelopeInstrument *testInstrument = [[TestLinearEnvelopeInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKNote *note = [[AKNote alloc] init];
     note.duration.value = 1.0;
     [testInstrument playNote:note];
-    
-    
+
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-LinearEnvelope.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"LinearEnvelope"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"9516cafa22d31171cdc75e7873def3e9",

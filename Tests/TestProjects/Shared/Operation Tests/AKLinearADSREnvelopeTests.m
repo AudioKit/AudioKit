@@ -19,11 +19,11 @@
 {
     self = [super init];
     if (self) {
-        
+
         AKLinearADSREnvelope *adsr = [AKLinearADSREnvelope envelope];
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.amplitude = adsr;
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -43,19 +43,19 @@
     [AKOrchestra addInstrument:testInstrument];
     AKNote *note1 = [[AKNote alloc] init];
     AKNote *note2 = [[AKNote alloc] init];
-    
+
     AKPhrase *phrase = [[AKPhrase alloc] init];
     [phrase addNote:note1 atTime:0.5];
     [phrase stopNote:note1 atTime:2.5];
     note2.duration.value = 5.0;
     [phrase addNote:note2 atTime:3.5];
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-LinearADSREnvelope.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"LinearADSREnvelope"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"9ae6ca16e28860eb0bf4e63253f35c4f",

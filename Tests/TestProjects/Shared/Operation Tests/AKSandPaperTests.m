@@ -70,21 +70,21 @@
     // Set up performance
     TestSandPaperInstrument *testInstrument = [[TestSandPaperInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 10; i++) {
         TestSandPaperNote *note = [[TestSandPaperNote alloc] initWithIntensity:40+(i+1)*20 dampingFactor:1.0-((float)i/10)];
         note.duration.value = 1.0;
         [phrase addNote:note atTime:(float)i];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-SandPaper.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"SandPaper"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"3bb56ecfcda87114ba28b8c272fb1ecd");

@@ -19,18 +19,18 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *azimuth = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                  secondPoint:akp(720)
                                        durationBetweenPoints:akp(testDuration)];
-        
+
         AK3DBinauralAudio *binauralAudio = [[AK3DBinauralAudio alloc] initWithInput:mono];
         binauralAudio.azimuth = azimuth;
-        
+
         [self setAudioOutput:binauralAudio];
     }
     return self;
@@ -49,11 +49,11 @@
     Test3DBinauralAudioInstrument *testInstrument = [[Test3DBinauralAudioInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-3DBinauralAudio.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"3DBinauralAudio"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"688ffe3ec5c35833954f039e8a21aa19");

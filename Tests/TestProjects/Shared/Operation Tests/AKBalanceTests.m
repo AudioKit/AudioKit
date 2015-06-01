@@ -19,16 +19,16 @@
 {
     self = [super init];
     if (self) {
-        
+
         AKOscillator *amplitude = [AKOscillator oscillator];
         amplitude.frequency = akp(1);
-        
+
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.amplitude = amplitude;
-        
+
         AKFMOscillator *synth = [AKFMOscillator oscillator];
         AKBalance *balance = [[AKBalance alloc] initWithInput:synth comparatorAudioSource:oscillator];
-        
+
         [self setAudioOutput:balance];
     }
     return self;
@@ -47,11 +47,11 @@
     TestBalanceInstrument *testInstrument = [[TestBalanceInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Balance.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Balance"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"436f38755b122fcede48761046cf22a8",

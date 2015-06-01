@@ -19,13 +19,13 @@
 {
     self = [super init];
     if (self) {
-        
-        
+
+
         AKPhasor *phasor = [AKPhasor phasor];
         AKLine *distortion = [[AKLine alloc] initWithFirstPoint:akp(0.1)
                                                     secondPoint:akp(0.9)
                                           durationBetweenPoints:akp(testDuration)];
-        
+
         AKLine *cutoffFrequency = [[AKLine alloc] initWithFirstPoint:akp(300)
                                                          secondPoint:akp(3000)
                                                durationBetweenPoints:akp(testDuration)];
@@ -36,7 +36,7 @@
         threePoleLowpassFilter.distortion      = distortion;
         threePoleLowpassFilter.cutoffFrequency = cutoffFrequency;
         threePoleLowpassFilter.resonance       = resonance;
-        
+
         [self setAudioOutput:threePoleLowpassFilter];
     }
     return self;
@@ -55,11 +55,11 @@
     TestThreePoleLowpassFilterInstrument *testInstrument = [[TestThreePoleLowpassFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-ThreePoleLowpassFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"ThreePoleLowpassFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"2bb808ae078e6adf296662cdb354654a");

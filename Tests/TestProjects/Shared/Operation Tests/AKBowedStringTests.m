@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         TestBowedStringNote *note = [[TestBowedStringNote alloc] init];
-        
+
         AKLinearEnvelope *envelope = [[AKLinearEnvelope alloc] initWithRiseTime:akp(0.2)
                                                                       decayTime:akp(0.2)
                                                                   totalDuration:akp(0.5)
@@ -74,24 +74,24 @@
     // Set up performance
     TestBowedStringInstrument *testInstrument = [[TestBowedStringInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     TestBowedStringNote *note1 = [[TestBowedStringNote alloc] initWithFrequency:440];
     TestBowedStringNote *note2 = [[TestBowedStringNote alloc] initWithFrequency:550];
     TestBowedStringNote *note3 = [[TestBowedStringNote alloc] initWithFrequency:660];
     note1.duration.value = note2.duration.value = note3.duration.value = 0.5;
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
     [phrase addNote:note1 atTime:0.5];
     [phrase addNote:note2 atTime:1.0];
     [phrase addNote:note3 atTime:1.5];
     [phrase addNote:note2 atTime:2.0];
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-BowedString.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"BowedString"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"22cc703d0282180934d7ca084815eb0a");

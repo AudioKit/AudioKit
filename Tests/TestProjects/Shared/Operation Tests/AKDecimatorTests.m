@@ -19,11 +19,11 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *bitDepth = [[AKLine alloc] initWithFirstPoint:akp(24)
                                                   secondPoint:akp(18)
                                         durationBetweenPoints:akp(testDuration)];
@@ -33,7 +33,7 @@
         AKDecimator *decimator = [[AKDecimator alloc] initWithInput:mono];
         decimator.bitDepth = bitDepth;
         decimator.sampleRate = sampleRate;
-        
+
         [self setAudioOutput:decimator];
     }
     return self;
@@ -52,11 +52,11 @@
     TestDecimatorInstrument *testInstrument = [[TestDecimatorInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Decimator.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Decimator"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"a62dd414fe5ebb6e21b3099ce1287e7e");
