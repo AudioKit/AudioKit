@@ -23,4 +23,8 @@
     [super tearDown];
 }
 
+- (NSString *)outputFileWithName:(NSString *)name
+{
+    return [NSString stringWithFormat:@"%@/AKTest-%@.aiff", NSTemporaryDirectory(), name];
+}
 @end
