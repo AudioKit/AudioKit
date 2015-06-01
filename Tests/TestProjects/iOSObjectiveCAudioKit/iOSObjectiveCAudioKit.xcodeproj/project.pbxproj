@@ -80,6 +80,8 @@
 		C469949C1B1CFF4500E6FE3D /* AKMonoSoundFileLooperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C469949B1B1CFF4500E6FE3D /* AKMonoSoundFileLooperTests.m */; };
 		C46994A01B1CFF4D00E6FE3D /* AKStereoSoundFileLooperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C469949F1B1CFF4D00E6FE3D /* AKStereoSoundFileLooperTests.m */; };
 		C46994A21B1CFF5500E6FE3D /* AKTableLooperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994A11B1CFF5500E6FE3D /* AKTableLooperTests.m */; };
+		C46994A41B1D04EC00E6FE3D /* AKSegmentArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994A31B1D04EC00E6FE3D /* AKSegmentArrayTests.m */; };
+		C46994A61B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994A51B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
 		C4B3A74B1AE30E6A00F43B96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */; };
 		C4B3A74E1AE30E6A00F43B96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74D1AE30E6A00F43B96 /* ViewController.m */; };
@@ -212,6 +214,8 @@
 		C469949B1B1CFF4500E6FE3D /* AKMonoSoundFileLooperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMonoSoundFileLooperTests.m; sourceTree = "<group>"; };
 		C469949F1B1CFF4D00E6FE3D /* AKStereoSoundFileLooperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoSoundFileLooperTests.m; sourceTree = "<group>"; };
 		C46994A11B1CFF5500E6FE3D /* AKTableLooperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTableLooperTests.m; sourceTree = "<group>"; };
+		C46994A31B1D04EC00E6FE3D /* AKSegmentArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSegmentArrayTests.m; sourceTree = "<group>"; };
+		C46994A51B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSegmentArrayLoopTests.m; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3A7471AE30E6A00F43B96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -304,6 +308,8 @@
 				C404CAF21B1C3E1C003597B8 /* AKReverbTests.m */,
 				C404CAF31B1C3E1C003597B8 /* AKRingModulatorTests.m */,
 				C404CAF41B1C3E1C003597B8 /* AKSandPaperTests.m */,
+				C46994A51B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m */,
+				C46994A31B1D04EC00E6FE3D /* AKSegmentArrayTests.m */,
 				C404CAF51B1C3E1C003597B8 /* AKSekereTests.m */,
 				C469948D1B1CC79E00E6FE3D /* AKSleighbellsTests.m */,
 				C404CAF61B1C3E1C003597B8 /* AKStereoConvolutionTests.m */,
@@ -587,6 +593,7 @@
 				C404CB1C1B1C3E1C003597B8 /* AKHighPassFilter.m in Sources */,
 				C404CB381B1C3E1C003597B8 /* AKThreePoleLowpassFilterTests.m in Sources */,
 				C41408C71B13FBB0001FD024 /* AKTestCase.m in Sources */,
+				C46994A41B1D04EC00E6FE3D /* AKSegmentArrayTests.m in Sources */,
 				C404CB121B1C3E1C003597B8 /* AKDeclickTests.m in Sources */,
 				C404CB251B1C3E1C003597B8 /* AKLowPassFilter.m in Sources */,
 				C404CB0C1B1C3E1C003597B8 /* AKCombFilterTests.m in Sources */,
@@ -600,6 +607,7 @@
 				C404CB3F1B1C3E1C003597B8 /* AKVibratoTests.m in Sources */,
 				C404CB191B1C3E1C003597B8 /* AKFMOscillatorTests.m in Sources */,
 				C404CB231B1C3E1C003597B8 /* AKLowFrequencyOscillatorTests.m in Sources */,
+				C46994A61B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m in Sources */,
 				C46994841B1CC24200E6FE3D /* AKPortamentoTests.m in Sources */,
 				C404CB3A1B1C3E1C003597B8 /* AKTrackedFrequencyTests.m in Sources */,
 				C404CB221B1C3E1C003597B8 /* AKLineTests.m in Sources */,
