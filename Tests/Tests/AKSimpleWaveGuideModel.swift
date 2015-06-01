@@ -20,11 +20,9 @@ class Instrument : AKInstrument {
         let mono = AKMix(monoAudioFromStereoInput: audio)
         let simpleWaveGuideModel = AKSimpleWaveGuideModel(input: mono)
 
-        let cutoffLine = AKLine(firstPoint: 1000.ak, secondPoint: 5000.ak, durationBetweenPoints: testDuration.ak)
-
-        let frequencyLine = AKLine(firstPoint: 12.ak, secondPoint: 1000.ak, durationBetweenPoints: testDuration.ak)
-
-        let feedbackLine = AKLine(firstPoint: 0.ak, secondPoint: 0.8.ak, durationBetweenPoints: testDuration.ak)
+        let cutoffLine    = AKLine(firstPoint: 1000.ak, secondPoint: 5000.ak, durationBetweenPoints: testDuration.ak)
+        let frequencyLine = AKLine(firstPoint: 12.ak,   secondPoint: 1000.ak, durationBetweenPoints: testDuration.ak)
+        let feedbackLine  = AKLine(firstPoint: 0.ak,    secondPoint: 0.8.ak,  durationBetweenPoints: testDuration.ak)
 
         simpleWaveGuideModel.cutoff = cutoffLine
         simpleWaveGuideModel.frequency = frequencyLine
