@@ -19,13 +19,13 @@
 {
     self = [super init];
     if (self) {
-        
+
         AKVibrato *vibrato = [AKVibrato vibrato];
         vibrato.averageAmplitude = akp(20);
-        
+
         AKOscillator *sine = [AKOscillator oscillator];
         sine.frequency = [akp(440) plus:vibrato];
-        
+
         [self setAudioOutput:sine];
     }
     return self;
@@ -44,11 +44,11 @@
     TestVibratoInstrument *testInstrument = [[TestVibratoInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Vibrato.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Vibrato"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"d0a4b2867e1393bb894ea9e636c930fd",

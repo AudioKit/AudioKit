@@ -19,11 +19,11 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKMultitapDelay *delay = [[AKMultitapDelay alloc] initWithInput:mono
                                                           firstEchoTime:akp(1)
                                                           firstEchoGain:akp(0.5)];
@@ -31,7 +31,7 @@
         AKMix *mix = [[AKMix alloc] initWithInput1:mono
                                             input2:delay
                                            balance:akp(0.5)];
-        
+
         [self setAudioOutput:mix];
     }
     return self;
@@ -50,11 +50,11 @@
     TestMultitapDelayInstrument *testInstrument = [[TestMultitapDelayInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-MultitapDelay.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"MultitapDelay"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"68fd452b84ad5b2c11bf8a557da65c67");

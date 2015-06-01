@@ -72,22 +72,22 @@
     // Set up performance
     TestGuiroInstrument *testInstrument = [[TestGuiroInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 20; i++) {
         TestGuiroNote *note = [[TestGuiroNote alloc] initWithCount:(i+1)*20
                                              mainResonantFrequency:1500+500*(float)i];;
         note.duration.value = 1.0;
         [phrase addNote:note atTime:(float)i];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Guiro.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Guiro"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"99febd3d9fb036d84bcb218acbaf2f41");

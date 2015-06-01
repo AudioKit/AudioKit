@@ -19,19 +19,19 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *cutoffFrequency = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                          secondPoint:akp(5000)
                                                durationBetweenPoints:akp(testDuration)];
 
         AKHighPassButterworthFilter *highPassButterworthFilter = [[AKHighPassButterworthFilter alloc] initWithInput:mono];
         highPassButterworthFilter.cutoffFrequency = cutoffFrequency;
-        
+
         [self setAudioOutput:highPassButterworthFilter];
     }
     return self;
@@ -50,11 +50,11 @@
     TestHighPassButterworthFilterInstrument *testInstrument = [[TestHighPassButterworthFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-HighPassButterworthFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"HighPassButterworthFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"43b7b629cb436b983a2f3803bbcd918a");

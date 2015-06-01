@@ -19,17 +19,17 @@
 {
     self = [super init];
     if (self) {
-        
-        
+
+
         AKLowFrequencyOscillator *control = [AKLowFrequencyOscillator oscillator];
         control.waveformType = [AKLowFrequencyOscillator waveformTypeForSawtooth];
         control.amplitude = akp(100);
         control.frequency = akp(2);
-        
+
         AKLowFrequencyOscillator *lowFrequencyOscillator = [AKLowFrequencyOscillator oscillator];
         lowFrequencyOscillator.waveformType = [AKLowFrequencyOscillator waveformTypeForTriangle];
         lowFrequencyOscillator.frequency = [control plus:akp(100)];
-        
+
         [self setAudioOutput:lowFrequencyOscillator];
     }
     return self;
@@ -48,11 +48,11 @@
     TestLowFrequencyOscillatorInstrument *testInstrument = [[TestLowFrequencyOscillatorInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-LowFrequencyOscillator.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"LowFrequencyOscillator"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"a1d56d1ce56c3f8e2238db0b5f2e2dcf");

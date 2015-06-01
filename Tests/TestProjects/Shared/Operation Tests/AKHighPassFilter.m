@@ -19,19 +19,19 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *cutoffFrequency = [[AKLine alloc] initWithFirstPoint:akp(1)
                                                          secondPoint:akp(4000)
                                                durationBetweenPoints:akp(testDuration)];
-        
+
         AKHighPassFilter *highPassFilter = [[AKHighPassFilter alloc] initWithInput:mono];
         highPassFilter.cutoffFrequency = cutoffFrequency;
-        
+
         [self setAudioOutput:highPassFilter];
     }
     return self;
@@ -50,11 +50,11 @@
     TestHighPassFilterInstrument *testInstrument = [[TestHighPassFilterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-HighPassFilter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"HighPassFilter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"bf35ac2861e6ca595fca60d133c97a4d");

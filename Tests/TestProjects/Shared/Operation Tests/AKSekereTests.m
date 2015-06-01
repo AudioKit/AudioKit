@@ -70,21 +70,21 @@
     // Set up performance
     TestSekereInstrument *testInstrument = [[TestSekereInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 10; i++) {
         TestSekereNote *note = [[TestSekereNote alloc] initWithCount:(i+1)*20 dampingFactor:1.0-((float)i/10)];
         note.duration.value = 1.0;
         [phrase addNote:note atTime:(float)i];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Sekere.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Sekere"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"5a67652835046d6f311e402baaf2ac66");

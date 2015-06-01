@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *compressionRatio = [[AKLine alloc] initWithFirstPoint:akp(0.5)
                                                           secondPoint:akp(2)
                                                 durationBetweenPoints:akp(testDuration)];
@@ -34,9 +34,9 @@
         AKCompressor *compressor = [[AKCompressor alloc] initWithInput:mono controllingInput:mono];
         compressor.compressionRatio = compressionRatio;
         compressor.attackTime = attackTime;
-        
+
         AKBalance *balance = [[AKBalance alloc] initWithInput:compressor comparatorAudioSource:mono];
-        
+
         [self setAudioOutput:balance];
     }
     return self;
@@ -55,11 +55,11 @@
     TestCompressorInstrument *testInstrument = [[TestCompressorInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Compressor.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Compressor"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"024e300deb0460f0c32864403355bc76");

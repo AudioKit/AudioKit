@@ -19,8 +19,8 @@
 {
     self = [super init];
     if (self) {
-        
-        
+
+
         AKLine *frequencyLine = [[AKLine alloc] initWithFirstPoint:akp(10)
                                                        secondPoint:akp(880)
                                              durationBetweenPoints:akp(testDuration)];
@@ -39,7 +39,7 @@
         oscillator.carrierMultiplier = carrierMultiplierLine;
         oscillator.modulatingMultiplier = modulatingMultiplierLine;
         oscillator.modulationIndex = indexLine;
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -58,11 +58,11 @@
     TestFMOscillatorInstrument *testInstrument = [[TestFMOscillatorInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-FMOscillator.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"FMOscillator"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"99becb404ef25b519470c6768ad47a84",

@@ -50,7 +50,7 @@
     [testInstrument playForDuration:testDuration];
 
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Panner.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Panner"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
 
     // Check output

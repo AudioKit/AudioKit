@@ -19,33 +19,33 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *xLocation = [[AKLine alloc] initWithFirstPoint:akp(1)
                                                    secondPoint:akp(6)
                                          durationBetweenPoints:akp(testDuration)];
-        
+
         AKLine *yLocation = [[AKLine alloc] initWithFirstPoint:akp(1)
                                                    secondPoint:akp(4)
                                          durationBetweenPoints:akp(testDuration)];
-        
+
         AKLine *zLocation = [[AKLine alloc] initWithFirstPoint:akp(1)
                                                    secondPoint:akp(3)
                                          durationBetweenPoints:akp(testDuration)];
-        
+
         AKBallWithinTheBoxReverb *ballWithinTheBoxReverb = [[AKBallWithinTheBoxReverb alloc] initWithInput:mono];
         ballWithinTheBoxReverb.xLocation = xLocation;
         ballWithinTheBoxReverb.yLocation = yLocation;
         ballWithinTheBoxReverb.zLocation = zLocation;
         ballWithinTheBoxReverb.diffusion =  akp(0);
-        
+
         AKMix *mix = [[AKMix alloc] initWithInput1:mono
                                             input2:[[AKMix alloc] initMonoAudioFromStereoInput:ballWithinTheBoxReverb]
                                            balance:akp(0.1)];
-        
+
         [self setAudioOutput:mix];
     }
     return self;
@@ -64,11 +64,11 @@
     TestBallWithinTheBoxReverbInstrument *testInstrument = [[TestBallWithinTheBoxReverbInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-BallWithinTheBoxReverb.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"BallWithinTheBoxReverb"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"83b0eaeeccf43a86dc62b2fc7220fd5c");

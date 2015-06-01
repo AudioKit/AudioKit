@@ -47,7 +47,7 @@
     [testInstrument playForDuration:testDuration];
     
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Oscillator.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Oscillator"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output

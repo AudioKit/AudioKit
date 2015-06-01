@@ -21,10 +21,10 @@
     if (self) {
         AKJitter *jitter = [AKJitter jitter];
         jitter.amplitude = akp(3000);
-        
+
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.frequency = jitter;
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -43,11 +43,11 @@
     TestJitterInstrument *testInstrument = [[TestJitterInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Jitter.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Jitter"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"52dcc208f35a0bb5672e37c35e77e807",

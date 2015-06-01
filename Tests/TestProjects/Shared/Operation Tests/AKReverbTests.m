@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *feedback = [[AKLine alloc] initWithFirstPoint:akp(0.5)
                                                   secondPoint:akp(1)
                                         durationBetweenPoints:akp(testDuration)];
@@ -34,10 +34,10 @@
         AKReverb *reverb = [[AKReverb alloc] initWithInput:mono];
         reverb.feedback = feedback;
         reverb.cutoffFrequency = cutoffFrequency;
-        
+
         AKMix *mixLeft  = [[AKMix alloc] initWithInput1:mono input2:reverb.leftOutput  balance:akp(0.5)];
         AKMix *mixRight = [[AKMix alloc] initWithInput1:mono input2:reverb.rightOutput balance:akp(0.5)];
-        
+
         AKStereoAudio *output = [[AKStereoAudio alloc] initWithLeftAudio:mixLeft rightAudio:mixRight];
         [self setStereoAudioOutput:output];
     }
@@ -57,11 +57,11 @@
     TestReverbInstrument *testInstrument = [[TestReverbInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Reverb.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Reverb"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"b0a067e833d8b0dc7bac7d1ed09db404");

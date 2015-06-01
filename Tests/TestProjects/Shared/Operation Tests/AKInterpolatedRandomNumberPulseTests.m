@@ -21,10 +21,10 @@
     if (self) {
         AKInterpolatedRandomNumberPulse *pulse = [AKInterpolatedRandomNumberPulse pulse];
         pulse.frequency = akp(3);
-        
+
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.frequency = [pulse scaledBy:akp(4000)];
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -43,11 +43,11 @@
     TestInterpolatedRandomNumberPulseInstrument *testInstrument = [[TestInterpolatedRandomNumberPulseInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-InterpolatedRandomNumberPulse.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"InterpolatedRandomNumberPulse"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"996dd813043fd0556224cde3bb224085",

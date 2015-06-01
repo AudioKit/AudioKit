@@ -37,21 +37,21 @@
     // Set up performance
     TestDropletInstrument *testInstrument = [[TestDropletInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 100; i++) {
         AKNote *note = [[AKNote alloc] init];
         float time = (float)i/100*testDuration;
         [phrase addNote:note atTime:time];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Droplet.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Droplet"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"3989de991cf548d9555e7beb95281c3a");

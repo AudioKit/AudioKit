@@ -25,12 +25,12 @@
     self = [super init];
     if (self) {
         TestDeclickNote *note = [[TestDeclickNote alloc] init];
-        
+
         AKOscillator *sine = [AKOscillator oscillator];
         sine.amplitude = akp(0.5);
         AKDeclick *declickedSine = [[AKDeclick alloc] initWithInput:sine];
         AKMix *mix = [[AKMix alloc] initWithInput1:sine input2:declickedSine balance:note.declickedAmount];
-        
+
         [self setAudioOutput:mix];
     }
     return self;
@@ -70,21 +70,21 @@
     // Set up performance
     TestDeclickInstrument *testInstrument = [[TestDeclickInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 20; i++) {
         TestDeclickNote *note = [[TestDeclickNote alloc] initWithDeclickedAmount:(float)i/20.0];
         note.duration.value = 0.25;
         [phrase addNote:note atTime:(float)i*0.5];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Declick.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Declick"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     NSArray *validMD5s = @[@"b8afd24023a97db16df5c1ae76a57e81",

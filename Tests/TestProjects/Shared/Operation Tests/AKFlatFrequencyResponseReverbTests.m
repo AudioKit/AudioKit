@@ -19,18 +19,18 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *reverbDuration = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                   secondPoint:akp(1)
                                         durationBetweenPoints:akp(testDuration)];
         AKFlatFrequencyResponseReverb *flatFrequencyResponseReverb = [[AKFlatFrequencyResponseReverb alloc] initWithInput:mono];
         flatFrequencyResponseReverb.reverbDuration = reverbDuration;
-        
+
         [self setAudioOutput:flatFrequencyResponseReverb];
     }
     return self;
@@ -49,11 +49,11 @@
     TestFlatFrequencyResponseReverbInstrument *testInstrument = [[TestFlatFrequencyResponseReverbInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-FlatFrequencyResponseReverb.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"FlatFrequencyResponseReverb"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"bbbc6fe8afa513f8e799786e80509db1");

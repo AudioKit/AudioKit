@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         TestFluteNote *note = [[TestFluteNote alloc] init];
-        
+
         AKFlute *flute = [AKFlute flute];
         flute.frequency = note.frequency;
         [self setAudioOutput:flute];
@@ -67,24 +67,24 @@
     // Set up performance
     TestFluteInstrument *testInstrument = [[TestFluteInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     TestFluteNote *note1 = [[TestFluteNote alloc] initWithFrequency:440];
     TestFluteNote *note2 = [[TestFluteNote alloc] initWithFrequency:550];
     TestFluteNote *note3 = [[TestFluteNote alloc] initWithFrequency:660];
     note1.duration.value = note2.duration.value = note3.duration.value = 0.5;
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
     [phrase addNote:note1 atTime:0.5];
     [phrase addNote:note2 atTime:1.0];
     [phrase addNote:note3 atTime:1.5];
     [phrase addNote:note2 atTime:2.0];
-    
+
     [testInstrument playPhrase:phrase];
-    
+
     // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-Flute.aiff", NSTemporaryDirectory()];
+    NSString *outputFile = [self outputFileWithName:@"Flute"];
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
     XCTAssertEqualObjects([nsData MD5], @"8690fb9e162012ed603adcf6d7ecaef4");
