@@ -74,6 +74,9 @@
 		C422F05B1B10389300AD3545 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C422F0591B10387700AD3545 /* AKSoundFiles.bundle */; };
 		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
+		C46994821B1CC1B300E6FE3D /* AKPhasorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994811B1CC1B300E6FE3D /* AKPhasorTests.m */; };
+		C46994841B1CC24200E6FE3D /* AKPortamentoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994831B1CC24200E6FE3D /* AKPortamentoTests.m */; };
+		C469948E1B1CC79E00E6FE3D /* AKSleighbellsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C469948D1B1CC79E00E6FE3D /* AKSleighbellsTests.m */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
 		C4B3A74B1AE30E6A00F43B96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */; };
 		C4B3A74E1AE30E6A00F43B96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74D1AE30E6A00F43B96 /* ViewController.m */; };
@@ -200,6 +203,9 @@
 		C41408B11B13FBB0001FD024 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+MD5.m"; path = "../../Shared/NSData+MD5.m"; sourceTree = "<group>"; };
 		C422F0591B10387700AD3545 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../iOSObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
+		C46994811B1CC1B300E6FE3D /* AKPhasorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPhasorTests.m; sourceTree = "<group>"; };
+		C46994831B1CC24200E6FE3D /* AKPortamentoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPortamentoTests.m; sourceTree = "<group>"; };
+		C469948D1B1CC79E00E6FE3D /* AKSleighbellsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSleighbellsTests.m; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3A7471AE30E6A00F43B96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -284,12 +290,15 @@
 				C404CAED1B1C3E1C003597B8 /* AKOscillatorTests.m */,
 				C404CAEE1B1C3E1C003597B8 /* AKPannerTests.m */,
 				C404CAEF1B1C3E1C003597B8 /* AKParallelCombLowPassFilterReverbTests.m */,
+				C46994811B1CC1B300E6FE3D /* AKPhasorTests.m */,
 				C404CAF01B1C3E1C003597B8 /* AKPluckedStringTests.m */,
+				C46994831B1CC24200E6FE3D /* AKPortamentoTests.m */,
 				C404CAF11B1C3E1C003597B8 /* AKResonantFilterTests.m */,
 				C404CAF21B1C3E1C003597B8 /* AKReverbTests.m */,
 				C404CAF31B1C3E1C003597B8 /* AKRingModulatorTests.m */,
 				C404CAF41B1C3E1C003597B8 /* AKSandPaperTests.m */,
 				C404CAF51B1C3E1C003597B8 /* AKSekereTests.m */,
+				C469948D1B1CC79E00E6FE3D /* AKSleighbellsTests.m */,
 				C404CAF61B1C3E1C003597B8 /* AKStereoConvolutionTests.m */,
 				C404CAF71B1C3E1C003597B8 /* AKStickTests.m */,
 				C404CAF81B1C3E1C003597B8 /* AKStringResonatorTests.m */,
@@ -546,6 +555,7 @@
 			files = (
 				C404CB2C1B1C3E1C003597B8 /* AKParallelCombLowPassFilterReverbTests.m in Sources */,
 				C404CB3E1B1C3E1C003597B8 /* AKVibesTests.m in Sources */,
+				C469948E1B1CC79E00E6FE3D /* AKSleighbellsTests.m in Sources */,
 				C404CB101B1C3E1C003597B8 /* AKDCBlockTests.m in Sources */,
 				C404CB261B1C3E1C003597B8 /* AKMandolinTests.m in Sources */,
 				C404CB071B1C3E1C003597B8 /* AKBambooSticksTests.m in Sources */,
@@ -580,6 +590,7 @@
 				C404CB3F1B1C3E1C003597B8 /* AKVibratoTests.m in Sources */,
 				C404CB191B1C3E1C003597B8 /* AKFMOscillatorTests.m in Sources */,
 				C404CB231B1C3E1C003597B8 /* AKLowFrequencyOscillatorTests.m in Sources */,
+				C46994841B1CC24200E6FE3D /* AKPortamentoTests.m in Sources */,
 				C404CB3A1B1C3E1C003597B8 /* AKTrackedFrequencyTests.m in Sources */,
 				C404CB221B1C3E1C003597B8 /* AKLineTests.m in Sources */,
 				C404CB031B1C3E1C003597B8 /* AK3DBinauralAudioTests.m in Sources */,
@@ -597,6 +608,7 @@
 				C41408CB1B13FBB0001FD024 /* NSData+MD5.m in Sources */,
 				C404CB061B1C3E1C003597B8 /* AKBallWithinTheBoxReverbTests.m in Sources */,
 				C404CB161B1C3E1C003597B8 /* AKFlangerTests.m in Sources */,
+				C46994821B1CC1B300E6FE3D /* AKPhasorTests.m in Sources */,
 				C404CB041B1C3E1C003597B8 /* AKADSREnvelopeTests.m in Sources */,
 				C404CB1F1B1C3E1C003597B8 /* AKJitterTests.m in Sources */,
 				C404CB2E1B1C3E1C003597B8 /* AKResonantFilterTests.m in Sources */,
