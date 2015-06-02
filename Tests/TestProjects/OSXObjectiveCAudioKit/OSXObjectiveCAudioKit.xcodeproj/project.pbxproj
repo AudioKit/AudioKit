@@ -25,6 +25,7 @@
 		C46994AB1B1D074100E6FE3D /* AKSegmentArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994A91B1D074100E6FE3D /* AKSegmentArrayTests.m */; };
 		C46994AF1B1D083600E6FE3D /* AKSimpleWaveGuideModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994AE1B1D083600E6FE3D /* AKSimpleWaveGuideModelTests.m */; };
 		C46994B11B1D093800E6FE3D /* AKMoogLadderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994B01B1D093800E6FE3D /* AKMoogLadderTests.m */; };
+		C46994C11B1D7E2600E6FE3D /* AKRandomNumbersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994C01B1D7E2600E6FE3D /* AKRandomNumbersTests.m */; };
 		C4C627181B197F4600B7AD86 /* AK3DBinauralAudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626E41B197F4600B7AD86 /* AK3DBinauralAudioTests.m */; };
 		C4C627191B197F4600B7AD86 /* AKADSREnvelopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626E51B197F4600B7AD86 /* AKADSREnvelopeTests.m */; };
 		C4C6271A1B197F4600B7AD86 /* AKBalanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C626E61B197F4600B7AD86 /* AKBalanceTests.m */; };
@@ -167,6 +168,7 @@
 		C46994A91B1D074100E6FE3D /* AKSegmentArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSegmentArrayTests.m; sourceTree = "<group>"; };
 		C46994AE1B1D083600E6FE3D /* AKSimpleWaveGuideModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSimpleWaveGuideModelTests.m; sourceTree = "<group>"; };
 		C46994B01B1D093800E6FE3D /* AKMoogLadderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMoogLadderTests.m; sourceTree = "<group>"; };
+		C46994C01B1D7E2600E6FE3D /* AKRandomNumbersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomNumbersTests.m; sourceTree = "<group>"; };
 		C4C626E41B197F4600B7AD86 /* AK3DBinauralAudioTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudioTests.m; sourceTree = "<group>"; };
 		C4C626E51B197F4600B7AD86 /* AKADSREnvelopeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKADSREnvelopeTests.m; sourceTree = "<group>"; };
 		C4C626E61B197F4600B7AD86 /* AKBalanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBalanceTests.m; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				C469947C1B1CC11900E6FE3D /* AKPhasorTests.m */,
 				C404CAAE1B1C2BAE003597B8 /* AKPluckedStringTests.m */,
 				C46994861B1CC34200E6FE3D /* AKPortamentoTests.m */,
+				C46994C01B1D7E2600E6FE3D /* AKRandomNumbersTests.m */,
 				C4C6274C1B19A0E400B7AD86 /* AKResonantFilterTests.m */,
 				C4C6275C1B1AF59000B7AD86 /* AKReverbTests.m */,
 				C4C6270A1B197F4600B7AD86 /* AKRingModulatorTests.m */,
@@ -658,6 +661,7 @@
 				C4C627461B197F4600B7AD86 /* AKTrackedFrequencyTests.m in Sources */,
 				C46994991B1CFE8100E6FE3D /* AKTableLooperTests.m in Sources */,
 				C4C627281B197F4600B7AD86 /* AKDelayTests.m in Sources */,
+				C46994C11B1D7E2600E6FE3D /* AKRandomNumbersTests.m in Sources */,
 				C43CB85B1B1BAD8300517A34 /* AKMoogVCFTests.m in Sources */,
 				C46994931B1CD64500E6FE3D /* AKMonoSoundFileLooperTests.m in Sources */,
 				C4C6272D1B197F4600B7AD86 /* AKFMOscillatorTests.m in Sources */,

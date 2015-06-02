@@ -84,6 +84,7 @@
 		C46994A61B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994A51B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m */; };
 		C46994B41B1D09CF00E6FE3D /* AKSimpleWaveGuideModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994B31B1D09CF00E6FE3D /* AKSimpleWaveGuideModelTests.m */; };
 		C46994B81B1D09D800E6FE3D /* AKMoogLadderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994B71B1D09D800E6FE3D /* AKMoogLadderTests.m */; };
+		C46994BC1B1D0BAE00E6FE3D /* AKRandomNumbersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C46994BB1B1D0BAE00E6FE3D /* AKRandomNumbersTests.m */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
 		C4B3A74B1AE30E6A00F43B96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74A1AE30E6A00F43B96 /* AppDelegate.m */; };
 		C4B3A74E1AE30E6A00F43B96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A74D1AE30E6A00F43B96 /* ViewController.m */; };
@@ -220,6 +221,7 @@
 		C46994A51B1D067B00E6FE3D /* AKSegmentArrayLoopTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSegmentArrayLoopTests.m; sourceTree = "<group>"; };
 		C46994B31B1D09CF00E6FE3D /* AKSimpleWaveGuideModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSimpleWaveGuideModelTests.m; sourceTree = "<group>"; };
 		C46994B71B1D09D800E6FE3D /* AKMoogLadderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMoogLadderTests.m; sourceTree = "<group>"; };
+		C46994BB1B1D0BAE00E6FE3D /* AKRandomNumbersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRandomNumbersTests.m; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3A7471AE30E6A00F43B96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				C404CAEB1B1C3E1C003597B8 /* AKMoogVCFTests.m */,
 				C404CAEC1B1C3E1C003597B8 /* AKMultitapDelayTests.m */,
 				C404CAED1B1C3E1C003597B8 /* AKOscillatorTests.m */,
+				C46994BB1B1D0BAE00E6FE3D /* AKRandomNumbersTests.m */,
 				C404CAEE1B1C3E1C003597B8 /* AKPannerTests.m */,
 				C404CAEF1B1C3E1C003597B8 /* AKParallelCombLowPassFilterReverbTests.m */,
 				C46994811B1CC1B300E6FE3D /* AKPhasorTests.m */,
@@ -586,6 +589,7 @@
 				C404CB241B1C3E1C003597B8 /* AKLowPassButterworthFilterTests.m in Sources */,
 				C404CB1E1B1C3E1C003597B8 /* AKInterpolatedRandomNumberPulseTests.m in Sources */,
 				C404CB181B1C3E1C003597B8 /* AKFluteTests.m in Sources */,
+				C46994BC1B1D0BAE00E6FE3D /* AKRandomNumbersTests.m in Sources */,
 				C404CB1B1B1C3E1C003597B8 /* AKHighPassButterworthFilterTests.m in Sources */,
 				C404CB3C1B1C3E1C003597B8 /* AKVariableFrequencyRepsonseBandPassFilterTests.m in Sources */,
 				C404CB1D1B1C3E1C003597B8 /* AKHilbertTransformerTests.m in Sources */,
