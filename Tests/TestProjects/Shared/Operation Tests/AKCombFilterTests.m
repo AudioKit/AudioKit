@@ -50,12 +50,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"CombFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"e07aafe89f4d028ad2c29869bfce310f");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"e07aafe89f4d028ad2c29869bfce310f");
 }
 
 @end

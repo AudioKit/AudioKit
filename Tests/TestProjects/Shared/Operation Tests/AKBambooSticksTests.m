@@ -81,12 +81,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"BambooSticks"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"41575c04ef0a34949edaed7f411d12d8");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"41575c04ef0a34949edaed7f411d12d8");
 }
 
 @end

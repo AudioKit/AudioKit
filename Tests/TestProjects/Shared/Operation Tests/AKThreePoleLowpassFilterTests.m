@@ -56,12 +56,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"ThreePoleLowpassFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"2bb808ae078e6adf296662cdb354654a");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"2bb808ae078e6adf296662cdb354654a");
 }
 
 @end

@@ -88,12 +88,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"BowedString"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"22cc703d0282180934d7ca084815eb0a");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"22cc703d0282180934d7ca084815eb0a");
 }
 
 @end

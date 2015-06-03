@@ -48,12 +48,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Droplet"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"3989de991cf548d9555e7beb95281c3a");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"3989de991cf548d9555e7beb95281c3a");
 }
 
 @end

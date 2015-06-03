@@ -50,12 +50,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"FlatFrequencyResponseReverb"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"bbbc6fe8afa513f8e799786e80509db1");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"bbbc6fe8afa513f8e799786e80509db1");
 }
 
 @end

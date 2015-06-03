@@ -81,12 +81,9 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Marimba"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"f938d1376d60440ce271440ed3656177");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration],
+                          @"f938d1376d60440ce271440ed3656177");
 }
 
 @end

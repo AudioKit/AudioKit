@@ -56,12 +56,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Compressor"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"024e300deb0460f0c32864403355bc76");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"024e300deb0460f0c32864403355bc76");
 }
 
 @end

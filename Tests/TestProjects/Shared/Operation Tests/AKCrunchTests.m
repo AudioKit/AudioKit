@@ -81,12 +81,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Crunch"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"6c1e307df84b104c94a7fdc221639d01");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6c1e307df84b104c94a7fdc221639d01");
 }
 
 @end

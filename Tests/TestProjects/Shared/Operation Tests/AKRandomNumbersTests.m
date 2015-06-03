@@ -24,7 +24,7 @@
 
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.frequency = [akp(44) plus:[randomWidth scaledBy:baseLine]];
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -43,15 +43,11 @@
     TestRandomNumbersInstrument *testInstrument = [[TestRandomNumbersInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"RandomNumbers"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSArray *validMD5s = @[@"ff97587d06accd8a9d9f1500e70401b0",
                            @"f475ac4518a11e1f2438a0f6acd97859"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForFile:outputFile]]);
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
 }
 
 @end

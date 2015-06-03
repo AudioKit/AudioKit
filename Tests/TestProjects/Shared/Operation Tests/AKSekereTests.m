@@ -81,12 +81,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Sekere"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"5a67652835046d6f311e402baaf2ac66");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"5a67652835046d6f311e402baaf2ac66");
 }
 
 @end

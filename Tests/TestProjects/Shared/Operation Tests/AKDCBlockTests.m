@@ -46,12 +46,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"DCBlock"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"887a7afd611039ef810940dd39836c3e");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"887a7afd611039ef810940dd39836c3e");
 }
 
 @end

@@ -44,14 +44,10 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Jitter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
     NSArray *validMD5s = @[@"52dcc208f35a0bb5672e37c35e77e807",
                            @"57be4e735c6d3d830569570e8163881b"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForFile:outputFile]]);
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
 }
 
 @end

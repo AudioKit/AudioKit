@@ -55,12 +55,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"VariableFrequencyRepsonseBandPassFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"26f0bc7ece1c2685d8a900b27facacad");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"26f0bc7ece1c2685d8a900b27facacad");
 }
 
 @end

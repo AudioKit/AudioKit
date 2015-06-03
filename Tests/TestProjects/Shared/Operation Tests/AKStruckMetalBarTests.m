@@ -72,24 +72,20 @@
     // Set up performance
     TestStruckMetalBarInstrument *testInstrument = [[TestStruckMetalBarInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     for (int i = 0; i < 10; i++) {
         TestStruckMetalBarNote *note = [[TestStruckMetalBarNote alloc] initWithStrikePosition:(float)i/20
                                                                                   strikeWidth:0.5+(float)i/20];
         note.duration.value = 1.0;
         [phrase addNote:note atTime:(float)i];
     }
-    
+
     [testInstrument playPhrase:phrase];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"StruckMetalBar"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"e643af93bab5e7d066d00cfa92a54ec2");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"e643af93bab5e7d066d00cfa92a54ec2");
 }
 
 @end

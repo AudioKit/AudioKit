@@ -46,14 +46,10 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Line"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
     NSArray *validMD5s = @[@"4db5ab4d614c0d674ea27e02cf1479fc",
                            @"bb6c59ff9937cf4b0af5b110493aabc6"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForFile:outputFile]]);
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
 }
 
 @end

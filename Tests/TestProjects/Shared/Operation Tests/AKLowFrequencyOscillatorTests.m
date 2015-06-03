@@ -49,12 +49,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"LowFrequencyOscillator"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"a1d56d1ce56c3f8e2238db0b5f2e2dcf");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"a1d56d1ce56c3f8e2238db0b5f2e2dcf");
 }
 
 @end

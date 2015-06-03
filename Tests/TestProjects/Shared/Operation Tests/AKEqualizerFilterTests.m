@@ -55,12 +55,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"EqualizerFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"b998e955e3a7d1564aa4e1f6f9a0d925");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"b998e955e3a7d1564aa4e1f6f9a0d925");
 }
 
 @end

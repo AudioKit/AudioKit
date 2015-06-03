@@ -28,11 +28,11 @@
         [segments addValue:akp(880) afterDuration:akp(0) concavity:akp(0)];
         [segments addValue:akp(220) afterDuration:akp(6) concavity:akp(-5)];
         [segments addValue:akp(220) afterDuration:akp(1) concavity:akp(0)];
-        
-        
+
+
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.frequency = segments;
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -51,15 +51,11 @@
     TestSegmentArrayInstrument *testInstrument = [[TestSegmentArrayInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"SegmentArray"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSArray *validMD5s = @[@"498d9d8af143a8b360ce2cbea57c82e1",
                            @"d4a76f28b8d87079bb87448d1c14daca"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForFile:outputFile]]);
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
 }
 
 @end

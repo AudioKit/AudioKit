@@ -79,12 +79,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Vibes"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"6d150cc0fec80b45b96754229edb7e6c");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6d150cc0fec80b45b96754229edb7e6c");
 }
 
 @end

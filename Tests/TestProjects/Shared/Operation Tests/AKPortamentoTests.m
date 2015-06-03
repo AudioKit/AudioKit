@@ -23,12 +23,12 @@
         frequencyShifter.waveformType = [AKLowFrequencyOscillator waveformTypeForBipolarSquare];
         frequencyShifter.amplitude = akp(100);
         frequencyShifter.frequency = akp(0.25);
-        
+
         AKPortamento *portamento = [[AKPortamento alloc] initWithInput:frequencyShifter];
-        
+
         AKOscillator *sine = [AKOscillator oscillator];
         sine.frequency = [akp(880) plus:portamento];
-        
+
         [self setAudioOutput:sine];
     }
     return self;
@@ -47,15 +47,11 @@
     TestPortamentoInstrument *testInstrument = [[TestPortamentoInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Portamento"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
     NSArray *validMD5s = @[@"8ef4472bd42d20e08e004f4b00b69123",
                            @"4640b47005f3ff32aeab0a1da349da4c"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForFile:outputFile]]);
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
 }
 
 @end

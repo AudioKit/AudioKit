@@ -69,11 +69,11 @@
     // Set up performance
     TestSleighbellsInstrument *testInstrument = [[TestSleighbellsInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
-    
+
     TestSleighbellsNote *note = [[TestSleighbellsNote alloc] init];
-    
+
     [phrase addNote:note atTime:1.0];
     [phrase addNote:note atTime:1.25];
     [phrase addNote:note atTime:1.5];
@@ -87,13 +87,9 @@
     [phrase addNote:note atTime:4.0];
 
     [testInstrument playPhrase:phrase];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Sleighbells"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"5d3e31608ec30f414ee7bea3706daf83");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"5d3e31608ec30f414ee7bea3706daf83");
 }
 
 @end
