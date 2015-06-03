@@ -56,8 +56,7 @@
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
 
     // Check output
-    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"43b7b629cb436b983a2f3803bbcd918a");
+    XCTAssertEqualObjects([self md5ForFile:outputFile], @"43b7b629cb436b983a2f3803bbcd918a");
 }
 
 @end
