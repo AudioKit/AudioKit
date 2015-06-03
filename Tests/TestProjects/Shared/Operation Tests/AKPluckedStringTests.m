@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         TestPluckedStringNote *note = [[TestPluckedStringNote alloc] init];
-        
+
         AKPluckedString *pluckedString = [AKPluckedString pluck];
         pluckedString.frequency = note.frequency;
         [self setAudioOutput:pluckedString];
@@ -67,26 +67,22 @@
     // Set up performance
     TestPluckedStringInstrument *testInstrument = [[TestPluckedStringInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
-    
+
     TestPluckedStringNote *note1 = [[TestPluckedStringNote alloc] initWithFrequency:440];
     TestPluckedStringNote *note2 = [[TestPluckedStringNote alloc] initWithFrequency:550];
     TestPluckedStringNote *note3 = [[TestPluckedStringNote alloc] initWithFrequency:660];
     note1.duration.value = note2.duration.value = note3.duration.value = 0.5;
-    
+
     AKPhrase *phrase = [AKPhrase phrase];
     [phrase addNote:note1 atTime:0.5];
     [phrase addNote:note2 atTime:1.0];
     [phrase addNote:note3 atTime:1.5];
     [phrase addNote:note2 atTime:2.0];
-    
+
     [testInstrument playPhrase:phrase];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"PluckedString"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"6a8f5e39c2076a4fc15856d099d3177a");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6a8f5e39c2076a4fc15856d099d3177a");
 }
 
 @end

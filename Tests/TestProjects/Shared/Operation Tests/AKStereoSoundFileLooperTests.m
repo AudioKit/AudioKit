@@ -19,18 +19,18 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         AKSoundFileTable *soundfile = [[AKSoundFileTable alloc] initWithFilename:filename];
-        
+
         AKLine *speed = [[AKLine alloc] initWithFirstPoint:akp(4)
                                                secondPoint:akp(0.2)
                                      durationBetweenPoints:akp(testDuration)];
-        
+
         AKStereoSoundFileLooper *looper = [[AKStereoSoundFileLooper alloc] initWithSoundFile:soundfile];
         looper.frequencyRatio = speed;
         looper.loopMode = [AKStereoSoundFileLooper loopPlaysForwardAndThenBackwards];
-        
+
         [self setAudioOutput:looper];
     }
     return self;
@@ -49,13 +49,9 @@
     TestStereoSoundFileLooperInstrument *testInstrument = [[TestStereoSoundFileLooperInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"StereoSoundFileLooper"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"e97059b3b9e7cdf24e7f3ca0a1d15bcf");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"e97059b3b9e7cdf24e7f3ca0a1d15bcf");
 }
 
 @end

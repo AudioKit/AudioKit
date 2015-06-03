@@ -19,12 +19,12 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         AKLine *cutoff = [[AKLine alloc] initWithFirstPoint:akp(1000)
                                                 secondPoint:akp(5000)
                                       durationBetweenPoints:akp(testDuration)];
@@ -34,12 +34,12 @@
         AKLine *feedback = [[AKLine alloc] initWithFirstPoint:akp(0)
                                                   secondPoint:akp(0.8)
                                         durationBetweenPoints:akp(testDuration)];
-        
+
         AKSimpleWaveGuideModel *simpleWaveGuideModel = [[AKSimpleWaveGuideModel alloc] initWithInput:mono];
         simpleWaveGuideModel.cutoff    = cutoff;
         simpleWaveGuideModel.frequency = frequency;
         simpleWaveGuideModel.feedback  = feedback;
-        
+
         [self setAudioOutput:simpleWaveGuideModel];
     }
     return self;
@@ -58,13 +58,9 @@
     TestSimpleWaveGuideModelInstrument *testInstrument = [[TestSimpleWaveGuideModelInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"SimpleWaveGuideModel"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"347cccc221b25743c4ebf2bf4f538d8a");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"347cccc221b25743c4ebf2bf4f538d8a");
 }
 
 @end

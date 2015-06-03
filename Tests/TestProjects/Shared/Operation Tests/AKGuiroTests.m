@@ -84,12 +84,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Guiro"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"99febd3d9fb036d84bcb218acbaf2f41");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"99febd3d9fb036d84bcb218acbaf2f41");
 }
 
 @end

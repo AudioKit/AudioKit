@@ -55,12 +55,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"ParallelCombLowPassFilterReverb"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"0d01938ebadf30b17460e8c0791424a2");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"0d01938ebadf30b17460e8c0791424a2");
 }
 
 @end

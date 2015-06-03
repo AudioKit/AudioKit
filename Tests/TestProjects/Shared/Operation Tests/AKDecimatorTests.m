@@ -53,12 +53,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Decimator"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"a62dd414fe5ebb6e21b3099ce1287e7e");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"a62dd414fe5ebb6e21b3099ce1287e7e");
 }
 
 @end

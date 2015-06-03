@@ -19,17 +19,17 @@
 {
     self = [super init];
     if (self) {
-        
+
         NSString *filename = [AKManager pathToSoundFile:@"808loop" ofType:@"wav"];
         AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
         audio.loop = YES;
         AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-        
+
         NSString *stereoImpulse = [AKManager pathToSoundFile:@"shortpianohits" ofType:@"aif"];
-        
+
         AKStereoConvolution *stereoConvolution = [[AKStereoConvolution alloc] initWithInput:[mono scaledBy:akp(0.007)]
                                                                     impulseResponseFilename:stereoImpulse];
-        
+
         [self setStereoAudioOutput:stereoConvolution];
     }
     return self;
@@ -48,13 +48,9 @@
     TestStereoConvolutionInstrument *testInstrument = [[TestStereoConvolutionInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"StereoConvolution"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-    
+
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"fda24ec8f1ee821d5f74b3b95290cc0b");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"fda24ec8f1ee821d5f74b3b95290cc0b");
 }
 
 @end

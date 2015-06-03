@@ -81,12 +81,8 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Cabasa"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"feafff765315aeaf7cfa861df5c8cf47");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"feafff765315aeaf7cfa861df5c8cf47");
 }
 
 @end

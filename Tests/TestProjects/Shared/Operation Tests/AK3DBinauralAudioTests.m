@@ -50,12 +50,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"3DBinauralAudio"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"688ffe3ec5c35833954f039e8a21aa19");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"688ffe3ec5c35833954f039e8a21aa19");
 }
 
 @end

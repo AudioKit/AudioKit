@@ -55,12 +55,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"ResonantFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"7f168a952d7c1272ce811986aa54ab4b");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"7f168a952d7c1272ce811986aa54ab4b");
 }
 
 @end

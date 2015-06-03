@@ -54,12 +54,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"BandRejectButterworthFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"13a895c3df53cfc3ff8b48484dcb082c");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"13a895c3df53cfc3ff8b48484dcb082c");
 }
 
 @end

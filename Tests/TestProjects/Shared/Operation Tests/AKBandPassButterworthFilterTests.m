@@ -54,12 +54,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"BandPassButterworthFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"9f0e6485d779a6cf4328fb3fe9fb99e1");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"9f0e6485d779a6cf4328fb3fe9fb99e1");
 }
 
 @end

@@ -58,12 +58,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Reverb"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"b0a067e833d8b0dc7bac7d1ed09db404");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"b0a067e833d8b0dc7bac7d1ed09db404");
 }
 
 @end

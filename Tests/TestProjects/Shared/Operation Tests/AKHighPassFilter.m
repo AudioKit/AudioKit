@@ -51,12 +51,8 @@
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"HighPassFilter"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    XCTAssertEqualObjects([self md5ForFile:outputFile], @"bf35ac2861e6ca595fca60d133c97a4d");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"bf35ac2861e6ca595fca60d133c97a4d");
 }
 
 @end
