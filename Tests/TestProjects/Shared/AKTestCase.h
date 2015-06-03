@@ -15,5 +15,6 @@
 @interface AKTestCase : XCTestCase
 
 - (NSString *)outputFileWithName:(NSString *)name;
-
+- (NSString *)md5ForFile:(NSString *)file;
+- (NSString *)md5ForOutputWithDuration:(float)duration;
 @end

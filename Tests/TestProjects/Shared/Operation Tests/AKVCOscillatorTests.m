@@ -92,8 +92,7 @@
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
-    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"115d39e4f38e60bfdcd7acc4fb000689");
+    XCTAssertEqualObjects([self md5ForFile:outputFile], @"115d39e4f38e60bfdcd7acc4fb000689");
 }
 
 - (void)testVCOscillatorSquareWithPWMWave
@@ -107,8 +106,7 @@
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
-    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"bad62b3915e312087e4c4400bbe33933");
+    XCTAssertEqualObjects([self md5ForFile:outputFile], @"bad62b3915e312087e4c4400bbe33933");
 }
 
 - (void)testVCOscillatorTriangleWave
@@ -122,8 +120,7 @@
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
-    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"9951d11c22c131086963efd0205f9160");
+    XCTAssertEqualObjects([self md5ForFile:outputFile], @"9951d11c22c131086963efd0205f9160");
 }
 
 - (void)testVCOscillatorSawtoothWave
@@ -137,8 +134,7 @@
     [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
     
     // Check output
-    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"24a97b1b156cb180a37904f2859a4fb3");
+    XCTAssertEqualObjects([self md5ForFile:outputFile], @"24a97b1b156cb180a37904f2859a4fb3");
 }
 
 @end

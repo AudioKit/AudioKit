@@ -62,6 +62,18 @@
 
 @implementation AKMandolinTests
 
+- (void)testPresetSmallMandolin
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKMandolin presetSmallMandolin]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"0c2f8f32cced40f23ffc83f837afaf5e");
+
+}
+
 - (void)testMandolin
 {
     // Set up performance
@@ -81,13 +93,9 @@
 
     [testInstrument playPhrase:phrase];
 
-    // Render audio output
-    NSString *outputFile = [self outputFileWithName:@"Mandolin"];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
-    NSData *nsData = [NSData dataWithContentsOfFile:outputFile];
-    XCTAssertEqualObjects([nsData MD5], @"b4f6c012da3abad0fc8a9263f5b6fe0b");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration],
+                          @"b4f6c012da3abad0fc8a9263f5b6fe0b");
 }
 
 @end
