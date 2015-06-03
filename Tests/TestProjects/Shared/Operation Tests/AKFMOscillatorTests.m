@@ -52,6 +52,19 @@
 
 @implementation AKFMOscillatorTests
 
+- (void)testPresetBuzzer
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKFMOscillator presetBuzzer]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+  
+    // Check output
+    NSArray *validMD5s = @[@"a31e1cfa2853c2784cadc01af885aa77",
+                           @"850cd857039adb870a83573a972ecd08"];
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:1.0]]);
+}
+
 - (void)testFMOscillator
 {
     // Set up performance
