@@ -52,13 +52,26 @@
 
 @implementation AKFMOscillatorTests
 
+- (void)testFMOscillator
+{
+    // Set up performance
+    TestFMOscillatorInstrument *testInstrument = [[TestFMOscillatorInstrument alloc] init];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument playForDuration:testDuration];
+
+    // Check output
+    NSArray *validMD5s = @[@"99becb404ef25b519470c6768ad47a84",
+                           @"dfe4b8c87584f8847acc1352ba3b2bf2"];
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
+}
+
 - (void)testPresetBuzzer
 {
     AKInstrument *testInstrument = [AKInstrument instrument];
     [testInstrument setAudioOutput:[AKFMOscillator presetBuzzer]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-  
+    
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"850cd857039adb870a83573a972ecd08");
 }
@@ -116,19 +129,6 @@
     
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"79b9806fbea0d735ee8ea95a8d875737");
-}
-
-- (void)testFMOscillator
-{
-    // Set up performance
-    TestFMOscillatorInstrument *testInstrument = [[TestFMOscillatorInstrument alloc] init];
-    [AKOrchestra addInstrument:testInstrument];
-    [testInstrument playForDuration:testDuration];
-
-    // Check output
-    NSArray *validMD5s = @[@"99becb404ef25b519470c6768ad47a84",
-                           @"dfe4b8c87584f8847acc1352ba3b2bf2"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
 }
 
 @end
