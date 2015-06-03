@@ -87,10 +87,6 @@
     note.duration.value = testDuration;
     [testInstrument playNote:note];
 
-    // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-VCOscillator-Square.aiff", NSTemporaryDirectory()];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"115d39e4f38e60bfdcd7acc4fb000689");
 }
@@ -100,10 +96,6 @@
     TestVCOscillatorNote *note = [[TestVCOscillatorNote alloc] initWithWaveformType:[AKVCOscillator waveformTypeForSquareWithPWM]];
     note.duration.value = testDuration;
     [testInstrument playNote:note];
-
-    // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-VCOscillator-SquareWithPWM.aiff", NSTemporaryDirectory()];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
 
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"bad62b3915e312087e4c4400bbe33933");
@@ -115,10 +107,6 @@
     note.duration.value = testDuration;
     [testInstrument playNote:note];
 
-    // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-VCOscillator-Triangle.aiff", NSTemporaryDirectory()];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
-
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"9951d11c22c131086963efd0205f9160");
 }
@@ -128,10 +116,6 @@
     TestVCOscillatorNote *note = [[TestVCOscillatorNote alloc] initWithWaveformType:[AKVCOscillator waveformTypeForSawtooth]];
     note.duration.value = testDuration;
     [testInstrument playNote:note];
-
-    // Render audio output
-    NSString *outputFile = [NSString stringWithFormat:@"%@/AKTest-VCOscillator-Sawtooth.aiff", NSTemporaryDirectory()];
-    [[AKManager sharedManager] renderToFile:outputFile forDuration:testDuration];
 
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"24a97b1b156cb180a37904f2859a4fb3");
