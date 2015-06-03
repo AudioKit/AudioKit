@@ -62,18 +62,6 @@
 
 @implementation AKMandolinTests
 
-- (void)testPresetSmallMandolin
-{
-    AKInstrument *testInstrument = [AKInstrument instrument];
-    [testInstrument setAudioOutput:[AKMandolin presetSmallMandolin]];
-    [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
-
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
-                          @"0c2f8f32cced40f23ffc83f837afaf5e");
-
-}
-
 - (void)testMandolin
 {
     // Set up performance
@@ -96,6 +84,30 @@
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration],
                           @"b4f6c012da3abad0fc8a9263f5b6fe0b");
+}
+
+- (void)testPresetSmallMandolin
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKMandolin presetSmallMandolin]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"0c2f8f32cced40f23ffc83f837afaf5e");
+    
+}
+
+- (void)testPresetDetunedMandolin
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKMandolin presetDetunedMandolin]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"8afcead9ee4bfc3cf8057593dc35b422");
+    
 }
 
 @end
