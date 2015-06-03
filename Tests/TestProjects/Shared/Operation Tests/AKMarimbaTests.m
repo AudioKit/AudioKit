@@ -86,4 +86,40 @@
                           @"f938d1376d60440ce271440ed3656177");
 }
 
+- (void)testPresetDryMutedMarimba
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKMarimba presetDryMutedMarimba]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"747a2f7c564cbb435a578fb2d270ed31");
+    
+}
+
+- (void)testPresetDryGentleMarimba
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKMarimba presetGentleMarimba]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"fb0f853457aaddc5c27488dfddea5c04");
+    
+}
+
+- (void)testPresetLooseMarimba
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKMarimba presetLooseMarimba]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"b19a7204fadac1f886c00982d29b554c");
+    
+}
+
 @end
