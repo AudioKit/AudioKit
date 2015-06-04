@@ -85,4 +85,37 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6a8f5e39c2076a4fc15856d099d3177a");
 }
 
+- (void)testPresetDecayingPluckedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKPluckedString presetDecayingPluckedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"7c3542668d2b53657d92ebf30aabdc59");
+}
+
+- (void)testPresetRoundedPluckedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKPluckedString presetRoundedPluckedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"acf4819edeb88c53d617ed7ed58ad2b7");
+}
+
+- (void)testPresetSnappyPluckedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKPluckedString presetSnappyPluckedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"e09ed1cb2e77e80b9da3cd884c80e4a6");
+}
+
 @end
