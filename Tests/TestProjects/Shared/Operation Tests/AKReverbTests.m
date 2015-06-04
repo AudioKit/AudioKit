@@ -62,4 +62,21 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"b0a067e833d8b0dc7bac7d1ed09db404");
 }
 
+- (void)testPresetLargeHallReverbWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKReverb *presetReverb = [AKReverb presetLargeHallReverbWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"8da004c17790c2dbf54eff96b20aa132");
+}
+
 @end
