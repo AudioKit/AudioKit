@@ -62,7 +62,7 @@
     return [[AKReverb alloc] initWithInput:input];
 }
 
-- (instancetype)initSmallHallReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetSmallHallReverbWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -76,12 +76,12 @@
     return self;
 }
 
-+ (instancetype)smallHallReverbWithInput:(AKParameter *)input
++ (instancetype)presetSmallHallReverbWithInput:(AKParameter *)input
 {
-    return [[AKReverb alloc] initSmallHallReverbWithInput:input];
+    return [[AKReverb alloc] initWithPresetSmallHallReverbWithInput:input];
 }
 
-- (instancetype)initLargeHallReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetLargeHallReverbWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -95,12 +95,12 @@
     return self;
 }
 
-+ (instancetype)largeHallReverbWithInput:(AKParameter *)input
++ (instancetype)presetLargeHallReverbWithInput:(AKParameter *)input
 {
-    return [[AKReverb alloc] initLargeHallReverbWithInput:input];
+    return [[AKReverb alloc] initWithPresetLargeHallReverbWithInput:input];
 }
 
-- (instancetype)initMuffledCanReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMuffledCanReverbWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -114,9 +114,9 @@
     return self;
 }
 
-+ (instancetype)muffledCanReverbWithInput:(AKParameter *)input;
++ (instancetype)presetMuffledCanReverbWithInput:(AKParameter *)input;
 {
-    return [[AKReverb alloc] initMuffledCanReverbWithInput:input];
+    return [[AKReverb alloc] initWithPresetMuffledCanReverbWithInput:input];
 }
 
 - (instancetype)initWithStereoInput:(AKStereoAudio *)input
@@ -163,7 +163,7 @@
     return [[AKReverb alloc] initWithStereoInput:input];
 }
 
-- (instancetype)initSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -177,12 +177,12 @@
     return self;
 }
 
-+ (instancetype)smallHallReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
 {
-    return [[AKReverb alloc] initSmallHallReverbWithStereoInput:input];
+    return [[AKReverb alloc] initWithPresetSmallHallReverbWithStereoInput:input];
 }
 
-- (instancetype)initLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -196,12 +196,12 @@
     return self;
 }
 
-+ (instancetype)largeHallReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
 {
-    return [[AKReverb alloc] initLargeHallReverbWithInput:input];
+    return [[AKReverb alloc] initWithPresetLargeHallReverbWithInput:input];
 }
 
-- (instancetype)initMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -215,9 +215,9 @@
     return self;
 }
 
-+ (instancetype)muffledCanReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
 {
-    return [[AKReverb alloc] initMuffledCanReverbWithStereoInput:input];
+    return [[AKReverb alloc] initWithPresetMuffledCanReverbWithStereoInput:input];
 }
 
 - (void)setFeedback:(AKParameter *)feedback {
