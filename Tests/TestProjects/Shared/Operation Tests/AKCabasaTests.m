@@ -85,4 +85,26 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"feafff765315aeaf7cfa861df5c8cf47");
 }
 
+- (void)testPresetLooseCabasa
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKCabasa presetLooseCabasa]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"96a4c36f104920bfb6aec7578dbebb6f");
+}
+
+- (void)testPresetMutedCabasa
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKCabasa presetMutedCabasa]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"760ab27744552b0989ef884425842d6e");
+}
+
 @end
