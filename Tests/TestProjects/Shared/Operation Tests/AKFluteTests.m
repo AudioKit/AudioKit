@@ -85,4 +85,49 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"8690fb9e162012ed603adcf6d7ecaef4");
 }
 
+
+- (void)testPresetMicFeedbackFlute
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKFlute presetMicFeedbackFlute]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"24dce15b7241d1c8d2dea0d72c10a51c");
+}
+
+- (void)testPresetSciFiNoiseFlute
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKFlute presetSciFiNoiseFlute]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"f9af8a9e109b9e746a36c6def5857bcb");
+}
+
+- (void)testPresetScreamingFlute
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKFlute presetScreamingFlute]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"df2d949f7929e01e2703ee358f338c6f");
+}
+
+- (void)testPresetShipsHornFlute
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKFlute presetShipsHornFlute]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"fb8609ec17dde8fdc99d8ba1b9da270f");
+}
+
 @end
